@@ -1,0 +1,18 @@
+article, aside {
+  float: left;
+}
+
+article.home {
+  position: relative;
+  width: 66%;
+
+  .banner {
+    float: left;
+    margin-top: -10px;
+  }
+}
+
+aside {
+  position: relative;
+  width: 33%;
+}

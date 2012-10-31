@@ -1,0 +1,6 @@
+%h2 Sign in
+
+= form_for @signing_in, url: session_path do |f|
+  = f.email :email, placeholder: 'Email'
+  = f.password :password, placeholder: 'Password', class: 'password'
+  = f.actions save: 'Sign in'
