@@ -10,9 +10,68 @@ article.home {
     float: left;
     margin-top: -10px;
   }
+  .caption {
+    float: left;
+    width: 38%;
+    margin: 10px 0 0 -20px;
+    padding: 15px 0 0 7px;
+    font-size: 12px;
+    font-style: italic;
+    background: image-url('caption-bar.png') no-repeat;
+  }
+  p {
+    float: right;
+    width: 60%;
+    padding-top: 30px;
+    font-size: 12px;
+  }
 }
 
 aside {
   position: relative;
   width: 33%;
+
+  hgroup {
+    padding: 10px 20px;
+    margin: -10px 0 0 20px;
+    background: #eae4ca;
+
+    h1 {
+      font-family: "Times New Roman", Georgia, Serif;
+      font-size: 16px;
+      color: #0d3d89;
+      margin: 0;
+    }
+    h2 {
+      font-family: "Times New Roman", Georgia, Serif;
+      font-size: 14px;
+      color: #0d3d89;
+      text-transform: uppercase;
+      line-height: 22px;
+      margin: 0;
+    }
+  }
+
+  .tools-display {
+    margin: 0 26px;
+    padding: 10px;
+    width: 254px;
+    border-right: 2px solid #7f7f7f;
+    border-bottom: 2px solid #7f7f7f;
+    border-left: 2px solid #7f7f7f;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .controls { overflow: hidden }
+  .controls a {
+    float: right;
+    @include replace-text('citation.png');
+    width: 42px;
+    height: 42px;
+    margin-left: 10px;
+
+    @each $icon in search notes folder {
+      &.#{$icon} { background-image: image-url('#{$icon}.png'); }
+    }
+  }
 }
