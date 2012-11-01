@@ -1,3 +1,9 @@
+.main-wrap {
+  min-width: 1190px;
+  float: left;
+  margin: 0 20px;
+}
+
 article, aside {
   float: left;
 }
@@ -7,23 +13,27 @@ article.home {
   width: 66%;
 
   .banner {
+    width: 100%;
     float: left;
     margin-top: -10px;
   }
   .caption {
     float: left;
-    width: 38%;
+    width: 230px;
     margin: 10px 0 0 -20px;
     padding: 15px 0 0 7px;
-    font-size: 12px;
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: 13px;
     font-style: italic;
     background: image-url('caption-bar.png') no-repeat;
   }
   p {
-    float: right;
     width: 60%;
-    padding-top: 30px;
+    float: right;
     font-size: 12px;
+    text-indent: 40px;
+    padding-top: 30px;
+    margin: 0 28px 0 0;
   }
 }
 
@@ -32,6 +42,7 @@ aside {
   width: 33%;
 
   hgroup {
+    width: 80%;
     padding: 10px 20px;
     margin: -10px 0 0 20px;
     background: #eae4ca;
@@ -39,8 +50,11 @@ aside {
     h1 {
       font-family: "Times New Roman", Georgia, Serif;
       font-size: 16px;
+      letter-spacing: 2px;
       color: #0d3d89;
       margin: 0;
+
+      .title { color: #8a1638; }
     }
     h2 {
       font-family: "Times New Roman", Georgia, Serif;
@@ -52,25 +66,85 @@ aside {
     }
   }
 
-  .tools-display {
-    margin: 0 26px;
-    padding: 10px;
-    width: 254px;
-    border-right: 2px solid #7f7f7f;
-    border-bottom: 2px solid #7f7f7f;
-    border-left: 2px solid #7f7f7f;
-    border-radius: 0 0 10px 10px;
+  .interactive-wrap {
+    height: 670px;
+
+    .tools, .conversations, .essays {
+      width: 80%;
+      float: left;
+
+      .panel {
+        display: none;
+        height: 368px;
+        width: 100%;
+        float: left;
+
+        textarea {
+          width: 95%;
+          height: 300px;
+        }
+        button { float: right; }
+      }
+    }
+    .tools {
+      margin: 0 26px;
+      padding: 10px;
+      border-right: 2px solid #7f7f7f;
+      border-bottom: 2px solid #7f7f7f;
+      border-left: 2px solid #7f7f7f;
+      border-radius: 0 0 10px 10px;
+
+      .tools-panel {
+        display: none;
+        height: 368px;
+      }
+    }
+    .bottom-wrap {
+      width: 100%;
+      position: absolute;
+      bottom: 50px;
+
+      .conversations, .essays {
+        margin: 0 26px;
+        padding: 10px;
+        min-height: 40px;
+        max-height: 460px;
+        border: 2px solid #7f7f7f;
+        border-radius: 10px;
+
+        &.essays {
+          margin-bottom: 10px;
+        }
+        p {
+          float: left;
+          width: 80%;
+          height: 40px;
+          font-size: 12px;
+        }
+        .controls { float: right; }
+      }
+    }
+
   }
 
-  .controls { overflow: hidden }
-  .controls a {
+  .controls-wrap {
+    width: 80%;
+    float: left;
+    padding: 10px 35px;
+  }
+  .controls {
+    overflow: hidden;
     float: right;
+  }
+  .controls.navigation { float: left; }
+  .controls a {
+    float: left;
     @include replace-text('citation.png');
     width: 42px;
     height: 42px;
     margin-left: 10px;
 
-    @each $icon in search notes folder {
+    @each $icon in search notes folder conversation textbook annotation nextpage {
       &.#{$icon} { background-image: image-url('#{$icon}.png'); }
     }
   }
