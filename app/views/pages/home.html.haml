@@ -1,7 +1,9 @@
 %article.home
   = image_tag 'main-image.png', class: :banner
   .caption
-    caption copy goes here
+    A fifteenth-century engraving depicts a slave at work in a Portuguese
+    home. Even before Columbus' voyages to the Western Hemisphere, tens of
+    thousands of slaves were brought from Africa to Spain and Portugal.
   %p
     Slavery in Africa long predated the coming of Europeans. Traditionally,
     African slaves tended to be criminals, debtors, and captives in war. They
@@ -17,10 +19,38 @@
     slave trade, and its impact on Africa, will be discussed in Chapter4.
 %aside
   %hgroup
-    %h1 Ch. 1 A New World
+    %h1
+      Ch. 1
+      %span.title A New World
     %h2 The Expansion of Europe
-  .tools-display
-    test content
-  .controls
-    - %w(folder notes search citation).each do |icon|
-      = link_to icon, '/', class: icon
+  .interactive-wrap
+    .tools
+      .panel.tools-panel.minimized
+        %textarea
+          Search, Notes, Folder, and Citation tools will go here.
+          For the prototype this can be a textbox with pre-generated text.
+          For the final product the functionality of these tools needs to be developed.
+
+    .bottom-wrap
+      .essays
+        %p How many slaves were transported to Spain and Portugal between 1450 and 1500?
+        .controls
+          = link_to 'textbook', '/', class: 'panel-control textbook'
+        .panel.essays-panel.minimized
+          %textarea
+          %button Submit
+
+      .conversations
+        %p What was warfare like in Africa during the 14th century?
+        .controls
+          = link_to 'conversation', '/', class: 'panel-control conversation'
+        .panel.conversations-panel.minimized
+          %textarea
+
+      .controls-wrap
+        .controls.navigation
+          = link_to 'annotation', '/', class: 'annotation'
+          = link_to 'nextpage', '/', class: 'nextpage'
+        .controls
+          - %w(citation search notes folder).each do |icon|
+            = link_to icon, '/', class: "tool-control #{icon}"
