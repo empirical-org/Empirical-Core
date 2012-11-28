@@ -8,64 +8,61 @@ article, aside {
   float: left;
 }
 
-article.home {
+aside.youtube {
   position: relative;
-  width: 66%;
+  width: 425px;
+  height: 452px;
+  border-right: 4px solid #b9b9b9;
+  padding-right: 30px;
+  margin-bottom: 20px;
 
-  .banner {
-    width: 75%;
-    float: left;
-    margin-top: -10px;
+  hgroup {
+    padding-bottom: 10px;
+
+    h1 {
+      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+      font-size: 16pt;
+      margin: 0;
+    }
+    h2 {
+      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+      font-size: 14pt;
+      font-style: italic;
+      font-weight: normal;
+      line-height: 10px;
+      margin: 0;
+    }
   }
-  .caption {
-    float: left;
-    width: 230px;
-    margin: 10px 0 0 -20px;
-    padding: 15px 0 0 7px;
-    font-family: "Times New Roman", Georgia, Serif;
-    font-size: 13px;
-    font-style: italic;
-    background: image-url('caption-bar.png') no-repeat;
+  .separator {
+    width: 425px;
   }
   p {
-    width: 60%;
-    float: right;
-    font-size: 12px;
-    text-indent: 40px;
-    padding-top: 30px;
-    margin: 0 28px 0 0;
+    font-size: 14pt;
+    padding-top: 10px;
   }
 }
 
-aside {
-  position: relative;
-  width: 33%;
+.whiteboard {
+  width: 100%;
+}
 
-  hgroup {
-    width: 80%;
-    padding: 10px 20px;
-    margin: -10px 0 0 20px;
-    background: #eae4ca;
-
-    h1 {
-      font-family: "Times New Roman", Georgia, Serif;
-      font-size: 16px;
-      letter-spacing: 2px;
-      color: #0d3d89;
-      margin: 0;
-
-      .title { color: #8a1638; }
-    }
-    h2 {
-      font-family: "Times New Roman", Georgia, Serif;
-      font-size: 14px;
-      color: #0d3d89;
-      text-transform: uppercase;
-      line-height: 22px;
-      margin: 0;
-    }
+article.text-area {
+  padding-top: 10px;
+  p {
+    font-family: Century, serif;
+    font-size: 14pt;
   }
+}
 
+.separator {
+  width: 100%;
+  clear: both;
+  border: 2px solid #b9b9b9;
+  border-radius: 10px;
+}
+
+
+aside.buttons {
   .interactive-wrap {
     height: 670px;
 

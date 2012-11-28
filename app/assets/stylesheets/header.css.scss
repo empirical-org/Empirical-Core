@@ -1,8 +1,8 @@
 header {
-  $top-height: 23px;
+  $top-height: 144px;
 
   .top {
-    background: #ffc90e;
+    background: image-url('coursera-header.jpg') no-repeat;
     height: $top-height;
   }
 }
