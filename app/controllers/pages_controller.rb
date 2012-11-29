@@ -18,4 +18,8 @@ class PagesController < ApplicationController
   def democracy_in_america
     @video_id = '48eoUKalprw'
   end
+
+  def aggregation
+    @video_id = '3lcqTp2A750'
+  end
 end
