@@ -1,0 +1,8 @@
+/ - raise @slides.inspect
+#myCarousel.carousel.slide
+  .carousel-inner
+    - @slides.each_with_index do |slide, index|
+      .item{ class: index == 0 ? 'active' : '' }
+        = image_tag slide
+  %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} ‹
+  %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} ›
