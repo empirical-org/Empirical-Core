@@ -14,4 +14,8 @@ class PagesController < ApplicationController
     end
     @slides.map! { |slide| slide = "slides/the_peculiar_institution/#{slide}" }
   end
+
+  def democracy_in_america
+    @video_id = '48eoUKalprw'
+  end
 end

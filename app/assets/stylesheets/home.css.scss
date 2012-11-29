@@ -11,7 +11,7 @@ article, aside {
 aside.video {
   position: relative;
   width: 425px;
-  height: 452px;
+  min-height: 452px;
   border-right: 4px solid #b9b9b9;
   padding-right: 30px;
   margin-bottom: 20px;
