@@ -1,18 +1,15 @@
-%aside.video
+= content_for :video do
   %hgroup
     %h1 The Market Revolution, 1800-1840
     %h2 Cotton Kingdom
   .separator
   %p What was the impact of the rise of the cotton kingdom in this period?
   = render partial: 'youtube_video'
-.whiteboard
+
+= content_for :whiteboard do
   = render partial: 'graph'
-%ul.controls.primary-controls
-  %li.active= link_to 'graph', '/', class: 'graph'
-  - %w(textbook conversation search folder citation notes).each do |icon|
-    %li= link_to icon, '/', class: icon
-.separator
-%article.text-area
+
+= content_for :text_area do
   %p
     Between 1800 and 1860 the most dynamic element in the American economy was
     the expansion of cotton production based on slave labor. Cotton became the
@@ -33,7 +30,3 @@
     northern merchants were making the money by transporting the cotton. So it
     was really a national phenomenon, even though geographically it was located
     deep in the South.
-
-%ul.controls.text-area-controls
-  - %w(annotation nextpage).each do |icon|
-    %li= link_to icon, '/', class: icon

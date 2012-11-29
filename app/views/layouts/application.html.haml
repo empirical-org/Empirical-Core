@@ -9,4 +9,15 @@
   %body
     = render 'layouts/header'
     .container
-      .main-wrap= yield
+      .main-wrap
+        %aside.video= yield(:video)
+        .whiteboard= yield(:whiteboard)
+        %ul.controls.primary-controls
+          %li.active= link_to 'graph', '/', class: 'graph'
+          - %w(textbook conversation search folder citation notes).each do |icon|
+            %li= link_to icon, '/', class: icon
+        .separator
+        %article.text-area= yield(:text_area)
+        %ul.controls.text-area-controls
+          - %w(annotation nextpage).each do |icon|
+            %li= link_to icon, '/', class: icon
