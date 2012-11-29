@@ -1,4 +1,4 @@
-%aside.youtube
+%aside.video
   %hgroup
     %h1 The Market Revolution, 1800-1840
     %h2 Cotton Kingdom
@@ -7,6 +7,10 @@
   = render partial: 'youtube_video'
 .whiteboard
   whiteboard goes here
+%ul.controls.primary-controls
+  %li.active= link_to 'graph', '/', class: 'graph'
+  - %w(textbook conversation search folder citation notes).each do |icon|
+    %li= link_to icon, '/', class: icon
 .separator
 %article.text-area
   %p
@@ -29,3 +33,7 @@
     northern merchants were making the money by transporting the cotton. So it
     was really a national phenomenon, even though geographically it was located
     deep in the South.
+
+%ul.controls.text-area-controls
+  - %w(annotation nextpage).each do |icon|
+    %li= link_to icon, '/', class: icon
