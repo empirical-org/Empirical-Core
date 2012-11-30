@@ -12,13 +12,20 @@
     .container
       .main-wrap
         %aside.video= yield(:video)
-        .whiteboard= yield(:whiteboard)
+        .whiteboard
+          .panel.primary= yield(:primary_panel)
+          .panel.response
+            = render partial: 'response'
+          .panel.conversation
+            = render partial: 'disqus'
+          .panel.placeholder
+            %p Search, Notes, Folder, and Citation tools will go here.
         %ul.controls.primary-controls
-          %li.active= link_to 'graph', '/', class: 'graph'
+          %li.primary-control.graph.active= link_to 'graph', '/'
           - %w(textbook conversation search folder citation notes).each do |icon|
-            %li= link_to icon, '/', class: icon
+            %li.primary-control{ class: icon }= link_to icon, '/'
         .separator
         %article.text-area= yield(:text_area)
         %ul.controls.text-area-controls
           - %w(annotation nextpage).each do |icon|
-            %li= link_to icon, '/', class: icon
+            %li.text-area-control{ class: icon }= link_to icon, '/'

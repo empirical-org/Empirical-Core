@@ -57,7 +57,23 @@ article.text-area {
   float: left;
   margin-left: 10px;
 
-  iframe { height: 460px; }
+  .panel iframe { height: 460px; }
+  .panel { display: none; }
+  .panel.primary { display: block; }
+  .panel.response {
+    textarea {
+      width: 640px;
+      height: 200px;
+    }
+    input[type=submit] {
+      float: right;
+    }
+  }
+  .panel.conversation {
+    #disqus_thread iframe {
+      max-height: 460px;
+    }
+  }
 }
 
 .separator {
@@ -89,10 +105,9 @@ ul.controls {
       width: 42px;
       height: 42px;
       margin-left: 10px;
-
-      @each $icon in search notes folder conversation textbook annotation nextpage graph {
-        &.#{$icon} { background-image: image-url('#{$icon}.png'); }
-      }
+    }
+    @each $icon in search notes folder conversation textbook annotation nextpage graph {
+      &.#{$icon} a { background-image: image-url('#{$icon}.png'); }
     }
   }
 }
