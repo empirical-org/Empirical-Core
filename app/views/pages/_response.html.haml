@@ -1,3 +1,4 @@
 %h2 Response
-= text_area_tag :response
-= submit_tag 'Submit'
+%form{action: next_page}
+  = text_area_tag :response
+  = submit_tag 'Submit'

@@ -27,5 +27,6 @@
         .separator
         %article.text-area= yield(:text_area)
         %ul.controls.text-area-controls
-          - %w(annotation nextpage).each do |icon|
+          - %w(annotation).each do |icon|
             %li.text-area-control{ class: icon }= link_to icon, '/'
+          %li.text-area-control.nextpage= link_to 'nextpage', next_page
