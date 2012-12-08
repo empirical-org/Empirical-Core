@@ -12,7 +12,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'honey-cms', path: '../honey-cms'# '~> 0.3'
-gem 'honey-auth', path: '../honey-auth'
+gem 'honey-cms'#, path: '../honey-cms'# '~> 0.3'
+gem 'honey-auth'#, path: '../honey-auth'
 gem 'haml-rails'
 gem 'bcrypt-ruby', require: 'bcrypt'
