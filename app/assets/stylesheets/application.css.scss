@@ -14,5 +14,9 @@
   @include fix-height(45px);
 }
 
+body {
+  padding-top: 100px
+}
+
 @import 'header';
 @import 'pages';

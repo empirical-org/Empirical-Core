@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  layout 'questions'
+
   def home
     @video_id = '6H07A5RYBns'
   end

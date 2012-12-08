@@ -16,4 +16,8 @@ module ApplicationHelper
        democracy_in_america
        aggregation)
   end
+
+  def question_section
+
+  end
 end

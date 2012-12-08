@@ -21,25 +21,25 @@
 @import 'bootstrap/layouts';
 
 //// Base CSS
-@import 'bootstrap_overrides/type';
+@import 'bootstrap/type';
 //@import 'bootstrap/code';
 @import 'bootstrap/forms';
 //@import 'bootstrap/tables';
 
 //// Components: common
 //@import 'bootstrap/sprites';
-@import 'bootstrap_overrides/dropdowns';
+@import 'bootstrap/dropdowns';
 //@import 'bootstrap/wells';
 //@import 'bootstrap/component-animations';
 //@import 'bootstrap/close';
 
 //// Components: Buttons & Alerts
-@import 'bootstrap_overrides/buttons';
+@import 'bootstrap/buttons';
 //@import 'bootstrap/button-groups';
 //@import 'bootstrap/alerts'; // Note: alerts share common CSS with buttons and thus have styles in _buttons.scss
 
 //// Components: Nav
-@import 'bootstrap_overrides/navs';
+@import 'bootstrap/navs';
 @import 'bootstrap/navbar';
 //@import 'bootstrap/breadcrumbs';
 //@import 'bootstrap/pagination';
