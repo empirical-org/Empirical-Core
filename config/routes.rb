@@ -1,5 +1,6 @@
 PGSite::Application.routes.draw do
-  resource :session
+  CMS::Routes.new(self).draw
+  HoneyAuth::Routes.new(self).draw
 
   root to: 'pages#home'
   get 'the_peculiar_institution' => 'pages#the_peculiar_institution'

@@ -1,31 +1,51 @@
 !!!
 %html
   %head
-    %title PGSite
+    %title= @title || 'Coursera'
     = stylesheet_link_tag    'application', media: 'all'
-    = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js'
     = javascript_include_tag 'application'
-    = csrf_meta_tags
+    = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js'
 
+    - if admin?
+      = stylesheet_link_tag 'codemirror'
+      = javascript_include_tag 'cms'
+
+    = csrf_meta_tags
+    %link{href: '/images/favicon.gif', rel: 'icon', type: 'image/ico'}
   %body
-    = render 'layouts/header'
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          = link_to root_path, class: 'brand' do
+            Coursera
+          %ul.nav.pull-right
+            %li= link_to 'Home', root_path
+            - if signed_in?
+              %li= link_to 'Account', edit_account_path
+              %li= link_to 'Sign out', session_path, method: :delete
+            - else
+              %li= link_to 'Register', new_account_path
+              %li= link_to 'Login', new_session_path
+
     .container
+      = render 'layouts/header'
+
       .main-wrap
         %aside.video= yield(:video)
         .whiteboard
-          .panel.primary= yield(:primary_panel)
-          .panel.response
-            = render partial: 'response'
-          .panel.conversation
-            = render partial: 'disqus'
+          .panel.primary=      yield(:primary_panel)
+          .panel.response=     render partial: 'response'
+          .panel.conversation= render partial: 'disqus'
           .panel.placeholder
             %p Search, Notes, Folder, and Citation tools will go here.
+
         %ul.controls.primary-controls
           %li.primary-control.graph.active= link_to 'graph', '/'
           - %w(textbook conversation search folder citation notes).each do |icon|
             %li.primary-control{ class: icon }= link_to icon, '/'
         .separator
         %article.text-area= yield(:text_area)
+
         %ul.controls.text-area-controls
           - %w(annotation).each do |icon|
             %li.text-area-control{ class: icon }= link_to icon, '/'
