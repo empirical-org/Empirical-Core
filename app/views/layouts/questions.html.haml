@@ -10,18 +10,14 @@
       .panel.placeholder
         %p Search, Notes, Folder, and Citation tools will go here.
 
-    %ul.controls.primary-controls
-      %li.primary-control.graph.active= link_to 'graph', '/'
-      - %w(textbook conversation search folder citation notes).each do |icon|
-        %li.primary-control{ class: icon }= link_to icon, '/'
-    .separator
 
     .bottom-section
       %article.text-area= yield(:text_area)
 
-      %ul.controls.text-area-controls
-        - %w(annotation).each do |icon|
-          %li.text-area-control{ class: icon }= link_to icon, '/'
-        %li.text-area-control.nextpage= link_to 'nextpage', next_page
+  .controls-wrap
+    %ul.controls
+      %li.control.lecture= link_to 'lecture', '/', class: 'active'
+      - %w(annotate notes images chart globe sources questions discussion review next).each do |icon|
+        %li.control{ class: icon }= link_to icon, '/'
 
 = render template: 'layouts/application'
