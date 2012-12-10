@@ -7,6 +7,7 @@ jQuery ($) ->
     if      @parent.hasClass('chart')        then $('.panel.primary').show()
     else if @parent.hasClass('questions')     then $('.panel.response').show()
     else if @parent.hasClass('discussion') then $('.panel.conversation').show()
+    else if @parent.hasClass('annotate') then $('.panel.text-area').show()
     else                                          $('.panel.placeholder').show()
 
     $('.control').removeClass('active')

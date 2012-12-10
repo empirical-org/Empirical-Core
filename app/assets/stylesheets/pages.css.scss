@@ -35,15 +35,6 @@ aside.video {
   }
 }
 
-article.text-area {
-  width: 1110px;
-  padding-top: 10px;
-  p {
-    font-family: Century, serif;
-    font-size: 14pt;
-  }
-}
-
 .whiteboard {
   width: 650px;
   min-height: 460px;
@@ -65,6 +56,12 @@ article.text-area {
   .panel.conversation {
     #disqus_thread iframe {
       max-height: 460px;
+    }
+  }
+  .panel.text-area {
+    p {
+      font-family: Century, serif;
+      font-size: 14pt;
     }
   }
 }
@@ -115,11 +112,5 @@ ul.controls {
         @include transition(0.2s ease-in);
       }
     }
-  }
-}
-
-.bottom-section {
-  > * {
-    float: left;
   }
 }
