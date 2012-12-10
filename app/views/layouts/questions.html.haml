@@ -7,12 +7,9 @@
       .panel.primary=      yield(:primary_panel)
       .panel.response=     render partial: 'response'
       .panel.conversation= render partial: 'disqus'
+      .panel.text-area= yield(:text_area) # annotate icon
       .panel.placeholder
         %p Search, Notes, Folder, and Citation tools will go here.
-
-
-    .bottom-section
-      %article.text-area= yield(:text_area)
 
   .controls-wrap
     %ul.controls
