@@ -1,6 +1,4 @@
 = content_for :layout_extensions do
-  = render 'layouts/header'
-
   .main-wrap
     %aside.video= yield(:video)
     .whiteboard
@@ -10,11 +8,5 @@
       .panel.text-area= yield(:text_area) # annotate icon
       .panel.placeholder
         %p Search, Notes, Folder, and Citation tools will go here.
-
-  .controls-wrap
-    %ul.controls
-      %li.control.lecture= link_to 'lecture', '/', class: 'active'
-      - %w(annotate notes images chart globe sources questions discussion review next).each do |icon|
-        %li.control{ class: icon }= link_to icon, '/'
 
 = render template: 'layouts/application'

@@ -10,8 +10,7 @@ jQuery ($) ->
     else if @parent.hasClass('annotate') then $('.panel.text-area').show()
     else                                          $('.panel.placeholder').show()
 
-    $('.control').removeClass('active')
-    @parent.addClass('active')
-
-  $('.text-area-control li:not(.next) a').on 'click', (e) ->
+  $('.control:not(.next) a').on 'click', (e) ->
     e.preventDefault()
+    $('.control a').removeClass('active')
+    $(e.target).addClass('active')
