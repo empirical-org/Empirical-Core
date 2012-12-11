@@ -1,11 +1,15 @@
+body {
+  background: image-url('background.jpg');
+}
 aside.video {
   position: relative;
+  background: white;
+  float:left;
   width: 425px;
   min-height: 452px;
-  border-right: 4px solid #b9b9b9;
-  padding-right: 30px;
-  margin-bottom: 20px;
-  float:left;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
 
   hgroup {
     padding-bottom: 10px;
@@ -36,10 +40,13 @@ aside.video {
 }
 
 .whiteboard {
+  float: left;
   width: 650px;
   min-height: 460px;
-  float: left;
-  margin-left: 10px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
 
   .panel iframe { height: 460px; }
   .panel { display: none; }
@@ -71,46 +78,4 @@ aside.video {
   clear: both;
   border: 2px solid #b9b9b9;
   border-radius: 10px;
-}
-
-.controls-wrap {
-  float: left;
-  display: inline-block;
-  height: 46px;
-  background: image-url('controls-bg.jpg') 0 20px repeat-x;
-}
-ul.controls {
-  float: left;
-  overflow: hidden;
-  list-style-type: none;
-  margin: 0;
-  width: 1050px;
-  margin-left: 150px;
-
-  li {
-    float: left;
-    margin-left: 30px;
-    width: 47px;
-    position: relative;
-
-    a {
-      float: left;
-      position: relative;
-      @include replace-text('icons/annotate.png');
-      text-indent: -9999px;
-      height: 46px;
-      width: 47px;
-      z-index: 0;
-      @include transition(0.2s ease-out);
-    }
-    @each $icon in annotate chart discussion globe images lecture next notes questions review sources {
-      &.#{$icon} a { background: image-url('icons/#{$icon}.png') 0 0 no-repeat; }
-      &.#{$icon} a:hover {
-        background: image-url('icons/hover/#{$icon}-hover.png') 0 0 no-repeat;
-        width: 250px;
-        z-index: 1;
-        @include transition(0.2s ease-in);
-      }
-    }
-  }
 }

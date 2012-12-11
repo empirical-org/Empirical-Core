@@ -27,6 +27,7 @@
               %li= link_to 'Register', new_account_path
               %li= link_to 'Login', new_session_path
 
+    = render 'layouts/header'
     .container
       = yield :layout_extensions
       = yield
