@@ -3,7 +3,7 @@
     %aside.video= yield(:video)
     .whiteboard
       .panel.primary=      yield(:primary_panel)
-      .panel.response=     render partial: 'response'
+      .panel.response
       .panel.conversation= render partial: 'disqus'
       .panel.text-area= yield(:text_area) # annotate icon
       .panel.placeholder

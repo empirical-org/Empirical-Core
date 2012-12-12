@@ -1,4 +1,26 @@
-%h2 Response
-%form{action: next_page}
-  = text_area_tag :response
-  = submit_tag 'Submit'
+%h2 Questions
+#questions.accordion
+  .accordion-group
+    .accordion-heading
+      %a.accordion-toggle{"data-parent" => "#questions", "data-toggle" => "collapse", :href => "#collapseOne"}
+        Collapsible Group Item #1
+    #collapseOne.accordion-body.collapse.in
+      .accordion-inner
+        Anim pariatur cliche...
+  .accordion-group
+    .accordion-heading
+      %a.accordion-toggle{"data-parent" => "#questions", "data-toggle" => "collapse", :href => "#collapseTwo"}
+        Collapsible Group Item #2
+    #collapseTwo.accordion-body.collapse
+      .accordion-inner
+        Anim pariatur cliche...he...
+  .accordion-group
+    .accordion-heading
+      %a.accordion-toggle{"data-parent" => "#questions", "data-toggle" => "collapse", :href => "#collapseThree"}
+        Ask a question
+    #collapseThree.accordion-body.collapse
+      .accordion-inner
+        = form_for Comment.new, remote: true, url: '/comments.json' do |f|
+          = f.text_field :title, placeholder: 'Title'
+          = f.text_area :body, placeholder: 'Body'
+          = f.submit 'Post question'
