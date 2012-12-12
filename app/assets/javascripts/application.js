@@ -12,6 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.color
+//= require bootstrap-transition
 //= require bootstrap-dropdown
 //= require bootstrap-carousel
+//= require bootstrap-collapse
+//= require hamlcoffee
+//= require underscore
+//= require backbone
+//= require backbone_rails_sync
+//= require backbone_datalink
+//= require backbone/pg_site
 //= require_tree .

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates_uniqueness_of :email, case_sensitive: false, allow_nil: true
   # validates_format_of :password, with: /((?=.*\d)(?=.*[A-Z]).{8,})/, message: 'must contain at least 1 number and 1 capital letter and be at least 8 characters long', allow_nil: true, on: :standard, if: :password?
+  has_many :comments
   ROLES = %w(user admin)
 
   def role

@@ -51,15 +51,6 @@ aside.video {
   .panel iframe { height: 460px; }
   .panel { display: none; }
   .panel.primary { display: block; }
-  .panel.response {
-    textarea {
-      width: 640px;
-      height: 200px;
-    }
-    input[type=submit] {
-      float: right;
-    }
-  }
   .panel.conversation {
     #disqus_thread iframe {
       max-height: 460px;
