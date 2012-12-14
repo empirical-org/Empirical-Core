@@ -7,5 +7,9 @@
       %form.new-comment
         %input.new-comment-title{:name => "title", :placeholder => "Enter #{@comment_type} in short (as title)", :type => "text"}
         %textarea.new-comment-body{:name => "body", :placeholder => "Enter #{@comment_type} in detail (optional)"}
+        - if @comment_type == 'reply'
+          %select.new-comment-reply-type{:name => "reply_type"}
+            %option{:value => "pro"} pro
+            %option{:value => "con"} con
         %input.new-comment-parentid{:name => "parent_id", :type => "hidden", :value => @parent_id}
         %input{:type => "submit", :value => "Submit"}

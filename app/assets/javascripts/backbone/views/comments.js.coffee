@@ -20,7 +20,11 @@ class PGSite.Views.Comments extends Backbone.View
   createComment: (event) ->
     event.preventDefault()
     @target = $(event.currentTarget)
-    comment_attributes = title: @target.find('.new-comment-title').val(), body: @target.find('.new-comment-body').val(), parent_id: @target.find('.new-comment-parentid').val()
+    comment_attributes =
+      title: @target.find('.new-comment-title').val(),
+      body: @target.find('.new-comment-body').val(),
+      parent_id: @target.find('.new-comment-parentid').val(),
+      reply_type: @target.find('.new-comment-reply-type').val()
     attributes = comment: comment_attributes
     comment = @collection.create attributes,
       wait: true
@@ -34,8 +38,19 @@ class PGSite.Views.Comments extends Backbone.View
     @collection.fetch # this is needed to build comments tree with ancestry
       silent: true
       success: =>
-        locals = comment: comment, title: comment.get('title'), body: comment.get('body'), id: comment.id, depth: comment.get('depth'), children: comment.get('children'), parent_id: comment.get('parent_id')
-        target.parents('.accordion-group.new-comment').before(@comment_template(locals))
+        locals =
+          comment: comment,
+          title: comment.get('title'), body: comment.get('body'),
+          id: comment.id, depth: comment.get('depth'), children: comment.get('children'),
+          parent_id: comment.get('parent_id'),
+          reply_type: comment.get('reply_type')
+        if comment.get('depth') == 2 and comment.get('reply_type') == 'con'
+          # if user adds a con, group it with other cons
+          # another way to do this would be to add another form under cons
+          next_element = target.parents('.accordion-group.new-comment').parent().find('.pro').first()
+        else
+          next_element = target.parents('.accordion-group.new-comment')
+        next_element.before(@comment_template(locals))
         $(".accordion-toggle[data-id=#{comment.id}]").animateHighlight("#d19d6d", 1500)
 
   multiToggle: (event) ->
