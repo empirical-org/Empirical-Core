@@ -12,17 +12,9 @@
     &.response .accordion-toggle { font-size: 16px; }
     &.reply .accordion-toggle { font-size: 14px; }
     &.comment .accordion-toggle { font-size: 12px; }
-    &.response, &.comment {
-      margin: 20px -20px 20px -20px;
-    }
-    &.reply {
-      margin: 20px -20px 0 0;
 
-      .accordion-group {
-        border-left: 2px solid black;
-        margin-bottom: 10px;
-      }
-    }
+    &.response, &.comment { margin: 20px -20px 20px -20px; }
+    &.reply { margin: 20px -20px 0 0; }
     .accordion-body:not(.in) {
       overflow: hidden;
       height: 0;
@@ -35,7 +27,16 @@
   input[type=submit] {
     float: right;
   }
-  .accordion-group.new-comment {
-    margin-bottom: 20px;
+  .accordion-group {
+    .new-comment {
+      margin-bottom: 20px;
+    }
+    &.reply {
+      border-left: 2px solid black;
+      margin-bottom: 10px;
+
+      &.pro { border-left-color: green; }
+      &.con { border-left-color: red; }
+    }
   }
 }
