@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   attr_accessible :title, :body, :parent_id, :reply_type
   has_ancestry
   belongs_to :user
-  default_scope order('reply_type, created_at')
+  default_scope order('created_at, reply_type')
   before_create :set_reply_type
 
   def self.json_tree(nodes)
