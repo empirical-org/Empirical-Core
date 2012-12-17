@@ -1,0 +1,7 @@
+
+- CMS::Course.all.each do |course|
+  %h3= course.title
+
+  %ul
+    - course.lectures.each do |lecture|
+      %li= link_to lecture.title, lecture_path(lecture)

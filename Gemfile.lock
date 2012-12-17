@@ -119,6 +119,7 @@ GEM
     rake (10.0.2)
     rdoc (3.12)
       json (~> 1.4)
+    redcarpet (2.1.1)
     sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -157,6 +158,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.8)
   rails-backbone
+  redcarpet
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)
