@@ -1,0 +1,17 @@
+%h2 New course
+
+= form_for @course, url: cms_courses_path, html: {class: 'form-horizontal'} do |f|
+  .control-group
+    = f.label :title, class: 'control-label'
+    .controls
+      = f.text_field :title
+  .control-group
+    = f.label :professor_name, class: 'control-label'
+    .controls
+      = f.text_field :professor_name
+  .control-group
+    = f.label :description, class: 'control-label'
+    .controls
+      = f.text_area :description
+  .form-actions
+    = f.submit 'Save', class: 'btn btn-primary', :'data-disable-with' => 'Saving...'

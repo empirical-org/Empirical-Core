@@ -1,0 +1,9 @@
+%h2== Showing course ##{@course.id}
+
+%dl
+  %dt Title
+  %dd= @course.title
+  %dt Professor name
+  %dd= @course.professor_name
+  %dt Description
+  %dd= markdown @course.description

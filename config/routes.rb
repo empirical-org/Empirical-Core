@@ -6,5 +6,6 @@ PGSite::Application.routes.draw do
   get 'the_peculiar_institution' => 'pages#the_peculiar_institution'
   get 'democracy_in_america' => 'pages#democracy_in_america'
   get 'aggregation' => 'pages#aggregation'
-  resources :comments
+
+  resources :comments, :courses
 end

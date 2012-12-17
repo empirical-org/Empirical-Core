@@ -1,0 +1,42 @@
+content_types:
+  Course:
+    attributes:
+      title: string
+      professor_name: string
+      description: text
+
+  Lecture:
+    attributes:
+      title: string
+      lecturer_name: string
+      description: text
+      course:
+        format: reference
+        reference_label: title
+        reference_to: Course
+
+  LectureChapture:
+    attributes:
+      lecture:
+        format: reference
+        reference_label: title
+        reference_to: Lecture
+      title: string
+      subtitle: string
+      position: orderable
+      youtube_embed_code: text
+      citation_text: text
+      reading_text: text
+      annotatable_text: text
+      chart_embed_code: text
+      globe_embed_code: text
+      quiz_embed_code: text
+      slideshow_embed_code: text
+
+  LectureChapterImage:
+    attributes:
+      lecture_chapter:
+        format: reference
+        reference_label: title
+        reference_to: LectureChapture
+      image_file: file
