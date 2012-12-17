@@ -16,7 +16,7 @@
         %td= lecture_chapter_image.id
         %td
           - if lecture_chapter_image.lecture_chapter.present?
-            = link_to lecture_chapter_image.lecture_chapter.title, cms_lecture_chapture_path(lecture_chapter_image.lecture_chapter)
+            = link_to lecture_chapter_image.lecture_chapter.title, cms_lecture_chapter_path(lecture_chapter_image.lecture_chapter)
         %td
           %img{src: lecture_chapter_image.image_file}
         %td

@@ -15,7 +15,7 @@ content_types:
         reference_label: title
         reference_to: Course
 
-  LectureChapture:
+  LectureChapter:
     attributes:
       lecture:
         format: reference
@@ -23,7 +23,9 @@ content_types:
         reference_to: Lecture
       title: string
       subtitle: string
-      position: orderable
+      position:
+        format: orderable
+        order_scope: lecture
       youtube_embed_code: text
       citation_text: text
       reading_text: text
@@ -38,5 +40,5 @@ content_types:
       lecture_chapter:
         format: reference
         reference_label: title
-        reference_to: LectureChapture
+        reference_to: LectureChapter
       image_file: file
