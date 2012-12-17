@@ -1,3 +1,8 @@
+PATH
+  remote: ../honey-cms
+  specs:
+    honey-cms (0.3.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,13 +72,16 @@ GEM
     hike (1.2.1)
     honey-auth (0.0.1)
       haml
-    honey-cms (0.3.8)
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.5)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -143,8 +151,9 @@ DEPENDENCIES
   haml-rails
   haml_coffee_assets
   honey-auth
-  honey-cms
+  honey-cms!
   jquery-rails
+  kaminari
   pg
   rails (= 3.2.8)
   rails-backbone

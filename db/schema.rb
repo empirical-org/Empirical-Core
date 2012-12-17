@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214024613) do
+ActiveRecord::Schema.define(:version => 20121217030345) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -24,6 +24,53 @@ ActiveRecord::Schema.define(:version => 20121214024613) do
   end
 
   add_index "comments", ["ancestry"], :name => "index_comments_on_ancestry"
+
+  create_table "courses", :force => true do |t|
+    t.string   "title"
+    t.string   "professor_name"
+    t.text     "description"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "lecture_chapter_images", :force => true do |t|
+    t.integer  "lecture_chapter_id"
+    t.string   "image_file"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "lecture_chapter_images", ["lecture_chapter_id"], :name => "index_lecture_chapter_images_on_lecture_chapter_id"
+
+  create_table "lecture_chaptures", :force => true do |t|
+    t.integer  "lecture_id"
+    t.string   "title"
+    t.string   "subtitle"
+    t.integer  "position"
+    t.text     "youtube_embed_code"
+    t.text     "citation_text"
+    t.text     "reading_text"
+    t.text     "annotatable_text"
+    t.text     "chart_embed_code"
+    t.text     "globe_embed_code"
+    t.text     "quiz_embed_code"
+    t.text     "slideshow_embed_code"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "lecture_chaptures", ["lecture_id"], :name => "index_lecture_chaptures_on_lecture_id"
+
+  create_table "lectures", :force => true do |t|
+    t.string   "title"
+    t.string   "lecturer_name"
+    t.text     "description"
+    t.integer  "course_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "lectures", ["course_id"], :name => "index_lectures_on_course_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

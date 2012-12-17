@@ -1,0 +1,45 @@
+%h2 Lecture chaptures
+
+= link_to 'New lecture chapture', new_cms_lecture_chapture_path
+
+%table.table
+  %thead
+    %tr
+      %th Id
+      %th Lecture
+      %th Title
+      %th Subtitle
+      %th Position
+      %th Youtube embed code
+      %th Citation text
+      %th Reading text
+      %th Annotatable text
+      %th Chart embed code
+      %th Globe embed code
+      %th Quiz embed code
+      %th Slideshow embed code
+      %th
+
+  %tbody
+    - @lecture_chaptures.each do |lecture_chapture|
+      %tr
+        %td= lecture_chapture.id
+        %td
+          - if lecture_chapture.lecture.present?
+            = link_to lecture_chapture.lecture.title, cms_lecture_path(lecture_chapture.lecture)
+        %td= lecture_chapture.title
+        %td= lecture_chapture.subtitle
+        %td= lecture_chapture.position
+        %td= lecture_chapture.youtube_embed_code
+        %td= lecture_chapture.citation_text
+        %td= lecture_chapture.reading_text
+        %td= lecture_chapture.annotatable_text
+        %td= lecture_chapture.chart_embed_code
+        %td= lecture_chapture.globe_embed_code
+        %td= lecture_chapture.quiz_embed_code
+        %td= lecture_chapture.slideshow_embed_code
+        %td
+          = link_to 'Edit', edit_cms_lecture_chapture_path(lecture_chapture)
+          = link_to 'Destroy', cms_lecture_chapture_path(lecture_chapture), confirm: 'are you sure?', method: 'delete'
+
+= paginate @lecture_chaptures

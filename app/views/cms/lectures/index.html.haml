@@ -1,0 +1,29 @@
+%h2 Lectures
+
+= link_to 'New lecture', new_cms_lecture_path
+
+%table.table
+  %thead
+    %tr
+      %th Id
+      %th Title
+      %th Lecturer name
+      %th Description
+      %th Course
+      %th
+
+  %tbody
+    - @lectures.each do |lecture|
+      %tr
+        %td= lecture.id
+        %td= lecture.title
+        %td= lecture.lecturer_name
+        %td= lecture.description
+        %td
+          - if lecture.course.present?
+            = link_to lecture.course.title, cms_course_path(lecture.course)
+        %td
+          = link_to 'Edit', edit_cms_lecture_path(lecture)
+          = link_to 'Destroy', cms_lecture_path(lecture), confirm: 'are you sure?', method: 'delete'
+
+= paginate @lectures

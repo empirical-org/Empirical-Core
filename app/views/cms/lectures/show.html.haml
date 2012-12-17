@@ -1,0 +1,11 @@
+%h2== Showing lecture ##{@lecture.id}
+
+%dl
+  %dt Title
+  %dd= @lecture.title
+  %dt Lecturer name
+  %dd= @lecture.lecturer_name
+  %dt Description
+  %dd= markdown @lecture.description
+  %dt Course
+  %dd= @lecture.course.try(:title)

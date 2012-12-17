@@ -1,0 +1,7 @@
+%h2== Showing lecture chapter image ##{@lecture_chapter_image.id}
+
+%dl
+  %dt Lecture chapter
+  %dd= @lecture_chapter_image.lecture_chapter.try(:title)
+  %dt Image file
+  %dd= @lecture_chapter_image.image_file
