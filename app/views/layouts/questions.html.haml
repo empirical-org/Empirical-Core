@@ -1,11 +1,14 @@
+= content_for :header do
+  = render 'layouts/header'
 = content_for :layout_extensions do
   .main-wrap
     %aside.video= yield(:video)
     .whiteboard
       .panel.primary=      yield(:primary_panel)
       .panel.response
-      .panel.conversation= render partial: 'disqus'
-      .panel.text-area= yield(:text_area) # annotate icon
+      .panel.conversation= render partial: 'pages/disqus'
+      - if yield(:annotatable_text).present?
+        .panel.text-area= yield(:annotatable_text) # annotate icon
       .panel.placeholder
         %p Search, Notes, Folder, and Citation tools will go here.
 

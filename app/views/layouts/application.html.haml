@@ -28,9 +28,8 @@
               %li= link_to 'Register', new_account_path
               %li= link_to 'Login', new_session_path
 
-    - if flash.present?
-      = flash.inspect
-    = render 'layouts/header'
+    = yield :header
+
     .container
       = yield :layout_extensions
       = yield
