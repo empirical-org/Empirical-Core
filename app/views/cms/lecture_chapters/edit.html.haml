@@ -1,0 +1,4 @@
+%h2 Edit lecture chapter
+
+= form_for @lecture_chapter, url: cms_lecture_chapter_path(@lecture_chapter), html: {class: 'form-horizontal'} do |f|
+  = render partial: 'fields', locals: { f: f }

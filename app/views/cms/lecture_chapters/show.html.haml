@@ -1,0 +1,27 @@
+%h2== Showing lecture chapter ##{@lecture_chapter.id}
+
+%dl
+  %dt Lecture
+  %dd= @lecture_chapter.lecture.try(:title)
+  %dt Title
+  %dd= @lecture_chapter.title
+  %dt Subtitle
+  %dd= @lecture_chapter.subtitle
+  %dt Position
+  %dd= @lecture_chapter.position
+  %dt Youtube embed code
+  %dd= markdown @lecture_chapter.youtube_embed_code
+  %dt Citation text
+  %dd= markdown @lecture_chapter.citation_text
+  %dt Reading text
+  %dd= markdown @lecture_chapter.reading_text
+  %dt Annotatable text
+  %dd= markdown @lecture_chapter.annotatable_text
+  %dt Chart embed code
+  %dd= markdown @lecture_chapter.chart_embed_code
+  %dt Globe embed code
+  %dd= markdown @lecture_chapter.globe_embed_code
+  %dt Quiz embed code
+  %dd= markdown @lecture_chapter.quiz_embed_code
+  %dt Slideshow embed code
+  %dd= markdown @lecture_chapter.slideshow_embed_code

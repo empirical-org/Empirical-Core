@@ -1,7 +1,7 @@
 .control-group
   = f.label :lecture_chapter_id, class: 'control-label'
   .controls
-    = f.select :lecture_chapter_id, CMS::LectureChapture.all.collect {|r| [ r.title, r.id ] }
+    = f.select :lecture_chapter_id, CMS::LectureChapter.all.collect {|r| [ r.title, r.id ] }
 .control-group
   = f.label :image_file, class: 'control-label'
   .controls

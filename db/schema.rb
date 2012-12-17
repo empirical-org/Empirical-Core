@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121217030345) do
+ActiveRecord::Schema.define(:version => 20121217145220) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20121217030345) do
 
   add_index "lecture_chapter_images", ["lecture_chapter_id"], :name => "index_lecture_chapter_images_on_lecture_chapter_id"
 
-  create_table "lecture_chaptures", :force => true do |t|
+  create_table "lecture_chapters", :force => true do |t|
     t.integer  "lecture_id"
     t.string   "title"
     t.string   "subtitle"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20121217030345) do
     t.datetime "updated_at",           :null => false
   end
 
-  add_index "lecture_chaptures", ["lecture_id"], :name => "index_lecture_chaptures_on_lecture_id"
+  add_index "lecture_chapters", ["lecture_id"], :name => "index_lecture_chapters_on_lecture_id"
 
   create_table "lectures", :force => true do |t|
     t.string   "title"
