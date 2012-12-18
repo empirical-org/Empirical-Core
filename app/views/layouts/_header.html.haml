@@ -21,5 +21,6 @@
           %li.control.questions= link_to 'questions', '/'
           %li.control.discussion= link_to 'discussion', '/'
           %li.control.review= link_to 'review', '/'
+
           - if next_lecture_chapter(@lecture_chapter).present?
-            %li.control.next= link_to 'next', chapter_path(next_lecture_chapter(@lecture_chapter))
+            %li.control.next= link_to 'next', chapter_path(next_lecture_chapter(@lecture_chapter)), data: {default: true}
