@@ -6,6 +6,8 @@ class CMS::LectureChapter < ActiveRecord::Base
   include CMS::Orderable
   orderable(:position, order_scope: "lecture")
 
+  has_many :comments
+
   def self.name
     'LectureChapter'
   end
