@@ -32,8 +32,9 @@ class CommentsController < ApplicationController
 
   def create
     params[:comment].delete(:parent_id) if params[:comment][:parent_id] == '0'
-    @comment = current_user.comments.create(params[:comment])
+    @comment = current_user.comments.build(params[:comment])
     @comment.lecture_chapter_id = params[:chapter_id]
+    @comment.save
     respond_with @comment
   end
 
