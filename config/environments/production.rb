@@ -64,4 +64,10 @@ PGSite::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+  config.assets.precompile += %w(epiceditor/themes/base/epiceditor.css
+                                 epiceditor/themes/preview/github.css
+                                 epiceditor/themes/editor/epic-dark.css
+                                 codemirror.css
+                                 cms.js
+                                 cms.css)
 end
