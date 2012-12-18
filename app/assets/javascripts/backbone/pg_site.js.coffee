@@ -12,5 +12,6 @@ window.PGSite =
 
   init: ->
     @comments = new PGSite.Collections.Comments
+    @comments.chapterID = window.chapterID
     @comments.fetch()
     @comments_view = new PGSite.Views.Comments(collection: @comments)

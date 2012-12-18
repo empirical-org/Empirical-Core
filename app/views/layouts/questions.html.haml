@@ -1,5 +1,8 @@
 = content_for :header do
+  :javascript
+    window.chapterID = #{@lecture_chapter.try(:id).to_json}
   = render 'layouts/header'
+
 = content_for :layout_extensions do
   .main-wrap
     %aside.video= yield(:video)

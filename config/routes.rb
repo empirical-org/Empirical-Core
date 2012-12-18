@@ -7,5 +7,9 @@ PGSite::Application.routes.draw do
   get 'democracy_in_america' => 'pages#democracy_in_america'
   get 'aggregation' => 'pages#aggregation'
 
-  resources :comments, :courses, :lectures, :chapters
+  resources :courses, :lectures
+
+  resources :chapters do
+    resources :comments
+  end
 end
