@@ -28,10 +28,10 @@
         .whiteboard
           .panel.chart= @lecture_chapter.chart_embed_code.to_s.html_safe
           .panel.questions
-          .panel.discussion= @lecture_chapter.discussion_text
-          .panel.annotate= @lecture_chapter.annotatable_text
-          .panel.citations= @lecture_chapter.citation_text
-          .panel.read= @lecture_chapter.reading_text
+          .panel.discussion= markdown @lecture_chapter.discussion_text.to_s
+          .panel.annotate= markdown @lecture_chapter.annotatable_text.to_s
+          .panel.citations= markdown @lecture_chapter.citation_text.to_s
+          .panel.read= markdown @lecture_chapter.reading_text.to_s
           .panel.quiz= @lecture_chapter.quiz_embed_code.to_s.html_safe
           .panel.slideshow= @lecture_chapter.slideshow_embed_code.to_s.html_safe
           .panel.globe= @lecture_chapter.globe_embed_code.to_s.html_safe
