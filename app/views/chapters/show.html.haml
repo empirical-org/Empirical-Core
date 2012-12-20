@@ -8,7 +8,7 @@
         .controls-wrap
           .container
             %ul.controls
-              - %w(annotate chart discussion globe images lecture notes questions review citations contents slideshow read quiz).each do |panel|
+              - %w(contents read annotate slideshow images globe chart citations questions discussion quiz lecture notes review).each do |panel|
                 - if display_panel?(panel)
                   %li.control{'data-target' => panel}= link_to panel, '/', class: 'active'
 
