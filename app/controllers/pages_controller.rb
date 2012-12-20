@@ -1,8 +1,6 @@
 class PagesController < ApplicationController
-#  layout 'questions'
-
   def home
-    @video_id = '6H07A5RYBns'
+    # render layout: false
   end
 
   def the_peculiar_institution

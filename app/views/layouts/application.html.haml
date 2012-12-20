@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title= @title || 'Coursera'
+    %title Project Inquire
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js'
@@ -27,6 +27,9 @@
             - else
               %li= link_to 'Register', new_account_path
               %li= link_to 'Login', new_session_path
+
+            - if admin? && @lecture_chapter.present?
+              %li= link_to 'Edit current chapter', edit_cms_lecture_chapter_path(@lecture_chapter)
 
     - if content_for? :outer_content
       = yield :outer_content

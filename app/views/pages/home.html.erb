@@ -1,0 +1,190 @@
+<style type="text/css">
+  <!--
+  img {
+    width: auto;
+    max-width: initial;
+  }
+  body {
+    font: 100% Verdana, Arial, Helvetica, sans-serif;
+    background: #666666;
+    margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+    padding: 0;
+    text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+    color: #000000;
+    background-image: url('<%= image_path('home/seamless background.jpg') %>');
+    background-repeat: repeat;
+  }
+  .oneColElsCtr #container {
+    width: 46em;
+    background: #FFFFFF;
+    margin: 0 auto; /* the auto margins (in conjunction with a width) center the page */
+    border: 1px solid #000000;
+    text-align: left; /* this overrides the text-align: center on the body element. */
+  }
+  .oneColElsCtr #mainContent {
+    padding: 0 20px; /* remember that padding is the space inside the div box and margin is the space outside the div box */
+  }
+  .oneColElsCtr table {
+    text-align: center;
+  }
+  #apDiv1 {
+    position:absolute;
+    width:197px;
+    z-index:5;
+    left: 10px;
+    top: 29px;
+    overflow: visible;
+    height: 808px;
+  }
+  #apDiv2 {
+    position:absolute;
+    width:197;
+    height:800px;
+    z-index:10;
+    left: 60px;
+    top: 33px;
+    text-align: right;
+  }
+  #apDiv3 {
+    position:absolute;
+    width:206px;
+    height:849px;
+    z-index:2;
+    left: 4px;
+    top: 1px;
+    overflow: visible;
+  }
+  #apDiv4 {
+    position:absolute;
+    width:877px;
+    height:115px;
+    z-index:3;
+    left: 206px;
+    top: 17px;
+  }
+  #apDiv5 {
+    position:absolute;
+    width:200px;
+    height:115px;
+    z-index:6;
+    left: 217px;
+    top: 129px;
+  }
+  #apDiv6 {
+    position:absolute;
+    width:971px;
+    height:221px;
+    z-index:7;
+    left: 196px;
+    top: 642px;
+  }
+  -->
+</style>
+
+<script type="text/javascript">
+  <!--
+  function MM_preloadImages() { //v3.0
+    var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+      var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+      if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+  }
+  function MM_swapImgRestore() { //v3.0
+    var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+  }
+  function MM_findObj(n, d) { //v4.01
+    var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+      d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+    if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+    for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+    if(!x && d.getElementById) x=d.getElementById(n); return x;
+  }
+
+  function MM_swapImage() { //v3.0
+    var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+     if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+  }
+  //-->
+</script>
+
+
+<div class="oneColElsCtr container" style="position: relative ; margin-top: 60px">
+  <div id="apDiv1">
+    <table width="99" height="793" border="0" align="center" cellspacing="10">
+      <tr>
+        <td><img src="<%= image_path('home/icons/logic.jpg') %>" width="90" height="75" align="middle" /></td>
+      </tr>
+      <tr>
+        <td><img src="<%= image_path('home/icons/motion.jpg') %>" width="90" height="75" /></td>
+      </tr>
+      <tr>
+        <td><img src="<%= image_path('home/icons/matter.jpg') %>" width="90" height="75" /></td>
+      </tr>
+      <tr>
+        <td><img src="<%= image_path('home/icons/life.jpg') %>" width="90" height="75" /></td>
+      </tr>
+      <tr>
+        <td><img src="<%= image_path('home/icons/cog.jpg') %>" width="90" height="75" /></td>
+      </tr>
+      <tr>
+        <td><img src="<%= image_path('home/icons/cre.jpg') %>" width="90" height="75" /></td>
+      </tr>
+      <tr>
+        <td><img src="<%= image_path('home/icons/comp.jpg') %>" width="90" height="75" /></td>
+      </tr>
+      <tr>
+        <td><img src="<%= image_path('home/icons/int2.jpg') %>" width="90" height="75" /></td>
+      </tr>
+      <tr>
+        <td><img src="<%= image_path('home/icons/taj.jpg') %>" width="90" height="75" /></td>
+      </tr>
+    </table>
+  </div>
+  <div id="apDiv4"><img src="<%= image_path('home/inquiry-title.png') %>" width="900" height="105" align="middle" /></div>
+  <div id="apDiv3"><img src="<%= image_path('home/new-whitebar.png') %>" width="146" height="851" /></div>
+  <div id="apDiv5"><img src="<%= image_path('home/questions/questions1.png') %>" width="876" height="514" /></div>
+  <div id="apDiv6">
+    <table width="800" border="0" cellspacing="21">
+      <tr>
+        <td width="25%"><img src="<%= image_path('home/prof/freeman tag.png') %>" width="201" height="189" /></td>
+        <td width="25%"><img src="<%= image_path('home/prof/susskind tag.png') %>" width="201" height="189" /></td>
+        <td width="25%"><img src="<%= image_path('home/prof/sapolsky tag.png') %>" width="201" height="188" /></td>
+        <td width="25%"><img src="<%= image_path('home/prof/foner tag.png') %>" width="201" height="189" /></td>
+      </tr>
+    </table>
+  </div>
+  <div id="apDiv2">
+    <table width="99" border="0" align="center" cellpadding="2">
+      <tr>
+        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image21','','<%= image_path('home/rollover/rollover-comp.png') %>',1)"></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image17','','<%= image_path('home/rollover/rollover-logic.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image17" width="325" height="80" border="0" id="Image17" /></a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image18','','<%= image_path('home/rollover/rollover-motion.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image18" width="325" height="80" border="0" id="Image18" /><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image20','','<%= image_path('home/rollover/rollover-life.png') %>',1)"></a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image19','','<%= image_path('home/rollover/rollover-matter.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image19" width="325" height="80" border="0" id="Image19" /></a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image27','','<%= image_path('home/rollover/rollover-life.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image27" width="325" height="80" border="0" id="Image27" /></a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image26','','<%= image_path('home/rollover/rollover-cog.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image26" width="325" height="80" border="0" id="Image26" /></a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image22','','<%= image_path('home/rollover/rollover-creation.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image22" width="325" height="80" border="0" id="Image22" /></a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image23','','<%= image_path('home/rollover/rollover-comp.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image23" width="325" height="80" border="0" id="Image23" /></a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image24','','<%= image_path('home/rollover/rollover-interaction.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image24" width="325" height="80" border="0" id="Image24" /></a></td>
+      </tr>
+      <tr>
+        <td height="86"><p><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image25','','<%= image_path('home/rollover/rollover-legacy.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image25" width="325" height="80" border="0" id="Image25" /></a></p></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+  MM_preloadImages('<%= image_path('home/rollover/rollover-comp.png') %>','<%= image_path('home/rollover/rollover-logic.png') %>','<%= image_path('home/rollover/rollover-motion.png') %>','<%= image_path('home/rollover/rollover-matter.png') %>','<%= image_path('home/rollover/rollover-life.png') %>','<%= image_path('home/rollover/rollover-creation.png') %>','<%= image_path('home/rollover/rollover-interaction.png') %>','<%= image_path('home/rollover/rollover-legacy.png') %>','<%= image_path('home/rollover/rollover-cog.png') %>');
+</script>

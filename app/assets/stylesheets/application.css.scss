@@ -18,6 +18,12 @@ body {
   padding-top: 100px
 }
 
+.simple-rounded-box {
+  @include border-radius(15px);
+  padding: 20px;
+  background-color: #fff;
+}
+
 @import 'header';
 @import 'pages';
 @import 'comments';
