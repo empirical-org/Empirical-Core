@@ -1,7 +1,7 @@
+.simple-rounded-box
+  - CMS::Course.all.each do |course|
+    %h3= course.title
 
-- CMS::Course.all.each do |course|
-  %h3= course.title
-
-  %ul
-    - course.lectures.each do |lecture|
-      %li= link_to lecture.title, lecture_path(lecture)
+    %ul
+      - course.lectures.each do |lecture|
+        %li= link_to lecture.title, lecture_path(lecture)
