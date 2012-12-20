@@ -1,20 +1,18 @@
-jQuery ($) ->
-  $('.control a').on 'click', (e) ->
+class window.ChapterTabs extends Backbone.View
+  events:
+    'click .control a': 'showPanel'
+
+  showPanel: (e) ->
     $el = $(e.target)
-    unless $el.data('default')
-      e.preventDefault()
-    else
-      return true
+    if $el.data('default') then return true else e.preventDefault()
     $parent = $el.parent()
-    $('.panel').hide()
+    @$('.panel').hide()
+    @$(".panel.#{$parent.data('target')}").show()
+    @activate $el
 
-    if      $parent.hasClass('chart')        then $('.panel.primary').show()
-    else if $parent.hasClass('questions')     then $('.panel.response').show()
-    else if $parent.hasClass('discussion') then $('.panel.conversation').show()
-    else if $parent.hasClass('annotate') then $('.panel.text-area').show()
-    else                                          $('.panel.placeholder').show()
+  activate: ($el) ->
+    @$('.control a').removeClass('active')
+    $el.addClass('active')
 
-  $('.control:not(.next) a').on 'click', (e) ->
-    e.preventDefault()
-    $('.control a').removeClass('active')
-    $(e.target).addClass('active')
+jQuery ($) ->
+  if (el = $('article.chapter-tabs')).length > 0 then new ChapterTabs {el}

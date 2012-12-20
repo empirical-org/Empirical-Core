@@ -1,0 +1,36 @@
+= content_for :outer_content do
+  :javascript
+    window.chapterID = #{@lecture_chapter.try(:id).to_json}
+
+  %article.chapter-tabs
+    %header
+      .top
+        .controls-wrap
+          .container
+            %ul.controls
+              - %w(annotate chart discussion globe images lecture notes questions review citations contents slideshow read quiz).each do |panel|
+                - if display_panel?(panel)
+                  %li.control{'data-target' => panel}= link_to panel, '/', class: 'active'
+
+              - if next_lecture_chapter(@lecture_chapter).present?
+                %li.control{'data-target' => 'next'}= link_to 'next', chapter_path(next_lecture_chapter(@lecture_chapter)), data: {default: true}
+
+    .container
+      .main-wrap
+        %aside.video
+          %hgroup
+            %h1= @lecture_chapter.title
+            %h2= @lecture_chapter.subtitle
+          .separator
+          %p
+          = @lecture_chapter.youtube_embed_code.to_s.html_safe
+
+        .whiteboard
+          .panel.chart= @lecture_chapter.chart_embed_code.to_s.html_safe
+          .panel.questions
+          .panel.discussion= @lecture_chapter.discussion_text
+          .panel.annotate= @lecture_chapter.annotatable_text
+          .panel.citations= @lecture_chapter.citation_text
+          .panel.read= @lecture_chapter.reading_text
+          .panel.quiz= @lecture_chapter.quiz_embed_code.to_s.html_safe
+          .panel.slideshow= @lecture_chapter.slideshow_embed_code.to_s.html_safe

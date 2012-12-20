@@ -1,6 +1,6 @@
 class PGSite.Views.Comments extends Backbone.View
 
-  el: '.panel.response'
+  el: '.panel.questions'
   template: JST['backbone/templates/comments/index']
   comment_template: JST['backbone/templates/comments/_comment']
 
