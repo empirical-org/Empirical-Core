@@ -1,17 +1,65 @@
 = content_for :header do
   :javascript
     window.chapterID = #{@lecture_chapter.try(:id).to_json}
-  = render 'layouts/header'
+
+  %header
+    .top
+      .controls-wrap
+        .container
+          %ul.controls
+            %li.control.contents= link_to 'contents', '/', class: 'active'
+            %li.control.lecture= link_to 'lecture', '/'
+
+            - if @lecture_chapter.slideshow_embed_code.present?
+              %li.control.slideshow= link_to 'slideshow', '/'
+
+            - if @lecture_chapter.annotatable_text.present?
+              %li.control.annotate= link_to 'annotate', '/'
+
+            %li.control.notes= link_to 'notes', '/'
+
+            - if @lecture_chapter.lecture_chapter_images.any?
+              %li.control.images= link_to 'images', '/'
+
+            %li.control.citations= link_to 'citations', '/'
+            %li.control.questions= link_to 'questions', '/'
+
+            - if @lecture_chapter.discussion_text.present?
+              %li.control.discussion= link_to 'discussion', '/'
+
+            %li.control.review= link_to 'review', '/'
+
+            - if next_lecture_chapter(@lecture_chapter).present?
+              %li.control.next= link_to 'next', chapter_path(next_lecture_chapter(@lecture_chapter)), data: {default: true}
+
 
 = content_for :layout_extensions do
   .main-wrap
-    %aside.video= yield(:video)
+    %aside.video
+      %hgroup
+        %h1= @lecture_chapter.title
+        %h2= @lecture_chapter.subtitle
+      .separator
+      %p
+      = @lecture_chapter.youtube_embed_code.html_safe
+
     .whiteboard
-      .panel.primary=      yield(:primary_panel)
+      .panel.primary
+        #DEMO_GameOfLifeConfigurations
+          %a.demonstrationHyperlink{:href => "http://demonstrations.wolfram.com/\r\n  GameOfLifeConfigurations/", :target => "_blank"} Game of Life Configurations
+          from the
+          %a.demonstrationHyperlink{:href => "http://demonstrations.wolfram.com/", :target => "_blank"} Wolfram Demonstrations Project
+          by Eric Weisstein
+
       .panel.response
-      .panel.conversation= render partial: 'pages/disqus'
-      - if yield(:annotatable_text).present?
-        .panel.text-area= yield(:annotatable_text) # annotate icon
+
+      .panel.conversation
+        = @lecture_chapter.discussion_text
+
+      .panel.text-area
+        - if @lecture_chapter.annotatable_text.present?
+          %p= @lecture_chapter.annotatable_text
+
       .panel.placeholder
         %p Search, Notes, Folder, and Citation tools will go here.
 
