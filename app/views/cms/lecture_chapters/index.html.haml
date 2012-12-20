@@ -10,14 +10,9 @@
       %th Title
       %th Subtitle
       %th Position
-      %th Youtube embed code
       %th Citation text
       %th Reading text
       %th Annotatable text
-      %th Chart embed code
-      %th Globe embed code
-      %th Quiz embed code
-      %th Slideshow embed code
       %th
 
   %tbody
@@ -27,17 +22,13 @@
         %td
           - if lecture_chapter.lecture.present?
             = link_to lecture_chapter.lecture.title, cms_lecture_path(lecture_chapter.lecture)
-        %td= lecture_chapter.title
-        %td= lecture_chapter.subtitle
-        %td= lecture_chapter.position
-        %td= lecture_chapter.youtube_embed_code
-        %td= lecture_chapter.citation_text
-        %td= lecture_chapter.reading_text
-        %td= lecture_chapter.annotatable_text
-        %td= lecture_chapter.chart_embed_code
-        %td= lecture_chapter.globe_embed_code
-        %td= lecture_chapter.quiz_embed_code
-        %td= lecture_chapter.slideshow_embed_code
+        %td= lecture_chapter.title.to_s.truncate(100)
+        %td= lecture_chapter.subtitle.to_s.truncate(100)
+        %td= lecture_chapter.position.to_s.truncate(100)
+        %td= lecture_chapter.citation_text.to_s.truncate(100)
+        %td= lecture_chapter.reading_text.to_s.truncate(100)
+        %td= lecture_chapter.annotatable_text.to_s.truncate(100)
+
         %td
           = link_to 'Edit', edit_cms_lecture_chapter_path(lecture_chapter)
           = link_to 'Destroy', cms_lecture_chapter_path(lecture_chapter), confirm: 'are you sure?', method: 'delete'
