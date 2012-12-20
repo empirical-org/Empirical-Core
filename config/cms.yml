@@ -30,6 +30,7 @@ content_types:
       citation_text: text
       reading_text: text
       annotatable_text: text
+      discussion_text: text
       chart_embed_code: text
       globe_embed_code: text
       quiz_embed_code: text

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218155200) do
+ActiveRecord::Schema.define(:version => 20121220034254) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20121218155200) do
     t.text     "slideshow_embed_code"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.text     "discussion_text"
   end
 
   add_index "lecture_chapters", ["lecture_id"], :name => "index_lecture_chapters_on_lecture_id"
