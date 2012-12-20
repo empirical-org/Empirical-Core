@@ -1,4 +1,4 @@
-%h2 Questions dynamic
+%h2 Questions
 .accordion.question#comments-accordion-0
   - for comment in @comments.models
     - locals = comment: comment, title: comment.get('title'), body: comment.get('body'), id: comment.id, depth: comment.get('depth'), children: comment.get('children'), parent_id: 0
