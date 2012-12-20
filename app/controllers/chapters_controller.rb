@@ -1,5 +1,4 @@
 class ChaptersController < ApplicationController
-  layout 'questions'
   before_filter :signed_in!
 
   def show

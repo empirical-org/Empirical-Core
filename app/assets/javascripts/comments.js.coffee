@@ -1,6 +1,5 @@
 $(document).ready ->
-  if $('.panel.response').length > 0
-    PGSite.init()
+  PGSite.init()
 
   $.fn.animateHighlight = (highlightColor, duration) ->
     highlightBg = highlightColor or "#FFFF9C"
