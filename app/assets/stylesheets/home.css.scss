@@ -1,0 +1,11 @@
+#apDiv5 {
+  .content {
+    position: absolute;
+    opacity: 0;
+    @include transition(opacity .5s linear);
+    &.active   { opacity: 1 }
+    &.disabled { left: -9999px }
+    left: 0;
+    top: 0;
+  }
+}
