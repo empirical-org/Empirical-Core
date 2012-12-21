@@ -110,38 +110,25 @@
 <div class="oneColElsCtr container" style="position: relative ; margin-top: 60px">
   <div id="apDiv1">
     <table width="99" height="793" border="0" align="center" cellspacing="10">
-      <tr>
-        <td><img src="<%= image_path('home/icons/logic.jpg') %>" width="90" height="75" align="middle" /></td>
-      </tr>
-      <tr>
-        <td><img src="<%= image_path('home/icons/motion.jpg') %>" width="90" height="75" /></td>
-      </tr>
-      <tr>
-        <td><img src="<%= image_path('home/icons/matter.jpg') %>" width="90" height="75" /></td>
-      </tr>
-      <tr>
-        <td><img src="<%= image_path('home/icons/life.jpg') %>" width="90" height="75" /></td>
-      </tr>
-      <tr>
-        <td><img src="<%= image_path('home/icons/cog.jpg') %>" width="90" height="75" /></td>
-      </tr>
-      <tr>
-        <td><img src="<%= image_path('home/icons/cre.jpg') %>" width="90" height="75" /></td>
-      </tr>
-      <tr>
-        <td><img src="<%= image_path('home/icons/comp.jpg') %>" width="90" height="75" /></td>
-      </tr>
-      <tr>
-        <td><img src="<%= image_path('home/icons/int2.jpg') %>" width="90" height="75" /></td>
-      </tr>
-      <tr>
-        <td><img src="<%= image_path('home/icons/taj.jpg') %>" width="90" height="75" /></td>
-      </tr>
+      <tr><td><img src="<%= image_path('home/icons/logic.jpg') %>" width="90" height="75" align="middle" /></td></tr>
+      <tr><td><img src="<%= image_path('home/icons/motion.jpg') %>" width="90" height="75" /></td></tr>
+      <tr><td><img src="<%= image_path('home/icons/matter.jpg') %>" width="90" height="75" /></td></tr>
+      <tr><td><img src="<%= image_path('home/icons/life.jpg') %>" width="90" height="75" /></td></tr>
+      <tr><td><img src="<%= image_path('home/icons/cog.jpg') %>" width="90" height="75" /></td></tr>
+      <tr><td><img src="<%= image_path('home/icons/cre.jpg') %>" width="90" height="75" /></td></tr>
+      <tr><td><img src="<%= image_path('home/icons/comp.jpg') %>" width="90" height="75" /></td></tr>
+      <tr><td><img src="<%= image_path('home/icons/int2.jpg') %>" width="90" height="75" /></td></tr>
+      <tr><td><img src="<%= image_path('home/icons/taj.jpg') %>" width="90" height="75" /></td></tr>
     </table>
   </div>
   <div id="apDiv4"><img src="<%= image_path('home/inquiry-title.png') %>" width="900" height="105" align="middle" /></div>
   <div id="apDiv3"><img src="<%= image_path('home/new-whitebar.png') %>" width="146" height="851" /></div>
-  <div id="apDiv5"><img src="<%= image_path('home/questions/questions1.png') %>" width="876" height="514" /></div>
+  <div id="apDiv5">
+    <img class="content active"   src="<%= image_path('home/questions/questions1.png') %>" width="876" height="514" />
+    <img class="content disabled" src="<%= image_path('home/questions/questions2.png') %>" width="876" height="514" />
+    <img class="content disabled" src="<%= image_path('home/questions/questions3.png') %>" width="876" height="514" />
+    <img class="content disabled" src="<%= image_path('home/questions/questions4.png') %>" width="876" height="514" />
+  </div>
   <div id="apDiv6">
     <table width="800" border="0" cellspacing="21">
       <tr>
@@ -186,5 +173,13 @@
 </div>
 
 <script type="text/javascript">
-  MM_preloadImages('<%= image_path('home/rollover/rollover-comp.png') %>','<%= image_path('home/rollover/rollover-logic.png') %>','<%= image_path('home/rollover/rollover-motion.png') %>','<%= image_path('home/rollover/rollover-matter.png') %>','<%= image_path('home/rollover/rollover-life.png') %>','<%= image_path('home/rollover/rollover-creation.png') %>','<%= image_path('home/rollover/rollover-interaction.png') %>','<%= image_path('home/rollover/rollover-legacy.png') %>','<%= image_path('home/rollover/rollover-cog.png') %>');
+  MM_preloadImages("<%= image_path('home/rollover/rollover-comp.png') %>",
+                   "<%= image_path('home/rollover/rollover-logic.png') %>",
+                   "<%= image_path('home/rollover/rollover-motion.png') %>",
+                   "<%= image_path('home/rollover/rollover-matter.png') %>",
+                   "<%= image_path('home/rollover/rollover-life.png') %>",
+                   "<%= image_path('home/rollover/rollover-creation.png') %>",
+                   "<%= image_path('home/rollover/rollover-interaction.png') %>",
+                   "<%= image_path('home/rollover/rollover-legacy.png') %>",
+                   "<%= image_path('home/rollover/rollover-cog.png') %>");
 </script>
