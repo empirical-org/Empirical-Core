@@ -19,6 +19,7 @@
 //= require bootstrap-collapse
 //= require hamlcoffee
 //= require underscore
+//= require annotator-full.min
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink

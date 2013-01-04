@@ -1,0 +1,9 @@
+%h2== Showing question ##{@question.id}
+
+%dl
+  %dt Answer keywords
+  %dd= @question.answer_keywords
+  %dt Question text
+  %dd= markdown @question.question_text
+  %dt Lecture chapter
+  %dd= @question.lecture_chapter.try(:title)

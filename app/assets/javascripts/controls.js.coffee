@@ -8,6 +8,9 @@ class window.ChapterTabs extends Backbone.View
     $parent = $el.parent()
     @$('.panel').hide()
     @$(".panel.#{$parent.data('target')}").show()
+
+    if $parent.data('target') then $('.panel.annotate').annotator()
+
     @activate $el
 
   activate: ($el) ->

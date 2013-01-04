@@ -1,0 +1,27 @@
+%h2 Questions
+
+= link_to 'New question', new_cms_question_path
+
+%table.table
+  %thead
+    %tr
+      %th Id
+      %th Answer keywords
+      %th Question text
+      %th Lecture chapter
+      %th
+
+  %tbody
+    - @questions.each do |question|
+      %tr
+        %td= question.id
+        %td= question.answer_keywords
+        %td= question.question_text
+        %td
+          - if question.lecture_chapter.present?
+            = link_to question.lecture_chapter.title, cms_lecture_chapter_path(question.lecture_chapter)
+        %td
+          = link_to 'Edit', edit_cms_question_path(question)
+          = link_to 'Destroy', cms_question_path(question), confirm: 'are you sure?', method: 'delete'
+
+= paginate @questions

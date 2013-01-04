@@ -1,0 +1,4 @@
+%h2 Edit question
+
+= form_for @question, url: cms_question_path(@question), html: {class: 'form-horizontal'} do |f|
+  = render partial: 'fields', locals: { f: f }
