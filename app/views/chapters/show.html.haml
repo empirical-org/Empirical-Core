@@ -35,3 +35,13 @@
           .panel.quiz= @lecture_chapter.quiz_embed_code.to_s.html_safe
           .panel.slideshow= @lecture_chapter.slideshow_embed_code.to_s.html_safe
           .panel.globe= @lecture_chapter.globe_embed_code.to_s.html_safe
+
+          .panel.review
+            - @lecture_chapter.questions.each do |question|
+              .review-question{data: question.attributes}
+                %h4= question.question_text
+                .message
+
+                = form_for question do |f|
+                  = f.text_area :answer
+                  = f.submit :save
