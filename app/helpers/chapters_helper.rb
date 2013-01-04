@@ -22,7 +22,7 @@ module ChaptersHelper
     when 'read'       then @lecture_chapter.reading_text.present?
     when 'quiz'       then @lecture_chapter.quiz_embed_code.present?
     when 'notes'      then false
-    when 'review'     then false
+    when 'review'     then @lecture_chapter.questions.any?
     when 'lecture'    then false
     else
       true

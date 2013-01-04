@@ -43,3 +43,14 @@ content_types:
         reference_label: title
         reference_to: LectureChapter
       image_file: file
+
+  Question:
+    attributes:
+      answer_keywords: string
+      question_text: text
+      lecture_chapter:
+        format: reference
+        reference_to: LectureChapter
+        reference_label: title
+    options:
+      model: false
