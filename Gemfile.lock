@@ -70,7 +70,7 @@ GEM
     hike (1.2.1)
     honey-auth (0.0.1)
       haml
-    honey-cms (0.3.9)
+    honey-cms (0.3.11)
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.1.4)
