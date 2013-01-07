@@ -1,7 +1,12 @@
 <style type="text/css">
   <!--
+  .offset {
+    position:relative;
+    width: 876px;
+    margin: 0 auto;
+    margin-top: 70px;
+  }
   img {
-    width: auto;
     max-width: initial;
   }
   body {
@@ -56,27 +61,35 @@
   }
   #apDiv4 {
     position:absolute;
-    width:877px;
+    width:100%;
     height:115px;
     z-index:3;
-    left: 206px;
-    top: 17px;
+    left: 0px;
+    top: 10px;
   }
   #apDiv5 {
     position:absolute;
-    width:200px;
+    width:100%;
     height:115px;
     z-index:6;
-    left: 217px;
-    top: 129px;
+    left: 0px;
+    top: 226px;
   }
   #apDiv6 {
     position:absolute;
-    width:971px;
+    width:100%;
     height:221px;
     z-index:7;
-    left: 196px;
-    top: 642px;
+    left: -21px;
+    top: 737px;
+  }
+  #apDiv7 {
+    position:absolute;
+    width:100%;
+    height:90px;
+    z-index:8;
+    left: 5px;
+    top: 116px;
   }
   -->
 </style>
@@ -106,80 +119,44 @@
   //-->
 </script>
 
+<div class="offset">
 
-<div class="oneColElsCtr container" style="position: relative ; margin-top: 60px">
-
-  <a href="/courses">
-
-    <div id="apDiv1">
-      <table width="99" height="793" border="0" align="center" cellspacing="10">
-        <tr><td><img src="<%= image_path('home/icons/logic.jpg') %>" width="90" height="75" align="middle" /></td></tr>
-        <tr><td><img src="<%= image_path('home/icons/motion.jpg') %>" width="90" height="75" /></td></tr>
-        <tr><td><img src="<%= image_path('home/icons/matter.jpg') %>" width="90" height="75" /></td></tr>
-        <tr><td><img src="<%= image_path('home/icons/life.jpg') %>" width="90" height="75" /></td></tr>
-        <tr><td><img src="<%= image_path('home/icons/cog.jpg') %>" width="90" height="75" /></td></tr>
-        <tr><td><img src="<%= image_path('home/icons/cre.jpg') %>" width="90" height="75" /></td></tr>
-        <tr><td><img src="<%= image_path('home/icons/comp.jpg') %>" width="90" height="75" /></td></tr>
-        <tr><td><img src="<%= image_path('home/icons/int2.jpg') %>" width="90" height="75" /></td></tr>
-        <tr><td><img src="<%= image_path('home/icons/taj.jpg') %>" width="90" height="75" /></td></tr>
-      </table>
-    </div>
-
-    <div id="apDiv4"><img src="<%= image_path('home/inquiry-title.png') %>" width="900" height="105" align="middle" /></div>
-    <div id="apDiv3"><img src="<%= image_path('home/new-whitebar.png') %>" width="146" height="851" /></div>
-
-    <div id="apDiv5">
-      <img class="content active"   src="<%= image_path('home/questions/questions1.png') %>" width="876" height="514" />
-      <img class="content disabled" src="<%= image_path('home/questions/questions2.png') %>" width="876" height="514" />
-      <img class="content disabled" src="<%= image_path('home/questions/questions3.png') %>" width="876" height="514" />
-      <img class="content disabled" src="<%= image_path('home/questions/questions4.png') %>" width="876" height="514" />
-    </div>
-
-    <div id="apDiv6">
-      <table width="800" border="0" cellspacing="21">
-        <tr>
-          <td width="25%"><img src="<%= image_path('home/prof/freeman tag.png') %>" width="201" height="189" /></td>
-          <td width="25%"><img src="<%= image_path('home/prof/susskind tag.png') %>" width="201" height="189" /></td>
-          <td width="25%"><img src="<%= image_path('home/prof/sapolsky tag.png') %>" width="201" height="188" /></td>
-          <td width="25%"><img src="<%= image_path('home/prof/foner tag.png') %>" width="201" height="189" /></td>
-        </tr>
-      </table>
-    </div>
-
-  </a>
-
-  <div id="apDiv2">
-    <table width="99" border="0" align="center" cellpadding="2">
-      <tr>
-        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image21','','<%= image_path('home/rollover/rollover-comp.png') %>',1)"></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image17','','<%= image_path('home/rollover/rollover-logic.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image17" width="325" height="80" border="0" id="Image17" /></a></td>
-      </tr>
-      <tr>
-        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image18','','<%= image_path('home/rollover/rollover-motion.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image18" width="325" height="80" border="0" id="Image18" /><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image20','','<%= image_path('home/rollover/rollover-life.png') %>',1)"></a></td>
-      </tr>
-      <tr>
-        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image19','','<%= image_path('home/rollover/rollover-matter.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image19" width="325" height="80" border="0" id="Image19" /></a></td>
-      </tr>
-      <tr>
-        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image27','','<%= image_path('home/rollover/rollover-life.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image27" width="325" height="80" border="0" id="Image27" /></a></td>
-      </tr>
-      <tr>
-        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image26','','<%= image_path('home/rollover/rollover-cog.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image26" width="325" height="80" border="0" id="Image26" /></a></td>
-      </tr>
-      <tr>
-        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image22','','<%= image_path('home/rollover/rollover-creation.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image22" width="325" height="80" border="0" id="Image22" /></a></td>
-      </tr>
-      <tr>
-        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image23','','<%= image_path('home/rollover/rollover-comp.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image23" width="325" height="80" border="0" id="Image23" /></a></td>
-      </tr>
-      <tr>
-        <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image24','','<%= image_path('home/rollover/rollover-interaction.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image24" width="325" height="80" border="0" id="Image24" /></a></td>
-      </tr>
-      <tr>
-        <td height="86"><p><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image25','','<%= image_path('home/rollover/rollover-legacy.png') %>',1)"><img src="<%= image_path('home/rollover/rollover-blank.png') %>" name="Image25" width="325" height="80" border="0" id="Image25" /></a></p></td>
-      </tr>
-    </table>
-  </div>
+<div id="apDiv4"><img src="<%= image_path 'home/inquire-banner.png' %>" width="876" height="201" /></div>
+<div id="apDiv7">
+  <table width="874" height="53" border="0" align="center" cellspacing="5">
+    <tr>
+      <td width="89"><img src="<%= image_path 'home/icons/logic.jpg' %>" width="78" height="65" /></td>
+      <td width="89"><img src="<%= image_path 'home/icons/motion.jpg' %>" width="78" height="65" /></td>
+      <td width="89"><img src="<%= image_path 'home/icons/matter.jpg' %>" width="78" height="65" /></td>
+      <td width="89"><img src="<%= image_path 'home/icons/life.jpg' %>" width="78" height="65" /></td>
+      <td width="89"><img src="<%= image_path 'home/icons/cog.jpg' %>" width="78" height="65" /></td>
+      <td width="89"><img src="<%= image_path 'home/icons/comp.jpg' %>" width="78" height="65" /></td>
+      <td width="89"><img src="<%= image_path 'home/icons/cre.jpg' %>" width="78" height="65" /></td>
+      <td width="89"><img src="<%= image_path 'home/icons/int2.jpg' %>" width="78" height="65" /></td>
+      <td width="94"><img src="<%= image_path 'home/icons/taj.jpg' %>" width="78" height="65" /></td>
+    </tr>
+  </table>
 </div>
+
+<div id="apDiv5">
+  <img class="content active"   src="<%= image_path('home/questions/questions1.png') %>" width="876" height="514" />
+  <img class="content disabled" src="<%= image_path('home/questions/questions2.png') %>" width="876" height="514" />
+  <img class="content disabled" src="<%= image_path('home/questions/questions3.png') %>" width="876" height="514" />
+  <img class="content disabled" src="<%= image_path('home/questions/questions4.png') %>" width="876" height="514" />
+</div>
+
+<div id="apDiv6">
+  <table width="800" border="0" align="center" cellspacing="21">
+    <tr>
+      <td width="25%"><img src="<%= image_path 'home/prof/freeman tag.png' %>" width="201" height="189" /></td>
+      <td width="25%"><img src="<%= image_path 'home/prof/susskind tag.png' %>" width="201" height="189" /></td>
+      <td width="25%"><img src="<%= image_path 'home/prof/sapolsky tag.png' %>" width="201" height="188" /></td>
+      <td width="25%"><img src="<%= image_path 'home/prof/foner tag.png' %>" width="201" height="189" /></td>
+    </tr>
+  </table>
+</div>
+
+</div><!-- .offset -->
 
 <script type="text/javascript">
   MM_preloadImages("<%= image_path('home/rollover/rollover-comp.png') %>",
