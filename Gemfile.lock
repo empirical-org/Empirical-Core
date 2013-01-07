@@ -70,7 +70,8 @@ GEM
     hike (1.2.1)
     honey-auth (0.0.1)
       haml
-    honey-cms (0.3.11)
+    honey-cms (0.3.13)
+      redcarpet
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.1.4)
@@ -118,7 +119,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
-    redcarpet (2.1.1)
+    redcarpet (2.2.2)
     sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
