@@ -8,7 +8,7 @@
         .controls-wrap
           .container
             %ul.controls
-              - %w(contents read annotate slideshow images globe chart citations questions discussion quiz lecture notes review).each do |panel|
+              - %w(contents read annotate slideshow images globe chart citations discussion quiz lecture notes review).each do |panel|
                 - if display_panel?(panel)
                   %li.control{'data-target' => panel}= link_to panel, '/', class: 'active'
 
@@ -22,9 +22,8 @@
           %h2= @lecture_chapter.subtitle
           .separator
 
-        .whiteboard
+        .whiteboard#main-whiteboard
           .panel.chart= @lecture_chapter.chart_embed_code.to_s.html_safe
-          .panel.questions
           .panel.discussion= markdown @lecture_chapter.discussion_text.to_s
           .panel.annotate= markdown @lecture_chapter.annotatable_text.to_s
           .panel.citations= markdown @lecture_chapter.citation_text.to_s
@@ -43,3 +42,4 @@
                 = form_for question do |f|
                   = f.text_area :answer
                   = f.submit :save
+        .whiteboard.panel.questions

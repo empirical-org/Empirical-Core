@@ -39,7 +39,7 @@ ul.controls {
       height: inherit;
       width: 100px;
     }
-    @each $icon in annotate chart discussion globe images lecture next notes questions review citations contents slideshow read quiz {
+    @each $icon in annotate chart discussion globe images lecture next notes review citations contents slideshow read quiz {
       &[data-target="#{$icon}"] a { background: image-url('icons/#{$icon}.png') 0 0 no-repeat; }
       &[data-target="#{$icon}"] a:hover {
         background: image-url('icons/hover/#{$icon}-hover.png') 0 0 no-repeat;
