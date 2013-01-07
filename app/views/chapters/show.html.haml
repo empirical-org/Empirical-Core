@@ -17,13 +17,10 @@
 
     .container
       .main-wrap
-        %aside.video
-          %hgroup
-            %h1= @lecture_chapter.title
-            %h2= @lecture_chapter.subtitle
+        %hgroup
+          %h1= @lecture_chapter.title
+          %h2= @lecture_chapter.subtitle
           .separator
-          %p
-          = @lecture_chapter.youtube_embed_code.to_s.html_safe
 
         .whiteboard
           .panel.chart= @lecture_chapter.chart_embed_code.to_s.html_safe
@@ -35,6 +32,7 @@
           .panel.quiz= @lecture_chapter.quiz_embed_code.to_s.html_safe
           .panel.slideshow= @lecture_chapter.slideshow_embed_code.to_s.html_safe
           .panel.globe= @lecture_chapter.globe_embed_code.to_s.html_safe
+          .panel.lecture= @lecture_chapter.youtube_embed_code.to_s.html_safe
 
           .panel.review
             - @lecture_chapter.questions.each do |question|
