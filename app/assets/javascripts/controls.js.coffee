@@ -6,7 +6,7 @@ class window.ChapterTabs extends Backbone.View
     $el = $(e.target)
     if $el.data('default') then return true else e.preventDefault()
     $parent = $el.parent()
-    @$('.panel').hide()
+    @$('#main-whiteboard .panel').hide()
     @$(".panel.#{$parent.data('target')}").show()
 
     if $parent.data('target') then $('.panel.annotate').annotator()
