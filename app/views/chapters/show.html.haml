@@ -10,7 +10,7 @@
             %ul.controls
               - %w(contents read annotate slideshow images globe chart citations discussion quiz lecture notes review).each do |panel|
                 - if display_panel?(panel)
-                  %li.control{'data-target' => panel}= link_to panel, '/', class: 'active'
+                  %li.control{'data-target' => panel}= link_to panel, '/', class: (panel == 'lecture') ? 'active' : ''
 
               - if next_lecture_chapter(@lecture_chapter).present?
                 %li.control{'data-target' => 'next'}= link_to 'next', chapter_path(next_lecture_chapter(@lecture_chapter)), data: {default: true}
@@ -31,7 +31,7 @@
           .panel.quiz= @lecture_chapter.quiz_embed_code.to_s.html_safe
           .panel.slideshow= @lecture_chapter.slideshow_embed_code.to_s.html_safe
           .panel.globe= @lecture_chapter.globe_embed_code.to_s.html_safe
-          .panel.lecture= @lecture_chapter.youtube_embed_code.to_s.html_safe
+          .panel.lecture.primary= @lecture_chapter.youtube_embed_code.to_s.html_safe
 
           .panel.review
             - @lecture_chapter.questions.each do |question|
