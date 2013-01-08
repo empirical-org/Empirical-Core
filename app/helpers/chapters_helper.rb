@@ -23,7 +23,7 @@ module ChaptersHelper
     when 'quiz'       then @lecture_chapter.quiz_embed_code.present?
     when 'notes'      then false
     when 'review'     then @lecture_chapter.questions.any?
-    when 'lecture'    then false
+    when 'lecture'    then @lecture_chapter.youtube_embed_code.present?
     else
       true
     end

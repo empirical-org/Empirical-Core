@@ -44,7 +44,7 @@ ul.controls {
       &[data-target="#{$icon}"] a:hover {
         background: image-url('icons/hover/#{$icon}-hover.png') 0 0 no-repeat;
       }
-      &.#{$icon} a.active {
+      &[data-target="#{$icon}"] a.active {
         border-bottom: 10px solid black;
       }
     }
