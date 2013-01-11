@@ -11,7 +11,10 @@ body {
   border-radius: 10px;
   margin: 20px;
 
-  .panel iframe { height: 460px; }
+  .panel iframe {
+    height: 670px;
+    margin-left: 80px;
+  }
   .panel { display: none; }
   .panel.primary { display: block; }
   .panel.conversation {
