@@ -1,0 +1,4 @@
+%h2 Edit chapter group
+
+= form_for @chapter_group, url: cms_chapter_group_path(@chapter_group), html: {class: 'form-horizontal'} do |f|
+  = render partial: 'fields', locals: { f: f }
