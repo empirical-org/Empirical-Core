@@ -17,10 +17,10 @@ content_types:
 
   LectureChapter:
     attributes:
-      lecture:
+      chapter_group:
         format: reference
         reference_label: title
-        reference_to: Lecture
+        reference_to: ChapterGroup
       title: string
       subtitle: string
       position:
@@ -54,3 +54,11 @@ content_types:
         reference_label: title
     options:
       model: false
+
+  ChapterGroup:
+    attributes:
+      title: string
+      lecture:
+        format: reference
+        reference_label: title
+        reference_to: Lecture
