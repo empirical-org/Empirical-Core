@@ -20,8 +20,8 @@
       %tr
         %td= lecture_chapter.id
         %td
-          - if lecture_chapter.lecture.present?
-            = link_to lecture_chapter.lecture.title, cms_lecture_path(lecture_chapter.lecture)
+          - if lecture_chapter.chapter_group.present?
+            = link_to lecture_chapter.chapter_group.title, cms_chapter_group_path(lecture_chapter.chapter_group)
         %td= lecture_chapter.title.to_s.truncate(100)
         %td= lecture_chapter.subtitle.to_s.truncate(100)
         %td= lecture_chapter.position.to_s.truncate(100)
