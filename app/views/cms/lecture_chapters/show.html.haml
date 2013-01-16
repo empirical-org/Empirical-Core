@@ -1,8 +1,8 @@
 %h2== Showing lecture chapter ##{@lecture_chapter.id}
 
 %dl
-  %dt Lecture
-  %dd= @lecture_chapter.lecture.try(:title)
+  %dt Chapter group
+  %dd= @lecture_chapter.chapter_group.try(:title)
   %dt Title
   %dd= @lecture_chapter.title
   %dt Subtitle

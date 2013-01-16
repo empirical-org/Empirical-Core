@@ -1,7 +1,7 @@
 .control-group
-  = f.label :lecture_id, class: 'control-label'
+  = f.label :chapter_group_id, class: 'control-label'
   .controls
-    = f.select :lecture_id, CMS::Lecture.all.collect {|r| [ r.title, r.id ] }
+    = f.select :chapter_group_id, CMS::ChapterGroup.all.collect {|r| [ r.title, r.id ] }
 .control-group
   = f.label :title, class: 'control-label'
   .controls
