@@ -1,0 +1,12 @@
+%h3= @lecture_chapter.chapter_group.lecture.title
+
+%ul
+  - @lecture_chapter.chapter_group.lecture.chapter_groups.each do |group|
+    %li
+      %strong= group.title
+      - group.lecture_chapters.each do |chapter|
+        %ul
+          - if chapter == @lecture_chapter
+            %li= chapter.title
+          - else
+            %li= link_to chapter.title, chapter_path(chapter)

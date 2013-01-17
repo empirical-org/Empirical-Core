@@ -31,6 +31,7 @@
           .panel.slideshow= @lecture_chapter.slideshow_embed_code.to_s.html_safe
           .panel.globe= @lecture_chapter.globe_embed_code.to_s.html_safe
           .panel.lecture.primary= @lecture_chapter.youtube_embed_code.to_s.html_safe
+          .panel.contents= render 'contents'
 
           .panel.review
             - @lecture_chapter.questions.each do |question|

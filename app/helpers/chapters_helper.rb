@@ -1,6 +1,6 @@
 module ChaptersHelper
   def next_lecture_chapter lecture_chapter
-    scope = lecture_chapter.lecture.lecture_chapters
+    scope = lecture_chapter.chapter_group.lecture_chapters #.lecture_chapters
     index = scope.to_a.index(lecture_chapter)
 
     if (next_chapter = scope.to_a[index + 1]).present?
@@ -12,6 +12,7 @@ module ChaptersHelper
 
   def display_panel? panel
     case panel
+    when 'contents'   then @lecture_chapter.chapter_group.present?
     when 'slideshow'  then @lecture_chapter.slideshow_embed_code.present?
     when 'annotate'   then @lecture_chapter.annotatable_text.present?
     when 'images'     then @lecture_chapter.lecture_chapter_images.any?
