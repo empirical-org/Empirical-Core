@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130104172923) do
+ActiveRecord::Schema.define(:version => 20130116223733) do
+
+  create_table "chapter_groups", :force => true do |t|
+    t.string   "title"
+    t.integer  "lecture_id"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "chapter_groups", ["lecture_id"], :name => "index_chapter_groups_on_lecture_id"
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -59,8 +69,10 @@ ActiveRecord::Schema.define(:version => 20130104172923) do
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
     t.text     "discussion_text"
+    t.integer  "chapter_group_id"
   end
 
+  add_index "lecture_chapters", ["chapter_group_id"], :name => "index_lecture_chapters_on_chapter_group_id"
   add_index "lecture_chapters", ["lecture_id"], :name => "index_lecture_chapters_on_lecture_id"
 
   create_table "lectures", :force => true do |t|

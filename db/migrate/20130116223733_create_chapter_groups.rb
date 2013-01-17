@@ -3,6 +3,7 @@ class CreateChapterGroups < ActiveRecord::Migration
     create_table :chapter_groups do |t|
       t.string :title
       t.belongs_to :lecture
+      t.integer :position
       t.timestamps
     end
 
