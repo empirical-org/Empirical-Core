@@ -25,7 +25,7 @@ content_types:
       subtitle: string
       position:
         format: orderable
-        order_scope: lecture
+        order_scope: chapter_group
       youtube_embed_code: text
       citation_text: text
       reading_text: text
@@ -62,3 +62,6 @@ content_types:
         format: reference
         reference_label: title
         reference_to: Lecture
+      position:
+        format: orderable
+        order_scope: lecture
