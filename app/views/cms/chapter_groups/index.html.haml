@@ -8,6 +8,7 @@
       %th Id
       %th Title
       %th Lecture
+      %th Position
       %th
 
   %tbody
@@ -18,6 +19,7 @@
         %td
           - if chapter_group.lecture.present?
             = link_to chapter_group.lecture.title, cms_lecture_path(chapter_group.lecture)
+        %td= chapter_group.position
         %td
           = link_to 'Edit', edit_cms_chapter_group_path(chapter_group)
           = link_to 'Destroy', cms_chapter_group_path(chapter_group), confirm: 'are you sure?', method: 'delete'
