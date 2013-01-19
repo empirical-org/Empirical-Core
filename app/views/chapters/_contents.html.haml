@@ -7,6 +7,6 @@
       - group.lecture_chapters.each do |chapter|
         %ul
           - if chapter == @lecture_chapter
-            %li= chapter.title
+            %li= chapter.subtitle
           - else
             %li= link_to chapter.title, chapter_path(chapter)
