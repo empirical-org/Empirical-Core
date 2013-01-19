@@ -9,4 +9,4 @@
           - if chapter == @lecture_chapter
             %li= chapter.subtitle
           - else
-            %li= link_to chapter.title, chapter_path(chapter)
+            %li= link_to chapter.subtitle, chapter_path(chapter)
