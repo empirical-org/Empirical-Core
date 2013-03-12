@@ -32,6 +32,7 @@ GEM
       activerecord (>= 2.3.14)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    blankslate (2.1.2.4)
     bootstrap-sass (2.2.1.1)
       sass (~> 3.2)
     builder (3.0.4)
@@ -88,6 +89,8 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.19)
     multi_json (1.4.0)
+    parslet (1.5.0)
+      blankslate (~> 2.0)
     pg (0.14.1)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -156,6 +159,7 @@ DEPENDENCIES
   honey-cms
   jquery-rails
   kaminari
+  parslet
   pg
   rails (= 3.2.8)
   rails-backbone

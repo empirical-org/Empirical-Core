@@ -1,1 +1,1 @@
-class PGSite.Models.Comment extends Backbone.Model
+class PG.Models.Comment extends Backbone.Model

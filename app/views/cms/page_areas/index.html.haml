@@ -1,0 +1,25 @@
+%h2 Page areas
+
+= link_to 'New page area', new_cms_page_area_path
+
+%table.table
+  %thead
+    %tr
+      %th Id
+      %th Name
+      %th Description
+      %th Content
+      %th
+
+  %tbody
+    - @page_areas.each do |page_area|
+      %tr
+        %td= page_area.id
+        %td= page_area.name
+        %td= page_area.description
+        %td= page_area.content
+        %td
+          = link_to 'Edit', edit_cms_page_area_path(page_area)
+          = link_to 'Destroy', cms_page_area_path(page_area), confirm: 'are you sure?', method: 'delete'
+
+= paginate @page_areas

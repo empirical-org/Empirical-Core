@@ -1,5 +1,5 @@
 $(document).ready ->
-  PGSite.init()
+  PG.init()
 
   $.fn.animateHighlight = (highlightColor, duration) ->
     highlightBg = highlightColor or "#FFFF9C"

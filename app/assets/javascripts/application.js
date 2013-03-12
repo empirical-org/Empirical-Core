@@ -24,4 +24,5 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone/pg_site
+//= require jsdiff
 //= require_tree .

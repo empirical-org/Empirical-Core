@@ -4,14 +4,14 @@
 #= require_tree ./views
 #= require_tree ./collections
 
-window.PGSite =
+window.PG =
   Models: {}
   Collections: {}
   Views: {}
   Routers: {}
 
   init: ->
-    @comments = new PGSite.Collections.Comments
+    @comments = new PG.Collections.Comments
     @comments.chapterID = window.chapterID
-    @comments_view = new PGSite.Views.Comments(collection: @comments)
+    @comments_view = new PG.Views.Comments(collection: @comments)
     @comments.fetch()
