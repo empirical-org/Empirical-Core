@@ -1,0 +1,5 @@
+.edit-word{'data-id' => @id}
+  - if @get('word')
+    = @get('word')
+  - else
+    = @get('error')

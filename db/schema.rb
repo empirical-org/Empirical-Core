@@ -11,17 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130116223733) do
-
-  create_table "chapter_groups", :force => true do |t|
-    t.string   "title"
-    t.integer  "lecture_id"
-    t.integer  "position"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "chapter_groups", ["lecture_id"], :name => "index_chapter_groups_on_lecture_id"
+ActiveRecord::Schema.define(:version => 20130309011601) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -36,65 +26,34 @@ ActiveRecord::Schema.define(:version => 20130116223733) do
 
   add_index "comments", ["ancestry"], :name => "index_comments_on_ancestry"
 
-  create_table "courses", :force => true do |t|
-    t.string   "title"
-    t.string   "professor_name"
+  create_table "file_uploads", :force => true do |t|
+    t.string   "name"
+    t.string   "file"
     t.text     "description"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
-  create_table "lecture_chapter_images", :force => true do |t|
-    t.integer  "lecture_chapter_id"
-    t.string   "image_file"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  add_index "lecture_chapter_images", ["lecture_chapter_id"], :name => "index_lecture_chapter_images_on_lecture_chapter_id"
-
-  create_table "lecture_chapters", :force => true do |t|
-    t.integer  "lecture_id"
-    t.string   "title"
-    t.string   "subtitle"
-    t.integer  "position"
-    t.text     "youtube_embed_code"
-    t.text     "citation_text"
-    t.text     "reading_text"
-    t.text     "annotatable_text"
-    t.text     "chart_embed_code"
-    t.text     "globe_embed_code"
-    t.text     "quiz_embed_code"
-    t.text     "slideshow_embed_code"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-    t.text     "discussion_text"
-    t.integer  "chapter_group_id"
-  end
-
-  add_index "lecture_chapters", ["chapter_group_id"], :name => "index_lecture_chapters_on_chapter_group_id"
-  add_index "lecture_chapters", ["lecture_id"], :name => "index_lecture_chapters_on_lecture_id"
-
-  create_table "lectures", :force => true do |t|
-    t.string   "title"
-    t.string   "lecturer_name"
+  create_table "grammar_rules", :force => true do |t|
+    t.string   "identifier"
     t.text     "description"
-    t.integer  "course_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
-  add_index "lectures", ["course_id"], :name => "index_lectures_on_course_id"
-
-  create_table "questions", :force => true do |t|
-    t.string   "answer_keywords"
-    t.text     "question_text"
-    t.integer  "lecture_chapter_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+  create_table "grammar_tests", :force => true do |t|
+    t.text     "text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "questions", ["lecture_chapter_id"], :name => "index_questions_on_lecture_chapter_id"
+  create_table "page_areas", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.text     "content"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"

@@ -18,20 +18,12 @@
         .container
           = link_to root_path, class: 'brand' do
             Project Inquire
+
           %ul.nav.pull-right
             %li= link_to 'Home', root_path
             - if signed_in?
-              %li= link_to 'Courses', courses_path
-              %li= link_to 'Account', edit_account_path
               %li= link_to 'Sign out', session_path, method: :delete
             - else
               %li= link_to 'Register', new_account_path
               %li= link_to 'Login', new_session_path
-
-            - if admin? && @lecture_chapter.present?
-              %li= link_to 'Edit current chapter', edit_cms_lecture_chapter_path(@lecture_chapter)
-
-    - if content_for? :outer_content
-      = yield :outer_content
-    - else
-      .container= yield
+    .container= yield

@@ -1,0 +1,4 @@
+%h2 Edit grammar test
+
+= form_for @grammar_test, url: cms_grammar_test_path(@grammar_test), html: {class: 'form-horizontal'} do |f|
+  = render partial: 'fields', locals: { f: f }

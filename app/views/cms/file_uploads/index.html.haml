@@ -1,0 +1,26 @@
+%h2 File uploads
+
+= link_to 'New file upload', new_cms_file_upload_path
+
+%table.table
+  %thead
+    %tr
+      %th Id
+      %th Name
+      %th File
+      %th Description
+      %th
+
+  %tbody
+    - @file_uploads.each do |file_upload|
+      %tr
+        %td= file_upload.id
+        %td= file_upload.name
+        %td
+          %img{src: file_upload.file}
+        %td= file_upload.description
+        %td
+          = link_to 'Edit', edit_cms_file_upload_path(file_upload)
+          = link_to 'Destroy', cms_file_upload_path(file_upload), confirm: 'are you sure?', method: 'delete'
+
+= paginate @file_uploads

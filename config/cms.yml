@@ -1,67 +1,19 @@
 content_types:
-  Course:
+  FileUpload:
     attributes:
-      title: string
-      professor_name: string
+      name: string
+      file: file
+      description: text
+  PageArea:
+    attributes:
+      name: string
+      description: string
+      content: html
+  GrammarTest:
+    attributes:
+      text: text
+  GrammarRule:
+    attributes:
+      identifier: string
       description: text
 
-  Lecture:
-    attributes:
-      title: string
-      lecturer_name: string
-      description: text
-      course:
-        format: reference
-        reference_label: title
-        reference_to: Course
-
-  LectureChapter:
-    attributes:
-      chapter_group:
-        format: reference
-        reference_label: title
-        reference_to: ChapterGroup
-      title: string
-      subtitle: string
-      position:
-        format: orderable
-        order_scope: chapter_group
-      youtube_embed_code: text
-      citation_text: text
-      reading_text: text
-      annotatable_text: text
-      discussion_text: text
-      chart_embed_code: text
-      globe_embed_code: text
-      quiz_embed_code: text
-      slideshow_embed_code: text
-
-  LectureChapterImage:
-    attributes:
-      lecture_chapter:
-        format: reference
-        reference_label: title
-        reference_to: LectureChapter
-      image_file: file
-
-  Question:
-    attributes:
-      answer_keywords: string
-      question_text: text
-      lecture_chapter:
-        format: reference
-        reference_to: LectureChapter
-        reference_label: title
-    options:
-      model: false
-
-  ChapterGroup:
-    attributes:
-      title: string
-      lecture:
-        format: reference
-        reference_label: title
-        reference_to: Lecture
-      position:
-        format: orderable
-        order_scope: lecture

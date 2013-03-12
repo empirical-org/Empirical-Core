@@ -1,0 +1,4 @@
+%h2 New file upload
+
+= form_for @file_upload, url: cms_file_uploads_path, html: {class: 'form-horizontal'} do |f|
+  = render partial: 'fields', locals: { f: f }

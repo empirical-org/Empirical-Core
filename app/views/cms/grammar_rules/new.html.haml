@@ -1,0 +1,4 @@
+%h2 New grammar rule
+
+= form_for @grammar_rule, url: cms_grammar_rules_path, html: {class: 'form-horizontal'} do |f|
+  = render partial: 'fields', locals: { f: f }

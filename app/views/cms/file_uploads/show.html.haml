@@ -1,0 +1,9 @@
+%h2== Showing file upload ##{@file_upload.id}
+
+%dl
+  %dt Name
+  %dd= @file_upload.name
+  %dt File
+  %dd= @file_upload.file
+  %dt Description
+  %dd= markdown @file_upload.description

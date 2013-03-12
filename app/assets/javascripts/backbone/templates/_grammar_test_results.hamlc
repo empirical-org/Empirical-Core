@@ -1,0 +1,3 @@
+- _.each @results(), (chunk) =>
+  .result
+    = @errorMessage(chunk)

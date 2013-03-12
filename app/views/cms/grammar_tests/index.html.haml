@@ -1,0 +1,21 @@
+%h2 Grammar tests
+
+= link_to 'New grammar test', new_cms_grammar_test_path
+
+%table.table
+  %thead
+    %tr
+      %th Id
+      %th Text
+      %th
+
+  %tbody
+    - @grammar_tests.each do |grammar_test|
+      %tr
+        %td= grammar_test.id
+        %td= grammar_test.text
+        %td
+          = link_to 'Edit', edit_cms_grammar_test_path(grammar_test)
+          = link_to 'Destroy', cms_grammar_test_path(grammar_test), confirm: 'are you sure?', method: 'delete'
+
+= paginate @grammar_tests

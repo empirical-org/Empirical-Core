@@ -1,0 +1,11 @@
+.grammar-test {
+  border: 2px solid #555;
+  padding: 20px;
+  background-color: white;
+
+  .edit-word {
+    display: inline-block;
+    outline: none;
+    &:focus { background-color: #eee }
+  }
+}

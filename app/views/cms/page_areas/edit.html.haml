@@ -1,0 +1,4 @@
+%h2 Edit page area
+
+= form_for @page_area, url: cms_page_area_path(@page_area), html: {class: 'form-horizontal'} do |f|
+  = render partial: 'fields', locals: { f: f }
