@@ -1,11 +1,52 @@
 .grammar-test {
-  border: 2px solid #555;
-  padding: 20px;
-  background-color: white;
+  .text, .results {
+    border: 1px solid #555;
+    padding: 20px;
+    background-color: white;
+    margin-bottom: 20px;
+  }
 
-  .edit-word {
+  .results {
+    display: none;
+  }
+
+  .show-results {
+    display:inline-block;
+    margin-bottom: 20px;
+  }
+
+  .edit-word, .graded-word {
     display: inline-block;
     outline: none;
     &:focus { background-color: #eee }
+  }
+
+  .error {
+    color: $red;
+    font-weight: bold;
+  }
+
+  .correct {
+    color: $green;
+    font-weight: bold;
+  }
+
+  .progress {
+    display: table;
+    width: 100%;
+    border-left: 1px solid #555;
+    margin-bottom: 20px;
+
+    .unit {
+      display: table-cell;
+      height: 30px;
+      border: 1px solid #555;
+      border-left-width: 0;
+      background-color:#FFF;
+    }
+
+    .correct {
+      background-color: $green;
+    }
   }
 }
