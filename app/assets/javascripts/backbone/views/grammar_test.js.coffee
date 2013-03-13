@@ -4,7 +4,7 @@ class PG.Views.GrammarTest extends Backbone.View
 
   events:
     'focus  .edit-word': 'wordFocused'
-    'change .edit-word': 'wordChanged'
+    'blur .edit-word': 'wordChanged'
     'click  .show-results': 'showResults'
 
   initialize: ->
@@ -13,6 +13,7 @@ class PG.Views.GrammarTest extends Backbone.View
     @chunks = @grammarTest.chunks
     @questions = @chunks.select (c) -> c.get('answer')
     @render()
+    @updateProgress()
 
   render: ->
     @$('.text').html @template(chunks: @grammarTest.chunks)
@@ -20,18 +21,40 @@ class PG.Views.GrammarTest extends Backbone.View
     this
 
   wordFocused: (e) ->
+    # debugger
     # @currentWord = @chunks.get($(e.target).data('id'))
     # console.log @currentWord
 
   wordChanged: (e) ->
     chunk = @chunks.get($(e.target).data('id'))
-    chunk.input = $(e.target)
+    chunk.input = $(e.target).text().trim()
+    @updateProgress()
+
+  updateProgress: ->
+    @$('.progress').html ''
+
+    _.each @questions, (chunk) ->
+      if chunk.grade()
+        @$('.progress').append @$('<div class="unit">').html('&nbsp;').addClass('correct')
+      else
+        @$('.progress').append @$('<div class="unit">').html('&nbsp;')
 
   showResults: ->
-    console.log @resultsTemplate(@grammarTest)
-    @$('.results').html @resultsTemplate(@grammarTest)
+    _this = this;
 
+    @$('.edit-word')
+      .removeClass('edit-word')
+      .addClass('graded-word')
+      .each (word) ->
+        $word = $(this)
+        $word.attr 'contentEditable', false
+        chunk = _this.chunks.get($word.data('id'))
+        if chunk.grade() && chunk.inputPresent()
+          $word.addClass('correct')
+        else if not chunk.grade()
+          $word.addClass('error')
 
+    @$('.results').show().html @resultsTemplate(@grammarTest)
 
 jQuery ($) ->
   $('.grammar-test').each ->

@@ -1,4 +1,8 @@
 <div class="grammar-test" data-id="<%= grammar_test.id %>">
+  <div class="progress">
+
+  </div>
+
   <script type="text/javascript">
     grammarTests.add(<%= grammar_test.to_json.html_safe %>);
     var grammarTest = grammarTests.get(<%= grammar_test.id %>);
@@ -6,13 +10,15 @@
     <% grammar_test.chunks.each_with_index do |chunk, i| %>
       grammarTest.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>);
     <% end %>
+
+    grammarRules.reset(<%= CMS::GrammarRule.all.to_json.html_safe %>);
   </script>
 
   <div class="text">
 
   </div>
 
-  <div class="show-results">Show results</div>
+  <div class="btn show-results">Show results</div>
 
   <div class="results">
 

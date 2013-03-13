@@ -3,6 +3,7 @@ class PG.Models.Chunk extends Backbone.Model
     @word = options.word
     @error = options.error
     @answer = options.answer
+    @grammar = options.grammar
 
   grade: ->
     if @inputPresent() && @correct().toLowerCase() == @input.toLowerCase()
@@ -21,15 +22,14 @@ class PG.Models.Chunk extends Backbone.Model
   wordDif: (dir) ->
     diffString(@input || @error, @correct())
 
+  rule: ->
+    grammarRules.get(@grammar)
+
 
   # difference: (good, bad)
   #   cur = 0
   #   while good.length <= cur && good.length <= cur
   #     g = good[cur]
   #     b = bad[cur]
-
   #     if g.toLowerCase() != b.toLowerCase()
-
-
   #     cur--
-

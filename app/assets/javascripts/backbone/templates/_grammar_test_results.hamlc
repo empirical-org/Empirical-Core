@@ -1,3 +1,19 @@
-- _.each @results(), (chunk) =>
-  .result
-    = @errorMessage(chunk)
+%ol
+  - _.each @results(), (chunk) =>
+
+    %li.result
+      = console.log chunk.rule().get('description')
+      = marked chunk.rule().get('description')
+
+      %strong Your Sentence:
+      = @back(chunk)
+      .graded-word.error= chunk.input || chunk.error
+      = @front(chunk)
+
+      %br
+
+      %strong Correct Sentence:
+      = @back(chunk)
+      .graded-word.correct= chunk.correct()
+      = @front(chunk)
+
