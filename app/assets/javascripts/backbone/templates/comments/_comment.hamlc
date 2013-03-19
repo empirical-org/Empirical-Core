@@ -13,5 +13,5 @@
           - if @children?
             - for comment in @children
               - locals = comment: comment, title: comment['title'], body: comment['body'], id: comment['id'], depth: comment['depth'], children: comment['children'], parent_id: @id, reply_type: comment['reply_type']
-              != JST['backbone/templates/comments/_comment'](locals)
-          != JST['backbone/templates/comments/_new_comment'](comment_type: @depths[@depth + 1], parent_id: @id)
+              != JST['backbone/templates/comments/comment'](locals)
+          != JST['backbone/templates/comments/new_comment'](comment_type: @depths[@depth + 1], parent_id: @id)
