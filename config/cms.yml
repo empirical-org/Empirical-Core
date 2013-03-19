@@ -16,4 +16,4 @@ content_types:
     attributes:
       identifier: string
       description: text
-
+      practice_lesson: text
