@@ -1,6 +1,6 @@
 class PG.Views.GrammarTest extends Backbone.View
-  template: JST['backbone/templates/_grammar_test']
-  resultsTemplate: JST['backbone/templates/_grammar_test_results']
+  template: JST['backbone/templates/grammar_test']
+  resultsTemplate: JST['backbone/templates/grammar_test_results']
 
   events:
     'focus  .edit-word': 'wordFocused'

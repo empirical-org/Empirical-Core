@@ -5,10 +5,10 @@
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js'
+    = stylesheet_link_tag 'codemirror'
+    = javascript_include_tag 'cms'
 
-    - if admin?
-      = stylesheet_link_tag 'codemirror'
-      = javascript_include_tag 'cms'
+    / - if admin?
 
     = csrf_meta_tags
     %link{href: '/images/favicon.gif', rel: 'icon', type: 'image/ico'}
