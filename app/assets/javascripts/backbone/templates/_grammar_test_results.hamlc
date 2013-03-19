@@ -1,8 +1,7 @@
 %ol
   - _.each @results(), (chunk) =>
-
+    - if not chunk.rule() then return
     %li.result
-      = console.log chunk.rule().get('description')
       = marked chunk.rule().get('description')
 
       %strong Your Sentence:
@@ -16,4 +15,3 @@
       = @back(chunk)
       .graded-word.correct= chunk.correct()
       = @front(chunk)
-
