@@ -41,6 +41,7 @@ class PG.Views.GrammarTest extends Backbone.View
 
   showResults: ->
     _this = this;
+    lessons = []
 
     @$('.edit-word')
       .removeClass('edit-word')
@@ -53,8 +54,13 @@ class PG.Views.GrammarTest extends Backbone.View
           $word.addClass('correct')
         else if not chunk.grade()
           $word.addClass('error')
+          if chunk.grammar then lessons.push chunk.rule()
 
+    lessons = _.uniq(lessons)
+    console.log(lessons)
     @$('.results').show().html @resultsTemplate(@grammarTest)
+
+    # @$('.results a.lessons').href('/lessons?')
 
 jQuery ($) ->
   $('.grammar-test').each ->
