@@ -8,7 +8,8 @@ class PG.Views.GrammarLessons extends Backbone.View
       rule = grammarRules.get($lesson.data('id'))
 
       if rule.correct().trim() == $lesson.find('.input').val().trim()
-        alert 'correct'
+        $lesson.removeClass 'error'
+        $lesson.addClass 'success'
       else
-        alert 'incorrect'
+        $lesson.addClass 'error'
 
