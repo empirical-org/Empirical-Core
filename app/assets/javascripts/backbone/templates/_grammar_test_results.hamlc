@@ -1,3 +1,5 @@
+.show-lessons.btn Practice Lessons
+
 %ol
   - _.each @results(), (chunk) =>
     - if not chunk.rule() then return
