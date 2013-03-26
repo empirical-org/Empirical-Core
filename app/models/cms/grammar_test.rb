@@ -7,19 +7,7 @@ class CMS::GrammarTest < ActiveRecord::Base
   end
 
   def chunks
-    @chunks ||= parsed.inject([]) do |memo, val|
-      val[:before].to_s.split(/\s+/).reject(&:blank?).each do |word|
-        memo << {word: word}
-      end
-
-      memo << ::GrammarQuestion.new( val[:question].inject({}){ |m,v| m.merge(v) } )
-
-      val[:after].to_s.split(/\s+/).reject(&:blank?).each do |word|
-        memo << {word: word}
-      end
-
-      memo
-    end
+    @chunks ||= ::GrammarChunker.chunk(parsed)
   end
 
   def parsed

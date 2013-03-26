@@ -8,6 +8,7 @@
       %th Id
       %th Identifier
       %th Description
+      %th Practice lesson
       %th
 
   %tbody
@@ -16,6 +17,7 @@
         %td= grammar_rule.id
         %td= grammar_rule.identifier
         %td= grammar_rule.description
+        %td= grammar_rule.practice_lesson
         %td
           = link_to 'Edit', edit_cms_grammar_rule_path(grammar_rule)
           = link_to 'Destroy', cms_grammar_rule_path(grammar_rule), confirm: 'are you sure?', method: 'delete'

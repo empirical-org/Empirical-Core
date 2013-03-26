@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317201205) do
+ActiveRecord::Schema.define(:version => 20130319203518) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -30,16 +30,29 @@ ActiveRecord::Schema.define(:version => 20130317201205) do
     t.string   "name"
     t.string   "file"
     t.text     "description"
-    t.integer  "author_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "grammar_rules", :force => true do |t|
+    t.string   "identifier"
+    t.text     "description"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.text     "practice_lesson"
+    t.integer  "author_id"
+  end
+
+  create_table "grammar_tests", :force => true do |t|
+    t.text     "text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "page_areas", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.text     "content"
-    t.integer  "author_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

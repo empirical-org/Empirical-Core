@@ -1,5 +1,4 @@
-class PG.Collections.GrammarTests extends Backbone.Collection
-  model: PG.Models.GrammarTest
-  url: -> "/grammar_tests.json"
+class PG.Collections.GrammarRules extends Backbone.Collection
+  model: PG.Models.GrammarRule
 
-window.grammarTests = new PG.Collections.GrammarTests
+window.grammarRules = new PG.Collections.GrammarRules

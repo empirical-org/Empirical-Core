@@ -1,4 +1,4 @@
-class PG.Collections.GrammarRules extends Backbone.Collection
-  # model: PG.Models.GrammarTest
+class PG.Collections.GrammarTests extends Backbone.Collection
+  model: PG.Models.GrammarTest
 
-window.grammarRules = new PG.Collections.GrammarRules
+window.grammarTests = new PG.Collections.GrammarTests

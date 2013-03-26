@@ -1,5 +1,3 @@
 .chunks
   - for chunk in @chunks.models
     != JST['backbone/templates/chunk'](chunk)
-
-  -#!= JST['backbone/templates/comments/new_comment'](comment_type : "question", parent_id: 0)

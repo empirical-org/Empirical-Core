@@ -1,21 +1,21 @@
 .grammar-test {
-  .text, .results {
+  .text, .results, .lessons {
     border: 1px solid #555;
     padding: 20px;
     background-color: white;
     margin-bottom: 20px;
   }
 
-  .results {
+  .results, .lessons {
     display: none;
   }
 
   .show-results {
-    display:inline-block;
+    display: inline-block;
     margin-bottom: 20px;
   }
 
-  .edit-word, .graded-word {
+  .edit-word, .graded-word, .lesson-word {
     display: inline-block;
     outline: none;
     &:focus { background-color: #eee }
@@ -47,6 +47,34 @@
 
     .correct {
       background-color: $green;
+    }
+  }
+
+  .lessons {
+//     .lesson-word
+    h4 {
+      margin-top: 2em;
+    }
+
+    .chunks {
+      border: 1px dashed #aaa;
+      padding: 10px;
+      margin-bottom: 1em;
+    }
+
+    p.label {
+      margin-bottom: 5px;
+    }
+
+    textarea {
+      @include box-sizing(border-box);
+      width: 100%;
+    }
+
+    .lesson {
+      padding-bottom: 2em;
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 2em;
     }
   }
 }
