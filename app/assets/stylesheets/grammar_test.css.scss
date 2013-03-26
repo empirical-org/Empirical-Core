@@ -21,12 +21,12 @@
     &:focus { background-color: #eee }
   }
 
-  .error {
+  .graded-word.error, .lesson.error .error {
     color: $red;
     font-weight: bold;
   }
 
-  .correct {
+  .graded-word.correct {
     color: $green;
     font-weight: bold;
   }
@@ -51,7 +51,6 @@
   }
 
   .lessons {
-//     .lesson-word
     h4 {
       margin-top: 2em;
     }
@@ -75,6 +74,24 @@
       padding-bottom: 2em;
       border-bottom: 1px solid #aaa;
       margin-bottom: 2em;
+      .error, .success { display: none }
+
+      &.error {
+        .error { display: block }
+
+        .input {
+          border: 2px solid $red;
+        }
+      }
+
+      &.success {
+        .success {
+          display: block;
+          color: $green;
+        }
+
+        .form { display: none }
+      }
     }
   }
 }
