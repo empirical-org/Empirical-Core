@@ -4,4 +4,6 @@ PGSite::Application.routes.draw do
 
   root to: 'pages#home'
   get 'about' => 'pages#about'
+  get 'teachers' => 'pages#teachers'
+  get 'middle_school' => 'pages#middle_school'
 end
