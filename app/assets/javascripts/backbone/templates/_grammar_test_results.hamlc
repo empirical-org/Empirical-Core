@@ -16,4 +16,4 @@
       .graded-word.correct= chunk.correct()
       = @front(chunk)
 
-%a.lessons.btn Practice Lessons
+.show-lessons.btn Practice Lessons

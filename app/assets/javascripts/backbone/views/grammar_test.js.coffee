@@ -3,9 +3,10 @@ class PG.Views.GrammarTest extends Backbone.View
   resultsTemplate: JST['backbone/templates/grammar_test_results']
 
   events:
-    'focus  .edit-word': 'wordFocused'
-    'blur .edit-word': 'wordChanged'
-    'click  .show-results': 'showResults'
+    'focus .edit-word': 'wordFocused'
+    'blur  .edit-word': 'wordChanged'
+    'click .show-results': 'showResults'
+    'click .show-lessons': 'showLessons'
 
   initialize: ->
     # _.bindAll 'render'
@@ -41,7 +42,7 @@ class PG.Views.GrammarTest extends Backbone.View
 
   showResults: ->
     _this = this;
-    lessons = []
+    @grammarLessons = []
 
     @$('.edit-word')
       .removeClass('edit-word')
@@ -54,13 +55,20 @@ class PG.Views.GrammarTest extends Backbone.View
           $word.addClass('correct')
         else if not chunk.grade()
           $word.addClass('error')
-          if chunk.grammar then lessons.push chunk.rule()
+          if chunk.grammar then _this.grammarLessons.push chunk.rule()
 
-    lessons = _.uniq(lessons)
-    console.log(lessons)
+    @grammarLessons = _.uniq(@grammarLessons)
     @$('.results').show().html @resultsTemplate(@grammarTest)
 
     # @$('.results a.lessons').href('/lessons?')
+
+  showLessons: ->
+    @$el.children().hide()
+    $lessons = @$('.lessons')
+      .show()
+      .html JST['backbone/templates/grammar_lessons'](grammarLessons:@grammarLessons)
+    @lessons = new PG.Views.GrammarLessons el: $lessons
+
 
 jQuery ($) ->
   $('.grammar-test').each ->

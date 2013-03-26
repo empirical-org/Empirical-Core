@@ -1,0 +1,28 @@
+- _.each @grammarLessons, (rule) ->
+  - return if rule.chunks.length == 0
+
+  .lesson{'data-id': rule.id}
+    = marked rule.get('description')
+
+    .form
+      %h4 Practice Lesson:
+
+      .chunks
+        - for chunk in rule.chunks.models
+          .lesson-word{'data-id' => chunk.id}
+            - if chunk.get('answer')
+              _________
+            - else
+              = chunk.get('word')
+
+      %p.label Retype the correct sentence here:
+
+      .error There was a problem with what you entered
+      %textarea.input
+
+    .success
+      %h4 Correct!
+
+
+
+%button.btn.submit Submit
