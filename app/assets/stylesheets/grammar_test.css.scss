@@ -104,4 +104,18 @@
 .grammar-test-header, .about-page {
   border: 1px solid #555;
   margin-bottom: 20px;
+  position:relative;
+}
+
+.grammar-test-header .embed {
+  position: absolute;
+  width: 100%;
+  text-align:center;
+  top: 216px;
+
+  .inner {
+    width: 420px;
+    height: 31px;
+    display:inline-block;
+  }
 }
