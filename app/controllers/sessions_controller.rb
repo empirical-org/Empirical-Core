@@ -3,8 +3,9 @@ class SessionsController < ApplicationController
 
   def create
     if @signing_in = User.find_by_email(params[:user][:email]).try(:authenticate, params[:user][:password])
+      @user = User.find_by_email(params[:user][:email])
       sign_in @signing_in
-      redirect_to root_path
+      redirect_to profile_path
     else
       @signing_in = @signing_up = User.new
       flash[:error] = 'bad email/password combination'

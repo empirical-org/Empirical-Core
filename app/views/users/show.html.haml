@@ -1,0 +1,27 @@
+%p#notice= notice
+
+- if current_user.teacher?
+	%h2 Welcome #{current_user.name}!
+	%h3 My Students (#{link_to 'View Directory', users_path})
+	- @roster.each do |student|
+		%p= student.name
+	%p= link_to 'Invite Student', new_user_path
+	%h3 #{Workbook.first.title} Workbook:
+	- Workbook.first.chapters.each do |chapter|
+		%p #{chapter.id}: #{chapter.title} #{link_to 'View in Full', chapter} • #{link_to 'Assign', assign_path} • #{link_to 'Edit', edit_chapter_path(chapter)} • #{link_to 'Delete', chapter, :method => :delete, :data => { :confirm => 'Are you sure?' }}
+		#{link_to 'Assessment', assessment_path(chapter.assessment)} | Rules | Lessons <--- Need chapter-specific views
+		%br
+		%br
+
+	%p= link_to 'New Chapter', new_chapter_path
+- if current_user.admin?
+	%h2 Admin page
+	%h3 All users
+	- User.all.each do |user|
+		%p #{user.name}: #{user.role}
+- if !(current_user.admin?) && !(current_user.teacher?)
+	%h2 Student page
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path

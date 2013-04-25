@@ -1,0 +1,19 @@
+%h1 Listing workbooks
+
+%table
+  %tr
+    %th Title
+    %th
+    %th
+    %th
+
+  - @workbooks.each do |workbook|
+    %tr
+      %td= workbook.title
+      %td= link_to 'Show', workbook
+      %td= link_to 'Edit', edit_workbook_path(workbook)
+      %td= link_to 'Destroy', workbook, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Workbook', new_workbook_path

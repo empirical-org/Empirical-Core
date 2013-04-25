@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @workbook.title
+
+= link_to 'Edit', edit_workbook_path(@workbook)
+\|
+= link_to 'Back', workbooks_path

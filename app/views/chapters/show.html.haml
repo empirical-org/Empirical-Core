@@ -1,45 +1,24 @@
-= content_for :outer_content do
-  :javascript
-    window.chapterID = #{@lecture_chapter.try(:id).to_json}
-
-  %article.chapter-tabs
-    %header
-      .top
-        .controls-wrap
-          .container
-            %ul.controls
-              - %w(contents read annotate slideshow images globe chart citations discussion quiz lecture notes review).each do |panel|
-                - if display_panel?(panel)
-                  %li.control{'data-target' => panel}= link_to panel, '/', class: (panel == 'lecture') ? 'active' : ''
-
-              - if next_lecture_chapter(@lecture_chapter).present?
-                %li.control{'data-target' => 'next'}= link_to 'next', chapter_path(next_lecture_chapter(@lecture_chapter)), data: {default: true}
-
-    .container
-      .main-wrap
-        .whiteboard#main-whiteboard
-          %hgroup
-            %h1= @lecture_chapter.title
-            %h2= @lecture_chapter.subtitle
-            .separator
-          .panel.chart= @lecture_chapter.chart_embed_code.to_s.html_safe
-          .panel.discussion= markdown @lecture_chapter.discussion_text.to_s
-          .panel.annotate= markdown @lecture_chapter.annotatable_text.to_s
-          .panel.citations= markdown @lecture_chapter.citation_text.to_s
-          .panel.read= markdown @lecture_chapter.reading_text.to_s
-          .panel.quiz= @lecture_chapter.quiz_embed_code.to_s.html_safe
-          .panel.slideshow= @lecture_chapter.slideshow_embed_code.to_s.html_safe
-          .panel.globe= @lecture_chapter.globe_embed_code.to_s.html_safe
-          .panel.lecture.primary= @lecture_chapter.youtube_embed_code.to_s.html_safe
-          .panel.contents= render 'contents'
-
-          .panel.review
-            - @lecture_chapter.questions.each do |question|
-              .review-question{data: question.attributes}
-                %h4= question.question_text
-                .message
-
-                = form_for question do |f|
-                  = f.text_area :answer
-                  = f.submit :save
-        .whiteboard.panel.questions
+%p#notice= notice
+%h2 Chapter #{@chapter.id}: #{@chapter.title}
+= link_to 'Previous', previous_chapter_path(:current_chapter => @chapter)
+\|
+= link_to 'Next', next_chapter_path(:current_chapter => @chapter)
+\|
+= link_to 'All Chapters', chapters_path
+\|
+= link_to 'Your Homepage', profile_path
+%h3 Assessment
+- if @chapter.assessment.present?
+	%p= @chapter.assessment.body
+	%p= link_to 'Edit Assessment', edit_assessment_path(@chapter.assessment)
+- if !(@chapter.assessment.present?)
+	= link_to 'Give me an assessment', new_assessment_path
+%h3 Rules
+%p= link_to 'Add Rule', new_rule_path
+- @chapter.rules.each do |rule|
+	%h4 Rule #{rule.id}:
+	%p #{rule.body} (#{link_to 'Edit',edit_rule_path(rule)})
+	- rule.lessons.each do |lesson|
+		%h5 Lesson #{lesson.id}:
+		%p= lesson.body
+	%p= link_to 'Add Lesson', new_lesson_path
