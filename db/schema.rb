@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319203518) do
+ActiveRecord::Schema.define(:version => 20130423110945) do
+
+  create_table "assessments", :force => true do |t|
+    t.text     "title"
+    t.text     "body"
+    t.integer  "chapter_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "chapters", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "workbook_id"
+  end
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -49,12 +65,29 @@ ActiveRecord::Schema.define(:version => 20130319203518) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "lessons", :force => true do |t|
+    t.integer  "order"
+    t.text     "body"
+    t.integer  "chapter_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "rule_id"
+  end
+
   create_table "page_areas", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.text     "content"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "rules", :force => true do |t|
+    t.integer  "order"
+    t.text     "body"
+    t.integer  "chapter_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -64,13 +97,11 @@ ActiveRecord::Schema.define(:version => 20130319203518) do
     t.string   "role",            :default => "user"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.integer  "classcode"
   end
 
-  create_table "works", :force => true do |t|
-    t.string   "category"
-    t.string   "image"
-    t.integer  "position"
-    t.integer  "author_id"
+  create_table "workbooks", :force => true do |t|
+    t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

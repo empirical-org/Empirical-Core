@@ -1,0 +1,23 @@
+%h1 Listing rules
+
+%table
+  %tr
+    %th Order
+    %th Body
+    %th Chapter
+    %th
+    %th
+    %th
+
+  - @rules.each do |rule|
+    %tr
+      %td= rule.order
+      %td= rule.body
+      %td= rule.chapter_id
+      %td= link_to 'Show', rule
+      %td= link_to 'Edit', edit_rule_path(rule)
+      %td= link_to 'Destroy', rule, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Rule', new_rule_path

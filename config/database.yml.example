@@ -15,5 +15,8 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: PGSite_development
+  database: pgsite_development
+  username: postgres
+  password: 
+  host: localhost	
   pool: 5

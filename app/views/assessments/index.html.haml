@@ -1,0 +1,17 @@
+%h1 Listing assessments
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @assessments.each do |assessment|
+    %tr
+      %td= link_to assessment.title, assessment
+      %td= link_to 'Edit', edit_assessment_path(assessment)
+      %td= link_to 'Destroy', assessment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Assessment', new_assessment_path

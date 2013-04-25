@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Order:
+  = @rule.order
+%p
+  %b Body:
+  = @rule.body
+%p
+  %b Chapter:
+  = @rule.chapter_id
+
+= link_to 'Edit', edit_rule_path(@rule)
+\|
+= link_to 'Back', rules_path

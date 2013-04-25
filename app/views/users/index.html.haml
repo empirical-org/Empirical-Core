@@ -1,0 +1,28 @@
+%h1 Directory
+
+%table
+  %tr
+    %th Name
+    %th Role
+    %th Class
+    %th
+    %th
+
+  - @users.each do |user|
+    %tr
+      - if current_user.admin?
+        %td= link_to user.name, user
+      - if current_user.teacher?
+        %td= user.name
+      %td= user.role
+      %td= user.classcode
+      - if current_user.admin?
+        %td= link_to 'Edit', edit_user_path(user)
+        %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+-if current_user.admin?
+  = link_to 'Add A User', new_user_path
+-if current_user.teacher?
+  = link_to 'Invite a Student to My Class', new_user_path
