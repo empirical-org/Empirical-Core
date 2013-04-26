@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @assignment.user_id
+%p
+  %b Classcode:
+  = @assignment.classcode
+%p
+  %b Chapter:
+  = @assignment.chapter_id
+%p
+  %b Due date:
+  = @assignment.due_date
+
+= link_to 'Edit', edit_assignment_path(@assignment)
+\|
+= link_to 'Back', assignments_path

@@ -1,4 +1,7 @@
 PGSite::Application.routes.draw do
+  resources :assignments
+
+
   resources :rules
 
 
