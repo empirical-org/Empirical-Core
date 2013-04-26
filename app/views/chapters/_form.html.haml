@@ -9,11 +9,9 @@
   .field
     = f.label :title
     = f.text_area :title
-  .field
-    = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :workbook_id
-    = f.number_field :workbook_id
+
+
+  %input{:type => "hidden", :value => @workbook, :name => :workbook_id}
+
   .actions
     = f.submit 'Save'

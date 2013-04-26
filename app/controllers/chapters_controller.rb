@@ -14,6 +14,9 @@ class ChaptersController < ApplicationController
   # GET /chapters/1.json
   def show
     @chapter = Chapter.find(params[:id])
+    @assessment = @chapter.assessment
+    @rules = @chapter.rules
+    @lessons = @chapter.lessons
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,6 +28,7 @@ class ChaptersController < ApplicationController
   # GET /chapters/new.json
   def new
     @chapter = Chapter.new
+    @workbook = params[:workbook_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,10 +45,11 @@ class ChaptersController < ApplicationController
   # POST /chapters.json
   def create
     @chapter = Chapter.new(params[:chapter])
+    @chapter.workbook_id = params[:workbook_id]
 
     respond_to do |format|
       if @chapter.save
-        format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
+        format.html { redirect_to new_assessment_path(:chapter_id => @chapter.id), notice: 'Chapter was successfully created.' }
         format.json { render json: @chapter, status: :created, location: @chapter }
       else
         format.html { render action: "new" }
@@ -73,10 +78,32 @@ class ChaptersController < ApplicationController
   # DELETE /chapters/1.json
   def destroy
     @chapter = Chapter.find(params[:id])
+    @assignments = @chapter.assignments
+    if @assignments.any?
+      @assignments.each do |assignment|
+        @scores = assignment.scores
+        @scores.each do |score|
+          score.destroy
+        end
+        assignment.destroy
+      end
+    end
+    @assessment = @chapter.assessment
+    @rules = @chapter.rules
+    if @rules.any?
+      @rules.each do |rule|
+        if rule.lessons.any?
+          rule.lessons.each do |lesson|
+            lesson.destroy
+          end
+        end
+        rule.destroy
+      end
+    end
     @chapter.destroy
 
     respond_to do |format|
-      format.html { redirect_to chapters_url }
+      format.html { redirect_to profile_path }
       format.json { head :no_content }
     end
   end

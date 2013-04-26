@@ -6,17 +6,11 @@
         - @lesson.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :order
-    = f.number_field :order
-  .field
-    = f.label :rule_id
-    = f.number_field :rule_id
+  %input{:type => "hidden", :value => @rule, :name => :rule_id}
+  %input{:type => "hidden", :value => @chapter, :name => :chapter_id}
+  
   .field
     = f.label :body
     = f.text_area :body
-  .field
-    = f.label :chapter_id
-    = f.number_field :chapter_id
   .actions
     = f.submit 'Save'

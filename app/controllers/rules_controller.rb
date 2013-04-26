@@ -25,6 +25,7 @@ class RulesController < ApplicationController
   # GET /rules/new.json
   def new
     @rule = Rule.new
+    @chapter = params[:chapter_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,10 +42,11 @@ class RulesController < ApplicationController
   # POST /rules.json
   def create
     @rule = Rule.new(params[:rule])
+    @rule.chapter_id = params[:chapter_id]
 
     respond_to do |format|
       if @rule.save
-        format.html { redirect_to @rule, notice: 'Rule was successfully created.' }
+        format.html { redirect_to chapter_path(Chapter.find(params[:chapter_id])), notice: 'Rule was successfully created.' }
         format.json { render json: @rule, status: :created, location: @rule }
       else
         format.html { render action: "new" }
@@ -73,6 +75,9 @@ class RulesController < ApplicationController
   # DELETE /rules/1.json
   def destroy
     @rule = Rule.find(params[:id])
+    @rule.lessons.each do |lesson|
+      lesson.destroy
+    end
     @rule.destroy
 
     respond_to do |format|

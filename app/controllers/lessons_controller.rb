@@ -25,6 +25,8 @@ class LessonsController < ApplicationController
   # GET /lessons/new.json
   def new
     @lesson = Lesson.new
+    @chapter = params[:chapter_id]
+    @rule = params[:rule_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,10 +43,11 @@ class LessonsController < ApplicationController
   # POST /lessons.json
   def create
     @lesson = Lesson.new(params[:lesson])
+    @lesson.rule_id = params[:rule_id]
 
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
+        format.html { redirect_to chapter_path(Chapter.find(params[:chapter_id])), notice: 'Lesson was successfully created.' }
         format.json { render json: @lesson, status: :created, location: @lesson }
       else
         format.html { render action: "new" }
