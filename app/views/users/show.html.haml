@@ -3,15 +3,27 @@
 - if current_user.teacher?
 	%h2 Welcome #{current_user.name}!
 	%h3 My Students (#{link_to 'View Directory', users_path})
-	- @roster.each do |student|
-		%p= student.name
+	%table
+		%tr
+			%th Students
+			- if current_user.assignments
+				- current_user.assignments.sort!{|x,y|x.chapter_id <=> y.chapter_id}.each do |assignment|
+					%th Chapter #{assignment.chapter.id}
+		- @roster.each do |student|
+			%tr
+				%td= student.name
+				- current_user.assignments.each do |assignment|
+					- assignment.scores.each do |score|
+						- if score.user == student
+							%td #{score.items_missed} missed, #{score.lessons_completed} completed
 	%p= link_to 'Invite Student', new_user_path
+	%h3 My Assignments
+	- if current_user.assignments
+		- current_user.assignments.each do |assignment|
+			%p Chapter #{assignment.chapter.id}, due #{assignment.due_date} #{link_to 'Edit',edit_assignment_path(assignment)} • #{link_to 'Delete', assignment, :method => :delete, :data => { :confirm => 'Are you sure?'}}
 	%h3 #{Workbook.first.title} Workbook:
 	- Workbook.first.chapters.each do |chapter|
-		%p #{chapter.id}: #{chapter.title} #{link_to 'View in Full', chapter} • #{link_to 'Assign', assign_path} • #{link_to 'Edit', edit_chapter_path(chapter)} • #{link_to 'Delete', chapter, :method => :delete, :data => { :confirm => 'Are you sure?' }}
-		#{link_to 'Assessment', assessment_path(chapter.assessment)} | Rules | Lessons <--- Need chapter-specific views
-		%br
-		%br
+		%p #{chapter.id}: #{chapter.title} #{link_to 'View', chapter} • #{link_to 'Assign', new_assignment_path(:chapter_id => chapter.id, :user_id => current_user.id, :classcode => current_user.classcode)} • #{link_to 'Edit', edit_chapter_path(chapter)} • #{link_to 'Delete', chapter, :method => :delete, :data => { :confirm => 'Are you sure?' }} • #{link_to 'Assessment', assessment_path(chapter.assessment)} • Rules • Lessons
 
 	%p= link_to 'New Chapter', new_chapter_path
 - if current_user.admin?
