@@ -25,6 +25,7 @@ class AssessmentsController < ApplicationController
   # GET /assessments/new.json
   def new
     @assessment = Assessment.new
+    @chapter = params[:chapter_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,10 +42,11 @@ class AssessmentsController < ApplicationController
   # POST /assessments.json
   def create
     @assessment = Assessment.new(params[:assessment])
+    @assessment.chapter_id = params[:chapter_id]
 
     respond_to do |format|
       if @assessment.save
-        format.html { redirect_to @assessment, notice: 'Assessment was successfully created.' }
+        format.html { redirect_to chapter_path(Chapter.find(params[:chapter_id])), notice: 'Assessment was successfully created.' }
         format.json { render json: @assessment, status: :created, location: @assessment }
       else
         format.html { render action: "new" }

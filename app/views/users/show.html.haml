@@ -1,37 +1,71 @@
 %p#notice= notice
 
+-# TEACHER PAGE
 - if current_user.teacher?
 	%h2 Welcome #{current_user.name}!
 	%p Class code: #{current_user.classcode}
-	%h3 My Students (#{link_to 'View Directory', users_path})
+	%p= link_to 'Directory', users_path
+	%h3 My Students
 	%table
 		%tr
 			%th Students
 			- if current_user.assignments
 				- current_user.assignments.sort!{|x,y|x.chapter_id <=> y.chapter_id}.each do |assignment|
-					%th Chapter #{assignment.chapter.id}
+					%th #{assignment.chapter.title}
 		- @roster.each do |student|
 			%tr
 				%td= student.name
-				- current_user.assignments.each do |assignment|
-					- assignment.scores.each do |score|
-						- if score.user == student
-							%td #{score.items_missed} missed, #{score.lessons_completed} completed
+				- current_user.assignments.sort!{|x,y|x.chapter_id <=> y.chapter_id}.each do |assignment|
+					- @has_score = false
+					- student.scores.each do |score|
+						- if score.assignment == assignment
+							- @has_score = true
+							- if score.items_missed
+								%td #{score.items_missed} missed, #{score.lessons_completed} completed
+							- else
+								%td incomplete
+					- if !@has_score
+						%td
+
+
 	%p= link_to 'Invite Student', new_user_path
 	%h3 My Assignments
 	- if current_user.assignments
-		- current_user.assignments.each do |assignment|
-			%p Chapter #{assignment.chapter.id}, due #{assignment.due_date} #{link_to 'Edit',edit_assignment_path(assignment)} • #{link_to 'Delete', assignment, :method => :delete, :data => { :confirm => 'Are you sure?'}}
+		%table
+			%tr
+				%th Chapter
+				%th Due Date
+				%th
+				%th
+			- current_user.assignments.each do |assignment|
+				%tr
+					%td #{link_to assignment.chapter.title,chapter_path(assignment.chapter)}
+					%td #{assignment.due_date}
+					%td #{link_to 'Edit',edit_assignment_path(assignment)}
+					%td #{link_to 'Delete', assignment, :method => :delete, :data => { :confirm => 'Are you sure?'}}
 	%h3 #{Workbook.first.title} Workbook:
 	- Workbook.first.chapters.each do |chapter|
-		%p #{chapter.id}: #{chapter.title} #{link_to 'View', chapter} • #{link_to 'Assign', new_assignment_path(:chapter_id => chapter.id, :user_id => current_user.id, :classcode => current_user.classcode)} • #{link_to 'Edit', edit_chapter_path(chapter)} • #{link_to 'Delete', chapter, :method => :delete, :data => { :confirm => 'Are you sure?' }} • #{link_to 'Assessment', assessment_path(chapter.assessment)} • Rules • Lessons
+		%h4 #{link_to chapter.title, chapter}
+		%p #{link_to 'Assign', new_assignment_path(:chapter_id => chapter.id, :user_id => current_user.id, :classcode => current_user.classcode)} • #{link_to 'Edit', edit_chapter_path(chapter)} • #{link_to 'Delete', chapter, :method => :delete, :data => { :confirm => 'Are you sure?' }}
+		-# if chapter.assessment.present?
+			#{link_to 'Assessment', assessment_path(chapter.assessment)} • Rules • Lessons
+			%br
+			%br
+		-# else
+			#{link_to 'Add Assessment', new_assessment_path(:chapter_id => chapter.id)} • Add Rules • Add Lessons
+			%br
+			%br
 
-	%p= link_to 'New Chapter', new_chapter_path
+	%p= link_to 'New Chapter', new_chapter_path(:workbook_id => Workbook.first.id)
+
+-# ADMIN PAGE
 - if current_user.admin?
 	%h2 Admin page
 	%h3 All users
 	- User.all.each do |user|
 		%p #{user.name}: #{user.role}
+
+-# STUDENT PAGE
 - if !(current_user.admin?) && !(current_user.teacher?)
 	%h2 Welcome, #{current_user.name}!
 	%p Class code: #{current_user.classcode}
@@ -43,7 +77,7 @@
 			%th Score
 		- current_user.scores.each do |score|
 			%tr
-				%td= score.assignment.chapter.title
+				%td= link_to score.assignment.chapter.title, chapter_path(score.assignment.chapter)
 				%td= score.assignment.due_date
 				%td= score.completion_date
 				%td #{score.items_missed}, #{score.lessons_completed}

@@ -10,15 +10,23 @@
 %h3 Assessment
 - if @chapter.assessment.present?
 	%p= @chapter.assessment.body
-	%p= link_to 'Edit Assessment', edit_assessment_path(@chapter.assessment)
-- if !(@chapter.assessment.present?)
-	= link_to 'Give me an assessment', new_assessment_path
+-if current_user.teacher?
+	-if @chapter.assessment.present?
+		%p= link_to 'Edit Assessment', edit_assessment_path(@chapter.assessment)
+	- if !(@chapter.assessment.present?)
+		%p= link_to 'Give me an assessment', new_assessment_path(:chapter_id => @chapter.id)
 %h3 Rules
-%p= link_to 'Add Rule', new_rule_path
+- @rule_counter = 0
+-if current_user.teacher? || current_user.admin?
+	%p= link_to 'Add Rule', new_rule_path(:chapter_id => @chapter.id)
 - @chapter.rules.each do |rule|
-	%h4 Rule #{rule.id}:
-	%p #{rule.body} (#{link_to 'Edit',edit_rule_path(rule)})
+	- @rule_counter += 1
+	- @lesson_counter = 0
+	%h4 Rule #{@rule_counter}:
+	%p #{rule.body}
+	-if current_user.teacher? || current_user.admin?
+		#{link_to 'Edit', edit_rule_path(rule)} • #{link_to 'Delete', rule, :method => :delete, :data => { :confirm => 'Are you sure?' }} • #{link_to 'Add Lesson', new_lesson_path(:rule_id => rule.id, :chapter_id => @chapter.id)}
 	- rule.lessons.each do |lesson|
-		%h5 Lesson #{lesson.id}:
+		- @lesson_counter += 1
+		%h5 Lesson #{@lesson_counter}:
 		%p= lesson.body
-	%p= link_to 'Add Lesson', new_lesson_path
