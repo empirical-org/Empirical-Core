@@ -2,8 +2,14 @@ class SessionsController < ApplicationController
   before_filter :signed_in?, only: [:destroy]
 
   def create
+    @user = User.find_by_email(params[:user][:email])
+    if !@user.active
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password]
+      @user.active = true
+      @user.save
+    end
     if @signing_in = User.find_by_email(params[:user][:email]).try(:authenticate, params[:user][:password])
-      @user = User.find_by_email(params[:user][:email])
       sign_in @signing_in
       redirect_to profile_path
     else
