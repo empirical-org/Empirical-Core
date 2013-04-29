@@ -40,7 +40,7 @@
 			- current_user.assignments.each do |assignment|
 				%tr
 					%td #{link_to assignment.chapter.title,chapter_path(assignment.chapter)}
-					%td #{assignment.due_date}
+					%td #{assignment.due_date.strftime("%a, %b %d %Y")}
 					%td #{link_to 'Edit',edit_assignment_path(assignment)}
 					%td #{link_to 'Delete', assignment, :method => :delete, :data => { :confirm => 'Are you sure?'}}
 	%h3 #{Workbook.first.title} Workbook:
@@ -66,21 +66,49 @@
 		%p #{user.name}: #{user.role}
 
 -# STUDENT PAGE
-- if !(current_user.admin?) && !(current_user.teacher?)
+- if !(current_user.admin?) && !(current_user.teacher?) && current_user
 	%h2 Welcome, #{current_user.name}!
 	%p Class code: #{current_user.classcode}
+	%h3 Current Assignments
 	%table
 		%tr
 			%th Assignment
 			%th Due Date
-			%th Date Turned In
+			%th Completion Date
 			%th Score
 		- current_user.scores.each do |score|
-			%tr
-				%td= link_to score.assignment.chapter.title, chapter_path(score.assignment.chapter)
-				%td= score.assignment.due_date
-				%td= score.completion_date
-				%td #{score.items_missed}, #{score.lessons_completed}
+			- if score.assignment.due_date.to_i > Time.now.to_i
+				%tr
+					%td= link_to score.assignment.chapter.title, chapter_path(score.assignment.chapter)
+					%td= score.assignment.due_date.strftime("%a, %b %d %Y")
+					- if score.completion_date
+						%td= score.completion_date.strftime("%a, %b %d %Y")
+					- else
+						%td
+					- if score.items_missed
+						%td #{score.items_missed} missed, #{score.lessons_completed} completed
+					- else
+						%td incomplete
+	%h3 Past Assignments
+	%table
+		%tr
+			%th Assignment
+			%th Due Date
+			%th Completion Date
+			%th Score
+		- current_user.scores.each do |score|
+			- if Time.now.to_i > score.assignment.due_date.to_i
+				%tr
+					%td= link_to score.assignment.chapter.title, chapter_path(score.assignment.chapter)
+					%td= score.assignment.due_date.strftime("%a, %b %d %Y")
+					- if score.completion_date
+						%td= score.completion_date.strftime("%a, %b %d %Y")
+					- else
+						%td
+					- if score.items_missed
+						%td #{score.items_missed} missed, #{score.lessons_completed} completed
+					- else
+						%td incomplete
 
 
 = link_to 'Edit', edit_user_path(@user)

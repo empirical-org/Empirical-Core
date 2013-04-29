@@ -1,5 +1,5 @@
 %p#notice= notice
-%h2 Chapter #{@chapter.id}: #{@chapter.title}
+%h2 #{@chapter.title}
 = link_to 'Previous', previous_chapter_path(:current_chapter => @chapter)
 \|
 = link_to 'Next', next_chapter_path(:current_chapter => @chapter)

@@ -1,4 +1,23 @@
 class UsersController < ApplicationController
+  before_filter :require_login, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+ 
+  private
+ 
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to root_path
+    end
+  end
+ 
+  def logged_in?
+    !!current_user
+  end
+
+
+  public
+
+
   # GET /users
   # GET /users.json
   def index
@@ -47,6 +66,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    @user.after_initialize!
+    #set authenticity token, mail user
 
     respond_to do |format|
       if @user.save
@@ -87,9 +108,18 @@ class UsersController < ApplicationController
     end
   end
 
-  def assign
-    #placeholder function for 'assign this chapter', buuuut flashs and alert are not popping up
-    #flash[:error] = "This feature has not yet been written."
-    redirect_to profile_path, notice: "This feature has not yet been written."
+  def activate_email
+    user = User.find_by_email_activation_token(params[:token])
+    if user && Time.now.to_i - user.confirmable_set_at.to_i < 172800
+      user.activate! 
+      #if current_user
+      #  session.delete(current_user.id)
+      #  user.authenticate(user.password)
+      #end
+      #Trying to destroy existing session and create one for the authenticating user
+      redirect_to new_session_path, notice: "User activated, please log in."
+    else
+      redirect_to root_path, notice: "User not found or token has expired"
+    end
   end
 end

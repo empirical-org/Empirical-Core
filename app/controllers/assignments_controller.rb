@@ -93,7 +93,7 @@ class AssignmentsController < ApplicationController
     @assignment.destroy
 
     respond_to do |format|
-      format.html { redirect_to profile_path }
+      format.html { redirect_to profile_path, notice: 'Assignment was deleted.' }
       format.json { head :no_content }
     end
   end

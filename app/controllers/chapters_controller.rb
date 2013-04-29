@@ -49,7 +49,11 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       if @chapter.save
-        format.html { redirect_to new_assessment_path(:chapter_id => @chapter.id), notice: 'Chapter was successfully created.' }
+        @assessment = Assessment.new(:body => params[:assessment])
+        @assessment.chapter_id = @chapter.id
+        @assessment.save
+        #CREATE ASSESSMENT BASED ON CHAPTER'S ID
+        format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
         format.json { render json: @chapter, status: :created, location: @chapter }
       else
         format.html { render action: "new" }

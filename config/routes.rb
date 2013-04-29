@@ -29,8 +29,9 @@ PGSite::Application.routes.draw do
   get 'middle_school' => 'pages#middle_school'
   
   get 'profile' => 'users#show'
-  get 'assign' => 'users#assign'
   get 'next_chapter' => 'chapters#next'
   get 'previous_chapter' => 'chapters#previous'
+  get "users/activate_email/:token", to: "users#activate_email", as: "activate_email"
+
 
 end
