@@ -5,8 +5,7 @@ class UsersController < ApplicationController
  
   def require_login
     unless logged_in?
-      flash[:error] = "You must be logged in to access this section"
-      redirect_to root_path
+      redirect_to root_path, notice: "You must be logged in to access this page"
     end
   end
  
@@ -38,6 +37,7 @@ class UsersController < ApplicationController
       if user.role == "user" && user.classcode == current_user.classcode
         @roster.push user
       end
+    @roster.sort!{|x,y| x.name <=> y.name}
     end
 
     respond_to do |format|
@@ -112,11 +112,7 @@ class UsersController < ApplicationController
     user = User.find_by_email_activation_token(params[:token])
     if user && Time.now.to_i - user.confirmable_set_at.to_i < 172800
       user.activate! 
-      #if current_user
-      #  session.delete(current_user.id)
-      #  user.authenticate(user.password)
-      #end
-      #Trying to destroy existing session and create one for the authenticating user
+      #TEST IF SESSION ALREADY EXISTS
       redirect_to new_session_path, notice: "User activated, please log in."
     else
       redirect_to root_path, notice: "User not found or token has expired"

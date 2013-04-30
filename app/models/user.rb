@@ -13,19 +13,16 @@ class User < ActiveRecord::Base
   ROLES = %w(user admin teacher)
 
   def after_initialize!
-    #generate random password
+    #GENERATE TEMP PASSWORD (as to generate a password_digest on construction)
     o =  [('a'..'z'),('A'..'Z')].map{|i| i.to_a}.flatten
     self.password  =  (0...50).map{ o[rand(o.length)] }.join
     self.password_confirmation = password
-      #Temp password to satisfy necessary password digest
-      #Replaced by sessions controller if logging in and user.active == false
-    #generate auth token
+    #GENERATE EMAIL AUTH TOKEN and EXPIRATION DATE
     p =  [('a'..'z'),('A'..'Z')].map{|i| i.to_a}.flatten
     self.email_activation_token  =  (0...50).map{ p[rand(p.length)] }.join
-    #mail auth token link
-    #set expiration date
     self.confirmable_set_at = Time.now
     self.save
+    #SEND WELCOME MAIL
     UserMailer.welcome_email(self).deliver
   end
 
@@ -51,7 +48,7 @@ class User < ActiveRecord::Base
   end
 
   def activate!
-    #moved self.active = true to sessions controller, letting it set a password first
+    #CALLED BY USERSCONTROLLER#ACTIVATE_EMAIL after user clicks email link
     self.email_activation_token = nil
     self.save
   end
