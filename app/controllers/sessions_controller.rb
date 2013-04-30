@@ -3,6 +3,8 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by_email(params[:user][:email])
+    #LET USER CHOOSE PASSWORD THE FIRST TIME
+    #MUST OCCUR BEFORE TRYING TO AUTHENTICATE
     if !@user.active
       @user.password = params[:user][:password]
       @user.password_confirmation = params[:user][:password]
