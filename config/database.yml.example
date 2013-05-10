@@ -20,3 +20,12 @@ development:
   password: 
   host: localhost	
   pool: 5
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: pgsite_development
+  username: postgres
+  password: 
+  host: localhost	
+  pool: 5
