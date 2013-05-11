@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
 
   public
+  
 
 
   # GET /users
