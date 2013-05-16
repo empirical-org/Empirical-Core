@@ -33,5 +33,7 @@ PGSite::Application.routes.draw do
   get 'previous_chapter' => 'chapters#previous'
   get "users/activate_email/:token", to: "users#activate_email", as: "activate_email"
 
+  get 'test' => 'tests#index'
+
 
 end

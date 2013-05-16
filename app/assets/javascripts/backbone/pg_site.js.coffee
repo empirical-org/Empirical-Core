@@ -11,7 +11,9 @@ window.PG =
   Routers: {}
 
   init: ->
-    @comments = new PG.Collections.Comments
-    @comments.chapterID = window.chapterID
-    @comments_view = new PG.Views.Comments(collection: @comments)
-    @comments.fetch()
+  	###
+	    @comments = new PG.Collections.Comments
+	    @comments.chapterID = window.chapterID
+	    @comments_view = new PG.Views.Comments(collection: @comments)
+	    @comments.fetch()
+    ###

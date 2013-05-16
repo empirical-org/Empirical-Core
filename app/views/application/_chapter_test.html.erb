@@ -1,0 +1,41 @@
+<div class="test-content">
+	<div class="progress-bar"></div>
+	<div class="chapter-assessment"></div>
+	<div class="btn show-results"></div>
+	<div class="chapter-rules"></div>
+	<div class="chapter-lessons"></div>
+	<script type="text/javascript">
+
+		//declare and populate collections
+
+		var chapterAssessments = new PG.Collections.ChapterAssessments;
+		var chapterRules = new PG.Collections.ChapterRules;
+		var chapterLessons = new PG.Collections.ChapterLessons;
+
+		chapterAssessments.add(<%= @assessment.to_json.html_safe %>);
+		var chapterAssessment = chapterAssessments.get(<%= @assessment.id %>);
+		<% @assessment.chunks.each_with_index do |chunk, i| %>
+			chapterAssessment.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>);
+		<% end %>
+
+		<% @rules.each do |rule| %>
+			chapterRules.add(<%= rule.to_json.html_safe %>);
+		<% end %>
+
+		var lesson = false;
+		<% @lessons.each do |lesson| %>
+			chapterLessons.add(<%= lesson.to_json.html_safe %>); //add lesson
+			lesson = chapterLessons.get(<%= lesson.id %>);
+			<% lesson.chunks.each_with_index do |chunk, i| %>
+				lesson.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>); //add its chunks
+			<% end %>
+		<% end %>
+
+		var assessmentView = new PG.Views.ChapterAssessment({assessments: chapterAssessments, rules: chapterRules, lessons: chapterLessons});
+
+			//can access a lesson's rule by chapterRules.get(m.attributes.rule_id)
+			//where m = chapterLessons.models[x]
+			//useful for sorting lessons by their rule
+
+
+	</script>
