@@ -11,10 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429171512) do
+ActiveRecord::Schema.define(:version => 20130517024855) do
 
   create_table "assessments", :force => true do |t|
-    t.text     "title"
     t.text     "body"
     t.integer  "chapter_id"
     t.datetime "created_at", :null => false
@@ -32,7 +31,6 @@ ActiveRecord::Schema.define(:version => 20130429171512) do
 
   create_table "chapters", :force => true do |t|
     t.string   "title"
-    t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "workbook_id"
@@ -75,9 +73,7 @@ ActiveRecord::Schema.define(:version => 20130429171512) do
   end
 
   create_table "lessons", :force => true do |t|
-    t.integer  "order"
     t.text     "body"
-    t.integer  "chapter_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "rule_id"
@@ -92,11 +88,21 @@ ActiveRecord::Schema.define(:version => 20130429171512) do
   end
 
   create_table "rules", :force => true do |t|
-    t.integer  "order"
-    t.text     "body"
-    t.integer  "chapter_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.text     "title"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "category_id"
+    t.integer  "workbook_id", :default => 1
+  end
+
+  create_table "rules_misseds", :force => true do |t|
+    t.integer  "rule_id"
+    t.integer  "user_id"
+    t.integer  "assessment_id"
+    t.datetime "time_take"
+    t.boolean  "missed"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "scores", :force => true do |t|
