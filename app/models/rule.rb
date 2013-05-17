@@ -1,5 +1,5 @@
 class Rule < ActiveRecord::Base
-  attr_accessible :body, :chapter_id, :order
-  belongs_to :chapter
+  attr_accessible :title, :category_id, :workbook_id
+  belongs_to :category
   has_many :lessons
 end

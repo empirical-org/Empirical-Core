@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130517024855) do
+ActiveRecord::Schema.define(:version => 20130517025139) do
 
   create_table "assessments", :force => true do |t|
     t.text     "body"
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(:version => 20130517024855) do
     t.integer  "classcode"
     t.integer  "chapter_id"
     t.datetime "due_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "categories", :force => true do |t|
+    t.text     "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

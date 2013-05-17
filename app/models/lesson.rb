@@ -1,6 +1,5 @@
 class Lesson < ActiveRecord::Base
-  attr_accessible :body, :chapter_id, :order, :rule_id
-  belongs_to :chapter
+  attr_accessible :body, :rule_id
   belongs_to :rule
 
   def chunks
