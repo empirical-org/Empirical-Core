@@ -1,0 +1,21 @@
+.show-lessons.btn Practice Lessons
+
+%ol
+  - _.each @results(), (chunk) =>
+    - if not chunk.rule() then return
+    %li.result
+      = marked chunk.rule().get('body')
+
+      %strong Your Sentence:
+      = @back(chunk)
+      .graded-word.error= chunk.input || chunk.error
+      = @front(chunk)
+
+      %br
+
+      %strong Correct Sentence:
+      = @back(chunk)
+      .graded-word.correct= chunk.correct()
+      = @front(chunk)
+
+.show-lessons.btn Practice Lessons

@@ -23,7 +23,11 @@ class PG.Models.Chunk extends Backbone.Model
     diffString(@input || @error, @correct())
 
   rule: ->
-    grammarRules.get(@grammar)
+    @ruleId = @lesson().attributes.rule_id
+    chapterRules.get(@ruleId)
+
+  lesson: ->
+    chapterLessons.get(@grammar)
 
   # difference: (good, bad)
   #   cur = 0

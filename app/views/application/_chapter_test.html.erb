@@ -1,7 +1,8 @@
 <div class="test-content">
-	<div class="progress-bar"></div>
+	<div class="progress"></div>
 	<div class="chapter-assessment"></div>
-	<div class="btn show-results"></div>
+	<div class="btn show-results">Show Results</div>
+	<div class="results"></div>
 	<div class="chapter-rules"></div>
 	<div class="chapter-lessons"></div>
 	<script type="text/javascript">
@@ -31,11 +32,14 @@
 			<% end %>
 		<% end %>
 
-		var assessmentView = new PG.Views.ChapterAssessment({assessments: chapterAssessments, rules: chapterRules, lessons: chapterLessons});
-
 			//can access a lesson's rule by chapterRules.get(m.attributes.rule_id)
 			//where m = chapterLessons.models[x]
 			//useful for sorting lessons by their rule
+		
+		var assessmentView = new PG.Views.ChapterAssessment({assessment: chapterAssessments.models[0], rules: chapterRules, lessons: chapterLessons});
 
+		//assessmentView.render();
+
+		//Backbone.history.start();
 
 	</script>

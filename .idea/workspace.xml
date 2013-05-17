@@ -2,23 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0097696b-248d-4c4f-85dd-06402d284dca" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/wolfram.js.coffee" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/config/database.yml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/pages/home.html.erb" afterPath="$PROJECT_DIR$/app/views/pages/home.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/lesson.rb" afterPath="$PROJECT_DIR$/app/models/lesson.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/pg_site.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/pg_site.js.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment.hamlc" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment.hamlc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/application/_chapter_test.html.erb" afterPath="$PROJECT_DIR$/app/views/application/_chapter_test.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_assessment.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_assessment.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_lesson.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_lesson.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chunk.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chunk.js.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/tests_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/tests_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="empirical-grammar.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368646452035" ignored="false" />
     <file path="/chapter_assessments.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368663009134" ignored="false" />
-    <file path="/chapter_assessment.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368670203659" ignored="false" />
+    <file path="/chapter_assessment.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368744631260" ignored="false" />
     <file path="/chapter_rule.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368665591188" ignored="false" />
-    <file path="/chapter_lesson.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368667189615" ignored="false" />
+    <file path="/chapter_lesson.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368746174382" ignored="false" />
     <file path="/chapter_rules.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368665696801" ignored="false" />
-    <file path="/chapter_lessons.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368665717833" ignored="false" />
+    <file path="/chapter_lessons.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368746149961" ignored="false" />
     <file path="/_chapter_assessment.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368669925940" ignored="false" />
+    <file path="/_grammar_test.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368734787546" ignored="false" />
+    <file path="/chunk.js.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368744142790" ignored="false" />
+    <file path="/_grammar_test_results.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368744325662" ignored="false" />
+    <file path="/_grammar_lessons.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368744884315" ignored="false" />
+    <file path="/_chapter_lessons.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368745261221" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,25 +48,7 @@
       <file leaf-file-name="grammar_test.js.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/grammar_test.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="47" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_grammar_test.hamlc" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_test.hamlc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_chapter_assessment.hamlc" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment.hamlc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
+            <state line="60" column="63" selection-start="1853" selection-end="1853" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -68,7 +57,34 @@
       <file leaf-file-name="chapter_assessment.coffee" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="3" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
+            <state line="67" column="0" selection-start="2025" selection-end="2025" vertical-scroll-proportion="0.66972476">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_chapter_assessment_results.hamlc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="0" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chapter_lessons.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="32" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_chapter_lessons.hamlc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="36" selection-start="146" selection-end="146" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -92,15 +108,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_assessments.coffee" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_assessment.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_rule.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_rules.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_lessons.coffee" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_lesson.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment.hamlc" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_test.hamlc" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/views/grammar_test.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_assessment.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chunk.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/views/ChapterLessons.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_lessons.hamlc" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_lesson.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_test_results.hamlc" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee" />
       </list>
     </option>
   </component>
@@ -509,79 +532,23 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/application/_chapter_test.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_assessment.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/collections/grammar_tests.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="55" selection-start="148" selection-end="148" vertical-scroll-proportion="0.110091746">
+        <state line="4" column="2" selection-start="117" selection-end="117" vertical-scroll-proportion="0.110091746">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/grammar_test.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="4" column="0" selection-start="109" selection-end="582" vertical-scroll-proportion="0.110091746">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_rule.coffee">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment.hamlc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/grammar_rule.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="38" selection-start="230" selection-end="230" vertical-scroll-proportion="0.3027523">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_assessment.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="39" selection-start="113" selection-end="113" vertical-scroll-proportion="0.0528169">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_rules.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="26" selection-start="88" selection-end="88" vertical-scroll-proportion="0.02640845">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_assessments.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="53" selection-start="0" selection-end="104" vertical-scroll-proportion="0.02640845">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_lessons.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="32" selection-start="96" selection-end="96" vertical-scroll-proportion="0.02640845">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_lesson.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="4" selection-start="110" selection-end="110" vertical-scroll-proportion="0.079225354">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_lessons.hamlc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="2" column="45" selection-start="85" selection-end="85" vertical-scroll-proportion="0.0528169">
           <folding />
         </state>
       </provider>
@@ -593,30 +560,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_test.hamlc">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chunk.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="26" column="29" selection-start="593" selection-end="593" vertical-scroll-proportion="0.6866197">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/grammar_lessons.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="79" selection-start="562" selection-end="562" vertical-scroll-proportion="0.44894367">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/grammar_test.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="47" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0">
+        <state line="60" column="63" selection-start="1853" selection-end="1853" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment.hamlc">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/grammar_rule.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
+        <state line="7" column="2" selection-start="170" selection-end="227" vertical-scroll-proportion="0.19266056">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_lesson.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="0.19266056">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_rule.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_lessons.hamlc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="47" selection-start="586" selection-end="586" vertical-scroll-proportion="0.7130282">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="32" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="36" selection-start="146" selection-end="146" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_test_results.hamlc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="33" selection-start="0" selection-end="467" vertical-scroll-proportion="0.16513762">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="3" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
+        <state line="67" column="0" selection-start="2025" selection-end="2025" vertical-scroll-proportion="0.66972476">
           <folding />
         </state>
       </provider>

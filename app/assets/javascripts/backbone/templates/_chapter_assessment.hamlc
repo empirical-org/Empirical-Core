@@ -1,1 +1,3 @@
-%p Hi
+.chunks
+  - for chunk in @chunks.models
+    != JST['backbone/templates/chunk'](chunk)
