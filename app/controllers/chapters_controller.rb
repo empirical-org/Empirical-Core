@@ -29,6 +29,7 @@ class ChaptersController < ApplicationController
   def new
     @chapter = Chapter.new
     @workbook = params[:workbook_id]
+    @rules = Rule.all
 
     respond_to do |format|
       format.html # new.html.erb
