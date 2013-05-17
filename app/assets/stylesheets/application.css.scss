@@ -29,42 +29,9 @@ body {
 @import 'pages';
 @import 'home';
 @import 'grammar_test';
+@import 'chapters';
+@import 'rules';
 
 textarea {
   height: 100px;
 }
-
-.chapter-form {
-	width: 60%;
-	float: left;
-}
-
-.chapter-rules {
-	width: 40%;
-	float: right;
-}
-
-.chapter-rules table {
-	width: 100%;
-	border: 1px solid black;
-}
-
-.chapter-rules td {
-	border-bottom: 1px solid black;
-}
-
-.chapter-rules.name {
-	width: 75%;
-}
-
-.chapter-rules.id {
-	width: 25%;
-}
-
-
-
-
-
-
-
-

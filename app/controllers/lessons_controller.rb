@@ -25,8 +25,8 @@ class LessonsController < ApplicationController
   # GET /lessons/new.json
   def new
     @lesson = Lesson.new
-    @chapter = params[:chapter_id]
-    @rule = params[:rule_id]
+    @rule = params[:rule]
+    @rules = Rule.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,6 +37,8 @@ class LessonsController < ApplicationController
   # GET /lessons/1/edit
   def edit
     @lesson = Lesson.find(params[:id])
+    @rule = params[:rule]
+    @rules = Rule.all
   end
 
   # POST /lessons
@@ -47,7 +49,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to chapter_path(Chapter.find(params[:chapter_id])), notice: 'Lesson was successfully created.' }
+        format.html { redirect_to rules_path, notice: 'Lesson was successfully created.' }
         format.json { render json: @lesson, status: :created, location: @lesson }
       else
         format.html { render action: "new" }
@@ -60,10 +62,12 @@ class LessonsController < ApplicationController
   # PUT /lessons/1.json
   def update
     @lesson = Lesson.find(params[:id])
+    @lesson.body = params[:lesson][:body]
+    @lesson.rule_id = params[:rule_id]
 
     respond_to do |format|
-      if @lesson.update_attributes(params[:lesson])
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+      if @lesson.save
+        format.html { redirect_to rules_path, notice: 'Lesson was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -79,7 +83,7 @@ class LessonsController < ApplicationController
     @lesson.destroy
 
     respond_to do |format|
-      format.html { redirect_to lessons_url }
+      format.html { redirect_to rules_path, notice: 'Lesson was deleted.' }
       format.json { head :no_content }
     end
   end

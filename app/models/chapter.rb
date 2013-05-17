@@ -3,4 +3,5 @@ class Chapter < ActiveRecord::Base
    has_one :assessment
    has_many :assignments
    belongs_to :workbook
+   validates :title, presence: true
 end

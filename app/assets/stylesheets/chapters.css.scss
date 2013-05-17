@@ -1,3 +1,54 @@
 // Place all the styles related to the Chapters controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.chapter-view {
+	width: 60%;
+	float: left;
+}
+
+.chapter-view table {
+	width: 100%;
+	border-bottom: 1px solid black;
+	text-align: center;
+}
+
+.chapter-view td.prev, td.next, td.all {
+	width: 20%;
+}
+
+.chapter-view td.middle {
+	width: 40%;
+}
+
+.chapter-view.assessment {
+	width: 100%;
+}
+
+.chapter-rules {
+	width: 40%;
+	float: right;
+}
+
+.chapter-rules table {
+	width: 100%;
+	border: 1px solid black;
+}
+
+.chapter-rules td {
+	border-bottom: 1px solid black;
+}
+
+.chapter-rules.name {
+	width: 75%;
+}
+
+.chapter-rules.id {
+	width: 25%;
+}
+
+.chapter-rules #temp1 {
+	width: 100%;
+	height: 300px;
+	background-image: url('http://www.placecage.com/257/300');
+}

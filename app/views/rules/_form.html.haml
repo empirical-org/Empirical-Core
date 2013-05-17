@@ -1,3 +1,4 @@
+%p#notice= notice
 = form_for @rule do |f|
   - if @rule.errors.any?
     #error_explanation
@@ -6,10 +7,17 @@
         - @rule.errors.full_messages.each do |msg|
           %li= msg
 
-  %input{:type=>"hidden", :value=>@chapter, :name=>:chapter_id}
   .field
-    = f.label :body
-    = f.text_area :body
+    = f.label :title
+    = f.text_field :title
+
+  .field
+    = f.label :category_id, :value => "Category"
+    = select_tag "category_id", options_from_collection_for_select(@categories, "id", "title", :selected => @category)
+
+  .field
+    = f.label :workbook_id, :value => "Workbook"
+    = select_tag "workbook_id", options_from_collection_for_select(@workbooks, "id", "title", :selected => @workbook)
 
   .actions
     = f.submit 'Save'

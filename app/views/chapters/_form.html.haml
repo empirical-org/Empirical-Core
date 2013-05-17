@@ -1,4 +1,4 @@
-.chapter-form
+.chapter-view.form
   = form_for @chapter do |f|
     - if @chapter.errors.any?
       #error_explanation
@@ -14,19 +14,27 @@
     %br
     .field
       = f.label :assessment, "Assessment:"
-      = f.text_area :assessment, :value => "Please enter some text."
+      = f.text_area :assessment, :value => @assessment
 
-    %input{:type => "hidden", :value => @workbook, :name => :workbook_id}
+    %p= "Ex: They had {+they're-their|19} fun."
+
+    .field
+      = f.label :workbook_id, :value => "Workbook:"
+      = select_tag "workbook_id", options_from_collection_for_select(@workbooks, "id", "title", :selected => @workbook)
 
     .actions
       = f.submit 'Save'
 .chapter-rules
-  %div Rules Reference Guide
+  .header Rules Reference Guide
   %table
     %tr
       %th
       %th
-    - @rules.each do |rule|
+    - @categories.each do |category|
       %tr
-        %td.name= " • #{rule.created_at.to_i}"
-        %td.id= "\{\|#{rule.id}\}"
+        %td.name= category.title
+        %td.id
+      - category.rules.each do |rule|
+        %tr
+          %td.name= " • #{rule.title}"
+          %td.id= "\{\|#{rule.id}\}"

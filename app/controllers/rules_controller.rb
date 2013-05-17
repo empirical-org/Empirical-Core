@@ -2,7 +2,7 @@ class RulesController < ApplicationController
   # GET /rules
   # GET /rules.json
   def index
-    @rules = Rule.all
+    @categories = Category.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +25,9 @@ class RulesController < ApplicationController
   # GET /rules/new.json
   def new
     @rule = Rule.new
-    @chapter = params[:chapter_id]
+    @category = params[:category]
+    @categories = Category.all
+    @workbooks = Workbook.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,17 +38,22 @@ class RulesController < ApplicationController
   # GET /rules/1/edit
   def edit
     @rule = Rule.find(params[:id])
+    @category = params[:category]
+    @categories = Category.all
+    @workbooks = Workbook.all
+    @workbook = @rule.workbook
   end
 
   # POST /rules
   # POST /rules.json
   def create
     @rule = Rule.new(params[:rule])
-    @rule.chapter_id = params[:chapter_id]
+    @rule.category_id = params[:category_id]
+    @rule.workbook_id = params[:workbook_id]
 
     respond_to do |format|
       if @rule.save
-        format.html { redirect_to chapter_path(Chapter.find(params[:chapter_id])), notice: 'Rule was successfully created.' }
+        format.html { redirect_to new_rule_path, notice: 'Rule created.  Make another?' }
         format.json { render json: @rule, status: :created, location: @rule }
       else
         format.html { render action: "new" }
@@ -59,10 +66,12 @@ class RulesController < ApplicationController
   # PUT /rules/1.json
   def update
     @rule = Rule.find(params[:id])
+    @rule.category_id = params[:category_id]
+    @rule.workbook_id = params[:workbook_id]
 
     respond_to do |format|
-      if @rule.update_attributes(params[:rule])
-        format.html { redirect_to @rule, notice: 'Rule was successfully updated.' }
+      if @rule.save
+        format.html { redirect_to rules_path, notice: 'Rule was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -60,6 +60,10 @@
 
 -# ADMIN PAGE
 - if current_user.admin?
+	%h3 Admin splash page
+	%p= link_to 'Chapter Manager', chapters_path
+	%p= link_to 'Rules Manager', rules_path
+-#
 	%h2 Admin page
 	%h3 All users
 	- User.all.each do |user|
@@ -109,8 +113,3 @@
 						%td #{score.items_missed} missed, #{score.lessons_completed} completed
 					- else
 						%td incomplete
-
-
-= link_to 'Edit', edit_user_path(@user)
-\|
-= link_to 'Back', users_path

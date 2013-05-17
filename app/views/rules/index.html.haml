@@ -1,23 +1,59 @@
-%h1 Listing rules
+%p#notice= notice
+- if current_user.admin?
+  .new-category= #should be link to new category
+  .category-container
+    - @categories.each do |category|
+      %br
+      %br
+      %table
+        %tr
+          %th.title= category.title
+          %th.add= link_to image_tag('newrule.png'), new_rule_path(:category => category) #can pass workbook here, too
+          %th.destroy= link_to image_tag('delete.png'), category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %th.edit= link_to image_tag('edit.png'), edit_category_path(category)
+        - category.rules.each do |rule|
+          %tr
+            %td.title= "#{rule.title} \{\|#{rule.id}\}"
+            %td.add= link_to image_tag('newlesson.png'), new_lesson_path(:rule => rule)
+            %td.destroy= link_to image_tag('delete.png'), rule, :method => :delete, :data => { :confirm => 'Are you sure?' }
+            %td.edit
+              = link_to image_tag('edit.png'), edit_rule_path(rule, :category => category)
+          - rule.lessons.each do |lesson|
+            %tr
+              %td.title.lesson= lesson.body
+              %td.add
+              %td.destroy= link_to image_tag('delete.png'), lesson, :method => :delete, :data => { :confirm => 'Are you sure?' }
+              %td.edit= link_to image_tag('edit.png'), edit_lesson_path(lesson, :rule => rule)
 
-%table
-  %tr
-    %th Order
-    %th Body
-    %th Chapter
-    %th
-    %th
-    %th
+- if current_user.teacher?
+  .category-container
+    - @categories.each do |category|
+      %br
+      %br
+      %table
+        %tr
+          %th.title= category.title
+          %th.add
+          %th.destroy
+          %th.edit
+        - category.rules.each do |rule|
+          %tr
+            %td.title= "#{rule.title} \{\|#{rule.id}\}"
+            %td.add
+            %td.destroy
+            %td.edit
+          - rule.lessons.each do |lesson|
+            %tr
+              %td.title.lesson= lesson.body
+              %td.add
+              %td.destroy
+              %td.edit
 
-  - @rules.each do |rule|
-    %tr
-      %td= rule.order
-      %td= rule.body
-      %td= rule.chapter_id
-      %td= link_to 'Show', rule
-      %td= link_to 'Edit', edit_rule_path(rule)
-      %td= link_to 'Destroy', rule, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
 
-= link_to 'New Rule', new_rule_path
+
+
+
+
+
+

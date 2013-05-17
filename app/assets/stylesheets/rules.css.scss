@@ -1,3 +1,47 @@
 // Place all the styles related to the Rules controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.new-category {
+	width: 50px;
+	height: 50px;
+	background-image: url('http://www.placecage.com/50/50');
+}
+
+.category-container {
+	width: 60%;
+}
+
+.category-container table {
+	width:100%;
+}
+
+.category-container th, td {
+	border-bottom: 1px solid black;
+}
+
+.category-container th.title {
+	width:70%;
+}
+
+.category-container th.add, th.destroy, th.edit {
+	width:10%;
+}
+
+.category-container td.title {
+	width:70%;
+	border-left: 1px solid black;
+}
+
+.category-container td.add, td.destroy, td.edit {
+	width:10%;
+	text-align: center;
+}
+
+.category-container td.edit {
+	border-right: 1px solid black;
+}
+
+.category-container td.title.lesson {
+	padding-left: 15px;
+}

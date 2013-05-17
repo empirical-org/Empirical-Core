@@ -14,9 +14,9 @@ class ChaptersController < ApplicationController
   # GET /chapters/1.json
   def show
     @chapter = Chapter.find(params[:id])
-    @assessment = @chapter.assessment
-    @rules = @chapter.rules
-    @lessons = @chapter.lessons
+    #@assessment = @chapter.assessment
+    #@rules = @chapter.rules
+    #@lessons = @chapter.lessons
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,8 +28,11 @@ class ChaptersController < ApplicationController
   # GET /chapters/new.json
   def new
     @chapter = Chapter.new
+    @workbooks = Workbook.all
     @workbook = params[:workbook_id]
+    @categories = Category.all
     @rules = Rule.all
+    @assessment = "Please enter some text."
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,17 +43,22 @@ class ChaptersController < ApplicationController
   # GET /chapters/1/edit
   def edit
     @chapter = Chapter.find(params[:id])
+    @workbooks = Workbook.all
+    @workbook = @chapter.workbook.id
+    @assessment = @chapter.assessment.body
+    @categories = Category.all
+    @rules = Rule.all
   end
 
   # POST /chapters
   # POST /chapters.json
   def create
-    @chapter = Chapter.new(params[:chapter])
+    @chapter = Chapter.new(:title => params[:chapter][:title])
     @chapter.workbook_id = params[:workbook_id]
 
     respond_to do |format|
       if @chapter.save
-        @assessment = Assessment.new(:body => params[:assessment])
+        @assessment = Assessment.new(:body => params[:chapter][:assessment])
         @assessment.chapter_id = @chapter.id
         @assessment.save
         #CREATE ASSESSMENT BASED ON CHAPTER'S ID
@@ -67,9 +75,12 @@ class ChaptersController < ApplicationController
   # PUT /chapters/1.json
   def update
     @chapter = Chapter.find(params[:id])
+    @assessment = @chapter.assessment
+    @chapter.title = params[:chapter][:title]
+    @assessment.body = params[:chapter][:assessment]
 
     respond_to do |format|
-      if @chapter.update_attributes(params[:chapter])
+      if @chapter.save && @assessment.save
         format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
         format.json { head :no_content }
       else
