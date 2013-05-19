@@ -1,10 +1,10 @@
-<div class="test-content">
+<div class="grammar-test">
 	<div class="progress"></div>
-	<div class="chapter-assessment"></div>
+	<div class="text"></div>
 	<div class="btn show-results">Show Results</div>
 	<div class="results"></div>
-	<div class="chapter-rules"></div>
-	<div class="chapter-lessons"></div>
+	<div class="rules"></div>
+	<div class="lessons"></div>
 	<script type="text/javascript">
 
 		//declare and populate collections
@@ -13,24 +13,32 @@
 		var chapterRules = new PG.Collections.ChapterRules;
 		var chapterLessons = new PG.Collections.ChapterLessons;
 
+		var chapterRule = false;
+		var chapterLesson = false;
+
 		chapterAssessments.add(<%= @assessment.to_json.html_safe %>);
 		var chapterAssessment = chapterAssessments.get(<%= @assessment.id %>);
 		<% @assessment.chunks.each_with_index do |chunk, i| %>
+			<% if defined?(chunk.grammar) %>
+				<% rule = Rule.find(chunk.grammar) %>
+				chapterRules.add(<%= rule.to_json.html_safe %>);
+				chapterRule = chapterRules.get(<%= rule.id %>);
+				console.log(chapterRule);
+				<% rule.lessons.each do |lesson| %>
+					chapterRule.lessons.add(<%= lesson.to_json.html_safe %>);
+					chapterLesson = chapterRule.lessons.get(<%= lesson.id %>);
+					<% lesson.chunks.each_with_index do |chunk, i| %>
+						chapterLesson.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>);
+					<% end %> //added lesson chunks to lesson model
+					chapterLessons.add(chapterLesson);
+					console.log(chapterLesson);
+				<% end %> //added lesson to rule model
+			<% end %> //added rule to chapterassessment model's chunk
 			chapterAssessment.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>);
 		<% end %>
+		console.log(chapterAssessment);
 
-		<% @rules.each do |rule| %>
-			chapterRules.add(<%= rule.to_json.html_safe %>);
-		<% end %>
-
-		var lesson = false;
-		<% @lessons.each do |lesson| %>
-			chapterLessons.add(<%= lesson.to_json.html_safe %>); //add lesson
-			lesson = chapterLessons.get(<%= lesson.id %>);
-			<% lesson.chunks.each_with_index do |chunk, i| %>
-				lesson.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>); //add its chunks
-			<% end %>
-		<% end %>
+		
 
 			//can access a lesson's rule by chapterRules.get(m.attributes.rule_id)
 			//where m = chapterLessons.models[x]

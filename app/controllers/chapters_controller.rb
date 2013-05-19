@@ -14,9 +14,6 @@ class ChaptersController < ApplicationController
   # GET /chapters/1.json
   def show
     @chapter = Chapter.find(params[:id])
-    #@assessment = @chapter.assessment
-    #@rules = @chapter.rules
-    #@lessons = @chapter.lessons
 
     respond_to do |format|
       format.html # show.html.erb
@@ -104,22 +101,10 @@ class ChaptersController < ApplicationController
         assignment.destroy
       end
     end
-    @assessment = @chapter.assessment
-    @rules = @chapter.rules
-    if @rules.any?
-      @rules.each do |rule|
-        if rule.lessons.any?
-          rule.lessons.each do |lesson|
-            lesson.destroy
-          end
-        end
-        rule.destroy
-      end
-    end
     @chapter.destroy
 
     respond_to do |format|
-      format.html { redirect_to profile_path }
+      format.html { redirect_to chapters_path }
       format.json { head :no_content }
     end
   end

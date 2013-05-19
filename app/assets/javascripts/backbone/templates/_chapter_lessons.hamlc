@@ -1,14 +1,14 @@
-- _.each @missedLessons, (lesson) ->
-  - return if lesson.chunks.length == 0
+- _.each @missedRules, (rule) ->
+  - return if rule.lessons.models[0].chunks.length == 0
 
-  .lesson{'data-id': lesson.id}
-    = marked lesson.rule().get('body')
+  .lesson{'data-id': rule.lessons.models[0].id}
+    = marked rule.get('title')
 
     .form
       %h4 Practice Lesson:
 
       .chunks
-        - for chunk in lesson.chunks.models
+        - for chunk in rule.lessons.models[0].chunks.models
           .lesson-word{'data-id' => chunk.id}
             - if chunk.get('answer')
               _________

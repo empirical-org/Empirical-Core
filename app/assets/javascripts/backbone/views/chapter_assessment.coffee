@@ -9,7 +9,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
     'click .show-lessons': 'showLessons'
 
   initialize: (options) ->
-    @$el = $('.test-content')
+    @$el = $('.grammar-test')
     @assessment = options.assessment
     @chunks = @assessment.chunks
     @questions = @chunks.select (c) -> c.get('answer')
@@ -19,7 +19,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
     @updateProgress()
 
   render: ->
-    @$('.chapter-assessment').html @template(chunks: @assessment.chunks)
+    @$('.text').html @template(chunks: @assessment.chunks)
     @$('.edit-word').attr 'contentEditable', true
     this
 
@@ -47,7 +47,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
 
   showResults: ->
     _this = this;
-    @missedLessons = []
+    @missedRules = []
 
     @$('.edit-word')
       .removeClass('edit-word')
@@ -60,15 +60,15 @@ class PG.Views.ChapterAssessment extends Backbone.View
           $word.addClass('correct')
         else if not chunk.grade()
           $word.addClass('error')
-          if chunk.grammar then _this.missedLessons.push chunk.lesson()
+          if chunk.grammar then _this.missedRules.push chunk.rule()
 
-    @missedLessons = _.uniq(@missedLessons)
+    @missedRules = _.uniq(@missedRules)
     @$('.results').show().html @resultsTemplate(@assessment)
-    #@missedLessons.length IS AN IMPORTANT NUMBER
+    #@missedRules.length IS AN IMPORTANT NUMBER
 
   showLessons: ->
-    $('.test-content').children().hide()
-    $lessons = $('.chapter-lessons')
+    $('.grammar-test').children().hide()
+    $lessons = $('.lessons')
       .show()
-      .html JST['backbone/templates/chapter_lessons'](missedLessons:@missedLessons)
+      .html JST['backbone/templates/chapter_lessons'](missedRules:@missedRules)
     @lessonsView = new PG.Views.ChapterLessons el: $lessons

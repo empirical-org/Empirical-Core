@@ -4,7 +4,7 @@
   - _.each @results(), (chunk) =>
     - if not chunk.rule() then return
     %li.result
-      = marked chunk.rule().get('body')
+      = marked chunk.rule().get('title')
 
       %strong Your Sentence:
       = @back(chunk)
