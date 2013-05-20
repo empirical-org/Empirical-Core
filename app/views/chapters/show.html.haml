@@ -1,11 +1,11 @@
 %p#notice= notice
 
 .chapter-view
-	%table
+	%table.table
 		%tr
-			%td.prev= link_to 'Previous', previous_chapter_path(:current_chapter => @chapter)
+			-#%td.prev= link_to 'Previous', previous_chapter_path(:current_chapter => @chapter)
 			%td.title= @chapter.title
-			%td.next= link_to 'Next', next_chapter_path(:current_chapter => @chapter)
+			-#%td.next= link_to 'Next', next_chapter_path(:current_chapter => @chapter)
 			%td.all= link_to 'All', chapters_path
 	-if current_user.admin?
 		=link_to 'Edit', edit_chapter_path(@chapter)
@@ -14,7 +14,7 @@
 	%br
 
 	.assessment= @chapter.assessment.body
-
-.chapter-rules
-	.header Rules Present
-	#temp1
+-#
+	.chapter-rules
+		.header Rules Present
+		#temp1

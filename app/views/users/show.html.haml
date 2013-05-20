@@ -6,7 +6,7 @@
 	%p Class code: #{current_user.classcode}
 	%p= link_to 'Directory', users_path
 	%h3 My Students
-	%table
+	%table.table
 		%tr
 			%th Students
 			- if current_user.assignments
@@ -31,7 +31,7 @@
 	%p= link_to 'Invite Student', new_user_path
 	%h3 My Assignments
 	- if current_user.assignments
-		%table
+		%table.table
 			%tr
 				%th Chapter
 				%th Due Date
@@ -41,40 +41,39 @@
 				%tr
 					%td #{link_to assignment.chapter.title,chapter_path(assignment.chapter)}
 					%td #{assignment.due_date.strftime("%a, %b %d %Y")}
-					%td #{link_to 'Edit',edit_assignment_path(assignment)}
-					%td #{link_to 'Delete', assignment, :method => :delete, :data => { :confirm => 'Are you sure?'}}
-	%h3 #{Workbook.first.title} Workbook:
-	- Workbook.first.chapters.each do |chapter|
-		%h4 #{link_to chapter.title, chapter}
-		%p #{link_to 'Assign', new_assignment_path(:chapter_id => chapter.id, :user_id => current_user.id, :classcode => current_user.classcode)} • #{link_to 'Edit', edit_chapter_path(chapter)} • #{link_to 'Delete', chapter, :method => :delete, :data => { :confirm => 'Are you sure?' }}
-		-# if chapter.assessment.present?
-			#{link_to 'Assessment', assessment_path(chapter.assessment)} • Rules • Lessons
-			%br
-			%br
-		-# else
-			#{link_to 'Add Assessment', new_assessment_path(:chapter_id => chapter.id)} • Add Rules • Add Lessons
-			%br
-			%br
+					%td #{link_to 'Change Due Date',edit_assignment_path(assignment)}
+					%td #{link_to 'Remove Assignment', assignment, :method => :delete, :data => { :confirm => 'Are you sure?'}}
 
-	%p= link_to 'New Chapter', new_chapter_path(:workbook_id => Workbook.first.id)
+	%h3= "#{Workbook.first.title} Workbook:"
+	%table.table
+		%tr
+			%th= "Chapter Title"
+			%th
+			%th
+		- Workbook.first.chapters.each do |chapter|
+			%tr
+				%td #{chapter.title}
+				%td #{link_to 'View', chapter}
+				%td #{link_to 'Assign', new_assignment_path(:chapter_id => chapter.id, :user_id => current_user.id, :classcode => current_user.classcode)}
 
 -# ADMIN PAGE
 - if current_user.admin?
-	%h3 Admin splash page
-	%p= link_to 'Chapter Manager', chapters_path
-	%p= link_to 'Rules Manager', rules_path
--#
-	%h2 Admin page
-	%h3 All users
-	- User.all.each do |user|
-		%p #{user.name}: #{user.role}
+	%table.table
+		%tr
+			%th= "Admin Console"
+		%tr
+			%td= link_to 'Chapter Manager', chapters_path
+		%tr
+			%td= link_to 'Rules Manager', rules_path
+		%tr
+			%td= link_to 'User Manager', users_path
 
 -# STUDENT PAGE
 - if !(current_user.admin?) && !(current_user.teacher?) && current_user
 	%h2 Welcome, #{current_user.name}!
 	%p Teacher: #{User.where(:classcode => current_user.classcode).where(:role => "teacher").first.name}
 	%h3 Current Assignments
-	%table
+	%table.table
 		%tr
 			%th Assignment
 			%th Due Date
@@ -83,7 +82,7 @@
 		- current_user.scores.each do |score|
 			- if score.assignment.due_date.to_i > Time.now.to_i
 				%tr
-					%td= link_to score.assignment.chapter.title, chapter_path(score.assignment.chapter)
+					%td= link_to score.assignment.chapter.title, test_path(:chapter_id => score.assignment.chapter.id)
 					%td= score.assignment.due_date.strftime("%a, %b %d %Y")
 					- if score.completion_date
 						%td= score.completion_date.strftime("%a, %b %d %Y")
@@ -94,7 +93,7 @@
 					- else
 						%td incomplete
 	%h3 Past Assignments
-	%table
+	%table.table
 		%tr
 			%th Assignment
 			%th Due Date
@@ -103,7 +102,7 @@
 		- current_user.scores.each do |score|
 			- if Time.now.to_i > score.assignment.due_date.to_i
 				%tr
-					%td= link_to score.assignment.chapter.title, chapter_path(score.assignment.chapter)
+					%td= score.assignment.chapter.title
 					%td= score.assignment.due_date.strftime("%a, %b %d %Y")
 					- if score.completion_date
 						%td= score.completion_date.strftime("%a, %b %d %Y")
