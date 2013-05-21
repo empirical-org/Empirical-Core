@@ -7,6 +7,11 @@ class TestsController < ApplicationController
 		else
 			@assignment_id = 0
 		end
+		if current_user
+			@user_id = current_user.id
+		else
+			@user_id = 0
+		end
 	end
 
 	def score

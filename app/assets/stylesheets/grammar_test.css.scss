@@ -97,6 +97,11 @@
 
         .form { display: none }
       }
+
+      .incorrect {
+        display: block;
+        color: $red;
+      }
     }
   }
 }
@@ -107,11 +112,15 @@
   position:relative;
 }
 
+.grammar-test-header img, .about-page img {
+  width: 100%;
+}
+
 .grammar-test-header .embed {
   position: absolute;
   width: 100%;
   text-align:center;
-  top: 216px;
+  top: 366px;
 
   .inner {
     width: 420px;

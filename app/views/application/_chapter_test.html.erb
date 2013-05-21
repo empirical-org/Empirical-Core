@@ -8,7 +8,7 @@
 
 		//declare and populate collections
 
-		var chapterScore = new PG.Models.ChapterScore({user_id: <%= current_user.id %>, assignment_id: <%= @assignment_id %>});
+		var chapterScore = new PG.Models.ChapterScore({user_id: <%= @user_id %>, assignment_id: <%= @assignment_id %>});
 
 		var chapterAssessments = new PG.Collections.ChapterAssessments;
 		var chapterRules = new PG.Collections.ChapterRules;

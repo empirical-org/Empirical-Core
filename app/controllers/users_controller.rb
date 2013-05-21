@@ -67,6 +67,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    @user.role = params[:role]
     @user.after_initialize!
     #set authenticity token, mail user
 
