@@ -1,25 +1,11 @@
 PGSite::Application.routes.draw do
   resources :categories
-
-
   resources :assignments
-
-
   resources :rules
-
-
-  resources :workbooks
-
-
+  #resources :workbooks
   resources :lessons
-
-
   resources :assessments
-
-
   resources :chapters
-
-
   resources :users
 
 
