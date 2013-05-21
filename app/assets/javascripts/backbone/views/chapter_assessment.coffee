@@ -16,7 +16,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
     @rules = options.rules
     @lessons = options.lessons
     @render()
-    @updateProgress()
+    #@updateProgress()
 
   render: ->
     @$('.text').html @template(chunks: @assessment.chunks)
@@ -31,7 +31,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
   wordChanged: (e) ->
     chunk = @chunks.get($(e.target).data('id'))
     chunk.input = $(e.target).text().trim()
-    @updateProgress()
+    #@updateProgress()
 
   testFn: ->
     console.log('click')
@@ -64,11 +64,11 @@ class PG.Views.ChapterAssessment extends Backbone.View
 
     @missedRules = _.uniq(@missedRules)
     @$('.results').show().html @resultsTemplate(@assessment)
-    #@missedRules.length IS AN IMPORTANT NUMBER
+    @percentMissed = 100 - (@missedRules.length / chapterRules.length * 100)
 
   showLessons: ->
     $('.grammar-test').children().hide()
     $lessons = $('.lessons')
       .show()
       .html JST['backbone/templates/chapter_lessons'](missedRules:@missedRules)
-    @lessonsView = new PG.Views.ChapterLessons el: $lessons
+    @lessonsView = new PG.Views.ChapterLessons(el: $lessons, percentMissed: @percentMissed)

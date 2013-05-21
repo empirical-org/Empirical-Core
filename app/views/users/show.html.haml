@@ -21,7 +21,7 @@
 						- if score.assignment == assignment
 							- @has_score = true
 							- if score.items_missed
-								%td #{score.items_missed} missed, #{score.lessons_completed} completed
+								%td Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%
 							- else
 								%td incomplete
 					- if !@has_score
@@ -80,16 +80,16 @@
 			%th Completion Date
 			%th Score
 		- current_user.scores.each do |score|
-			- if score.assignment.due_date.to_i > Time.now.to_i
+			- if score.assignment.due_date.to_i > Time.now.to_i && score.items_missed.nil?
 				%tr
-					%td= link_to score.assignment.chapter.title, test_path(:chapter_id => score.assignment.chapter.id)
+					%td= link_to score.assignment.chapter.title, test_path(:chapter_id => score.assignment.chapter.id, :assignment_id => score.assignment.id)
 					%td= score.assignment.due_date.strftime("%a, %b %d %Y")
 					- if score.completion_date
 						%td= score.completion_date.strftime("%a, %b %d %Y")
 					- else
 						%td
 					- if score.items_missed
-						%td #{score.items_missed} missed, #{score.lessons_completed} completed
+						%td Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%
 					- else
 						%td incomplete
 	%h3 Past Assignments
@@ -100,7 +100,7 @@
 			%th Completion Date
 			%th Score
 		- current_user.scores.each do |score|
-			- if Time.now.to_i > score.assignment.due_date.to_i
+			- if Time.now.to_i > score.assignment.due_date.to_i || !score.items_missed.nil?
 				%tr
 					%td= score.assignment.chapter.title
 					%td= score.assignment.due_date.strftime("%a, %b %d %Y")
@@ -109,6 +109,6 @@
 					- else
 						%td
 					- if score.items_missed
-						%td #{score.items_missed} missed, #{score.lessons_completed} completed
+						%td Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%
 					- else
 						%td incomplete

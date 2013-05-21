@@ -6,35 +6,33 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/chapters/_contents.html.haml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/chapters/_show.html.haml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/rules/show.html.haml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/application/_chapter_test.html.erb" afterPath="$PROJECT_DIR$/app/views/application/_chapter_test.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.haml" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.haml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_rule.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_rule.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/chapters_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/chapters_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chunk.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chunk.js.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/chapters/index.html.haml" afterPath="$PROJECT_DIR$/app/views/chapters/index.html.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/chapters/show.html.haml" afterPath="$PROJECT_DIR$/app/views/chapters/show.html.haml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/score.rb" afterPath="$PROJECT_DIR$/app/models/score.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/show.html.haml" afterPath="$PROJECT_DIR$/app/views/users/show.html.haml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/tests_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/tests_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="empirical-grammar.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368926705717" ignored="false" />
+    <file path="/Dummy.txt" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1369095676642" ignored="false" />
     <file path="/chapter_assessments.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368663009134" ignored="false" />
-    <file path="/chapter_assessment.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368992107287" ignored="false" />
+    <file path="/chapter_assessment.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1369169985828" ignored="false" />
     <file path="/chapter_rule.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368989205995" ignored="false" />
     <file path="/chapter_lesson.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368746174382" ignored="false" />
     <file path="/chapter_rules.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368665696801" ignored="false" />
-    <file path="/chapter_lessons.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368746149961" ignored="false" />
+    <file path="/chapter_lessons.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1369169996489" ignored="false" />
     <file path="/_chapter_assessment.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368669925940" ignored="false" />
     <file path="/_grammar_test.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368734787546" ignored="false" />
     <file path="/chunk.js.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368991356688" ignored="false" />
     <file path="/_grammar_test_results.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368744325662" ignored="false" />
     <file path="/_grammar_lessons.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368744884315" ignored="false" />
-    <file path="/_chapter_lessons.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368992370980" ignored="false" />
+    <file path="/_chapter_lessons.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1369163480326" ignored="false" />
     <file path="/_chapter_assessment_results.hamlc" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1368991281819" ignored="false" />
+    <file path="/chapter_score.coffee" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1369167408184" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,19 +52,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="chapter_rule.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_rule.coffee">
+      <file leaf-file-name="chapter_score.coffee" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_score.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="48" selection-start="116" selection-end="116" vertical-scroll-proportion="0.0">
+            <state line="5" column="26" selection-start="201" selection-end="201" vertical-scroll-proportion="0.13274336">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chapter_assessment.coffee" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="chapter_assessment.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="19" selection-start="2078" selection-end="2078" vertical-scroll-proportion="0.76106197">
+            <state line="33" column="5" selection-start="1009" selection-end="1009" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -75,7 +73,16 @@
       <file leaf-file-name="chapter_lessons.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="32" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0">
+            <state line="8" column="0" selection-start="202" selection-end="202" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_chapter_lessons.hamlc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="62" selection-start="32" selection-end="32" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -99,7 +106,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_rules.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_lessons.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment.hamlc" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_test.hamlc" />
@@ -108,12 +114,13 @@
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/views/ChapterLessons.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_lessons.hamlc" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_lesson.coffee" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_grammar_test_results.hamlc" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_rule.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chunk.js.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_score.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee" />
       </list>
     </option>
@@ -150,6 +157,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -410,7 +418,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -523,16 +530,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment.hamlc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="45" selection-start="85" selection-end="85" vertical-scroll-proportion="0.0528169" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/grammar_lessons.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="79" selection-start="562" selection-end="562" vertical-scroll-proportion="0.44894367" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/grammar_test.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state line="60" column="63" selection-start="1853" selection-end="1853" vertical-scroll-proportion="0.0">
@@ -555,9 +552,40 @@
         <state line="6" column="33" selection-start="0" selection-end="467" vertical-scroll-proportion="0.16513762" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_lessons.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chunk.hamlc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="38" selection-start="165" selection-end="165" vertical-scroll-proportion="0.15929204" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chunk.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="4" selection-start="610" selection-end="610" vertical-scroll-proportion="0.5848709">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_assessment.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="2" selection-start="117" selection-end="117" vertical-scroll-proportion="0.08671587">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_rule.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="48" selection-start="116" selection-end="116" vertical-scroll-proportion="0.0">
+        <state line="2" column="48" selection-start="116" selection-end="116" vertical-scroll-proportion="0.053097345">
           <folding />
         </state>
       </provider>
@@ -569,58 +597,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/collections/chapter_lessons.coffee">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment.hamlc">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_assessment.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="2" selection-start="117" selection-end="117" vertical-scroll-proportion="0.10619469">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chunk.hamlc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chunk.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="4" selection-start="610" selection-end="610" vertical-scroll-proportion="0.7699115">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="45" selection-start="267" selection-end="267" vertical-scroll-proportion="0.26548672">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="32" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="38" selection-start="165" selection-end="165" vertical-scroll-proportion="0.15929204">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_assessment.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="19" selection-start="2078" selection-end="2078" vertical-scroll-proportion="0.76106197">
+        <state line="33" column="5" selection-start="1009" selection-end="1009" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/views/chapter_lessons.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="202" selection-end="202" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="62" selection-start="32" selection-end="32" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/models/chapter_score.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="26" selection-start="201" selection-end="201" vertical-scroll-proportion="0.13274336">
           <folding />
         </state>
       </provider>

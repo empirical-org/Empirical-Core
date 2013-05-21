@@ -37,6 +37,7 @@ PGSite::Application.routes.draw do
   get "users/activate_email/:token", to: "users#activate_email", as: "activate_email"
 
   get 'test' => 'tests#index'
+  post 'score' => 'tests#score'
 
 
 end

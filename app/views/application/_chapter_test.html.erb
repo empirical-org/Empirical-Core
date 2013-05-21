@@ -1,5 +1,4 @@
 <div class="grammar-test">
-	<div class="progress"></div>
 	<div class="text"></div>
 	<div class="btn show-results">Show Results</div>
 	<div class="results"></div>
@@ -8,6 +7,8 @@
 	<script type="text/javascript">
 
 		//declare and populate collections
+
+		var chapterScore = new PG.Models.ChapterScore({user_id: <%= current_user.id %>, assignment_id: <%= @assignment_id %>});
 
 		var chapterAssessments = new PG.Collections.ChapterAssessments;
 		var chapterRules = new PG.Collections.ChapterRules;
@@ -23,7 +24,6 @@
 				<% rule = Rule.find(chunk.grammar) %>
 				chapterRules.add(<%= rule.to_json.html_safe %>);
 				chapterRule = chapterRules.get(<%= rule.id %>);
-				console.log(chapterRule);
 				<% rule.lessons.each do |lesson| %>
 					chapterRule.lessons.add(<%= lesson.to_json.html_safe %>);
 					chapterLesson = chapterRule.lessons.get(<%= lesson.id %>);
@@ -31,23 +31,11 @@
 						chapterLesson.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>);
 					<% end %> //added lesson chunks to lesson model
 					chapterLessons.add(chapterLesson);
-					console.log(chapterLesson);
 				<% end %> //added lesson to rule model
 			<% end %> //added rule to chapterassessment model's chunk
 			chapterAssessment.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>);
 		<% end %>
-		console.log(chapterAssessment);
-
-		
-
-			//can access a lesson's rule by chapterRules.get(m.attributes.rule_id)
-			//where m = chapterLessons.models[x]
-			//useful for sorting lessons by their rule
 		
 		var assessmentView = new PG.Views.ChapterAssessment({assessment: chapterAssessments.models[0], rules: chapterRules, lessons: chapterLessons});
-
-		//assessmentView.render();
-
-		//Backbone.history.start();
 
 	</script>
