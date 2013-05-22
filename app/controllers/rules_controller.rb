@@ -48,6 +48,8 @@ class RulesController < ApplicationController
   # POST /rules.json
   def create
     @rule = Rule.new(params[:rule])
+    @rule.workbook_id = params[:workbook_id]
+    @rule.category_id = params[:category_id]
 
     respond_to do |format|
       if @rule.save
@@ -66,6 +68,8 @@ class RulesController < ApplicationController
     @rule = Rule.find(params[:id])
     @rule.title = params[:rule][:title]
     @rule.description = params[:rule][:description]
+    @rule.workbook_id = params[:workbook_id]
+    @rule.category_id = params[:category_id]
 
     respond_to do |format|
       if @rule.save
