@@ -2,18 +2,12 @@
   - return if rule.lessons.models[0].chunks.length == 0
 
   .lesson{'data-id': rule.lessons.models[0].id}
-    = marked rule.get('title')
+    %h4= marked rule.get('title')
+    = marked rule.get('description')
 
     .form
-      %h4 Practice Lesson:
 
-      .chunks
-        - for chunk in rule.lessons.models[0].chunks.models
-          .lesson-word{'data-id' => chunk.id}
-            - if chunk.get('answer')
-              _________
-            - else
-              = chunk.get('word')
+      .chunks= rule.lessons.models[0].get('prompt')
 
       %p.label Retype the correct sentence here:
 

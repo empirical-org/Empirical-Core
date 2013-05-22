@@ -8,8 +8,16 @@
           %li= msg
   
   .field
-    = f.label :body, "Lesson"
+    = f.label :prompt, "Prompt"
+    = f.text_field :prompt
+
+  %p= "Ex: (They're/Their) having a nice time."
+
+  .field
+    = f.label :body, "Answer"
     = f.text_field :body
+
+  %p= "Ex: {+They're} having a nice time."
 
   .field
     = f.label :rule_id, :value => "Rule"

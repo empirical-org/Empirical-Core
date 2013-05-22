@@ -1,5 +1,5 @@
 class Lesson < ActiveRecord::Base
-  attr_accessible :body, :rule_id
+  attr_accessible :body, :rule_id, :prompt
   belongs_to :rule
 
   def chunks

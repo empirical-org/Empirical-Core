@@ -62,6 +62,7 @@ class LessonsController < ApplicationController
   # PUT /lessons/1.json
   def update
     @lesson = Lesson.find(params[:id])
+    @lesson.prompt = params[:lesson][:prompt]
     @lesson.body = params[:lesson][:body]
     @lesson.rule_id = params[:rule_id]
 

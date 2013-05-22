@@ -5,6 +5,7 @@
     - if not chunk.rule() then return
     %li.result
       = marked chunk.rule().get('title')
+      = marked chunk.rule().get('description')
 
       %strong Your Sentence:
       = @back(chunk)

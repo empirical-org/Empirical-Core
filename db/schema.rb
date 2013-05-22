@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130517025139) do
+ActiveRecord::Schema.define(:version => 20130522193814) do
 
   create_table "assessments", :force => true do |t|
     t.text     "body"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20130517025139) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "rule_id"
+    t.text     "prompt"
   end
 
   create_table "page_areas", :force => true do |t|
@@ -99,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20130517025139) do
     t.datetime "updated_at",                 :null => false
     t.integer  "category_id"
     t.integer  "workbook_id", :default => 1
+    t.text     "description"
   end
 
   create_table "rules_misseds", :force => true do |t|
