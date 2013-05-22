@@ -3,7 +3,11 @@ class UserMailer < ActionMailer::Base
 
   def welcome_email(user)
     @user = user
-    @url  = "http://localhost:3000/users/activate_email/" + user.email_activation_token
+    @url  = "http://empirical.ws/users/activate_email/" + user.email_activation_token
     mail(:to => user.email, :subject => "Please register")
+  end
+
+  def test_email
+  	mail(:to => "michael.zemel@gmail.com", :subject => "Test")
   end
 end
