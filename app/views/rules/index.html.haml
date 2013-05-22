@@ -1,6 +1,6 @@
 %p#notice= notice
 - if current_user.admin?
-  .new-category= #should be link to new category
+  = link_to image_tag('newcategory.png', :title => 'New Category'), new_category_path
   .category-container
     - @categories.each do |category|
       %br
@@ -8,22 +8,22 @@
       %table
         %tr
           %th.title= category.title
-          %th.add= link_to image_tag('newrule.png'), new_rule_path(:category => category) #can pass workbook here, too
-          %th.destroy= link_to image_tag('delete.png'), category, :method => :delete, :data => { :confirm => 'Are you sure?' }
-          %th.edit= link_to image_tag('edit.png'), edit_category_path(category)
+          %th.add= link_to image_tag('newrule.png', :title => 'New rule for ' + category.title), new_rule_path(:category => category) #can pass workbook here, too
+          %th.destroy= link_to image_tag('delete.png', :title => 'Delete ' + category.title), category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %th.edit= link_to image_tag('edit.png', :title => 'Edit ' + category.title), edit_category_path(category)
         - category.rules.each do |rule|
           %tr
             %td.title= "#{rule.title} \{\|#{rule.id}\}"
-            %td.add= link_to image_tag('newlesson.png'), new_lesson_path(:rule => rule)
-            %td.destroy= link_to image_tag('delete.png'), rule, :method => :delete, :data => { :confirm => 'Are you sure?' }
+            %td.add= link_to image_tag('newlesson.png', :title => 'New lesson for this rule'), new_lesson_path(:rule => rule)
+            %td.destroy= link_to image_tag('delete.png', :title => 'Delete this rule'), rule, :method => :delete, :data => { :confirm => 'Are you sure?' }
             %td.edit
-              = link_to image_tag('edit.png'), edit_rule_path(rule, :category => category)
+              = link_to image_tag('edit.png', :title => 'Edit this rule'), edit_rule_path(rule, :category => category)
           - rule.lessons.each do |lesson|
             %tr
               %td.title.lesson= lesson.body
               %td.add
-              %td.destroy= link_to image_tag('delete.png'), lesson, :method => :delete, :data => { :confirm => 'Are you sure?' }
-              %td.edit= link_to image_tag('edit.png'), edit_lesson_path(lesson, :rule => rule)
+              %td.destroy= link_to image_tag('delete.png', :title => 'Delete this lesson'), lesson, :method => :delete, :data => { :confirm => 'Are you sure?' }
+              %td.edit= link_to image_tag('edit.png', :title => 'Edit this lesson'), edit_lesson_path(lesson, :rule => rule)
 
 - if current_user.teacher?
   .category-container
