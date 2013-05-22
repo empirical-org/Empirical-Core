@@ -10,10 +10,7 @@
 
   - @users.each do |user|
     %tr
-      - if current_user.admin?
-        %td= link_to user.name, user
-      - if current_user.teacher?
-        %td= user.name
+      %td= user.name
       %td= user.role
       %td= user.classcode
       - if current_user.admin?
