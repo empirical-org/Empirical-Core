@@ -2,7 +2,7 @@
   - return if rule.lessons.models[0].chunks.length == 0
 
   .lesson{'data-id': rule.lessons.models[0].id}
-    %h4= marked rule.get('title')
+    %h3= marked rule.get('title')
     = marked rule.get('description')
 
     .form
