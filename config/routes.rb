@@ -13,9 +13,11 @@ PGSite::Application.routes.draw do
   HoneyAuth::Routes.new(self).draw
 
   root to: 'pages#home'
-  get 'about' => 'pages#about'
-  get 'teachers' => 'pages#teachers'
-  get 'middle_school' => 'pages#middle_school'
+  get 'teachers' => 'pages#teachers', as: "teachers"
+  get 'middle_school' => 'pages#middle_school', as: "middle_school"
+  get 'story' => 'pages#story', as: "story"
+  get 'about' => 'pages#about', as: "about"
+  get 'learning' => 'pages#learning', as: "learning"
   
   get 'profile' => 'users#show'
   get 'next_chapter' => 'chapters#next'
