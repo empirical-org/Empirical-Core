@@ -35,6 +35,8 @@ class PagesController < ApplicationController
     case action_name
     when "home"
       "alternative"
+    when "about", "learning", "story"
+      "auxilliary"
     else
       "application"
     end
