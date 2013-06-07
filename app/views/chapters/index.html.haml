@@ -1,17 +1,18 @@
-%table.table
-	%tr
-		%th= "Chapters"
-		%th
-		%th
-
-	- @chapters.each do |chapter|
+.container
+	%table.table
 		%tr
-			%td= link_to chapter.title, chapter
-			-if current_user.admin?
-				%td= link_to 'Edit', edit_chapter_path(chapter)
-				%td= link_to 'Destroy', chapter, :method => :delete, :data => { :confirm => 'Are you sure?' }
+			%th= "Chapters"
+			%th
+			%th
 
-%br
+		- @chapters.each do |chapter|
+			%tr
+				%td= link_to chapter.title, chapter
+				-if current_user.admin?
+					%td= link_to 'Edit', edit_chapter_path(chapter)
+					%td= link_to 'Destroy', chapter, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
--if current_user.admin?
-	= link_to 'New Chapter', new_chapter_path(:workbook_id => Workbook.first.id)
+	%br
+
+	-if current_user.admin?
+		= link_to 'New Chapter', new_chapter_path(:workbook_id => Workbook.first.id)
