@@ -1,10 +1,15 @@
 class PagesController < ApplicationController
+  layout :resolve_layout
+
   def home
     # render layout: false
     @chapter = Chapter.find(16)
     @assessment = @chapter.assessment
     @assignment_id = 0
     @user_id = 0
+  end
+
+  def about
   end
 
   def the_peculiar_institution
@@ -26,4 +31,16 @@ class PagesController < ApplicationController
   def aggregation
     @video_id = '3lcqTp2A750'
   end
+
+  private
+
+  def resolve_layout
+    case action_name
+    when "about", "teachers", "middle_school"
+      "alternative"
+    else
+      "application"
+    end
+  end
+
 end

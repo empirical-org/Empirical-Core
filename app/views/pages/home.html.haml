@@ -1,0 +1,53 @@
+.h-middle
+	.h-middle-extra
+		.container
+			.h-page-top-repeat
+				.h-left-top
+					.h-right-top{"style" => "padding-top: 20px;"}
+			.h-page-extra
+				.h-page-left-repeat
+					.h-page-right-repeat
+						.h-page-content-extra
+							%p.notice= notice
+							= render partial: 'chapter_test', object: @chapter
+
+.h-sub-middle.con-pink
+	.container.clearfix
+		.span6
+			%article.h-sub-left-content
+				%h2 A Fun, Free Way To Learn Grammar Interactively.
+				%p Empirical Grammar provides personalized grammar lessons for middle school students.
+		.h-sub-right-content.span6
+			%div
+				=link_to "Students", middle_school_path
+				=link_to "Teachers", teachers_path
+
+.h-features.con-white
+	.container.clearfix
+		%article.col-3
+			%figure= image_tag 'ico-interactive.png'
+			.h-features-content
+				%h2 Interactive Assessments
+				%p Proofread short passages & correct grammar errors
+		%article.col-3
+			%figure= image_tag 'ico-personalized.png'
+			.h-features-content
+				%h2 Personalized Lessons
+				%p Receive customized lesson plans based on the concepts you struggled with.
+		%article.col-3
+			%figure= image_tag 'ico-evaluate.png'
+			.h-features-content
+				%h2 Evaluate Progress
+				%p Teachers assign homework & monitor students' progress.
+
+.h-testi
+	.h-testi-inner.container.clearfix
+		.what-saying.span4
+			%div
+			%h2 What They're Saying
+		.im-saying.span8
+			%div
+				%q Nulla suscipit facilisis nisl ut auctor. Nulla et est sem, ut dignissim nunc. Praesent vel urna lorem. Quisque venenatis scelerisque venenatis.
+				%p <strong>Jane Smith</strong>
+	.post-ab-left
+	.post-ab-right
