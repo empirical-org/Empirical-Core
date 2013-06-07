@@ -1,16 +1,15 @@
 %p#notice= notice
-.container
-	.chapter-view
-		%table.table
-			%tr
-				-#%td.prev= link_to 'Previous', previous_chapter_path(:current_chapter => @chapter)
-				%td.title= @chapter.title
-				-#%td.next= link_to 'Next', next_chapter_path(:current_chapter => @chapter)
-				%td.all= link_to 'All', chapters_path
-		-if current_user.admin?
-			=link_to 'Edit', edit_chapter_path(@chapter)
-			=link_to 'Chapter quiz', test_path(:chapter_id => @chapter.id)
-		%br
-		%br
+.chapter-view
+	%table.table
+		%tr
+			-#%td.prev= link_to 'Previous', previous_chapter_path(:current_chapter => @chapter)
+			%td.title= @chapter.title
+			-#%td.next= link_to 'Next', next_chapter_path(:current_chapter => @chapter)
+			%td.all= link_to 'All', chapters_path
+	-if current_user.admin?
+		=link_to 'Edit', edit_chapter_path(@chapter)
+		=link_to 'Chapter quiz', test_path(:chapter_id => @chapter.id)
+	%br
+	%br
 
-		.assessment= @chapter.assessment.body
+	.assessment= @chapter.assessment.body
