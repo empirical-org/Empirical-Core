@@ -33,7 +33,7 @@ class PagesController < ApplicationController
 
   def resolve_layout
     case action_name
-    when "about", "teachers", "middle_school", "story", "learning"
+    when "home"
       "alternative"
     else
       "application"
