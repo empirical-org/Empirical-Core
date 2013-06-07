@@ -16,10 +16,6 @@
   @include fix-height(45px);
 }
 
-body {
-  padding-top: 100px
-}
-
 .simple-rounded-box {
   @include border-radius(15px);
   padding: 20px;
@@ -33,6 +29,8 @@ body {
 @import 'chapters';
 @import 'rules';
 @import 'users';
+@import 'bootstrap';
+@import 'style';
 
 textarea {
   height: 100px;

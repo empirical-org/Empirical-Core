@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0097696b-248d-4c4f-85dd-06402d284dca" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_assessment_results.hamlc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc" afterPath="$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="0097696b-248d-4c4f-85dd-06402d284dca" name="Default" comment="" />
     <ignored path="empirical-grammar.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="0097696b-248d-4c4f-85dd-06402d284dca" time="1369291613034" ignored="false" />
@@ -81,7 +77,7 @@
       <file leaf-file-name="_chapter_lessons.hamlc" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="7" selection-start="145" selection-end="145" vertical-scroll-proportion="0.10619469">
+            <state line="25" column="11" selection-start="511" selection-end="511" vertical-scroll-proportion="0.6637168">
               <folding />
             </state>
           </provider>
@@ -616,7 +612,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/backbone/templates/_chapter_lessons.hamlc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="7" selection-start="145" selection-end="145" vertical-scroll-proportion="0.10619469">
+        <state line="25" column="11" selection-start="511" selection-end="511" vertical-scroll-proportion="0.6637168">
           <folding />
         </state>
       </provider>
