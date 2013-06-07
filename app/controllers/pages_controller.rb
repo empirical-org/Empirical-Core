@@ -9,9 +9,6 @@ class PagesController < ApplicationController
     @user_id = 0
   end
 
-  def about
-  end
-
   def the_peculiar_institution
     @video_id = 'sIcGaamTFxk'
 
