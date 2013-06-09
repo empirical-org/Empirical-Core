@@ -13,8 +13,13 @@
     %br
     %br
     .field
+      = f.label :description, "Article Header:"
+      = f.text_field :description
+    %br
+    %br
+    .field
       = f.label :assessment, "Assessment:"
-      = f.text_area :assessment, :value => @assessment
+      = f.text_area :assessment, :value => @assessment, :style => "width:400px;height:200px;"
 
     %p= "Ex: They had {+they're-their|19} fun."
 

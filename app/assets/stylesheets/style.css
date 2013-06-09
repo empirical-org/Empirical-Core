@@ -102,7 +102,7 @@ body { font-family: 'proxima_nova_rgregular'; }
 .im-saying { margin-left: 0 !important; padding-left: 20px; }
 .what-saying > div { padding: 80px 40px 10px 0; }
 .what-saying h2 { font-size: 30px; color: #fff; line-height: 26px; font-weight: normal; }
-.im-saying > div { padding: 80px 0 10px 30px; }
+.im-saying > div { padding: 50px 0 10px 30px; }
 .im-saying q,
 .im-saying p { color: #252626; line-height: 26px; font-size: 16px; }
 .im-saying q { font-family: 'proxima_novaregular_italic'; }

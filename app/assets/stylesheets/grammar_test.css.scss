@@ -1,9 +1,17 @@
 .grammar-test {
   .text, .results, .lessons {
-    border: 1px solid #555;
+    /*border: 1px solid #555;*/
     padding: 20px;
     background-color: white;
     margin-bottom: 20px;
+  }
+
+  .title {
+    font-family: 'Museo500';
+    font-weight: bold;
+    text-align: center;
+    font-size: 35px;
+    line-height: 45px;
   }
 
   .text .chunks {
@@ -16,8 +24,9 @@
   }
 
   .show-results {
-    display: inline-block;
+    display: block;
     margin-bottom: 20px;
+    text-align: center;
   }
 
   .edit-word, .graded-word, .lesson-word {
