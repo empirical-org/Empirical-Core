@@ -50,7 +50,7 @@ class ChaptersController < ApplicationController
   # POST /chapters
   # POST /chapters.json
   def create
-    @chapter = Chapter.new(:title => params[:chapter][:title])
+    @chapter = Chapter.new(:title => params[:chapter][:title], :description => params[:chapter][:description])
     @chapter.workbook_id = params[:workbook_id]
 
     respond_to do |format|
@@ -74,6 +74,7 @@ class ChaptersController < ApplicationController
     @chapter = Chapter.find(params[:id])
     @assessment = @chapter.assessment
     @chapter.title = params[:chapter][:title]
+    @chapter.description = params[:chapter][:description]
     @assessment.body = params[:chapter][:assessment]
 
     respond_to do |format|
