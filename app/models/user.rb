@@ -1,8 +1,16 @@
+class Array
+  def except obj
+    ar = self.dup
+    ar.delete obj
+    ar
+  end
+end
+
 class User < ActiveRecord::Base
   has_secure_password
-  #If someone clicks 'Sign Up' on the home page,
-  #They should be asked for their email and their class code
-  #And entering those should prompt the user to choose a password
+  # If someone clicks 'Sign Up' on the home page,
+  # They should be asked for their email and their class code
+  # And entering those should prompt the user to choose a password
   attr_accessible :email, :name, :password, :password_confirmation, :classcode, :active
   validates :email, presence: true
   validates_uniqueness_of :email, case_sensitive: false, allow_nil: true
@@ -10,20 +18,27 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :assignments
   has_many :scores
-  ROLES = %w(user admin teacher)
+  ROLES = %w(user student admin teacher)
+  SAFE_ROLES = ROLES.except('admin')
+
+  def safe_role_assigment role
+    self.role = if sanitized_role = SAFE_ROLES.find{|r| r == role.strip }
+      sanitized_role
+    else
+      'user'
+    end
+  end
 
   def after_initialize!
-    #GENERATE TEMP PASSWORD (as to generate a password_digest on construction)
-    o =  [('a'..'z'),('A'..'Z')].map{|i| i.to_a}.flatten
-    self.password  =  (0...50).map{ o[rand(o.length)] }.join
-    self.password_confirmation = password
-    #GENERATE EMAIL AUTH TOKEN and EXPIRATION DATE
-    p =  [('a'..'z'),('A'..'Z')].map{|i| i.to_a}.flatten
-    self.email_activation_token  =  (0...50).map{ p[rand(p.length)] }.join
+    # GENERATE TEMP PASSWORD (as to generate a password_digest on construction)
+    self.password_confirmation = self.password = SecureRandom.hex
+
+    # GENERATE EMAIL AUTH TOKEN and EXPIRATION DATE
+    self.email_activation_token = SecureRandom.hex
     self.confirmable_set_at = Time.now
-    self.save
-    #SEND WELCOME MAIL
-    UserMailer.welcome_email(self).deliver
+
+    # SEND WELCOME MAIL
+    UserMailer.welcome_email(self).deliver if save
   end
 
   def role
@@ -40,16 +55,16 @@ class User < ActiveRecord::Base
   end
 
   def teacher?
-    self.role == "teacher"
+    role.teacher?
   end
 
   def admin?
-    self.role == "admin"
+    role.admin?
   end
 
   def activate!
-    #CALLED BY USERSCONTROLLER#ACTIVATE_EMAIL after user clicks email link
+    # CALLED BY UsersController#activate_email after user clicks email link
     self.email_activation_token = nil
-    self.save
+    save
   end
 end
