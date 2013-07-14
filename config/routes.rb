@@ -6,7 +6,13 @@ PGSite::Application.routes.draw do
   resources :lessons
   resources :assessments
   resources :chapters
-  resources :users
+  resource :profile
+
+  resources :users do
+    member do
+      put :sign_in
+    end
+  end
 
 
   CMS::Routes.new(self).draw
@@ -18,14 +24,11 @@ PGSite::Application.routes.draw do
   get 'story' => 'pages#story', as: "story"
   get 'about' => 'pages#about', as: "about"
   get 'learning' => 'pages#learning', as: "learning"
-  
-  get 'profile' => 'users#show'
+
   get 'next_chapter' => 'chapters#next'
   get 'previous_chapter' => 'chapters#previous'
   get "users/activate_email/:token", to: "users#activate_email", as: "activate_email"
 
   get 'test' => 'tests#index'
   post 'score' => 'tests#score'
-
-
 end

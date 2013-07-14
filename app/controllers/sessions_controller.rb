@@ -2,31 +2,29 @@ class SessionsController < ApplicationController
   before_filter :signed_in?, only: [:destroy]
 
   def create
-    @user = User.find_by_email(params[:user][:email])
-    #LET USER CHOOSE PASSWORD THE FIRST TIME
-    #MUST OCCUR BEFORE TRYING TO AUTHENTICATE
-    if !@user.active
-      @user.password = params[:user][:password]
-      @user.password_confirmation = params[:user][:password]
-      @user.active = true
-      @user.save
-    end
-    if @signing_in = User.find_by_email(params[:user][:email]).try(:authenticate, params[:user][:password])
-      sign_in @signing_in
-      redirect_to profile_path
+    if @user = User.find_by_email(params[:user][:email]).try(:authenticate, params[:user][:password])
+      sign_in @user
+      redirect_to signed_in_path(:signed_in)
     else
-      @signing_in = @signing_up = User.new
+      @user = User.new
       flash[:error] = 'bad email/password combination'
       render :new
     end
   end
 
   def destroy
-    session.delete(:user_id)
-    redirect_to root_url, notice: 'Logged Out'
+    admin_id = session.delete(:admin_id)
+    sign_out
+
+    if user = User.find_by_id(admin_id)
+      sign_in user
+      redirect_to profile_path
+    else
+      redirect_to signed_out_path, notice: 'Logged Out'
+    end
   end
 
   def new
-    @signing_in = @signing_up = User.new
+    @user = User.new
   end
 end
