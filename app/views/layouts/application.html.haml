@@ -6,7 +6,6 @@
     = javascript_include_tag 'application'
     = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js'
     = stylesheet_link_tag 'codemirror'
-    = stylesheet_link_tag 'bootstrap'
     = javascript_include_tag 'cms'
 
     / - if admin?
@@ -14,12 +13,12 @@
     = csrf_meta_tags
     %link{href: '/images/favicon.gif', rel: 'icon', type: 'image/ico'}
 
-   
+
   %body
     = render "layouts/header"
     .container= yield
 
-    
+
     %footer.con-darkgrey
       #footer-inner.container.clearfix
         #copyright.span3
@@ -28,6 +27,7 @@
           %span Reach out to us!
           %span
             %a{ :href => 'mailto:hello@egrammar.org'} hello@egrammar.org
+
         #footer-item.span9
           %ul
             %li= link_to image_tag('opensource.png'), "http://github.com/empirical-grammar/empirical-grammar", :title => "Open Source"

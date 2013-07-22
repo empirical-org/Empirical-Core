@@ -6,11 +6,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show
-    @user = params[:id].present? ? User.find(params[:id]) : current_user
-    @roster = User.where(role: 'user', classcode: current_user.classcode).order(:name)
-  end
-
   def new
     @user = User.new
   end

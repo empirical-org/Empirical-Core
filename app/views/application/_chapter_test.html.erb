@@ -5,39 +5,44 @@
 	<div class="results"></div>
 	<div class="rules"></div>
 	<div class="lessons"></div>
+
 	<script type="text/javascript">
+		// declare and populate collections
 
-		//declare and populate collections
-
-		var chapterScore = new PG.Models.ChapterScore({user_id: <%= @user_id %>, assignment_id: <%= @assignment_id %>});
-
+		var chapterScore       = new PG.Models.ChapterScore({user_id: <%= @user_id %>, assignment_id: <%= @assignment_id %>});
 		var chapterAssessments = new PG.Collections.ChapterAssessments;
-		var chapterRules = new PG.Collections.ChapterRules;
-		var chapterLessons = new PG.Collections.ChapterLessons;
-
-		var chapterRule = false;
-		var chapterLesson = false;
-
+		var chapterRules       = new PG.Collections.ChapterRules;
+		var chapterLessons     = new PG.Collections.ChapterLessons;
+		var chapterRule        = false;
+		var chapterLesson      = false;
 		chapterAssessments.add(<%= @assessment.to_json.html_safe %>);
-		var chapterAssessment = chapterAssessments.get(<%= @assessment.id %>);
+		var chapterAssessment  = chapterAssessments.get(<%= @assessment.id %>);
+
 		<% @assessment.chunks.each_with_index do |chunk, i| %>
 			<% if defined?(chunk.grammar) %>
 				<% rule = Rule.find(chunk.grammar) %>
 				chapterRules.add(<%= rule.to_json.html_safe %>);
 				chapterRule = chapterRules.get(<%= rule.id %>);
+
 				<% rule.lessons.each do |lesson| %>
 					chapterRule.lessons.add(<%= lesson.to_json.html_safe %>);
 					chapterLesson = chapterRule.lessons.get(<%= lesson.id %>);
-					<% lesson.chunks.each_with_index do |chunk, i| %>
-						chapterLesson.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>);
-					<% end %> //added lesson chunks to lesson model
+
+					<% lesson.answers.each_with_index do |chunk, i| %>
+						chapterLesson.answers.add(<%= {text: chunk, id: i}.to_json.html_safe %>);
+					<% end %> //added lesson answers to lesson model
+
 					chapterLessons.add(chapterLesson);
 				<% end %> //added lesson to rule model
 			<% end %> //added rule to chapterassessment model's chunk
+
 			chapterAssessment.chunks.add(<%= chunk.as_json.merge(id: i).to_json.html_safe %>);
 		<% end %>
-		
-		var assessmentView = new PG.Views.ChapterAssessment({assessment: chapterAssessments.models[0], rules: chapterRules, lessons: chapterLessons});
 
+		var assessmentView = new PG.Views.ChapterAssessment({
+			assessment: chapterAssessments.models[0],
+			rules: chapterRules,
+			lessons: chapterLessons
+		});
 	</script>
 </div>

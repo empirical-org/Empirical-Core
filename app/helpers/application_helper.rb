@@ -1,7 +1,14 @@
 module ApplicationHelper
   def form_for *args, &block
     options = args.extract_options!
-    args << options.reverse_merge(builder: CMS::FormBuilder, format: 'html', html: {class: 'form-horizontal'})
+
+    layout = if options.delete(:layout) == 'vertical'
+      'form-vertical'
+    else
+      'form-horizontal'
+    end
+
+    args << options.reverse_merge(builder: CMS::FormBuilder, format: 'html', html: {class: layout})
     super *args, &block
   end
 

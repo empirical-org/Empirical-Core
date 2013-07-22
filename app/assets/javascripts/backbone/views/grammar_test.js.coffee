@@ -22,7 +22,6 @@ class PG.Views.GrammarTest extends Backbone.View
     this
 
   wordFocused: (e) ->
-    # debugger
     # @currentWord = @chunks.get($(e.target).data('id'))
     # console.log @currentWord
 

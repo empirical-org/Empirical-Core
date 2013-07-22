@@ -24,7 +24,6 @@ class PG.Views.ChapterAssessment extends Backbone.View
     this
 
   wordFocused: (e) ->
-    # debugger
     # @currentWord = @chunks.get($(e.target).data('id'))
     # console.log @currentWord
 
@@ -71,4 +70,5 @@ class PG.Views.ChapterAssessment extends Backbone.View
     $lessons = $('.lessons')
       .show()
       .html JST['backbone/templates/chapter_lessons'](missedRules:@missedRules)
+
     @lessonsView = new PG.Views.ChapterLessons(el: $lessons, percentMissed: @percentMissed)

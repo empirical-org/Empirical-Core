@@ -14,13 +14,14 @@ class PG.Views.ChapterLessons extends Backbone.View
       $lesson = $(lessenEl)
       thisLesson = chapterLessons.get($lesson.data('id'))
 
-      if thisLesson.correct().trim() == $lesson.find('.input').val().trim()
+      if thisLesson.correct $lesson.find('.input').val()
         $lesson.removeClass 'error'
         $lesson.addClass 'success'
       else
         $lesson.addClass 'error'
         $lesson.find('.form').hide()
         $lesson.find('.incorrect').show()
+
     $('.submit').hide()
     percentCompleted = $('.lesson.success').length / $('.lesson').length * 100
     chapterScore.setCompleted(percentCompleted)
