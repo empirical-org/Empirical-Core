@@ -4,6 +4,7 @@ class PG.Models.Chunk extends Backbone.Model
     @error = options.error
     @answer = options.answer
     @grammar = options.grammar
+    @text = options.text
 
   grade: ->
     if @inputPresent() && @correct() == @input

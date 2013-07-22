@@ -13,6 +13,6 @@ class PG.Views.GrammarLessons extends Backbone.View
       else
         $lesson.addClass 'error'
 
-#This loops through each element listed 'lesson',
-#compares the correct rule to the input value,
-#and changes the element's class accordingly
+# This loops through each element listed 'lesson',
+# compares the correct rule to the input value,
+# and changes the element's class accordingly

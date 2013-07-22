@@ -19,9 +19,11 @@
       rule = grammarRules.get(<%= rule.id %>);
 
       console.log(rule);
+
       <% rule.chunks.each_with_index do |chunk, i| %>
         rule.chunks.add(<%= chunk.as_json.merge(id: i, grammar: rule.id).to_json.html_safe %>);
       <% end %>
+
       console.log(rule.chunks.length);
       console.log(grammarRules.get(<%= rule.id %>).chunks.length);
     <% end %>

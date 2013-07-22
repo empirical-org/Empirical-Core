@@ -1,9 +1,9 @@
 class PG.Models.ChapterLesson extends Backbone.Model
   initialize: ->
-    @chunks = new PG.Collections.Chunks
+    @answers = new PG.Collections.Chunks
 
   rule: ->
     chapterRules.get(@attributes.rule_id)
 
-  correct: ->
-    @chunks.map((c) -> c.correct()).join(' ')
+  correct: (input) ->
+    @answers.any (a) -> a.text.trim() == input.trim()

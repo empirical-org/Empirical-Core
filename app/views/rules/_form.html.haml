@@ -1,32 +1,9 @@
 %p#notice= notice
 = form_for @rule do |f|
-  - if @rule.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@rule.errors.count, "error")} prohibited this rule from being saved:"
-      %ul
-        - @rule.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :title
-    = f.text_field :title
-
-  .field
-    = f.label :description
-    = f.text_area :description
-
+  = f.string :title
+  = f.text :description
   %p= "Use HTML: <br /> for new line,"
   %p= "<b>text</b> for bold, etc."
-
-  .field
-    = f.label :category_id, :value => "Category"
-    = select_tag "category_id", options_from_collection_for_select(@categories, "id", "title", :selected => @category)
-
-  .field
-    = f.label :workbook_id, :value => "Workbook"
-    = select_tag "workbook_id", options_from_collection_for_select(@workbooks, "id", "title", :selected => @workbook)
-
-  .actions
-    = f.submit 'Save'
-
-= link_to 'Back', rules_path
+  = f.choices :category_id, Category.all.map{|c| [c.id, c.title]}
+  = f.choices :workbook_id, Workbook.all.map{|w| [w.id, w.title]}
+  = f.actions

@@ -1,44 +1,17 @@
-.chapter-view.form
-  = form_for @chapter do |f|
-    - if @chapter.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@chapter.errors.count, "error")} prohibited this chapter from being saved:"
-        %ul
-          - @chapter.errors.full_messages.each do |msg|
-            %li= msg
+= form_for @chapter, layout: 'vertical' do |f|
+  = f.string :title, label: "Chapter Title"
+  = f.string :description, label: "Article Header"
+  = f.fields_for :assessment do |ff|
+    = ff.text :body, help_block: "Ex: They had {+they're-their|19} fun."
 
-    .field
-      = f.label :title, "Chapter Title:"
-      = f.text_field :title
-    %br
-    %br
-    .field
-      = f.label :description, "Article Header:"
-      = f.text_field :description
-    %br
-    %br
-    .field
-      = f.label :assessment, "Assessment:"
-      = f.text_area :assessment, :value => @assessment, :style => "width:400px;height:200px;"
+  .concept-review-order.control-group{data: {view: "ConceptReviewRoot"}}
+    %label.control-label Concept display order
+    = f.hidden :rule_position_text
+    .display.uneditable-input{style: 'cursor: pointer'}
+    .edit.hide
+      .positions
+      .btn.add Add another
+      .btn.btn-primary.save Done
 
-    %p= "Ex: They had {+they're-their|19} fun."
-
-    .field
-      = f.label :workbook_id, :value => "Workbook:"
-      = select_tag "workbook_id", options_from_collection_for_select(@workbooks, "id", "title", :selected => @workbook)
-
-    .actions
-      = f.submit 'Save'
-.chapter-rules
-  %table.table
-    %tr
-      %th= "Rules Reference Guide"
-      %th
-    - @categories.each do |category|
-      %tr
-        %td.name= category.title
-        %td.id
-      - category.rules.each do |rule|
-        %tr
-          %td.name= " • #{rule.title}"
-          %td.id= "\{\|#{rule.id}\}"
+  = f.choices :workbook_id, Workbook.all.map{|w| [w.title, w.id]}
+  = f.actions save: 'Save'
