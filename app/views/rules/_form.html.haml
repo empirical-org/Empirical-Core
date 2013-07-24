@@ -4,6 +4,6 @@
   = f.text :description
   %p= "Use HTML: <br /> for new line,"
   %p= "<b>text</b> for bold, etc."
-  = f.choices :category_id, Category.all.map{|c| [c.id, c.title]}
-  = f.choices :workbook_id, Workbook.all.map{|w| [w.id, w.title]}
+  = f.choices :category_id, Category.all.map{|c| [c.title, c.id]}
+  = f.choices :workbook_id, Workbook.all.map{|w| [w.title, w.id]}
   = f.actions
