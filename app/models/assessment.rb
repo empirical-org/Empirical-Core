@@ -9,4 +9,10 @@ class Assessment < ActiveRecord::Base
   def parsed
     @parsed ||= ::GrammarParser.new.parse(body)[:questions]
   end
+
+  def as_json *args
+    super.merge({
+      rule_position: chapter.rule_position
+    })
+  end
 end
