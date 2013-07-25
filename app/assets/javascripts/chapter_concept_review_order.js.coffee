@@ -4,8 +4,9 @@ class window.ConceptReviewRoot extends Backbone.View
     'click .save'   : 'save'
     'click .add'    : 'addPosition'
 
-  initialize: ->
-    vals = @$('.hidden input').val().split(",")
+  field_name: 'concept_position'
+
+  initialize: (vals = @$('.hidden input').val().split(",")) ->
     if _.isEmpty(vals) then vals = [" "]
     for val in vals
       @$('.edit .positions').append @positionTemplate(val.trim())
@@ -28,7 +29,7 @@ class window.ConceptReviewRoot extends Backbone.View
     """
       <div class="field string concept-position control-group">
         <div class="controls">
-          <input id="chapter_concept_position" name="concept_position" size="30" type="text" value="#{val}">
+          <input id="chapter_concept_position" name="#{@field_name}[]" size="30" type="text" value="#{val}">
         </div>
       </div>
     """
@@ -38,11 +39,13 @@ class window.ConceptReviewRoot extends Backbone.View
 
 class window.LessonAnswerRoot extends ConceptReviewRoot
   initialize: ->
-    super
+    super JSON.parse(@$('.hidden input').val())
     _.bindAll 'save'
     @$el.closest('form').find('.form-actions .btn').on 'click', =>
       @save()
-      @$('input[name="concept_position"]').remove()
+      @$('input[name="lesson[answer_array_json] "]').remove()
+
+  field_name: 'answer_options'
 
 
 dataLoad = (cla) ->
