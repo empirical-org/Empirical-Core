@@ -7,6 +7,10 @@ class Lesson < ActiveRecord::Base
     body
   end
 
+  def answer_array_json
+    body.to_json
+  end
+
   def answer_array_text
     return "" if body.nil?
     body.join(", ")
