@@ -8,20 +8,17 @@ class LessonsController < ApplicationController
   end
 
   def new
-    @lesson = Lesson.new
-    @rule = params[:rule]
-    @rules = Rule.all
+    @lesson = Lesson.new(rule_id: params[:rule])
   end
 
   def edit
     @lesson = Lesson.find(params[:id])
-    @rule = params[:rule]
-    @rules = Rule.all
   end
 
   def create
+    params[:lesson].delete(:answer_array_json)
     @lesson = Lesson.new(params[:lesson])
-    @lesson.rule_id = params[:rule_id]
+    @lesson.body = params.delete(:answer_options) if params[:answer_options].present?
 
     if @lesson.save
       redirect_to rules_path, notice: 'Lesson was successfully created.'
@@ -31,9 +28,8 @@ class LessonsController < ApplicationController
   end
 
   def update
-    binding.pry
     @lesson = Lesson.find(params[:id])
-    @lesson.body = params.delete(:concept_position) if params[:concept_position].present?
+    @lesson.body = params.delete(:answer_options) if params[:answer_options].present?
     params[:lesson].delete(:answer_array_json)
 
     if @lesson.update_attributes(params[:lesson])
