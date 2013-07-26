@@ -26,13 +26,13 @@ class window.ConceptReviewRoot extends Backbone.View
     @$('.edit .positions').append @positionTemplate()
 
   positionTemplate: (val="") ->
-    """
+    $("""
       <div class="field string concept-position control-group">
         <div class="controls">
-          <input id="chapter_concept_position" name="#{@field_name}[]" size="30" type="text" value="#{val}">
+          <input id="chapter_concept_position" name="#{@field_name}[]" size="30" type="text" value="">
         </div>
       </div>
-    """
+    """).find('input').val(val).end()
 
   conceptOrderString: ->
     _.map(@$('.concept-position input'), (el) -> $(el).val()).join(", ")
