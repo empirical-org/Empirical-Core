@@ -36,19 +36,11 @@ class RulesController < ApplicationController
 
   def update
     @rule = Rule.find(params[:id])
-    @rule.title = params[:rule][:title]
-    @rule.description = params[:rule][:description]
-    @rule.workbook_id = params[:workbook_id]
-    @rule.category_id = params[:category_id]
 
-    respond_to do |format|
-      if @rule.save
-        format.html { redirect_to rules_path, notice: 'Rule was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @rule.errors, status: :unprocessable_entity }
-      end
+    if @rule.update_attributes params[:rule]
+      redirect_to rules_path, notice: 'Rule was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 
