@@ -16,8 +16,18 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, case_sensitive: false, allow_nil: true
   # validates_format_of :password, with: /((?=.*\d)(?=.*[A-Z]).{8,})/, message: 'must contain at least 1 number and 1 capital letter and be at least 8 characters long', allow_nil: true, on: :standard, if: :password?
   has_many :comments
-  has_many :assignments
+
+  has_many :assignments do
+    def for_chapter chapter
+      where(chapter_id: chapter.id).first
+    end
+  end
+
+  has_many :chapters, through: :assignments
+
   has_many :scores
+  has_one :teacher, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode', conditions: { role: 'teacher' }
+  has_many :assignable_chapters, class_name: 'Chapter'
   ROLES = %w(user student admin teacher)
   SAFE_ROLES = ROLES.except('admin')
 
