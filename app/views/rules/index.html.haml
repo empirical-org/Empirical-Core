@@ -1,6 +1,7 @@
 %p#notice= notice
 - if current_user.admin?
   = link_to image_tag('newcategory.png', :title => 'New Category'), new_category_path
+
   .category-container
     - @categories.each do |category|
       %br

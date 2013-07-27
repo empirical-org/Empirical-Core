@@ -40,9 +40,10 @@
 		<% end %>
 
 		var assessmentView = new PG.Views.ChapterAssessment({
-			assessment: chapterAssessments.models[0],
+			assessment: chapterAssessments.first(),
 			rules: chapterRules,
-			lessons: chapterLessons
+			lessons: chapterLessons,
+			el: $('.grammar-test')
 		});
 	</script>
 </div>

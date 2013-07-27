@@ -3,13 +3,13 @@ class PG.Views.ChapterAssessment extends Backbone.View
   resultsTemplate: JST['backbone/templates/chapter_assessment_results']
 
   events:
-    'focus .edit-word': 'wordFocused'
-    'blur  .edit-word': 'wordChanged'
-    'click .show-results': 'showResults'
-    'click .show-lessons': 'showLessons'
+    'focus .edit-word'             : 'wordFocused'
+    'blur  .edit-word'             : 'wordChanged'
+    'click .show-results'          : 'showResults'
+    'click .show-lessons'          : 'showLessons'
+    'click .rule-lesson-set .next' : 'showNextLessonSet'
 
   initialize: (options) ->
-    @$el = $('.grammar-test')
     @assessment = options.assessment
     @chunks = @assessment.chunks
     @questions = @chunks.select (c) -> c.get('answer')
@@ -46,7 +46,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
 
   showResults: ->
     _this = this;
-    @missedRules = []
+    missedRules = []
 
     @$('.edit-word')
       .removeClass('edit-word')
@@ -59,16 +59,31 @@ class PG.Views.ChapterAssessment extends Backbone.View
           $word.addClass('correct')
         else if not chunk.grade()
           $word.addClass('error')
-          if chunk.grammar then _this.missedRules.push chunk.rule()
+          if chunk.grammar then missedRules.push chunk.rule()
 
-    @missedRules = _.uniq(@missedRules)
+
+    missedRules = _.uniq(missedRules)
+    @missedRules = new PG.Collections.ChapterRules
+    @missedRules.reset missedRules
+    @orderedRules = []
+
+    for id in @assessment.get 'rule_position'
+      @orderedRules.push _.first @missedRules.where(id: parseInt(id))
+
     @$('.results').show().html @resultsTemplate(@assessment)
     @percentMissed = 100 - (@missedRules.length / chapterRules.length * 100)
 
   showLessons: ->
     $('.grammar-test').children().hide()
+
     $lessons = $('.lessons')
       .show()
-      .html JST['backbone/templates/chapter_lessons'](missedRules:@missedRules)
+      .html JST['backbone/templates/chapter_lessons'](orderedRules: @orderedRules)
 
+    @$currentLessonSet = $lessons.find('.rule-lesson-set:first').show()
     @lessonsView = new PG.Views.ChapterLessons(el: $lessons, percentMissed: @percentMissed)
+
+  showNextLessonSet: (e, $set = @$('.rule-lesson-set')) ->
+    nextIndex = $set.index(@$currentLessonSet) + 1
+    if nextIndex >= $set.length then nextIndex = 0
+    @$currentLessonSet = $set.eq(nextIndex).siblings().hide().end().show()
