@@ -25,8 +25,8 @@ class AssignmentsController < ApplicationController
     @assignment.chapter_id = params[:chapter_id]
 
     if @assignment.save
-      User.where(role: 'student', classcode: @assignment.classcode)
-        student.scores.create(assignment_id: @assignment.id)
+      User.where(role: 'student', classcode: @assignment.classcode).each do |user|
+        user.scores.create(assignment_id: @assignment.id)
       end
 
       redirect_to profile_path, notice: 'Assignment was successfully created.'
