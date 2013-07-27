@@ -84,34 +84,39 @@
       width: 100%;
     }
 
-    .lesson {
-      padding-bottom: 2em;
-      border-bottom: 1px solid #aaa;
-      margin-bottom: 2em;
-      .error, .success { display: none }
+  }
+}
 
-      &.error {
-        .error { display: block }
+.rule-lesson-set {
+  display: none;
+}
 
-        .input {
-          border: 2px solid $red;
-        }
-      }
+.rule-lesson-form {
+  padding-bottom: 2em;
+  border-bottom: 1px solid #aaa;
+  margin-bottom: 2em;
+  .error, .success { display: none }
 
-      &.success {
-        .success {
-          display: block;
-          color: $green;
-        }
+  &.error {
+    .error { display: block }
 
-        .form { display: none }
-      }
-
-      .incorrect {
-        display: block;
-        color: $red;
-      }
+    .input {
+      border: 2px solid $red;
     }
+  }
+
+  &.success {
+    .success {
+      display: block;
+      color: $green;
+    }
+
+    .form { display: none }
+  }
+
+  .incorrect {
+    display: block;
+    color: $red;
   }
 }
 

@@ -8,7 +8,7 @@ module ApplicationHelper
       'form-horizontal'
     end
 
-    args << options.reverse_merge(builder: CMS::FormBuilder, format: 'html', html: {class: layout})
+    args << options.reverse_merge(builder: EgFormBuilder, format: 'html', html: {class: layout})
     super *args, &block
   end
 

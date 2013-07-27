@@ -1,6 +1,6 @@
 class Array
   def except obj
-    ar = self.dup
+    ar = dup
     ar.delete obj
     ar
   end
