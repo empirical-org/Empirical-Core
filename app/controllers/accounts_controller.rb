@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_filter :signed_in?, only: [:edit, :update]
+  before_filter :signed_in!, only: [:edit, :update]
 
   def new
     @user = User.new
