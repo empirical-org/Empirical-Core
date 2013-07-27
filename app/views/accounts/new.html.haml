@@ -1,4 +1,11 @@
 %article.new-session-page
   %h4 Sign up for an account
 
-  = render 'users/form'
+  = form_for @user, url: account_path do |f|
+    = f.string :name
+    = f.email :email
+    = f.choices :role, [['Student', 'student'], ['Teacher', 'teacher']]
+    = f.string :classcode
+    = f.password :password
+    = f.password :password_confirmation
+    = f.actions save: 'Sign up'

@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
 
     if @user.after_initialize!
       sign_in @user
-      redirect_to signed_in_path(:created)
+      redirect_to profile_path
     else
       render 'accounts/new'
     end
