@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20130727182529) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "classcode"
+    t.string   "classcode"
     t.integer  "chapter_id"
     t.datetime "due_date"
     t.datetime "created_at", :null => false

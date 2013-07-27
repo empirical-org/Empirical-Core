@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_filter :signed_in?, only: [:destroy]
+  before_filter :signed_in!, only: [:destroy]
 
   def create
     if @user = User.find_by_email(params[:user][:email]).try(:authenticate, params[:user][:password])
