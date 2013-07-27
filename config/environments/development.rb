@@ -14,14 +14,13 @@ PGSite::Application.configure do
   config.action_controller.perform_caching = false
 
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
+config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    port:            ENV['MAILGUN_SMTP_PORT'],
-    address:         ENV['MAILGUN_SMTP_SERVER'],
-    user_name:       ENV['MAILGUN_SMTP_LOGIN'],
-    password:        ENV['MAILGUN_SMTP_PASSWORD'],
-    domain:          'pgsite.heroku.com',
-    authentication:  :plain,
+    :user_name => 'empirical-4992b81d85ba4277',
+    :password => 'a9fa483334b2eeeb',
+    :address => 'mailtrap.io',
+    :port => '2525',
+    :authentication => :plain
   }
 
   # Print deprecation notices to the Rails logger
