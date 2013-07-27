@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
   has_many :scores
   has_one :teacher, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode', conditions: { role: 'teacher' }
-  has_many :assignable_chapters, class_name: 'Chapter'
+  has_many :assignable_chapters, class_name: 'Chapter', through: :teacher, source: :chapters
   ROLES = %w(user student admin teacher)
   SAFE_ROLES = ROLES.except('admin')
 
@@ -51,8 +51,18 @@ class User < ActiveRecord::Base
       self.classcode = 'demo-class'
     end
 
-    # SEND WELCOME MAIL
-    UserMailer.welcome_email(self).deliver! if save
+    if save
+      if student?
+        teacher.assignments.each do |assignment|
+          scores.create(assignment_id: assignment.id)
+        end
+      end
+
+      # SEND WELCOME MAIL
+      UserMailer.welcome_email(self).deliver!
+    else
+      false
+    end
   end
 
   def role
