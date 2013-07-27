@@ -1,7 +1,7 @@
 class Chapter < ActiveRecord::Base
   attr_accessible :title, :workbook_id, :description, :rule_position_text, :assessment_attributes
-  has_one :assessment
   has_many :assignments
+  has_one :assessment
   belongs_to :workbook
   validates :title, presence: true
   validates :description, presence: true
