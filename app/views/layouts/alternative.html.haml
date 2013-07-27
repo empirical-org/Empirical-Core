@@ -6,7 +6,6 @@
     = javascript_include_tag 'application'
     = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js'
     = stylesheet_link_tag 'codemirror'
-    = stylesheet_link_tag 'bootstrap'
     = javascript_include_tag 'cms'
 
     / - if admin?
@@ -14,13 +13,13 @@
     = csrf_meta_tags
     %link{href: '/images/favicon.gif', rel: 'icon', type: 'image/ico'}
 
-   
+
   %body#home
-    
+
     = render "layouts/alt-header"
     = yield
 
-    
+
     %footer.con-darkgrey
       #footer-inner.container.clearfix
         #copyright.span3

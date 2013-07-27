@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
     self.email_activation_token = SecureRandom.hex
     self.confirmable_set_at = Time.now
 
+    if classcode.blank? && student?
+      self.classcode = 'demo-class'
+    end
+
     # SEND WELCOME MAIL
     UserMailer.welcome_email(self).deliver! if save
   end
@@ -52,6 +56,10 @@ class User < ActiveRecord::Base
 
   def password?
     password.present?
+  end
+
+  def student?
+    role.student?
   end
 
   def teacher?
