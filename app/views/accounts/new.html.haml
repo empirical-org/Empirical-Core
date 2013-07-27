@@ -6,7 +6,7 @@
       = f.string :name
       = f.email :email
       = f.choices :role, [['Student', 'student'], ['Teacher', 'teacher']]
-      = f.string :classcode
+      = f.string :classcode, label: 'Classcode (optional)'
       = f.password :password
       = f.password :password_confirmation
 
