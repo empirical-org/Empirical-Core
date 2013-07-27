@@ -31,14 +31,14 @@ class User < ActiveRecord::Base
 
   def after_initialize!
     # GENERATE TEMP PASSWORD (as to generate a password_digest on construction)
-    self.password_confirmation = self.password = SecureRandom.hex
+    # self.password_confirmation = self.password = SecureRandom.hex
 
     # GENERATE EMAIL AUTH TOKEN and EXPIRATION DATE
     self.email_activation_token = SecureRandom.hex
     self.confirmable_set_at = Time.now
 
     # SEND WELCOME MAIL
-    UserMailer.welcome_email(self).deliver if save
+    UserMailer.welcome_email(self).deliver! if save
   end
 
   def role

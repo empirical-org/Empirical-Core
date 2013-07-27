@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+  before_filter :signed_in?
+
   def show
     @user = current_user
     @roster = User.where(role: 'user', classcode: current_user.classcode).order(:name)
