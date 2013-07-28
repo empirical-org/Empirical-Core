@@ -9,8 +9,10 @@ class TestsController < ApplicationController
     render :index
   end
 
-  def practice
-
+  def story
+    @chapter = @assignment.chapter
+    @assessment = @chapter.assessment
+    render 'application/_chapter_test'
   end
 
   def score

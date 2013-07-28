@@ -16,6 +16,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assignments do
     resource :test do
       resources :practice
+      resource :story
     end
   end
 
