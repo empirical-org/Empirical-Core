@@ -4,12 +4,10 @@ gem 'rails', '~> 4'
 gem 'pg'
 gem 'sqlite3', group: :development
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
-
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
+gem 'turbolinks'
 gem 'bootstrap-sass'
 gem 'compass-rails'
 gem 'jquery-rails'
