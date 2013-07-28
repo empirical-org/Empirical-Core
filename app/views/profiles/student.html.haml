@@ -1,5 +1,5 @@
-%h2 Welcome, #{current_user.name}!
-%p Teacher: #{User.where(:classcode => current_user.classcode).where(:role => "teacher").first.name}
+%h2= "Welcome, #{current_user.name}!"
+%p= "Teacher: #{User.where(:classcode => current_user.classcode).where(:role => "teacher").first.name}"
 %h3 Current Assignments
 
 %table.table
@@ -12,14 +12,14 @@
   - current_user.scores.each do |score|
     - if score.assignment.due_date.to_i > Time.now.to_i && score.items_missed.nil?
       %tr
-        %td= link_to score.assignment.chapter.try(:title), test_path(:chapter_id => score.assignment.chapter.try(:id), :assignment_id => score.assignment.id)
+        %td= link_to score.assignment.chapter.try(:title), practice_assignment_test_path(score.assignment)
         %td= score.assignment.due_date.strftime("%a, %b %d %Y")
         - if score.completion_date
           %td= score.completion_date.strftime("%a, %b %d %Y")
         - else
           %td
         - if score.items_missed
-          %td Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%
+          %td= "Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%"
         - else
           %td incomplete
 
@@ -42,6 +42,6 @@
         - else
           %td
         - if score.items_missed
-          %td Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%
+          %td= "Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%"
         - else
           %td incomplete

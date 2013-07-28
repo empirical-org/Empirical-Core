@@ -63,32 +63,33 @@
       background-color: $green;
     }
   }
+}
 
-  .lessons {
-    h4 {
-      margin-top: 2em;
-    }
-
-    .chunks {
-      border: 1px dashed #aaa;
-      padding: 10px;
-      margin-bottom: 1em;
-    }
-
-    p.label {
-      margin-bottom: 5px;
-    }
-
-    textarea {
-      @include box-sizing(border-box);
-      width: 100%;
-    }
-
+.grammar-test .lessons,
+.chapter-practice-lessons-page {
+  h4 {
+    margin-top: 2em;
   }
+
+  .chunks {
+    border: 1px dashed #aaa;
+    padding: 10px;
+    margin-bottom: 1em;
+  }
+
+  p.label {
+    margin-bottom: 5px;
+  }
+
+  textarea {
+    @include box-sizing(border-box);
+    width: 100%;
+  }
+
 }
 
 .rule-lesson-set {
-  display: none;
+  // display: none;
 }
 
 .rule-lesson-form {
