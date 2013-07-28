@@ -2,14 +2,11 @@
 %html
   %head
     %title Empirical Grammar
-    = stylesheet_link_tag    'application', media: 'all'
-    = javascript_include_tag 'application'
-    = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js'
-    = stylesheet_link_tag 'codemirror'
-    = javascript_include_tag 'cms'
-
-    / - if admin?
-
+    = stylesheet_link_tag    'application', media: 'all'                             , "data-turbolinks-track" => true
+    = javascript_include_tag 'application'                                           , "data-turbolinks-track" => true
+    = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js' , "data-turbolinks-track" => true
+    = stylesheet_link_tag 'codemirror'                                               , "data-turbolinks-track" => true
+    = javascript_include_tag 'cms'                                                   , "data-turbolinks-track" => true
     = csrf_meta_tags
     %link{href: '/images/favicon.gif', rel: 'icon', type: 'image/ico'}
 
@@ -17,7 +14,6 @@
   %body
     = render "layouts/header"
     .container= yield
-
 
     %footer.con-darkgrey
       #footer-inner.container.clearfix
