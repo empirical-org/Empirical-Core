@@ -1,4 +1,4 @@
-PGSite::Application.routes.draw do
+EmpiricalGrammar::Application.routes.draw do
   resources :categories
   resources :assignments
   resources :rules
