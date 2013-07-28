@@ -1,5 +1,4 @@
 class Lesson < ActiveRecord::Base
-  attr_accessible :body, :rule_id, :prompt, :answer_array_text
   belongs_to :rule
   serialize :body
 

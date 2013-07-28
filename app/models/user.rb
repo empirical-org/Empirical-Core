@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   # If someone clicks 'Sign Up' on the home page,
   # They should be asked for their email and their class code
   # And entering those should prompt the user to choose a password
-  attr_accessible :email, :name, :password, :password_confirmation, :classcode, :active
   validates :email, presence: true
   validates_uniqueness_of :email, case_sensitive: false, allow_nil: true
   # validates_format_of :password, with: /((?=.*\d)(?=.*[A-Z]).{8,})/, message: 'must contain at least 1 number and 1 capital letter and be at least 8 characters long', allow_nil: true, on: :standard, if: :password?
@@ -26,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :chapters, through: :assignments
 
   has_many :scores
-  has_one :teacher, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode', conditions: { role: 'teacher' }
+  has_one :teacher, -> { where role: 'teacher' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode'
   has_many :assignable_chapters, class_name: 'Chapter', through: :teacher, source: :chapters
   ROLES = %w(user student admin teacher)
   SAFE_ROLES = ROLES.except('admin')

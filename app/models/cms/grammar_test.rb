@@ -1,6 +1,5 @@
 class CMS::GrammarTest < ActiveRecord::Base
   self.table_name = 'grammar_tests'
-  attr_accessible :text
 
   def self.name
     'GrammarTest'

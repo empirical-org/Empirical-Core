@@ -1,3 +1,6 @@
+- console.log @get('word')
+- if @get('word') == "</p>" then debugger
+
 .edit-word{'data-id' => @id}
   - if @get('word')
     = @get('word')

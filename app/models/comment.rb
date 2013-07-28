@@ -1,5 +1,4 @@
 class Comment < ActiveRecord::Base
-  attr_accessible :title, :body, :parent_id, :reply_type
   has_ancestry
   belongs_to :user
   has_many :lecture_chapters, class_name: 'CMS::LectureChapter'

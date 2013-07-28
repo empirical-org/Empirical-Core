@@ -1,5 +1,4 @@
 class Assessment < ActiveRecord::Base
-  attr_accessible :body, :chapter_id
   belongs_to :chapter
 
   def chunks

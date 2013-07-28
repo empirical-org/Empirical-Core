@@ -1,6 +1,5 @@
 class CMS::GrammarRule < ActiveRecord::Base
   self.table_name = 'grammar_rules'
-  attr_accessible :description, :identifier, :practice_lesson
 
   belongs_to :author, class_name: 'User'
 
