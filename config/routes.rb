@@ -1,6 +1,5 @@
 EmpiricalGrammar::Application.routes.draw do
   resources :categories
-  resources :assignments
   resources :rules
   # resources :workbooks
   resources :lessons
@@ -11,6 +10,12 @@ EmpiricalGrammar::Application.routes.draw do
   resources :users do
     member do
       put :sign_in
+    end
+  end
+
+  resources :assignments do
+    resource :test do
+      resources :practice
     end
   end
 

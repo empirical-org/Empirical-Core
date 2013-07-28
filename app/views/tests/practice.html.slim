@@ -1,0 +1,22 @@
+.chapter-practice-lessons-page
+  - @assignment.chapter.practice_rules.each do |rule|
+    .rule-lesson-set data-id=rule.id
+      h3= rule.title
+      = markdown rule.description.to_s
+
+      .rule-lesson-list
+        - rule.lessons.each do |lesson|
+          .rule-lesson-form data-id=lesson.id
+            .form
+              .chunks= lesson.prompt
+              p.label Retype the correct sentence here:
+              .error There was a problem with what you entered
+              textarea.input
+
+            .success: h4 Correct!
+            .incorrect: h4 Incorrect!
+
+      button.btn.next Next
+
+  javascript:
+    new PG.Views.ChapterLessons({el: $('.chapter-practice-lessons-page')})

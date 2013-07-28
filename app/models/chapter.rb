@@ -14,4 +14,8 @@ class Chapter < ActiveRecord::Base
   def rule_position_text
     rule_position.join(", ")
   end
+
+  def practice_rules
+    Rule.where(id: rule_position)
+  end
 end

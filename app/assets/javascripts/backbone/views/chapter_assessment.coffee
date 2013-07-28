@@ -19,6 +19,12 @@ class PG.Views.ChapterAssessment extends Backbone.View
     #@updateProgress()
 
   render: ->
+    @showPracticeQuestions()
+
+  showPracticeQuestions: ->
+    @assessment.get('rule_position')
+
+  showStory: ->
     @$('.text').html @template(chunks: @assessment.chunks)
     @$('.edit-word').attr 'contentEditable', true
     this
@@ -31,9 +37,6 @@ class PG.Views.ChapterAssessment extends Backbone.View
     chunk = @chunks.get($(e.target).data('id'))
     chunk.input = $(e.target).text().trim()
     #@updateProgress()
-
-  testFn: ->
-    console.log('click')
 
   updateProgress: ->
     @$('.progress').html ''
@@ -55,6 +58,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
         $word = $(this)
         $word.attr 'contentEditable', false
         chunk = _this.chunks.get($word.data('id'))
+
         if chunk.grade() && chunk.inputPresent()
           $word.addClass('correct')
         else if not chunk.grade()
@@ -83,7 +87,15 @@ class PG.Views.ChapterAssessment extends Backbone.View
     @$currentLessonSet = $lessons.find('.rule-lesson-set:first').show()
     @lessonsView = new PG.Views.ChapterLessons(el: $lessons, percentMissed: @percentMissed)
 
+
+class PG.Views.PracticeLessonSet extends Backbone.View
+  events:
+    'click .next' : 'showNextLessonSet'
+
+  initialize: ->
+
   showNextLessonSet: (e, $set = @$('.rule-lesson-set')) ->
     nextIndex = $set.index(@$currentLessonSet) + 1
     if nextIndex >= $set.length then nextIndex = 0
     @$currentLessonSet = $set.eq(nextIndex).siblings().hide().end().show()
+
