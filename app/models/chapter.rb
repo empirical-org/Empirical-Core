@@ -1,5 +1,4 @@
 class Chapter < ActiveRecord::Base
-  attr_accessible :title, :workbook_id, :description, :rule_position_text, :assessment_attributes
   has_many :assignments
   has_one :assessment
   belongs_to :workbook

@@ -9,7 +9,7 @@ gem 'coffee-rails'
 gem 'uglifier'
 gem 'turbolinks'
 gem 'bootstrap-sass'
-gem 'compass-rails'
+gem "compass-rails",    github: "milgner/compass-rails", ref: "1749c06f15dc4b058427e7969810457213647fb8"
 gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'haml_coffee_assets'

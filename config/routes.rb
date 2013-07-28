@@ -2,7 +2,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :categories
   resources :assignments
   resources :rules
-  #resources :workbooks
+  # resources :workbooks
   resources :lessons
   resources :assessments
   resources :chapters
@@ -26,7 +26,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get "next_chapter" => "chapters#next"
   get "previous_chapter" => "chapters#previous"
-  get "users/activate_email/:token",            as: "activate_email", to: "users#activate_email"
+  get "users/activate_email/:token", as: "activate_email", to: "users#activate_email"
 
   get "test" => "tests#index"
   post "score" => "tests#score"
