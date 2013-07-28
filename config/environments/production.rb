@@ -59,7 +59,12 @@ EmpiricalGrammar::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w(epiceditor/themes/base/epiceditor.css
+                                 epiceditor/themes/preview/github.css
+                                 epiceditor/themes/editor/epic-dark.css
+                                 codemirror.css
+                                 cms.js
+                                 cms.css)
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
@@ -72,8 +77,10 @@ EmpiricalGrammar::Application.configure do
     domain:          'empirical-grammar.heroku.com',
     authentication:  :plain,
   }
-  # Enable threaded mode
-  # config.threadsafe!
+
+  # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  # config.action_mailer.raise_delivery_errors = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
@@ -82,13 +89,9 @@ EmpiricalGrammar::Application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  # config.active_record.auto_explain_threshold_in_seconds = 0.5
-  config.assets.precompile += %w(epiceditor/themes/base/epiceditor.css
-                                 epiceditor/themes/preview/github.css
-                                 epiceditor/themes/editor/epic-dark.css
-                                 codemirror.css
-                                 cms.js
-                                 cms.css)
+  # Disable automatic flushing of the log to improve performance.
+  # config.autoflush_log = false
+
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.log_formatter = ::Logger::Formatter.new
 end
