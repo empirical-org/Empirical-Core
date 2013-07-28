@@ -30,7 +30,7 @@
   }
 
   .edit-word, .graded-word, .lesson-word {
-    display: inline-block;
+    display: inline;
     outline: none;
     &:focus { background-color: #eee }
   }
