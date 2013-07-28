@@ -7,7 +7,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
     'blur  .edit-word'             : 'wordChanged'
     'click .show-results'          : 'showResults'
     'click .show-lessons'          : 'showLessons'
-    'click .rule-lesson-set .next' : 'showNextLessonSet'
+    # 'click .rule-lesson-set .next' : 'showNextLessonSet'
 
   initialize: (options) ->
     @assessment = options.assessment
@@ -19,7 +19,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
     #@updateProgress()
 
   render: ->
-    @showPracticeQuestions()
+    @showStory()
 
   showPracticeQuestions: ->
     @assessment.get('rule_position')
