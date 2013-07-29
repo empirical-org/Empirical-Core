@@ -13,7 +13,7 @@
 	<script type="text/javascript">
 		// declare and populate collections
 
-		var chapterScore       = new PG.Models.ChapterScore({user_id: <%= current_user.try(:id) %>, assignment_id: <%= @assignment.id %>});
+		var chapterScore       = new PG.Models.ChapterScore({user_id: <%= current_user.try(:id) %>, assignment_id: <%= @assignment.try(:id) %>});
 		var chapterAssessments = new PG.Collections.ChapterAssessments;
 		var chapterRules       = new PG.Collections.ChapterRules;
 		var chapterLessons     = new PG.Collections.ChapterLessons;
