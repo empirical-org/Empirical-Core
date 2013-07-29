@@ -1,0 +1,5 @@
+- @score.score_values.each do |key, value|
+  p
+    span= key.to_s.humanize
+    span &nbsp;
+    span= (value * 100).to_i.to_s + '%'
