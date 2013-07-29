@@ -15,19 +15,19 @@ body { font-family: 'proxima_nova_rgregular'; }
 
 /* Special Fonts */
 
-@font-face { font-family: 'Museo500'; src: url('museo500-regular-webfont.eot'); src: url('museo500-regular-webfont.eot?#iefix') format('embedded-opentype'), url('museo500-regular-webfont.woff') format('woff'), url('museo500-regular-webfont.ttf') format('truetype'), url('museo500-regular-webfont.svg#Museo500') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Museo500'; src: image-url('museo500-regular-webfont.eot'); src: image-url('museo500-regular-webfont.eot?#iefix') format('embedded-opentype'), image-url('museo500-regular-webfont.woff') format('woff'), image-url('museo500-regular-webfont.ttf') format('truetype'), image-url('museo500-regular-webfont.svg#Museo500') format('svg'); font-weight: normal; font-style: normal; }
 
-@font-face { font-family: 'proxima_nova_rgbold'; src: url('proximanova-bold-webfont.eot'); src: url('proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'), url('proximanova-bold-webfont.woff') format('woff'), url('proximanova-bold-webfont.ttf') format('truetype'), url('proximanova-bold-webfont.svg#proxima_nova_rgbold') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'proxima_nova_rgbold'; src: image-url('proximanova-bold-webfont.eot'); src: image-url('proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'), image-url('proximanova-bold-webfont.woff') format('woff'), image-url('proximanova-bold-webfont.ttf') format('truetype'), image-url('proximanova-bold-webfont.svg#proxima_nova_rgbold') format('svg'); font-weight: normal; font-style: normal; }
 
-@font-face { font-family: 'proxima_nova_rgregular'; src: url('proximanova-regular-webfont.eot'); src: url('proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'), url('proximanova-regular-webfont.woff') format('woff'), url('proximanova-regular-webfont.ttf') format('truetype'), url('proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'proxima_nova_rgregular'; src: image-url('proximanova-regular-webfont.eot'); src: image-url('proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'), image-url('proximanova-regular-webfont.woff') format('woff'), image-url('proximanova-regular-webfont.ttf') format('truetype'), image-url('proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg'); font-weight: normal; font-style: normal; }
 
-@font-face { font-family: 'proxima_novasemibold'; src: url('proximanova-semibold-webfont.eot'); src: url('proximanova-semibold-webfont.eot?#iefix') format('embedded-opentype'), url('proximanova-semibold-webfont.woff') format('woff'), url('proximanova-semibold-webfont.ttf') format('truetype'), url('proximanova-semibold-webfont.svg#proxima_novasemibold') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'proxima_novasemibold'; src: image-url('proximanova-semibold-webfont.eot'); src: image-url('proximanova-semibold-webfont.eot?#iefix') format('embedded-opentype'), image-url('proximanova-semibold-webfont.woff') format('woff'), image-url('proximanova-semibold-webfont.ttf') format('truetype'), image-url('proximanova-semibold-webfont.svg#proxima_novasemibold') format('svg'); font-weight: normal; font-style: normal; }
 
-@font-face { font-family: 'proxima_novaregular_italic'; src: url('proximanova-regularitalic-webfont.eot'); src: url('proximanova-regularitalic-webfont.eot?#iefix') format('embedded-opentype'), url('proximanova-regularitalic-webfont.woff') format('woff'), url('proximanova-regularitalic-webfont.ttf') format('truetype'), url('proximanova-regularitalic-webfont.svg#proxima_novaregular_italic') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'proxima_novaregular_italic'; src: image-url('proximanova-regularitalic-webfont.eot'); src: image-url('proximanova-regularitalic-webfont.eot?#iefix') format('embedded-opentype'), image-url('proximanova-regularitalic-webfont.woff') format('woff'), image-url('proximanova-regularitalic-webfont.ttf') format('truetype'), image-url('proximanova-regularitalic-webfont.svg#proxima_novaregular_italic') format('svg'); font-weight: normal; font-style: normal; }
 
-@font-face { font-family: 'futuracondensed_medium'; src: url('futura_condensed_medium-webfont.eot'); src: url('futura_condensed_medium-webfont.eot?#iefix') format('embedded-opentype'), url('futura_condensed_medium-webfont.woff') format('woff'), url('futura_condensed_medium-webfont.ttf') format('truetype'), url('futura_condensed_medium-webfont.svg#futuracondensed_medium') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'futuracondensed_medium'; src: image-url('futura_condensed_medium-webfont.eot'); src: image-url('futura_condensed_medium-webfont.eot?#iefix') format('embedded-opentype'), image-url('futura_condensed_medium-webfont.woff') format('woff'), image-url('futura_condensed_medium-webfont.ttf') format('truetype'), image-url('futura_condensed_medium-webfont.svg#futuracondensed_medium') format('svg'); font-weight: normal; font-style: normal; }
 
-@font-face { font-family: 'droid_sansregular'; src: url('droidsans-webfont.eot'); src: url('droidsans-webfont.eot?#iefix') format('embedded-opentype'), url('droidsans-webfont.woff') format('woff'), url('droidsans-webfont.ttf') format('truetype'), url('droidsans-webfont.svg#droid_sansregular') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'droid_sansregular'; src: image-url('droidsans-webfont.eot'); src: image-url('droidsans-webfont.eot?#iefix') format('embedded-opentype'), image-url('droidsans-webfont.woff') format('woff'), image-url('droidsans-webfont.ttf') format('truetype'), image-url('droidsans-webfont.svg#droid_sansregular') format('svg'); font-weight: normal; font-style: normal; }
 
 /* NAV OVERRIDE */
 .navbar-inner { min-height: 70px; font-family: 'proxima_nova_rgbold'; }
@@ -57,17 +57,17 @@ body { font-family: 'proxima_nova_rgregular'; }
 .foot-ico li { float: left; margin: 10px; }
 .foot-ico a { display: block; width: 156px; height: 37px; line-height: 37px; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; background-color: #3f3f3f; text-align: left; text-indent: 40px; margin: 0 !important;}
 .open-source,
-.open-content { background-image:url('h-ico-01.png'); background-repeat: no-repeat; background-position: 5px center; }
-.open-community { background-image:url('h-ico-02.png'); background-repeat: no-repeat; background-position: 5px center; text-indent: 35px !important; }
+.open-content { background-image: image-url('h-ico-01.png'); background-repeat: no-repeat; background-position: 5px center; }
+.open-community { background-image: image-url('h-ico-02.png'); background-repeat: no-repeat; background-position: 5px center; text-indent: 35px !important; }
 
-.h-middle { background: #cbebed url('h-middle-bg.png') no-repeat center 28px; }
-.h-middle-extra { background: transparent url('h-transparent-water.png') repeat-x left bottom; padding-top: 178px; overflow: hidden; }
+.h-middle { background: #cbebed image-url('h-middle-bg.png') no-repeat center 28px; }
+.h-middle-extra { background: transparent image-url('h-transparent-water.png') repeat-x left bottom; padding-top: 178px; overflow: hidden; }
 
-.h-page-top-repeat { width: 100%; background: url('h-top.png') repeat-x left top; }
-.h-page-left-repeat { width: 100%; background: transparent url('h-left.jpg') repeat-y left; }
-.h-page-right-repeat  { width: 100%; background: transparent url('h-right.jpg') repeat-y right; }
-.h-left-top { width: 100%; background: transparent url('h-left-top.jpg') no-repeat left top; }
-.h-right-top { width: 100%; background: transparent url('h-right-top.jpg') no-repeat right top; }
+.h-page-top-repeat { width: 100%; background: image-url('h-top.png') repeat-x left top; }
+.h-page-left-repeat { width: 100%; background: transparent image-url('h-left.jpg') repeat-y left; }
+.h-page-right-repeat  { width: 100%; background: transparent image-url('h-right.jpg') repeat-y right; }
+.h-left-top { width: 100%; background: transparent image-url('h-left-top.jpg') no-repeat left top; }
+.h-right-top { width: 100%; background: transparent image-url('h-right-top.jpg') no-repeat right top; }
 .h-page-extra { background: #fff; }
 .h-page-content-extra { width: 90%; padding-bottom: 20px; margin: 0 5%; padding-top: 5px; }
 .h-page-content-extra h1 { font-family: 'futuracondensed_medium'; font-size: 50px; line-height: 1; text-align: center; color: #000; }
@@ -96,7 +96,7 @@ body { font-family: 'proxima_nova_rgregular'; }
 
 .h-testi { min-height: 238px; position: relative; }
 .h-testi-inner { position: relative; z-index: 10; }
-.what-saying { background: #0f4c7a url('testi-arrow.jpg') no-repeat right top; height: 238px; }
+.what-saying { background: #0f4c7a image-url('testi-arrow.jpg') no-repeat right top; height: 238px; }
 .im-saying { background: #b4e3ff; height: 238px; }
 .what-saying,
 .im-saying { margin-left: 0 !important; padding-left: 20px; }
@@ -142,12 +142,12 @@ header { margin: 0; }
 .sec-3 .container{ padding-top: 20px; padding-bottom: 20px;  }
 
 .sec-1-inner { padding-right: 20px; }
-.sec-1  h2 { color: #010101; } 
+.sec-1  h2 { color: #010101; }
 .sec-1 p { color: #7a7a7a; }
 .sec-1 q { font-family: 'proxima_nova_rgbold'; font-size: 28px; line-height: 34px; color: #000; }
 
 .sec-2-inner  { padding-left: 20px; }
-.sec-2  h2 { color: #0f4c7a; } 
+.sec-2  h2 { color: #0f4c7a; }
 .sec-2 p { color: #3b4d5c; }
 
 .sec-3 p { font-family: 'proxima_novasemibold'; color: #0f4c7a; font-size: 21px; line-height: 30px; }
@@ -164,11 +164,11 @@ header { margin: 0; }
  .team-box-title small { color: #fcd000; font-size: 14px; text-transform: uppercase; margin: 5px 0 0 15px; display: block; }
 
 /* specific */
-#page-story .sec-1 .container { background: #fff url('our-story-sec1.png') no-repeat 96% bottom; }
-#page-story .sec-2 .container { background: #b5e2ff url('our-story-sec2.png') no-repeat 20px top; }
-#page-learning .sec-1 .container { background: #fff url('on-learning-sec1.png') no-repeat 96% top; }
-#page-learning .sec-2 .container { background: #0f4c7a url('on-learning-sec2.png') no-repeat 20px bottom; }
-#page-about .sec-1  .container { padding-top: 0; background: #0f4c7a url('on-about-sec1.png') no-repeat 84% 40%; }
+#page-story .sec-1 .container { background: #fff image-url('our-story-sec1.png') no-repeat 96% bottom; }
+#page-story .sec-2 .container { background: #b5e2ff image-url('our-story-sec2.png') no-repeat 20px top; }
+#page-learning .sec-1 .container { background: #fff image-url('on-learning-sec1.png') no-repeat 96% top; }
+#page-learning .sec-2 .container { background: #0f4c7a image-url('on-learning-sec2.png') no-repeat 20px bottom; }
+#page-about .sec-1  .container { padding-top: 0; background: #0f4c7a image-url('on-about-sec1.png') no-repeat 84% 40%; }
 
 #page-learning .sec-2 p { color: #fff; }
 #page-about .sec-1 p { color: #b4e3ff; }
@@ -199,14 +199,14 @@ footer { height: 280px; background: #252626; }
  .nav li { width: 100%; margin: 0 !important; }
  .nav li a { border-bottom: 1px solid #393939; border-top: 1px solid #7f7f7f; }
  .nav li:last-child a { border-bottom: none; }
- 
+
  .nav-collapse .nav { margin: 0 !important; }
  .nav-collapse { float: none; display: block; }
  .nav-collapse .nav > li > a,
  #m-sign-in a,
  #m-create-account a { background: none !important; color: #fff; font-family: 'proxima_nova_rgbold' !important; font-size: 14px !important; padding: 9px 15px; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; margin-bottom: 0; }
- 
- 
+
+
  #home .nav li a { border-bottom: 1px solid #def3f4; border-top: 1px solid #9fd4d7; }
  #home .nav li:last-child a { border-bottom: none; }
  #home .nav-collapse .nav > li > a,
@@ -214,21 +214,21 @@ footer { height: 280px; background: #252626; }
  #home #m-create-account a { color: #4b6c84; }
 
 
- 
+
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
 
  .h-sub-right-content a { width: 150px; margin-bottom: 20px; }
  .col-3 { width: 236px; }
- 
+
  #page-story .sec-1 .container { -webkit-background-size: 350px; -moz-background-size: 350px; background-size: 350px; }
  #page-story .sec-2 .container { -webkit-background-size: 350px; -moz-background-size: 350px; background-size: 340px; }
- 
- #page-learning .sec-1 .container { background: #fff url('puzzle-yellow.png') no-repeat 96% top; }
+
+ #page-learning .sec-1 .container { background: #fff image-url('puzzle-yellow.png') no-repeat 96% top; }
  #page-learning .sec-1 .container { -webkit-background-size: 350px; -moz-background-size: 350px; background-size: 400px;  }
  #page-learning .sec-2 .container { -webkit-background-size: 350px; -moz-background-size: 350px; background-size: 350px;  }
- 
+
  .team-box { width: 364px; }
 }
 
@@ -237,38 +237,38 @@ footer { height: 280px; background: #252626; }
  .navbar .brand  { margin-left: 0 !important; }
  .h-page-content-extra ul  { padding: 0 5%; }
  .btn-y-inner { width: 300px; }
- 
+
  .h-sub-left-content,
  .h-sub-right-content { text-align: center; padding-left: 5%; padding-right: 5%; }
  .h-sub-right-content > div { float: none; padding-top: 30px; }
  .h-sub-right-content a { width: 90%; float: none; margin: 10px auto; }
- 
+
  .col-3 { width: 90%; margin: 0; padding-left: 5%; padding-right: 5%; }
  .h-features h2 { margin-bottom: 10px; }
  .h-testi .post-ab-left,
  .h-testi .post-ab-right { display: none; }
- .what-saying { background: #0f4c7a url('testi-arrow-m.jpg') no-repeat center bottom; padding: 0; height: auto; }
+ .what-saying { background: #0f4c7a image-url('testi-arrow-m.jpg') no-repeat center bottom; padding: 0; height: auto; }
  .what-saying > div { padding: 20px 0; }
  .what-saying h2 { text-align: center; line-height: 60px; margin: 0;  }
- 
+
  .im-saying { padding: 20px 0 20px; height: auto; }
  .im-saying > div { padding: 0 5%; text-align: center; }
- 
+
  #home footer { height: auto; }
  .foot-ico { font-family: 'proxima_nova_rgbold'; font-size: 14px; float: none; }
  .foot-ico li { float: none; display: block !important; }
   .foot-ico a { margin: 0 auto !important; }
- 
+
  .page-title  { height: 60px; }
  .page-title  h1 { line-height: 60px; }
  .page-title-wrap .container,
  .page-content-wrap .container { padding-top: 0; padding-right: 15px; padding-bottom: 0; padding-left: 15px; }
  .sec-2-inner,
  .sec-2-inner { padding: 0; }
- 
+
  .about-members .container { padding: 0 10px; }
  .team-box { display: block; width: 100%; margin: 0 0 20px; min-height: 100px; height: auto;  }
- 
+
  footer { height: auto; }
  #footer-inner { margin: 0 5%; }
  #footer-item,
@@ -276,9 +276,9 @@ footer { height: 280px; background: #252626; }
  #copyright { text-align: center; padding-top: 30px; }
  #footer-item ul { padding-top: 10px; }
  #footer-item { padding: 10px 0 30px; }
- 
+
  /* Specific */
- 
+
  #page-story .sec-1 .container { -webkit-background-size: 300px; -moz-background-size: 300px; background-size: 300px; background-position: 49% 30px; }
  #page-story .sec-2 .container { -webkit-background-size: 300px; -moz-background-size: 300px; background-size: 300px; background-position: 60% top; }
  #page-story .sec-1-inner { padding-top: 250px; }
@@ -288,10 +288,10 @@ footer { height: 280px; background: #252626; }
 
  #page-about .sec-1-inner { padding-top: 200px; }
  #page-about .sec-1 .container { background-position: 49% 10px; }
- 
+
  #page-learning .sec-1 .container { background-image:url('puzzle-blue.png'); background-position: 96% bottom; -webkit-background-size: 250px; -moz-background-size: 250px; background-size: 250px; }
  #page-learning .sec-2 .container { background-position: 96% bottom; -webkit-background-size: 250px; -moz-background-size: 250px; background-size: 250px; }
  #page-learning .sec-1-inner { padding-bottom: 190px; }
  #page-learning .sec-2-inner  { padding-bottom: 250px; }
- 
+
 }
