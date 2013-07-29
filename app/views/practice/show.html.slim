@@ -3,7 +3,7 @@
   = markdown @rule.description.to_s
 
   .rule-lesson-list
-    = form_for @rule, url: assignment_test_practice_path(@assignment, @rule) do |f|
+    = form_for @rule, url: assignment_test_practice_path(@assignment, @rule, step: params[:step]) do |f|
       - @rule.lessons.each do |lesson|
         .rule-lesson-form data-id=lesson.id
           .form
