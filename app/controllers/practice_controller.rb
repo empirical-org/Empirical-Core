@@ -27,7 +27,7 @@ class PracticeController < ApplicationController
     if next_id.present?
       assignment_test_practice_path @assignment, next_id
     else
-      story_assignment_test_path(@assignment)
+      assignment_test_story_path(@assignment)
     end
   end
 

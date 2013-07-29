@@ -2,7 +2,11 @@
 	<div class="title"><%= @chapter.description ||= nil %></div>
 	<div class="text"></div>
 	<button class="show-results"><span class="btn-y-left"><span class="btn-y-right"><span class="btn-y-inner">Submit!</span></span></span></button>
-	<div class="results"></div>
+	<div class="grammar-test-results">
+		<%= form_for :grammar_test_results, url: assignment_test_story_path(@assignment) do |f| %>
+
+		<% end %>
+	</div>
 	<div class="rules"></div>
 	<div class="lessons"></div>
 

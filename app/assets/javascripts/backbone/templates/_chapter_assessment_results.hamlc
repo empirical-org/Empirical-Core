@@ -1,8 +1,9 @@
-.show-lessons.btn Practice Lessons
+%input.show-lessons.btn(type="submit") Practice Lessons
 
 %ol
   - _.each @results(), (chunk) =>
     - if not chunk.rule() then return
+    %input(type="hidden" name="missed_rules[]" value=chunk.rule().attributes.id)
     %li.result
       = marked chunk.rule().get('title')
 
@@ -20,4 +21,4 @@
       %br
       %br
 
-.show-lessons.btn Practice Lessons
+%input.show-lessons.btn(type="submit") Practice Lessons
