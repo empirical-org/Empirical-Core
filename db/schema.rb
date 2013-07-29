@@ -124,9 +124,10 @@ ActiveRecord::Schema.define(version: 20130729011951) do
     t.datetime "completion_date"
     t.integer  "items_missed"
     t.integer  "lessons_completed"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.text     "lesson_input"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.text     "practice_lesson_input"
+    t.text     "review_lesson_input"
     t.text     "missed_rules"
   end
 

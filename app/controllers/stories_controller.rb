@@ -12,7 +12,7 @@ class StoriesController < ApplicationController
     @score.missed_rules = params[:missed_rules]
     @score.save!
 
-    redirect_to assignment_test_review_path(@assignment)
+    redirect_to assignment_test_practice_index_path(@assignment, step: "review")
   end
 
   protected
@@ -22,4 +22,3 @@ class StoriesController < ApplicationController
     @score = current_user.scores.find_by_assignment_id!(@assignment.id)
   end
 end
-
