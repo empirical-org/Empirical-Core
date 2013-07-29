@@ -14,14 +14,11 @@
       %tr
         %td= link_to score.assignment.chapter.try(:title), assignment_test_practice_index_path(score.assignment, step: "practice")
         %td= score.assignment.due_date.strftime("%a, %b %d %Y")
-        - if score.completion_date
+        - if score.completed?
           %td= score.completion_date.strftime("%a, %b %d %Y")
+          %td= (score.final_grade * 100).to_i.to_s + '%'
         - else
           %td
-
-        - if score.items_missed
-          %td= "Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%"
-        - else
           %td incomplete
 
 %h3 Past Assignments
@@ -38,12 +35,9 @@
       %tr
         %td= score.assignment.chapter.title
         %td= score.assignment.due_date.strftime("%a, %b %d %Y")
-        - if score.completion_date
+        - if score.completed?
           %td= score.completion_date.strftime("%a, %b %d %Y")
-        - else
-          %td
-
-        - if score.items_missed
           %td= "Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%"
         - else
+          %td
           %td incomplete
