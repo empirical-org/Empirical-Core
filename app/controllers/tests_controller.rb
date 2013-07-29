@@ -15,18 +15,14 @@ class TestsController < ApplicationController
     render 'application/_chapter_test'
   end
 
-  def score
-    @score = Score.where("user_id = ? AND assignment_id = ?", params[:test][:user_id], params[:test][:assignment_id]).first
-    @score.items_missed = params[:test][:items_missed]
-    @score.lessons_completed = params[:test][:lessons_completed]
-    @score.give_time
-    @score.save
-    redirect_to profile_path, notice: 'Chapter completed.'
+  def final
+    @score.finalize!
   end
 
   protected
 
   def find_assignment
     @assignment = Assignment.find(params[:assignment_id])
+    @score = current_user.scores.find_by_assignment_id!(@assignment.id)
   end
 end

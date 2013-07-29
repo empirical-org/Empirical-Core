@@ -55,6 +55,7 @@ class PracticeController < ApplicationController
     if params[:step] == "practice"
       assignment_test_story_path(@assignment)
     else
+      @score.finalize!
       final_assignment_test_path(@assignment)
     end
   end

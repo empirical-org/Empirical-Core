@@ -18,6 +18,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :practice
       resource :story
       resource :review
+      get :final
     end
   end
 
