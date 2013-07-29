@@ -6,7 +6,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
     'focus .edit-word'             : 'wordFocused'
     'blur  .edit-word'             : 'wordChanged'
     'click .show-results'          : 'showResults'
-    'click .show-lessons'          : 'showLessons'
+    # 'click .show-lessons'          : 'showLessons'
     # 'click .rule-lesson-set .next' : 'showNextLessonSet'
 
   initialize: (options) ->
@@ -74,7 +74,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
     for id in @assessment.get 'rule_position'
       @orderedRules.push _.first @missedRules.where(id: parseInt(id))
 
-    @$('.results').show().html @resultsTemplate(@assessment)
+    @$('.grammar-test-results form').show().append @resultsTemplate(@assessment)
     @percentMissed = 100 - (@missedRules.length / chapterRules.length * 100)
 
   showLessons: ->
