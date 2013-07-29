@@ -14,8 +14,17 @@ class Score < ActiveRecord::Base
   	self.completion_date = Time.now
   end
 
+  def completed?
+    completion_date.present?
+  end
+
+  def final_grade
+    (score_values[:story_percentage] + score_values[:review_percentage]).to_f / 2
+  end
+
   def finalize!
     self.score_values = ScoreFinalizer.new(self).results
+    give_time
     save!
   end
 end
