@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   def show
     @chapter = @assignment.chapter
     @assessment = @chapter.assessment
-    render 'application/_chapter_test'
+    @body_class = 'con-skyblue'
   end
 
   def create

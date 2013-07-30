@@ -1,0 +1,24 @@
+.h-page-top-repeat
+	.h-left-top
+		.h-right-top style="padding-top: 20px;"
+
+.h-page-extra
+	.h-page-left-repeat
+		.h-page-right-repeat
+			.h-page-content-extra
+				p.notice= notice
+
+				.grammar-test
+					.title= @chapter.description ||= nil
+					.text
+
+					button.show-results: span.btn-y-left: span.btn-y-right: span.btn-y-inner Submit!
+
+					.grammar-test-results
+						= form_for :grammar_test_results, url: assignment_test_story_path(@assignment) do |f|
+							span
+
+					.rules
+					.lessons
+
+					= render partial: 'chapter_test_javascript'
