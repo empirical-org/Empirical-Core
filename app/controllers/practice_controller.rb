@@ -8,7 +8,11 @@ class PracticeController < ApplicationController
   end
 
   def index
-    redirect_to assignment_test_practice_path(@assignment, @assignment.chapter.practice_rules.first, step: params[:step])
+    if @assignment.chapter.practice_rules.empty?
+      redirect_to assignment_test_story_path(@assignment)
+    else
+      redirect_to assignment_test_practice_path(@assignment, @assignment.chapter.practice_rules.first, step: params[:step])
+    end
   end
 
   def update
@@ -37,8 +41,10 @@ class PracticeController < ApplicationController
 
   def next_id
     if params[:step] == "practice"
+      return nil unless @assignment.chapter.rule_position.index(params[:id]).present?
       @assignment.chapter.rule_position[@assignment.chapter.rule_position.index(params[:id]) + 1]
     else
+      return nil unless @score.missed_rules.index(@rule).present?
       @score.missed_rules[@score.missed_rules.index(@rule) + 1]
     end
   end
