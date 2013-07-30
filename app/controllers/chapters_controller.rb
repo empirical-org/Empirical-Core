@@ -20,7 +20,7 @@ class ChaptersController < ApplicationController
   end
 
   def create
-    @chapter = Chapter.new(param[:chapter])
+    @chapter = Chapter.new(chapter_params)
 
     if @chapter.save
       redirect_to @chapter, notice: 'Chapter was successfully created.'
@@ -32,7 +32,7 @@ class ChaptersController < ApplicationController
   def update
     @chapter = Chapter.find(params[:id])
 
-    if @chapter.update_attributes(params[:chapter])
+    if @chapter.update_attributes(chapter_params)
       redirect_to @chapter, notice: 'Chapter was successfully updated.'
     else
       render :new
@@ -51,17 +51,9 @@ class ChaptersController < ApplicationController
     redirect_to chapters_path
   end
 
-  def next
-    @current_chapter = Chapter.find(params[:current_chapter])
-    @next_chapter = Chapter.find(@current_chapter.id + 1)
-    redirect_to chapter_path(@next_chapter)
-    #currently this is workbook-agnostic; will need to revise
-  end
+  protected
 
-  def previous
-    @current_chapter = Chapter.find(params[:current_chapter])
-    @previous_chapter = Chapter.find(@current_chapter.id - 1)
-    redirect_to chapter_path(@previous_chapter)
-    #currently this is workbook-agnostic; will need to revise
+  def chapter_params
+    params.require(:chapter).permit!
   end
 end
