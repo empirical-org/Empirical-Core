@@ -9,7 +9,6 @@ class AccountsController < ApplicationController
     role = params[:user].delete(:role)
     @user = User.new(user_params)
     @user.safe_role_assigment(role)
-    # binding.pry
 
     if @user.after_initialize!
       sign_in @user
