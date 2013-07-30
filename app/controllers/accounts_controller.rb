@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
 
   def create
     role = params[:user].delete(:role)
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     @user.safe_role_assigment(role)
     # binding.pry
 
@@ -33,5 +33,11 @@ class AccountsController < ApplicationController
 
   def edit
     @user = current_user
+  end
+
+  protected
+
+  def user_params
+    params.require(:user).permit(:classcode, :email, :name)
   end
 end
