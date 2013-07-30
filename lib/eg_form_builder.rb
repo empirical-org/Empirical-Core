@@ -1,3 +1,12 @@
+ActionView::Base.field_error_proc = Proc.new do |html, instance|
+  if html =~ /<label/
+    html
+  else
+    message = instance.error_message.map{|m| "#{instance.instance_variable_get(:@method_name).humanize} #{m}"}.join(', ')
+    "#{html}<div class=\"help-inline\">#{message}</div>".html_safe
+  end
+end
+
 class EgFormBuilder < CMS::FormBuilder
   def radio name, *args
     args = _apply_field_defaults(args)
