@@ -5,8 +5,6 @@ class PagesController < ApplicationController
     # render layout: false
     @chapter = Chapter.find(16)
     @assessment = @chapter.assessment
-    @assignment_id = 0
-    @user_id = 0
   end
 
   def the_peculiar_institution
