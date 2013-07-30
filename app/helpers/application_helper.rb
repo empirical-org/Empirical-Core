@@ -27,4 +27,8 @@ module ApplicationHelper
   def question_section
 
   end
+
+  def body_class
+    @body_class
+  end
 end
