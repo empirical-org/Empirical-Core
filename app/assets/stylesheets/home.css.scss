@@ -9,3 +9,35 @@
     top: 0;
   }
 }
+
+.homepage-top-instructions {
+  width: 434px;
+  padding: 10px;
+  margin-bottom: 20px;
+
+  .line1 {
+    font-size: 24px;
+    color: #666;
+
+    em {
+      font-family: 'proxima_nova_rgbold';
+      font-style: normal;
+      color: #d90053;
+    }
+  }
+
+  .line2 {
+    font-family: 'proxima_nova_rgbold';
+    color: #d90053;
+    font-size: 35px;
+    line-height: 1.6;
+  }
+
+  .line3 {
+    color: #d90053;
+    text-align: center;
+    background-color: #303030;
+    font-style: italic;
+    padding: 6px 0;
+  }
+}
