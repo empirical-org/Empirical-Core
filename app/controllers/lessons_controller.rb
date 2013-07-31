@@ -1,4 +1,6 @@
 class LessonsController < ApplicationController
+  before_filter :admin!
+
   def index
     @lessons = Lesson.all
   end
@@ -17,7 +19,7 @@ class LessonsController < ApplicationController
 
   def create
     params[:lesson].delete(:answer_array_json)
-    @lesson = Lesson.new(params[:lesson])
+    @lesson = Lesson.new(lesson_params)
     @lesson.body = params.delete(:answer_options) if params[:answer_options].present?
 
     if @lesson.save
@@ -32,22 +34,22 @@ class LessonsController < ApplicationController
     @lesson.body = params.delete(:answer_options) if params[:answer_options].present?
     params[:lesson].delete(:answer_array_json)
 
-    if @lesson.update_attributes(params[:lesson])
+    if @lesson.update_attributes(lesson_params)
       redirect_to rules_path, notice: 'Lesson was successfully updated.'
     else
       render action: "edit"
     end
   end
 
-  # DELETE /lessons/1
-  # DELETE /lessons/1.json
   def destroy
     @lesson = Lesson.find(params[:id])
     @lesson.destroy
+    redirect_to rules_path, notice: 'Lesson was deleted.'
+  end
 
-    respond_to do |format|
-      format.html { redirect_to rules_path, notice: 'Lesson was deleted.' }
-      format.json { head :no_content }
-    end
+  protected
+
+  def lesson_params
+    params[:lesson]
   end
 end
