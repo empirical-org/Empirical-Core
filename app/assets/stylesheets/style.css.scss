@@ -42,7 +42,7 @@ body { font-family: 'proxima_nova_rgregular'; }
 #home {}
 #home header {}
 #home footer { height: 280px; }
-#home .brand { background:url('h-logo.png') no-repeat; }
+#home .brand { background: image-url('h-logo.png') no-repeat; }
 #home .nav-collapse  a { color: #4b6c84; }
 
 
@@ -73,10 +73,10 @@ body { font-family: 'proxima_nova_rgregular'; }
 .h-page-content-extra h1 { font-family: 'futuracondensed_medium'; font-size: 50px; line-height: 1; text-align: center; color: #000; }
 .h-page-content-extra ul { font-family: 'droid_sansregular'; color: #3d3d3d; font-size: 16px; list-style: none; margin:0 0 30px; padding: 0;}
 .h-page-content-extra ul li  { padding: 15px 0; border-bottom: 1px solid #e4e4e4; line-height: 20px; }
-.h-page-content-extra button { display: block; border: none; height: 55px; line-height: 55px; background:url('h-yellow-btn-middle.png') repeat-x; padding: 0; font-family: 'proxima_nova_rgbold'; font-size: 20px; color: #fff; margin: 0 auto; }
+.h-page-content-extra button { display: block; border: none; height: 55px; line-height: 55px; background: image-url('h-yellow-btn-middle.png') repeat-x; padding: 0; font-family: 'proxima_nova_rgbold'; font-size: 20px; color: #fff; margin: 0 auto; }
 .btn-y-inner { width: 430px; display: block; }
-.btn-y-left { background:url('h-yellow-btn-left.png') no-repeat left; display: block; padding-left: 10px; }
-.btn-y-right { background:url('h-yellow-btn-right.png') no-repeat right; display: block; padding-right: 10px; }
+.btn-y-left { background: image-url('h-yellow-btn-left.png') no-repeat left; display: block; padding-left: 10px; }
+.btn-y-right { background: image-url('h-yellow-btn-right.png') no-repeat right; display: block; padding-right: 10px; }
 
 .h-sub-middle { padding: 20px 0; }
 .h-sub-left-content { font-family: 'proxima_nova_rgregular';  }
@@ -123,7 +123,7 @@ header { margin: 0; }
 
 .navbar { margin-bottom: 0; }
 .navbar-inner { background: none; border: none; border-radius: 0; box-shadow: none; }
-.brand { width: 228px; height: 22px; background:url('logo.png') no-repeat; display: block; text-indent: -999em; }
+.brand { width: 228px; height: 22px; background: image-url('logo.png') no-repeat; display: block; text-indent: -999em; }
 .navbar .nav > li > a:focus, .navbar .nav > li > a:hover { color: #dfdfdf; }
 
 #m-sign-in a,
