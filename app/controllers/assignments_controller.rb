@@ -19,7 +19,7 @@ class AssignmentsController < ApplicationController
   end
 
   def create
-    @assignment = Assignment.new(params[:assignment])
+    @assignment = Assignment.new(assignment_params)
     @assignment.user_id    = params[:user_id]
     @assignment.classcode  = params[:classcode]
     @assignment.chapter_id = params[:chapter_id]
@@ -38,7 +38,7 @@ class AssignmentsController < ApplicationController
   def update
     @assignment = Assignment.find(params[:id])
 
-    if @assignment.update_attributes(params[:assignment])
+    if @assignment.update_attributes(assignment_params)
       redirect_to @assignment, notice: 'Assignment was successfully updated.'
     else
       render :edit
@@ -48,5 +48,11 @@ class AssignmentsController < ApplicationController
   def destroy
     Assignment.find(params[:id]).destroy
     redirect_to profile_path, notice: 'Assignment was deleted.'
+  end
+
+  protected
+
+  def assignment_params
+    params.require(:assignment).permit!
   end
 end

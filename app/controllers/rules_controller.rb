@@ -19,9 +19,7 @@ class RulesController < ApplicationController
   end
 
   def create
-    @rule = Rule.new(params[:rule])
-    @rule.workbook_id = params[:workbook_id]
-    @rule.category_id = params[:category_id]
+    @rule = Rule.new(rule_params)
 
     respond_to do |format|
       if @rule.save
@@ -37,7 +35,7 @@ class RulesController < ApplicationController
   def update
     @rule = Rule.find(params[:id])
 
-    if @rule.update_attributes params[:rule]
+    if @rule.update_attributes rule_params
       redirect_to rules_path, notice: 'Rule was successfully updated.'
     else
       render action: "edit"
@@ -53,5 +51,11 @@ class RulesController < ApplicationController
 
     @rule.destroy
     redirect_to rules_url
+  end
+
+  protected
+
+  def rule_params
+    params.require(:rule).permit!
   end
 end
