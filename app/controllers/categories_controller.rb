@@ -1,6 +1,4 @@
 class CategoriesController < ApplicationController
-  # GET /categories
-  # GET /categories.json
   def index
     @categories = Category.all
 
@@ -10,8 +8,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # GET /categories/1
-  # GET /categories/1.json
   def show
     @category = Category.find(params[:id])
 
@@ -21,8 +17,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # GET /categories/new
-  # GET /categories/new.json
   def new
     @category = Category.new
 
@@ -32,15 +26,12 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # GET /categories/1/edit
   def edit
     @category = Category.find(params[:id])
   end
 
-  # POST /categories
-  # POST /categories.json
   def create
-    @category = Category.new(params[:category])
+    @category = Category.new(category_params)
 
     respond_to do |format|
       if @category.save
@@ -59,7 +50,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
 
     respond_to do |format|
-      if @category.update_attributes(params[:category])
+      if @category.update_attributes(category_params)
         format.html { redirect_to rules_path, notice: 'Category was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +70,11 @@ class CategoriesController < ApplicationController
       format.html { redirect_to rules_path }
       format.json { head :no_content }
     end
+  end
+
+  protected
+
+  def category_params
+    params.require(:category).permit!
   end
 end
