@@ -1,4 +1,6 @@
 class RulesController < ApplicationController
+  before_filter :admin!
+
   def index
     @categories = Category.all
   end

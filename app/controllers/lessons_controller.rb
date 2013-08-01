@@ -50,6 +50,6 @@ class LessonsController < ApplicationController
   protected
 
   def lesson_params
-    params[:lesson]
+    params.require(:lesson).permit!
   end
 end
