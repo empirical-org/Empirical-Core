@@ -12,7 +12,7 @@
   - current_user.scores.each do |score|
     - if score.assignment.due_date.to_i > Time.now.to_i && score.items_missed.nil?
       %tr
-        %td= link_to score.assignment.chapter.try(:title), assignment_test_practice_index_path(score.assignment, step: "practice")
+        %td= link_to score.assignment.chapter.try(:title), chapter_test_practice_index_path(score.assignment.chapter, step: "practice")
         %td= score.assignment.due_date.strftime("%a, %b %d %Y")
         - if score.completed?
           %td= score.completion_date.strftime("%a, %b %d %Y")
