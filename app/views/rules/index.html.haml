@@ -15,7 +15,7 @@
         - category.rules.each do |rule|
           %tr
             %td.title= "#{rule.title} \{\|#{rule.id}\}"
-            %td.add= link_to image_tag('newlesson.png', :title => 'New lesson for this rule'), new_lesson_path(:rule => rule)
+            %td.add= link_to image_tag('newlesson.png', :title => 'New question for this rule'), new_lesson_path(:rule => rule)
             %td.destroy= link_to image_tag('delete.png', :title => 'Delete this rule'), rule, :method => :delete, :data => { :confirm => 'Are you sure?' }
             %td.edit
               = link_to image_tag('edit.png', :title => 'Edit this rule'), edit_rule_path(rule, :category => category)
@@ -23,8 +23,8 @@
             %tr
               %td.title.lesson= lesson.body
               %td.add
-              %td.destroy= link_to image_tag('delete.png', :title => 'Delete this lesson'), lesson, :method => :delete, :data => { :confirm => 'Are you sure?' }
-              %td.edit= link_to image_tag('edit.png', :title => 'Edit this lesson'), edit_lesson_path(lesson, :rule => rule)
+              %td.destroy= link_to image_tag('delete.png', :title => 'Delete this question'), lesson, :method => :delete, :data => { :confirm => 'Are you sure?' }
+              %td.edit= link_to image_tag('edit.png', :title => 'Edit this question'), edit_lesson_path(lesson, :rule => rule)
 
 - if current_user.teacher?
   .category-container

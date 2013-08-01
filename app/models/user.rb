@@ -52,8 +52,8 @@ class User < ActiveRecord::Base
 
     if save
       if student?
-        user.teacher.assignments.each do |assignment|
-          user.scores.create(assignment_id: assignment.id)
+        teacher.assignments.each do |assignment|
+          scores.create(assignment_id: assignment.id)
         end
       end
 
