@@ -4,7 +4,6 @@ EmpiricalGrammar::Application.routes.draw do
   # resources :workbooks
   resources :lessons
   resources :assessments
-  resources :chapters
   resource :profile
 
   resources :users do
@@ -13,7 +12,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  resources :assignments do
+  resources :chapters do
     resource :test do
       resources :practice
       resource :story
@@ -21,6 +20,8 @@ EmpiricalGrammar::Application.routes.draw do
       get :final
     end
   end
+
+  resources :assignments
 
   CMS::Routes.new(self).draw
   HoneyAuth::Routes.new(self).draw

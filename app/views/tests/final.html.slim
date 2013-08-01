@@ -3,4 +3,8 @@ table
   - @score.score_values.each do |key, value|
     tr
       td= key.to_s.humanize
-      td= (value * 100).to_i.to_s + '%'
+      td
+        - if value.nan?
+          | N/A
+        - else
+          = (value * 100).to_i.to_s + '%'

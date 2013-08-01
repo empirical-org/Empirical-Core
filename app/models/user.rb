@@ -16,13 +16,20 @@ class User < ActiveRecord::Base
   # validates_format_of :password, with: /((?=.*\d)(?=.*[A-Z]).{8,})/, message: 'must contain at least 1 number and 1 capital letter and be at least 8 characters long', allow_nil: true, on: :standard, if: :password?
   has_many :comments
 
-  has_many :assignments do
+  has_many :teacher_assignments, class_name: 'Assignment' do
     def for_chapter chapter
       where(chapter_id: chapter.id).first
     end
   end
 
-  has_many :chapters, through: :assignments
+  has_many :student_assignments, through: :scores, source: :assignment do
+    def for_chapter chapter
+      where(chapter_id: chapter.id).first
+    end
+  end
+
+  has_many :teacher_chapters, through: :assignments, source: :chapters
+  has_many :student_chapters, through: :student_assignments, source: :chapter
 
   has_many :scores
   has_one :teacher, -> { where role: 'teacher' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode'

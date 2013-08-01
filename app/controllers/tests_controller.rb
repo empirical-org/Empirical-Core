@@ -1,6 +1,5 @@
-class TestsController < ApplicationController
+class TestsController < BaseChapterController
 	before_filter :signed_in!
-	before_filter :find_assignment
 
   def show
     @chapter = @assignment.chapter
@@ -17,12 +16,5 @@ class TestsController < ApplicationController
 
   def final
     @score.finalize!
-  end
-
-  protected
-
-  def find_assignment
-    @assignment = Assignment.find(params[:assignment_id])
-    @score = current_user.scores.find_by_assignment_id!(@assignment.id)
   end
 end

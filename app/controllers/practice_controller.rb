@@ -1,17 +1,16 @@
-class PracticeController < ApplicationController
+class PracticeController < BaseChapterController
   before_filter :signed_in!
-  before_filter :find_assignment
 
   def show
     @rule = Rule.find(params[:id])
-    @next_path = assignment_test_practice_path(@assignment, @assignment.chapter.practice_rules.first, step: params[:step])
+    @next_path = chapter_test_practice_path(@chapter, @chapter.practice_rules.first, step: params[:step])
   end
 
   def index
-    if @assignment.chapter.practice_rules.empty?
-      redirect_to assignment_test_story_path(@assignment)
+    if @chapter.practice_rules.empty?
+      redirect_to chapter_test_story_path(@chapter)
     else
-      redirect_to assignment_test_practice_path(@assignment, @assignment.chapter.practice_rules.first, step: params[:step])
+      redirect_to chapter_test_practice_path(@chapter, @chapter.practice_rules.first, step: params[:step])
     end
   end
 
@@ -41,8 +40,8 @@ class PracticeController < ApplicationController
 
   def next_id
     if params[:step] == "practice"
-      return nil unless @assignment.chapter.rule_position.index(params[:id]).present?
-      @assignment.chapter.rule_position[@assignment.chapter.rule_position.index(params[:id]) + 1]
+      return nil unless @chapter.rule_position.index(params[:id]).present?
+      @chapter.rule_position[@chapter.rule_position.index(params[:id]) + 1]
     else
       return nil unless @score.missed_rules.index(@rule).present?
       @score.missed_rules[@score.missed_rules.index(@rule) + 1]
@@ -51,7 +50,7 @@ class PracticeController < ApplicationController
 
   def next_lesson
     if next_id.present?
-      assignment_test_practice_path @assignment, next_id, step: params[:step]
+      chapter_test_practice_path @chapter, next_id, step: params[:step]
     else
       step_after_rules_completed
     end
@@ -59,15 +58,10 @@ class PracticeController < ApplicationController
 
   def step_after_rules_completed
     if params[:step] == "practice"
-      assignment_test_story_path(@assignment)
+      chapter_test_story_path(@chapter)
     else
       @score.finalize!
-      final_assignment_test_path(@assignment)
+      final_chapter_test_path(@chapter)
     end
-  end
-
-  def find_assignment
-    @assignment = Assignment.find(params[:assignment_id])
-    @score = current_user.scores.find_by_assignment_id!(@assignment.id)
   end
 end
