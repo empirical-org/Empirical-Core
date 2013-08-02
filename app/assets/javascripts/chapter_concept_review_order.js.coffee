@@ -41,6 +41,7 @@ class window.LessonAnswerRoot extends ConceptReviewRoot
   initialize: ->
     super JSON.parse(@$('.hidden input').val())
     _.bindAll 'save'
+
     @$el.closest('form').find('.form-actions .btn').on 'click', =>
       @save()
       @$('input[name="lesson[answer_array_json] "]').remove()
