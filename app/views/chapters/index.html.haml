@@ -6,7 +6,7 @@
 
 	- @chapters.each do |chapter|
 		%tr
-			%td= link_to chapter.title, chapter
+			%td= link_to chapter.title, chapter_test_practice_index_path(chapter, step: "practice")
 			-if current_user.admin?
 				%td= link_to 'Edit', edit_chapter_path(chapter)
 				%td= link_to 'Destroy', chapter, :method => :delete, :data => { :confirm => 'Are you sure?' }
