@@ -4,7 +4,7 @@ class BaseChapterController < ApplicationController
   def find_assignment
     @chapter = Chapter.find(params[:chapter_id])
 
-    if current_user.present?
+    if current_user.present? && current_user.student?
       @assignment = current_user.student_assignments.for_chapter(@chapter)
       @score = current_user.scores.find_by_assignment_id!(@assignment.id)
     else
