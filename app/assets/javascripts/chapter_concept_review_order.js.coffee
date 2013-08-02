@@ -52,6 +52,10 @@ class window.LessonAnswerRoot extends ConceptReviewRoot
 dataLoad = (cla) ->
   new window[cla] {el} for el in $("""*[data-view="#{cla}"]""")
 
-jQuery ($) ->
+
+loadSeriesRoots = ->
   dataLoad 'ConceptReviewRoot'
   dataLoad 'LessonAnswerRoot'
+
+jQuery(document).on 'page:load', loadSeriesRoots
+jQuery loadSeriesRoots
