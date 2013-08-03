@@ -78,15 +78,55 @@ body { font-family: 'proxima_nova_rgregular'; }
 .btn-y-left { background: image-url('h-yellow-btn-left.png') no-repeat left; display: block; padding-left: 10px; }
 .btn-y-right { background: image-url('h-yellow-btn-right.png') no-repeat right; display: block; padding-right: 10px; }
 
-.h-sub-middle { padding: 20px 0; }
-.h-sub-left-content { font-family: 'proxima_nova_rgregular';  }
-.h-sub-left-content h2 { color: #f1f1f1; line-height: 50px; font-size: 40px; font-weight: normal; }
-.h-sub-left-content p { color: #fff; font-size: 18px; line-height: 26px; }
-.h-sub-right-content { font-family: 'proxima_nova_rgbold'; }
-.h-sub-right-content > div { float: right; padding-top: 90px; }
-.h-sub-right-content a { width: 194px; height: 57px; line-height: 57px; display: block; background: #fcd000; color: #af1751; text-align: center; text-decoration: none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; float: left; margin-left: 10px; font-size: 18px; }
+.h-sub-middle {
+  padding: 20px 0;
 
-.h-features { padding-top: 70px; padding-bottom: 30px; }
+  .container {
+    position: relative;
+  }
+}
+
+.h-sub-left-content {
+  font-family: 'proxima_nova_rgregular';
+}
+
+.h-sub-left-content h2,
+.h-sub-right-content h2 {
+  color: #f1f1f1;
+  line-height: 50px;
+  font-size: 40px;
+  font-weight: normal;
+  font-family: 'proxima_nova_rgregular';
+}
+
+.h-sub-left-content p { color: #fff; font-size: 18px; line-height: 26px; }
+
+.h-sub-right-content {
+  font-family: 'proxima_nova_rgbold';
+
+  > div {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.h-sub-right-content a { width: 194px;
+  height: 57px;
+  line-height: 57px;
+  display: block;
+  background: #fcd000;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  @include border-radius(5px);
+  float: left;
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.h-features { padding-top: 70px;
+ padding-bottom: 30px; }
 .h-features article { text-align: center; }
 .h-features article figure { margin-bottom: 40px; }
 .h-features .h-features-content { padding: 0 30px; }
