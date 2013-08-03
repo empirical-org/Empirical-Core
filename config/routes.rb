@@ -37,6 +37,5 @@ EmpiricalGrammar::Application.routes.draw do
   get "previous_chapter" => "chapters#previous"
   get "users/activate_email/:token", as: "activate_email", to: "users#activate_email"
 
-  get "test" => "tests#index"
-  post "score" => "tests#score"
+  get "test" => "tests#show"
 end
