@@ -16,6 +16,6 @@ class Chapter < ActiveRecord::Base
   end
 
   def practice_rules
-    Rule.where(id: rule_position)
+    Rule.where(id: rule_position).to_a
   end
 end
