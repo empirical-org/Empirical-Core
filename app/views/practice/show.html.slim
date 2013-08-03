@@ -1,5 +1,7 @@
-.rule-practice-page data-id=@rule.id
-  h3= @rule.title
+= render 'tests/header'
+
+.rule-practice-page.l-chapter-test-tab data-id=@rule.id
+  .rule-practice-title= @rule.title
   = markdown @rule.description.to_s
 
   .rule-lesson-list

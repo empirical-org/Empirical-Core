@@ -7,7 +7,6 @@ class PracticeController < BaseChapterController
   end
 
   def index
-    binding.pry
     if @chapter.practice_rules.empty?
       redirect_to chapter_test_story_path(@chapter)
     else
