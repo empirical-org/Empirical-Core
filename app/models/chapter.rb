@@ -16,6 +16,6 @@ class Chapter < ActiveRecord::Base
   end
 
   def practice_rules
-    Rule.where(id: rule_position).to_a
+    rule_position.map{ |id| Rule.find(id) }
   end
 end
