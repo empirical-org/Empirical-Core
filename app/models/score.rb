@@ -7,7 +7,7 @@ class Score < ActiveRecord::Base
   serialize :score_values, Hash
 
   def missed_rules
-    Rule.where(id: super)
+    Rule.where(id: super).to_a
   end
 
   def give_time
