@@ -7,14 +7,14 @@
   %tr
     %th Students
 
-    - if current_user.assignments
-      - current_user.assignments.sort!{|x,y|x.chapter_id <=> y.chapter_id}.each do |assignment|
+    - if current_user.teacher_assignments
+      - current_user.teacher_assignments.sort!{|x,y|x.chapter_id <=> y.chapter_id}.each do |assignment|
         %th= assignment.chapter.title
 
   - @roster.each do |student|
     %tr
       %td= student.name
-      - current_user.assignments.sort!{|x,y|x.chapter_id <=> y.chapter_id}.each do |assignment|
+      - current_user.teacher_assignments.sort!{|x,y|x.chapter_id <=> y.chapter_id}.each do |assignment|
         - @has_score = false
 
         - student.scores.each do |score|
@@ -32,7 +32,7 @@
 %p= link_to 'Invite Student', new_user_path
 %h3 My Assignments
 
-- if current_user.assignments
+- if current_user.teacher_assignments
   %table.table
     %tr
       %th Chapter
@@ -40,7 +40,7 @@
       %th
       %th
 
-    - current_user.assignments.each do |assignment|
+    - current_user.teacher_assignments.each do |assignment|
       %tr
         %td= link_to assignment.chapter.title,chapter_path(assignment.chapter)
         %td= assignment.due_date.strftime("%a, %b %d %Y")
@@ -58,7 +58,7 @@
   - Workbook.first.chapters.each do |chapter|
     %tr
       %td= chapter.title
-      - if @user.chapters.include? chapter
-        %td= link_to 'Remove', assignment_path(@user.assignments.for_chapter(chapter)), style: 'color: red', method: 'delete'
+      - if @user.teacher_chapters.include? chapter
+        %td= link_to 'Remove', assignment_path(@user.teacher_assignments.for_chapter(chapter)), style: 'color: red', method: 'delete'
       - else
         %td= link_to 'Assign', new_assignment_path(chapter_id: chapter.id, user_id: current_user.id, classcode: current_user.classcode)

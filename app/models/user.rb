@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_many :teacher_chapters, through: :assignments, source: :chapters
+  has_many :teacher_chapters, through: :teacher_assignments, source: :chapter
   has_many :student_chapters, through: :student_assignments, source: :chapter
 
   has_many :scores
