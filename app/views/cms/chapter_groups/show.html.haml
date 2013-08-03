@@ -1,9 +1,0 @@
-%h2== Showing chapter group ##{@chapter_group.id}
-
-%dl
-  %dt Title
-  %dd= @chapter_group.title
-  %dt Lecture
-  %dd= @chapter_group.lecture.try(:title)
-  %dt Position
-  %dd= @chapter_group.position
