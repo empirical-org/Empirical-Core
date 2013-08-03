@@ -7,6 +7,21 @@
 				.line3 To make corrections, click on a word and rewrite it.
 			= render partial: 'chapter_test', object: @chapter
 
+javascript:
+	jQuery(function ($) {
+		setTimeout(function () {
+			$('.homepage-top-instructions')
+				.css('background-color', '#fcd000')
+				.animate({
+					'background-color' : '#cbebed'
+				}, 500, function () {
+					$('.homepage-top-instructions').css('background-color', 'transparent');
+					$('.edit-word:first').focus();
+				});
+		}, 500);
+	});
+
+
 .h-sub-middle.con-pink
 	.container.clearfix
 		.span6
