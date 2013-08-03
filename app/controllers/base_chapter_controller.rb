@@ -2,6 +2,7 @@ class BaseChapterController < ApplicationController
   before_filter :find_assignment
 
   def find_assignment
+    @body_class = 'con-skyblue'
     @chapter = Chapter.find(params[:chapter_id])
 
     if current_user.present? && @assignment = current_user.student_assignments.for_chapter(@chapter)

@@ -1,0 +1,55 @@
+.chapter-test-header {
+  margin-top: 30px;
+  // line-height: 1.5;
+  line-height: 2;
+
+  .current {
+    background-color: rgba(9, 75, 124, 0.3);
+  }
+
+  .current-rule {
+    background-color: white;
+  }
+
+  .not-current {
+    display: none;
+  }
+
+  .l-even-row {
+    display: table;
+    width: 100%;
+  }
+
+  .l-even-row-inner {
+    display: table-row;
+    width: 100%;
+  }
+
+  .l-even-row-unit {
+    display: table-cell;
+    width: 1%;
+    text-align: center;
+  }
+
+  .chapter-test-step-title {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .chapter-test-step-rules-wrapper {
+    padding: 10px 5px 0 5px;
+  }
+
+  .chapter-test-step-rule {
+  }
+}
+
+.l-chapter-test-tab {
+  background-color: white;
+  padding: 20px;
+
+  .rule-practice-title {
+    font-size: 45px;
+    line-height: 1.1;
+  }
+}

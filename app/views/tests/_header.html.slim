@@ -1,0 +1,14 @@
+.chapter-test-header
+  .l-even-row.chapter-test-steps
+    .l-even-row-inner.chapter-test-steps-inner
+      - ChapterTest.new(self).steps.each do |step|
+        .l-even-row-unit.chapter-test-step(class=step.css_class)
+          .chapter-test-step-title= step.title
+
+  - ChapterTest.new(self).steps.each do |step|
+    .chapter-test-step-rules-wrapper class=step.css_class
+      .l-even-row.chapter-test-step-rules
+        .l-even-row-inner.chapter-test-step-rules-inner
+          - step.rules.each do |rule|
+            .l-even-row-unit.chapter-test-step-rule(class=rule.css_class)
+              .chapter-test-step-rule-title= rule.title
