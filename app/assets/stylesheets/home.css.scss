@@ -29,15 +29,16 @@
   .line2 {
     font-family: 'proxima_nova_rgbold';
     color: #d90053;
-    font-size: 35px;
+    font-size: 34px;
     line-height: 1.6;
   }
 
   .line3 {
     color: #d90053;
     text-align: center;
-    background-color: #303030;
+    background-color: white;
     font-style: italic;
     padding: 6px 0;
+    border: 1px solid;
   }
 }

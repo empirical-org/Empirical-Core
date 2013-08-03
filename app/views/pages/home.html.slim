@@ -4,7 +4,7 @@
 			.homepage-top-instructions
 				.line1 There are <em>7 errors</em> in this paragraph.
 				.line2 Can You Correct Them All?
-				.line3 To edit, simply click on the text.
+				.line3 To make corrections, click on a word and rewrite it.
 			= render partial: 'chapter_test', object: @chapter
 
 .h-sub-middle.con-pink
@@ -18,6 +18,7 @@
 			div
 				= link_to "Students", new_account_path
 				= link_to "Teachers", new_account_path
+				h2(style="text-align: center ; margin: 0") Sign up now, it's free!
 
 .h-features.con-white
 	.container.clearfix
@@ -25,13 +26,13 @@
 			figure= image_tag 'ico-interactive.png'
 			.h-features-content
 				h2 Interactive Assessments
-				p Proofread newspaper articles laden with grammatical errors.
+				p Proofread short stories laden with grammatical errors.
 
 		article.col-3
 			figure= image_tag 'ico-personalized.png'
 			.h-features-content
 				h2 Personalized Lessons
-				p Receive customized homework tailored to what you need to learn.
+				p Receive customized assignments tailored to your needs.
 
 		article.col-3
 			figure= image_tag 'ico-evaluate.png'
