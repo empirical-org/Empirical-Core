@@ -4,12 +4,13 @@ class Assignment < ActiveRecord::Base
   has_many :scores, dependent: :destroy
 
   class << self
-    def temporary chapter
+    def temporary chapter, options = {}
       assignment = new
       assignment.temporary = true
       assignment.chapter = chapter
+      score = assignment.scores.build(user: options[:user])
       assignment.save!
-      assignment
+      [assignment, score]
     end
   end
 end
