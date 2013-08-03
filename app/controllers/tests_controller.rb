@@ -1,6 +1,10 @@
 class TestsController < BaseChapterController
 	before_filter :signed_in!
 
+  def index
+    redirect_to chapter_test_practice_index_path(@chapter, step: "practice")
+  end
+
   def show
     @chapter = @assignment.chapter
     @assessment = @chapter.assessment
