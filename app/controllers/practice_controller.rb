@@ -31,6 +31,10 @@ class PracticeController < BaseChapterController
   end
 
   def merged_lesson_input
+    if params[:lesson_input].blank?
+      raise "#{lesson_input: params[:lesson_input]} user: #{current_user.id} params: #{params.inspect}"
+    end
+
     if params[:step] == "practice"
       @score.practice_lesson_input.merge(params[:lesson_input])
     else
