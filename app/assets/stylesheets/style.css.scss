@@ -223,10 +223,13 @@ footer { height: 280px; background: #252626; }
 #footer-item {}
 #footer-item ul { text-align: right; margin: 0; padding: 0; }
 #footer-item li { display: inline; }
-#footer-item a { color: #c8c8c8; text-decoration: none; margin-left: 18px; }
+#footer-item a { color: #c8c8c8; text-decoration: none; margin-left: 12px; }
 
-
-
+.footer-logo-image {
+  margin-left: -84px;
+  width: 330px;
+  padding-bottom: 5px;
+}
 
 
 @media (max-width: 979px) {
