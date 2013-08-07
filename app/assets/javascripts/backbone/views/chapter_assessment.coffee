@@ -50,6 +50,7 @@ class PG.Views.ChapterAssessment extends Backbone.View
   showResults: ->
     _this = this;
     missedRules = []
+    total = @chunks.select( (c) -> c.attributes.answer ).length
 
     @$('.edit-word')
       .removeClass('edit-word')
@@ -65,6 +66,12 @@ class PG.Views.ChapterAssessment extends Backbone.View
           $word.addClass('error')
           if chunk.grammar then missedRules.push chunk.rule()
 
+    missed = missedRules.length
+
+    mixpanel.track "story test submitted",
+      chapter_id: @assessment.get('chapter_id')
+      score: parseInt( ((total - missed) / total) * 100 )
+      body: this.assessment.attributes.body.substring(0,50)
 
     missedRules = _.uniq(missedRules)
     @missedRules = new PG.Collections.ChapterRules
