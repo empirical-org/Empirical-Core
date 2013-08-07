@@ -1,12 +1,14 @@
 footer.con-darkgrey
   #footer-inner.container.clearfix
-    #copyright.span3
-      span.non-profit= image_tag 'x-emperical.jpg'
-      span.non-profit A nonprofit developer <br />of educational games.
+    #copyright.span3 style="width: 280px"
+      span.non-profit.footer-logo-image= image_tag 'emperical-logo.png'
+      span.non-profit A nonprofit developer of educational games.
       span Reach out to us!
-      span: a href="mailto:hello@egrammar.org" hello@egrammar.org
+      span
+        br
+        a href="mailto:hello@egrammar.org" hello@egrammar.org
 
-    #footer-item.span9
+    #footer-item.span9 style="width: 640px"
       ul
         li= link_to image_tag('opensource.png'), "http://github.com/empirical-grammar/empirical-grammar", title: "Open Source"
         li= link_to image_tag('opencontent.png'), "#", title: "Open Content"
