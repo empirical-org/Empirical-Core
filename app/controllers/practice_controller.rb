@@ -7,14 +7,16 @@ class PracticeController < BaseChapterController
   end
 
   def index
-    if @chapter.practice_rules.empty?
+    if @chapter.practice_rules.empty? && params[:step] == "practice"
       redirect_to chapter_test_story_path(@chapter)
-    else
-      redirect_to chapter_test_practice_path(@chapter, @chapter.practice_rules.first, step: params[:step])
+      return
     end
+
+    redirect_to chapter_test_practice_path(@chapter, @chapter_test.step(params[:step].to_sym).rules.first.id, step: params[:step])
   end
 
   def update
+
     @rule = Rule.find(params[:id])
     @score.update_attributes! lesson_input => merged_lesson_input
     redirect_to next_lesson
@@ -43,13 +45,7 @@ class PracticeController < BaseChapterController
   end
 
   def next_id
-    if params[:step] == "practice"
-      return nil unless @chapter.rule_position.index(params[:id]).present?
-      @chapter_test.step(:practice).next_rule.try(:id)
-    else
-      return nil unless @score.missed_rules.index(@rule).present?
-      @chapter_test.step(:review).next_rule.try(:id)
-    end
+    @chapter_test.step(params[:step].to_sym).next_rule.try(:id)
   end
 
   def next_lesson
