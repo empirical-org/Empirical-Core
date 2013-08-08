@@ -7,7 +7,7 @@ class Score < ActiveRecord::Base
   serialize :score_values, Hash
 
   def missed_rules
-    super.map{ |id| Rule.find(id) }
+    super.uniq.map{ |id| Rule.find(id) }
   end
 
   def give_time

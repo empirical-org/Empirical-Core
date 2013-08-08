@@ -45,10 +45,10 @@ class PracticeController < BaseChapterController
   def next_id
     if params[:step] == "practice"
       return nil unless @chapter.rule_position.index(params[:id]).present?
-      @chapter.rule_position[@chapter.rule_position.index(params[:id]) + 1]
+      @chapter_test.step(:practice).next_rule.try(:id)
     else
       return nil unless @score.missed_rules.index(@rule).present?
-      @score.missed_rules[@score.missed_rules.index(@rule) + 1]
+      @chapter_test.step(:review).next_rule.try(:id)
     end
   end
 
