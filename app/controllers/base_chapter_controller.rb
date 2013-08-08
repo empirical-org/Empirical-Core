@@ -10,5 +10,7 @@ class BaseChapterController < ApplicationController
     else
       @assignment, @score = Assignment.temporary(@chapter, user: current_user)
     end
+
+    @chapter_test = ChapterTest.new(self)
   end
 end

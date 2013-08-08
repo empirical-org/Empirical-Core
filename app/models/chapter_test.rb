@@ -17,8 +17,16 @@ class ChapterTest
     end
   end
 
+  def current_rule
+    step(current_step).rules.find{ |r| r.id.to_s == @context.params[:id] }.rule
+  end
+
   def steps
     [:practice, :story, :review].map{ |s| Step.new(s, self) }
+  end
+
+  def step step
+    steps.find{ |s| s.step == step }
   end
 
   def chapter
@@ -32,7 +40,7 @@ class ChapterTest
   class Step
     attr_reader :step
 
-    delegate :current_step, :chapter, :score, to: :@context
+    delegate :current_step, :current_rule, :chapter, :score, to: :@context
 
     def initialize step, context
       @step = step
@@ -67,12 +75,17 @@ class ChapterTest
 
       res.map{ |r| Rule.new(r, @context) }
     end
+
+    def next_rule
+      rules[rules.map(&:rule).index(current_rule) + 1]
+    end
   end
 
   class Rule
     attr_reader :rule
 
-    delegate :title, to: :rule
+    delegate :title, :id, to: :rule
+    delegate :current_rule, to: :@context
 
     def initialize rule, context
       @rule = rule
@@ -88,8 +101,7 @@ class ChapterTest
     end
 
     def current_rule?
-      # raise @context.params.inspect
-      @context.params[:id].to_i == rule.id
+      current_rule == rule
     end
   end
 end
