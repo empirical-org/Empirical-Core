@@ -1,0 +1,42 @@
+!!!
+%html
+  %head
+    = stylesheet_link_tag 'cms', media: 'all'
+    - if Rails.application.assets.find_asset('cms_additions.css').present?
+      = stylesheet_link_tag 'cms_additions', media: 'all'
+    = javascript_include_tag 'application'
+    - if Rails.application.assets.find_asset('cms_additions.js').present?
+      = javascript_include_tag 'cms_additions', media: 'all'
+    = stylesheet_link_tag 'codemirror'
+    = javascript_include_tag 'cms'
+    = csrf_meta_tags
+
+  %body.cms{class: "#{if defined?(subject) then subject.name.underscore.dasherize end}"}
+    .navbar.navbar-fixed-top.main-navigation
+      .navbar-inner
+        .container
+          %button.btn.btn-navbar{type: 'button', :'data-toggle' => 'collapse', :'data-target' => '.nav-collapse'}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+
+          .nav-collapse.collapse
+            %ul.nav
+              %li= link_to 'Home', root_path
+            %ul.nav.pull-right
+              %li= link_to 'Sign out', session_path, method: 'delete', class: 'session'
+
+    .container
+      = render partial: 'layouts/flash', locals: { flash: flash }
+
+      .row
+        .span3
+          %h5 CMS
+          %ul.nav.nav-list
+            - CMS::Configuration.types.each do |type|
+              %li{class: "#{if defined?(subject) && type.subject == subject.name then 'active' end}"}
+                = link_to send("cms_#{type.model_name.collection}_path") do
+                  %i.icon-chevron-right
+                  = type.model_name.human.pluralize
+
+        .span9= yield

@@ -9,9 +9,6 @@ content_types:
       name: string
       description: string
       content: html
-  HomepageNewsSlide:
-    attributes:
-      link: string
-      position: orderable
-      image: file
-      text: text
+
+pages:
+  about: about

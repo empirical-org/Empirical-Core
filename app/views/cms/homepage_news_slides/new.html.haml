@@ -1,0 +1,4 @@
+%h2 New homepage news slide
+
+= form_for @homepage_news_slide, url: cms_homepage_news_slides_path, html: {class: 'form-horizontal'} do |f|
+  = render partial: 'fields', locals: { f: f }

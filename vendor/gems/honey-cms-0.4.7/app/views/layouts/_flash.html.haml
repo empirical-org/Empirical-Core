@@ -1,0 +1,13 @@
+.alerts
+  - if flash[:notice]
+    .alert.alert-info
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      = flash[:notice]
+  - if flash[:success]
+    .alert.alert-success
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      = flash[:success]
+  - if flash[:error] || flash[:alert]
+    .alert.alert-error
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      = flash[:error] || flash[:alert]

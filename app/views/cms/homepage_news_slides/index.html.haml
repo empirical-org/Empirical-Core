@@ -1,0 +1,28 @@
+%h2 Homepage news slides
+
+= link_to 'New homepage news slide', new_cms_homepage_news_slide_path
+
+%table.table
+  %thead
+    %tr
+      %th Id
+      %th Link
+      %th Position
+      %th Image
+      %th Text
+      %th
+
+  %tbody
+    - @homepage_news_slides.each do |homepage_news_slide|
+      %tr
+        %td= homepage_news_slide.id
+        %td= homepage_news_slide.link
+        %td= homepage_news_slide.position
+        %td
+          %img{src: homepage_news_slide.image}
+        %td= homepage_news_slide.text
+        %td
+          = link_to 'Edit', edit_cms_homepage_news_slide_path(homepage_news_slide)
+          = link_to 'Destroy', cms_homepage_news_slide_path(homepage_news_slide), confirm: 'are you sure?', method: 'delete'
+
+= paginate @homepage_news_slides

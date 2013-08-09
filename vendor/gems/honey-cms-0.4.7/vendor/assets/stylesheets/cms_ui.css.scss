@@ -1,0 +1,27 @@
+@import 'html_editor';
+
+.cms-page-area {
+  position: relative;
+  &:hover .cms-edit-link { display: block }
+  .cms-edit-link {
+    position: absolute;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.4);
+    a { color: white }
+    display: none;
+  }
+}
+
+.cms-image {
+  display: block;
+}
+
+.missing-cms-image {
+  font-family: Arial;
+  font-size: 16px;
+  text-align: center;
+  color: #ccc;
+  background-color: #eee;
+  display: table-cell;
+  vertical-align: middle;
+}

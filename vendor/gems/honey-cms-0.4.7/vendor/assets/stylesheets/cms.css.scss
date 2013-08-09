@@ -1,0 +1,29 @@
+/*
+ *= require_self
+ */
+
+@import 'bootstrap';
+@import 'bootstrap-responsive';
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 100px;
+  }
+}
+
+textarea {
+  width: 400px;
+  height: 200px;
+}
+
+iframe {
+
+}
+
+.cms-edit-link {
+  form { display: none }
+}
+
+body {
+  padding-top: 80px;
+}

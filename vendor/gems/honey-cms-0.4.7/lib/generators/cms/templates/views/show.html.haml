@@ -1,0 +1,13 @@
+%h2== Showing <%= @name.human.downcase %> ##{@<%= @name.element %>.id}
+
+%dl
+<% @type.attributes.each do |attribute| -%>
+  %dt <%= attribute.name.humanize %>
+<% if attribute.reference? -%>
+  %dd= @<%= @name.element %>.<%= attribute.name %>.try(:<%= attribute.options['reference_label'] %>)
+<% elsif attribute.format.text? -%>
+  %dd= markdown @<%= @name.element %>.<%= attribute.name %>
+<% else -%>
+  %dd= @<%= @name.element %>.<%= attribute.name %>
+<% end -%>
+<% end -%>

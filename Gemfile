@@ -14,7 +14,7 @@ gem "compass-rails",    github: "milgner/compass-rails", ref: "1749c06f15dc4b058
 gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'haml_coffee_assets'
-gem 'honey-cms'#, path: '../honey-cms'
+gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 gem 'honey-auth'#, path: '../honey-auth'
 gem 'haml-rails'
 gem 'bcrypt-ruby', require: 'bcrypt'

@@ -1,0 +1,4 @@
+%h2 Edit <%= @name.human.downcase %>
+
+= form_for @<%= @name.element %>, url: cms_<%= @name.element %>_path(@<%= @name.element %>), html: {class: 'form-horizontal'} do |f|
+  = render partial: 'fields', locals: { f: f }

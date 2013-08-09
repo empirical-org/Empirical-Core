@@ -1,0 +1,7 @@
+[role=html-editor] {
+  [role=editor] {
+    visibility: hidden;
+    .CodeMirror{ background-color: white }
+    .form-actions { margin: 0 }
+  }
+}

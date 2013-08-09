@@ -6,6 +6,11 @@ GIT
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
 
+PATH
+  remote: vendor/gems/honey-cms-0.4.7
+  specs:
+    honey-cms (0.4.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -81,10 +86,6 @@ GEM
     honey-auth (0.1.0)
       bcrypt-ruby
       haml
-    honey-cms (0.4.7)
-      carrierwave
-      kaminari
-      redcarpet
     i18n (0.6.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -188,7 +189,7 @@ DEPENDENCIES
   haml-rails
   haml_coffee_assets
   honey-auth
-  honey-cms
+  honey-cms (= 0.4.7)!
   jquery-rails
   kaminari
   parslet
