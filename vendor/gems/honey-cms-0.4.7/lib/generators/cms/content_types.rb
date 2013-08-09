@@ -12,6 +12,10 @@ module CMS
 
       class_option :only, type: :string, default: false,
                           desc: 'run a specific type generator.'
+
+      def self.next_migration_number(dirname)
+        ActiveRecord::Generators::Base.next_migration_number(dirname)
+      end
     end
 
   end
