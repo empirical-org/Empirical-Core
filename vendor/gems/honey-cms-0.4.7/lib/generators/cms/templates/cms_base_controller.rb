@@ -13,7 +13,7 @@ class CMS::BaseController < ApplicationController
     else
       subject.search(params[:search]).page(params[:page]).per(100)
     end
-      
+
     set_collection_variable
     respond_with(@records)
   end
@@ -25,7 +25,7 @@ class CMS::BaseController < ApplicationController
   end
 
   def create
-    @record = subject.create(params[subject.model_name.element])
+    @record = subject.create(subject_params)
     set_element_variable
     respond_with @record
   end
@@ -39,7 +39,7 @@ class CMS::BaseController < ApplicationController
   end
 
   def update
-    @record.update_attributes params[subject.model_name.element]
+    @record.update_attributes subject_params
     respond_with @record
   end
 
