@@ -1,0 +1,11 @@
+%h2== Showing homepage news slide ##{@homepage_news_slide.id}
+
+%dl
+  %dt Link
+  %dd= @homepage_news_slide.link
+  %dt Position
+  %dd= @homepage_news_slide.position
+  %dt Image
+  %dd= @homepage_news_slide.image
+  %dt Text
+  %dd= markdown @homepage_news_slide.text

@@ -1,0 +1,34 @@
+%h2 <%= @name.human.pluralize %>
+
+= link_to 'New <%= @name.human.downcase %>', new_cms_<%= @name.element %>_path
+
+%table.table
+  %thead
+    %tr
+      %th Id
+<% @type.attributes.each do |attribute| -%>
+      %th <%= attribute.name.humanize %>
+<% end -%>
+      %th
+
+  %tbody
+    - @<%= @name.collection %>.each do |<%= @name.element %>|
+      %tr
+        %td= <%= @name.element %>.id
+<% @type.attributes.each do |attribute| -%>
+<% if attribute.reference? -%>
+        %td
+          - if <%= @name.element %>.<%= attribute.name %>.present?
+            = link_to <%= @name.element %>.<%= attribute.name %>.<%= attribute.options['reference_label'] %>, cms_<%= attribute.reference_to.model_name.element %>_path(<%= @name.element %>.<%= attribute.name %>)
+<% elsif attribute.format.file? -%>
+        %td
+          %img{src: <%= @name.element %>.<%= attribute.name %>}
+<% else -%>
+        %td= <%= @name.element %>.<%= attribute.name %>
+<% end -%>
+<% end -%>
+        %td
+          = link_to 'Edit', edit_cms_<%= @name.element %>_path(<%= @name.element %>)
+          = link_to 'Destroy', cms_<%= @name.element %>_path(<%= @name.element %>), confirm: 'are you sure?', method: 'delete'
+
+= paginate @<%= @name.collection %>

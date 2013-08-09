@@ -1,0 +1,10 @@
+%ul
+  - CMS::Configuration.types.each do |type|
+    %li
+      = type.name.underscore.humanize
+      %ul
+        - type.attributes.each do |property|
+          %li= property.name.humanize
+      %ul
+        - type.options.each do |option|
+          %li= option.humanize

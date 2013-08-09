@@ -1,0 +1,3 @@
+class CMS::ControllerStub
+  
+end

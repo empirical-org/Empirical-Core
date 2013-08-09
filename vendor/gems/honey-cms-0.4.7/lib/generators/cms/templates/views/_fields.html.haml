@@ -1,0 +1,16 @@
+<% @type.attributes.each do |attribute| -%>
+.control-group
+  = f.label :<%= attribute.field_name %>, class: 'control-label'
+<% if attribute.orderable? -%>
+  .controls
+    = f.<%= attribute.form_type %> :<%= attribute.name %>, 1.upto(f.object.order_scope.count + 1).to_a
+<% elsif attribute.reference? -%>
+  .controls
+    = f.<%= attribute.form_type %> :<%= attribute.field_name %>, CMS::<%= attribute.reference_to %>.all.collect {|r| [ r.<%= attribute.options['reference_label'] %>, r.id ] }
+<% else -%>
+  .controls
+    = f.<%= attribute.form_type %> :<%= attribute.name %>
+<% end -%>
+<% end -%>
+.form-actions
+  = f.submit 'Save', class: 'btn btn-primary', :'data-disable-with' => 'Saving...'

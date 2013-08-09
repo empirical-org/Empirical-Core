@@ -1,0 +1,24 @@
+header.con-darkgrey
+  .container.clearfix
+    .navbar
+      .navbar-inner
+        a.btn.btn-navbar data-toggle="collapse" data-target=".nav-collapse"
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+
+        = link_to 'Empirical Grammar', root_path, :class => "brand"
+
+        .nav-collapse.collapse
+          ul.nav
+            li= link_to 'Our Story', story_path
+            li= link_to 'On Learning', learning_path
+            li= link_to 'About Us', about_path
+            li= link_to 'News', 'http://egrammarblog.blogspot.com/'
+
+            - if signed_in?
+              li#m-sign-in= link_to 'Profile', profile_path
+              li#m-create-account= link_to 'Sign out', session_path, method: :delete
+            - else
+              li#m-sign-in= link_to 'Sign In', new_session_path
+              li#m-create-account= link_to 'Create Account', new_account_path
