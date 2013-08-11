@@ -14,13 +14,16 @@ footer.con-darkgrey
         li= link_to image_tag('opencontent.png'), "#", title: "Open Content"
         li= link_to image_tag('opencommunity.png'), "#", title: "Open Community"
 
-    - if signed_in?
-      javascript:
-        mixpanel.identify("#{current_user.id}");
+javascript:
+  - if signed_in?
+    mixpanel.identify("#{current_user.id}");
 
-        mixpanel.people.set({
-          "$email": "#{current_user.email}",
-          "$created": "#{current_user.created_at}",
-          "$name": "#{current_user.name}",
-          "role": "#{current_user.role}"
-        });
+    mixpanel.people.set({
+      "$email": "#{current_user.email}",
+      "$created": "#{current_user.created_at}",
+      "$name": "#{current_user.name}",
+      "role": "#{current_user.role}"
+    });
+
+  - if flash[:mixpanel].present?
+    mixpanel.track("{flash[:mixpanel]}")
