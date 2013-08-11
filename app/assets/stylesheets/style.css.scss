@@ -145,11 +145,38 @@ body.auxilliary > .container { width: auto }
 .im-saying { margin-left: 0 !important; padding-left: 20px; }
 .what-saying > div { padding: 80px 40px 10px 0; }
 .what-saying h2 { font-size: 30px; color: #fff; line-height: 26px; font-weight: normal; }
-.im-saying > div { padding: 50px 0 10px 30px; }
+
 .im-saying q,
 .im-saying p { color: #252626; line-height: 26px; font-size: 16px; }
 .im-saying q { font-family: 'proxima_novaregular_italic'; }
 
+.im-saying {
+  .item img {
+    max-height: 195px;
+    float: left;
+    margin-right: 20px;
+  }
+
+  .item {
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  .item .text {
+    font-size: 30px;
+    color: #333;
+  }
+
+  .carousel {
+    padding-top: 20px;
+    // margin-bottom: 20px;
+  }
+
+  .carousel-indicators {
+    right: auto;
+    top: 221px;
+  }
+}
 
 .h-testi .post-ab-left,
 .h-testi .post-ab-right { position: absolute; top: 0; width: 50%; height: 100%; z-index: 1; }
@@ -222,7 +249,7 @@ header { margin: 0; }
 footer { height: 280px; background: #252626; }
 #footer-inner { font-size: 14px; color: #7c7c7c; }
 #footer-item ,
-#copyright { padding-top: 65px; }
+#copyright { padding-top: 50px; }
 #footer-item {}
 #footer-item ul { text-align: right; margin: 0; padding: 0; }
 #footer-item li { display: inline; }
@@ -232,6 +259,7 @@ footer { height: 280px; background: #252626; }
   margin-left: -84px;
   width: 330px;
   padding-bottom: 5px;
+  padding-top: 14px;
 }
 
 
