@@ -35,4 +35,8 @@ module ApplicationHelper
   def body_id
     @body_id
   end
+
+  def active_on_first(i)
+    "active" if i == 0
+  end
 end

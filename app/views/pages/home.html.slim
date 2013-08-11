@@ -1,79 +1,84 @@
 .h-middle
-	.h-middle-extra
-		.container style="margin-top:-164px;"
-			.homepage-top-instructions
-				.line1 There are <em>7 errors</em> in this paragraph.
-				.line2 Can You Correct Them All?
-				.line3 To make corrections, click on a word and rewrite it.
-			= render partial: 'chapter_test', object: @chapter
+  .h-middle-extra
+    .container style="margin-top:-164px;"
+      .homepage-top-instructions
+        .line1 There are <em>7 errors</em> in this paragraph.
+        .line2 Can You Correct Them All?
+        .line3 To make corrections, click on a word and rewrite it.
+      = render partial: 'chapter_test', object: @chapter
 
 javascript:
-	jQuery(function ($) {
-		setTimeout(function () {
-			$('.homepage-top-instructions')
-				.css('background-color', '#fcd000')
-				.animate({
-					'background-color' : '#cbebed'
-				}, 500, function () {
-					$('.homepage-top-instructions').css('background-color', 'transparent');
-					$('.edit-word:first').focus();
-				});
-		}, 500);
-	});
+  jQuery(function ($) {
+    setTimeout(function () {
+      $('.homepage-top-instructions')
+        .css('background-color', '#fcd000')
+        .animate({
+          'background-color' : '#cbebed'
+        }, 500, function () {
+          $('.homepage-top-instructions').css('background-color', 'transparent');
+          $('.edit-word:first').focus();
+        });
+    }, 500);
+  });
 
 
 .h-sub-middle.con-pink
-	.container.clearfix
-		.span6
-			article.h-sub-left-content
-				h2 A Fun, Free Way To Learn Grammar Interactively.
-				p Empirical Grammar provides personalized grammar lessons for middle school students.
+  .container.clearfix
+    .span6
+      article.h-sub-left-content
+        h2 A Fun, Free Way To Learn Grammar Interactively.
+        p Empirical Grammar provides personalized grammar lessons for middle school students.
 
-		.h-sub-right-content.span6
-			div
-				= link_to "Students", new_account_path
-				= link_to "Teachers", new_account_path
-				h2(style="text-align: center ; margin: 0") Sign up now, it's free!
+    .h-sub-right-content.span6
+      div
+        = link_to "Students", new_account_path
+        = link_to "Teachers", new_account_path
+        h2(style="text-align: center ; margin: 0") Sign up now, it's free!
 
 .h-features.con-white
-	.container.clearfix
-		article.col-3
-			figure= image_tag 'ico-interactive.png'
-			.h-features-content
-				h2 Interactive Assessments
-				p Proofread short stories laden with grammatical errors.
+  .container.clearfix
+    article.col-3
+      figure= image_tag 'ico-interactive.png'
+      .h-features-content
+        h2 Interactive Assessments
+        p Proofread short stories laden with grammatical errors.
 
-		article.col-3
-			figure= image_tag 'ico-personalized.png'
-			.h-features-content
-				h2 Personalized Lessons
-				p Receive customized assignments tailored to your needs.
+    article.col-3
+      figure= image_tag 'ico-personalized.png'
+      .h-features-content
+        h2 Personalized Lessons
+        p Receive customized assignments tailored to your needs.
 
-		article.col-3
-			figure= image_tag 'ico-evaluate.png'
-			.h-features-content
-				h2 Progress Evaluations
-				p Teachers assign homework & monitor students' progress.
+    article.col-3
+      figure= image_tag 'ico-evaluate.png'
+      .h-features-content
+        h2 Progress Evaluations
+        p Teachers assign homework & monitor students' progress.
 
 .h-testi
-	.h-testi-inner.container.clearfix
-		.what-saying.span5
-			div
-			h2 What They're Saying
+  .h-testi-inner.container.clearfix
+    .what-saying.span5
+      div
+      h2 What They're Saying
 
-		.im-saying.span6
-			div
-				q This looks ideal for students of all ages! I am
-					excited to have the opportunity to give my college writing students the chance
-					to practice the basic rules of English writing with these fun-to-read texts.
-					If anything can save us from the coming apostrophe-apocalypse, it is
-					E-Grammar!
+    .im-saying.span6
+      #homepage-news-slides.carousel.slide
 
-				p: strong Laura Gibbs, Ph.D
+        ol.carousel-indicators
+          - CMS::HomepageNewsSlide.all.to_a.each_with_index do |slide, i|
+            li data-target="#homepage-news-slides" data-slide-to=i class=active_on_first(i)
 
-	.post-ab-left
-	.post-ab-right
+        .carousel-inner
+          - CMS::HomepageNewsSlide.all.each_with_index do |slide, i|
+            a.item href=slide.link target="_blank" class=active_on_first(i)
+              = image_tag slide.image.url
+              .text= slide.text
+
+  .post-ab-left
+  .post-ab-right
 
 
 javascript:
-	mixpanel.track("homepage viewed");
+  mixpanel.track("homepage viewed");
+
+  $('.carousel').carousel()
