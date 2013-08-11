@@ -8,13 +8,13 @@
     %th Students
 
     - if current_user.teacher_assignments
-      - current_user.teacher_assignments.sort!{|x,y|x.chapter_id <=> y.chapter_id}.each do |assignment|
+      - current_user.teacher_assignments.each do |assignment|
         %th= assignment.chapter.title
 
-  - @roster.each do |student|
+  - current_user.students.order(:name).each do |student|
     %tr
       %td= student.name
-      - current_user.teacher_assignments.sort!{|x,y|x.chapter_id <=> y.chapter_id}.each do |assignment|
+      - current_user.teacher_assignments.each do |assignment|
         - @has_score = false
 
         - student.scores.each do |score|
