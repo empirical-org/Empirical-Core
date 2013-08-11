@@ -12,7 +12,7 @@ class AccountsController < ApplicationController
 
     if @user.after_initialize!
       sign_in @user
-      redirect_to profile_path
+      redirect_to profile_path, flash: { mixpanel: "account created" }
     else
       render 'accounts/new'
     end
