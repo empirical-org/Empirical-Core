@@ -14,8 +14,8 @@ footer.con-darkgrey
         li= link_to image_tag('opencontent.png'), "#", title: "Open Content"
         li= link_to image_tag('opensource.png'), "http://github.com/empirical-grammar/empirical-grammar", title: "Open Source"
 
-javascript:
-  - if signed_in?
+- if signed_in?
+  javascript:
     mixpanel.identify("#{current_user.id}");
 
     mixpanel.people.set({
@@ -25,5 +25,6 @@ javascript:
       "role": "#{current_user.role}"
     });
 
-  - if flash[:mixpanel].present?
+- if flash[:mixpanel].present?
+  javascript:
     mixpanel.track("{flash[:mixpanel]}")

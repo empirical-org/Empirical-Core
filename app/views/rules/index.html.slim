@@ -19,7 +19,7 @@ p#notice= notice
             = "#{rule.title} \{\|#{rule.id}\}"
 
           .actions
-            .add= link_to image_tag('newlesson.png', title: 'New question for this rule'), new_lesson_path(:rule => rule)
+            .add= link_to image_tag('newlesson.png', title: 'New question for this rule'), new_lesson_path(rule: rule)
             .destroy
               = link_to image_tag('delete.png', title: 'Delete this rule'), rule, method: :delete, data: { confirm: 'Are you sure?' }
             .edit
@@ -31,7 +31,7 @@ p#notice= notice
               .add &nbsp;
               .destroy
                 = link_to image_tag('delete.png', title: 'Delete this question'), lesson, method: :delete, data: { confirm: 'Are you sure?' }
-              .edit= link_to image_tag('edit.png', title: 'Edit this question'), edit_lesson_path(lesson, rule: rule)
+              .edit= link_to image_tag('edit.png', title: 'Edit this question'), edit_lesson_path(lesson)
 
 - if current_user.teacher?
   .category-container
