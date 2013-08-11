@@ -223,15 +223,18 @@ header { margin: 0; }
 .sec-3 p { font-family: 'proxima_novasemibold'; color: #0f4c7a; font-size: 21px; line-height: 30px; }
 .sec-3  small { display: block; font-size: 12px; color: #0f4c7a; line-height: 20px; padding-bottom: 20px; }
 
- h3.page-subtitle2 { color: #0f4c7a; font-family: 'Museo500'; font-size: 36px; line-height: 30px; margin-bottom: 40px; font-size: 34px; }
- .team-box { width: 300px; float: left; height: 300px; background: #f5f3ec; margin-right: 10px; margin-left: 10px; margin-bottom: 20px; overflow: hidden; }
- .team-box-head { -webkit-border-radius: 3px 3px 0 0;  -moz-border-radius: 3px 3px 0 0; border-radius: 3px 3px 0 0; background: #252626; }
- .team-box-desc { padding: 20px; color: #896f6c; line-height: 24px; font-size: 14px;  }
- .team-box-desc p { margin:0; font-size: 16px; line-height: 20px; color: #565656; }
- .team-box-head figure,
- .team-box-head .team-box-title  { float: left; display: block; margin:0; padding :0; }
- .team-box-title h4 { padding: 40px 0 0 15px; margin: 0; font-size: 24px; color: #fff; font-family: 'proxima_nova_rgbold'; }
- .team-box-title small { color: #fcd000; font-size: 14px; text-transform: uppercase; margin: 5px 0 0 15px; display: block; }
+h3.page-subtitle2 { color: #0f4c7a; font-family: 'Museo500'; font-size: 36px; line-height: 30px; margin-bottom: 40px; font-size: 34px; }
+.team-box { width: 300px; float: left; height: 300px; background: #f5f3ec; margin-right: 10px; margin-left: 10px; margin-bottom: 20px; overflow: hidden; }
+.team-box-head { -webkit-border-radius: 3px 3px 0 0;  -moz-border-radius: 3px 3px 0 0; border-radius: 3px 3px 0 0; background: #252626; }
+.team-box-desc {
+  clear: both;
+  padding: 20px;
+  color: #896f6c; line-height: 24px; font-size: 14px;  }
+.team-box-desc p { margin:0; font-size: 16px; line-height: 20px; color: #565656; }
+.team-box-head figure,
+.team-box-head .team-box-title  { float: left; display: block; margin:0; padding :0; }
+.team-box-title h4 { padding: 40px 0 0 15px; margin: 0; font-size: 24px; color: #fff; font-family: 'proxima_nova_rgbold'; }
+.team-box-title small { color: #fcd000; font-size: 14px; text-transform: uppercase; margin: 5px 0 0 15px; display: block; }
 
 /* specific */
 #page-story .sec-1 .container { background: #fff image-url('our-story-sec1.png') no-repeat 96% bottom; }
