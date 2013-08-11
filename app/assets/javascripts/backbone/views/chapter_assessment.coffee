@@ -34,9 +34,15 @@ class PG.Views.ChapterAssessment extends Backbone.View
     # console.log @currentWord
 
   wordChanged: (e) ->
-    chunk = @chunks.get($(e.target).data('id'))
-    chunk.input = $(e.target).text().trim()
-    #@updateProgress()
+    $word = $(e.target)
+    chunk = @chunks.get($word.data('id'))
+    chunk.input = $word.text().trim()
+    # @updateProgress()
+    if chunk.input == chunk.word
+      $word.removeClass 'edited'
+    else
+      $word.addClass 'edited'
+
 
   updateProgress: ->
     @$('.progress').html ''
