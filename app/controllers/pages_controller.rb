@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
-  layout :resolve_layout
+  before_filter :resolve_layout
 
   def home
-    # render layout: false
+    @body_id = 'home'
     @chapter = Chapter.find(16)
     @assessment = @chapter.assessment
   end
@@ -31,13 +31,8 @@ class PagesController < ApplicationController
 
   def resolve_layout
     case action_name
-    when "home"
-      "alternative"
     when "about", "learning", "story"
-      "auxilliary"
-    else
-      "application"
+      @body_class = "auxilliary"
     end
   end
-
 end
