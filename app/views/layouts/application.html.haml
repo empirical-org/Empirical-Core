@@ -2,7 +2,8 @@
 %html
   = render 'head'
 
-  %body{class: body_class}
+  %body{class: body_class, id: body_id}
+
     = render "header"
     .container= yield
     = render "footer"

@@ -31,4 +31,8 @@ module ApplicationHelper
   def body_class
     @body_class
   end
+
+  def body_id
+    @body_id
+  end
 end

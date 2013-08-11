@@ -1,4 +1,4 @@
-header.con-darkgrey
+header class="#{@body_id =="home" ? 'con-skyblue' : 'con-darkgrey'}"
   .container.clearfix
     .navbar
       .navbar-inner
@@ -15,6 +15,7 @@ header.con-darkgrey
             li= link_to 'On Learning', learning_path
             li= link_to 'About Us', about_path
             li= link_to 'News', 'http://egrammarblog.blogspot.com/'
+            li= link_to 'Forum', 'http://empirical-discourse.herokuapp.com/'
 
             - if signed_in?
               li#m-sign-in= link_to 'Profile', profile_path
