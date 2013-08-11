@@ -14,7 +14,9 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates_uniqueness_of :email, case_sensitive: false, allow_nil: true
   # validates_format_of :password, with: /((?=.*\d)(?=.*[A-Z]).{8,})/, message: 'must contain at least 1 number and 1 capital letter and be at least 8 characters long', allow_nil: true, on: :standard, if: :password?
-  has_many :comments
+
+  has_one  :teacher,  -> { where role: 'teacher' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode'
+  has_many :students, -> { where role: 'student' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode'
 
   has_many :teacher_assignments, class_name: 'Assignment' do
     def for_chapter chapter
@@ -31,8 +33,8 @@ class User < ActiveRecord::Base
   has_many :teacher_chapters, through: :teacher_assignments, source: :chapter
   has_many :student_chapters, through: :student_assignments, source: :chapter
 
+  has_many :comments
   has_many :scores
-  has_one :teacher, -> { where role: 'teacher' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode'
   has_many :assignable_chapters, class_name: 'Chapter', through: :teacher, source: :chapters
   ROLES = %w(user student admin teacher)
   SAFE_ROLES = ROLES.except('admin')
