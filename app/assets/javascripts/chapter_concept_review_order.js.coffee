@@ -3,6 +3,7 @@ class window.ConceptReviewRoot extends Backbone.View
     'click .display': 'showEdit'
     'click .save'   : 'save'
     'click .add'    : 'addPosition'
+    'click .remove' : 'removeAnswer'
 
   field_name: 'concept_position'
 
@@ -29,13 +30,17 @@ class window.ConceptReviewRoot extends Backbone.View
     $("""
       <div class="field string concept-position control-group">
         <div class="controls">
-          <input id="chapter_concept_position" name="#{@field_name}[]" size="30" type="text" value="">
+          <textarea id="chapter_concept_position" name="#{@field_name}[]" size="30" type="text" value=""></textarea>
+          <a href="#remove" class="remove">Remove</a>
         </div>
       </div>
-    """).find('input').val(val).end()
+    """).find('textarea').val(val).end()
 
   conceptOrderString: ->
-    _.map(@$('.concept-position input'), (el) -> $(el).val()).join(", ")
+    _.map(@$('.concept-position textarea'), (el) -> $(el).val()).join(", ")
+
+  removeAnswer: (e) ->
+    $(e.target).closest('.concept-position').remove()
 
 class window.LessonAnswerRoot extends ConceptReviewRoot
   initialize: ->
@@ -44,14 +49,13 @@ class window.LessonAnswerRoot extends ConceptReviewRoot
 
     @$el.closest('form').find('.form-actions .btn').on 'click', =>
       @save()
-      @$('input[name="lesson[answer_array_json] "]').remove()
+      @$('textarea[name="lesson[answer_array_json]"]').remove()
 
   field_name: 'answer_options'
 
 
 dataLoad = (cla) ->
   new window[cla] {el} for el in $("""*[data-view="#{cla}"]""")
-
 
 loadSeriesRoots = ->
   dataLoad 'ConceptReviewRoot'
