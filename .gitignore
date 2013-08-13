@@ -17,4 +17,5 @@ config/database.yml
 public/assets
 .idea
 .DS_Store
+.project
 latest.dump
