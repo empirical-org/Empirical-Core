@@ -109,23 +109,11 @@ body.auxilliary > .container { width: auto }
 
   > div {
     position: absolute;
-    bottom: 0;
+    bottom: 7px;
     right: 0;
   }
-}
-
-.h-sub-right-content a { width: 194px;
-  height: 57px;
-  line-height: 57px;
-  display: block;
-  background: #fcd000;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  @include border-radius(5px);
-  float: left;
-  margin-left: 10px;
-  font-size: 18px;
+    a { display: block; border: 1px solid #b79210; height: 50px; line-height: 50px; width: 194px; float: right; text-align: center; text-decoration: none; background: image-url('h-gold-grad-middle.png') repeat-x; border-radius: 7px 7px 7px 7px; padding: 0; font-family: 'proxima_nova_rgbold'; font-size: 20px; color: #fff; margin: 0 5px 24px 5px; }
+    h2 {text-align: center; margin: 0; font-size: 55px; letter-spacing: -2px;} 
 }
 
 .h-features { padding-top: 70px;
