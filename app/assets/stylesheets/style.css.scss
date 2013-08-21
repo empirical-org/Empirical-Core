@@ -109,11 +109,11 @@ body.auxilliary > .container { width: auto }
 
   > div {
     position: absolute;
-    bottom: 7px;
+    bottom: 3px;
     right: 0;
   }
-    a { display: block; border: 1px solid #b79210; height: 50px; line-height: 50px; width: 194px; float: right; text-align: center; text-decoration: none; background: image-url('h-gold-grad-middle.png') repeat-x; border-radius: 7px 7px 7px 7px; padding: 0; font-family: 'proxima_nova_rgbold'; font-size: 20px; color: #fff; margin: 0 5px 24px 5px; }
-    h2 {text-align: center; margin: 0; font-size: 55px; letter-spacing: -2px;} 
+    a { display: block; border: 1px solid #b90043; height: 50px; line-height: 50px; width: 194px; float: right; text-align: center; text-decoration: none; background: image-url('h-yellow-btn-middle.png') repeat-x; -webkit-border-radius: 7px; -moz-border-radius: 7px; border-radius: 7px; padding: 0; font-family: 'proxima_nova_rgbold'; font-size: 20px; color: #fff; margin: 0 5px 26px 5px; }
+    h2 {text-align: right; margin: 0 5px 0 0;} 
 }
 
 .h-features { padding-top: 70px;
