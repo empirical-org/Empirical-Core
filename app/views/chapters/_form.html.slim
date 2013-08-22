@@ -1,13 +1,16 @@
 = form_for @chapter, layout: 'vertical' do |f|
   = f.string :title, label: "Chapter Title"
   = f.string :description, label: "Article Header"
+
   = f.fields_for :assessment do |ff|
     = ff.text :body, label: 'Story', help_block: "Ex: They had {+they're-their|19} fun."
 
-  .concept-review-order.control-group{data: {view: "ConceptReviewRoot"}}
-    %label.control-label Practice rules order
+  .concept-review-order.control-group data-view="ConceptReviewRoot"
+    label.control-label Practice rules order
     = f.hidden :rule_position_text
-    .display.uneditable-input{style: 'cursor: pointer'}
+
+    .display.uneditable-input style="cursor: pointer"
+
     .edit.hide
       .positions
       .btn.add Add another

@@ -1,5 +1,52 @@
+module ChapterFlow
+  MAX_QUESTIONS = 3
+
+  def next_lesson
+    if next_index.present?
+      {
+        controller: "practice",
+        action: "show",
+        chapter_id: params[:chapter_id],
+        practice_id: (params[:id] || params[:practice_id]),
+        question_index: next_index,
+        step: params[:step]
+      }
+    else
+      if next_rule_id.present?
+        @context.chapter_test_practice_path @chapter, next_rule_id, step: params[:step]
+      else
+        step_after_rules_completed
+      end
+    end
+  end
+
+protected
+
+  def step_after_rules_completed
+    if params[:step] == "practice"
+      @context.chapter_test_story_path(@chapter)
+    else
+      score.finalize!
+      @context.final_chapter_test_path(@chapter)
+    end
+  end
+
+  def next_index
+    params[:question_index].to_i + 1 if params[:question_index].to_i < MAX_QUESTIONS
+  end
+
+  def next_rule_id
+    next_rule.try(:id)
+  end
+
+  def next_rule
+    step(params[:step].to_sym).next_rule
+  end
+end
+
 class ChapterTest
   delegate :params, to: :@context
+  include ChapterFlow
 
   def initialize context
     @context = context
@@ -18,7 +65,9 @@ class ChapterTest
   end
 
   def current_rule
-    step(current_step).rules.find{ |r| r.id.to_s == @context.params[:id] }.rule
+    # why did I do it like this?
+    # step(current_step).rules.find{ |r| r.id.to_s == @context.params[:id] }.rule
+    @context.instance_variable_get(:@rule)
   end
 
   def steps

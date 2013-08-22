@@ -6,6 +6,10 @@ class Score < ActiveRecord::Base
   serialize :missed_rules, Array
   serialize :score_values, Hash
 
+  def all_lesson_input
+    practice_lesson_input.merge review_lesson_input
+  end
+
   def missed_rules
     super.uniq.map{ |id| Rule.find(id) }
   end

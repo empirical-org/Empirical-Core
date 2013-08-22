@@ -27,6 +27,10 @@
   text-shadow: 0 0px 0 white;
 }
 
+.hide {
+  display: none;
+}
+
 @import 'header';
 @import 'pages';
 @import 'home';
