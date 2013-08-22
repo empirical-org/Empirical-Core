@@ -13,7 +13,7 @@
       <% rule = Rule.find(chunk.grammar) %>
       chapterRules.add(<%= rule.to_json.html_safe %>);
       chapterRule = chapterRules.get(<%= rule.id %>);
-      <% rule.lessons.each do |lesson| %>
+      <% rule.questions.each do |lesson| %>
         chapterRule.lessons.add(<%= lesson.to_json.html_safe %>);
         chapterLesson = chapterRule.lessons.get(<%= lesson.id %>);
         <% lesson.answers.each_with_index do |chunk, i| %>
