@@ -1,7 +1,7 @@
 class HomeSlideshow extends Backbone.View
   initialize: ->
     _.bindAll this, 'next'
-    @interval = setInterval @next, 5000
+    @interval = setInterval @next, 10000
 
   next: ->
     $active = @$('.content.active')
