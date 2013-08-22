@@ -7,10 +7,13 @@ class window.ConceptReviewRoot extends Backbone.View
 
   field_name: 'concept_position'
 
-  initialize: (vals = @$('.hidden input').val().split(",")) ->
+  initialize: () ->
+    vals = @$('.hidden input').val().split(",")
     if _.isEmpty(vals) then vals = [" "]
+
     for val in vals
       @$('.edit .positions').append @positionTemplate(val.trim())
+
     @$('.display').html @$('.hidden input').val()
 
   showEdit: ->
