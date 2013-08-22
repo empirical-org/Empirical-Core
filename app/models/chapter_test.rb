@@ -13,7 +13,7 @@ module ChapterFlow
       }
     else
       if next_rule_id.present?
-        @context.chapter_test_practice_path @chapter, next_rule_id, step: params[:step]
+        @context.chapter_test_practice_path chapter, next_rule_id, step: params[:step]
       else
         step_after_rules_completed
       end
