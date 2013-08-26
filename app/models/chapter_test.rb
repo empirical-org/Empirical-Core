@@ -28,10 +28,10 @@ protected
 
   def step_after_rules_completed
     if params[:step] == "practice"
-      @context.chapter_test_story_path(@chapter)
+      @context.chapter_test_story_path(chapter)
     else
       score.finalize!
-      @context.final_chapter_test_path(@chapter)
+      @context.final_chapter_test_path(chapter)
     end
   end
 
@@ -63,6 +63,8 @@ class ChapterTest
       :practice
     elsif params[:step] == "review"
       :review
+    elsif params[:action] == "final"
+      :final
     else
       raise "unknown step."
     end

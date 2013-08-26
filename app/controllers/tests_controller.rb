@@ -13,5 +13,6 @@ class TestsController < BaseChapterController
 
   def final
     @score.finalize!
+    render layout: 'application'
   end
 end
