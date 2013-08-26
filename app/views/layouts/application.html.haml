@@ -1,9 +1,9 @@
 !!!
 %html
-  = render 'head'
+  = render 'application/head'
 
   %body{class: body_class, id: body_id}
 
-    = render "header"
+    = render 'application/header'
     .container= yield
-    = render "footer"
+    = render 'application/footer'

@@ -20,7 +20,11 @@ class ScoreFinalizer
     lesson_input = send(:"#{step}_lesson_input")
 
     missed_lessons = lesson_input.reject do |lesson_id, input|
-      Lesson.find(lesson_id).answers.reject{ |a| a.strip == input.strip }.empty?
+      begin
+        Lesson.find(lesson_id).answers.reject{ |a| a.strip == input.strip }.empty?
+      rescue ActiveRecord::RecordNotFound
+        next
+      end
     end
 
     (lesson_input.keys - missed_lessons.keys).length.to_f / lesson_input.length
