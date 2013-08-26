@@ -1,7 +1,7 @@
 module ChapterFlow
   MAX_QUESTIONS = 3
 
-  def next_lesson
+  def next_lesson_url
     if next_index.present?
       {
         controller: "practice",
@@ -12,11 +12,15 @@ module ChapterFlow
         step: params[:step]
       }
     else
-      if next_rule_id.present?
-        @context.chapter_test_practice_path chapter, next_rule_id, step: params[:step]
-      else
-        step_after_rules_completed
-      end
+      next_rule_url
+    end
+  end
+
+  def next_rule_url
+    if next_rule_id.present?
+      @context.chapter_test_practice_path chapter, next_rule_id, step: params[:step]
+    else
+      step_after_rules_completed
     end
   end
 
