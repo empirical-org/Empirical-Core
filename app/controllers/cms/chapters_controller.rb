@@ -1,4 +1,4 @@
-class ChaptersController < ApplicationController
+class CMS::ChaptersController < ApplicationController
   def index
     @chapters = Chapter.all
   end
