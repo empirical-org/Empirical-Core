@@ -13,9 +13,9 @@ class PracticeController < BaseChapterController
 
   def index
     if skipping_practice?
-      redirect_to chapter_test_story_path(@chapter)
+      redirect_to chapter_story_path(@chapter)
     else
-      redirect_to chapter_test_practice_path(@chapter, @chapter_test.step(params[:step].to_sym).rules.first.id, step: params[:step])
+      redirect_to send("chapter_#{params[:step]}_path", @chapter, @chapter_test.step(params[:step].to_sym).rules.first.id)
     end
   end
 

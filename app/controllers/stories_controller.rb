@@ -10,6 +10,6 @@ class StoriesController < BaseChapterController
     @score.missed_rules = params[:missed_rules]
     @score.save!
 
-    redirect_to chapter_test_practice_index_path(@chapter, step: "review")
+    redirect_to chapter_review_index_path(@chapter)
   end
 end

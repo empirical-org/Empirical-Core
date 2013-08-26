@@ -18,7 +18,7 @@ module ChapterFlow
 
   def next_rule_url
     if next_rule_id.present?
-      @context.chapter_test_practice_path chapter, next_rule_id, step: params[:step]
+      @context.send("chapter_#{params[:step]}_path", chapter, next_rule_id)
     else
       step_after_rules_completed
     end
@@ -28,10 +28,10 @@ protected
 
   def step_after_rules_completed
     if params[:step] == "practice"
-      @context.chapter_test_story_path(chapter)
+      @context.chapter_story_path(chapter)
     else
       score.finalize!
-      @context.final_chapter_test_path(chapter)
+      @context.chapter_final_path(chapter)
     end
   end
 

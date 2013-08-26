@@ -8,6 +8,6 @@ class ReviewsController < BaseChapterController
     @score.missed_rules = params[:missed_rules]
     @score.save!
 
-    redirect_to chapter_test_review_path(@chapter)
+    redirect_to chapter_review_path(@chapter)
   end
 end

@@ -13,14 +13,16 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   resources :chapters do
-    resource :test do
-      resources :practice do
-        get ':question_index' => :show
-      end
-
-      resource :story
-      get :final
+    resources :practice, step: 'practice' do
+      get ':question_index' => :show
     end
+
+    resources :review, controller: 'practice', step: 'review' do
+      get ':question_index' => :show
+    end
+
+    resource :story
+    get :final
   end
 
   CMS::Routes.new(self).draw
