@@ -1,0 +1,9 @@
+article.edit-account-page
+  h4 Edit your account
+
+  = form_for @user, url: account_path do |f|
+    = f.string :name
+    = f.email :email
+    = f.password :password
+    = f.password :password_confirmation
+    = f.actions save: 'Save'

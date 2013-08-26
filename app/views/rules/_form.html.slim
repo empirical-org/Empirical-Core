@@ -1,0 +1,9 @@
+p#notice= notice
+= form_for @rule do |f|
+  = f.string :title
+  = f.text :description
+  p= "Use HTML: <br /> for new line,"
+  p= "<b>text</b> for bold, etc."
+  = f.choices :category_id, Category.all.map{|c| [c.title, c.id]}
+  = f.choices :workbook_id, Workbook.all.map{|w| [w.title, w.id]}
+  = f.actions
