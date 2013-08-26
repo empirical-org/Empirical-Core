@@ -21,7 +21,7 @@ class PracticeController < BaseChapterController
 
   def update
     @score.update_attributes! lesson_input => merged_lesson_input
-    redirect_to @chapter_test.next_lesson
+    redirect_to @chapter_test.next_lesson_url
   end
 
 protected
@@ -30,6 +30,7 @@ protected
     return true if (params[:id] || params[:practice_id]).blank?
     @rule = Rule.find(params[:id] || params[:practice_id])
     @question = @rule.questions.unanswered(@score).sample
+    redirect_to @chapter_test.next_rule_url if @question.blank?
   end
 
 private
