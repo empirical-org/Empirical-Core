@@ -5,7 +5,6 @@ class Score < ActiveRecord::Base
   serialize :review_lesson_input, Hash
   serialize :missed_rules, Array
   serialize :score_values, Hash
-
   def all_lesson_input
     practice_lesson_input.merge review_lesson_input
   end
@@ -23,6 +22,7 @@ class Score < ActiveRecord::Base
   end
 
   def final_grade
+    return 0.0 unless score_values[:story_percentage].present? && score_values[:review_percentage].present?
     (score_values[:story_percentage] + score_values[:review_percentage]).to_f / 2
   end
 
