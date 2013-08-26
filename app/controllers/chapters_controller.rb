@@ -3,10 +3,6 @@ class ChaptersController < ApplicationController
     @chapters = Chapter.all
   end
 
-  def show
-    @chapter = Chapter.find(params[:id])
-  end
-
   def new
     @chapter = Chapter.new
     @chapter.workbook_id = params[:workbook_id]
@@ -23,7 +19,7 @@ class ChaptersController < ApplicationController
     @chapter = Chapter.new(chapter_params)
 
     if @chapter.save
-      redirect_to @chapter, notice: 'Chapter was successfully created.'
+      redirect_to chapters_path, notice: 'Chapter was successfully created.'
     else
       render :new
     end
