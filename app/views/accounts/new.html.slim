@@ -1,0 +1,19 @@
+article.new-account-page
+  h4 Sign up for an account
+
+  = form_for @user, url: account_path do |f|
+    .new-account-field-group
+      = f.string :name
+      = f.email :email
+      = f.choices :role, [['Student', 'student'], ['Teacher', 'teacher']]
+      = f.string :classcode, label: 'Classcode (optional)'
+      = f.password :password
+      = f.password :password_confirmation
+
+      .form-explanation-text
+        | Teachers, create a class code for your class. Students plug in your class
+        | code to join your class. Teachers can also invite students from their
+        | teacher profile page.
+
+    = f.actions save: 'Sign up'
+

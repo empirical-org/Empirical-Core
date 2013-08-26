@@ -1,0 +1,9 @@
+doctype html
+html
+  = render 'application/head'
+
+  body class: body_class, id: body_id 
+
+    = render 'application/header'
+    .container= yield
+    = render 'application/footer'

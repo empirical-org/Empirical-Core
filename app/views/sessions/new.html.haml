@@ -1,7 +1,0 @@
-%article.new-session-page
-  %h4 Sign in to your account
-
-  = form_for @user, url: session_path do |f|
-    = f.email :email, placeholder: 'Email'
-    = f.password :password, placeholder: 'Password', class: 'password'
-    = f.actions save: 'Sign in'

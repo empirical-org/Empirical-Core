@@ -1,0 +1,64 @@
+h2= "Welcome # current_user.name !"
+p= "Class code: # current_user.classcode "
+p= link_to 'Directory', users_path
+h3 My Students
+
+table.table
+  tr
+    th Students
+
+    - if current_user.teacher_assignments
+      - current_user.teacher_assignments.each do |assignment|
+        th= assignment.chapter.title
+
+  - current_user.students.order(:name).each do |student|
+    tr
+      td= student.name
+      - current_user.teacher_assignments.each do |assignment|
+        - @has_score = false
+
+        - student.scores.each do |score|
+          - if score.assignment == assignment
+            - @has_score = true
+
+            - if score.items_missed
+              td= "Quiz: # score.items_missed}%, Lessons: #{score.lessons_completed %"
+            - else
+              td incomplete
+
+        - unless @has_score
+          td
+
+p= link_to 'Invite Student', new_user_path
+h3 My Assignments
+
+- if current_user.teacher_assignments
+  table.table
+    tr
+      th Chapter
+      th Due Date
+      th
+      th
+
+    - current_user.teacher_assignments.each do |assignment|
+      tr
+        td= link_to assignment.chapter.title, chapter_path(assignment.chapter)
+        td= assignment.due_date.try(:strftime, "%a, %b %d %Y")
+        td= link_to 'Change Due Date', edit_assignment_path(assignment)
+        td= link_to 'Remove Assignment', assignment, :method => :delete, :data =>   confirm=('Are you sure?' ) 
+
+h3= "# Workbook.first.title  Workbook:"
+
+table.table
+  tr
+    th Chapter Title
+    th
+    th
+
+  - Workbook.first.chapters.each do |chapter|
+    tr
+      td= chapter.title
+      - if @user.teacher_chapters.include? chapter
+        td= link_to 'Remove', assignment_path(@user.teacher_assignments.for_chapter(chapter)), style: 'color: red', method: 'delete'
+      - else
+        td= link_to 'Assign', new_assignment_path(chapter_id: chapter.id, user_id: current_user.id, classcode: current_user.classcode)

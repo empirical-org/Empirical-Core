@@ -1,0 +1,5 @@
+.edit-chunk data: {index: i} 
+  - if chunk.is_a? GrammarQuestion
+    = chunk.error
+  - else
+    = chunk
