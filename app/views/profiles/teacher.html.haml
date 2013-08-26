@@ -42,7 +42,7 @@
 
     - current_user.teacher_assignments.each do |assignment|
       %tr
-        %td= link_to assignment.chapter.title, chapter_test_path(assignment.chapter)
+        %td= link_to assignment.chapter.title, chapter_path(assignment.chapter)
         %td= assignment.due_date.try(:strftime, "%a, %b %d %Y")
         %td= link_to 'Change Due Date', edit_assignment_path(assignment)
         %td= link_to 'Remove Assignment', assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }

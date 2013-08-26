@@ -23,7 +23,9 @@ class Score < ActiveRecord::Base
 
   def final_grade
     return 0.0 unless score_values[:story_percentage].present? && score_values[:review_percentage].present?
-    (score_values[:story_percentage] + score_values[:review_percentage]).to_f / 2
+    result = (score_values[:story_percentage] + score_values[:review_percentage]).to_f / 2
+    return 0.0 if result.nan?
+    result
   end
 
   def finalize!

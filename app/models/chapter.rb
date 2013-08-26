@@ -19,4 +19,14 @@ class Chapter < ActiveRecord::Base
   def practice_rules
     rule_position.map{ |id| Rule.find(id) }
   end
+
+  def to_param
+    "#{id}-#{title.parameterize}"
+  end
+
+  def self.find id
+    return super(id) if id.is_a?(Integer)
+    return super(id) if id.to_s == id.to_i.to_s
+    super(id.split('-').first)
+  end
 end

@@ -5,7 +5,7 @@
   = markdown @rule.description.to_s
 
   .rule-lesson-list
-    = form_for @rule, url: chapter_test_practice_path(@chapter, @rule, step: params[:step], question_index: params[:question_index]) do |f|
+    = form_for @rule, url: send("chapter_#{params[:step]}_path", @chapter, @rule, question_index: params[:question_index]) do |f|
 
       .rule-lesson-form data-id=@question.id
         .form

@@ -15,3 +15,6 @@ content_types:
       position: orderable
       image: file
       text: text
+  Chapter:
+    attributes:
+      title: string
