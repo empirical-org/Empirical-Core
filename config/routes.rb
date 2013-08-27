@@ -1,7 +1,4 @@
 EmpiricalGrammar::Application.routes.draw do
-  resources :categories
-  resources :rules
-  resources :lessons
   resources :assessments
   resources :assignments
   resource :profile
@@ -27,7 +24,13 @@ EmpiricalGrammar::Application.routes.draw do
     get :resume
   end
 
-  CMS::Routes.new(self).draw
+  CMS::Routes.new(self).draw do
+    resources :categories
+    resources :rule_questions
+    resources :chapters
+    resources :rules
+  end
+
   HoneyAuth::Routes.new(self).draw
 
   %w(teachers middle_school story about learning).each do |page|

@@ -10,7 +10,7 @@ table
     th
     th
 
-  - @lessons.each do |lesson|
+  - @rule_questions.each do |lesson|
     tr
       td= lesson.order
       td= lesson.rule
@@ -18,7 +18,7 @@ table
       td= lesson.chapter_id
       td= link_to 'Show', lesson
       td= link_to 'Edit', edit_lesson_path(lesson)
-      td= link_to 'Destroy', lesson, :method => :delete, :data =>   confirm=('Are you sure?' ) 
+      td= link_to 'Destroy', lesson, :method => :delete, :data =>   confirm=('Are you sure?' )
 
 br
 

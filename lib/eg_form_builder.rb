@@ -5,9 +5,9 @@ class EgFormBuilder < CMS::FormBuilder
     values = args
     field_wrapper :radio, name do
       out = ''.html_safe
-      out.concat label(name) if options[:label]
+      out.concat label(name, class: 'control-label') if options[:label]
 
-      value_div = @template.content_tag(:span, class: 'values') do
+      value_div = @template.content_tag(:div, class: 'controls radio') do
         values.map do |value|
           @template.content_tag :span, class: 'value' do
             if value.is_a? Array

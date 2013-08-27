@@ -56,6 +56,16 @@ class window.LessonAnswerRoot extends ConceptReviewRoot
 
   field_name: 'answer_options'
 
+class window.LessonAnswerRoot extends ConceptReviewRoot
+  initialize: ->
+    super JSON.parse(@$('.hidden input').val())
+    _.bindAll 'save'
+
+    @$el.closest('form').find('.form-actions .btn').on 'click', =>
+      @save()
+      @$('textarea[name="lesson[answer_array_json]"]').remove()
+
+  field_name: 'answer_options'
 
 dataLoad = (cla) ->
   new window[cla] {el} for el in $("""*[data-view="#{cla}"]""")
@@ -63,6 +73,7 @@ dataLoad = (cla) ->
 loadSeriesRoots = ->
   dataLoad 'ConceptReviewRoot'
   dataLoad 'LessonAnswerRoot'
+  dataLoad 'RuleExamplesRoot'
 
 jQuery(document).on 'page:load', loadSeriesRoots
 jQuery loadSeriesRoots
