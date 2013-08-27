@@ -1,9 +1,9 @@
 table
-  - @score.score_values.each do |key, value|
+  - %w(practice review).each do |step|
     tr
-      td= key.to_s.humanize
-      td
-        - if value.nan?
-          | N/A
-        - else
-          = (value * 100).to_i.to_s + '%'
+      td= step
+    - @score.inputs.where(step: step).each do |input|
+      tr
+        td= input.correct
+        td= input.first_input
+        td= input.second_input

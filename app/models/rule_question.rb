@@ -1,4 +1,4 @@
-class Lesson < ActiveRecord::Base
+class RuleQuestion < ActiveRecord::Base
   belongs_to :rule
   serialize :body
 

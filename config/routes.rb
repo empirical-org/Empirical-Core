@@ -23,6 +23,8 @@ EmpiricalGrammar::Application.routes.draw do
 
     resource :story
     get :final
+    get :start
+    get :resume
   end
 
   CMS::Routes.new(self).draw

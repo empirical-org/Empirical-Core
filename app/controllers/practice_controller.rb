@@ -1,6 +1,7 @@
 class PracticeController < BaseChapterController
   before_filter :signed_in!
   before_filter :find_rule
+  prepend_before_filter :clean_step_param
 
   def show
     if params[:question_index].blank?
@@ -20,7 +21,7 @@ class PracticeController < BaseChapterController
   end
 
   def update
-    @score.update_attributes! lesson_input => merged_lesson_input
+    @score.update_attributes! lesson_input_key => params[:lesson_input]
     redirect_to @chapter_test.next_lesson_url
   end
 
@@ -33,26 +34,19 @@ protected
     redirect_to @chapter_test.next_rule_url if @question.blank?
   end
 
+  def clean_step_param
+    unless %w(practice review).include? params[:step]
+      raise 'invalid step'
+    end
+  end
+
 private
 
   def skipping_practice?
     @chapter.practice_rules.empty? && params[:step] == "practice"
   end
 
-  def lesson_input
-    if params[:step] == "practice"
-      :practice_lesson_input
-    else
-      :review_lesson_input
-    end
-  end
-
-  def merged_lesson_input
-    if params[:lesson_input].blank?
-      raise "lesson_input: #{params[:lesson_input]} user: #{current_user.id} params: #{params.inspect}"
-    end
-
-    lesson_input = :"#{params[:step]}_lesson_input"
-    @score.send(lesson_input).merge(params[:lesson_input])
+  def lesson_input_key
+    :"#{params[:step]}_lesson_input"
   end
 end

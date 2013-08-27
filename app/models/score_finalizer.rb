@@ -17,17 +17,17 @@ class ScoreFinalizer
   private
 
   def grade_lessons(step)
-    lesson_input = send(:"#{step}_lesson_input")
+    # lesson_input = send(:"#{step}_lesson_input")
 
-    missed_lessons = lesson_input.reject do |lesson_id, input|
-      begin
-        Lesson.find(lesson_id).answers.reject{ |a| a.strip == input.strip }.empty?
-      rescue ActiveRecord::RecordNotFound
-        next
-      end
-    end
+    # missed_lessons = lesson_input.reject do |lesson_id, input|
+    #   begin
+    #     Lesson.find(lesson_id).answers.reject{ |a| a.strip == input.strip }.empty?
+    #   rescue ActiveRecord::RecordNotFound
+    #     next
+    #   end
+    # end
 
-    (lesson_input.keys - missed_lessons.keys).length.to_f / lesson_input.length
+    # (lesson_input.keys - missed_lessons.keys).length.to_f / lesson_input.length
   end
 
   def story_rule_ids

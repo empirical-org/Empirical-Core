@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   has_many :student_chapters, through: :student_assignments, source: :chapter
 
   has_many :comments
-  has_many :scores
+  has_many :scores, class_name: '::Score'
   has_many :assignable_chapters, class_name: 'Chapter', through: :teacher, source: :chapters
   ROLES = %w(user student admin teacher)
   SAFE_ROLES = ROLES.except('admin')

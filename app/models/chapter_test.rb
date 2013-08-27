@@ -28,9 +28,11 @@ protected
 
   def step_after_rules_completed
     if params[:step] == "practice"
+      score.update_column :state, 'story'
       @context.chapter_story_path(chapter)
     else
       score.finalize!
+      score.update_column :state, 'finished'
       @context.chapter_final_path(chapter)
     end
   end
