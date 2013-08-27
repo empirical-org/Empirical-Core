@@ -1,4 +1,4 @@
-= form_for @chapter, layout: 'vertical' do |f|
+= form_for [:cms, @chapter], layout: 'vertical' do |f|
   = f.string :title, label: "Chapter Title"
   = f.string :description, label: "Article Header"
 

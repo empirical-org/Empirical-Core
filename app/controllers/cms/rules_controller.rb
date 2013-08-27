@@ -1,4 +1,4 @@
-class RulesController < ApplicationController
+class CMS::RulesController < ApplicationController
   before_filter :admin!
 
   def index
@@ -11,11 +11,23 @@ class RulesController < ApplicationController
 
   def new
     @rule = Rule.new
+
+    if params[:example].present? && @rule.examples.empty?
+      @rule.examples.build
+      @rule.examples.build
+    end
+
     @category = params[:category]
   end
 
   def edit
     @rule = Rule.find(params[:id])
+
+    if params[:example].present? && @rule.examples.empty?
+      @rule.examples.build
+      @rule.examples.build
+    end
+
     @category = params[:category]
     @workbook = @rule.workbook
   end
@@ -23,14 +35,10 @@ class RulesController < ApplicationController
   def create
     @rule = Rule.new(rule_params)
 
-    respond_to do |format|
-      if @rule.save
-        format.html { redirect_to new_rule_path, notice: 'Rule created.  Make another?' }
-        format.json { render json: @rule, status: :created, location: @rule }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @rule.errors, status: :unprocessable_entity }
-      end
+    if @rule.save
+      redirect_to new_rule_path, notice: 'Rule created. Make another?'
+    else
+      render action: "new"
     end
   end
 

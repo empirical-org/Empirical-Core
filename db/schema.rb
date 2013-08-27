@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130826180321) do
+ActiveRecord::Schema.define(version: 20130827060949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,15 @@ ActiveRecord::Schema.define(version: 20130826180321) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "rule_examples", force: true do |t|
+    t.text     "title"
+    t.boolean  "correct",    default: false, null: false
+    t.text     "text"
+    t.integer  "rule_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "rule_question_inputs", force: true do |t|
     t.string   "step"
     t.integer  "rule_question_id"
@@ -114,10 +123,12 @@ ActiveRecord::Schema.define(version: 20130826180321) do
 
   create_table "rule_questions", force: true do |t|
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "rule_id"
     t.text     "prompt"
+    t.text     "instructions"
+    t.text     "hint"
   end
 
   create_table "rules", force: true do |t|
@@ -127,6 +138,7 @@ ActiveRecord::Schema.define(version: 20130826180321) do
     t.integer  "category_id"
     t.integer  "workbook_id", default: 1
     t.text     "description"
+    t.text     "examples"
   end
 
   create_table "rules_misseds", force: true do |t|
