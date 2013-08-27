@@ -3,12 +3,6 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assignments
   resource :profile
 
-  resources :users do
-    member do
-      put :sign_in
-    end
-  end
-
   resources :chapters do
     resources :practice, step: 'practice' do
       get ':question_index' => :show
@@ -29,6 +23,12 @@ EmpiricalGrammar::Application.routes.draw do
     resources :rule_questions
     resources :chapters
     resources :rules
+
+    resources :users do
+      member do
+        put :sign_in
+      end
+    end
   end
 
   HoneyAuth::Routes.new(self).draw
