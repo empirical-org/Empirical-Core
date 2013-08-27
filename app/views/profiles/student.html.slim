@@ -1,5 +1,5 @@
-h2= "Welcome, # current_user.name !"
-p= "Teacher: # User.where(:classcode=(current_user.classcode).where(:role => "teacher").first.name) "
+h2= "Welcome, #{current_user.name}!"
+p= "Teacher: #{User.where(classcode: current_user.classcode, role: 'teacher').first.name}"
 h3 Current Assignments
 
 table.table
@@ -37,7 +37,7 @@ table.table
         td= score.assignment.due_date.try(:strftime, "%a, %b %d %Y")
         - if score.completed?
           td= score.completion_date.try(:strftime, "%a, %b %d %Y")
-          td= "Quiz: # score.items_missed}%, Lessons: #{score.lessons_completed %"
+          td= "Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%"
         - else
           td
           td incomplete
