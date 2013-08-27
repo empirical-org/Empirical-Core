@@ -5,14 +5,15 @@ class PracticeController < BaseChapterController
 
   def show
     if params[:question_index].blank?
-      params[:practice_id] = params.delete(:id)
+      params[:"#{params[:step]}_id"] = params.delete(:id)
       params[:question_index] = 1
-      redirect_to params
+      redirect_to url_for(params.merge(id: nil))
       return
     end
   end
 
   def index
+    raise 'naoesuahoeu'
     if skipping_practice?
       redirect_to chapter_story_path(@chapter)
     else
@@ -28,8 +29,8 @@ class PracticeController < BaseChapterController
 protected
 
   def find_rule
-    return true if (params[:id] || params[:practice_id]).blank?
-    @rule = Rule.find(params[:id] || params[:practice_id])
+    return true if (params[:id] || params[:"#{params[:step]}_id"]).blank?
+    @rule = Rule.find(params[:id] || params[:"#{params[:step]}_id"])
     @question = @rule.questions.unanswered(@score).sample
     redirect_to @chapter_test.next_rule_url if @question.blank?
   end

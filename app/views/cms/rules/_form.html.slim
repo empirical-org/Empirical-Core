@@ -2,12 +2,12 @@ p#notice= notice
 
 = form_for [:cms, @rule] do |f|
   = f.string :title
-  = f.text :description
-  p= "Use HTML: <br /> for new line,"
-  p= "<b>text</b> for bold, etc."
-
 
   - if params[:example].present? || @rule.examples.any?
+    = f.text :description
+    p= "Use HTML: <br /> for new line,"
+    p= "<b>text</b> for bold, etc."
+
     = f.fields_for :examples do |ef|
       = ef.string :title
       = ef.radio :correct_string, 'correct', 'incorrect', label: ""
