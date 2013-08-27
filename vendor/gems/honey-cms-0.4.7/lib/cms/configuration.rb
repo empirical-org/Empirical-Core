@@ -20,7 +20,6 @@ module CMS::Configuration
   def types
     if defined?(@types) then return @types end
 
-    # raise data['content_types'].inspect
     @types = data['content_types'].map do |name, config|
       CMS::Type.new(name, config.delete('attributes'), config)
     end
