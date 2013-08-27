@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130809042058) do
+ActiveRecord::Schema.define(version: 20130826180321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,20 +94,30 @@ ActiveRecord::Schema.define(version: 20130809042058) do
     t.datetime "updated_at"
   end
 
-  create_table "lessons", force: true do |t|
-    t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "rule_id"
-    t.text     "prompt"
-  end
-
   create_table "page_areas", force: true do |t|
     t.string   "name"
     t.string   "description"
     t.text     "content"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "rule_question_inputs", force: true do |t|
+    t.string   "step"
+    t.integer  "rule_question_id"
+    t.integer  "score_id"
+    t.text     "first_input"
+    t.text     "second_input"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rule_questions", force: true do |t|
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "rule_id"
+    t.text     "prompt"
   end
 
   create_table "rules", force: true do |t|
@@ -135,12 +145,13 @@ ActiveRecord::Schema.define(version: 20130809042058) do
     t.datetime "completion_date"
     t.integer  "items_missed"
     t.integer  "lessons_completed"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.text     "practice_lesson_input"
     t.text     "review_lesson_input"
     t.text     "missed_rules"
     t.text     "score_values"
+    t.string   "state",                 default: "unstarted", null: false
   end
 
   create_table "users", force: true do |t|

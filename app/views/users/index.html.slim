@@ -15,7 +15,7 @@ table.table
       td= user.classcode
       - if current_user.admin?
         td= link_to 'Edit', edit_user_path(user)
-        td= link_to 'Destroy', user, method: :delete, data:   confirm: 'Are you sure?'  
+        td= link_to 'Destroy', user, method: :delete,   confirm: 'Are you sure?'
         td= link_to 'Sign in', sign_in_user_path(user), method: :put
 
 br
