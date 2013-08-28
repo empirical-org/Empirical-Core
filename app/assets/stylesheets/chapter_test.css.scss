@@ -53,3 +53,101 @@
     line-height: 1.1;
   }
 }
+
+.rule-question-page {
+  margin: 40px;
+  @include border-radius(10px);
+  overflow: hidden;
+  background-color: white;
+  $light-blue: rgb(235, 248, 255);
+
+  .l-unit {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  .l-unit-spacer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .chapter-information {
+    background-color: rgb(72, 195, 255);
+    font-weight: bold;
+    color: white;
+  }
+
+  .chapter-title {
+    font-size: 24px;
+  }
+
+  .rule-information {
+    background-color: $light-blue;
+  }
+
+  .rule-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .rule-examples {
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 30px;
+  }
+
+  .question-text {
+    border: 2px solid #d8d8d8;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .question-field textarea {
+    background-color: $light-blue;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    @include box-sizing(border-box);
+    @include box-shadow(none);
+  }
+
+  .question-instructions {
+    font-weight: bold;
+    margin: 0px 0 10px 0;
+  }
+
+  .question-form {
+    padding-top: 30px;
+    position: relative
+  }
+
+  .question-actions {
+    text-align: right;
+    margin-top: 20px;
+  }
+
+  .try-it-bubble {
+    @include border-radius(999px);
+    border: 1px solid #d8d8d8;
+    position: absolute;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+    background-color: white;
+    padding: 1px 14px;
+    top: -13px;
+    line-height: 22px;
+  }
+
+  .verify-message {
+    margin: 0 20px;
+    font-weight: bold;
+  }
+
+  .error-message {
+    color: red;
+  }
+
+  .success-message {
+    color: green;
+  }
+}

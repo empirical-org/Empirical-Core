@@ -1,6 +1,6 @@
 class PracticeController < BaseChapterController
   before_filter :signed_in!
-  before_filter :find_rule
+  before_filter :find_rule, except: 'verify'
   prepend_before_filter :clean_step_param
 
   def show
@@ -13,7 +13,6 @@ class PracticeController < BaseChapterController
   end
 
   def index
-    raise 'naoesuahoeu'
     if skipping_practice?
       redirect_to chapter_story_path(@chapter)
     else
@@ -22,8 +21,15 @@ class PracticeController < BaseChapterController
   end
 
   def update
-    @score.update_attributes! lesson_input_key => params[:lesson_input]
+    update_score
     redirect_to @chapter_test.next_lesson_url
+  end
+
+  def verify
+    @score = Score.find(params[:score_id])
+    update_score
+    input = @score.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
+    render json: input.as_json(methods: [:first_grade, :second_grade])
   end
 
 protected
@@ -42,6 +48,10 @@ protected
   end
 
 private
+
+  def update_score
+    @score.update_attributes! lesson_input_key => params[:lesson_input]
+  end
 
   def skipping_practice?
     @chapter.practice_rules.empty? && params[:step] == "practice"
