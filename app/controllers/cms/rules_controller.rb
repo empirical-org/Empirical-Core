@@ -46,7 +46,7 @@ class CMS::RulesController < ApplicationController
     @rule = Rule.find(params[:id])
 
     if @rule.update_attributes rule_params
-      redirect_to rules_path, notice: 'Rule was successfully updated.'
+      redirect_to cms_rules_path, notice: 'Rule was successfully updated.'
     else
       render action: "edit"
     end
