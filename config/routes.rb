@@ -37,6 +37,7 @@ EmpiricalGrammar::Application.routes.draw do
     get page => "pages##{page}"
   end
 
-  get "users/activate_email/:token", as: "activate_email", to: "users#activate_email"
-  root to: "pages#home"
+  patch 'verify_question' => 'practice#verify'
+  get 'users/activate_email/:token', as: 'activate_email', to: 'users#activate_email'
+  root to: 'pages#home'
 end
