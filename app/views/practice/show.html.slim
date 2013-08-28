@@ -7,12 +7,13 @@
     .rule-title= @rule.title
 
   .rule-examples.l-unit.l-unit-spacer
-    - @rule.examples.each do |example|
-      .rule-example class=example.correct_string
-        strong.rule-example-title= example.title
-        span.rule-example-text= example.text
+    .example-set
+      - @rule.examples.each do |example|
+        .rule-example class=example.correct_string
+          strong.rule-example-title>= example.title
+          span.rule-example-text= example.text
 
-    .rule-description= @rule.description.to_s.truncate(15)
+    .rule-description= @rule.description.to_s.truncate(100)
 
 
   .question-form.l-unit
@@ -22,8 +23,8 @@
       = hidden_field_tag :score_id, @score.id
       = hidden_field_tag :step, params[:step]
       .question-instructions
-        .step-one= @question.instructions || 'instructions'
-        .step-two.hide= @question.hint || 'hint'
+        .step-one= @question.instructions || 'instructions' # remove these once real data is in there
+        .step-two.hide= @question.hint    || 'hint'         # remove these once real data is in there
       .question-text= @question.prompt.to_s.html_safe
       .question-field= text_area_tag "lesson_input[#{@question.id}]"
 

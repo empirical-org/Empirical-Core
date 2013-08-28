@@ -93,6 +93,12 @@
   .rule-examples {
     border-bottom: 1px solid #d8d8d8;
     padding-bottom: 30px;
+
+    .example-set {
+      font-size: 18px;
+      margin-bottom: 10px;
+      * { margin-bottom: 3px }
+    }
   }
 
   .question-text {
@@ -143,10 +149,12 @@
     font-weight: bold;
   }
 
+  .rule-example.correct .rule-example-title,
   .error-message {
     color: red;
   }
 
+  .rule-example.incorrect .rule-example-title,
   .success-message {
     color: green;
   }
