@@ -4,16 +4,18 @@ function ruleQuestionPage ($) {
     $$ = $form.find.bind($form);
     $actions = $$('.question-actions');
 
-    if ($form.data('bypass'))
-      return true;
+    if ($form.data('bypass')) {
+      window.location = $actions.data('next-url');
+      return e.preventDefault();
+    }
 
     function bypass () {
       $form.data('bypass', true);
     }
 
     function message (cls, buttonTextKey, messageTextKey) {
-      $$('.question-actions input').val($actions.data(buttonTextKey));
-      $$('.verify-message')       .text($actions.data(messageTextKey))
+      $actions.find('input').val($actions.data(buttonTextKey));
+      $$('.verify-message').text($actions.data(messageTextKey))
         .addClass(cls)
         .removeClass((cls == 'error-message') ? 'success-message' : 'error-message');
     }
