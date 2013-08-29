@@ -1,4 +1,4 @@
-function ruleQuestionPage ($) {
+window.ruleQuestionPage = function ruleQuestionPage ($) {
   function checkAnswer (e) {
     $form = $(e.target);
     $$ = $form.find.bind($form);
