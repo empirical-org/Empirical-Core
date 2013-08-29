@@ -23,8 +23,10 @@
       = hidden_field_tag :score_id, @score.id
       = hidden_field_tag :step, params[:step]
       .question-instructions
-        .step-one= @question.instructions || 'instructions' # remove these once real data is in there
-        .step-two.hide= @question.hint    || 'hint'         # remove these once real data is in there
+        - # remove these once real data is in there
+        .step-one= @question.instructions || 'instructions'
+        - # remove these once real data is in there
+        .step-two.hide= @question.hint    || 'hint'
       .question-text= @question.prompt.to_s.html_safe
       .question-field= text_area_tag "lesson_input[#{@question.id}]"
 
@@ -33,4 +35,4 @@
         = f.submit 'Check Answer', class: 'a button btn next'
 
 javascript:
-  ruleQuestionPage(jQuery);
+  window.ruleQuestionPage(jQuery);
