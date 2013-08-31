@@ -28,8 +28,14 @@
         .step-two.hide= @question.hint    || 'hint'
       .question-text= @question.prompt.to_s.html_safe
       .question-field= text_area_tag "lesson_input[#{@question.id}]"
-
-      .question-actions data-first-fail="Oops! Please try again" data-passed="Great, you got it!" data-check-again="Check Again" data-last-text="Continue" data-second-fail="" data-next-url=@chapter_test.next_rule_url
+      .question-actions(
+        data-first-fail="Oops! Please try again"
+        data-passed="Great, you got it!"
+        data-check-again="Check Again"
+        data-last-text="Continue"
+        data-second-fail=""
+        data-next-url=@chapter_test.next_page_url
+      )
         span.verify-message
         = f.submit 'Check Answer', class: 'a button btn next'
 

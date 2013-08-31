@@ -1,17 +1,23 @@
-.chapter-view.form= render 'form'
+article.generic-page
+  .chapter-view.form= render 'form'
 
-.chapter-rules
-  table.table
-    tr
-      th= "Rules Reference Guide"
-      th
-
-    - Category.all.each do |category|
+  .cms-chapter-edit-rules-reference-guide
+    table.table
       tr
-        td.name= category.title
-        td.id
+        th Rules Reference Guide
+        th
 
-      - category.rules.each do |rule|
+      - Category.all.each do |category|
         tr
-          td.name= " • #{rule.title}"
-          td.id= "\{\|#{rule.id}\}"
+          td.name= category.title
+          td.id
+
+        - category.rules.each do |rule|
+          tr
+            td.name= " • #{rule.title}"
+            td.rule-id
+              |{|
+              = link_to(rule.id, edit_cms_rule_path(rule))
+              |}{q:
+              = rule.questions.count
+              |}

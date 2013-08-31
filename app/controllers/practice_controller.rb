@@ -20,10 +20,11 @@ class PracticeController < BaseChapterController
     end
   end
 
-  def update
-    update_score
-    redirect_to @chapter_test.next_lesson_url
-  end
+  # NO LONGER USED. :P
+  # def update
+  #   update_score
+  #   redirect_to @chapter_test.next_page_url
+  # end
 
   def verify
     @score = Score.find(params[:score_id])
@@ -38,7 +39,9 @@ protected
     return true if (params[:id] || params[:"#{params[:step]}_id"]).blank?
     @rule = Rule.find(params[:id] || params[:"#{params[:step]}_id"])
     @question = @rule.questions.unanswered(@score).sample
-    redirect_to @chapter_test.next_rule_url if @question.blank?
+    raise 'help computer' if @question.blank?
+    # too unpredictable.. please go where you need to will not infer
+    # redirect_to @chapter_test.next_rule_url if @question.blank?
   end
 
   def clean_step_param

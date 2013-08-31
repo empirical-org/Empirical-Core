@@ -1,17 +1,18 @@
-table.table
-	tr
-		th Chapters
-		th
-		th
+article.generic-page
+  table.table.table-stripe
+    thead
+      th Chapters
+      th
+      th
 
-	- @chapters.each do |chapter|
-		tr
-			td= link_to chapter.title, chapter_practice_index_path(chapter)
-			-if current_user.admin?
-				td= link_to 'Edit', edit_cms_chapter_path(chapter)
-				td= link_to 'Destroy', [:cms, chapter], :method => :delete, confirm: 'Are you sure?'
+    - @chapters.each do |chapter|
+      tr
+        td= link_to chapter.title, chapter_practice_index_path(chapter)
+        -if current_user.admin?
+          td= link_to 'Edit', edit_cms_chapter_path(chapter)
+          td= link_to 'Destroy', [:cms, chapter], :method => :delete, confirm: 'Are you sure?'
 
-br
+  br
 
--if current_user.admin?
-	= link_to 'New Chapter', new_cms_chapter_path(:workbook_id => Workbook.first.id)
+  -if current_user.admin?
+    a.btn.btn-primary href=new_cms_chapter_path(:workbook_id => Workbook.first.id) New Chapter

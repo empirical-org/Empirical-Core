@@ -1,20 +1,25 @@
 module ChapterFlow
   MAX_QUESTIONS = 3
 
-  def next_lesson_url
-    if next_index.present?
-      {
+  def next_page_url
+    result = if next_index.present?
+      @context.url_for(
         controller: "practice",
         action: "show",
         chapter_id: params[:chapter_id],
         practice_id: (params[:id] || params[:practice_id]),
         question_index: next_index,
         step: params[:step]
-      }
+      )
     else
       next_rule_url
     end
+
+    raise "STOP MAKING THEM SHITTY: #{result}" if result.include?('?')
+    result
   end
+
+protected
 
   def next_rule_url
     if next_rule_id.present?
@@ -23,8 +28,6 @@ module ChapterFlow
       step_after_rules_completed
     end
   end
-
-protected
 
   def step_after_rules_completed
     if params[:step] == "practice"
