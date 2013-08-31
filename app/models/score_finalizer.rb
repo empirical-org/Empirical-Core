@@ -8,13 +8,28 @@ class ScoreFinalizer
 
   def results
     {
-      practice_percentage: grade_lessons(:practice),
-      story_percentage:    1 - missed_rules.length.to_f / story_rule_ids.length,
-      review_percentage:   grade_lessons(:review)
+      practice_percentage:  grade_lessons(:practice),
+      story_percentage:     1 - story_missed_count.to_f / story_total_count,
+      review_percentage:    grade_lessons(:review),
+      story_missed_count:   story_missed_count,
+      story_total_count:    story_total_count,
+      mistakes_found_count: mistakes_found_count
     }
   end
 
   private
+
+  def story_missed_count
+    missed_rules.length
+  end
+
+  def mistakes_found_count
+    story_total_count - story_missed_count
+  end
+
+  def story_total_count
+    story_rule_ids.length
+  end
 
   def grade_lessons(step)
     # lesson_input = send(:"#{step}_lesson_input")

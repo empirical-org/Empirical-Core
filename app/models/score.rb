@@ -16,7 +16,7 @@ module ScoreState
 
   def finalize!
     self.score_values = ScoreFinalizer.new(self).results
-    self.completion_date = Time.now
+    self.completion_date ||= Time.now
     save!
   end
 
