@@ -4,6 +4,9 @@
  *= require_self
  */
 
+$skyblue: #cbebed;
+$skyblue-darker: #b5e2ff;
+
 @import 'bootstrap_imports';
 @import 'compass/typography/text/replacement';
 
@@ -31,18 +34,6 @@
   display: none;
 }
 
-@import 'header';
-@import 'pages';
-@import 'home';
-@import 'grammar_test';
-@import 'chapters';
-@import 'rules';
-@import 'users';
-@import 'style';
-@import 'assessments';
-@import 'accounts';
-@import 'chapter_test';
-
 textarea {
   height: 100px;
 }
@@ -54,3 +45,23 @@ form .help-inline {
 .control-group.radio {
   padding-left: 0;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 20px;
+  border-color: transparent;
+}
+
+
+@import 'header';
+@import 'pages';
+@import 'home';
+@import 'grammar_test';
+@import 'chapters';
+@import 'rules';
+@import 'style';
+@import 'assessments';
+@import 'accounts';
+@import 'chapter_test';
+@import 'pages/*';

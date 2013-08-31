@@ -1,0 +1,54 @@
+article.final-score-page {
+  display: table;
+  width: 100%;
+
+  .final-score-step {
+    background-color: white;
+    @include border-radius(5px);
+    margin: 40px 0;
+  }
+
+  .step-title {
+    font-size: 18px;
+    padding: 20px;
+    border-bottom: 1px solid #c5c5c5;
+  }
+
+  .score-input-row {
+    display: table-row;
+  }
+
+  .l-score-input-unit {
+    margin: 0;
+    min-height: 10px;
+    display: table-cell;
+  }
+
+  .correct, .incorrect {
+    font-weight: bold;
+  }
+
+  .correct {
+    color: green;
+  }
+
+  .incorrect {
+    color: red;
+  }
+
+  .score-value-unit {
+    width: 20px;
+    text-align: center;
+    width: 40px;
+    background-color: $skyblue-darker;
+  }
+
+  td, th {
+    padding: 5px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f5f5f5;
+  }
+}

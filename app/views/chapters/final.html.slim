@@ -1,9 +1,23 @@
-table
-  - %w(practice review).each do |step|
-    tr
-      td= step
-    - @score.inputs.where(step: step).each do |input|
-      tr
-        td= input.correct
-        td= input.first_input
-        td= input.second_input
+article.final-score-page
+  - %w(practice story review).each do |step|
+    .final-score-step
+      .step-title= step
+
+      - if step == 'story'
+        span It's a story.
+
+      table
+        - if @score.inputs.where(step: step).any?
+          thead
+            th Question
+            th Correct Answer
+            th First Try
+            th Second Try
+            th Score
+        - @score.inputs.where(step: step).each do |input|
+          tr
+            td= input.prompt
+            td= input.correct
+            td(class=input.first_grade_class)=  input.first_input_html
+            td(class=input.second_grade_class)= input.second_input_html
+            td.score-value-unit= input.score
