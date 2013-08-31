@@ -53,6 +53,11 @@ table {
   border-color: transparent;
 }
 
+.table-stripe {
+  tr:nth-child(2n) {
+    background-color: #f5f5f5;
+  }
+}
 
 @import 'header';
 @import 'pages';
