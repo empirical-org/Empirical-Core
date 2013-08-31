@@ -9,7 +9,8 @@ class StoriesController < BaseChapterController
   def create
     @score.missed_rules = params[:missed_rules]
     @score.save!
-
-    redirect_to chapter_review_index_path(@chapter)
+    @score.review!
+    binding.pry
+    redirect_to @chapter_test.next_page_url
   end
 end

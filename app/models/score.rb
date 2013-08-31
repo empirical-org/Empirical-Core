@@ -23,6 +23,14 @@ module ScoreState
   def trash!
     update_column :state, 'trashed'
   end
+
+  def practice!
+    update_column :state, 'practice'
+  end
+
+  def review!
+    update_column :state, 'review'
+  end
 end
 
 module RuleQuestionInputAccessors
