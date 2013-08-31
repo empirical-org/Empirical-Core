@@ -2,20 +2,35 @@ module ChapterFlow
   MAX_QUESTIONS = 3
 
   def next_page_url
-    result = if next_index.present?
-      @context.url_for(
-        controller: "practice",
-        action: "show",
-        chapter_id: params[:chapter_id],
-        practice_id: (params[:id] || params[:practice_id]),
-        question_index: next_index,
-        step: params[:step]
-      )
+    result = if score.unstarted?
+      score.practice!
+      @context.chapter_practice_index_path(chapter)
+    elsif params[:step].present? && params[:practice_id].present?
+      if next_index.present?
+        @context.url_for(
+          controller: "practice",
+          action: "show",
+          chapter_id: params[:chapter_id],
+          "#{params[:step]}_id" => (params[:id] || params[:practice_id]),
+          question_index: next_index,
+          step: params[:step]
+        )
+      else
+        next_rule_url
+      end
+    elsif score.story?
+      @context.chapter_story_path(chapter)
+    elsif (score.practice? || score.review?) && !@skip_recursive_step
+      params[:step] = score.state
+      params[:question_index] = score.inputs.where(step: params[:step]).count
+      params[:practice_id] = step(params[:step].to_sym).rules.first.id
+      @skip_recursive_step = true
+      next_page_url
     else
       next_rule_url
     end
 
-    raise "STOP MAKING THEM SHITTY: #{result}" if result.include?('?')
+    raise "STOP MAKING THEM WITH QUERY STRINGS: #{result}" if result.include?('?')
     result
   end
 

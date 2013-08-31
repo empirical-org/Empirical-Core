@@ -2,7 +2,7 @@ class ChaptersController < BaseChapterController
   prepend_before_filter :set_chapter_id
 
   def show
-    redirect_to chapter_practice_index_path(@chapter) if @score.unstarted?
+    resume if @score.unstarted?
   end
 
   def final
@@ -17,6 +17,10 @@ class ChaptersController < BaseChapterController
     end
 
     redirect_to chapter_practice_index_path(@chapter)
+  end
+
+  def resume
+    redirect_to @chapter_test.next_page_url
   end
 
 protected
