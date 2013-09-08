@@ -42,6 +42,10 @@ $purpleLight:    #ddddff;
   .graded-word.error, .lesson.error .error {
     background-color: $redLight;
   }
+  
+  .edited.graded-word.error {
+    background-color: $purpleLight;
+  }
 
   .edit-word.edited {
     font-weight: bold;
