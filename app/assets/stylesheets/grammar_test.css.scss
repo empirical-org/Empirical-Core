@@ -1,3 +1,7 @@
+$redLight:       #ffb8b8;
+$greenLight:     #b5ffb5; 
+$purpleLight:    #ddddff;       
+
 .grammar-test {
   .text, .results, .lessons {
     /*border: 1px solid #555;*/
@@ -36,8 +40,7 @@
   }
 
   .graded-word.error, .lesson.error .error {
-    color: $red;
-    font-weight: bold;
+    background-color: $redLight;
   }
 
   .edit-word.edited {
@@ -45,8 +48,7 @@
   }
 
   .graded-word.correct {
-    color: $green;
-    font-weight: bold;
+    background-color: $greenLight;
   }
 
   .progress {
