@@ -41,10 +41,16 @@ $purpleLight:    #ddddff;
 
   .graded-word.error, .lesson.error .error {
     background-color: $redLight;
+    border-left: 5px solid $redLight;
+    border-right: 5px solid $redLight;
+    display: inline-block;
   }
   
   .edited.graded-word.error {
     background-color: $purpleLight;
+    border-left: 5px solid $purpleLight;
+    border-right: 5px solid $purpleLight;
+    display: inline-block;
   }
 
   .edit-word.edited {
@@ -53,6 +59,9 @@ $purpleLight:    #ddddff;
 
   .graded-word.correct {
     background-color: $greenLight;
+    border-left: 5px solid $greenLight;
+    border-right: 5px solid $greenLight;
+    display: inline-block;
   }
 
   .progress {
