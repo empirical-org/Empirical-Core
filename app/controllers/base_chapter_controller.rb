@@ -1,5 +1,5 @@
 class BaseChapterController < ApplicationController
-  before_filter :find_assignment, except: 'verify'
+  before_filter :find_assignment, except: ['verify', 'verify_status']
   layout 'chapter_test'
 
   def find_assignment

@@ -7,8 +7,10 @@
 $skyblue: #cbebed;
 $skyblue-darker: #b5e2ff;
 
-@import 'bootstrap_imports';
-@import 'compass/typography/text/replacement';
+$baseFontFamily: "proxima_nova_rgregular";
+
+@import "bootstrap_imports";
+@import "compass/typography/text/replacement";
 
 @mixin fix-height($height) {
   height: $height;
@@ -59,14 +61,14 @@ table {
   }
 }
 
-@import 'header';
-@import 'pages';
-@import 'home';
-@import 'grammar_test';
-@import 'chapters';
-@import 'rules';
-@import 'style';
-@import 'assessments';
-@import 'accounts';
-@import 'chapter_test';
-@import 'pages/*';
+@import "header";
+@import "pages";
+@import "home";
+@import "grammar_test";
+@import "chapters";
+@import "rules";
+@import "style";
+@import "assessments";
+@import "accounts";
+@import "partials/*";
+@import "pages/*";

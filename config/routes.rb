@@ -38,6 +38,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   patch 'verify_question' => 'practice#verify'
+  get   'verify_question' => 'practice#verify_status'
   get 'users/activate_email/:token', as: 'activate_email', to: 'users#activate_email'
   root to: 'pages#home'
 end

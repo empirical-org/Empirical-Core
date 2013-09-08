@@ -21,23 +21,33 @@
     = form_for @rule, url: send("chapter_#{params[:step]}_path", @chapter, @rule, question_index: params[:question_index]) do |f|
       = hidden_field_tag :score_id, @score.id
       = hidden_field_tag :step, params[:step]
-      .question-instructions
-        - # remove these once real data is in there
-        .step-one= @question.instructions || 'instructions'
-        - # remove these once real data is in there
-        .step-two.hide= @question.hint    || 'hint'
+      .question-instructions= @question.instructions || 'instructions'
       .question-text= @question.prompt.to_s.html_safe
       .question-field= text_area_tag "lesson_input[#{@question.id}]"
-      .question-actions(
-        data-first-fail="Oops! Please try again"
-        data-passed="Great, you got it!"
-        data-check-again="Check Again"
-        data-last-text="Continue"
-        data-second-fail=""
-        data-next-url=@chapter_test.next_page_url
-      )
-        span.verify-message
-        = f.submit 'Check Answer', class: 'a button btn next'
+
+      .chapter-test-question-actions.default data-next-url=@chapter_test.next_page_url
+        .default
+          a.button.btn.btn-primary.next Check Answer
+
+        .first-try
+          .icon
+          .message
+            h3 Try Again!
+            .hint= @question.hint || 'hint'
+          a.button.btn.btn-primary.next Check Answer
+
+        .second-try
+          .icon
+          .message
+            h3 Incorrect.
+            .hint= @question.hint || 'hint'
+          a.button.btn.btn-primary.next Continue
+
+        .correct
+          .icon
+          .message
+            h3 Correct! Good job.
+          a.button.btn.btn-primary.next Continue
 
 javascript:
-  window.ruleQuestionPage(jQuery);
+  window.ruleQuestionPage(jQuery('.rule-question-page'));

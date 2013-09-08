@@ -238,7 +238,7 @@ DEPENDENCIES
   rails-backbone
   rails_12factor
   redcarpet
-  sass-rails
+  sass-rails (~> 4.0.0)
   sentry-raven
   slim-rails
   sqlite3

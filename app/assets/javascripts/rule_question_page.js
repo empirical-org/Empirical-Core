@@ -1,50 +1,49 @@
-window.ruleQuestionPage = function ruleQuestionPage ($) {
+window.ruleQuestionPage = function ruleQuestionPage ($page) {
+  $form = $page.find('form');
+  $$ = $form.find.bind($form);
+  $actions = $$('.chapter-test-question-actions');
+
+  function bypass () {
+    $form.data('bypass', true);
+  }
+
+  function setStepClass (cls) {
+    $actions
+      .removeClass('default')
+      .removeClass('first-try')
+      .removeClass('second-try')
+      .removeClass('correct')
+      .addClass(cls);
+  }
+
+  function passed (step) {
+    setStepClass('correct');
+    bypass();
+  }
+
+  function failed (step) {
+    setStepClass((step == 'first') ? 'first-try' : 'second-try');
+    if (step == 'second') bypass();
+  }
+
+  function ProcessAjaxResponse (data) {
+    return queue.AddMessageToQueue(data);
+  }
+
+  function verify (data) {
+    if (data === null) return;
+    if (data.first_grade  === true) return passed('first');
+    if (data.second_grade === null) return failed('first');
+    if (data.second_grade === true) return passed('second');
+                                    return failed('second');
+  }
+
   function checkAnswer (e) {
-    $form = $(e.target);
-    $$ = $form.find.bind($form);
-    $actions = $$('.question-actions');
-
-    if ($form.data('bypass')) {
-      window.location = $actions.data('next-url');
-      return e.preventDefault();
-    }
-
-    function bypass () {
-      $form.data('bypass', true);
-    }
-
-    function message (cls, buttonTextKey, messageTextKey) {
-      $actions.find('input').val($actions.data(buttonTextKey));
-      $$('.verify-message').text($actions.data(messageTextKey))
-        .addClass(cls)
-        .removeClass((cls == 'error-message') ? 'success-message' : 'error-message');
-    }
-
-    function passed (step) {
-      message('success-message', 'last-text', 'passed');
-      bypass();
-    }
-
-    function failed (step) {
-      var textKey        = (step == 'first') ? 'check-again' : 'last-text';
-      var messageTextKey = (step == 'first') ? 'first-fail'  : 'second-fail';
-      message('error-message', textKey, messageTextKey);
-      $('.rule-question-page .step-one').addClass   ('hide');
-      $('.rule-question-page .step-two').removeClass('hide');
-      if (step == 'second') bypass();
-    }
-
-    function ProcessAjaxResponse (data) {
-      return queue.AddMessageToQueue(data);
-    }
+    if ($form.data('bypass'))
+      return window.location = $actions.data('next-url');
 
     $.post('/verify_question', $form.serialize())
-      .success(function (data) {
-        if (data.first_grade  === true) return passed('first');
-        if (data.second_grade === null) return failed('first');
-        if (data.second_grade === true) return passed('second');
-                                        return failed('second');
-      })
+      .success(verify)
       .fail(function (err) {
         debugger;
       });
@@ -52,5 +51,6 @@ window.ruleQuestionPage = function ruleQuestionPage ($) {
     e.preventDefault();
   }
 
-  $('.rule-question-page').on('submit', 'form', checkAnswer);
+  $.get('/verify_question', $form.serialize()).success(verify);
+  $page.on('click', '.btn.next', checkAnswer);
 };

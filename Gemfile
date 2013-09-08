@@ -6,7 +6,7 @@ gem 'pg'
 gem 'sqlite3', group: :development
 gem 'rails_12factor'
 
-gem 'sass-rails'
+gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails'
 gem 'uglifier'
 gem 'turbolinks'
