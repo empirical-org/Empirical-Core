@@ -1,0 +1,5 @@
+- content_for :body_content do
+  = render 'chapters/header'
+  .container= yield
+
+= render template: 'layouts/application'

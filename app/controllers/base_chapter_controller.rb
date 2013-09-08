@@ -1,5 +1,6 @@
 class BaseChapterController < ApplicationController
   before_filter :find_assignment, except: 'verify'
+  layout 'chapter_test'
 
   def find_assignment
     @body_class = 'con-skyblue'

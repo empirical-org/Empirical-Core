@@ -2,10 +2,14 @@ module ChapterFlow
   MAX_QUESTIONS = 3
 
   def next_page_url
+    # if the score is unstarted proceed to practice step.
     result = if score.unstarted?
       score.practice!
       @context.chapter_practice_index_path(chapter)
+    # we are on one of the two practice steps and we have
+    # the id of the practice question.
     elsif params[:step].present? && params[:practice_id].present?
+      # index is missing.
       if next_index.present?
         @context.url_for(
           controller: "practice",
@@ -124,9 +128,9 @@ class ChapterTest
 
     def css_class
       if current_step?
-        "current"
+        "#{step} current"
       else
-        "not-current"
+        "#{step} not-current"
       end
     end
 
@@ -152,6 +156,7 @@ class ChapterTest
     end
 
     def next_rule
+      return false if rules.map(&:rule).index(current_rule).blank?
       rules[rules.map(&:rule).index(current_rule) + 1]
     end
   end
