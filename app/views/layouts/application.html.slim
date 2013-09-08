@@ -4,5 +4,8 @@ html
 
   body class=body_class id=body_id
     = render 'application/header'
-    .container= yield
+    - if content_for(:body_content)
+      = content_for(:body_content)
+    - else
+      .container= yield
     = render 'application/footer'

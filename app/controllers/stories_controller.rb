@@ -10,7 +10,7 @@ class StoriesController < BaseChapterController
     @score.missed_rules = params[:missed_rules]
     @score.save!
     @score.review!
-    binding.pry
+
     redirect_to @chapter_test.next_page_url
   end
 end
