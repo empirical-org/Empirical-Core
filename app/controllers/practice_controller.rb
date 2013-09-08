@@ -1,6 +1,6 @@
 class PracticeController < BaseChapterController
   before_filter :signed_in!
-  before_filter :find_rule, except: 'verify'
+  before_filter :find_rule, except: ['verify', 'verify_status']
   prepend_before_filter :clean_step_param
 
   def show
@@ -20,15 +20,15 @@ class PracticeController < BaseChapterController
     end
   end
 
-  # NO LONGER USED. :P
-  # def update
-  #   update_score
-  #   redirect_to @chapter_test.next_page_url
-  # end
-
   def verify
     @score = Score.find(params[:score_id])
     update_score
+    input = @score.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
+    render json: input.as_json(methods: [:first_grade, :second_grade])
+  end
+
+  def verify_status
+    @score = Score.find(params[:score_id])
     input = @score.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
     render json: input.as_json(methods: [:first_grade, :second_grade])
   end

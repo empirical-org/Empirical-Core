@@ -8,39 +8,28 @@
 
 // Core
 .btn {
-  $vertical-padding: 4px;
-  $height: 35px;
   display: inline-block;
   @include ie7-inline-block;
-  padding: $vertical-padding 14px;
+  padding: 2px 25px 0 25px;
   margin-bottom: 0; // For input.btn
   font-size: 16px;
-  line-height:  $height - $vertical-padding * 2;
-  *line-height: $height - $vertical-padding * 2;
+  line-height:  42px;
+  *line-height: 42px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
   background-color: #c7c7c8;
   font-weight: bold;
-//  @include buttonBackground($btnBackground, $btnBackgroundHighlight, $grayDark, 0 1px 1px rgba(255,255,255,.75));
-//  border: 1px solid $btnBorder;
-//  *border: 0; // Remove the border to prevent IE7's black border on input:focus
-//  border-bottom-color: darken($btnBorder, 10%);
-//  @include border-radius(4px);
+  @include border-radius(4px);
   @include ie7-restore-left-whitespace; // Give IE7 some love
-//  @include box-shadow(#{inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)});
   color: white;
+  border: 3px solid white;
+  border-width: 0 0 3px 0;
 
   // Hover state
   &:hover {
-    color: $grayDark;
     text-decoration: none;
-    background-color: darken($white, 10%);
-    *background-color: darken($white, 15%); /* Buttons in IE7 don't get borders, so darken on hover */
-
-    // transition is only when going to hover, otherwise the background
-    // behind the gradient (there for IE<=9 fallback) gets mismatched
-//    @include transition(background-position .1s linear);
+    color: white;
   }
 
   // Focus state for keyboard and accessibility
@@ -51,11 +40,9 @@
   // Active state
   &.active,
   &:active {
-    background-color: darken($white, 10%);
-    background-color: darken($white, 15%) \9;
-    background-image: none;
+    border-bottom-width: 0;
+    margin-top: 3px;
     outline: 0;
-//    @include box-shadow(#{inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)});
   }
 
   // Disabled state
@@ -65,7 +52,6 @@
     background-color: darken($white, 10%);
     background-image: none;
     @include opacity(0.65);
-//    @include box-shadow(none);
   }
 
 }
@@ -82,6 +68,7 @@
   line-height: normal;
   @include border-radius(5px);
 }
+
 .btn-large [class^="icon-"] {
   margin-top: 2px;
 }
@@ -92,6 +79,7 @@
   font-size: $baseFontSize - 2px;
   line-height: $baseLineHeight - 2px;
 }
+
 .btn-small [class^="icon-"] {
   margin-top: 0;
 }
@@ -111,6 +99,7 @@
   padding-right: 0;
   @include box-sizing(border-box);
 }
+
 .btn-block + .btn-block {
   margin-top: 5px;
 }
@@ -133,12 +122,22 @@
 // -------------------------
 .btn {
   // reset here as of 2.0.3 due to Recess property order
-  border-color: #c5c5c5;
-  border-color: rgba(0,0,0,.15) rgba(0,0,0,.15) rgba(0,0,0,.25);
+  border-bottom-color: darken($btnBorder, 10%);
 }
 
 .btn-primary {
-//  @include buttonBackground($btnPrimaryBackground, $btnPrimaryBackgroundHighlight);
+  background-color: #78ca47;
+  border-bottom-color: #57a800;
+}
+
+.btn-alert {
+  background-color: #78ca47;
+  border-bottom-color: #57a800;
+}
+
+.btn-error {
+  background-color: #78ca47;
+  border-bottom-color: #57a800;
 }
 
 // Warning appears are orange
@@ -207,12 +206,14 @@ input[type="submit"].btn {
   background-image: none;
   @include box-shadow(none);
 }
+
 .btn-link {
   border-color: transparent;
   cursor: pointer;
   color: $linkColor;
   @include border-radius(0);
 }
+
 .btn-link:hover {
   color: $linkColorHover;
   text-decoration: underline;
