@@ -29,7 +29,7 @@
 
 /* NAV OVERRIDE */
 .navbar-inner { min-height: 70px; font-family: 'proxima_nova_rgbold'; }
-.navbar .brand { margin-top: 23px; margin-left: 0px; }
+.navbar .brand { margin-top: 18px; margin-left: 0px; }
 .nav-collapse { float: right; margin-top: 22px; }
 .navbar .nav > li  { margin-left: 15px; }
 
@@ -179,8 +179,15 @@ header { margin: 0; }
 
 .navbar { margin-bottom: 0; }
 .navbar-inner { background: none; border: none; border-radius: 0; box-shadow: none; }
-.brand { width: 228px; height: 22px; background: image-url('logo.png') no-repeat; display: block; text-indent: -999em; }
 .navbar .nav > li > a:focus, .navbar .nav > li > a:hover { color: #dfdfdf; }
+
+.brand {
+  width: 228px;
+  height: 22px;
+  background: image-url('logo.png') no-repeat;
+  display: block;
+  text-indent: -999em;
+}
 
 #m-sign-in a,
 #m-create-account a { font-family: 'proxima_novasemibold'; height: 20px; line-height: 20px; padding: 0 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; font-size: 12px; color: #fff; }
