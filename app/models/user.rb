@@ -7,12 +7,18 @@ class Array
 end
 
 class User < ActiveRecord::Base
-  has_secure_password
+  has_secure_password validations: false
   # If someone clicks 'Sign Up' on the home page,
   # They should be asked for their email and their class code
   # And entering those should prompt the user to choose a password
-  validates :email, presence: true
-  validates_uniqueness_of :email, case_sensitive: false, allow_nil: true
+  with_options if: :permanent? do |o|
+    o.validates :email, presence: true
+    o.validates_uniqueness_of :email, case_sensitive: false, allow_nil: true
+    o.validates_confirmation_of :password, if: lambda { |m| m.password.present? }
+    o.validates_presence_of     :password, on: :create
+    o.validates_presence_of     :password_confirmation, if: lambda { |m| m.password.present? }
+    o.before_create { raise "Password digest missing on new record" if password_digest.blank? }
+  end
   # validates_format_of :password, with: /((?=.*\d)(?=.*[A-Z]).{8,})/, message: 'must contain at least 1 number and 1 capital letter and be at least 8 characters long', allow_nil: true, on: :standard, if: :password?
 
   has_one  :teacher,  -> { where role: 'teacher' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode'
@@ -36,10 +42,11 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :scores, class_name: '::Score'
   has_many :assignable_chapters, class_name: 'Chapter', through: :teacher, source: :chapters
-  ROLES = %w(user student admin teacher)
-  SAFE_ROLES = ROLES.except('admin')
+  ROLES = %w(temporary user student admin teacher)
+  SAFE_ROLES = ROLES.except('admin').except('temporary')
+  default_scope -> { where('role != ?', 'temporary') }
 
-  def safe_role_assigment role
+  def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{|r| r == role.strip }
       sanitized_role
     else
@@ -96,6 +103,10 @@ class User < ActiveRecord::Base
 
   def admin?
     role.admin?
+  end
+
+  def permanent?
+    !role.temporary?
   end
 
   def activate!
