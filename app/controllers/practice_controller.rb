@@ -1,5 +1,4 @@
 class PracticeController < BaseChapterController
-  before_filter :signed_in!
   before_filter :find_rule, except: ['verify', 'verify_status']
   prepend_before_filter :clean_step_param
 

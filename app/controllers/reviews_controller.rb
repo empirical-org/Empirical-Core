@@ -1,6 +1,4 @@
 class ReviewsController < BaseChapterController
-  before_filter :signed_in!
-
   def show
   end
 

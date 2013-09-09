@@ -1,6 +1,4 @@
 class StoriesController < BaseChapterController
-  before_filter :signed_in!
-
   def show
     @assessment = @chapter.assessment
     @body_class = 'con-skyblue'
