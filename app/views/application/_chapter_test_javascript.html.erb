@@ -10,7 +10,8 @@
   var chapterAssessment  = chapterAssessments.get(<%= @assessment.id %>);
   <% @assessment.chunks.each_with_index do |chunk, i| %>
     <% if defined?(chunk.grammar) %>
-      <% rule = Rule.find(chunk.grammar) %>
+      <% rule = Rule.find_by_id(chunk.grammar) %>
+      <% next if rule.blank? %>
       chapterRules.add(<%= rule.to_json.html_safe %>);
       chapterRule = chapterRules.get(<%= rule.id %>);
       <% rule.questions.each do |lesson| %>
