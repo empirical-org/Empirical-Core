@@ -3,6 +3,9 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
   $$ = $form.find.bind($form);
   $actions = $$('.chapter-test-question-actions');
 
+  $form.find('.question-field textarea').focus();
+
+
   function bypass () {
     $form.data('bypass', true);
   }

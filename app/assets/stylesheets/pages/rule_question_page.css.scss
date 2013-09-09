@@ -44,16 +44,16 @@
     }
   }
 
-  .question-text {
+  .question-text,
+  .question-field textarea {
+    font-family: 'Courier New', Monaco, monospace;
+    @include border-radius(2px);
     border: 2px solid #d8d8d8;
     padding: 10px;
     margin-bottom: 20px;
-  }
-
-  .question-field textarea {
-    background-color: $light-blue;
-    padding: 10px;
-    border: none;
+    // background-color: $light-blue;
+    // padding: 10px;
+    // border: none;
     width: 100%;
     @include box-sizing(border-box);
     @include box-shadow(none);
