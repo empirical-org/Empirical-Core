@@ -1,4 +1,5 @@
 - content_for :body_content do
+  - @body_class << ' story-pages'
   = render 'chapters/header'
   .container= yield
 

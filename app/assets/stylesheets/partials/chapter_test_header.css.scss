@@ -2,8 +2,14 @@
   margin: 40px;
 }
 
+body.story-pages {
+  header {
+    display: none;
+    &.story-header { display: block }
+  }
+}
+
 .chapter-test-header {
-  background-color: #000;
   line-height: 2;
   color: white;
   .container { position: relative }
@@ -34,7 +40,7 @@
   }
 
   .chapter-test-step-icon {
-    background-color: black;
+    background-color: #252626;
     background-position-x: center;
     background-repeat: no-repeat;
     font-size: 10px;

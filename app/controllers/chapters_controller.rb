@@ -7,6 +7,8 @@ class ChaptersController < BaseChapterController
 
   def final
     @score.finalize!
+    @score = ScoreFinalView.find(@score.id)
+    @score.context = self
     render layout: 'application'
   end
 
