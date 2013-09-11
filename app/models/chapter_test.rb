@@ -159,6 +159,10 @@ class ChapterTest
       return false if rules.map(&:rule).index(current_rule).blank?
       rules[rules.map(&:rule).index(current_rule) + 1]
     end
+
+    def inputs_for rule
+      score.inputs.where(step: step).joins(:rule).where(rules: { id: rule.id })
+    end
   end
 
   class Rule
@@ -174,9 +178,9 @@ class ChapterTest
 
     def css_class
       if current_rule?
-        "current-rule"
+        'current-rule'
       else
-        ""
+        ''
       end
     end
 
@@ -185,4 +189,3 @@ class ChapterTest
     end
   end
 end
-

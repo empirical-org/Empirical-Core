@@ -1,9 +1,27 @@
 article.final-score-page
-  - %w(practice story review).each do |step|
+  - @score.steps.each do |step|
     .final-score-step
-      .step-title= step
+      .step-title= step.step
 
-      - if step == 'story'
+      - step.rules.each do |rule|
+        .step-rule-title= rule.title
+
+        table
+          thead
+            th Question
+            th Correct Answer
+            th First Try
+            th Second Try
+            th Score
+          - step.inputs_for(rule).each do |input|
+            tr
+              td= input.prompt
+              td= input.correct
+              td(class=input.first_grade_class )= input.first_input_html
+              td(class=input.second_grade_class)= input.second_input_html
+              td.score-value-unit= input.score
+
+      - if step.step == 'story'
         table
           thead
             th Mistakes Found
@@ -14,19 +32,3 @@ article.final-score-page
             td= @score.score_values[:mistakes_found_count]
             td= @score.score_values[:story_total_count]
             td.score-value-unit= @score.score_values[:story_percentage]
-
-      table
-        - if @score.inputs.where(step: step).any?
-          thead
-            th Question
-            th Correct Answer
-            th First Try
-            th Second Try
-            th Score
-        - @score.inputs.where(step: step).each do |input|
-          tr
-            td= input.prompt
-            td= input.correct
-            td(class=input.first_grade_class)=  input.first_input_html
-            td(class=input.second_grade_class)= input.second_input_html
-            td.score-value-unit= input.score

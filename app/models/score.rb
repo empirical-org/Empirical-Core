@@ -72,3 +72,31 @@ class Score < ActiveRecord::Base
     result
   end
 end
+
+class ScoreFinalView < Score
+  attr_accessor :context
+  delegate :steps, to: :chapter_test
+
+  def chapter_test
+    @context.instance_variable_get(:@chapter_test)
+  end
+
+  # def steps
+  #   @steps ||= %w(practice story review).map{ |step| Step.new(step, self) }
+  # end
+
+  # class Step < ChapterTest::Step
+  #   def initialize step, view
+  #     @step = step
+  #     @view = view
+  #   end
+
+  #   def rules
+
+  #   end
+  # end
+
+  # class Rule < ChapterTest::Rule
+
+  # end
+end
