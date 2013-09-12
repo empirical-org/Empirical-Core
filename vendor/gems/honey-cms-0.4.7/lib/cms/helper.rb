@@ -2,7 +2,7 @@
 
 module CMS::Helper
   def markdown text
-    Markdown.render(text).html_safe
+    Markdown.render(text.to_s).html_safe
   end
 
   def cms_file name, size = false

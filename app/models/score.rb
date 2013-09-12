@@ -7,7 +7,7 @@ module ScoreState
   end
 
   def state
-    @state_inquirer ||= ActiveSupport::StringInquirer.new(self[:state])
+    @state_inquirer = ActiveSupport::StringInquirer.new(self[:state])
   end
 
   def completed?

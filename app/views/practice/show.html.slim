@@ -1,7 +1,7 @@
 .rule-question-page.l-extra-padding data-id=@rule.id
   .chapter-information.l-unit.l-unit-spacer
     .chapter-title= @chapter.title
-    .chapter-description= @chapter.description
+    .chapter-description= markdown @chapter.description
 
   .rule-information.l-unit.l-unit-spacer
     .rule-title= @rule.title
@@ -13,7 +13,7 @@
           strong.rule-example-title>= example.title
           span.rule-example-text= example.text
 
-    .rule-description= @rule.description.to_s.truncate(100)
+    .rule-description= markdown @rule.description
 
   .question-form.l-unit
     .try-it-bubble Try it
