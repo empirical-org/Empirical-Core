@@ -1,6 +1,6 @@
-= form_for @user, url: account_path do |f|
+= form_for [:cms, @user] do |f|
   = f.string :name
   = f.email :email
   = f.choices :role, [['','user'], ['Student', 'student'], ['Teacher', 'teacher']]
   = f.string :classcode
-  = f.actions save: 'Sign up'
+  = f.actions save: 'Save'
