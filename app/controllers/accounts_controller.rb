@@ -24,9 +24,9 @@ class AccountsController < ApplicationController
   end
 
   def update
-    params[:user].delete(:password) unless params[:user][:password].present?
+    user_params.delete(:password) unless user_params[:password].present?
     @user = current_user
-    @user.attributes = params[:user]
+    @user.attributes = user_params
 
     if @user.save
       redirect_to updated_account_path

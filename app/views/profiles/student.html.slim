@@ -1,5 +1,5 @@
 h2= "Welcome, #{current_user.name}!"
-p= "Teacher: #{User.where(classcode: current_user.classcode, role: 'teacher').first.name}"
+p= "Teacher: #{User.where(classcode: current_user.classcode, role: 'teacher').first.try(:name)}"
 h3 Current Assignments
 
 table.table
