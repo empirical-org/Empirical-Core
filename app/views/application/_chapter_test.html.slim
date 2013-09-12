@@ -8,17 +8,9 @@
 			.h-page-content-extra
 				p.notice= notice
 
-				.grammar-test
+				.grammar-test data-story-path=chapter_story_path(@chapter)
 					.title= @chapter.description ||= nil
 					.text
-
 					button.show-results: span.btn-y-left: span.btn-y-right: span.btn-y-inner Submit!
-
 					.grammar-test-results
-						= form_for :grammar_test_results, url: chapter_story_path(@chapter) do |f|
-							span
-
-					.rules
-					.lessons
-
 					= render partial: 'chapter_test_javascript'

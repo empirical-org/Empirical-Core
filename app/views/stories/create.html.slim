@@ -1,0 +1,11 @@
+.chapter-story-feedback
+  .story-feedback-title= @checker.title
+
+  - @checker.sections.each do |section|
+    - next unless section.results.any?
+    .story-feedback-section-title= section.title
+
+    - section.results.each do |result|
+      .story-feedback-result
+        .result-input= result.input
+        .result-classification= result.classification

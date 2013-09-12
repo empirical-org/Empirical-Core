@@ -5,10 +5,12 @@ class StoriesController < BaseChapterController
   end
 
   def create
-    @score.missed_rules = params[:missed_rules]
-    @score.save!
-    @score.review!
+    @checker = StoryChecker.find(@score.id)
+    @checker.context = self
+    @checker.check_input!(params.delete(:_json))
+    @score.reload.review!
 
-    redirect_to @chapter_test.next_page_url
+    # redirect_to @chapter_test.next_page_url
+    render layout: false
   end
 end

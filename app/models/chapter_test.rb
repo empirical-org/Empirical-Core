@@ -1,7 +1,7 @@
 module ChapterFlow
   MAX_QUESTIONS = 3
 
-  def next_page_url
+  def next_page_url recurse = true
     # if the score is unstarted proceed to practice step.
     result = if score.unstarted?
       score.practice!
@@ -24,12 +24,14 @@ module ChapterFlow
       end
     elsif score.story?
       @context.chapter_story_path(chapter)
-    elsif (score.practice? || score.review?) && !@skip_recursive_step
+    elsif (score.practice? || score.review?) && recurse
       params[:step] = score.state
       params[:question_index] = score.inputs.where(step: params[:step]).count
+
+      # this will fail if the don't miss any of the story.
+      # i.e. step(params[:step].to_sym).rules will be empty.
       params[:practice_id] = step(params[:step].to_sym).rules.first.id
-      @skip_recursive_step = true
-      next_page_url
+      next_page_url(false)
     else
       next_rule_url
     end
@@ -177,11 +179,7 @@ class ChapterTest
     end
 
     def css_class
-      if current_rule?
-        'current-rule'
-      else
-        ''
-      end
+      if current_rule? then 'current-rule' else '' end
     end
 
     def current_rule?
