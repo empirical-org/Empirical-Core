@@ -3,9 +3,10 @@
 
   - @checker.sections.each do |section|
     - next unless section.results.any?
-    .story-feedback-section-title= section.title
+    .story-feedback-section class=section.css_class
+      .story-feedback-section-title= section.title
 
-    - section.results.each do |result|
-      .story-feedback-result
-        .result-input= result.input
-        .result-classification= result.classification
+      - section.results.each do |result|
+        .story-feedback-result
+          .result-input= result.input || '(no input)'
+          .result-classification= result.classification

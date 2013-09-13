@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130827071255) do
+ActiveRecord::Schema.define(version: 20130913182245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,12 +134,12 @@ ActiveRecord::Schema.define(version: 20130827071255) do
 
   create_table "rules", force: true do |t|
     t.text     "title"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "category_id"
-    t.integer  "workbook_id", default: 1
+    t.integer  "workbook_id",    default: 1
     t.text     "description"
-    t.text     "examples"
+    t.string   "classification"
   end
 
   create_table "rules_misseds", force: true do |t|

@@ -1,6 +1,5 @@
 /*
  *= require annotator.min
-
  *= require_self
  */
 
@@ -19,6 +18,10 @@ $baseFontFamily: "proxima_nova_rgregular";
 
 @mixin nav-height {
   @include fix-height(45px);
+}
+
+@mixin bold {
+  font-family: 'proxima_nova_rgbold';
 }
 
 .simple-rounded-box {
