@@ -8,16 +8,15 @@ jQuery.postJSON = function( url, data, type ) {
   });
 };
 
-
 window.PG.Views.ChapterAssessment = Backbone.View.extend({
-  template:        JST['backbone/templates/chapter_assessment'],
+  template: JST['backbone/templates/chapter_assessment'],
 
   events: {
     'blur  .edit-word': 'wordChanged',
     'click .show-results': 'showResults'
-  },
+  }
 
-  initialize: function(options) {
+, initialize: function(options) {
     this.assessment = options.assessment;
     this.rules      = options.rules;
     this.lessons    = options.lessons;
@@ -25,21 +24,21 @@ window.PG.Views.ChapterAssessment = Backbone.View.extend({
     this.questions  = this.chunks.select(function(c) { return c.get('answer') });
 
     this.showStory();
-  },
+  }
 
-  showPracticeQuestions: function() {
+, showPracticeQuestions: function() {
     return this.assessment.get('rule_position');
-  },
+  }
 
-  showStory: function() {
+, showStory: function() {
     this.$('.text').html(
       this.template({ chunks: this.assessment.chunks })
     );
 
     this.$('.edit-word').attr('contentEditable', true);
-  },
+  }
 
-  wordChanged: function(e) {
+, wordChanged: function(e) {
     var $word, chunk;
     $word = $(e.target);
     chunk = this.chunks.get($word.data('id'));
@@ -50,9 +49,9 @@ window.PG.Views.ChapterAssessment = Backbone.View.extend({
     } else {
       return $word.addClass('edited');
     }
-  },
+  }
 
-  showResults: function() {
+, showResults: function() {
     var id, _i, _len, _ref1
       , missedRules = []
       , total = this.chunks.select(function(c) { return c.attributes.answer }).length
@@ -73,17 +72,18 @@ window.PG.Views.ChapterAssessment = Backbone.View.extend({
         {
           $word.addClass('error');
 
-          if (chunk.grammar)
-            return missedRules.push(chunk.rule());
+          if (chunk.grammar) return missedRules.push(chunk.rule());
         }
       });
 
+    this.$('.show-results').hide();
+
     $.postJSON(this.$el.data().storyPath, JSON.stringify(this.chunks.toJSON()), 'html')
       .then(function (data) {
-        this.$('.grammar-test-results').html(data);
+        self.$('.grammar-test-results').html(data);
       })
       .fail(function (err) {
-        // debugger;
+        debugger;
       });
 
     mixpanel.track('story test submitted', {

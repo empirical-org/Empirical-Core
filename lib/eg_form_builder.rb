@@ -203,7 +203,6 @@ class EgFormBuilder < CMS::FormBuilder
       out.concat help_html
     end
 
-    # binding.pry if type == :choices
     out.concat(@template.content_tag(:div, class: "controls #{type}") do
       merged_input_args = input_args << input_options
       controls = send(_field_types(type), name, *merged_input_args)

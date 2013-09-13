@@ -8,4 +8,8 @@ class GrammarQuestion
     @answer  = opts[:answer] .to_s
     @grammar = opts[:grammar].to_s
   end
+
+  def rule
+    Rule.find(@grammar)
+  end
 end

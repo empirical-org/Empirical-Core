@@ -27,13 +27,13 @@ class PG.Models.Chunk extends Backbone.Model
     #@ruleId = @lesson().attributes.rule_id
     chapterRules.get(@grammar)
 
-  lesson: ->
+  toJSON: ->
+    json =
+      word:    @word
+      error:   @error
+      answer:  @answer
+      grammar: @grammar
+      text:    @text
+      input:   @input
+      id:      @attributes.id
 
-
-  # difference: (good, bad)
-  #   cur = 0
-  #   while good.length <= cur && good.length <= cur
-  #     g = good[cur]
-  #     b = bad[cur]
-  #     if g.toLowerCase() != b.toLowerCase()
-  #     cur--
