@@ -1,12 +1,13 @@
 class Assessment < ActiveRecord::Base
   belongs_to :chapter
+  delegate :questions, to: :chunks
 
   def chunks
-    @chunks ||= ::GrammarChunker.chunk(parsed)
+    @chunks ||= GrammarChunker.chunk(parsed)
   end
 
   def parsed
-    @parsed ||= ::GrammarParser.new.parse(markdown(body.to_s))[:questions]
+    @parsed ||= GrammarParser.new.parse(markdown(body.to_s))[:questions]
   end
 
   def as_json *args

@@ -4,6 +4,7 @@
   = f.string :article_header
 
   = f.fields_for :assessment do |ff|
+    = ff.string :instructions, label: 'Story instructions'
     = ff.text :body, label: 'Story', help_block: "Ex: They had {+they're-their|19} fun."
 
   .concept-review-order.control-group data-view="ConceptReviewRoot"
