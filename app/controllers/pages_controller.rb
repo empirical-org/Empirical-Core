@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @body_id = 'home'
-    @chapter = Chapter.find(16)
+    @chapter = Chapter.first
     @assessment = @chapter.assessment
   end
 
