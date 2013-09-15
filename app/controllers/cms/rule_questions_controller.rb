@@ -23,7 +23,7 @@ class CMS::RuleQuestionsController < ApplicationController
     @rule_question.body = params.delete(:answer_options) if params[:answer_options].present?
 
     if @rule_question.save
-      redirect_to rules_path, notice: 'Question was successfully created.'
+      redirect_to cms_rules_path, notice: 'Question was successfully created.'
     else
       render action: "new"
     end
@@ -35,7 +35,7 @@ class CMS::RuleQuestionsController < ApplicationController
     params[:rule_question].delete(:answer_array_json)
 
     if @rule_question.update_attributes(rule_question_params)
-      redirect_to rules_path, notice: 'RuleQuestion was successfully updated.'
+      redirect_to cms_rules_path, notice: 'RuleQuestion was successfully updated.'
     else
       render action: "edit"
     end
@@ -44,7 +44,7 @@ class CMS::RuleQuestionsController < ApplicationController
   def destroy
     @rule_question = RuleQuestion.find(params[:id])
     @rule_question.destroy
-    redirect_to rules_path, notice: 'Question was deleted.'
+    redirect_to cms_rules_path, notice: 'Question was deleted.'
   end
 
   protected

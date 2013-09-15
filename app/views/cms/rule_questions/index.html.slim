@@ -12,10 +12,10 @@ table
     tr
       td= lesson.rule
       td= lesson.body
-      td= link_to 'Show', lesson
-      td= link_to 'Edit', edit_lesson_path(lesson)
-      td= link_to 'Destroy', lesson, :method => :delete, :data =>   confirm=('Are you sure?' )
+      td= link_to 'Show', [:cms, lesson]
+      td= link_to 'Edit', edit_cms_rule_question_path(lesson)
+      td= link_to 'Destroy', [:cms, lesson], :method => :delete, :data =>   confirm=('Are you sure?' )
 
 br
 
-= link_to 'New Lesson', new_lesson_path
+= link_to 'New Lesson', new_cms_rule_question_path
