@@ -55,7 +55,7 @@ class CMS::RulesController < ApplicationController
   def destroy
     @rule = Rule.find(params[:id])
 
-    @rule.lessons.each do |lesson|
+    @rule.questions.each do |lesson|
       lesson.destroy
     end
 
