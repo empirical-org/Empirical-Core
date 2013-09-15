@@ -24,6 +24,16 @@ class StoryChecker < Score
     [:missed, :found, :introduced].map { |s| Section.new(self, s) }
   end
 
+  class Chunk < ::Chunk
+    def highlighted_word
+      if state == :missed
+        correct
+      else
+        input
+      end
+    end
+  end
+
   class Section
     attr_reader :checker, :section
     delegate :chunks, to: :checker
