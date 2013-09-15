@@ -10,7 +10,6 @@ class StoriesController < BaseChapterController
     @checker.check_input!(params.delete(:_json))
     @score.reload.review!
 
-    # redirect_to @chapter_test.next_page_url
     render layout: false
   end
 end
