@@ -8,14 +8,14 @@ module ChapterFlow
       @context.chapter_practice_index_path(chapter)
     # we are on one of the two practice steps and we have
     # the id of the practice question.
-    elsif params[:step].present? && params[:practice_id].present?
+    elsif params[:step].present? && params[:"#{params[:step]}_id"].present?
       # index is missing.
       if next_index.present?
         @context.url_for(
           controller: "practice",
           action: "show",
           chapter_id: params[:chapter_id],
-          "#{params[:step]}_id" => (params[:id] || params[:practice_id]),
+          "#{params[:step]}_id" => (params[:id] || params[:"#{params[:step]}_id"]),
           question_index: next_index,
           step: params[:step]
         )
