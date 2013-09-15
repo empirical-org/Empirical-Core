@@ -12,11 +12,11 @@
   .story-feedback-section {
     margin-top: 20px;
     &.missed     .story-feedback-section-title { background-color: #d54141 }
-    &.missed     .result-input                 { background-color: #ffeade }
+    &.missed     .result-highligted-word       { background-color: #ffeade }
     &.found      .story-feedback-section-title { background-color: #78ca47 }
-    &.found      .result-input                 { background-color: #e1ffd3 }
+    &.found      .result-highligted-word       { background-color: #e1ffd3 }
     &.introduced .story-feedback-section-title { background-color: #9060c7 }
-    &.introduced .result-input                 { background-color: #f5deff }
+    &.introduced .result-highligted-word       { background-color: #f5deff }
   }
 
   .story-feedback-section-title {
@@ -35,7 +35,7 @@
     font-size: 17px;
   }
 
-  .result-input {
+  .result-highligted-word {
     @include border-radius(3px);
     padding: 10px;
     max-width: 80px;
