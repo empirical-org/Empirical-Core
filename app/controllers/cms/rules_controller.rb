@@ -36,7 +36,7 @@ class CMS::RulesController < ApplicationController
     @rule = Rule.new(rule_params)
 
     if @rule.save
-      redirect_to new_rule_path, notice: 'Rule created. Make another?'
+      redirect_to new_cms_rule_path, notice: 'Rule created. Make another?'
     else
       render action: "new"
     end
@@ -60,7 +60,7 @@ class CMS::RulesController < ApplicationController
     end
 
     @rule.destroy
-    redirect_to rules_url
+    redirect_to cms_rules_url
   end
 
   protected
