@@ -1,0 +1,12 @@
+.chapter-story-page {
+  padding-top: 20px;
+
+  .story-instructions {
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    @include bold;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+}
