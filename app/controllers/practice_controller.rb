@@ -9,6 +9,8 @@ class PracticeController < BaseChapterController
       redirect_to url_for(params.merge(id: nil))
       return
     end
+
+    @score.practice! if @score.unstarted?
   end
 
   def index
