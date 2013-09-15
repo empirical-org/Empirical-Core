@@ -8,7 +8,7 @@ class window.ConceptReviewRoot extends Backbone.View
   field_name: 'concept_position'
 
   initialize: () ->
-    vals = @$('.hidden input').val().split(",")
+    vals = JSON.parse(@$('.hidden input').val())
     if _.isEmpty(vals) then vals = [" "]
 
     for val in vals
@@ -40,21 +40,12 @@ class window.ConceptReviewRoot extends Backbone.View
     """).find('textarea').val(val).end()
 
   conceptOrderString: ->
-    _.map(@$('.concept-position textarea'), (el) -> $(el).val()).join(", ")
+    JSON.stringify(
+      _.map(@$('.concept-position textarea'), (el) -> $(el).val())
+    )
 
   removeAnswer: (e) ->
     $(e.target).closest('.concept-position').remove()
-
-class window.LessonAnswerRoot extends ConceptReviewRoot
-  initialize: ->
-    super JSON.parse(@$('.hidden input').val())
-    _.bindAll 'save'
-
-    @$el.closest('form').find('.form-actions .btn').on 'click', =>
-      @save()
-      @$('textarea[name="lesson[answer_array_json]"]').remove()
-
-  field_name: 'answer_options'
 
 class window.LessonAnswerRoot extends ConceptReviewRoot
   initialize: ->
