@@ -14,8 +14,7 @@ header.con-darkgrey.story-header
               li#m-create-account= link_to 'Create Account', new_account_path
 
         .chapter-test-header
-          .container
-            .header-step-list.l-extra-padding
-              - @chapter_test.steps.each do |step|
-                .chapter-test-step(class=step.css_class)
-                  .chapter-test-step-icon= step.title
+          .header-step-list.l-extra-padding
+            - @chapter_test.steps.each do |step|
+              .chapter-test-step(class=step.css_class)
+                .chapter-test-step-icon= step.title
