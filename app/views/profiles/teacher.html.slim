@@ -1,6 +1,6 @@
-h2= "Welcome # current_user.name !"
-p= "Class code: # current_user.classcode "
-p= link_to 'Directory', users_path
+h2= "Welcome #{current_user.name}!"
+p= "Class code: #{current_user.classcode}"
+p= link_to 'Directory', cms_users_path
 h3 My Students
 
 table.table
@@ -22,14 +22,14 @@ table.table
             - @has_score = true
 
             - if score.items_missed
-              td= "Quiz: # score.items_missed}%, Lessons: #{score.lessons_completed %"
+              td= "Quiz: #{score.items_missed}%, Lessons: #{score.lessons_completed}%"
             - else
               td incomplete
 
         - unless @has_score
           td
 
-p= link_to 'Invite Student', new_user_path
+p= link_to 'Invite Student', new_cms_user_path
 h3 My Assignments
 
 - if current_user.teacher_assignments
@@ -45,9 +45,9 @@ h3 My Assignments
         td= link_to assignment.chapter.title, chapter_path(assignment.chapter)
         td= assignment.due_date.try(:strftime, "%a, %b %d %Y")
         td= link_to 'Change Due Date', edit_assignment_path(assignment)
-        td= link_to 'Remove Assignment', assignment, :method => :delete, :data =>   confirm=('Are you sure?' ) 
+        td= link_to 'Remove Assignment', assignment, :method => :delete, :data =>   confirm=('Are you sure?' )
 
-h3= "# Workbook.first.title  Workbook:"
+h3= "#{Workbook.first.title} Workbook:"
 
 table.table
   tr
