@@ -30,7 +30,7 @@ module ChapterFlow
 
       # this will fail if the don't miss any of the story.
       # i.e. step(params[:step].to_sym).rules will be empty.
-      params[:practice_id] = step(params[:step].to_sym).rules.first.id
+      params[:"#{params[:step]}_id"] = step(params[:step].to_sym).rules.first.id
       next_page_url(false)
     else
       next_rule_url
