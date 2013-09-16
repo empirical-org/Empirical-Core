@@ -3,6 +3,7 @@ h1 Directory
 table.table
   tr
     th Name
+    th Email
     th Role
     th Class
     th
@@ -11,6 +12,7 @@ table.table
   - @users.each do |user|
     tr
       td= user.name
+      td= user.email
       td= user.role
       td= user.classcode
       - if current_user.admin?
