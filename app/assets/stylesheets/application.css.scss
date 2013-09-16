@@ -64,6 +64,13 @@ table {
   }
 }
 
+.rectangle {
+  width: 15px;
+  height: 10px;
+  background: #22aafc;
+  border-right: 2px solid #ebf8ff;
+}
+
 @import "header";
 @import "pages";
 @import "home";
