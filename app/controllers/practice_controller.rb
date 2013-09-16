@@ -1,5 +1,6 @@
 class PracticeController < BaseChapterController
   before_filter :find_rule, except: ['verify', 'verify_status']
+  before_filter :update_progress, except: ['verify', 'verify_status']
   prepend_before_filter :clean_step_param
 
   def show
@@ -63,5 +64,10 @@ private
 
   def lesson_input_key
     :"#{params[:step]}_lesson_input"
+  end
+  
+  def update_progress
+    @questionsCompleted = @chapter[:rule_position].index(@rule[:id].to_s) * ChapterTest::MAX_QUESTIONS + params[:question_index].to_i 
+    @questionsTotal = @chapter_test.step(params[:step].to_sym).rules.count * ChapterTest::MAX_QUESTIONS
   end
 end

@@ -56,3 +56,14 @@
     height: 200px;
   }
 }
+
+.chapter-progress {
+  float: right;
+}
+.chapter-progress-completed, .chapter-progress-total {
+  display: inline-flex;
+}
+
+.chapter-progress-total .rectangle {
+  background: #c2e5ff;
+} 

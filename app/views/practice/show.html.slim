@@ -5,6 +5,13 @@
 
   .rule-information.l-unit.l-unit-spacer
     .rule-title= @rule.title
+	.chapter-progress
+	  .chapter-progress-completed
+	    - for i in 1..@questionsCompleted
+	      .rectangle &nbsp; 
+      .chapter-progress-total
+	    - for i in @questionsCompleted + 1..@questionsTotal
+	      .rectangle &nbsp;
 
   .rule-examples.l-unit.l-unit-spacer
     .example-set
