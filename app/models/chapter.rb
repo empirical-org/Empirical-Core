@@ -9,6 +9,7 @@ class Chapter < ActiveRecord::Base
   default_scope order(:title)
 
   def rule_position_text= string
+    # raise JSON.parse(string).map(&:strip).inspect
     self.rule_position = JSON.parse(string).map(&:strip)
   end
 

@@ -2,14 +2,16 @@ module ChapterFlow
   MAX_QUESTIONS = 3
 
   def next_page_url recurse = true
+    # binding.pry
     # if the score is unstarted proceed to practice step.
     result = if score.unstarted?
       score.practice!
       @context.chapter_practice_index_path(chapter)
+
     # we are on one of the two practice steps and we have
     # the id of the practice question.
     elsif params[:step].present? && params[:"#{params[:step]}_id"].present?
-      # index is missing.
+      # Is there another question for this rule? If so, go to that.
       if next_index.present?
         @context.url_for(
           controller: "practice",
@@ -19,6 +21,10 @@ module ChapterFlow
           question_index: next_index,
           step: params[:step]
         )
+
+      # there is no more questions for this rule. Proceed to whatever comes next
+      # possibly a rule, or the next step. Possibly break this logic out? Seems
+      # strange to hide it in a method misleadingly named #next_rule_url
       else
         next_rule_url
       end
@@ -42,6 +48,8 @@ module ChapterFlow
 
 protected
 
+  # proceed to next rule in the step, or go to the next step if there are no
+  # more rules.
   def next_rule_url
     if next_rule_id.present?
       @context.send("chapter_#{params[:step]}_path", chapter, next_rule_id)
@@ -50,13 +58,14 @@ protected
     end
   end
 
+  # this is the actual business logic for where to go next. It also updates
+  # the state of the score accordingly.
   def step_after_rules_completed
-    if params[:step] == "practice"
-      score.update_column :state, 'story'
+    if params[:step] == 'practice'
+      score.story!
       @context.chapter_story_path(chapter)
     else
       score.finalize!
-      score.update_column :state, 'finished'
       @context.chapter_final_path(chapter)
     end
   end
