@@ -2,7 +2,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :user
   belongs_to :chapter
   has_many :scores, dependent: :destroy
-  default_scope joins(:chapter).order("chapters.title ASC")
+  default_scope includes(:chapter).order("chapters.title ASC")
 
   class << self
     def temporary chapter, options = {}

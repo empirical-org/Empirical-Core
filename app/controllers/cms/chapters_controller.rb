@@ -11,7 +11,7 @@ class CMS::ChaptersController < ApplicationController
 
   def edit
     @chapter = Chapter.find(params[:id])
-    @chapter.rule_position_text = '1, 2, 3' if @chapter.rule_position.empty?
+    @chapter.rule_position_text = %w(1 2 3).to_json if @chapter.rule_position.empty?
     render :new
   end
 
@@ -19,7 +19,7 @@ class CMS::ChaptersController < ApplicationController
     @chapter = Chapter.new(chapter_params)
 
     if @chapter.save
-      redirect_to chapters_path, notice: 'Chapter was successfully created.'
+      redirect_to cms_chapters_path, notice: 'Chapter was successfully created.'
     else
       render :new
     end
@@ -29,7 +29,7 @@ class CMS::ChaptersController < ApplicationController
     @chapter = Chapter.find(params[:id])
 
     if @chapter.update_attributes(chapter_params)
-      redirect_to @chapter, notice: 'Chapter was successfully updated.'
+      redirect_to cms_chapters_path, notice: 'Chapter was successfully updated.'
     else
       render :new
     end
@@ -40,11 +40,12 @@ class CMS::ChaptersController < ApplicationController
 
     @chapter.assignments.each do |assignment|
       assignment.scores.each(&:destroy)
-      assignment.destroy
+
+      Assignment.find(assignment.id).destroy
     end
 
     @chapter.destroy
-    redirect_to chapters_path
+    redirect_to cms_chapters_path
   end
 
   protected
