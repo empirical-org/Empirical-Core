@@ -33,6 +33,7 @@ class CMS::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
+    redirect_to cms_users_path
   end
 
   def activate_email

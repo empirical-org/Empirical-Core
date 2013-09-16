@@ -31,6 +31,10 @@ module ScoreState
   def review!
     update_column :state, 'review'
   end
+
+  def story!
+    update_column :state, 'story'
+  end
 end
 
 module RuleQuestionInputAccessors
