@@ -9,11 +9,11 @@ class Chapter < ActiveRecord::Base
   default_scope order(:title)
 
   def rule_position_text= string
-    self.rule_position = string.split(",").map(&:strip)
+    self.rule_position = JSON.parse(string).map(&:strip)
   end
 
   def rule_position_text
-    rule_position.join(", ")
+    rule_position.to_json
   end
 
   def practice_rules
