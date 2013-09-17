@@ -65,9 +65,9 @@ private
   def lesson_input_key
     :"#{params[:step]}_lesson_input"
   end
-  
+
   def update_progress
-    @questionsCompleted = @chapter[:rule_position].index(@rule[:id].to_s) * ChapterTest::MAX_QUESTIONS + params[:question_index].to_i 
-    @questionsTotal = @chapter_test.step(params[:step].to_sym).rules.count * ChapterTest::MAX_QUESTIONS
+    @questions_completed = @chapter_test.current_step.rules.map(&:rule).index(@rule) * ChapterTest::MAX_QUESTIONS + params[:question_index].to_i
+    @questions_total     = @chapter_test.current_step.rules.count * ChapterTest::MAX_QUESTIONS
   end
 end
