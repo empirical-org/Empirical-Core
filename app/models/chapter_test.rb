@@ -102,6 +102,10 @@ class ChapterTest
   end
 
   def current_step
+    step(current_step_symbol)
+  end
+
+  def current_step_symbol
     if params[:controller] == "stories"
       :story
     elsif params[:step] == "practice"
@@ -116,8 +120,6 @@ class ChapterTest
   end
 
   def current_rule
-    # why did I do it like this?
-    # step(current_step).rules.find{ |r| r.id.to_s == @context.params[:id] }.rule
     @context.instance_variable_get(:@rule)
   end
 
@@ -160,7 +162,7 @@ class ChapterTest
     end
 
     def current_step?
-      current_step == step
+      current_step == self
     end
 
     def rules
