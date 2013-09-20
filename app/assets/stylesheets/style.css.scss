@@ -29,7 +29,7 @@
 
 /* NAV OVERRIDE */
 .navbar-inner { min-height: 70px; font-family: 'proxima_nova_rgbold'; }
-.navbar .brand { margin-top: 18px; margin-left: 0px; }
+.navbar .brand { margin-top: 0px; margin-left: 0px; }
 .nav-collapse { float: right; margin-top: 22px; }
 .navbar .nav > li  { margin-left: 15px; }
 
@@ -172,11 +172,12 @@ header { margin: 0; }
 .navbar { margin-bottom: 0; }
 .navbar-inner { background: none; border: none; border-radius: 0; box-shadow: none; }
 .navbar .nav > li > a:focus, .navbar .nav > li > a:hover { color: #dfdfdf; }
+.navbar a.brand { padding: 0px; }
 
 .brand {
-  width: 80px;
-  height: 22px;
-  background: image-url('logo.png') no-repeat;
+  width: 202px;
+  height: 61px;
+  background: image-url('quill-temp-logo.png') no-repeat;
   display: block;
   text-indent: -999em;
 }
