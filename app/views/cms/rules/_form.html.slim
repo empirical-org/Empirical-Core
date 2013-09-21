@@ -2,6 +2,7 @@ p#notice= notice
 
 = form_for [:cms, @rule] do |f|
   = f.string :title
+  = f.string :classification
 
   - if params[:example].present? || @rule.examples.any?
     = f.text :description
