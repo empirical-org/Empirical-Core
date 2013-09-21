@@ -1,4 +1,4 @@
-class ChaptersController < BaseChapterController
+class ChaptersController < Chapter::BaseController
   prepend_before_filter :set_chapter_id
 
   def show

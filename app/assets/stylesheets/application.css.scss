@@ -1,10 +1,22 @@
 /*
- *= require annotator.min
  *= require_self
  */
 
-$skyblue: #cbebed;
+$skyblue:        #409cc8;
 $skyblue-darker: #b5e2ff;
+$yellow:         #fcd000;
+$pink:           #d90053;
+$white:          #ffffff;
+$darkblue:       #0f4c7a;
+$darkgrey:       #252626;
+
+.con-skyblue        { background: $skyblue; }
+.con-skyblue-darker { background: $skyblue-darker; }
+.con-yellow         { background: $yellow; }
+.con-pink           { background: $pink; }
+.con-white          { background: $white; }
+.con-darkblue       { background: $darkblue; }
+.con-darkgrey       { background: $darkgrey; }
 
 $baseFontFamily: "proxima_nova_rgregular";
 

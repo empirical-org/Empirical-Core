@@ -1,2 +1,0 @@
-class TestsController < BaseChapterController
-end

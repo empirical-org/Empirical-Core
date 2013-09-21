@@ -3,16 +3,16 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assignments
   resource :profile
 
-  resources :chapters do
-    resources :practice, step: 'practice' do
+  resources :chapters, coontroller: 'chapter/chapters' do
+    resources :practice, step: 'practice', controller: 'chapter/practice' do
       get ':question_index' => :show
     end
 
-    resources :review, controller: 'practice', step: 'review' do
+    resources :review, controller: 'practice', step: 'review', controller: 'chapter/practice' do
       get ':question_index' => :show
     end
 
-    resource :story
+    resource :story, controller: 'chapter/stories'
     get :final
     get :start
     get :resume
