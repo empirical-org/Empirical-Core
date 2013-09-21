@@ -1,6 +1,4 @@
 article.edit-lesson-page
-  p#notice= notice
-
   = form_for [:cms, @rule_question] do |f|
     = f.text :prompt, help_block: 'Ex: (They\'re/Their) having a nice time.'
 

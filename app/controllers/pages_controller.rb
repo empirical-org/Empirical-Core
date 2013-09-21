@@ -31,8 +31,8 @@ class PagesController < ApplicationController
 
   def resolve_layout
     case action_name
-    when "about", "learning", "story"
-      @body_class = "auxilliary"
+    when 'about', 'learning', 'story'
+      @body_class = 'auxilliary'
     end
   end
 end
