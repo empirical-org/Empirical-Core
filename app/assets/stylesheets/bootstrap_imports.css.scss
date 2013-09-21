@@ -60,10 +60,3 @@
 
 //// Utility classes
 //@import 'bootstrap/utilities'; // Has to be last to override when necessary
-
-.container,
-.navbar-static-top .container,
-.navbar-fixed-top .container,
-.navbar-fixed-bottom .container {
-  width: 960px;
-}

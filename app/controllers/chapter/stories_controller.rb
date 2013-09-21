@@ -1,4 +1,4 @@
-class StoriesController < BaseChapterController
+class Chapter::StoriesController < Chapter::BaseController
   def show
     @assessment = @chapter.assessment
     @body_class = 'con-skyblue'
