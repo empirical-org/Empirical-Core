@@ -1,4 +1,5 @@
 /*
+ *= require bootstrap/datepicker
  *= require_self
  */
 
@@ -49,6 +50,14 @@ body {
   @include border-radius(15px);
   padding: 20px;
   background-color: #fff;
+
+  .l-section {
+    border-top: 1px solid #ccc;
+    &:first-child, &.first { border-top: none ; padding-top: 0 }
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 20px;
+  }
 }
 
 article.simple-rounded-box {

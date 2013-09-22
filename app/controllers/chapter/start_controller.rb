@@ -1,4 +1,4 @@
-class ChaptersController < Chapter::BaseController
+class Chapter::StartController < Chapter::BaseController
   prepend_before_filter :set_chapter_id
 
   def show
@@ -15,7 +15,6 @@ class ChaptersController < Chapter::BaseController
   def start
     unless @score.unstarted?
       @score.trash!
-      @assignment, @score = Assignment.temporary(@chapter, user: current_user)
     end
 
     redirect_to chapter_practice_index_path(@chapter)

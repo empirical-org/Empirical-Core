@@ -6,7 +6,7 @@ class Chapter < ActiveRecord::Base
   validates :description, presence: true
   serialize :rule_position, Array
   accepts_nested_attributes_for :assessment
-  default_scope order(:title)
+  default_scope -> { order(:title) }
 
   def rule_position_text= string
     self.rule_position = JSON.parse(string).map(&:strip)

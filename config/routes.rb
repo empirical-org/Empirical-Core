@@ -3,7 +3,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assignments
   resource :profile
 
-  resources :chapters, coontroller: 'chapter/chapters' do
+  resources :chapters, controller: 'chapter/start' do
     resources :practice, step: 'practice', controller: 'chapter/practice' do
       get ':question_index' => :show
     end
@@ -19,8 +19,9 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   namespace :teachers do
-    resources :classrooms
-    resources :classroom_chapters
+    resources :classrooms do
+      resources :chapters, controller: 'classroom_chapters'
+    end
   end
 
   HoneyAuth::Routes.new(self).draw

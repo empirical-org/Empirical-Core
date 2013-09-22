@@ -1,0 +1,18 @@
+article.assign-classroom-chapter-page {
+  text-align: center;
+
+  .classroom-chapter-date-select {
+    select {
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+  }
+
+  .classroom-chapter-datepicker {
+    .datepicker {
+      width: 300px;
+      border: 2px solid #ccc;
+      margin: 0 auto 20px auto;
+    }
+  }
+}

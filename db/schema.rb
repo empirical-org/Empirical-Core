@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 20130922005149) do
 
   create_table "scores", force: true do |t|
     t.integer  "user_id"
-    t.integer  "assignment_id"
+    t.integer  "classroom_chapter_id"
     t.datetime "completion_date"
     t.integer  "items_missed"
     t.integer  "lessons_completed"

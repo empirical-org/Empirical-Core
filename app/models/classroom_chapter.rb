@@ -2,7 +2,15 @@ class ClassroomChapter < ActiveRecord::Base
   belongs_to :classroom
   belongs_to :chapter
   has_many :scores, dependent: :destroy
-  default_scope includes(:chapter).order('chapters.title ASC')
+  default_scope -> { includes(:chapter).order('chapters.title ASC') }
+
+  def due_date_string= val
+    self.due_date = Date.strptime(val, '%m/%d/%Y')
+  end
+
+  def due_date_string
+    due_date.try(:strftime, '%m/%d/%Y')
+  end
 
   class << self
     def temporary chapter, options = {}

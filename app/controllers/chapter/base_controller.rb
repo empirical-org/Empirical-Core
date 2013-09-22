@@ -7,10 +7,10 @@ class Chapter::BaseController < ApplicationController
     @chapter = Chapter.find(params[:chapter_id])
     @user = if current_user.present? then current_user else temporary_user end
 
-    if @assignment = @user.student_assignments.for_chapter(@chapter)
-      @score = @user.scores.find_by_assignment_id!(@assignment.id)
+    if @classroom_chapter = @user.assigned_classroom_chapters.for_chapter(@chapter)
+      @score = @user.scores.find_by_classroom_chapter_id!(@classroom_chapter.id)
     else
-      @assignment, @score = Assignment.temporary(@chapter, user: @user)
+      @classroom_chapter, @score = ClassroomChapter.temporary(@chapter, user: @user)
     end
 
     @chapter_test = ChapterTest.new(self)
