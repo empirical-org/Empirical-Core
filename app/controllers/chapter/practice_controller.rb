@@ -1,4 +1,4 @@
-class PracticeController < Chapter::BaseController
+class Chapter::PracticeController < Chapter::BaseController
   before_filter :find_rule, except: ['verify', 'verify_status']
   before_filter :update_progress, except: ['verify', 'verify_status']
   prepend_before_filter :clean_step_param

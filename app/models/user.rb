@@ -21,21 +21,6 @@ class User < ActiveRecord::Base
     o.before_create { raise "Password digest missing on new record" if password_digest.blank? }
   end
 
-  has_many :teacher_assignments, class_name: 'Assignment' do
-    def for_chapter chapter
-      where(chapter_id: chapter.id).first
-    end
-  end
-
-  has_many :student_assignments, through: :scores, source: :assignment do
-    def for_chapter chapter
-      where(chapter_id: chapter.id).first
-    end
-  end
-
-  has_many :teacher_chapters, through: :teacher_assignments, source: :chapter
-  has_many :student_chapters, through: :student_assignments, source: :chapter
-
   has_many :assignable_chapters, class_name: 'Chapter', through: :teacher, source: :chapters
   ROLES = %w(temporary user student admin teacher)
   SAFE_ROLES = ROLES.except('admin').except('temporary')

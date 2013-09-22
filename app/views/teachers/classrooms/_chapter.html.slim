@@ -14,9 +14,9 @@
   .l-group-right
     .chapter-assignment
       - if @classroom.chapters.find_by_id(chapter.id)
-        = link_to 'Remove', teachers_classroom_chapter_path(chapter), method: 'delete'
+        = link_to 'Remove', teachers_classroom_chapter_path(@classroom, chapter), method: 'delete'
       - else
-        = link_to 'Assign', teachers_classroom_chapter_path(chapter)
+        = link_to 'Assign', teachers_classroom_chapter_path(@classroom, chapter)
 
     .chapter-actions
       = link_to 'View Practice Questions', chapter_path(chapter)
