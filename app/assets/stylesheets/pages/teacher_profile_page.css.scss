@@ -1,0 +1,67 @@
+article.teacher-profile-page {
+  .teacher-classroom-form .explanation {
+    margin-top: 20px;
+  }
+
+  .l-section {
+    border-top: 1px solid #ccc;
+    &:first-child { border-top: none ; padding-top: 0 }
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 20px;
+  }
+
+  .big-input {
+    margin-right: 20px;
+  }
+
+  .classroom-code-box {
+    font-size: 30px;
+    width: 560px;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid #333;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .teacher-classroom-form, .teacher-classroom-code {
+    text-align: center;
+  }
+}
+
+article.teacher-profile-page .teacher-classroom-chapter {
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding: 10px;
+
+  .chapter-title, .chapter-assignment {
+    line-height: 24px;
+  }
+
+  .chapter-title {
+    @include bold;
+  }
+
+  .chapter-actions a {
+    display: block;
+  }
+
+  .l-group {
+    overflow: hidden;
+  }
+
+  .l-label {
+    float: left;
+    width: 134px;
+  }
+
+  .l-group-left {
+    float: left;
+    width: 634px;
+  }
+
+  .l-group-right {
+    float: right;
+  }
+}

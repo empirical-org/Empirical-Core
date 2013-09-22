@@ -7,6 +7,7 @@ class Array
 end
 
 class User < ActiveRecord::Base
+  include Student, Teacher
   has_secure_password validations: false
   # If someone clicks 'Sign Up' on the home page,
   # They should be asked for their email and their class code
@@ -19,10 +20,6 @@ class User < ActiveRecord::Base
     o.validates_presence_of     :password_confirmation, if: lambda { |m| m.password.present? }
     o.before_create { raise "Password digest missing on new record" if password_digest.blank? }
   end
-  # validates_format_of :password, with: /((?=.*\d)(?=.*[A-Z]).{8,})/, message: 'must contain at least 1 number and 1 capital letter and be at least 8 characters long', allow_nil: true, on: :standard, if: :password?
-
-  has_one  :teacher,  -> { where role: 'teacher' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode'
-  has_many :students, -> { where role: 'student' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'classcode'
 
   has_many :teacher_assignments, class_name: 'Assignment' do
     def for_chapter chapter
@@ -39,8 +36,6 @@ class User < ActiveRecord::Base
   has_many :teacher_chapters, through: :teacher_assignments, source: :chapter
   has_many :student_chapters, through: :student_assignments, source: :chapter
 
-  has_many :comments
-  has_many :scores, class_name: '::Score'
   has_many :assignable_chapters, class_name: 'Chapter', through: :teacher, source: :chapters
   ROLES = %w(temporary user student admin teacher)
   SAFE_ROLES = ROLES.except('admin').except('temporary')

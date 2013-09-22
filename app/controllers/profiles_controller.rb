@@ -15,7 +15,7 @@ class ProfilesController < ApplicationController
   end
 
   def teacher
-    render :teacher
+    redirect_to teachers_classrooms_path
   end
 
   def admin

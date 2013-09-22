@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130915033138) do
+ActiveRecord::Schema.define(version: 20130922005149) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "assessments", force: true do |t|
     t.text     "body"
@@ -19,16 +22,6 @@ ActiveRecord::Schema.define(version: 20130915033138) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.text     "instructions"
-  end
-
-  create_table "assignments", force: true do |t|
-    t.integer  "user_id"
-    t.string   "classcode"
-    t.integer  "chapter_id"
-    t.datetime "due_date"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "temporary",  default: false, null: false
   end
 
   create_table "categories", force: true do |t|
@@ -39,12 +32,31 @@ ActiveRecord::Schema.define(version: 20130915033138) do
 
   create_table "chapters", force: true do |t|
     t.string   "title"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "workbook_id"
     t.text     "article_header"
     t.text     "rule_position"
     t.text     "description"
+    t.text     "practice_description"
+  end
+
+  create_table "classroom_chapters", force: true do |t|
+    t.string   "classcode"
+    t.integer  "chapter_id"
+    t.datetime "due_date"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "temporary",    default: false, null: false
+    t.integer  "classroom_id"
+  end
+
+  create_table "classrooms", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "teacher_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "comments", force: true do |t|
