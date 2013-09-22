@@ -18,6 +18,12 @@ EmpiricalGrammar::Application.routes.draw do
     get :resume
   end
 
+  namespace :teachers do
+    resources :classrooms
+    resources :classroom_chapters
+  end
+
+  HoneyAuth::Routes.new(self).draw
   CMS::Routes.new(self).draw do
     resources :categories
     resources :rule_questions
@@ -31,9 +37,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  HoneyAuth::Routes.new(self).draw
-
-  %w(teachers middle_school story about learning).each do |page|
+  %w(middle_school story about learning).each do |page|
     get page => "pages##{page}"
   end
 

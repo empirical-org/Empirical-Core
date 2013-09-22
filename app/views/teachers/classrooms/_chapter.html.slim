@@ -1,0 +1,23 @@
+
+.teacher-classroom-chapter.l-table-row
+  .l-group-left
+    .chapter-title= chapter.title
+
+    .l-group
+      .l-label Practice:
+      .chapter-practice-description= chapter.practice_description
+
+    .l-group
+      .l-label Story:
+      .chapter-article-header= chapter.article_header
+
+  .l-group-right
+    .chapter-assignment
+      - if @classroom.chapters.find_by_id(chapter.id)
+        = link_to 'Remove', teachers_classroom_chapter_path(chapter), method: 'delete'
+      - else
+        = link_to 'Assign', teachers_classroom_chapter_path(chapter)
+
+    .chapter-actions
+      = link_to 'View Practice Questions', chapter_path(chapter)
+      = link_to 'View Story', chapter_story_path(chapter)

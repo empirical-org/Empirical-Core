@@ -52,9 +52,9 @@ end
 
 class Score < ActiveRecord::Base
   include ScoreState, RuleQuestionInputAccessors
-  belongs_to :assignment
+  belongs_to :classroom_chapter
   belongs_to :user
-  has_one :chapter, through: :assignment
+  has_one :chapter, through: :classroom_chapter
   has_many :inputs, class_name: 'RuleQuestionInput'
   serialize :practice_lesson_input, Hash
   serialize :review_lesson_input, Hash

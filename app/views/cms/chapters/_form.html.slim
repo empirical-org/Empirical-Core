@@ -2,6 +2,7 @@
   = f.string :title, label: "Chapter Title"
   = f.text :description
   = f.string :article_header
+  = f.string :practice_description
 
   = f.fields_for :assessment do |ff|
     = ff.string :instructions, label: 'Story instructions'

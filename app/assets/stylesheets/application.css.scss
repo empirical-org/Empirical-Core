@@ -36,10 +36,24 @@ $baseFontFamily: "proxima_nova_rgregular";
   font-family: 'proxima_nova_rgbold';
 }
 
+body {
+  background-color: $skyblue;
+}
+
+.container {
+  width: 960px;
+  // body > & { min-height: 800px }
+}
+
 .simple-rounded-box {
   @include border-radius(15px);
   padding: 20px;
   background-color: #fff;
+}
+
+article.simple-rounded-box {
+  margin-top: 40px ;
+  margin-bottom: 40px
 }
 
 .navbar .nav > li > a {
@@ -72,6 +86,10 @@ table {
 
 .table-stripe {
   tr:nth-child(2n) {
+    background-color: #f5f5f5;
+  }
+
+  .l-table-row:nth-child(2n) {
     background-color: #f5f5f5;
   }
 }

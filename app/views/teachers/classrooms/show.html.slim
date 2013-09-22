@@ -1,0 +1,31 @@
+article.teacher-profile-page.simple-rounded-box
+  .l-section
+    h2= "#{current_user.name}, welcome to Quill!"
+
+  .teacher-classroom-form.l-section
+    = render 'form'
+
+    h3 Your classes
+
+    .teacher-classrooms
+      - current_user.classrooms.each do |classroom|
+        .btn.btn-primary= classroom.name
+
+  .teacher-classroom-code.l-section
+    h3= "My #{@classroom.name} class code"
+    .classroom-code-box= @classroom.code
+    p.explanation: em Have your students enter "#{@classroom.code}" into their profile to join your class.
+
+  .teacher-students.l-section
+    h3 Students
+
+    - @classroom.students.order(:name).each do |student|
+      tr: td= student.name
+
+  .teacher-assigned-chapters.table-stripe.l-section
+    h3 Assigned Lessons
+    = render partial: 'chapter', collection: @classroom.chapters
+
+  .teacher.unassigned-chapters.table-stripe.l-section
+    h3 Unassigned Lessons
+    = render partial: 'chapter', collection: (Chapter.all - @classroom.chapters)
