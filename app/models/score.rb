@@ -42,12 +42,11 @@ module RuleQuestionInputAccessors
 
   %w(practice review).each do |step|
     define_method "#{step}_lesson_input=" do |hash|
-      raise "cannot be greater than 1" if hash.length > 1
+      raise 'cannot be greater than 1' if hash.length > 1
       question, input = hash.first
       inputs.find_or_create_by(step: step, rule_question_id: question).handle_input(input)
     end
   end
-
 end
 
 class Score < ActiveRecord::Base
@@ -75,32 +74,4 @@ class Score < ActiveRecord::Base
     return 0.0 if result.nan?
     result
   end
-end
-
-class ScoreFinalView < Score
-  attr_accessor :context
-  delegate :steps, to: :chapter_test
-
-  def chapter_test
-    @context.instance_variable_get(:@chapter_test)
-  end
-
-  # def steps
-  #   @steps ||= %w(practice story review).map{ |step| Step.new(step, self) }
-  # end
-
-  # class Step < ChapterTest::Step
-  #   def initialize step, view
-  #     @step = step
-  #     @view = view
-  #   end
-
-  #   def rules
-
-  #   end
-  # end
-
-  # class Rule < ChapterTest::Rule
-
-  # end
 end

@@ -1,14 +1,7 @@
-class Array
-  def except obj
-    ar = dup
-    ar.delete obj
-    ar
-  end
-end
-
 class User < ActiveRecord::Base
   include Student, Teacher
   has_secure_password validations: false
+
   # If someone clicks 'Sign Up' on the home page,
   # They should be asked for their email and their class code
   # And entering those should prompt the user to choose a password
@@ -23,7 +16,7 @@ class User < ActiveRecord::Base
 
   has_many :assignable_chapters, class_name: 'Chapter', through: :teacher, source: :chapters
   ROLES = %w(temporary user student admin teacher)
-  SAFE_ROLES = ROLES.except('admin').except('temporary')
+  SAFE_ROLES = ROLES - %w(admin temporary)
   default_scope -> { where('role != ?', 'temporary') }
 
   def safe_role_assignment role
@@ -42,18 +35,7 @@ class User < ActiveRecord::Base
     self.email_activation_token = SecureRandom.hex
     self.confirmable_set_at = Time.now
 
-    if classcode.blank? && student?
-      self.classcode = 'demo-class'
-    end
-
     if save
-      if student?
-        teacher.teacher_assignments.each do |assignment|
-          scores.create(assignment_id: assignment.id)
-        end
-      end
-
-      # SEND WELCOME MAIL
       UserMailer.welcome_email(self).deliver!
     else
       false
