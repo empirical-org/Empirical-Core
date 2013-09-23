@@ -39,10 +39,8 @@ javascript:
     }
 
     if ($radio.val() == 'teacher') {
-      makeOptional($form.find('.field.classcode'));
       makeRequired($form.find('.field.email'));
     } else {
-      makeRequired($form.find('.field.classcode'));
       makeOptional($form.find('.field.email'));
     }
   }).first().click();

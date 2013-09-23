@@ -1,8 +1,9 @@
 module ChapterFlow
   MAX_QUESTIONS = 3
 
-  def next_page_url recurse = true
-    # binding.pry
+  def next_page_url
+    fix_id_param
+
     # if the score is unstarted proceed to practice step.
     result = if score.unstarted?
       score.practice!
@@ -10,43 +11,70 @@ module ChapterFlow
 
     # we are on one of the two practice steps and we have
     # the id of the practice question.
-    elsif params[:step].present? && params[:"#{params[:step]}_id"].present?
-      # Is there another question for this rule? If so, go to that.
-      if next_index.present?
-        @context.url_for(
-          controller: "practice",
-          action: "show",
-          chapter_id: params[:chapter_id],
-          "#{params[:step]}_id" => (params[:id] || params[:"#{params[:step]}_id"]),
-          question_index: next_index,
-          step: params[:step]
-        )
+    elsif params[:step].present? && params[step_id_key].present?
+      load_url_from_params
 
-      # there is no more questions for this rule. Proceed to whatever comes next
-      # possibly a rule, or the next step. Possibly break this logic out? Seems
-      # strange to hide it in a method misleadingly named #next_rule_url
-      else
-        next_rule_url
-      end
+    # Check to see if they are on the story step currently
     elsif score.story?
       @context.chapter_story_path(chapter)
-    elsif (score.practice? || score.review?) && recurse
+
+    # Let's try filling out the step information and retrying with the additional parameters.
+    elsif (score.practice? || score.review?)
       params[:step] = score.state
       params[:question_index] = score.inputs.where(step: params[:step]).count
 
       # this will fail if the don't miss any of the story.
       # i.e. step(params[:step].to_sym).rules will be empty.
-      params[:"#{params[:step]}_id"] = step(params[:step].to_sym).rules.first.id
-      next_page_url(false)
+      params[step_id_key] = step(params[:step].to_sym).rules.first.id
+
+      load_url_from_params
+
+    # Finally, just proceed to the next step.
     else
       next_rule_url
     end
 
-    raise "STOP MAKING THEM WITH QUERY STRINGS: #{result}" if result.include?('?')
+    # It should never generate a URL with a query string
+    raise result.to_s if result.include?('?')
     result
   end
 
 protected
+
+  def step_id_key
+    :"#{params[:step]}_id"
+  end
+
+  # standardize params. params[:id] is too ambiguous
+  def fix_id_param
+    return (id = params.delete(:id)).present?
+
+    if params[:step].present?
+      params[step_id_key] = id
+    else
+      params[:chapter_id] = id
+    end
+  end
+
+  def load_url_from_params
+    # Is there another question for this rule? If so, go to that.
+    if next_index.present?
+      @context.url_for(
+        controller: 'practice',
+        action: 'show',
+        chapter_id: params[:chapter_id],
+        step_id_key => params[step_id_key],
+        question_index: next_index,
+        step: params[:step]
+      )
+
+    # there is no more questions for this rule. Proceed to whatever comes next
+    # possibly a rule, or the next step. Possibly break this logic out? Seems
+    # strange to hide it in a method misleadingly named #next_rule_url
+    else
+      next_rule_url
+    end
+  end
 
   # proceed to next rule in the step, or go to the next step if there are no
   # more rules.

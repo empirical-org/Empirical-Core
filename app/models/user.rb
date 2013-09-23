@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   end
 
   validates :email,     presence: true, if: :teacher?
-  validates :classcode, presence: true, if: :student?
+  # validates :classcode, presence: true, if: :student?
   validates :username,  presence: true, if: ->(m) { m.email.blank? }
   validates_uniqueness_of :username, case_sensitive: false, allow_blank: true
 
