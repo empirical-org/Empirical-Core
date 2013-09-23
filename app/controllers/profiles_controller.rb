@@ -1,9 +1,15 @@
 class ProfilesController < ApplicationController
-  # before_filter :signed_in!
+  before_filter :signed_in!
 
   def show
     @user = current_user
     send current_user.role
+  end
+
+  def update
+    @user = current_user
+    @user.update_attributes(user_params)
+    redirect_to profile_path
   end
 
   def user
@@ -21,5 +27,10 @@ class ProfilesController < ApplicationController
 
   def admin
     render :admin
+  end
+
+protected
+  def user_params
+    params.require(:user).permit(:classcode, :email, :name, :username, :password, :password_confirmation)
   end
 end

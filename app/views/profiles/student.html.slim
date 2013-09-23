@@ -2,21 +2,22 @@ article.student-profile-page.simple-rounded-box
   .l-section
     h2 #{current_user.name}, Welcome to Quill!
 
-  .l-section.student-classroom-code-form
-    h3 Create a class
+  - if current_user.classroom.blank?
+    .l-section.profile-classroom-form
+      h3 Join my class
 
-    = form_for current_user do |f|
-      = f.text_field :classcode, class: 'big-input'
-      = f.submit 'Create', class: 'btn btn-primary'
-      p.explanation: em Enter the name of yourclass and press create to create a class.
+      = form_for current_user, url: profile_path do |f|
+        = f.text_field :classcode, class: 'big-input'
+        = f.submit 'Join', class: 'btn btn-primary'
+        p.explanation: em Enter the name of yourclass and press create to create a class.
 
+  - else
+    .l-section
+      h3 My Progress
+      p Class: #{current_user.classroom.name}. Teacher: #{current_user.teacher.name}.
 
-  .l-section
-    h3 My Progress
-    p Class: #{current_user.classroom.name}. Teacher: #{current_user.teacher.name}.
+    .l-section
+      h3 My Assignments
 
-  .l-section
-    h3 My Assignments
-
-    .table-stripe
-      = render partial: 'teachers/classrooms/chapter', collection: current_user.classroom.chapters
+      .table-stripe
+        = render partial: 'teachers/classrooms/chapter', collection: current_user.classroom.chapters
