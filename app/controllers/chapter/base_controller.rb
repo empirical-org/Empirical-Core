@@ -3,14 +3,14 @@ class Chapter::BaseController < ApplicationController
   layout 'chapter_test'
 
   def find_assignment
-    @body_class = 'con-skyblue'
+    @body_class = ''
     @chapter = Chapter.find(params[:chapter_id])
     @user = if current_user.present? then current_user else temporary_user end
 
-    if @classroom_chapter = @user.assigned_classroom_chapters.for_chapter(@chapter)
-      @score = @user.scores.find_by_classroom_chapter_id!(@classroom_chapter.id)
+    @score = if @user.started_chapters.include?(@chapter)
+      @user.scores.for_chapter(@chapter)
     else
-      @classroom_chapter, @score = ClassroomChapter.temporary(@chapter, user: @user)
+      ClassroomChapter.temporary_score(@chapter, user: @user)
     end
 
     @chapter_test = ChapterTest.new(self)

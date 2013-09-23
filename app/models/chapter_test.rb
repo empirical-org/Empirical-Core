@@ -106,7 +106,7 @@ class ChapterTest
   end
 
   def current_step_symbol
-    if params[:controller] == "stories"
+    if params[:controller] == "chapter/stories"
       :story
     elsif params[:step] == "practice"
       :practice

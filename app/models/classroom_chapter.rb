@@ -13,13 +13,13 @@ class ClassroomChapter < ActiveRecord::Base
   end
 
   class << self
-    def temporary chapter, options = {}
+    def temporary_score chapter, options = {}
       classroom_chapter = new
       classroom_chapter.temporary = true
       classroom_chapter.chapter = chapter
       score = classroom_chapter.scores.build(user: options[:user])
       classroom_chapter.save!
-      [classroom_chapter, score]
+      score
     end
   end
 end

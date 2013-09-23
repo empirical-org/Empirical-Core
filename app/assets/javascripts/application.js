@@ -7,6 +7,7 @@
 //= require bootstrap-carousel
 //= require bootstrap-collapse
 //= require bootstrap-datepicker
+//= require hamlcoffee
 //= require underscore
 //= require backbone
 //= require backbone/pg_site
