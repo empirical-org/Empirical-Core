@@ -11,7 +11,7 @@ class EgFormBuilder < CMS::FormBuilder
         values.map do |value|
           @template.content_tag :span, class: 'value' do
             if value.is_a? Array
-              radio_button(name, value[1]) + label(name, value[0], value: value[1])
+              radio_button(name, value[1].html_safe) + label(name, value[0].html_safe, value: value[1])
             else
               radio_button(name, value) + label(name, value, value: value)
             end
@@ -175,7 +175,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
 
     unless options[:placeholder].nil?
-      input_options[:placeholder] = options.delete(:placeholder)
+      input_options[:placeholder] = if (placeholder = options.delete(:placeholder)) == true then name.to_s.humanize else placeholder end
     end
 
     unless options[:hidden].nil?
@@ -230,7 +230,11 @@ class EgFormBuilder < CMS::FormBuilder
 
   # apply the default options for all fields.
   def _apply_field_defaults args
-    _apply_default_options args, label: true, wrap_field: true, label_first: true
+    _apply_default_options args, field_options.reverse_merge(label: true, wrap_field: true, label_first: true)
+  end
+
+  def field_options
+    options[:fields] || {}
   end
 
   # single use method for parsing options provided by the +field+ helper

@@ -21,5 +21,10 @@ class ClassroomChapter < ActiveRecord::Base
       classroom_chapter.save!
       score
     end
+
+    def create_score chapter, options = {}
+      classroom_chapter = where(chapter_id: chapter.id, classroom_id: options[:user].classroom.id).first
+      classroom_chapter.scores.create!(user: options[:user])
+    end
   end
 end
