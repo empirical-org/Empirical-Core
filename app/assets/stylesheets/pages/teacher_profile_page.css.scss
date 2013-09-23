@@ -1,12 +1,16 @@
-article.teacher-profile-page {
-  .teacher-classroom-form .explanation {
-    margin-top: 20px;
-  }
+.profile-classroom-form {
+  text-align: center;
 
   .big-input {
     margin-right: 20px;
   }
 
+  .explanation {
+    margin-top: 20px;
+  }
+}
+
+article.teacher-profile-page {
   .classroom-code-box {
     font-size: 30px;
     width: 560px;
@@ -17,7 +21,7 @@ article.teacher-profile-page {
     margin-bottom: 20px;
   }
 
-  .teacher-classroom-form, .teacher-classroom-code {
+  .teacher-classroom-code {
     text-align: center;
   }
 }
