@@ -1,7 +1,7 @@
-article.new-session-page
-  h4 Sign in to your account
+article.new-session-page.simple-rounded-box
+  h3.form-horizontal-header Sign in to your account
 
-  = form_for @user, url: session_path do |f|
+  = form_for @user, url: session_path, html: { class: 'form-horizontal box-full-form' } do |f|
     = f.email :email, placeholder: 'Email'
     = f.password :password, placeholder: 'Password', class: 'password'
     = f.actions save: 'Sign in'
