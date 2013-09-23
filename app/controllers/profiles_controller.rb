@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_filter :signed_in!
+  # before_filter :signed_in!
 
   def show
     @user = current_user
@@ -11,6 +11,7 @@ class ProfilesController < ApplicationController
   end
 
   def student
+    @classroom = current_user.classroom
     render :student
   end
 

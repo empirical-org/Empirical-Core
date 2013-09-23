@@ -6,6 +6,10 @@ class Classroom < ActiveRecord::Base
 
   before_validation :generate_code
 
+  def classroom_chapter_for chapter
+    classroom_chapters.where(chapter_id: chapter.id).first
+  end
+
 private
   def generate_code
     self.code = NameGenerator.generate

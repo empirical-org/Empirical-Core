@@ -17,7 +17,7 @@ class AccountsController < ApplicationController
 
     if @user.after_initialize!
       sign_in @user
-      redirect_to profile_path, flash: { mixpanel: "account created" }
+      redirect_to profile_path, flash: { mixpanel: 'account created' }
     else
       render 'accounts/new'
     end
@@ -42,6 +42,6 @@ class AccountsController < ApplicationController
 protected
 
   def user_params
-    params.require(:user).permit(:classcode, :email, :name, :password, :password_confirmation)
+    params.require(:user).permit(:classcode, :email, :name, :username, :password, :password_confirmation)
   end
 end

@@ -10,4 +10,12 @@ module Teacher
       end
     end
   end
+
+  class << self
+    delegate :first, :find, :where, :all, :count, to: :scope
+
+    def scope
+      User.where(role: 'teacher')
+    end
+  end
 end

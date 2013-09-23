@@ -1,14 +1,15 @@
-article.new-account-page
-  h4 Sign up for an account
+article.new-account-page.simple-rounded-box
+  h3 style="padding-left: 180px" Sign up for an account
 
-  = form_for @user, url: account_path do |f|
+  = form_for @user, url: account_path, html: { class: 'box-full-form form-horizontal' }, fields: { label: false, placeholder: true } do |f|
     .new-account-field-group
+      .js-role-select= f.radio :role, ['I\'m a <b>student</b>', 'student'], ['I\'m a <b>teacher</b>', 'teacher']
       = f.string :name
-      = f.email :email
-      = f.choices :role, [['Student', 'student'], ['Teacher', 'teacher']]
-      = f.string :classcode, label: 'Classcode (optional)'
+      = f.string :username
+      = f.string :classcode
       = f.password :password
       = f.password :password_confirmation
+      = f.email :email
 
       .form-explanation-text
         | Teachers, create a class code for your class. Students plug in your class
@@ -17,3 +18,31 @@ article.new-account-page
 
     = f.actions save: 'Sign up'
 
+javascript:
+  var $radios = $('.js-role-select input[type=radio]')
+    , $form = $radios.closest('form');
+
+  $radios.on('click', function (e) {
+    var $radio = $(e.target)
+      , optionalText = ' (optional)';
+
+    function makeOptional ($field) {
+      var $input = $field.find('input');
+      $input.attr('placeholder', $input.attr('placeholder') + optionalText);
+      $input.prop('required', false);
+    }
+
+    function makeRequired ($field) {
+      var $input = $field.find('input');
+      $input.attr('placeholder', $input.attr('placeholder').split(optionalText).join(''));
+      $input.prop('required', true);
+    }
+
+    if ($radio.val() == 'teacher') {
+      makeOptional($form.find('.field.classcode'));
+      makeRequired($form.find('.field.email'));
+    } else {
+      makeRequired($form.find('.field.classcode'));
+      makeOptional($form.find('.field.email'));
+    }
+  }).first().click();
