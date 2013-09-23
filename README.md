@@ -1,0 +1,2 @@
+[![Code Climate](https://codeclimate.com/github/empirical-grammar/empirical-grammar.png)](https://codeclimate.com/github/empirical-grammar/empirical-grammar)
+[![Build Status](https://travis-ci.org/quinn/empirical-grammar.png)](https://travis-ci.org/quinn/empirical-grammar)

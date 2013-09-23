@@ -1,29 +1,30 @@
-h1 Directory
+article.simple-rounded-box
+  h1 Directory
 
-table.table
-  tr
-    th Name
-    th Email
-    th Role
-    th Class
-    th
-    th
-
-  - @users.each do |user|
+  table.table.table-stripe
     tr
-      td= user.name
-      td= user.email
-      td= user.role
-      td= user.classcode
-      - if current_user.admin?
-        td= link_to 'Edit', edit_cms_user_path(user)
-        td= link_to 'Destroy', [:cms, user], method: :delete,   confirm: 'Are you sure?'
-        td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
+      th Name
+      th Email
+      th Role
+      th Class
+      th
+      th
 
-br
+    - @users.each do |user|
+      tr
+        td= user.name
+        td= user.email
+        td= user.role
+        td= user.classcode
+        - if current_user.admin?
+          td= link_to 'Edit', edit_cms_user_path(user)
+          td= link_to 'Destroy', [:cms, user], method: :delete,   confirm: 'Are you sure?'
+          td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
 
--if current_user.admin?
-  = link_to 'Add A User', new_cms_user_path
+  br
 
--if current_user.teacher?
-  = link_to 'Invite a Student to My Class', new_cms_user_path
+  -if current_user.admin?
+    = link_to 'Add A User', new_cms_user_path
+
+  -if current_user.teacher?
+    = link_to 'Invite a Student to My Class', new_cms_user_path
