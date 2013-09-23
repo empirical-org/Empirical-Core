@@ -1,6 +1,6 @@
 - content_for :body_content do
   - @body_class << ' story-pages'
-  = render 'chapters/header'
+  = render 'chapter/base/header'
   .container= yield
 
 = render template: 'layouts/application'

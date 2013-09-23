@@ -2,7 +2,8 @@ class Chapter::StartController < Chapter::BaseController
   prepend_before_filter :set_chapter_id
 
   def show
-    resume if @score.unstarted?
+    resume and return if @score.unstarted?
+    render layout: 'application'
   end
 
   def final

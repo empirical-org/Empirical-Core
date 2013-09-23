@@ -2,6 +2,15 @@ article.student-profile-page.simple-rounded-box
   .l-section
     h2 #{current_user.name}, Welcome to Quill!
 
+  .l-section.student-classroom-code-form
+    h3 Create a class
+
+    = form_for current_user do |f|
+      = f.text_field :classcode, class: 'big-input'
+      = f.submit 'Create', class: 'btn btn-primary'
+      p.explanation: em Enter the name of yourclass and press create to create a class.
+
+
   .l-section
     h3 My Progress
     p Class: #{current_user.classroom.name}. Teacher: #{current_user.teacher.name}.
