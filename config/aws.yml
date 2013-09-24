@@ -1,6 +1,9 @@
 development:
   access_key_id: 'AKIAIF3RT6JREPE53EKQ'
   secret_access_key: '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'
+test:
+  access_key_id: 'AKIAIF3RT6JREPE53EKQ'
+  secret_access_key: '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'
 production:
   access_key_id: 'AKIAIF3RT6JREPE53EKQ'
   secret_access_key: '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'

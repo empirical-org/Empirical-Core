@@ -29,4 +29,10 @@ gem 'pry'
 gem 'sentry-raven'
 gem 'slim-rails'
 gem 'taps'
-gem 'coveralls', require: false
+
+group :test do
+  gem 'minitest-rails'
+  gem 'coveralls'
+  gem 'turn'
+  gem 'database_cleaner'
+end

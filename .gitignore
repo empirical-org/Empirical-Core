@@ -19,3 +19,4 @@ public/assets
 .DS_Store
 .project
 latest.dump
+coverage
