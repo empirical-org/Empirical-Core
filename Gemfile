@@ -29,3 +29,4 @@ gem 'pry'
 gem 'sentry-raven'
 gem 'slim-rails'
 gem 'taps'
+gem 'coveralls', require: false
