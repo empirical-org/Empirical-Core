@@ -20,3 +20,4 @@ public/assets
 .project
 latest.dump
 coverage
+.rbenv-vars
