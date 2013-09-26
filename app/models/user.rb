@@ -2,24 +2,16 @@ class User < ActiveRecord::Base
   include Student, Teacher
   has_secure_password validations: false
 
-  # If someone clicks 'Sign Up' on the home page,
-  # They should be asked for their email and their class code
-  # And entering those should prompt the user to choose a password
-  with_options if: :permanent? do |o|
-    o.validates_uniqueness_of   :email, case_sensitive: false, allow_blank: true
-    o.validates_confirmation_of :password, if: ->(m) { m.password.present? }
-    o.validates_presence_of     :password, on: :create
-    o.validates_presence_of     :password_confirmation, if: ->(m) { m.password.present? }
-    o.before_create { raise 'Password digest missing on new record' if password_digest.blank? }
-  end
+  validates :password,              confirmation: { if: :permanent? },
+                                    presence:     { if: :permanent?, on: :create }
+  validates :password_confirmation, presence:     { if: ->(m) { m.password.present? && m.permanent? } }
+  validates :email,                 uniqueness:   { case_sensitive: false, allow_blank: true },
+                                    presence:     { if: :teacher? }
+  validates :username,              presence:     { if: ->(m) { m.email.blank? } },
+                                    uniqueness:   { case_sensitive: false, allow_blank: true }
 
-  validates :email,     presence: true, if: :teacher?
-  # validates :classcode, presence: true, if: :student?
-  validates :username,  presence: true, if: ->(m) { m.email.blank? }
-  validates_uniqueness_of :username, case_sensitive: false, allow_blank: true
-
-  ROLES = %w(temporary user student admin teacher)
-  SAFE_ROLES = ROLES - %w(admin temporary)
+  ROLES      = %w(student teacher temporary user admin)
+  SAFE_ROLES = %w(student teacher)
   default_scope -> { where('role != ?', 'temporary') }
 
   def safe_role_assignment role
@@ -30,10 +22,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  def after_initialize!
-    # GENERATE TEMP PASSWORD (as to generate a password_digest on construction)
-    # self.password_confirmation = self.password = SecureRandom.hex
+  # def authenticate
+  def self.authenticate params
+    user   = User.find_by_email(params[:email])
+    user ||= User.find_by_username(params[:email])
+    user.try(:authenticate, params[:password])
+  end
 
+  def after_initialize!
     # GENERATE EMAIL AUTH TOKEN and EXPIRATION DATE
     self.email_activation_token = SecureRandom.hex
     self.confirmable_set_at = Time.now
