@@ -41,7 +41,7 @@ protected
   def find_rule
     return true if (params[:id] || params[:"#{params[:step]}_id"]).blank?
     @rule = Rule.find(params[:id] || params[:"#{params[:step]}_id"])
-    @question = @rule.questions.unanswered(@score).sample
+    @question = @rule.questions.unanswered(@score, params[:step]).sample
     raise FlowError, "Attempted to retrieve a question, but there are no more. Total number of questions available is #{@rule.questions.count}" if @question.blank?
     # too unpredictable.. please go where you need to will not infer
     # redirect_to @chapter_test.next_rule_url if @question.blank?

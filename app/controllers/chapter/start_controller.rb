@@ -8,6 +8,7 @@ class Chapter::StartController < Chapter::BaseController
 
   def final
     @score.finalize!
+    @checker = StoryChecker.find(@score.id)
     render layout: 'application'
   end
 
