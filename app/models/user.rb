@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence:     { if: ->(m) { m.password.present? && m.permanent? } }
   validates :email,                 uniqueness:   { case_sensitive: false, allow_blank: true },
                                     presence:     { if: :teacher? }
-  validates :username,              presence:     { if: ->(m) { m.email.blank? } },
+  validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { case_sensitive: false, allow_blank: true }
 
   ROLES      = %w(student teacher temporary user admin)
