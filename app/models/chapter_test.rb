@@ -167,9 +167,16 @@ class ChapterTest
     @context.instance_variable_get(:@score)
   end
 
+  def diagnostics
+    {
+      rule_count: current_step.rules.length,
+      step: current_step_symbol,
+      state: score.state
+    }
+  end
+
   class Step
     attr_reader :step
-
     delegate :current_step, :current_rule, :chapter, :score, to: :@context
 
     def initialize step, context
