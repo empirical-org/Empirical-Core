@@ -17,6 +17,10 @@ module FinalChapterView
     rule_question.answers.map{ |a| a.strip == second_input.strip }.compact.any?
   end
 
+  def missed?
+    !(first_grade || second_grade)
+  end
+
   def first_input_html
     first_input.present? ? first_input : '(blank)'
   end

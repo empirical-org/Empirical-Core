@@ -170,6 +170,7 @@ class ChapterTest
   def diagnostics
     {
       rule_count: current_step.rules.length,
+      question: current_step.rules.map { |r| r.rule.questions.length },
       step: current_step_symbol,
       state: score.state
     }
@@ -210,7 +211,7 @@ class ChapterTest
         score.missed_rules
       end
 
-      res.map{ |r| Rule.new(r, @context) }
+      res.map{ |r| Rule.new(r, self) }
     end
 
     def next_rule
@@ -227,11 +228,12 @@ class ChapterTest
     attr_reader :rule
 
     delegate :title, :id, to: :rule
-    delegate :current_rule, to: :@context
+    delegate :chapter_test, to: :@step
+    delegate :current_rule, to: :chapter_test
 
-    def initialize rule, context
+    def initialize rule, step
       @rule = rule
-      @context = context
+      @step = step
     end
 
     def css_class
@@ -240,6 +242,22 @@ class ChapterTest
 
     def current_rule?
       current_rule == rule
+    end
+
+    def inputs
+      @step.inputs_for(rule)
+    end
+
+    def correct_count
+      inputs.select(&:first_grade).length
+    end
+
+    def second_try_count
+      inputs.select(&:second_grade).length
+    end
+
+    def missed_count
+      inputs.select(&:missed?).length
     end
   end
 end

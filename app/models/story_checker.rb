@@ -3,6 +3,7 @@ class StoryChecker < Score
   attr_reader :chunks
 
   def check_input! input
+    self.story_input = input
     @chunks = input.map { |c| Chunk.new(chapter, c) }.each(&:grade!)
     self.missed_rules = chunks.select { |c| c.state == :missed }.map { |c| c.rule.id }
     save!
@@ -22,6 +23,10 @@ class StoryChecker < Score
 
   def sections
     [:missed, :found, :introduced].map { |s| Section.new(self, s) }
+  end
+
+  def section section
+    sections.find { |s| s.section == section }
   end
 
   class Chunk < ::Chunk

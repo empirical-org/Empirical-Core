@@ -1,34 +1,28 @@
-article.final-score-page
-  - @score.steps.each do |step|
-    .final-score-step
-      .step-title= step.step
-
-      - step.rules.each do |rule|
-        .step-rule-title= rule.title
-
-        table
-          thead
-            th Question
-            th Correct Answer
-            th First Try
-            th Second Try
-            th Score
-          - step.inputs_for(rule).each do |input|
-            tr
-              td= input.prompt
-              td= input.correct
-              td(class=input.first_grade_class )= input.first_input_html
-              td(class=input.second_grade_class)= input.second_input_html
-              td.score-value-unit= input.score
-
-      - if step.step == 'story'
-        table
-          thead
-            th Mistakes Found
-            th Total Errors In Story
-            th Score
-
+article.final-score-page.simple-rounded-box
+  - @chapter_test.steps.each do |step|
+    - if step.step == :story
+      table.table.table-stripe
+        thead
+          th.step-title Story
+          th Solved
+          th Unsolved
+          th Introduced
+        tr
+          td.story-title= @chapter.title
+          - raise @score.id.inspect
+          td= @checker.section(:found).results.length
+          td= @checker.section(:missed).results.length
+          td= @checker.section(:introduced).results.length
+    - else
+      table.table.table-stripe
+        thead
+          th.step-title= step.step.to_s.humanize
+          th Correct
+          th Second Try
+          th Incorrect
+        - step.rules.each do |rule|
           tr
-            td= @score.score_values[:mistakes_found_count]
-            td= @score.score_values[:story_total_count]
-            td.score-value-unit= @score.score_values[:story_percentage]
+            td.rule-title= rule.title
+            td= rule.correct_count
+            td= rule.second_try_count
+            td= rule.missed_count
