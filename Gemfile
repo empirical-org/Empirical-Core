@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 # ruby '1.9.3'
 
 gem 'rails', '~> 4'
-gem 'pg'
+gem 'pg',                                  platforms: :ruby
+gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
 gem 'rails_12factor', group: :production
 
 gem 'sass-rails', '~> 4.0.0'
