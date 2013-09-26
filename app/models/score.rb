@@ -17,6 +17,7 @@ module ScoreState
   def finalize!
     self.score_values = ScoreFinalizer.new(self).results
     self.completion_date ||= Time.now
+    update_column :state, 'finished'
     save!
   end
 

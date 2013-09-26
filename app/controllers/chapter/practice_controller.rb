@@ -1,7 +1,8 @@
 class Chapter::PracticeController < Chapter::BaseController
-  before_filter :find_rule, except: ['verify', 'verify_status']
-  before_filter :update_progress, except: ['verify', 'verify_status']
+  before_filter :find_rule,       except: ['verify', 'verify_status']
+  before_filter :update_progress, except: ['verify', 'verify_status', 'index']
   prepend_before_filter :clean_step_param
+  rescue_from(FlowError) { display_flow_error_message }
 
   def show
     if params[:question_index].blank?
@@ -41,7 +42,7 @@ protected
     return true if (params[:id] || params[:"#{params[:step]}_id"]).blank?
     @rule = Rule.find(params[:id] || params[:"#{params[:step]}_id"])
     @question = @rule.questions.unanswered(@score).sample
-    raise "Attempted to retrieve a question, but there are no more. Total number of questions available is #{@rule.questions.count}" if @question.blank?
+    raise FlowError, "Attempted to retrieve a question, but there are no more. Total number of questions available is #{@rule.questions.count}" if @question.blank?
     # too unpredictable.. please go where you need to will not infer
     # redirect_to @chapter_test.next_rule_url if @question.blank?
   end
@@ -53,6 +54,10 @@ protected
   end
 
 private
+
+  def display_flow_error_message
+    render template: 'chapter/base/flow_error_message'
+  end
 
   def update_score
     @score.update_attributes! lesson_input_key => params[:lesson_input]
@@ -68,6 +73,7 @@ private
 
   def update_progress
     return unless @rule.present?
+    raise FlowError if @chapter_test.current_step.rules.empty?
     @questions_completed = @chapter_test.current_step.rules.map(&:rule).index(@rule) * ChapterTest::MAX_QUESTIONS + params[:question_index].to_i
     @questions_total     = @chapter_test.current_step.rules.count * ChapterTest::MAX_QUESTIONS
   end
