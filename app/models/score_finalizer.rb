@@ -1,5 +1,5 @@
 class ScoreFinalizer
-  delegate :practice_lesson_input, :review_lesson_input, :assignment,
+  delegate :practice_lesson_input, :review_lesson_input, :chapter,
            :missed_rules, :score_values, to: :@score
 
   def initialize score
@@ -46,6 +46,6 @@ class ScoreFinalizer
   end
 
   def story_rule_ids
-    assignment.chapter.assessment.chunks.select{ |c| c.is_a?(GrammarQuestion) }.map(&:grammar).uniq
+    chapter.assessment.chunks.select{ |c| c.is_a?(GrammarQuestion) }.map(&:grammar).uniq
   end
 end
