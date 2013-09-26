@@ -5,8 +5,8 @@ rvm:
   - jruby-19mode # JRuby in 1.9 mode
   - rbx-19mode
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare
+  - bundle exec rake db:test:load
   - bundle exec rake
 before_script:
   - cp config/database.travis.yml config/database.yml
+  - psql -c 'create database test;' -U postgres
