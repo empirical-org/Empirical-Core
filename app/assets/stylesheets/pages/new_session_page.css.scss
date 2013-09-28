@@ -1,0 +1,7 @@
+article.new-session-page {
+  .error-message {
+    margin-bottom: 20px;
+    color: $missed-color;
+    @include bold;
+  }
+}
