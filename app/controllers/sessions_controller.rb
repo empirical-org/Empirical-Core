@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       redirect_to profile_path
     else
       @user = User.new
-      flash[:error] = 'bad email/password combination'
+      flash[:error] = 'Incorrect username/email or password'
       render :new
     end
   end

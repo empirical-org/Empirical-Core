@@ -1,5 +1,7 @@
 article.new-session-page.simple-rounded-box
   h3.form-horizontal-header Sign in to your account
+  - if flash[:error]
+    .error-message.form-horizontal-header= flash[:error]
 
   = form_for @user, url: session_path, html: { class: 'form-horizontal box-full-form' } do |f|
     = f.string :email, placeholder: 'Email or Username', label: 'Email or Username'
