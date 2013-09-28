@@ -1,0 +1,30 @@
+$footer-height: 280px;
+
+html, body {
+  height: 100%;
+}
+
+.sticky-footer-wrapper {
+  min-height: 100%;
+}
+
+.sticky-footer-content {
+  overflow: auto;
+  padding-bottom: $footer-height; /* must be same height as the footer */
+}
+
+.sticky-footer-footer  {
+  position: relative;
+  margin-top: -1 * $footer-height; /* negative value of footer height */
+  height: $footer-height;
+  clear: both;
+}
+
+/*Opera Fix*/
+body:before {
+  content: "";
+  height: 100%;
+  float: left;
+  width: 0;
+  margin-top: -32767px;
+}
