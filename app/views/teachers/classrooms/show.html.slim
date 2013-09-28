@@ -7,9 +7,9 @@ article.teacher-profile-page.simple-rounded-box
 
     h3 Your classes
 
-    .teacher-classrooms
+    .teacher-classroom-nav
       - current_user.classrooms.each do |classroom|
-        .btn.btn-primary= classroom.name
+        a.btn.btn-primary href=teachers_classroom_path(classroom) = classroom.name
 
   .teacher-classroom-code.l-section
     h3= "My #{@classroom.name} class code"

@@ -18,6 +18,7 @@ $found-color-light: #e1ffd3;
 $introduced-color: #9060c7;
 $introduced-color-light: #f5deff;
 $tried-color: #ffba00;
+$tried-color-light: #fff9d6;
 
 .con-skyblue        { background: $skyblue; }
 .con-skyblue-darker { background: $skyblue-darker; }
@@ -126,6 +127,10 @@ table {
   .l-table-row:nth-child(2n) {
     background-color: #f5f5f5;
   }
+}
+
+.table-hover-row {
+  tr:hover { background-color: $tried-color-light }
 }
 
 .rectangle {
