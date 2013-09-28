@@ -9,7 +9,8 @@ article.student-profile-page.simple-rounded-box
       = form_for current_user, url: profile_path do |f|
         = f.text_field :classcode, class: 'big-input'
         = f.submit 'Join', class: 'btn btn-primary'
-        p.explanation: em Enter the name of yourclass and press create to create a class.
+        p.explanation: em
+          | Enter your class code, such as "Blue-Cow", to join your class.
 
   - else
     .l-section
