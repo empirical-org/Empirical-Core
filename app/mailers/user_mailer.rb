@@ -1,8 +1,8 @@
 class UserMailer < ActionMailer::Base
-  default from: "empiricalgrammar@gmail.com"
+  default from: 'hello@quill.org'
 
-  def welcome_email(user)
+  def welcome_email user
     @user = user
-    mail to: user.email, subject: "Welcome to Quill!"
+    mail to: user.email, subject: 'Welcome to Quill!'
   end
 end
