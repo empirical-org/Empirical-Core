@@ -1,10 +1,4 @@
 article.assign-classroom-chapter-page.simple-rounded-box
-  .l-section.classroom-chapter-date-select
-    = form_for @classroom_chapter, url: teachers_classroom_chapter_path(@classroom, @chapter), method: :put do |f|
-      h3 Assign Due Date
-      = f.date_select :due_date
-      = f.submit 'Set Due Date', class: 'btn btn-primary'
-
   .l-section.classroom-chapter-datepicker
     = form_for @classroom_chapter, url: teachers_classroom_chapter_path(@classroom, @chapter), method: :put do |f|
       h3 Assign Due Date
