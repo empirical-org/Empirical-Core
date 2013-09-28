@@ -68,7 +68,7 @@ private
   end
 
   def lesson_input_key
-    :"#{params[:step]}_lesson_input"
+    :"#{params[:step]}_step_input"
   end
 
   def update_progress
