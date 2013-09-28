@@ -11,6 +11,14 @@ $white:          #ffffff;
 $darkblue:       #0f4c7a;
 $darkgrey:       #252626;
 
+$missed-color: #d54141;
+$missed-color-light: #ffeade;
+$found-color: #78ca47;
+$found-color-light: #e1ffd3;
+$introduced-color: #9060c7;
+$introduced-color-light: #f5deff;
+$tried-color: #ffba00;
+
 .con-skyblue        { background: $skyblue; }
 .con-skyblue-darker { background: $skyblue-darker; }
 .con-yellow         { background: $yellow; }

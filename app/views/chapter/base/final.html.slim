@@ -1,28 +1,34 @@
 article.final-score-page.simple-rounded-box
+  .final-score-page-header
+    span Great Job! You completed the lesson:
+    div: b= @chapter.title
+
   - @chapter_test.steps.each do |step|
     - if step.step == :story
       table.table.table-stripe
         thead
           th.step-title Story
-          th Solved
-          th Unsolved
-          th Introduced
+          th.found Solved
+          th.missed Unsolved
+          th.introduced Introduced
         tr
           td.story-title= @chapter.title
-          - raise @score.id.inspect
-          td= @checker.section(:found).results.length
-          td= @checker.section(:missed).results.length
-          td= @checker.section(:introduced).results.length
+          td.num= if (n = @checker.section(:found).results.length) == 0 then '' else n end
+          td.num= if (n = @checker.section(:missed).results.length) == 0 then '' else n end
+          td.num= if (n = @checker.section(:introduced).results.length) == 0 then '' else n end
     - else
       table.table.table-stripe
         thead
           th.step-title= step.step.to_s.humanize
-          th Correct
-          th Second Try
-          th Incorrect
+          th.found Correct
+          th.tried Second Try
+          th.missed Incorrect
         - step.rules.each do |rule|
           tr
             td.rule-title= rule.title
-            td= rule.correct_count
-            td= rule.second_try_count
-            td= rule.missed_count
+            td.num= if (n = rule.correct_count) == 0 then '' else n end
+            td.num= if (n = rule.second_try_count) == 0 then '' else n end
+            td.num= if (n = rule.missed_count) == 0 then '' else n end
+
+  .btn-holder
+    a.btn.btn-primary.btn-large href=profile_path Return to My Lessons

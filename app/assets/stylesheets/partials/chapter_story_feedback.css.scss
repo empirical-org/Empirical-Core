@@ -11,12 +11,12 @@
 
   .story-feedback-section {
     margin-top: 20px;
-    &.missed     .story-feedback-section-title { background-color: #d54141 }
-    &.missed     .result-highligted-word       { background-color: #ffeade }
-    &.found      .story-feedback-section-title { background-color: #78ca47 }
-    &.found      .result-highligted-word       { background-color: #e1ffd3 }
-    &.introduced .story-feedback-section-title { background-color: #9060c7 }
-    &.introduced .result-highligted-word       { background-color: #f5deff }
+    &.missed     .story-feedback-section-title { background-color: $missed-color; }
+    &.missed     .result-highligted-word       { background-color: $missed-color-light; }
+    &.found      .story-feedback-section-title { background-color: $found-color; }
+    &.found      .result-highligted-word       { background-color: $found-color-light; }
+    &.introduced .story-feedback-section-title { background-color: $introduced-color; }
+    &.introduced .result-highligted-word       { background-color: $introduced-color-light; }
   }
 
   .story-feedback-section-title {

@@ -1,12 +1,17 @@
 class StoryChecker < Score
   attr_accessor :context
-  attr_reader :chunks
 
-  def check_input! input
-    self.story_input = input
+  def check_input! input, saving = true
+    self.story_step_input = input
     @chunks = input.map { |c| Chunk.new(chapter, c) }.each(&:grade!)
     self.missed_rules = chunks.select { |c| c.state == :missed }.map { |c| c.rule.id }
-    save!
+    save! if saving
+  end
+
+  def chunks
+    return @chunks if defined? @chunks
+    check_input! story_step_input
+    @chunks
   end
 
   def chapter_test
@@ -17,7 +22,7 @@ class StoryChecker < Score
     if (found = sections.find{ |s| s.section == :found }.results).any?
       "You Found #{found.count} #{'Error'.pluralize(found.count)}!"
     else
-      "You didn't find any errors."
+      'You didn\'t find any errors.'
     end
   end
 

@@ -1,5 +1,5 @@
 class ScoreFinalizer
-  delegate :practice_lesson_input, :review_lesson_input, :chapter,
+  delegate :practice_step_input, :review_step_input, :chapter,
            :missed_rules, :score_values, to: :@score
 
   def initialize score
@@ -32,7 +32,7 @@ class ScoreFinalizer
   end
 
   def grade_lessons(step)
-    # lesson_input = send(:"#{step}_lesson_input")
+    # lesson_input = send(:"#{step}_step_input")
 
     # missed_lessons = lesson_input.reject do |lesson_id, input|
     #   begin
