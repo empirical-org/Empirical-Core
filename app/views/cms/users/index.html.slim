@@ -1,7 +1,7 @@
-article.simple-rounded-box
+article.simple-rounded-box.cms
   h1 Directory
 
-  table.table.table-stripe
+  table.table.table-stripe.table-hover-row
     tr
       th Name
       th Email
@@ -14,7 +14,7 @@ article.simple-rounded-box
       tr
         td= user.name
         td= user.email
-        td= user.role
+        td class="role-#{user.role}"= user.role
         td= user.classcode
         - if current_user.admin?
           td= link_to 'Edit', edit_cms_user_path(user)

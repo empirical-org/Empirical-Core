@@ -116,9 +116,9 @@
   }
 
   .first-try {
-           background-color: #fff9d6;
-    h3 {   color:            #ffba00 }
-    .btn { background-color: #ffba00;
+           background-color: $tried-color-light;
+    h3 {   color:            $tried-color }
+    .btn { background-color: $tried-color;
            border-color:     #e4a00f }
     background-image: image-url('icons/chapter_test/first-try.png');
   }

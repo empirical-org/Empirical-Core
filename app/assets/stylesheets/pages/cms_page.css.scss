@@ -1,0 +1,6 @@
+article.cms {
+  .role-admin, .role-student, .role-teacher, .role-user { @include bold }
+  .role-admin   { color: $missed-color }
+  .role-student { color: $found-color }
+  .role-teacher { color: $introduced-color }
+}
