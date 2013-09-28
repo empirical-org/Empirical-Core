@@ -35,8 +35,8 @@
 .open-content { background-image: image-url('h-ico-01.png'); background-repeat: no-repeat; background-position: 5px center; }
 .open-community { background-image: image-url('h-ico-02.png'); background-repeat: no-repeat; background-position: 5px center; text-indent: 35px !important; }
 
-body#home      > .container,
-body.auxilliary > .container { width: auto }
+body#home       .sticky-footer-wrapper .sticky-footer-content > .container,
+body.auxilliary .sticky-footer-wrapper .sticky-footer-content > .container { width: auto }
 
 .h-middle { background: #cbebed image-url('h-middle-bg.png') no-repeat center 28px; }
 .h-middle-extra { background: transparent image-url('h-transparent-water.png') repeat-x left bottom; padding-top: 178px; overflow: hidden; }
