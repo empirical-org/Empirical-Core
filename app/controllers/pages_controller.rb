@@ -11,6 +11,10 @@ class PagesController < ApplicationController
     @body_class = 'white-page'
   end
 
+  def mission
+    @body_class = 'white-page'
+  end
+
   def democracy_in_america
     @video_id = '48eoUKalprw'
   end
