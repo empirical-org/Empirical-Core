@@ -1,0 +1,25 @@
+article.about-us-page {
+  #page-about    .sec-1 .container { padding-top: 0; background: #0f4c7a image-url('on-about-sec1.png') no-repeat 84% 40%; }
+  #page-about .sec-1 p { color: #b4e3ff; }
+
+  .team-box { width: 300px; float: left; height: 300px; background: #f5f3ec; margin-right: 10px; margin-left: 10px; margin-bottom: 20px; overflow: hidden; }
+  .team-box-desc {
+    clear: both;
+    padding: 20px;
+    color: #896f6c; line-height: 24px; font-size: 14px;  }
+  .team-box-desc p { margin:0; font-size: 16px; line-height: 20px; color: #565656; }
+  .team-box-title h4 { padding: 40px 0 0 15px; margin: 0; font-size: 24px; color: #fff; font-family: 'proxima_nova_rgbold'; }
+  .team-box-title small { color: #fcd000; font-size: 14px; text-transform: uppercase; margin: 5px 0 0 15px; display: block; }
+
+  .team-box-head {
+    background: #252626;
+    overflow: hidden;
+
+    figure, .team-box-title {
+      float: left;
+      display: block;
+      margin: 0;
+      padding :0;
+    }
+  }
+}

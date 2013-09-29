@@ -15,19 +15,15 @@ class PagesController < ApplicationController
     @body_class = 'white-page'
   end
 
-  def democracy_in_america
-    @video_id = '48eoUKalprw'
-  end
-
-  def aggregation
-    @video_id = '3lcqTp2A750'
+  def about
+    @body_class = 'auxilliary white-page'
   end
 
   private
 
   def resolve_layout
     case action_name
-    when 'about', 'learning', 'story'
+    when 'learning', 'story'
       @body_class = 'auxilliary'
     end
   end
