@@ -28,6 +28,10 @@
     background-color: $light-blue;
   }
 
+  .rule-description {
+    font-size: 16px;
+  }
+
   .rule-title {
     font-size: 24px;
     font-weight: bold;
@@ -48,20 +52,17 @@
   .question-text,
   .question-field textarea {
     font-family: 'Courier New', Monaco, monospace;
+    font-size: 16px;
     @include border-radius(2px);
     border: 2px solid #d8d8d8;
     padding: 10px;
     margin-bottom: 20px;
-    // background-color: $light-blue;
-    // padding: 10px;
-    // border: none;
     width: 100%;
     @include box-sizing(border-box);
     @include box-shadow(none);
   }
 
   .question-instructions {
-    font-weight: bold;
     margin: 0px 0 10px 0;
   }
 
