@@ -28,7 +28,7 @@
     = form_for @rule, url: send("chapter_#{params[:step]}_path", @chapter, @rule, question_index: params[:question_index]) do |f|
       = hidden_field_tag :score_id, @score.id
       = hidden_field_tag :step, params[:step]
-      .question-instructions= @question.instructions || 'instructions'
+      .question-instructions= markdown @question.instructions.to_s
       .question-text= @question.prompt.to_s.html_safe
       .question-field= text_area_tag "lesson_input[#{@question.id}]"
 
