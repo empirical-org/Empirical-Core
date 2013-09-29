@@ -35,7 +35,7 @@ window.PG.Views.ChapterAssessment = Backbone.View.extend({
       this.template({ chunks: this.assessment.chunks })
     );
 
-    this.$('.edit-word').attr('contentEditable', true).attr('spellcheck', false);
+    this.$('.edit-word:not(.non-editable)').attr('contentEditable', true).attr('spellcheck', false);
   }
 
 , wordChanged: function(e) {
