@@ -44,7 +44,7 @@ window.PG.Views.ChapterAssessment = Backbone.View.extend({
     chunk = this.chunks.get($word.data('id'));
     chunk.input = $word.text().trim();
 
-    if (chunk.input === chunk.word) {
+    if (chunk.input === chunk.word || chunk.input === chunk.error) {
       return $word.removeClass('edited');
     } else {
       return $word.addClass('edited');
