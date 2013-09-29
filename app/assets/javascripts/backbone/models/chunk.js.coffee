@@ -27,6 +27,8 @@ class PG.Models.Chunk extends Backbone.Model
     #@ruleId = @lesson().attributes.rule_id
     chapterRules.get(@grammar)
 
+  css_class: -> "edit-word#{if $.trim(@word) == '' then ' non-editable' else ''}"
+
   toJSON: ->
     json =
       word:    @word

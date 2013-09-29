@@ -1,4 +1,4 @@
-.edit-word{'data-id' => @id}
+%div{'data-id' => @id, 'class' => @css_class()}
   - if @get('word')
     = @get('word')
   - else
