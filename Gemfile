@@ -21,7 +21,8 @@ gem 'haml-rails'
 gem 'bcrypt-ruby', require: 'bcrypt'
 gem 'ancestry'
 gem 'kaminari'
-gem 'redcarpet'
+gem 'redcarpet', platforms: :ruby
+gem 'kramdown',  platforms: :jruby
 gem 'carrierwave'
 gem 'fog'
 gem 'aws-sdk'
