@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 require 'cms/inflections'
-require 'redcarpet'
+# require 'redcarpet'
 
 module CMS
   class Engine < ::Rails::Engine
