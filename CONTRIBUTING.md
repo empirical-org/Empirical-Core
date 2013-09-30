@@ -1,5 +1,6 @@
 ### Right now, we need
 
+* Make application installer for Unix / OSX / Windows, make app standalone
 * Test coverage, more than anything
 * Thoughts on refactoring, or extracting gems
 * Whatever else you want to do is great
