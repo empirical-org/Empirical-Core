@@ -253,6 +253,7 @@ DEPENDENCIES
   honey-cms (= 0.4.7)!
   jquery-rails
   kaminari
+  kramdown
   minitest-rails
   parslet
   pg
