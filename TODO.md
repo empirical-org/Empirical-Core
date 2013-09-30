@@ -1,4 +1,3 @@
-
- [ ] Upgrade to Bootstrap 3
- [ ] Add tests
- [ ] Centralize authorization ?
+- [ ] Upgrade to Bootstrap 3
+- [ ] Add tests
+- [ ] Centralize authorization ?
