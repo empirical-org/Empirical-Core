@@ -28,7 +28,7 @@ class PG.Models.Chunk extends Backbone.Model
     chapterRules.get(@grammar)
 
   css_class: ->
-    extra = if $.trim(@word) == '' || $.trim(@word) == '<br>' then ' non-editable' else ''
+    extra = if $.trim(@correct()) == '' || $.trim(@correct()) == '<br>' then ' non-editable' else ''
     "edit-word#{extra}"
 
   toJSON: ->
