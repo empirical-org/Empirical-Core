@@ -11,5 +11,5 @@ article.simple-rounded-box
 
   p The quickest fix to your issue might be to #{link_to 'Resume', chapter_resume_path(@chapter.id)}.
 
-  h3 If you are seeing this message repeatedly, please paste the text below into an email and send it to #{mail_to 'hello@quill.com'}:
+  h3 If you are seeing this message repeatedly, please paste the text below into an email and send it to #{mail_to 'hello@quill.org'}:
   textarea.session-dump style="width: 700px ; height: 250px"= {params: params, session: session, cookies: cookies, test: @chapter_test.diagnostics}.to_json.html_safe
