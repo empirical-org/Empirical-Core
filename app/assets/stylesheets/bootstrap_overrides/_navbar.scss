@@ -1,0 +1,94 @@
+//
+// Navbars (Redux)
+// --------------------------------------------------
+
+
+// COMMON STYLES
+// -------------
+
+// Base class and wrapper
+.navbar {
+  overflow: visible;
+  margin-bottom: $baseLineHeight;
+
+  // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
+  *position: relative;
+  *z-index: 2;
+}
+
+// Inner for background effects
+// Gradient is applied to its own element because overflow visible is not honored by IE when filter is present
+.navbar-inner {
+  min-height: $navbarHeight;
+  border: 1px solid $navbarBorder;
+
+  // Prevent floats from breaking the navbar
+  @include clearfix();
+}
+
+// Set width to auto for default container
+// We then reset it for fixed navbars in the #gridSystem mixin
+.navbar .container {
+  width: auto;
+}
+
+// Override the default collapsed state
+.nav-collapse.collapse {
+  height: auto;
+  overflow: visible;
+}
+
+
+// Brand: website or project name
+// -------------------------
+.navbar .brand {
+  float: left;
+  display: block;
+  // Vertically center the text given $navbarHeight
+  padding: (($navbarHeight - $baseLineHeight) / 2) 20px (($navbarHeight - $baseLineHeight) / 2);
+  margin-left: -20px; // negative indent to left-align the text down the page
+  font-size: 20px;
+  font-weight: 200;
+  color: $navbarBrandColor;
+  text-shadow: 0 1px 0 $navbarBackgroundHighlight;
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+
+// Reset container width
+// Required here as we reset the width earlier on and the grid mixins don't override early enough
+.navbar-static-top .container,
+.navbar-fixed-top .container,
+.navbar-fixed-bottom .container {
+  @include grid-core-span($gridColumns, $gridColumnWidth, $gridGutterWidth);
+}
+
+
+
+// NAVIGATION
+// ----------
+
+.navbar .nav {
+  position: relative;
+  left: 0;
+  display: block;
+  float: left;
+  margin: 0;
+}
+
+.navbar .nav > li {
+  float: left;
+}
+
+// Links
+.navbar .nav > li > a {
+  float: none;
+  // Vertically center the text given $navbarHeight
+  padding: (($navbarHeight - $baseLineHeight) / 2) 15px (($navbarHeight - $baseLineHeight) / 2);
+  color: $navbarLinkColor;
+  text-decoration: none;
+  text-shadow: 0 1px 0 $navbarBackgroundHighlight;
+}

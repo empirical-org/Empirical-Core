@@ -23,7 +23,7 @@ article.home-content
         .product-feature-description
           h2 Learning by Writing
           p Writing is essential to learning a language. All of our practice questions require students to write complete sentences.
-          a.primary Read our mission statement
+          a.primary href=mission_path Read our mission statement
 
       .product-feature
         .image= image_tag 'ico-personalized.png'
@@ -31,7 +31,7 @@ article.home-content
         .product-feature-description
           h2 Personalized Lessons
           p Quill presents students with passages laden with grammar problems. Students receive personal homework assignments based on their performance.
-          a.primary Learn more about our personalized lessons
+          a.primary href=mission_path Learn more about our personalized lessons
 
       .product-feature
         .image= image_tag 'ico-engaging.png'
@@ -47,7 +47,7 @@ article.home-content
         .product-feature-description
           h2 Common Core
           p We've translated the Common Core directives into purposeful lessons. Our lessons focus on how to use grammatical concepts in natural writing.
-          a.primary View all of our lessons
+          a.primary href="http://quill.wikidot.com/ccss-lessons" View all of our lessons
 
       .product-feature
         .image= image_tag 'ico-evaluate.png'
@@ -55,7 +55,7 @@ article.home-content
         .product-feature-description
           h2 Progress Evaluations
           p We provide the length of each lesson and allow you to build a workbook of lessons suited for your class. You can sign up your class for free and track your students' progress.
-          a.primary Sign Up Your Class
+          a.primary href=new_account_path Sign Up Your Class
 
       .product-feature
         .image= image_tag 'ico-develop.png'
@@ -63,11 +63,9 @@ article.home-content
         .product-feature-description
           h2 Open Development
           p Help us build Quill! Everyone is welcomed to contribute ideas, materials, and code. All of our content may be shared via our Creative Commons license, and our code can be re-used via our GPL license. Critical feedback is appreciated!
-          a.primary Participate in the development process
+          a.primary href=develop_path Participate in the development process
 
   .home-news: .container
-    .home-news-title: h2 What's<br> new
-
     .home-news-slides#homepage-news-slides.carousel.slide
       ol.carousel-indicators
         - CMS::HomepageNewsSlide.all.to_a.each_with_index do |slide, i|
@@ -76,9 +74,12 @@ article.home-content
       .carousel-inner
         - CMS::HomepageNewsSlide.all.each_with_index do |slide, i|
           a.item href=slide.link target="_blank" class=active_on_first(i)
-            = image_tag slide.image.url
-            .text= slide.text
-            .link.primary Read More
+            .image= image_tag slide.image.url
+
+            .slide-content
+              .home-news-title: h2 What's new
+              .text= slide.text
+              .link.primary Read More
 
 javascript:
   mixpanel.track("homepage viewed");

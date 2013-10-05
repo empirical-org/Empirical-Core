@@ -109,8 +109,6 @@ body.home-page {
 
     .item img {
       max-height: 195px;
-      float: left;
-      margin-right: 50px;
     }
 
     .item {
@@ -127,22 +125,23 @@ body.home-page {
       right: auto;
       top: 184px;
     }
-  }
 
-  .home-news-title {
-    width: 330px;
-    float: left;
-    line-height: 1.1;
+    .image {
+      width: 330px;
+      float: left;
+      text-align: center;
+    }
 
-    h2 {
-      color: #4ca1cb;
-      font-size: 60px;
-      line-height: 1.1;
+    .slide-content {
+      width: 630px;
+      float: left;
     }
   }
 
-  .home-news-slides {
-    width: 630px;
-    float: left;
+  .home-news-title h2 {
+    color: #4ca1cb;
+    font-size: 25px;
+    line-height: 1.1;
   }
+
 }
