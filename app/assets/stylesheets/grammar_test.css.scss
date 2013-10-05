@@ -1,6 +1,6 @@
 $redLight:       #ffd3d3;
-$greenLight:     #c8ffa7; 
-$purpleLight:    #d6d4ff;      
+$greenLight:     #c8ffa7;
+$purpleLight:    #d6d4ff;
 
 .grammar-test {
   .text, .results, .lessons {
@@ -11,7 +11,7 @@ $purpleLight:    #d6d4ff;
   }
 
   .title {
-    font-family: 'Museo500';
+    font-family: $header-font;
     font-weight: bold;
     text-align: center;
     font-size: 35px;

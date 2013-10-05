@@ -30,6 +30,8 @@ $tried-color-light: #fff9d6;
 
 $baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 
+$header-font: "Comfortaa", cursive;
+
 @import "bootstrap_imports";
 @import "compass/typography/text/replacement";
 
@@ -43,7 +45,7 @@ $baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 @mixin bold {
-
+  font-weight: bold;
 }
 
 body {
