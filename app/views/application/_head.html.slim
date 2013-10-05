@@ -1,17 +1,20 @@
 head
   title Quill
-  = stylesheet_link_tag    'application', media: 'all'                             , "data-turbolinks-track" => true
-  = javascript_include_tag 'application'                                           , "data-turbolinks-track" => true
-  = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js' , "data-turbolinks-track" => true
-  = stylesheet_link_tag 'codemirror'                                               , "data-turbolinks-track" => true
-  = javascript_include_tag 'cms'                                                   , "data-turbolinks-track" => true
+  = stylesheet_link_tag    'application', media: 'all'                             , 'data-turbolinks-track' => true
+  = javascript_include_tag 'application'                                           , 'data-turbolinks-track' => true
+  = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js' , 'data-turbolinks-track' => true
+  = stylesheet_link_tag 'codemirror'                                               , 'data-turbolinks-track' => true
+  = javascript_include_tag 'cms'                                                   , 'data-turbolinks-track' => true
+
   = csrf_meta_tags
   link href="/images/favicon.gif" rel="icon" type="image/ico"
+  link href="http://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css"
+
   = render 'head_embed_codes'
 
   erb:
     <!--[if !IE 7]>
       <style type="text/css">
-        #wrap { display: table; height: 100% }
+        #wrap { display: table ; height: 100% }
       </style>
     <![endif]-->

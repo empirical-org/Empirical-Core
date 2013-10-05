@@ -28,7 +28,7 @@ $tried-color-light: #fff9d6;
 .con-darkblue       { background: $darkblue; }
 .con-darkgrey       { background: $darkgrey; }
 
-$baseFontFamily: "proxima_nova_rgregular";
+$baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 
 @import "bootstrap_imports";
 @import "compass/typography/text/replacement";
@@ -43,7 +43,7 @@ $baseFontFamily: "proxima_nova_rgregular";
 }
 
 @mixin bold {
-  font-family: 'proxima_nova_rgbold';
+
 }
 
 body {
