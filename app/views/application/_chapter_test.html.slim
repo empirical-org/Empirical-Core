@@ -2,13 +2,13 @@
 	.h-left-top
 		.h-right-top style="padding-top: 20px;"
 
-.h-page-extra
+.h-page-extra.chapter-story-test
 	.h-page-left-repeat
 		.h-page-right-repeat
 			.h-page-content-extra
 				.grammar-test data-story-path=chapter_story_path(@chapter)
 					.title= @chapter.article_header
 					.text
-					button.show-results: span.btn-y-left: span.btn-y-right: span.btn-y-inner Submit!
+					button.show-results.btn.btn-primary Check Answers
 					.grammar-test-results
 					= render partial: 'chapter_test_javascript'

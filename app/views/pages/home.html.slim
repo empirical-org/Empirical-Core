@@ -1,82 +1,83 @@
-.h-middle
-  .h-middle-extra
-    .container style="margin-top:-164px;"
-      .homepage-top-instructions
-        .line1 There are <em>7 errors</em> in this paragraph.
-        .line2 Can You Correct Them All?
-        .line3 To make corrections, click on a word and rewrite it.
-      = render partial: 'chapter_test', object: @chapter
+article.home-content
+  .home-hero-unit
+    .content-overlay
+      .home-lesson: .container
+        .story-instructions= @chapter.story_instructions
+        = render partial: 'chapter_test', object: @chapter
 
-javascript:
-  jQuery(function ($) {
-    setTimeout(function () {
-      $('.homepage-top-instructions')
-        .css('background-color', '#fcd000')
-        .animate({
-          'background-color' : '#cbebed'
-        }, 500, function () {
-          $('.homepage-top-instructions').css('background-color', 'transparent');
-          $('.edit-word:first').focus();
-        });
-    }, 500);
-  });
+      .home-pitch
+        h2 Quill provides interactive grammar lessons.
+        .subtitle Quill is a free personalized grammar tools built for middle school students.
+        .call-to-action
+          .btn.btn-primary href=new_account_path(as: 'student') I'm a Student
+          .btn.btn-primary href=new_account_path(as: 'teacher') I'm a Teacher
 
+    .floats-overlay.overlay
+    .water-overlay.overlay
 
-.h-sub-middle.con-pink
-  .container.clearfix
-    .span6
-      article.h-sub-left-content
-        h2 A Fun, Free Way To Learn Grammar Interactively.
-        p Quill provides personalized grammar lessons for middle school students.
+  .home-product-features
+    .container
+      .product-feature
+        .image= image_tag 'ico-interactive.png'
 
-    .h-sub-right-content.span6
-      div
-        = link_to "Students", new_account_path
-        = link_to "Teachers", new_account_path
-        h2 Sign up now, it's free!
+        .product-feature-description
+          h2 Learning by Writing
+          p Writing is essential to learning a language. All of our practice questions require students to write complete sentences.
+          a Read our mission statement
 
-.h-features.con-white
-  .container.clearfix
-    article.col-3
-      figure= image_tag 'ico-interactive.png'
-      .h-features-content
-        h2 Interactive Assessments
-        p Proofread short stories laden with grammatical errors.
+      .product-feature
+        .image= image_tag 'ico-personalized.png'
 
-    article.col-3
-      figure= image_tag 'ico-personalized.png'
-      .h-features-content
-        h2 Personalized Lessons
-        p Receive customized lessons tailored to your needs.
+        .product-feature-description
+          h2 Personalized Lessons
+          p Quill presents students with passages laden with grammar problems. Students receive personal homework assignments based on their performance.
+          a Learn more about our personalized lessons
 
-    article.col-3
-      figure= image_tag 'ico-evaluate.png'
-      .h-features-content
-        h2 Progress Evaluations
-        p Teachers assign homework & monitor students' progress.
+      .product-feature
+        .image= image_tag 'ico-engaging.png'
 
-.h-testi
-  .h-testi-inner.container.clearfix
-    .what-saying.span5
-      div
-      h2 What's new
+        .product-feature-description
+          h2 Engaging Stories
+          p We strive to inspire students by handcrafting engaging content. Our stories touch on important historical moments and captivating fictional narratives.
+          a Try Proofreading a story
 
-    .im-saying.span6
-      #homepage-news-slides.carousel.slide
+      .product-feature
+        .image= image_tag 'ico-core.png'
 
-        ol.carousel-indicators
-          - CMS::HomepageNewsSlide.all.to_a.each_with_index do |slide, i|
-            li data-target="#homepage-news-slides" data-slide-to=i class=active_on_first(i)
+        .product-feature-description
+          h2 Common Core
+          p We've translated the Common Core directives into purposeful lessons. Our lessons focus on how to use grammatical concepts in natural writing.
+          a View all of our lessons
 
-        .carousel-inner
-          - CMS::HomepageNewsSlide.all.each_with_index do |slide, i|
-            a.item href=slide.link target="_blank" class=active_on_first(i)
-              = image_tag slide.image.url
-              .text= slide.text
+      .product-feature
+        .image= image_tag 'ico-evaluate.png'
 
-  .post-ab-left
-  .post-ab-right
+        .product-feature-description
+          h2 Progress Evaluations
+          p We provide the length of each lesson and allow you to build a workbook of lessons suited for your class. You can sign up your class for free and track your students' progress.
+          a Sign Up Your Class
 
+      .product-feature
+        .image= image_tag 'ico-develop.png'
+
+        .product-feature-description
+          h2 Open Development
+          p Help us build Quill! Everyone is welcomed to contribute ideas, materials, and code. All of our content may be shared via our Creative Commons license, and our code can be re-used via our GPL license. Critical feedback is appreciated!
+          a Participate in the development process
+
+  .home-news
+    .home-news-title: h1 What's new
+
+    .home-news-slides.#homepage-news-slides.carousel.slide
+      ol.carousel-indicators
+        - CMS::HomepageNewsSlide.all.to_a.each_with_index do |slide, i|
+          li data-target="#homepage-news-slides" data-slide-to=i class=active_on_first(i)
+
+      .carousel-inner
+        - CMS::HomepageNewsSlide.all.each_with_index do |slide, i|
+          a.item href=slide.link target="_blank" class=active_on_first(i)
+            = image_tag slide.image.url
+            .text= slide.text
 
 javascript:
   mixpanel.track("homepage viewed");

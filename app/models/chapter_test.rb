@@ -111,19 +111,9 @@ protected
   end
 end
 
-module ChapterTestView
-  def story_instructions
-    (chapter.assessment.instructions || default_story_instructions) % {errors: chapter.assessment.questions.length, max: ChapterTest::MAX_QUESTIONS}
-  end
-
-  def default_story_instructions
-    'Proofread the story. There are %{errors} errors to correct. You may re-edit this essay %{max} times.'
-  end
-end
-
 class ChapterTest
   delegate :params, to: :@context
-  include ChapterFlow, ChapterTestView
+  include ChapterFlow
 
   def initialize context
     @context = context

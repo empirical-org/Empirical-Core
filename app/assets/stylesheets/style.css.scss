@@ -23,8 +23,6 @@ body#home       .sticky-footer-wrapper .sticky-footer-content > .container,
 body.auxilliary .sticky-footer-wrapper .sticky-footer-content > .container { width: auto }
 
 .h-middle { background: #cbebed image-url('h-middle-bg.png') no-repeat center 28px; }
-.h-middle-extra { background: transparent image-url('h-transparent-water.png') repeat-x left bottom; padding-top: 178px; overflow: hidden; }
-
 .h-page-top-repeat { width: 100%; background: image-url('h-top.png') repeat-x left top; }
 .h-page-left-repeat { width: 100%; background: transparent image-url('h-left.jpg') repeat-y left; }
 .h-page-right-repeat  { width: 100%; background: transparent image-url('h-right.jpg') repeat-y right; }
@@ -35,10 +33,16 @@ body.auxilliary .sticky-footer-wrapper .sticky-footer-content > .container { wid
 .h-page-content-extra h1 { font-family: 'futuracondensed_medium'; font-size: 50px; line-height: 1; text-align: center; color: #000; }
 .h-page-content-extra ul { font-family: 'droid_sansregular'; color: #3d3d3d; font-size: 16px; list-style: none; margin:0 0 30px; padding: 0;}
 .h-page-content-extra ul li  { padding: 15px 0; border-bottom: 1px solid #e4e4e4; line-height: 20px; }
-.h-page-content-extra button { display: block; border: none; height: 55px; line-height: 55px; background: image-url('h-yellow-btn-middle.png') repeat-x; padding: 0; font-weight: bold; font-size: 20px; color: #fff; margin: 0 auto; }
-.btn-y-inner { width: 430px; display: block; }
-.btn-y-left { background: image-url('h-yellow-btn-left.png') no-repeat left; display: block; padding-left: 10px; }
-.btn-y-right { background: image-url('h-yellow-btn-right.png') no-repeat right; display: block; padding-right: 10px; }
+
+.chapter-story-test .btn {
+  display: block;
+  height: 55px;
+  line-height: 55px;
+  padding: 0 100px;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0 auto;
+}
 
 .h-sub-middle {
   padding: 20px 0;
@@ -82,15 +86,6 @@ body.auxilliary .sticky-footer-wrapper .sticky-footer-content > .container { wid
 .h-features p { color: #787878; font-size: 18px; line-height: 24px; }
 .col-3 { width: 300px; float: left; display: inline; margin: 0 10px; } /* Optional for 16 column grid */
 
-.h-testi { min-height: 238px; position: relative; }
-.h-testi-inner { position: relative; z-index: 10; }
-.what-saying { background: #0f4c7a image-url('testi-arrow.jpg') no-repeat right top; height: 238px; }
-.im-saying { background: #b4e3ff; height: 238px; }
-.what-saying,
-.im-saying { margin-left: 0 !important; padding-left: 20px; }
-.what-saying > div { padding: 80px 40px 10px 0; }
-.what-saying h2 { font-size: 30px; color: #fff; line-height: 26px; font-weight: normal; }
-
 .im-saying q,
 .im-saying p { color: #252626; line-height: 26px; font-size: 16px; }
 .im-saying q { font-style: italic; }
@@ -123,11 +118,6 @@ body.auxilliary .sticky-footer-wrapper .sticky-footer-content > .container { wid
   }
 }
 
-.h-testi .post-ab-left,
-.h-testi .post-ab-right { position: absolute; top: 0; width: 50%; height: 100%; z-index: 1; }
-.h-testi .post-ab-left { background: #0f4c7a; left: 0; }
-.h-testi .post-ab-right { background: #b4e3ff; right: 0; }
-
 .non-profit { display: block; padding-bottom: 30px; }
 
 /**********************/
@@ -140,19 +130,6 @@ header { margin: 0; }
 .navbar-inner { background: none; border: none; border-radius: 0; box-shadow: none; }
 .navbar .nav > li > a:focus, .navbar .nav > li > a:hover { color: #dfdfdf; }
 .navbar a.brand { padding: 0px; }
-
-.brand {
-  width: 202px;
-  height: 61px;
-  background: image-url('quill-temp-logo.png') no-repeat;
-  display: block;
-  text-indent: -999em;
-}
-
-#m-sign-in a,
-#m-create-account a { height: 20px; line-height: 20px; padding: 0 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; font-size: 12px; color: #fff; }
-#m-sign-in  a{ background: #393939; color: #909090; }
-#m-create-account a { background: #d90053;}
 
 .page-title-wrap {}
 .page-title  { height: 75px; }

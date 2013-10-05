@@ -1,4 +1,15 @@
+module ChapterView
+  def story_instructions
+    (assessment.instructions || default_story_instructions) % {errors: assessment.questions.length, max: ChapterTest::MAX_QUESTIONS}
+  end
+
+  def default_story_instructions
+    'Proofread the story. There are %{errors} errors to correct. You may re-edit this essay %{max} times.'
+  end
+end
+
 class Chapter < ActiveRecord::Base
+  include ChapterView
   has_many :assignments
   has_one :assessment
   belongs_to :workbook

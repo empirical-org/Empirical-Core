@@ -9,7 +9,7 @@ $yellow:         #fcd000;
 $pink:           #d90053;
 $white:          #ffffff;
 $darkblue:       #0f4c7a;
-$darkgrey:       #252626;
+$darkgrey:       #32353d;
 
 $missed-color: #d54141;
 $missed-color-light: #ffeade;
@@ -28,9 +28,12 @@ $tried-color-light: #fff9d6;
 .con-darkblue       { background: $darkblue; }
 .con-darkgrey       { background: $darkgrey; }
 
-$baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-
 $header-font: "Comfortaa", cursive;
+
+$baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+$headingsFontFamily: $header-font;
+$headingsFontWeight: normal;
+
 
 @import "bootstrap_imports";
 @import "compass/typography/text/replacement";

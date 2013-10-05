@@ -10,35 +10,34 @@
   }
 }
 
-.homepage-top-instructions {
-  width: 434px;
-  padding: 10px;
-  margin-bottom: 20px;
+header {
+  background-color: $darkgrey;
 
-  .line1 {
-    font-size: 24px;
-    color: #666;
-
-    em {
-      font-weight: bold;
-      font-style: normal;
-      color: #d90053;
-    }
-  }
-
-  .line2 {
+  .navbar .nav {
     font-weight: bold;
-    color: #d90053;
-    font-size: 34px;
-    line-height: 1.6;
+    font-size: 12px;
   }
 
-  .line3 {
-    color: #d90053;
-    text-align: center;
-    background-color: white;
-    font-style: italic;
-    padding: 6px 0;
-    border: 1px solid;
+  // override bootstrap.
+  .navbar .nav > li { float: none ; display: inline-block }
+  .navbar .nav > li         > a { color: #c7c7c7 }
+  .navbar .nav > li.nav-btn > a { color: white }
+
+  .nav-btn {
+    @include border-radius(3px);
+    background-color: #464c5a;
+    padding: 2px 7px;
   }
+
+  .btn-primary {
+    background-color: $found-color;
+  }
+}
+
+.brand {
+  width: 202px;
+  height: 61px;
+  background: image-url('logo.png') 0 8px no-repeat;
+  display: block;
+  text-indent: -999em;
 }

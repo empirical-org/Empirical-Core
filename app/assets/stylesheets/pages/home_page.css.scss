@@ -2,4 +2,101 @@ body.home-page {
   .sticky-footer-content > .container {
     width: auto;
   }
+
+  .home-hero-unit {
+    position: relative;
+    background-color: #bee2ed;
+
+    .overlay {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      background-position: top center;
+    }
+
+    .content-overlay {
+      position: relative;
+      z-index: 3;
+    }
+
+    .water-overlay {
+      height: 458px;
+      background-image: image-url('home/water.png');
+      @include opacity(70);
+      z-index: 2;
+    }
+
+    .floats-overlay {
+      height: 730px;
+      background: image-url('home/floats.png');
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+  }
+
+  .home-lesson {
+    padding-top: 40px;
+  }
+
+  .home-pitch {
+    text-align: center;
+    color: white;
+    height: 350px - 80px;
+    padding-top: 80px;
+
+    h2 {
+      font-size: 45px;
+      margin-bottom: 35px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 40px;
+    }
+
+    .call-to-action .btn:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  .home-product-features {
+    background-color: white;
+
+    h2 {
+      font-size: 36px;
+      margin-bottom: 25px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    a {
+      font-size: 17px;
+      font-weight: bold;
+      color: $found-color;
+    }
+
+    .image {
+      float: left;
+      width: 300px;
+      text-align: center;
+      padding-right: 30px;
+    }
+
+    .product-feature {
+      overflow: hidden;
+      @include opacity(80);
+      margin-bottom: 80px;
+      &:first-child { margin-top: 80px }
+    }
+
+    .product-feature-description {
+      overflow: hidden;
+    }
+  }
+
+  .home-news {
+  }
 }
