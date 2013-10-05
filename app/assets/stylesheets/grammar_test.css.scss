@@ -3,15 +3,18 @@ $greenLight:     #c8ffa7;
 $purpleLight:    #d6d4ff;
 
 .grammar-test {
-  .text, .results, .lessons {
-    /*border: 1px solid #555;*/
+  .text {
+    margin-bottom: 20px;
+  }
+
+  .results, .lessons {
     padding: 20px;
     background-color: white;
     margin-bottom: 20px;
   }
 
   .title {
-    font-family: $header-font;
+    font-family: 'Courier New', Monaco, monospace;
     font-weight: bold;
     text-align: center;
     font-size: 35px;
@@ -19,7 +22,7 @@ $purpleLight:    #d6d4ff;
   }
 
   .text .chunks {
-    line-height: 1.6;
+    font-family: 'Courier New', Monaco, monospace;
     font-size: 18px;
   }
 

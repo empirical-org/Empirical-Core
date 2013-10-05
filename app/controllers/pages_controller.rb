@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @body_class = 'home-page'
-    @chapter = Chapter.first
+    @chapter = Chapter.find(ENV['HOMEPAGE_CHAPTER_ID'])
     @assessment = @chapter.assessment
   end
 

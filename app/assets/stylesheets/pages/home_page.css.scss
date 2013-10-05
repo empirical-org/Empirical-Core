@@ -1,3 +1,9 @@
+a.primary,
+.link.primary {
+  font-weight: bold;
+  color: $found-color;
+}
+
 body.home-page {
   .sticky-footer-content > .container {
     width: auto;
@@ -74,8 +80,6 @@ body.home-page {
 
     a {
       font-size: 17px;
-      font-weight: bold;
-      color: $found-color;
     }
 
     .image {
@@ -98,5 +102,47 @@ body.home-page {
   }
 
   .home-news {
+    background-color: #ebfaff;
+    border-top: 1px solid #bee2ed;
+    overflow: hidden;
+    padding: 65px 0;
+
+    .item img {
+      max-height: 195px;
+      float: left;
+      margin-right: 50px;
+    }
+
+    .item {
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .item .text {
+      color: #333;
+      margin-bottom: 1em;
+    }
+
+    .carousel-indicators {
+      right: auto;
+      top: 184px;
+    }
+  }
+
+  .home-news-title {
+    width: 330px;
+    float: left;
+    line-height: 1.1;
+
+    h2 {
+      color: #4ca1cb;
+      font-size: 60px;
+      line-height: 1.1;
+    }
+  }
+
+  .home-news-slides {
+    width: 630px;
+    float: left;
   }
 }

@@ -22,28 +22,6 @@
 body#home       .sticky-footer-wrapper .sticky-footer-content > .container,
 body.auxilliary .sticky-footer-wrapper .sticky-footer-content > .container { width: auto }
 
-.h-middle { background: #cbebed image-url('h-middle-bg.png') no-repeat center 28px; }
-.h-page-top-repeat { width: 100%; background: image-url('h-top.png') repeat-x left top; }
-.h-page-left-repeat { width: 100%; background: transparent image-url('h-left.jpg') repeat-y left; }
-.h-page-right-repeat  { width: 100%; background: transparent image-url('h-right.jpg') repeat-y right; }
-.h-left-top { width: 100%; background: transparent image-url('h-left-top.jpg') no-repeat left top; }
-.h-right-top { width: 100%; background: transparent image-url('h-right-top.jpg') no-repeat right top; }
-.h-page-extra { background: #fff; }
-.h-page-content-extra { width: 90%; padding-bottom: 20px; margin: 0 5%; padding-top: 5px; }
-.h-page-content-extra h1 { font-family: 'futuracondensed_medium'; font-size: 50px; line-height: 1; text-align: center; color: #000; }
-.h-page-content-extra ul { font-family: 'droid_sansregular'; color: #3d3d3d; font-size: 16px; list-style: none; margin:0 0 30px; padding: 0;}
-.h-page-content-extra ul li  { padding: 15px 0; border-bottom: 1px solid #e4e4e4; line-height: 20px; }
-
-.chapter-story-test .btn {
-  display: block;
-  height: 55px;
-  line-height: 55px;
-  padding: 0 100px;
-  font-weight: bold;
-  font-size: 20px;
-  margin: 0 auto;
-}
-
 .h-sub-middle {
   padding: 20px 0;
 
@@ -85,38 +63,6 @@ body.auxilliary .sticky-footer-wrapper .sticky-footer-content > .container { wid
 .h-features h2 { font-weight: bold; color: #0b4d7b; font-size: 30px; line-height: 36px; }
 .h-features p { color: #787878; font-size: 18px; line-height: 24px; }
 .col-3 { width: 300px; float: left; display: inline; margin: 0 10px; } /* Optional for 16 column grid */
-
-.im-saying q,
-.im-saying p { color: #252626; line-height: 26px; font-size: 16px; }
-.im-saying q { font-style: italic; }
-
-.im-saying {
-  .item img {
-    max-height: 195px;
-    float: left;
-    margin-right: 20px;
-  }
-
-  .item {
-    overflow: hidden;
-    text-decoration: none;
-  }
-
-  .item .text {
-    font-size: 30px;
-    color: #333;
-  }
-
-  .carousel {
-    padding-top: 20px;
-    // margin-bottom: 20px;
-  }
-
-  .carousel-indicators {
-    right: auto;
-    top: 221px;
-  }
-}
 
 .non-profit { display: block; padding-bottom: 30px; }
 

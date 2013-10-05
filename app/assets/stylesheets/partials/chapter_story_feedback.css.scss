@@ -1,16 +1,17 @@
 .chapter-story-feedback {
-  width: 465px;
-  margin: auto;
   line-height: 1.3;
   @include bold;
 
   .story-feedback-title {
     font-size: 37px;
     text-align: center;
+    margin: 20px 0;
   }
 
   .story-feedback-section {
     margin-top: 20px;
+    width: 465px;
+    margin: auto;
     &.missed     .story-feedback-section-title { background-color: $missed-color; }
     &.missed     .result-highligted-word       { background-color: $missed-color-light; }
     &.found      .story-feedback-section-title { background-color: $found-color; }
@@ -55,5 +56,6 @@
     width: 360px;
     display: block;
     margin: 20px auto 0 auto;
+    &:active { margin-top: 23px }
   }
 }

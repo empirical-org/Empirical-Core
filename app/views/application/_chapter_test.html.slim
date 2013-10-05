@@ -1,14 +1,10 @@
-.h-page-top-repeat
-	.h-left-top
-		.h-right-top style="padding-top: 20px;"
-
-.h-page-extra.chapter-story-test
-	.h-page-left-repeat
-		.h-page-right-repeat
-			.h-page-content-extra
-				.grammar-test data-story-path=chapter_story_path(@chapter)
-					.title= @chapter.article_header
-					.text
-					button.show-results.btn.btn-primary Check Answers
-					.grammar-test-results
-					= render partial: 'chapter_test_javascript'
+.chapter-story-test.grammar-test data-story-path=chapter_story_path(@chapter)
+  .title= @chapter.article_header
+  .lines-container
+    .text
+    .lines
+      - 100.times do
+        .line
+  button.show-results.btn.btn-primary Check Answers
+  .grammar-test-results
+  = render partial: 'chapter_test_javascript'
