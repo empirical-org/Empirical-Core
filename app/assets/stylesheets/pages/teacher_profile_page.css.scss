@@ -14,7 +14,7 @@ table.classroom-students-grades {
   width: auto;
 
   td, th {
-    border: 5px solid transparent;
+    border: 10px solid transparent;
     border-collapse: collapse;
   }
 
@@ -24,8 +24,8 @@ table.classroom-students-grades {
 
   .score-color {
     background-color: #ccc;
-    width: 30px;
-    height: 30px;
+    width: 29px;
+    height: 29px;
     &.red { background-color: $missed-color }
     &.yellow { background-color: $tried-color }
     &.green { background-color: $found-color }
