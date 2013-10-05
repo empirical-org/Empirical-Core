@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   before_filter :resolve_layout
 
   def home
-    @body_id = 'home'
+    @body_class = 'home-page'
     @chapter = Chapter.first
     @assessment = @chapter.assessment
   end
