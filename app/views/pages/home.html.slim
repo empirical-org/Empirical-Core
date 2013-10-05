@@ -2,7 +2,7 @@ article.home-content
   .home-hero-unit
     .content-overlay
       .home-lesson: .container
-        .story-instructions= @chapter.story_instructions
+        .story-instructions= markdown @chapter.story_instructions
         = render partial: 'chapter_test', object: @chapter
 
       .home-pitch
