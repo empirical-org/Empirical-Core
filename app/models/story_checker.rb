@@ -9,7 +9,7 @@ class StoryChecker < Score
 
   def chunks
     return @chunks if defined? @chunks
-    check_input! story_step_input
+    check_input! story_step_input, false
     @chunks
   end
 
@@ -45,7 +45,6 @@ class StoryChecker < Score
 
   class Section
     attr_reader :checker, :section
-    delegate :chunks, to: :checker
 
     def initialize checker, section
       @checker = checker
@@ -53,8 +52,9 @@ class StoryChecker < Score
     end
 
     def results
-      chunks.select { |c| c.state == section }
+      checker.chunks.select { |c| c.state == section }
     end
+    alias :chunks :results
 
     def title
       "#{results.count} #{title_word} #{'Problem'.pluralize(results.count)}"
