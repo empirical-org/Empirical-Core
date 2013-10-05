@@ -23,6 +23,10 @@ header {
   .navbar .nav > li         > a { color: #c7c7c7 }
   .navbar .nav > li.nav-btn > a { color: white }
 
+  .nav a {
+    background: transparent !important; // TODO
+  }
+
   .nav-btn {
     @include border-radius(3px);
     background-color: #464c5a;
@@ -35,7 +39,7 @@ header {
 }
 
 .brand {
-  width: 202px;
+  width: 133px;
   height: 61px;
   background: image-url('logo.png') 0 8px no-repeat;
   display: block;
