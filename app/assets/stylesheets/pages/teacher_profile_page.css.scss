@@ -28,7 +28,7 @@ table.classroom-students-grades {
     height: 30px;
     &.red { background-color: $missed-color }
     &.yellow { background-color: $tried-color }
-    &.green { background-color: $foud-color}
+    &.green { background-color: $found-color }
   }
 }
 
