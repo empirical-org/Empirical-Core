@@ -10,6 +10,28 @@
   }
 }
 
+table.classroom-students-grades {
+  width: auto;
+
+  td, th {
+    border: 5px solid transparent;
+    border-collapse: collapse;
+  }
+
+  .student-header {
+    text-align: left;
+  }
+
+  .score-color {
+    background-color: #ccc;
+    width: 30px;
+    height: 30px;
+    &.red { background-color: $missed-color }
+    &.yellow { background-color: $tried-color }
+    &.green { background-color: $foud-color}
+  }
+}
+
 article.teacher-profile-page {
   .classroom-code-box {
     font-size: 30px;

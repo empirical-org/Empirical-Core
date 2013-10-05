@@ -2,7 +2,7 @@ module ScoreState
   extend ActiveSupport::Concern
 
   included do
-    default_scope where('state != \'trashed\'')
+    default_scope where('scores.state != \'trashed\'')
     delegate :unstarted?, :started?, :practice?, :story?, :review?, :finished?, to: :state
   end
 
@@ -15,7 +15,7 @@ module ScoreState
   end
 
   def finalize!
-    self.score_values = ScoreFinalizer.new(self).results
+    # self.score_values = ScoreFinalizer.new(self).results
     self.completion_date ||= Time.now
     update_column :state, 'finished'
     save!
@@ -55,23 +55,42 @@ class Score < ActiveRecord::Base
 
   belongs_to :classroom_chapter
   belongs_to :user
-  has_one :chapter, through: :classroom_chapter
+  has_one :chapter,   through: :classroom_chapter
   has_many :inputs, class_name: 'RuleQuestionInput'
 
-  serialize :practice_step_input, Hash
-  serialize    :story_step_input, Array
-  serialize   :review_step_input, Hash
+  serialize :story_step_input, Array
   serialize :missed_rules, Array
-  serialize :score_values, Hash
+  # serialize :score_values, Hash
+
+  def classroom
+    classroom_chapter.classroom
+  end
 
   def missed_rules
+    calculate_missed_rules if !super.any? && !new_record?
     super.uniq.map{ |id| Rule.find(id) }
   end
 
-  def final_grade
-    return 0.0 unless score_values[:story_percentage].present? && score_values[:review_percentage].present?
-    result = (score_values[:story_percentage] + score_values[:review_percentage]).to_f / 2
-    return 0.0 if result.nan?
-    result
+  def grade_name
+    return '' unless completed?
+    case grade
+    when 0.75..1.0
+      'green'
+    when 0.5..0.75
+      'yellow'
+    when 0.0..0.5
+      'red'
+    end
+
+  end
+
+  def grade
+    @grade ||= inputs.map(&:score).inject(:+) / inputs.count
+  end
+
+private
+
+  def calculate_missed_rules
+    self.missed_rules = StoryChecker.find(id).section(:missed).chunks.map { |c| c.rule.id }
   end
 end

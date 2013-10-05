@@ -19,8 +19,17 @@ article.teacher-profile-page.simple-rounded-box
   .teacher-students.l-section
     h3 Students
 
-    - @classroom.students.order(:name).each do |student|
-      tr: td= student.name
+    table.table.classroom-students-grades
+      thead
+        th.student-header Students
+        - @classroom.chapters.each do |chapter|
+          th= chapter.title[0..4]
+      tbody
+        - @classroom.students.order(:name).each do |student|
+          tr
+            td= student.name
+            - @classroom.chapters.each do |chapter|
+              td: .score-color class=student.scores.for_chapter(chapter).try(:grade_name)
 
   .teacher-assigned-chapters.table-stripe.l-section
     h3 Assigned Lessons

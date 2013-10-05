@@ -4,7 +4,6 @@ class StoryChecker < Score
   def check_input! input, saving = true
     self.story_step_input = input
     @chunks = input.map { |c| Chunk.new(chapter, c) }.each(&:grade!)
-    self.missed_rules = chunks.select { |c| c.state == :missed }.map { |c| c.rule.id }
     save! if saving
   end
 
