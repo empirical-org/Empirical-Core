@@ -143,7 +143,7 @@ class ChapterTest
     elsif params[:action] == "final"
       :final
     else
-      raise "unknown step."
+      raise 'unknown step.'
     end
   end
 
@@ -170,7 +170,7 @@ class ChapterTest
   def diagnostics
     {
       rule_count: current_step.rules.length,
-      question: current_step.rules.map { |r| r.rule.questions.length },
+      rule_question_counts: current_step.rules.map { |r| r.rule.questions.count },
       step: current_step_symbol,
       state: score.state
     }

@@ -45,7 +45,6 @@ module FinalChapterView
   end
 end
 
-
 class RuleQuestionInput < ActiveRecord::Base
   include FinalChapterView
   belongs_to :rule_question
