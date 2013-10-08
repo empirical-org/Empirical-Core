@@ -4,7 +4,9 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
   $actions = $$('.chapter-test-question-actions');
 
   $form.find('.question-field textarea').focus();
-
+  $form.find('.question-field textarea').bind("paste", function(e) {  
+    e.preventDefault();  
+  });
 
   function bypass () {
     $form.data('bypass', true);
