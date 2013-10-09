@@ -3,3 +3,4 @@
 - Add tests
 - Centralize authorization ?
 - Remove coffeescript / convert to javascript
+- Get site functioning on jruby
