@@ -6,11 +6,11 @@ article.home-content
         = render partial: 'chapter_test', object: @chapter
 
       .home-pitch
-        h2 Quill provides free interactive grammar lessons.
+        h2 Quill provides interactive grammar lessons.
         .subtitle Learn English grammar by writing sentences and proofreading passages.
         .call-to-action
-          .btn.btn-primary href='new_account_path'(as: 'student') I'm a Student
-          .btn.btn-primary href='new_account_path'(as: 'teacher') I'm a Teacher
+          .btn.btn-primary href=new_account_path(as: 'student') I'm a Student
+          .btn.btn-primary href=new_account_path(as: 'teacher') I'm a Teacher
 
     .floats-overlay.overlay
     .water-overlay.overlay
