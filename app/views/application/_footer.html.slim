@@ -19,10 +19,10 @@ footer.con-darkgrey
     mixpanel.identify("#{current_user.id}");
 
     mixpanel.people.set({
-      "$email": "#{current_user.email}",
+      "$email":   "#{current_user.email}",
       "$created": "#{current_user.created_at}",
-      "$name": "#{current_user.name}",
-      "role": "#{current_user.role}"
+      "$name":    "#{current_user.name}",
+      "role":     "#{current_user.role}"
     });
 
 - if flash[:mixpanel].present?
