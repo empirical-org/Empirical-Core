@@ -42,4 +42,4 @@ javascript:
     } else {
       makeOptional($form.find('.field.email'));
     }
-  }).first().click();
+  }).filter(':checked').click();
