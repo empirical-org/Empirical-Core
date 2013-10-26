@@ -1,6 +1,7 @@
 class Chapter::PracticeController < Chapter::BaseController
-  before_filter :find_rule,       except: ['verify', 'verify_status']
-  before_filter :update_progress, except: ['verify', 'verify_status', 'index']
+  before_filter :find_rule,          except: ['cheat', 'verify', 'verify_status']
+  before_filter :update_progress,    except: ['cheat', 'verify', 'verify_status', 'index']
+  skip_before_filter :find_assignment, only: ['cheat', 'verify', 'verify_status']
   prepend_before_filter :clean_step_param
   rescue_from(FlowError) { display_flow_error_message }
 
@@ -34,6 +35,11 @@ class Chapter::PracticeController < Chapter::BaseController
     @score = Score.find(params[:score_id])
     input = @score.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
     render json: input.as_json(methods: [:first_grade, :second_grade])
+  end
+
+  def cheat
+    @score = Score.find(params[:score_id])
+    render json: { answer: RuleQuestion.find(params[:lesson_input].first.first).answers.first }
   end
 
 protected

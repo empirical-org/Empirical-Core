@@ -10,7 +10,8 @@ end
 
 class Chapter < ActiveRecord::Base
   include ChapterView
-  has_many :assignments
+  has_many :classroom_chapters
+  has_many :scores, through: :classroom_chapters
   has_one :assessment
   belongs_to :workbook
   validates :title, presence: true

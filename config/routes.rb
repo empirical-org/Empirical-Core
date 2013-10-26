@@ -10,6 +10,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :review, controller: 'practice', step: 'review', controller: 'chapter/practice' do
       get ':question_index' => :show
+      get ':question_index/cheat' => :cheat
     end
 
     resource :story, controller: 'chapter/stories'
@@ -44,6 +45,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
+  patch 'cheat'           => 'chapter/practice#cheat'
   get 'users/activate_email/:token', as: 'activate_email', to: 'users#activate_email'
   root to: 'pages#home'
 end
