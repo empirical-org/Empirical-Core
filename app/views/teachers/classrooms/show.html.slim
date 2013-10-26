@@ -1,10 +1,9 @@
 article.teacher-profile-page.simple-rounded-box
   .l-section
-    h2= "#{current_user.name}, welcome to Quill!"
+    h2 #{current_user.name}, welcome to Quill!
 
   .profile-classroom-form.l-section
     = render 'form'
-
     h3 Your classes
 
     .teacher-classroom-nav
@@ -12,7 +11,7 @@ article.teacher-profile-page.simple-rounded-box
         a.btn.btn-primary href=teachers_classroom_path(classroom) = classroom.name
 
   .teacher-classroom-code.l-section
-    h3= "My #{@classroom.name} class code"
+    h3 My #{@classroom.name} class code
     .classroom-code-box= @classroom.code
     p.explanation: em Have your students enter "#{@classroom.code}" into their profile to join your class.
 

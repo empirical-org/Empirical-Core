@@ -9,8 +9,16 @@ article.student-profile-page.simple-rounded-box
       = form_for current_user, url: profile_path do |f|
         = f.text_field :classcode, class: 'big-input'
         = f.submit 'Join', class: 'btn btn-primary'
+
         p.explanation: em
           | Enter your class code, such as "Blue-Cow", to join your class.
+
+    .l-section
+      h3 Preview Lessons
+      p Join a class to track your pogress.
+
+      .table-stripe
+        = render partial: 'teachers/classrooms/chapter', collection: Chapter.all
 
   - else
     .l-section
