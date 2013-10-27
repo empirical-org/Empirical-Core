@@ -110,6 +110,7 @@ protected
   end
 
   def next_rule
+    return if params[:step].blank?
     step(params[:step].to_sym).next_rule
   end
 end

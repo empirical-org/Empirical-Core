@@ -28,7 +28,7 @@ module Student
 
     has_many :scores, dependent: :destroy do
       def for_chapter chapter
-        includes(:classroom_chapter).where(classroom_chapters: { chapter_id: chapter.id }).first
+        includes(:classroom_chapter).where(classroom_chapters: { chapter_id: chapter.id }).last
       end
     end
   end

@@ -21,7 +21,8 @@ class Chapter::StartController < Chapter::BaseController
   end
 
   def retry
-    redirect_to chapter_practice_index_path(@chapter)
+    @score = ClassroomChapter.create_score(@chapter, user: @user)
+    redirect_to @chapter_test.next_page_url
   end
 
   def resume
