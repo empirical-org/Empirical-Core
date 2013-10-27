@@ -17,6 +17,7 @@ EmpiricalGrammar::Application.routes.draw do
     get :final
     get :start
     get :resume
+    get :retry
   end
 
   namespace :teachers do

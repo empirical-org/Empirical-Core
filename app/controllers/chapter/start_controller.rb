@@ -20,6 +20,10 @@ class Chapter::StartController < Chapter::BaseController
     redirect_to chapter_practice_index_path(@chapter)
   end
 
+  def retry
+    redirect_to chapter_practice_index_path(@chapter)
+  end
+
   def resume
     redirect_to @chapter_test.next_page_url
   end

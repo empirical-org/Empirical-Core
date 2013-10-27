@@ -7,23 +7,24 @@ module Student
     has_many :assigned_chapters, through: :classroom, source: :chapters
     has_many :started_chapters, through: :scores, source: :chapter
 
-    def completed_chapters classroom
-      classroom_chapter_score_join(classroom).where('scores.completion_date is null')
+    def finished_chapters classroom
+      classroom.chapters - unfinished_chapters(classroom)
     end
 
     def unfinished_chapters classroom
-      classroom.chapters - completed_chapters(classroom)
+      classroom_chapter_score_join(classroom).where('scores.completion_date is null')
     end
 
     def classroom_chapter_score_join classroom
       started_chapters.where(classroom_chapters: { classroom_id: classroom.id })
     end
+    protected :classroom_chapter_score_join
 
-    has_many :finished_chapters, -> { where('scores.state' => 'finished') }, through: :scores, source: :chapter do
-      def for_classroom classroom
-        includes(:classroom_chapters).where(classroom_chapters: { classroom_id: classroom.id }).first
-      end
-    end
+    # has_many :finished_chapters, -> { where('scores.state' => 'finished') }, through: :scores, source: :chapter do
+    #   def for_classroom classroom
+    #     includes(:classroom_chapters).where(classroom_chapters: { classroom_id: classroom.id }).first
+    #   end
+    # end
 
     has_many :scores, dependent: :destroy do
       def for_chapter chapter

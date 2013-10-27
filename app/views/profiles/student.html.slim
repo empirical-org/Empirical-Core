@@ -46,4 +46,4 @@ article.student-profile-page.simple-rounded-box
       h3 Completed Assignments
 
       .table-stripe
-        = render partial: 'teachers/classrooms/chapter', collection: current_user.completed_chapters(@classroom), locals: { completed: true }
+        = render partial: 'teachers/classrooms/chapter', collection: current_user.finished_chapters(@classroom), locals: { completed: true }

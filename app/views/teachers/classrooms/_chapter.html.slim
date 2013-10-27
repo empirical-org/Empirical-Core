@@ -19,7 +19,7 @@
 
         .chapter-actions
           - if completed
-            = link_to 'Retry Lesson', chapter_path(chapter)
+            = link_to 'Retry Lesson', chapter_retry_path(chapter)
           - else
             = link_to 'Start Lesson', chapter_path(chapter)
 
