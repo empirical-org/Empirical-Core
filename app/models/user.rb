@@ -30,8 +30,6 @@ class User < ActiveRecord::Base
   end
 
   def after_initialize!
-    self.confirmable_set_at = Time.now
-
     if save
       UserMailer.welcome_email(self).deliver! if email.present?
       true
