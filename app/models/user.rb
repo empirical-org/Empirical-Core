@@ -69,5 +69,7 @@ class User < ActiveRecord::Base
     !role.temporary?
   end
 
+  def refresh_token!
+    update_attributes token: SecureRandom.urlsafe_base64
   end
 end

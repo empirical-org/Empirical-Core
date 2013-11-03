@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130926203005) do
+ActiveRecord::Schema.define(version: 20131103061122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(version: 20130926203005) do
     t.string   "classcode"
     t.boolean  "active",          default: false
     t.string   "username"
+    t.string   "token"
   end
 
   create_table "workbooks", force: true do |t|

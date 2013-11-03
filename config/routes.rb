@@ -2,6 +2,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assessments
   resources :assignments
   resource :profile
+  resources :password_reset
 
   resources :chapters, controller: 'chapter/start' do
     resources :practice, step: 'practice', controller: 'chapter/practice' do

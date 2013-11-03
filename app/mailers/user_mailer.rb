@@ -5,4 +5,9 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail to: user.email, subject: 'Welcome to Quill!'
   end
+
+  def password_reset_email user
+    @user = user
+    mail to: user.email, subject: 'Reset your Quill password'
+  end
 end
