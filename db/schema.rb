@@ -182,13 +182,11 @@ ActiveRecord::Schema.define(version: 20130926203005) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.string   "role",                   default: "user"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.string   "role",            default: "user"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "classcode"
-    t.string   "email_activation_token"
-    t.boolean  "active",                 default: false
-    t.datetime "confirmable_set_at"
+    t.boolean  "active",          default: false
     t.string   "username"
   end
 
