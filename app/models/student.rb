@@ -7,12 +7,12 @@ module Student
     has_many :assigned_chapters, through: :classroom, source: :chapters
     has_many :started_chapters, through: :scores, source: :chapter
 
-    def finished_chapters classroom
-      classroom.chapters - unfinished_chapters(classroom)
+    def unfinished_chapters classroom
+      classroom.chapters - finished_chapters(classroom)
     end
 
-    def unfinished_chapters classroom
-      classroom_chapter_score_join(classroom).where('scores.completion_date is null')
+    def finished_chapters classroom
+      classroom_chapter_score_join(classroom).where('scores.completion_date is not null')
     end
 
     def classroom_chapter_score_join classroom
