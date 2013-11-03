@@ -126,6 +126,7 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.8)
+    newrelic_rpm (3.6.6.147)
     nokogiri (1.5.9)
     parslet (1.5.0)
       blankslate (~> 2.0)
@@ -249,6 +250,7 @@ DEPENDENCIES
   kaminari
   kramdown
   minitest-rails
+  newrelic_rpm
   parslet
   pg
   pry

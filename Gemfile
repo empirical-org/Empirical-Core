@@ -31,6 +31,7 @@ gem 'pry'
 gem 'sentry-raven'
 gem 'slim-rails'
 gem 'taps'
+gem 'newrelic_rpm', group: :production
 
 group :test do
   gem 'minitest-rails'
