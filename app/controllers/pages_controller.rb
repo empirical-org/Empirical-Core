@@ -19,6 +19,10 @@ class PagesController < ApplicationController
     @body_class = 'auxilliary white-page'
   end
 
+  def faq
+    @body_class = 'auxlliary white-page'
+  end
+
   private
 
   def resolve_layout
