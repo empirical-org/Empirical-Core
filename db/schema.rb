@@ -13,24 +13,27 @@
 
 ActiveRecord::Schema.define(version: 20131103061122) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "assessments", force: true do |t|
     t.text     "body"
     t.integer  "chapter_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.text     "instructions"
   end
 
   create_table "categories", force: true do |t|
     t.text     "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "chapters", force: true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "workbook_id"
     t.text     "article_header"
     t.text     "rule_position"
@@ -42,8 +45,8 @@ ActiveRecord::Schema.define(version: 20131103061122) do
     t.string   "classcode"
     t.integer  "chapter_id"
     t.datetime "due_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.boolean  "temporary",    default: false, null: false
     t.integer  "classroom_id"
   end
@@ -56,27 +59,40 @@ ActiveRecord::Schema.define(version: 20131103061122) do
     t.datetime "updated_at"
   end
 
+  create_table "comments", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "user_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "ancestry"
+    t.string   "reply_type"
+    t.integer  "lecture_chapter_id"
+  end
+
+  add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
+
   create_table "file_uploads", force: true do |t|
     t.string   "name"
     t.string   "file"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "grammar_rules", force: true do |t|
     t.string   "identifier"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.text     "practice_lesson"
     t.integer  "author_id"
   end
 
   create_table "grammar_tests", force: true do |t|
     t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "homepage_news_slides", force: true do |t|
@@ -93,8 +109,8 @@ ActiveRecord::Schema.define(version: 20131103061122) do
     t.string   "name"
     t.string   "description"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "rule_examples", force: true do |t|
@@ -118,8 +134,8 @@ ActiveRecord::Schema.define(version: 20131103061122) do
 
   create_table "rule_questions", force: true do |t|
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "rule_id"
     t.text     "prompt"
     t.text     "instructions"
@@ -128,12 +144,22 @@ ActiveRecord::Schema.define(version: 20131103061122) do
 
   create_table "rules", force: true do |t|
     t.text     "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "category_id"
     t.integer  "workbook_id",    default: 1
     t.text     "description"
     t.string   "classification"
+  end
+
+  create_table "rules_misseds", force: true do |t|
+    t.integer  "rule_id"
+    t.integer  "user_id"
+    t.integer  "assessment_id"
+    t.datetime "time_take"
+    t.boolean  "missed"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "scores", force: true do |t|
@@ -142,8 +168,8 @@ ActiveRecord::Schema.define(version: 20131103061122) do
     t.datetime "completion_date"
     t.integer  "items_missed"
     t.integer  "lessons_completed"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.text     "practice_step_input"
     t.text     "review_step_input"
     t.text     "missed_rules"
@@ -167,8 +193,8 @@ ActiveRecord::Schema.define(version: 20131103061122) do
 
   create_table "workbooks", force: true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
