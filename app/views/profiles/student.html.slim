@@ -2,23 +2,48 @@ article.student-profile-page.simple-rounded-box
   .l-section
     h2 #{current_user.name}, Welcome to Quill!
 
-  - if current_user.classroom.blank?
+  - if @classroom.blank?
     .l-section.profile-classroom-form
       h3 Join my class
 
       = form_for current_user, url: profile_path do |f|
         = f.text_field :classcode, class: 'big-input'
         = f.submit 'Join', class: 'btn btn-primary'
+
         p.explanation: em
           | Enter your class code, such as "Blue-Cow", to join your class.
+
+    .l-section
+      h3 Preview Lessons
+      p Join a class to track your pogress.
+
+      .table-stripe
+        = render partial: 'teachers/classrooms/chapter', collection: Chapter.all
 
   - else
     .l-section
       h3 My Progress
-      p Class: #{current_user.classroom.name}. Teacher: #{current_user.teacher.name}.
+      p Class: #{@classroom.name}. Teacher: #{current_user.teacher.name}.
+
+      table.table.classroom-students-grades
+        thead
+          - @classroom.chapters.each do |chapter|
+            th= chapter.title[0..4]
+        tbody
+          tr
+            - @classroom.classroom_chapters.each do |classroom_chapter|
+              td
+                .due-date= classroom_chapter.due_date.strftime('%m/%d')
+                .score-color class=current_user.scores.for_chapter(classroom_chapter.chapter).try(:grade_name)
 
     .l-section
       h3 My Assignments
 
       .table-stripe
-        = render partial: 'teachers/classrooms/chapter', collection: current_user.classroom.chapters
+        = render partial: 'teachers/classrooms/chapter', collection: current_user.unfinished_chapters(@classroom)
+
+    .l-section
+      h3 Completed Assignments
+
+      .table-stripe
+        = render partial: 'teachers/classrooms/chapter', collection: current_user.finished_chapters(@classroom), locals: { completed: true }

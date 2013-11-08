@@ -2,6 +2,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assessments
   resources :assignments
   resource :profile
+  resources :password_reset
 
   resources :chapters, controller: 'chapter/start' do
     resources :practice, step: 'practice', controller: 'chapter/practice' do
@@ -10,12 +11,14 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :review, controller: 'practice', step: 'review', controller: 'chapter/practice' do
       get ':question_index' => :show
+      get ':question_index/cheat' => :cheat
     end
 
     resource :story, controller: 'chapter/stories'
     get :final
     get :start
     get :resume
+    get :retry
   end
 
   namespace :teachers do
@@ -44,6 +47,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
-  get 'users/activate_email/:token', as: 'activate_email', to: 'users#activate_email'
+  patch 'cheat'           => 'chapter/practice#cheat'
+
   root to: 'pages#home'
 end

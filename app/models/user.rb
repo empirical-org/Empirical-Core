@@ -30,10 +30,6 @@ class User < ActiveRecord::Base
   end
 
   def after_initialize!
-    # GENERATE EMAIL AUTH TOKEN and EXPIRATION DATE
-    self.email_activation_token = SecureRandom.hex
-    self.confirmable_set_at = Time.now
-
     if save
       UserMailer.welcome_email(self).deliver! if email.present?
       true
@@ -71,9 +67,7 @@ class User < ActiveRecord::Base
     !role.temporary?
   end
 
-  def activate!
-    # CALLED BY UsersController#activate_email after user clicks email link
-    self.email_activation_token = nil
-    save
+  def refresh_token!
+    update_attributes token: SecureRandom.urlsafe_base64
   end
 end

@@ -26,7 +26,7 @@
     chapterAssessment.chunks.add(<%= chunk.as_json.merge(id: i).to_json.gsub("\\u003C","<").gsub("\\u003E",">").html_safe %>);
   <% end %>
 
-  var assessmentView = new PG.Views.ChapterAssessment({
+  window.ChapterAssessment = new PG.Views.ChapterAssessment({
     assessment: chapterAssessments.first(),
     rules: chapterRules,
     lessons: chapterLessons,

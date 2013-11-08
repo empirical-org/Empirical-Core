@@ -4,8 +4,8 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
   $actions = $$('.chapter-test-question-actions');
 
   $form.find('.question-field textarea').focus();
-  $form.find('.question-field textarea').bind("paste", function(e) {  
-    e.preventDefault();  
+  $form.find('.question-field textarea').bind("paste", function(e) {
+    e.preventDefault();
   });
 
   function bypass () {
@@ -55,6 +55,20 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
 
     e.preventDefault();
   }
+
+  function cheat () {
+    $.post('/cheat', $form.serialize())
+      .success(function (data) {
+        $$('.question-field :input').val(data.answer);
+        $$('.chapter-test-question-actions .btn:first').click();
+
+        setTimeout(function () {
+          $$('.chapter-test-question-actions .btn:first').click();
+        }, 500);
+      });
+  }
+
+  window.Cheater = cheat;
 
   $.get('/verify_question', $form.serialize()).success(verify);
   $page.on('click', '.btn.next', checkAnswer);

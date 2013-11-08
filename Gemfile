@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4'
 gem 'pg',                        platforms: :ruby
 gem 'activerecord-jdbc-adapter', platforms: :jruby
-gem 'rails_12factor', group: :production
+gem 'rails_12factor', group: [:production, :staging]
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails'
@@ -31,6 +31,7 @@ gem 'pry'
 gem 'sentry-raven'
 gem 'slim-rails'
 gem 'taps'
+gem 'newrelic_rpm', group: :production
 
 group :test do
   gem 'minitest-rails'

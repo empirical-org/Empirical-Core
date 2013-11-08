@@ -1,0 +1,17 @@
+- if flash[:success]
+  form: .form-success-message: .col-lg-4= flash[:success]
+- else
+  = form_for @user, url: password_reset_index_path, remote: true, html: { class: 'js-password-reset-form' } do |f|
+    .form-error-message: .col-lg-4= flash[:error]
+    = f.email :email
+    .col-lg-4= f.submit 'Reset your password', class: 'button btn btn-primary btn-lg btn-block sign-btn'
+
+  javascript:
+    $('.js-password-reset-form').on({
+      'ajax:error': function (e, xhr, status) {
+        $('.js-password-reset-form').replaceWith(xhr.responseText);
+      },
+      'ajax:success': function (e, data, status, xhr) {
+        $('.js-password-reset-form').replaceWith(xhr.responseText);
+      }
+    });

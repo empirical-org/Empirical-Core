@@ -85,6 +85,7 @@ class Score < ActiveRecord::Base
   end
 
   def grade
+    return 1.0 if inputs.count == 0
     @grade ||= inputs.map(&:score).inject(:+) / inputs.count
   end
 
