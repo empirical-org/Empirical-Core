@@ -33,6 +33,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :rule_questions
     resources :chapters
     resources :rules
+    resources :chapter_levels
 
     resources :users do
       member do

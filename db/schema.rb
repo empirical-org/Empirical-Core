@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110002323) do
+ActiveRecord::Schema.define(version: 20131110031852) do
 
   create_table "assessments", force: true do |t|
     t.text     "body"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 20131110002323) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "chapter_levels", force: true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "chapters", force: true do |t|
     t.string   "title"
     t.datetime "created_at",           null: false
@@ -36,7 +43,10 @@ ActiveRecord::Schema.define(version: 20131110002323) do
     t.text     "rule_position"
     t.text     "description"
     t.text     "practice_description"
+    t.integer  "chapter_level_id"
   end
+
+  add_index "chapters", ["chapter_level_id"], name: "index_chapters_on_chapter_level_id", using: :btree
 
   create_table "classroom_chapters", force: true do |t|
     t.string   "classcode"
