@@ -21,19 +21,21 @@ article.teacher-profile-page.simple-rounded-box
     table.table.classroom-students-grades
       thead
         th.student-header Students
-        - @classroom.chapters.each do |chapter|
+
+        - @classroom_chapters.each do |chapter|
           th= chapter.title[0..4]
+
       tbody
-        - @classroom.students.order(:name).each do |student|
+        - @classroom_students.each do |student|
           tr
             td= student.name
-            - @classroom.chapters.each do |chapter|
-              td: .score-color class=student.scores.for_chapter(chapter).try(:grade_name)
+            - @classroom_chapters.each do |chapter|
+              td: .score-color class=@score_table[student.id].try(:[], chapter.id).try(:grade_name)
 
   .teacher-assigned-chapters.table-stripe.l-section
     h3 Assigned Lessons
-    = render partial: 'chapter', collection: @classroom.chapters
+    = render partial: 'chapter', collection: @classroom_chapters
 
   .teacher.unassigned-chapters.table-stripe.l-section
     h3 Unassigned Lessons
-    = render partial: 'chapter', collection: (Chapter.all - @classroom.chapters)
+    = render partial: 'chapter', collection: (Chapter.all - @classroom_chapters)

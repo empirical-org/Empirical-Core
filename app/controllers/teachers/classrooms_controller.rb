@@ -9,6 +9,15 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def show
+    @classroom_chapters = @classroom.chapters
+    @classroom_students = @classroom.students.order(:name)
+
+    @score_table = Score.joins(:classroom_chapter).where(classroom_chapters: { classroom_id: @classroom.id }).inject({}) do |table, score|
+      table[score.user_id] ||= {}
+      table[score.user_id][score.classroom_chapter.chapter_id] = score
+
+      table
+    end
   end
 
   def create

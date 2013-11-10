@@ -85,8 +85,10 @@ class Score < ActiveRecord::Base
   end
 
   def grade
+    return self[:grade] unless self[:grade].nil?
     return 1.0 if inputs.count == 0
-    @grade ||= inputs.map(&:score).inject(:+) / inputs.count
+    update_column :grade, inputs.map(&:score).inject(:+) / inputs.count
+    self[:grade]
   end
 
 private

@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103061122) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20131110002323) do
 
   create_table "assessments", force: true do |t|
     t.text     "body"
@@ -176,6 +173,7 @@ ActiveRecord::Schema.define(version: 20131103061122) do
     t.text     "score_values"
     t.string   "state",                default: "unstarted", null: false
     t.text     "story_step_input"
+    t.float    "grade"
   end
 
   create_table "users", force: true do |t|
