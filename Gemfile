@@ -32,6 +32,7 @@ gem 'sentry-raven'
 gem 'slim-rails'
 gem 'taps'
 gem 'newrelic_rpm', group: :production
+gem 'unicorn'
 
 group :test do
   gem 'minitest-rails'
