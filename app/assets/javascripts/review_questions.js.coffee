@@ -26,4 +26,3 @@ class ReviewQuestion extends Backbone.View
 jQuery ($) ->
   if (reviewQuestions = $('.review-question')).length > 0
     new ReviewQuestion({el}) for el in reviewQuestions
-

@@ -1,10 +1,5 @@
-article.simple-rounded-box
-  table.table
-    tr
-      th= "Admin Console"
-    tr
-      td= link_to 'Chapter Manager', cms_chapters_path
-    tr
-      td= link_to 'Rules Manager', cms_rules_path
-    tr
-      td= link_to 'User Manager', cms_users_path
+article.simple-rounded-box: table.table
+  thead: th Admin Console
+  tr: td= link_to 'Chapter Manager', cms_chapters_path
+  tr: td= link_to 'Rules Manager', cms_rules_path
+  tr: td= link_to 'User Manager', cms_users_path
