@@ -192,7 +192,7 @@ class ChapterTest
     end
 
     def current_step?
-      current_step == self
+      current_step.step == step
     end
 
     def rules
