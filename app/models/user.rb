@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   ROLES      = %w(student teacher temporary user admin)
   SAFE_ROLES = %w(student teacher)
   default_scope -> { where('role != ?', 'temporary') }
+  attr_accessor :newsletter
+
+  after_create :subscribe_to_newsletter
 
   def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
@@ -69,5 +72,16 @@ class User < ActiveRecord::Base
 
   def refresh_token!
     update_attributes token: SecureRandom.urlsafe_base64
+  end
+
+private
+
+  def newsletter?
+    return false if newsletter.blank?
+    newsletter != '0'
+  end
+
+  def subscribe_to_newsletter
+    MailchimpConnection.connection.lists.subscribe('eadf6d8153', { email: email }, merge_vars=nil, email_type='html', double_optin=false, update_existing=false, replace_interests=true, send_welcome=false) if newsletter?
   end
 end

@@ -116,6 +116,9 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mailchimp-api (2.0.4)
+      excon (>= 0.16.0)
+      json (>= 1.7.7)
     method_source (0.8.1)
     mime-types (1.23)
     minitest (4.7.5)
@@ -255,6 +258,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   kramdown
+  mailchimp-api
   minitest-rails
   newrelic_rpm
   parslet

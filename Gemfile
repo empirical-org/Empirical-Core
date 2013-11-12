@@ -33,6 +33,7 @@ gem 'slim-rails'
 gem 'taps'
 gem 'newrelic_rpm', group: :production
 gem 'unicorn'
+gem 'mailchimp-api', require: 'mailchimp'
 
 group :test do
   gem 'minitest-rails'
