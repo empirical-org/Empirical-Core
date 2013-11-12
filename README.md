@@ -5,9 +5,10 @@
 
 
 ### Benchmarking:
-
+```
 user = User.first
 user.refresh_token!
 token = user.token
 
-ab -H "Authorization: Basic `echo TOKEN_GOES_HERE: | base64`==" -n 5 -c 1 http://www.quill.org/profile
+$ ab -H "Authorization: Basic \`echo TOKEN_GOES_HERE: | base64\`==" -n 5 -c 1 http://www.quill.org/profile
+```
