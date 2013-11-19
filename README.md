@@ -12,3 +12,7 @@ token = user.token
 
 $ ab -H "Authorization: Basic `echo TOKEN_GOES_HERE: | base64`==" -n 5 -c 1 http://www.quill.org/profile
 ```
+
+IRC
+---
+We are on Freenode, just join #empirical-quill.
