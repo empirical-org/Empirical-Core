@@ -31,6 +31,7 @@ gem 'pry'
 gem 'sentry-raven'
 gem 'slim-rails'
 gem 'taps'
+gem 'rspec'
 
 group :test do
   gem 'minitest-rails'
