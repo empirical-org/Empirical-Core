@@ -21,6 +21,7 @@ article.teacher-profile-page.simple-rounded-box
     table.table.classroom-students-grades
       thead
         th.student-header Students
+        
         - @classroom_chapters.each do |chapter|
           th= chapter.title[0..4]
 
