@@ -34,6 +34,7 @@ gem 'taps'
 gem 'newrelic_rpm', group: :production
 gem 'unicorn'
 gem 'mailchimp-api', require: 'mailchimp'
+gem 'rspec'
 
 group :test do
   gem 'minitest-rails'
