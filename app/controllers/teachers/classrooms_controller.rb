@@ -11,6 +11,7 @@ class Teachers::ClassroomsController < ApplicationController
   def show
     @classroom_chapters = @classroom.chapters
     @classroom_students = @classroom.students.order(:name)
+    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters - @classroom_chapters] }.select{ |group| group.second.any? }
 
     @score_table = Score.joins(:classroom_chapter).where(classroom_chapters: { classroom_id: @classroom.id }).inject({}) do |table, score|
       table[score.user_id] ||= {}

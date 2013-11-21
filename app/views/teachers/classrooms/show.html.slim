@@ -38,6 +38,6 @@ article.teacher-profile-page.simple-rounded-box
 
   .teacher.unassigned-chapters.table-stripe.l-section
     h3 Unassigned Lessons
-    - (Chapter.all - @classroom_chapters).select(&:level).sort{|c| c.level.position }.group_by(&:level).each do |level, chapters|
+    - @chapter_levels.each do |level, chapters|
       h4 style="text-decoration: underline ; margin-top: 50px"= level.name
-      = render partial: 'chapter', collection: (chapters - @classroom_chapters)
+      = render partial: 'chapter', collection: chapters
