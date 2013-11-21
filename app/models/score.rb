@@ -2,7 +2,7 @@ module ScoreState
   extend ActiveSupport::Concern
 
   included do
-    default_scope where('scores.state != \'trashed\'')
+    default_scope { where('scores.state != \'trashed\'') }
     delegate :unstarted?, :started?, :practice?, :story?, :review?, :finished?, to: :state
   end
 
