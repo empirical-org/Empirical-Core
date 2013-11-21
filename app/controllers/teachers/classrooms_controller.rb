@@ -9,6 +9,9 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def show
+    @students = @classroom.students
+    @chapters = @classroom.chapters
+    @other_chapters = Chapter.all - @chapters
   end
 
   def create

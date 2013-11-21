@@ -22,13 +22,13 @@ article.teacher-profile-page.simple-rounded-box
     table.table.classroom-students-grades
       thead
         th.student-header Students
-        - @classroom.chapters.each do |chapter|
+        - @chapters.each do |chapter|
           th= chapter.title[0..4]
       tbody
-        - @classroom.students.order(:name).each do |student|
+        - @students.order(:name).each do |student|
           tr
             td= student.name
-            - @classroom.chapters.each do |chapter|
+            - @chapters.each do |chapter|
               td: .score-color class=student.scores.for_chapter(chapter).try(:grade_name)
 
   .teacher-assigned-chapters.table-stripe.l-section
@@ -37,4 +37,4 @@ article.teacher-profile-page.simple-rounded-box
 
   .teacher.unassigned-chapters.table-stripe.l-section
     h3 Unassigned Lessons
-    = render partial: 'chapter', collection: (Chapter.all - @classroom.chapters)
+    = render partial: 'chapter', collection: (@other_chapters)
