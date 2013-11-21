@@ -13,6 +13,9 @@ EmpiricalGrammar::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
+  # Raise an error in development when an invalid parameter is passed.
+  config.action_controller.action_on_unpermitted_parameters = :raise
+
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

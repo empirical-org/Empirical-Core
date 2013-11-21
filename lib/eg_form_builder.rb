@@ -113,9 +113,9 @@ class EgFormBuilder < CMS::FormBuilder
     out = ''.html_safe
 
     field_wrapper :toggle, name, :'data-default' => options[:default] do
-      out.concat(@template.content_tag(:div, class: "controls #{name} toggle") do
+      @template.content_tag(:div, class: "controls #{name} toggle") do
         check_box(name) << label(name, options[:label], style: 'display: inline-block')
-      end)
+      end
     end
   end
 

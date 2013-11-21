@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
                                     presence:     { if: :teacher? }
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { case_sensitive: false, allow_blank: true }
+  validates :terms_of_service,      acceptance:   { on: :create }
 
   ROLES      = %w(student teacher temporary user admin)
   SAFE_ROLES = %w(student teacher)

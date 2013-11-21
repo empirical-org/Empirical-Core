@@ -37,8 +37,22 @@
     z-index: -1;
   }
 
-  .newsletter.toggle {
-    margin-bottom: 20px;
+  .field.toggle {
+    .controls {
+      position: relative;
+    }
+
+    &.error {
+      padding-bottom: 1.5em
+    }
+
+    .help-inline {
+      position: absolute;
+      top: 1.5em;
+      left: 0;
+      padding-left: 0;
+    }
+
 
     label {
       display: inline-block;
