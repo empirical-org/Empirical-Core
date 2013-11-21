@@ -14,18 +14,14 @@ class User < ActiveRecord::Base
   SAFE_ROLES = %w(student teacher)
   default_scope -> { where('role != ?', 'temporary') }
 
-  def safe_role_assignment role
-    self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
-      sanitized_role
-    else
-      'user'
-    end
+  def safe_role_assignment(role)
+    sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
+    self.role = !sanitized_role.nil? ? sanitized_role : 'user'
   end
 
   # def authenticate
-  def self.authenticate params
-    user   = User.find_by_email(params[:email])
-    user ||= User.find_by_username(params[:email])
+  def self.authenticate(params)
+    user = User.find_by_email(params[:email]) || User.find_by_username(params[:email])
     user.try(:authenticate, params[:password])
   end
 
@@ -46,7 +42,7 @@ class User < ActiveRecord::Base
     @role_inquirer ||= ActiveSupport::StringInquirer.new(self[:role])
   end
 
-  def role= role
+  def role=(role)
     remove_instance_variable :@role_inquirer if defined?(@role_inquirer)
     super
   end
