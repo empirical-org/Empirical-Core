@@ -27,6 +27,11 @@ class PagesController < ApplicationController
     @body_class = 'auxiliary white-page formatted-text'
   end
 
+  def lessons
+    @body_class = 'auxiliary white-page formatted-text'
+    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters] }.select{ |group| group.second.any? }
+  end
+
   private
 
   def resolve_layout

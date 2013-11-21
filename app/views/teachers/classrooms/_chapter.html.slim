@@ -13,7 +13,7 @@
       .chapter-article-header= chapter.article_header
 
   .l-group-right
-    - if current_user.student?
+    - if current_user.try(:student?)
       - if @classroom.present?
         .chapter-assignment= @classroom.classroom_chapter_for(chapter).due_date.strftime('%B %d')
 
