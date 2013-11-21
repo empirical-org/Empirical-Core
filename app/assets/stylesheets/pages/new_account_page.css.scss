@@ -36,4 +36,17 @@
     padding: 20px;
     z-index: -1;
   }
+
+  .newsletter.toggle {
+    margin-bottom: 20px;
+
+    label {
+      display: inline-block;
+      line-height: 0;
+    }
+
+    input {
+      margin: 0 9px 0 0;
+    }
+  }
 }

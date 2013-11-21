@@ -16,7 +16,15 @@ class PagesController < ApplicationController
   end
 
   def about
-    @body_class = 'auxilliary white-page'
+    @body_class = 'full-width-page white-page'
+  end
+
+  def faq
+    @body_class = 'full-width-page white-page'
+  end
+
+  def tos
+    @body_class = 'auxiliary white-page formatted-text'
   end
 
   private
@@ -24,7 +32,7 @@ class PagesController < ApplicationController
   def resolve_layout
     case action_name
     when 'learning', 'story'
-      @body_class = 'auxilliary'
+      @body_class = 'auxiliary'
     end
   end
 end

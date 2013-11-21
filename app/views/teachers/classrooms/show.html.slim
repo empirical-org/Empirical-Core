@@ -1,10 +1,9 @@
 article.teacher-profile-page.simple-rounded-box
   .l-section
-    h2= "#{current_user.name}, welcome to Quill!"
+    h2 #{current_user.name}, welcome to Quill!
 
   .profile-classroom-form.l-section
     = render 'form'
-
     h3 Your classes
 
     .teacher-classroom-nav
@@ -12,7 +11,7 @@ article.teacher-profile-page.simple-rounded-box
         a.btn.btn-primary href=teachers_classroom_path(classroom) = classroom.name
 
   .teacher-classroom-code.l-section
-    h3= "My #{@classroom.name} class code"
+    h3 My #{@classroom.name} class code
     .classroom-code-box= @classroom.code
     p.explanation: em Have your students enter "#{@classroom.code}" into their profile to join your class.
 
@@ -22,19 +21,22 @@ article.teacher-profile-page.simple-rounded-box
     table.table.classroom-students-grades
       thead
         th.student-header Students
-        - @chapters.each do |chapter|
+        - @classroom_chapters.each do |chapter|
           th= chapter.title[0..4]
+
       tbody
-        - @students.order(:name).each do |student|
+        - @classroom_students.each do |student|
           tr
             td= student.name
-            - @chapters.each do |chapter|
-              td: .score-color class=student.scores.for_chapter(chapter).try(:grade_name)
+            - @classroom_chapters.each do |chapter|
+              td: .score-color class=@score_table[student.id].try(:[], chapter.id).try(:grade_name)
 
   .teacher-assigned-chapters.table-stripe.l-section
     h3 Assigned Lessons
-    = render partial: 'chapter', collection: @classroom.chapters
+    = render partial: 'chapter', collection: @classroom_chapters
 
   .teacher.unassigned-chapters.table-stripe.l-section
     h3 Unassigned Lessons
-    = render partial: 'chapter', collection: (@other_chapters)
+    - @chapter_levels.each do |level, chapters|
+      h4 style="text-decoration: underline ; margin-top: 50px"= level.name
+      = render partial: 'chapter', collection: chapters

@@ -10,9 +10,11 @@ end
 
 class Chapter < ActiveRecord::Base
   include ChapterView
-  has_many :assignments
+  has_many :classroom_chapters
+  has_many :scores, through: :classroom_chapters
   has_one :assessment
   belongs_to :workbook
+  belongs_to :level, class_name: 'ChapterLevel', foreign_key: 'chapter_level_id'
   validates :title, presence: true
   validates :description, presence: true
   serialize :rule_position, Array

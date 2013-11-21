@@ -1,6 +1,10 @@
 article.teacher-profile-page.simple-rounded-box
   .l-section
-    h2= "#{current_user.name}, welcome to Quill!"
+    h2 #{current_user.name}, welcome to Quill!
 
   .profile-classroom-form.l-section
     = render 'form'
+
+  .l-section
+    h3 Preview Lessons
+    = render partial: 'chapter', collection: Chapter.all

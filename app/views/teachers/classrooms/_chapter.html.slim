@@ -1,3 +1,5 @@
+- completed = false unless defined?(completed)
+
 .teacher-classroom-chapter.l-table-row
   .l-group-left
     .chapter-title= chapter.title
@@ -12,14 +14,27 @@
 
   .l-group-right
     - if current_user.student?
-      .chapter-assignment= @classroom.classroom_chapter_for(chapter).due_date.strftime('%B %d')
+      - if @classroom.present?
+        .chapter-assignment= @classroom.classroom_chapter_for(chapter).due_date.strftime('%B %d')
 
-      .chapter-actions
-        = link_to 'Start Lesson', chapter_path(chapter)
+        .chapter-actions
+          - if completed
+            = link_to 'Retry Lesson', chapter_retry_path(chapter)
+          - else
+            = link_to 'Start Lesson', chapter_path(chapter)
+
+      - else
+        .chapter-assignment &nbsp;
+
+        .chapter-actions
+          = link_to 'View Practice Questions', chapter_path(chapter)
+          = link_to 'View Story', chapter_story_path(chapter)
 
     - else
       .chapter-assignment
-        - if @chapters.map{|c| c.id}.include?(chapter.id)
+        - if @classroom.blank?
+          | &nbsp;
+        - elsif @classroom.chapters.map{|c| c.id}.include?(chapter.id)
           = link_to 'Remove', teachers_classroom_chapter_path(@classroom, chapter), method: 'delete'
         - else
           = link_to 'Assign', teachers_classroom_chapter_path(@classroom, chapter)

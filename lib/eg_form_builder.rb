@@ -113,19 +113,20 @@ class EgFormBuilder < CMS::FormBuilder
     out = ''.html_safe
 
     field_wrapper :toggle, name, :'data-default' => options[:default] do
-      out.concat label(name) if options[:label]
-      out.concat(@template.content_tag(:div, class: (object.send(name) ? 'visible' : 'hidden')) do
-        check_box(name) << @template.label_tag(object.send(name) ? 'visible' : 'hidden')
+      out.concat(@template.content_tag(:div, class: "controls #{name} toggle") do
+        check_box(name) << label(name, options[:label], style: 'display: inline-block')
       end)
     end
   end
 
-  def actions options = {}
+  def actions options = {}, &block
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'form-actions', save_class: 'btn btn-primary'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
       actions << submit(options[:save], disable_with: options[:saving], class: options[:save_class])
       actions << status
+      actions << @template.capture(&block) if block_given?
+      actions
     end
   end
 

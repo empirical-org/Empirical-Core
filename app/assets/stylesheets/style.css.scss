@@ -20,7 +20,7 @@
 .open-community { background-image: image-url('h-ico-02.png'); background-repeat: no-repeat; background-position: 5px center; text-indent: 35px !important; }
 
 body#home       .sticky-footer-wrapper .sticky-footer-content > .container,
-body.auxilliary .sticky-footer-wrapper .sticky-footer-content > .container { width: auto }
+body.full-width-page .sticky-footer-wrapper .sticky-footer-content > .container { width: auto }
 
 .h-sub-middle {
   padding: 20px 0;
@@ -111,7 +111,7 @@ h3.page-subtitle2 { color: #0f4c7a; font-family: $header-font; font-size: 36px; 
 
 /* Footer */
 
-footer { height: 280px; background: #252626; }
+footer { height: 280px; }
 #footer-inner { font-size: 14px; color: #7c7c7c; }
 #footer-item ,
 #copyright { padding-top: 50px; }

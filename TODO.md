@@ -1,3 +1,4 @@
+- Switch to Rspec
 - Make standalone app
 - Upgrade to Bootstrap 3
 - Add tests

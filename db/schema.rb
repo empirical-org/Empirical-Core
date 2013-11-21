@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130926203005) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20131110031852) do
 
   create_table "assessments", force: true do |t|
     t.text     "body"
@@ -30,6 +27,13 @@ ActiveRecord::Schema.define(version: 20130926203005) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "chapter_levels", force: true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "chapters", force: true do |t|
     t.string   "title"
     t.datetime "created_at",           null: false
@@ -39,7 +43,10 @@ ActiveRecord::Schema.define(version: 20130926203005) do
     t.text     "rule_position"
     t.text     "description"
     t.text     "practice_description"
+    t.integer  "chapter_level_id"
   end
+
+  add_index "chapters", ["chapter_level_id"], name: "index_chapters_on_chapter_level_id", using: :btree
 
   create_table "classroom_chapters", force: true do |t|
     t.string   "classcode"
@@ -176,20 +183,20 @@ ActiveRecord::Schema.define(version: 20130926203005) do
     t.text     "score_values"
     t.string   "state",                default: "unstarted", null: false
     t.text     "story_step_input"
+    t.float    "grade"
   end
 
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.string   "role",                   default: "user"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.string   "role",            default: "user"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "classcode"
-    t.string   "email_activation_token"
-    t.boolean  "active",                 default: false
-    t.datetime "confirmable_set_at"
+    t.boolean  "active",          default: false
     t.string   "username"
+    t.string   "token"
   end
 
   create_table "workbooks", force: true do |t|

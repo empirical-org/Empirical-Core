@@ -51,6 +51,22 @@ window.PG.Views.ChapterAssessment = Backbone.View.extend({
     }
   }
 
+, cheat: function () {
+    var self = this;
+
+    this.$('.edit-word')
+      .each(function(word) {
+        var $word = $(this)
+          , chunk = self.chunks.get($word.data('id'));
+
+        if (chunk.grammar) {
+          $word
+            .text(chunk.answer)
+            .blur();
+        }
+      });
+  }
+
 , showResults: function() {
     var id, _i, _len, _ref1
       , missedRules = []

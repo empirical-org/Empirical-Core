@@ -2,8 +2,9 @@ footer.con-darkgrey
   #footer-inner.container.clearfix
     #copyright.span3 style="width: 280px"
       span.non-profit.footer-logo-image= image_tag 'emperical-logo.png'
-      span.non-profit A nonprofit developer of educational tools.
-      span Reach out to us!
+      span.non-profit 
+        em Knowledge through experience
+      span Empirical is a nonprofit developer of interactive educational tools.
       span
         br
         a href="mailto:hello@quill.org" hello@quill.org
@@ -27,4 +28,4 @@ footer.con-darkgrey
 
 - if flash[:mixpanel].present?
   javascript:
-    mixpanel.track("{flash[:mixpanel]}")
+    mixpanel.track("#{flash[:mixpanel]}")

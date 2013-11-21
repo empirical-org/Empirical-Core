@@ -2,7 +2,7 @@ class AccountsController < ApplicationController
   before_filter :signed_in!, only: [:edit, :update]
 
   def new
-    @user = User.new(role: params[:as] || 'temporary')
+    @user = User.new(role: params[:as] || 'student')
   end
 
   def create
@@ -42,6 +42,6 @@ class AccountsController < ApplicationController
 protected
 
   def user_params
-    params.require(:user).permit(:classcode, :email, :name, :username, :password, :password_confirmation)
+    params.require(:user).permit(:classcode, :email, :name, :username, :password, :password_confirmation, :newsletter)
   end
 end

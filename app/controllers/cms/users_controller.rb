@@ -36,17 +36,6 @@ class CMS::UsersController < ApplicationController
     redirect_to cms_users_path
   end
 
-  def activate_email
-    user = User.find_by_email_activation_token(params[:token])
-    if user && Time.now.to_i - user.confirmable_set_at.to_i < 172800
-      user.activate!
-      # TEST IF SESSION ALREADY EXISTS
-      redirect_to new_session_path, notice: 'User activated, please log in.'
-    else
-      redirect_to root_path, notice: 'User not found or token has expired'
-    end
-  end
-
 protected
 
   def user_params

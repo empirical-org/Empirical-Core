@@ -2,7 +2,7 @@ module ScoreState
   extend ActiveSupport::Concern
 
   included do
-    default_scope where('scores.state != \'trashed\'')
+    default_scope { where('scores.state != \'trashed\'') }
     delegate :unstarted?, :started?, :practice?, :story?, :review?, :finished?, to: :state
   end
 
@@ -85,7 +85,10 @@ class Score < ActiveRecord::Base
   end
 
   def grade
-    @grade ||= inputs.map(&:score).inject(:+) / inputs.count
+    return self[:grade] unless self[:grade].nil?
+    return 1.0 if inputs.count == 0
+    update_column :grade, inputs.map(&:score).inject(:+) / inputs.count
+    self[:grade]
   end
 
 private

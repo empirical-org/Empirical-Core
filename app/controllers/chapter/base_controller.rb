@@ -1,5 +1,5 @@
 class Chapter::BaseController < ApplicationController
-  before_filter :find_assignment, except: ['verify', 'verify_status']
+  before_filter :find_assignment
   layout 'chapter_test'
   class FlowError < StandardError ; end
 

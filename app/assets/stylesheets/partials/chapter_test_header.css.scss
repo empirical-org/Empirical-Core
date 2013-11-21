@@ -5,7 +5,7 @@
 body.story-pages {
   header {
     display: none;
-    &.story-header { display: block ; background-color: #252626 }
+    &.story-header { display: block ; background-color: $darkgrey }
   }
 }
 
@@ -16,8 +16,7 @@ body.story-pages {
 
   .header-step-list {
     background: image-url('navbar/bullet.png') -3px 16px repeat-x;
-    margin-top:    10px;
-    margin-bottom: 10px;
+    margin: 10px 220px;
     position: relative;
     overflow: hidden;
   }
@@ -40,7 +39,7 @@ body.story-pages {
   }
 
   .chapter-test-step-icon {
-    background-color: #252626;
+    background-color: $darkgrey;
     background-position-x: center;
     background-repeat: no-repeat;
     font-size: 10px;

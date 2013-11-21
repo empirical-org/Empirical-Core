@@ -23,11 +23,14 @@ module ChapterFlow
       params[:step] = score.state
       params[:question_index] = score.inputs.where(step: params[:step]).count
 
-      # this will fail if the don't miss any of the story.
-      # i.e. step(params[:step].to_sym).rules will be empty.
-      params[step_id_key] = step(params[:step].to_sym).rules.first.id
-
-      load_url_from_params
+      # Proceed to to the next step if they are on the review step and
+      # there are now review rules (i.e. the user got 100% on the story)
+      if score.review? && step(params[:step].to_sym).rules.empty?
+        next_rule_url
+      else
+        params[step_id_key] = step(params[:step].to_sym).rules.first.id
+        load_url_from_params
+      end
 
     # Finally, just proceed to the next step.
     else
@@ -107,6 +110,7 @@ protected
   end
 
   def next_rule
+    return if params[:step].blank?
     step(params[:step].to_sym).next_rule
   end
 end
@@ -188,7 +192,7 @@ class ChapterTest
     end
 
     def current_step?
-      current_step == self
+      current_step.step == step
     end
 
     def rules
