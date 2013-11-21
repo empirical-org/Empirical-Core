@@ -40,7 +40,7 @@ protected
 
   def find_rule
     return true if (params[:id] || params[:"#{params[:step]}_id"]).blank?
-    @rule = Rule.find(params[:id] || params[:"#{params[:step]}_id"])
+    @rule ||= Rule.joins(:questions).find(params[:id] || params[:"#{params[:step]}_id"])
     @question = @rule.questions.unanswered(@score, params[:step]).sample
     # too unpredictable.. please go where you need to will not infer
     return redirect_to @chapter_test.send :next_rule_url if @question.blank?
