@@ -9,9 +9,11 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def show
-    @classroom_chapters = @classroom.chapters
-    @classroom_students = @classroom.students.order(:name)
-    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters - @classroom_chapters] }.select{ |group| group.second.any? }
+    @chapters = []
+    @classroom_chapters = @classroom.classroom_chapters.sort{|x,y| x.due_date <=> y.due_date}
+    @classroom_chapters.each {|cc| @chapters << cc.chapter}
+    @classroom_students = @classroom.students.sort{|x,y| x.name <=> y.name}
+    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters - @chapters] }.select{ |group| group.second.any? }
 
     @score_table = Score.joins(:classroom_chapter).where(classroom_chapters: { classroom_id: @classroom.id }).inject({}) do |table, score|
       table[score.user_id] ||= {}
@@ -39,7 +41,7 @@ private
 
   def authorize!
     return unless params[:id].present?
-    @classroom = Classroom.find(params[:id])
+    @classroom = Classroom.includes(:chapters, :classroom_chapters, :students).find(params[:id])
     auth_failed unless @classroom.teacher == current_user
   end
 end
