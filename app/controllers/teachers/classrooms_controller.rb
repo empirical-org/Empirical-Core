@@ -9,18 +9,20 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def show
-    @chapters = []
     @classroom_chapters = @classroom.classroom_chapters.sort{|x,y| x.due_date <=> y.due_date}
-    @classroom_chapters.each {|cc| @chapters << cc.chapter}
+    @chapters = @classroom_chapters.map{|cc| cc.chapter}
     @classroom_students = @classroom.students.sort{|x,y| x.name <=> y.name}
-    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters - @chapters] }.select{ |group| group.second.any? }
+    @chapter_levels = ChapterLevel.includes(:chapters).all.map{ |level| [level, level.chapters - @chapters] }.select{ |group| group.second.any? }
 
-    @score_table = Score.joins(:classroom_chapter).where(classroom_chapters: { classroom_id: @classroom.id }).inject({}) do |table, score|
-      table[score.user_id] ||= {}
-      table[score.user_id][score.classroom_chapter.chapter_id] = score
+    @score_table = Score.joins(:classroom_chapter)
+      .where(classroom_chapters: { classroom_id: @classroom.id })
+      .sort{|x,y| x.classroom_chapter.due_date <=> y.classroom_chapter.due_date}
+      .inject({}) do |table, score|
+        table[score.user_id] ||= {}
+        table[score.user_id][score.classroom_chapter.chapter_id] = score
 
-      table
-    end
+        table
+      end
   end
 
   def create
