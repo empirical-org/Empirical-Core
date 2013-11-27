@@ -32,7 +32,8 @@ gem 'sentry-raven'
 gem 'slim-rails'
 gem 'taps'
 gem 'newrelic_rpm', group: :production
-gem 'unicorn'
+gem 'unicorn', platforms: :ruby
+gem 'puma',    platforms: :jruby
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'rspec'
 

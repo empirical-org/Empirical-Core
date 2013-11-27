@@ -273,6 +273,7 @@ DEPENDENCIES
   parslet
   pg
   pry
+  puma
   rails (~> 4)
   rails-backbone
   rails_12factor
