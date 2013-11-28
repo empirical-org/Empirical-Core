@@ -17,3 +17,5 @@ deploy:
   app: empirical-grammar-staging
   on:
     repo: empirical-org/quill
+    rvm: 2.0.0
+  run: "rake db:migrate"
