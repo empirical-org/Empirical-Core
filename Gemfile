@@ -48,4 +48,5 @@ platforms :rbx do
   gem 'rubysl'
   gem 'racc'
   gem 'iconv', github: 'nurse/iconv', branch: 'master'
+  gem 'rubinius-coverage'
 end

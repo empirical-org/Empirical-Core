@@ -208,6 +208,7 @@ GEM
     rspec-expectations (2.14.0)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.14.1)
+    rubinius-coverage (2.0.3)
     ruby-hmac (0.4.0)
     rubysl (2.0.14)
       rubysl-abbrev (~> 2.0)
@@ -519,6 +520,7 @@ DEPENDENCIES
   rails_12factor
   redcarpet
   rspec
+  rubinius-coverage
   rubysl
   sass-rails (~> 4.0.0)
   sentry-raven
