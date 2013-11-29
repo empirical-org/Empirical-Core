@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 # ruby '1.9.3'
 
 gem 'rails', '~> 4'
-gem 'pg',                        platforms: :ruby
-gem 'activerecord-jdbc-adapter', platforms: :jruby
+gem 'pg', platforms: :ruby
+gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
 gem 'rails_12factor', group: [:production, :staging]
 
 gem 'sass-rails', '~> 4.0.0'
@@ -42,4 +42,11 @@ group :test do
   gem 'coveralls'
   gem 'turn'
   gem 'database_cleaner'
+end
+
+platforms :rbx do
+  gem 'rubysl'
+  gem 'racc'
+  gem 'iconv', github: 'nurse/iconv', branch: 'master'
+  gem 'rubinius-coverage'
 end

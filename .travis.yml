@@ -5,11 +5,11 @@ rvm:
 - jruby-19mode
 - rbx
 script:
-- ! 'bundle exec rake db:test:load || :'
 - bundle exec rake
 before_script:
 - cp config/database.travis.yml config/database.yml
 - psql -c 'create database test;' -U postgres
+- ! 'RAILS_ENV=test bundle exec rake db:schema:load || :'
 deploy:
   provider: heroku
   api_key:
