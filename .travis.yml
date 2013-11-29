@@ -8,7 +8,6 @@ script:
 - bundle exec rake
 before_script:
 - cp config/database.travis.yml config/database.yml
-- cat config/database.yml
 - psql -c 'create database test;' -U postgres
 - ! 'RAILS_ENV=test bundle exec rake db:schema:load || :'
 deploy:
