@@ -43,3 +43,9 @@ group :test do
   gem 'turn'
   gem 'database_cleaner'
 end
+
+platforms :rbx do
+  gem 'rubysl'
+  gem 'racc'
+  gem 'iconv', github: 'nurse/iconv', branch: 'master'
+end
