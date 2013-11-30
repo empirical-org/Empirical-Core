@@ -63,6 +63,15 @@ directory is the quill application root.
         rails server
         curl localhost:3000
 
+### Contributing:
+
+Full explanation in CONTRIBUTING.md
+
+1.  Make sure your code follows ruby and project conventions.
+2.  Make sure you don't have any IDE / platform specific files committed. i.e. .DS_Store, .idea, .project (consider adding these to your global gitignore).
+3.  Run `rake`, make sure everything passes.
+4.  Open a pull request.
+
 ### Benchmarking:
 
 ```
