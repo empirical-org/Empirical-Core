@@ -4,26 +4,20 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
-# ruby configs 
-/.bundle
-/.ruby-*
-.rbenv-vars
+# ruby configs
+.bundle
 
-# database 
-/db/*.sqlite3
+# database
+db/*.sqlite3
 latest.dump
 
 # sensitive files
-config/aws.yml
-config/database.*yml*
+config/database.yml
 
 # compilation
 public/assets
 
-# misc 
-/log/*.log
-/tmp
-.idea
-.DS_Store
-.project
+# misc
+log/*.log
+tmp
 coverage
