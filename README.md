@@ -18,10 +18,10 @@ directory is the quill application root.
 1.  Install dependencies.
 
         bundle install
-        
-    *Note*: this may require you to install missing system packages. 
 
-2.  Set up your database configuration by creating and editing the file 
+    *Note*: this may require you to install missing system packages.
+
+2.  Set up your database configuration by creating and editing the file
     `config/database.yml` with appropriate connection information. Example
     information is provided below.
 
@@ -33,31 +33,31 @@ directory is the quill application root.
             pool: 5
             username: my_name
             password: my_pass
-            
+
 3.  Build the database structure.
 
         sudo service postgres start   # may change depending on your OS
-        
+
         rake db:create
         rake db:schema:load
         rake db:migrate
-        
-4.  Seed data from the staging database. 
+
+4.  Seed data from the staging database.
 
         heroku pg:capture --app empirical-grammar-staging
-        curl -o ~/latest.dump $(heroku pgbackups:url --app empirical-grammar-staging) 
+        curl -o ~/latest.dump $(heroku pgbackups:url --app empirical-grammar-staging)
         pg_restore --verbose --clean --no-acl --no-owner -h localhost -U <your_db_user> -d <database_name> ~/latest.dump
-    
+
 5.  Create a `.ruby-env` file in the project root and define necessary environment values.
 
         echo "RAILS_ENV=development
         APP_SECRET=your-secret-key
         HOMEPAGE_CHAPTER_ID=19" >> ./.ruby-env
-      
+
     *Note*: you may need to cd out and back into the app root for the env changes to apply.
 
-        cd ~; cd -; 
-      
+        cd ~; cd -;
+
 6.  Start the app, make sure it works.
 
         rails server
