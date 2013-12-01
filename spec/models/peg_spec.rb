@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 
 describe GrammarParser do
   before do
@@ -6,9 +6,7 @@ describe GrammarParser do
   end
 
   it 'fails without question' do
-    assert_raises(Parslet::ParseFailed) do
-      @parser.parse('This is just some regular text')
-    end
+    expect { @parser.parse('This is just some regular text') }.to raise_error(Parslet::ParseFailed)
   end
 
   it 'succeeds with question' do
@@ -16,8 +14,6 @@ describe GrammarParser do
   end
 
   it 'fails when empty' do
-    assert_raises(Parslet::ParseFailed) do
-      @parser.parse('')
-    end
+    expect { @parser.parse('') }.to raise_error(Parslet::ParseFailed)
   end
 end

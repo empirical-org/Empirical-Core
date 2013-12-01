@@ -1,12 +1,12 @@
-require 'test_helper'
+require 'spec_helper'
 
 describe User do
   it 'Can auth by user or email' do
     User.create(username: 'test',          password: '123456', password_confirmation: '123456')
     User.create(email: 'test@example.com', password: '654321', password_confirmation: '654321')
 
-    assert User.authenticate(email: 'test',             password: '123456')
-    assert User.authenticate(email: 'test@example.com', password: '654321')
+    expect(User.authenticate(email: 'test',             password: '123456')).to be_true
+    expect(User.authenticate(email: 'test@example.com', password: '654321')).to be_true
   end
 
   it 'requires email if a teacher'

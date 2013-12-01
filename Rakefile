@@ -5,7 +5,7 @@ require File.expand_path('../config/application', __FILE__)
 
 EmpiricalGrammar::Application.load_tasks
 
-task default: [:test]
+task default: [:spec]
 
 Rake::Task['db:test:purge'].clear
 task :'db:test:purge' do
