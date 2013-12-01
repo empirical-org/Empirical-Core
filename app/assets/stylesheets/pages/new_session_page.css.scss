@@ -4,4 +4,10 @@ article.new-session-page {
     color: $missed-color;
     @include bold;
   }
+
+  .success-message {
+    margin-bottom: 20px;
+    color: $found-color;
+    @include bold;
+  }
 }

@@ -4,6 +4,9 @@ article.new-session-page.simple-rounded-box
   - if flash[:error]
     .error-message.form-horizontal-header= flash[:error]
 
+  - if flash[:notice]
+    .success-message.form-horizontal-header= flash[:notice]
+
   = form_for @user, url: password_reset_index_path, html: { class: 'form-horizontal box-full-form' } do |f|
     = f.string :email
     = f.actions save: 'Reset password' do
