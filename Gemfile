@@ -38,10 +38,7 @@ gem 'mailchimp-api', require: 'mailchimp'
 gem 'rspec-rails', group: %w(development test)
 
 group :test do
-  gem 'minitest-rails'
   gem 'coveralls'
-  gem 'turn'
-  gem 'database_cleaner'
 end
 
 platforms :rbx do
