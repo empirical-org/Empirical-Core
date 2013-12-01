@@ -35,7 +35,7 @@ gem 'newrelic_rpm', group: :production
 gem 'unicorn', platforms: :ruby
 gem 'puma',    platforms: :jruby
 gem 'mailchimp-api', require: 'mailchimp'
-gem 'rspec'
+gem 'rspec-rails', group: %w(development test)
 
 group :test do
   gem 'minitest-rails'
