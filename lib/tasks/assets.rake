@@ -1,4 +1,4 @@
-Rake::Task["assets:environment"].clear
+# Rake::Task["assets:environment"].clear
 
 # namespace :assets do
 #   # Override this task change the loaded dependencies
