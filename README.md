@@ -1,5 +1,6 @@
-# If you are having any trouble installing, please post your questions here:
-http://empirical-discourse.herokuapp.com/t/quill-installation-guide
+# Welcome to Quill!
+
+Quill is an open platform for providing interactive grammar lessons.
 
 * * *
 
@@ -8,12 +9,36 @@ http://empirical-discourse.herokuapp.com/t/quill-installation-guide
 [![Coverage Status](https://coveralls.io/repos/empirical-org/quill/badge.png?branch=master)](https://coveralls.io/r/empirical-org/quill?branch=master)
 [![Dependency Status](https://gemnasium.com/empirical-org/quill.png)](https://gemnasium.com/empirical-org/quill)
 
-### Building:
+Contributing
+------------
 
-Unless stated otherwise, all commands assume that your current working
-directory is the quill application root.
+Quill is built and maintained by a core team and volunteers. If you have ideas
+on how to improve Quill, or just want to help, please join us! 
 
-0.  Set up an [RVM](http://rvm.io) environment (optional, recommended).
+1.  Check our [Github issue queue](https://github.com/empirical-org/quill/issues?state=open) for ideas on how to help. 
+2.  Make sure your code follows [Ruby](https://github.com/styleguide/ruby) and project conventions.
+3.  Make sure you don't have any IDE / platform specific files committed. i.e.
+    `.DS_Store`, `.idea`, `.project` (consider adding these to a [global gitignore](https://help.github.com/articles/ignoring-files#global-gitignore)).
+4.  Before commiting, run `rake`, make sure all tests pass.
+5.  Introduce changes with pull requests. 
+
+Read our [guide to contributing](https://github.com/empirical-org/quill/blob/master/CONTRIBUTING.md) for more information.
+
+Building
+--------
+
+A good place to start is by setting up and running Quill on your
+local machine.
+
+**If you are having any trouble installing, [please post your questions here](http://empirical-discourse.herokuapp.com/t/quill-installation-guide).**
+
+*Note:* Unless stated otherwise, all commands assume that your current working
+directory is the Quill application root.
+
+0.  Set up an [RVM](http://rvm.io) environment.
+
+    *Note*: You *do not* have to do this, but can be helpful if you work with
+    multiple Ruby projects. See the [RVM home page for more details](http://rvm.io).
 
         rvm install 1.9.3
         rvm gemset create quill
@@ -24,7 +49,8 @@ directory is the quill application root.
 
         bundle install
 
-    *Note*: this may require you to install missing system packages.
+    *Note*: This may require you to install missing system packages using your
+    system package handler (`apt`, `yum`, etc.).
 
 2.  Set up your database configuration by creating and editing the file
     `config/database.yml` with appropriate connection information. Example
@@ -45,21 +71,30 @@ directory is the quill application root.
 
         rake db:create
         rake db:schema:load
-        rake db:migrate
 
-4.  Seed data from the staging database.
+4.  Seed data into the database. 
 
-        heroku pg:capture --app empirical-grammar-staging
-        curl -o ~/latest.dump $(heroku pgbackups:url --app empirical-grammar-staging)
+        rake db:seed
+        
+    If you are granted access to a Heroku environment, you can also capture a
+    database directly from that. Instructions below are for example only.
+
+        heroku pg:capture --app <app>
+        curl -o ~/latest.dump $(heroku pgbackups:url --app <app>)
         pg_restore --verbose --clean --no-acl --no-owner -h localhost -U <your_db_user> -d <database_name> ~/latest.dump
+    
+    *Note*: `<app>` is the name of the Quill deployment on Heroku you want to
+    retrieve data from.
 
-5.  Create a `.ruby-env` file in the project root and define necessary environment values.
+5.  Create a `.ruby-env` file in the project root and define necessary
+    environment values.
 
         echo "RAILS_ENV=development
         APP_SECRET=your-secret-key
-        HOMEPAGE_CHAPTER_ID=19" >> ./.ruby-env
+        HOMEPAGE_CHAPTER_ID=1" >> ./.ruby-env
 
-    *Note*: you may need to cd out and back into the app root for the env changes to apply.
+    *Note*: You may need to cd out and back into the app root for these
+    environment changes to apply.
 
         cd ~; cd -;
 
@@ -68,16 +103,8 @@ directory is the quill application root.
         rails server
         curl localhost:3000
 
-### Contributing:
-
-Full explanation in CONTRIBUTING.md
-
-1.  Make sure your code follows ruby and project conventions.
-2.  Make sure you don't have any IDE / platform specific files committed. i.e. .DS_Store, .idea, .project (consider adding these to your global gitignore).
-3.  Run `rake`, make sure everything passes.
-4.  Open a pull request.
-
-### Benchmarking:
+Benchmarking
+------------
 
 ```
 user = User.first
@@ -87,6 +114,7 @@ token = user.token
 $ ab -H "Authorization: Basic `echo TOKEN_GOES_HERE: | base64`==" -n 5 -c 1 http://www.quill.org/profile
 ```
 
-IRC
----
-We are on Freenode, just join #empirical-quill.
+Help
+----
+
+Find us on IRC at **#empirical-quill**!
