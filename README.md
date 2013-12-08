@@ -13,7 +13,10 @@ http://empirical-discourse.herokuapp.com/t/quill-installation-guide
 Unless stated otherwise, all commands assume that your current working
 directory is the quill application root.
 
-0.  Set up an [RVM](http://rvm.io) environment (optional, recommended).
+0.  Set up an [RVM](http://rvm.io) environment.
+
+    *Note*: You *do not* have to do this, but can be helpful if you work with
+    multiple Ruby projects. See the [RVM home page for more details](http://rvm.io).
 
         rvm install 1.9.3
         rvm gemset create quill
@@ -24,7 +27,8 @@ directory is the quill application root.
 
         bundle install
 
-    *Note*: this may require you to install missing system packages.
+    *Note*: This may require you to install missing system packages using your
+    system package handler (`apt`, `yum`, etc.).
 
 2.  Set up your database configuration by creating and editing the file
     `config/database.yml` with appropriate connection information. Example
@@ -45,21 +49,30 @@ directory is the quill application root.
 
         rake db:create
         rake db:schema:load
-        rake db:migrate
 
-4.  Seed data from the staging database.
+4.  Seed data into the database. 
 
-        heroku pg:capture --app empirical-grammar-staging
-        curl -o ~/latest.dump $(heroku pgbackups:url --app empirical-grammar-staging)
+        rake db:seed
+        
+    If you are granted access to a Heroku environment, you can also capture a
+    database directly from that. Instructions below are for example only.
+
+        heroku pg:capture --app <app>
+        curl -o ~/latest.dump $(heroku pgbackups:url --app <app>)
         pg_restore --verbose --clean --no-acl --no-owner -h localhost -U <your_db_user> -d <database_name> ~/latest.dump
+    
+    *Note*: `<app>` is the name of the Quill deploy app on Heroku you want to
+    retrieve data from.
 
-5.  Create a `.ruby-env` file in the project root and define necessary environment values.
+5.  Create a `.ruby-env` file in the project root and define necessary
+    environment values.
 
         echo "RAILS_ENV=development
         APP_SECRET=your-secret-key
-        HOMEPAGE_CHAPTER_ID=19" >> ./.ruby-env
+        HOMEPAGE_CHAPTER_ID=1" >> ./.ruby-env
 
-    *Note*: you may need to cd out and back into the app root for the env changes to apply.
+    *Note*: You may need to cd out and back into the app root for these
+    environment changes to apply.
 
         cd ~; cd -;
 
