@@ -1,5 +1,6 @@
-# If you are having any trouble installing, please post your questions here:
-http://empirical-discourse.herokuapp.com/t/quill-installation-guide
+# Welcome to Quill!
+
+Quill is an open platform for providing interactive grammar lessons.
 
 * * *
 
@@ -8,10 +9,31 @@ http://empirical-discourse.herokuapp.com/t/quill-installation-guide
 [![Coverage Status](https://coveralls.io/repos/empirical-org/quill/badge.png?branch=master)](https://coveralls.io/r/empirical-org/quill?branch=master)
 [![Dependency Status](https://gemnasium.com/empirical-org/quill.png)](https://gemnasium.com/empirical-org/quill)
 
-### Building:
+Contributing
+------------
 
-Unless stated otherwise, all commands assume that your current working
-directory is the quill application root.
+Quill is built and maintained by a core team and volunteers. If you have ideas
+on how to improve Quill, or just want to help, please join us! 
+
+1.  Check our [Github issue queue](https://github.com/empirical-org/quill/issues?state=open) for ideas on how to help. 
+2.  Make sure your code follows [Ruby](https://github.com/styleguide/ruby) and project conventions.
+3.  Make sure you don't have any IDE / platform specific files committed. i.e.
+    `.DS_Store`, `.idea`, `.project` (consider adding these to a [global gitignore](https://help.github.com/articles/ignoring-files#global-gitignore)).
+4.  Before commiting, run `rake`, make sure all tests pass.
+5.  Introduce changes with pull requests. 
+
+Read our [guide to contributing](https://github.com/empirical-org/quill/blob/master/CONTRIBUTING.md) for more information.
+
+Building
+--------
+
+A good place to start is by setting up and running Quill on your
+local machine.
+
+**If you are having any trouble installing, [please post your questions here](http://empirical-discourse.herokuapp.com/t/quill-installation-guide).**
+
+*Note:* Unless stated otherwise, all commands assume that your current working
+directory is the Quill application root.
 
 0.  Set up an [RVM](http://rvm.io) environment.
 
@@ -61,7 +83,7 @@ directory is the quill application root.
         curl -o ~/latest.dump $(heroku pgbackups:url --app <app>)
         pg_restore --verbose --clean --no-acl --no-owner -h localhost -U <your_db_user> -d <database_name> ~/latest.dump
     
-    *Note*: `<app>` is the name of the Quill deploy app on Heroku you want to
+    *Note*: `<app>` is the name of the Quill deployment on Heroku you want to
     retrieve data from.
 
 5.  Create a `.ruby-env` file in the project root and define necessary
@@ -81,16 +103,8 @@ directory is the quill application root.
         rails server
         curl localhost:3000
 
-### Contributing:
-
-Full explanation in CONTRIBUTING.md
-
-1.  Make sure your code follows ruby and project conventions.
-2.  Make sure you don't have any IDE / platform specific files committed. i.e. .DS_Store, .idea, .project (consider adding these to your global gitignore).
-3.  Run `rake`, make sure everything passes.
-4.  Open a pull request.
-
-### Benchmarking:
+Benchmarking
+------------
 
 ```
 user = User.first
@@ -100,6 +114,7 @@ token = user.token
 $ ab -H "Authorization: Basic `echo TOKEN_GOES_HERE: | base64`==" -n 5 -c 1 http://www.quill.org/profile
 ```
 
-IRC
----
-We are on Freenode, just join #empirical-quill.
+Help
+----
+
+Find us on IRC at **#empirical-quill**!
