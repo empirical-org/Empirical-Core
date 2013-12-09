@@ -20,7 +20,7 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @body_class = 'full-width-page white-page'
+    @body_class = 'white-page'
   end
 
   def tos
