@@ -5,12 +5,12 @@ class AccountsController < ApplicationController
     @user = User.new(role: params[:as] || 'student')
   end
 
+  # creates a new user from params.
+  # if a temporary_user_id is present in the session, it uses that
+  # user record instead of creating a new one.
   def create
     role = params[:user].delete(:role)
-
-    unless @user = User.find_by_id(session[:temporary_user_id])
-      @user = User.new
-    end
+    @user = User.find_by_id(session[:temporary_user_id]) || User.new
 
     @user.attributes = user_params
     @user.safe_role_assignment(role)
