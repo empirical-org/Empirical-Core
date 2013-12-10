@@ -38,6 +38,17 @@ $headingsFontWeight: normal;
 @import "bootstrap_imports";
 @import "compass/typography/text/replacement";
 
+.caret {
+  border-top:   7px solid black;
+  border-right: 7px solid transparent;
+  border-left:  7px solid transparent;
+}
+
+.btn .caret {
+  margin-top: 17px;
+  margin-left: 5px;
+}
+
 @mixin fix-height($height) {
   height: $height;
   line-height: $height;

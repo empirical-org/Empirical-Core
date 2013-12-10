@@ -2,13 +2,22 @@ article.teacher-profile-page.simple-rounded-box
   .l-section
     h2 #{current_user.name}, welcome to Quill!
 
+  .l-section
+    .btn-group
+      .btn.btn-warning Classroom:
+      .btn.btn-warning.dropdown-toggle data-toggle="dropdown"
+        = @classroom.name
+        span.caret
+
+      ul.dropdown-menu
+        - (current_user.classrooms - [@classroom]).each do |classroom|
+          li= link_to classroom.name, teachers_classroom_path(classroom)
+    a.btn style="float: right"= 'Create a classroom'
+
+  .l-section
+
   .profile-classroom-form.l-section
     = render 'form'
-    h3 Your classes
-
-    .teacher-classroom-nav
-      - current_user.classrooms.each do |classroom|
-        a.btn.btn-primary href=teachers_classroom_path(classroom) = classroom.name
 
   .teacher-classroom-code.l-section
     h3 My #{@classroom.name} class code

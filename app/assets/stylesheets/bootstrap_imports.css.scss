@@ -35,7 +35,7 @@
 
 //// Components: Buttons & Alerts
 @import 'bootstrap_overrides/buttons';
-//@import 'bootstrap/button-groups';
+@import 'bootstrap_overrides/button-groups';
 //@import 'bootstrap/alerts'; // Note: alerts share common CSS with buttons and thus have styles in _buttons.scss
 
 //// Components: Nav
