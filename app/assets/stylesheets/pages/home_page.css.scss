@@ -34,8 +34,7 @@ body.home-page {
 
     .floats-overlay {
       height: 730px;
-      background: image-url('home/floats.png');
-      background-repeat: no-repeat;
+      background: image-url('home/floats.png') top center no-repeat;
       z-index: 1;
     }
   }
