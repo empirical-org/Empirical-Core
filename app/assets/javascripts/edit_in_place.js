@@ -2,10 +2,13 @@ jQuery(function ($) {
   $('.form-with-edit-in-place').each(function () {
     var $form = $(this);
 
-    $form.find('.edit-in-place').on('click', 'span', openEditInPlaceFromDisplay)
-                                .on('keyup', 'input', detectEnterPress)
-                                .on('click', 'a[data-toggle]', toggleEditInPlaceFromLink);
-                                // .on('blur', 'input', saveEditInPlaceFromBlur);
+    $form
+      .on('ajax:error', displayErrorMessage)
+
+    .find('.edit-in-place')
+      .on('click', 'span', openEditInPlaceFromDisplay)
+      .on('keyup', 'input', detectEnterPress)
+      .on('click', 'a[data-toggle]', toggleEditInPlaceFromLink);
 
     function toggleEditInPlaceFromLink (e) {
       var $el = $(e.target)
@@ -43,17 +46,21 @@ jQuery(function ($) {
       if (code == 13) saveEditInPlace($el, $edit);
     }
 
-    function saveEditInPlaceFromBlur (e) {
-      var $el = $(e.target)
-        , $edit = $el.closest('.edit-in-place');
+    // function saveEditInPlaceFromBlur (e) {
+    //   var $el = $(e.target)
+    //     , $edit = $el.closest('.edit-in-place');
 
-      saveEditInPlace($el, $edit);
-    }
+    //   saveEditInPlace($el, $edit);
+    // }
 
     function saveEditInPlace ($el, $edit) {
       $form.submit();
       $edit.removeClass('open');
       $edit.find('span').text($el.val());
+    }
+
+    function displayErrorMessage (e, xhr) {
+      alert(xhr.responseText);
     }
   });
 });

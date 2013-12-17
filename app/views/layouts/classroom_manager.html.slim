@@ -20,7 +20,8 @@
       .l-section
         .btn-group
           = link_to 'Scorebook', url_for(controller: 'teachers/classroom_manager', action: 'scorebook'), class: "btn #{if 'scorebook' == params[:action] then 'btn-primary' end}"
-          = link_to 'Students', teachers_classroom_students_path(@classroom), class: "btn #{if params[:controller] == 'teachers/students' then 'btn-primary' end}"
+          = link_to 'Invite Students', teachers_classroom_invite_students_path(@classroom), class: "btn #{if params[:action] == 'invite_students' then 'btn-primary' end}"
+          = link_to 'Manage Profiles', teachers_classroom_students_path(@classroom), class: "btn #{if params[:controller] == 'teachers/students' then 'btn-primary' end}"
 
       = yield
 
