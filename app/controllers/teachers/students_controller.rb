@@ -24,7 +24,7 @@ class Teachers::StudentsController < ApplicationController
     if @student.update_attributes(user_params)
       head :ok
     else
-      head :unprocessable_entity
+      render text: @student.errors.full_messages.join(', '), status: :unprocessable_entity
     end
   end
 
