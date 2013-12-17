@@ -1,0 +1,13 @@
+.form-with-edit-in-place {
+  // .
+}
+
+.edit-in-place {
+  input { display: none }
+  span {  display: block }
+
+  &.open {
+    input { display: block }
+    span {  display: none }
+  }
+}

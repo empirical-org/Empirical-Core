@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
                                     presence:     { if: :permanent?, on: :create }
   validates :password_confirmation, presence:     { if: ->(m) { m.password.present? && m.permanent? } }
   validates :email,                 uniqueness:   { case_sensitive: false, allow_blank: true },
-                                    presence:     { if: :teacher? }
+                                    presence:     { if: ->(m) { m.teacher? || m.username.blank? } }
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { case_sensitive: false, allow_blank: true }
   validates :terms_of_service,      acceptance:   { on: :create }
@@ -73,6 +73,44 @@ class User < ActiveRecord::Base
 
   def refresh_token!
     update_attributes token: SecureRandom.urlsafe_base64
+  end
+
+  def first_name= first_name
+    last_name
+    @first_name = first_name
+    set_name
+  end
+
+  def last_name= last_name
+    first_name
+    @last_name = last_name
+    set_name
+  end
+
+  def first_name
+    @first_name ||= name.to_s.split("\s")[0]
+  end
+
+  def last_name
+    @last_name ||= name.to_s.split("\s")[-1]
+  end
+
+  def set_name
+    self.name = [@first_name, @last_name].compact.join(' ')
+  end
+
+  def generate_username
+    self.username = "#{first_name}.#{last_name}@#{classcode}"
+  end
+
+  def generate_password
+    self.password = self.password_confirmation = last_name
+  end
+
+  def generate_student
+    self.role = 'student'
+    generate_username
+    generate_password
   end
 
 private

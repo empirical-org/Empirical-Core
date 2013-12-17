@@ -24,6 +24,14 @@ EmpiricalGrammar::Application.routes.draw do
   namespace :teachers do
     resources :classrooms do
       resources :chapters, controller: 'classroom_chapters'
+      resources :students do
+        put :reset_password
+      end
+
+      # TODO: abstract this list as well. Duplicated in nav in layout.
+      %w(scorebook accounts import).each do |page|
+        get page => "classroom_manager##{page}"
+      end
     end
   end
 

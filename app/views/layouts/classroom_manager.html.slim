@@ -1,0 +1,27 @@
+- content_for :body_content do
+  .container
+    article.teacher-profile-page.simple-rounded-box
+      .l-section
+        h2 #{current_user.name}, welcome to Quill!
+
+      .l-section
+        .btn-group
+          .btn.btn-warning Classroom:
+          .btn.btn-warning.dropdown-toggle data-toggle="dropdown"
+            = @classroom.name
+            span.caret
+
+          ul.dropdown-menu
+            - (current_user.classrooms - [@classroom]).each do |classroom|
+              li= link_to classroom.name, teachers_classroom_path(classroom)
+
+        a.btn style="float: right"= 'Create a classroom'
+
+      .l-section
+        .btn-group
+          - %w(scorebook students accounts import).each do |page|
+            = link_to page, url_for(controller: 'teachers/classroom_manager', action: page), class: "btn #{if page == params[:action] then 'btn-primary' end}"
+
+      = yield
+
+= render template: 'layouts/application'

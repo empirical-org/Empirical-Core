@@ -1,11 +1,3 @@
-.profile-classroom-form.l-section
-  = render 'form'
-
-.teacher-classroom-code.l-section
-  h3 My #{@classroom.name} class code
-  .classroom-code-box= @classroom.code
-  p.explanation: em Have your students enter "#{@classroom.code}" into their profile to join your class.
-
 .teacher-students.l-section
   h3 Students
 
@@ -26,10 +18,10 @@
 
 .teacher-assigned-chapters.table-stripe.l-section
   h3 Assigned Lessons
-  = render partial: 'chapter', collection: @classroom_chapters
+  = render partial: 'teachers/classrooms/chapter', collection: @classroom_chapters
 
 .teacher.unassigned-chapters.table-stripe.l-section
   h3 Unassigned Lessons
   - @chapter_levels.each do |level, chapters|
     h4 style="text-decoration: underline ; margin-top: 50px"= level.name
-    = render partial: 'chapter', collection: chapters
+    = render partial: 'teachers/classrooms/chapter', collection: chapters
