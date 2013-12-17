@@ -1,0 +1,41 @@
+.l-section
+  h3 Invite Students
+
+  p There are <b>two ways</b> you can add your students to your class:
+
+  ol
+    li <b>Students</b> can create their own accounts.
+    li <b>Teachers</b> manually create accounts.
+
+.teacher-classroom-code.l-section
+  h3 1. Student Creates Account
+
+  p If your student creates an account, have your student plug this code into their profile to join your class.
+
+  .classroom-code-box= @classroom.code
+  .explanation: em Have your students enter "#{@classroom.code}" into their profile to join your class.
+
+.l-section
+  h3 2. Teacher Creates Account
+  p You can create accounts for your students by inputting your students' first and last names.
+  p The students' <b>username</b> is your student's name combined with your class code. For example, John Smith's username is 'John.Smith@#{@classroom.code}'.
+  p The student's <b>password</b> is set to his or her last name.
+
+  = form_for User.new, url: teachers_classroom_students_path(@classroom), layout: 'inline' do |f|
+    = f.string :first_name, label: false, placeholder: 'First name'
+    = f.string :last_name, label: false, placeholder: 'Last name'
+    button.btn.btn-primary.btn-mid type="submit" Add Student
+
+  table.table.table-stripe
+    thead
+      th First Name
+      th Last Name
+      th Username
+      th Edit Account
+    tbody
+      - @classroom.students.each do |student|
+        tr
+          td= student.first_name
+          td= student.last_name
+          td= student.username
+          td= link_to 'Edit', edit_teachers_classroom_student_path(@classroom, student)

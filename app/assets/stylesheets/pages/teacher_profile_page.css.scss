@@ -39,6 +39,23 @@ table.classroom-students-grades {
 }
 
 article.teacher-profile-page {
+  .l-section {
+    h3 {
+      text-align: left;
+      font-size: 34px;
+    }
+
+    p {
+      text-align: left;
+    }
+
+    .table {
+      td {
+        padding: 10px;
+      }
+    }
+  }
+
   .classroom-code-box {
     font-size: 30px;
     width: 560px;

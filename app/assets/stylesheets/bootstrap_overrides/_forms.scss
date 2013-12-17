@@ -257,6 +257,13 @@ textarea {
   margin-left: 10px; // space out consecutive inline controls
 }
 
+.form-inline {
+  .control-group {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
 
 
 // INPUT SIZES

@@ -73,6 +73,17 @@
   margin-top: 2px;
 }
 
+// Mid
+.btn-mid {
+  padding: 5px 18px;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
+}
+
+.btn-mid [class^="icon-"] {
+  margin-top: 0;
+}
+
 // Small
 .btn-small {
   padding: 3px 9px;
