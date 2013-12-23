@@ -242,11 +242,12 @@ h3 Organizational Questions
 javascript:
   (function($) {
     $(document).ready( function() {
-      if( window.location.hash) 
-        $(window.location.hash+' .accordion-body').collapse('open'); 
       $('a.accordion-toggle').click( function(e) { 
         e.preventDefault(); 
         $(this).next('.accordion-body').collapse('toggle');
       }); 
+      if(window.location.hash) { 
+        $(window.location.hash+' .accordion-body').collapse('toggle'); 
+      }
     });
   })(jQuery);
