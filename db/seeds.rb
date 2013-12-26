@@ -9,7 +9,7 @@
 now = DateTime.now
 users = {}
 
-['admin', 'teacher', 'student'].each do |role|
+[:admin, :teacher, :student].each do |role|
   users[role] = User.create(
     name: role.capitalize,
     email: "#{role}@quill.org",
@@ -18,25 +18,24 @@ users = {}
     created_at: now,
     updated_at: now,
     classcode: nil,
-    active: 't',
+    active: true,
     username: role,
     token: nil,
-    role: role
+    role: role.to_s
   ) unless User.find_by_role(role)
 end
 
 classroom = Classroom.create(
   name: "Test Classroom",
-  teacher_id: users['teacher'].id, 
+  teacher_id: users[:teacher].id, 
   created_at: now,
   updated_at: now
 ) unless Classroom.find_by_id(1)
 
-users['student'].classcode = classroom.code 
-users['student'].save
+users[:student].classcode = classroom.code 
+users[:student].save
 
 unless Chapter.find_by_id(1)
-
   Assessment.create(
     body: "In 1914, Ernest Shackleton set {+off-of|1} on an exploration across the Antarctic. In 1915 his ship, Endurance, became trapped in the ice, and {+its-it's|2} crew was stuck. Ten months later {+their-there|3} ship sank, and {+Shackleton's-Shackletons|4} crew was forced to live on {+an-a|5} iceberg. They reached Elephant Island in {+April-april|6} of 1916 using three lifeboats. \r\n\r\nShackleton promised to {+find-found|7} help. In a small boat with five crew members, he spent 16 days crossing 800 miles of ocean. The remaining men were then rescued {+in-on|8} August of 1916. Amazingly, Shackleton did not {+lose-loose|9} anyone on the trip. ",
     chapter_id: 1,
@@ -415,7 +414,6 @@ unless Chapter.find_by_id(1)
     created_at: now,
     updated_at: now
   })
-
 end
 
 ClassroomChapter.create({
