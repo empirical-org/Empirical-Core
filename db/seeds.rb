@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-now = Time.now
+now = DateTime.now
 users = {}
 
 ['admin', 'teacher', 'student'].each do |role|
@@ -417,3 +417,12 @@ unless Chapter.find_by_id(1)
   })
 
 end
+
+ClassroomChapter.create({
+  classcode: classroom.code,
+  chapter_id: 1,
+  created_at: now,
+  due_date: now + 10,
+  updated_at: now,
+  classroom_id: classroom.id 
+})
