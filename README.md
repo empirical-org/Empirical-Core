@@ -59,10 +59,12 @@ directory is the Quill application root.
 
 3.  Build the database structure.
 
-        sudo service postgres start   # may change depending on your OS
+    ~~~ sh
+    sudo service postgres start   # may change depending on your OS
 
-        rake db:create
-        rake db:schema:load
+    rake db:create
+    rake db:schema:load
+    ~~~
 
 4.  Seed data into the database. 
 
@@ -88,8 +90,10 @@ directory is the Quill application root.
 
 6.  Start the app, make sure it works.
 
-        rails server
-        curl localhost:3000
+    ~~~ sh
+    rails server
+    curl localhost:3000
+    ~~~
 
 Benchmarking
 ------------
