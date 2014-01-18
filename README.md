@@ -109,4 +109,4 @@ $ ab -H "Authorization: Basic `echo TOKEN_GOES_HERE: | base64`==" -n 5 -c 1 http
 Help
 ----
 
-Find us on IRC at **#empirical-quill**!
+Find us on IRC at **#quill**!
