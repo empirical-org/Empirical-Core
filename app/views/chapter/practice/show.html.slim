@@ -47,7 +47,7 @@
           .icon
           .message
             h3 Incorrect.
-            .hint= @question.hint || 'hint'
+            .hint= @question.answers.first || 'answer'
           a.button.btn.btn-primary.next Continue
 
         .correct
