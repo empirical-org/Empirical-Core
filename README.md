@@ -35,15 +35,7 @@ local machine.
 *Note:* Unless stated otherwise, all commands assume that your current working
 directory is the Quill application root.
 
-0.  Set up an [RVM](http://rvm.io) environment.
-
-    *Note*: You *do not* have to do this, but can be helpful if you work with
-    multiple Ruby projects. See the [RVM home page for more details](http://rvm.io).
-
-        rvm install 1.9.3
-        rvm gemset create quill
-        echo "1.9.3" >> .ruby-version
-        echo "quill" >> .ruby-gemset
+0.  Setup ruby 1.9.3. You can use RVM or rbenv to achieve this, rbenv is recommended (https://github.com/sstephenson/rbenv).
 
 1.  Install dependencies.
 
