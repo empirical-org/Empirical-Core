@@ -20,12 +20,6 @@ module Student
     end
     protected :classroom_chapter_score_join
 
-    # has_many :finished_chapters, -> { where('scores.state' => 'finished') }, through: :scores, source: :chapter do
-    #   def for_classroom classroom
-    #     includes(:classroom_chapters).where(classroom_chapters: { classroom_id: classroom.id }).first
-    #   end
-    # end
-
     has_many :scores, dependent: :destroy do
       def for_chapter chapter
         includes(:classroom_chapter).where(classroom_chapters: { chapter_id: chapter.id }).last

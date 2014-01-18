@@ -1,0 +1,36 @@
+article.simple-rounded-box
+  p#notice= notice
+  = link_to image_tag('newcategory.png', title: 'New Category'), new_cms_category_path
+
+  .category-container
+    - (@categories << NilCategory).each do |category|
+      .line.category-line
+        .title.category-title= category.title
+        .actions
+          .add
+            = link_to image_tag('newactivity.png', title: 'New activity for ' + category.title), new_cms_activity_path(category: category)
+          .destroy
+            = link_to image_tag('delete.png', title: 'Delete ' + category.title), [:cms, category], method: :delete, data: { confirm: 'Are you sure?' }
+          .edit
+            = link_to image_tag('edit.png', title: 'Edit ' + category.title), edit_cms_category_path(category)
+
+      - category.activities.each do |activity|
+        .line.activity-line
+          .title.activity-question-title
+            = "#{activity.title} \{\|#{activity.id}\}"
+
+          .actions
+            .add= link_to image_tag('newlesson.png', title: 'New question for this activity'), new_cms_activity_question_path(activity: activity)
+            .destroy
+              = link_to image_tag('delete.png', title: 'Delete this activity'), [:cms, activity], method: :delete, data: { confirm: 'Are you sure?' }
+            .edit
+              = link_to image_tag('edit.png', title: 'Edit this activity'), edit_cms_activity_path(activity)
+
+        - activity.questions.each do |lesson|
+          .line.activity-question-line
+            .title.lesson= lesson.body
+            .actions
+              .add &nbsp;
+              .destroy
+                = link_to image_tag('delete.png', title: 'Delete this question'), [:cms, lesson], method: :delete, data: { confirm: 'Are you sure?' }
+              .edit= link_to image_tag('edit.png', title: 'Edit this question'), edit_cms_activity_question_path(lesson)

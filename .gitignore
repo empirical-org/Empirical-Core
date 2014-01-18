@@ -21,3 +21,4 @@ public/assets
 log/*.log
 tmp
 coverage
+snapshot.dump

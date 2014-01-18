@@ -1,10 +1,13 @@
-class StoryChecker < Score
+class StoryChecker < ActivityEnrollment
   attr_accessor :context
 
   def check_input! input, saving = true
     self.story_step_input = input
     @chunks = input.map { |c| Chunk.new(chapter, c) }.each(&:grade!)
     save! if saving
+  # rescue Exception => e
+  #   binding.pry
+  #   raise e
   end
 
   def chunks

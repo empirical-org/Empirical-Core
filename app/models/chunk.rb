@@ -4,6 +4,7 @@ class Chunk
   delegate :classification, to: :rule
 
   def initialize chapter, options
+    puts options[:id]
     @chapter = chapter
     @chunk   = chapter.assessment.chunks[options[:id]]
 
