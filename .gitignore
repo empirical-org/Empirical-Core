@@ -6,6 +6,9 @@
 
 # ruby configs
 .bundle
+.ruby-env
+.ruby-gemset
+.ruby-version
 
 # database
 db/*.sqlite3
@@ -21,3 +24,6 @@ public/assets
 log/*.log
 tmp
 coverage
+
+# vagrant files
+.vagrant/
