@@ -42,7 +42,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  %w(middle_school story about learning develop mission faq tos lessons).each do |page|
+  %w(middle_school story about learning develop mission faq tos lessons contributors).each do |page|
     get page => "pages##{page}"
   end
 
@@ -51,4 +51,6 @@ EmpiricalGrammar::Application.routes.draw do
   patch 'cheat'           => 'chapter/practice#cheat'
 
   root to: 'pages#home'
+  
+  
 end
