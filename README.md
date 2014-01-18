@@ -42,7 +42,7 @@ directory is the Quill application root.
         bundle install
 
     *Note*: This may require you to install missing system packages using your
-    system package handler (`apt`, `yum`, etc.).
+    system package handler (`brew`, `apt`, `yum`, etc.).
 
 2.  Set up your database configuration by creating and editing the file
     `config/database.yml` with appropriate connection information. Example
