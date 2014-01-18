@@ -35,22 +35,14 @@ local machine.
 *Note:* Unless stated otherwise, all commands assume that your current working
 directory is the Quill application root.
 
-0.  Set up an [RVM](http://rvm.io) environment.
-
-    *Note*: You *do not* have to do this, but can be helpful if you work with
-    multiple Ruby projects. See the [RVM home page for more details](http://rvm.io).
-
-        rvm install 1.9.3
-        rvm gemset create quill
-        echo "1.9.3" >> .ruby-version
-        echo "quill" >> .ruby-gemset
+0.  Setup ruby 1.9.3. You can use RVM or rbenv to achieve this, rbenv is recommended (https://github.com/sstephenson/rbenv).
 
 1.  Install dependencies.
 
         bundle install
 
     *Note*: This may require you to install missing system packages using your
-    system package handler (`apt`, `yum`, etc.).
+    system package handler (`brew`, `apt`, `yum`, etc.).
 
 2.  Set up your database configuration by creating and editing the file
     `config/database.yml` with appropriate connection information. Example
@@ -67,10 +59,12 @@ directory is the Quill application root.
 
 3.  Build the database structure.
 
-        sudo service postgres start   # may change depending on your OS
+    ~~~ sh
+    sudo service postgres start   # may change depending on your OS
 
-        rake db:create
-        rake db:schema:load
+    rake db:create
+    rake db:schema:load
+    ~~~
 
 4.  Seed data into the database. 
 
@@ -86,22 +80,20 @@ directory is the Quill application root.
     *Note*: `<app>` is the name of the Quill deployment on Heroku you want to
     retrieve data from.
 
-5.  Create a `.ruby-env` file in the project root and define necessary
-    environment values.
+5.  Ensure the following parameters are in your environment:
 
-        echo "RAILS_ENV=development
+        JRUBY_OPTS=--1.9
         APP_SECRET=your-secret-key
-        HOMEPAGE_CHAPTER_ID=1" >> ./.ruby-env
+        HOMEPAGE_CHAPTER_ID=1
 
-    *Note*: You may need to cd out and back into the app root for these
-    environment changes to apply.
-
-        cd ~; cd -;
+    Setting these up varies on your platform. You can `export` them in your bash config (not recommended) or use a config  file provided by either RVM (.ruby-env) or rbenv (.rbenv-vars). Please refer to their respective documentations if you need more information. 
 
 6.  Start the app, make sure it works.
 
-        rails server
-        curl localhost:3000
+    ~~~ sh
+    rails server
+    curl localhost:3000
+    ~~~
 
 Benchmarking
 ------------
