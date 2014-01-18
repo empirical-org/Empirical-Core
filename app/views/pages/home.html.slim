@@ -84,3 +84,53 @@ article.home-content
 javascript:
   mixpanel.track("homepage viewed");
   $('.carousel').carousel({interval: 10000});
+  // These are the guiders. ".creatGuiders" makes a new guider, taking the listen optional paramters. Add a ".show()" will show the guider immidiately after creating.
+  guiders.createGuider({
+    attachTo: ".title",
+    buttons: [{name: "next"}],
+    id: "first",
+    // the "next" states which guider to go to next, but the guider's id
+    next: "second",
+    // for position, use clock positions --> ex: 12 = top, 6 = bottom
+    position: 12,
+    description: "Here's the first lesson.",
+    title: "Welcome to Quill!",
+    width: 250,
+  }).show();
+
+  guiders.createGuider({
+    attachTo: ".show-results",
+    buttons: [{name: "next"}],
+    description: "Click this button to see how you did!",
+    id: "second",
+    next: "third",
+    position: 6,
+    title: "The Second Instruction!",
+    // "autoFocus" will scroll to the guider
+    autoFocus: true,
+  });
+
+  guiders.createGuider({
+    attachTo: ".call-to-action .btn",
+    buttons: [{name: "next"}],
+    description: "Pick a role!",
+    id: "third",
+    next: "fourth",
+    position: 9,
+    title: "A Third Instruction!",
+    width: 250,
+    height: 100,
+  });
+
+  guiders.createGuider({
+    attachTo: "#footer-item li:nth-child(3) img",
+    // for "onclick", "guiders.hideAll" will hide all of the guides
+    buttons: [{name: "close", onclick: guiders.hideAll}],
+    description: "Holler if you're a developer!",
+    id: "fourth",
+    position: 12,
+    title: "The End",
+    width: 250,
+    height: 100,
+    autoFocus: true
+  });

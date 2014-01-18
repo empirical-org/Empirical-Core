@@ -12,4 +12,5 @@
 //= require backbone
 //= require backbone/pg_site
 //= require jsdiff
+//= require guiders
 //= require_tree .
