@@ -78,17 +78,13 @@ directory is the Quill application root.
     *Note*: `<app>` is the name of the Quill deployment on Heroku you want to
     retrieve data from.
 
-5.  Create a `.ruby-env` file in the project root and define necessary
-    environment values.
+5.  Ensure the following parameters are in your environment:
 
-        echo "RAILS_ENV=development
+        JRUBY_OPTS=--1.9
         APP_SECRET=your-secret-key
-        HOMEPAGE_CHAPTER_ID=1" >> ./.ruby-env
+        HOMEPAGE_CHAPTER_ID=1
 
-    *Note*: You may need to cd out and back into the app root for these
-    environment changes to apply.
-
-        cd ~; cd -;
+    Setting these up varies on your platform. You can `export` them in your bash config (not recommended) or use a config  file provided by either RVM (.ruby-env) or rbenv (.rbenv-vars). Please refer to their respective documentations if you need more information. 
 
 6.  Start the app, make sure it works.
 
