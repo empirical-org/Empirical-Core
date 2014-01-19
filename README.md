@@ -35,18 +35,39 @@ local machine.
 *Note:* Unless stated otherwise, all commands assume that your current working
 directory is the Quill application root.
 
-0.  Setup ruby 1.9.3. You can use RVM or rbenv to achieve this, rbenv is recommended (https://github.com/sstephenson/rbenv).
+0.  __Setup ruby 1.9.3. You can use RVM or rbenv to achieve this, rbenv is recommended (https://github.com/sstephenson/rbenv). Here are the steps for installing os OS X:__
+    
+    Install homebrew (if you haven't already): http://brew.sh/
 
-1.  Install dependencies.
+    Install rbenv:
+    
+    ~~~ sh
+    brew update
+    brew install rbenv ruby-build
+    ~~~
+    
+    Install ruby:
+    
+    ~~~ sh
+    rbenv install 1.9.3-p484
+    ~~~
+    
+    Set it to your default ruby:
+    
+    ~~~ sh
+    rbenv global 1.9.3-p484
+    ~~~
+
+1.  __Install dependencies.__
 
         bundle install
 
     *Note*: This may require you to install missing system packages using your
     system package handler (`brew`, `apt`, `yum`, etc.).
 
-2.  Set up your database configuration by creating and editing the file
+2.  __Set up your database configuration by creating and editing the file
     `config/database.yml` with appropriate connection information. Example
-    information is provided below.
+    information is provided below.__
 
         development:
             host: localhost
@@ -57,7 +78,7 @@ directory is the Quill application root.
             username: my_name
             password: my_pass
 
-3.  Build the database structure.
+3.  __Build the database structure.__
 
     ~~~ sh
     sudo service postgres start   # may change depending on your OS
@@ -66,7 +87,7 @@ directory is the Quill application root.
     rake db:schema:load
     ~~~
 
-4.  Seed data into the database. 
+4.  __Seed data into the database.__
 
         rake db:seed
         
@@ -80,7 +101,7 @@ directory is the Quill application root.
     *Note*: `<app>` is the name of the Quill deployment on Heroku you want to
     retrieve data from.
 
-5.  Ensure the following parameters are in your environment:
+5.  __Ensure the following parameters are in your environment:__
 
         JRUBY_OPTS=--1.9
         APP_SECRET=your-secret-key
@@ -88,7 +109,7 @@ directory is the Quill application root.
 
     Setting these up varies on your platform. You can `export` them in your bash config (not recommended) or use a config  file provided by either RVM (.ruby-env) or rbenv (.rbenv-vars). Please refer to their respective documentations if you need more information. 
 
-6.  Start the app, make sure it works.
+6.  __Start the app, make sure it works.__
 
     ~~~ sh
     rails server
