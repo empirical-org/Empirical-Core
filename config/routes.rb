@@ -52,7 +52,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :rules
       resources :chapter_levels
       resources :activities
-      resources :activity_instances
+      resources :activity_classifications
 
       resources :users do
         member do

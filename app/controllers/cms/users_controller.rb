@@ -3,7 +3,7 @@ class CMS::UsersController < ApplicationController
   before_filter :admin!, only: [:sign_in]
 
   def index
-    @users = User.all
+    @users = User.page(params[:page]).per(100)
   end
 
   def new

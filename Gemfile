@@ -27,7 +27,6 @@ gem 'carrierwave'
 gem 'fog'
 gem 'aws-sdk'
 gem 'parslet'
-gem 'pry'
 gem 'sentry-raven'
 gem 'slim-rails'
 gem 'taps'
@@ -36,6 +35,7 @@ gem 'unicorn', platforms: :ruby
 gem 'puma',    platforms: :jruby
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'rspec-rails', group: %w(development test)
+gem 'pry-rails', group: %w(development test)
 
 group :test do
   # gem 'coveralls'

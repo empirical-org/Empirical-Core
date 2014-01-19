@@ -17,6 +17,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
+  def new_scorebook
+
+  end
+
 protected
   def setup
   end

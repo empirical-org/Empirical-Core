@@ -4,7 +4,7 @@ class Activity < ActiveRecord::Base
   has_one :section, through: :topic
   has_one :workbook, through: :section
 
-  has_many :classroom_activities
+  has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
 
   def classification_key= key

@@ -11,7 +11,6 @@ class CMS::ActivitiesController < ApplicationController
 
   def edit
     @activity = Activity.find(params[:id])
-    @activity.rule_position_text = %w(1 2 3).to_json if @activity.rule_position.empty?
     render :new
   end
 

@@ -83,7 +83,6 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
-    ffi (1.9.3-java)
     ffi2-generators (0.1.1)
     fog (1.14.0)
       builder
@@ -131,7 +130,7 @@ GEM
     mailchimp-api (2.0.4)
       excon (>= 0.16.0)
       json (>= 1.7.7)
-    method_source (0.8.1)
+    method_source (0.8.2)
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.7.7)
@@ -146,15 +145,12 @@ GEM
       blankslate (~> 2.0)
     pg (0.14.1)
     polyglot (0.3.3)
-    pry (0.9.12)
+    pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
-    pry (0.9.12-java)
-      coderay (~> 1.0.5)
-      method_source (~> 0.8)
-      slop (~> 3.4)
-      spoon (~> 0.0)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
     puma (2.6.0-java)
       rack (>= 1.1, < 2.0)
     racc (1.4.10)
@@ -427,9 +423,7 @@ GEM
       activesupport (>= 3.0, < 4.1)
       railties (>= 3.0, < 4.1)
       slim (~> 2.0)
-    slop (3.4.4)
-    spoon (0.0.4)
-      ffi
+    slop (3.4.6)
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -492,7 +486,7 @@ DEPENDENCIES
   newrelic_rpm
   parslet
   pg
-  pry
+  pry-rails
   puma
   racc
   rails (~> 4)

@@ -1,12 +1,10 @@
-class CMS::ActivitiesController < ApplicationController
+class CMS::ActivityClassificationsController < ApplicationController
   def index
     @activity_classifications = ActivityClassification.all
   end
 
   def new
     @activity_classification = ActivityClassification.new
-    @activity_classification.workbook_id = params[:workbook_id]
-    @activity_classification.build_assessment(body: "Please enter some text.")
   end
 
   def edit

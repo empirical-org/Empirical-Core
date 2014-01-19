@@ -1,3 +1,3 @@
 class ActivityClassification < ActiveRecord::Base
-  has_many :instances, class_name: 'ActivityInstance'
+  has_many :activities, dependent: :destroy
 end
