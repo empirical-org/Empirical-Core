@@ -1,4 +1,6 @@
 EmpiricalGrammar::Application.routes.draw do
+  get "errors/error_404"
+  get "errors/error_500"
   resources :assessments
   resources :assignments
   resource :profile
@@ -49,6 +51,10 @@ EmpiricalGrammar::Application.routes.draw do
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
   patch 'cheat'           => 'chapter/practice#cheat'
+
+   unless Rails.application.config.consider_all_requests_local
+    match '*not_found', to: 'errors#error_404', via: [:get, :post] 
+  end
 
   root to: 'pages#home'
 end
