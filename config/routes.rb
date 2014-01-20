@@ -3,20 +3,9 @@ EmpiricalGrammar::Application.routes.draw do
     scope path: 'stories' do
       get 'form' => 'stories#form'
       match '' => 'stories#save', via: [:post, :put]
-    end
-  end
 
-  constraints subdomain: 'api' do
-    Quill::API.endpoints.each do |endpoint, _|
-      resources endpoint, controller: 'api'
+      get 'module' => 'stories#module'
     end
-  end
-
-  constraints subdomain: 'main-app' do
-    resources :assessments
-    resources :assignments
-    resource :profile
-    resources :password_reset
 
     resources :chapters, controller: 'chapter/start' do
       resources :practice, step: 'practice', controller: 'chapter/practice' do
@@ -34,6 +23,20 @@ EmpiricalGrammar::Application.routes.draw do
       get :resume
       get :retry
     end
+  end
+
+  constraints subdomain: 'api' do
+    Quill::API.endpoints.each do |endpoint, _|
+      resources endpoint, controller: 'api', as: "api_#{endpoint}"
+    end
+  end
+
+  constraints subdomain: 'main-app' do
+    resources :assessments
+    resources :assignments
+    resource :profile
+    resources :password_reset
+    get 'activities/:id' => 'activities#show', as: 'activity'
 
     namespace :teachers do
       resources :classrooms do

@@ -14,19 +14,7 @@ class ClassroomActivity < ActiveRecord::Base
     due_date.try(:strftime, '%m/%d/%Y')
   end
 
-  class << self
-    def temporary_score chapter, options = {}
-      classroom_chapter = new
-      classroom_chapter.temporary = true
-      classroom_chapter.chapter = chapter
-      score = classroom_chapter.scores.build(user: options[:user])
-      classroom_chapter.save!
-      score
-    end
-
-    def create_score chapter, options = {}
-      classroom_chapter = where(chapter_id: chapter.id, classroom_id: options[:user].classroom.id).first
-      classroom_chapter.scores.create!(user: options[:user])
-    end
+  def enrollment_for user
+    activity_enrollments.find_or_create_by!(user_id: user.id)
   end
 end

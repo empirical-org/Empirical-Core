@@ -18,6 +18,30 @@ class ProfilesController < ApplicationController
 
   def student
     @classroom = current_user.classroom
+
+    @activity_table = {
+      'Assigned Lessons' => {},
+      'Completed Lessons' => {}
+    }
+
+    @classroom.units.each do |unit|
+      unit.activities.each do |activity|
+        key = if ActivityEnrollment.includes(:classroom_activity)
+            .where('classroom_activities.activities_id = ? && classroom_activities.classroom_id = ? && activity_enrollments.user_id = ?',
+                   activity.id,
+                   @classroom.id,
+                   current_user.id)
+          'Assigned Lessons'
+        else
+          'Completed Lessons'
+        end
+
+        @activity_table[key][unit.name] ||= {}
+        @activity_table[key][unit.name][activity.topic.name] ||= []
+        @activity_table[key][unit.name][activity.topic.name] << activity
+      end
+    end
+
     render :student
   end
 

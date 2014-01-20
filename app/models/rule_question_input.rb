@@ -49,6 +49,7 @@ class RuleQuestionInput < ActiveRecord::Base
   include FinalChapterView
   belongs_to :rule_question
   has_one :rule, through: :rule_question
+  belongs_to :activity_enrollment
 
   def handle_input input
     if first_input.nil?

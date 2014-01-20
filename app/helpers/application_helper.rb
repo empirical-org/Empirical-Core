@@ -54,4 +54,8 @@ module ApplicationHelper
   def active_on_first(i)
     "active" if i == 0
   end
+
+  def root_path
+    root_url
+  end
 end

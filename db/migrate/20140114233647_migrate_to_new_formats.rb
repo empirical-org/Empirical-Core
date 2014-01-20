@@ -52,9 +52,11 @@ class MigrateToNewFormats < ActiveRecord::Migration
       t.string :state, default: 'unstarted', null: false
       t.integer :time_spent
       t.timestamp :completed_at
+      t.string :uid
 
       t.hstore :data
-      t.index :pairing_id, unique: true
+      t.index :pairing_id
+      t.index :uid, unique: true
     end
 
     remove_column :scores, :practice_step_input, :text
@@ -73,9 +75,9 @@ class MigrateToNewFormats < ActiveRecord::Migration
       t.belongs_to :activity_enrollment
     end
 
-    # create_table :units, force: true do |t|
-    #   t.string :name
-    #   t.belongs_to :classroom
-    # end
+    create_table :units, force: true do |t|
+      t.string :name
+      t.belongs_to :classroom
+    end
   end
 end

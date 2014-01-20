@@ -14,6 +14,14 @@ class StoriesController < ApplicationController
     end
   end
 
+  def module
+    session[:uid] = params[:uid]
+    session[:cid] = params[:cid]
+    session[:student] = params[:student]
+
+    redirect_to
+  end
+
 protected
 
   def quill_iframe

@@ -1,27 +1,13 @@
 .teacher-students.l-section
-  h3 Students
-
-  table.table.classroom-students-grades
-    thead
-      th.student-header Students
-
-      - @classroom_chapters.each do |chapter|
-        th= chapter.title[0..4]
-
-    tbody
-      - @classroom_students.each do |student|
-        tr
-          td= student.name
-
-          - @classroom_chapters.each do |chapter|
-            td: .score-color class=@score_table[student.id].try(:[], chapter.id).try(:grade_name)
-
 .teacher-assigned-chapters.table-stripe.l-section
   h3 Assigned Lessons
-  = render partial: 'teachers/classrooms/chapter', collection: @classroom_chapters
 
-.teacher.unassigned-chapters.table-stripe.l-section
-  h3 Unassigned Lessons
-  - @chapter_levels.each do |level, chapters|
-    h4 style="text-decoration: underline ; margin-top: 50px"= level.name
-    = render partial: 'teachers/classrooms/chapter', collection: chapters
+  - @classroom.units.each do |unit|
+    h4= unit.name
+
+    - unit.activities.select(:topic_id).group(:topic_id).pluck(:topic_id).each do |topic_id|
+      - topic = Topic.find(topic_id)
+      div: strong= topic.name
+
+      - unit.activities.where(topic_id: topic_id).each do |activity|
+        div= activity.name

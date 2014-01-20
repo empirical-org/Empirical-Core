@@ -41,15 +41,15 @@ Chapter.all.each do |chapter|
   topic[:name] = chapter_attributes.delete(:title)
   topic[:section_id] = chapter_attributes.delete(:chapter_level_id)
 
-  story[:data][:name] = chapter_attributes.delete(:article_header)
-  story[:data][:body] = chapter.assessment.body
+  story[:name] = chapter_attributes.delete(:article_header)
+  story[:description] = chapter.description
   story[:data][:instructions] = chapter.assessment.instructions
-  story[:data][:description] = chapter.description
+  story[:data][:body] = chapter.assessment.body
   # story[:data].merge!(chapter_attributes)
 
+  practice[:name] = chapter.practice_description
+  practice[:description] = chapter.description
   practice[:data][:rule_position] = chapter.rule_position.to_yaml
-  practice[:data][:name] = chapter.practice_description
-  practice[:data][:description] = chapter.description
 
   Section.find(topic[:section_id]).update_column :workbook_id, chapter_attributes.delete(:workbook_id)
 
@@ -62,14 +62,15 @@ Chapter.all.each do |chapter|
 
   chapter.classroom_chapters.each do |classroom_chapter|
     (puts 'nexting' && next) if classroom_chapter.temporary
+    (puts 'nexting' && next) if classroom_chapter.classroom.nil?
 
     [story, practice].each do |activity|
       classroom_activity = activity.classroom_activities.create!(
         activity: activity,
         classroom: classroom_chapter.classroom,
         due_date: classroom_chapter.due_date,
-        temporary: classroom_chapter.temporary
-        unit: (classroom_chapter.classroom.units.first || classroom_chapters.classroom.units.create!(name: 'Unit 1'))
+        temporary: classroom_chapter.temporary,
+        unit: (classroom_chapter.classroom.units.first || classroom_chapter.classroom.units.create!(name: 'Unit 1'))
       )
 
       classroom_chapter.scores.each do |score|
@@ -86,7 +87,7 @@ Chapter.all.each do |chapter|
         step = if activity.classification == story_class then 'review' else 'practice' end
 
         score.inputs.where(step: step).each do |input|
-          input.update_attributes! activity_enrollment: activity_enrollment
+          input.update_attributes! activity_enrollment: enrollment
         end
       end
     end

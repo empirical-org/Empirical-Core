@@ -25,6 +25,14 @@ class Activity < ActiveRecord::Base
     url
   end
 
+  def module_url activity_enrollment
+    url = classification.module_url.dup
+    url = UriParams.add_param(url, 'cid', classification.uid)
+    url = UriParams.add_param(url, 'uid', uid) if uid.present?
+    url = UriParams.add_param(url, 'student', activity_enrollment.uid) if uid.present?
+    url
+  end
+
   def cid
     classification.uid
   end

@@ -2,6 +2,7 @@ class Classroom < ActiveRecord::Base
   has_many :classroom_chapters
   has_many :chapters, through: :classroom_chapters
   has_many :scores, through: :classroom_chapters
+  has_many :units
 
   has_many :classroom_activities
   has_many :activities, through: :classroom_activities

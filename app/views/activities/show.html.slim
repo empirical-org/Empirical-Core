@@ -1,9 +1,8 @@
 article.simple-rounded-box.activity-form
-  iframe src=@activity.form_url
+  iframe src=@activity.module_url(@activity_enrollment)
 
 javascript:
   $(window).on('message', function (e) {
     var message = e.originalEvent.data;
-    if (message == 'saveSuccessful')
-      window.location = '#{cms_activities_path}'
+
   });

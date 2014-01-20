@@ -36,14 +36,15 @@ article.student-profile-page.simple-rounded-box
                 .due-date= classroom_chapter.due_date.strftime('%m/%d')
                 .score-color class=current_user.scores.for_chapter(classroom_chapter.chapter).try(:grade_name)
 
-    .l-section
-      h3 My Assignments
+    .activity-table
+      - @activity_table.each do |state, units|
+        .l-section
+          h3= state
 
-      .table-stripe
-        = render partial: 'teachers/classrooms/chapter', collection: current_user.unfinished_chapters(@classroom)
+          .activity-units
+            - units.each do |unit_name, topics|
+              .topic-heading: strong= unit_name
 
-    .l-section
-      h3 Completed Assignments
-
-      .table-stripe
-        = render partial: 'teachers/classrooms/chapter', collection: current_user.finished_chapters(@classroom), locals: { completed: true }
+              - topics.each do |topic_name, activities|
+                div: strong= topic_name
+                = render partial: 'teachers/classrooms/activity', collection: activities
