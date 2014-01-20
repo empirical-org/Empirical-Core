@@ -1,0 +1,38 @@
+{
+  "sources": {
+    "apt": {
+      "locked_version": "2.3.4"
+    },
+    "build-essential": {
+      "locked_version": "1.4.2"
+    },
+    "ruby_build": {
+      "locked_version": "0.8.0"
+    },
+    "rbenv": {
+      "locked_version": "0.7.2",
+      "git": "git@github.com:fnichol/chef-rbenv.git",
+      "ref": "f2b53292e810dd2b43f6121f9958f5f29979dcb1"
+    },
+    "nodejs": {
+      "locked_version": "1.3.0"
+    },
+    "openssl": {
+      "locked_version": "1.1.0"
+    },
+    "postgresql": {
+      "locked_version": "3.3.4"
+    },
+    "quill": {
+      "locked_version": "1.0.0",
+      "git": "git@github.com:empirical-org/quill-cookbooks",
+      "ref": "19cdecbc5d22712b0fc86d019546e32abd666144"
+    },
+    "java": {
+      "locked_version": "1.18.0"
+    },
+    "yum": {
+      "locked_version": "3.0.4"
+    }
+  }
+}
