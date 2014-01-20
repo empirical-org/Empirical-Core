@@ -59,6 +59,7 @@ Chapter.all.each do |chapter|
 
   puts 'migrating '+topic.name
   puts chapter.classroom_chapters.count.to_s + ' to migrate'
+
   chapter.classroom_chapters.each do |classroom_chapter|
     (puts 'nexting' && next) if classroom_chapter.temporary
 
@@ -68,6 +69,7 @@ Chapter.all.each do |chapter|
         classroom: classroom_chapter.classroom,
         due_date: classroom_chapter.due_date,
         temporary: classroom_chapter.temporary
+        unit: (classroom_chapter.classroom.units.first || classroom_chapters.classroom.units.create!(name: 'Unit 1'))
       )
 
       classroom_chapter.scores.each do |score|
@@ -84,7 +86,7 @@ Chapter.all.each do |chapter|
         step = if activity.classification == story_class then 'review' else 'practice' end
 
         score.inputs.where(step: step).each do |input|
-          input
+          input.update_attributes! activity_enrollment: activity_enrollment
         end
       end
     end

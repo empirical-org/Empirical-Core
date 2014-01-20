@@ -1,6 +1,8 @@
 class CMS::ActivitiesController < ApplicationController
+  before_filter :find_classification
+
   def index
-    @activities = Activity.all
+    @activities = @activity_classification.activities
   end
 
   def new
@@ -11,7 +13,6 @@ class CMS::ActivitiesController < ApplicationController
 
   def edit
     @activity = Activity.find(params[:id])
-    render :new
   end
 
   def create
@@ -25,7 +26,7 @@ class CMS::ActivitiesController < ApplicationController
   end
 
   def update
-    @activity = Activity.find(params[:id])
+    @activity = subject
 
     if @activity.update_attributes(activity_params)
       redirect_to cms_activities_path, notice: 'Activity was successfully updated.'
@@ -35,7 +36,7 @@ class CMS::ActivitiesController < ApplicationController
   end
 
   def destroy
-    @activity = Activity.find(params[:id])
+    @activity = subject
 
     @activity.assignments.each do |assignment|
       assignment.scores.each(&:destroy)
@@ -47,7 +48,15 @@ class CMS::ActivitiesController < ApplicationController
     redirect_to cms_activities_path
   end
 
-  protected
+protected
+
+  def subject
+    @activity_classification.activities.find(params[:id])
+  end
+
+  def find_classification
+    @activity_classification = ActivityClassification.find_by_key!(params[:key])
+  end
 
   def activity_params
     params.require(:activity).permit!

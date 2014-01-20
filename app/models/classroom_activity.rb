@@ -1,6 +1,7 @@
 class ClassroomActivity < ActiveRecord::Base
   belongs_to :classroom
   belongs_to :activity
+  belongs_to :unit
   # belongs_to :chapter, foreign_key: 'activity_id' #REMOVE
   has_many :activity_enrollments, dependent: :destroy
   # default_scope -> { includes(:chapter).order('chapters.title ASC') }

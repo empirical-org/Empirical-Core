@@ -11,37 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140119010550) do
-
-  create_table "activities", force: true do |t|
-    t.hstore   "data"
-    t.integer  "activity_classification_id"
-    t.integer  "topic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "activity_classifications", force: true do |t|
-    t.string   "name"
-    t.string   "key",        null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "activity_classifications", ["key"], name: "index_activity_classifications_on_key", unique: true, using: :btree
-
-  create_table "activity_enrollments", force: true do |t|
-    t.integer  "classroom_activity_id"
-    t.integer  "user_id"
-    t.string   "pairing_id"
-    t.float    "percentage"
-    t.string   "state",                 default: "unstarted", null: false
-    t.integer  "time_spent"
-    t.datetime "completed_at"
-    t.hstore   "data"
-  end
-
-  add_index "activity_enrollments", ["pairing_id"], name: "index_activity_enrollments_on_pairing_id", unique: true, using: :btree
+ActiveRecord::Schema.define(version: 20140114233646) do
 
   create_table "assessments", force: true do |t|
     t.text     "body"
@@ -62,7 +32,6 @@ ActiveRecord::Schema.define(version: 20140119010550) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "workbook_id"
   end
 
   create_table "chapters", force: true do |t|
@@ -78,15 +47,6 @@ ActiveRecord::Schema.define(version: 20140119010550) do
   end
 
   add_index "chapters", ["chapter_level_id"], name: "index_chapters_on_chapter_level_id", using: :btree
-
-  create_table "classroom_activities", force: true do |t|
-    t.integer  "classroom_id"
-    t.integer  "activity_id"
-    t.datetime "due_date"
-    t.boolean  "temporary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "classroom_chapters", force: true do |t|
     t.string   "classcode"
@@ -177,7 +137,6 @@ ActiveRecord::Schema.define(version: 20140119010550) do
     t.text     "second_input"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "activity_enrollment_id"
   end
 
   create_table "rule_questions", force: true do |t|
@@ -220,21 +179,11 @@ ActiveRecord::Schema.define(version: 20140119010550) do
     t.string   "state",                default: "unstarted", null: false
     t.text     "story_step_input"
     t.float    "grade"
-  end
-
-  create_table "sections", force: true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "workbook_id"
-  end
-
-  create_table "topics", force: true do |t|
-    t.string   "name"
-    t.integer  "section_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text     "score_values"
+    t.integer  "lessons_completed"
+    t.integer  "items_missed"
+    t.text     "review_step_input"
+    t.text     "practice_step_input"
   end
 
   create_table "users", force: true do |t|

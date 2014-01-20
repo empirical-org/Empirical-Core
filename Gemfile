@@ -36,6 +36,8 @@ gem 'puma',    platforms: :jruby
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'rspec-rails', group: %w(development test)
 gem 'pry-rails', group: %w(development test)
+gem 'puma', group: %w(development)
+gem 'faraday_middleware'
 
 group :test do
   # gem 'coveralls'

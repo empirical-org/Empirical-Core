@@ -1,0 +1,27 @@
+.teacher-students.l-section
+  h3 Students
+
+  table.table.classroom-students-grades
+    thead
+      th.student-header Students
+
+      - @classroom_chapters.each do |chapter|
+        th= chapter.title[0..4]
+
+    tbody
+      - @classroom_students.each do |student|
+        tr
+          td= student.name
+
+          - @classroom_chapters.each do |chapter|
+            td: .score-color class=@score_table[student.id].try(:[], chapter.id).try(:grade_name)
+
+.teacher-assigned-chapters.table-stripe.l-section
+  h3 Assigned Lessons
+  = render partial: 'teachers/classrooms/chapter', collection: @classroom_chapters
+
+.teacher.unassigned-chapters.table-stripe.l-section
+  h3 Unassigned Lessons
+  - @chapter_levels.each do |level, chapters|
+    h4 style="text-decoration: underline ; margin-top: 50px"= level.name
+    = render partial: 'teachers/classrooms/chapter', collection: chapters

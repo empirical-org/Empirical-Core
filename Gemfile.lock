@@ -83,6 +83,8 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
     ffi2-generators (0.1.1)
     fog (1.14.0)
       builder
@@ -151,6 +153,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
+    puma (2.6.0)
+      rack (>= 1.1, < 2.0)
     puma (2.6.0-java)
       rack (>= 1.1, < 2.0)
     racc (1.4.10)
@@ -473,6 +477,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails
   compass-rails
+  faraday_middleware
   fog
   haml-rails
   haml_coffee_assets

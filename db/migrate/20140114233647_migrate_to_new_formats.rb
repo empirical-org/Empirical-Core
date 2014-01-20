@@ -3,15 +3,25 @@ class MigrateToNewFormats < ActiveRecord::Migration
     create_table :activity_classifications, force: true do |t|
       t.string :name
       t.string :key, null: false
+      t.string :form_url
+      t.string :uid, null: false
+      t.string :module_url
+
+      t.index :uid, unique: true
       t.index :key, unique: true
 
       t.timestamps
     end
 
     create_table :activities, force: true do |t|
+      t.string :name
+      t.text :description
+      t.string :uid, null: false
       t.hstore :data
       t.belongs_to :activity_classification
       t.belongs_to :topic
+
+      t.index :uid, unique: true
 
       t.timestamps
     end
@@ -26,6 +36,7 @@ class MigrateToNewFormats < ActiveRecord::Migration
     create_table :classroom_activities, force: true do |t|
       t.belongs_to :classroom
       t.belongs_to :activity
+      t.belongs_to :unit
       t.datetime :due_date
       t.boolean :temporary
 
@@ -61,5 +72,10 @@ class MigrateToNewFormats < ActiveRecord::Migration
     change_table :rule_question_inputs do |t|
       t.belongs_to :activity_enrollment
     end
+
+    # create_table :units, force: true do |t|
+    #   t.string :name
+    #   t.belongs_to :classroom
+    # end
   end
 end

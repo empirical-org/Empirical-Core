@@ -9,7 +9,6 @@ class CMS::ActivityClassificationsController < ApplicationController
 
   def edit
     @activity_classification = ActivityClassification.find(params[:id])
-    @activity_classification.rule_position_text = %w(1 2 3).to_json if @activity_classification.rule_position.empty?
     render :new
   end
 

@@ -1,10 +1,15 @@
 EmpiricalGrammar::Application.routes.draw do
   constraints subdomain: 'questions-module' do
-
+    scope path: 'stories' do
+      get 'form' => 'stories#form'
+      match '' => 'stories#save', via: [:post, :put]
+    end
   end
 
   constraints subdomain: 'api' do
-
+    Quill::API.endpoints.each do |endpoint, _|
+      resources endpoint, controller: 'api'
+    end
   end
 
   constraints subdomain: 'main-app' do
@@ -38,7 +43,7 @@ EmpiricalGrammar::Application.routes.draw do
         end
 
         # TODO: abstract this list as well. Duplicated in nav in layout.
-        %w(scorebook invite_students accounts import).each do |page|
+        %w(new_scorebook scorebook invite_students accounts import).each do |page|
           get page => "classroom_manager##{page}"
         end
       end
@@ -51,7 +56,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :chapters
       resources :rules
       resources :chapter_levels
-      resources :activities
+      resources :activities, path: 'activity_type/:key/activities'
       resources :activity_classifications
 
       resources :users do
