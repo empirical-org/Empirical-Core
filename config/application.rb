@@ -10,7 +10,7 @@ require "rails/test_unit/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
- 
+
 # https://github.com/rails/sass-rails/issues/157
 if Rails.env.development?
   require 'sass'

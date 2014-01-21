@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-# ruby '1.9.3'
+#ruby '1.9.3'
 
 gem 'rails', '~> 4'
 gem 'pg', platforms: :ruby
@@ -11,7 +11,7 @@ gem 'coffee-rails'
 gem 'uglifier'
 gem 'turbolinks'
 gem 'bootstrap-sass'
-gem 'compass-rails' 
+gem 'compass-rails'
 gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'haml_coffee_assets'
