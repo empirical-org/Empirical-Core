@@ -27,6 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "ruby_build"
     chef.add_recipe "rbenv::vagrant"
     chef.add_recipe "rbenv::user"
+    chef.add_recipe "rbenv-vars"
     chef.add_recipe "nodejs"
     chef.add_recipe "quill"
 
@@ -37,6 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.json = {
       'apt' => {'compiletime' => true},
       'rbenv' => {
+        'root_path' => '/home/vagrant/.rbenv',
         'user_installs' => [
           {
             'user'    => user,

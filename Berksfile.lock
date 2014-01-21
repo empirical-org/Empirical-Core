@@ -26,7 +26,12 @@
     "quill": {
       "locked_version": "1.0.0",
       "git": "git@github.com:empirical-org/quill-cookbooks",
-      "ref": "19cdecbc5d22712b0fc86d019546e32abd666144"
+      "ref": "d0c9e090df6bd0b511f2e330f7e62c5639a68642"
+    },
+    "rbenv-vars": {
+      "locked_version": "0.1.1",
+      "git": "git@github.com:hecticjeff/chef-rbenv-vars.git",
+      "ref": "776420a6c041f359b7700126de690713c6cd3c2f"
     },
     "java": {
       "locked_version": "1.18.0"

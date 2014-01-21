@@ -27,12 +27,6 @@ This will log you into your virtual machine as if you connected to it via ssh.
 Run Quill
 ---------
 
-Before running Quill, you must export a few environment variables.
-
-    $ export RAILS_ENV=development
-    $ export APP_SECRET=my-dev-secret
-    $ export HOMEPAGE_CHAPTER_ID=1
-
 The Quill project directory will automatically be mounted as `/vagrant` on your new virtual machine. To run Quill, run the following commands:
 
     $ cd /vagrant
