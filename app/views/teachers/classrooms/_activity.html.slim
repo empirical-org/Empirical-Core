@@ -1,6 +1,6 @@
 - completed = false unless defined?(completed)
 - classroom_activity = @classroom.classroom_activities.find_by_activity_id(activity.id)
-- activity_enrollment = classroom_activity.enrollment_for(current_user)
+- activity_enrollment = classroom_activity.session_for(current_user)
 
 .teacher-classroom-chapter.l-table-row
   .l-group-left

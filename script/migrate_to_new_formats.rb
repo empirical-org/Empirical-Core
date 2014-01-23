@@ -69,25 +69,43 @@ Chapter.all.each do |chapter|
         activity: activity,
         classroom: classroom_chapter.classroom,
         due_date: classroom_chapter.due_date,
-        temporary: classroom_chapter.temporary,
         unit: (classroom_chapter.classroom.units.first || classroom_chapter.classroom.units.create!(name: 'Unit 1'))
       )
 
       classroom_chapter.scores.each do |score|
-        enrollment = classroom_activity.activity_enrollments.create!(
+        state = case score.state
+        when 'trashed' then 'trashed'
+        when 'unstarted' then 'unstarted'
+        when 'finished' then 'finished'
+        else
+          'started'
+        end
+
+        session_data = if activity.classification == story_class
+          {
+            story_step_input: score.story_step_input.to_yaml,
+            missed_rules: score.missed_rules.to_yaml,
+          }
+        else
+          {}
+        end
+
+        session = classroom_activity.activity_sessions.create!(
           classroom_activity: classroom_activity,
           user: score.user,
           pairing_id: SecureRandom.urlsafe_base64,
           percentage: score.grade,
-          state: score.state,
+          state: state,
           time_spent: nil,
-          completed_at: score.completion_date
+          completed_at: score.completion_date,
+          data: session_data,
+          temporary: classroom_chapter.temporary
         )
 
         step = if activity.classification == story_class then 'review' else 'practice' end
 
         score.inputs.where(step: step).each do |input|
-          input.update_attributes! activity_enrollment: enrollment
+          input.update_attributes! activity_session_id: session.uid
         end
       end
     end

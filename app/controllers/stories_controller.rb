@@ -19,7 +19,7 @@ class StoriesController < ApplicationController
     session[:cid] = params[:cid]
     session[:student] = params[:student]
 
-    redirect_to
+    redirect_to ''
   end
 
 protected

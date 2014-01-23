@@ -3,8 +3,14 @@ class PagesController < ApplicationController
 
   def home
     @body_class = 'home-page'
-    @chapter = Chapter.find(ENV['HOMEPAGE_CHAPTER_ID'])
-    @assessment = @chapter.assessment
+
+    @activity = Topic.find(ENV['HOMEPAGE_CHAPTER_ID']).activities.where(
+      activity_classification_id: ActivityClassification.find_by_key('story').id
+    ).first
+    # @chapter = ChapterShim.new(
+    # )
+
+    # @assessment = @chapter.assessment
   end
 
   def develop

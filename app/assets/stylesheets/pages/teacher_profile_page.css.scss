@@ -74,6 +74,7 @@ article.teacher-profile-page {
 .teacher-classroom-nav {
   .btn { margin-right: 20px }
 }
+
 .teacher-classroom-chapter {
   overflow: hidden;
   margin-bottom: 20px;
@@ -108,4 +109,11 @@ article.teacher-profile-page {
   .l-group-right {
     float: right;
   }
+}
+
+.classroom-manager-sticky-bar {
+  background-color: #333;
+  margin: 0 -20px 0 -20px;
+  color: white;
+  padding: 10px 20px;
 }

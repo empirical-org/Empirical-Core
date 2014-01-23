@@ -2,8 +2,9 @@ article.home-content
   .home-hero-unit
     .content-overlay
       .home-lesson: .container
-        .story-instructions= markdown @chapter.story_instructions
-        = render partial: 'chapter_test', object: @chapter
+        -#.story-instructions= markdown @chapter.story_instructions
+        iframe src=homepage_story_url(@activity)
+        -#= render partial: 'chapter_test', object: @chapter
 
       .home-pitch
         h2 Quill provides interactive grammar lessons.

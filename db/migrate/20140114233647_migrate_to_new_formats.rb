@@ -38,13 +38,13 @@ class MigrateToNewFormats < ActiveRecord::Migration
       t.belongs_to :activity
       t.belongs_to :unit
       t.datetime :due_date
-      t.boolean :temporary
 
       t.timestamps
     end
 
-    create_table :activity_enrollments, force: true do |t|
+    create_table :activity_sessions, force: true do |t|
       t.belongs_to :classroom_activity
+      t.belongs_to :activity
       t.belongs_to :user
 
       t.string :pairing_id
@@ -53,6 +53,7 @@ class MigrateToNewFormats < ActiveRecord::Migration
       t.integer :time_spent
       t.timestamp :completed_at
       t.string :uid
+      t.boolean :temporary
 
       t.hstore :data
       t.index :pairing_id
@@ -72,7 +73,7 @@ class MigrateToNewFormats < ActiveRecord::Migration
     end
 
     change_table :rule_question_inputs do |t|
-      t.belongs_to :activity_enrollment
+      t.string :activity_session_id
     end
 
     create_table :units, force: true do |t|

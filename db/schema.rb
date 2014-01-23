@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140120055125) do
+ActiveRecord::Schema.define(version: 20140119010550) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20140120055125) do
   add_index "activity_classifications", ["key"], name: "index_activity_classifications_on_key", unique: true, using: :btree
   add_index "activity_classifications", ["uid"], name: "index_activity_classifications_on_uid", unique: true, using: :btree
 
-  create_table "activity_enrollments", force: true do |t|
+  create_table "activity_sessions", force: true do |t|
     t.integer  "classroom_activity_id"
     t.integer  "user_id"
     t.string   "pairing_id"
@@ -47,11 +47,12 @@ ActiveRecord::Schema.define(version: 20140120055125) do
     t.string   "state",                 default: "unstarted", null: false
     t.integer  "time_spent"
     t.datetime "completed_at"
-    t.hstore   "data"
     t.string   "uid"
+    t.hstore   "data"
   end
 
-  add_index "activity_enrollments", ["pairing_id"], name: "index_activity_enrollments_on_pairing_id", unique: true, using: :btree
+  add_index "activity_sessions", ["pairing_id"], name: "index_activity_sessions_on_pairing_id", using: :btree
+  add_index "activity_sessions", ["uid"], name: "index_activity_sessions_on_uid", unique: true, using: :btree
 
   create_table "assessments", force: true do |t|
     t.text     "body"
@@ -188,7 +189,7 @@ ActiveRecord::Schema.define(version: 20140120055125) do
     t.text     "second_input"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "activity_enrollment_id"
+    t.integer  "activity_session_id"
   end
 
   create_table "rule_questions", force: true do |t|

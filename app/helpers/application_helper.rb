@@ -58,4 +58,9 @@ module ApplicationHelper
   def root_path
     root_url
   end
+
+  def homepage_story_url activity
+    url = activity.module_url(:anonymous)
+    ((u = URI(url)).path = '/stories/homepage' ; u).to_s
+  end
 end

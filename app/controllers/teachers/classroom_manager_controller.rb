@@ -18,15 +18,15 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def new_scorebook
-    @classroom_chapters = @classroom.chapters
-    @classroom_students = @classroom.students.order(:name)
-    @assigned_sections = ChapterLevel.all.map{ |level| [level, level.chapters - @classroom_chapters] }.select{ |group| group.second.any? }
+  end
 
-    @score_table = Score.joins(:classroom_chapter).where(classroom_chapters: { classroom_id: @classroom.id }).inject({}) do |table, score|
-      table[score.user_id] ||= {}
-      table[score.user_id][score.classroom_chapter.chapter_id] = score
+  def lesson_planner
+    @workbook_table = {}
 
-      table
+    (Activity.all - @classroom.activities).each do |activity|
+      @workbook_table[activity.topic.section.name] ||= {}
+      @workbook_table[activity.topic.section.name][activity.topic.name] ||= []
+      @workbook_table[activity.topic.section.name][activity.topic.name] << activity
     end
   end
 
