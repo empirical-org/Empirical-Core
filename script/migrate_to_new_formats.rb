@@ -19,7 +19,7 @@ Chapter.find_by_id(55).try(:destroy)
 
 story_class = ActivityClassification.create!(
   name: 'Story',
-  key: 'story'
+  key: 'story',
   module_url: 'http://quill-questions-module.herokuapp.com/stories/module',
   form_url:   'http://quill-questions-module.herokuapp.com/stories/form'
 )
