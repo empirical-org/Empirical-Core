@@ -14,7 +14,7 @@
           td= student.name
 
           - @classroom_chapters.each do |chapter|
-            td: .score-color class=@score_table[student.id].try(:[], chapter.id).try(:grade_name)
+            td: .score-color class=@score_table[student.id].try(:[], chapter.id).try(:percentage_color)
 
 .teacher-assigned-chapters.table-stripe.l-section
   h3 Assigned Lessons

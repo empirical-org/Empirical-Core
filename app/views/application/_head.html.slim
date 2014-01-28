@@ -18,3 +18,22 @@ head
         #wrap { display: table ; height: 100% }
       </style>
     <![endif]-->
+
+  javascript:
+    window.Quill = {};
+    Quill.iframe = {};
+
+    Quill.iframe.resize = function (dimensions) {
+      console.log('the new height will be ' + dimensions.height)
+      this.$iframe.width(dimensions.width);
+      this.$iframe.height(dimensions.height);
+    }
+
+    jQuery(function ($) {
+      Quill.iframe.$iframe = $('iframe#activity-iframe');
+
+      $(window).on('message', function (e) {
+        var data = JSON.parse(e.originalEvent.data);
+        Quill.iframe[data.messageType](data.payload);
+      });
+    });

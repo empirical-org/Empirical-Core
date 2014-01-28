@@ -34,7 +34,7 @@ article.student-profile-page.simple-rounded-box
             - @classroom.classroom_chapters.each do |classroom_chapter|
               td
                 .due-date= classroom_chapter.due_date.strftime('%m/%d')
-                .score-color class=current_user.scores.for_chapter(classroom_chapter.chapter).try(:grade_name)
+                .score-color class=current_user.scores.for_chapter(classroom_chapter.chapter).try(:percentage_color)
 
     .activity-table
       - @activity_table.each do |state, units|

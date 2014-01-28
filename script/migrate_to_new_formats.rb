@@ -20,6 +20,8 @@ Chapter.find_by_id(55).try(:destroy)
 story_class = ActivityClassification.create!(
   name: 'Story',
   key: 'story'
+  module_url: 'http://quill.lvh.me:3002/stories/module'
+  form_url:   'http://quill.lvh.me:3002/stories/form'
 )
 
 practice_class = ActivityClassification.create!(
