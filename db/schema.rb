@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140119010550) do
+ActiveRecord::Schema.define(version: 20140202153308) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140119010550) do
 
   create_table "activity_sessions", force: true do |t|
     t.integer  "classroom_activity_id"
+    t.integer  "activity_id"
     t.integer  "user_id"
     t.string   "pairing_id"
     t.float    "percentage"
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 20140119010550) do
     t.integer  "time_spent"
     t.datetime "completed_at"
     t.string   "uid"
+    t.boolean  "temporary"
     t.hstore   "data"
   end
 
@@ -95,7 +97,6 @@ ActiveRecord::Schema.define(version: 20140119010550) do
     t.integer  "activity_id"
     t.integer  "unit_id"
     t.datetime "due_date"
-    t.boolean  "temporary"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -164,6 +165,45 @@ ActiveRecord::Schema.define(version: 20140119010550) do
     t.datetime "updated_at"
   end
 
+  create_table "oauth_access_grants", force: true do |t|
+    t.integer  "resource_owner_id", null: false
+    t.integer  "application_id",    null: false
+    t.string   "token",             null: false
+    t.integer  "expires_in",        null: false
+    t.text     "redirect_uri",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "revoked_at"
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
+
+  create_table "oauth_access_tokens", force: true do |t|
+    t.integer  "resource_owner_id"
+    t.integer  "application_id"
+    t.string   "token",             null: false
+    t.string   "refresh_token"
+    t.integer  "expires_in"
+    t.datetime "revoked_at"
+    t.datetime "created_at",        null: false
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
+
+  create_table "oauth_applications", force: true do |t|
+    t.string   "name",         null: false
+    t.string   "uid",          null: false
+    t.string   "secret",       null: false
+    t.text     "redirect_uri", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+
   create_table "page_areas", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -189,7 +229,7 @@ ActiveRecord::Schema.define(version: 20140119010550) do
     t.text     "second_input"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "activity_session_id"
+    t.string   "activity_session_id"
   end
 
   create_table "rule_questions", force: true do |t|

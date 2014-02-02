@@ -1,4 +1,5 @@
 EmpiricalGrammar::Application.routes.draw do
+  use_doorkeeper
   resources :assessments
   resources :assignments
   resource :profile
