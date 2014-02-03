@@ -117,3 +117,31 @@ article.teacher-profile-page {
   color: white;
   padding: 10px 20px;
 }
+
+.teacher-lesson-planner {
+  .explanation-text {
+    background-color: #eee;
+    font-style: italic;
+    padding: 5px;
+    margin: 10px 0;
+  }
+
+  .unit-header {
+    background-color: $skyblue;
+    padding: 5px;
+    color: white;
+    margin: 20px 0;
+  }
+
+  .activity-row {
+    padding: 10px;
+  }
+
+  .sub-unit-header {
+    font-weight: bold;
+  }
+
+  .unit-section {
+    margin-bottom: 40px;
+  }
+}

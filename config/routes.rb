@@ -8,7 +8,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :teachers do
     resources :classrooms do
-      resources :chapters, controller: 'classroom_chapters'
+      resources :activities, controller: 'classroom_chapters'
       resources :students do
         put :reset_password
       end

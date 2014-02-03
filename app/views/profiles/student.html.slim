@@ -18,7 +18,7 @@ article.student-profile-page.simple-rounded-box
       p Join a class to track your pogress.
 
       .table-stripe
-        = render partial: 'teachers/classrooms/chapter', collection: Chapter.all
+        = render partial: 'teachers/classrooms/activity', collection: Chapter.all
 
   - else
     .l-section
@@ -27,14 +27,14 @@ article.student-profile-page.simple-rounded-box
 
       table.table.classroom-students-grades
         thead
-          - @classroom.chapters.each do |chapter|
-            th= chapter.title[0..4]
+          - @classroom.activities.each do |activity|
+            th= activity.topic.name[0..4]
         tbody
           tr
-            - @classroom.classroom_chapters.each do |classroom_chapter|
+            - @classroom.classroom_activities.each do |classroom_activity|
               td
-                .due-date= classroom_chapter.due_date.strftime('%m/%d')
-                .score-color class=current_user.scores.for_chapter(classroom_chapter.chapter).try(:percentage_color)
+                .due-date= classroom_activity.due_date.strftime('%m/%d')
+                .score-color class=current_user.activity_sessions.for_activity(classroom_activity.activity).try(:percentage_color)
 
     .activity-table
       - @activity_table.each do |state, units|

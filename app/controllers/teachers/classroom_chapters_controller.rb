@@ -3,29 +3,29 @@ class Teachers::ClassroomChaptersController < ApplicationController
   before_filter :authorize!
 
   def show
-    @classroom_chapter.due_date ||= Time.now
+    @classroom_activity.due_date ||= Time.now
   end
 
   def update
-    @classroom_chapter.attributes = classroom_chapter_params
-    @classroom_chapter.save
-    redirect_to [:teachers, @classroom]
+    @classroom_activity.attributes = classroom_activity_params
+    @classroom_activity.save
+    redirect_to teachers_classroom_lesson_planner_path(@classroom)
   end
 
   def destroy
-    @classroom_chapter.destroy
-    redirect_to [:teachers, @classroom]
+    @classroom_activity.destroy
+    redirect_to teachers_classroom_lesson_planner_path(@classroom)
   end
 
 private
 
   def authorize!
     @classroom = Classroom.where(teacher_id: current_user.id).find(params[:classroom_id])
-    @chapter = Chapter.find(params[:id])
-    @classroom_chapter = @classroom.classroom_chapters.find_or_initialize_by(chapter_id: @chapter.id)
+    @activity = Activity.find(params[:id])
+    @classroom_activity = AssignmentView.find_or_initialize_by(activity_id: @activity.id, classroom_id: @classroom.id)
   end
 
-  def classroom_chapter_params
-    params[:classroom_chapter].permit(:due_date, :due_date_string)
+  def classroom_activity_params
+    params[:classroom_activity].permit(:due_date, :due_date_string, :choose_everyone, {assigned_student_ids: []}, :unit_id)
   end
 end

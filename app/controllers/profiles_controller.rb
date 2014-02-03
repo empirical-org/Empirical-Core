@@ -25,9 +25,17 @@ class ProfilesController < ApplicationController
     }
 
     @classroom.units.each do |unit|
-      unit.activities.each do |activity|
-        key = if ActivityEnrollment.includes(:classroom_activity)
-            .where('classroom_activities.activities_id = ? && classroom_activities.classroom_id = ? && activity_enrollments.user_id = ?',
+      # raise @classroom.classroom_activities.map(&:assigned_student_ids)
+
+      activities = unit.activities.includes(:classroom_activities).where(<<-SQL, current_user.id)
+      classroom_activities.assigned_student_ids IS NULL OR
+      classroom_activities.assigned_student_ids = '{}' OR
+      ? = ANY (classroom_activities.assigned_student_ids)
+      SQL
+
+      activities.each do |activity|
+        key = if ActivitySession.includes(:classroom_activity)
+            .where('classroom_activities.activities_id = ? AND classroom_activities.classroom_id = ? AND activity_enrollments.user_id = ?',
                    activity.id,
                    @classroom.id,
                    current_user.id)
