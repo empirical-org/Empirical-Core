@@ -35,7 +35,7 @@ class ProfilesController < ApplicationController
 
       activities.each do |activity|
         key = if ActivitySession.includes(:classroom_activity)
-            .where('classroom_activities.activities_id = ? AND classroom_activities.classroom_id = ? AND activity_enrollments.user_id = ?',
+            .where('classroom_activities.activities_id = ? AND classroom_activities.classroom_id = ? AND activity_sessions.user_id = ?',
                    activity.id,
                    @classroom.id,
                    current_user.id)
