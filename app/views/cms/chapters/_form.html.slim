@@ -18,6 +18,7 @@
       .positions
       .btn.add Add another
       .btn.btn-primary.save Done
+
   = f.choices :chapter_level_id, ChapterLevel.all.map{|c| [c.name, c.id]}
   = f.choices :workbook_id, Workbook.all.map{|w| [w.title, w.id]}
   = f.actions save: 'Save'

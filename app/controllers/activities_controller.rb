@@ -1,6 +1,11 @@
 class ActivitiesController < ApplicationController
   def show
-    @activity_session = ActivitySession.find(params[:id])
-    @activity = @activity_session.activity
+    @activity = Activity.find(params[:id])
+
+    @activity_session = if params[:anonymous]
+      :anonymous
+    else
+      ActivitySession.find(params[:id])
+    end
   end
 end
