@@ -16,7 +16,7 @@ article.new-account-page.simple-rounded-box
         | teacher profile page.
 
       = f.toggle :terms_of_service, label: "I have read and accept Quill's #{link_to('Terms of Service', tos_path)}.".html_safe
-      = f.toggle :newsletter, label: 'Send me an update from Quill once per month.'
+      = f.toggle :newsletter, label: 'Send me Quill updates. We usually send about one per month.'
 
     = f.actions save: 'Sign up'
 
