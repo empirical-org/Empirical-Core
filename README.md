@@ -55,7 +55,7 @@ directory is the Quill application root.
     Set it to your default ruby:
 
     ~~~ sh
-    rbenv global 1.9.3-p484
+    rbenv local 1.9.3-p484
     ~~~
 
 1.  __Install dependencies.__
