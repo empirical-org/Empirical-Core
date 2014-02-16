@@ -1,40 +1,73 @@
+// constructor. Takes the host of the target as an argument.
 window.Quill = function Quill (host) {
+  // assign host.
   this.host = host;
   if (!host) this.host = 'http://api.quill.org/';
 
+  // if the iframe is present, we assume we are on quill.org
   if ($('iframe#activity-iframe').length > 0) {
+    // locate window
     this.target = $('iframe#activity-iframe')[0].contentWindow;
     this.$iframe = $('iframe#activity-iframe');
+
+    // use iframe object as event context.
     var context = this.iframe;
     delete this.iframe;
   } else {
+    // locate window
     this.target = window.parent;
+
+    // use quill.org object as event context.
     var context = this.wrapper;
     delete this.wrapper;
   }
 
+  // create events instance that contains the Quill context as well as
+  // the context of the relevant events.
   function Target () { }
   jQuery.extend(Target.prototype, this, context);
   this.events = new Target;
 };
 
 jQuery.extend(Quill.prototype, {
+
+  //
+  // iframe events
+  //
+  // This object contain all of the events coming from the iframe. these are callbacks
+  // triggered by the iframe and executed on quill.org (or whatever is parent to the iframe)
+  //
   iframe: {
+    // this is the handler for the resize event coming from the iframe.
+    // it contains the new dimensions of the content contained from within the iframe.
     resize: function (dimensions) {
       this.$iframe.height(dimensions.height);
     },
 
+    // this is the handler for the finish event for an activity. The iframe sends this
+    // event when the user is done with the activity.
     activityFinished: function (options) {
       window.location = '/activity_sessions/' + options.id;
     }
   },
 
+  //
+  // wrapper events
+  //
+  // these are callbacks for events issued by quill.org. They can be set up with standard
+  // behavior or be overridden by the module for custom behavior
+  //
   wrapper: {
+    // this handler is for the cheat event coming from Quill. the recipient can choose
+    // how to handle this. Right now, it is hardcoded to the questions-module Cheater.
     cheat: function () {
       Cheater();
     }
   },
 
+  // this sends messages between iframe and Quill.
+  // this.target is the apposing window. On quill.org, it is the iframe,
+  // from within the iframe, it is quill.org.
   sendMessage: function (type, payload) {
     var data = {
       messageType: type,
@@ -45,6 +78,7 @@ jQuery.extend(Quill.prototype, {
     this.target.postMessage(json, this.host);
   },
 
+  // TODO: this is a sketch, it's not used by anything.
   finishActivityWithResults: function (id, params) {
     $.ajax('http://localhost:3001/', {
       type: 'PUT',
@@ -54,18 +88,23 @@ jQuery.extend(Quill.prototype, {
     });
   },
 
+  // this sends the activityFinished event with the id of the session.
   finishActivity: function (id) {
     this.sendMessage('activityFinished', {id: id});
   },
 
+  // turn on resize detection. Begins polling quill.org with content dimensions
+  // of module.
   autoResize: function () {
+    // no wrapper, we are not in an iframe. Early exit.
     if (window.self == window.top) return;
 
-    // http://stackoverflow.com/a/14901150/1397097
+    // modified from: http://stackoverflow.com/a/14901150/1397097
     function checkDocumentHeight (callback) {
       var lastHeight = $(document).height()
         , newHeight;
 
+      // there doesn't seem to be a reliable way to detected wh
       setInterval(function () {
         newHeight = document.body.offsetHeight;
         if (lastHeight != newHeight) callback();
@@ -73,6 +112,7 @@ jQuery.extend(Quill.prototype, {
       }, 400);
     }
 
+    // send the dimensions to quill.org.
     function postWindowSize (first) {
       var data = {};
 
@@ -89,10 +129,12 @@ jQuery.extend(Quill.prototype, {
     postWindowSize.bind(this)('first');
   },
 
+  // send cheat message to iframe
   cheat: function () {
     this.sendMessage('cheat');
   },
 
+  // begin listening to postMessage events
   listen: function () {
     $(window).on('message', function (e) {
       var data = JSON.parse(e.originalEvent.data);
