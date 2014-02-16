@@ -4,7 +4,13 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assignments
   resource :profile
   resources :password_reset
-  get 'activities/:id' => 'activities#show', as: 'activity'
+  resources :activity_sessions, only: [:show]
+
+  resources :activities, only: [:show] do
+    get :start, on: :member
+    get :resume, on: :member
+    get :retry, on: :member
+  end
 
   namespace :teachers do
     resources :classrooms do
@@ -21,6 +27,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   HoneyAuth::Routes.new(self).draw
+
   CMS::Routes.new(self).draw do
     resources :categories
     resources :rule_questions
@@ -40,10 +47,6 @@ EmpiricalGrammar::Application.routes.draw do
   %w(middle_school story about learning develop mission faq tos lessons).each do |page|
     get page => "pages##{page}"
   end
-
-  patch 'verify_question' => 'chapter/practice#verify'
-  get   'verify_question' => 'chapter/practice#verify_status'
-  patch 'cheat'           => 'chapter/practice#cheat'
 
   root to: 'pages#home'
 end

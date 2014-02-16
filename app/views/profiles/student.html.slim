@@ -39,7 +39,7 @@ article.student-profile-page.simple-rounded-box
     .activity-table
       - @activity_table.each do |state, units|
         .l-section
-          h3= state
+          h3= state ? 'Completed Lessons' : 'Assigned Lessons'
 
           .activity-units
             - units.each do |unit_name, topics|
@@ -47,4 +47,4 @@ article.student-profile-page.simple-rounded-box
 
               - topics.each do |topic_name, activities|
                 div: strong= topic_name
-                = render partial: 'teachers/classrooms/activity', collection: activities
+                = render partial: 'teachers/classrooms/activity', collection: activities, locals: {completed: state}

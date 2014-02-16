@@ -1,0 +1,13 @@
+article.final-score-page.simple-rounded-box
+  .final-score-page-header
+    span Great Job! You completed the lesson:
+    div: b= @activity.name
+
+  table.table.table-stripe
+    thead
+      th.step-title Score
+    tr
+      td.rule-title= (@activity_session.percentage * 100).to_i.to_s + '%'
+
+  .btn-holder
+    a.btn.btn-primary.btn-large href=profile_path Return to My Lessons

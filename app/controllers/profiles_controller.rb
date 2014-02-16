@@ -20,8 +20,8 @@ class ProfilesController < ApplicationController
     @classroom = current_user.classroom
 
     @activity_table = {
-      'Assigned Lessons' => {},
-      'Completed Lessons' => {}
+      false => {},
+      true => {}
     }
 
     @classroom.units.each do |unit|
@@ -34,15 +34,13 @@ class ProfilesController < ApplicationController
       SQL
 
       activities.each do |activity|
-        key = if ActivitySession.includes(:classroom_activity)
-            .where('classroom_activities.activities_id = ? AND classroom_activities.classroom_id = ? AND activity_sessions.user_id = ?',
-                   activity.id,
-                   @classroom.id,
-                   current_user.id)
-          'Assigned Lessons'
-        else
-          'Completed Lessons'
-        end
+        activity_session = ActivitySession.joins(:classroom_activity).where(
+          'classroom_activities.activity_id = ? AND classroom_activities.classroom_id = ? AND activity_sessions.user_id = ?',
+          activity.id,
+          @classroom.id,
+          current_user.id).first
+
+        key = activity_session.state == 'finished'
 
         @activity_table[key][unit.name] ||= {}
         @activity_table[key][unit.name][activity.topic.name] ||= []

@@ -17,15 +17,15 @@
 
         .chapter-actions
           - if completed
-            = link_to 'Retry Lesson', activity_retry_path(activity)
+            = link_to 'Retry Lesson', retry_activity_path(activity)
           - else
-            = link_to 'Start Lesson', activity_path(activity_session)
+            = link_to 'Start Lesson', activity_path(activity, session: activity_session.id)
 
       - else
         .chapter-assignment &nbsp;
 
         .chapter-actions
-          = link_to 'View Lesson', activity_path(activity_session)
+          = link_to 'View Lesson', activity_path(activity, session: activity_session.id)
 
     - else
       .chapter-assignment

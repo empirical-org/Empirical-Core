@@ -2,7 +2,7 @@ footer.con-darkgrey
   #footer-inner.container.clearfix
     #copyright.span3 style="width: 280px"
       span.non-profit.footer-logo-image= image_tag 'emperical-logo.png'
-      span.non-profit 
+      span.non-profit
         em Knowledge through experience
       span Empirical is a nonprofit developer of interactive educational tools.
       span
@@ -15,7 +15,7 @@ footer.con-darkgrey
         li= link_to image_tag('opencontent.png'), develop_path, title: 'Open Content'
         li= link_to image_tag('opensource.png'), 'https://github.com/empirical-org/quill', title: 'Open Source'
 
-- if signed_in?
+- if signed_in? && !Rails.env.development?
   javascript:
     mixpanel.identify("#{current_user.id}");
 
@@ -26,6 +26,6 @@ footer.con-darkgrey
       "role":     "#{current_user.role}"
     });
 
-- if flash[:mixpanel].present?
+- if flash[:mixpanel].present? && !Rails.env.development?
   javascript:
     mixpanel.track("#{flash[:mixpanel]}")
