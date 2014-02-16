@@ -4,7 +4,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize!
   before_filter :setup
 
-  def scorebook
+  def old_scorebook
     @classroom_chapters = @classroom.chapters
     @classroom_students = @classroom.students.order(:name)
     @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters - @classroom_chapters] }.select{ |group| group.second.any? }
@@ -17,7 +17,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
-  def new_scorebook
+  def scorebook
+    render 'new_scorebook'
   end
 
   def lesson_planner
