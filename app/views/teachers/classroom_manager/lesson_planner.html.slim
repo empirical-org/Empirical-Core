@@ -2,7 +2,7 @@
   .lesson-planner-section
     .classroom-manager-sticky-bar My classroom: #{@classroom.name}
     .explanation-text x z y
-    a.btn.btn-prinary add a new unit
+    = link_to 'add a new unit', teachers_classroom_units_path(@classroom), method: 'post', class: 'btn btn-primary'
 
     .unit-section
       - @classroom.units.each do |unit|

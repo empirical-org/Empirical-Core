@@ -14,7 +14,9 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :teachers do
     resources :classrooms do
+      resources :units
       resources :activities, controller: 'classroom_chapters'
+
       resources :students do
         put :reset_password
       end
