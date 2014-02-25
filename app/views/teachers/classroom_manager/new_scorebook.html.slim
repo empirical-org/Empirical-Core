@@ -1,12 +1,39 @@
-.teacher-assigned-chapters.table-stripe.l-section
-  h3 Assigned Lessons
+.teacher-assigned-chapters.l-section
+  .btn-group
+    .btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+      = @unit.name
+      span.caret
 
-  - @classroom.units.each do |unit|
-    h4= unit.name
+    ul.dropdown-menu
+      - (@classroom.units - [@unit]).each do |unit|
+        li= link_to unit.name, url_for(unit_id: unit.id)
 
-    - unit.activities.select(:topic_id).group(:topic_id).pluck(:topic_id).each do |topic_id|
-      - topic = Topic.find(topic_id)
-      div: strong= topic.name
+  - if @unit.topics.any?
+    .btn-group
+      .btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+        = @topic.name
+        span.caret
 
-      - unit.activities.where(topic_id: topic_id).each do |activity|
-        div= activity.name
+      ul.dropdown-menu
+        - (@unit.topics - [@topic]).each do |topic|
+          li= link_to topic.name, url_for(topic_id: topic.id)
+
+    h4= @topic.name
+
+    table.table.classroom-students-grades
+      tbody
+        - @classroom.students.each do |student|
+          tr
+            td= student.name
+
+            - @unit.activities.where(topic_id: @topic.id).each do |activity|
+              td data-toggle="tooltip" title=activity.name
+                .score-color class=@score_table[student.id].try(:[], activity.id).try(:percentage_color)
+  - else
+    br
+    br
+    br
+    p No lessons available for this unit.
+
+javascript:
+  $('td[data-toggle="tooltip"]').tooltip();

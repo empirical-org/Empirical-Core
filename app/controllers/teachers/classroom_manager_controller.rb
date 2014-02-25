@@ -2,22 +2,26 @@ class Teachers::ClassroomManagerController < ApplicationController
   layout 'classroom_manager'
   before_filter :teacher!
   before_filter :authorize!
-  before_filter :setup
 
   def old_scorebook
     @classroom_chapters = @classroom.chapters
     @classroom_students = @classroom.students.order(:name)
     @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters - @classroom_chapters] }.select{ |group| group.second.any? }
-
-    @score_table = Score.joins(:classroom_chapter).where(classroom_chapters: { classroom_id: @classroom.id }).inject({}) do |table, score|
-      table[score.user_id] ||= {}
-      table[score.user_id][score.classroom_chapter.chapter_id] = score
-
-      table
-    end
   end
 
   def scorebook
+    @unit = @classroom.units.find_by_id(params[:unit_id]) || @classroom.units.first
+    @topic = @unit.topics.find_by_id(params[:topic_id])  || @unit.topics.first
+
+    if @unit.topics.any?
+      @score_table = ActivitySession.joins(:unit).joins(:activity).where(classroom_activities: { id: @unit.id }, activities: {topic_id: @topic.id}).inject({}) do |table, score|
+        table[score.user_id] ||= {}
+        table[score.user_id][score.classroom_activity.activity_id] = score
+
+        table
+      end
+    end
+
     render 'new_scorebook'
   end
 
@@ -35,8 +39,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
 protected
-  def setup
-  end
 
   # TODO: this is copied from Teachers::ClassroomsController#authorize!
   #       consider absracting using inheritance e.g. Teachers::BaseClassroomController

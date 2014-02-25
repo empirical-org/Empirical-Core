@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204201027) do
+ActiveRecord::Schema.define(version: 20140224024344) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 20140204201027) do
 
   add_index "activity_sessions", ["pairing_id"], name: "index_activity_sessions_on_pairing_id", using: :btree
   add_index "activity_sessions", ["uid"], name: "index_activity_sessions_on_uid", unique: true, using: :btree
+
+  create_table "activity_time_entries", force: true do |t|
+    t.integer  "activity_session_id"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activity_time_entries", ["activity_session_id"], name: "index_activity_time_entries_on_activity_session_id", using: :btree
 
   create_table "assessments", force: true do |t|
     t.text     "body"
