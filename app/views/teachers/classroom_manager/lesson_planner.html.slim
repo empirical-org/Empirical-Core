@@ -1,7 +1,12 @@
 .teacher-lesson-planner.l-section
   .lesson-planner-section
     .classroom-manager-sticky-bar My classroom: #{@classroom.name}
-    .explanation-text x z y
+
+    .explanation-text
+      span Assign activities to students from the "My workbook" section. Assigned activities are shown in the "My class" section.
+      br
+      span Activities are grouped together into units. Units make it easier for you to organize your lessons.
+
     = link_to 'add a new unit', teachers_classroom_units_path(@classroom), method: 'post', class: 'btn btn-primary'
 
     .unit-section

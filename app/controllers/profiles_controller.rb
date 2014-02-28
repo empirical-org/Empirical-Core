@@ -40,7 +40,8 @@ class ProfilesController < ApplicationController
           @classroom.id,
           current_user.id).first
 
-        key = activity_session.state == 'finished'
+
+        key = activity_session.try(:state) == 'finished'
 
         @activity_table[key][unit.name] ||= {}
         @activity_table[key][unit.name][activity.topic.name] ||= []

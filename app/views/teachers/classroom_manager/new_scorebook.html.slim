@@ -15,7 +15,7 @@
         span.caret
 
       ul.dropdown-menu
-        - (@unit.topics - [@topic]).each do |topic|
+        - (@unit.topics.uniq - [@topic]).each do |topic|
           li= link_to topic.name, url_for(topic_id: topic.id)
 
     h4= @topic.name
@@ -27,8 +27,8 @@
             td= student.name
 
             - @unit.activities.where(topic_id: @topic.id).each do |activity|
-              td data-toggle="tooltip" title=activity.name
-                .score-color class=@score_table[student.id].try(:[], activity.id).try(:percentage_color)
+              td
+                .score-color data-toggle="tooltip" title=activity.name class=@score_table[student.id].try(:[], activity.id).try(:percentage_color)
   - else
     br
     br
@@ -36,4 +36,4 @@
     p No lessons available for this unit.
 
 javascript:
-  $('td[data-toggle="tooltip"]').tooltip();
+  $('div[data-toggle="tooltip"]').tooltip();
