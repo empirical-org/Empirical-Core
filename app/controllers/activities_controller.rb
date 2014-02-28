@@ -32,6 +32,7 @@ protected
 
   def authorize!
     return true if activity_session == :anonymous
+    return true if current_user.try(:admin?)
 
     if activity_session.blank? || activity_session.user != current_user
       render(text: '', status: 401)
