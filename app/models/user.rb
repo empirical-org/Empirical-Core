@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
     update_attributes token: SecureRandom.urlsafe_base64
   end
 
-  private
+private
 
   def newsletter?
     return false if newsletter.blank?
@@ -83,11 +83,6 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to_newsletter
-    if newsletter?
-      MailchimpConnection.connection.lists.subscribe(
-        'eadf6d8153', { email: email }, merge_vars=nil, email_type='html', 
-         double_optin=false, update_existing=false, replace_interests=true, 
-         send_welcome=false)
-    end
+    MailchimpConnection.connection.lists.subscribe('eadf6d8153', { email: email }, merge_vars=nil, email_type='html', double_optin=false, update_existing=false, replace_interests=true, send_welcome=false) if newsletter?
   end
 end
