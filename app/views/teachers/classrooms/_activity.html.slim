@@ -1,6 +1,9 @@
-- completed = false unless defined?(completed)
-- classroom_activity = @classroom.classroom_activities.find_by_activity_id(activity.id)
-- activity_session = classroom_activity.try(:session_for, current_user)
+- if @classroom
+  - completed = false unless defined?(completed)
+  - classroom_activity = @classroom.classroom_activities.find_by_activity_id(activity.id)
+  - activity_session = classroom_activity.try(:session_for, current_user)
+- else
+  - completed = false
 
 .teacher-classroom-chapter.l-table-row
   .l-group-left
@@ -10,7 +13,7 @@
       .chapter-practice-description= activity.description
 
   .l-group-right
-    - if current_user.try(:student?)
+    - if current_user.try(:student?) || @classroom.blank?
       - if @classroom.present?
         .chapter-assignment= classroom_activity.due_date.strftime('%B %d')
 
@@ -24,7 +27,10 @@
         .chapter-assignment &nbsp;
 
         .chapter-actions
-          = link_to 'View Lesson', activity_path(activity, session: activity_session.id)
+          - if activity_session.present?
+            = link_to 'View Lesson', activity_path(activity, session: activity_session.id)
+          - else
+            = link_to 'View Lesson', activity_path(activity, anonymous: true)
 
     - else
       .chapter-assignment
@@ -36,4 +42,4 @@
           = link_to 'Assign', teachers_classroom_activity_path(@classroom, activity)
 
       .chapter-actions
-        = link_to 'View Activity', activity_path(activity, anonymous: true)
+        = link_to 'View Lesson', activity_path(activity, anonymous: true)

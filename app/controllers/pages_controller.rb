@@ -35,7 +35,7 @@ class PagesController < ApplicationController
 
   def lessons
     @body_class = 'auxiliary white-page formatted-text'
-    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters] }.select{ |group| group.second.any? }
+    @topics = Topic.all.map{ |topic| [topic, topic.activities] }.select{ |group| group.second.any? }
   end
 
   private
