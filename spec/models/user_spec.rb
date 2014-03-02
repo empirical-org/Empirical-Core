@@ -110,7 +110,12 @@ describe User do
   #   end
   # end
 
-  it 'checks for a password confirmation only when a password is present on update'
+  it 'checks for a password confirmation only when a password is present on update' do
+    user=User.create(username: 'test',          password: '123456', password_confirmation: '123456')
+    expect(user.update(first_name: 'John', password: '123456', password_confirmation: '123456' )).to be_true
+    expect(user.update(password_confirmation: '')).to be_false
+  end
+  
   it 'only requires a password on create'
   it 'doesn\'t care about all the validation stuff when the user is temporary'
   it 'disallows regular assignment of roles that are restricted'
