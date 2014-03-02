@@ -11,7 +11,7 @@ gem 'coffee-rails'
 gem 'uglifier'
 gem 'turbolinks'
 gem 'bootstrap-sass'
-gem 'compass-rails' 
+gem 'compass-rails'
 gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'haml_coffee_assets'
@@ -39,6 +39,7 @@ gem 'rspec-rails', group: %w(development test)
 
 group :test do
   gem 'coveralls'
+  gem 'shoulda-matchers'
 end
 
 platforms :rbx do
