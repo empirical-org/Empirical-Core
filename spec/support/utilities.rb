@@ -1,3 +1,3 @@
 def sign_in(user)
-  session[:user_id] = user.id
+  user.admin? ? session[:admin_id] = user.id : session[:user_id] = user.id
 end
