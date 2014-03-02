@@ -110,13 +110,19 @@ describe User do
   #   end
   # end
 
-  it 'checks for a password confirmation only when a password is present on update'
+  it 'checks for a password confirmation only when a password is present on update' do
+    user = User.create(username: 'test', password: '123456', password_confirmation: '123456')
+
+    expect(user.update(first_name: 'John', password: '123456', password_confirmation: '123456')).to be_true
+    expect(user.update(password_confirmation: '')).to be_false
+    expect(user.update(password: '', password_confirmation: 'ss')).to be_true
+  end
 
   it 'only requires a password on create' do
     expect(User.create(username: 'test')).to_not be_valid
 
-    otherUser = User.create(email: 'test@example.com', password: '654321', password_confirmation: '654321')
-    expect(otherUser.update(password: nil)).to be_true
+    other_user = User.create(email: 'test@example.com', password: '654321', password_confirmation: '654321')
+    expect(other_user.update(password: nil)).to be_true
   end
 
   it 'doesn\'t care about all the validation stuff when the user is temporary'
