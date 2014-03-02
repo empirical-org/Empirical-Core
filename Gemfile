@@ -38,7 +38,11 @@ gem 'mailchimp-api', require: 'mailchimp'
 gem 'rspec-rails', group: %w(development test)
 
 group :test do
-  # gem 'coveralls'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'simplecov'
 end
 
 platforms :rbx do
