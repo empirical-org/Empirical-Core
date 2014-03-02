@@ -18,6 +18,9 @@ class ProfilesController < ApplicationController
 
   def student
     @classroom = current_user.classroom
+    @chapters = []
+    @classroom_chapters = @classroom.classroom_chapters.sort{|x,y| x.due_date <=> y.due_date}
+    @classroom_chapters.each { |cc| @chapters << cc.chapter }
     render :student
   end
 

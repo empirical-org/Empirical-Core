@@ -9,16 +9,20 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def show
-    @classroom_chapters = @classroom.chapters
-    @classroom_students = @classroom.students.order(:name)
-    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters - @classroom_chapters] }.select{ |group| group.second.any? }
+    @classroom_chapters = @classroom.classroom_chapters.sort{|x,y| x.due_date <=> y.due_date}
+    @chapters = @classroom_chapters.map{|cc| cc.chapter}
+    @classroom_students = @classroom.students.sort{|x,y| x.name <=> y.name}
+    @chapter_levels = ChapterLevel.includes(:chapters).all.map{ |level| [level, level.chapters - @chapters] }.select{ |group| group.second.any? }
 
-    @score_table = Score.joins(:classroom_chapter).where(classroom_chapters: { classroom_id: @classroom.id }).inject({}) do |table, score|
-      table[score.user_id] ||= {}
-      table[score.user_id][score.classroom_chapter.chapter_id] = score
+    @score_table = Score.joins(:classroom_chapter)
+      .where(classroom_chapters: { classroom_id: @classroom.id })
+      .sort{|x,y| x.classroom_chapter.due_date <=> y.classroom_chapter.due_date}
+      .inject({}) do |table, score|
+        table[score.user_id] ||= {}
+        table[score.user_id][score.classroom_chapter.chapter_id] = score
 
-      table
-    end
+        table
+      end
   end
 
   def create
@@ -39,7 +43,7 @@ private
 
   def authorize!
     return unless params[:id].present?
-    @classroom = Classroom.find(params[:id])
+    @classroom = Classroom.includes(:chapters, :classroom_chapters, :students).find(params[:id])
     auth_failed unless @classroom.teacher == current_user
   end
 end
