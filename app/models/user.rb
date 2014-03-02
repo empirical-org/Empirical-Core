@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
 
   # def authenticate
   def self.authenticate params
-    user   = User.find_by_email(params[:email])
-    user ||= User.find_by_username(params[:email])
+    user   = User.where('LOWER(email) = LOWER(?)', params[:email]).first
+    user ||= User.where('LOWER(username) = LOWER(?)', params[:email]).first
     user.try(:authenticate, params[:password])
   end
 
