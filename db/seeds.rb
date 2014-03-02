@@ -6,6 +6,35 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+now = DateTime.now
+users = {}
+
+[:admin, :teacher, :student].each do |role|
+  users[role] = User.create(
+    name: role.capitalize,
+    email: "#{role}@quill.org",
+    password: role,
+    password_confirmation: role,
+    created_at: now,
+    updated_at: now,
+    classcode: nil,
+    active: true,
+    username: role,
+    token: nil,
+    role: role.to_s
+  ) unless User.find_by_role(role)
+end
+
+classroom = Classroom.create(
+  name: "Test Classroom",
+  teacher_id: users[:teacher].id, 
+  created_at: now,
+  updated_at: now
+) unless Classroom.find_by_id(1)
+
+users[:student].classcode = classroom.code 
+users[:student].save
+
 unless Chapter.find_by_id(1)
   Assessment.create(
     body: "In 1914, Ernest Shackleton set {+off-of|1} on an exploration across the Antarctic. In 1915 his ship, Endurance, became trapped in the ice, and {+its-it's|2} crew was stuck. Ten months later {+their-there|3} ship sank, and {+Shackleton's-Shackletons|4} crew was forced to live on {+an-a|5} iceberg. They reached Elephant Island in {+April-april|6} of 1916 using three lifeboats. \r\n\r\nShackleton promised to {+find-found|7} help. In a small boat with five crew members, he spent 16 days crossing 800 miles of ocean. The remaining men were then rescued {+in-on|8} August of 1916. Amazingly, Shackleton did not {+lose-loose|9} anyone on the trip. ",
@@ -22,7 +51,8 @@ unless Chapter.find_by_id(1)
     )
   )
 
-  Rule.create( [{id: 9,
+  Rule.create([
+ {id: 9,
   title: "Lose vs. Loose",
   category_id: 28,
   description: "<b>Lose:</b> I <b>lose</b> my keys; I <b>lose</b> my balance.  \r\n<b>Loose:</b> The screws were <b>loose</b>; It broke <b>loose</b>. \r\n\r\n<b>Lose</b> refers to a loss.  \r\n<b>Loose</b> means to let go or the opposite of tight.",
@@ -70,7 +100,8 @@ unless Chapter.find_by_id(1)
 
   Category.create(id: 28, title: "111. Shackleton Rules")
 
-  RuleQuestion.create([{id: 28,
+  RuleQuestion.create([
+ {id: 28,
   body: ["My grandmother was born on Tuesday, June 2nd, 1970."],
   rule_id: 6,
   prompt: "My grandmother was born on tuesday, june 2nd, 1970.",
@@ -377,4 +408,19 @@ unless Chapter.find_by_id(1)
   instructions:
    "Rewrite the sentence, choosing the correct underlined word.",
   hint: ""}])
+
+  Workbook.create({
+    title: "Test Workbook",
+    created_at: now,
+    updated_at: now
+  })
 end
+
+ClassroomChapter.create({
+  classcode: classroom.code,
+  chapter_id: 1,
+  created_at: now,
+  due_date: now + 10,
+  updated_at: now,
+  classroom_id: classroom.id 
+})
