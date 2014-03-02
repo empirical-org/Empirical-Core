@@ -1,4 +1,4 @@
-class Teachers::ClassroomChaptersController < ApplicationController
+class Teachers::ClassroomActivitiesController < ApplicationController
   before_filter :teacher!
   before_filter :authorize!
 

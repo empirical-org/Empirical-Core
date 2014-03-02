@@ -14,6 +14,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def create
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
+    @classroom.units.create_next
     redirect_to [:teachers, @classroom]
   end
 

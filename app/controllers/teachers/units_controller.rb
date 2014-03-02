@@ -2,7 +2,7 @@ class Teachers::UnitsController < ApplicationController
   before_action :setup
 
   def create
-    @classroom.units.create(name: "Unit #{@classroom.units.count + 1}")
+    @classroom.units.create_next
     redirect_to teachers_classroom_lesson_planner_path(@classroom)
   end
 
