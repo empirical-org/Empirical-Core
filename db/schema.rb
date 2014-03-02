@@ -12,6 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20140224024344) do
+  enable_extension "hstore"
 
   create_table "activities", force: true do |t|
     t.string   "name"
