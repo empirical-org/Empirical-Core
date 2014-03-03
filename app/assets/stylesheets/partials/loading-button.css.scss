@@ -1,0 +1,49 @@
+
+@mixin rotate-forever {
+  0%    { @include transform(rotate(0deg)); }
+  100%  { @include transform(rotate(360deg)); }
+}
+
+@-webkit-keyframes rotate-forever { @include rotate-forever; }
+@-moz-keyframes rotate-forever { @include rotate-forever; }
+@keyframes rotate-forever { @include rotate-forever; }
+
+.loading-btn-container {
+  display: inline-block;
+  position: relative;
+
+  .loading-spinner {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -$spinner-size/2 + -$spinner-thickness;
+  }
+}
+
+.loading-spinner {
+  animation-duration:$spinner-speed;
+  -webkit-animation-duration:$spinner-speed;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: rotate-forever;
+  -webkit-animation-name: rotate-forever;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  @include size($spinner-size, $spinner-size);
+  border: $spinner-thickness solid $spinner-color;
+  border-right-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  z-index: 100;
+}
+
+.loading-btn-overlay {
+  @include border-radius(4px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  
+}
