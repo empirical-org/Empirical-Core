@@ -52,6 +52,7 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
       .fail(function (err) {
         debugger;
       });
+      $("body").removeLoadingButton();
 
     e.preventDefault();
   }
