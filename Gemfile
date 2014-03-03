@@ -35,7 +35,11 @@ gem 'newrelic_rpm', group: :production
 gem 'unicorn', platforms: :ruby
 gem 'puma',    platforms: :jruby
 gem 'mailchimp-api', require: 'mailchimp'
-gem 'rspec-rails', group: %w(development test)
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
 
 group :test do
   gem 'shoulda-matchers'
