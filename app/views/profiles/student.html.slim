@@ -18,7 +18,7 @@ article.student-profile-page.simple-rounded-box
       p Join a class to track your pogress.
 
       .table-stripe
-        = render partial: 'teachers/classrooms/activity', collection: Chapter.all
+        = render partial: 'teachers/classrooms/activity', collection: Activity.limit(20)
 
   - else
     .l-section

@@ -19,33 +19,35 @@ class ProfilesController < ApplicationController
   def student
     @classroom = current_user.classroom
 
-    @activity_table = {
-      false => {},
-      true => {}
-    }
+    if @classroom.present?
+      @activity_table = {
+        false => {},
+        true => {}
+      }
 
-    @classroom.units.each do |unit|
-      # raise @classroom.classroom_activities.map(&:assigned_student_ids)
+      @classroom.units.each do |unit|
+        # raise @classroom.classroom_activities.map(&:assigned_student_ids)
 
-      activities = unit.activities.includes(:classroom_activities).where(<<-SQL, current_user.id)
-      classroom_activities.assigned_student_ids IS NULL OR
-      classroom_activities.assigned_student_ids = '{}' OR
-      ? = ANY (classroom_activities.assigned_student_ids)
-      SQL
+        activities = unit.activities.includes(:classroom_activities).where(<<-SQL, current_user.id)
+        classroom_activities.assigned_student_ids IS NULL OR
+        classroom_activities.assigned_student_ids = '{}' OR
+        ? = ANY (classroom_activities.assigned_student_ids)
+        SQL
 
-      activities.each do |activity|
-        activity_session = ActivitySession.joins(:classroom_activity).where(
-          'classroom_activities.activity_id = ? AND classroom_activities.classroom_id = ? AND activity_sessions.user_id = ?',
-          activity.id,
-          @classroom.id,
-          current_user.id).first
+        activities.each do |activity|
+          activity_session = ActivitySession.joins(:classroom_activity).where(
+            'classroom_activities.activity_id = ? AND classroom_activities.classroom_id = ? AND activity_sessions.user_id = ?',
+            activity.id,
+            @classroom.id,
+            current_user.id).first
 
 
-        key = activity_session.try(:state) == 'finished'
+          key = activity_session.try(:state) == 'finished'
 
-        @activity_table[key][unit.name] ||= {}
-        @activity_table[key][unit.name][activity.topic.name] ||= []
-        @activity_table[key][unit.name][activity.topic.name] << activity
+          @activity_table[key][unit.name] ||= {}
+          @activity_table[key][unit.name][activity.topic.name] ||= []
+          @activity_table[key][unit.name][activity.topic.name] << activity
+        end
       end
     end
 
