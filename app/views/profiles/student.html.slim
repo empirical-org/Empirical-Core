@@ -27,14 +27,15 @@ article.student-profile-page.simple-rounded-box
 
       table.table.classroom-students-grades
         thead
-          - @classroom.activities.each do |activity|
-            th= activity.topic.name[0..4]
+          - @activity_names.each do |name, _|
+            th= name[0..4]
+
         tbody
           tr
-            - @classroom.classroom_activities.each do |classroom_activity|
+            - @activity_names.each do |_, activity|
               td
-                .due-date= classroom_activity.due_date.strftime('%m/%d')
-                .score-color class=current_user.activity_sessions.for_activity(classroom_activity.activity).try(:percentage_color)
+                .due-date= @classroom.classroom_activities.find_by_activity_id(activity.id).due_date.strftime('%m/%d')
+                .score-color class=current_user.activity_sessions.for_activity(activity).try(:percentage_color)
 
     .activity-table
       - @activity_table.each do |state, units|

@@ -22,13 +22,14 @@
 
     table.table.classroom-students-grades
       tbody
-        - @classroom.students.each do |student|
+        - @score_table.each do |student, activities|
           tr
-            td= student.name
+            td= student
 
-            - @unit.activities.where(topic_id: @topic.id).each do |activity|
+            - activities.each do |activity, score|
               td
-                .score-color data-toggle="tooltip" title=activity.name class=@score_table[student.id].try(:[], activity.id).try(:percentage_color)
+                - if score
+                  .score-color data-toggle="tooltip" title=activity.name class=score[:session].try(:percentage_color)
   - else
     br
     br

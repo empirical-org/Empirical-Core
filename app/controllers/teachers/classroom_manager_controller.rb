@@ -12,13 +12,21 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @unit = @classroom.units.find_by_id(params[:unit_id]) || @classroom.units.first
     @topic = @unit.topics.find_by_id(params[:topic_id])  || @unit.topics.first
+    @classroom_activities = @unit.classroom_activities.joins(:topic).where(topics: {id: @topic.id})
 
     if @unit.topics.any?
-      @score_table = ActivitySession.joins(:unit).joins(:activity).where(classroom_activities: { id: @unit.id }, activities: {topic_id: @topic.id}).inject({}) do |table, score|
-        table[score.user_id] ||= {}
-        table[score.user_id][score.classroom_activity.activity_id] = score
+      @score_table = {}
 
-        table
+      @classroom.students.each do |student|
+        @score_table[student.name] = {}
+
+        @classroom_activities.each do |classroom_activity|
+          @score_table[student.name][classroom_activity.activity] = if classroom_activity.for_student?(student)
+            { session: ActivitySession.where(user_id: student.id, classroom_activity_id: classroom_activity.id).first }
+          else
+            nil
+          end
+        end
       end
     end
 
