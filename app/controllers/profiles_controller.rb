@@ -18,6 +18,7 @@ class ProfilesController < ApplicationController
 
   def student
     @classroom = current_user.classroom
+    @activity_names = []
 
     if @classroom.present?
       @activity_table = {
@@ -47,14 +48,8 @@ class ProfilesController < ApplicationController
           @activity_table[key][unit.name] ||= {}
           @activity_table[key][unit.name][activity.topic.name] ||= []
           @activity_table[key][unit.name][activity.topic.name] << activity
-        end
-      end
 
-      @activity_names = []
-
-      @activity_table.values.map(&:values).flatten.first.each do |name, activities|
-        activities.each do |activity|
-          @activity_names << [name, activity]
+          @activity_names << [activity.topic.name, activity]
         end
       end
     end
