@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
                                     presence:     { if: :permanent?, on: :create }
   validates :password_confirmation, presence:     { if: ->(m) { m.password.present? && m.permanent? } }
   validates :email,                 uniqueness:   { case_sensitive: false, allow_blank: true },
-                                    presence:     { if: ->(m) { m.teacher? || m.username.blank? } }
+                                    presence:     { if: :email_required? }
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { case_sensitive: false, allow_blank: true }
   validates :terms_of_service,      acceptance:   { on: :create }
@@ -113,6 +113,12 @@ class User < ActiveRecord::Base
     generate_password
   end
 
+  def email_required?
+    return false if role.temporary?
+    return true if teacher?
+
+    username.blank?
+  end
 private
 
   def newsletter?
