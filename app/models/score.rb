@@ -43,9 +43,25 @@ module RuleQuestionInputAccessors
 
   %w(practice review).each do |step|
     define_method "#{step}_step_input=" do |hash|
+      send "#{step}_handle_input", hash, nil
+    end
+
+    define_method "#{step}_handle_input" do |hash, input_step|
       raise 'cannot be greater than 1' if hash.length > 1
       question, input = hash.first
-      inputs.find_or_create_by(step: step, rule_question_id: question).handle_input(input)
+      inputs.find_or_create_by(step: step, rule_question_id: question).handle_input(input, cast_input_step(input_step))
+    end
+  end
+
+  def cast_input_step input_step
+    if input_step.to_s == 'first'
+      :first
+    elsif input_step.to_s == 'second'
+      :second
+    elsif input_step.nil?
+      nil
+    else
+      raise 'unacceptable value for cast_input_step'
     end
   end
 end

@@ -66,7 +66,8 @@ private
   end
 
   def update_score
-    @score.update_attributes! lesson_input_key => params[:lesson_input]
+    @score.send lesson_input_key, params[:lesson_input], params[:input_step]
+    @score.save
   end
 
   def skipping_practice?
@@ -74,7 +75,7 @@ private
   end
 
   def lesson_input_key
-    :"#{params[:step]}_step_input"
+    :"#{params[:step]}_handle_input"
   end
 
   def update_progress

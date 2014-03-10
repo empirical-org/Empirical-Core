@@ -50,10 +50,10 @@ class RuleQuestionInput < ActiveRecord::Base
   belongs_to :rule_question
   has_one :rule, through: :rule_question
 
-  def handle_input input
-    if first_input.nil?
+  def handle_input input, input_step = nil
+    if first_input.nil? || input_step == :first
       self.first_input = input
-    elsif second_input.nil?
+    elsif second_input.nil? || input_step == :second
       self.second_input = input
     else
       raise "Only supports inputting twice."
