@@ -24,7 +24,11 @@ article.assign-classroom-chapter-page.simple-rounded-box
     .l-section.classroom-chapter-datepicker
       h3 3. Set the due date.
       .datepicker-holder= f.text_field :due_date_string, class: 'js-due-date-datepicker-value'
-      = f.submit 'Assign Lesson', class: 'btn btn-primary'
+
+    = f.submit 'Assign Lesson', class: 'btn btn-primary'
+
+    - unless @classroom_activity.new_record?
+      = link_to 'Delete Assignment', teachers_classroom_activity_path(@classroom, @activity), method: 'delete', class: 'btn btn-warning'
 
 javascript:
   var $input = $('.js-due-date-datepicker-value').hide()

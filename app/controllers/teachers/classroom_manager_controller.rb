@@ -12,7 +12,12 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @unit = @classroom.units.find_by_id(params[:unit_id]) || @classroom.units.first
     @topic = @unit.topics.find_by_id(params[:topic_id])  || @unit.topics.first
-    @classroom_activities = @unit.classroom_activities.joins(:topic).where(topics: {id: @topic.id})
+
+    @classroom_activities = if @topic.blank?
+      []
+    else
+      @unit.classroom_activities.joins(:topic).where(topics: {id: @topic.id})
+    end
 
     if @unit.topics.any?
       @score_table = {}

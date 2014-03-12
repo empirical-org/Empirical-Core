@@ -37,7 +37,7 @@
         - if @classroom.blank?
           | &nbsp;
         - elsif @classroom.activities.map{|c| c.id}.include?(activity.id)
-          = link_to 'Remove', teachers_classroom_activity_path(@classroom, activity), method: 'delete'
+          = link_to 'Edit', teachers_classroom_activity_path(@classroom, activity)
         - else
           = link_to 'Assign', teachers_classroom_activity_path(@classroom, activity)
 
