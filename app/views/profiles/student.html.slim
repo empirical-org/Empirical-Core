@@ -35,7 +35,7 @@ article.student-profile-page.simple-rounded-box
             - @activity_names.each do |_, activity|
               td
                 .due-date= @classroom.classroom_activities.find_by_activity_id(activity.id).due_date.strftime('%m/%d')
-                .score-color class=current_user.activity_sessions.for_activity(activity).try(:percentage_color)
+                .score-color data-toggle="tooltip" title=activity.name class=current_user.activity_sessions.for_activity(activity).try(:percentage_color)
 
     .activity-table
       - @activity_table.each do |state, units|
@@ -49,3 +49,6 @@ article.student-profile-page.simple-rounded-box
               - topics.each do |topic_name, activities|
                 div: strong= topic_name
                 = render partial: 'teachers/classrooms/activity', collection: activities, locals: {completed: state}
+
+javascript:
+  $('div[data-toggle="tooltip"]').tooltip();
