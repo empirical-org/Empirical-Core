@@ -61,7 +61,10 @@ Counter.prototype =  {
 }
 
 // constructor. Takes the host of the target as an argument.
-window.Quill = function Quill (host) {
+window.Quill = function Quill (host, options) {
+  if (typeof options == 'undefined') options = {};
+  this.options = options;
+
   // assign host.
   this.host = host;
   if (!host) this.host = 'http://api.quill.org/';
@@ -110,6 +113,10 @@ jQuery.extend(Quill.prototype, {
     // event when the user is done with the activity.
     activityFinished: function (options) {
       window.location = '/activity_sessions/' + options.id;
+    },
+
+    saveSuccessful: function () {
+      window.location = this.options.afterEditingUrl || '/profile';
     }
   },
 
