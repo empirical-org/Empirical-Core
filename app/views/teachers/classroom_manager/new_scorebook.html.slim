@@ -16,7 +16,7 @@
 
       ul.dropdown-menu
         - (@unit.topics.uniq - [@topic]).each do |topic|
-          li= link_to topic.name, url_for(topic_id: topic.id)
+          li= link_to topic.name, url_for(topic_id: topic.id, unit_id: @unit.id)
 
     h4= @topic.name
 
