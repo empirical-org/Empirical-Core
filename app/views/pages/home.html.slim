@@ -87,5 +87,5 @@ article.home-content
               .link.primary Read More
 
 javascript:
-  mixpanel.track("homepage viewed");
+  if (window.mixpanel) mixpanel.track("homepage viewed");
   $('.carousel').carousel({interval: 10000});

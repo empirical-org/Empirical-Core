@@ -117,6 +117,26 @@ jQuery.extend(Quill.prototype, {
 
     saveSuccessful: function () {
       window.location = this.options.afterEditingUrl || '/profile';
+    },
+
+    iframeReady: function () {
+      // Is the browser disabling cookies in the iframe?
+      // We have to wait until the iframe is ready to do this otherwise
+      // it will break. Also, there doesn't seem to be a way to check the iframe ready state
+      // when they are on different domains.
+      this.cookieCheck();
+    },
+
+    cookiesNotSupported: function () {
+      var url = $('<a>', { href:this.host } )[0];
+      url.pathname = 'session_fix_redirect';
+      url.search = '?return=http://localhost:3000/';
+
+      window.location = url.href;
+      // setTimeout(function () {
+      // debugger;
+      // window.location = url.href;
+      // }, 1000);
     }
   },
 
@@ -131,6 +151,14 @@ jQuery.extend(Quill.prototype, {
     // how to handle this. Right now, it is hardcoded to the questions-module Cheater.
     cheat: function () {
       Cheater();
+    },
+
+    checkCookieSupport: function () {
+      document.cookie = 'supports cookies';
+      debugger;
+
+      if (!document.cookie.match(/supports cookies=/))
+        this.sendMessage('cookiesNotSupported');
     }
   },
 
@@ -148,14 +176,14 @@ jQuery.extend(Quill.prototype, {
   },
 
   // TODO: this is a sketch, it's not used by anything.
-  finishActivityWithResults: function (id, params) {
-    $.ajax('http://localhost:3001/', {
-      type: 'PUT',
-      success: function (data) {
-        this.finishActivity();
-      }
-    });
-  },
+  // finishActivityWithResults: function (id, params) {
+  //   $.ajax('http://localhost:3001/', {
+  //     type: 'PUT',
+  //     success: function (data) {
+  //       this.finishActivity();
+  //     }
+  //   });
+  // },
 
   // this sends the activityFinished event with the id of the session.
   finishActivity: function (id) {
@@ -201,6 +229,10 @@ jQuery.extend(Quill.prototype, {
   // send cheat message to iframe
   cheat: function () {
     this.sendMessage('cheat');
+  },
+
+  cookieCheck: function () {
+    this.sendMessage('checkCookieSupport');
   },
 
   // begin listening to postMessage events
