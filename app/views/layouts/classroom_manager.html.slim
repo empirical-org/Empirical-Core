@@ -15,7 +15,7 @@
             - (current_user.classrooms - [@classroom]).each do |classroom|
               li= link_to classroom.name, teachers_classroom_path(classroom)
 
-        a.btn href=new_teachers_classroom_path style="float: right"= 'Create a classroom'
+        a.btn href=new_teachers_classroom_path style="float: right" Create a classroom
 
       .l-section
         .btn-group

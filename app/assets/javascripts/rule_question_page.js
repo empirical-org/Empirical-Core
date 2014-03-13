@@ -37,6 +37,10 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
 
   function verify (data) {
     if (data === null) return;
+
+    if (data.first_grade === true || data.second_grade === null)
+      $$('.js-input-step').val('second');
+
     if (data.first_grade  === true) return passed('first');
     if (data.second_grade === null) return failed('first');
     if (data.second_grade === true) return passed('second');
