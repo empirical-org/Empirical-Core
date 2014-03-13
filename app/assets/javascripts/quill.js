@@ -156,7 +156,7 @@ jQuery.extend(Quill.prototype, {
     checkCookieSupport: function () {
       document.cookie = 'supports cookies';
 
-      if (!document.cookie.match(/supports cookies=/))
+      if (!document.cookie.match(/supports cookies/))
         this.sendMessage('cookiesNotSupported');
     }
   },
