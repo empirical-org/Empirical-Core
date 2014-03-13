@@ -130,7 +130,7 @@ jQuery.extend(Quill.prototype, {
     cookiesNotSupported: function () {
       var url = $('<a>', { href:this.host } )[0];
       url.pathname = 'session_fix_redirect';
-      url.search = '?return=http://localhost:3000/';
+      url.search = '?return=' + window.location;
 
       window.location = url.href;
       // setTimeout(function () {
@@ -155,7 +155,6 @@ jQuery.extend(Quill.prototype, {
 
     checkCookieSupport: function () {
       document.cookie = 'supports cookies';
-      debugger;
 
       if (!document.cookie.match(/supports cookies=/))
         this.sendMessage('cookiesNotSupported');
