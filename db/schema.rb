@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20131110031852) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "assessments", force: true do |t|
     t.text     "body"
     t.integer  "chapter_id"
