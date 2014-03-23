@@ -21,6 +21,8 @@ article.simple-rounded-box.cms
           td= link_to 'Destroy', [:cms, user], method: :delete,   confirm: 'Are you sure?'
           td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
 
+  = paginate @users
+
   br
 
   -if current_user.admin?
