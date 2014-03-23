@@ -7,10 +7,6 @@ class PagesController < ApplicationController
     @activity = Topic.find(ENV['HOMEPAGE_CHAPTER_ID']).activities.where(
       activity_classification_id: ActivityClassification.find_by_key('story').id
     ).first
-    # @chapter = ChapterShim.new(
-    # )
-
-    # @assessment = @chapter.assessment
   end
 
   def develop

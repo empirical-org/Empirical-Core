@@ -33,7 +33,6 @@ EmpiricalGrammar::Application.routes.draw do
   CMS::Routes.new(self).draw do
     resources :categories
     resources :rule_questions
-    resources :chapters
     resources :rules
     resources :chapter_levels
     resources :activities, path: 'activity_type/:key/activities'

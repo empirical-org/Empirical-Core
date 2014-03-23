@@ -3,12 +3,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :teacher!
   before_filter :authorize!
 
-  def old_scorebook
-    @classroom_chapters = @classroom.chapters
-    @classroom_students = @classroom.students.order(:name)
-    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters - @classroom_chapters] }.select{ |group| group.second.any? }
-  end
-
   def scorebook
     @unit = @classroom.units.find_by_id(params[:unit_id]) || @classroom.units.first
     @topic = @unit.topics.find_by_id(params[:topic_id])  || @unit.topics.first
@@ -34,8 +28,6 @@ class Teachers::ClassroomManagerController < ApplicationController
         end
       end
     end
-
-    render 'new_scorebook'
   end
 
   def lesson_planner
