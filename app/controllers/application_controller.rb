@@ -19,10 +19,11 @@ class ApplicationController < ActionController::Base
   end
 
   def show_errors
-    binding.pry
+    status = env["PATH_INFO"][1..-1]
+    render_error(status)
   end
 
-  def render_error(status, exception)
+  def render_error(status)
     respond_to do |format|
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
       format.all { render nothing: true, status: status }

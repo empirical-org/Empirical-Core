@@ -36,6 +36,7 @@ gem 'unicorn', platforms: :ruby
 gem 'puma',    platforms: :jruby
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'rspec-rails', group: %w(development test)
+gem 'textacular'
 
 group :test do
   # gem 'coveralls'
