@@ -27,7 +27,7 @@ $tried-color-light: #fff9d6;
 $spinner-color:      #ffffff;
 $spinner-size:       30px;
 $spinner-speed:      0.75s;
-$spinner-thickness:  8px; 
+$spinner-thickness:  8px;
 
 .con-skyblue        { background: $skyblue; }
 .con-skyblue-darker { background: $skyblue-darker; }
@@ -175,7 +175,6 @@ table {
 @import "header";
 @import "pages";
 @import "home";
-@import "grammar_test";
 @import "chapters";
 @import "rules";
 @import "style";

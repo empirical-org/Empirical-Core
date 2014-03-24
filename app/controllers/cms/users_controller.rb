@@ -3,6 +3,7 @@ class CMS::UsersController < ApplicationController
   before_filter :admin!, only: [:sign_in]
 
   def index
+    raise 'stop'
     @users = if params[:q].present?
       User.basic_search(params[:q]).order(:id).page(params[:page]).per(100)
     else
