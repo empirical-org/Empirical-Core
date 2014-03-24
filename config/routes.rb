@@ -58,9 +58,5 @@ EmpiricalGrammar::Application.routes.draw do
   get   'verify_question' => 'chapter/practice#verify_status'
   patch 'cheat'           => 'chapter/practice#cheat'
 
-   unless Rails.application.config.consider_all_requests_local
-    match '*not_found', to: 'errors#error_404', via: [:get, :post]
-  end
-
   root to: 'pages#home'
 end
