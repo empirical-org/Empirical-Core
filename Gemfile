@@ -36,6 +36,11 @@ platforms :rbx do
   gem 'rubinius-coverage'
 end
 
+group :test do
+  gem 'rspec', group: 'test'
+  gem 'database_cleaner'
+end
+
 # Quill frontend dependencies
 gem 'slim-rails'
 gem 'sass-rails', '~> 4.0.0'

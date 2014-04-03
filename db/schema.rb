@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140224024344) do
-  enable_extension "hstore"
+ActiveRecord::Schema.define(version: 20140403194136) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -255,14 +254,17 @@ ActiveRecord::Schema.define(version: 20140224024344) do
   end
 
   create_table "rules", force: true do |t|
-    t.text     "title"
+    t.text     "name"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "category_id"
     t.integer  "workbook_id",    default: 1
     t.text     "description"
     t.string   "classification"
+    t.string   "uid"
   end
+
+  add_index "rules", ["uid"], name: "index_rules_on_uid", unique: true, using: :btree
 
   create_table "rules_misseds", force: true do |t|
     t.integer  "rule_id"
