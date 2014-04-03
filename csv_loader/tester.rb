@@ -39,6 +39,7 @@ tree = YAML.load(<<-YML)
       - :name: 'Common Nouns'
         :rules:
           - :id: '1'
+            :uid: 'Common Nouns-17'
             :old_rule_id: '10'
             :description: 'Explanation text.'
             :questions:
@@ -47,6 +48,7 @@ tree = YAML.load(<<-YML)
                 :instructions: 'instructions'
 
           - :id: '2'
+            :uid: 'Common Nouns-5'
             :old_rule_id: '10'
             :questions:
               - :body: ["These raspberries will spoil soon."]
@@ -54,6 +56,7 @@ tree = YAML.load(<<-YML)
                 :instructions: 'instructions'
 
           - :id: '3'
+            :uid: 'Common Nouns-1001'
             :old_rule_id: '11'
             :questions:
               - :body: ["My belt is too old."]
@@ -61,6 +64,7 @@ tree = YAML.load(<<-YML)
                 :instructions: 'instructions'
 
           - :id: '4'
+            :uid: 'Common Nouns-alpha'
             :old_rule_id: '11'
             :questions:
               - :body: ["His ankle hurts."]
@@ -76,6 +80,7 @@ tree = YAML.load(<<-YML)
       - :name: 'Possessive Nouns'
         :rules:
           - :id: '5'
+            :uid: 'Possessive Nouns-alpha'
             :old_rule_id: '13'
             :questions:
               - :body: ["There will be tests on Friday."]
@@ -83,6 +88,7 @@ tree = YAML.load(<<-YML)
                 :instructions: 'instructions'
 
           - :id: '6'
+            :uid: 'Possessive Nouns-5'
             :old_rule_id: '13'
             :questions:
               - :body: ["My sister's hair is short."]
