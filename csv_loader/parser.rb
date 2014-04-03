@@ -122,7 +122,9 @@ class AprilFirst2014QuestionParser
 
     def find
       params = finder_keys.inject({}) do |sum, key|
-        sum[key] = @attrs[key]
+        val = @attrs[key]
+        val = val.to_yaml if val.is_a?(Array)
+        sum[key] = val
         sum
       end
 
