@@ -44,7 +44,11 @@ class GoogleDriveLoader
     client.authorization.redirect_uri  = REDIRECT_URI
 
     uri = client.authorization.authorization_uri
-    Launchy.open(uri)
+    puts uri
+    begin
+      Launchy.open(uri)
+    rescue
+    end
 
     # Exchange authorization code for access token
     $stdout.write  "Enter authorization code: "

@@ -1,6 +1,7 @@
 require  File.expand_path('../../config/environment', __FILE__)
 Dir.glob(File.expand_path('../../core/models/*', __FILE__)).each{|f| require f }
 Dir.glob(File.expand_path('../../lessons/app/models/*', __FILE__)).each{|f| require f }
+Chunk
 require 'csv'
 require 'active_support/core_ext'
 

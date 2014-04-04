@@ -1,5 +1,5 @@
-require './parser'
-require './loader'
+require './csv_loader/parser'
+require './csv_loader/loader'
 
 loader = GoogleDriveLoader.new
 
