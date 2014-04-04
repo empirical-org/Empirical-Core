@@ -7,9 +7,5 @@ Activity.flag_all(:archived)
 Rule.flag_all(:archived)
 
 loader.files.each do |file|
-  AprilFirst2014QuestionParser.new(file.data)
+  AprilFirst2014QuestionParser.new(file.data).load!
 end
-
-require './loader'
-loader = GoogleDriveLoader.new
-loader.files.first.data
