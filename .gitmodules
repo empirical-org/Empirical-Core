@@ -1,3 +1,6 @@
 [submodule "core"]
 	path = core
 	url = https://github.com/empirical-org/Compass-Common.git
+[submodule "lessons"]
+  path = "lessons"
+  url = https://github.com/empirical-org/quill-questions-module.git
