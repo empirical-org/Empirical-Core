@@ -1,9 +1,7 @@
-gem 'pry'
 gem 'google-api-client'
 gem 'launchy'
 gem 'activesupport'
 
-require 'pry'
 require 'google/api_client'
 require 'google/api_client/client_secrets'
 require 'google/api_client/auth/installed_app'
@@ -82,7 +80,6 @@ class GoogleDriveFile
   def download_url
     return @download_url if defined? @download_url
 
-    binding.pry
     res = client.execute(api_method: drive.files.get, parameters: {
       'fileId' => @child.id
     })
