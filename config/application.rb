@@ -38,6 +38,7 @@ module EmpiricalGrammar
       #{config.root}/app/controllers/concerns
       #{config.root}/lib
       #{config.root}/core/models
+      #{config.root}/lessons/app/models
     )
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
