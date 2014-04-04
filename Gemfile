@@ -59,3 +59,4 @@ gem 'kaminari'
 gem 'redcarpet', platforms: :ruby
 gem 'kramdown',  platforms: :jruby
 gem 'textacular'
+gem 'google-api-client'
