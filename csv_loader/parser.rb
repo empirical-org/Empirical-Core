@@ -1,7 +1,6 @@
-require File.expand_path('../../config/environment', __FILE__)
+require  File.expand_path('../../config/environment', __FILE__)
 Dir.glob(File.expand_path('../../core/models/*', __FILE__)).each{|f| require f }
-Topic
-Dir.glob(File.expand_path('../../../Quill-Lessons/app/models/*', __FILE__)).each{|f| require f }
+Dir.glob(File.expand_path('../../lessons/app/models/*', __FILE__)).each{|f| require f }
 require 'csv'
 require 'active_support/core_ext'
 
