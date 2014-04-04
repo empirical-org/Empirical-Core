@@ -7,7 +7,12 @@ header.con-darkgrey.story-header
         .nav-collapse.collapse
           ul.nav
             - if signed_in?
-              li#m-sign-in= link_to 'Profile', profile_path
+              - if current_user.teacher?
+                li#m-sign-in= link_to 'My Lessons', profile_path
+              - elsif current_user.student?
+                li#m-sign-in= link_to 'My Class', profile_path
+              -else
+                li#m-sign-in= link_to 'Profile', profile_path
               li#m-create-account= link_to 'Sign out', session_path, method: :delete
             - else
               li#m-sign-in= link_to 'Sign In', new_session_path

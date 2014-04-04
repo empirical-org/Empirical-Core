@@ -22,6 +22,7 @@ header {
   .navbar .nav > li { float: none ; display: inline-block }
   .navbar .nav > li         > a { color: #c7c7c7 }
   .navbar .nav > li.nav-btn > a { color: white }
+  .navbar .nav > li.pro-btn > a { color: white }
 
   .nav a {
     background: transparent !important; // TODO
@@ -30,6 +31,12 @@ header {
   .nav-btn {
     @include border-radius(3px);
     background-color: #464c5a;
+    padding: 2px 7px;
+  }
+
+  .pro-btn {
+    @include border-radius(3px);
+    background-color: $found-color;
     padding: 2px 7px;
   }
 
