@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140403194136) do
+ActiveRecord::Schema.define(version: 20140404165107) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20140403194136) do
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "flags",                                   array: true
   end
 
   add_index "activities", ["uid"], name: "index_activities_on_uid", unique: true, using: :btree
@@ -100,8 +101,6 @@ ActiveRecord::Schema.define(version: 20140403194136) do
     t.integer  "chapter_level_id"
   end
 
-  add_index "chapters", ["chapter_level_id"], name: "index_chapters_on_chapter_level_id", using: :btree
-
   create_table "classroom_activities", force: true do |t|
     t.integer  "classroom_id"
     t.integer  "activity_id"
@@ -140,8 +139,6 @@ ActiveRecord::Schema.define(version: 20140403194136) do
     t.string   "reply_type"
     t.integer  "lecture_chapter_id"
   end
-
-  add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
 
   create_table "file_uploads", force: true do |t|
     t.string   "name"
@@ -262,6 +259,7 @@ ActiveRecord::Schema.define(version: 20140403194136) do
     t.text     "description"
     t.string   "classification"
     t.string   "uid"
+    t.string   "flags",                                   array: true
   end
 
   add_index "rules", ["uid"], name: "index_rules_on_uid", unique: true, using: :btree

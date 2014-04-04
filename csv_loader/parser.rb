@@ -100,11 +100,13 @@ class AprilFirst2014QuestionParser
         rules = activity.delete(:rules)
         activity_loader = ActivityLoader.new(activity.merge(topic_id: topic_record.id, data: {}))
         activity_record = activity_loader.load
+        activity_record.unarchive!
 
         rules.each do |rule|
           questions = rule.delete(:questions)
           rule_loader = RuleLoader.new(rule.merge(activity_id: activity_record.id))
           rule_record = rule_loader.load
+          rule_record.unarchive!
 
           questions.each do |question|
             question_loader = QuestionLoader.new(question.merge(rule_id: rule_record.id))
@@ -163,7 +165,6 @@ class AprilFirst2014QuestionParser
       old_rule_id = @attrs.delete(:old_rule_id)
       old_rule = Rule.find(old_rule_id)
       @attrs = @attrs.reverse_merge(old_rule.attributes.symbolize_keys).except(:created_at, :updated_at, :id)
-      puts @attrs.inspect
       rule = super
 
       rule_id = rule.id

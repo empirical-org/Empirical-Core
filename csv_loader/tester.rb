@@ -110,7 +110,7 @@ describe AprilFirst2014QuestionParser do
     expect(Rule.count).to eq(3)
     expect(RuleQuestion.count).to eq(0)
 
-    2.times { parser.load! }
+    3.times { parser.load! }
 
     expect(Topic.count).to eq(1)
     expect(Activity.count).to eq(2)
