@@ -1,16 +1,16 @@
 module Flags
   extend ActiveSupport::Concern
 
-  class ClassMethods
+  module ClassMethods
     def flag_all flag
-      not_flagged(flag).update_all('array_append(flags, ?)', flag)
+      not_flagged(flag).update_all sanitize_sql(['flags = array_append(flags, ?)', flag])
     end
   end
 
   included do
     scope :flagged,     ->(flag) { where('?  = ANY (flags)', flag) }
     scope :not_flagged, ->(flag) { where('? != ALL (flags)', flag) }
-    # scope :not_archived, -> {}
+    scope :not_archived, -> { not_flagged(:archived) }
   end
 
   def flag flag_name

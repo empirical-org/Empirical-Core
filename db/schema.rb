@@ -16,13 +16,13 @@ ActiveRecord::Schema.define(version: 20140404165107) do
   create_table "activities", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "uid",                        null: false
+    t.string   "uid",                                     null: false
     t.hstore   "data"
     t.integer  "activity_classification_id"
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "flags",                                   array: true
+    t.string   "flags",                      default: [], null: false, array: true
   end
 
   add_index "activities", ["uid"], name: "index_activities_on_uid", unique: true, using: :btree
@@ -252,14 +252,14 @@ ActiveRecord::Schema.define(version: 20140404165107) do
 
   create_table "rules", force: true do |t|
     t.text     "name"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "category_id"
     t.integer  "workbook_id",    default: 1
     t.text     "description"
     t.string   "classification"
     t.string   "uid"
-    t.string   "flags",                                   array: true
+    t.string   "flags",          default: [], null: false, array: true
   end
 
   add_index "rules", ["uid"], name: "index_rules_on_uid", unique: true, using: :btree
