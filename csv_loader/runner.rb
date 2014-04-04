@@ -7,5 +7,5 @@ Activity.flag_all(:archived)
 Rule.flag_all(:archived)
 
 loader.files.each do |file|
-  AprilFirst2014QuestionParser.new(file.data).load!
+  AprilFirst2014QuestionParser.new(file.data, file.doc.data.title).load!
 end

@@ -81,14 +81,16 @@ class GoogleDriveFile
     @child = child
   end
 
+  def doc
+    @doc ||= client.execute(api_method: drive.files.get, parameters: {
+      'fileId' => @child.id
+    })
+  end
+
   def download_url
     return @download_url if defined? @download_url
 
-    res = client.execute(api_method: drive.files.get, parameters: {
-      'fileId' => @child.id
-    })
-
-    data = res.data
+    data = doc.data
     @download_url = data.download_url
   end
 

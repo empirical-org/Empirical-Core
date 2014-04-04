@@ -3,7 +3,8 @@ require 'csv'
 require 'active_support/core_ext'
 
 class AprilFirst2014QuestionParser
-  def initialize data
+  def initialize data, name = nil
+    @name = name
     @raw = data
   end
 
@@ -85,6 +86,10 @@ class AprilFirst2014QuestionParser
     end
 
     @tree
+  rescue
+    puts "Could not parse:"
+    puts @name || @raw.inspect
+    raise
   end
 
   def load
