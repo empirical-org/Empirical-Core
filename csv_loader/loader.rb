@@ -43,17 +43,28 @@ class GoogleDriveLoader
     client.authorization.scope         = OAUTH_SCOPE
     client.authorization.redirect_uri  = REDIRECT_URI
 
-    uri = client.authorization.authorization_uri
-    puts uri
-    begin
-      Launchy.open(uri)
-    rescue
-    end
+    # uri = client.authorization.authorization_uri
 
-    # Exchange authorization code for access token
-    $stdout.write  "Enter authorization code: "
-    client.authorization.code = gets.chomp
-    client.authorization.fetch_access_token!
+    # begin
+    #   Launchy.open(uri)
+    # rescue
+    #   puts uri
+    # end
+
+    # # Exchange authorization code for access token
+    # $stdout.write  "Enter authorization code: "
+    # client.authorization.code = gets.chomp
+    auth = {"access_token"=>
+            "ya29.1.AADtN_W0xsGWc-TkqxlxE8f_xyok7kl3oM0XxAnWvZ_7EPTeAeSJINIoU0Y8gg",
+            "token_type"=>"Bearer",
+            "expires_in"=>3600,
+            "refresh_token"=>"1/e7iTzkgqVstNgpGjdvvk-hWDB9x_YgyUQe2PMKhO2Qg"
+           }
+
+    # binding.pry
+    client.authorization.code = nil
+    client.authorization.issued_at = Time.now
+    client.authorization.update_token!(auth)
   end
 
   def csv_files
@@ -91,7 +102,9 @@ class GoogleDriveFile
     return @download_url if defined? @download_url
 
     data = doc.data
-    @download_url = data.download_url
+    @download_url = data.download_url || data.export_links['text/plain']
+    binding.pry if @download_url.blank?
+    @download_url
   end
 
   def data

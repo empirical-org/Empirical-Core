@@ -33,6 +33,8 @@ class AprilFirst2014QuestionParser
     rule_set = []
 
     @tree = csv.inject({topics: []}) do |out, row|
+      @current_row = row
+
       if row[:topic].present?
         current_topic = {name: row[:topic], activities: []}
         out[:topics] << current_topic
@@ -79,6 +81,8 @@ class AprilFirst2014QuestionParser
       out
     end
 
+    @current_row = nil
+
     @tree[:topics].each do |topic|
       topic[:activities].each do |activity|
         activity[:rules] = activity[:rules].values
@@ -86,16 +90,12 @@ class AprilFirst2014QuestionParser
     end
 
     @tree
-  rescue
-    puts "Could not parse:"
-    puts @name || @raw.inspect
-    raise
   end
 
   def load
     tree[:topics].each do |topic|
       activities = topic.delete(:activities)
-      topic_loader = TopicLoader.new(topic)
+      topic_loader = TopicLoader.new(topic.except(:id))
       topic_record = topic_loader.load
 
       activities.each do |activity|
@@ -143,8 +143,7 @@ class AprilFirst2014QuestionParser
       record = find
       record = nil unless record
       record ||= model.new
-      record.attributes = @attrs
-      record.save!
+      record.attributes = @attrs.except(:id)
       record
     end
   end
@@ -165,8 +164,16 @@ class AprilFirst2014QuestionParser
     def load
       activity = Activity.find(@attrs.delete(:activity_id))
       old_rule_id = @attrs.delete(:old_rule_id)
-      old_rule = Rule.find(old_rule_id)
-      @attrs = @attrs.reverse_merge(old_rule.attributes.symbolize_keys).except(:created_at, :updated_at, :id)
+      old_rule = Rule.find_by_id(old_rule_id)
+      @attrs = @attrs.reverse_merge(old_rule.attributes.symbolize_keys) if old_rule.present?
+      @attrs = @attrs.except(:created_at, :updated_at, :id)
+
+      if @attrs[:name].blank?
+        @attrs[:flags] ||= []
+        @attrs[:flags] << :beta
+        @attrs[:name] = @attrs[:uid]
+      end
+
       rule = super
 
       rule_id = rule.id

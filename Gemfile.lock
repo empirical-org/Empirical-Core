@@ -487,6 +487,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    table_print (1.5.1)
     taps (0.3.24)
       rack (>= 1.0.1)
       rest-client (>= 1.4.0, < 1.7.0)
@@ -563,6 +564,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sentry-raven
   slim-rails
+  table_print
   taps
   textacular
   turbolinks
