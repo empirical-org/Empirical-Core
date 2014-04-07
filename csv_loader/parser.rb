@@ -155,6 +155,11 @@ class AprilFirst2014QuestionParser
   end
 
   class ActivityLoader < RecordLoader
+    def load
+      @attrs[:activity_classification_id] = ActivityClassification.find_by_key!('practice_question_set').id
+      super
+    end
+
     def finder_keys
       [:name, :description]
     end
