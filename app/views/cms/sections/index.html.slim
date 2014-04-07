@@ -1,12 +1,12 @@
 article.simple-rounded-box.chapter-levels-page
-  = form_for [:cms, ChapterLevel.new] do |f|
+  = form_for [:cms, Section.new] do |f|
     table.table
       thead
         th.name-column Name
         th.position-column Position
         th.actions-column
 
-      - @chapter_levels.each do |chapter_level|
+      - @sections.each do |chapter_level|
         tr
           td= chapter_level.name
           td= chapter_level.position

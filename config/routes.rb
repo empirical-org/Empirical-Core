@@ -34,7 +34,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :categories
     resources :rule_questions
     resources :rules
-    resources :chapter_levels
+    resources :sections
     resources :activities, path: 'activity_type/:key/activities'
     resources :activity_classifications
 
