@@ -61,7 +61,6 @@ class GoogleDriveLoader
             "refresh_token"=>"1/e7iTzkgqVstNgpGjdvvk-hWDB9x_YgyUQe2PMKhO2Qg"
            }
 
-    # binding.pry
     client.authorization.code = nil
     client.authorization.issued_at = Time.now
     client.authorization.update_token!(auth)
