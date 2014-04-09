@@ -31,7 +31,8 @@ class PagesController < ApplicationController
 
   def lessons
     @body_class = 'auxiliary white-page formatted-text'
-    @topics = Topic.all.map{ |topic| [topic, topic.activities] }.select{ |group| group.second.any? }
+    @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
+    @topics = @section.topics.map{ |topic| [topic, topic.activities] }.select{ |group| group.second.any? }
   end
 
   private

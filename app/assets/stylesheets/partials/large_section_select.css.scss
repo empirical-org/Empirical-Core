@@ -1,0 +1,26 @@
+@mixin pie-clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.large-section-select {
+  border: 1px solid #D8D8D8;
+  background-color: #F0F0F0;
+  padding: 20px;
+  border-radius: 5px;
+  @include pie-clearfix;
+
+  .btn-group {
+    float: left;
+    margin-right: 20px;
+  }
+
+  p,
+  .auxiliary.white-page.formatted-text article.lessons-page & p {
+    margin-bottom: 0;
+    &:first-child { margin-bottom: 11px }
+  }
+}
