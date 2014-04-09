@@ -141,9 +141,9 @@ class AprilFirst2014QuestionParser
 
     def load
       record = find
-      record = nil unless record
       record ||= model.new
       record.attributes = @attrs.except(:id)
+      record.save!
       record
     end
   end
