@@ -51,7 +51,7 @@ module EmpiricalGrammar
     config.hamlcoffee.escapeHtml = false
 
     config.assets.initialize_on_precompile = false
-    config.assets.version = '1.1'
+    config.assets.version = '2.0'
 
     # config.exceptions_app = Proc.new do |env|
     #   ApplicationController.action(:show_errors).call(env)
