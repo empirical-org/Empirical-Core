@@ -116,7 +116,7 @@ jQuery.extend(Quill.prototype, {
     },
 
     saveSuccessful: function () {
-      window.location = this.options.afterEditingUrl || '/profile';
+      this.options.afterIframeActivitySaved();
     },
 
     iframeReady: function () {
@@ -158,6 +158,10 @@ jQuery.extend(Quill.prototype, {
 
       if (!document.cookie.match(/supports cookies/))
         this.sendMessage('cookiesNotSupported');
+    },
+
+    savingActivity: function () {
+      $('.js-acivity-form form').submit();
     }
   },
 
