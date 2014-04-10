@@ -1,4 +1,5 @@
 class CMS::ActivitiesController < ApplicationController
+  before_filter :admin!
   before_filter :find_classification
 
   def index
@@ -20,8 +21,6 @@ class CMS::ActivitiesController < ApplicationController
 
   def new
     @activity = Activity.new
-    @activity.workbook_id = params[:workbook_id]
-    @activity.build_assessment(body: "Please enter some text.")
   end
 
   def edit
