@@ -2,7 +2,20 @@ class CMS::ActivitiesController < ApplicationController
   before_filter :find_classification
 
   def index
-    @activities = @activity_classification.activities
+    @flag = params[:flag].to_s.to_sym.presence || :production
+    @flag = :archived if @flag == :archive
+
+    arel = Activity.flagged('production').arel.wheres.inject(false) { |sum, val|
+      if sum
+        next sum.and(val)
+      else
+        next val
+      end
+    }
+
+    arel = arel.or(Activity.arel_table[:flags].eq('{}')) if @flag == :production
+
+    @activities = Activity.where(arel)
   end
 
   def new

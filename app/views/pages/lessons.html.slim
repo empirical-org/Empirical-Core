@@ -18,6 +18,7 @@ article.lessons-page
         ul.dropdown-menu
           - (Section.all - [@section]).each do |section|
             li= link_to section.name, url_for(section_id: section.id)
+
       .explanation-text
         p Quill's activities are built and organized by Common Core standards.
         p Select a <b>grade level</b> to see all activities tied to that grade level.
