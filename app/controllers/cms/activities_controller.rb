@@ -6,16 +6,6 @@ class CMS::ActivitiesController < ApplicationController
     @flag = params[:flag].to_s.to_sym.presence || :production
     @flag = :archived if @flag == :archive
 
-    arel = Activity.flagged(@flag).arel.wheres.inject(false) { |sum, val|
-      if sum
-        next sum.and(val)
-      else
-        next val
-      end
-    }
-
-    arel = arel.or(Activity.arel_table[:flags].eq('{}')) if @flag == :production
-
     @activities = if @flag == :production
       @activity_classification.activities.production
     else
