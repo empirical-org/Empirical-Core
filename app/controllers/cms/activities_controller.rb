@@ -16,7 +16,11 @@ class CMS::ActivitiesController < ApplicationController
 
     arel = arel.or(Activity.arel_table[:flags].eq('{}')) if @flag == :production
 
-    @activities = Activity.where(arel)
+    @activities = if @flag == :production
+      @activity_classification.activities.production
+    else
+      @activity_classification.activities.flagged(@flag)
+    end
   end
 
   def new
