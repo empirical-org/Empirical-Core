@@ -175,14 +175,6 @@ table {
   tr:hover { background-color: $tried-color-light }
 }
 
-.rectangle {
-  width: 15px;
-  height: 10px;
-  background: #22aafc;
-  border-right: 2px solid #ebf8ff;
-  display: inline-block;
-}
-
 @import "header";
 @import "pages";
 @import "home";
