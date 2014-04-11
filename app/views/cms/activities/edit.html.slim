@@ -6,7 +6,8 @@ article.activity-form.simple-rounded-box
       h4 Basic setup
       = f.string :name
       = f.text :description
-      = f.select :flag, ACTIVITY_FLAGS
+      = f.choices :flag, ACTIVITY_FLAGS
+      = f.choices :topic_id, Topic.all.map{|t| [t.name, t.id]}
 
     .l-section
       h4 Additional properties
