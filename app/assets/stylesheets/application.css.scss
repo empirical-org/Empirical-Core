@@ -4,6 +4,14 @@
  */
  @import "compass/css3/";
 
+@mixin pie-clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
 .text-center {
   margin: auto;
 }
@@ -90,7 +98,7 @@ article.blank-page {
   @include border-radius(15px);
   padding: 20px;
   background-color: #fff;
-  overflow: hidden;
+  @include pie-clearfix;
 
   .l-section {
     border-top: 1px solid #ccc;
