@@ -13,12 +13,15 @@ article.student-profile-page.simple-rounded-box
         p.explanation: em
           | Enter your class code, such as "blue-cow", to join your class.
 
-    .l-section
+    .l-section.table-stripe
       h3 Preview Lessons
       p Join a class to track your pogress.
 
-      .table-stripe
-        = render partial: 'teachers/classrooms/activity', collection: Activity.all
+      = render 'large_section_select'
+
+      - @section.topics.each do |topic|
+        h4 style="text-decoration: underline ; margin-top: 50px"= topic.name
+        = render partial: 'teachers/classrooms/activity', collection: topic.activities
 
   - else
     .l-section

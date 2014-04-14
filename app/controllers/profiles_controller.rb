@@ -52,6 +52,9 @@ class ProfilesController < ApplicationController
           @activity_names << [activity.topic.name, activity]
         end
       end
+    else
+      @section = Section.find_by_id(params[:section_id]) || Section.first
+      @topics = @section.topics
     end
 
     render :student
