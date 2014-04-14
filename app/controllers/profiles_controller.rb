@@ -40,7 +40,7 @@ class ProfilesController < ApplicationController
             'classroom_activities.activity_id = ? AND classroom_activities.classroom_id = ? AND activity_sessions.user_id = ?',
             activity.id,
             @classroom.id,
-            current_user.id).first
+            current_user.id).order('completed_at asc').first
 
 
           key = activity_session.try(:state) == 'finished'
@@ -49,7 +49,7 @@ class ProfilesController < ApplicationController
           @activity_table[key][unit.name][activity.topic.name] ||= []
           @activity_table[key][unit.name][activity.topic.name] << activity
 
-          @activity_names << [activity.topic.name, activity]
+          @activity_names << [activity.topic.name, activity, activity_session]
         end
       end
     else
