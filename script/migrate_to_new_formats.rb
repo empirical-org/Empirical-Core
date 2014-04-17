@@ -88,7 +88,7 @@ chapters.each do |chapter|
           score.inputs.where(step: step).each do |input|
             input.update_attributes! activity_session_id: session.uid
           end
-        rescue MissingChunkError => e
+        rescue Score::MissingChunkError => e
           puts e.message
           puts "failed to parse, just gonna skip it for now."
           puts "the problem was with: #{score.id}"
