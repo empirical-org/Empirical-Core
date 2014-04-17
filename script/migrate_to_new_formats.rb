@@ -62,10 +62,15 @@ chapters.each do |chapter|
         end
 
         session_data = if activity.classification == story_class
-          {
-            story_step_input: score.story_step_input.to_yaml,
-            missed_rules: score.missed_rules.to_yaml,
-          }
+          hash = {}
+          hash[:story_step_input] = score.story_step_input.to_yaml
+
+          begin
+            hash[:missed_rules] = score.missed_rules.to_yaml
+          rescue Chunk::MissingChunkError
+          end
+
+          hash
         else
           {}
         end
