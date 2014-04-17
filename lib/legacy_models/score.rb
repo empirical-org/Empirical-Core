@@ -110,6 +110,6 @@ class Score < ActiveRecord::Base
 private
 
   def calculate_missed_rules
-    self.missed_rules = StoryChecker.find(id).section(:missed).chunks.map { |c| c.rule.id }
+    self.missed_rules = LegacyStoryChecker.find(id).section(:missed).chunks.map { |c| c.rule.id }
   end
 end
