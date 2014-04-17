@@ -4,7 +4,7 @@ practice_class = ActivityClassification.find_by_key!('practice_question_set')
 chapters = if ARGV.any?
   [Chapter.find(ARGV.last)]
 else
-  raise
+  raise 'no ARGV'
 end
 
 chapters.each do |chapter|

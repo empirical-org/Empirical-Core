@@ -12,7 +12,7 @@ class Chapter < ActiveRecord::Base
   include ChapterView
   has_many :classroom_chapters
   has_many :scores, through: :classroom_chapters
-  has_one :assessment
+  has_one :assessment, class_name: 'LegacyAssessment'
   belongs_to :workbook
   belongs_to :level, class_name: 'ChapterLevel', foreign_key: 'chapter_level_id'
   validates :title, presence: true
