@@ -53,39 +53,45 @@ chapters.each do |chapter|
       )
 
       classroom_chapter.scores.each do |score|
-        state = case score.state
-        when 'trashed' then 'trashed'
-        when 'unstarted' then 'unstarted'
-        when 'finished' then 'finished'
-        else
-          'started'
-        end
+        begin
+          state = case score.state
+          when 'trashed' then 'trashed'
+          when 'unstarted' then 'unstarted'
+          when 'finished' then 'finished'
+          else
+            'started'
+          end
 
-        session_data = if activity.classification == story_class
-          {
-            story_step_input: score.story_step_input.to_yaml,
-            missed_rules: score.missed_rules.to_yaml,
-          }
-        else
-          {}
-        end
+          session_data = if activity.classification == story_class
+            {
+              story_step_input: score.story_step_input.to_yaml,
+              missed_rules: score.missed_rules.to_yaml,
+            }
+          else
+            {}
+          end
 
-        session = classroom_activity.activity_sessions.create!(
-          classroom_activity: classroom_activity,
-          user: score.user,
-          pairing_id: SecureRandom.urlsafe_base64,
-          percentage: score.grade,
-          state: state,
-          time_spent: nil,
-          completed_at: score.completion_date,
-          data: session_data,
-          temporary: classroom_chapter.temporary
-        )
+          session = classroom_activity.activity_sessions.create!(
+            classroom_activity: classroom_activity,
+            user: score.user,
+            pairing_id: SecureRandom.urlsafe_base64,
+            percentage: score.grade,
+            state: state,
+            time_spent: nil,
+            completed_at: score.completion_date,
+            data: session_data,
+            temporary: classroom_chapter.temporary
+          )
 
-        step = if activity.classification == story_class then 'review' else 'practice' end
+          step = if activity.classification == story_class then 'review' else 'practice' end
 
-        score.inputs.where(step: step).each do |input|
-          input.update_attributes! activity_session_id: session.uid
+          score.inputs.where(step: step).each do |input|
+            input.update_attributes! activity_session_id: session.uid
+          end
+        rescue MissingChunkError => e
+          puts e.message
+          puts "failed to parse, just gonna skip it for now."
+          puts "the problem was with: #{score.id}"
         end
       end
     end
