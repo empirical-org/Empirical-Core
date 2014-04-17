@@ -66,6 +66,8 @@ class MigrateToNewFormats < ActiveRecord::Migration
     remove_column :scores, :lessons_completed, :integer
     remove_column :scores, :score_values, :text
 
+    execute 'DROP TABLE IF EXISTS sections'
+    execute 'DROP SEQUENCE IF EXISTS sections'
     rename_table :chapter_levels, :sections
 
     change_table :sections do |t|

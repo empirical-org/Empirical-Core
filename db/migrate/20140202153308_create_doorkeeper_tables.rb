@@ -1,5 +1,9 @@
 class CreateDoorkeeperTables < ActiveRecord::Migration
   def change
+    execute 'DROP TABLE IF EXISTS oauth_applications'
+    execute 'DROP TABLE IF EXISTS oauth_access_grants'
+    execute 'DROP TABLE IF EXISTS oauth_access_tokens'
+
     create_table :oauth_applications do |t|
       t.string  :name,         :null => false
       t.string  :uid,          :null => false
