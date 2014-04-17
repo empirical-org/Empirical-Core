@@ -21,7 +21,8 @@ class Teachers::ClassroomManagerController < ApplicationController
 
         @classroom_activities.each do |classroom_activity|
           @score_table[student.name][classroom_activity.activity] = if classroom_activity.for_student?(student)
-            { session: ActivitySession.where(user_id: student.id, classroom_activity_id: classroom_activity.id).first }
+            activity_session = student.activity_sessions.rel_for_activity(classroom_activity.activity).includes(:classroom_activity).where(classroom_activity_id: classroom_activity.id).current_session
+            { session: activity_session }
           else
             nil
           end

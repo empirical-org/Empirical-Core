@@ -42,8 +42,8 @@ class ProfilesController < ApplicationController
             @classroom.id,
             current_user.id)
 
-          complete_session   = activity_session_scope.where('completed_at is not null').order('completed_at desc').first
-          incomplete_session = activity_session_scope.where('completed_at is null').first
+          complete_session   = activity_session_scope.completed.first
+          incomplete_session = activity_session_scope.incomplete.first
 
 
           key = !!complete_session
