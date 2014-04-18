@@ -33,7 +33,6 @@ chapters.each do |chapter|
 
   Section.find(topic[:section_id]).update_column :workbook_id, chapter_attributes.delete(:workbook_id)
 
-  Topic.find_by_id(topic[:id]).destroy!
   topic    = Topic.create!(topic)
   story    = Activity.create!(story)
   practice = Activity.create!(practice)

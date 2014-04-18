@@ -16,6 +16,7 @@ ActivityClassification.destroy_all
 Activity.destroy_all
 RuleQuestionInput.includes(:rule_question).where('rule_questions.id is null').map(&:destroy)
 Chapter.find_by_id(55).try(:destroy)
+Doorkeeper::Application.destroy_all
 
 story_class = ActivityClassification.create!(
   name: 'Story',
@@ -31,10 +32,9 @@ practice_class = ActivityClassification.create!(
   form_url:   'http://quill-questions-module.herokuapp.com/practice_questions/form'
 )
 
-app = Doorkeeper::Application.find_by_uid('quill-lessons') || Doorkeeper::Application.new
-app.attributes = {
+Doorkeeper::Application.create!(
   name:   'Quill Lessons Module',
   uid:    'quill-lessons',
   secret: 'quill-lessons-non-secret',
   redirect_uri: 'http://quill-questions-module.herokuapp.com/'
-}
+)

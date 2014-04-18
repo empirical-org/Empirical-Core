@@ -1,4 +1,4 @@
-# system %q|/usr/local/heroku/bin/heroku run "rails r 'load(%(./script/begin_migration.rb))'" -a empirical-grammar-staging|
+system %q|/usr/local/heroku/bin/heroku run "rails r 'load(%(./script/begin_migration.rb))'" -a empirical-grammar-staging|
 
 redofilepath = "redo"
 redos = File.read(redofilepath).split("\n")
