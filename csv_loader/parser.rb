@@ -154,7 +154,7 @@ class AprilFirst2014QuestionParser
     def load
       begin
         super
-      rescue PG::Error => e
+      rescue ActiveRecord::RecordNotUnique => e
         puts "Retrying loading of topic"
         sleep 0.1
         retry
