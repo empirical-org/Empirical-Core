@@ -152,11 +152,13 @@ class AprilFirst2014QuestionParser
 
   class TopicLoader < RecordLoader
     def load
-      super
-    rescue PG::Error => e
-      puts "Retrying loading of topic"
-      sleep 0.1
-      retry
+      begin
+        super
+      rescue PG::Error => e
+        puts "Retrying loading of topic"
+        sleep 0.1
+        retry
+      end
     end
 
     def finder_keys
