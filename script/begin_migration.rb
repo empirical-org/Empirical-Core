@@ -26,5 +26,15 @@ story_class = ActivityClassification.create!(
 
 practice_class = ActivityClassification.create!(
   name: 'Practice Questions',
-  key: 'practice_question_set'
+  key: 'practice_question_set',
+  module_url: 'http://quill-questions-module.herokuapp.com/practice_questions/module',
+  form_url:   'http://quill-questions-module.herokuapp.com/practice_questions/form'
 )
+
+app = Doorkeeper::Application.find_by_uid('quill-lessons') || Doorkeeper::Application.new
+app.attributes = {
+  name:   'Quill Lessons Module',
+  uid:    'quill-lessons',
+  secret: 'quill-lessons-non-secret',
+  redirect_uri: 'http://quill-questions-module.herokuapp.com/'
+}

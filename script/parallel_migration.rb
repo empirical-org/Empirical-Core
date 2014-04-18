@@ -6,7 +6,7 @@ redofile = File.open(redofilepath, 'w')
 redofile.sync = true
 
 (if redos.any? then Chapter.where(id: redos) else Chapter.all end).each_slice(10) do |chapters|
-  puts 'beginning loading a set'
+  puts 'beginning loading a set for chapters: ' + chapters.map(&:id).join(' ')
 
   chapters.map do |chapter|
     puts 'loading '

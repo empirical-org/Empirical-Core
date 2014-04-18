@@ -101,6 +101,8 @@ ActiveRecord::Schema.define(version: 20140404165107) do
     t.integer  "chapter_level_id"
   end
 
+  add_index "chapters", ["chapter_level_id"], name: "index_chapters_on_chapter_level_id", using: :btree
+
   create_table "classroom_activities", force: true do |t|
     t.integer  "classroom_id"
     t.integer  "activity_id"
@@ -139,6 +141,8 @@ ActiveRecord::Schema.define(version: 20140404165107) do
     t.string   "reply_type"
     t.integer  "lecture_chapter_id"
   end
+
+  add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
 
   create_table "file_uploads", force: true do |t|
     t.string   "name"

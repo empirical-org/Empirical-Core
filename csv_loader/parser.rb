@@ -1,4 +1,4 @@
-;require  File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../../config/environment', __FILE__)
 require 'csv'
 require 'active_support/core_ext'
 
@@ -153,12 +153,14 @@ class AprilFirst2014QuestionParser
   class TopicLoader < RecordLoader
     def load
       begin
-        super
+        result = super
       rescue ActiveRecord::RecordNotUnique => e
         puts "Retrying loading of topic"
         sleep 0.1
         retry
       end
+
+      result
     end
 
     def finder_keys
