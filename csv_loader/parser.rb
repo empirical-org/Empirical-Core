@@ -72,8 +72,10 @@ class AprilFirst2014QuestionParser
         current_activity[:rules][current_rule[:id]] = current_rule
       end
 
+      body = (row[:answers].presence && YAML.load(row[:answers])) || []
+
       current_rule[:questions] << {
-        body: YAML.load(row[:answers]),
+        body: body,
         prompt: row[:question],
         instructions: row[:instructions]
       }
