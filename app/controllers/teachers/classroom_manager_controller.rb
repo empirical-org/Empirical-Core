@@ -13,19 +13,24 @@ class Teachers::ClassroomManagerController < ApplicationController
       @unit.classroom_activities.joins(:topic).where(topics: {id: @topic.id})
     end
 
+    @classroom_activities = @classroom_activities.to_a
+    students = @classroom.students.to_a
+
+
     if @unit.topics.any?
       @score_table = {}
+      students.map(&:name).each{|n| @score_table[n] = {}}
 
-      @classroom.students.each do |student|
-        @score_table[student.name] = {}
+      @classroom_activities.each do |classroom_activity|
+        sessions = classroom_activity.activity_sessions.order('activity_sessions.id asc')
+        sessions.each do |activity_session|
+          student = activity_session.user
 
-        @classroom_activities.each do |classroom_activity|
-          @score_table[student.name][classroom_activity.activity] = if classroom_activity.for_student?(student)
-            activity_session = student.activity_sessions.rel_for_activity(classroom_activity.activity).includes(:classroom_activity).where(classroom_activity_id: classroom_activity.id).current_session
-            { session: activity_session }
-          else
-            nil
+          if @score_table[student.name][classroom_activity.activity].present? && !activity_session.completed?
+            next
           end
+
+          @score_table[student.name][classroom_activity.activity] = { session: activity_session }
         end
       end
     end

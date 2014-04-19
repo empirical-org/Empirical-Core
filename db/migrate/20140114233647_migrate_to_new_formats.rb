@@ -58,6 +58,8 @@ class MigrateToNewFormats < ActiveRecord::Migration
       t.hstore :data
       t.index :pairing_id
       t.index :uid, unique: true
+
+      t.timestamps
     end
 
     remove_column :scores, :practice_step_input, :text
