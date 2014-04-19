@@ -36,5 +36,5 @@ Doorkeeper::Application.create!(
   name:   'Quill Lessons Module',
   uid:    'quill-lessons',
   secret: 'quill-lessons-non-secret',
-  redirect_uri: 'http://quill-questions-module.herokuapp.com/'
+  redirect_uri: 'http://quill-questions-module.herokuapp.com/oauth/callback'
 )

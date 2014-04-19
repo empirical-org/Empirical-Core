@@ -26,3 +26,4 @@ snapshot.dump
 # vagrant folder
 .vagrant/
 redo
+*.dump
