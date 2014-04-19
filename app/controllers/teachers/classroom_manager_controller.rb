@@ -25,6 +25,7 @@ class Teachers::ClassroomManagerController < ApplicationController
         sessions = classroom_activity.activity_sessions.order('activity_sessions.id asc')
         sessions.each do |activity_session|
           student = activity_session.user
+          next unless student.student?
 
           if @score_table[student.name][classroom_activity.activity].present? && !activity_session.completed?
             next
