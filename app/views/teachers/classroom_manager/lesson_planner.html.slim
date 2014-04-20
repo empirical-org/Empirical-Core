@@ -1,0 +1,35 @@
+.teacher-lesson-planner.l-section
+  .lesson-planner-section
+    .classroom-manager-sticky-bar My classroom: #{@classroom.name}
+
+    .explanation-text
+      span Assign activities to students from the "My workbook" section. Assigned activities are shown in the "My class" section.
+      br
+      span Activities are grouped together into units. Units make it easier for you to organize your lessons.
+
+    = link_to 'add a new unit', teachers_classroom_units_path(@classroom), method: 'post', class: 'btn btn-primary'
+
+    .unit-section
+      - @classroom.units.each do |unit|
+        .unit-header= unit.name
+
+        - unit.activities.select(:topic_id).group(:topic_id).pluck(:topic_id).each do |topic_id|
+          - topic = Topic.find(topic_id)
+          .sub-unit-header= topic.name
+
+          .table-stripe.inverse
+            - unit.activities.where(topic_id: topic_id).each do |activity|
+              = render partial: 'teachers/classrooms/activity', object: activity
+
+  .lesson-planner-section
+    .classroom-manager-sticky-bar My workbook
+    - @workbook_table.each do |section, topics|
+      .unit-section
+        .workbook-section-header.unit-header= section
+
+        - topics.each do |topic, activities|
+          .workbook-topic-header.sub-unit-header= topic
+
+          .table-stripe.inverse
+            - activities.each do |activity|
+              = render partial: 'teachers/classrooms/activity', object: activity

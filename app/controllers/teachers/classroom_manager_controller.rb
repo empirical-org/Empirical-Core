@@ -2,24 +2,55 @@ class Teachers::ClassroomManagerController < ApplicationController
   layout 'classroom_manager'
   before_filter :teacher!
   before_filter :authorize!
-  before_filter :setup
 
   def scorebook
-    @classroom_chapters = @classroom.chapters
-    @classroom_students = @classroom.students.order(:name)
-    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters - @classroom_chapters] }.select{ |group| group.second.any? }
+    @unit = @classroom.units.find_by_id(params[:unit_id]) || @classroom.units.first
+    @topic = @unit.topics.find_by_id(params[:topic_id])  || @unit.topics.first
 
-    @score_table = Score.joins(:classroom_chapter).where(classroom_chapters: { classroom_id: @classroom.id }).inject({}) do |table, score|
-      table[score.user_id] ||= {}
-      table[score.user_id][score.classroom_chapter.chapter_id] = score
+    @classroom_activities = if @topic.blank?
+      []
+    else
+      @unit.classroom_activities.joins(:topic).where(topics: {id: @topic.id})
+    end
 
-      table
+    @classroom_activities = @classroom_activities.to_a
+    students = @classroom.students.to_a
+
+
+    if @unit.topics.any?
+      @score_table = {}
+      students.map(&:name).each{|n| @score_table[n] = {}}
+
+      @classroom_activities.each do |classroom_activity|
+        sessions = classroom_activity.activity_sessions.order('activity_sessions.id asc')
+        sessions.each do |activity_session|
+          student = activity_session.user
+          next unless student.student?
+
+          if @score_table[student.name][classroom_activity.activity].present? && !activity_session.completed?
+            next
+          end
+
+          @score_table[student.name][classroom_activity.activity] = { session: activity_session }
+        end
+      end
     end
   end
 
-protected
-  def setup
+  def lesson_planner
+    @workbook_table = {}
+
+    (Activity.production - @classroom.activities.production).each do |activity|
+      @workbook_table[activity.topic.section.position] ||= {}
+      @workbook_table[activity.topic.section.position][activity.topic.section.name] ||= {}
+      @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] ||= []
+      @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] << activity
+    end
+
+    @workbook_table = @workbook_table.map.to_a.sort{|a,b| a.first <=> b.first}.map(&:last).map(&:to_a).map(&:first)
   end
+
+protected
 
   # TODO: this is copied from Teachers::ClassroomsController#authorize!
   #       consider absracting using inheritance e.g. Teachers::BaseClassroomController

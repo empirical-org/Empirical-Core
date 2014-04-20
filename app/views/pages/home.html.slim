@@ -2,8 +2,13 @@ article.home-content
   .home-hero-unit
     .content-overlay
       .home-lesson: .container
-        .story-instructions= markdown @chapter.story_instructions
-        = render partial: 'chapter_test', object: @chapter
+        iframe#activity-iframe style="width: 100% ; border: 0" allowtransparency="true" src=homepage_story_url(@activity)
+
+        javascript:
+          jQuery(function ($) {
+            window.quill = new Quill('#{homepage_story_url(@activity)}')
+            quill.listen();
+          });
 
       .home-pitch
         h2 Quill provides interactive grammar lessons.
@@ -82,5 +87,5 @@ article.home-content
               .link.primary Read More
 
 javascript:
-  mixpanel.track("homepage viewed");
+  if (window.mixpanel) mixpanel.track("homepage viewed");
   $('.carousel').carousel({interval: 10000});

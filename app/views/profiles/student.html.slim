@@ -13,12 +13,15 @@ article.student-profile-page.simple-rounded-box
         p.explanation: em
           | Enter your class code, such as "blue-cow", to join your class.
 
-    .l-section
+    .l-section.table-stripe
       h3 Preview Lessons
       p Join a class to track your pogress.
 
-      .table-stripe
-        = render partial: 'teachers/classrooms/chapter', collection: Chapter.all
+      = render 'large_section_select'
+
+      - @section.topics.each do |topic|
+        h4 style="text-decoration: underline ; margin-top: 50px"= topic.name
+        = render partial: 'teachers/classrooms/activity', collection: topic.activities
 
   - else
     .l-section
@@ -27,23 +30,28 @@ article.student-profile-page.simple-rounded-box
 
       table.table.classroom-students-grades
         thead
-          - @classroom.chapters.each do |chapter|
-            th= chapter.title[0..4]
+          - @activity_names.each do |name, _, _|
+            th= name[0..4]
+
         tbody
           tr
-            - @classroom.classroom_chapters.each do |classroom_chapter|
+            - @activity_names.each do |_, activity, activity_session|
               td
-                .due-date= classroom_chapter.due_date.strftime('%m/%d')
-                .score-color class=current_user.scores.for_chapter(classroom_chapter.chapter).try(:grade_name)
+                .due-date= @classroom.classroom_activities.find_by_activity_id(activity.id).due_date.strftime('%m/%d')
+                .score-color data-toggle="tooltip" title=activity.name class=activity_session.try(:percentage_color)
 
-    .l-section
-      h3 My Assignments
+    .activity-table
+      - @activity_table.each do |state, units|
+        .l-section
+          h3= state ? 'Completed Lessons' : 'Assigned Lessons'
 
-      .table-stripe
-        = render partial: 'teachers/classrooms/chapter', collection: current_user.unfinished_chapters(@classroom)
+          .activity-units
+            - units.each do |unit_name, topics|
+              .topic-heading: strong= unit_name
 
-    .l-section
-      h3 Completed Assignments
+              - topics.each do |topic_name, activities|
+                div: strong= topic_name
+                = render partial: 'teachers/classrooms/activity', collection: activities, locals: {completed: state}
 
-      .table-stripe
-        = render partial: 'teachers/classrooms/chapter', collection: current_user.finished_chapters(@classroom), locals: { completed: true }
+javascript:
+  $('div[data-toggle="tooltip"]').tooltip();

@@ -74,6 +74,7 @@ article.teacher-profile-page {
 .teacher-classroom-nav {
   .btn { margin-right: 20px }
 }
+
 .teacher-classroom-chapter {
   overflow: hidden;
   margin-bottom: 20px;
@@ -107,5 +108,40 @@ article.teacher-profile-page {
 
   .l-group-right {
     float: right;
+  }
+}
+
+.classroom-manager-sticky-bar {
+  background-color: #333;
+  margin: 0 -20px 0 -20px;
+  color: white;
+  padding: 10px 20px;
+}
+
+.teacher-lesson-planner {
+  .explanation-text {
+    background-color: #eee;
+    font-style: italic;
+    padding: 5px;
+    margin: 10px 0;
+  }
+
+  .unit-header {
+    background-color: $skyblue;
+    padding: 5px;
+    color: white;
+    margin: 20px 0;
+  }
+
+  .activity-row {
+    padding: 10px;
+  }
+
+  .sub-unit-header {
+    font-weight: bold;
+  }
+
+  .unit-section {
+    margin-bottom: 40px;
   }
 }

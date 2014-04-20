@@ -1,6 +1,6 @@
 class CMS::UsersController < ApplicationController
   before_filter :signed_in!
-  before_filter :admin!, only: [:sign_in]
+  before_filter :admin!, only: [:sign_in, :create]
 
   def index
     @users = if params[:q].present?
@@ -12,6 +12,16 @@ class CMS::UsersController < ApplicationController
 
   def new
     @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      redirect_to cms_users_path
+    else
+      render :new
+    end
   end
 
   def sign_in

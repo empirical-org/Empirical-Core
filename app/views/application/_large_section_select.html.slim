@@ -1,0 +1,13 @@
+.large-section-select
+  .btn-group
+    .btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+      = @section.name
+      span.caret
+
+    ul.dropdown-menu
+      - (Section.all - [@section]).each do |section|
+        li= link_to section.name, url_for(section_id: section.id)
+
+  .explanation-text
+    p Quill's activities are built and organized by Common Core standards.
+    p Select a <b>grade level</b> to see all activities tied to that grade level.

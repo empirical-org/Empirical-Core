@@ -3,8 +3,10 @@ class PagesController < ApplicationController
 
   def home
     @body_class = 'home-page'
-    @chapter = Chapter.find(ENV['HOMEPAGE_CHAPTER_ID'])
-    @assessment = @chapter.assessment
+
+    @activity = Topic.find(ENV['HOMEPAGE_CHAPTER_ID']).activities.where(
+      activity_classification_id: ActivityClassification.find_by_key('story').id
+    ).first
   end
 
   def develop
@@ -29,7 +31,8 @@ class PagesController < ApplicationController
 
   def lessons
     @body_class = 'auxiliary white-page formatted-text'
-    @chapter_levels = ChapterLevel.all.map{ |level| [level, level.chapters] }.select{ |group| group.second.any? }
+    @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
+    @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
   end
 
   private

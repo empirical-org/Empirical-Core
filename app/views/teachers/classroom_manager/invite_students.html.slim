@@ -18,7 +18,7 @@
 .l-section
   h3 2. Teacher Creates Account
   p You can create accounts for your students by inputting your students' first and last names.
-  p The students' <b>username</b> is your student's name combined with your class code. For example, John Smith's username is 'John.Smith@#{@classroom.code}'.
+  p The student's <b>username</b> is your student's name combined with your class code. For example, John Smith's username is 'John.Smith@#{@classroom.code}'.
   p The student's <b>password</b> is set to his or her last name.
 
   = form_for User.new, url: teachers_classroom_students_path(@classroom), layout: 'inline' do |f|

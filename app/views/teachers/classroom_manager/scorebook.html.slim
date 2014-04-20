@@ -1,27 +1,40 @@
-.teacher-students.l-section
-  h3 Students
+.teacher-assigned-chapters.l-section
+  .btn-group
+    .btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+      = @unit.name
+      span.caret
 
-  table.table.classroom-students-grades
-    thead
-      th.student-header Students
+    ul.dropdown-menu
+      - (@classroom.units - [@unit]).each do |unit|
+        li= link_to unit.name, url_for(unit_id: unit.id)
 
-      - @classroom_chapters.each do |chapter|
-        th= chapter.title[0..4]
+  - if @unit.topics.any?
+    .btn-group
+      .btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+        = @topic.name
+        span.caret
 
-    tbody
-      - @classroom_students.each do |student|
-        tr
-          td= student.name
+      ul.dropdown-menu
+        - (@unit.topics.uniq - [@topic]).each do |topic|
+          li= link_to topic.name, url_for(topic_id: topic.id, unit_id: @unit.id)
 
-          - @classroom_chapters.each do |chapter|
-            td: .score-color class=@score_table[student.id].try(:[], chapter.id).try(:grade_name)
+    h4= @topic.name
 
-.teacher-assigned-chapters.table-stripe.l-section
-  h3 Assigned Lessons
-  = render partial: 'teachers/classrooms/chapter', collection: @classroom_chapters
+    table.table.classroom-students-grades
+      tbody
+        - @score_table.each do |student, activities|
+          tr
+            td= student
 
-.teacher.unassigned-chapters.table-stripe.l-section
-  h3 Unassigned Lessons
-  - @chapter_levels.each do |level, chapters|
-    h4 style="text-decoration: underline ; margin-top: 50px"= level.name
-    = render partial: 'teachers/classrooms/chapter', collection: chapters
+            - activities.each do |activity, score|
+              td
+                - if score
+                  .score-color data-toggle="tooltip" title=activity.name class=score[:session].try(:percentage_color)
+  - else
+    br
+    br
+    br
+    p No lessons available for this unit.
+
+javascript:
+  $('div[data-toggle="tooltip"]').tooltip();

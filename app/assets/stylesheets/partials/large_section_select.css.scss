@@ -1,0 +1,18 @@
+.large-section-select {
+  border: 1px solid #d8d8d8;
+  background-color: #fefddf;
+  padding: 20px;
+  border-radius: 5px;
+  @include pie-clearfix;
+
+  .btn-group {
+    float: left;
+    margin-right: 30px;
+  }
+
+  p,
+  .auxiliary.white-page.formatted-text article.lessons-page & p {
+    margin-bottom: 0;
+    &:first-child { margin-bottom: 11px }
+  }
+}

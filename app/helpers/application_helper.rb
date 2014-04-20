@@ -54,4 +54,13 @@ module ApplicationHelper
   def active_on_first(i)
     "active" if i == 0
   end
+
+  def root_path
+    root_url
+  end
+
+  def homepage_story_url activity
+    url = activity.module_url(:anonymous)
+    ((u = URI(url)).path = '/stories/homepage' ; u).to_s
+  end
 end

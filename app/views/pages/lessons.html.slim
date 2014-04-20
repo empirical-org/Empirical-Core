@@ -9,6 +9,8 @@ article.lessons-page
       |  lessons.
 
   .table-stripe
-    - @chapter_levels.each do |level, chapters|
+    = render 'large_section_select'
+
+    - @topics.each do |level, activities|
       h4 style="text-decoration: underline ; margin-top: 50px"= level.name
-      = render partial: 'teachers/classrooms/chapter', collection: chapters
+      = render partial: 'teachers/classrooms/activity', collection: activities

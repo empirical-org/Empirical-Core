@@ -1,0 +1,14 @@
+article.simple-rounded-box.activity-classifications-page
+  table.table
+    thead
+      th.name-column Name
+      th
+
+    - @activity_classifications.each do |activity_classification|
+      tr
+        td= activity_classification.name
+        td
+          span>= link_to 'Edit', edit_cms_activity_classification_path(activity_classification)
+          span>= link_to 'Activities', url_for(controller: 'cms/activities', key: activity_classification.key, action: 'index')
+
+  = link_to 'Add a new type of activity', new_cms_activity_classification_path

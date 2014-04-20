@@ -4,6 +4,14 @@
  */
  @import "compass/css3/";
 
+@mixin pie-clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
 .text-center {
   margin: auto;
 }
@@ -90,7 +98,7 @@ article.blank-page {
   @include border-radius(15px);
   padding: 20px;
   background-color: #fff;
-  overflow: hidden;
+  @include pie-clearfix;
 
   .l-section {
     border-top: 1px solid #ccc;
@@ -117,7 +125,8 @@ article.blank-page {
   }
 }
 
-article.simple-rounded-box {
+article.simple-rounded-box,
+article.extra-padding {
   margin-top: 40px;
   margin-bottom: 40px;
 }
@@ -158,26 +167,28 @@ table {
   .l-table-row:nth-child(2n) {
     background-color: #f5f5f5;
   }
+
+  &.inverse {
+    .l-table-row {
+      background-color: #f5f5f5;
+    }
+
+    .l-table-row:nth-child(2n) {
+      background-color: transparent;
+    }
+  }
 }
 
 .table-hover-row {
   tr:hover { background-color: $tried-color-light }
 }
 
-.rectangle {
-  width: 15px;
-  height: 10px;
-  background: #22aafc;
-  border-right: 2px solid #ebf8ff;
-  display: inline-block;
-}
-
 @import "header";
 @import "pages";
 @import "home";
 @import "grammar_test";
-@import "chapters";
 @import "rules";
 @import "style";
 @import "partials/*";
 @import "pages/*";
+

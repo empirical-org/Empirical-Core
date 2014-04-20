@@ -11,7 +11,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110031852) do
+ActiveRecord::Schema.define(version: 20140404165107) do
+
+  create_table "activities", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "uid",                                     null: false
+    t.hstore   "data"
+    t.integer  "activity_classification_id"
+    t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "flags",                      default: [], null: false, array: true
+  end
+
+  add_index "activities", ["uid"], name: "index_activities_on_uid", unique: true, using: :btree
+
+  create_table "activity_classifications", force: true do |t|
+    t.string   "name"
+    t.string   "key",        null: false
+    t.string   "form_url"
+    t.string   "uid",        null: false
+    t.string   "module_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activity_classifications", ["key"], name: "index_activity_classifications_on_key", unique: true, using: :btree
+  add_index "activity_classifications", ["uid"], name: "index_activity_classifications_on_uid", unique: true, using: :btree
+
+  create_table "activity_sessions", force: true do |t|
+    t.integer  "classroom_activity_id"
+    t.integer  "activity_id"
+    t.integer  "user_id"
+    t.string   "pairing_id"
+    t.float    "percentage"
+    t.string   "state",                 default: "unstarted", null: false
+    t.integer  "time_spent"
+    t.datetime "completed_at"
+    t.string   "uid"
+    t.boolean  "temporary"
+    t.hstore   "data"
+  end
+
+  add_index "activity_sessions", ["pairing_id"], name: "index_activity_sessions_on_pairing_id", using: :btree
+  add_index "activity_sessions", ["uid"], name: "index_activity_sessions_on_uid", unique: true, using: :btree
+
+  create_table "activity_time_entries", force: true do |t|
+    t.integer  "activity_session_id"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activity_time_entries", ["activity_session_id"], name: "index_activity_time_entries_on_activity_session_id", using: :btree
 
   create_table "assessments", force: true do |t|
     t.text     "body"
@@ -32,6 +86,7 @@ ActiveRecord::Schema.define(version: 20131110031852) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "workbook_id"
   end
 
   create_table "chapters", force: true do |t|
@@ -47,6 +102,16 @@ ActiveRecord::Schema.define(version: 20131110031852) do
   end
 
   add_index "chapters", ["chapter_level_id"], name: "index_chapters_on_chapter_level_id", using: :btree
+
+  create_table "classroom_activities", force: true do |t|
+    t.integer  "classroom_id"
+    t.integer  "activity_id"
+    t.integer  "unit_id"
+    t.datetime "due_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "assigned_student_ids", array: true
+  end
 
   create_table "classroom_chapters", force: true do |t|
     t.string   "classcode"
@@ -112,6 +177,45 @@ ActiveRecord::Schema.define(version: 20131110031852) do
     t.datetime "updated_at"
   end
 
+  create_table "oauth_access_grants", force: true do |t|
+    t.integer  "resource_owner_id", null: false
+    t.integer  "application_id",    null: false
+    t.string   "token",             null: false
+    t.integer  "expires_in",        null: false
+    t.text     "redirect_uri",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "revoked_at"
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
+
+  create_table "oauth_access_tokens", force: true do |t|
+    t.integer  "resource_owner_id"
+    t.integer  "application_id"
+    t.string   "token",             null: false
+    t.string   "refresh_token"
+    t.integer  "expires_in"
+    t.datetime "revoked_at"
+    t.datetime "created_at",        null: false
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
+
+  create_table "oauth_applications", force: true do |t|
+    t.string   "name",         null: false
+    t.string   "uid",          null: false
+    t.string   "secret",       null: false
+    t.text     "redirect_uri", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+
   create_table "page_areas", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -137,6 +241,7 @@ ActiveRecord::Schema.define(version: 20131110031852) do
     t.text     "second_input"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "activity_session_id"
   end
 
   create_table "rule_questions", force: true do |t|
@@ -150,14 +255,18 @@ ActiveRecord::Schema.define(version: 20131110031852) do
   end
 
   create_table "rules", force: true do |t|
-    t.text     "title"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.text     "name"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "category_id"
     t.integer  "workbook_id",    default: 1
     t.text     "description"
     t.string   "classification"
+    t.string   "uid"
+    t.string   "flags",          default: [], null: false, array: true
   end
+
+  add_index "rules", ["uid"], name: "index_rules_on_uid", unique: true, using: :btree
 
   create_table "rules_misseds", force: true do |t|
     t.integer  "rule_id"
@@ -173,17 +282,32 @@ ActiveRecord::Schema.define(version: 20131110031852) do
     t.integer  "user_id"
     t.integer  "classroom_chapter_id"
     t.datetime "completion_date"
-    t.integer  "items_missed"
-    t.integer  "lessons_completed"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
-    t.text     "practice_step_input"
-    t.text     "review_step_input"
     t.text     "missed_rules"
-    t.text     "score_values"
     t.string   "state",                default: "unstarted", null: false
     t.text     "story_step_input"
     t.float    "grade"
+  end
+
+  create_table "sections", force: true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "workbook_id"
+  end
+
+  create_table "topics", force: true do |t|
+    t.string   "name"
+    t.integer  "section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "units", force: true do |t|
+    t.string  "name"
+    t.integer "classroom_id"
   end
 
   create_table "users", force: true do |t|
