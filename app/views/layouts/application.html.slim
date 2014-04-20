@@ -14,3 +14,6 @@ html
 
     .sticky-footer-footer
       = render 'application/footer'
+
+    - if signed_in? && current_user.teacher?
+      script type="text/javascript" src="//s3.amazonaws.com/scripts.hellobar.com/86d3104089aef6faaf890e08662529bff130ccef.js"

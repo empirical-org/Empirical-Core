@@ -112,10 +112,12 @@ article.teacher-profile-page {
 }
 
 .classroom-manager-sticky-bar {
-  background-color: #333;
-  margin: 0 -20px 0 -20px;
+  // background-color: $skyblue;
+  @extend .btn-warning;
   color: white;
   padding: 10px 20px;
+  font-size: 30px;
+  line-height: 1.5;
 }
 
 .teacher-lesson-planner {
@@ -138,7 +140,8 @@ article.teacher-profile-page {
   }
 
   .sub-unit-header {
-    font-weight: bold;
+    text-decoration: underline;
+    // font-weight: bold;
   }
 
   .unit-section {

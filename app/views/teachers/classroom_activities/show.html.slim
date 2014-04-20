@@ -7,10 +7,12 @@ article.assign-classroom-chapter-page.simple-rounded-box
   = form_for @classroom_activity, as: :classroom_activity, url: teachers_classroom_activity_path(@classroom, @activity), method: :put do |f|
     .l-section
       h3 1. Assign the lesson to students.
+
       .checkbox-section
         = f.label :choose_everyone, 'Assign to everyone', class: 'js-everyone-label' do
           = f.check_box :choose_everyone
           span Everyone
+
       .checkbox-section
         - @classroom.students.each do |student|
             label.js-student-label for="classroom_activity_student_#{student.id}"
@@ -20,10 +22,15 @@ article.assign-classroom-chapter-page.simple-rounded-box
     .l-section
       h3 2. Designate the unit.
       = f.select :unit_id, @classroom.units.map{|u| [u.name, u.id]}
+      br
+      br
+      p: i Select a unit for this lesson. Units help you organize your curriculum.
 
     .l-section.classroom-chapter-datepicker
       h3 3. Set the due date.
       .datepicker-holder= f.text_field :due_date_string, class: 'js-due-date-datepicker-value'
+      br
+      p: i Assign a due date to create a sequential order for your lessons.
 
     = f.submit 'Assign Lesson', class: 'btn btn-primary'
 
