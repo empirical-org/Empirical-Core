@@ -47,7 +47,8 @@ class Teachers::ClassroomManagerController < ApplicationController
       @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] << activity
     end
 
-    @workbook_table = @workbook_table.map.to_a.sort{|a,b| a.first <=> b.first}.map(&:last).map(&:to_a).map(&:first)
+    # @workbook_table = @workbook_table.map.to_a.sort{|a,b| a.first <=> b.first}.map(&:last).map(&:to_a).map(&:first)
+    # binding.pry
   end
 
 protected
