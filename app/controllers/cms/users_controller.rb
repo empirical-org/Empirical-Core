@@ -1,6 +1,6 @@
 class CMS::UsersController < ApplicationController
   before_filter :signed_in!
-  before_filter :admin!, only: [:sign_in, :create]
+  before_filter :admin!
 
   def index
     @users = if params[:q].present?
