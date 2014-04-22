@@ -118,29 +118,43 @@ body.home-page {
     .item .text {
       color: #333;
       margin-bottom: 1em;
+      font-size: 18px;
     }
 
     .carousel-indicators {
-      right: auto;
-      top: 184px;
+      left: 124px;
+      top: 188px;
+
+      .active {
+        background-color: #333;
+      }
+
+      li {
+        background-color: transparentize(#333, 0.75)
+      }
     }
 
     .image {
       width: 330px;
       float: left;
       text-align: center;
+
+      img { height: 178px }
     }
 
     .slide-content {
       width: 630px;
       float: left;
     }
+
+    .link.primary {
+      font-size: 17px;
+    }
   }
 
   .home-news-title h2 {
     color: #4ca1cb;
-    font-size: 25px;
+    font-size: 36px;
     line-height: 1.1;
   }
-
 }
