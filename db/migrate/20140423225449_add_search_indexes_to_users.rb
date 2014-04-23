@@ -13,11 +13,3 @@ class AddSearchIndexesToUsers < ActiveRecord::Migration
   def down
   end
 end
-
-name
-email
-role
-classcode
-active
-username
-ip_address
