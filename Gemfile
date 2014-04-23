@@ -23,8 +23,8 @@ gem 'pry-rails',          group: %w(development test)
 gem 'pry-stack_explorer', group: %w(development test)
 gem 'faraday_middleware'
 gem 'doorkeeper'
-gem 'textacular'
 gem 'table_print'
+gem 'mixpanel-ruby'
 
 group :development do
   gem 'better_errors'

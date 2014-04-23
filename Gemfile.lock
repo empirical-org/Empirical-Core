@@ -168,6 +168,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     minitest (4.7.5)
+    mixpanel-ruby (1.4.0)
     multi_json (1.7.7)
     multipart-post (1.2.0)
     net-scp (1.1.2)
@@ -546,6 +547,7 @@ DEPENDENCIES
   kaminari
   kramdown
   mailchimp-api
+  mixpanel-ruby
   newrelic_rpm
   parslet
   pg
