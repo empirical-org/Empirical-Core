@@ -3,11 +3,15 @@ class CMS::UsersController < ApplicationController
   before_filter :admin!
 
   def index
-    @users = if params[:q].present?
-      User.basic_search(params[:q]).order(:id).page(params[:page]).per(100)
+    @users = if params[:ip].present?
+      User.where(ip_address: params[:ip])
+    elsif params[:q].present?
+      User.basic_search(params[:q])
     else
-      User.order(:id).page(params[:page]).per(100)
+      User
     end
+
+    @users = @users.order(:id).page(params[:page]).per(100)
   end
 
   def new

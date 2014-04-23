@@ -39,6 +39,14 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def lesson_planner
     @workbook_table = {}
+    @classroom_table = {}
+
+    (@classroom.activities.production).each do |activity|
+      @workbook_table[activity.topic.section.position] ||= {}
+      @workbook_table[activity.topic.section.position][activity.topic.section.name] ||= {}
+      @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] ||= []
+      @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] << activity
+    end
 
     (Activity.production - @classroom.activities.production).each do |activity|
       @workbook_table[activity.topic.section.position] ||= {}
