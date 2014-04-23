@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140404165107) do
+ActiveRecord::Schema.define(version: 20140422211405) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -321,6 +321,7 @@ ActiveRecord::Schema.define(version: 20140404165107) do
     t.boolean  "active",          default: false
     t.string   "username"
     t.string   "token"
+    t.inet     "ip_address"
   end
 
   create_table "workbooks", force: true do |t|

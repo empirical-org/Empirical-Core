@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
 
   def create
     if @user = User.authenticate(params[:user])
+      @user.update_attributes ip_address: request.remote_ip
       sign_in @user
       redirect_to profile_path
     else
