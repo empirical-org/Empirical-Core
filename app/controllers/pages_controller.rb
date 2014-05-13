@@ -2,6 +2,10 @@ class PagesController < ApplicationController
   before_filter :resolve_layout
 
   def home
+    if signed_in?
+      redirect_to(profile_path) && return
+    end
+
     @body_class = 'home-page'
 
     @activity = Topic.find(ENV['HOMEPAGE_CHAPTER_ID']).activities.where(
