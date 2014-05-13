@@ -1,7 +1,7 @@
 article.assign-classroom-chapter-page.simple-rounded-box
   .l-section
     h3= @activity.topic.name
-    h4= @activity.name
+    p= @activity.name
     p= @activity.description
 
   = form_for @classroom_activity, as: :classroom_activity, url: teachers_classroom_activity_path(@classroom, @activity), method: :put do |f|
