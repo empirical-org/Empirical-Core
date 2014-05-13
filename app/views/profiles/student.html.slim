@@ -35,9 +35,11 @@ article.student-profile-page.simple-rounded-box
 
         tbody
           tr
+            - # TODO: clean this up.
+            - classroom_activities = @classroom.classroom_activities
             - @activity_names.each do |_, activity, activity_session|
               td
-                .due-date= @classroom.classroom_activities.find_by_activity_id(activity.id).due_date.strftime('%m/%d')
+                .due-date= classroom_activities.find{|c| c.activity_id == activity.id}.due_date.strftime('%m/%d')
                 .score-color data-toggle="tooltip" title=activity.name class=activity_session.try(:percentage_color)
 
     .activity-table
