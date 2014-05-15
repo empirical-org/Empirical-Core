@@ -35,9 +35,12 @@ EmpiricalGrammar::Application.routes.draw do
     resources :rule_questions
     resources :rules
     resources :sections
-    resources :activities, path: 'activity_type/:key/activities'
     resources :activity_classifications
     resources :topics
+
+    resources :activities, path: 'activity_type/:key/activities' do
+      resource :data
+    end
 
     resources :users do
       member do

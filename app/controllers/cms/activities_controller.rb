@@ -14,7 +14,7 @@ class CMS::ActivitiesController < ApplicationController
   end
 
   def new
-    @activity = Activity.new
+    @activity = Activity.new(classification: @activity_classification)
   end
 
   def edit
@@ -22,10 +22,10 @@ class CMS::ActivitiesController < ApplicationController
   end
 
   def create
-    @activity = Activity.new(activity_params)
+    @activity = @activity_classification.activities.new(activity_params)
 
     if @activity.save
-      redirect_to cms_activities_path, notice: 'Activity was successfully created.'
+      redirect_to cms_activity_data_path(@activity_classification.key, @activity), notice: 'Activity was successfully created.'
     else
       render :new
     end
@@ -35,7 +35,7 @@ class CMS::ActivitiesController < ApplicationController
     @activity = subject
 
     if @activity.update_attributes(activity_params)
-      redirect_to cms_activities_path, notice: 'Activity was successfully updated.'
+      redirect_to cms_activity_data_path(@activity_classification.key, @activity), notice: 'Activity was successfully updated.'
     else
       render :new
     end
@@ -46,7 +46,6 @@ class CMS::ActivitiesController < ApplicationController
 
     @activity.assignments.each do |assignment|
       assignment.scores.each(&:destroy)
-
       Assignment.find(assignment.id).destroy
     end
 

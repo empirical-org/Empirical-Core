@@ -1,5 +1,14 @@
-article.simple-rounded-box
-  = form_for [:cms, @activity], html: { class: 'form-horizontal box-full-form' } do |f|
-    - @activity.data.each do |key, value|
-      label= key
-      = text_field_tag key, value
+- if @activity.new_record?
+  - url = url_for(controller: 'cms/activities', key: @activity.classification.key, action: 'create')
+- else
+  - url = url_for(controller: 'cms/activities', key: @activity.classification.key, action: 'update', id: @activity.id)
+
+= form_for @activity, url: url, html: { class: 'box-full-form form-vertical' } do |f|
+  .l-section
+    h4 Basic setup
+    = f.string :name
+    = f.text :description
+    = f.choices :flag, ACTIVITY_FLAGS
+    = f.choices :topic_id, Topic.all.map{|t| [t.name, t.id]}
+
+  = f.actions save: 'Next'

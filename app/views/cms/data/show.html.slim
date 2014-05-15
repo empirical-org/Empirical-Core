@@ -1,0 +1,27 @@
+article.activity-form.simple-rounded-box
+  form.box-full-form.form-vertical data-redirect=cms_activities_path(@activity.classification.key, flag: @activity.flag) action="/"
+    .l-section
+      h4 Vendor properties
+      iframe#activity-iframe scrolling="no" src=@activity.form_url
+    button.btn.btn-primary Save
+
+javascript:
+  jQuery(function ($) {
+    var $form = $('.activity-form form')
+      , saved = false;
+
+    window.quill = new Quill('#{@activity.form_url}', {
+      afterIframeActivitySaved: function () {
+        saved = true;
+        window.location = $form.data('redirect')
+      }
+    });
+
+    $form.on('submit', function (e) {
+      if (saved) return true;
+      e.preventDefault();
+      quill.sendMessage('savingActivity');
+    });
+
+    quill.listen();
+  });

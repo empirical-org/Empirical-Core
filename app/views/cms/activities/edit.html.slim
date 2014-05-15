@@ -1,37 +1,3 @@
 article.activity-form.simple-rounded-box
-  = form_for @activity, url: url_for(controller: 'cms/activities', key: @activity.classification.key, action: 'update', id: @activity.id), html: { class: 'box-full-form form-vertical' } do |f|
-    h2 Edit #{@activity.classification.name}
-
-    .l-section
-      h4 Basic setup
-      = f.string :name
-      = f.text :description
-      = f.choices :flag, ACTIVITY_FLAGS
-      = f.choices :topic_id, Topic.all.map{|t| [t.name, t.id]}
-
-    .l-section
-      h4 Additional properties
-      iframe#activity-iframe scrolling="no" src=@activity.form_url
-
-    = f.actions save: 'Save'
-
-javascript:
-  jQuery(function ($) {
-    var $form = $('.activity-form form')
-      , saved = false;
-
-    window.quill = new Quill('#{@activity.form_url}', {
-      afterIframeActivitySaved: function () {
-        saved = true;
-        $form.submit();
-      }
-    });
-
-    $form.on('submit', function (e) {
-      if (saved) return true;
-      e.preventDefault();
-      quill.sendMessage('savingActivity');
-    });
-
-    quill.listen();
-  });
+  h2 Edit #{@activity.classification.name}
+  = render 'form'
