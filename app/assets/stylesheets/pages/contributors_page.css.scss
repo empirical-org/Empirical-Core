@@ -1,0 +1,50 @@
+#contributors {
+   h2 {
+     margin: 20px 0;  
+   }
+   
+  .contributor {
+    margin-bottom: 20px;
+    overflow: hidden;
+    
+    .picture {
+      width: 150px;
+      float: left;
+      
+      img {
+        width: 150px;
+      }
+    }
+    
+    .details {
+      margin-left: 170px;
+      
+      table {
+        background: #fff;
+        
+        td {
+          padding: 8px;
+          
+          &.field {
+            background: #32353d;
+            color: #fff;
+            width: 100px;
+            border-bottom: 1px solid #222;
+          }
+          
+          &.value {
+            border-bottom: 1px solid #e0e0e0;
+            
+            span.team {
+              cursor: pointer;
+              
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
