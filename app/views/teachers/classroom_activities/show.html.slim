@@ -1,0 +1,58 @@
+article.assign-classroom-chapter-page.simple-rounded-box
+  .l-section
+    h3= @activity.topic.name
+    p= @activity.name
+    p= @activity.description
+
+  = form_for @classroom_activity, as: :classroom_activity, url: teachers_classroom_activity_path(@classroom, @activity), method: :put do |f|
+    .l-section
+      h3 1. Assign the lesson to students.
+
+      .checkbox-section
+        = f.label :choose_everyone, 'Assign to everyone', class: 'js-everyone-label' do
+          = f.check_box :choose_everyone
+          span Everyone
+
+      .checkbox-section
+        - @classroom.students.each do |student|
+            label.js-student-label for="classroom_activity_student_#{student.id}"
+              input(checked=@classroom_activity.assigned_students.include?(student) id="classroom_activity_student_#{student.id}" name="classroom_activity[assigned_student_ids][]" type="checkbox" value=student.id)
+              span= student.name
+
+    .l-section
+      h3 2. Designate the unit.
+      = f.select :unit_id, @classroom.units.map{|u| [u.name, u.id]}
+      br
+      br
+      p: i Select a unit for this lesson. Units help you organize your curriculum.
+
+    .l-section.classroom-chapter-datepicker
+      h3 3. Set the due date.
+      .datepicker-holder= f.text_field :due_date_string, class: 'js-due-date-datepicker-value'
+      br
+      p: i Assign a due date to create a sequential order for your lessons.
+
+    = f.submit 'Assign Lesson', class: 'btn btn-primary'
+
+    - unless @classroom_activity.new_record?
+      = link_to 'Delete Assignment', teachers_classroom_activity_path(@classroom, @activity), method: 'delete', class: 'btn btn-warning'
+
+javascript:
+  var $input = $('.js-due-date-datepicker-value').hide()
+    , picker = $input.datepicker().data('datepicker');
+
+  picker.show();
+
+  picker.picker
+    .appendTo(
+      $input.closest('.datepicker-holder')
+    )
+    .removeClass('dropdown-menu');
+
+  $('.js-everyone-label').on('click', function (e) {
+    $('.js-student-label input').prop('checked', false);
+  });
+
+  $('.js-student-label').on('click', function (e) {
+    $('.js-everyone-label input').prop('checked', false);
+  });

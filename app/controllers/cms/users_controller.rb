@@ -1,13 +1,31 @@
 class CMS::UsersController < ApplicationController
   before_filter :signed_in!
-  before_filter :admin!, only: [:sign_in]
+  before_filter :admin!
 
   def index
-    @users = User.all
+    @users = if params[:ip].present?
+      User.where(ip_address: params[:ip])
+    elsif params[:q].present?
+      User.basic_search(params[:q])
+    else
+      User
+    end
+
+    @users = @users.order(:id).page(params[:page]).per(100)
   end
 
   def new
     @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      redirect_to cms_users_path
+    else
+      render :new
+    end
   end
 
   def sign_in

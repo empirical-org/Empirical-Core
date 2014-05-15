@@ -1,6 +1,9 @@
-= form_for [:cms, @user] do |f|
+= form_for [:cms, @user], html: { class: 'box-full-form form-horizontal' } do |f|
   = f.string :name
   = f.email :email
-  = f.choices :role, [['','user'], ['Student', 'student'], ['Teacher', 'teacher']]
+  = f.string :username
+  = f.choices :role, [['(no role)','user'], ['Student', 'student'], ['Teacher', 'teacher'], ['Admin', 'admin']]
   = f.string :classcode
+  = f.password :password
+  = f.password :password_confirmation
   = f.actions save: 'Save'

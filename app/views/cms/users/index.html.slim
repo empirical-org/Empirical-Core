@@ -1,5 +1,12 @@
 article.simple-rounded-box.cms
   h1 Directory
+  form.form-inline
+    input type="text" name="q" value=params[:q]
+    button.btn.btn-primary.btn-mid Search
+
+  form.form-inline
+    input type="text" name="ip" value=params[:ip] placeholder="ip address"
+    button.btn.btn-primary.btn-mid Find
 
   table.table.table-stripe.table-hover-row
     tr
@@ -20,6 +27,8 @@ article.simple-rounded-box.cms
           td= link_to 'Edit', edit_cms_user_path(user)
           td= link_to 'Destroy', [:cms, user], method: :delete,   confirm: 'Are you sure?'
           td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
+
+  = paginate @users
 
   br
 

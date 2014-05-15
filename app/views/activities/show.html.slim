@@ -1,0 +1,8 @@
+article.extra-padding.activity-form
+  iframe#activity-iframe src=@activity.module_url(@activity_session)
+
+  javascript:
+    jQuery(function ($) {
+      window.quill = new Quill('#{@activity.module_url(@activity_session)}')
+      quill.listen();
+    });

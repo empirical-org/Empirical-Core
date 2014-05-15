@@ -1,0 +1,40 @@
+.teacher-assigned-chapters.l-section
+  .btn-group
+    .btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+      = @unit.name
+      span.caret
+
+    ul.dropdown-menu
+      - (@classroom.units - [@unit]).each do |unit|
+        li= link_to unit.name, url_for(unit_id: unit.id)
+
+  - if @unit.topics.any?
+    .btn-group
+      .btn.btn-primary.dropdown-toggle data-toggle="dropdown"
+        = @topic.name
+        span.caret
+
+      ul.dropdown-menu
+        - (@unit.topics.uniq - [@topic]).each do |topic|
+          li= link_to topic.name, url_for(topic_id: topic.id, unit_id: @unit.id)
+
+    h4= @topic.name
+
+    table.table.classroom-students-grades
+      tbody
+        - @score_table.each do |student, activities|
+          tr
+            td= student
+
+            - activities.each do |activity, score|
+              td
+                - if score
+                  .score-color data-toggle="tooltip" title=activity.name class=score[:session].try(:percentage_color)
+  - else
+    br
+    br
+    br
+    p No lessons available for this unit.
+
+javascript:
+  $('div[data-toggle="tooltip"]').tooltip();

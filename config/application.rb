@@ -37,6 +37,9 @@ module EmpiricalGrammar
     config.autoload_paths += %W(
       #{config.root}/app/controllers/concerns
       #{config.root}/lib
+      #{config.root}/lib/legacy_models
+      #{config.root}/core/models
+      #{config.root}/lessons/app/models
     )
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -49,5 +52,9 @@ module EmpiricalGrammar
     config.hamlcoffee.escapeHtml = false
 
     config.assets.initialize_on_precompile = false
+
+    config.exceptions_app = Proc.new do |env|
+      ApplicationController.action(:show_errors).call(env)
+    end
   end
 end

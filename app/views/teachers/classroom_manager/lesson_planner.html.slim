@@ -1,0 +1,38 @@
+.teacher-lesson-planner.l-section
+  .lesson-planner-section
+    .classroom-manager-sticky-bar My classroom: #{@classroom.name}
+
+    .explanation-text
+      span Assign lessons to students from the "Unassigned Lessons" section.
+      br
+      br
+      span Lessons are grouped together into units. Units are used to sequence your lessons.
+
+    = link_to 'add a new unit', teachers_classroom_units_path(@classroom), method: 'post', class: 'btn btn-primary'
+
+    .unit-section
+      - @classroom.units.each do |unit|
+        .unit-header= unit.name
+
+        - unit.topics.uniq.each do |topic|
+          .sub-unit-header= topic.name
+
+          .table-stripe.inverse
+            - unit.activities.where(topic_id: topic.id).each do |activity|
+              = render partial: 'teachers/classrooms/activity', object: activity
+
+  .lesson-planner-section
+    .classroom-manager-sticky-bar My workbook
+    - @workbook_table.each do |_, hsh|
+      - section, topics = hsh.to_a.first
+      - topics = topics.sort{|a,b| a.first <=> b.first}
+
+      .unit-section
+        .workbook-section-header.unit-header= section
+
+        - topics.each do |topic, activities|
+          .workbook-topic-header.sub-unit-header= topic
+
+          .table-stripe.inverse
+            - activities.each do |activity|
+              = render partial: 'teachers/classrooms/activity', object: activity

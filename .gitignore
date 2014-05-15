@@ -21,3 +21,9 @@ public/assets
 log/*.log
 tmp
 coverage
+snapshot.dump
+
+# vagrant folder
+.vagrant/
+redo
+*.dump

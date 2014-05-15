@@ -1,9 +1,0 @@
-article.simple-rounded-box
-  h3 It seems You've started this chapter already.
-
-  p
-    | You can either
-    span<>= link_to 'Start Over', chapter_start_path(@chapter), class: 'btn btn-primary'
-    | or
-    span<>= link_to 'Resume', @chapter_test.next_page_url, class: 'btn btn-primary'
-    | where you left off.

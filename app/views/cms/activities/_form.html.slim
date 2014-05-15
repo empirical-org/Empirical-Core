@@ -1,0 +1,5 @@
+article.simple-rounded-box
+  = form_for [:cms, @activity], html: { class: 'form-horizontal box-full-form' } do |f|
+    - @activity.data.each do |key, value|
+      label= key
+      = text_field_tag key, value

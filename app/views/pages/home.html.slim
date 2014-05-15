@@ -2,8 +2,13 @@ article.home-content
   .home-hero-unit
     .content-overlay
       .home-lesson: .container
-        .story-instructions= markdown @chapter.story_instructions
-        = render partial: 'chapter_test', object: @chapter
+        iframe#activity-iframe style="width: 100% ; border: 0" allowtransparency="true" src=homepage_story_url(@activity)
+
+        javascript:
+          jQuery(function ($) {
+            window.quill = new Quill('#{homepage_story_url(@activity)}')
+            quill.listen();
+          });
 
       .home-pitch
         h2 Quill provides interactive grammar lessons.
@@ -39,7 +44,7 @@ article.home-content
         .product-feature-description
           h2 Engaging Stories
           p We strive to inspire students by handcrafting engaging content. Our stories touch on important historical moments and captivating fictional narratives.
-          a.primary Try Proofreading a story
+          a.primary Try proofreading a story
 
       .product-feature
         .image= image_tag 'ico-core.png'
@@ -55,7 +60,7 @@ article.home-content
         .product-feature-description
           h2 Progress Evaluations
           p We provide the length of each lesson and allow you to build a workbook of lessons suited for your class. You can sign up your class for free and track your students' progress.
-          a.primary href=new_account_path Sign Up Your Class
+          a.primary href=new_account_path Sign up your class
 
       .product-feature
         .image= image_tag 'ico-develop.png'
@@ -77,10 +82,9 @@ article.home-content
             .image= image_tag slide.image.url
 
             .slide-content
-              .home-news-title: h2 What's new
-              .text= slide.text
+              .home-news-title: h2= slide.text
               .link.primary Read More
 
 javascript:
-  mixpanel.track("homepage viewed");
+  if (window.mixpanel) mixpanel.track("homepage viewed");
   $('.carousel').carousel({interval: 10000});

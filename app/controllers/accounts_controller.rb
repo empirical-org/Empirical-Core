@@ -15,9 +15,11 @@ class AccountsController < ApplicationController
     @user.attributes = user_params
     @user.safe_role_assignment(role)
 
-    if @user.after_initialize!
+    if @user.save
       sign_in @user
-      redirect_to profile_path, flash: { mixpanel: 'account created' }
+      $mixpanel.try(:track, @user.id, 'account created')
+      $mixpanel.try(:track, @user.id, "#{@user.role} created")
+      redirect_to profile_path
     else
       render 'accounts/new'
     end

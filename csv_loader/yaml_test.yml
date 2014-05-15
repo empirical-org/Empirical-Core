@@ -1,0 +1,56 @@
+---
+topics:
+  - name: '1.1b. Test Topic'
+    activities:
+      - name: 'Common Nouns'
+        rules:
+          - id: '1'
+            old_rule_id: '10'
+            explanation: 'Explanation text.'
+            questions:
+              - answers: ["Even the best plans can go awry."]
+                question: 'question for 1st rule'
+                instructions: 'instructions'
+
+          - id: '2'
+            old_rule_id: '10'
+            questions:
+              - answers: ["These raspberries will spoil soon."]
+                question: 'question for 2nd rule'
+                instructions: 'instructions'
+
+          - id: '3'
+            old_rule_id: '10'
+            questions:
+              - answers: ["My belt is too old."]
+                question: 'question for 3rd rule'
+                instructions: 'instructions'
+
+          - id: '4'
+            old_rule_id: '11'
+            questions:
+              - answers: ["His ankle hurts."]
+                question: 'question for 4th rule'
+                instructions: 'instructions'
+              - answers: ["Are all wheels round?"]
+                question: 'question for 4th rule'
+                instructions: 'instructions'
+              - answers: ["Her socks don't match."]
+                question: 'question for 4th rule'
+                instructions: 'instructions'
+
+      - name: 'Possessive Nouns'
+        rules:
+          - id: '5'
+            old_rule_id: '13'
+            questions:
+              - answers: ["There will be tests on Friday."]
+                question: 'question for 5th rule'
+                instructions: 'instructions'
+
+          - id: '6'
+            old_rule_id: '13'
+            questions:
+              - answers: ["My sister's hair is short."]
+                question: 'question for 6th rule'
+                instructions: 'instructions'
