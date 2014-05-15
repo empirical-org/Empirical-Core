@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  profile_link_label:
+    user: Profile
+    admin: Profile
+    student: My Class
+    teacher: My Lessons

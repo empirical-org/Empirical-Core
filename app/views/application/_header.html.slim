@@ -14,13 +14,7 @@ header
             li= link_to 'Lessons', lessons_path
 
             - if signed_in?
-              - if current_user.teacher?
-                li.pro-btn= link_to 'My Lessons', profile_path
-              - elsif current_user.student?
-                li.pro-btn= link_to 'My Class', profile_path
-              - else
-                li.pro-btn= link_to 'Profile', profile_path
-              li.nav-btn= link_to 'Sign out', session_path, method: :delete
+              li.nav-btn.pro-btn= link_to t(:"profile_link_label.#{current_user.role}"), profile_path
             - else
               li.nav-btn= link_to 'Login', new_session_path
               li.nav-btn.btn-primary= link_to 'Sign Up', new_account_path
