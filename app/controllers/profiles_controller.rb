@@ -18,7 +18,6 @@ class ProfilesController < ApplicationController
 
   def student
     @classroom, @activity_names, @activity_table, @section, @topics = cache('student-profile-vars-'+ current_user.id.to_s, skip_digest: true) do
-      raise 'is cachig'
       classroom = current_user.classroom
       activity_names = []
 
