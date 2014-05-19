@@ -12,6 +12,8 @@
 
 header {
   background-color: $darkgrey;
+  z-index: 2;
+  position: relative;
 
   .navbar .nav {
     font-weight: bold;
