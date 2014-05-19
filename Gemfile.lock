@@ -83,7 +83,6 @@ GEM
       sass (~> 3.1)
     compass-rails (1.1.2)
       compass (>= 0.12.2)
-    dalli (2.7.1)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
@@ -139,6 +138,12 @@ GEM
       bcrypt-ruby
       haml
     i18n (0.6.9)
+    iron_cache (1.4.2)
+      iron_core (>= 0.5.1)
+    iron_cache_rails (0.1.5)
+      iron_cache (>= 1)
+    iron_core (1.0.3)
+      rest (>= 2.6.4)
     jdbc-postgres (9.3.1100)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -172,9 +177,11 @@ GEM
     mixpanel-ruby (1.4.0)
     multi_json (1.10.0)
     multipart-post (1.2.0)
+    net-http-persistent (2.9.4)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.8)
+    netrc (0.7.7)
     newrelic_rpm (3.6.6.147)
     nokogiri (1.5.9)
     nokogiri (1.5.9-java)
@@ -228,8 +235,13 @@ GEM
     raindrops (0.10.0)
     rake (10.3.1)
     redcarpet (2.2.2)
+    rest (2.7.1)
+      net-http-persistent (>= 2.9.1)
+      rest_client (>= 1.7.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rest_client (1.7.3)
+      netrc (~> 0.7.7)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -533,7 +545,6 @@ DEPENDENCIES
   carrierwave
   coffee-rails
   compass-rails
-  dalli
   database_cleaner
   doorkeeper
   faraday_middleware
@@ -544,6 +555,7 @@ DEPENDENCIES
   honey-auth
   honey-cms (= 0.4.7)!
   iconv!
+  iron_cache_rails
   jquery-rails
   jquery-turbolinks
   kaminari

@@ -63,4 +63,4 @@ gem 'redcarpet', platforms: :ruby
 gem 'kramdown',  platforms: :jruby
 gem 'textacular'
 gem 'google-api-client'
-gem 'dalli', group: %w(production)
+gem 'iron_cache_rails'

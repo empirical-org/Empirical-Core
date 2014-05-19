@@ -15,6 +15,7 @@ header
 
             - if signed_in?
               li.nav-btn.pro-btn= link_to t(:"profile_link_label.#{current_user.role}"), profile_path
+              li.nav-btn= link_to 'Sign out', session_path, method: :delete
             - else
               li.nav-btn= link_to 'Login', new_session_path
               li.nav-btn.btn-primary= link_to 'Sign Up', new_account_path
