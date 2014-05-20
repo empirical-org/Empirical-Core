@@ -56,7 +56,7 @@ class ProfilesController < ApplicationController
         [classroom, activity_names, activity_table, nil, nil]
       else
         section = Section.find_by_id(params[:section_id]) || Section.first
-        topics = @section.topics
+        topics = section.topics
 
         [nil, nil, nil, section, topics]
       end
