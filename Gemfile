@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4'
 gem 'pg', platforms: :ruby
-gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
 gem 'rails_12factor', group: [:production, :staging]
 
 gem 'bcrypt-ruby', require: 'bcrypt'
