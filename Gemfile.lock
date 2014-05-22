@@ -512,7 +512,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-jdbcpostgresql-adapter
   ancestry
   aws-sdk
   bcrypt-ruby
