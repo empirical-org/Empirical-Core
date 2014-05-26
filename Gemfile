@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4'
 gem 'pg', platforms: :ruby
-gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
 gem 'rails_12factor', group: [:production, :staging]
 
 gem 'bcrypt-ruby', require: 'bcrypt'
@@ -23,8 +22,7 @@ gem 'pry-rails',          group: %w(development test)
 gem 'pry-stack_explorer', group: %w(development test)
 gem 'faraday_middleware'
 gem 'doorkeeper'
-gem 'table_print'
-gem 'mixpanel-ruby'
+gem 'queue_classic', '3.0.0rc'
 
 group :development do
   gem 'better_errors'
@@ -64,3 +62,5 @@ gem 'kramdown',  platforms: :jruby
 gem 'textacular'
 gem 'google-api-client'
 gem 'iron_cache_rails'
+gem 'table_print'
+gem 'mixpanel-ruby'

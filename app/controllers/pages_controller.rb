@@ -11,6 +11,8 @@ class PagesController < ApplicationController
     @activity = Topic.find(ENV['HOMEPAGE_CHAPTER_ID']).activities.where(
       activity_classification_id: ActivityClassification.find_by_key('story').id
     ).first
+
+    self.formats = ['html']
   end
 
   def develop

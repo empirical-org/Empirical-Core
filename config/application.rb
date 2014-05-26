@@ -53,6 +53,8 @@ module EmpiricalGrammar
 
     config.assets.initialize_on_precompile = false
 
+    config.active_record.schema_format = :sql
+
     config.exceptions_app = Proc.new do |env|
       ApplicationController.action(:show_errors).call(env)
     end

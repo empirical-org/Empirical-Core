@@ -69,7 +69,9 @@ class MigrateToNewFormats < ActiveRecord::Migration
     remove_column :scores, :score_values, :text
 
     execute 'DROP TABLE IF EXISTS sections'
-    execute 'DROP SEQUENCE IF EXISTS sections'
+    execute 'DROP SEQUENCE IF EXISTS sections CASCADE'
+    execute 'DROP SEQUENCE IF EXISTS sections_id_seq CASCADE'
+
     rename_table :chapter_levels, :sections
 
     change_table :sections do |t|

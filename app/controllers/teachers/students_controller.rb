@@ -4,6 +4,7 @@ class Teachers::StudentsController < ApplicationController
   before_filter :authorize!
 
   def create
+    fix_full_name_in_first_name_field
     @student = @classroom.students.build(user_params)
     @student.generate_student
     @student.save!
@@ -42,6 +43,13 @@ protected
     auth_failed unless @classroom.teacher == current_user
     params[:id] = params[:student_id] if params[:student_id].present?
     @student = @classroom.students.find(params[:id]) if params[:id].present?
+  end
+
+  def fix_full_name_in_first_name_field
+    if user_params[:last_name].blank? && (f,l = user_params[:first_name].split(/\s+/)).length > 1
+      user_params[:first_name] = f
+      user_params[:last_name] = l
+    end
   end
 
   def user_params
