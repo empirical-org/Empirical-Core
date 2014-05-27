@@ -93,29 +93,15 @@ describe User do
     end
   end
 
-  #   it 'generates a username' do
-  #     classroom = Classroom.new(code: '101')
-  #     user = classroom.students.build(first_name: 'John', last_name: 'Doe')
-  #     expect(user.generate_username).to eq('John.Doe@101')
-  #   end
-
-  #   it 'generates a password as last name' do
-  #     classroom = Classroom.new(code: '101')
-  #     user = classroom.students.build(first_name: 'John', last_name: 'Doe')
-  #     expect(user.generate_username).to eq('John.Doe@101')
-  #   end
-
-  #   it 'sets the role' do
-
-  #   end
-  # end
-
   it 'checks for a password confirmation only when a password is present on update' do
     user = User.create(username: 'test', password: '123456', password_confirmation: '123456')
 
     expect(user.update(first_name: 'John', password: '123456', password_confirmation: '123456')).to be_true
-    expect(user.update(password_confirmation: '')).to be_false
-    expect(user.update(password: '', password_confirmation: 'ss')).to be_true
+    expect(User.find(user.id).update(password_confirmation: '')).to be_true
+    expect(User.find(user.id).update(password: '', password_confirmation: '')).to be_true
+
+    expect(User.find(user.id).update(password: '123', password_confirmation: '')).to be_false
+    expect(User.find(user.id).update(password: '', password_confirmation: '123')).to be_false
   end
 
   it 'only requires a password on create' do

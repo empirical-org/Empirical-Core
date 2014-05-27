@@ -45,7 +45,7 @@
 
       .activity-table
         - @activity_table.each do |state, units|
-          .l-section
+          .l-section(class=(state ? 'completed-lessons' : 'assigned-lessons'))
             h3= state ? 'Completed Lessons' : 'Assigned Lessons'
 
             .activity-units
@@ -58,3 +58,5 @@
 
   javascript:
     $('div[data-toggle="tooltip"]').tooltip();
+
+#show-the-user= current_user.inspect

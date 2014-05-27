@@ -123,7 +123,7 @@ class EgFormBuilder < CMS::FormBuilder
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'form-actions', save_class: 'btn btn-primary'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
-      actions << submit(options[:save], disable_with: options[:saving], class: options[:save_class])
+      actions << submit(options[:save], data: {disable_with: options[:saving]}, class: options[:save_class])
       actions << status
       actions << @template.capture(&block) if block_given?
       actions

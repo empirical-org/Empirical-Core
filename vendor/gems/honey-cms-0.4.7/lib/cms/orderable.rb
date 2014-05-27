@@ -11,7 +11,7 @@ module CMS::Orderable
 
   module ClassMethods
     def orderable name, options = {}
-      default_scope order(name)
+      default_scope { order(name) }
       after_save :"order_#{name}"
       if options[:order_scope] then order_scope(options[:order_scope]) end
 

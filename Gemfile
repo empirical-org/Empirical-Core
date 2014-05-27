@@ -17,12 +17,14 @@ gem 'newrelic_rpm', group: :production
 gem 'unicorn', platforms: :ruby
 gem 'puma',    platforms: :jruby
 gem 'mailchimp-api', require: 'mailchimp'
-gem 'rspec-rails',        group: %w(development test)
-gem 'pry-rails',          group: %w(development test)
-gem 'pry-stack_explorer', group: %w(development test)
 gem 'faraday_middleware'
 gem 'doorkeeper'
 gem 'queue_classic', '3.0.0rc'
+
+gem 'rspec-rails',        group: %w(development test)
+gem 'pry-rails',          group: %w(development test)
+gem 'pry-stack_explorer', group: %w(development test)
+gem 'factory_girl_rails', group: %w(development test)
 
 group :development do
   gem 'better_errors'
