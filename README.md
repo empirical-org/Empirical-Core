@@ -5,7 +5,7 @@ Quill is an open platform for providing interactive grammar lessons.
 * * *
 
 [![Code Climate](https://codeclimate.com/github/empirical-org/Compass.png)](https://codeclimate.com/github/empirical-org/Compass)
-[![Build Status](https://travis-ci.org/empirical-org/Compass.png)](https://travis-ci.org/empirical-org/Compass)
+[![Build Status](https://drone.io/github.com/empirical-org/Compass/status.png)](https://drone.io/github.com/empirical-org/Compass/latest)
 [![Coverage Status](https://coveralls.io/repos/empirical-org/Compass/badge.png?branch=master)](https://coveralls.io/r/empirical-org/Compass?branch=master)
 [![Dependency Status](https://gemnasium.com/empirical-org/Compass.png)](https://gemnasium.com/empirical-org/Compass)
 
