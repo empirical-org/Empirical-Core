@@ -15,7 +15,9 @@ Quill is a web application that provides interactive writing activities.
 
 Participating via Cofactor
 --------
-Quill is built and maintained by a core team and volunteers. Contributors are organized into teams on Cofactor. Cofactor is a tool for collaboartively building open source projects. [If you have ideas on how to improve Quill, or just want to help, please join us on our Cofactor page.](http://www.empirical.org/cofactor/teams/compass)
+Quill is built and maintained by a core team and volunteers. Contributors are organized into teams on Cofactor. Cofactor is a tool for collaboartively building open source projects. 
+
+[If you have ideas on how to improve Quill, or just want to help, please join us on our Cofactor page.](http://www.empirical.org/cofactor/teams/compass)
 
 Using Cofactor, you can communicate via the following channels: 
 
@@ -27,9 +29,6 @@ Using Cofactor, you can communicate via the following channels:
 
 Contributing
 ------------
-
-Quill is built and maintained by a core team and volunteers. If you have ideas
-on how to improve Quill, or just want to help, please join us!
 
 1.  Check our [Github issue queue](https://github.com/empirical-org/Compass/issues?state=open) for ideas on how to help.
 2.  Make sure your code follows [Ruby](https://github.com/styleguide/ruby) and project conventions.
