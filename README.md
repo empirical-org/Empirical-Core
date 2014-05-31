@@ -1,6 +1,8 @@
 # Welcome to Quill!
 
-Quill is an open platform for providing interactive grammar lessons.
+Quill is a web application that provides interactive writing activities. 
+
+[Read about our mission.](http://www.quill.org/mission)
 
 * * *
 
@@ -8,6 +10,22 @@ Quill is an open platform for providing interactive grammar lessons.
 [![Build Status](https://drone.io/github.com/empirical-org/Compass/status.png)](https://drone.io/github.com/empirical-org/Compass/latest)
 [![Coverage Status](https://coveralls.io/repos/empirical-org/Compass/badge.png?branch=master)](https://coveralls.io/r/empirical-org/Compass?branch=master)
 [![Dependency Status](https://gemnasium.com/empirical-org/Compass.png)](https://gemnasium.com/empirical-org/Compass)
+
+
+
+Participating via Cofactor
+--------
+Quill is built and maintained by a core team and volunteers. Contributors are organized into teams on Cofactor.
+
+Cofactor is a tool for collaboartively building open source projects. [If you have ideas on how to improve Quill, or just want to help, please join us on our Cofactor page.](http://www.empirical.org/cofactor/teams/compass)
+
+Using Cofactor, you can communicate via the following channels: 
+
+1. **Chat/IRC.**  Join our Gitter chat room for immediate discussions. Gitter is now building an IRC bridge. 
+2. **Mailing List**. The Cofactor page contains 
+3. GitHub Issues.
+4. Video Chat (Hangouts) 
+
 
 Contributing
 ------------
@@ -24,13 +42,15 @@ on how to improve Quill, or just want to help, please join us!
 
 Read our [guide to contributing](https://github.com/empirical-org/Compass/blob/master/CONTRIBUTING.md) for more information.
 
+
+
 Building
 --------
 
 A good place to start is by setting up and running Quill on your
 local machine or by using a [Vagrant virtual machine](VAGRANT.md).
 
-**If you are having any trouble installing, [please post your questions here](http://empirical-discourse.herokuapp.com/t/quill-installation-guide).**
+**If you are having any trouble installing, [please post your questions to the ["Questions" mailing list in Cofactor.](http://www.empirical.org/cofactor/teams/compass)**
 
 *Note:* Unless stated otherwise, all commands assume that your current working
 directory is the Quill application root.
