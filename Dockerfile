@@ -14,6 +14,7 @@ RUN apt-get install -y nodejs
 ADD . /project
 
 RUN apt-get install -y libxslt-dev libxml2-dev
+RUN apt-get install -y libpq-dev
 RUN cd /project; bundle install
 
 EXPOSE 3000
