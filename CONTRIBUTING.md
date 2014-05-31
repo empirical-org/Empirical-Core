@@ -1,9 +1,11 @@
-### Right now, we need
+### Contributing Guidelines
 
-* Make application installer for Unix / OSX / Windows, make app standalone
-* Test coverage, more than anything
-* Thoughts on refactoring, or extracting gems
-* Whatever else you want to do is great
+* Use SLIM rather than HAML. 
+* Write JavaScript, not CoffeeScript.
+* Always write tests (the test suite is really bare right now) and nothing is to be merged without tests.
+* Make pull requests on the Master branch. 
+* Use a minimalist approach to using gems like devise, FactoryGirl, etc, unless they're absolutely needed.
+
 
 ***
 
