@@ -1,0 +1,5 @@
+cp /app/config/database.yml.docker /app/config/database.yml
+cd /app
+rake db:create
+rake db:structure:load
+APP_SECRET=not-secret rails s
