@@ -9,7 +9,12 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def show
-    redirect_to teachers_classroom_scorebook_path(@classroom)
+    #redirect_to teachers_classroom_scorebook_path(@classroom)
+    if @classroom.students.empty?
+      redirect_to teachers_classroom_invite_students_path(@classroom)
+    else
+      redirect_to teachers_classroom_scorebook_path(@classroom)
+    end
   end
 
   def create
