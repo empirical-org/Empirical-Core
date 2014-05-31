@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision 'docker' do |d|
     d.pull_images 'paintedfox/postgresql'
     d.build_image '/app', args: '-t compass-app'
-    d.run 'postgresql'
+    d.run 'paintedfox/postgresql'
     d.run 'compass-app', cmd: 'cd /app ; rails s', args: '-v /app:/app -p 3000:3000 --link=postgresql:pg'
   end
 
