@@ -11,9 +11,9 @@ footer.con-darkgrey
 
     #footer-item.span9 style="width: 640px"
       ul
-        li= link_to image_tag('opencommunity.png'), develop_path, title: 'Close Community'
-        li= link_to image_tag('opencontent.png'), develop_path, title: 'Close Content'
-        li= link_to image_tag('opensource.png'), 'https://github.com/empirical-org/quill', title: 'Close Source'
+        li= link_to image_tag('opencommunity.png'), develop_path, title: 'Open Community'
+        li= link_to image_tag('opencontent.png'), develop_path, title: 'Open Content'
+        li= link_to image_tag('opensource.png'), 'https://github.com/empirical-org/quill', title: 'Open Source'
 
 - if signed_in? && !Rails.env.development?
   javascript:
