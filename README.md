@@ -148,4 +148,4 @@ $ ab -H "Authorization: Basic `echo TOKEN_GOES_HERE: | base64`==" -n 5 -c 1 http
 Help
 ----
 
-Find us on IRC at **#quill**!
+Request help on [Gitter](https://gitter.im/empirical-org/Compass) or on our [Mailing List](http://www.empirical.org/cofactor/teams/compass). 
