@@ -1,4 +1,4 @@
-unless Rails.env.test?
+unless true
   aws_credentials = AWS::Core::CredentialProviders::ENVProvider.new('AWS')
 
   CarrierWave.configure do |config|
