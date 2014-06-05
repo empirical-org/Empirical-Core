@@ -1,6 +1,6 @@
 # Welcome to Quill!
 
-Quill is a web application that provides interactive writing activities. 
+Quill is a web application that provides interactive writing activities.
 
 [Read about our mission.](http://www.quill.org/mission)
 
@@ -15,16 +15,20 @@ Quill is a web application that provides interactive writing activities.
 
 Participating via Cofactor
 --------
-Quill is built and maintained by a core team and volunteers. Contributors are organized into teams on Cofactor. Cofactor is a tool for collaboartively building open source projects. 
 
-[If you have ideas on how to improve Quill, or just want to help, please join us on our Cofactor page.](http://www.empirical.org/cofactor/teams/compass)
+Quill is built and maintained by a core team and volunteers. Contributors are
+organized into teams on Cofactor. Cofactor is a tool for collaboartively
+building open source projects.
 
-Using Cofactor, you can communicate via the following channels: 
+[If you have ideas on how to improve Quill, or just want to help, please join
+us on our Cofactor page.](http://www.empirical.org/cofactor/teams/compass)
 
-1. **Chat/IRC.**  Join our Gitter chat room for immediate discussions. Gitter is now building an IRC bridge. 
+Using Cofactor, you can communicate via the following channels:
+
+1. **Chat/IRC.**  Join our Gitter chat room for immediate discussions. Gitter is now building an IRC bridge.
 2. **Mailing List**. Use the mailing list to discuss ideas, questions, and project direction.
-3. **GitHub Issues.** Use GitHub issues to discuss particular features under development. 
-4. **Google Hangouts.** Video chats are organized through the Gitter chat. 
+3. **GitHub Issues.** Use GitHub issues to discuss particular features under development.
+4. **Google Hangouts.** Video chats are organized through the Gitter chat.
 
 
 Contributing
@@ -47,12 +51,12 @@ Building
 A good place to start is by setting up and running Quill on your
 local machine or by using a [Vagrant virtual machine](VAGRANT.md).
 
-**If you are having any trouble installing, [please post your questions to the ["Questions" mailing list in Cofactor.](http://www.empirical.org/cofactor/teams/compass)**
+**If you are having any trouble installing, please post your questions to the ["Questions" mailing list in Cofactor.](http://www.empirical.org/cofactor/teams/compass)**
 
 *Note:* Unless stated otherwise, all commands assume that your current working
 directory is the Quill application root.
 
-0.  __Setup ruby 1.9.3. You can use RVM or rbenv to achieve this, rbenv is recommended (https://github.com/sstephenson/rbenv). Here are the steps for installing os OS X:__
+0.  __Setup ruby 2.1.1. You can use RVM or rbenv to achieve this, rbenv is recommended (https://github.com/sstephenson/rbenv). Here are the steps for installing os OS X:__
 
     Install homebrew (if you haven't already): http://brew.sh/
 
@@ -66,13 +70,13 @@ directory is the Quill application root.
     Install ruby:
 
     ~~~ sh
-    rbenv install 1.9.3-p484
+    rbenv install 2.1.1
     ~~~
 
     Set it to your default ruby:
 
     ~~~ sh
-    rbenv local 1.9.3-p484
+    rbenv local 2.1.1
     ~~~
 
 1.  __Install dependencies.__
@@ -147,4 +151,4 @@ $ ab -H "Authorization: Basic `echo TOKEN_GOES_HERE: | base64`==" -n 5 -c 1 http
 Help
 ----
 
-Request help on [Gitter](https://gitter.im/empirical-org/Compass) or on our [Mailing List](http://www.empirical.org/cofactor/teams/compass). 
+Request help on [Gitter](https://gitter.im/empirical-org/Compass) or on our [Mailing List](http://www.empirical.org/cofactor/teams/compass).
