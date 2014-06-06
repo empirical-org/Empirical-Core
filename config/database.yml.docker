@@ -1,8 +1,9 @@
-development:
+development: &default
   adapter: postgresql
   encoding: unicode
-  database: compass_development
-  host: <%= ENV['PG_PORT_5432_TCP_ADDR'] %>
-  port: <%= ENV['PG_PORT_5432_TCP_PORT'] %>
-  password: 4Rh0izHYfmfWx9cV
-  user: super
+  database: myapp_development
+  pool: 5
+  username: docker
+  password: docker
+  host: <%= ENV.fetch('COMPASSDB_1_PORT_5432_TCP_ADDR', 'localhost') %>
+  port: <%= ENV.fetch('COMPASSDB_1_PORT_5432_TCP_PORT', '5432') %>
