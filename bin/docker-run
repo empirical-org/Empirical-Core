@@ -1,5 +1,5 @@
-bundle install
-rbenv rehash
+cp /app/config/database.yml.docker /app/config/database.yml
+cd /app
 rake db:create
-rake db:migrate
-rails s
+rake db:structure:load
+APP_SECRET=not-secret rails s
