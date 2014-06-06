@@ -10,11 +10,9 @@ RUN apt-get install -y python-software-properties python python-setuptools softw
 RUN add-apt-repository ppa:chris-lea/node.js
 RUN echo 'deb http://us.archive.ubuntu.com/ubuntu/ precise universe' >> /etc/apt/sources.list
 RUN apt-get install -y nodejs
-
-ADD . /app
-
 RUN apt-get install -y libxslt-dev libxml2-dev
 RUN apt-get install -y libpq-dev
-RUN cd /app; bundle install
 
 EXPOSE 3000
+ADD . /app
+RUN cd /app; bundle install
