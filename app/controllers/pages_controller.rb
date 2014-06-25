@@ -8,7 +8,7 @@ class PagesController < ApplicationController
 
     @body_class = 'home-page'
 
-    @activity = Topic.find(ENV['HOMEPAGE_CHAPTER_ID']).activities.where(
+    @activity = ENV['HOMEPAGE_CHAPTER_ID'].nil? ? nil : Topic.find(ENV['HOMEPAGE_CHAPTER_ID']).activities.where(
       activity_classification_id: ActivityClassification.find_by_key('story').id
     ).first
 
