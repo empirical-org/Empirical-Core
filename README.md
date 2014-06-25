@@ -82,12 +82,32 @@ Building with Manual Install
     rbenv local 2.1.1
     ~~~
 
+    *Note*: you may need to run `brew upgrade ruby-build` if 2.1.1 is
+unavailable
+
 1.  __Install dependencies.__
 
         bundle install
 
     *Note*: This may require you to install missing system packages using your
     system package handler (`brew`, `apt`, `yum`, etc.).
+
+    Ensure that Postgres is installed. On Macs:
+
+    ~~~ sh
+    brew install postgres
+    initdb /usr/local/var/postgres
+    postgres -D /usr/local/var/postgres & #start the server
+    createuser -s -r postgres
+    psql postgres # if this works, you win
+    ~~~
+
+    Update submodules
+
+    ~~~ sh
+    git submodule init
+    git submodule update
+    ~~~
 
 2.  __Set up your database configuration by creating and editing the file
     `config/database.yml` with appropriate connection information. Example
@@ -108,7 +128,7 @@ Building with Manual Install
     sudo service postgres start   # may change depending on your OS
 
     rake db:create
-    rake db:schema:load
+    rake db:structure:load
     ~~~
 
 4.  __Seed data into the database.__
