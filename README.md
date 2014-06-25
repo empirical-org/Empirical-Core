@@ -45,16 +45,19 @@ Read our [guide to contributing](https://github.com/empirical-org/Compass/blob/m
 
 
 
-Building
+Building with Docker
 --------
 
-A good place to start is by setting up and running Quill on your
-local machine or by using a [Vagrant virtual machine](VAGRANT.md).
+You can run Compass locally by using a Docker Image and a Virtual Machine. 
+[Read the instructions](https://docs.google.com/a/quill.org/document/d/1wQKBstQbcKeTeQPQoooLpmLrn6Al5pOc77oMN-CDIOc/edit)
+
+
+Building with Manual Install
+--------
 
 **If you are having any trouble installing, please post your questions to the ["Questions" mailing list in Cofactor.](http://www.empirical.org/cofactor/teams/compass)**
 
-*Note:* Unless stated otherwise, all commands assume that your current working
-directory is the Quill application root.
+*Note:* Unless stated otherwise, all commands assume that your current working directory is the Quill application root.
 
 0.  __Setup ruby 2.1.1. You can use RVM or rbenv to achieve this, rbenv is recommended (https://github.com/sstephenson/rbenv). Here are the steps for installing os OS X:__
 
