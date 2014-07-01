@@ -5,7 +5,7 @@ gem 'rails', '~> 4'
 gem 'pg', platforms: :ruby
 gem 'rails_12factor', group: [:production, :staging]
 
-gem 'bcrypt-ruby', require: 'bcrypt'
+gem 'bcrypt-ruby'
 gem 'ancestry'
 gem 'carrierwave'
 gem 'fog'

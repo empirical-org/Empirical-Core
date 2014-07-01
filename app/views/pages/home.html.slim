@@ -2,13 +2,16 @@ article.home-content
   .home-hero-unit
     .content-overlay
       .home-lesson: .container
-        iframe#activity-iframe style="width: 100% ; border: 0" allowtransparency="true" src=homepage_story_url(@activity)
+        - if @activity.present?
+          iframe#activity-iframe style="width: 100% ; border: 0" allowtransparency="true" src=homepage_story_url(@activity)
 
-        javascript:
-          jQuery(function ($) {
-            window.quill = new Quill('#{homepage_story_url(@activity)}')
-            quill.listen();
-          });
+          javascript:
+            jQuery(function ($) {
+              window.quill = new Quill('#{homepage_story_url(@activity)}')
+              quill.listen();
+            });
+        - else
+          div(style="height: 500px")
 
       .home-pitch
         h2 Quill provides interactive grammar lessons.
