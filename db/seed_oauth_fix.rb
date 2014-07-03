@@ -1,5 +1,6 @@
 def subit rec, col
   rec.update_column col, rec.send(col).sub('quill-questions-module.herokuapp.com', 'localhost:3002')
+  rec.update_column col, rec.send(col).sub('localdocker', 'localhost')
 end
 
 
@@ -12,4 +13,4 @@ ActivityClassification.all.each do |type|
   subit(type, :module_url)
 end
 
-Doorkeeper::Application.find_by_uid!('quill-lessons').update_column :secret, 'quill-lessons-non-secret'
+Doorkeeper::Application.find_by_uid!('quill-lessons').update_column :secret, 'not-a-secret'
