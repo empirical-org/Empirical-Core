@@ -27,3 +27,4 @@ snapshot.dump
 .vagrant/
 redo
 *.dump
+.tags
