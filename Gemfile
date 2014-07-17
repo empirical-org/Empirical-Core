@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+
 # ruby '1.9.3'
 
 gem 'rails', '~> 4'
@@ -27,6 +28,7 @@ gem 'pry-stack_explorer', group: %w(development test)
 gem 'factory_girl_rails', group: %w(development test)
 
 group :development do
+  gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
