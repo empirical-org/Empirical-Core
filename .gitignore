@@ -28,3 +28,4 @@ snapshot.dump
 redo
 *.dump
 .tags
+*.swp
