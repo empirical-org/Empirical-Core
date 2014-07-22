@@ -43,6 +43,8 @@ group :test do
   gem 'database_cleaner'
 end
 
+gem 'capistrano'
+
 # Quill frontend dependencies
 gem 'slim-rails'
 gem 'sass-rails', '~> 4.0.0'
