@@ -1,0 +1,18 @@
+module Quill
+  module Endpoint
+    autoload :Base, 'quill/endpoint_base'
+  <% Quill::API.endpoints.each do |name, spec| %>
+    class <%= name.camelize %> < Base
+      <%= spec.description_comment(:find, '      ') %>
+      def find *args
+        super
+      end
+
+      <%= spec.description_comment(:create, '      ') %>
+      def create *args
+        super
+      end
+    end
+  <% end %>
+  end
+end
