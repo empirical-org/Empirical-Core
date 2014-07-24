@@ -1,0 +1,13 @@
+Gem::Specification.new do |s|
+  s.name        = 'quill-api-client'
+  s.version     = '<%= @version %>'
+  s.date        = Time.now.strftime('%Y-%m-%d')
+  s.summary     = 'Wrapper to Quill API'
+  s.description = 'Wrapper to Quill API'
+  s.authors     = ['Quinn Shanahan']
+  s.email       = 'quinn@tastehoneyco.com'
+  s.files       = Dir.glob('{vendor,lib,app}/**/*')
+  s.homepage    = 'https://github.com/empirical-org/quill-platform'
+
+  s.add_runtime_dependency 'oauth2', '>= 0'
+end

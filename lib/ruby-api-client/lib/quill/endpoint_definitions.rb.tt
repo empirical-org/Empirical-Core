@@ -1,0 +1,11 @@
+require 'quill/endpoints'
+
+module Quill
+  module EndpointDefinitions
+  <% Quill::API.endpoints.each do |endpoint, spec| %>
+    def <%= endpoint %>
+      Quill::Endpoint::<%= endpoint.camelize %>.new(self, '<%= endpoint %>', <%= spec.to_hash.inspect %>)
+    end
+  <% end %>
+  end
+end
