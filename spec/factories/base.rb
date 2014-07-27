@@ -3,6 +3,7 @@ FactoryGirl.define do
   sequence(:username) { |i| "Username#{i}" }
   sequence(:key) { |i| "key-#{i}" }
   sequence(:description) { |i| "Description #{i}" }
+  sequence(:email) { |n| "user#{n}@example.com" }
 
   factory :user do
     first_name 'Test'
@@ -10,10 +11,14 @@ FactoryGirl.define do
     role 'user'
     password '123456'
     password_confirmation '123456'
+    email
+
+    factory :admin do
+      role 'admin'
+    end
 
     factory :teacher do
       role 'teacher'
-      email 'teacher@example.com'
     end
 
     factory :student do

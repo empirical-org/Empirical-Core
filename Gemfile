@@ -16,6 +16,7 @@ gem 'table_print'
 # USER AUTH, ETC
 gem 'bcrypt-ruby'
 gem 'doorkeeper'
+gem 'cancancan', '~> 1.9'
 
 # UPLOADS
 gem 'carrierwave'
