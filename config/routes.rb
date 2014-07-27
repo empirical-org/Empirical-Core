@@ -58,4 +58,22 @@ EmpiricalGrammar::Application.routes.draw do
   patch 'cheat'           => 'chapter/practice#cheat'
 
   root to: 'pages#home'
+
+  namespace :api do
+    namespace :v1 do
+      resources :activities
+      resource :ping, controller: 'ping'
+    end
+    # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
+    # This converts requests like GET /v1/ping to /api/v1/ping, and also
+    # /ping to /api/v1/ping.
+    #
+    # These routes are lost since they are globs, and thus will match anything
+    # not previously matched.
+    [:get, :delete, :post, :put, :patch].each do |method|
+      match 'v:api/*path', to: redirect("/api/v1/%{path}"), via: method
+      match '*path', to: redirect("/api/v1/%{path}"), via: method
+    end
+  end
+
 end
