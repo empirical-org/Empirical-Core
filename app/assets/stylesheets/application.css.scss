@@ -1,192 +1,23 @@
-/*
- *= require bootstrap/datepicker
- *= require_self
- */
- @import "compass/css3/";
+@import "compass/css3/";
 
-@mixin pie-clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-
-.text-center {
-  margin: auto;
-}
-
-$skyblue:        #409cc8;
-$skyblue-darker: #b5e2ff;
-$yellow:         #fcd000;
-$pink:           #d90053;
-$white:          #ffffff;
-$darkblue:       #0f4c7a;
-$darkgrey:       #32353d;
-
-$missed-color: #d54141;
-$missed-color-light: #ffeade;
-$found-color: #78ca47;
-$found-color-light: #e1ffd3;
-$introduced-color: #9060c7;
-$introduced-color-light: #f5deff;
-$tried-color: #ffba00;
-$tried-color-light: #fff9d6;
-$spinner-color:      #ffffff;
-$spinner-size:       30px;
-$spinner-speed:      0.75s;
-$spinner-thickness:  8px;
-
-.con-skyblue        { background: $skyblue; }
-.con-skyblue-darker { background: $skyblue-darker; }
-.con-yellow         { background: $yellow; }
-.con-pink           { background: $pink; }
-.con-white          { background: $white; }
-.con-darkblue       { background: $darkblue; }
-.con-darkgrey       { background: $darkgrey; }
-
-$header-font: "Comfortaa", cursive;
-
-$baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-$headingsFontFamily: $header-font;
-$headingsFontWeight: normal;
+@import "variables";
+@import "mixins";
 
 
-@import "bootstrap_imports";
+@import "bootstrap/imports";
+
+// @import "bootstrap-sprockets";
+// @import "bootstrap";
+
+// overrides
+@import "bootstrap/overrides/variables";
+
+// bootstrap/datepicker -- add this in too
+
 @import "compass/typography/text/replacement";
 
-.caret {
-  border-top:   7px solid black;
-  border-right: 7px solid transparent;
-  border-left:  7px solid transparent;
-}
+@import "quill/core";
 
-.btn .caret {
-  margin-top: 17px;
-  margin-left: 5px;
-}
+// TODO: this needs to be cleaned up
+@import "quill/other";
 
-@mixin fix-height($height) {
-  height: $height;
-  line-height: $height;
-}
-
-@mixin nav-height {
-  @include fix-height(45px);
-}
-
-@mixin bold {
-  font-weight: bold;
-}
-
-body {
-  background-color: $skyblue;
-  &.white-page { background-color: white }
-}
-
-article.blank-page {
-  h2 { margin-top: 40px }
-  margin-bottom: 40px;
-}
-
-.container {
-  width: 960px;
-  // body > & { min-height: 800px }
-}
-
-.simple-rounded-box {
-  @include border-radius(15px);
-  padding: 20px;
-  background-color: #fff;
-  @include pie-clearfix;
-
-  .l-section {
-    border-top: 1px solid #ccc;
-    &:first-child, &.first { border-top: none ; padding-top: 0 }
-    margin-left: -20px;
-    margin-right: -20px;
-    padding: 20px;
-  }
-
-  .form-horizontal-header {
-    margin-left: 180px;
-  }
-
-  .box-full-form {
-    margin-bottom: 0;
-
-    .form-actions {
-      margin: 0 -20px -20px -20px;
-    }
-
-    &.form-horizontal .form-actions {
-      padding-left: 180px + 20px;
-    }
-  }
-}
-
-article.simple-rounded-box,
-article.extra-padding {
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
-.navbar .nav > li > a {
-  padding: 0px 0px 0px;
-  text-shadow: none;
-}
-
-.hide {
-  display: none;
-}
-
-textarea {
-  height: 100px;
-}
-
-form .help-inline {
-  background-color: white;
-}
-
-.control-group.radio {
-  padding-left: 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 20px;
-  border-color: transparent;
-}
-
-.table-stripe {
-  tr:nth-child(2n) {
-    background-color: #f5f5f5;
-  }
-
-  .l-table-row:nth-child(2n) {
-    background-color: #f5f5f5;
-  }
-
-  &.inverse {
-    .l-table-row {
-      background-color: #f5f5f5;
-    }
-
-    .l-table-row:nth-child(2n) {
-      background-color: transparent;
-    }
-  }
-}
-
-.table-hover-row {
-  tr:hover { background-color: $tried-color-light }
-}
-
-@import "header";
-@import "pages";
-@import "home";
-@import "rules";
-@import "style";
-@import "partials/*";
-@import "pages/*";

@@ -41,12 +41,12 @@ gem 'jquery-turbolinks'
 
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 2.1.1.0' # app is locked to bootstrap 2.1.0
 gem 'compass-rails'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
-# gem 'rails-backbone'
+gem 'backbone-on-rails'
 
 gem 'slim-rails'
 gem 'haml-rails'
