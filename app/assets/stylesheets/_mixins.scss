@@ -1,0 +1,20 @@
+@mixin fix-height($height) {
+  height: $height;
+  line-height: $height;
+}
+
+@mixin nav-height {
+  @include fix-height(45px);
+}
+
+@mixin bold {
+  font-weight: bold;
+}
+
+@mixin pie-clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
