@@ -10,6 +10,10 @@ class ApiController < ApplicationController
     render json: { error_message: 'The resource you were looking for does not exist with the given ID' }, status: 404
   end
 
+  rescue_from CanCan::AccessDenied do
+    render json: { error_message: 'The resource you were looking for does not exist' }, status: 404
+  end
+
   private
 
   def current_user
