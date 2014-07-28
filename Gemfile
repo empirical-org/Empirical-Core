@@ -40,6 +40,9 @@ gem 'iron_cache_rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
+# API
+gem 'jbuilder'
+
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'
 gem 'bootstrap-sass', '~> 2.1.1.0' # app is locked to bootstrap 2.1.0

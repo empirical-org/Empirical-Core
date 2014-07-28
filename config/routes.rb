@@ -62,6 +62,7 @@ EmpiricalGrammar::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :activities
+      resources :activity_sessions
       resource :ping, controller: 'ping'
     end
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.

@@ -18,6 +18,7 @@ class Ability
 
   def user
     can :read, ActivitySession, user_id: @user.id
+    can :read, Activity
     can :create, ActivitySession
     can :destroy, :all, user_id: @user.id
     can :update, :all, user_id: @user.id
