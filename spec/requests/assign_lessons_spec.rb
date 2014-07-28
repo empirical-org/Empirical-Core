@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'assignments' do
+describe 'assignments', :type => :request do
   def assign_activity attrs = {}, activity = @activity
     sign_in(@teacher)
 

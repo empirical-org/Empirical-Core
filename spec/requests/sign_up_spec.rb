@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Sign up' do
+describe 'Sign up', :type => :request do
   describe 'Create New Teacher Account' do
     it 'requires unique email' do
       post '/account', user: user_params
@@ -55,7 +55,7 @@ describe 'Sign up' do
     end
 
     it 'generates password' do
-      expect(User.authenticate(email: "Test.Student@#{@classroom.code}", password: 'Student')).to be_true
+      expect(User.authenticate(email: "Test.Student@#{@classroom.code}", password: 'Student')).to be_truthy
     end
 
     it 'generates username' do

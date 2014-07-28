@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::ActivitiesController do
+describe Api::V1::ActivitiesController, :type => :controller do
   render_views
 
   describe 'GET #index' do
@@ -17,10 +17,10 @@ describe Api::V1::ActivitiesController do
     it 'responds with 200' do
       get :index, format: :json
 
-      response.status.should eq(200)
+      expect(response.status).to eq(200)
       parsed_body = JSON.parse(response.body)
-      parsed_body.first['id'].should == @activity1.id
-      parsed_body.last['id'].should == @activity2.id
+      expect(parsed_body.first['id']).to eq(@activity1.id)
+      expect(parsed_body.last['id']).to eq(@activity2.id)
     end
   end
 end
