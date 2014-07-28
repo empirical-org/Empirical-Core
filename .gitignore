@@ -29,3 +29,4 @@ redo
 *.dump
 .tags
 *.swp
+deploy-keys

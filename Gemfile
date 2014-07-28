@@ -65,6 +65,8 @@ gem 'rack-cors',  require: 'rack/cors'
 gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 gem 'honey-auth'#, path: '../honey-auth'
 
+# DEPLOYMENT
+gem 'capistrano'
 
 group :production, :staging do
   gem 'rails_12factor'
