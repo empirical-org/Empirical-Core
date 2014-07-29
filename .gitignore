@@ -30,3 +30,4 @@ redo
 .tags
 *.swp
 deploy-keys
+.guard_result
