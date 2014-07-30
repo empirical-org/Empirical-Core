@@ -28,6 +28,29 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  # API routes
+  namespace :api do
+    namespace :v1 do
+      resources :activities,              except: [:index, :new, :edit, :destroy]
+      resources :activity_sessions,       except: [:index, :new, :edit, :destroy]
+
+      resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
+      resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
+    end
+
+    # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
+    # This converts requests like GET /v1/ping to /api/v1/ping, and also
+    # /ping to /api/v1/ping.
+    #
+    # These routes are lost since they are globs, and thus will match anything
+    # not previously matched.
+    # [:get, :delete, :post, :put, :patch].each do |method|
+    #   match 'v:api/*path', to: redirect("/api/v1/%{path}"), via: method
+    #   match '*path', to: redirect("/api/v1/%{path}"), via: method
+    # end
+  end
+
+
   HoneyAuth::Routes.new(self).draw
 
   CMS::Routes.new(self).draw do
@@ -59,22 +82,5 @@ EmpiricalGrammar::Application.routes.draw do
 
   root to: 'pages#home'
 
-  namespace :api do
-    namespace :v1 do
-      resources :activities
-      resources :activity_sessions
-      resource :ping, controller: 'ping'
-    end
-    # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
-    # This converts requests like GET /v1/ping to /api/v1/ping, and also
-    # /ping to /api/v1/ping.
-    #
-    # These routes are lost since they are globs, and thus will match anything
-    # not previously matched.
-    [:get, :delete, :post, :put, :patch].each do |method|
-      match 'v:api/*path', to: redirect("/api/v1/%{path}"), via: method
-      match '*path', to: redirect("/api/v1/%{path}"), via: method
-    end
-  end
 
 end
