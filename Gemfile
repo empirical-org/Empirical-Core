@@ -71,11 +71,11 @@ gem 'honey-auth'#, path: '../honey-auth'
 
 # DEPLOYMENT
 gem 'capistrano'
+gem 'sentry-raven' # error tracking
 
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
-  gem 'sentry-raven'
   gem 'mixpanel-ruby'
 end
 
