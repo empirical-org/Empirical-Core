@@ -88,6 +88,10 @@ class ActivitySession < ActiveRecord::Base
     super
   end
 
+  def access_token
+
+  end
+
 protected
 
   def create_uid
