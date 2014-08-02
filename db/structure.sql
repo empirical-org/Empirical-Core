@@ -207,7 +207,8 @@ CREATE TABLE activity_classifications (
     uid character varying(255) NOT NULL,
     module_url character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    oauth_application_id integer
 );
 
 
@@ -1755,6 +1756,13 @@ CREATE UNIQUE INDEX index_activities_on_uid ON activities USING btree (uid);
 --
 
 CREATE UNIQUE INDEX index_activity_classifications_on_key ON activity_classifications USING btree (key);
+
+
+--
+-- Name: index_activity_classifications_on_oauth_application_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_activity_classifications_on_oauth_application_id ON activity_classifications USING btree (oauth_application_id);
 
 
 --
