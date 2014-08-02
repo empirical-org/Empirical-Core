@@ -42,6 +42,8 @@ class Activity < ActiveRecord::Base
       UriParams.add_param(url, 'student', activity_session.uid) if uid.present?
     end
 
+    url = UriParams.add_param(url, 'access_token', find_access_token(activity_session))
+
     url
   end
 
@@ -57,6 +59,20 @@ class Activity < ActiveRecord::Base
   end
 
 protected
+
+  def find_access_token activity_session
+    app = classification.oauth_application
+    user = activity_session.user
+
+    unless access_token = Doorkeeper::AccessToken.matching_token_for(app, user, Doorkeeper::OAuth::Scopes.from_string(""))
+      access_token = Doorkeeper::AccessToken.create! \
+        application_id: app.id, 
+        resource_owner_id: user.id, 
+        expires_in: Doorkeeper.configuration.access_token_expires_in
+    end
+
+    access_token.token
+  end
 
   def create_uid
     self.uid = SecureRandom.urlsafe_base64
