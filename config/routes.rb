@@ -32,8 +32,8 @@ EmpiricalGrammar::Application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
-      resources :activities,              except: [:index, :new, :edit, :destroy]
-      resources :activity_sessions,       except: [:index, :new, :edit, :destroy]
+      resources :activities,              except: [:index, :new, :edit]
+      resources :activity_sessions,       except: [:index, :new, :edit]
 
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
