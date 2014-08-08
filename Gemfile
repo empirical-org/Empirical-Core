@@ -40,6 +40,10 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'select2-rails'
 
+# API
+gem "active_model_serializers"
+gem 'jbuilder'
+
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'
 gem 'bootstrap-sass', '~> 2.1.1.0' # app is locked to bootstrap 2.1.0
@@ -67,9 +71,6 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 
 # DEPLOYMENT
 gem 'capistrano'
-
-# API
-gem 'jbuilder'
 
 group :production, :staging do
   gem 'rails_12factor'
