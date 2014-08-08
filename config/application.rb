@@ -40,5 +40,19 @@ module EmpiricalGrammar
     config.exceptions_app = Proc.new do |env|
       ApplicationController.action(:show_errors).call(env)
     end
+
+    config.middleware.use Rack::Cors do
+      allow do
+        # localhost dev...
+        origins /localhost|127\.0\.0\.1(:\d+)?/
+
+        resource '/api/*', headers: :any, methods: :all
+      end
+
+      allow do
+        origins '*'
+        resource '/api/*', headers: :any, methods: [:get, :post, :patch]
+      end
+    end
   end
 end
