@@ -37,6 +37,20 @@ CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
 COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
 
 
+--
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -51,7 +65,7 @@ CREATE TABLE queue_classic_jobs (
     id bigint NOT NULL,
     q_name text NOT NULL,
     method text NOT NULL,
-    args text NOT NULL,
+    args json NOT NULL,
     locked_at timestamp with time zone,
     CONSTRAINT queue_classic_jobs_method_check CHECK ((length(method) > 0)),
     CONSTRAINT queue_classic_jobs_q_name_check CHECK ((length(q_name) > 0))
@@ -298,8 +312,8 @@ CREATE TABLE assessments (
     id integer NOT NULL,
     body text,
     chapter_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     instructions text
 );
 
@@ -330,8 +344,8 @@ ALTER SEQUENCE assessments_id_seq OWNED BY assessments.id;
 CREATE TABLE categories (
     id integer NOT NULL,
     title text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -369,10 +383,10 @@ CREATE TABLE chapter_levels (
 
 
 --
--- Name: chapter_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: chapter_levels_id_seq1; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE chapter_levels_id_seq
+CREATE SEQUENCE chapter_levels_id_seq1
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -381,10 +395,10 @@ CREATE SEQUENCE chapter_levels_id_seq
 
 
 --
--- Name: chapter_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: chapter_levels_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE chapter_levels_id_seq OWNED BY chapter_levels.id;
+ALTER SEQUENCE chapter_levels_id_seq1 OWNED BY chapter_levels.id;
 
 
 --
@@ -394,8 +408,8 @@ ALTER SEQUENCE chapter_levels_id_seq OWNED BY chapter_levels.id;
 CREATE TABLE chapters (
     id integer NOT NULL,
     title character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     workbook_id integer,
     article_header text,
     rule_position text,
@@ -468,8 +482,8 @@ CREATE TABLE classroom_chapters (
     classcode character varying(255),
     chapter_id integer,
     due_date timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     temporary boolean DEFAULT false NOT NULL,
     classroom_id integer
 );
@@ -528,6 +542,42 @@ ALTER SEQUENCE classrooms_id_seq OWNED BY classrooms.id;
 
 
 --
+-- Name: comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE comments (
+    id integer NOT NULL,
+    title character varying(255),
+    body text,
+    user_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    ancestry character varying(255),
+    reply_type character varying(255),
+    lecture_chapter_id integer
+);
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
+
+
+--
 -- Name: file_uploads; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -536,8 +586,8 @@ CREATE TABLE file_uploads (
     name character varying(255),
     file character varying(255),
     description text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -568,8 +618,8 @@ CREATE TABLE grammar_rules (
     id integer NOT NULL,
     identifier character varying(255),
     description text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     practice_lesson text,
     author_id integer
 );
@@ -601,8 +651,8 @@ ALTER SEQUENCE grammar_rules_id_seq OWNED BY grammar_rules.id;
 CREATE TABLE grammar_tests (
     id integer NOT NULL,
     text text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -775,8 +825,8 @@ CREATE TABLE page_areas (
     name character varying(255),
     description character varying(255),
     content text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -895,8 +945,8 @@ ALTER SEQUENCE rule_question_inputs_id_seq OWNED BY rule_question_inputs.id;
 CREATE TABLE rule_questions (
     id integer NOT NULL,
     body text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     rule_id integer,
     prompt text,
     instructions text,
@@ -930,8 +980,8 @@ ALTER SEQUENCE rule_questions_id_seq OWNED BY rule_questions.id;
 CREATE TABLE rules (
     id integer NOT NULL,
     name text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     category_id integer,
     workbook_id integer DEFAULT 1,
     description text,
@@ -961,11 +1011,113 @@ ALTER SEQUENCE rules_id_seq OWNED BY rules.id;
 
 
 --
+-- Name: rules_misseds; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE rules_misseds (
+    id integer NOT NULL,
+    rule_id integer,
+    user_id integer,
+    assessment_id integer,
+    time_take timestamp without time zone,
+    missed boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: rules_misseds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE rules_misseds_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rules_misseds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE schema_migrations (
     version character varying(255) NOT NULL
+);
+
+
+--
+-- Name: schools; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE schools (
+    id integer NOT NULL,
+    nces_id character varying(255),
+    lea_id character varying(255),
+    leanm character varying(255),
+    name character varying(255),
+    phone character varying(255),
+    mail_street character varying(255),
+    mail_city character varying(255),
+    mail_state character varying(255),
+    mail_zipcode character varying(255),
+    street character varying(255),
+    city character varying(255),
+    state character varying(255),
+    zipcode character varying(255),
+    nces_type_code character varying(255),
+    nces_status_code character varying(255),
+    magnet character varying(255),
+    charter character varying(255),
+    ethnic_group character varying(255),
+    longitude numeric(9,6),
+    latitude numeric(9,6),
+    ulocal integer,
+    fte_classroom_teacher integer,
+    lower_grade integer,
+    upper_grade integer,
+    school_level integer,
+    free_lunches integer,
+    total_students integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: schools_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE schools_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: schools_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE schools_id_seq OWNED BY schools.id;
+
+
+--
+-- Name: schools_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE schools_users (
+    school_id integer,
+    user_id integer
 );
 
 
@@ -978,8 +1130,8 @@ CREATE TABLE scores (
     user_id integer,
     classroom_chapter_id integer,
     completion_date timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     missed_rules text,
     state character varying(255) DEFAULT 'unstarted'::character varying NOT NULL,
     story_step_input text,
@@ -1111,13 +1263,14 @@ CREATE TABLE users (
     email character varying(255),
     password_digest character varying(255),
     role character varying(255) DEFAULT 'user'::character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     classcode character varying(255),
     active boolean DEFAULT false,
     username character varying(255),
     token character varying(255),
-    ip_address inet
+    ip_address inet,
+    school_id integer
 );
 
 
@@ -1147,8 +1300,8 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 CREATE TABLE workbooks (
     id integer NOT NULL,
     title character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1217,7 +1370,7 @@ ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY chapter_levels ALTER COLUMN id SET DEFAULT nextval('chapter_levels_id_seq'::regclass);
+ALTER TABLE ONLY chapter_levels ALTER COLUMN id SET DEFAULT nextval('chapter_levels_id_seq1'::regclass);
 
 
 --
@@ -1246,6 +1399,13 @@ ALTER TABLE ONLY classroom_chapters ALTER COLUMN id SET DEFAULT nextval('classro
 --
 
 ALTER TABLE ONLY classrooms ALTER COLUMN id SET DEFAULT nextval('classrooms_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
 
 
 --
@@ -1337,6 +1497,20 @@ ALTER TABLE ONLY rule_questions ALTER COLUMN id SET DEFAULT nextval('rule_questi
 --
 
 ALTER TABLE ONLY rules ALTER COLUMN id SET DEFAULT nextval('rules_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_misseds_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::regclass);
 
 
 --
@@ -1441,16 +1615,8 @@ ALTER TABLE ONLY categories
 -- Name: chapter_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY sections
-    ADD CONSTRAINT chapter_levels_pkey PRIMARY KEY (id);
-
-
---
--- Name: chapter_levels_pkey1; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
 ALTER TABLE ONLY chapter_levels
-    ADD CONSTRAINT chapter_levels_pkey1 PRIMARY KEY (id);
+    ADD CONSTRAINT chapter_levels_pkey PRIMARY KEY (id);
 
 
 --
@@ -1475,6 +1641,14 @@ ALTER TABLE ONLY classroom_activities
 
 ALTER TABLE ONLY classrooms
     ADD CONSTRAINT classrooms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -1574,6 +1748,14 @@ ALTER TABLE ONLY rule_question_inputs
 
 
 --
+-- Name: rules_misseds_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY rules_misseds
+    ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1582,11 +1764,27 @@ ALTER TABLE ONLY rules
 
 
 --
+-- Name: schools_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY schools
+    ADD CONSTRAINT schools_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: scores_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY scores
     ADD CONSTRAINT scores_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sections_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY sections
+    ADD CONSTRAINT sections_pkey PRIMARY KEY (id);
 
 
 --
@@ -1678,6 +1876,13 @@ CREATE INDEX index_chapters_on_chapter_level_id ON chapters USING btree (chapter
 
 
 --
+-- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_ancestry ON comments USING btree (ancestry);
+
+
+--
 -- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1720,6 +1925,55 @@ CREATE UNIQUE INDEX index_rules_on_uid ON rules USING btree (uid);
 
 
 --
+-- Name: index_schools_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_on_name ON schools USING btree (name);
+
+
+--
+-- Name: index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_on_nces_id ON schools USING btree (nces_id);
+
+
+--
+-- Name: index_schools_on_state; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_on_state ON schools USING btree (state);
+
+
+--
+-- Name: index_schools_on_zipcode; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_on_zipcode ON schools USING btree (zipcode);
+
+
+--
+-- Name: index_schools_users_on_school_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_users_on_school_id ON schools_users USING btree (school_id);
+
+
+--
+-- Name: index_schools_users_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_users_on_school_id_and_user_id ON schools_users USING btree (school_id, user_id);
+
+
+--
+-- Name: index_schools_users_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1738,6 +1992,20 @@ CREATE INDEX users_to_tsvector_idx ON users USING gin (to_tsvector('english'::re
 --
 
 CREATE INDEX users_to_tsvector_idx1 ON users USING gin (to_tsvector('english'::regconfig, (email)::text));
+
+
+--
+-- Name: users_to_tsvector_idx10; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX users_to_tsvector_idx10 ON users USING gin (to_tsvector('english'::regconfig, (username)::text));
+
+
+--
+-- Name: users_to_tsvector_idx11; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX users_to_tsvector_idx11 ON users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
 
 
 --
@@ -1769,6 +2037,34 @@ CREATE INDEX users_to_tsvector_idx5 ON users USING gin (to_tsvector('english'::r
 
 
 --
+-- Name: users_to_tsvector_idx6; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX users_to_tsvector_idx6 ON users USING gin (to_tsvector('english'::regconfig, (name)::text));
+
+
+--
+-- Name: users_to_tsvector_idx7; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX users_to_tsvector_idx7 ON users USING gin (to_tsvector('english'::regconfig, (email)::text));
+
+
+--
+-- Name: users_to_tsvector_idx8; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX users_to_tsvector_idx8 ON users USING gin (to_tsvector('english'::regconfig, (role)::text));
+
+
+--
+-- Name: users_to_tsvector_idx9; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX users_to_tsvector_idx9 ON users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
+
+
+--
 -- Name: queue_classic_notify; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -1782,6 +2078,14 @@ CREATE TRIGGER queue_classic_notify AFTER INSERT ON queue_classic_jobs FOR EACH 
 SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20121024193845');
+
+INSERT INTO schema_migrations (version) VALUES ('20121211230953');
+
+INSERT INTO schema_migrations (version) VALUES ('20121211231231');
+
+INSERT INTO schema_migrations (version) VALUES ('20121214024613');
+
+INSERT INTO schema_migrations (version) VALUES ('20121218155200');
 
 INSERT INTO schema_migrations (version) VALUES ('20130309011601');
 
@@ -1810,6 +2114,8 @@ INSERT INTO schema_migrations (version) VALUES ('20130426032817');
 INSERT INTO schema_migrations (version) VALUES ('20130426032952');
 
 INSERT INTO schema_migrations (version) VALUES ('20130429171512');
+
+INSERT INTO schema_migrations (version) VALUES ('20130510221334');
 
 INSERT INTO schema_migrations (version) VALUES ('20130517024024');
 
@@ -1902,3 +2208,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140422211405');
 INSERT INTO schema_migrations (version) VALUES ('20140423225449');
 
 INSERT INTO schema_migrations (version) VALUES ('20140522033151');
+
+INSERT INTO schema_migrations (version) VALUES ('20140811132110');
