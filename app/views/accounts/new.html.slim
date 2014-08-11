@@ -9,14 +9,25 @@ article.new-account-page.simple-rounded-box
       = f.password :password
       = f.password :password_confirmation
       = f.email :email
+      .form-school-select
+        .field.string.school_select.control-group
+          .controls.zipcode
+            = text_field_tag :zipcode, nil, placeholder: 'Zipcode'
+          .controls.school_ids
+            = f.hidden :school_ids
+        .field.toggle.school_not_found.control-group
+          .controls.school_not_found
+            = check_box_tag :school_not_found
+            label for="school_not_found" My school is not listed or I do not teach in the United States.
 
       .form-explanation-text
         | Teachers, create a class code for your class. Students plug in your class
         | code to join your class. Teachers can also invite students from their
         | teacher profile page.
 
-      = f.toggle :terms_of_service, label: "I have read and accept Quill's #{link_to('Terms of Service', tos_path)}.".html_safe
-      = f.toggle :newsletter, label: 'Send me Quill updates. We usually send about one per month.'
+      .form-gray-box
+        = f.toggle :terms_of_service, label: "I have read and accept Quill's #{link_to('Terms of Service', tos_path)}.".html_safe
+        = f.toggle :newsletter, label: 'Send me Quill updates. We usually send about one per month.'
 
     = f.actions save: 'Sign up'
 
@@ -43,8 +54,60 @@ javascript:
     if ($radio.val() == 'teacher') {
       makeRequired($form.find('.field.email'));
       $('.field.newsletter').show();
+      $('.form-school-select').show();
     } else {
       makeOptional($form.find('.field.email'));
       $('.field.newsletter').hide();
+      $('.form-school-select').hide();
     }
+  }).filter(':checked').click();
+
+  var schools = [];
+
+  $('#user_school_ids').select2({
+    allowClear: true,
+    width: "400px",
+    data: function() { return {results: schools}; },
+    initSelection: function (element, callback) {
+        var data = schools;
+        callback(data);
+    }
+  });
+
+  $("#user_school_ids").attr("placeholder", "Enter your zipcode");
+  $("#user_school_ids").select2("val", "");
+  $("#user_school_ids").select2("disable", true);
+
+  $('#zipcode').on('keyup', function (e) {
+    var zip = $(e.target).val();
+
+    if (zip.length == 5) {
+      $.get('/schools.json', {zipcode: zip })
+        .done(function(data) {
+          if (data.length > 0) {
+            schools = data;
+            $("#user_school_ids").attr("placeholder", "Select your school");
+            $("#select2-chosen-1").html("Select your school");
+            $('#user_school_ids').select2("enable", true);
+            $("#user_school_ids").select2("open");
+            $('#school_not_found').prop('checked', false);
+          } else {
+          $('#user_school_ids').select2("disable", true);
+            schools = [{id: null, text: 'No schools found', disabled: true}]
+            $("#user_school_ids").attr("placeholder", "No schools found");
+            $("#select2-chosen-1").html("No schools found");
+            $('#user_school_ids').select2("disable", true);
+            $("#user_school_ids").select2("val", "");
+            $('#school_not_found').prop('checked', true);
+          }
+        })
+    }
+  }).keyup();
+
+  $('#school_not_found').on('click', function(e) {
+    $('#zipcode').val("");
+    $("#user_school_ids").attr("placeholder", "Enter your zipcode");
+    $("#select2-chosen-1").html("Enter your zipcode");
+    $('#user_school_ids').select2("disable", true);
+    $('#user_school_ids').select2("val", "");
   }).filter(':checked').click();

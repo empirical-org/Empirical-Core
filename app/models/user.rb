@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   include Student, Teacher
   has_secure_password validations: false
 
+  has_and_belongs_to_many :schools
+
   validates :password,              confirmation: { if: :requires_password_confirmation? },
                                     presence:     { if: :requires_password? }
   # validates :password_confirmation, presence:     { if: :requires_password_confirm? }

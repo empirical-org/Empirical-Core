@@ -1,8 +1,11 @@
+/*
+ *= require select2
+ *= require_self
+ */
 @import "compass/css3/";
 
 @import "variables";
 @import "mixins";
-
 
 @import "bootstrap/imports";
 
@@ -20,4 +23,3 @@
 
 // TODO: this needs to be cleaned up
 @import "quill/other";
-
