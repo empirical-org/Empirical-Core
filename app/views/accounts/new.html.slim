@@ -18,7 +18,7 @@ article.new-account-page.simple-rounded-box
         .field.toggle.school_not_found.control-group
           .controls.school_not_found
             = check_box_tag :school_not_found
-            label for="school_not_found" My school is not listed or I do not teach in the United States
+            label for="school_not_found" My school is not listed or I do not teach in the United States.
 
       .form-explanation-text
         | Teachers, create a class code for your class. Students plug in your class
@@ -54,13 +54,11 @@ javascript:
     if ($radio.val() == 'teacher') {
       makeRequired($form.find('.field.email'));
       $('.field.newsletter').show();
-      $('.field.zipcode').show();
-      $('.field.school_ids').show();
+      $('.form-school-select').show();
     } else {
       makeOptional($form.find('.field.email'));
       $('.field.newsletter').hide();
-      $('.field.zipcode').hide();
-      $('.field.school_ids').hide();
+      $('.form-school-select').hide();
     }
   }).filter(':checked').click();
 
@@ -71,7 +69,7 @@ javascript:
     width: "400px",
     data: function() { return {results: schools}; },
     initSelection: function (element, callback) {
-        var data = [];
+        var data = schools;
         callback(data);
     }
   });
@@ -99,8 +97,17 @@ javascript:
             $("#user_school_ids").attr("placeholder", "No schools found");
             $("#select2-chosen-1").html("No schools found");
             $('#user_school_ids').select2("disable", true);
+            $("#user_school_ids").select2("val", "");
             $('#school_not_found').prop('checked', true);
           }
         })
     }
   }).keyup();
+
+  $('#school_not_found').on('click', function(e) {
+    $('#zipcode').val("");
+    $("#user_school_ids").attr("placeholder", "Enter your zipcode");
+    $("#select2-chosen-1").html("Enter your zipcode");
+    $('#user_school_ids').select2("disable", true);
+    $('#user_school_ids').select2("val", "");
+  }).filter(':checked').click();
