@@ -76,7 +76,7 @@ GEM
       ejs
       jquery-rails
       railties
-    bcrypt-ruby (3.0.1)
+    bcrypt (3.1.7)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -211,9 +211,6 @@ GEM
       railties (>= 4.0.1)
     hashie (3.2.0)
     hike (1.2.3)
-    honey-auth (0.2.0)
-      bcrypt-ruby (~> 3.0.0)
-      haml
     i18n (0.6.11)
     inflecto (0.0.2)
     interception (0.5)
@@ -438,7 +435,7 @@ DEPENDENCIES
   awesome_print
   aws-sdk
   backbone-on-rails
-  bcrypt-ruby
+  bcrypt
   better_errors
   binding_of_caller
   bootstrap-sass (~> 2.1.1.0)
@@ -462,7 +459,6 @@ DEPENDENCIES
   guard-shell
   haml-rails
   haml_coffee_assets!
-  honey-auth
   honey-cms (= 0.4.7)!
   iron_cache_rails
   jbuilder
