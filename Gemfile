@@ -4,7 +4,7 @@ ruby '2.1.2'
 
 # CORE DEPS
 gem 'rails', '~> 4.1.4'
-gem 'puma'
+gem 'unicorn'
 
 # DB/MODEL
 gem 'pg'
