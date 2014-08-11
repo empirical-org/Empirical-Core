@@ -27,4 +27,6 @@ snapshot.dump
 .vagrant/
 redo
 *.dump
+.tags
+*.swp
 deploy-keys

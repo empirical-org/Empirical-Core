@@ -10,6 +10,7 @@
 
 //// Core variables and mixins
 @import 'bootstrap/variables'; // Modify this for custom colors, font-sizes, etc
+@import 'bootstrap/overrides/variables';
 @import 'bootstrap/mixins';
 
 //// CSS Reset
@@ -17,13 +18,13 @@
 
 //// Grid system and page structure
 @import 'bootstrap/scaffolding';
-@import 'bootstrap_overrides/grid';
+@import 'bootstrap/overrides/grid';
 @import 'bootstrap/layouts';
 
 //// Base CSS
 @import 'bootstrap/type';
 //@import 'bootstrap/code';
-@import 'bootstrap_overrides/forms';
+@import 'bootstrap/overrides/forms';
 //@import 'bootstrap/tables';
 
 //// Components: common
@@ -34,13 +35,13 @@
 //@import 'bootstrap/close';
 
 //// Components: Buttons & Alerts
-@import 'bootstrap_overrides/buttons';
-@import 'bootstrap_overrides/button-groups';
+@import 'bootstrap/overrides/buttons';
+@import 'bootstrap/overrides/button-groups';
 //@import 'bootstrap/alerts'; // Note: alerts share common CSS with buttons and thus have styles in _buttons.scss
 
 //// Components: Nav
 @import 'bootstrap/navs';
-@import 'bootstrap_overrides/navbar';
+@import 'bootstrap/overrides/navbar';
 //@import 'bootstrap/breadcrumbs';
 //@import 'bootstrap/pagination';
 //@import 'bootstrap/pager';
