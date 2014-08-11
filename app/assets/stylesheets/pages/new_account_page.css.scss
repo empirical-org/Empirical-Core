@@ -27,6 +27,23 @@
     @include bold;
   }
 
+  .form-school-select {
+    .zipcode {
+      width: 92px; float: left; clear: left;
+      #zipcode { width: 70px; text-align: center; }
+    }
+    .school_ids {
+      margin-left: 0; width: 400px; float: left; clear: right;
+      .controls {margin-left: 0;}
+      .select2-container .select2-choice {
+        height: 42px;
+        .select2-chosen {line-height: 42px;}
+        .select2-arrow b {position: absolute; top: 7px;}
+        abbr {top: 14px;}
+      }
+    }
+  }
+
   .form-explanation-text {
     position: absolute;
     bottom: 0;
@@ -47,6 +64,7 @@
     .controls {margin-left: 0;}
     .control-group:first-child {margin-top: 0;}
     .control-group {margin-bottom: 0; margin-top: 8px;}
+    .field.toggle .help-inline {left: 24px;}
   }
 
   .field.toggle {

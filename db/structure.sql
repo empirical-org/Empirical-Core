@@ -1269,8 +1269,7 @@ CREATE TABLE users (
     active boolean DEFAULT false,
     username character varying(255),
     token character varying(255),
-    ip_address inet,
-    school_id integer
+    ip_address inet
 );
 
 

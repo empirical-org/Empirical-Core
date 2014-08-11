@@ -4,6 +4,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assignments
   resource :profile
   resources :password_reset
+  resources :schools, only: [:index], format: 'json'
   resources :activity_sessions, only: [:show]
 
   resources :activities, only: [:show] do

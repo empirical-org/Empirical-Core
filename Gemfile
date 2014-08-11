@@ -20,6 +20,7 @@ gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
 gem 'doorkeeper'
 gem 'queue_classic', '3.0.0rc'
+gem 'select2-rails'
 
 gem 'rspec-rails',        group: %w(development test)
 gem 'pry-rails',          group: %w(development test)
@@ -68,3 +69,4 @@ gem 'google-api-client'
 gem 'iron_cache_rails'
 gem 'table_print'
 gem 'mixpanel-ruby'
+gem 'jbuilder'
