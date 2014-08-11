@@ -14,7 +14,7 @@ gem 'textacular'
 gem 'table_print'
 
 # USER AUTH, ETC
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 gem 'doorkeeper'
 
 # UPLOADS
@@ -64,7 +64,6 @@ gem 'rack-cors',  require: 'rack/cors'
 
 # CMS (HONEY)
 gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
-gem 'honey-auth'#, path: '../honey-auth'
 
 # DEPLOYMENT
 gem 'capistrano'
