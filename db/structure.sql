@@ -1055,6 +1055,73 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: schools; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE schools (
+    id integer NOT NULL,
+    nces_id character varying(255),
+    lea_id character varying(255),
+    leanm character varying(255),
+    name character varying(255),
+    phone character varying(255),
+    mail_street character varying(255),
+    mail_city character varying(255),
+    mail_state character varying(255),
+    mail_zipcode character varying(255),
+    street character varying(255),
+    city character varying(255),
+    state character varying(255),
+    zipcode character varying(255),
+    nces_type_code character varying(255),
+    nces_status_code character varying(255),
+    magnet character varying(255),
+    charter character varying(255),
+    ethnic_group character varying(255),
+    longitude numeric(9,6),
+    latitude numeric(9,6),
+    ulocal integer,
+    fte_classroom_teacher integer,
+    lower_grade integer,
+    upper_grade integer,
+    school_level integer,
+    free_lunches integer,
+    total_students integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: schools_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE schools_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: schools_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE schools_id_seq OWNED BY schools.id;
+
+
+--
+-- Name: schools_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE schools_users (
+    school_id integer,
+    user_id integer
+);
+
+
+--
 -- Name: scores; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1442,6 +1509,16 @@ ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_missed
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+<<<<<<< HEAD
+ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+=======
+>>>>>>> develop
 ALTER TABLE ONLY scores ALTER COLUMN id SET DEFAULT nextval('scores_id_seq'::regclass);
 
 
@@ -1689,6 +1766,14 @@ ALTER TABLE ONLY rules
 
 
 --
+-- Name: schools_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY schools
+    ADD CONSTRAINT schools_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: scores_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1839,6 +1924,55 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING 
 --
 
 CREATE UNIQUE INDEX index_rules_on_uid ON rules USING btree (uid);
+
+
+--
+-- Name: index_schools_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_on_name ON schools USING btree (name);
+
+
+--
+-- Name: index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_on_nces_id ON schools USING btree (nces_id);
+
+
+--
+-- Name: index_schools_on_state; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_on_state ON schools USING btree (state);
+
+
+--
+-- Name: index_schools_on_zipcode; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_on_zipcode ON schools USING btree (zipcode);
+
+
+--
+-- Name: index_schools_users_on_school_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_users_on_school_id ON schools_users USING btree (school_id);
+
+
+--
+-- Name: index_schools_users_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_users_on_school_id_and_user_id ON schools_users USING btree (school_id, user_id);
+
+
+--
+-- Name: index_schools_users_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
 
 
 --
@@ -2076,3 +2210,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140422211405');
 INSERT INTO schema_migrations (version) VALUES ('20140423225449');
 
 INSERT INTO schema_migrations (version) VALUES ('20140522033151');
+
+INSERT INTO schema_migrations (version) VALUES ('20140811132110');

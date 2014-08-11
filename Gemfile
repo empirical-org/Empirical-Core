@@ -38,6 +38,7 @@ gem 'iron_cache_rails'
 # JS/APP/UI
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem 'select2-rails'
 
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'
@@ -67,6 +68,9 @@ gem 'honey-auth'#, path: '../honey-auth'
 
 # DEPLOYMENT
 gem 'capistrano'
+
+# API
+gem 'jbuilder'
 
 group :production, :staging do
   gem 'rails_12factor'
@@ -104,4 +108,3 @@ group :test, :development do
   gem 'guard-blink1'
   gem 'terminal-notifier-guard'
 end
-
