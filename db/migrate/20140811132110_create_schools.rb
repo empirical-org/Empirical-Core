@@ -24,7 +24,5 @@ class CreateSchools < ActiveRecord::Migration
     add_index :schools_users, :school_id
     add_index :schools_users, :user_id
     add_index :schools_users, [:school_id, :user_id]
-
-    add_column :users, :school_id, :integer
   end
 end
