@@ -51,8 +51,7 @@ EmpiricalGrammar::Application.routes.draw do
     # end
   end
 
-
-  HoneyAuth::Routes.new(self).draw
+  resource :session, :account
 
   CMS::Routes.new(self).draw do
     resources :categories
