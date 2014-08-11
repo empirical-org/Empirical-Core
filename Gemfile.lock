@@ -149,6 +149,9 @@ GEM
       iron_cache (>= 1)
     iron_core (1.0.3)
       rest (>= 2.6.4)
+    jbuilder (2.0.7)
+      activesupport (>= 3.0.0, < 5)
+      multi_json (~> 1.2)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -463,6 +466,8 @@ GEM
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
+    select2-rails (3.5.9)
+      thor (~> 0.14)
     sentry-raven (0.6.0)
       faraday (>= 0.7.6)
       hashie (>= 1.1.0)
@@ -550,6 +555,7 @@ DEPENDENCIES
   honey-cms (= 0.4.7)!
   iconv!
   iron_cache_rails
+  jbuilder
   jquery-rails
   jquery-turbolinks
   kaminari
@@ -573,6 +579,7 @@ DEPENDENCIES
   rubinius-coverage
   rubysl
   sass-rails (~> 4.0.0)
+  select2-rails
   sentry-raven
   slim-rails
   table_print
