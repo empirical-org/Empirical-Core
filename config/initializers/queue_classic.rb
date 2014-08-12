@@ -10,5 +10,5 @@ module QC
   end
 end
 
-QC.default_conn_adapter = QC::ConnAdapter.new(
-    ActiveRecord::Base.connection.raw_connection)
+#QC.default_conn_adapter = QC::ConnAdapter.new(
+#    ActiveRecord::Base.connection.raw_connection)
