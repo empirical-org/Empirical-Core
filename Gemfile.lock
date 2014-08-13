@@ -88,6 +88,7 @@ GEM
     byebug (3.2.0)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
+    cancancan (1.9.1)
     capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
@@ -440,6 +441,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 2.1.1.0)
   byebug
+  cancancan (~> 1.9)
   capistrano
   carrierwave
   coffee-rails
