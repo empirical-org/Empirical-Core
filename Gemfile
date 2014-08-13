@@ -4,7 +4,6 @@ ruby '2.1.2'
 
 # CORE DEPS
 gem 'rails', '~> 4.1.4'
-gem 'unicorn'
 
 # DB/MODEL
 gem 'pg'
@@ -18,6 +17,7 @@ gem 'bcrypt'
 gem 'doorkeeper'
 gem 'omniauth'
 gem 'omniauth-clever'
+gem 'cancancan'
 
 # UPLOADS
 gem 'carrierwave'
@@ -41,6 +41,10 @@ gem 'iron_cache_rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'select2-rails'
+
+# API
+gem "active_model_serializers"
+gem 'jbuilder'
 
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'
@@ -69,14 +73,13 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 
 # DEPLOYMENT
 gem 'capistrano'
-
-# API
-gem 'jbuilder'
+gem 'sentry-raven'
 
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
-  gem 'sentry-raven'
+  gem 'unicorn'
+  # JC: in dev, at least on my machine, this throws SSL errors
   gem 'mixpanel-ruby'
 end
 
@@ -88,6 +91,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'puma'
   gem "quiet_assets"
   gem "pry-rails"
   gem 'pry-rescue'

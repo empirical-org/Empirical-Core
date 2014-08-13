@@ -36,10 +36,11 @@ class Activity < ActiveRecord::Base
     url = classification.module_url.dup
     url = UriParams.add_param(url, 'uid', uid) if uid.present?
 
-    url = if activity_session == :anonymous
-      UriParams.add_param(url, 'anonymous', true)
+    if activity_session == :anonymous
+      url = UriParams.add_param(url, 'anonymous', true)
     else
-      UriParams.add_param(url, 'student', activity_session.uid) if uid.present?
+      url = UriParams.add_param(url, 'student', activity_session.uid) if uid.present?
+      url = UriParams.add_param(url, 'access_token', activity_session.access_token)
     end
 
     url

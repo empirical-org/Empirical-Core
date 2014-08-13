@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   include QuillAuthentication
   helper CMS::Helper
 
+  before_action :setup_visitor
+
   def admin!
     return if current_user.try(:admin?)
     auth_failed
@@ -28,5 +30,12 @@ class ApplicationController < ActionController::Base
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
       format.all { render nothing: true, status: status }
     end
+  end
+
+  def setup_visitor
+    return true if signed_in?
+
+    # FIXME: ??
+    # sign_in(User.create_visitor)
   end
 end
