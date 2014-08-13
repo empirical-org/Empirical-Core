@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
 
   def create_clever_district
     if @auth_hash[:info][:name] && @auth_hash[:info][:id]
-      @district = District.where(uid: @auth_hash[:info][:id]).first_or_initialize
+      @district = District.where(clever_id: @auth_hash[:info][:id]).first_or_initialize
       @district.update_attributes(name: @auth_hash[:info][:name])
 
       # This request is initialized automatically by Clever, not a user.
