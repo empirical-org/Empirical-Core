@@ -612,6 +612,16 @@ ALTER SEQUENCE districts_id_seq OWNED BY districts.id;
 
 
 --
+-- Name: districts_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE districts_users (
+    district_id integer,
+    user_id integer
+);
+
+
+--
 -- Name: file_uploads; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1122,8 +1132,7 @@ CREATE TABLE schools (
     free_lunches integer,
     total_students integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    district_id integer
+    updated_at timestamp without time zone
 );
 
 
@@ -1939,6 +1948,27 @@ CREATE INDEX index_comments_on_ancestry ON comments USING btree (ancestry);
 
 
 --
+-- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_districts_users_on_district_id ON districts_users USING btree (district_id);
+
+
+--
+-- Name: index_districts_users_on_district_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_districts_users_on_district_id_and_user_id ON districts_users USING btree (district_id, user_id);
+
+
+--
+-- Name: index_districts_users_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_districts_users_on_user_id ON districts_users USING btree (user_id);
+
+
+--
 -- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2264,6 +2294,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140422211405');
 INSERT INTO schema_migrations (version) VALUES ('20140423225449');
 
 INSERT INTO schema_migrations (version) VALUES ('20140522033151');
+
+INSERT INTO schema_migrations (version) VALUES ('20140730142541');
 
 INSERT INTO schema_migrations (version) VALUES ('20140811132110');
 

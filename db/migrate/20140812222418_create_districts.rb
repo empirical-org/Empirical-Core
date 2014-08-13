@@ -6,6 +6,13 @@ class CreateDistricts < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_column :schools, :district_id, :integer
+    create_table :districts_users, id: false do |t|
+      t.integer :district_id
+      t.integer :user_id
+    end
+
+    add_index :districts_users, :district_id
+    add_index :districts_users, :user_id
+    add_index :districts_users, [:district_id, :user_id]
   end
 end

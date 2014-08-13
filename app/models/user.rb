@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_and_belongs_to_many :schools
-  has_and_belongs_to_many :districts, through: :schools
+  has_and_belongs_to_many :districts
 
   validates :password,              confirmation: { if: :requires_password_confirmation? },
                                     presence:     { if: :requires_password? }
