@@ -43,6 +43,7 @@ class SessionsController < ApplicationController
   private
 
   def create_clever_district
+    raise @auth_hash.to_hash.inspect
     if @auth_hash[:info][:name] && @auth_hash[:info][:id]
       @district = District.where(clever_id: @auth_hash[:info][:id]).first_or_initialize
       @district.update_attributes(name: @auth_hash[:info][:name], token: @auth_hash[:token])
