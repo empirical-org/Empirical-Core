@@ -578,6 +578,39 @@ ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
 
 
 --
+-- Name: districts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE districts (
+    id integer NOT NULL,
+    clever_id character varying(255),
+    name character varying(255),
+    token character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: districts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE districts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: districts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE districts_id_seq OWNED BY districts.id;
+
+
+--
 -- Name: file_uploads; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1088,7 +1121,8 @@ CREATE TABLE schools (
     free_lunches integer,
     total_students integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    district_id integer
 );
 
 
@@ -1411,6 +1445,13 @@ ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY districts ALTER COLUMN id SET DEFAULT nextval('districts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY file_uploads ALTER COLUMN id SET DEFAULT nextval('file_uploads_id_seq'::regclass);
 
 
@@ -1509,7 +1550,6 @@ ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_missed
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-<<<<<<< HEAD
 ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::regclass);
 
 
@@ -1517,8 +1557,6 @@ ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-=======
->>>>>>> develop
 ALTER TABLE ONLY scores ALTER COLUMN id SET DEFAULT nextval('scores_id_seq'::regclass);
 
 
@@ -1651,6 +1689,14 @@ ALTER TABLE ONLY classrooms
 
 ALTER TABLE ONLY comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: districts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY districts
+    ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
 
 
 --
@@ -2212,3 +2258,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140423225449');
 INSERT INTO schema_migrations (version) VALUES ('20140522033151');
 
 INSERT INTO schema_migrations (version) VALUES ('20140811132110');
+
+INSERT INTO schema_migrations (version) VALUES ('20140812222418');
+
