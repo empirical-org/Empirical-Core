@@ -1,4 +1,4 @@
-options = Rails.env.development? ? {provider_ignores_state: true} : {}
+options = Rails.env.production? ? {} : {provider_ignores_state: true}
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :clever, Clever::CLIENT_ID, Clever::CLIENT_SECRET, options
