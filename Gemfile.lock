@@ -38,6 +38,8 @@ GEM
       activesupport (= 4.1.4)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     activemodel (4.1.4)
       activesupport (= 4.1.4)
       builder (~> 3.1)
@@ -88,6 +90,7 @@ GEM
     byebug (3.2.0)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
+    cancancan (1.9.1)
     capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
@@ -300,6 +303,8 @@ GEM
     pry-stack_explorer (0.4.9.1)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
+    puma (2.9.0)
+      rack (>= 1.1, < 2.0)
     queue_classic (3.0.0rc)
       pg (~> 0.17.0)
     quiet_assets (1.0.3)
@@ -448,6 +453,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   ancestry
   awesome_print
   aws-sdk
@@ -457,6 +463,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 2.1.1.0)
   byebug
+  cancancan
   capistrano
   carrierwave
   coffee-rails
@@ -493,6 +500,7 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   pry-stack_explorer
+  puma
   queue_classic (= 3.0.0rc)
   quiet_assets
   rack-cache

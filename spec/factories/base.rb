@@ -1,27 +1,4 @@
 FactoryGirl.define do
-  sequence(:name) { |i| "Name #{i}" }
-  sequence(:username) { |i| "Username#{i}" }
-  sequence(:key) { |i| "key-#{i}" }
-  sequence(:description) { |i| "Description #{i}" }
-
-  factory :user do
-    first_name 'Test'
-    last_name  'User'
-    role 'user'
-    password '123456'
-    password_confirmation '123456'
-
-    factory :teacher do
-      role 'teacher'
-      email 'teacher@example.com'
-    end
-
-    factory :student do
-      role 'student'
-      username
-      classroom
-    end
-  end
 
   factory :classroom do
     sequence(:name) { |i| "classroom #{i}" }

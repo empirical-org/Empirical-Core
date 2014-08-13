@@ -5,7 +5,6 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "sprockets/railtie"
-require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -39,6 +38,20 @@ module EmpiricalGrammar
 
     config.exceptions_app = Proc.new do |env|
       ApplicationController.action(:show_errors).call(env)
+    end
+
+    config.middleware.use Rack::Cors do
+      allow do
+        # localhost dev...
+        origins /localhost|127\.0\.0\.1(:\d+)?/
+
+        resource '/api/*', headers: :any, methods: :all
+      end
+
+      allow do
+        origins '*'
+        resource '/api/*', headers: :any, methods: [:get, :post, :patch]
+      end
     end
   end
 end
