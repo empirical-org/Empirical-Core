@@ -16,6 +16,7 @@ gem 'table_print'
 # USER AUTH, ETC
 gem 'bcrypt'
 gem 'doorkeeper'
+gem 'cancancan', '~> 1.9'
 
 # UPLOADS
 gem 'carrierwave'
@@ -39,6 +40,9 @@ gem 'iron_cache_rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'select2-rails'
+
+# API
+gem 'jbuilder'
 
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'
@@ -67,6 +71,7 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 
 # DEPLOYMENT
 gem 'capistrano'
+gem 'sentry-raven' # error tracking
 
 # API
 gem 'jbuilder'
@@ -74,7 +79,6 @@ gem 'jbuilder'
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
-  gem 'sentry-raven'
   gem 'mixpanel-ruby'
 end
 

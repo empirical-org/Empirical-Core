@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Sign in' do
+describe 'Sign in', :type => :request do
   before do
     User.create(email: 'student@quill.org',
                 username: 'student1',

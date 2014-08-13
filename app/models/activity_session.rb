@@ -88,6 +88,19 @@ class ActivitySession < ActiveRecord::Base
     super
   end
 
+  def access_token 
+    scope = Doorkeeper::OAuth::Scopes.from_string("")
+
+    unless access_token = Doorkeeper::AccessToken.matching_token_for(classification.oauth_application, user, scope)
+      access_token = Doorkeeper::AccessToken.create! \
+        application_id: classification.oauth_application.id, 
+        resource_owner_id: user.id, 
+        expires_in: Doorkeeper.configuration.access_token_expires_in
+    end
+
+    access_token.token
+  end
+
 protected
 
   def create_uid
