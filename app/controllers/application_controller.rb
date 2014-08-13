@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
   def setup_visitor
     return true if signed_in?
 
-    sign_in(User.create_visitor)
+    # FIXME: ??
+    # sign_in(User.create_visitor)
   end
 end
