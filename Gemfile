@@ -4,7 +4,6 @@ ruby '2.1.2'
 
 # CORE DEPS
 gem 'rails', '~> 4.1.4'
-gem 'unicorn'
 
 # DB/MODEL
 gem 'pg'
@@ -16,6 +15,7 @@ gem 'table_print'
 # USER AUTH, ETC
 gem 'bcrypt'
 gem 'doorkeeper'
+gem 'cancancan'
 
 # UPLOADS
 gem 'carrierwave'
@@ -71,15 +71,13 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 
 # DEPLOYMENT
 gem 'capistrano'
-
-# API
-gem 'jbuilder'
+gem 'sentry-raven'
+gem 'mixpanel-ruby'
 
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
-  gem 'sentry-raven'
-  gem 'mixpanel-ruby'
+  gem 'unicorn'
 end
 
 group :development do
@@ -90,12 +88,14 @@ group :development do
 end
 
 group :test, :development do
+  gem 'puma'
   gem "quiet_assets"
   gem "pry-rails"
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
   gem "awesome_print"
   gem "rspec-rails"
+  gem "rspec-nc"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
   gem "vcr"

@@ -90,6 +90,7 @@ GEM
     byebug (3.2.0)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
+    cancancan (1.9.1)
     capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
@@ -285,6 +286,8 @@ GEM
     pry-stack_explorer (0.4.9.1)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
+    puma (2.9.0)
+      rack (>= 1.1, < 2.0)
     queue_classic (3.0.0rc)
       pg (~> 0.17.0)
     quiet_assets (1.0.3)
@@ -347,6 +350,9 @@ GEM
       rspec-support (~> 3.0.0)
     rspec-mocks (3.0.3)
       rspec-support (~> 3.0.0)
+    rspec-nc (0.1.1)
+      rspec (>= 2.9)
+      terminal-notifier (>= 1.4)
     rspec-rails (3.0.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -401,6 +407,7 @@ GEM
       sequel (~> 3.20.0)
       sinatra (~> 1.0.0)
     temple (0.6.8)
+    terminal-notifier (1.6.1)
     terminal-notifier-guard (1.5.3)
     textacular (3.2.0)
       activerecord (>= 3.0, < 4.2)
@@ -443,6 +450,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 2.1.1.0)
   byebug
+  cancancan
   capistrano
   carrierwave
   coffee-rails
@@ -477,6 +485,7 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   pry-stack_explorer
+  puma
   queue_classic (= 3.0.0rc)
   quiet_assets
   rack-cache
@@ -484,6 +493,7 @@ DEPENDENCIES
   rails (~> 4.1.4)
   rails_12factor
   redcarpet
+  rspec-nc
   rspec-rails
   sass-rails!
   select2-rails
