@@ -40,7 +40,7 @@ describe 'assignments', :type => :request do
       expect(response.body).to include(@activity.name)
     end
 
-    it 'doesn\'t show up if the teacher didn\'t select the student' do
+    it "doesn't show up if the teacher didn't select the student" do
       other = create(:student, classroom: @classroom)
       activity = create(:activity)
       expect(@classroom.students.count).to be(2)
@@ -59,7 +59,7 @@ describe 'assignments', :type => :request do
   end
 
   describe 'Teacher edits the details of the lesson' do
-    pending "this test is implemented incorrectly, but not yet able to review"
+    pending "JC, Jul14: this test is implemented incorrectly, but not yet able to review"
 
     # it 'reflects changes in student profile' do
     #   two_weeks   = 2.weeks.from_now
@@ -80,9 +80,7 @@ describe 'assignments', :type => :request do
   end
 
   describe 'Student retries a lesson after completing it' do
-    it 'creates a new session' do
-
-    end
+    it 'creates a new session'
   end
 
   describe 'Student reenters incomplete lesson' do
