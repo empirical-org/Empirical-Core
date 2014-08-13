@@ -16,6 +16,8 @@ gem 'table_print'
 # USER AUTH, ETC
 gem 'bcrypt'
 gem 'doorkeeper'
+gem 'omniauth'
+gem 'omniauth-clever'
 
 # UPLOADS
 gem 'carrierwave'

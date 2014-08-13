@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_and_belongs_to_many :schools
+  has_and_belongs_to_many :districts, through: :schools
 
   validates :password,              confirmation: { if: :requires_password_confirmation? },
                                     presence:     { if: :requires_password? }
@@ -66,6 +67,7 @@ class User < ActiveRecord::Base
   end
 
   def requires_password?
+    return false if self.token
     permanent? && (password.present? || password_confirmation.present? || new_record?)
   end
 

@@ -30,6 +30,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   resource :session, :account
+  get '/auth/clever/callback', to: 'sessions#clever'
 
   CMS::Routes.new(self).draw do
     resources :categories
