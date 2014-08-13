@@ -72,12 +72,13 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 # DEPLOYMENT
 gem 'capistrano'
 gem 'sentry-raven'
-gem 'mixpanel-ruby'
 
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'unicorn'
+  # JC: in dev, at least on my machine, this throws SSL errors
+  gem 'mixpanel-ruby'
 end
 
 group :development do
@@ -95,7 +96,6 @@ group :test, :development do
   gem 'pry-stack_explorer'
   gem "awesome_print"
   gem "rspec-rails"
-  gem "rspec-nc"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
   gem "vcr"
