@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SchoolsController do
+describe SchoolsController, :type => :controller do
   render_views
 
   before do
@@ -13,20 +13,20 @@ describe SchoolsController do
   it 'fetches schools based on zipcode' do
     get :index, zipcode: '60657', format: 'json'
 
-    response.status.should == 200
+    expect(response.status).to eq(200)
 
     json = JSON.parse(response.body)
-    json.size.should == 1
-    json.first['id'].should == @school.id
-    json.first['name'].should == @school.name
+    expect(json.size).to eq(1)
+    expect(json.first['id']).to eq(@school.id)
+    expect(json.first['name']).to eq(@school.name)
   end
 
   it 'returns an error if no zipcode is passed' do
     get :index, format: 'json'
 
-    response.status.should == 400
+    expect(response.status).to eq(400)
     json = JSON.parse(response.body)
-    json['error'].should == 'You must past a zipcode.'
+    expect(json['error']).to eq('You must past a zipcode.')
   end
 
 end
