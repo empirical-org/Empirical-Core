@@ -43,7 +43,16 @@ class SessionsController < ApplicationController
   private
 
   def create_clever_district
-    raise @auth_hash.inspect
+    if @auth_hash[:info][:name] && @auth_hash[:info][:id]
+      @district = District.where(uid: @auth_hash[:info][:id]).first_or_initialize
+      @district.update_attributes(name: @auth_hash[:info][:name])
+
+      # This request is initialized automatically by Clever, not a user.
+      # So don't bother rendering anything.
+      render status: 200, nothing: true
+    else
+      render status: 500, nothing: true
+    end
   end
 
   def create_clever_user
