@@ -18,7 +18,7 @@ describe SchoolsController, :type => :controller do
     json = JSON.parse(response.body)
     expect(json.size).to eq(1)
     expect(json.first['id']).to eq(@school.id)
-    expect(json.first['name']).to eq(@school.name)
+    expect(json.first['text']).to eq(@school.name)
   end
 
   it 'returns an error if no zipcode is passed' do
