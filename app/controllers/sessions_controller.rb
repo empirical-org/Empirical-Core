@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
   def clever
     @auth_hash = request.env['omniauth.auth']
 
-    if @auth_hash[:info][:user_type] = "district"
+    if @auth_hash[:info][:user_type] == "district"
       create_clever_district
     else
       create_clever_user
@@ -60,6 +60,7 @@ class SessionsController < ApplicationController
       @user = User.where(email: @auth_hash[:info][:email]).first_or_initialize
       @user.update_attributes(
         token: @auth_hash[:credentials][:token],
+        role: @auth_hash[:info][:user_type],
         ip_address: request.remote_ip,
         first_name: @auth_hash[:info][:name][:first],
         last_name: @auth_hash[:info][:name][:last]
