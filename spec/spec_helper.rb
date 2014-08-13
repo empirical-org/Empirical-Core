@@ -12,6 +12,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 # shared contexts and groups to behave like
 Dir[Rails.root.join("spec/shared/**/*.rb")].each {|f| require f}
 
+# ensure the db is properly migrated
+ActiveRecord::Migration.maintain_test_schema!
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
