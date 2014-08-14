@@ -101,6 +101,7 @@ group :test, :development do
   gem "vcr"
   gem "factory_girl"
   gem "factory_girl_rails"
+  gem "forgery"
   gem "database_cleaner"
   gem 'byebug'
   gem 'guard'
