@@ -1,14 +1,11 @@
 class ActivityClassification < ActiveRecord::Base
+
+  include Uid
+
   has_many :activities, dependent: :destroy
-  before_create :create_uid
 
-  if defined?(Doorkeeper::Application)
-    belongs_to :oauth_application, class_name: 'Doorkeeper::Application'
-  end
+  belongs_to :oauth_application, class_name: 'Doorkeeper::Application'
 
-protected
+  validates :key, uniqueness: true, presence: true
 
-  def create_uid
-    self.uid = SecureRandom.urlsafe_base64
-  end
 end
