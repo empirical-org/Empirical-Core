@@ -1,11 +1,11 @@
 class Topic < ActiveRecord::Base
+
   belongs_to :section
-  has_many :activities
+  has_many :activities, dependent: :destroy
 
   default_scope -> { order(:name) }
 
-  def section
-    return NilSection if super.nil?
-    super
-  end
+  validates :section, presence: true
+  validates :name, presence: true, uniqueness: true
+
 end
