@@ -2,7 +2,8 @@ FactoryGirl.define do
 
   factory :topic do
     sequence(:name) { |i| "topic #{i}" }
-    section
+
+    section { Section.first || FactoryGirl.create(:section) }
   end
 
 end
