@@ -19,7 +19,7 @@ describe ActivitySessionSerializer, type: :serializer do
 
       it "should have these keys" do
         expected = ["uid", "percentage", "time_spent", "state", "completed_at", "data", "temporary", 
-                    "activity_uid", "anonymous", "access_token"]
+                    "activity_uid", "anonymous"]
         expect(activity_session_json.keys).to eq(expected)
       end
 
