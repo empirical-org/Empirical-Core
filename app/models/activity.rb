@@ -39,7 +39,8 @@ class Activity < ActiveRecord::Base
       url = UriParams.add_param(url, 'anonymous', true)
     else
       url = UriParams.add_param(url, 'student', activity_session.uid) if uid.present?
-      url = UriParams.add_param(url, 'access_token', activity_session.access_token)
+      # FIXME: commented because the access_token implementation is incomplete
+      # url = UriParams.add_param(url, 'access_token', activity_session.access_token)
     end
 
     url

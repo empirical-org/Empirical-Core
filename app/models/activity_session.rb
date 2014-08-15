@@ -90,31 +90,8 @@ class ActivitySession < ActiveRecord::Base
     super
   end
 
-  # for compatibility...
-  def classification
-    activity.classification
-  end
-
-  def access_token
-    token_scope = Doorkeeper::OAuth::Scopes.from_string("")
-
-    access_token = Doorkeeper::AccessToken.matching_token_for(classification.oauth_application, user, token_scope)
-    access_token = generate_access_token if access_token.nil?
-
-    access_token.token
-  end
 
   private
-
-  def generate_access_token
-    opts = {
-      expires_in: Doorkeeper.configuration.access_token_expires_in,
-      application_id: classification.oauth_application.id,
-      resource_owner_id: user.id
-    }
-
-    Doorkeeper::AccessToken.create!(opts)
-  end
 
   def set_state
     self.state ||= 'unstarted'
