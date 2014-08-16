@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 16 Aug 2014 04:12:13 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '46'
+      X-Ratelimit-Reset:
+      - '1408162387'
+      Content-Length:
+      - '750'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":[{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"data":{"name":"#DEMO
+        Quill Sandbox District","mdr_number":"","id":"53ea7c626e727c2e0d000018"},"uri":"/v1.1/districts/53ea7c626e727c2e0d000018"},{"data":{"name":"#DEMO
+        Quill Sandbox Number Two","mdr_number":"","id":"53eb7c8730832a170d00adb6"},"uri":"/v1.1/districts/53eb7c8730832a170d00adb6"}],"range_paging":{"entries_remaining":3,"pages_remaining":1,"lowest":"535e91b05fc8cb160e001645","highest":"53eb7c8730832a170d00adb6"},"paging":{"current":1,"total":1,"count":3},"links":[{"rel":"self","uri":"/v1.1/districts"},{"rel":"next","uri":"/v1.1/districts?starting_after=53eb7c8730832a170d00adb6"}]}'
+    http_version: 
+  recorded_at: Sat, 16 Aug 2014 04:12:13 GMT
+recorded_with: VCR 2.9.2

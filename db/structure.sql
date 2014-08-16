@@ -207,8 +207,7 @@ CREATE TABLE activity_classifications (
     uid character varying(255) NOT NULL,
     module_url character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    oauth_application_id integer
+    updated_at timestamp without time zone
 );
 
 
@@ -519,7 +518,8 @@ CREATE TABLE classrooms (
     code character varying(255),
     teacher_id integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    clever_id character varying(255)
 );
 
 
@@ -1132,7 +1132,8 @@ CREATE TABLE schools (
     free_lunches integer,
     total_students integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    clever_id character varying(255)
 );
 
 
@@ -1313,7 +1314,9 @@ CREATE TABLE users (
     active boolean DEFAULT false,
     username character varying(255),
     token character varying(255),
-    ip_address inet
+    ip_address inet,
+    school_id integer,
+    clever_id character varying(255)
 );
 
 
@@ -1899,13 +1902,6 @@ CREATE UNIQUE INDEX index_activity_classifications_on_key ON activity_classifica
 
 
 --
--- Name: index_activity_classifications_on_oauth_application_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_activity_classifications_on_oauth_application_id ON activity_classifications USING btree (oauth_application_id);
-
-
---
 -- Name: index_activity_classifications_on_uid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2300,4 +2296,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140730142541');
 INSERT INTO schema_migrations (version) VALUES ('20140811132110');
 
 INSERT INTO schema_migrations (version) VALUES ('20140812222418');
+
+INSERT INTO schema_migrations (version) VALUES ('20140816031410');
 
