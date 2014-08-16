@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
                                     presence:     { if: :requires_password? }
   # validates :password_confirmation, presence:     { if: :requires_password_confirm? }
 
-  validates :email,                 uniqueness:   { case_sensitive: false, allow_blank: true },
+  validates :email,                 uniqueness:   { case_sensitive: false, allow_blank: true, if: :email_required? },
                                     presence:     { if: :email_required? }
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   SAFE_ROLES = %w(student teacher)
 
   default_scope -> { where('role != ?', 'temporary') }
+  scope :teacher, lambda { where(role: 'teacher') }
+  scope :student, lambda { where(role: 'student') }
 
   attr_accessor :newsletter
 
@@ -115,6 +117,7 @@ class User < ActiveRecord::Base
 private
   # validation filters
   def email_required?
+    return false if self.clever_id
     return false if role.temporary?
     return true if teacher?
 
@@ -122,7 +125,7 @@ private
   end
 
   def requires_password?
-    return false if self.token
+    return false if self.clever_id
     permanent? && new_record?
   end
 

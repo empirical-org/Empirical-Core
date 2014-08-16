@@ -75,6 +75,9 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 gem 'capistrano'
 gem 'sentry-raven'
 
+# INTEGRATIONS
+gem 'clever-ruby', github: 'Veraticus/clever-ruby'
+
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
@@ -101,6 +104,7 @@ group :test, :development do
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
   gem "vcr"
+  gem "webmock"
   gem "factory_girl"
   gem "factory_girl_rails"
   gem "database_cleaner"
