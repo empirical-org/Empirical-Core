@@ -103,8 +103,6 @@ group :test, :development do
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
-  gem "vcr"
-  gem "webmock"
   gem "factory_girl"
   gem "factory_girl_rails"
   gem "database_cleaner"
@@ -116,4 +114,9 @@ group :test, :development do
   gem 'guard-shell'
   gem 'guard-blink1'
   gem 'terminal-notifier-guard'
+end
+
+group :test do
+  gem "vcr"
+  gem "webmock"
 end

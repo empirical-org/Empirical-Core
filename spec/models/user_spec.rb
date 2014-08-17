@@ -131,6 +131,48 @@ describe User, :type => :model do
     end
   end
 
+  describe 'clever', :vcr do
+    describe 'student' do
+      let(:user) { FactoryGirl.build(:user, role: 'student', clever_id: '535ea6e816b90a4529c18feb') }
+
+      it 'finds its clever user for a' do
+        u = user.send(:clever_user)
+
+        expect(u.id).to eq('535ea6e816b90a4529c18feb')
+      end
+    end
+
+    describe 'teacher' do
+      let(:user) { FactoryGirl.build(:user, role: 'teacher', clever_id: '535ea6e416b90a4529c18fd3') }
+
+      it 'finds its clever user for a' do
+        u = user.send(:clever_user)
+
+        expect(u.id).to eq('535ea6e416b90a4529c18fd3')
+      end
+    end
+
+    describe 'setup from clever' do
+      it 'passes an auth hash for a user to be setup' do
+        @user = User.setup_from_clever({
+          info: {
+            email: 'foo@bar.wee',
+            id: '123',
+            user_type: 'student',
+            name: {first: 'Joshy', last: 'Washy'}
+          },
+          credentials: {
+            token: '123'
+          }
+        })
+
+        expect(@user.valid?).to be_truthy
+        expect(@user.id).to_not be_nil
+        expect(@user.email).to eq('foo@bar.wee')
+      end
+    end
+  end
+
   it 'does not care about all the validation stuff when the user is temporary'
   it 'disallows regular assignment of roles that are restricted'
 end
