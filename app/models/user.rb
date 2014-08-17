@@ -27,9 +27,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :newsletter
 
-  after_create :subscribe_to_newsletter
-  after_create :send_welcome_email
-
   def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
       sanitized_role
@@ -130,6 +127,24 @@ class User < ActiveRecord::Base
     clever_user.district
   end
 
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver! if email.present?
+  end
+
+  def subscribe_to_newsletter
+    return nil unless newsletter?
+
+    ## FIXME this class should just get replaced with the mailchimp-api gem
+    MailchimpConnection.connection.lists.subscribe('eadf6d8153', { email: email },
+                                                   merge_vars=nil,
+                                                   email_type='html',
+                                                   double_optin=false,
+                                                   update_existing=false,
+                                                   replace_interests=true,
+                                                   send_welcome=false
+                                                  )
+  end
+
 private
   # clever integration
   def clever_user
@@ -168,21 +183,4 @@ private
     newsletter.to_i == 1
   end
 
-  def send_welcome_email
-    UserMailer.welcome_email(self).deliver! if email.present?
-  end
-
-  def subscribe_to_newsletter
-    return nil unless newsletter?
-
-    ## FIXME this class should just get replaced with the mailchimp-api gem
-    MailchimpConnection.connection.lists.subscribe('eadf6d8153', { email: email },
-                                                   merge_vars=nil,
-                                                   email_type='html',
-                                                   double_optin=false,
-                                                   update_existing=false,
-                                                   replace_interests=true,
-                                                   send_welcome=false
-                                                  )
-  end
 end
