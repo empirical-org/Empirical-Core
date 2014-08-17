@@ -11,9 +11,6 @@
 db/*.sqlite3
 latest.dump
 
-# sensitive files
-config/database.yml
-
 # compilation
 public/assets
 

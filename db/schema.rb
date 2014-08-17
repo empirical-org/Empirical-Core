@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20140811132110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
-  enable_extension "pg_stat_statements"
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -77,15 +76,15 @@ ActiveRecord::Schema.define(version: 20140811132110) do
   create_table "assessments", force: true do |t|
     t.text     "body"
     t.integer  "chapter_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "instructions"
   end
 
   create_table "categories", force: true do |t|
     t.text     "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "chapter_levels", force: true do |t|
@@ -98,8 +97,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
 
   create_table "chapters", force: true do |t|
     t.string   "title"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "workbook_id"
     t.text     "article_header"
     t.text     "rule_position"
@@ -124,8 +123,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.string   "classcode"
     t.integer  "chapter_id"
     t.datetime "due_date"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "temporary",    default: false, null: false
     t.integer  "classroom_id"
   end
@@ -138,40 +137,27 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.datetime "updated_at"
   end
 
-  create_table "comments", force: true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.integer  "user_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "ancestry"
-    t.string   "reply_type"
-    t.integer  "lecture_chapter_id"
-  end
-
-  add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
-
   create_table "file_uploads", force: true do |t|
     t.string   "name"
     t.string   "file"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "grammar_rules", force: true do |t|
     t.string   "identifier"
     t.text     "description"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "practice_lesson"
     t.integer  "author_id"
   end
 
   create_table "grammar_tests", force: true do |t|
     t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "homepage_news_slides", force: true do |t|
@@ -227,8 +213,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.string   "name"
     t.string   "description"
     t.text     "content"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "queue_classic_jobs", force: true do |t|
@@ -262,8 +248,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
 
   create_table "rule_questions", force: true do |t|
     t.text     "body"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "rule_id"
     t.text     "prompt"
     t.text     "instructions"
@@ -272,8 +258,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
 
   create_table "rules", force: true do |t|
     t.text     "name"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "category_id"
     t.integer  "workbook_id",    default: 1
     t.text     "description"
@@ -283,16 +269,6 @@ ActiveRecord::Schema.define(version: 20140811132110) do
   end
 
   add_index "rules", ["uid"], name: "index_rules_on_uid", unique: true, using: :btree
-
-  create_table "rules_misseds", force: true do |t|
-    t.integer  "rule_id"
-    t.integer  "user_id"
-    t.integer  "assessment_id"
-    t.datetime "time_take"
-    t.boolean  "missed"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
 
   create_table "schools", force: true do |t|
     t.string   "nces_id"
@@ -344,8 +320,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.integer  "user_id"
     t.integer  "classroom_chapter_id"
     t.datetime "completion_date"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "missed_rules"
     t.string   "state",                default: "unstarted", null: false
     t.text     "story_step_input"
@@ -377,8 +353,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.string   "email"
     t.string   "password_digest"
     t.string   "role",            default: "user"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "classcode"
     t.boolean  "active",          default: false
     t.string   "username"
@@ -388,8 +364,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
 
   create_table "workbooks", force: true do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
