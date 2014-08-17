@@ -1,8 +1,7 @@
-# Welcome to Empirical Core!
+# Empirical Easy Install
 
-*All of our documentation lives within the [documentation repo](https://github.com/empirical-org/Documentation/tree/master/Compass).*
+*Here is a simplified verision of Empirical Core for fixing smaller bugs.*
 
-- **Getting Started:** [Start here with this doc.](https://github.com/empirical-org/Documentation/tree/master/Getting-Started) 
-- **Cofactor Empirical Core:** [Our project management HQ](http://www.empirical.org/cofactor/teams/compass)
-- **Mailing List:** [Compass developers mailing list.](https://groups.google.com/forum/#!forum/empirical-compass)
-- **Real Time Chat:** [Join us in the Compass Gitter room.](https://gitter.im/empirical-org/Compass)
+This branch contains the basics of setting up the application -- it comes with a database.yml file, which everyone will need in order for it the app to properly connect to the database. It contains a basic setup task that should create the database, give it the proper structure, and import some basic data into it. The rake task is called "setup" and can be invoked from the commandline with "bundle exec rake setup".
+
+Users will still need to clone the app, switch to the proper branch, download and install postgres, download and install the proper version of Ruby, and run bundle install in the app directory for the rake setup task to actually work. 
