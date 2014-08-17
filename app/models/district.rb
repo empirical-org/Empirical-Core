@@ -40,6 +40,7 @@ class District < ActiveRecord::Base
         teacher: User.teacher.where(clever_id: section.teacher).first,
         students: User.student.where(clever_id: section.students).all
       )
+      c.units.create_next
     end
   end
 

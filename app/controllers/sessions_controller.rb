@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
 
   def create_clever_district
     if @auth_hash[:info][:id] && @auth_hash[:credentials][:token]
-      District.setup_from_clever(auth_hash)
+      District.setup_from_clever(@auth_hash)
 
       # This request is initialized automatically by Clever, not a user.
       # So don't bother rendering anything.
@@ -56,7 +56,7 @@ class SessionsController < ApplicationController
 
   def create_clever_user
     if @auth_hash[:info][:id] && @auth_hash[:credentials][:token]
-      @user = User.setup_from_clever(auth_hash)
+      @user = User.setup_from_clever(@auth_hash)
       @user.update_attributes(ip_address: request.remote_ip)
       District.create_from_clever(@user.clever_district_id)
 
