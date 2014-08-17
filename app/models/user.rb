@@ -45,6 +45,19 @@ class User < ActiveRecord::Base
     user.try(:authenticate, params[:password])
   end
 
+  def self.setup_from_clever(auth_hash)
+    user = User.where(email: auth_hash[:info][:email]).first_or_initialize
+    user = User.new if user.email.nil?
+    user.update_attributes(
+      clever_id: auth_hash[:info][:id],
+      token: auth_hash[:credentials][:token],
+      role: auth_hash[:info][:user_type],
+      first_name: auth_hash[:info][:name][:first],
+      last_name: auth_hash[:info][:name][:last]
+    )
+
+    user
+  end
 
   # replace with authority, cancan or something
   def role
@@ -113,8 +126,17 @@ class User < ActiveRecord::Base
     generate_password
   end
 
+  def clever_district_id
+    clever_user.district
+  end
 
 private
+  # clever integration
+  def clever_user
+    klass = "Clever::#{self.role.capitalize}".constantize
+    @clever_user ||= klass.all.find {|u| u.id == self.clever_id}
+  end
+
   # validation filters
   def email_required?
     return false if self.clever_id

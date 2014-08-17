@@ -44,9 +44,7 @@ class SessionsController < ApplicationController
 
   def create_clever_district
     if @auth_hash[:info][:id] && @auth_hash[:credentials][:token]
-      @district = District.where(clever_id: @auth_hash[:info][:id]).first_or_initialize
-      @district.update_attributes(name: @auth_hash[:info][:name], token: @auth_hash[:credentials][:token])
-      @district.import_from_clever!
+      District.setup_from_clever(auth_hash)
 
       # This request is initialized automatically by Clever, not a user.
       # So don't bother rendering anything.
@@ -58,16 +56,9 @@ class SessionsController < ApplicationController
 
   def create_clever_user
     if @auth_hash[:info][:id] && @auth_hash[:credentials][:token]
-      @user = User.where(email: @auth_hash[:info][:email]).first_or_initialize
-      @user = User.new if @user.email.nil?
-      @user.update_attributes(
-        clever_id: @auth_hash[:info][:id],
-        token: @auth_hash[:credentials][:token],
-        role: @auth_hash[:info][:user_type],
-        ip_address: request.remote_ip,
-        first_name: @auth_hash[:info][:name][:first],
-        last_name: @auth_hash[:info][:name][:last]
-      )
+      @user = User.setup_from_clever(auth_hash)
+      @user.update_attributes(ip_address: request.remote_ip)
+      District.create_from_clever(@user.clever_district_id)
 
       sign_in @user
       redirect_to profile_path
