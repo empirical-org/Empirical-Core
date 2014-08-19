@@ -12,7 +12,7 @@ article.new-account-page.simple-rounded-box
       .form-school-select
         .field.string.school_select.control-group
           .controls.zipcode
-            = text_field_tag :zipcode, nil, placeholder: 'Zipcode'
+            = text_field_tag :zipcode, nil, placeholder: 'Zip Code'
           .controls.school_ids
             = f.hidden :school_ids
         .field.toggle.school_not_found.control-group
@@ -74,7 +74,7 @@ javascript:
     }
   });
 
-  $("#user_school_ids").attr("placeholder", "Enter your zipcode");
+  $("#user_school_ids").attr("placeholder", "Enter Your School's Zip Code");
   $("#user_school_ids").select2("val", "");
   $("#user_school_ids").select2("disable", true);
 
