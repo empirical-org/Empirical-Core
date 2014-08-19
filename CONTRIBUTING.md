@@ -1,9 +1,5 @@
 ### Contributing Guidelines
 
-First, <a href="https://www.clahub.com/agreements/empirical-org/Empirical-Core">sign the Contributor License Agreement</a>.
-
-Next:
-
 1.  Check our [Github issue queue](https://github.com/empirical-org/Compass/issues?state=open) for ideas on how to help.
 2.  Make sure your code follows [Ruby](https://github.com/styleguide/ruby) and project conventions.
 3.  Make sure you don't have any IDE / platform specific files committed. i.e.
