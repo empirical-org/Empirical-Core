@@ -51,7 +51,7 @@ class District < ActiveRecord::Base
   private
 
   def clever_district
-    @clever_district ||= Clever::District.all.find {|d| d.id == self.clever_id}
+    @clever_district ||= Clever::District.retrieve(self.clever_id)
   end
 
   def create_user_from_clever(clever_user, role)

@@ -149,7 +149,7 @@ private
   # clever integration
   def clever_user
     klass = "Clever::#{self.role.capitalize}".constantize
-    @clever_user ||= klass.all.find {|u| u.id == self.clever_id}
+    @clever_user ||= klass.retrieve(self.clever_id)
   end
 
   # validation filters
