@@ -116,3 +116,12 @@ table {
 .text-center {
   margin: auto;
 }
+
+.btn {
+  float: left;
+
+  &.destroy {
+    margin-left: 10px;
+  }
+}
+
