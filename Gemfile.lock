@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Veraticus/clever-ruby.git
-  revision: eaddeacca091652b76357898ad766b50dd32520a
+  revision: 5e272302d791fab8c867eb67bea924c36ec1a353
   specs:
     clever-ruby (0.3.1)
       multi_json (~> 1.10.0)
