@@ -6,4 +6,5 @@
   = f.string :classcode
   = f.password :password
   = f.password :password_confirmation
-  = f.actions save: 'Save'
+  = f.actions save: 'Save' do
+    = link_to 'Destroy', [:cms, @user], method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger destroy'
