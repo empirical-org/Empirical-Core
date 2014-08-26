@@ -241,7 +241,7 @@ describe User, :type => :model do
     describe "#unfinished_activities" do 
 
       it "must returns an empty list when there aren't available yet" do 
-        p @student.unfinished_activities(classroom)
+        expect(@student.unfinished_activities(classroom)).to be_empty
       end
 
       it "must return which are available" do 
@@ -252,7 +252,7 @@ describe User, :type => :model do
     describe "#finished_activities" do 
 
       it "must returns an empty list when there aren't available yet" do 
-        p @student.finished_activities(classroom)
+        expect(@student.finished_activities(classroom)).to be_empty
       end
 
       it "must return which are available" do 
@@ -261,7 +261,19 @@ describe User, :type => :model do
     end
 
     describe "#activity_sessions" do 
+      it "must returns an empty array when none is assigned" do 
+        expect(@student.activity_sessions).to be_empty
+      end
+      it "must return which are available" do 
+      end
+
       describe "#rel_for_activity" do 
+      end
+      describe "#for_activity" do 
+      end
+      describe "#completed_for_activity" do
+      end
+      describe "#for_classroom" do 
       end
     end
 
