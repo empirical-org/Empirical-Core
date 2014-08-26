@@ -31,11 +31,27 @@ describe Classroom, :type => :model do
   end
 
   describe "#classroom_activity_for" do
+    before do 
+      @activity=Activity.create!()
+    end
 
-  	it "returns an empty list none associated" do
-  		#classroom.classroom_activity_for activity
+  	it "returns nil when none associated" do
+  		expect(classroom.classroom_activity_for(@activity)).to be_nil
   	end
 
+    it "returns a classroom activity when it's associated" do
+    end
+
+  end
+
+  describe "#generate_code" do 
+    it "must not run before validate" do 
+      expect(classroom.code).to be_nil
+    end
+    it "must generate a code after validations" do 
+      classroom=Classroom.create!
+      expect(classroom.code).to_not be_nil
+    end
   end
 
 end
