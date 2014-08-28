@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_and_belongs_to_many :schools
+  delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
   validates :password,              confirmation: { if: :requires_password_confirmation? },
                                     presence:     { if: :requires_password? }
@@ -110,6 +111,13 @@ class User < ActiveRecord::Base
     generate_password
   end
 
+  def imported_from_clever?
+    self.token
+  end
+
+  def school
+    self.schools.first
+  end
 
 private
   # validation filters
