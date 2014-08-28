@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'io/console'
+
 
 describe User, :type => :model do
 
@@ -240,11 +242,8 @@ describe User, :type => :model do
 
     describe "#unfinished_activities" do 
 
-      let(:classroom) { Classroom.new(code: '101') }
       let!(:activity){ FactoryGirl.build(:activity) }  
-      let!(:student){ FactoryGirl.build(:student) }     
-      let!(:classroom_activity) { ClassroomActivity.create(activity_id: activity.id, classroom_id: student.classroom.id) }
-    
+      let!(:student){ FactoryGirl.build(:student) }
 
       before do
         @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
@@ -269,29 +268,94 @@ describe User, :type => :model do
 
     describe "#finished_activities" do 
 
+      #let!(:activity){ Activity.create! }  
+      #let!(:student){ FactoryGirl.build(:student) }
+      #let!(:classroom_activity) { ClassroomActivity.create(activity_id: activity.id, classroom_id: student.classroom.id) }
+
+
       it "must returns an empty list when there aren't available yet" do 
         expect(@student.finished_activities(classroom)).to be_empty
       end
 
-      it "must return which are available" do 
+      context "when returns the available elements" do
+
+        #before do
+        #  student.save!
+        #  student.activity_sessions.create!(classroom_activity_id: classroom_activity.id, activity_id: activity.id, completed_at: Time.now)
+        #end
+        #it "must to return one" do 
+        #    expect(student.finished_activities student.classroom).to be_present
+        #end
+
       end
 
     end
 
     describe "#activity_sessions" do 
+      let!(:activity){ Activity.create! }  
+      let!(:student){ FactoryGirl.build(:student) }
+      let!(:classroom_activity) { ClassroomActivity.create(activity_id: activity.id, classroom_id: student.classroom.id) }
+
       it "must returns an empty array when none is assigned" do 
         expect(@student.activity_sessions).to be_empty
       end
-      it "must return which are available" do 
+
+      describe "return availables" do
+        before do
+          student.activity_sessions.build()
+        end
+        it "must return which are available" do 
+          expect(student.activity_sessions).to_not be_empty
+        end
       end
 
       describe "#rel_for_activity" do 
+
+        before do
+          student.save!
+          student.activity_sessions.create!(classroom_activity_id: classroom_activity.id, activity_id: activity.id)
+        end
+
+        it "must not be an empty list" do 
+          expect(student.activity_sessions.rel_for_activity(activity)).to_not be_empty
+        end
+
       end
       describe "#for_activity" do 
+
+        before do
+          student.save!
+          student.activity_sessions.create!(classroom_activity_id: classroom_activity.id, activity_id: activity.id)
+        end
+
+        it "must be present" do 
+          expect(student.activity_sessions.for_activity(activity)).to be_present
+        end
+
       end
-      describe "#completed_for_activity" do
+
+      describe "#completed_for_activity" do 
+
+        before do
+          student.save!
+          student.activity_sessions.create!(classroom_activity_id: classroom_activity.id, activity_id: activity.id, completed_at: Time.now)
+        end
+
+        it "must be present" do 
+          expect(student.activity_sessions.completed_for_activity(activity)).to be_present
+        end
+
       end
       describe "#for_classroom" do 
+        before do
+          student.save!
+          student.activity_sessions.create!(classroom_activity_id: classroom_activity.id, activity_id: activity.id, completed_at: Time.now)
+        end
+
+        it "must be present" do 
+          expect(student.activity_sessions.for_classroom(student.classroom)).to be_present
+        end
+
       end
     end
 
