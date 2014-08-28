@@ -240,11 +240,29 @@ describe User, :type => :model do
 
     describe "#unfinished_activities" do 
 
+      let(:classroom) { Classroom.new(code: '101') }
+      let!(:activity){ FactoryGirl.build(:activity) }  
+      let!(:student){ FactoryGirl.build(:student) }     
+      let!(:classroom_activity) { ClassroomActivity.create(activity_id: activity.id, classroom_id: student.classroom.id) }
+    
+
+      before do
+        @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
+        @student.generate_student
+
+      end
+
       it "must returns an empty list when there aren't available yet" do 
         expect(@student.unfinished_activities(classroom)).to be_empty
       end
 
-      it "must return which are available" do 
+      context "when there is one available" do 
+        before do 
+          student.classroom.activities<<activity
+        end
+        it "must return one item" do 
+          expect(student.unfinished_activities(student.classroom).count).to eq(1) 
+        end
       end
 
     end
