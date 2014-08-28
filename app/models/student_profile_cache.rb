@@ -14,7 +14,7 @@ module StudentProfileCache
 
   def invalidate students
     # return invalidate_sync(Array.wrap(students).map(&:id)) if Rails.env.test?
-    QC.enqueue('StudentProfileCache.invalidate_sync', Array.wrap(students).map(&:id))
+    # QC.enqueue('StudentProfileCache.invalidate_sync', Array.wrap(students).map(&:id))
   end
 
   extend self
