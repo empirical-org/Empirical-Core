@@ -19,19 +19,19 @@ describe Teacher, :type => :model do
 
   end
 
-  describe "#all" do
-    it "must returns an array of Users" do
+  describe ".all" do
+    it "must return an array of Users" do
       expect(Teacher.all).to be_an_instance_of(User::ActiveRecord_Relation)
     end
   end
 
-  describe "#first" do
-    it "must returns an instance of User" do
+  describe ".first" do
+    it "must return an instance of User" do
       expect(Teacher.first).to be_an_instance_of(User)
     end
   end
 
-  describe "#where" do
+  describe ".where" do
     before do
       teacher=User.create(username: 'test', email: "test@user.com",  password: '123456', password_confirmation: '123456')      
       teacher.safe_role_assignment "teacher"
@@ -48,7 +48,7 @@ describe Teacher, :type => :model do
 
   end
 
-  describe "#find" do
+  describe ".find" do
     before do
       @teacher=User.create(username: 'test', email: "test@user.com",  password: '123456', password_confirmation: '123456')      
       @teacher.safe_role_assignment "teacher"
@@ -65,8 +65,8 @@ describe Teacher, :type => :model do
 
   end
 
-  describe "#count" do
-    it "must returns an integer" do
+  describe ".count" do
+    it "must return an integer" do
       expect(Teacher.count).to be_an_instance_of(Fixnum)
     end
   end
