@@ -69,8 +69,6 @@ describe User, :type => :model do
 
   end
 
-
-
   describe "#safe_role_assignment" do
 
     let(:user) { FactoryGirl.build(:user) }
@@ -197,10 +195,6 @@ describe User, :type => :model do
 
   end
 
-
-
-
-
   context "when behaves as a student" do
 
     let(:classroom) { Classroom.new(code: '101') }
@@ -240,7 +234,7 @@ describe User, :type => :model do
 
     describe "#unfinished_activities" do 
 
-      it "must returns an empty list when there aren't available yet" do 
+      it "must return an empty list when there aren't available yet" do 
         expect(@student.unfinished_activities(classroom)).to be_empty
       end
 
