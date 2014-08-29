@@ -1,10 +1,8 @@
 require 'spec_helper'
 
-describe Teacher, :type => :model do
+shared_examples_for "teacher" do
 
-  #let(:teacher) { FactoryGirl.build(:classroom) }
-
-  context "when behaves as a teacher" do
+  let(:teacher) { FactoryGirl.build(:classroom) }
 
     context 'with an email' do
 
@@ -14,11 +12,8 @@ describe Teacher, :type => :model do
         expect(teacher).not_to be_valid
         expect(teacher.errors[:email]).not_to be_nil
       end
-
     end
-
-  end
-
+    
   describe ".all" do
     it "must return an array of Users" do
       expect(Teacher.all).to be_an_instance_of(User::ActiveRecord_Relation)
@@ -65,7 +60,7 @@ describe Teacher, :type => :model do
 
   end
 
-  describe ".count" do
+  describe "count" do
     it "must return an integer" do
       expect(Teacher.count).to be_an_instance_of(Fixnum)
     end
