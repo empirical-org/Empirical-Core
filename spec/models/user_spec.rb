@@ -245,7 +245,7 @@ describe User, :type => :model do
 
       end
 
-      it "must returns an empty list when there aren't any available yet" do 
+      it "must return an empty list when there aren't any available yet" do 
         expect(@student.unfinished_activities(classroom)).to be_empty
       end
 
@@ -277,9 +277,10 @@ describe User, :type => :model do
         #  student.save!
         #  student.activity_sessions.create!(classroom_activity_id: classroom_activity.id, activity_id: activity.id, completed_at: Time.now)
         #end
-        #it "must to return one" do 
-        #    expect(student.finished_activities student.classroom).to be_present
-        #end
+        it "must to return one" do 
+          skip "will implement activity tests first and implement this soon"
+          #expect(student.finished_activities student.classroom).to be_present
+        end
 
       end
 
