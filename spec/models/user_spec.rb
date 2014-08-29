@@ -44,7 +44,6 @@ describe User, :type => :model do
       it 'requires email for no username' do
         expect(user.errors[:email]).not_to be_nil
       end
-
     end
 
   end
@@ -197,17 +196,6 @@ describe User, :type => :model do
 
   end
 
-  context "when behaves like student" do
-    it_behaves_like "student"
-  end
-
-  context "when behaves like teacher" do
-    it_behaves_like "teacher"
-  end
-
-
-  
-
   describe "#generate_student" do
     let(:classroom) { Classroom.new(code: '101') }
 
@@ -244,6 +232,16 @@ describe User, :type => :model do
     end
   end
 
+  describe "can behave as either a student or teacher" do
+    context "when behaves like student" do
+      it_behaves_like "student"
+    end
+
+    context "when behaves like teacher" do
+      it_behaves_like "teacher"
+    end
+
+  end
 
   it 'does not care about all the validation stuff when the user is temporary'
 end
