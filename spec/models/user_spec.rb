@@ -393,5 +393,4 @@ describe User, :type => :model do
   end
 
   it 'does not care about all the validation stuff when the user is temporary'
-  it 'disallows regular assignment of roles that are restricted'
 end
