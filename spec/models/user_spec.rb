@@ -68,6 +68,34 @@ describe User, :type => :model do
   
   end
 
+  describe "#safe_role_assignment" do
+
+    let(:user) { FactoryGirl.build(:user) }
+
+    it "must assign 'userqui' role by default" do
+      expect(user.safe_role_assignment "admin").to eq("user")
+    end
+
+    it "must assign 'teacher' role even with spaces" do
+      expect(user.safe_role_assignment " teacher ").to eq("teacher")
+    end
+
+    it "must assign 'teacher' role when it's chosen" do
+      expect(user.safe_role_assignment "teacher").to eq("teacher")
+    end
+
+    it "must assign 'student' role when it's chosen" do
+      expect(user.safe_role_assignment "student").to eq("student")
+    end
+
+    it "must change the role to 'student' inside the instance" do
+      user.safe_role_assignment "student"
+      expect(user.role).to eq("student")
+    end    
+
+  end
+
+
   describe "#permanent?" do
 
     let(:user) { FactoryGirl.build(:user) }
@@ -95,10 +123,59 @@ describe User, :type => :model do
   end  
 
   describe "#requires_password?" do
+
+    let(:user) { FactoryGirl.build(:user) }
+    
+    it "returns true for all roles but temporary" do
+      user.safe_role_assignment "user"
+      expect(user.send(:requires_password?)).to eq(true)
+    end
+
+    it "returns false for temporary role" do
+      user.safe_role_assignment "temporary"
+      expect(user.send(:requires_password?)).to eq(false)
+    end
+
   end
 
   describe "#requires_password_confirmation?" do
+
+    it "required confirmation if require_password? is true and password present" do
+      user = FactoryGirl.build(:user,  password: "presentpassword")
+      user.safe_role_assignment "user"
+      expect(user.send(:requires_password_confirmation?)).to eq(true)
+    end
+
+    it "confirmation not required when password is not present" do
+      user = FactoryGirl.build(:user,  password: nil)
+      expect(user.send(:requires_password_confirmation?)).to eq(false)
+    end
+
+    it "confirmation not required when require_password? is false and password present" do
+      user = FactoryGirl.build(:user,  password: "presentpassword")
+      user.safe_role_assignment "temporary"
+      expect(user.send(:requires_password_confirmation?)).to eq(false)
+    end
+
   end
+
+  describe "#generate_password" do 
+    
+    let(:user) { FactoryGirl.build(:user, password: "currentpassword", last_name: "lastname") }
+
+    it "sets password confirmation to value of last_name" do
+      user.generate_password
+      expect(user.password_confirmation).to eq(user.last_name)
+    end
+
+    it "sets password to value of last_name" do
+      user.generate_password
+      expect(user.password).to eq(user.last_name)
+    end
+
+  end
+
+
 
 
  
@@ -128,16 +205,6 @@ describe User, :type => :model do
 
   end  
 
-  describe "#generate_password" do 
-    let(:user) { FactoryGirl.build(:user) }
-
-    it "must set a new password for the user" do
-      old=user.password
-      user.generate_password
-      expect(user).to_not eq(old)
-    end
-
-  end
 
   context "when is any kind of user" do
     let(:user) { FactoryGirl.build(:user) }
@@ -184,34 +251,6 @@ describe User, :type => :model do
     end
 
   end
-
-  describe "#safe_role_assignment" do
-
-    let(:user) { FactoryGirl.build(:user) }
-
-    it "must assign 'userqui' role by default" do
-      expect(user.safe_role_assignment "admin").to eq("user")
-    end
-
-    it "must assign 'teacher' role even with spaces" do
-      expect(user.safe_role_assignment " teacher ").to eq("teacher")
-    end
-
-    it "must assign 'teacher' role when it's chosen" do
-      expect(user.safe_role_assignment "teacher").to eq("teacher")
-    end
-
-    it "must assign 'student' role when it's chosen" do
-      expect(user.safe_role_assignment "student").to eq("student")
-    end
-
-    it "must change the role to 'student' inside the instance" do
-      user.safe_role_assignment "student"
-      expect(user.role).to eq("student")
-    end    
-
-  end
-
 
 
   describe "#student?" do
