@@ -176,9 +176,6 @@ describe User, :type => :model do
   end
 
 
-
-
- 
   describe "#password" do
 
     let(:user) { FactoryGirl.build(:user, password: nil, password_confirmation: nil) }
@@ -190,6 +187,7 @@ describe User, :type => :model do
       expect(user.errors[:password]).not_to be_nil
       
     end
+
   end
   
 
@@ -207,6 +205,7 @@ describe User, :type => :model do
 
 
   context "when is any kind of user" do
+
     let(:user) { FactoryGirl.build(:user) }
 
     it 'should be valid with valid attributes' do 
@@ -298,10 +297,10 @@ describe User, :type => :model do
       expect(admin.admin?).to eq(true)
     end    
 
-
   end  
 
   describe "#generate_student" do
+
     let(:classroom) { Classroom.new(code: '101') }
 
     subject do
@@ -323,9 +322,11 @@ describe User, :type => :model do
     it 'should authenticate with last name' do
       expect(subject.authenticate('Doe')).to be_truthy
     end
+
   end
 
   describe "can behave as either a student or teacher" do
+
     context "when behaves like student" do
       it_behaves_like "student"
     end
