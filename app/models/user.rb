@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   validates :terms_of_service,      acceptance:   { on: :create }
 
   ROLES      = %w(student teacher temporary user admin)
-  SAFE_ROLES = %w(student teacher)
+  SAFE_ROLES = %w(student teacher temporary)
 
   default_scope -> { where('role != ?', 'temporary') }
 
