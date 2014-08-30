@@ -170,7 +170,7 @@ describe User, :type => :model do
 
     it "sets password to value of last_name" do
       user.generate_password
-      expect(user.password).to eq(user.last_name)
+      expect(user.password_confirmation).to eq(user.last_name)
     end
 
   end
@@ -257,16 +257,13 @@ describe User, :type => :model do
 
     let(:user) { FactoryGirl.build(:user) }
 
-    before do 
-      user.safe_role_assignment "student"
-    end
-
     it "must be true for 'student' roles" do
+      user.safe_role_assignment "student"
       expect(user.student?).to eq(true)
     end    
 
-    it "must be false for another roles" do
-      user.safe_role_assignment "teacher"
+    it "must be false for other roles" do
+      user.safe_role_assignment "other"
       expect(user.student?).to eq(false)
     end    
 
@@ -276,16 +273,13 @@ describe User, :type => :model do
 
     let(:user) { FactoryGirl.build(:user) }
 
-    before do 
-      user.safe_role_assignment "teacher"
-    end
-
     it "must be true for 'teacher' roles" do
+      user.safe_role_assignment "teacher"
       expect(user.teacher?).to eq(true)
     end    
 
-    it "must be false for another roles" do
-      user.safe_role_assignment "admin"
+    it "must be false for other roles" do
+      user.safe_role_assignment "other"
       expect(user.teacher?).to eq(false)
     end    
 
