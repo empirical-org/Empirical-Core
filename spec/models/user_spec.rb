@@ -175,21 +175,22 @@ describe User, :type => :model do
 
   end
 
+  describe "#email_required?" do
 
-  describe "#password" do
-
-    let(:user) { FactoryGirl.build(:user, password: nil, password_confirmation: nil) }
-
-    it 'requires a password on create' do
-      expect(user).to_not be_valid
+    let(:user) { FactoryGirl.build(:user) }
+    
+    it "returns true for all roles but temporary" do
+      user.safe_role_assignment "user"
+      expect(user.send(:email_required?)).to eq(true)
     end
-    it "has an error on error list" do
-      expect(user.errors[:password]).not_to be_nil
-      
+
+    it "returns false for temporary role" do
+      user.safe_role_assignment "temporary"
+      expect(user.send(:email_required?)).to eq(false)
     end
 
   end
-  
+
 
   describe "#refresh_token!" do
 
@@ -203,28 +204,109 @@ describe User, :type => :model do
 
   end  
 
-
-  context "when is any kind of user" do
-
+  describe "validations:" do
+    
     let(:user) { FactoryGirl.build(:user) }
 
-    it 'should be valid with valid attributes' do 
+    it "is valid with valid attributes" do
       expect(user).to be_valid
     end
 
-    context "when email is present" do
-      before do
-        user.email = nil
-        user.username = nil
+    describe "password attibute" do
+      
+      context "when role requires password" do
+        it "is invalid without password" do
+          user = FactoryGirl.build(:user,  password: nil)
+          user.safe_role_assignment "student"
+          expect(user).to_not be_valid
+        end
+        
+        it "is valid with password" do
+          user = FactoryGirl.build(:user,  password: "somepassword", password_confirmation: "somepassword" )
+          user.safe_role_assignment "student"
+          expect(user).to be_valid
+        end
       end
 
-      it 'should be invalid without email or username' do
-        expect(user).not_to be_valid
+      context "when role does not require password" do
+        it "is valid without password" do
+          user = FactoryGirl.build(:user,  password: nil)
+          user.safe_role_assignment "temporary"
+          expect(user).to be_valid
+        end
+      end
+    end
+
+    describe "email attribute" do
+      it "is invalid when email is not unique" do 
+         FactoryGirl.create(:user,  email: "test@test.lan")
+         user = FactoryGirl.build(:user,  email: "test@test.lan")
+         expect(user).to_not be_valid
+      end
+      it "is valid when email is not unique" do 
+         user = FactoryGirl.build(:user,  email: "unique@test.lan")
+         expect(user).to be_valid
       end
 
-      it 'requires email for no username' do
-        expect(user.errors[:email]).not_to be_nil
+      context "when role requires email" do
+        it "is invalid without email" do
+          user.safe_role_assignment "student"
+          user.email = nil
+          expect(user).to_not be_valid
+        end
+
+        it "is valid with email" do
+          user.safe_role_assignment "student"
+          user.email = "email@test.lan"
+          expect(user).to be_valid
+        end
       end
+
+      context "when role does not require email" do
+        it "is valid without email" do
+          user.safe_role_assignment "temporary"
+          user.email = nil
+          expect(user).to be_valid
+        end 
+      end
+    end
+
+    describe "username attribute" do
+      context "role is permanent" do
+        it "is invalid without username and email" do
+          user.safe_role_assignment "student"
+          user.email = nil
+          user.username = nil
+          expect(user).to_not be_valid
+        end
+        it "is valid with username" do
+          user.safe_role_assignment "student"
+          user.email = nil
+          user.username = "testusername"
+          expect(user).to be_valid
+        end
+      end
+
+      context "not permanent role" do
+        it "is valid without username and email" do
+          user.safe_role_assignment "temporary"
+          user.email = nil
+          expect(user).to be_valid
+        end
+      end
+    end
+
+    describe "terms_of_service attribute" do
+        it "is valid if accepted" do
+          #maps true to "1" in db
+          user = FactoryGirl.build(:user,  terms_of_service: "1")
+          expect(user).to be_valid
+        end
+        it "is invalid if not accepted" do
+          #maps fase to "0" in db
+          user = FactoryGirl.build(:user,  terms_of_service: "0")
+          expect(user).to_not be_valid
+        end
     end
 
   end
