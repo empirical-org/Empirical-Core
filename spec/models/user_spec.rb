@@ -298,12 +298,12 @@ describe User, :type => :model do
 
     describe "terms_of_service attribute" do
         it "is valid if accepted" do
-          #maps true to "1" in db
+          #maps true to "1"
           user = FactoryGirl.build(:user,  terms_of_service: "1")
           expect(user).to be_valid
         end
         it "is invalid if not accepted" do
-          #maps fase to "0" in db
+          #maps false to "0"
           user = FactoryGirl.build(:user,  terms_of_service: "0")
           expect(user).to_not be_valid
         end
@@ -405,6 +405,21 @@ describe User, :type => :model do
       expect(subject.authenticate('Doe')).to be_truthy
     end
 
+  end
+
+  describe "#newsletter?" do
+
+    let(:user) { FactoryGirl.build(:user) }
+    
+    it 'returns true when newsletter set to 1' do
+      user.newsletter="1"
+      expect(user.send(:newsletter?)).to eq(true)
+    end
+    it 'returns true when newsletter set to anything other than 1' do
+      user.newsletter="anything"
+      expect(user.send(:newsletter?)).to eq(false)
+    end
+  
   end
 
   describe "can behave as either a student or teacher" do
