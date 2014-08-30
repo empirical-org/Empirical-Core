@@ -24,10 +24,125 @@ describe User, :type => :model do
 
   end
 
+  describe "#password?" do
+
+    it "returns false if password is not present" do
+      user = FactoryGirl.build(:user,  password: nil)
+      expect(user.send(:password?)).to be false
+    end
+
+    it "returns true if password is present" do
+      user = FactoryGirl.build(:user,  password: "something")
+      expect(user.send(:password?)).to be true
+    end
+  
+  end
+
+  describe "#role=" do
+
+    it "return role name" do
+      user = FactoryGirl.build(:user)
+      expect(user.role="newrole").to eq("newrole")
+    end
+
+  end
+
+  describe "#role" do
+
+    let(:user) { FactoryGirl.build(:user) }
+  
+    it "returns role as instance of ActiveSupport::StringInquirer" do
+      user.role='newrole'
+      expect(user.role).to be_a ActiveSupport::StringInquirer
+    end
+    
+    it "returns true for correct role" do
+      user.role='newrole'
+      expect(user.role.newrole?).to be true
+    end
+
+    it "returns false for incorrect role" do
+      user.role='newrole'
+      expect(user.role.invalidrole?).to be false
+    end
+  
+  end
+
+  describe "#permanent?" do
+
+    let(:user) { FactoryGirl.build(:user) }
+
+    it "must be true for user" do
+      user.safe_role_assignment "user"
+      expect(user.permanent?).to eq(true)
+    end    
+    
+    it "must be true for teacher" do
+      user.safe_role_assignment "teacher"
+      expect(user.permanent?).to eq(true)
+    end          
+    
+    it "must be true for student" do
+      user.safe_role_assignment "student"
+      expect(user.permanent?).to eq(true)
+    end 
+    
+    it "must be false for temporary" do
+      user.safe_role_assignment "temporary"
+      expect(user.permanent?).to eq(false)
+    end                  
+  
+  end  
+
+  describe "#requires_password?" do
+  end
+
+  describe "#requires_password_confirmation?" do
+  end
+
+
+ 
+  describe "#password" do
+
+    let(:user) { FactoryGirl.build(:user, password: nil, password_confirmation: nil) }
+
+    it 'requires a password on create' do
+      expect(user).to_not be_valid
+    end
+    it "has an error on error list" do
+      expect(user.errors[:password]).not_to be_nil
+      
+    end
+  end
+  
+
+  describe "#refresh_token!" do
+
+    let(:user) { FactoryGirl.build(:user) }
+
+    it "must change the token value" do
+      expect(user.token).to be_nil
+      expect(user.refresh_token!).to eq(true)
+      expect(user.token).to_not be_nil
+    end    
+
+  end  
+
+  describe "#generate_password" do 
+    let(:user) { FactoryGirl.build(:user) }
+
+    it "must set a new password for the user" do
+      old=user.password
+      user.generate_password
+      expect(user).to_not eq(old)
+    end
+
+  end
+
   context "when is any kind of user" do
     let(:user) { FactoryGirl.build(:user) }
 
-    it 'should be valid with valid info' do 
+    it 'should be valid with valid attributes' do 
       expect(user).to be_valid
     end
 
@@ -98,6 +213,7 @@ describe User, :type => :model do
   end
 
 
+
   describe "#student?" do
 
     let(:user) { FactoryGirl.build(:user) }
@@ -152,50 +268,6 @@ describe User, :type => :model do
 
   end  
 
-  describe "#permanent?" do
-
-    let(:user) { FactoryGirl.build(:user) }
-
-    context "when is true for all roles but temporary" do
-
-      it "must be true for user" do
-        expect(user.permanent?).to eq(true)
-      end    
-      it "must be true for teacher" do
-        expect(user.permanent?).to eq(true)
-      end          
-      it "must be true for student" do
-        expect(user.permanent?).to eq(true)
-      end                
-
-    end
-
-  end  
-  
-
-  describe "#refresh_token!" do
-
-    let(:user) { FactoryGirl.build(:user) }
-
-    it "must change the token value" do
-      expect(user.token).to be_nil
-      expect(user.refresh_token!).to eq(true)
-      expect(user.token).to_not be_nil
-    end    
-
-  end  
-
-  describe "#generate_password" do 
-    let(:user) { FactoryGirl.build(:user) }
-
-    it "must set a new password for the user" do
-      old=user.password
-      user.generate_password
-      expect(user).to_not eq(old)
-    end
-
-  end
-
   describe "#generate_student" do
     let(:classroom) { Classroom.new(code: '101') }
 
@@ -220,18 +292,6 @@ describe User, :type => :model do
     end
   end
 
-  describe "#password" do
-    let(:user) { FactoryGirl.build(:user, password: nil, password_confirmation: nil) }
-
-    it 'requires a password on create' do
-      expect(user).to_not be_valid
-    end
-    it "has an error on error list" do
-      expect(user.errors[:password]).not_to be_nil
-      
-    end
-  end
-
   describe "can behave as either a student or teacher" do
     context "when behaves like student" do
       it_behaves_like "student"
@@ -243,5 +303,4 @@ describe User, :type => :model do
 
   end
 
-  it 'does not care about all the validation stuff when the user is temporary'
 end
