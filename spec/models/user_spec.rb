@@ -175,6 +175,16 @@ describe User, :type => :model do
 
   end
 
+  describe "#generate_username" do 
+    
+    let(:user) { FactoryGirl.build(:user, first_name: "first", last_name: "last", classcode: "cc") }
+
+    it "generates last name, first name, and class code" do
+      expect(user.send(:generate_username)).to eq("first.last@cc")
+    end
+
+  end
+
   describe "#email_required?" do
 
     let(:user) { FactoryGirl.build(:user) }
@@ -420,6 +430,42 @@ describe User, :type => :model do
       expect(user.send(:newsletter?)).to eq(false)
     end
   
+  end
+
+  describe "#subscribe_to_newsletter" do
+
+    let(:user) { FactoryGirl.build(:user) }
+
+    it "returns nil when user newletter attribute is 0" do
+      user.newsletter="0"
+      expect(user.send(:subscribe_to_newsletter)).to eq(nil)
+    end
+
+    it "calls MailchimpConnection subscribe when newletter attribute is 1" do
+      user.newsletter="1"
+      expect(MailchimpConnection).to receive(:connection).at_least(:once).and_return(true) 
+      expect(MailchimpConnection.connection).to receive(:lists).at_least(:once).and_return([]) 
+      expect(MailchimpConnection.connection.lists).to receive(:subscribe).and_return(true) 
+      user.send(:subscribe_to_newsletter)
+    end
+
+  end
+
+  describe "#send_welcome_email" do
+
+    let(:user) { FactoryGirl.build(:user) }
+
+    it "sends welcome given email" do
+      user.email="present@exmaple.lan"
+      expect { user.send(:send_welcome_email) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+
+
+    it "does not send welcome without email" do
+      user.email=nil
+      expect { user.send(:send_welcome_email) }.to_not change { ActionMailer::Base.deliveries.count }
+    end
+
   end
 
   describe "can behave as either a student or teacher" do
