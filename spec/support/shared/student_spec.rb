@@ -3,7 +3,7 @@ require 'spec_helper'
 shared_examples_for "student" do
 
 
-  let(:classroom) { Classroom.new(code: '101') }
+  let(:classroom){ FactoryGirl.build(:classroom, code: '101') }
 
   before do
     @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
@@ -13,7 +13,7 @@ shared_examples_for "student" do
 
   context 'if username is not present' do
 
-    let!(:student) { FactoryGirl.build(:student, username: nil) }
+    let!(:student){ FactoryGirl.build(:student, username: nil) }
 
     it 'should be valid' do
       expect(student).to be_valid
@@ -64,7 +64,7 @@ shared_examples_for "student" do
   end
 
   describe "#activity_sessions" do 
-    let!(:activity){ Activity.create! }  
+    let!(:activity){ FactoryGirl.create(:activity) }  
     let!(:student){ FactoryGirl.build(:student) }
     let!(:classroom_activity) { ClassroomActivity.create(activity_id: activity.id, classroom_id: student.classroom.id) }
 
