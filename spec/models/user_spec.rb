@@ -253,6 +253,7 @@ describe User, :type => :model do
          user = FactoryGirl.build(:user,  email: "test@test.lan")
          expect(user).to_not be_valid
       end
+      
       it "is valid when email is not unique" do 
          user = FactoryGirl.build(:user,  email: "unique@test.lan")
          expect(user).to be_valid
@@ -289,6 +290,7 @@ describe User, :type => :model do
           user.username = nil
           expect(user).to_not be_valid
         end
+
         it "is valid with username" do
           user.safe_role_assignment "student"
           user.email = nil
@@ -307,11 +309,13 @@ describe User, :type => :model do
     end
 
     describe "terms_of_service attribute" do
+        
         it "is valid if accepted" do
           #maps true to "1"
           user = FactoryGirl.build(:user,  terms_of_service: "1")
           expect(user).to be_valid
         end
+
         it "is invalid if not accepted" do
           #maps false to "0"
           user = FactoryGirl.build(:user,  terms_of_service: "0")

@@ -2,6 +2,7 @@ require 'spec_helper'
 
 shared_examples_for "student" do
 
+
   let(:classroom) { Classroom.new(code: '101') }
 
   before do
@@ -58,32 +59,6 @@ shared_examples_for "student" do
       it "must return one item" do 
         expect(student.unfinished_activities(student.classroom).count).to eq(1) 
       end
-    end
-
-  end
-
-  describe "#finished_activities" do 
-
-    #let!(:activity){ Activity.create! }  
-    #let!(:student){ FactoryGirl.build(:student) }
-    #let!(:classroom_activity) { ClassroomActivity.create(activity_id: activity.id, classroom_id: student.classroom.id) }
-
-
-    it "must returns an empty list when there aren't available yet" do 
-      expect(@student.finished_activities(classroom)).to be_empty
-    end
-
-    context "when returns the available elements" do
-
-      #before do
-      #  student.save!
-      #  student.activity_sessions.create!(classroom_activity_id: classroom_activity.id, activity_id: activity.id, completed_at: Time.now)
-      #end
-      it "must to return one" do 
-        skip "will implement activity tests first and implement this soon"
-        #expect(student.finished_activities student.classroom).to be_present
-      end
-
     end
 
   end
