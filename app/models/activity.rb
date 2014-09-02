@@ -1,5 +1,6 @@
 class Activity < ActiveRecord::Base
   include Flags
+  include Uid
 
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :topic
@@ -9,8 +10,6 @@ class Activity < ActiveRecord::Base
 
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
-
-  before_create :create_uid
 
   scope :production, -> {
     where(<<-SQL, :production)
@@ -40,7 +39,8 @@ class Activity < ActiveRecord::Base
       url = UriParams.add_param(url, 'anonymous', true)
     else
       url = UriParams.add_param(url, 'student', activity_session.uid) if uid.present?
-      url = UriParams.add_param(url, 'access_token', activity_session.access_token)
+      # FIXME: commented because the access_token implementation is incomplete
+      # url = UriParams.add_param(url, 'access_token', activity_session.access_token)
     end
 
     url
@@ -57,9 +57,4 @@ class Activity < ActiveRecord::Base
     self.flags = [flag]
   end
 
-protected
-
-  def create_uid
-    self.uid = SecureRandom.urlsafe_base64
-  end
 end

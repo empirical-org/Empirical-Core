@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   include QuillAuthentication
   helper CMS::Helper
 
-  before_action :setup_visitor
+  # FIXME: disabled till it's clear what this does
+  # before_action :setup_visitor
 
   def admin!
     return if current_user.try(:admin?)
@@ -35,6 +36,7 @@ class ApplicationController < ActionController::Base
   def setup_visitor
     return true if signed_in?
 
-    sign_in(User.create_visitor)
+    # FIXME: ??
+    # sign_in(User.create_visitor)
   end
 end

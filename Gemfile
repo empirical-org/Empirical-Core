@@ -4,7 +4,6 @@ ruby '2.1.2'
 
 # CORE DEPS
 gem 'rails', '~> 4.1.4'
-gem 'puma'
 
 # DB/MODEL
 gem 'pg'
@@ -14,9 +13,9 @@ gem 'textacular'
 gem 'table_print'
 
 # USER AUTH, ETC
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 gem 'doorkeeper'
-gem 'cancancan', '~> 1.9'
+gem 'cancancan'
 
 # UPLOADS
 gem 'carrierwave'
@@ -39,8 +38,10 @@ gem 'iron_cache_rails'
 # JS/APP/UI
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem 'select2-rails'
 
 # API
+gem "active_model_serializers"
 gem 'jbuilder'
 
 # UI HELPERS
@@ -67,15 +68,16 @@ gem 'rack-cors',  require: 'rack/cors'
 
 # CMS (HONEY)
 gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
-gem 'honey-auth'#, path: '../honey-auth'
 
 # DEPLOYMENT
 gem 'capistrano'
-gem 'sentry-raven' # error tracking
+gem 'sentry-raven'
 
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
+  gem 'unicorn'
+  # JC: in dev, at least on my machine, this throws SSL errors
   gem 'mixpanel-ruby'
 end
 
@@ -87,6 +89,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'puma'
   gem "quiet_assets"
   gem "pry-rails"
   gem 'pry-rescue'
@@ -98,6 +101,7 @@ group :test, :development do
   gem "vcr"
   gem "factory_girl"
   gem "factory_girl_rails"
+  gem "forgery"
   gem "database_cleaner"
   gem 'byebug'
   gem 'guard'
@@ -107,5 +111,5 @@ group :test, :development do
   gem 'guard-shell'
   gem 'guard-blink1'
   gem 'terminal-notifier-guard'
+  gem 'simplecov'
 end
-

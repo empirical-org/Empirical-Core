@@ -21,11 +21,11 @@ article.simple-rounded-box.cms
       tr
         td= user.name
         td= user.email
-        td class="role-#{user.role}"= user.role
+        td class="role-#{user.role}"= user.role[0]
         td= user.classcode
         - if current_user.admin?
           td= link_to 'Edit', edit_cms_user_path(user)
-          td= link_to 'Destroy', [:cms, user], method: :delete,   confirm: 'Are you sure?'
+          td= link_to 'Details', cms_user_path(user)
           td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
 
   = paginate @users
