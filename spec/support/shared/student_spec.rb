@@ -66,7 +66,7 @@ shared_examples_for "student" do
   describe "#activity_sessions" do 
     let!(:activity){ FactoryGirl.create(:activity) }  
     let!(:student){ FactoryGirl.build(:student) }
-    let!(:classroom_activity) { ClassroomActivity.create(activity_id: activity.id, classroom_id: student.classroom.id) }
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity,activity_id: activity.id, classroom_id: student.classroom.id) }
 
     it "must returns an empty array when none is assigned" do 
       expect(@student.activity_sessions).to be_empty
