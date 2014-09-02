@@ -274,6 +274,8 @@ GEM
     parslet (1.6.1)
       blankslate (~> 2.0)
     pg (0.17.1)
+    polyamorous (1.1.0)
+      activerecord (>= 3.0)
     polyglot (0.3.5)
     pry (0.10.0)
       coderay (~> 1.1.0)
@@ -323,6 +325,12 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
+    ransack (1.3.0)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.1)
     rb-blink1 (0.0.7)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
@@ -406,8 +414,6 @@ GEM
       sinatra (~> 1.0.0)
     temple (0.6.8)
     terminal-notifier-guard (1.5.3)
-    textacular (3.2.0)
-      activerecord (>= 3.0, < 4.2)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
@@ -490,6 +496,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 4.1.4)
   rails_12factor
+  ransack
   redcarpet
   rspec-rails
   sass-rails!
@@ -499,7 +506,6 @@ DEPENDENCIES
   table_print
   taps
   terminal-notifier-guard
-  textacular
   therubyracer
   timecop
   turbolinks
