@@ -38,6 +38,8 @@ GEM
       activesupport (= 4.1.4)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     activemodel (4.1.4)
       activesupport (= 4.1.4)
       builder (~> 3.1)
@@ -64,7 +66,7 @@ GEM
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
     awesome_print (1.2.0)
-    aws-sdk (1.48.1)
+    aws-sdk (1.50.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     backbone-on-rails (1.1.1.0)
@@ -76,7 +78,7 @@ GEM
       ejs
       jquery-rails
       railties
-    bcrypt-ruby (3.0.1)
+    bcrypt (3.1.7)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -85,7 +87,7 @@ GEM
     blankslate (2.1.2.4)
     bootstrap-sass (2.1.1.0)
     builder (3.2.2)
-    byebug (3.1.2)
+    byebug (3.2.0)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
     cancancan (1.9.1)
@@ -122,7 +124,8 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
-    doorkeeper (1.3.1)
+    docile (1.1.5)
+    doorkeeper (1.4.0)
       railties (>= 3.1)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
@@ -134,7 +137,7 @@ GEM
     eco-source (1.1.0.rc.1)
     ejs (1.1.1)
     erubis (2.7.0)
-    excon (0.38.0)
+    excon (0.39.4)
     execjs (2.2.1)
     extlib (0.9.16)
     factory_girl (4.4.0)
@@ -154,7 +157,7 @@ GEM
       fog-softlayer
       ipaddress (~> 0.5)
       nokogiri (~> 1.5, >= 1.5.11)
-    fog-brightbox (0.1.1)
+    fog-brightbox (0.2.0)
       fog-core (~> 1.22)
       fog-json
       inflecto
@@ -167,16 +170,17 @@ GEM
       net-ssh (>= 2.1.3)
     fog-json (1.0.0)
       multi_json (~> 1.0)
-    fog-softlayer (0.3.10)
+    fog-softlayer (0.3.13)
       fog-core
       fog-json
     foreman (0.74.0)
       dotenv (~> 0.11.1)
       thor (~> 0.19.1)
+    forgery (0.6.0)
     formatador (0.2.5)
     fssm (0.2.10)
-    fuubar (2.0.0.rc1)
-      rspec (~> 3.0.rc1)
+    fuubar (2.0.0)
+      rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
     google-api-client (0.7.1)
       addressable (>= 2.3.2)
@@ -212,9 +216,6 @@ GEM
       railties (>= 4.0.1)
     hashie (3.2.0)
     hike (1.2.3)
-    honey-auth (0.2.0)
-      bcrypt-ruby (~> 3.0.0)
-      haml
     i18n (0.6.11)
     inflecto (0.0.2)
     interception (0.5)
@@ -239,6 +240,7 @@ GEM
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kgio (2.9.2)
     launchy (2.4.2)
       addressable (~> 2.3)
     letter_opener (1.2.0)
@@ -267,7 +269,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
     netrc (0.7.7)
-    newrelic_rpm (3.9.0.229)
+    newrelic_rpm (3.9.1.236)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     parslet (1.6.1)
@@ -320,6 +322,7 @@ GEM
       activesupport (= 4.1.4)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    raindrops (0.13.0)
     rake (10.3.2)
     rb-blink1 (0.0.7)
     rb-fsevent (0.9.4)
@@ -360,6 +363,8 @@ GEM
     rspec-support (3.0.3)
     ruby-progressbar (1.5.1)
     sass (3.2.19)
+    select2-rails (3.5.9)
+      thor (~> 0.14)
     sentry-raven (0.9.4)
       faraday (>= 0.7.6)
       hashie (>= 1.1.0)
@@ -370,6 +375,11 @@ GEM
       faraday (>= 0.9.0.rc5)
       jwt (>= 0.1.5)
       multi_json (>= 1.0.0)
+    simplecov (0.9.0)
+      docile (~> 1.1.0)
+      multi_json
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     sinatra (1.0)
       rack (>= 1.0)
     slim (2.0.3)
@@ -394,7 +404,7 @@ GEM
       colorize
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    table_print (1.5.2)
+    table_print (1.5.3)
     taps (0.3.24)
       rack (>= 1.0.1)
       rest-client (>= 1.4.0, < 1.7.0)
@@ -417,11 +427,15 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.2.2)
       coffee-rails
-    tzinfo (1.2.1)
+    tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unicorn (4.8.3)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     uuidtools (2.1.4)
     vcr (2.9.2)
 
@@ -429,16 +443,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   ancestry
   awesome_print
   aws-sdk
   backbone-on-rails
-  bcrypt-ruby
+  bcrypt
   better_errors
   binding_of_caller
   bootstrap-sass (~> 2.1.1.0)
   byebug
-  cancancan (~> 1.9)
+  cancancan
   capistrano
   carrierwave
   coffee-rails
@@ -450,6 +465,7 @@ DEPENDENCIES
   faraday_middleware
   fog
   foreman
+  forgery
   fuubar (~> 2.0.0.rc1)
   google-api-client
   guard
@@ -458,7 +474,6 @@ DEPENDENCIES
   guard-shell
   haml-rails
   haml_coffee_assets!
-  honey-auth
   honey-cms (= 0.4.7)!
   iron_cache_rails
   jbuilder
@@ -484,7 +499,9 @@ DEPENDENCIES
   redcarpet
   rspec-rails
   sass-rails!
+  select2-rails
   sentry-raven
+  simplecov
   slim-rails
   table_print
   taps
@@ -494,4 +511,5 @@ DEPENDENCIES
   timecop
   turbolinks
   uglifier
+  unicorn
   vcr

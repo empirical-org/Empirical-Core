@@ -8,7 +8,7 @@
   input[type="password"] {
     padding-top:    0px;
     padding-bottom: 0px;
-    width: 240px;
+    width: 340px;
     line-height: 40px;
     height: 40px;
   }
@@ -27,6 +27,23 @@
     @include bold;
   }
 
+  .form-school-select {
+    .zipcode {
+      width: 92px; float: left; clear: left;
+      #zipcode { width: 70px; text-align: center; }
+    }
+    .school_ids {
+      margin-left: 0; width: 400px; float: left; clear: right;
+      .controls {margin-left: 0;}
+      .select2-container .select2-choice {
+        height: 42px;
+        .select2-chosen {line-height: 42px;}
+        .select2-arrow b {position: absolute; top: 7px;}
+        abbr {top: 14px;}
+      }
+    }
+  }
+
   .form-explanation-text {
     position: absolute;
     bottom: 0;
@@ -35,6 +52,19 @@
     border: 1px solid #e3e3e3;
     padding: 20px;
     z-index: -1;
+  }
+
+  .form-gray-box {
+    margin: 20px 0 20px 180px;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 3px;
+    width: 600px;
+
+    .controls {margin-left: 0;}
+    .control-group:first-child {margin-top: 0;}
+    .control-group {margin-bottom: 0; margin-top: 8px;}
+    .field.toggle .help-inline {left: 24px;}
   }
 
   .field.toggle {

@@ -1,15 +1,17 @@
 class ActivitySession < ActiveRecord::Base
+
+  include Uid
+
   belongs_to :classroom_activity
   belongs_to :activity
   has_one :unit, through: :classroom_activity
 
   ownable :user
 
-  before_create :create_uid
   before_create :set_state
   before_save   :set_completed_at
 
-  default_scope -> { order('activity_sessions.id desc') }
+  default_scope -> { joins(:activity).order('activity_sessions.id desc') }
 
   scope :completed,  -> { where('completed_at is not null').order('completed_at desc') }
   scope :incomplete, -> { where('completed_at is null') }
@@ -88,24 +90,8 @@ class ActivitySession < ActiveRecord::Base
     super
   end
 
-  def access_token 
-    scope = Doorkeeper::OAuth::Scopes.from_string("")
 
-    unless access_token = Doorkeeper::AccessToken.matching_token_for(classification.oauth_application, user, scope)
-      access_token = Doorkeeper::AccessToken.create! \
-        application_id: classification.oauth_application.id, 
-        resource_owner_id: user.id, 
-        expires_in: Doorkeeper.configuration.access_token_expires_in
-    end
-
-    access_token.token
-  end
-
-protected
-
-  def create_uid
-    self.uid = SecureRandom.urlsafe_base64
-  end
+  private
 
   def set_state
     self.state ||= 'unstarted'

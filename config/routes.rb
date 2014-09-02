@@ -4,6 +4,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assignments
   resource :profile
   resources :password_reset
+  resources :schools, only: [:index], format: 'json'
   resources :activity_sessions, only: [:show]
 
   resources :activities, only: [:show] do
@@ -31,8 +32,8 @@ EmpiricalGrammar::Application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
-      resources :activities,              except: [:index, :new, :edit, :destroy]
-      resources :activity_sessions,       except: [:index, :new, :edit, :destroy]
+      resources :activities,              except: [:index, :new, :edit]
+      resources :activity_sessions,       except: [:index, :new, :edit]
 
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
@@ -50,8 +51,7 @@ EmpiricalGrammar::Application.routes.draw do
     # end
   end
 
-
-  HoneyAuth::Routes.new(self).draw
+  resource :session, :account
 
   CMS::Routes.new(self).draw do
     resources :categories
@@ -81,6 +81,4 @@ EmpiricalGrammar::Application.routes.draw do
   patch 'cheat'           => 'chapter/practice#cheat'
 
   root to: 'pages#home'
-
-
 end

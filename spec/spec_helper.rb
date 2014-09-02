@@ -1,4 +1,8 @@
 ENV["RAILS_ENV"] ||= 'test'
+
+require 'simplecov'
+SimpleCov.start
+
 require File.expand_path("../../config/environment", __FILE__)
 
 require 'rspec/rails'
@@ -12,6 +16,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 # shared contexts and groups to behave like
 Dir[Rails.root.join("spec/shared/**/*.rb")].each {|f| require f}
 
+# ensure the db is properly migrated
+ActiveRecord::Migration.maintain_test_schema!
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
@@ -20,9 +27,6 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
-
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -44,6 +48,9 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation #:transaction doesn't clean
     DatabaseCleaner.clean_with(:truncation)
+
+    # validate factories
+    FactoryGirl.lint
   end
 
   config.before(:each) do
@@ -62,7 +69,7 @@ RSpec.configure do |config|
 
   # some stuff that happens before all of the suite
   config.before(:suite) do
-    FactoryGirl.create(:topic) unless Topic.any?
+    # FactoryGirl.create(:topic) unless Topic.any?
     Rails.cache.clear
   end
 
@@ -70,6 +77,24 @@ RSpec.configure do |config|
   config.include SessionHelper
 
   config.include FactoryGirl::Syntax::Methods
+
+  # factory girl stats
+  config.before(:suite) do
+    @factory_girl_results = {}
+    ActiveSupport::Notifications.subscribe("factory_girl.run_factory") do |name, start, finish, id, payload|
+      factory_name = payload[:name]
+      strategy_name = payload[:strategy]
+      @factory_girl_results[factory_name] ||= {}
+      @factory_girl_results[factory_name][strategy_name] ||= 0
+      @factory_girl_results[factory_name][strategy_name] += 1
+    end
+  end
+
+  config.after(:suite) do
+    puts "\nFactory Girl Run Results.. [strategies per factory]:"
+    ap @factory_girl_results
+  end
+
 end
 
 if defined?(Coveralls)
