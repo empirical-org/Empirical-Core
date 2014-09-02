@@ -72,5 +72,13 @@ describe Activity, :type => :model do
 
   end
 
+  describe "can behave like a flagged model" do
+
+    context "when behaves like flagged" do
+      it_behaves_like "flagged"
+    end
+
+  end  
+
 
 end
