@@ -124,6 +124,7 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     doorkeeper (1.4.0)
       railties (>= 3.1)
     dotenv (0.11.1)
@@ -382,6 +383,11 @@ GEM
       faraday (>= 0.9.0.rc5)
       jwt (>= 0.1.5)
       multi_json (>= 1.0.0)
+    simplecov (0.9.0)
+      docile (~> 1.1.0)
+      multi_json
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     sinatra (1.0)
       rack (>= 1.0)
     slim (2.0.3)
@@ -502,6 +508,7 @@ DEPENDENCIES
   sass-rails!
   select2-rails
   sentry-raven
+  simplecov
   slim-rails
   table_print
   taps
