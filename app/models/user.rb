@@ -119,6 +119,10 @@ class User < ActiveRecord::Base
     self.schools.first
   end
 
+  ransacker :created_at_date, type: :date do |parent|
+    Arel::Nodes::SqlLiteral.new "date(items.created_at)"
+  end
+
 private
   # validation filters
   def email_required?
