@@ -91,9 +91,12 @@ end
 group :test, :development do
   gem 'puma'
   gem "quiet_assets"
-  gem "pry-rails"
-  gem 'pry-rescue'
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-remote'
   gem 'pry-stack_explorer'
+  gem 'pry-coolline'
+  gem 'pry-rescue'
   gem "awesome_print"
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
