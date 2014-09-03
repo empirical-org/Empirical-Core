@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903200511) do
+ActiveRecord::Schema.define(version: 20140903225323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,17 +36,15 @@ ActiveRecord::Schema.define(version: 20140903200511) do
 
   create_table "activity_classifications", force: true do |t|
     t.string   "name"
-    t.string   "key",                  null: false
+    t.string   "key",        null: false
     t.string   "form_url"
-    t.string   "uid",                  null: false
+    t.string   "uid",        null: false
     t.string   "module_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "oauth_application_id"
   end
 
   add_index "activity_classifications", ["key"], name: "index_activity_classifications_on_key", unique: true, using: :btree
-  add_index "activity_classifications", ["oauth_application_id"], name: "index_activity_classifications_on_oauth_application_id", using: :btree
   add_index "activity_classifications", ["uid"], name: "index_activity_classifications_on_uid", unique: true, using: :btree
 
   create_table "activity_sessions", force: true do |t|
@@ -273,6 +271,10 @@ ActiveRecord::Schema.define(version: 20140903200511) do
     t.datetime "updated_at"
     t.string   "activity_session_id"
   end
+
+  add_index "rule_question_inputs", ["activity_session_id"], name: "index_rule_question_inputs_on_activity_session_id", using: :btree
+  add_index "rule_question_inputs", ["rule_question_id"], name: "index_rule_question_inputs_on_rule_question_id", using: :btree
+  add_index "rule_question_inputs", ["step"], name: "index_rule_question_inputs_on_step", using: :btree
 
   create_table "rule_questions", force: true do |t|
     t.text     "body"
