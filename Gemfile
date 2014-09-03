@@ -9,8 +9,8 @@ gem 'rails', '~> 4.1.4'
 gem 'pg'
 gem 'ancestry'
 gem 'taps'
-gem 'textacular'
 gem 'table_print'
+gem 'ransack'
 
 # USER AUTH, ETC
 gem 'bcrypt'
