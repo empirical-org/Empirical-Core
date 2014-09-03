@@ -97,7 +97,7 @@ group :test, :development do
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
-  gem "awesome_print"
+  gem "awesome_print", github: 'imajes/awesome_print'
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
