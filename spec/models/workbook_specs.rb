@@ -14,7 +14,7 @@ describe Workbook, :type => :model do
 			it "title must be required" do
 				workbook.title=nil
 				workbook.valid?			
-				expect(workbook.errors[:title]).not_to be_empty
+				expect(workbook.errors[:title]).to include "can't be blank"
 			end
 		end
 		
