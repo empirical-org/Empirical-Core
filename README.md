@@ -17,7 +17,7 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 4. Switch to the `easy_install` branch with `git checkout easy_install`.
 5. Install bundler with `gem install bundler`
 6. Install the bundle with `bundle install`.
-7. Set up your database with `bundle exec rake setup`.
+7. Set up your database with `bundle exec rake db:setup`.
 8. Run the server with `bundle exec rails s`.
 
 Now open your browser and navigate to localhost:3000 and you should see Empirical-Core pull up properly! When you're done with the server, use Ctrl-C to break it and return to your commandline.
