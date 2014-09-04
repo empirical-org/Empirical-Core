@@ -24,7 +24,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def session_for user
-    activity_sessions.find_or_create_by!(user_id: user.id)
+    activity_sessions.find_or_create_by!(user_id: user.id, activity_id: activity.id)
   end
 
   def for_student? student
