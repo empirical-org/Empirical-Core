@@ -47,7 +47,7 @@ class PagesController < ApplicationController
     @body_class = 'auxiliary white-page formatted-text'
     @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
 		#@topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
-		@topics = @section.topics.map{|topic| [topic, topic.activities] }
+		@topics = @section.topics.map{|topic| [topic, topic.activities] }.select{ |group| group.second.any? }
   end
 
   private
