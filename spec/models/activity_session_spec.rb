@@ -26,9 +26,14 @@ describe ActivitySession, :type => :model do
 
 	end
 
-	context "when there is not any direct association to activity but there is one classroom" do 
-
+	context "when there is not any activity but there is a classroom activity" do 
+	    let!(:activity){ FactoryGirl.create(:activity) }  
+	    let!(:student){ FactoryGirl.create(:student) }   	
+	    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, classroom_id: student.classroom.id) }
+		let(:activity_session){   FactoryGirl.build(:activity_session, classroom_activity_id: classroom_activity.id)                     }
 		it "must return the classroom activity" do 
+			activity_session.activity_id=nil
+			expect(activity_session.activity).to eq activity_session.classroom_activity.activity
 		end
 
 	end
