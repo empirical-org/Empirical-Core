@@ -86,6 +86,7 @@ group :development do
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'foreman'
   gem "letter_opener"
+	gem 'meta_request' #for Rails console
 end
 
 group :test, :development do
@@ -112,7 +113,7 @@ group :test, :development do
   # test runs for james; this triggers
   # a blink1(m) device to show red/green
   gem 'guard-shell'
-  gem 'guard-blink1'
+  # gem 'guard-blink1'
   gem 'terminal-notifier-guard'
   gem 'simplecov'
 end

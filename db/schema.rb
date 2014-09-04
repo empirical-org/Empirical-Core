@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811132110) do
+ActiveRecord::Schema.define(version: 20140903225323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.string   "flags",                      default: [], null: false, array: true
   end
 
+  add_index "activities", ["activity_classification_id"], name: "index_activities_on_activity_classification_id", using: :btree
+  add_index "activities", ["topic_id"], name: "index_activities_on_topic_id", using: :btree
   add_index "activities", ["uid"], name: "index_activities_on_uid", unique: true, using: :btree
 
   create_table "activity_classifications", force: true do |t|
@@ -60,8 +62,12 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.datetime "updated_at"
   end
 
+  add_index "activity_sessions", ["activity_id"], name: "index_activity_sessions_on_activity_id", using: :btree
+  add_index "activity_sessions", ["classroom_activity_id"], name: "index_activity_sessions_on_classroom_activity_id", using: :btree
   add_index "activity_sessions", ["pairing_id"], name: "index_activity_sessions_on_pairing_id", using: :btree
+  add_index "activity_sessions", ["state"], name: "index_activity_sessions_on_state", using: :btree
   add_index "activity_sessions", ["uid"], name: "index_activity_sessions_on_uid", unique: true, using: :btree
+  add_index "activity_sessions", ["user_id"], name: "index_activity_sessions_on_user_id", using: :btree
 
   create_table "activity_time_entries", force: true do |t|
     t.integer  "activity_session_id"
@@ -119,6 +125,10 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.integer  "assigned_student_ids", array: true
   end
 
+  add_index "classroom_activities", ["activity_id"], name: "index_classroom_activities_on_activity_id", using: :btree
+  add_index "classroom_activities", ["classroom_id"], name: "index_classroom_activities_on_classroom_id", using: :btree
+  add_index "classroom_activities", ["unit_id"], name: "index_classroom_activities_on_unit_id", using: :btree
+
   create_table "classroom_chapters", force: true do |t|
     t.string   "classcode"
     t.integer  "chapter_id"
@@ -136,6 +146,8 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree
 
   create_table "file_uploads", force: true do |t|
     t.string   "name"
@@ -245,6 +257,10 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.datetime "updated_at"
     t.string   "activity_session_id"
   end
+
+  add_index "rule_question_inputs", ["activity_session_id"], name: "index_rule_question_inputs_on_activity_session_id", using: :btree
+  add_index "rule_question_inputs", ["rule_question_id"], name: "index_rule_question_inputs_on_rule_question_id", using: :btree
+  add_index "rule_question_inputs", ["step"], name: "index_rule_question_inputs_on_step", using: :btree
 
   create_table "rule_questions", force: true do |t|
     t.text     "body"
@@ -361,6 +377,12 @@ ActiveRecord::Schema.define(version: 20140811132110) do
     t.string   "token"
     t.inet     "ip_address"
   end
+
+  add_index "users", ["active"], name: "index_users_on_active", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["role"], name: "index_users_on_role", using: :btree
+  add_index "users", ["token"], name: "index_users_on_token", using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", using: :btree
 
   create_table "workbooks", force: true do |t|
     t.string   "title"
