@@ -42,4 +42,7 @@ EmpiricalGrammar::Application.configure do
   config.sass.line_numbers = true
   config.sass.debug_info = true
   config.action_mailer.default_url_options = { :host => 'quill.dev' }
+	
+	# for codio better_errors gem
+	BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
 end
