@@ -9,15 +9,22 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
   2. ```brew install rbenv ruby-build```
   3. ```echo 'eval "$(rbenv init -)"' >> ~/.bash_profile```
   4. Close and reopen your terminal.
+
 2. Download and install [postgres](http://www.postgresql.org/), the database engine Empirical Core uses. The easiest way to get started with this is to download [postgres.app](http://postgresapp.com/). If you're more comfortable with installing custom software, you can use [homebrew](http://brew.sh/) to download and install postgres instead:
   1. ```brew update```
   2. ```brew install postgres```
   3. Follow the instructions on the resulting info screen.
+
 3. Clone the Empirical Core project. Navigate to whatever directory you'd like Empirical Core to live in, and then use `git clone https://github.com/empirical-org/Empirical-Core.git`. From here on in, all the commands you have to type should be in the new Empirical Core directory you just downloaded, so you should probably `cd Empirical-Core`.
+
 4. Switch to the `easy_install` branch with `git checkout easy_install`.
+
 5. Install bundler with `gem install bundler`
+
 6. Install the bundle with `bundle install`.
+
 7. Set up your database with `bundle exec rake db:setup`.
+
 8. Run the server with `bundle exec rails s`.
 
 Now open your browser and navigate to localhost:3000 and you should see Empirical-Core pull up properly! When you're done with the server, use Ctrl-C to break it and return to your commandline.
