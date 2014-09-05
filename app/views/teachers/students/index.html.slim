@@ -9,7 +9,7 @@
       th Username
       th Edit Account
     tbody
-      - @classroom.students.each do |student|
+      - @classroom.students.sort_by{|student|student.first_name}.each do |student|
         tr
           td= student.first_name
           td= student.last_name

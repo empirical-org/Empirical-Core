@@ -13,4 +13,4 @@ article.lessons-page
 
     - @topics.each do |level, activities|
       h4 style="text-decoration: underline ; margin-top: 50px"= level.name
-      = render partial: 'teachers/classrooms/activity', collection: activities
+      = render partial: 'teachers/classrooms/activity', collection: activities.sort_by{|activity| activity.name}
