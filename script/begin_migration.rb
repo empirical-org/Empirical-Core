@@ -21,20 +21,20 @@ Doorkeeper::Application.destroy_all
 story_class = ActivityClassification.create!(
   name: 'Story',
   key: 'story',
-  module_url: 'http://quill-questions-module.herokuapp.com/stories/module',
-  form_url:   'http://quill-questions-module.herokuapp.com/stories/form'
+  module_url: 'http://grammar.quill.org/stories/module',
+  form_url:   'http://grammar.quill.org/stories/form'
 )
 
 practice_class = ActivityClassification.create!(
   name: 'Practice Questions',
   key: 'practice_question_set',
-  module_url: 'http://quill-questions-module.herokuapp.com/practice_questions/module',
-  form_url:   'http://quill-questions-module.herokuapp.com/practice_questions/form'
+  module_url: 'http://grammar.quill.org/practice_questions/module',
+  form_url:   'http://grammar.quill.org/practice_questions/form'
 )
 
 Doorkeeper::Application.create!(
   name:   'Quill Lessons Module',
   uid:    'quill-lessons',
   secret: 'quill-lessons-non-secret',
-  redirect_uri: 'http://quill-questions-module.herokuapp.com/oauth/callback'
+  redirect_uri: 'http://grammar.quill.org/oauth/callback'
 )
