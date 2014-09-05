@@ -1,11 +1,11 @@
 article.simple-rounded-box
-  h2.text-center 404!
+  h2.text-center.centered 404
 
-  .text-center
-    = image_tag('error/error.png')
-    br
-    span Whoopsie... The content that you requested could not be found.
-    br
-    span Sorry:( Want to
-    = link_to 'go back to our home page', root_path, class: 'nav'
-    span and try again?
+  .text-center.centered
+    h3. We cannot find this page on our servers.
+    div
+      | Please&nbsp;
+      = link_to('go back to the homepage', root_path, class: 'nav')
+      | &nbsp;and try your request again.
+
+    If you expected to find something here, please email us at hello@quill.org
