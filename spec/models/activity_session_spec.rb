@@ -233,5 +233,15 @@ describe ActivitySession, :type => :model do
 
   end
 
+  describe "can act as ownable" do
+
+    context "when it's an ownable model" do
+      
+      it_behaves_like "ownable"
+    end
+
+  end
+
+
 
 end
