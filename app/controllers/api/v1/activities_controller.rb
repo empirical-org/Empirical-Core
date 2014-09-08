@@ -56,7 +56,7 @@ class Api::V1::ActivitiesController < ApiController
   private
 
   def find_activity
-    @activity = Activity.find_by_uid(params[:id])
+    @activity = Activity.find_by_uid!(params[:id])
   end
 
   def activity_params

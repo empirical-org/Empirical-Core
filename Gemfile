@@ -4,6 +4,7 @@ ruby '2.1.2'
 
 # CORE DEPS
 gem 'rails', '~> 4.1.4'
+gem 'puma'
 
 # DB/MODEL
 gem 'pg'
@@ -76,7 +77,6 @@ gem 'sentry-raven'
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
-  gem 'unicorn'
   # JC: in dev, at least on my machine, this throws SSL errors
   gem 'mixpanel-ruby'
 end
@@ -89,7 +89,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'puma'
+  gem 'dotenv'
   gem "quiet_assets"
   gem 'pry'
   gem 'pry-rails'
@@ -114,5 +114,4 @@ group :test, :development do
   gem 'guard-shell'
   gem 'guard-blink1'
   gem 'terminal-notifier-guard'
-  gem 'simplecov'
 end
