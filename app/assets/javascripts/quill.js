@@ -67,7 +67,7 @@ window.Quill = function Quill (host, options) {
 
   // assign host.
   this.host = host;
-  if (!host) this.host = 'http://api.quill.org/';
+  if (!host) this.host = 'http://www.quill.org/api/v1/';
 
   // if the iframe is present, we assume we are on quill.org
   if ($('iframe#activity-iframe').length > 0) {
