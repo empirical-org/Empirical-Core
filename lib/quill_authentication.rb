@@ -10,16 +10,18 @@ module QuillAuthentication
   end
 
   def current_user
-    if session[:user_id]
-      return @current_user ||= User.find(session[:user_id])
-    else
-      authenticate_with_http_basic do |username, password|
-        return @current_user ||= User.find_by_token!(username) if username.present?
+    begin
+      if session[:user_id]
+        return @current_user ||= User.find(session[:user_id])
+      else
+        authenticate_with_http_basic do |username, password|
+          return @current_user ||= User.find_by_token!(username) if username.present?
+        end
       end
+    rescue ActiveRecord::RecordNotFound
+      sign_out
+      nil
     end
-  rescue ActiveRecord::RecordNotFound
-    sign_out
-    nil
   end
 
   def sign_in user
