@@ -1,5 +1,8 @@
 class Classroom < ActiveRecord::Base
+  GRADES = %w(3 4 5 6 7 8 9 10 11 12 University)
+
   validates_uniqueness_of :code
+  validates :grade, presence: true, inclusion: { in: Classroom::GRADES, message: "%{value} is not a valid grade" }
 
   has_many :units do
     def create_next
