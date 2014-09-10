@@ -13,7 +13,7 @@ jQuery.extend(Quill.prototype, {
       refreshevents: 'mousemove keydown click',
       interval: 1000,  // secs
       idle: 3000,  // secs
-      to: 'quill-api.org',
+      to: window.Quill.host,
       profiles: {
         'START': 'start',
         'PAUSE': 'pause',

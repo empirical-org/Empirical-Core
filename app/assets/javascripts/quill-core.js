@@ -162,7 +162,7 @@ jQuery.extend(Quill.prototype, {
     },
 
     savingActivity: function () {
-      $('.js-acivity-form form').submit();
+      $('.js-activity-form form').submit();
     }
   },
 
