@@ -42,7 +42,7 @@ describe User, :type => :model do
 
     it "return role name" do
       user = FactoryGirl.build(:user)
-      expect(user.role="newrole").to eq("newrole")
+      expect(user.role="newrole").to eq "newrole"
     end
 
   end
@@ -72,8 +72,8 @@ describe User, :type => :model do
 
     let(:user) { FactoryGirl.build(:user) }
 
-    it "must assign 'userqui' role by default" do
-      expect(user.safe_role_assignment "admin").to eq("user")
+    it "must assign 'user' role by default" do
+      expect(user.safe_role_assignment "nil").to eq("user")
     end
 
     it "must assign 'teacher' role even with spaces" do
@@ -90,7 +90,7 @@ describe User, :type => :model do
 
     it "must change the role to 'student' inside the instance" do
       user.safe_role_assignment "student"
-      expect(user.role).to eq("student")
+      expect(user.role).to be_student
     end    
 
   end
@@ -102,22 +102,22 @@ describe User, :type => :model do
 
     it "must be true for user" do
       user.safe_role_assignment "user"
-      expect(user.permanent?).to eq(true)
+      expect(user).to be_permanent
     end    
     
     it "must be true for teacher" do
       user.safe_role_assignment "teacher"
-      expect(user.permanent?).to eq(true)
+      expect(user).to be_permanent
     end          
     
     it "must be true for student" do
       user.safe_role_assignment "student"
-      expect(user.permanent?).to eq(true)
+      expect(user).to be_permanent
     end 
     
     it "must be false for temporary" do
       user.safe_role_assignment "temporary"
-      expect(user.permanent?).to eq(false)
+      expect(user).to_not be_permanent
     end                  
   
   end  
