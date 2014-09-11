@@ -66,6 +66,9 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :users do
+      collection do
+        match 'search' => 'users#search', via: [:get, :post], as: :search
+      end
       member do
         put :sign_in
       end
