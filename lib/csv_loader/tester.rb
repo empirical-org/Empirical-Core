@@ -15,8 +15,8 @@ INSERT INTO rules (id, name, created_at, updated_at, category_id, workbook_id, d
 <br>
 Proper nouns are names for people, places, and things, such as <b>John</b>, or <b>Japan</b>. All proper nouns are capitalized.
 <br>', 'Proper Nouns');
-INSERT INTO activity_classifications (id, name, key, form_url, uid, module_url, created_at, updated_at) VALUES (20, 'Practice Questions', 'practice_question_set', 'http://quill-questions-module.herokuapp.com/practice_questions/form', 'oe5tPizl2TZcGbdk5LaUZw', 'http://quill-questions-module.herokuapp.com/practice_questions/module', '2014-02-02 20:56:45.050657', '2014-03-06 18:09:52.254284');
-INSERT INTO activity_classifications (id, name, key, form_url, uid, module_url, created_at, updated_at) VALUES (19, 'Story', 'story', 'http://quill-questions-module.herokuapp.com/stories/form', 'I6QvT0BI9879I6KOqQ-yNg', 'http://quill-questions-module.herokuapp.com/stories/module', '2014-02-02 20:56:45.042541', '2014-03-06 18:09:56.694165');
+INSERT INTO activity_classifications (id, name, key, form_url, uid, module_url, created_at, updated_at) VALUES (20, 'Practice Questions', 'practice_question_set', 'http://grammar.quill.org/practice_questions/form', 'oe5tPizl2TZcGbdk5LaUZw', 'http://grammar.quill.org/practice_questions/module', '2014-02-02 20:56:45.050657', '2014-03-06 18:09:52.254284');
+INSERT INTO activity_classifications (id, name, key, form_url, uid, module_url, created_at, updated_at) VALUES (19, 'Story', 'story', 'http://grammar.quill.org/stories/form', 'I6QvT0BI9879I6KOqQ-yNg', 'http://grammar.quill.org/stories/module', '2014-02-02 20:56:45.042541', '2014-03-06 18:09:56.694165');
 SQL
 
 data = <<-CSV
