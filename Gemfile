@@ -9,8 +9,8 @@ gem 'rails', '~> 4.1.4'
 gem 'pg'
 gem 'ancestry'
 gem 'taps'
-gem 'textacular'
 gem 'table_print'
+gem 'ransack'
 
 # USER AUTH, ETC
 gem 'bcrypt'
@@ -96,15 +96,19 @@ end
 group :test, :development do
   gem 'puma'
   gem "quiet_assets"
-  gem "pry-rails"
-  gem 'pry-rescue'
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-remote'
   gem 'pry-stack_explorer'
-  gem "awesome_print"
+  gem 'pry-coolline'
+  gem 'pry-rescue'
+  gem "awesome_print", github: 'imajes/awesome_print'
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
   gem "factory_girl"
   gem "factory_girl_rails"
+  gem "forgery"
   gem "database_cleaner"
   gem 'byebug'
   gem 'guard'
@@ -114,6 +118,7 @@ group :test, :development do
   gem 'guard-shell'
   gem 'guard-blink1'
   gem 'terminal-notifier-guard'
+  gem 'simplecov'
 end
 
 group :test do

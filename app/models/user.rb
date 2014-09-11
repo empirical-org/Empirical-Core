@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
+  delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
   validates :password,              confirmation: { if: :requires_password_confirmation? },
                                     presence:     { if: :requires_password? }
@@ -19,7 +20,7 @@ class User < ActiveRecord::Base
   validates :terms_of_service,      acceptance:   { on: :create }
 
   ROLES      = %w(student teacher temporary user admin)
-  SAFE_ROLES = %w(student teacher)
+  SAFE_ROLES = %w(student teacher temporary)
 
   default_scope -> { where('role != ?', 'temporary') }
   scope :teacher, lambda { where(role: 'teacher') }
@@ -143,6 +144,18 @@ class User < ActiveRecord::Base
                                                    replace_interests=true,
                                                    send_welcome=false
                                                   )
+  end
+
+  def imported_from_clever?
+    self.token
+  end
+
+  def school
+    self.schools.first
+  end
+
+  ransacker :created_at_date, type: :date do |parent|
+    Arel::Nodes::SqlLiteral.new "date(items.created_at)"
   end
 
 private

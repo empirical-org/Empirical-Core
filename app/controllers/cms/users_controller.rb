@@ -3,19 +3,22 @@ class CMS::UsersController < ApplicationController
   before_filter :admin!
 
   def index
-    @users = if params[:ip].present?
-      User.where(ip_address: params[:ip])
-    elsif params[:q].present?
-      User.basic_search(params[:q])
-    else
-      User
-    end
+    @q = User.includes(:schools).search(params[:q])
 
-    @users = @users.order(:id).page(params[:page]).per(100)
+    @users = @q.result(distinct: true).page(params[:page]).per(100)
+  end
+
+  def search
+    index
+    render :index
   end
 
   def new
     @user = User.new
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   def create

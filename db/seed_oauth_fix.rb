@@ -1,5 +1,5 @@
 def subit rec, col
-  rec.update_column col, rec.send(col).sub('quill-questions-module.herokuapp.com', 'localhost:3002')
+  rec.update_column col, rec.send(col).sub('grammar.quill.org', 'localhost:3002')
   rec.update_column col, rec.send(col).sub('localdocker', 'localhost')
 end
 
