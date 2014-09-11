@@ -6,7 +6,7 @@ FactoryGirl.define do
     sequence(:key)  { |i| "activity_cls_#{i}" }
 
     module_url { "http://#{Forgery(:internet).domain_name}/activity_cls/module" }
-      form_url { "http://#{Forgery(:internet).domain_name}/activity_cls/form" }
+    form_url { "http://#{Forgery(:internet).domain_name}/activity_cls/form" }
 
   end
 
