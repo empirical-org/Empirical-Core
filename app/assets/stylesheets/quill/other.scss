@@ -116,3 +116,28 @@ table {
 .text-center {
   margin: auto;
 }
+
+form.box-full-form .btn {
+  float: left;
+
+  &.destroy {
+    margin-left: 10px;
+  }
+}
+
+form.searchable {
+  label {
+    float: left;
+    clear: left;
+    position: relative; width: 215px;
+    top: 5px; margin-right: 10px;
+  }
+
+  div {
+    label {width: 90px;}
+    select {float: left; width: 115px; margin-right: 10px;}
+  }
+
+  input {float: left; clear: right;}
+  input[type="submit"].btn {float: left; clear: both;}
+}
