@@ -54,6 +54,11 @@ class User < ActiveRecord::Base
       last_name: auth_hash[:info][:name][:last]
     )
 
+    District.create_from_clever(user.clever_district_id)
+
+    user.connect_to_classrooms! if user.student?
+    user.create_classrooms! if user.teacher?
+
     user
   end
 
@@ -158,8 +163,23 @@ class User < ActiveRecord::Base
     Arel::Nodes::SqlLiteral.new "date(items.created_at)"
   end
 
+  # Connect to any classrooms already created by a teacher
+  def connect_to_classrooms!
+    classrooms = Classroom.where(clever_id: clever_user.sections.collect(&:id)).all
+
+    classrooms.each { |c| c.students << self}
+  end
+
+  # Create all classrooms this teacher is connected to
+  def create_classrooms!
+    clever_user.sections.each do |section|
+      Classroom.setup_from_clever(section)
+    end
+  end
+
 private
-  # clever integration
+
+  # Clever integration
   def clever_user
     klass = "Clever::#{self.role.capitalize}".constantize
     @clever_user ||= klass.retrieve(self.clever_id)

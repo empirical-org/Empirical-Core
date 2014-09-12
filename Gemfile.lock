@@ -1,9 +1,10 @@
 GIT
   remote: git://github.com/Veraticus/clever-ruby.git
-  revision: 5e272302d791fab8c867eb67bea924c36ec1a353
+  revision: 8a2d42ba2d3b21a1e98acc138318d2953f98e45f
+  branch: extract_linked_resources
   specs:
     clever-ruby (0.3.1)
-      multi_json (~> 1.10.0)
+      multi_json (~> 1.7.0)
       rest-client (~> 1.6.7)
 
 GIT
@@ -278,7 +279,7 @@ GEM
     mini_portile (0.6.0)
     minitest (5.4.0)
     mixpanel-ruby (1.4.0)
-    multi_json (1.10.1)
+    multi_json (1.7.9)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
@@ -374,7 +375,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
-    rdoc (4.1.1)
+    rdoc (4.1.2)
       json (~> 1.4)
     redcarpet (3.1.2)
     ref (1.0.5)

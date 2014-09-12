@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/students/123
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - text/plain
+      Date:
+      - Fri, 12 Sep 2014 19:45:11 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Ratelimit-Reset:
+      - '1410551171'
+      Content-Length:
+      - '9'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: Not Found
+    http_version: 
+  recorded_at: Fri, 12 Sep 2014 19:45:11 GMT
+recorded_with: VCR 2.9.2
