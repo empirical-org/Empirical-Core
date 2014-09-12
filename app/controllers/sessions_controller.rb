@@ -40,6 +40,10 @@ class SessionsController < ApplicationController
     @district_id = params[:district_id]
   end
 
+  def failure
+    login_failure "You could not be logged in! Check to make sure your user is authorized and your username and password are correct."
+  end
+
   private
 
   def import_clever_schools
