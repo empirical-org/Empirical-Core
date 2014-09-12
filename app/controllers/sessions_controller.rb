@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     @auth_hash = request.env['omniauth.auth']
 
     if @auth_hash[:info][:user_type] == "district"
-      create_clever_district
+      import_clever_schools
     else
       create_clever_user
     end
@@ -42,12 +42,13 @@ class SessionsController < ApplicationController
 
   private
 
-  def create_clever_district
+  def import_clever_schools
     if @auth_hash[:info][:id] && @auth_hash[:credentials][:token]
+      # This request is initiated automatically by Clever, not a user.
+      # Import the schools and leave it at that.
       District.setup_from_clever(@auth_hash)
 
-      # This request is initialized automatically by Clever, not a user.
-      # So don't bother rendering anything.
+      # Don't bother rendering anything.
       render status: 200, nothing: true
     else
       render status: 500, nothing: true
@@ -56,9 +57,10 @@ class SessionsController < ApplicationController
 
   def create_clever_user
     if @auth_hash[:info][:id] && @auth_hash[:credentials][:token]
+      # If this is a teacher, import them and their classrooms, but not the classroom rosters.
+      # If this is a student, connect them to an existing teacher through a classroom.
       @user = User.setup_from_clever(@auth_hash)
       @user.update_attributes(ip_address: request.remote_ip)
-      District.create_from_clever(@user.clever_district_id)
 
       sign_in @user
       redirect_to profile_path

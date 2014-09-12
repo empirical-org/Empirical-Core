@@ -76,7 +76,7 @@ gem 'capistrano'
 gem 'sentry-raven'
 
 # INTEGRATIONS
-gem 'clever-ruby', github: 'Veraticus/clever-ruby'
+gem 'clever-ruby', github: 'Veraticus/clever-ruby', branch: 'extract_linked_resources'
 
 group :production, :staging do
   gem 'rails_12factor'

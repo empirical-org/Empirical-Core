@@ -5,7 +5,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def scorebook
     @unit = @classroom.units.find_by_id(params[:unit_id]) || @classroom.units.first
-    @topic = @unit.topics.find_by_id(params[:topic_id])  || @unit.topics.first
+    @topic = @unit.topics.find_by_id(params[:topic_id]) || @unit.topics.first
 
     @classroom_activities = if @topic.blank?
       []
@@ -17,7 +17,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     students = @classroom.students.to_a
 
 
-    if @unit.topics.any?
+    if @unit && @unit.topics.any?
       @score_table = {}
       students.map(&:name).each{|n| @score_table[n] = {}}
 

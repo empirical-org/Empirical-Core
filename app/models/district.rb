@@ -24,24 +24,6 @@ class District < ActiveRecord::Base
         clever_id: s.id
       )
     end
-
-    clever_district.teachers.each do |teacher|
-      create_user_from_clever(teacher, 'teacher')
-    end
-
-    clever_district.students.each do |student|
-      create_user_from_clever(student, 'student')
-    end
-
-    clever_district.sections.each do |section|
-      c = Classroom.where(clever_id: section.id).first_or_initialize
-      c.update_attributes(
-        name: section.name,
-        teacher: User.teacher.where(clever_id: section.teacher).first,
-        students: User.student.where(clever_id: section.students).all
-      )
-      c.units.create_next
-    end
   end
 
   def clever_district_name
@@ -52,21 +34,6 @@ class District < ActiveRecord::Base
 
   def clever_district
     @clever_district ||= Clever::District.retrieve(self.clever_id)
-  end
-
-  def create_user_from_clever(clever_user, role)
-    u = User.where(clever_id: clever_user.id).first_or_initialize
-    u.update_attributes(
-      clever_id: clever_user.id,
-      email: clever_user.email,
-      role: role,
-      first_name: clever_user.name[:first],
-      last_name: clever_user.name[:last]
-    )
-
-    s = School.where(clever_id: clever_user.school).first
-    return true unless s
-    s.users << u unless s.users.include?(u)
   end
 
 end
