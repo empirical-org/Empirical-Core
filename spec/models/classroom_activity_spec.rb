@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ClassroomActivity, :type => :model do
 
-  let!(:activity){ FactoryGirl.build(:activity) }  
+  let!(:activity){ FactoryGirl.create(:activity) }  
   let!(:student){ FactoryGirl.build(:student) }   	
   let!(:classroom_activity) { ClassroomActivity.create(activity_id: activity.id, classroom_id: student.classroom.id) }
 
@@ -57,15 +57,15 @@ describe ClassroomActivity, :type => :model do
 
   describe "session_for" do 
 
-  		let(:classroom) { Classroom.new(code: '101') }    	
+  		let(:classroom) { FactoryGirl.create(:classroom, code: '101') }    	
+  		let(:student){ classroom.students.create(first_name: 'John', last_name: 'Doe') }
 
     	before do
-	      @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
-	      @student.generate_student    		
-	      @student.save!
+	      student.generate_student    		
     	end
+
 	  	it "must starts a session for the given user" do 
-	  		expect(classroom_activity.session_for(@student)).to be_valid
+	  		expect(classroom_activity.session_for(student)).to be_valid
 	  	end
 	  	it "must raise an error when user's input is not valid" do 
 	  		expect{classroom_activity.session_for(0)}.to raise_error
