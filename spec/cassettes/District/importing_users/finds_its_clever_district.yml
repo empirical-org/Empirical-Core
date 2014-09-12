@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
     body:
       encoding: US-ASCII
       string: ''
@@ -27,7 +27,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 17 Aug 2014 02:43:57 GMT
+      - Thu, 11 Sep 2014 23:32:10 GMT
       Server:
       - nginx/1.4.7
       X-Powered-By:
@@ -37,18 +37,16 @@ http_interactions:
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '20'
+      - '43'
       X-Ratelimit-Reset:
-      - '1408243476'
+      - '1410478354'
       Content-Length:
-      - '598'
+      - '546'
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"data":[{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"data":{"name":"#DEMO
-        Quill Sandbox District","mdr_number":"","id":"53ea7c626e727c2e0d000018"},"uri":"/v1.1/districts/53ea7c626e727c2e0d000018"},{"data":{"name":"#DEMO
-        Quill Sandbox Number Two","mdr_number":"","id":"53eb7c8730832a170d00adb6"},"uri":"/v1.1/districts/53eb7c8730832a170d00adb6"}],"range_paging":{"entries_remaining":0,"pages_remaining":0},"paging":{"current":1,"total":1,"count":3},"links":[{"rel":"self","uri":"/v1.1/districts"}]}'
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
     http_version: 
-  recorded_at: Sun, 17 Aug 2014 02:43:57 GMT
+  recorded_at: Thu, 11 Sep 2014 23:32:13 GMT
 recorded_with: VCR 2.9.2
