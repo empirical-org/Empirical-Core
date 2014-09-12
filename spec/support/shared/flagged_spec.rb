@@ -1,9 +1,8 @@
 shared_examples_for "flagged" do
 
-
-    let(:flagged) do
-    	described_class.new
-    end
+  let(:flagged) do
+  	described_class.new
+  end
 
 	describe "#flag" do 
 		it "must act as a push" do 
