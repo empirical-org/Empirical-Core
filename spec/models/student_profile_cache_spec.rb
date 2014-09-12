@@ -27,7 +27,7 @@ describe StudentProfileCache, :type => :model do
 	describe "#invalidate" do 
 
 		it "must enqueue the job" do 
-			expect(StudentProfileCache.invalidate [student]). to be_nil
+			expect(StudentProfileCache.invalidate [student]).to eq [student]
 			#TODO: Review QC looking for the enqueued object
 		end
 

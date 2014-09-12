@@ -36,19 +36,24 @@ describe Activity, :type => :model do
   end
 
   describe "#module_url" do 
+    
     let!(:student){ FactoryGirl.build(:student) }    
+
     it "must add anonymouse param if arg is included" do 
       expect(activity.module_url( :anonymous ) ).to include "anonymous=true"
     end
+
     it "must add uid param of it's a valid student session" do 
       expect(activity).to be_valid
       expect(activity.module_url student.activity_sessions.build()).to include "uid="
       
     end
+
     it "must add student param of it's a valid student session" do 
       expect(activity).to be_valid
       expect(activity.module_url student.activity_sessions.build()).to include "student"
     end
+
   end
 
   describe "#flag" do 
