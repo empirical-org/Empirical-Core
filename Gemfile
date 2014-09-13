@@ -45,7 +45,6 @@ gem 'select2-rails'
 
 # API
 gem "active_model_serializers"
-gem 'jbuilder'
 
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'
@@ -61,7 +60,7 @@ gem 'haml-rails'
 gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
 
 # ASSET/UI
-gem 'therubyracer'
+gem 'therubyracer', require: false
 gem 'uglifier'
 gem 'kaminari'
 
