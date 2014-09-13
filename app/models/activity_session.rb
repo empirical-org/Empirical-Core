@@ -46,6 +46,11 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+  def data=(input)
+    self['data'] = {} if data.nil?
+    self.data.merge!(input.except("activity_session"))
+  end
+
   def activity_uid= uid
     self.activity_id = Activity.find_by_uid!(uid).id
   end
@@ -95,6 +100,7 @@ class ActivitySession < ActiveRecord::Base
 
   def set_state
     self.state ||= 'unstarted'
+    self.data ||= Hash.new
   end
 
   def set_completed_at
