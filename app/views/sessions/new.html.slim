@@ -8,5 +8,8 @@ article.new-session-page.simple-rounded-box
     = f.string :email, placeholder: 'Email or Username', label: 'Email or Username'
     = f.password :password, placeholder: 'Password', class: 'password'
     = f.actions save: 'Sign in' do
+      - if @district_id
+        = link_to image_tag('http://assets.clever.com/sign-in-with-clever/sign-in-with-clever-medium.png'), "https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: 'read:user', district_id: @district_id}.to_param }"
       br
       = link_to 'Forgot your password?', password_reset_index_path
+

@@ -4,13 +4,14 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_and_belongs_to_many :schools
+  has_and_belongs_to_many :districts
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
   validates :password,              confirmation: { if: :requires_password_confirmation? },
                                     presence:     { if: :requires_password? }
   # validates :password_confirmation, presence:     { if: :requires_password_confirm? }
 
-  validates :email,                 uniqueness:   { case_sensitive: false, allow_blank: true },
+  validates :email,                 uniqueness:   { case_sensitive: false, allow_blank: true, if: :email_required? },
                                     presence:     { if: :email_required? }
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
@@ -22,11 +23,10 @@ class User < ActiveRecord::Base
   SAFE_ROLES = %w(student teacher temporary)
 
   default_scope -> { where('role != ?', 'temporary') }
+  scope :teacher, lambda { where(role: 'teacher') }
+  scope :student, lambda { where(role: 'student') }
 
   attr_accessor :newsletter
-
-  after_create :subscribe_to_newsletter
-  after_create :send_welcome_email
 
   def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
@@ -43,6 +43,24 @@ class User < ActiveRecord::Base
     user.try(:authenticate, params[:password])
   end
 
+  def self.setup_from_clever(auth_hash)
+    user = User.where(email: auth_hash[:info][:email]).first_or_initialize
+    user = User.new if user.email.nil?
+    user.update_attributes(
+      clever_id: auth_hash[:info][:id],
+      token: auth_hash[:credentials][:token],
+      role: auth_hash[:info][:user_type],
+      first_name: auth_hash[:info][:name][:first],
+      last_name: auth_hash[:info][:name][:last]
+    )
+
+    District.create_from_clever(user.clever_district_id)
+
+    user.connect_to_classrooms! if user.student?
+    user.create_classrooms! if user.teacher?
+
+    user
+  end
 
   # replace with authority, cancan or something
   def role
@@ -111,6 +129,28 @@ class User < ActiveRecord::Base
     generate_password
   end
 
+  def clever_district_id
+    clever_user.district
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver! if email.present?
+  end
+
+  def subscribe_to_newsletter
+    return nil unless newsletter?
+
+    ## FIXME this class should just get replaced with the mailchimp-api gem
+    MailchimpConnection.connection.lists.subscribe('eadf6d8153', { email: email },
+                                                   merge_vars=nil,
+                                                   email_type='html',
+                                                   double_optin=false,
+                                                   update_existing=false,
+                                                   replace_interests=true,
+                                                   send_welcome=false
+                                                  )
+  end
+
   def imported_from_clever?
     self.token
   end
@@ -123,9 +163,31 @@ class User < ActiveRecord::Base
     Arel::Nodes::SqlLiteral.new "date(items.created_at)"
   end
 
+  # Connect to any classrooms already created by a teacher
+  def connect_to_classrooms!
+    classrooms = Classroom.where(clever_id: clever_user.sections.collect(&:id)).all
+
+    classrooms.each { |c| c.students << self}
+  end
+
+  # Create all classrooms this teacher is connected to
+  def create_classrooms!
+    clever_user.sections.each do |section|
+      Classroom.setup_from_clever(section)
+    end
+  end
+
 private
+
+  # Clever integration
+  def clever_user
+    klass = "Clever::#{self.role.capitalize}".constantize
+    @clever_user ||= klass.retrieve(self.clever_id)
+  end
+
   # validation filters
   def email_required?
+    return false if self.clever_id
     return false if role.temporary?
     return true if teacher?
 
@@ -133,6 +195,7 @@ private
   end
 
   def requires_password?
+    return false if self.clever_id
     permanent? && new_record?
   end
 
@@ -153,21 +216,4 @@ private
     newsletter.to_i == 1
   end
 
-  def send_welcome_email
-    UserMailer.welcome_email(self).deliver! if email.present?
-  end
-
-  def subscribe_to_newsletter
-    return nil unless newsletter?
-
-    ## FIXME this class should just get replaced with the mailchimp-api gem
-    MailchimpConnection.connection.lists.subscribe('eadf6d8153', { email: email },
-                                                   merge_vars=nil,
-                                                   email_type='html',
-                                                   double_optin=false,
-                                                   update_existing=false,
-                                                   replace_interests=true,
-                                                   send_welcome=false
-                                                  )
-  end
 end

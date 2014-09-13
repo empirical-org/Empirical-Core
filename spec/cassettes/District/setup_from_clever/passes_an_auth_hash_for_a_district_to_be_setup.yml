@@ -1,0 +1,657 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:11 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '42'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '546'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:14 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:11 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '41'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '546'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:14 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:11 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '40'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '546'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:14 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com//v1.1/districts/535e91b05fc8cb160e001645/schools
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:12 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '39'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '668'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":[{"data":{"created":"2014-04-28T19:07:12.067Z","district":"535e91b05fc8cb160e001645","last_modified":"2014-04-28T19:07:12.069Z","name":"Clever
+        the School","school_number":"1","sis_id":"1","id":"535ea6e0e17efb3e297374f2"},"uri":"/v1.1/schools/535ea6e0e17efb3e297374f2"},{"data":{"sis_id":"2","name":"Guest
+        Accounts","school_number":"2","district":"535e91b05fc8cb160e001645","last_modified":"2014-08-13T07:18:21.232Z","created":"2014-08-13T07:18:21.230Z","id":"53cda353713654171d21df6e"},"uri":"/v1.1/schools/53cda353713654171d21df6e"}],"paging":{"current":1,"total":1,"count":2},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:14 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:12 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '38'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '546'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:15 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:12 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '37'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '546'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:15 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com//v1.1/districts/535e91b05fc8cb160e001645/teachers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:13 GMT
+      Etag:
+      - '"-1001378670"'
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '36'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '2503'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":[{"data":{"created":"2014-04-28T19:07:16.441Z","district":"535e91b05fc8cb160e001645","email":"rafael.garcia@clever.com","last_modified":"2014-04-28T19:07:16.444Z","name":{"first":"Rafael","last":"Garcia"},"school":"535ea6e0e17efb3e297374f2","sis_id":"0","id":"535ea6e416b90a4529c18fd3"},"uri":"/v1.1/teachers/535ea6e416b90a4529c18fd3"},{"data":{"created":"2014-04-28T19:07:16.445Z","district":"535e91b05fc8cb160e001645","email":"daniel.c.carroll@gmail.com","last_modified":"2014-08-22T03:47:40.134Z","name":{"first":"Dan","last":"Carroll"},"school":"535ea6e0e17efb3e297374f2","sis_id":"1","id":"535ea6e416b90a4529c18fd4"},"uri":"/v1.1/teachers/535ea6e416b90a4529c18fd4"},{"data":{"created":"2014-04-28T19:07:16.448Z","district":"535e91b05fc8cb160e001645","email":"tyler.bosmeny@clever.com","last_modified":"2014-04-28T19:07:16.449Z","name":{"first":"Tyler","last":"Bosmeny"},"school":"535ea6e0e17efb3e297374f2","sis_id":"2","id":"535ea6e416b90a4529c18fd5"},"uri":"/v1.1/teachers/535ea6e416b90a4529c18fd5"},{"data":{"created":"2014-05-16T17:19:52.006Z","district":"535e91b05fc8cb160e001645","email":"colin.schimmelfing@clever.com","last_modified":"2014-05-16T17:19:52.008Z","name":{"first":"Colin","last":"Schimmelfing3"},"school":"535ea6e0e17efb3e297374f2","sis_id":"3","id":"537648b82e969cd326085b7f"},"uri":"/v1.1/teachers/537648b82e969cd326085b7f"},{"data":{"created":"2014-05-16T17:19:52.010Z","district":"535e91b05fc8cb160e001645","email":"colin.schimmelfing@clever.com","last_modified":"2014-05-16T17:19:52.012Z","name":{"first":"Colin","last":"Schimmelfing4"},"school":"535ea6e0e17efb3e297374f2","sis_id":"4","id":"537648b82e969cd326085b80"},"uri":"/v1.1/teachers/537648b82e969cd326085b80"},{"data":{"created":"2014-08-22T03:47:40.149Z","district":"535e91b05fc8cb160e001645","email":"wlaufer720@gmail.com","last_modified":"2014-08-22T03:47:40.150Z","name":{"first":"Mr
+        William","last":"TLaufer"},"school":"535ea6e0e17efb3e297374f2","sis_id":"5","id":"53f6bd5caabdf9891e2f907c"},"uri":"/v1.1/teachers/53f6bd5caabdf9891e2f907c"},{"data":{"created":"2014-09-03T06:15:49.201Z","district":"535e91b05fc8cb160e001645","email":"cortney.thorley@gmail.com","last_modified":"2014-09-03T06:15:49.202Z","name":{"first":"Ms.","last":"Thorley"},"school":"535ea6e0e17efb3e297374f2","sis_id":"6","id":"5406b2157e5a8f6025412dc9"},"uri":"/v1.1/teachers/5406b2157e5a8f6025412dc9"}],"paging":{"current":1,"total":1,"count":7},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:15 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:13 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '35'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '546'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:16 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:13 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '34'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '546'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:16 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com//v1.1/districts/535e91b05fc8cb160e001645/students
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:49 GMT
+      Etag:
+      - '"495706468"'
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '33'
+      X-Ratelimit-Reset:
+      - '1410478354'
+      Content-Length:
+      - '15416'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":[{"data":{"created":"2014-04-28T19:07:20.692Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"jeff.nelson@clever.com","grade":"Kindergarten","last_modified":"2014-09-03T06:15:53.828Z","name":{"first":"Jeff","last":"Nelson"},"school":"535ea6e0e17efb3e297374f2","sis_id":"10","student_number":"10","id":"535ea6e816b90a4529c18feb"},"uri":"/v1.1/students/535ea6e816b90a4529c18feb"},{"data":{"created":"2014-04-28T19:07:20.697Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"aaron.sokol@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.833Z","name":{"first":"Aaron","last":"Sokol"},"school":"535ea6e0e17efb3e297374f2","sis_id":"11","student_number":"11","id":"535ea6e816b90a4529c18fec"},"uri":"/v1.1/students/535ea6e816b90a4529c18fec"},{"data":{"created":"2014-04-28T19:07:20.700Z","credentials":{"district_username":"nleiby","district_password":"password"},"district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"nathan.leiby@clever.com","gender":"M","google_apps":{"email":"nathan.leiby@clever.com"},"grade":"Kindergarten","last_modified":"2014-09-03T06:15:53.836Z","location":{"zip":"11218"},"name":{"first":"Nathan","last":"Leiby"},"school":"535ea6e0e17efb3e297374f2","sis_id":"12","state_id":"12","student_number":"12","id":"535ea6e816b90a4529c18fed"},"uri":"/v1.1/students/535ea6e816b90a4529c18fed"},{"data":{"created":"2014-04-28T19:07:20.708Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"carrie.abend@clever.com","grade":"1","last_modified":"2014-09-03T06:15:53.840Z","name":{"first":"Carrie","last":"Abend"},"school":"535ea6e0e17efb3e297374f2","sis_id":"14","student_number":"14","id":"535ea6e816b90a4529c18fef"},"uri":"/v1.1/students/535ea6e816b90a4529c18fef"},{"data":{"created":"2014-04-28T19:07:20.712Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"will.laufer@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.845Z","name":{"first":"Will","last":"Laufer"},"school":"535ea6e0e17efb3e297374f2","sis_id":"15","student_number":"15","id":"535ea6e816b90a4529c18ff0"},"uri":"/v1.1/students/535ea6e816b90a4529c18ff0"},{"data":{"created":"2014-04-28T19:07:20.716Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"nick.grandy@clever.com","grade":"1","last_modified":"2014-09-03T06:15:53.848Z","name":{"first":"Nick","last":"Grandy"},"school":"535ea6e0e17efb3e297374f2","sis_id":"16","student_number":"16","id":"535ea6e816b90a4529c18ff1"},"uri":"/v1.1/students/535ea6e816b90a4529c18ff1"},{"data":{"created":"2014-04-28T19:07:20.719Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"dan.mccarthy@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.852Z","name":{"first":"Dan","last":"McCarthy"},"school":"535ea6e0e17efb3e297374f2","sis_id":"17","student_number":"17","id":"535ea6e816b90a4529c18ff2"},"uri":"/v1.1/students/535ea6e816b90a4529c18ff2"},{"data":{"created":"2014-04-28T19:07:20.724Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"brandon.gordon@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.857Z","name":{"first":"Brandon","last":"Gordon"},"school":"535ea6e0e17efb3e297374f2","sis_id":"18","student_number":"18","id":"535ea6e816b90a4529c18ff3"},"uri":"/v1.1/students/535ea6e816b90a4529c18ff3"},{"data":{"created":"2014-04-28T19:07:20.727Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"eleanor.dorfman@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.861Z","name":{"first":"Eleanor","last":"Dorfman"},"school":"535ea6e0e17efb3e297374f2","sis_id":"19","student_number":"19","id":"535ea6e816b90a4529c18ff4"},"uri":"/v1.1/students/535ea6e816b90a4529c18ff4"},{"data":{"created":"2014-08-13T07:18:29.092Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"mohit.gupta@clever.com","grade":"Kindergarten","last_modified":"2014-09-03T06:15:53.863Z","name":{"first":"Mohit","last":"Gupta"},"school":"535ea6e0e17efb3e297374f2","sis_id":"2","student_number":"2","id":"535ea6e816b90a4529c18ff5"},"uri":"/v1.1/students/535ea6e816b90a4529c18ff5"},{"data":{"created":"2014-04-28T19:07:20.737Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"kevin.bechtel@clever.com","grade":"1","last_modified":"2014-09-03T06:15:53.878Z","name":{"first":"Kevin","last":"Bechtel"},"school":"535ea6e0e17efb3e297374f2","sis_id":"20","student_number":"20","id":"535ea6e816b90a4529c18ff6"},"uri":"/v1.1/students/535ea6e816b90a4529c18ff6"},{"data":{"created":"2014-04-28T19:07:20.740Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"erica.vonbuelow@clever.com","grade":"Kindergarten","last_modified":"2014-09-03T06:15:53.918Z","name":{"first":"Erica","last":"Von
+        Buelow"},"school":"535ea6e0e17efb3e297374f2","sis_id":"3","student_number":"3","id":"535ea6e816b90a4529c18ff7"},"uri":"/v1.1/students/535ea6e816b90a4529c18ff7"},{"data":{"created":"2014-04-28T19:07:20.745Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"matt.pasternack@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.971Z","name":{"first":"Matt","last":"Pasternack"},"school":"535ea6e0e17efb3e297374f2","sis_id":"5","student_number":"5","id":"535ea6e816b90a4529c18ff9"},"uri":"/v1.1/students/535ea6e816b90a4529c18ff9"},{"data":{"created":"2014-04-28T19:07:20.748Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"alex.zylman@clever.com","grade":"Kindergarten","last_modified":"2014-09-03T06:15:53.974Z","name":{"first":"Alex","last":"Zylman"},"school":"535ea6e0e17efb3e297374f2","sis_id":"6","student_number":"6","id":"535ea6e816b90a4529c18ffa"},"uri":"/v1.1/students/535ea6e816b90a4529c18ffa"},{"data":{"created":"2014-04-28T19:07:20.750Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"cosmo.wolfe@clever.com","grade":"Kindergarten","last_modified":"2014-09-03T06:15:53.978Z","location":{"zip":"11218"},"name":{"first":"Cosmo","last":"Wolfe"},"school":"535ea6e0e17efb3e297374f2","sis_id":"7","student_number":"7","id":"535ea6e816b90a4529c18ffb"},"uri":"/v1.1/students/535ea6e816b90a4529c18ffb"},{"data":{"created":"2014-04-28T19:07:20.752Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"jamila.amarshi@clever.com","grade":"1","last_modified":"2014-09-03T06:15:53.982Z","name":{"first":"Jamila","last":"Amarshi"},"school":"535ea6e0e17efb3e297374f2","sis_id":"8","student_number":"8","id":"535ea6e816b90a4529c18ffc"},"uri":"/v1.1/students/535ea6e816b90a4529c18ffc"},{"data":{"created":"2014-04-28T19:07:20.755Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"jonah.kagan@clever.com","grade":"Kindergarten","last_modified":"2014-09-03T06:15:53.985Z","name":{"first":"Jonah","last":"Kagan"},"school":"535ea6e0e17efb3e297374f2","sis_id":"9","student_number":"9","id":"535ea6e816b90a4529c18ffd"},"uri":"/v1.1/students/535ea6e816b90a4529c18ffd"},{"data":{"created":"2014-05-20T02:04:54.050Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"cortney.thorley@clever.com","grade":"1","last_modified":"2014-09-03T06:15:53.883Z","name":{"first":"Cortney","last":"Thorley"},"school":"535ea6e0e17efb3e297374f2","sis_id":"21","student_number":"21","id":"53763f5969dd03cd2629c7aa"},"uri":"/v1.1/students/53763f5969dd03cd2629c7aa"},{"data":{"created":"2014-08-13T07:18:29.102Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"annie@khanacademy.org","grade":"5","last_modified":"2014-09-03T06:15:53.887Z","name":{"first":"Annie","last":"Ding"},"school":"53cda353713654171d21df6e","sis_id":"22","student_number":"22","id":"53cda35a713654171d21dfa1"},"uri":"/v1.1/students/53cda35a713654171d21dfa1"},{"data":{"created":"2014-08-13T07:18:29.106Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"matt@khanacademy.org","grade":"5","last_modified":"2014-09-03T06:15:53.889Z","name":{"first":"Matt","last":"Wahl"},"school":"53cda353713654171d21df6e","sis_id":"23","student_number":"23","id":"53cda35a713654171d21dfa2"},"uri":"/v1.1/students/53cda35a713654171d21dfa2"},{"data":{"created":"2014-08-13T07:18:29.110Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"brianellin@gmail.com","grade":"5","last_modified":"2014-09-03T06:15:53.893Z","name":{"first":"Brian","last":"Ellin"},"school":"53cda353713654171d21df6e","sis_id":"24","student_number":"24","id":"53e9b46fe87f28ae1ea353c2"},"uri":"/v1.1/students/53e9b46fe87f28ae1ea353c2"},{"data":{"created":"2014-08-14T16:53:53.566Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"ryan.hartnett@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.897Z","name":{"first":"Ryan","last":"Hartnett"},"school":"535ea6e0e17efb3e297374f2","sis_id":"25","student_number":"25","id":"53ece9a190aa3e731f47d975"},"uri":"/v1.1/students/53ece9a190aa3e731f47d975"},{"data":{"created":"2014-08-14T16:53:53.571Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"maya.sussman@clever.com","grade":"3","last_modified":"2014-09-03T06:15:53.901Z","name":{"first":"Maya","last":"Sussman"},"school":"535ea6e0e17efb3e297374f2","sis_id":"26","student_number":"26","id":"53ece9a190aa3e731f47d976"},"uri":"/v1.1/students/53ece9a190aa3e731f47d976"},{"data":{"created":"2014-08-14T16:53:53.576Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"amelie.zeng@clever.com","grade":"4","last_modified":"2014-09-03T06:15:53.904Z","name":{"first":"Amelie","last":"Zeng"},"school":"535ea6e0e17efb3e297374f2","sis_id":"27","student_number":"27","id":"53ece9a190aa3e731f47d977"},"uri":"/v1.1/students/53ece9a190aa3e731f47d977"},{"data":{"created":"2014-08-14T16:53:53.580Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"tyler.bosmeny@clever.com","grade":"1","last_modified":"2014-09-03T06:15:53.908Z","name":{"first":"Tyler","last":"Bosemeny"},"school":"535ea6e0e17efb3e297374f2","sis_id":"28","student_number":"28","id":"53ece9a190aa3e731f47d978"},"uri":"/v1.1/students/53ece9a190aa3e731f47d978"},{"data":{"created":"2014-08-14T16:53:53.584Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"jonah.kagan@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.914Z","name":{"first":"Jonah","last":"Kagan"},"school":"535ea6e0e17efb3e297374f2","sis_id":"29","student_number":"29","id":"53ece9a190aa3e731f47d979"},"uri":"/v1.1/students/53ece9a190aa3e731f47d979"},{"data":{"created":"2014-08-14T16:53:53.589Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"cristin.quealy@clever.com","grade":"4","last_modified":"2014-09-03T06:15:53.922Z","name":{"first":"Cristin","last":"Quealy"},"school":"535ea6e0e17efb3e297374f2","sis_id":"30","student_number":"30","id":"53ece9a190aa3e731f47d97a"},"uri":"/v1.1/students/53ece9a190aa3e731f47d97a"},{"data":{"created":"2014-08-14T16:53:53.592Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"kevin.shen@clever.com","grade":"5","last_modified":"2014-09-03T06:15:53.926Z","name":{"first":"Kevin","last":"Shen"},"school":"535ea6e0e17efb3e297374f2","sis_id":"31","student_number":"31","id":"53ece9a190aa3e731f47d97b"},"uri":"/v1.1/students/53ece9a190aa3e731f47d97b"},{"data":{"created":"2014-08-14T16:53:53.596Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"rafael.garcia@clever.com","grade":"5","last_modified":"2014-09-03T06:15:53.931Z","name":{"first":"Raf","last":"Garcia"},"school":"53cda353713654171d21df6e","sis_id":"32","student_number":"32","id":"53ece9a190aa3e731f47d97c"},"uri":"/v1.1/students/53ece9a190aa3e731f47d97c"},{"data":{"created":"2014-08-14T16:53:53.601Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"colin.schimmelfing@clever.com","grade":"5","last_modified":"2014-09-03T06:15:53.935Z","name":{"first":"Colin","last":"Schimmelfing"},"school":"535ea6e0e17efb3e297374f2","sis_id":"33","student_number":"33","id":"53ece9a190aa3e731f47d97d"},"uri":"/v1.1/students/53ece9a190aa3e731f47d97d"},{"data":{"created":"2014-08-14T16:53:53.604Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"dan.carroll@clever.com","grade":"3","last_modified":"2014-09-03T06:15:53.938Z","name":{"first":"Dan","last":"Carroll"},"school":"535ea6e0e17efb3e297374f2","sis_id":"34","student_number":"34","id":"53ece9a190aa3e731f47d97e"},"uri":"/v1.1/students/53ece9a190aa3e731f47d97e"},{"data":{"created":"2014-08-14T16:53:53.608Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"katy.elkin@clever.com","grade":"3","last_modified":"2014-09-03T06:15:53.941Z","name":{"first":"Katy","last":"Elkin"},"school":"53cda353713654171d21df6e","sis_id":"35","student_number":"35","id":"53ece9a190aa3e731f47d97f"},"uri":"/v1.1/students/53ece9a190aa3e731f47d97f"},{"data":{"created":"2014-08-14T16:53:53.612Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"jacob.simon@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.946Z","name":{"first":"Jacob","last":"Simon"},"school":"535ea6e0e17efb3e297374f2","sis_id":"36","student_number":"36","id":"53ece9a190aa3e731f47d980"},"uri":"/v1.1/students/53ece9a190aa3e731f47d980"},{"data":{"created":"2014-08-14T16:53:53.616Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"kyle.vigen@clever.com","grade":"1","last_modified":"2014-09-03T06:15:53.949Z","name":{"first":"Kyle","last":"Vigen"},"school":"535ea6e0e17efb3e297374f2","sis_id":"37","student_number":"37","id":"53ece9a190aa3e731f47d981"},"uri":"/v1.1/students/53ece9a190aa3e731f47d981"},{"data":{"created":"2014-08-14T16:53:53.620Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"dan.sparks@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.952Z","name":{"first":"Dan","last":"Sparks"},"school":"535ea6e0e17efb3e297374f2","sis_id":"38","student_number":"38","id":"53ece9a190aa3e731f47d982"},"uri":"/v1.1/students/53ece9a190aa3e731f47d982"},{"data":{"created":"2014-08-14T16:53:53.623Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"omar.diab@clever.com","grade":"2","last_modified":"2014-09-03T06:15:53.956Z","name":{"first":"Omar","last":"Diab"},"school":"535ea6e0e17efb3e297374f2","sis_id":"39","student_number":"39","id":"53ece9a190aa3e731f47d983"},"uri":"/v1.1/students/53ece9a190aa3e731f47d983"},{"data":{"created":"2014-08-14T16:53:53.626Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"jian.cheung@clever.com","grade":"1","last_modified":"2014-09-03T06:15:53.958Z","name":{"first":"Jian","last":"Cheung"},"school":"535ea6e0e17efb3e297374f2","sis_id":"40","student_number":"40","id":"53ece9a190aa3e731f47d984"},"uri":"/v1.1/students/53ece9a190aa3e731f47d984"},{"data":{"created":"2014-08-20T17:26:43.130Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"stephanie.chen@clever.com","grade":"1","last_modified":"2014-09-03T06:15:53.964Z","name":{"first":"Stephanie","last":"Chen"},"school":"535ea6e0e17efb3e297374f2","sis_id":"41","student_number":"41","id":"53f4da533b76842529ae9f92"},"uri":"/v1.1/students/53f4da533b76842529ae9f92"},{"data":{"created":"2014-09-03T06:15:53.988Z","district":"535e91b05fc8cb160e001645","dob":"1/1/2000","email":"nfassler@gmail.com","grade":"5","last_modified":"2014-09-03T06:15:53.990Z","name":{"first":"Nick","last":"Fassler"},"school":"53cda353713654171d21df6e","sis_id":"42","student_number":"42","id":"5406b2199cbb0d1e25478cb9"},"uri":"/v1.1/students/5406b2199cbb0d1e25478cb9"}],"paging":{"current":1,"total":1,"count":39},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:52 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:50 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Ratelimit-Reset:
+      - '1410478430'
+      Content-Length:
+      - '546'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:53 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:50 GMT
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '58'
+      X-Ratelimit-Reset:
+      - '1410478430'
+      Content-Length:
+      - '546'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:53 GMT
+- request:
+    method: get
+    uri: https://4BC0B667F8DC7BFCEB8096EBBBAD1B8A:@api.clever.com//v1.1/districts/535e91b05fc8cb160e001645/sections
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 11 Sep 2014 23:32:51 GMT
+      Etag:
+      - '"-303876005"'
+      Server:
+      - nginx/1.4.7
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - basic
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '57'
+      X-Ratelimit-Reset:
+      - '1410478430'
+      Content-Length:
+      - '3549'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":[{"data":{"created":"2014-04-28T19:07:28.802Z","district":"535e91b05fc8cb160e001645","last_modified":"2014-08-20T17:26:48.758Z","name":"Development
+        101","period":"1","school":"535ea6e0e17efb3e297374f2","sis_id":"0","students":["535ea6e816b90a4529c18feb","535ea6e816b90a4529c18fed","535ea6e816b90a4529c18ff5","535ea6e816b90a4529c18ff7","535ea6e816b90a4529c18ffa","535ea6e816b90a4529c18ffb","535ea6e816b90a4529c18ffd","53763f5969dd03cd2629c7aa","53ece9a190aa3e731f47d979","53ece9a190aa3e731f47d97b","53ece9a190aa3e731f47d97c","53ece9a190aa3e731f47d97d","53ece9a190aa3e731f47d980","53ece9a190aa3e731f47d981","53ece9a190aa3e731f47d982","53ece9a190aa3e731f47d983","53ece9a190aa3e731f47d984","53f4da533b76842529ae9f92"],"subject":"other","teacher":"535ea6e416b90a4529c18fd3","id":"535ea6f0534932122b998b22"},"uri":"/v1.1/sections/535ea6f0534932122b998b22"},{"data":{"created":"2014-04-28T19:07:28.806Z","district":"535e91b05fc8cb160e001645","last_modified":"2014-08-14T16:53:59.572Z","name":"Operations
+        101","period":"2","school":"535ea6e0e17efb3e297374f2","sis_id":"1","students":["535ea6e816b90a4529c18fef","535ea6e816b90a4529c18ff1","535ea6e816b90a4529c18ff6","535ea6e816b90a4529c18ffc","53763f5969dd03cd2629c7aa","53ece9a190aa3e731f47d976","53ece9a190aa3e731f47d977","53ece9a190aa3e731f47d97a","53ece9a190aa3e731f47d97e"],"subject":"other","teacher":"535ea6e416b90a4529c18fd4","id":"535ea6f0534932122b998b23"},"uri":"/v1.1/sections/535ea6f0534932122b998b23"},{"data":{"created":"2014-04-28T19:07:28.809Z","district":"535e91b05fc8cb160e001645","last_modified":"2014-08-14T16:53:59.576Z","name":"Growth
+        101","period":"3","school":"535ea6e0e17efb3e297374f2","sis_id":"2","students":["535ea6e816b90a4529c18fec","535ea6e816b90a4529c18ff0","535ea6e816b90a4529c18ff2","535ea6e816b90a4529c18ff3","535ea6e816b90a4529c18ff4","535ea6e816b90a4529c18ff9","53763f5969dd03cd2629c7aa","53ece9a190aa3e731f47d975","53ece9a190aa3e731f47d978","53ece9a190aa3e731f47d97f"],"subject":"other","teacher":"535ea6e416b90a4529c18fd5","id":"535ea6f0534932122b998b24"},"uri":"/v1.1/sections/535ea6f0534932122b998b24"},{"data":{"created":"2014-08-13T07:18:34.525Z","district":"535e91b05fc8cb160e001645","last_modified":"2014-09-03T06:15:59.969Z","name":"Guest
+        Accounts","period":"4","school":"53cda353713654171d21df6e","sis_id":"3","students":["53cda35a713654171d21dfa1","53cda35a713654171d21dfa2","53e9b46fe87f28ae1ea353c2","5406b2199cbb0d1e25478cb9"],"subject":"other","teacher":"535ea6e416b90a4529c18fd4","id":"53cda35f8fd551281d1d8b91"},"uri":"/v1.1/sections/53cda35f8fd551281d1d8b91"},{"data":{"created":"2014-08-22T03:47:47.755Z","district":"535e91b05fc8cb160e001645","last_modified":"2014-08-22T03:47:47.757Z","name":"CIL
+        Free App Testing","period":"5","school":"535ea6e0e17efb3e297374f2","sis_id":"4","students":["535ea6e816b90a4529c18ff0","53ece9a190aa3e731f47d979","53ece9a190aa3e731f47d97e"],"subject":"other","teacher":"53f6bd5caabdf9891e2f907c","id":"53f6bd63fea01a951e2e6f0b"},"uri":"/v1.1/sections/53f6bd63fea01a951e2e6f0b"},{"data":{"created":"2014-09-03T06:15:59.979Z","district":"535e91b05fc8cb160e001645","last_modified":"2014-09-03T06:15:59.981Z","name":"Cortney''s
+        Fitness Class","period":"6","school":"535ea6e0e17efb3e297374f2","sis_id":"5","students":["53763f5969dd03cd2629c7aa"],"subject":"PE
+        and health","teacher":"5406b2157e5a8f6025412dc9","id":"5406b21f7e5a8f602541362a"},"uri":"/v1.1/sections/5406b21f7e5a8f602541362a"}],"paging":{"current":1,"total":1,"count":6},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"}]}'
+    http_version: 
+  recorded_at: Thu, 11 Sep 2014 23:32:53 GMT
+recorded_with: VCR 2.9.2
