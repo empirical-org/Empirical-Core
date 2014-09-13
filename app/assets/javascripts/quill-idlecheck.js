@@ -37,7 +37,6 @@ jQuery.extend(Quill.prototype, {
     Activities.prototype = {
 
       init: function() {
-
         // send initial message
         this.ping(this.settings.profiles['START']);
 

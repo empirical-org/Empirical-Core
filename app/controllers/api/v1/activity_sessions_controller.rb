@@ -14,7 +14,9 @@ class Api::V1::ActivitySessionsController < ApiController
 
   # PATCH, PUT
   def update
-    if @activity_session.update(activity_session_params)
+    # FIXME: ignore id because it's related to inconsistency between
+    # naming - id in app and uid here
+    if @activity_session.update(activity_session_params.except(:id))
       @status = :success
       @message = "Activity Session Updated"
     else
@@ -29,6 +31,7 @@ class Api::V1::ActivitySessionsController < ApiController
   def create
     activity_session = ActivitySession.new(activity_session_params)
     activity_session.set_owner(current_user) if activity_session.ownable?
+    activity_session.data = @data # FIXME: may no longer be necessary?
 
     if activity_session.valid? && activity_session.save
       @status = :success
@@ -38,7 +41,7 @@ class Api::V1::ActivitySessionsController < ApiController
       @message = "Activity Session Create Failed"
     end
 
-    render json: @activity_session, meta: {status: @status, message: @message, errors: @activity_session.errors}
+    render json: activity_session, meta: {status: @status, message: @message, errors: activity_session.errors}
   end
 
   # DELETE
@@ -61,9 +64,10 @@ class Api::V1::ActivitySessionsController < ApiController
   end
 
   def activity_session_params
-    # Params: {"data"=>{}, "percentage"=>nil, "time_spent"=>nil, "state"=>nil, "completed_at"=>nil, "activity_session_uid"=>"Df6UhR841LwhCCllgbxGaQ", "anonymous"=>true,
-    # "activity_session_session"=>{"percentage"=>nil, "state"=>nil, "time_spent"=>nil, "completed_at"=>nil, "data"=>{}}}
-    params.require(:id).permit!(:percentage, :state, :time_spent, :completed_at, :data)
+    params.delete(:activity_session)
+    @data = params.delete(:data)
+
+    params.permit(:id, :percentage, :state, :time_spent, :completed_at, :activity_uid, :anonymous).merge(data: @data).reject {|k,v| v.nil? }
   end
 
 end

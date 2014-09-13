@@ -12,7 +12,7 @@ class ApiController < ActionController::Base
   # end
   #
   rescue_from ActiveRecord::RecordNotFound do |e|
-    render json: {meta: { message: 'The resource you were looking for does not exist', status: :not_found }}, 
+    render json: {meta: { message: 'The resource you were looking for does not exist', status: :not_found }},
          status: 404
   end
   #
