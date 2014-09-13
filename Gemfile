@@ -16,6 +16,8 @@ gem 'ransack'
 # USER AUTH, ETC
 gem 'bcrypt'
 gem 'doorkeeper'
+gem 'omniauth'
+gem 'omniauth-clever'
 gem 'cancancan'
 
 # UPLOADS
@@ -74,6 +76,9 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 gem 'capistrano'
 gem 'sentry-raven'
 
+# INTEGRATIONS
+gem 'clever-ruby', github: 'Veraticus/clever-ruby', branch: 'extract_linked_resources'
+
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
@@ -101,7 +106,6 @@ group :test, :development do
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
-  gem "vcr"
   gem "factory_girl"
   gem "factory_girl_rails"
   gem "forgery"
@@ -114,4 +118,9 @@ group :test, :development do
   gem 'guard-shell'
   gem 'guard-blink1'
   gem 'terminal-notifier-guard'
+end
+
+group :test do
+  gem "vcr"
+  gem "webmock"
 end

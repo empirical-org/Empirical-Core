@@ -21,6 +21,17 @@ class Classroom < ActiveRecord::Base
     StudentProfileCache.invalidate(students)
   end
 
+  def self.setup_from_clever(section)
+    c = Classroom.where(clever_id: section.id).includes(:units).first_or_initialize
+    c.update_attributes(
+      name: section.name,
+      teacher: User.teacher.where(clever_id: section.teacher).first
+    )
+    c.units.create_next if c.units.empty?
+
+    c
+  end
+
   def classroom_activity_for activity
     classroom_activities.where(activity_id: activity.id).first
   end

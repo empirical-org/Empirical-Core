@@ -52,6 +52,8 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   resource :session, :account
+  get '/auth/clever/callback', to: 'sessions#clever'
+  get '/auth/failure', to: 'sessions#failure'
 
   CMS::Routes.new(self).draw do
     resources :categories

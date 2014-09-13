@@ -9,10 +9,10 @@ describe User, :type => :model do
   #test valid and invalid result!
   describe ".authenticate" do
 
-    before do 
-      User.create(username: 'test',          password: '123456', password_confirmation: '123456')      
+    before do
+      User.create(username: 'test',          password: '123456', password_confirmation: '123456')
       User.create(email: 'test@example.com', password: '654321', password_confirmation: '654321')
-    end 
+    end
 
     it 'authenticate a user by username ' do
       expect(User.authenticate(email: 'test',             password: '123456')).to be_truthy
@@ -20,7 +20,7 @@ describe User, :type => :model do
 
     it 'authenticate a user by email' do
       expect(User.authenticate(email: 'test@example.com', password: '654321')).to be_truthy
-    end    
+    end
 
   end
 
@@ -35,7 +35,7 @@ describe User, :type => :model do
       user = FactoryGirl.build(:user,  password: "something")
       expect(user.send(:password?)).to be true
     end
-  
+
   end
 
   describe "#role=" do
@@ -50,12 +50,12 @@ describe User, :type => :model do
   describe "#role" do
 
     let(:user) { FactoryGirl.build(:user) }
-  
+
     it "returns role as instance of ActiveSupport::StringInquirer" do
       user.role='newrole'
       expect(user.role).to be_a ActiveSupport::StringInquirer
     end
-    
+
     it "returns true for correct role" do
       user.role='newrole'
       expect(user.role.newrole?).to be true
@@ -65,7 +65,7 @@ describe User, :type => :model do
       user.role='newrole'
       expect(user.role.invalidrole?).to be false
     end
-  
+
   end
 
   describe "#safe_role_assignment" do
@@ -91,7 +91,7 @@ describe User, :type => :model do
     it "must change the role to 'student' inside the instance" do
       user.safe_role_assignment "student"
       expect(user.role).to eq("student")
-    end    
+    end
 
   end
 
@@ -103,29 +103,29 @@ describe User, :type => :model do
     it "must be true for user" do
       user.safe_role_assignment "user"
       expect(user.permanent?).to eq(true)
-    end    
-    
+    end
+
     it "must be true for teacher" do
       user.safe_role_assignment "teacher"
       expect(user.permanent?).to eq(true)
-    end          
-    
+    end
+
     it "must be true for student" do
       user.safe_role_assignment "student"
       expect(user.permanent?).to eq(true)
-    end 
-    
+    end
+
     it "must be false for temporary" do
       user.safe_role_assignment "temporary"
       expect(user.permanent?).to eq(false)
-    end                  
-  
-  end  
+    end
+
+  end
 
   describe "#requires_password?" do
 
     let(:user) { FactoryGirl.build(:user) }
-    
+
     it "returns true for all roles but temporary" do
       user.safe_role_assignment "user"
       expect(user.send(:requires_password?)).to eq(true)
@@ -159,8 +159,8 @@ describe User, :type => :model do
 
   end
 
-  describe "#generate_password" do 
-    
+  describe "#generate_password" do
+
     let(:user) { FactoryGirl.build(:user, password: "currentpassword", last_name: "lastname") }
 
     it "sets password confirmation to value of last_name" do
@@ -175,8 +175,8 @@ describe User, :type => :model do
 
   end
 
-  describe "#generate_username" do 
-    
+  describe "#generate_username" do
+
     let(:user) { FactoryGirl.build(:user, first_name: "first", last_name: "last", classcode: "cc") }
 
     it "generates last name, first name, and class code" do
@@ -188,7 +188,7 @@ describe User, :type => :model do
   describe "#email_required?" do
 
     let(:user) { FactoryGirl.build(:user) }
-    
+
     it "returns true for all roles but temporary" do
       user.safe_role_assignment "user"
       expect(user.send(:email_required?)).to eq(true)
@@ -210,12 +210,12 @@ describe User, :type => :model do
       expect(user.token).to be_nil
       expect(user.refresh_token!).to eq(true)
       expect(user.token).to_not be_nil
-    end    
+    end
 
-  end  
+  end
 
   describe "validations:" do
-    
+
     let(:user) { FactoryGirl.build(:user) }
 
     it "is valid with valid attributes" do
@@ -223,14 +223,14 @@ describe User, :type => :model do
     end
 
     describe "password attibute" do
-      
+
       context "when role requires password" do
         it "is invalid without password" do
           user = FactoryGirl.build(:user,  password: nil)
           user.safe_role_assignment "student"
           expect(user).to_not be_valid
         end
-        
+
         it "is valid with password" do
           user = FactoryGirl.build(:user,  password: "somepassword", password_confirmation: "somepassword" )
           user.safe_role_assignment "student"
@@ -248,13 +248,13 @@ describe User, :type => :model do
     end
 
     describe "email attribute" do
-      it "is invalid when email is not unique" do 
+      it "is invalid when email is not unique" do
          FactoryGirl.create(:user,  email: "test@test.lan")
          user = FactoryGirl.build(:user,  email: "test@test.lan")
          expect(user).to_not be_valid
       end
-      
-      it "is valid when email is not unique" do 
+
+      it "is valid when email is not unique" do
          user = FactoryGirl.build(:user,  email: "unique@test.lan")
          expect(user).to be_valid
       end
@@ -278,7 +278,7 @@ describe User, :type => :model do
           user.safe_role_assignment "temporary"
           user.email = nil
           expect(user).to be_valid
-        end 
+        end
       end
     end
 
@@ -309,7 +309,7 @@ describe User, :type => :model do
     end
 
     describe "terms_of_service attribute" do
-        
+
         it "is valid if accepted" do
           #maps true to "1"
           user = FactoryGirl.build(:user,  terms_of_service: "1")
@@ -355,12 +355,12 @@ describe User, :type => :model do
     it "must be true for 'student' roles" do
       user.safe_role_assignment "student"
       expect(user.student?).to eq(true)
-    end    
+    end
 
     it "must be false for other roles" do
       user.safe_role_assignment "other"
       expect(user.student?).to eq(false)
-    end    
+    end
 
   end
 
@@ -371,14 +371,14 @@ describe User, :type => :model do
     it "must be true for 'teacher' roles" do
       user.safe_role_assignment "teacher"
       expect(user.teacher?).to eq(true)
-    end    
+    end
 
     it "must be false for other roles" do
       user.safe_role_assignment "other"
       expect(user.teacher?).to eq(false)
-    end    
+    end
 
-  end  
+  end
 
   describe "#admin?" do
 
@@ -387,13 +387,13 @@ describe User, :type => :model do
 
     it "must be false for another roles" do
       expect(user.admin?).to eq(false)
-    end    
+    end
 
     it "must be true for admin role" do
       expect(admin.admin?).to eq(true)
-    end    
+    end
 
-  end  
+  end
 
   describe "#generate_student" do
 
@@ -424,7 +424,7 @@ describe User, :type => :model do
   describe "#newsletter?" do
 
     let(:user) { FactoryGirl.build(:user) }
-    
+
     it 'returns true when newsletter set to 1' do
       user.newsletter="1"
       expect(user.send(:newsletter?)).to eq(true)
@@ -433,7 +433,7 @@ describe User, :type => :model do
       user.newsletter="anything"
       expect(user.send(:newsletter?)).to eq(false)
     end
-  
+
   end
 
   describe "#subscribe_to_newsletter" do
@@ -447,9 +447,9 @@ describe User, :type => :model do
 
     it "calls MailchimpConnection subscribe when newletter attribute is 1" do
       user.newsletter="1"
-      expect(MailchimpConnection).to receive(:connection).at_least(:once).and_return(true) 
-      expect(MailchimpConnection.connection).to receive(:lists).at_least(:once).and_return([]) 
-      expect(MailchimpConnection.connection.lists).to receive(:subscribe).and_return(true) 
+      expect(MailchimpConnection).to receive(:connection).at_least(:once).and_return(true)
+      expect(MailchimpConnection.connection).to receive(:lists).at_least(:once).and_return([])
+      expect(MailchimpConnection.connection.lists).to receive(:subscribe).and_return(true)
       user.send(:subscribe_to_newsletter)
     end
 
@@ -484,4 +484,48 @@ describe User, :type => :model do
 
   end
 
+  describe 'clever', :vcr do
+    describe 'student' do
+      let(:user) { FactoryGirl.build(:user, role: 'student', clever_id: '535ea6e816b90a4529c18feb') }
+
+      it 'finds its clever user for a' do
+        u = user.send(:clever_user)
+
+        expect(u.id).to eq('535ea6e816b90a4529c18feb')
+      end
+    end
+
+    describe 'teacher' do
+      let(:user) { FactoryGirl.build(:user, role: 'teacher', clever_id: '535ea6e416b90a4529c18fd3') }
+
+      it 'finds its clever user for a' do
+        u = user.send(:clever_user)
+
+        expect(u.id).to eq('535ea6e416b90a4529c18fd3')
+      end
+    end
+
+    describe 'setup from clever' do
+      it 'passes an auth hash for a user to be setup' do
+        @user = User.setup_from_clever({
+          info: {
+            email: 'foo@bar.wee',
+            id: '123',
+            user_type: 'student',
+            name: {first: 'Joshy', last: 'Washy'}
+          },
+          credentials: {
+            token: '123'
+          }
+        })
+
+        expect(@user.valid?).to be_truthy
+        expect(@user.id).to_not be_nil
+        expect(@user.email).to eq('foo@bar.wee')
+      end
+    end
+  end
+
+  it 'does not care about all the validation stuff when the user is temporary'
+  it 'disallows regular assignment of roles that are restricted'
 end
