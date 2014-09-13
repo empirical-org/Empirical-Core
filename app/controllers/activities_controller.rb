@@ -26,7 +26,7 @@ protected
     @activity_session ||= if params[:anonymous]
       :anonymous
     else
-      ActivitySession.find(params[:session])
+      ActivitySession.unscoped.find(params[:session])
     end
   end
 
