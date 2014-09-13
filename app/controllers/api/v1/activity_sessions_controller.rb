@@ -60,7 +60,7 @@ class Api::V1::ActivitySessionsController < ApiController
   private
 
   def find_activity_session
-    @activity_session = ActivitySession.find_by_uid(params[:id])
+    @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
   end
 
   def activity_session_params
