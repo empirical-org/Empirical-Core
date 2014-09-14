@@ -42,6 +42,7 @@ gem 'iron_cache_rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'select2-rails'
+gem 'jbuilder'
 
 # API
 gem "active_model_serializers"

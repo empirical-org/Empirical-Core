@@ -18,8 +18,8 @@ describe District, type: :model do
       expect(@district.name).to eq('Fake District')
 
       expect(Classroom.count).to eq(4)
-      expect(User.teacher.count).to eq(5)
-      expect(User.student.count).to eq(37)
+      expect(User.teacher.count).to eq(6)
+      expect(User.student.count).to eq(1)
     end
   end
 
@@ -32,8 +32,8 @@ describe District, type: :model do
       expect(@district.id).to_not be_nil
 
       expect(Classroom.count).to eq(4)
-      expect(User.teacher.count).to eq(5)
-      expect(User.student.count).to eq(37)
+      expect(User.teacher.count).to eq(6)
+      expect(User.student.count).to eq(1)
     end
   end
 
@@ -57,20 +57,5 @@ describe District, type: :model do
       expect(d.name).to eq(@district.name)
     end
 
-    it 'imports from clever' do
-      @district.import_from_clever!
-
-      expect(Classroom.count).to eq(4)
-      expect(User.teacher.count).to eq(5)
-      expect(User.student.count).to eq(37)
-
-      expect(@school.users.teacher.count).to eq(5)
-      expect(@school.users.student.count).to eq(32)
-
-      c = Classroom.first
-      expect(c.name).to eq('Development 101')
-      expect(c.students.count).to eq(16)
-      expect(c.teacher.clever_id). to eq('535ea6e416b90a4529c18fd3')
-    end
   end
 end
