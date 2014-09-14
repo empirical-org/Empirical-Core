@@ -15,7 +15,7 @@ class Classroom < ActiveRecord::Base
   has_many :students, -> { where role: 'student' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'code'
   belongs_to :teacher, class_name: 'User'
 
-  before_validation :generate_code
+  before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
   after_save do
     StudentProfileCache.invalidate(students)
@@ -23,6 +23,7 @@ class Classroom < ActiveRecord::Base
 
   def self.setup_from_clever(section)
     c = Classroom.where(clever_id: section.id).includes(:units).first_or_initialize
+
     c.update_attributes(
       name: section.name,
       teacher: User.teacher.where(clever_id: section.teacher).first
