@@ -62,7 +62,7 @@ gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
 
 # ASSET/UI
 gem 'therubyracer', require: false
-gem 'uglifier'
+gem 'uglifier',     require: false
 gem 'kaminari'
 
 # MIDDLEWARE
