@@ -47,8 +47,8 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def data=(input)
-    self['data'] = {} if data.nil?
-    self.data.merge!(input.except("activity_session"))
+    data_will_change!
+    self['data'] = self.data.to_h.update(input.except("activity_session"))
   end
 
   def activity_uid= uid

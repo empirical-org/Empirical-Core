@@ -35,8 +35,8 @@ gem 'parslet'
 gem 'redcarpet'
 
 # QUEUE/CACHE
-gem 'queue_classic', '3.0.0rc'
-gem 'iron_cache_rails'
+gem 'sidekiq'
+gem 'redis-rails'
 
 # JS/APP/UI
 gem 'turbolinks'
@@ -73,7 +73,6 @@ gem 'rack-cors',  require: 'rack/cors'
 gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 
 # DEPLOYMENT
-gem 'capistrano'
 gem 'sentry-raven'
 
 # INTEGRATIONS
