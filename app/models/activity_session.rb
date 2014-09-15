@@ -8,8 +8,6 @@ class ActivitySession < ActiveRecord::Base
 
   ownable :user
 
-  store_accessor :data
-
   before_create :set_state
   before_save   :set_completed_at
 
