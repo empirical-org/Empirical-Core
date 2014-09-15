@@ -21,6 +21,29 @@ describe User, :type => :model do
 
   end
 
+  describe "User scope" do 
+
+    describe "::ROLES" do 
+
+      it "must contain all roles" do 
+        ["student", "teacher", "temporary", "user", "admin"].each do |role|
+          expect(User::ROLES).to include role
+        end
+      end
+
+    end
+
+    describe "::SAFE_ROLES" do 
+
+      it "must contain safe roles" do 
+        ["student", "teacher", "temporary"].each do |role|
+          expect(User::SAFE_ROLES).to include role
+        end
+      end
+      
+    end
+
+  end
 
   #test valid and invalid result!
   describe ".authenticate" do
