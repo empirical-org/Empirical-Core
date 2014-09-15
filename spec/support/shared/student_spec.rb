@@ -4,7 +4,6 @@ shared_examples_for "student" do
 
 
   let(:classroom){ FactoryGirl.build(:classroom, code: '101') }
-
   before do
     @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
     @student.generate_student
@@ -19,18 +18,12 @@ shared_examples_for "student" do
       expect(student).to be_valid
     end
 
-    context 'when email also missing' do
+    context 'when email/username is missing' do
 
-      before do
+      it 'should have an error' do
         student.email = nil
-      end
-
-      it 'should be invalid' do
-        expect(student).not_to be_valid
-      end
-
-      it 'should have errors on the email attr' do
-        expect(student.errors[:email]).not_to be_nil
+        student.valid?
+        expect(student.errors[:email]).to include "can't be blank"
       end
 
     end
@@ -42,23 +35,20 @@ shared_examples_for "student" do
     let!(:activity){ FactoryGirl.build(:activity) }  
     let!(:student){ FactoryGirl.build(:student) }
 
-    before do
-      @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
-      @student.generate_student
-
-    end
-
     it "must return an empty list when there aren't any available yet" do 
       expect(@student.unfinished_activities(classroom)).to be_empty
     end
 
     context "when there is one available" do 
+
       before do 
         student.classroom.activities<<activity
       end
+
       it "must return one item" do 
         expect(student.unfinished_activities(student.classroom).count).to eq(1) 
       end
+
     end
 
   end
