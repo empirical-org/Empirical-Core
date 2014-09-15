@@ -33,6 +33,8 @@ module EmpiricalGrammar
 
     config.assets.initialize_on_precompile = false
 
+    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+
     config.exceptions_app = Proc.new do |env|
       ApplicationController.action(:show_errors).call(env)
     end
