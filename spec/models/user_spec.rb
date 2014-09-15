@@ -6,12 +6,28 @@ describe User, :type => :model do
 
   let(:user) { FactoryGirl.build(:user) }
 
+
+  describe "default scope" do 
+
+    let(:user1){FactoryGirl.create(:user)}
+    let(:user2){FactoryGirl.create(:user)}
+    let(:user2){FactoryGirl.create(:user, role: "temporary")}
+
+    it "must list all users but the ones with temporary role" do 
+      User.all.each do |u| 
+        expect(u.role).to_not eq "temporary"
+      end
+    end
+
+  end
+
+
   #test valid and invalid result!
   describe ".authenticate" do
 
     before do 
-      User.create(username: 'test',          password: '123456', password_confirmation: '123456')      
-      User.create(email: 'test@example.com', password: '654321', password_confirmation: '654321')
+      FactoryGirl.create(:user, username: 'test',          password: '123456', password_confirmation: '123456')      
+      FactoryGirl.create(:user, email: 'test@example.com', password: '654321', password_confirmation: '654321')
     end 
 
     it 'authenticate a user by username ' do
@@ -214,7 +230,7 @@ describe User, :type => :model do
 
   end  
 
-  describe "validations:" do
+  context "when it runs validations" do
     
     let(:user) { FactoryGirl.build(:user) }
 
