@@ -409,12 +409,12 @@ describe User, :type => :model do
 
     it "must be true for 'student' roles" do
       user.safe_role_assignment "student"
-      expect(user.student?).to eq(true)
+      expect(user).to be_student
     end    
 
     it "must be false for other roles" do
       user.safe_role_assignment "other"
-      expect(user.student?).to eq(false)
+      expect(user).to_not be_student
     end    
 
   end
@@ -425,27 +425,27 @@ describe User, :type => :model do
 
     it "must be true for 'teacher' roles" do
       user.safe_role_assignment "teacher"
-      expect(user.teacher?).to eq(true)
+      expect(user).to be_teacher
     end    
 
     it "must be false for other roles" do
       user.safe_role_assignment "other"
-      expect(user.teacher?).to eq(false)
+      expect(user).to_not be_teacher
     end    
 
   end  
 
   describe "#admin?" do
 
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryGirl.build(:user, role: "user") }
     let(:admin){ FactoryGirl.build(:admin)}
 
-    it "must be false for another roles" do
-      expect(user.admin?).to eq(false)
+    it "must be true for admin role" do
+      expect(admin).to be_admin
     end    
 
-    it "must be true for admin role" do
-      expect(admin.admin?).to eq(true)
+    it "must be false for another roles" do
+      expect(user).to_not be_admin
     end    
 
   end  
