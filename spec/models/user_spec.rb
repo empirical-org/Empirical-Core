@@ -40,12 +40,12 @@ describe User, :type => :model do
           expect(User::SAFE_ROLES).to include role
         end
       end
-      
+
     end
 
   end
 
-  #test valid and invalid result!
+  #TODO: email is taken as username and email
   describe ".authenticate" do
 
     before do 
@@ -53,13 +53,29 @@ describe User, :type => :model do
       FactoryGirl.create(:user, email: 'test@example.com', password: '654321', password_confirmation: '654321')
     end 
 
-    it 'authenticate a user by username ' do
-      expect(User.authenticate(email: 'test',             password: '123456')).to be_truthy
+    context "when username present" do
+
+      it "password is not valid" do 
+        expect(User.authenticate(email: 'test',             password: 'xxxxxx')).to be_falsy
+      end
+
+      it 'authenticate a user by username' do
+        expect(User.authenticate(email: 'test',             password: '123456')).to be_truthy
+      end
+
     end
 
-    it 'authenticate a user by email' do
-      expect(User.authenticate(email: 'test@example.com', password: '654321')).to be_truthy
-    end    
+    context "when email present" do 
+
+      it "password is not valid" do 
+        expect(User.authenticate(email: 'test@example.com', password: 'xxxxxx')).to be_falsy
+      end
+
+      it 'authenticate a user by email' do
+        expect(User.authenticate(email: 'test@example.com', password: '654321')).to be_truthy
+      end    
+
+    end
 
   end
 
