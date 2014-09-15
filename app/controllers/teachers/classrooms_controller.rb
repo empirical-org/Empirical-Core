@@ -26,7 +26,7 @@ class Teachers::ClassroomsController < ApplicationController
 private
 
   def classroom_params
-    params[:classroom].permit(:name, :code)
+    params[:classroom].permit(:name, :code, :grade)
   end
 
   def authorize!
