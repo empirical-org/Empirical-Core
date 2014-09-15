@@ -15,60 +15,60 @@ describe ActivitySession, :type => :model do
 
   describe "#activity" do 
 
-  	context "when there is one direct association from activity" do
+  	context "when there is a direct activity association" do
 
 	  	let(:activity){ FactoryGirl.create(:activity) }
-		let(:activity_session){ FactoryGirl.build(:activity_session,activity_id: activity.id) }  	
+		  let(:activity_session){ FactoryGirl.build(:activity_session,activity_id: activity.id) }  	
 	  	
-		it "must return the direct associated activity" do 
-			expect(activity_session.activity).to eq activity
-		end	
+  		it "must return the associated activity" do 
+  			expect(activity_session.activity).to eq activity
+  		end	
 
 	end
 
-	context "when there is not any activity but there is a classroom activity" do 
+	context "when there's not an associated activity but there's a classroom activity" do 
 
 	    let!(:activity){ FactoryGirl.create(:activity) }  
 	    let!(:student){ FactoryGirl.create(:student) }   	
 	    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, classroom_id: student.classroom.id) }
-		let(:activity_session){   FactoryGirl.build(:activity_session, classroom_activity_id: classroom_activity.id)                     }
+		  let(:activity_session){   FactoryGirl.build(:activity_session, classroom_activity_id: classroom_activity.id)                     }
 
-		it "must return the classroom activity" do 
-			activity_session.activity_id=nil
-			expect(activity_session.activity).to eq activity_session.classroom_activity.activity
-		end
+  		it "must return the classroom activity" do 
+  			activity_session.activity_id=nil
+  			expect(activity_session.activity).to eq activity_session.classroom_activity.activity
+  		end
 
 	end
 
   end
 
   describe "#classroom" do 
-  	it "must return a valid classroom object"
+  	it "TODO: must return a valid classroom object"
   end
 
   describe "#percentage_color" do   
 
-  	it "must returns an empty string if not completed" do 
+  	it "must return an empty string if not completed" do 
   		activity_session.completed_at=nil
   		expect(activity_session.percentage_color).to eq ''
   	end  
 
-  	it "must returns a color if completed" do 
+  	it "must return a color if completed" do 
   		expect(activity_session.percentage_color).to be_present
   	end  
 
   	context "when completed" do  
 
-  		it "must returns yellow if 50% completed" do 
+  		it "must return yellow if 50% completed" do 
   			expect(activity_session.percentage_color).to eq "yellow"
   		end  
 
-  		it "must returns green if 76% completed" do 
+  		it "must return green if 76% completed" do 
   			activity_session.percentage=0.76
   			expect(activity_session.percentage_color).to eq "green"
   		end  
 
-  		it "must returns red if 25% completed" do 
+  		it "must return red if 25% completed" do 
   			activity_session.percentage=0.25
   			expect(activity_session.percentage_color).to eq "red"
   		end			  
@@ -92,7 +92,7 @@ describe ActivitySession, :type => :model do
 
   describe "#activity_uid" do 
 
-  	it "must returns an uid when activity is present" do 
+  	it "must return an uid when activity is present" do 
   		expect(activity_session.activity_uid).to be_present
   	end
 
@@ -135,7 +135,7 @@ describe ActivitySession, :type => :model do
   		expect(activity_session.anonymous=true).to eq activity_session.temporary
   	end
 
-  	it "must returns temporary" do 
+  	it "must return temporary" do 
   		activity_session.anonymous=true
   		expect(activity_session.anonymous).to eq activity_session.temporary
   	end

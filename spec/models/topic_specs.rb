@@ -21,7 +21,7 @@ describe Topic, :type => :model do
 			expect(topic.valid?).to be_truthy
 		end
 
-		context "when it's validated" do 
+		context "when it runs validations" do 
 			it "must have a name" do
 				topic.name=nil
 				topic.valid?

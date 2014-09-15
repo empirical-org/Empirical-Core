@@ -10,7 +10,7 @@ describe AssignmentView, :type => :model do
 
 		context "when there aren't students assigned" do 
 
-			it "must returns true" do 
+			it "must return true" do 
 				expect(assignment_view.choose_everyone).to be_truthy
 			end
 
@@ -20,7 +20,7 @@ describe AssignmentView, :type => :model do
 
 			let(:assignment_view){ FactoryGirl.build(:assignment_view, assigned_student_ids: [student.id])} 
 
-			it "must returns false if" do 
+			it "must return false if" do 
 				expect(assignment_view.choose_everyone).to be_falsy
 			end
 		end
