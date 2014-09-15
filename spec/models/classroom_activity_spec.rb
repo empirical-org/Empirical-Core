@@ -64,7 +64,7 @@ describe ClassroomActivity, :type => :model do
 	      student.generate_student    		
     	end
 
-	  	it "must starts a session for the given user" do 
+	  	it "must start a session for the given user" do 
 	  		expect(classroom_activity.session_for(student)).to be_valid
 	  	end
 	  	it "must raise an error when user's input is not valid" do 
