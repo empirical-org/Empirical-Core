@@ -62,7 +62,7 @@ describe Activity, :type => :model do
       expect(activity.flag).to be_nil
     end
 
-    it "must has a setter" do 
+    it "must have a setter" do 
       expect(activity.flag=:alpha).to eq :alpha
     end
 

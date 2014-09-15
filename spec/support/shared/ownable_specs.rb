@@ -4,6 +4,7 @@ shared_examples_for "ownable" do
 
   let(:owner_name){ described_class.owner_name } 
   let(:owner){ FactoryGirl.create(owner_name) }
+  
   let(:parent) do
     described_class.new( :"#{owner_name.to_s}_id" => owner.id )
   end
@@ -44,20 +45,20 @@ shared_examples_for "ownable" do
     describe "#owned_by?" do 
 
       it "must return false if argument is nil" do 
-        expect(parent.owned_by? nil).to be_falsy
+        expect(parent).to_not be_owned_by nil
       end
 
       it "must return false if argument is an empty string" do 
-        expect(parent.owned_by? "").to be_falsy
+        expect(parent).to_not be_owned_by ""
       end      
 
       it "must return false if owner is not present" do 
         parent.send("#{owner_name.to_s}=",nil)
-        expect(parent.owned_by? owner).to be_falsy
+        expect(parent).to_not be_owned_by owner
       end            
 
       it "must return true if #owner is eq to the passed object" do 
-        expect(parent.owned_by? owner).to be_truthy
+        expect(parent).to be_owned_by owner
       end            
 
     end

@@ -36,7 +36,7 @@ describe ClassroomActivity, :type => :model do
   context "when it has a due_date_string attribute" do
 
   	describe "#due_date_string=" do
-	  	it "must has a due date setter" do 
+	  	it "must have a due date setter" do 
 	  		expect(classroom_activity.due_date_string="03/02/2012").to eq("03/02/2012")
 	  	end
 	  	it "must through an exception whn not valid input" do
