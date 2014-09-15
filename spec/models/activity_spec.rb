@@ -70,7 +70,7 @@ describe Activity, :type => :model do
       before do
         activity.flag=:alpha
       end
-      it "must returns the correct value" do 
+      it "must return the correct value" do 
         expect(activity.flag).to eq :alpha
       end
     end

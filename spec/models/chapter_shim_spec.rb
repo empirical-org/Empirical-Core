@@ -20,7 +20,7 @@ describe ChapterShim, :type => :model do
 	end
 
 	describe "#article_header" do 
-		it "must contains the name" do 
+		it "must contain the name" do 
 			expect(chapter_shim.article_header).to eq activity.name
 		end
 

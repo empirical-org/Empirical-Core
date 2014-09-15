@@ -40,7 +40,7 @@ describe LessonPlanner, :type => :model do
           expect(lesson_planner[activity.topic.section.position][activity.topic.section.name]).to have_key activity.topic.name
         end        
 
-        it "must contains an activity on the las level" do 
+        it "must contain an activity on the las level" do 
           expect(lesson_planner[activity.topic.section.position][activity.topic.section.name][activity.topic.name]).to include activity 
         end
 

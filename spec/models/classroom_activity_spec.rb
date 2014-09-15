@@ -26,7 +26,7 @@ describe ClassroomActivity, :type => :model do
 	      @student.generate_student    		
 	      @student.save!
     	end
-	    it "must returns a list with one element" do 
+	    it "must return a list with one element" do 
 	    	classroom_activity=FactoryGirl.build(:classroom_activity, assigned_student_ids: [@student.id])
 	    	expect(classroom_activity.assigned_students.first ).to eq(@student)
 	    end
@@ -39,7 +39,7 @@ describe ClassroomActivity, :type => :model do
 	  	it "must have a due date setter" do 
 	  		expect(classroom_activity.due_date_string="03/02/2012").to eq("03/02/2012")
 	  	end
-	  	it "must through an exception whn not valid input" do
+	  	it "must throw an exception whn not valid input" do
 	  		expect{classroom_activity.due_date_string="03-02-2012"}.to raise_error ArgumentError
 	  	end
 	end
