@@ -16,7 +16,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     @classroom_activities = @classroom_activities.to_a
     students = @classroom.students.to_a
 
-
     if @unit && @unit.topics.any?
       @score_table = {}
       students.map(&:name).each{|n| @score_table[n] = {}}
@@ -31,7 +30,7 @@ class Teachers::ClassroomManagerController < ApplicationController
             next
           end
 
-          @score_table[student.name][classroom_activity.activity] = { session: activity_session }
+          @score_table[student.name][classroom_activity.activity] ||= { session: activity_session }
         end
       end
     end
