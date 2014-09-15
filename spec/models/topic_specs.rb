@@ -22,20 +22,20 @@ describe Topic, :type => :model do
 		end
 
 		context "when it's validated" do 
-			it "must has a name" do
+			it "must have a name" do
 				topic.name=nil
 				topic.valid?
 				expect(topic.errors[:name]).to include "can't be blank"
 			end
 
-			it "must has a unique name" do 
+			it "must have a unique name" do 
 				t=Topic.first
 				n=FactoryGirl.build(:topic, name: t.name)
 				n.valid?
 				expect(n.errors[:name]).to include "has already been taken"
 			end
 
-			it "must has a section" do 
+			it "must have a section" do 
 				topic.section_id=nil
 				topic.valid?
 				expect(topic.errors[:section]).to include "can't be blank"
