@@ -141,6 +141,7 @@ GEM
       sass (>= 3.2, < 3.5)
     compass-rails (2.0.0)
       compass (>= 0.12.2)
+    connection_pool (2.0.0)
     coolline (0.4.4)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -243,12 +244,6 @@ GEM
     inflecto (0.0.2)
     interception (0.5)
     ipaddress (0.8.0)
-    iron_cache (1.4.2)
-      iron_core (>= 0.5.1)
-    iron_cache_rails (0.1.5)
-      iron_cache (>= 1)
-    iron_core (1.0.5)
-      rest (>= 2.6.4)
     jbuilder (2.1.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -286,11 +281,9 @@ GEM
     multi_json (1.7.9)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
-    netrc (0.7.7)
     newrelic_rpm (3.9.4.245)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
@@ -378,15 +371,29 @@ GEM
     rdoc (4.1.2)
       json (~> 1.4)
     redcarpet (3.1.2)
+    redis (3.1.0)
+    redis-actionpack (4.0.0)
+      actionpack (~> 4)
+      redis-rack (~> 1.5.0)
+      redis-store (~> 1.1.0)
+    redis-activesupport (4.0.0)
+      activesupport (~> 4)
+      redis-store (~> 1.1.0)
+    redis-namespace (1.5.1)
+      redis (~> 3.0, >= 3.0.4)
+    redis-rack (1.5.0)
+      rack (~> 1.5)
+      redis-store (~> 1.1.0)
+    redis-rails (4.0.0)
+      redis-actionpack (~> 4)
+      redis-activesupport (~> 4)
+      redis-store (~> 1.1.0)
+    redis-store (1.1.4)
+      redis (>= 2.2)
     ref (1.0.5)
-    rest (2.7.2)
-      net-http-persistent (>= 2.9.1)
-      rest_client (>= 1.7.1)
     rest-client (1.6.8)
       mime-types (~> 1.16)
       rdoc (>= 2.4.2)
-    rest_client (1.7.3)
-      netrc (~> 0.7.7)
     retriable (1.4.1)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
@@ -417,6 +424,12 @@ GEM
       faraday (>= 0.7.6)
       uuidtools
     sequel (3.20.0)
+    sidekiq (3.2.4)
+      celluloid (>= 0.15.2)
+      connection_pool (>= 2.0.0)
+      json
+      redis (>= 3.0.6)
+      redis-namespace (>= 1.3.1)
     signet (0.5.1)
       addressable (>= 2.2.3)
       faraday (>= 0.9.0.rc5)
@@ -509,7 +522,6 @@ DEPENDENCIES
   haml-rails
   haml_coffee_assets!
   honey-cms (= 0.4.7)!
-  iron_cache_rails
   jbuilder
   jquery-rails
   jquery-turbolinks
@@ -536,10 +548,12 @@ DEPENDENCIES
   rails_12factor
   ransack
   redcarpet
+  redis-rails
   rspec-rails
   sass-rails!
   select2-rails
   sentry-raven
+  sidekiq
   slim-rails
   table_print
   taps

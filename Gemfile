@@ -35,7 +35,8 @@ gem 'parslet'
 gem 'redcarpet'
 
 # QUEUE/CACHE
-gem 'iron_cache_rails'
+gem 'sidekiq'
+gem 'redis-rails'
 
 # JS/APP/UI
 gem 'turbolinks'
