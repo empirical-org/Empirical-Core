@@ -15,8 +15,12 @@ namespace :dev do
 
     keys.each do |key|
       rd_uri = URI.parse(app.send(key))
-      rd_uri.host = "localhost"
-      rd_uri.port = 4000
+      if Rails.env.development?
+        rd_uri.host = "localhost"
+        rd_uri.port = 4000
+      elsif Rails.env.staging?
+        rd_uri.host = 'grammar.staging.quill.org'
+      end
 
       app.send("#{key}=", rd_uri.to_s)
     end
