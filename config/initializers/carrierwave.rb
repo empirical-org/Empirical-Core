@@ -10,5 +10,5 @@ CarrierWave.configure do |config|
   }
 
   config.fog_directory = ENV['FOG_DIRECTORY']
-  config.asset_host = ENV.fetch('ASSET_HOST', "http://s3.amazonaws.com/#{ENV['S3_BUCKET']}")
+  config.asset_host = ENV.fetch('ASSET_HOST', "http://s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}")
 end
