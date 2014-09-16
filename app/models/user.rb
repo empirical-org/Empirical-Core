@@ -11,11 +11,11 @@ class User < ActiveRecord::Base
                                     presence:     { if: :requires_password? }
   # validates :password_confirmation, presence:     { if: :requires_password_confirm? }
 
-  validates :email,                 uniqueness:   { case_sensitive: false, allow_blank: true, if: :email_required? },
+  validates :email,                 uniqueness:   { allow_blank: true, if: :email_required? },
                                     presence:     { if: :email_required? }
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
-                                    uniqueness:   { case_sensitive: false, allow_blank: true }
+                                    uniqueness:   { allow_blank: true }
 
   validates :terms_of_service,      acceptance:   { on: :create }
 
@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
 
   attr_accessor :newsletter
 
+  before_validation :prep_authentication_terms
+
   def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
       sanitized_role
@@ -37,9 +39,8 @@ class User < ActiveRecord::Base
   end
 
   # def authenticate
-  def self.authenticate params
-    user   = User.where('LOWER(email) = LOWER(?)', params[:email]).first
-    user ||= User.where('LOWER(username) = LOWER(?)', params[:email]).first
+  def self.authenticate(params)
+    user =  User.where("email = ? OR username = ?", params[:email].downcase, params[:email].downcase).first
     user.try(:authenticate, params[:password])
   end
 
@@ -178,6 +179,10 @@ class User < ActiveRecord::Base
   end
 
 private
+  def prep_authentication_terms
+    self.email = email.downcase unless email.blank?
+    self.username= username.downcase unless username.blank?
+  end
 
   # Clever integration
   def clever_user
