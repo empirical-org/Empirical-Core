@@ -77,6 +77,7 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 # DEPLOYMENT
 gem 'sentry-raven'
 gem 'asset_sync'
+gem 'rack-heartbeat'
 
 # INTEGRATIONS
 gem 'clever-ruby', github: 'Veraticus/clever-ruby', branch: 'extract_linked_resources'
