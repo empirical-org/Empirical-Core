@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   SAFE_ROLES = %w(student teacher temporary)
 
   default_scope -> { where('role != ?', 'temporary') }
+
   scope :teacher, lambda { where(role: 'teacher') }
   scope :student, lambda { where(role: 'student') }
 
