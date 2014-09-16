@@ -25,7 +25,7 @@ gem 'cancancan'
 
 # UPLOADS
 gem 'carrierwave'
-gem 'fog'
+gem 'fog', require: 'fog/aws/storage'
 
 # OTHERS
 gem 'google-api-client'
@@ -76,6 +76,7 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 
 # DEPLOYMENT
 gem 'sentry-raven'
+gem 'asset_sync'
 
 # INTEGRATIONS
 gem 'clever-ruby', github: 'Veraticus/clever-ruby', branch: 'extract_linked_resources'
