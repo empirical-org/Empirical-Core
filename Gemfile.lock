@@ -334,6 +334,8 @@ GEM
     rack-cache (1.2)
       rack (>= 0.4)
     rack-cors (0.2.9)
+    rack-heartbeat (1.0)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.1.6)
@@ -548,6 +550,7 @@ DEPENDENCIES
   quiet_assets
   rack-cache
   rack-cors
+  rack-heartbeat
   rails (~> 4.1.4)
   rails_12factor
   ransack
