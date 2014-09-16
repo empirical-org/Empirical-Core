@@ -6,6 +6,9 @@ ruby '2.1.2'
 gem 'rails', '~> 4.1.4'
 gem 'puma'
 
+# EARLY TO APPLY TO OTHER GEMS
+gem 'dotenv-rails'
+
 # DB/MODEL
 gem 'pg'
 gem 'ancestry'
@@ -23,7 +26,6 @@ gem 'cancancan'
 # UPLOADS
 gem 'carrierwave'
 gem 'fog'
-gem 'aws-sdk'
 
 # OTHERS
 gem 'google-api-client'
@@ -93,7 +95,6 @@ group :development do
 end
 
 group :test, :development do
-  gem 'dotenv'
   gem "quiet_assets"
   gem 'pry'
   gem 'pry-rails'
