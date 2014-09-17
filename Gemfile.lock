@@ -76,15 +76,14 @@ GEM
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
     arel (5.0.1.20140414130214)
+    asset_sync (1.1.0)
+      activemodel
+      fog (>= 1.8.0)
+      unf
     autoparse (0.3.3)
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    aws-sdk (1.53.0)
-      aws-sdk-v1 (= 1.53.0)
-    aws-sdk-v1 (1.53.0)
-      json (~> 1.4)
-      nokogiri (>= 1.4.4)
     backbone-on-rails (1.1.1.0)
       actionmailer
       actionpack
@@ -154,6 +153,8 @@ GEM
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
+    dotenv-rails (0.11.1)
+      dotenv (= 0.11.1)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -333,6 +334,8 @@ GEM
     rack-cache (1.2)
       rack (>= 0.4)
     rack-cors (0.2.9)
+    rack-heartbeat (1.0)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.1.6)
@@ -479,6 +482,9 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.6)
     uuidtools (2.1.5)
     vcr (2.9.3)
     webmock (1.18.0)
@@ -491,8 +497,8 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   ancestry
+  asset_sync
   awesome_print!
-  aws-sdk
   backbone-on-rails
   bcrypt
   better_errors
@@ -506,7 +512,7 @@ DEPENDENCIES
   compass-rails
   database_cleaner
   doorkeeper
-  dotenv
+  dotenv-rails
   factory_girl
   factory_girl_rails
   faraday_middleware
@@ -544,6 +550,7 @@ DEPENDENCIES
   quiet_assets
   rack-cache
   rack-cors
+  rack-heartbeat
   rails (~> 4.1.4)
   rails_12factor
   ransack

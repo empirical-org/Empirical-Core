@@ -8,17 +8,11 @@ class PagesController < ApplicationController
 
     @body_class = 'home-page'
 
-    topic = if ENV['HOMEPAGE_CHAPTER_ID'].blank? && Topic.first
-      Topic.find_by_id(1) || Topic.first
-    elsif ENV['HOMEPAGE_CHAPTER_ID'].present?
-      Topic.find_by_id(ENV['HOMEPAGE_CHAPTER_ID'])
-    end
 
-    @activity = if topic
-      topic.activities.where(
-        activity_classification_id: ActivityClassification.find_by_key('story').id
-      ).first
-    end
+    topic = Topic.find(ENV.fetch("HOMEPAGE_CHAPTER_ID", 1))
+    act_classifier = ActivityClassification.find_by_key('story').id
+
+    @activity = topic.activities.where(activity_classification_id: act_classifier).first
 
     self.formats = ['html']
   end
