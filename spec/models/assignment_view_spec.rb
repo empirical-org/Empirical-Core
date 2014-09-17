@@ -8,7 +8,7 @@ describe AssignmentView, :type => :model do
 
 	describe "#choose_everyone" do 
 
-		context "when there aren't students assigned" do 
+		context "when there aren't assigned students" do 
 
 			it "must return true" do 
 				expect(assignment_view.choose_everyone).to be_truthy
@@ -16,7 +16,7 @@ describe AssignmentView, :type => :model do
 
 		end
 
-		context "when there are at least one assigned student" do 
+		context "when there is at least one assigned student" do 
 
 			let(:assignment_view){ FactoryGirl.build(:assignment_view, assigned_student_ids: [student.id])} 
 
@@ -44,6 +44,12 @@ describe AssignmentView, :type => :model do
 			expect(assignment_view.assigned_student_ids).to be_nil
 
 		end
+
+		it "must not free assigned_student_ids arg is different to 1" do 
+
+			assignment_view.choose_everyone='abc'
+			expect(assignment_view.assigned_student_ids).to_not be_nil
+		end			
 
 	end
 

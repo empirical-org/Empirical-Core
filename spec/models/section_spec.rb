@@ -10,7 +10,7 @@ describe Section, type: :model do
 			expect(section).to be_valid
 		end
 
-		context "when it's got validated" do 
+		context "when it runs validations" do 
 
 			it "must have a name" do 
 				section.name=nil

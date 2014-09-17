@@ -4,7 +4,7 @@ describe Activity, :type => :model do
 
   let!(:activity){ FactoryGirl.build(:activity) }  
 
-  context "when classification_key" do 
+  describe "#classification_key" do 
   	describe "#classification_key="
 	  it "must set classification relationship" do 
   	  	activity.classification=nil
@@ -30,7 +30,7 @@ describe Activity, :type => :model do
     end
 
     it "must include uid after validate" do 
-      expect(activity).to be_valid
+      activity.valid?
       expect(activity.form_url).to include "uid="
     end
   end
@@ -44,19 +44,19 @@ describe Activity, :type => :model do
     end
 
     it "must add uid param of it's a valid student session" do 
-      expect(activity).to be_valid
+      activity.valid?
       expect(activity.module_url student.activity_sessions.build()).to include "uid="
       
     end
 
     it "must add student param of it's a valid student session" do 
-      expect(activity).to be_valid
+      activity.valid?
       expect(activity.module_url student.activity_sessions.build()).to include "student"
     end
 
   end
 
-  describe "#flag" do 
+  describe "#flag's overwritten methods" do 
     
     it "must be nil if has not been set" do 
       expect(activity.flag).to be_nil
