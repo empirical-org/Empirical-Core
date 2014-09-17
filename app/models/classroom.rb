@@ -29,7 +29,8 @@ class Classroom < ActiveRecord::Base
 
     c.update_attributes(
       name: section.name,
-      teacher: User.teacher.where(clever_id: section.teacher).first
+      teacher: User.teacher.where(clever_id: section.teacher).first,
+      grade: section.grade
     )
     c.units.create_next if c.units.empty?
 
