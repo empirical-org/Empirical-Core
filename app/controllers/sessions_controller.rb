@@ -67,7 +67,7 @@ class SessionsController < ApplicationController
       @user.update_attributes(ip_address: request.remote_ip)
 
       sign_in @user
-      redirect_to profile_url(protocol: 'http')
+      redirect_to profile_url(protocol: 'http') # TODO Change this to use SSL when grammar supports SSL
     else
       login_failure 'Invalid response received from Clever.'
     end
