@@ -12,7 +12,7 @@ describe ActivityClassification, :type => :model do
 
 	end
 
-	context "when validations run" do 
+	context "when it runs validations" do 
 
 		it "must be valid with valid info" do 
 			expect(activity_classification).to be_valid
