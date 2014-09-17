@@ -67,7 +67,7 @@ class SessionsController < ApplicationController
       @user.update_attributes(ip_address: request.remote_ip)
 
       sign_in @user
-      redirect_to profile_path(protocol: 'http')
+      redirect_to profile_url(protocol: 'http')
     else
       login_failure 'Invalid response received from Clever.'
     end
