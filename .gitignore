@@ -34,3 +34,4 @@ deploy-keys
 
 # a local init to remove the noisy cms thing
 /config/initializers/remove_noise.rb
+.env

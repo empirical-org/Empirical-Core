@@ -4,35 +4,18 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize!
 
   def scorebook
-    @unit = @classroom.units.find_by_id(params[:unit_id]) || @classroom.units.first
-    @topic = @unit.topics.find_by_id(params[:topic_id]) || @unit.topics.first
 
-    @classroom_activities = if @topic.blank?
-      []
-    else
-      @unit.classroom_activities.joins(:topic).where(topics: {id: @topic.id})
-    end
+    @unit =  params[:unit_id].present? ? @classroom.units.find(params[:unit_id]) : @classroom.units.first
+    @topic = params[:topic_id].present? ? @unit.topics.find(params[:topic_id]) : @unit.topics.first
 
-    @classroom_activities = @classroom_activities.to_a
-    students = @classroom.students.to_a
+    @classroom_activities = @topic.blank? ? [] : @unit.classroom_activities.with_topic(@topic.id)
 
-    if @unit && @unit.topics.any?
-      @score_table = {}
-      students.map(&:name).each{|n| @score_table[n] = {}}
+    @score_table = @classroom.students.inject({}) {|memo, i| memo[i.id] = {name: i.name, activities: {}}; memo  }
 
-      @classroom_activities.each do |classroom_activity|
-        sessions = classroom_activity.activity_sessions.order('activity_sessions.id asc')
-        sessions.each do |activity_session|
-          student = activity_session.user
-          next unless student.student?
+    @classroom_activities.each do |classroom_activity|
+      scores = classroom_activity.scorebook
 
-          if @score_table[student.name][classroom_activity.activity].present? && !activity_session.completed?
-            next
-          end
-
-          @score_table[student.name][classroom_activity.activity] ||= { session: activity_session }
-        end
-      end
+      scores.each { |student, data| @score_table[student][:activities].merge!(data) }
     end
   end
 
@@ -58,10 +41,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     # binding.pry
   end
 
-protected
 
-  # TODO: this is copied from Teachers::ClassroomsController#authorize!
-  #       consider absracting using inheritance e.g. Teachers::BaseClassroomController
+  private
+
   def authorize!
     @classroom = Classroom.find(params[:classroom_id])
     auth_failed unless @classroom.teacher == current_user

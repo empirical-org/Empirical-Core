@@ -5,6 +5,8 @@ class ClassroomActivity < ActiveRecord::Base
   has_one :topic, through: :activity
   has_many :activity_sessions, dependent: :destroy
 
+  scope :with_topic, ->(tid) { joins(:topic).where(topics: {id: tid}) }
+
   after_save do
     StudentProfileCache.invalidate(classroom.students)
   end
@@ -38,6 +40,24 @@ class ClassroomActivity < ActiveRecord::Base
     else
       classroom.students
     end
+  end
+
+  def completed
+    activity_sessions.completed.includes([:user, :activity]).joins(:user).where('users.role' == 'student')
+  end
+
+  def scorebook
+    @score_book = {}
+    completed.each do |activity_session|
+
+      new_score = {activity: activity_session.activity, session: activity_session, score: activity_session.percentage}
+
+      user = @score_book[activity_session.user.id] ||= {}
+
+      user[activity_session.activity.uid] ||= new_score
+    end
+
+    @score_book
   end
 
   class << self

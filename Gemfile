@@ -6,6 +6,9 @@ ruby '2.1.2'
 gem 'rails', '~> 4.1.4'
 gem 'puma'
 
+# EARLY TO APPLY TO OTHER GEMS
+gem 'dotenv-rails'
+
 # DB/MODEL
 gem 'pg'
 gem 'ancestry'
@@ -22,8 +25,7 @@ gem 'cancancan'
 
 # UPLOADS
 gem 'carrierwave'
-gem 'fog'
-gem 'aws-sdk'
+gem 'fog', require: 'fog/aws/storage'
 
 # OTHERS
 gem 'google-api-client'
@@ -74,6 +76,8 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 
 # DEPLOYMENT
 gem 'sentry-raven'
+gem 'asset_sync'
+gem 'rack-heartbeat'
 
 # INTEGRATIONS
 gem 'clever-ruby', github: 'Veraticus/clever-ruby', branch: 'extract_linked_resources'
@@ -93,7 +97,6 @@ group :development do
 end
 
 group :test, :development do
-  gem 'dotenv'
   gem "quiet_assets"
   gem 'pry'
   gem 'pry-rails'

@@ -1,17 +1,14 @@
-unless true
-  aws_credentials = AWS::Core::CredentialProviders::ENVProvider.new('AWS')
+CarrierWave.configure do |config|
+  config.cache_dir = "#{Rails.root}/tmp/"
+  config.storage = :fog
+  config.permissions = 0666
 
-  CarrierWave.configure do |config|
-    config.cache_dir = "#{Rails.root}/tmp/"
-    config.storage = :fog
-    config.permissions = 0666
+  config.fog_credentials = {
+    provider:              'AWS',
+    aws_access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
+    aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+  }
 
-    config.fog_credentials = {
-      provider:              'AWS',
-      aws_access_key_id:     aws_credentials.access_key_id,
-      aws_secret_access_key: aws_credentials.secret_access_key,
-    }
-
-    config.fog_directory = 'empirical-grammar-production'
-  end
+  config.fog_directory = ENV['FOG_DIRECTORY']
+  config.asset_host = ENV.fetch('ASSET_HOST', "http://s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}")
 end
