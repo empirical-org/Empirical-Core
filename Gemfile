@@ -46,6 +46,10 @@ gem 'jquery-turbolinks'
 gem 'select2-rails'
 gem 'jbuilder'
 
+# METRICS
+gem 'keen'
+gem 'mixpanel-ruby'
+
 # API
 gem "active_model_serializers"
 
@@ -85,8 +89,6 @@ gem 'clever-ruby', github: 'Veraticus/clever-ruby', branch: 'extract_linked_reso
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
-  # JC: in dev, at least on my machine, this throws SSL errors
-  gem 'mixpanel-ruby'
 end
 
 group :development do
