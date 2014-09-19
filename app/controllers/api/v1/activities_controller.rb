@@ -9,6 +9,7 @@ class Api::V1::ActivitiesController < ApiController
 
   # GET
   def show
+    Keen.publish :api, {resource: :activities, uri: "/activities/#{@activity.uid}", data: @activity.as_json}
     render json: @activity, meta: {status: 'success', message: nil, errors: nil}
   end
 
