@@ -12,8 +12,6 @@ gem 'dotenv-rails'
 # DB/MODEL
 gem 'pg'
 gem 'ancestry'
-gem 'taps'
-gem 'table_print'
 gem 'ransack'
 
 # USER AUTH, ETC
