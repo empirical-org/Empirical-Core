@@ -10,6 +10,7 @@ class ActivitySession < ActiveRecord::Base
 
   before_create :set_state
   before_save   :set_completed_at
+  before_save   :trigger_events
 
   default_scope -> { joins(:activity).order('activity_sessions.id desc') }
 
@@ -63,18 +64,6 @@ class ActivitySession < ActiveRecord::Base
     completed_at.present?
   end
 
-  # TODO
-  # Quill main app no longer handles grading. Instead, services put grades
-  # to quill. This was the original source:
-  #
-  # def grade
-  #   return self[:grade] unless self[:grade].nil?
-  #   return 1.0 if inputs.count == 0
-  #   update_column :grade, inputs.map(&:score).inject(:+) / inputs.count
-  #   self[:grade]
-  # end
-  #
-  # For legacy reasons we will have it reference percentage:
   def grade
     percentage
   end
@@ -95,8 +84,20 @@ class ActivitySession < ActiveRecord::Base
     super
   end
 
+  def calculate_time_spent!
+    self.time_spent = (updated_at - created_at).to_i
+  end
 
   private
+
+  def trigger_events
+    return unless state_changed?
+    if state == 'started'
+      StartActivityWorker.perform_async(self.uid)
+    elsif state == 'finished'
+      FinishActivityWorker.perform_async(self.uid)
+    end
+  end
 
   def set_state
     self.state ||= 'unstarted'
