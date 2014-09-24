@@ -22,7 +22,7 @@ class FinishActivityWorker
     end
 
     # publish event data
-    Keen.publish(:sessions, event_data)
+    Keen.publish(:activity, event_data)
 
     # add it to the student's scorebook
     #
