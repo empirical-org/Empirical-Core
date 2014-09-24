@@ -10,7 +10,7 @@ class ActivitySession < ActiveRecord::Base
 
   before_create :set_state
   before_save   :set_completed_at
-  before_save   :trigger_events
+  around_save   :trigger_events
 
   default_scope -> { joins(:activity).order('activity_sessions.id desc') }
 
@@ -91,7 +91,12 @@ class ActivitySession < ActiveRecord::Base
   private
 
   def trigger_events
-    return unless state_changed?
+    should_async = state_changed?
+
+    yield
+
+    return unless should_async
+
     if state == 'started'
       StartActivityWorker.perform_async(self.uid)
     elsif state == 'finished'
