@@ -5,11 +5,11 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
+
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
   validates :password,              confirmation: { if: :requires_password_confirmation? },
                                     presence:     { if: :requires_password? }
-  # validates :password_confirmation, presence:     { if: :requires_password_confirm? }
 
   validates :email,                 uniqueness:   { allow_blank: true, if: :email_required? },
                                     presence:     { if: :email_required? }
@@ -93,6 +93,11 @@ class User < ActiveRecord::Base
   def refresh_token!
     update_attributes token: SecureRandom.urlsafe_base64
   end
+
+  def serialized
+    "#{role.capitalize}Serializer".constantize.new(self)
+  end
+
 
   # FIXME: this should be condensed to a first/last name field, with a
   # display_name method for combination, or similar.

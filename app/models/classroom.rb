@@ -24,6 +24,15 @@ class Classroom < ActiveRecord::Base
     StudentProfileCache.invalidate(students)
   end
 
+  def x
+    c = self
+    if teacher.present?
+      "#{c.id},#{c.name},#{c.code},#{c.teacher.name},#{c.teacher.email},#{teacher.ip_address}"
+    else
+      "#{c.id},#{c.name},#{c.code},,,"
+    end
+  end
+
   def self.setup_from_clever(section)
     c = Classroom.where(clever_id: section.id).includes(:units).first_or_initialize
 

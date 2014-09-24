@@ -38,6 +38,7 @@ gem 'redcarpet'
 
 # QUEUE/CACHE
 gem 'sidekiq'
+gem 'sidekiq-retries'
 gem 'redis-rails'
 
 # JS/APP/UI
