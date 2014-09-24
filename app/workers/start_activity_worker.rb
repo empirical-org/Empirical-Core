@@ -9,13 +9,13 @@ class StartActivityWorker
       event: 'start',
       uid: activity_session.uid,
       time_spent: 0,
-      activity: ActivitySerializer.new(as.activity),
+      activity: ActivitySerializer.new(activity_session.activity),
     }
 
     if activity_session.user_id.nil?
       event_data.merge!(anonymous: true)
     else
-      event_data.merge!(anonymous: false, student: StudentSerializer.new(as.user))
+      event_data.merge!(anonymous: false, student: StudentSerializer.new(activity_session.user))
     end
 
     # publish event data
