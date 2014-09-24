@@ -3,9 +3,9 @@ require 'sidekiq/web'
 EmpiricalGrammar::Application.routes.draw do
   use_doorkeeper
 
-  authenticate :user, lambda { |u| u.admin? } do
+  # authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
-  end
+  # end
 
   resources :assessments
   resources :assignments
