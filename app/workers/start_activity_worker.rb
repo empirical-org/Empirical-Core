@@ -10,6 +10,8 @@ class StartActivityWorker
       uid: activity_session.uid,
       time_spent: 0,
       activity: ActivitySerializer.new(activity_session.activity),
+      event_started: activity_session.created_at,
+      event_finished: nil
     }
 
     if activity_session.user_id.nil?
