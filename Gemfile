@@ -40,6 +40,7 @@ gem 'redcarpet'
 gem 'sidekiq'
 gem 'sidekiq-retries'
 gem 'redis-rails'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 # JS/APP/UI
 gem 'turbolinks'
