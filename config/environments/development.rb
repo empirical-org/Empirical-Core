@@ -41,6 +41,5 @@ EmpiricalGrammar::Application.configure do
   config.sass.line_comments = true
   config.sass.line_numbers = true
   config.sass.debug_info = true
-
   config.action_mailer.default_url_options = { :host => 'quill.dev' }
 end

@@ -15,7 +15,7 @@ class Teachers::ClassroomsController < ApplicationController
   def create
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
     @classroom.units.create_next
-    redirect_to [:teachers, @classroom]
+    redirect_to teachers_classroom_invite_students_path(@classroom)
   end
 
   def update
@@ -26,7 +26,7 @@ class Teachers::ClassroomsController < ApplicationController
 private
 
   def classroom_params
-    params[:classroom].permit(:name, :code)
+    params[:classroom].permit(:name, :code, :grade)
   end
 
   def authorize!

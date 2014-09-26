@@ -1,70 +1,130 @@
 source 'https://rubygems.org'
-# ruby '1.9.3'
 
-gem 'rails', '~> 4'
-gem 'pg', platforms: :ruby
-gem 'rails_12factor', group: [:production, :staging]
+ruby '2.1.2'
 
-gem 'bcrypt-ruby'
+# CORE DEPS
+gem 'rails', '~> 4.1.4'
+gem 'puma'
+
+# EARLY TO APPLY TO OTHER GEMS
+gem 'dotenv-rails'
+
+# DB/MODEL
+gem 'pg'
 gem 'ancestry'
+gem 'ransack'
+
+# USER AUTH, ETC
+gem 'bcrypt'
+gem 'doorkeeper'
+gem 'omniauth'
+gem 'omniauth-clever'
+gem 'cancancan'
+
+# UPLOADS
 gem 'carrierwave'
-gem 'fog'
-gem 'aws-sdk'
-gem 'parslet'
-gem 'sentry-raven'
-gem 'taps'
-gem 'newrelic_rpm', group: :production
-gem 'unicorn', platforms: :ruby
-gem 'puma',    platforms: :jruby
+gem 'fog', require: 'fog/aws/storage'
+
+# OTHERS
+gem 'google-api-client'
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
-gem 'doorkeeper'
-gem 'queue_classic', '3.0.0rc'
 
-gem 'rspec-rails',        group: %w(development test)
-gem 'pry-rails',          group: %w(development test)
-gem 'pry-stack_explorer', group: %w(development test)
-gem 'factory_girl_rails', group: %w(development test)
+# PARSING
+gem 'parslet'
+gem 'redcarpet'
+
+# QUEUE/CACHE
+gem 'sidekiq'
+gem 'sidekiq-retries'
+gem 'redis-rails'
+gem 'sinatra', '>= 1.3.0', :require => nil
+
+# JS/APP/UI
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'select2-rails'
+gem 'jbuilder'
+
+# METRICS
+gem 'keen'
+gem 'mixpanel-ruby'
+
+# API
+gem "active_model_serializers"
+
+# UI HELPERS
+gem 'sass-rails', github: 'rails/sass-rails'
+gem 'bootstrap-sass', '~> 2.1.1.0' # app is locked to bootstrap 2.1.0
+gem 'compass-rails'
+
+gem 'coffee-rails'
+gem 'jquery-rails'
+gem 'backbone-on-rails'
+
+gem 'slim-rails'
+gem 'haml-rails'
+gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
+
+# ASSET/UI
+gem 'therubyracer', require: false
+gem 'uglifier',     require: false
+gem 'kaminari'
+
+# MIDDLEWARE
+gem 'rack-cache', require: 'rack/cache'
+gem 'rack-cors',  require: 'rack/cors'
+
+# CMS (HONEY)
+gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
+
+# DEPLOYMENT
+gem 'sentry-raven'
+gem 'asset_sync'
+gem 'rack-heartbeat'
+
+# INTEGRATIONS
+gem 'clever-ruby', github: 'Veraticus/clever-ruby', branch: 'extract_linked_resources'
+
+group :production, :staging do
+  gem 'rails_12factor'
+  gem 'newrelic_rpm'
+end
 
 group :development do
   gem 'better_errors'
-  gem 'binding_of_caller'
+  gem 'binding_of_caller', platforms: [:mri_21]
+  gem 'foreman'
+  gem "letter_opener"
 end
 
-platforms :rbx do
-  gem 'rubysl'
-  gem 'racc'
-  gem 'iconv', github: 'nurse/iconv', branch: 'master'
-  gem 'rubinius-coverage'
+group :test, :development do
+  gem "quiet_assets"
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-remote'
+  gem 'pry-stack_explorer'
+  gem 'pry-coolline'
+  gem 'pry-rescue'
+  gem "awesome_print", github: 'imajes/awesome_print'
+  gem "rspec-rails"
+  gem 'fuubar', '~> 2.0.0.rc1'
+  gem "timecop"
+  gem "factory_girl"
+  gem "factory_girl_rails"
+  gem "forgery"
+  gem "database_cleaner"
+  gem 'byebug'
+  gem 'guard'
+  gem 'guard-rspec'
+  # test runs for james; this triggers
+  # a blink1(m) device to show red/green
+  gem 'guard-shell'
+  gem 'guard-blink1'
+  gem 'terminal-notifier-guard'
 end
 
 group :test do
-  gem 'rspec', group: 'test'
-  gem 'database_cleaner'
+  gem "vcr"
+  gem "webmock"
 end
-
-gem 'capistrano'
-
-# Quill frontend dependencies
-gem 'slim-rails'
-gem 'sass-rails', '~> 4.0.0'
-gem 'coffee-rails'
-gem 'uglifier'
-gem 'turbolinks'
-gem 'jquery-turbolinks'
-gem 'bootstrap-sass'
-gem 'compass-rails'
-gem 'jquery-rails'
-gem 'rails-backbone'
-gem 'haml_coffee_assets'
-gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
-gem 'honey-auth'#, path: '../honey-auth'
-gem 'haml-rails'
-gem 'kaminari'
-gem 'redcarpet', platforms: :ruby
-gem 'kramdown',  platforms: :jruby
-gem 'textacular'
-gem 'google-api-client'
-gem 'iron_cache_rails'
-gem 'table_print'
-gem 'mixpanel-ruby'

@@ -1,0 +1,158 @@
+body {
+  background-color: $skyblue;
+  &.white-page { background-color: white }
+}
+
+article.blank-page {
+  h2 { margin-top: 40px }
+  margin-bottom: 40px;
+}
+
+.container {
+  width: 960px;
+  // body > & { min-height: 800px }
+}
+
+.simple-rounded-box {
+  @include border-radius(15px);
+  padding: 20px;
+  background-color: #fff;
+  @include pie-clearfix;
+
+  .l-section {
+    border-top: 1px solid #ccc;
+    &:first-child, &.first { border-top: none ; padding-top: 0 }
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 20px;
+  }
+
+  .form-horizontal-header {
+    margin-left: 180px;
+  }
+
+  .box-full-form {
+    margin-bottom: 0;
+
+    .form-actions {
+      margin: 0 -20px -20px -20px;
+    }
+
+    &.form-horizontal .form-actions {
+      padding-left: 180px + 20px;
+    }
+  }
+}
+
+article.simple-rounded-box,
+article.extra-padding {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.navbar .nav > li > a {
+  padding: 0px 0px 0px;
+  text-shadow: none;
+}
+
+.hide {
+  display: none;
+}
+
+textarea {
+  height: 100px;
+}
+
+form .help-inline {
+  background-color: white;
+}
+
+.control-group.radio {
+  padding-left: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 20px;
+  border-color: transparent;
+}
+
+.table-stripe {
+  tr:nth-child(2n) {
+    background-color: #f5f5f5;
+  }
+
+  .l-table-row:nth-child(2n) {
+    background-color: #f5f5f5;
+  }
+
+  &.inverse {
+    .l-table-row {
+      background-color: #f5f5f5;
+    }
+
+    .l-table-row:nth-child(2n) {
+      background-color: transparent;
+    }
+  }
+}
+
+.table-hover-row {
+  tr:hover { background-color: $tried-color-light }
+}
+
+.caret {
+  border-top:   7px solid black;
+  border-right: 7px solid transparent;
+  border-left:  7px solid transparent;
+}
+
+.btn .caret {
+  margin-top: 17px;
+  margin-left: 5px;
+}
+
+.text-center {
+  margin: auto;
+}
+
+.centered {
+  text-align: center;
+}
+
+form.box-full-form .btn {
+  float: left;
+
+  &.destroy {
+    margin-left: 10px;
+  }
+}
+
+form.searchable {
+  label {
+    float: left;
+    clear: left;
+    position: relative; width: 215px;
+    top: 5px; margin-right: 10px;
+  }
+
+  div {
+    label {width: 90px;}
+    select {float: left; width: 115px; margin-right: 10px;}
+  }
+
+  input {float: left; clear: right;}
+  input[type="submit"].btn {float: left; clear: both;}
+}
+
+form#new_classroom {
+  label {
+    float: none; clear: none; display: inline;
+    position: relative; top: 1px; margin: 0 5px 0 10px;
+  }
+
+  select {width: 100px;}
+
+  .btn {position: relative; top: 0px; margin: 0 0 0 10px;}
+}

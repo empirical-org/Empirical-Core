@@ -1,0 +1,34 @@
+$skyblue:        #409cc8;
+$skyblue-darker: #b5e2ff;
+$yellow:         #fcd000;
+$pink:           #d90053;
+$white:          #ffffff;
+$darkblue:       #0f4c7a;
+$darkgrey:       #32353d;
+
+$missed-color: #d54141;
+$missed-color-light: #ffeade;
+$found-color: #78ca47;
+$found-color-light: #e1ffd3;
+$introduced-color: #9060c7;
+$introduced-color-light: #f5deff;
+$tried-color: #ffba00;
+$tried-color-light: #fff9d6;
+$spinner-color:      #ffffff;
+$spinner-size:       30px;
+$spinner-speed:      0.75s;
+$spinner-thickness:  8px;
+
+.con-skyblue        { background: $skyblue; }
+.con-skyblue-darker { background: $skyblue-darker; }
+.con-yellow         { background: $yellow; }
+.con-pink           { background: $pink; }
+.con-white          { background: $white; }
+.con-darkblue       { background: $darkblue; }
+.con-darkgrey       { background: $darkgrey; }
+
+$header-font: "Comfortaa", cursive;
+
+$baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+$headingsFontFamily: $header-font;
+$headingsFontWeight: normal;

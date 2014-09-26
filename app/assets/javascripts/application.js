@@ -14,4 +14,5 @@
 //= require backbone/pg_site
 //= require jsdiff
 //= require turbolinks
+//= require select2
 //= require_tree .

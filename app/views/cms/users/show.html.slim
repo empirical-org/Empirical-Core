@@ -1,0 +1,29 @@
+article.simple-rounded-box.cms
+  h2= @user.name
+
+  dl
+    dt Email
+    dd= @user.email
+    - if @user.imported_from_clever?
+      dt Clever Token
+      dd= @user.token
+    - else
+      dt Username
+      dd= @user.username
+    dt Role
+    dd= @user.role
+    dt Classcode
+    dd= @user.classcode
+    dt School
+    dd= @user.school_name
+    dt School Location
+    dd= "#{@user.school_mail_city}, #{@user.school_mail_state}" if @user.school
+    - if @user.teacher?
+      dt Grades
+      dd= @user.classrooms.collect {|c| "#{c.name} - #{c.grade}"}.join('<br />').html_safe
+    dt IP Address
+    dd= @user.ip_address
+    dt Created
+    dd= @user.created_at
+    dt Last Sign In
+    dd= @user.updated_at

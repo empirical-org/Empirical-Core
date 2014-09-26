@@ -17,6 +17,10 @@ class AccountsController < ApplicationController
 
     if @user.save
       sign_in @user
+
+      @user.send_welcome_email
+      @user.subscribe_to_newsletter
+
       $mixpanel.try(:track, @user.id, 'account created')
       $mixpanel.try(:track, @user.id, "#{@user.role} created")
       redirect_to profile_path
@@ -44,6 +48,6 @@ class AccountsController < ApplicationController
 protected
 
   def user_params
-    params.require(:user).permit(:classcode, :email, :name, :username, :password, :password_confirmation, :newsletter, :terms_of_service)
+    params.require(:user).permit(:classcode, :email, :name, :username, :password, :password_confirmation, :newsletter, :terms_of_service, :school_ids)
   end
 end

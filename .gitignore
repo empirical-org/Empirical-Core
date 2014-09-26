@@ -27,4 +27,11 @@ snapshot.dump
 .vagrant/
 redo
 *.dump
+.tags
+*.swp
 deploy-keys
+.guard_result
+
+# a local init to remove the noisy cms thing
+/config/initializers/remove_noise.rb
+.env

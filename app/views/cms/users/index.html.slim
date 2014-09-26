@@ -1,12 +1,20 @@
 article.simple-rounded-box.cms
   h1 Directory
-  form.form-inline
-    input type="text" name="q" value=params[:q]
-    button.btn.btn-primary.btn-mid Search
-
-  form.form-inline
-    input type="text" name="ip" value=params[:ip] placeholder="ip address"
-    button.btn.btn-primary.btn-mid Find
+  = search_form_for @q, url: search_cms_users_path,
+                        html: { method: :post, class: 'searchable' } do |f|
+    = f.label :name_cont
+    = f.search_field :name_cont
+    = f.label :email_cont
+    = f.search_field :email_cont
+    = f.label :ip_address_eq
+    = f.search_field :ip_address_eq
+    = f.label :schools_name_cont
+    = f.search_field :schools_name_cont
+    = f.label :schools_city_cont
+    = f.search_field :schools_city_cont
+    = f.label :classroom_code_cont
+    = f.search_field :classroom_code_cont
+    = f.submit class: 'btn btn-primary btn-mid'
 
   table.table.table-stripe.table-hover-row
     tr
@@ -17,16 +25,20 @@ article.simple-rounded-box.cms
       th
       th
 
-    - @users.each do |user|
-      tr
-        td= user.name
-        td= user.email
-        td class="role-#{user.role}"= user.role
-        td= user.classcode
-        - if current_user.admin?
-          td= link_to 'Edit', edit_cms_user_path(user)
-          td= link_to 'Destroy', [:cms, user], method: :delete,   confirm: 'Are you sure?'
-          td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
+    - if @users.empty?
+        tr
+          td colspan=4 No results found!
+    - else
+      - @users.each do |user|
+        tr
+          td= user.name
+          td= user.email
+          td class="role-#{user.role}"= user.role[0]
+          td= user.classcode
+          - if current_user.admin?
+            td= link_to 'Edit', edit_cms_user_path(user)
+            td= link_to 'Details', cms_user_path(user)
+            td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
 
   = paginate @users
 
