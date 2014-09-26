@@ -17,6 +17,8 @@ class Teachers::ClassroomManagerController < ApplicationController
 
       scores.each { |student, data| @score_table[student][:activities].merge!(data) }
     end
+
+    @score_table = @score_table.sort {|a, b| a.last[:name] <=> b.last[:name]}.collect(&:last)
   end
 
   def lesson_planner
