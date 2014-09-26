@@ -38,9 +38,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
 
     @workbook_table = @workbook_table.sort {|a, b| a.first <=> b.first}.collect(&:last)
-
-    # @workbook_table = @workbook_table.map.to_a.sort{|a,b| a.first <=> b.first}.map(&:last).map(&:to_a).map(&:first)
-    # binding.pry
+    tutorial = @workbook_table.find {|a| a.keys.first == 'Quill Tutorial Lesson'}
+    @workbook_table.delete(tutorial)
+    @workbook_table = @workbook_table.unshift(tutorial)
   end
 
 
