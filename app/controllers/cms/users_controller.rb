@@ -3,7 +3,7 @@ class CMS::UsersController < ApplicationController
   before_filter :admin!
 
   def index
-    @q = User.includes(:schools).search(params[:q])
+    @q = User.includes([:schools, :classroom]).search(params[:q])
 
     @users = @q.result(distinct: true).page(params[:page]).per(100)
   end
