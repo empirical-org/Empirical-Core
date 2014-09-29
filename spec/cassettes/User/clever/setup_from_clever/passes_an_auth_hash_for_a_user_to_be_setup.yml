@@ -27,7 +27,7 @@ http_interactions:
       Content-Type:
       - text/plain
       Date:
-      - Fri, 12 Sep 2014 19:45:11 GMT
+      - Mon, 29 Sep 2014 19:07:51 GMT
       Server:
       - nginx/1.4.7
       X-Powered-By:
@@ -37,9 +37,9 @@ http_interactions:
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '59'
+      - '49'
       X-Ratelimit-Reset:
-      - '1410551171'
+      - '1412017686'
       Content-Length:
       - '9'
       Connection:
@@ -48,5 +48,5 @@ http_interactions:
       encoding: UTF-8
       string: Not Found
     http_version: 
-  recorded_at: Fri, 12 Sep 2014 19:45:11 GMT
-recorded_with: VCR 2.9.2
+  recorded_at: Mon, 29 Sep 2014 19:08:13 GMT
+recorded_with: VCR 2.9.3

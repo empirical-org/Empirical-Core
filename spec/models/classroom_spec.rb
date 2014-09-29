@@ -13,7 +13,7 @@ describe Classroom, :type => :model do
   describe "#units" do
   	describe "#create_next" do
 	  	before do
-	  		@classroom = Classroom.create()
+	  		@classroom = FactoryGirl.create(:classroom)
 	  	end
 	  	it "must generate a valid unit" do
 	  		expect(@classroom.units.create_next).to be_an_instance_of(Unit)
@@ -23,7 +23,7 @@ describe Classroom, :type => :model do
 
   context "when is created" do
   	before do
-  		@classroom = Classroom.create()
+  		@classroom = FactoryGirl.create(:classroom)
   	end
   	it "must generate a valid code" do
   		expect(@classroom.code).not_to be_empty
@@ -49,12 +49,12 @@ describe Classroom, :type => :model do
       expect(classroom.code).to be_nil
     end
     it "must generate a code after validations" do
-      classroom=Classroom.create!
+      classroom=FactoryGirl.create(:classroom)
       expect(classroom.code).to_not be_nil
     end
 
     it "does not generate a code twice" do
-      classroom = Classroom.create!
+      classroom = FactoryGirl.create(:classroom)
       old_code = classroom.code
       classroom.update_attributes(name: 'Testy Westy')
       expect(classroom.code).to eq(old_code)

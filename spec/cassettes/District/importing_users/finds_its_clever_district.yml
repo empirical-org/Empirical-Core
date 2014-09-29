@@ -27,7 +27,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 11 Sep 2014 23:32:10 GMT
+      - Mon, 29 Sep 2014 19:07:27 GMT
       Server:
       - nginx/1.4.7
       X-Powered-By:
@@ -37,9 +37,9 @@ http_interactions:
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '43'
+      - '55'
       X-Ratelimit-Reset:
-      - '1410478354'
+      - '1412017686'
       Content-Length:
       - '546'
       Connection:
@@ -48,5 +48,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"mdr_number":"","name":"#DEMO Clever Team Testing","id":"535e91b05fc8cb160e001645"},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645"},{"rel":"schools","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"},{"rel":"teachers","uri":"/v1.1/districts/535e91b05fc8cb160e001645/teachers"},{"rel":"students","uri":"/v1.1/districts/535e91b05fc8cb160e001645/students"},{"rel":"sections","uri":"/v1.1/districts/535e91b05fc8cb160e001645/sections"},{"rel":"events","uri":"/v1.1/districts/535e91b05fc8cb160e001645/events"}]}'
     http_version: 
-  recorded_at: Thu, 11 Sep 2014 23:32:13 GMT
-recorded_with: VCR 2.9.2
+  recorded_at: Mon, 29 Sep 2014 19:07:49 GMT
+recorded_with: VCR 2.9.3

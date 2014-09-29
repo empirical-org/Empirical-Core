@@ -6,20 +6,75 @@ describe User, :type => :model do
 
   let(:user) { FactoryGirl.build(:user) }
 
-  #test valid and invalid result!
+
+  describe "default scope" do
+
+    let(:user1){FactoryGirl.create(:user)}
+    let(:user2){FactoryGirl.create(:user)}
+    let(:user2){FactoryGirl.create(:user, role: "temporary")}
+
+    it "must list all users but the ones with temporary role" do
+      User.all.each do |u|
+        expect(u.role).to_not eq "temporary"
+      end
+    end
+
+  end
+
+  describe "User scope" do
+
+    describe "::ROLES" do
+
+      it "must contain all roles" do
+        ["student", "teacher", "temporary", "user", "admin"].each do |role|
+          expect(User::ROLES).to include role
+        end
+      end
+
+    end
+
+    describe "::SAFE_ROLES" do
+
+      it "must contain safe roles" do
+        ["student", "teacher", "temporary"].each do |role|
+          expect(User::SAFE_ROLES).to include role
+        end
+      end
+
+    end
+
+  end
+
+  #TODO: email is taken as username and email
   describe ".authenticate" do
 
     before do
-      User.create(username: 'test',          password: '123456', password_confirmation: '123456')
-      User.create(email: 'test@example.com', password: '654321', password_confirmation: '654321')
+      FactoryGirl.create(:user, username: 'test',          password: '123456', password_confirmation: '123456')
+      FactoryGirl.create(:user, email: 'test@example.com', password: '654321', password_confirmation: '654321')
     end
 
-    it 'authenticate a user by username ' do
-      expect(User.authenticate(email: 'test',             password: '123456')).to be_truthy
+    context "when username present" do
+
+      it "password is not valid" do
+        expect(User.authenticate(email: 'test',             password: 'xxxxxx')).to be_falsy
+      end
+
+      it 'authenticate a user by username' do
+        expect(User.authenticate(email: 'test',             password: '123456')).to be_truthy
+      end
+
     end
 
-    it 'authenticate a user by email' do
-      expect(User.authenticate(email: 'test@example.com', password: '654321')).to be_truthy
+    context "when email present" do
+
+      it "password is not valid" do
+        expect(User.authenticate(email: 'test@example.com', password: 'xxxxxx')).to be_falsy
+      end
+
+      it 'authenticate a user by email' do
+        expect(User.authenticate(email: 'test@example.com', password: '654321')).to be_truthy
+      end
+
     end
 
   end
@@ -42,7 +97,7 @@ describe User, :type => :model do
 
     it "return role name" do
       user = FactoryGirl.build(:user)
-      expect(user.role="newrole").to eq("newrole")
+      expect(user.role="newrole").to eq "newrole"
     end
 
   end
@@ -72,8 +127,8 @@ describe User, :type => :model do
 
     let(:user) { FactoryGirl.build(:user) }
 
-    it "must assign 'userqui' role by default" do
-      expect(user.safe_role_assignment "admin").to eq("user")
+    it "must assign 'user' role by default" do
+      expect(user.safe_role_assignment "nil").to eq("user")
     end
 
     it "must assign 'teacher' role even with spaces" do
@@ -90,7 +145,7 @@ describe User, :type => :model do
 
     it "must change the role to 'student' inside the instance" do
       user.safe_role_assignment "student"
-      expect(user.role).to eq("student")
+      expect(user.role).to be_student
     end
 
   end
@@ -102,22 +157,22 @@ describe User, :type => :model do
 
     it "must be true for user" do
       user.safe_role_assignment "user"
-      expect(user.permanent?).to eq(true)
+      expect(user).to be_permanent
     end
 
     it "must be true for teacher" do
       user.safe_role_assignment "teacher"
-      expect(user.permanent?).to eq(true)
+      expect(user).to be_permanent
     end
 
     it "must be true for student" do
       user.safe_role_assignment "student"
-      expect(user.permanent?).to eq(true)
+      expect(user).to be_permanent
     end
 
     it "must be false for temporary" do
       user.safe_role_assignment "temporary"
-      expect(user.permanent?).to eq(false)
+      expect(user).to_not be_permanent
     end
 
   end
@@ -214,8 +269,7 @@ describe User, :type => :model do
 
   end
 
-  describe "validations:" do
-
+  context "when it runs validations" do
     let(:user) { FactoryGirl.build(:user) }
 
     it "is valid with valid attributes" do
@@ -354,12 +408,12 @@ describe User, :type => :model do
 
     it "must be true for 'student' roles" do
       user.safe_role_assignment "student"
-      expect(user.student?).to eq(true)
+      expect(user).to be_student
     end
 
     it "must be false for other roles" do
       user.safe_role_assignment "other"
-      expect(user.student?).to eq(false)
+      expect(user).to_not be_student
     end
 
   end
@@ -370,27 +424,27 @@ describe User, :type => :model do
 
     it "must be true for 'teacher' roles" do
       user.safe_role_assignment "teacher"
-      expect(user.teacher?).to eq(true)
+      expect(user).to be_teacher
     end
 
     it "must be false for other roles" do
       user.safe_role_assignment "other"
-      expect(user.teacher?).to eq(false)
+      expect(user).to_not be_teacher
     end
 
   end
 
   describe "#admin?" do
 
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryGirl.build(:user, role: "user") }
     let(:admin){ FactoryGirl.build(:admin)}
 
-    it "must be false for another roles" do
-      expect(user.admin?).to eq(false)
+    it "must be true for admin role" do
+      expect(admin).to be_admin
     end
 
-    it "must be true for admin role" do
-      expect(admin.admin?).to eq(true)
+    it "must be false for another roles" do
+      expect(user).to_not be_admin
     end
 
   end
