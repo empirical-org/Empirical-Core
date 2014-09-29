@@ -6,20 +6,20 @@ describe "User", :type => :model do
     let(:user) { nil }
 
     context "when an admin" do
-      let(:user) { build(:admin) }
+      let(:user) { FactoryGirl.build(:admin) }
 
       it { is_expected.to be_able_to(:manage, ActivitySession.new) }
       it { is_expected.to be_able_to(:manage, User.new) }
     end
 
     context "when a teacher" do
-      let(:user) { build(:teacher) }
+      let(:user) { FactoryGirl.build(:teacher) }
 
       it { is_expected.to be_able_to(:create, Classroom.new) }
     end
 
     context "when a user" do
-      let(:user) { build(:user) }
+      let(:user) { FactoryGirl.build(:user) }
 
       it { is_expected.to be_able_to(:read, ActivitySession.new(user_id: user.id)) }
       it { is_expected.to be_able_to(:create, ActivitySession.new) }

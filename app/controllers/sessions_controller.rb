@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     if @user = User.authenticate(params[:user])
       @user.update_attributes(ip_address: request.remote_ip)
 
-      Keen.publish :login, @user.serialized.as_json
+#      Keen.publish :login, @user.serialized.as_json
       sign_in(@user)
 
       redirect_to profile_path
