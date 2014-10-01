@@ -1,0 +1,18 @@
+{
+// Configure your Run and Preview buttons here.
+
+// Run button configuration
+  "commands": {
+        "Rails S": "TRUSTED_IP=172.17.42.1 rails s",
+				"Unicorn": "TRUSTED_IP=172.17.42.1 unicorn"
+  },
+
+// Preview button configuration
+  "preview": {
+        "Project Index (static)": "https://{{domain}}/{{index}}",
+        "Current File (static)": "https://{{domain}}/{{filepath}}",
+        "Box URL": "http://{{domain}}:3000/",
+				"Box URL Unicorn": "http://{{domain}}:8080/",
+        "Box URL SSL": "https://{{domain}}:9500/"
+  }
+}

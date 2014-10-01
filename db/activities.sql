@@ -42,17 +42,17 @@ INSERT INTO activities VALUES (2, 'Lose vs. loose, it''s vs. its, they''re vs. t
 - ''7''
 - ''8''
 - ''9''
-"', 2, 1, '2013-09-14 00:01:09.788782', '2014-04-18 22:58:11.400208', '{archived}');
+"', 2, 1, '2013-09-14 00:01:09.788782', '2014-04-18 22:58:11.400208', '{production}');
 INSERT INTO activities VALUES (184, 'Test Activity', 'Description', 'FtBjOj0nhBW63TYd3IwFwA', '"body"=>"--- Test edit body.
 ...
 ", "instructions"=>"--- 
 ...
-"', 1, 1, '2014-05-22 16:18:28.42208', '2014-05-22 16:21:12.586615', '{alpha}');
+"', 1, 1, '2014-05-22 16:18:28.42208', '2014-05-22 16:21:12.586615', '{production}');
 INSERT INTO activities VALUES (185, 'Test', 'Test', 'y61hGStcKg4sJuML0gsZaQ', NULL, 2, 1, '2014-05-22 16:59:19.813595', '2014-05-22 16:59:19.813595', '{alpha}');
 INSERT INTO activities VALUES (186, 'Test', 'Test', 'OMFHX46vFqd9jRGMxq9anw', '"rule_position"=>"---
 - - '' 2''
   - ''''
-"', 2, 1, '2014-05-22 17:00:14.571331', '2014-05-22 17:00:41.166479', '{alpha}');
+"', 2, 1, '2014-05-22 17:00:14.571331', '2014-05-22 17:00:41.166479', '{production}');
 
 
 --
