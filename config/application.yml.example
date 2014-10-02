@@ -1,0 +1,13 @@
+
+
+# Add configuration values here, as shown below.
+#
+FOG_DIRECTORY: "2954"
+AWS_ACCESS_KEY_ID: "7381a978f7dd7f9a1117"
+AWS_SECRET_ACCESS_KEY: "abdc3b896a0ffb85d373"
+ASSET_HOST: "sk_test_2J0l093xOyW72XUYJHE4Dv2r"
+SECRET_KEY_BASE: djkls
+
+# production:
+#   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
+#   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
