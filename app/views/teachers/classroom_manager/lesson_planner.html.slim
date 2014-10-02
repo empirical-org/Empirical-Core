@@ -34,5 +34,6 @@
           .workbook-topic-header.sub-unit-header= topic
 
           .table-stripe.inverse
-            - activities.each do |activity|
+            - sorted_activities=activities.sort{|a,b| a.name <=> b.name}
+            - sorted_activities.each do |activity|
               = render partial: 'teachers/classrooms/activity', object: activity
