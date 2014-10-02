@@ -35,7 +35,7 @@
           td= '*****'
           td= link_to 'Reset password', teachers_classroom_student_reset_password_path(@classroom, @student), method: 'put'
         tr
-          td colspan="3": i By default a password is a student's last name. Resetting a password sets it to the last name.
+          td colspan="3": i By default a password is a student's last name. Please keep in mind that the password is case sensitive, so the first letter will generally be capitalized by default. Resetting a password sets it to the last name.
         tr
           td colspan="2"
           td= link_to 'Delete student', teachers_classroom_student_path(@classroom, @student), method: 'delete', confirm: 'Are you sure you want to delete this student? They will no longer be able to log onto Quill.org and their progress will be lost.'
