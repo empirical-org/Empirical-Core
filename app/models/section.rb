@@ -6,7 +6,6 @@ class Section < ActiveRecord::Base
   belongs_to :workbook
   has_many :topics, dependent: :destroy
 
-  validates :workbook, presence: true
   validates :name, presence: true
 
 end
