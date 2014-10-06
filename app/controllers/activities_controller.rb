@@ -8,8 +8,12 @@ class ActivitiesController < ApplicationController
   # end
 
   def retry
-    @activity_session = ClassroomActivity.create_session(@activity, user: current_user)
-    redirect_to activity_path(@activity, session: @activity_session.id)
+    if current_user.nil?
+      redirect_to new_session_path
+    else
+      @activity_session = ClassroomActivity.create_session(@activity, user: current_user)
+      redirect_to activity_path(@activity, session: @activity_session.id)
+    end
   end
 
   # def resume
