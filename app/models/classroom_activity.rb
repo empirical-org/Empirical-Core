@@ -63,7 +63,7 @@ class ClassroomActivity < ActiveRecord::Base
   class << self
     # TODO: this method assumes that a student is only in ONE classroom.
     def create_session activity, options = {}
-      classroom_activity = where(activity_id: activity.id, classroom_id: options[:user].classroom.id).first
+      classroom_activity = where(activity_id: activity.id, classroom_id: options[:user].classroom.id).first_or_create
       classroom_activity.activity_sessions.create!(user: options[:user])
     end
   end
