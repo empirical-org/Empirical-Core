@@ -9,4 +9,12 @@ class Section < ActiveRecord::Base
   validates :workbook, presence: true
   validates :name, presence: true
 
+  before_validation :assign_workbook
+
+  private
+
+  def assign_workbook
+    self.workbook = Workbook.first if workbook.nil?
+  end
+
 end
