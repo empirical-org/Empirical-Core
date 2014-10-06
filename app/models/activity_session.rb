@@ -12,9 +12,9 @@ class ActivitySession < ActiveRecord::Base
   before_save   :set_completed_at
   around_save   :trigger_events
 
-  default_scope -> { joins(:activity).order('activity_sessions.id desc') }
+  default_scope -> { joins(:activity) }
 
-  scope :completed,  -> { where('completed_at is not null').order('completed_at desc') }
+  scope :completed,  -> { where('completed_at is not null') }
   scope :incomplete, -> { where('completed_at is null') }
 
   scope :current_session, -> {
@@ -45,6 +45,23 @@ class ActivitySession < ActiveRecord::Base
     when 0.0..0.5
       'red'
     end
+  end
+
+  def percentile
+    case percentage
+    when 0.75..1.0
+      1.0
+    when 0.5..0.75
+      0.75
+    when 0.0..0.5
+      0.5
+    else
+      0.0
+    end
+  end
+
+  def score
+    (percentage * 100).round(2)
   end
 
   def data=(input)

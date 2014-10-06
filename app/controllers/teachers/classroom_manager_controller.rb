@@ -5,21 +5,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   layout 'scorebook'
 
   def scorebook
-
-    @unit =  params[:unit_id].present? ? @classroom.units.find(params[:unit_id]) : @classroom.units.first
-    @topic = params[:topic_id].present? ? @unit.topics.find(params[:topic_id]) : @unit.topics.first
-
-    @classroom_activities = @topic.blank? ? [] : @unit.classroom_activities.with_topic(@topic.id)
-
-    @score_table = @classroom.students.inject({}) {|memo, i| memo[i.id] = {name: i.name, activities: []}; memo  }
-
-    @classroom_activities.each do |classroom_activity|
-      scores = classroom_activity.scorebook
-
-      scores.each { |student, data| @score_table[student][:activities] << data}
-    end
-
-    @score_table = @score_table.sort {|a, b| a.last[:name] <=> b.last[:name]}.collect(&:last)
+    @classrooms = current_user.classrooms - [@classroom]
+    @unit = @classroom.units.find(params[:unit_id]) if params[:unit_id]
+    @units = @classroom.units - [@unit]
   end
 
   def lesson_planner

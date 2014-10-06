@@ -6211,7 +6211,7 @@ button.close {
   border: 1px solid #cecece;
   color: #000;
   font-size: 14px;
-  width: 284px;
+  padding: 9px 14px;
 }
 .icon-wrapper-mixin {
   width: 40px;

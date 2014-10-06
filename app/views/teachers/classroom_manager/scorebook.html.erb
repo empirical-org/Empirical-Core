@@ -4,24 +4,24 @@
 
 <%= render partial: 'classroom_selector_and_legend' %>
 
-<% @score_table.each do |student| %>
+<% @classroom.students.each do |student| %>
   <div class="container">
 
     <section>
 
-      <h3 class="student-name"><%= student[:name] %></h3>
+      <h3 class="student-name"><%= student.name %></h3>
 
       <div class="row">
 
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
 
-          <% student[:activities].in_groups_of(10) do |activities| %>
-
+          <% student.percentages_by_classification_in_unit(@unit).in_groups_of(10) do |activity_sessions| %>
             <div class="icon-row">
 
-              <% activities.each do |activity| %>
-                <% next unless activity %>
-                <div class="icon-wrapper icon-<%= percentage_color(activity[:score]) %> icon-pencil" ></div>
+              <% activity_sessions.each do |activity_session| %>
+                <% next unless activity_session %>
+                <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.percentage) %> icon-<%= icon_for_classification(activity_session.activity.classification) %> " data-toggle="tooltip" data-placement="left" title="
+                <h1><%= activity_session.activity.name %></h1><p><%= activity_session.activity.classification.name %></p><p><%= activity_session.activity.section.name %>: <%= activity_session.activity.topic.name %></p><p>Scored <%= activity_session.score %>%</p>" ></div>
               <% end %>
 
             </div>
