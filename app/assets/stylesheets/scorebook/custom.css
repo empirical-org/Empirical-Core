@@ -1,0 +1,597 @@
+.ul-reset-mixin {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.border-mixin {
+  border: 1px solid #cecece;
+}
+.section-mixin {
+  padding: 30px 18px;
+  border-bottom: 1px solid #cecece;
+}
+.input-mixin {
+  border-radius: 5px;
+  border: 1px solid #cecece;
+  color: #000;
+  font-size: 14px;
+  padding: 12px;
+}
+.select-mixin {
+  border-radius: 5px;
+  border: 1px solid #cecece;
+  color: #000;
+  font-size: 14px;
+  width: 284px;
+}
+.icon-wrapper-mixin {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+}
+.checkbox-mixin {
+  height: 21px;
+  width: 21px;
+  border-radius: 5px;
+  background: #e6e6e6;
+  border: 1px solid #cecece;
+}
+.button-mixin {
+  padding: 13px 25px;
+  font-size: 14px;
+  background: #737373;
+  border-radius: 5px;
+}
+@media screen and (min-width: 768px) {
+  .navbar-nav {
+    float: right;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .how-we-grade {
+    float: left !important;
+    text-align: left;
+    margin-top: 15px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .select-gray {
+    margin-top: 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .icon-legend .icon-wrapper {
+    margin-bottom: 30px;
+    margin-right: 30px;
+  }
+}
+/* ==========================================================================
+   Font embedding
+   ========================================================================== */
+/* ==========================================================================
+   Tags
+   ========================================================================== */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+section {
+  padding: 30px 18px;
+  border-bottom: 1px solid #cecece;
+}
+button {
+  padding: 13px 25px;
+  font-size: 14px;
+  background: #737373;
+  border-radius: 5px;
+}
+/* ==========================================================================
+   Navbar styles
+   ========================================================================== */
+.image-brand img {
+  padding-top: 5px;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #000;
+  font-size: 16px;
+  line-height: 45px;
+  padding: 10px 20px;
+  font-weight: 500;
+  border-top: none;
+}
+.navbar-default .navbar-nav > li > a .fa {
+  color: #737373;
+  margin-left: 5px;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  border-top: none;
+}
+.navbar-default .navbar-nav {
+  position: relative;
+  left: 30px;
+}
+/* ==========================================================================
+   Inputs, selects, etc
+   ========================================================================== */
+input {
+  border-radius: 5px;
+  border: 1px solid #cecece;
+  color: #000;
+  font-size: 14px;
+  padding: 12px;
+}
+input[type=checkbox].css-checkbox {
+  position: absolute;
+  z-index: -1000;
+  left: -1000px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+input[type=checkbox].css-checkbox + label.css-label {
+  padding-left: 28px;
+  height: 23px;
+  display: inline-block;
+  line-height: 23px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  font-size: 23px;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+  left: 4px;
+  margin: 0;
+}
+input[type=checkbox].css-checkbox:checked + label.css-label {
+  background-position: 0 -23px;
+}
+label.css-label {
+  background-image: url(../images/checkbox-sprite.png);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+select {
+  border-radius: 5px;
+  border: 1px solid #cecece;
+  color: #000;
+  font-size: 14px;
+  width: 284px;
+}
+select:focus {
+  outline: none;
+}
+.select-custom-mixin ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.select-custom-mixin ul a {
+  padding: 5px 20px;
+  display: block;
+}
+.select-custom-mixin ul a:hover {
+  background: #f0f0f0;
+}
+.select-custom-mixin ul a:hover,
+.select-custom-mixin ul a:focus,
+.select-custom-mixin ul a:active {
+  -webkit-appearance: none;
+}
+.select-custom-mixin a:hover {
+  text-decoration: none;
+}
+.select-custom-mixin .fa {
+  color: #737373;
+  float: right;
+  position: relative;
+  text-align: center;
+  width: 36px;
+  font-size: 1.3em;
+  line-height: 46px;
+}
+.select-box-disabled {
+  background: #ebebeb;
+}
+.select-white {
+  background: #fff;
+}
+.select-gray {
+  background: #ebebeb;
+  width: 220px;
+}
+.select-box-trigger {
+  padding: 13px 40px;
+  width: 284px;
+  display: block;
+  position: relative;
+  right: 20px;
+}
+/* ==========================================================================
+   Tabs
+   ========================================================================== */
+.tabs-navigation-list li a {
+  font-size: 16px;
+}
+.nav-tabs {
+  border-bottom: none;
+}
+#first-tab {
+  border-left: 1px solid #cecece;
+}
+.tab-subnavigation-wrapper {
+  padding: 8px 0;
+  background: #fff;
+  border-bottom: 1px solid #cecece;
+  border-top: 1px solid #cecece;
+}
+.tab-subnavigation-wrapper ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  float: left;
+}
+.tab-subnavigation-wrapper ul li {
+  float: left;
+  padding: 10px 16.5px;
+}
+.tab-subnavigation-wrapper ul li a {
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #000;
+}
+.tab-subnavigation-wrapper ul li a.active {
+  background: #e6e6e6;
+}
+.tab-subnavigation-breadcrumb-wrapper {
+  padding: 8px 0;
+  background: #fff;
+  border-bottom: 1px solid #cecece;
+  border-top: 1px solid #cecece;
+}
+.tab-subnavigation-breadcrumb-wrapper ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  float: left;
+}
+.tab-subnavigation-breadcrumb-wrapper ul li {
+  float: left;
+}
+.tab-subnavigation-breadcrumb-wrapper ul li a {
+  font-size: 14px;
+}
+/* ==========================================================================
+   Icons
+   ========================================================================== */
+.icons-wrapper {
+  padding-top: 30px;
+}
+.icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  float: left;
+}
+.icon-row {
+  margin-bottom: 15px;
+}
+.icon-row .icon-wrapper {
+  margin-right: 17px;
+  float: none;
+  display: inline-block;
+}
+.icon-row:first-child {
+  margin-top: 26px;
+}
+.icon-row:last-child {
+  margin-bottom: 0;
+}
+.icon-green {
+  background: #58b146;
+}
+.icon-orange {
+  background: #f8a724;
+}
+.icon-red {
+  background: #e8522c;
+}
+.icon-gray {
+  background: #b7b7b7;
+}
+.icon-pencil {
+  background-image: url(../images/icon-pencil.png);
+  background-repeat: no-repeat;
+  background-position: 9px;
+}
+.icon-puzzle {
+  background-image: url(../images/icon-puzzle.png);
+  background-repeat: no-repeat;
+  background-position: 11px 7px;
+}
+.icon-flag {
+  background-image: url(../images/icon-flag.png);
+  background-repeat: no-repeat;
+  background-position: 9px;
+}
+.icons-description-wrapper {
+  float: left;
+  position: relative;
+  margin-left: 10px;
+}
+.title {
+  font-size: 14px;
+}
+.title-not-started {
+  line-height: 40px;
+  position: static;
+}
+.explanation {
+  font-size: 13px;
+}
+.how-we-grade {
+  float: right;
+}
+.how-we-grade:hover .fa {
+  color: #747474;
+}
+.how-we-grade .fa {
+  color: #cecece;
+  margin-left: 10px;
+}
+.section-header {
+  font-weight: 600;
+  font-size: 24px;
+}
+/* ==========================================================================
+   Activity Planner styles
+   ========================================================================== */
+#activity-planner input:not([type="checkbox"]) {
+  width: 326px;
+  margin-top: 20px;
+}
+#activity-planner button {
+  margin-left: 20px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+}
+#activity-planner .select-box-trigger {
+  width: auto;
+}
+#activity-planner .activity-planner-select {
+  display: inline-block;
+  width: auto;
+  margin-right: 18px;
+}
+#activity-planner .selects-wrapper {
+  margin-top: 20px;
+}
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+#activity-planner table {
+  margin-top: 20px;
+  border-collapse: separate;
+  margin-bottom: 0;
+}
+#activity-planner table thead {
+  background: #f7f5f5;
+  border: 1px solid #cecece;
+}
+#activity-planner table thead tr th {
+  border-left: 1px solid #cecece;
+  border-bottom: none;
+  border-top: 1px solid #cecece;
+}
+#activity-planner table thead tr th:nth-child(1) {
+  width: 5%;
+  border-top-left-radius: 5px;
+  text-align: center;
+}
+#activity-planner table thead tr th:nth-child(2) {
+  width: 7%;
+}
+#activity-planner table thead tr th:nth-child(3) {
+  width: 53%;
+}
+#activity-planner table thead tr th:nth-child(4) {
+  width: 15%;
+}
+#activity-planner table thead tr th:nth-child(5) {
+  width: 20%;
+  border-top-right-radius: 5px;
+  border-right: 1px solid #cecece;
+}
+#activity-planner table tbody tr:nth-child(3),
+#activity-planner table tbody tr:nth-child(4),
+#activity-planner table tbody tr:nth-child(5),
+#activity-planner table tbody tr:nth-child(8),
+#activity-planner table tbody tr:nth-child(9) {
+  background: #f7f5f5;
+}
+#activity-planner table tbody tr {
+  background: #fff;
+}
+#activity-planner table tbody tr td {
+  font-size: 14px;
+  padding: 7px;
+}
+#activity-planner table tbody tr td:nth-child(1) {
+  text-align: center;
+  border-left: 1px solid #cecece;
+}
+#activity-planner table tbody tr td:nth-child(2) {
+  text-align: center;
+}
+#activity-planner table tbody tr td:nth-child(3) {
+  text-align: left;
+}
+#activity-planner table tbody tr td:nth-child(4) {
+  text-align: right;
+}
+#activity-planner table tbody tr td:nth-child(5) {
+  text-align: left;
+  border-right: 1px solid #cecece;
+}
+#activity-planner .table > thead > tr > th,
+#activity-planner .table > tbody > tr > th,
+#activity-planner .table > tfoot > tr > th,
+#activity-planner .table > thead > tr > td,
+#activity-planner .table > tbody > tr > td,
+#activity-planner .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+.learning-to-use table tbody tr {
+  background: #f7f5f5 !important;
+}
+.learning-to-use table tbody tr:first-child td:nth-child(1) {
+  border-top-left-radius: 5px;
+}
+.learning-to-use table tbody tr:first-child td:nth-child(3) {
+  border-top-right-radius: 5px;
+}
+.learning-to-use table tbody tr:last-child td:nth-child(1) {
+  border-bottom-left-radius: 5px;
+}
+.learning-to-use table tbody tr:last-child td:nth-child(3) {
+  border-bottom-right-radius: 5px;
+}
+.learning-to-use table tbody tr td:nth-child(1) {
+  width: 5%;
+}
+.learning-to-use table tbody tr td:nth-child(2) {
+  width: 90%;
+  text-align: left !important;
+}
+.learning-to-use table tbody tr td:nth-child(3) {
+  border-right: 1px solid #cecece;
+  width: 5%;
+}
+.learning-to-use .fake-border {
+  width: 99.4%;
+  margin: 0 auto;
+  position: relative;
+  bottom: 1px;
+}
+/* ==========================================================================
+   Tooltips
+   ========================================================================== */
+.tooltip.in {
+  opacity: 1;
+}
+/* ==========================================================================
+   Helper styles to quickly manipulate the looks
+   ========================================================================== */
+.fake-border {
+  border-top: 1px solid #cecece;
+}
+.no-border {
+  border: none;
+}
+.no-pl {
+  padding-left: 0;
+}
+.no-pr {
+  padding-right: 0;
+}
+#crumbs {
+  text-align: center;
+  position: relative;
+  left: 30px;
+}
+#crumbs ul {
+  list-style: none;
+  display: inline-table;
+}
+#crumbs ul li {
+  display: inline;
+}
+#crumbs ul li a {
+  display: block;
+  float: left;
+  background: #e6e6e6;
+  text-align: center;
+  padding: 6px 38px;
+  position: relative;
+  margin: 0;
+  color: #000;
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid #cecece;
+}
+#crumbs ul li a:hover {
+  color: #000;
+}
+#crumbs ul li a.active {
+  background: #fff;
+  color: #000;
+}
+#crumbs ul li a.active:after {
+  border-left: 16px solid #fff;
+}
+#crumbs ul li a:after {
+  content: "";
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 16px solid #e6e6e6;
+  position: absolute;
+  right: -16px;
+  top: 0;
+  z-index: 1;
+}
+#crumbs ul li a:hover:after {
+  content: "";
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 16px solid #fff;
+  position: absolute;
+  right: -16px;
+  top: 0;
+  z-index: 1;
+}
+#crumbs ul li a:before {
+  content: "";
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 16px solid #cecece;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#crumbs ul li:first-child a {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 6px 38px 6px 20px;
+}
+#crumbs ul li:first-child a:before {
+  display: none;
+}
+#crumbs ul li:last-child a {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+#crumbs ul li:last-child a:after {
+  display: none;
+}
+#crumbs ul li a:hover {
+  background: #fff;
+}
+#crumbs ul li a:hover:after:not(.active) {
+  border-left-color: #e6e6e6;
+}
