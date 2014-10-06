@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def routing_error(error = 'Routing error', status = :not_found, exception=nil)
-    render_exception(404, "Routing Error", exception)
+    render_error(404)
   end
 
   def render_error(status)
