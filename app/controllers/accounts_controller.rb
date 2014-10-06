@@ -18,11 +18,8 @@ class AccountsController < ApplicationController
     if @user.save
       sign_in @user
 
-      @user.send_welcome_email
-      @user.subscribe_to_newsletter
+      AccountCreationWorker.perform_async(@user.id)
 
-      $mixpanel.try(:track, @user.id, 'account created')
-      $mixpanel.try(:track, @user.id, "#{@user.role} created")
       redirect_to profile_path
     else
       render 'accounts/new'

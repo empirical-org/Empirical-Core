@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
     render_error(status)
   end
 
+  def routing_error(error = 'Routing error', status = :not_found, exception=nil)
+    render_error(404)
+  end
+
   def render_error(status)
     respond_to do |format|
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
