@@ -95,4 +95,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '500' => 'errors#error_500'
 
   root to: 'pages#home'
+
+  # catch-all 404
+  get '*path', :to => 'application#routing_error'
 end
