@@ -21,6 +21,18 @@ module Student
     end
     protected :classroom_activity_score_join
 
+    def percentages_by_classification_in_unit(unit)
+      sessions = self.activity_sessions.completed.includes(activity: {classification: [], topic: [:section]}).joins(:unit)
+      sessions = sessions.where('units.id = ?', unit.id) if unit
+      sessions.sort do |a,b|
+        if a.percentile == b.percentile
+          b.activity.classification.key <=> a.activity.classification.key
+        else
+          b.percentile <=> a.percentile
+        end
+      end
+    end
+
     has_many :activity_sessions, dependent: :destroy do
       def rel_for_activity activity
         includes(:classroom_activity).where(classroom_activities: { activity_id: activity.id })

@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,600);
 .ul-reset-mixin {
   padding: 0;
   margin: 0;
@@ -22,7 +23,7 @@
   border: 1px solid #cecece;
   color: #000;
   font-size: 14px;
-  width: 284px;
+  padding: 9px 14px;
 }
 .icon-wrapper-mixin {
   width: 40px;
@@ -54,12 +55,12 @@
     margin-top: 15px;
   }
 }
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 565px) {
   .select-gray {
     margin-top: 30px;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   .icon-legend .icon-wrapper {
     margin-bottom: 30px;
     margin-right: 30px;
@@ -90,6 +91,9 @@ button {
   font-size: 14px;
   background: #737373;
   border-radius: 5px;
+}
+button:focus {
+  outline: none;
 }
 /* ==========================================================================
    Navbar styles
@@ -157,7 +161,7 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
   background-position: 0 -23px;
 }
 label.css-label {
-  background-image: url(../images/checkbox-sprite.png);
+  background-image: image-url('scorebook/checkbox-sprite.png');
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -170,49 +174,73 @@ select {
   border: 1px solid #cecece;
   color: #000;
   font-size: 14px;
-  width: 284px;
+  padding: 9px 14px;
 }
 select:focus {
   outline: none;
 }
-.select-custom-mixin ul {
+.button-select-wrapper button {
+  border-radius: 5px;
+  border: 1px solid #cecece;
+  color: #000;
+  font-size: 14px;
+  padding: 9px 14px;
+  text-align: left;
+  width: 100%;
+}
+.button-select-wrapper .dropdown-menu {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 14px;
 }
-.select-custom-mixin ul a {
-  padding: 5px 20px;
+.button-select-wrapper .dropdown-menu a {
+  padding: 5px 14px;
   display: block;
+  color: #000;
 }
-.select-custom-mixin ul a:hover {
+.button-select-wrapper .dropdown-menu a:hover {
   background: #f0f0f0;
 }
-.select-custom-mixin ul a:hover,
-.select-custom-mixin ul a:focus,
-.select-custom-mixin ul a:active {
+.button-select-wrapper .dropdown-menu a:hover,
+.button-select-wrapper .dropdown-menu a:focus,
+.button-select-wrapper .dropdown-menu a:active {
   -webkit-appearance: none;
 }
-.select-custom-mixin a:hover {
+.button-select-wrapper a:hover {
   text-decoration: none;
 }
-.select-custom-mixin .fa {
+.button-select-wrapper .fa {
   color: #737373;
-  float: right;
   position: relative;
-  text-align: center;
-  width: 36px;
+  float: right;
   font-size: 1.3em;
-  line-height: 46px;
+  text-align: right;
+  line-height: normal;
+  width: auto;
+}
+.select-white-wrapper .dropdown-menu {
+  width: 265px !important;
+}
+.select-gray-wrapper .dropdown-menu {
+  width: 100% !important;
 }
 .select-box-disabled {
   background: #ebebeb;
 }
+.select-white-wrapper {
+  width: 280px;
+}
 .select-white {
   background: #fff;
 }
+.select-gray-wrapper {
+  width: 220px;
+}
 .select-gray {
   background: #ebebeb;
-  width: 220px;
 }
 .select-box-trigger {
   padding: 13px 40px;
@@ -315,17 +343,17 @@ select:focus {
   background: #b7b7b7;
 }
 .icon-pencil {
-  background-image: url(../images/icon-pencil.png);
+  background-image: image-url('scorebook/icon-pencil.png');
   background-repeat: no-repeat;
   background-position: 9px;
 }
 .icon-puzzle {
-  background-image: url(../images/icon-puzzle.png);
+  background-image: image-url('scorebook/icon-puzzle.png');
   background-repeat: no-repeat;
   background-position: 11px 7px;
 }
 .icon-flag {
-  background-image: url(../images/icon-flag.png);
+  background-image: image-url('scorebook/icon-flag.png');
   background-repeat: no-repeat;
   background-position: 9px;
 }

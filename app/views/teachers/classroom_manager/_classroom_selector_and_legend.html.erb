@@ -5,29 +5,50 @@
       <div class="row">
 
         <!-- wrapping the contents of sections and letting them have 75% width -->
-        <div class="col-xs-9 col-xl-9 no-pl">
+        <div class="col-xs-12 col-xl-12 no-pl">
 
-          <div class="col-xs-12 col-md-5 col-lg-5 col-xl-5 no-pl">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5 col-xl-5 button-select-wrapper select-white-wrapper no-pl">
 
-            <select id="classroom-select" class="select-white">
+            <div class="button-select">
+              <button type="button" class="select-mixin select-white" data-toggle="dropdown">
+              <%= @classroom.name %>
+              <% unless @classrooms.empty? %><i class="fa fa-caret-down"></i><% end %>
+              </button>
 
-              <option value="Lala">Placeholder Classroom Name</option>
-              <option value="Fa">fsdff</option>
-              <option value="fdsfdsf">fsdfsdf</option>
+              <% unless @classrooms.empty? %>
+                <ul class="dropdown-menu" role="menu">
+                  <% @classrooms.each do |classroom| %>
+                    <li><%= link_to classroom.name, teachers_classroom_scorebook_path(classroom_id: classroom.id) %></li>
+                  <% end %>
+                </ul>
+              <% end %>
 
-            </select>
+            </div>
 
           </div> <!-- //.col-xs-12 -->
 
-          <div class="col-xs-12 col-md-4 col-lg-4 col-xl-4 no-pl">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 button-select-wrapper select-gray-wrapper no-pl">
 
-            <select id="units-select" class="select-gray">
+            <div class="button-select">
+              <button type="button" class="select-mixin select-gray" data-toggle="dropdown">
+              <% if @unit %>
+                <%= @unit.name %>
+              <% else %>
+                All Units
+              <% end %>
+              <% unless @units.empty? %><i class="fa fa-caret-down"></i><% end %>
+              </button>
 
-              <option value="Lala">All Units</option>
-              <option value="Fa">fdsfsf</option>
-              <option value="fds">sdfdsf</option>
+              <% unless @units.empty? %>
+                <ul class="dropdown-menu" role="menu">
+                  <%= link_to('All Units', teachers_classroom_scorebook_path(@classroom)) if @unit %>
+                  <% @units.each do |unit| %>
+                    <%= link_to unit.name, teachers_classroom_scorebook_path(classroom_id: @classroom.id, unit_id: unit.id) %>
+                  <% end %>
+                </ul>
+              <% end %>
 
-            </select>
+            </div>
 
           </div><!-- //.col-xs-12 -->
 
