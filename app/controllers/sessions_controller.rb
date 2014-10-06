@@ -3,10 +3,9 @@ class SessionsController < ApplicationController
 
   def create
     if @user = User.authenticate(params[:user])
-      @user.update_attributes(ip_address: request.remote_ip)
-
-#      Keen.publish :login, @user.serialized.as_json
       sign_in(@user)
+
+      UserLoginWorker.perform_async(@user.id, request.remote_ip)
 
       redirect_to profile_path
     else
