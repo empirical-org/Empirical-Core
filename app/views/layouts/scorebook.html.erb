@@ -1,0 +1,114 @@
+<head>
+  <title>Quill Scorebook</title>
+  <%= stylesheet_link_tag 'scorebook/scorebook', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <a href="/images/favicon.gif" rel="icon" type="image/ico" />
+  <a href="http://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
+
+  <%= render partial: 'application/head_embed_codes' %>
+
+  <!--[if !IE 7]>
+    <style type="text/css">
+      #wrap { display: table ; height: 100% }
+    </style>
+  <![endif]-->
+
+</head>
+  <body>
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <a href="#" class="image-brand">
+              <img src="images/logo.png" alt="">
+            </a>
+
+          </div> <!-- //.navbar-header -->
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+
+            <div class="collapse navbar-collapse" id="collapsed-navbar-content">
+              <ul class="nav navbar-nav">
+              <li><a href="">About</a></li>
+                <li><a href="">Community</a></li>
+                <li><a href="">Support</a></li>
+                <li><a href=""><img src="images/user-pic.png" alt=""><i class="fa fa-caret-down"></i></a></li>
+              </ul>
+            </div>
+
+        </div> <!-- //.container -->
+      </nav> <!-- //.navbar -->
+
+      <div id="page-content-wrapper">
+
+
+        <div class="row">
+          <div class="col-xs-12 col-xl-12">
+            <!-- Nav tabs -->
+
+            <div class="container">
+
+              <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
+
+                <li class="active">
+                  <a href="#scorebook" id="first-tab" role="tab" data-toggle="tab">Scorebook</a>
+                </li>
+
+                <li>
+                  <a href="#portfolio" role="tab" data-toggle="tab">Portfolio</a>
+                </li>
+
+                <li>
+                  <a href="#activity-planner" role="tab" data-toggle="tab">Activity Planner</a>
+                </li>
+
+                <li>
+                  <a href="#class-manager" role="tab" data-toggle="tab">Class Manager</a>
+                </li>
+
+              </ul>
+
+            </div> <!-- //.container -->
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+
+                <div class="tab-pane active" id="scorebook">
+
+                  <div class="tab-subnavigation-wrapper">
+
+                    <div class="container">
+
+                      <ul>
+                        <li><a href="" class="active">Student View</a></li>
+                        <li><a href="">Activity View</a></li>
+                        <li><a href="">Writing Review</a></li>
+                      </ul>
+
+                    </div> <!-- //.container -->
+
+                  </div> <!-- //.tab-subnavigation-wrapper -->
+
+                  <%= yield %>
+
+                </div>
+
+              </div> <!-- //.tab-content -->
+          </div> <!-- //.col-xs-12-->
+        </div> <!-- //.row -->
+
+
+      </div> <!-- //#page-content-wrapper -->
+
+
+  <footer>
+
+  </footer>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <%= javascript_include_tag 'scorebook/scorebook', 'data-turbolinks-track' => true %>
+  </body>
+</html>

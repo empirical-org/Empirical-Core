@@ -2,6 +2,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   layout 'classroom_manager'
   before_filter :teacher!
   before_filter :authorize!
+  layout 'scorebook'
 
   def scorebook
 
@@ -10,12 +11,12 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     @classroom_activities = @topic.blank? ? [] : @unit.classroom_activities.with_topic(@topic.id)
 
-    @score_table = @classroom.students.inject({}) {|memo, i| memo[i.id] = {name: i.name, activities: {}}; memo  }
+    @score_table = @classroom.students.inject({}) {|memo, i| memo[i.id] = {name: i.name, activities: []}; memo  }
 
     @classroom_activities.each do |classroom_activity|
       scores = classroom_activity.scorebook
 
-      scores.each { |student, data| @score_table[student][:activities].merge!(data) }
+      scores.each { |student, data| @score_table[student][:activities] << data}
     end
 
     @score_table = @score_table.sort {|a, b| a.last[:name] <=> b.last[:name]}.collect(&:last)
