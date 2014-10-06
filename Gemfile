@@ -110,7 +110,6 @@ group :test, :development do
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
-  gem 'figaro'
   gem "factory_girl"
   gem "factory_girl_rails"
   gem "forgery"
