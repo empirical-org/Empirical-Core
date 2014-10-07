@@ -1,19 +1,27 @@
-footer.con-darkgrey
+footer.footer-white
   #footer-inner.container.clearfix
-    #copyright.span3
-      span.non-profit.footer-logo-image= image_tag 'emperical-logo.png'
-      span.non-profit
-        em Knowledge through experience
-      span Empirical is a nonprofit developer of interactive educational tools.
-      span
-        br
-        a href="mailto:hello@quill.org" hello@quill.org
-
-    #footer-item.span9
-      ul
-        li= link_to image_tag('opencommunity.png'), develop_path, title: 'Open Community'
-        li= link_to image_tag('opencontent.png'), develop_path, title: 'Open Content'
-        li= link_to image_tag('opensource.png'), 'https://github.com/empirical-org/quill', title: 'Open Source'
+    .first-col-wrapper
+      .img-wrapper
+        = image_tag 'emperical-logo.png'
+      .text-wrapper
+        p.text-italic
+          | A nonprofit, open source community
+          br building interactive education.
+    .icons-wrapper
+      a href="https://www.edsurge.com/quill" target="_blank"
+        = image_tag "icons/edsurge-footer-52.png", class: 'icon icon-edsurge', alt: ''
+      a href="https://twitter.com/quill_grammar" target="_blank"
+        = image_tag "icons/twitter-footer-52.png", class: 'icon icon-edsurge', alt: ''
+      a href="https://www.facebook.com/quill.org" target="_blank"
+        = image_tag "icons/facebook-footer-52.png", class: 'icon icon-edsurge', alt: ''
+      a href="https://plus.google.com/u/3/+QuillGrammar/posts" target="_blank"
+        = image_tag "icons/google-plus-square_52.png", class: 'icon icon-edsurge', alt: ''
+      a href="https://github.com/empirical-org/Empirical-Core/issues" target="_blank"
+        = image_tag "icons/github-footer-52.png", class: 'icon icon-edsurge', alt: ''
+    p
+      | Talk to us anytime:
+      a href="mailto:hello@quill.org"  hello@quill.org
+      | &nbsp;(646) 820-7136
 
 - if signed_in? && !Rails.env.development?
   javascript:
