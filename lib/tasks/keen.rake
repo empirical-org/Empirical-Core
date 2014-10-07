@@ -10,8 +10,8 @@ namespace :keen do
       fh = open("activity-sessions-#{iter}.json", 'a')
 
       group.each do |as|
-        fh.write(create_initial_event(as))
-        fh.write(create_final_event(as))
+        fh.write("#{create_initial_event(as)}\n")
+        fh.write("#{create_final_event(as)}\n")
       end
 
       fh.close
