@@ -10,6 +10,7 @@ class ActivitySession < ActiveRecord::Base
 
   before_create :set_state
   before_save   :set_completed_at
+  before_save   :set_activity_id
   around_save   :trigger_events
 
   default_scope -> { joins(:activity).order('activity_sessions.id desc') }
@@ -107,6 +108,10 @@ class ActivitySession < ActiveRecord::Base
   def set_state
     self.state ||= 'unstarted'
     self.data ||= Hash.new
+  end
+
+  def set_activity_id
+    self.activity_id = classroom_activity.try(:activity_id) if activity_id.nil?
   end
 
   def set_completed_at
