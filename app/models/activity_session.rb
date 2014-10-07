@@ -85,7 +85,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def calculate_time_spent!
-    self.time_spent = (updated_at - created_at).to_i
+    self.time_spent = (completed_at.to_f - created_at.to_f).to_i
   end
 
   private

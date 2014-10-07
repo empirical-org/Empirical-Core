@@ -14,7 +14,7 @@ class FinishActivityWorker
       time_spent: activity_session.time_spent,
       activity: ActivitySerializer.new(activity_session.activity),
       event_started: activity_session.created_at,
-      event_finished: activity_session.updated_at
+      event_finished: activity_session.completed_at
     }
 
     if activity_session.user_id.nil?
