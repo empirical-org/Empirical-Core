@@ -38,3 +38,4 @@ deploy-keys
 
 # Ignore application configuration
 /config/application.yml
+activity-sessions*.json
