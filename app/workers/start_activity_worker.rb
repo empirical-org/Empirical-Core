@@ -17,12 +17,7 @@ class StartActivityWorker
 
 
     # yay, we started!
-    begin
-      activity_session.update_columns(started_at: start_time)
-    rescue ActiveRecord::StatementInvalid
-      # pending migration...
-    end
-
+    activity_session.update_columns(started_at: start_time)
 
     # publish event data
     Keen.publish(:activity_sessions, activity_session.as_keen)

@@ -87,12 +87,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def calculate_time_spent!
-    # REMOVE
-    if started_at.nil?
-      self.time_spent = (completed_at.to_f - created_at.to_f).to_i
-    else
     self.time_spent = (completed_at.to_f - started_at.to_f).to_i
-    end
   end
 
   def as_keen
