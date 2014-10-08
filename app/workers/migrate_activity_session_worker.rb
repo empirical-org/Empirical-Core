@@ -40,7 +40,6 @@ class MigrateActivitySessionWorker
       updates[:time_spent] = as.completed_at.to_f - updates[:started_at].to_f
     end
 
-    ap "Sending the following updates.... #{updates}"
     as.update_columns(updates)
   end
 
