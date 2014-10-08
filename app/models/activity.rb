@@ -17,6 +17,8 @@ class Activity < ActiveRecord::Base
     SQL
   }
 
+  scope :with_classification, -> { includes(:classification).joins(:classification) }
+
   def classification_key= key
     self.classification = ActivityClassification.find_by_key(key)
   end

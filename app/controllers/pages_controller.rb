@@ -9,11 +9,12 @@ class PagesController < ApplicationController
     @body_class = 'home-page'
 
 
-    topic = Topic.find(ENV.fetch("HOMEPAGE_CHAPTER_ID", 1))
-    act_classifier = ActivityClassification.find_by_key('story').id
-
-    @activity = topic.activities.where(activity_classification_id: act_classifier).first
-
+    # topic = Topic.find(ENV.fetch("HOMEPAGE_CHAPTER_ID", 1))
+    # act_classifier = ActivityClassification.find_by_key('story').id
+    #
+    # @activity = topic.activities.where(activity_classification_id: act_classifier).first
+    #
+    @activity = Activity.with_classification.find_by_uid(ENV.fetch('HOMEPAGE_ACTIVITY_UID', ''))
     self.formats = ['html']
   end
 
