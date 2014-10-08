@@ -17,7 +17,7 @@ class StartActivityWorker
 
 
     # yay, we started!
-    activity_session.update_column(started_at: start_time)
+    activity_session.update_columns(started_at: start_time)
 
     # publish event data
     Keen.publish(:activity_sessions, activity_session.as_keen)
