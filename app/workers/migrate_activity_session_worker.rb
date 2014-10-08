@@ -40,7 +40,7 @@ class MigrateActivitySessionWorker
       updates[:time_spent] = as.completed_at.to_f - updates[:started_at].to_f
     end
 
-    as.update_columns(updates)
+    as.update_columns(updates) if updates.any?
   end
 
 
