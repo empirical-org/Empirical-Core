@@ -17,6 +17,7 @@ class ActivitySession < ActiveRecord::Base
 
   scope :completed,  -> { where('completed_at is not null').order('completed_at desc') }
   scope :incomplete, -> { where('completed_at is null') }
+  scope :started_or_better, -> { where("state != 'unstarted'") }
 
   scope :current_session, -> {
     complete_session   = completed.first
@@ -86,7 +87,29 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def calculate_time_spent!
-    self.time_spent = (completed_at.to_f - created_at.to_f).to_i
+    self.time_spent = (completed_at.to_f - started_at.to_f).to_i
+  end
+
+  def as_keen
+    event_data = {
+      event: state,
+      uid: uid,
+      time_spent: time_spent,
+      activity: ActivitySerializer.new(activity, root: false),
+      event_started: started_at,
+      event_finished: completed_at,
+      keen: {
+        timestamp: started_at
+      }
+    }
+
+    if user.nil?
+      event_data.merge!(anonymous: true)
+    else
+      event_data.merge!(anonymous: false, student: StudentSerializer.new(user, root: false))
+    end
+
+    return event_data
   end
 
   private
@@ -99,7 +122,7 @@ class ActivitySession < ActiveRecord::Base
     return unless should_async
 
     if state == 'started'
-      StartActivityWorker.perform_async(self.uid)
+      StartActivityWorker.perform_async(self.uid, Time.current)
     elsif state == 'finished'
       FinishActivityWorker.perform_async(self.uid)
     end
@@ -116,6 +139,6 @@ class ActivitySession < ActiveRecord::Base
 
   def set_completed_at
     return true if state != 'finished'
-    self.completed_at = Time.now
+    self.completed_at = Time.current
   end
 end

@@ -7,6 +7,5 @@ class FixBadActivityIdOnSession < ActiveRecord::Migration
      as.update_columns(activity_id: as.classroom_activity.activity_id)
    end
 
-
   end
 end

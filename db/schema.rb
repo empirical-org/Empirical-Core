@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007210647) do
+ActiveRecord::Schema.define(version: 20141008152913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,15 +57,18 @@ ActiveRecord::Schema.define(version: 20141007210647) do
     t.integer  "time_spent"
     t.datetime "completed_at"
     t.string   "uid"
-    t.boolean  "temporary"
+    t.boolean  "temporary",             default: false
     t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "started_at"
   end
 
   add_index "activity_sessions", ["activity_id"], name: "index_activity_sessions_on_activity_id", using: :btree
   add_index "activity_sessions", ["classroom_activity_id"], name: "index_activity_sessions_on_classroom_activity_id", using: :btree
+  add_index "activity_sessions", ["completed_at"], name: "index_activity_sessions_on_completed_at", using: :btree
   add_index "activity_sessions", ["pairing_id"], name: "index_activity_sessions_on_pairing_id", using: :btree
+  add_index "activity_sessions", ["started_at"], name: "index_activity_sessions_on_started_at", using: :btree
   add_index "activity_sessions", ["state"], name: "index_activity_sessions_on_state", using: :btree
   add_index "activity_sessions", ["uid"], name: "index_activity_sessions_on_uid", unique: true, using: :btree
   add_index "activity_sessions", ["user_id"], name: "index_activity_sessions_on_user_id", using: :btree
