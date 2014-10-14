@@ -99,6 +99,8 @@ group :development do
   gem "letter_opener"
 end
 
+gem "awesome_print", github: 'imajes/awesome_print'
+
 group :test, :development do
   gem "quiet_assets"
   gem 'pry'
@@ -107,7 +109,6 @@ group :test, :development do
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
-  gem "awesome_print", github: 'imajes/awesome_print'
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
