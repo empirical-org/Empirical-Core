@@ -1,38 +1,93 @@
-<!-- ==========================================================================
-     Icons legend
-  ========================================================================== -->
+<div id="page-content-wrapper">
 
-<%= render partial: 'classroom_selector_and_legend' %>
 
-<% @classroom.students.each do |student| %>
-  <div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-xl-12">
+      <!-- Nav tabs -->
 
-    <section>
+      <div class="container">
 
-      <h3 class="student-name"><%= student.name %></h3>
+        <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
 
-      <div class="row">
+          <li class="active">
+            <a href="#scorebook" id="first-tab" role="tab" data-toggle="tab">Scorebook</a>
+          </li>
 
-        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+          <li>
+            <a href="#portfolio" role="tab" data-toggle="tab">Portfolio</a>
+          </li>
 
-          <% student.percentages_by_classification_in_unit(@unit).in_groups_of(10) do |activity_sessions| %>
-            <div class="icon-row">
+          <li>
+            <a href="#activity-planner" role="tab" data-toggle="tab">Activity Planner</a>
+          </li>
 
-              <% activity_sessions.each do |activity_session| %>
-                <% next unless activity_session %>
-                <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.percentage) %> icon-<%= icon_for_classification(activity_session.activity.classification) %> " data-toggle="tooltip" data-placement="left" title="
-                <h1><%= activity_session.activity.name %></h1><p><%= activity_session.activity.classification.name %></p><p><%= activity_session.activity.section.name %>: <%= activity_session.activity.topic.name %></p><p>Scored <%= activity_session.score %>%</p>" ></div>
-              <% end %>
+          <li>
+            <a href="#class-manager" role="tab" data-toggle="tab">Class Manager</a>
+          </li>
 
-            </div>
+        </ul>
 
-          <% end %>
+      </div> <!-- //.container -->
 
-        </div> <!-- //.col-xs-12 -->
+        <!-- Tab panes -->
+        <div class="tab-content">
 
-      </div> <!-- //.row -->
+          <div class="tab-pane active" id="scorebook">
 
-    </section>
+            <div class="tab-subnavigation-wrapper">
 
-  </div> <!-- //.container -->
-<% end %>
+              <div class="container">
+
+                <ul>
+                  <li><a href="" class="active">Student View</a></li>
+                  <li><a href="">Activity View</a></li>
+                  <li><a href="">Writing Review</a></li>
+                </ul>
+
+              </div> <!-- //.container -->
+
+            </div> <!-- //.tab-subnavigation-wrapper -->
+
+            <%= render partial: 'classroom_selector_and_legend' %>
+
+            <% @classroom.students.each do |student| %>
+              <div class="container">
+
+                <section>
+
+                  <h3 class="student-name"><%= student.name %></h3>
+
+                  <div class="row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+
+                      <% student.percentages_by_classification(@unit).in_groups_of(10) do |activity_sessions| %>
+                        <div class="icon-row">
+
+                          <% activity_sessions.each do |activity_session| %>
+                            <% next unless activity_session %>
+                            <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.percentage) %> icon-<%= icon_for_classification(activity_session.activity.classification) %> " data-toggle="tooltip" data-placement="left" title="
+                            <h1><%= activity_session.activity.name %></h1><p><%= activity_session.activity.classification.name %></p><p><%= activity_session.activity.section.name %>: <%= activity_session.activity.topic.name %></p><p>Scored <%= activity_session.score %>%</p>" ></div>
+                          <% end %>
+
+                        </div>
+
+                      <% end %>
+
+                    </div> <!-- //.col-xs-12 -->
+
+                  </div> <!-- //.row -->
+
+                </section>
+
+              </div> <!-- //.container -->
+            <% end %>
+
+          </div>
+
+        </div> <!-- //.tab-content -->
+    </div> <!-- //.col-xs-12-->
+  </div> <!-- //.row -->
+
+
+</div> <!-- //#page-content-wrapper -->

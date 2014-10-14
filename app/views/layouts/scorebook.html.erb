@@ -37,66 +37,7 @@
         </div> <!-- //.container -->
       </nav> <!-- //.navbar -->
 
-      <div id="page-content-wrapper">
-
-
-        <div class="row">
-          <div class="col-xs-12 col-xl-12">
-            <!-- Nav tabs -->
-
-            <div class="container">
-
-              <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
-
-                <li class="active">
-                  <a href="#scorebook" id="first-tab" role="tab" data-toggle="tab">Scorebook</a>
-                </li>
-
-                <li>
-                  <a href="#portfolio" role="tab" data-toggle="tab">Portfolio</a>
-                </li>
-
-                <li>
-                  <a href="#activity-planner" role="tab" data-toggle="tab">Activity Planner</a>
-                </li>
-
-                <li>
-                  <a href="#class-manager" role="tab" data-toggle="tab">Class Manager</a>
-                </li>
-
-              </ul>
-
-            </div> <!-- //.container -->
-
-              <!-- Tab panes -->
-              <div class="tab-content">
-
-                <div class="tab-pane active" id="scorebook">
-
-                  <div class="tab-subnavigation-wrapper">
-
-                    <div class="container">
-
-                      <ul>
-                        <li><a href="" class="active">Student View</a></li>
-                        <li><a href="">Activity View</a></li>
-                        <li><a href="">Writing Review</a></li>
-                      </ul>
-
-                    </div> <!-- //.container -->
-
-                  </div> <!-- //.tab-subnavigation-wrapper -->
-
-                  <%= yield %>
-
-                </div>
-
-              </div> <!-- //.tab-content -->
-          </div> <!-- //.col-xs-12-->
-        </div> <!-- //.row -->
-
-
-      </div> <!-- //#page-content-wrapper -->
+      <%= yield %>
 
 
   <footer>
