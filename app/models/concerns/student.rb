@@ -21,7 +21,7 @@ module Student
     end
     protected :classroom_activity_score_join
 
-    def percentages_by_classification_in_unit(unit)
+    def percentages_by_classification(unit = nil)
       sessions = self.activity_sessions.completed.includes(activity: {classification: [], topic: [:section]}).joins(:unit)
       sessions = sessions.where('units.id = ?', unit.id) if unit
       sessions.sort do |a,b|

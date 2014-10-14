@@ -1,6 +1,8 @@
 module ScorebookHelper
 
   def percentage_color(score)
+    return 'gray' unless score
+    score = score.to_f / 100.0 if score > 1
     case score
     when 0.75..1.0
       'green'
