@@ -13,6 +13,7 @@ gem 'dotenv-rails'
 gem 'pg'
 gem 'ancestry'
 gem 'ransack'
+gem 'ranked-model'
 
 # USER AUTH, ETC
 gem 'bcrypt'
