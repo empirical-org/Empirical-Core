@@ -63,7 +63,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def score
-    (percentage * 100).round(2)
+    (percentage.to_i * 100).round(2)
   end
 
   def data=(input)
