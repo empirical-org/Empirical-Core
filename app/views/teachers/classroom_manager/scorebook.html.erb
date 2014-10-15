@@ -66,8 +66,7 @@
 
                           <% activity_sessions.each do |activity_session| %>
                             <% next unless activity_session %>
-                            <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.percentage) %> icon-<%= icon_for_classification(activity_session.activity.classification) %> " data-toggle="tooltip" data-placement="left" title="
-                            <h1><%= activity_session.activity.name %></h1><p><%= activity_session.activity.classification.name %></p><p><%= activity_session.activity.section.name %>: <%= activity_session.activity.topic.name %></p><p>Scored <%= activity_session.score %>%</p>" ></div>
+                            <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.percentage) %> icon-<%= icon_for_classification(activity_session.activity.classification) %>" <%= tooltip_html(activity_session) %> ></div>
                           <% end %>
 
                         </div>
