@@ -20,6 +20,7 @@ class ProfilesController < ApplicationController
   def student
     if @classroom = current_user.classroom
       @units = @classroom.units.includes(classroom_activities: [], activities: :classification)
+      @incomplete_activity_sessions = current_user.activity_sessions.incomplete
       @completed_activity_sessions = current_user.percentages_by_classification
       @incomplete_activities = @units.collect(&:activities).flatten - @completed_activity_sessions.collect(&:activity)
       @next_activity = @units.collect(&:classroom_activities).flatten.

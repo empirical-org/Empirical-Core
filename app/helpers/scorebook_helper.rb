@@ -26,4 +26,14 @@ module ScorebookHelper
     end
   end
 
+  def tooltip_html(activity_or_session)
+    activity, session = if activity_or_session.respond_to?(:activity)
+      [activity_or_session.activity, activity_or_session]
+    else
+      [activity_or_session, nil]
+    end
+
+    %Q(data-toggle="tooltip" data-placement="left" title="<h1>#{activity.name}</h1><p>#{activity.classification.name}</p><p>#{activity.section.name}: #{activity.topic.name}</p>#{session ? "<p>Scored #{session.score}</p>" : ''}").html_safe
+  end
+
 end
