@@ -12,7 +12,7 @@ namespace :quillwriter do
 
     # taxonomy
     section = Section.where(name: 'Quill Writer Activities').first_or_create!
-    topic = section.topics.where(name: 'Quill Writer Topics').first_or_create!
+    topic = Topic.where(name: 'Quill Writer Topics', section_id: section.id).first_or_create!
 
     # topic info
     puts "\n\n---- TAXONOMY ----\n"
