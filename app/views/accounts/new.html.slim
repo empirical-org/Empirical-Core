@@ -4,7 +4,8 @@ article.new-account-page.simple-rounded-box
   = form_for @user, url: account_path, html: { class: 'box-full-form form-horizontal' }, fields: { label: false, placeholder: true } do |f|
     .new-account-field-group
       .js-role-select= f.radio :role, ['I\'m a <b>student</b>', 'student'], ['I\'m a <b>teacher</b>', 'teacher']
-      = f.string :name
+      = f.string :first_name, required: true
+      = f.string :last_name, required: true
       = f.string :username
       = f.password :password
       = f.password :password_confirmation
