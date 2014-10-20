@@ -1,5 +1,4 @@
 //= require jquery
-//= require jquery.placeholder
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.color
