@@ -34,6 +34,7 @@ gem 'faraday_middleware'
 # PARSING
 gem 'parslet'
 gem 'redcarpet'
+gem 'addressable'
 
 # QUEUE/CACHE
 gem 'sidekiq'
