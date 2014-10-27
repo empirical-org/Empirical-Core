@@ -111,4 +111,6 @@ group :test, :development do
   gem 'guard-shell'
   gem 'guard-blink1'
   gem 'terminal-notifier-guard'
+  #capybara
+  gem 'capybara'
 end
