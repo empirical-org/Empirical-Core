@@ -27,6 +27,7 @@ article.new-account-page.simple-rounded-box
 
       .form-gray-box
         = f.toggle :terms_of_service, label: "I have read and accept Quill's #{link_to('Terms of Service', tos_path)}.".html_safe
+        = f.toggle :privacy_policy, label: "I have read and accept Quill's #{link_to('Privacy Policy', privacy_path)}.”.html_safe
         = f.toggle :newsletter, label: 'Send me Quill updates. We usually send about one per month.'
 
     = f.actions save: 'Sign up'

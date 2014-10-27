@@ -17,6 +17,9 @@ class User < ActiveRecord::Base
 
   validates :terms_of_service,      acceptance:   { on: :create }
 
+  #added privacy policy
+  validates :privacy_policy,        acceptance:   { on: :create }
+
   ROLES      = %w(student teacher temporary user admin)
   SAFE_ROLES = %w(student teacher)
 

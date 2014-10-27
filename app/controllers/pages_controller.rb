@@ -42,6 +42,10 @@ class PagesController < ApplicationController
   def tos
     @body_class = 'auxiliary white-page formatted-text'
   end
+  #added for privacy page
+  def privacy
+    @body_class = 'auxiliary white-page formatted-text'
+  end
 
   def lessons
     @body_class = 'auxiliary white-page formatted-text'
