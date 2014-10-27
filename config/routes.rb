@@ -71,8 +71,8 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
   end
-
-  %w(middle_school story about learning develop mission faq tos lessons).each do |page|
+  #added privacy
+  %w(middle_school story about learning develop mission faq tos lessons privacy).each do |page|
     get page => "pages##{page}"
   end
 
