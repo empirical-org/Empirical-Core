@@ -95,6 +95,8 @@ class ActivitySession < ActiveRecord::Base
       event: state,
       uid: uid,
       time_spent: time_spent,
+      percentage: percentage,
+      percentile: percentile,
       activity: ActivitySerializer.new(activity, root: false),
       event_started: started_at,
       event_finished: completed_at,
