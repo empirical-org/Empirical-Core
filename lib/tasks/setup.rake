@@ -1,6 +1,9 @@
 task :setup do
   puts "** Starting setup..."
 
+  puts "** Copying DB Credentials..."
+  run "cp config/database.yml.example config/database.yml"
+
   puts "** Creating database..."
   Rake::Task["db:create"].invoke
 

@@ -8,7 +8,7 @@
 .bundle
 
 # database
-db/*.sqlite3
+config/database.yml
 latest.dump
 
 # compilation
