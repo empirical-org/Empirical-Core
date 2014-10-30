@@ -31,7 +31,7 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 5. Install the bundle with `bundle install`.
 
-6. Set up your database with `bundle exec rake db:setup`.
+6. Set up your database with `bundle exec rake empirical:setup`.
 
 7. Run the server with `bundle exec rails s`.
 
