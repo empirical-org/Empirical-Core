@@ -1,6 +1,16 @@
+# Welcome to Empirical Core!
+
+*All of our documentation lives within the [documentation repo](https://github.com/empirical-org/Documentation/tree/master/Compass).*
+
+- **Getting Started:** [Start here with this doc.](https://github.com/empirical-org/Documentation/tree/master/Getting-Started) 
+- **CLA:** [Please sign our CLA before contributing.] (https://www.clahub.com/agreements/empirical-org/Documentation)
+- **Cofactor Empirical Core:** [Our project management HQ](http://www.empirical.org/cofactor/teams/compass)
+- **Mailing List:** [Compass developers mailing list.](https://groups.google.com/forum/#!forum/empirical-compass)
+- **Real Time Chat:** [Join us in the Compass Gitter room.](https://gitter.im/empirical-org/Compass)
+
 # Empirical Easy Install
 
-*Here is a branch of Empirical Core that makes installation and setup easy.*
+*Here is a guide to Empirical Core that makes installation and setup easy.*
 
 If you want a simple guide to install Empirical Core, then you've come to the right place! Here's the step-by-step process to get Empirical Core running on your system:
 
@@ -17,15 +27,13 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 3. Clone the Empirical Core project. Navigate to whatever directory you'd like Empirical Core to live in, and then use `git clone https://github.com/empirical-org/Empirical-Core.git`. From here on in, all the commands you have to type should be in the new Empirical Core directory you just downloaded, so you should probably `cd Empirical-Core`.
 
-4. Switch to the `easy_install` branch with `git checkout easy_install`.
+4. Install bundler with `gem install bundler`
 
-5. Install bundler with `gem install bundler`
+5. Install the bundle with `bundle install`.
 
-6. Install the bundle with `bundle install`.
+6. Set up your database with `bundle exec rake db:setup`.
 
-7. Set up your database with `bundle exec rake db:setup`.
-
-8. Run the server with `bundle exec rails s`.
+7. Run the server with `bundle exec rails s`.
 
 Now open your browser and navigate to localhost:3000 and you should see Empirical-Core pull up properly! When you're done with the server, use Ctrl-C to break it and return to your commandline.
 
