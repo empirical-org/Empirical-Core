@@ -1,0 +1,25 @@
+<!-- Nav tabs -->
+
+<div class="container">
+
+  <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
+
+    <li class="<%= controller_name == 'classroom_manager' && action_name == 'scorebook' ? 'active' : '' %>">
+      <%= link_to 'Scorebook', teachers_classroom_scorebook_path(classroom_id: current_user.classrooms.first.id), role: 'tab', id: 'first-tab'  %>
+    </li>
+
+    <li class="<%= controller_name == 'classroom_manager' && action_name == 'scorebook' ? 'active' : '' %>">
+      <a href="#portfolio" role="tab" data-toggle="tab">Portfolio</a>
+    </li>
+
+    <li class="<%= controller_name == 'classroom_manager' && action_name == 'scorebook' ? 'active' : '' %>">
+      <a href="#activity-planner" role="tab" data-toggle="tab">Activity Planner</a>
+    </li>
+
+    <li class="<%= (controller_name == 'classrooms') || (controller_name == 'classroom_manager' && action_name == 'invite_students') ? 'active' : '' %>">
+      <%= link_to 'Class Manager', teachers_classrooms_path, role: 'tab'  %>
+    </li>
+
+  </ul>
+
+</div> <!-- //.container -->
