@@ -74,8 +74,8 @@
         "definition": "(v) to stay alive"
       }
     ],
-    "prompt": "Team up with your partner to explain the watercycle in 4-7 sentences.",
-    "name": "Watercycle Overview",
+    "prompt": "You are a newspaper reporter and Michelle Obama has asked you to write an article about the major health problems students are facing today. The title of your article is: Let’s Be Healthy.",
+    "name": "Let's be Healthy",
     "description": "Two students write a passage together using the following words: evaporation, condensation, precipitation, and collection."
   },
   "4": {
