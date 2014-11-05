@@ -49,6 +49,19 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+  def percentile
+    case percentage
+    when 0.75..1.0
+      1.0
+    when 0.5..0.75
+      0.75
+    when 0.0..0.5
+      0.5
+    else
+      0.0
+    end
+  end
+
   def data=(input)
     data_will_change!
     self['data'] = self.data.to_h.update(input.except("activity_session"))
@@ -96,7 +109,7 @@ class ActivitySession < ActiveRecord::Base
       uid: uid,
       time_spent: time_spent,
       percentage: percentage,
-      percentile: 0.0, # percentile,
+      percentile: percentile,
       activity: ActivitySerializer.new(activity, root: false),
       event_started: started_at,
       event_finished: completed_at,
