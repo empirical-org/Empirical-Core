@@ -38,6 +38,10 @@ class PagesController < ApplicationController
     @body_class = 'auxiliary white-page formatted-text'
   end
 
+  def privacy
+    @body_class = 'auxiliary white-page formatted-text'
+  end
+
   def lessons
     @body_class = 'auxiliary white-page formatted-text'
     @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end

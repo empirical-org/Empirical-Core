@@ -327,6 +327,12 @@ footer a {
   margin-top: 5px;
 }
 
+
+footer a.tos_link,
+footer a.privacy_link {
+  color: #D3D3De;
+}
+
 footer .first-col-wrapper {
   float: left;
   width: 400px;
@@ -388,7 +394,7 @@ footer .text-italic {
   font-style: italic;
   margin: 0;
   padding: 0;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 footer .box {
