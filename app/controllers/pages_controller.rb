@@ -34,6 +34,10 @@ class PagesController < ApplicationController
     @body_class = 'white-page'
   end
 
+  def new
+    @body_class = 'white-page'
+  end
+
   def tos
     @body_class = 'auxiliary white-page formatted-text'
   end
