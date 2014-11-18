@@ -35,6 +35,10 @@ class PagesController < ApplicationController
   end
 
   def new
+    @body_class = 'full-width-white-page'
+  end
+  
+  def impact
     @body_class = 'white-page'
   end
 
