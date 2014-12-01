@@ -25,11 +25,11 @@ class ProfilesController < ApplicationController
       @incomplete_activities = @units.collect(&:activities).flatten - @completed_activity_sessions.collect(&:activity)
       @next_activity = @units.collect(&:classroom_activities).flatten.
                         find_all { |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity) }.
-                        sort {|a, b| b.due_date <=> a.due_date}.first.activity
+                        sort {|a, b| b.due_date <=> a.due_date}.first.try(:activity)
       render 'student', layout: 'scorebook'
     else
       @section = Section.find_by_id(params[:section_id]) || Section.first
-      @topics = section.topics.includes(:activities)
+      @topics = @section.topics.includes(:activities)
       render 'join-classroom'
     end
   end
