@@ -28,15 +28,17 @@
           <div class="col-xs-12 col-sm-7 col-xl-7">
             <div class="icon-wrapper icon-gray icon-pencil activate-tooltip" <%= tooltip_html(@next_activity) %>></div>
             <div class="icons-description-wrapper">
-              <p class="title title-v-centered"><%= @next_activity.name %></p>
+              <p class="title title-v-centered"><%= @next_activity.try(:name) %></p>
             </div>
           </div>
 
 
           <div class="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
-            <button class="button-green">
-              <%= link_to 'Start Your Next Lesson', activity_path(@next_activity, session: @incomplete_activity_sessions.find {|s| s.activity == @next_activity}), class: 'button-green' %>
-            </button>
+            <%- if !@next_activity.nil? %>
+              <button class="button-green">
+                <%= link_to 'Start Your Next Lesson', activity_path(@next_activity, session: @incomplete_activity_sessions.find {|s| s.activity == @next_activity}), class: 'button-green' %>
+              </button>
+            <%- end%>
           </div>
         </div>
 
@@ -89,7 +91,7 @@
                   <div class="col-xs-9 col-sm-10 col-xl-10 pull-left">
                   <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:score)) %> icon-<%= icon_for_classification(activity.classification) %>" <%= tooltip_html(activity_session) %> ></div>
                     <div class="icons-description-wrapper">
-                      <p class="title title-v-centered"><%= activity.name %></p>
+                      <p class="title title-v-centered"><%= activity.try(:name) %></p>
                     </div>
                   </div>
                   <div class="col-xs-3 col-sm-2 col-xl-2">
