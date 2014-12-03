@@ -59,6 +59,8 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # for some reason, session_path with method :delete does not evaluate correctly in profiles/student.html.erb
+  # so we have the patch below: 
+  get '/session', to: 'sessions#destroy'
   resource :session, :account
   get '/auth/clever/callback', to: 'sessions#clever'
   get '/auth/failure', to: 'sessions#failure'
