@@ -34,7 +34,7 @@ module ScorebookHelper
         [activity_or_session, nil]
       end
 
-      %Q(data-toggle="tooltip" data-placement="left" title="<h1>#{activity.name}</h1><p>#{activity.classification.name}</p><p>#{activity.section.name}: #{activity.topic.name}</p>#{session ? "<p>Scored #{session.percentage}</p>" : ''}").html_safe
+      %Q(data-toggle="tooltip" data-placement="left" title="<h1>#{activity.name}</h1><p>#{activity.classification.name}</p><p>#{activity.section.name}: #{activity.topic.name}</p>#{session ? "<p>Scored #{session.percentage_as_percent}</p>" : ''}").html_safe
     else
       ''
     end
