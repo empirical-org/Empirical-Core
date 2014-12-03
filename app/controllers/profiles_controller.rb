@@ -23,10 +23,19 @@ class ProfilesController < ApplicationController
       #@incomplete_activity_sessions = (ActivitySession.where(user_id: current_user.id)).incomplete
       @incomplete_activity_sessions = current_user.activity_sessions.for_classroom(@classroom).incomplete.to_a
       @completed_activity_sessions = current_user.percentages_by_classification
-      @incomplete_activities = @units.collect(&:activities).flatten - @completed_activity_sessions.collect(&:activity)
+      
+      #@incomplete_activities = @units.collect(&:activities).flatten - @completed_activity_sessions.collect(&:activity)
+      @incomplete_activities = @incomplete_activity_sessions.collect(&:activity)
+
+      # @next_activity = @units.collect(&:classroom_activities).flatten.
+      #                   find_all { |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity) }.
+      #                   sort {|a, b| b.due_date <=> a.due_date}.first.try(:activity)
+
       @next_activity = @units.collect(&:classroom_activities).flatten.
-                        find_all { |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity) }.
-                        sort {|a, b| b.due_date <=> a.due_date}.first.try(:activity)
+              find_all { |ca| @incomplete_activities.include?(ca.activity) }.
+              sort {|a,b| b.due_date <=> a.due_date}.first.try(:activity)
+
+
       render 'student', layout: 'scorebook'
     else
       @section = Section.find_by_id(params[:section_id]) || Section.first
