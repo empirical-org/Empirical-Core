@@ -30,7 +30,7 @@
               <li><a href="">About</a></li>
                 <li><a href="">Community</a></li>
                 <li><a href="">Support</a></li>
-                <li><%= link_to 'Logout',  controller: 'sessions', action: 'destroy' %></li>
+                <li><%= link_to 'Logout',  {controller: 'sessions', method: 'delete', action: 'destroy'} %></li>
               </ul>
             </div>
 
