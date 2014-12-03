@@ -25,6 +25,19 @@ class SessionsController < ApplicationController
     login_failure e.message
   end
 
+  # this mimics destroy to patch an erb issue where 'delete' links are being interpreted as 'get'
+  def show
+    admin_id = session.delete(:admin_id)
+    sign_out
+
+    if user = User.find_by_id(admin_id)
+      sign_in user
+      redirect_to profile_path
+    else
+      redirect_to signed_out_path, notice: 'Logged Out'
+    end
+  end
+
   def destroy
     admin_id = session.delete(:admin_id)
     sign_out
