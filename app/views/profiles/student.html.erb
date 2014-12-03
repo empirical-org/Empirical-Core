@@ -51,7 +51,10 @@
           <h3 class="section-header"><%= unit.name %></h3>
 
           <%- unit_completed_activity_sessions = @completed_activity_sessions.find_all {|activity_session| unit.activities.any? {|a| a == activity_session.activity} } %>
-          <%- unit_uncompleted_activities = unit.activities - unit_completed_activity_sessions.collect(&:activity) %>
+
+          <%# <%- unit_uncompleted_activities = unit.activities - unit_completed_activity_sessions.collect(&:activity) %>
+          <%# <%- unit_uncompleted_activities = @incomplete_activity_sessions.collect(&:activity).where(unit_id: unit.id) %>
+          <%- unit_uncompleted_activities = (unit.activities & @incomplete_activity_sessions.collect(&:activity)) %>
 
           <div class="fake-table">
             <div class="header">Assigned Activities
