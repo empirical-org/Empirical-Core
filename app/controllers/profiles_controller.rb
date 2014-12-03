@@ -22,6 +22,12 @@ class ProfilesController < ApplicationController
       @units = @classroom.units.includes(classroom_activities: [], activities: :classification)
       #@incomplete_activity_sessions = (ActivitySession.where(user_id: current_user.id)).incomplete
       @incomplete_activity_sessions = current_user.activity_sessions.for_classroom(@classroom).incomplete.to_a
+      activity = Activity.find 105
+      as = @incomplete_activity_sessions.find {|s| s.activity == activity}
+      puts '__incomplete activity sessions: lolz '
+      puts @incomplete_activity_sessions.to_yaml
+      puts '__result of searching for activity session with activity Activity.find(105): '
+      puts as.to_yaml
 
       @completed_activity_sessions = current_user.percentages_by_classification
       @incomplete_activities = @units.collect(&:activities).flatten - @completed_activity_sessions.collect(&:activity)
