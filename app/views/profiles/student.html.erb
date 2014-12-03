@@ -58,7 +58,7 @@
 
           <div class="fake-table">
             <div class="header">Assigned Activities
-              <span class="header-list-counter"><%= unit_uncompleted_activities.size %> of <%= unit.activities.size %></span>
+              <span class="header-list-counter"><%= unit_uncompleted_activities.size %> of <%= (unit_uncompleted_activities.uniq.size + unit_completed_activity_sessions.collect(&:activity).uniq.size) %></span>
             </div>
 
             <% unit_uncompleted_activities.each do |activity| %>
@@ -81,7 +81,7 @@
 
           <div class="fake-table">
             <div class="header">Completed Activities
-              <span class="header-list-counter"><%= unit_completed_activity_sessions.collect(&:activity).uniq.size %> of <%= unit.activities.size %></span>
+              <span class="header-list-counter"><%= unit_completed_activity_sessions.collect(&:activity).uniq.size %> of <%= (unit_uncompleted_activities.uniq.size + unit_completed_activity_sessions.collect(&:activity).uniq.size) %></span>
             </div>
 
             <% seen_activities = [] %>
