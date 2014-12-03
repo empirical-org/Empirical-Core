@@ -27,9 +27,11 @@
 
             <div class="collapse navbar-collapse" id="collapsed-navbar-content">
               <ul class="nav navbar-nav">
-              <li><a href="">About</a></li>
-                <li><a href="">Community</a></li>
-                <li><a href="">Support</a></li>
+                <li><%= link_to "About", mission_path %></li>
+                <li><%= link_to "Community", about_path %></li>
+                <li><%= link_to "Support", faq_path %></li>
+                <li><%= link_to "News", 'http://news.quill.org' %></li>
+                <li><%= link_to "Activities", lessons_path %></li>
                 <li><%= link_to 'Logout',  {controller: 'sessions', method: 'delete', action: 'destroy'} %></li>
               </ul>
             </div>
