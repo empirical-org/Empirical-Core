@@ -20,6 +20,8 @@ class AccountsController < ApplicationController
 
       AccountCreationWorker.perform_async(@user.id)
 
+      @user.subscribe_to_newsletter
+
       redirect_to profile_path
     else
       render 'accounts/new'
