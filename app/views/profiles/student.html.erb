@@ -20,93 +20,94 @@
 
     </div> <!-- //.tab-subnavigation-wrapper -->
 
-    <div class="container">
-      <section>
+    <%- if !@next_activity.nil? %>
+      <div class="container">
+        <section>
 
-        <div class="row">
+          <div class="row">
 
-          <div class="col-xs-12 col-sm-7 col-xl-7">
-            <div class="icon-wrapper icon-gray icon-<%= icon_for_classification(@next_activity.classification) %> activate-tooltip" <%= tooltip_html(@next_activity) %>></div>
+            <div class="col-xs-12 col-sm-7 col-xl-7">
+              <div class="icon-wrapper icon-gray icon-<%= icon_for_classification(@next_activity.classification) %> activate-tooltip" <%= tooltip_html(@next_activity) %>></div>
 
-            <div class="icons-description-wrapper">
-              <p class="title title-v-centered"><%= @next_activity.try(:name) %></p>
+              <div class="icons-description-wrapper">
+                <p class="title title-v-centered"><%= @next_activity.try(:name) %></p>
+              </div>
             </div>
-          </div>
 
 
-          <div class="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
-            <%- if !@next_activity.nil? %>
+            <div class="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
               <button class="button-green">
                 <%= link_to 'Start Your Next Lesson', activity_path(@next_activity, session: @incomplete_activity_sessions.find {|s| s.activity == @next_activity}), class: 'button-green' %>
               </button>
-            <%- end%>
+            </div>
           </div>
-        </div>
 
-      </section>
-    </div>
+        </section>
+      </div>
+    <%- end %>
 
     <div class="container">
       <% @units.each do |unit| %>
-        <section>
-          <h3 class="section-header"><%= unit.name %></h3>
+        <%- unit_completed_activity_sessions = @completed_activity_sessions.find_all {|activity_session| unit.activities.any? {|a| a == activity_session.activity} } %>
+        <%# <%- unit_uncompleted_activities = unit.activities - unit_completed_activity_sessions.collect(&:activity) %>
+        <%# <%- unit_uncompleted_activities = @incomplete_activity_sessions.collect(&:activity).where(unit_id: unit.id) %>
+        <%- unit_uncompleted_activities = (unit.activities & @incomplete_activity_sessions.collect(&:activity)) %>
+        <%- if ((! unit_completed_activity_sessions.empty?) or (! unit_uncompleted_activities.empty?)) %>
 
-          <%- unit_completed_activity_sessions = @completed_activity_sessions.find_all {|activity_session| unit.activities.any? {|a| a == activity_session.activity} } %>
+          <section>
+            <h3 class="section-header"><%= unit.name %></h3>
 
-          <%# <%- unit_uncompleted_activities = unit.activities - unit_completed_activity_sessions.collect(&:activity) %>
-          <%# <%- unit_uncompleted_activities = @incomplete_activity_sessions.collect(&:activity).where(unit_id: unit.id) %>
-          <%- unit_uncompleted_activities = (unit.activities & @incomplete_activity_sessions.collect(&:activity)) %>
+            
+            <div class="fake-table">
+              <div class="header">Assigned Activities
+                <span class="header-list-counter"><%= unit_uncompleted_activities.size %> of <%= (unit_uncompleted_activities.uniq.size + unit_completed_activity_sessions.collect(&:activity).uniq.size) %></span>
+              </div>
 
-          <div class="fake-table">
-            <div class="header">Assigned Activities
-              <span class="header-list-counter"><%= unit_uncompleted_activities.size %> of <%= (unit_uncompleted_activities.uniq.size + unit_completed_activity_sessions.collect(&:activity).uniq.size) %></span>
-            </div>
-
-            <% unit_uncompleted_activities.each do |activity| %>
-              <div class="line">
-                <div class="row">
-                  <div class="col-xs-9 col-sm-10 col-xl-10 pull-left">
-                  <div class="activate-tooltip icon-wrapper icon-gray icon-<%= icon_for_classification(activity.classification) %>" <%= tooltip_html(activity) %> ></div>
-                    <div class="icons-description-wrapper">
-                      <p class="title title-v-centered"><%= activity.name %></p>
+              <% unit_uncompleted_activities.each do |activity| %>
+                <div class="line">
+                  <div class="row">
+                    <div class="col-xs-9 col-sm-10 col-xl-10 pull-left">
+                    <div class="activate-tooltip icon-wrapper icon-gray icon-<%= icon_for_classification(activity.classification) %>" <%= tooltip_html(activity) %> ></div>
+                      <div class="icons-description-wrapper">
+                        <p class="title title-v-centered"><%= activity.name %></p>
+                      </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-2 col-xl-2">
+                      <%= link_to 'Start Lesson', activity_path(activity, session: @incomplete_activity_sessions.find {|s| s.activity == activity}) %>
                     </div>
                   </div>
-                  <div class="col-xs-3 col-sm-2 col-xl-2">
-                    <%= link_to 'Start Lesson', activity_path(activity, session: @incomplete_activity_sessions.find {|s| s.activity == activity}) %>
-                  </div>
-                </div>
-              </div> <!-- //.line-1 -->
-            <% end %>
+                </div> <!-- //.line-1 -->
+              <% end %>
 
-          </div> <!-- //.fake-table -->
+            </div> <!-- //.fake-table -->
 
-          <div class="fake-table">
-            <div class="header">Completed Activities
-              <span class="header-list-counter"><%= unit_completed_activity_sessions.collect(&:activity).uniq.size %> of <%= (unit_uncompleted_activities.uniq.size + unit_completed_activity_sessions.collect(&:activity).uniq.size) %></span>
-            </div>
+            <div class="fake-table">
+              <div class="header">Completed Activities
+                <span class="header-list-counter"><%= unit_completed_activity_sessions.collect(&:activity).uniq.size %> of <%= (unit_uncompleted_activities.uniq.size + unit_completed_activity_sessions.collect(&:activity).uniq.size) %></span>
+              </div>
 
-            <% seen_activities = [] %>
-            <% unit_completed_activity_sessions.each do |activity_session| %>
-              <%- activity = activity_session.activity %>
-              <%- next if seen_activities.include?(activity) %>
-              <%- seen_activities << activity %>
-              <div class="line">
-                <div class="row">
-                  <div class="col-xs-9 col-sm-10 col-xl-10 pull-left">
-                  <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:percentage)) %> icon-<%= icon_for_classification(activity.classification) %>" <%= tooltip_html(activity_session) %> ></div>
-                    <div class="icons-description-wrapper">
-                      <p class="title title-v-centered"><%= activity.try(:name) %></p>
+              <% seen_activities = [] %>
+              <% unit_completed_activity_sessions.each do |activity_session| %>
+                <%- activity = activity_session.activity %>
+                <%- next if seen_activities.include?(activity) %>
+                <%- seen_activities << activity %>
+                <div class="line">
+                  <div class="row">
+                    <div class="col-xs-9 col-sm-10 col-xl-10 pull-left">
+                    <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:percentage)) %> icon-<%= icon_for_classification(activity.classification) %>" <%= tooltip_html(activity_session) %> ></div>
+                      <div class="icons-description-wrapper">
+                        <p class="title title-v-centered"><%= activity.try(:name) %></p>
+                      </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-2 col-xl-2">
+                      <%= link_to 'Retry Lesson', retry_activity_path(activity, session: @incomplete_activity_sessions.find {|s| s.activity == activity}) %>
                     </div>
                   </div>
-                  <div class="col-xs-3 col-sm-2 col-xl-2">
-                    <%= link_to 'Retry Lesson', retry_activity_path(activity, session: @incomplete_activity_sessions.find {|s| s.activity == activity}) %>
-                  </div>
-                </div>
-              </div> <!-- //.line-1 -->
-            <% end %>
+                </div> <!-- //.line-1 -->
+              <% end %>
 
-        </section>
-
+          </section>
+        <% end %>
       <% end %>
 
     </div>
