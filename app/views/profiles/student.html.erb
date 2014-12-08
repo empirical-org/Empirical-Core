@@ -51,7 +51,7 @@
         <%- unit_completed_activity_sessions = @completed_activity_sessions.find_all {|activity_session| unit.activities.any? {|a| a == activity_session.activity} } %>
         <%# <%- unit_uncompleted_activities = unit.activities - unit_completed_activity_sessions.collect(&:activity) %>
         <%# <%- unit_uncompleted_activities = @incomplete_activity_sessions.collect(&:activity).where(unit_id: unit.id) %>
-        <%- unit_uncompleted_activities = (unit.activities & @incomplete_activity_sessions.collect(&:activity)) %>
+        <%- unit_uncompleted_activities = (unit.activities & @incomplete_activities) %>
         <%- if ((! unit_completed_activity_sessions.empty?) or (! unit_uncompleted_activities.empty?)) %>
 
           <section>
@@ -100,7 +100,7 @@
                       </div>
                     </div>
                     <div class="col-xs-3 col-sm-2 col-xl-2">
-                      <%= link_to 'Retry Lesson', retry_activity_path(activity, session: @incomplete_activity_sessions.find {|s| s.activity == activity}) %>
+                      <%= link_to 'Retry Lesson', retry_activity_path(activity, session: @incomplete_activity_sessions.find{|s| s.activity == activity}) -%>
                     </div>
                   </div>
                 </div> <!-- //.line-1 -->

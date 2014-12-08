@@ -21,11 +21,16 @@ class ProfilesController < ApplicationController
     if @classroom = current_user.classroom
       @units = @classroom.units.includes(classroom_activities: [], activities: :classification)
       #@incomplete_activity_sessions = (ActivitySession.where(user_id: current_user.id)).incomplete
-      @incomplete_activity_sessions = current_user.activity_sessions.for_classroom(@classroom).incomplete.to_a
+      
+      activity_sessions = @classroom.classroom_activities.map{|ca| ca.try(:session_for, current_user)}
+      
+      @incomplete_activity_sessions = activity_sessions.select{|as| as.completed_at.nil?}
+      
+
       @completed_activity_sessions = current_user.percentages_by_classification
       
       #@incomplete_activities = @units.collect(&:activities).flatten - @completed_activity_sessions.collect(&:activity)
-      @incomplete_activities = @incomplete_activity_sessions.collect(&:activity)
+      @incomplete_activities = Activity.find @incomplete_activity_sessions.map{|as| as.activity_id} #  @incomplete_activity_sessions.collect(&:activity)
 
       # @next_activity = @units.collect(&:classroom_activities).flatten.
       #                   find_all { |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity) }.
