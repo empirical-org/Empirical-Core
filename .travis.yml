@@ -6,7 +6,9 @@ script:
 before_script:
 - cp config/database.yml.travis config/database.yml
 - psql -c 'create database test;' -U postgres
-- ! 'RAILS_ENV=test bundle exec rake db:schema:load || :'
+- RAILS_ENV=test bundle exec rake db:schema:load
+- sudo apt-get install sudo apt-get install libusb-1.0.0
+-
 deploy:
   provider: heroku
   api_key:
@@ -15,3 +17,5 @@ deploy:
   on:
     repo: empirical-org/quill
   run: "rake db:migrate"
+addons:
+  postgresql: "9.3"
