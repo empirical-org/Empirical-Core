@@ -24,7 +24,7 @@ class ProfilesController < ApplicationController
       @completed_activity_sessions = current_user.percentages_by_classification
       @incomplete_activities = @units.collect(&:activities).flatten - @completed_activity_sessions.collect(&:activity)
       @next_activity = @units.collect(&:classroom_activities).flatten.
-                        find_all { |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity) }.
+                        find_all{ |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity)}.
                         sort {|a, b| b.due_date <=> a.due_date}.first.activity
       render 'student', layout: 'scorebook'
     else
