@@ -22,12 +22,16 @@ class ProfilesController < ApplicationController
       @units = @classroom.units.includes(classroom_activities: [], activities: :classification)
       #@incomplete_activity_sessions = (ActivitySession.where(user_id: current_user.id)).incomplete
       
+      classroom_activities = []
+      @units.each do |unit|
+        classroom_activities << unit.classroom_activities.joins(:activity).where(<<-SQL, current_user.id)
+        classroom_activities.assigned_student_ids IS NULL OR
+        classroom_activities.assigned_student_ids = '{}' OR
+        ? = ANY (classroom_activities.assigned_student_ids)
+        SQL
+      end
+      classroom_activities.flatten!
 
-      classroom_activities = unit.classroom_activities.joins(:activity).where(<<-SQL, current_user.id)
-      classroom_activities.assigned_student_ids IS NULL OR
-      classroom_activities.assigned_student_ids = '{}' OR
-      ? = ANY (classroom_activities.assigned_student_ids)
-      SQL
 
       activity_sessions = classroom_activities.map{|ca| ca.try(:session_for, current_user)}
       
@@ -35,12 +39,12 @@ class ProfilesController < ApplicationController
 
       @completed_activity_sessions = current_user.percentages_by_classification
       
-      @incomplete_activities = @incomplete_activity_sessions.map(:activity)
+      @incomplete_activities = @incomplete_activity_sessions.map(&:activity)
 
       @next_activity = classroom_activities
                         .find_all{|ca| @incomplete_activities.include?(ca.activity) }
-                        .sort {|a,b| b.due_date <=> a.due_date }
-                        .first.activity
+                        .sort {|a,b| a.due_date <=> b.due_date }
+                        .first.try(:activity)
 
       # @next_activity = @units.collect(&:classroom_activities).flatten.
       #                   find_all { |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity) }.
