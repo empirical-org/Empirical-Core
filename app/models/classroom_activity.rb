@@ -27,8 +27,6 @@ class ClassroomActivity < ActiveRecord::Base
 
   def session_for user
     ass = activity_sessions.where(user_id: user.id, activity_id: activity.id).order(created_at: :asc)
-    puts '__hiii'
-    puts ass.to_yaml
     as = if !ass.empty? then ass.first else activity_sessions.create(user_id: user.id, activity_id: activity.id) end
   end
 
