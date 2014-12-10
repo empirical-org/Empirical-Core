@@ -31,7 +31,9 @@
                 <li><%= link_to "Community", about_path %></li>
                 <li><%= link_to "Support", faq_path %></li>
                 <li><%= link_to "News", 'http://news.quill.org' %></li>
-                <li><%= link_to "Activities", lessons_path %></li>
+                <%- if current_user.role == 'teacher' %>
+                  <li><%= link_to "Activities", lessons_path %></li>
+                <%- end %>
                 <li><%= link_to 'Logout',  {controller: 'sessions', method: 'delete', action: 'destroy'} %></li>
               </ul>
             </div>
