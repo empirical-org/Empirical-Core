@@ -22,9 +22,6 @@ class ProfilesController < ApplicationController
       @units = @classroom.units.includes(classroom_activities: [], activities: :classification)
       #@incomplete_activity_sessions = (ActivitySession.where(user_id: current_user.id)).incomplete
       
-      classroom_activities = @classroom.
-
-
 
       classroom_activities = unit.classroom_activities.joins(:activity).where(<<-SQL, current_user.id)
       classroom_activities.assigned_student_ids IS NULL OR
