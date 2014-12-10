@@ -22,23 +22,37 @@ class ProfilesController < ApplicationController
       @units = @classroom.units.includes(classroom_activities: [], activities: :classification)
       #@incomplete_activity_sessions = (ActivitySession.where(user_id: current_user.id)).incomplete
       
-      activity_sessions = @classroom.classroom_activities.map{|ca| ca.try(:session_for, current_user)}
+      classroom_activities = @classroom.
+
+
+
+      classroom_activities = unit.classroom_activities.joins(:activity).where(<<-SQL, current_user.id)
+      classroom_activities.assigned_student_ids IS NULL OR
+      classroom_activities.assigned_student_ids = '{}' OR
+      ? = ANY (classroom_activities.assigned_student_ids)
+      SQL
+
+      activity_sessions = classroom_activities.map{|ca| ca.try(:session_for, current_user)}
       
-      @incomplete_activity_sessions = activity_sessions.select{|as| as.completed_at.nil?}
-      
+      @incomplete_activity_sessions = activity_sessions.select{|as| as.completed_at.nil?}    
 
       @completed_activity_sessions = current_user.percentages_by_classification
       
-      #@incomplete_activities = @units.collect(&:activities).flatten - @completed_activity_sessions.collect(&:activity)
-      @incomplete_activities = Activity.find @incomplete_activity_sessions.map{|as| as.activity_id} #  @incomplete_activity_sessions.collect(&:activity)
+      @incomplete_activities = @incomplete_activity_sessions.map(:activity)
+
+      @next_activity = classroom_activities
+                        .find_all{|ca| @incomplete_activities.include?(ca.activity) }
+                        .sort {|a,b| b.due_date <=> a.due_date }
+                        .first.activity
 
       # @next_activity = @units.collect(&:classroom_activities).flatten.
       #                   find_all { |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity) }.
       #                   sort {|a, b| b.due_date <=> a.due_date}.first.try(:activity)
 
-      @next_activity = @units.collect(&:classroom_activities).flatten.
-              find_all { |ca| @incomplete_activities.include?(ca.activity) }.
-              sort {|a,b| b.due_date <=> a.due_date}.first.try(:activity)
+
+      # @next_activity = @units.collect(&:classroom_activities).flatten.
+      #         find_all { |ca| @incomplete_activities.include?(ca.activity) }.
+      #         sort {|a,b| b.due_date <=> a.due_date}.first.try(:activity)
 
 
       render 'student', layout: 'scorebook'
