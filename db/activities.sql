@@ -31,7 +31,7 @@ SELECT pg_catalog.setval('sections_id_seq', 21, true);
 DELETE FROM activities;
 INSERT INTO activities VALUES (1, 'Shackleton Returns from the Antarctic', 'Shackleton Returns from the Antarctic.', 'BaJi4-PhNRz9um-o0u-w6Q', '"body"=>"In 1914, Ernest Shackleton set {+off-of|1} on an exploration across the Antarctic. In 1915 his ship, Endurance, became trapped in the ice, and {+its-it''s|2} crew was stuck. Ten months later {+their-there|3} ship sank, and {+Shackleton''s-Shackletons|4} crew was forced to live on {+an-a|5} iceberg. They reached Elephant Island in {+April-april|6} of 1916 using three lifeboats. 
 
-Shackleton promised to {+find-found|7} help. In a small boat with five crew members, he spent 16 days crossing 800 miles of ocean. The remaining men were then rescued {+in-on|8} August of 1916. Amazingly, Shackleton did not {+lose-loose|9} anyone on the trip. ", "instructions"=>"There are **nine errors** in this passage. *To edit a word, click on it and re-type it.*"', 1, 1, '2013-09-14 00:01:09.788782', '2014-04-18 22:58:11.400208', '{archived}');
+Shackleton promised to {+find-found|7} help. In a small boat with five crew members, he spent 16 days crossing 800 miles of ocean. The remaining men were then rescued {+in-on|8} August of 1916. Amazingly, Shackleton did not {+lose-loose|9} anyone on the trip. ", "instructions"=>"There are **nine errors** in this passage. *To edit a word, click on it and re-type it.*"', 1, 1, '2013-09-14 00:01:09.788782', '2014-04-18 22:58:11.400208', '{production}');
 INSERT INTO activities VALUES (2, 'Lose vs. loose, it''s vs. its, they''re vs. their vs. there etc...', 'Shackleton Returns from the Antarctic.', '1tHuCGX7hWjNx6e8HADAFA', '"rule_position"=>"---
 - ''1''
 - ''2''
@@ -42,7 +42,7 @@ INSERT INTO activities VALUES (2, 'Lose vs. loose, it''s vs. its, they''re vs. t
 - ''7''
 - ''8''
 - ''9''
-"', 2, 1, '2013-09-14 00:01:09.788782', '2014-04-18 22:58:11.400208', '{archived}');
+"', 2, 1, '2013-09-14 00:01:09.788782', '2014-04-18 22:58:11.400208', '{production}');
 INSERT INTO activities VALUES (184, 'Test Activity', 'Description', 'FtBjOj0nhBW63TYd3IwFwA', '"body"=>"--- Test edit body.
 ...
 ", "instructions"=>"--- 
