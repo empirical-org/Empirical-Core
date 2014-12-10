@@ -26,7 +26,8 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def session_for user
-    activity_sessions.find_or_create_by!(user_id: user.id, activity_id: activity.id)
+    ass = activity_sessions.where(user_id: user.id, activity_id: activity.id).order(created_at: :asc)
+    as = if !ass.empty? then ass.first else activity_sessions.create(user_id: user.id, activity_id: activity.id) end
   end
 
   def for_student? student

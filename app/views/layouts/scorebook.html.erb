@@ -1,0 +1,57 @@
+<head>
+  <title>Quill Scorebook</title>
+  <%= stylesheet_link_tag 'scorebook/scorebook', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <a href="/images/favicon.gif" rel="icon" type="image/ico" />
+  <a href="http://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
+
+  <%= render partial: 'application/head_embed_codes' %>
+
+  <!--[if !IE 7]>
+    <style type="text/css">
+      #wrap { display: table ; height: 100% }
+    </style>
+  <![endif]-->
+
+</head>
+  <body>
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <%= link_to image_tag('scorebook/logo.png', alt: 'Quill Logo', size: '120x40'), root_url, class: 'image-brand' %>
+
+          </div> <!-- //.navbar-header -->
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+
+            <div class="collapse navbar-collapse" id="collapsed-navbar-content">
+              <ul class="nav navbar-nav">
+                <li><%= link_to "About", mission_path %></li>
+                <li><%= link_to "Community", about_path %></li>
+                <li><%= link_to "Support", faq_path %></li>
+                <li><%= link_to "News", 'http://news.quill.org' %></li>
+                <%- if current_user.role == 'teacher' %>
+                  <li><%= link_to "Activities", lessons_path %></li>
+                <%- end %>
+                <li><%= link_to 'Logout',  {controller: 'sessions', method: 'delete', action: 'destroy'} %></li>
+              </ul>
+            </div>
+
+        </div> <!-- //.container -->
+      </nav> <!-- //.navbar -->
+
+      <%= yield %>
+
+
+  <footer>
+
+  </footer>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <%= javascript_include_tag 'scorebook/scorebook', 'data-turbolinks-track' => true %>
+  </body>
+</html>

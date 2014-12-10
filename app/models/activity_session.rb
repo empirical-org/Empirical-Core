@@ -62,6 +62,10 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+  def percentage_as_percent
+    (percentage*100).round.to_s + '%'
+  end
+
   def data=(input)
     data_will_change!
     self['data'] = self.data.to_h.update(input.except("activity_session"))

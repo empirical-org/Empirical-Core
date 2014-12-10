@@ -18,52 +18,50 @@ class ProfilesController < ApplicationController
   end
 
   def student
-    @classroom, @activity_names, @activity_table, @section, @topics = cache('student-profile-vars-'+ current_user.id.to_s, skip_digest: true) do
-      classroom = current_user.classroom
-      activity_names = []
-
-      if classroom.present?
-        activity_table = {
-          false => {},
-          true => {}
-        }
-
-        incomplete_sessions = current_user.activity_sessions.for_classroom(classroom).incomplete.to_a
-        completed_sessions = current_user.activity_sessions.for_classroom(classroom).completed.to_a
-
-        classroom.units.each do |unit|
-          # raise classroom.classroom_activities.map(&:assigned_student_ids)
-
-          classroom_activities = unit.classroom_activities.joins(:activity).where(<<-SQL, current_user.id)
-          classroom_activities.assigned_student_ids IS NULL OR
-          classroom_activities.assigned_student_ids = '{}' OR
-          ? = ANY (classroom_activities.assigned_student_ids)
-          SQL
-
-          classroom_activities.each do |classroom_activity|
-            completed_session  =                       completed_sessions.find{|s| s.classroom_activity_id == classroom_activity.id }
-            incomplete_session = completed_session || incomplete_sessions.find{|s| s.classroom_activity_id == classroom_activity.id }
-
-            key = !!completed_session
-
-            activity_table[key][unit.name] ||= {}
-            activity_table[key][unit.name][classroom_activity.activity.topic.name] ||= []
-            activity_table[key][unit.name][classroom_activity.activity.topic.name] << classroom_activity.activity
-
-            activity_names << [classroom_activity.topic.name, classroom_activity.activity, (completed_session || incomplete_session)]
-          end
-        end
-
-        [classroom, activity_names, activity_table, nil, nil]
-      else
-        section = Section.find_by_id(params[:section_id]) || Section.first
-        topics = section.topics
-
-        [nil, nil, nil, section, topics]
+    if @classroom = current_user.classroom
+      @units = @classroom.units.includes(classroom_activities: [], activities: :classification)
+      #@incomplete_activity_sessions = (ActivitySession.where(user_id: current_user.id)).incomplete
+      
+      classroom_activities = []
+      @units.each do |unit|
+        classroom_activities << unit.classroom_activities.joins(:activity).where(<<-SQL, current_user.id)
+        classroom_activities.assigned_student_ids IS NULL OR
+        classroom_activities.assigned_student_ids = '{}' OR
+        ? = ANY (classroom_activities.assigned_student_ids)
+        SQL
       end
-    end
+      classroom_activities.flatten!
 
-    render :student
+
+      activity_sessions = classroom_activities.map{|ca| ca.try(:session_for, current_user)}
+      
+      @incomplete_activity_sessions = activity_sessions.select{|as| as.completed_at.nil?}    
+
+      @completed_activity_sessions = current_user.percentages_by_classification
+      
+      @incomplete_activities = @incomplete_activity_sessions.map(&:activity)
+
+      @next_activity = classroom_activities
+                        .find_all{|ca| @incomplete_activities.include?(ca.activity) }
+                        .sort {|a,b| a.due_date <=> b.due_date }
+                        .first.try(:activity)
+
+      # @next_activity = @units.collect(&:classroom_activities).flatten.
+      #                   find_all { |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity) }.
+      #                   sort {|a, b| b.due_date <=> a.due_date}.first.try(:activity)
+
+
+      # @next_activity = @units.collect(&:classroom_activities).flatten.
+      #         find_all { |ca| @incomplete_activities.include?(ca.activity) }.
+      #         sort {|a,b| b.due_date <=> a.due_date}.first.try(:activity)
+
+
+      render 'student', layout: 'scorebook'
+    else
+      @section = Section.find_by_id(params[:section_id]) || Section.first
+      @topics = @section.topics.includes(:activities)
+      render 'join-classroom'
+    end
   end
 
   def teacher

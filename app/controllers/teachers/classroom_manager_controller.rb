@@ -33,10 +33,12 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
 
     (Activity.production - @classroom.activities.production).each do |activity|
-      @workbook_table[activity.topic.section.position] ||= {}
-      @workbook_table[activity.topic.section.position][activity.topic.section.name] ||= {}
-      @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] ||= []
-      @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] << activity
+      if !activity.topic.nil?
+        @workbook_table[activity.topic.section.position] ||= {}
+        @workbook_table[activity.topic.section.position][activity.topic.section.name] ||= {}
+        @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] ||= []
+        @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] << activity
+      end
     end
 
     @workbook_table = @workbook_table.sort {|a, b| a.first <=> b.first}.collect(&:last)
