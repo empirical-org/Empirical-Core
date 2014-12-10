@@ -80,7 +80,7 @@ gem 'rack-cors',  require: 'rack/cors'
 gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 
 # DEPLOYMENT
-gem 'sentry-raven'
+gem 'sentry-raven', '>= 0.12.2'
 gem 'asset_sync'
 gem 'rack-heartbeat'
 
