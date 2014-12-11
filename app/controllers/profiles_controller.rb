@@ -35,9 +35,13 @@ class ProfilesController < ApplicationController
 
       activity_sessions = classroom_activities.map{|ca| ca.try(:session_for, current_user)}
       
-      @incomplete_activity_sessions = activity_sessions.select{|as| as.completed_at.nil?}    
 
       @completed_activity_sessions = current_user.percentages_by_classification
+      completed_activity_ids = @completed_activity_sessions.map(&:activity_id)
+
+      #@incomplete_activity_sessions = activity_sessions.select{|as| as.completed_at.nil? }    
+      @incomplete_activity_sessions = activity_sessions.select{|as| as.completed_at.nil? and !completed_activity_ids.include?(as.activity_id)}
+      
       
       @incomplete_activities = @incomplete_activity_sessions.map(&:activity)
 
