@@ -357,10 +357,12 @@ select:focus {
 .student-subnavigation img {
   margin-right: 9px;
 }
-.student-course-info a {
+.student-course-info span {
   margin-right: 50px;
+  color: #999;
+
 }
-.student-course-info a:last-child {
+.student-course-info span:last-child {
   margin-right: 0;
 }
 .tab-subnavigation-breadcrumb-wrapper {
