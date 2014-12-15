@@ -25,7 +25,7 @@
     .classroom-manager-sticky-bar My workbook
     - @workbook_table.each do |hsh|
       - section, topics = hsh.to_a.first
-      - topics ||= []
+      - next if topics.nil?
       - topics = topics.sort{|a,b| a.first <=> b.first}
 
       .unit-section
