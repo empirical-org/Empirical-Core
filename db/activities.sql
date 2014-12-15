@@ -55,6 +55,9 @@ INSERT INTO activities VALUES (186, 'Test', 'Test', 'OMFHX46vFqd9jRGMxq9anw', '"
 "', 2, 1, '2014-05-22 17:00:14.571331', '2014-05-22 17:00:41.166479', '{alpha}');
 
 
+SELECT pg_catalog.setval('activities_id_seq', 187, true);
+
+
 --
 -- Data for Name: topics; Type: TABLE DATA; Schema: public; Owner: -
 --
