@@ -7,13 +7,18 @@
         <span class="section-header"><%= current_user.name %></span>
 
         <span class="pull-right student-course-info">
-          <%= link_to '#' do %>
+          <!-- <%= link_to '#' do %> -->
+          <span>
             <%= image_tag 'scorebook/icon-book-white.png', class: 'icon' %><%= @classroom.name %>
-          <% end %>
+          </span>
+          <!-- <% end %> -->
 
-          <%= link_to '#' do %>
+          <!--<%= link_to '#' do %>-->
+          <span>
             <%= image_tag 'scorebook/icon-hat-white.png', class: 'icon' %><%= @classroom.teacher.name %>
-          <% end %>
+          </span>
+
+          <!--<% end %>-->
         </span>
 
       </div> <!-- //.container -->
