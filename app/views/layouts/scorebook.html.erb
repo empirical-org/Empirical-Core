@@ -34,7 +34,7 @@
                 <%- if current_user.role == 'teacher' %>
                   <li><%= link_to "Activities", lessons_path %></li>
                 <%- end %>
-                <li><%= link_to 'Logout',  {controller: 'sessions', method: 'delete', action: 'destroy'} %></li>
+                <li><%= link_to 'Logout', '/session' %></li>
               </ul>
             </div>
 
