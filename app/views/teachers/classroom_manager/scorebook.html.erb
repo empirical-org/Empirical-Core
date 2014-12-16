@@ -1,0 +1,69 @@
+<div id="page-content-wrapper">
+
+
+  <div class="row">
+    <div class="col-xs-12 col-xl-12">
+
+        <%= render partial: 'teachers/shared/scorebook_tabs' %>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+          <div class="tab-pane active" id="scorebook">
+
+            <div class="tab-subnavigation-wrapper">
+
+              <div class="container">
+
+                <ul>
+                  <li><a href="" class="active">Student View</a></li>
+                  <li><a href="">Activity View</a></li>
+                  <li><a href="">Writing Review</a></li>
+                </ul>
+
+              </div> <!-- //.container -->
+
+            </div> <!-- //.tab-subnavigation-wrapper -->
+
+            <%= render partial: 'classroom_selector_and_legend' %>
+
+            <% @classroom.students.each do |student| %>
+              <div class="container">
+
+                <section>
+
+                  <h3 class="student-name"><%= student.name %></h3>
+
+                  <div class="row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+
+                      <% student.percentages_by_classification(@unit).in_groups_of(10) do |activity_sessions| %>
+                        <div class="icon-row">
+
+                          <% activity_sessions.each do |activity_session| %>
+                            <% next unless activity_session %>
+                            <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.percentage) %> icon-<%= icon_for_classification(activity_session.activity.classification) %>" <%= tooltip_html(activity_session) %> ></div>
+                          <% end %>
+
+                        </div>
+
+                      <% end %>
+
+                    </div> <!-- //.col-xs-12 -->
+
+                  </div> <!-- //.row -->
+
+                </section>
+
+              </div> <!-- //.container -->
+            <% end %>
+
+          </div>
+
+        </div> <!-- //.tab-content -->
+    </div> <!-- //.col-xs-12-->
+  </div> <!-- //.row -->
+
+
+</div> <!-- //#page-content-wrapper -->

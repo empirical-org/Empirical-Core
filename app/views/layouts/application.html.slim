@@ -1,11 +1,49 @@
 doctype html
 html
-  = render 'application/head'
+  head
+    title Quill.org &mdash; Interactive Writing and Grammar
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'codemirror', 'data-turbolinks-track' => true
+    = javascript_include_tag 'cms', 'data-turbolinks-track' => true
+
+    = csrf_meta_tags
+    link href="/images/favicon.gif" rel="icon" type="image/ico"
+    link href="http://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css"
+
+    = render 'head_embed_codes'
+
+    erb:
+      <!--[if !IE 7]>
+        <style type="text/css">
+          #wrap { display: table ; height: 100% }
+        </style>
+      <![endif]-->
 
   body class=body_class id=body_id
     .sticky-footer-wrapper
       .sticky-footer-content
-        = render 'application/header'
+        header
+          .container.clearfix
+            .navbar
+              .navbar-inner
+                a.brand href=root_path Quill
+
+                .nav-collapse.collapse
+                  ul.nav
+                    li= link_to 'Mission', mission_path
+                    li= link_to 'News', 'http://news.quill.org/'
+                    li= link_to 'Develop', develop_path
+                    li= link_to 'About Us', about_path
+                    li= link_to 'FAQ', faq_path
+                    li= link_to 'Lessons', lessons_path
+
+                    - if signed_in?
+                      li.nav-btn.pro-btn= link_to t(:"profile_link_label.#{current_user.role}"), profile_path
+                      li.nav-btn= link_to 'Sign out', session_path, method: :delete
+                    - else
+                      li.nav-btn= link_to 'Login', new_session_path
+                      li.nav-btn.btn-primary= link_to 'Sign Up', new_account_path
 
         - if content_for(:body_content)
           = content_for(:body_content)
@@ -13,7 +51,48 @@ html
           .container= yield
 
     .sticky-footer-footer
-      = render 'application/footer'
+      footer.footer-white
+        #footer-inner.container.clearfix
+          .first-col-wrapper
+            .img-wrapper
+              = image_tag 'emperical-logo.png'
+            .text-wrapper
+              p.text-italic
+                | A nonprofit, open source community
+                br building interactive education.
+          .icons-wrapper
+            a href="https://www.edsurge.com/quill" target="_blank"
+              = image_tag "icons/edsurge-footer-52.png", class: 'icon icon-edsurge', alt: ''
+            a href="https://twitter.com/quill_grammar" target="_blank"
+              = image_tag "icons/twitter-footer-52.png", class: 'icon icon-edsurge', alt: ''
+            a href="https://www.facebook.com/quill.org" target="_blank"
+              = image_tag "icons/facebook-footer-52.png", class: 'icon icon-edsurge', alt: ''
+            a href="https://plus.google.com/u/3/+QuillGrammar/posts" target="_blank"
+              = image_tag "icons/google-plus-square_52.png", class: 'icon icon-edsurge', alt: ''
+            a href="https://github.com/empirical-org/Empirical-Core/issues" target="_blank"
+              = image_tag "icons/github-footer-52.png", class: 'icon icon-edsurge', alt: ''
+          p
+            | Talk to us anytime:
+            a href="mailto:hello@quill.org"  hello@quill.org
+            | &nbsp;(646) 820-7136
+
+      - if signed_in? && !Rails.env.development?
+        javascript:
+          mixpanel.identify("#{current_user.id}");
+
+          mixpanel.people.set({
+            "$email":   "#{current_user.email}",
+            "$created": "#{current_user.created_at}",
+            "$name":    "#{current_user.name}",
+            "role":     "#{current_user.role}"
+          });
+
+      - if flash[:mixpanel].present? && !Rails.env.development?
+        javascript:
+          mixpanel.track("#{flash[:mixpanel]}")
 
     - if signed_in? && current_user.teacher?
       script type="text/javascript" src="//s3.amazonaws.com/scripts.hellobar.com/86d3104089aef6faaf890e08662529bff130ccef.js"
+
+  script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.0.8/jquery.placeholder.min.js"
+

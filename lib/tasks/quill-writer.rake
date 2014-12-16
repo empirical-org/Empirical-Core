@@ -20,8 +20,7 @@ namespace :quillwriter do
 
 
     # activities
-    url = "https://raw.githubusercontent.com/empirical-org/Quill-Writer/master/src/common/services/empirical/stories.json"
-    data = JSON.parse(RestClient.get(url))
+    data = JSON.parse(open(Rails.root.join('db/writer-stories.json')).read)
 
     # remove all activies before
     topic.activities.delete_all
