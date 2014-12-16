@@ -65,6 +65,7 @@ class ActivitySession < ActiveRecord::Base
 
   def percentage_as_percent
     (percentage*100).round.to_s + '%'
+  end
 
   def score
     (percentage.to_i * 100).round(2)
