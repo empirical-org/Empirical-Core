@@ -1,11 +1,16 @@
 class Teachers::ClassroomsController < ApplicationController
   before_filter :teacher!
   before_filter :authorize!
+  layout 'scorebook'
 
   def index
     if current_user.classrooms.any?
       redirect_to teachers_classroom_path(current_user.classrooms.first)
     end
+  end
+
+  def new
+    @classroom = current_user.classrooms.new
   end
 
   def show
@@ -14,8 +19,13 @@ class Teachers::ClassroomsController < ApplicationController
 
   def create
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
-    @classroom.units.create_next
-    redirect_to teachers_classroom_invite_students_path(@classroom)
+
+    if @classroom.valid?
+      @classroom.units.create_next
+      redirect_to teachers_classroom_invite_students_path(@classroom)
+    else
+      render :new
+    end
   end
 
   def update

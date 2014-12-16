@@ -1,0 +1,19 @@
+<%= render partial: 'teachers/shared/scorebook_tabs' %>
+
+<%= render partial: 'teachers/classrooms/subnav' %>
+
+<div class="container">
+
+  <section class="no-border create-a-class">
+    <h1 class="section-header">Create Your Class</h1>
+
+    <%= form_for [:teachers, @classroom] do |f| %>
+      <%= f.text_field :name, class: 'big-input', placeholder: 'Class Name' %>
+      <%= f.select :grade, Classroom::GRADES, {prompt: 'Select Grade'} %>
+
+      <%= f.submit 'Create Class', class: 'button-green' %>
+    <% end %>
+
+  </section>
+
+</div>

@@ -8,11 +8,8 @@
 .bundle
 
 # database
-db/*.sqlite3
-latest.dump
-
-# sensitive files
 config/database.yml
+latest.dump
 
 # compilation
 public/assets

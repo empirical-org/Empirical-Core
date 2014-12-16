@@ -499,6 +499,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  addressable
   ancestry
   asset_sync
   awesome_print!

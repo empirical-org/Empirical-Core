@@ -13,9 +13,9 @@ class ActivitySession < ActiveRecord::Base
   before_save   :set_activity_id
   around_save   :trigger_events
 
-  default_scope -> { joins(:activity).order('activity_sessions.id desc') }
+  default_scope -> { joins(:activity) }
 
-  scope :completed,  -> { where('completed_at is not null').order('completed_at desc') }
+  scope :completed,  -> { where('completed_at is not null') }
   scope :incomplete, -> { where('completed_at is null') }
   scope :started_or_better, -> { where("state != 'unstarted'") }
 
@@ -62,8 +62,12 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+
   def percentage_as_percent
     (percentage*100).round.to_s + '%'
+
+  def score
+    (percentage.to_i * 100).round(2)
   end
 
   def data=(input)
