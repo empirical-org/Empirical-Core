@@ -816,6 +816,14 @@ select:focus {
   width: 300px;
   margin: 0 20px;
 }
+
+.class-page > label {
+  font-weight: normal;
+}
+
+form.class-page {
+  margin-bottom: 0em;
+}
 .class-page .delete-class a {
   color: #308183;
   line-height: 50.5px;
@@ -825,6 +833,11 @@ select:focus {
   overflow: hidden;
   position: relative;
 }
+.edit-student-page label {
+  font-weight: normal;
+}
+
+
 .edit-student-page a {
   color: #308183;
 }
@@ -834,6 +847,18 @@ select:focus {
 .edit-student-page .first-div {
   margin-top: 25px;
 }
+
+.edit-student-page .third-div *,
+.edit-student-page .fourth-div * {
+  position: inline-block;
+  float:left;
+}
+.edit-student-page .third-div,
+.edit-student-page .fourth-div {
+  float:left;
+  clear:both;
+}
+
 .edit-student-page .last-div {
   margin-bottom: 10px;
 }
@@ -841,23 +866,61 @@ select:focus {
   width: 280px;
   float: right;
 }
+
+.edit-student-page .second-part.classcode,
+.edit-student-page .second-part.password {
+  width: auto;
+}
+
+.edit-student-page .second-part.classcode input {
+  min-width: 120px;
+}
+
+.edit-student-page .password-reset {
+  margin-left: 20px;
+  line-height: 40px;
+}
+
+.edit-student-page .second-part.password input {
+  width: 120px;
+}
+
+.edit-student-page .second-part.classcode,
+.edit-student-page .second-part.password {
+  float: left;
+}
+
 .edit-student-page .input-description-inline {
   line-height: 40px;
+  width: 100px;
 }
 .edit-student-page .input-description {
   color: #b3b3b3;
   font-size: 12px;
 }
-.edit-student-page .password-reset {
-  position: absolute;
-  right: 110px;
-  bottom: 235px;
-}
+
 .invite-students .select-white-wrapper .dropdown-menu {
   left: auto;
   width: 280px;
   top: auto;
 }
+
+.invite-students .button-select {
+  /*margin-top: 30px;*/
+  button {
+    min-width: 200px;
+    text-align: left;
+  }
+  .fa-caret-down {
+    float:right;
+    font-size: 18px;
+    height: 19px;
+    color: rgb(115,115,115);
+  }
+}
+
+
+
 .invite-students h1 {
   margin-top: 30px;
   margin-bottom: 20px;
@@ -953,6 +1016,33 @@ select:focus {
 .create-a-class h1 {
   margin-bottom: 20px;
 }
+
+
+
+.create-a-class {
+  input, select, button, label, a {
+    float:left;
+    clear:both;
+    font-weight: normal;
+    margin-bottom: 20px;
+  }
+  input.class-code {
+    clear:left;
+    margin-bottom: 10px;
+  }
+  a.generate-code {
+    float:left;
+    clear: right;
+    line-height: 40px;
+    margin-left: 20px;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}
+
+
 .create-a-class > div {
   margin-bottom: 20px;
 }

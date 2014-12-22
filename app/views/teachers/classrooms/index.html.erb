@@ -1,0 +1,54 @@
+	
+
+<div id="page-content-wrapper">
+	<div class="row">
+    	<div class="col-xs-12 col-xl-12">
+
+        	<%= render partial: 'teachers/shared/scorebook_tabs' %>
+
+        	<!-- Tab panes -->
+        	<div class="tab-content">
+
+          		<div class="tab-pane active" id="class-manager">
+
+            		
+          			<%= render partial: 'teachers/classrooms/subnav' %>
+            		
+
+				<div class="container">
+					<section class="no-border manage-classes">
+						
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Class Name</th>
+									<th>Class Code</th>
+									<th>Number of Students</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<%- @classrooms.each do |classroom| %>
+									<tr>
+										<td> <%=classroom.name%> </td>
+										<td> <%=classroom.code%></td>
+										<td> <%=classroom.students.count%> </td>
+										<td><%=link_to "Manage Class", teachers_classroom_students_path(classroom) %></td>
+									</tr>
+
+								<% end %>
+							</tbody>
+						</table>
+						
+
+					</section>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

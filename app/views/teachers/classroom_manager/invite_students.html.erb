@@ -2,8 +2,35 @@
 
 <%= render partial: 'teachers/classrooms/subnav' %>
 
-<div class="container">
-  <section class="invite-students no-border">
+
+
+
+
+
+
+<div class="container invite-students">
+
+  <section class="no-border">
+    <div class='row'>
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5 col-xl-5 button-select-wrapper select-white-wrapper">
+        <div class="button-select">
+          <button type="button" class="select-mixin select-white" data-toggle="dropdown">
+          <%= @classroom.name %>
+          <% unless @classrooms.empty? %><i class="fa fa-caret-down"></i><% end %>
+          </button>
+          <%- unless @classrooms.empty? %>
+            <ul class="dropdown-menu" role="menu">
+              <%- @classrooms.each do |classroom| %>
+                <li><%= link_to classroom.name, teachers_classroom_invite_students_path(classroom) %></li>
+              <% end %>
+            </ul>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+    
     <h1 class="section-header">Have Students Create Their Accounts</h1>
 
     <ol>
@@ -19,7 +46,7 @@
       The students’ username is their name combined with your<br>
       class code. For example, John Smith is 'John.Smith@<%= @classroom.code %>'.<br>
       <div class="mt-15">
-        Students passwords are set to thier last names by default.<br>
+        Students passwords are set to their last names by default.<br>
         For example, ‘Smith’ (first letter is capitalized).
       </div>
     </div>
