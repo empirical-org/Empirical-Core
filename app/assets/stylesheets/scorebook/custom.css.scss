@@ -1026,15 +1026,24 @@ form.class-page {
     font-weight: normal;
     margin-bottom: 20px;
   }
+  .grade-select-column .help-inline {
+    padding:9px;
+    margin-left: 10px;
+    display: inline-block;
+    color: #b94a48;
+  }
+
   input.class-code {
-    clear:left;
     margin-bottom: 10px;
   }
-  a.generate-code {
+  span.generate-code {
     float:left;
     clear: right;
+    cursor: pointer;
     line-height: 40px;
     margin-left: 20px;
+    color: #308183;
+
   }
 
   button {
@@ -1049,9 +1058,7 @@ form.class-page {
 .create-a-class input:not(.inactive) {
   width: 315px;
 }
-.create-a-class a {
-  color: #308183;
-}
+
 .create-a-class .select-gray-wrapper {
   width: 180px;
 }
@@ -1065,6 +1072,10 @@ form.class-page {
 }
 .create-a-class .class-code-wrapper span {
   margin-left: 15px;
+}
+.grade-select {
+  width: 140px;
+  background-color: #ebebeb;
 }
 .grade-select .selecter-selected {
   background-color: #ebebeb;

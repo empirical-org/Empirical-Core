@@ -22,6 +22,9 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :teachers do
     resources :classrooms do
+      collection do 
+        get :regenerate_code
+      end
       resources :units
       resources :activities, controller: 'classroom_activities'
 
