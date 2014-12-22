@@ -4,11 +4,17 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize!
   layout 'scorebook'
 
+
+  def invite_students
+    @classrooms = current_user.classrooms
+  end
+
   def scorebook
     @classrooms = current_user.classrooms - [@classroom]
     @unit = @classroom.units.find(params[:unit_id]) if params[:unit_id]
     @units = @classroom.units - [@unit]
   end
+
 
   def lesson_planner
     @workbook_table = {}
@@ -41,6 +47,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def authorize!
     @classroom = Classroom.find(params[:classroom_id])
+    @classroom ||= current_user.classroom.first
     auth_failed unless @classroom.teacher == current_user
   end
 end

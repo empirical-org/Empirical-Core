@@ -5,14 +5,14 @@
   <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
 
     <li class="<%= controller_name == 'classroom_manager' && action_name == 'scorebook' ? 'active' : '' %>">
-      <%= link_to 'Scorebook', teachers_classroom_scorebook_path(classroom_id: current_user.classrooms.first.id), role: 'tab', id: 'first-tab'  %>
+      <%= link_to 'Scorebook', (current_user.classrooms.empty? ? '' : teachers_classroom_scorebook_path(classroom_id: current_user.classrooms.first)), role: 'tab', id: 'first-tab'  %>
     </li>
 
     <li class=''>
       <a href="#activity-planner" role="tab" data-toggle="tab">Activity Planner</a>
     </li>
 
-    <li class=''>
+    <li class="<%= (controller_name == 'classrooms' or (controller_name == 'classroom_manager' and action_name == 'invite_students')or controller_name == 'students' ) ? 'active' : '' %>">
       <%= link_to 'Class Manager', teachers_classrooms_path, role: 'tab'  %>
     </li>
 

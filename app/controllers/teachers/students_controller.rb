@@ -1,5 +1,6 @@
 class Teachers::StudentsController < ApplicationController
-  layout 'classroom_manager'
+  #layout 'classroom_manager'
+  layout 'scorebook'
   before_filter :teacher!
   before_filter :authorize!
 
@@ -15,7 +16,12 @@ class Teachers::StudentsController < ApplicationController
 
   end
 
+  def index
+
+  end
+
   def reset_password
+    puts 'reset_password called'
     @student.generate_password
     @student.save!
     redirect_to edit_teachers_classroom_student_path(@classroom, @student)
@@ -23,7 +29,8 @@ class Teachers::StudentsController < ApplicationController
 
   def update
     if @student.update_attributes(user_params)
-      head :ok
+      #head :ok
+      redirect_to edit_teachers_classroom_student_path(@classroom, @student)
     else
       render text: @student.errors.full_messages.join(', '), status: :unprocessable_entity
     end

@@ -3,10 +3,15 @@ class Teachers::ClassroomsController < ApplicationController
   before_filter :authorize!
   layout 'scorebook'
 
+
+
+
   def index
-    if current_user.classrooms.any?
-      redirect_to teachers_classroom_path(current_user.classrooms.first)
-    end
+    #if current_user.classrooms.any?
+      #redirect_to teachers_classroom_path(current_user.classrooms.first)
+    #end
+    @classrooms = current_user.classrooms
+    @classroom = @classrooms.first
   end
 
   def new
@@ -30,7 +35,14 @@ class Teachers::ClassroomsController < ApplicationController
 
   def update
     @classroom.update_attributes(classroom_params)
-    redirect_to [:teachers, @classroom]
+    # this is updated from the students tab of the scorebook, so will make sure we keep user there
+    redirect_to teachers_classroom_students_path(@classroom.id)
+
+  end
+
+  def destroy
+    @classroom.destroy
+    redirect_to teachers_classroom_path(current_user.classrooms.first)
   end
 
 private
