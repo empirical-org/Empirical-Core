@@ -5,7 +5,10 @@ class Teachers::StudentsController < ApplicationController
   before_filter :authorize!
 
   def create
+    puts 'create student called' 
+    puts params.to_yaml
     fix_full_name_in_first_name_field
+    capitalize_first_and_last_name
     @student = @classroom.students.build(user_params)
     @student.generate_student
     @student.save!
@@ -21,7 +24,6 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def reset_password
-    puts 'reset_password called'
     @student.generate_password
     @student.save!
     redirect_to edit_teachers_classroom_student_path(@classroom, @student)
@@ -50,6 +52,12 @@ protected
     auth_failed unless @classroom.teacher == current_user
     params[:id] = params[:student_id] if params[:student_id].present?
     @student = @classroom.students.find(params[:id]) if params[:id].present?
+  end
+
+  def capitalize_first_and_last_name 
+    # make sure this is called after fix_full_name_in_first_name_field
+    user_params[:first_name].capitalize!
+    user_params[:last_name].capitalize!
   end
 
   def fix_full_name_in_first_name_field
