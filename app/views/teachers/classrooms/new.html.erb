@@ -2,18 +2,36 @@
 
 <%= render partial: 'teachers/classrooms/subnav' %>
 
+<%= javascript_include_tag 'jquery.js' %>
+<%= javascript_include_tag 'create_a_class.js' %>
+
+
 <div class="container">
 
   <section class="no-border create-a-class">
     <h1 class="section-header">Create Your Class</h1>
 
     <%= form_for [:teachers, @classroom] do |f| %>
-      <%= f.text_field :name, class: 'big-input', placeholder: 'Class Name' %>
-      <%= f.select :grade, Classroom::GRADES, {prompt: 'Select Grade'} %>
-      <%= f.label :code, "Class Code" %>
-      <input disabled type='text' class='inactive class-code' value=<%= @classroom.code %> >
-      <%= link_to "Generate a New Code", '/' , class: 'generate-code'%>
+      <div class='row'>
+        <div class='col-xs-12'>
+          <%= f.text_field :name, class: 'big-input', placeholder: 'Class Name' %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-12 grade-select-column'>
+          <%= f.select :grade, Classroom::GRADES, {prompt: 'Grade'}, class: 'grade-select' %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-12'>
+          <%= f.label :code, "Class Code" %>
+          <%= f.text_field :code, class: 'inactive class-code' %>
+          <span class='generate-code'>Generate a New Code</span>
+        </div>
+      </div>
 
+      
+      
       <%= f.button 'Create Class', class: 'button-green' %>
     <% end %>
 

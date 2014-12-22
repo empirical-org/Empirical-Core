@@ -1,7 +1,9 @@
 class Teachers::ClassroomsController < ApplicationController
+  respond_to :json, :html
   before_filter :teacher!
   before_filter :authorize!
   layout 'scorebook'
+
 
 
 
@@ -16,15 +18,25 @@ class Teachers::ClassroomsController < ApplicationController
 
   def new
     @classroom = current_user.classrooms.new
+    @classroom.generate_code
   end
+
+
+  def regenerate_code
+    cl = Classroom.new
+    cl.generate_code
+    render json: {code: cl.code}
+  end
+
 
   def show
     redirect_to teachers_classroom_scorebook_path(@classroom)
   end
 
   def create
+    puts 'create classroom params : '
+    puts classroom_params.to_yaml
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
-
     if @classroom.valid?
       @classroom.units.create_next
       redirect_to teachers_classroom_invite_students_path(@classroom)
