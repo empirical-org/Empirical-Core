@@ -8,8 +8,8 @@
       <%= link_to 'Scorebook', (current_user.classrooms.empty? ? '' : teachers_classroom_scorebook_path(classroom_id: current_user.classrooms.first)), role: 'tab', id: 'first-tab'  %>
     </li>
 
-    <li class=''>
-      <a href="#activity-planner" role="tab" data-toggle="tab">Activity Planner</a>
+    <li class="<%= controller_name == 'classroom_manager' && action_name == 'lesson_planner' ? 'active' : '' %>" >
+      <%= link_to "Activity Planner", lesson_planner_teachers_classrooms_path %>
     </li>
 
     <li class="<%= (controller_name == 'classrooms' or (controller_name == 'classroom_manager' and action_name == 'invite_students')or controller_name == 'students' ) ? 'active' : '' %>">

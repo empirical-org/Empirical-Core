@@ -26,6 +26,28 @@ module ScorebookHelper
     end
   end
 
+  def icon_for_classification_by_id(activity_classification_id)
+    case activity_classification_id
+    when 1
+      'flag'
+    when 2
+      'puzzle'
+    else
+      ''
+    end
+  end
+
+  def image_for_activity_classification_by_id(activity_classification_id)
+    case activity_classification_id
+    when 1
+      'scorebook/icon-flag-gray.png'
+    when 2
+      'scorebook/icon-puzzle-gray.png'
+    else
+      ''
+    end
+  end
+
   def tooltip_html(activity_or_session)
     if !activity_or_session.nil?
       activity, session = if activity_or_session.respond_to?(:activity)

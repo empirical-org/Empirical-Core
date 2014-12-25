@@ -1,0 +1,296 @@
+
+
+<%= javascript_include_tag 'jquery.js' %>
+<%= javascript_include_tag 'lesson_planner.js' %>
+
+<%= render partial: 'teachers/shared/scorebook_tabs' %>
+
+
+
+<div id="page-content-wrapper">
+
+
+		<div class="tab-pane" id="activity-planner">
+	  	
+		<div class="tab-subnavigation-breadcrumb-wrapper">
+
+			<div class="container">
+
+				<ul>
+					
+				    <div class="row">
+
+				        <div id="crumbs">
+							<ul class="nav nav-tabs" role="tablist">
+								<li><a href="#1" class="active">Select Activities</a></li>
+								<li><a href="#2">Assign Activities</a></li>
+							</ul>
+						</div>
+
+					</div>
+					   
+				</ul>
+
+			</div> <!-- //.container -->
+				
+		</div> <!-- //.tab-subnavigation-wrapper -->
+			
+		<!-- ==========================================================================
+			 Progress tracker
+			========================================================================== -->	
+
+
+		<div class="container">
+			<section class="section-content-wrapper">
+
+				<div class="bs-wizard">
+
+	                <div class="col-xs-3 bs-wizard-step complete"><!-- complete -->
+	                  <div class="progress"><div class="progress-bar"></div></div>
+	                  <a href="#" class="bs-wizard-dot"></a>
+	                  <div class="text-center bs-wizard-info">Select Activities</div>
+	                </div>
+	                
+	                <div class="col-xs-3 bs-wizard-step disabled"><!-- disabled -->
+						<div class="progress"><div class="progress-bar"></div></div>
+						<a href="#" class="bs-wizard-dot"></a>
+						<div class="text-center bs-wizard-info">Assign Activities</div>
+	                </div>
+	                
+	                
+	            </div>
+			</section>
+		</div>
+
+
+		<!-- ==========================================================================
+			   Create a new unit
+			========================================================================== -->
+
+		<div class="container">
+
+			<section class="section-content-wrapper">
+
+			<div class="col-xs-12 col-md-9 col-sm-9 col-xl-9 no-pl">
+				<h3 class="section-header">Create a New Unit</h3>
+			</div>	
+
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 no-pl no-pr">
+
+					<div class="how-we-grade">
+						<p class="title title-not-started">
+							<a href="#">What's a Unit?</a>
+							<a href=""><i class="fa fa-long-arrow-right"></i></a>
+						</p> <!-- //.how-we-grade -->
+					</div>
+
+				</div> <!-- //.col-xs-3 -->
+
+				<input id="unit_name" type="text" placeholder="e.g. Learning How to Use Nouns">
+			</section>
+
+
+			<section>
+				<h3 class="section-header">Select Activities</h3>
+
+				<input id="search_activities_input" type="text" placeholder="Select Activities">
+				<button id="search_activities_button" class="button-gray">Search</button>
+
+				<div class="row activity-page-dropdown-wrapper">
+
+					<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
+							<div id='filter_activity_classification' class="button-select">
+								<button type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+								Sort by App
+								<i class="fa fa-caret-down"></i>
+								</button>
+
+
+								<ul class="dropdown-menu" role="menu">
+									<span id='activity_classification_all'>
+										All
+									</span>
+									<%- @activity_classifications.each do |ac| %>
+										<li>
+											<span class='activity_classification_option' id=<%="activity_classification_#{ac[:activity_classification_id]}"%>>
+												<%= ac[:activity_classification_name] %>
+											</span>
+										</li>
+
+									<% end %>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 no-pl">
+							<div class="button-select">
+								<button type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+								Sort by Level
+								<i class="fa fa-caret-down"></i>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<span id='section_all'>
+										All
+									</span>
+									<%- @sections.each do |section| %>
+										<li>
+											<span class='section_option' id=<%="section_#{section[:section_id]}" %>>
+												<%= section[:section_name] %>
+											</span>
+										</li>
+									<% end %>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
+							<div class="button-select">
+								<button type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+								Sort by Concept
+								<i class="fa fa-caret-down"></i>
+								</button>
+
+								<ul class="dropdown-menu" role="menu">
+									<span id='topic_all'>
+										All
+									</span>
+									<%- @topics.each do |topic| %>
+										<li>
+											<span class='topic_option' id=<%="topic_#{topic[:topic_id]}"%>>
+												<%= topic[:topic_name] %>
+											</span>
+										</li>
+									<% end %>
+								</ul>
+							</div>
+						</div>
+
+					</div>	
+
+				</div>
+
+				<table id="activities_table" class="table">
+
+					<thead>
+						<tr>
+							<th><img src="images/icon-check.png" alt=""></th>
+							<th id='sort_by_activity_classification'>App<i class="fa fa-caret-up"></i></th>
+							<th>Activity<i class="fa fa-caret-up"></i></th>
+							<th>Standard Level<i class="fa fa-caret-up"></i></th>
+							<th class="active">Concept<i class="fa fa-caret-up"></i></th>
+						</tr>
+					</thead>
+
+					<tbody>
+
+					<!-- ==========================================================================
+						   Commentary for checkboxes
+						========================================================================== -->
+
+						<!-- Checkbox and their label have to have the same ID, otherwise, checkbox will not be checked. Also, the label is empty, but it has to be here since without it checkbox will not appear at all. That's a tricky way, but works for all browsers -->
+
+						<%- @activities.each do |activity| %>
+							<tr>
+								<td>
+									<input type='checkbox' id=<%="activity_#{activity['activity_id']}"%> name='checkboxG1' class='css-checkbox' %>
+									<label for='checkbox1' id=<%="activity_#{activity['activity_id']}"%> class='css-label'></label>
+								</td>
+								
+								<td>
+									<%= image_tag image_for_activity_classification_by_id(activity['activity_classification_id'].to_i) %>
+								</td>
+								
+								<td>
+									<%= activity['activity_name'] %>
+								</td>
+
+								<td>
+									<%= activity['section_name'] %>
+								</td>
+
+								<td>
+									<%= activity['topic_name'] %>
+								</td>
+
+						<% end %>
+
+					</tbody>
+
+				</table>
+
+
+				<div class="fake-border"></div>
+
+				<%- if @number_of_pages > 1 %>
+					<ul class="pagination">
+						<li><span><i class="fa fa-caret-left"></i></a></li>
+						<%- @number_of_pages.times do |i| %>
+							<li class= <%= i == @active_page ? 'active' : '' %>>
+								<span>i</span>
+							</li>
+						<% end %>
+
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						
+						<li><span><i class="fa fa-caret-right"></i></a></li>
+					</ul>
+				<% end %>
+
+			</section>
+
+			<section class="learning-to-use">
+				<h3 class="section-header">Learning How to Use Nouns</h3>
+				
+				<table class="table">
+
+					<tbody>
+						<tr>
+							<td><img src="images/icon-flag-gray.png" alt=""></td>
+							<td>Training for the Gold</td>
+							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
+						</tr>
+
+						<tr>
+							<td><img src="images/icon-pencil-gray.png"></td>
+							<td>Past Tense Verbs</td>
+							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
+						</tr>
+
+						<tr>
+							<td><img src="images/icon-pencil-gray.png"></td>
+							<td>Possessive Nouns</td>
+							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
+						</tr>
+
+						<tr>
+							<td><img src="images/icon-pencil-gray.png"></td>
+							<td>Singular and Plural Nouns with Matching Verbs</td>
+							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
+						</tr>
+
+						<tr>
+							<td><img src="images/icon-flag-gray.png" alt=""></td>
+							<td>Referencing an Article</td>
+							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
+						</tr>
+
+					</tbody>
+				</table>
+				<div class="fake-border"></div>
+				<button class="button-green pull-right">Continue</button>
+
+			</section>
+			
+		</div> <!-- //.container -->
+
+
+	</div> <!-- //.tab-pane-active -->			
+
+
+</div> <!-- //#page-content-wrapper -->
+
