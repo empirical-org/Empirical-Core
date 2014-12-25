@@ -2,5 +2,10 @@
 //= require scorebook/bootstrap
 //= require scorebook/selector.js
 //= require scorebook/custom
+
+//= require scorebook/create_a_class.js
+//= require scorebook/lesson_planner.js
+
 //= require jquery.turbolinks
 //= require jquery_ujs
+

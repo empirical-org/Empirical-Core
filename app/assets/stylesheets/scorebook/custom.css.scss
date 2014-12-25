@@ -492,6 +492,10 @@ select:focus {
   border-radius: 5px;
   font-size: 14px;
 }
+
+/*
+below is obselete for now, changed link to span : 
+*/
 .activity-page-dropdown-wrapper .dropdown-menu a {
   padding: 5px 14px;
   display: block;
@@ -505,6 +509,22 @@ select:focus {
 .activity-page-dropdown-wrapper .dropdown-menu a:active {
   -webkit-appearance: none;
 }
+
+
+.activity-page-dropdown-wrapper .dropdown-menu {
+  span {
+    padding: 5px 14px;
+    display: block;
+    color: #000;
+  }
+  span:hover {
+    background: #f0f0f0;
+  }
+
+
+}
+
+
 .learning-to-use {
   padding: 30px 0 85px 0;
 }
@@ -546,10 +566,12 @@ select:focus {
   width: 7%;
 }
 #activity-planner table thead tr th:nth-child(3) {
-  width: 53%;
+  /*width: 53%;*/
+  width: 51%;
 }
 #activity-planner table thead tr th:nth-child(4) {
-  width: 15%;
+  /*width: 15%;*/
+  width: 17%;
 }
 #activity-planner table thead tr th:nth-child(5) {
   width: 20%;
@@ -587,6 +609,8 @@ select:focus {
   text-align: left;
   border-right: 1px solid #cecece;
 }
+
+
 #activity-planner .table > thead > tr > th,
 #activity-planner .table > tbody > tr > th,
 #activity-planner .table > tfoot > tr > th,
