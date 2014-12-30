@@ -9,31 +9,23 @@
 
 <div id="page-content-wrapper">
 
-
 		<div class="tab-pane" id="activity-planner">
-	  	
-		<div class="tab-subnavigation-breadcrumb-wrapper">
+
+
+		<div class="tab-subnavigation-wrapper">
 
 			<div class="container">
 
 				<ul>
-					
-				    <div class="row">
-
-				        <div id="crumbs">
-							<ul class="nav nav-tabs" role="tablist">
-								<li><a href="#1" class="active">Select Activities</a></li>
-								<li><a href="#2">Assign Activities</a></li>
-							</ul>
-						</div>
-
-					</div>
-					   
+					<li><a href="" class="active">Create a Unit</a></li>
+					<li><a href="">Explore Units</a></li>
+					<li><a href="">Create a New Activity</a></li>
 				</ul>
 
 			</div> <!-- //.container -->
-				
-		</div> <!-- //.tab-subnavigation-wrapper -->
+						
+		</div>
+	  	
 			
 		<!-- ==========================================================================
 			 Progress tracker
@@ -102,19 +94,21 @@
 
 						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
 							<div id='filter_activity_classification' class="button-select">
-								<button type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+								<button data-filter-type='activity_classification'  type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
 								Sort by App
 								<i class="fa fa-caret-down"></i>
 								</button>
 
 
 								<ul class="dropdown-menu" role="menu">
-									<span id='activity_classification_all'>
-										All
-									</span>
+									<li>
+										<span class='filter_option all' data-filter-type='activity_classification' data-model-id=''>
+											All Apps
+										</span>
+									</li>
 									<%- @activity_classifications.each do |ac| %>
 										<li>
-											<span class='activity_classification_option' id=<%="activity_classification_#{ac[:activity_classification_id]}"%>>
+											<span class='filter_option' data-filter-type='activity_classification' data-model-id=<%=ac[:activity_classification_id]%>>
 												<%= ac[:activity_classification_name] %>
 											</span>
 										</li>
@@ -126,17 +120,19 @@
 
 						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 no-pl">
 							<div class="button-select">
-								<button type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+								<button type="button" data-filter-type='section' class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
 								Sort by Level
 								<i class="fa fa-caret-down"></i>
 								</button>
 								<ul class="dropdown-menu" role="menu">
-									<span id='section_all'>
-										All
-									</span>
+									<li>
+										<span class='filter_option all' data-filter-type='section' data-model-id=''>
+											All Levels
+										</span>
+									</li>
 									<%- @sections.each do |section| %>
 										<li>
-											<span class='section_option' id=<%="section_#{section[:section_id]}" %>>
+											<span class='filter_option' data-filter-type="section" data-model-id=<%=section[:section_id]%> >
 												<%= section[:section_name] %>
 											</span>
 										</li>
@@ -147,18 +143,20 @@
 
 						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
 							<div class="button-select">
-								<button type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+								<button type="button" data-filter-type='topic' class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
 								Sort by Concept
 								<i class="fa fa-caret-down"></i>
 								</button>
 
 								<ul class="dropdown-menu" role="menu">
-									<span id='topic_all'>
-										All
-									</span>
+									<li>
+										<span class='filter_option all' data-filter-type='topic' data-model-id=''>
+										All Concepts
+										</span>
+									</li>
 									<%- @topics.each do |topic| %>
 										<li>
-											<span class='topic_option' id=<%="topic_#{topic[:topic_id]}"%>>
+											<span class='filter_option' data-filter-type='topic' data-model-id=<%=topic[:topic_id]%>>
 												<%= topic[:topic_name] %>
 											</span>
 										</li>
@@ -175,11 +173,14 @@
 
 					<thead>
 						<tr>
-							<th><img src="images/icon-check.png" alt=""></th>
-							<th id='sort_by_activity_classification'>App<i class="fa fa-caret-up"></i></th>
-							<th>Activity<i class="fa fa-caret-up"></i></th>
-							<th>Standard Level<i class="fa fa-caret-up"></i></th>
-							<th class="active">Concept<i class="fa fa-caret-up"></i></th>
+							<th>
+								<!--<img src="images/icon-check.png" alt="">-->
+								<%= image_tag 'scorebook/icon-check.png' %>
+							</th>
+							<th id='activity_classification' class='sorter'>App<i class="fa fa-caret-up"></i></th>
+							<th id='activity' class='sorter'>Activity<i class="fa fa-caret-up"></i></th>
+							<th id='section' class='sorter'>Standard Level<i class="fa fa-caret-up"></i></th>
+							<th id='topic' class='sorter active'>Concept<i class="fa fa-caret-up"></i></th>
 						</tr>
 					</thead>
 
@@ -190,29 +191,31 @@
 						========================================================================== -->
 
 						<!-- Checkbox and their label have to have the same ID, otherwise, checkbox will not be checked. Also, the label is empty, but it has to be here since without it checkbox will not appear at all. That's a tricky way, but works for all browsers -->
+						<%- @activities.each_with_index do |activity, index| %>
+							<%- unless index > @results_per_page - 1 %>
+								<tr>
+									<td>
+										<input type='checkbox' data-model-id=<%=activity['activity_id'] %> id=<%="activity_" + activity['activity_id']%> class='css-checkbox' %>
+										<label for=<%='activity_' + activity['activity_id'] %> class='css-label'></label>
+									</td>
+									
+									<td>
+										<%= image_tag image_for_activity_classification_by_id(activity['activity_classification_id'].to_i) %>
+									</td>
+									
+									<td class='activity_name'>
+										<%= activity['activity_name'] %>
+									</td>
 
-						<%- @activities.each do |activity| %>
-							<tr>
-								<td>
-									<input type='checkbox' id=<%="activity_#{activity['activity_id']}"%> name='checkboxG1' class='css-checkbox' %>
-									<label for='checkbox1' id=<%="activity_#{activity['activity_id']}"%> class='css-label'></label>
-								</td>
-								
-								<td>
-									<%= image_tag image_for_activity_classification_by_id(activity['activity_classification_id'].to_i) %>
-								</td>
-								
-								<td>
-									<%= activity['activity_name'] %>
-								</td>
+									<td>
+										<%= activity['section_name'] %>
+									</td>
 
-								<td>
-									<%= activity['section_name'] %>
-								</td>
-
-								<td>
-									<%= activity['topic_name'] %>
-								</td>
+									<td>
+										<%= activity['topic_name'] %>
+									</td>
+								</tr>
+							<% end %>
 
 						<% end %>
 
@@ -225,64 +228,29 @@
 
 				<%- if @number_of_pages > 1 %>
 					<ul class="pagination">
-						<li><span><i class="fa fa-caret-left"></i></a></li>
-						<%- @number_of_pages.times do |i| %>
-							<li class= <%= i == @active_page ? 'active' : '' %>>
-								<span>i</span>
+						<li class='left_arrow'><span><i class="fa fa-caret-left"></i></li>
+						<%- (@number_of_pages -1).times do |i| %>
+							<%- k = i+1 %>
+							<%- x = ((k == @active_page) ? 'active' : 'page_number') %>
+							<li class=<%== x %> >
+								<span data-page-number=<%=k%>><%=k%></span>
 							</li>
 						<% end %>
-
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						
-						<li><span><i class="fa fa-caret-right"></i></a></li>
+						<li class='right_arrow'><span><i class="fa fa-caret-right"></i></li>
 					</ul>
 				<% end %>
 
 			</section>
 
-			<section class="learning-to-use">
-				<h3 class="section-header">Learning How to Use Nouns</h3>
-				
+			<section class="teaching-cart">
+				<h3 class="section-header unit_name"></h3>
 				<table class="table">
-
 					<tbody>
-						<tr>
-							<td><img src="images/icon-flag-gray.png" alt=""></td>
-							<td>Training for the Gold</td>
-							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
-						</tr>
-
-						<tr>
-							<td><img src="images/icon-pencil-gray.png"></td>
-							<td>Past Tense Verbs</td>
-							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
-						</tr>
-
-						<tr>
-							<td><img src="images/icon-pencil-gray.png"></td>
-							<td>Possessive Nouns</td>
-							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
-						</tr>
-
-						<tr>
-							<td><img src="images/icon-pencil-gray.png"></td>
-							<td>Singular and Plural Nouns with Matching Verbs</td>
-							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
-						</tr>
-
-						<tr>
-							<td><img src="images/icon-flag-gray.png" alt=""></td>
-							<td>Referencing an Article</td>
-							<td><a href=""><img src="images/icon-x-gray.png"></a></td>
-						</tr>
-
+						
 					</tbody>
 				</table>
 				<div class="fake-border"></div>
-				<button class="button-green pull-right">Continue</button>
+				<button class="button-green pull-right" id='continue'>Continue</button>
 
 			</section>
 			

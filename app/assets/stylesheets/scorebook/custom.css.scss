@@ -525,7 +525,7 @@ below is obselete for now, changed link to span :
 }
 
 
-.learning-to-use {
+.teaching-cart {
   padding: 30px 0 85px 0;
 }
 /* ==========================================================================
@@ -619,33 +619,51 @@ below is obselete for now, changed link to span :
 #activity-planner .table > tfoot > tr > td {
   vertical-align: middle;
 }
-.learning-to-use table tbody tr {
-  background: #f7f5f5 !important;
+
+
+.teaching-cart {
+
+  table tbody {
+    tr {
+      background: #f7f5f5 !important;
+      td:nth-child(1) {
+        width: 5%;
+      }
+      td:nth-child(2) {
+        width: 90%;
+        text-align: left !important;
+      }
+      td:nth-child(3) {
+        border-right: 1px solid #cecece;
+        width: 5%;
+      }
+    }
+
+    tr:first-child {
+      td:nth-child(1) {
+        border-top-left-radius: 5px;
+      }
+      td:nth-child(3) {
+        border-top-right-radius: 5px;
+      }
+    }
+      
+    tr:last-child {
+      td:nth-child(1) {
+        border-bottom-left-radius: 5px;
+      }
+      td:nth-child(3) {
+        border-bottom-right-radius: 5px;
+      }
+    }
+  }
+  #continue {
+    display:none;
+  }
 }
-.learning-to-use table tbody tr:first-child td:nth-child(1) {
-  border-top-left-radius: 5px;
-}
-.learning-to-use table tbody tr:first-child td:nth-child(3) {
-  border-top-right-radius: 5px;
-}
-.learning-to-use table tbody tr:last-child td:nth-child(1) {
-  border-bottom-left-radius: 5px;
-}
-.learning-to-use table tbody tr:last-child td:nth-child(3) {
-  border-bottom-right-radius: 5px;
-}
-.learning-to-use table tbody tr td:nth-child(1) {
-  width: 5%;
-}
-.learning-to-use table tbody tr td:nth-child(2) {
-  width: 90%;
-  text-align: left !important;
-}
-.learning-to-use table tbody tr td:nth-child(3) {
-  border-right: 1px solid #cecece;
-  width: 5%;
-}
-.learning-to-use .fake-border {
+  
+
+.teaching-cart .fake-border {
   width: 99.4%;
   margin: 0 auto;
   position: relative;
@@ -1152,7 +1170,21 @@ form.class-page {
    ========================================================================== */
 .pagination {
   margin: 0;
+  list-style-type: none;
+  li {
+    display: block;
+    clear:none;
+    float: left;
+    span {
+      height: 40px;
+    }
+  }
+  .page_number, .active {
+    float:left;
+    clear:none;
+  }
 }
+
 .pagination .fa {
   color: #737373;
   font-size: 1.3em;

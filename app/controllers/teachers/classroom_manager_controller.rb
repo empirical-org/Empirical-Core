@@ -5,6 +5,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize!
   layout 'scorebook'
   include ScorebookHelper
+  RESULTS_PER_PAGE = 2
 
 
   def invite_students
@@ -43,8 +44,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def search_activities
-    puts 'params in search : '
-    puts params.to_json
+
 
     filters = params['filters']
     filter_string = ""
@@ -63,9 +63,21 @@ class Teachers::ClassroomManagerController < ApplicationController
     
     if sort['field'].length > 0
       field = sort['field']
-      asc_or_dsc = sort['asc_or_dsc']
+      asc_or_desc = sort['asc_or_desc']
       # map field to table abbreviation
       # add to sql string
+      if field == 'activity_classification'
+        field2 = 'ac.name'
+      elsif field == 'section'
+        field2 = 's.name'
+      elsif field == 'topic'
+        field2 = 't.name'
+      elsif field == 'activity'
+        field2 = 'a.name'
+      end
+
+
+      sort_string = " ORDER BY #{field2} #{asc_or_desc}"
 
     end
 
@@ -91,16 +103,18 @@ class Teachers::ClassroomManagerController < ApplicationController
            (a.name ILIKE '%#{params[:search_query]}%'
         OR t.name ILIKE '%#{params[:search_query]}%')
         #{filter_string}
+        #{sort_string}
 
     "
     search_results raw_sql
+    classrooms = current_user.classrooms
 
     render json: {
       activities: @activities,
       activity_classifications: @activity_classifications,
       topics: @topics,
       sections: @sections,
-      number_of_page: @number_of_pages,
+      number_of_pages: @number_of_pages,
       active_page: @active_page
     }
 
@@ -120,9 +134,10 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     db_result = db_result.map{|ele| ele.merge({image_path: view_context.image_path(image_for_activity_classification_by_id(ele['activity_classification_id'].to_i))})}
     @activities = db_result.sort{|x,y| x[:activity_name] <=> y[:activity_name]}
-    
-    @number_of_pages = @activities.count/18
+
+    @number_of_pages = @activities.count/RESULTS_PER_PAGE
     @active_page = 1
+    @results_per_page = RESULTS_PER_PAGE
    
   end
 
