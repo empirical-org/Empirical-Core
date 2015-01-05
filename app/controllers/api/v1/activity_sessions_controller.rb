@@ -2,6 +2,8 @@ class Api::V1::ActivitySessionsController < ApiController
 
   before_action :find_activity_session, except: [:index, :create]
 
+  before_action :transform_incoming_request, only: [:update] # TODO: Also include create?
+
   def index
     # FIXME: original API doesn't support index
     @activities = ActivitySession.all
@@ -66,9 +68,50 @@ class Api::V1::ActivitySessionsController < ApiController
   def activity_session_params
     params.delete(:activity_session)
     @data = params.delete(:data)
-
-    params.permit(:id, :percentage, :state, :time_spent, :completed_at, :activity_uid, :anonymous).merge(data: @data).reject {|k,v| v.nil? }
+    concept_tag_keys = [:concept_tag_name, :metadata => concept_tag_result_allowed_keys]
+    params.permit(:id, :percentage, :state, :time_spent, :completed_at, :activity_uid, :anonymous, concept_tag_results_attributes:  concept_tag_keys)
+      .merge(data: @data).reject {|k,v| v.nil? }
   end
 
+  # Grab a list of all the arbitrarily-named keys that are provided in the concept tag results payload.
+  # Returns a list of symbols, e.g. [:student_input, :wpm]
+  def concept_tag_result_allowed_keys
+    if params[:concept_tag_results_attributes]
+      params[:concept_tag_results_attributes].reduce [] do |acc, hash|
+        acc + hash[:metadata].keys.map(&:to_sym)
+      end.uniq
+    else
+      nil
+    end
+  end
+
+  # Transform the incoming request parameters so that it can be easily ingested by ActiveRecord.
+  # Alias the following request parameters:
+  # Map each result to the following structure: 
+  # {
+  #   concept_tag: "Creative Writing",
+  #   student_input: "The dog jumped over the cat."
+  # },
+  # Becomes this:
+  # {
+  #   concept_tag_name: "Creative Writing",
+  #   metadata: {
+  #     student_input: "The dog jumped over the cat."
+  #   }   
+  # }
+  #
+  # concept_tag_results -> concept_tag_results_attributes
+  def transform_incoming_request
+    return unless params.has_key?(:concept_tag_results)
+    results = params.delete(:concept_tag_results)
+    transformed_results = results.reduce [] do |accumulator, result|
+      tag_name = result.delete(:concept_tag)
+      accumulator << {
+        concept_tag_name: tag_name,
+        metadata: result
+      }
+    end
+    params[:concept_tag_results_attributes] = transformed_results
+  end
 end
 
