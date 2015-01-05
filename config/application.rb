@@ -44,12 +44,12 @@ module EmpiricalGrammar
         # localhost dev...
         origins /localhost|127\.0\.0\.1(:\d+)?/
 
-        resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put]
+        resource '/api/*', headers: :any, methods: :all
       end
 
       allow do
         origins '*'
-        resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put]
+        resource '/api/*', headers: :any, methods: [:get, :post, :patch]
       end
     end
   end
