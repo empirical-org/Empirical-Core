@@ -198,7 +198,8 @@ input:focus {
 .datepicker-input {
   height: 26px;
   width: 148px;
-  background-image: url(../images/icon-calendar.png);
+  /*background-image: url(../images/icon-calendar.png);*/
+  background-image: url(/assets/scorebook/icon-calendar.png);
   background-repeat: no-repeat;
   background-position-x: 120px;
   background-position-y: 3px;
@@ -459,9 +460,13 @@ select:focus {
 /* ==========================================================================
    Activity Planner styles
    ========================================================================== */
-#activity-planner input:not([type="checkbox"]) {
-  width: 326px;
-  margin-top: 20px;
+/*#activity-planner input:not([type="checkbox"]) {*/
+#activity-planner {
+  input#search_activities_input,
+  input#unit_name {
+    width: 326px;
+    margin-top: 20px;
+  }
 }
 #activity-planner button:not(.button-select) {
   margin-left: 20px;
@@ -525,12 +530,11 @@ below is obselete for now, changed link to span :
 }
 
 
-.teaching-cart {
-  padding: 30px 0 85px 0;
-}
 /* ==========================================================================
    Tables
    ========================================================================== */
+
+
 #activity-planner table {
   margin-top: 20px;
   border-collapse: separate;
@@ -566,12 +570,10 @@ below is obselete for now, changed link to span :
   width: 7%;
 }
 #activity-planner table thead tr th:nth-child(3) {
-  /*width: 53%;*/
-  width: 51%;
+  width: 53%;
 }
 #activity-planner table thead tr th:nth-child(4) {
-  /*width: 15%;*/
-  width: 17%;
+  width: 15%;
 }
 #activity-planner table thead tr th:nth-child(5) {
   width: 20%;
@@ -585,7 +587,7 @@ below is obselete for now, changed link to span :
 #activity-planner table tbody tr:nth-child(9) {
   background: #f7f5f5;
 }
-#activity-planner table tbody tr {
+#activity-planner table#activities_table tbody tr {
   background: #fff;
 }
 #activity-planner table tbody tr td {
@@ -609,6 +611,15 @@ below is obselete for now, changed link to span :
   text-align: left;
   border-right: 1px solid #cecece;
 }
+#activity-planner .table > thead > tr > th,
+#activity-planner .table > tbody > tr > th,
+#activity-planner .table > tfoot > tr > th,
+#activity-planner .table > thead > tr > td,
+#activity-planner .table > tbody > tr > td,
+#activity-planner .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+
 
 
 #activity-planner .table > thead > tr > th,
@@ -620,48 +631,55 @@ below is obselete for now, changed link to span :
   vertical-align: middle;
 }
 
-
 .teaching-cart {
-
-  table tbody {
-    tr {
-      background: #f7f5f5 !important;
-      td:nth-child(1) {
-        width: 5%;
-      }
-      td:nth-child(2) {
-        width: 90%;
-        text-align: left !important;
-      }
-      td:nth-child(3) {
-        border-right: 1px solid #cecece;
-        width: 5%;
-      }
+  display:block;
+  border: none;
+  padding-bottom: 85px;
+  table {
+    border:none;
+    tbody {
+      border: none;
     }
-
-    tr:first-child {
-      td:nth-child(1) {
-        border-top-left-radius: 5px;
-      }
-      td:nth-child(3) {
-        border-top-right-radius: 5px;
-      }
-    }
-      
-    tr:last-child {
-      td:nth-child(1) {
-        border-bottom-left-radius: 5px;
-      }
-      td:nth-child(3) {
-        border-bottom-right-radius: 5px;
-      }
-    }
-  }
-  #continue {
-    display:none;
   }
 }
-  
+
+.teaching-cart table tbody tr {
+  background: #f7f5f5 !important;
+}
+.teaching-cart table tbody tr:first-child td:nth-child(1) {
+  border-top-left-radius: 5px;
+}
+.teaching-cart table tbody tr:first-child td:nth-child(3) {
+  border-top-right-radius: 5px;
+}
+.teaching-cart table tbody tr:last-child td:nth-child(1) {
+  border-bottom-left-radius: 5px;
+}
+.teaching-cart table tbody tr:last-child td:nth-child(3) {
+  border-bottom-right-radius: 5px;
+}
+.teaching-cart table tbody tr td:nth-child(1) {
+  width: 5%;
+}
+.teaching-cart table tbody tr td:nth-child(2) {
+  width: 90%;
+  text-align: left !important;
+}
+.teaching-cart table tbody tr td:nth-child(3) {
+  border-right: 1px solid #cecece;
+  width: 5%;
+}
+.teaching-cart .fake-border {
+  width: 99.4%;
+  margin: 0 auto;
+  position: relative;
+  bottom: 1px;
+}
+
+.teaching-cart #continue {
+  display: none;
+
+}
 
 .teaching-cart .fake-border {
   width: 99.4%;
@@ -1171,6 +1189,9 @@ form.class-page {
 .pagination {
   margin: 0;
   list-style-type: none;
+  * {
+    cursor: pointer;
+  }
   li {
     display: block;
     clear:none;
@@ -1224,18 +1245,32 @@ form.class-page {
 .panel-heading .title a {
   margin-bottom: 7px;
 }
-.ph-caret-up {
-  background-image: url(../images/caret-up.png);
+.ph-caret-up, 
+.ph-caret-down,
+.ph-caret-toggle {
   background-repeat: no-repeat;
   background-position-x: 130px;
   background-position-y: 14px;
+}
+.ph-caret-up {
+  background-image: url(/assets/scorebook/caret-up.png);
 }
 .ph-caret-down {
-  background-image: url(../images/caret-down.png);
-  background-repeat: no-repeat;
-  background-position-x: 130px;
-  background-position-y: 14px;
+  background-image: url(/assets/scorebook/caret-down.png);
 }
+
+.ph-caret-toggle {
+  background-image: url(/assets/scorebook/caret-down.png);
+}
+.collapsed .ph-caret-toggle {
+  background-image: url(/assets/scorebook/caret-up.png);
+}
+
+
+.student_column {
+  clear:none;
+}
+
 .assign-dates {
   padding-bottom: 80px;
 }
@@ -1248,6 +1283,9 @@ form.class-page {
   background: #f7f5f5;
   border: 1px solid #cecece;
 }
+
+
+
 .assign-dates table tbody tr:first-child td:first-child {
   border-top-left-radius: 5px;
 }
@@ -1307,7 +1345,7 @@ form.class-page {
   border-left: 1px solid #cecece;
 }
 .assign-dates table tbody tr td:nth-child(2) {
-  text-align: left;
+  text-align: left !important;
 }
 .assign-dates table tbody tr td:nth-child(3) {
   text-align: left;
@@ -1572,7 +1610,10 @@ label.css-label {
   padding: 0;
   margin-top: 5px;
   margin-bottom: 10px;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
 }
+
 .ui-datepicker table {
   background: #fff;
   border-bottom: 1px solid #cecece;
@@ -1581,6 +1622,24 @@ label.css-label {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
+
+.ui-datepicker table a.ui-state-default,
+.ui-datepicker table span.ui-state-default {
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  font-weight: normal !important;
+  font-size: 13px !important;
+}
+
+.ui-datepicker table a.ui-state-default {
+  color: black !important;  
+}
+.ui-datepicker table span.ui-state-default {
+  color: rgb(115,115,115);
+}
+
+
 .ui-datepicker .ui-datepicker-header {
   background: #737373;
   padding: 5px 10px;
@@ -1588,16 +1647,24 @@ label.css-label {
   font-weight: bold;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border: none !important;
 }
 .ui-datepicker .ui-datepicker-prev {
-  background-image: url(../images/datepicker-arrow-left.png);
+  background-image: url(/assets/scorebook/datepicker-arrow-left.png);
   background-repeat: no-repeat;
   background-position-x: 10px;
   background-position-y: 11px;
   cursor: pointer;
 }
+.ui-datepicker .ui-datepicker-prev:hover,
+.ui-datepicker .ui-datepicker-next:hover {
+  background-color: transparent !important;
+  border:none !important;
+}
 .ui-datepicker .ui-datepicker-next {
-  background-image: url(../images/datepicker-arrow-right.png);
+  background-image: url(/assets/scorebook/datepicker-arrow-right.png);
   background-repeat: no-repeat;
   background-position-x: 10px;
   background-position-y: 11px;

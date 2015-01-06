@@ -42,6 +42,50 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   end
 
+  def retrieve_classrooms_for_assigning_activities # in response to ajax request
+    @activities = Activity.find params[:activities]
+    get_classrooms_and_students_for_assigning_activities
+    render partial: 'assign', layout: false
+  end
+
+
+  def get_classrooms_and_students_for_assigning_activities
+    current_user.classrooms.each do |classroom|
+      obj = {
+        classroom: classroom,
+        students: classroom.students
+      }
+      ( @classrooms_and_their_students ||= [] ).push obj
+    end
+  end
+
+
+  def assign_activities
+    puts 'assign activitites called'
+    puts params.to_json
+
+    # TODO refactor models to get rid of classroom_activity, its unneccessary
+
+    # create a unit
+    unit = Unit.create name: params[:unit_name]
+
+
+    # create a classroom_activity
+    params[:activity_id_and_due_date_pairs].each do |pair|
+      due_date = pair['due_date']
+      unit.classroom_activities.create activity_id: pair['activity_id'], due_date: due_date
+    end
+
+    # create activity_sessions
+    unit.classroom_activities.each do |ca|
+      
+
+    end
+
+
+    render json: {}
+  end
+
 
   def search_activities
 
@@ -107,7 +151,6 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     "
     search_results raw_sql
-    classrooms = current_user.classrooms
 
     render json: {
       activities: @activities,
@@ -115,7 +158,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       topics: @topics,
       sections: @sections,
       number_of_pages: @number_of_pages,
-      active_page: @active_page
+      active_page: @active_page,
     }
 
   end

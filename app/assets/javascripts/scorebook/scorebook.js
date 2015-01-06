@@ -1,5 +1,9 @@
 //= require scorebook/jquery.selectbox-0.2.js
 //= require scorebook/bootstrap
+
+//= require scorebook/jquery-ui.min.js
+
+
 //= require scorebook/selector.js
 //= require scorebook/custom
 
