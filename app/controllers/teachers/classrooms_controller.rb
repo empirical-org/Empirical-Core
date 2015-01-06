@@ -14,7 +14,9 @@ class Teachers::ClassroomsController < ApplicationController
     #end
     @classrooms = current_user.classrooms
     @classroom = @classrooms.first
+    
   end
+
 
   def new
     @classroom = current_user.classrooms.new

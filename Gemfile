@@ -62,6 +62,7 @@ gem 'compass-rails'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'backbone-on-rails'
 
 gem 'slim-rails'
