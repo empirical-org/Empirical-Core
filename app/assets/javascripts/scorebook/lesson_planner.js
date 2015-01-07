@@ -146,9 +146,21 @@ window.lesson_planner_object = {
 		inp1 = $(document.createElement('input'))
 		inp1.attr('type', 'hidden')
 		inp1.attr('name', 'unit_name')
-		inp1.attr('value', 'what a cool unit')
+		inp1.attr('value', that.unit_name)
 
-		form.append(inp1)
+		inp2 = $(document.createElement('input'))
+		inp2.attr('type', 'hidden')
+		inp2.attr('name', 'selected_classrooms')
+		inp2.attr('value', JSON.stringify(that.selected_classrooms))
+
+		inp3 = $(document.createElement('input'))
+		inp3.attr('type', 'hidden')
+		inp3.attr('name', 'pairs_of_activity_id_and_due_date')
+		inp3.attr('value', arr)
+
+		
+
+		form.append(inp1,inp2,inp3)
 		form.submit()
 
 		
