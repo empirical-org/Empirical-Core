@@ -12,7 +12,7 @@ class Teachers::UnitsController < ApplicationController
     puts 'params are : '
     puts params.to_json
 
-    redirect_to teachers_classroom_scorebook_path(1)
+    redirect_to teachers_classroom_scorebook_path(current_user.classrooms.first)
 
 
   end
