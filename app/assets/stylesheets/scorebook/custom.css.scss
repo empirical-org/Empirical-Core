@@ -1254,7 +1254,7 @@ form.class-page {
 }
 .ph-caret-up {
   /*background-image: url(/assets/scorebook/caret-up.png);*/
-  background-image: asset-url(scorebook/caret-up.png);
+  background-image: asset-url('scorebook/caret-up.png');
 }
 .ph-caret-down {
   background-image: url(/assets/scorebook/caret-down.png);
