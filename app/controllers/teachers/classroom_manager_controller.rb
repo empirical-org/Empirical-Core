@@ -5,7 +5,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize!
   layout 'scorebook'
   include ScorebookHelper
-  RESULTS_PER_PAGE = 2
+  RESULTS_PER_PAGE = 12
 
 
   def invite_students
@@ -15,8 +15,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @classrooms = current_user.classrooms - [@classroom]
     @unit = @classroom.units.find(params[:unit_id]) if params[:unit_id]
-    @units = @classroom.units - [@unit]
+    #@units = @classroom.units - [@unit]
+    @units = ClassroomActivity.includes(:unit).where(classroom: @classroom).map(&:unit)
+    @are_all_units_selected = (params[:all_units])
+
   end
+
+
 
   def lesson_planner
 
@@ -61,28 +66,25 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def assign_activities
-    puts 'assign activitites called'
-    puts params.to_json
-
     # TODO refactor models to get rid of classroom_activity, its unneccessary
-
+    
     # create a unit
     unit = Unit.create name: params[:unit_name]
 
-
     # create a classroom_activity
-    params[:activity_id_and_due_date_pairs].each do |pair|
+    x1 = params[:pairs_of_activity_id_and_due_date]
+    (JSON.parse(x1)).each do |pair|
       due_date = pair['due_date']
-      unit.classroom_activities.create activity_id: pair['activity_id'], due_date: due_date
+      activity_id = pair['activity_id']
+      classrooms = JSON.parse(params[:selected_classrooms])
+      classrooms.each do |classroom|
+        student_ids = (classroom['all_students'] == true) ? nil : classroom['student_ids']
+        unit.classroom_activities.create activity_id: activity_id, classroom_id: classroom['classroom_id'], assigned_student_ids: student_ids, due_date: due_date
+      end
     end
 
-    # create activity_sessions
-    unit.classroom_activities.each do |ca|
-      
-
-    end
-
-
+    # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
+  
     render json: {}
   end
 
