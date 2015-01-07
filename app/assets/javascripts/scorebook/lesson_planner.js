@@ -4,7 +4,7 @@ $(document).ready(function(){
 });
 
 window.lesson_planner_object = {
-	results_per_page: 2,
+	results_per_page: 12,
 	current_page_number: 1, // since rails will have loaded 1st page on page-load
 	number_of_pages: 1,
 	search_results: [],
@@ -127,10 +127,11 @@ window.lesson_planner_object = {
 		console.log('')
 		console.log('pairs arr : ')
 		console.log(arr)
+		arr = JSON.stringify(arr)
 
 		$.ajax({
 			url: '/teachers/classrooms/assign_activities',
-			data: {unit_name: that.unit_name, selected_classrooms: that.selected_classrooms, pairs_of_activity_id_and_due_date: arr},
+			data: {unit_name: that.unit_name, selected_classrooms: JSON.stringify(that.selected_classrooms), pairs_of_activity_id_and_due_date: arr},
 			success: function (data, status, jqXHR) {
 				console.log('assign ajax success')
 				window.open('/teachers/classrooms/1/scorebook', '_self')
