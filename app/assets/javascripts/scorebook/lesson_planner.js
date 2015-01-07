@@ -115,6 +115,7 @@ window.lesson_planner_object = {
 		});
 	},
 	click_assign_cb: function (e) {
+		e.preventDefault()
 		console.log('assign clicked')
 		arr = []
 		for (i=0; i< that.teaching_cart.length; i++) {
@@ -123,23 +124,39 @@ window.lesson_planner_object = {
 			date = dpele.datepicker('getDate')
 			arr.push({activity_id: aid, due_date: date})
 		}
-
-		console.log('')
-		console.log('pairs arr : ')
-		console.log(arr)
 		arr = JSON.stringify(arr)
 
-		$.ajax({
-			url: '/teachers/classrooms/assign_activities',
-			data: {unit_name: that.unit_name, selected_classrooms: JSON.stringify(that.selected_classrooms), pairs_of_activity_id_and_due_date: arr},
-			success: function (data, status, jqXHR) {
-				console.log('assign ajax success')
-				window.open('/teachers/classrooms/1/scorebook', '_self')
-			},
-			error: function () {
-				console.log('assign ajax error')
-			}
-		});
+		// $.ajax({
+		//  method: 'post'
+		// 	url: '/teachers/classrooms/assign_activities',
+		// 	data: {unit_name: that.unit_name, selected_classrooms: JSON.stringify(that.selected_classrooms), pairs_of_activity_id_and_due_date: arr},
+		// 	success: function (data, status, jqXHR) {
+		// 		console.log('assign ajax success')
+		// 		window.open('/teachers/classrooms/1/scorebook', '_self')
+		// 	},
+		// 	error: function () {
+		// 		console.log('assign ajax error')
+		// 	}
+		// });
+		
+		form = $('form#new_unit')
+		method = 'post'
+		form.attr('method', method)
+
+		inp1 = $(document.createElement('input'))
+		inp1.attr('type', 'hidden')
+		inp1.attr('name', 'unit_name')
+		inp1.attr('value', 'what a cool unit')
+
+		form.append(inp1)
+		form.submit()
+
+		
+
+
+
+
+
 	},
 	student_checkbox_cb: function (e) {
 		console.log('student checkbox callback')

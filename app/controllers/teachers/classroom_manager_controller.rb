@@ -66,6 +66,19 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def assign_activities
+    puts ''
+    puts ''
+    puts ''
+    puts 'zinga'
+    puts 'in assign activiites'
+    puts 'params are : '
+    puts params.to_json
+
+    redirect_to teachers_classroom_scorebook_path(1)
+
+  end
+
+  def assign_activities2
     # TODO refactor models to get rid of classroom_activity, its unneccessary
     
     # create a unit

@@ -1,3 +1,4 @@
+<%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
 
 <section class="select-students">
 	<h1 class="section-header">Select Students</h1>
@@ -94,7 +95,10 @@
 
 		</tbody>
 	</table>
+	
 
-	<button id='assign' class="button-green pull-right">Assign</button>
+	<%= form_for Unit.new(), url: '/teachers/units' do |f| %>
+	<% end %>
+	<button class='button-green' id='assign'>Assign </button>
 
 </section>

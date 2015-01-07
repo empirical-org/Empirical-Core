@@ -566,6 +566,7 @@ DEPENDENCIES
   redcarpet
   redis-rails
   rspec-rails
+  sass
   sass-rails!
   select2-rails
   sentry-raven (>= 0.12.2)

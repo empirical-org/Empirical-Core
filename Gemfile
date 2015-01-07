@@ -56,7 +56,7 @@ gem 'mixpanel-ruby'
 gem "active_model_serializers"
 
 # UI HELPERS
-gem 'sass', '3.2.13' # keep this locked here, there is a bug in later versions of sass gem http://stackoverflow.com/questions/22276991/heroku-error-encountered-while-saving-cache
+gem 'sass'
 gem 'sass-rails', github: 'rails/sass-rails'
 gem 'bootstrap-sass', '~> 2.1.1.0' # app is locked to bootstrap 2.1.0
 gem 'compass-rails'
