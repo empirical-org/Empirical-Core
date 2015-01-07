@@ -202,6 +202,12 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def authorize!
+    puts 'in authorize ' 
+    puts 'current_user is ' 
+    puts current_user.to_json
+    puts 'current_user.classroom.first : '
+    puts current_user.classroom.first
+    
     if !params[:classroom_id].nil?
       @classroom = Classroom.find(params[:classroom_id])
     end
