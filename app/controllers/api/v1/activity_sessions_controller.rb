@@ -102,16 +102,19 @@ class Api::V1::ActivitySessionsController < ApiController
   #
   # concept_tag_results -> concept_tag_results_attributes
   def transform_incoming_request
-    return unless params.has_key?(:concept_tag_results)
-    results = params.delete(:concept_tag_results)
-    transformed_results = results.reduce [] do |accumulator, result|
-      tag_name = result.delete(:concept_tag)
-      accumulator << {
-        concept_tag_name: tag_name,
-        metadata: result
-      }
+    if params[:concept_tag_results].present?
+      results = params.delete(:concept_tag_results)
+      transformed_results = results.reduce [] do |accumulator, result|
+        tag_name = result.delete(:concept_tag)
+        accumulator << {
+          concept_tag_name: tag_name,
+          metadata: result
+        }
+      end
+      params[:concept_tag_results_attributes] = transformed_results
+    else
+      params.delete(:concept_tag_results)
     end
-    params[:concept_tag_results_attributes] = transformed_results
   end
 end
 
