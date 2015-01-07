@@ -199,7 +199,7 @@ input:focus {
   height: 26px;
   width: 148px;
   /*background-image: url(../images/icon-calendar.png);*/
-  background-image: url(/assets/scorebook/icon-calendar.png);
+  background-image: image-url('scorebook/icon-calendar.png');
   background-repeat: no-repeat;
   background-position-x: 120px;
   background-position-y: 3px;
@@ -1254,17 +1254,17 @@ form.class-page {
 }
 .ph-caret-up {
   /*background-image: url(/assets/scorebook/caret-up.png);*/
-  background-image: asset-url('scorebook/caret-up.png');
+  background-image: image-url('scorebook/caret-up.png');
 }
 .ph-caret-down {
-  background-image: url(/assets/scorebook/caret-down.png);
+  background-image: image-url('scorebook/caret-down.png');
 }
 
 .ph-caret-toggle {
-  background-image: url(/assets/scorebook/caret-down.png);
+  background-image: image-url('scorebook/caret-down.png');
 }
 .collapsed .ph-caret-toggle {
-  background-image: url(/assets/scorebook/caret-up.png);
+  background-image: image-url('scorebook/caret-up.png');
 }
 
 
@@ -1653,7 +1653,7 @@ label.css-label {
   border: none !important;
 }
 .ui-datepicker .ui-datepicker-prev {
-  background-image: url(/assets/scorebook/datepicker-arrow-left.png);
+  background-image: image-url('scorebook/datepicker-arrow-left.png');
   background-repeat: no-repeat;
   background-position-x: 10px;
   background-position-y: 11px;
@@ -1665,7 +1665,7 @@ label.css-label {
   border:none !important;
 }
 .ui-datepicker .ui-datepicker-next {
-  background-image: url(/assets/scorebook/datepicker-arrow-right.png);
+  background-image: image-url('scorebook/datepicker-arrow-right.png');
   background-repeat: no-repeat;
   background-position-x: 10px;
   background-position-y: 11px;
