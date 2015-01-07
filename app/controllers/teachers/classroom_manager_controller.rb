@@ -207,45 +207,18 @@ class Teachers::ClassroomManagerController < ApplicationController
     puts ''
     puts 'zee session.inspect : '
     puts session.inspect
-    
+
     if !params[:classroom_id].nil?
       @classroom = Classroom.find(params[:classroom_id])
     end
     @classroom ||= current_user.classrooms.first
-    #auth_failed unless @classroom.teacher == current_user
+    auth_failed unless @classroom.teacher == current_user
   end
+
+
+
 end
 
-=begin
-  old lesson planner for quick reference while developing new one : 
 
-
-  def lesson_planner
-    @workbook_table = {}
-    @classroom_table = {}
-
-    (@classroom.activities.production).each do |activity|
-      @workbook_table[activity.topic.section.position] ||= {}
-      @workbook_table[activity.topic.section.position][activity.topic.section.name] ||= {}
-      @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] ||= []
-      @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] << activity
-    end
-
-    (Activity.production - @classroom.activities.production).each do |activity|
-      if !activity.topic.nil?
-        @workbook_table[activity.topic.section.position] ||= {}
-        @workbook_table[activity.topic.section.position][activity.topic.section.name] ||= {}
-        @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] ||= []
-        @workbook_table[activity.topic.section.position][activity.topic.section.name][activity.topic.name] << activity
-      end
-    end
-
-    @workbook_table = @workbook_table.sort {|a, b| a.first <=> b.first}.collect(&:last)
-    tutorial = @workbook_table.find {|a| a.keys.first == 'Quill Tutorial Lesson'}
-    @workbook_table.delete(tutorial)
-    @workbook_table = @workbook_table.unshift(tutorial)
-  end => e
-  
-=end
 
 
