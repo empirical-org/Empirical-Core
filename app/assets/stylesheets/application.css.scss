@@ -1,6 +1,5 @@
 /*
  *= require select2
- *= require bootstrap-datepicker
  *= require_self
  */
 @import "compass/css3/";
@@ -15,7 +14,7 @@
 
 // overrides
 @import "bootstrap/overrides/variables";
-@import "bootstrap/datepicker";
+//@import "bootstrap/datepicker";
 
 // bootstrap/datepicker -- add this in too
 

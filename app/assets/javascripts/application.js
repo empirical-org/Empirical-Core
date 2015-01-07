@@ -10,7 +10,6 @@
 //= require bootstrap-collapse
 
 
-//= require bootstrap-datepickerzzz
 
 
 //= require bootstrap-tooltip
