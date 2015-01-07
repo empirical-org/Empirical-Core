@@ -65,42 +65,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
 
-  def assign_activities
-    puts ''
-    puts ''
-    puts ''
-    puts 'zinga'
-    puts 'in assign activiites'
-    puts 'params are : '
-    puts params.to_json
-
-    redirect_to teachers_classroom_scorebook_path(1)
-
-  end
-
-  def assign_activities2
-    # TODO refactor models to get rid of classroom_activity, its unneccessary
-    
-    # create a unit
-    unit = Unit.create name: params[:unit_name]
-
-    # create a classroom_activity
-    x1 = params[:pairs_of_activity_id_and_due_date]
-    (JSON.parse(x1)).each do |pair|
-      due_date = pair['due_date']
-      activity_id = pair['activity_id']
-      classrooms = JSON.parse(params[:selected_classrooms])
-      classrooms.each do |classroom|
-        student_ids = (classroom['all_students'] == true) ? nil : classroom['student_ids']
-        unit.classroom_activities.create activity_id: activity_id, classroom_id: classroom['classroom_id'], assigned_student_ids: student_ids, due_date: due_date
-      end
-    end
-
-    # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
-  
-    render json: {}
-  end
-
 
   def search_activities
 
@@ -202,12 +166,6 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def authorize!
-    puts ''
-    puts ''
-    puts ''
-    puts 'zee session.inspect : '
-    puts session.inspect
-
     if !params[:classroom_id].nil?
       @classroom = Classroom.find(params[:classroom_id])
     end
