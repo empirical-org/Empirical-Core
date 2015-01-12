@@ -67,7 +67,6 @@ EmpiricalGrammar::Application.configure do
                                  cms.js
                                  cms.css
                                  scorebook/*
-                                 scorebook/**/*
                                  )
 
   # Disable delivery errors, bad email addresses will be ignored
