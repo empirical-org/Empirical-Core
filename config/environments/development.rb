@@ -40,6 +40,10 @@ EmpiricalGrammar::Application.configure do
   # config.assets.debug = true (marcello: setting this to false in order to debug font-awesome issue)
   config.assets.debug = false
 
+  # added by marcello to debug font-awesome errors on staging
+  config.assets.compress = true
+  config.assets.digest = true
+
   config.assets.precompile += %w(epiceditor/themes/base/epiceditor.css
                                  epiceditor/themes/preview/github.css
                                  epiceditor/themes/editor/epic-dark.css
