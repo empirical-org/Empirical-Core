@@ -37,7 +37,9 @@ EmpiricalGrammar::Application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = true
+  # config.assets.debug = true (marcello: setting this to false in order to debug font-awesome issue)
+  config.assets.debug = false
+  
   config.sass.line_comments = true
   config.sass.line_numbers = true
   config.sass.debug_info = true
