@@ -66,7 +66,10 @@ EmpiricalGrammar::Application.configure do
                                  codemirror.css
                                  cms.js
                                  cms.css
+
                                  scorebook/scorebook.css.scss
+                                 scorebook/scorebook.js
+                                 scorebook/fonts/font-awesome-4.2.0/fonts/*
                                  
                                  )
 
