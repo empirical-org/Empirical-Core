@@ -39,6 +39,16 @@ EmpiricalGrammar::Application.configure do
   # number of complex assets.
   # config.assets.debug = true (marcello: setting this to false in order to debug font-awesome issue)
   config.assets.debug = false
+
+  config.assets.precompile += %w(epiceditor/themes/base/epiceditor.css
+                                 epiceditor/themes/preview/github.css
+                                 epiceditor/themes/editor/epic-dark.css
+                                 codemirror.css
+                                 cms.js
+                                 cms.css
+                                 scorebook/scorebook.css.scss
+                                 
+                                 )
   
   config.sass.line_comments = true
   config.sass.line_numbers = true
