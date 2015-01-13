@@ -108,6 +108,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     raw_sql = "
       SELECT
         a.id as activity_id, a.name as activity_name,
+        a.description as activity_description,
         ac.id as activity_classification_id, ac.name as activity_classification_name,
         t.id as topic_id, t.name as topic_name,
         s.id as section_id, s.name as section_name
