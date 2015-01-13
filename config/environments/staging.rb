@@ -68,11 +68,6 @@ EmpiricalGrammar::Application.configure do
                                  codemirror.css
                                  cms.js
                                  cms.css
-                                 
-                                 scorebook/jquery-ui-custom.min.js
-                                 scorebook/*
-                                 scorebook/**/*
-
                                  scorebook/scorebook.css.scss
                                  scorebook/scorebook.js
 
