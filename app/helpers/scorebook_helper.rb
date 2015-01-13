@@ -49,7 +49,8 @@ module ScorebookHelper
   end
 
   def activity_planner_tooltip_html activity_hash # note: not an active record object, a hash
-    %Q(data-toggle="tooltip" data-html=true data-placement="left" title="<h1>#{activity['activity_name']}</h1><p>there</p>").html_safe
+    activity_name = activity_hash['activity_name'].gsub /"/, '&quot;'
+    %Q(data-toggle="tooltip" data-html=true data-placement="left" title="<h1>#{activity_name}</h1><p>there</p>").html_safe
   end
 
   def tooltip_html(activity_or_session)
