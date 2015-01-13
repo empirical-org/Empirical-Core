@@ -56,6 +56,15 @@ window.lesson_planner_object = {
 		});
 		$('#activities_table input[type=checkbox]').click(that.checkbox_click_cb)
 		$('button#continue').click(that.click_continue_cb)
+
+		$('#activities_table .tooltip-trigger').mouseenter(function (e) {
+			e.stopPropagation()
+			$(e.target).parent().find('.activate-tooltip').tooltip('show');
+		})
+		$('#activities_table .tooltip-trigger').mouseleave(function (e) {
+			e.stopPropagation()
+			$(e.target).parent().find('.activate-tooltip').tooltip('hide')
+		})
 		
 		
 	},
@@ -265,9 +274,11 @@ window.lesson_planner_object = {
 			activity_name = $(e.target).parent().siblings('.activity_name').text().trim()
 			//activity_classification_image_path = $(e.target).parent().siblings().children('img').attr('src')
 			that.add_to_teaching_cart(activity_id, activity_name, activity_classification_image_path)
+			$(e.target).parent().parent().addClass('active')
 			console.log('teaching cart after adding : ')
 			console.log(that.teaching_cart)
 		} else {
+			$(e.target).parent().parent().removeClass('active')
 			console.log('its not checked')
 			that.remove_from_teaching_cart(activity_id)
 			console.log('teaching cart after removeing: ' )

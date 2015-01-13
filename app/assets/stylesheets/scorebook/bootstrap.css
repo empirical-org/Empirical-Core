@@ -5538,7 +5538,7 @@ button.close {
   left: 50%;
   margin-left: -10px;
   border-width: 10px 10px 0;
-  border-top-color: #ffffff;
+  /* edit by marcello : border-top-color: #ffffff;*/
 }
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;

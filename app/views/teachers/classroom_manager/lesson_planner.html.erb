@@ -60,7 +60,7 @@
 			<section class="section-content-wrapper">
 
 			<div class="col-xs-12 col-md-9 col-sm-9 col-xl-9 no-pl">
-				<h3 class="section-header">Create a New Unit</h3>
+				<h3 class="section-header">Name the New Unit</h3>
 			</div>	
 
 				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 no-pl no-pr">
@@ -91,7 +91,7 @@
 						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
 							<div id='filter_activity_classification' class="button-select">
 								<button data-filter-type='activity_classification'  type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-								Sort by App
+								Filter by App
 								<i class="fa fa-caret-down"></i>
 								</button>
 
@@ -117,7 +117,7 @@
 						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 no-pl">
 							<div class="button-select">
 								<button type="button" data-filter-type='section' class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-								Sort by Level
+								Filter by Level
 								<i class="fa fa-caret-down"></i>
 								</button>
 								<ul class="dropdown-menu" role="menu">
@@ -140,7 +140,7 @@
 						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
 							<div class="button-select">
 								<button type="button" data-filter-type='topic' class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-								Sort by Concept
+								Filter by Concept
 								<i class="fa fa-caret-down"></i>
 								</button>
 
@@ -196,21 +196,20 @@
 									</td>
 									
 									<td>
-										
 										<div class="activate-tooltip" <%=activity_planner_tooltip_html(activity)%>>
 											<%= image_tag image_for_activity_classification_by_id(activity['activity_classification_id'].to_i) %>
 										</div>
 									</td>
 									
-									<td class='activity_name'>
+									<td class='activity_name tooltip-trigger'>
 										<%= activity['activity_name'] %>
 									</td>
 
-									<td>
+									<td class='section_name tooltip-trigger'>
 										<%= activity['section_name'] %>
 									</td>
 
-									<td>
+									<td class='topic_name tooltip-trigger'>
 										<%= activity['topic_name'] %>
 									</td>
 								</tr>
