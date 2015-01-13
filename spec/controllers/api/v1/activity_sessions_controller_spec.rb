@@ -30,17 +30,21 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
     context 'when concept tag results are included' do
       before do
         @activity_session = FactoryGirl.create(:activity_session)
-        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Creative Writing')
-        @climbing_tag = FactoryGirl.create(:concept_tag, name: 'Competitive Ice-climbing')
+        @writing_category = FactoryGirl.create(:concept_tag_category, name: 'Writing Concepts')
+        @sports_category = FactoryGirl.create(:concept_tag_category, name: 'Sporting Events')
+        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Creative Writing', concept_tag_category: @writing_category)
+        @climbing_tag = FactoryGirl.create(:concept_tag, name: 'Competitive Ice-climbing', concept_tag_category: @sports_category)
       end
 
       def subject
         results = [
           {
+            concept_tag_category: 'Writing Concepts',
             concept_tag: 'Creative Writing',
             foo: 'bar',
           },
           {
+            concept_tag_category: 'Sporting Events',
             concept_tag: 'Competitive Ice-climbing',
             baz: 'foo'
           }
@@ -67,8 +71,59 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
       end
     end
 
+    context 'when the concept tag name is ambiguous (belongs to multiple categories)' do
+      before do
+        @activity_session = FactoryGirl.create(:activity_session)
+        @writing_category = FactoryGirl.create(:concept_tag_category, name: 'Writing Concepts')
+        @grammar_category = FactoryGirl.create(:concept_tag_category, name: 'Grammar Concepts')
+        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_tag_category: @writing_category)
+        @grammar_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_tag_category: @grammar_category)
+      end
+
+      def subject
+        results = [
+          {
+            concept_tag_category: 'Grammar Concepts',
+            concept_tag: 'Their',
+            baz: 'foo'
+          },
+          {
+            concept_tag_category: 'Writing Concepts',
+            concept_tag: 'Their',
+            foo: 'bar',
+          }
+        ]
+        put :update, id: @activity_session.uid, concept_tag_results: results
+      end
+
+      it 'stores the right concept tag for the given concept tag category' do
+        subject
+        @activity_session.reload
+        expect(@activity_session.concept_tag_results[0].concept_tag_id).to eq(@grammar_tag.id)
+        expect(@activity_session.concept_tag_results[1].concept_tag_id).to eq(@writing_tag.id)
+      end
+    end
+
     context 'when a result is assigned to a non-existent concept tag' do
-      
+      before do
+        @activity_session = FactoryGirl.create(:activity_session)
+        @writing_category = FactoryGirl.create(:concept_tag_category, name: 'Writing Concepts')
+      end
+
+      def subject
+        results = [
+          {
+            concept_tag_category: 'Writing Concepts',
+            concept_tag: 'Non-existent tag',
+            foo: 'bar',
+          }
+        ]
+        put :update, id: @activity_session.uid, concept_tag_results: results
+      end
+
+      it 'raises a 422 (Unprocessable Entity) status code' do
+        response = subject
+      end
     end
   end
 end
