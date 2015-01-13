@@ -123,6 +123,7 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
 
       it 'raises a 422 (Unprocessable Entity) status code' do
         response = subject
+        expect(response.status).to eq(422)
       end
     end
   end
