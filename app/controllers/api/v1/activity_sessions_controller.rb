@@ -20,13 +20,19 @@ class Api::V1::ActivitySessionsController < ApiController
     # naming - id in app and uid here
     if @activity_session.update(activity_session_params.except(:id))
       @status = :success
-      @message = "Activity Session Updated"
+      @message = 
+      render json: @activity_session, meta: {
+        status: :success, 
+        message: "Activity Session Updated",
+        errors: [] # FIXME: this is dumb
+      }
     else
-      @status = :failed
-      @message = "Activity Session Update Failed"
+      render json: @activity_session, meta: {
+        status: :failed, 
+        message: "Activity Session Update Failed",
+        errors: @activity_session.errors
+      }, status: :unprocessable_entity
     end
-
-    render json: @activity_session, meta: {status: @status, message: @message, errors: @activity_session.errors}
   end
 
   # POST

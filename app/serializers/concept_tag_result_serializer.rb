@@ -2,7 +2,7 @@ class ConceptTagResultSerializer < ActiveModel::Serializer
   attributes :concept_tag
 
   def concept_tag
-    object.concept_tag.name
+    object.concept_tag.name if object.concept_tag.present?
   end
 
   def attributes
