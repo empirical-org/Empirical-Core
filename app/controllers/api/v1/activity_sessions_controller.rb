@@ -90,12 +90,14 @@ class Api::V1::ActivitySessionsController < ApiController
   # Map each result to the following structure: 
   # {
   #   concept_tag: "Creative Writing",
+  #   concept_tag_category: "Writing Concepts",
   #   student_input: "The dog jumped over the cat."
   # },
   # Becomes this:
   # {
-  #   concept_tag_name: "Creative Writing",
   #   metadata: {
+  #     concept_tag: "Creative Writing",
+  #     concept_tag_category: "Writing Concepts",
   #     student_input: "The dog jumped over the cat."
   #   }   
   # }
@@ -105,9 +107,7 @@ class Api::V1::ActivitySessionsController < ApiController
     if params[:concept_tag_results].present?
       results = params.delete(:concept_tag_results)
       transformed_results = results.reduce [] do |accumulator, result|
-        tag_name = result.delete(:concept_tag)
-        accumulator << {
-          concept_tag_name: tag_name,
+        accumulator << {        
           metadata: result
         }
       end
