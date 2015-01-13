@@ -48,6 +48,10 @@ module ScorebookHelper
     end
   end
 
+  def activity_planner_tooltip_html activity_hash # note: not an active record object, a hash
+    %Q(data-toggle="tooltip" data-html=true data-placement="left" title="<h1>#{activity['activity_name']}</h1><p>there</p>").html_safe
+  end
+
   def tooltip_html(activity_or_session)
     if !activity_or_session.nil?
       activity, session = if activity_or_session.respond_to?(:activity)
@@ -62,7 +66,7 @@ module ScorebookHelper
       activity_section_name = activity.section.name.gsub /"/, '&quot;'
       activity_topic_name = activity.topic.name.gsub /"/, '%quot;'
 
-      %Q(data-toggle="tooltip" data-placement="left" title="<h1>#{activity_name}</h1><p>#{activity_classification_name}</p><p>#{activity_section_name}: #{activity.topic.name}</p>#{session ? "<p>Scored #{session.percentage_as_percent}</p>" : ''}").html_safe
+      %Q(data-toggle="tooltip" data-html=true data-placement="left" title="<h1>#{activity_name}</h1><p>#{activity_classification_name}</p><p>#{activity_section_name}: #{activity.topic.name}</p>#{session ? "<p>Scored #{session.percentage_as_percent}</p>" : ''}").html_safe
       
     else
       ''

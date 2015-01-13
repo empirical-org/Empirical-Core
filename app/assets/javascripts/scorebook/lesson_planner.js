@@ -37,6 +37,9 @@ window.lesson_planner_object = {
 			that.search_request(1);
 		});
 		that.initialize_events();
+		$('.activate-tooltip').tooltip({
+			title: 'hi'
+		})
 	},
 
 	initialize_events: function () {
