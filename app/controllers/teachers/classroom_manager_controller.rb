@@ -147,10 +147,24 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   private
 
+  def transform_app_name ele
+    case ele['activity_classification_name']
+    when 'Practice Questions'
+      new_name = 'Quill Grammar'
+    when 'Story'
+      new_name = 'Quill Proofreader'
+    end
+    ele['activity_classification_name'] =  new_name
+    ele
+  end
+
+
 
   def search_results raw_sql
     db_result = ActiveRecord::Base.connection.execute(raw_sql)
     
+    db_result = db_result.map{|ele| transform_app_name(ele)}
+
     @activity_classifications = db_result.map{|ele| {activity_classification_id: ele['activity_classification_id'], activity_classification_name: ele['activity_classification_name']}}.reject{|ele| ele[:activity_classification_name].nil?}.uniq
     @topics = db_result.map{|ele| {topic_id: ele['topic_id'], topic_name: ele['topic_name']}}.reject{|ele| ele[:topic_name].nil?}.uniq
     @sections = db_result.map{|ele| {section_id: ele['section_id'], section_name: ele['section_name']}}.reject{|ele| ele[:section_name].nil?}.uniq
