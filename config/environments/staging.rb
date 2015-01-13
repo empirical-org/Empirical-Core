@@ -31,9 +31,9 @@ EmpiricalGrammar::Application.configure do
   config.assets.compile = false
 
   # Generate digests for assets URLs.
-  #config.assets.digest = true
-  # marcello changed this to debug font-aweseom
-  config.assets.digest = false
+  config.assets.digest = true
+  
+
 
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.1'
@@ -71,8 +71,7 @@ EmpiricalGrammar::Application.configure do
 
                                  scorebook/scorebook.css.scss
                                  scorebook/scorebook.js
-                                 scorebook/fonts/font-awesome-4.2.0/fonts/*
-                                 
+                            
                                  )
 
   # Disable delivery errors, bad email addresses will be ignored
