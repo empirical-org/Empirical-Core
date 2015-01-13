@@ -259,10 +259,11 @@ window.lesson_planner_object = {
 		x = $(e.target).attr('id')
 		y = $('input[type=checkbox]#' + x + ':checked')
 		activity_id = parseInt($(e.target).attr('data-model-id'))
+		activity_classification_image_path = $(e.target).attr('data-image-path')
 		if (y.length > 0) {
 			console.log('its checked')
 			activity_name = $(e.target).parent().siblings('.activity_name').text().trim()
-			activity_classification_image_path = $(e.target).parent().siblings().children('img').attr('src')
+			//activity_classification_image_path = $(e.target).parent().siblings().children('img').attr('src')
 			that.add_to_teaching_cart(activity_id, activity_name, activity_classification_image_path)
 			console.log('teaching cart after adding : ')
 			console.log(that.teaching_cart)
@@ -275,6 +276,7 @@ window.lesson_planner_object = {
 	},
 	add_to_teaching_cart: function (activity_id, activity_name, activity_classification_image_path) {
 		//obj = {activity_id: activity_id, activity_name: activity_name, activity_classification_image_path: activity_classification_image_path}
+		
 		obj = activity_id
 		that.teaching_cart.push(obj)
 		tr = $(document.createElement('tr'))
@@ -282,16 +284,18 @@ window.lesson_planner_object = {
 		td2 = $(document.createElement('td'))
 		td3 = $(document.createElement('td'))
 		img1 = $(document.createElement('img'))
-		img2 = $(document.createElement('img'))
-
+		
 		img1.attr('src', activity_classification_image_path)
-		img2.attr('src', '/assets/scorebook/icon-x-gray.png')
 		td1.append(img1)
-		td3.append(img2)
+		
+		console.log('activity classification image_path : ')
+		console.log(activity_classification_image_path)
+		
 		td2.text(activity_name)
 		tr.append(td1,td2,td3)
 		tr.attr('data-model-id', activity_id)
 		$('.teaching-cart tbody').append(tr)
+		td3.addClass('icon-x-gray')
 		td3.click(function (e) {
 			that.remove_from_teaching_cart(parseInt(activity_id))
 			$('input[type=checkbox]' + '#activity_' + activity_id).prop('checked', false)
