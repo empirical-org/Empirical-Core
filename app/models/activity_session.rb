@@ -5,6 +5,9 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :classroom_activity
   belongs_to :activity
   has_one :unit, through: :classroom_activity
+  has_many :concept_tag_results
+
+  accepts_nested_attributes_for :concept_tag_results
 
   ownable :user
 

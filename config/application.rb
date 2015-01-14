@@ -45,13 +45,17 @@ module EmpiricalGrammar
         # localhost dev...
         origins /localhost|127\.0\.0\.1(:\d+)?/
 
-        resource '/api/*', headers: :any, methods: :all
+        resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put]
       end
 
       allow do
         origins '*'
-        resource '/api/*', headers: :any, methods: [:get, :post, :patch]
+        resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put]
       end
     end
   end
+end
+
+Raven.configure do |config|
+  config.environments = %W(staging production) # Do not enable in development or test environments
 end

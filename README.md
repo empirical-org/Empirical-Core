@@ -1,7 +1,7 @@
 # Welcome to Empirical Core!
 
 *All of our documentation lives within the [documentation repo](https://github.com/empirical-org/Documentation/tree/master/Compass).*
-
+ 
 - **Getting Started:** [Start here with this doc.](https://github.com/empirical-org/Documentation/tree/master/Getting-Started) 
 - **CLA:** [Please sign our CLA before contributing.] (https://www.clahub.com/agreements/empirical-org/Documentation)
 - **Cofactor Empirical Core:** [Our project management HQ](http://www.empirical.org/cofactor/teams/compass)
