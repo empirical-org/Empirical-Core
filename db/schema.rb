@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014162137) do
+ActiveRecord::Schema.define(version: 20150113170755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,6 +169,26 @@ ActiveRecord::Schema.define(version: 20141014162137) do
   end
 
   add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
+
+  create_table "concept_tag_categories", force: true do |t|
+    t.string "name"
+  end
+
+  create_table "concept_tag_results", force: true do |t|
+    t.integer "activity_session_id"
+    t.integer "concept_tag_id",      null: false
+    t.json    "metadata"
+  end
+
+  create_table "concept_tags", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "concept_tag_category_id", null: false
+    t.string   "additional_concepts"
+  end
+
+  add_index "concept_tags", ["name"], name: "index_concept_tags_on_name", using: :btree
 
   create_table "districts", force: true do |t|
     t.string   "clever_id"
