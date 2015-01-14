@@ -32,7 +32,7 @@ class Teachers::StudentsController < ApplicationController
   def update
     if @student.update_attributes(user_params)
       #head :ok
-      redirect_to edit_teachers_classroom_student_path(@classroom, @student)
+      redirect_to teachers_classroom_students_path(@classroom)
     else
       render text: @student.errors.full_messages.join(', '), status: :unprocessable_entity
     end

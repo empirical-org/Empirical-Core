@@ -225,9 +225,10 @@
 				<div class="fake-border"></div>
 
 				<%- if @number_of_pages > 1 %>
+					<%- @number_of_pages = (@number_of_pages > 4) ? 5 : @number_of_pages %>
 					<ul class="pagination">
 						<li class='left_arrow'><span><i class="fa fa-caret-left"></i></li>
-						<%- (@number_of_pages -1).times do |i| %>
+						<%- @number_of_pages.times do |i| %>
 							<%- k = i+1 %>
 							<%- x = ((k == @active_page) ? 'active' : 'page_number') %>
 							<li class=<%== x %> >

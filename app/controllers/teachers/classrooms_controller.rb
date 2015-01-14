@@ -36,8 +36,6 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def create
-    puts 'create classroom params : '
-    puts classroom_params.to_yaml
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
     if @classroom.valid?
       @classroom.units.create_next
@@ -56,7 +54,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def destroy
     @classroom.destroy
-    redirect_to teachers_classroom_path(current_user.classrooms.first)
+    redirect_to teachers_classrooms_path
   end
 
 private
