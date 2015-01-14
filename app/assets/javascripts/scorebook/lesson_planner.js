@@ -320,18 +320,6 @@ window.lesson_planner_object = {
 	},
 
 	remove_from_teaching_cart: function (id) {
-		console.log('remove from teaching cart')
-		console.log('input id is : ' + id)
-		x = $('#activity_' + id)
-		console.log('x : ')
-		console.log(x)
-		y = x.parent()
-		console.log('y: ' )
-		console.log(y)
-		z = y.parent()
-		console.log('z: ' )
-		console.log(z)
-
 		$('#activity_' + id).parent().parent().removeClass('active')
 		for (i=0; i< that.teaching_cart.length; i++) {
 			x = that.teaching_cart[i]
@@ -372,10 +360,9 @@ window.lesson_planner_object = {
 			if (that.number_of_pages > that.current_page_number) {
 				console.log('there are still pages left')
 				next_page = that.current_page_number + 1
-				that.display_activity_search_results(next_page)				
-				x = $('.pagination .active').next('.page_number')
-				$('.pagination .active').removeClass('active').addClass('page_number')
-				x.addClass('active')
+				that.display_activity_search_results(next_page)								
+				that.current_page_number = next_page
+				that.paginate_after_new_search_query_or_filter()
 			} else {
 				console.log('no more pages left')
 			}
@@ -392,9 +379,9 @@ window.lesson_planner_object = {
 		if (that.current_page_number > 1) {
 			next_page = that.current_page_number - 1
 			that.display_activity_search_results(next_page)
-			x = $('.pagination .active').prev('.page_number')
-			$('.pagination .active').removeClass('active').addClass('page_number')
-			x.addClass('active')
+			that.current_page_number = next_page
+			that.paginate_after_new_search_query_or_filter()
+
 		} else {
 			console.log('cant go back anymore, at page 1')
 		}
@@ -467,7 +454,8 @@ window.lesson_planner_object = {
 				that.classrooms = data.classrooms
 				that.search_results = data.activities
 				that.display_activity_search_results(page)
-				that.paginate_after_new_search_query_or_filter(data)
+				that.number_of_pages = data.number_of_pages
+				that.paginate_after_new_search_query_or_filter()
 
 			},
 			error: function () {
@@ -502,43 +490,40 @@ window.lesson_planner_object = {
 
 
 	},
-	paginate_after_new_search_query_or_filter: function (data) {
-		np = data.number_of_pages
-
-		/*
-		case1: number_of_pages - current_page_number >= 4
-				first_page = current_page_number
-				next four pages = four pages after current_page_number
-
+	paginate_after_new_search_query_or_filter: function () {
 		
-		case2: number_of_pages - current_page_number < 4
-				case2A: number_of_pages > 4
-					first_page = number_of_pages - 4
-				case2B: number_of_pages < 4
-					first_page = 1
-
-
-		*/
-
-		if (np < 2) {
+		if (that.number_of_pages < 2) {
 			$('.pagination').hide()
 		} else {
+			if (that.number_of_pages - that.current_page_number >= 4) {
+				first_page = that.current_page_number
+				last_page = first_page + 4
+			} else {
+				if (that.number_of_pages > 4) {
+					first_page = that.number_of_pages - 4
+					last_page = first_page + 4
+				} else {
+					first_page = 1
+					last_page = that.number_of_pages
+				}
+			}
+
 			$('.pagination .page_number, .pagination .active').remove()
 			$('.pagination').show()
-			for (i=0; i< np; i++) {
+			for (i=first_page; i <= last_page; i++) {
 				li = $(document.createElement('li'))
-				if (i+1 == that.current_page_number) {
+				if (i == that.current_page_number) {
 					li.addClass('active')
 				} else {
 					li.addClass('page_number')
 				}
 				
 				span = $(document.createElement('span'))
-				span.text(i+1)
+				span.text(i)
 				$('.pagination li.right_arrow').before(li)
 				li.append(span)
 				li.click(that.page_number_click_cb)
-				span.attr('data-page-number', i+1)
+				span.attr('data-page-number', i)
 			}
 		}
 	},
