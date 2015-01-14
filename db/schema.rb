@@ -412,6 +412,10 @@ ActiveRecord::Schema.define(version: 20150113170755) do
     t.integer  "workbook_id"
   end
 
+  create_table "t1", id: false, force: true do |t|
+    t.integer "id"
+  end
+
   create_table "topics", force: true do |t|
     t.string   "name"
     t.integer  "section_id"

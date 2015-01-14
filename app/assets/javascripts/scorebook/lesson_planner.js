@@ -322,6 +322,17 @@ window.lesson_planner_object = {
 	remove_from_teaching_cart: function (id) {
 		console.log('remove from teaching cart')
 		console.log('input id is : ' + id)
+		x = $('#activity_' + id)
+		console.log('x : ')
+		console.log(x)
+		y = x.parent()
+		console.log('y: ' )
+		console.log(y)
+		z = y.parent()
+		console.log('z: ' )
+		console.log(z)
+
+		$('#activity_' + id).parent().parent().removeClass('active')
 		for (i=0; i< that.teaching_cart.length; i++) {
 			x = that.teaching_cart[i]
 			if (parseInt(x) == id) {
@@ -493,6 +504,22 @@ window.lesson_planner_object = {
 	},
 	paginate_after_new_search_query_or_filter: function (data) {
 		np = data.number_of_pages
+
+		/*
+		case1: number_of_pages - current_page_number >= 4
+				first_page = current_page_number
+				next four pages = four pages after current_page_number
+
+		
+		case2: number_of_pages - current_page_number < 4
+				case2A: number_of_pages > 4
+					first_page = number_of_pages - 4
+				case2B: number_of_pages < 4
+					first_page = 1
+
+
+		*/
+
 		if (np < 2) {
 			$('.pagination').hide()
 		} else {
@@ -544,6 +571,13 @@ window.lesson_planner_object = {
 			}
 
 			/// FIXME : MAKE TOOLTIP DIV !!! 
+			tooltip_div = $(document.createElement('div'))
+			tooltip_div.addClass('activate-tooltip').data({
+				html: true,
+				toggle: 'tooltip',
+				placement: 'top',
+				title: ("<h1>" + activity.activity_name + "</h1><p>App: " + activity.activity_classification_name + "</p><p>" + activity.activity_description + "</p>")
+			})
 
 			checkbox = $(document.createElement('input'))
 			checkbox.attr({
@@ -558,12 +592,17 @@ window.lesson_planner_object = {
 				id: 'activity_' + activity.activity_id,
 				class: 'css-label'
 			});
+
 			img = $(document.createElement('img'));
 			img.attr('src', activity.image_path);
 
 			tr.append(td1,td2,td3,td4,td5);
 			td1.append(checkbox, checkbox_label);
-			td2.append(img);
+			
+
+			td2.append(tooltip_div);
+			tooltip_div.append(img);
+
 			td3.text(activity.activity_name).addClass('activity_name');
 			td4.text(activity.section_name);
 			td5.text(activity.topic_name);

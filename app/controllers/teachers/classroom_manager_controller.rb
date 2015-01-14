@@ -16,7 +16,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @classrooms = current_user.classrooms - [@classroom]
     @unit = @classroom.units.find(params[:unit_id]) if params[:unit_id]
     #@units = @classroom.units - [@unit]
-    @units = ClassroomActivity.includes(:unit).where(classroom: @classroom).map(&:unit)
+    @units = ClassroomActivity.includes(:unit).where(classroom: @classroom).map(&:unit).uniq
     @are_all_units_selected = (params[:all_units])
 
   end
@@ -27,10 +27,15 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     raw_sql = "
       SELECT 
-        a.id as activity_id, a.name as activity_name,
-        ac.id as activity_classification_id, ac.name as activity_classification_name,
-        t.id as topic_id, t.name as topic_name,
-        s.id as section_id, s.name as section_name
+        a.id as activity_id, 
+        a.name as activity_name,
+        a.description as activity_description,
+        ac.id as activity_classification_id, 
+        ac.name as activity_classification_name,
+        t.id as topic_id, 
+        t.name as topic_name,
+        s.id as section_id, 
+        s.name as section_name
 
       FROM activities a
       LEFT JOIN topics t
@@ -40,6 +45,8 @@ class Teachers::ClassroomManagerController < ApplicationController
         ON a.activity_classification_id = ac.id
       LEFT JOIN sections s
         ON t.section_id = s.id
+
+      WHERE 'production' = ANY(a.flags)
 
     "
 
@@ -126,6 +133,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       WHERE
            (a.name ILIKE '%#{params[:search_query]}%'
         OR t.name ILIKE '%#{params[:search_query]}%')
+        AND 'production' = ANY(a.flags)
         #{filter_string}
         #{sort_string}
 
