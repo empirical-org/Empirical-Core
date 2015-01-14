@@ -57,16 +57,18 @@ window.lesson_planner_object = {
 		$('#activities_table input[type=checkbox]').click(that.checkbox_click_cb)
 		$('button#continue').click(that.click_continue_cb)
 
-		$('#activities_table .tooltip-trigger').mouseenter(function (e) {
-			e.stopPropagation()
-			$(e.target).parent().find('.activate-tooltip').tooltip('show');
-		})
-		$('#activities_table .tooltip-trigger').mouseleave(function (e) {
-			e.stopPropagation()
-			$(e.target).parent().find('.activate-tooltip').tooltip('hide')
-		})
-		
-		
+		$('#activities_table .tooltip-trigger').mouseenter(that.tooltip_trigger_mouseenter_cb)
+		$('#activities_table .tooltip-trigger').mouseleave(that.tooltip_trigger_mouseleave_cb)
+	},
+
+
+	tooltip_trigger_mouseenter_cb: function (e) {
+		e.stopPropagation()
+		$(e.target).parent().find('.activate-tooltip').tooltip('show');
+	},
+	tooltip_trigger_mouseleave_cb: function (e) {
+		e.stopPropagation()
+		$(e.target).parent().find('.activate-tooltip').tooltip('hide')
 	},
 	classroom_checkbox_click_cb: function (e) {
 		console.log('')
@@ -533,6 +535,15 @@ window.lesson_planner_object = {
 			td3 = $(document.createElement('td'))
 			td4 = $(document.createElement('td'))
 			td5 = $(document.createElement('td'))
+			
+			arr = [td3,td4,td5]
+			
+			for (j=0; j< arr.length; j++) {
+			 	ele = arr[j]
+			 	ele.addClass('tooltip-trigger')
+			}
+
+			/// FIXME : MAKE TOOLTIP DIV !!! 
 
 			checkbox = $(document.createElement('input'))
 			checkbox.attr({
@@ -558,7 +569,13 @@ window.lesson_planner_object = {
 			td5.text(activity.topic_name);
 			$('#activities_table tbody').append(tr);
 			checkbox.click(that.checkbox_click_cb)
+			
+			
+
 		}
+		$('.tooltip-trigger').mouseenter(that.tooltip_trigger_mouseenter_cb)
+		$('.tooltip-trigger').mouseleave(that.tooltip_trigger_mouseleave_cb)
+			
 	}
 
 };
