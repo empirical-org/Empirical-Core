@@ -60,11 +60,7 @@ module ScorebookHelper
 
   def tooltip_html(activity_or_session)
     if !activity_or_session.nil?
-      activity, session = if activity_or_session.respond_to?(:activity)
-        [activity_or_session.activity, activity_or_session]
-      else
-        [activity_or_session, nil]
-      end
+      activity, session = activity_and_session(activity_or_session)
 
       # deal with nested quotes
       activity_name = activity.name.gsub /"/, '&quot;'
@@ -79,4 +75,23 @@ module ScorebookHelper
     end
   end
 
+  def activity_icon_with_tooltip(activity_or_session, include_activity_title: false)
+    activity, session = activity_and_session(activity_or_session)
+    render partial: 'activity_icon_with_tooltip', locals: {
+      activity: activity, 
+      activity_session: session, 
+      include_activity_title: include_activity_title
+    }
+  end
+
+  private
+
+  # Return both the activity and its session (if there is one)
+  def activity_and_session(activity_or_session)
+    if activity_or_session.respond_to?(:activity)
+      [activity_or_session.activity, activity_or_session]
+    else
+      [activity_or_session, nil]
+    end
+  end
 end
