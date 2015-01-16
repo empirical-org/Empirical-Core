@@ -52,7 +52,7 @@ describe 'Sign up', :type => :request do
     let(:student_first_name)        { 'Test' }
     let(:student_last_name)         { 'Student' }
 
-    let(:expected_student_email)    { "#{student_first_name}.#{student_last_name}@#{classroom.code}" }
+    let(:expected_student_email)    { "#{student_first_name}.#{student_last_name}@#{classroom.code}".downcase }
     let(:expected_student_password) { student_last_name }
 
     before(:each) { sign_in(teacher.email, '123456') }
