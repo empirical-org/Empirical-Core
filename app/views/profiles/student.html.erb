@@ -97,10 +97,7 @@
                 <div class="line">
                   <div class="row">
                     <div class="col-xs-9 col-sm-10 col-xl-10 pull-left">
-                    <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:percentage)) %> icon-<%= icon_for_classification(activity.classification) %>" <%= tooltip_html(activity_session) %> ></div>
-                      <div class="icons-description-wrapper">
-                        <p class="title title-v-centered"><%= activity.try(:name) %></p>
-                      </div>
+                      <%= activity_icon_with_tooltip(activity_session, include_activity_title: true) %>
                     </div>
                     <div class="col-xs-3 col-sm-2 col-xl-2">
                       <%= link_to 'Retry Lesson', retry_activity_path(activity, session: @incomplete_activity_sessions.find{|s| s.activity == activity}) -%>

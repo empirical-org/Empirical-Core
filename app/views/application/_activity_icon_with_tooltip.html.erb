@@ -1,0 +1,6 @@
+<div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:percentage)) %> icon-<%= icon_for_classification(activity.classification) %>" <%= tooltip_html(activity_session) %> ></div>
+<% if include_activity_title %>
+  <div class="icons-description-wrapper">
+    <p class="title title-v-centered"><%= activity.try(:name) %></p>
+  </div>
+<% end %>
