@@ -5,7 +5,7 @@ module ConceptTagHelper
     concept_tag_results = activity_session.concept_tag_results
     concept_classes = ConceptTagCategory.for_concept_tag_results(concept_tag_results)
     concept_classes.reduce "" do |html, concept_class|
-      html += "<h1>" + concept_class.name + "</h1>"
+      html += "<h1 class='concept-class'>" + concept_class.name + "</h1>"
       html += stats_for_concept_class(concept_class, concept_tag_results)
     end
   end
