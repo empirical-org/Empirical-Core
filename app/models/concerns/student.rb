@@ -65,7 +65,12 @@ module Student
 
     end
 
-
+    def complete_and_incomplete_activity_sessions_by_classification(unit = nil)
+      arr1 = self.percentages_by_classification(unit)
+      arr2 = self.incomplete_activity_sessions_by_classification(unit)
+      arr3 = arr1.concat(arr2)
+      arr3
+    end
 
 
 
