@@ -2,8 +2,8 @@
   data-toggle="tooltip" 
   data-html=true 
   data-placement="left" 
-  title="<h1><%= activity_name %></h1><p><%= activity_classification_name %></p>
-  <p><%= activity_section_name %>: <%= activity.topic.name %></p>
+  title="<h1><%= h(activity.name) %></h1><p><%= h(activity.classification.name) %></p>
+  <p><%= h(activity.section.name) %>: <%= h(activity.topic.name) %></p>
   <%= activity_session ? "<p>Scored #{activity_session.percentage_as_percent}</p>" : '' %>"
  ></div>
 <% if include_activity_title %>
