@@ -14,11 +14,9 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def scorebook
     @classrooms = current_user.classrooms - [@classroom]
-    @unit = @classroom.units.find(params[:unit_id]) if params[:unit_id]
-    #@units = @classroom.units - [@unit]
-    @units = ClassroomActivity.includes(:unit).where(classroom: @classroom).map(&:unit).uniq
+    @unit = Unit.find(params[:unit_id]) if params[:unit_id]
+    @units = @classroom.classroom_activities.map(&:unit).uniq - [@unit]
     @are_all_units_selected = (params[:all_units])
-
   end
 
 
