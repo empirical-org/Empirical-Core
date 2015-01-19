@@ -4,7 +4,9 @@
   data-placement="left" 
   title="<h1><%= h(activity.name) %></h1><p><%= h(activity.classification.name) %></p>
   <p><%= h(activity.section.name) %>: <%= h(activity.topic.name) %></p>
-  <%= activity_session ? "<p>Scored #{activity_session.percentage_as_percent}</p>" : '' %>"
+  <%= activity_session ? "<p>Scored #{activity_session.percentage_as_percent}</p>" : '' %>
+  <%= all_concept_class_stats(activity_session) %>
+  "
  ></div>
 <% if include_activity_title %>
   <div class="icons-description-wrapper">

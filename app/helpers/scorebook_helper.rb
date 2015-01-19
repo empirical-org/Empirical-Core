@@ -68,7 +68,40 @@ module ScorebookHelper
     }
   end
 
+  def all_concept_class_stats(activity_session)
+    return '' unless activity_session.present?
+    # Generate a header for each applicable concept class (activity session has concept tag results for that class)
+    concept_tag_results = activity_session.concept_tag_results
+    # TODO Pull this into a model
+    concept_classes = ConceptTagCategory.joins(:concept_tags => :concept_tag_results).where('concept_tag_results.id' => concept_tag_results).uniq
+    concept_classes.reduce "" do |html, concept_class|
+      html += "<h1>" + concept_class.name + "</h1>"
+      html += stats_for_concept_class(concept_class, concept_tag_results)
+    end
+  end
+
   private
+
+  # TODO: These stats should all be pre-calculated and cached
+  def stats_for_concept_class(concept_class, concept_tag_results)
+    case concept_class.name
+      when 'Typing Speed'
+        typing_speed_stats(concept_tag_results)
+      when 'Grammar Concepts'
+        ''
+      else
+        raise "Cannot display concept class named '#{concept_class.name}'"
+    end
+  end
+
+  # TODO: Extract into a separate helper
+  def typing_speed_stats(concept_tag_results)
+    average_wpm = ConceptClassStats.average_wpm(concept_tag_results)
+    "<div class='row'>" +
+      "<div class='col-xs-9 col-sm-10 col-xl-10'>Average words per minute</div>" +
+      "<div class='col-xs-3 col-sm-2 col-xl-2'>#{average_wpm}</div>" +
+    "</div>"
+  end
 
   # Return both the activity and its session (if there is one)
   def activity_and_session(activity_or_session)
