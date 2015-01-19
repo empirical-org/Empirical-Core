@@ -60,10 +60,20 @@ module ScorebookHelper
 
   def activity_icon_with_tooltip(activity_or_session, include_activity_title: false)
     activity, session = activity_and_session(activity_or_session)
+    # deal with nested quotes
+    activity_name = activity.name.gsub /"/, '&quot;'
+    activity_classification_name = activity.classification.name.gsub /"/, '%quot;'
+    activity_section_name = activity.section.name.gsub /"/, '&quot;'
+    activity_topic_name = activity.topic.name.gsub /"/, '%quot;'
+
     render partial: 'activity_icon_with_tooltip', locals: {
       activity: activity, 
       activity_session: session, 
-      include_activity_title: include_activity_title
+      include_activity_title: include_activity_title,
+      activity_name: activity_name,
+      activity_classification_name: activity_classification_name,
+      activity_section_name: activity_section_name,
+      activity_topic_name: activity_topic_name
     }
   end
 

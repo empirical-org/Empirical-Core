@@ -1,4 +1,11 @@
-<div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:percentage)) %> icon-<%= icon_for_classification(activity.classification) %>" <%= tooltip_html(activity_session) %> ></div>
+<div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:percentage)) %> icon-<%= icon_for_classification(activity.classification) %>" 
+  data-toggle="tooltip" 
+  data-html=true 
+  data-placement="left" 
+  title="<h1><%= activity_name %></h1><p><%= activity_classification_name %></p>
+  <p><%= activity_section_name %>: <%= activity.topic.name %></p>
+  <%= activity_session ? "<p>Scored #{activity_session.percentage_as_percent}</p>" : '' %>"
+ ></div>
 <% if include_activity_title %>
   <div class="icons-description-wrapper">
     <p class="title title-v-centered"><%= activity.try(:name) %></p>
