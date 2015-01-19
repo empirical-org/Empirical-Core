@@ -22,8 +22,26 @@ module Student
     protected :classroom_activity_score_join
 
     def percentages_by_classification(unit = nil)
-      sessions = self.activity_sessions.completed.includes(activity: {classification: [], topic: [:section]}).joins(:unit)
-      sessions = sessions.where('units.id = ?', unit.id) if unit
+
+      if unit.nil?
+        sessions = self.activity_sessions.completed
+      else
+        sessions = ActivitySession.joins(:classroom_activity)
+                  .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
+                  .select("activity_sessions.*").completed
+      
+      end
+
+      # we only want to show one session per classroom activity, not the retries, so filter them out thusly: 
+      arr = []
+      x1 = sessions.to_a.group_by{|as| as.classroom_activity_id}
+      x1.each do | ca_group|
+        x2 = ca_group[1].max_by{|session| session.percentile}
+        arr.push x2
+      end
+      sessions = arr
+
+      
       sessions.sort do |a,b|
         if a.percentile == b.percentile
           b.activity.classification.key <=> a.activity.classification.key
@@ -32,6 +50,24 @@ module Student
         end
       end
     end
+
+
+    def incomplete_activity_sessions_by_classification(unit = nil)
+      sessions = self.activity_sessions.incomplete
+
+      sessions = ActivitySession.joins(:classroom_activity)
+                  .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
+                  .select("activity_sessions.*") if unit
+
+      sessions.sort do |a,b|
+        b.activity.classification.key <=> a.activity.classification.key
+      end
+
+    end
+
+
+
+
 
     has_many :activity_sessions, dependent: :destroy do
       def rel_for_activity activity

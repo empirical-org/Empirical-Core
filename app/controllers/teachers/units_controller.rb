@@ -4,16 +4,7 @@ class Teachers::UnitsController < ApplicationController
 
 
   def create
-	puts ''
-    puts ''
-    puts ''
-    puts 'zinga'
-    puts 'in create unit'
-    puts 'params are : '
-    puts params.to_json
-
-    
-	# TODO refactor models to get rid of classroom_activity, its unneccessary
+	  # TODO refactor models to get rid of classroom_activity, its unneccessary
     
     # create a unit
     unit = Unit.create name: params[:unit_name]

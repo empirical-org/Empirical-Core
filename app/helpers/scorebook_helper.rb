@@ -72,7 +72,7 @@ module ScorebookHelper
       activity_section_name = activity.section.name.gsub /"/, '&quot;'
       activity_topic_name = activity.topic.name.gsub /"/, '%quot;'
 
-      %Q(data-toggle="tooltip" data-html=true data-placement="left" title="<h1>#{activity_name}</h1><p>#{activity_classification_name}</p><p>#{activity_section_name}: #{activity.topic.name}</p>#{session ? "<p>Scored #{session.percentage_as_percent}</p>" : ''}").html_safe
+      %Q(data-toggle="tooltip" data-html=true data-placement="left" title="<h1>#{activity_name}</h1><p>#{activity_classification_name}</p><p>#{activity_section_name}: #{activity_topic_name}</p>#{session ? "<p>Scored #{session.percentage_as_percent}</p>" : ''}").html_safe
       
     else
       ''

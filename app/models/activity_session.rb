@@ -67,7 +67,11 @@ class ActivitySession < ActiveRecord::Base
 
 
   def percentage_as_percent
-    (percentage*100).round.to_s + '%'
+    if percentage.nil? 
+      "no percentage"
+    else
+      (percentage*100).round.to_s + '%'
+    end
   end
 
   def score
