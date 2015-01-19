@@ -4,7 +4,7 @@ $(document).ready(function(){
 });
 
 window.lesson_planner_object = {
-	results_per_page: 12,
+	results_per_page: 12, // should be the same as number set in classrooms_manager_controller.rb
 	current_page_number: 1, // since rails will have loaded 1st page on page-load
 	number_of_pages: 1,
 	search_results: [],
@@ -59,9 +59,11 @@ window.lesson_planner_object = {
 	},
 
 
+
+
 	// SEARCH 
 	
-	search_request: function (page) {
+	search_request: function () {
 		query = $('#search_activities_input').val();
 		$.ajax({
 			url: '/teachers/classrooms/search_activities',
@@ -72,11 +74,12 @@ window.lesson_planner_object = {
 			},
 			success: function (data, status, jqXHR) {
 				that.search_results_loaded_from_ajax = true;
-				that.number_of_pages = data.number_of_pages
-				that.update_filter_options(data)
-				that.classrooms = data.classrooms
+				
 				that.search_results = data.activities
-				that.display_search_results(page)
+				that.number_of_pages = data.number_of_pages
+				that.classrooms = data.classrooms
+				that.display_search_results()
+				that.update_filter_options(data)
 				that.paginate()
 			},
 			error: function () {
@@ -85,10 +88,10 @@ window.lesson_planner_object = {
 		});
 
 	},
-	display_search_results : function (page_number) {
-		that.current_page_number = page_number
-		start_point = (page_number - 1)*(that.results_per_page)
-		end_point = page_number*that.results_per_page - 1
+
+	display_search_results : function () {
+		start_point = (that.current_page_number - 1)*(that.results_per_page)
+		end_point = that.current_page_number*that.results_per_page - 1
 		if (end_point > that.search_results.length -1){
 			end_point = that.search_results.length - 1
 		}
@@ -209,8 +212,6 @@ window.lesson_planner_object = {
 		}
 	},
 
-	
-
 	change_asc_or_desc: function(e) {
 		x = $(e.target).find('.fa-caret-up');
 		if (x.length == 0) {
@@ -227,20 +228,21 @@ window.lesson_planner_object = {
 	// TEACHING CART (accumulating list of selected activities in bottom half of first page of activity planner)
 
 	add_to_teaching_cart: function (activity_id, activity_name, activity_classification_image_path) {
-		obj = activity_id
-		that.teaching_cart.push(obj)
+		that.teaching_cart.push(activity_id)
+		
 		tr = $(document.createElement('tr'))
 		td1 = $(document.createElement('td'))
 		td2 = $(document.createElement('td'))
 		td3 = $(document.createElement('td'))
-		img1 = $(document.createElement('img'))
 		
+		img1 = $(document.createElement('img'))
 		img1.attr('src', activity_classification_image_path)
+		
 		td1.append(img1)
 		
 		td2.text(activity_name)
 		tr.append(td1,td2,td3)
-		tr.attr('data-model-id', activity_id)
+		tr.data('model-id', activity_id)
 		$('.teaching-cart tbody').append(tr)
 		td3.addClass('icon-x-gray')
 		td3.data({'model-id': activity_id})
@@ -269,7 +271,6 @@ window.lesson_planner_object = {
 
 
 
-
 	// EVENT CALLBACKS
 
 	// EVENTS CALLBACKS PART 1: EVENTS ON FIRST PAGE (WHERE ACTIVITIES ARE SEARCHED AND SELECTED)
@@ -279,9 +280,9 @@ window.lesson_planner_object = {
 	},
 
 	click_cb_search: function () {
-		that.search_request(1)
+		that.current_page_number = 1
+		that.search_request()
 	},
-
 
 	click_cb_filter_option: function (e) {
 		ele = $(e.target)
@@ -293,22 +294,22 @@ window.lesson_planner_object = {
 		z = $(document.createElement('i')).addClass('fa fa-caret-down')
 		x.append(z)
 		that.filters[filter_type] = model_id
-		if (model_id == '') {
+		if (model_id == '') { // Means we want to allow ALL instances of this filter type (ie ALL apps, or ALL concepts, etc)
 			if (filter_type == 'activity_classification') {
-				that.filters['section'] = ''
-				that.filters['topic'] = ''
+				that.filters['section'] = '' // If we are setting apps (activity_classifications) to 'ALL', then we should also set section and topic to 'ALL'
+				that.filters['topic'] = '' 
 				z1 = $(document.createElement('i')).addClass('fa fa-caret-down')
 				z2 = $(document.createElement('i')).addClass('fa fa-caret-down')
 				$("button[data-filter-type='section']").text("All Levels").append(z1)
 				$("button[data-filter-type='topic']").text("All Concepts").append(z2)
 			} else if (filter_type == 'section') {
-				that.filters['topic'] = ''
+				that.filters['topic'] = '' // If we are setting section to 'ALL', then we should also set topic to 'ALL'
 				z2 = $(document.createElement('i')).addClass('fa fa-caret-down')
 				$("button[data-filter-type='topic']").text("All Concepts").append(z2)
 			}
 		}
 		that.current_page_number = 1
-		that.search_request(1);
+		that.search_request();
 	},
 
 	click_cb_sorter: function (e) {
@@ -317,7 +318,7 @@ window.lesson_planner_object = {
 		$(e.target).addClass('active')
 		that.change_asc_or_desc(e);
 		that.current_page_number = 1
-		that.search_request(1);
+		that.search_request();
 	},
 	
 	mouseenter_cb_tooltip_trigger: function (e) {
@@ -355,31 +356,31 @@ window.lesson_planner_object = {
 		x = $(e.target).attr('data-page-number')
 		$('.pagination .active').removeClass('active').addClass('page_number')
 		$(e.target).parent('li').addClass('active')
+		that.current_page_number = parseInt(x)
 		if (that.search_results_loaded_from_ajax) {
-			that.display_search_results(parseInt(x))
+			that.display_search_results()
 		} else {
-			that.search_request(parseInt(x))
+			that.search_request()
 		}
 	},
 
 	click_cb_right_arrow: function (e) {
 		if (that.search_results_loaded_from_ajax) {
 			if (that.number_of_pages > that.current_page_number) {
-				next_page = that.current_page_number + 1
-				that.display_search_results(next_page)								
-				that.current_page_number = next_page
+				that.current_page_number = that.current_page_number + 1
+				that.display_search_results()
 				that.paginate()
 			} 
 		} else {
-			
-			that.search_request(2); // dont need to check number of pages -> if on page load there was 1 one page of results, no 'right arrow' would appear
+			that.current_page_number = 2 // dont need to check number of pages -> if on page load there was 1 one page of results, no 'right arrow' would appear
+			that.search_request(); 
 		}
 	},
 
 	click_cb_left_arrow: function (e) {
 		if (that.current_page_number > 1) {
 			that.current_page_number = that.current_page_number - 1
-			that.display_search_results(that.current_page_number)
+			that.display_search_results()
 			that.paginate()
 		}
 	},
