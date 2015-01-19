@@ -58,23 +58,6 @@ module ScorebookHelper
     %Q(data-toggle="tooltip" data-html=true data-placement="left" title="#{activity_name}#{app_name}#{activity_description}").html_safe
   end
 
-  def tooltip_html(activity_or_session)
-    if !activity_or_session.nil?
-      activity, session = activity_and_session(activity_or_session)
-
-      # deal with nested quotes
-      activity_name = activity.name.gsub /"/, '&quot;'
-      activity_classification_name = activity.classification.name.gsub /"/, '%quot;'
-      activity_section_name = activity.section.name.gsub /"/, '&quot;'
-      activity_topic_name = activity.topic.name.gsub /"/, '%quot;'
-
-      %Q(data-toggle="tooltip" data-html=true data-placement="left" title="<h1>#{activity_name}</h1><p>#{activity_classification_name}</p><p>#{activity_section_name}: #{activity.topic.name}</p>#{session ? "<p>Scored #{session.percentage_as_percent}</p>" : ''}").html_safe
-      
-    else
-      ''
-    end
-  end
-
   def activity_icon_with_tooltip(activity_or_session, include_activity_title: false)
     activity, session = activity_and_session(activity_or_session)
     render partial: 'activity_icon_with_tooltip', locals: {
@@ -92,6 +75,23 @@ module ScorebookHelper
       [activity_or_session.activity, activity_or_session]
     else
       [activity_or_session, nil]
+    end
+  end
+
+  def tooltip_html(activity_or_session)
+    if !activity_or_session.nil?
+      activity, session = activity_and_session(activity_or_session)
+
+      # deal with nested quotes
+      activity_name = activity.name.gsub /"/, '&quot;'
+      activity_classification_name = activity.classification.name.gsub /"/, '%quot;'
+      activity_section_name = activity.section.name.gsub /"/, '&quot;'
+      activity_topic_name = activity.topic.name.gsub /"/, '%quot;'
+
+      %Q(data-toggle="tooltip" data-html=true data-placement="left" title="<h1>#{activity_name}</h1><p>#{activity_classification_name}</p><p>#{activity_section_name}: #{activity.topic.name}</p>#{session ? "<p>Scored #{session.percentage_as_percent}</p>" : ''}").html_safe
+      
+    else
+      ''
     end
   end
 end
