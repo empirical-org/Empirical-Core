@@ -1388,7 +1388,13 @@ form.class-page {
 #activity-planner #activities_table .tooltip.top .tooltip-arrow {  
   
   border-top-color: rgb(206,206,206);
+}
 
+.tooltip {
+  .concept-class {
+    padding-top: 12px;
+    padding-bottom: 12px;  
+  }
 }
 /* ==========================================================================
    Helper styles to quickly manipulate the looks
