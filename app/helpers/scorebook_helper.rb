@@ -72,8 +72,7 @@ module ScorebookHelper
     return '' unless activity_session.present?
     # Generate a header for each applicable concept class (activity session has concept tag results for that class)
     concept_tag_results = activity_session.concept_tag_results
-    # TODO Pull this into a model
-    concept_classes = ConceptTagCategory.joins(:concept_tags => :concept_tag_results).where('concept_tag_results.id' => concept_tag_results).uniq
+    concept_classes = ConceptTagCategory.for_concept_tag_results(concept_tag_results)
     concept_classes.reduce "" do |html, concept_class|
       html += "<h1>" + concept_class.name + "</h1>"
       html += stats_for_concept_class(concept_class, concept_tag_results)
@@ -96,6 +95,9 @@ module ScorebookHelper
 
   # TODO: Extract into a separate helper
   def typing_speed_stats(concept_tag_results)
+    # Currently there is only 1 statistic to account for.
+    # When there are multiple concept tags for Typing Speed,
+    # it would be better to iterate over them to generate the list.
     average_wpm = ConceptClassStats.average_wpm(concept_tag_results)
     "<div class='row'>" +
       "<div class='col-xs-9 col-sm-10 col-xl-10'>Average words per minute</div>" +
