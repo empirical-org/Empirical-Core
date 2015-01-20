@@ -1,9 +1,9 @@
 $(document).ready(function(){
-	
+	// might have to put this at bottom
 	lesson_planner_object.initialize();
 });
 
-window.lesson_planner_object = {
+var lesson_planner_object = {
 	results_per_page: 12, // should be the same as number set in classrooms_manager_controller.rb
 	current_page_number: 1, // since rails will have loaded 1st page on page-load
 	number_of_pages: 1,
@@ -34,6 +34,8 @@ window.lesson_planner_object = {
 	*/
 	initialize: function () {
 		that = this	
+		that.current_page_number = 1
+		that.search_request();
 		that.initialize_events();
 	},
 
@@ -89,7 +91,7 @@ window.lesson_planner_object = {
 				console.log(data)
 				that.display_search_results()
 				that.update_filter_options()
-				//that.paginate()
+				that.paginate()
 			},
 			error: function () {
 				//console.log('error searching activities');
@@ -105,7 +107,7 @@ window.lesson_planner_object = {
 			end_point = that.activities.length - 1
 		}
 		$('#activities_table tbody > *').remove()
-		for (i=start_point; i <= end_point; i++) {
+		for (var i=start_point; i <= end_point; i++) {
 			activity = that.activities[i]
 
 			activity_classification_name = (that.get_resource('activity_classifications', activity.activity_classification_id)).name
@@ -295,10 +297,10 @@ window.lesson_planner_object = {
 
 	remove_from_teaching_cart: function (id) {
 		$('#activity_' + id).parent().parent().removeClass('active')
-		for (i=0; i< that.teaching_cart.length; i++) {
-			x = that.teaching_cart[i]
+		for (teaching_cart_index=0; teaching_cart_index< that.teaching_cart.length; teaching_cart_index++) {
+			x = that.teaching_cart[teaching_cart_index]
 			if (parseInt(x) == id) {
-				that.teaching_cart.splice(i,1)
+				that.teaching_cart.splice(teaching_cart_index,1)
 			}
 		}
 		$('.teaching-cart tr[data-model-id=' + id + ']').remove()
@@ -373,18 +375,15 @@ window.lesson_planner_object = {
 		x = $(e.target).attr('id')
 		y = $('input[type=checkbox]#' + x + ':checked')
 		activity_id = parseInt($(e.target).attr('data-model-id'))
-		if (that.search_results_loaded_from_ajax) {
-			activity = that.get_resource('activities', activity_id)
-			activity_classification_image_path = that.get_activity_classification_image_path(activity.activity_classification_id)
-			activity_name = activity.name
-		} else {
-
-
-			
-		}
-
-		
 		if (y.length > 0) {
+			if (that.search_results_loaded_from_ajax) {
+				activity = that.get_resource('activities', activity_id)
+				activity_classification_image_path = that.get_activity_classification_image_path(activity.activity_classification_id)
+				activity_name = activity.name
+			} else {
+				activity_classification_image_path = $(e.target).attr('data-image-path')
+				activity_name = $(e.target).parent().siblings('.activity_name').text().trim()
+			}
 			that.add_to_teaching_cart(activity_id, activity_name, activity_classification_image_path)
 			$(e.target).parent().parent().addClass('active')
 		} else {

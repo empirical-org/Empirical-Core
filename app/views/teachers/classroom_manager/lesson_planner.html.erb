@@ -103,14 +103,6 @@
 												<%= "All #{filter[:alias]}s" %>
 											</span>
 										</li>
-										<%- filter[:records].each do |record| %>
-											<li>
-												<span class='filter_option' data-filter-type=<%=filter[:type]%> data-model-id=<%=record.id%>>
-													<%= record.name %>
-												</span>
-											</li>
-
-										<% end %>
 									</ul>
 								</div>
 							</div>
@@ -137,42 +129,6 @@
 					</thead>
 
 					<tbody>
-
-					<!-- ==========================================================================
-						   Commentary for checkboxes
-						========================================================================== -->
-
-						<!-- Checkbox and their label have to have the same ID, otherwise, checkbox will not be checked. Also, the label is empty, but it has to be here since without it checkbox will not appear at all. That's a tricky way, but works for all browsers -->
-						<%- @activities.each_with_index do |activity, index| %>
-							<%- unless index > @results_per_page - 1 %>
-								<tr>
-									<td>
-										<input type='checkbox' data-model-id=<%=activity.id %> data-image-path=<%=image_url(image_for_activity_classification_by_id(activity.activity_classification_id))%> id=<%="activity_#{activity.id}"%> class='css-checkbox' %>
-										<label for=<%="activity_#{activity.id}"%> class='css-label'></label>
-									</td>
-									
-									<td>
-										<div class="activate-tooltip" <%=activity_planner_tooltip_html(activity)%>>
-											<%= image_tag image_for_activity_classification_by_id(activity.activity_classification_id) %>
-										</div>
-									</td>
-									
-									<td class='activity_name tooltip-trigger'>
-										<%= activity.name %>
-									</td>
-
-									<td class='section_name tooltip-trigger'>
-										<%= activity.topic.section.name %>
-									</td>
-
-									<td class='topic_name tooltip-trigger'>
-										<%= activity.topic.name %>
-									</td>
-								</tr>
-							<% end %>
-
-						<% end %>
-
 					</tbody>
 
 				</table>
@@ -180,21 +136,11 @@
 
 				<div class="fake-border"></div>
 
-				<%- if @number_of_pages > 1 %>
-					<%- @number_of_pages = (@number_of_pages > 4) ? 5 : @number_of_pages %>
-					<ul class="pagination">
-						<li class='left_arrow'><span><i class="fa fa-caret-left"></i></li>
-						<%- @number_of_pages.times do |i| %>
-							<%- k = i+1 %>
-							<%- x = ((k == @active_page) ? 'active' : 'page_number') %>
-							<li class=<%== x %> >
-								<span data-page-number=<%=k%>><%=k%></span>
-							</li>
-						<% end %>
-						<li class='right_arrow'><span><i class="fa fa-caret-right"></i></li>
-					</ul>
-				<% end %>
-
+				<ul class="pagination">
+					<li class='left_arrow'><span><i class="fa fa-caret-left"></i></li>
+					<li class='right_arrow'><span><i class="fa fa-caret-right"></i></li>
+				</ul>
+			
 			</section>
 
 			<section class="teaching-cart">
