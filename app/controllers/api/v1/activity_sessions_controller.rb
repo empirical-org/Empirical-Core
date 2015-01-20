@@ -96,14 +96,14 @@ class Api::V1::ActivitySessionsController < ApiController
   # Map each result to the following structure: 
   # {
   #   concept_tag: "Creative Writing",
-  #   concept_tag_category: "Writing Concepts",
+  #   concept_class: "Writing Concepts",
   #   student_input: "The dog jumped over the cat."
   # },
   # Becomes this:
   # {
   #   metadata: {
   #     concept_tag: "Creative Writing",
-  #     concept_tag_category: "Writing Concepts",
+  #     concept_class: "Writing Concepts",
   #     student_input: "The dog jumped over the cat."
   #   }   
   # }
