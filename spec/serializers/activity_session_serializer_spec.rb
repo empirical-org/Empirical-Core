@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe ActivitySessionSerializer, type: :serializer do
 
-  let!(:concept_tag) { FactoryGirl.create(:concept_tag)}
+  let!(:concept_tag_category) { FactoryGirl.create(:concept_tag_category) }
+  let!(:concept_tag) { FactoryGirl.create(:concept_tag, concept_tag_category: concept_tag_category) }
   let!(:concept_tag_result) { FactoryGirl.create(:concept_tag_result, metadata: {"foo" => "bar"}, concept_tag: concept_tag) }
   let!(:activity_session) { FactoryGirl.create(:activity_session, concept_tag_results: [concept_tag_result]) }
   let!(:serializer) { ActivitySessionSerializer.new(activity_session) }
-
 
   context "has expected attributes" do
 
