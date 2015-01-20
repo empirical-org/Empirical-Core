@@ -88,78 +88,35 @@
 
 					<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
 
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
-							<div id='filter_activity_classification' class="button-select">
-								<button data-filter-type='activity_classification'  type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-								Filter by App
-								<i class="fa fa-caret-down"></i>
-								</button>
 
+						<%- @filters.each do |filter| %>
+							<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
+								<div id=<%="filter_#{filter[:type]}"%> class="button-select">
+									<button data-filter-type=<%=filter[:type]%>  type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+									<%= "Filter by #{filter[:alias]}"%>
+									<i class="fa fa-caret-down"></i>
+									</button>
 
-								<ul class="dropdown-menu" role="menu">
-									<li>
-										<span class='filter_option all' data-filter-type='activity_classification' data-model-id=''>
-											All Apps
-										</span>
-									</li>
-									<%- @activity_classifications.each do |ac| %>
+									<ul class="dropdown-menu" role="menu">
 										<li>
-											<span class='filter_option' data-filter-type='activity_classification' data-model-id=<%=ac[:activity_classification_id]%>>
-												<%= ac[:activity_classification_name] %>
+											<span class='filter_option all' data-filter-type=<%=filter[:type]%> data-model-id=''>
+												<%= "All #{filter[:alias]}s" %>
 											</span>
 										</li>
+										<%- filter[:records].each do |record| %>
+											<li>
+												<span class='filter_option' data-filter-type=<%=filter[:type]%> data-model-id=<%=record.id%>>
+													<%= record.name %>
+												</span>
+											</li>
 
-									<% end %>
-								</ul>
+										<% end %>
+									</ul>
+								</div>
 							</div>
-						</div>
+						<% end %>
 
-						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 no-pl">
-							<div class="button-select">
-								<button type="button" data-filter-type='section' class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-								Filter by Level
-								<i class="fa fa-caret-down"></i>
-								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li>
-										<span class='filter_option all' data-filter-type='section' data-model-id=''>
-											All Levels
-										</span>
-									</li>
-									<%- @sections.each do |section| %>
-										<li>
-											<span class='filter_option' data-filter-type="section" data-model-id=<%=section[:section_id]%> >
-												<%= section[:section_name] %>
-											</span>
-										</li>
-									<% end %>
-								</ul>
-							</div>
-						</div>
 
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
-							<div class="button-select">
-								<button type="button" data-filter-type='topic' class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-								Filter by Concept
-								<i class="fa fa-caret-down"></i>
-								</button>
-
-								<ul class="dropdown-menu" role="menu">
-									<li>
-										<span class='filter_option all' data-filter-type='topic' data-model-id=''>
-										All Concepts
-										</span>
-									</li>
-									<%- @topics.each do |topic| %>
-										<li>
-											<span class='filter_option' data-filter-type='topic' data-model-id=<%=topic[:topic_id]%>>
-												<%= topic[:topic_name] %>
-											</span>
-										</li>
-									<% end %>
-								</ul>
-							</div>
-						</div>
 
 					</div>	
 
@@ -170,7 +127,6 @@
 					<thead>
 						<tr>
 							<th>
-								<!--<img src="images/icon-check.png" alt="">-->
 								<%= image_tag 'scorebook/icon-check.png' %>
 							</th>
 							<th id='activity_classification' class='sorter'>App<i class="fa fa-caret-up"></i></th>
@@ -191,26 +147,26 @@
 							<%- unless index > @results_per_page - 1 %>
 								<tr>
 									<td>
-										<input type='checkbox' data-model-id=<%=activity['activity_id'] %> data-image-path=<%=image_url(image_for_activity_classification_by_id(activity['activity_classification_id'].to_i))%> id=<%="activity_" + activity['activity_id']%> class='css-checkbox' %>
-										<label for=<%='activity_' + activity['activity_id'] %> class='css-label'></label>
+										<input type='checkbox' data-model-id=<%=activity.id %> data-image-path=<%=image_url(image_for_activity_classification_by_id(activity.activity_classification_id))%> id=<%="activity_#{activity.id}"%> class='css-checkbox' %>
+										<label for=<%="activity_#{activity.id}"%> class='css-label'></label>
 									</td>
 									
 									<td>
 										<div class="activate-tooltip" <%=activity_planner_tooltip_html(activity)%>>
-											<%= image_tag image_for_activity_classification_by_id(activity['activity_classification_id'].to_i) %>
+											<%= image_tag image_for_activity_classification_by_id(activity.activity_classification_id) %>
 										</div>
 									</td>
 									
 									<td class='activity_name tooltip-trigger'>
-										<%= activity['activity_name'] %>
+										<%= activity.name %>
 									</td>
 
 									<td class='section_name tooltip-trigger'>
-										<%= activity['section_name'] %>
+										<%= activity.topic.section.name %>
 									</td>
 
 									<td class='topic_name tooltip-trigger'>
-										<%= activity['topic_name'] %>
+										<%= activity.topic.name %>
 									</td>
 								</tr>
 							<% end %>
