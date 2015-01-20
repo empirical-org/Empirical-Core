@@ -3,7 +3,7 @@ module ConceptTagHelper
     return '' unless activity_session.present?
     # Generate a header for each applicable concept class (activity session has concept tag results for that class)
     concept_tag_results = activity_session.concept_tag_results
-    concept_classes = ConceptTagCategory.for_concept_tag_results(concept_tag_results)
+    concept_classes = ConceptClass.for_concept_tag_results(concept_tag_results)
     concept_classes.reduce "" do |html, concept_class|
       html += "<h1 class='concept-class'>" + concept_class.name + "</h1>"
       html += stats_for_concept_class(concept_class, concept_tag_results)

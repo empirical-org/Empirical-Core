@@ -30,21 +30,21 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
     context 'when concept tag results are included' do
       before do
         @activity_session = FactoryGirl.create(:activity_session)
-        @writing_category = FactoryGirl.create(:concept_tag_category, name: 'Writing Concepts')
-        @sports_category = FactoryGirl.create(:concept_tag_category, name: 'Sporting Events')
-        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Creative Writing', concept_tag_category: @writing_category)
-        @climbing_tag = FactoryGirl.create(:concept_tag, name: 'Competitive Ice-climbing', concept_tag_category: @sports_category)
+        @writing_category = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
+        @sports_category = FactoryGirl.create(:concept_class, name: 'Sporting Events')
+        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Creative Writing', concept_class: @writing_category)
+        @climbing_tag = FactoryGirl.create(:concept_tag, name: 'Competitive Ice-climbing', concept_class: @sports_category)
       end
 
       def subject
         results = [
           {
-            concept_tag_category: 'Writing Concepts',
+            concept_class: 'Writing Concepts',
             concept_tag: 'Creative Writing',
             foo: 'bar',
           },
           {
-            concept_tag_category: 'Sporting Events',
+            concept_class: 'Sporting Events',
             concept_tag: 'Competitive Ice-climbing',
             baz: 'foo'
           }
@@ -74,21 +74,21 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
     context 'when the concept tag name is ambiguous (belongs to multiple categories)' do
       before do
         @activity_session = FactoryGirl.create(:activity_session)
-        @writing_category = FactoryGirl.create(:concept_tag_category, name: 'Writing Concepts')
-        @grammar_category = FactoryGirl.create(:concept_tag_category, name: 'Grammar Concepts')
-        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_tag_category: @writing_category)
-        @grammar_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_tag_category: @grammar_category)
+        @writing_category = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
+        @grammar_category = FactoryGirl.create(:concept_class, name: 'Grammar Concepts')
+        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_class: @writing_category)
+        @grammar_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_class: @grammar_category)
       end
 
       def subject
         results = [
           {
-            concept_tag_category: 'Grammar Concepts',
+            concept_class: 'Grammar Concepts',
             concept_tag: 'Their',
             baz: 'foo'
           },
           {
-            concept_tag_category: 'Writing Concepts',
+            concept_class: 'Writing Concepts',
             concept_tag: 'Their',
             foo: 'bar',
           }
@@ -107,13 +107,13 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
     context 'when a result is assigned to a non-existent concept tag' do
       before do
         @activity_session = FactoryGirl.create(:activity_session)
-        @writing_category = FactoryGirl.create(:concept_tag_category, name: 'Writing Concepts')
+        @writing_category = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
       end
 
       def subject
         results = [
           {
-            concept_tag_category: 'Writing Concepts',
+            concept_class: 'Writing Concepts',
             concept_tag: 'Non-existent tag',
             foo: 'bar',
           }
