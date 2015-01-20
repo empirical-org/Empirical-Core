@@ -13,15 +13,17 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def lesson_planner
-    @activities = Activity.includes(:classification, :topic => :section)
-                    .where("'production' = ANY(activities.flags)")
-                    .order("name ASC")
-    search_helper
+    # @activities = Activity.includes(:classification, :topic => :section)
+    #                 .where("'production' = ANY(activities.flags)")
+    #                 .order("name ASC")
+    # search_helper
+    
     @filters = [
-      {records: @activity_classifications, type: 'activity_classification', alias: 'App'},
-      {records: @topics, type: 'topic', alias: 'Concept'},
-      {records: @sections, type: 'section', alias: 'Level'}
-    ]
+       {type: 'activity_classification', alias: 'App'},
+       {type: 'topic', alias: 'Concept'},
+       {type: 'section', alias: 'Level'}
+     ]
+
   end
 
 
@@ -31,8 +33,20 @@ class Teachers::ClassroomManagerController < ApplicationController
     params['filters'].each do |pair| 
       filter_string = "#{filter_string} AND #{pair[0]}s.id = #{pair[1]}" if pair[1].length > 0
     end
-    puts 'filter string : '
-    puts filter_string
+    
+    filter_string = (filter_string)
+
+=begin
+use active record where statements of the form : 
+  where('....? ....?', val1, val2) 
+  instead of where('...#{thign} ...')  (dont use interpolation)
+  try to remove possibility of user input being used in sql statement (replace with a case-when type thing) (sort as well)
+
+  look up sql placeholders (with active record)
+
+  look up escaping strings to prevent sql injection
+
+=end
 
     sort_string = (params['sort']['field'].length > 0) ? "#{params['sort']['field']}s #{params['sort']['asc_or_desc']}" : "activities.name ASC"
 
