@@ -7,7 +7,9 @@ window.lesson_planner_object = {
 	results_per_page: 12, // should be the same as number set in classrooms_manager_controller.rb
 	current_page_number: 1, // since rails will have loaded 1st page on page-load
 	number_of_pages: 1,
-	search_results: [],
+	activities: [],
+	topics: [],
+	sections: [],
 	search_results_loaded_from_ajax: false, // this will be relevant on page-turn (if ajax has loaded before, will just iterate through list)
 	unit_name: '',
 	classrooms: [],
@@ -75,12 +77,19 @@ window.lesson_planner_object = {
 			success: function (data, status, jqXHR) {
 				that.search_results_loaded_from_ajax = true;
 				
-				that.search_results = data.activities
+				that.activities = data.activities
+				that.activity_classification_image_paths = data.activity_classification_image_paths
+				that.activity_classifications = data.activity_classifications
+				that.sections = data.sections
+				that.topics = data.topics
+
 				that.number_of_pages = data.number_of_pages
 				that.classrooms = data.classrooms
+				console.log('data returned' ) 
+				console.log(data)
 				that.display_search_results()
-				that.update_filter_options(data)
-				that.paginate()
+				that.update_filter_options()
+				//that.paginate()
 			},
 			error: function () {
 				//console.log('error searching activities');
@@ -92,12 +101,18 @@ window.lesson_planner_object = {
 	display_search_results : function () {
 		start_point = (that.current_page_number - 1)*(that.results_per_page)
 		end_point = that.current_page_number*that.results_per_page - 1
-		if (end_point > that.search_results.length -1){
-			end_point = that.search_results.length - 1
+		if (end_point > that.activities.length -1){
+			end_point = that.activities.length - 1
 		}
 		$('#activities_table tbody > *').remove()
 		for (i=start_point; i <= end_point; i++) {
-			activity = that.search_results[i]
+			activity = that.activities[i]
+
+			activity_classification_name = (that.get_resource('activity_classifications', activity.activity_classification_id)).name
+			topic = that.get_resource('topics', activity.topic_id)
+			topic_name = topic.name
+			section_name = (that.get_resource('sections', topic.section_id)).name
+
 			tr = $(document.createElement('tr'))
 			td1 = $(document.createElement('td'))
 			td2 = $(document.createElement('td'))
@@ -117,24 +132,25 @@ window.lesson_planner_object = {
 				html: true,
 				toggle: 'tooltip',
 				placement: 'top',
-				title: ("<h1>" + activity.activity_name + "</h1><p>App: " + activity.activity_classification_name + "</p><p>" + activity.activity_description + "</p>")
+				title: ("<h1>" + activity.name + "</h1><p>App: " + activity_classification_name + "</p><p>" + activity.description + "</p>")
 			})
 			checkbox = $(document.createElement('input'))
 			checkbox.attr({
 				type: 'checkbox', 
-				id: 'activity_' + activity.activity_id,
-				'data-model-id': activity.activity_id,
+				id: 'activity_' + activity.id,
+				'data-model-id': activity.id,
 				class: 'css-checkbox'
 			});
 			checkbox_label = $(document.createElement('label'))
 			checkbox_label.attr({
-				for: 'activity_' + activity.activity_id,
-				id: 'activity_' + activity.activity_id,
+				for: 'activity_' + activity.id,
+				id: 'activity_' + activity.id,
 				class: 'css-label'
 			});
 
 			img = $(document.createElement('img'));
-			img.attr('src', activity.image_path);
+			image_path = that.get_activity_classification_image_path(activity.activity_classification_id)
+			img.attr('src', image_path);
 
 			tr.append(td1,td2,td3,td4,td5);
 			td1.append(checkbox, checkbox_label);
@@ -143,14 +159,37 @@ window.lesson_planner_object = {
 			td2.append(tooltip_div);
 			tooltip_div.append(img);
 
-			td3.text(activity.activity_name).addClass('activity_name');
-			td4.text(activity.section_name);
-			td5.text(activity.topic_name);
+			td3.text(activity.name).addClass('activity_name');
+			td4.text(section_name);
+			td5.text(topic_name);
 			$('#activities_table tbody').append(tr);
 			checkbox.click(that.click_cb_activity_checkbox)
 		}
 		$('.tooltip-trigger').mouseenter(that.mouseenter_cb_tooltip_trigger)
 		$('.tooltip-trigger').mouseleave(that.mouseleave_cb_tooltip_trigger)
+	},
+
+	get_activity_classification_image_path: function (activity_classification_id) {
+		image_path = ''
+		for (k=0; k< that.activity_classification_image_paths.length; k++) {
+			x1 = that.activity_classification_image_paths[k]
+			if (x1.id == activity_classification_id) {
+				image_path = x1.image_path
+			}
+		}
+		return image_path
+	},
+
+	get_resource: function (resource_type, id) {
+		resource = {}
+		set = that[resource_type]
+		for (resource_index = 0; resource_index < set.length; resource_index++) {
+			ele = set[resource_index]
+			if (ele.id == id) {
+				resource = ele
+			}
+		}
+		return resource
 	},
 
 	paginate: function () {
@@ -194,15 +233,14 @@ window.lesson_planner_object = {
 		fo = ['activity_classification', 'section', 'topic']
 		for (i=0; i< fo.length; i++) {
 			type = fo[i] + 's'
-			id_key = fo[i] + '_id'
-			name_key = fo[i] + '_name'
-			set = data[type]
+			set = that[type]
 			if (that.filters[fo[i]] == '') {
+				console.log('made it past if')
 				for (j=0; j< set.length; j++){
 					ele = set[j]
-					span = $(document.createElement('span')).attr({'data-filter-type': fo[i], 'data-model-id' : ele[id_key], 'class' : 'filter_option'})
+					span = $(document.createElement('span')).attr({'data-filter-type': fo[i], 'data-model-id' : ele.id, 'class' : 'filter_option'})
 					span.click(that.click_cb_filter_option)
-					span.text(ele[name_key])
+					span.text(ele.name)
 					par = $("button[data-filter-type='" + fo[i] + "']").siblings('ul')
 					li = $(document.createElement('li'))
 					li.append(span)
@@ -236,6 +274,7 @@ window.lesson_planner_object = {
 		td3 = $(document.createElement('td'))
 		
 		img1 = $(document.createElement('img'))
+		activity_classification_image_path 
 		img1.attr('src', activity_classification_image_path)
 		
 		td1.append(img1)
@@ -334,9 +373,18 @@ window.lesson_planner_object = {
 		x = $(e.target).attr('id')
 		y = $('input[type=checkbox]#' + x + ':checked')
 		activity_id = parseInt($(e.target).attr('data-model-id'))
-		activity_classification_image_path = $(e.target).attr('data-image-path')
+		if (that.search_results_loaded_from_ajax) {
+			activity = that.get_resource('activities', activity_id)
+			activity_classification_image_path = that.get_activity_classification_image_path(activity.activity_classification_id)
+			activity_name = activity.name
+		} else {
+
+
+			
+		}
+
+		
 		if (y.length > 0) {
-			activity_name = $(e.target).parent().siblings('.activity_name').text().trim()
 			that.add_to_teaching_cart(activity_id, activity_name, activity_classification_image_path)
 			$(e.target).parent().parent().addClass('active')
 		} else {
