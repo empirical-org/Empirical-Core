@@ -2,9 +2,11 @@ namespace :concept_tags do
   desc "Seed the default set of concept tags and categories"
   task :seed => :environment do
     default_list = {
-      "Typing Speeds" => [
+      "Typing Speed" => [
         "Typing Speed"
-      ]
+      ],
+      "Grammar Concepts" => [],
+      "Punctuation Concepts" => []
     }
 
     default_list.each do |category_name, tag_list|
