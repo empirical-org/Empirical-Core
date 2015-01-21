@@ -13,22 +13,15 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def lesson_planner
-    # @activities = Activity.includes(:classification, :topic => :section)
-    #                 .where("'production' = ANY(activities.flags)")
-    #                 .order("name ASC")
-    # search_helper
-    
     @filters = [
        {type: 'activity_classification', alias: 'App'},
        {type: 'topic', alias: 'Concept'},
        {type: 'section', alias: 'Level'}
      ]
-
   end
 
-
   def search_activities
-
+    
     filter_string = ''
     params['filters'].each do |pair| 
       filter_string = "#{filter_string} AND #{pair[0]}s.id = #{pair[1]}" if pair[1].length > 0
@@ -36,17 +29,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     
     filter_string = (filter_string)
 
-=begin
-use active record where statements of the form : 
-  where('....? ....?', val1, val2) 
-  instead of where('...#{thign} ...')  (dont use interpolation)
-  try to remove possibility of user input being used in sql statement (replace with a case-when type thing) (sort as well)
 
-  look up sql placeholders (with active record)
-
-  look up escaping strings to prevent sql injection
-
-=end
 
     sort_string = (params['sort']['field'].length > 0) ? "#{params['sort']['field']}s #{params['sort']['asc_or_desc']}" : "activities.name ASC"
 
@@ -61,7 +44,13 @@ use active record where statements of the form :
     ]
       
                          
-    search_helper
+    @activity_classifications = @activities.map(&:classification).reject{|ac| ac.nil?}.uniq
+    @topics = @activities.map(&:topic).uniq
+    @sections = @topics.map(&:section).uniq
+    @activity_classification_image_paths = @activity_classifications.map{|ac| {id: ac.id, image_path: view_context.image_path(image_for_activity_classification_by_id(ac.id))} }
+    @number_of_pages = @activities.count/RESULTS_PER_PAGE
+    @active_page = 1
+    @results_per_page = RESULTS_PER_PAGE
 
     render json: {
       activities: @activities,
@@ -75,16 +64,6 @@ use active record where statements of the form :
 
   end
 
-  def search_helper
-    @activity_classifications = @activities.map(&:classification).reject{|ac| ac.nil?}.uniq
-    @topics = @activities.map(&:topic).uniq
-    @sections = @topics.map(&:section).uniq
-    @activity_classification_image_paths = @activity_classifications.map{|ac| {id: ac.id, image_path: view_context.image_path(image_for_activity_classification_by_id(ac.id))} }
-    @number_of_pages = @activities.count/RESULTS_PER_PAGE
-    @active_page = 1
-    @results_per_page = RESULTS_PER_PAGE
-  end
-
 
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
@@ -96,7 +75,10 @@ use active record where statements of the form :
       }
       ( @classrooms_and_their_students ||= [] ).push obj
     end
-    render partial: 'assign', layout: false
+    #render partial: 'assign', layout: false
+    render json: {
+      classrooms_and_their_students: @classrooms_and_their_students
+    }
   end
 
 

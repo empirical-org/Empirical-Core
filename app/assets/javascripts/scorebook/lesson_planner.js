@@ -440,6 +440,29 @@ var lesson_planner_object = {
 			data: {activities: that.teaching_cart},
 			success: function (data, status, jqXHR) {
 				$('.assign_activities_progress_bar').removeClass('disabled').addClass('complete')
+				
+				template_string = "<p>hi there <%= key1 %>
+				cool
+				</p>"
+				
+
+
+
+
+
+				template_data = {hi: 'hi', key1: 'dood'}
+				
+				
+
+
+				
+				x1 = _.template(template_string, template_data)
+				
+
+
+				$('.container.lesson_planner_main').html(x1)
+
+				/*
 				$('.container.lesson_planner_main').html(data)
 				$('.classroom_checkbox').click(that.click_cb_classroom_checkbox);
 				$('.remove_activity_from_teaching_cart').click(that.click_cb_teaching_cart_x)
@@ -453,7 +476,7 @@ var lesson_planner_object = {
 		      		minDate: -20,
 		      		maxDate: "+1M +10D" 
 		      	});
-					
+				*/
 				
 			},	
 			error: function () {
