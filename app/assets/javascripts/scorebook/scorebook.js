@@ -2,6 +2,7 @@
 //= require scorebook/bootstrap
 
 //= require scorebook/jquery-ui-custom.min.js
+//= require scorebook/lodash.min.js
 
 
 //= require scorebook/selector.js
