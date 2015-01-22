@@ -5,7 +5,6 @@ module ConceptTagHelper
     concept_tag_results = activity_session.concept_tag_results
     concept_classes = ConceptClass.for_concept_tag_results(concept_tag_results)
     concept_classes.reduce "" do |html, concept_class|
-      html += "<h1 class='concept-class'>" + concept_class.name + "</h1>"
       html += stats_for_concept_class(concept_class, concept_tag_results)
     end
   end
@@ -16,12 +15,16 @@ module ConceptTagHelper
   def stats_for_concept_class(concept_class, concept_tag_results)
     case concept_class.name
       when 'Typing Speed'
-        typing_speed_stats(concept_tag_results)
+        concept_class_header(concept_class) + typing_speed_stats(concept_tag_results)
       when 'Grammar Concepts'
         ''
       else
-        raise "Cannot display concept class named '#{concept_class.name}'"
+        ''
     end
+  end
+
+  def concept_class_header(concept_class)
+    "<h1 class='concept-class'>" + concept_class.name + "</h1>"
   end
 
   def typing_speed_stats(concept_tag_results)
