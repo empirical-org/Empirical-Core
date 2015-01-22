@@ -6,7 +6,10 @@ namespace :concept_tags do
         "Typing Speed"
       ],
       "Grammar Concepts" => [],
-      "Punctuation Concepts" => []
+      "Punctuation Concepts" => [],
+      "Two Player Student Writing" => [
+        "Quill Writer Story"
+      ]
     }
 
     default_list.each do |category_name, tag_list|
