@@ -16,3 +16,5 @@ deploy:
     repo: empirical-org/quill
     rvm: 2.0.0
   run: "rake db:migrate"
+addons:
+  postgresql: "9.3"
