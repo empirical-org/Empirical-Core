@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SectionSerializer, type: :serializer do
-  let!(:section) { FactoryGirl.create(:section) }
+  let!(:section) { FactoryGirl.create(:section, workbook: FactoryGirl.create(:workbook)) }
   let!(:serializer) { SectionSerializer.new(section) }
 
 
