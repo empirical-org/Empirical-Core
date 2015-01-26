@@ -73,6 +73,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    analytics-ruby (2.0.12)
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
     arel (5.0.1.20140414130214)
@@ -497,6 +498,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   addressable
+  analytics-ruby (~> 2.0.0)
   ancestry
   asset_sync
   awesome_print!
