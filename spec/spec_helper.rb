@@ -64,6 +64,8 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+
+    SegmentAnalytics.backend = FakeSegmentBackend.new
   end
 
   config.after(:each) do
