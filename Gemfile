@@ -70,10 +70,13 @@ gem 'slim-rails'
 gem 'haml-rails'
 gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
 
+gem 'react-rails', '~>0.12.0.0'
+
 # ASSET/UI
 gem 'therubyracer', require: false
 gem 'uglifier',     require: false
 gem 'kaminari'
+
 
 # MIDDLEWARE
 gem 'rack-cache', require: 'rack/cache'

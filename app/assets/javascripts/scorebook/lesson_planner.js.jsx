@@ -84,7 +84,6 @@ var lesson_planner_object = {
 				})
 				console.log(that.activities)
 				
-				that.activity_classification_image_paths = data.activity_classification_image_paths
 				that.activity_classifications = data.activity_classifications
 				that.sections = data.sections
 				that.topics = data.topics
@@ -110,78 +109,61 @@ var lesson_planner_object = {
 			end_point = that.activities.length - 1
 		}
 		$('#activities_table tbody > *').remove()
-		for (var i=start_point; i <= end_point; i++) {
-			activity = that.activities[i]
+		
 
-			tr = $(document.createElement('tr'))
-			td1 = $(document.createElement('td'))
-			td2 = $(document.createElement('td'))
-			td3 = $(document.createElement('td'))
-			td4 = $(document.createElement('td'))
-			td5 = $(document.createElement('td'))
-			
-			arr = [td3,td4,td5]
-			
-			for (j=0; j< arr.length; j++) {
-			 	ele = arr[j]
-			 	ele.addClass('tooltip-trigger')
+		ActivityItem = React.createClass({
+			render: function () {
+				return (
+					<tr>
+						<td>
+							<input type='checkbox' id={"activity_" + this.props.data.id} data-model-id={this.props.data.id} className='css-checkbox'/>
+							<label htmlFor={'activity_' + this.props.data.id} id={'activity_' + this.props.data.id} className='css-label' />
+						</td>
+						
+						<td>
+							<div className={'activate-tooltip ' + this.props.data.classification.image_class } data-html='true' data-toggle='tooltip' data-placement='top' 
+								title={"<h1>" + this.props.data.name + "</h1><p>App: " + this.props.data.classification.name + "</p><p>" + this.props.data.description + "</p>"}>
+							</div>
+						</td>
+						
+						<td className='tooltip-trigger activity_name'>{this.props.data.name}</td>
+						
+						<td className='tooltip-trigger'>{this.props.data.topic.section.name}</td>
+						
+						<td className='tooltip-trigger'>{this.props.data.topic.name}</td>
+					</tr>
+				);
+			}
+		});
+
+
+		ActivityTable = React.createClass({
+			render: function () {
+				rows = []
+				for (var i = start_point; i< end_point; i++) {
+					activity = that.activities[i]
+					rows.push(<ActivityItem data={activity} />)
+				}
+				return (
+					<span>{rows}</span>
+				)
 			}
 
-			tooltip_div = $(document.createElement('div'))
-			tooltip_div.addClass('activate-tooltip').data({
-				html: true,
-				toggle: 'tooltip',
-				placement: 'top',
-				title: ("<h1>" + activity.name + "</h1><p>App: " + activity.classification.name + "</p><p>" + activity.description + "</p>")
-			})
-			checkbox = $(document.createElement('input'))
-			checkbox.attr({
-				type: 'checkbox', 
-				id: 'activity_' + activity.id,
-				'data-model-id': activity.id,
-				class: 'css-checkbox'
-			});
-			checkbox_label = $(document.createElement('label'))
-			checkbox_label.attr({
-				for: 'activity_' + activity.id,
-				id: 'activity_' + activity.id,
-				class: 'css-label'
-			});
+		})
 
-			img = $(document.createElement('img'));
 
-			//image_path = that.get_activity_classification_image_path(activity.activity_classification_id)
-			
-			//img.attr('src', image_path);
+		React.render(
+			<ActivityTable />,
+			$('#activities_table tbody')[0]
+		)	
 
-			tr.append(td1,td2,td3,td4,td5);
-			td1.append(checkbox, checkbox_label);
-			
-
-			td2.append(tooltip_div);
-			tooltip_div.append(img);
-
-			td3.text(activity.name).addClass('activity_name');
-			td4.text(activity.topic.section.name);
-			td5.text(activity.topic.name);
-			$('#activities_table tbody').append(tr);
-			checkbox.click(that.click_cb_activity_checkbox)
-		}
+		
+		$('input[type=checkbox]').click(that.click_cb_activity_checkbox)
 		$('.tooltip-trigger').mouseenter(that.mouseenter_cb_tooltip_trigger)
 		$('.tooltip-trigger').mouseleave(that.mouseleave_cb_tooltip_trigger)
 	},
 
-	get_activity_classification_image_path: function (activity_classification_id) {
-		image_path = ''
-		for (k=0; k< that.activity_classification_image_paths.length; k++) {
-			x1 = that.activity_classification_image_paths[k]
-			if (x1.id == activity_classification_id) {
-				image_path = x1.image_path
-			}
-		}
-		return image_path
-	},
-
+	
 	
 	paginate: function () {
 		if (that.number_of_pages < 2) {
@@ -256,28 +238,30 @@ var lesson_planner_object = {
 
 	// TEACHING CART (accumulating list of selected activities in bottom half of first page of activity planner)
 
-	add_to_teaching_cart: function (activity_id, activity_name, activity_classification_image_path) {
+	add_to_teaching_cart: function (activity_id) {
 		that.teaching_cart.push(activity_id)
+		activity = _.find(that.activities, {id: activity_id})
 		
-		tr = $(document.createElement('tr'))
-		td1 = $(document.createElement('td'))
-		td2 = $(document.createElement('td'))
-		td3 = $(document.createElement('td'))
+		TeachingCartItem = React.createClass({
+			render: function () {
+				return (
+					<tr data-model-id={this.props.data.id}>
+						<td className={this.props.data.classification.image_class}></td>
+						<td>{this.props.data.name}</td>
+						<td data-model-id={this.props.data.id} className='icon-x-gray'></td>
+					</tr>
+
+				)
+			}
+		})
+
+		React.render(
+			<TeachingCartItem data={activity} />,
+			$('.teaching-cart tbody')[0]
+		)
 		
-		img1 = $(document.createElement('img'))
-		activity_classification_image_path 
-		img1.attr('src', activity_classification_image_path)
+		$('.icon-x-gray[data-model-id=' + activity_id + ']').click(that.click_cb_teaching_cart_x)
 		
-		td1.append(img1)
-		
-		td2.text(activity_name)
-		tr.append(td1,td2,td3)
-		tr.data('model-id', activity_id)
-		$('.teaching-cart tbody').append(tr)
-		td3.addClass('icon-x-gray')
-		td3.data({'model-id': activity_id})
-		td3.click(that.click_cb_teaching_cart_x)
-			
 		if (that.teaching_cart.length > 0){
 			$('.teaching-cart #continue').show();
 		}
@@ -365,16 +349,7 @@ var lesson_planner_object = {
 		y = $('input[type=checkbox]#' + x + ':checked')
 		activity_id = parseInt($(e.target).attr('data-model-id'))
 		if (y.length > 0) {
-			if (that.search_results_loaded_from_ajax) {
-				
-				activity = _.find(that.activities, {id: activity_id}) 
-				activity_classification_image_path = ''
-				activity_name = activity.name
-			} else {
-				activity_classification_image_path = $(e.target).attr('data-image-path')
-				activity_name = $(e.target).parent().siblings('.activity_name').text().trim()
-			}
-			that.add_to_teaching_cart(activity_id, activity_name, activity_classification_image_path)
+			that.add_to_teaching_cart(activity_id)
 			$(e.target).parent().parent().addClass('active')
 		} else {
 			$(e.target).parent().parent().removeClass('active')

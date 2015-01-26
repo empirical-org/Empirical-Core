@@ -47,20 +47,18 @@ class Teachers::ClassroomManagerController < ApplicationController
     @activity_classifications = @activities.map(&:classification).reject{|ac| ac.nil?}.uniq
     @topics = @activities.map(&:topic).uniq
     @sections = @topics.map(&:section).uniq
-    @activity_classification_image_paths = @activity_classifications.map{|ac| {id: ac.id, image_path: view_context.image_path(image_for_activity_classification_by_id(ac.id))} }
     @number_of_pages = @activities.count/RESULTS_PER_PAGE
     @active_page = 1
     @results_per_page = RESULTS_PER_PAGE
 
 
     @activities = @activities.map{|a| ActivitySerializer.new(a)}
-    
+
     render json: {
       activities: @activities,
       activity_classifications: @activity_classifications,
       topics: @topics,
       sections: @sections,
-      activity_classification_image_paths: @activity_classification_image_paths,
       number_of_pages: @number_of_pages,
       active_page: @active_page
     }

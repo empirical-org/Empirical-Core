@@ -11,7 +11,6 @@
 
 
 
-
 //= require bootstrap-tooltip
 //= require hamlcoffee
 //= require underscore

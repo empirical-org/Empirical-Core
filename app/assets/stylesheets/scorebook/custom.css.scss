@@ -420,11 +420,26 @@ select:focus {
   background-repeat: no-repeat;
   background-position: 11px 7px;
 }
+.icon-puzzle-gray {
+  background-image: image-url('scorebook/icon-puzzle-gray.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
 .icon-flag {
   background-image: image-url('scorebook/icon-flag.png');
   background-repeat: no-repeat;
   background-position: 9px;
 }
+
+.icon-flag-gray {
+  background-image: image-url('scorebook/icon-flag-gray.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
 .icons-description-wrapper {
   float: left;
   position: relative;
@@ -592,6 +607,10 @@ below is obselete for now, changed link to span :
 }
 #activity-planner table#activities_table tbody tr.active td {
   background: #fff !important;
+}
+
+#activity-planner table#activities_table tbody tr td:nth-child(2) {
+  height: 100%;
 }
 
 
