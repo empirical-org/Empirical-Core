@@ -52,6 +52,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     @active_page = 1
     @results_per_page = RESULTS_PER_PAGE
 
+
+    @activities = @activities.map{|a| ActivitySerializer.new(a)}
+    
     render json: {
       activities: @activities,
       activity_classifications: @activity_classifications,

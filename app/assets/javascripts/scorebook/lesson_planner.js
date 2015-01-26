@@ -79,7 +79,11 @@ var lesson_planner_object = {
 			success: function (data, status, jqXHR) {
 				that.search_results_loaded_from_ajax = true;
 				
-				that.activities = data.activities
+				that.activities = _.map(data.activities, function (ele) {
+					return ele.activity
+				})
+				console.log(that.activities)
+				
 				that.activity_classification_image_paths = data.activity_classification_image_paths
 				that.activity_classifications = data.activity_classifications
 				that.sections = data.sections
@@ -87,8 +91,7 @@ var lesson_planner_object = {
 
 				that.number_of_pages = data.number_of_pages
 				that.classrooms = data.classrooms
-				console.log('data returned' ) 
-				console.log(data)
+				
 				that.display_search_results()
 				that.update_filter_options()
 				that.paginate()
@@ -110,11 +113,6 @@ var lesson_planner_object = {
 		for (var i=start_point; i <= end_point; i++) {
 			activity = that.activities[i]
 
-			activity_classification_name = (that.get_resource('activity_classifications', activity.activity_classification_id)).name
-			topic = that.get_resource('topics', activity.topic_id)
-			topic_name = topic.name
-			section_name = (that.get_resource('sections', topic.section_id)).name
-
 			tr = $(document.createElement('tr'))
 			td1 = $(document.createElement('td'))
 			td2 = $(document.createElement('td'))
@@ -134,7 +132,7 @@ var lesson_planner_object = {
 				html: true,
 				toggle: 'tooltip',
 				placement: 'top',
-				title: ("<h1>" + activity.name + "</h1><p>App: " + activity_classification_name + "</p><p>" + activity.description + "</p>")
+				title: ("<h1>" + activity.name + "</h1><p>App: " + activity.classification.name + "</p><p>" + activity.description + "</p>")
 			})
 			checkbox = $(document.createElement('input'))
 			checkbox.attr({
@@ -151,8 +149,10 @@ var lesson_planner_object = {
 			});
 
 			img = $(document.createElement('img'));
-			image_path = that.get_activity_classification_image_path(activity.activity_classification_id)
-			img.attr('src', image_path);
+
+			//image_path = that.get_activity_classification_image_path(activity.activity_classification_id)
+			
+			//img.attr('src', image_path);
 
 			tr.append(td1,td2,td3,td4,td5);
 			td1.append(checkbox, checkbox_label);
@@ -162,8 +162,8 @@ var lesson_planner_object = {
 			tooltip_div.append(img);
 
 			td3.text(activity.name).addClass('activity_name');
-			td4.text(section_name);
-			td5.text(topic_name);
+			td4.text(activity.topic.section.name);
+			td5.text(activity.topic.name);
 			$('#activities_table tbody').append(tr);
 			checkbox.click(that.click_cb_activity_checkbox)
 		}
@@ -182,18 +182,7 @@ var lesson_planner_object = {
 		return image_path
 	},
 
-	get_resource: function (resource_type, id) {
-		resource = {}
-		set = that[resource_type]
-		for (resource_index = 0; resource_index < set.length; resource_index++) {
-			ele = set[resource_index]
-			if (ele.id == id) {
-				resource = ele
-			}
-		}
-		return resource
-	},
-
+	
 	paginate: function () {
 		if (that.number_of_pages < 2) {
 			$('.pagination').hide()
@@ -377,8 +366,9 @@ var lesson_planner_object = {
 		activity_id = parseInt($(e.target).attr('data-model-id'))
 		if (y.length > 0) {
 			if (that.search_results_loaded_from_ajax) {
-				activity = that.get_resource('activities', activity_id)
-				activity_classification_image_path = that.get_activity_classification_image_path(activity.activity_classification_id)
+				
+				activity = _.find(that.activities, {id: activity_id}) 
+				activity_classification_image_path = ''
 				activity_name = activity.name
 			} else {
 				activity_classification_image_path = $(e.target).attr('data-image-path')
@@ -440,21 +430,9 @@ var lesson_planner_object = {
 			data: {activities: that.teaching_cart},
 			success: function (data, status, jqXHR) {
 				$('.assign_activities_progress_bar').removeClass('disabled').addClass('complete')
-				
-				template_string = "<p>hi there <%= key1 %>
-				cool
-				</p>"
-				
-
-
-
-
-
+			
+			
 				template_data = {hi: 'hi', key1: 'dood'}
-				
-				
-
-
 				
 				x1 = _.template(template_string, template_data)
 				
