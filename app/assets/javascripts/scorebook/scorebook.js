@@ -3,6 +3,7 @@
 
 //= require scorebook/jquery-ui-custom.min.js
 //= require scorebook/lodash.min.js
+//= require scorebook/react-0.12.2.js
 
 
 //= require scorebook/selector.js
