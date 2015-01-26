@@ -27,7 +27,7 @@ class ProfilesController < ApplicationController
           .select("activity_sessions.*")
           .first
 
-      @next_activity = @next_activity_session.activity
+      @next_activity = @next_activity_session.activity if @next_activity_session.present?
 
       render 'student', layout: 'scorebook'
     else

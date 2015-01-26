@@ -6,6 +6,10 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'byebug'
 require 'vcr'
+require 'sidekiq/testing'
+
+# Use a fake Sidekiq for Travis (Redis not available)
+Sidekiq::Testing.fake!
 
 # Stub out web requests
 VCR.configure do |c|
