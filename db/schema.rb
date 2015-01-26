@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113170755) do
+ActiveRecord::Schema.define(version: 20150122024256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,7 +170,7 @@ ActiveRecord::Schema.define(version: 20150113170755) do
 
   add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
 
-  create_table "concept_tag_categories", force: true do |t|
+  create_table "concept_classes", force: true do |t|
     t.string "name"
   end
 
@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(version: 20150113170755) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "concept_tag_category_id", null: false
+    t.integer  "concept_class_id",    null: false
     t.string   "additional_concepts"
   end
 
@@ -416,12 +416,23 @@ ActiveRecord::Schema.define(version: 20150113170755) do
     t.integer "id"
   end
 
+  create_table "topic_categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "topic_categories", ["name"], name: "index_topic_categories_on_name", using: :btree
+
   create_table "topics", force: true do |t|
     t.string   "name"
     t.integer  "section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "topic_category_id"
   end
+
+  add_index "topics", ["topic_category_id"], name: "index_topics_on_topic_category_id", using: :btree
 
   create_table "units", force: true do |t|
     t.string  "name"

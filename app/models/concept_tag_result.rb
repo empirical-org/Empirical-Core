@@ -12,9 +12,11 @@ class ConceptTagResult < ActiveRecord::Base
   def extract_tag_from_metadata
     return unless metadata.present?
     tag_name = metadata.delete("concept_tag") # Can't use symbols because it's a JSON hash
-    tag_category_name = metadata.delete("concept_tag_category")
-    self.concept_tag = ConceptTag.joins(:concept_tag_category)
-      .where(name: tag_name, concept_tag_categories: {name: tag_category_name})
-      .first
+    if tag_name.present?
+      tag_category_name = metadata.delete("concept_class")
+      self.concept_tag = ConceptTag.joins(:concept_class)
+        .where(name: tag_name, concept_classes: {name: tag_category_name})
+        .first
+    end
   end
 end
