@@ -122,10 +122,7 @@ group :test, :development do
   gem 'byebug'
   gem 'guard'
   gem 'guard-rspec'
-  # test runs for james; this triggers
-  # a blink1(m) device to show red/green
   gem 'guard-shell'
-  gem 'guard-blink1'
   gem 'terminal-notifier-guard'
 end
 
