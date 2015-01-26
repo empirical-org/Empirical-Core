@@ -17,13 +17,6 @@ describe Section, type: :model do
 				section.valid?
 				expect(section.errors[:name]).to include "can't be blank"
 			end
-
-			it "must have a workbook" do 
-				section.workbook_id=nil
-				section.valid?				
-				expect(section.errors[:workbook]).to include "can't be blank"
-			end
-
 		end
 	end
 end

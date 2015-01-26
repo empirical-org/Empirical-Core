@@ -7,14 +7,5 @@ before_script:
 - cp config/database.yml.travis config/database.yml
 - psql -c 'create database test;' -U postgres
 - ! 'RAILS_ENV=test bundle exec rake db:schema:load || :'
-deploy:
-  provider: heroku
-  api_key:
-    secure: JSezXvZ5GyQcEIaJCuPFf99YBKxZSrVNTAY9SWH2gV3yS5fZoX0Ai0pAmV2Txoyw6aj1JQEIn8kxOLchB74yYtB5xsRen2O6prU2UbODx7iZv3BiYTcjpphEcjrMc1jXmagyhTq6WH7YYZRnEJBMhP6g1q8U7D++2Cg8gW1+DMs=
-  app: empirical-grammar-staging
-  on:
-    repo: empirical-org/quill
-    rvm: 2.0.0
-  run: "rake db:migrate"
 addons:
   postgresql: "9.3"
