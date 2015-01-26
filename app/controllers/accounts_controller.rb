@@ -56,12 +56,13 @@ protected
   # below two methods are repeated in students_controller. need to abstract them into user_model, but first must clear up name splitting db issue
   def capitalize_first_and_last_name 
     # make sure this is called after fix_full_name_in_first_name_field
-    user_params[:first_name].capitalize!
-    user_params[:last_name].capitalize!
+    %i(first_name last_name).each do |sym|
+      user_params[:sym].capitalize! if user_params[:sym]
+    end
   end
 
   def fix_full_name_in_first_name_field
-    if user_params[:last_name].blank? && (f,l = user_params[:first_name].split(/\s+/)).length > 1
+    if user_params[:first_name].present? && user_params[:last_name].blank? && (f,l = user_params[:first_name].split(/\s+/)).length > 1
       user_params[:first_name] = f
       user_params[:last_name] = l
     end
