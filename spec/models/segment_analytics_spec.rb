@@ -5,21 +5,25 @@ describe SegmentAnalytics, :type => :model do
   let(:analytics) { SegmentAnalytics.new }
 
   context 'tracking student account creation' do
+    let(:student) { FactoryGirl.create(:student) }
+
+    let(:track_calls) { analytics.backend.track_calls }
+    let(:identify_calls) { analytics.backend.identify_calls }
+
     context 'when the user registered through the home page' do
       it 'identifies the new user and sends an event' do
-        student = FactoryGirl.create(:student)
         analytics.track_student_creation(student)
-        identify_calls = analytics.backend.identify_calls
-        track_calls = analytics.backend.track_calls
         expect(identify_calls.size).to eq(1)
         expect(track_calls.size).to eq(1)
         expect(track_calls[0][:user_id]).to eq(student.id)
         expect(track_calls[0][:properties][:student][:id]).to eq(student.id)
+        expect(track_calls[0][:properties][:student]).to_not have_key(:password_digest)
       end
     end
 
-    context 'when the user was created by the teacher' do
-      it 'identifies the new user and sends an event with info about the teacher'
+    context 'when the student was created by the teacher' do
+      it 'identifies the new user and sends an event with info about the teacher' do
+      end
     end
   end
 

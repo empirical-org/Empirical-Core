@@ -30,7 +30,7 @@ class SegmentAnalytics
       user_id: student_user.id,
       event: 'Student Account Creation',
       properties: {
-        student: student_user
+        student: StudentSerializer.new(student_user).as_json(root: false)
       }
     })
   end
