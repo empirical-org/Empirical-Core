@@ -1,6 +1,7 @@
+require 'segment_io'
+
 if !Rails.env.test?
-  SegmentAnalytics.backend = Segment::Analytics.new({
-    write_key: ENV['SEGMENT_WRITE_KEY'],
-    on_error: Proc.new { |status, msg| print msg }
-  })
+  SegmentIo.configure do |c|
+    c.write_key = ENV['SEGMENT_WRITE_KEY']
+  end
 end
