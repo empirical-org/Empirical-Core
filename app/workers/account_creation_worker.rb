@@ -14,7 +14,7 @@ class AccountCreationWorker
 
 
     # tell keen
-    Keen.publish(:accounts, {event: 'creation', role: @user.role, classcode: @user.classcode})
+    KeenWrapper.publish(:accounts, {event: 'creation', role: @user.role, classcode: @user.classcode})
 
   end
 end

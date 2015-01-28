@@ -18,7 +18,7 @@ class UserLoginWorker
         }]
     }
 
-    Keen.publish(:login, data)
+    KeenWrapper.publish(:login, data)
 
   end
 end
