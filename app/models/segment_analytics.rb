@@ -28,9 +28,20 @@ class SegmentAnalytics
     identify(student_user)
     track({
       user_id: student_user.id,
-      event: 'Student Account Creation',
+      event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION,
       properties: {
         student: StudentSerializer.new(student_user).as_json(root: false)
+      }
+    })
+  end
+
+  def track_teacher_creation(teacher_user)
+    identify(teacher_user)
+    track({
+      user_id: teacher_user.id,
+      event: SegmentIo::Events::TEACHER_ACCOUNT_CREATION,
+      properties: {
+        teacher: TeacherSerializer.new(teacher_user).as_json(root: false)
       }
     })
   end

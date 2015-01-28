@@ -4,31 +4,35 @@ describe SegmentAnalytics, :type => :model do
 
   let(:analytics) { SegmentAnalytics.new }
 
+  let(:track_calls) { analytics.backend.track_calls }
+  let(:identify_calls) { analytics.backend.identify_calls }
+
   context 'tracking student account creation' do
     let(:student) { FactoryGirl.create(:student) }
-
-    let(:track_calls) { analytics.backend.track_calls }
-    let(:identify_calls) { analytics.backend.identify_calls }
-
-    context 'when the user registered through the home page' do
-      it 'identifies the new user and sends an event' do
-        analytics.track_student_creation(student)
-        expect(identify_calls.size).to eq(1)
-        expect(track_calls.size).to eq(1)
-        expect(track_calls[0][:user_id]).to eq(student.id)
-        expect(track_calls[0][:properties][:student][:id]).to eq(student.id)
-        expect(track_calls[0][:properties][:student]).to_not have_key(:password_digest)
-      end
-    end
-
-    context 'when the student was created by the teacher' do
-      it 'identifies the new user and sends an event with info about the teacher' do
-      end
+    
+    it 'identifies the new user and sends an event' do
+      analytics.track_student_creation(student)
+      expect(identify_calls.size).to eq(1)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::Events::STUDENT_ACCOUNT_CREATION)
+      expect(track_calls[0][:user_id]).to eq(student.id)
+      expect(track_calls[0][:properties][:student][:id]).to eq(student.id)
+      expect(track_calls[0][:properties][:student]).to_not have_key(:password_digest)
     end
   end
 
   context 'tracking teacher account creation' do
-    it 'identifies the new user and send an event'
+    let(:teacher) { FactoryGirl.create(:teacher) }
+
+    it 'identifies the new user and send an event' do
+      analytics.track_teacher_creation(teacher)
+      expect(identify_calls.size).to eq(1)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::Events::TEACHER_ACCOUNT_CREATION)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:teacher][:id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:teacher]).to_not have_key(:password_digest)
+    end
   end
 
   context 'teacher signin' do
