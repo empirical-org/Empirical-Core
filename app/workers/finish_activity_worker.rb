@@ -26,7 +26,7 @@ class FinishActivityWorker
     end
 
     # publish event data
-    Keen.publish(:activity_sessions, event_data)
+    KeenWrapper.publish(:activity_sessions, event_data)
 
     # add it to the student's scorebook
     #
