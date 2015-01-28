@@ -17,5 +17,6 @@ module SegmentIo
     STUDENT_ACCOUNT_CREATION = 'Student Account Creation'
     TEACHER_ACCOUNT_CREATION = 'Teacher Account Creation'
     CLASSROOM_CREATION = 'Classroom Creation'
+    ACTIVITY_COMPLETION = 'Activity Completion'
   end
 end

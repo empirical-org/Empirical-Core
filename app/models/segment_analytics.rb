@@ -24,6 +24,17 @@ class SegmentAnalytics
   #  )
   # end
 
+  def track_activity_completion(activity_session)
+    track({
+      user_id: activity_session.user_id,
+      event: SegmentIo::Events::ACTIVITY_COMPLETION,
+      properties: {
+        activity_session: ActivitySessionSerializer.new(activity_session).as_json(root: false),
+        activity: ActivitySerializer.new(activity_session.activity).as_json(root: false),
+      }
+    })
+  end
+
   def track_classroom_creation(classroom)
     track({
       user_id: classroom.teacher.id,

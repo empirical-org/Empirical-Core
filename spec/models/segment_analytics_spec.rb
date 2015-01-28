@@ -51,19 +51,35 @@ describe SegmentAnalytics, :type => :model do
     end
   end
 
+  context 'tracking activity completion' do
+    let(:activity_session) { FactoryGirl.create(:activity_session, state: 'finished') }
+
+    it 'sends an event with info about the activity session, activity, and student' do
+      analytics.track_activity_completion(activity_session)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::Events::ACTIVITY_COMPLETION)
+      expect(track_calls[0][:user_id]).to eq(activity_session.user.id)
+      expect(track_calls[0][:properties][:activity_session].keys).to eq([
+        :uid, :percentage, :time_spent, :state, :completed_at, :data, :temporary, 
+        :activity_uid, :anonymous, :concept_tag_results])
+      expect(track_calls[0][:properties][:activity].keys).to eq([
+        :uid, :name, :description, :flags, :data, :created_at, :updated_at, :classification, 
+        :topic])
+    end
+  end
+
+  context 'tracking activity assignment' do
+    it 'sends an event with info about the teacher, student, and activity' do
+
+    end
+  end
+
   context 'teacher signin' do
     it 'identifies the teacher who signed in and sends an event'
   end
 
   context 'student signin' do
     it 'identifies the student who signed in and sends an event'
-  end
-
-  context 'tracking activity assignment' do
-    it 'sends an event with info about the teacher, student, and activity'
-  end
-
-  context 'tracking activity completion' do
-    it 'sends an event with info about the activity and student'
   end
 end
