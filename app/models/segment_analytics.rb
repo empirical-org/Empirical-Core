@@ -60,12 +60,7 @@ class SegmentAnalytics
   end
 
   def user_traits(user)
-    {
-      # email: user.email,
-      # first_name: user.first_name,
-      # last_name: user.last_name,
-      # city_state: user.city_state,
-    }.reject { |key, value| value.blank? }
+    UserSerializer.new(user).as_json(root: false)
   end
 
   def track(options)
