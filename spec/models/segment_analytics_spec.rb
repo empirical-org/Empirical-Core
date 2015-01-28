@@ -10,16 +10,42 @@ describe SegmentAnalytics, :type => :model do
   context 'tracking student account creation' do
     let(:student) { FactoryGirl.create(:student) }
     
-    it 'identifies the new user and sends an event' do
+    it 'identifies the new user' do
       analytics.track_student_creation(student)
       expect(identify_calls.size).to eq(1)
+      expect(identify_calls[0][:user_id]).to eq(student.id)
       # Has the keys defined by UserSerializer
       expect(identify_calls[0][:traits].keys).to eq([:id, :name, :role, :active, :classcode, :username, :ip_address, :schools])
+    end
+
+    it 'sends an event' do
+      analytics.track_student_creation(student)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::STUDENT_ACCOUNT_CREATION)
       expect(track_calls[0][:user_id]).to eq(student.id)
       expect(track_calls[0][:properties][:student][:id]).to eq(student.id)
       expect(track_calls[0][:properties][:student]).to_not have_key(:password_digest)
+    end
+  end
+
+  context 'tracking student account creation by teacher' do
+    let(:teacher) { FactoryGirl.create(:teacher) }
+    let(:student) { FactoryGirl.create(:student) }
+
+    it 'identifies the new student user' do
+      analytics.track_student_creation_by_teacher(teacher, student)
+      expect(identify_calls.size).to eq(1)
+      expect(identify_calls[0][:user_id]).to eq(student.id)
+      expect(identify_calls[0][:traits].keys).to eq([:id, :name, :role, :active, :classcode, :username, :ip_address, :schools])
+    end
+
+    it 'sends an event with info about the teacher and student' do
+      analytics.track_student_creation_by_teacher(teacher, student)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:event]).to eq(SegmentIo::Events::STUDENT_ACCOUNT_CREATION_BY_TEACHER)
+      expect(track_calls[0][:properties][:student][:id]).to eq(student.id)
+      expect(track_calls[0][:properties][:student][:name]).to eq(student.name)
     end
   end
 
@@ -29,6 +55,10 @@ describe SegmentAnalytics, :type => :model do
     it 'identifies the new user and send an event' do
       analytics.track_teacher_creation(teacher)
       expect(identify_calls.size).to eq(1)
+    end
+
+    it 'sends an event' do
+      analytics.track_teacher_creation(teacher)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::TEACHER_ACCOUNT_CREATION)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
