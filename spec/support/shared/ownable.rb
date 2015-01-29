@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 shared_examples_for "ownable" do
 
   let(:owner_name){ described_class.owner_name } 
