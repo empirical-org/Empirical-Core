@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Api::V1::PingController, :type => :controller do
   describe 'GET #show' do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe SectionSerializer, type: :serializer do
   let!(:section) { FactoryGirl.create(:section, workbook: FactoryGirl.create(:workbook)) }

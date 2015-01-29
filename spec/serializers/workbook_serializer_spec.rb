@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe WorkbookSerializer, type: :serializer do
   let!(:workbook) { FactoryGirl.create(:workbook) }
