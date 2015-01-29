@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe TopicSerializer, type: :serializer do
   let(:topic)      { FactoryGirl.create(:topic) }

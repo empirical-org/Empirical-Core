@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe ClassificationSerializer, type: :serializer do
   let(:classification) { FactoryGirl.create(:classification) }
