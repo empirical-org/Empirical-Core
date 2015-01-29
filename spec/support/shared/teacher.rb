@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 shared_examples_for "teacher" do
 
   let(:teacher) { FactoryGirl.build(:classroom) }
