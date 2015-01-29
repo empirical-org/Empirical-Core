@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 shared_context "calling the api" do
   render_views
 
