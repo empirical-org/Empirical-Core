@@ -501,8 +501,8 @@ describe User, :type => :model do
 
     it "calls MailchimpConnection subscribe when newletter attribute is 1" do
       user.newsletter="1"
-      expect(MailchimpConnection).to receive(:connection).at_least(:once).and_return(true)
-      expect(MailchimpConnection.connection).to receive(:lists).at_least(:once).and_return([])
+      expect(MailchimpConnection).to receive(:connection).at_least(:once).and_return(double())
+      expect(MailchimpConnection.connection).to receive(:lists).at_least(:once).and_return(double())
       expect(MailchimpConnection.connection.lists).to receive(:subscribe).and_return(true)
       user.send(:subscribe_to_newsletter)
     end
