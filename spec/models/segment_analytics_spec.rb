@@ -23,8 +23,6 @@ describe SegmentAnalytics, :type => :model do
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::STUDENT_ACCOUNT_CREATION)
       expect(track_calls[0][:user_id]).to eq(student.id)
-      expect(track_calls[0][:properties][:student][:id]).to eq(student.id)
-      expect(track_calls[0][:properties][:student]).to_not have_key(:password_digest)
     end
   end
 
@@ -44,8 +42,6 @@ describe SegmentAnalytics, :type => :model do
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::STUDENT_ACCOUNT_CREATION_BY_TEACHER)
-      expect(track_calls[0][:properties][:student][:id]).to eq(student.id)
-      expect(track_calls[0][:properties][:student][:name]).to eq(student.name)
     end
   end
 
@@ -62,8 +58,6 @@ describe SegmentAnalytics, :type => :model do
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::TEACHER_ACCOUNT_CREATION)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
-      expect(track_calls[0][:properties][:teacher][:id]).to eq(teacher.id)
-      expect(track_calls[0][:properties][:teacher]).to_not have_key(:password_digest)
     end
   end
 
@@ -76,8 +70,6 @@ describe SegmentAnalytics, :type => :model do
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::CLASSROOM_CREATION)
       expect(track_calls[0][:user_id]).to eq(classroom.teacher.id)
-      expect(track_calls[0][:properties][:teacher][:id]).to eq(classroom.teacher.id)
-      expect(track_calls[0][:properties][:classroom].keys).to eq([:id, :name, :code, :grade])
     end
   end
 
@@ -90,12 +82,6 @@ describe SegmentAnalytics, :type => :model do
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::ACTIVITY_COMPLETION)
       expect(track_calls[0][:user_id]).to eq(activity_session.user.id)
-      expect(track_calls[0][:properties][:activity_session].keys).to eq([
-        :uid, :percentage, :time_spent, :state, :completed_at, :data, :temporary, 
-        :activity_uid, :anonymous, :concept_tag_results])
-      expect(track_calls[0][:properties][:activity].keys).to eq([
-        :uid, :name, :description, :flags, :data, :created_at, :updated_at, :classification, 
-        :topic])
     end
   end
 
