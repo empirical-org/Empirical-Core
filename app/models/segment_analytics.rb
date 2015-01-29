@@ -27,33 +27,22 @@ class SegmentAnalytics
   def track_activity_completion(activity_session)
     track({
       user_id: activity_session.user_id,
-      event: SegmentIo::Events::ACTIVITY_COMPLETION,
-      properties: {
-        activity_session: ActivitySessionSerializer.new(activity_session).as_json(root: false),
-        activity: ActivitySerializer.new(activity_session.activity).as_json(root: false),
-      }
+      event: SegmentIo::Events::ACTIVITY_COMPLETION
     })
   end
 
   def track_classroom_creation(classroom)
     track({
       user_id: classroom.teacher.id,
-      event: SegmentIo::Events::CLASSROOM_CREATION,
-      properties: {
-        teacher: TeacherSerializer.new(classroom.teacher).as_json(root: false),
-        classroom: ClassroomSerializer.new(classroom).as_json(root: false)
-      }
+      event: SegmentIo::Events::CLASSROOM_CREATION
     })
   end
 
-  def track_student_creation(student_user)
-    identify(student_user)
+  def track_student_creation(student)
+    identify(student)
     track({
-      user_id: student_user.id,
-      event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION,
-      properties: {
-        student: StudentSerializer.new(student_user).as_json(root: false)
-      }
+      user_id: student.id,
+      event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION
     })
   end
 
@@ -61,21 +50,15 @@ class SegmentAnalytics
     identify(student)
     track({
       user_id: teacher.id,
-      event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION_BY_TEACHER,
-      properties: {
-        student: StudentSerializer.new(student).as_json(root: false)
-      }
+      event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION_BY_TEACHER
     })
   end
 
-  def track_teacher_creation(teacher_user)
-    identify(teacher_user)
+  def track_teacher_creation(teacher)
+    identify(teacher)
     track({
-      user_id: teacher_user.id,
-      event: SegmentIo::Events::TEACHER_ACCOUNT_CREATION,
-      properties: {
-        teacher: TeacherSerializer.new(teacher_user).as_json(root: false)
-      }
+      user_id: teacher.id,
+      event: SegmentIo::Events::TEACHER_ACCOUNT_CREATION
     })
   end
 
