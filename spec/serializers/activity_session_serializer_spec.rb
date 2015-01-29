@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe ActivitySessionSerializer, type: :serializer do
   let(:concept_class)              { FactoryGirl.create(:concept_class) }
