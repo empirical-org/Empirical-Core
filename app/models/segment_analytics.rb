@@ -93,7 +93,7 @@ class SegmentAnalytics
   end
 
   def user_traits(user)
-    UserSerializer.new(user).as_json(root: false)
+    SegmentAnalyticsUserSerializer.new(user).as_json(root: false)
   end
 
   def track(options)
