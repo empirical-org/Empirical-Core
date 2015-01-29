@@ -40,11 +40,3 @@ end
 
 # for blink1 notifications
 notification(:file, path: '.guard_result')
-
-require 'guard_blink1'
-guard :shell do
-  watch '.guard_result' do
-    firstline =  File.read('.guard_result').lines.first.strip
-    GuardBlink1.blink_colour(firstline)
-  end
-end
