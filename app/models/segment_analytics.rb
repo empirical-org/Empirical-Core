@@ -12,17 +12,12 @@ class SegmentAnalytics
     })
   end
 
-  # All events should be defined as instance methods like so:
-  #
-  # def track_user_sign_in
-  #  identify
-  #  track(
-  #    {
-  #      user_id: user.id,
-  #      event: 'Sign In User'
-  #    }
-  #  )
-  # end
+  def track_activity_assignment(teacher)
+    track({
+      user_id: teacher.id,
+      event: SegmentIo::Events::ACTIVITY_ASSIGNMENT
+    })
+  end
 
   def track_activity_completion(activity_session)
     track({
