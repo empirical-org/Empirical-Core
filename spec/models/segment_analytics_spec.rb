@@ -14,7 +14,6 @@ describe SegmentAnalytics, :type => :model do
       analytics.track_student_creation(student)
       expect(identify_calls.size).to eq(1)
       expect(identify_calls[0][:user_id]).to eq(student.id)
-      # Has the keys defined by UserSerializer
       expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
     end
 
@@ -37,7 +36,7 @@ describe SegmentAnalytics, :type => :model do
       expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
     end
 
-    it 'sends an event with info about the teacher and student' do
+    it 'sends an event' do
       analytics.track_student_creation_by_teacher(teacher, student)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
@@ -64,7 +63,7 @@ describe SegmentAnalytics, :type => :model do
   context 'tracking classroom creation' do
     let(:classroom) { FactoryGirl.create(:classroom) }
 
-    it 'sends an event with info about the new classroom' do
+    it 'sends an event' do
       analytics.track_classroom_creation(classroom)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
@@ -76,7 +75,7 @@ describe SegmentAnalytics, :type => :model do
   context 'tracking activity completion' do
     let(:activity_session) { FactoryGirl.create(:activity_session, state: 'finished') }
 
-    it 'sends an event with info about the activity session, activity, and student' do
+    it 'sends an event' do
       analytics.track_activity_completion(activity_session)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
@@ -86,8 +85,14 @@ describe SegmentAnalytics, :type => :model do
   end
 
   context 'tracking activity assignment' do
-    it 'sends an event with info about the teacher, student, and activity' do
+    let(:teacher) { FactoryGirl.create(:teacher) }
 
+    it 'sends an event' do
+      analytics.track_activity_assignment(teacher)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::Events::ACTIVITY_ASSIGNMENT)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
     end
   end
 
