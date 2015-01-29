@@ -1,3 +1,3 @@
 class SegmentAnalyticsUserSerializer < UserSerializer
-  attributes :email
+  attributes :email, :created_at
 end

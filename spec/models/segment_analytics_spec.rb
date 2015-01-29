@@ -15,7 +15,7 @@ describe SegmentAnalytics, :type => :model do
       expect(identify_calls.size).to eq(1)
       expect(identify_calls[0][:user_id]).to eq(student.id)
       # Has the keys defined by UserSerializer
-      expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :classcode, :username, :ip_address, :schools, :email)
+      expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
     end
 
     it 'sends an event' do
@@ -36,7 +36,7 @@ describe SegmentAnalytics, :type => :model do
       analytics.track_student_creation_by_teacher(teacher, student)
       expect(identify_calls.size).to eq(1)
       expect(identify_calls[0][:user_id]).to eq(student.id)
-      expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :classcode, :username, :ip_address, :schools, :email)
+      expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
     end
 
     it 'sends an event with info about the teacher and student' do
