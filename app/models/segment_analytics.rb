@@ -21,7 +21,7 @@ class SegmentAnalytics
 
   def track_activity_completion(activity_session)
     track({
-      user_id: activity_session.user_id,
+      user_id: activity_session.classroom.teacher.id,
       event: SegmentIo::Events::ACTIVITY_COMPLETION
     })
   end
@@ -30,14 +30,6 @@ class SegmentAnalytics
     track({
       user_id: classroom.teacher.id,
       event: SegmentIo::Events::CLASSROOM_CREATION
-    })
-  end
-
-  def track_student_creation(student)
-    identify(student)
-    track({
-      user_id: student.id,
-      event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION
     })
   end
 
