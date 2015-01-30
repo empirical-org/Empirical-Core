@@ -77,7 +77,21 @@ describe SegmentAnalytics, :type => :model do
     end
   end
 
-  context 'teacher signin' do
-    it 'identifies the teacher who signed in and sends an event'
+  context 'tracking teacher signin' do
+    let(:teacher) { FactoryGirl.create(:teacher) }
+
+    it 'identifies the teacher who signed in' do
+      analytics.track_teacher_signin(teacher)
+      expect(identify_calls.size).to eq(1)
+      expect(identify_calls[0][:user_id]).to eq(teacher.id)
+      expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
+    end
+
+    it 'sends an event' do
+      analytics.track_teacher_signin(teacher)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::Events::TEACHER_SIGNIN)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)      
+    end
   end
 end
