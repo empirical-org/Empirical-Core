@@ -48,6 +48,14 @@ class SegmentAnalytics
     })
   end
 
+  def track_teacher_signin(teacher)
+    identify(teacher)
+    track({
+      user_id: teacher.id,
+      event: SegmentIo::Events::TEACHER_SIGNIN
+    })
+  end
+
   private
 
   def identify(user)
