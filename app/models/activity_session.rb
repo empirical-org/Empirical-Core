@@ -37,7 +37,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def classroom
-    classroom_chapter.classroom
+    unit.classroom
   end
 
   def percentage_color

@@ -14,7 +14,6 @@ module SegmentIo
   end
 
   module Events
-    STUDENT_ACCOUNT_CREATION = 'Student created an account'
     TEACHER_ACCOUNT_CREATION = 'Teacher created an account'
     CLASSROOM_CREATION = 'Teacher created a classroom'
     ACTIVITY_COMPLETION = 'Student completed an activity'
