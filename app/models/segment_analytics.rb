@@ -34,7 +34,6 @@ class SegmentAnalytics
   end
 
   def track_student_creation_by_teacher(teacher, student)
-    identify(student)
     track({
       user_id: teacher.id,
       event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION_BY_TEACHER
