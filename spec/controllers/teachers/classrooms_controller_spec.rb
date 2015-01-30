@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Teachers::ClassroomsController, type: :controller do 
   describe 'creating a classroom' do
+    render_views
     let(:teacher) { FactoryGirl.create(:teacher) }
 
     before do
@@ -13,6 +14,11 @@ describe Teachers::ClassroomsController, type: :controller do
         post :create, classroom: {name: 'My Class', grade: '8', code: 'whatever-whatever'}
         expect(response.status).to eq(302) # Redirects after success
       }.to change(ClassroomCreationWorker.jobs, :size).by(1)
+    end
+
+    it 'displays the form' do
+      get :new
+      expect(response.status).to eq(200)
     end
   end
 end
