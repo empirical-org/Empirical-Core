@@ -7,17 +7,17 @@ class Teachers::UnitsController < ApplicationController
 	  # TODO refactor models to get rid of classroom_activity, its unneccessary
     
     # create a unit
-    unit = Unit.create name: params[:unit_name]
+    unit = Unit.create name: params[:unitName]
 
     # create a classroom_activity
-    x1 = params[:pairs_of_activity_id_and_due_date]
+    x1 = params[:pairsOfActivityIdAndDueDate]
     (JSON.parse(x1)).each do |pair|
-      due_date = pair['due_date']
-      activity_id = pair['activity_id']
-      classrooms = JSON.parse(params[:selected_classrooms])
+      due_date = pair['dueDate']
+      activity_id = pair['activityId']
+      classrooms = JSON.parse(params[:selectedClassrooms])
       classrooms.each do |classroom|
-        student_ids = (classroom['all_students'] == true) ? nil : classroom['student_ids']
-        unit.classroom_activities.create activity_id: activity_id, classroom_id: classroom['classroom_id'], assigned_student_ids: student_ids, due_date: due_date
+        student_ids = (classroom['allStudents'] == true) ? nil : classroom['studentIds']
+        #unit.classroom_activities.create activity_id: activity_id, classroom_id: classroom['classroom_id'], assigned_student_ids: student_ids, due_date: due_date
       end
     end
 

@@ -35,7 +35,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     @activities = Activity.includes(:classification, :topic => :section)
                     .where("'production' = ANY(activities.flags)")
-                    .where("((activities.name ILIKE '%#{params[:search_query]}%') OR (topics.name ILIKE '%#{params[:search_query]}%')) #{filter_string}")
+                    .where("((activities.name ILIKE '%#{params[:searchQuery]}%') OR (topics.name ILIKE '%#{params[:searchQuery]}%')) #{filter_string}")
                     .order(sort_string).references(:topic)
 
     @activity_classification_aliases = [

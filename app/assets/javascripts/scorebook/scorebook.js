@@ -10,7 +10,9 @@
 //= require scorebook/custom
 
 //= require scorebook/create_a_class.js
-//= require scorebook/lesson_planner.js
+
+//= require scorebook/lesson_planner/lesson_planner.js
+//= require scorebook/lesson_planner/activity_search.js
 
 //= require jquery.turbolinks
 //= require jquery_ujs

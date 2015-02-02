@@ -152,6 +152,10 @@ button:not(.select-mixin):active {
 .button-green:hover {
   background-color: #44b49a;
 }
+
+.button-green#assign {
+  float:right;
+}
 /* ==========================================================================
    Navbar styles
    ========================================================================== */
