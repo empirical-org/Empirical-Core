@@ -20,7 +20,7 @@ class StartActivityWorker
     activity_session.update_columns(started_at: start_time)
 
     # publish event data
-    Keen.publish(:activity_sessions, activity_session.as_keen)
+    KeenWrapper.publish(:activity_sessions, activity_session.as_keen)
 
     # add it to the student's scorebook
     #
