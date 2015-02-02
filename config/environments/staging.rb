@@ -69,6 +69,7 @@ EmpiricalGrammar::Application.configure do
                                  cms.js
                                  cms.css
                                  scorebook/*
+                                 scorebook/**/*
                                  scorebook/scorebook.css.scss
                                  scorebook/scorebook.js
 
