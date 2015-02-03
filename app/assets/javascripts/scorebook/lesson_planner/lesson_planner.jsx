@@ -76,30 +76,42 @@ EC.LessonPlanner = React.createClass({
 		$.ajax({
 			url: '/teachers/classrooms/search_activities',
 			context: this,
-			data: {
-				searchQuery: this.state.query,
-				filters: JSON.stringify(this.state.filters),
-				sort: this.state.sort
-			},
+			data: this.searchRequestData(),
 			success: this.searchRequestSuccess,
 			error: function () {
 				//console.log('error searching activities');
 			}
 		});
-
-		
 	},
+
+	searchRequestData: function() {
+		var filters = this.state.filters.map(function(filter) {
+			return {
+				field: filter['field'],
+				selected: filter['selected']
+			}
+		});
+
+		return {
+				search: {
+					search_query: this.state.query,
+					filters: filters,
+					sort: this.state.sort,
+				}
+			}
+	},
+
 	searchRequestSuccess: function (data) {
 		console.log('filters before: ')
 		console.log(this.state.filters)
-		filters = _.map(this.state.filters, function (filter) {
+		var filters = _.map(this.state.filters, function (filter) {
 			key = filter.field + 's';
 			filter.options = data[key];
 			return filter;
 		}, this);
 
 
-		hash = {
+		var hash = {
 			activitySearchResults: data.activities,
 			filters: filters,
 			numberOfPages: data.number_of_pages
@@ -132,7 +144,7 @@ EC.LessonPlanner = React.createClass({
 
 	},
 	selectFilterOption: function (field, optionId) {
-		filters = _.map(this.state.filters, function (filter) {
+		var filters = _.map(this.state.filters, function (filter) {
 			if (filter.field == field) {
 				filter.selected = optionId;
 			}
@@ -143,7 +155,7 @@ EC.LessonPlanner = React.createClass({
 
 	},
 	updateSort: function (field, asc_or_desc) {
-		sorts = _.map(this.state.sorts, function (sort) {
+		var sorts = _.map(this.state.sorts, function (sort) {
 			if (sort.field == field) {
 				sort.selected = true;
 				sort.asc_or_desc = asc_or_desc;
