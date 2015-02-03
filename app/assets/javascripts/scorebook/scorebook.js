@@ -9,10 +9,13 @@
 //= require scorebook/selector.js
 //= require scorebook/custom
 
-//= require scorebook/create_a_class.js
 
-//= require scorebook/lesson_planner/lesson_planner.js
-//= require scorebook/lesson_planner/activity_search.js
+
+//= require scorebook/empirical_core.js
+//= require_tree ./
+//= require_tree ./lesson_planner/
+
+
 
 //= require jquery.turbolinks
 //= require jquery_ujs
