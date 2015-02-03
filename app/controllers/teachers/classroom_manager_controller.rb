@@ -36,7 +36,7 @@ class Teachers::ClassroomManagerController < ApplicationController
         sql_format: 'activity_classifications'
       },
       {
-        camel_case: 'topic'
+        camel_case: 'topic',
         sql_format: 'topics'
       },
       {
@@ -67,7 +67,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     @activities = Activity.includes(:classification, :topic => :section)
                     .where("'production' = ANY(activities.flags)")
                     .where("((activities.name ILIKE '%#{params[:searchQuery]}%') OR (topics.name ILIKE '%#{params[:searchQuery]}%'))")
-                    .where()
                     .order(sort_string).references(:topic)
 
    
