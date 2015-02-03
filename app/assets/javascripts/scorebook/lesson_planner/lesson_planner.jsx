@@ -200,8 +200,7 @@ EC.LessonPlanner = React.createClass({
 
 						<div className='fake-border'></div>
 
-						<EC.Pagination currentPage = {this.state.currentPage} numberOfPages={this.state.numberOfPages}  />
-
+						
 						<EC.SelectedActivities unitName={this.state.unitName} selectedActivities = {this.state.selectedActivities} toggleActivitySelection={this.toggleActivitySelection} />
 					
 					</section>
