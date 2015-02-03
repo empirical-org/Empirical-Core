@@ -28,51 +28,10 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
     # sort_string = (params['sort']['field'].length > 0) ? "#{params['sort']['field']}s #{params['sort']['asc_or_desc']}" : "activities.name ASC"
-    filter_string = ''
 
-    filter_fields = [
-      {
-        camel_case: 'activityClassification',
-        sql_format: 'activity_classifications'
-      },
-      {
-        camel_case: 'topic',
-        sql_format: 'topics'
-      },
-      {
-        camel_case: 'section',
-        sql_format: 'sections'
-      }   
-    ]
-    
-    arr = []
-    filter_fields.each do |filter_field|
-      match = JSON.parse(params['filters']).find{|ele| ele['field'] == filter_field[:camel_case]}
-      if match['selected'].present?
-        hash = {
-          field: filter_field[:sql_format],
-          id: match['selected']
-        }
-        arr.push hash
-      end
-    end
+    # This is coming in as an hash of hashes with keys "0", "1", "2".
 
-
-
-
-
-    sort_string = "activities.name ASC"
-
-
-
-
-    @activities = Activity.includes(:classification, :topic => :section)
-                    .where("'production' = ANY(activities.flags)")
-                    .where("((activities.name ILIKE '%#{params[:searchQuery]}%') OR (topics.name ILIKE '%#{params[:searchQuery]}%'))")
-                    .order(sort_string).references(:topic)
-
-   
-                    
+    @activities = Activity.search(search_params[:search_query], search_filters, "activities.name ASC")
     @activity_classifications = @activities.map(&:classification).reject{|ac| ac.nil?}.uniq
     @topics = @activities.map(&:topic).uniq
     @sections = @topics.map(&:section).uniq
@@ -138,7 +97,24 @@ class Teachers::ClassroomManagerController < ApplicationController
     auth_failed unless @classroom.teacher == current_user
   end
 
+  def search_filters
+    filter_fields = [:activity_classifications, :topics, :sections]
+    search_params[:filters].reduce({}) do |acc, filter|
+      filter_value = filter[1]
+      # activityClassification -> activity_classifications
+      # Just for the record, this is a terrible hacky workaround.
+      model_name = filter_value['field'].to_s.pluralize.underscore.to_sym
+      model_id = filter_value['selected'].to_i
+      if filter_fields.include?(model_name) and !model_id.zero?
+        acc[model_name] = model_id
+      end
+      acc
+    end
+  end
 
+  def search_params
+    params.require(:search).permit([:search_query, {filters: [:field, :selected]}])
+  end
 
 end
 

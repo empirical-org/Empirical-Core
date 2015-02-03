@@ -19,6 +19,21 @@ class Activity < ActiveRecord::Base
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
+  # filters = hash of model_name/model_id pairs
+  def self.search(search_text, filters, sort)
+    query = includes(:classification, :topic => :section)
+      .where("'production' = ANY(activities.flags)")
+      .where("(activities.name ILIKE ?) OR (topics.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
+      .order(sort).references(:topic)
+
+    # Sorry for the meta-programming.
+    filters.each do |model_name, model_id| # :activity_classifications, 123
+      query = query.where("#{model_name}.id = ?", model_id)
+    end
+
+    query
+  end
+
   def classification_key= key
     self.classification = ActivityClassification.find_by_key(key)
   end
