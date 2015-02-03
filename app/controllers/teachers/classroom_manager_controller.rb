@@ -13,54 +13,81 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def lesson_planner
-    @filters = [
-       {type: 'activity_classification', alias: 'App'},
-       {type: 'topic', alias: 'Concept'},
-       {type: 'section', alias: 'Level'}
-     ]
+
   end
 
   def search_activities
     
-    filter_string = ''
-    params['filters'].each do |pair| 
-      filter_string = "#{filter_string} AND #{pair[0]}s.id = #{pair[1]}" if pair[1].length > 0
-    end
+    # filter_string = ''
+    # params['filters'].each do |pair| 
+    #   filter_string = "#{filter_string} AND #{pair[0]}s.id = #{pair[1]}" if pair[1].length > 0
+    # end
     
-    filter_string = (filter_string)
+    # filter_string = (filter_string)
 
 
 
-    sort_string = (params['sort']['field'].length > 0) ? "#{params['sort']['field']}s #{params['sort']['asc_or_desc']}" : "activities.name ASC"
+    # sort_string = (params['sort']['field'].length > 0) ? "#{params['sort']['field']}s #{params['sort']['asc_or_desc']}" : "activities.name ASC"
+    filter_string = ''
+
+    filter_fields = [
+      {
+        camel_case: 'activityClassification',
+        sql_format: 'activity_classifications'
+      },
+      {
+        camel_case: 'topic'
+        sql_format: 'topics'
+      },
+      {
+        camel_case: 'section',
+        sql_format: 'sections'
+      }   
+    ]
+    
+    arr = []
+    filter_fields.each do |filter_field|
+      match = JSON.parse(params['filters']).find{|ele| ele['field'] == filter_field[:camel_case]}
+      if match['selected'].present?
+        hash = {
+          field: filter_field[:sql_format],
+          id: match['selected']
+        }
+        arr.push hash
+      end
+    end
+
+
+
+
+
+    sort_string = "activities.name ASC"
+
 
     @activities = Activity.includes(:classification, :topic => :section)
                     .where("'production' = ANY(activities.flags)")
-                    .where("((activities.name ILIKE '%#{params[:searchQuery]}%') OR (topics.name ILIKE '%#{params[:searchQuery]}%')) #{filter_string}")
+                    .where("((activities.name ILIKE '%#{params[:searchQuery]}%') OR (topics.name ILIKE '%#{params[:searchQuery]}%'))")
+                    .where()
                     .order(sort_string).references(:topic)
 
-    @activity_classification_aliases = [
-      {id: 1, alias: 'Quill Grammar'},
-      {id: 2, alias: 'Quill Proofreader'}
-    ]
-      
-                         
+   
+                    
     @activity_classifications = @activities.map(&:classification).reject{|ac| ac.nil?}.uniq
     @topics = @activities.map(&:topic).uniq
     @sections = @topics.map(&:section).uniq
     @number_of_pages = @activities.count/RESULTS_PER_PAGE
-    @active_page = 1
     @results_per_page = RESULTS_PER_PAGE
+    @activities = @activities.map{|a| (ActivitySerializer.new(a)).as_json(root: false)}
 
 
-    @activities = @activities.map{|a| ActivitySerializer.new(a)}
 
     render json: {
       activities: @activities,
-      activity_classifications: @activity_classifications,
+      activityClassifications: @activity_classifications,
       topics: @topics,
       sections: @sections,
+      filters: @filters,
       number_of_pages: @number_of_pages,
-      active_page: @active_page
     }
 
   end
