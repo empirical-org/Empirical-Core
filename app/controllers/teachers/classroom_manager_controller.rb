@@ -64,6 +64,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     sort_string = "activities.name ASC"
 
 
+
+
     @activities = Activity.includes(:classification, :topic => :section)
                     .where("'production' = ANY(activities.flags)")
                     .where("((activities.name ILIKE '%#{params[:searchQuery]}%') OR (topics.name ILIKE '%#{params[:searchQuery]}%'))")
