@@ -22,7 +22,7 @@ class Activity < ActiveRecord::Base
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(search_text, filters, sort)
-    query = includes(:classification, :topic => :section)
+    query = includes(:classification, :topic => [:section, :topic_category])
       .where("'production' = ANY(activities.flags)")
       .where("(activities.name ILIKE ?) OR (topics.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
       .order(search_sort_sql(sort)).references(:topic)
