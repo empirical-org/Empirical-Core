@@ -47,7 +47,8 @@ EC.LessonPlanner = React.createClass({
 								 selectedActivities={this.state.selectedActivities} 
 								 clickContinue={this.clickContinue} />;
 		} else {
-			stageSpecificComponents = <EC.Stage2 />;
+			stageSpecificComponents = <EC.Stage2 selectedActivities={this.state.selectedActivities}
+																					 toggleActivitySelection={this.toggleActivitySelection}	/>;
 		}
 
 		return (
