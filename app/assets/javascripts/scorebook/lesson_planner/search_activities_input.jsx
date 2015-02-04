@@ -1,6 +1,7 @@
 EC.SearchActivitiesInput = React.createClass({
 
 	newSearchQuery: function () {
+		console.log('new search query')
 		newQuery = $('#search_activities_input').val();
 		this.props.updateSearchQuery(newQuery);
 	},

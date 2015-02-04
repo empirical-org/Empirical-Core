@@ -36,25 +36,25 @@ EC.Stage1 = React.createClass({
           field: 'activityClassification',
           alias: 'App',
           selected: false,
-          asc_or_desc: 'desc'
+          asc_or_desc: 'asc'
         },
         {
           field: 'activity',
           alias: 'Activity',
           selected: false,
-          asc_or_desc: 'desc'
+          asc_or_desc: 'asc'
         },
         {
           field: 'section',
           alias: 'Standard Level',
           selected: false,
-          asc_or_desc: 'desc'
+          asc_or_desc: 'asc'
         },
         {
           field: 'topicCategory',
           alias: 'Concept',
           selected: false,
-          asc_or_desc: 'desc'
+          asc_or_desc: 'asc'
         }
       ]
     }
@@ -135,6 +135,9 @@ EC.Stage1 = React.createClass({
   },
 
   updateSearchQuery: function (newQuery) {
+    console.log('update search query')
+    console.log(newQuery)
+    
     this.setState({query: newQuery})
     this.searchRequest();
 
@@ -157,7 +160,7 @@ EC.Stage1 = React.createClass({
         sort.asc_or_desc = asc_or_desc;
       } else {
         sort.selected = false;
-        sort.asc_or_desc = 'desc'
+        sort.asc_or_desc = 'asc'
       }
       return sort;
     }, this);

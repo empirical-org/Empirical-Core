@@ -16,7 +16,6 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def search_activities
     
- 
     @activities = Activity.search(search_params[:search_query], search_filters, search_params[:sort])
     @activity_classifications = @activities.map(&:classification).uniq.compact
     @topics = @activities.map(&:topic).uniq.compact
