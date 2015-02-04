@@ -175,7 +175,7 @@ EC.Stage1 = React.createClass({
         <EC.NameTheUnit updateUnitName={this.props.updateUnitName} />
         <section>
           <h3 className="section-header">Select Activities</h3>
-          <EC.SearchActivitiesInput updateSearchQuery={this.props.updateSearchQuery} />
+          <EC.SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
           <EC.ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} />
           
           <table className='table' id='activities_table'>
