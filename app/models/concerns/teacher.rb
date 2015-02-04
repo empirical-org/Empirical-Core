@@ -12,4 +12,10 @@ module Teacher
       User.where(role: 'teacher')
     end
   end
+
+  # Occasionally teachers are populated in the view with
+  # a single blank classroom.
+  def has_classrooms?
+    !classrooms.empty? && !classrooms.all?(&:new_record?)
+  end
 end
