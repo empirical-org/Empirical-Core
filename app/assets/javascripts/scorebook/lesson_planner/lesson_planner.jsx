@@ -213,7 +213,7 @@ EC.LessonPlanner = React.createClass({
 
 	render: function () {
 		var currentPageSearchResults = this.determineCurrentPageSearchResults();
-		var graphicClass1, stageSpecificComponents, stage1Components, stage2Components;;
+		var stageSpecificComponents, stage1Components, stage2Components;;
 		
 		stage1Components = (
 			<span>
@@ -240,63 +240,26 @@ EC.LessonPlanner = React.createClass({
 			</span>
 		);
 	
-
-
 		stage2Components = (
 			<span>hiii</span>
 
 
 		);
 
-
-
-
 		if (this.state.stage == 1) {
-			graphicClass1 = 'disabled';
 			stageSpecificComponents = stage1Components;
 		} else {
-			graphicClass1 = 'complete';
 			stageSpecificComponents = stage2Components;
 		}
 
-		
-
-
-
 		return (
 			<span>
-				<div className="container">
-					<section className="section-content-wrapper">
-
-						<div className="bs-wizard">
-
-			                <div className={"select_activities_progress_bar col-xs-3 bs-wizard-step complete"}>
-			                  <div className="progress"><div className="progress-bar"></div></div>
-			                  <a href="#" className="bs-wizard-dot"></a>
-			                  <div className="text-center bs-wizard-info">Select Activities</div>
-			                </div>
-			                
-			                <div className={"assign_activities_progress_bar col-xs-3 bs-wizard-step " +  graphicClass1}>
-								<div className="progress"><div className="progress-bar"></div></div>
-								<a href="#" className="bs-wizard-dot"></a>
-								<div className="text-center bs-wizard-info">Assign Activities</div>
-			                </div>
-			                
-			                
-			            </div>
-					</section>
-				</div>
-
-				
+				<EC.ProgressBar stage={this.state.stage}/>				
 				<div className='container lesson_planner_main'>
 					
 					{stageSpecificComponents}
 
-				</div>
-
-
-
-				
+				</div>		
 			</span>
 		);
 
