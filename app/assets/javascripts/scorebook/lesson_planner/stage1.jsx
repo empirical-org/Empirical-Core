@@ -7,7 +7,6 @@ EC.Stage1 = React.createClass({
       numberOfPages: 1,
       resultsPerPage: 12,
       maxPageNumber: 4,
-      query: '',
       filters: [
         {
           field: 'activityClassification',
@@ -64,11 +63,12 @@ EC.Stage1 = React.createClass({
     this.searchRequest();
   },
 
-  searchRequest: function () {
+  searchRequest: function (search_query) {
+    console.log('search request')
     $.ajax({
       url: '/teachers/classrooms/search_activities',
       context: this,
-      data: this.searchRequestData(),
+      data: this.searchRequestData(search_query),
       success: this.searchRequestSuccess,
       error: function () {
         //console.log('error searching activities');
@@ -76,7 +76,7 @@ EC.Stage1 = React.createClass({
     });
   },
 
-  searchRequestData: function() {
+  searchRequestData: function(search_query) {
     var filters = this.state.filters.map(function(filter) {
       return {
         field: filter['field'],
@@ -96,7 +96,7 @@ EC.Stage1 = React.createClass({
 
     return {
         search: {
-          search_query: this.state.query,
+          search_query: search_query,
           filters: filters,
           sort: currentSort,
         }
@@ -104,6 +104,8 @@ EC.Stage1 = React.createClass({
   },
 
   searchRequestSuccess: function (data) {
+    console.log('search request success')
+    console.log(data)
     var key;
     var filters = _.map(this.state.filters, function (filter) {
       if (filter.field == 'topicCategory') {
@@ -127,19 +129,20 @@ EC.Stage1 = React.createClass({
   },
 
   determineCurrentPageSearchResults: function () {
+    console.log('determien currentPageSearchResults')
+
     var start, end, currentPageSearchResults;
     start = (this.state.currentPage - 1)*this.state.resultsPerPage;
     end = this.state.currentPage*this.state.resultsPerPage;
     currentPageSearchResults = this.state.activitySearchResults.slice(start, end);
+    console.log(currentPageSearchResults)
     return currentPageSearchResults;
   },
 
   updateSearchQuery: function (newQuery) {
     console.log('update search query')
     console.log(newQuery)
-    
-    this.setState({query: newQuery})
-    this.searchRequest();
+    this.searchRequest(newQuery);
 
   },
   selectFilterOption: function (field, optionId) {
