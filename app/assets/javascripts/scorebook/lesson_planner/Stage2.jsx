@@ -28,7 +28,10 @@ EC.Stage2 = React.createClass({
 
   render: function() {
     var classroomList = this.state.classroomsAndTheirStudents.map(function(entry) {
-      return <EC.Classroom classroom={entry.classroom} students={entry.students} />;
+      return <EC.Classroom classroom={entry.classroom} 
+                           students={entry.students} 
+                           toggleClassroomSelection={this.props.toggleClassroomSelection} 
+                           toggleStudentSelection={this.props.toggleStudentSelection} />;
     }, this);
 
     var dueDateList = this.props.selectedActivities.map(function(activity) {
