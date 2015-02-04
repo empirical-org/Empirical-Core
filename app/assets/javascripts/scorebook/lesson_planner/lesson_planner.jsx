@@ -101,11 +101,21 @@ EC.LessonPlanner = React.createClass({
 			}
 		});
 
+		var currentSort;
+		_.each(this.state.sorts, function(sort) {
+			if (sort.selected) {
+				currentSort = {
+					field: sort['field'],
+					asc_or_desc: sort['asc_or_desc']
+				};
+			}
+		});
+
 		return {
 				search: {
 					search_query: this.state.query,
 					filters: filters,
-					sort: this.state.sort,
+					sort: currentSort,
 				}
 			}
 	},

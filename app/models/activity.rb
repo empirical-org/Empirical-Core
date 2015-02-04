@@ -20,11 +20,12 @@ class Activity < ActiveRecord::Base
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
   # filters = hash of model_name/model_id pairs
+  # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(search_text, filters, sort)
     query = includes(:classification, :topic => :section)
       .where("'production' = ANY(activities.flags)")
       .where("(activities.name ILIKE ?) OR (topics.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
-      .order(sort).references(:topic)
+      .order(search_sort_sql(sort)).references(:topic)
 
     # Sorry for the meta-programming.
     filters.each do |model_name, model_id| # :activity_classifications, 123
@@ -32,6 +33,29 @@ class Activity < ActiveRecord::Base
     end
 
     query
+  end
+
+  def self.search_sort_sql(sort)
+    return 'activities.name asc' if sort.blank?
+
+    if sort['asc_or_desc'] == 'desc'
+      order = 'desc'
+    else
+      order = 'asc'
+    end
+
+    case sort['field']
+    when 'activity'
+      field = 'activities.name'
+    when 'activityClassification'
+      field = 'activity_classifications.name'
+    when 'section'
+      field = 'sections.name'
+    when 'topic'
+      field = 'topics.name'
+    end
+
+    field + ' ' + order
   end
 
   def classification_key= key
@@ -105,5 +129,4 @@ class Activity < ActiveRecord::Base
 
     return url
   end
-
 end

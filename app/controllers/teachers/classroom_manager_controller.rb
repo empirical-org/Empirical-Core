@@ -27,9 +27,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     # sort_string = (params['sort']['field'].length > 0) ? "#{params['sort']['field']}s #{params['sort']['asc_or_desc']}" : "activities.name ASC"
 
-    # This is coming in as an hash of hashes with keys "0", "1", "2".
-
-    @activities = Activity.search(search_params[:search_query], search_filters, "activities.name ASC")
+    @activities = Activity.search(search_params[:search_query], search_filters, search_params[:sort])
     @activity_classifications = @activities.map(&:classification).reject{|ac| ac.nil?}.uniq
     @topics = @activities.map(&:topic).uniq
     @sections = @topics.map(&:section).uniq
@@ -110,7 +108,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def search_params
-    params.require(:search).permit([:search_query, {filters: [:field, :selected]}])
+    params.require(:search).permit([:search_query, {sort: [:field, :asc_or_desc]},  {filters: [:field, :selected]}])
   end
 
 end
