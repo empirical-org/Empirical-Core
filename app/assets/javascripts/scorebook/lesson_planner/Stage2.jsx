@@ -55,7 +55,7 @@ EC.Stage2 = React.createClass({
               {dueDateList}
             </tbody>
           </table>
-          <button className="button-green" id="assign">Assign</button>
+          <button className="button-green" id="assign" onClick={this.props.finish}>Assign</button>
         </section>
       </span>
     );
