@@ -24,7 +24,7 @@ EC.Stage1 = React.createClass({
 
         },
         {
-          field: 'topic',
+          field: 'topicCategory',
           alias: 'Concept',
           options: [],
           selected: null
@@ -51,7 +51,7 @@ EC.Stage1 = React.createClass({
           asc_or_desc: 'desc'
         },
         {
-          field: 'topic',
+          field: 'topicCategory',
           alias: 'Concept',
           selected: false,
           asc_or_desc: 'desc'
@@ -104,8 +104,13 @@ EC.Stage1 = React.createClass({
   },
 
   searchRequestSuccess: function (data) {
+    var key;
     var filters = _.map(this.state.filters, function (filter) {
-      key = filter.field + 's';
+      if (filter.field == 'topicCategory') {
+        key = 'topic_categories';
+      } else {
+        key = filter.field + 's';
+      }
       filter.options = data[key];
       return filter;
     }, this);
