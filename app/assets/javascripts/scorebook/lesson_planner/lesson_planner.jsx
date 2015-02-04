@@ -14,10 +14,19 @@ EC.LessonPlanner = React.createClass({
 	getInitialState: function () {
 		return {
 			unitName: '',
+			stage: 1, // stage 1 is selecting activities, stage 2 is selecting students and dates
 			activitySearchResults: [],
+			currentPageSearchResults: [],
 			selectedActivities : [],
+			
+			classroomsAndTheirStudents: [],
+			selectedClassrooms: [],
+
+
 			currentPage: 1,
 			numberOfPages: 1,
+			resultsPerPage: 12,
+			maxPageNumber: 4,
 			query: '',
 			filters: [
 				{
@@ -89,25 +98,23 @@ EC.LessonPlanner = React.createClass({
 
 		
 	},
+
 	searchRequestSuccess: function (data) {
-		console.log('filters before: ')
-		console.log(this.state.filters)
-		filters = _.map(this.state.filters, function (filter) {
+		var filters = _.map(this.state.filters, function (filter) {
 			key = filter.field + 's';
 			filter.options = data[key];
 			return filter;
 		}, this);
 
 
-		hash = {
+		var hash = {
 			activitySearchResults: data.activities,
 			filters: filters,
-			numberOfPages: data.number_of_pages
+			numberOfPages: data.number_of_pages,
 		}
 
 		this.setState(hash);
-		console.log('filters after: ')
-		console.log(this.state.filters)
+
 	},
 
 	componentDidMount: function () {
@@ -132,7 +139,7 @@ EC.LessonPlanner = React.createClass({
 
 	},
 	selectFilterOption: function (field, optionId) {
-		filters = _.map(this.state.filters, function (filter) {
+		var filters = _.map(this.state.filters, function (filter) {
 			if (filter.field == field) {
 				filter.selected = optionId;
 			}
@@ -143,7 +150,7 @@ EC.LessonPlanner = React.createClass({
 
 	},
 	updateSort: function (field, asc_or_desc) {
-		sorts = _.map(this.state.sorts, function (sort) {
+		var sorts = _.map(this.state.sorts, function (sort) {
 			if (sort.field == field) {
 				sort.selected = true;
 				sort.asc_or_desc = asc_or_desc;
@@ -156,9 +163,85 @@ EC.LessonPlanner = React.createClass({
 		this.setState({sorts: sorts});
 		this.searchRequest();
 	},
+	selectPageNumber: function (number) {
+		this.setState({currentPage: number});
+	},
 
+	determineCurrentPageSearchResults: function () {
+		var start, end, currentPageSearchResults;
+		start = (this.state.currentPage - 1)*this.state.resultsPerPage;
+		end = this.state.currentPage*this.state.resultsPerPage;
+		currentPageSearchResults = this.state.activitySearchResults.slice(start, end);
+		return currentPageSearchResults;
+	},
+	clickContinue: function () {
+		$.ajax({
+			url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',  
+			context: this,
+			success: function (data) {
+				this.clickContinueAjaxSuccess(data);
+			},	
+			error: function () {
+				console.log('error ajaxing classrooms');
+			}
+		});
+	},
+	clickContinueAjaxSuccess: function (data) {
+		this.setState({stage: 2, classroomsAndTheirStudents: data.classroomsAndTheirStudents});
+	},
 
 	render: function () {
+		var currentPageSearchResults = this.determineCurrentPageSearchResults();
+		var graphicClass1, stageSpecificComponents, stage1Components, stage2Components;;
+		
+		stage1Components = (
+			<span>
+				<EC.NameTheUnit updateUnitName={this.updateUnitName} />
+				<section>
+					<h3 className="section-header">Select Activities</h3>
+					<EC.SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
+					<EC.ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} />
+					
+					<table className='table' id='activities_table'>
+						<thead>
+							<EC.ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />	
+						</thead>	
+						<EC.ActivitySearchResults selectedActivities = {this.state.selectedActivities} currentPageSearchResults ={currentPageSearchResults} toggleActivitySelection={this.toggleActivitySelection} />							
+					</table>
+
+					<div className='fake-border'></div>
+
+					<EC.Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />
+
+					<EC.SelectedActivities clickContinue={this.clickContinue} unitName={this.state.unitName} selectedActivities = {this.state.selectedActivities} toggleActivitySelection={this.toggleActivitySelection} />
+				
+				</section>
+			</span>
+		);
+	
+
+
+		stage2Components = (
+			<span>hiii</span>
+
+
+		);
+
+
+
+
+		if (this.state.stage == 1) {
+			graphicClass1 = 'disabled';
+			stageSpecificComponents = stage1Components;
+		} else {
+			graphicClass1 = 'complete';
+			stageSpecificComponents = stage2Components;
+		}
+
+		
+
+
+
 		return (
 			<span>
 				<div className="container">
@@ -166,13 +249,13 @@ EC.LessonPlanner = React.createClass({
 
 						<div className="bs-wizard">
 
-			                <div className="select_activities_progress_bar col-xs-3 bs-wizard-step complete">
+			                <div className={"select_activities_progress_bar col-xs-3 bs-wizard-step complete"}>
 			                  <div className="progress"><div className="progress-bar"></div></div>
 			                  <a href="#" className="bs-wizard-dot"></a>
 			                  <div className="text-center bs-wizard-info">Select Activities</div>
 			                </div>
 			                
-			                <div className="assign_activities_progress_bar col-xs-3 bs-wizard-step disabled">
+			                <div className={"assign_activities_progress_bar col-xs-3 bs-wizard-step " +  graphicClass1}>
 								<div className="progress"><div className="progress-bar"></div></div>
 								<a href="#" className="bs-wizard-dot"></a>
 								<div className="text-center bs-wizard-info">Assign Activities</div>
@@ -185,25 +268,9 @@ EC.LessonPlanner = React.createClass({
 
 				
 				<div className='container lesson_planner_main'>
-					<EC.NameTheUnit updateUnitName={this.updateUnitName} />
-					<section>
-						<h3 className="section-header">Select Activities</h3>
-						<EC.SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
-						<EC.ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} />
-						
-						<table className='table' id='activities_table'>
-							<thead>
-								<EC.ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />	
-							</thead>	
-							<EC.ActivitySearchResults selectedActivities = {this.state.selectedActivities} activitySearchResults ={this.state.activitySearchResults} toggleActivitySelection={this.toggleActivitySelection} />							
-						</table>
-
-						<div className='fake-border'></div>
-
-						
-						<EC.SelectedActivities unitName={this.state.unitName} selectedActivities = {this.state.selectedActivities} toggleActivitySelection={this.toggleActivitySelection} />
 					
-					</section>
+					{stageSpecificComponents}
+
 				</div>
 
 

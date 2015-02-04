@@ -10,8 +10,6 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
 
-
-
   def lesson_planner
 
   end
@@ -76,7 +74,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @activity_classifications = @activities.map(&:classification).reject{|ac| ac.nil?}.uniq
     @topics = @activities.map(&:topic).uniq
     @sections = @topics.map(&:section).uniq
-    @number_of_pages = @activities.count/RESULTS_PER_PAGE
+    @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
     @results_per_page = RESULTS_PER_PAGE
     @activities = @activities.map{|a| (ActivitySerializer.new(a)).as_json(root: false)}
 
@@ -96,7 +94,6 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    @activities = Activity.find params[:activities]
     current_user.classrooms.each do |classroom|
       obj = {
         classroom: classroom,
