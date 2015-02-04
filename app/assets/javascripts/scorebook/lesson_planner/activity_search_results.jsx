@@ -3,7 +3,6 @@ EC.ActivitySearchResults = React.createClass({
 
 
 	render: function () {
-		console.log(this.props)
 		rows = _.map(this.props.currentPageSearchResults, function (ele) {
 			var selected = _.include(this.props.selectedActivities, ele)
 			
