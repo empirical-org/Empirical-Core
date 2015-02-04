@@ -16,17 +16,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def search_activities
     
-    # filter_string = ''
-    # params['filters'].each do |pair| 
-    #   filter_string = "#{filter_string} AND #{pair[0]}s.id = #{pair[1]}" if pair[1].length > 0
-    # end
-    
-    # filter_string = (filter_string)
-
-
-
-    # sort_string = (params['sort']['field'].length > 0) ? "#{params['sort']['field']}s #{params['sort']['asc_or_desc']}" : "activities.name ASC"
-
+ 
     @activities = Activity.search(search_params[:search_query], search_filters, search_params[:sort])
     @activity_classifications = @activities.map(&:classification).reject{|ac| ac.nil?}.uniq
     @topics = @activities.map(&:topic).uniq
