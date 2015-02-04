@@ -22,7 +22,7 @@ EC.ActivitySearchResult = React.createClass({
 				
 				<td className='tooltip-trigger'>{this.props.data.topic.section.name}</td>
 				
-				<td className='tooltip-trigger'>{this.props.data.topic.name}</td>
+				<td className='tooltip-trigger'>{this.props.data.topic.topic_category.name}</td>
 			</tr>
 		);
 

@@ -24,7 +24,8 @@ class Activity < ActiveRecord::Base
   def self.search(search_text, filters, sort)
     query = includes(:classification, :topic => [:section, :topic_category])
       .where("'production' = ANY(activities.flags)")
-      .where("(activities.name ILIKE ?) OR (topics.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
+      .where("(activities.name ILIKE ?) OR (topic_categories.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
+      .where("topic_categories.id IS NOT NULL AND sections.id IS NOT NULL")
       .order(search_sort_sql(sort)).references(:topic)
 
     # Sorry for the meta-programming.
@@ -51,8 +52,8 @@ class Activity < ActiveRecord::Base
       field = 'activity_classifications.name'
     when 'section'
       field = 'sections.name'
-    when 'topic'
-      field = 'topics.name'
+    when 'topicCategory'
+      field = 'topic_categories.name'
     end
 
     field + ' ' + order

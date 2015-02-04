@@ -44,7 +44,7 @@ EC.LessonPlanner = React.createClass({
 
 				},
 				{
-					field: 'topic',
+					field: 'topicCategory',
 					alias: 'Concept',
 					options: [],
 					selected: null
@@ -71,7 +71,7 @@ EC.LessonPlanner = React.createClass({
 					asc_or_desc: 'desc'
 				},
 				{
-					field: 'topic',
+					field: 'topicCategory',
 					alias: 'Concept',
 					selected: false,
 					asc_or_desc: 'desc'
@@ -121,8 +121,16 @@ EC.LessonPlanner = React.createClass({
 	},
 
 	searchRequestSuccess: function (data) {
+
+		var key;
+
 		var filters = _.map(this.state.filters, function (filter) {
-			key = filter.field + 's';
+			if (filter.field == 'topicCategory') {
+				key = 'topic_categories'
+			} else {
+				key = filter.field + 's';
+			}
+			
 			filter.options = data[key];
 			return filter;
 		}, this);
@@ -133,8 +141,8 @@ EC.LessonPlanner = React.createClass({
 			filters: filters,
 			numberOfPages: data.number_of_pages,
 		}
-
 		this.setState(hash);
+
 
 	},
 
