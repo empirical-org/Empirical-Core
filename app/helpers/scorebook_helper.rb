@@ -48,6 +48,14 @@ module ScorebookHelper
     end
   end
 
+  def scorebook_path(teacher)
+    if teacher.has_classrooms?
+      teachers_classroom_scorebook_path(classroom_id: teacher.classrooms.first)
+    else
+      ''
+    end
+  end
+
   def activity_planner_tooltip_html activity_hash # note: not an active record object, a hash
     activity_name = activity_hash['activity_name'].nil? ? '' : ("<h1>" + (activity_hash['activity_name'].gsub /"/, '&quot;') + "</h1>")
     activity_description = activity_hash['activity_description'].nil? ? '' : ("<p>" + (activity_hash['activity_description'].gsub /"/, '&quot;') + "</p>")
