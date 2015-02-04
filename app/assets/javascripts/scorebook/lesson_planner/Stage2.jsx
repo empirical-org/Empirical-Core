@@ -48,7 +48,7 @@ EC.Stage2 = React.createClass({
 
         <section className="assign-dates">
           <h1 className="section-header">
-            Assign Dates for Learning How to Use Nouns
+            Assign Dates for {this.props.unitName}
           </h1>
           <table className="table">
             <tbody>
