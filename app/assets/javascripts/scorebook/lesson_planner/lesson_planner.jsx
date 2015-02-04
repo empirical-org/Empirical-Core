@@ -52,34 +52,22 @@ EC.LessonPlanner = React.createClass({
 	},
 
 	render: function () {
-		var stageSpecificComponents, stage1Components, stage2Components;;
-		
-		stage1Components = (
-			<EC.Stage1 toggleActivitySelection={this.toggleActivitySelection} 
+		var stageSpecificComponents;
+
+		if (this.state.stage === 1) {
+			stageSpecificComponents = <EC.Stage1 toggleActivitySelection={this.toggleActivitySelection} 
 								 updateUnitName={this.updateUnitName}
 								 selectedActivities={this.state.selectedActivities} 
-								 clickContinue={this.clickContinue} />
-		);
-	
-		stage2Components = (
-			<span>hiii</span>
-
-
-		);
-
-		if (this.state.stage == 1) {
-			stageSpecificComponents = stage1Components;
+								 clickContinue={this.clickContinue} />;
 		} else {
-			stageSpecificComponents = stage2Components;
+			stageSpecificComponents = <span>Woah</span>;
 		}
 
 		return (
 			<span>
 				<EC.ProgressBar stage={this.state.stage}/>				
 				<div className='container lesson_planner_main'>
-					
 					{stageSpecificComponents}
-
 				</div>		
 			</span>
 		);
