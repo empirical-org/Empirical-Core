@@ -121,7 +121,8 @@ EC.LessonPlanner = React.createClass({
 																					 toggleActivitySelection={this.toggleActivitySelection}	
 																					 toggleClassroomSelection={this.toggleClassroomSelection} 
 																					 toggleStudentSelection={this.toggleStudentSelection}
-																					 finish={this.finish} />;
+																					 finish={this.finish} 
+																					 unitName={this.state.unitName} />;
 		}
 
 		return (
