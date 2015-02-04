@@ -5,13 +5,12 @@ class Teachers::StudentsController < ApplicationController
   before_filter :authorize!
 
   def create
-    puts 'create student called' 
-    puts params.to_yaml
     fix_full_name_in_first_name_field
     capitalize_first_and_last_name
     @student = @classroom.students.build(user_params)
     @student.generate_student
     @student.save!
+    StudentCreationWorker.perform_async(current_user.id, @student.id)
     redirect_to teachers_classroom_students_path(@classroom)
   end
 

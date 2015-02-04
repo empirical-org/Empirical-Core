@@ -85,18 +85,29 @@ EC.LessonPlanner = React.createClass({
 		$.ajax({
 			url: '/teachers/classrooms/search_activities',
 			context: this,
-			data: {
-				searchQuery: this.state.query,
-				filters: JSON.stringify(this.state.filters),
-				sort: this.state.sort
-			},
+			data: this.searchRequestData(),
 			success: this.searchRequestSuccess,
 			error: function () {
 				//console.log('error searching activities');
 			}
 		});
+	},
 
-		
+	searchRequestData: function() {
+		var filters = this.state.filters.map(function(filter) {
+			return {
+				field: filter['field'],
+				selected: filter['selected']
+			}
+		});
+
+		return {
+				search: {
+					search_query: this.state.query,
+					filters: filters,
+					sort: this.state.sort,
+				}
+			}
 	},
 
 	searchRequestSuccess: function (data) {
