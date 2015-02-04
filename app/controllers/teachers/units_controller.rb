@@ -7,7 +7,21 @@ class Teachers::UnitsController < ApplicationController
 	  # TODO refactor models to get rid of classroom_activity, its unneccessary
     
     # create a unit
-    unit = Unit.create name: params[:unitName]
+    unit = Unit.create name: unit_params[:name]
+
+    # Request format:
+    #   unit: {
+    #     name: string
+    #     classrooms: [{
+    #       id: int
+    #       all_students: boolean
+    #       student_ids: [int]
+    #     }]
+    #     activities: [{
+    #       id: int
+    #       due_date: string
+    #     }]
+    #   }
 
     # create a classroom_activity
     x1 = params[:pairsOfActivityIdAndDueDate]
@@ -28,7 +42,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
 
+  private
 
+  def unit_params
+    params.require(:unit).permit(:name, classrooms: [:id, :all_students, :student_ids])
+  end
 
 
 

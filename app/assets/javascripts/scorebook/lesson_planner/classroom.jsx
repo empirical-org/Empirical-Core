@@ -13,7 +13,7 @@ EC.Classroom = React.createClass({
 
   render: function() {
     var studentList = this.props.students.map(function(student) {
-      return <EC.Student student={student} toggleStudentSelection={this.props.toggleStudentSelection} />;
+      return <EC.Student student={student} classroom={this.props.classroom} toggleStudentSelection={this.props.toggleStudentSelection} />;
     }, this);
 
     return (

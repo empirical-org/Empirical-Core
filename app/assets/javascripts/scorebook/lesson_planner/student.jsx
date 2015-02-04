@@ -1,7 +1,7 @@
 EC.Student = React.createClass({
   handleStudentSelection: function(e) {
     var checked = $(e.target).is(':checked');
-    this.props.toggleStudentSelection(this.props.student, checked);
+    this.props.toggleStudentSelection(this.props.student, this.props.classroom, checked);
   },
 
   render: function() {
