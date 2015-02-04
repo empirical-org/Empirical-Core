@@ -39,6 +39,7 @@ class Teachers::ClassroomsController < ApplicationController
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
     if @classroom.valid?
       @classroom.units.create_next
+      ClassroomCreationWorker.perform_async(@classroom.id)
       redirect_to teachers_classroom_invite_students_path(@classroom)
     else
       render :new
