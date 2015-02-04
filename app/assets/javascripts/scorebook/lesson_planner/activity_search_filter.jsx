@@ -4,7 +4,7 @@ EC.ActivitySearchFilter = React.createClass({
 		this.props.selectFilterOption(this.props.data.field, optionId)
 	},
 	clearFilterOptionSelection: function () {
-
+		this.props.selectFilterOption(this.props.data.field, null);
 	},
 
 	render: function () {

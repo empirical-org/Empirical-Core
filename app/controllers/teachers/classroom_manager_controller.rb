@@ -18,19 +18,20 @@ class Teachers::ClassroomManagerController < ApplicationController
     
  
     @activities = Activity.search(search_params[:search_query], search_filters, search_params[:sort])
-    @activity_classifications = @activities.map(&:classification).reject{|ac| ac.nil?}.uniq
-    @topics = @activities.map(&:topic).uniq
-    @sections = @topics.map(&:section).uniq
+    @activity_classifications = @activities.map(&:classification).uniq.compact
+    @topics = @activities.map(&:topic).uniq.compact
+    @topic_categories = @topics.map(&:topic_category).uniq.compact
+    @sections = @topics.map(&:section).uniq.compact
+
     @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
     @results_per_page = RESULTS_PER_PAGE
     @activities = @activities.map{|a| (ActivitySerializer.new(a)).as_json(root: false)}
 
 
-
     render json: {
       activities: @activities,
       activityClassifications: @activity_classifications,
-      topics: @topics,
+      topic_categories: @topic_categories,
       sections: @sections,
       filters: @filters,
       number_of_pages: @number_of_pages,
@@ -83,7 +84,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def search_filters
-    filter_fields = [:activity_classifications, :topics, :sections]
+    filter_fields = [:activity_classifications, :topic_categories, :sections]
     search_params[:filters].reduce({}) do |acc, filter|
       filter_value = filter[1]
       # activityClassification -> activity_classifications
