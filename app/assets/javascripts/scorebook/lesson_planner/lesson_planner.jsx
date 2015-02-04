@@ -16,7 +16,6 @@ EC.LessonPlanner = React.createClass({
 			unitName: '',
 			stage: 1, // stage 1 is selecting activities, stage 2 is selecting students and dates
 			selectedActivities : [],			
-			classroomsAndTheirStudents: [],
 			selectedClassrooms: [],			
 		}
 	},
@@ -36,19 +35,7 @@ EC.LessonPlanner = React.createClass({
 	},
 
 	clickContinue: function () {
-		$.ajax({
-			url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',  
-			context: this,
-			success: function (data) {
-				this.clickContinueAjaxSuccess(data);
-			},	
-			error: function () {
-				console.log('error ajaxing classrooms');
-			}
-		});
-	},
-	clickContinueAjaxSuccess: function (data) {
-		this.setState({stage: 2, classroomsAndTheirStudents: data.classroomsAndTheirStudents});
+		this.setState({stage: 2});
 	},
 
 	render: function () {
@@ -60,7 +47,7 @@ EC.LessonPlanner = React.createClass({
 								 selectedActivities={this.state.selectedActivities} 
 								 clickContinue={this.clickContinue} />;
 		} else {
-			stageSpecificComponents = <span>Woah</span>;
+			stageSpecificComponents = <EC.Stage2 />;
 		}
 
 		return (
