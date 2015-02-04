@@ -7,7 +7,7 @@ class Teachers::UnitsController < ApplicationController
 	  # TODO refactor models to get rid of classroom_activity, its unneccessary
     
     # create a unit
-    unit = Unit.create name: unit_params[:name]
+    unit = Unit.create name: unit_params['name']
 
     # Request format:
     #   unit: {
@@ -23,15 +23,16 @@ class Teachers::UnitsController < ApplicationController
     #     }]
     #   }
 
-    # create a classroom_activity
-    x1 = params[:pairsOfActivityIdAndDueDate]
-    (JSON.parse(x1)).each do |pair|
-      due_date = pair['dueDate']
-      activity_id = pair['activityId']
-      classrooms = JSON.parse(params[:selectedClassrooms])
-      classrooms.each do |classroom|
-        student_ids = (classroom['allStudents'] == true) ? nil : classroom['studentIds']
-        #unit.classroom_activities.create activity_id: activity_id, classroom_id: classroom['classroom_id'], assigned_student_ids: student_ids, due_date: due_date
+    unit_params['activities'].each do |key, activity_data|
+      activity_id = activity_data['id']
+      due_date = activity_data['due_date']
+      unit_params['classrooms'].each do |key, classroom_data|
+        unit.classroom_activities.create!(activity_id: activity_id, 
+                                          classroom_id: classroom_data['id'], 
+                                          assigned_student_ids: classroom_data['student_ids'],
+                                          due_date: due_date)
+        # student_ids = (classroom['allStudents'] == true) ? nil : classroom['studentIds']
+        # #unit.classroom_activities.create activity_id: activity_id, classroom_id: classroom['classroom_id'], assigned_student_ids: student_ids, due_date: due_date
       end
     end
 
@@ -45,7 +46,7 @@ class Teachers::UnitsController < ApplicationController
   private
 
   def unit_params
-    params.require(:unit).permit(:name, classrooms: [:id, :all_students, :student_ids])
+    params.require(:unit).permit(:name, classrooms: [:id, :all_students, :student_ids], activities: [:id, :due_date])
   end
 
 

@@ -36,7 +36,8 @@ EC.Stage2 = React.createClass({
 
     var dueDateList = this.props.selectedActivities.map(function(activity) {
       return <EC.ActivityDueDate activity={activity} 
-                                 toggleActivitySelection={this.props.toggleActivitySelection} />;
+                                 toggleActivitySelection={this.props.toggleActivitySelection} 
+                                 assignActivityDueDate={this.props.assignActivityDueDate}/>;
     }, this);
 
     return (

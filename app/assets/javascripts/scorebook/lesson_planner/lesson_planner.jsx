@@ -17,7 +17,14 @@ EC.LessonPlanner = React.createClass({
 			stage: 1, // stage 1 is selecting activities, stage 2 is selecting students and dates
 			selectedActivities : [],			
 			selectedClassrooms: [],
+			dueDates: {}
 		}
+	},
+
+	assignActivityDueDate: function(activity, dueDate) {
+		var dueDates = this.state.dueDates;
+		dueDates[activity.id] = dueDate;
+		this.setState({dueDates: dueDates});
 	},
 
 	toggleActivitySelection: function (true_or_false, activity) {
@@ -96,10 +103,18 @@ EC.LessonPlanner = React.createClass({
 				student_ids: _.pluck(classroom.students, 'id')
 			}
 		}, this);
+
+		var activityPostData = _.map(this.state.dueDates, function(key, value) {
+			return {
+				id: value,
+				due_date: key
+			}
+		});
 		return {
 			unit: {
 				name: this.state.unitName,
-				classrooms: classroomPostData
+				classrooms: classroomPostData,
+				activities: activityPostData
 			}
 		};
 	},
@@ -122,7 +137,8 @@ EC.LessonPlanner = React.createClass({
 																					 toggleClassroomSelection={this.toggleClassroomSelection} 
 																					 toggleStudentSelection={this.toggleStudentSelection}
 																					 finish={this.finish} 
-																					 unitName={this.state.unitName} />;
+																					 unitName={this.state.unitName}
+																					 assignActivityDueDate={this.assignActivityDueDate} />;
 		}
 
 		return (
