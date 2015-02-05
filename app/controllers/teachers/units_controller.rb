@@ -1,4 +1,5 @@
 class Teachers::UnitsController < ApplicationController
+  respond_to :json
   #before_action :setup
 
 
@@ -38,7 +39,10 @@ class Teachers::UnitsController < ApplicationController
 
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
     AssignActivityWorker.perform_async(current_user.id) # current_user should be the teacher
-    redirect_to teachers_classroom_scorebook_path(current_user.classrooms.first)
+    # redirect_to teachers_classroom_scorebook_path(current_user.classrooms.first)
+    render json: {
+      classroom_id: current_user.classrooms.first.id
+    }
 
   end
 
