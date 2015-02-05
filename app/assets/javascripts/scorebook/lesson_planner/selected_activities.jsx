@@ -2,9 +2,6 @@ EC.SelectedActivities = React.createClass({
 
 
 	render: function () {
-		console.log('rerender selected activities')
-		console.log('unit naem : ')
-		console.log(this.props.unitName)
 		var rows, buttonClassName;
 		
 		rows = _.map(this.props.selectedActivities, function (ele){

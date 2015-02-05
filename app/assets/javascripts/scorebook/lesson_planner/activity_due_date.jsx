@@ -8,10 +8,13 @@ EC.ActivityDueDate = React.createClass({
       dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       minDate: -20,
       maxDate: "+1M +10D",
-      dateFormat: "yy-mm-dd"      
+      dateFormat: "mm-dd-yy",
+      altField: ('#railsFormatDate' + this.props.activity.id),
+      altFormat: 'yy-mm-dd',
+      onSelect: this.handleChange
     });
 
-    $(this.refs.dueDate.getDOMNode()).change(this.handleChange);
+    $(this.refs.railsFormatDate.getDOMNode()).change(this.handleChange);
 
     
   },
@@ -32,7 +35,8 @@ EC.ActivityDueDate = React.createClass({
         <td className={this.props.activity.image_class}></td>
         <td>{this.props.activity.name}</td>
         <td>
-          <input type="text" ref="dueDate" className="datepicker-input" placeholder="mm/dd/yyyy" onChange={this.handleChange} />
+          <input type="text" ref="dueDate" className="datepicker-input" placeholder="mm/dd/yyyy" onChange={this.handleChange}/>
+          <input type="text" className='railsFormatDate' id={"railsFormatDate" + this.props.activity.id} ref="railsFormatDate" onChange={this.handleChange} />
         </td>
         <td className="icon-x-gray" onClick={this.props.removeActivity}></td>
       </tr>
