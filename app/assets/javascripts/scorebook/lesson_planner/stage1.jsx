@@ -167,10 +167,11 @@ EC.Stage1 = React.createClass({
   },
 
   render: function() {
+
     var currentPageSearchResults = this.determineCurrentPageSearchResults();
     return (
       <span>
-        <EC.NameTheUnit updateUnitName={this.props.updateUnitName} />
+        <EC.NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />
         <section>
           <h3 className="section-header">Select Activities</h3>
           <EC.SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
@@ -187,7 +188,7 @@ EC.Stage1 = React.createClass({
 
           <EC.Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />
 
-          <EC.SelectedActivities clickContinue={this.props.clickContinue} unitName={this.state.unitName} selectedActivities = {this.props.selectedActivities} toggleActivitySelection={this.props.toggleActivitySelection} />
+          <EC.SelectedActivities clickContinue={this.props.clickContinue} unitName={this.props.unitName} selectedActivities = {this.props.selectedActivities} toggleActivitySelection={this.props.toggleActivitySelection} />
         
         </section>
       </span>

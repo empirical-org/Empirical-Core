@@ -13,7 +13,7 @@ EC.LessonPlanner = React.createClass({
 
 	getInitialState: function () {
 		return {
-			unitName: '',
+			unitName: null,
 			stage: 1, // stage 1 is selecting activities, stage 2 is selecting students and dates
 			selectedActivities : [],			
 			selectedClassrooms: [],
@@ -22,6 +22,9 @@ EC.LessonPlanner = React.createClass({
 	},
 
 	assignActivityDueDate: function(activity, dueDate) {
+		console.log('assign activity due date')
+		console.log(activity)
+		console.log(dueDate)
 		var dueDates = this.state.dueDates;
 		dueDates[activity.id] = dueDate;
 		this.setState({dueDates: dueDates});
@@ -110,13 +113,17 @@ EC.LessonPlanner = React.createClass({
 				due_date: key
 			}
 		});
-		return {
+		var x = { 
 			unit: {
 				name: this.state.unitName,
 				classrooms: classroomPostData,
 				activities: activityPostData
 			}
 		};
+		console.log('x')
+		console.log(x)
+		return x
+		
 	},
 
 	onCreateSuccess: function(response) {
@@ -128,6 +135,7 @@ EC.LessonPlanner = React.createClass({
 
 		if (this.state.stage === 1) {
 			stageSpecificComponents = <EC.Stage1 toggleActivitySelection={this.toggleActivitySelection} 
+								 unitName = {this.state.unitName}
 								 updateUnitName={this.updateUnitName}
 								 selectedActivities={this.state.selectedActivities} 
 								 clickContinue={this.clickContinue} />;
