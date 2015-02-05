@@ -7,27 +7,17 @@ EC.ActivitySearchFilter = React.createClass({
 		this.props.selectFilterOption(this.props.data.field, null);
 	},
 
-	render: function () {
-		var unselectedOptions, selectedOption, isThereASelection, filterHeader, clearSelection;
+	getDisplayedFilterOptions: function() {
+		var visibleOptions, isThereASelection, clearSelection;
+		isThereASelection = !!this.props.data.selected;
 
-		if (this.props.data.selected == null) {
-			isThereASelection = false;
-			unselectedOptions = this.props.data.options;
-			filterHeader = "Filter by " + this.props.data.alias;
+		if (isThereASelection) {
+			visibleOptions = _.reject(this.props.data.options, {id: this.props.data.selected}, this);
 		} else {
-			isThereASelection = true;
-			selectedOption = _.find(this.props.data.options, {id: this.props.data.selected}, this);
-			
-			filterHeader = selectedOption.name;
-		
-			unselectedOptions = _.reject(this.props.data.options, {id: this.props.data.selected}, this);
-			
-
-
+			visibleOptions = this.props.data.options;
 		}
 		
-		
-		unselectedOptions = _.map(unselectedOptions, function (option) {
+		visibleOptions = _.map(visibleOptions, function (option) {
 			return (
 				<EC.FilterOption selectFilterOption={this.selectFilterOption} data={option} />
 			);
@@ -41,55 +31,43 @@ EC.ActivitySearchFilter = React.createClass({
 					</span>
 				</li>
 			);
-			unselectedOptions.unshift(clearSelection);
-		}
+			visibleOptions.unshift(clearSelection);
+		}				
+		return visibleOptions;
+	},
 
-			
-		
-		
+	getFilterHeader: function() {
+		if (this.props.data.selected) {
+			return this.getSelectedOption().name;
+		} else {
+			return "Filter by " + this.props.data.alias;
+		}
+	},
+
+	getSelectedOption: function() {
+		return _.find(this.props.data.options, {id: this.props.data.selected}, this);
+	},
+
+	render: function () {
+		// Several cases here:
+		// Nothing is selected. 'Filter by X' displays. All other options can be selected.
+		// An option is selected. Option name displays. Options now include 'All X'. All options displayed.
 
 		return (
 			<div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
 				<div className="button-select">
 					
 					<button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-						{filterHeader}				
+						{this.getFilterHeader()}				
 						<i className="fa fa-caret-down"></i>
 					</button>
 
 					<ul className="dropdown-menu" role="menu">
-						{unselectedOptions}
+						{this.getDisplayedFilterOptions()}
 					</ul>
 
 				</div>
 			</div>
 		);
-
 	}
-
-
 });
-
-/*
-		<div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
-				<div id=<%="filter_#{filter[:type]}"%> class="button-select">
-					
-					<button data-filter-type=<%=filter[:type]%>  type="button" class="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-					<%= "Filter by #{filter[:alias]}"%>
-					<i class="fa fa-caret-down"></i>
-					</button>
-
-					<ul class="dropdown-menu" role="menu">
-						<li>
-							<span class='filter_option all' data-filter-type=<%=filter[:type]%> data-model-id=''>
-								<%= "All #{filter[:alias]}s" %>
-							</span>
-						</li>
-					</ul>
-					
-				</div>
-			</div>
-		);
-
-
-*/
