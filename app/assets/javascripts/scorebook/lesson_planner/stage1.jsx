@@ -190,7 +190,6 @@ EC.Stage1 = React.createClass({
           <EC.Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />
 
           <EC.SelectedActivities clickContinue={this.props.clickContinue} unitName={this.props.unitName} selectedActivities = {this.props.selectedActivities} toggleActivitySelection={this.props.toggleActivitySelection} />
-        
         </section>
       </span>
     );
