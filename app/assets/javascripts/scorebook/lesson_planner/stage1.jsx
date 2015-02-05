@@ -119,6 +119,7 @@ EC.Stage1 = React.createClass({
       activitySearchResults: data.activities,
       filters: filters,
       numberOfPages: data.number_of_pages,
+      currentPage: 1
     }
 
     this.setState(hash);
