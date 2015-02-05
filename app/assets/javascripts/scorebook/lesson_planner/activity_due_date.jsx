@@ -26,6 +26,7 @@ EC.ActivityDueDate = React.createClass({
   },
 
   removeActivity: function () {
+    console.log('remove activity called')
     this.props.toggleActivitySelection(false, this.props.activity);
   },  
 
@@ -38,7 +39,7 @@ EC.ActivityDueDate = React.createClass({
           <input type="text" ref="dueDate" className="datepicker-input" placeholder="mm/dd/yyyy" onChange={this.handleChange}/>
           <input type="text" className='railsFormatDate' id={"railsFormatDate" + this.props.activity.id} ref="railsFormatDate" onChange={this.handleChange} />
         </td>
-        <td className="icon-x-gray" onClick={this.props.removeActivity}></td>
+        <td className="icon-x-gray" onClick={this.removeActivity}></td>
       </tr>
     );
   }

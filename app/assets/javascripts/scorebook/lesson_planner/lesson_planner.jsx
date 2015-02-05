@@ -125,6 +125,17 @@ EC.LessonPlanner = React.createClass({
 		console.log('response', response);
 		window.location.assign(response.classroom_id + '/scorebook')
 	},
+	determineAssignButtonClass: function () {
+		var a = this.state.selectedClassrooms.length > 0
+		var b = (this.state.selectedActivities.length == Object.keys(this.state.dueDates).length)
+		var c = (this.state.selectedActivities.length > 0)
+		if (a && b && c) {
+			return 'button-green'
+		} else {
+			return 'hidden-button'
+		}
+
+	},
 
 	render: function () {
 		var stageSpecificComponents;
@@ -142,6 +153,7 @@ EC.LessonPlanner = React.createClass({
 																					 toggleStudentSelection={this.toggleStudentSelection}
 																					 finish={this.finish} 
 																					 unitName={this.state.unitName}
+																					 determineAssignButtonClass={this.determineAssignButtonClass}
 																					 assignActivityDueDate={this.assignActivityDueDate} />;
 		}
 
