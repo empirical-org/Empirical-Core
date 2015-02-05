@@ -4,7 +4,7 @@ EC.Stage1 = React.createClass({
       activitySearchResults: [],
       currentPageSearchResults: [],
       currentPage: 1,
-      searchQuery,
+      searchQuery: '',
       numberOfPages: 1,
       resultsPerPage: 12,
       maxPageNumber: 4,
