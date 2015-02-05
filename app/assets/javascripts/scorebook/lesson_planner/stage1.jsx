@@ -7,9 +7,14 @@ EC.Stage1 = React.createClass({
       numberOfPages: 1,
       resultsPerPage: 12,
       maxPageNumber: 4,
+      allFilterOptions: {
+        'activity_classification': [],
+        'section': [],
+        'topic_category': []
+      },
       filters: [
         {
-          field: 'activityClassification',
+          field: 'activity_classification',
           alias: 'App',
           options: [],
           selected: null
@@ -23,7 +28,7 @@ EC.Stage1 = React.createClass({
 
         },
         {
-          field: 'topicCategory',
+          field: 'topic_category',
           alias: 'Concept',
           options: [],
           selected: null
@@ -32,7 +37,7 @@ EC.Stage1 = React.createClass({
 
       sorts: [
         {
-          field: 'activityClassification',
+          field: 'activity_classification',
           alias: 'App',
           selected: false,
           asc_or_desc: 'asc'
@@ -50,7 +55,7 @@ EC.Stage1 = React.createClass({
           asc_or_desc: 'asc'
         },
         {
-          field: 'topicCategory',
+          field: 'topic_category',
           alias: 'Concept',
           selected: false,
           asc_or_desc: 'asc'
@@ -103,27 +108,98 @@ EC.Stage1 = React.createClass({
   },
 
   searchRequestSuccess: function (data) {
-    var key;
-    var filters = _.map(this.state.filters, function (filter) {
-      if (filter.field == 'topicCategory') {
-        key = 'topic_categories';
-      } else {
-        key = filter.field + 's';
-      }
-      filter.options = data[key];
-      return filter;
-    }, this);
-
-
     var hash = {
       activitySearchResults: data.activities,
-      filters: filters,
       numberOfPages: data.number_of_pages,
       currentPage: 1
+    };
+
+    this.setInitialFilterOptions(data);
+    this.setState(hash, this.updateFilterOptionsAfterRequest);
+  },
+
+  setInitialFilterOptions: function(data) {
+    // If the filter options have set already, do not override them.
+    var allEmpty = _.all(this.state.allFilterOptions, function(options, field) {
+      return options.length === 0;
+    });
+    if (!allEmpty) {
+      return;
     }
 
-    this.setState(hash);
+    var newOptions = {};
+    _.each(this.state.allFilterOptions, function(options, field) {
+      var key = this.pluralize(field);
+      newOptions[field] = data[key];
+    }, this);
+    this.setState({allFilterOptions: newOptions});
+  },
 
+  updateFilterOptionsAfterRequest: function() {
+    // Go through all the filters,
+    // For each filter that is not currently selected,
+    // only display the options that are available based on the set
+    // of activity results that have been returned from the server.
+    // Otherwise, selected filters will display all available options.
+    var availableOptions = this._findFilterOptionsBasedOnActivities();
+
+    var newFilters = this.state.filters;
+    newFilters.forEach(function (filter) {
+      if (filter.selected) {
+        filter.options = this.state.allFilterOptions[filter.field];
+      } else {
+        filter.options = availableOptions[filter.field];
+      }
+    }, this);
+    this.setState({filters: newFilters});
+  },
+
+  // Return a hash of the filter options that are available based on the activities
+  // that were returned in the search results.
+  _findFilterOptionsBasedOnActivities: function() {
+    // This function works like so:
+    // Gather all the IDs for properties of the activity that can be filtered.
+    // Create a unique set of those IDs (optimization).
+    // Go through the sets of filter options returned from the server and remove
+    // them from the list of available options if their IDs are not referenced
+    // by any of the activities.
+    // Return the remaining list.
+
+    var activityClassificationIds = [], topicCategoryIds = [], sectionIds = [];
+    _.each(this.state.activitySearchResults, function(activity) {
+      activityClassificationIds.push(activity.classification.id);
+      topicCategoryIds.push(activity.topic.topic_category.id);
+      if (activity.topic.section) {
+        sectionIds.push(activity.topic.section.id);  
+      }
+    });
+    activityClassificationIds = _.uniq(activityClassificationIds);
+    topicCategoryIds = _.uniq(topicCategoryIds);
+    sectionIds = _.uniq(sectionIds);
+
+    var availableOptions = {};
+    availableOptions['activity_classification'] = _.reject(this.state.allFilterOptions['activity_classification'], 
+      function(option) {
+        return !_.contains(activityClassificationIds, option.id);
+    });
+    availableOptions['topic_category'] = _.reject(this.state.allFilterOptions['topic_category'], 
+      function(option) {
+        return !_.contains(topicCategoryIds, option.id);
+    });
+    availableOptions['section'] = _.reject(this.state.allFilterOptions['section'], 
+      function(option) {
+        return !_.contains(sectionIds, option.id);
+    });
+    return availableOptions;
+  },
+
+  // Super bad pluralize function.
+  pluralize: function(str) {
+    if (str === 'topic_category') {
+      return 'topic_categories';
+    } else {
+      return str + 's';
+    }
   },
 
   determineCurrentPageSearchResults: function () {
@@ -136,8 +212,8 @@ EC.Stage1 = React.createClass({
 
   updateSearchQuery: function (newQuery) {
     this.searchRequest(newQuery);
-
   },
+
   selectFilterOption: function (field, optionId) {
     var filters = _.map(this.state.filters, function (filter) {
       if (filter.field == field) {
@@ -149,6 +225,7 @@ EC.Stage1 = React.createClass({
     this.searchRequest();
 
   },
+
   updateSort: function (field, asc_or_desc) {
     var sorts = _.map(this.state.sorts, function (sort) {
       if (sort.field == field) {
