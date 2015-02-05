@@ -8,7 +8,7 @@ EC.ActivityDueDate = React.createClass({
       dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       minDate: -20,
       maxDate: "+1M +10D",
-      dateFormat: "mm-dd-yy"      
+      dateFormat: "yy-mm-dd"      
     });
 
     $(this.refs.dueDate.getDOMNode()).change(this.handleChange);
