@@ -152,6 +152,7 @@ EC.LessonPlanner = React.createClass({
 					{stageSpecificComponents}
 				</div>		
 			</span>
+
 		);
 
 	}
