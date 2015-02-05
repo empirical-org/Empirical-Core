@@ -3,6 +3,7 @@
 
 
 //= require scorebook/lodash.min.js
+//= require underscore.string
 
 //= require scorebook/react
 
