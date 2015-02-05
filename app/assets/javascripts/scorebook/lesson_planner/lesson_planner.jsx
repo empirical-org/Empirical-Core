@@ -128,6 +128,7 @@ EC.LessonPlanner = React.createClass({
 
 	onCreateSuccess: function(response) {
 		console.log('response', response);
+		window.location.assign(response.classroom_id + '/scorebook')
 	},
 
 	render: function () {
