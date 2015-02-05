@@ -4,13 +4,11 @@ EC.ActivitySearchResult = React.createClass({
 		this.props.toggleActivitySelection(true_or_false, this.props.data);
 	},	
 	tooltipTrigger: function (e) {
-		console.log('tooltip trigger')
 		e.stopPropagation();
 		$(this.refs.activateTooltip.getDOMNode()).tooltip('show');
 
 	},
 	tooltipTriggerStop: function (e) {
-		console.log('tooltip trigger stop')
 		e.stopPropagation();
 		$(this.refs.activateTooltip.getDOMNode()).tooltip('hide');
 	},
