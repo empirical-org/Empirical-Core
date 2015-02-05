@@ -5,13 +5,23 @@ class Teachers::StudentsController < ApplicationController
   before_filter :authorize!
 
   def create
-    fix_full_name_in_first_name_field
-    capitalize_first_and_last_name
-    @student = @classroom.students.build(user_params)
-    @student.generate_student
-    @student.save!
-    StudentCreationWorker.perform_async(current_user.id, @student.id)
-    redirect_to teachers_classroom_students_path(@classroom)
+    #fix_full_name_in_first_name_field
+    
+    
+    if user_params[:first_name].blank? or user_params[:last_name].blank?
+      flash[:notice] = 'Please provide both a first name and a last name.'
+      redirect_to teachers_classroom_invite_students_path(@classroom)
+    elsif do_names_contain_spaces
+      flash[:notice] = 'Names cannot contain spaces.'
+      redirect_to teachers_classroom_invite_students_path(@classroom)
+    else
+      capitalize_first_and_last_name
+      @student = @classroom.students.build(user_params)
+      @student.generate_student
+      @student.save!
+      StudentCreationWorker.perform_async(current_user.id, @student.id)
+      redirect_to teachers_classroom_students_path(@classroom)
+    end
   end
 
   def edit
@@ -51,6 +61,17 @@ protected
     auth_failed unless @classroom.teacher == current_user
     params[:id] = params[:student_id] if params[:student_id].present?
     @student = @classroom.students.find(params[:id]) if params[:id].present?
+  end
+
+  def do_names_contain_spaces
+    puts 'do names contain spaces'
+    a = user_params[:first_name].index(/\s/)
+    b = user_params[:last_name].index(/\s/)
+    puts 'a: '
+    puts a 
+    puts 'b'
+    puts b
+    !(a.nil? and b.nil?)
   end
 
   def capitalize_first_and_last_name 
