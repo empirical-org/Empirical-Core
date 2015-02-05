@@ -35,7 +35,6 @@ class Teachers::ClassroomManagerController < ApplicationController
       activityClassifications: @activity_classifications,
       topic_categories: @topic_categories,
       sections: @sections,
-      filters: @filters,
       number_of_pages: @number_of_pages,
     }
 
