@@ -22,9 +22,6 @@ EC.LessonPlanner = React.createClass({
 	},
 
 	assignActivityDueDate: function(activity, dueDate) {
-		console.log('assign activity due date')
-		console.log(activity)
-		console.log(dueDate)
 		var dueDates = this.state.dueDates;
 		dueDates[activity.id] = dueDate;
 		this.setState({dueDates: dueDates});
@@ -120,15 +117,13 @@ EC.LessonPlanner = React.createClass({
 				activities: activityPostData
 			}
 		};
-		console.log('x')
-		console.log(x)
 		return x
 		
 	},
 
 	onCreateSuccess: function(response) {
 		console.log('response', response);
-		//window.location.assign(response.classroom_id + '/scorebook')
+		window.location.assign(response.classroom_id + '/scorebook')
 	},
 
 	render: function () {
