@@ -717,7 +717,8 @@ below is obselete for now, changed link to span :
   bottom: 1px;
 }
 
-.teaching-cart #continue.hidden {
+.teaching-cart #continue.hidden,
+.hidden-button {
   display:none;
 
 }
