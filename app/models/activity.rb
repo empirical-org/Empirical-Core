@@ -37,7 +37,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.search_sort_sql(sort)
-    return 'activities.name asc' if sort.blank?
+    return 'sections.name asc' if sort.blank?
 
     if sort['asc_or_desc'] == 'desc'
       order = 'desc'

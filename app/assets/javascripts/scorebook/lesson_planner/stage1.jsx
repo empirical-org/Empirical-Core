@@ -4,6 +4,7 @@ EC.Stage1 = React.createClass({
       activitySearchResults: [],
       currentPageSearchResults: [],
       currentPage: 1,
+      searchQuery,
       numberOfPages: 1,
       resultsPerPage: 12,
       maxPageNumber: 4,
@@ -68,11 +69,11 @@ EC.Stage1 = React.createClass({
     this.searchRequest();
   },
 
-  searchRequest: function (search_query) {
+  searchRequest: function () {
     $.ajax({
       url: '/teachers/classrooms/search_activities',
       context: this,
-      data: this.searchRequestData(search_query),
+      data: this.searchRequestData(),
       success: this.searchRequestSuccess,
       error: function () {
         //console.log('error searching activities');
@@ -80,7 +81,7 @@ EC.Stage1 = React.createClass({
     });
   },
 
-  searchRequestData: function(search_query) {
+  searchRequestData: function() {
     var filters = this.state.filters.map(function(filter) {
       return {
         field: filter['field'],
@@ -100,7 +101,7 @@ EC.Stage1 = React.createClass({
 
     return {
         search: {
-          search_query: search_query,
+          search_query: this.state.searchQuery,
           filters: filters,
           sort: currentSort,
         }
@@ -211,7 +212,9 @@ EC.Stage1 = React.createClass({
   },
 
   updateSearchQuery: function (newQuery) {
-    this.searchRequest(newQuery);
+    //this.searchRequest(newQuery);
+    this.setState({searchQuery: newQuery}, this.searchRequest);
+
   },
 
   selectFilterOption: function (field, optionId) {
