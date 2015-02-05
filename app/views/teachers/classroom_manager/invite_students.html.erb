@@ -57,6 +57,9 @@
         <%= f.text_field :last_name, placeholder: 'Last Name' %>
         <%= f.submit 'Add Student', class: 'button-green' %>
       <% end %>
+      <%- if flash[:notice] %>
+        <div class='flash-notice'><%= flash[:notice] %></div>
+      <% end %>
     </div>
 
     <table class="table">
