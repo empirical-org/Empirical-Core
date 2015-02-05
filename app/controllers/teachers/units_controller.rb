@@ -4,7 +4,6 @@ class Teachers::UnitsController < ApplicationController
 
 
   def create
-	  # TODO refactor models to get rid of classroom_activity, its unneccessary
     
     # create a unit
     unit = Unit.create name: unit_params['name']
@@ -27,9 +26,10 @@ class Teachers::UnitsController < ApplicationController
       activity_id = activity_data['id']
       due_date = activity_data['due_date']
       unit_params['classrooms'].each do |key, classroom_data|
+        classroom_data['student_ids'] ||= []
         unit.classroom_activities.create!(activity_id: activity_id, 
                                           classroom_id: classroom_data['id'], 
-                                          assigned_student_ids: classroom_data['student_ids'],
+                                          assigned_student_ids: (classroom_data['student_ids'] ) ,
                                           due_date: due_date)
         # student_ids = (classroom['allStudents'] == true) ? nil : classroom['studentIds']
         # #unit.classroom_activities.create activity_id: activity_id, classroom_id: classroom['classroom_id'], assigned_student_ids: student_ids, due_date: due_date
@@ -46,17 +46,10 @@ class Teachers::UnitsController < ApplicationController
   private
 
   def unit_params
-    params.require(:unit).permit(:name, classrooms: [:id, :all_students, :student_ids], activities: [:id, :due_date])
+    params.require(:unit).permit(:name, classrooms: [:id, :all_students, :student_ids => []], activities: [:id, :due_date])
   end
 
 
-
-
-
-  # def create
-  #   @classroom.units.create_next
-  #   redirect_to teachers_classroom_lesson_planner_path(@classroom)
-  # end
 
 # protected
 

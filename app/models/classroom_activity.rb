@@ -7,9 +7,9 @@ class ClassroomActivity < ActiveRecord::Base
 
   scope :with_topic, ->(tid) { joins(:topic).where(topics: {id: tid}) }
 
-  after_save do
-    StudentProfileCache.invalidate(classroom.students)
-  end
+  # after_save do
+  #   StudentProfileCache.invalidate(classroom.students)
+  # end
 
   after_create :assign_to_students
 

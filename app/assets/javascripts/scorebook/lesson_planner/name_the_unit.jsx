@@ -23,7 +23,7 @@ EC.NameTheUnit = React.createClass({
 
 				</div>
 
-				<input id="unit_name" onKeyUp={this.keyUp} type="text" placeholder="e.g. Learning How to Use Nouns" />
+				<input id="unit_name" onKeyUp={this.keyUp} type="text"  placeholder="e.g. Learning How to Use Nouns" />
 			</section>
 		);
 	}
