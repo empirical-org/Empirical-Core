@@ -9,12 +9,8 @@ class Teachers::ClassroomsController < ApplicationController
 
 
   def index
-    if current_user.classrooms.any?
-      redirect_to teachers_classroom_path(current_user.classrooms.first)
-    end
     @classrooms = current_user.classrooms
     @classroom = @classrooms.first
-    
   end
 
 
