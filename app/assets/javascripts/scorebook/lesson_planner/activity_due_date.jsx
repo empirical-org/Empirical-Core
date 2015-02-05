@@ -14,14 +14,21 @@ EC.ActivityDueDate = React.createClass({
       onSelect: this.handleChange
     });
 
-    $(this.refs.railsFormatDate.getDOMNode()).change(this.handleChange);
 
     
   },
 
   handleChange: function(e) {
     console.log('handleChange')
-    var val = $(e.target).val(); // due date
+    //var val = $(e.target).val(); // due date
+    //var val = $(this.refs.railsFormatDate.getDOMNode).val()
+    //var dom = $(this.refs.railsFormatDate.getDOMNode)
+    var x1 = '#railsFormatDate' + this.props.activity.id
+    var dom = $(x1)
+    var val = dom.val()
+    console.log('dom', dom)
+    console.log('valeu', val)
+
     this.props.assignActivityDueDate(this.props.activity, val);
   },
 
