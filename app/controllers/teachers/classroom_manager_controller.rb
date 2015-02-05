@@ -11,6 +11,9 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def lesson_planner
+    if current_user.classrooms.empty?
+      redirect_to new_teachers_classroom_path
+    end
 
   end
 
@@ -62,6 +65,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scorebook
+    if current_user.classrooms.empty?
+      redirect_to new_teachers_classroom_path
+    end
     @classrooms = current_user.classrooms - [@classroom]
     @unit = Unit.find(params[:unit_id]) if params[:unit_id]
     @units = @classroom.classroom_activities.map(&:unit).uniq - [@unit]
@@ -75,11 +81,13 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def authorize!
-    if !params[:classroom_id].nil?
-      @classroom = Classroom.find(params[:classroom_id])
+    if current_user.classrooms.any?
+      if !params[:classroom_id].nil?
+        @classroom = Classroom.find(params[:classroom_id])
+      end
+      @classroom ||= current_user.classrooms.first
+      auth_failed unless @classroom.teacher == current_user
     end
-    @classroom ||= current_user.classrooms.first
-    auth_failed unless @classroom.teacher == current_user
   end
 
   def search_filters
