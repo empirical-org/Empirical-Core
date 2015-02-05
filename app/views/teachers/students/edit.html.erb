@@ -54,7 +54,7 @@
 
 							<div class="second-part">
 								<!--<a href="#">Delete Account</a>-->
-								<%= link_to "Delete Account", teachers_classroom_student_path(@classroom, @student), method: 'delete' %>
+								<%= link_to "Delete Account", teachers_classroom_student_path(@classroom, @student),data: {confirm: 'Are you sure you want to delete this account?'}, method: 'delete' %>
 							</div>
 
 
