@@ -21,7 +21,7 @@
 						<%= f.text_field :name %>
 						<%= f.button 'Save Changes', class: 'button-green' %>
 						<span class='pull-right delete-class'>
-							<%= link_to "Delete Class", teachers_classroom_path(@classroom), method: 'delete', class: 'pull-right delete-class' %>
+							<%= link_to "Delete Class", teachers_classroom_path(@classroom), method: 'delete', data: {confirm: 'Are you sure you want to delete this class?'}, class: 'pull-right delete-class' %>
 						</span>
 					<% end%>
 				</section>	
