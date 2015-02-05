@@ -1,5 +1,5 @@
 EC.ActivityDueDate = React.createClass({
-  // componentDidMount: function() {
+  componentDidMount: function() {
     // Set up the datepicker on the dueDate input
 
     // FIXME: Datepicker not working (conflict with bootstrap? see noConflict())
@@ -9,7 +9,17 @@ EC.ActivityDueDate = React.createClass({
     //   minDate: -20,
     //   maxDate: "+1M +10D"       
     // });
-  // },
+    
+
+    // FIXME: Datepicker not working (conflict with bootstrap? see noConflict())
+    $('.datepicker-input').datepicker({
+      selectOtherMonths: true,
+      dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+      minDate: -20,
+      maxDate: "+1M +10D"       
+    });
+    
+  },
 
   handleChange: function(e) {
     var val = $(e.target).val(); // due date

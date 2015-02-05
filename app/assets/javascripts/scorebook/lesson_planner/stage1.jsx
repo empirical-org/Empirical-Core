@@ -64,7 +64,6 @@ EC.Stage1 = React.createClass({
   },
 
   searchRequest: function (search_query) {
-    console.log('search request')
     $.ajax({
       url: '/teachers/classrooms/search_activities',
       context: this,
@@ -104,8 +103,6 @@ EC.Stage1 = React.createClass({
   },
 
   searchRequestSuccess: function (data) {
-    console.log('search request success')
-    console.log(data)
     var key;
     var filters = _.map(this.state.filters, function (filter) {
       if (filter.field == 'topicCategory') {
@@ -129,19 +126,14 @@ EC.Stage1 = React.createClass({
   },
 
   determineCurrentPageSearchResults: function () {
-    console.log('determien currentPageSearchResults')
-
     var start, end, currentPageSearchResults;
     start = (this.state.currentPage - 1)*this.state.resultsPerPage;
     end = this.state.currentPage*this.state.resultsPerPage;
     currentPageSearchResults = this.state.activitySearchResults.slice(start, end);
-    console.log(currentPageSearchResults)
     return currentPageSearchResults;
   },
 
   updateSearchQuery: function (newQuery) {
-    console.log('update search query')
-    console.log(newQuery)
     this.searchRequest(newQuery);
 
   },
