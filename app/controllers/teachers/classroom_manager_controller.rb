@@ -32,10 +32,9 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     render json: {
       activities: @activities,
-      activityClassifications: @activity_classifications,
+      activity_classifications: @activity_classifications,
       topic_categories: @topic_categories,
       sections: @sections,
-      filters: @filters,
       number_of_pages: @number_of_pages,
     }
 
