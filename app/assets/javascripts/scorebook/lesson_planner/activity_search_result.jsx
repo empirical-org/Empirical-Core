@@ -3,6 +3,17 @@ EC.ActivitySearchResult = React.createClass({
 		var true_or_false = ($(e.target).attr('checked') == 'checked');
 		this.props.toggleActivitySelection(true_or_false, this.props.data);
 	},	
+	tooltipTrigger: function (e) {
+		console.log('tooltip trigger')
+		e.stopPropagation();
+		$(this.refs.activateTooltip.getDOMNode()).tooltip('show');
+
+	},
+	tooltipTriggerStop: function (e) {
+		console.log('tooltip trigger stop')
+		e.stopPropagation();
+		$(this.refs.activateTooltip.getDOMNode()).tooltip('hide');
+	},
 
 	render: function () {
 		return (
@@ -13,16 +24,16 @@ EC.ActivitySearchResult = React.createClass({
 				</td>
 				
 				<td>
-					<div className={'activate-tooltip ' + this.props.data.classification.image_class } data-html='true' data-toggle='tooltip' data-placement='top' 
+					<div ref='activateTooltip' className={'activate-tooltip ' + this.props.data.classification.image_class } data-html='true' data-toggle='tooltip' data-placement='top' 
 						title={"<h1>" + this.props.data.name + "</h1><p>App: " + this.props.data.classification.name + "</p><p>" + this.props.data.description + "</p>"}>
 					</div>
 				</td>
 				
-				<td className='tooltip-trigger activity_name'>{this.props.data.name}</td>
+				<td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger activity_name'>{this.props.data.name}</td>
 				
-				<td className='tooltip-trigger'>{this.props.data.topic.section.name}</td>
+				<td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger'  >{this.props.data.topic.section.name}</td>
 				
-				<td className='tooltip-trigger'>{this.props.data.topic.topic_category.name}</td>
+				<td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger'>{this.props.data.topic.topic_category.name}</td>
 			</tr>
 		);
 
