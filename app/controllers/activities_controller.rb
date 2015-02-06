@@ -10,13 +10,11 @@ class ActivitiesController < ApplicationController
   def retry
 
     # flag these as retries so we can filter them out inexpensively ! 
-
     if current_user.nil?
       redirect_to new_session_path
     else
       # need to include related classroom_activity
-      # @activity_session = ActivitySession.create(is_retry: true, user_id: current_user.id, activity_id: @activity.id, classroom_activity_id: params[:classroom_activity_id])
-      @activity_session = ActivitySession.create(user_id: current_user.id, activity_id: @activity.id, classroom_activity_id: params[:classroom_activity_id])
+      @activity_session = ActivitySession.create(is_retry: true, activity_id: @activity.id, classroom_activity_id: params[:classroom_activity_id])
       redirect_to activity_path(@activity, session: @activity_session.id)
     end
   end
