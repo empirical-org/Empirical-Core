@@ -8,6 +8,8 @@ module Student
     has_many :assigned_activities, through: :classroom, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
 
+    after_create :assign_classroom_activities
+
     def unfinished_activities classroom
       classroom.activities - finished_activities(classroom)
     end
@@ -81,6 +83,13 @@ module Student
       arr3
     end
 
+    def assign_classroom_activities
+      if classroom.present?
+        classroom.classroom_activities.each do |ca|
+          ca.session_for(self)
+        end
+      end
+    end
 
 
     has_many :activity_sessions, dependent: :destroy do
