@@ -581,6 +581,18 @@ describe User, :type => :model do
     end
   end
 
+  describe 'student behavior' do
+    let(:classroom_activity) { FactoryGirl.build(:classroom_activity_with_activity) }
+    let(:activity) { classroom_activity.activity }
+    let(:classroom) { FactoryGirl.create(:classroom, classroom_activities: [classroom_activity]) }
+    let(:student) { FactoryGirl.create(:student, classroom: classroom) }
+
+    it 'assigns newly-created students to all activities previously assigned to their classroom' do
+      expect(student.activity_sessions.size).to eq(1)
+      expect(student.activity_sessions.first.activity).to eq(activity)
+    end
+  end
+
   it 'does not care about all the validation stuff when the user is temporary'
   it 'disallows regular assignment of roles that are restricted'
 end
