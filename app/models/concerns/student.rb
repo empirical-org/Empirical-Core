@@ -61,6 +61,7 @@ module Student
         sessions = ActivitySession.joins(:classroom_activity)
                     .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                     .where("activity_sessions.completed_at is null")
+                    .where("activity_sessions.is_retry = false")
                     .select("activity_sessions.*")
 
       end
