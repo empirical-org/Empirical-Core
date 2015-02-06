@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204201738) do
+ActiveRecord::Schema.define(version: 20150206184619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150204201738) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "started_at"
+    t.boolean  "is_retry",              default: false
   end
 
   add_index "activity_sessions", ["activity_id"], name: "index_activity_sessions_on_activity_id", using: :btree
