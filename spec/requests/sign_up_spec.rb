@@ -79,20 +79,5 @@ describe 'Sign up', :type => :request do
         expect(User.find(session[:user_id]).classroom).to eq(classroom)
       end
     end
-
-    context 'when the teacher accidentally enters the full name in the first name field' do
-      let(:student_full_name)  { "#{student_first_name} #{student_last_name}" }
-
-      before(:each) do
-        post teachers_classroom_students_path(classroom), user: {first_name: student_full_name}
-        follow_redirect!
-      end
-
-      it 'infers the first and last names' do
-        expect(response.body).to include(student_first_name)
-        expect(response.body).to include(student_last_name)
-        expect(response.body).to include(expected_student_email)
-      end
-    end
   end
 end
