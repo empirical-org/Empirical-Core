@@ -25,17 +25,7 @@ class Teachers::UnitsController < ApplicationController
 
     unit_params['activities'].each do |key, activity_data|
       activity_id = activity_data['id']
-
-
-
       due_date = activity_data['due_date']
-      puts 'original due date : '
-      puts due_date.to_json
-
-      #due_date = Date.strptime(due_date, '%Y/%d/%m').strftime("%Y/%m/%d") 
-      puts 'slightly transformed: '
-      puts due_date.to_json
-
       unit_params['classrooms'].each do |key, classroom_data|
         classroom_data['student_ids'] ||= []
         unit.classroom_activities.create!(activity_id: activity_id, 

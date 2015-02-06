@@ -22,6 +22,7 @@ class ProfilesController < ApplicationController
       @units = @classroom.classroom_activities.map(&:unit).uniq
 
       @next_activity_session = ActivitySession.joins(:classroom_activity)
+          .where("activity_sessions.completed_at IS NULL")
           .where("activity_sessions.user_id = ?", current_user.id)
           .order("classroom_activities.due_date DESC")
           .select("activity_sessions.*")
