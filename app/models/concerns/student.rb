@@ -37,8 +37,8 @@ module Student
       # we only want to show one session per classroom activity, not the retries, so filter them out thusly: 
       arr = []
       x1 = sessions.to_a.group_by{|as| as.classroom_activity_id}
-      x1.each do | ca_group|
-        x2 = ca_group[1].max_by{|session| session.percentile}
+      x1.each do |key, ca_group|
+        x2 = ca_group.max{|a, b| a.percentile <=> b.percentile}
         arr.push x2
       end
       sessions = arr
