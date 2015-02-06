@@ -17,7 +17,7 @@ describe TopicSerializer, type: :serializer do
       let!(:topic_json) { parsed['topic'] }
 
       it "should have these keys" do
-        expected = ["id", "name", "created_at", "updated_at", "section"]
+        expected = ["id", "name", "created_at", "updated_at", "section", "topic_category"]
         expect(topic_json.keys).to eq(expected)
       end
 
