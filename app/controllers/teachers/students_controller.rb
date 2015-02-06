@@ -64,13 +64,8 @@ protected
   end
 
   def do_names_contain_spaces
-    puts 'do names contain spaces'
     a = user_params[:first_name].index(/\s/)
     b = user_params[:last_name].index(/\s/)
-    puts 'a: '
-    puts a 
-    puts 'b'
-    puts b
     !(a.nil? and b.nil?)
   end
 
