@@ -12,10 +12,12 @@ describe Teachers::UnitsController, type: :controller do
     it 'kicks off a background job' do
       expect {
         post :create, classroom_id: classroom.id, 
-                      unit_name: 'A Cool Learning Experience', 
-                      selected_classrooms: "[]", 
-                      pairs_of_activity_id_and_due_date: "[]"
-        expect(response.status).to eq(302) # Redirects after success
+                      unit: {
+                        name: 'A Cool Learning Experience', 
+                        classrooms: [],
+                        activities: []
+                      }
+        expect(response.status).to eq(200)
       }.to change(AssignActivityWorker.jobs, :size).by(1)
     end
   end
