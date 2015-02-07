@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014162137) do
+ActiveRecord::Schema.define(version: 20150206184619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20141014162137) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "started_at"
+    t.boolean  "is_retry",              default: false
   end
 
   add_index "activity_sessions", ["activity_id"], name: "index_activity_sessions_on_activity_id", using: :btree
@@ -169,6 +170,26 @@ ActiveRecord::Schema.define(version: 20141014162137) do
   end
 
   add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
+
+  create_table "concept_classes", force: true do |t|
+    t.string "name"
+  end
+
+  create_table "concept_tag_results", force: true do |t|
+    t.integer "activity_session_id"
+    t.integer "concept_tag_id",      null: false
+    t.json    "metadata"
+  end
+
+  create_table "concept_tags", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "concept_class_id",    null: false
+    t.string   "additional_concepts"
+  end
+
+  add_index "concept_tags", ["name"], name: "index_concept_tags_on_name", using: :btree
 
   create_table "districts", force: true do |t|
     t.string   "clever_id"
@@ -392,12 +413,23 @@ ActiveRecord::Schema.define(version: 20141014162137) do
     t.integer  "workbook_id"
   end
 
+  create_table "topic_categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "topic_categories", ["name"], name: "index_topic_categories_on_name", using: :btree
+
   create_table "topics", force: true do |t|
     t.string   "name"
     t.integer  "section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "topic_category_id"
   end
+
+  add_index "topics", ["topic_category_id"], name: "index_topics_on_topic_category_id", using: :btree
 
   create_table "units", force: true do |t|
     t.string  "name"

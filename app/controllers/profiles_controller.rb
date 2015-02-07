@@ -19,46 +19,16 @@ class ProfilesController < ApplicationController
 
   def student
     if @classroom = current_user.classroom
-      @units = @classroom.units.includes(classroom_activities: [], activities: :classification)
-      #@incomplete_activity_sessions = (ActivitySession.where(user_id: current_user.id)).incomplete
-      
-      classroom_activities = []
-      @units.each do |unit|
-        classroom_activities << unit.classroom_activities.joins(:activity).where(<<-SQL, current_user.id)
-        classroom_activities.assigned_student_ids IS NULL OR
-        classroom_activities.assigned_student_ids = '{}' OR
-        ? = ANY (classroom_activities.assigned_student_ids)
-        SQL
-      end
-      classroom_activities.flatten!
+      @units = @classroom.classroom_activities.map(&:unit).uniq
 
+      @next_activity_session = ActivitySession.joins(:classroom_activity)
+          .where("activity_sessions.completed_at IS NULL")
+          .where("activity_sessions.user_id = ?", current_user.id)
+          .order("classroom_activities.due_date DESC")
+          .select("activity_sessions.*")
+          .first
 
-      activity_sessions = classroom_activities.map{|ca| ca.try(:session_for, current_user)}
-      
-
-      @completed_activity_sessions = current_user.percentages_by_classification
-      completed_activity_ids = @completed_activity_sessions.map(&:activity_id)
-
-      #@incomplete_activity_sessions = activity_sessions.select{|as| as.completed_at.nil? }    
-      @incomplete_activity_sessions = activity_sessions.select{|as| as.completed_at.nil? and !completed_activity_ids.include?(as.activity_id)}
-      
-      
-      @incomplete_activities = @incomplete_activity_sessions.map(&:activity)
-
-      @next_activity = classroom_activities
-                        .find_all{|ca| @incomplete_activities.include?(ca.activity) }
-                        .sort {|a,b| a.due_date <=> b.due_date }
-                        .first.try(:activity)
-
-      # @next_activity = @units.collect(&:classroom_activities).flatten.
-      #                   find_all { |ca| !@completed_activity_sessions.collect(&:activity).include?(ca.activity) }.
-      #                   sort {|a, b| b.due_date <=> a.due_date}.first.try(:activity)
-
-
-      # @next_activity = @units.collect(&:classroom_activities).flatten.
-      #         find_all { |ca| @incomplete_activities.include?(ca.activity) }.
-      #         sort {|a,b| b.due_date <=> a.due_date}.first.try(:activity)
-
+      @next_activity = @next_activity_session.activity if @next_activity_session.present?
 
       render 'student', layout: 'scorebook'
     else
@@ -69,7 +39,11 @@ class ProfilesController < ApplicationController
   end
 
   def teacher
-    redirect_to teachers_classrooms_path
+    if @user.classrooms.any?
+      redirect_to teachers_classroom_scorebook_path(@user.classrooms.first)
+    else
+      redirect_to new_teachers_classroom_path
+    end
   end
 
   def admin

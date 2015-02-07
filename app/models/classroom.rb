@@ -1,5 +1,5 @@
 class Classroom < ActiveRecord::Base
-  GRADES = %w(3 4 5 6 7 8 9 10 11 12 University)
+  GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
 
   validates_uniqueness_of :code
   validates :grade, presence: true, inclusion: { in: Classroom::GRADES, message: "%{value} is not a valid grade" }
@@ -50,10 +50,10 @@ class Classroom < ActiveRecord::Base
     classroom_activities.where(activity_id: activity.id).first
   end
 
-private
 
   def generate_code
     self.code = NameGenerator.generate
     if Classroom.find_by_code(code) then generate_code end
   end
+
 end

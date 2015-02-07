@@ -4980,17 +4980,16 @@ a.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: #ffffff;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  background-color: #e6e6e6;
+  border: 1px solid #cecece;
+  border-radius: 5px;
 }
 .panel-body {
-  padding: 15px;
+  padding: 20px;
+  background: #fff;
 }
 .panel-heading {
-  padding: 10px 15px;
+  padding: 15px 20px;
   border-bottom: 1px solid transparent;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
@@ -5008,7 +5007,7 @@ a.list-group-item-danger.active:focus {
   color: inherit;
 }
 .panel-footer {
-  padding: 10px 15px;
+  padding: 15px 20px;
   background-color: #f5f5f5;
   border-top: 1px solid #dddddd;
   border-bottom-right-radius: 3px;
@@ -5179,22 +5178,22 @@ a.list-group-item-danger.active:focus {
   border-bottom: 1px solid #dddddd;
 }
 .panel-default {
-  border-color: #dddddd;
+  border-color: #cecece;
 }
 .panel-default > .panel-heading {
   color: #333333;
-  background-color: #f5f5f5;
-  border-color: #dddddd;
+  background-color: #e6e6e6;
+  border-color: #cecece;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #dddddd;
+  border-top-color: #cecece;
 }
 .panel-default > .panel-heading .badge {
-  color: #f5f5f5;
+  color: #e6e6e6;
   background-color: #333333;
 }
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #dddddd;
+  border-bottom-color: #cecece;
 }
 .panel-primary {
   border-color: #000000;
@@ -5539,7 +5538,7 @@ button.close {
   left: 50%;
   margin-left: -10px;
   border-width: 10px 10px 0;
-  border-top-color: #ffffff;
+  /* edit by marcello : border-top-color: #ffffff;*/
 }
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;
@@ -6209,7 +6208,7 @@ button.close {
   border: 1px solid #cecece;
   color: #000;
   font-size: 14px;
-  padding: 12px;
+  padding: 9px 12px;
 }
 .select-mixin {
   border-radius: 5px;
@@ -6231,7 +6230,7 @@ button.close {
   border: 1px solid #cecece;
 }
 .button-mixin {
-  padding: 13px 25px;
+  padding: 10px 25px;
   font-size: 14px;
   border-radius: 5px;
 }

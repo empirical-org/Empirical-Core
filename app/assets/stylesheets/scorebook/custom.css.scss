@@ -1,4 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,600);
+
+
+.flash-notice {
+  color: red;
+}
+
 .ul-reset-mixin {
   padding: 0;
   margin: 0;
@@ -16,7 +22,7 @@
   border: 1px solid #cecece;
   color: #000;
   font-size: 14px;
-  padding: 12px;
+  padding: 9px 12px;
 }
 .select-mixin {
   border-radius: 5px;
@@ -38,7 +44,7 @@
   border: 1px solid #cecece;
 }
 .button-mixin {
-  padding: 13px 25px;
+  padding: 10px 25px;
   font-size: 14px;
   border-radius: 5px;
 }
@@ -119,7 +125,7 @@ section {
   border-bottom: 1px solid #cecece;
 }
 button:not(.select-mixin) {
-  padding: 13px 25px;
+  padding: 10px 25px;
   font-size: 14px;
   border-radius: 5px;
   transition: 0.1s ease-out;
@@ -130,6 +136,9 @@ button:not(.select-mixin) {
 }
 button:not(.select-mixin):focus {
   outline: none;
+}
+button:not(.select-mixin):active {
+  box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.7);
 }
 .button-select {
   text-align: left;
@@ -147,8 +156,11 @@ button:not(.select-mixin):focus {
   color: #fff;
 }
 .button-green:hover {
-  color: white;
-  text-decoration: none;
+  background-color: #44b49a;
+}
+
+.button-green#assign {
+  float:right;
 }
 /* ==========================================================================
    Navbar styles
@@ -184,47 +196,34 @@ input {
   border: 1px solid #cecece;
   color: #000;
   font-size: 14px;
-  padding: 12px;
+  padding: 9px 12px;
+  transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -webkit-transition: 0.1s ease-out;
 }
-input[type=checkbox].css-checkbox {
-  position: absolute;
-  z-index: -1000;
-  left: -1000px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
+input:focus {
+  outline: none;
+  border: 1px solid #5bc1a9;
 }
-input[type=checkbox].css-checkbox + label.css-label {
-  padding-left: 28px;
-  height: 23px;
-  display: inline-block;
-  line-height: 23px;
+.datepicker-input {
+  height: 26px;
+  width: 148px;
+  /*background-image: url(../images/icon-calendar.png);*/
+  background-image: image-url('scorebook/icon-calendar.png');
   background-repeat: no-repeat;
-  background-position: 0 0;
-  font-size: 23px;
-  vertical-align: middle;
-  cursor: pointer;
-  position: relative;
-  left: 4px;
-  margin: 0;
+  background-position-x: 120px;
+  background-position-y: 3px;
 }
-input[type=checkbox].css-checkbox:checked + label.css-label {
-  background-position: 0 -23px;
+input.inactive {
+  background: #f7f5f5;
+  width: 120px;
+  border: 1px dashed #cecece;
 }
-label.css-label {
-  background-image: image-url('scorebook/checkbox-sprite.png');
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+input.inactive:focus {
+  border: 1px dashed #5bc1a9;
 }
 select {
+  height: 40px;
   border-radius: 5px;
   border: 1px solid #cecece;
   color: #000;
@@ -277,7 +276,7 @@ select:focus {
   width: auto;
 }
 .select-white-wrapper .dropdown-menu {
-  width: 265px !important;
+  width: 265px;
 }
 .select-gray-wrapper .dropdown-menu {
   width: 100% !important;
@@ -357,10 +356,10 @@ select:focus {
 .student-subnavigation img {
   margin-right: 9px;
 }
+
 .student-course-info span {
   margin-right: 50px;
   color: #999;
-
 }
 .student-course-info span:last-child {
   margin-right: 0;
@@ -431,11 +430,26 @@ select:focus {
   background-repeat: no-repeat;
   background-position: 11px 7px;
 }
+.icon-puzzle-gray {
+  background-image: image-url('scorebook/icon-puzzle-gray.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
 .icon-flag {
   background-image: image-url('scorebook/icon-flag.png');
   background-repeat: no-repeat;
   background-position: 9px;
 }
+
+.icon-flag-gray {
+  background-image: image-url('scorebook/icon-flag-gray.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
 .icons-description-wrapper {
   float: left;
   position: relative;
@@ -471,9 +485,13 @@ select:focus {
 /* ==========================================================================
    Activity Planner styles
    ========================================================================== */
-#activity-planner input:not([type="checkbox"]) {
-  width: 326px;
-  margin-top: 20px;
+/*#activity-planner input:not([type="checkbox"]) {*/
+#activity-planner {
+  input#search_activities_input,
+  input#unit_name {
+    width: 326px;
+    margin-top: 20px;
+  }
 }
 #activity-planner button:not(.button-select) {
   margin-left: 20px;
@@ -504,6 +522,10 @@ select:focus {
   border-radius: 5px;
   font-size: 14px;
 }
+
+/*
+below is obselete for now, changed link to span : 
+*/
 .activity-page-dropdown-wrapper .dropdown-menu a {
   padding: 5px 14px;
   display: block;
@@ -517,12 +539,27 @@ select:focus {
 .activity-page-dropdown-wrapper .dropdown-menu a:active {
   -webkit-appearance: none;
 }
-.learning-to-use {
-  padding: 30px 0 85px 0;
+
+
+.activity-page-dropdown-wrapper .dropdown-menu {
+  span {
+    padding: 5px 14px;
+    display: block;
+    color: #000;
+  }
+  span:hover {
+    background: #f0f0f0;
+  }
+
+
 }
+
+
 /* ==========================================================================
    Tables
    ========================================================================== */
+
+
 #activity-planner table {
   margin-top: 20px;
   border-collapse: separate;
@@ -558,10 +595,10 @@ select:focus {
   width: 7%;
 }
 #activity-planner table thead tr th:nth-child(3) {
-  width: 53%;
+  width: 51%;
 }
 #activity-planner table thead tr th:nth-child(4) {
-  width: 15%;
+  width: 17%;
 }
 #activity-planner table thead tr th:nth-child(5) {
   width: 20%;
@@ -575,9 +612,19 @@ select:focus {
 #activity-planner table tbody tr:nth-child(9) {
   background: #f7f5f5;
 }
-#activity-planner table tbody tr {
-  background: #fff;
+#activity-planner table#activities_table tbody tr {
+  
 }
+#activity-planner table#activities_table tbody tr.active td {
+  background: #fff !important;
+}
+
+#activity-planner table#activities_table tbody tr td:nth-child(2) {
+  height: 100%;
+}
+
+
+
 #activity-planner table tbody tr td {
   font-size: 14px;
   padding: 7px;
@@ -607,33 +654,82 @@ select:focus {
 #activity-planner .table > tfoot > tr > td {
   vertical-align: middle;
 }
-.learning-to-use table tbody tr {
+
+
+
+#activity-planner .table > thead > tr > th,
+#activity-planner .table > tbody > tr > th,
+#activity-planner .table > tfoot > tr > th,
+#activity-planner .table > thead > tr > td,
+#activity-planner .table > tbody > tr > td,
+#activity-planner .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+
+.scorebook-icon-check {
+  background-image: image-url('scorebook/icon-check.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.teaching-cart {
+  display:block;
+  border: none;
+  padding-bottom: 85px;
+  table {
+    border:none;
+    tbody {
+      border: none;
+    }
+  }
+}
+
+.icon-x-gray {
+  background-image: image-url('scorebook/icon-x-gray.png');
+  background-repeat: no-repeat;
+  background-position:center;
+}
+
+.teaching-cart table tbody tr {
   background: #f7f5f5 !important;
 }
-.learning-to-use table tbody tr:first-child td:nth-child(1) {
+.teaching-cart table tbody tr:first-child td:nth-child(1) {
   border-top-left-radius: 5px;
 }
-.learning-to-use table tbody tr:first-child td:nth-child(3) {
+.teaching-cart table tbody tr:first-child td:nth-child(3) {
   border-top-right-radius: 5px;
 }
-.learning-to-use table tbody tr:last-child td:nth-child(1) {
+.teaching-cart table tbody tr:last-child td:nth-child(1) {
   border-bottom-left-radius: 5px;
 }
-.learning-to-use table tbody tr:last-child td:nth-child(3) {
+.teaching-cart table tbody tr:last-child td:nth-child(3) {
   border-bottom-right-radius: 5px;
 }
-.learning-to-use table tbody tr td:nth-child(1) {
+.teaching-cart table tbody tr td:nth-child(1) {
   width: 5%;
 }
-.learning-to-use table tbody tr td:nth-child(2) {
+.teaching-cart table tbody tr td:nth-child(2) {
   width: 90%;
   text-align: left !important;
 }
-.learning-to-use table tbody tr td:nth-child(3) {
+.teaching-cart table tbody tr td:nth-child(3) {
   border-right: 1px solid #cecece;
   width: 5%;
 }
-.learning-to-use .fake-border {
+.teaching-cart .fake-border {
+  width: 99.4%;
+  margin: 0 auto;
+  position: relative;
+  bottom: 1px;
+}
+
+.teaching-cart #continue.hidden,
+.hidden-button {
+  display:none;
+
+}
+
+.teaching-cart .fake-border {
   width: 99.4%;
   margin: 0 auto;
   position: relative;
@@ -649,6 +745,456 @@ select:focus {
   margin-bottom: 30px;
 }
 /* ==========================================================================
+<<<<<<< HEAD
+=======
+   Class Manager
+   ========================================================================== */
+.manage-classes table {
+  margin-top: 20px;
+  border-collapse: separate;
+  margin-bottom: 0;
+}
+.manage-classes table a {
+  color: #308183;
+}
+.manage-classes table thead {
+  background: #f7f5f5;
+  border: 1px solid #cecece;
+}
+.manage-classes table thead tr th {
+  border-bottom: none;
+  border-top: 1px solid #cecece !important;
+  cursor: pointer;
+  background-color: #e6e6e6;
+  padding: 8px 12px;
+  transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -webkit-transition: 0.1s ease-out;
+}
+.manage-classes table thead tr th .fa {
+  float: right;
+  color: #737373;
+  font-size: 1.3em;
+}
+.manage-classes table thead tr th.active {
+  background: #e6e6e6;
+}
+.manage-classes table thead tr th:nth-child(1) {
+  width: 40%;
+  border-top-left-radius: 5px;
+  text-align: left;
+  border-left: 1px solid #cecece;
+}
+.manage-classes table thead tr th:nth-child(2) {
+  width: 12%;
+  text-align: center;
+}
+.manage-classes table thead tr th:nth-child(3) {
+  width: 23%;
+  text-align: center;
+}
+.manage-classes table thead tr th:nth-child(4) {
+  width: 25%;
+  border-top-right-radius: 5px;
+  border-right: 1px solid #cecece;
+}
+.manage-classes table tbody tr {
+  background: #f7f5f5;
+}
+.manage-classes table tbody tr td {
+  font-size: 14px;
+  padding: 20px 12px;
+}
+.manage-classes table tbody tr td:nth-child(1) {
+  text-align: left;
+  border-left: 1px solid #cecece;
+}
+.manage-classes table tbody tr td:nth-child(2) {
+  text-align: center;
+}
+.manage-classes table tbody tr td:nth-child(3) {
+  text-align: center;
+}
+.manage-classes table tbody tr td:nth-child(4) {
+  text-align: right;
+  border-right: 1px solid #cecece;
+}
+.manage-classes table tbody tr:last-child td {
+  border-bottom: 1px solid #cecece;
+}
+.manage-classes table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+.manage-classes table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}
+.manage-classes .table > thead > tr > th,
+.manage-classes .table > tbody > tr > th,
+.manage-classes .table > tfoot > tr > th,
+.manage-classes .table > thead > tr > td,
+.manage-classes .table > tbody > tr > td,
+.manage-classes .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+/* ==========================================================================
+   Class Page
+   ========================================================================== */
+.class-page table {
+  margin-top: 20px;
+  border-collapse: separate;
+  margin-bottom: 0;
+}
+.class-page table a {
+  color: #308183;
+}
+.class-page table thead {
+  background: #f7f5f5;
+  border: 1px solid #cecece;
+}
+.class-page table thead tr th {
+  border-bottom: none;
+  border-top: 1px solid #cecece !important;
+  cursor: pointer;
+  background-color: #e6e6e6;
+  padding: 8px 12px;
+  transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -webkit-transition: 0.1s ease-out;
+}
+.class-page table thead tr th .fa {
+  float: right;
+  color: #737373;
+  font-size: 1.3em;
+}
+.class-page table thead tr th.active {
+  background: #e6e6e6;
+}
+.class-page table thead tr th:nth-child(1) {
+  width: 40%;
+  border-top-left-radius: 5px;
+  text-align: left;
+  border-left: 1px solid #cecece;
+}
+.class-page table thead tr th:nth-child(2) {
+  width: 40%;
+  text-align: left;
+}
+.class-page table thead tr th:nth-child(3) {
+  width: 20%;
+  text-align: center;
+  border-top-right-radius: 5px;
+  border-right: 1px solid #cecece;
+}
+.class-page table tbody tr {
+  background: #f7f5f5;
+}
+.class-page table tbody tr td {
+  font-size: 14px;
+  padding: 20px 12px;
+}
+.class-page table tbody tr td:nth-child(1) {
+  text-align: left;
+  border-left: 1px solid #cecece;
+}
+.class-page table tbody tr td:nth-child(2) {
+  text-align: left;
+}
+.class-page table tbody tr td:nth-child(3) {
+  text-align: right;
+  border-right: 1px solid #cecece;
+}
+.class-page table tbody tr:last-child td {
+  border-bottom: 1px solid #cecece;
+}
+.class-page table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+.class-page table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}
+.class-page .table > thead > tr > th,
+.class-page .table > tbody > tr > th,
+.class-page .table > tfoot > tr > th,
+.class-page .table > thead > tr > td,
+.class-page .table > tbody > tr > td,
+.class-page .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+.class-page input {
+  width: 300px;
+  margin: 0 20px;
+}
+
+.class-page > label {
+  font-weight: normal;
+}
+
+form.class-page {
+  margin-bottom: 0em;
+}
+.class-page .delete-class a {
+  color: #308183;
+  line-height: 50.5px;
+}
+.edit-student-page {
+  width: 380px;
+  overflow: hidden;
+  position: relative;
+}
+.edit-student-page label {
+  font-weight: normal;
+}
+
+
+.edit-student-page a {
+  color: #308183;
+}
+.edit-student-page > div {
+  margin-bottom: 20px;
+}
+.edit-student-page .first-div {
+  margin-top: 25px;
+}
+
+.edit-student-page .third-div *,
+.edit-student-page .fourth-div * {
+  position: inline-block;
+  float:left;
+}
+.edit-student-page .third-div,
+.edit-student-page .fourth-div {
+  float:left;
+  clear:both;
+}
+
+.edit-student-page .last-div {
+  margin-bottom: 10px;
+}
+.edit-student-page .second-part {
+  width: 280px;
+  float: right;
+}
+
+.edit-student-page .second-part.classcode,
+.edit-student-page .second-part.password {
+  width: auto;
+}
+
+.edit-student-page .second-part.classcode input {
+  min-width: 120px;
+}
+
+.edit-student-page .password-reset {
+  margin-left: 20px;
+  line-height: 40px;
+}
+
+.edit-student-page .second-part.password input {
+  width: 120px;
+}
+
+.edit-student-page .second-part.classcode,
+.edit-student-page .second-part.password {
+  float: left;
+}
+
+.edit-student-page .input-description-inline {
+  line-height: 40px;
+  width: 100px;
+}
+.edit-student-page .input-description {
+  color: #b3b3b3;
+  font-size: 12px;
+}
+
+.invite-students .select-white-wrapper .dropdown-menu {
+  left: auto;
+  width: 280px;
+  top: auto;
+}
+
+.invite-students .button-select {
+  /*margin-top: 30px;*/
+  button {
+    min-width: 200px;
+    text-align: left;
+  }
+  .fa-caret-down {
+    float:right;
+    font-size: 18px;
+    height: 19px;
+    color: rgb(115,115,115);
+  }
+}
+
+
+
+.invite-students h1 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.invite-students ol {
+  padding-left: 20px;
+}
+.invite-students input,
+.invite-students .class-code {
+  margin-right: 20px;
+}
+.invite-students table {
+  margin-top: 20px;
+  border-collapse: separate;
+  margin-bottom: 0;
+}
+.invite-students table a {
+  color: #308183;
+}
+.invite-students table thead {
+  background: #f7f5f5;
+  border: 1px solid #cecece;
+}
+.invite-students table thead tr th {
+  border-bottom: none;
+  border-top: 1px solid #cecece !important;
+  cursor: pointer;
+  background-color: #e6e6e6;
+  padding: 8px 12px;
+  transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -webkit-transition: 0.1s ease-out;
+}
+.invite-students table thead tr th .fa {
+  float: right;
+  color: #737373;
+  font-size: 1.3em;
+}
+.invite-students table thead tr th.active {
+  background: #e6e6e6;
+}
+.invite-students table thead tr th:nth-child(1) {
+  width: 30%;
+  border-top-left-radius: 5px;
+  text-align: left;
+  border-left: 1px solid #cecece;
+}
+.invite-students table thead tr th:nth-child(2) {
+  width: 30%;
+  text-align: left;
+}
+.invite-students table thead tr th:nth-child(3) {
+  width: 40%;
+  text-align: left;
+  border-top-right-radius: 5px;
+  border-right: 1px solid #cecece;
+}
+.invite-students table tbody tr {
+  background: #f7f5f5;
+}
+.invite-students table tbody tr td {
+  font-size: 14px;
+  padding: 20px 12px;
+}
+.invite-students table tbody tr td:nth-child(1) {
+  text-align: left;
+  border-left: 1px solid #cecece;
+}
+.invite-students table tbody tr td:nth-child(2) {
+  text-align: left;
+}
+.invite-students table tbody tr td:nth-child(3) {
+  text-align: left;
+  border-right: 1px solid #cecece;
+}
+.invite-students table tbody tr:last-child td {
+  border-bottom: 1px solid #cecece;
+}
+.invite-students table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+.invite-students table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}
+.invite-students .table > thead > tr > th,
+.invite-students .table > tbody > tr > th,
+.invite-students .table > tfoot > tr > th,
+.invite-students .table > thead > tr > td,
+.invite-students .table > tbody > tr > td,
+.invite-students .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+.create-a-class h1 {
+  margin-bottom: 20px;
+}
+
+
+
+.create-a-class {
+  input, select, button, label, a {
+    float:left;
+    clear:both;
+    font-weight: normal;
+    margin-bottom: 20px;
+  }
+  .grade-select-column .help-inline {
+    padding:9px;
+    margin-left: 10px;
+    display: inline-block;
+    color: #b94a48;
+  }
+
+  input.class-code {
+    margin-bottom: 10px;
+  }
+  span.generate-code {
+    float:left;
+    clear: right;
+    cursor: pointer;
+    line-height: 40px;
+    margin-left: 20px;
+    color: #308183;
+
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}
+
+
+.create-a-class > div {
+  margin-bottom: 20px;
+}
+.create-a-class input:not(.inactive) {
+  width: 315px;
+}
+
+.create-a-class .select-gray-wrapper {
+  width: 180px;
+}
+.create-a-class .select-gray-wrapper .dropdown-menu {
+  width: 180px !important;
+  left: auto;
+  top: auto;
+}
+.create-a-class .class-code-wrapper div {
+  margin-bottom: 10px;
+}
+.create-a-class .class-code-wrapper span {
+  margin-left: 15px;
+}
+.grade-select {
+  width: 140px;
+  background-color: #ebebeb;
+}
+.grade-select .selecter-selected {
+  background-color: #ebebeb;
+  width: 140px;
+  max-width: 140px;
+}
+.grade-select .selecter-options {
+  max-width: 140px;
+}
+/* ==========================================================================
+
    Fake table styles
    ========================================================================== */
 .fake-table {
@@ -690,16 +1236,214 @@ select:focus {
    ========================================================================== */
 .pagination {
   margin: 0;
+  list-style-type: none;
+  * {
+    cursor: pointer;
+  }
+  li {
+    display: block;
+    clear:none;
+    float: left;
+    span {
+      height: 40px;
+    }
+  }
+  .page_number, .active {
+    float:left;
+    clear:none;
+  }
 }
+
 .pagination .fa {
   color: #737373;
   font-size: 1.3em;
 }
 /* ==========================================================================
+<<<<<<< HEAD
+=======
+   Panel styles
+   ========================================================================== */
+.panel-group .panel {
+  margin-bottom: 20px;
+}
+.panel-group .panel:last-child {
+  margin-bottom: 0;
+}
+.panel-default:first-child {
+  margin-top: 20px;
+}
+.panel-body .row {
+  margin-bottom: 20px;
+}
+.panel-body .row:last-child {
+  margin-bottom: 0;
+}
+.panel-body input[type=checkbox].css-checkbox + label.css-label {
+  font-size: 14px;
+  font-weight: normal;
+}
+.panel-heading input[type=checkbox].css-checkbox + label.css-label {
+  font-size: 14px;
+  margin-top: 7px;
+}
+.panel-heading .panel-select-by-student {
+  line-height: 40px;
+  width: 150px;
+}
+.panel-heading .title a {
+  margin-bottom: 7px;
+}
+.ph-caret-up, 
+.ph-caret-down,
+.ph-caret-toggle {
+  background-repeat: no-repeat;
+  background-position-x: 130px;
+  background-position-y: 14px;
+}
+.ph-caret-up {
+  /*background-image: url(/assets/scorebook/caret-up.png);*/
+  background-image: image-url('scorebook/caret-up.png');
+}
+.ph-caret-down {
+  background-image: image-url('scorebook/caret-down.png');
+}
+
+.ph-caret-toggle {
+  background-image: image-url('scorebook/caret-down.png');
+}
+.collapsed .ph-caret-toggle {
+  background-image: image-url('scorebook/caret-up.png');
+}
+
+
+.student_column {
+  clear:none;
+}
+
+.assign-dates {
+  padding-bottom: 80px;
+}
+.assign-dates table {
+  margin-top: 20px;
+  border-collapse: separate;
+  margin-bottom: 0;
+}
+.assign-dates table tbody {
+  background: #f7f5f5;
+  border: 1px solid #cecece;
+}
+
+
+
+.assign-dates table tbody tr:first-child td:first-child {
+  border-top-left-radius: 5px;
+}
+.assign-dates table tbody tr:first-child td:last-child {
+  border-top-right-radius: 5px;
+}
+.assign-dates table tbody tr:last-child td {
+  border-bottom: 1px solid #cecece;
+}
+.assign-dates table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+.assign-dates table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}
+.assign-dates table tbody tr th {
+  border-left: 1px solid #cecece;
+  border-bottom: none;
+  border-top: 1px solid #cecece;
+  cursor: pointer;
+  transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -webkit-transition: 0.1s ease-out;
+}
+.assign-dates table tbody tr th .fa {
+  float: right;
+  color: #737373;
+  font-size: 1.3em;
+}
+.assign-dates table tbody tr th.active {
+  background: #e6e6e6;
+}
+.assign-dates table tbody tr td:nth-child(1) {
+  width: 5%;
+  text-align: center;
+}
+.assign-dates table tbody tr td:nth-child(2) {
+  width: 80%;
+  text-align: left;
+}
+.assign-dates table tbody tr td:nth-child(3) {
+  width: 10%;
+}
+.assign-dates table tbody tr td:nth-child(4) {
+  width: 5%;
+  border-right: 1px solid #cecece;
+}
+.assign-dates table tbody tr {
+  background: #f7f5f5;
+}
+.assign-dates table tbody tr td {
+  font-size: 14px;
+  padding: 7px;
+}
+.assign-dates table tbody tr td:nth-child(1) {
+  text-align: center;
+  border-left: 1px solid #cecece;
+}
+.assign-dates table tbody tr td:nth-child(2) {
+  text-align: left !important;
+}
+.assign-dates table tbody tr td:nth-child(3) {
+  text-align: left;
+}
+.assign-dates table tbody tr td:nth-child(4) {
+  text-align: right;
+}
+.assign-dates .table > thead > tr > th,
+.assign-dates .table > tbody > tr > th,
+.assign-dates .table > tfoot > tr > th,
+.assign-dates .table > thead > tr > td,
+.assign-dates .table > tbody > tr > td,
+.assign-dates .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+.assign-dates button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.railsFormatDate {
+  display:none;
+}
+/* ==========================================================================
+
    Tooltips
    ========================================================================== */
 .tooltip.in {
   opacity: 1;
+}
+#activity-planner #activities_table .tooltip.top .tooltip-arrow {  
+  
+  border-top-color: rgb(206,206,206);
+}
+
+.react-lightbox {
+  height: 200px;
+  width: 200px;
+}
+.react-lightbox-modal {
+  height: 200px;
+  width: 200px;
+}
+
+.tooltip {
+  .concept-class {
+    padding-top: 12px;
+    padding-bottom: 12px;  
+  }
 }
 /* ==========================================================================
    Helper styles to quickly manipulate the looks
@@ -710,12 +1454,63 @@ select:focus {
 .no-border {
   border: none;
 }
+
+.text-right {
+  text-align: right;
+}
+.m-20 {
+  margin: 20px 0;
+}
+.mt-15 {
+  margin-top: 15px;
+}
+
 .no-pl {
   padding-left: 0;
 }
 .no-pr {
   padding-right: 0;
 }
+
+input[type=checkbox].css-checkbox {
+  position: absolute;
+  z-index: -1000;
+  left: -1000px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+input[type=checkbox].css-checkbox + label.css-label {
+  padding-left: 28px;
+  height: 23px;
+  display: inline-block;
+  line-height: 23px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  font-size: 23px;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+  left: 4px;
+  margin: 0;
+}
+input[type=checkbox].css-checkbox:checked + label.css-label {
+  background-position: 0 -23px;
+}
+label.css-label {
+  background-image: image-url('scorebook/checkbox-sprite.png');
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 #crumbs {
   text-align: center;
   position: relative;
@@ -881,3 +1676,306 @@ select:focus {
   pointer-events: none;
 }
 /*END Form Wizard*/
+
+.ui-datepicker {
+  width: 185px;
+  border-radius: 5px;
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
+}
+
+.ui-datepicker table {
+  background: #fff;
+  border-bottom: 1px solid #cecece;
+  border-left: 1px solid #cecece;
+  border-right: 1px solid #cecece;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.ui-datepicker table a.ui-state-default,
+.ui-datepicker table span.ui-state-default {
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  font-weight: normal !important;
+  font-size: 13px !important;
+}
+
+.ui-datepicker table a.ui-state-default {
+  color: black !important;  
+}
+.ui-datepicker table span.ui-state-default {
+  color: rgb(115,115,115);
+}
+
+
+.ui-datepicker .ui-datepicker-header {
+  background: #737373;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bold;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border: none !important;
+}
+.ui-datepicker .ui-datepicker-prev {
+  background-image: image-url('scorebook/datepicker-arrow-left.png');
+  background-repeat: no-repeat;
+  background-position-x: 10px;
+  background-position-y: 11px;
+  cursor: pointer;
+}
+.ui-datepicker .ui-datepicker-prev:hover,
+.ui-datepicker .ui-datepicker-next:hover {
+  background-color: transparent !important;
+  border:none !important;
+}
+.ui-datepicker .ui-datepicker-next {
+  background-image: image-url('scorebook/datepicker-arrow-right.png');
+  background-repeat: no-repeat;
+  background-position-x: 10px;
+  background-position-y: 11px;
+  cursor: pointer;
+}
+.ui-state-disabled {
+  color: #737373;
+}
+.selecter {
+  position: relative;
+  display: block;
+  margin: 10px 0;
+  z-index: 1;
+}
+.selecter:focus {
+  box-shadow: none;
+  outline: none;
+}
+.selecter,
+.selecter * {
+  user-select: none !important;
+}
+.selecter,
+.selecter *,
+.selecter *:before,
+.selecter *:after {
+  box-sizing: border-box;
+}
+.selecter-element {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  z-index: -1;
+}
+.selecter-element,
+.selecter-element:focus {
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+.no-opacity .selecter-element {
+  left: -999999px;
+}
+.selecter-selected {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  color: #222222;
+  cursor: pointer;
+  display: block;
+  font-size: 13px;
+  margin: 0;
+  overflow: hidden;
+  padding: 10px 15px;
+  text-overflow: clip;
+  z-index: 2;
+  border-radius: 3px;
+}
+.selecter-selected:after {
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 0;
+  right: 15px;
+  bottom: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #737373;
+  content: '';
+  display: block;
+  margin: auto 0;
+}
+.no-touch .selecter-selected:hover {
+  color: #333333;
+}
+.no-touch .selecter.disabled .selecter-selected:hover {
+  color: #cccccc;
+}
+.selecter-options {
+  width: 100%;
+  max-height: 260px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: 1px solid #cccccc;
+  border-width: 0 1px 1px;
+  background-color: #ffffff;
+  display: none;
+  margin: 0;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 0;
+  z-index: 50;
+  border-radius: 0 0 3px 3px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+.selecter-options.scroller {
+  position: absolute;
+}
+.no-opacity .selecter-options {
+  width: auto;
+}
+.selecter-group {
+  color: #999999;
+  display: block;
+  font-size: 11px;
+  padding: 10px 15px;
+  text-transform: uppercase;
+}
+.selecter-item {
+  width: 100%;
+  background: #ffffff;
+  color: #222222;
+  cursor: pointer;
+  display: block;
+  font-size: 13px;
+  margin: 0;
+  overflow: hidden;
+  padding: 10px 15px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}
+.selecter-item.placeholder {
+  display: none;
+}
+.selecter-item.selected {
+  background: #eeeeee;
+}
+.selecter-item.disabled {
+  color: #999999;
+  cursor: default;
+}
+.selecter-item:first-child {
+  border-radius: 0;
+}
+.selecter-item:last-child {
+  border-bottom: 0;
+  border-radius: 0 0 2px 2px;
+}
+.selecter-item:hover {
+  background-color: #f0f0f0;
+}
+.no-touch .selecter-item:hover,
+.no-touch .selecter-item.selected:hover {
+  color: #333333;
+  background-color: #cccccc;
+}
+.selecter-item.disabled,
+.no-touch .selecter-item.disabled:hover {
+  color: #cccccc;
+  background-color: #ffffff;
+}
+.selecter.open {
+  z-index: 3;
+}
+.selecter.open .selecter-selected {
+  z-index: 51;
+  border-radius: 3px 3px 0 0;
+}
+.selecter.open .selecter-selected,
+.selecter.focus .selecter-selected {
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.selecter.cover .selecter-options {
+  border-width: 1px;
+  top: 0;
+  border-radius: 3px;
+}
+.selecter.cover .selecter-options .selecter-item.first {
+  border-radius: 3px 3px 0 0;
+}
+.selecter.cover.open .selecter-selected {
+  z-index: 49;
+  border-radius: 3px 3px 0 0;
+}
+.selecter.bottom .selecter-options {
+  top: auto;
+  bottom: 100%;
+  border-width: 1px 1px 0;
+}
+.selecter.bottom .selecter-item:last-child {
+  border: none;
+}
+.selecter.bottom.open .selecter-selected {
+  border-radius: 0 0 3px 3px;
+}
+.selecter.bottom.open .selecter-options {
+  border-radius: 3px 3px 0 0;
+}
+.selecter.bottom .cover .selecter-options {
+  top: auto;
+  bottom: 0;
+}
+.selecter.bottom .cover.open .selecter-selected {
+  border-radius: 3px;
+}
+.selecter.bottom .cover.open .selecter-options {
+  border-radius: 3px;
+}
+.selecter.multiple .selecter-options {
+  width: 100%;
+  position: static;
+  border-width: 1px;
+  display: block;
+  border-radius: 3px;
+  box-shadow: none;
+}
+.selecter.disabled .selecter-selected {
+  background: #ffffff;
+  border-color: #cccccc;
+  color: #cccccc;
+  cursor: default;
+}
+.selecter.disabled .selecter-options {
+  background: #ffffff;
+  border-color: #cccccc;
+}
+.selecter.disabled .selecter-group,
+.selecter.disabled .selecter-item {
+  border-color: #cccccc;
+  color: #cccccc;
+  cursor: default;
+}
+.selecter.disabled .selecter-item.selected,
+.no-touch .selecter.disabled .selecter-item.selected:hover {
+  background: #fafafa;
+}
+.selecter.disabled .selecter-item,
+.no-touch .selecter.disabled .selecter-item:hover {
+  color: #cccccc;
+  background-color: #ffffff;
+}
+.selecter-options.scroller {
+  overflow: hidden;
+}
+.selecter-options.scroller .scroller-content {
+  max-height: 260px;
+  padding: 0;
+}

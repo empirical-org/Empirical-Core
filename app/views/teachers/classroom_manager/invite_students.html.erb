@@ -1,0 +1,92 @@
+<%= render partial: 'teachers/shared/scorebook_tabs' %>
+
+<%= render partial: 'teachers/classrooms/subnav' %>
+
+
+
+
+
+
+
+<div class="container invite-students">
+
+  <section class="no-border">
+    <div class='row'>
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5 col-xl-5 button-select-wrapper select-white-wrapper">
+        <div class="button-select">
+          <button type="button" class="select-mixin select-white" data-toggle="dropdown">
+          <%= @classroom.name %>
+          <% unless @classrooms.empty? %><i class="fa fa-caret-down"></i><% end %>
+          </button>
+          <%- unless @classrooms.empty? %>
+            <ul class="dropdown-menu" role="menu">
+              <%- @classrooms.each do |classroom| %>
+                <li><%= link_to classroom.name, teachers_classroom_invite_students_path(classroom) %></li>
+              <% end %>
+            </ul>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <h1 class="section-header">Have Students Create Their Accounts</h1>
+
+    <ol>
+      <li>Have students sign up at quill.org/account/new</li>
+      <li>Once students sign up, in the "Join My Class" field, <br>they enter the class code <strong><%= @classroom.code %></strong></li>
+    </ol>
+
+    <span class="class-code">Class Code</span>
+    <input type="text" class="inactive" disabled value="<%= @classroom.code %>">
+
+    <h1 class="section-header">Or You Create Student Accounts</h1>
+    <div>
+      The students’ username is their name combined with your<br>
+      class code. For example, John Smith is 'John.Smith@<%= @classroom.code %>'.<br>
+      <div class="mt-15">
+        Students passwords are set to their last names by default.<br>
+        For example, ‘Smith’ (first letter is capitalized).
+      </div>
+    </div>
+
+    <div class="m-20">
+      <%= form_for User.new, url: teachers_classroom_students_path(@classroom) do |f| %>
+        <%= f.text_field :first_name, placeholder: 'First Name' %>
+        <%= f.text_field :last_name, placeholder: 'Last Name' %>
+        <%= f.submit 'Add Student', class: 'button-green' %>
+      <% end %>
+      <%- if flash[:notice] %>
+        <div class='flash-notice'><%= flash[:notice] %></div>
+      <% end %>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      <% if @classroom.students.empty? %>
+        <tr>
+          <td colspan='3'>There are no students in this classroom yet.</td>
+        </tr>
+      <% else %>
+        <% @classroom.students.each do |student| %>
+          <tr>
+            <td><%= student.first_name %></td>
+            <td><%= student.last_name %></td>
+            <td><%= student.username %></td>
+          </tr>
+        <% end %>
+      <% end %>
+
+      </tbody>
+    </table>
+  </section>
+</div>

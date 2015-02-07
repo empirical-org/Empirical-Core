@@ -1,5 +1,8 @@
 <head>
   <title>Quill Scorebook</title>
+  
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
   <%= stylesheet_link_tag 'scorebook/scorebook', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <a href="/images/favicon.gif" rel="icon" type="image/ico" />
@@ -34,7 +37,7 @@
                 <%- if current_user.role == 'teacher' %>
                   <li><%= link_to "Activities", lessons_path %></li>
                 <%- end %>
-                <li><%= link_to 'Logout',  {controller: 'sessions', method: 'delete', action: 'destroy'} %></li>
+                <li><%= link_to 'Logout', '/session' %></li>
               </ul>
             </div>
 

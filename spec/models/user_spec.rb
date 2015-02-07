@@ -561,6 +561,7 @@ describe User, :type => :model do
 
     describe 'setup from clever' do
       it 'passes an auth hash for a user to be setup' do
+        pending("This spec's VCR cassette returns a 404, so this test always fails")
         @user = User.setup_from_clever({
           info: {
             email: 'foo@bar.wee',
@@ -577,6 +578,18 @@ describe User, :type => :model do
         expect(@user.id).to_not be_nil
         expect(@user.email).to eq('foo@bar.wee')
       end
+    end
+  end
+
+  describe 'student behavior' do
+    let(:classroom_activity) { FactoryGirl.build(:classroom_activity_with_activity) }
+    let(:activity) { classroom_activity.activity }
+    let(:classroom) { FactoryGirl.create(:classroom, classroom_activities: [classroom_activity]) }
+    let(:student) { FactoryGirl.create(:student, classroom: classroom) }
+
+    it 'assigns newly-created students to all activities previously assigned to their classroom' do
+      expect(student.activity_sessions.size).to eq(1)
+      expect(student.activity_sessions.first.activity).to eq(activity)
     end
   end
 

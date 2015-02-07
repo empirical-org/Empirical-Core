@@ -73,6 +73,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    analytics-ruby (2.0.12)
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
     arel (5.0.1.20140414130214)
@@ -124,7 +125,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-    colormath (0.1.2)
     columnize (0.8.9)
     compass (1.0.1)
       chunky_png (~> 1.2)
@@ -223,9 +223,6 @@ GEM
       lumberjack (~> 1.0)
       pry (>= 0.9.12)
       thor (>= 0.18.1)
-    guard-blink1 (0.0.3)
-      colormath (~> 0.1.2)
-      rb-blink1 (~> 0.0.6)
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
@@ -254,6 +251,8 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
+    jquery-ui-rails (5.0.3)
+      railties (>= 3.2.16)
     json (1.8.1)
     jwt (1.0.0)
     kaminari (0.16.1)
@@ -374,12 +373,16 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.1)
-    rb-blink1 (0.0.7)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (4.1.2)
       json (~> 1.4)
+    react-rails (0.12.0.0)
+      execjs
+      rails (>= 3.1)
+      react-source (= 0.12)
+    react-source (0.12.0)
     redcarpet (3.1.2)
     redis (3.1.0)
     redis-actionpack (4.0.0)
@@ -499,6 +502,8 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  addressable
+  analytics-ruby (~> 2.0.0)
   ancestry
   asset_sync
   awesome_print!
@@ -525,7 +530,6 @@ DEPENDENCIES
   fuubar (~> 2.0.0.rc1)
   google-api-client
   guard
-  guard-blink1
   guard-rspec
   guard-shell
   haml-rails
@@ -534,6 +538,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery-turbolinks
+  jquery-ui-rails
   kaminari
   keen
   letter_opener
@@ -559,9 +564,11 @@ DEPENDENCIES
   rails_12factor
   ranked-model
   ransack
+  react-rails (~> 0.12.0.0)
   redcarpet
   redis-rails
   rspec-rails
+  sass
   sass-rails!
   select2-rails
   sentry-raven (>= 0.12.2)

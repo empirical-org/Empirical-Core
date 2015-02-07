@@ -2,11 +2,15 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.color
+
+
 //= require bootstrap-transition
 //= require bootstrap-dropdown
 //= require bootstrap-carousel
 //= require bootstrap-collapse
-//= require bootstrap-datepicker
+
+
+
 //= require bootstrap-tooltip
 //= require hamlcoffee
 //= require underscore

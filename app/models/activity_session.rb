@@ -5,6 +5,9 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :classroom_activity
   belongs_to :activity
   has_one :unit, through: :classroom_activity
+  has_many :concept_tag_results
+
+  accepts_nested_attributes_for :concept_tag_results
 
   ownable :user
 
@@ -13,9 +16,9 @@ class ActivitySession < ActiveRecord::Base
   before_save   :set_activity_id
   around_save   :trigger_events
 
-  default_scope -> { joins(:activity).order('activity_sessions.id desc') }
+  default_scope -> { joins(:activity) }
 
-  scope :completed,  -> { where('completed_at is not null').order('completed_at desc') }
+  scope :completed,  -> { where('completed_at is not null') }
   scope :incomplete, -> { where('completed_at is null') }
   scope :started_or_better, -> { where("state != 'unstarted'") }
 
@@ -34,7 +37,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def classroom
-    classroom_chapter.classroom
+    unit.classroom
   end
 
   def percentage_color
@@ -62,8 +65,29 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+  def percentage_as_percent_prefixed_by_scored 
+    if percentage.nil? 
+      "Not completed yet"
+    else
+      x = (percentage*100).round.to_s + '%'
+      "Scored #{x}"
+    end
+  end
+
+  def percentage_with_zero_if_nil
+    ((percentage || 0)*100).round
+  end
+
   def percentage_as_percent
-    (percentage*100).round.to_s + '%'
+    if percentage.nil? 
+      "no percentage"
+    else
+      (percentage*100).round.to_s + '%'
+    end
+  end
+
+  def score
+    (percentage*100).round
   end
 
   def data=(input)
