@@ -18,7 +18,7 @@ describe ActivitySerializer, type: :serializer do
       let!(:activity_json) { parsed['activity'] }
 
       it "should have these keys" do
-        expected = ["uid", "id", "name", "description", "flags", "data", "created_at", "updated_at", "classification", "topic"]
+        expected = ["uid", "id", "name", "description", "flags", "data", "created_at", "updated_at", "anonymous_path", "classification", "topic"]
         expect(activity_json.keys).to eq(expected)
       end
 
