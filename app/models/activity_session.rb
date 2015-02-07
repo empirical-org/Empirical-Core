@@ -69,13 +69,13 @@ class ActivitySession < ActiveRecord::Base
     if percentage.nil? 
       "Not completed yet"
     else
-      
-      "Scored #{percentage}"
+      x = (percentage*100).round.to_s + '%'
+      "Scored #{x}"
     end
   end
 
   def percentage_with_zero_if_nil
-    ((percentage ||= 0)*100).round
+    ((percentage || 0)*100).round
   end
 
   def percentage_as_percent
