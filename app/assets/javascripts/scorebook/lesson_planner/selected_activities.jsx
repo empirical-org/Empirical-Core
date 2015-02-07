@@ -8,7 +8,7 @@ EC.SelectedActivities = React.createClass({
 			return <EC.SelectedActivity toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />
 		}, this);
 
-		if ((this.props.selectedActivities.length > 0) && (this.props.unitName.length > 0)) {
+		if ((this.props.selectedActivities.length > 0) && (this.props.unitName != null) && (this.props.unitName != '')) {
 			buttonClassName = "button-green pull-right";
 		} else {
 			buttonClassName = "hidden";
