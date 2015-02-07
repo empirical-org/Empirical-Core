@@ -20,9 +20,20 @@ EmpiricalGrammar::Application.routes.draw do
     get :retry, on: :member
   end
 
+  
+
   namespace :teachers do
+    resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
+
     resources :classrooms do
-      resources :units
+      collection do 
+        get :regenerate_code
+        get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
+        get :search_activities, controller: 'classroom_manager', action: 'search_activities'
+        get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
+        post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
+      end
+      
       resources :activities, controller: 'classroom_activities'
 
       resources :students do
@@ -30,9 +41,11 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       # TODO: abstract this list as well. Duplicated in nav in layout.
-      %w(scorebook lesson_planner invite_students accounts import).each do |page|
+      %w(scorebook invite_students accounts import).each do |page|
         get page => "classroom_manager##{page}"
       end
+
+
     end
   end
 

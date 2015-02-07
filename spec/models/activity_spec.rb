@@ -26,12 +26,12 @@ describe Activity, :type => :model do
   describe "#form_url" do 
 
     it "must not include uid if hasn't been validated" do 
-      expect(activity.form_url).not_to include "uid="
+      expect(activity.form_url.to_s).not_to include "uid="
     end
 
     it "must include uid after validate" do 
       activity.valid?
-      expect(activity.form_url).to include "uid="
+      expect(activity.form_url.to_s).to include "uid="
     end
   end
 
@@ -40,18 +40,18 @@ describe Activity, :type => :model do
     let!(:student){ FactoryGirl.build(:student) }    
 
     it "must add anonymouse param if arg is included" do 
-      expect(activity.module_url( :anonymous ) ).to include "anonymous=true"
+      expect(activity.module_url( :anonymous ).to_s ).to include "anonymous=true"
     end
 
     it "must add uid param of it's a valid student session" do 
       activity.valid?
-      expect(activity.module_url student.activity_sessions.build()).to include "uid="
+      expect(activity.module_url(student.activity_sessions.build()).to_s).to include "uid="
       
     end
 
     it "must add student param of it's a valid student session" do 
       activity.valid?
-      expect(activity.module_url student.activity_sessions.build()).to include "student"
+      expect(activity.module_url(student.activity_sessions.build()).to_s).to include "student"
     end
 
   end

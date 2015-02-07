@@ -32,9 +32,11 @@ EmpiricalGrammar::Application.configure do
 
   # Generate digests for assets URLs.
   config.assets.digest = true
+  
+
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.0'
+  config.assets.version = '1.1'
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
@@ -56,7 +58,7 @@ EmpiricalGrammar::Application.configure do
   config.cache_store = :redis_store, ENV["REDISTOGO_URL"], { expires_in: 90.minutes }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "//d2fl6wce3dth35.cloudfront.net"
+  # config.action_controller.asset_host = "//d2fl6wce3dth35.cloudfront.net"
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -68,6 +70,10 @@ EmpiricalGrammar::Application.configure do
                                  cms.css
                                  scorebook/*
                                  scorebook/**/*
+                                 scorebook/scorebook.css.scss
+                                 scorebook/scorebook.js
+
+                            
                                  )
 
   # Disable delivery errors, bad email addresses will be ignored

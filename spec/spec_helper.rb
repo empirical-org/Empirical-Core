@@ -1,4 +1,4 @@
-ENV["RAILS_ENV"] ||= 'test'
+ENV["RAILS_ENV"] = 'test'
 
 require File.expand_path("../../config/environment", __FILE__)
 
@@ -6,6 +6,10 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'byebug'
 require 'vcr'
+require 'sidekiq/testing'
+
+# Use a fake Sidekiq for Travis (Redis not available)
+Sidekiq::Testing.fake!
 
 # Stub out web requests
 VCR.configure do |c|
@@ -60,6 +64,8 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+
+    SegmentAnalytics.backend = FakeSegmentBackend.new
   end
 
   config.after(:each) do

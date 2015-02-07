@@ -34,6 +34,7 @@ gem 'faraday_middleware'
 # PARSING
 gem 'parslet'
 gem 'redcarpet'
+gem 'addressable'
 
 # QUEUE/CACHE
 gem 'sidekiq'
@@ -50,27 +51,33 @@ gem 'jbuilder'
 # METRICS
 gem 'keen'
 gem 'mixpanel-ruby'
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
 gem "active_model_serializers"
 
 # UI HELPERS
+gem 'sass'
 gem 'sass-rails', github: 'rails/sass-rails'
 gem 'bootstrap-sass', '~> 2.1.1.0' # app is locked to bootstrap 2.1.0
 gem 'compass-rails'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'backbone-on-rails'
 
 gem 'slim-rails'
 gem 'haml-rails'
 gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
 
+gem 'react-rails', '~>0.12.0.0'
+
 # ASSET/UI
 gem 'therubyracer', require: false
 gem 'uglifier',     require: false
 gem 'kaminari'
+
 
 # MIDDLEWARE
 gem 'rack-cache', require: 'rack/cache'
@@ -119,10 +126,7 @@ group :test, :development do
   gem 'byebug'
   gem 'guard'
   gem 'guard-rspec'
-  # test runs for james; this triggers
-  # a blink1(m) device to show red/green
   gem 'guard-shell'
-  gem 'guard-blink1'
   gem 'terminal-notifier-guard'
 end
 

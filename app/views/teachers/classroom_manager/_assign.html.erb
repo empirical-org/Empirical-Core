@@ -1,0 +1,104 @@
+<%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
+
+<section class="select-students">
+	<h1 class="section-header">Select Students</h1>
+	
+
+
+
+	<%- @classrooms_and_their_students.each do |cat| %>
+		<div class='panel-group' id='accordion'>
+			<div class='panel panel-default'>
+				<div class="panel-heading">
+					<h4 class="title">
+						<a href="#classOne" data-toggle="collapse" data-parent="#accordion" >
+							Select Entire Class
+						</a>
+
+						<a data-toggle="collapse" class="collapsed" data-target=<%="#students_#{cat[:classroom].id}" %> >
+							<span class="pull-right panel-select-by-student ph-caret-toggle">Select by Student</span>	
+						</a>
+
+
+						<div>
+							<input type="checkbox" id=<%="classroom_checkbox_#{cat[:classroom].id}" %> data-model-id=<%=cat[:classroom].id%> class="css-checkbox classroom_checkbox">
+							<label for=<%="classroom_checkbox_#{cat[:classroom].id}" %> class="css-label"><%= cat[:classroom].name %></label>
+						</div>
+					</h4>
+				</div> <!-- //.panel-heading -->
+				<div id=<%="students_#{cat[:classroom].id}" %> class="panel-collapse collapse">
+
+					<div class="panel-body">
+						<!-- make sure you use .to_f to convert int to float -->
+						<%- num_rows = (cat[:students].length.to_f / 4.to_f).ceil %>
+						<%- num_rows.times do |i| %>
+							<div class="row">
+								<%- 4.times do |j| %>
+									<%- if cat[:students].length > i*4 + j %>
+										<%- student = cat[:students][i*4 + j] %>
+										<div class="student_column col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+											<input type="checkbox" class="student_checkbox css-checkbox" id=<%="student_#{student.id}"%> data-model-id=<%=student.id%> data-classroom-id=<%=cat[:classroom].id%> data-student-count=<%=cat[:students].length%>>
+											<label for=<%="student_#{student.id}"%> class="css-label"><%=student.name %></label>
+										</div>
+									<% end %>
+								<% end %>
+							</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+
+
+
+			</div><!-- //.panel-default -->
+		</div><!-- //.panel-group -->
+	<% end %>
+
+
+			
+			
+
+
+</section>
+
+
+
+
+
+<section class="assign-dates">
+
+	<h1 class="section-header">Assign Dates for Learning How to Use Nouns</h1>
+
+	<table class="table">
+
+
+
+		<tbody>
+			<%- @activities.each do |activity| %>
+				<tr data-model-id=<%=activity['id']%>>
+					<td>
+						<%= image_tag image_for_activity_classification_by_id(activity['activity_classification_id'].to_i) %>
+					</td>
+					<td>
+						<%= activity['name'] %>
+					</td>
+					<td>
+						<input type='text' id=<%="datepicker_#{activity['id']}"%> data-model-id=<%=activity['id']%> class='datepicker-input' placeholder='mm/dd/yyyy'>
+					</td>
+					<td>
+						<%= image_tag 'scorebook/icon-x-gray.png', class: 'remove_activity_from_teaching_cart', data: {model: activity.id} %>
+					</td>
+				</tr>
+
+			<% end %>
+
+
+		</tbody>
+	</table>
+	
+
+	<%= form_for Unit.new(), url: '/teachers/units' do |f| %>
+	<% end %>
+	<button class='button-green' id='assign'>Assign </button>
+
+</section>
