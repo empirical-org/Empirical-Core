@@ -32,6 +32,7 @@ describe 'Sign up', :type => :request do
     # TODO: should be moved to a feature spec? doing everything short of using capybara API.
     #       replace with session stubbing.
     it 'allows them to fill in a classcode' do
+      create(:section)
       classroom = create(:classroom)
       post '/account', user: user_params(username: 'TestStudent', role: 'student')
       follow_redirect!
