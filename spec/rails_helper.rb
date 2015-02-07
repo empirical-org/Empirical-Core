@@ -58,8 +58,13 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation #:transaction doesn't clean
     DatabaseCleaner.clean_with(:truncation)
 
-    # validate factories
-    FactoryGirl.lint
+    begin
+      # validate factories
+      FactoryGirl.lint
+    ensure
+      # (re-?)clean the database after
+      DatabaseCleaner.clean_with(:truncation)
+    end
   end
 
   config.before(:each) do
