@@ -1,10 +1,11 @@
+/*
 body {
 	margin: 0;
 }
 
 footer {
 	padding: 50px 20px 40px 20px;
-	background: #32353c;
+	background: #fff;
 	color: #D3D3De;
 	line-height: 25px;
 	min-height: 240px;
@@ -118,31 +119,32 @@ footer .box-content {
 	color: #4fafd2;
 	text-decoration: none;
 }
-
+*/
 
 /* FOOTER WHITE */
 
-.footer-white .text-wrapper {
+/*
+footer.footer-white .text-wrapper {
 	color: #d3d3d3;
 }
 
-.footer-white .first-col-wrapper {
+footer.footer-white .first-col-wrapper {
 	margin-right: 30px;
 }
 
-.footer-white .icons-wrapper img {
+footer.footer-white .icons-wrapper img {
 	margin-right: 10px;
 }
 
-.footer-white .footer-list {
+footer.footer-white .footer-list {
 	list-style-type: none;
 }
 
-.footer-white .footer-list li {
+footer.footer-white .footer-list li {
 	float: left;
 	padding-right: 20px;
 }
-.footer-white .footer-list li a {
+footer.footer-white .footer-list li a {
 	color: #d3d3d3;
 	font-size: 14px;
 }
@@ -151,4 +153,87 @@ footer .box-content {
 	footer .first-col-wrapper {
 		width: 550px;
 	}
+}
+
+*/
+
+
+
+
+footer {
+  background-color: #fff;
+  padding: 80px 0;
+}
+footer ul {
+  list-style-type: none;
+  overflow: hidden;
+  padding: 0;
+}
+footer .wrapper {
+  margin: 0 auto;
+}
+footer .footer-contacts {
+  color: #333333;
+  font-size: 18px;
+  width: 633px;
+  margin: 0 auto;
+}
+footer .footer-contacts li {
+  float: left;
+  margin-right: 20px;
+  margin-left: 21px;
+}
+footer .footer-contacts li:last-child {
+  margin-right: 0;
+}
+footer .footer-social {
+  width: 340px;
+  margin: 0 auto;
+}
+footer .footer-social li {
+  width: 20%;
+  float: left;
+  text-align: center;
+}
+footer .footer-social li:last-child {
+  margin-right: 0;
+}
+footer .footer-social li i {
+  color: #aaaaaa;
+  font-size: 32px;
+}
+footer .footer-social li .fa-twitter:hover {
+  color: #55acee;
+}
+footer .footer-social li .fa-facebook:hover {
+  color: #3b5998;
+}
+footer .footer-social li .fa-youtube-play:hover {
+  color: #b31217;
+}
+footer .footer-social li .fa-instagram:hover {
+  color: #3f729b;
+}
+footer .footer-social li .fa-github-alt:hover {
+  color: #333;
+}
+footer .footer-line {
+  margin: 30px auto;
+  display: block;
+}
+footer .footer-new-logo-wrapper {
+  text-align: center;
+  margin: 20px auto 0 auto;
+  width: 93px;
+  height: 33px;
+  background-position: 0 -97px;
+  background-image: image-url('footer-logos.png');
+}
+footer .footer-new-logo-wrapper a {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+footer .footer-new-logo-wrapper:hover {
+  background-position: 0 1px;
 }
