@@ -22,9 +22,8 @@
 					<%- if current_user.nil? %>
 						<%= link_to "Login", new_session_path  %>
 					<%- else %>
-						<%= link_to "Logout", destroy_session_path %>
-
-
+						<%= link_to "Logout", '/session' %>
+                	<% end %>
 				</li>
 
 				<%- if current_user.nil? %>
