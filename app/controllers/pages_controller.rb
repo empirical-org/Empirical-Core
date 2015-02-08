@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_filter :resolve_layout
+  layout "home", only: [:home]
 
   def home
     if signed_in?

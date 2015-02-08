@@ -214,7 +214,7 @@
   margin-bottom: 17px;
 }
 .home-page .hero {
-  background-image: url(../images/home-hero.png);
+  background-image: image-url('home-hero.png');
   background-size: cover;
   background-repeat: no-repeat;
   color: #fff;
@@ -299,16 +299,16 @@
   background-position: center;
 }
 .home-page .apps .app .icon-top.icon-big-grammar {
-  background-image: url(../images/icons/grammar.png);
+  background-image: image-url('icons/grammar.png');
 }
 .home-page .apps .app .icon-top.icon-big-writer {
-  background-image: url(../images/icons/writer.png);
+  background-image: image-url('icons/writer.png');
 }
 .home-page .apps .app .icon-top.icon-big-proofreader {
-  background-image: url(../images/icons/proofreader.png);
+  background-image: image-url('icons/proofreader.png');
 }
 .home-page .apps .app .icon-top.icon-big-shuffle {
-  background-image: url(../images/icons/shuffle.png);
+  background-image: image-url('icons/shuffle.png');
 }
 .home-page .apps .app .app-inner {
   padding-left: 10px;
@@ -407,7 +407,7 @@
   background: #ffffff;
 }
 .home-hero .proofreader .graphics {
-  background-image: url(../images/proofreader-bg.png);
+  background-image: image-url('proofreader-bg.png');
   height: 346px;
   background-repeat: no-repeat;
 }
@@ -417,7 +417,7 @@
   top: 45px;
 }
 .home-hero .writer .graphics {
-  background-image: url(../images/writer-bg.png);
+  background-image: image-url('writer-bg.png');
   background-repeat: no-repeat;
   height: 472px;
 }
@@ -429,7 +429,7 @@
   color: #fc3e3b;
 }
 .home-hero .dashboard .graphics {
-  background-image: url(../images/dashboard-bg.png);
+  background-image: image-url('dashboard-bg.png');
   background-repeat: no-repeat;
   height: 407px;
 }
@@ -548,7 +548,7 @@
 }
 .home-page-new .get-started {
   padding: 0;
-  background-image: url(../images/get-started.jpg);
+  background-image: image-url('get-started.jpg');
   background-size: cover;
   min-height: 488px;
 }
