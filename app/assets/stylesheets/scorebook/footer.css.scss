@@ -1,0 +1,154 @@
+body {
+	margin: 0;
+}
+
+footer {
+	padding: 50px 20px 40px 20px;
+	background: #32353c;
+	color: #D3D3De;
+	line-height: 25px;
+	min-height: 240px;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+footer a {
+	color: #4fafd2;
+	text-decoration: none;
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+footer .first-col-wrapper {
+	float: left;
+	position: relative;
+	margin-right: 0;
+}
+
+footer .img-wrapper {
+	display: inline-block;
+}
+
+footer img {
+	display: inline-block;
+}
+
+footer .text-wrapper {
+	margin-left: 90px;
+	color: #7c7c7c;
+}
+
+footer .logo-text {
+	color: #d3d3d3;
+	vertical-align: top;
+	margin: 0 0 30px 5px;
+	display: inline-block;
+	font-size: 60px;
+	position: relative;
+	top: 10px;
+}
+
+footer p {
+	margin: 0;
+}
+
+footer button {
+	background-color: #3f3f3f;
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+	padding: 8px 22px;
+	border-radius: 15px;
+	border: none;
+	margin-top: 10px;
+	cursor: pointer;
+		     transition: .1s ease;
+		-moz-transition: .1s ease;
+	 -webkit-transition: .1s ease;
+}
+
+footer button:hover {
+	background-color: #2B2B2B;
+}
+
+footer button a {
+	color: #fff;
+}
+
+footer .text-italic {
+	font-style: italic;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 40px;
+}
+
+footer .box {
+	width: 200px;
+	position: relative;
+	color: #fff;
+	background-color: #4e4e4e;
+	float: left;
+	margin-right: 15px;
+	font-size: 14px;
+	border-radius: 5px;
+}
+
+footer .box-header {
+	background-color: #3f3f3f;
+	padding: 15px 12px 12px 12px;
+	border-bottom: 1px solid #373737;
+	font-weight: bold;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	font-size: 16px;
+}
+
+footer .icons-wrapper {
+	padding-top: 0;
+}
+
+footer .box-content {
+	padding: 15px 12px 12px 12px;
+}
+
+.privacy_link, .tos_link {
+	color: #d3d3d3;
+}
+
+.privacy_link:hover, .tos_link:hover {
+	color: #4fafd2;
+	text-decoration: none;
+}
+
+
+/* FOOTER WHITE */
+
+.footer-white .text-wrapper {
+	color: #d3d3d3;
+}
+
+.footer-white .first-col-wrapper {
+	margin-right: 30px;
+}
+
+.footer-white .icons-wrapper img {
+	margin-right: 10px;
+}
+
+.footer-white .footer-list {
+	list-style-type: none;
+}
+
+.footer-white .footer-list li {
+	float: left;
+	padding-right: 20px;
+}
+.footer-white .footer-list li a {
+	color: #d3d3d3;
+	font-size: 14px;
+}
+
+@media screen and (min-width: 992px) {
+	footer .first-col-wrapper {
+		width: 550px;
+	}
+}

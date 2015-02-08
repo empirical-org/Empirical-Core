@@ -1979,3 +1979,124 @@ label.css-label {
   max-height: 260px;
   padding: 0;
 }
+
+
+
+
+// VLADS ADDITIONS FOR NEW HOMEPAGE
+
+
+
+.anchor-block {
+  transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -webkit-transition: 0.1s ease-out;
+  padding: 10px 25px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 0;
+  font-weight: bold;
+}
+
+.anchor-block:active {
+  box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.7);
+}
+
+.anchor-block:hover,
+.anchor-block:focus {
+  text-decoration: none;
+  color: #fff;
+}
+
+button:not(.select-mixin) {
+  padding: 10px 25px;
+  font-size: 14px;
+}
+
+button:not(.select-mixin):active {
+  box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.7);
+}
+
+.button-orange:hover {
+   background-color: #f88e1b;
+}
+
+.button-red {
+  background-color: #fc3e3b;
+  color: #fff;
+}
+
+.button-red:hover {
+  background-color: #fc2f2c;
+}
+
+.button-marine {
+  background-color: #00c2a2;
+  color: #fff;
+}
+
+.button-marine:hover {
+  background-color: #009e84;
+}
+
+.button-yellow {
+  background-color: #ea9a1a;
+  color: #fff;
+}
+
+.button-yellow:hover {
+  background-color: #e09215;
+}
+
+.button-blue {
+  background-color: #348fdf;
+  color: #fff;
+}
+
+.button-blue:hover {
+  background-color: #217dcf;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
