@@ -5,6 +5,7 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = stylesheet_link_tag    'codemirror', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'scorebook/scorebook', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'cms', 'data-turbolinks-track' => true
 
     = csrf_meta_tags
@@ -25,25 +26,7 @@ html
       .sticky-footer-content
         header
           .container.clearfix
-            .navbar
-              .navbar-inner
-                a.brand href=root_path Quill
-
-                .nav-collapse.collapse
-                  ul.nav
-                    li= link_to 'Mission', mission_path
-                    li= link_to 'News', 'http://news.quill.org/'
-                    li= link_to 'Develop', develop_path
-                    li= link_to 'About Us', about_path
-                    li= link_to 'FAQ', faq_path
-                    li= link_to 'Lessons', lessons_path
-
-                    - if signed_in?
-                      li.nav-btn.pro-btn= link_to t(:"profile_link_label.#{current_user.role}"), profile_path
-                      li.nav-btn= link_to 'Sign out', session_path, method: :delete
-                    - else
-                      li.nav-btn= link_to 'Login', new_session_path
-                      li.nav-btn.btn-primary= link_to 'Sign Up', new_account_path
+            = render 'layouts/header'
 
         - if content_for(:body_content)
           = content_for(:body_content)
