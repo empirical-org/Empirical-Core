@@ -2079,6 +2079,10 @@ button:not(.select-mixin):active {
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
   }
+  input[type=submit] {
+    padding: 5px;
+    height: 40px;
+  }
 }
 
 
@@ -2088,7 +2092,9 @@ header {
 
 
 
-
+.article.new-session-page  .container .row form .form-actions {
+  background-color: none !important;
+}
 
 
 
