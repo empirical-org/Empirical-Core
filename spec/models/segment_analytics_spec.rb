@@ -65,6 +65,16 @@ describe SegmentAnalytics, :type => :model do
     end
   end
 
+  context 'tracking activity completion for sessions not associated with a teacher' do
+    let(:activity_session) { FactoryGirl.create(:activity_session, state: 'finished') }
+
+    it 'does nothing' do
+      analytics.track_activity_completion(activity_session)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(0)
+    end
+  end
+
   context 'tracking activity assignment' do
     let(:teacher) { FactoryGirl.create(:teacher) }
 
