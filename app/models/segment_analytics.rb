@@ -20,10 +20,12 @@ class SegmentAnalytics
   end
 
   def track_activity_completion(activity_session)
-    track({
-      user_id: activity_session.classroom_activity.classroom.teacher.id,
-      event: SegmentIo::Events::ACTIVITY_COMPLETION
-    })
+    if activity_session.classroom_activity.present?
+      track({
+        user_id: activity_session.classroom_activity.classroom.teacher.id,
+        event: SegmentIo::Events::ACTIVITY_COMPLETION
+      })
+    end
   end
 
   def track_classroom_creation(classroom)
