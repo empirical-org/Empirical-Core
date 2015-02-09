@@ -3,7 +3,7 @@
   data-html=true 
   data-placement="left" 
   title="<h1><%= h(activity.name) %></h1><p><%= h(alias_by_id(activity.classification.id)) %></p>
-  <p><%= h(activity.section.name) %></p>
+  <p><%= h(activity.topic.section.name) %></p>
   <p><%= h(activity.topic.name) %></p>
   <p><%= h(activity.description) %></p>
   <p><%= h(activity.topic.topic_category.name) %></p>
