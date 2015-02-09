@@ -23,7 +23,7 @@ EC.ActivitySearchResult = React.createClass({
 				
 				<td>
 					<div ref='activateTooltip' className={'activate-tooltip ' + this.props.data.classification.image_class } data-html='true' data-toggle='tooltip' data-placement='top' 
-						title={"<h1>" + this.props.data.name + "</h1><p>App: " + this.props.data.classification.alias + "</p><p>" + this.props.data.description + "</p>"}>
+						title={"<h1>" + this.props.data.name + "</h1><p>" + this.props.data.classification.alias + "</p><p>" + this.props.data.topic.name +  "</p><p>" + this.props.data.description + "</p>"}>
 					</div>
 				</td>
 
