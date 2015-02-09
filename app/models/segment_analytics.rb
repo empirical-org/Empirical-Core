@@ -21,7 +21,7 @@ class SegmentAnalytics
 
   def track_activity_completion(activity_session)
     track({
-      user_id: activity_session.classroom.teacher.id,
+      user_id: activity_session.classroom_activity.classroom.teacher.id,
       event: SegmentIo::Events::ACTIVITY_COMPLETION
     })
   end
