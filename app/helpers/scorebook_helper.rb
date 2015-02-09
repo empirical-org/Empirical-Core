@@ -56,6 +56,17 @@ module ScorebookHelper
     end
   end
 
+  def alias_by_id id
+    case id
+    when 1
+      'Quill Proofreader'
+    when 2
+      'Quill Grammar'
+    end 
+  end
+
+
+
   def activity_planner_tooltip_html activity_hash # note: not an active record object, a hash
     activity_name = activity_hash['activity_name'].nil? ? '' : ("<h1>" + (activity_hash['activity_name'].gsub /"/, '&quot;') + "</h1>")
     activity_description = activity_hash['activity_description'].nil? ? '' : ("<p>" + (activity_hash['activity_description'].gsub /"/, '&quot;') + "</p>")
