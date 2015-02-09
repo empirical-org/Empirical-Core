@@ -1,20 +1,30 @@
 article.new-session-page.simple-rounded-box
-  h3.form-horizontal-header Sign in to your account
+  h3.form-horizontal-header 
 
   - if flash[:error]
     .error-message.form-horizontal-header= flash[:error]
 
 
-.container
-  .row
-    .col-sm-6.col-md-4.col-md-offset-4
-      = form_for @user, url: session_path, html: { class: 'form-signin' } do |f|
-        = f.string :email, placeholder: 'Email or Username', label: 'Email or Username', class: 'form-control', autocomplete: 'off'
-        = f.password :password, placeholder: 'Password', class: 'password', class: 'form-control', autocomplete: 'off'
-        = f.actions save: 'Sign in' do
+  .container
+    .row
+      .col-sm-6.col-md-4.col-md-offset-4
+
+        br
+        br
+        br
+        br
+        = form_for @user, url: session_path, html: { class: 'form-signin' } do |f|
+          = f.string :email, placeholder: 'Email or Username', label: 'Email or Username', class: 'form-control', autocomplete: 'off'
+          = f.password :password, placeholder: 'Password', class: 'password', class: 'form-control', autocomplete: 'off'
+          = f.submit 'Sign in' do
+          br
+          br
           - if @district_id
             = link_to image_tag('http://assets.clever.com/sign-in-with-clever/sign-in-with-clever-medium.png'), "https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: 'read:user', district_id: @district_id}.to_param }"
+            br
+          br 
           br
-          = link_to 'Forgot your password?', password_reset_index_path
+          div
+            = link_to 'Forgot your password?', password_reset_index_path
 
 
