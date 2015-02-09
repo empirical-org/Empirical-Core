@@ -8,7 +8,7 @@ EC.SearchActivitiesInput = React.createClass({
 	render: function () {
 		return (
 			<span>
-				<input id="search_activities_input" type="text" placeholder="Select Activities" />
+				<input id="search_activities_input" type="text" placeholder="Search Activities" />
 				<button onClick={this.newSearchQuery} id="search_activities_button" className="button-gray">Search</button>
 			</span>
 		);
