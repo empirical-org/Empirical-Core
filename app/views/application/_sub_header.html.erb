@@ -1,0 +1,34 @@
+<div class="container">
+
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#home-collapsed-navbar">
+			<span class="sr-only">Menu</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+		</button>
+
+  		<a class="navbar-brand" href=<%= root_path %>>
+  			<%=image_tag "home-header-logo.png" %>
+  		</a>
+	</div>
+	
+	<div id="home-collapsed-navbar" class="collapse navbar-collapse">
+		<ul class="home-navbar-list">
+			<li class="active"><a href="http://quill.org/mission">Discover</a></li>
+			<li><%= link_to "Community", "http://community.quill.org" %></li>
+			<li>
+				<%- if current_user.nil? %>
+					<%= link_to "Login", new_session_path  %>
+				<%- else %>
+					<%= link_to "Logout", '/session' %>
+            	<% end %>
+			</li>
+
+			<%- if current_user.nil? %>
+				<li class="sign-up-wrapper"><%= link_to "Sign Up", new_account_path, class: "sign-up-btn" %></li>
+			<% end %>
+		</ul>
+	</div>
+
+</div>

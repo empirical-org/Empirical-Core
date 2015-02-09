@@ -168,6 +168,10 @@ button:not(.select-mixin):active {
 .image-brand img {
   padding-top: 5px;
 }
+
+.navbar-brand {
+  cursor:pointer !important;
+}
 .navbar-default .navbar-nav > li > a {
   color: #000;
   font-size: 16px;
@@ -2064,6 +2068,23 @@ button:not(.select-mixin):active {
 
 
 
+// SIGN IN 
+
+.form-signin {
+  input {
+    //background-color: white !important;
+    height: 30px;
+    width: 200px;
+  }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+}
+
+
+header {
+  background-color: rgb(0,194,162) !important;
+}
 
 
 
