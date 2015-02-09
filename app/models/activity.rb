@@ -48,11 +48,11 @@ class Activity < ActiveRecord::Base
     case sort['field']
     when 'activity'
       field = 'activities.name'
-    when 'activityClassification'
+    when 'activity_classification'
       field = 'activity_classifications.name'
     when 'section'
       field = 'sections.name'
-    when 'topicCategory'
+    when 'topic_category'
       field = 'topic_categories.name'
     end
 
