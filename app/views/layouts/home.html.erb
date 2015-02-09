@@ -24,32 +24,7 @@
 
   <%= yield %>
 
-  <footer>
-  <div class="wrapper">
-    <ul class="footer-contacts">
-      <li>hello@quill.org</li>
-      <li>1(646) 825-7136</li>
-      <li>Support</li>
-      <li>Terms</li>
-      <li>Privacy</li>
-    </ul>
-
-    <%= image_tag 'footer-line.png', class: 'footer-line' %>
-
-    <ul class="footer-social">
-      <li><a href=""><i class="fa fa-twitter"></i></a></li>
-      <li><a href=""><i class="fa fa-facebook"></i></a></li>
-      <li><a href=""><i class="fa fa-youtube-play"></i></a></li>
-      <li><a href=""><i class="fa fa-instagram"></i></a></li>
-      <li><a href=""><i class="fa fa-github-alt"></i></a></li>
-    </ul>
-
-    <div class="footer-new-logo-wrapper">
-      <a href="#"></a>
-    </div>
-  </div>
-
-</footer>
+  <%= render partial: 'footer' %>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>

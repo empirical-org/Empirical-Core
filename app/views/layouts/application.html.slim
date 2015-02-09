@@ -26,7 +26,7 @@ html
       .sticky-footer-content
         header
           .container.clearfix
-            = render 'layouts/header'
+            = render 'header'
 
         - if content_for(:body_content)
           = content_for(:body_content)
@@ -34,30 +34,7 @@ html
           .container= yield
 
     .sticky-footer-footer
-      footer.footer-white
-        #footer-inner.container.clearfix
-          .first-col-wrapper
-            .img-wrapper
-              = image_tag 'emperical-logo.png'
-            .text-wrapper
-              p.text-italic
-                | A nonprofit, open source community
-                br building interactive education.
-          .icons-wrapper
-            a href="https://www.edsurge.com/quill" target="_blank"
-              = image_tag "icons/edsurge-footer-52.png", class: 'icon icon-edsurge', alt: ''
-            a href="https://twitter.com/quill_grammar" target="_blank"
-              = image_tag "icons/twitter-footer-52.png", class: 'icon icon-edsurge', alt: ''
-            a href="https://www.facebook.com/quill.org" target="_blank"
-              = image_tag "icons/facebook-footer-52.png", class: 'icon icon-edsurge', alt: ''
-            a href="https://plus.google.com/u/3/+QuillGrammar/posts" target="_blank"
-              = image_tag "icons/google-plus-square_52.png", class: 'icon icon-edsurge', alt: ''
-            a href="https://github.com/empirical-org/Empirical-Core/issues" target="_blank"
-              = image_tag "icons/github-footer-52.png", class: 'icon icon-edsurge', alt: ''
-          p
-            | Talk to us anytime:
-            a href="mailto:hello@quill.org"  hello@quill.org
-            | &nbsp;(646) 820-7136
+      = render 'footer'
 
       - if signed_in? && !Rails.env.development?
         javascript:
