@@ -16,7 +16,12 @@ EC.NameTheUnit = React.createClass({
 
 					<div className="how-we-grade">
 						<p className="title title-not-started">
-							<a href="http://support.quill.org/knowledgebase/articles/369614-assigning-lessons">{"What's a Unit?"}</a>
+
+							<a href="http://support.quill.org/knowledgebase/articles/369614-assigning-lessons">
+								{"What's a Unit?"}
+								<i className="fa fa-long-arrow-right"></i>
+							</a>
+
 							<a href=""><i class="fa fa-long-arrow-right"></i></a>
 						</p>
 					</div>
@@ -29,3 +34,5 @@ EC.NameTheUnit = React.createClass({
 	}
 
 });
+
+
