@@ -3,6 +3,7 @@ class Classroom < ActiveRecord::Base
 
   validates_uniqueness_of :code
   validates :grade, presence: true, inclusion: { in: Classroom::GRADES, message: "%{value} is not a valid grade" }
+  validates_presence_of :name
 
   has_many :units do
     def create_next
