@@ -46,6 +46,29 @@ class Teachers::UnitsController < ApplicationController
 
   end
 
+  def index
+    cas = current_user.classrooms.map(&:classroom_activities).flatten
+    units = cas.group_by{|ca| ca.unit_id}
+    arr = []
+    units.each do |unit_id, classroom_activities|
+      x1 = classroom_activities.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
+      ele = {unit: Unit.find(unit_id), classroom_activities: x1}
+      arr.push ele
+    end
+
+
+    render json: arr
+  end
+
+  def destroy 
+    puts 'in destroy'
+    (Unit.find params[:id]).destroy
+    render json: {}
+  end
+
+
+
+
 
   private
 
