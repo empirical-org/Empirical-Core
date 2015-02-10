@@ -1,6 +1,6 @@
 
 $(function () {
-	ele = $('#lesson_planner');
+	ele = $('#activity-planner');
 	if (ele.length > 0) {
 		React.render(React.createElement(EC.LessonPlanner), ele[0]);
 	}
@@ -26,7 +26,15 @@ EC.LessonPlanner = React.createClass({
 		}
 
 		return (
-			{tabSpecificComponents}
+			<span>
+
+				<EC.UnitTabs />
+				<div id="lesson_planner" >
+					{tabSpecificComponents}
+				</div>
+
+
+			</span>
 		);
 
 	}
