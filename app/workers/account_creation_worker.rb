@@ -18,9 +18,7 @@ class AccountCreationWorker
 
     # tell segment.io
     analytics = SegmentAnalytics.new
-    if @user.role == 'student'
-      analytics.track_student_creation(@user)
-    elsif @user.role == 'teacher'
+    if @user.role == 'teacher'
       analytics.track_teacher_creation(@user)
     end
   end

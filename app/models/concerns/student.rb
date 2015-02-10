@@ -9,7 +9,8 @@ module Student
     has_many :started_activities, through: :activity_sessions, source: :activity
 
     after_create :assign_classroom_activities
-
+    after_update :assign_classroom_activities
+    
     def unfinished_activities classroom
       classroom.activities - finished_activities(classroom)
     end
