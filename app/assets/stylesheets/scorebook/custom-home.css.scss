@@ -46,9 +46,9 @@
   font-size: 1.3em;
 }
 .transition-mixin {
-  transition: 0.1s ease-out;
-  -moz-transition: 0.1s ease-out;
-  -webkit-transition: 0.1s ease-out;
+  transition: all 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -webkit-transition: 0.5s ease-in-out;
 }
 /* ==========================================================================
    HOME PAGE
@@ -114,9 +114,9 @@
   font-size: 16px;
   border: 1px solid transparent;
   border-radius: 4px;
-  transition: 0.1s ease-out;
-  -moz-transition: 0.1s ease-out;
-  -webkit-transition: 0.1s ease-out;
+  transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
 }
 .home-page-navbar .home-navbar-list li a:hover {
   text-decoration: none;
@@ -195,6 +195,7 @@
 }
 .home-page-navbar.dashboard-navbar {
   background-color: #ea9a1a;
+  transition: all .5s ease-in-out !important;
 }
 .home-page-navbar.dashboard-navbar .home-navbar-list li:hover a {
   color: #ea9a1a;
@@ -265,9 +266,9 @@
   padding: 13px 25px 10px 25px;
   font-size: 14px;
   border-radius: 5px;
-  transition: 0.1s ease-out;
-  -moz-transition: 0.1s ease-out;
-  -webkit-transition: 0.1s ease-out;
+  transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
   border: 0;
   font-weight: bold;
   position: absolute;
@@ -369,6 +370,8 @@
 .home-hero {
   background-color: #00c2a2;
   padding: 0 0 33px 0;
+  transition: all .5s ease-in-out !important;
+
 }
 .home-hero .cta {
   margin-top: 84px;
