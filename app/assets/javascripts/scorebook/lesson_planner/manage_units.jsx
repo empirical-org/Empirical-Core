@@ -46,6 +46,7 @@ EC.ManageUnits = React.createClass({
 	render: function () {
 		return (
 			<div className="container manage-units">
+				<section ></section>
 				<EC.Units deleteUnit={this.deleteUnit} data={this.state.units} />
 			</div>
 		);
