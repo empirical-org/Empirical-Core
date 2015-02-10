@@ -18,7 +18,7 @@ EC.UnitTabs = React.createClass({
 		}
 
 		return (
-			<div className="tab-subnavigation-wrapper">
+			<div className="unit-tabs tab-subnavigation-wrapper">
 				<div className="container">
 					<ul>
 						<li onClick={this.selectCreateUnit}><a className={createUnitClass}>Create a Unit</a></li>
