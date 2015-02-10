@@ -16,6 +16,16 @@ EC.Unit = React.createClass({
 					<h1 className="col-md-10 vcenter">{this.props.data.unit.name}</h1>
 					<div className="col-md-2 vcenter pull-right delete-unit" onClick={this.deleteUnit}>Delete Unit</div>
 				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>hi</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
 			</section>
 		);
 	}
