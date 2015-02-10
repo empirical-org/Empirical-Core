@@ -11,9 +11,11 @@ EC.Unit = React.createClass({
 	render: function () {
 		console.log(this.props.data)
 		return (
-			<section className="row vertical-align">
-				<h1 className="col-md-10 vcenter">{this.props.data.unit.name}</h1>
-				<div className="col-md-2 vcenter pull-right delete-unit" onClick={this.deleteUnit}>Delete Unit</div>
+			<section >
+				<div className="row vertical-align">
+					<h1 className="col-md-10 vcenter">{this.props.data.unit.name}</h1>
+					<div className="col-md-2 vcenter pull-right delete-unit" onClick={this.deleteUnit}>Delete Unit</div>
+				</div>
 			</section>
 		);
 	}
