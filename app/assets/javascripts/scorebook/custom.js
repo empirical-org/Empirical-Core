@@ -96,7 +96,7 @@ $(document).ready(function(){
 		cssEase: 'linear',
 		speed: 300,
 		autoplay: true,
-		autoplaySpeed: 14000
+		autoplaySpeed: 13440
 	});
 
 
