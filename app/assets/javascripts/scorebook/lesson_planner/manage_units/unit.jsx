@@ -3,20 +3,23 @@ EC.Unit = React.createClass({
 	deleteUnit: function () {
 		var x = confirm("Are you sure you want to delete this Unit? It will delete all assignments given to students associated with this unit, even if those assignments have already been completed.");
 		if (x) {
-			this.props.deleteUnit(this.props.data.unit.id)
+			this.props.deleteUnit(this.props.data.unit.id);
 		}
 	},
 
 	render: function () {
-		var studentNoun;
+		var studentNoun, classroomActivities;
 		if (this.props.data.num_students_assigned === 1) {
-			studentNoun = " Student"
+			studentNoun = " Student";
 		} else {
-			studentNoun = " Students"
+			studentNoun = " Students";
 		}
 
 		classroomActivities = _.map(this.props.data.classroom_activities, function (ca) {
-			return (<EC.ClassroomActivity updateDueDate={this.props.updateDueDate} deleteClassroomActivity={this.props.deleteClassroomActivity} data={ca} />);
+			return (<EC.ClassroomActivity 
+							updateDueDate={this.props.updateDueDate} 
+							deleteClassroomActivity={this.props.deleteClassroomActivity} 
+							data={ca} />);
 		}, this);
 
 		return (

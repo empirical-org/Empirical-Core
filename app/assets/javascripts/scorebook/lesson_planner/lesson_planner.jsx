@@ -17,15 +17,15 @@ EC.LessonPlanner = React.createClass({
 		}
 	},
 	toggleTab: function (tab) {
-		this.setState({tab: tab})
+		this.setState({tab: tab});
 	},
 
 	render: function () {
 		var tabSpecificComponents;
 		if (this.state.tab == 'createUnit') {
-			tabSpecificComponents = <EC.CreateUnit />
+			tabSpecificComponents = <EC.CreateUnit />;
 		} else {
-			tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />
+			tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;
 		}
 
 		return (

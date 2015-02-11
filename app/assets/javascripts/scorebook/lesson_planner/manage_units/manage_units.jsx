@@ -13,7 +13,6 @@ EC.ManageUnits = React.createClass({
 			data: {},
 			success: this.displayUnits,
 			error: function () {
-				console.log('error loading units');
 			}
 
 		});
@@ -22,49 +21,43 @@ EC.ManageUnits = React.createClass({
 		this.setState({units: data.units});
 	},
 	deleteUnit: function (id) {
-		console.log('delete unit main')
-		var units = this.state.units
-		var x1 = _.reject(units, function (unit) {
-			return unit.unit.id == id
+		var units, x1;
+		units = this.state.units;
+		x1 = _.reject(units, function (unit) {
+			return unit.unit.id == id;
 		})
-		this.setState({units: x1})
+		this.setState({units: x1});
 
 		$.ajax({
 			type: "delete",
 			url: "/teachers/units/" + id,
 			success: function () {
-				console.log('delete unit success')
 			},
 			error: function () {
-				console.log('delete unit error')
 			}
-		})
+		});
 	},
 	deleteClassroomActivity: function (ca_id, unit_id) {
-
-
-		var units = this.state.units;
-		var x1 = _.map(units, function (unit) {
+		var units, x1;
+		units = this.state.units;
+		x1 = _.map(units, function (unit) {
 			if (unit.unit.id === unit_id) {
-				console.log('found unit')
 				unit.classroom_activities = _.reject(unit.classroom_activities, function (ca) {
-					return ca.id === ca_id
+					return ca.id === ca_id;
 				});
 			}
-			return unit
+			return unit;
 		});
-		this.setState({units: x1})
+		this.setState({units: x1});
 
 		$.ajax({
 			type: "delete",
 			url: "/teachers/classroom_activities/" + ca_id,
 			success: function () {
-				console.log('delete ca success')
 			},
 			error: function () {
-				console.log('delete ca errors')
 			}
-		})
+		});
 	},
 	updateDueDate: function (ca_id, date) {
 		$.ajax({
@@ -72,13 +65,11 @@ EC.ManageUnits = React.createClass({
 			data: {due_date: date},
 			url: "/teachers/classroom_activities/" + ca_id,
 			success: function () {
-				console.log('update due date success')
 			},
 			error: function () {
-				console.log('update due date error')
 			}
 
-		})
+		});
 	},
 	switchToCreateUnit: function () {
 		this.props.toggleTab('createUnit');
@@ -90,7 +81,10 @@ EC.ManageUnits = React.createClass({
 				<div  className= "create-unit-button-container">
 					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Create a New Unit</button>
 				</div>
-				<EC.Units updateDueDate={this.updateDueDate} deleteClassroomActivity={this.deleteClassroomActivity}   deleteUnit={this.deleteUnit} data={this.state.units} />
+				<EC.Units 
+					updateDueDate={this.updateDueDate}
+					deleteClassroomActivity={this.deleteClassroomActivity}
+					deleteUnit={this.deleteUnit} data={this.state.units} />
 			</div>
 		);
 

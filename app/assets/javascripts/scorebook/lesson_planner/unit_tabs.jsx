@@ -8,13 +8,13 @@ EC.UnitTabs = React.createClass({
 	},
 
 	render: function () {
-		
+		var createUnitClass, manageUnitsClass;
 		if (this.props.tab == 'createUnit') {
-			createUnitClass = 'active'
-			manageUnitsClass = ''
+			createUnitClass = 'active';
+			manageUnitsClass = '';
 		} else {
-			createUnitClass = ''
-			manageUnitsClass = 'active'
+			createUnitClass = '';
+			manageUnitsClass = 'active';
 		}
 
 		return (
