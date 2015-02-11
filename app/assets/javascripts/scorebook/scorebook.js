@@ -16,6 +16,8 @@
 //= require scorebook/empirical_core.js
 //= require_tree ./
 //= require_tree ./lesson_planner/
+//= require_tree ./lesson_planner/create_unit/
+//= require_tree ./lesson_planner/manage_units/
 
 
 

@@ -52,7 +52,20 @@ class Teachers::UnitsController < ApplicationController
     arr = []
     units.each do |unit_id, classroom_activities|
       x1 = classroom_activities.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
-      ele = {unit: Unit.find(unit_id), classroom_activities: x1}
+
+      num_students_assigned = 0
+      
+      classroom_activities.each do |ca|
+        if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
+          y = ca.classroom.students.length
+        else
+          y = ca.assigned_student_ids.length
+        end
+        num_students_assigned = num_students_assigned + y
+      end
+
+
+      ele = {unit: Unit.find(unit_id), classroom_activities: x1, num_students_assigned: num_students_assigned}
       arr.push ele
     end
 
