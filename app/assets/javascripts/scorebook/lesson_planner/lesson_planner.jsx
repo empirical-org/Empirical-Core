@@ -13,7 +13,7 @@ EC.LessonPlanner = React.createClass({
 
 	getInitialState: function () {
 		return {
-			tab: 'createUnit',
+			tab: 'manageUnits',
 		}
 	},
 	toggleTab: function (tab) {
