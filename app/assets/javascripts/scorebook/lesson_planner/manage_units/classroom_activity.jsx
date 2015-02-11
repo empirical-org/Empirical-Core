@@ -46,7 +46,9 @@ EC.ClassroomActivity = React.createClass({
 					<input type="text" value={this.props.data.formatted_due_date} ref="dueDate" className="datepicker-input" placeholder="mm/dd/yyyy" />
 					<input type="text"  className="railsFormatDate" id={"railsFormatDate" + this.props.data.id} ref="railsFormatDate" />
 				</div>
-				<div className="cell col-md-1 icon-x-gray" onClick={this.deleteClassroomActivity}>
+				<div className="cell col-md-1">
+					<div className="pull-right icon-x-gray" onClick={this.deleteClassroomActivity}>
+					</div>
 				</div>
 			</div>
 
