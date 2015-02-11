@@ -2,7 +2,10 @@ class Classroom < ActiveRecord::Base
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
 
   validates_uniqueness_of :code
+  validates_uniqueness_of :name, scope: :teacher_id, message: "A classroom called %{value} already exists. Please rename this classroom to a different name."
+  
   validates :grade, presence: true, inclusion: { in: Classroom::GRADES, message: "%{value} is not a valid grade" }
+
 
   has_many :units do
     def create_next
