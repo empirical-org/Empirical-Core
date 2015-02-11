@@ -80,12 +80,15 @@ EC.ManageUnits = React.createClass({
 
 		})
 	},
+	switchToCreateUnit: function () {
+		this.props.toggleTab('createUnit');
+	},
 
 	render: function () {
 		return (
 			<div className="container manage-units">
 				<div  className= "create-unit-button-container">
-					<button className="button-green create-unit">Create a New Unit</button>
+					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Create a New Unit</button>
 				</div>
 				<EC.Units updateDueDate={this.updateDueDate} deleteClassroomActivity={this.deleteClassroomActivity}   deleteUnit={this.deleteUnit} data={this.state.units} />
 			</div>
