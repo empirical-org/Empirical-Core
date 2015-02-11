@@ -16,17 +16,17 @@ EC.ClassroomActivity = React.createClass({
 
 
 	deleteClassroomActivity: function () {
-		var x = confirm("Are you sure you want do delete this assignment?")
+		var x = confirm("Are you sure you want do delete this assignment?");
 		if (x) {
-			this.props.deleteClassroomActivity(this.props.data.id, this.props.data.unit_id)
+			this.props.deleteClassroomActivity(this.props.data.id, this.props.data.unit_id);
 		}
 	},
 
 	handleChange: function () {
-	    var x1 = '#railsFormatDate' + this.props.data.id;
-	    var dom = $(x1);
-	    var val = dom.val();
-	    console.log('date', val)
+	    var x1, dom, val;
+	    x1 = '#railsFormatDate' + this.props.data.id;
+	    dom = $(x1);
+	    val = dom.val();
 	    this.props.updateDueDate(this.props.data.id, val);
 	},
 
