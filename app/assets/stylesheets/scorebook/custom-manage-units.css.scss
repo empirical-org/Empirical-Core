@@ -1,0 +1,170 @@
+
+.unit-tabs {
+	li {
+		cursor: pointer;
+	}
+}
+
+.container.manage-units {
+	padding-top: 0px !important;
+	
+
+	.create-unit-button-container {
+		height: 130px;
+		width: 100%;
+		padding-top: 25px;
+		//outline: 1px solid black;
+		button.create-unit {
+			margin: none !important;
+			float:right;
+		}
+	}
+
+	padding-top: 80px;
+
+	section {
+		border-bottom: none;
+		border-top: 1px solid #cecece;
+	}
+
+	.vertical-align {
+		display: flex;
+		align-items: center;
+	}
+
+
+	.delete-unit {
+		cursor: pointer;
+		color: #137779;
+		text-align:right;
+		padding-right: 30px;
+	}
+
+	.unit-label {
+	  font-weight: bold;
+	  margin-top: 30px;
+	  text-align: left !important;
+	  border-bottom: none;
+	  border-top: 1px solid #cecece !important;
+	  cursor: pointer;
+	  background-color: #e6e6e6;
+	  padding: 8px 12px;
+	  width: 100% !important;
+	  border-top-left-radius: 5px;
+	  
+	  border-left: 1px solid #cecece;
+	  border-top-right-radius: 5px;
+	  border-right: 1px solid #cecece;
+	  padding-left: 17px;
+	}
+	.table {
+		margin-top: 0px !important;
+		border: 1px solid #cecece !important;
+	  	border-bottom-right-radius: 5px;
+	 	border-bottom-left-radius: 5px;
+	 	width: 100%;
+
+
+	 	.row:last-child {
+	 		border-bottom: none;
+	 	}
+	 	.row {
+	 		border-bottom: 1px solid #cecece;
+	 		display: flex;
+	 		align-items: center;
+	 		padding:0px;
+	 		margin: 0px !important;
+
+	 		.cell:first-child {
+	 			padding-right: 10px;
+	 		}
+	 		.cell:nth-child(2) {
+	 			padding-left: 0px;
+	 		}
+	 		.cell:nth-child(3) {
+	 			padding-left: 35px;
+	 		}
+	 		.cell:nth-child(4) {
+	 			//padding-left: 5px;
+	 			//padding-right: 5px;
+	 			padding-left: 12px;
+	 			padding-right: 8px;
+	 			.icon-x-gray {
+	 				height: 40px;
+	 				width: 40px;
+	 			}
+	 		}
+	 		.cell {
+	 			text-align:left !important;
+	 			padding-top: 10px !important;
+	 			padding-bottom: 10px !important;
+	 			.vcenter {
+	 				height: 100%;
+	 			}
+	 		}
+	 		
+
+	 	}
+	 	
+
+	}
+
+	
+
+
+
+}
+
+/*
+
+
+.manage-classes table {
+  margin-top: 20px;
+  border-collapse: separate;
+  margin-bottom: 0;
+}
+.manage-classes table a {
+  color: #308183;
+}
+.manage-classes 
+
+.manage-classes table tbody tr {
+  background: #f7f5f5;
+}
+.manage-classes table tbody tr td {
+  font-size: 14px;
+  padding: 20px 12px;
+}
+.manage-classes table tbody tr td:nth-child(1) {
+  text-align: left;
+  border-left: 1px solid #cecece;
+}
+.manage-classes table tbody tr td:nth-child(2) {
+  text-align: center;
+}
+.manage-classes table tbody tr td:nth-child(3) {
+  text-align: center;
+}
+.manage-classes table tbody tr td:nth-child(4) {
+  text-align: right;
+  border-right: 1px solid #cecece;
+}
+.manage-classes table tbody tr:last-child td {
+  border-bottom: 1px solid #cecece;
+}
+.manage-classes table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+.manage-classes table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}
+.manage-classes .table > thead > tr > th,
+.manage-classes .table > tbody > tr > th,
+.manage-classes .table > tfoot > tr > th,
+.manage-classes .table > thead > tr > td,
+.manage-classes .table > tbody > tr > td,
+.manage-classes .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+
+*/

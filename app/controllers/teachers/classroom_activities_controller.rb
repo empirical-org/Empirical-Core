@@ -1,28 +1,26 @@
 class Teachers::ClassroomActivitiesController < ApplicationController
+  include QuillAuthentication
+  respond_to :json
+
   before_filter :teacher!
   before_filter :authorize!
 
-  def show
-    @classroom_activity.due_date ||= Time.now
-  end
 
   def update
-    @classroom_activity.attributes = classroom_activity_params
-    @classroom_activity.save
-    redirect_to teachers_classroom_lesson_planner_path(@classroom)
+    @classroom_activity.update_attributes due_date: params[:due_date]
+    render json: {}
   end
 
   def destroy
     @classroom_activity.destroy
-    redirect_to teachers_classroom_lesson_planner_path(@classroom)
+    render json: {}
   end
 
 private
 
   def authorize!
-    @classroom = Classroom.where(teacher_id: current_user.id).find(params[:classroom_id])
-    @activity = Activity.find(params[:id])
-    @classroom_activity = AssignmentView.find_or_initialize_by(activity_id: @activity.id, classroom_id: @classroom.id)
+    @classroom_activity = ClassroomActivity.find params[:id]
+    if @classroom_activity.classroom.teacher != current_user then auth_failed end
   end
 
   def classroom_activity_params
