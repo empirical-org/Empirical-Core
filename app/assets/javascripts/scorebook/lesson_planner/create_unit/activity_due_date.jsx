@@ -2,7 +2,6 @@ EC.ActivityDueDate = React.createClass({
   componentDidMount: function() {
     // Set up the datepicker on the dueDate input
 
-    // FIXME: Datepicker not working (conflict with bootstrap? see noConflict())
     $(this.refs.dueDate.getDOMNode()).datepicker({
       selectOtherMonths: true,
       dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -13,8 +12,6 @@ EC.ActivityDueDate = React.createClass({
       altFormat: 'yy-mm-dd',
       onSelect: this.handleChange
     });
-
-
     
   },
 

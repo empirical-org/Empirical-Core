@@ -1,5 +1,5 @@
 class ClassificationSerializer < ActiveModel::Serializer
-  attributes :uid, :id, :name, :key, :form_url, :module_url, :created_at, :updated_at, :image_class, :alias
+  attributes :uid, :id, :name, :key, :form_url, :module_url, :created_at, :updated_at, :image_class, :alias, :scorebook_icon_class
 
 
   def alias
@@ -18,6 +18,19 @@ class ClassificationSerializer < ActiveModel::Serializer
   	when 2
   		'icon-puzzle-gray'
   	end
+  end
+
+
+
+  def scorebook_icon_class
+    case object.id
+    when 1
+      'icon-flag'
+    when 2
+      'icon-puzzle'
+    else
+      ''
+    end
   end
 
 end
