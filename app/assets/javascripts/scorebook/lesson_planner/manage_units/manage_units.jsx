@@ -67,7 +67,6 @@ EC.ManageUnits = React.createClass({
 		})
 	},
 	updateDueDate: function (ca_id, date) {
-		console.log('update due date', ca_id + ' ' + date)
 		$.ajax({
 			type: "put",
 			data: {due_date: date},
@@ -85,9 +84,9 @@ EC.ManageUnits = React.createClass({
 	render: function () {
 		return (
 			<div className="container manage-units">
-				<section >
-					
-				</section>
+				<div  className= "create-unit-button-container">
+					<button className="button-green create-unit">Create a New Unit</button>
+				</div>
 				<EC.Units updateDueDate={this.updateDueDate} deleteClassroomActivity={this.deleteClassroomActivity}   deleteUnit={this.deleteUnit} data={this.state.units} />
 			</div>
 		);

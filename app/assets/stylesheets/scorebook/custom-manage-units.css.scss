@@ -6,8 +6,26 @@
 }
 
 .container.manage-units {
+	padding-top: 0px !important;
+	
+
+	.create-unit-button-container {
+		height: 130px;
+		width: 100%;
+		padding-top: 25px;
+		//outline: 1px solid black;
+		button.create-unit {
+			margin: none !important;
+			float:right;
+		}
+	}
 
 	padding-top: 80px;
+
+	section {
+		border-bottom: none;
+		border-top: 1px solid #cecece;
+	}
 
 	.vertical-align {
 		display: flex;
@@ -18,11 +36,13 @@
 	.delete-unit {
 		cursor: pointer;
 		color: #137779;
+		text-align:right;
+		padding-right: 30px;
 	}
 
 	.unit-label {
 	  font-weight: bold;
-	  margin-top: 50px;
+	  margin-top: 30px;
 	  text-align: left !important;
 	  border-bottom: none;
 	  border-top: 1px solid #cecece !important;
