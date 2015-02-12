@@ -16,11 +16,9 @@ class PagesController < ApplicationController
   end
 
   def develop
-    @body_class = 'white-page'
   end
 
   def mission 
-    #@body_class = 'white-page'
   end
 
   def about
@@ -28,7 +26,6 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @body_class = 'white-page'
   end
 
   def new
@@ -59,13 +56,13 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'mission', 'develop'
+    when 'mission', 'develop', 'faq'
       'about'
     else
       'application'
     end
   end
-  
+
 
   def resolve_layout
     case action_name

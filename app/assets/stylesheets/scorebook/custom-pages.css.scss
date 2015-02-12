@@ -3,11 +3,23 @@
 	padding-bottom: 10%;
 	
 
-	h3, h2 {
+	h4, h3, h2 {
 		margin-top: 5%;
 	}
 	p {
 		margin-top: 3%;
 	}
+
+	.accordion-heading {
+		margin-top: 5%;
+		strong {
+			font-weight: normal;
+		}
+	}
+	.accordion-toggle {
+		margin-top: 5%;
+	}
+
+
 	
 }

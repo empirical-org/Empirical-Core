@@ -9,6 +9,10 @@
   <%= render partial: 'typekit' %>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <%= stylesheet_link_tag 'scorebook/scorebook', media: 'all', 'data-turbolinks-track' => true %>
+   
+   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <!-- must be put above body since faq involves jquery -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <%= csrf_meta_tags %>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -20,14 +24,14 @@
   </head>
   <body id="about-pages">
 
-  <%= render partial: 'header' %>
+    <%= render partial: 'header' %>
 
-  <%= yield %>
+    <%= yield %>
 
-  <%= render partial: 'footer' %>
+    <%= render partial: 'footer' %>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+   
+    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <%= javascript_include_tag 'scorebook/scorebook', 'data-turbolinks-track' => true %>
 </body>
