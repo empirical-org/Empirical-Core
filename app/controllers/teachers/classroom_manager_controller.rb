@@ -68,7 +68,13 @@ class Teachers::ClassroomManagerController < ApplicationController
       redirect_to new_teachers_classroom_path
     end
     @classrooms = current_user.classrooms - [@classroom]
-    @unit = Unit.find(params[:unit_id]) if params[:unit_id]
+    
+    if current_user.id == 54569 and params[:unit_id].nil?
+      @unit = current_user.classrooms.last.classroom_activities.last.unit
+    else
+      @unit = Unit.find(params[:unit_id]) if params[:unit_id]
+    end
+    
     @units = @classroom.classroom_activities.map(&:unit).uniq - [@unit]
     @are_all_units_selected = (params[:all_units])
   end
