@@ -53,17 +53,18 @@ class Teachers::UnitsController < ApplicationController
     units.each do |unit_id, classroom_activities|
       x1 = classroom_activities.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
 
-      num_students_assigned = 0
+      assigned_student_ids = []
       
       classroom_activities.each do |ca|
         if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
-          y = ca.classroom.students.length
+          y = ca.classroom.students.map(&:id)
         else
-          y = ca.assigned_student_ids.length
+          y = ca.assigned_student_ids
         end
-        num_students_assigned = num_students_assigned + y
+        assigned_student_ids = assigned_student_ids.concat(y)
       end
 
+      num_students_assigned = assigned_student_ids.uniq.length
 
       ele = {unit: Unit.find(unit_id), classroom_activities: x1, num_students_assigned: num_students_assigned}
       arr.push ele
