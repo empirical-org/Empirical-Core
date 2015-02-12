@@ -54,7 +54,7 @@ class Teachers::UnitsController < ApplicationController
       
       x1 = classroom_activities.reject{|ca| ca.due_date.nil?}.compact
 
-      x1 = x1.sort{|a, b| b.due_date <=> a.due_date}
+      x1 = x1.sort{|a, b| a.due_date <=> b.due_date}
       
       x1 = x1.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
 
