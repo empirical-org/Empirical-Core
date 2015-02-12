@@ -30,6 +30,17 @@ describe Classroom, :type => :model do
   	end
   end
 
+  context "when is created" do
+    before do
+      @classroom = FactoryGirl.create(:classroom)
+    end
+    it "must have a unique name" do
+      other_classroom = FactoryGirl.build(:classroom, teacher_id: @classroom.teacher_id, name: @classroom.name)
+      other_classroom.save
+      expect(other_classroom.errors[:name]).to include("A classroom called #{@classroom.name} already exists. Please rename this classroom to a different name.")
+    end
+  end
+
   describe "#classroom_activity_for" do
     before do
       @activity=Activity.create!()
