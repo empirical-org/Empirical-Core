@@ -4,11 +4,11 @@
 
     <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
 
-      <li class=<%= action_name == 'mission' ?  "active" : "" %>>
+      <li class=<%= pages_tab_class("about") %>>
         <%= link_to 'About', mission_path  %>
       </li>
 
-      <li class="">
+      <li class=<%= pages_tab_class("impact") %>>
         <%= link_to "Impact", "" %>
       </li>
 
