@@ -15,8 +15,8 @@
 	
 	<div id="home-collapsed-navbar" class="collapse navbar-collapse">
 		<ul class="home-navbar-list">
-			<li class="active"><a href="http://quill.org/mission">Discover</a></li>
-			<li><%= link_to "Community", "http://community.quill.org" %></li>
+			<li class="active"><a href=<%=root_path + 'mission' %>>Discover</a></li>
+			<li><%= link_to "Community",  "http://community.quill.org" %></li>
 			<li><%= link_to "Support", "http://support.quill.org" %></li>
 			<li>
 				<%- if current_user.nil? %>

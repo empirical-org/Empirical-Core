@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   before_filter :resolve_layout
   layout "home", only: [:home]
+  layout "about", only: [:mission]
 
   def home
     if signed_in?
@@ -18,8 +19,8 @@ class PagesController < ApplicationController
     @body_class = 'white-page'
   end
 
-  def mission
-    @body_class = 'white-page'
+  def mission 
+    #@body_class = 'white-page'
   end
 
   def about
