@@ -51,7 +51,12 @@ class Teachers::UnitsController < ApplicationController
     units = cas.group_by{|ca| ca.unit_id}
     arr = []
     units.each do |unit_id, classroom_activities|
-      x1 = classroom_activities.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
+      
+      x1 = classroom_activities.reject{|ca| ca.due_date.nil?}.compact
+
+      x1 = x1.sort{|a, b| b.due_date <=> a.due_date}
+      
+      x1 = x1.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
 
       assigned_student_ids = []
       
