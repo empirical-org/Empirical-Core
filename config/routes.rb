@@ -103,7 +103,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   %w(middle_school story about learning develop mission faq tos privacy lessons new impact).each do |page|
-    get page => "pages##{page}"
+    get page => "pages##{page}", as: "{page}_path"
   end
 
   patch 'verify_question' => 'chapter/practice#verify'
