@@ -1,0 +1,16 @@
+.slick-slide:not(.slick-active) {
+	opacity: 0;
+	visibility: hidden;
+}
+
+
+.home-hero,
+.home-page-navbar,
+h1,
+.buttons {
+	transition: all 0.5s ease-in-out;
+}
+
+.graphics {
+	transition: all 1s ease-in-out;
+}
