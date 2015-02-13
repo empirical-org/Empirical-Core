@@ -96,9 +96,11 @@ $(document).ready(function(){
 	});
 	
 
-$('#tooltip-test').tooltip({
-	html: 'true'
-});
+	$('#tooltip-test').tooltip({
+		html: 'true'
+	});
 
+
+});
 	
 
