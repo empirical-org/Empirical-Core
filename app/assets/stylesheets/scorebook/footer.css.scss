@@ -159,6 +159,22 @@ footer.footer-white .footer-list li a {
 
 
 
+footer {
+  padding: 87px 0;
+}
+footer .footer-contacts {
+  width: 622px;
+  font-size: 21px;
+}
+footer .footer-contacts li {
+  margin-right: 31px;
+  margin-left: 0;
+}
+footer .footer-contacts li:last-child {
+  //margin-left: 0;
+}
+
+
 
 footer {
   background-color: #fff;
@@ -172,12 +188,15 @@ footer ul {
 footer .wrapper {
   margin: 0 auto;
 }
-footer .footer-contacts {
-  color: #333333;
+footer .footer-contacts,
+footer .footer-contact a {
+  color: #333333 !important;
   font-size: 18px;
   width: 633px;
   margin: 0 auto;
 }
+
+
 footer .footer-contacts li {
   float: left;
   margin-right: 20px;
