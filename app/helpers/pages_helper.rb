@@ -77,13 +77,13 @@ module PagesHelper
 		      title: 'Developer',
 		      desc: "Will is passionate about HTTP, web and mobile applications, distributed systems, databases, network security, and computer science as a whole. Open Source is changing the world one repository at a time, and he tries to open source as much as possible on GitHub."
 		  },
-		  {
+		  # {
 
-		      img: 'thumb-matt.png',
-		      name: "Matt Cox",
-		      title: "Community Manager",
-		      desc: "Matt engages community members and partners. He attends college in New York City and is studying communications."
-	  	  },
+		  #     img: 'thumb-matt.png',
+		  #     name: "Matt Cox",
+		  #     title: "Community Manager",
+		  #     desc: "Matt engages community members and partners. He attends college in New York City and is studying communications."
+	  	#   },
 	      {
 
 		      img: 'thumb-alex.png',
