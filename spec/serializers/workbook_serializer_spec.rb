@@ -18,7 +18,7 @@ describe WorkbookSerializer, type: :serializer do
 
       it "should have these keys" do
         expected = ["id", "title", "created_at", "updated_at"]
-        expect(workbook_json.keys).to eq(expected)
+        expect(workbook_json.keys).to match_array(expected)
       end
 
 

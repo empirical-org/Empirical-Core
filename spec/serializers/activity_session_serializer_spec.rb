@@ -22,7 +22,7 @@ describe ActivitySessionSerializer, type: :serializer do
       it "should have these keys" do
         expected = ["uid", "percentage", "time_spent", "state", "completed_at", "data", "temporary", 
                     "activity_uid", "anonymous", "concept_tag_results"]
-        expect(activity_session_json.keys).to eq(expected)
+        expect(activity_session_json.keys).to match_array(expected)
       end
 
       it "should have a properly formatted concept tags response" do
