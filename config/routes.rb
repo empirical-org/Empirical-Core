@@ -102,7 +102,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  %w(middle_school story about learning develop mission faq tos privacy lessons new impact).each do |page|
+  %w(middle_school story about learning develop mission faq tos privacy lessons new impact team).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
 
