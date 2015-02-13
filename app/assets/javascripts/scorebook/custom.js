@@ -38,6 +38,14 @@ $(document).ready(function(){
 	}
 
 	tableSortIcons();
+	
+	$('.tabs-testimonials').tabslet({
+		autorotate: true,
+		delay: 10000,
+		pauseonhover: false,
+		animation: true,
+		active: 1
+	});
 
 	//Datepicker
 
@@ -86,58 +94,7 @@ $(document).ready(function(){
 	$( '#grade-select' ).selecter({
 		customClass: "grade-select"
 	});
-
-
-	$( '#home-slider' ).slick({
-		dots: true,
-		arrows: false,
-		fade: true,
-		pauseOnHover: false,
-		cssEase: 'linear',
-		speed: 300,
-		autoplay: true,
-		autoplaySpeed: 13440
-	});
-
-
-	$( '#home-slider' ).on('afterChange', function(event, slick, currentSlide, nextSlide) {
-		var n = $('.home-page-navbar');
-		var h = $('.home-hero');
-
-		if (currentSlide == 0) {
-			n.addClass('proofreader-navbar');
-			h.removeClass('writer-outer');
-			n.removeClass('writer-navbar');
-			n.removeClass('dashboard-navbar');
-			h.removeClass('dashboard-outer');
-		}
-
-		else if (currentSlide == 1) {
-			n.addClass('writer-navbar');
-			h.addClass('writer-outer');
-			n.removeClass('dashboard-navbar');
-			h.removeClass('dashboard-outer');
-		}
-
-		else if (currentSlide == 2) {
-			n.addClass('dashboard-navbar');
-			h.addClass('dashboard-outer');
-			n.removeClass('writer-navbar');
-			h.removeClass('writer-outer');
-		}
-	});
-
-	$('.tabs-testimonials').tabslet({
-		autorotate: true,
-		delay: 10000,
-		pauseonhover: false,
-		animation: true,
-		active: 1
-	});
-
-});
-
-
+	
 
 $('#tooltip-test').tooltip({
 	html: 'true'

@@ -14,6 +14,8 @@
 //= require scorebook/slick.js
 //= require scorebook/tabslet.js
 
+//= require scorebook/custom-slick.js
+
 //= require scorebook/jquery-ui-custom.min.js
 
 
