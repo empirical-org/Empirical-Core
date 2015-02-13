@@ -1,11 +1,11 @@
 module PagesHelper
 
 	def pages_tab_class tabname
-		arr = ["mission", "develop", "faq"]
+		arr = ["mission", "develop", "faq", "team"]
 
 		if tabname == "about"
 			arr.include?(action_name) ? "active" : ""
-		else
+		elsif tabname == "impact"
 			arr.include?(action_name) ? "" : "active"
 		end
 

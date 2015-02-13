@@ -33,7 +33,9 @@ class PagesController < ApplicationController
   end
   
   def impact
-    @body_class = 'white-page'
+  end
+
+  def team 
   end
 
   def tos
@@ -56,7 +58,7 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'mission', 'develop', 'faq'
+    when 'mission', 'develop', 'faq', 'impact', 'team'
       'about'
     else
       'application'
