@@ -18,7 +18,7 @@ describe ClassificationSerializer, type: :serializer do
 
       it "should have these keys" do
         expected = ["uid", "id", "name", "key", "form_url", "module_url", "created_at", "updated_at", "image_class", "scorebook_icon_class", "alias"]
-        expect(classification_json.keys).to eq(expected)
+        expect(classification_json.keys).to match_array(expected)
       end
 
 

@@ -19,7 +19,7 @@ describe ActivitySerializer, type: :serializer do
 
       it "should have these keys" do
         expected = ["uid", "id", "name", "description", "flags", "data", "created_at", "updated_at", "anonymous_path", "classification", "topic"]
-        expect(activity_json.keys).to eq(expected)
+        expect(activity_json.keys).to match_array(expected)
       end
 
       it "should include a topic" do

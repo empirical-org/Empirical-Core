@@ -18,7 +18,7 @@ describe SectionSerializer, type: :serializer do
 
       it "should have these keys" do
         expected = ["id", "name", "created_at", "updated_at", "workbook"]
-        expect(section_json.keys).to eq(expected)
+        expect(section_json.keys).to match_array(expected)
       end
 
       it "should include a workbook" do

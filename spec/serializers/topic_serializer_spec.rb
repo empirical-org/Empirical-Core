@@ -18,7 +18,7 @@ describe TopicSerializer, type: :serializer do
 
       it "should have these keys" do
         expected = ["id", "name", "created_at", "updated_at", "section", "topic_category"]
-        expect(topic_json.keys).to eq(expected)
+        expect(topic_json.keys).to match_array(expected)
       end
 
       it "should include a section" do
