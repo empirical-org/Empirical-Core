@@ -18,7 +18,7 @@ html,body {
 }
 
 header {
-  background-color: $darkgrey;
+  background-color: $quillgreen;
   z-index: 2;
   position: relative;
 
@@ -39,18 +39,18 @@ header {
 
   .nav-btn {
     @include border-radius(3px);
-    background-color: #464c5a;
+    background-color: #00C2A2;
     padding: 2px 7px;
   }
 
   .pro-btn {
     @include border-radius(3px);
-    background-color: $found-color;
+    background-color: #00C2A2;
     padding: 2px 7px;
   }
 
   .btn-primary {
-    background-color: $found-color;
+    background-color: #00C2A2;
   }
 }
 
