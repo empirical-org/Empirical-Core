@@ -15,6 +15,10 @@ module Teachers
 
         InviteStudentsPage.new
       end
+
+      def self.path
+        '/teachers/classrooms/new'
+      end
     end
   end
 end
