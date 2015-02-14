@@ -31,12 +31,8 @@ html
 
                 .nav-collapse.collapse
                   ul.nav
-                    li= link_to 'Mission', mission_path
-                    li= link_to 'News', 'http://news.quill.org/'
-                    li= link_to 'Develop', develop_path
-                    li= link_to 'About Us', about_path
-                    li= link_to 'FAQ', faq_path
-                    li= link_to 'Lessons', lessons_path
+                    li= link_to 'Discover', mission_path
+                    li= link_to 'Community', 'http://community.quill.org'
 
                     - if signed_in?
                       li.nav-btn.pro-btn= link_to t(:"profile_link_label.#{current_user.role}"), profile_path
@@ -55,11 +51,11 @@ html
         #footer-inner.container.clearfix
           .first-col-wrapper
             .img-wrapper
-              = image_tag 'emperical-logo.png'
+              = image_tag 'quill-logo.png'
             .text-wrapper
               p.text-italic
                 | A nonprofit, open source community
-                br building interactive education.
+                br building free literacy tools.
           .icons-wrapper
             a href="https://www.edsurge.com/quill" target="_blank"
               = image_tag "icons/edsurge-footer-52.png", class: 'icon icon-edsurge', alt: ''
