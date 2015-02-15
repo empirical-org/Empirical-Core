@@ -104,6 +104,8 @@ group :development do
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'foreman'
   gem "letter_opener"
+  gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 gem "awesome_print", github: 'imajes/awesome_print'
@@ -131,6 +133,8 @@ group :test, :development do
 end
 
 group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
   gem "vcr"
   gem "webmock"
 end

@@ -2,7 +2,7 @@ language: ruby
 rvm:
 - 2.1.2
 script:
-- bundle exec rake
+- xvfb-run bundle exec rake spec
 before_script:
 - cp config/database.yml.travis config/database.yml
 - psql -c 'create database test;' -U postgres

@@ -1,28 +1,36 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe SectionSerializer, type: :serializer do
-  let!(:section) { FactoryGirl.create(:section, workbook: FactoryGirl.create(:workbook)) }
-  let!(:serializer) { SectionSerializer.new(section) }
+  let(:workbook)   { FactoryGirl.create(:workbook) }
+  let(:section)    { FactoryGirl.create(:section, workbook: workbook) }
+  let(:serializer) { SectionSerializer.new(section) }
 
+  describe '#to_json output' do
+    let(:json)   { serializer.to_json }
+    let(:parsed) { JSON.parse(json) }
 
-  context "has expected attributes" do
+    section_key = 'section'
 
-    let!(:parsed) { JSON.parse(serializer.to_json) }
-
-    it "should contain a root attribute" do
-      expect(parsed.keys).to include('section')
+    it "includes '#{section_key}' key" do
+      expect(parsed.keys).to include(section_key)
     end
 
-    context "section object" do
-      let!(:section_json) { parsed['section'] }
+    describe "'#{section_key}' object" do
+      let(:parsed_section) { parsed[section_key] }
 
-      it "should have these keys" do
-        expected = ["id", "name", "created_at", "updated_at", "workbook"]
-        expect(section_json.keys).to eq(expected)
+      workbook_key = 'workbook'
+
+      it 'has the correct keys' do
+        expect(parsed_section.keys)
+          .to match_array %w(id
+                             name
+                             created_at
+                             updated_at) +
+                            [workbook_key]
       end
 
-      it "should include a workbook" do
-        expect(section_json['workbook'].class).to eq(Hash)
+      it "includes a '#{workbook_key}' Hash" do
+        expect(parsed_section[workbook_key]).to be_a(Hash)
       end
 
     end
