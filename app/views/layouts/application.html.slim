@@ -8,6 +8,7 @@ html
     = stylesheet_link_tag    'codemirror', 'data-turbolinks-track' => true
     = stylesheet_link_tag 'scorebook/scorebook', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'cms', 'data-turbolinks-track' => true
+    script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.0.8/jquery.placeholder.min.js"
 
     = csrf_meta_tags
     link href="/images/favicon.gif" rel="icon" type="image/ico"
@@ -53,6 +54,3 @@ html
 
     - if signed_in? && current_user.teacher?
       script type="text/javascript" src="//s3.amazonaws.com/scripts.hellobar.com/86d3104089aef6faaf890e08662529bff130ccef.js"
-
-  script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.0.8/jquery.placeholder.min.js"
-
