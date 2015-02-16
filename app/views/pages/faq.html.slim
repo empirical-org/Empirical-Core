@@ -1,223 +1,229 @@
-hr
-h2 Frequently Asked Questions
-hr
+= render partial: 'pages/shared/pages_tabs'
+= render partial: 'pages/shared/about_subtabs'
 
-p.leader
-  em Quill is a web based application that provides personalized writing and grammar lessons. Students using Quill learn English grammar by writing sentences and proofreading passages.
+.container.pages-container
 
-h3.names You may reach us at:
-p 
-  strong Peter Gault - peter@quill.org 
-p.title 
-  em Founder, Product Director
-p 
-  strong Ryan Novas - ryan@quill.org
-p.title 
-  em Operations Director 
 
-hr
-h3 General Questions
+  hr
+  h3 Frequently Asked Questions
+  hr
 
-.accordion#general-questions
-  .accordion-group
+  p
+    | Quill is a web based application that provides personalized writing and grammar lessons. Students using Quill learn English grammar by writing sentences and proofreading passages.
 
-    #what-is-quill.accordion-heading.question
-      a.accordion-toggle href="#what-is-quill" data-parent="#general-questions"
-        strong What is Quill?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Quill is a is a free, web-based tool that provides personalized, interactive writing and grammar activities. Students using Quill learn writing and grammar skills by writing sentences and proofreading passages. 
+  h4.names You may reach us at:
+  p 
+    strong Peter Gault - peter@quill.org 
+  p.title 
+    em Founder, Product Director
+  p 
+    strong Ryan Novas - ryan@quill.org
+  p.title 
+    em Operations Director 
 
-    #who-uses-quill.accordion-heading.question
-      a.accordion-toggle href="#who-uses-quill" data-parent="#general-questions"
-        strong Who is using Quill?
-      .accordion-body.collapse
-        p.accordion-inner
-          | As of May, 2014, 4,500 students have signed up for Quill and complete approximately 500 lessons each day. From Rhode Island to Russia, and the Bay Area to Great Britain, these students live all over the world.
+  hr
+  h4 General Questions
 
-    #how-many-lessons.accordion-heading.question
-      a.accordion-toggle href="#how-many-lessons" data-parent="#general-questions"
-        strong How many lessons do you have?
-      .accordion-body.collapse
-        p.accordion-inner
-          | As of May, 2014, we have created 150 lessons, covering Common Core topics for grades 1-8. Each lesson is approximately 10-15 minutes in length.
+  .accordion#general-questions
+    .accordion-group
+
+      #what-is-quill.accordion-heading.question
+        a.accordion-toggle href="#what-is-quill" data-parent="#general-questions"
+          strong What is Quill?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Quill is a is a free, web-based tool that provides personalized, interactive writing and grammar activities. Students using Quill learn writing and grammar skills by writing sentences and proofreading passages. 
+
+      #who-uses-quill.accordion-heading.question
+        a.accordion-toggle href="#who-uses-quill" data-parent="#general-questions"
+          strong Who is using Quill?
+        .accordion-body.collapse
+          p.accordion-inner
+            | As of May, 2014, 4,500 students have signed up for Quill and complete approximately 500 lessons each day. From Rhode Island to Russia, and the Bay Area to Great Britain, these students live all over the world.
+
+      #how-many-lessons.accordion-heading.question
+        a.accordion-toggle href="#how-many-lessons" data-parent="#general-questions"
+          strong How many lessons do you have?
+        .accordion-body.collapse
+          p.accordion-inner
+            | As of May, 2014, we have created 150 lessons, covering Common Core topics for grades 1-8. Each lesson is approximately 10-15 minutes in length.
+            
+      #quill-cost.accordion-heading.question
+        a.accordion-toggle href="#quill-cost" data-parent="#general-questions"
+          strong How much does Quill cost?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Quill is free. We are working on a premium service that will offer additional functionality and analytics; however, our lessons and content will always be free.
+
+  hr
+  h4 Technical Questions
+
+  .accordion#technical-questions
+    .accordion-group
+
+      #technical-requirements.accordion-heading.question
+        a.accordion-toggle href="#technical-requirements" data-parent="#technical-questions"
+          strong What are Quill's technical requirements?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Quill is built in HTML5 and runs on all tablets and modern browsers.
+              Quill runs in Firefox, Chrome, Safari, and Internet Explorer 9, 10 and 11.
+              Empirical recommends that students have access to keyboards so that
+              they can type their responses.
+   
+      #how-to-setup.accordion-heading.question
+        a.accordion-toggle href="#how-to-setup" data-parent="#technical-questions" 
+          strong How do you set up Quill?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Teachers create teacher accounts and students create student accounts by clicking here: <a href='http://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. We are currently working on allowing teachers to import their classes with .csv data and sign in through Google Apps.
+   
+  hr
+  h4 Implementation Questions
+
+  .accordion#implementation-questions
+    .accordion-group
+
+      #larger-classroom.accordion-heading.question
+        a.accordion-toggle href="#larger-classroom" data-parent="#implementation-questions"
+          strong How does Quill fit into the larger classroom experience?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Quill lessons are approximately 15 minutes in length. Teachers who have
+              a 1:1 computer ratio tend to use Quill as a warm up lesson at the
+              beginning of a class. Teachers who have a limited availability of
+              laptops tend to have their students rotate through the computers while
+              the rest of the class engages in other activities. We are currently
+              developing a few paper based games for the rest of the class to play
+              while certain students work with Quill.
+
+      #student-quit.accordion-heading.question
+        a.accordion-toggle href="#student-quit" data-parent="#implementation-questions"
+          strong What happens if a student quits a lesson half way through?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Quill saves the student's current progress. A student may resume a
+              lesson at any time.
+
+      #fixed-progression.accordion-heading.question
+        a.accordion-toggle href="#fixed-progression" data-parent="#implementation-questions"
+          strong Is there a fixed progression of lessons?
+        .accordion-body.collapse
+          p.accordion-inner
+            | While our lessons are arranged by Common Core Standard, there is not a fixed progression of lessons. Teachers have all of our lessons available to them, and they may choose to assign any lesson they're interested in teaching.
+   
+  hr
+  h4 Pedagogical Questions
+
+  .accordion#pedagogical-questions
+    .accordion-group
+    
+      #build-lessons.accordion-heading.question
+        a.accordion-toggle href="#build-lessons" data-parent="#pedagogical-questions"
+          strong How do you build your lessons?
+        .accordion-body.collapse
+          p.accordion-inner
+            | We take each topic from the Common Core language section, and we research how that topic is being taught by consulting with teachers and searching on BetterLesson, ShareMyLesson, and LearnZillion. We then synthesize these resources and experiences to build our own lessons.
           
-    #quill-cost.accordion-heading.question
-      a.accordion-toggle href="#quill-cost" data-parent="#general-questions"
-        strong How much does Quill cost?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Quill is free. We are working on a premium service that will offer additional functionality and analytics; however, our lessons and content will always be free.
+      #incorrect-answer.accordion-heading.question
+        a.accordion-toggle href="#incorrect-answer" data-parent="#pedagogical-questions"
+          strong What happens if a student answers a question incorrectly?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Students can retry each question once per lesson. If they answer incorrectly twice they move on to the next question. Students are able to retake lessons as many times as they would like.
 
-hr
-h3 Technical Questions
+   
+      #assign-lessons.accordion-heading.question
+        a.accordion-toggle href="#assign-lessons" data-parent="#pedagogical-questions"
+          strong How can I assign lessons to individual students / groups?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Teachers can assign lessons to individual students, groups of students, or the whole classroom by clicking “Lesson Planner” from their profile, then selecting “Assign Lesson.”  
+            
+      #colored-scores.accordion-heading.question
+        a.accordion-toggle href="#colored-scores" data-parent="#pedagogical-questions"
+          strong How do the colored scores work?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Quill utilizes a stoplight system of green, yellow, and red scores. A
+              green square indicates that the student answered most of the questions
+              correctly. A yellow square indicates the student struggled with a few
+              concepts. A red square indicates that the student did not demonstrate
+              mastery of the lesson. A grey square indicates an uncompleted lesson.
+   
+      #common-core-lessons.accordion-heading.question
+        a.accordion-toggle href="#common-core-lessons" data-parent="#pedagogical-questions"
+          strong Why are the Common Core lessons arranged into stages?
+        .accordion-body.collapse
+          p.accordion-inner
+            | The Common Core State Standards do not always map onto the development
+              stages of students. For example, we have found that our grade two CCSS
+              materials are popular among middle schools. Relative pronouns, a 4th
+              grade CCSS concept, are often taught in high schools. Using the word
+              stage, instead of grade level, reinforces the concept that each student
+              will learn grammar at her or his own pace. 
+   
+  hr
+  h4 Organizational Questions
 
-.accordion#technical-questions
-  .accordion-group
+  .accordion#organizational-questions
+    .accordion-group
+    
+      #not-for-profit.accordion-heading.question
+        a.accordion-toggle href="#not-for-profit" data-parent="#organizational-questions"
+          strong Why is Empirical a nonprofit organization?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Empirical's mission is to collaboratively build educational materials
+              and make those materials freely available. We work with a large team of
+              volunteers who spend their time on this project because they believe
+              in this mission. We, in turn, have no interest of ever being purchased
+              by another company or being sold on the stock market. While we are a
+              commercial nonprofit, and intend to generate sustainable revenue, our
+              mission is to revolutionize how students learn.
 
-    #technical-requirements.accordion-heading.question
-      a.accordion-toggle href="#technical-requirements" data-parent="#technical-questions"
-        strong What are Quill's technical requirements?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Quill is built in HTML5 and runs on all tablets and modern browsers.
-            Quill runs in Firefox, Chrome, Safari, and Internet Explorer 9, 10 and 11.
-            Empirical recommends that students have access to keyboards so that
-            they can type their responses.
- 
-    #how-to-setup.accordion-heading.question
-      a.accordion-toggle href="#how-to-setup" data-parent="#technical-questions" 
-        strong How do you set up Quill?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Teachers create teacher accounts and students create student accounts by clicking here: <a href='http://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. We are currently working on allowing teachers to import their classes with .csv data and sign in through Google Apps.
- 
-hr
-h3 Implementation Questions
+      #similar-organizations.accordion-heading.question
+        a.accordion-toggle href="#similar-organizations" data-parent="#organizational-questions"
+          strong What are some other similar nonprofit organizations?
+        .accordion-body.collapse
+          p.accordion-inner
+            | In educational technology, the closest organization to our own
+              is Reasoning Mind. Reasoning Mind is a nonprofit organization that
+              charges a fee to use its mathematics software. Another similar nonprofit
+              is EdX. EdX intends to create sustainable revenue by charging school
+              systems for its services.
 
-.accordion#implementation-questions
-  .accordion-group
+      #what-is-open-source.accordion-heading.question
+        a.accordion-toggle href="#what-is-open-source" data-parent="#organizational-questions"
+          strong What does Open Source mean?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Open Source means that all of our code is made freely available. You
+              may download it and install it for free for any non-commercial purpose.
+              Other developers may reuse our code in their programs. We build our
+              code through GitHub, and you can see what we are working on at the
+              moment <a href='https://github.com/empirical-org/quill/issues?state=open_'>here</a>.
+   
+      #what-is-open-content.accordion-heading.question
+        a.accordion-toggle href="#what-is-open-content" data-parent="#organizational-questions"
+          strong What does Open Content mean?
+        .accordion-body.collapse
+          p.accordion-inner
+            | All of our instructional materials are made available under a Creative
+              Commons BY-SA-NC license. This means that you may reuse our materials
+              for any non-commercial purpose.
 
-    #larger-classroom.accordion-heading.question
-      a.accordion-toggle href="#larger-classroom" data-parent="#implementation-questions"
-        strong How does Quill fit into the larger classroom experience?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Quill lessons are approximately 15 minutes in length. Teachers who have
-            a 1:1 computer ratio tend to use Quill as a warm up lesson at the
-            beginning of a class. Teachers who have a limited availability of
-            laptops tend to have their students rotate through the computers while
-            the rest of the class engages in other activities. We are currently
-            developing a few paper based games for the rest of the class to play
-            while certain students work with Quill.
+  .bottom
 
-    #student-quit.accordion-heading.question
-      a.accordion-toggle href="#student-quit" data-parent="#implementation-questions"
-        strong What happens if a student quits a lesson half way through?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Quill saves the student's current progress. A student may resume a
-            lesson at any time.
-
-    #fixed-progression.accordion-heading.question
-      a.accordion-toggle href="#fixed-progression" data-parent="#implementation-questions"
-        strong Is there a fixed progression of lessons?
-      .accordion-body.collapse
-        p.accordion-inner
-          | While our lessons are arranged by Common Core Standard, there is not a fixed progression of lessons. Teachers have all of our lessons available to them, and they may choose to assign any lesson they're interested in teaching.
- 
-hr
-h3 Pedagogical Questions
-
-.accordion#pedagogical-questions
-  .accordion-group
-  
-    #build-lessons.accordion-heading.question
-      a.accordion-toggle href="#build-lessons" data-parent="#pedagogical-questions"
-        strong How do you build your lessons?
-      .accordion-body.collapse
-        p.accordion-inner
-          | We take each topic from the Common Core language section, and we research how that topic is being taught by consulting with teachers and searching on BetterLesson, ShareMyLesson, and LearnZillion. We then synthesize these resources and experiences to build our own lessons.
-        
-    #incorrect-answer.accordion-heading.question
-      a.accordion-toggle href="#incorrect-answer" data-parent="#pedagogical-questions"
-        strong What happens if a student answers a question incorrectly?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Students can retry each question once per lesson. If they answer incorrectly twice they move on to the next question. Students are able to retake lessons as many times as they would like.
-
- 
-    #assign-lessons.accordion-heading.question
-      a.accordion-toggle href="#assign-lessons" data-parent="#pedagogical-questions"
-        strong How can I assign lessons to individual students / groups?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Teachers can assign lessons to individual students, groups of students, or the whole classroom by clicking “Lesson Planner” from their profile, then selecting “Assign Lesson.”  
-          
-    #colored-scores.accordion-heading.question
-      a.accordion-toggle href="#colored-scores" data-parent="#pedagogical-questions"
-        strong How do the colored scores work?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Quill utilizes a stoplight system of green, yellow, and red scores. A
-            green square indicates that the student answered most of the questions
-            correctly. A yellow square indicates the student struggled with a few
-            concepts. A red square indicates that the student did not demonstrate
-            mastery of the lesson. A grey square indicates an uncompleted lesson.
- 
-    #common-core-lessons.accordion-heading.question
-      a.accordion-toggle href="#common-core-lessons" data-parent="#pedagogical-questions"
-        strong Why are the Common Core lessons arranged into stages?
-      .accordion-body.collapse
-        p.accordion-inner
-          | The Common Core State Standards do not always map onto the development
-            stages of students. For example, we have found that our grade two CCSS
-            materials are popular among middle schools. Relative pronouns, a 4th
-            grade CCSS concept, are often taught in high schools. Using the word
-            stage, instead of grade level, reinforces the concept that each student
-            will learn grammar at her or his own pace. 
- 
-hr
-h3 Organizational Questions
-
-.accordion#organizational-questions
-  .accordion-group
-  
-    #not-for-profit.accordion-heading.question
-      a.accordion-toggle href="#not-for-profit" data-parent="#organizational-questions"
-        strong Why is Empirical a nonprofit organization?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Empirical's mission is to collaboratively build educational materials
-            and make those materials freely available. We work with a large team of
-            volunteers who spend their time on this project because they believe
-            in this mission. We, in turn, have no interest of ever being purchased
-            by another company or being sold on the stock market. While we are a
-            commercial nonprofit, and intend to generate sustainable revenue, our
-            mission is to revolutionize how students learn.
-
-    #similar-organizations.accordion-heading.question
-      a.accordion-toggle href="#similar-organizations" data-parent="#organizational-questions"
-        strong What are some other similar nonprofit organizations?
-      .accordion-body.collapse
-        p.accordion-inner
-          | In educational technology, the closest organization to our own
-            is Reasoning Mind. Reasoning Mind is a nonprofit organization that
-            charges a fee to use its mathematics software. Another similar nonprofit
-            is EdX. EdX intends to create sustainable revenue by charging school
-            systems for its services.
-
-    #what-is-open-source.accordion-heading.question
-      a.accordion-toggle href="#what-is-open-source" data-parent="#organizational-questions"
-        strong What does Open Source mean?
-      .accordion-body.collapse
-        p.accordion-inner
-          | Open Source means that all of our code is made freely available. You
-            may download it and install it for free for any non-commercial purpose.
-            Other developers may reuse our code in their programs. We build our
-            code through GitHub, and you can see what we are working on at the
-            moment <a href='https://github.com/empirical-org/quill/issues?state=open_'>here</a>.
- 
-    #what-is-open-content.accordion-heading.question
-      a.accordion-toggle href="#what-is-open-content" data-parent="#organizational-questions"
-        strong What does Open Content mean?
-      .accordion-body.collapse
-        p.accordion-inner
-          | All of our instructional materials are made available under a Creative
-            Commons BY-SA-NC license. This means that you may reuse our materials
-            for any non-commercial purpose.
-
-.bottom
-
-javascript:
-  (function($) {
-    $(document).ready( function() {
-      $('a.accordion-toggle').click( function(e) { 
-        e.preventDefault(); 
-        $(this).next('.accordion-body').collapse('toggle');
-      }); 
-      if(window.location.hash) { 
-        $(window.location.hash+' .accordion-body').collapse('toggle'); 
-      }
-    });
-  })(jQuery);
+    javascript:
+      (function($) {
+        $(document).ready( function() {
+          $('a.accordion-toggle').click( function(e) { 
+            e.preventDefault(); 
+            $(this).next('.accordion-body').collapse('toggle');
+          }); 
+          if(window.location.hash) { 
+            $(window.location.hash+' .accordion-body').collapse('toggle'); 
+          }
+        });
+      })(jQuery);

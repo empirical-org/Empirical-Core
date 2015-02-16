@@ -1,0 +1,17 @@
+= render partial: 'pages/shared/pages_tabs'
+= render partial: 'pages/shared/about_subtabs'
+
+.container.pages-container
+
+  h3.page-subtitle2 Meet The Team
+  - (team_info).in_groups_of(3) do |members|
+    .row
+    - members.each do |person|
+      - if person.present?
+        .col-md-4.col-xs-1
+          =image_tag person[:img]
+          h4 =person[:name]
+          p =person[:title]
+          p =person[:desc]
+        
+

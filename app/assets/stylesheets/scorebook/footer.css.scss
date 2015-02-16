@@ -1,0 +1,258 @@
+/*
+body {
+	margin: 0;
+}
+
+footer {
+	padding: 50px 20px 40px 20px;
+	background: #fff;
+	color: #D3D3De;
+	line-height: 25px;
+	min-height: 240px;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+footer a {
+	color: #4fafd2;
+	text-decoration: none;
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+footer .first-col-wrapper {
+	float: left;
+	position: relative;
+	margin-right: 0;
+}
+
+footer .img-wrapper {
+	display: inline-block;
+}
+
+footer img {
+	display: inline-block;
+}
+
+footer .text-wrapper {
+	margin-left: 90px;
+	color: #7c7c7c;
+}
+
+footer .logo-text {
+	color: #d3d3d3;
+	vertical-align: top;
+	margin: 0 0 30px 5px;
+	display: inline-block;
+	font-size: 60px;
+	position: relative;
+	top: 10px;
+}
+
+footer p {
+	margin: 0;
+}
+
+footer button {
+	background-color: #3f3f3f;
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+	padding: 8px 22px;
+	border-radius: 15px;
+	border: none;
+	margin-top: 10px;
+	cursor: pointer;
+		     transition: .1s ease;
+		-moz-transition: .1s ease;
+	 -webkit-transition: .1s ease;
+}
+
+footer button:hover {
+	background-color: #2B2B2B;
+}
+
+footer button a {
+	color: #fff;
+}
+
+footer .text-italic {
+	font-style: italic;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 40px;
+}
+
+footer .box {
+	width: 200px;
+	position: relative;
+	color: #fff;
+	background-color: #4e4e4e;
+	float: left;
+	margin-right: 15px;
+	font-size: 14px;
+	border-radius: 5px;
+}
+
+footer .box-header {
+	background-color: #3f3f3f;
+	padding: 15px 12px 12px 12px;
+	border-bottom: 1px solid #373737;
+	font-weight: bold;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	font-size: 16px;
+}
+
+footer .icons-wrapper {
+	padding-top: 0;
+}
+
+footer .box-content {
+	padding: 15px 12px 12px 12px;
+}
+
+.privacy_link, .tos_link {
+	color: #d3d3d3;
+}
+
+.privacy_link:hover, .tos_link:hover {
+	color: #4fafd2;
+	text-decoration: none;
+}
+*/
+
+/* FOOTER WHITE */
+
+/*
+footer.footer-white .text-wrapper {
+	color: #d3d3d3;
+}
+
+footer.footer-white .first-col-wrapper {
+	margin-right: 30px;
+}
+
+footer.footer-white .icons-wrapper img {
+	margin-right: 10px;
+}
+
+footer.footer-white .footer-list {
+	list-style-type: none;
+}
+
+footer.footer-white .footer-list li {
+	float: left;
+	padding-right: 20px;
+}
+footer.footer-white .footer-list li a {
+	color: #d3d3d3;
+	font-size: 14px;
+}
+
+@media screen and (min-width: 992px) {
+	footer .first-col-wrapper {
+		width: 550px;
+	}
+}
+
+*/
+
+
+
+footer {
+  padding: 87px 0;
+}
+footer .footer-contacts {
+  width: 622px;
+  font-size: 21px;
+}
+footer .footer-contacts li {
+  margin-right: 31px;
+  margin-left: 0;
+}
+footer .footer-contacts li:last-child {
+  //margin-left: 0;
+}
+
+
+
+footer {
+  background-color: #fff;
+  padding: 80px 0;
+}
+footer ul {
+  list-style-type: none;
+  overflow: hidden;
+  padding: 0;
+}
+footer .wrapper {
+  margin: 0 auto;
+}
+footer .footer-contacts,
+footer .footer-contact a {
+  color: #333333 !important;
+  font-size: 18px;
+  width: 633px;
+  margin: 0 auto;
+}
+
+
+footer .footer-contacts li {
+  float: left;
+  margin-right: 20px;
+  margin-left: 21px;
+}
+footer .footer-contacts li:last-child {
+  margin-right: 0;
+}
+footer .footer-social {
+  width: 340px;
+  margin: 0 auto;
+}
+footer .footer-social li {
+  width: 20%;
+  float: left;
+  text-align: center;
+}
+footer .footer-social li:last-child {
+  margin-right: 0;
+}
+footer .footer-social li i {
+  color: #aaaaaa;
+  font-size: 32px;
+}
+footer .footer-social li .fa-twitter:hover {
+  color: #55acee;
+}
+footer .footer-social li .fa-facebook:hover {
+  color: #3b5998;
+}
+footer .footer-social li .fa-youtube-play:hover {
+  color: #b31217;
+}
+footer .footer-social li .fa-instagram:hover {
+  color: #3f729b;
+}
+footer .footer-social li .fa-github-alt:hover {
+  color: #333;
+}
+footer .footer-line {
+  margin: 30px auto;
+  display: block;
+}
+footer .footer-new-logo-wrapper {
+  text-align: center;
+  margin: 20px auto 0 auto;
+  width: 93px;
+  height: 33px;
+  background-position: 0 -97px;
+  background-image: image-url('footer-logos.png');
+}
+footer .footer-new-logo-wrapper a {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+footer .footer-new-logo-wrapper:hover {
+  background-position: 0 1px;
+}

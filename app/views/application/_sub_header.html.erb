@@ -15,16 +15,16 @@
 	
 	<div id="home-collapsed-navbar" class="collapse navbar-collapse">
 		<ul class="home-navbar-list">
-			<li class="active"><a href="http://quill.org/mission">Discover</a></li>
-			<li><%= link_to "Community", "http://community.quill.org" %></li>
-			<li><%= link_to "Support", "http://support.quill.org" %></li>
-			<li>
-				<%- if current_user.nil? %>
-					<%= link_to "Login", new_session_path  %>
-				<%- else %>
-					<%= link_to "Logout", '/session' %>
-            	<% end %>
-			</li>
+			<li class="active"><%= link_to "Discover", mission_path %></li>
+			<li><%= link_to "Community",  "http://community.quill.org" %></li>
+			
+			<%- if current_user.nil? %>
+				<li><%= link_to "Login", new_session_path  %></li>
+			<%- else %>
+				<li><%= link_to "Support", "http://support.quill.org" %></li>
+				<li><%= link_to "Logout", '/session' %></li>
+        	<% end %>
+		
 
 			<%- if current_user.nil? %>
 				<li class="sign-up-wrapper"><%= link_to "Sign Up", new_account_path, class: "sign-up-btn" %></li>

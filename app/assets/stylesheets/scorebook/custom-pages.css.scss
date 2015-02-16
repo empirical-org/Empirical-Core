@@ -1,0 +1,44 @@
+.container.pages-container {
+	padding-right: 20%;
+	padding-bottom: 10%;
+	
+	iframe {   // for impact page
+		margin-top: 5%;
+	}
+
+	h4, h3, h2 {
+		margin-top: 5%;
+	}
+	p {
+		margin-top: 3%;
+	}
+
+	.accordion-heading {
+		margin-top: 5%;
+		strong {
+			font-weight: normal;
+		}
+	}
+	.accordion-toggle {
+		margin-top: 5%;
+	}
+
+	.row {
+		margin-top: 5%;
+	}
+
+	img {
+		height: 96px;
+		width: 96px;
+	}
+
+	.col-md-4 {
+		margin-top: 5%;
+		float:left;
+	}
+
+
+
+
+	
+}
