@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe District, type: :model do
   describe 'setup from clever', :vcr do

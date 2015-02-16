@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Sign up', :type => :request do
   describe 'Create New Teacher Account' do
