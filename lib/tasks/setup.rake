@@ -3,7 +3,7 @@ namespace :empirical do
     puts "** Starting setup..."
 
     puts "** Creating tmp directories..."
-    Rake::Task["temp:create"].invoke
+    Rake::Task["tmp:create"].invoke
 
     puts "** Copying DB Credentials..."
     run "cp config/database.yml.example config/database.yml"
