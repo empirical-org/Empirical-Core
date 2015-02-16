@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe ActivitySerializer, type: :serializer do
   let(:activity)   { FactoryGirl.create(:activity) }
