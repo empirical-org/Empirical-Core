@@ -1,7 +1,7 @@
 article.new-account-page.simple-rounded-box
   h3 style="padding-left: 180px" Sign up for an account
 
-  = form_for @user, url: account_path, html: { class: 'box-full-form form-horizontal' }, fields: { label: false, placeholder: true } do |f|
+  = form_for @user, url: account_path, html: { class: 'box-full-form form-horizontal form-signup' }, fields: { label: false, placeholder: true } do |f|
     .new-account-field-group
       .js-role-select= f.radio :role, ['I\'m a <b>student</b>', 'student'], ['I\'m a <b>teacher</b>', 'teacher']
       = f.string :name
