@@ -32,10 +32,8 @@
               <ul class="nav navbar-nav">
                 <li><%= link_to "About", mission_path %></li>
                 <li><%= link_to "Community", about_path %></li>
-                <li><%= link_to "Support", faq_path %></li>
-                <li><%= link_to "News", 'http://news.quill.org' %></li>
                 <%- if current_user.role == 'teacher' %>
-                  <li><%= link_to "Activities", lessons_path %></li>
+                  <li><%= link_to "Support", 'http://support.quill.org' %></li>
                 <%- end %>
                 <li><%= link_to 'Logout', '/session' %></li>
               </ul>
