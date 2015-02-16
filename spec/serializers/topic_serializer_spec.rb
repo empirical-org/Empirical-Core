@@ -1,31 +1,37 @@
 require 'spec_helper'
 
 describe TopicSerializer, type: :serializer do
-  let!(:topic) { FactoryGirl.create(:topic) }
-  let!(:serializer) { TopicSerializer.new(topic) }
+  let(:topic)      { FactoryGirl.create(:topic) }
+  let(:serializer) { TopicSerializer.new(topic) }
 
+  describe '#to_json output' do
+    let(:json)   { serializer.to_json }
+    let(:parsed) { JSON.parse(json) }
 
-  context "has expected attributes" do
+    topic_key = 'topic'
 
-    let!(:parsed) { JSON.parse(serializer.to_json) }
-
-    it "should contain a root attribute" do
-      expect(parsed.keys).to include('topic')
+    it "includes '#{topic_key}' key" do
+      expect(parsed.keys).to include(topic_key)
     end
 
-    context "topic object" do
-      let!(:topic_json) { parsed['topic'] }
+    describe "'#{topic_key}' object" do
+      let(:parsed_topic) { parsed[topic_key] }
 
-      it "should have these keys" do
-        expected = ["id", "name", "created_at", "updated_at", "section", "topic_category"]
-        expect(topic_json.keys).to eq(expected)
+      section_key = 'section'
+
+      it 'has the correct keys' do
+        expect(parsed_topic.keys)
+          .to match_array %w(id
+                             created_at
+                             name) +
+                            [section_key] +
+                          %w(topic_category
+                             updated_at)
       end
 
-      it "should include a section" do
-        expect(topic_json['section'].class).to eq(Hash)
+      it "includes a '#{section_key}' Hash" do
+        expect(parsed_topic[section_key]).to be_a(Hash)
       end
-
     end
-
   end
 end

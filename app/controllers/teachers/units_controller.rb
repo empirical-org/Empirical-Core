@@ -40,9 +40,7 @@ class Teachers::UnitsController < ApplicationController
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
     AssignActivityWorker.perform_async(current_user.id) # current_user should be the teacher
     # redirect_to teachers_classroom_scorebook_path(current_user.classrooms.first)
-    render json: {
-      classroom_id: current_user.classrooms.first.id
-    }
+    render json: {}
 
   end
 
@@ -51,19 +49,25 @@ class Teachers::UnitsController < ApplicationController
     units = cas.group_by{|ca| ca.unit_id}
     arr = []
     units.each do |unit_id, classroom_activities|
-      x1 = classroom_activities.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
+      
+      x1 = classroom_activities.reject{|ca| ca.due_date.nil?}.compact
 
-      num_students_assigned = 0
+      x1 = x1.sort{|a, b| a.due_date <=> b.due_date}
+      
+      x1 = x1.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
+
+      assigned_student_ids = []
       
       classroom_activities.each do |ca|
         if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
-          y = ca.classroom.students.length
+          y = ca.classroom.students.map(&:id)
         else
-          y = ca.assigned_student_ids.length
+          y = ca.assigned_student_ids
         end
-        num_students_assigned = num_students_assigned + y
+        assigned_student_ids = assigned_student_ids.concat(y)
       end
 
+      num_students_assigned = assigned_student_ids.uniq.length
 
       ele = {unit: Unit.find(unit_id), classroom_activities: x1, num_students_assigned: num_students_assigned}
       arr.push ele
