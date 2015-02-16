@@ -18,7 +18,16 @@ describe Classroom, :type => :model do
 	  	it "must generate a valid unit" do
 	  		expect(@classroom.units.create_next).to be_an_instance_of(Unit)
 	  	end
+    end
 	end
+
+  context "when is created" do
+    before do
+      @classroom = FactoryGirl.build(:classroom, name: nil)
+    end
+    it 'must have a name' do
+      expect(@classroom.save).to be(false)
+    end
   end
 
   context "when is created" do

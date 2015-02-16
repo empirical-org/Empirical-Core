@@ -5,6 +5,7 @@ class Classroom < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :teacher_id, message: "A classroom called %{value} already exists. Please rename this classroom to a different name."
   
   validates :grade, presence: true, inclusion: { in: Classroom::GRADES, message: "%{value} is not a valid grade" }
+  validates_presence_of :name
 
 
   has_many :units do
