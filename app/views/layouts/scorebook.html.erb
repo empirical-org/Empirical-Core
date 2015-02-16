@@ -3,6 +3,7 @@
   
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
+  <%= render partial: 'typekit' %>
   <%= stylesheet_link_tag 'scorebook/scorebook', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <a href="/images/favicon.gif" rel="icon" type="image/ico" />
@@ -18,38 +19,10 @@
 
 </head>
   <body>
-      <nav class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <%= link_to image_tag('scorebook/logo.png', alt: 'Quill Logo', size: '120x45'), root_url, class: 'image-brand' %>
-
-          </div> <!-- //.navbar-header -->
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-
-            <div class="collapse navbar-collapse" id="collapsed-navbar-content">
-              <ul class="nav navbar-nav">
-                <li><%= link_to "About", mission_path %></li>
-                <li><%= link_to "Community", about_path %></li>
-                <%- if current_user.role == 'teacher' %>
-                  <li><%= link_to "Support", 'http://support.quill.org' %></li>
-                <%- end %>
-                <li><%= link_to 'Logout', '/session' %></li>
-              </ul>
-            </div>
-
-        </div> <!-- //.container -->
-      </nav> <!-- //.navbar -->
-
-      <%= yield %>
-
-
-  <footer>
-
-  </footer>
-
-
+    <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
+    <%= yield %>
+    <%= render partial: 'footer', media: 'all', 'data-turbolinks-track' => true %>
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   before_filter :resolve_layout
+  layout :determine_layout
+  #layout "about", only: [:mission, :develop, :about, :faq]
 
   def home
     if signed_in?
@@ -14,11 +16,9 @@ class PagesController < ApplicationController
   end
 
   def develop
-    @body_class = 'white-page'
   end
 
-  def mission
-    @body_class = 'white-page'
+  def mission 
   end
 
   def about
@@ -26,7 +26,6 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @body_class = 'white-page'
   end
 
   def new
@@ -34,7 +33,9 @@ class PagesController < ApplicationController
   end
   
   def impact
-    @body_class = 'white-page'
+  end
+
+  def team 
   end
 
   def tos
@@ -52,6 +53,18 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def determine_layout
+    case action_name
+    when 'home'
+      'home'
+    when 'mission', 'develop', 'faq', 'impact', 'team'
+      'about'
+    else
+      'application'
+    end
+  end
+
 
   def resolve_layout
     case action_name

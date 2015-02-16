@@ -7,8 +7,14 @@
 
 //= require scorebook/react
 
-//= require scorebook/selector.js
+//= require scorebook/selecter.js
 //= require scorebook/custom
+
+//= require scorebook/lol.js
+//= require scorebook/slick.js
+//= require scorebook/tabslet.js
+
+//= require scorebook/custom-slick.js
 
 //= require scorebook/jquery-ui-custom.min.js
 
