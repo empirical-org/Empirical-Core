@@ -1,8 +1,17 @@
 EC.Stage2 = React.createClass({
   getInitialState: function() {
     return {
-      classroomsAndTheirStudents: []      
+      classroomsAndTheirStudents: [],
+      buttonDisabled: false     
     };
+  },
+  finish: function () {
+    if (!this.state.buttonDisabled) {
+      this.setState({buttonDisabled: true});
+      this.props.finish();
+    }
+    
+    
   },
 
   componentDidMount: function() {
@@ -20,6 +29,21 @@ EC.Stage2 = React.createClass({
         console.log('error fetching classrooms');
       }
     });
+  },
+  determineAssignButtonClass: function () {
+    if (!this.state.buttonDisabled) {
+      return this.props.determineAssignButtonClass();
+    } else {
+      return "button-grey pull-right";
+    }
+
+  },
+  determineButtonText: function () {
+    if (!this.state.buttonDisabled) {
+      return "Assign";
+    } else {
+      return "Assigning...";
+    }
   },
 
   fetchClassroomsSuccess: function(data) {
@@ -56,7 +80,7 @@ EC.Stage2 = React.createClass({
               {dueDateList}
             </tbody>
           </table>
-          <button className={this.props.determineAssignButtonClass()} id="assign" onClick={this.props.finish}>Assign</button>
+          <button ref="button" className={this.determineAssignButtonClass() + " pull-right"} id="assign" onClick={this.finish}>{this.determineButtonText()}</button>
         </section>
       </span>
     );

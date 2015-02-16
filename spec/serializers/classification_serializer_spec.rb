@@ -1,28 +1,36 @@
 require 'spec_helper'
 
 describe ClassificationSerializer, type: :serializer do
-  let!(:classification) { FactoryGirl.create(:classification) }
-  let!(:serializer) { ClassificationSerializer.new(classification) }
+  let(:classification) { FactoryGirl.create(:classification) }
+  let(:serializer)     { ClassificationSerializer.new(classification) }
 
+  describe '#to_json output' do
+    let(:json)   { serializer.to_json }
+    let(:parsed) { JSON.parse(json) }
 
-  context "has expected attributes" do
+    classification_key = 'classification'
 
-    let!(:parsed) { JSON.parse(serializer.to_json) }
-
-    it "should contain a root attribute" do
-      expect(parsed.keys).to include('classification')
+    it "includes '#{classification_key}' key" do
+      expect(parsed.keys).to include(classification_key)
     end
 
-    context "classification object" do
-      let!(:classification_json) { parsed['classification'] }
+    describe "'#{classification_key}' object" do
+      let(:parsed_classification) { parsed[classification_key] }
 
-      it "should have these keys" do
-        expected = ["uid", "id", "name", "key", "form_url", "module_url", "created_at", "updated_at", "image_class", "scorebook_icon_class", "alias"]
-        expect(classification_json.keys).to eq(expected)
+      it 'has the correct keys' do
+        expect(parsed_classification.keys)
+          .to match_array %w(alias
+                             created_at
+                             form_url
+                             id
+                             image_class
+                             key
+                             module_url
+                             name
+                             scorebook_icon_class
+                             uid
+                             updated_at)
       end
-
-
     end
-
   end
 end

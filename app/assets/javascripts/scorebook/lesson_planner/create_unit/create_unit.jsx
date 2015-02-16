@@ -113,7 +113,7 @@ EC.CreateUnit = React.createClass({
 
 	onCreateSuccess: function(response) {
 		console.log('response', response);
-		window.location.assign(response.classroom_id + '/scorebook')
+		this.props.toggleTab('manageUnits');
 	},
 	determineAssignButtonClass: function () {
 		var a = this.state.selectedClassrooms.length > 0
