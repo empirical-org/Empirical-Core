@@ -2086,6 +2086,12 @@ button:not(.select-mixin):active {
   }
 }
 
+.form-signup {
+  input[type=submit] {
+    background-color: #FC3E3B;
+  }
+}
+
 
 header {
   background-color: rgb(0,194,162) !important;
