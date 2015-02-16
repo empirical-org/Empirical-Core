@@ -14,7 +14,7 @@ article.new-account-page.simple-rounded-box
           .controls.zipcode
             = text_field_tag :zipcode, nil, placeholder: 'Zip Code'
           .controls.school_ids
-            = f.hidden :school_ids
+            = f.string :school_ids
         .field.toggle.school_not_found.control-group
           .controls.school_not_found
             = check_box_tag :school_not_found
