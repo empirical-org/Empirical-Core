@@ -6,7 +6,7 @@ namespace :empirical do
     Rake::Task["tmp:create"].invoke
 
     puts "** Copying DB Credentials..."
-    run "cp config/database.yml.example config/database.yml"
+    `cp config/database.yml.example config/database.yml`
 
     puts "** Creating database..."
     Rake::Task["db:create"].invoke
