@@ -2090,6 +2090,10 @@ button:not(.select-mixin):active {
   input[type=submit] {
     background-color: #FC3E3B;
   }
+
+  label {
+    font-weight: normal;
+  }
 }
 
 
