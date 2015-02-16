@@ -1,4 +1,4 @@
-article.new-account-page.simple-rounded-box
+article.new-account-page.extra-padding
   h3 style="padding-left: 180px" Sign up for an account
 
   = form_for @user, url: account_path, html: { class: 'box-full-form form-horizontal form-signup' }, fields: { label: false, placeholder: true } do |f|
@@ -19,11 +19,6 @@ article.new-account-page.simple-rounded-box
           .controls.school_not_found
             = check_box_tag :school_not_found
             label for="school_not_found" My school is not listed or I do not teach in the United States.
-
-      .form-explanation-text
-        | Teachers, create a class code for your class. Students plug in your class
-        | code to join your class. Teachers can also invite students from their
-        | teacher profile page.
 
       .form-box
         = f.toggle :terms_of_service, label: "I have read and accept Quill's #{link_to('Terms of Service', tos_path)}.".html_safe
