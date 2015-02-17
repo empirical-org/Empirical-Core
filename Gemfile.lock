@@ -214,6 +214,8 @@ GEM
     fuubar (2.0.0)
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
+    global (0.1.2)
+      activesupport (>= 2.0)
     google-api-client (0.7.1)
       addressable (>= 2.3.2)
       autoparse (>= 0.3.3)
@@ -549,6 +551,7 @@ DEPENDENCIES
   foreman
   forgery
   fuubar (~> 2.0.0.rc1)
+  global
   google-api-client
   guard
   guard-rspec

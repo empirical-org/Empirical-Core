@@ -27,6 +27,7 @@ gem 'carrierwave'
 gem 'fog', require: 'fog/aws/storage'
 
 # OTHERS
+gem 'global'
 gem 'google-api-client'
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
