@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,600);
-
+@import "variables";
 
 .flash-notice {
   color: red;
@@ -2031,7 +2031,7 @@ button:not(.select-mixin):active {
 }
 
 .button-marine {
-  background-color: #00c2a2;
+  background-color: $quillgreen;
   color: #fff;
 }
 

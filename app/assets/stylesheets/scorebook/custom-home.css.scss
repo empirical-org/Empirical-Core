@@ -1,3 +1,5 @@
+@import "variables";
+
 .ul-reset-mixin {
   padding: 0;
   margin: 0;
@@ -76,7 +78,7 @@
 }
 .home-page-navbar {
   margin: 0;
-  background-color: #00c2a2;
+  background-color: $quillgreen;
   height: 130px;
   padding: 30px 0 0 0;
   border-radius: 0;
@@ -102,7 +104,7 @@
 }
 .home-page-navbar .home-navbar-list li:hover:not(.sign-up-wrapper) a {
   background-color: #fff;
-  color: #00c2a2;
+  color: $quillgreen;
 }
 .home-page-navbar .home-navbar-list li a {
   padding: 4px 11px 2px 11px;
@@ -179,12 +181,12 @@
     border: none;
   }
   .home-page-navbar .home-navbar-list li:hover a {
-    background-color: #00c2a2;
+    background-color: $quillgreen;
     color: #fff;
   }
   .home-page-navbar .home-navbar-list li:active a {
     background-color: #fff;
-    color: #00c2a2;
+    color: $quillgreen;
   }
 }
 .home-page-navbar.writer-navbar {
@@ -367,7 +369,7 @@
   margin: 0 auto 15px auto;
 }
 .home-hero {
-  background-color: #00c2a2;
+  background-color: $quillgreen;
   padding: 0 0 33px 0;
 }
 .home-hero .cta {
@@ -400,7 +402,7 @@
   margin-right: 20px;
 }
 .home-hero .cta .buttons .filled {
-  color: #00c2a2;
+  color: $quillgreen;
   background-color: #fff;
 }
 .home-hero .cta .buttons .filled:hover {
@@ -586,7 +588,7 @@
 }
 /* tab outer wrap - making marine */
 .tab-outer-wrap {
-  background-color: #00c2a2;
+  background-color: $quillgreen;
 }
 /* selected tab - dark marine border top */
 .nav-tabs > li.active > a,
