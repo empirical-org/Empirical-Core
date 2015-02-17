@@ -1,0 +1,43 @@
+@import "variables";
+
+// SIGN IN 
+
+%login_form_button {
+  padding: 5px;
+  height: 40px;
+  background-color: $quillgreen;
+  color: white;
+  border-color: $quillgreen;  
+}
+
+.form-signin {
+  input {
+    //background-color: white !important;
+    height: 30px;
+    width: 200px;
+  }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+  input[type=submit] {
+    @extend %login_form_button;
+  }
+}
+
+.form-signup {
+  input[type=submit] {
+    @extend %login_form_button;  
+  }
+
+  label {
+    font-weight: normal;
+  }
+}
+
+header {
+  background-color: rgb(0,194,162) !important;
+}
+
+.article.new-session-page  .container .row form .form-actions {
+  background-color: none !important;
+}

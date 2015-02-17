@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,600);
-
+@import "variables";
 
 .flash-notice {
   color: red;
@@ -2031,7 +2031,7 @@ button:not(.select-mixin):active {
 }
 
 .button-marine {
-  background-color: #00c2a2;
+  background-color: $quillgreen;
   color: #fff;
 }
 
@@ -2056,53 +2056,6 @@ button:not(.select-mixin):active {
 .button-blue:hover {
   background-color: #217dcf;
 }
-
-
-
-
-
-
-
-
-// SIGN IN 
-
-.form-signin {
-  input {
-    //background-color: white !important;
-    height: 30px;
-    width: 200px;
-  }
-  input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
-  }
-  input[type=submit] {
-    padding: 5px;
-    height: 40px;
-    background-color: #FC3E3B;
-  }
-}
-
-.form-signup {
-  input[type=submit] {
-    background-color: #FC3E3B;
-  }
-
-  label {
-    font-weight: normal;
-  }
-}
-
-
-header {
-  background-color: rgb(0,194,162) !important;
-}
-
-
-
-.article.new-session-page  .container .row form .form-actions {
-  background-color: none !important;
-}
-
 
 
 
