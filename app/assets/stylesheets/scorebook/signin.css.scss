@@ -1,0 +1,35 @@
+// SIGN IN 
+
+.form-signin {
+  input {
+    //background-color: white !important;
+    height: 30px;
+    width: 200px;
+  }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+  input[type=submit] {
+    padding: 5px;
+    height: 40px;
+    background-color: #FC3E3B;
+  }
+}
+
+.form-signup {
+  input[type=submit] {
+    background-color: #FC3E3B;
+  }
+
+  label {
+    font-weight: normal;
+  }
+}
+
+header {
+  background-color: rgb(0,194,162) !important;
+}
+
+.article.new-session-page  .container .row form .form-actions {
+  background-color: none !important;
+}
