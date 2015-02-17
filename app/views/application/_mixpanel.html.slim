@@ -1,0 +1,14 @@
+- if signed_in? && !Rails.env.development?
+  javascript:
+    mixpanel.identify("#{current_user.id}");
+
+    mixpanel.people.set({
+      "$email":   "#{current_user.email}",
+      "$created": "#{current_user.created_at}",
+      "$name":    "#{current_user.name}",
+      "role":     "#{current_user.role}"
+    });
+
+- if flash[:mixpanel].present? && !Rails.env.development?
+  javascript:
+    mixpanel.track("#{flash[:mixpanel]}")
