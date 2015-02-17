@@ -1,22 +1,7 @@
 <head>
   <title>Quill Scorebook</title>
   
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
-  <%= render partial: 'typekit' %>
-  <%= stylesheet_link_tag 'scorebook/scorebook', media: 'all', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <link href="/images/favicon.gif" rel="icon" type="image/ico" />
-  <link href="http://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
-
-  <%= render partial: 'application/head_embed_codes' %>
-
-  <!--[if !IE 7]>
-    <style type="text/css">
-      #wrap { display: table ; height: 100% }
-    </style>
-  <![endif]-->
-
+  <%= render partial: 'head' %>
 </head>
   <body>
     <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
