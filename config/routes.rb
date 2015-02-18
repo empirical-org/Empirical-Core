@@ -64,6 +64,12 @@ EmpiricalGrammar::Application.routes.draw do
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
     end
 
+    namespace :internal do
+      namespace :progress_reports do
+        resources :activity_sessions, only: [:index]
+      end
+    end
+
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
     # This converts requests like GET /v1/ping to /api/v1/ping, and also
     # /ping to /api/v1/ping.
