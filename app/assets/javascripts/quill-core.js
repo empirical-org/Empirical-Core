@@ -243,7 +243,9 @@ jQuery.extend(Quill.prototype, {
   listen: function () {
     $(window).on('message', function (e) {
       var data = JSON.parse(e.originalEvent.data);
-      this.events[data.messageType](data.payload);
+      if (typeof data.messageType !== 'undefined') {
+        this.events[data.messageType](data.payload);        
+      }
     }.bind(this));
   }
 });
