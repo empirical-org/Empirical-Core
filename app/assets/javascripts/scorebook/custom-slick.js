@@ -5,7 +5,9 @@
 
 
 $(document).ready(function () {
-
+	if (!$('#home-slider').length) {
+		return;
+	}
 
 	$( '#home-slider' ).slick({
 		dots: true,
