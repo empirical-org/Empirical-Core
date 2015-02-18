@@ -1,0 +1,224 @@
+EC.ActivitiesProgressReport = React.createClass({
+
+  // Handlers
+  selectClassroom: function(classroomId) {
+  },
+
+  selectStudent: function(studentId) {
+  },
+
+  selectUnit: function(unitId) {
+  },
+
+  sortActivitySessions: function(fieldName, sortDirection) {
+    console.log('Now sorting', fieldName, sortDirection);
+  },
+
+  // Retrieve current state
+
+  activitySessions: function() {
+    return [];
+  },
+
+  classroomFilters: function() {
+    return [{name: 'All Classrooms', value: ''}];
+  },
+
+  studentFilters: function() {
+    return [{name: 'All Students', value: ''}];
+  },
+
+  // [{name: 'App', field: 'classification_name'} ]
+  tableColumns: function() {
+    return [
+      {name: 'App', field: 'classification_name'}
+    ];
+  },
+
+  unitFilters: function() {
+    return [{name: 'All Units', value: ''}];
+  },
+
+  render: function() {
+    return (
+      <div>
+        <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.classroomFilters()} selectOption={this.selectClassroom} />
+        <EC.DropdownFilter defaultOption={'All Units'} options={this.unitFilters()} selectOption={this.selectUnit} />
+        <EC.DropdownFilter defaultOption={'All Students'} options={this.studentFilters()} selectOption={this.selectStudent} />
+        <EC.SortableTable rows={this.activitySessions()} columns={this.tableColumns()} sortHandler={this.sortActivitySessions} />
+      </div>
+    );
+  }
+});
+
+EC.SortableTable = React.createClass({
+  propTypes: {
+    columns: React.PropTypes.array.isRequired,
+    rows: React.PropTypes.array.isRequired, // [{classification_name: 'foobar', ...}]
+    sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
+  },
+
+  // Return a handler function that includes the field name as the 1st arg.
+  sortByColumn: function(fieldName) {
+    return _.bind(function sortHandler(sortDirection) {
+      return this.props.sortHandler(fieldName, sortDirection);
+    }, this);
+  },
+
+  columns: function() {
+    return _.map(this.props.columns, function (column) {
+      return <EC.SortableTh sortHandler={this.sortByColumn(column.field)} displayName={column.name} />
+    }, this);
+  },
+
+  render: function() {
+    return (
+      <table className='table'>
+        <thead>
+          <tr>
+            {this.columns()}
+          </tr>
+        </thead>
+      </table>
+    );
+  }
+});
+
+// Ported from EC.ActivitySearchSort
+EC.SortableTh = React.createClass({
+  propTypes: {
+    displayName: React.PropTypes.string.isRequired,
+    sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
+  },
+
+  getInitialState: function() {
+    return {
+      sortDirection: 'asc'
+    };
+  },
+
+  arrowClass: function() {
+    return this.state.sortDirection === 'desc' ? 'fa fa-caret-down' : 'fa fa-caret-up';
+  },
+
+  clickSort: function() {
+    // Toggle the sort direction.
+    var newDirection = (this.state.sortDirection === 'asc') ? 'desc' : 'asc';
+    this.setState({sortDirection: newDirection}, _.bind(function() {
+      this.props.sortHandler(newDirection);  
+    }, this));
+  },
+
+  render: function() {
+    return (
+      <th className="sorter" onClick={this.clickSort}>
+        {this.props.displayName}
+        <i className={this.arrowClass()}></i>
+      </th>
+    );
+  }
+});
+
+EC.SortableTd = React.createClass({
+  render: function() {
+    return;
+  }
+});
+
+EC.DropdownFilter = React.createClass({
+  propTypes: {
+    defaultOption: React.PropTypes.string.isRequired,
+    options: React.PropTypes.array.isRequired,
+    selectOption: React.PropTypes.func.isRequired
+  },
+
+  // getDisplayedFilterOptions: function() {
+    // var visibleOptions, isThereASelection, clearSelection;
+    // isThereASelection = !!this.props.data.selected;
+
+    // // Sort the options alphanumerically.
+    // this.props.data.options.sort(function(a, b) {
+    //   // This is kind of a hack, but all of the filter's options have a 'name' property.
+    //   return s.naturalCmp(a.name, b.name);
+    // });
+
+    // if (isThereASelection) {
+    //   visibleOptions = _.reject(this.props.data.options, {id: this.props.data.selected}, this);
+    // } else {
+    //   visibleOptions = this.props.data.options;
+    // }
+
+    // visibleOptions = _.map(visibleOptions, function (option) {
+    //   return (
+    //     <EC.FilterOption selectFilterOption={this.selectFilterOption} data={option} />
+    //   );
+    // }, this);
+
+    // if (isThereASelection) {
+    //   clearSelection = (
+    //     <li onClick={this.clearFilterOptionSelection}>
+    //       <span className='filter_option all'>
+    //         {"All " + this.props.data.alias + "s "}
+    //       </span>
+    //     </li>
+    //   );
+    //   visibleOptions.unshift(clearSelection);
+    // }       
+    // return visibleOptions;
+  // },
+
+  getFilterOptions: function() {
+    return (
+      <ul className="dropdown-menu" role="menu">
+        {_.map(this.props.options, function(option, i) {
+          return <EC.DropdownFilterOption key={i} name={option.name} value={option.value} selectOption={this.props.selectOption} />
+        }, this)}
+      </ul>
+    );
+  },
+
+  render: function() {
+    return (
+      <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
+        <div className="button-select">
+          <button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+            <i className="fa fa-caret-down"></i>
+          </button>
+          {this.getFilterOptions()}
+        </div>
+      </div>
+    );
+  }
+});
+
+EC.DropdownFilterOption = React.createClass({
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+    value: React.PropTypes.string.isRequired,
+    selectOption: React.PropTypes.func.isRequired
+  },
+
+  clickOption: function () {
+    this.props.selectOption(this.props.value)
+  },
+
+  render: function () {
+    return (
+      <li onClick={this.clickOption}>
+        <span className="filter_option">
+          {this.props.name}
+        </span>
+      </li>
+    );
+  }
+});
+
+EC.DateRangeFilter = React.createClass({
+  propTypes: {
+    selectDates: React.PropTypes.func.isRequired
+  },
+
+  render: function() {
+    return;
+  }
+});
