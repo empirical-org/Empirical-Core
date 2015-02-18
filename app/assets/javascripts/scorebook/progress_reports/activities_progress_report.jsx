@@ -83,7 +83,7 @@ EC.ActivitiesProgressReport = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="container">
         <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.classroomFilters()} selectOption={this.selectClassroom} />
         <EC.DropdownFilter defaultOption={'All Units'} options={this.unitFilters()} selectOption={this.selectUnit} />
         <EC.DropdownFilter defaultOption={'All Students'} options={this.studentFilters()} selectOption={this.selectStudent} />
