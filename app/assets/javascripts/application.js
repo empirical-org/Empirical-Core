@@ -19,5 +19,14 @@
 //= require jsdiff
 //= require turbolinks
 //= require select2
-//= require_tree .
+//= require_tree ./backbone
+//= require chapter_concept_review_order
+//= require counter
+//= require edit_in_place
+//= require home
+//= require loadingbutton
+//= require quill-core
+//= require quill-idlecheck
+//= require review_questions
+//= require rule_question_page
 
