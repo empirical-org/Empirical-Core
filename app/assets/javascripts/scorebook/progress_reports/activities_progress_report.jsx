@@ -1,6 +1,11 @@
 EC.ActivitiesProgressReport = React.createClass({
 
   // Handlers
+
+  goToPage: function() {
+    console.log('paginating', arguments);
+  },
+
   selectClassroom: function(classroomId) {
   },
 
@@ -15,9 +20,20 @@ EC.ActivitiesProgressReport = React.createClass({
   },
 
   // Retrieve current state
+  // TODO: Actually retrieve the state from the API.
 
   activitySessions: function() {
-    return [];
+    return [
+      {
+        id: 123, 
+        classification_name: 'Quill Writer',
+        activity_name: 'You are vs. You were',
+        completed_at: '1/15/15',
+        time_spent: '12 minutes',
+        standard: '4.1g',
+        score: '85%'
+      }
+    ];
   },
 
   classroomFilters: function() {
@@ -31,7 +47,33 @@ EC.ActivitiesProgressReport = React.createClass({
   // [{name: 'App', field: 'classification_name'} ]
   tableColumns: function() {
     return [
-      {name: 'App', field: 'classification_name'}
+      {
+        name: 'App', 
+        field: 'classification_name'
+      },
+      {
+        name: 'Activity',
+        field: 'activity_name',
+      },
+      {
+        name: 'Date',
+        field: 'completed_at'
+      },
+      {
+        name: 'Time Spent',
+        field: 'time_spent'
+      },
+      {
+        name: 'Standard',
+        field: 'standard' // What field is this?
+      },
+      // {
+      //   name: 'Concept'
+      // }
+      {
+        name: 'Score',
+        field: 'score'
+      }
     ];
   },
 
@@ -46,6 +88,7 @@ EC.ActivitiesProgressReport = React.createClass({
         <EC.DropdownFilter defaultOption={'All Units'} options={this.unitFilters()} selectOption={this.selectUnit} />
         <EC.DropdownFilter defaultOption={'All Students'} options={this.studentFilters()} selectOption={this.selectStudent} />
         <EC.SortableTable rows={this.activitySessions()} columns={this.tableColumns()} sortHandler={this.sortActivitySessions} />
+        <EC.Pagination maxPageNumber={5} selectPageNumber={this.goToPage} currentPage={1} numberOfPages={3}  />
       </div>
     );
   }
@@ -66,8 +109,14 @@ EC.SortableTable = React.createClass({
   },
 
   columns: function() {
-    return _.map(this.props.columns, function (column) {
-      return <EC.SortableTh sortHandler={this.sortByColumn(column.field)} displayName={column.name} />
+    return _.map(this.props.columns, function (column, i) {
+      return <EC.SortableTh key={i} sortHandler={this.sortByColumn(column.field)} displayName={column.name} />
+    }, this);
+  },
+
+  rows: function() {
+    return _.map(this.props.rows, function(row, i) {
+      return <EC.SortableTr key={row.id} row={row} columns={this.props.columns} />
     }, this);
   },
 
@@ -79,6 +128,9 @@ EC.SortableTable = React.createClass({
             {this.columns()}
           </tr>
         </thead>
+        <tbody>
+          {this.rows()}
+        </tbody>
       </table>
     );
   }
@@ -119,9 +171,24 @@ EC.SortableTh = React.createClass({
   }
 });
 
-EC.SortableTd = React.createClass({
+EC.SortableTr = React.createClass({
+  propTypes: {
+    row: React.PropTypes.object.isRequired,
+    columns: React.PropTypes.array.isRequired
+  },
+
+  tds: function() {
+    return _.map(this.props.columns, function (column, i) {
+      return <td key={i}>{this.props.row[column.field]}</td>;
+    }, this);
+  },
+
   render: function() {
-    return;
+    return (
+      <tr>
+        {this.tds()}
+      </tr>
+    );
   }
 });
 
