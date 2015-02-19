@@ -33,6 +33,8 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
                             classroom_name
                             unit_name
                             unit_id
+                            student_name
+                            student_id
                             )
     end
 
