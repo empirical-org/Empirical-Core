@@ -8,7 +8,11 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
              :percentage,
              :display_score,
              :display_completed_at,
-             :display_time_spent
+             :display_time_spent,
+             :classroom_id,
+             :classroom_name,
+             :unit_name,
+             :unit_id
 
   def activity_classification_name
     object.activity.classification.name
@@ -44,5 +48,23 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
   def display_time_spent
     time_spent_in_sec = time_spent
     (time_spent_in_sec / 60).to_i.to_s + ' minutes' if time_spent_in_sec.present?
+  end
+
+  # Following fields are used by the filters
+
+  def classroom_id
+    object.classroom_activity.try(:classroom_id)
+  end
+
+  def classroom_name
+    object.classroom_activity.try(:classroom).try(:name)
+  end
+
+  def unit_id
+    object.classroom_activity.try(:unit).try(:id)
+  end
+
+  def unit_name
+    object.classroom_activity.try(:unit).try(:name)
   end
 end
