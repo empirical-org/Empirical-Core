@@ -18,11 +18,11 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def due_date_string= val
-    self.due_date = Date.strptime(val, '%m/%d/%Y')
+    self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
   end
 
   def due_date_string
-    due_date.try(:strftime, '%m/%d/%Y')
+    due_date.try(:to_formatted_s, :quill_default)
   end
 
   def session_for user

@@ -28,14 +28,6 @@ describe Api::Internal::ProgressReports::ActivitySessionsController, :type => :c
         expect(response.status).to eq(200)
         json = JSON.parse(response.body)
         expect(json['activity_sessions'].size).to eq(10)
-        expect(json['activity_sessions'][0].keys).to match_array %w(id 
-                                                                    activity_classification_name
-                                                                    activity_classification_id
-                                                                    activity_name
-                                                                    completed_at
-                                                                    time_spent
-                                                                    percentage
-                                                                    )
       end
     end
   end
