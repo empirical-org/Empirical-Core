@@ -1,7 +1,16 @@
 EC.ActivitiesProgressReport = React.createClass({
 
-  // Handlers
+  getInitialState: function() {
+    return {
+      activitySessions: []
+    };
+  },
 
+  componentDidMount: function() {
+    this.fetchActivitySessions();
+  },
+
+  // Handlers
   goToPage: function() {
     console.log('paginating', arguments);
   },
@@ -23,33 +32,32 @@ EC.ActivitiesProgressReport = React.createClass({
   // TODO: Actually retrieve the state from the API.
 
   activitySessions: function() {
-    return [
-      {
-        id: 123, 
-        classification_name: 'Quill Writer',
-        activity_name: 'You are vs. You were',
-        completed_at: '1/15/15',
-        time_spent: '12 minutes',
-        standard: '4.1g',
-        score: '85%'
-      }
-    ];
+    return this.state.activitySessions;
   },
 
   classroomFilters: function() {
     return [{name: 'All Classrooms', value: ''}];
   },
 
+  fetchActivitySessions: function() {
+    $.get('/api/internal/progress_reports/activity_sessions', {
+      // todo: request data
+    }, _.bind(function success(data) {
+      this.setState({activitySessions: data.activity_sessions});
+    }, this)).fail(function error(error) {
+      console.log('An error occurred while fetching data', error);
+    });
+  },
+
   studentFilters: function() {
     return [{name: 'All Students', value: ''}];
   },
 
-  // [{name: 'App', field: 'classification_name'} ]
   tableColumns: function() {
     return [
       {
         name: 'App', 
-        field: 'classification_name'
+        field: 'activity_classification_name'
       },
       {
         name: 'Activity',
@@ -57,11 +65,11 @@ EC.ActivitiesProgressReport = React.createClass({
       },
       {
         name: 'Date',
-        field: 'completed_at'
+        field: 'display_completed_at'
       },
       {
         name: 'Time Spent',
-        field: 'time_spent'
+        field: 'display_time_spent'
       },
       {
         name: 'Standard',
@@ -72,7 +80,7 @@ EC.ActivitiesProgressReport = React.createClass({
       // }
       {
         name: 'Score',
-        field: 'score'
+        field: 'display_score'
       }
     ];
   },
