@@ -67,7 +67,7 @@
 }
 @media screen and (max-width: 1050px) {
   #new-home-page .container {
-    width: 992px;
+    width: auto;
   }
   #new-home-page .home-hero .cta .buttons a {
     display: block;
@@ -163,6 +163,7 @@
     left: 0;
     right: 0;
     overflow-y: hidden;
+    z-index: 1;
   }
   .home-page-navbar .home-navbar-list {
     float: none;
