@@ -93,24 +93,6 @@ RSpec.configure do |config|
   config.include SessionHelper
 
   config.include FactoryGirl::Syntax::Methods
-
-  # factory girl stats
-  config.before(:suite) do
-    @factory_girl_results = {}
-    ActiveSupport::Notifications.subscribe("factory_girl.run_factory") do |name, start, finish, id, payload|
-      factory_name = payload[:name]
-      strategy_name = payload[:strategy]
-      @factory_girl_results[factory_name] ||= {}
-      @factory_girl_results[factory_name][strategy_name] ||= 0
-      @factory_girl_results[factory_name][strategy_name] += 1
-    end
-  end
-
-  config.after(:suite) do
-    puts "\nFactory Girl Run Results.. [strategies per factory]:"
-    ap @factory_girl_results
-  end
-
 end
 
 if defined?(Coveralls)
