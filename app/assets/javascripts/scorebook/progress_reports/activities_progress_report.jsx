@@ -5,6 +5,7 @@ EC.ActivitiesProgressReport = React.createClass({
       activitySessions: [],
       visibleActivitySessions: [],
       classroomFilters: [],
+      studentFilters: [],
       unitFilters: []
     };
   },
@@ -20,9 +21,15 @@ EC.ActivitiesProgressReport = React.createClass({
 
   // Filter sessions based on the classroom ID.
   selectClassroom: function(classroomId) {
+    this.filterByField('classroom_id', classroomId);
+  },
+
+  filterByField: function(fieldName, value) {
     var visibleActivitySessions;
-    if (!!classroomId) { // If classroom ID is provided
-      visibleActivitySessions = _.where(this.state.activitySessions, {classroom_id: classroomId});
+    if (!!value) {
+      var filterCriteria = {};
+      filterCriteria[fieldName] = value;
+      visibleActivitySessions = _.where(this.state.activitySessions, filterCriteria);
     } else {
       // An empty value means show all classrooms
       visibleActivitySessions = this.state.activitySessions;
@@ -33,9 +40,11 @@ EC.ActivitiesProgressReport = React.createClass({
   },
 
   selectStudent: function(studentId) {
+    this.filterByField('student_id', studentId);
   },
 
   selectUnit: function(unitId) {
+    this.filterByField('unit_id', unitId);
   },
 
   sortActivitySessions: function(sortByFieldName, sortDirection) {
@@ -72,7 +81,7 @@ EC.ActivitiesProgressReport = React.createClass({
   },
 
   populateStudentFilters: function() {
-
+    this.populateFilters('student_name', 'student_id', 'All Students', 'studentFilters');
   },
 
   populateUnitFilters: function() {
@@ -81,7 +90,6 @@ EC.ActivitiesProgressReport = React.createClass({
 
   // Abstract helper for the other populate functions
   populateFilters: function(nameField, valueField, allOptionName, stateProp) {
-    console.log(_.pluck(this.state.activitySessions, nameField));
     // Grab and uniq all options based on the value (classroom ID).
     var allNames = _.chain(this.state.activitySessions).map(function(activitySession) {
       return {
@@ -109,14 +117,11 @@ EC.ActivitiesProgressReport = React.createClass({
       }, function() {
         this.populateClassroomFilters();
         this.populateUnitFilters();
+        this.populateStudentFilters();
       });
     }, this)).fail(function error(error) {
       console.log('An error occurred while fetching data', error);
     });
-  },
-
-  studentFilters: function() {
-    return [{name: 'All Students', value: ''}];
   },
 
   tableColumns: function() {
@@ -162,7 +167,7 @@ EC.ActivitiesProgressReport = React.createClass({
       <div className="container">
         <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.state.classroomFilters} selectOption={this.selectClassroom} />
         <EC.DropdownFilter defaultOption={'All Units'} options={this.state.unitFilters} selectOption={this.selectUnit} />
-        <EC.DropdownFilter defaultOption={'All Students'} options={this.studentFilters()} selectOption={this.selectStudent} />
+        <EC.DropdownFilter defaultOption={'All Students'} options={this.state.studentFilters} selectOption={this.selectStudent} />
         <EC.SortableTable rows={this.state.visibleActivitySessions} columns={this.tableColumns()} sortHandler={this.sortActivitySessions} />
         <EC.Pagination maxPageNumber={5} selectPageNumber={this.goToPage} currentPage={1} numberOfPages={3}  />
       </div>
