@@ -12,7 +12,9 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
              :classroom_id,
              :classroom_name,
              :unit_name,
-             :unit_id
+             :unit_id,
+             :student_name,
+             :student_id
 
   def activity_classification_name
     object.activity.classification.name
@@ -66,5 +68,13 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
 
   def unit_name
     object.classroom_activity.try(:unit).try(:name)
+  end
+
+  def student_name
+    object.user.name
+  end
+
+  def student_id
+    object.user_id
   end
 end
