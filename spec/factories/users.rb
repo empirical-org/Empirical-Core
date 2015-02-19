@@ -21,6 +21,15 @@ FactoryGirl.define do
 
     factory :teacher do
       role 'teacher'
+
+      factory :mr_kotter do
+        first_name            'Gabe'
+        last_name             'Kotter'
+        username              'mrkotter'
+        email                 'gabe.kotter@jamesbuchananhigh.edu'
+        password              'sweathogs'
+        password_confirmation { password }
+      end
     end
 
     factory :student do
