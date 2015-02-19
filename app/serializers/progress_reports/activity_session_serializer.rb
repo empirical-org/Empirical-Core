@@ -22,6 +22,10 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
     object.activity.name
   end
 
+  def completed_at
+    object.completed_at.try(:to_i)
+  end
+
   def time_spent
     if object.completed_at.present? and object.started_at.present?
       object.calculate_time_spent!
