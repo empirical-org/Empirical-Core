@@ -32,6 +32,10 @@ class ActivitySession < ActiveRecord::Base
     StudentProfileCache.invalidate(user)
   end
 
+  def self.by_teacher(teacher)
+    self.joins(:user => :teacher).where(teachers_users: {id: teacher.id})
+  end
+
   def activity
     super || classroom_activity.activity
   end

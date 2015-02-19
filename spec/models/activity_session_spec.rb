@@ -111,6 +111,30 @@ describe ActivitySession, :type => :model do
 
   end
 
+  describe "#by_teacher" do
+    # This setup is very convoluted... the factories appear to be untrustworthy w/r/t generating extra records
+    let!(:current_teacher) { FactoryGirl.create(:teacher) }
+    let!(:current_teacher_student) { FactoryGirl.create(:student) }
+    let!(:current_teacher_classroom) { FactoryGirl.create(:classroom, teacher: current_teacher, students: [current_teacher_student]) }
+    let!(:current_teacher_classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: current_teacher_classroom)}
+    let!(:other_teacher) { FactoryGirl.create(:teacher) }
+    let!(:other_teacher_student) { FactoryGirl.create(:student) }
+    let!(:other_teacher_classroom) { FactoryGirl.create(:classroom, teacher: other_teacher, students: [other_teacher_student]) }
+    let!(:other_teacher_classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: other_teacher_classroom)}
+
+    before do
+      # Can't figure out why the setup above creates 2 activity sessions
+      ActivitySession.destroy_all
+      2.times { FactoryGirl.create(:activity_session, classroom_activity: current_teacher_classroom_activity, user: current_teacher_student) }
+      3.times { FactoryGirl.create(:activity_session, classroom_activity: other_teacher_classroom_activity, user: other_teacher_student) }
+    end
+
+    it "only retrieves activity sessions for the students who have that teacher" do
+      results = ActivitySession.by_teacher(current_teacher)
+      expect(results.size).to eq(2)
+    end
+  end
+
   #--- legacy methods
 
   describe "#grade" do 
