@@ -24,17 +24,35 @@ EC.ActivitiesProgressReport = React.createClass({
   selectUnit: function(unitId) {
   },
 
-  sortActivitySessions: function(fieldName, sortDirection) {
-    console.log('Now sorting', fieldName, sortDirection);
+  sortActivitySessions: function(sortByFieldName, sortDirection) {
+    // Flip the sign of the return value to sort in reverse
+    var sign = (sortDirection === 'asc' ? 1 : -1);
+
+    var sortFunc;
+    switch(sortByFieldName) {
+      case 'completed_at':
+      case 'percentage':
+      case 'time_spent':
+        // Integer sort
+        sortFunc = function(a, b) {
+          return (a - b) * sign;
+        };
+      case 'activity_classification_name':
+      case 'activity_name':
+      case 'standard':
+      default:
+        // Alphanumeric sort
+        sortFunc = function(a, b) {
+          return s.naturalCmp(a[sortByFieldName], b[sortByFieldName]) * sign;
+        };
+    }
+
+    var activitySessions = this.state.activitySessions;
+    activitySessions.sort(sortFunc);
+    this.setState({activitySessions: activitySessions});
   },
 
   // Retrieve current state
-  // TODO: Actually retrieve the state from the API.
-
-  activitySessions: function() {
-    return this.state.activitySessions;
-  },
-
   classroomFilters: function() {
     return [{name: 'All Classrooms', value: ''}];
   },
@@ -57,30 +75,36 @@ EC.ActivitiesProgressReport = React.createClass({
     return [
       {
         name: 'App', 
-        field: 'activity_classification_name'
+        field: 'activity_classification_name',
+        sortByField: 'activity_classification_name'
       },
       {
         name: 'Activity',
         field: 'activity_name',
+        sortByField: 'activity_name'
       },
       {
         name: 'Date',
-        field: 'display_completed_at'
+        field: 'display_completed_at',
+        sortByField: 'completed_at',
       },
       {
         name: 'Time Spent',
-        field: 'display_time_spent'
+        field: 'display_time_spent',
+        sortByField: 'time_spent'
       },
       {
         name: 'Standard',
-        field: 'standard' // What field is this?
+        field: 'standard', // What field is this?,
+        sortByField: 'standard'
       },
       // {
       //   name: 'Concept'
       // }
       {
         name: 'Score',
-        field: 'display_score'
+        field: 'display_score',
+        sortByField: 'percentage'
       }
     ];
   },
@@ -95,7 +119,7 @@ EC.ActivitiesProgressReport = React.createClass({
         <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.classroomFilters()} selectOption={this.selectClassroom} />
         <EC.DropdownFilter defaultOption={'All Units'} options={this.unitFilters()} selectOption={this.selectUnit} />
         <EC.DropdownFilter defaultOption={'All Students'} options={this.studentFilters()} selectOption={this.selectStudent} />
-        <EC.SortableTable rows={this.activitySessions()} columns={this.tableColumns()} sortHandler={this.sortActivitySessions} />
+        <EC.SortableTable rows={this.state.activitySessions} columns={this.tableColumns()} sortHandler={this.sortActivitySessions} />
         <EC.Pagination maxPageNumber={5} selectPageNumber={this.goToPage} currentPage={1} numberOfPages={3}  />
       </div>
     );
@@ -118,7 +142,7 @@ EC.SortableTable = React.createClass({
 
   columns: function() {
     return _.map(this.props.columns, function (column, i) {
-      return <EC.SortableTh key={i} sortHandler={this.sortByColumn(column.field)} displayName={column.name} />
+      return <EC.SortableTh key={i} sortHandler={this.sortByColumn(column.sortByField)} displayName={column.name} />
     }, this);
   },
 
