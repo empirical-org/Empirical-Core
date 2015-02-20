@@ -85,31 +85,16 @@ EC.TablePaginationMixin = {
   },
 };
 
-EC.TableSortMixin = {
-
-};
-
-EC.ActivitiesProgressReport = React.createClass({
-  mixins: [EC.TableFilterMixin, EC.TablePaginationMixin],
-
+EC.TableSortingMixin = {
   getInitialState: function() {
     return {
-      activitySessions: [],
-      classroomFilters: [],
-      studentFilters: [],
-      unitFilters: [],
       currentSort: {
         field: 'activity_classification_name',
         direction: 'asc'
-      },
+      }
     };
   },
 
-  componentDidMount: function() {
-    this.fetchActivitySessions();
-  },
-
-  // Handlers
   applySorting: function(results) {
     var sortDirection = this.state.currentSort.direction,
         sortByFieldName = this.state.currentSort.field;
@@ -139,6 +124,34 @@ EC.ActivitiesProgressReport = React.createClass({
     return results;
   },
 
+  sortResults: function(sortByFieldName, sortDirection) {
+    this.setState({
+      currentSort: {
+        field: sortByFieldName,
+        direction: sortDirection
+      }
+    });
+  },
+};
+
+EC.ActivitiesProgressReport = React.createClass({
+  mixins: [EC.TableFilterMixin, EC.TablePaginationMixin, EC.TableSortingMixin],
+
+  getInitialState: function() {
+    return {
+      activitySessions: [],
+      classroomFilters: [],
+      studentFilters: [],
+      unitFilters: []
+    };
+  },
+
+  componentDidMount: function() {
+    this.fetchActivitySessions();
+  },
+
+  // Handlers
+
   // Get results with all filters, sorting, and pagination applied
   getFilteredResults: function() {
     var allResults = this.state.activitySessions;
@@ -160,15 +173,6 @@ EC.ActivitiesProgressReport = React.createClass({
 
   selectUnit: function(unitId) {
     this.filterByField('unit_id', unitId);
-  },
-
-  sortActivitySessions: function(sortByFieldName, sortDirection) {
-    this.setState({
-      currentSort: {
-        field: sortByFieldName,
-        direction: sortDirection
-      }
-    });
   },
 
   // Retrieve current state
@@ -248,7 +252,7 @@ EC.ActivitiesProgressReport = React.createClass({
         <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.state.classroomFilters} selectOption={this.selectClassroom} />
         <EC.DropdownFilter defaultOption={'All Units'} options={this.state.unitFilters} selectOption={this.selectUnit} />
         <EC.DropdownFilter defaultOption={'All Students'} options={this.state.studentFilters} selectOption={this.selectStudent} />
-        <EC.SortableTable rows={visibleResults} columns={this.tableColumns()} sortHandler={this.sortActivitySessions} />
+        <EC.SortableTable rows={visibleResults} columns={this.tableColumns()} sortHandler={this.sortResults} />
         <EC.Pagination maxPageNumber={this.props.maxPageNumber} selectPageNumber={this.goToPage} currentPage={this.state.currentPage} numberOfPages={numberOfPages}  />
       </div>
     );
