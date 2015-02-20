@@ -120,9 +120,11 @@ EC.ActivitiesProgressReport = React.createClass({
     var visibleResults = this.getVisibleResults(filteredResults);
     return (
       <div className="container">
-        <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.state.classroomFilters} selectOption={this.selectClassroom} />
-        <EC.DropdownFilter defaultOption={'All Units'} options={this.state.unitFilters} selectOption={this.selectUnit} />
-        <EC.DropdownFilter defaultOption={'All Students'} options={this.state.studentFilters} selectOption={this.selectStudent} />
+        <div className="row activity-page-dropdown-wrapper">
+          <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.state.classroomFilters} selectOption={this.selectClassroom} />
+          <EC.DropdownFilter defaultOption={'All Units'} options={this.state.unitFilters} selectOption={this.selectUnit} />
+          <EC.DropdownFilter defaultOption={'All Students'} options={this.state.studentFilters} selectOption={this.selectStudent} />
+        </div>
         <EC.SortableTable rows={visibleResults} columns={this.tableColumns()} sortHandler={this.sortResults} />
         <EC.Pagination maxPageNumber={this.props.maxPageNumber} selectPageNumber={this.goToPage} currentPage={this.state.currentPage} numberOfPages={numberOfPages}  />
       </div>
