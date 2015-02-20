@@ -128,8 +128,6 @@ EC.ActivitiesProgressReport = React.createClass({
         direction: sortDirection
       }
     });
-
-    this.setState({activitySessions: activitySessions});
   },
 
   // Retrieve current state
