@@ -1,12 +1,25 @@
 EC.ActivitiesProgressReport = React.createClass({
 
+  getDefaultProps: function() {
+    // These appear to be static numbers, so they belong in properties.
+    return {
+      maxPageNumber: 4,
+      resultsPerPage: 25
+    }
+  },
+
   getInitialState: function() {
     return {
       activitySessions: [],
-      visibleActivitySessions: [],
       classroomFilters: [],
       studentFilters: [],
-      unitFilters: []
+      unitFilters: [],
+      currentSort: {
+        field: 'activity_classification_name',
+        direction: 'asc'
+      },
+      currentFilters: {},
+      currentPage: 1,      
     };
   },
 
@@ -15,39 +28,36 @@ EC.ActivitiesProgressReport = React.createClass({
   },
 
   // Handlers
-  goToPage: function() {
-    console.log('paginating', arguments);
-  },
-
-  // Filter sessions based on the classroom ID.
-  selectClassroom: function(classroomId) {
-    this.filterByField('classroom_id', classroomId);
-  },
-
-  filterByField: function(fieldName, value) {
-    var visibleActivitySessions;
-    if (!!value) {
-      var filterCriteria = {};
-      filterCriteria[fieldName] = value;
-      visibleActivitySessions = _.where(this.state.activitySessions, filterCriteria);
-    } else {
-      // An empty value means show all classrooms
-      visibleActivitySessions = this.state.activitySessions;
-      console.log('showing all activity sessions');
+  goToPage: function(page) {
+    var newState = {
+      currentPage: page,
     }
-
-    this.setState({visibleActivitySessions: visibleActivitySessions});
+    this.setState(newState);
   },
 
-  selectStudent: function(studentId) {
-    this.filterByField('student_id', studentId);
+  applyPagination: function(results, page) {
+    // Ported from Stage1.determineCurrentPageSearchResults
+    var start = (this.state.currentPage - 1) * this.props.resultsPerPage;
+    var end = this.state.currentPage * this.props.resultsPerPage;
+    return results.slice(start, end);
   },
 
-  selectUnit: function(unitId) {
-    this.filterByField('unit_id', unitId);
+  applyFilters: function(results) {
+    var visibleResults = results;
+
+    _.each(this.state.currentFilters, function(value, fieldName) {
+      if (!!value) {
+        var filterCriteria = {};
+        filterCriteria[fieldName] = value;
+        visibleResults = _.where(visibleResults, filterCriteria);
+      }
+    });
+    return visibleResults;
   },
 
-  sortActivitySessions: function(sortByFieldName, sortDirection) {
+  applySorting: function(results) {
+    var sortDirection = this.state.currentSort.direction,
+        sortByFieldName = this.state.currentSort.field;
     // Flip the sign of the return value to sort in reverse
     var sign = (sortDirection === 'asc' ? 1 : -1);
 
@@ -70,12 +80,64 @@ EC.ActivitiesProgressReport = React.createClass({
         };
     }
 
-    var activitySessions = this.state.activitySessions;
-    activitySessions.sort(sortFunc);
+    results.sort(sortFunc);
+    return results;
+  },
+
+  // Get results with all filters, sorting, and pagination applied
+  getFilteredResults: function() {
+    var allResults = this.state.activitySessions;
+    return this.applySorting(this.applyFilters(allResults));
+  },
+
+  getVisibleResults: function(filteredResults) {
+    return this.applyPagination(filteredResults, this.state.currentPage);
+  },
+
+  resetPagination: function() {
+    this.setState({currentPage: 1});
+  },
+
+  // Filter sessions based on the classroom ID.
+  selectClassroom: function(classroomId) {
+    this.filterByField('classroom_id', classroomId);
+  },
+
+  filterByField: function(fieldName, value) {
+    // Set the filter state.
+    var newState = {
+      currentFilters: {}
+    };
+    newState.currentFilters[fieldName] = value;
+    this.setState(newState);
+    this.resetPagination();
+  },
+
+  selectStudent: function(studentId) {
+    this.filterByField('student_id', studentId);
+  },
+
+  selectUnit: function(unitId) {
+    this.filterByField('unit_id', unitId);
+  },
+
+  sortActivitySessions: function(sortByFieldName, sortDirection) {
+    this.setState({
+      currentSort: {
+        field: sortByFieldName,
+        direction: sortDirection
+      }
+    });
+
     this.setState({activitySessions: activitySessions});
   },
 
   // Retrieve current state
+  calculateNumberOfPages: function(visibleResults) {
+    var numPages = Math.ceil(visibleResults.length / this.props.resultsPerPage);
+    return numPages;
+  },
+
   populateClassroomFilters: function() {
     this.populateFilters('classroom_name', 'classroom_id', 'All Classrooms', 'classroomFilters');
   },
@@ -112,8 +174,7 @@ EC.ActivitiesProgressReport = React.createClass({
       // todo: request data
     }, _.bind(function success(data) {
       this.setState({
-        activitySessions: data.activity_sessions, 
-        visibleActivitySessions: data.activity_sessions
+        activitySessions: data.activity_sessions
       }, function() {
         this.populateClassroomFilters();
         this.populateUnitFilters();
@@ -163,13 +224,16 @@ EC.ActivitiesProgressReport = React.createClass({
   },
 
   render: function() {
+    var filteredResults = this.getFilteredResults();
+    var numberOfPages = this.calculateNumberOfPages(filteredResults);
+    var visibleResults = this.getVisibleResults(filteredResults);
     return (
       <div className="container">
         <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.state.classroomFilters} selectOption={this.selectClassroom} />
         <EC.DropdownFilter defaultOption={'All Units'} options={this.state.unitFilters} selectOption={this.selectUnit} />
         <EC.DropdownFilter defaultOption={'All Students'} options={this.state.studentFilters} selectOption={this.selectStudent} />
-        <EC.SortableTable rows={this.state.visibleActivitySessions} columns={this.tableColumns()} sortHandler={this.sortActivitySessions} />
-        <EC.Pagination maxPageNumber={5} selectPageNumber={this.goToPage} currentPage={1} numberOfPages={3}  />
+        <EC.SortableTable rows={visibleResults} columns={this.tableColumns()} sortHandler={this.sortActivitySessions} />
+        <EC.Pagination maxPageNumber={this.props.maxPageNumber} selectPageNumber={this.goToPage} currentPage={this.state.currentPage} numberOfPages={numberOfPages}  />
       </div>
     );
   }
@@ -279,41 +343,6 @@ EC.DropdownFilter = React.createClass({
     options: React.PropTypes.array.isRequired,
     selectOption: React.PropTypes.func.isRequired
   },
-
-  // getDisplayedFilterOptions: function() {
-    // var visibleOptions, isThereASelection, clearSelection;
-    // isThereASelection = !!this.props.data.selected;
-
-    // // Sort the options alphanumerically.
-    // this.props.data.options.sort(function(a, b) {
-    //   // This is kind of a hack, but all of the filter's options have a 'name' property.
-    //   return s.naturalCmp(a.name, b.name);
-    // });
-
-    // if (isThereASelection) {
-    //   visibleOptions = _.reject(this.props.data.options, {id: this.props.data.selected}, this);
-    // } else {
-    //   visibleOptions = this.props.data.options;
-    // }
-
-    // visibleOptions = _.map(visibleOptions, function (option) {
-    //   return (
-    //     <EC.FilterOption selectFilterOption={this.selectFilterOption} data={option} />
-    //   );
-    // }, this);
-
-    // if (isThereASelection) {
-    //   clearSelection = (
-    //     <li onClick={this.clearFilterOptionSelection}>
-    //       <span className='filter_option all'>
-    //         {"All " + this.props.data.alias + "s "}
-    //       </span>
-    //     </li>
-    //   );
-    //   visibleOptions.unshift(clearSelection);
-    // }       
-    // return visibleOptions;
-  // },
 
   getFilterOptions: function() {
     return (
