@@ -46,18 +46,27 @@ EC.ActivitiesProgressReport = React.createClass({
   // Retrieve current state
 
   populateClassroomFilters: function() {
-    this.populateFilters(this.state.activitySessions,
-      'classroom_name', 'classroom_id', 'All Classrooms', 'classroomFilters');
+    var options = this.getFilterOptions(this.state.activitySessions,
+      'classroom_name', 'classroom_id', 'All Classrooms');
+    this.setState({
+      classroomFilters: options
+    });
   },
 
   populateStudentFilters: function() {
-    this.populateFilters(this.state.activitySessions,
-      'student_name', 'student_id', 'All Students', 'studentFilters');
+    var options = this.getFilterOptions(this.state.activitySessions,
+      'student_name', 'student_id', 'All Students');
+    this.setState({
+      studentFilters: options
+    });
   },
 
   populateUnitFilters: function() {
-    this.populateFilters(this.state.activitySessions,
-      'unit_name', 'unit_id', 'All Units', 'unitFilters');
+    var options = this.getFilterOptions(this.state.activitySessions,
+      'unit_name', 'unit_id', 'All Units');
+    this.setState({
+      unitFilters: options
+    });
   },
 
   fetchActivitySessions: function() {

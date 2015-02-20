@@ -27,7 +27,7 @@ EC.TableFilterMixin = {
   },
 
   // Abstract helper for the other populate functions
-  populateFilters: function(results, nameField, valueField, allOptionName, stateProp) {
+  getFilterOptions: function(results, nameField, valueField, allOptionName) {
     // Grab and uniq all options based on the value (classroom ID).
     var allNames = _.chain(results).map(function(result) {
       return {
@@ -40,8 +40,6 @@ EC.TableFilterMixin = {
       return option.value === null;
     }).value();
     allNames.unshift({name: allOptionName, value: ''});
-    var newState = {};
-    newState[stateProp] = allNames;
-    this.setState(newState);
+    return allNames;
   }
 };
