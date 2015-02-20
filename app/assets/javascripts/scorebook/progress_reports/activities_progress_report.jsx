@@ -1,4 +1,57 @@
+EC.TableFilterMixin = {
+  getInitialState: function() {
+    currentFilters: {}
+  },
+
+  applyFilters: function(results) {
+    var visibleResults = results;
+
+    _.each(this.state.currentFilters, function(value, fieldName) {
+      if (!!value) {
+        var filterCriteria = {};
+        filterCriteria[fieldName] = value;
+        visibleResults = _.where(visibleResults, filterCriteria);
+      }
+    });
+    return visibleResults;
+  },
+  
+  filterByField: function(fieldName, value) {
+    // Set the filter state.
+    var newState = {
+      currentFilters: {}
+    };
+    newState.currentFilters[fieldName] = value;
+    this.setState(newState);
+    this.resetPagination();
+  },
+
+  // Abstract helper for the other populate functions
+  populateFilters: function(nameField, valueField, allOptionName, stateProp) {
+    // Grab and uniq all options based on the value (classroom ID).
+    var allNames = _.chain(this.state.activitySessions).map(function(activitySession) {
+      return {
+        name: activitySession[nameField],
+        value: activitySession[valueField]
+      };
+    }).uniq(false, function(option) {
+      return option.value;
+    }).reject(function(option) {
+      return option.value === null;
+    }).value();
+    allNames.unshift({name: allOptionName, value: ''});
+    var newState = {};
+    newState[stateProp] = allNames;
+    this.setState(newState);
+  }
+};
+
+EC.TableSortMixin = {
+
+};
+
 EC.ActivitiesProgressReport = React.createClass({
+  mixins: [EC.TableFilterMixin],
 
   getDefaultProps: function() {
     // These appear to be static numbers, so they belong in properties.
@@ -18,8 +71,7 @@ EC.ActivitiesProgressReport = React.createClass({
         field: 'activity_classification_name',
         direction: 'asc'
       },
-      currentFilters: {},
-      currentPage: 1,      
+      currentPage: 1     
     };
   },
 
@@ -40,19 +92,6 @@ EC.ActivitiesProgressReport = React.createClass({
     var start = (this.state.currentPage - 1) * this.props.resultsPerPage;
     var end = this.state.currentPage * this.props.resultsPerPage;
     return results.slice(start, end);
-  },
-
-  applyFilters: function(results) {
-    var visibleResults = results;
-
-    _.each(this.state.currentFilters, function(value, fieldName) {
-      if (!!value) {
-        var filterCriteria = {};
-        filterCriteria[fieldName] = value;
-        visibleResults = _.where(visibleResults, filterCriteria);
-      }
-    });
-    return visibleResults;
   },
 
   applySorting: function(results) {
@@ -103,16 +142,6 @@ EC.ActivitiesProgressReport = React.createClass({
     this.filterByField('classroom_id', classroomId);
   },
 
-  filterByField: function(fieldName, value) {
-    // Set the filter state.
-    var newState = {
-      currentFilters: {}
-    };
-    newState.currentFilters[fieldName] = value;
-    this.setState(newState);
-    this.resetPagination();
-  },
-
   selectStudent: function(studentId) {
     this.filterByField('student_id', studentId);
   },
@@ -146,25 +175,6 @@ EC.ActivitiesProgressReport = React.createClass({
 
   populateUnitFilters: function() {
     this.populateFilters('unit_name', 'unit_id', 'All Units', 'unitFilters');
-  },
-
-  // Abstract helper for the other populate functions
-  populateFilters: function(nameField, valueField, allOptionName, stateProp) {
-    // Grab and uniq all options based on the value (classroom ID).
-    var allNames = _.chain(this.state.activitySessions).map(function(activitySession) {
-      return {
-        name: activitySession[nameField],
-        value: activitySession[valueField]
-      };
-    }).uniq(false, function(option) {
-      return option.value;
-    }).reject(function(option) {
-      return option.value === null;
-    }).value();
-    allNames.unshift({name: allOptionName, value: ''});
-    var newState = {};
-    newState[stateProp] = allNames;
-    this.setState(newState);
   },
 
   fetchActivitySessions: function() {
