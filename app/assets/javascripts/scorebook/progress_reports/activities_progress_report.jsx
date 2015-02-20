@@ -15,6 +15,17 @@ EC.ActivitiesProgressReport = React.createClass({
   },
 
   componentDidMount: function() {
+    this.defineSorting({
+      completed_at: this.numericSort,
+      percentage: this.numericSort,
+      time_spent: this.numericSort,
+      activity_classification_name: this.naturalSort,
+      activity_name: this.naturalSort,
+      standard: this.naturalSort
+    }, {
+        field: 'activity_classification_name',
+        direction: 'asc'
+    });
     this.fetchActivitySessions();
   },
 

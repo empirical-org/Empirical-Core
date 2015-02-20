@@ -1,7 +1,7 @@
 EC.DropdownFilterOption = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string.isRequired,
+    value: React.PropTypes.any.isRequired,
     selectOption: React.PropTypes.func.isRequired
   },
 
