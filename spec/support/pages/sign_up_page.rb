@@ -62,11 +62,15 @@ class SignUpPage < Page
     fill              password_field, password
     fill password_confirmation_field, password_confirmation
     fill                 email_field, email
-    fill               zipcode_field, zipcode
 
-    school_not_listed_checkbutton.set school_not_listed
-    accept_terms_checkbutton     .set accept_terms
-    send_newsletter_checkbutton  .set send_newsletter
+    if type == :teacher
+      fill zipcode_field, zipcode
+
+      school_not_listed_checkbutton.set school_not_listed
+      send_newsletter_checkbutton  .set send_newsletter
+    end
+
+    accept_terms_checkbutton.set accept_terms
 
     submit_form
   end
@@ -100,15 +104,19 @@ RSpec::Matchers.define :be_errored_sign_up_form do |user, options|
 
       # ideally in the same order as seen on the form
       # so the error output 'matches' the form
-      expect_equal user,     actual, :name
-      expect_equal user,     actual, :username
-      expect_blank           actual, :password
-      expect_blank           actual, :password_confirmation
-      expect_equal user,     actual, :email
-      expect_blank           actual, :zipcode
-      expect_false           actual, :school_not_listed?
+      expect_equal user, actual, :name
+      expect_equal user, actual, :username
+      expect_blank       actual, :password
+      expect_blank       actual, :password_confirmation
+      expect_equal user, actual, :email
+
+      if user.teacher?
+        expect_blank           actual, :zipcode
+        expect_false           actual, :school_not_listed?
+        expect_option options, actual, :send_newsletter?
+      end
+
       expect_option options, actual, :accept_terms?
-      expect_option options, actual, :send_newsletter?
     else
       expected_label, got_label = expected_got_labels(:path)
       @errors << ["#{expected_label} '#{SignUpPage.submit_target_path}'",
