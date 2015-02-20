@@ -1,6 +1,8 @@
 EC.TableFilterMixin = {
   getInitialState: function() {
-    currentFilters: {}
+    return {
+      currentFilters: {}
+    };
   },
 
   applyFilters: function(results) {
@@ -18,10 +20,8 @@ EC.TableFilterMixin = {
   
   filterByField: function(fieldName, value) {
     // Set the filter state.
-    var newState = {
-      currentFilters: {}
-    };
-    newState.currentFilters[fieldName] = value;
+    var newState = this.state.currentFilters;
+    newState[fieldName] = value;
     this.setState(newState);
     this.resetPagination();
   },
