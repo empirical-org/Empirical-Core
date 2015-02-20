@@ -145,17 +145,8 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to_newsletter
-    return nil unless newsletter?
-
     ## FIXME this class should just get replaced with the mailchimp-api gem
-    MailchimpConnection.connection.lists.subscribe('eadf6d8153', { email: email },
-                                                   merge_vars=nil,
-                                                   email_type='html',
-                                                   double_optin=false,
-                                                   update_existing=false,
-                                                   replace_interests=true,
-                                                   send_welcome=false
-                                                  )
+    MailchimpConnection.subscribe_to_newsletter(email) if newsletter?
   end
 
   def imported_from_clever?

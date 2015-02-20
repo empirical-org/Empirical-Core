@@ -27,6 +27,7 @@ gem 'carrierwave'
 gem 'fog', require: 'fog/aws/storage'
 
 # OTHERS
+gem 'global'
 gem 'google-api-client'
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
@@ -133,6 +134,8 @@ group :test, :development do
 end
 
 group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver', '>=2.45.0.dev3' # works with Firefox 35
   gem "vcr"
   gem "webmock"
 end

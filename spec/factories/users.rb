@@ -21,12 +21,39 @@ FactoryGirl.define do
 
     factory :teacher do
       role 'teacher'
+
+      factory :mr_kotter do
+        first_name            'Gabe'
+        last_name             'Kotter'
+        username              'mrkotter'
+        email                 'gabe.kotter@jamesbuchananhigh.edu'
+        password              'sweathogs'
+        password_confirmation { password }
+      end
     end
 
     factory :student do
       role 'student'
       username
       classroom
+
+      factory :arnold_horshack do
+        first_name            'Arnold'
+        last_name             'Horshack'
+        username              'horshack'
+        password              'dingfelder'
+        password_confirmation { password }
+        email                 'ahorshack@coldmail.com'
+      end
+
+      factory :vinnie_barbarino do
+        first_name            'Vinnie'
+        last_name             'Barbarino'
+        username              'vinnie_barbarino'
+        password              'sally'
+        password_confirmation { password }
+        email                 'vinnieb@geemail.com'
+      end
     end
 
     factory :student_with_many_activities do
