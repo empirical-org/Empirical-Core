@@ -27,12 +27,12 @@ EC.TableFilterMixin = {
   },
 
   // Abstract helper for the other populate functions
-  populateFilters: function(nameField, valueField, allOptionName, stateProp) {
+  populateFilters: function(results, nameField, valueField, allOptionName, stateProp) {
     // Grab and uniq all options based on the value (classroom ID).
-    var allNames = _.chain(this.state.activitySessions).map(function(activitySession) {
+    var allNames = _.chain(results).map(function(result) {
       return {
-        name: activitySession[nameField],
-        value: activitySession[valueField]
+        name: result[nameField],
+        value: result[valueField]
       };
     }).uniq(false, function(option) {
       return option.value;
@@ -178,15 +178,18 @@ EC.ActivitiesProgressReport = React.createClass({
   // Retrieve current state
 
   populateClassroomFilters: function() {
-    this.populateFilters('classroom_name', 'classroom_id', 'All Classrooms', 'classroomFilters');
+    this.populateFilters(this.state.activitySessions,
+      'classroom_name', 'classroom_id', 'All Classrooms', 'classroomFilters');
   },
 
   populateStudentFilters: function() {
-    this.populateFilters('student_name', 'student_id', 'All Students', 'studentFilters');
+    this.populateFilters(this.state.activitySessions,
+      'student_name', 'student_id', 'All Students', 'studentFilters');
   },
 
   populateUnitFilters: function() {
-    this.populateFilters('unit_name', 'unit_id', 'All Units', 'unitFilters');
+    this.populateFilters(this.state.activitySessions,
+      'unit_name', 'unit_id', 'All Units', 'unitFilters');
   },
 
   fetchActivitySessions: function() {
