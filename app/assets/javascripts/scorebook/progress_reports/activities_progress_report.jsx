@@ -46,13 +46,7 @@ EC.TableFilterMixin = {
   }
 };
 
-EC.TableSortMixin = {
-
-};
-
-EC.ActivitiesProgressReport = React.createClass({
-  mixins: [EC.TableFilterMixin],
-
+EC.TablePaginationMixin = {
   getDefaultProps: function() {
     // These appear to be static numbers, so they belong in properties.
     return {
@@ -60,6 +54,43 @@ EC.ActivitiesProgressReport = React.createClass({
       resultsPerPage: 25
     }
   },
+
+  getInitialState: function() {
+    return {
+      currentPage: 1    
+    };
+  },
+  
+  applyPagination: function(results, page) {
+    // Ported from Stage1.determineCurrentPageSearchResults
+    var start = (this.state.currentPage - 1) * this.props.resultsPerPage;
+    var end = this.state.currentPage * this.props.resultsPerPage;
+    return results.slice(start, end);
+  },
+
+  calculateNumberOfPages: function(visibleResults) {
+    var numPages = Math.ceil(visibleResults.length / this.props.resultsPerPage);
+    return numPages;
+  },
+
+  goToPage: function(page) {
+    var newState = {
+      currentPage: page,
+    }
+    this.setState(newState);
+  },
+
+  resetPagination: function() {
+    this.setState({currentPage: 1});
+  },
+};
+
+EC.TableSortMixin = {
+
+};
+
+EC.ActivitiesProgressReport = React.createClass({
+  mixins: [EC.TableFilterMixin, EC.TablePaginationMixin],
 
   getInitialState: function() {
     return {
@@ -71,7 +102,6 @@ EC.ActivitiesProgressReport = React.createClass({
         field: 'activity_classification_name',
         direction: 'asc'
       },
-      currentPage: 1     
     };
   },
 
@@ -80,20 +110,6 @@ EC.ActivitiesProgressReport = React.createClass({
   },
 
   // Handlers
-  goToPage: function(page) {
-    var newState = {
-      currentPage: page,
-    }
-    this.setState(newState);
-  },
-
-  applyPagination: function(results, page) {
-    // Ported from Stage1.determineCurrentPageSearchResults
-    var start = (this.state.currentPage - 1) * this.props.resultsPerPage;
-    var end = this.state.currentPage * this.props.resultsPerPage;
-    return results.slice(start, end);
-  },
-
   applySorting: function(results) {
     var sortDirection = this.state.currentSort.direction,
         sortByFieldName = this.state.currentSort.field;
@@ -133,10 +149,6 @@ EC.ActivitiesProgressReport = React.createClass({
     return this.applyPagination(filteredResults, this.state.currentPage);
   },
 
-  resetPagination: function() {
-    this.setState({currentPage: 1});
-  },
-
   // Filter sessions based on the classroom ID.
   selectClassroom: function(classroomId) {
     this.filterByField('classroom_id', classroomId);
@@ -160,10 +172,6 @@ EC.ActivitiesProgressReport = React.createClass({
   },
 
   // Retrieve current state
-  calculateNumberOfPages: function(visibleResults) {
-    var numPages = Math.ceil(visibleResults.length / this.props.resultsPerPage);
-    return numPages;
-  },
 
   populateClassroomFilters: function() {
     this.populateFilters('classroom_name', 'classroom_id', 'All Classrooms', 'classroomFilters');
