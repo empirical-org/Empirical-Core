@@ -6,7 +6,7 @@ EC.DropdownFilterOption = React.createClass({
   },
 
   clickOption: function () {
-    this.props.selectOption(this.props.value)
+    this.props.selectOption(this.props.value);
   },
 
   render: function () {
