@@ -20,12 +20,13 @@ EC.ActivitiesProgressReport = React.createClass({
 
   // Handlers
 
-  // Get results with all filters, sorting, and pagination applied
+  // Get results with all filters, sorting
   getFilteredResults: function() {
     var allResults = this.state.activitySessions;
     return this.applySorting(this.applyFilters(allResults));
   },
 
+  // Get results after pagination has been applied.
   getVisibleResults: function(filteredResults) {
     return this.applyPagination(filteredResults, this.state.currentPage);
   },
@@ -35,16 +36,17 @@ EC.ActivitiesProgressReport = React.createClass({
     this.filterByField('classroom_id', classroomId);
   },
 
+  // Filter sessions based on the student ID
   selectStudent: function(studentId) {
     this.filterByField('student_id', studentId);
   },
 
+  // Filter sessions based on the unit ID
   selectUnit: function(unitId) {
     this.filterByField('unit_id', unitId);
   },
 
   // Retrieve current state
-
   populateClassroomFilters: function() {
     var options = this.getFilterOptions(this.state.activitySessions,
       'classroom_name', 'classroom_id', 'All Classrooms');
