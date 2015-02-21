@@ -19,6 +19,7 @@ log/*.log
 tmp
 coverage
 snapshot.dump
+tags
 
 # vagrant folder
 .vagrant/
@@ -36,3 +37,6 @@ deploy-keys
 # Ignore application configuration
 /config/application.yml
 activity-sessions*.json
+
+# Redis snapshots
+dump.rdb
