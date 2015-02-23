@@ -83,7 +83,7 @@ EC.ActivitiesProgressReport = React.createClass({
   },
 
   fetchActivitySessions: function() {
-    $.get('/api/internal/progress_reports/activity_sessions', {
+    $.get('/teachers/progress_reports/activity_sessions', {
       // todo: request data
     }, _.bind(function success(data) {
       this.setState({
