@@ -44,17 +44,17 @@ EC.ActivitiesProgressReport = React.createClass({
 
   // Filter sessions based on the classroom ID.
   selectClassroom: function(classroomId) {
-    this.filterByField('classroom_id', classroomId);
+    this.filterByField('classroom_id', classroomId, this.resetPagination);
   },
 
   // Filter sessions based on the student ID
   selectStudent: function(studentId) {
-    this.filterByField('student_id', studentId);
+    this.filterByField('student_id', studentId, this.resetPagination);
   },
 
   // Filter sessions based on the unit ID
   selectUnit: function(unitId) {
-    this.filterByField('unit_id', unitId);
+    this.filterByField('unit_id', unitId, this.resetPagination);
   },
 
   // Retrieve current state
@@ -101,7 +101,7 @@ EC.ActivitiesProgressReport = React.createClass({
   tableColumns: function() {
     return [
       {
-        name: 'App', 
+        name: 'App',
         field: 'activity_classification_name',
         sortByField: 'activity_classification_name'
       },

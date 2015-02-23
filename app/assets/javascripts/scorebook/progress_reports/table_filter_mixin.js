@@ -5,6 +5,9 @@ EC.TableFilterMixin = {
     };
   },
 
+  // Only call this function when doing client-side filtering.
+  // Server-side filtering should be done by passing parameters
+  // to your AJAX fetch.
   applyFilters: function(results) {
     var visibleResults = results;
 
@@ -17,13 +20,12 @@ EC.TableFilterMixin = {
     });
     return visibleResults;
   },
-  
-  filterByField: function(fieldName, value) {
+
+  filterByField: function(fieldName, value, next) {
     // Set the filter state.
     var newState = this.state.currentFilters;
     newState[fieldName] = value;
-    this.setState(newState);
-    this.resetPagination();
+    this.setState(newState, next);
   },
 
   // Abstract helper for the other populate functions
