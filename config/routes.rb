@@ -28,6 +28,7 @@ EmpiricalGrammar::Application.routes.draw do
     
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
+      resources :sections, only: [:index]
     end
 
     resources :classrooms do
