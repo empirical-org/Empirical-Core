@@ -53,7 +53,7 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
         expect(response.status).to eq(200)
         json = JSON.parse(response.body)
         expect(json['sections'].size).to eq(1)
-        expect(json['sections'][0]['topic_count']).to eq('3')
+        expect(json['sections'][0]['topics_count']).to eq('3')
       end
     end
   end

@@ -11,8 +11,8 @@ class Section < ActiveRecord::Base
 
   def self.for_progress_report(teacher)
     query = select(<<-SELECT
-      sections.name,
-      COUNT(DISTINCT(topics.id)) as topic_count,
+      sections.name as section_name,
+      COUNT(DISTINCT(topics.id)) as topics_count,
       SUM(CASE WHEN activity_sessions.percentage > 0.75 THEN 1 ELSE 0 END) as proficient_count,
       SUM(CASE WHEN activity_sessions.percentage <= 0.75 THEN 1 ELSE 0 END) as not_proficient_count,
       SUM(activity_sessions.time_spent) as total_time_spent
