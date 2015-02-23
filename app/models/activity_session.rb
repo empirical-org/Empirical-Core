@@ -19,7 +19,7 @@ class ActivitySession < ActiveRecord::Base
   default_scope -> { joins(:activity) }
 
   scope :completed,  -> { where('completed_at is not null') }
-  scope :incomplete, -> { where('completed_at is null') }
+  scope :incomplete, -> { where('completed_at is null').where('is_retry = false') }
   scope :started_or_better, -> { where("state != 'unstarted'") }
 
   scope :current_session, -> {
