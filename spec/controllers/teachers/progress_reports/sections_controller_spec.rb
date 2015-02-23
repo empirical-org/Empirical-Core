@@ -66,6 +66,13 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
         expect(json['units'].size).to eq(1)
         expect(json['students'].size).to eq(1)
       end
+
+      it 'can filter results based on classroom' do
+        xhr :get, :index, {classroom_id: 123}
+        # Assume that the garbage classroom_id has filtered out everything
+        expect(json['sections'].size).to eq(0)
+        expect(json['classrooms'].size).to eq(0)
+      end
     end
   end
 end
