@@ -60,12 +60,12 @@ EC.SectionsProgressReport = React.createClass({
   fetchSections: function() {
     $.get('/teachers/progress_reports/sections',
       this.state.currentFilters, function onSuccess(data) {
-      this.setState({
-        results: data.sections,
-        classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
-        studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
-        unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
-      });
+        this.setState({
+          results: data.sections,
+          classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
+          studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
+          unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
+        });
     }.bind(this))
   },
 
