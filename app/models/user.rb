@@ -40,10 +40,20 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.for_sections(section_ids, teacher)
-    joins(:activity_sessions => [{:user => :classroom}, {:activity => {:topic => :section}}])
-      .where('sections.id IN (?)', section_ids)
-      .where('classrooms.teacher_id = ?', teacher.id).uniq    
+  def self.for_progress_report(section_ids, teacher, filters = {})
+    q = joins(:classroom => :classroom_activities, :activity_sessions => {:activity => :topic})
+      .where('topics.section_id IN (?)', section_ids)
+      .where('classrooms.teacher_id = ?', teacher.id).uniq
+
+    if filters[:classroom_id].present?
+      q = q.where('classrooms.id = ?', filters[:classroom_id])
+    end
+
+    if filters[:unit_id].present?
+      q = q.where('classroom_activities.unit_id = ?', filters[:unit_id])
+    end
+
+    q
   end
 
   # def authenticate

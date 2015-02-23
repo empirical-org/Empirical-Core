@@ -81,4 +81,57 @@ describe Classroom, :type => :model do
     end
   end
 
+  describe "getting classrooms for the progress report" do
+        let!(:teacher) { FactoryGirl.create(:teacher) }
+
+    before do
+      ActivitySession.destroy_all
+      @sections = []
+      @units = []
+      @classrooms = []
+      @students = []
+      3.times do |i|
+        student = FactoryGirl.create(:student)
+        @students << student
+        classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [student])
+        @classrooms << classroom
+        section = FactoryGirl.create(:section)
+        @sections << section
+        unit = FactoryGirl.create(:unit)
+        @units << unit
+        topic = FactoryGirl.create(:topic, section: section)
+        activity = FactoryGirl.create(:activity, topic: topic)
+        classroom_activity = FactoryGirl.create(:classroom_activity,
+                                                classroom: classroom,
+                                                activity: activity,
+                                                unit: unit)
+        3.times do |j|
+          activity_session = FactoryGirl.create(:activity_session,
+                                                classroom_activity: classroom_activity,
+                                                user: student,
+                                                activity: activity,
+                                                state: 'finished',
+                                                percentage: i / 3.0)
+        end
+      end
+    end
+
+    it 'can retrieve classrooms based on sections' do
+      section_ids = [@sections[0].id, @sections[1].id]
+      classrooms = Classroom.for_progress_report(section_ids, teacher, {})
+      expect(classrooms.size).to eq(2) # 1 classroom created for each section
+    end
+
+    it 'can retrieve classrooms based on student_id' do
+      section_ids = [@sections[0].id, @sections[1].id]
+      classrooms = Classroom.for_progress_report(section_ids, teacher, {student_id: @students.first.id})
+      expect(classrooms.size).to eq(1)
+    end
+
+    it 'can retrieve classrooms based on unit_id' do
+      section_ids = [@sections[0].id, @sections[1].id]
+      classrooms = Classroom.for_progress_report(section_ids, teacher, {unit_id: @units.first.id})
+      expect(classrooms.size).to eq(1)
+    end
+  end
 end
