@@ -4,7 +4,7 @@ class Teachers::ProgressReports::SectionsController < ApplicationController
 
   def index
     if request.xhr?
-      section_data = Section.for_progress_report(current_user)        
+      section_data = Section.for_progress_report(current_user)
       render json: section_data
     end
   end
