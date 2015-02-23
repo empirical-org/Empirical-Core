@@ -5,7 +5,7 @@ EC.SectionsProgressReport = React.createClass({
     return {
       tableColumns: [
         {
-          name: 'Grade Level', 
+          name: 'Grade Level',
           field: 'section_name',
           sortByField: 'section_name'
         },
@@ -38,7 +38,8 @@ EC.SectionsProgressReport = React.createClass({
       classroomFilters: [],
       studentFilters: [],
       unitFilters: [],
-      results: []
+      results: [],
+      currentFilters: {}
     }
   },
 
@@ -58,7 +59,8 @@ EC.SectionsProgressReport = React.createClass({
   },
 
   fetchSections: function() {
-    $.get('/teachers/progress_reports/sections', function(data) {
+    $.get('/teachers/progress_reports/sections',
+      this.state.currentFilters, function onSuccess(data) {
       this.setState({
         results: data.sections,
         classroomFilters: this.mapClassroomFilters(data.classrooms),

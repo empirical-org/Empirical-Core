@@ -4,7 +4,7 @@ class Teachers::ProgressReports::SectionsController < ApplicationController
 
   def index
     if request.xhr?
-      section_data = Section.for_progress_report(current_user)
+      section_data = Section.for_progress_report(current_user, params)
       section_ids = section_data.map {|s| s['id']}
       classrooms = Classroom.for_sections(section_ids, current_user)
       units = Unit.for_sections(section_ids, current_user)
