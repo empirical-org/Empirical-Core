@@ -27,7 +27,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
     
     namespace :progress_reports do
-      resources :activities, only: [:index]
+      resources :activity_sessions, only: [:index]
     end
 
     resources :classrooms do
@@ -62,12 +62,6 @@ EmpiricalGrammar::Application.routes.draw do
 
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
-    end
-
-    namespace :internal do
-      namespace :progress_reports do
-        resources :activity_sessions, only: [:index]
-      end
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
