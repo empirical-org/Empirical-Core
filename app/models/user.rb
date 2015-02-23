@@ -39,6 +39,13 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  def self.for_sections(section_ids, teacher)
+    joins(:activity_sessions => [{:user => :classroom}, {:activity => {:topic => :section}}])
+      .where('sections.id IN (?)', section_ids)
+      .where('classrooms.teacher_id = ?', teacher.id).uniq    
+  end
+
   # def authenticate
   def self.authenticate(params)
     user =  User.where("email = ? OR username = ?", params[:email].downcase, params[:email].downcase).first

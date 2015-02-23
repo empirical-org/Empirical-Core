@@ -60,9 +60,39 @@ EC.SectionsProgressReport = React.createClass({
   fetchSections: function() {
     $.get('/teachers/progress_reports/sections', function(data) {
       this.setState({
-        results: data.sections
+        results: data.sections,
+        classroomFilters: this.mapClassroomFilters(data.classrooms),
+        studentFilters: this.mapStudentFilters(data.students),
+        unitFilters: this.mapUnitFilters(data.units)
       });
     }.bind(this))
+  },
+
+  mapClassroomFilters: function(classrooms) {
+    return classrooms.map(function(classroom) {
+      return {
+        name: classroom.name,
+        value: classroom.id
+      };
+    });
+  },
+
+  mapStudentFilters: function(students) {
+    return students.map(function(student) {
+      return {
+        name: student.name,
+        value: student.id
+      };
+    });
+  },
+
+  mapUnitFilters: function(units) {
+    return units.map(function(unit) {
+      return {
+        name: unit.name,
+        value: unit.id
+      }
+    });
   },
 
   selectClassroom: function(classroomId) {

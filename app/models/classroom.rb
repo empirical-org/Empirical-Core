@@ -37,6 +37,12 @@ class Classroom < ActiveRecord::Base
     end
   end
 
+  def self.for_sections(section_ids, teacher)
+    joins(:classroom_activities => {:activity => {:topic => :section}})
+      .where('sections.id IN (?)', section_ids)
+      .where('classrooms.teacher_id = ?', teacher.id).uniq
+  end
+
   def self.setup_from_clever(section)
     c = Classroom.where(clever_id: section.id).includes(:units).first_or_initialize
 
