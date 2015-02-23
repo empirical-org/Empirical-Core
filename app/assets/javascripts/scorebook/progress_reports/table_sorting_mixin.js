@@ -1,3 +1,8 @@
+// This React mixin handles client-side sorting.
+// Use it ljke so:
+// Call defineSorting() in componentDidMount() of your component.
+// Call sortResults() when a sort changes (use as a handler function)
+// Call applySorting() on your data before displaying it in render().
 EC.TableSortingMixin = {
   getInitialState: function() {
     return {
