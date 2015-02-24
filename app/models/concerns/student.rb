@@ -44,9 +44,9 @@ module Student
     end
 
 
+
     def helper1 unit, should_filter
-      unit_updated_at = unit.updated_at.nil? ? '' : unit.updated_at.to_s
-      sessions = Rails.cache.fetch('student-completed-activity-sessions-' + self.id.to_s + unit_updated_at) do 
+      sessions = Rails.cache.fetch('student-completed-activity-sessions-' + self.id.to_s + unit.cache_key) do 
         sessions = ActivitySession.joins(:classroom_activity)
                   .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                   .select("activity_sessions.*").completed
@@ -100,10 +100,8 @@ module Student
         
 
 
-    def helper2 unit, should_sort
-        unit_updated_at = unit.updated_at.nil? ? '' : unit.updated_at.to_s
-        
-        sessions = Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit_updated_at) do 
+    def helper2 unit, should_sort        
+        sessions = Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit.cache_key) do 
           sessions = ActivitySession.joins(:classroom_activity)
                       .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                       .where("activity_sessions.completed_at is null")
