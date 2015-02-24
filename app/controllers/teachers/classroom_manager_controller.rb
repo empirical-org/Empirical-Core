@@ -69,8 +69,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
     @classrooms = current_user.classrooms - [@classroom]
     
-    if current_user.id == 54569 and params[:unit_id].nil?
-      @unit = current_user.classrooms.last.classroom_activities.last.unit
+    if [54569, 60607].include?(current_user.id) and (params[:unit_id].nil?) # temp fix for users with huge scorebooks
+      #@unit = current_user.classrooms.last.classroom_activities.last.unit
+      @unit = current_user.classrooms.map(&:classroom_activities).flatten.map(&:unit).compact.last
+
     else
       @unit = Unit.find(params[:unit_id]) if params[:unit_id]
     end
