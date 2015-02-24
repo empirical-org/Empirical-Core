@@ -7,7 +7,7 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
     let(:teacher) { FactoryGirl.create(:teacher) }
     let(:classroom) { FactoryGirl.create(:classroom_with_one_student, teacher: teacher) }
     let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, unit: classroom.units.first) }
-    let(:activity_session) { FactoryGirl.create(:activity_session, 
+    let(:activity_session) { FactoryGirl.create(:activity_session,
                                                 state: 'finished',
                                                 classroom_activity: classroom_activity) }
 

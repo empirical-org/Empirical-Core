@@ -21,7 +21,8 @@ EC.ActivitiesProgressReport = React.createClass({
       time_spent: this.numericSort,
       activity_classification_name: this.naturalSort,
       activity_name: this.naturalSort,
-      standard: this.naturalSort
+      standard: this.naturalSort,
+      student_name: this.naturalSort
     }, {
         field: 'activity_classification_name',
         direction: 'asc'
@@ -125,13 +126,15 @@ EC.ActivitiesProgressReport = React.createClass({
         field: 'standard', // What field is this?,
         sortByField: 'standard'
       },
-      // {
-      //   name: 'Concept'
-      // }
       {
         name: 'Score',
         field: 'display_score',
         sortByField: 'percentage'
+      },
+      {
+        name: 'Student',
+        field: 'student_name',
+        sortByField: 'student_name'
       }
     ];
   },
