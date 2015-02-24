@@ -24,9 +24,6 @@ class Classroom < ActiveRecord::Base
 
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
-  after_save do
-    StudentProfileCache.invalidate(students)
-  end
 
   def x
     c = self
