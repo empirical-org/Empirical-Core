@@ -13,8 +13,23 @@ describe Unit, type: :model do
 		it 'destroys associated classroom_activities' do 
 			unit.destroy
 			expect(ClassroomActivity.where(id: classroom_activity.id)).to be_empty
-
 		end
+	end
+
+
+	it 'is touched by changes to classroom_activity' do 
+		before = unit.updated_at
+		classroom_activity.touch
+		after = unit.updated_at
+		expect(before).to_not eq(after)
+	end
+
+	it 'is touched by changes to activity_session (through intermediary classroom_activity)' do 
+		before = unit.updated_at
+		activity_session = FactoryGirl.create :activity_session, classroom_activity: classroom_activity
+		activity_session.touch
+		after = unit.updated_at
+		expect(before).to_not eq(after)
 	end
 
 end
