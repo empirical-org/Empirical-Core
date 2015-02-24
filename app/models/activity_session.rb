@@ -28,9 +28,6 @@ class ActivitySession < ActiveRecord::Base
     (complete_session || incomplete_session)
   }
 
-  after_save do
-    StudentProfileCache.invalidate(user)
-  end
 
   def activity
     super || classroom_activity.activity
