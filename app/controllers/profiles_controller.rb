@@ -40,11 +40,7 @@ class ProfilesController < ApplicationController
 
   def teacher
     if @user.classrooms.any?
-      if @user.id = 54569 # temp fix
-        redirect_to lesson_planner_teachers_classrooms_path
-      else
-        redirect_to teachers_classroom_scorebook_path(@user.classrooms.first)
-      end
+      redirect_to teachers_classroom_scorebook_path(@user.classrooms.first)
     else
       redirect_to new_teachers_classroom_path
     end

@@ -6,11 +6,22 @@ describe ClassroomActivity, :type => :model do
   let!(:student){ FactoryGirl.build(:student) }   	
   let!(:classroom_activity) { ClassroomActivity.create(activity_id: activity.id, classroom_id: student.classroom.id) }
 
+
+  describe "#destroy" do 
+  	it 'should destroy associated activity_sessions' do 
+  		classroom_activity.destroy 
+  		expect(student.activity_sessions.count).to eq(0)
+  	end
+  end
+
+
   describe ".create_session" do 
 	  it "must create a new session for the given arguments" do 
 	  	expect(ClassroomActivity.create_session(activity, user: student)).to be_valid
 	  end
   end
+
+
 
   describe "#assigned_students" do
 

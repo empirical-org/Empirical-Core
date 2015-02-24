@@ -1,7 +1,7 @@
 class ClassroomActivity < ActiveRecord::Base
   belongs_to :classroom
   belongs_to :activity
-  belongs_to :unit
+  belongs_to :unit, touch: true
   has_one :topic, through: :activity
   has_many :activity_sessions, dependent: :destroy
 

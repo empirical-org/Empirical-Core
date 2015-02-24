@@ -2,7 +2,7 @@ class ActivitySession < ActiveRecord::Base
 
   include Uid
 
-  belongs_to :classroom_activity
+  belongs_to :classroom_activity, touch: true
   belongs_to :activity
   has_one :unit, through: :classroom_activity
   has_many :concept_tag_results
@@ -19,7 +19,7 @@ class ActivitySession < ActiveRecord::Base
   default_scope -> { joins(:activity) }
 
   scope :completed,  -> { where('completed_at is not null') }
-  scope :incomplete, -> { where('completed_at is null') }
+  scope :incomplete, -> { where('completed_at is null').where('is_retry = false') }
   scope :started_or_better, -> { where("state != 'unstarted'") }
 
   scope :current_session, -> {
