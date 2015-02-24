@@ -10,7 +10,7 @@ class ActivitySession < ActiveRecord::Base
   accepts_nested_attributes_for :concept_tag_results
 
   ownable :user
-  after_save { user.touch }
+  after_save { if user.present? then user.touch end}
 
   before_create :set_state
   before_save   :set_completed_at
