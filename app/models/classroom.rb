@@ -39,6 +39,7 @@ class Classroom < ActiveRecord::Base
       .where('topics.section_id IN (?)', filters[:section_id])
       .where("activity_sessions.state = ?", "finished")
       .where('classrooms.teacher_id = ?', teacher.id).uniq
+      .order('classrooms.name asc')
 
     if filters[:student_id].present?
       q = q.where('activity_sessions.user_id = ?', filters[:student_id])
