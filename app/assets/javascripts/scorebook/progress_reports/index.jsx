@@ -6,4 +6,12 @@ $(function() {
   if ($('.progress-reports-sections').length) {
     React.render(React.createElement(EC.SectionsProgressReport), $('.progress-reports-sections')[0]);
   }
+
+  var $topicsRootNode = $('.progress-reports-topics');
+  if ($topicsRootNode.length) {
+    var props = {
+      sourceUrl: $topicsRootNode.data('url')
+    };
+    React.render(React.createElement(EC.TopicsProgressReport, props), $topicsRootNode[0]);
+  }
 });
