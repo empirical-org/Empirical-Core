@@ -35,7 +35,6 @@ module Student
           sessions = ActivitySession.joins(:classroom_activity)
                     .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                     .select("activity_sessions.*").completed
-          puts 'calling code within cache'
           sessions = filter_and_sort_completed_activity_sessions sessions
         end
       end
