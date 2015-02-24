@@ -11,7 +11,6 @@ FactoryGirl.define do
     user { User.first || FactoryGirl.create(:user) }
     activity { Activity.first || FactoryGirl.create(:activity) }
 
-    classroom_activity { ClassroomActivity.first || FactoryGirl.create(:classroom_activity)}
 
     factory :activity_session_with_random_completed_date do 
     	completed_at { (rand 1..100).minutes.ago }
