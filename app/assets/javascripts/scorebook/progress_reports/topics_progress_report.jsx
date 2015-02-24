@@ -19,12 +19,14 @@ EC.TopicsProgressReport = React.createClass({
 
   componentDidMount: function() {
     this.defineSorting({
-      name: this.naturalSort
+      topic_name: this.naturalSort,
+      students_count: this.numericSort,
+      proficient_count: this.numericSort,
+      not_proficient_count: this.numericSort
     }, {
-        field: 'name',
+        field: 'topic_name',
         direction: 'asc'
     });
-
     this.fetchData();
   },
 
@@ -35,8 +37,23 @@ EC.TopicsProgressReport = React.createClass({
     return [
       {
         name: 'Topic Name',
-        field: 'name',
-        sortByField: 'name'
+        field: 'topic_name',
+        sortByField: 'topic_name'
+      },
+      {
+        name: 'students',
+        field: 'students_count',
+        sortByField: 'students_count'
+      },
+      {
+        name: 'proficient',
+        field: 'proficient_count',
+        sortByField: 'proficient_count'
+      },
+      {
+        name: 'not proficient',
+        field: 'not_proficient_count',
+        sortByField: 'not_proficient_count'
       }
     ];
   },
