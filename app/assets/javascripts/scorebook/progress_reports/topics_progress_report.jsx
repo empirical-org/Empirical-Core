@@ -13,7 +13,8 @@ EC.TopicsProgressReport = React.createClass({
       classroomFilters: [],
       studentFilters: [],
       unitFilters: [],
-      results: []
+      results: [],
+      section: {}
     }
   },
 
@@ -36,22 +37,22 @@ EC.TopicsProgressReport = React.createClass({
     // Derive column names from this.state.section
     return [
       {
-        name: 'Topic Name',
+        name: this.state.section.section_name,
         field: 'topic_name',
         sortByField: 'topic_name'
       },
       {
-        name: 'students',
+        name: this.state.section.topics_count + ' Standards Completed',
         field: 'students_count',
         sortByField: 'students_count'
       },
       {
-        name: 'proficient',
+        name: this.state.section.proficient_count + ' Proficient',
         field: 'proficient_count',
         sortByField: 'proficient_count'
       },
       {
-        name: 'not proficient',
+        name: this.state.section.not_proficient_count + ' Not Proficient',
         field: 'not_proficient_count',
         sortByField: 'not_proficient_count'
       }
@@ -75,6 +76,7 @@ EC.TopicsProgressReport = React.createClass({
   fetchData: function() {
     $.get(this.props.sourceUrl, this.state.currentFilters, function onSuccess(data) {
         this.setState({
+          section: data.section,
           results: data.topics,
           classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
           studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
