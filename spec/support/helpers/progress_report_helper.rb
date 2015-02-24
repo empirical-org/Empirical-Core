@@ -5,6 +5,7 @@ module ProgressReportHelper
     @units = []
     @classrooms = []
     @students = []
+    @topics = []
     3.times do |i|
       student = FactoryGirl.create(:student)
       @students << student
@@ -15,6 +16,7 @@ module ProgressReportHelper
       unit = FactoryGirl.create(:unit)
       @units << unit
       topic = FactoryGirl.create(:topic, section: section)
+      @topics << topic
       activity = FactoryGirl.create(:activity, topic: topic)
       classroom_activity = FactoryGirl.create(:classroom_activity,
                                               classroom: classroom,

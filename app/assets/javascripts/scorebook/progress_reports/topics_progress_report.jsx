@@ -58,6 +58,20 @@ EC.TopicsProgressReport = React.createClass({
     ];
   },
 
+  selectClassroom: function(classroomId) {
+    this.filterByField('classroom_id', classroomId, this.fetchData);
+  },
+
+  // Filter sessions based on the student ID
+  selectStudent: function(studentId) {
+    this.filterByField('student_id', studentId, this.fetchData);
+  },
+
+  // Filter sessions based on the unit ID
+  selectUnit: function(unitId) {
+    this.filterByField('unit_id', unitId, this.fetchData);
+  },
+
   fetchData: function() {
     $.get(this.props.sourceUrl, this.state.currentFilters, function onSuccess(data) {
         this.setState({
