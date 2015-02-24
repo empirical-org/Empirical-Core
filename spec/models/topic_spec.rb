@@ -53,30 +53,31 @@ describe Topic, :type => :model do
 
 	  it "retrieves aggregated section data" do
 	  	data = Topic.for_progress_report(teacher, @section.id, {})
-	  	expect(data[0]["topic_name"]).to eq(@topics.first.name)
+	  	expect(data.size).to eq(@visible_topics.size)
+	  	expect(data[0]["topic_name"]).to eq(@visible_topics.first.name)
 	  end
 
 	  context "when a classroom filter is provided" do
 	  	it "filters by classroom" do
-	  		data = Topic.for_progress_report(teacher, @section.id, {classroom_id: 123})
+	  		data = Topic.for_progress_report(teacher, @section.id, {classroom_id: @empty_classroom.id})
 	  		expect(data.size).to eq(0)
-	  		data = Topic.for_progress_report(teacher, @section.id, {classroom_id: @classrooms.first.id})
-	  		expect(data.size).to eq(1)
+	  		data = Topic.for_progress_report(teacher, @section.id, {classroom_id: @full_classroom.id})
+	  		expect(data.size).to eq(@visible_topics.size)
 	  	end
 	  end
 
 	  context "when an empty classroom filter is provided" do
 	  	it "does not filter by classroom" do
 	  		data = Topic.for_progress_report(teacher, @section.id, {classroom_id: ""})
-	  		expect(data.size).to eq(@topics.size)
+	  		expect(data.size).to eq(@visible_topics.size)
 	  	end
 	  end
 
 	  context "when a unit filter is provided" do
 	  	it "filters by unit" do
-	  		data = Topic.for_progress_report(teacher, @section.id, {unit_id: @units.first.id})
-	  		expect(data.size).to eq(1)
-	  		data = Topic.for_progress_report(teacher, @section.id, {unit_id: 123})
+	  		data = Topic.for_progress_report(teacher, @section.id, {unit_id: @unit1.id})
+	  		expect(data.size).to eq(@visible_topics.size)
+	  		data = Topic.for_progress_report(teacher, @section.id, {unit_id: @empty_unit.id})
 	  		expect(data.size).to eq(0)
 	  	end
 	  end
@@ -84,21 +85,26 @@ describe Topic, :type => :model do
 	  context "when an empty unit filter is provided" do
 	  	it "does not filter by unit" do
 	  		data = Topic.for_progress_report(teacher, @section.id, {unit_id: ""})
-	  		expect(data.size).to eq(@topics.size)
+	  		expect(data.size).to eq(@visible_topics.size)
 	  	end
 	  end
 
 	  context "when a student filter is provided" do
 	  	it "filters by student" do
-	  		data = Topic.for_progress_report(teacher, @section.id, {student_id: @students.first.id})
+	  		# student3 has completed activity sessions for only 1 topic
+	  		data = Topic.for_progress_report(teacher, @section.id, {student_id: @student3.id})
 	  		expect(data.size).to eq(1)
+	  		expect(data[0]['topic_name']).to eq(@topic1.name)
+	  		expect(data[0]['students_count']).to eq("1")
+	  		expect(data[0]['proficient_count']).to eq("0")
+	  		expect(data[0]['not_proficient_count']).to eq("1")
 	  	end
 	  end
 
 	  context "when an empty student filter is provided" do
 	  	it "does not filter by student" do
 	  		data = Topic.for_progress_report(teacher, @section.id, {student_id: ""})
-	  		expect(data.size).to eq(@topics.size)
+	  		expect(data.size).to eq(@visible_topics.size)
 	  	end
 	  end
 	end
