@@ -619,26 +619,31 @@ describe User, :type => :model do
   describe 'getting users for the progress reports' do
     include ProgressReportHelper
     let!(:teacher) { FactoryGirl.create(:teacher) }
+    let(:section_ids) { [@sections[0].id, @sections[1].id] }
 
     before do
       setup_sections_progress_report
     end
 
     it 'can retrieve users based on sections' do
-      section_ids = [@sections[0].id, @sections[1].id]
-      users = User.for_progress_report(section_ids, teacher)
+      users = User.for_progress_report(teacher, {section_id: section_ids})
       expect(users.size).to eq(2) # 1 user created for each section
     end
 
     it 'can retrieve users based on classroom_id' do
-      section_ids = [@sections[0].id, @sections[1].id]
-      users = User.for_progress_report(section_ids, teacher, {classroom_id: @classrooms.first.id})
+      users = User.for_progress_report(teacher, {section_id: section_ids, classroom_id: @classrooms.first.id})
       expect(users.size).to eq(1)
     end
 
     it 'can retrieve users based on unit_id' do
-      section_ids = [@sections[0].id, @sections[1].id]
-      users = User.for_progress_report(section_ids, teacher, {unit_id: @units.first.id})
+      users = User.for_progress_report(teacher, {section_id: section_ids, unit_id: @units.first.id})
+      expect(users.size).to eq(1)
+    end
+
+    it 'can retrieve users based on a set of topics' do
+      users = User.for_progress_report(teacher, {section_id: section_ids, topic_id: @topics.map {|t| t.id} })
+      expect(users.size).to eq(2)
+      users = User.for_progress_report(teacher, {section_id: section_ids, topic_id: @topics.first.id })
       expect(users.size).to eq(1)
     end
   end

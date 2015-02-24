@@ -85,26 +85,29 @@ describe Classroom, :type => :model do
     include ProgressReportHelper
 
     let!(:teacher) { FactoryGirl.create(:teacher) }
+    let(:section_ids) { [@sections[0].id, @sections[1].id] }
 
     before do
       setup_sections_progress_report
     end
 
     it 'can retrieve classrooms based on sections' do
-      section_ids = [@sections[0].id, @sections[1].id]
-      classrooms = Classroom.for_progress_report(section_ids, teacher, {})
+      classrooms = Classroom.for_progress_report(teacher, {section_id: section_ids})
       expect(classrooms.size).to eq(2) # 1 classroom created for each section
     end
 
     it 'can retrieve classrooms based on student_id' do
-      section_ids = [@sections[0].id, @sections[1].id]
-      classrooms = Classroom.for_progress_report(section_ids, teacher, {student_id: @students.first.id})
+      classrooms = Classroom.for_progress_report(teacher, {section_id: section_ids, student_id: @students.first.id})
       expect(classrooms.size).to eq(1)
     end
 
     it 'can retrieve classrooms based on unit_id' do
-      section_ids = [@sections[0].id, @sections[1].id]
-      classrooms = Classroom.for_progress_report(section_ids, teacher, {unit_id: @units.first.id})
+      classrooms = Classroom.for_progress_report(teacher, {section_id: section_ids, unit_id: @units.first.id})
+      expect(classrooms.size).to eq(1)
+    end
+
+    it 'can retrieve classrooms based on a set of topic ids' do
+      classrooms = Classroom.for_progress_report(teacher, {section_id: section_ids, topic_id: @topics.first.id})
       expect(classrooms.size).to eq(1)
     end
   end

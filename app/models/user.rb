@@ -40,15 +40,19 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.for_progress_report(section_ids, teacher, filters = {})
+  def self.for_progress_report(teacher, filters = {})
     # This is duplicated in User, Unit, Section, Topic, and Classroom in subtly similar ways
     q = joins(:classroom => :classroom_activities, :activity_sessions => {:activity => :topic})
-      .where('topics.section_id IN (?)', section_ids)
+      .where('topics.section_id IN (?)', filters[:section_id])
       .where("activity_sessions.state = ?", "finished")
       .where('classrooms.teacher_id = ?', teacher.id).uniq
 
     if filters[:classroom_id].present?
       q = q.where('classrooms.id = ?', filters[:classroom_id])
+    end
+
+    if filters[:topic_id].present?
+      q = q.where('topics.id IN (?)', filters[:topic_id])
     end
 
     if filters[:unit_id].present?
