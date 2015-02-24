@@ -10,6 +10,7 @@ class ActivitySession < ActiveRecord::Base
   accepts_nested_attributes_for :concept_tag_results
 
   ownable :user
+  after_save { user.touch }
 
   before_create :set_state
   before_save   :set_completed_at
@@ -27,6 +28,7 @@ class ActivitySession < ActiveRecord::Base
     incomplete_session = incomplete.first
     (complete_session || incomplete_session)
   }
+
 
 
   def activity
