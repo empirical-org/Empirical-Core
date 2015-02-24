@@ -86,8 +86,8 @@ module Student
         units = self.classroom.units
         arr = []
         units.each do |unit|
-          session = helper2 unit, false
-          arr.push session
+          sessions = helper2 unit, false
+          arr.push sessions
         end
         sessions = arr.flatten
         sessions = sort_incomplete_activity_sessions sessions
@@ -101,22 +101,26 @@ module Student
 
 
     def helper2 unit, should_sort        
-        sessions = Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit.cache_key) do 
-          sessions = ActivitySession.joins(:classroom_activity)
-                      .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
-                      .where("activity_sessions.completed_at is null")
-                      .where("activity_sessions.is_retry = false")
-                      .select("activity_sessions.*")
-          if should_sort then sessions = sort_incomplete_activity_sessions sessions end
-          sessions
-        end
+      sessions = Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit.cache_key) do 
+        sessions = ActivitySession.joins(:classroom_activity)
+                    .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
+                    .where("activity_sessions.completed_at is null")
+                    .where("activity_sessions.is_retry = false")
+                    .select("activity_sessions.*")
+        if should_sort then sessions = sort_incomplete_activity_sessions sessions end
         sessions
+      end
+      sessions
     end
+
+
+  
 
     def sort_incomplete_activity_sessions sessions
        sessions.sort do |a,b|
         b.activity.classification.key <=> a.activity.classification.key
       end
+      sessions
     end
 
 
@@ -131,10 +135,15 @@ module Student
 
 
     def assign_classroom_activities
+      puts 'assign classroom_activities being called'
       if classroom.present?
+        puts 'classroom is present'
         classroom.classroom_activities.each do |ca|
+          puts 'in an individual classroom_activity'
           ca.session_for(self)
         end
+      else
+        puts 'no classroom present'
       end
     end
 
