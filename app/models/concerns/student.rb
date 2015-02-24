@@ -83,21 +83,36 @@ module Student
       
       if unit.nil?
         # only occurs in scorebook; not necessary to cache this since well cache the parent method which this method is always called within when no unit is specified (complete_and_incomplete_activity_sessions_by_classification)
-        sessions = self.activity_sessions.incomplete
+        units = self.classroom.units
+        arr = []
+        units.each do |unit|
+          session = helper2 unit, false
+          arr.push session
+        end
+        sessions = arr.flatten
         sessions = sort_incomplete_activity_sessions sessions
       else
-        # occurs in scorebook and in student profile
+        sessions = helper2 unit, true
+      end
+      sessions
+      
+    end
+        
+
+
+    def helper2 unit, should_sort
         unit_updated_at = unit.updated_at.nil? ? '' : unit.updated_at.to_s
         
-        Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit_updated_at) do 
+        sessions = Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit_updated_at) do 
           sessions = ActivitySession.joins(:classroom_activity)
                       .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                       .where("activity_sessions.completed_at is null")
                       .where("activity_sessions.is_retry = false")
                       .select("activity_sessions.*")
-          sessions = sort_incomplete_activity_sessions sessions
+          if should_sort then sessions = sort_incomplete_activity_sessions sessions end
+          sessions
         end
-      end
+        sessions
     end
 
     def sort_incomplete_activity_sessions sessions
