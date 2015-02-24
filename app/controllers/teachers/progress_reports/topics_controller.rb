@@ -5,7 +5,7 @@ class Teachers::ProgressReports::TopicsController < ApplicationController
   def index
     if request.xhr?
       render json: {
-        topics: Topic.all
+        topics: Topic.for_progress_report(current_user, params[:section_id], params)
         # classrooms: classrooms,
         # students: students,
         # units: units
