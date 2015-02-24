@@ -20,6 +20,7 @@ class Section < ActiveRecord::Base
     SELECT
     ).joins(:topics => {:activities => {:classroom_activities => [:classroom, :activity_sessions]}})
       .group("sections.id")
+      .where("activity_sessions.state = ?", "finished")
       .where("classrooms.teacher_id = ?", teacher.id) # Filter based on teacher ID
 
     if filters[:classroom_id].present?
