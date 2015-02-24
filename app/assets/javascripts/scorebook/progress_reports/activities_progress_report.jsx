@@ -119,7 +119,16 @@ EC.ActivitiesProgressReport = React.createClass({
       {
         name: 'Time Spent',
         field: 'display_time_spent',
-        sortByField: 'time_spent'
+        sortByField: 'time_spent',
+        customCell: function(row) {
+          // Display an emdash if time_spent is greater than 30 min
+          var timeInMinutes = row['time_spent'] / 60;
+          if (timeInMinutes > 30) {
+            return '—';
+          } else {
+            return row['display_time_spent'];
+          }
+        }
       },
       {
         name: 'Standard',
