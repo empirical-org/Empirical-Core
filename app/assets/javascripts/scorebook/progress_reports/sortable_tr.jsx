@@ -4,9 +4,17 @@ EC.SortableTr = React.createClass({
     columns: React.PropTypes.array.isRequired
   },
 
+  contentForColumn: function(column) {
+    if (typeof column.customCell === 'function') {
+      return column.customCell(this.props.row);
+    } else {
+      return this.props.row[column.field];
+    }
+  },
+
   tds: function() {
     return _.map(this.props.columns, function (column, i) {
-      return <td key={i}>{this.props.row[column.field]}</td>;
+      return <td key={i}>{this.contentForColumn(column)}</td>;
     }, this);
   },
 

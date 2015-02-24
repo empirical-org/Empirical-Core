@@ -20,26 +20,28 @@ EmpiricalGrammar::Application.routes.draw do
     get :retry, on: :member
   end
 
-  
+
 
   namespace :teachers do
     resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
-    
+
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
-      resources :sections, only: [:index]
+      resources :sections, only: [:index] do
+        resources :topics, only: [:index]
+      end
     end
 
     resources :classrooms do
-      collection do 
+      collection do
         get :regenerate_code
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         get :search_activities, controller: 'classroom_manager', action: 'search_activities'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
       end
-      
+
       resources :activities, controller: 'classroom_activities'
 
       resources :students do
@@ -78,7 +80,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # for some reason, session_path with method :delete does not evaluate correctly in profiles/student.html.erb
-  # so we have the patch below: 
+  # so we have the patch below:
   get '/session', to: 'sessions#destroy'
   resource :session, :account
   get '/auth/clever/callback', to: 'sessions#clever'

@@ -11,18 +11,18 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
 
   before do
     ActivitySession.destroy_all
-    3.times do |i| 
+    3.times do |i|
       topic = FactoryGirl.create(:topic, section: section)
       activity = FactoryGirl.create(:activity, topic: topic)
-      classroom_activity = FactoryGirl.create(:classroom_activity, 
+      classroom_activity = FactoryGirl.create(:classroom_activity,
                                               classroom: classroom,
                                               activity: activity,
                                               unit: unit)
       3.times do |j|
-        activity_session = FactoryGirl.create(:activity_session, 
-                                              classroom_activity: classroom_activity, 
+        activity_session = FactoryGirl.create(:activity_session,
+                                              classroom_activity: classroom_activity,
                                               user: student,
-                                              activity: activity, 
+                                              activity: activity,
                                               state: 'finished',
                                               percentage: i / 3.0)
       end
@@ -58,6 +58,7 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
         expect(response.status).to eq(200)
         expect(json['sections'].size).to eq(1)
         expect(json['sections'][0]['topics_count']).to eq('3')
+        expect(json['sections'][0]['section_link']).to eq(teachers_progress_reports_section_topics_path(section.id))
       end
 
       it 'fetches classroom, unit, and student data for the filter options' do
