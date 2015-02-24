@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ProgressReports::ActivitySessionSerializer, type: :serializer do
-  let(:activity_session)   { FactoryGirl.create(:activity_session, 
+  let(:activity_session)   { FactoryGirl.create(:activity_session,
     started_at: started_at,
     completed_at: completed_at,
     percentage: 0.25,
@@ -19,7 +19,7 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
 
     it 'includes the right keys' do
       expect(parsed_session.keys)
-        .to match_array %w(id 
+        .to match_array %w(id
                             activity_classification_name
                             activity_classification_id
                             activity_name
