@@ -8,7 +8,9 @@ class Unit < ActiveRecord::Base
     query = joins(:classroom_activities => [:activity_sessions, :classroom, {:activity => :topic}])
       .where('topics.section_id IN (?)', filters[:section_id])
       .where("activity_sessions.state = ?", "finished")
-      .where('classrooms.teacher_id = ?', teacher.id).uniq
+      .where('classrooms.teacher_id = ?', teacher.id)
+      .uniq
+      .order('units.name asc')
 
     if filters[:classroom_id].present?
       query = query.where("classrooms.id = ?", filters[:classroom_id])

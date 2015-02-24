@@ -45,7 +45,9 @@ class User < ActiveRecord::Base
     q = joins(:classroom => :classroom_activities, :activity_sessions => {:activity => :topic})
       .where('topics.section_id IN (?)', filters[:section_id])
       .where("activity_sessions.state = ?", "finished")
-      .where('classrooms.teacher_id = ?', teacher.id).uniq
+      .where('classrooms.teacher_id = ?', teacher.id)
+      .uniq
+      .order('users.name asc')
 
     if filters[:classroom_id].present?
       q = q.where('classrooms.id = ?', filters[:classroom_id])
