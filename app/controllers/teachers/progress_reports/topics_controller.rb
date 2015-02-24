@@ -4,6 +4,7 @@ class Teachers::ProgressReports::TopicsController < ApplicationController
 
   def index
     if request.xhr?
+      section = Section.for_topic_progress_report(current_user, params[:section_id])
       topics = Topic.for_progress_report(current_user, params)
       filters = params
       filters[:topic_id] = topics.map {|t| t['topic_id'] }
@@ -11,6 +12,7 @@ class Teachers::ProgressReports::TopicsController < ApplicationController
       units = Unit.for_progress_report(current_user, filters)
       students = User.for_progress_report(current_user, filters)
       render json: {
+        section: section,
         topics: topics,
         classrooms: classrooms,
         students: students,

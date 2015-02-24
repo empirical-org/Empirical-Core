@@ -37,6 +37,7 @@ describe Teachers::ProgressReports::TopicsController, :type => :controller do
       it 'fetches aggregated topics data' do
         xhr :get, :index, {section_id: @section.id}
         expect(response.status).to eq(200)
+        expect(json['section']['section_name']).to eq(@section.name)
         expect(json['topics'].size).to eq(@visible_topics.size)
         expect(json['classrooms'].size).to eq(1)
         expect(json['units'].size).to eq(1)
