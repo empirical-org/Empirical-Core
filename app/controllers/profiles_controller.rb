@@ -9,7 +9,6 @@ class ProfilesController < ApplicationController
   def update
     @user = current_user
     @user.update_attributes(user_params)
-    StudentProfileCache.invalidate(@user) if @user.role.student?
     redirect_to profile_path
   end
 
