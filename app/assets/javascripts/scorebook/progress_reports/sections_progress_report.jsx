@@ -1,3 +1,6 @@
+//= require ./table_filter_mixin.js
+//= require ./table_sorting_mixin.js
+
 EC.SectionsProgressReport = React.createClass({
   mixins: [EC.TableSortingMixin, EC.TableFilterMixin], // There's no pagination, so sorting can be done client-side.
 
@@ -71,7 +74,7 @@ EC.SectionsProgressReport = React.createClass({
           studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
           unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
         });
-    }.bind(this))
+    }.bind(this));
   },
 
   selectClassroom: function(classroomId) {
