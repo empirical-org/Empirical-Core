@@ -28,9 +28,6 @@ class ActivitySession < ActiveRecord::Base
     (complete_session || incomplete_session)
   }
 
-  after_save do
-    StudentProfileCache.invalidate(user)
-  end
 
   def self.by_teacher(teacher)
     self.joins(:user => :teacher).where(teachers_users: {id: teacher.id})
