@@ -38,8 +38,9 @@ class Classroom < ActiveRecord::Base
   end
 
   def self.for_progress_report(section_ids, teacher, filters)
-    q = joins(:classroom_activities => [:activity_sessions, {:activity => {:topic => :section}}])
-      .where('sections.id IN (?)', section_ids)
+    q = joins(:classroom_activities => [:activity_sessions, {:activity => :section}])
+      .where('topics.section_id IN (?)', section_ids)
+      .where("activity_sessions.state = ?", "finished")
       .where('classrooms.teacher_id = ?', teacher.id).uniq
 
     if filters[:student_id].present?
