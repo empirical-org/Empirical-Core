@@ -28,14 +28,22 @@ module Student
 
       if unit.nil?
         sessions = self.activity_sessions.completed
+        sessions = filter_and_sort_completed_activity_sessions sessions
       else
-        sessions = ActivitySession.joins(:classroom_activity)
-                  .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
-                  .select("activity_sessions.*").completed
-      
+        unit_updated_at = unit.updated_at.nil? ? '' : unit.updated_at.to_s
+        Rails.cache.fetch('student-completed-activity-sessions-' + self.id.to_s + unit_updated_at) do 
+          sessions = ActivitySession.joins(:classroom_activity)
+                    .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
+                    .select("activity_sessions.*").completed
+          puts 'calling code within cache'
+          sessions = filter_and_sort_completed_activity_sessions sessions
+        end
       end
 
       # we only want to show one session per classroom activity, not the retries, so filter them out thusly: 
+    end
+
+    def filter_and_sort_completed_activity_sessions sessions
       arr = []
       x1 = sessions.to_a.group_by{|as| as.classroom_activity_id}
       x1.each do |key, ca_group|
@@ -44,7 +52,6 @@ module Student
       end
       sessions = arr
 
-      
       sessions.sort do |a,b|
         if a.percentile == b.percentile
           b.activity.classification.key <=> a.activity.classification.key
@@ -52,6 +59,7 @@ module Student
           b.percentile <=> a.percentile
         end
       end
+      sessions
     end
 
 
