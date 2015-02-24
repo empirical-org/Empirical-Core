@@ -7,7 +7,12 @@ EC.SectionsProgressReport = React.createClass({
         {
           name: 'Grade Level',
           field: 'section_name',
-          sortByField: 'section_name'
+          sortByField: 'section_name',
+          customCell: function(row) {
+            return (
+              <a href={row['section_link']}>{row['section_name']}</a>
+            );
+          }
         },
         {
           name: 'Standards Completed',
