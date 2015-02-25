@@ -608,8 +608,6 @@ describe User, :type => :model do
 
       context 'when a unit is not specified' do 
         it 'excludes interrupted retries' do 
-          puts 'student classroom : '
-          puts student.classroom
           retry1 = FactoryGirl.create :activity_session_incompleted, user: student, is_retry: true, classroom_activity: classroom_activity, activity: activity
           x = student.complete_and_incomplete_activity_sessions_by_classification
           expect(x.length).to eq(1)

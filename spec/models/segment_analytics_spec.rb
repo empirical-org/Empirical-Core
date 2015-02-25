@@ -49,10 +49,13 @@ describe SegmentAnalytics, :type => :model do
   end
 
   context 'tracking activity completion' do
-    let(:classroom) { FactoryGirl.create(:classroom) }
+    let!(:classroom) { FactoryGirl.create(:classroom) }
     # This object graph is kind of crazy and doesn't make all that much sense.
-    let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, unit: classroom.units.first) }
-    let(:activity_session) { FactoryGirl.create(:activity_session, 
+    
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom) }
+    let!(:unit) {FactoryGirl.create(:unit, classroom_activities: [classroom_activity])}
+
+    let!(:activity_session) { FactoryGirl.create(:activity_session, 
                                                 state: 'finished',
                                                 classroom_activity: classroom_activity) }
 
@@ -61,7 +64,7 @@ describe SegmentAnalytics, :type => :model do
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::ACTIVITY_COMPLETION)
-      expect(track_calls[0][:user_id]).to eq(activity_session.classroom.teacher.id)
+      expect(track_calls[0][:user_id]).to eq(activity_session.classroom_activity.classroom.teacher.id)
     end
   end
 
