@@ -180,6 +180,16 @@ describe ActivitySession, :type => :model do
   			expect(activity_session.completed_at).to_not be_nil
   		end
 
+      it "only updates completed_at field if it is nil to begin with" do 
+        activity_session.state="finished"
+        activity_session.save!
+        before = activity_session.completed_at
+        activity_session.save!
+        after = activity_session.completed_at
+        expect(after).to eq(before)
+
+      end
+
   	end
 
   end
@@ -241,6 +251,8 @@ describe ActivitySession, :type => :model do
     end
 
   end
+
+
 
 
 
