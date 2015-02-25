@@ -126,3 +126,7 @@ end
 if defined?(Coveralls)
   Coveralls.wear!('rails')
 end
+
+def vcr_ignores_localhost
+  VCR.configuration.ignore_localhost = true
+end

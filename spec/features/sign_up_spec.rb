@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Signing up', js: true do
-  before(:each) { VCR.configuration.ignore_localhost = true }
+  before(:each) { vcr_ignores_localhost }
 
   let(:sign_up_page) { SignUpPage.visit }
 
