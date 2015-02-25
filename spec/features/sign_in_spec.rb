@@ -53,15 +53,14 @@ feature 'Signing in' do
   let(:sign_in_page) { SignInPage.visit }
 
   context 'as a known Teacher' do
-    let(:mr_kotter)           { FactoryGirl.create :mr_kotter }
-    let(:teachers_classrooms) { '/teachers/classrooms' }
+    let(:mr_kotter) { FactoryGirl.create :mr_kotter }
 
     def sign_in_user
       sign_in_page.sign_in mr_kotter, using: credential
     end
 
     context '-- with no classrooms --' do
-      let(:sign_in_succeeded_path) { "#{teachers_classrooms}/new" }
+      let(:sign_in_succeeded_path) { Teachers::CreateClassPage.path }
 
       before(:each) { sign_in_user }
 
@@ -75,7 +74,7 @@ feature 'Signing in' do
         sign_in_user
       end
 
-      let(:sign_in_succeeded_path) { "#{teachers_classrooms}/lesson_planner" }
+      let(:sign_in_succeeded_path) { '/teachers/classrooms/lesson_planner' }
 
       include_examples :sign_in_methods_succeed
     end

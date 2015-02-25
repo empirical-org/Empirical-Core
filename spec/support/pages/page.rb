@@ -3,6 +3,15 @@ class Page
   extend Capybara::DSL
   include Capybara::DSL
 
+  def self.path
+    fail "#{self.name} does not implement 'path'"
+  end
+
+  def self.visit
+    page.visit path
+    new
+  end
+
   protected
 
   def self.has_checkbutton(value_method, element_method, locator)
