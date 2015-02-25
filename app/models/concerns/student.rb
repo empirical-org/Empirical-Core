@@ -83,7 +83,7 @@ module Student
       
       if unit.nil?
         # only occurs in scorebook; not necessary to cache this since well cache the parent method which this method is always called within when no unit is specified (complete_and_incomplete_activity_sessions_by_classification)
-        units = self.classroom.units
+        units = self.classroom.classroom_activities.map(&:unit)
         arr = []
         units.each do |unit|
           sessions = helper2 unit, false
@@ -97,7 +97,7 @@ module Student
       sessions
       
     end
-        
+
 
 
     def helper2 unit, should_sort        
@@ -107,6 +107,8 @@ module Student
                     .where("activity_sessions.completed_at is null")
                     .where("activity_sessions.is_retry = false")
                     .select("activity_sessions.*")
+                    
+        
         if should_sort then sessions = sort_incomplete_activity_sessions sessions end
         sessions
       end
@@ -117,7 +119,7 @@ module Student
   
 
     def sort_incomplete_activity_sessions sessions
-       sessions.sort do |a,b|
+      sessions.sort do |a,b|
         b.activity.classification.key <=> a.activity.classification.key
       end
       sessions
@@ -135,15 +137,10 @@ module Student
 
 
     def assign_classroom_activities
-      puts 'assign classroom_activities being called'
       if classroom.present?
-        puts 'classroom is present'
         classroom.classroom_activities.each do |ca|
-          puts 'in an individual classroom_activity'
           ca.session_for(self)
         end
-      else
-        puts 'no classroom present'
       end
     end
 
