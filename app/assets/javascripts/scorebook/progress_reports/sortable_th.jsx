@@ -18,9 +18,9 @@ EC.SortableTh = React.createClass({
   clickSort: function() {
     // Toggle the sort direction.
     var newDirection = (this.state.sortDirection === 'asc') ? 'desc' : 'asc';
-    this.setState({sortDirection: newDirection}, _.bind(function() {
-      this.props.sortHandler(newDirection);  
-    }, this));
+    this.setState({sortDirection: newDirection}, function() {
+      this.props.sortHandler(newDirection);
+    });
   },
 
   render: function() {
