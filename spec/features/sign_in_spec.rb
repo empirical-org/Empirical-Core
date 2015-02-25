@@ -70,10 +70,7 @@ feature 'Signing in' do
 
     context '-- with a classroom --' do
       before(:each) do
-        FactoryGirl.create(:classroom,
-                           name: 'Sweathogs',
-                        teacher: mr_kotter,
-                          grade: '11')
+        FactoryGirl.create :sweathogs, teacher: mr_kotter
 
         sign_in_user
       end
