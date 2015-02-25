@@ -58,41 +58,15 @@ EC.ActivitiesProgressReport = React.createClass({
     this.filterByField('unit_id', unitId, this.resetPagination);
   },
 
-  // Retrieve current state
-  populateClassroomFilters: function() {
-    var options = this.getFilterOptions(this.state.activitySessions,
-      'classroom_name', 'classroom_id', 'All Classrooms');
-    this.setState({
-      classroomFilters: options
-    });
-  },
-
-  populateStudentFilters: function() {
-    var options = this.getFilterOptions(this.state.activitySessions,
-      'student_name', 'student_id', 'All Students');
-    this.setState({
-      studentFilters: options
-    });
-  },
-
-  populateUnitFilters: function() {
-    var options = this.getFilterOptions(this.state.activitySessions,
-      'unit_name', 'unit_id', 'All Units');
-    this.setState({
-      unitFilters: options
-    });
-  },
-
   fetchActivitySessions: function() {
     $.get('/teachers/progress_reports/activity_sessions', {
       // todo: request data
     }, _.bind(function success(data) {
       this.setState({
-        activitySessions: data.activity_sessions
-      }, function() {
-        this.populateClassroomFilters();
-        this.populateUnitFilters();
-        this.populateStudentFilters();
+        activitySessions: data.activity_sessions,
+        classroomFilters: this.getFilterOptions(data.activity_sessions, 'classroom_name', 'classroom_id', 'All Classrooms'),
+        studentFilters: this.getFilterOptions(data.activity_sessions, 'student_name', 'student_id', 'All Students'),
+        unitFilters: this.getFilterOptions(data.activity_sessions, 'unit_name', 'unit_id', 'All Units')
       });
     }, this)).fail(function error(error) {
       console.log('An error occurred while fetching data', error);
