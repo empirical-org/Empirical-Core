@@ -9,7 +9,7 @@ class Unit < ActiveRecord::Base
       .where("activity_sessions.state = ?", "finished")
       .where('classrooms.teacher_id = ?', teacher.id)
       .uniq
-      .order('units.name asc')
+      .order('units.created_at asc, units.name asc') # Try order by creation date, fall back to name
 
     if filters[:section_id].present?
       query = query.where('topics.section_id IN (?)', filters[:section_id])
