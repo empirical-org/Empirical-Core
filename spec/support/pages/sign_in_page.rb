@@ -1,9 +1,8 @@
 require_relative 'page'
 
 class SignInPage < Page
-  def self.visit
-    page.visit "#{BASE_PATH}/new"
-    new
+  def self.path
+    "#{BASE_PATH}/new"
   end
 
   def sign_in(user, using: :username)

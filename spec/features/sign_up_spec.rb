@@ -8,7 +8,7 @@ feature 'Signing up', js: true do
   def self.disallows_submission; 'submission is disallowed and'; end
   shared_examples_for disallows_submission do
     it 'remains on the new-form page' do
-      expect(current_path).to eq sign_up_page.new_form_path
+      expect(current_path).to eq sign_up_page.path
     end
   end
 

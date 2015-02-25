@@ -2,7 +2,7 @@ require_relative 'page'
 
 class SignUpPage < Page
   def self.visit
-    page.visit new_form_path
+    page.visit path
     new
   end
 
@@ -38,8 +38,8 @@ class SignUpPage < Page
     teacher_radio.set true
   end
 
-  def new_form_path
-    self.class.new_form_path
+  def path
+    self.class.path
   end
 
   def sign_up(type: nil,
@@ -81,7 +81,7 @@ class SignUpPage < Page
 
   private
 
-  def self.new_form_path
+  def self.path
     "#{submit_target_path}/new"
   end
 
