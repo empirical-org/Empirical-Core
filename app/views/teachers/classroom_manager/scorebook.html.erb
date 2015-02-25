@@ -1,4 +1,5 @@
-<% cache('scorebook-' + @classroom.cache_key) do %>
+<% key  = @unit.nil? ? @classroom.cache_key : @classroom.cache_key + @unit.cache_key %> 
+<% cache('scorebook-' + key) do %>
   <div id="page-content-wrapper">
 
 
