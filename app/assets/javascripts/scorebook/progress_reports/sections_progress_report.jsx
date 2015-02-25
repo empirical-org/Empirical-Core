@@ -31,12 +31,12 @@ EC.SectionsProgressReport = React.createClass({
           name: 'Not Proficient',
           field: 'not_proficient_count',
           sortByField: 'not_proficient_count'
-        },
-        {
-          name: 'Time Spent',
-          field: 'total_time_spent',
-          sortByField: 'total_time_spent'
         }
+        // {
+        //   name: 'Time Spent',
+        //   field: 'total_time_spent',
+        //   sortByField: 'total_time_spent'
+        // }
       ]
     };
   },
