@@ -10,6 +10,7 @@ class ActivitySession < ActiveRecord::Base
   accepts_nested_attributes_for :concept_tag_results
 
   ownable :user
+  after_save { if user.present? then user.touch end}
 
   before_create :set_state
   before_save   :set_completed_at
@@ -66,8 +67,8 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def percentage_as_percent_prefixed_by_scored 
-    if percentage.nil? 
+  def percentage_as_percent_prefixed_by_scored
+    if percentage.nil?
       "Not completed yet"
     else
       x = (percentage*100).round.to_s + '%'
@@ -80,7 +81,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def percentage_as_percent
-    if percentage.nil? 
+    if percentage.nil?
       "no percentage"
     else
       (percentage*100).round.to_s + '%'
