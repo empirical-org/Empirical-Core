@@ -68,13 +68,15 @@ feature 'Signing in' do
     end
 
     context '-- with a classroom --' do
-      before(:each) do
+      let!(:sweathogs_classroom) do
         FactoryGirl.create :sweathogs, teacher: mr_kotter
-
-        sign_in_user
       end
 
-      let(:sign_in_succeeded_path) { '/teachers/classrooms/lesson_planner' }
+      before(:each) { sign_in_user }
+
+      let(:sign_in_succeeded_path) do
+        Teachers::ScorebookPage.path(sweathogs_classroom)
+      end
 
       include_examples :sign_in_methods_succeed
     end
