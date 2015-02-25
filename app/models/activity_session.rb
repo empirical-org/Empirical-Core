@@ -184,6 +184,6 @@ class ActivitySession < ActiveRecord::Base
 
   def set_completed_at
     return true if state != 'finished'
-    self.completed_at = Time.current
+    self.completed_at ||= Time.current
   end
 end
