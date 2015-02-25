@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::ActivitySessionsController, :type => :controller do
+  include ProgressReportHelper
   render_views
 
+  let(:teacher) { FactoryGirl.create(:teacher) }
+
   describe 'GET #index' do
-    let(:teacher) { FactoryGirl.create(:teacher) }
     let(:classroom) { FactoryGirl.create(:classroom_with_one_student, teacher: teacher) }
     let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, unit: classroom.units.first) }
     let(:activity_session) { FactoryGirl.create(:activity_session,
@@ -21,15 +23,9 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
     end
   end
 
-  let!(:current_teacher) { FactoryGirl.create(:teacher) }
-  let!(:current_teacher_student) { FactoryGirl.create(:student) }
-  let!(:current_teacher_classroom) { FactoryGirl.create(:classroom, teacher: current_teacher, students: [current_teacher_student]) }
-  let!(:current_teacher_classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: current_teacher_classroom)}
-
   context 'XHR GET #index' do
     before do
-      ActivitySession.destroy_all
-      10.times { FactoryGirl.create(:activity_session, classroom_activity: current_teacher_classroom_activity, user: current_teacher_student) }
+      setup_topics_progress_report
     end
 
     it 'requires a logged-in teacher' do
@@ -38,15 +34,24 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
     end
 
     context 'when logged in' do
+      let(:json) { JSON.parse(response.body) }
+
       before do
-        session[:user_id] = current_teacher.id
+        session[:user_id] = teacher.id
       end
 
       it 'fetches a list of activity sessions' do
         xhr :get, :index
         expect(response.status).to eq(200)
-        json = JSON.parse(response.body)
-        expect(json['activity_sessions'].size).to eq(10)
+        expect(json['activity_sessions'].size).to eq(@visible_activity_sessions.size)
+        expect(json['activity_sessions'][0]['activity_classification_name']).to_not be_nil
+      end
+
+      it 'fetches classroom, unit, and student data for the filter options' do
+        xhr :get, :index
+        expect(json['classrooms'].size).to eq(1)
+        expect(json['units'].size).to eq(1)
+        expect(json['students'].size).to eq(@visible_students.size)
       end
     end
   end

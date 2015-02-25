@@ -6,11 +6,14 @@ class Unit < ActiveRecord::Base
 
   def self.for_progress_report(teacher, filters)
     query = joins(:classroom_activities => [:activity_sessions, :classroom, {:activity => :topic}])
-      .where('topics.section_id IN (?)', filters[:section_id])
       .where("activity_sessions.state = ?", "finished")
       .where('classrooms.teacher_id = ?', teacher.id)
       .uniq
       .order('units.name asc')
+
+    if filters[:section_id].present?
+      query = query.where('topics.section_id IN (?)', filters[:section_id])
+    end
 
     if filters[:classroom_id].present?
       query = query.where("classrooms.id = ?", filters[:classroom_id])

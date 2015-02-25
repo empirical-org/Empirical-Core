@@ -43,18 +43,22 @@ describe Unit, type: :model do
 
     it 'can retrieve units based on sections' do
       units = Unit.for_progress_report(teacher, {section_id: section_ids})
-      expect(units.size).to eq(2) # 1 classroom created for each section
+      expect(units.size).to eq(2) # 1 unit created for each section
     end
 
     it 'can retrieve units based on student_id' do
-      units = Unit.for_progress_report(teacher, {section_id: section_ids, student_id: @students.first.id})
+      units = Unit.for_progress_report(teacher, {student_id: @students.first.id})
       expect(units.size).to eq(1)
     end
 
     it 'can retrieve units based on classroom_id' do
-      units = Unit.for_progress_report(teacher, {section_id: section_ids, classroom_id: @classrooms.first.id})
+      units = Unit.for_progress_report(teacher, {classroom_id: @classrooms.first.id})
       expect(units.size).to eq(1)
     end
 
+    it 'can retrieve units based on no additional parameters' do
+      units = Classroom.for_progress_report(teacher, {})
+      expect(units.size).to eq(@units.size)
+    end
   end
 end

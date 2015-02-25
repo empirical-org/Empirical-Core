@@ -97,18 +97,23 @@ describe Classroom, :type => :model do
     end
 
     it 'can retrieve classrooms based on student_id' do
-      classrooms = Classroom.for_progress_report(teacher, {section_id: section_ids, student_id: @students.first.id})
+      classrooms = Classroom.for_progress_report(teacher, {student_id: @students.first.id})
       expect(classrooms.size).to eq(1)
     end
 
     it 'can retrieve classrooms based on unit_id' do
-      classrooms = Classroom.for_progress_report(teacher, {section_id: section_ids, unit_id: @units.first.id})
+      classrooms = Classroom.for_progress_report(teacher, {unit_id: @units.first.id})
       expect(classrooms.size).to eq(1)
     end
 
     it 'can retrieve classrooms based on a set of topic ids' do
-      classrooms = Classroom.for_progress_report(teacher, {section_id: section_ids, topic_id: @topics.first.id})
+      classrooms = Classroom.for_progress_report(teacher, {topic_id: @topics.first.id})
       expect(classrooms.size).to eq(1)
+    end
+
+    it 'can retrieve classrooms based on no additional parameters' do
+      classrooms = Classroom.for_progress_report(teacher, {})
+      expect(classrooms.size).to eq(@classrooms.size)
     end
   end
 end

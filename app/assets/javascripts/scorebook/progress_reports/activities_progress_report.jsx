@@ -64,9 +64,9 @@ EC.ActivitiesProgressReport = React.createClass({
     }, _.bind(function success(data) {
       this.setState({
         activitySessions: data.activity_sessions,
-        classroomFilters: this.getFilterOptions(data.activity_sessions, 'classroom_name', 'classroom_id', 'All Classrooms'),
-        studentFilters: this.getFilterOptions(data.activity_sessions, 'student_name', 'student_id', 'All Students'),
-        unitFilters: this.getFilterOptions(data.activity_sessions, 'unit_name', 'unit_id', 'All Units')
+        classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
+        studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
+        unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
       });
     }, this)).fail(function error(error) {
       console.log('An error occurred while fetching data', error);

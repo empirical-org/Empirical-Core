@@ -104,5 +104,12 @@ module ProgressReportHelper
 
     @visible_topics = [@topic1, @topic2]
     @visible_students = [@student1, @student2, @student3]
+    @visible_activity_sessions = [
+      @student1_topic1_session,
+      @student1_topic2_session,
+      @student2_topic1_session,
+      @student2_topic2_session,
+      @student3_topic1_session
+    ]
   end
 end
