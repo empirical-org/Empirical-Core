@@ -27,7 +27,7 @@ module Student
     def percentages_by_classification(unit = nil)
       if unit.nil?
         # only occurs in scorebook; not necessary to cache this since well cache the parent method which this method is always called within when no unit is specified (complete_and_incomplete_activity_sessions_by_classification)
-        units = self.classroom.units
+        units = self.classroom.classroom_activities.map(&:unit)
         
         arr = []
         units.each do |unit|
@@ -46,14 +46,14 @@ module Student
 
 
     def helper1 unit, should_filter
-      sessions = Rails.cache.fetch('student-completed-activity-sessions-' + self.id.to_s + unit.cache_key) do 
+      key = 'student-completed-activity-sessions-' + self.id.to_s + unit.cache_key
+      sessions = Rails.cache.fetch(key) do 
         sessions = ActivitySession.joins(:classroom_activity)
                   .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                   .select("activity_sessions.*").completed
-        
-        if should_filter then sessions = filter_and_sort_completed_activity_sessions(sessions) end 
         sessions
       end
+      if should_filter then sessions = filter_and_sort_completed_activity_sessions(sessions) end 
       sessions
     end
 
@@ -109,9 +109,10 @@ module Student
                     .select("activity_sessions.*")
                     
         
-        if should_sort then sessions = sort_incomplete_activity_sessions sessions end
         sessions
       end
+
+      if should_sort then sessions = sort_incomplete_activity_sessions sessions end
       sessions
     end
 
