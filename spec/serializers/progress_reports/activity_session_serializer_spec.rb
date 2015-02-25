@@ -7,7 +7,9 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     percentage: 0.25,
     classroom_activity: classroom_activity) }
   let(:classroom) { FactoryGirl.create(:classroom) }
-  let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom) }
+  let(:activity) { FactoryGirl.create(:activity, topic: topic) }
+  let(:topic) { FactoryGirl.create(:topic, name: '5.1g. Foobar baz')}
+  let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
   let(:started_at) { Time.zone.local(2015, 1, 1, 12, 15, 0) }
   let(:completed_at) { Time.zone.local(2015, 1, 1, 13, 0, 0) }
   let(:serializer) { ProgressReports::ActivitySessionSerializer.new(activity_session) }
@@ -23,6 +25,7 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
                             activity_classification_name
                             activity_classification_id
                             activity_name
+                            standard
                             completed_at
                             time_spent
                             percentage
@@ -42,11 +45,13 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
       expect(parsed_session['display_completed_at']).to eq('01/01/2015')
       expect(parsed_session['display_score']).to eq('25%')
       expect(parsed_session['display_time_spent']).to eq('45 minutes')
+      expect(parsed_session['standard']).to eq('5.1g.')
     end
 
     context 'when the activity session is missing relevant info' do
       let(:activity_session)   { FactoryGirl.create(:activity_session,
-          completed_at: nil, percentage: nil) } # Tarnation!
+          completed_at: nil, percentage: nil, classroom_activity: classroom_activity) } # Tarnation!
+      let(:topic) { nil }
 
       it 'still works' do
         expect(parsed_session['display_completed_at']).to eq(nil)

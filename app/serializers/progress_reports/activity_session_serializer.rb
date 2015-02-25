@@ -14,7 +14,8 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
              :unit_name,
              :unit_id,
              :student_name,
-             :student_id
+             :student_id,
+             :standard
 
   def activity_classification_name
     object.activity.classification.name
@@ -76,5 +77,11 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
 
   def student_id
     object.user_id
+  end
+
+  def standard
+    if object.activity.topic.present?
+      object.activity.topic.name.split(' ').first
+    end
   end
 end
