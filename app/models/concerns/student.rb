@@ -25,26 +25,39 @@ module Student
     protected :classroom_activity_score_join
 
     def percentages_by_classification(unit = nil)
-
       if unit.nil?
         # only occurs in scorebook; not necessary to cache this since well cache the parent method which this method is always called within when no unit is specified (complete_and_incomplete_activity_sessions_by_classification)
-        sessions = self.activity_sessions.completed
-        sessions = filter_and_sort_completed_activity_sessions sessions
-      else
-        # occurs in scorebook and in student profile
-        unit_updated_at = unit.updated_at.nil? ? '' : unit.updated_at.to_s
-        Rails.cache.fetch('student-completed-activity-sessions-' + self.id.to_s + unit_updated_at) do
-          sessions = ActivitySession.joins(:classroom_activity)
-                    .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
-                    .select("activity_sessions.*").completed
-          sessions = filter_and_sort_completed_activity_sessions sessions
-        end
-      end
+        units = self.classroom.units
 
-      # we only want to show one session per classroom activity, not the retries, so filter them out thusly:
+        arr = []
+        units.each do |unit|
+          sessions = helper1 unit, false
+          arr.push sessions
+        end
+        sessions = arr.flatten
+        sessions = filter_and_sort_completed_activity_sessions sessions
+
+      else
+        sessions = helper1 unit, true
+      end
+      sessions
     end
 
+    def helper1 unit, should_filter
+      sessions = Rails.cache.fetch('student-completed-activity-sessions-' + self.id.to_s + unit.cache_key) do
+        sessions = ActivitySession.joins(:classroom_activity)
+                  .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
+                  .select("activity_sessions.*").completed
+
+        if should_filter then sessions = filter_and_sort_completed_activity_sessions(sessions) end
+        sessions
+      end
+      sessions
+    end
+
+
     def filter_and_sort_completed_activity_sessions sessions
+      # we only want to show one session per classroom activity, not the retries, so filter them out thusly:
       arr = []
       x1 = sessions.to_a.group_by{|as| as.classroom_activity_id}
       x1.each do |key, ca_group|
@@ -68,26 +81,46 @@ module Student
 
       if unit.nil?
         # only occurs in scorebook; not necessary to cache this since well cache the parent method which this method is always called within when no unit is specified (complete_and_incomplete_activity_sessions_by_classification)
-        sessions = self.activity_sessions.incomplete
+        units = self.classroom.classroom_activities.map(&:unit)
+        arr = []
+        units.each do |unit|
+          sessions = helper2 unit, false
+          arr.push sessions
+        end
+        sessions = arr.flatten
         sessions = sort_incomplete_activity_sessions sessions
       else
-        # occurs in scorebook and in student profile
-        unit_updated_at = unit.updated_at.nil? ? '' : unit.updated_at.to_s
-        Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit_updated_at) do
-          sessions = ActivitySession.joins(:classroom_activity)
-                      .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
-                      .where("activity_sessions.completed_at is null")
-                      .where("activity_sessions.is_retry = false")
-                      .select("activity_sessions.*")
-          sessions = sort_incomplete_activity_sessions sessions
-        end
+        sessions = helper2 unit, true
       end
+      sessions
+
     end
 
+
+
+    def helper2 unit, should_sort
+      sessions = Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit.cache_key) do
+        sessions = ActivitySession.joins(:classroom_activity)
+                    .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
+                    .where("activity_sessions.completed_at is null")
+                    .where("activity_sessions.is_retry = false")
+                    .select("activity_sessions.*")
+
+
+        if should_sort then sessions = sort_incomplete_activity_sessions sessions end
+        sessions
+      end
+      sessions
+    end
+
+
+
+
     def sort_incomplete_activity_sessions sessions
-       sessions.sort do |a,b|
+      sessions.sort do |a,b|
         b.activity.classification.key <=> a.activity.classification.key
       end
+      sessions
     end
 
     def complete_and_incomplete_activity_sessions_by_classification(unit = nil)
@@ -96,6 +129,8 @@ module Student
       arr3 = arr1.concat(arr2)
       arr3
     end
+
+
 
     def assign_classroom_activities
       if classroom.present?
