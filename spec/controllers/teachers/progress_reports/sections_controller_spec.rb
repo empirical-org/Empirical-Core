@@ -70,9 +70,10 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
 
       it 'can filter results based on classroom' do
         xhr :get, :index, {classroom_id: 123}
-        # Assume that the garbage classroom_id has filtered out everything
+        # Assume that the garbage classroom_id has filtered out the sections.
         expect(json['sections'].size).to eq(0)
-        expect(json['classrooms'].size).to eq(0)
+        # But the one available classroom is still displayed
+        expect(json['classrooms'].size).to eq(1)
       end
     end
   end

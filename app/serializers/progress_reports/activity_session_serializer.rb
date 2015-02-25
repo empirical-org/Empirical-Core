@@ -10,8 +10,6 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
              :display_completed_at,
              :display_time_spent,
              :classroom_id,
-             :classroom_name,
-             :unit_name,
              :unit_id,
              :student_name,
              :student_id,

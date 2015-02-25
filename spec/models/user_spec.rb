@@ -631,12 +631,12 @@ describe User, :type => :model do
     end
 
     it 'can retrieve users based on classroom_id' do
-      users = User.for_progress_report(teacher, {section_id: section_ids, classroom_id: @classrooms.first.id})
+      users = User.for_progress_report(teacher, {classroom_id: @classrooms.first.id})
       expect(users.size).to eq(1)
     end
 
     it 'can retrieve users based on unit_id' do
-      users = User.for_progress_report(teacher, {section_id: section_ids, unit_id: @units.first.id})
+      users = User.for_progress_report(teacher, {unit_id: @units.first.id})
       expect(users.size).to eq(1)
     end
 
@@ -645,6 +645,11 @@ describe User, :type => :model do
       expect(users.size).to eq(2)
       users = User.for_progress_report(teacher, {section_id: section_ids, topic_id: @topics.first.id })
       expect(users.size).to eq(1)
+    end
+
+    it 'can retrieve users based on no additional parameters' do
+      users = User.for_progress_report(teacher, {})
+      expect(users.size).to eq(@students.size)
     end
   end
 
