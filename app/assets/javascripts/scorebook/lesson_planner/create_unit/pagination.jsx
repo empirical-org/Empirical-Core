@@ -1,5 +1,11 @@
 EC.Pagination = React.createClass({
 
+	propTypes: {
+		currentPage: React.PropTypes.number.isRequired,
+		numberOfPages: React.PropTypes.number.isRequired,
+		selectPageNumber: React.PropTypes.func.isRequired,
+		maxPageNumber: React.PropTypes.number.isRequired
+	},
 
 	leftArrow: function () {
 		if (this.props.currentPage >1) {
@@ -36,7 +42,7 @@ EC.Pagination = React.createClass({
 			_.times(this.props.numberOfPages, function (pageNumber) {
 				if (pageNumber < this.props.maxPageNumber) {
 					var actualPageNumber = firstPage + pageNumber;
-					var ele = <EC.PageNumber selectPageNumber={this.props.selectPageNumber} number={actualPageNumber} currentPage={this.props.currentPage}/>
+					var ele = <EC.PageNumber key={pageNumber} selectPageNumber={this.props.selectPageNumber} number={actualPageNumber} currentPage={this.props.currentPage}/>
 					pages.push(ele);
 				}
 			}, this);

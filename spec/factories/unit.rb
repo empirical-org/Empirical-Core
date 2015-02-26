@@ -1,8 +1,6 @@
 FactoryGirl.define do
 
-	factory :unit do |f|
-		sequence(:name) {|i| "Unit #{i}"}
-
-	end
-	
+  factory :unit do
+    sequence(:name) { |i| "unit #{i}" }
+  end
 end

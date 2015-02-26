@@ -20,12 +20,12 @@
 
 
 //= require scorebook/empirical_core.js
+//= require ./progress_reports/index.js
+
 //= require_tree ./
 //= require_tree ./lesson_planner/
 //= require_tree ./lesson_planner/create_unit/
 //= require_tree ./lesson_planner/manage_units/
-
-
 
 //= require jquery.turbolinks
 //= require jquery_ujs

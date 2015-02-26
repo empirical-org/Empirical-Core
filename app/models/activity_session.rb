@@ -30,6 +30,9 @@ class ActivitySession < ActiveRecord::Base
   }
 
 
+  def self.by_teacher(teacher)
+    self.joins(:user => :teacher).where(teachers_users: {id: teacher.id})
+  end
 
   def activity
     super || classroom_activity.activity
@@ -64,8 +67,8 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def percentage_as_percent_prefixed_by_scored 
-    if percentage.nil? 
+  def percentage_as_percent_prefixed_by_scored
+    if percentage.nil?
       "Not completed yet"
     else
       x = (percentage*100).round.to_s + '%'
@@ -78,7 +81,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def percentage_as_percent
-    if percentage.nil? 
+    if percentage.nil?
       "no percentage"
     else
       (percentage*100).round.to_s + '%'

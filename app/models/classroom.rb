@@ -3,7 +3,7 @@ class Classroom < ActiveRecord::Base
 
   validates_uniqueness_of :code
   validates_uniqueness_of :name, scope: :teacher_id, message: "A classroom called %{value} already exists. Please rename this classroom to a different name."
-  
+
   validates :grade, presence: true, inclusion: { in: Classroom::GRADES, message: "%{value} is not a valid grade" }
   validates_presence_of :name
 
@@ -32,6 +32,31 @@ class Classroom < ActiveRecord::Base
     else
       "#{c.id},#{c.name},#{c.code},,,"
     end
+  end
+
+  def self.for_progress_report(teacher, filters)
+    q = joins(:classroom_activities => [:activity_sessions, {:activity => :topic}])
+      .where("activity_sessions.state = ?", "finished")
+      .where('classrooms.teacher_id = ?', teacher.id).uniq
+      .order('classrooms.name asc')
+
+    if filters[:section_id].present?
+      q = q.where('topics.section_id IN (?)', filters[:section_id])
+    end
+
+    if filters[:student_id].present?
+      q = q.where('activity_sessions.user_id = ?', filters[:student_id])
+    end
+
+    if filters[:topic_id].present?
+      q = q.where('topics.id IN (?)', filters[:topic_id])
+    end
+
+    if filters[:unit_id].present?
+      q = q.where('classroom_activities.unit_id = ?', filters[:unit_id])
+    end
+
+    q
   end
 
   def self.setup_from_clever(section)

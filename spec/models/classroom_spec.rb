@@ -81,4 +81,39 @@ describe Classroom, :type => :model do
     end
   end
 
+  describe "getting classrooms for the progress report" do
+    include ProgressReportHelper
+
+    let!(:teacher) { FactoryGirl.create(:teacher) }
+    let(:section_ids) { [@sections[0].id, @sections[1].id] }
+
+    before do
+      setup_sections_progress_report
+    end
+
+    it 'can retrieve classrooms based on sections' do
+      classrooms = Classroom.for_progress_report(teacher, {section_id: section_ids})
+      expect(classrooms.size).to eq(2) # 1 classroom created for each section
+    end
+
+    it 'can retrieve classrooms based on student_id' do
+      classrooms = Classroom.for_progress_report(teacher, {student_id: @students.first.id})
+      expect(classrooms.size).to eq(1)
+    end
+
+    it 'can retrieve classrooms based on unit_id' do
+      classrooms = Classroom.for_progress_report(teacher, {unit_id: @units.first.id})
+      expect(classrooms.size).to eq(1)
+    end
+
+    it 'can retrieve classrooms based on a set of topic ids' do
+      classrooms = Classroom.for_progress_report(teacher, {topic_id: @topics.first.id})
+      expect(classrooms.size).to eq(1)
+    end
+
+    it 'can retrieve classrooms based on no additional parameters' do
+      classrooms = Classroom.for_progress_report(teacher, {})
+      expect(classrooms.size).to eq(@classrooms.size)
+    end
+  end
 end
