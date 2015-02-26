@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   ROLES      = %w(student teacher temporary user admin)
   SAFE_ROLES = %w(student teacher temporary)
 
-  default_scope -> { where('role != ?', 'temporary') }
+  default_scope -> { where('users.role != ?', 'temporary') }
 
   scope :teacher, lambda { where(role: 'teacher') }
   scope :student, lambda { where(role: 'student') }
@@ -37,6 +37,36 @@ class User < ActiveRecord::Base
     else
       'user'
     end
+  end
+
+
+  def self.for_progress_report(teacher, filters = {})
+    # This is duplicated in User, Unit, Section, Topic, and Classroom in subtly similar ways
+    q = joins(:classroom, :activity_sessions)
+      .where("activity_sessions.state = ?", "finished")
+      .where('classrooms.teacher_id = ?', teacher.id)
+      .uniq
+      .order('users.name asc')
+
+    if filters[:classroom_id].present?
+      q = q.where('classrooms.id = ?', filters[:classroom_id])
+    end
+
+    if filters[:section_id].present?
+      q = q.joins(:activity_sessions => {:activity => :topic})
+        .where('topics.section_id IN (?)', filters[:section_id])
+    end
+
+    if filters[:topic_id].present?
+      q = q.joins(:activity_sessions => {:activity => :topic})
+        .where('topics.id IN (?)', filters[:topic_id])
+    end
+
+    if filters[:unit_id].present?
+      q = q.joins(:classroom => :classroom_activities).where('classroom_activities.unit_id = ?', filters[:unit_id])
+    end
+
+    q
   end
 
   # def authenticate

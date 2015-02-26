@@ -10,7 +10,7 @@ module Student
 
     after_create :assign_classroom_activities
     after_update :assign_classroom_activities
-    
+
     def unfinished_activities classroom
       classroom.activities - finished_activities(classroom)
     end
@@ -28,7 +28,6 @@ module Student
       if unit.nil?
         # only occurs in scorebook; not necessary to cache this since well cache the parent method which this method is always called within when no unit is specified (complete_and_incomplete_activity_sessions_by_classification)
         units = self.classroom.classroom_activities.map(&:unit)
-        
         arr = []
         units.each do |unit|
           sessions = helper1 unit, false
@@ -43,23 +42,21 @@ module Student
       sessions
     end
 
-
-
     def helper1 unit, should_filter
       key = 'student-completed-activity-sessions-' + self.id.to_s + unit.cache_key
-      sessions = Rails.cache.fetch(key) do 
+      sessions = Rails.cache.fetch(key) do
         sessions = ActivitySession.joins(:classroom_activity)
                   .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                   .select("activity_sessions.*").completed
         sessions
       end
-      if should_filter then sessions = filter_and_sort_completed_activity_sessions(sessions) end 
+      if should_filter then sessions = filter_and_sort_completed_activity_sessions(sessions) end
       sessions
     end
 
 
     def filter_and_sort_completed_activity_sessions sessions
-      # we only want to show one session per classroom activity, not the retries, so filter them out thusly: 
+      # we only want to show one session per classroom activity, not the retries, so filter them out thusly:
       arr = []
       x1 = sessions.to_a.group_by{|as| as.classroom_activity_id}
       x1.each do |key, ca_group|
@@ -80,7 +77,7 @@ module Student
 
 
     def incomplete_activity_sessions_by_classification(unit = nil)
-      
+
       if unit.nil?
         # only occurs in scorebook; not necessary to cache this since well cache the parent method which this method is always called within when no unit is specified (complete_and_incomplete_activity_sessions_by_classification)
         units = self.classroom.classroom_activities.map(&:unit)
@@ -95,20 +92,18 @@ module Student
         sessions = helper2 unit, true
       end
       sessions
-      
+
     end
 
 
 
-    def helper2 unit, should_sort        
-      sessions = Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit.cache_key) do 
+    def helper2 unit, should_sort
+      sessions = Rails.cache.fetch('student-incomplete_activity-sessions-' + self.id.to_s + unit.cache_key) do
         sessions = ActivitySession.joins(:classroom_activity)
                     .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                     .where("activity_sessions.completed_at is null")
                     .where("activity_sessions.is_retry = false")
                     .select("activity_sessions.*")
-                    
-        
         sessions
       end
 
@@ -117,7 +112,7 @@ module Student
     end
 
 
-  
+
 
     def sort_incomplete_activity_sessions sessions
       sessions.sort do |a,b|
@@ -125,8 +120,6 @@ module Student
       end
       sessions
     end
-
-
 
     def complete_and_incomplete_activity_sessions_by_classification(unit = nil)
       arr1 = self.percentages_by_classification(unit)

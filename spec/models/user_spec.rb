@@ -585,7 +585,7 @@ describe User, :type => :model do
     let!(:classroom) { FactoryGirl.create(:classroom) }
     let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom) }
     let!(:activity) { classroom_activity.activity }
-    
+
     let!(:unit) {FactoryGirl.create(:unit, classroom_activities: [classroom_activity])}
     let!(:student) { FactoryGirl.create(:student, classroom: classroom) }
 
@@ -595,11 +595,11 @@ describe User, :type => :model do
       expect(student.activity_sessions.first.activity).to eq(activity)
     end
 
-    describe '#complete_and_incomplete_activity_sessions_by_classification' do 
+    describe '#complete_and_incomplete_activity_sessions_by_classification' do
 
-      context 'when a unit is specified' do 
-        
-        it 'excludes interrupted retries' do 
+      context 'when a unit is specified' do
+
+        it 'excludes interrupted retries' do
           retry1 = FactoryGirl.create :activity_session_incompleted, user: student, is_retry: true, classroom_activity: classroom_activity, activity: activity
           x = student.complete_and_incomplete_activity_sessions_by_classification(unit)
           expect(x.length).to eq(1)
@@ -609,30 +609,67 @@ describe User, :type => :model do
 
       end
 
-      context 'when a unit is not specified' do 
-        it 'excludes interrupted retries' do 
+      context 'when a unit is not specified' do
+        it 'excludes interrupted retries' do
           retry1 = FactoryGirl.create :activity_session_incompleted, user: student, is_retry: true, classroom_activity: classroom_activity, activity: activity
           x = student.complete_and_incomplete_activity_sessions_by_classification
           expect(x.length).to eq(1)
         end
       end
-
-
     end
 
-    describe 'cache', :caching => true do 
-      context '#helper1'
-        it 'uses cache' do 
+    describe 'cache', :caching => true do
+      context '#helper1' do
+        it 'uses cache' do
           as = student.activity_sessions[0]
           as.update_attributes completed_at: Time.now
           key1 = 'student-completed-activity-sessions-' + student.id.to_s + as.classroom_activity.unit.cache_key
           x = student.helper1 as.classroom_activity.unit, false
           expect(Rails.cache.fetch(key1)).to eq(x)
         end
+      end
     end
 
+  end
+
+  describe 'getting users for the progress reports' do
+    include ProgressReportHelper
+    let!(:teacher) { FactoryGirl.create(:teacher) }
+    let(:section_ids) { [@sections[0].id, @sections[1].id] }
+
+    before do
+      setup_sections_progress_report
+    end
+
+    it 'can retrieve users based on sections' do
+      users = User.for_progress_report(teacher, {section_id: section_ids})
+      expect(users.size).to eq(2) # 1 user created for each section
+    end
+
+    it 'can retrieve users based on classroom_id' do
+      users = User.for_progress_report(teacher, {classroom_id: @classrooms.first.id})
+      expect(users.size).to eq(1)
+    end
+
+    it 'can retrieve users based on unit_id' do
+      users = User.for_progress_report(teacher, {unit_id: @units.first.id})
+      expect(users.size).to eq(1)
+    end
+
+    it 'can retrieve users based on a set of topics' do
+      users = User.for_progress_report(teacher, {section_id: section_ids, topic_id: @topics.map {|t| t.id} })
+      expect(users.size).to eq(2)
+      users = User.for_progress_report(teacher, {section_id: section_ids, topic_id: @topics.first.id })
+      expect(users.size).to eq(1)
+    end
+
+    it 'can retrieve users based on no additional parameters' do
+      users = User.for_progress_report(teacher, {})
+      expect(users.size).to eq(@students.size)
+    end
 
   end
+
   it 'does not care about all the validation stuff when the user is temporary'
   it 'disallows regular assignment of roles that are restricted'
 
