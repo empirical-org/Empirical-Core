@@ -38,6 +38,16 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  # for allowing tests involving caching
+  # http://rosskaff.com/blog/2011/12/toggle-rails-caching-in-rspec-suite.html#.VO4tHVOS1oG
+  config.around(:each, :caching) do |example|
+    caching = ActionController::Base.perform_caching
+    ActionController::Base.perform_caching = example.metadata[:caching]
+    example.run
+    ActionController::Base.perform_caching = caching
+  end
+
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin
