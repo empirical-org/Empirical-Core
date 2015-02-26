@@ -27,7 +27,7 @@ module Student
     def percentages_by_classification(unit = nil)
       if unit.nil?
         # only occurs in scorebook; not necessary to cache this since well cache the parent method which this method is always called within when no unit is specified (complete_and_incomplete_activity_sessions_by_classification)
-        units = self.classroom.classroom_activities.map(&:unit)
+        units = self.classroom.classroom_activities.map(&:unit).uniq
         arr = []
         units.each do |unit|
           sessions = helper1 unit, false
@@ -80,7 +80,7 @@ module Student
 
       if unit.nil?
         # only occurs in scorebook; not necessary to cache this since well cache the parent method which this method is always called within when no unit is specified (complete_and_incomplete_activity_sessions_by_classification)
-        units = self.classroom.classroom_activities.map(&:unit)
+        units = self.classroom.classroom_activities.map(&:unit).uniq
         arr = []
         units.each do |unit|
           sessions = helper2 unit, false
