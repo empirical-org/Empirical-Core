@@ -8,10 +8,10 @@
 5.  Introduce changes with pull requests.
 
 
-* Use SLIM rather than HAML. 
+* Use SLIM rather than HAML.
 * Write JavaScript, not CoffeeScript.
 * Always write tests (the test suite is really bare right now) and nothing is to be merged without tests.
-* Make pull requests on the Master branch. 
+* Make pull requests on the develop branch.
 * Use a minimalist approach to using gems like devise, FactoryGirl, etc, unless they're absolutely needed.
 
 
