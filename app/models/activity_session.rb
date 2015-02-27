@@ -136,7 +136,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def calculate_time_spent!
-    if completed_at.present? and started_at.present?
+    if (time_spent.blank? || time_spent == 0) and completed_at.present? and started_at.present?
       self.time_spent = (completed_at.to_f - started_at.to_f).to_i
     end
   end
@@ -192,9 +192,7 @@ class ActivitySession < ActiveRecord::Base
 
   def set_completed_at
     return true if state != 'finished'
-    if completed_at.nil?
-      self.completed_at = Time.current
-      calculate_time_spent!
-    end
+    self.completed_at ||= Time.current
+    calculate_time_spent!
   end
 end
