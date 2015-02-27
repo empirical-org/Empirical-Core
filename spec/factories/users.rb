@@ -30,6 +30,11 @@ FactoryGirl.define do
         password              'sweathogs'
         password_confirmation { password }
       end
+
+      factory :mr_woodman do
+        first_name 'Michael'
+        last_name  'Woodman'
+      end
     end
 
     factory :student do
