@@ -15,10 +15,6 @@ class StartActivityWorker
       return
     end
 
-
-    # yay, we started!
-    activity_session.update_columns(started_at: start_time)
-
     # publish event data
     KeenWrapper.publish(:activity_sessions, activity_session.as_keen)
 

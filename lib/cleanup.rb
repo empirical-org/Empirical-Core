@@ -1,4 +1,8 @@
 module Cleanup
+  def self.wipe_time_spent
+    ActivitySession.update_all time_spent: nil
+  end
+
   def self.find_and_mark_incompleted_retries
     ClassroomActivity.find_each do |ca|
       debug_tag = "Classroom Activity ##{ca.id}: "
@@ -30,18 +34,18 @@ module Cleanup
       puts "#{debug_tag}: Found #{num_users} users"
       num_sessions_marked = 0
       x.each do |key, value|
-      
+
         user1_activity_sessions = value
 
         num_user_sessions = user1_activity_sessions.size
         creation_dates = user1_activity_sessions.map(&:created_at)
         if creation_dates.length == creation_dates.compact.length
           first = user1_activity_sessions.min{|a, b| a.created_at <=> b.created_at}
-          
+
           user1_activity_sessions.delete(first)
 
           first.update_attribute :is_retry, false
-          
+
           user1_activity_sessions.each do |retry_n|
             retry_n.update_attribute :is_retry, true
           end

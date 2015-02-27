@@ -5,7 +5,9 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     started_at: started_at,
     completed_at: completed_at,
     percentage: 0.25,
-    classroom_activity: classroom_activity) }
+    classroom_activity: classroom_activity,
+    time_spent: 2700) # 45 minutes
+  }
   let(:classroom) { FactoryGirl.create(:classroom) }
   let(:activity) { FactoryGirl.create(:activity, topic: topic) }
   let(:topic) { FactoryGirl.create(:topic, name: '5.1g. Foobar baz')}
@@ -48,7 +50,10 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
 
     context 'when the activity session is missing relevant info' do
       let(:activity_session)   { FactoryGirl.create(:activity_session,
-          completed_at: nil, percentage: nil, classroom_activity: classroom_activity) } # Tarnation!
+          completed_at: nil,
+          percentage: nil,
+          classroom_activity: classroom_activity,
+          time_spent: nil) }
       let(:topic) { nil }
 
       it 'still works' do
