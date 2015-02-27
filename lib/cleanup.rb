@@ -1,5 +1,5 @@
 module Cleanup
-  def wipe_time_spent
+  def self.wipe_time_spent
     ActivitySession.update_all time_spent: nil
   end
 
