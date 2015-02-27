@@ -38,9 +38,7 @@
 
 
               <div class="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
-                <button class="button-green">
-                  <%= link_to 'Start Your Next Lesson', activity_path(@next_activity, session: @next_activity_session), class: 'button-green' %>
-                </button>
+                  <%= button_to 'Start Your Next Lesson', activity_path(@next_activity, session: @next_activity_session), method: :put, class: 'button-green' %>
               </div>
             </div>
 
@@ -50,24 +48,24 @@
 
       <div class="container">
         <% @units.each do |unit| %>
-          
 
-          
+
+
 
 
 
           <%- unit_completed_activity_sessions = current_user.percentages_by_classification(unit) %>
-          
+
           <%- unit_uncompleted_activity_sessions = current_user.incomplete_activity_sessions_by_classification(unit) %>
 
-        
+
 
           <%- if ((! unit_completed_activity_sessions.empty?) or (! unit_uncompleted_activity_sessions.empty?)) %>
 
             <section>
               <h3 class="section-header"><%= unit.name %></h3>
 
-              
+
               <div class="fake-table">
                 <div class="header">Assigned Activities
                   <span class="header-list-counter"><%= unit_uncompleted_activity_sessions.size %> of <%= (unit_uncompleted_activity_sessions.uniq.size + unit_completed_activity_sessions.collect(&:activity).uniq.size) %></span>
@@ -81,7 +79,7 @@
                         <%= activity_icon_with_tooltip(activity, include_activity_title: true) %>
                       </div>
                       <div class="col-xs-3 col-sm-2 col-xl-2">
-                        <%= link_to 'Start Lesson', activity_path(activity, session: activity_session) %>
+                        <%= link_to 'Start Lesson', activity_path(activity, session: activity_session), method: :put %>
                       </div>
                     </div>
                   </div> <!-- //.line-1 -->
@@ -105,7 +103,7 @@
                         <%= activity_icon_with_tooltip(activity_session, include_activity_title: true) %>
                       </div>
                       <div class="col-xs-3 col-sm-2 col-xl-2">
-                        <%= link_to 'Retry Lesson', retry_activity_path(activity, classroom_activity_id: activity_session.classroom_activity_id) %>
+                        <%= link_to 'Retry Lesson', retry_activity_path(activity, classroom_activity_id: activity_session.classroom_activity_id), method: :post %>
                       </div>
                     </div>
                   </div> <!-- //.line-1 -->
