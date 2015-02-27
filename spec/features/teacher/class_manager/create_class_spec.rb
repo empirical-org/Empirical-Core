@@ -81,12 +81,6 @@ feature 'Create-a-Class page' do
     end
   end
 
-  shared_examples_for :requires_sign_in do
-    it 'navigates to sign-in' do
-      expect(current_path).to eq SignInPage.path
-    end
-  end
-
   context 'when not signed in' do
     before(:each) { visit_create_classroom_page }
 
@@ -94,18 +88,10 @@ feature 'Create-a-Class page' do
   end
 
   context 'when signed in as a Student' do
-    let(:vinnie) { FactoryGirl.create :vinnie_barbarino }
-
-    before(:each) do
-      sign_in_user vinnie
-      visit_create_classroom_page
-    end
+    include_context :when_signed_in_as_a_student
+    before(:each) { visit_create_classroom_page }
 
     include_examples :requires_sign_in
-  end
-
-  def sign_in_user(user)
-    SignInPage.visit.sign_in user
   end
 
   def visit_create_classroom_page
