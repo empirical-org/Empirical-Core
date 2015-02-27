@@ -618,18 +618,7 @@ describe User, :type => :model do
       end
     end
 
-    describe 'cache', :caching => true do
-      context '#helper1' do
-        it 'uses cache' do
-          as = student.activity_sessions[0]
-          as.update_attributes completed_at: Time.now
-          key1 = 'student-completed-activity-sessions-' + student.id.to_s + as.classroom_activity.unit.cache_key
-          x = student.helper1 as.classroom_activity.unit, false
-          expect(Rails.cache.fetch(key1)).to eq(x)
-        end
-      end
-    end
-
+    
   end
 
   describe 'getting users for the progress reports' do
