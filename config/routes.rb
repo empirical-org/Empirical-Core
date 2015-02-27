@@ -14,10 +14,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :schools, only: [:index], format: 'json'
   resources :activity_sessions, only: [:show]
 
-  resources :activities, only: [:show] do
-    get :start, on: :member
-    get :resume, on: :member
-    get :retry, on: :member
+  resources :activities, only: [:show, :update] do
+    post :retry, on: :member
   end
 
 

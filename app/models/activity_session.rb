@@ -92,6 +92,12 @@ class ActivitySession < ActiveRecord::Base
     (percentage*100).round
   end
 
+  def start
+    return if state != 'unstarted'
+    self.started_at ||= Time.current
+    self.state = 'started'
+  end
+
   def data=(input)
     data_will_change!
     self['data'] = self.data.to_h.update(input.except("activity_session"))
