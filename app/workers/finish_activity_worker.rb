@@ -5,9 +5,6 @@ class FinishActivityWorker
 
     activity_session = ActivitySession.find_by_uid(uid)
 
-    # set the time taken
-    activity_session.calculate_time_spent!
-
     event_data = {
       event: 'finished',
       uid: activity_session.uid,
