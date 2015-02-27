@@ -19,9 +19,9 @@
 
         .chapter-actions
           - if completed
-            = link_to 'Retry Lesson', retry_activity_path(activity)
+            = link_to 'Retry Lesson', retry_activity_path(activity), method: :post
           - else
-            = link_to 'Start Lesson', activity_path(activity, session: activity_session.id)
+            = link_to 'Start Lesson', activity_path(activity, session: activity_session.id), method: :put
 
       - else
         .chapter-assignment &nbsp;
