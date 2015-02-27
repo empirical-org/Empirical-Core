@@ -32,10 +32,7 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
   end
 
   def time_spent
-    if object.completed_at.present? and object.started_at.present?
-      object.calculate_time_spent!
-      object.time_spent
-    end
+    object.time_spent
   end
 
   def display_score
