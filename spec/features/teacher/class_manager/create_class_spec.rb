@@ -6,7 +6,6 @@ feature 'Create-a-Class page' do
   context 'when signed in as a Teacher' do
     let(:mr_kotter)             { FactoryGirl.create :mr_kotter }
     let(:create_classroom_page) { visit_create_classroom_page }
-    let(:invite_students_page)  { Teachers::InviteStudentsPage.new }
 
     before(:each) { sign_in_user mr_kotter }
 
@@ -18,11 +17,11 @@ feature 'Create-a-Class page' do
           create_classroom_page.create_class name: 'sweathogs', grade: 11
         }.to change { Classroom.count }.by(1)
 
-        new_class   = Classroom.last
-        invite_path = invite_students_page.path(new_class)
+        new_class = Classroom.last
+        expect(new_class.code).to eq class_code
 
-        expect(current_path)                   .to eq invite_path
-        expect(new_class.code)                 .to eq class_code
+        invite_students_page = Teachers::InviteStudentsPage.new(new_class)
+        expect(current_path)                   .to eq invite_students_page.path
         expect(invite_students_page.class_code).to eq class_code
       end
 
