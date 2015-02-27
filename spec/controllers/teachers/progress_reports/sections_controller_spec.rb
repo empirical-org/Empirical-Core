@@ -24,7 +24,7 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
                                               user: student,
                                               activity: activity,
                                               state: 'finished',
-                                              percentage: i / 3.0)
+                                              percentage: i / 3.0, time_spent: 5000)
       end
     end
   end
@@ -59,6 +59,7 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
         expect(json['sections'].size).to eq(1)
         expect(json['sections'][0]['topics_count']).to eq('3')
         expect(json['sections'][0]['section_link']).to eq(teachers_progress_reports_section_topics_path(section.id))
+        expect(json['sections'][0]['total_time_spent']).to eq('45000')
       end
 
       it 'fetches classroom, unit, and student data for the filter options' do
