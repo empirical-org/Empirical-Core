@@ -1,25 +1,21 @@
-<% cache_key = activity_session.nil? ? "activity/#{activity.cache_key}" : "activity_session/#{activity_session.cache_key}"  %>
-<% cache('scorebook-tooltip-' + cache_key ) do  %>
+<div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:percentage)) %> icon-<%= icon_for_classification(activity.classification) %>" 
+  data-toggle="tooltip" 
+  data-html=true 
+  data-placement="left" 
+  title="<h1><%= h(activity.name) %></h1><p><%= h(alias_by_id(activity.classification.id)) %></p>
 
-  <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:percentage)) %> icon-<%= icon_for_classification(activity.classification) %>" 
-    data-toggle="tooltip" 
-    data-html=true 
-    data-placement="left" 
-    title="<h1><%= h(activity.name) %></h1><p><%= h(alias_by_id(activity.classification.id)) %></p>
-
-    <p><%= h(activity.topic.section.name) %></p>
-    <p><%= h(activity.topic.name) %></p>
-    <p><%= h(activity.description) %></p>
-    
-    <%= activity.topic.topic_category ? "<p>#{activity.topic.topic_category.name}</p>" : ''%>
-    
-    <%= activity_session ? "<p>#{activity_session.percentage_as_percent_prefixed_by_scored}</p>" : '' %>
-    
-    "
-   ></div>
-  <% if include_activity_title %>
-    <div class="icons-description-wrapper">
-      <p class="title title-v-centered"><%= activity.try(:name) %></p>
-    </div>
-  <% end %>
+  <p><%= h(activity.topic.section.name) %></p>
+  <p><%= h(activity.topic.name) %></p>
+  <p><%= h(activity.description) %></p>
+  
+  <%= activity.topic.topic_category ? "<p>#{activity.topic.topic_category.name}</p>" : ''%>
+  
+  <%= activity_session ? "<p>#{activity_session.percentage_as_percent_prefixed_by_scored}</p>" : '' %>
+  
+  "
+ ></div>
+<% if include_activity_title %>
+  <div class="icons-description-wrapper">
+    <p class="title title-v-centered"><%= activity.try(:name) %></p>
+  </div>
 <% end %>
