@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe ActivitySession, :type => :model do
 
-  describe "can behave like an uid class" do 
+  describe "can behave like an uid class" do
 
     context "when behaves like uid" do
       it_behaves_like "uid"
@@ -13,27 +13,27 @@ describe ActivitySession, :type => :model do
 
   let(:activity_session) {FactoryGirl.build(:activity_session)}
 
-  describe "#activity" do 
+  describe "#activity" do
 
   	context "when there is a direct activity association" do
 
 	  	let(:activity){ FactoryGirl.create(:activity) }
-		  let(:activity_session){ FactoryGirl.build(:activity_session,activity_id: activity.id) }  	
-	  	
-  		it "must return the associated activity" do 
+		  let(:activity_session){ FactoryGirl.build(:activity_session,activity_id: activity.id) }
+
+  		it "must return the associated activity" do
   			expect(activity_session.activity).to eq activity
-  		end	
+  		end
 
 	end
 
-	context "when there's not an associated activity but there's a classroom activity" do 
+	context "when there's not an associated activity but there's a classroom activity" do
 
-	    let!(:activity){ FactoryGirl.create(:activity) }  
-	    let!(:student){ FactoryGirl.create(:student) }   	
+	    let!(:activity){ FactoryGirl.create(:activity) }
+	    let!(:student){ FactoryGirl.create(:student) }
 	    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, classroom_id: student.classroom.id) }
 		  let(:activity_session){   FactoryGirl.build(:activity_session, classroom_activity_id: classroom_activity.id)                     }
 
-  		it "must return the classroom activity" do 
+  		it "must return the classroom activity" do
   			activity_session.activity_id=nil
   			expect(activity_session.activity).to eq activity_session.classroom_activity.activity
   		end
@@ -42,47 +42,47 @@ describe ActivitySession, :type => :model do
 
   end
 
-  describe "#classroom" do 
+  describe "#classroom" do
   	it "TODO: must return a valid classroom object"
   end
 
-  describe "#percentage_color" do   
+  describe "#percentage_color" do
 
-  	it "must return an empty string if not completed" do 
+  	it "must return an empty string if not completed" do
   		activity_session.completed_at=nil
   		expect(activity_session.percentage_color).to eq ''
-  	end  
+  	end
 
-  	it "must return a color if completed" do 
+  	it "must return a color if completed" do
   		expect(activity_session.percentage_color).to be_present
-  	end  
+  	end
 
-  	context "when completed" do  
+  	context "when completed" do
 
-  		it "must return yellow if 50% completed" do 
+  		it "must return yellow if 50% completed" do
   			expect(activity_session.percentage_color).to eq "yellow"
-  		end  
+  		end
 
-  		it "must return green if 76% completed" do 
+  		it "must return green if 76% completed" do
   			activity_session.percentage=0.76
   			expect(activity_session.percentage_color).to eq "green"
-  		end  
+  		end
 
-  		it "must return red if 25% completed" do 
+  		it "must return red if 25% completed" do
   			activity_session.percentage=0.25
   			expect(activity_session.percentage_color).to eq "red"
-  		end			  
+  		end
 
-  	end  
+  	end
 
   end
 
 
-  describe "#activity_uid=" do 
+  describe "#activity_uid=" do
 
   	let(:activity){ FactoryGirl.create(:activity) }
 
-  	it "must associate activity by uid" do 
+  	it "must associate activity by uid" do
   		activity_session.activity_id=nil
   		activity_session.activity_uid=activity.uid
   		expect(activity_session.activity_id).to eq activity.id
@@ -90,17 +90,17 @@ describe ActivitySession, :type => :model do
 
   end
 
-  describe "#activity_uid" do 
+  describe "#activity_uid" do
 
-  	it "must return an uid when activity is present" do 
+  	it "must return an uid when activity is present" do
   		expect(activity_session.activity_uid).to be_present
   	end
 
   end
 
-  describe "#completed?" do 
+  describe "#completed?" do
 
-  	it "must be true when completed_at is present" do 
+  	it "must be true when completed_at is present" do
   		expect(activity_session).to be_completed
   	end
 
@@ -137,29 +137,29 @@ describe ActivitySession, :type => :model do
 
   #--- legacy methods
 
-  describe "#grade" do 
+  describe "#grade" do
 
-  	it "must be equal to percentage" do 
+  	it "must be equal to percentage" do
   		expect(activity_session.grade).to eq activity_session.percentage
   	end
 
-  end 
+  end
 
-  describe "#owner" do 
+  describe "#owner" do
 
-  	it "must be equal to user" do 
+  	it "must be equal to user" do
   		expect(activity_session.owner).to eq activity_session.user
   	end
 
   end
 
-  describe "#anonymous=" do 
+  describe "#anonymous=" do
 
-  	it "must be equal to temporary" do 
+  	it "must be equal to temporary" do
   		expect(activity_session.anonymous=true).to eq activity_session.temporary
   	end
 
-  	it "must return temporary" do 
+  	it "must return temporary" do
   		activity_session.anonymous=true
   		expect(activity_session.anonymous).to eq activity_session.temporary
   	end
@@ -169,22 +169,22 @@ describe ActivitySession, :type => :model do
 
   	let(:user) {FactoryGirl.build(:user)}
 
-  	it "must return true if temporary true" do 
+  	it "must return true if temporary true" do
   		activity_session.temporary=true
   		expect(activity_session.owned_by? user).to be_truthy
   	end
 
-  	it "must be true if temporary false and user eq owner" do 
+  	it "must be true if temporary false and user eq owner" do
   		expect(activity_session.owned_by? activity_session.user).to eq true
   	end
 
   end
 
-  context "when before_create is fired" do 
+  context "when before_create is fired" do
 
-  	describe "#set_state" do 
+  	describe "#set_state" do
 
-  		it "must set state as unstarted" do 
+  		it "must set state as unstarted" do
   			activity_session.state=nil
   			activity_session.save!
   			expect(activity_session.state).to eq "unstarted"
@@ -194,46 +194,75 @@ describe ActivitySession, :type => :model do
 
   end
 
-  context "when before_save is triggered" do 
+  context "when before_save is triggered" do
 
-  	describe "#set_completed_at" do 
+  	describe "#set_completed_at" do
+      before do
+        activity_session.save!
+        activity_session.state="finished"
+      end
 
-  		it "set the current time" do 
-  			activity_session.state="finished"
+  		it "set the current time" do
   			activity_session.save!
   			expect(activity_session.completed_at).to_not be_nil
   		end
 
-      it "only updates completed_at field if it is nil to begin with" do 
-        activity_session.state="finished"
-        activity_session.save!
-        before = activity_session.completed_at
-        activity_session.save!
-        after = activity_session.completed_at
-        expect(after).to eq(before)
+      context "when completed_at is already set" do
+        before do
+          activity_session.completed_at = 5.minutes.ago
+        end
 
+        it "should not change completed at "do
+          expect {
+            activity_session.save!
+          }.to_not change {
+            activity_session.reload.completed_at
+          }
+        end
+
+        it "should not change time_spent" do
+          expect {
+            activity_session.save!
+          }.to_not change {
+            activity_session.reload.time_spent
+          }
+        end
       end
 
+      context "when completed_at is not already set" do
+        before do
+          activity_session.started_at = 5.minutes.ago
+          activity_session.completed_at = nil
+          activity_session.state = 'finished'
+          activity_session.time_spent = nil
+          activity_session.save!
+        end
+
+        it "should update completed_at and time_spent" do
+          expect(activity_session.completed_at).to_not be_nil
+          expect(activity_session.time_spent).to_not be_nil
+        end
+      end
   	end
 
   end
 
-  context "when completed scope" do 
-  	describe ".completed" do 
-  		before do 
+  context "when completed scope" do
+  	describe ".completed" do
+  		before do
 			FactoryGirl.create_list(:activity_session_with_random_completed_date, 5)
   		end
-  		it "must locate all the completed items" do 
+  		it "must locate all the completed items" do
   			expect(ActivitySession.completed.count).to eq 5
   		end
 
-  		it "completed_at must be present" do 
+  		it "completed_at must be present" do
   			ActivitySession.completed.each do |item|
   				expect(item.completed_at).to be_present
   			end
   		end
 
-  		it "must order by date desc" do 
+  		it "must order by date desc" do
   			#TODO: This test is not passing cause the ordering is wrong
   			# p completed=ActivitySession.completed
   			# current_date=completed.first.completed_at
@@ -245,19 +274,19 @@ describe ActivitySession, :type => :model do
   	end
   end
 
-  context "when incompleted scope" do 
+  context "when incompleted scope" do
 
-  	describe ".incomplete" do 
+  	describe ".incomplete" do
 
-  		before do 
+  		before do
 			FactoryGirl.create_list(:activity_session_incompleted, 3)
-  		end  		
+  		end
 
-  		it "must locate all the incompleted items" do 
+  		it "must locate all the incompleted items" do
   			expect(ActivitySession.incomplete.count).to eq 3
   		end
 
-  		it "completed_at must be nil" do 
+  		it "completed_at must be nil" do
   			ActivitySession.incomplete.each do |item|
   				expect(item.completed_at).to be_nil
   			end
@@ -270,7 +299,7 @@ describe ActivitySession, :type => :model do
   describe "can act as ownable" do
 
     context "when it's an ownable model" do
-      
+
       it_behaves_like "ownable"
     end
 
