@@ -51,65 +51,65 @@ module ProgressReportHelper
     @student2 = FactoryGirl.create(:student)
     @student3 = FactoryGirl.create(:student)
     @unassigned_student = FactoryGirl.create(:student)
-    @topic1 = FactoryGirl.create(:topic, section: @section)
-    @topic2 = FactoryGirl.create(:topic, section: @section)
+    @second_grade_topic = FactoryGirl.create(:topic, section: @section, name: "2nd Grade CCSS")
+    @first_grade_topic = FactoryGirl.create(:topic, section: @section, name: "1st Grade CCSS")
     @hidden_topic = FactoryGirl.create(:topic, section: @section)
     @full_classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [@student1, @student2, @student3])
     @empty_classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [])
     @unit1 = FactoryGirl.create(:unit)
     @empty_unit = FactoryGirl.create(:unit)
-    @activity_for_topic1 = FactoryGirl.create(:activity, topic: @topic1)
+    @activity_for_second_grade_topic = FactoryGirl.create(:activity, topic: @second_grade_topic)
     classroom_activity1 = FactoryGirl.create(:classroom_activity,
                                               classroom: @full_classroom,
-                                              activity: @activity_for_topic1,
+                                              activity: @activity_for_second_grade_topic,
                                               unit: @unit1)
-    @activity_for_topic2 = FactoryGirl.create(:activity, topic: @topic2)
+    @activity_for_first_grade_topic = FactoryGirl.create(:activity, topic: @first_grade_topic)
     classroom_activity2 = FactoryGirl.create(:classroom_activity,
                                               classroom: @full_classroom,
-                                              activity: @activity_for_topic2,
+                                              activity: @activity_for_first_grade_topic,
                                               unit: @unit1)
 
-    @student1_topic1_session = FactoryGirl.create(:activity_session,
+    @student1_second_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity1,
                                                   user: @student1,
-                                                  activity: @activity_for_topic1,
+                                                  activity: @activity_for_second_grade_topic,
                                                   state: 'finished',
                                                   percentage: 1) # Proficient
-    @student2_topic1_session = FactoryGirl.create(:activity_session,
+    @student2_second_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity1,
                                                   user: @student2,
-                                                  activity: @activity_for_topic1,
+                                                  activity: @activity_for_second_grade_topic,
                                                   state: 'finished',
                                                   percentage: 1) # Proficient
-    @student3_topic1_session = FactoryGirl.create(:activity_session,
+    @student3_second_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity1,
                                                   user: @student3,
-                                                  activity: @activity_for_topic1,
+                                                  activity: @activity_for_second_grade_topic,
                                                   state: 'finished',
                                                   percentage: 0.50) # Not proficient
 
-    @student1_topic2_session = FactoryGirl.create(:activity_session,
+    @student1_first_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity2,
                                                   user: @student1,
-                                                  activity: @activity_for_topic2,
+                                                  activity: @activity_for_first_grade_topic,
                                                   state: 'finished',
                                                   percentage: 1) # Proficient
 
-    @student2_topic2_session = FactoryGirl.create(:activity_session,
+    @student2_first_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity2,
                                                   user: @student2,
-                                                  activity: @activity_for_topic2,
+                                                  activity: @activity_for_first_grade_topic,
                                                   state: 'finished',
                                                   percentage: 0.50) # Not Proficient
 
-    @visible_topics = [@topic1, @topic2]
+    @visible_topics = [@first_grade_topic, @second_grade_topic]
     @visible_students = [@student1, @student2, @student3]
     @visible_activity_sessions = [
-      @student1_topic1_session,
-      @student1_topic2_session,
-      @student2_topic1_session,
-      @student2_topic2_session,
-      @student3_topic1_session
+      @student1_second_grade_topic_session,
+      @student1_first_grade_topic_session,
+      @student2_second_grade_topic_session,
+      @student2_first_grade_topic_session,
+      @student3_second_grade_topic_session
     ]
   end
 end

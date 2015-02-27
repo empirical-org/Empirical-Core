@@ -54,8 +54,8 @@ describe Topic, :type => :model do
 	  it "retrieves aggregated topics data" do
 	  	data = Topic.for_progress_report(teacher, {section_id: @section.id})
 	  	expect(data.size).to eq(@visible_topics.size)
-	  	expect(data[0]["topic_name"]).to eq(@visible_topics.first.name)
-	  	expect(data[0]["topic_id"].to_i).to eq(@visible_topics.first.id)
+	  	expect(data[0]["topic_name"]).to eq(@first_grade_topic.name)
+	  	expect(data[0]["topic_id"].to_i).to eq(@first_grade_topic.id)
 	  end
 
 	  context "when a classroom filter is provided" do
@@ -95,7 +95,7 @@ describe Topic, :type => :model do
 	  		# student3 has completed activity sessions for only 1 topic
 	  		data = Topic.for_progress_report(teacher, {section_id: @section.id, student_id: @student3.id})
 	  		expect(data.size).to eq(1)
-	  		expect(data[0]['topic_name']).to eq(@topic1.name)
+	  		expect(data[0]['topic_name']).to eq(@second_grade_topic.name)
 	  		expect(data[0]['students_count']).to eq("1")
 	  		expect(data[0]['proficient_count']).to eq("0")
 	  		expect(data[0]['not_proficient_count']).to eq("1")
