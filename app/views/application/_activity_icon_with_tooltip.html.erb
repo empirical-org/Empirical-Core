@@ -1,5 +1,5 @@
 <% cache_key = activity_session.nil? ? "activity/#{activity.cache_key}" : "activity_session/#{activity_session.cache_key}"  %>
-<%= cache('scorebook-tooltip-' + cache_key ) do  %>
+<% cache('scorebook-tooltip-' + cache_key ) do  %>
 
   <div class="activate-tooltip icon-wrapper icon-<%= percentage_color(activity_session.try(:percentage)) %> icon-<%= icon_for_classification(activity.classification) %>" 
     data-toggle="tooltip" 
