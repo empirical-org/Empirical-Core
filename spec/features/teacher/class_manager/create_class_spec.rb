@@ -13,9 +13,7 @@ feature 'Create-a-Class page' do
       it 'creates a class' do
         class_code = create_classroom_page.class_code
 
-        expect {
-          create_classroom_page.create_class name: 'sweathogs', grade: 11
-        }.to change { Classroom.count }.by(1)
+        expect { create_sweathogs }.to change { Classroom.count }.by(1)
 
         new_class = Classroom.last
         expect(new_class.code).to eq class_code
@@ -23,6 +21,23 @@ feature 'Create-a-Class page' do
         invite_students_page = Teachers::InviteStudentsPage.new(new_class)
         expect(current_path)                   .to eq invite_students_page.path
         expect(invite_students_page.class_code).to eq class_code
+      end
+
+      it "creates a class with the same name as another Teacher's" do
+        mr_woodman = FactoryGirl.create :mr_woodman
+        sweathogs  = FactoryGirl.create :sweathogs, teacher: mr_woodman
+
+        expect { create_sweathogs }.to change { Classroom.count }.by(1)
+
+        new_class = Classroom.last
+
+        invite_students_page = Teachers::InviteStudentsPage.new(new_class)
+        expect(current_path)                       .to eq invite_students_page.path
+        expect(invite_students_page.class_code).not_to eq sweathogs.code
+      end
+
+      def create_sweathogs
+        create_classroom_page.create_class name: 'sweathogs', grade: 11
       end
 
       describe 'clicking the new-code item' do
@@ -70,12 +85,24 @@ feature 'Create-a-Class page' do
     end
 
     context 'with an existing class' do
-      before(:each) { FactoryGirl.create(:sweathogs, teacher: mr_kotter) }
+      let!(:sweathogs) { FactoryGirl.create(:sweathogs, teacher: mr_kotter) }
 
       it 'offers several Class Manager navigation options' do
         expect(create_classroom_page).to have_create_class
         expect(create_classroom_page).to have_manage_classes
         expect(create_classroom_page).to have_invite_students
+      end
+
+      it 'cannot create a new class with the same name' do
+        same_class_name = sweathogs.name
+
+        expect {
+          create_classroom_page.create_class name: same_class_name, grade: 11
+        }.not_to change { Classroom.count }
+
+        expect(create_classroom_page).to have_content(
+          "A classroom called #{same_class_name} already exists"
+        )
       end
     end
   end
