@@ -55,6 +55,18 @@ module Student
     end
 
 
+    def helper1 unit, should_filter
+      key = 'student-completed-activity-sessions-' + self.id.to_s + unit.cache_key
+      sessions = Rails.cache.fetch(key) do
+        sessions = ActivitySession.joins(:classroom_activity)
+                  .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
+                  .select("activity_sessions.*").completed
+        sessions
+      end
+      if should_filter then sessions = filter_and_sort_completed_activity_sessions(sessions) end
+      sessions
+    end
+
     def incomplete_activity_sessions_by_classification(unit = nil)
       
       if unit.nil?
