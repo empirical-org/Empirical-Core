@@ -30,22 +30,26 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
     context 'when concept tag results are included' do
       before do
         @activity_session = FactoryGirl.create(:activity_session)
-        @writing_category = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
-        @sports_category = FactoryGirl.create(:concept_class, name: 'Sporting Events')
-        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Creative Writing', concept_class: @writing_category)
-        @climbing_tag = FactoryGirl.create(:concept_tag, name: 'Competitive Ice-climbing', concept_class: @sports_category)
+        @writing_class = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
+        @sports_class = FactoryGirl.create(:concept_class, name: 'Sporting Events')
+        @writing_category = FactoryGirl.create(:concept_category, concept_class: @writing_class)
+        @sports_category = FactoryGirl.create(:concept_category, concept_class: @sports_class)
+        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Creative Writing', concept_class: @writing_class)
+        @climbing_tag = FactoryGirl.create(:concept_tag, name: 'Competitive Ice-climbing', concept_class: @sports_class)
       end
 
       def subject
         results = [
           {
-            concept_class: 'Writing Concepts',
-            concept_tag: 'Creative Writing',
+            concept_class: @writing_class.name,
+            concept_tag: @writing_tag.name,
+            concept_category: @writing_category.name,
             foo: 'bar',
           },
           {
-            concept_class: 'Sporting Events',
-            concept_tag: 'Competitive Ice-climbing',
+            concept_class: @sports_class.name,
+            concept_category: @sports_category.name,
+            concept_tag: @climbing_tag.name,
             baz: 'foo'
           }
         ]
@@ -74,22 +78,26 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
     context 'when the concept tag name is ambiguous (belongs to multiple categories)' do
       before do
         @activity_session = FactoryGirl.create(:activity_session)
-        @writing_category = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
-        @grammar_category = FactoryGirl.create(:concept_class, name: 'Grammar Concepts')
-        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_class: @writing_category)
-        @grammar_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_class: @grammar_category)
+        @writing_class = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
+        @grammar_class = FactoryGirl.create(:concept_class, name: 'Grammar Concepts')
+        @writing_category = FactoryGirl.create(:concept_category, concept_class: @writing_class)
+        @grammar_category = FactoryGirl.create(:concept_category, concept_class: @grammar_class)
+        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_class: @writing_class)
+        @grammar_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_class: @grammar_class)
       end
 
       def subject
         results = [
           {
-            concept_class: 'Grammar Concepts',
-            concept_tag: 'Their',
+            concept_class: @grammar_class.name,
+            concept_category: @grammar_category.name,
+            concept_tag: @grammar_tag.name,
             baz: 'foo'
           },
           {
-            concept_class: 'Writing Concepts',
-            concept_tag: 'Their',
+            concept_class: @writing_class.name,
+            concept_category: @writing_category.name,
+            concept_tag: @writing_tag.name,
             foo: 'bar',
           }
         ]
@@ -107,13 +115,13 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
     context 'when a result is assigned to a non-existent concept tag' do
       before do
         @activity_session = FactoryGirl.create(:activity_session)
-        @writing_category = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
+        @writing_class = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
       end
 
       def subject
         results = [
           {
-            concept_class: 'Writing Concepts',
+            concept_class: @writing_class.name,
             concept_tag: 'Non-existent tag',
             foo: 'bar',
           }
