@@ -14,4 +14,13 @@ $(function() {
     };
     React.render(React.createElement(EC.TopicsProgressReport, props), $topicsRootNode[0]);
   }
+
+  var $conceptCategoriesRootNode = $('.progress-reports-concept-categories');
+  if ($conceptCategoriesRootNode.length) {
+    var props = {
+      sourceUrl: $conceptCategoriesRootNode.data('url')
+    };
+
+    React.render(React.createElement(EC.ConceptCategoriesProgressReport, props), $conceptCategoriesRootNode[0]);
+  }
 });
