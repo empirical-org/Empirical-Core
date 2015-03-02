@@ -1,0 +1,6 @@
+production:
+  mailchimp: true
+development:
+  mailchimp: false
+test:
+  mailchimp: false
