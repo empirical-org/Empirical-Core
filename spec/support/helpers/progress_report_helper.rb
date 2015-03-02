@@ -1,4 +1,106 @@
 module ProgressReportHelper
+
+  def setup_concepts_progress_report
+    # Stats should come out like this:
+    # name,         result_count,     correct_count,      incorrect_count,
+    # Writing,      3,                2,                  1
+    # Grammar,      2,                1,                  1
+
+    # When filtered by empty_classroom, nothing displays
+    # when filtered by empty_unit, nothing displays
+    # When filtered by unassigned student, nothing displays
+
+    activity = FactoryGirl.create(:activity)
+    student = FactoryGirl.create(:student)
+    classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [student])
+    unit = FactoryGirl.create(:unit)
+    classroom_activity = FactoryGirl.create(:classroom_activity,
+                                            classroom: classroom,
+                                            activity: activity,
+                                            unit: unit)
+
+    concept_class = FactoryGirl.create(:concept_class)
+    @writing_category = FactoryGirl.create(:concept_category, name: "Writing Category", concept_class: concept_class)
+    writing_tag = FactoryGirl.create(:concept_tag, name: "Writing Tag", concept_class: concept_class)
+    @grammar_category = FactoryGirl.create(:concept_category, name: "Grammar Category", concept_class: concept_class)
+    grammar_tag = FactoryGirl.create(:concept_tag, name: "Grammar Tag", concept_class: concept_class)
+    empty_category = FactoryGirl.create(:concept_category, name: "Empty / Hidden", concept_class: concept_class)
+
+    activity_session = FactoryGirl.create(:activity_session,
+                                          classroom_activity: classroom_activity,
+                                          user: student,
+                                          activity: activity,
+                                          state: 'finished',
+                                          percentage: 0.75
+                                          )
+
+    correct_writing_result1 = FactoryGirl.create(:concept_tag_result,
+      activity_session: activity_session,
+      concept_tag: writing_tag,
+      concept_category: @writing_category,
+      metadata: {
+        "correct" => 1
+      })
+
+    correct_writing_result2 = FactoryGirl.create(:concept_tag_result,
+      activity_session: activity_session,
+      concept_tag: writing_tag,
+      concept_category: @writing_category,
+      metadata: {
+        "correct" => 1
+      })
+
+    incorrect_writing_result = FactoryGirl.create(:concept_tag_result,
+      activity_session: activity_session,
+      concept_tag: writing_tag,
+      concept_category: @writing_category,
+      metadata: {
+        "correct" => 0
+      })
+
+    correct_grammar_result = FactoryGirl.create(:concept_tag_result,
+      activity_session: activity_session,
+      concept_tag: grammar_tag,
+      concept_category: @grammar_category,
+      metadata: {
+        "correct" => 1
+      })
+
+    incorrect_grammar_result = FactoryGirl.create(:concept_tag_result,
+      activity_session: activity_session,
+      concept_tag: grammar_tag,
+      concept_category: @grammar_category,
+      metadata: {
+        "correct" => 0
+      })
+
+    # Should not be visible on the report
+    other_teacher = FactoryGirl.create(:teacher)
+    other_student = FactoryGirl.create(:student)
+    other_classroom = FactoryGirl.create(:classroom, teacher: other_teacher)
+    other_unit = FactoryGirl.create(:unit)
+    other_classroom_activity = FactoryGirl.create(:classroom_activity,
+      classroom: other_classroom,
+      unit: other_unit,
+      activity: activity)
+    other_activity_session = FactoryGirl.create(:activity_session,
+      classroom_activity: other_classroom_activity,
+      user: other_student,
+      state: 'finished',
+      percentage: 0.75)
+    other_grammar_result = FactoryGirl.create(:concept_tag_result,
+      activity_session: other_activity_session,
+      concept_tag: writing_tag,
+      concept_category: @writing_category,
+      metadata: {
+        "correct" => 1
+      })
+
+    @visible_categories = [@writing_category, @grammar_category]
+    @writing_results = [correct_writing_result1, correct_writing_result2, incorrect_writing_result]
+    @grammar_results = [correct_grammar_result, incorrect_grammar_result]
+  end
+
   def setup_sections_progress_report
     ActivitySession.destroy_all
     @sections = []
