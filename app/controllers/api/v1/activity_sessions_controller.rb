@@ -20,15 +20,15 @@ class Api::V1::ActivitySessionsController < ApiController
     # naming - id in app and uid here
     if @activity_session.update(activity_session_params.except(:id))
       @status = :success
-      @message = 
+      @message =
       render json: @activity_session, meta: {
-        status: :success, 
+        status: :success,
         message: "Activity Session Updated",
         errors: [] # FIXME: this is dumb
       }
     else
       render json: @activity_session, meta: {
-        status: :failed, 
+        status: :failed,
         message: "Activity Session Update Failed",
         errors: @activity_session.errors
       }, status: :unprocessable_entity
@@ -93,7 +93,7 @@ class Api::V1::ActivitySessionsController < ApiController
 
   # Transform the incoming request parameters so that it can be easily ingested by ActiveRecord.
   # Alias the following request parameters:
-  # Map each result to the following structure: 
+  # Map each result to the following structure:
   # {
   #   concept_tag: "Creative Writing",
   #   concept_class: "Writing Concepts",
@@ -105,7 +105,7 @@ class Api::V1::ActivitySessionsController < ApiController
   #     concept_tag: "Creative Writing",
   #     concept_class: "Writing Concepts",
   #     student_input: "The dog jumped over the cat."
-  #   }   
+  #   }
   # }
   #
   # concept_tag_results -> concept_tag_results_attributes
@@ -113,7 +113,7 @@ class Api::V1::ActivitySessionsController < ApiController
     if params[:concept_tag_results].present?
       results = params.delete(:concept_tag_results)
       transformed_results = results.reduce [] do |accumulator, result|
-        accumulator << {        
+        accumulator << {
           metadata: result
         }
       end
