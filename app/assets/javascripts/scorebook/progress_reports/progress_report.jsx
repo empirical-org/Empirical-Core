@@ -50,20 +50,25 @@ EC.ProgressReport = React.createClass({
 
   // Filter sessions based on the classroom ID.
   selectClassroom: function(classroomId) {
-    console.log('TODO: handle re-fetch in selectClassroom');
-    this.filterByField('classroom_id', classroomId, this.resetPagination);
+    this.filterByField('classroom_id', classroomId, this.onFilterChange);
   },
 
   // Filter sessions based on the student ID
   selectStudent: function(studentId) {
-    console.log('TODO: handle re-fetch in selectStudent');
-    this.filterByField('student_id', studentId, this.resetPagination);
+    this.filterByField('student_id', studentId, this.onFilterChange);
   },
 
   // Filter sessions based on the unit ID
   selectUnit: function(unitId) {
-    console.log('TODO: handle re-fetch in selectUnit');
-    this.filterByField('unit_id', unitId, this.resetPagination);
+    this.filterByField('unit_id', unitId, this.onFilterChange);
+  },
+
+  onFilterChange: function() {
+    if (this.props.pagination) {
+      this.resetPagination();
+    } else if (!this.props.clientSideFiltering) {
+      this.fetchData();
+    }
   },
 
   fetchData: function() {
@@ -74,6 +79,7 @@ EC.ProgressReport = React.createClass({
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
         unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
       });
+      console.log('TODO: onFetchSuccess method for topics progress report');
     }.bind(this)).fail(function error(error) {
       console.log('An error occurred while fetching data', error);
     });
