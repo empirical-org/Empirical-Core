@@ -79,7 +79,9 @@ EC.ProgressReport = React.createClass({
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
         unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
       });
-      console.log('TODO: onFetchSuccess method for topics progress report');
+      if (this.props.onFetchSuccess) {
+        this.props.onFetchSuccess(data);
+      }
     }.bind(this)).fail(function error(error) {
       console.log('An error occurred while fetching data', error);
     });
