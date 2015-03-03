@@ -15,10 +15,10 @@ describe ConceptCategory, :type => :model do
       data = ConceptCategory.for_progress_report(teacher)
       expect(data.size).to eq(@visible_categories.size)
       writing_data = data[0]
-      expect(writing_data["concept_category_id"].to_i).to eq(@writing_category.id)
-      expect(writing_data["concept_category_name"]).to eq(@writing_category.name)
-      expect(writing_data["total_result_count"].to_i).to eq(@writing_results.size)
-      expect(writing_data["correct_result_count"].to_i).to eq(2)
+      expect(writing_data["concept_category_id"].to_i).to eq(@grammar_category.id)
+      expect(writing_data["concept_category_name"]).to eq(@grammar_category.name)
+      expect(writing_data["total_result_count"].to_i).to eq(@grammar_results.size)
+      expect(writing_data["correct_result_count"].to_i).to eq(1)
       expect(writing_data["incorrect_result_count"].to_i).to eq(1)
     end
 
