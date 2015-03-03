@@ -15,6 +15,7 @@ class ConceptCategory < ActiveRecord::Base
       .group("concept_categories.id")
       .where("activity_sessions.state = ?", "finished")
       .where("classrooms.teacher_id = ?", teacher.id) # Filter based on teacher ID
+      .order("concept_category_name asc")
 
     results = ActiveRecord::Base.connection.select_all(query)
     results.to_hash
