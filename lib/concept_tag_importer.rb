@@ -24,9 +24,22 @@ class ConceptTagImporter
     CSV.parse(file, headers: FILE_HEADERS) do |row|
       row_props = row.to_hash
       # There should be only 1 concept class in this document.
-      concept_class = ConceptClass.find_by(name: row[:concept_class])
-      concept_tag = ConceptTag.find_or_create_by(name: row[:concept_tag], concept_class: concept_class)
-      concept_category = ConceptCategory.find_or_create_by(name: row[:concept_category], concept_class: concept_class)
+      concept_class_name = row[:concept_class]
+      concept_class_name[0] = concept_class_name[0].capitalize
+      concept_class = ConceptClass.where('lower(name) = ?', concept_class_name.downcase)
+        .first_or_create(name: concept_class_name)
+
+      # Name is case-insensitive
+      concept_tag_name = row[:concept_tag]
+      # Name is capitalized
+      concept_tag_name[0] = concept_tag_name[0].capitalize
+      concept_tag = ConceptTag.where('lower(name) = ?', concept_tag_name.downcase)
+        .first_or_create(name: concept_tag_name, concept_class_id: concept_class.id)
+
+      concept_category_name = row[:concept_category]
+      concept_category_name[0] = concept_category_name[0].capitalize
+      concept_category = ConceptCategory.where('lower(name) = ?', concept_category_name.downcase)
+        .first_or_create(name: concept_category_name, concept_class_id: concept_class.id)
 
       concept_classes << concept_class
       concept_tags << concept_tag
