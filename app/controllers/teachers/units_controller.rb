@@ -68,6 +68,8 @@ class Teachers::UnitsController < ApplicationController
 
       num_students_assigned = assigned_student_ids.uniq.length
 
+      x1 = x1.uniq{|y| y[:activity_id] }
+
       ele = {unit: Unit.find(unit_id), classroom_activities: x1, num_students_assigned: num_students_assigned}
       arr.push ele
     end
