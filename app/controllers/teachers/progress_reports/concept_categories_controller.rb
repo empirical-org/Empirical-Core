@@ -5,25 +5,14 @@ class Teachers::ProgressReports::ConceptCategoriesController < ApplicationContro
   def index
     if request.xhr?
       concept_categories = ConceptCategory.for_progress_report(current_user)
+      concept_categories.each do |concept_category|
+        concept_category['concept_tag_href'] =
+          teachers_progress_reports_concept_category_concept_tags_path(concept_category_id: concept_category['concept_category_id'])
+      end
 
       render json: {
         concept_categories: concept_categories
       }
-      # section_data = Section.for_progress_report(current_user, params)
-      # section_data.each do |section|
-      #   section['section_link'] = teachers_progress_reports_section_topics_path(section['id'])
-      # end
-      # filters = params
-      # filters[:section_id] = section_data.map {|s| s['id']}
-      # classrooms = Classroom.for_progress_report(current_user, filters)
-      # units = Unit.for_progress_report(current_user, filters)
-      # students = User.for_progress_report(current_user, filters)
-      # render json: {
-      #   sections: section_data,
-      #   classrooms: classrooms,
-      #   students: students,
-      #   units: units
-      # }
     end
   end
 

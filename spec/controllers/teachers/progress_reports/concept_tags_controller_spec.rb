@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Teachers::ProgressReports::ConceptCategoriesController, :type => :controller do
+describe Teachers::ProgressReports::ConceptTagsController, :type => :controller do
   include ProgressReportHelper
   render_views
 
@@ -11,19 +11,27 @@ describe Teachers::ProgressReports::ConceptCategoriesController, :type => :contr
   end
 
   describe 'GET #index' do
+    subject do
+      get :index, {concept_category_id: @writing_category}
+    end
+
     before do
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
     end
 
     it 'displays the html' do
-      get :index
+      subject
       expect(response.status).to eq(200)
     end
   end
 
   context 'XHR GET #index' do
+    subject do
+      xhr :get, :index, {concept_category_id: @writing_category}
+    end
+
     it 'requires a logged-in teacher' do
-      get :index
+      subject
       expect(response.status).to eq(401)
     end
 
@@ -35,11 +43,9 @@ describe Teachers::ProgressReports::ConceptCategoriesController, :type => :contr
       end
 
       it 'fetches aggregated topics data' do
-        xhr :get, :index
+        subject
         expect(response.status).to eq(200)
-        expect(json['concept_categories'].size).to eq(@visible_categories.size)
-        expect(json['concept_categories'][0]['concept_tag_href'])
-          .to eq(teachers_progress_reports_concept_category_concept_tags_path(concept_category_id: @grammar_category.id))
+        expect(json['concept_tags'].size).to eq(@writing_category_tags.size)
       end
     end
   end

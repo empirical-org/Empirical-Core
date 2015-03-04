@@ -23,4 +23,13 @@ $(function() {
 
     React.render(React.createElement(EC.ConceptCategoriesProgressReport, props), $conceptCategoriesRootNode[0]);
   }
+
+  var $conceptTagsRootNode = $('.progress-reports-concept-tags');
+  if ($conceptTagsRootNode.length) {
+    var props = {
+      sourceUrl: $conceptTagsRootNode.data('url')
+    };
+
+    React.render(React.createElement(EC.ConceptTagsProgressReport, props), $conceptTagsRootNode[0]);
+  }
 });
