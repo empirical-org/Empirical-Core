@@ -65,67 +65,67 @@ feature 'Invite-Students page' do
           end
         end
       end
+    end
 
-      context 'with 2 students' do
-        let!(:students) do
-          %i(arnold_horshack vinnie_barbarino).map do |sym|
-            FactoryGirl.create sym, classroom: sweathogs
-          end
+    context 'with 2 students' do
+      let!(:students) do
+        %i(arnold_horshack vinnie_barbarino).map do |sym|
+          FactoryGirl.create sym, classroom: sweathogs
         end
+      end
 
-        context 'when signed in as the Teacher' do
-          include_context :signed_in_as_teacher
+      context 'when signed in as the Teacher' do
+        include_context :signed_in_as_teacher
 
-          it 'shows the students' do
-            expect(invite_students_page.student_count).to eq students.count
+        it 'shows the students' do
+          expect(invite_students_page.student_count).to eq students.count
 
-            students.each do |student|
-              student_row = invite_students_page.student_row(student)
-
-              expect(student_row.first_name).to eq student.first_name
-              expect(student_row. last_name).to eq student. last_name
-              expect(student_row.  username).to eq student.  username
-            end
-          end
-
-          it 'can add a duplicate-looking student' do
-            student = students.first
-
-            expect {
-              invite_students_page.add_student student
-            }.to change { invite_students_page.student_count }.by(1)
-
-            student_row = invite_students_page.student_row(User.last)
-            username    = generate_username(student,
-                                            invite_students_page.class_code)
+          students.each do |student|
+            student_row = invite_students_page.student_row(student)
 
             expect(student_row.first_name).to eq student.first_name
             expect(student_row. last_name).to eq student. last_name
-            expect(student_row.  username).to eq username
+            expect(student_row.  username).to eq student.  username
           end
         end
+
+        it 'can add a duplicate-looking student' do
+          student = students.first
+
+          expect {
+            invite_students_page.add_student student
+          }.to change { invite_students_page.student_count }.by(1)
+
+          student_row = invite_students_page.student_row(User.last)
+          username    = generate_username(student,
+                                          invite_students_page.class_code)
+
+          expect(student_row.first_name).to eq student.first_name
+          expect(student_row. last_name).to eq student. last_name
+          expect(student_row.  username).to eq username
+        end
       end
+    end
 
-      context 'when not signed in' do
-        before(:each) { visit_invite_students_page }
+    context 'when not signed in' do
+      before(:each) { visit_invite_students_page }
 
-        include_examples :requires_sign_in
-      end
+      include_examples :requires_sign_in
+    end
 
-      context 'when signed in as a Student' do
-        include_context :when_signed_in_as_a_student
-        before(:each) { visit_invite_students_page }
+    context 'when signed in as a Student' do
+      include_context :when_signed_in_as_a_student
+      before(:each) { visit_invite_students_page }
 
-        include_examples :requires_sign_in
-      end
+      include_examples :requires_sign_in
+    end
 
-      def visit_invite_students_page
-        invite_students_page.visit
-      end
+    def visit_invite_students_page
+      invite_students_page.visit
+    end
 
-      def generate_username(student, class_code)
-        "#{student.first_name}.#{student.last_name}@#{class_code}".downcase
-      end
+    def generate_username(student, class_code)
+      "#{student.first_name}.#{student.last_name}@#{class_code}".downcase
     end
   end
 
