@@ -7,12 +7,14 @@ class Teachers::ClassroomActivitiesController < ApplicationController
 
 
   def update
-    @classroom_activity.update_attributes due_date: params[:due_date]
+    cas = @classroom_activity.unit.classroom_activities.where(activity: @classroom_activity.activity)
+    cas.each{|ca| ca.update_attributes(due_date: params[:due_date])}
     render json: {}
   end
 
   def destroy
-    @classroom_activity.destroy
+    cas = @classroom_activity.unit.classroom_activities.where(activity: @classroom_activity.activity)
+    cas.each{|ca| ca.destroy}
     render json: {}
   end
 
