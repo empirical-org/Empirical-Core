@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 
 require 'rspec/rails'
+require 'capybara/rails'
 require 'database_cleaner'
 require 'byebug'
 require 'vcr'
@@ -40,7 +41,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -55,7 +56,6 @@ RSpec.configure do |config|
 
   # database cleaner config
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
     begin
@@ -65,6 +65,16 @@ RSpec.configure do |config|
       # (re-?)clean the database after
       DatabaseCleaner.clean_with(:truncation)
     end
+  end
+
+  # most examples
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  # examples running in a browser
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
   end
 
   config.before(:each) do
@@ -117,3 +127,6 @@ if defined?(Coveralls)
   Coveralls.wear!('rails')
 end
 
+def vcr_ignores_localhost
+  VCR.configuration.ignore_localhost = true
+end
