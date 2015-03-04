@@ -25,4 +25,11 @@ class ConceptCategory < ActiveRecord::Base
   def self.progress_report_order_by
     "concept_category_name asc"
   end
+
+  def self.for_tags_report(teacher, concept_category_id)
+    for_progress_report(teacher, {concept_category_id: concept_category_id}).first
+    # This part is janky
+    # query = progress_report_base_query(teacher, {}).where('concept_category_id = ?', concept_category_id)
+    # get_query_results(query).first
+  end
 end
