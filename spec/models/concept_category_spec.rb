@@ -12,7 +12,7 @@ describe ConceptCategory, :type => :model do
     end
 
     it "retrieves aggregated concept categories data" do
-      data = ConceptCategory.for_progress_report(teacher)
+      data = ConceptCategory.for_progress_report(teacher, {})
       expect(data.size).to eq(@visible_categories.size)
       writing_data = data[0]
       expect(writing_data["concept_category_id"].to_i).to eq(@grammar_category.id)

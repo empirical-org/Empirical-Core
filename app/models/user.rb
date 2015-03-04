@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Student, Teacher
+  include ProgressReportQuery
 
   has_secure_password validations: false
 
@@ -40,33 +41,20 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.for_progress_report(teacher, filters = {})
-    # This is duplicated in User, Unit, Section, Topic, and Classroom in subtly similar ways
-    q = joins(:classroom, :activity_sessions)
-      .where("activity_sessions.state = ?", "finished")
-      .where('classrooms.teacher_id = ?', teacher.id)
-      .uniq
-      .order('users.name asc')
+  def self.progress_report_select
+    "users.id as id, users.name as name"
+  end
 
-    if filters[:classroom_id].present?
-      q = q.where('classrooms.id = ?', filters[:classroom_id])
-    end
+  def self.progress_report_joins
+    [:classroom => :classroom_activities, :activity_sessions => {:activity => :topic}]
+  end
 
-    if filters[:section_id].present?
-      q = q.joins(:activity_sessions => {:activity => :topic})
-        .where('topics.section_id IN (?)', filters[:section_id])
-    end
+  def self.progress_report_group_by
+    "users.id"
+  end
 
-    if filters[:topic_id].present?
-      q = q.joins(:activity_sessions => {:activity => :topic})
-        .where('topics.id IN (?)', filters[:topic_id])
-    end
-
-    if filters[:unit_id].present?
-      q = q.joins(:classroom => :classroom_activities).where('classroom_activities.unit_id = ?', filters[:unit_id])
-    end
-
-    q
+  def self.progress_report_order_by
+    "users.name asc"
   end
 
   # def authenticate
