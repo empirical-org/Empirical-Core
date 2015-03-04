@@ -1,28 +1,34 @@
 class Unit < ActiveRecord::Base
+  include ProgressReportQuery
+
   belongs_to :classroom
   has_many :classroom_activities, dependent: :destroy
   has_many :activities, through: :classroom_activities
   has_many :topics, through: :activities
 
-  def self.for_progress_report(teacher, filters)
-    query = joins(:classroom_activities => [:activity_sessions, :classroom, {:activity => :topic}])
-      .where("activity_sessions.state = ?", "finished")
-      .where('classrooms.teacher_id = ?', teacher.id)
-      .uniq
-      .order('units.created_at asc, units.name asc') # Try order by creation date, fall back to name
+  def self.progress_report_select
+    "units.id as id, units.name as name"
+  end
 
-    if filters[:section_id].present?
-      query = query.where('topics.section_id IN (?)', filters[:section_id])
+  # Determine which tables to join against based on the set of
+  # filters being applied.
+  def self.progress_report_joins(filters)
+    # Skip the join against concept_tag_results because
+    # otherwise it would affect the retrieval of units for
+    # progress reports where concept tags / categories are irrelevant.
+    # Could be a LEFT JOIN also.
+    if filters[:concept_category_id].present?
+      {:classroom_activities => [:classroom, {:activity_sessions => :concept_tag_results, :activity => :topic}]}
+    else
+      {:classroom_activities => [:activity_sessions, :classroom, {:activity => :topic}]}
     end
+  end
 
-    if filters[:classroom_id].present?
-      query = query.where("classrooms.id = ?", filters[:classroom_id])
-    end
+  def self.progress_report_group_by
+    "units.id"
+  end
 
-    if filters[:student_id].present?
-      query = query.where("activity_sessions.user_id = ?", filters[:student_id])
-    end
-
-    query
+  def self.progress_report_order_by
+    "units.created_at asc, units.name asc" # Try order by creation date, fall back to name
   end
 end

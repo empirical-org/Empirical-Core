@@ -29,6 +29,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :sections, only: [:index] do
         resources :topics, only: [:index]
       end
+      resources :concept_categories, only: [:index] do
+        resources :concept_tags, only: [:index]
+      end
     end
 
     resources :classrooms do
@@ -91,6 +94,10 @@ EmpiricalGrammar::Application.routes.draw do
     resources :sections
     resources :activity_classifications
     resources :topics
+
+    namespace :csv_imports do
+      resources :concept_tags, only: [:create]
+    end
 
     resources :activities, path: 'activity_type/:key/activities' do
       resource :data
