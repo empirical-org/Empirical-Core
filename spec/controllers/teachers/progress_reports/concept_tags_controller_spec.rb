@@ -48,6 +48,11 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
         expect(json['concept_tags'].size).to eq(@writing_category_tags.size)
       end
 
+      it 'fetches the parent concept category data' do
+        subject
+        expect(json['concept_category']['concept_category_name']).to eq(@writing_category.name)
+      end
+
       it 'fetches classroom, unit, and student data for the filter options' do
         subject
         expect(json['classrooms'].size).to eq(1)

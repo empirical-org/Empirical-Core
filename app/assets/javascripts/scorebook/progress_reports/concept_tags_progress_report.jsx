@@ -3,26 +3,32 @@ EC.ConceptTagsProgressReport = React.createClass({
     sourceUrl: React.PropTypes.string.isRequired
   },
 
+  getInitialState: function() {
+    return {
+      conceptCategory: {}
+    }
+  },
+
   columnDefinitions: function() {
     console.log('TODO Customize header names based on concept category data');
     return [
       {
-        name: '',
+        name: this.state.conceptCategory.concept_category_name,
         field: 'concept_tag_name',
         sortByField: 'concept_tag_name',
       },
       {
-        name: '',
+        name: 'Total Results: ' + this.state.conceptCategory.total_result_count,
         field: 'total_result_count',
         sortByField: 'total_result_count'
       },
       {
-        name: '',
+        name: 'Correct Results: ' + this.state.conceptCategory.correct_result_count,
         field: 'correct_result_count',
         sortByField: 'correct_result_count'
       },
       {
-        name: '',
+        name: 'Incorrect Results: ' + this.state.conceptCategory.incorrect_result_count,
         field: 'incorrect_result_count',
         sortByField: 'incorrect_result_count'
       }
@@ -44,6 +50,10 @@ EC.ConceptTagsProgressReport = React.createClass({
     };
   },
 
+  onFetchSuccess: function(data) {
+    this.setState({conceptCategory: data.concept_category});
+  },
+
   render: function() {
     return (
       <EC.ProgressReport columnDefinitions={this.columnDefinitions}
@@ -51,7 +61,8 @@ EC.ConceptTagsProgressReport = React.createClass({
                          clientSideFiltering={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'concept_tags'} />
+                         jsonResultsKey={'concept_tags'}
+                         onFetchSuccess={this.onFetchSuccess} />
     );
   }
 });
