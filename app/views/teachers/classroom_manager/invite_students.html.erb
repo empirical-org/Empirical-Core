@@ -62,7 +62,7 @@
       <% end %>
     </div>
 
-    <table class="table">
+    <table class="table students">
       <thead>
         <tr>
           <th>First Name</th>
@@ -78,10 +78,10 @@
         </tr>
       <% else %>
         <% @classroom.students.each do |student| %>
-          <tr>
-            <td><%= student.first_name %></td>
-            <td><%= student.last_name %></td>
-            <td><%= student.username %></td>
+          <tr class='<%= dom_class(student) %>' id='<%= dom_id(student) %>'>
+            <% %i(first_name last_name username).each do |sym| %>
+              <td class='<%= sym.to_s %>'><%= student.send(sym) %></td>
+            <% end %>
           </tr>
         <% end %>
       <% end %>

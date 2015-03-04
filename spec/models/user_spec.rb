@@ -491,22 +491,28 @@ describe User, :type => :model do
   end
 
   describe "#subscribe_to_newsletter" do
+    let(:user) { FactoryGirl.build(:user, newsletter: newsletter) }
 
-    let(:user) { FactoryGirl.build(:user) }
+    context 'when #newsletter = 0' do
+      let(:newsletter) { 0 }
 
-    it "returns nil when user newletter attribute is 0" do
-      user.newsletter="0"
-      expect(user.send(:subscribe_to_newsletter)).to eq(nil)
+      it 'does not call MailchimpConnection.subscribe_to_newsletter' do
+        expect(MailchimpConnection).not_to receive(:subscribe_to_newsletter)
+
+        user.subscribe_to_newsletter
+      end
     end
 
-    it "calls MailchimpConnection subscribe when newletter attribute is 1" do
-      user.newsletter="1"
-      expect(MailchimpConnection).to receive(:connection).at_least(:once).and_return(double())
-      expect(MailchimpConnection.connection).to receive(:lists).at_least(:once).and_return(double())
-      expect(MailchimpConnection.connection.lists).to receive(:subscribe).and_return(true)
-      user.send(:subscribe_to_newsletter)
-    end
+    context 'when #newsletter = 1' do
+      let(:newsletter) { 1 }
 
+      it 'calls MailchimpConnection.subscribe_to_newsletter' do
+        expect(MailchimpConnection).to receive(:subscribe_to_newsletter)
+                                       .with(user.email)
+
+        user.subscribe_to_newsletter
+      end
+    end
   end
 
   describe "#send_welcome_email" do
@@ -617,8 +623,6 @@ describe User, :type => :model do
         end
       end
     end
-
-    
   end
 
   describe 'getting users for the progress reports' do
