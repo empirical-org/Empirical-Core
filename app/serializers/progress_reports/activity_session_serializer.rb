@@ -51,7 +51,7 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
   # Following fields are used by the filters
 
   def classroom_id
-    object.classroom_activity.try(:classroom_id)
+    object.classroom_activity.try(:classroom_id).try(:to_s)
   end
 
   def classroom_name
@@ -59,7 +59,7 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
   end
 
   def unit_id
-    object.classroom_activity.try(:unit).try(:id)
+    object.classroom_activity.try(:unit).try(:id).try(:to_s)
   end
 
   def unit_name
@@ -71,7 +71,7 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
   end
 
   def student_id
-    object.user_id
+    object.user_id.try(:to_s)
   end
 
   def standard

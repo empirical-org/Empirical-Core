@@ -10,9 +10,9 @@ class Teachers::ProgressReports::SectionsController < ApplicationController
       end
       filters = params
       filters[:section_id] = section_data.map {|s| s['id']}
-      classrooms = Classroom.for_progress_report(current_user, filters)
       units = Unit.for_progress_report(current_user, filters)
       students = User.for_progress_report(current_user, filters)
+      classrooms = Classroom.for_progress_report(current_user, filters)
       render json: {
         sections: section_data,
         classrooms: classrooms,
