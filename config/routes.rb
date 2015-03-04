@@ -29,7 +29,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :sections, only: [:index] do
         resources :topics, only: [:index]
       end
-      resources :concept_categories, only: [:index]
+      resources :concept_categories, only: [:index] do
+        resources :concept_tags, only: [:index]
+      end
     end
 
     resources :classrooms do

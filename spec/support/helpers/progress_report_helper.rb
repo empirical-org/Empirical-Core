@@ -21,7 +21,7 @@ module ProgressReportHelper
 
     concept_class = FactoryGirl.create(:concept_class)
     @writing_category = FactoryGirl.create(:concept_category, name: "Writing Category", concept_class: concept_class)
-    writing_tag = FactoryGirl.create(:concept_tag, name: "Writing Tag", concept_class: concept_class)
+    @writing_tag = FactoryGirl.create(:concept_tag, name: "Writing Tag", concept_class: concept_class)
     @grammar_category = FactoryGirl.create(:concept_category, name: "Grammar Category", concept_class: concept_class)
     grammar_tag = FactoryGirl.create(:concept_tag, name: "Grammar Tag", concept_class: concept_class)
     empty_category = FactoryGirl.create(:concept_category, name: "Empty / Hidden", concept_class: concept_class)
@@ -36,7 +36,7 @@ module ProgressReportHelper
 
     correct_writing_result1 = FactoryGirl.create(:concept_tag_result,
       activity_session: activity_session,
-      concept_tag: writing_tag,
+      concept_tag: @writing_tag,
       concept_category: @writing_category,
       metadata: {
         "correct" => 1
@@ -44,7 +44,7 @@ module ProgressReportHelper
 
     correct_writing_result2 = FactoryGirl.create(:concept_tag_result,
       activity_session: activity_session,
-      concept_tag: writing_tag,
+      concept_tag: @writing_tag,
       concept_category: @writing_category,
       metadata: {
         "correct" => 1
@@ -52,7 +52,7 @@ module ProgressReportHelper
 
     incorrect_writing_result = FactoryGirl.create(:concept_tag_result,
       activity_session: activity_session,
-      concept_tag: writing_tag,
+      concept_tag: @writing_tag,
       concept_category: @writing_category,
       metadata: {
         "correct" => 0
@@ -90,7 +90,7 @@ module ProgressReportHelper
       percentage: 0.75)
     other_grammar_result = FactoryGirl.create(:concept_tag_result,
       activity_session: other_activity_session,
-      concept_tag: writing_tag,
+      concept_tag: @writing_tag,
       concept_category: @writing_category,
       metadata: {
         "correct" => 1
@@ -99,6 +99,7 @@ module ProgressReportHelper
     @visible_categories = [@writing_category, @grammar_category]
     @writing_results = [correct_writing_result1, correct_writing_result2, incorrect_writing_result]
     @grammar_results = [correct_grammar_result, incorrect_grammar_result]
+    @writing_category_tags = [@writing_tag]
   end
 
   def setup_sections_progress_report
