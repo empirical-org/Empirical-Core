@@ -22,7 +22,7 @@ class Topic < ActiveRecord::Base
     SELECT
   end
 
-  def self.progress_report_joins
+  def self.progress_report_joins(filters)
     {:activities => {:classroom_activities => [:classroom, :activity_sessions]}}
   end
 

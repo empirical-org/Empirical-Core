@@ -45,8 +45,12 @@ class User < ActiveRecord::Base
     "users.id as id, users.name as name"
   end
 
-  def self.progress_report_joins
-    [:classroom => :classroom_activities, :activity_sessions => {:activity => :topic}]
+  def self.progress_report_joins(filters)
+    if filters[:concept_category_id].present?
+      [:classroom => :classroom_activities, :activity_sessions => [:concept_tag_results, {:activity => :topic}]]
+    else
+      [:classroom => :classroom_activities, :activity_sessions => {:activity => :topic}]
+    end
   end
 
   def self.progress_report_group_by

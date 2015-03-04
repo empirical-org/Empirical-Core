@@ -5,13 +5,13 @@
 module ProgressReportQuery
   extend ActiveSupport::Concern
   # def self.progress_report_select
-  # def self.progress_report_joins
+  # def self.progress_report_joins(filters)
   # def self.progress_report_group_by
   # def self.progress_report_order_by
 
   module ClassMethods
     def for_progress_report(teacher, filters)
-      query = progress_report_base_query(teacher)
+      query = progress_report_base_query(teacher, filters)
 
       if filters[:classroom_id].present?
         query = query.where("classrooms.id = ?", filters[:classroom_id])
@@ -26,7 +26,7 @@ module ProgressReportQuery
       end
 
       if filters[:concept_category_id].present?
-        query = query.where("concept_tag_results.concept_category_id = ?", filters[:concept_category_id])
+        query = query.where("concept_tag_results.concept_category_id IN (?)", filters[:concept_category_id])
       end
 
       if filters[:section_id].present?
@@ -41,9 +41,9 @@ module ProgressReportQuery
       get_query_results(query)
     end
 
-    def progress_report_base_query(teacher)
+    def progress_report_base_query(teacher, filters)
       query = select(progress_report_select)
-              .joins(progress_report_joins)
+              .joins(progress_report_joins(filters))
               .group(progress_report_group_by)
               .where("activity_sessions.state = ?", "finished")
               .where("classrooms.teacher_id = ?", teacher.id) # Always by teacher

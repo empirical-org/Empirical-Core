@@ -10,8 +10,18 @@ class Unit < ActiveRecord::Base
     "units.id as id, units.name as name"
   end
 
-  def self.progress_report_joins
-    {:classroom_activities => [:activity_sessions, :classroom, {:activity => :topic}]}
+  # Determine which tables to join against based on the set of
+  # filters being applied.
+  def self.progress_report_joins(filters)
+    # Skip the join against concept_tag_results because
+    # otherwise it would affect the retrieval of units for
+    # progress reports where concept tags / categories are irrelevant.
+    # Could be a LEFT JOIN also.
+    if filters[:concept_category_id].present?
+      {:classroom_activities => [:classroom, {:activity_sessions => :concept_tag_results, :activity => :topic}]}
+    else
+      {:classroom_activities => [:activity_sessions, :classroom, {:activity => :topic}]}
+    end
   end
 
   def self.progress_report_group_by
