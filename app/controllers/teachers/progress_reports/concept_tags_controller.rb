@@ -5,8 +5,14 @@ class Teachers::ProgressReports::ConceptTagsController < ApplicationController
   def index
     if request.xhr?
       concept_tags = ConceptTag.for_progress_report(current_user, params)
+      units = Unit.for_progress_report(current_user, params)
+      students = User.for_progress_report(current_user, params)
+      classrooms = Classroom.for_progress_report(current_user, params)
       render json: {
-        concept_tags: concept_tags
+        concept_tags: concept_tags,
+        units: units,
+        students: students,
+        classrooms: classrooms
       }
     end
   end

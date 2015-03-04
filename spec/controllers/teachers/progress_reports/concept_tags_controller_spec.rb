@@ -42,10 +42,17 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
         session[:user_id] = teacher.id
       end
 
-      it 'fetches aggregated topics data' do
+      it 'fetches aggregated concept tags data' do
         subject
         expect(response.status).to eq(200)
         expect(json['concept_tags'].size).to eq(@writing_category_tags.size)
+      end
+
+      it 'fetches classroom, unit, and student data for the filter options' do
+        subject
+        expect(json['classrooms'].size).to eq(1)
+        expect(json['units'].size).to eq(1)
+        expect(json['students'].size).to eq(1)
       end
     end
   end
