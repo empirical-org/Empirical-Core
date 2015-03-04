@@ -39,7 +39,6 @@ class Teachers::UnitsController < ApplicationController
 
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
     AssignActivityWorker.perform_async(current_user.id) # current_user should be the teacher
-    # redirect_to teachers_classroom_scorebook_path(current_user.classrooms.first)
     render json: {}
 
   end
@@ -68,6 +67,8 @@ class Teachers::UnitsController < ApplicationController
       end
 
       num_students_assigned = assigned_student_ids.uniq.length
+
+      x1 = x1.uniq{|y| y[:activity_id] }
 
       ele = {unit: Unit.find(unit_id), classroom_activities: x1, num_students_assigned: num_students_assigned}
       arr.push ele
