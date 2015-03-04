@@ -24,6 +24,22 @@ EC.TableSortingMixin = {
   // config = {field: string, sortFunc: function, ...}
   // currentSort = {field: string, direction: string ('asc' or 'desc')}
   defineSorting: function(config, currentSort) {
+    // Convert string configuration to functions.
+    _.each(config, function(value, key) {
+      if (!_.isFunction(value)) {
+        switch(value) {
+          case 'numeric':
+            config[key] = this.numericSort;
+            break
+          case 'natural':
+            config[key] = this.naturalSort;
+            break;
+          default:
+            throw "Sort function named '" + value + "' not recognized";
+        }
+      }
+    }.bind(this));
+
     this.setState({
       sortConfig: config,
       currentSort: currentSort

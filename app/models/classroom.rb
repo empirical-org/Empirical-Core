@@ -1,4 +1,6 @@
 class Classroom < ActiveRecord::Base
+  include ProgressReportQuery
+
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
 
   validates_uniqueness_of :code
@@ -34,29 +36,25 @@ class Classroom < ActiveRecord::Base
     end
   end
 
-  def self.for_progress_report(teacher, filters)
-    q = joins(:classroom_activities => [:activity_sessions, {:activity => :topic}])
-      .where("activity_sessions.state = ?", "finished")
-      .where('classrooms.teacher_id = ?', teacher.id).uniq
-      .order('classrooms.name asc')
+  def self.progress_report_select
+    "classrooms.name as name, classrooms.id as id"
+  end
 
-    if filters[:section_id].present?
-      q = q.where('topics.section_id IN (?)', filters[:section_id])
+  def self.progress_report_joins(filters)
+    # See Unit#progress_report_joins for info on why this logic is necessary.
+    if filters[:concept_category_id].present?
+      {:classroom_activities => {:activity_sessions => :concept_tag_results, :activity => :topic}}
+    else
+      {:classroom_activities => [:activity_sessions, {:activity => :topic}]}
     end
+  end
 
-    if filters[:student_id].present?
-      q = q.where('activity_sessions.user_id = ?', filters[:student_id])
-    end
+  def self.progress_report_group_by
+    "classrooms.id"
+  end
 
-    if filters[:topic_id].present?
-      q = q.where('topics.id IN (?)', filters[:topic_id])
-    end
-
-    if filters[:unit_id].present?
-      q = q.where('classroom_activities.unit_id = ?', filters[:unit_id])
-    end
-
-    q
+  def self.progress_report_order_by
+    "classrooms.name asc"
   end
 
   def self.setup_from_clever(section)
