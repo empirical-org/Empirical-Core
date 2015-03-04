@@ -14,7 +14,7 @@ class ConceptCategory < ActiveRecord::Base
     SELECT
   end
 
-  def self.progress_report_joins
+  def self.progress_report_joins(filters)
     {:concept_tag_results => {:activity_session => {:classroom_activity => :classroom}}}
   end
 

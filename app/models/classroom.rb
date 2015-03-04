@@ -40,8 +40,13 @@ class Classroom < ActiveRecord::Base
     "classrooms.name as name, classrooms.id as id"
   end
 
-  def self.progress_report_joins
-    {:classroom_activities => [:activity_sessions, {:activity => :topic}]}
+  def self.progress_report_joins(filters)
+    # See Unit#progress_report_joins for info on why this logic is necessary.
+    if filters[:concept_category_id].present?
+      {:classroom_activities => {:activity_sessions => :concept_tag_results, :activity => :topic}}
+    else
+      {:classroom_activities => [:activity_sessions, {:activity => :topic}]}
+    end
   end
 
   def self.progress_report_group_by

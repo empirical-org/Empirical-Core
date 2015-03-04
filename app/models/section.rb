@@ -10,7 +10,7 @@ class Section < ActiveRecord::Base
   validates :name, presence: true
 
   def self.for_topic_progress_report(teacher, section_id)
-    query = progress_report_base_query(teacher).where('sections.id = ?', section_id).limit(1)
+    query = progress_report_base_query(teacher, {}).where('sections.id = ?', section_id).limit(1)
     get_query_results(query).first
   end
 
@@ -25,7 +25,7 @@ class Section < ActiveRecord::Base
     SELECT
   end
 
-  def self.progress_report_joins
+  def self.progress_report_joins(filters)
     {:topics => {:activities => {:classroom_activities => [:classroom, :activity_sessions]}}}
   end
 
