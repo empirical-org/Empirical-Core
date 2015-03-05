@@ -40,6 +40,13 @@ describe ConceptTagHelper, type: :helper do
   describe "#grammar_concepts_stats" do
     before do
       activity_session.concept_tag_results.create!(
+        concept_tag: typing_speed_tag,
+        concept_category: typing_speed_category,
+        metadata: {
+          wpm: 5
+        }
+      )
+      activity_session.concept_tag_results.create!(
         concept_tag: prepositions_tag,
         concept_category: grammar_category,
         metadata: {
@@ -54,6 +61,11 @@ describe ConceptTagHelper, type: :helper do
       expect(html).to include(prepositions_tag.name)
       expect(html).to include("1")
       expect(html).to include("0")
+    end
+
+    it "should only include tags from the Grammar Concepts class" do
+      html = helper.grammar_concepts_stats(activity_session.concept_tag_results)
+      expect(html).to_not include(typing_speed_tag.name)
     end
   end
 

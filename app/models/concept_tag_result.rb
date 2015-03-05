@@ -18,7 +18,8 @@ class ConceptTagResult < ActiveRecord::Base
 
   def self.grammar_counts
     select("concept_tags.name, #{correct_result_count_sql}, #{incorrect_result_count_sql}")
-    .joins(:concept_tag)
+    .joins(:concept_tag => :concept_class)
+    .where(concept_classes: {name: "Grammar Concepts"})
     .group("concept_tags.name")
     .order("concept_tags.name asc")
   end
