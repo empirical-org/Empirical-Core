@@ -46,14 +46,6 @@ describe ConceptTagHelper, type: :helper do
           correct: 1
         }
       )
-
-      activity_session.concept_tag_results.create!(
-        concept_tag: prepositions_tag,
-        concept_category: grammar_category,
-        metadata: {
-          correct: 0
-        }
-      )
     end
 
     it "displays a breakdown of the grammar concepts and correct/incorrect" do
