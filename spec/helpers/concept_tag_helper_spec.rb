@@ -67,6 +67,24 @@ describe ConceptTagHelper, type: :helper do
       html = helper.grammar_concepts_stats(activity_session.concept_tag_results)
       expect(html).to_not include(typing_speed_tag.name)
     end
+
+    context "when there are badly-formed results" do
+      let(:bad_tag) { FactoryGirl.create(:concept_tag, concept_class: grammar_concepts_class) }
+
+      before do
+        activity_session.concept_tag_results.create!(
+          concept_tag: bad_tag,
+          concept_category: grammar_category,
+          metadata: {} # Missing a 'correct field'
+        )
+      end
+
+      it "should not include those results in the counts" do
+        html = helper.grammar_concepts_stats(activity_session.concept_tag_results)
+        expect(html).to_not include(bad_tag.name)
+      end
+    end
+
   end
 
   describe "#typing_speed_stats" do

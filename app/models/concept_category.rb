@@ -9,8 +9,8 @@ class ConceptCategory < ActiveRecord::Base
       concept_categories.id as concept_category_id,
       concept_categories.name as concept_category_name,
       COUNT(concept_tag_results.id) as total_result_count,
-      #{ConceptTagResult.correct_result_count_sql},
-      #{ConceptTagResult.incorrect_result_count_sql}
+      #{ConceptTagResult.correct_result_count_sql} as correct_result_count,
+      #{ConceptTagResult.incorrect_result_count_sql} as incorrect_result_count
     SELECT
   end
 
