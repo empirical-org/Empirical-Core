@@ -17,19 +17,20 @@ class ConceptTagResult < ActiveRecord::Base
   end
 
   def self.grammar_counts
-    select("concept_tags.name, #{correct_result_count_sql}, #{incorrect_result_count_sql}")
+    select("concept_tags.name, #{correct_result_count_sql} as correct_result_count, #{incorrect_result_count_sql}  as incorrect_result_count")
     .joins(:concept_tag => :concept_class)
     .where(concept_classes: {name: "Grammar Concepts"})
     .group("concept_tags.name")
     .order("concept_tags.name asc")
+    .having("#{correct_result_count_sql} > 0 or #{incorrect_result_count_sql} > 0")
   end
 
   def self.correct_result_count_sql
-    "SUM(CASE WHEN cast(concept_tag_results.metadata->>'correct' as int) = 1 THEN 1 ELSE 0 END) as correct_result_count"
+    "SUM(CASE WHEN cast(concept_tag_results.metadata->>'correct' as int) = 1 THEN 1 ELSE 0 END)"
   end
 
   def self.incorrect_result_count_sql
-    "SUM(CASE WHEN cast(concept_tag_results.metadata->>'correct' as int) = 1 THEN 0 ELSE 1 END) as incorrect_result_count"
+    "SUM(CASE WHEN cast(concept_tag_results.metadata->>'correct' as int) = 0 THEN 1 ELSE 0 END)"
   end
 
   private
