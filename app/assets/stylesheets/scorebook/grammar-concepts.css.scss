@@ -1,0 +1,16 @@
+@import "variables";
+
+// TODO: The CSS organization really needs to be fixed.
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.correct-answer {
+  color: $green;
+}
+
+.incorrect-answer {
+  color: $red;
+}
