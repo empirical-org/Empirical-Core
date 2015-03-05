@@ -9,6 +9,13 @@ class ConceptTagResult < ActiveRecord::Base
   validates :concept_tag, presence: true
   validates :concept_category, presence: true
 
+  # Calculate the average words per minute for all the Typing Speed results
+  def self.average_wpm
+    joins(:concept_tag)
+    .where(concept_tags: {name: "Typing Speed"})
+    .average("cast(metadata->>'wpm' as int)")
+  end
+
   private
 
   def extract_tag_from_metadata
