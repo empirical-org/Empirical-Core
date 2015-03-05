@@ -76,12 +76,12 @@ class Teachers::ClassroomManagerController < ApplicationController
     else
       @unit = Unit.find(params[:unit_id]) if params[:unit_id]
     end
-    
-    @units = @classroom.classroom_activities.map(&:unit).uniq - [@unit]
+
+    @units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq - [@unit]
     @are_all_units_selected = (params[:all_units])
   end
 
-  
+
 
   private
 
