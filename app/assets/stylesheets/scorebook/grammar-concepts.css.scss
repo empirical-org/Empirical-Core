@@ -1,0 +1,28 @@
+@import "variables";
+
+// TODO: The CSS organization really needs to be fixed.
+
+// Duplicate of .tooltip-inner h1 from bootstrap
+.concept-stats {
+  font-size: 12px;
+
+  h1 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  margin-bottom: 30px;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.correct-answer {
+  color: $green;
+}
+
+.incorrect-answer {
+  color: $red;
+}
