@@ -25,6 +25,8 @@
 //= require edit_in_place
 //= require home
 //= require loadingbutton
+//= require porthole
+//= require porthole-create
 //= require quill-core
 //= require quill-idlecheck
 //= require review_questions
