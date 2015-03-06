@@ -1,18 +1,18 @@
 article.extra-padding.activity-form
-  iframe#activity-iframe src=@activity.module_url(@activity_session) name=@activity.name
+  iframe#activity-iframe src=@activity.module_url(@activity_session) name='activity-iframe'
 
   javascript:
     jQuery(function ($) {
       var moduleUrl = '#{@activity.module_url(@activity_session)}';
       window.quill = new Quill(moduleUrl);
       quill.listen();
-      var windowProxy = new Porthole.WindowProxy(moduleUrl, '#{@activity.name}');
+      var windowProxy = new Porthole.WindowProxy(moduleUrl, 'activity-iframe');
       windowProxy.addEventListener(function(message) {
         var data = message.data;
         if (data.id) {
-          quill.finishActivity(id);
+          quill.iframe.activityFinished(data);
         } else {
-          quill.cheat();
+          window.location = '/';
         }
       });
     });
