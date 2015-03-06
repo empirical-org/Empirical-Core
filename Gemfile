@@ -101,6 +101,7 @@ group :production, :staging do
 end
 
 group :development do
+  gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'foreman'
