@@ -25,6 +25,33 @@ SELECT pg_catalog.setval('sections_id_seq', 21, true);
 
 
 --
+-- Data for Name: topic_categories; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+DELETE FROM topic_categories;
+INSERT INTO topic_categories VALUES (1, 'Adjectives & Adverbs', '2015-03-06 22:50:24.837599', '2015-03-06 22:50:24.837599');
+INSERT INTO topic_categories VALUES (2, 'Capitalization', '2015-03-06 22:50:25.837599', '2015-03-06 22:50:25.837599');
+INSERT INTO topic_categories VALUES (3, 'Comma Usage', '2015-03-06 22:50:26.837599', '2015-03-06 22:50:26.837599');
+INSERT INTO topic_categories VALUES (4, 'Commonly Confused Words', '2015-03-06 22:50:27.837599', '2015-03-06 22:50:27.837599');
+INSERT INTO topic_categories VALUES (5, 'Conjunctions', '2015-03-06 22:50:28.837599', '2015-03-06 22:50:28.837599');
+INSERT INTO topic_categories VALUES (6, 'Determiners', '2015-03-06 22:50:29.837599', '2015-03-06 22:50:29.837599');
+INSERT INTO topic_categories VALUES (7, 'Nouns & Pronouns', '2015-03-06 22:50:30.837599', '2015-03-06 22:50:30.837599');
+INSERT INTO topic_categories VALUES (8, 'Prepositions', '2015-03-06 22:50:31.837599', '2015-03-06 22:50:31.837599');
+INSERT INTO topic_categories VALUES (9, 'Punctuation', '2015-03-06 22:50:32.837599', '2015-03-06 22:50:32.837599');
+INSERT INTO topic_categories VALUES (10, 'Structure', '2015-03-06 22:50:33.837599', '2015-03-06 22:50:33.837599');
+INSERT INTO topic_categories VALUES (11, 'Summative Assessments', '2015-03-06 22:50:34.837599', '2015-03-06 22:50:34.837599');
+INSERT INTO topic_categories VALUES (12, 'Verbs', '2015-03-06 22:50:35.837599', '2015-03-06 22:50:35.837599');
+
+
+--
+-- Name: topic_categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('topic_categories_id_seq', 1, true);
+
+
+
+--
 -- Data for Name: activities; Type: TABLE DATA; Schema: public; Owner: -
 --
 
