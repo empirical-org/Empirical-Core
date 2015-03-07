@@ -106,10 +106,6 @@ INSERT INTO topics VALUES (6, '1.1i. Frequently Occurring Prepositions', 7, '201
 INSERT INTO topics VALUES (4, '4.1b. The Progressive Tense', 10, '2014-04-19 15:42:31.262329', '2014-04-19 20:48:04.203959');
 INSERT INTO topics VALUES (16, '8.1d. Recognize and Correct Innapropriate Shifts in Verb Voice and Mood', 14, '2014-04-19 15:43:09.964846', '2014-04-19 20:49:07.438917');
 INSERT INTO topics VALUES (55, '5.2c. Use a Comma to Set off the Words "Yes" and "No"', 11, '2014-04-19 15:43:20.06305', '2014-04-19 20:47:05.606249');
-INSERT INTO topics VALUES (45, '', 21, '2013-10-15 01:23:59.750049', '2014-04-21 06:03:28.794874');
-INSERT INTO topics VALUES (28, '', 21, '2013-09-23 22:38:21.909759', '2014-04-21 06:03:34.891251');
-INSERT INTO topics VALUES (36, '', 21, '2013-09-24 22:06:15.142731', '2014-04-21 06:03:40.797875');
-INSERT INTO topics VALUES (9, '', 21, '2014-04-19 15:42:59.425726', '2014-04-21 06:06:25.771323');
 INSERT INTO topics VALUES (54, 'M3. Correcting Messy Sentences', 16, '2013-11-09 22:05:49.7566', '2014-04-21 00:34:06.29443');
 INSERT INTO topics VALUES (37, 'M2. Using Spaces with Punctuation', 16, '2013-10-04 04:35:05.503399', '2014-04-21 00:34:17.25728');
 INSERT INTO topics VALUES (50, 'M1. Using Spaces With Quotation Marks', 16, '2013-10-27 21:25:23.867592', '2014-04-21 00:34:25.965074');
