@@ -53,6 +53,9 @@ describe Teachers::ProgressReports::StudentsController, :type => :controller do
             expect(json['students'].size).to eq(@visible_students.size)
             alice = json['students'][0]
             expect(alice['name']).to eq(@alice.name)
+            expect(alice['total_result_count'].to_i).to eq(@alice_session.concept_tag_results.size)
+            expect(alice['correct_result_count'].to_i).to eq(1)
+            expect(alice['incorrect_result_count'].to_i).to eq(1)
           end
 
           it 'fetches additional data for the filters' do
