@@ -42,7 +42,13 @@ class User < ActiveRecord::Base
 
 
   def self.progress_report_select
-    "users.id as id, users.name as name"
+    <<-SELECT
+      users.id as id,
+      users.name as name,
+      DISTINCT(COUNT(concept_tag_results.id)) as total_result_count,
+      #{ConceptTagResult.correct_result_count_sql} as correct_result_count,
+      #{ConceptTagResult.incorrect_result_count_sql} as incorrect_result_count
+    SELECT
   end
 
   def self.progress_report_joins(filters)

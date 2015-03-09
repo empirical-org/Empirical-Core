@@ -6,12 +6,33 @@ EC.ConceptTagsStudentsProgressReport = React.createClass({
     sourceUrl: React.PropTypes.string.isRequired
   },
 
+  getInitialState: function() {
+    return {
+      conceptTag: {}
+    }
+  },
+
   columnDefinitions: function() {
     return [
       {
-        name: 'Student Name',
+        name: this.state.conceptTag.concept_tag_name,
         field: 'name',
         sortByField: 'name',
+      },
+      {
+        name: 'Total Results: ' + this.state.conceptTag.total_result_count,
+        field: 'total_result_count',
+        sortByField: 'total_result_count'
+      },
+      {
+        name: 'Correct Results: ' + this.state.conceptTag.correct_result_count,
+        field: 'correct_result_count',
+        sortByField: 'correct_result_count'
+      },
+      {
+        name: 'Incorrect Results: ' + this.state.conceptTag.incorrect_result_count,
+        field: 'incorrect_result_count',
+        sortByField: 'incorrect_result_count'
       }
     ];
   },
@@ -28,6 +49,12 @@ EC.ConceptTagsStudentsProgressReport = React.createClass({
     };
   },
 
+  onFetchSuccess: function(responseData) {
+    this.setState({
+      conceptTag: responseData.concept_tag
+    });
+  },
+
   render: function() {
     return (
       <EC.ProgressReport columnDefinitions={this.columnDefinitions}
@@ -35,7 +62,8 @@ EC.ConceptTagsStudentsProgressReport = React.createClass({
                          clientSideFiltering={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'students'} />
+                         jsonResultsKey={'students'}
+                         onFetchSuccess={this.onFetchSuccess} />
     );
   }
 });

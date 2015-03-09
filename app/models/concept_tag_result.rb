@@ -33,6 +33,10 @@ class ConceptTagResult < ActiveRecord::Base
     "SUM(CASE WHEN cast(concept_tag_results.metadata->>'correct' as int) = 0 THEN 1 ELSE 0 END)"
   end
 
+  def self.total_result_count_sql
+    "DISTINCT(COUNT(concept_tag_results.id)) as total_result_count"
+  end
+
   private
 
   def extract_tag_from_metadata
