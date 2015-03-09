@@ -15,6 +15,11 @@ EC.ConceptTagsProgressReport = React.createClass({
         name: this.state.conceptCategory.concept_category_name,
         field: 'concept_tag_name',
         sortByField: 'concept_tag_name',
+        customCell: function(row) {
+          return (
+            <a href={row['students_href']}>{row['concept_tag_name']}</a>
+          );
+        }
       },
       {
         name: 'Total Results: ' + this.state.conceptCategory.total_result_count,
