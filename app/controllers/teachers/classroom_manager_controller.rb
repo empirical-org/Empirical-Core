@@ -67,6 +67,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
     end
+  end
+
+  def scores
     @classrooms = current_user.classrooms - [@classroom]
     
     if  ([54569, 60607].include?(current_user.id) and (params[:unit_id].nil?)) # temp fix for users with huge scorebooks
@@ -74,11 +77,17 @@ class Teachers::ClassroomManagerController < ApplicationController
       @unit = current_user.classrooms.map(&:classroom_activities).flatten.map(&:unit).compact.last
 
     else
-      @unit = Unit.find(params[:unit_id]) if params[:unit_id]
+      @unit = params[:unit_id].present? ? Unit.find(params[:unit_id]) : nil
     end
 
     @units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq - [@unit]
     @are_all_units_selected = (params[:all_units])
+  
+    render json: {
+      classrooms: @classrooms,
+      unit: @unit,
+      units: @units
+    }
   end
 
 
