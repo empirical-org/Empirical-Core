@@ -136,6 +136,88 @@ module ProgressReportHelper
     end
   end
 
+  def setup_students_progress_report
+    # Create 3 students
+    # Create 2 concept tag, one displayed, the other not
+    # Create a distribution of concept tag results for each student
+    @alice = FactoryGirl.create(:student, name: "Alice")
+    @fred = FactoryGirl.create(:student, name: "Fred")
+    @zojirushi = FactoryGirl.create(:student, name: "Zojirushi")
+
+    concept_class = FactoryGirl.create(:concept_class)
+    @concept_tag = FactoryGirl.create(:concept_tag, concept_class: concept_class)
+    @concept_category = FactoryGirl.create(:concept_category, concept_class: concept_class)
+    hidden_concept_tag = FactoryGirl.create(:concept_tag, name: "Hidden", concept_class: concept_class)
+
+    # Boilerplate
+    classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [@alice, @fred, @zojirushi])
+    activity = FactoryGirl.create(:activity)
+    unit = FactoryGirl.create(:unit)
+    classroom_activity = FactoryGirl.create(:classroom_activity,
+                                            classroom: classroom,
+                                            activity: activity,
+                                            unit: unit)
+
+
+    # Create 2 activity session for each student, one with the concept tags, one without
+    @alice_session = FactoryGirl.create(:activity_session,
+                                        classroom_activity: classroom_activity,
+                                        user: @alice,
+                                        activity: activity,
+                                        state: 'finished',
+                                        percentage: 0.75)
+
+    # Incorrect result for Alice
+    @alice_session.concept_tag_results.create!(
+      concept_tag: @concept_tag,
+      concept_category: @concept_category,
+      metadata: {
+        "correct" => 0
+      })
+
+    # Correct result for Alice
+    @alice_session.concept_tag_results.create!(
+      concept_tag: @concept_tag,
+      concept_category: @concept_category,
+      metadata: {
+        "correct" => 1
+      })
+
+    @fred_session = FactoryGirl.create(:activity_session,
+                                        classroom_activity: classroom_activity,
+                                        user: @fred,
+                                        activity: activity,
+                                        state: 'finished',
+                                        percentage: 0.75)
+
+    # Incorrect result for Fred
+    @fred_session.concept_tag_results.create!(
+      concept_tag: @concept_tag,
+      concept_category: @concept_category,
+      metadata: {
+        "correct" => 0
+      })
+
+    # Correct result for Fred for hidden tag (not displayed)
+    @fred_session.concept_tag_results.create!(
+      concept_tag: hidden_concept_tag,
+      concept_category: @concept_category,
+      metadata: {
+        "correct" => 1
+      })
+
+    # Zojirushi has no concept tag results, so should not display
+    # in the progress report
+    @zojirushi_session = FactoryGirl.create(:activity_session,
+                                        classroom_activity: classroom_activity,
+                                        user: @zojirushi,
+                                        activity: activity,
+                                        state: 'finished',
+                                        percentage: 0.75)
+
+    @visible_students = [@alice, @fred]
+  end
+
   def setup_topics_progress_report
     # Stats should come out like this:
     # name,     student_count,    proficient_count,   not_proficient_count,
