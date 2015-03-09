@@ -47,10 +47,16 @@ describe Teachers::ProgressReports::StudentsController, :type => :controller do
             session[:user_id] = teacher.id
           end
 
-          it 'fetches aggregated topics data' do
+          it 'fetches aggregated students data' do
             subject
             expect(response.status).to eq(200)
             expect(json['students'].size).to eq(@visible_students.size)
+            alice = json['students'][0]
+            expect(alice['name']).to eq(@alice.name)
+          end
+
+          it 'fetches additional data for the filters' do
+            subject
             expect(json['classrooms'].size).to eq(1)
             expect(json['units'].size).to eq(1)
           end
