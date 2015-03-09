@@ -10,7 +10,6 @@ EC.ConceptTagsProgressReport = React.createClass({
   },
 
   columnDefinitions: function() {
-    console.log('TODO Customize header names based on concept category data');
     return [
       {
         name: this.state.conceptCategory.concept_category_name,
