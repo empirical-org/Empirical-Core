@@ -50,7 +50,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       # TODO: abstract this list as well. Duplicated in nav in layout.
-      %w(scorebook invite_students accounts import).each do |page|
+      %w(scorebook scores invite_students accounts import).each do |page|
         get page => "classroom_manager##{page}"
       end
 
