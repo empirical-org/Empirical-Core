@@ -27,6 +27,8 @@
 //= require_tree ./lesson_planner/create_unit/
 //= require_tree ./lesson_planner/manage_units/
 
+//= require_tree ./scorebook/
+
 //= require jquery.turbolinks
 //= require jquery_ujs
 
