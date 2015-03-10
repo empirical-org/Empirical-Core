@@ -86,34 +86,94 @@ describe Classroom, :type => :model do
 
     let!(:teacher) { FactoryGirl.create(:teacher) }
     let(:section_ids) { [@sections[0].id, @sections[1].id] }
+    let(:filters) { {} }
 
     before do
       setup_sections_progress_report
     end
 
-    it 'can retrieve classrooms based on sections' do
-      classrooms = Classroom.for_progress_report(teacher, {section_id: section_ids})
-      expect(classrooms.size).to eq(2) # 1 classroom created for each section
+    subject { Classroom.for_standards_progress_report(teacher, filters).to_a }
+
+    it "retrieves aggregated classroom data" do
+      classrooms = subject
+      expect(classrooms[0]["name"]).to eq(@classrooms.first.name)
+      expect(classrooms[0]["id"]).to eq(@classrooms.first.id)
     end
 
-    it 'can retrieve classrooms based on student_id' do
-      classrooms = Classroom.for_progress_report(teacher, {student_id: @students.first.id})
-      expect(classrooms.size).to eq(1)
+    it "retrieves classrooms with no filters" do
+      expect(subject.size).to eq(@classrooms.size)
     end
 
-    it 'can retrieve classrooms based on unit_id' do
-      classrooms = Classroom.for_progress_report(teacher, {unit_id: @units.first.id})
-      expect(classrooms.size).to eq(1)
+    context 'sections' do
+      let(:filters) { {section_id: section_ids} }
+
+      it 'can retrieve sections based on sections' do
+        expect(subject.size).to eq(2) # 1 user created for each section
+      end
     end
 
-    it 'can retrieve classrooms based on a set of topic ids' do
-      classrooms = Classroom.for_progress_report(teacher, {topic_id: @topics.first.id})
-      expect(classrooms.size).to eq(1)
+    context 'classrooms' do
+      let(:filters) { {classroom_id: @classrooms.first.id} }
+
+      it 'can retrieve sections based on classroom_id' do
+        expect(subject.size).to eq(1)
+      end
     end
 
-    it 'can retrieve classrooms based on no additional parameters' do
-      classrooms = Classroom.for_progress_report(teacher, {})
-      expect(classrooms.size).to eq(@classrooms.size)
+    context 'empty classroom' do
+      let(:filters) { {classroom_id: ""} }
+
+      it 'does not filter by classroom' do
+        expect(subject.size).to eq(@sections.size)
+      end
+    end
+
+    context 'units' do
+      let(:filters) { {unit_id: @units.first.id} }
+
+      it 'can retrieve sections based on unit_id' do
+        expect(subject.size).to eq(1)
+      end
+    end
+
+    context 'empty units' do
+      let(:filters) { {unit_id: ""} }
+
+      it 'does not filter by units' do
+        expect(subject.size).to eq(@sections.size)
+      end
+    end
+
+    context 'a set of topics' do
+      let(:filters) { {section_id: section_ids, topic_id: @topics.map {|t| t.id} } }
+
+      it 'can retrieve sections based on a set of topics' do
+        expect(subject.size).to eq(2)
+      end
+    end
+
+    context 'a single topic' do
+      let(:filters) { {section_id: section_ids, topic_id: @topics.first.id } }
+
+      it 'can retrieve sections based on a single topic' do
+        expect(subject.size).to eq(1)
+      end
+    end
+
+    context 'students' do
+      let(:filters) { {student_id: @students.first.id} }
+
+      it 'can retrieve sections based on a student' do
+        expect(subject.size).to eq(1)
+      end
+    end
+
+    context 'empty students' do
+      let(:filters) { {student_id: ""} }
+
+      it 'does not filter by students' do
+        expect(subject.size).to eq(@sections.size)
+      end
     end
   end
 end
