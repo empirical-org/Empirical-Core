@@ -12,9 +12,8 @@ EC.ScorebookFilters = React.createClass({
 					defaultOption={this.props.defaultClassroom} />
 				<EC.DropdownFilter
 					options={this.props.unitFilters}
-					selectOption={this.props.defaultUnit}
-					defaultOption="Unit 1" />
-
+					selectOption={this.props.selectUnit}
+					defaultOption={this.props.defaultUnit}/>
 			</div>
 		);
 	}
