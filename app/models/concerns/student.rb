@@ -35,7 +35,7 @@ module Student
       
       end
 
-      # we only want to show one session per classroom activity, not the retries, so filter them out thusly: 
+      # we only want to show one session per classroom activity (highest score), there may be multiple bc of retries : 
       arr = []
       x1 = sessions.to_a.group_by{|as| as.classroom_activity_id}
       x1.each do |key, ca_group|
@@ -44,7 +44,7 @@ module Student
       end
       sessions = arr
 
-      
+      # sort by percentage
       sessions.sort do |a,b|
         if a.percentile == b.percentile
           b.activity.classification.key <=> a.activity.classification.key
