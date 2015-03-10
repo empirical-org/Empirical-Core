@@ -341,7 +341,7 @@ describe ActivitySession, :type => :model do
 
 
     it 'works' do 
-      x = User.scores_for_teacher teacher
+      x = ActivitySession.scores_for_teacher teacher
       expect(x).to eq(1)
     end
 
