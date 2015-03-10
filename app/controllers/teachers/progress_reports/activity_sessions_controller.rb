@@ -10,7 +10,7 @@ class Teachers::ProgressReports::ActivitySessionsController < ApplicationControl
         ::ProgressReports::ActivitySessionSerializer.new(activity_session).as_json(root: false)
       end
       classrooms = Classroom.for_progress_report(current_user, {})
-      students = User.for_progress_report(current_user, {})
+      students = User.for_standards_progress_report(current_user, {})
       units = Unit.for_progress_report(current_user, {})
       render json: {
         activity_sessions: activity_session_json,
