@@ -10,26 +10,35 @@ EC.Scorebook = React.createClass({
 
 	getInitialState: function () {
 		return {
-			scores: []
+			units: [],
+			classrooms: [],
+			defaultUnit: 'All Units',
+			defaultClassroom: 'All Classrooms'
 		}
 	},
 
 	componentDidMount: function () {
-		console.log('table filter mixin', EC.TableFilterMixin)
+		that = this		
 		$.ajax({
 			url: 'scores',
 			data: {},
 			success: function (data) {
 				console.log('display scores', data);
-				this.setState({
-					unit: data.unit,
+				that.setState({
 					units: data.units,
 					classroom: data.classroom,
 					classrooms: data.classrooms,
-
-					classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
-					unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
+					classroomFilters: that.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
+					unitFilters: that.getFilterOptions(data.units, 'name', 'id', 'All Units')
 				});
+
+				if (data.unit) {
+					that.setState({defaultUnit: data.unit.name})
+				}
+				if (data.classroom) {
+					that.setState({defaultClassroom: data.classroom.name})
+				}
+
 			},
 			error: function () {
 
@@ -61,13 +70,15 @@ EC.Scorebook = React.createClass({
 	            </div>
 	            <div className="container">
 		            <EC.ScorebookFilters
-		            	defaultClassroom = 'default classroom'
+		            	defaultClassroom = {this.state.defaultClassroom}
 		            	classroomFilters = {this.state.classroomFilters}
 		            	selectClassroom={this.selectClassroom}
 
-		            	defaultUnit='default unit'
+		            	defaultUnit= {this.state.defaultUnit}
 		            	unitFilters = {this.state.unitFilters}
 		            	selectUnit={this.selectUnit} />
+
+		            <EC.ScorebookLegend />
 		        </div>
 
 			</span>
