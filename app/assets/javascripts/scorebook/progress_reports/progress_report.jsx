@@ -1,3 +1,7 @@
+//= require ./table_filter_mixin.js
+//= require ./table_sorting_mixin.js
+//= require ./table_pagination_mixin.js
+
 EC.ProgressReport = React.createClass({
   mixins: [EC.TableFilterMixin, EC.TablePaginationMixin, EC.TableSortingMixin],
 

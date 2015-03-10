@@ -1,40 +1,36 @@
-EC.TopicsProgressReport = React.createClass({
+EC.TopicsStudentsProgressReport = React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired
   },
 
   getInitialState: function() {
-    // section state is used to customize the column definitions.
+    // topic state is used to customize the column definitions.
     return {
-      section: {}
+      topic: {}
     }
   },
 
   columnDefinitions: function() {
-    // Derive column names from this.state.section
+    // Derive column names from this.state.topic
     return [
       {
-        name: this.state.section.section_name,
-        field: 'topic_name',
-        sortByField: 'topic_name',
-        customCell: function(row) {
-          return (
-            <a href={row['students_href']}>{row['topic_name']}</a>
-          );
-        }
+        name: this.state.topic.topic_name,
+        field: 'name',
+        sortByField: 'name'
       },
+      // TODO: This field is uncertain.
+      // {
+      //   name: this.state.topic.activities_count + ' Standards Completed',
+      //   field: 'students_count',
+      //   sortByField: 'students_count'
+      // },
       {
-        name: this.state.section.topics_count + ' Standards Completed',
-        field: 'students_count',
-        sortByField: 'students_count'
-      },
-      {
-        name: this.state.section.proficient_count + ' Proficient',
+        name: this.state.topic.proficient_count + ' Proficient',
         field: 'proficient_count',
         sortByField: 'proficient_count'
       },
       {
-        name: this.state.section.not_proficient_count + ' Not Proficient',
+        name: this.state.topic.not_proficient_count + ' Not Proficient',
         field: 'not_proficient_count',
         sortByField: 'not_proficient_count'
       }
@@ -44,13 +40,13 @@ EC.TopicsProgressReport = React.createClass({
   sortDefinitions: function() {
     return {
       config: {
-        topic_name: 'natural',
-        students_count: 'numeric',
+        name: 'natural',
+        // students_count: 'numeric',
         proficient_count: 'numeric',
         not_proficient_count: 'numeric'
       },
       default: {
-        field: 'topic_name',
+        field: 'name',
         direction: 'asc'
       }
     };
@@ -58,7 +54,7 @@ EC.TopicsProgressReport = React.createClass({
 
   onFetchSuccess: function(responseData) {
     this.setState({
-      section: responseData.section
+      topic: responseData.topic
     });
   },
 
@@ -69,7 +65,7 @@ EC.TopicsProgressReport = React.createClass({
                          clientSideFiltering={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'topics'}
+                         jsonResultsKey={'students'}
                          onFetchSuccess={this.onFetchSuccess} />
     );
   }
