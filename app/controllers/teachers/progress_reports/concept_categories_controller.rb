@@ -12,7 +12,7 @@ class Teachers::ProgressReports::ConceptCategoriesController < ApplicationContro
       end
 
       filters[:concept_category_id] = concept_categories.map {|c| c['concept_category_id']}
-      units = Unit.for_progress_report(current_user, filters)
+      units = Unit.for_standards_progress_report(current_user, filters)
       students = User.for_concept_tag_progress_report(current_user, filters)
       classrooms = Classroom.for_progress_report(current_user, filters)
       render json: {
