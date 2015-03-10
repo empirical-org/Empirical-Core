@@ -39,6 +39,11 @@ describe Teachers::ProgressReports::TopicsController, :type => :controller do
         expect(response.status).to eq(200)
         expect(json['section']['section_name']).to eq(@section.name)
         expect(json['topics'].size).to eq(@visible_topics.size)
+        expect(json['topics'][0]['students_href'])
+          .to eq(teachers_progress_reports_section_topic_students_path(
+            section_id: @section.id,
+            topic_id: @visible_topics.first.id
+          ))
         expect(json['classrooms'].size).to eq(1)
         expect(json['units'].size).to eq(1)
         expect(json['students'].size).to eq(3)

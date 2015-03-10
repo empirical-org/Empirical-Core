@@ -15,6 +15,7 @@ class Topic < ActiveRecord::Base
     .select(<<-SELECT
       topics.id as topic_id,
       topics.name as topic_name,
+      topics.section_id as section_id,
       COUNT(DISTINCT(filtered_activity_sessions.user_id)) as students_count,
       SUM(filtered_activity_sessions.is_proficient) as proficient_count,
       SUM(CASE WHEN filtered_activity_sessions.is_proficient = 1 THEN 0 ELSE 1 END) as not_proficient_count,
