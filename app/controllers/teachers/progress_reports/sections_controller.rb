@@ -4,17 +4,17 @@ class Teachers::ProgressReports::SectionsController < ApplicationController
 
   def index
     if request.xhr?
-      section_data = Section.for_progress_report(current_user, params)
-      section_data.each do |section|
-        section['section_link'] = teachers_progress_reports_section_topics_path(section['id'])
+      sections = Section.for_progress_report(current_user, params)
+      section_json = sections.map do |section|
+        ::ProgressReports::SectionSerializer.new(section).as_json(root: false)
       end
       filters = params
-      filters[:section_id] = section_data.map {|s| s['id']}
+      filters[:section_id] = sections.map {|s| s.id}
       units = Unit.for_progress_report(current_user, filters)
-      students = User.for_progress_report(current_user, filters)
+      students = User.for_standards_progress_report(current_user, filters)
       classrooms = Classroom.for_progress_report(current_user, filters)
       render json: {
-        sections: section_data,
+        sections: section_json,
         classrooms: classrooms,
         students: students,
         units: units

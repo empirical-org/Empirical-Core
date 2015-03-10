@@ -11,13 +11,13 @@ module ProgressReportHelper
     # When filtered by unassigned student, nothing displays
 
     activity = FactoryGirl.create(:activity)
-    student = FactoryGirl.create(:student)
-    classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [student])
-    unit = FactoryGirl.create(:unit)
+    @student = FactoryGirl.create(:student)
+    @classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [@student])
+    @unit = FactoryGirl.create(:unit)
     classroom_activity = FactoryGirl.create(:classroom_activity,
-                                            classroom: classroom,
+                                            classroom: @classroom,
                                             activity: activity,
-                                            unit: unit)
+                                            unit: @unit)
 
     concept_class = FactoryGirl.create(:concept_class)
     @writing_category = FactoryGirl.create(:concept_category, name: "Writing Category", concept_class: concept_class)
@@ -28,7 +28,7 @@ module ProgressReportHelper
 
     activity_session = FactoryGirl.create(:activity_session,
                                           classroom_activity: classroom_activity,
-                                          user: student,
+                                          user: @student,
                                           activity: activity,
                                           state: 'finished',
                                           percentage: 0.75

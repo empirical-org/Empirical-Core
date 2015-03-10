@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   include Student, Teacher
-  include ProgressReportQuery
 
   has_secure_password validations: false
 
@@ -40,31 +39,33 @@ class User < ActiveRecord::Base
     end
   end
 
-
-  def self.progress_report_select
-    <<-SELECT
-      users.id as id,
-      users.name as name,
-      DISTINCT(COUNT(concept_tag_results.id)) as total_result_count,
-      #{ConceptTagResult.correct_result_count_sql} as correct_result_count,
-      #{ConceptTagResult.incorrect_result_count_sql} as incorrect_result_count
-    SELECT
+  def self.for_standards_progress_report(teacher, filters)
+    with(filtered_activity_sessions: ActivitySession.proficient_sessions_for_progress_report(teacher, filters))
+      .select(<<-SELECT
+        users.id,
+        users.name,
+        COUNT(DISTINCT(filtered_activity_sessions.activity_session_id)) as activities_count,
+        SUM(filtered_activity_sessions.is_proficient) as proficient_count,
+        SUM(CASE WHEN filtered_activity_sessions.is_proficient = 1 THEN 0 ELSE 1 END) as not_proficient_count,
+        SUM(filtered_activity_sessions.time_spent) as total_time_spent
+      SELECT
+      ).joins('JOIN filtered_activity_sessions ON users.id = filtered_activity_sessions.user_id')
+      .group('users.id')
+      .order('users.name asc')
   end
 
-  def self.progress_report_joins(filters)
-    if filters[:concept_category_id].present?
-      [:classroom => :classroom_activities, :activity_sessions => [:concept_tag_results, {:activity => :topic}]]
-    else
-      [:classroom => :classroom_activities, :activity_sessions => {:activity => :topic}]
-    end
-  end
-
-  def self.progress_report_group_by
-    "users.id"
-  end
-
-  def self.progress_report_order_by
-    "users.name asc"
+  def self.for_concept_tag_progress_report(teacher, filters)
+    with(all_correct_results: ConceptTagResult.correct_results_for_progress_report(teacher, filters))
+      .select(<<-SELECT
+        users.id,
+        users.name,
+        COUNT(all_correct_results.*) as total_result_count,
+        SUM(CASE WHEN all_correct_results.is_correct = 1 THEN 1 ELSE 0 END) as correct_result_count,
+        SUM(CASE WHEN all_correct_results.is_correct = 0 THEN 1 ELSE 0 END) as incorrect_result_count
+      SELECT
+      ).joins('JOIN all_correct_results ON users.id = all_correct_results.user_id')
+      .group('users.id')
+      .order('users.name asc')
   end
 
   # def authenticate
