@@ -5,7 +5,7 @@ $(function() {
     '.progress-reports-topics': EC.TopicsProgressReport,
     '.progress-reports-concept-categories': EC.ConceptCategoriesProgressReport,
     '.progress-reports-concept-tags': EC.ConceptTagsProgressReport,
-    '.progress-reports-students': EC.ConceptTagsStudentsProgressReport
+    '.progress-reports-concept-students': EC.ConceptTagsStudentsProgressReport
   };
 
   _.each(progressReportMapping, function(component, rootNodeSelector) {
