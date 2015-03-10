@@ -29,8 +29,23 @@ EC.Scorebook = React.createClass({
 			unit: data.unit,
 			units: data.units,
 			classroom: data.classroom,
-			classrooms: data.classrooms
+			classrooms: data.classrooms,
+
+			classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
+			unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
+
+
+			   
+
 		});
+	},
+
+	selectUnit: function () {
+		console.log('select unit')
+	},
+
+	selectClassroom: function () {
+		console.log('select classroom')
 	},
 
 	render: function() {
@@ -44,18 +59,16 @@ EC.Scorebook = React.createClass({
 	                  </ul>
 	                </div>
 	            </div>
+	            <div className="container">
+		            <EC.ScorebookFilters
+		            	defaultClassroom = {this.state.classroom.name}
+		            	classroomFilters = {this.state.classroomFilters}
+		            	selectClassroom={this.selectClassroom}
 
-	            <EC.ClassroomSelectorAndLegend
-	            	unit = {this.state.unit}
-	            	units = {this.state.units}
-	            	classroom = {this.state.classroom}
-	            	classrooms = {this.state.classrooms} />
-	            	 
-
-
-
-
-
+		            	defaultUnit={this.state.unit.name}
+		            	unitFilters = {this.state.unitFilters}
+		            	selectUnit={this.selectUnit}/>
+		        </div>
 
 			</span>
 		);
