@@ -76,16 +76,16 @@ module ProgressReportHelper
 
     # Should not be visible on the report
     other_teacher = FactoryGirl.create(:teacher)
-    other_student = FactoryGirl.create(:student)
-    other_classroom = FactoryGirl.create(:classroom, teacher: other_teacher)
-    other_unit = FactoryGirl.create(:unit)
+    @other_student = FactoryGirl.create(:student)
+    @other_classroom = FactoryGirl.create(:classroom, teacher: other_teacher)
+    @other_unit = FactoryGirl.create(:unit)
     other_classroom_activity = FactoryGirl.create(:classroom_activity,
-      classroom: other_classroom,
-      unit: other_unit,
+      classroom: @other_classroom,
+      unit: @other_unit,
       activity: activity)
     other_activity_session = FactoryGirl.create(:activity_session,
       classroom_activity: other_classroom_activity,
-      user: other_student,
+      user: @other_student,
       state: 'finished',
       percentage: 0.75)
     other_grammar_result = FactoryGirl.create(:concept_tag_result,
