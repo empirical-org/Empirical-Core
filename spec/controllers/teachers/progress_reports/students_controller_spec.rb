@@ -5,14 +5,12 @@ describe Teachers::ProgressReports::StudentsController, :type => :controller do
   render_views
 
   let!(:teacher) { FactoryGirl.create(:teacher) }
-
-  before do
-    setup_students_progress_report
-  end
-
-  subject { get :index, {concept_tag_id: @concept_tag.id, concept_category_id: @concept_category.id} }
+  let(:json) { JSON.parse(response.body) }
 
   describe 'when not logged in' do
+    # IDs don't matter for non-XHR get request
+    subject { get :index, {concept_tag_id: 123, concept_category_id: 123} }
+
     it 'requires a logged-in teacher' do
       subject
       expect(response.status).to eq(401)
@@ -25,10 +23,46 @@ describe Teachers::ProgressReports::StudentsController, :type => :controller do
     end
 
     describe 'for topics' do
-      it 'is not implemented yet'
+      subject { get :index, {section_id: @section.id, topic_id: @first_grade_topic.id} }
+
+      before do
+        setup_topics_progress_report
+      end
+
+      describe 'GET #index' do
+        it 'displays the html' do
+          subject
+          expect(response.status).to eq(200)
+        end
+      end
+
+      context 'XHR GET #index' do
+        subject { xhr :get, :index, {section_id: @section.id, topic_id: @first_grade_topic.id} }
+
+        it 'fetches aggregated students data' do
+          subject
+          expect(response.status).to eq(200)
+          expect(json['students'].size).to eq(@first_grade_topic_students.size)
+          alice = json['students'][0]
+          expect(alice['name']).to eq(@alice.name)
+          expect(alice['activities_count']).to eq(1) # 1 activity session for Alice
+          expect(alice['proficient_count']).to eq(1)
+          expect(alice['not_proficient_count']).to eq(0)
+        end
+
+        it 'fetches additional data for the filters' do
+          subject
+          expect(json['classrooms'].size).to eq(1)
+          expect(json['units'].size).to eq(1)
+          expect(json).to have_key('topic')
+        end
+      end
     end
 
     describe 'for concept tags' do
+      before do
+        setup_students_concepts_progress_report
+      end
 
       describe 'GET #index' do
         it 'displays the html' do
@@ -40,29 +74,22 @@ describe Teachers::ProgressReports::StudentsController, :type => :controller do
       context 'XHR GET #index' do
         subject { xhr :get, :index, {concept_tag_id: @concept_tag.id, concept_category_id: @concept_category.id} }
 
-        context 'when logged in' do
-          let(:json) { JSON.parse(response.body) }
+        it 'fetches aggregated students data' do
+          subject
+          expect(response.status).to eq(200)
+          expect(json['students'].size).to eq(@visible_students.size)
+          alice = json['students'][0]
+          expect(alice['name']).to eq(@alice.name)
+          expect(alice['total_result_count'].to_i).to eq(@alice_session.concept_tag_results.size)
+          expect(alice['correct_result_count'].to_i).to eq(1)
+          expect(alice['incorrect_result_count'].to_i).to eq(1)
+        end
 
-          before do
-            session[:user_id] = teacher.id
-          end
-
-          it 'fetches aggregated students data' do
-            subject
-            expect(response.status).to eq(200)
-            expect(json['students'].size).to eq(@visible_students.size)
-            alice = json['students'][0]
-            expect(alice['name']).to eq(@alice.name)
-            expect(alice['total_result_count'].to_i).to eq(@alice_session.concept_tag_results.size)
-            expect(alice['correct_result_count'].to_i).to eq(1)
-            expect(alice['incorrect_result_count'].to_i).to eq(1)
-          end
-
-          it 'fetches additional data for the filters' do
-            subject
-            expect(json['classrooms'].size).to eq(1)
-            expect(json['units'].size).to eq(1)
-          end
+        it 'fetches additional data for the filters' do
+          subject
+          expect(json['classrooms'].size).to eq(1)
+          expect(json['units'].size).to eq(1)
+          expect(json).to have_key('concept_tag')
         end
       end
     end

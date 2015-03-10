@@ -102,10 +102,10 @@ describe Topic, :type => :model do
 	  end
 
 	  context "when a student filter is provided" do
-    	let(:filters) { {section_id: @section.id, student_id: @student3.id} }
+    	let(:filters) { {section_id: @section.id, student_id: @zojirushi.id} }
 
 	  	it "filters by student" do
-	  		# student3 has completed activity sessions for only 1 topic
+	  		# Zojirushi has completed activity sessions for only 1 topic
 	  		topics = subject
 	  		expect(topics.size).to eq(1)
 	  		expect(topics[0]['topic_name']).to eq(@second_grade_topic.name)
