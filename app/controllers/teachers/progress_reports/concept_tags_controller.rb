@@ -11,7 +11,7 @@ class Teachers::ProgressReports::ConceptTagsController < ApplicationController
             concept_tag_id: concept_tag['concept_tag_id']
         )
       end
-      concept_category = ConceptCategory.for_tags_report(current_user, params[:concept_category_id])
+      concept_category = ConceptCategory.for_progress_report(current_user, params).first
       units = Unit.for_standards_progress_report(current_user, params)
       students = User.for_concept_tag_progress_report(current_user, params)
       classrooms = Classroom.for_standards_progress_report(current_user, params)

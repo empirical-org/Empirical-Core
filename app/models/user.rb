@@ -55,15 +55,15 @@ class User < ActiveRecord::Base
   end
 
   def self.for_concept_tag_progress_report(teacher, filters)
-    with(all_correct_results: ConceptTagResult.correct_results_for_progress_report(teacher, filters))
+    with(filtered_correct_results: ConceptTagResult.correct_results_for_progress_report(teacher, filters))
       .select(<<-SELECT
         users.id,
         users.name,
-        COUNT(all_correct_results.*) as total_result_count,
-        SUM(CASE WHEN all_correct_results.is_correct = 1 THEN 1 ELSE 0 END) as correct_result_count,
-        SUM(CASE WHEN all_correct_results.is_correct = 0 THEN 1 ELSE 0 END) as incorrect_result_count
+        COUNT(filtered_correct_results.*) as total_result_count,
+        SUM(CASE WHEN filtered_correct_results.is_correct = 1 THEN 1 ELSE 0 END) as correct_result_count,
+        SUM(CASE WHEN filtered_correct_results.is_correct = 0 THEN 1 ELSE 0 END) as incorrect_result_count
       SELECT
-      ).joins('JOIN all_correct_results ON users.id = all_correct_results.user_id')
+      ).joins('JOIN filtered_correct_results ON users.id = filtered_correct_results.user_id')
       .group('users.id')
       .order('users.name asc')
   end
