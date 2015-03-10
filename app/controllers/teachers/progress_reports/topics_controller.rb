@@ -8,7 +8,7 @@ class Teachers::ProgressReports::TopicsController < ApplicationController
       topics = Topic.for_progress_report(current_user, params)
       filters = params
       filters[:topic_id] = topics.map {|t| t['topic_id'] }
-      classrooms = Classroom.for_progress_report(current_user, filters)
+      classrooms = Classroom.for_standards_progress_report(current_user, filters)
       units = Unit.for_standards_progress_report(current_user, filters)
       students = User.for_standards_progress_report(current_user, filters)
       render json: {
