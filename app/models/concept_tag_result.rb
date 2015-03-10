@@ -22,7 +22,8 @@ class ConceptTagResult < ActiveRecord::Base
     query = select(<<-SELECT
       cast(concept_tag_results.metadata->>'correct' as int) as is_correct,
       activity_sessions.user_id,
-      concept_tag_results.concept_category_id
+      concept_tag_results.concept_category_id,
+      concept_tag_results.concept_tag_id
     SELECT
     ).joins({:activity_session => {:classroom_activity => :classroom}})
       .where("activity_sessions.state = ?", "finished")

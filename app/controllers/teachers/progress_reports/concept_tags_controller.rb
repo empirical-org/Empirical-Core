@@ -5,11 +5,10 @@ class Teachers::ProgressReports::ConceptTagsController < ApplicationController
   def index
     if request.xhr?
       concept_tags = ConceptTag.for_progress_report(current_user, params)
-      concept_tags.each do |concept_tag|
-        concept_tag['students_href'] = teachers_progress_reports_concept_category_concept_tag_students_path(
-            concept_category_id: params[:concept_category_id],
-            concept_tag_id: concept_tag['concept_tag_id']
-        )
+      concept_tags_json = concept_tags.map do |concept_tag|
+        serializer = ::ProgressReports::ConceptTagSerializer.new(concept_tag, params)
+        serializer.concept_category_id = params[:concept_category_id]
+        serializer.as_json(root: false)
       end
       concept_category = ConceptCategory.for_progress_report(current_user, params).first
       units = Unit.for_standards_progress_report(current_user, params)
@@ -17,7 +16,7 @@ class Teachers::ProgressReports::ConceptTagsController < ApplicationController
       classrooms = Classroom.for_standards_progress_report(current_user, params)
       render json: {
         concept_category: concept_category,
-        concept_tags: concept_tags,
+        concept_tags: concept_tags_json,
         units: units,
         students: students,
         classrooms: classrooms
