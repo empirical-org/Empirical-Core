@@ -5,6 +5,9 @@ class Teachers::ProgressReports::ConceptTagsStudentsController < ApplicationCont
   def index
     if request.xhr?
       render json: json_payload
+    else
+      @concept_category = ConceptCategory.find(params[:concept_category_id])
+      @concept_tag = ConceptTag.find(params[:concept_tag_id])
     end
   end
 
