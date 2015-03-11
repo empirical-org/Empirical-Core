@@ -1,7 +1,8 @@
 = render partial: 'teachers/shared/scorebook_tabs'
 = render partial: 'teachers/progress_reports/subnav'
 
-- if params[:concept_tag_id].present? # Janky hack
-  .progress-reports-concept-students data-url=teachers_progress_reports_concept_category_concept_tag_students_path(concept_category_id: params[:concept_category_id], concept_tag_id: params[:concept_tag_id])
-- else
-  .progress-reports-topic-students data-url=teachers_progress_reports_section_topic_students_path(section_id: params[:section_id], topic_id: params[:topic_id])
+.container
+  - if params[:concept_tag_id].present? # Janky hack
+    .progress-reports-concept-students data-url=teachers_progress_reports_concept_category_concept_tag_students_path(concept_category_id: params[:concept_category_id], concept_tag_id: params[:concept_tag_id])
+  - else
+    .progress-reports-topic-students data-url=teachers_progress_reports_section_topic_students_path(section_id: params[:section_id], topic_id: params[:topic_id])
