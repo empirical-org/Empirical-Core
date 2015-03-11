@@ -10,6 +10,14 @@ EC.TopicsStudentsProgressReport = React.createClass({
     }
   },
 
+  displayTimeSpent: function(timeInSeconds) {
+    if (timeInSeconds === null) {
+      return '—';
+    } else {
+      return Math.ceil(timeInSeconds / 60) + ' minutes';
+    }
+  },
+
   columnDefinitions: function() {
     // Derive column names from this.state.topic
     return [
@@ -32,6 +40,14 @@ EC.TopicsStudentsProgressReport = React.createClass({
         name: this.state.topic.not_proficient_count + ' Not Proficient',
         field: 'not_proficient_count',
         sortByField: 'not_proficient_count'
+      },
+      {
+        name: this.displayTimeSpent(this.state.topic.total_time_spent),
+        field: 'total_time_spent',
+        sortByField: 'total_time_spent',
+        customCell: _.bind(function(row) {
+          return this.displayTimeSpent(row['total_time_spent']);
+        }, this)
       }
     ];
   },
