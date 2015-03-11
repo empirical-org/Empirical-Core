@@ -63,7 +63,7 @@
           tr
             td[colspan="3"] There are no students in this classroom yet.
         - else
-          - @classroom.students.each do |student|
+          - @classroom.students.sort_by(&:sorting_name).each do |student|
             tr class=dom_class(student) id=dom_id(student)
               - %i(first_name last_name username).each do |sym|
                 td[class=sym]= student.send(sym)
