@@ -7,18 +7,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
   RESULTS_PER_PAGE = 12
 
-
-
-
   def lesson_planner
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
     end
-
   end
 
   def search_activities
-    
     @activities = Activity.search(search_params[:search_query], search_filters, search_params[:sort])
     @activity_classifications = @activities.map(&:classification).uniq.compact
     @topics = @activities.map(&:topic).uniq.compact
@@ -29,7 +24,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     @results_per_page = RESULTS_PER_PAGE
     @activities = @activities.map{|a| (ActivitySerializer.new(a)).as_json(root: false)}
 
-
     render json: {
       activities: @activities,
       activity_classifications: @activity_classifications,
@@ -37,10 +31,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       sections: @sections,
       number_of_pages: @number_of_pages,
     }
-
   end
-
-
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
     current_user.classrooms.each do |classroom|
@@ -56,9 +47,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
-
-
-
   def invite_students
     @classrooms = current_user.classrooms
   end
@@ -68,7 +56,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       redirect_to new_teachers_classroom_path
     end
     @classrooms = current_user.classrooms - [@classroom]
-    
+
     if [54569, 60607, 104720].include?(current_user.id) and (params[:unit_id].nil?) # temp fix for users with huge scorebooks
       @unit = current_user.classrooms.map(&:classroom_activities).flatten.map(&:unit).compact.last
     else
@@ -79,17 +67,14 @@ class Teachers::ClassroomManagerController < ApplicationController
     @are_all_units_selected = (params[:all_units])
   end
 
-
-
   private
-
-
 
   def authorize!
     if current_user.classrooms.any?
       if !params[:classroom_id].nil?
         @classroom = Classroom.find(params[:classroom_id])
       end
+
       @classroom ||= current_user.classrooms.first
       auth_failed unless @classroom.teacher == current_user
     end
@@ -113,9 +98,4 @@ class Teachers::ClassroomManagerController < ApplicationController
   def search_params
     params.require(:search).permit([:search_query, {sort: [:field, :asc_or_desc]},  {filters: [:field, :selected]}])
   end
-
 end
-
-
-
-
