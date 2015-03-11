@@ -89,18 +89,18 @@ feature 'Invite-Students page' do
         end
 
         it 'can add a duplicate-looking student' do
-          student = students.first
+          dup_student = christopher_brown
 
           expect {
-            invite_students_page.add_student student
+            invite_students_page.add_student dup_student
           }.to change { invite_students_page.student_count }.by(1)
 
           student_row = invite_students_page.student_row(User.last)
-          username    = generate_username(student,
+          username    = generate_username(dup_student,
                                           invite_students_page.class_code)
 
-          expect(student_row.first_name).to eq student.first_name
-          expect(student_row. last_name).to eq student. last_name
+          expect(student_row.first_name).to eq dup_student.first_name
+          expect(student_row. last_name).to eq dup_student. last_name
           expect(student_row.  username).to eq username
         end
       end
