@@ -1,7 +1,6 @@
 EC.ActivityIconWithTooltip = React.createClass({
 
   percentage_color: function (percentage) {
-    console.log(this.props.data)
     var y;
     x = this.props.data.percentage
     
