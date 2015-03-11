@@ -74,7 +74,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     
     classrooms = current_user.classrooms.includes(:classroom_activities => [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
-    scores = current_user.scorebook_scores params[:classroom_id], params[:unit_id]
+    scores = current_user.scorebook_scores params[:current_page].to_i, params[:classroom_id], params[:unit_id]
 
     render json: {
       classrooms: classrooms,

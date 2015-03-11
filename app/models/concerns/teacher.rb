@@ -1,5 +1,6 @@
 module Teacher
   extend ActiveSupport::Concern
+  SCORES_PER_PAGE = 200
 
   included do
     has_many :classrooms, foreign_key: 'teacher_id'
@@ -20,7 +21,7 @@ module Teacher
   end
 
 
-  def scorebook_scores classroom_id=nil, unit_id=nil
+  def scorebook_scores current_page=1, classroom_id=nil, unit_id=nil
     
     if classroom_id.present?
       users = Classroom.find(classroom_id).students
@@ -28,7 +29,6 @@ module Teacher
       users = classrooms.map(&:students).flatten.compact.uniq
     end
 
-    #users = classrooms.map(&:students).flatten.compact.uniq
 
 
     user_ids = users.map(&:id)
@@ -36,15 +36,19 @@ module Teacher
     results = ActivitySession.select("user_id, max(percentage) as percentage, max(activity_id) as activity_id")
                             .includes(:user)
                             .where(user_id: user_ids)
-                            .group('user_id, classroom_activity_id')
-                            .order('user_id, percentage')
-                            .limit(200)
+                            
 
 
+    if unit_id.present?
+      classroom_activity_ids = Unit.find(unit_id).classroom_activities.map(&:id)
+      results = results.where(classroom_activity_id: classroom_activity_ids)
+    end
 
-    # if unit_id.present?
-    #   classroom_activity_ids = Unit.find(unit_id).classroom_activities.map(&:id)
-    # end
+
+    results = results.group('user_id, classroom_activity_id')
+                     .order('user_id, percentage')
+                     .limit(SCORES_PER_PAGE)
+                     .offset( (current_page - 1)*SCORES_PER_PAGE   )
 
 
 
