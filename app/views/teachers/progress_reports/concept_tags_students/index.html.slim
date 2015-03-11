@@ -2,9 +2,5 @@
 = render partial: 'teachers/progress_reports/subnav'
 
 .container
-  ol.breadcrumb
-    li=link_to "All Concepts", teachers_progress_reports_concept_categories_path
-    li=link_to @concept_category.name, teachers_progress_reports_concept_category_concept_tags_path
-    li=link_to @concept_tag.name, teachers_progress_reports_concept_category_concept_tag_students_path
-
+  = render partial: 'teachers/progress_reports/concept_breadcrumbs'
   .progress-reports-concept-students data-url=teachers_progress_reports_concept_category_concept_tag_students_path(concept_category_id: params[:concept_category_id], concept_tag_id: params[:concept_tag_id])

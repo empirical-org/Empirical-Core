@@ -21,6 +21,8 @@ class Teachers::ProgressReports::ConceptTagsController < ApplicationController
         students: students,
         classrooms: classrooms
       }
+    else
+      @concept_category = ConceptCategory.find(params[:concept_category_id])
     end
   end
 
