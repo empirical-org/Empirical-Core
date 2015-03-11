@@ -3,6 +3,13 @@ class Teachers::ProgressReports::StudentsController < ApplicationController
   layout 'scorebook'
 
   def index
+    if is_for_concepts
+
+    else
+      @section = Section.find(params[:section_id])
+      @topic = Topic.for_progress_report(current_user, params).first
+    end
+
     if request.xhr?
       render json: json_payload
     end
@@ -15,7 +22,7 @@ class Teachers::ProgressReports::StudentsController < ApplicationController
     # TODO: Retrieve units and classrooms differently based on standards vs. concept tags
     units = Unit.for_standards_progress_report(current_user, params)
     classrooms = Classroom.for_standards_progress_report(current_user, params)
-    if params[:concept_category_id].present?
+    if is_for_concepts
       {
         students: User.for_concept_tag_progress_report(current_user, params),
         concept_tag: ConceptTag.for_progress_report(current_user, params).first,
@@ -27,9 +34,13 @@ class Teachers::ProgressReports::StudentsController < ApplicationController
         students: User.for_standards_progress_report(current_user, params),
         classrooms: classrooms,
         units: units,
-        topic: Topic.for_progress_report(current_user, params).first
+        topic: @topic
       }
     end
+  end
+
+  def is_for_concepts
+    params[:concept_category_id].present?
   end
 
   def authorize!
