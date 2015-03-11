@@ -12,5 +12,13 @@ module Teachers
     def path
       "#{Teachers.classroom_path(self.classroom)}/scorebook"
     end
+
+    def students
+      all('.student-name').map(&:text)
+    end
+
+    def visit
+      page.visit path
+    end
   end
 end
