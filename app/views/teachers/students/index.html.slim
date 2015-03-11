@@ -1,0 +1,39 @@
+#page-content-wrapper
+  .row
+    .col-xs-12.col-xl-12
+      = render partial: 'teachers/shared/scorebook_tabs'
+      .tab-content
+        #class-manager.tab-pane.active
+          = render partial: 'teachers/classrooms/subnav'
+          .container
+            section
+              = form_for(@classroom,
+                         url: teachers_classroom_path(@classroom),
+                       class: 'class-page')  do |f|
+                = f.label      :name, 'Class Name', class: 'class-name'
+                = f.text_field :name
+
+                = f.button 'Save Changes',          class: 'button-green'
+
+                span.pull-right.delete-class
+                  = link_to 'Delete Class',
+                            teachers_classroom_path(@classroom),
+                            method: 'delete',
+                              data: {confirm: 'Are you sure you want to delete this class?'},
+                             class: 'pull-right delete-class'
+
+            section.no-border.class-page
+              table.table.students
+                thead
+                  tr
+                    th Student Name
+                    th Username
+                    th
+                tbody
+                  - @classroom.students.each do |student|
+                    tr class=dom_class(student) id=dom_id(student)
+                      td.name    = student.name
+                      td.username= student.username
+                      td= link_to 'Edit Account',
+                                  edit_teachers_classroom_student_path(@classroom,
+                                                                       student)
