@@ -13,7 +13,7 @@
                     a.active[href=""]
                       | Student View
             = render partial: 'classroom_selector_and_legend'
-            - @classroom.students.each do |student|
+            - @classroom.students.sort_by(&:sorting_name).each do |student|
               .container
                 section
                   h3.student-name
