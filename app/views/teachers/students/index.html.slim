@@ -30,7 +30,7 @@
                     th Username
                     th
                 tbody
-                  - @classroom.students.each do |student|
+                  - @classroom.students.sort_by(&:sorting_name).each do |student|
                     tr class=dom_class(student) id=dom_id(student)
                       td.name    = student.name
                       td.username= student.username
