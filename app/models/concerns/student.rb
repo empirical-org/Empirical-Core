@@ -95,41 +95,6 @@ module Student
 
 
 
-
-
-    # def self.scores_for_teacher teacher, classroom_id=nil, unit_id=nil
-
-    #     result = self.limit(50)
-    #                  .select(
-    #                     'users.id,
-    #                     users.name,
-    #                     classroom_activities.id,
-    #                     max(units.id),
-    #                     max(units.name),
-    #                     max(activity_sessions.percentage) as maxp,
-    #                     max(activity_sessions.id)'
-         
-    #                ).order('users.name, max(activity_sessions.percentage)')
-    #                 .includes(
-    #                   :classroom, 
-    #                   :activity_sessions => [
-    #                     :classroom_activity => [:unit], 
-    #                     :concept_tag_results => [:concept_tag], 
-    #                     :activity => [
-    #                       :topic => [
-    #                           :section, :topic_category
-    #                       ]
-    #                     ]
-    #                   ]).where('classrooms.teacher_id = ?', teacher.id)
-    #                     .group('users.id, classroom_activities.id')
-    #                     .references(:classroom, :activity_session => [:classroom_activity])
-        
-    #     result
-    # end
-
-
-
-
     has_many :activity_sessions, dependent: :destroy do
       def rel_for_activity activity
         includes(:classroom_activity).where(classroom_activities: { activity_id: activity.id })
