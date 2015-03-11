@@ -37,7 +37,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     current_user.classrooms.each do |classroom|
       obj = {
         classroom: classroom,
-        students: classroom.students
+        students: classroom.students.sort_by(&:sorting_name)
       }
       ( @classrooms_and_their_students ||= [] ).push obj
     end
