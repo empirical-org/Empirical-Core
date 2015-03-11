@@ -18,7 +18,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :retry, on: :member
   end
 
-
+  get :porthole_proxy, to: 'porthole_proxy#index'
 
   namespace :teachers do
     resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
