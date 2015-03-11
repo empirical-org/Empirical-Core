@@ -1,0 +1,10 @@
+= render partial: 'teachers/shared/scorebook_tabs'
+= render partial: 'teachers/progress_reports/subnav'
+
+.container
+  ol.breadcrumb
+    li=link_to "All Standards", teachers_progress_reports_sections_path
+    li=link_to @section.name, teachers_progress_reports_section_topics_path
+    li=link_to @topic.topic_name, teachers_progress_reports_section_topic_students_path
+
+  .progress-reports-topic-students data-url=teachers_progress_reports_section_topic_students_path(section_id: params[:section_id], topic_id: params[:topic_id])
