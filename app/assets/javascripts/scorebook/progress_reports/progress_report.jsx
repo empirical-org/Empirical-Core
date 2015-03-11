@@ -104,7 +104,7 @@ EC.ProgressReport = React.createClass({
     var visibleResults = this.getVisibleResults(filteredResults);
 
     return (
-      <div className="container">
+      <div>
         <EC.ProgressReportFilters classroomFilters={this.state.classroomFilters}
                                   studentFilters={this.state.studentFilters}
                                   unitFilters={this.state.unitFilters}
