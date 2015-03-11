@@ -44,7 +44,7 @@ describe Teachers::ProgressReports::TopicsStudentsController, :type => :controll
         expect(json['students'].size).to eq(@first_grade_topic_students.size)
         alice = json['students'][0]
         expect(alice['name']).to eq(@alice.name)
-        expect(alice['activities_count']).to eq(1) # 1 activity session for Alice
+        expect(alice['activity_session_count']).to eq(1) # 1 activity session for Alice
         expect(alice['proficient_count']).to eq(1)
         expect(alice['not_proficient_count']).to eq(0)
       end
