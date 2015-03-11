@@ -1,6 +1,7 @@
 = render partial: 'teachers/shared/scorebook_tabs'
 = render partial: 'teachers/progress_reports/subnav'
 
-.container
+.container.progress-report
   = render partial: 'teachers/progress_reports/topic_breadcrumbs'
+  h2 Common Core State Standards
   .progress-reports-topics data-url=teachers_progress_reports_section_topics_path(params[:section_id])

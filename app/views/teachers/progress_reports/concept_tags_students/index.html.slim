@@ -1,6 +1,7 @@
 = render partial: 'teachers/shared/scorebook_tabs'
 = render partial: 'teachers/progress_reports/subnav'
 
-.container
+.container.progress-report
   = render partial: 'teachers/progress_reports/concept_breadcrumbs'
+  h2 Results by Student
   .progress-reports-concept-students data-url=teachers_progress_reports_concept_category_concept_tag_students_path(concept_category_id: params[:concept_category_id], concept_tag_id: params[:concept_tag_id])
