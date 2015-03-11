@@ -18,12 +18,11 @@ EC.TopicsStudentsProgressReport = React.createClass({
         field: 'name',
         sortByField: 'name'
       },
-      // TODO: This field is uncertain.
-      // {
-      //   name: this.state.topic.activities_count + ' Standards Completed',
-      //   field: 'students_count',
-      //   sortByField: 'students_count'
-      // },
+      {
+        name: this.state.topic.total_activity_session_count + ' Activities',
+        field: 'activity_session_count',
+        sortByField: 'activity_session_count'
+      },
       {
         name: this.state.topic.proficient_count + ' Proficient',
         field: 'proficient_count',
@@ -53,6 +52,12 @@ EC.TopicsStudentsProgressReport = React.createClass({
   },
 
   onFetchSuccess: function(responseData) {
+    var topic = responseData.topic;
+    topic.total_activity_session_count = _.reduce(responseData.students, function(memo, student) {
+      return memo + student.activity_session_count;
+    }, 0);
+    // Calculate the total # of activity sessions completed.
+
     this.setState({
       topic: responseData.topic
     });

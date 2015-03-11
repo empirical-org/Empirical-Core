@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
       .select(<<-SELECT
         users.id,
         users.name,
-        COUNT(DISTINCT(filtered_activity_sessions.activity_session_id)) as activities_count,
+        COUNT(DISTINCT(filtered_activity_sessions.activity_session_id)) as activity_session_count,
         SUM(filtered_activity_sessions.is_proficient) as proficient_count,
         SUM(CASE WHEN filtered_activity_sessions.is_proficient = 1 THEN 0 ELSE 1 END) as not_proficient_count,
         SUM(filtered_activity_sessions.time_spent) as total_time_spent

@@ -675,6 +675,16 @@ describe User, :type => :model do
         it 'can retrieve users based on sections' do
           expect(subject.size).to eq(2) # 1 user created for each section
         end
+
+        it 'retrieves the right aggregated data' do
+          user = subject[0]
+          expect(user.id).to be_present
+          expect(user.name).to be_present
+          expect(user.activity_session_count).to be_present
+          expect(user.proficient_count).to be_present
+          expect(user.not_proficient_count).to be_present
+          expect(user.total_time_spent).to be_present
+        end
       end
 
       context 'classrooms' do
