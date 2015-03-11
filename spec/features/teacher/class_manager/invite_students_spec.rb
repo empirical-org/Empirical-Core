@@ -4,15 +4,17 @@ feature 'Invite-Students page' do
   before(:each) { vcr_ignores_localhost }
 
   let(:mr_kotter) { FactoryGirl.create :mr_kotter }
+  let(:teacher)   { mr_kotter }
 
   context 'for a class' do
     let(:sweathogs) { FactoryGirl.create :sweathogs, teacher: mr_kotter }
+    let(:classroom) { sweathogs }
 
-    let(:invite_students_page) { Teachers::InviteStudentsPage.new(sweathogs) }
+    let(:invite_students_page) { Teachers::InviteStudentsPage.new(classroom) }
 
     shared_context :signed_in_as_teacher do
       before(:each) do
-        sign_in_user sweathogs.teacher
+        sign_in_user teacher
         visit_invite_students_page
       end
     end
@@ -67,26 +69,23 @@ feature 'Invite-Students page' do
       end
     end
 
-    context 'with 2 students' do
-      let!(:students) do
-        %i(arnold_horshack vinnie_barbarino).map do |sym|
-          FactoryGirl.create sym, classroom: sweathogs
-        end
-      end
+    context 'with existing students' do
+      include_context :ms_sorter_and_sort_fodder
+
+      let(:teacher)   { ms_sorter }
+      let(:classroom) { sort_fodder }
 
       context 'when signed in as the Teacher' do
         include_context :signed_in_as_teacher
 
-        it 'shows the students' do
-          expect(invite_students_page.student_count).to eq students.count
-
-          students.each do |student|
-            student_row = invite_students_page.student_row(student)
-
-            expect(student_row.first_name).to eq student.first_name
-            expect(student_row. last_name).to eq student. last_name
-            expect(student_row.  username).to eq student.  username
+        it 'shows the students, sorted by last name' do
+          expected_rows = sort_fodder_sorted.map do |student|
+            [student.first_name,
+             student.last_name,
+             student.username]
           end
+
+          expect(invite_students_page.student_table_rows).to eq expected_rows
         end
 
         it 'can add a duplicate-looking student' do
