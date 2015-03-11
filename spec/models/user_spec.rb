@@ -430,6 +430,35 @@ describe User, :type => :model do
       user.newsletter="anything"
       expect(user.send(:newsletter?)).to eq(false)
     end
+  end
+
+  describe '#sorting_name' do
+    subject(:sort_name) { user.sorting_name }
+
+    context 'given distinct first and last names' do
+      let(:first_name) { 'John' }
+      let(:last_name)  { 'Doe' }
+      let(:user) do
+        FactoryGirl.build(:user, first_name: first_name,
+                                  last_name: last_name)
+      end
+
+      it 'returns "last, first"' do
+        expect(sort_name).to eq "#{last_name}, #{first_name}"
+      end
+    end
+
+    context 'given distinct only a single :name' do
+      let(:name) { 'SingleName' }
+      let(:user) { User.new(name: name) }
+
+      before(:each) { user.name = name }
+
+      it 'returns "name, name"' do
+        expect(sort_name).to eq "#{name}, #{name}"
+      end
+    end
+  end
 
   describe "#subscribe_to_newsletter" do
     let(:user) { FactoryGirl.build(:user, newsletter: newsletter) }
