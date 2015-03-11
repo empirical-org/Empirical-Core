@@ -13,41 +13,40 @@ EC.Scorebook = React.createClass({
 			units: [],
 			classrooms: [],
 			defaultUnit: 'All Units',
-			defaultClassroom: 'All Classrooms'
+			defaultClassroom: 'All Classrooms',
+			selectedClassroom: null,
+			selectedUnit: null
 		}
 	},
 
 	componentDidMount: function () {
-		that = this		
+		this.fetchData();
+	},
+
+	fetchData: function () { 
+		that = this
 		$.ajax({
 			url: 'scores',
-			data: {},
+			data: {
+				classroom_id: this.state.selectedClassroom,
+				unit_id: this.state.selectedUnit
+			},
 			success: function (data) {
 				console.log('display scores', data);
 				that.setState({
 					units: data.units,
-					classroom: data.classroom,
 					classrooms: data.classrooms,
 					classroomFilters: that.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
-					unitFilters: that.getFilterOptions(data.units, 'name', 'id', 'All Units')
+					unitFilters: that.getFilterOptions(data.units, 'name', 'id', 'All Units'),
+					scores: data.scores
 				});
-
-				if (data.unit) {
-					that.setState({defaultUnit: data.unit.name})
-				}
-				if (data.classroom) {
-					that.setState({defaultClassroom: data.classroom.name})
-				}
-
 			},
 			error: function () {
 
 			}
 		})
 	},
-	displayScores: function (data) {
-		
-	},
+
 
 	selectUnit: function () {
 		console.log('select unit')
@@ -58,6 +57,9 @@ EC.Scorebook = React.createClass({
 	},
 
 	render: function() {
+		scores = _.map(this.state.scores, function (data, student_id) {
+			return <EC.StudentScores data={data} />
+		});
 		return (
 			<span>
 
@@ -69,17 +71,22 @@ EC.Scorebook = React.createClass({
 	                </div>
 	            </div>
 	            <div className="container">
-		            <EC.ScorebookFilters
-		            	defaultClassroom = {this.state.defaultClassroom}
-		            	classroomFilters = {this.state.classroomFilters}
-		            	selectClassroom={this.selectClassroom}
+		            <section>
+				            <EC.ScorebookFilters
+				            	defaultClassroom = {this.state.defaultClassroom}
+				            	classroomFilters = {this.state.classroomFilters}
+				            	selectClassroom={this.selectClassroom}
 
-		            	defaultUnit= {this.state.defaultUnit}
-		            	unitFilters = {this.state.unitFilters}
-		            	selectUnit={this.selectUnit} />
+				            	defaultUnit= {this.state.defaultUnit}
+				            	unitFilters = {this.state.unitFilters}
+				            	selectUnit={this.selectUnit} />
 
-		            <EC.ScorebookLegend />
+				            <EC.ScorebookLegend />
+			        </section>
 		        </div>
+
+
+		        {scores}
 
 			</span>
 		);
