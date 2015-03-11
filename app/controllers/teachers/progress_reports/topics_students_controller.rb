@@ -3,11 +3,11 @@ class Teachers::ProgressReports::TopicsStudentsController < ApplicationControlle
   layout 'scorebook'
 
   def index
-    @section = Section.find(params[:section_id])
-    @topic = Topic.for_progress_report(current_user, params).first
-
     if request.xhr?
       render json: json_payload
+    else
+      @section = Section.find(params[:section_id])
+      @topic = Topic.find(params[:topic_id])
     end
   end
 
@@ -18,7 +18,7 @@ class Teachers::ProgressReports::TopicsStudentsController < ApplicationControlle
       students: User.for_standards_progress_report(current_user, params),
       classrooms: Classroom.for_standards_progress_report(current_user, params),
       units: Unit.for_standards_progress_report(current_user, params),
-      topic: @topic
+      topic: Topic.for_progress_report(current_user, params).first
     }
   end
 

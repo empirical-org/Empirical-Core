@@ -21,6 +21,8 @@ class Teachers::ProgressReports::TopicsController < ApplicationController
         students: students,
         units: units
       }
+    else
+      @section = Section.find(params[:section_id])
     end
   end
 
