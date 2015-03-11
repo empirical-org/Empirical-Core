@@ -28,12 +28,12 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activity_sessions, only: [:index]
       resources :sections, only: [:index] do
         resources :topics, only: [:index] do
-          resources :students, only: [:index]
+          resources :students, controller: "topics_students", only: [:index]
         end
       end
       resources :concept_categories, only: [:index] do
         resources :concept_tags, only: [:index] do
-          resources :students, only: [:index]
+          resources :students, controller: "concept_tags_students", only: [:index]
         end
       end
     end
