@@ -21,21 +21,63 @@ module Teacher
 
 
   def scorebook_scores classroom_id=nil, unit_id=nil
-    user_ids = classrooms.map(&:students).flatten.compact.uniq.map(&:id)
+    
+    if classroom_id.present?
+      users = Classroom.find(classroom_id).students
+    else
+      users = classrooms.map(&:students).flatten.compact.uniq
+    end
 
-    result = ActivitySession.select("user_id, max(percentage) as percentage, max(activity_id) as activity_id")
+    #users = classrooms.map(&:students).flatten.compact.uniq
+
+
+    user_ids = users.map(&:id)
+
+    results = ActivitySession.select("user_id, max(percentage) as percentage, max(activity_id) as activity_id")
                             .includes(:user)
                             .where(user_id: user_ids)
                             .group('user_id, classroom_activity_id')
-                            .order('user_id')
-                            .limit(10)
-                             
-    activity_ids = result.map(&:activity_id).uniq.compact
-    acts = Activity.includes(:topic => [:section, :topic_category]).includes(:classification).find(activity_ids)
+                            .order('user_id, percentage')
+                            .limit(200)
 
-    
-    result
-    
+
+
+    # if unit_id.present?
+    #   classroom_activity_ids = Unit.find(unit_id).classroom_activities.map(&:id)
+    # end
+
+
+
+    activity_ids = results.map(&:activity_id).uniq.compact
+    activities = Activity.includes(:topic => [:section, :topic_category]).includes(:classification).find(activity_ids)
+
+    results = results.group_by(&:user_id)
+
+    hash = {}
+
+    results.each do |user_id, result|
+      user = users.find{|u| u.id == user_id}
+      arr = []
+      
+
+      result.each do |r|
+        a = activities.find{|a1| a1.id ==  r.activity_id}
+        ele = {
+          percentage: r.percentage,
+          activity: (ActivitySerializer.new(a)).as_json(root: false)
+        }
+        arr.push ele
+      end
+
+
+      hyper_ele = {
+        user: user,
+        results: arr
+      }
+      hash[user_id] = hyper_ele
+    end
+
+    hash
   end
 
 

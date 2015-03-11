@@ -70,21 +70,16 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    @classrooms = current_user.classrooms - [@classroom]
     
-    if [54569, 60607, 104720].include?(current_user.id) and (params[:unit_id].nil?) # temp fix for users with huge scorebooks
-      @unit = current_user.classrooms.map(&:classroom_activities).flatten.map(&:unit).compact.last
-    else
-      @unit = params[:unit_id].present? ? Unit.find(params[:unit_id]) : nil
-    end
+    
+    classrooms = current_user.classrooms.includes(:classroom_activities => [:unit])
+    units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
+    scores = current_user.scorebook_scores params[:classroom_id], params[:unit_id]
 
-    @units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq - [@unit]
-    @are_all_units_selected = (params[:all_units])
-  
     render json: {
-      classrooms: @classrooms,
-      unit: @unit,
-      units: @units
+      classrooms: classrooms,
+      units: units,
+      scores: scores
     }
   end
 
