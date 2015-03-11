@@ -314,43 +314,6 @@ describe ActivitySession, :type => :model do
   end
 
 
-  describe '#scores_for_teacher' do 
-    # let!(:current_teacher) { FactoryGirl.create(:teacher) }
-    # let!(:current_teacher_student) { FactoryGirl.create(:student) }
-    # let!(:current_teacher_classroom) { FactoryGirl.create(:classroom, teacher: current_teacher, students: [current_teacher_student]) }
-    # let!(:current_teacher_classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: current_teacher_classroom)}
-
-
-    let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
-    let!(:student) {FactoryGirl.create(:user, role: 'student')}
-    let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher, students: [student])}
-
-    let!(:section) {FactoryGirl.create(:section)}
-    let!(:topic_category) {FactoryGirl.create(:topic_category)}
-    let!(:topic) {FactoryGirl.create(:topic, topic_category: topic_category, section: section)}
-    let!(:activity_classification) {FactoryGirl.create :activity_classification}
-
-    let!(:activity) {FactoryGirl.create(:activity, topic: topic, classification: activity_classification)}
-
-    let!(:unit) {FactoryGirl.create(:unit)}
-
-    let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom, unit: unit )}
-
-    let!(:activity_session1) {FactoryGirl.create(:activity_session, percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity)}
-    let!(:activity_session2) {FactoryGirl.create(:activity_session, percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity)}
-
-
-    it 'works' do 
-      x = ActivitySession.scores_for_teacher teacher
-      expect(x).to eq(1)
-    end
-
-  end
-
-
-
-
-
 end
 
 
