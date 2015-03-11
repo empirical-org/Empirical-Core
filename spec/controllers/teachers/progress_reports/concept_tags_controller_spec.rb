@@ -22,7 +22,6 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
     it 'displays the html' do
       subject
       expect(response.status).to eq(200)
-      expect(assigns(:concept_tag)).to be_present
       expect(assigns(:concept_category)).to be_present
     end
   end

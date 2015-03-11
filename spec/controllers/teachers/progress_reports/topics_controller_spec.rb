@@ -18,6 +18,7 @@ describe Teachers::ProgressReports::TopicsController, :type => :controller do
     it 'displays the html' do
       get :index, {section_id: @section.id}
       expect(response.status).to eq(200)
+      expect(assigns(:section)).to be_present
     end
   end
 
