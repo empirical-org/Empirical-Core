@@ -8,4 +8,5 @@ before_script:
 - psql -c 'create database test;' -U postgres
 - ! 'RAILS_ENV=test bundle exec rake db:schema:load || :'
 addons:
+  firefox: "35.0.1"
   postgresql: "9.3"
