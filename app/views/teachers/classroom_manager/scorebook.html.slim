@@ -1,0 +1,27 @@
+- key  = @unit.nil? ? @classroom.cache_key : @classroom.cache_key + @unit.cache_key
+- cache('scorebook-' + key) do
+  #page-content-wrapper
+    .row
+      .col-xs-12.col-xl-12
+        = render partial: 'teachers/shared/scorebook_tabs'
+        .tab-content
+          #scorebook.tab-pane.active
+            .tab-subnavigation-wrapper
+              .container
+                ul
+                  li
+                    a.active[href=""]
+                      | Student View
+            = render partial: 'classroom_selector_and_legend'
+            - @classroom.students.sort_by(&:sorting_name).each do |student|
+              .container
+                section
+                  h3.student-name
+                    = student.name
+                  .row
+                    .col-xs-12.col-sm-12.col-md-9.col-lg-9.col-xl-9
+                      - student.complete_and_incomplete_activity_sessions_by_classification(@unit).in_groups_of(10) do |activity_sessions|
+                        .icon-row
+                          - activity_sessions.each do |activity_session|
+                            - next unless activity_session # FIXME: Why are some of these nil?
+                            = activity_icon_with_tooltip(activity_session)
