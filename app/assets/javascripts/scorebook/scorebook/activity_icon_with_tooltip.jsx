@@ -31,9 +31,9 @@ EC.ActivityIconWithTooltip = React.createClass({
   },
   displayPercentage: function () {
     if (this.props.data.percentage == null) {
-      return ""
+      return "Not completed yet"
     } else {
-      return "<p>" + (100*this.props.data.percentage) + "%" + "</p>"
+      return (parseInt(100*this.props.data.percentage)) + "%"
     }
   },
   tooltipTitle: function () {
@@ -44,8 +44,7 @@ EC.ActivityIconWithTooltip = React.createClass({
         + "<p>" + this.props.data.activity.topic.name + "</p>"
         + "<p>" + this.props.data.activity.description + "</p>"
         + "<p>" + this.props.data.activity.topic.topic_category.name + "</p>"
-        + this.displayPercentage()
-        + "<p>" + "...all concept class stats..." + "</p>"
+        + "<p>" + this.displayPercentage() + "</p>"
       )
 
   },

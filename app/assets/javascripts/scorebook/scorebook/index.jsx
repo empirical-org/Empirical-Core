@@ -2,10 +2,6 @@ $(function () {
 	ele = $('#scorebook');
 	if (ele.length > 0) {
 		React.render(React.createElement(EC.Scorebook), ele[0]);
-
-
-
-
 	}
 });
 
@@ -16,8 +12,8 @@ EC.Scorebook = React.createClass({
 		return {
 			units: [],
 			classrooms: [],
-			defaultUnit: 'All Units',
-			defaultClassroom: 'All Classrooms',
+			defaultUnit: {name: 'All Units', value: ''},
+			defaultClassroom: {name: 'All Classrooms', value: ''},
 			selectedClassroom: null,
 			selectedUnit: null,
 			currentPage: 1,
@@ -43,8 +39,7 @@ EC.Scorebook = React.createClass({
 		});
 	},
 	loadMore: function () {
-		this.state.loading = true
-		this.setState({currentPage: this.state.currentPage + 1})
+		this.setState({loading: true, currentPage: this.state.currentPage + 1})
 		this.fetchData();
 	},
 	fetchData: function () { 
@@ -55,9 +50,7 @@ EC.Scorebook = React.createClass({
 				classroom_id: this.state.selectedClassroom,
 				unit_id: this.state.selectedUnit
 			},
-			success: this.displayData,
-			error: function () {
-			}
+			success: this.displayData
 		})
 	},
 
@@ -98,6 +91,11 @@ EC.Scorebook = React.createClass({
 		scores = _.map(this.state.scores, function (data, student_id) {
 			return <EC.StudentScores data={data} />
 		});
+		if (this.state.loading) {
+			loadingIndicator = <div className="spinner-container"><i className="fa fa-refresh fa-spin"></i></div>
+		} else {
+			loadingIndicator = null
+		}
 		return (
 			<span>
 
@@ -125,6 +123,8 @@ EC.Scorebook = React.createClass({
 
 
 		        {scores}
+
+		        {loadingIndicator}
 
 			</span>
 		);
