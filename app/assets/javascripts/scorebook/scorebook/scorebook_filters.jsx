@@ -1,8 +1,4 @@
 EC.ScorebookFilters = React.createClass({
-	selectOption: function () {
-		console.log('select option')
-	},
-
 	render: function () {
 		return (
 
