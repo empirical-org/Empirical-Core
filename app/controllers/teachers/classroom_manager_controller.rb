@@ -58,14 +58,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    puts ''
-    puts '#scores called in controller'
+    
+    Rails.logger.debug '#scores called in controller'
     classrooms = current_user.classrooms.includes(:classroom_activities => [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
     scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, params[:classroom_id], params[:unit_id]
 
-    puts 'scores returned as result : '
-    puts scores.to_json
+    Rails.logger.debug 'scores returned as result : '
+    Rails.logger.debug scores.to_json
     render json: {
       classrooms: classrooms,
       units: units,
