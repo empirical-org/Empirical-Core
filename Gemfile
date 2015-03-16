@@ -14,6 +14,7 @@ gem 'pg'
 gem 'ancestry'
 gem 'ransack'
 gem 'ranked-model'
+gem 'postgres_ext'
 
 # USER AUTH, ETC
 gem 'bcrypt'

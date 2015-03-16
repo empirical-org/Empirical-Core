@@ -1,35 +1,21 @@
 $(function() {
-  if ($('.progress-reports-activities').length) { // Only if we're on this page
-    React.render(React.createElement(EC.ActivitiesProgressReport), $('.progress-reports-activities')[0]);
-  }
+  var progressReportMapping = {
+    '.progress-reports-activities': EC.ActivitiesProgressReport,
+    '.progress-reports-sections': EC.SectionsProgressReport,
+    '.progress-reports-topics': EC.TopicsProgressReport,
+    '.progress-reports-concept-categories': EC.ConceptCategoriesProgressReport,
+    '.progress-reports-concept-tags': EC.ConceptTagsProgressReport,
+    '.progress-reports-concept-students': EC.ConceptTagsStudentsProgressReport,
+    '.progress-reports-topic-students': EC.TopicsStudentsProgressReport
+  };
 
-  if ($('.progress-reports-sections').length) {
-    React.render(React.createElement(EC.SectionsProgressReport), $('.progress-reports-sections')[0]);
-  }
-
-  var $topicsRootNode = $('.progress-reports-topics');
-  if ($topicsRootNode.length) {
+  _.each(progressReportMapping, function(component, rootNodeSelector) {
+    var $el = $(rootNodeSelector);
     var props = {
-      sourceUrl: $topicsRootNode.data('url')
+      sourceUrl: $el.data('url')
     };
-    React.render(React.createElement(EC.TopicsProgressReport, props), $topicsRootNode[0]);
-  }
-
-  var $conceptCategoriesRootNode = $('.progress-reports-concept-categories');
-  if ($conceptCategoriesRootNode.length) {
-    var props = {
-      sourceUrl: $conceptCategoriesRootNode.data('url')
-    };
-
-    React.render(React.createElement(EC.ConceptCategoriesProgressReport, props), $conceptCategoriesRootNode[0]);
-  }
-
-  var $conceptTagsRootNode = $('.progress-reports-concept-tags');
-  if ($conceptTagsRootNode.length) {
-    var props = {
-      sourceUrl: $conceptTagsRootNode.data('url')
-    };
-
-    React.render(React.createElement(EC.ConceptTagsProgressReport, props), $conceptTagsRootNode[0]);
-  }
+    if ($el.length) {
+      React.render(React.createElement(component, props), $el[0]);
+    }
+  });
 });

@@ -1,5 +1,4 @@
 class Topic < ActiveRecord::Base
-  include ProgressReportQuery
 
   belongs_to :section
   belongs_to :topic_category
@@ -11,26 +10,22 @@ class Topic < ActiveRecord::Base
   validates :section, presence: true
   validates :name, presence: true, uniqueness: true
 
-  def self.progress_report_select
-    <<-SELECT
+  def self.for_progress_report(teacher, filters)
+    with(filtered_activity_sessions: ActivitySession.proficient_sessions_for_progress_report(teacher, filters))
+    .select(<<-SELECT
       topics.id as topic_id,
       topics.name as topic_name,
-      COUNT(DISTINCT(activity_sessions.user_id)) as students_count,
-      SUM(CASE WHEN activity_sessions.percentage > 0.75 THEN 1 ELSE 0 END) as proficient_count,
-      SUM(CASE WHEN activity_sessions.percentage <= 0.75 THEN 1 ELSE 0 END) as not_proficient_count,
-      SUM(activity_sessions.time_spent) as total_time_spent
+      topics.section_id as section_id,
+      COUNT(DISTINCT(filtered_activity_sessions.user_id)) as students_count,
+      SUM(filtered_activity_sessions.is_proficient) as proficient_count,
+      SUM(CASE WHEN filtered_activity_sessions.is_proficient = 1 THEN 0 ELSE 1 END) as not_proficient_count,
+      SUM(filtered_activity_sessions.time_spent) as total_time_spent
     SELECT
-  end
-
-  def self.progress_report_joins(filters)
-    {:activities => {:classroom_activities => [:classroom, :activity_sessions]}}
-  end
-
-  def self.progress_report_group_by
-    "topics.id"
-  end
-
-  def self.progress_report_order_by
-    "topics.name asc"
+    ).joins(<<-JOINS
+      JOIN activities ON activities.topic_id = topics.id
+      JOIN filtered_activity_sessions ON filtered_activity_sessions.activity_id = activities.id
+    JOINS
+    ).group("topics.id")
+    .order("topics.name asc")
   end
 end
