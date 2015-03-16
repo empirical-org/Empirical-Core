@@ -8,7 +8,7 @@
 5.  Introduce changes with pull requests.
 
 
-* Use SLIM rather than HAML.
+* Use ERB rather than HAML or SLIM.
 * Write JavaScript, not CoffeeScript.
 * Always write tests (the test suite is really bare right now) and nothing is to be merged without tests.
 * Make pull requests on the develop branch.
