@@ -3,6 +3,7 @@ class Page
   extend Capybara::DSL
   include Capybara::DSL
 
+  # FIXME: I don't get why this is a class method [KK - 3/16/15]
   def self.path
     fail "#{self.name} does not implement 'path'"
   end
