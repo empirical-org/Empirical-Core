@@ -14,6 +14,8 @@ EC.Scorebook = React.createClass({
 			classrooms: [],
 			defaultUnit: {name: 'All Units', value: ''},
 			defaultClassroom: {name: 'All Classrooms', value: ''},
+			classroomFilters: [],
+			unitFilters: [],
 			selectedClassroom: null,
 			selectedUnit: null,
 			currentPage: 1,
