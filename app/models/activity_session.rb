@@ -29,6 +29,41 @@ class ActivitySession < ActiveRecord::Base
     (complete_session || incomplete_session)
   }
 
+  # Used as a CTE (common table expression) by other models to get progress report data.
+  def self.proficient_sessions_for_progress_report(teacher, filters)
+    query = select(<<-SELECT
+      activity_sessions.id as activity_session_id,
+      activity_sessions.*,
+      CASE WHEN activity_sessions.percentage > 0.75 THEN 1 ELSE 0 END as is_proficient
+    SELECT
+    ).joins(:classroom_activity => :classroom)
+      .where("activity_sessions.state = ?", "finished")
+      .where("classrooms.teacher_id = ?", teacher.id) # Always by teacher
+      .group("activity_sessions.id")
+
+    # Some duplication between here and ConceptTagResult
+    if filters[:classroom_id].present?
+      query = query.where("classrooms.id = ?", filters[:classroom_id])
+    end
+
+    if filters[:student_id].present?
+      query = query.where("activity_sessions.user_id = ?", filters[:student_id])
+    end
+
+    if filters[:unit_id].present?
+      query = query.where("classroom_activities.unit_id = ?", filters[:unit_id])
+    end
+
+    if filters[:section_id].present?
+      query = query.joins(:activity => :topic).where('topics.section_id IN (?)', filters[:section_id])
+    end
+
+    if filters[:topic_id].present?
+      query = query.joins(:activity).where('activities.topic_id IN (?)', filters[:topic_id])
+    end
+
+    query
+  end
 
   def self.by_teacher(teacher)
     self.joins(:user => :teacher).where(teachers_users: {id: teacher.id})

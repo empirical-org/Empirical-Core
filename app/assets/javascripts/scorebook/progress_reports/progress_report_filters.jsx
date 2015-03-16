@@ -1,5 +1,5 @@
 EC.ProgressReportFilters = React.createClass({
-  
+
   propTypes: {
     classroomFilters: React.PropTypes.array.isRequired,
     studentFilters: React.PropTypes.array.isRequired,
@@ -12,9 +12,15 @@ EC.ProgressReportFilters = React.createClass({
   render: function() {
     return (
       <div className="row activity-page-dropdown-wrapper">
-        <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.props.classroomFilters} selectOption={this.props.selectClassroom} />
-        <EC.DropdownFilter defaultOption={'All Units'} options={this.props.unitFilters} selectOption={this.props.selectUnit} />
-        <EC.DropdownFilter defaultOption={'All Students'} options={this.props.studentFilters} selectOption={this.props.selectStudent} />
+        <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+          <EC.DropdownFilter defaultOption={'All Classrooms'} options={this.props.classroomFilters} selectOption={this.props.selectClassroom} />
+        </div>
+        <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+          <EC.DropdownFilter defaultOption={'All Units'} options={this.props.unitFilters} selectOption={this.props.selectUnit} />
+        </div>
+        <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+          <EC.DropdownFilter defaultOption={'All Students'} options={this.props.studentFilters} selectOption={this.props.selectStudent} />
+        </div>
       </div>
     );
   }

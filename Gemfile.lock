@@ -322,8 +322,13 @@ GEM
     parslet (1.6.1)
       blankslate (~> 2.0)
     pg (0.17.1)
+    pg_array_parser (0.0.9)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
+    postgres_ext (2.4.1)
+      activerecord (>= 4.0.0)
+      arel (>= 4.0.1)
+      pg_array_parser (~> 0.0.9)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -578,6 +583,7 @@ DEPENDENCIES
   omniauth-clever
   parslet
   pg
+  postgres_ext
   pry
   pry-coolline
   pry-rails

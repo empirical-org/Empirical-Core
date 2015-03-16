@@ -1,0 +1,7 @@
+- if @concept_category.present?
+  .row
+    ol.breadcrumb
+      li=link_to "All Concepts", teachers_progress_reports_concept_categories_path
+      li=link_to @concept_category.name, teachers_progress_reports_concept_category_concept_tags_path
+      - if @concept_tag.present?
+        li=link_to @concept_tag.name, teachers_progress_reports_concept_category_concept_tag_students_path

@@ -22,6 +22,7 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
     it 'displays the html' do
       subject
       expect(response.status).to eq(200)
+      expect(assigns(:concept_category)).to be_present
     end
   end
 
@@ -46,6 +47,12 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
         subject
         expect(response.status).to eq(200)
         expect(json['concept_tags'].size).to eq(@writing_category_tags.size)
+        expect(json['concept_tags'][0]['concept_tag_name']).to eq(@writing_tag.name)
+        expect(json['concept_tags'][0]['students_href'])
+          .to eq(teachers_progress_reports_concept_category_concept_tag_students_path(
+            concept_category_id: @writing_category.id,
+            concept_tag_id: @writing_tag.id
+          ))
       end
 
       it 'fetches the parent concept category data' do
