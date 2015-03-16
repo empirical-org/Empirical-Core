@@ -197,38 +197,6 @@ class ActivitySession < ActiveRecord::Base
   end
 
 
-  def self.scores_for_teacher teacher, classroom_id=nil, unit_id=nil
-
-
-
-    result = self.limit(50)
-                  .select(
-                     'users.id,
-                      users.name,
-                      classroom_activities.id,
-                      max(unit.id),
-                      max(unit.name),
-                      max(activity_sessions.percentage) as maxp,
-                      max(activity_sessions.id)'
-       
-                 ).order('users.name, max(activity_sessions.percentage)')
-                  .includes(
-                    :user, 
-                    :concept_tag_results => [:concept_tag], 
-                    :activity =>[:topic => [:section, :topic_category]], 
-                    :classroom_activity => [:classroom, :unit])
-                  .where('classrooms.teacher_id = ?', teacher.id)
-                  .group("users.id, classroom_activities.id")
-                  .references(:user, :activity_session)
-
-
-    result
-
-    
-  end
-
-
-
 
 
 end
