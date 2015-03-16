@@ -59,6 +59,7 @@ EC.Scorebook = React.createClass({
 	},
 
 	displayData: function (data) {
+		console..log('data received : ', data)
 		this.setState({
 			classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
 			unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
