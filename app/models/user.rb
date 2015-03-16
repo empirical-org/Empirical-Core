@@ -103,6 +103,10 @@ class User < ActiveRecord::Base
     super
   end
 
+  def sorting_name
+    "#{last_name}, #{first_name}"
+  end
+
   def student?
     role.student?
   end

@@ -75,7 +75,7 @@ feature 'Signing in' do
       before(:each) { sign_in_user }
 
       let(:sign_in_succeeded_path) do
-        Teachers::ScorebookPage.path(sweathogs_classroom)
+        Teachers::ScorebookPage.new(sweathogs_classroom).path
       end
 
       include_examples :sign_in_methods_succeed
