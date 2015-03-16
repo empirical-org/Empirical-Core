@@ -27,10 +27,14 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :sections, only: [:index] do
-        resources :topics, only: [:index]
+        resources :topics, only: [:index] do
+          resources :students, controller: "topics_students", only: [:index]
+        end
       end
       resources :concept_categories, only: [:index] do
-        resources :concept_tags, only: [:index]
+        resources :concept_tags, only: [:index] do
+          resources :students, controller: "concept_tags_students", only: [:index]
+        end
       end
     end
 

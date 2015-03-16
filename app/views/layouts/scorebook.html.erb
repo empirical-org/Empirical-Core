@@ -1,15 +1,20 @@
 <head>
   <title>Quill Scorebook</title>
-  
+
   <%= render partial: 'head' %>
 </head>
   <body>
     <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
     <%= yield %>
     <%= render partial: 'footer', media: 'all', 'data-turbolinks-track' => true %>
-    
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <% if Rails.env.development? %>
+      <!-- Got sick of flaky Google CDN for dev -->
+      <%= javascript_include_tag 'jquery-1.8.2' %>
+    <% else %>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <% end %>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <%= javascript_include_tag 'scorebook/scorebook', 'data-turbolinks-track' => true %>
   </body>

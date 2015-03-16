@@ -1,38 +1,36 @@
-EC.ConceptTagsProgressReport = React.createClass({
+// The progress report showing a per-student breakdown for a given
+// concept tag.
+
+EC.ConceptTagsStudentsProgressReport = React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired
   },
 
   getInitialState: function() {
     return {
-      conceptCategory: {}
+      conceptTag: {}
     }
   },
 
   columnDefinitions: function() {
     return [
       {
-        name: this.state.conceptCategory.concept_category_name,
-        field: 'concept_tag_name',
-        sortByField: 'concept_tag_name',
-        customCell: function(row) {
-          return (
-            <a href={row['students_href']}>{row['concept_tag_name']}</a>
-          );
-        }
+        name: this.state.conceptTag.concept_tag_name,
+        field: 'name',
+        sortByField: 'name',
       },
       {
-        name: 'Total Results: ' + this.state.conceptCategory.total_result_count,
+        name: 'Total Results: ' + this.state.conceptTag.total_result_count,
         field: 'total_result_count',
         sortByField: 'total_result_count'
       },
       {
-        name: 'Correct Results: ' + this.state.conceptCategory.correct_result_count,
+        name: 'Correct Results: ' + this.state.conceptTag.correct_result_count,
         field: 'correct_result_count',
         sortByField: 'correct_result_count'
       },
       {
-        name: 'Incorrect Results: ' + this.state.conceptCategory.incorrect_result_count,
+        name: 'Incorrect Results: ' + this.state.conceptTag.incorrect_result_count,
         field: 'incorrect_result_count',
         sortByField: 'incorrect_result_count'
       }
@@ -42,20 +40,19 @@ EC.ConceptTagsProgressReport = React.createClass({
   sortDefinitions: function() {
     return {
       config: {
-        concept_tag_name: 'natural',
-        total_result_count: 'numeric',
-        correct_result_count: 'numeric',
-        incorrect_result_count: 'numeric'
+        name: 'natural'
       },
       default: {
-        field: 'concept_tag_name',
+        field: 'name',
         direction: 'asc'
       }
     };
   },
 
-  onFetchSuccess: function(data) {
-    this.setState({conceptCategory: data.concept_category});
+  onFetchSuccess: function(responseData) {
+    this.setState({
+      conceptTag: responseData.concept_tag
+    });
   },
 
   render: function() {
@@ -65,7 +62,7 @@ EC.ConceptTagsProgressReport = React.createClass({
                          clientSideFiltering={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'concept_tags'}
+                         jsonResultsKey={'students'}
                          onFetchSuccess={this.onFetchSuccess} />
     );
   }

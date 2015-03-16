@@ -24,61 +24,90 @@ describe Section, type: :model do
 		include ProgressReportHelper
 
 	  let!(:teacher) { FactoryGirl.create(:teacher) }
+    let(:section_ids) { [@sections[0].id, @sections[1].id] }
+    let(:filters) { {} }
 
-	  before do
-	  	setup_sections_progress_report
-	  end
+    before do
+      setup_sections_progress_report
+    end
 
-	  it "retrieves aggregated section data" do
-	  	data = Section.for_progress_report(teacher, {})
-	  	expect(data[0]["section_name"]).to eq(@sections.first.name)
-	  end
+    subject { Section.for_progress_report(teacher, filters).to_a }
 
-	  context "when a classroom filter is provided" do
-	  	it "filters by classroom" do
-	  		data = Section.for_progress_report(teacher, {classroom_id: 123})
-	  		expect(data.size).to eq(0)
-	  		data = Section.for_progress_report(teacher, {classroom_id: @classrooms.first.id})
-	  		expect(data.size).to eq(1)
-	  	end
-	  end
+    it "retrieves aggregated section data" do
+      sections = subject
+      expect(sections[0]["section_name"]).to eq(@sections.first.name)
+    end
 
-	  context "when an empty classroom filter is provided" do
-	  	it "does not filter by classroom" do
-	  		data = Section.for_progress_report(teacher, {classroom_id: ""})
-	  		expect(data.size).to eq(@sections.size)
-	  	end
-	  end
+    context 'sections' do
+      let(:filters) { {section_id: section_ids} }
 
-	  context "when a unit filter is provided" do
-	  	it "filters by unit" do
-	  		unit_to_filter = @units.first
-	  		data = Section.for_progress_report(teacher, {unit_id: unit_to_filter})
-	  		expect(data.size).to eq(1)
-	  		data = Section.for_progress_report(teacher, {unit_id: 123})
-	  		expect(data.size).to eq(0)
-	  	end
-	  end
+      it 'can retrieve sections based on sections' do
+        expect(subject.size).to eq(2) # 1 user created for each section
+      end
+    end
 
-	  context "when an empty unit filter is provided" do
-	  	it "does not filter by unit" do
-	  		data = Section.for_progress_report(teacher, {unit_id: ""})
-	  		expect(data.size).to eq(@sections.size)
-	  	end
-	  end
+    context 'classrooms' do
+      let(:filters) { {classroom_id: @classrooms.first.id} }
 
-	  context "when a student filter is provided" do
-	  	it "filters by student" do
-	  		data = Section.for_progress_report(teacher, {student_id: @students.first.id})
-	  		expect(data.size).to eq(1)
-	  	end
-	  end
+      it 'can retrieve sections based on classroom_id' do
+        expect(subject.size).to eq(1)
+      end
+    end
 
-	  context "when an empty student filter is provided" do
-	  	it "does not filter by student" do
-	  		data = Section.for_progress_report(teacher, {student_id: ""})
-	  		expect(data.size).to eq(@sections.size)
-	  	end
-	  end
+    context 'empty classroom' do
+      let(:filters) { {classroom_id: ""} }
+
+      it 'does not filter by classroom' do
+        expect(subject.size).to eq(@sections.size)
+      end
+    end
+
+    context 'units' do
+      let(:filters) { {unit_id: @units.first.id} }
+
+      it 'can retrieve sections based on unit_id' do
+        expect(subject.size).to eq(1)
+      end
+    end
+
+    context 'empty units' do
+      let(:filters) { {unit_id: ""} }
+
+      it 'does not filter by units' do
+        expect(subject.size).to eq(@sections.size)
+      end
+    end
+
+    context 'a set of topics' do
+      let(:filters) { {section_id: section_ids, topic_id: @topics.map {|t| t.id} } }
+
+      it 'can retrieve sections based on a set of topics' do
+        expect(subject.size).to eq(2)
+      end
+    end
+
+    context 'a single topic' do
+      let(:filters) { {section_id: section_ids, topic_id: @topics.first.id } }
+
+      it 'can retrieve sections based on a single topic' do
+        expect(subject.size).to eq(1)
+      end
+    end
+
+    context 'students' do
+      let(:filters) { {student_id: @students.first.id} }
+
+      it 'can retrieve sections based on a student' do
+        expect(subject.size).to eq(1)
+      end
+    end
+
+    context 'empty students' do
+      let(:filters) { {student_id: ""} }
+
+      it 'does not filter by students' do
+        expect(subject.size).to eq(@sections.size)
+      end
+    end
 	end
 end

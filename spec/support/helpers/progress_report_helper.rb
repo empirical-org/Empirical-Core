@@ -11,13 +11,13 @@ module ProgressReportHelper
     # When filtered by unassigned student, nothing displays
 
     activity = FactoryGirl.create(:activity)
-    student = FactoryGirl.create(:student)
-    classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [student])
-    unit = FactoryGirl.create(:unit)
+    @student = FactoryGirl.create(:student)
+    @classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [@student])
+    @unit = FactoryGirl.create(:unit)
     classroom_activity = FactoryGirl.create(:classroom_activity,
-                                            classroom: classroom,
+                                            classroom: @classroom,
                                             activity: activity,
-                                            unit: unit)
+                                            unit: @unit)
 
     concept_class = FactoryGirl.create(:concept_class)
     @writing_category = FactoryGirl.create(:concept_category, name: "Writing Category", concept_class: concept_class)
@@ -28,7 +28,7 @@ module ProgressReportHelper
 
     activity_session = FactoryGirl.create(:activity_session,
                                           classroom_activity: classroom_activity,
-                                          user: student,
+                                          user: @student,
                                           activity: activity,
                                           state: 'finished',
                                           percentage: 0.75
@@ -76,16 +76,16 @@ module ProgressReportHelper
 
     # Should not be visible on the report
     other_teacher = FactoryGirl.create(:teacher)
-    other_student = FactoryGirl.create(:student)
-    other_classroom = FactoryGirl.create(:classroom, teacher: other_teacher)
-    other_unit = FactoryGirl.create(:unit)
+    @other_student = FactoryGirl.create(:student)
+    @other_classroom = FactoryGirl.create(:classroom, teacher: other_teacher)
+    @other_unit = FactoryGirl.create(:unit)
     other_classroom_activity = FactoryGirl.create(:classroom_activity,
-      classroom: other_classroom,
-      unit: other_unit,
+      classroom: @other_classroom,
+      unit: @other_unit,
       activity: activity)
     other_activity_session = FactoryGirl.create(:activity_session,
       classroom_activity: other_classroom_activity,
-      user: other_student,
+      user: @other_student,
       state: 'finished',
       percentage: 0.75)
     other_grammar_result = FactoryGirl.create(:concept_tag_result,
@@ -136,11 +136,97 @@ module ProgressReportHelper
     end
   end
 
+  def setup_students_concepts_progress_report
+    # Create 3 students
+    # Create 2 concept tag, one displayed, the other not
+    # Create a distribution of concept tag results for each student
+    @alice = FactoryGirl.create(:student, name: "Alice")
+    @fred = FactoryGirl.create(:student, name: "Fred")
+    @zojirushi = FactoryGirl.create(:student, name: "Zojirushi")
+
+    concept_class = FactoryGirl.create(:concept_class)
+    @concept_tag = FactoryGirl.create(:concept_tag, concept_class: concept_class)
+    @concept_category = FactoryGirl.create(:concept_category, concept_class: concept_class)
+    hidden_concept_tag = FactoryGirl.create(:concept_tag, name: "Hidden", concept_class: concept_class)
+
+    # Boilerplate
+    classroom = FactoryGirl.create(:classroom,
+      name: "Bacon Weaving",
+      teacher: teacher,
+      students: [@alice, @fred, @zojirushi])
+    activity = FactoryGirl.create(:activity)
+    unit = FactoryGirl.create(:unit)
+    classroom_activity = FactoryGirl.create(:classroom_activity,
+                                            classroom: classroom,
+                                            activity: activity,
+                                            unit: unit)
+
+
+    # Create 2 activity session for each student, one with the concept tags, one without
+    @alice_session = FactoryGirl.create(:activity_session,
+                                        classroom_activity: classroom_activity,
+                                        user: @alice,
+                                        activity: activity,
+                                        state: 'finished',
+                                        percentage: 0.75)
+
+    # Incorrect result for Alice
+    @alice_session.concept_tag_results.create!(
+      concept_tag: @concept_tag,
+      concept_category: @concept_category,
+      metadata: {
+        "correct" => 0
+      })
+
+    # Correct result for Alice
+    @alice_session.concept_tag_results.create!(
+      concept_tag: @concept_tag,
+      concept_category: @concept_category,
+      metadata: {
+        "correct" => 1
+      })
+
+    @fred_session = FactoryGirl.create(:activity_session,
+                                        classroom_activity: classroom_activity,
+                                        user: @fred,
+                                        activity: activity,
+                                        state: 'finished',
+                                        percentage: 0.75)
+
+    # Incorrect result for Fred
+    @fred_session.concept_tag_results.create!(
+      concept_tag: @concept_tag,
+      concept_category: @concept_category,
+      metadata: {
+        "correct" => 0
+      })
+
+    # Correct result for Fred for hidden tag (not displayed)
+    @fred_session.concept_tag_results.create!(
+      concept_tag: hidden_concept_tag,
+      concept_category: @concept_category,
+      metadata: {
+        "correct" => 1
+      })
+
+    # Zojirushi has no concept tag results, so should not display
+    # in the progress report
+    @zojirushi_session = FactoryGirl.create(:activity_session,
+                                        classroom_activity: classroom_activity,
+                                        user: @zojirushi,
+                                        activity: activity,
+                                        state: 'finished',
+                                        percentage: 0.75)
+
+    @visible_students = [@alice, @fred]
+    @classrooms = [@classroom]
+  end
+
   def setup_topics_progress_report
     # Stats should come out like this:
     # name,     student_count,    proficient_count,   not_proficient_count,
-    # Topic 1,  3,                2,                  1
-    # Topic 2,  2,                1,                  1
+    # 1st Grade CCSS,  3,                2,                  1
+    # 2nd Grade CCSS,  2,                1,                  1
 
     # hidden_topic should never be displayed
     # When filtered by empty_classroom, nothing displays
@@ -150,15 +236,15 @@ module ProgressReportHelper
     ActivitySession.destroy_all
     @section = FactoryGirl.create(:section)
 
-    @student1 = FactoryGirl.create(:student)
-    @student2 = FactoryGirl.create(:student)
-    @student3 = FactoryGirl.create(:student)
+    @alice = FactoryGirl.create(:student, name: "Alice")
+    @fred = FactoryGirl.create(:student, name: "Fred")
+    @zojirushi = FactoryGirl.create(:student, name: "Zojirushi")
     @unassigned_student = FactoryGirl.create(:student)
     @second_grade_topic = FactoryGirl.create(:topic, section: @section, name: "2nd Grade CCSS")
     @first_grade_topic = FactoryGirl.create(:topic, section: @section, name: "1st Grade CCSS")
     @hidden_topic = FactoryGirl.create(:topic, section: @section)
-    @full_classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [@student1, @student2, @student3])
-    @empty_classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [])
+    @full_classroom = FactoryGirl.create(:classroom, name: "full", teacher: teacher, students: [@alice, @fred, @zojirushi])
+    @empty_classroom = FactoryGirl.create(:classroom, name: "empty", teacher: teacher, students: [])
     @unit1 = FactoryGirl.create(:unit)
     @empty_unit = FactoryGirl.create(:unit)
     @activity_for_second_grade_topic = FactoryGirl.create(:activity, topic: @second_grade_topic)
@@ -172,47 +258,48 @@ module ProgressReportHelper
                                               activity: @activity_for_first_grade_topic,
                                               unit: @unit1)
 
-    @student1_second_grade_topic_session = FactoryGirl.create(:activity_session,
+    @alice_second_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity1,
-                                                  user: @student1,
+                                                  user: @alice,
                                                   activity: @activity_for_second_grade_topic,
                                                   state: 'finished',
                                                   percentage: 1) # Proficient
-    @student2_second_grade_topic_session = FactoryGirl.create(:activity_session,
+    @fred_second_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity1,
-                                                  user: @student2,
+                                                  user: @fred,
                                                   activity: @activity_for_second_grade_topic,
                                                   state: 'finished',
                                                   percentage: 1) # Proficient
-    @student3_second_grade_topic_session = FactoryGirl.create(:activity_session,
+    @zojirushi_second_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity1,
-                                                  user: @student3,
+                                                  user: @zojirushi,
                                                   activity: @activity_for_second_grade_topic,
                                                   state: 'finished',
                                                   percentage: 0.50) # Not proficient
 
-    @student1_first_grade_topic_session = FactoryGirl.create(:activity_session,
+    @alice_first_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity2,
-                                                  user: @student1,
+                                                  user: @alice,
                                                   activity: @activity_for_first_grade_topic,
                                                   state: 'finished',
                                                   percentage: 1) # Proficient
 
-    @student2_first_grade_topic_session = FactoryGirl.create(:activity_session,
+    @fred_first_grade_topic_session = FactoryGirl.create(:activity_session,
                                                   classroom_activity: classroom_activity2,
-                                                  user: @student2,
+                                                  user: @fred,
                                                   activity: @activity_for_first_grade_topic,
                                                   state: 'finished',
                                                   percentage: 0.50) # Not Proficient
 
     @visible_topics = [@first_grade_topic, @second_grade_topic]
-    @visible_students = [@student1, @student2, @student3]
+    @visible_students = [@alice, @fred, @zojirushi]
     @visible_activity_sessions = [
-      @student1_second_grade_topic_session,
-      @student1_first_grade_topic_session,
-      @student2_second_grade_topic_session,
-      @student2_first_grade_topic_session,
-      @student3_second_grade_topic_session
+      @alice_second_grade_topic_session,
+      @alice_first_grade_topic_session,
+      @fred_second_grade_topic_session,
+      @fred_first_grade_topic_session,
+      @zojirushi_second_grade_topic_session
     ]
+    @first_grade_topic_students = [@alice, @fred]
   end
 end

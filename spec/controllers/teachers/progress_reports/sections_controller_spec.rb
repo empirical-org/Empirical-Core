@@ -57,9 +57,9 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
         xhr :get, :index
         expect(response.status).to eq(200)
         expect(json['sections'].size).to eq(1)
-        expect(json['sections'][0]['topics_count']).to eq('3')
+        expect(json['sections'][0]['topics_count']).to eq(3)
         expect(json['sections'][0]['section_link']).to eq(teachers_progress_reports_section_topics_path(section.id))
-        expect(json['sections'][0]['total_time_spent']).to eq('45000')
+        expect(json['sections'][0]['total_time_spent']).to eq(45000)
       end
 
       it 'fetches classroom, unit, and student data for the filter options' do
