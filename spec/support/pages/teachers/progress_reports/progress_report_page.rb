@@ -12,6 +12,15 @@ module Teachers
       table.all('th').map(&:text)
     end
 
+    def select_filter(filter_class, option_name)
+      click_filter_button(filter_class)
+      filter_menu_dropdown_option(filter_class, option_name).click
+    end
+
+    def filter_by_classroom(classroom_name)
+      select_filter('.classroom-filter', classroom_name)
+    end
+
     def table_rows
       rows = table.all('tr').map do |tr|
         tr.all('td').map(&:text)
@@ -22,6 +31,16 @@ module Teachers
 
     def table
       find('table')
+    end
+
+    private
+
+    def click_filter_button(filter_class)
+      find(filter_class + ' button').click
+    end
+
+    def filter_menu_dropdown_option(filter_class, option_name)
+      find(filter_class + ' ul.dropdown-menu li', text: option_name)
     end
   end
 end
