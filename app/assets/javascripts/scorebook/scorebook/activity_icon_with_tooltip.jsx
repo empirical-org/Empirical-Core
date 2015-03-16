@@ -2,38 +2,37 @@ EC.ActivityIconWithTooltip = React.createClass({
 
   percentage_color: function (percentage) {
     var y;
-    var x = this.props.data.percentage
+    var x = this.props.data.percentage;
     
-
     if (x < 0.5) {
-      y = 'red'
+      y = 'red';
     } else if (x <= 0.75) {
-      y = 'orange'
+      y = 'orange';
     } else if (x <= 1.0) {
-      y = 'green'
+      y = 'green';
     } else {
-      y = 'gray'
+      y = 'gray';
     }
-    return y
+    return y;
   },
   componentDidMount: function () {
-    $(this.refs.activateTooltip.getDOMNode()).tooltip()
+    $(this.refs.activateTooltip.getDOMNode()).tooltip();
   },  
   icon_for_classification: function () {
       var y; 
-      var x = this.props.data.activity.classification.id
+      var x = this.props.data.activity.classification.id;
       if (x == 1) {
-        y = 'flag'
+        y = 'flag';
       } else {
-        y = 'puzzle'
+        y = 'puzzle';
       }
-      return y
+      return y;
   },
   displayPercentage: function () {
     if (this.props.data.percentage == null) {
-      return "Not completed yet"
+      return "Not completed yet";
     } else {
-      return (parseInt(100*this.props.data.percentage)) + "%"
+      return (parseInt(100*this.props.data.percentage)) + "%";
     }
   },
   tooltipTitle: function () {
@@ -60,7 +59,6 @@ EC.ActivityIconWithTooltip = React.createClass({
         title= {this.tooltipTitle()}
       >
       </div>
-
     );
   }
 

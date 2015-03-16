@@ -51,6 +51,8 @@ module Teacher
                      .offset( (current_page - 1)*SCORES_PER_PAGE   )
 
 
+    is_last_page = (results.length < SCORES_PER_PAGE)
+
 
     activity_ids = results.map(&:activity_id).uniq.compact
     activities = Activity.includes(:topic => [:section, :topic_category]).includes(:classification).find(activity_ids)
@@ -81,7 +83,9 @@ module Teacher
       hash[user_id] = hyper_ele
     end
 
-    hash
+
+
+    [hash, is_last_page]
   end
 
 
