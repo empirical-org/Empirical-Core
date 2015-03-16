@@ -24,16 +24,18 @@ EC.Scorebook = React.createClass({
 			loading: true
 		}
 	},
+	scrollComputation: function () {
+		var y = $('#page-content-wrapper').height()
+		var w = 1/(this.state.currentPage + 1)
+		var z = y*(1 - w)
+		return z
+	},	
 
 	componentDidMount: function () {
 		this.fetchData();
-		that = this;
+		var that = this;
 		$(window).scroll(function (e) {
-			x = $('#page-content-wrapper').height()
-
-			console.log('x', x)
-			if (($(window).scrollTop() + document.body.clientHeight) > ($('#page-content-wrapper').height()/2) ) {
-				console.log('hit bottom')
+			if (($(window).scrollTop() + document.body.clientHeight) > (that.scrollComputation() )) {
 				if (!that.state.loading) {
 					that.loadMore();
 				}
