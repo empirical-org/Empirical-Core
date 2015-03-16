@@ -1,8 +1,10 @@
 # Welcome to Empirical Core!
 
-- **Getting Started:** [Visit our Community Page](http://community.quill.org/teams/quill-lms/)
-- **CLA:** [Please register an account & sign our CLA.] (http://community.quill.org/signup/cla/)
--
+
+**Getting Started:** [Visit our Community Page](http://community.quill.org/teams/quill-lms/)
+
+**CLA:** [Please register an account & sign our CLA.] (http://community.quill.org/signup/cla/)
+
 The Mailing List, Chat, Issues, and Docs can all be accessed from the community page. 
 
 # Empirical Easy Install
