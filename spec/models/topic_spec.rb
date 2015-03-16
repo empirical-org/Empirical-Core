@@ -46,66 +46,80 @@ describe Topic, :type => :model do
 		include ProgressReportHelper
 
 	  let!(:teacher) { FactoryGirl.create(:teacher) }
+    let(:filters) { {} }
 
 	  before do
 	  	setup_topics_progress_report
 	  end
 
+	  subject { Topic.for_progress_report(teacher, filters).to_a }
+
 	  it "retrieves aggregated topics data" do
-	  	data = Topic.for_progress_report(teacher, {section_id: @section.id})
-	  	expect(data.size).to eq(@visible_topics.size)
-	  	expect(data[0]["topic_name"]).to eq(@first_grade_topic.name)
-	  	expect(data[0]["topic_id"].to_i).to eq(@first_grade_topic.id)
+	  	topics = subject
+	  	expect(topics.size).to eq(@visible_topics.size)
+	  	expect(topics[0]["topic_name"]).to eq(@first_grade_topic.name)
+	  	expect(topics[0]["topic_id"].to_i).to eq(@first_grade_topic.id)
 	  end
 
 	  context "when a classroom filter is provided" do
+	    let(:filters) { {section_id: @section.id, classroom_id: @full_classroom.id} }
+
 	  	it "filters by classroom" do
-	  		data = Topic.for_progress_report(teacher, {section_id: @section.id, classroom_id: @empty_classroom.id})
-	  		expect(data.size).to eq(0)
-	  		data = Topic.for_progress_report(teacher, {section_id: @section.id, classroom_id: @full_classroom.id})
-	  		expect(data.size).to eq(@visible_topics.size)
+	  		expect(subject.size).to eq(@visible_topics.size)
 	  	end
 	  end
 
-	  context "when an empty classroom filter is provided" do
+	  context "classroom filter for an empty classroom" do
+	  	let(:filters) { {section_id: @section.id, classroom_id: @empty_classroom.id} }
+
+	  	it "returns no results" do
+	  		expect(subject.size).to eq(0)
+	  	end
+	  end
+
+	  context "classroom filter with no ID" do
+    	let(:filters) { {section_id: @section.id, classroom_id: ""} }
+
 	  	it "does not filter by classroom" do
-	  		data = Topic.for_progress_report(teacher, {section_id: @section.id, classroom_id: ""})
-	  		expect(data.size).to eq(@visible_topics.size)
+	  		expect(subject.size).to eq(@visible_topics.size)
 	  	end
 	  end
 
 	  context "when a unit filter is provided" do
+    	let(:filters) { {section_id: @section.id, unit_id: @unit1.id} }
+
 	  	it "filters by unit" do
-	  		data = Topic.for_progress_report(teacher, {section_id: @section.id, unit_id: @unit1.id})
-	  		expect(data.size).to eq(@visible_topics.size)
-	  		data = Topic.for_progress_report(teacher, {section_id: @section.id, unit_id: @empty_unit.id})
-	  		expect(data.size).to eq(0)
+	  		expect(subject.size).to eq(@visible_topics.size)
 	  	end
 	  end
 
 	  context "when an empty unit filter is provided" do
+    	let(:filters) { {section_id: @section.id, unit_id: ""} }
+
 	  	it "does not filter by unit" do
-	  		data = Topic.for_progress_report(teacher, {section_id: @section.id, unit_id: ""})
-	  		expect(data.size).to eq(@visible_topics.size)
+	  		expect(subject.size).to eq(@visible_topics.size)
 	  	end
 	  end
 
 	  context "when a student filter is provided" do
+    	let(:filters) { {section_id: @section.id, student_id: @zojirushi.id} }
+
 	  	it "filters by student" do
-	  		# student3 has completed activity sessions for only 1 topic
-	  		data = Topic.for_progress_report(teacher, {section_id: @section.id, student_id: @student3.id})
-	  		expect(data.size).to eq(1)
-	  		expect(data[0]['topic_name']).to eq(@second_grade_topic.name)
-	  		expect(data[0]['students_count']).to eq("1")
-	  		expect(data[0]['proficient_count']).to eq("0")
-	  		expect(data[0]['not_proficient_count']).to eq("1")
+	  		# Zojirushi has completed activity sessions for only 1 topic
+	  		topics = subject
+	  		expect(topics.size).to eq(1)
+	  		expect(topics[0]['topic_name']).to eq(@second_grade_topic.name)
+	  		expect(topics[0]['students_count']).to eq(1)
+	  		expect(topics[0]['proficient_count']).to eq(0)
+	  		expect(topics[0]['not_proficient_count']).to eq(1)
 	  	end
 	  end
 
 	  context "when an empty student filter is provided" do
+    	let(:filters) { {section_id: @section.id, student_id: ""} }
+
 	  	it "does not filter by student" do
-	  		data = Topic.for_progress_report(teacher, {section_id: @section.id, student_id: ""})
-	  		expect(data.size).to eq(@visible_topics.size)
+	  		expect(subject.size).to eq(@visible_topics.size)
 	  	end
 	  end
 	end

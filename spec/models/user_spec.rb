@@ -589,35 +589,102 @@ describe User, :type => :model do
     let!(:teacher) { FactoryGirl.create(:teacher) }
     let(:section_ids) { [@sections[0].id, @sections[1].id] }
 
-    before do
-      setup_sections_progress_report
+    describe 'for the concepts-based progress reports' do
+      before do
+        setup_concepts_progress_report
+      end
+
+      subject { User.for_concept_tag_progress_report(teacher, filters).to_a }
+
+      context 'no filters' do
+        let(:filters) { {} }
+
+        it 'can retrieve users based on no filters' do
+          expect(subject.size).to eq(1)
+        end
+      end
+
+      context 'classrooms' do
+        let(:filters) { {classroom_id: @classroom.id} }
+
+        it 'can retrieve users based on classroom_id' do
+          expect(subject.size).to eq(1)
+        end
+      end
+
+      context 'units' do
+        let(:filters) { {unit_id: @unit.id} }
+
+        it 'can retrieve users based on unit_id' do
+          expect(subject.size).to eq(1)
+        end
+      end
     end
 
-    it 'can retrieve users based on sections' do
-      users = User.for_progress_report(teacher, {section_id: section_ids})
-      expect(users.size).to eq(2) # 1 user created for each section
-    end
+    describe 'for the standards-based progress reports' do
+      before do
+        setup_sections_progress_report
+      end
 
-    it 'can retrieve users based on classroom_id' do
-      users = User.for_progress_report(teacher, {classroom_id: @classrooms.first.id})
-      expect(users.size).to eq(1)
-    end
+      subject { User.for_standards_progress_report(teacher, filters).to_a }
 
-    it 'can retrieve users based on unit_id' do
-      users = User.for_progress_report(teacher, {unit_id: @units.first.id})
-      expect(users.size).to eq(1)
-    end
+      context 'sections' do
+        let(:filters) { {section_id: section_ids} }
 
-    it 'can retrieve users based on a set of topics' do
-      users = User.for_progress_report(teacher, {section_id: section_ids, topic_id: @topics.map {|t| t.id} })
-      expect(users.size).to eq(2)
-      users = User.for_progress_report(teacher, {section_id: section_ids, topic_id: @topics.first.id })
-      expect(users.size).to eq(1)
-    end
+        it 'can retrieve users based on sections' do
+          expect(subject.size).to eq(2) # 1 user created for each section
+        end
 
-    it 'can retrieve users based on no additional parameters' do
-      users = User.for_progress_report(teacher, {})
-      expect(users.size).to eq(@students.size)
+        it 'retrieves the right aggregated data' do
+          user = subject[0]
+          expect(user.id).to be_present
+          expect(user.name).to be_present
+          expect(user.activity_session_count).to be_present
+          expect(user.proficient_count).to be_present
+          expect(user.not_proficient_count).to be_present
+          expect(user.total_time_spent).to be_present
+        end
+      end
+
+      context 'classrooms' do
+        let(:filters) { {classroom_id: @classrooms.first.id} }
+
+        it 'can retrieve users based on classroom_id' do
+          expect(subject.size).to eq(1)
+        end
+      end
+
+      context 'units' do
+        let(:filters) { {unit_id: @units.first.id} }
+
+        it 'can retrieve users based on unit_id' do
+          expect(subject.size).to eq(1)
+        end
+      end
+
+      context 'a set of topics' do
+        let(:filters) { {section_id: section_ids, topic_id: @topics.map {|t| t.id} } }
+
+        it 'can retrieve users based on a set of topics' do
+          expect(subject.size).to eq(2)
+        end
+      end
+
+      context 'a single topic' do
+        let(:filters) { {section_id: section_ids, topic_id: @topics.first.id } }
+
+        it 'can retrieve users based on a single topic' do
+          expect(subject.size).to eq(1)
+        end
+      end
+
+      context 'no filters' do
+        let(:filters) { {} }
+
+        it 'can retrieve users based on no filters' do
+          expect(subject.size).to eq(@students.size)
+        end
+      end
     end
   end
 

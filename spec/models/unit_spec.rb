@@ -36,29 +36,40 @@ describe Unit, type: :model do
 
     let!(:teacher) { FactoryGirl.create(:teacher) }
     let(:section_ids) { [@sections[0].id, @sections[1].id] }
+    let(:filters) { {} }
 
     before do
       setup_sections_progress_report
     end
 
-    it 'can retrieve units based on sections' do
-      units = Unit.for_progress_report(teacher, {section_id: section_ids})
-      expect(units.size).to eq(2) # 1 unit created for each section
-    end
-
-    it 'can retrieve units based on student_id' do
-      units = Unit.for_progress_report(teacher, {student_id: @students.first.id})
-      expect(units.size).to eq(1)
-    end
-
-    it 'can retrieve units based on classroom_id' do
-      units = Unit.for_progress_report(teacher, {classroom_id: @classrooms.first.id})
-      expect(units.size).to eq(1)
-    end
+    subject { Unit.for_standards_progress_report(teacher, filters).to_a }
 
     it 'can retrieve units based on no additional parameters' do
-      units = Classroom.for_progress_report(teacher, {})
-      expect(units.size).to eq(@units.size)
+      expect(subject.size).to eq(@units.size)
+    end
+
+    context 'sections' do
+      let(:filters) { {section_id: section_ids} }
+
+      it 'can retrieve units based on sections' do
+        expect(subject.size).to eq(2) # 1 unit created for each section
+      end
+    end
+
+    context 'students' do
+      let(:filters) { {student_id: @students.first.id} }
+
+      it 'can retrieve units based on student_id' do
+        expect(subject.size).to eq(1)
+      end
+    end
+
+    context 'classrooms' do
+      let(:filters) { {classroom_id: @classrooms.first.id} }
+
+      it 'can retrieve units based on classroom_id' do
+        expect(subject.size).to eq(1)
+      end
     end
   end
 end

@@ -1,6 +1,3 @@
-//= require ./table_filter_mixin.js
-//= require ./table_sorting_mixin.js
-
 EC.TopicsProgressReport = React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired
@@ -19,7 +16,12 @@ EC.TopicsProgressReport = React.createClass({
       {
         name: this.state.section.section_name,
         field: 'topic_name',
-        sortByField: 'topic_name'
+        sortByField: 'topic_name',
+        customCell: function(row) {
+          return (
+            <a href={row['students_href']}>{row['topic_name']}</a>
+          );
+        }
       },
       {
         name: this.state.section.topics_count + ' Standards Completed',
