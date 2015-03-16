@@ -24,7 +24,7 @@ module PagesHelper
 	      {
 		      img: 'thumb-peter.png',
 		      name: 'Peter Gault',
-		      title: 'Executive DIrector, Founder',
+		      title: 'Executive Director, Founder',
 		      desc: "Peter designs the user's experience and coordinates the Empirical team. Peter wrote his senior thesis at Bates College on the role of emotion in moral judgements."
 		  },
 		  {
