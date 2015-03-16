@@ -19,7 +19,7 @@ EC.Scorebook = React.createClass({
 			selectedClassroom: null,
 			selectedUnit: null,
 			currentPage: 1,
-			loading: true,
+			loading: false,
 			isLastPage: false
 		}
 	},
@@ -42,10 +42,11 @@ EC.Scorebook = React.createClass({
 		});
 	},
 	loadMore: function () {
-		this.setState({loading: true, currentPage: this.state.currentPage + 1});
+		this.setState({currentPage: this.state.currentPage + 1});
 		this.fetchData();
 	},
 	fetchData: function () { 
+		this.setState({loading: true})
 		$.ajax({
 			url: 'scores',
 			data: {
