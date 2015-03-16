@@ -44,7 +44,7 @@ module PagesHelper
 		      img: 'thumb-marcello.jpg',
 		      name: 'Marcello Sachs',
 		      title: 'Technical Director, Cofounder',
-		      desc: "Marcello has a background in pure math from Brown University, and currently enjoys reading about ideas in analytic philosophy."
+		      desc: "Marcello has a background in pure math from Brown University, and he currently enjoys reading about ideas in analytic philosophy."
 		  },
 	  	  {
 		      img: 'thumb_collin.png',
@@ -107,7 +107,7 @@ module PagesHelper
 	      	img: "thumb-tim.png",
 	      	name: "Timothy Grieves",
 	      	title: "Board Member",
-	      	desc: "Timothy Grieves is the chief administrator of the Northwest AEA, a regional agency that advises 33,000 students in Iowa."
+	      	desc: "Timothy is the chief administrator of the Northwest AEA, a regional agency that advises 33,000 students in Iowa."
 	      }
 
 	     ]
