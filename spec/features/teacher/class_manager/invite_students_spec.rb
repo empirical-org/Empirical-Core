@@ -4,15 +4,17 @@ feature 'Invite-Students page' do
   before(:each) { vcr_ignores_localhost }
 
   let(:mr_kotter) { FactoryGirl.create :mr_kotter }
+  let(:teacher)   { mr_kotter }
 
   context 'for a class' do
     let(:sweathogs) { FactoryGirl.create :sweathogs, teacher: mr_kotter }
+    let(:classroom) { sweathogs }
 
-    let(:invite_students_page) { Teachers::InviteStudentsPage.new(sweathogs) }
+    let(:invite_students_page) { Teachers::InviteStudentsPage.new(classroom) }
 
     shared_context :signed_in_as_teacher do
       before(:each) do
-        sign_in_user sweathogs.teacher
+        sign_in_user teacher
         visit_invite_students_page
       end
     end
@@ -65,67 +67,64 @@ feature 'Invite-Students page' do
           end
         end
       end
+    end
 
-      context 'with 2 students' do
-        let!(:students) do
-          %i(arnold_horshack vinnie_barbarino).map do |sym|
-            FactoryGirl.create sym, classroom: sweathogs
+    context 'with existing students' do
+      include_context :ms_sorter_and_sort_fodder
+
+      let(:teacher)   { ms_sorter }
+      let(:classroom) { sort_fodder }
+
+      context 'when signed in as the Teacher' do
+        include_context :signed_in_as_teacher
+
+        it 'shows the students, sorted by last name' do
+          expected_rows = sort_fodder_sorted.map do |student|
+            [student.first_name,
+             student.last_name,
+             student.username]
           end
+
+          expect(invite_students_page.student_table_rows).to eq expected_rows
         end
 
-        context 'when signed in as the Teacher' do
-          include_context :signed_in_as_teacher
+        it 'can add a duplicate-looking student' do
+          dup_student = christopher_brown
 
-          it 'shows the students' do
-            expect(invite_students_page.student_count).to eq students.count
+          expect {
+            invite_students_page.add_student dup_student
+          }.to change { invite_students_page.student_count }.by(1)
 
-            students.each do |student|
-              student_row = invite_students_page.student_row(student)
+          student_row = invite_students_page.student_row(User.last)
+          username    = generate_username(dup_student,
+                                          invite_students_page.class_code)
 
-              expect(student_row.first_name).to eq student.first_name
-              expect(student_row. last_name).to eq student. last_name
-              expect(student_row.  username).to eq student.  username
-            end
-          end
-
-          it 'can add a duplicate-looking student' do
-            student = students.first
-
-            expect {
-              invite_students_page.add_student student
-            }.to change { invite_students_page.student_count }.by(1)
-
-            student_row = invite_students_page.student_row(User.last)
-            username    = generate_username(student,
-                                            invite_students_page.class_code)
-
-            expect(student_row.first_name).to eq student.first_name
-            expect(student_row. last_name).to eq student. last_name
-            expect(student_row.  username).to eq username
-          end
+          expect(student_row.first_name).to eq dup_student.first_name
+          expect(student_row. last_name).to eq dup_student. last_name
+          expect(student_row.  username).to eq username
         end
       end
+    end
 
-      context 'when not signed in' do
-        before(:each) { visit_invite_students_page }
+    context 'when not signed in' do
+      before(:each) { visit_invite_students_page }
 
-        include_examples :requires_sign_in
-      end
+      include_examples :requires_sign_in
+    end
 
-      context 'when signed in as a Student' do
-        include_context :when_signed_in_as_a_student
-        before(:each) { visit_invite_students_page }
+    context 'when signed in as a Student' do
+      include_context :when_signed_in_as_a_student
+      before(:each) { visit_invite_students_page }
 
-        include_examples :requires_sign_in
-      end
+      include_examples :requires_sign_in
+    end
 
-      def visit_invite_students_page
-        invite_students_page.visit
-      end
+    def visit_invite_students_page
+      invite_students_page.visit
+    end
 
-      def generate_username(student, class_code)
-        "#{student.first_name}.#{student.last_name}@#{class_code}".downcase
-      end
+    def generate_username(student, class_code)
+      "#{student.first_name}.#{student.last_name}@#{class_code}".downcase
     end
   end
 

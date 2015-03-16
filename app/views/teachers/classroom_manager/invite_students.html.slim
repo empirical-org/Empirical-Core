@@ -1,0 +1,69 @@
+= render partial: 'teachers/shared/scorebook_tabs'
+= render partial: 'teachers/classrooms/subnav'
+
+.container.invite-students
+  section.no-border
+    .row
+      .col-xs-12.col-sm-6.col-md-6.col-lg-5.col-xl-5.button-select-wrapper.select-white-wrapper
+        .button-select
+          button.select-mixin.select-white[type="button" data-toggle="dropdown"]
+            = @classroom.name
+            - unless @classrooms.empty?
+              i.fa.fa-caret-down
+          - unless @classrooms.empty?
+            ul.dropdown-menu[role="menu"]
+              - @classrooms.each do |classroom|
+                li= link_to classroom.name,
+                            teachers_classroom_invite_students_path(classroom)
+
+
+    h1.section-header Have Students Create Their Accounts
+
+    ol
+      li Have students sign up at quill.org/account/new
+      li
+        Once students sign up, in the "Join My Class" field,
+        br
+        ' they enter the class code
+        strong= @classroom.code
+
+    span.class-code Class Code
+    input[type='text' class='inactive' value=@classroom.code disabled]
+
+
+    h1.section-header Or You Create Student Accounts
+
+    div
+      | The students’ username is their name combined with your
+      br
+      | class code. For example, John Smith is 'John.Smith@
+      = @classroom.code
+      | '.
+      br
+      .mt-15
+        | Students passwords are set to their last names by default.
+        br
+        | For example, ‘Smith’ (first letter is capitalized).
+    .m-20
+      = form_for User.new, url: teachers_classroom_students_path(@classroom) do |f|
+        = f.text_field :first_name, placeholder: 'First Name'
+        = f.text_field :last_name, placeholder: 'Last Name'
+        = f.submit 'Add Student', class: 'button-green'
+      - if flash[:notice]
+        .flash-notice= flash[:notice]
+
+    table.table.students
+      thead
+        tr
+          th First Name
+          th Last Name
+          th Username
+      tbody
+        - if @classroom.students.empty?
+          tr
+            td[colspan="3"] There are no students in this classroom yet.
+        - else
+          - @classroom.students.sort_by(&:sorting_name).each do |student|
+            tr class=dom_class(student) id=dom_id(student)
+              - %i(first_name last_name username).each do |sym|
+                td[class=sym]= student.send(sym)

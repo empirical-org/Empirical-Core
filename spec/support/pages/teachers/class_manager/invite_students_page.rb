@@ -51,6 +51,13 @@ module Teachers
       find 'table.students'
     end
 
+    def student_table_rows
+      student_table.all('tbody tr').map do |tr|
+        row = StudentTableRow.new(tr)
+        [row.first_name, row.last_name, row.username]
+      end
+    end
+
     def visit
       page.visit path
     end
