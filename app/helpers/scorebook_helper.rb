@@ -50,7 +50,7 @@ module ScorebookHelper
 
   def scorebook_path(teacher)
     if teacher.has_classrooms?
-      teachers_classroom_scorebook_path(classroom_id: teacher.classrooms.first)
+      scorebook_teachers_classrooms_path
     else
       ''
     end

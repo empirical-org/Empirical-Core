@@ -12,15 +12,14 @@ EC.Scorebook = React.createClass({
 		return {
 			units: [],
 			classrooms: [],
-			defaultUnit: {name: 'All Units', value: ''},
-			defaultClassroom: {name: 'All Classrooms', value: ''},
+			selectedUnit: {name: 'All Units', value: ''},
+			selectedClassroom: {name: 'All Classrooms', value: ''},
 			classroomFilters: [],
 			unitFilters: [],
-			selectedClassroom: null,
-			selectedUnit: null,
 			currentPage: 1,
 			loading: false,
-			isLastPage: false
+			isLastPage: false,
+			noLoadHasEverOccurredYet: true
 		}
 	},
 	scrollComputation: function () {
@@ -46,25 +45,35 @@ EC.Scorebook = React.createClass({
 		this.fetchData();
 	},
 	fetchData: function () { 
+		console.log('state before fetching data: ', this.state)
 		this.setState({loading: true})
 		$.ajax({
 			url: 'scores',
 			data: {
 				current_page: this.state.currentPage,
-				classroom_id: this.state.selectedClassroom,
-				unit_id: this.state.selectedUnit
+				classroom_id: this.state.selectedClassroom.value,
+				unit_id: this.state.selectedUnit.value,
+				no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet
 			},
 			success: this.displayData
 		});
 	},
 
 	displayData: function (data) {
-		console.log('data received : ', data);
+		console.log('data: ', data)
+		
+		if (data.was_classroom_selected_in_controller) {
+			this.setState({selectedClassroom: data.selected_classroom});
+		}
+
 		this.setState({
 			classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
 			unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
-			isLastPage: data.is_last_page
+			isLastPage: data.is_last_page,
+			noLoadHasEverOccurredYet: false
 		});
+
+
 		if (this.state.currentPage == 1) {
 			this.setState({scores: data.scores});
 		} else {
@@ -82,15 +91,12 @@ EC.Scorebook = React.createClass({
 		this.setState({loading: false});
 	},
 
-	selectUnit: function (id) {
-		this.setState({currentPage: 1, selectedUnit: id});
-		this.fetchData();
-
+	selectUnit: function (option) {
+		this.setState({currentPage: 1, selectedUnit: option}, this.fetchData); 
 	},
 
-	selectClassroom: function (id) {
-		this.setState({currentPage: 1, selectedClassroom: id});
-		this.fetchData();
+	selectClassroom: function (option) {
+		this.setState({currentPage: 1, selectedClassroom: option}, this.fetchData);
 	},
 
 	render: function() {
@@ -102,6 +108,7 @@ EC.Scorebook = React.createClass({
 		} else {
 			loadingIndicator = null;
 		}
+		console.log('default classroom : ', this.state.defaultClassroom)
 		return (
 			<span>
 
@@ -115,13 +122,13 @@ EC.Scorebook = React.createClass({
 	            <div className="container">
 		            <section className="section-content-wrapper">
 				            <EC.ScorebookFilters
-				            	defaultClassroom = {this.state.defaultClassroom}
+				            	selectedClassroom = {this.state.selectedClassroom}
 				            	classroomFilters = {this.state.classroomFilters}
-				            	selectClassroom={this.selectClassroom}
+				            	selectClassroom  = {this.selectClassroom}
 
-				            	defaultUnit= {this.state.defaultUnit}
+				            	selectedUnit = {this.state.selectedUnit}
 				            	unitFilters = {this.state.unitFilters}
-				            	selectUnit={this.selectUnit} />
+				            	selectUnit  = {this.selectUnit} />
 
 				            <EC.ScorebookLegend />
 			        </section>

@@ -39,7 +39,7 @@ class ProfilesController < ApplicationController
 
   def teacher
     if @user.classrooms.any?
-      redirect_to teachers_classroom_scorebook_path(@user.classrooms.first)
+      redirect_to scorebook_teachers_classrooms_path
     else
       redirect_to new_teachers_classroom_path
     end
