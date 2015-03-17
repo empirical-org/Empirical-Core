@@ -45,7 +45,6 @@ EC.Scorebook = React.createClass({
 		this.fetchData();
 	},
 	fetchData: function () { 
-		console.log('state before fetching data: ', this.state)
 		this.setState({loading: true})
 		$.ajax({
 			url: 'scores',
@@ -60,7 +59,6 @@ EC.Scorebook = React.createClass({
 	},
 
 	displayData: function (data) {
-		console.log('data: ', data)
 		
 		if (data.was_classroom_selected_in_controller) {
 			this.setState({selectedClassroom: data.selected_classroom});
@@ -74,19 +72,43 @@ EC.Scorebook = React.createClass({
 		});
 
 
+		
 		if (this.state.currentPage == 1) {
 			this.setState({scores: data.scores});
 		} else {
-			var x1 = _.last(_.keys(this.state.scores));		
-			var new_scores = this.state.scores;
-			_.forEach(data.scores, function (val, key) {
-				if (key == x1) {
-					new_scores[key]['results'] = (new_scores[key]['results']).concat(val['results']);
+
+
+			// var x1 = _.last(_.keys(this.state.scores));		
+			// var new_scores = this.state.scores;
+			// _.forEach(data.scores, function (val, key) {
+			// 	if (key == x1) {
+			// 		new_scores[key]['results'] = (new_scores[key]['results']).concat(val['results']);
+			// 	} else {
+			// 		new_scores[key] = val;
+			// 	}
+			// })
+			var y1 = this.state.scores
+			var new_scores = []
+			_.forEach(data.scores, function (score) {
+				user_id = score.user.id
+				var y2 = _.find(y1, function (ele) {
+					return ele.user.id == user_id
+				});
+				if (y2 == undefined) {
+					new_scores.push(score)
 				} else {
-					new_scores[key] = val;
+					y1 = _.map(y1, function (ele) {
+						if (ele == y2) {
+							ele.results = ele.results.concat(score.results)
+						} 
+						var w1 = ele;
+						return w1;
+					});
 				}
 			})
-			this.setState({scores: new_scores});
+			all_scores = y1.concat(new_scores)
+			console.log('all scores', all_scores)
+			this.setState({scores: all_scores});
 		}
 		this.setState({loading: false});
 	},
@@ -100,7 +122,7 @@ EC.Scorebook = React.createClass({
 	},
 
 	render: function() {
-		scores = _.map(this.state.scores, function (data, student_id) {
+		scores = _.map(this.state.scores, function (data) {
 			return <EC.StudentScores data={data} />
 		});
 		if (this.state.loading) {
@@ -108,7 +130,6 @@ EC.Scorebook = React.createClass({
 		} else {
 			loadingIndicator = null;
 		}
-		console.log('default classroom : ', this.state.defaultClassroom)
 		return (
 			<span>
 

@@ -1,7 +1,5 @@
 EC.ScorebookFilters = React.createClass({
 	render: function () {
-		console.log('default classroom in scorebook filters ', this.props.defaultClassroom)
-
 		return (
 
 			<div className="row activity-page-dropdown-wrapper">

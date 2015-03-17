@@ -313,6 +313,32 @@ describe ActivitySession, :type => :model do
 
   end
 
+  describe '#determine_if_final_score' do 
+    let!(:classroom) {FactoryGirl.create(:classroom)}
+    let!(:student) {FactoryGirl.create(:student)}
+    let!(:activity) {FactoryGirl.create(:activity)}
+
+    let!(:classroom_activity)   {FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom)}
+    let!(:previous_final_score) {FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)}
+    
+
+    it 'updates when new activity session has higher percentage ' do 
+      new_activity_session =  FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.5, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      
+      new_activity_session.update_attributes percentage: 1.0
+      expect(new_activity_session.is_final_score).to eq(true)
+
+    end
+
+    it 'doesnt update when new activity session has lower percentage' do 
+      new_activity_session =  FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.5, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      
+      new_activity_session.update_attributes percentage: 0.7
+      expect(new_activity_session.is_final_score).to eq(false)
+    end
+
+  end
+
 
 end
 
