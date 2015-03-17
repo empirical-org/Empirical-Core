@@ -83,7 +83,7 @@ module Teacher
       hash[user_id] = hyper_ele
     end
 
-
+    
 
     [hash, is_last_page]
   end

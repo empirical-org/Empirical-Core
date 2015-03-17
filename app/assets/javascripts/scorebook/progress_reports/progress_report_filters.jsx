@@ -13,13 +13,13 @@ EC.ProgressReportFilters = React.createClass({
     return (
       <div className="row activity-page-dropdown-wrapper">
         <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-          <EC.DropdownFilter defaultOption={ {name: 'All Classrooms', value: ''} } options={this.props.classroomFilters} selectOption={this.props.selectClassroom} />
+          <EC.DropdownFilter selectedOption={this.props.selectedClassroom} options={this.props.classroomFilters} selectOption={this.props.selectClassroom} />
         </div>
         <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-          <EC.DropdownFilter defaultOption={ {name: 'All Units', value: ''} } options={this.props.unitFilters} selectOption={this.props.selectUnit} />
+          <EC.DropdownFilter selectedOption={this.props.selectedUnit} options={this.props.unitFilters} selectOption={this.props.selectUnit} />
         </div>
         <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-          <EC.DropdownFilter defaultOption={ {name: 'All Students', value: ''} } options={this.props.studentFilters} selectOption={this.props.selectStudent} />
+          <EC.DropdownFilter selectedOption={this.props.selectedStudent} options={this.props.studentFilters} selectOption={this.props.selectStudent} />
         </div>
       </div>
     );

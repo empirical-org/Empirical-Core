@@ -4,7 +4,9 @@ EC.ActivityIconWithTooltip = React.createClass({
     var y;
     var x = this.props.data.percentage;
     
-    if (x < 0.5) {
+    if (x == null) {
+      y = 'gray'
+    } else if (x < 0.5) {
       y = 'red';
     } else if (x <= 0.75) {
       y = 'orange';

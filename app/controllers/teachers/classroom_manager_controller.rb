@@ -58,19 +58,27 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    
-    Rails.logger.debug '#scores called in controller'
     classrooms = current_user.classrooms.includes(:classroom_activities => [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
+    
+    if params[:no_load_has_ever_occurred_yet] == 'true'
+      params[:classroom_id] = current_user.classrooms.first
+      was_classroom_selected_in_controller = true
+      selected_classroom = Classroom.find params[:classroom_id]
+    else
+      was_classroom_selected_in_controller = false
+      selected_classroom = nil
+    end
+
     scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, params[:classroom_id], params[:unit_id]
 
-    Rails.logger.debug 'scores returned as result : '
-    Rails.logger.debug scores.to_json
     render json: {
       classrooms: classrooms,
       units: units,
       scores: scores,
-      is_last_page: is_last_page
+      is_last_page: is_last_page,
+      was_classroom_selected_in_controller: was_classroom_selected_in_controller,
+      selected_classroom: selected_classroom
     }
   end
 
@@ -78,7 +86,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def authorize!
     if current_user.classrooms.any?
-      if !params[:classroom_id].nil?
+      if params[:classroom_id].present? and params[:classroom_id].length > 0
         @classroom = Classroom.find(params[:classroom_id])
       end
 

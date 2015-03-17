@@ -1,15 +1,10 @@
 EC.DropdownFilter = React.createClass({
   propTypes: {
-    defaultOption: React.PropTypes.object.isRequired,
+    selectedOption: React.PropTypes.object.isRequired,
     options: React.PropTypes.array.isRequired,
     selectOption: React.PropTypes.func.isRequired
   },
 
-  getInitialState: function() {
-    return {
-      selectedOption: this.props.defaultOption
-    };
-  },
 
   getFilterOptions: function() {
     return (
@@ -26,15 +21,10 @@ EC.DropdownFilter = React.createClass({
     var option = _.find(this.props.options, function(option) {
       return option.value === optionValue;
     });
-
-    this.setState({
-      selectedOption: option
-    }, function() {
-      this.props.selectOption(optionValue);
-    });
+    this.props.selectOption(option)
   },
   getButtonClassName: function() {
-    if (this.state.selectedOption.value == '') {
+    if (this.props.selectedOption.value == '') {
       return 'select-gray'
     } else {
       return 'select-white'
@@ -44,7 +34,7 @@ EC.DropdownFilter = React.createClass({
     return (
         <div className="button-select">
           <button type="button" className={this.getButtonClassName() + " select-mixin button-select button-select-wrapper"} data-toggle="dropdown">
-            {this.state.selectedOption.name}
+            {this.props.selectedOption.name}
             <i className="fa fa-caret-down"></i>
           </button>
           {this.getFilterOptions()}
