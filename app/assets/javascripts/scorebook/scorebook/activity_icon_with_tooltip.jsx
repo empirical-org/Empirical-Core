@@ -1,9 +1,10 @@
+"use strict;"
 EC.ActivityIconWithTooltip = React.createClass({
 
   percentage_color: function (percentage) {
     var y;
     var x = this.props.data.percentage;
-    
+
     if (x == null) {
       y = 'gray'
     } else if (x < 0.5) {
@@ -19,9 +20,9 @@ EC.ActivityIconWithTooltip = React.createClass({
   },
   componentDidMount: function () {
     $(this.refs.activateTooltip.getDOMNode()).tooltip();
-  },  
+  },
   icon_for_classification: function () {
-      var y; 
+      var y;
       var x = this.props.data.activity.classification.id;
       if (x == 1) {
         y = 'flag';
@@ -52,7 +53,7 @@ EC.ActivityIconWithTooltip = React.createClass({
 
   render: function () {
     return (
-      <div 
+      <div
         ref='activateTooltip'
         className={"activate-tooltip icon-wrapper icon-" + this.percentage_color() + " icon-" + this.icon_for_classification() }
         data-toggle='tooltip'
@@ -66,7 +67,6 @@ EC.ActivityIconWithTooltip = React.createClass({
 
 
 });
-
 
 
 
