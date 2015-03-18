@@ -1,8 +1,7 @@
 "use strict;"
 EC.ScorebookFilters = React.createClass({
-	render: function () {
+  render: function () {
 		return (
-
 			<div className="row activity-page-dropdown-wrapper">
 				<div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
 					<EC.DropdownFilter
@@ -19,8 +18,6 @@ EC.ScorebookFilters = React.createClass({
 			</div>
 		);
 	}
-
-
 });
 
 
