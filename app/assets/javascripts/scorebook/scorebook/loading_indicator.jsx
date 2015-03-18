@@ -7,5 +7,4 @@ EC.LoadingIndicator = React.createClass({
 			</div>
 		);
 	}
-
-})
+});

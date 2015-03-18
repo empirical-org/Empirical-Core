@@ -1,6 +1,5 @@
 "use strict;"
 EC.ActivityIconWithTooltip = React.createClass({
-
   percentage_color: function (percentage) {
     var y;
     var x = this.props.data.percentage;
@@ -18,9 +17,11 @@ EC.ActivityIconWithTooltip = React.createClass({
     }
     return y;
   },
+
   componentDidMount: function () {
     $(this.refs.activateTooltip.getDOMNode()).tooltip();
   },
+
   icon_for_classification: function () {
       var y;
       var x = this.props.data.activity.classification.id;
@@ -31,6 +32,7 @@ EC.ActivityIconWithTooltip = React.createClass({
       }
       return y;
   },
+
   displayPercentage: function () {
     if (this.props.data.percentage == null) {
       return "Not completed yet";
@@ -38,6 +40,7 @@ EC.ActivityIconWithTooltip = React.createClass({
       return (parseInt(100*this.props.data.percentage)) + "%";
     }
   },
+
   tooltipTitle: function () {
     var topicCategoryName;
     if (this.props.data.activity.topic.topic_category) {
@@ -51,8 +54,7 @@ EC.ActivityIconWithTooltip = React.createClass({
         + "<p>" + this.props.data.activity.description + "</p>"
         + "<p>" + topicCategoryName + "</p>"
         + "<p>" + this.displayPercentage() + "</p>"
-      )
-
+    );
   },
 
   render: function () {
@@ -68,14 +70,4 @@ EC.ActivityIconWithTooltip = React.createClass({
       </div>
     );
   }
-
-
 });
-
-
-
-
-
-
-
-
