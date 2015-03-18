@@ -68,6 +68,7 @@ describe CsvExport, :type => :model do
 
       it 'does nothing' do
         csv_export.export
+        expect(csv_export.csv_file.url).to be_nil
       end
     end
   end

@@ -6,11 +6,14 @@ class CsvExport < ActiveRecord::Base
   mount_uploader :csv_file, CsvUploader
 
   def export
-    file = generate_csv
-    csv_file.store!(file)
-  ensure
-    file.close
-    file.unlink
+    return if emailed_at.present?
+    begin
+      file = generate_csv
+      csv_file.store!(file)
+    ensure
+      file.close
+      file.unlink
+    end
   end
 
   def generate_csv
