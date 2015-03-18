@@ -1,3 +1,4 @@
+"use strict;"
 EC.StudentScores = React.createClass({
 
 	render: function () {

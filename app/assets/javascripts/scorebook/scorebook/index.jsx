@@ -1,3 +1,4 @@
+"use strict;"
 $(function () {
 	var ele = $('#scorebook');
 	if (ele.length > 0) {
@@ -27,7 +28,7 @@ EC.Scorebook = React.createClass({
 		var w = 1/(this.state.currentPage + 1);
 		var z = y*(1 - w);
 		return z;
-	},	
+	},
 
 	componentDidMount: function () {
 		this.fetchData();
@@ -44,7 +45,7 @@ EC.Scorebook = React.createClass({
 		this.setState({currentPage: this.state.currentPage + 1});
 		this.fetchData();
 	},
-	fetchData: function () { 
+	fetchData: function () {
 		this.setState({loading: true})
 		$.ajax({
 			url: 'scores',
@@ -59,7 +60,7 @@ EC.Scorebook = React.createClass({
 	},
 
 	displayData: function (data) {
-		
+
 		if (data.was_classroom_selected_in_controller) {
 			this.setState({selectedClassroom: data.selected_classroom});
 		}
@@ -72,13 +73,13 @@ EC.Scorebook = React.createClass({
 		});
 
 
-		
+
 		if (this.state.currentPage == 1) {
 			this.setState({scores: data.scores});
 		} else {
 
 
-			// var x1 = _.last(_.keys(this.state.scores));		
+			// var x1 = _.last(_.keys(this.state.scores));
 			// var new_scores = this.state.scores;
 			// _.forEach(data.scores, function (val, key) {
 			// 	if (key == x1) {
@@ -100,7 +101,7 @@ EC.Scorebook = React.createClass({
 					y1 = _.map(y1, function (ele) {
 						if (ele == y2) {
 							ele.results = ele.results.concat(score.results)
-						} 
+						}
 						var w1 = ele;
 						return w1;
 					});
@@ -114,7 +115,7 @@ EC.Scorebook = React.createClass({
 	},
 
 	selectUnit: function (option) {
-		this.setState({currentPage: 1, selectedUnit: option}, this.fetchData); 
+		this.setState({currentPage: 1, selectedUnit: option}, this.fetchData);
 	},
 
 	selectClassroom: function (option) {

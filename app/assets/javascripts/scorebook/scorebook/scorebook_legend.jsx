@@ -1,3 +1,4 @@
+"use strict;"
 EC.ScorebookLegend = React.createClass({
 
 
@@ -28,7 +29,7 @@ EC.ScorebookLegend = React.createClass({
 		                <p className="explanation">75-50%</p>
 		              </div>
 
-		            </div> 
+		            </div>
 
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
 
@@ -39,7 +40,7 @@ EC.ScorebookLegend = React.createClass({
 		                <p className="explanation">49-0%</p>
 		              </div>
 
-		            </div> 
+		            </div>
 
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
 
@@ -51,7 +52,7 @@ EC.ScorebookLegend = React.createClass({
 
 		            </div>
 
-		          </div> 
+		          </div>
 
 		          <div className="col-xs-12 col-md-12 col-lg-2 col-xl-2 no-pl no-pr">
 
@@ -59,14 +60,14 @@ EC.ScorebookLegend = React.createClass({
 		              <p className="title title-not-started">
 		                <a href="/faq">How We Grade</a>
 		                <a href=""><i className="fa fa-long-arrow-right"></i></a>
-		              </p> 
+		              </p>
 		            </div>
 
 		          </div>
 
 		        </div>
 
-    		  </div> 
+    		  </div>
 
 		);
 	}
