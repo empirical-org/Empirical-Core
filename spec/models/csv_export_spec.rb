@@ -6,7 +6,7 @@ describe CsvExport, :type => :model do
   let(:csv_export) { CsvExport.new }
 
   before do
-    csv_export.type = :activity_sessions
+    csv_export.export_type = :activity_sessions
     csv_export.teacher = mr_kotter
   end
 
