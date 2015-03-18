@@ -63,7 +63,7 @@ module Teacher
       results = results.where(classroom_activity_id: classroom_activity_ids)
     end
 
-    results = results.order('sorting_name, percentage')
+    results = results.order('sorting_name, percentage, activity_sessions.id')
                       .limit(SCORES_PER_PAGE)
                       .offset( (current_page -1 )*SCORES_PER_PAGE)
 
