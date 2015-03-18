@@ -1,9 +1,13 @@
 require 'csv'
 
 class CsvExport < ActiveRecord::Base
+  EXPORT_TYPE_OPTIONS = %w(activity_sessions)
+
   belongs_to :teacher, class_name: 'User'
 
   mount_uploader :csv_file, CsvUploader
+
+  validates :export_type, inclusion: {:in => EXPORT_TYPE_OPTIONS}
 
   def export
     return if emailed_at.present?
@@ -27,7 +31,7 @@ class CsvExport < ActiveRecord::Base
   end
 
   def model_data
-    case type
+    case export_type
     when :activity_sessions
       ActivitySession.completed.by_teacher(teacher)
     end
@@ -36,7 +40,7 @@ class CsvExport < ActiveRecord::Base
   private
 
   def csv_row(record)
-    case type
+    case export_type
     when :activity_sessions
       json_hash = ProgressReports::ActivitySessionSerializer.new(record).as_json(root: false)
       [
@@ -52,13 +56,13 @@ class CsvExport < ActiveRecord::Base
   end
 
   def csv_header
-    case type
+    case export_type
     when :activity_sessions
       ['app', 'activity', 'date', 'time_spent', 'standard', 'score', 'student']
     end
   end
 
   def csv_basename
-    "csv_#{teacher_id}_#{type}"
+    "csv_#{teacher_id}_#{export_type}"
   end
 end
