@@ -21,54 +21,6 @@ module Teacher
   end
 
 
-  # def scorebook_scores current_page=1, classroom_id=nil, unit_id=nil
-    
-  #   if classroom_id.present?
-  #     users = Classroom.find(classroom_id).students
-  #   else
-  #     users = classrooms.map(&:students).flatten.compact.uniq
-  #   end
-
-  #   user_ids = users.map(&:id)
-
-  #   results = ActivitySession.select("user_id, users.name, max(percentage) as percentage, max(activity_id) as activity_id")
-  #                           .includes(:user)
-  #                           .where(user_id: user_ids)
-
-                            
-
-  #   if unit_id.present?
-  #     classroom_activity_ids = Unit.find(unit_id).classroom_activities.map(&:id)
-  #     results = results.where(classroom_activity_id: classroom_activity_ids)
-  #   end
-
-
-  #   results = results.group('user_id, classroom_activity_id')
-  #                    .order('user_id, percentage')
-  #                    .limit(SCORES_PER_PAGE)
-  #                    .offset( (current_page - 1)*SCORES_PER_PAGE   )
-
-
-  #   is_last_page = (results.length < SCORES_PER_PAGE)
-
-  #   activity_ids = results.map(&:activity_id).uniq.compact
-  #   activities = Activity.includes(:topic => [:section, :topic_category]).includes(:classification).find(activity_ids)
-
-  #   results = results.group_by(&:user_id)
-
-  #   all = []
-  #   results.each do |user_id, result|
-  #     user = users.find{|u| u.id == user_id}      
-  #     arr = result.map do |r|
-  #       a = activities.find{|a1| a1.id ==  r.activity_id}
-  #       ele = {percentage: r.percentage, activity: (ActivitySerializer.new(a)).as_json(root: false)}
-  #     end
-  #     hyper_ele = {user: user, results: arr}
-  #     all.push hyper_ele
-  #   end
-  #   [all, is_last_page]
-  # end
-
 
   def scorebook_scores current_page=1, classroom_id=nil, unit_id=nil
     
@@ -111,7 +63,7 @@ module Teacher
       results = results.where(classroom_activity_id: classroom_activity_ids)
     end
 
-    results = results.order('sorting_name')
+    results = results.order('sorting_name, percentage')
                       .limit(SCORES_PER_PAGE)
                       .offset( (current_page -1 )*SCORES_PER_PAGE)
 
@@ -125,6 +77,7 @@ module Teacher
     x1.each do |user_id, scores|
       formatted_scores = scores.map do |s|
         {
+          id: s.id,
           percentage: s.percentage,
           activity: (ActivitySerializer.new(s.activity)).as_json(root: false)
         }

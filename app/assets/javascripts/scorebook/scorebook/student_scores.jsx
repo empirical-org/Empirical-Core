@@ -1,15 +1,5 @@
 EC.StudentScores = React.createClass({
 
-	icon_row: function (data) {
-		var row = _.map(data, function (ele) {
-			return (
-				<EC.ActivityIconWithTooltip data={ele} />
-			);
-		});
-		return row;
-	},
-
-
 	render: function () {
 		var z = _.sortBy(this.props.data.results, function (ele) {
 			return (1 - ele.percentage);
@@ -23,13 +13,12 @@ EC.StudentScores = React.createClass({
 			return Math.floor(index/n);
 		}).toArray().value()
 
-		var icon_rows = _.map(x, function (ele) {
+		var icon_rows = _.map(x, function (ele, i) {
 			return (
-				<div className="icon-row">
-					{this.icon_row(ele)}
-				</div>
+				<EC.IconRow key={'icon-row-' + ele[0].id + '-' + ele[ele.length-1].id} data={ele} />
 			);
 		}, this);
+
 
 		return (
 			<div className='container'>

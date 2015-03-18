@@ -123,7 +123,7 @@ EC.Scorebook = React.createClass({
 
 	render: function() {
 		scores = _.map(this.state.scores, function (data) {
-			return <EC.StudentScores data={data} />
+			return <EC.StudentScores key={data.user.id} data={data} />
 		});
 		if (this.state.loading) {
 			loadingIndicator = <EC.LoadingIndicator />;
