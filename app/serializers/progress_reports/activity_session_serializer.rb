@@ -75,8 +75,6 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
   end
 
   def standard
-    if object.activity.topic.present?
-      object.activity.topic.name.split(' ').first
-    end
+    object.activity.topic.try(:name_prefix)
   end
 end
