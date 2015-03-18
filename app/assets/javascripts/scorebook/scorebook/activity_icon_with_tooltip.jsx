@@ -38,13 +38,17 @@ EC.ActivityIconWithTooltip = React.createClass({
     }
   },
   tooltipTitle: function () {
+    var topicCategoryName;
+    if (this.props.data.activity.topic.topic_category) {
+      topicCategoryName = this.props.data.activity.topic.topic_category.name;
+    }
     return (
           "<h1>" + this.props.data.activity.name +  "</h1>"
         + "<p>" + this.props.data.activity.classification.alias + "</p>"
         + "<p>" + this.props.data.activity.topic.section.name + "</p>"
         + "<p>" + this.props.data.activity.topic.name + "</p>"
         + "<p>" + this.props.data.activity.description + "</p>"
-        + "<p>" + this.props.data.activity.topic.topic_category.name + "</p>"
+        + "<p>" + topicCategoryName + "</p>"
         + "<p>" + this.displayPercentage() + "</p>"
       )
 
