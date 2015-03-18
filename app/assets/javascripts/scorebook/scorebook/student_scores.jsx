@@ -11,7 +11,7 @@ EC.StudentScores = React.createClass({
 		}).toArray().value();
 		var icon_rows = _.map(x, function (ele, i) {
 			return (
-				<EC.IconRow key={'icon-row-' + ele[0].id + '-' + ele[ele.length-1].id} data={ele} />;
+				<EC.IconRow key={'icon-row-' + ele[0].id + '-' + ele[ele.length-1].id} data={ele} />
 			);
 		}, this);
 		return (
