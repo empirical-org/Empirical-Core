@@ -709,14 +709,24 @@ describe User, :type => :model do
 
       let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom, unit: unit )}
 
-      let!(:activity_session1) {FactoryGirl.create(:activity_session, percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity)}
-      let!(:activity_session2) {FactoryGirl.create(:activity_session, percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity)}
+      let!(:activity_session1) {FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity)}
+      let!(:activity_session2) {FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity)}
 
 
-      it 'does anything at all' do 
-        hash = teacher.scorebook_scores
-        expect(hash).to be_present
+      it 'does not return a completed activities that is not a final scores' do 
+        all, is_last_page = teacher.scorebook_scores
+        x = all.find{|x| x[:user] == student}
+        y = x[:results].find{|y| y[:id] == activity_session2.id}
+        expect(y).to be_nil
       end
+
+      it 'does return a completed activity that is a final score' do 
+        all, is_last_page = teacher.scorebook_scores
+        x = all.find{|x| x[:user] == student}
+        y = x[:results].find{|y| y[:id] == activity_session1.id}
+        expect(y).to be_present
+      end
+
 
     end
   end
