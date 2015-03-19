@@ -5,17 +5,23 @@ describe Teachers::ProgressReports::CsvExportsController, :type => :controller d
 
   describe 'POST #create' do
     let(:export_type) { 'activity_sessions' }
-    subject { post :create, {csv_export: {export_type: export_type }}}
+    let(:filters) { {} }
+    subject { post :create, {csv_export: {export_type: export_type, filters: filters }}}
 
     context 'when authenticated as a teacher' do
       before do
         session[:user_id] = mr_kotter.id
       end
 
+      let(:response_json) { JSON.parse(response.body)['csv_export'] }
+
       it 'creates a CSV export with the specified type' do
         expect {
           subject
         }.to change(CsvExport, :count).by(1)
+        expect(response_json['export_type']).to eq(export_type)
+        expect(response_json['filters']).to eq({})
+        expect(response_json['teacher_id']).to eq(mr_kotter.id)
       end
 
       context 'with a nonsense export type' do
