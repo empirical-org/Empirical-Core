@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20150318220008) do
     t.datetime "updated_at"
     t.datetime "started_at"
     t.boolean  "is_retry",              default: false
+    t.boolean  "is_final_score",        default: false
   end
 
   add_index "activity_sessions", ["activity_id"], name: "index_activity_sessions_on_activity_id", using: :btree

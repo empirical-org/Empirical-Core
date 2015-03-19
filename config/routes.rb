@@ -43,6 +43,8 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get :regenerate_code
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
+        get :scorebook, controller: 'classroom_manager', action: 'scorebook'
+        get :scores, controller: 'classroom_manager', action: 'scores'
         get :search_activities, controller: 'classroom_manager', action: 'search_activities'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
@@ -55,7 +57,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       # TODO: abstract this list as well. Duplicated in nav in layout.
-      %w(scorebook invite_students accounts import).each do |page|
+      %w(invite_students accounts import).each do |page|
         get page => "classroom_manager##{page}"
       end
 
