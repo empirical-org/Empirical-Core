@@ -12,6 +12,10 @@ module Teachers
       table.all('th').map(&:text)
     end
 
+    def export_csv
+      find('.export-csv a').click
+    end
+
     def select_filter(filter_class, option_name)
       click_filter_button(filter_class)
       filter_menu_dropdown_option(filter_class, option_name).click
