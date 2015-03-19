@@ -9,7 +9,6 @@ EC.ProgressReport = React.createClass({
     columnDefinitions: React.PropTypes.func.isRequired,
     pagination: React.PropTypes.bool.isRequired,
     sourceUrl: React.PropTypes.string.isRequired,
-    clientSideFiltering: React.PropTypes.bool.isRequired,
     sortDefinitions: React.PropTypes.func.isRequired,
     jsonResultsKey: React.PropTypes.string.isRequired,
     onFetchSuccess: React.PropTypes.func, // Optional
@@ -35,13 +34,7 @@ EC.ProgressReport = React.createClass({
   // Get results with all filters, sorting
   getFilteredResults: function() {
     var allResults = this.state.results;
-    var filteredResults;
-    if (this.props.clientSideFiltering) {
-      filteredResults = this.applyFilters(allResults);
-    } else {
-      filteredResults = allResults; // Filtering takes place server-side.
-    }
-    return this.applySorting(filteredResults);
+    return this.applySorting(allResults);
   },
 
   // Get results after pagination has been applied.
@@ -70,8 +63,8 @@ EC.ProgressReport = React.createClass({
 
   onFilterChange: function() {
     if (this.props.pagination) {
-      this.resetPagination();
-    } else if (!this.props.clientSideFiltering) {
+      this.resetPagination(this.fetchData);
+    } else {
       this.fetchData();
     }
   },
