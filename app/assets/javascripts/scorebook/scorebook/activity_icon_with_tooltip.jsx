@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 EC.ActivityIconWithTooltip = React.createClass({
   percentage_color: function (percentage) {
     var y;

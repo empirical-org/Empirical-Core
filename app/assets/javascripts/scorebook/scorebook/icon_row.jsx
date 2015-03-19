@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 EC.IconRow = React.createClass({
 	render: function () {
 		var row = _.map(this.props.data, function (ele) {

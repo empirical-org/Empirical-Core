@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 EC.StudentScores = React.createClass({
 	render: function () {
 		var z = _.sortBy(this.props.data.results, function (ele) {

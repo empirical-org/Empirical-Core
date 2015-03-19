@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 $(function () {
 	var ele = $('#scorebook');
 	if (ele.length > 0) {

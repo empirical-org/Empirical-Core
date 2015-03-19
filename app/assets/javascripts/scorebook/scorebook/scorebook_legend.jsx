@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 EC.ScorebookLegend = React.createClass({
 	render: function () {
 		return (
