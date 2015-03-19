@@ -3,6 +3,7 @@ class Teachers::ProgressReports::CsvExportsController < ApplicationController
 
   def create
     csv_export = CsvExport.new(export_params)
+    csv_export.teacher_id = current_user.id
     if csv_export.save
       render json: {
         csv_export: csv_export
@@ -22,6 +23,8 @@ class Teachers::ProgressReports::CsvExportsController < ApplicationController
   end
 
   def export_params
-    params.require(:csv_export).permit(:export_type)
+    params.require(:csv_export).permit(:export_type).tap do |whitelist|
+      whitelist[:filters] = params[:csv_export][:filters]
+    end
   end
 end
