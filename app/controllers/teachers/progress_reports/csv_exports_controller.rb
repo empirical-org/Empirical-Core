@@ -5,6 +5,7 @@ class Teachers::ProgressReports::CsvExportsController < ApplicationController
     csv_export = CsvExport.new(export_params)
     csv_export.teacher_id = current_user.id
     if csv_export.save
+      CsvExportWorker.perform_async(csv_export.id)
       render json: {
         csv_export: csv_export
       }

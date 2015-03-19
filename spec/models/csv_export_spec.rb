@@ -6,7 +6,7 @@ describe CsvExport, :type => :model do
   let(:csv_export) { CsvExport.new }
 
   before do
-    csv_export.export_type = :activity_sessions
+    csv_export.export_type = 'activity_sessions'
     csv_export.teacher = mr_kotter
   end
 
@@ -55,7 +55,7 @@ describe CsvExport, :type => :model do
   describe '#export' do
     context 'when not exported yet' do
       it 'generates a CSV and uploads it to carrierwave' do
-        csv_export.export
+        csv_export.export!
         # Bucket should have "dev" suffix in test environment
         expect(csv_export.csv_file.url).to match(/dev\/uploads\/csv_export\/csv_file\/progress_report.*\.csv/)
       end
@@ -67,7 +67,7 @@ describe CsvExport, :type => :model do
       end
 
       it 'does nothing' do
-        csv_export.export
+        csv_export.export!
         expect(csv_export.csv_file.url).to be_nil
       end
     end

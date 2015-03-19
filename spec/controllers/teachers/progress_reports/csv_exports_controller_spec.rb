@@ -24,6 +24,12 @@ describe Teachers::ProgressReports::CsvExportsController, :type => :controller d
         expect(response_json['teacher_id']).to eq(mr_kotter.id)
       end
 
+      it 'kicks off a background job to email generate/email the CSV' do
+        expect {
+          subject
+        }.to change(CsvExportWorker.jobs, :size).by(1)
+      end
+
       context 'with a nonsense export type' do
         let(:export_type) { 'foobar' }
 

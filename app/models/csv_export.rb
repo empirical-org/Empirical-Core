@@ -9,11 +9,16 @@ class CsvExport < ActiveRecord::Base
 
   validates :export_type, inclusion: {:in => EXPORT_TYPE_OPTIONS}
 
-  def export
-    return if emailed_at.present?
+  def sent?
+    emailed_at.present?
+  end
+
+  def export!
+    return if sent?
     begin
       file = generate_csv
       csv_file.store!(file)
+      save!
     ensure
       file.close
       file.unlink
@@ -30,8 +35,13 @@ class CsvExport < ActiveRecord::Base
     file
   end
 
+  def mark_sent!
+    self.emailed_at = Time.now
+    save!
+  end
+
   def model_data
-    case export_type
+    case export_type.to_sym
     when :activity_sessions
       ActivitySession.completed.by_teacher(teacher)
     end
@@ -40,7 +50,7 @@ class CsvExport < ActiveRecord::Base
   private
 
   def csv_row(record)
-    case export_type
+    case export_type.to_sym
     when :activity_sessions
       json_hash = ProgressReports::ActivitySessionSerializer.new(record).as_json(root: false)
       [
@@ -52,13 +62,17 @@ class CsvExport < ActiveRecord::Base
         json_hash[:percentage],
         json_hash[:student_name]
       ]
+    else
+      raise "Export type named #{export_type} could not be found!"
     end
   end
 
   def csv_header
-    case export_type
+    case export_type.to_sym
     when :activity_sessions
       ['app', 'activity', 'date', 'time_spent', 'standard', 'score', 'student']
+    else
+      raise "Export type named #{export_type} could not be found!"
     end
   end
 
