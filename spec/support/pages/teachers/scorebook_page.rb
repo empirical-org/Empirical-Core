@@ -10,7 +10,7 @@ module Teachers
     end
 
     def path
-      "#{Teachers.classroom_path(self.classroom)}/scorebook"
+      "/teachers/classrooms/scorebook"
     end
 
     def students
