@@ -47,6 +47,21 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
         expect(json['activity_sessions'][0]['activity_classification_name']).to_not be_nil
       end
 
+      it 'can filter by classroom' do
+        xhr :get, :index, {classroom_id: @empty_classroom.id}
+        expect(json['activity_sessions'].size).to eq(0)
+      end
+
+      it 'can filter by unit' do
+        xhr :get, :index, {unit_id: @empty_unit.id}
+        expect(json['activity_sessions'].size).to eq(0)
+      end
+
+      it 'can filter by student' do
+        xhr :get, :index, {student_id: @zojirushi.id}
+        expect(json['activity_sessions'].size).to eq(1)
+      end
+
       it 'fetches classroom, unit, and student data for the filter options' do
         xhr :get, :index
         expect(json['classrooms'].size).to eq(1)
