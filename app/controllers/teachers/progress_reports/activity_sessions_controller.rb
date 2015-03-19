@@ -4,10 +4,7 @@ class Teachers::ProgressReports::ActivitySessionsController < ApplicationControl
 
   def index
     if request.xhr?
-      activity_sessions = ActivitySession.completed.by_teacher(current_user)
-        .includes(:user, :activity => [:topic, :classification], :classroom_activity => :classroom)
-        .references(:classification)
-        .order('activity_classifications.name asc, users.name asc')
+      activity_sessions = ActivitySession.for_standalone_progress_report(current_user, params)
       activity_session_json = activity_sessions.map do |activity_session|
         ::ProgressReports::ActivitySessionSerializer.new(activity_session).as_json(root: false)
       end
