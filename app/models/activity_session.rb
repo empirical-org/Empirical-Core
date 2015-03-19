@@ -12,9 +12,11 @@ class ActivitySession < ActiveRecord::Base
   ownable :user
   after_save { if user.present? then user.touch end}
 
+
   before_create :set_state
   before_save   :set_completed_at
   before_save   :set_activity_id
+  before_save   :determine_if_final_score
   around_save   :trigger_events
 
   default_scope -> { joins(:activity) }
@@ -81,6 +83,20 @@ class ActivitySession < ActiveRecord::Base
 
   def self.by_teacher(teacher)
     self.joins(:user => :teacher).where(teachers_users: {id: teacher.id})
+  end
+
+  def determine_if_final_score
+    if self.percentage.present?
+      a = ActivitySession.where(classroom_activity: self.classroom_activity, user: self.user, is_final_score: true).where.not(id: self.id).where.not(percentage: nil).first
+      if a.nil?
+        self.is_final_score = true
+      elsif (self.percentage > a.percentage)
+        self.is_final_score = true
+        a.update_attributes is_final_score: false
+      end
+    end
+    # return true otherwise save will be prevented
+    true
   end
 
   def activity
@@ -244,4 +260,8 @@ class ActivitySession < ActiveRecord::Base
     self.completed_at ||= Time.current
     calculate_time_spent!
   end
+
+
+
+
 end

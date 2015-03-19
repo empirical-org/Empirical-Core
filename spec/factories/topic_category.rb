@@ -3,3 +3,4 @@ FactoryGirl.define do
     sequence(:name) { |i| "topic category #{i}" }
   end
 end
+

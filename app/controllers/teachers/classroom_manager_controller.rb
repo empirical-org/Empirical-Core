@@ -55,23 +55,38 @@ class Teachers::ClassroomManagerController < ApplicationController
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
     end
-    @classrooms = current_user.classrooms - [@classroom]
+  end
 
-    if [54569, 60607, 104720].include?(current_user.id) and (params[:unit_id].nil?) # temp fix for users with huge scorebooks
-      @unit = current_user.classrooms.map(&:classroom_activities).flatten.map(&:unit).compact.last
+  def scores
+    classrooms = current_user.classrooms.includes(:classroom_activities => [:unit])
+    units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
+    
+    if params[:no_load_has_ever_occurred_yet] == 'true'
+      params[:classroom_id] = current_user.classrooms.first
+      was_classroom_selected_in_controller = true
+      selected_classroom = Classroom.find params[:classroom_id]
     else
-      @unit = Unit.find(params[:unit_id]) if params[:unit_id]
+      was_classroom_selected_in_controller = false
+      selected_classroom = nil
     end
 
-    @units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq - [@unit]
-    @are_all_units_selected = (params[:all_units])
+    scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, params[:classroom_id], params[:unit_id]
+
+    render json: {
+      classrooms: classrooms,
+      units: units,
+      scores: scores,
+      is_last_page: is_last_page,
+      was_classroom_selected_in_controller: was_classroom_selected_in_controller,
+      selected_classroom: selected_classroom
+    }
   end
 
   private
 
   def authorize!
     if current_user.classrooms.any?
-      if !params[:classroom_id].nil?
+      if params[:classroom_id].present? and params[:classroom_id].length > 0
         @classroom = Classroom.find(params[:classroom_id])
       end
 

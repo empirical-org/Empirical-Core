@@ -20,7 +20,11 @@ EC.ProgressReport = React.createClass({
       results: [],
       classroomFilters: [],
       studentFilters: [],
-      unitFilters: []
+      unitFilters: [],
+
+      selectedClassroom: {name: 'All Classrooms', value: ''},
+      selectedStudent: {name: 'All Students', value: ''},
+      selectedUnit: {name: 'All Units', value: ''}
     };
   },
 
@@ -47,18 +51,21 @@ EC.ProgressReport = React.createClass({
   },
 
   // Filter sessions based on the classroom ID.
-  selectClassroom: function(classroomId) {
-    this.filterByField('classroom_id', classroomId, this.onFilterChange);
+  selectClassroom: function(classroom) {
+    this.setState({selectedClassroom: classroom})
+    this.filterByField('classroom_id', classroom.value, this.onFilterChange);
   },
 
   // Filter sessions based on the student ID
-  selectStudent: function(studentId) {
-    this.filterByField('student_id', studentId, this.onFilterChange);
+  selectStudent: function(student) {
+    this.setState({selectedStudent: student})
+    this.filterByField('student_id', student.value, this.onFilterChange);
   },
 
   // Filter sessions based on the unit ID
-  selectUnit: function(unitId) {
-    this.filterByField('unit_id', unitId, this.onFilterChange);
+  selectUnit: function(unit) {
+    this.setState({selectedUnit: unit})
+    this.filterByField('unit_id', unit.value, this.onFilterChange);
   },
 
   onFilterChange: function() {
@@ -107,8 +114,11 @@ EC.ProgressReport = React.createClass({
                                   studentFilters={this.state.studentFilters}
                                   unitFilters={this.state.unitFilters}
                                   selectClassroom={this.selectClassroom}
+                                  selectedClassroom={this.state.selectedClassroom}
                                   selectStudent={this.selectStudent}
-                                  selectUnit={this.selectUnit} />
+                                  selectedStudent={this.state.selectedStudent}
+                                  selectUnit={this.selectUnit}
+                                  selectedUnit={this.state.selectedUnit} />
         {csvExport}
         <EC.SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.sortResults} />
         {pagination}
