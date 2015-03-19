@@ -45,5 +45,10 @@ feature 'Activity Listing Progress Report', js: true do
       report_page.filter_by_classroom(sweatdogs.name)
       expect(report_page.table_rows.size).to eq(1)
     end
+
+    it 'can export a CSV' do
+      report_page.export_csv
+      # TODO: Should have some UI feedback instead of testing DB changes
+    end
   end
 end

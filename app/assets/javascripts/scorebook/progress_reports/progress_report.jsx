@@ -12,7 +12,8 @@ EC.ProgressReport = React.createClass({
     clientSideFiltering: React.PropTypes.bool.isRequired,
     sortDefinitions: React.PropTypes.func.isRequired,
     jsonResultsKey: React.PropTypes.string.isRequired,
-    onFetchSuccess: React.PropTypes.func // Optional
+    onFetchSuccess: React.PropTypes.func, // Optional
+    exportCsv: React.PropTypes.string
   },
 
   getInitialState: function() {
@@ -92,7 +93,7 @@ EC.ProgressReport = React.createClass({
   },
 
   render: function() {
-    var pagination;
+    var pagination, csvExport;
     var filteredResults = this.getFilteredResults();
     if (this.props.pagination) {
       var numberOfPages = this.calculateNumberOfPages(filteredResults);
@@ -103,6 +104,10 @@ EC.ProgressReport = React.createClass({
     }
     var visibleResults = this.getVisibleResults(filteredResults);
 
+    if (this.props.exportCsv) {
+      csvExport = <EC.ExportCsv exportType={this.props.exportCsv} filters={this.state.currentFilters} />;
+    }
+
     return (
       <div>
         <EC.ProgressReportFilters classroomFilters={this.state.classroomFilters}
@@ -111,6 +116,7 @@ EC.ProgressReport = React.createClass({
                                   selectClassroom={this.selectClassroom}
                                   selectStudent={this.selectStudent}
                                   selectUnit={this.selectUnit} />
+        {csvExport}
         <EC.SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.sortResults} />
         {pagination}
       </div>

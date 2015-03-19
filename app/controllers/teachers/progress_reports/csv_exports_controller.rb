@@ -24,8 +24,6 @@ class Teachers::ProgressReports::CsvExportsController < ApplicationController
   end
 
   def export_params
-    params.require(:csv_export).permit(:export_type).tap do |whitelist|
-      whitelist[:filters] = params[:csv_export][:filters]
-    end
+    params.require(:csv_export).permit(:export_type, :filters => [:student_id, :classroom_id, :unit_id])
   end
 end
