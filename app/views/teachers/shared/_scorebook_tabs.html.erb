@@ -16,6 +16,12 @@
       <li class="<%= (controller_name == 'classrooms' or (controller_name == 'classroom_manager' and action_name == 'invite_students')or controller_name == 'students' ) ? 'active' : '' %>">
         <%= link_to 'Class Manager', teachers_classrooms_path, role: 'tab'  %>
       </li>
+
+      <%- if !Rails.env.production? %>
+      <li>
+        <%= link_to 'Progress Reports', teachers_progress_reports_activity_sessions_path, role: 'tab' %>
+      </li>
+      <%- end %>
     </ul>
 
   </div> <!-- //.container -->
