@@ -10,29 +10,6 @@ describe CsvExport, :type => :model do
     csv_export.teacher = mr_kotter
   end
 
-  describe '#model_data' do
-    context 'for activity sessions' do
-
-      context 'filtering by classroom ID' do
-        before do
-          csv_export.filters = {
-            :classroom_id => sweathogs.id
-          }
-        end
-
-        it 'retrieves filtered activity sessions' do
-          expect(csv_export.model_data.size).to eq(sweathogs_sessions.size)
-        end
-      end
-
-      context 'unfiltered' do
-        it 'retrieves activity sessions without any filters' do
-          expect(csv_export.model_data.to_a).to eq(all_sessions)
-        end
-      end
-    end
-  end
-
   describe '#generate_csv' do
     it 'writes a csv to temporary storage' do
       file = csv_export.generate_csv
