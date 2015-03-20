@@ -12,8 +12,6 @@ describe CsvExport, :type => :model do
 
   describe '#model_data' do
     context 'for activity sessions' do
-      before do
-      end
 
       context 'filtering by classroom ID' do
         before do
@@ -22,7 +20,9 @@ describe CsvExport, :type => :model do
           }
         end
 
-        it 'retrieves filtered activity sessions'
+        it 'retrieves filtered activity sessions' do
+          expect(csv_export.model_data.size).to eq(sweathogs_sessions.size)
+        end
       end
 
       context 'unfiltered' do
