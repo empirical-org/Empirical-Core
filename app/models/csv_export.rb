@@ -43,7 +43,7 @@ class CsvExport < ActiveRecord::Base
   def model_data
     case export_type.to_sym
     when :activity_sessions
-      ActivitySession.completed.by_teacher(teacher)
+      ActivitySession.for_standalone_progress_report(teacher, HashWithIndifferentAccess.new(filters) || {})
     end
   end
 
