@@ -1,6 +1,7 @@
 class Teachers::UnitsController < ApplicationController
   respond_to :json
-  #before_action :setup
+  before_filter :teacher!
+  before_filter :authorize!
 
 
 
