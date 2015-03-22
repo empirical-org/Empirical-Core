@@ -83,19 +83,17 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
-
-
-
-
   private
 
   def unit_params
     params.require(:unit).permit(:name, classrooms: [:id, :all_students, :student_ids => []], activities: [:id, :due_date])
   end
 
+  protected
 
-
-# protected
+  def authorize!
+    auth_failed unless current_user.try(:teacher?)
+  end
 
 #   def setup
 #     @classroom = current_user.classrooms.find(params[:classroom_id])
