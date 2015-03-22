@@ -3,8 +3,6 @@ class Teachers::UnitsController < ApplicationController
   before_filter :teacher!
   before_filter :authorize!
 
-
-
   def create
     
     # create a unit
