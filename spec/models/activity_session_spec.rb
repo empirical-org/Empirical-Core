@@ -313,48 +313,61 @@ describe ActivitySession, :type => :model do
 
   end
 
-  describe '#determine_if_final_score' do 
+  describe '#determine_if_final_score' do
     let!(:classroom) {FactoryGirl.create(:classroom)}
     let!(:student) {FactoryGirl.create(:student)}
     let!(:activity) {FactoryGirl.create(:activity)}
 
     let!(:classroom_activity)   {FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom)}
     let!(:previous_final_score) {FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)}
-    
 
-    it 'updates when new activity session has higher percentage ' do 
+    it 'updates when new activity session has higher percentage ' do
       new_activity_session =  FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.5, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
-      
+
       new_activity_session.update_attributes percentage: 1.0
-      expect(new_activity_session.is_final_score).to eq(true)
+      expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([false, true])
 
     end
 
-    it 'doesnt update when new activity session has lower percentage' do 
+    it 'doesnt update when new activity session has lower percentage' do
       new_activity_session =  FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.5, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
-      
+
       new_activity_session.update_attributes percentage: 0.7
-      expect(new_activity_session.is_final_score).to eq(false)
+      expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
+    end
+
+    it 'updates if they were wrong to begin with (both were true) ' do
+
+      new_activity_session =  FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.5, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      new_activity_session.update_columns is_final_score: true
+      new_activity_session.update_attributes percentage: 0.6
+      expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
+    end
+
+    it 'updates after a switch back' do
+      new_activity_session =  FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.95, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      previous_final_score.update_attributes percentage: 0.98
+
+      expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
+    end
+
+    it 'updates after two switch backs' do
+      new_activity_session =  FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.95, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      previous_final_score.update_attributes percentage: 0.98
+      new_activity_session.update_attributes percentage: 0.99
+
+      expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([false, true])
+    end
+
+    it 'updates after three switch backs' do
+      new_activity_session =  FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.95, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      previous_final_score.update_attributes percentage: 0.98
+      new_activity_session.update_attributes percentage: 0.99
+      new_activity_session.update_attributes percentage: 0.6
+      expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
+
     end
 
   end
 
-
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

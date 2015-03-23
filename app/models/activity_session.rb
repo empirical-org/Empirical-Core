@@ -16,7 +16,10 @@ class ActivitySession < ActiveRecord::Base
   before_create :set_state
   before_save   :set_completed_at
   before_save   :set_activity_id
-  before_save   :determine_if_final_score
+
+  after_save    :determine_if_final_score
+
+
   around_save   :trigger_events
 
   default_scope -> { joins(:activity) }
@@ -73,16 +76,29 @@ class ActivitySession < ActiveRecord::Base
 
   def determine_if_final_score
     if self.percentage.present?
-      a = ActivitySession.where(classroom_activity: self.classroom_activity, user: self.user, is_final_score: true).where.not(id: self.id).where.not(percentage: nil).first
-      if a.nil?
-        self.is_final_score = true
-      elsif (self.percentage > a.percentage)
-        self.is_final_score = true
-        a.update_attributes is_final_score: false
+      a = ActivitySession.where(activity_id: self.activity_id)
+                        .where(user: self.user)
+                        .where.not(id: self.id)
+                        .where.not(percentage: nil)
+
+      if a.empty?
+        self.update_columns is_final_score: true
+      else
+        max = a.max_by{|x| x.percentage }
+        if self.percentage > max.percentage
+          self.update_columns is_final_score: true
+          max.update_columns is_final_score: false
+        else
+          self.update_columns is_final_score: false
+          max.update_columns is_final_score: true
+        end
+        others = a.reject{|x| x==max}
+        others.each{|x| x.update_columns(is_final_score: false) }
       end
     end
+
     # return true otherwise save will be prevented
-    true
+    return true
   end
 
   def activity
