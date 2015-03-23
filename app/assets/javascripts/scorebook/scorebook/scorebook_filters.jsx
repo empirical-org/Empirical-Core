@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 EC.ScorebookFilters = React.createClass({
   render: function () {
 		return (
