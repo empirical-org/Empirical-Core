@@ -29,10 +29,10 @@ EC.DateRangeFilter = React.createClass({
     return (
       <div className="row date-range-filter">
         <div className="no-pl col-xs-6 col-sm-5">
-          <EC.DatePicker key='datepick1' placeHolder="Start Date" handleChange={this.selectBeginDate}/>
+          <EC.DatePicker key='datepick1' placeHolder="Completed : From" handleChange={this.selectBeginDate}/>
         </div>
         <div className="no-pl col-xs-6 col-sm-5">
-          <EC.DatePicker key='datepick2' placeHolder="End Date" handleChange={this.selectEndDate}/>
+          <EC.DatePicker key='datepick2' placeHolder="Completed : To" handleChange={this.selectEndDate}/>
         </div>
       </div>
     );
