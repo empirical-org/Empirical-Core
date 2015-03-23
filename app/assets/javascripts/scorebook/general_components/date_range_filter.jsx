@@ -1,3 +1,4 @@
+"use strict;"
 EC.DateRangeFilter = React.createClass({
   propTypes: {
     selectDates: React.PropTypes.func.isRequired

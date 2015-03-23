@@ -1,3 +1,4 @@
+"use strict;"
 EC.DatePicker = React.createClass({
   componentDidMount: function () {
     $(this.refs.date.getDOMNode()).datepicker({
