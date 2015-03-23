@@ -20,27 +20,23 @@ module Teacher
     !classrooms.empty? && !classrooms.all?(&:new_record?)
   end
 
+  def scorebook_scores current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil
 
-
-  def scorebook_scores current_page=1, classroom_id=nil, unit_id=nil
-    
     if classroom_id.present?
       users = Classroom.find(classroom_id).students
     else
       users = classrooms.map(&:students).flatten.compact.uniq
     end
-    
-  
-  
+
     results = ActivitySession.select("users.name, activity_sessions.id, activity_sessions.percentage,
                                 substring(
                                     users.name from (
                                       position(' ' in users.name) + 1
-                                    ) 
+                                    )
                                     for (
                                       char_length(users.name)
                                     )
-                                  ) 
+                                  )
                                   ||
                                   substring(
                                     users.name from (
@@ -57,10 +53,16 @@ module Teacher
                               .references(:user)
                               .where(user: users)
                               .where('(activity_sessions.is_final_score = true) or ((activity_sessions.completed_at IS NULL) and activity_sessions.is_retry = false)')
-                              
+
     if unit_id.present?
       classroom_activity_ids = Unit.find(unit_id).classroom_activities.map(&:id)
       results = results.where(classroom_activity_id: classroom_activity_ids)
+    end
+
+    if begin_date.present? and end_date.present?
+      b = begin_date.to_date - 1.day
+      e = end_date.to_date + 1.day
+      results = results.where(completed_at: b..e)
     end
 
     results = results.order('sorting_name, percentage, activity_sessions.id')
@@ -69,8 +71,6 @@ module Teacher
 
     is_last_page = (results.length < SCORES_PER_PAGE)
 
-
-    
     x1 = results.group_by(&:user_id)
 
     x2 = []
@@ -98,11 +98,5 @@ module Teacher
     all = x2
 
     [all, is_last_page]
-
   end
-
-
-
-
-
 end

@@ -1,5 +1,6 @@
 "use strict;"
 EC.DatePicker = React.createClass({
+
   componentDidMount: function () {
     $(this.refs.date.getDOMNode()).datepicker({
       selectOtherMonths: true,
@@ -12,20 +13,22 @@ EC.DatePicker = React.createClass({
       onSelect: this.handleChange
     });
   },
+
   handleChange: function () {
     var x1 = '#railsFormatDate' + this.props.key;
     var dom = $(x1);
     var val = dom.val();
     this.props.handleChange(val);
   },
+
   render: function () {
     return (
-      <span>
+      <span className="datepicker-container">
         <input
           type="text"
           ref="date"
           className="datepicker-input"
-          placeholder="mm/dd/yyyy"
+          placeholder={this.props.placeHolder}
           onChange={this.handleChange} />
         <input
           type="text"
