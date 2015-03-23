@@ -12,7 +12,7 @@ EC.ActivityDueDate = React.createClass({
       altFormat: 'yy-mm-dd',
       onSelect: this.handleChange
     });
-    
+
   },
 
   tooltipTrigger: function (e) {
@@ -33,9 +33,8 @@ EC.ActivityDueDate = React.createClass({
   },
 
   removeActivity: function () {
-    console.log('remove activity called')
     this.props.toggleActivitySelection(false, this.props.activity);
-  },  
+  },
 
   render: function() {
     return (
@@ -43,10 +42,7 @@ EC.ActivityDueDate = React.createClass({
         <td>
           <div ref='activateTooltip' className={'activate-tooltip ' + this.props.activity.classification.image_class } data-html='true' data-toggle='tooltip' data-placement='top' title={"<h1>" + this.props.activity.name + "</h1><p>App: " + this.props.activity.classification.alias + "</p><p>" + this.props.activity.topic.name +  "</p><p>" + this.props.activity.description + "</p>"}></div>
         </td>
-        
-
         <td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger activity_name'>{this.props.activity.name}</td>
-        
         <td>
           <input type="text" ref="dueDate" className="datepicker-input" placeholder="mm/dd/yyyy" onChange={this.handleChange}/>
           <input type="text" className='railsFormatDate' id={"railsFormatDate" + this.props.activity.id} ref="railsFormatDate" onChange={this.handleChange} />
