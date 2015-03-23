@@ -29,7 +29,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       activity_classifications: @activity_classifications,
       topic_categories: @topic_categories,
       sections: @sections,
-      number_of_pages: @number_of_pages,
+      number_of_pages: @number_of_pages
     }
   end
 
