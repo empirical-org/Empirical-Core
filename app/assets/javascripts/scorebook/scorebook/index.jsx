@@ -17,6 +17,8 @@ EC.Scorebook = React.createClass({
 			selectedClassroom: {name: 'All Classrooms', value: ''},
 			classroomFilters: [],
 			unitFilters: [],
+			beginDate: null,
+			endDate: null,
 			currentPage: 1,
 			loading: false,
 			isLastPage: false,
@@ -56,6 +58,8 @@ EC.Scorebook = React.createClass({
 				current_page: this.state.currentPage,
 				classroom_id: this.state.selectedClassroom.value,
 				unit_id: this.state.selectedUnit.value,
+				begin_date: this.state.beginDate,
+				end_date: this.state.endDate,
 				no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet
 			},
 			success: this.displayData
@@ -107,7 +111,9 @@ EC.Scorebook = React.createClass({
 	selectClassroom: function (option) {
 		this.setState({currentPage: 1, selectedClassroom: option}, this.fetchData);
 	},
-
+	selectDates: function (val1, val2) {
+		this.setState({currentPage: 1, beginDate: val1, endDate: val2}, this.fetchData);
+	},
 	render: function() {
 		var scores = _.map(this.state.scores, function (data) {
 			return <EC.StudentScores key={data.user.id} data={data} />
@@ -135,7 +141,9 @@ EC.Scorebook = React.createClass({
 
 				            	selectedUnit = {this.state.selectedUnit}
 				            	unitFilters = {this.state.unitFilters}
-				            	selectUnit  = {this.selectUnit} />
+				            	selectUnit  = {this.selectUnit}
+
+				            	selectDates = {this.selectDates}/>
 
 				            <EC.ScorebookLegend />
 			        </section>
