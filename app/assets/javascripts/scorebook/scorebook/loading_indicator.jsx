@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 EC.LoadingIndicator = React.createClass({
 	render: function () {
 		return (
