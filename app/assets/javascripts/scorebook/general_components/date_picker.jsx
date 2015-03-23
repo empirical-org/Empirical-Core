@@ -5,8 +5,6 @@ EC.DatePicker = React.createClass({
     $(this.refs.date.getDOMNode()).datepicker({
       selectOtherMonths: true,
       dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-      minDate: -20,
-      maxDate: '+1M +10D',
       dateFormat: 'mm-dd-yy',
       altField: ('#railsFormatDate' + this.props.key),
       altFormat: 'yy-mm-dd',
