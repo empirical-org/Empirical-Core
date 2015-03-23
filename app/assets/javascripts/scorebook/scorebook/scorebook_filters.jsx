@@ -15,7 +15,7 @@ EC.ScorebookFilters = React.createClass({
 						selectOption={this.props.selectUnit}
 						selectedOption={this.props.selectedUnit}/>
 				</div>
-				<div className="col-xs-12 col-sm-5">
+				<div className="col-xs-12 col-sm-6">
 					<EC.DateRangeFilter selectDates={this.props.selectDates}/>
 				</div>
 			</div>
