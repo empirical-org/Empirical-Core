@@ -26,13 +26,19 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 3. Clone the Empirical Core project. Navigate to whatever directory you'd like Empirical Core to live in, and then use `git clone https://github.com/empirical-org/Empirical-Core.git`. From here on in, all the commands you have to type should be in the new Empirical Core directory you just downloaded, so you should probably `cd Empirical-Core`.
 
-4. Install bundler with `gem install bundler`
+4. Install Redis. You can either [download it directly](http://redis.io/download), or you can use [homebrew](http://brew.sh/) instead:
+	1. ```brew update```
+	2. ```brew install redis```
 
-5. Install the bundle with `bundle install`.
+6. Install bundler with `gem install bundler`
 
-6. Set up your database with `bundle exec rake empirical:setup`.
+7. Install the bundle with `bundle install`.
 
-7. Run the server with `bundle exec rails s`.
+8. Set up your database with `bundle exec rake empirical:setup`.
+
+5. Run Redis with ```redis-server```
+
+9. Run the server with `bundle exec rails s`.
 
 Now open your browser and navigate to localhost:3000 and you should see Empirical-Core pull up properly! When you're done with the server, use Ctrl-C to break it and return to your commandline.
 
