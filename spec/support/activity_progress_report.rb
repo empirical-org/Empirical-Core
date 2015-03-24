@@ -16,7 +16,7 @@ shared_context 'Activity Progress Report' do
     horshack.activity_sessions.create!(
       state: 'finished',
       time_spent: 120,
-      percentage: 0.75,
+      percentage: 0.777778,
       classroom_activity: sweathogs_classroom_activity
     )
   end
