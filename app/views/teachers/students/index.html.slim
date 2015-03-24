@@ -28,12 +28,14 @@
                   tr
                     th Student Name
                     th Username
+                    th Activities Completed
                     th
                 tbody
                   - @classroom.students.sort_by(&:sorting_name).each do |student|
                     tr class=dom_class(student) id=dom_id(student)
                       td.name    = student.name
                       td.username= student.username
+                      td.activities_completed = student.completed_activities.count
                       td= link_to 'Edit Account',
                                   edit_teachers_classroom_student_path(@classroom,
                                                                        student)

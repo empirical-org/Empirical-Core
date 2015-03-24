@@ -872,16 +872,19 @@ below is obselete for now, changed link to span :
   background: #e6e6e6;
 }
 .class-page table thead tr th:nth-child(1) {
-  width: 40%;
+  width: 26%;
   border-top-left-radius: 5px;
   text-align: left;
   border-left: 1px solid #cecece;
 }
 .class-page table thead tr th:nth-child(2) {
-  width: 40%;
+  width: 26%;
   text-align: left;
 }
 .class-page table thead tr th:nth-child(3) {
+  width: 26%;
+}
+.class-page table thead tr th:nth-child(4) {
   width: 20%;
   text-align: center;
   border-top-right-radius: 5px;
@@ -902,9 +905,14 @@ below is obselete for now, changed link to span :
   text-align: left;
 }
 .class-page table tbody tr td:nth-child(3) {
+  text-align: left;
+}
+
+.class-page table tbody tr td:nth-child(4) {
   text-align: right;
   border-right: 1px solid #cecece;
 }
+
 .class-page table tbody tr:last-child td {
   border-bottom: 1px solid #cecece;
 }
