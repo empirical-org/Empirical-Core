@@ -1,11 +1,11 @@
-
+"use strict";
 EC.CreateUnit = React.createClass({
 
 	getInitialState: function () {
 		return {
 			unitName: null,
 			stage: 1, // stage 1 is selecting activities, stage 2 is selecting students and dates
-			selectedActivities : [],			
+			selectedActivities : [],
 			selectedClassrooms: [],
 			dueDates: {}
 		}
@@ -100,7 +100,7 @@ EC.CreateUnit = React.createClass({
 				due_date: key
 			}
 		});
-		var x = { 
+		var x = {
 			unit: {
 				name: this.state.unitName,
 				classrooms: classroomPostData,
@@ -108,13 +108,14 @@ EC.CreateUnit = React.createClass({
 			}
 		};
 		return x
-		
+
 	},
 
 	onCreateSuccess: function(response) {
 		console.log('response', response);
 		this.props.toggleTab('manageUnits');
 	},
+
 	determineAssignButtonClass: function () {
 		var a = this.state.selectedClassrooms.length > 0
 		var b = (this.state.selectedActivities.length == Object.keys(this.state.dueDates).length)
@@ -131,17 +132,17 @@ EC.CreateUnit = React.createClass({
 		var stageSpecificComponents;
 
 		if (this.state.stage === 1) {
-			stageSpecificComponents = <EC.Stage1 toggleActivitySelection={this.toggleActivitySelection} 
+			stageSpecificComponents = <EC.Stage1 toggleActivitySelection={this.toggleActivitySelection}
 								 unitName = {this.state.unitName}
 								 updateUnitName={this.updateUnitName}
-								 selectedActivities={this.state.selectedActivities} 
+								 selectedActivities={this.state.selectedActivities}
 								 clickContinue={this.clickContinue} />;
 		} else {
 			stageSpecificComponents = <EC.Stage2 selectedActivities={this.state.selectedActivities}
-																					 toggleActivitySelection={this.toggleActivitySelection}	
-																					 toggleClassroomSelection={this.toggleClassroomSelection} 
+																					 toggleActivitySelection={this.toggleActivitySelection}
+																					 toggleClassroomSelection={this.toggleClassroomSelection}
 																					 toggleStudentSelection={this.toggleStudentSelection}
-																					 finish={this.finish} 
+																					 finish={this.finish}
 																					 unitName={this.state.unitName}
 																					 determineAssignButtonClass={this.determineAssignButtonClass}
 																					 assignActivityDueDate={this.assignActivityDueDate} />;
@@ -149,14 +150,12 @@ EC.CreateUnit = React.createClass({
 
 		return (
 			<span>
-				<EC.ProgressBar stage={this.state.stage}/>				
+				<EC.ProgressBar stage={this.state.stage}/>
 				<div className='container lesson_planner_main'>
 					{stageSpecificComponents}
-				</div>		
+				</div>
 			</span>
 
 		);
-
 	}
-
 });
