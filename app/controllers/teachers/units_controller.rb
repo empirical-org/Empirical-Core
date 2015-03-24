@@ -3,7 +3,7 @@ class Teachers::UnitsController < ApplicationController
   before_filter :teacher!
 
   def create
-    
+
     # create a unit
     unit = Unit.create name: unit_params['name']
 
@@ -26,8 +26,8 @@ class Teachers::UnitsController < ApplicationController
       due_date = activity_data['due_date']
       unit_params['classrooms'].each do |key, classroom_data|
         classroom_data['student_ids'] ||= []
-        unit.classroom_activities.create!(activity_id: activity_id, 
-                                          classroom_id: classroom_data['id'], 
+        unit.classroom_activities.create!(activity_id: activity_id,
+                                          classroom_id: classroom_data['id'],
                                           assigned_student_ids: (classroom_data['student_ids'] ) ,
                                           due_date: due_date)
         # student_ids = (classroom['allStudents'] == true) ? nil : classroom['studentIds']
@@ -46,15 +46,17 @@ class Teachers::UnitsController < ApplicationController
     units = cas.group_by{|ca| ca.unit_id}
     arr = []
     units.each do |unit_id, classroom_activities|
-      
+
       x1 = classroom_activities.reject{|ca| ca.due_date.nil?}.compact
 
       x1 = x1.sort{|a, b| a.due_date <=> b.due_date}
-      
+
       x1 = x1.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
 
+      classrooms = x1.map{|ca| ca[:classroom]}.compact.uniq
+
       assigned_student_ids = []
-      
+
       classroom_activities.each do |ca|
         if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
           y = ca.classroom.students.map(&:id)
@@ -68,7 +70,7 @@ class Teachers::UnitsController < ApplicationController
 
       x1 = x1.uniq{|y| y[:activity_id] }
 
-      ele = {unit: Unit.find(unit_id), classroom_activities: x1, num_students_assigned: num_students_assigned}
+      ele = {unit: Unit.find(unit_id), classroom_activities: x1, num_students_assigned: num_students_assigned, classrooms: classrooms}
       arr.push ele
     end
 
@@ -76,7 +78,7 @@ class Teachers::UnitsController < ApplicationController
     render json: arr
   end
 
-  def destroy 
+  def destroy
     puts 'in destroy'
     (Unit.find params[:id]).destroy
     render json: {}
