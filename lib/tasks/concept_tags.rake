@@ -19,4 +19,11 @@ namespace :concept_tags do
       end
     end
   end
+
+  namespace :seed do
+    desc 'Import concept tags for Quill Grammar'
+    task :grammar_concepts =>:environment do
+      ConceptTagImporter.new.import_grammar_concepts
+    end
+  end
 end
