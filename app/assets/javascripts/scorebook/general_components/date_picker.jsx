@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 EC.DatePicker = React.createClass({
 
   componentDidMount: function () {
