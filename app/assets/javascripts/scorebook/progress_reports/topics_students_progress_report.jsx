@@ -50,9 +50,10 @@ EC.TopicsStudentsProgressReport = React.createClass({
     return {
       config: {
         name: 'natural',
-        // students_count: 'numeric',
+        activity_session_count: 'numeric',
         proficient_count: 'numeric',
-        not_proficient_count: 'numeric'
+        not_proficient_count: 'numeric',
+        total_time_spent: 'numeric'
       },
       default: {
         field: 'name',
