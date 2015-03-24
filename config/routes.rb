@@ -102,10 +102,6 @@ EmpiricalGrammar::Application.routes.draw do
     resources :activity_classifications
     resources :topics
 
-    namespace :csv_imports do
-      resources :concept_tags, only: [:create]
-    end
-
     resources :activities, path: 'activity_type/:key/activities' do
       resource :data
     end
