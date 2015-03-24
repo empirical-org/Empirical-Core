@@ -1,4 +1,6 @@
 EC.TopicsStudentsProgressReport = React.createClass({
+  mixins: [EC.TimeSpentMixin],
+
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired
   },
@@ -7,14 +9,6 @@ EC.TopicsStudentsProgressReport = React.createClass({
     // topic state is used to customize the column definitions.
     return {
       topic: {}
-    }
-  },
-
-  displayTimeSpent: function(timeInSeconds) {
-    if (timeInSeconds === null) {
-      return '—';
-    } else {
-      return Math.ceil(timeInSeconds / 60) + ' minutes';
     }
   },
 
