@@ -1,8 +1,6 @@
 class Teachers::UnitsController < ApplicationController
   respond_to :json
-  #before_action :setup
-
-
+  before_filter :teacher!
 
   def create
     
@@ -84,19 +82,11 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
-
-
-
-
   private
 
   def unit_params
     params.require(:unit).permit(:name, classrooms: [:id, :all_students, :student_ids => []], activities: [:id, :due_date])
   end
-
-
-
-# protected
 
 #   def setup
 #     @classroom = current_user.classrooms.find(params[:classroom_id])

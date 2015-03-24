@@ -33,7 +33,6 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
                             percentage
                             display_score
                             display_completed_at
-                            display_time_spent
                             classroom_id
                             unit_id
                             student_name
@@ -44,7 +43,6 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     it 'includes fields pre-formatted for display' do
       expect(parsed_session['display_completed_at']).to eq('01/01/2015')
       expect(parsed_session['display_score']).to eq('25%')
-      expect(parsed_session['display_time_spent']).to eq('45 minutes')
       expect(parsed_session['standard']).to eq('5.1g.')
     end
 
@@ -59,7 +57,6 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
       it 'still works' do
         expect(parsed_session['display_completed_at']).to eq(nil)
         expect(parsed_session['display_score']).to eq('no percentage')
-        expect(parsed_session['display_time_spent']).to eq(nil)
       end
     end
   end
