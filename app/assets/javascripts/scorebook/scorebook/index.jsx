@@ -144,8 +144,8 @@ EC.Scorebook = React.createClass({
 				            	selectUnit  = {this.selectUnit}
 
 				            	selectDates = {this.selectDates}/>
-
-				            <EC.ScorebookLegend />
+				            <EC.ScoreLegend />
+				            <EC.AppLegend />
 			        </section>
 		        </div>
 		        {scores}

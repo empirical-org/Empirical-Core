@@ -1,8 +1,8 @@
 "use strict";
-EC.ScorebookLegend = React.createClass({
+EC.ScoreLegend = React.createClass({
 	render: function () {
 		return (
-			 <div className="icons-wrapper icon-legend">
+			 <div className="icons-wrapper icon-legend score-legend">
 		        <div className="row no-pl">
 		          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 no-pl">
 		            <div className="col-xs-6 col-sm-3 col-xl-3">
