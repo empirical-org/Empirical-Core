@@ -1,7 +1,5 @@
-//= require ./table_filter_mixin.js
-//= require ./table_sorting_mixin.js
-
 EC.SectionsProgressReport = React.createClass({
+  mixins: [EC.TimeSpentMixin],
 
   columnDefinitions: function() {
     return [
@@ -33,7 +31,10 @@ EC.SectionsProgressReport = React.createClass({
       {
         name: 'Time Spent',
         field: 'total_time_spent',
-        sortByField: 'total_time_spent'
+        sortByField: 'total_time_spent',
+        customCell: _.bind(function(row) {
+          return this.displayTimeSpent(row['total_time_spent']);
+        }, this)
       }
     ];
   },
