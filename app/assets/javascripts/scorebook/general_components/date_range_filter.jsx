@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 EC.DateRangeFilter = React.createClass({
   propTypes: {
     selectDates: React.PropTypes.func.isRequired
@@ -12,17 +12,15 @@ EC.DateRangeFilter = React.createClass({
   },
 
   selectBeginDate: function (val) {
-    this.setState({beginDate: val}, this.areBothSelected);
+    this.setState({beginDate: val}, this.selectDates);
   },
 
   selectEndDate: function (val) {
-    this.setState({endDate: val}, this.areBothSelected);
+    this.setState({endDate: val}, this.selectDates);
   },
 
-  areBothSelected: function () {
-    if ((this.state.beginDate != null) && (this.state.endDate != null)) {
-      this.props.selectDates(this.state.beginDate, this.state.endDate);
-    }
+  selectDates: function () {
+    this.props.selectDates(this.state.beginDate, this.state.endDate);
   },
 
   render: function() {
