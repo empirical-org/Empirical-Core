@@ -161,6 +161,10 @@ class ActivitySession < ActiveRecord::Base
     ((percentage || 0)*100).round
   end
 
+  def percentage_as_decimal
+    percentage.try(:round, 2)
+  end
+
   def percentage_as_percent
     if percentage.nil?
       "no percentage"
