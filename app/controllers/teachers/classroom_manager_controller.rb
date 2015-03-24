@@ -29,7 +29,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       activity_classifications: @activity_classifications,
       topic_categories: @topic_categories,
       sections: @sections,
-      number_of_pages: @number_of_pages,
+      number_of_pages: @number_of_pages
     }
   end
 
@@ -60,7 +60,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scores
     classrooms = current_user.classrooms.includes(:classroom_activities => [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
-    
+
     if params[:no_load_has_ever_occurred_yet] == 'true'
       params[:classroom_id] = current_user.classrooms.first
       was_classroom_selected_in_controller = true
@@ -70,7 +70,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       selected_classroom = nil
     end
 
-    scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, params[:classroom_id], params[:unit_id]
+    scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, params[:classroom_id], params[:unit_id], params[:begin_date], params[:end_date]
 
     render json: {
       classrooms: classrooms,
