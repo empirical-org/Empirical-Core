@@ -32,20 +32,15 @@ describe Unit, type: :model do
 	end
 
   describe "getting units for the progress report" do
-    include ProgressReportHelper
-
     let!(:teacher) { FactoryGirl.create(:teacher) }
-    let(:section_ids) { [@sections[0].id, @sections[1].id] }
+    let(:section_ids) { [sections[0].id, sections[1].id] }
     let(:filters) { {} }
-
-    before do
-      setup_sections_progress_report
-    end
+    include_context 'Section Progress Report'
 
     subject { Unit.for_standards_progress_report(teacher, filters).to_a }
 
     it 'can retrieve units based on no additional parameters' do
-      expect(subject.size).to eq(@units.size)
+      expect(subject.size).to eq(units.size)
     end
 
     context 'sections' do
@@ -57,7 +52,7 @@ describe Unit, type: :model do
     end
 
     context 'students' do
-      let(:filters) { {student_id: @students.first.id} }
+      let(:filters) { {student_id: students.first.id} }
 
       it 'can retrieve units based on student_id' do
         expect(subject.size).to eq(1)
@@ -65,7 +60,7 @@ describe Unit, type: :model do
     end
 
     context 'classrooms' do
-      let(:filters) { {classroom_id: @classrooms.first.id} }
+      let(:filters) { {classroom_id: classrooms.first.id} }
 
       it 'can retrieve units based on classroom_id' do
         expect(subject.size).to eq(1)

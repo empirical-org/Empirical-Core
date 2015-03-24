@@ -1,14 +1,11 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::ConceptCategoriesController, :type => :controller do
-  include ProgressReportHelper
+
   render_views
 
   let!(:teacher) { FactoryGirl.create(:teacher) }
-
-  before do
-    setup_concepts_progress_report
-  end
+  include_context 'Concept Progress Report'
 
   describe 'GET #index' do
     before do
@@ -37,9 +34,9 @@ describe Teachers::ProgressReports::ConceptCategoriesController, :type => :contr
       it 'fetches aggregated concept category data' do
         xhr :get, :index
         expect(response.status).to eq(200)
-        expect(json['concept_categories'].size).to eq(@visible_categories.size)
+        expect(json['concept_categories'].size).to eq(visible_categories.size)
         expect(json['concept_categories'][0]['concept_tag_href'])
-          .to eq(teachers_progress_reports_concept_category_concept_tags_path(concept_category_id: @grammar_category.id))
+          .to eq(teachers_progress_reports_concept_category_concept_tags_path(concept_category_id: grammar_category.id))
       end
 
       it 'fetches classroom, unit, and student data for the filter options' do
