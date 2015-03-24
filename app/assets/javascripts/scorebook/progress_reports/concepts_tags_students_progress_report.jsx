@@ -40,7 +40,10 @@ EC.ConceptTagsStudentsProgressReport = React.createClass({
   sortDefinitions: function() {
     return {
       config: {
-        name: 'natural'
+        name: 'natural',
+        total_result_count: 'numeric',
+        correct_result_count: 'numeric',
+        incorrect_result_count: 'numeric'
       },
       default: {
         field: 'name',
