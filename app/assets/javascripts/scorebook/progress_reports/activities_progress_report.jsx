@@ -3,6 +3,8 @@
 //= require ./table_sorting_mixin.js
 
 EC.ActivitiesProgressReport = React.createClass({
+  mixins: [EC.TimeSpentMixin],
+
   columnDefinitions: function() {
     return [
       {
@@ -22,17 +24,11 @@ EC.ActivitiesProgressReport = React.createClass({
       },
       {
         name: 'Time Spent',
-        field: 'display_time_spent',
+        field: 'time_spent',
         sortByField: 'time_spent',
-        customCell: function(row) {
-          // Display an emdash if time_spent is greater than 30 min
-          var timeInMinutes = row['time_spent'] / 60;
-          if (timeInMinutes > 30 || row['time_spent'] === null) {
-            return '—';
-          } else {
-            return row['display_time_spent'];
-          }
-        }
+        customCell: _.bind(function(row) {
+          return this.displayTimeSpent(row['time_spent'], true);
+        }, this)
       },
       {
         name: 'Standard',
