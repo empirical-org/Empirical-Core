@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
                                     presence:     { if: :email_required? }
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
-                                    uniqueness:   { allow_blank: true }
-                                    format:       {without: /\s/}
+                                    uniqueness:   { allow_blank: true },
+                                    format:       {without: /\s/, message: 'cannot contain spaces'}
 
   validates :terms_of_service,      acceptance:   { on: :create }
 
