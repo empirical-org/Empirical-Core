@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::ConceptTagsStudentsController, :type => :controller do
-  include ProgressReportHelper
+
   render_views
 
   let!(:teacher) { FactoryGirl.create(:teacher) }
@@ -22,9 +22,7 @@ describe Teachers::ProgressReports::ConceptTagsStudentsController, :type => :con
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
     end
 
-    before do
-      setup_students_concepts_progress_report
-    end
+    include_context 'Student Concept Progress Report'
 
     describe 'GET #index' do
       it 'displays the html' do
@@ -34,17 +32,17 @@ describe Teachers::ProgressReports::ConceptTagsStudentsController, :type => :con
     end
 
     context 'XHR GET #index' do
-      subject { xhr :get, :index, {concept_tag_id: @concept_tag.id, concept_category_id: @concept_category.id} }
+      subject { xhr :get, :index, {concept_tag_id: concept_tag.id, concept_category_id: concept_category.id} }
 
       it 'fetches aggregated students data' do
         subject
         expect(response.status).to eq(200)
-        expect(json['students'].size).to eq(@visible_students.size)
-        alice = json['students'][0]
-        expect(alice['name']).to eq(@alice.name)
-        expect(alice['total_result_count'].to_i).to eq(@alice_session.concept_tag_results.size)
-        expect(alice['correct_result_count'].to_i).to eq(1)
-        expect(alice['incorrect_result_count'].to_i).to eq(1)
+        expect(json['students'].size).to eq(visible_students.size)
+        alice_json = json['students'][0]
+        expect(alice_json['name']).to eq(alice.name)
+        expect(alice_json['total_result_count'].to_i).to eq(alice_session.concept_tag_results.size)
+        expect(alice_json['correct_result_count'].to_i).to eq(1)
+        expect(alice_json['incorrect_result_count'].to_i).to eq(1)
       end
 
       it 'fetches additional data for the filters' do

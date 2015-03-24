@@ -73,10 +73,10 @@ EC.ActivitiesProgressReport = React.createClass({
     return (
       <EC.ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={true}
-                         clientSideFiltering={true}
                          sourceUrl={'/teachers/progress_reports/activity_sessions'}
                          sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'activity_sessions'} />
+                         jsonResultsKey={'activity_sessions'}
+                         exportCsv={'activity_sessions'} />
     );
   }
 });

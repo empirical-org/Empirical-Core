@@ -26,6 +26,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
+      resources :csv_exports, only: [:create]
       resources :sections, only: [:index] do
         resources :topics, only: [:index] do
           resources :students, controller: "topics_students", only: [:index]

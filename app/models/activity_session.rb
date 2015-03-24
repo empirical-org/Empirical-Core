@@ -34,6 +34,15 @@ class ActivitySession < ActiveRecord::Base
     (complete_session || incomplete_session)
   }
 
+  def self.for_standalone_progress_report(teacher, filters)
+    query = includes(:user, :activity => [:topic, :classification], :classroom_activity => :classroom)
+      .references(:classification)
+      .completed
+      .by_teacher(teacher)
+      .order('activity_classifications.name asc, users.name asc')
+    with_filters(query, filters)
+  end
+
   # Used as a CTE (common table expression) by other models to get progress report data.
   def self.proficient_sessions_for_progress_report(teacher, filters)
     query = select(<<-SELECT
@@ -42,10 +51,15 @@ class ActivitySession < ActiveRecord::Base
       CASE WHEN activity_sessions.percentage > 0.75 THEN 1 ELSE 0 END as is_proficient
     SELECT
     ).joins(:classroom_activity => :classroom)
-      .where("activity_sessions.state = ?", "finished")
-      .where("classrooms.teacher_id = ?", teacher.id) # Always by teacher
+      .completed
+      .by_teacher(teacher)
       .group("activity_sessions.id")
 
+    query = with_filters(query, filters)
+    query
+  end
+
+  def self.with_filters(query, filters)
     # Some duplication between here and ConceptTagResult
     if filters[:classroom_id].present?
       query = query.where("classrooms.id = ?", filters[:classroom_id])

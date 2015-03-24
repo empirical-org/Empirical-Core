@@ -1,14 +1,12 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::TopicsController, :type => :controller do
-  include ProgressReportHelper
+
   render_views
 
   let!(:teacher) { FactoryGirl.create(:teacher) }
 
-  before do
-    setup_topics_progress_report
-  end
+  include_context 'Topic Progress Report'
 
   describe 'GET #index' do
     before do
@@ -16,7 +14,7 @@ describe Teachers::ProgressReports::TopicsController, :type => :controller do
     end
 
     it 'displays the html' do
-      get :index, {section_id: @section.id}
+      get :index, {section_id: section.id}
       expect(response.status).to eq(200)
       expect(assigns(:section)).to be_present
     end
@@ -24,7 +22,7 @@ describe Teachers::ProgressReports::TopicsController, :type => :controller do
 
   context 'XHR GET #index' do
     it 'requires a logged-in teacher' do
-      get :index, {section_id: @section.id}
+      get :index, {section_id: section.id}
       expect(response.status).to eq(401)
     end
 
@@ -36,14 +34,14 @@ describe Teachers::ProgressReports::TopicsController, :type => :controller do
       end
 
       it 'fetches aggregated topics data' do
-        xhr :get, :index, {section_id: @section.id}
+        xhr :get, :index, {section_id: section.id}
         expect(response.status).to eq(200)
-        expect(json['section']['section_name']).to eq(@section.name)
-        expect(json['topics'].size).to eq(@visible_topics.size)
+        expect(json['section']['section_name']).to eq(section.name)
+        expect(json['topics'].size).to eq(visible_topics.size)
         expect(json['topics'][0]['students_href'])
           .to eq(teachers_progress_reports_section_topic_students_path(
-            section_id: @section.id,
-            topic_id: @visible_topics.first.id
+            section_id: section.id,
+            topic_id: visible_topics.first.id
           ))
         expect(json['classrooms'].size).to eq(1)
         expect(json['units'].size).to eq(1)
