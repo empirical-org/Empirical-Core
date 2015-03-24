@@ -43,34 +43,32 @@ describe Topic, :type => :model do
 	end
 
 	context "retrieving topics for the progress report" do
-		include ProgressReportHelper
+
 
 	  let!(:teacher) { FactoryGirl.create(:teacher) }
     let(:filters) { {} }
 
-	  before do
-	  	setup_topics_progress_report
-	  end
+	  include_context 'Topic Progress Report'
 
 	  subject { Topic.for_progress_report(teacher, filters).to_a }
 
 	  it "retrieves aggregated topics data" do
 	  	topics = subject
-	  	expect(topics.size).to eq(@visible_topics.size)
-	  	expect(topics[0]["topic_name"]).to eq(@first_grade_topic.name)
-	  	expect(topics[0]["topic_id"].to_i).to eq(@first_grade_topic.id)
+	  	expect(topics.size).to eq(visible_topics.size)
+	  	expect(topics[0]["topic_name"]).to eq(first_grade_topic.name)
+	  	expect(topics[0]["topic_id"].to_i).to eq(first_grade_topic.id)
 	  end
 
 	  context "when a classroom filter is provided" do
-	    let(:filters) { {section_id: @section.id, classroom_id: @full_classroom.id} }
+	    let(:filters) { {section_id: section.id, classroom_id: full_classroom.id} }
 
 	  	it "filters by classroom" do
-	  		expect(subject.size).to eq(@visible_topics.size)
+	  		expect(subject.size).to eq(visible_topics.size)
 	  	end
 	  end
 
 	  context "classroom filter for an empty classroom" do
-	  	let(:filters) { {section_id: @section.id, classroom_id: @empty_classroom.id} }
+	  	let(:filters) { {section_id: section.id, classroom_id: empty_classroom.id} }
 
 	  	it "returns no results" do
 	  		expect(subject.size).to eq(0)
@@ -78,37 +76,37 @@ describe Topic, :type => :model do
 	  end
 
 	  context "classroom filter with no ID" do
-    	let(:filters) { {section_id: @section.id, classroom_id: ""} }
+    	let(:filters) { {section_id: section.id, classroom_id: ""} }
 
 	  	it "does not filter by classroom" do
-	  		expect(subject.size).to eq(@visible_topics.size)
+	  		expect(subject.size).to eq(visible_topics.size)
 	  	end
 	  end
 
 	  context "when a unit filter is provided" do
-    	let(:filters) { {section_id: @section.id, unit_id: @unit1.id} }
+    	let(:filters) { {section_id: section.id, unit_id: unit1.id} }
 
 	  	it "filters by unit" do
-	  		expect(subject.size).to eq(@visible_topics.size)
+	  		expect(subject.size).to eq(visible_topics.size)
 	  	end
 	  end
 
 	  context "when an empty unit filter is provided" do
-    	let(:filters) { {section_id: @section.id, unit_id: ""} }
+    	let(:filters) { {section_id: section.id, unit_id: ""} }
 
 	  	it "does not filter by unit" do
-	  		expect(subject.size).to eq(@visible_topics.size)
+	  		expect(subject.size).to eq(visible_topics.size)
 	  	end
 	  end
 
 	  context "when a student filter is provided" do
-    	let(:filters) { {section_id: @section.id, student_id: @zojirushi.id} }
+    	let(:filters) { {section_id: section.id, student_id: zojirushi.id} }
 
 	  	it "filters by student" do
 	  		# Zojirushi has completed activity sessions for only 1 topic
 	  		topics = subject
 	  		expect(topics.size).to eq(1)
-	  		expect(topics[0]['topic_name']).to eq(@second_grade_topic.name)
+	  		expect(topics[0]['topic_name']).to eq(second_grade_topic.name)
 	  		expect(topics[0]['students_count']).to eq(1)
 	  		expect(topics[0]['proficient_count']).to eq(0)
 	  		expect(topics[0]['not_proficient_count']).to eq(1)
@@ -116,10 +114,10 @@ describe Topic, :type => :model do
 	  end
 
 	  context "when an empty student filter is provided" do
-    	let(:filters) { {section_id: @section.id, student_id: ""} }
+    	let(:filters) { {section_id: section.id, student_id: ""} }
 
 	  	it "does not filter by student" do
-	  		expect(subject.size).to eq(@visible_topics.size)
+	  		expect(subject.size).to eq(visible_topics.size)
 	  	end
 	  end
 	end
