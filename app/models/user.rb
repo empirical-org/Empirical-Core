@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true }
+                                    format:       {without: /\s/}
 
   validates :terms_of_service,      acceptance:   { on: :create }
 
