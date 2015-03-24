@@ -7,44 +7,33 @@ class ConceptTagImporter
   # a google doc entitled "Quill Grammar with Concept Tags"
   # dated 3/3/15.
   FILE_HEADERS = [
-    :answer,
     :concept_tag,
-    :rule_name,
-    :rule_question,
-    :needs_work,
-    :concept_category,
-    :concept_class
+    :concept_category
   ]
 
-  # Returns [concept_tags, concept_categories, concept_classes]
-  def import_from_file(file)
-    concept_tags = []
-    concept_categories = []
-    concept_classes = []
-    CSV.parse(file, headers: FILE_HEADERS) do |row|
-      row_props = row.to_hash
-      # There should be only 1 concept class in this document.
-      concept_class_name = row[:concept_class]
-      concept_class_name[0] = concept_class_name[0].capitalize
-      concept_class = ConceptClass.where('lower(name) = ?', concept_class_name.downcase)
-        .first_or_create(name: concept_class_name)
+  GRAMMAR_CONCEPTS_CLASS = 'Grammar Concepts'
 
-      # Name is case-insensitive
+  def import_grammar_concepts
+    file = Rails.root.join('db', 'grammar-concepts.csv')
+    concept_class = ConceptClass.where('lower(name) = ?', GRAMMAR_CONCEPTS_CLASS.downcase)
+      .first_or_create!(name: GRAMMAR_CONCEPTS_CLASS)
+
+    tags = []
+    categories = []
+    CSV.foreach(file, headers: FILE_HEADERS) do |row|
       concept_tag_name = row[:concept_tag]
-      # Name is capitalized
-      concept_tag_name[0] = concept_tag_name[0].capitalize
-      concept_tag = ConceptTag.where('lower(name) = ?', concept_tag_name.downcase)
-        .first_or_create(name: concept_tag_name, concept_class_id: concept_class.id)
-
+      if concept_tag_name.present?
+        tags << ConceptTag.where('lower(name) = ?', concept_tag_name.downcase)
+          .first_or_create!(name: concept_tag_name, concept_class_id: concept_class.id)
+      end
       concept_category_name = row[:concept_category]
-      concept_category_name[0] = concept_category_name[0].capitalize
-      concept_category = ConceptCategory.where('lower(name) = ?', concept_category_name.downcase)
-        .first_or_create(name: concept_category_name, concept_class_id: concept_class.id)
-
-      concept_classes << concept_class
-      concept_tags << concept_tag
-      concept_categories << concept_category
+      if concept_category_name.present?
+        categories << ConceptCategory.where('lower(name) = ?', concept_category_name.downcase)
+          .first_or_create!(name: concept_category_name, concept_class_id: concept_class.id)
+      end
     end
-    [concept_tags.uniq, concept_categories.uniq, concept_classes.uniq]
+    msg = "Imported #{tags.size} concept tags and #{categories.size} concept categories"
+    Rails.logger.info msg
+    puts msg
   end
 end
