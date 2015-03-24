@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
+  validates :name,                  format:       {without: /\t/, message: 'cannot contain tabs'}
+
   validates :password,              confirmation: { if: :requires_password_confirmation? },
                                     presence:     { if: :requires_password? }
 
