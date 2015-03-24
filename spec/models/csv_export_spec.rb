@@ -15,17 +15,11 @@ describe CsvExport, :type => :model do
       file = csv_export.generate_csv
       expect(file.length).to be > 0
       file.rewind
-      expect(file.readline).to eq("app,activity,date,time_spent,standard,score,student\n")
-      expected_row = [
-        horshack_session.activity.classification.name,
-        horshack_session.activity.name,
-        horshack_session.completed_at.to_formatted_s(:quill_default),
-        horshack_session.time_spent,
-        horshack_session.activity.topic.name_prefix,
-        horshack_session.percentage,
-        horshack_session.user.name
-      ]
-      expect(file.readline).to eq(expected_row.join(',') + "\n")
+      lines = file.readlines
+      expect(lines.first).to eq("Student,Activity,Score,Time Spent,Standard Level,Standard,App,Date\n")
+      # Just test that it generates the right # of lines.
+      # The exact content of the rows is tested in the exporter spec.
+      expect(lines.size).to eq(all_sessions.size + 1)
     end
   end
 
