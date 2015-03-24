@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::TopicsStudentsController, :type => :controller do
-  include ProgressReportHelper
+
   render_views
 
   let!(:teacher) { FactoryGirl.create(:teacher) }
@@ -22,11 +22,9 @@ describe Teachers::ProgressReports::TopicsStudentsController, :type => :controll
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
     end
 
-    subject { get :index, {section_id: @section.id, topic_id: @first_grade_topic.id} }
+    subject { get :index, {section_id: section.id, topic_id: first_grade_topic.id} }
 
-    before do
-      setup_topics_progress_report
-    end
+    include_context 'Topic Progress Report'
 
     describe 'GET #index' do
       it 'displays the html' do
@@ -36,17 +34,17 @@ describe Teachers::ProgressReports::TopicsStudentsController, :type => :controll
     end
 
     context 'XHR GET #index' do
-      subject { xhr :get, :index, {section_id: @section.id, topic_id: @first_grade_topic.id} }
+      subject { xhr :get, :index, {section_id: section.id, topic_id: first_grade_topic.id} }
 
       it 'fetches aggregated students data' do
         subject
         expect(response.status).to eq(200)
-        expect(json['students'].size).to eq(@first_grade_topic_students.size)
-        alice = json['students'][0]
-        expect(alice['name']).to eq(@alice.name)
-        expect(alice['activity_session_count']).to eq(1) # 1 activity session for Alice
-        expect(alice['proficient_count']).to eq(1)
-        expect(alice['not_proficient_count']).to eq(0)
+        expect(json['students'].size).to eq(first_grade_topic_students.size)
+        alice_json = json['students'][0]
+        expect(alice_json['name']).to eq(alice.name)
+        expect(alice_json['activity_session_count']).to eq(1) # 1 activity session for Alice
+        expect(alice_json['proficient_count']).to eq(1)
+        expect(alice_json['not_proficient_count']).to eq(0)
       end
 
       it 'fetches additional data for the filters' do

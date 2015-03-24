@@ -9,10 +9,10 @@ EC.TablePaginationMixin = {
 
   getInitialState: function() {
     return {
-      currentPage: 1    
+      currentPage: 1
     };
   },
-  
+
   applyPagination: function(results, page) {
     // Ported from Stage1.determineCurrentPageSearchResults
     var start = (this.state.currentPage - 1) * this.props.resultsPerPage;
@@ -32,7 +32,7 @@ EC.TablePaginationMixin = {
     this.setState(newState);
   },
 
-  resetPagination: function() {
-    this.setState({currentPage: 1});
+  resetPagination: function(next) {
+    this.setState({currentPage: 1}, next);
   },
 };

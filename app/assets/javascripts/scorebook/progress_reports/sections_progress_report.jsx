@@ -58,7 +58,6 @@ EC.SectionsProgressReport = React.createClass({
     return (
       <EC.ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={false}
-                         clientSideFiltering={false}
                          sourceUrl={'/teachers/progress_reports/sections'}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'sections'} />

@@ -28,4 +28,8 @@ class Topic < ActiveRecord::Base
     ).group("topics.id")
     .order("topics.name asc")
   end
+
+  def name_prefix
+    name.split(' ').first
+  end
 end

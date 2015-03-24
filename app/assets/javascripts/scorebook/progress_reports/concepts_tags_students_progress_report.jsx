@@ -59,7 +59,6 @@ EC.ConceptTagsStudentsProgressReport = React.createClass({
     return (
       <EC.ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={false}
-                         clientSideFiltering={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'students'}

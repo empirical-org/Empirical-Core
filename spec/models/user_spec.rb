@@ -585,14 +585,12 @@ describe User, :type => :model do
   end
 
   describe 'getting users for the progress reports' do
-    include ProgressReportHelper
+
     let!(:teacher) { FactoryGirl.create(:teacher) }
-    let(:section_ids) { [@sections[0].id, @sections[1].id] }
+    let(:section_ids) { [sections[0].id, sections[1].id] }
 
     describe 'for the concepts-based progress reports' do
-      before do
-        setup_concepts_progress_report
-      end
+      include_context 'Concept Progress Report'
 
       subject { User.for_concept_tag_progress_report(teacher, filters).to_a }
 
@@ -605,7 +603,7 @@ describe User, :type => :model do
       end
 
       context 'classrooms' do
-        let(:filters) { {classroom_id: @classroom.id} }
+        let(:filters) { {classroom_id: classroom.id} }
 
         it 'can retrieve users based on classroom_id' do
           expect(subject.size).to eq(1)
@@ -613,7 +611,7 @@ describe User, :type => :model do
       end
 
       context 'units' do
-        let(:filters) { {unit_id: @unit.id} }
+        let(:filters) { {unit_id: unit.id} }
 
         it 'can retrieve users based on unit_id' do
           expect(subject.size).to eq(1)
@@ -622,9 +620,7 @@ describe User, :type => :model do
     end
 
     describe 'for the standards-based progress reports' do
-      before do
-        setup_sections_progress_report
-      end
+      include_context 'Section Progress Report'
 
       subject { User.for_standards_progress_report(teacher, filters).to_a }
 
@@ -647,7 +643,7 @@ describe User, :type => :model do
       end
 
       context 'classrooms' do
-        let(:filters) { {classroom_id: @classrooms.first.id} }
+        let(:filters) { {classroom_id: classrooms.first.id} }
 
         it 'can retrieve users based on classroom_id' do
           expect(subject.size).to eq(1)
@@ -655,7 +651,7 @@ describe User, :type => :model do
       end
 
       context 'units' do
-        let(:filters) { {unit_id: @units.first.id} }
+        let(:filters) { {unit_id: units.first.id} }
 
         it 'can retrieve users based on unit_id' do
           expect(subject.size).to eq(1)
@@ -663,7 +659,7 @@ describe User, :type => :model do
       end
 
       context 'a set of topics' do
-        let(:filters) { {section_id: section_ids, topic_id: @topics.map {|t| t.id} } }
+        let(:filters) { {section_id: section_ids, topic_id: topics.map {|t| t.id} } }
 
         it 'can retrieve users based on a set of topics' do
           expect(subject.size).to eq(2)
@@ -671,7 +667,7 @@ describe User, :type => :model do
       end
 
       context 'a single topic' do
-        let(:filters) { {section_id: section_ids, topic_id: @topics.first.id } }
+        let(:filters) { {section_id: section_ids, topic_id: topics.first.id } }
 
         it 'can retrieve users based on a single topic' do
           expect(subject.size).to eq(1)
@@ -682,7 +678,7 @@ describe User, :type => :model do
         let(:filters) { {} }
 
         it 'can retrieve users based on no filters' do
-          expect(subject.size).to eq(@students.size)
+          expect(subject.size).to eq(students.size)
         end
       end
     end
@@ -692,8 +688,8 @@ describe User, :type => :model do
   it 'disallows regular assignment of roles that are restricted'
 
 
-  describe 'teacher concern' do 
-    describe '#scorebook_scores' do 
+  describe 'teacher concern' do
+    describe '#scorebook_scores' do
       let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
       let!(:student) {FactoryGirl.create(:user, role: 'student')}
       let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher, students: [student])}
@@ -713,14 +709,14 @@ describe User, :type => :model do
       let!(:activity_session2) {FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity)}
 
 
-      it 'does not return a completed activities that is not a final scores' do 
+      it 'does not return a completed activities that is not a final scores' do
         all, is_last_page = teacher.scorebook_scores
         x = all.find{|x| x[:user] == student}
         y = x[:results].find{|y| y[:id] == activity_session2.id}
         expect(y).to be_nil
       end
 
-      it 'does return a completed activity that is a final score' do 
+      it 'does return a completed activity that is a final score' do
         all, is_last_page = teacher.scorebook_scores
         x = all.find{|x| x[:user] == student}
         y = x[:results].find{|y| y[:id] == activity_session1.id}
