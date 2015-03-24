@@ -1,17 +1,18 @@
+"use strict";
 EC.Stage2 = React.createClass({
+
   getInitialState: function() {
     return {
       classroomsAndTheirStudents: [],
-      buttonDisabled: false     
+      buttonDisabled: false
     };
   },
+
   finish: function () {
     if (!this.state.buttonDisabled) {
       this.setState({buttonDisabled: true});
       this.props.finish();
     }
-    
-    
   },
 
   componentDidMount: function() {
@@ -20,16 +21,17 @@ EC.Stage2 = React.createClass({
 
   fetchClassrooms: function() {
     $.ajax({
-      url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',  
+      url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
       context: this,
       success: function (data) {
         this.fetchClassroomsSuccess(data);
-      },  
+      },
       error: function () {
         console.log('error fetching classrooms');
       }
     });
   },
+
   determineAssignButtonClass: function () {
     if (!this.state.buttonDisabled) {
       return this.props.determineAssignButtonClass();
@@ -38,6 +40,7 @@ EC.Stage2 = React.createClass({
     }
 
   },
+
   determineButtonText: function () {
     if (!this.state.buttonDisabled) {
       return "Assign";
@@ -52,15 +55,15 @@ EC.Stage2 = React.createClass({
 
   render: function() {
     var classroomList = this.state.classroomsAndTheirStudents.map(function(entry) {
-      return <EC.Classroom classroom={entry.classroom} 
-                           students={entry.students} 
-                           toggleClassroomSelection={this.props.toggleClassroomSelection} 
+      return <EC.Classroom classroom={entry.classroom}
+                           students={entry.students}
+                           toggleClassroomSelection={this.props.toggleClassroomSelection}
                            toggleStudentSelection={this.props.toggleStudentSelection} />;
     }, this);
 
     var dueDateList = this.props.selectedActivities.map(function(activity) {
-      return <EC.ActivityDueDate activity={activity} 
-                                 toggleActivitySelection={this.props.toggleActivitySelection} 
+      return <EC.ActivityDueDate activity={activity}
+                                 toggleActivitySelection={this.props.toggleActivitySelection}
                                  assignActivityDueDate={this.props.assignActivityDueDate}/>;
     }, this);
 

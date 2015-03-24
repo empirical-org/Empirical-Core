@@ -74,13 +74,7 @@ feature 'Create-a-Class page' do
 
       describe 'selecting the Class Manager' do
         before(:each) { create_classroom_page.select_class_manager }
-
-        it "navigates to 'Manage Classes'" do
-          # given the other tabs navigate to the Create-a-Class page,
-          # this behavior seems odd
-
-          expect(current_path).to eq Teachers::ClassManagerPage.path
-        end
+        include_examples :navigates_to_create_class
       end
     end
 
