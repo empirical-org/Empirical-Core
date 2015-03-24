@@ -9,11 +9,19 @@
 		}
 	}
 
-
 	.dropdown-menu {
 		margin-left: 15px;
 	}
 
-
+	.date-range-filter {
+		padding-left: 15px;
+		.datepicker-container {
+			input {
+				height: 40px;
+				width: 100%;
+				padding-left: 25px;
+				background-position: 90% 45%;
+			}
+		}
+	}
 }
-
