@@ -11,7 +11,7 @@ shared_context 'Section Progress Report' do
       students << student
       classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [student])
       classrooms << classroom
-      section = FactoryGirl.create(:section)
+      section = FactoryGirl.create(:section, name: "Progress Report Section #{i}")
       sections << section
       unit = FactoryGirl.create(:unit)
       units << unit
