@@ -34,6 +34,10 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
     object.time_spent
   end
 
+  def percentage
+    object.percentage_as_decimal
+  end
+
   def display_score
     object.percentage_as_percent
   end
