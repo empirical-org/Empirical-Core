@@ -38,13 +38,11 @@ EC.ClassroomActivity = React.createClass({
 				<div className="cell col-md-1">
 					<div className={"pull-left icon-gray icon-wrapper  " + this.props.data.activity.classification.scorebook_icon_class} />
 				</div>
-
 				<div className="cell col-md-8" >
 					<a href={this.props.data.activity.anonymous_path} target="_new">
 						{this.props.data.activity.name}
 					</a>
 				</div>
-
 				<div className="cell col-md-2">
 					<input type="text" value={this.props.data.formatted_due_date} ref="dueDate" className="datepicker-input" placeholder="mm/dd/yyyy" />
 					<input type="text"  className="railsFormatDate" id={"railsFormatDate" + this.props.data.id} ref="railsFormatDate" />
@@ -57,9 +55,4 @@ EC.ClassroomActivity = React.createClass({
 
 		);
 	}
-
 });
-
-
-
-
