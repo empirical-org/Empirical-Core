@@ -79,7 +79,6 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def destroy
-    puts 'in destroy'
     (Unit.find params[:id]).destroy
     render json: {}
   end
