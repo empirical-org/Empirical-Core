@@ -15,30 +15,12 @@ EC.Stage2 = React.createClass({
     }
   },
 
-  componentDidMount: function() {
-    this.fetchClassrooms();
-  },
-
-  fetchClassrooms: function() {
-    $.ajax({
-      url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
-      context: this,
-      success: function (data) {
-        this.fetchClassroomsSuccess(data);
-      },
-      error: function () {
-        console.log('error fetching classrooms');
-      }
-    });
-  },
-
   determineAssignButtonClass: function () {
     if (!this.state.buttonDisabled) {
       return this.props.determineAssignButtonClass();
     } else {
       return "button-grey pull-right";
     }
-
   },
 
   determineButtonText: function () {
@@ -49,14 +31,11 @@ EC.Stage2 = React.createClass({
     }
   },
 
-  fetchClassroomsSuccess: function(data) {
-    this.setState({classroomsAndTheirStudents: data.classrooms_and_their_students});
-  },
-
   render: function() {
-    var classroomList = this.state.classroomsAndTheirStudents.map(function(entry) {
+    var classroomList = this.props.classrooms.map(function(entry) {
       return <EC.Classroom classroom={entry.classroom}
                            students={entry.students}
+                           allSelected={entry.allSelected}
                            toggleClassroomSelection={this.props.toggleClassroomSelection}
                            toggleStudentSelection={this.props.toggleStudentSelection} />;
     }, this);
@@ -73,7 +52,6 @@ EC.Stage2 = React.createClass({
           <h1 className="section-header">Select Students</h1>
           {classroomList}
         </section>
-
         <section className="assign-dates">
           <h1 className="section-header">
             Assign Dates for {this.props.unitName}
