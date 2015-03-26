@@ -15,7 +15,7 @@ EC.ExportCsvModal = React.createClass({
               <h4 className="modal-title"><strong>Your reports are on the way!</strong></h4>
             </div>
             <div className="modal-body">
-              <p>Your Quill Progress Report is being emailed to you. It should arrive within the next five minutes.</p>
+              <p>Your Quill Progress Report is on its way! This table is being emailed to you as a CSV spreadsheet, which can be opened with Google Sheets or Excel. It should arrive within the next five minutes.</p>
               <p>Please Check: <strong>{this.props.email}</strong></p>
             </div>
             <div className="modal-footer">
