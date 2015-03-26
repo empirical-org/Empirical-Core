@@ -15,6 +15,7 @@ class Teachers::ProgressReports::ActivitySessionsController < ApplicationControl
         activity_sessions: activity_session_json,
         classrooms: classrooms,
         students: students,
+        teacher: UserWithEmailSerializer.new(current_user).as_json(root: false),
         units: units
       }
     end

@@ -3,7 +3,8 @@
 EC.ExportCsv = React.createClass({
   propTypes: {
     exportType: React.PropTypes.string.isRequired,
-    filters: React.PropTypes.object.isRequired
+    filters: React.PropTypes.object.isRequired,
+    teacher: React.PropTypes.object.isRequired
   },
 
   getDefaultProps: function() {
@@ -21,15 +22,25 @@ EC.ExportCsv = React.createClass({
           filters: this.props.filters
         }
       },
+      context: this,
       dataType: 'json',
       type: 'POST',
-      success: function onSuccess(data) {}
+      success: function onSuccess(data) {
+        this.openModal();
+      }
     });
+  },
+
+  openModal: function() {
+    $(this.refs.exportModal.getDOMNode()).modal();
   },
 
   render: function() {
     return (
-      <div className="export-csv"><a onClick={this.createExport}>Export Csv</a></div>
+      <div className="export-csv">
+        <EC.ExportCsvModal email={this.props.teacher.email} ref="exportModal" />
+        <a onClick={this.createExport}>Export Csv</a>
+      </div>
     );
   }
 });
