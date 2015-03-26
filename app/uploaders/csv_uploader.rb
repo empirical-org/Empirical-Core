@@ -2,6 +2,9 @@
 
 class CsvUploader < CarrierWave::Uploader::Base
 
+  fog_public false
+  fog_authenticated_url_expiration 2.days
+
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
