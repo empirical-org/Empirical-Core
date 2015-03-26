@@ -4,6 +4,7 @@ class CsvUploader < CarrierWave::Uploader::Base
 
   fog_public false
   fog_authenticated_url_expiration 2.days
+  fog_directory ENV.fetch('PROGRESS_REPORT_FOG_DIRECTORY')
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
