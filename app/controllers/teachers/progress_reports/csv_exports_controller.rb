@@ -1,6 +1,4 @@
-class Teachers::ProgressReports::CsvExportsController < ApplicationController
-  before_action :authorize!
-
+class Teachers::ProgressReports::CsvExportsController < Teachers::ProgressReportsController
   def create
     csv_export = CsvExport.new(export_params)
     csv_export.teacher_id = current_user.id
@@ -17,11 +15,6 @@ class Teachers::ProgressReports::CsvExportsController < ApplicationController
   end
 
   private
-
-  def authorize!
-    return if current_user.try(:teacher?)
-    render nothing: true, status: :unauthorized
-  end
 
   def export_params
     params.require(:csv_export).permit(:export_type, :filters => [:student_id, :classroom_id, :unit_id])

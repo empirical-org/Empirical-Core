@@ -38,6 +38,11 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
         session[:user_id] = teacher.id
       end
 
+      it 'sends a Vary: Accept header (for Chrome caching issues)' do
+        xhr :get, :index
+        expect(response.headers['Vary']).to eq('Accept')
+      end
+
       it 'fetches a list of activity sessions' do
         xhr :get, :index
         expect(response.status).to eq(200)

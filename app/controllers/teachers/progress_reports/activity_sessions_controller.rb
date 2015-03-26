@@ -1,7 +1,4 @@
-class Teachers::ProgressReports::ActivitySessionsController < ApplicationController
-  before_action :authorize!
-  layout 'scorebook'
-
+class Teachers::ProgressReports::ActivitySessionsController < Teachers::ProgressReportsController
   def index
     if request.xhr?
       activity_sessions = ActivitySession.for_standalone_progress_report(current_user, params)
@@ -19,12 +16,5 @@ class Teachers::ProgressReports::ActivitySessionsController < ApplicationControl
         units: units
       }
     end
-  end
-
-  private
-
-  def authorize!
-    return if current_user.try(:teacher?)
-    render nothing: true, status: :unauthorized
   end
 end

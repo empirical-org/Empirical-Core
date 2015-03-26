@@ -43,4 +43,10 @@ class ApplicationController < ActionController::Base
     # FIXME: ??
     # sign_in(User.create_visitor)
   end
+
+  protected
+
+  def set_vary_header
+     response.headers['Vary'] = 'Accept'
+  end
 end

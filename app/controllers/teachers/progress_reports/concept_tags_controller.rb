@@ -1,7 +1,4 @@
-class Teachers::ProgressReports::ConceptTagsController < ApplicationController
-  before_action :authorize!
-  layout 'scorebook'
-
+class Teachers::ProgressReports::ConceptTagsController < Teachers::ProgressReportsController
   def index
     if request.xhr?
       concept_tags = ConceptTag.for_progress_report(current_user, params)
@@ -24,12 +21,5 @@ class Teachers::ProgressReports::ConceptTagsController < ApplicationController
     else
       @concept_category = ConceptCategory.find(params[:concept_category_id])
     end
-  end
-
-  private
-
-  def authorize!
-    return if current_user.try(:teacher?)
-    render nothing: true, status: :unauthorized
   end
 end
