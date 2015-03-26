@@ -2,7 +2,7 @@
 
 EC.ExportCsvModal = React.createClass({
   propTypes: {
-    email: React.PropTypes.string.isRequired
+    email: React.PropTypes.string
   },
 
   render: function() {
