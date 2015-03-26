@@ -1,7 +1,4 @@
-class Teachers::ProgressReports::TopicsStudentsController < ApplicationController
-  before_action :authorize!
-  layout 'scorebook'
-
+class Teachers::ProgressReports::TopicsStudentsController < Teachers::ProgressReportsController
   def index
     if request.xhr?
       render json: json_payload
@@ -20,10 +17,5 @@ class Teachers::ProgressReports::TopicsStudentsController < ApplicationControlle
       units: Unit.for_standards_progress_report(current_user, params),
       topic: Topic.for_progress_report(current_user, params).first
     }
-  end
-
-  def authorize!
-    return if current_user.try(:teacher?)
-    render nothing: true, status: :unauthorized
   end
 end

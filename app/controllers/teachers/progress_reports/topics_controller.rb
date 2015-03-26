@@ -1,7 +1,4 @@
-class Teachers::ProgressReports::TopicsController < ApplicationController
-  before_action :authorize!
-  layout 'scorebook'
-
+class Teachers::ProgressReports::TopicsController < Teachers::ProgressReportsController
   def index
     if request.xhr?
       section = Section.for_progress_report(current_user, params).first
@@ -24,12 +21,5 @@ class Teachers::ProgressReports::TopicsController < ApplicationController
     else
       @section = Section.find(params[:section_id])
     end
-  end
-
-  private
-
-  def authorize!
-    return if current_user.try(:teacher?)
-    render nothing: true, status: :unauthorized
   end
 end

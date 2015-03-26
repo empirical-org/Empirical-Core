@@ -1,7 +1,4 @@
-class Teachers::ProgressReports::ConceptCategoriesController < ApplicationController
-  before_action :authorize!
-  layout 'scorebook'
-
+class Teachers::ProgressReports::ConceptCategoriesController < Teachers::ProgressReportsController
   def index
     if request.xhr?
       filters = params
@@ -21,12 +18,5 @@ class Teachers::ProgressReports::ConceptCategoriesController < ApplicationContro
         classrooms: classrooms
       }
     end
-  end
-
-  private
-
-  def authorize!
-    return if current_user.try(:teacher?)
-    render nothing: true, status: :unauthorized
   end
 end
