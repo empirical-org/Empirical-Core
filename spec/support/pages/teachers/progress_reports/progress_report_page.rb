@@ -1,3 +1,4 @@
+require_relative '../../page'
 require_relative '../teachers'
 
 module Teachers
