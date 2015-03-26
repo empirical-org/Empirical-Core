@@ -1,6 +1,12 @@
 # encoding: utf-8
 
 class CsvUploader < CarrierWave::Uploader::Base
+  fog_authenticated_url_expiration 2.days
+  fog_directory ENV.fetch('PROGRESS_REPORT_FOG_DIRECTORY')
+
+  def fog_public
+    false
+  end
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
