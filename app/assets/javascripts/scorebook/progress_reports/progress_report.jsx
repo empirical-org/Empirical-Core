@@ -17,6 +17,8 @@ EC.ProgressReport = React.createClass({
 
   getInitialState: function() {
     return {
+      loading: false,
+
       results: [],
       classroomFilters: [],
       studentFilters: [],
@@ -78,8 +80,10 @@ EC.ProgressReport = React.createClass({
   },
 
   fetchData: function() {
+    this.setState({loading: true});
     $.get(this.props.sourceUrl, this.state.currentFilters, function onSuccess(data) {
       this.setState({
+        loading: false,
         results: data[this.props.jsonResultsKey],
         teacher: data.teacher,
         classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
@@ -95,7 +99,7 @@ EC.ProgressReport = React.createClass({
   },
 
   render: function() {
-    var pagination, csvExport;
+    var pagination, csvExport, mainSection;
     var filteredResults = this.getFilteredResults();
     if (this.props.pagination) {
       var numberOfPages = this.calculateNumberOfPages(filteredResults);
@@ -111,6 +115,11 @@ EC.ProgressReport = React.createClass({
                                 filters={this.state.currentFilters}
                                 teacher={this.state.teacher} />;
     }
+    if (this.state.loading) {
+      mainSection = <EC.LoadingIndicator />;
+    } else {
+      mainSection = <EC.SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.sortResults} />;
+    }
 
     return (
       <div>
@@ -124,7 +133,7 @@ EC.ProgressReport = React.createClass({
                                   selectUnit={this.selectUnit}
                                   selectedUnit={this.state.selectedUnit} />
         {csvExport}
-        <EC.SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.sortResults} />
+        {mainSection}
         {pagination}
       </div>
     );
