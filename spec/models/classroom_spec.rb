@@ -46,7 +46,7 @@ describe Classroom, :type => :model do
     it "must have a unique name" do
       other_classroom = FactoryGirl.build(:classroom, teacher_id: @classroom.teacher_id, name: @classroom.name)
       other_classroom.save
-      expect(other_classroom.errors[:name]).to include("A classroom called #{@classroom.name} already exists. Please rename this classroom to a different name.")
+      expect(other_classroom.errors).to include(:name)
     end
   end
 
