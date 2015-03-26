@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe CsvExportMailer, type: :mailer do
+  include ERB::Util
+
   describe 'csv_download' do
     let(:csv_export) { FactoryGirl.create(:csv_export, teacher: teacher) }
     let(:teacher) { FactoryGirl.create(:teacher) }
@@ -23,7 +25,7 @@ describe CsvExportMailer, type: :mailer do
     end
 
     it 'contains the URL for the CSV' do
-      expect(mail.body.encoded).to match(csv_export.csv_file.url)
+      expect(mail.body.encoded).to include(h(csv_export.csv_file.file.authenticated_url))
     end
   end
 end
