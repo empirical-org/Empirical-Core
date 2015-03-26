@@ -28,7 +28,8 @@ describe CsvExport, :type => :model do
       it 'generates a CSV and uploads it to carrierwave' do
         csv_export.export!
         # Bucket should have "dev" suffix in test environment
-        expect(csv_export.csv_file.url).to match(/dev\/uploads\/csv_export\/csv_file\/progress_report.*\.csv/)
+        # Actual filename is tested in CsvUploader spec
+        expect(csv_export.csv_file.url).to match(/dev\/uploads\/csv_export\/csv_file\/.*\.csv/)
       end
     end
 
