@@ -21,6 +21,7 @@ EC.ProgressReport = React.createClass({
       classroomFilters: [],
       studentFilters: [],
       unitFilters: [],
+      teacher: {},
 
       selectedClassroom: {name: 'All Classrooms', value: ''},
       selectedStudent: {name: 'All Students', value: ''},
@@ -80,6 +81,7 @@ EC.ProgressReport = React.createClass({
     $.get(this.props.sourceUrl, this.state.currentFilters, function onSuccess(data) {
       this.setState({
         results: data[this.props.jsonResultsKey],
+        teacher: data.teacher,
         classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
         unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
@@ -105,7 +107,9 @@ EC.ProgressReport = React.createClass({
     var visibleResults = this.getVisibleResults(filteredResults);
 
     if (this.props.exportCsv) {
-      csvExport = <EC.ExportCsv exportType={this.props.exportCsv} filters={this.state.currentFilters} />;
+      csvExport = <EC.ExportCsv exportType={this.props.exportCsv}
+                                filters={this.state.currentFilters}
+                                teacher={this.state.teacher} />;
     }
 
     return (
