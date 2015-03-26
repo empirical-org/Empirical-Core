@@ -95,7 +95,7 @@ feature 'Create-a-Class page' do
         }.not_to change { Classroom.count }
 
         expect(create_classroom_page).to have_content(
-          "A classroom called #{same_class_name} already exists"
+          "Your Class Name has already been taken"
         )
       end
     end
