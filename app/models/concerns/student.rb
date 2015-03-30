@@ -10,7 +10,7 @@ module Student
 
     after_create :assign_classroom_activities
     after_update :assign_classroom_activities
-    
+
     def unfinished_activities classroom
       classroom.activities - finished_activities(classroom)
     end
@@ -27,15 +27,16 @@ module Student
     def percentages_by_classification(unit = nil)
 
       if unit.nil?
-        sessions = self.activity_sessions.completed
+        sessions = self.activity_sessions.where(is_final_score: true).completed
       else
         sessions = ActivitySession.joins(:classroom_activity)
+                  .where(is_final_score: true)
                   .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                   .select("activity_sessions.*").completed
-      
+
       end
 
-      # we only want to show one session per classroom activity (highest score), there may be multiple bc of retries : 
+      # we only want to show one session per classroom activity (highest score), there may be multiple bc of retries :
       arr = []
       x1 = sessions.to_a.group_by{|as| as.classroom_activity_id}
       x1.each do |key, ca_group|
@@ -56,7 +57,7 @@ module Student
 
 
     def incomplete_activity_sessions_by_classification(unit = nil)
-      
+
       if unit.nil?
         sessions = self.activity_sessions.incomplete
       else
