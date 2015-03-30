@@ -51,6 +51,11 @@ shared_examples_for "Progress Report" do
         expect(response.status).to eq(200)
         expect(json).to_not be_nil
       end
+
+      it 'renders the correct number of results in the JSON' do
+        subject
+        expect(json[result_key].size).to eq(expected_result_count)
+      end
     end
   end
 end
