@@ -82,14 +82,12 @@ describe Classroom, :type => :model do
   end
 
   describe "getting classrooms for the progress report" do
-
-
     let!(:teacher) { FactoryGirl.create(:teacher) }
     let(:section_ids) { [sections[0].id, sections[1].id] }
     let(:filters) { {} }
     include_context 'Section Progress Report'
 
-    subject { Classroom.for_standards_progress_report(teacher, filters).to_a }
+    subject { Classroom.for_standards_report(teacher, filters).to_a }
 
     it "retrieves aggregated classroom data" do
       classrooms = subject

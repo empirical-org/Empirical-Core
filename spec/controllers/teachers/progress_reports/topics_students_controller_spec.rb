@@ -24,8 +24,8 @@ describe Teachers::ProgressReports::TopicsStudentsController, :type => :controll
         alice_json = json['students'][0]
         expect(alice_json['name']).to eq(alice.name)
         expect(alice_json['activity_session_count']).to eq(1) # 1 activity session for Alice
-        expect(alice_json['proficient_count']).to eq(1)
-        expect(alice_json['not_proficient_count']).to eq(0)
+        expect(alice_json['proficient_count']).to eq(0)
+        expect(alice_json['not_proficient_count']).to eq(1)
       end
 
       it 'fetches additional data for the filters' do

@@ -43,6 +43,7 @@ class ActivitySession < ActiveRecord::Base
     with_filters(query, filters)
   end
 
+  # TODO: Remove me. New report retrieves all sessions, not just proficient ones.
   # Used as a CTE (common table expression) by other models to get progress report data.
   def self.proficient_sessions_for_progress_report(teacher, filters)
     query = select(<<-SELECT
@@ -70,7 +71,7 @@ class ActivitySession < ActiveRecord::Base
     end
 
     if filters[:unit_id].present?
-      query = query.where("classroom_activities.unit_id = ?", filters[:unit_id])
+      query = query.joins(:classroom_activity).where("classroom_activities.unit_id = ?", filters[:unit_id])
     end
 
     if filters[:section_id].present?
@@ -82,6 +83,18 @@ class ActivitySession < ActiveRecord::Base
     end
 
     query
+  end
+
+  def self.for_standards_report(teacher, filters)
+    query = completed
+      .with_best_scores
+      .by_teacher(teacher)
+    query = with_filters(query, filters)
+    query
+  end
+
+  def self.with_best_scores
+    where(is_final_score: true)
   end
 
   def self.by_teacher(teacher)
