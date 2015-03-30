@@ -1,0 +1,24 @@
+article.simple-rounded-box.chapter-levels-page
+  = form_for [:cms, TopicCategory.new] do |f|
+    table.table
+      thead
+        th.name-column Name
+        th.actions-column
+
+      - @topic_categories.each do |topic_category|
+        tr
+          td= topic_category.name
+          td.actions-column
+            = link_to 'Edit', [:edit, :cms, topic_category]
+            span &nbsp;
+            - if topic_category.topics.empty?
+              = link_to 'Delete', [:cms, topic_category], confirm: 'Are you sure?', method: :delete, remote: true, class: 'js-delete-link'
+
+      td= f.text_field :name
+      td.actions-column= f.submit 'Create', class: 'btn btn-primary btn-small'
+
+
+javascript:
+  $('.js-delete-link').on('ajax:success', function (e) {
+    $(e.target).closest('tr').remove();
+  });
