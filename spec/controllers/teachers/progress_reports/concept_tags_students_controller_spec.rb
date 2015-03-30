@@ -10,6 +10,8 @@ describe Teachers::ProgressReports::ConceptTagsStudentsController, :type => :con
   include_context 'Student Concept Progress Report'
   it_behaves_like 'Progress Report' do
     let(:default_filters) { basic_filters }
+    let(:result_key) { 'students' }
+    let(:expected_result_count) { visible_students.size }
   end
 
   describe 'when logged in' do
@@ -22,7 +24,6 @@ describe Teachers::ProgressReports::ConceptTagsStudentsController, :type => :con
 
       it 'fetches aggregated students data' do
         subject
-        expect(json['students'].size).to eq(visible_students.size)
         alice_json = json['students'][0]
         expect(alice_json['name']).to eq(alice.name)
         expect(alice_json['total_result_count'].to_i).to eq(alice_session.concept_tag_results.size)

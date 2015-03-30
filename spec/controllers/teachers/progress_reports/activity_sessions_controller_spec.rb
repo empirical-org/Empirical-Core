@@ -3,7 +3,10 @@ require 'rails_helper'
 describe Teachers::ProgressReports::ActivitySessionsController, :type => :controller do
   let(:teacher) { FactoryGirl.create(:teacher) }
   include_context 'Topic Progress Report'
-  it_behaves_like 'Progress Report'
+  it_behaves_like 'Progress Report' do
+    let(:result_key) { 'activity_sessions' }
+    let(:expected_result_count) { visible_activity_sessions.size }
+  end
 
   context 'XHR GET #index' do
     context 'when logged in' do
@@ -13,9 +16,8 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
         session[:user_id] = teacher.id
       end
 
-      it 'fetches a list of activity sessions' do
+      it 'includes the serialized data for activity sessions' do
         xhr :get, :index
-        expect(json['activity_sessions'].size).to eq(visible_activity_sessions.size)
         expect(json['activity_sessions'][0]['activity_classification_name']).to_not be_nil
       end
 

@@ -3,7 +3,10 @@ require 'rails_helper'
 describe Teachers::ProgressReports::ConceptCategoriesController, :type => :controller do
   let!(:teacher) { FactoryGirl.create(:teacher) }
   include_context 'Concept Progress Report'
-  it_behaves_like 'Progress Report'
+  it_behaves_like 'Progress Report' do
+    let(:result_key) { 'concept_categories' }
+    let(:expected_result_count) { visible_categories.size }
+  end
 
   context 'XHR GET #index' do
     context 'when logged in' do
@@ -13,9 +16,8 @@ describe Teachers::ProgressReports::ConceptCategoriesController, :type => :contr
         session[:user_id] = teacher.id
       end
 
-      it 'fetches aggregated concept category data' do
+      it 'includes links to concept tag in the JSON' do
         subject
-        expect(json['concept_categories'].size).to eq(visible_categories.size)
         expect(json['concept_categories'][0]['concept_tag_href'])
           .to eq(teachers_progress_reports_concept_category_concept_tags_path(concept_category_id: grammar_category.id))
       end

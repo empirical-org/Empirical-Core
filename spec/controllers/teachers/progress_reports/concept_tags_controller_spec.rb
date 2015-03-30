@@ -9,6 +9,8 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
   include_context 'Concept Progress Report'
   it_behaves_like 'Progress Report' do
     let(:default_filters) { {concept_category_id: writing_category} }
+    let(:result_key) { 'concept_tags' }
+    let(:expected_result_count) { writing_category_tags.size }
   end
 
   context 'XHR GET #index' do
@@ -23,11 +25,13 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
         session[:user_id] = teacher.id
       end
 
-      it 'fetches aggregated concept tags data' do
+      it 'includes the concept tag name in the JSON response' do
         subject
-        expect(response.status).to eq(200)
-        expect(json['concept_tags'].size).to eq(writing_category_tags.size)
         expect(json['concept_tags'][0]['concept_tag_name']).to eq(writing_tag.name)
+      end
+
+      it 'includes links to students in the JSON response' do
+        subject
         expect(json['concept_tags'][0]['students_href'])
           .to eq(teachers_progress_reports_concept_category_concept_tag_students_path(
             concept_category_id: writing_category.id,

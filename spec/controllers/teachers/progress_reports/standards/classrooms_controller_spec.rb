@@ -4,5 +4,8 @@ describe Teachers::ProgressReports::Standards::ClassroomsController, type: :cont
   render_views
 
   let!(:teacher) { FactoryGirl.create(:teacher) }
-  it_behaves_like 'Progress Report'
+  it_behaves_like 'Progress Report' do
+    let(:result_key) { 'classrooms' }
+    let(:expected_result_count) { 0 }
+  end
 end

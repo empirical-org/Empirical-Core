@@ -1,15 +1,16 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::SectionsController, :type => :controller do
-  render_views
-
   let!(:teacher) { FactoryGirl.create(:teacher) }
   let!(:student) { FactoryGirl.create(:student) }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher, students: [student]) }
   let!(:section) { FactoryGirl.create(:section) }
   let!(:unit) { FactoryGirl.create(:unit) }
 
-  it_behaves_like 'Progress Report'
+  it_behaves_like 'Progress Report' do
+    let(:result_key) { 'sections' }
+    let(:expected_result_count) { 1 }
+  end
 
   before do
     ActivitySession.destroy_all
@@ -41,7 +42,6 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
 
       it 'fetches aggregated section data' do
         xhr :get, :index
-        expect(json['sections'].size).to eq(1)
         expect(json['sections'][0]['topics_count']).to eq(3)
         expect(json['sections'][0]['section_link']).to eq(teachers_progress_reports_section_topics_path(section.id))
         expect(json['sections'][0]['total_time_spent']).to eq(45000)
