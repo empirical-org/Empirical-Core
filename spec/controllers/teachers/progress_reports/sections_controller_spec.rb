@@ -9,6 +9,8 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
   let!(:section) { FactoryGirl.create(:section) }
   let!(:unit) { FactoryGirl.create(:unit) }
 
+  it_behaves_like 'Progress Report'
+
   before do
     ActivitySession.destroy_all
     3.times do |i|
@@ -29,23 +31,7 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
     end
   end
 
-  describe 'GET #index' do
-    before do
-      session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
-    end
-
-    it 'displays the html' do
-      get :index, {}
-      expect(response.status).to eq(200)
-    end
-  end
-
   context 'XHR GET #index' do
-    it 'requires a logged-in teacher' do
-      get :index
-      expect(response.status).to eq(401)
-    end
-
     context 'when logged in' do
       let(:json) { JSON.parse(response.body) }
 
@@ -55,7 +41,6 @@ describe Teachers::ProgressReports::SectionsController, :type => :controller do
 
       it 'fetches aggregated section data' do
         xhr :get, :index
-        expect(response.status).to eq(200)
         expect(json['sections'].size).to eq(1)
         expect(json['sections'][0]['topics_count']).to eq(3)
         expect(json['sections'][0]['section_link']).to eq(teachers_progress_reports_section_topics_path(section.id))

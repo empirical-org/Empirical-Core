@@ -1,20 +1,12 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::TopicsStudentsController, :type => :controller do
-
-  render_views
-
   let!(:teacher) { FactoryGirl.create(:teacher) }
   let(:json) { JSON.parse(response.body) }
 
-  describe 'when not logged in' do
-    # IDs don't matter for non-XHR get request
-    subject { get :index, {section_id: 123, topic_id: 123} }
-
-    it 'requires a logged-in teacher' do
-      subject
-      expect(response.status).to eq(401)
-    end
+  include_context 'Topic Progress Report'
+  it_behaves_like 'Progress Report' do
+    let(:default_filters) { {section_id: section.id, topic_id: first_grade_topic.id} }
   end
 
   describe 'when logged in' do
@@ -24,21 +16,11 @@ describe Teachers::ProgressReports::TopicsStudentsController, :type => :controll
 
     subject { get :index, {section_id: section.id, topic_id: first_grade_topic.id} }
 
-    include_context 'Topic Progress Report'
-
-    describe 'GET #index' do
-      it 'displays the html' do
-        subject
-        expect(response.status).to eq(200)
-      end
-    end
-
     context 'XHR GET #index' do
       subject { xhr :get, :index, {section_id: section.id, topic_id: first_grade_topic.id} }
 
       it 'fetches aggregated students data' do
         subject
-        expect(response.status).to eq(200)
         expect(json['students'].size).to eq(first_grade_topic_students.size)
         alice_json = json['students'][0]
         expect(alice_json['name']).to eq(alice.name)
