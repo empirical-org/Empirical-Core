@@ -89,15 +89,13 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def determine_if_final_score
-    return if (self.percentage.nil? or self.completed_at.nil?)
-    a = ActivitySession.find_by(activity: self.activity, user: self.user, is_final_score: true)
+    return true if (self.percentage.nil? or self.state != 'finished')
+    a = ActivitySession.find_by(classroom_activity: self.classroom_activity, user: self.user, is_final_score: true)
     if a.nil?
       self.update_columns is_final_score: true
-    else
-      if self.percentage > a.percentage
-        self.update_columns is_final_score: true
-        a.update_columns is_final_score: false
-      end
+    elsif self.percentage > a.percentage
+      self.update_columns is_final_score: true
+      a.update_columns is_final_score: false
     end
     # return true otherwise save will be prevented
     return true
