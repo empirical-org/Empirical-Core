@@ -8,7 +8,7 @@ shared_context 'Topic Progress Report' do
   # When filtered by empty_classroom, nothing displays
   # when filtered by empty_unit, nothing displays
   # When filtered by unassigned student, nothing displays
-  let!(:teacher) { FactoryGirl.create(:teacher, name: 'Teacher Person') }
+  let!(:teacher) { FactoryGirl.create(:teacher, name: 'Teacher Person', username: 'teacherperson') }
   let!(:section) { FactoryGirl.create(:section) }
   let!(:full_classroom) { FactoryGirl.create(:classroom, name: "full", teacher: teacher) }
   let!(:alice) { FactoryGirl.create(:student, name: "Alice", classroom: full_classroom) }
