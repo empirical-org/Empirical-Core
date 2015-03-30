@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::Standards::ClassroomsController, type: :controller do
-  render_views
-
-  let!(:teacher) { FactoryGirl.create(:teacher) }
+  include_context 'Topic Progress Report'
   it_behaves_like 'Progress Report' do
     let(:result_key) { 'classrooms' }
-    let(:expected_result_count) { 0 }
+    let(:expected_result_count) { visible_classrooms.size }
   end
 end
