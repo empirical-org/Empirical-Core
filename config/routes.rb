@@ -101,6 +101,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :sections
     resources :activity_classifications
     resources :topics
+    resources :topic_categories
 
     resources :activities, path: 'activity_type/:key/activities' do
       resource :data
