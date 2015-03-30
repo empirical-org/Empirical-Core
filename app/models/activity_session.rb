@@ -89,28 +89,16 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def determine_if_final_score
-    if self.percentage.present?
-      a = ActivitySession.where(activity_id: self.activity_id)
-                        .where(user: self.user)
-                        .where.not(id: self.id)
-                        .where.not(percentage: nil)
-
-      if a.empty?
+    return if (self.percentage.nil? or self.completed_at.nil?)
+    a = ActivitySession.find_by(activity: self.activity, user: self.user, is_final_score: true)
+    if a.nil?
+      self.update_columns is_final_score: true
+    else
+      if self.percentage > a.percentage
         self.update_columns is_final_score: true
-      else
-        max = a.max_by{|x| x.percentage }
-        if self.percentage > max.percentage
-          self.update_columns is_final_score: true
-          max.update_columns is_final_score: false
-        else
-          self.update_columns is_final_score: false
-          max.update_columns is_final_score: true
-        end
-        others = a.reject{|x| x==max}
-        others.each{|x| x.update_columns(is_final_score: false) }
+        a.update_columns is_final_score: false
       end
     end
-
     # return true otherwise save will be prevented
     return true
   end
@@ -280,8 +268,5 @@ class ActivitySession < ActiveRecord::Base
     self.completed_at ||= Time.current
     calculate_time_spent!
   end
-
-
-
 
 end
