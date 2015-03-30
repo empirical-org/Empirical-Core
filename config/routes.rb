@@ -37,6 +37,10 @@ EmpiricalGrammar::Application.routes.draw do
           resources :students, controller: "concept_tags_students", only: [:index]
         end
       end
+
+      namespace :standards do
+        resources :classrooms, only: [:index]
+      end
     end
 
     resources :classrooms do
