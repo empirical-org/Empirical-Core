@@ -45,6 +45,6 @@ private
   end
 
   def topic_params
-    params.require(:topic).permit(:name, :section_id)
+    params.require(:topic).permit(:name, :section_id, :topic_category_id)
   end
 end

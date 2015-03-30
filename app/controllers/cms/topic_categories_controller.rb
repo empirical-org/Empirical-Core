@@ -32,14 +32,13 @@ class CMS::TopicCategoriesController < ApplicationController
     head :ok
   end
 
-  private
+private
 
-    def set_topic_category
-      @topic_category = TopicCategory.find(params[:id])
-    end
+  def set_topic_category
+    @topic_category = TopicCategory.find(params[:id])
+  end
 
-    def topic_category_params
-      params.require(:topic_category).permit(:name)
-    end
-
+  def topic_category_params
+    params.require(:topic_category).permit(:name)
+  end
 end
