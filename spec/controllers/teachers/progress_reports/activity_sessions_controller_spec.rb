@@ -1,36 +1,11 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::ActivitySessionsController, :type => :controller do
-
-  render_views
-
   let(:teacher) { FactoryGirl.create(:teacher) }
-
-  describe 'GET #index' do
-    let(:classroom) { FactoryGirl.create(:classroom_with_one_student, teacher: teacher) }
-    let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, unit: classroom.units.first) }
-    let(:activity_session) { FactoryGirl.create(:activity_session,
-                                                state: 'finished',
-                                                classroom_activity: classroom_activity) }
-
-    before do
-      session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
-    end
-
-    it 'displays the html' do
-      get :index, {}
-      expect(response.status).to eq(200)
-    end
-  end
+  include_context 'Topic Progress Report'
+  it_behaves_like 'Progress Report'
 
   context 'XHR GET #index' do
-    include_context 'Topic Progress Report'
-
-    it 'requires a logged-in teacher' do
-      get :index
-      expect(response.status).to eq(401)
-    end
-
     context 'when logged in' do
       let(:json) { JSON.parse(response.body) }
 
@@ -38,14 +13,8 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
         session[:user_id] = teacher.id
       end
 
-      it 'sends a Vary: Accept header (for Chrome caching issues)' do
-        xhr :get, :index
-        expect(response.headers['Vary']).to eq('Accept')
-      end
-
       it 'fetches a list of activity sessions' do
         xhr :get, :index
-        expect(response.status).to eq(200)
         expect(json['activity_sessions'].size).to eq(visible_activity_sessions.size)
         expect(json['activity_sessions'][0]['activity_classification_name']).to_not be_nil
       end

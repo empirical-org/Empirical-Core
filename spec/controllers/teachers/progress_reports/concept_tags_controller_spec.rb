@@ -7,31 +7,13 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
   let!(:teacher) { FactoryGirl.create(:teacher) }
 
   include_context 'Concept Progress Report'
-
-  describe 'GET #index' do
-    subject do
-      get :index, {concept_category_id: writing_category}
-    end
-
-    before do
-      session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
-    end
-
-    it 'displays the html' do
-      subject
-      expect(response.status).to eq(200)
-      expect(assigns(:concept_category)).to be_present
-    end
+  it_behaves_like 'Progress Report' do
+    let(:default_filters) { {concept_category_id: writing_category} }
   end
 
   context 'XHR GET #index' do
     subject do
       xhr :get, :index, {concept_category_id: writing_category}
-    end
-
-    it 'requires a logged-in teacher' do
-      subject
-      expect(response.status).to eq(401)
     end
 
     context 'when logged in' do

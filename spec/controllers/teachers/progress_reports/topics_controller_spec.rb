@@ -1,31 +1,14 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::TopicsController, :type => :controller do
-
-  render_views
-
   let!(:teacher) { FactoryGirl.create(:teacher) }
 
   include_context 'Topic Progress Report'
-
-  describe 'GET #index' do
-    before do
-      session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
-    end
-
-    it 'displays the html' do
-      get :index, {section_id: section.id}
-      expect(response.status).to eq(200)
-      expect(assigns(:section)).to be_present
-    end
+  it_behaves_like 'Progress Report' do
+    let(:default_filters) { {section_id: section.id} }
   end
 
   context 'XHR GET #index' do
-    it 'requires a logged-in teacher' do
-      get :index, {section_id: section.id}
-      expect(response.status).to eq(401)
-    end
-
     context 'when logged in' do
       let(:json) { JSON.parse(response.body) }
 

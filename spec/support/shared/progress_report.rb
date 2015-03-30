@@ -41,6 +41,11 @@ shared_examples_for "Progress Report" do
         login
       end
 
+      it 'sends a Vary: Accept header (for Chrome caching issues)' do
+        subject
+        expect(response.headers['Vary']).to eq('Accept')
+      end
+
       it 'renders a JSON response' do
         subject
         expect(response.status).to eq(200)
