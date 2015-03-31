@@ -1,12 +1,16 @@
 module PagesHelper
 
 	def pages_tab_class tabname
-		arr = ["mission", "develop", "faq", "team"]
+		about_actions = ["mission", "develop", "faq", "team"]
+		impact_actions = ['impact']
+		activities_actions = ['activities']
 
 		if tabname == "about"
-			arr.include?(action_name) ? "active" : ""
+			about_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == "impact"
-			arr.include?(action_name) ? "" : "active"
+			impact_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'activities'
+			activities_actions.include?(action_name) ? 'active' : ''
 		end
 
 	end
@@ -19,7 +23,7 @@ module PagesHelper
 		end
 	end
 
-	def team_info 
+	def team_info
 		arr = [
 	      {
 		      img: 'thumb-peter.png',
@@ -119,7 +123,7 @@ end
 
 
 =begin
-   
+
 
 
       =image_tag 'thumb-tim.png'
@@ -127,7 +131,7 @@ end
       p Board Member
       p Timothy Grieves is the chief administrator of the Northwest AEA, a regional agency that advises 33,000 students in Iowa.
 
-     
+
 =end
 
 
@@ -141,4 +145,4 @@ end
 
 
 
-	
+
