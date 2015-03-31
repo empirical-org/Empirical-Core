@@ -122,6 +122,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   get 'lessons' => 'pages#activities' # so that old links still work
+  get 'about' => 'pages#mission' # so that old links still work
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
