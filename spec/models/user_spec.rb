@@ -705,8 +705,8 @@ describe User, :type => :model do
 
       let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom, unit: unit )}
 
-      let!(:activity_session1) {FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity)}
-      let!(:activity_session2) {FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity)}
+      let!(:activity_session1) {FactoryGirl.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity)}
+      let!(:activity_session2) {FactoryGirl.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity)}
 
 
       it 'does not return a completed activities that is not a final scores' do
