@@ -59,6 +59,8 @@ module Teacher
       results = results.where(classroom_activity_id: classroom_activity_ids)
     end
 
+    if (begin_date.present? or end_date.present?) then results = results.where("activity_sessions.completed_at IS NOT NULL") end
+
     if begin_date.present? then results = results.where("activity_sessions.created_at > ?", (begin_date.to_date - 1.day)) end
     if end_date.present?   then results = results.where("activity_sessions.created_at < ?", (end_date.to_date + 1.day) ) end
 
