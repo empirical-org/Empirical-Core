@@ -37,12 +37,17 @@
 		float:left;
 	}
 
-	a.green-link {
+	.green-link {
 		color: #027360;
 	}
 
 }
 
-.pages-activities ul.dropdown-menu {
+.pages-activities {
+	ul.dropdown-menu {
 		margin-left: 15px;
+	}
+	.row.activity-description {
+		margin-top: 2% !important;
+	}
 }
