@@ -1,7 +1,7 @@
 = render partial: 'pages/shared/pages_tabs'
 = render partial: 'pages/shared/activities_subtabs'
 
-.container.pages-container
+.container.pages-container.pages-activities
 
   .row
     .col-xs-12
@@ -42,7 +42,7 @@
           .row
             .col-xs-12
               p
-                = activity.name
+                = activity.name + ' : '
               p
                 = activity.description
               p
