@@ -5,14 +5,17 @@
 
   .row
     .col-xs-12
+      p
+        |
+          We've built over 150 lessons directly from the Common Core State Standards.
+          We are a nonprofit organization, and all of our lessons will always be made freely available.
+          Each of our lessons takes approximately 10-15 minutes. Teachers using Quill in a 1:1 classroom tend to assign Quill lessons as a warm up exercise at the beginning of a class.
 
-      div We've built over 150 lessons directly from the Common Core State Standards.
-      div We are a nonprofit organization, and all of our lessons will always be made freely available.
-      div Each of our lessons takes approximately 10-15 minutes. Teachers using Quill in a 1:1 classroom tend to assign Quill lessons as a warm up exercise at the beginning of a class.
 
-      p Click on '<span class="highlight">View Activity</span>' to take a look at our activities.
-
-
+  .row
+    .col-xs-12
+      div Quill's activities are organized by Common Core standards.
+      div Select a <b>grade level</b> to see all activities tied to that grade level.
 
 
   .row
@@ -26,12 +29,10 @@
           - Section.all.each do |section|
             li = link_to section.name, url_for(section_id: section.id)
 
+
   .row
     .col-xs-12
-      div Quill's activities are organized by Common Core standards.
-      div Select a <b>grade level</b> to see all activities tied to that grade level.
-
-
+      | Click on <span class='green-link'>View Activity</span> to take a look at our activities.
 
   - @topics.each do |topic, activities|
     .row
@@ -40,10 +41,10 @@
 
         - activities.order('activities.name ASC').each do |activity|
           .row
+            .col-xs-12.col-md-10 = activity.name
+            .col-xs-12.col-md-2  = link_to "View Activity", activity_path(activity, anonymous: true), class: 'green-link'
+
+          .row.activity-description
             .col-xs-12
-              p
-                = activity.name + ' : '
-              p
+              i
                 = activity.description
-              p
-                = link_to "View Activity", activity_path(activity, anonymous: true), class: 'green-link'
