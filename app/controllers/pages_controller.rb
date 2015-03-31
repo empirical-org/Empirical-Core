@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   def develop
   end
 
-  def mission 
+  def mission
   end
 
   def about
@@ -31,11 +31,11 @@ class PagesController < ApplicationController
   def new
     @body_class = 'full-width-white-page'
   end
-  
+
   def impact
   end
 
-  def team 
+  def team
   end
 
   def tos
@@ -46,8 +46,8 @@ class PagesController < ApplicationController
     @body_class = 'auxiliary white-page formatted-text'
   end
 
-  def lessons
-    @body_class = 'auxiliary white-page formatted-text'
+  def activities
+    @body_class = 'full-width-page white-page'
     @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
     @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
   end
@@ -58,7 +58,7 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'mission', 'develop', 'faq', 'impact', 'team'
+    when 'mission', 'develop', 'faq', 'impact', 'team', 'activities'
       'about'
     else
       'application'
