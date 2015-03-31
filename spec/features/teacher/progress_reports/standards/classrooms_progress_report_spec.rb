@@ -28,19 +28,20 @@ feature 'Standards: All Classrooms Progress Report', js: true do
       )
     end
 
-    # it 'displays activity session data in the table' do
-    #   expect(report_page.table_rows.first).to eq(
-    #     [
-    #       activity.classification.name,
-    #       activity.name,
-    #       horshack_session.completed_at.to_formatted_s(:quill_default),
-    #       '2 minutes',
-    #       'topic', # Derived from topic #
-    #       '78%',
-    #       horshack.name
-    #     ]
-    #   )
-    # end
+    it 'displays activity session data in the table' do
+      expect(report_page.table_rows.first).to eq(
+        [
+          full_classroom.name,
+          'Student View',
+          'Standard View',
+          visible_students.size,
+          "#{proficient_students.size} students",
+          "#{near_proficient_students.size} students",
+          "#{not_proficient_students.size} students",
+          visible_topics.size
+        ]
+      )
+    end
 
     it 'can export a CSV' do
       report_page.export_csv

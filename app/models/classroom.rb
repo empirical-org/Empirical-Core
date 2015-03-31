@@ -44,11 +44,20 @@ class Classroom < ActiveRecord::Base
   end
 
   def self.for_standards_report(teacher, filters)
-    with(best_activity_sessions: ActivitySession.for_standards_report(teacher, filters))
-      .joins('JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id')
-      .joins('JOIN best_activity_sessions ON best_activity_sessions.classroom_activity_id = classroom_activities.id')
-      .group("classrooms.id")
+    with(user_info: User.for_standards_report(teacher, filters))
+      .select(<<-SQL
+        classrooms.name as name,
+        classrooms.id as id,
+        COUNT(DISTINCT(user_info.id)) as total_student_count,
+        SUM(CASE WHEN user_info.average_score >= 0.75 THEN 1 ELSE 0 END) as proficient_student_count,
+        SUM(CASE WHEN user_info.average_score >= 0.50 AND user_info.average_score < 0.75 THEN 1 ELSE 0 END) as near_proficient_student_count,
+        SUM(CASE WHEN user_info.average_score < 0.50 THEN 1 ELSE 0 END) as not_proficient_student_count
+      SQL
+      )
+      .joins(:students)
+      .joins('INNER JOIN user_info ON user_info.id = users.id')
       .order("classrooms.name asc")
+      .group("classrooms.id")
   end
 
   def self.setup_from_clever(section)

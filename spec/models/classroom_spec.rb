@@ -93,6 +93,11 @@ describe Classroom, :type => :model do
       classrooms = subject
       expect(classrooms[0]["name"]).to eq(classrooms.first.name)
       expect(classrooms[0]["id"]).to eq(classrooms.first.id)
+      expect(classrooms[0]["total_student_count"]).to eq(classrooms.first.total_student_count)
+      expect(classrooms[0]["proficient_student_count"]).to eq(classrooms.first.proficient_student_count)
+      expect(classrooms[0]["near_proficient_student_count"]).to eq(classrooms.first.near_proficient_student_count)
+      expect(classrooms[0]["not_proficient_student_count"]).to eq(classrooms.first.not_proficient_student_count)
+      # expect(classrooms[0]["total_standard_count"]).to eq(classrooms.first.total_standard_count)
     end
 
     it "retrieves classrooms with no filters" do
