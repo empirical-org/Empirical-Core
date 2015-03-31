@@ -1,29 +1,49 @@
 = render partial: 'pages/shared/pages_tabs'
 = render partial: 'pages/shared/activities_subtabs'
 
-article.lessons-page
-  .lessons-page-heading-content
+.container.pages-container
 
-    p We've built over 150 lessons directly from the Common Core State Standards. We are a nonprofit organization, and all of our lessons will always be made freely available. Each of our lessons takes approximately 10-15 minutes. Teachers using Quill in a 1:1 classroom tend to assign Quill lessons as a warm up exercise at the beginning of a class.
+  .row
+    .col-xs-12
 
-    p Click on '<span class="highlight">View Activity</span>' to take a look at our activities.
+      div We've built over 150 lessons directly from the Common Core State Standards.
+      div We are a nonprofit organization, and all of our lessons will always be made freely available.
+      div Each of our lessons takes approximately 10-15 minutes. Teachers using Quill in a 1:1 classroom tend to assign Quill lessons as a warm up exercise at the beginning of a class.
 
-  .table-stripe
-    = render 'large_section_select'
+      p Click on '<span class="highlight">View Activity</span>' to take a look at our activities.
 
-    - @topics.each do |level, activities|
-      h4 style="text-decoration: underline ; margin-top: 50px"= level.name
 
-      - activities.order('activities.name ASC').each do |activity|
 
-        .teacher-classroom-chapter.l-table-row
-          .l-group-left
-            .chapter-title= activity.name
 
-            .l-group
-              .chapter-practice-description= activity.description
+  .row
+    .col-xs-12.col-sm-4
+      .button-select
+        button.select-mixin.select-gray.button-select.button-select-wrapper type='button' data-toggle='dropdown'
+          = @section.name
+          i.fa.fa-caret-down
 
-          .l-group-right
-            .chapter-actions
-              = link_to 'View Activity', activity_path(activity, anonymous: true)
+        ul.dropdown-menu role='menu'
+          - Section.all.each do |section|
+            li = link_to section.name, url_for(section_id: section.id)
 
+  .row
+    .col-xs-12
+      div Quill's activities are organized by Common Core standards.
+      div Select a <b>grade level</b> to see all activities tied to that grade level.
+
+
+
+  - @topics.each do |topic, activities|
+    .row
+      .col-xs-12
+        h4 =topic.name
+
+        - activities.order('activities.name ASC').each do |activity|
+          .row
+            .col-xs-12
+              p
+                = activity.name
+              p
+                = activity.description
+              p
+                = link_to "View Activity", activity_path(activity, anonymous: true)
