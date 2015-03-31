@@ -61,8 +61,8 @@ module Teacher
 
     if (begin_date.present? or end_date.present?) then results = results.where("activity_sessions.completed_at IS NOT NULL") end
 
-    if begin_date.present? then results = results.where("activity_sessions.created_at > ?", (begin_date.to_date - 1.day)) end
-    if end_date.present?   then results = results.where("activity_sessions.created_at < ?", (end_date.to_date + 1.day) ) end
+    if begin_date.present? then results = results.where("activity_sessions.completed_at > ?", (begin_date.to_date - 1.day)) end
+    if end_date.present?   then results = results.where("activity_sessions.completed_at < ?", (end_date.to_date + 1.day) ) end
 
     results = results.order('sorting_name, percentage, activity_sessions.id')
                       .limit(SCORES_PER_PAGE)
