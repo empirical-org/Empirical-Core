@@ -32,9 +32,10 @@ module Student
     def percentages_by_classification(unit = nil)
 
       if unit.nil?
-        sessions = self.activity_sessions.completed
+        sessions = self.activity_sessions.where(is_final_score: true).completed
       else
         sessions = ActivitySession.joins(:classroom_activity)
+                  .where(is_final_score: true)
                   .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                   .select("activity_sessions.*").completed
 
