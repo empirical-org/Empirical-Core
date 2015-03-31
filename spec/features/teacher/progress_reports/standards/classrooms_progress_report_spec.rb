@@ -34,11 +34,11 @@ feature 'Standards: All Classrooms Progress Report', js: true do
           full_classroom.name,
           'Student View',
           'Standard View',
-          visible_students.size,
+          visible_students.size.to_s,
           "#{proficient_students.size} students",
           "#{near_proficient_students.size} students",
           "#{not_proficient_students.size} students",
-          visible_topics.size
+          visible_topics.size.to_s
         ]
       )
     end
