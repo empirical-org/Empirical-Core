@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  # TODO: Remove me. The old method for the previous report.
   def self.for_standards_progress_report(teacher, filters)
     with(filtered_activity_sessions: ActivitySession.proficient_sessions_for_progress_report(teacher, filters))
       .select(<<-SELECT
@@ -67,6 +68,19 @@ class User < ActiveRecord::Base
         SUM(CASE WHEN filtered_correct_results.is_correct = 0 THEN 1 ELSE 0 END) as incorrect_result_count
       SELECT
       ).joins('JOIN filtered_correct_results ON users.id = filtered_correct_results.user_id')
+      .group('users.id')
+      .order('users.name asc')
+  end
+
+  def self.for_standards_report(teacher, filters)
+    with(best_activity_sessions: ActivitySession.for_standards_report(teacher, filters))
+      .select(<<-SQL
+        users.id,
+        users.name,
+        AVG(best_activity_sessions.percentage) as average_score,
+        COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count
+      SQL
+      ).joins('JOIN best_activity_sessions ON users.id = best_activity_sessions.user_id')
       .group('users.id')
       .order('users.name asc')
   end
