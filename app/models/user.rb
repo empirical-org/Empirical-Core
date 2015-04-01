@@ -73,14 +73,43 @@ class User < ActiveRecord::Base
   end
 
   def self.for_standards_report(teacher, filters)
-    with(best_activity_sessions: ActivitySession.for_standards_report(teacher, filters))
+    User.from_cte('best_activity_sessions', ActivitySession.for_standards_report(teacher, filters))
       .select(<<-SQL
         users.id,
         users.name,
         AVG(best_activity_sessions.percentage) as average_score,
-        COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count
+        COUNT(DISTINCT(best_activity_sessions.topic_id)) as total_standard_count,
+        COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count,
+        COALESCE(AVG(proficient_count.topic_count), 0)::integer as proficient_standard_count,
+        COALESCE(AVG(near_proficient_count.topic_count), 0)::integer as near_proficient_standard_count,
+        COALESCE(AVG(not_proficient_count.topic_count), 0)::integer as not_proficient_standard_count
       SQL
-      ).joins('JOIN best_activity_sessions ON users.id = best_activity_sessions.user_id')
+      ).joins('JOIN users ON users.id = best_activity_sessions.user_id')
+      .joins(<<-JOINS
+      LEFT JOIN (
+          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
+           from best_activity_sessions
+           group by user_id
+           having MAX(percentage) >= 0.75
+        ) as proficient_count ON proficient_count.user_id = users.id
+      JOINS
+      ).joins(<<-JOINS
+      LEFT JOIN (
+          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
+           from best_activity_sessions
+           group by user_id
+           having MAX(percentage) < 0.75 AND MAX(percentage) >= 0.50
+        ) as near_proficient_count ON near_proficient_count.user_id = users.id
+      JOINS
+      ).joins(<<-JOINS
+      LEFT JOIN (
+          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
+           from best_activity_sessions
+           group by user_id
+           having MAX(percentage) < 0.5
+        ) as not_proficient_count ON not_proficient_count.user_id = users.id
+      JOINS
+      )
       .group('users.id')
       .order('users.name asc')
   end

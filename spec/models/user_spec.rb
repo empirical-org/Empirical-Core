@@ -619,6 +619,24 @@ describe User, :type => :model do
       end
     end
 
+    describe 'for the standards by student report' do
+      include_context 'Topic Progress Report'
+      subject { User.for_standards_report(teacher, filters).to_a }
+
+      let(:filters) { {} }
+
+      it 'retrieves the right aggregated data' do
+        user = subject[0]
+        expect(user.name).to be_present
+        expect(user.total_standard_count).to be_present
+        expect(user.proficient_standard_count).to be_present
+        expect(user.near_proficient_standard_count).to be_present
+        expect(user.not_proficient_standard_count).to be_present
+        expect(user.total_activity_count).to be_present
+        expect(user.average_score).to be_present
+      end
+    end
+
     describe 'for the standards-based progress reports' do
       include_context 'Section Progress Report'
 
