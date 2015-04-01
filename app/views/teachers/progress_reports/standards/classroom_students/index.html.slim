@@ -1,0 +1,7 @@
+= render partial: 'teachers/shared/scorebook_tabs'
+= render partial: 'teachers/progress_reports/subnav'
+
+.container.progress-report
+  / = render partial: 'teachers/progress_reports/topic_breadcrumbs'
+  h2 Standards by Student: #{@classroom.name}
+  .progress-reports-standards-classroom-students data-url=url_for
