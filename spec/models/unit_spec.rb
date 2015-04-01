@@ -15,22 +15,6 @@ describe Unit, type: :model do
 		end
 	end
 
-
-	it 'is touched by changes to classroom_activity' do
-		before = unit.updated_at
-		classroom_activity.touch
-		after = unit.updated_at
-		expect(before).to_not eq(after)
-	end
-
-	it 'is touched by changes to activity_session (through intermediary classroom_activity)' do
-		before = unit.updated_at
-		activity_session = FactoryGirl.create :activity_session, classroom_activity: classroom_activity
-		activity_session.touch
-		after = unit.updated_at
-		expect(before).to_not eq(after)
-	end
-
   describe "getting units for the progress report" do
     let!(:teacher) { FactoryGirl.create(:teacher) }
     let(:section_ids) { [sections[0].id, sections[1].id] }
