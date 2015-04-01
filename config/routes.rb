@@ -39,7 +39,9 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       namespace :standards do
-        resources :classrooms, only: [:index]
+        resources :classrooms, only: [:index] do
+          resources :students, controller: "classroom_students", only: [:index]
+        end
       end
     end
 
