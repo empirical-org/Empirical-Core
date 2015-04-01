@@ -12,9 +12,8 @@ class AccountsController < ApplicationController
     role = params[:user].delete(:role)
     @user = User.find_by_id(session[:temporary_user_id]) || User.new
 
-    fix_full_name_in_first_name_field
-    capitalize_first_and_last_name
     @user.attributes = user_params
+    @user.name = capitalized_name
     @user.safe_role_assignment(role)
 
     if @user.save
@@ -52,21 +51,16 @@ protected
     params.require(:user).permit(:classcode, :email, :name, :username, :password, :password_confirmation, :newsletter, :terms_of_service, :school_ids)
   end
 
-
-  # below two methods are repeated in students_controller. need to abstract them into user_model, but first must clear up name splitting db issue
-  def capitalize_first_and_last_name 
-    # make sure this is called after fix_full_name_in_first_name_field
-    %i(first_name last_name).each do |sym|
-      user_params[:sym].capitalize! if user_params[:sym]
+  def capitalized_name
+    result = user_params[:name]
+    if user_params[:name].present?
+      f,l = user_params[:name].split(/\s+/)
+      if f.present? and l.present?
+        result = "#{f.capitalize} #{l.capitalize}"
+      else
+        result = user_params[:name].capitalize
+      end
     end
+    result
   end
-
-  def fix_full_name_in_first_name_field
-    if user_params[:first_name].present? && user_params[:last_name].blank? && (f,l = user_params[:first_name].split(/\s+/)).length > 1
-      user_params[:first_name] = f
-      user_params[:last_name] = l
-    end
-  end
-
-
 end
