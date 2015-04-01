@@ -78,6 +78,7 @@ module Teacher
         {
           id: s.id,
           percentage: s.percentage,
+          due_date: (s.classroom_activity.present? ? s.classroom_activity.due_date.strftime('%A %B %d, %Y') : ""),
           activity: (ActivitySerializer.new(s.activity)).as_json(root: false)
         }
       end
