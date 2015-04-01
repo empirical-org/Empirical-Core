@@ -37,7 +37,7 @@ EC.ActivityIconWithTooltip = React.createClass({
     if (this.props.data.percentage == null) {
       return "Not completed yet";
     } else {
-      return (parseInt(100*this.props.data.percentage)) + "%";
+      return (Math.round(100*this.props.data.percentage)) + "%";
     }
   },
 
