@@ -134,9 +134,6 @@ class User < ActiveRecord::Base
     "#{role.capitalize}Serializer".constantize.new(self)
   end
 
-
-  # FIXME: this should be condensed to a first/last name field, with a
-  # display_name method for combination, or similar.
   def first_name= first_name
     last_name
     @first_name = first_name
