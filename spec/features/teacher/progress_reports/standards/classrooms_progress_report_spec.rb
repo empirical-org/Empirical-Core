@@ -43,6 +43,11 @@ feature 'Standards: All Classrooms Progress Report', js: true do
       )
     end
 
+    it 'links to the Student View for a classroom' do
+      report_page.click_student_view(0)
+      expect(report_page).to have_text('Standards by Student')
+    end
+
     it 'can export a CSV' do
       report_page.export_csv
     end
