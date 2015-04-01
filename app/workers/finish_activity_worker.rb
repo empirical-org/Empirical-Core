@@ -4,6 +4,7 @@ class FinishActivityWorker
   def perform(uid)
 
     activity_session = ActivitySession.find_by_uid(uid)
+    return if activity_session.nil?
 
     event_data = {
       event: 'finished',
