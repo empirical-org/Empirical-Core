@@ -30,6 +30,7 @@ describe ProgressReports::Standards::ClassroomSerializer, type: :serializer do
                            near_proficient_student_count
                            not_proficient_student_count
                            total_standard_count
+                           students_href
                           )
     end
   end
