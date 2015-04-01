@@ -247,7 +247,15 @@ private
   end
 
   def generate_username
-    self.username = "#{first_name}.#{last_name}@#{classcode}"
+    part1 = "#{first_name}.#{last_name}"
+    part1_pattern = "%#{part1}%"
+    extant = User.where("username ILIKE ?", part1_pattern)
+    if extant.any?
+      final = "#{part1}#{extant.length + 1}@#{classcode}"
+    else
+      final = "#{part1}@#{classcode}"
+    end
+    self.username = final
   end
 
   def newsletter?
