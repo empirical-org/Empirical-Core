@@ -86,7 +86,11 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def self.for_standards_report(teacher, filters)
-    query = completed
+    query = select(<<-SELECT
+      activity_sessions.*,
+      activities.topic_id as topic_id
+    SELECT
+    ).completed
       .with_best_scores
       .by_teacher(teacher)
     query = with_filters(query, filters)
