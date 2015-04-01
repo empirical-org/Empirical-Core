@@ -1,7 +1,7 @@
 .container.pages-container {
 	padding-right: 20%;
 	padding-bottom: 10%;
-	
+
 	iframe {   // for impact page
 		margin-top: 5%;
 	}
@@ -37,8 +37,17 @@
 		float:left;
 	}
 
+	.green-link {
+		color: #027360;
+	}
 
+}
 
-
-	
+.pages-activities {
+	ul.dropdown-menu {
+		margin-left: 15px;
+	}
+	.row.activity-description {
+		margin-top: 2% !important;
+	}
 }
