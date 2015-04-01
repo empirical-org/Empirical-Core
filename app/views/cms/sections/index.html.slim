@@ -13,7 +13,7 @@ article.simple-rounded-box.chapter-levels-page
           td.actions-column= link_to 'Delete', [:cms, chapter_level], confirm: 'Are you sure?', method: :delete, remote: true, class: 'js-delete-link'
 
       td= f.text_field :name
-      td.position-select= f.select :position, 1.upto(f.object.order_scope.count + 1).to_a
+      td.position-select= f.select :position, 1.upto(Section.count + 1).to_a
       td.actions-column= f.submit 'Create', class: 'btn btn-primary btn-small'
 
 
