@@ -94,6 +94,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
                          pagination={true}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'students'} />
+                         jsonResultsKey={'students'}
+                         filterTypes={['unit']} />
     );
   }});
