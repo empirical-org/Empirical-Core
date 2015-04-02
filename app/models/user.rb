@@ -72,14 +72,18 @@ class User < ActiveRecord::Base
       .order('users.name asc')
   end
 
+  # Helper method used as CTE in other queries. Do not attempt to use this by itself
+  def self.best_per_topic_user
+    <<-BEST
+      select topic_id, user_id, MAX(percentage) as best_score_in_topic
+      from best_activity_sessions
+      group by topic_id, user_id
+    BEST
+  end
+
   def self.for_standards_report(teacher, filters)
     User.from_cte('best_activity_sessions', ActivitySession.for_standards_report(teacher, filters))
-      .with(best_per_topic_user: <<-BEST
-        select topic_id, user_id, MAX(percentage) as best_score_in_topic
-        from best_activity_sessions
-        group by topic_id, user_id
-      BEST
-      )
+      .with(best_per_topic_user: best_per_topic_user)
       .select(<<-SQL
         users.id,
         users.name,

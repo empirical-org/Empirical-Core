@@ -46,6 +46,10 @@ EmpiricalGrammar::Application.routes.draw do
           resources :students, controller: "classroom_students", only: [:index] do
             resources :topics, only: [:index]
           end
+
+          resources :topics, controller: "classroom_topics", only: [:index] do
+            resources :students, controller: "topic_students", only: [:index]
+          end
         end
       end
     end
