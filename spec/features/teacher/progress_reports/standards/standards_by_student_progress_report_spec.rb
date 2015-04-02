@@ -28,8 +28,6 @@ feature 'Standards by Student Progress Report', js: true do
     end
 
     it 'displays activity session data in the table' do
-      pending("This does not work yet")
-      alice = full_classroom.students.first
       expect(report_page.table_rows.first).to eq(
         [
           alice.name,
