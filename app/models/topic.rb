@@ -10,6 +10,7 @@ class Topic < ActiveRecord::Base
   validates :section, presence: true
   validates :name, presence: true, uniqueness: true
 
+  # TODO: REMOVE Old progress report functionality
   def self.for_progress_report(teacher, filters)
     with(filtered_activity_sessions: ActivitySession.proficient_sessions_for_progress_report(teacher, filters))
     .select(<<-SELECT
@@ -27,6 +28,21 @@ class Topic < ActiveRecord::Base
     JOINS
     ).group("topics.id")
     .order("topics.name asc")
+  end
+
+  def self.for_standards_report(teacher, filters)
+    Topic.from_cte('best_activity_sessions', ActivitySession.for_standards_report(teacher, filters))
+      .select(<<-SQL
+        topics.id,
+        topics.name,
+        sections.name as section_name,
+        AVG(best_activity_sessions.percentage) as average_score,
+        COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count
+      SQL
+      ).joins('JOIN topics ON topics.id = best_activity_sessions.topic_id')
+      .joins('JOIN sections ON sections.id = topics.section_id')
+      .group('topics.id, sections.name')
+      .order('topics.name asc')
   end
 
   def name_prefix
