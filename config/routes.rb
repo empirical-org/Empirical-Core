@@ -27,11 +27,14 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
+
+      # TODO: REMOVE Resources / controllers / views from the old progress report.
       resources :sections, only: [:index] do
         resources :topics, only: [:index] do
           resources :students, controller: "topics_students", only: [:index]
         end
       end
+
       resources :concept_categories, only: [:index] do
         resources :concept_tags, only: [:index] do
           resources :students, controller: "concept_tags_students", only: [:index]
@@ -40,7 +43,9 @@ EmpiricalGrammar::Application.routes.draw do
 
       namespace :standards do
         resources :classrooms, only: [:index] do
-          resources :students, controller: "classroom_students", only: [:index]
+          resources :students, controller: "classroom_students", only: [:index] do
+            resources :topics, only: [:index]
+          end
         end
       end
     end

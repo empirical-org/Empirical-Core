@@ -7,7 +7,11 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
   let(:activity) { FactoryGirl.create(:activity) }
   let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
   let(:student_for_report) { User.for_standards_report(teacher, {}).first }
-  let(:serializer) { described_class.new(student_for_report) }
+  let(:serializer) do
+    serializer = described_class.new(student_for_report)
+    serializer.classroom_id = 123
+    serializer
+  end
 
   before do
     student.activity_sessions.create!(
@@ -32,6 +36,7 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
                            not_proficient_standard_count
                            total_activity_count
                            average_score
+                           student_topics_href
                           )
     end
   end
