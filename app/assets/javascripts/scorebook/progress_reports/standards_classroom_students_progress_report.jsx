@@ -10,12 +10,12 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
       {
         name: 'Student',
         field: 'name',
-        sortByField: 'name'
-        // customCell: function(row) {
-        //   return (
-        //     <a className="standard-view" href={row['standards_href']}>Standard View</a>
-        //   );
-        // }
+        sortByField: 'name',
+        customCell: function(row) {
+          return (
+            <a className="student-view" href={row['student_topics_href']}>{row['name']}</a>
+          );
+        }
       },
       {
         name: 'Standards',

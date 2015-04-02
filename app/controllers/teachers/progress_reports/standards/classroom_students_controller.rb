@@ -3,8 +3,14 @@ class Teachers::ProgressReports::Standards::ClassroomStudentsController < Teache
     if request.xhr?
       filters = { classroom_id: params[:classroom_id] }
       students = User.for_standards_report(current_user, filters)
+      students_json = students.map do |student|
+        serializer = ::ProgressReports::Standards::StudentSerializer.new(student)
+        # Doing this because can't figure out how to get custom params into serializers
+        serializer.classroom_id = params[:classroom_id]
+        serializer.as_json(root: false)
+      end
       render json: {
-        students: students
+        students: students_json
       }
     else
       @classroom = Classroom.find(params[:classroom_id])
