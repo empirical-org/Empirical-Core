@@ -74,6 +74,12 @@ class User < ActiveRecord::Base
 
   def self.for_standards_report(teacher, filters)
     User.from_cte('best_activity_sessions', ActivitySession.for_standards_report(teacher, filters))
+      .with(best_per_topic_user: <<-BEST
+        select topic_id, user_id, MAX(percentage) as best_score_in_topic
+        from best_activity_sessions
+        group by topic_id, user_id
+      BEST
+      )
       .select(<<-SQL
         users.id,
         users.name,
@@ -88,25 +94,25 @@ class User < ActiveRecord::Base
       .joins(<<-JOINS
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
-           from best_activity_sessions
+           from best_per_topic_user
+           where best_score_in_topic >= 0.75
            group by user_id
-           having MAX(percentage) >= 0.75
         ) as proficient_count ON proficient_count.user_id = users.id
       JOINS
       ).joins(<<-JOINS
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
-           from best_activity_sessions
+           from best_per_topic_user
+           where best_score_in_topic < 0.75 AND best_score_in_topic >= 0.50
            group by user_id
-           having MAX(percentage) < 0.75 AND MAX(percentage) >= 0.50
         ) as near_proficient_count ON near_proficient_count.user_id = users.id
       JOINS
       ).joins(<<-JOINS
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
-           from best_activity_sessions
+           from best_per_topic_user
+           where best_score_in_topic < 0.5
            group by user_id
-           having MAX(percentage) < 0.5
         ) as not_proficient_count ON not_proficient_count.user_id = users.id
       JOINS
       )
