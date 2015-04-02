@@ -43,23 +43,6 @@ class ActivitySession < ActiveRecord::Base
     with_filters(query, filters)
   end
 
-  # TODO: Remove me. New report retrieves all sessions, not just proficient ones.
-  # Used as a CTE (common table expression) by other models to get progress report data.
-  def self.proficient_sessions_for_progress_report(teacher, filters)
-    query = select(<<-SELECT
-      activity_sessions.id as activity_session_id,
-      activity_sessions.*,
-      CASE WHEN activity_sessions.percentage > 0.75 THEN 1 ELSE 0 END as is_proficient
-    SELECT
-    ).joins(:classroom_activity => :classroom)
-      .completed
-      .by_teacher(teacher)
-      .group("activity_sessions.id")
-
-    query = with_filters(query, filters)
-    query
-  end
-
   def self.with_filters(query, filters)
     # Some duplication between here and ConceptTagResult
     if filters[:classroom_id].present?

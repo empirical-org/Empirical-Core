@@ -42,22 +42,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # TODO: Remove me. The old method for the previous report.
-  def self.for_standards_progress_report(teacher, filters)
-    with(filtered_activity_sessions: ActivitySession.proficient_sessions_for_progress_report(teacher, filters))
-      .select(<<-SELECT
-        users.id,
-        users.name,
-        COUNT(DISTINCT(filtered_activity_sessions.activity_session_id)) as activity_session_count,
-        SUM(filtered_activity_sessions.is_proficient) as proficient_count,
-        SUM(CASE WHEN filtered_activity_sessions.is_proficient = 1 THEN 0 ELSE 1 END) as not_proficient_count,
-        SUM(filtered_activity_sessions.time_spent) as total_time_spent
-      SELECT
-      ).joins('JOIN filtered_activity_sessions ON users.id = filtered_activity_sessions.user_id')
-      .group('users.id')
-      .order('users.name asc')
-  end
-
   def self.for_concept_tag_progress_report(teacher, filters)
     with(filtered_correct_results: ConceptTagResult.correct_results_for_progress_report(teacher, filters))
       .select(<<-SELECT
