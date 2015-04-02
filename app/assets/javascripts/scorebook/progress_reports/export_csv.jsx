@@ -39,7 +39,7 @@ EC.ExportCsv = React.createClass({
     return (
       <div className="export-csv">
         <EC.ExportCsvModal email={this.props.teacher.email} ref="exportModal" />
-        <a onClick={this.createExport}>Export Csv</a>
+        <button className="button-green" onClick={this.createExport}>Download Report</button>
       </div>
     );
   }
