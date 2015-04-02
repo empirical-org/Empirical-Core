@@ -62,7 +62,8 @@ EC.StandardsTopicsProgressReport = React.createClass({
                          pagination={true}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'topics'} />
+                         jsonResultsKey={'topics'}
+                         filterTypes={['unit']} />
     );
   }
 });

@@ -7,6 +7,7 @@ EC.ProgressReport = React.createClass({
 
   propTypes: {
     columnDefinitions: React.PropTypes.func.isRequired,
+    filterTypes: React.PropTypes.array.isRequired,
     pagination: React.PropTypes.bool.isRequired,
     sourceUrl: React.PropTypes.string.isRequired,
     sortDefinitions: React.PropTypes.func.isRequired,
@@ -131,7 +132,8 @@ EC.ProgressReport = React.createClass({
                                   selectStudent={this.selectStudent}
                                   selectedStudent={this.state.selectedStudent}
                                   selectUnit={this.selectUnit}
-                                  selectedUnit={this.state.selectedUnit} />
+                                  selectedUnit={this.state.selectedUnit}
+                                  filterTypes={this.props.filterTypes} />
         {csvExport}
         {mainSection}
         {pagination}

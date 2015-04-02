@@ -91,7 +91,7 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'classrooms'}
-                         exportCsv={'classrooms'} />
+                         filterTypes={[]}  />
     );
   }
 });
