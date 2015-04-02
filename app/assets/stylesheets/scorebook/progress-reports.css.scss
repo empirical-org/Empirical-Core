@@ -17,6 +17,34 @@
     border-top: none;
     text-align: center;
   }
+
+  .table {
+    thead {
+      border: 1px solid gray;
+    }
+    th {
+      border: 1px solid gray;
+    }
+    tbody {
+      background: white;
+
+      tr {
+        border: 1px solid gray;
+      }
+    }
+
+    .proficient {
+      color: $green;
+    }
+
+    .near-proficient {
+      color: $orange;
+    }
+
+    .not-proficient {
+      color: $red;
+    }
+  }
 }
 
 .circle {
