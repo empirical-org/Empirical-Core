@@ -48,8 +48,8 @@ feature 'Standards: All Classrooms Progress Report', js: true do
       expect(report_page).to have_text('Standards by Student')
     end
 
-    it 'can export a CSV' do
-      report_page.export_csv
-    end
+    # it 'can export a CSV' do
+    #   report_page.export_csv
+    # end
   end
 end
