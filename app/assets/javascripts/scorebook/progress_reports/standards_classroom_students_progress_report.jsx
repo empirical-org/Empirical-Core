@@ -1,3 +1,5 @@
+"use strict";
+
 EC.StandardsClassroomStudentsProgressReport = React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired
@@ -62,7 +64,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
         field: 'average_score',
         sortByField: 'average_score',
         customCell: function(row) {
-          return <p>TODO</p>;
+          return <EC.MasteryStatus score={row['average_score']} />;
         }
       }
     ];
@@ -76,7 +78,6 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
         proficient_standard_count: 'numeric',
         near_proficient_standard_count: 'numeric',
         not_proficient_standard_count: 'numeric',
-        total_standard_count: 'numeric',
         average_score: 'numeric'
       },
       default: {

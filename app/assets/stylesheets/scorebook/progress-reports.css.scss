@@ -1,3 +1,6 @@
+@import "variables";
+@import "custom";
+
 .container.progress-report {
   padding-top: 20px;
 }
@@ -13,5 +16,23 @@
   .modal-footer {
     border-top: none;
     text-align: center;
+  }
+}
+
+.circle {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  &.proficient {
+    @extend .icon-green;
+  }
+
+  &.near-proficient {
+    @extend .icon-orange;
+  }
+
+  &.not-proficient {
+    @extend .icon-red;
   }
 }
