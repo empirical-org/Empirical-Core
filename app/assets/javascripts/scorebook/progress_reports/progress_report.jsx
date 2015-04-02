@@ -124,6 +124,7 @@ EC.ProgressReport = React.createClass({
 
     return (
       <div>
+        {csvExport}
         <EC.ProgressReportFilters classroomFilters={this.state.classroomFilters}
                                   studentFilters={this.state.studentFilters}
                                   unitFilters={this.state.unitFilters}
@@ -134,7 +135,6 @@ EC.ProgressReport = React.createClass({
                                   selectUnit={this.selectUnit}
                                   selectedUnit={this.state.selectedUnit}
                                   filterTypes={this.props.filterTypes} />
-        {csvExport}
         {mainSection}
         {pagination}
       </div>
