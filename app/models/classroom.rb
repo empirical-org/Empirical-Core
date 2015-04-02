@@ -33,16 +33,6 @@ class Classroom < ActiveRecord::Base
     end
   end
 
-  # TODO: REMOVE ME. This is for the old progress report.
-  def self.for_standards_progress_report(teacher, filters)
-    with(filtered_activity_sessions: ActivitySession.proficient_sessions_for_progress_report(teacher, filters))
-      .select("classrooms.name as name, classrooms.id as id")
-      .joins('JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id')
-      .joins('JOIN filtered_activity_sessions ON filtered_activity_sessions.classroom_activity_id = classroom_activities.id')
-      .group("classrooms.id")
-      .order("classrooms.name asc")
-  end
-
   def self.for_standards_report(teacher, filters)
     with(user_info: User.for_standards_report(teacher, filters))
       .select(<<-SQL

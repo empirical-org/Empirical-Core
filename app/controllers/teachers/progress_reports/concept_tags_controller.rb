@@ -10,7 +10,7 @@ class Teachers::ProgressReports::ConceptTagsController < Teachers::ProgressRepor
       concept_category = ConceptCategory.for_progress_report(current_user, params).first
       units = Unit.for_standards_progress_report(current_user, params)
       students = User.for_concept_tag_progress_report(current_user, params)
-      classrooms = Classroom.for_standards_progress_report(current_user, params)
+      classrooms = Classroom.for_standards_report(current_user, params)
       render json: {
         concept_category: concept_category,
         concept_tags: concept_tags_json,
