@@ -78,6 +78,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
         proficient_standard_count: 'numeric',
         near_proficient_standard_count: 'numeric',
         not_proficient_standard_count: 'numeric',
+        total_activity_count: 'numeric',
         average_score: 'numeric'
       },
       default: {
