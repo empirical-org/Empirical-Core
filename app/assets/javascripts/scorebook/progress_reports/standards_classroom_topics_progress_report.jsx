@@ -1,4 +1,6 @@
-EC.StandardsAllClassroomsProgressReport = React.createClass({
+"use strict";
+
+EC.StandardsClassroomTopicsProgressReport = React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired
   },
@@ -6,27 +8,17 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
   columnDefinitions: function() {
     return [
       {
-        name: 'Class Name',
-        field: 'name',
-        sortByField: 'name'
+        name: 'Standard Level',
+        field: 'section_name',
+        sortByField: 'section_name'
       },
       {
-        name: '',
+        name: 'Standard Name',
         field: 'name',
         sortByField: 'name',
         customCell: function(row) {
           return (
-            <a className="student-view" href={row['students_href']}>Student View</a>
-          );
-        }
-      },
-      {
-        name: '',
-        field: 'name',
-        sortByField: 'name',
-        customCell: function(row) {
-          return (
-            <a className="standard-view" href={row['topics_href']}>Standard View</a>
+            <a className="student-view" href={row['topic_students_href']}>{row['name']}</a>
           );
         }
       },
@@ -60,9 +52,9 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
         }
       },
       {
-        name: 'Standards',
-        field: 'total_standard_count',
-        sortByField: 'total_standard_count'
+        name: 'Activities',
+        field: 'total_activity_count',
+        sortByField: 'total_activity_count'
       }
     ];
   },
@@ -75,7 +67,7 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
         proficient_student_count: 'numeric',
         near_proficient_student_count: 'numeric',
         not_proficient_student_count: 'numeric',
-        total_standard_count: 'numeric'
+        total_activity_count: 'numeric'
       },
       default: {
         field: 'name',
@@ -90,8 +82,9 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
                          pagination={true}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'classrooms'}
+                         jsonResultsKey={'topics'}
                          filterTypes={[]}  />
     );
   }
+
 });
