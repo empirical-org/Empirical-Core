@@ -60,8 +60,7 @@ feature 'Invite-Students page' do
           before(:each) { add_vinnie }
 
           describe 'adding the same student again' do
-            it 'raises an error' do
-              pending 'handle validation error'
+            it 'does not raise an error' do
               expect { add_vinnie }.not_to raise_error
             end
           end

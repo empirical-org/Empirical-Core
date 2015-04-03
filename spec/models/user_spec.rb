@@ -197,10 +197,18 @@ describe User, :type => :model do
   end
 
   describe "#generate_username" do
-    let(:user) { FactoryGirl.build(:user, first_name: "first", last_name: "last", classcode: "cc") }
+    let!(:user) { FactoryGirl.build(:user, first_name: "first", last_name: "last", classcode: "cc")}
 
     it "generates last name, first name, and class code" do
       expect(user.send(:generate_username)).to eq("first.last@cc")
+    end
+
+    it 'handles students with identical names and classrooms' do
+      user1 = FactoryGirl.build(:user, first_name: "first", last_name: "last", classcode: "cc")
+      user1.generate_student
+      user1.save
+      user2 = FactoryGirl.build(:user, first_name: "first", last_name: "last", classcode: "cc")
+      expect(user2.send(:generate_username)).to eq("first.last2@cc")
     end
   end
 

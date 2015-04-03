@@ -22,7 +22,7 @@ end
 Capybara.configure do |config|
   # Use a high(er) timeout for JS-based UI -- e.g., React.js
   # cf http://docs.travis-ci.com/user/common-build-problems/#Capybara%3A-I'm-getting-errors-about-elements-not-being-found
-  config.default_wait_time = 15
+  config.default_wait_time = 100  # increased from 15 since we were getting Net Timeout errors on Tracis CI (and not on local)
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,

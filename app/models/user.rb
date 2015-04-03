@@ -171,9 +171,6 @@ class User < ActiveRecord::Base
     "#{role.capitalize}Serializer".constantize.new(self)
   end
 
-
-  # FIXME: this should be condensed to a first/last name field, with a
-  # display_name method for combination, or similar.
   def first_name= first_name
     last_name
     @first_name = first_name
@@ -284,7 +281,15 @@ private
   end
 
   def generate_username
-    self.username = "#{first_name}.#{last_name}@#{classcode}"
+    part1 = "#{first_name}.#{last_name}"
+    part1_pattern = "%#{part1}%"
+    extant = User.where("username ILIKE ?", part1_pattern)
+    if extant.any?
+      final = "#{part1}#{extant.length + 1}@#{classcode}"
+    else
+      final = "#{part1}@#{classcode}"
+    end
+    self.username = final
   end
 
   def newsletter?
