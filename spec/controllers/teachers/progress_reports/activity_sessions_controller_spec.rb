@@ -7,6 +7,11 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
     let(:default_filters) { {page: 1} }
     let(:result_key) { 'activity_sessions' }
     let(:expected_result_count) { visible_activity_sessions.size }
+
+    it_behaves_like "filtering progress reports by Unit" do
+      let(:filter_value) { empty_unit.id }
+      let(:expected_result_count) { 0 }
+    end
   end
 
   context 'XHR GET #index' do
@@ -32,20 +37,14 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
         expect(json['activity_sessions'].size).to eq(0)
       end
 
-      it 'can filter by unit' do
-        xhr :get, :index, {unit_id: empty_unit.id, page: 1}
-        expect(json['activity_sessions'].size).to eq(0)
-      end
-
       it 'can filter by student' do
         xhr :get, :index, {student_id: zojirushi.id, page: 1}
         expect(json['activity_sessions'].size).to eq(1)
       end
 
-      it 'fetches classroom, unit, and student data for the filter options' do
+      it 'fetches classroom and student data for the filter options' do
         xhr :get, :index, page: 1
         expect(json['classrooms'].size).to eq(1)
-        expect(json['units'].size).to eq(1)
         expect(json['students'].size).to eq(visible_students.size)
       end
     end
