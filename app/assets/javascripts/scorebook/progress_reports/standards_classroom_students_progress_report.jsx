@@ -10,7 +10,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
       {
         name: 'Student',
         field: 'name',
-        sortByField: 'name',
+        sortByField: 'sorting_name',
         customCell: function(row) {
           return (
             <a className="student-view" href={row['student_topics_href']}>{row['name']}</a>
@@ -74,7 +74,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
   sortDefinitions: function() {
     return {
       config: {
-        name: 'natural',
+        sorting_name: 'natural',
         total_standard_count: 'numeric',
         proficient_standard_count: 'numeric',
         near_proficient_standard_count: 'numeric',
@@ -83,7 +83,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
         average_score: 'numeric'
       },
       default: {
-        field: 'name',
+        field: 'sorting_name',
         direction: 'asc'
       }
     };

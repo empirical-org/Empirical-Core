@@ -10,7 +10,7 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
       {
         name: 'Student Name',
         field: 'name',
-        sortByField: 'name'
+        sortByField: 'sorting_name'
       },
       {
         name: 'Activities',
@@ -39,12 +39,12 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
   sortDefinitions: function() {
     return {
       config: {
-        name: 'natural',
+        sorting_name: 'natural',
         total_activity_count: 'numeric',
         average_score: 'numeric'
       },
       default: {
-        field: 'name',
+        field: 'sorting_name',
         direction: 'asc'
       }
     };
