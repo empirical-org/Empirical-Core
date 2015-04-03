@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Teachers::ProgressReports::Standards::TopicsController, type: :controller do
+describe Teachers::ProgressReports::Standards::StudentTopicsController, type: :controller do
   include_context 'Topic Progress Report'
 
   it_behaves_like 'Progress Report' do

@@ -1,4 +1,4 @@
-class Teachers::ProgressReports::Standards::TopicsController < Teachers::ProgressReportsController
+class Teachers::ProgressReports::Standards::StudentTopicsController < Teachers::ProgressReportsController
   def index
     if request.xhr?
       topics = Topic.for_standards_report(current_user, params)
