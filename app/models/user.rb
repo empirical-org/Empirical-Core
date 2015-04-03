@@ -65,12 +65,36 @@ class User < ActiveRecord::Base
     BEST
   end
 
+  def self.sorting_name_sql
+    <<-SQL
+      substring(
+        users.name from (
+          position(' ' in users.name) + 1
+        )
+        for (
+          char_length(users.name)
+        )
+      )
+      ||
+      substring(
+        users.name from (
+          1
+        )
+        for (
+          position(' ' in users.name)
+        )
+
+      ) as sorting_name
+    SQL
+  end
+
   def self.for_standards_report(teacher, filters)
     User.from_cte('best_activity_sessions', ActivitySession.for_standards_report(teacher, filters))
       .with(best_per_topic_user: best_per_topic_user)
       .select(<<-SQL
         users.id,
         users.name,
+        #{sorting_name_sql},
         AVG(best_activity_sessions.percentage) as average_score,
         COUNT(DISTINCT(best_activity_sessions.topic_id)) as total_standard_count,
         COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count,
@@ -104,8 +128,8 @@ class User < ActiveRecord::Base
         ) as not_proficient_count ON not_proficient_count.user_id = users.id
       JOINS
       )
-      .group('users.id')
-      .order('users.name asc')
+      .group('users.id, sorting_name')
+      .order('sorting_name asc')
   end
 
   # def authenticate
