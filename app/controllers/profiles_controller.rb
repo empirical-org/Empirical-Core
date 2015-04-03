@@ -31,8 +31,6 @@ class ProfilesController < ApplicationController
 
       render 'student', layout: 'scorebook'
     else
-      @section = Section.find_by_id(params[:section_id]) || Section.first
-      @topics = @section.topics.includes(:activities)
       render 'join-classroom'
     end
   end

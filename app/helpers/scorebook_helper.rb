@@ -62,7 +62,7 @@ module ScorebookHelper
       'Quill Proofreader'
     when 2
       'Quill Grammar'
-    end 
+    end
   end
 
 
@@ -72,17 +72,17 @@ module ScorebookHelper
     activity_description = activity_hash['activity_description'].nil? ? '' : ("<p>" + (activity_hash['activity_description'].gsub /"/, '&quot;') + "</p>")
 
     app_name = activity_hash['activity_classification_name'].nil? ? '' : ("<p> App: " + (activity_hash['activity_classification_name'].gsub /"/, '&quot;') + "</p>")
-    
+
 
     %Q(data-toggle="tooltip" data-html=true data-placement="left" title="#{activity_name}#{app_name}#{activity_description}").html_safe
   end
 
-  def activity_icon_with_tooltip(activity_or_session, include_activity_title: false)
-    activity, session = activity_and_session(activity_or_session)
+  def activity_icon_with_tooltip(activity, activity_session, include_activity_title: false)
+    #activity, session = activity_and_session(activity_or_session)
 
     render partial: 'activity_icon_with_tooltip', locals: {
-      activity: activity, 
-      activity_session: session, 
+      activity: activity,
+      activity_session: activity_session,
       include_activity_title: include_activity_title
     }
   end

@@ -71,7 +71,7 @@ class Classroom < ActiveRecord::Base
       teacher: User.teacher.where(clever_id: section.teacher).first,
       grade: section.grade
     )
-    c.units.create_next if c.units.empty?
+    if c.units.empty? and c.save! then c.units.create_next end
 
     c
   end

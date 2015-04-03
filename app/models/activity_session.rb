@@ -2,7 +2,7 @@ class ActivitySession < ActiveRecord::Base
 
   include Uid
 
-  belongs_to :classroom_activity, touch: true
+  belongs_to :classroom_activity
   belongs_to :activity
   has_one :unit, through: :classroom_activity
   has_many :concept_tag_results

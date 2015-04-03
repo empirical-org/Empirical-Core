@@ -1,5 +1,5 @@
 class ClassroomActivity < ActiveRecord::Base
-  belongs_to :classroom, touch: true
+  belongs_to :classroom
   belongs_to :activity
   belongs_to :unit, touch: true
   has_one :topic, through: :activity
@@ -23,8 +23,8 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def session_for user
-    ass = activity_sessions.where(user_id: user.id, activity_id: activity.id).order(created_at: :asc)
-    as = if !ass.empty? then ass.first else activity_sessions.create(user_id: user.id, activity_id: activity.id) end
+    ass = activity_sessions.where(user: user, activity: activity).order(created_at: :asc)
+    as = if ass.any? then ass.first else activity_sessions.create(user: user, activity: activity) end
   end
 
   def for_student? student
