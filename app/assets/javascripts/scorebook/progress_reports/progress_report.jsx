@@ -143,6 +143,7 @@ EC.ProgressReport = React.createClass({
     return (
       <div>
         {csvExport}
+        <EC.FaqLink />
         <EC.ProgressReportFilters classroomFilters={this.state.classroomFilters}
                                   studentFilters={this.state.studentFilters}
                                   unitFilters={this.state.unitFilters}
