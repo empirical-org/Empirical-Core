@@ -83,7 +83,7 @@ EC.StandardsClassroomTopicsProgressReport = React.createClass({
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'topics'}
-                         filterTypes={[]}  />
+                         filterTypes={['unit']}  />
     );
   }
 
