@@ -16,6 +16,9 @@ EC.SortableTh = React.createClass({
   },
 
   clickSort: function() {
+    if (_.isEmpty(this.props.displayName)) {
+      return;
+    }
     // Toggle the sort direction.
     var newDirection = (this.state.sortDirection === 'asc') ? 'desc' : 'asc';
     this.setState({sortDirection: newDirection}, function() {
@@ -24,10 +27,14 @@ EC.SortableTh = React.createClass({
   },
 
   render: function() {
+    var arrow;
+    if (!_.isEmpty(this.props.displayName)) {
+      arrow = <i className={this.arrowClass()}></i>;
+    }
     return (
       <th className="sorter" onClick={this.clickSort}>
         {this.props.displayName}
-        <i className={this.arrowClass()}></i>
+        {arrow}
       </th>
     );
   }
