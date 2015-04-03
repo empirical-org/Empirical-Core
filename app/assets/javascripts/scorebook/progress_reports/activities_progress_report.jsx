@@ -1,7 +1,3 @@
-//= require ./table_pagination_mixin.js
-//= require ./table_filter_mixin.js
-//= require ./table_sorting_mixin.js
-
 EC.ActivitiesProgressReport = React.createClass({
   mixins: [EC.TimeSpentMixin],
 

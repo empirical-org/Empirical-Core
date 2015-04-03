@@ -34,6 +34,8 @@ class ActivitySession < ActiveRecord::Base
     (complete_session || incomplete_session)
   }
 
+  RESULTS_PER_PAGE = 25
+
   def self.for_standalone_progress_report(teacher, filters)
     query = includes(:user, :activity => [:topic, :classification], :classroom_activity => :classroom)
       .references(:classification)
@@ -41,6 +43,11 @@ class ActivitySession < ActiveRecord::Base
       .by_teacher(teacher)
       .order('activity_classifications.name asc, users.name asc')
     with_filters(query, filters)
+  end
+
+  def self.paginate(current_page, per_page)
+    offset = (current_page.to_i - 1) * per_page
+    limit(per_page).offset(offset)
   end
 
   def self.with_filters(query, filters)
