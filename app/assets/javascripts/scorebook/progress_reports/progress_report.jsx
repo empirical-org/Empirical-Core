@@ -1,9 +1,7 @@
 //= require ./table_filter_mixin.js
 //= require ./table_sorting_mixin.js
-//= require ./table_pagination_mixin.js
-
 EC.ProgressReport = React.createClass({
-  mixins: [EC.TableFilterMixin, EC.TablePaginationMixin, EC.TableSortingMixin],
+  mixins: [EC.TableFilterMixin, EC.TableSortingMixin],
 
   propTypes: {
     columnDefinitions: React.PropTypes.func.isRequired,
@@ -16,8 +14,17 @@ EC.ProgressReport = React.createClass({
     exportCsv: React.PropTypes.string
   },
 
+  getDefaultProps: function() {
+    return {
+      maxPageNumber: 4
+    };
+  },
+
   getInitialState: function() {
     return {
+      currentPage: 1,
+      numPages: 1,
+
       loading: false,
 
       results: [],
@@ -47,11 +54,18 @@ EC.ProgressReport = React.createClass({
 
   // Get results after pagination has been applied.
   getVisibleResults: function(filteredResults) {
-    if (this.props.pagination) {
-      return this.applyPagination(filteredResults, this.state.currentPage);
-    } else {
-      return filteredResults;
-    }
+    return filteredResults;
+  },
+
+  goToPage: function(page) {
+    var newState = {
+      currentPage: page
+    };
+    this.setState(newState, this.fetchData);
+  },
+
+  resetPagination: function(next) {
+    this.setState({currentPage: 1}, next);
   },
 
   // Filter sessions based on the classroom ID.
@@ -82,8 +96,13 @@ EC.ProgressReport = React.createClass({
 
   fetchData: function() {
     this.setState({loading: true});
-    $.get(this.props.sourceUrl, this.state.currentFilters, function onSuccess(data) {
+    var requestParams = _.extend(this.state.currentFilters, {});
+    if (this.props.pagination) {
+      requestParams = _.extend(requestParams, {page: this.state.currentPage});
+    }
+    $.get(this.props.sourceUrl, requestParams, function onSuccess(data) {
       this.setState({
+        numPages: data.page_count,
         loading: false,
         results: data[this.props.jsonResultsKey],
         teacher: data.teacher,
@@ -103,11 +122,10 @@ EC.ProgressReport = React.createClass({
     var pagination, csvExport, mainSection;
     var filteredResults = this.getFilteredResults();
     if (this.props.pagination) {
-      var numberOfPages = this.calculateNumberOfPages(filteredResults);
       pagination = <EC.Pagination maxPageNumber={this.props.maxPageNumber}
                                   selectPageNumber={this.goToPage}
                                   currentPage={this.state.currentPage}
-                                  numberOfPages={numberOfPages}  />;
+                                  numberOfPages={this.state.numPages}  />;
     }
     var visibleResults = this.getVisibleResults(filteredResults);
 
