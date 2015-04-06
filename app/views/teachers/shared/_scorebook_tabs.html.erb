@@ -19,7 +19,7 @@
 
       <%- if !Rails.env.production? %>
       <li>
-        <%= link_to 'Progress Reports', teachers_progress_reports_activity_sessions_path, role: 'tab' %>
+        <%= link_to raw('Progress Reports<span class="btn button-yellow">BETA</span>'), teachers_progress_reports_activity_sessions_path, class: 'progress-reports-nav', role: 'tab' %>
       </li>
       <%- end %>
     </ul>
