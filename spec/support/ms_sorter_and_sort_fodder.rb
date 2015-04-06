@@ -9,10 +9,18 @@ shared_context :ms_sorter_and_sort_fodder do
   end
 
   def add_sort_fodder(hash)
+    # Going to need to skip validations, since there is now a validation for having both a first and last name.
+    # There are still old records in the db with students that have only a first or last name, so we still want to test
+    # that they are sorted appropriately.
     attribs = FactoryGirl.attributes_for :student, first_name: nil,
                                                     last_name: nil
 
-    sort_fodder.students.create(attribs.merge(hash))
+    # Going to need to skip validations, since there is now a validation for having both a first and last name.
+    # There are still old records in the db with students that have only a first or last name, so we still want to test
+    # that they are sorted appropriately.
+    student = sort_fodder.students.build(attribs.merge(hash))
+    student.save validate: false
+    student
   end
 
   # Ideally, they are listed below and, thus, created in
