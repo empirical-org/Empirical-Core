@@ -7,5 +7,10 @@ describe Teachers::ProgressReports::Standards::ClassroomStudentsController, type
     let(:default_filters) { {classroom_id: full_classroom.id }}
     let(:result_key) { 'students' }
     let(:expected_result_count) { visible_students.size }
+
+    it_behaves_like "filtering progress reports by Unit" do
+      let(:filter_value) { empty_unit.id }
+      let(:expected_result_count) { 0 }
+    end
   end
 end
