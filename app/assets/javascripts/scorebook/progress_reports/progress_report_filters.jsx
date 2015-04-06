@@ -49,7 +49,7 @@ EC.ProgressReportFilters = React.createClass({
     }
 
     return (
-      <div className="row activity-page-dropdown-wrapper">
+      <div className="row activity-page-dropdown-wrapper progress-report-filters">
         {filters}
       </div>
     );

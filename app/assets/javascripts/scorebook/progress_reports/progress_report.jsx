@@ -142,9 +142,15 @@ EC.ProgressReport = React.createClass({
 
     return (
       <div>
-        {this.props.children}
-        {csvExport}
-        <EC.FaqLink />
+        <div className="row">
+          <div className="col-md-8 header-section">
+            {this.props.children}
+          </div>
+          <div className="col-md-3 col-md-offset-1">
+            {csvExport}
+            <EC.FaqLink />
+          </div>
+        </div>
         <EC.ProgressReportFilters classroomFilters={this.state.classroomFilters}
                                   studentFilters={this.state.studentFilters}
                                   unitFilters={this.state.unitFilters}

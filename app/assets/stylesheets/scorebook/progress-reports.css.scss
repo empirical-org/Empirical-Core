@@ -3,9 +3,14 @@
 
 .container.progress-report {
   padding-top: 20px;
+
+  &.extra-wide {
+    width: 1100px;
+  }
 }
 
 .progress-report {
+  font-size: 14px;
 
   // Desktop sizing
   @media (min-width: 992px) {
@@ -13,6 +18,24 @@
       line-height: 39px;
     }
 
+    .table-header-arrow {
+      padding-left: 9px;
+    }
+
+    .table {
+      th.sorter, td {
+        padding-left: 11px;
+        padding-right: 11px;
+      }
+    }
+  }
+
+  .breadcrumb {
+    margin-bottom: 10px;
+  }
+
+  .export-csv {
+    float: right;
   }
 
   .fa-close {
@@ -27,18 +50,24 @@
     text-align: center;
   }
 
+  .header-section {
+    .description {
+      margin-top: 14px;
+    }
+  }
+
   .table {
     thead {
-      border: 1px solid gray;
+      border: 1px solid $lightgray;
     }
     th {
-      border: 1px solid gray;
+      border: 1px solid $lightgray;
     }
     tbody {
       background: white;
 
       tr {
-        border: 1px solid gray;
+        border: 1px solid $lightgray;
       }
     }
 
@@ -56,10 +85,17 @@
   }
 }
 
+.progress-report-filters {
+  margin-top: 0px;
+  margin-bottom: 19px;
+}
+
 .circle {
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  margin-right: 8px;
 
   &.proficient {
     @extend .icon-green;

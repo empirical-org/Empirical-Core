@@ -10,7 +10,8 @@ class Teachers::ProgressReports::Standards::TopicStudentsController < Teachers::
       end
       render json: {
         students: students_json,
-        topic: Topic.find(params[:topic_id])
+        topic: Topic.find(params[:topic_id]),
+        teacher: {}
       }
     end
   end

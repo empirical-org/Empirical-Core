@@ -4,7 +4,8 @@ class Teachers::ProgressReports::Standards::StudentTopicsController < Teachers::
       topics = Topic.for_standards_report(current_user, params)
       render json: {
         topics: topics,
-        student: current_user.students.find(params[:student_id])
+        student: current_user.students.find(params[:student_id]),
+        teacher: {}
       }
     end
   end

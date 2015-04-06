@@ -12,7 +12,7 @@ EC.SortableTh = React.createClass({
   },
 
   arrowClass: function() {
-    return this.state.sortDirection === 'desc' ? 'fa fa-caret-down' : 'fa fa-caret-up';
+    return this.state.sortDirection === 'desc' ? 'fa fa-caret-down table-header-arrow' : 'fa fa-caret-up table-header-arrow';
   },
 
   clickSort: function() {
@@ -33,7 +33,7 @@ EC.SortableTh = React.createClass({
     }
     return (
       <th className="sorter" onClick={this.clickSort}>
-        {this.props.displayName}
+        <span className="table-header-text">{this.props.displayName}</span>
         {arrow}
       </th>
     );
