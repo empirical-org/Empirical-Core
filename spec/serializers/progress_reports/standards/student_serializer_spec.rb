@@ -30,6 +30,7 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
     it 'includes the right keys' do
       expect(parsed_classroom.keys)
         .to match_array %w(name
+                           id
                            sorting_name
                            total_standard_count
                            proficient_standard_count

@@ -4,6 +4,7 @@ class ProgressReports::Standards::TopicSerializer < ActiveModel::Serializer
   attr_accessor :classroom_id
 
   attributes :name,
+             :id,
              :section_name,
              :total_student_count,
              :proficient_student_count,
