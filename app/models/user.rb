@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
   # Helper method used as CTE in other queries. Do not attempt to use this by itself
   def self.best_per_topic_user
     <<-BEST
-      select topic_id, user_id, MAX(percentage) as best_score_in_topic
+      select topic_id, user_id, AVG(percentage) as avg_score_in_topic
       from best_activity_sessions
       group by topic_id, user_id
     BEST
@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
            from best_per_topic_user
-           where best_score_in_topic >= 0.75
+           where avg_score_in_topic >= 0.75
            group by user_id
         ) as proficient_count ON proficient_count.user_id = users.id
       JOINS
@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
            from best_per_topic_user
-           where best_score_in_topic < 0.75 AND best_score_in_topic >= 0.50
+           where avg_score_in_topic < 0.75 AND avg_score_in_topic >= 0.50
            group by user_id
         ) as near_proficient_count ON near_proficient_count.user_id = users.id
       JOINS
@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
            from best_per_topic_user
-           where best_score_in_topic < 0.5
+           where avg_score_in_topic < 0.5
            group by user_id
         ) as not_proficient_count ON not_proficient_count.user_id = users.id
       JOINS
