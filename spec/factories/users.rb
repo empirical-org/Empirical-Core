@@ -1,15 +1,14 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  sequence(:name) { |i| "Name #{i}" }
+  sequence(:name) { |i| "Firstname Lastname#{i}" }
   sequence(:username) { |i| "Username#{i}" }
   sequence(:key) { |i| "key-#{i}" }
   sequence(:description) { |i| "Description #{i}" }
   sequence(:email) { |n| "user#{n}@example.com" }
 
   factory :user do
-    first_name 'Test'
-    last_name  'User'
+    name 'Test User'
     role 'user'
     password '123456'
     password_confirmation '123456'
@@ -23,8 +22,7 @@ FactoryGirl.define do
       role 'teacher'
 
       factory :mr_kotter do
-        first_name            'Gabe'
-        last_name             'Kotter'
+        name                  'Gabe Kotter'
         username              'mrkotter'
         email                 'gabe.kotter@jamesbuchananhigh.edu'
         password              'sweathogs'
@@ -32,8 +30,7 @@ FactoryGirl.define do
       end
 
       factory :mr_woodman do
-        first_name 'Michael'
-        last_name  'Woodman'
+        name 'Michael Woodman'
       end
     end
 
@@ -43,8 +40,7 @@ FactoryGirl.define do
       classroom
 
       factory :arnold_horshack do
-        first_name            'Arnold'
-        last_name             'Horshack'
+        name                  'Arnold Horshack'
         username              'horshack'
         password              'dingfelder'
         password_confirmation { password }
@@ -52,8 +48,7 @@ FactoryGirl.define do
       end
 
       factory :vinnie_barbarino do
-        first_name            'Vinnie'
-        last_name             'Barbarino'
+        name                  'Vinnie Barbarino'
         username              'vinnie_barbarino'
         password              'sally'
         password_confirmation { password }

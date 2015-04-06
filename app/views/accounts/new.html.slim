@@ -4,7 +4,7 @@ article.new-account-page.extra-padding
   = form_for @user, url: account_path, html: { class: 'box-full-form form-horizontal form-signup' }, fields: { label: false, placeholder: true } do |f|
     .new-account-field-group
       .js-role-select= f.radio :role, ['I\'m a <b>student</b>', 'student'], ['I\'m a <b>teacher</b>', 'teacher']
-      = f.string :name
+      = f.string :name, placeholder: "Full Name"
       = f.string :username
       = f.password :password
       = f.password :password_confirmation

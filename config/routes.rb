@@ -125,12 +125,12 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  %w(middle_school story about learning develop mission faq tos privacy activities new impact team).each do |page|
+  %w(middle_school story learning develop mission faq tos privacy activities new impact team).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
 
   get 'lessons' => 'pages#activities' # so that old links still work
-  get 'about' => 'pages#mission' # so that old links still work
+  get 'about' => 'pages#activities' # so that old links still work
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
