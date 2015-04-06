@@ -2,9 +2,9 @@ shared_context 'Student Concept Progress Report' do
   # Create 3 students
   # Create 2 concept tag, one displayed, the other not
   # Create a distribution of concept tag results for each student
-  let(:alice) { FactoryGirl.create(:student, name: "Alice") }
-  let(:fred) { FactoryGirl.create(:student, name: "Fred") }
-  let(:zojirushi) { FactoryGirl.create(:student, name: "Zojirushi") }
+  let(:alice) { FactoryGirl.create(:student, name: "Alice Cool") }
+  let(:fred) { FactoryGirl.create(:student, name: "Fred Kewl") }
+  let(:zojirushi) { FactoryGirl.create(:student, name: "Zojirushi Kewel") }
 
   let(:concept_class) { FactoryGirl.create(:concept_class) }
   let(:concept_tag) { FactoryGirl.create(:concept_tag, concept_class: concept_class) }
