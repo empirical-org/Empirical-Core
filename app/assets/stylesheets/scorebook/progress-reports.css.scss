@@ -6,6 +6,15 @@
 }
 
 .progress-report {
+
+  // Desktop sizing
+  @media (min-width: 992px) {
+    .table tr {
+      line-height: 39px;
+    }
+
+  }
+
   .fa-close {
     font-size: 1.3em;
   }

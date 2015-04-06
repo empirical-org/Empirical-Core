@@ -9,10 +9,9 @@ class Teachers::ProgressReports::Standards::TopicStudentsController < Teachers::
         serializer.as_json(root: false)
       end
       render json: {
-        students: students_json
+        students: students_json,
+        topic: Topic.find(params[:topic_id])
       }
-    else
-      @topic = Topic.find(params[:topic_id])
     end
   end
 end
