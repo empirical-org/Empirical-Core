@@ -27,6 +27,9 @@ EC.ExportCsv = React.createClass({
       type: 'POST',
       success: function onSuccess(data) {
         this.openModal();
+      },
+      error: function(xhr) {
+        alert('Something went wrong with your CSV export. Most likely it is not implemented yet.');
       }
     });
   },
