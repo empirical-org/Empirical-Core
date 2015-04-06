@@ -143,8 +143,7 @@ feature 'Signing up', js: true do
 
       let(:professor_x) do
         FactoryGirl.build :teacher,
-                          first_name: '',
-                           last_name: '',
+                            name: 'x x',
                             password: x,
                password_confirmation: x,
                                email: 'x@x.x'
@@ -290,8 +289,7 @@ feature 'Signing up', js: true do
 
       let(:student_x) do
         FactoryGirl.build :student,
-                          first_name: '',
-                           last_name: '',
+                           name: 'x x',
                             username: x,
                             password: x,
                password_confirmation: x,
