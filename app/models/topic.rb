@@ -30,7 +30,7 @@ class Topic < ActiveRecord::Base
       LEFT JOIN (
           select COUNT(DISTINCT(user_id)) as user_count, topic_id
            from best_per_topic_user
-           where best_score_in_topic >= 0.75
+           where avg_score_in_topic >= 0.75
            group by topic_id
         ) as proficient_count ON proficient_count.topic_id = topics.id
       JOINS
@@ -38,7 +38,7 @@ class Topic < ActiveRecord::Base
       LEFT JOIN (
           select COUNT(DISTINCT(user_id)) as user_count, topic_id
            from best_per_topic_user
-           where best_score_in_topic < 0.75 AND best_score_in_topic >= 0.50
+           where avg_score_in_topic < 0.75 AND avg_score_in_topic >= 0.50
            group by topic_id
         ) as near_proficient_count ON near_proficient_count.topic_id = topics.id
       JOINS
@@ -46,7 +46,7 @@ class Topic < ActiveRecord::Base
       LEFT JOIN (
           select COUNT(DISTINCT(user_id)) as user_count, topic_id
            from best_per_topic_user
-           where best_score_in_topic < 0.5
+           where avg_score_in_topic < 0.5
            group by topic_id
         ) as not_proficient_count ON not_proficient_count.topic_id = topics.id
       JOINS
