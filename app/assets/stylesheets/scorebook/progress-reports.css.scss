@@ -1,32 +1,86 @@
 @import "variables";
 @import "custom";
 
+
 .container.progress-report {
   padding-top: 20px;
-
-  &.extra-wide {
-    width: 1100px;
-  }
 }
 
 .progress-report {
-  font-size: 14px;
+  .table tr {
+    line-height: 39px;
+  }
 
-  // Desktop sizing
-  @media (min-width: 992px) {
-    .table tr {
-      line-height: 39px;
+  .table-header-arrow {
+    padding-left: 9px;
+  }
+
+  .table {
+    th.sorter, td {
+      padding-left: 11px;
+      padding-right: 11px;
+    }
+  }
+
+  table {
+    font-size: 14px;
+    table-layout: fixed;
+
+    // All column sizes are based on 14px font
+    .proficient-column {
+      width: 115px;
     }
 
-    .table-header-arrow {
-      padding-left: 9px;
+    .near-proficient-column {
+      width: 165px;
     }
 
-    .table {
-      th.sorter, td {
-        padding-left: 11px;
-        padding-right: 11px;
-      }
+    .not-proficient-column {
+      width: 146px;
+    }
+
+    .standard-level-column {
+      width: 155px;
+    }
+
+    .students-column {
+      width: 110px;
+    }
+
+    .activities-column {
+      width: 115px;
+    }
+
+    .standards-column {
+      width: 120px;
+    }
+
+    .class-name-column {
+      width: 120px;
+    }
+
+    .student-view-column {
+      width: 110px;
+    }
+
+    .standard-view-column {
+      width: 115px;
+    }
+
+    .student-name-column {
+      width: 110px;
+    }
+
+    .average-score-column {
+      width: 100px;
+    }
+
+    .overall-mastery-status-column {
+      width: 190px;
+    }
+
+    .mastery-status-column {
+      width: 145px;
     }
   }
 

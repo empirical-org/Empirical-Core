@@ -2,6 +2,7 @@
 EC.SortableTh = React.createClass({
   propTypes: {
     displayName: React.PropTypes.string.isRequired,
+    displayClass: React.PropTypes.string,
     sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
   },
 
@@ -27,12 +28,16 @@ EC.SortableTh = React.createClass({
   },
 
   render: function() {
-    var arrow;
+    var arrow,
+        className = 'sorter';
     if (!_.isEmpty(this.props.displayName)) {
       arrow = <i className={this.arrowClass()}></i>;
     }
+    if (this.props.displayClass) {
+      className += ' ' + this.props.displayClass;
+    }
     return (
-      <th className="sorter" onClick={this.clickSort}>
+      <th className={className} onClick={this.clickSort}>
         <span className="table-header-text">{this.props.displayName}</span>
         {arrow}
       </th>

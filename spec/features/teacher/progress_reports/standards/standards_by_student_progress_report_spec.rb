@@ -22,7 +22,7 @@ feature 'Standards by Student Progress Report', js: true do
           'Not Proficient',
           'Activities',
           'Average',
-          'Mastery Status'
+          'Overall Mastery Status'
         ]
       )
     end

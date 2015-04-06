@@ -16,12 +16,14 @@ EC.StandardsClassroomTopicsProgressReport = React.createClass({
       {
         name: 'Standard Level',
         field: 'section_name',
-        sortByField: 'section_name'
+        sortByField: 'section_name',
+        className: 'standard-level-column'
       },
       {
         name: 'Standard Name',
         field: 'name',
         sortByField: 'name',
+        className: 'standard-name-column',
         customCell: function(row) {
           return (
             <a className="student-view" href={row['topic_students_href']}>{row['name']}</a>
@@ -31,12 +33,14 @@ EC.StandardsClassroomTopicsProgressReport = React.createClass({
       {
         name: 'Students',
         field: 'total_student_count',
-        sortByField: 'total_student_count'
+        sortByField: 'total_student_count',
+        className: 'students-column'
       },
       {
         name: 'Proficient',
         field: 'proficient_student_count',
         sortByField: 'proficient_student_count',
+        className: 'proficient-column',
         customCell: function(row) {
           return <span className="proficient">{row['proficient_student_count']} students</span>;
         }
@@ -45,6 +49,7 @@ EC.StandardsClassroomTopicsProgressReport = React.createClass({
         name: 'Near Proficiency',
         field: 'near_proficient_student_count',
         sortByField: 'near_proficient_student_count',
+        className: 'near-proficient-column',
         customCell: function(row) {
           return <span className="near-proficient">{row['near_proficient_student_count']} students</span>;
         }
@@ -53,6 +58,7 @@ EC.StandardsClassroomTopicsProgressReport = React.createClass({
         name: 'Not Proficient',
         field: 'not_proficient_student_count',
         sortByField: 'not_proficient_student_count',
+        className: 'not-proficient-column',
         customCell: function(row) {
           return <span className="not-proficient">{row['not_proficient_student_count']} students</span>;
         }
@@ -60,7 +66,8 @@ EC.StandardsClassroomTopicsProgressReport = React.createClass({
       {
         name: 'Activities',
         field: 'total_activity_count',
-        sortByField: 'total_activity_count'
+        sortByField: 'total_activity_count',
+        className: 'activities-column'
       }
     ];
   },

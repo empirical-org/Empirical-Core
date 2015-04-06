@@ -16,17 +16,20 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
       {
         name: 'Student Name',
         field: 'name',
-        sortByField: 'sorting_name'
+        sortByField: 'sorting_name',
+        className: 'student-name-column'
       },
       {
         name: 'Activities',
         field: 'total_activity_count',
-        sortByField: 'total_activity_count'
+        sortByField: 'total_activity_count',
+        className: 'activities-column'
       },
       {
         name: 'Average',
         field: 'average_score',
         sortByField: 'average_score',
+        className: 'average-score-column',
         customCell: function(row) {
           return Math.round(row['average_score'] * 100) + '%';
         }
@@ -35,6 +38,7 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
         name: 'Mastery Status',
         field: 'average_score',
         sortByField: 'average_score',
+        className: 'average-score-column',
         customCell: function(row) {
           return <EC.MasteryStatus score={row['average_score']} />;
         }

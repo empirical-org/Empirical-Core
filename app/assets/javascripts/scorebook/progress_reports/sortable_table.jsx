@@ -14,7 +14,7 @@ EC.SortableTable = React.createClass({
 
   columns: function() {
     return _.map(this.props.columns, function (column, i) {
-      return <EC.SortableTh key={i} sortHandler={this.sortByColumn(column.sortByField)} displayName={column.name} />
+      return <EC.SortableTh key={i} sortHandler={this.sortByColumn(column.sortByField)} displayName={column.name} displayClass={column.className} />
     }, this);
   },
 
