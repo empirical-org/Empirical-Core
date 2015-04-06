@@ -49,6 +49,7 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'select2-rails'
 gem 'jbuilder'
+gem 'active_link_to'
 
 # METRICS
 gem 'keen'
