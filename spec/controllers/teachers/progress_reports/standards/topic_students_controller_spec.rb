@@ -7,5 +7,10 @@ describe Teachers::ProgressReports::Standards::TopicStudentsController, type: :c
     let(:default_filters) { {classroom_id: full_classroom.id, topic_id: first_grade_topic.id }}
     let(:result_key) { 'students' }
     let(:expected_result_count) { first_grade_topic_students.size }
+
+    it_behaves_like "filtering progress reports by Unit" do
+      let(:filter_value) { empty_unit.id }
+      let(:expected_result_count) { 0 }
+    end
   end
 end
