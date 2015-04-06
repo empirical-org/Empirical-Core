@@ -22,7 +22,8 @@ EC.StandardsTopicsProgressReport = React.createClass({
       {
         name: 'Standard Name',
         field: 'name',
-        sortByField: 'name'
+        sortByField: 'name',
+        className: 'standard-name-column'
       },
       {
         name: 'Activities',
