@@ -146,24 +146,34 @@ EC.CreateUnit = React.createClass({
 		this.props.toggleTab('manageUnits');
 	},
 
-	determineAssignButtonClass: function () {
-		var classroomsSelected = _.select(this.state.classrooms, function (c) {
-			if (c.students) {
-				var c1 = _.where(c.students, {isSelected: true});
-				return (c1.length > 0);
-			} else {
-				return false;
-			}
+	areAnyStudentsSelected: function () {
+		var x = _.select(this.state.classrooms, function (c) {
+			var y = _.where(c.students, {isSelected: true});
+			return (y.length > 0);
 		});
-		var a = (classroomsSelected.length > 0);
-		var b = (this.state.selectedActivities.length == Object.keys(this.state.dueDates).length);
-		var c = (this.state.selectedActivities.length > 0);
-		if (a && b && c) {
-			return 'button-green';
-		} else {
-			return 'hidden-button';
-		}
+		return (x.length > 0);
+	},
 
+	areAllDueDatesProvided: function () {
+		return (Object.keys(this.state.dueDates).length == this.state.selectedActivities.length);
+	},
+
+	determineErrorMessage: function () {
+		var a = this.areAnyStudentsSelected;
+		var b = this.areAllDueDatesProvided;
+		var msg;
+		if (!a) {
+			if (!b) {
+				msg = "Please select students and due dates";
+			} else {
+				msg = "Please select students";
+			}
+		} else if (!b) {
+			msg = "Please select due dates";
+		} else {
+			msg = null;
+		}
+		return msg;
 	},
 
 	render: function () {
@@ -183,8 +193,10 @@ EC.CreateUnit = React.createClass({
 																					 toggleStudentSelection={this.toggleStudentSelection}
 																					 finish={this.finish}
 																					 unitName={this.state.unitName}
-																					 determineAssignButtonClass={this.determineAssignButtonClass}
-																					 assignActivityDueDate={this.assignActivityDueDate} />;
+																					 assignActivityDueDate={this.assignActivityDueDate}
+																					 areAnyStudentsSelected={this.areAnyStudentsSelected}
+																					 areAllDueDatesProvided={this.areAllDueDatesProvided} />;
+																					 errorMessage={this.determineErrorMessage}
 		}
 		return (
 			<span>
