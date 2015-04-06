@@ -55,7 +55,9 @@ EC.ConceptCategoriesProgressReport = React.createClass({
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'concept_categories'}
-                         filterTypes={['unit', 'classroom', 'student']} />
+                         filterTypes={['unit', 'classroom', 'student']}>
+        <h2>Concepts</h2>
+      </EC.ProgressReport>
     );
   }
 });

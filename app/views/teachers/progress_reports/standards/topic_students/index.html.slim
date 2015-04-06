@@ -6,7 +6,6 @@
     ol.breadcrumb
       li=link_to "Standards: All Classrooms", teachers_progress_reports_standards_classrooms_path
       li=link_to "Standard View", teachers_progress_reports_standards_classroom_topics_path(classroom_id: params[:classroom_id])
-      li Standards: #{@topic.name}
+      li Individual Standard
 
-  h2 Standards: #{@topic.name}
   .progress-reports-standards-topic-students data-url=url_for

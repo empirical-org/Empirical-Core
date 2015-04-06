@@ -69,7 +69,9 @@ EC.ActivitiesProgressReport = React.createClass({
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'activity_sessions'}
                          exportCsv={'activity_sessions'}
-                         filterTypes={['unit', 'classroom', 'student']} />
+                         filterTypes={['unit', 'classroom', 'student']}>
+        <h2>Activity Listing</h2>
+      </EC.ProgressReport>
     );
   }
 });

@@ -3,10 +3,9 @@ class Teachers::ProgressReports::Standards::StudentTopicsController < Teachers::
     if request.xhr?
       topics = Topic.for_standards_report(current_user, params)
       render json: {
-        topics: topics
+        topics: topics,
+        student: current_user.students.find(params[:student_id])
       }
-    else
-      @student = current_user.students.find(params[:student_id])
     end
   end
 end

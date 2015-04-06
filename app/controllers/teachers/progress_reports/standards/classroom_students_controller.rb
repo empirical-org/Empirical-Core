@@ -10,10 +10,9 @@ class Teachers::ProgressReports::Standards::ClassroomStudentsController < Teache
         serializer.as_json(root: false)
       end
       render json: {
-        students: students_json
+        students: students_json,
+        classroom: current_user.classrooms.find(params[:classroom_id])
       }
-    else
-      @classroom = Classroom.find(params[:classroom_id])
     end
   end
 end

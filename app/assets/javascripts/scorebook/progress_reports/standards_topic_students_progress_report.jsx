@@ -5,6 +5,12 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
     sourceUrl: React.PropTypes.string.isRequired
   },
 
+  getInitialState: function() {
+    return {
+      topic: {}
+    };
+  },
+
   columnDefinitions: function() {
     return [
       {
@@ -50,14 +56,23 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
     };
   },
 
+  onFetchSuccess: function(responseData) {
+    this.setState({
+      topic: responseData.topic
+    });
+  },
+
   render: function() {
     return (
       <EC.ProgressReport columnDefinitions={this.columnDefinitions}
-                         pagination={true}
+                         pagination={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'students'}
-                         filterTypes={['unit']} />
+                         onFetchSuccess={this.onFetchSuccess}
+                         filterTypes={['unit']}>
+        <h2>Standards: {this.state.topic.name}</h2>
+      </EC.ProgressReport>
     );
   }
 });
