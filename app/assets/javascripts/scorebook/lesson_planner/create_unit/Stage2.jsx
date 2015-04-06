@@ -16,10 +16,10 @@ EC.Stage2 = React.createClass({
   },
 
   determineAssignButtonClass: function () {
-    if (!this.state.buttonDisabled) {
-      return this.props.determineAssignButtonClass();
+    if ((!this.state.buttonDisabled) && (this.props.areAnyStudentsSelected && this.props.areAllDueDatesProvided)) { {
+      return "button-green"
     } else {
-      return "button-grey pull-right";
+      return "button-grey";
     }
   },
 
@@ -61,6 +61,7 @@ EC.Stage2 = React.createClass({
               {dueDateList}
             </tbody>
           </table>
+          {this.props.errorMessage}
           <button ref="button" className={this.determineAssignButtonClass() + " pull-right"} id="assign" onClick={this.finish}>{this.determineButtonText()}</button>
         </section>
       </span>
