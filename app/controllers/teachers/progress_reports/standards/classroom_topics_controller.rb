@@ -11,7 +11,8 @@ class Teachers::ProgressReports::Standards::ClassroomTopicsController < Teachers
       render json: {
         topics: topics_json,
         units: Unit.for_standards_progress_report(current_user, {}),
-        classroom: current_user.classrooms.find(params[:classroom_id])
+        classroom: current_user.classrooms.find(params[:classroom_id]),
+        teacher: {}
       }
     end
   end

@@ -11,7 +11,8 @@ class Teachers::ProgressReports::Standards::ClassroomStudentsController < Teache
       end
       render json: {
         students: students_json,
-        classroom: current_user.classrooms.find(params[:classroom_id])
+        classroom: current_user.classrooms.find(params[:classroom_id]),
+        teacher: {}
       }
     end
   end
