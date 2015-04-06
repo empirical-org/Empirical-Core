@@ -31,6 +31,7 @@ describe ProgressReports::Standards::TopicSerializer, type: :serializer do
     it 'includes the right keys' do
       expect(parsed_topic.keys)
         .to match_array %w(name
+                           id
                            section_name
                            total_student_count
                            proficient_student_count

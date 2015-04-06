@@ -4,6 +4,7 @@ class ProgressReports::Standards::StudentSerializer < ActiveModel::Serializer
   attr_accessor :classroom_id
 
   attributes :name,
+             :id,
              :sorting_name,
              :total_standard_count,
              :proficient_standard_count,
