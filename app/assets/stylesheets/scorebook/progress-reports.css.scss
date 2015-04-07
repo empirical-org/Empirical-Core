@@ -99,7 +99,7 @@ a.progress-reports-nav {
     }
 
     .student-name-column {
-      width: 110px;
+      width: 150px;
     }
 
     .average-score-column {
@@ -119,13 +119,17 @@ a.progress-reports-nav {
     margin-bottom: 10px;
 
     a {
-      color: $quillgreen;
+      color: $graygreen;
       text-decoration: none;
     }
   }
 
   .export-csv {
     float: right;
+
+    button {
+      font-weight: normal;
+    }
   }
 
   .fa-close {
