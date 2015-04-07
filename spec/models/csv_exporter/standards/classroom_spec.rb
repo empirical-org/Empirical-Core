@@ -4,7 +4,7 @@ describe CsvExporter::Standards::Classroom do
   include_context 'Topic Progress Report'
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {
-      ['Class Name', 'Students', 'Proficient', 'Near Proficiency', 'Not Proficient', 'Standards']
+      ['Class Name', 'Students', 'Proficient Students', 'Near Proficiency Students', 'Not Proficient Students', 'Standards']
     }
 
     let(:model_instance) {

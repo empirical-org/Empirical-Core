@@ -12,29 +12,45 @@ describe CsvExport, :type => :model do
     csv_export.teacher = mr_kotter
   end
 
+  shared_examples_for "CSV Export Type" do
+    it 'is valid' do
+      expect(csv_export).to be_valid
+    end
+
+    it 'works' do
+      expect { csv_export.generate_csv }.to_not raise_error
+    end
+  end
+
   describe 'export types' do
     context 'activity sessions' do
       let(:export_type) { 'activity_sessions' }
-
-      it 'is valid' do
-        expect(csv_export).to be_valid
-      end
-
-      it 'works' do
-        expect { csv_export.generate_csv }.to_not raise_error
-      end
+      it_behaves_like "CSV Export Type"
     end
 
     context 'standards: all classrooms' do
       let(:export_type) { 'standards_classrooms' }
+      it_behaves_like "CSV Export Type"
+    end
 
-      it 'is valid' do
-        expect(csv_export).to be_valid
-      end
+    context 'standards: students by classroom' do
+      let(:export_type) { 'standards_classroom_students' }
+      it_behaves_like "CSV Export Type"
+    end
 
-      it 'works' do
-        expect { csv_export.generate_csv }.to_not raise_error
-      end
+    context 'standards: topics by classroom' do
+      let(:export_type) { 'standards_classroom_topics' }
+      it_behaves_like "CSV Export Type"
+    end
+
+    context 'standards: topics by student' do
+      let(:export_type) { 'standards_student_topics' }
+      it_behaves_like "CSV Export Type"
+    end
+
+    context 'standards: students by topic' do
+      let(:export_type) { 'standards_topic_students' }
+      it_behaves_like "CSV Export Type"
     end
   end
 

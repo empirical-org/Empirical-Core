@@ -102,7 +102,7 @@ EC.StandardsClassroomTopicsProgressReport = React.createClass({
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'topics'}
-                         exportCsv={'not_implemented'}
+                         exportCsv={'standards_classroom_topics'}
                          onFetchSuccess={this.onFetchSuccess}
                          filterTypes={['unit']}>
         <h2>Standards by Class: {this.state.classroom.name}</h2>
