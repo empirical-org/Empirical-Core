@@ -1,7 +1,8 @@
 require 'csv'
 
 class CsvExport < ActiveRecord::Base
-  EXPORT_TYPE_OPTIONS = %w(activity_sessions)
+  EXPORT_TYPE_OPTIONS = %w(activity_sessions
+                           standards_classrooms)
 
   belongs_to :teacher, class_name: 'User'
 
@@ -47,6 +48,8 @@ class CsvExport < ActiveRecord::Base
       case export_type.to_sym
       when :activity_sessions
         CsvExporter::ActivitySession.new
+      when :standards_classrooms
+        CsvExporter::Standards::Classroom.new
       else
         raise "Export type named #{export_type} could not be found!"
       end
