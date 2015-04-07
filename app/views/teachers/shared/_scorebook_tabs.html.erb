@@ -21,6 +21,9 @@
       <li>
         <%= link_to 'Progress Reports', teachers_progress_reports_activity_sessions_path, role: 'tab' %>
       </li>
+      <li class="<%= (action_name == 'premium') ? 'premium-tab active' : 'premium-tab' %>">
+        <%= link_to 'Premium', premium_path, role: 'tab' %>
+      </li>
       <%- end %>
     </ul>
 

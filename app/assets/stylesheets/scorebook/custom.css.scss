@@ -336,10 +336,11 @@ select:focus {
   padding: 10px 16.5px;
 }
 .tab-subnavigation-wrapper ul li a {
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: 5px;
   font-size: 14px;
   color: #000;
+  height: 35px;
 }
 .tab-subnavigation-wrapper ul li a.active {
   background: #e6e6e6;
