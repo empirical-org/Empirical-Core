@@ -1,23 +1,32 @@
 module CsvExporter::Standards
-  class Classroom
+  class ClassroomTopic
     def header_row
-      ['Class Name', 'Students', 'Proficient Students', 'Near Proficiency Students', 'Not Proficient Students', 'Standards']
+      [
+        'Standard Level',
+        'Standard Name',
+        'Students',
+        'Proficient Students',
+        'Near Proficiency Students',
+        'Not Proficient Students',
+        'Activities'
+      ]
     end
 
     def data_row(record)
-      json_hash = ProgressReports::Standards::ClassroomSerializer.new(record).as_json(root: false)
+      json_hash = ProgressReports::Standards::TopicSerializer.new(record).as_json(root: false)
       [
+        json_hash[:section_name],
         json_hash[:name],
         json_hash[:total_student_count],
         json_hash[:proficient_student_count],
         json_hash[:near_proficient_student_count],
         json_hash[:not_proficient_student_count],
-        json_hash[:total_standard_count],
+        json_hash[:total_activity_count]
       ]
     end
 
     def model_data(teacher, filters)
-      ::Classroom.for_standards_report(
+      ::Topic.for_standards_report(
         teacher,
         HashWithIndifferentAccess.new(filters) || {})
     end

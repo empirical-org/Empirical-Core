@@ -40,6 +40,7 @@ describe ProgressReports::Standards::TopicSerializer, type: :serializer do
                            total_activity_count
                            average_score
                            topic_students_href
+                           mastery_status
                           )
     end
   end

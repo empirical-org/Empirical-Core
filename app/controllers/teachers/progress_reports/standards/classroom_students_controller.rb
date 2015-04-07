@@ -12,7 +12,7 @@ class Teachers::ProgressReports::Standards::ClassroomStudentsController < Teache
         students: students_json,
         classroom: current_user.classrooms.find(params[:classroom_id]),
         units: Unit.for_standards_progress_report(current_user, {}),
-        teacher: {}
+        teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
       }
     end
   end
