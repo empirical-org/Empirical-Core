@@ -30,6 +30,11 @@ a.progress-reports-nav {
 }
 
 .progress-report {
+  a {
+    color: $darkgreen;
+    text-decoration: none;
+  }
+
   .table tr {
     line-height: 39px;
   }
@@ -46,10 +51,6 @@ a.progress-reports-nav {
   }
 
   table {
-    a {
-      text-decoration: underline;
-    }
-
     font-size: 14px;
     table-layout: fixed;
 
@@ -117,11 +118,6 @@ a.progress-reports-nav {
 
   .breadcrumb {
     margin-bottom: 10px;
-
-    a {
-      color: $graygreen;
-      text-decoration: none;
-    }
   }
 
   .export-csv {
