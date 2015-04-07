@@ -6,15 +6,12 @@ describe Teachers::ProgressReports::ConceptTagsStudentsController, :type => :con
 
   let!(:teacher) { FactoryGirl.create(:teacher) }
   let(:json) { JSON.parse(response.body) }
-
-  describe 'when not logged in' do
-    # IDs don't matter for non-XHR get request
-    subject { get :index, {concept_tag_id: 123, concept_category_id: 123} }
-
-    it 'requires a logged-in teacher' do
-      subject
-      expect(response.status).to eq(401)
-    end
+  let(:basic_filters) { {concept_tag_id: concept_tag.id, concept_category_id: concept_category.id} }
+  include_context 'Student Concept Progress Report'
+  it_behaves_like 'Progress Report' do
+    let(:default_filters) { basic_filters }
+    let(:result_key) { 'students' }
+    let(:expected_result_count) { visible_students.size }
   end
 
   describe 'when logged in' do
@@ -22,22 +19,11 @@ describe Teachers::ProgressReports::ConceptTagsStudentsController, :type => :con
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
     end
 
-    include_context 'Student Concept Progress Report'
-
-    describe 'GET #index' do
-      it 'displays the html' do
-        subject
-        expect(response.status).to eq(200)
-      end
-    end
-
     context 'XHR GET #index' do
-      subject { xhr :get, :index, {concept_tag_id: concept_tag.id, concept_category_id: concept_category.id} }
+      subject { xhr :get, :index, basic_filters }
 
       it 'fetches aggregated students data' do
         subject
-        expect(response.status).to eq(200)
-        expect(json['students'].size).to eq(visible_students.size)
         alice_json = json['students'][0]
         expect(alice_json['name']).to eq(alice.name)
         expect(alice_json['total_result_count'].to_i).to eq(alice_session.concept_tag_results.size)
