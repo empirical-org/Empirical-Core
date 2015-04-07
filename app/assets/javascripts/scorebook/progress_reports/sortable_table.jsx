@@ -1,5 +1,6 @@
 EC.SortableTable = React.createClass({
   propTypes: {
+    currentSort: React.PropTypes.object.isRequired,
     columns: React.PropTypes.array.isRequired,
     rows: React.PropTypes.array.isRequired, // [{classification_name: 'foobar', ...}]
     sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
@@ -14,7 +15,12 @@ EC.SortableTable = React.createClass({
 
   columns: function() {
     return _.map(this.props.columns, function (column, i) {
-      return <EC.SortableTh key={i} sortHandler={this.sortByColumn(column.sortByField)} displayName={column.name} displayClass={column.className} />
+      var arrowIsVisible = (column.sortByField === this.props.currentSort.field);
+      return <EC.SortableTh key={i}
+                            sortHandler={this.sortByColumn(column.sortByField)}
+                            displayName={column.name}
+                            displayClass={column.className}
+                            isCurrentSort={arrowIsVisible} />
     }, this);
   },
 

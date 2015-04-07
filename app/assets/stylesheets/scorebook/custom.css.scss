@@ -152,7 +152,7 @@ button:not(.select-mixin):active {
   background-color: #616161;
 }
 .button-green {
-  background-color: #5bc1a9;
+  background-color: $quillgreen;
   color: #fff;
 }
 .button-green:hover {
@@ -336,10 +336,11 @@ select:focus {
   padding: 10px 16.5px;
 }
 .tab-subnavigation-wrapper ul li a {
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: 5px;
   font-size: 14px;
   color: #000;
+  height: 35px;
 }
 .tab-subnavigation-wrapper ul li a.active {
   background: #e6e6e6;
@@ -757,7 +758,7 @@ below is obselete for now, changed link to span :
   margin-bottom: 0;
 }
 .manage-classes table a {
-  color: #308183;
+  color: $darkgreen;
 }
 .manage-classes table thead {
   background: #f7f5f5;
@@ -847,7 +848,7 @@ below is obselete for now, changed link to span :
   margin-bottom: 0;
 }
 .class-page table a {
-  color: #308183;
+  color: $darkgreen;
 }
 .class-page table thead {
   background: #f7f5f5;
@@ -943,7 +944,7 @@ form.class-page {
   margin-bottom: 0em;
 }
 .class-page .delete-class a {
-  color: #308183;
+  color: $darkgreen;
   line-height: 50.5px;
 }
 .edit-student-page {
@@ -957,7 +958,7 @@ form.class-page {
 
 
 .edit-student-page a {
-  color: #308183;
+  color: $darkgreen;
 }
 .edit-student-page > div {
   margin-bottom: 20px;
@@ -1056,7 +1057,7 @@ form.class-page {
   margin-bottom: 0;
 }
 .invite-students table a {
-  color: #308183;
+  color: $darkgreen;
 }
 .invite-students table thead {
   background: #f7f5f5;
@@ -1161,7 +1162,7 @@ form.class-page {
     cursor: pointer;
     line-height: 40px;
     margin-left: 20px;
-    color: #308183;
+    color: $darkgreen;
 
   }
 
@@ -1230,7 +1231,7 @@ form.class-page {
   border-bottom: 0;
 }
 .fake-table .line a {
-  color: #308183;
+  color: $darkgreen;
 }
 .fake-table a {
   float: right;

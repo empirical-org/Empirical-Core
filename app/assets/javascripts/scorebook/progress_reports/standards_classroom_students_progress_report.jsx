@@ -36,7 +36,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
         sortByField: 'proficient_standard_count',
         className: 'proficient-column',
         customCell: function(row) {
-          return <span className="proficient">{row['proficient_standard_count']} standards</span>;
+          return <span>{row['proficient_standard_count']} standards</span>;
         }
       },
       {
@@ -45,8 +45,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
         sortByField: 'near_proficient_standard_count',
         className: 'near-proficient-column',
         customCell: function(row) {
-          return <span className="near-proficient">{row['near_proficient_standard_count']} standards</span>;
-          return row['near_proficient_standard_count'] + ' standards';
+          return <span>{row['near_proficient_standard_count']} standards</span>;
         }
       },
       {
@@ -55,7 +54,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
         sortByField: 'not_proficient_standard_count',
         className: 'not-proficient-column',
         customCell: function(row) {
-          return <span className="not-proficient">{row['not_proficient_standard_count']} standards</span>;
+          return <span>{row['not_proficient_standard_count']} standards</span>;
         }
       },
       {

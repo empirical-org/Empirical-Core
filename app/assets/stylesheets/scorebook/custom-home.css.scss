@@ -592,10 +592,10 @@
   background-color: $quillgreen;
 }
 /* selected tab - dark marine border top */
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
-  border-top: 2px solid #027360;
+.nav-tabs > li.active:not(.premium-tab) > a,
+.nav-tabs > li:not(.premium-tab) > a:hover {
+//.nav-tabs > li > a:focus {
+  border-top: 3px solid #027360 !important;
 }
 
 

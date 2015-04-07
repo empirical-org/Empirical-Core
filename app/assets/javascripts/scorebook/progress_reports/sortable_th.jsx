@@ -1,6 +1,7 @@
 // Ported from EC.ActivitySearchSort
 EC.SortableTh = React.createClass({
   propTypes: {
+    isCurrentSort: React.PropTypes.bool.isRequired,
     displayName: React.PropTypes.string.isRequired,
     displayClass: React.PropTypes.string,
     sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
@@ -30,7 +31,7 @@ EC.SortableTh = React.createClass({
   render: function() {
     var arrow,
         className = 'sorter';
-    if (!_.isEmpty(this.props.displayName)) {
+    if (this.props.isCurrentSort && !_.isEmpty(this.props.displayName)) {
       arrow = <i className={this.arrowClass()}></i>;
     }
     if (this.props.displayClass) {
