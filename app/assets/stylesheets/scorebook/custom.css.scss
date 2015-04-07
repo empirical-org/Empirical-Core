@@ -152,7 +152,7 @@ button:not(.select-mixin):active {
   background-color: #616161;
 }
 .button-green {
-  background-color: #5bc1a9;
+  background-color: $quillgreen;
   color: #fff;
 }
 .button-green:hover {
