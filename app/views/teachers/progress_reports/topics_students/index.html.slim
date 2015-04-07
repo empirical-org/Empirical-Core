@@ -1,7 +1,0 @@
-= render partial: 'teachers/shared/scorebook_tabs'
-= render partial: 'teachers/progress_reports/subnav'
-
-.container.progress-report
-  = render partial: 'teachers/progress_reports/topic_breadcrumbs'
-  h2 Results by Student
-  .progress-reports-topic-students data-url=teachers_progress_reports_section_topic_students_path(section_id: params[:section_id], topic_id: params[:topic_id])

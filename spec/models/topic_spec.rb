@@ -43,20 +43,21 @@ describe Topic, :type => :model do
 	end
 
 	context "retrieving topics for the progress report" do
-
-
-	  let!(:teacher) { FactoryGirl.create(:teacher) }
     let(:filters) { {} }
-
 	  include_context 'Topic Progress Report'
 
-	  subject { Topic.for_progress_report(teacher, filters).to_a }
+	  subject { Topic.for_standards_report(teacher, filters).to_a }
 
 	  it "retrieves aggregated topics data" do
-	  	topics = subject
-	  	expect(topics.size).to eq(visible_topics.size)
-	  	expect(topics[0]["topic_name"]).to eq(first_grade_topic.name)
-	  	expect(topics[0]["topic_id"].to_i).to eq(first_grade_topic.id)
+	  	found_topics = subject
+	  	expect(found_topics.size).to eq(visible_topics.size)
+      expect(found_topics[0].name).to be_present
+      expect(found_topics[0].total_student_count).to be_present
+      expect(found_topics[0].proficient_student_count).to be_present
+      expect(found_topics[0].near_proficient_student_count).to be_present
+      expect(found_topics[0].not_proficient_student_count).to be_present
+      expect(found_topics[0].total_activity_count).to be_present
+      expect(found_topics[0].average_score).to be_present
 	  end
 
 	  context "when a classroom filter is provided" do
@@ -95,28 +96,6 @@ describe Topic, :type => :model do
     	let(:filters) { {section_id: section.id, unit_id: ""} }
 
 	  	it "does not filter by unit" do
-	  		expect(subject.size).to eq(visible_topics.size)
-	  	end
-	  end
-
-	  context "when a student filter is provided" do
-    	let(:filters) { {section_id: section.id, student_id: zojirushi.id} }
-
-	  	it "filters by student" do
-	  		# Zojirushi has completed activity sessions for only 1 topic
-	  		topics = subject
-	  		expect(topics.size).to eq(1)
-	  		expect(topics[0]['topic_name']).to eq(second_grade_topic.name)
-	  		expect(topics[0]['students_count']).to eq(1)
-	  		expect(topics[0]['proficient_count']).to eq(0)
-	  		expect(topics[0]['not_proficient_count']).to eq(1)
-	  	end
-	  end
-
-	  context "when an empty student filter is provided" do
-    	let(:filters) { {section_id: section.id, student_id: ""} }
-
-	  	it "does not filter by student" do
 	  		expect(subject.size).to eq(visible_topics.size)
 	  	end
 	  end

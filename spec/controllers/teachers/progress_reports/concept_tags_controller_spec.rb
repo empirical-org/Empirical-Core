@@ -7,31 +7,15 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
   let!(:teacher) { FactoryGirl.create(:teacher) }
 
   include_context 'Concept Progress Report'
-
-  describe 'GET #index' do
-    subject do
-      get :index, {concept_category_id: writing_category}
-    end
-
-    before do
-      session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
-    end
-
-    it 'displays the html' do
-      subject
-      expect(response.status).to eq(200)
-      expect(assigns(:concept_category)).to be_present
-    end
+  it_behaves_like 'Progress Report' do
+    let(:default_filters) { {concept_category_id: writing_category} }
+    let(:result_key) { 'concept_tags' }
+    let(:expected_result_count) { writing_category_tags.size }
   end
 
   context 'XHR GET #index' do
     subject do
       xhr :get, :index, {concept_category_id: writing_category}
-    end
-
-    it 'requires a logged-in teacher' do
-      subject
-      expect(response.status).to eq(401)
     end
 
     context 'when logged in' do
@@ -41,11 +25,13 @@ describe Teachers::ProgressReports::ConceptTagsController, :type => :controller 
         session[:user_id] = teacher.id
       end
 
-      it 'fetches aggregated concept tags data' do
+      it 'includes the concept tag name in the JSON response' do
         subject
-        expect(response.status).to eq(200)
-        expect(json['concept_tags'].size).to eq(writing_category_tags.size)
         expect(json['concept_tags'][0]['concept_tag_name']).to eq(writing_tag.name)
+      end
+
+      it 'includes links to students in the JSON response' do
+        subject
         expect(json['concept_tags'][0]['students_href'])
           .to eq(teachers_progress_reports_concept_category_concept_tag_students_path(
             concept_category_id: writing_category.id,

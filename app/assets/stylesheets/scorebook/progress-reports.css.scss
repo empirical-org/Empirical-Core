@@ -1,8 +1,129 @@
+@import "variables";
+@import "custom";
+
+
+.progress-reports-nav {
+  .btn {
+    padding: 0;
+    border: 0;
+    margin-left: 10px;
+    line-height: 26px;
+    height: 26px;
+    padding-left: 14px;
+    padding-right: 14px;
+
+    &:hover, &:focus {
+      color: white;
+    }
+  }
+}
+
+// The alignment of the link is off when it contains a button.
+a.progress-reports-nav {
+  padding-top: 14px !important;
+  padding-bottom: 10px !important;
+}
+
+
 .container.progress-report {
   padding-top: 20px;
 }
 
 .progress-report {
+  .table tr {
+    line-height: 39px;
+  }
+
+  .table-header-arrow {
+    padding-left: 9px;
+  }
+
+  .table {
+    th.sorter, td {
+      padding-left: 11px;
+      padding-right: 11px;
+    }
+  }
+
+  table {
+    font-size: 14px;
+    table-layout: fixed;
+
+    // All column sizes are based on 14px font
+    .proficient-column {
+      width: 115px;
+    }
+
+    .near-proficient-column {
+      width: 165px;
+    }
+
+    .not-proficient-column {
+      width: 146px;
+    }
+
+    .standard-level-column {
+      width: 155px;
+    }
+
+    .standard-name-column {
+      width: 400px;
+    }
+
+    .students-column {
+      width: 110px;
+    }
+
+    .activities-column {
+      width: 115px;
+    }
+
+    .standards-column {
+      width: 120px;
+    }
+
+    .class-name-column {
+      width: 120px;
+    }
+
+    .student-view-column {
+      width: 110px;
+    }
+
+    .standard-view-column {
+      width: 115px;
+    }
+
+    .student-name-column {
+      width: 110px;
+    }
+
+    .average-score-column {
+      width: 100px;
+    }
+
+    .overall-mastery-status-column {
+      width: 190px;
+    }
+
+    .mastery-status-column {
+      width: 145px;
+    }
+  }
+
+  .breadcrumb {
+    margin-bottom: 10px;
+
+    a {
+      color: $quillgreen;
+      text-decoration: none;
+    }
+  }
+
+  .export-csv {
+    float: right;
+  }
+
   .fa-close {
     font-size: 1.3em;
   }
@@ -13,5 +134,64 @@
   .modal-footer {
     border-top: none;
     text-align: center;
+  }
+
+  .header-section {
+    .description {
+      margin-top: 14px;
+    }
+  }
+
+  .table {
+    thead {
+      border: 1px solid $lightgray;
+    }
+    th {
+      border: 1px solid $lightgray;
+    }
+    tbody {
+      background: white;
+
+      tr {
+        border: 1px solid $lightgray;
+      }
+    }
+
+    .proficient {
+      color: $green;
+    }
+
+    .near-proficient {
+      color: $orange;
+    }
+
+    .not-proficient {
+      color: $red;
+    }
+  }
+}
+
+.progress-report-filters {
+  margin-top: 0px;
+  margin-bottom: 19px;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  margin-right: 8px;
+
+  &.proficient {
+    @extend .icon-green;
+  }
+
+  &.near-proficient {
+    @extend .icon-orange;
+  }
+
+  &.not-proficient {
+    @extend .icon-red;
   }
 }
