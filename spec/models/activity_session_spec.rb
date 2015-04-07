@@ -111,6 +111,16 @@ describe ActivitySession, :type => :model do
 
   end
 
+  describe "#for_standards_report" do
+    include_context 'Topic Progress Report'
+    let(:filters) { {} }
+    subject { ActivitySession.for_standards_report(teacher, filters)}
+
+    it "must retrieve completed activity sessions representing the best scores for a teacher's students" do
+      expect(subject.size).to eq(best_activity_sessions.size)
+    end
+  end
+
   describe "#by_teacher" do
     # This setup is very convoluted... the factories appear to be untrustworthy w/r/t generating extra records
     let!(:current_teacher) { FactoryGirl.create(:teacher) }

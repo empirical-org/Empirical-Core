@@ -34,6 +34,8 @@ class ActivitySession < ActiveRecord::Base
     (complete_session || incomplete_session)
   }
 
+  RESULTS_PER_PAGE = 25
+
   def self.for_standalone_progress_report(teacher, filters)
     query = includes(:user, :activity => [:topic, :classification], :classroom_activity => :classroom)
       .references(:classification)
@@ -43,20 +45,9 @@ class ActivitySession < ActiveRecord::Base
     with_filters(query, filters)
   end
 
-  # Used as a CTE (common table expression) by other models to get progress report data.
-  def self.proficient_sessions_for_progress_report(teacher, filters)
-    query = select(<<-SELECT
-      activity_sessions.id as activity_session_id,
-      activity_sessions.*,
-      CASE WHEN activity_sessions.percentage > 0.75 THEN 1 ELSE 0 END as is_proficient
-    SELECT
-    ).joins(:classroom_activity => :classroom)
-      .completed
-      .by_teacher(teacher)
-      .group("activity_sessions.id")
-
-    query = with_filters(query, filters)
-    query
+  def self.paginate(current_page, per_page)
+    offset = (current_page.to_i - 1) * per_page
+    limit(per_page).offset(offset)
   end
 
   def self.with_filters(query, filters)
@@ -70,7 +61,7 @@ class ActivitySession < ActiveRecord::Base
     end
 
     if filters[:unit_id].present?
-      query = query.where("classroom_activities.unit_id = ?", filters[:unit_id])
+      query = query.joins(:classroom_activity).where("classroom_activities.unit_id = ?", filters[:unit_id])
     end
 
     if filters[:section_id].present?
@@ -82,6 +73,22 @@ class ActivitySession < ActiveRecord::Base
     end
 
     query
+  end
+
+  def self.for_standards_report(teacher, filters)
+    query = select(<<-SELECT
+      activity_sessions.*,
+      activities.topic_id as topic_id
+    SELECT
+    ).completed
+      .with_best_scores
+      .by_teacher(teacher)
+    query = with_filters(query, filters)
+    query
+  end
+
+  def self.with_best_scores
+    where(is_final_score: true)
   end
 
   def self.by_teacher(teacher)

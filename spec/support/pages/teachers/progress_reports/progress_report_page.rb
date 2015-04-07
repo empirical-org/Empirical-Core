@@ -14,7 +14,7 @@ module Teachers
     end
 
     def export_csv
-      find('.export-csv a').click
+      find('.export-csv button').click
     end
 
     def select_filter(filter_class, option_name)
