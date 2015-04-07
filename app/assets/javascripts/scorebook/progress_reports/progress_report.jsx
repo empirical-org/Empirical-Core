@@ -137,7 +137,10 @@ EC.ProgressReport = React.createClass({
     if (this.state.loading) {
       mainSection = <EC.LoadingIndicator />;
     } else {
-      mainSection = <EC.SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.sortResults} />;
+      mainSection = <EC.SortableTable rows={visibleResults}
+                                      columns={this.props.columnDefinitions()}
+                                      sortHandler={this.sortResults}
+                                      currentSort={this.state.currentSort} />;
     }
 
     return (
