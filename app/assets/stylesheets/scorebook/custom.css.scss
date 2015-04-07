@@ -757,7 +757,7 @@ below is obselete for now, changed link to span :
   margin-bottom: 0;
 }
 .manage-classes table a {
-  color: #308183;
+  color: $darkgreen;
 }
 .manage-classes table thead {
   background: #f7f5f5;
@@ -847,7 +847,7 @@ below is obselete for now, changed link to span :
   margin-bottom: 0;
 }
 .class-page table a {
-  color: #308183;
+  color: $darkgreen;
 }
 .class-page table thead {
   background: #f7f5f5;
@@ -943,7 +943,7 @@ form.class-page {
   margin-bottom: 0em;
 }
 .class-page .delete-class a {
-  color: #308183;
+  color: $darkgreen;
   line-height: 50.5px;
 }
 .edit-student-page {
@@ -957,7 +957,7 @@ form.class-page {
 
 
 .edit-student-page a {
-  color: #308183;
+  color: $darkgreen;
 }
 .edit-student-page > div {
   margin-bottom: 20px;
@@ -1056,7 +1056,7 @@ form.class-page {
   margin-bottom: 0;
 }
 .invite-students table a {
-  color: #308183;
+  color: $darkgreen;
 }
 .invite-students table thead {
   background: #f7f5f5;
@@ -1161,7 +1161,7 @@ form.class-page {
     cursor: pointer;
     line-height: 40px;
     margin-left: 20px;
-    color: #308183;
+    color: $darkgreen;
 
   }
 
@@ -1230,7 +1230,7 @@ form.class-page {
   border-bottom: 0;
 }
 .fake-table .line a {
-  color: #308183;
+  color: $darkgreen;
 }
 .fake-table a {
   float: right;
