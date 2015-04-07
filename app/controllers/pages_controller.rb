@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_filter :resolve_layout
+  before_filter :resolve_body_class
   layout :determine_layout
   #layout "about", only: [:mission, :develop, :about, :faq]
 
@@ -52,6 +52,9 @@ class PagesController < ApplicationController
     @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
   end
 
+  def premium
+  end
+
   private
 
   def determine_layout
@@ -60,13 +63,15 @@ class PagesController < ApplicationController
       'home'
     when 'mission', 'develop', 'faq', 'impact', 'team', 'activities'
       'about'
+    when 'premium'
+      'premium'
     else
       'application'
     end
   end
 
 
-  def resolve_layout
+  def resolve_body_class
     case action_name
     when 'learning', 'story'
       @body_class = 'auxiliary'
