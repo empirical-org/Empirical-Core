@@ -1,7 +1,3 @@
-//= require ./table_pagination_mixin.js
-//= require ./table_filter_mixin.js
-//= require ./table_sorting_mixin.js
-
 EC.ActivitiesProgressReport = React.createClass({
   mixins: [EC.TimeSpentMixin],
 
@@ -72,7 +68,10 @@ EC.ActivitiesProgressReport = React.createClass({
                          sourceUrl={'/teachers/progress_reports/activity_sessions'}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'activity_sessions'}
-                         exportCsv={'activity_sessions'} />
+                         exportCsv={'activity_sessions'}
+                         filterTypes={['unit', 'classroom', 'student']}>
+        <h2>Activity Listing</h2>
+      </EC.ProgressReport>
     );
   }
 });

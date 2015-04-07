@@ -4,6 +4,7 @@ module Teacher
 
   included do
     has_many :classrooms, foreign_key: 'teacher_id'
+    has_many :students, through: :classrooms
   end
 
   class << self
@@ -29,26 +30,7 @@ module Teacher
     end
 
     results = ActivitySession.select("users.name, activity_sessions.id, activity_sessions.percentage,
-                                substring(
-                                    users.name from (
-                                      position(' ' in users.name) + 1
-                                    )
-                                    for (
-                                      char_length(users.name)
-                                    )
-                                  )
-                                  ||
-                                  substring(
-                                    users.name from (
-                                      1
-                                    )
-                                    for (
-                                      position(' ' in users.name)
-                                    )
-
-                                  ) as sorting_name
-
-                              ")
+                                #{User.sorting_name_sql}")
                               .includes(:user, :activity => [:classification, :topic => [:section, :topic_category]])
                               .references(:user)
                               .where(user: users)
