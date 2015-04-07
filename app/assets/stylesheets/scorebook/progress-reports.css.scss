@@ -30,6 +30,11 @@ a.progress-reports-nav {
 }
 
 .progress-report {
+  a {
+    color: $darkgreen;
+    text-decoration: none;
+  }
+
   .table tr {
     line-height: 39px;
   }
@@ -95,7 +100,7 @@ a.progress-reports-nav {
     }
 
     .student-name-column {
-      width: 110px;
+      width: 150px;
     }
 
     .average-score-column {
@@ -113,15 +118,14 @@ a.progress-reports-nav {
 
   .breadcrumb {
     margin-bottom: 10px;
-
-    a {
-      color: $quillgreen;
-      text-decoration: none;
-    }
   }
 
   .export-csv {
     float: right;
+
+    button {
+      font-weight: normal;
+    }
   }
 
   .fa-close {
@@ -155,18 +159,6 @@ a.progress-reports-nav {
       tr {
         border: 1px solid $lightgray;
       }
-    }
-
-    .proficient {
-      color: $green;
-    }
-
-    .near-proficient {
-      color: $orange;
-    }
-
-    .not-proficient {
-      color: $red;
     }
   }
 }
