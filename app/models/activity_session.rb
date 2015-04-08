@@ -249,8 +249,8 @@ class ActivitySession < ActiveRecord::Base
   def self.search_sort_sql(sort)
     if sort.blank? or sort[:field].blank?
       sort = {
-        field: 'activity_classification_name',
-        direction: 'asc'
+        field: 'completed_at',
+        direction: 'desc'
       }
     end
 
