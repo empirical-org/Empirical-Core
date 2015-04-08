@@ -30,6 +30,9 @@ EC.SortableTh = React.createClass({
     if (this.props.displayClass) {
       className += ' ' + this.props.displayClass;
     }
+    if (this.props.isCurrentSort) {
+      className += ' current';
+    }
     return (
       <th className={className} onClick={this.clickSort}>
         <span className="table-header-text">{this.props.displayName}</span>
