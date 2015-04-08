@@ -5,8 +5,16 @@ describe Teachers::ProgressReports::CsvExportsController, :type => :controller d
 
   describe 'POST #create' do
     let(:export_type) { 'activity_sessions' }
-    let(:filters) { {} }
-    subject { post :create, {csv_export: {export_type: export_type, filters: filters }}}
+    let(:filters) { { foo: 'bar' } }
+    subject do
+      post :create, {
+        report_url: "/teachers/progress_reports/standards/classrooms/#{sweathogs.id}/students",
+        csv_export: {
+          export_type: export_type,
+          filters: filters,
+        }
+      }
+    end
 
     context 'when authenticated as a teacher' do
       before do
@@ -20,8 +28,19 @@ describe Teachers::ProgressReports::CsvExportsController, :type => :controller d
           subject
         }.to change(CsvExport, :count).by(1)
         expect(response_json['export_type']).to eq(export_type)
-        expect(response_json['filters']).to eq({})
+
         expect(response_json['teacher_id']).to eq(mr_kotter.id)
+      end
+
+      it 'assigns filters from the request params' do
+        subject
+        expect(response_json['filters']).to have_key('foo')
+      end
+
+      it 'parses additional filters from the report_url' do
+        subject
+        expect(response_json['filters']).to have_key('classroom_id')
+        expect(response_json['filters']['classroom_id'].to_i).to eq(sweathogs.id)
       end
 
       it 'kicks off a background job to email generate/email the CSV' do
