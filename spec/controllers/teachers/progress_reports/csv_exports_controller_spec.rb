@@ -5,7 +5,7 @@ describe Teachers::ProgressReports::CsvExportsController, :type => :controller d
 
   describe 'POST #create' do
     let(:export_type) { 'activity_sessions' }
-    let(:filters) { { foo: 'bar' } }
+    let(:filters) { { unit_id: '123' } }
     subject do
       post :create, {
         report_url: "/teachers/progress_reports/standards/classrooms/#{sweathogs.id}/students",
@@ -34,7 +34,7 @@ describe Teachers::ProgressReports::CsvExportsController, :type => :controller d
 
       it 'assigns filters from the request params' do
         subject
-        expect(response_json['filters']).to have_key('foo')
+        expect(response_json['filters']).to have_key('unit_id')
       end
 
       it 'parses additional filters from the report_url' do
@@ -47,6 +47,15 @@ describe Teachers::ProgressReports::CsvExportsController, :type => :controller d
         expect {
           subject
         }.to change(CsvExportWorker.jobs, :size).by(1)
+      end
+
+      context 'with nested export params' do
+        let(:filters) { {'sort' => {'baz' => 'blah', 'bar' => 'bar'}} }
+
+        it 'continues to work properly' do
+          subject
+          expect(response.status).to eq(200)
+        end
       end
 
       context 'with a nonsense export type' do
