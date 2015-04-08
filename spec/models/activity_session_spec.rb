@@ -127,6 +127,14 @@ describe ActivitySession, :type => :model do
     subject { ActivitySession.for_standalone_progress_report(teacher, filters).to_a }
 
     context 'sorting' do
+      before do
+        Timecop.freeze
+      end
+
+      after do
+        Timecop.return
+      end
+
       context 'by default' do
         let(:filters) { {} }
         it 'sorts by completed_at descending' do
