@@ -16,12 +16,12 @@ feature 'Activity Listing Progress Report', js: true do
     it 'displays the right headers' do
       expect(report_page.column_headers).to eq(
         [
-          'App',
-          'Activity',
+          'Student',
           'Date',
-          'Standard',
+          'Activity',
           'Score',
-          'Student'
+          'Standard',
+          'App',
         ]
       )
     end
@@ -29,12 +29,12 @@ feature 'Activity Listing Progress Report', js: true do
     it 'displays activity session data in the table' do
       expect(report_page.table_rows.first).to eq(
         [
-          activity.classification.name,
-          activity.name,
+          horshack.name,
           horshack_session.completed_at.to_formatted_s(:quill_default),
-          'topic', # Derived from topic #
+          activity.name,
           '78%',
-          horshack.name
+          'topic', # Derived from topic #
+          activity.classification.name
         ]
       )
     end
