@@ -4,17 +4,12 @@ EC.SortableTh = React.createClass({
     isCurrentSort: React.PropTypes.bool.isRequired,
     displayName: React.PropTypes.string.isRequired,
     displayClass: React.PropTypes.string,
+    sortDirection: React.PropTypes.string.isRequired,
     sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
   },
 
-  getInitialState: function() {
-    return {
-      sortDirection: 'asc'
-    };
-  },
-
   arrowClass: function() {
-    return this.state.sortDirection === 'desc' ? 'fa fa-caret-down table-header-arrow' : 'fa fa-caret-up table-header-arrow';
+    return this.props.sortDirection === 'desc' ? 'fa fa-caret-down table-header-arrow' : 'fa fa-caret-up table-header-arrow';
   },
 
   clickSort: function() {
@@ -22,10 +17,8 @@ EC.SortableTh = React.createClass({
       return;
     }
     // Toggle the sort direction.
-    var newDirection = (this.state.sortDirection === 'asc') ? 'desc' : 'asc';
-    this.setState({sortDirection: newDirection}, function() {
-      this.props.sortHandler(newDirection);
-    });
+    var newDirection = (this.props.sortDirection === 'asc') ? 'desc' : 'asc';
+    this.props.sortHandler(newDirection);
   },
 
   render: function() {
