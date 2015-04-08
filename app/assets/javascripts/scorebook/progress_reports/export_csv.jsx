@@ -4,6 +4,7 @@ EC.ExportCsv = React.createClass({
   propTypes: {
     exportType: React.PropTypes.string.isRequired,
     filters: React.PropTypes.object.isRequired,
+    reportUrl: React.PropTypes.string.isRequired,
     teacher: React.PropTypes.object.isRequired
   },
 
@@ -17,6 +18,7 @@ EC.ExportCsv = React.createClass({
     $.ajax({
       url: this.props.requestUrl,
       data: {
+        report_url: this.props.reportUrl,
         csv_export: {
           export_type: this.props.exportType,
           filters: this.props.filters
