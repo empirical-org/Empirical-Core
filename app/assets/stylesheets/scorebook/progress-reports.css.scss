@@ -48,6 +48,10 @@ a.progress-reports-nav {
       padding-left: 11px;
       padding-right: 11px;
     }
+
+    th.sorter.current {
+      background-color: #e6e6e6;
+    }
   }
 
   table {
@@ -164,6 +168,13 @@ a.progress-reports-nav {
     .description {
       margin-top: 14px;
     }
+  }
+
+  // For some reason pagination is missing
+  // a top border.
+  .pagination {
+    border-top: 1px solid #cecece;
+    margin-bottom: 50px;
   }
 
   .table {
