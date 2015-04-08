@@ -15,12 +15,13 @@ EC.SortableTable = React.createClass({
 
   columns: function() {
     return _.map(this.props.columns, function (column, i) {
-      var arrowIsVisible = (column.sortByField === this.props.currentSort.field);
+      var isCurrentSort = (column.sortByField === this.props.currentSort.field);
       return <EC.SortableTh key={i}
                             sortHandler={this.sortByColumn(column.sortByField)}
                             displayName={column.name}
                             displayClass={column.className}
-                            isCurrentSort={arrowIsVisible} />
+                            sortDirection={this.props.currentSort.direction}
+                            isCurrentSort={isCurrentSort} />
     }, this);
   },
 

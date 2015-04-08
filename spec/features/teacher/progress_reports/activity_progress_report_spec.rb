@@ -27,7 +27,7 @@ feature 'Activity Listing Progress Report', js: true do
     end
 
     it 'displays activity session data in the table' do
-      expect(report_page.table_rows.first).to eq(
+      expect(report_page.table_rows.last).to eq(
         [
           horshack.name,
           horshack_session.completed_at.to_formatted_s(:quill_default),
