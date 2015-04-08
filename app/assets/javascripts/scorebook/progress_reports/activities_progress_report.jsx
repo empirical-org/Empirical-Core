@@ -42,6 +42,7 @@ EC.ActivitiesProgressReport = React.createClass({
       config: {
         completed_at: 'numeric',
         percentage: 'numeric',
+        activity_name: 'natural',
         activity_classification_name: 'natural',
         standard: 'natural',
         student_name: 'natural'
