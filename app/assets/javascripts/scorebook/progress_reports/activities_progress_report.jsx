@@ -1,15 +1,13 @@
+"use strict";
+
 EC.ActivitiesProgressReport = React.createClass({
   columnDefinitions: function() {
+    // Student, Date, Activity, Score, Standard, App
     return [
       {
-        name: 'App',
-        field: 'activity_classification_name',
-        sortByField: 'activity_classification_name'
-      },
-      {
-        name: 'Activity',
-        field: 'activity_name',
-        sortByField: 'activity_name'
+        name: 'Student',
+        field: 'student_name',
+        sortByField: 'student_name'
       },
       {
         name: 'Date',
@@ -17,9 +15,9 @@ EC.ActivitiesProgressReport = React.createClass({
         sortByField: 'completed_at',
       },
       {
-        name: 'Standard',
-        field: 'standard', // What field is this?,
-        sortByField: 'standard'
+        name: 'Activity',
+        field: 'activity_name',
+        sortByField: 'activity_name'
       },
       {
         name: 'Score',
@@ -27,9 +25,14 @@ EC.ActivitiesProgressReport = React.createClass({
         sortByField: 'percentage'
       },
       {
-        name: 'Student',
-        field: 'student_name',
-        sortByField: 'student_name'
+        name: 'Standard',
+        field: 'standard',
+        sortByField: 'standard'
+      },
+      {
+        name: 'App',
+        field: 'activity_classification_name',
+        sortByField: 'activity_classification_name'
       }
     ];
   },
