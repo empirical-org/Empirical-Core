@@ -12,5 +12,7 @@ describe Teachers::ProgressReports::Standards::TopicStudentsController, type: :c
       let(:filter_value) { empty_unit.id }
       let(:expected_result_count) { 0 }
     end
+
+    it_behaves_like "exporting to CSV"
   end
 end

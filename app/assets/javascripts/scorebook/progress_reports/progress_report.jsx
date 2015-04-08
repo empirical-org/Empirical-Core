@@ -131,6 +131,7 @@ EC.ProgressReport = React.createClass({
 
     if (this.props.exportCsv) {
       csvExport = <EC.ExportCsv exportType={this.props.exportCsv}
+                                reportUrl={this.props.sourceUrl}
                                 filters={this.state.currentFilters}
                                 teacher={this.state.teacher} />;
     }
