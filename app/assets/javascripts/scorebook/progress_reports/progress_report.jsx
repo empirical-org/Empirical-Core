@@ -123,6 +123,18 @@ EC.ProgressReport = React.createClass({
     });
   },
 
+  // Depending upon whether or not pagination is implemented,
+  // sort results client-side or fetch sorted data from server.
+  handleSort: function() {
+    var cb;
+    if (this.props.pagination) {
+      cb = this.fetchData;
+    } else {
+      cb = _.noop;
+    }
+    return _.bind(this.sortResults, this, cb);
+  },
+
   render: function() {
     var pagination, csvExport, mainSection;
     var filteredResults = this.getFilteredResults();
@@ -145,7 +157,7 @@ EC.ProgressReport = React.createClass({
     } else {
       mainSection = <EC.SortableTable rows={visibleResults}
                                       columns={this.props.columnDefinitions()}
-                                      sortHandler={this.sortResults}
+                                      sortHandler={this.handleSort()}
                                       currentSort={this.state.currentSort} />;
     }
 

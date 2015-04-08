@@ -67,12 +67,12 @@ EC.TableSortingMixin = {
     return results;
   },
 
-  sortResults: function(sortByFieldName, sortDirection) {
+  sortResults: function(after, sortByFieldName, sortDirection) {
     this.setState({
       currentSort: {
         field: sortByFieldName,
         direction: sortDirection
       }
-    });
+    }, after);
   }
 };
