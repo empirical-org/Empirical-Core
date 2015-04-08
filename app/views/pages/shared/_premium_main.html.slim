@@ -91,7 +91,7 @@
       .btn.get-a-quote
         | Get a Quote
   .copy
-    | Talk with us anytime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 (646) 825 7136
+    | Talk with us anytime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 (646) - 825 7136
     span.span-dash
     | sales@quill.org
 
@@ -107,25 +107,8 @@
         .preview-question
           | What do I get with a Free Membership?
         .preview-answer
-          | All of our Apps and all of our Activities will always remain free, forever. Teachers see their students' results in the scorebook, and teachers may hover over the activity result to see the details.
+          | All of our apps and all of our activities will always remain free, forever. Teachers see their students' results in the scorebook, and teachers may hover over the activity result to see the details.
 
-      .preview-question-and-answer.preview-question-and-answer-with-margin
-        .preview-question
-          | How does payment work on a Premium Membership?
-
-        .preview-answer
-          | Quill Premium is provided on an annual license based on the school year. You may pay via credit card or check.
-
-      .preview-question-and-answer
-        .preview-question
-          | Do you offer financial aid?
-
-        .preview-answer
-          | Yes, we provide Quill Premium for free to schools which have a demonstrated financial need. This funding is provided to select partners thanks to the support of the Bill & Melinda Gates Foundation. Please &nbsp;
-          = link_to 'contact us', faq_path
-          |  &nbsp;to apply.
-
-    .preview-questions-column
       .preview-question-and-answer.preview-question-and-answer-with-margin
         .preview-question
           | What do I get with a Premium Membership?
@@ -134,16 +117,31 @@
 
       .preview-question-and-answer.preview-question-and-answer-with-margin
         .preview-question
+          | How does payment work on a Premium Membership?
+        .preview-answer
+          | Quill Premium is provided on an annual license based on the school year. You may pay via credit card or check.
+
+    .preview-questions-column
+      .preview-question-and-answer.preview-question-and-answer-with-margin
+        .preview-question
           | How much does Quill Premium cost?
         .preview-answer
-          | Quill Premium is provided on plans based on classroom, grade level, school, and district usage. Please  &nbsp;
+          | Quill Premium is provided on plans based on classroom, grade level, school, and district usage. Please&nbsp;
           = link_to 'contact us', faq_path
-          | &nbsp; to receive a quote.
+          | &nbsp;to receive a quote.
+
+      .preview-question-and-answer
+        .preview-question
+          | Do you offer financial aid?
+        .preview-answer
+          | Yes, we provide Quill Premium for free to schools which have a demonstrated financial need. This funding is provided to select partners thanks to the support of the Bill & Melinda Gates Foundation. Please&nbsp;
+          = link_to 'contact us', faq_path
+          |  &nbsp;to apply.
 
       .preview-question-and-answer
         .preview-question
           | Have more questions?
         .preview-answer
-          | Visit our &nbsp;
-          = link_to 'Support', faq_path
-          | &nbsp; center to contact our support team.
+          | Visit our&nbsp;
+          = link_to 'Support', 'http://support.quill.org', target: '_new'
+          | &nbsp;center to contact our support team.
