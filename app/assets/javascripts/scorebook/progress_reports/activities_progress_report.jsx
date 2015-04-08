@@ -1,6 +1,4 @@
 EC.ActivitiesProgressReport = React.createClass({
-  mixins: [EC.TimeSpentMixin],
-
   columnDefinitions: function() {
     return [
       {
@@ -17,14 +15,6 @@ EC.ActivitiesProgressReport = React.createClass({
         name: 'Date',
         field: 'display_completed_at',
         sortByField: 'completed_at',
-      },
-      {
-        name: 'Time Spent',
-        field: 'time_spent',
-        sortByField: 'time_spent',
-        customCell: _.bind(function(row) {
-          return this.displayTimeSpent(row['time_spent'], true);
-        }, this)
       },
       {
         name: 'Standard',
@@ -49,7 +39,6 @@ EC.ActivitiesProgressReport = React.createClass({
       config: {
         completed_at: 'numeric',
         percentage: 'numeric',
-        time_spent: 'numeric',
         activity_classification_name: 'natural',
         standard: 'natural',
         student_name: 'natural'

@@ -6,7 +6,7 @@ describe CsvExporter::ActivitySession do
 
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {
-      ['Student', 'Activity', 'Score', 'Time Spent', 'Standard Level', 'Standard', 'App', 'Date']
+      ['Student', 'Activity', 'Score', 'Standard Level', 'Standard', 'App', 'Date']
     }
 
     let(:model_instance) {
@@ -20,7 +20,6 @@ describe CsvExporter::ActivitySession do
         horshack_session.user.name,
         horshack_session.activity.name,
         horshack_session.percentage_as_decimal,
-        horshack_session.time_spent,
         horshack_session.activity.topic.section.name,
         horshack_session.activity.topic.name,
         # Concept (Topic Category(?)) -
