@@ -7,32 +7,38 @@ EC.ActivitiesProgressReport = React.createClass({
       {
         name: 'Student',
         field: 'student_name',
-        sortByField: 'student_name'
+        sortByField: 'student_name',
+        className: 'student-name-column'
       },
       {
         name: 'Date',
         field: 'display_completed_at',
         sortByField: 'completed_at',
+        className: 'date-column'
       },
       {
         name: 'Activity',
         field: 'activity_name',
-        sortByField: 'activity_name'
+        sortByField: 'activity_name',
+        className: 'activity-name-column'
       },
       {
         name: 'Score',
         field: 'display_score',
-        sortByField: 'percentage'
+        sortByField: 'percentage',
+        className: 'score-column'
       },
       {
         name: 'Standard',
         field: 'standard',
-        sortByField: 'standard'
+        sortByField: 'standard',
+        className: 'standard-prefix-column'
       },
       {
         name: 'App',
         field: 'activity_classification_name',
-        sortByField: 'activity_classification_name'
+        sortByField: 'activity_classification_name',
+        className: 'app-name-column'
       }
     ];
   },
