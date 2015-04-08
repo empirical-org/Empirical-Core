@@ -94,13 +94,18 @@ EC.ProgressReport = React.createClass({
     }
   },
 
-  fetchData: function() {
-    this.setState({loading: true});
+  requestParams: function() {
     var requestParams = _.extend(this.state.currentFilters, {});
     if (this.props.pagination) {
       requestParams = _.extend(requestParams, {page: this.state.currentPage});
     }
-    $.get(this.props.sourceUrl, requestParams, function onSuccess(data) {
+    requestParams['sort'] = this.state.currentSort;
+    return requestParams;
+  },
+
+  fetchData: function() {
+    this.setState({loading: true});
+    $.get(this.props.sourceUrl, this.requestParams(), function onSuccess(data) {
       this.setState({
         numPages: data.page_count,
         loading: false,
