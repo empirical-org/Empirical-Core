@@ -48,8 +48,8 @@ EC.ActivitiesProgressReport = React.createClass({
         student_name: 'natural'
       },
       default: {
-        field: 'activity_classification_name',
-        direction: 'asc'
+        field: 'completed_at',
+        direction: 'desc'
       }
     };
   },

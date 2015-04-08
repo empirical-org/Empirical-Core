@@ -127,6 +127,13 @@ describe ActivitySession, :type => :model do
     subject { ActivitySession.for_standalone_progress_report(teacher, filters).to_a }
 
     context 'sorting' do
+      context 'by default' do
+        let(:filters) { {} }
+        it 'sorts by completed_at descending' do
+          expect(subject.first.completed_at).to eq(fred_first_grade_topic_session.completed_at)
+        end
+      end
+
       context 'by activity classification' do
         let(:filters) { {sort: {field: 'activity_classification_name', direction: 'asc'} } }
         it 'retrieves results in the appropriate order' do
