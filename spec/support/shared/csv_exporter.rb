@@ -9,12 +9,12 @@ shared_examples_for "CSV Exporter" do
 
   describe '#data_row' do
     it 'returns an array of row data' do
-      expect(csv_exporter.data_row(model_instance)).to eq(expected_data_row)
+      expect(csv_exporter.data_row(model_instance, filters)).to eq(expected_data_row)
     end
   end
 
   describe '#model_data' do
-    subject { model_data_subject.to_a }
+    subject { csv_exporter.model_data(teacher, filters).to_a }
 
     it 'retrieves filtered activity sessions' do
       expect(subject.size).to eq(expected_model_data_size)

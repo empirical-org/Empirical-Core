@@ -5,6 +5,7 @@ describe CsvExporter::Standards::ClassroomStudent do
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {
       [
+        'Page Title',
         'Student',
         'Standards',
         'Proficient Standards',
@@ -16,12 +17,15 @@ describe CsvExporter::Standards::ClassroomStudent do
       ]
     }
 
+    let(:filters) { { classroom_id: full_classroom.id } }
+
     let(:model_instance) {
       User.for_standards_report(teacher, {}).first
     }
 
     let(:expected_data_row) {
       [
+        "Standards by Student: #{full_classroom.name}",
         model_instance.name,
         model_instance.total_standard_count,
         model_instance.proficient_standard_count,
@@ -31,10 +35,6 @@ describe CsvExporter::Standards::ClassroomStudent do
         model_instance.average_score,
         'Proficient'
       ]
-    }
-
-    let(:model_data_subject) {
-      csv_exporter.model_data(teacher, {})
     }
 
     let(:expected_model_data_size) {

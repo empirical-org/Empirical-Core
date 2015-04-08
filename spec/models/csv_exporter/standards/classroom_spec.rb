@@ -4,15 +4,18 @@ describe CsvExporter::Standards::Classroom do
   include_context 'Topic Progress Report'
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {
-      ['Class Name', 'Students', 'Proficient Students', 'Near Proficiency Students', 'Not Proficient Students', 'Standards']
+      ['Page Title', 'Class Name', 'Students', 'Proficient Students', 'Near Proficiency Students', 'Not Proficient Students', 'Standards']
     }
 
+    let(:filters) { {} }
+
     let(:model_instance) {
-      Classroom.for_standards_report(teacher, {}).where(id: full_classroom.id).first
+      Classroom.for_standards_report(teacher, filters).where(id: full_classroom.id).first
     }
 
     let(:expected_data_row) {
       [
+        CsvExporter::Standards::Classroom::PAGE_TITLE,
         full_classroom.name,
         visible_students.size,
         proficient_students.size,
@@ -20,10 +23,6 @@ describe CsvExporter::Standards::Classroom do
         not_proficient_students.size,
         visible_topics.size
       ]
-    }
-
-    let(:model_data_subject) {
-      csv_exporter.model_data(teacher, {})
     }
 
     let(:expected_model_data_size) {

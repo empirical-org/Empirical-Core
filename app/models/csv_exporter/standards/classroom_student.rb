@@ -3,6 +3,7 @@ module CsvExporter
     class ClassroomStudent
       def header_row
         [
+          'Page Title',
           'Student',
           'Standards',
           'Proficient Standards',
@@ -14,9 +15,10 @@ module CsvExporter
         ]
       end
 
-      def data_row(record)
+      def data_row(record, filters)
         json_hash = ProgressReports::Standards::StudentSerializer.new(record).as_json(root: false)
         [
+          page_title(filters),
           json_hash[:name],
           json_hash[:total_standard_count],
           json_hash[:proficient_standard_count],
@@ -30,8 +32,14 @@ module CsvExporter
 
       def model_data(teacher, filters)
         ::User.for_standards_report(
-          teacher,
-          HashWithIndifferentAccess.new(filters) || {})
+          teacher, filters)
+      end
+
+      private
+
+      def page_title(filters)
+        classroom = ::Classroom.find(filters[:classroom_id])
+        "Standards by Student: #{classroom.name}"
       end
     end
   end

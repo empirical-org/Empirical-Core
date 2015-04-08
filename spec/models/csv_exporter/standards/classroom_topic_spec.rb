@@ -5,6 +5,7 @@ describe CsvExporter::Standards::ClassroomTopic do
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {
       [
+        'Page Title',
         'Standard Level',
         'Standard Name',
         'Students',
@@ -15,12 +16,15 @@ describe CsvExporter::Standards::ClassroomTopic do
       ]
     }
 
+    let(:filters) { { classroom_id: full_classroom.id } }
+
     let(:model_instance) {
       Topic.for_standards_report(teacher, {}).first
     }
 
     let(:expected_data_row) {
       [
+        "Standards by Class: #{full_classroom.name}",
         model_instance.section_name,
         model_instance.name,
         model_instance.total_student_count,
@@ -29,10 +33,6 @@ describe CsvExporter::Standards::ClassroomTopic do
         model_instance.not_proficient_student_count,
         model_instance.total_activity_count
       ]
-    }
-
-    let(:model_data_subject) {
-      csv_exporter.model_data(teacher, {})
     }
 
     let(:expected_model_data_size) {
