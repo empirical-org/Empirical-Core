@@ -55,13 +55,16 @@ class PagesController < ApplicationController
   def premium
   end
 
+  def premium_from_discover
+  end
+
   private
 
   def determine_layout
     case action_name
     when 'home'
       'home'
-    when 'mission', 'develop', 'faq', 'impact', 'team', 'activities'
+    when 'mission', 'develop', 'faq', 'impact', 'team', 'activities', 'premium_from_discover'
       'about'
     when 'premium'
       'premium'
