@@ -1,7 +1,12 @@
 require 'csv'
 
 class CsvExport < ActiveRecord::Base
-  EXPORT_TYPE_OPTIONS = %w(activity_sessions)
+  EXPORT_TYPE_OPTIONS = %w(activity_sessions
+                           standards_classrooms
+                           standards_classroom_students
+                           standards_classroom_topics
+                           standards_student_topics
+                           standards_topic_students)
 
   belongs_to :teacher, class_name: 'User'
 
@@ -29,8 +34,9 @@ class CsvExport < ActiveRecord::Base
     file = Tempfile.open(csv_basename)
     csv = CSV.new(file)
     csv << csv_exporter.header_row
-    csv_exporter.model_data(teacher, filters).find_each do |record|
-      csv << csv_exporter.data_row(record)
+    data_filters = (filters || {}).with_indifferent_access
+    csv_exporter.model_data(teacher, data_filters).each do |record|
+      csv << csv_exporter.data_row(record, data_filters)
     end
     file
   end
@@ -47,6 +53,16 @@ class CsvExport < ActiveRecord::Base
       case export_type.to_sym
       when :activity_sessions
         CsvExporter::ActivitySession.new
+      when :standards_classrooms
+        CsvExporter::Standards::Classroom.new
+      when :standards_classroom_students
+        CsvExporter::Standards::ClassroomStudent.new
+      when :standards_classroom_topics
+        CsvExporter::Standards::ClassroomTopic.new
+      when :standards_topic_students
+        CsvExporter::Standards::TopicStudent.new
+      when :standards_student_topics
+        CsvExporter::Standards::StudentTopic.new
       else
         raise "Export type named #{export_type} could not be found!"
       end
