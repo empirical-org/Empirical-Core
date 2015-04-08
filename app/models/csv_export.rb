@@ -34,8 +34,9 @@ class CsvExport < ActiveRecord::Base
     file = Tempfile.open(csv_basename)
     csv = CSV.new(file)
     csv << csv_exporter.header_row
-    csv_exporter.model_data(teacher, filters).each do |record|
-      csv << csv_exporter.data_row(record)
+    data_filters = (filters || {}).with_indifferent_access
+    csv_exporter.model_data(teacher, data_filters).each do |record|
+      csv << csv_exporter.data_row(record, data_filters)
     end
     file
   end

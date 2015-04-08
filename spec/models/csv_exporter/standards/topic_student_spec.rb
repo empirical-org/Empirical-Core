@@ -5,6 +5,7 @@ describe CsvExporter::Standards::TopicStudent do
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {
       [
+        'Page Title',
         'Student Name',
         'Activities',
         'Average',
@@ -12,12 +13,15 @@ describe CsvExporter::Standards::TopicStudent do
       ]
     }
 
+    let(:filters) { { topic_id: first_grade_topic.id } }
+
     let(:model_instance) {
       User.for_standards_report(teacher, {}).first
     }
 
     let(:expected_data_row) {
       [
+        "Standards: #{first_grade_topic.name}",
         model_instance.name,
         model_instance.total_activity_count,
         model_instance.average_score,
@@ -25,12 +29,8 @@ describe CsvExporter::Standards::TopicStudent do
       ]
     }
 
-    let(:model_data_subject) {
-      csv_exporter.model_data(teacher, {})
-    }
-
     let(:expected_model_data_size) {
-      visible_students.size
+      first_grade_topic_students.size
     }
   end
 end

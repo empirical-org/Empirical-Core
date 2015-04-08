@@ -6,10 +6,12 @@ describe CsvExport, :type => :model do
   let(:csv_export) { CsvExport.new }
 
   let(:export_type) { 'activity_sessions' }
+  let(:filters) { {} }
 
   before do
     csv_export.export_type = export_type
     csv_export.teacher = mr_kotter
+    csv_export.filters = filters
   end
 
   shared_examples_for "CSV Export Type" do
@@ -34,21 +36,26 @@ describe CsvExport, :type => :model do
     end
 
     context 'standards: students by classroom' do
+      let(:filters) { { classroom_id: sweathogs.id } }
       let(:export_type) { 'standards_classroom_students' }
       it_behaves_like "CSV Export Type"
     end
 
     context 'standards: topics by classroom' do
+      let(:filters) { { classroom_id: sweathogs.id } }
       let(:export_type) { 'standards_classroom_topics' }
       it_behaves_like "CSV Export Type"
     end
 
     context 'standards: topics by student' do
+      let(:filters) { { student_id: horshack.id } }
       let(:export_type) { 'standards_student_topics' }
       it_behaves_like "CSV Export Type"
     end
 
     context 'standards: students by topic' do
+      let!(:topic) { FactoryGirl.create(:topic)}
+      let(:filters) { { topic_id: topic.id } }
       let(:export_type) { 'standards_topic_students' }
       it_behaves_like "CSV Export Type"
     end
