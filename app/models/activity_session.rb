@@ -37,11 +37,12 @@ class ActivitySession < ActiveRecord::Base
   RESULTS_PER_PAGE = 25
 
   def self.for_standalone_progress_report(teacher, filters)
+    filters = (filters || {}).with_indifferent_access
     query = includes(:user, :activity => [:topic, :classification], :classroom_activity => :classroom)
       .references(:classification)
       .completed
       .by_teacher(teacher)
-      .order('activity_classifications.name asc, users.name asc')
+      .order(search_sort_sql(filters[:sort]))
     with_filters(query, filters)
   end
 
@@ -244,6 +245,39 @@ class ActivitySession < ActiveRecord::Base
   end
 
   private
+
+  def self.search_sort_sql(sort)
+    if sort.blank? or sort[:field].blank?
+      sort = {
+        field: 'activity_classification_name',
+        direction: 'asc'
+      }
+    end
+
+    if sort[:direction] == 'desc'
+      order = 'desc'
+    else
+      order = 'asc'
+    end
+
+    # The matching names for this case statement match those returned by
+    # the progress reports ActivitySessionSerializer and used as
+    # column definitions in the corresponding React component.
+    case sort[:field]
+    when 'activity_classification_name'
+      "activity_classifications.name #{order}, users.name #{order}"
+    when 'student_name'
+      "users.name #{order}"
+    when 'completed_at'
+      "activity_sessions.completed_at #{order}"
+    when 'activity_name'
+      "activities.name #{order}"
+    when 'percentage'
+      "activity_sessions.percentage #{order}"
+    when 'standard'
+      "topics.name #{order}"
+    end
+  end
 
   def trigger_events
     should_async = state_changed?
