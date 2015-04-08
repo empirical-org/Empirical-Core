@@ -1,7 +1,7 @@
 = render 'teachers/shared/scorebook_tabs'
 = render 'pages/shared/premium_subtabs'
 
-.preview-section.first-preview-section
+.preview-section#first-preview-section
   .super-title STUDENT SUCCESS
   .title Mastering the Common Core
   .copy
@@ -11,9 +11,10 @@
     br
     br
     | Quill is being used by over 2,000 schools nationwide.
-  .btn.button-green Learn More
+  a href="#{mission_path}" target='_new'
+    .btn.button-green Learn More
 
-.preview-section.second-preview-section
+.preview-section#second-preview-section
   .super-title INTRODUCING
   .title Quill Premium
   .copy
@@ -29,7 +30,7 @@
     = image_tag 'premium_preview/premium_screenshot.png'
 
 
-.features-preview-table
+#features-preview-table
   table
     tr
       th.features-table-header
@@ -47,7 +48,7 @@
       td.has_checkmark
       td.has_checkmark
     tr
-      td Immediate feedback and unlimited practice
+      td Immediate Feedback and Unlimited Practice
       td.has_checkmark
       td.has_checkmark
     tr
@@ -80,23 +81,25 @@
       td.has_checkmark
 
 
-.preview-section.third-preview-section
+.preview-section#third-preview-section
   .super-title
     | GET STARTED
   .title
     | Interested in Using Quill Premium?
   .preview-btns
-    .btn.book-a-demo
-      | Book a Demo
-    .btn.get-a-quote
-      | Get a Quote
+    a href='https://quill.acuityscheduling.com/schedule.php' target='_new'
+      .btn.book-a-demo
+        | Book a Demo
+    a href='mailto:hello@quill.org'
+      .btn.get-a-quote
+        | Get a Quote
   .copy
     | Talk with us anytime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 (646) 825 7136
     span.span-dash
     | sales@quill.org
 
 
-.preview-section.fourth-preview-section
+.preview-section#fourth-preview-section
   .super-title
     | SUPPORT
   .title
@@ -121,7 +124,7 @@
           | Do you offer financial aid?
 
         .preview-answer
-          | Yes, we provide Quill Premium for free to schools which have a demonstrated financial need. This funding is provided to select partners thanks to the support of the Bill & Melinda Gates FOundation. Please &nbsp;
+          | Yes, we provide Quill Premium for free to schools which have a demonstrated financial need. This funding is provided to select partners thanks to the support of the Bill & Melinda Gates Foundation. Please &nbsp;
           = link_to 'contact us', faq_path
           |  &nbsp;to apply.
 
