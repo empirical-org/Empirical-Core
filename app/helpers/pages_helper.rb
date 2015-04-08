@@ -11,6 +11,8 @@ module PagesHelper
 			impact_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == 'activities'
 			activities_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'premium'
+			(action_name == 'premium_from_discover') ? "premium-tab active" : ''
 		end
 
 	end

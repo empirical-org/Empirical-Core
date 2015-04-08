@@ -8,8 +8,13 @@
   cursor: pointer !important;
 }
 
-.nav-tabs > li.active.premium-tab > a,
-  .nav-tabs > li.premium-tab > a:hover {
+li.active.premium-tab > a,
+li.premium-tab > a:hover {
+  border-top: 3px solid #875A12 !important;
+}
+
+.premium-tab a.active,
+.premium-tab a:hover {
   border-top: 3px solid #875A12 !important;
 }
 
