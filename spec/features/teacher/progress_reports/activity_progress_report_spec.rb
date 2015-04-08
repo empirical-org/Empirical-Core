@@ -19,7 +19,6 @@ feature 'Activity Listing Progress Report', js: true do
           'App',
           'Activity',
           'Date',
-          'Time Spent',
           'Standard',
           'Score',
           'Student'
@@ -33,7 +32,6 @@ feature 'Activity Listing Progress Report', js: true do
           activity.classification.name,
           activity.name,
           horshack_session.completed_at.to_formatted_s(:quill_default),
-          '2 minutes',
           'topic', # Derived from topic #
           '78%',
           horshack.name

@@ -5,8 +5,7 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     started_at: started_at,
     completed_at: completed_at,
     percentage: 0.25,
-    classroom_activity: classroom_activity,
-    time_spent: 2700) # 45 minutes
+    classroom_activity: classroom_activity)
   }
   let(:classroom) { FactoryGirl.create(:classroom) }
   let(:activity) { FactoryGirl.create(:activity, topic: topic) }
@@ -29,7 +28,6 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
                             activity_name
                             standard
                             completed_at
-                            time_spent
                             percentage
                             display_score
                             display_completed_at
