@@ -99,7 +99,7 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'classrooms'}
-                         exportCsv={'not_implemented'}
+                         exportCsv={'standards_classrooms'}
                          filterTypes={[]}>
         <h2>Standards: All Classrooms</h2>
         <p className="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla massa sem,
