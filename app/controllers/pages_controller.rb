@@ -52,10 +52,12 @@ class PagesController < ApplicationController
     @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
   end
 
+  # for link to premium within 'about' (discover) pages
   def premium
   end
 
-  def premium_from_discover
+  # for link to premium within logged-in teacher ui
+  def premium_access
   end
 
   private
@@ -64,9 +66,9 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'mission', 'develop', 'faq', 'impact', 'team', 'activities', 'premium_from_discover'
+    when 'mission', 'develop', 'faq', 'impact', 'team', 'activities', 'premium'
       'about'
-    when 'premium'
+    when 'premium_access'
       'premium'
     else
       'application'
