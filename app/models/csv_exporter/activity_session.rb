@@ -1,8 +1,11 @@
 module CsvExporter
   class ActivitySession
+    PAGE_TITLE = 'Activities: All Students'
+
     def header_row
       # Student, Date, Activity, Score, Standard, App
       [
+        'Page Title',
         'Student',
         'Date',
         'Activity',
@@ -17,6 +20,7 @@ module CsvExporter
       json_hash = ProgressReports::ActivitySessionSerializer.new(record).as_json(root: false)
       # Student, Date, Activity, Score, Standard, App
       [
+        PAGE_TITLE,
         json_hash[:student_name],
         json_hash[:display_completed_at],
         json_hash[:activity_name],
