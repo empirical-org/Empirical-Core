@@ -13,8 +13,8 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
       },
       {
         name: '',
-        field: 'name',
-        sortByField: 'name',
+        field: '',
+        sortByField: '',
         className: 'student-view-column',
         customCell: function(row) {
           return (
@@ -24,8 +24,8 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
       },
       {
         name: '',
-        field: 'name',
-        sortByField: 'name',
+        field: '',
+        sortByField: '',
         className: 'standard-view-column',
         customCell: function(row) {
           return (
