@@ -1,28 +1,29 @@
 module CsvExporter
   class ActivitySession
     def header_row
-      ['Student', 'Activity', 'Score', 'Time Spent', 'Standard Level', 'Standard', 'App', 'Date']
+      # Student, Date, Activity, Score, Standard, App
+      [
+        'Student',
+        'Date',
+        'Activity',
+        'Score',
+        'Standard Level',
+        'Standard',
+        'App'
+      ]
     end
 
     def data_row(record, filters)
       json_hash = ProgressReports::ActivitySessionSerializer.new(record).as_json(root: false)
-      # Student -
-      # Activity -
-      # Score -
-      # Time Spent -
-      # Standard Level (Section) -
-      # Standard (Topic) -
-      # App -
-      # Date
+      # Student, Date, Activity, Score, Standard, App
       [
         json_hash[:student_name],
+        json_hash[:display_completed_at],
         json_hash[:activity_name],
         json_hash[:percentage],
-        json_hash[:time_spent],
         record.activity.try(:section).try(:name),
         record.activity.try(:topic).try(:name),
-        json_hash[:activity_classification_name],
-        json_hash[:display_completed_at]
+        json_hash[:activity_classification_name]
       ]
     end
 

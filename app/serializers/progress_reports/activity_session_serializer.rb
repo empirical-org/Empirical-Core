@@ -4,7 +4,6 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
              :activity_classification_id,
              :activity_name,
              :completed_at,
-             :time_spent,
              :percentage,
              :display_score,
              :display_completed_at,
@@ -28,10 +27,6 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
 
   def completed_at
     object.completed_at.try(:to_i)
-  end
-
-  def time_spent
-    object.time_spent
   end
 
   def percentage

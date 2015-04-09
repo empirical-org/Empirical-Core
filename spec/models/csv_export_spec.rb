@@ -68,7 +68,7 @@ describe CsvExport, :type => :model do
         expect(file.length).to be > 0
         file.rewind
         lines = file.readlines
-        expect(lines.first).to eq("Student,Activity,Score,Time Spent,Standard Level,Standard,App,Date\n")
+        expect(lines.first).to eq("Student,Date,Activity,Score,Standard Level,Standard,App\n")
         # Just test that it generates the right # of lines.
         # The exact content of the rows is tested in the exporter spec.
         expect(lines.size).to eq(all_sessions.size + 1)
