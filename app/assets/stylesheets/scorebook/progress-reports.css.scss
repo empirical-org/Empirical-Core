@@ -27,6 +27,7 @@ a.progress-reports-nav {
 
 .container.progress-report {
   padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 .progress-report {
@@ -35,15 +36,17 @@ a.progress-reports-nav {
     text-decoration: none;
   }
 
-  .table tr {
-    line-height: 39px;
-  }
-
   .table-header-arrow {
     padding-left: 9px;
   }
 
   .table {
+    margin-bottom: 0px;
+
+    tr {
+      line-height: 39px;
+    }
+
     th.sorter, td {
       padding-left: 11px;
       padding-right: 11px;
@@ -170,10 +173,8 @@ a.progress-reports-nav {
     }
   }
 
-  // For some reason pagination is missing
-  // a top border.
   .pagination {
-    border-top: 1px solid #cecece;
+    margin-top: 0; // Duplicated from elsewhere in the CSS
     margin-bottom: 50px;
   }
 
