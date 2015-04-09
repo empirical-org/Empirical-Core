@@ -7,6 +7,7 @@ describe CsvExporter::ActivitySession do
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {
       [
+        'Page Title',
         'Student',
         'Date',
         'Activity',
@@ -25,6 +26,7 @@ describe CsvExporter::ActivitySession do
 
     let(:expected_data_row) {
       [
+        'Activities: All Students',
         horshack_session.user.name,
         horshack_session.completed_at.to_formatted_s(:quill_default),
         horshack_session.activity.name,
