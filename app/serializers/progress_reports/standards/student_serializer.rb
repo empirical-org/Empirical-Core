@@ -15,6 +15,9 @@ class ProgressReports::Standards::StudentSerializer < ActiveModel::Serializer
              :student_topics_href,
              :mastery_status
 
+  def average_score
+    object.average_score.round(2)
+  end
 
   def student_topics_href
     return '' unless classroom_id.present?
