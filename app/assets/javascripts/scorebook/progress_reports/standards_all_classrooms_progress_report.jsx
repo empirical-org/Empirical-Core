@@ -102,9 +102,7 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
                          exportCsv={'standards_classrooms'}
                          filterTypes={[]}>
         <h2>Standards: All Classrooms</h2>
-        <p className="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla massa sem,
-        interdum at condimentum id, lacinia vitae mi. Curabitur at mi sed risus varius venenatis et sed nibh.
-        Vestibulum dictum.</p>
+        <p className="description">Select Student View to see how each student is performing. Select Standard View to see how the entire class is performing on each each standard.</p>
       </EC.ProgressReport>
     );
   }
