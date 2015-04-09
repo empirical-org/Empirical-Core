@@ -70,6 +70,7 @@ EC.ActivitiesProgressReport = React.createClass({
                          exportCsv={'activity_sessions'}
                          filterTypes={['unit', 'classroom', 'student']}>
         <h2>Activities: All Students</h2>
+        <p className="description">View all of the activities your students have completed. Filter by classroom, unit, or student.</p>
       </EC.ProgressReport>
     );
   }
