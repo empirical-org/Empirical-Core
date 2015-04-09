@@ -138,7 +138,7 @@ describe ActivitySession, :type => :model do
       context 'by default' do
         let(:filters) { {} }
         it 'sorts by completed_at descending' do
-          expect(subject.first.completed_at).to eq(fred_first_grade_topic_session.completed_at)
+          expect(subject.first.completed_at).to be_within(1.second).of fred_first_grade_topic_session.completed_at
         end
       end
 
@@ -160,7 +160,7 @@ describe ActivitySession, :type => :model do
       context 'by completion date' do
         let(:filters) { {sort: {field: 'completed_at', direction: 'desc'} } }
         it 'retrieves results in the appropriate order' do
-          expect(subject.first.completed_at).to eq(fred_first_grade_topic_session.completed_at)
+          expect(subject.first.completed_at).to be_within(1.second).of fred_first_grade_topic_session.completed_at
         end
       end
 
