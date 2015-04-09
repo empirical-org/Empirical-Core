@@ -117,18 +117,6 @@ class ActivitySession < ActiveRecord::Base
     unit.classroom
   end
 
-  def percentage_color
-    return '' unless completed?
-    case percentage
-    when 0.75..1.0
-      'green'
-    when 0.5..0.75
-      'yellow'
-    when 0.0..0.5
-      'red'
-    end
-  end
-
   def percentile
     case percentage
     when 0.75..1.0
