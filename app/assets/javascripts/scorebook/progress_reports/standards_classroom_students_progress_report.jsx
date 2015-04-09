@@ -40,7 +40,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
         }
       },
       {
-        name: 'Near Proficient',
+        name: 'Nearly Proficient',
         field: 'near_proficient_standard_count',
         sortByField: 'near_proficient_standard_count',
         className: 'near-proficient-column',

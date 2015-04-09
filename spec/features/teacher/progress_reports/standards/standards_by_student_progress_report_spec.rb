@@ -18,7 +18,7 @@ feature 'Standards by Student Progress Report', js: true do
           'Student',
           'Standards',
           'Proficient',
-          'Near Proficient',
+          'Nearly Proficient',
           'Not Proficient',
           'Activities',
           'Average',

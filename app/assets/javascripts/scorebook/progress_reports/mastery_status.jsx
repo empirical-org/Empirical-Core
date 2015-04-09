@@ -21,7 +21,7 @@ EC.MasteryStatus = React.createClass({
     } else if (this.props.score < 0.50) {
       return 'Not Proficient';
     } else if (this.props.score >= 0.50 && this.props.score <= 0.75) {
-      return 'Near Proficient';
+      return 'Nearly Proficient';
     }
   },
 
