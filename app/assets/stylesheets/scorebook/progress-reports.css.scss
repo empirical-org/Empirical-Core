@@ -1,6 +1,18 @@
 @import "variables";
 @import "custom";
 
+.premium-bar {
+  background: $darkorange;
+  color: white;
+  p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+}
 
 .progress-reports-nav {
   .btn {
