@@ -46,38 +46,6 @@ describe ActivitySession, :type => :model do
   	it "TODO: must return a valid classroom object"
   end
 
-  describe "#percentage_color" do
-
-  	it "must return an empty string if not completed" do
-  		activity_session.completed_at=nil
-  		expect(activity_session.percentage_color).to eq ''
-  	end
-
-  	it "must return a color if completed" do
-  		expect(activity_session.percentage_color).to be_present
-  	end
-
-  	context "when completed" do
-
-  		it "must return yellow if 50% completed" do
-  			expect(activity_session.percentage_color).to eq "yellow"
-  		end
-
-  		it "must return green if 76% completed" do
-  			activity_session.percentage=0.76
-  			expect(activity_session.percentage_color).to eq "green"
-  		end
-
-  		it "must return red if 25% completed" do
-  			activity_session.percentage=0.25
-  			expect(activity_session.percentage_color).to eq "red"
-  		end
-
-  	end
-
-  end
-
-
   describe "#activity_uid=" do
 
   	let(:activity){ FactoryGirl.create(:activity) }
