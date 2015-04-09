@@ -16,7 +16,7 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
   before do
     student.activity_sessions.create!(
       classroom_activity: classroom_activity,
-      percentage: 1,
+      percentage: 0.7547,
       state: 'finished',
       completed_at: 5.minutes.ago
     )
@@ -25,10 +25,10 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
   describe '#to_json output' do
     let(:json)   { serializer.to_json }
     let(:parsed) { JSON.parse(json) }
-    let(:parsed_classroom) { parsed['student'] }
+    let(:parsed_student) { parsed['student'] }
 
     it 'includes the right keys' do
-      expect(parsed_classroom.keys)
+      expect(parsed_student.keys)
         .to match_array %w(name
                            id
                            sorting_name
@@ -41,6 +41,10 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
                            student_topics_href
                            mastery_status
                           )
+    end
+
+    it 'includes properly rounded scores' do
+      expect(parsed_student['average_score']).to eq(0.75)
     end
   end
 end
