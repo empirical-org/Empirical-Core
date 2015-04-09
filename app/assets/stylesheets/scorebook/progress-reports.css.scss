@@ -48,6 +48,10 @@ a.progress-reports-nav {
       padding-left: 11px;
       padding-right: 11px;
     }
+
+    th.sorter.current {
+      background-color: #e6e6e6;
+    }
   }
 
   table {
@@ -114,6 +118,26 @@ a.progress-reports-nav {
     .mastery-status-column {
       width: 145px;
     }
+
+    .standard-prefix-column {
+      width: 80px;
+    }
+
+    .app-name-column {
+      width: 135px;
+    }
+
+    .score-column {
+      width: 65px;
+    }
+
+    .activity-name-column {
+      width: 250px;
+    }
+
+    .date-column {
+      width: 65px;
+    }
   }
 
   .breadcrumb {
@@ -144,6 +168,13 @@ a.progress-reports-nav {
     .description {
       margin-top: 14px;
     }
+  }
+
+  // For some reason pagination is missing
+  // a top border.
+  .pagination {
+    border-top: 1px solid #cecece;
+    margin-bottom: 50px;
   }
 
   .table {
