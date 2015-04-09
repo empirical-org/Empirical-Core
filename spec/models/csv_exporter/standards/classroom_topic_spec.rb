@@ -10,7 +10,7 @@ describe CsvExporter::Standards::ClassroomTopic do
         'Standard Name',
         'Students',
         'Proficient Students',
-        'Near Proficient Students',
+        'Nearly Proficient Students',
         'Not Proficient Students',
         'Activities'
       ]
