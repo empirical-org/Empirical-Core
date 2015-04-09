@@ -16,8 +16,15 @@ EC.SortableTh = React.createClass({
     if (_.isEmpty(this.props.displayName)) {
       return;
     }
-    // Toggle the sort direction.
-    var newDirection = (this.props.sortDirection === 'asc') ? 'desc' : 'asc';
+    var newDirection;
+    if (this.props.isCurrentSort) {
+    // Toggle the sort direction if it has already been selected.
+      newDirection = (this.props.sortDirection === 'asc') ? 'desc' : 'asc';
+    }else {
+    // Sort should be ascending by default.
+      newDirection = 'asc';
+    }
+
     this.props.sortHandler(newDirection);
   },
 
