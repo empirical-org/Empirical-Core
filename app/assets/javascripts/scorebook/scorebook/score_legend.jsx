@@ -15,7 +15,7 @@ EC.ScoreLegend = React.createClass({
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
 		              <div className="icon-wrapper icon-orange"></div>
 		              <div className="icons-description-wrapper">
-		                <p className="title">Near Proficiency</p>
+		                <p className="title">Near Proficient</p>
 		                <p className="explanation">75-50%</p>
 		              </div>
 		            </div>
