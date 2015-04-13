@@ -101,7 +101,6 @@ EC.CreateUnit = React.createClass({
 			data: this.formatCreateRequestData(),
 			success: this.onCreateSuccess,
 		});
-		console.log('final state', this.state);
 	},
 
 	formatCreateRequestData: function() {
@@ -121,7 +120,7 @@ EC.CreateUnit = React.createClass({
 			if (selectedStudents.length == c.students.length) {
 				selectedStudentIds = [];
 			} else {
-				selectedStudentIds = _.map(selectedStudents, function (s) {s.id});
+				selectedStudentIds = _.map(selectedStudents, function (s) {return s.id});
 			}
 			return {id: c.classroom.id, student_ids: selectedStudentIds};
 		});
