@@ -15,7 +15,7 @@ EC.ScoreLegend = React.createClass({
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
 		              <div className="icon-wrapper icon-orange"></div>
 		              <div className="icons-description-wrapper">
-		                <p className="title">Near Proficiency</p>
+		                <p className="title">Nearly Proficient</p>
 		                <p className="explanation">75-50%</p>
 		              </div>
 		            </div>
@@ -36,7 +36,7 @@ EC.ScoreLegend = React.createClass({
 		          <div className="col-xs-12 col-md-12 col-lg-2 col-xl-2 no-pl no-pr">
 		            <div className="how-we-grade">
 		              <p className="title title-not-started">
-		                <a href="/faq">How We Grade</a>
+		                <a href="http://support.quill.org/knowledgebase/articles/545071-how-we-grade">How We Grade</a>
 		                <a href=""><i className="fa fa-long-arrow-right"></i></a>
 		              </p>
 		            </div>

@@ -15,6 +15,9 @@ class ProgressReports::Standards::TopicSerializer < ActiveModel::Serializer
              :topic_students_href,
              :mastery_status
 
+  def average_score
+    object.average_score.round(2)
+  end
 
   def topic_students_href
     return '' unless classroom_id.present?
@@ -27,7 +30,7 @@ class ProgressReports::Standards::TopicSerializer < ActiveModel::Serializer
     if average_score >= 0.75
       "Proficient"
     elsif average_score < 0.75 and average_score >= 0.5
-      "Near Proficient"
+      "Nearly Proficient"
     else
       "Not Proficient"
     end
