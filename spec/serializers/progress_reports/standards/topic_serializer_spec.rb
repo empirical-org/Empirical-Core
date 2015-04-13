@@ -17,7 +17,7 @@ describe ProgressReports::Standards::TopicSerializer, type: :serializer do
   before do
     student.activity_sessions.create!(
       classroom_activity: classroom_activity,
-      percentage: 1,
+      percentage: 0.7547,
       state: 'finished',
       completed_at: 5.minutes.ago
     )
@@ -42,6 +42,10 @@ describe ProgressReports::Standards::TopicSerializer, type: :serializer do
                            topic_students_href
                            mastery_status
                           )
+    end
+
+    it 'includes properly rounded scores' do
+      expect(parsed_topic['average_score']).to eq(0.75)
     end
   end
 end

@@ -7,7 +7,7 @@ module CsvExporter
           'Student',
           'Standards',
           'Proficient Standards',
-          'Near Proficiency Standards',
+          'Nearly Proficient Standards',
           'Not Proficient Standards',
           'Activities',
           'Average',

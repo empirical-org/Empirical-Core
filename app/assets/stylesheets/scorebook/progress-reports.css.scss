@@ -1,6 +1,18 @@
 @import "variables";
 @import "custom";
 
+.premium-bar {
+  background: $darkorange;
+  color: white;
+  p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+}
 
 .progress-reports-nav {
   .btn {
@@ -26,7 +38,8 @@ a.progress-reports-nav {
 
 
 .container.progress-report {
-  padding-top: 20px;
+  padding-top: 50px;
+  margin-bottom: 130px;
 }
 
 .progress-report {
@@ -35,18 +48,24 @@ a.progress-reports-nav {
     text-decoration: none;
   }
 
-  .table tr {
-    line-height: 39px;
-  }
-
   .table-header-arrow {
     padding-left: 9px;
   }
 
   .table {
+    margin-bottom: 0px;
+
+    tr {
+      line-height: 39px;
+    }
+
     th.sorter, td {
       padding-left: 11px;
       padding-right: 11px;
+    }
+
+    th.sorter.current {
+      background-color: #e6e6e6;
     }
   }
 
@@ -114,6 +133,26 @@ a.progress-reports-nav {
     .mastery-status-column {
       width: 145px;
     }
+
+    .standard-prefix-column {
+      width: 80px;
+    }
+
+    .app-name-column {
+      width: 135px;
+    }
+
+    .score-column {
+      width: 65px;
+    }
+
+    .activity-name-column {
+      width: 250px;
+    }
+
+    .date-column {
+      width: 65px;
+    }
   }
 
   .breadcrumb {
@@ -144,6 +183,10 @@ a.progress-reports-nav {
     .description {
       margin-top: 14px;
     }
+  }
+
+  .pagination {
+    margin-top: 0; // Duplicated from elsewhere in the CSS
   }
 
   .table {

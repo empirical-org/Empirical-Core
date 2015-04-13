@@ -46,38 +46,6 @@ describe ActivitySession, :type => :model do
   	it "TODO: must return a valid classroom object"
   end
 
-  describe "#percentage_color" do
-
-  	it "must return an empty string if not completed" do
-  		activity_session.completed_at=nil
-  		expect(activity_session.percentage_color).to eq ''
-  	end
-
-  	it "must return a color if completed" do
-  		expect(activity_session.percentage_color).to be_present
-  	end
-
-  	context "when completed" do
-
-  		it "must return yellow if 50% completed" do
-  			expect(activity_session.percentage_color).to eq "yellow"
-  		end
-
-  		it "must return green if 76% completed" do
-  			activity_session.percentage=0.76
-  			expect(activity_session.percentage_color).to eq "green"
-  		end
-
-  		it "must return red if 25% completed" do
-  			activity_session.percentage=0.25
-  			expect(activity_session.percentage_color).to eq "red"
-  		end
-
-  	end
-
-  end
-
-
   describe "#activity_uid=" do
 
   	let(:activity){ FactoryGirl.create(:activity) }
@@ -118,6 +86,72 @@ describe ActivitySession, :type => :model do
 
     it "must retrieve completed activity sessions representing the best scores for a teacher's students" do
       expect(subject.size).to eq(best_activity_sessions.size)
+    end
+  end
+
+  describe "#for_standalone_progress_report" do
+    include_context 'Topic Progress Report'
+
+    subject { ActivitySession.for_standalone_progress_report(teacher, filters).to_a }
+
+    context 'sorting' do
+      before do
+        Timecop.freeze
+      end
+
+      after do
+        Timecop.return
+      end
+
+      context 'by default' do
+        let(:filters) { {} }
+        it 'sorts by completed_at descending' do
+          expect(subject.first.completed_at).to be_within(1.second).of fred_first_grade_topic_session.completed_at
+        end
+      end
+
+      context 'by activity classification' do
+        let(:filters) { {sort: {field: 'activity_classification_name', direction: 'asc'} } }
+        it 'retrieves results in the appropriate order' do
+          # Primary sort by classification name, secondary by student name
+          expect(subject.first.user.name).to eq(alice.name)
+        end
+      end
+
+      context 'by student name' do
+        let(:filters) { {sort: {field: 'student_name', direction: 'desc'} } }
+        it 'retrieves results in the appropriate order' do
+          expect(subject.first.user.name).to eq(zojirushi.name)
+        end
+      end
+
+      context 'by completion date' do
+        let(:filters) { {sort: {field: 'completed_at', direction: 'desc'} } }
+        it 'retrieves results in the appropriate order' do
+          expect(subject.first.completed_at).to be_within(1.second).of fred_first_grade_topic_session.completed_at
+        end
+      end
+
+      context 'by activity name' do
+        let(:filters) { {sort: {field: 'activity_name', direction: 'asc'} } }
+        it 'retrieves results in the appropriate order' do
+          expect(subject.first.activity.name).to eq(activity_for_first_grade_topic.name)
+        end
+      end
+
+      context 'by score' do
+        let(:filters) { {sort: {field: 'percentage', direction: 'desc'} } }
+        it 'retrieves results in the appropriate order' do
+          expect(subject.first.percentage).to eq(best_score_sessions.first.percentage)
+        end
+      end
+
+      context 'by standard' do
+        let(:filters) { {sort: {field: 'standard', direction: 'asc'} } }
+        it 'retrieves results in the appropriate order' do
+          expect(subject.first.activity.topic.name).to eq(first_grade_topic.name)
+        end
+      end
     end
   end
 
