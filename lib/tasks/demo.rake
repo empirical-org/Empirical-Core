@@ -33,10 +33,10 @@ namespace :demo do
     end
 
     def create_student class_code, name
-      u = User.new class_code: class_code, name: name, role: 'student', password: 'pwd', password_confirmation: 'pwd'
-      u.generate_username
-      u.save
-      u
+      student = User.new class_code: class_code, name: name, role: 'student', password: 'pwd', password_confirmation: 'pwd'
+      student.generate_username
+      student.save
+      student
     end
 
     def create_and_assign_units classrooms
@@ -44,20 +44,30 @@ namespace :demo do
     end
 
     def create_and_assign_unit unit_data, classrooms
-      u = Unit.create name: unit_data[:name]
+
+
+      unit = Unit.create name: unit_data[:name]
       unit_data[:activity_names].each do |activity_name|
         activity = Activity.find_by_name activity_name
         classrooms.each do |classroom|
           # after_create callback for classroom_activity will create the desired activity_sessions for students
-          u.classroom_activities.create classroom: classroom, activity: activity, due_date: data[:due_date]
+          # due dates are randomly generated dates in the month of march
+          unit.classroom_activities.create classroom: classroom, activity: activity, due_date: generate_random_due_date
         end
       end
       u
     end
 
+    def generate_random_due_date
+      min_date = Time.parse '2015-03-01'
+      max_date = Time.parse '2015-03-31'
+      x = (max_date.to_f - min_date.to_f)*rand + min_date.to_f
+      date = Time.at(x).to_date
+      date
+    end
+
     def create_score_distribution classrooms, units
 =begin
-    due dates are randomly generated dates in the month of march
 
     Default Lesson/Student Score Distribution:
       Green: 70%
@@ -87,24 +97,29 @@ namespace :demo do
     end
 
     def create_default_score_distribution classrooms
-      students = classrooms.map(&:students).flatten
-      students.each{|s| create_default_score_distribution_for_student s}
+      classrooms.each{|c| create_default_score_distribution_for_classroom c}
     end
 
-    def create_defualt_score_distribution_for_student student
+    def create_defualt_score_distribution_for_classroom classroom
       default_distribution = {
         green: 0.7,
         yellow: 0.2,
         red: 0.1
       }
 
-      as = student.activity_sessions
+      ass = classroom.students.map(&:activity_sessions).flatten
+      ass.each{|as| as.update_attributes(state: 'finished', completed_at: Time.now)}
+
+      n = ass.length
+
+      greens =
+
 
     end
 
 
     def random_green_score
-
+      0.76 + (1.00 - 0.76)*rand
     end
 
     def random_yellow_score
@@ -225,10 +240,10 @@ namespace :demo do
   end
 
   def units_data
+      # due dates are randomly generated dates in the month of march
       [
         {
           name: 'Unit 1: Verbs',
-          due_date: '',
           activity_names:
             %w(
               Singular and Plural Nouns with Matching Verbs
@@ -242,7 +257,6 @@ namespace :demo do
         },
         {
           name: 'Unit 2: Punctuation',
-          due_date: '',
           activity_names:
             %w(
               Spaces with Punctuation
@@ -255,7 +269,6 @@ namespace :demo do
         },
         {
           name: 'Unit 3: Commonly Confused Words',
-          due_date: '',
           activity_names:
             %w(
               Lose, Loose
@@ -270,7 +283,6 @@ namespace :demo do
         },
         {
           name: 'Unit 4: End of Year Review',
-          due_date: '',
           activity_names:
             %w(
               Singular and Plural Nouns with Matching Verbs
