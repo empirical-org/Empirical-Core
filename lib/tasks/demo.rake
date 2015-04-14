@@ -16,7 +16,7 @@ namespace :demo do
     end
 
     def create_classrooms
-      teacher = User.create role: 'teacher', name: 'Ms. Chavez', password: 'pwd', password_confirmation: 'pwd'
+      teacher = User.create(role: 'teacher', name: 'Ms. Chavez', password: 'pwd', password_confirmation: 'pwd')
       classrooms = classrooms_data.map{|c| create_classroom(c, teacher)}
     end
 
@@ -33,7 +33,7 @@ namespace :demo do
     end
 
     def create_student class_code, name
-      student = User.new class_code: class_code, name: name, role: 'student', password: 'pwd', password_confirmation: 'pwd'
+      student = User.new(class_code: class_code, name: name, role: 'student', password: 'pwd', password_confirmation: 'pwd')
       student.generate_username
       student.save
       student
@@ -55,7 +55,7 @@ namespace :demo do
           unit.classroom_activities.create classroom: classroom, activity: activity, due_date: random_due_date
         end
       end
-      u
+      unit
     end
 
     def random_due_date
@@ -92,7 +92,7 @@ namespace :demo do
       4 Students Per Class
       100% Green
 =end
-      create_default_score_distribution
+      create_default_score_distribution classrooms
 
     end
 
@@ -137,7 +137,7 @@ namespace :demo do
       ratios.each do |key, value|
         actual[key] = (population_size*value).floor
       end
-      # might have some leftover since weve been taking .floor
+      # might have some leftover since weve been taking #floor
       pre_total = actual.values.reduce(:+)
       remnant = population_size - pre_total
       actual[actual.keys.first] += remnant
@@ -157,7 +157,7 @@ namespace :demo do
     end
 
     def random_score min, max
-      score = min + (max - min)*rand
+      score = min + ((max - min)*rand)
       score
     end
 
@@ -268,9 +268,9 @@ namespace :demo do
                 )
           }
         ]
-  end
+    end
 
-  def units_data
+    def units_data
       # due dates are randomly generated dates in the month of march
       [
         {
@@ -326,6 +326,6 @@ namespace :demo do
             )
         }
       ]
+    end
   end
-
 end
