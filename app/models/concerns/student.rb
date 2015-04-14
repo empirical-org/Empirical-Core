@@ -91,8 +91,16 @@ module Student
     end
 
     def assign_classroom_activities
-      if classroom.present?
-        classroom.classroom_activities.each do |ca|
+      return if classroom.nil?
+      classroom.classroom_activities.each do |ca|
+        if !ca.assigned_student_ids.try(:any?)
+          assign = true
+        elsif ca.assigned_student_ids.include?(self.id)
+          assign = true
+        else
+          assign = false
+        end
+        if assign
           ca.session_for(self)
         end
       end
