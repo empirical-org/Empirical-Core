@@ -95,7 +95,7 @@ gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby', github: 'Veraticus/clever-ruby', branch: 'extract_linked_resources'
+gem 'clever-ruby'
 
 group :production, :staging do
   gem 'rails_12factor'
