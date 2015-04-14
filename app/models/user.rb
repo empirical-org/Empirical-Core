@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   # one of the validations
   def name_must_contain_first_and_last_name
     return if name.nil?
-    f,l = name.split(/\s+/)
+    f,l = name.try(:split, /\s+/)
     if f.nil? or l.nil?
       errors.add :name, "must contain first and last name"
     end
@@ -150,15 +150,7 @@ class User < ActiveRecord::Base
   end
 
   def self.setup_from_clever(auth_hash)
-    user = User.where(email: auth_hash[:info][:email]).first_or_initialize
-    user = User.new if user.email.nil?
-    user.update_attributes(
-      clever_id: auth_hash[:info][:id],
-      token: auth_hash[:credentials][:token],
-      role: auth_hash[:info][:user_type],
-      first_name: auth_hash[:info][:name][:first],
-      last_name: auth_hash[:info][:name][:last]
-    )
+    user = User.create_from_clever(auth_hash[:info])
 
     District.create_from_clever(user.clever_district_id)
 
@@ -242,7 +234,7 @@ class User < ActiveRecord::Base
   end
 
   def clever_district_id
-    clever_user.district
+    clever_user.district.id
   end
 
   def send_welcome_email
@@ -271,6 +263,20 @@ class User < ActiveRecord::Base
     classrooms = Classroom.where(clever_id: clever_user.sections.collect(&:id)).all
 
     classrooms.each { |c| c.students << self}
+  end
+
+  # Create the user from a Clever info hash
+  def self.create_from_clever(hash, role_override = nil)
+    user = User.where(email: hash[:email]).first_or_initialize
+    user = User.new if user.email.nil?
+    user.update_attributes(
+      clever_id: hash[:id],
+      token: hash[:token],
+      role: role_override || hash[:user_type],
+      first_name: hash[:name][:first],
+      last_name: hash[:name][:last]
+    )
+    user
   end
 
   # Create all classrooms this teacher is connected to
