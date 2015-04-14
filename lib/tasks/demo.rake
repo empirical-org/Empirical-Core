@@ -52,13 +52,13 @@ namespace :demo do
         classrooms.each do |classroom|
           # after_create callback for classroom_activity will create the desired activity_sessions for students
           # due dates are randomly generated dates in the month of march
-          unit.classroom_activities.create classroom: classroom, activity: activity, due_date: generate_random_due_date
+          unit.classroom_activities.create classroom: classroom, activity: activity, due_date: random_due_date
         end
       end
       u
     end
 
-    def generate_random_due_date
+    def random_due_date
       min_date = Time.parse '2015-03-01'
       max_date = Time.parse '2015-03-31'
       x = (max_date.to_f - min_date.to_f)*rand + min_date.to_f
@@ -101,33 +101,64 @@ namespace :demo do
     end
 
     def create_defualt_score_distribution_for_classroom classroom
-      default_distribution = {
+      ratios = {
         green: 0.7,
         yellow: 0.2,
         red: 0.1
       }
 
       ass = classroom.students.map(&:activity_sessions).flatten
+                                                       .shuffle
+
       ass.each{|as| as.update_attributes(state: 'finished', completed_at: Time.now)}
 
-      n = ass.length
+      actual = create_actual_distribution_from_ratios ratios, ass.size
 
-      greens =
+      records = {}
+      actual.each do |key, value|
+        last ||= 0
+        next_last = last + value - 1
+        x = ass[last..next_last]
+        last = next_last + 1
+        records[key] = x
+      end
+
+      records[:green].each{|as| as.update_attributes(score: random_green_score)}
+      records[:yellow].each{|as| as.update_attributes(score: random_yellow_score)}
+      records[:red].each{|as| as.update_attributes(score: random_red_score)}
 
 
     end
 
 
+
+    def create_actual_distribution_from_ratios ratios, population_size
+      actual = {}
+      ratios.each do |key, value|
+        actual[key] = (population_size*value).floor
+      end
+      # might have some leftover since weve been taking .floor
+      pre_total = actual.values.reduce(:+)
+      remnant = population_size - pre_total
+      actual[actual.keys.first] += remnant
+      actual
+    end
+
     def random_green_score
-      0.76 + (1.00 - 0.76)*rand
+      random_score 0.76, 1.00
     end
 
     def random_yellow_score
-
+      random_score 0.50, 0.75
     end
 
     def random_red_score
+      random_score 0.00, 0.49
+    end
 
+    def random_score min, max
+      score = min + (max - min)*rand
+      score
     end
 
 
