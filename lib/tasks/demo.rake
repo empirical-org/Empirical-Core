@@ -138,10 +138,20 @@ namespace :demo do
     special_students_group1 = students[0..1]
     special_students_group2 = students[2..5]
 
+    if classroom.name == 'Period 1'
+      special_students_group3 = students[6..7]
+    elsif classroom.name == 'Period 2'
+      special_students_group3 = students[6..6]
+    elsif classroom.name == 'Period 3'
+      special_students_group3 = []
+    end
+
     special_students_group1.each{|s1| special_scores_student_group1(s1)}
     special_students_group2.each{|s2| special_scores_student_group2(s2)}
+    special_students_group3.each{|s3| special_scores_student_group3(s3)}
 
-    special_students = special_students_group1.concat special_students_group2
+
+    special_students = special_students_group1.concat(special_students_group2).concat(special_students_group3)
     special_students
   end
 
@@ -163,6 +173,16 @@ namespace :demo do
     }
     ass = student.activity_sessions
     ass.each{|as| as.update_attributes(percentage: random_green_score)}
+  end
+
+  def special_scores_student_group3 student
+    ratios = {
+      green: 0.00,
+      yellow: 0.05,
+      red: 0.95
+    }
+    ass = student.activity_sessions
+    score_town ratios, ass
   end
 
   def special_lesson_score_distribution classrooms, special_students
