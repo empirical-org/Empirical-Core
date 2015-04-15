@@ -68,22 +68,42 @@ class Classroom < ActiveRecord::Base
 
     c.update_attributes(
       name: section.name,
-      teacher: User.teacher.where(clever_id: section.teacher).first,
+      teacher: User.teacher.where(clever_id: section.teacher.id).first,
       grade: section.grade
     )
+
     if c.units.empty? and c.save! then c.units.create_next end
 
+    c.import_students!
+
     c
+  end
+
+  def import_students!
+    clever_students = clever_classroom.students
+
+    existing_student_ids = self.students.pluck(&:clever_id).uniq.compact
+    students_to_add = clever_students.reject {|s| existing_student_ids.include?(s.id) }
+    new_students = students_to_add.collect {|s| User.create_from_clever(s, 'student')}
+
+    self.students << new_students
   end
 
   def classroom_activity_for activity
     classroom_activities.where(activity_id: activity.id).first
   end
 
-
   def generate_code
     self.code = NameGenerator.generate
     if Classroom.find_by_code(code) then generate_code end
   end
+
+  private
+
+  # Clever integration
+  def clever_classroom
+    Clever::Section.retrieve(self.clever_id)
+  end
+
 
 end
