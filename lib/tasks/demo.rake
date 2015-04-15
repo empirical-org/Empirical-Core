@@ -17,9 +17,9 @@ namespace :demo do
   end
 
   def create_classrooms
-    teacher = User.find_by name: 'Ms. Chavez', username: 'chavezdemo279', email: 'chavezdemo279@gmail.com', role: 'teacher'
+    teacher = User.find_by name: 'Ms. Chavez', username: 'demo', email: 'chavezdemo279@gmail.com', role: 'teacher'
     if teacher.nil?
-      teacher = User.create(role: 'teacher', name: 'Ms. Chavez', username: 'chavezdemo279', email: 'chavezdemo279@gmail.com', password: 'pwd', password_confirmation: 'pwd')
+      teacher = User.create(role: 'teacher', name: 'Ms. Chavez', username: 'chavezdemo279', email: 'chavezdemo279@gmail.com', password: 'demo', password_confirmation: 'demo')
     end
     classrooms = classrooms_data.map.with_index{|c, index| create_classroom(c, teacher, index)}
   end
