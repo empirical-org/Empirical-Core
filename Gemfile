@@ -138,7 +138,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'selenium-webdriver', '>=2.45.0.dev3' # works with Firefox 35
+  gem 'poltergeist'
   gem "vcr"
   gem "webmock"
 end
