@@ -38,6 +38,10 @@ class SignUpPage < Page
     teacher_radio.set true
   end
 
+  def has_email_required?
+    email_field[:required]
+  end
+
   def path
     self.class.path
   end
