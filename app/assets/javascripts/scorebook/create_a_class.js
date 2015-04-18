@@ -1,5 +1,3 @@
-
-
 $(document).ready(function () {
 	$('.generate-code').click(function(){
 		$.ajax({
@@ -8,8 +6,5 @@ $(document).ready(function () {
 				$('.class-code').val(data.code);
 			}
 		});
-	  
 	});
-
 });
-
