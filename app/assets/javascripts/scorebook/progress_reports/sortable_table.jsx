@@ -20,7 +20,7 @@ EC.SortableTable = React.createClass({
                             sortHandler={this.sortByColumn(column.sortByField)}
                             displayName={column.name}
                             displayClass={column.className}
-                            sortDirection={this.props.currentSort.direction}
+                            sortDirection={this.props.currentSort.direction || 'asc'}
                             isCurrentSort={isCurrentSort} />
     }, this);
   },
