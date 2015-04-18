@@ -74,6 +74,7 @@ gem 'slim-rails'
 gem 'haml-rails'
 gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
 
+gem 'es5-shim-rails'
 gem 'react-rails', '~>0.12.0.0'
 
 # ASSET/UI
