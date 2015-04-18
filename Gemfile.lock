@@ -169,6 +169,9 @@ GEM
     eco-source (1.1.0.rc.1)
     ejs (1.1.1)
     erubis (2.7.0)
+    es5-shim-rails (4.0.1)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
     excon (0.39.5)
     execjs (2.2.1)
     extlib (0.9.16)
@@ -552,6 +555,7 @@ DEPENDENCIES
   database_cleaner
   doorkeeper
   dotenv-rails
+  es5-shim-rails
   factory_girl
   factory_girl_rails
   faraday_middleware
