@@ -145,6 +145,16 @@ EC.CreateUnit = React.createClass({
 		this.props.toggleTab('manageUnits');
 	},
 
+	isUnitNameSelected: function () {
+		return ((this.state.unitName != null) && (this.state.unitName != ''));
+	},
+
+	determineIfEnoughInputProvidedForStage1: function () {
+		var a = this.isUnitNameSelected();
+		var b = (this.state.selectedActivities.length > 0);
+		return (a && b);
+	},
+
 	areAnyStudentsSelected: function () {
 		var x = _.select(this.state.classrooms, function (c) {
 			var y = _.where(c.students, {isSelected: true});
@@ -157,9 +167,27 @@ EC.CreateUnit = React.createClass({
 		return (Object.keys(this.state.dueDates).length == this.state.selectedActivities.length);
 	},
 
-	determineErrorMessage: function () {
-		var a = this.areAnyStudentsSelected;
-		var b = this.areAllDueDatesProvided;
+	determineStage1ErrorMessage: function () {
+		var a = this.isUnitNameSelected();
+		var b = (this.state.selectedActivities.length > 0);
+		var msg;
+		if (!a) {
+			if (!b) {
+				msg = "Please provide a unit name and select activities";
+			} else {
+				msg = "Please provide a unit name";
+			}
+		} else if (!b) {
+			msg = "Please select activities";
+		} else {
+			msg = null;
+		}
+		return msg;
+	},
+
+	determineStage2ErrorMessage: function () {
+		var a = this.areAnyStudentsSelected();
+		var b = this.areAllDueDatesProvided();
 		var msg;
 		if (!a) {
 			if (!b) {
@@ -183,6 +211,8 @@ EC.CreateUnit = React.createClass({
 								 unitName = {this.state.unitName}
 								 updateUnitName={this.updateUnitName}
 								 selectedActivities={this.state.selectedActivities}
+								 isEnoughInputProvidedForStage1={this.determineIfEnoughInputProvidedForStage1()}
+								 errorMessage={this.determineStage1ErrorMessage()}
 								 clickContinue={this.clickContinue} />;
 		} else {
 			stageSpecificComponents = <EC.Stage2 selectedActivities={this.state.selectedActivities}
@@ -193,9 +223,9 @@ EC.CreateUnit = React.createClass({
 																					 finish={this.finish}
 																					 unitName={this.state.unitName}
 																					 assignActivityDueDate={this.assignActivityDueDate}
-																					 areAnyStudentsSelected={this.areAnyStudentsSelected}
-																					 areAllDueDatesProvided={this.areAllDueDatesProvided} />;
-																					 errorMessage={this.determineErrorMessage}
+																					 areAnyStudentsSelected={this.areAnyStudentsSelected()}
+																					 areAllDueDatesProvided={this.areAllDueDatesProvided()}
+																					 errorMessage={this.determineStage2ErrorMessage()}/>;
 		}
 		return (
 			<span>
