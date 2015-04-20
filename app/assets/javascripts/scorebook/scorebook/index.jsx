@@ -92,6 +92,9 @@ EC.Scorebook = React.createClass({
 					y1 = _.map(y1, function (ele) {
 						if (ele == y2) {
 							ele.results = ele.results.concat(score.results);
+							ele.results = _.uniq(ele.results, function(w1) {
+								return w1.id;
+							});
 						}
 						var w1 = ele;
 						return w1;

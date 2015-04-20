@@ -4,6 +4,20 @@ namespace :demo do
     create_demo
   end
 
+  task :destroy => :environment do
+    teacher = User.find_by_username 'demo'
+    classrooms = teacher.classrooms
+    classroom_activities = classrooms.map(&:classroom_activities).flatten
+    students = classrooms.map(&:students).flatten
+    ass = students.map(&:activity_sessions).flatten
+
+    teacher.destroy
+    classrooms.map(&:destroy)
+    classroom_activities.map(&:destroy)
+    students.map(&:destroy)
+    ass.map(&:destroy)
+  end
+
   def create_demo
     classrooms, units = create_classrooms_and_create_and_assign_units
     create_score_distribution classrooms, units
@@ -213,7 +227,7 @@ namespace :demo do
     not_special_students = students - special_students
 
     special_activities1.each{|sa1| special_scores_activity_group1(sa1, not_special_students)}
-    special_activities2.each{|sa2| special_scores_activity_group2(sa2, not_special_students)}
+    special_activities2.each{|sa2| special_scores_activity_group2(sa2, not_special_students)} unless special_activities2.empty?
   end
 
   def special_scores_activity_group1 activity, not_special_students
