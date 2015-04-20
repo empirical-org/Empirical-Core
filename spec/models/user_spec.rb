@@ -627,67 +627,21 @@ describe User, :type => :model do
       end
     end
 
-    describe 'for the standards-based progress reports' do
-      include_context 'Section Progress Report'
+    describe 'for the standards report' do
+      include_context 'Topic Progress Report'
+      subject { User.for_standards_report(teacher, filters).to_a }
 
-      subject { User.for_standards_progress_report(teacher, filters).to_a }
+      let(:filters) { {} }
 
-      context 'sections' do
-        let(:filters) { {section_id: section_ids} }
-
-        it 'can retrieve users based on sections' do
-          expect(subject.size).to eq(2) # 1 user created for each section
-        end
-
-        it 'retrieves the right aggregated data' do
-          user = subject[0]
-          expect(user.id).to be_present
-          expect(user.name).to be_present
-          expect(user.activity_session_count).to be_present
-          expect(user.proficient_count).to be_present
-          expect(user.not_proficient_count).to be_present
-          expect(user.total_time_spent).to be_present
-        end
-      end
-
-      context 'classrooms' do
-        let(:filters) { {classroom_id: classrooms.first.id} }
-
-        it 'can retrieve users based on classroom_id' do
-          expect(subject.size).to eq(1)
-        end
-      end
-
-      context 'units' do
-        let(:filters) { {unit_id: units.first.id} }
-
-        it 'can retrieve users based on unit_id' do
-          expect(subject.size).to eq(1)
-        end
-      end
-
-      context 'a set of topics' do
-        let(:filters) { {section_id: section_ids, topic_id: topics.map {|t| t.id} } }
-
-        it 'can retrieve users based on a set of topics' do
-          expect(subject.size).to eq(2)
-        end
-      end
-
-      context 'a single topic' do
-        let(:filters) { {section_id: section_ids, topic_id: topics.first.id } }
-
-        it 'can retrieve users based on a single topic' do
-          expect(subject.size).to eq(1)
-        end
-      end
-
-      context 'no filters' do
-        let(:filters) { {} }
-
-        it 'can retrieve users based on no filters' do
-          expect(subject.size).to eq(students.size)
-        end
+      it 'retrieves the right aggregated data' do
+        user = subject[0]
+        expect(user.name).to be_present
+        expect(user.total_standard_count).to be_present
+        expect(user.proficient_standard_count).to be_present
+        expect(user.near_proficient_standard_count).to be_present
+        expect(user.not_proficient_standard_count).to be_present
+        expect(user.total_activity_count).to be_present
+        expect(user.average_score).to be_present
       end
     end
   end

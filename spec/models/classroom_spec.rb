@@ -82,19 +82,22 @@ describe Classroom, :type => :model do
   end
 
   describe "getting classrooms for the progress report" do
-
-
     let!(:teacher) { FactoryGirl.create(:teacher) }
     let(:section_ids) { [sections[0].id, sections[1].id] }
     let(:filters) { {} }
     include_context 'Section Progress Report'
 
-    subject { Classroom.for_standards_progress_report(teacher, filters).to_a }
+    subject { Classroom.for_standards_report(teacher, filters).to_a }
 
     it "retrieves aggregated classroom data" do
       classrooms = subject
       expect(classrooms[0]["name"]).to eq(classrooms.first.name)
       expect(classrooms[0]["id"]).to eq(classrooms.first.id)
+      expect(classrooms[0]["total_student_count"]).to eq(classrooms.first.total_student_count)
+      expect(classrooms[0]["proficient_student_count"]).to eq(classrooms.first.proficient_student_count)
+      expect(classrooms[0]["near_proficient_student_count"]).to eq(classrooms.first.near_proficient_student_count)
+      expect(classrooms[0]["not_proficient_student_count"]).to eq(classrooms.first.not_proficient_student_count)
+      # expect(classrooms[0]["total_standard_count"]).to eq(classrooms.first.total_standard_count)
     end
 
     it "retrieves classrooms with no filters" do

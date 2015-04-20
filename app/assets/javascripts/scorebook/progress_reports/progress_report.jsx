@@ -1,12 +1,11 @@
 //= require ./table_filter_mixin.js
 //= require ./table_sorting_mixin.js
-//= require ./table_pagination_mixin.js
-
 EC.ProgressReport = React.createClass({
-  mixins: [EC.TableFilterMixin, EC.TablePaginationMixin, EC.TableSortingMixin],
+  mixins: [EC.TableFilterMixin, EC.TableSortingMixin],
 
   propTypes: {
     columnDefinitions: React.PropTypes.func.isRequired,
+    filterTypes: React.PropTypes.array.isRequired,
     pagination: React.PropTypes.bool.isRequired,
     sourceUrl: React.PropTypes.string.isRequired,
     sortDefinitions: React.PropTypes.func.isRequired,
@@ -15,8 +14,17 @@ EC.ProgressReport = React.createClass({
     exportCsv: React.PropTypes.string
   },
 
+  getDefaultProps: function() {
+    return {
+      maxPageNumber: 4
+    };
+  },
+
   getInitialState: function() {
     return {
+      currentPage: 1,
+      numPages: 1,
+
       loading: false,
 
       results: [],
@@ -46,11 +54,18 @@ EC.ProgressReport = React.createClass({
 
   // Get results after pagination has been applied.
   getVisibleResults: function(filteredResults) {
-    if (this.props.pagination) {
-      return this.applyPagination(filteredResults, this.state.currentPage);
-    } else {
-      return filteredResults;
-    }
+    return filteredResults;
+  },
+
+  goToPage: function(page) {
+    var newState = {
+      currentPage: page
+    };
+    this.setState(newState, this.fetchData);
+  },
+
+  resetPagination: function(next) {
+    this.setState({currentPage: 1}, next);
   },
 
   // Filter sessions based on the classroom ID.
@@ -79,10 +94,20 @@ EC.ProgressReport = React.createClass({
     }
   },
 
+  requestParams: function() {
+    var requestParams = _.extend(this.state.currentFilters, {});
+    if (this.props.pagination) {
+      requestParams = _.extend(requestParams, {page: this.state.currentPage});
+    }
+    requestParams['sort'] = this.state.currentSort;
+    return requestParams;
+  },
+
   fetchData: function() {
     this.setState({loading: true});
-    $.get(this.props.sourceUrl, this.state.currentFilters, function onSuccess(data) {
+    $.get(this.props.sourceUrl, this.requestParams(), function onSuccess(data) {
       this.setState({
+        numPages: data.page_count,
         loading: false,
         results: data[this.props.jsonResultsKey],
         teacher: data.teacher,
@@ -98,31 +123,55 @@ EC.ProgressReport = React.createClass({
     });
   },
 
+  // Depending upon whether or not pagination is implemented,
+  // sort results client-side or fetch sorted data from server.
+  handleSort: function() {
+    var cb;
+    if (this.props.pagination) {
+      cb = this.fetchData;
+    } else {
+      cb = _.noop;
+    }
+    return _.bind(this.sortResults, this, cb);
+  },
+
   render: function() {
     var pagination, csvExport, mainSection;
     var filteredResults = this.getFilteredResults();
     if (this.props.pagination) {
-      var numberOfPages = this.calculateNumberOfPages(filteredResults);
       pagination = <EC.Pagination maxPageNumber={this.props.maxPageNumber}
                                   selectPageNumber={this.goToPage}
                                   currentPage={this.state.currentPage}
-                                  numberOfPages={numberOfPages}  />;
+                                  numberOfPages={this.state.numPages}  />;
     }
     var visibleResults = this.getVisibleResults(filteredResults);
 
     if (this.props.exportCsv) {
       csvExport = <EC.ExportCsv exportType={this.props.exportCsv}
+                                reportUrl={this.props.sourceUrl}
                                 filters={this.state.currentFilters}
                                 teacher={this.state.teacher} />;
     }
     if (this.state.loading) {
       mainSection = <EC.LoadingIndicator />;
     } else {
-      mainSection = <EC.SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.sortResults} />;
+      mainSection = <EC.SortableTable rows={visibleResults}
+                                      columns={this.props.columnDefinitions()}
+                                      sortHandler={this.handleSort()}
+                                      currentSort={this.state.currentSort} />;
     }
 
     return (
       <div>
+        <div className="row">
+          <div className="col-md-8 header-section">
+            {this.props.children}
+          </div>
+          <div className="col-md-3 col-md-offset-1">
+            {csvExport}
+            <EC.FaqLink />
+          </div>
+        </div>
         <EC.ProgressReportFilters classroomFilters={this.state.classroomFilters}
                                   studentFilters={this.state.studentFilters}
                                   unitFilters={this.state.unitFilters}
@@ -131,8 +180,8 @@ EC.ProgressReport = React.createClass({
                                   selectStudent={this.selectStudent}
                                   selectedStudent={this.state.selectedStudent}
                                   selectUnit={this.selectUnit}
-                                  selectedUnit={this.state.selectedUnit} />
-        {csvExport}
+                                  selectedUnit={this.state.selectedUnit}
+                                  filterTypes={this.props.filterTypes} />
         {mainSection}
         {pagination}
       </div>

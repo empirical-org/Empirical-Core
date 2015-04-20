@@ -7,8 +7,10 @@ class ProfilesController < ApplicationController
   end
 
   def update
+    # this is called by the 'join classroom' page
     @user = current_user
     @user.update_attributes(user_params)
+    @user.assign_classroom_activities
     redirect_to profile_path
   end
 

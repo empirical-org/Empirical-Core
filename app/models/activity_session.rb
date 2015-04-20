@@ -34,29 +34,21 @@ class ActivitySession < ActiveRecord::Base
     (complete_session || incomplete_session)
   }
 
+  RESULTS_PER_PAGE = 25
+
   def self.for_standalone_progress_report(teacher, filters)
+    filters = (filters || {}).with_indifferent_access
     query = includes(:user, :activity => [:topic, :classification], :classroom_activity => :classroom)
       .references(:classification)
       .completed
       .by_teacher(teacher)
-      .order('activity_classifications.name asc, users.name asc')
+      .order(search_sort_sql(filters[:sort]))
     with_filters(query, filters)
   end
 
-  # Used as a CTE (common table expression) by other models to get progress report data.
-  def self.proficient_sessions_for_progress_report(teacher, filters)
-    query = select(<<-SELECT
-      activity_sessions.id as activity_session_id,
-      activity_sessions.*,
-      CASE WHEN activity_sessions.percentage > 0.75 THEN 1 ELSE 0 END as is_proficient
-    SELECT
-    ).joins(:classroom_activity => :classroom)
-      .completed
-      .by_teacher(teacher)
-      .group("activity_sessions.id")
-
-    query = with_filters(query, filters)
-    query
+  def self.paginate(current_page, per_page)
+    offset = (current_page.to_i - 1) * per_page
+    limit(per_page).offset(offset)
   end
 
   def self.with_filters(query, filters)
@@ -70,7 +62,7 @@ class ActivitySession < ActiveRecord::Base
     end
 
     if filters[:unit_id].present?
-      query = query.where("classroom_activities.unit_id = ?", filters[:unit_id])
+      query = query.joins(:classroom_activity).where("classroom_activities.unit_id = ?", filters[:unit_id])
     end
 
     if filters[:section_id].present?
@@ -84,13 +76,30 @@ class ActivitySession < ActiveRecord::Base
     query
   end
 
+  def self.for_standards_report(teacher, filters)
+    query = select(<<-SELECT
+      activity_sessions.*,
+      activities.topic_id as topic_id
+    SELECT
+    ).completed
+      .with_best_scores
+      .by_teacher(teacher)
+    query = with_filters(query, filters)
+    query
+  end
+
+  def self.with_best_scores
+    where(is_final_score: true)
+  end
+
   def self.by_teacher(teacher)
     self.joins(:user => :teacher).where(teachers_users: {id: teacher.id})
   end
 
   def determine_if_final_score
     return true if (self.percentage.nil? or self.state != 'finished')
-    a = ActivitySession.find_by(classroom_activity: self.classroom_activity, user: self.user, is_final_score: true)
+    a = ActivitySession.where(classroom_activity: self.classroom_activity, user: self.user, is_final_score: true)
+                       .where.not(id: self.id).first
     if a.nil?
       self.update_columns is_final_score: true
     elsif self.percentage > a.percentage
@@ -109,15 +118,13 @@ class ActivitySession < ActiveRecord::Base
     unit.classroom
   end
 
-  def percentage_color
-    return '' unless completed?
-    case percentage
-    when 0.75..1.0
-      'green'
-    when 0.5..0.75
-      'yellow'
-    when 0.0..0.5
-      'red'
+  def display_due_date_or_completed_at_date
+    if self.completed_at.present?
+      "Completed #{self.completed_at.strftime('%A %B, %d, %Y')}"
+    elsif (self.classroom_activity.present? and self.classroom_activity.due_date.present?)
+      "Due #{self.classroom_activity.due_date.strftime('%A %B, %d, %Y')}"
+    else
+      ""
     end
   end
 
@@ -237,6 +244,39 @@ class ActivitySession < ActiveRecord::Base
   end
 
   private
+
+  def self.search_sort_sql(sort)
+    if sort.blank? or sort[:field].blank?
+      sort = {
+        field: 'completed_at',
+        direction: 'desc'
+      }
+    end
+
+    if sort[:direction] == 'desc'
+      order = 'desc'
+    else
+      order = 'asc'
+    end
+
+    # The matching names for this case statement match those returned by
+    # the progress reports ActivitySessionSerializer and used as
+    # column definitions in the corresponding React component.
+    case sort[:field]
+    when 'activity_classification_name'
+      "activity_classifications.name #{order}, users.name #{order}"
+    when 'student_name'
+      "users.name #{order}"
+    when 'completed_at'
+      "activity_sessions.completed_at #{order}"
+    when 'activity_name'
+      "activities.name #{order}"
+    when 'percentage'
+      "activity_sessions.percentage #{order}"
+    when 'standard'
+      "topics.name #{order}"
+    end
+  end
 
   def trigger_events
     should_async = state_changed?

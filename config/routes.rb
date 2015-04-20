@@ -27,14 +27,22 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
-      resources :sections, only: [:index] do
-        resources :topics, only: [:index] do
-          resources :students, controller: "topics_students", only: [:index]
-        end
-      end
+
       resources :concept_categories, only: [:index] do
         resources :concept_tags, only: [:index] do
           resources :students, controller: "concept_tags_students", only: [:index]
+        end
+      end
+
+      namespace :standards do
+        resources :classrooms, only: [:index] do
+          resources :students, controller: "classroom_students", only: [:index] do
+            resources :topics, controller: "student_topics", only: [:index]
+          end
+
+          resources :topics, controller: "classroom_topics", only: [:index] do
+            resources :students, controller: "topic_students", only: [:index]
+          end
         end
       end
     end
@@ -117,12 +125,14 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  %w(middle_school story learning develop mission faq tos privacy activities new impact team).each do |page|
+  %w(middle_school story learning develop mission faq tos privacy activities new impact team premium_access premium).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
+
+  get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'

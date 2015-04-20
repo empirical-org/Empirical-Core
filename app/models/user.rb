@@ -47,25 +47,10 @@ class User < ActiveRecord::Base
   # one of the validations
   def name_must_contain_first_and_last_name
     return if name.nil?
-    f,l = name.split(/\s+/)
+    f,l = name.try(:split, /\s+/)
     if f.nil? or l.nil?
       errors.add :name, "must contain first and last name"
     end
-  end
-
-  def self.for_standards_progress_report(teacher, filters)
-    with(filtered_activity_sessions: ActivitySession.proficient_sessions_for_progress_report(teacher, filters))
-      .select(<<-SELECT
-        users.id,
-        users.name,
-        COUNT(DISTINCT(filtered_activity_sessions.activity_session_id)) as activity_session_count,
-        SUM(filtered_activity_sessions.is_proficient) as proficient_count,
-        SUM(CASE WHEN filtered_activity_sessions.is_proficient = 1 THEN 0 ELSE 1 END) as not_proficient_count,
-        SUM(filtered_activity_sessions.time_spent) as total_time_spent
-      SELECT
-      ).joins('JOIN filtered_activity_sessions ON users.id = filtered_activity_sessions.user_id')
-      .group('users.id')
-      .order('users.name asc')
   end
 
   def self.for_concept_tag_progress_report(teacher, filters)
@@ -82,6 +67,82 @@ class User < ActiveRecord::Base
       .order('users.name asc')
   end
 
+  # Helper method used as CTE in other queries. Do not attempt to use this by itself
+  def self.best_per_topic_user
+    <<-BEST
+      select topic_id, user_id, AVG(percentage) as avg_score_in_topic
+      from best_activity_sessions
+      group by topic_id, user_id
+    BEST
+  end
+
+  def self.sorting_name_sql
+    <<-SQL
+      substring(
+        users.name from (
+          position(' ' in users.name) + 1
+        )
+        for (
+          char_length(users.name)
+        )
+      )
+      ||
+      substring(
+        users.name from (
+          1
+        )
+        for (
+          position(' ' in users.name)
+        )
+
+      ) as sorting_name
+    SQL
+  end
+
+  def self.for_standards_report(teacher, filters)
+    User.from_cte('best_activity_sessions', ActivitySession.for_standards_report(teacher, filters))
+      .with(best_per_topic_user: best_per_topic_user)
+      .select(<<-SQL
+        users.id,
+        users.name,
+        #{sorting_name_sql},
+        AVG(best_activity_sessions.percentage) as average_score,
+        COUNT(DISTINCT(best_activity_sessions.topic_id)) as total_standard_count,
+        COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count,
+        COALESCE(AVG(proficient_count.topic_count), 0)::integer as proficient_standard_count,
+        COALESCE(AVG(near_proficient_count.topic_count), 0)::integer as near_proficient_standard_count,
+        COALESCE(AVG(not_proficient_count.topic_count), 0)::integer as not_proficient_standard_count
+      SQL
+      ).joins('JOIN users ON users.id = best_activity_sessions.user_id')
+      .joins(<<-JOINS
+      LEFT JOIN (
+          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
+           from best_per_topic_user
+           where avg_score_in_topic > 0.75
+           group by user_id
+        ) as proficient_count ON proficient_count.user_id = users.id
+      JOINS
+      ).joins(<<-JOINS
+      LEFT JOIN (
+          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
+           from best_per_topic_user
+           where avg_score_in_topic <= 0.75 AND avg_score_in_topic >= 0.50
+           group by user_id
+        ) as near_proficient_count ON near_proficient_count.user_id = users.id
+      JOINS
+      ).joins(<<-JOINS
+      LEFT JOIN (
+          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
+           from best_per_topic_user
+           where avg_score_in_topic < 0.5
+           group by user_id
+        ) as not_proficient_count ON not_proficient_count.user_id = users.id
+      JOINS
+      )
+      .group('users.id, sorting_name')
+      .order('sorting_name asc')
+  end
+
   # def authenticate
   def self.authenticate(params)
     user =  User.where("email = ? OR username = ?", params[:email].downcase, params[:email].downcase).first
@@ -89,15 +150,7 @@ class User < ActiveRecord::Base
   end
 
   def self.setup_from_clever(auth_hash)
-    user = User.where(email: auth_hash[:info][:email]).first_or_initialize
-    user = User.new if user.email.nil?
-    user.update_attributes(
-      clever_id: auth_hash[:info][:id],
-      token: auth_hash[:credentials][:token],
-      role: auth_hash[:info][:user_type],
-      first_name: auth_hash[:info][:name][:first],
-      last_name: auth_hash[:info][:name][:last]
-    )
+    user = User.create_from_clever(auth_hash[:info])
 
     District.create_from_clever(user.clever_district_id)
 
@@ -181,7 +234,7 @@ class User < ActiveRecord::Base
   end
 
   def clever_district_id
-    clever_user.district
+    clever_user.district.id
   end
 
   def send_welcome_email
@@ -210,6 +263,20 @@ class User < ActiveRecord::Base
     classrooms = Classroom.where(clever_id: clever_user.sections.collect(&:id)).all
 
     classrooms.each { |c| c.students << self}
+  end
+
+  # Create the user from a Clever info hash
+  def self.create_from_clever(hash, role_override = nil)
+    user = User.where(email: hash[:email]).first_or_initialize
+    user = User.new if user.email.nil?
+    user.update_attributes(
+      clever_id: hash[:id],
+      token: hash[:token],
+      role: role_override || hash[:user_type],
+      first_name: hash[:name][:first],
+      last_name: hash[:name][:last]
+    )
+    user
   end
 
   # Create all classrooms this teacher is connected to

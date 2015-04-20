@@ -4,6 +4,7 @@ module Teacher
 
   included do
     has_many :classrooms, foreign_key: 'teacher_id'
+    has_many :students, through: :classrooms
   end
 
   class << self
@@ -29,26 +30,7 @@ module Teacher
     end
 
     results = ActivitySession.select("users.name, activity_sessions.id, activity_sessions.percentage,
-                                substring(
-                                    users.name from (
-                                      position(' ' in users.name) + 1
-                                    )
-                                    for (
-                                      char_length(users.name)
-                                    )
-                                  )
-                                  ||
-                                  substring(
-                                    users.name from (
-                                      1
-                                    )
-                                    for (
-                                      position(' ' in users.name)
-                                    )
-
-                                  ) as sorting_name
-
-                              ")
+                                #{User.sorting_name_sql}")
                               .includes(:user, :activity => [:classification, :topic => [:section, :topic_category]])
                               .references(:user)
                               .where(user: users)
@@ -64,7 +46,7 @@ module Teacher
     if begin_date.present? then results = results.where("activity_sessions.completed_at > ?", (begin_date.to_date - 1.day)) end
     if end_date.present?   then results = results.where("activity_sessions.completed_at < ?", (end_date.to_date + 1.day) ) end
 
-    results = results.order('sorting_name, percentage, activity_sessions.id')
+    results = results.order('sorting_name, activity_sessions.completed_at, activity_sessions.id')
                       .limit(SCORES_PER_PAGE)
                       .offset( (current_page -1 )*SCORES_PER_PAGE)
 
@@ -74,19 +56,15 @@ module Teacher
 
     x2 = []
     x1.each do |user_id, scores|
+      scores.sort_by!{|s| s.completed_at.present? ? s.completed_at : (Date.today + 1)}
       formatted_scores = scores.map do |s|
         {
           id: s.id,
           percentage: s.percentage,
-          due_date: ((s.classroom_activity.present? and s.classroom_activity.due_date.present?) ? s.classroom_activity.due_date.strftime('%A %B %d, %Y') : ""),
+          due_date_or_completed_at_date: s.display_due_date_or_completed_at_date,
           activity: (ActivitySerializer.new(s.activity)).as_json(root: false)
         }
       end
-      y1, y2 = formatted_scores.partition{|x| x[:percentage].present? }
-      y1 = y1.sort_by{|x| x[:percentage]}
-      formatted_scores = y1.concat(y2)
-
-
       ele = {
         user: User.find(user_id),
         results: formatted_scores

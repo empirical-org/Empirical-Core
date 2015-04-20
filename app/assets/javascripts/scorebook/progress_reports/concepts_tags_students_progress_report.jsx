@@ -65,7 +65,10 @@ EC.ConceptTagsStudentsProgressReport = React.createClass({
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'students'}
-                         onFetchSuccess={this.onFetchSuccess} />
+                         onFetchSuccess={this.onFetchSuccess}
+                         filterTypes={['unit', 'classroom', 'student']}>
+        <h2>Results by Student</h2>
+      </EC.ProgressReport>
     );
   }
 });
