@@ -118,6 +118,16 @@ class ActivitySession < ActiveRecord::Base
     unit.classroom
   end
 
+  def display_due_date_or_completed_at_date
+    if self.completed_at.present?
+      "Completed #{self.completed_at.strftime('%A %B, %d, %Y')}"
+    elsif (self.classroom_activity.present? and self.classroom_activity.due_date.present?)
+      "Due #{self.classroom_activity.due_date.strftime('%A %B, %d, %Y')}"
+    else
+      ""
+    end
+  end
+
   def percentile
     case percentage
     when 0.75..1.0
