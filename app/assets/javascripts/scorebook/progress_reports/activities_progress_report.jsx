@@ -1,49 +1,44 @@
-//= require ./table_pagination_mixin.js
-//= require ./table_filter_mixin.js
-//= require ./table_sorting_mixin.js
+"use strict";
 
 EC.ActivitiesProgressReport = React.createClass({
-  mixins: [EC.TimeSpentMixin],
-
   columnDefinitions: function() {
+    // Student, Date, Activity, Score, Standard, App
     return [
       {
-        name: 'App',
-        field: 'activity_classification_name',
-        sortByField: 'activity_classification_name'
-      },
-      {
-        name: 'Activity',
-        field: 'activity_name',
-        sortByField: 'activity_name'
+        name: 'Student',
+        field: 'student_name',
+        sortByField: 'student_name',
+        className: 'student-name-column'
       },
       {
         name: 'Date',
         field: 'display_completed_at',
         sortByField: 'completed_at',
+        className: 'date-column'
       },
       {
-        name: 'Time Spent',
-        field: 'time_spent',
-        sortByField: 'time_spent',
-        customCell: _.bind(function(row) {
-          return this.displayTimeSpent(row['time_spent'], true);
-        }, this)
-      },
-      {
-        name: 'Standard',
-        field: 'standard', // What field is this?,
-        sortByField: 'standard'
+        name: 'Activity',
+        field: 'activity_name',
+        sortByField: 'activity_name',
+        className: 'activity-name-column'
       },
       {
         name: 'Score',
         field: 'display_score',
-        sortByField: 'percentage'
+        sortByField: 'percentage',
+        className: 'score-column'
       },
       {
-        name: 'Student',
-        field: 'student_name',
-        sortByField: 'student_name'
+        name: 'Standard',
+        field: 'standard',
+        sortByField: 'standard',
+        className: 'standard-prefix-column'
+      },
+      {
+        name: 'App',
+        field: 'activity_classification_name',
+        sortByField: 'activity_classification_name',
+        className: 'app-name-column'
       }
     ];
   },
@@ -53,14 +48,14 @@ EC.ActivitiesProgressReport = React.createClass({
       config: {
         completed_at: 'numeric',
         percentage: 'numeric',
-        time_spent: 'numeric',
+        activity_name: 'natural',
         activity_classification_name: 'natural',
         standard: 'natural',
         student_name: 'natural'
       },
       default: {
-        field: 'activity_classification_name',
-        direction: 'asc'
+        field: 'completed_at',
+        direction: 'desc'
       }
     };
   },
@@ -72,7 +67,11 @@ EC.ActivitiesProgressReport = React.createClass({
                          sourceUrl={'/teachers/progress_reports/activity_sessions'}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'activity_sessions'}
-                         exportCsv={'activity_sessions'} />
+                         exportCsv={'activity_sessions'}
+                         filterTypes={['unit', 'classroom', 'student']}>
+        <h2>Activities: All Students</h2>
+        <p className="description">View all of the activities your students have completed. Filter by classroom, unit, or student.</p>
+      </EC.ProgressReport>
     );
   }
 });

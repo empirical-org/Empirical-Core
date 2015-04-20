@@ -49,6 +49,7 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'select2-rails'
 gem 'jbuilder'
+gem 'active_link_to'
 
 # METRICS
 gem 'keen'
@@ -94,7 +95,7 @@ gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby', github: 'Veraticus/clever-ruby', branch: 'extract_linked_resources'
+gem 'clever-ruby'
 
 group :production, :staging do
   gem 'rails_12factor'

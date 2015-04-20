@@ -33,13 +33,34 @@ class Classroom < ActiveRecord::Base
     end
   end
 
-  def self.for_standards_progress_report(teacher, filters)
-    with(filtered_activity_sessions: ActivitySession.proficient_sessions_for_progress_report(teacher, filters))
-      .select("classrooms.name as name, classrooms.id as id")
-      .joins('JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id')
-      .joins('JOIN filtered_activity_sessions ON filtered_activity_sessions.classroom_activity_id = classroom_activities.id')
-      .group("classrooms.id")
+  def self.for_standards_report(teacher, filters)
+    with(user_info: User.for_standards_report(teacher, filters))
+      .select(<<-SQL
+        classrooms.name as name,
+        classrooms.id as id,
+        classrooms.teacher_id,
+        COUNT(DISTINCT(user_info.id)) as total_student_count,
+        SUM(CASE WHEN user_info.average_score > 0.75 THEN 1 ELSE 0 END) as proficient_student_count,
+        SUM(CASE WHEN user_info.average_score >= 0.50 AND user_info.average_score <= 0.75 THEN 1 ELSE 0 END) as near_proficient_student_count,
+        SUM(CASE WHEN user_info.average_score < 0.50 THEN 1 ELSE 0 END) as not_proficient_student_count
+      SQL
+      )
+      .joins(:students)
+      .joins('INNER JOIN user_info ON user_info.id = users.id')
       .order("classrooms.name asc")
+      .group("classrooms.id")
+  end
+
+  def unique_topic_count
+    filters = {}
+    ActivitySession.from_cte('best_activity_sessions', ActivitySession.for_standards_report(teacher, filters))
+      .select("COUNT(DISTINCT(activities.topic_id)) as topic_count")
+      .joins('JOIN activities ON activities.id = best_activity_sessions.activity_id')
+      .joins('JOIN classroom_activities ON classroom_activities.id = best_activity_sessions.classroom_activity_id')
+      .where('classroom_activities.classroom_id = ?', id)
+      .group('classroom_activities.classroom_id')
+      .order('')
+      .first.topic_count
   end
 
   def self.setup_from_clever(section)
@@ -47,22 +68,42 @@ class Classroom < ActiveRecord::Base
 
     c.update_attributes(
       name: section.name,
-      teacher: User.teacher.where(clever_id: section.teacher).first,
+      teacher: User.teacher.where(clever_id: section.teacher.id).first,
       grade: section.grade
     )
+
     if c.units.empty? and c.save! then c.units.create_next end
 
+    c.import_students!
+
     c
+  end
+
+  def import_students!
+    clever_students = clever_classroom.students
+
+    existing_student_ids = self.students.pluck(&:clever_id).uniq.compact
+    students_to_add = clever_students.reject {|s| existing_student_ids.include?(s.id) }
+    new_students = students_to_add.collect {|s| User.create_from_clever(s, 'student')}
+
+    self.students << new_students
   end
 
   def classroom_activity_for activity
     classroom_activities.where(activity_id: activity.id).first
   end
 
-
   def generate_code
     self.code = NameGenerator.generate
     if Classroom.find_by_code(code) then generate_code end
   end
+
+  private
+
+  # Clever integration
+  def clever_classroom
+    Clever::Section.retrieve(self.clever_id)
+  end
+
 
 end

@@ -1,10 +1,6 @@
 "use strict";
 EC.StudentScores = React.createClass({
 	render: function () {
-		var z = _.sortBy(this.props.data.results, function (ele) {
-			return (1 - ele.percentage);
-		});
-		this.props.data.results = z;
 		var n = 10;
 		var x = _.chain(this.props.data.results).groupBy(function (element, index) {
 			return Math.floor(index/n);
@@ -28,6 +24,3 @@ EC.StudentScores = React.createClass({
 		);
 	}
 });
-
-
-

@@ -4,6 +4,7 @@ EC.ExportCsv = React.createClass({
   propTypes: {
     exportType: React.PropTypes.string.isRequired,
     filters: React.PropTypes.object.isRequired,
+    reportUrl: React.PropTypes.string.isRequired,
     teacher: React.PropTypes.object.isRequired
   },
 
@@ -17,6 +18,7 @@ EC.ExportCsv = React.createClass({
     $.ajax({
       url: this.props.requestUrl,
       data: {
+        report_url: this.props.reportUrl,
         csv_export: {
           export_type: this.props.exportType,
           filters: this.props.filters
@@ -27,6 +29,9 @@ EC.ExportCsv = React.createClass({
       type: 'POST',
       success: function onSuccess(data) {
         this.openModal();
+      },
+      error: function(xhr) {
+        alert('Something went wrong with your CSV export. Most likely it is not implemented yet.');
       }
     });
   },
@@ -39,7 +44,7 @@ EC.ExportCsv = React.createClass({
     return (
       <div className="export-csv">
         <EC.ExportCsvModal email={this.props.teacher.email} ref="exportModal" />
-        <a onClick={this.createExport}>Export Csv</a>
+        <button className="button-green" onClick={this.createExport}>Download Report</button>
       </div>
     );
   }
