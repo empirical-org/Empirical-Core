@@ -8,7 +8,7 @@ EC.SelectedActivities = React.createClass({
 	},
 
 	clickContinue: function () {
-		if (this.isEnoughInputProvided) {
+		if (this.props.isEnoughInputProvided) {
 			this.props.clickContinue();
 		} else {
 			this.setState({prematureContinueAttempted: true});
