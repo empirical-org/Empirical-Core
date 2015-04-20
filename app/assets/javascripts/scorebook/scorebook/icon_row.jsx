@@ -10,7 +10,6 @@ EC.IconRow = React.createClass({
 			<div className='icon-row'>
 				{row}
 			</div>
-
 		);
 	}
-})
+});
