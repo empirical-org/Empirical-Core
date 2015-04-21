@@ -66,7 +66,7 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'mission', 'develop', 'faq', 'impact', 'team', 'activities', 'premium'
+    when 'mission', 'develop', 'faq', 'impact', 'team', 'activities', 'premium', 'stats'
       'about'
     when 'premium_access'
       'premium'
