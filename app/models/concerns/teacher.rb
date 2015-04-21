@@ -56,7 +56,15 @@ module Teacher
 
     x2 = []
     x1.each do |user_id, scores|
-      scores.sort_by!{|s| s.completed_at.present? ? s.completed_at : (Date.today + 1)}
+      split_scores = scores.partition{|s| s.completed_at.present? }
+      those_completed = split_scores[0]
+      those_not_completed   = split_scores[1]
+
+      those_completed.sort_by!{|s| s.completed_at}
+      those_not_completed.sort_by!{|s| (s.classroom_activity.present? and s.classroom_activity.due_date.present?) ? s.classroom_activity.due_date : (Date.today - 10000)}
+
+      scores = those_completed.concat those_not_completed
+
       formatted_scores = scores.map do |s|
         {
           id: s.id,
