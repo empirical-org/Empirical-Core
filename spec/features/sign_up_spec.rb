@@ -5,13 +5,6 @@ feature 'Signing up', js: true do
 
   let(:sign_up_page) { SignUpPage.visit }
 
-  def self.disallows_submission; 'submission is disallowed and'; end
-  shared_examples_for disallows_submission do
-    it 'remains on the new-form page' do
-      expect(current_path).to eq sign_up_page.path
-    end
-  end
-
   def password_cannot_be_blank
     "Password can't be blank"
   end
@@ -28,6 +21,8 @@ feature 'Signing up', js: true do
     let(:school_not_listed) { true }
     let(:send_newsletter)   { true }
     let(:zipcode)           { '11214' }
+
+    before(:each) { sign_up_page.be_a_teacher }
 
     def sign_up_teacher(user)
       sign_up_page.sign_up(type: user_type,
@@ -49,13 +44,10 @@ feature 'Signing up', js: true do
       end
     end
 
-    context 'with no info' do
-      before(:each) do
-        sign_up_page.be_a_teacher
-        sign_up_page.submit_form
+    context 'the form' do
+      it "marks the 'email' field as 'required'" do
+        expect(sign_up_page).to have_email_required
       end
-
-      it_behaves_like disallows_submission
     end
 
     context 'with new info' do
@@ -130,12 +122,6 @@ feature 'Signing up', js: true do
                                               send_newsletter?: send_newsletter)
         end
       end
-
-      context 'with a bogus e-mail address' do
-        let(:mr_kotter) { FactoryGirl.build :mr_kotter, email: 'bogus' }
-
-        it_behaves_like disallows_submission
-      end
     end
 
     context 'with minimal info' do
@@ -186,6 +172,8 @@ feature 'Signing up', js: true do
     before(:each) do
       # at least 1 Section must already exist
       FactoryGirl.create :section
+
+      sign_up_page.be_a_student
     end
 
     def sign_up_student(user)
@@ -202,6 +190,12 @@ feature 'Signing up', js: true do
     shared_examples_for signup_succeeded do
       it 'goes to the profile page' do
         expect(current_path).to eq '/profile'
+      end
+    end
+
+    context 'the form' do
+      it "does not mark the 'email' field as 'required'" do
+        expect(sign_up_page).not_to have_email_required
       end
     end
 
@@ -275,12 +269,6 @@ feature 'Signing up', js: true do
           expect(sign_up_page).to be_errored_sign_up_form(vinnie,
                                                           type: user_type)
         end
-      end
-
-      context 'with a bogus e-mail address' do
-        let(:vinnie) { FactoryGirl.build :vinnie_barbarino, email: 'bogus' }
-
-        it_behaves_like disallows_submission
       end
     end
 

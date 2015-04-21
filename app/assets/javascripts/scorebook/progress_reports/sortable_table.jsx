@@ -20,14 +20,14 @@ EC.SortableTable = React.createClass({
                             sortHandler={this.sortByColumn(column.sortByField)}
                             displayName={column.name}
                             displayClass={column.className}
-                            sortDirection={this.props.currentSort.direction}
+                            sortDirection={this.props.currentSort.direction || 'asc'}
                             isCurrentSort={isCurrentSort} />
     }, this);
   },
 
   rows: function() {
     return _.map(this.props.rows, function(row, i) {
-      return <EC.SortableTr key={row.id} row={row} columns={this.props.columns} />
+      return <EC.SortableTr key={row.id || i} row={row} columns={this.props.columns} />
     }, this);
   },
 
