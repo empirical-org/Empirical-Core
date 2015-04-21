@@ -10,3 +10,6 @@ before_script:
 addons:
   firefox: "35.0.1"
   postgresql: "9.3"
+env:
+  FOG_DIRECTORY=empirical-core-travis-test
+  PROGRESS_REPORT_FOG_DIRECTORY=empirical-progress-report-travis-test
