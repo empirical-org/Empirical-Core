@@ -41,8 +41,8 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 9. Run Redis with ```redis-server```
 
 10. Run the server with `bundle exec rails s`.
-
-Now open your browser and navigate to localhost:3000 and you should see Empirical-Core pull up properly! When you're done with the server, use Ctrl-C to break it and return to your commandline.
+ - Navigate your browser to localhost:3000 and you should see Empirical-Core pull up properly!
+ - When you're done with the server, use Ctrl-C to break it and return to your commandline.
 
 11. Run `bin/guard` to have [Guard](https://github.com/guard/guard-rspec) run
     specs when you save files.
