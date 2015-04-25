@@ -198,30 +198,15 @@ class User < ActiveRecord::Base
     "#{role.capitalize}Serializer".constantize.new(self)
   end
 
-  def first_name= first_name
-    last_name
-    @first_name = first_name
-    set_name
+  def name
+    self.first_name + ' ' + self.last_name
   end
 
-  def last_name= last_name
-    first_name
-    @last_name = last_name
-    set_name
+  def name=(str)
+    split = str.split(/\s/)
+    self.first_name = split[0]
+    self.last_name = split[-1]
   end
-
-  def first_name
-    @first_name ||= name.to_s.split("\s")[0]
-  end
-
-  def last_name
-    @last_name ||= name.to_s.split("\s")[-1]
-  end
-
-  def set_name
-    self.name = [@first_name, @last_name].compact.join(' ')
-  end
-
 
   def generate_password
     self.password = self.password_confirmation = last_name
