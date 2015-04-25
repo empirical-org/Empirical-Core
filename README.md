@@ -44,6 +44,9 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 Now open your browser and navigate to localhost:3000 and you should see Empirical-Core pull up properly! When you're done with the server, use Ctrl-C to break it and return to your commandline.
 
+11. Run `bin/guard` to have [Guard](https://github.com/guard/guard-rspec) run
+    specs when you save files.
+
 The installation comes with three users, though you can create as many more as you like:
 
 1. A teacher, username `teacher` and password `teacher`.
