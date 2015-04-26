@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'rails_helper'
-require 'pry'
 
 describe Teachers::UnitsController, type: :controller do
   let!(:teacher) { FactoryGirl.create(:teacher) }
