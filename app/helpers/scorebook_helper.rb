@@ -69,10 +69,10 @@ module ScorebookHelper
 
 
   def activity_planner_tooltip_html activity_hash # note: not an active record object, a hash
-    activity_name = activity_hash['activity_name'].nil? ? '' : ("<h1>" + (activity_hash['activity_name'].gsub /"/, '&quot;') + "</h1>")
-    activity_description = activity_hash['activity_description'].nil? ? '' : ("<p>" + (activity_hash['activity_description'].gsub /"/, '&quot;') + "</p>")
+    activity_name = activity_hash['activity_name'].nil? ? '' : ("<h1>" + (activity_hash['activity_name'].gsub(/"/, '&quot;')) + "</h1>")
+    activity_description = activity_hash['activity_description'].nil? ? '' : ("<p>" + (activity_hash['activity_description'].gsub(/"/, '&quot;')) + "</p>")
 
-    app_name = activity_hash['activity_classification_name'].nil? ? '' : ("<p> App: " + (activity_hash['activity_classification_name'].gsub /"/, '&quot;') + "</p>")
+    app_name = activity_hash['activity_classification_name'].nil? ? '' : ("<p> App: " + (activity_hash['activity_classification_name'].gsub(/"/, '&quot;')) + "</p>")
 
 
     %Q(data-toggle="tooltip" data-html=true data-placement="left" title="#{activity_name}#{app_name}#{activity_description}").html_safe
