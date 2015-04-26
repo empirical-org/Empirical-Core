@@ -5,6 +5,8 @@ class Unit < ActiveRecord::Base
   has_many :activities, through: :classroom_activities
   has_many :topics, through: :activities
 
+  validates_presence_of :name
+
   def self.for_standards_progress_report(teacher, filters)
     with(best_activity_sessions: ActivitySession.for_standards_report(teacher, filters))
       .select("units.id as id, units.name as name")
