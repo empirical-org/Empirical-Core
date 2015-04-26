@@ -23,7 +23,13 @@ feature 'Signing in' do
     shared_context using_sym_succeeds(sym) do
       context "using #{sym}" do
         include_context use_credential_context_name do
-          include_examples :sign_in_succeeds
+          %i(as_is changed).each do |cred_case|
+            context "case #{cred_case}" do
+              let(:credential_input_case) { cred_case }
+
+              include_examples :sign_in_succeeds
+            end
+          end
         end
       end
     end
@@ -56,7 +62,8 @@ feature 'Signing in' do
     let(:mr_kotter) { FactoryGirl.create :mr_kotter }
 
     def sign_in_user
-      sign_in_page.sign_in mr_kotter, using: credential
+      sign_in_page.sign_in mr_kotter, using: credential,
+                                  cred_case: credential_input_case
     end
 
     context '-- with no classrooms --' do
@@ -88,7 +95,10 @@ feature 'Signing in' do
 
     # doesn't matter whether/not student is already in a class
 
-    before(:each) { sign_in_page.sign_in vinnie, using: credential }
+    before(:each) do
+      sign_in_page.sign_in vinnie, using: credential,
+                               cred_case: credential_input_case
+    end
 
     include_examples :sign_in_methods_succeed
   end
