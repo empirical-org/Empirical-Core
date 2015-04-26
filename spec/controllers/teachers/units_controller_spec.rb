@@ -20,7 +20,11 @@ describe Teachers::UnitsController, type: :controller do
         expect(response.status).to eq(200)
       }.to change(AssignActivityWorker.jobs, :size).by(1)
     end
+
+    it { should validate_presence_of(:name) }
   end
+
+
 
   describe '#index' do
     let!(:activity) {FactoryGirl.create(:activity)}
