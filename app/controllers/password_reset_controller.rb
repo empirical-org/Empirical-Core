@@ -24,7 +24,8 @@ class PasswordResetController < ApplicationController
   def update
     @user = User.find_by_token!(params[:id])
     user_params = params[:user].permit(:password, :password_confirmation)
-    if @user.update_attributes user_params[:password], user_params[:password_confirmation], skip_username_validation: true
+    user_params.merge! skip_username_validation: true
+    if @user.update_attributes user_params
       sign_in @user
       redirect_to profile_path, notice: 'Your password has been updated.'
     else
