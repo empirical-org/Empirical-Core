@@ -34,7 +34,13 @@ class AccountsController < ApplicationController
     @user = current_user
     @user.attributes = user_params
 
-    if @user.save
+    if user_params[:username] == @user.username
+      skip_username_validation = true
+    else
+      skip_username_validation = false
+    end
+
+    if @user.save(skip_username_validation: skip_username_validation)
       redirect_to updated_account_path
     else
       render 'accounts/edit'
