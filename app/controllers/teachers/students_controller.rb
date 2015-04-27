@@ -1,13 +1,9 @@
 class Teachers::StudentsController < ApplicationController
-  #layout 'classroom_manager'
   layout 'scorebook'
   before_filter :teacher!
   before_filter :authorize!
 
   def create
-    #fix_full_name_in_first_name_field
-
-
     if user_params[:first_name].blank? or user_params[:last_name].blank?
       flash[:notice] = 'Please provide both a first name and a last name.'
       redirect_to teachers_classroom_invite_students_path(@classroom)
@@ -25,11 +21,11 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def edit
-
+    # if teacher was the last user to reset the students password, we will show that password in the class manager to the teacher
+    @was_teacher_the_last_user_to_reset_students_password = @student.authenticate(@student.last_name)
   end
 
   def index
-
   end
 
   def reset_password
