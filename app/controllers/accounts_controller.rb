@@ -32,7 +32,6 @@ class AccountsController < ApplicationController
   def update
     user_params.delete(:password) unless user_params[:password].present?
     @user = current_user
-    @user.attributes = user_params
 
     if user_params[:username] == @user.username
       skip_username_validation = true
@@ -40,7 +39,8 @@ class AccountsController < ApplicationController
       skip_username_validation = false
     end
 
-    if @user.save(skip_username_validation: skip_username_validation)
+    user_params.merge! skip_username_validation: skip_username_validation
+    if @user.update_attributes user_params
       redirect_to updated_account_path
     else
       render 'accounts/edit'

@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   before_validation :prep_authentication_terms
 
   def validate_username?
-    !(skip_username_validation ||= false)
+    !skip_username_validation
   end
 
   def safe_role_assignment role
