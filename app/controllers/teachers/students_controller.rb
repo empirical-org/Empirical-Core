@@ -6,8 +6,8 @@ class Teachers::StudentsController < ApplicationController
 
   def create
     #fix_full_name_in_first_name_field
-    
-    
+
+
     if user_params[:first_name].blank? or user_params[:last_name].blank?
       flash[:notice] = 'Please provide both a first name and a last name.'
       redirect_to teachers_classroom_invite_students_path(@classroom)
@@ -34,7 +34,7 @@ class Teachers::StudentsController < ApplicationController
 
   def reset_password
     @student.generate_password
-    @student.save!
+    @student.save(validate: false) # some old users have invalid data, that would otherwise break this
     redirect_to edit_teachers_classroom_student_path(@classroom, @student)
   end
 
@@ -69,7 +69,7 @@ protected
     !(a.nil? and b.nil?)
   end
 
-  def capitalize_first_and_last_name 
+  def capitalize_first_and_last_name
     # make sure this is called after fix_full_name_in_first_name_field
     user_params[:first_name].capitalize!
     user_params[:last_name].capitalize!
