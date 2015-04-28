@@ -15,14 +15,11 @@ class AccountsController < ApplicationController
     @user.attributes = user_params
     @user.name = capitalized_name
     @user.safe_role_assignment(role)
-
+    @user.validate_username = true
     if @user.save
       sign_in @user
-
       AccountCreationWorker.perform_async(@user.id)
-
       @user.subscribe_to_newsletter
-
       redirect_to profile_path
     else
       render 'accounts/new'
@@ -34,12 +31,12 @@ class AccountsController < ApplicationController
     @user = current_user
 
     if user_params[:username] == @user.username
-      skip_username_validation = true
+      validate_username = false
     else
-      skip_username_validation = false
+      validate_username = true
     end
 
-    user_params.merge! skip_username_validation: skip_username_validation
+    user_params.merge! validate_username: validate_username
     if @user.update_attributes user_params
       redirect_to updated_account_path
     else

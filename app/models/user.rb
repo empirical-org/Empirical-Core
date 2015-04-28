@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include Student, Teacher
 
-  attr_accessor :skip_username_validation
+  attr_accessor :validate_username
 
   has_secure_password validations: false
 
@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   before_validation :prep_authentication_terms
 
   def validate_username?
-    !skip_username_validation
+    validate_username.present? ? validate_username : false
   end
 
   def safe_role_assignment role
