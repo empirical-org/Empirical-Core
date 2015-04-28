@@ -8,8 +8,6 @@ class PasswordResetController < ApplicationController
 
     if user && params[:user][:email].present?
       user.refresh_token!
-      user.skip_username_validation = true
-      user.save
       UserMailer.password_reset_email(user).deliver!
       redirect_to password_reset_index_path, notice: 'We sent you an email with instructions on how to reset your password.'
     else
@@ -25,9 +23,7 @@ class PasswordResetController < ApplicationController
 
   def update
     @user = User.find_by_token!(params[:id])
-    user_params = params[:user].permit(:password, :password_confirmation)
-    user_params.merge! skip_username_validation: true
-    if @user.update_attributes user_params
+    if @user.update_attributes params[:user].permit(:password, :password_confirmation)
       sign_in @user
       redirect_to profile_path, notice: 'Your password has been updated.'
     else

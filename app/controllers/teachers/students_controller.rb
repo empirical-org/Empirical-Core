@@ -30,17 +30,17 @@ class Teachers::StudentsController < ApplicationController
 
   def reset_password
     @student.generate_password
-    @student.save(skip_username_validation: true) # some old users have invalid data, that would otherwise break this
+    @student.save
     redirect_to edit_teachers_classroom_student_path(@classroom, @student)
   end
 
   def update
     if user_params[:username] == @student.username
-      skip_username_validation = true
+      validate_username = false
     else
-      skip_username_validation = false
+      validate_username = true
     end
-    user_params.merge!(skip_username_validation: skip_username_validation)
+    user_params.merge!(validate_username: validate_username)
     if @student.update_attributes(user_params)
       #head :ok
       redirect_to teachers_classroom_students_path(@classroom)
