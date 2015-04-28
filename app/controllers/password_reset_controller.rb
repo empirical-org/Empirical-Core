@@ -8,6 +8,8 @@ class PasswordResetController < ApplicationController
 
     if user && params[:user][:email].present?
       user.refresh_token!
+      user.skip_username_validation = true
+      user.save
       UserMailer.password_reset_email(user).deliver!
       redirect_to password_reset_index_path, notice: 'We sent you an email with instructions on how to reset your password.'
     else
