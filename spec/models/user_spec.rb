@@ -36,28 +36,56 @@ describe User, :type => :model do
 
   #TODO: email is taken as username and email
   describe ".authenticate" do
+    let(:username)          { 'Test' }
+    let(:username_password) { '123456' }
+
+    let(:email)          { 'Test@example.com' }
+    let(:email_password) { '654321' }
+
     before do
-      FactoryGirl.create(:user, username: 'test',          password: '123456', password_confirmation: '123456')
-      FactoryGirl.create(:user, email: 'test@example.com', password: '654321', password_confirmation: '654321')
+      FactoryGirl.create(:user, username: username, password: username_password, password_confirmation: username_password)
+      FactoryGirl.create(:user,    email: email,    password:    email_password, password_confirmation:    email_password)
     end
 
-    context "when username present" do
-      it "password is not valid" do
-        expect(User.authenticate(email: 'test',             password: 'xxxxxx')).to be_falsy
-      end
-
-      it 'authenticate a user by username' do
-        expect(User.authenticate(email: 'test',             password: '123456')).to be_truthy
-      end
+    subject(:authentication_result) do
+      User.authenticate(email: login_name,
+                     password: password)
     end
 
-    context "when email present" do
-      it "password is not valid" do
-        expect(User.authenticate(email: 'test@example.com', password: 'xxxxxx')).to be_falsy
-      end
+    %i(email username).each do |cred_base|
+      context "with #{cred_base}" do
+        let(:password_val) { send(:"#{cred_base}_password") }
 
-      it 'authenticate a user by email' do
-        expect(User.authenticate(email: 'test@example.com', password: '654321')).to be_truthy
+        %i(original swapped).each do |name_case|
+          case_mod = if name_case == :swapped
+                       :swapcase # e.g., "a B c" => "A b C"
+                     else
+                       :to_s
+                     end
+
+          context "#{name_case} case" do
+            # e.g., send(:username).send(:to_s),
+            #       send(:email   ).send(:swapcase),
+            #       etc.
+            let(:login_name) { send(cred_base).send(case_mod) }
+
+            context 'with incorrect password' do
+              let(:password) { "wrong #{password_val} wrong" }
+
+              it 'fails' do
+                expect(authentication_result).to be_falsy
+              end
+            end
+
+            context 'with correct password' do
+              let(:password) { password_val }
+
+              it 'succeeds' do
+                expect(authentication_result).to be_truthy
+              end
+            end
+          end
+        end
       end
     end
   end
