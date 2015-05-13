@@ -63,12 +63,12 @@ class Classroom < ActiveRecord::Base
       .first.topic_count
   end
 
-  def self.setup_from_clever(section)
+  def self.setup_from_clever(section, teacher)
     c = Classroom.where(clever_id: section.id).includes(:units).first_or_initialize
 
     c.update_attributes(
       name: section.name,
-      teacher: User.teacher.where(clever_id: section.teacher.id).first,
+      teacher: teacher,
       grade: section.grade
     )
 
@@ -84,7 +84,7 @@ class Classroom < ActiveRecord::Base
 
     existing_student_ids = self.students.pluck(&:clever_id).uniq.compact
     students_to_add = clever_students.reject {|s| existing_student_ids.include?(s.id) }
-    new_students = students_to_add.collect {|s| User.create_from_clever(s, 'student')}
+    new_students = students_to_add.collect {|s| User.create_from_clever({info: s}, 'student')}
 
     self.students << new_students
   end
@@ -102,7 +102,7 @@ class Classroom < ActiveRecord::Base
 
   # Clever integration
   def clever_classroom
-    Clever::Section.retrieve(self.clever_id)
+    Clever::Section.retrieve(self.clever_id, teacher.districts.first.token)
   end
 
 
