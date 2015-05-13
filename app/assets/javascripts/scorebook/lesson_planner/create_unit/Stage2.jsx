@@ -4,22 +4,33 @@ EC.Stage2 = React.createClass({
   getInitialState: function() {
     return {
       classroomsAndTheirStudents: [],
-      buttonDisabled: false
+      buttonDisabled: false,
+      prematureAssignAttempted: false
     };
   },
 
   finish: function () {
-    if (!this.state.buttonDisabled) {
+    if ((!this.state.buttonDisabled) && (this.props.areAnyStudentsSelected) && (this.props.areAllDueDatesProvided)) {
       this.setState({buttonDisabled: true});
       this.props.finish();
+    } else if (!this.state.buttonDisabled) {
+      this.setState({prematureAssignAttempted: true});
     }
   },
 
   determineAssignButtonClass: function () {
-    if (!this.state.buttonDisabled) {
-      return this.props.determineAssignButtonClass();
+    if ((!this.state.buttonDisabled) && (this.props.areAnyStudentsSelected && this.props.areAllDueDatesProvided)) {
+      return "button-green";
     } else {
-      return "button-grey pull-right";
+      return "button-grey";
+    }
+  },
+
+  determineErrorMessageClass: function () {
+    if (this.state.prematureAssignAttempted) {
+      return 'error-message visible-error-message';
+    } else {
+      return 'error-message hidden-error-message';
     }
   },
 
@@ -32,6 +43,8 @@ EC.Stage2 = React.createClass({
   },
 
   render: function() {
+    console.log('areAnyStudentsSelected', this.props.areAnyStudentsSelected)
+    console.log('areAllDueDatesProvided', this.props.areAllDueDatesProvided)
     var classroomList = this.props.classrooms.map(function(entry) {
       return <EC.Classroom classroom={entry.classroom}
                            students={entry.students}
@@ -61,7 +74,10 @@ EC.Stage2 = React.createClass({
               {dueDateList}
             </tbody>
           </table>
-          <button ref="button" className={this.determineAssignButtonClass() + " pull-right"} id="assign" onClick={this.finish}>{this.determineButtonText()}</button>
+          <div className="error-message-and-button">
+            <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
+            <button ref="button" className={this.determineAssignButtonClass() + " pull-right"} id="assign" onClick={this.finish}>{this.determineButtonText()}</button>
+          </div>
         </section>
       </span>
     );

@@ -1,3 +1,4 @@
+"use strict";
 EC.Stage1 = React.createClass({
   getInitialState: function() {
     return {
@@ -171,7 +172,7 @@ EC.Stage1 = React.createClass({
       activityClassificationIds.push(activity.classification.id);
       topicCategoryIds.push(activity.topic.topic_category.id);
       if (activity.topic.section) {
-        sectionIds.push(activity.topic.section.id);  
+        sectionIds.push(activity.topic.section.id);
       }
     });
     activityClassificationIds = _.uniq(activityClassificationIds);
@@ -179,15 +180,15 @@ EC.Stage1 = React.createClass({
     sectionIds = _.uniq(sectionIds);
 
     var availableOptions = {};
-    availableOptions['activity_classification'] = _.reject(this.state.allFilterOptions['activity_classification'], 
+    availableOptions['activity_classification'] = _.reject(this.state.allFilterOptions['activity_classification'],
       function(option) {
         return !_.contains(activityClassificationIds, option.id);
     });
-    availableOptions['topic_category'] = _.reject(this.state.allFilterOptions['topic_category'], 
+    availableOptions['topic_category'] = _.reject(this.state.allFilterOptions['topic_category'],
       function(option) {
         return !_.contains(topicCategoryIds, option.id);
     });
-    availableOptions['section'] = _.reject(this.state.allFilterOptions['section'], 
+    availableOptions['section'] = _.reject(this.state.allFilterOptions['section'],
       function(option) {
         return !_.contains(sectionIds, option.id);
     });
@@ -257,11 +258,11 @@ EC.Stage1 = React.createClass({
           <h3 className="section-header">Select Activities</h3>
           <EC.SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
           <EC.ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} />
-          
+
           <table className='table' id='activities_table'>
             <thead>
-              <EC.ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />  
-            </thead>  
+              <EC.ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
+            </thead>
             <EC.ActivitySearchResults selectedActivities = {this.props.selectedActivities} currentPageSearchResults ={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />
           </table>
 
@@ -269,7 +270,11 @@ EC.Stage1 = React.createClass({
 
           <EC.Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />
 
-          <EC.SelectedActivities clickContinue={this.props.clickContinue} unitName={this.props.unitName} selectedActivities = {this.props.selectedActivities} toggleActivitySelection={this.props.toggleActivitySelection} />
+          <EC.SelectedActivities clickContinue={this.props.clickContinue}
+                                 isEnoughInputProvided={this.props.isEnoughInputProvidedForStage1}
+                                 errorMessage={this.props.errorMessage}
+                                 selectedActivities = {this.props.selectedActivities}
+                                 toggleActivitySelection={this.props.toggleActivitySelection} />
         </section>
       </span>
     );

@@ -30,17 +30,22 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 	1. ```brew update```
 	2. ```brew install redis```
 
+5. To run `js: true`/`:js`-tagged `feature` specs, [install PhantomJS](https://github.com/teampoltergeist/poltergeist#installing-phantomjs)
+
 6. Install bundler with `gem install bundler`
 
 7. Install the bundle with `bundle install`.
 
-8. Set up your database with `bundle exec rake empirical:setup`.
+8. Set up your database with `bin/rake empirical:setup`.
 
-5. Run Redis with ```redis-server```
+9. Run Redis with ```redis-server```
 
-9. Run the server with `bundle exec rails s`.
+10. Run the server with `bundle exec rails s`.
+ - Navigate your browser to localhost:3000 and you should see Empirical-Core pull up properly!
+ - When you're done with the server, use Ctrl-C to break it and return to your commandline.
 
-Now open your browser and navigate to localhost:3000 and you should see Empirical-Core pull up properly! When you're done with the server, use Ctrl-C to break it and return to your commandline.
+11. Run `bin/guard` to have [Guard](https://github.com/guard/guard-rspec) run
+    specs when you save files.
 
 The installation comes with three users, though you can create as many more as you like:
 

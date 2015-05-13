@@ -23,7 +23,6 @@ class PasswordResetController < ApplicationController
 
   def update
     @user = User.find_by_token!(params[:id])
-
     if @user.update_attributes params[:user].permit(:password, :password_confirmation)
       sign_in @user
       redirect_to profile_path, notice: 'Your password has been updated.'

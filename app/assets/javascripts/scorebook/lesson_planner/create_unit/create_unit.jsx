@@ -101,7 +101,6 @@ EC.CreateUnit = React.createClass({
 			data: this.formatCreateRequestData(),
 			success: this.onCreateSuccess,
 		});
-		console.log('final state', this.state);
 	},
 
 	formatCreateRequestData: function() {
@@ -121,7 +120,7 @@ EC.CreateUnit = React.createClass({
 			if (selectedStudents.length == c.students.length) {
 				selectedStudentIds = [];
 			} else {
-				selectedStudentIds = _.map(selectedStudents, function (s) {s.id});
+				selectedStudentIds = _.map(selectedStudents, function (s) {return s.id});
 			}
 			return {id: c.classroom.id, student_ids: selectedStudentIds};
 		});
@@ -146,24 +145,62 @@ EC.CreateUnit = React.createClass({
 		this.props.toggleTab('manageUnits');
 	},
 
-	determineAssignButtonClass: function () {
-		var classroomsSelected = _.select(this.state.classrooms, function (c) {
-			if (c.students) {
-				var c1 = _.where(c.students, {isSelected: true});
-				return (c1.length > 0);
-			} else {
-				return false;
-			}
-		});
-		var a = (classroomsSelected.length > 0);
-		var b = (this.state.selectedActivities.length == Object.keys(this.state.dueDates).length);
-		var c = (this.state.selectedActivities.length > 0);
-		if (a && b && c) {
-			return 'button-green';
-		} else {
-			return 'hidden-button';
-		}
+	isUnitNameSelected: function () {
+		return ((this.state.unitName != null) && (this.state.unitName != ''));
+	},
 
+	determineIfEnoughInputProvidedForStage1: function () {
+		var a = this.isUnitNameSelected();
+		var b = (this.state.selectedActivities.length > 0);
+		return (a && b);
+	},
+
+	areAnyStudentsSelected: function () {
+		var x = _.select(this.state.classrooms, function (c) {
+			var y = _.where(c.students, {isSelected: true});
+			return (y.length > 0);
+		});
+		return (x.length > 0);
+	},
+
+	areAllDueDatesProvided: function () {
+		return (Object.keys(this.state.dueDates).length == this.state.selectedActivities.length);
+	},
+
+	determineStage1ErrorMessage: function () {
+		var a = this.isUnitNameSelected();
+		var b = (this.state.selectedActivities.length > 0);
+		var msg;
+		if (!a) {
+			if (!b) {
+				msg = "Please provide a unit name and select activities";
+			} else {
+				msg = "Please provide a unit name";
+			}
+		} else if (!b) {
+			msg = "Please select activities";
+		} else {
+			msg = null;
+		}
+		return msg;
+	},
+
+	determineStage2ErrorMessage: function () {
+		var a = this.areAnyStudentsSelected();
+		var b = this.areAllDueDatesProvided();
+		var msg;
+		if (!a) {
+			if (!b) {
+				msg = "Please select students and due dates";
+			} else {
+				msg = "Please select students";
+			}
+		} else if (!b) {
+			msg = "Please select due dates";
+		} else {
+			msg = null;
+		}
+		return msg;
 	},
 
 	render: function () {
@@ -174,6 +211,8 @@ EC.CreateUnit = React.createClass({
 								 unitName = {this.state.unitName}
 								 updateUnitName={this.updateUnitName}
 								 selectedActivities={this.state.selectedActivities}
+								 isEnoughInputProvidedForStage1={this.determineIfEnoughInputProvidedForStage1()}
+								 errorMessage={this.determineStage1ErrorMessage()}
 								 clickContinue={this.clickContinue} />;
 		} else {
 			stageSpecificComponents = <EC.Stage2 selectedActivities={this.state.selectedActivities}
@@ -183,8 +222,10 @@ EC.CreateUnit = React.createClass({
 																					 toggleStudentSelection={this.toggleStudentSelection}
 																					 finish={this.finish}
 																					 unitName={this.state.unitName}
-																					 determineAssignButtonClass={this.determineAssignButtonClass}
-																					 assignActivityDueDate={this.assignActivityDueDate} />;
+																					 assignActivityDueDate={this.assignActivityDueDate}
+																					 areAnyStudentsSelected={this.areAnyStudentsSelected()}
+																					 areAllDueDatesProvided={this.areAllDueDatesProvided()}
+																					 errorMessage={this.determineStage2ErrorMessage()}/>;
 		}
 		return (
 			<span>

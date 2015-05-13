@@ -1,13 +1,9 @@
 class Teachers::StudentsController < ApplicationController
-  #layout 'classroom_manager'
   layout 'scorebook'
   before_filter :teacher!
   before_filter :authorize!
 
   def create
-    #fix_full_name_in_first_name_field
-    
-    
     if user_params[:first_name].blank? or user_params[:last_name].blank?
       flash[:notice] = 'Please provide both a first name and a last name.'
       redirect_to teachers_classroom_invite_students_path(@classroom)
@@ -25,20 +21,26 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def edit
-
+    # if teacher was the last user to reset the students password, we will show that password in the class manager to the teacher
+    @was_teacher_the_last_user_to_reset_students_password = @student.authenticate(@student.last_name)
   end
 
   def index
-
   end
 
   def reset_password
     @student.generate_password
-    @student.save!
+    @student.save
     redirect_to edit_teachers_classroom_student_path(@classroom, @student)
   end
 
   def update
+    if user_params[:username] == @student.username
+      validate_username = false
+    else
+      validate_username = true
+    end
+    user_params.merge!(validate_username: validate_username)
     if @student.update_attributes(user_params)
       #head :ok
       redirect_to teachers_classroom_students_path(@classroom)
@@ -69,7 +71,7 @@ protected
     !(a.nil? and b.nil?)
   end
 
-  def capitalize_first_and_last_name 
+  def capitalize_first_and_last_name
     # make sure this is called after fix_full_name_in_first_name_field
     user_params[:first_name].capitalize!
     user_params[:last_name].capitalize!
