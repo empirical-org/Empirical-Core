@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   include Student, Teacher
 
+  attr_accessor :validate_username
+
   has_secure_password validations: false
 
   has_and_belongs_to_many :schools
@@ -20,7 +22,7 @@ class User < ActiveRecord::Base
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true },
-                                    format:       {without: /\s/, message: 'cannot contain spaces'}
+                                    format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?}
 
   validates :terms_of_service,      acceptance:   { on: :create }
 
@@ -35,6 +37,10 @@ class User < ActiveRecord::Base
   attr_accessor :newsletter
 
   before_validation :prep_authentication_terms
+
+  def validate_username?
+    validate_username.present? ? validate_username : false
+  end
 
   def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }

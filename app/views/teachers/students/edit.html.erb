@@ -15,7 +15,7 @@
 
 
 				<div class="container">
-					
+
 					<section class="no-border">
 						<h1 class="section-header"><%= "#{@student.name}'s Account" %></h1>
 
@@ -38,7 +38,11 @@
 							<div class='fourth-div'>
 								<%= f.label :password, 'Password', class: 'input-description-inline' %>
 								<div class='second-part password'>
-									<input disabled type='text', class='inactive' value="">
+									<%- if @was_teacher_the_last_user_to_reset_students_password %>
+										<input disabled class='inactive' value=<%= @student.last_name %>>
+									<%- else %>
+										<input disabled type='password' class='inactive' value='password'>
+									<% end %>
 								</div>
 								<%=link_to "Reset", teachers_classroom_student_reset_password_path(@classroom, @student), method: 'put', class: 'password-reset' %>
 							</div>
@@ -63,7 +67,7 @@
 
 					</section>
 
-				</div>	
+				</div>
 			</div>
 		</div>
 	</div>

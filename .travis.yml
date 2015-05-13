@@ -1,12 +1,14 @@
 language: ruby
 rvm:
-- 2.1.2
+  - 2.1.2
 script:
-- xvfb-run bundle exec rake spec
+  - bundle exec rake spec
 before_script:
-- cp config/database.yml.travis config/database.yml
-- psql -c 'create database test;' -U postgres
-- ! 'RAILS_ENV=test bundle exec rake db:schema:load || :'
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database test;' -U postgres
+  - ! 'RAILS_ENV=test bundle exec rake db:schema:load || :'
 addons:
-  firefox: "35.0.1"
   postgresql: "9.3"
+env:
+  FOG_DIRECTORY=empirical-core-travis-test
+  PROGRESS_REPORT_FOG_DIRECTORY=empirical-progress-report-travis-test

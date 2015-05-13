@@ -132,6 +132,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
 
+  get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
+
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
   patch 'cheat'           => 'chapter/practice#cheat'

@@ -1,4 +1,274 @@
 .assign-dates {
 	margin-bottom: 200px;
 }
+#activity-planner {
+  .error-message-and-button {
+    display: inline-block;
+    position: relative;
+    width: 100%;
 
+    .error-message {
+      position: absolute;
+      float:left;
+      top: 30px;
+      right: 150px;
+    }
+
+    .visible-error-message {
+      color: red;
+    }
+
+    .hidden-error-message {
+      display: none;
+    }
+  }
+}
+
+
+
+#activity-planner {
+  input#search_activities_input,
+  input#unit_name {
+    width: 326px;
+    margin-top: 20px;
+  }
+}
+#activity-planner button:not(.button-select) {
+  margin-left: 20px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 20px;
+}
+#activity-planner .select-box-trigger {
+  width: auto;
+}
+#activity-planner .activity-planner-select {
+  display: inline-block;
+  width: auto;
+  margin-right: 18px;
+}
+#activity-planner .selects-wrapper {
+  margin-top: 20px;
+}
+.activity-page-dropdown-wrapper {
+  margin-top: 20px;
+}
+.activity-page-dropdown-wrapper .dropdown-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  min-width: 94%;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/*
+below is obselete for now, changed link to span :
+*/
+.activity-page-dropdown-wrapper .dropdown-menu a {
+  padding: 5px 14px;
+  display: block;
+  color: #000;
+}
+.activity-page-dropdown-wrapper .dropdown-menu a:hover {
+  background: #f0f0f0;
+}
+.activity-page-dropdown-wrapper .dropdown-menu a:hover,
+.activity-page-dropdown-wrapper .dropdown-menu a:focus,
+.activity-page-dropdown-wrapper .dropdown-menu a:active {
+  -webkit-appearance: none;
+}
+
+
+.activity-page-dropdown-wrapper .dropdown-menu {
+  span {
+    padding: 5px 14px;
+    display: block;
+    color: #000;
+  }
+  span:hover {
+    background: #f0f0f0;
+  }
+
+
+}
+
+
+
+
+#activity-planner table {
+  margin-top: 20px;
+  border-collapse: separate;
+  margin-bottom: 0;
+}
+#activity-planner table thead {
+  background: #f7f5f5;
+  border: 1px solid #cecece;
+}
+#activity-planner table thead tr th {
+  border-left: 1px solid #cecece;
+  border-bottom: none;
+  border-top: 1px solid #cecece;
+  cursor: pointer;
+  transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -webkit-transition: 0.1s ease-out;
+}
+#activity-planner table thead tr th .fa {
+  float: right;
+  color: #737373;
+  font-size: 1.3em;
+}
+#activity-planner table thead tr th.active {
+  background: #e6e6e6;
+}
+#activity-planner table thead tr th:nth-child(1) {
+  width: 5%;
+  border-top-left-radius: 5px;
+  text-align: center;
+}
+#activity-planner table thead tr th:nth-child(2) {
+  width: 7%;
+}
+#activity-planner table thead tr th:nth-child(3) {
+  width: 51%;
+}
+#activity-planner table thead tr th:nth-child(4) {
+  width: 17%;
+}
+#activity-planner table thead tr th:nth-child(5) {
+  width: 20%;
+  border-top-right-radius: 5px;
+  border-right: 1px solid #cecece;
+}
+#activity-planner table tbody tr:nth-child(3),
+#activity-planner table tbody tr:nth-child(4),
+#activity-planner table tbody tr:nth-child(5),
+#activity-planner table tbody tr:nth-child(8),
+#activity-planner table tbody tr:nth-child(9) {
+  background: #f7f5f5;
+}
+#activity-planner table#activities_table tbody tr {
+
+}
+#activity-planner table#activities_table tbody tr.active td {
+  background: #fff !important;
+}
+
+#activity-planner table#activities_table tbody tr td:nth-child(2) {
+  height: 100%;
+}
+
+
+
+#activity-planner table tbody tr td {
+  font-size: 14px;
+  padding: 7px;
+}
+#activity-planner table tbody tr td:nth-child(1) {
+  text-align: center;
+  border-left: 1px solid #cecece;
+}
+#activity-planner table tbody tr td:nth-child(2) {
+  text-align: center;
+}
+#activity-planner table tbody tr td:nth-child(3) {
+  text-align: left;
+}
+#activity-planner table tbody tr td:nth-child(4) {
+  text-align: right;
+}
+#activity-planner table tbody tr td:nth-child(5) {
+  text-align: left;
+  border-right: 1px solid #cecece;
+}
+#activity-planner .table > thead > tr > th,
+#activity-planner .table > tbody > tr > th,
+#activity-planner .table > tfoot > tr > th,
+#activity-planner .table > thead > tr > td,
+#activity-planner .table > tbody > tr > td,
+#activity-planner .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+
+
+
+#activity-planner .table > thead > tr > th,
+#activity-planner .table > tbody > tr > th,
+#activity-planner .table > tfoot > tr > th,
+#activity-planner .table > thead > tr > td,
+#activity-planner .table > tbody > tr > td,
+#activity-planner .table > tfoot > tr > td {
+  vertical-align: middle;
+}
+
+.scorebook-icon-check {
+  background-image: image-url('scorebook/icon-check.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.teaching-cart {
+  display:block;
+  border: none;
+  padding-bottom: 85px;
+  table {
+    border:none;
+    tbody {
+      border: none;
+    }
+  }
+}
+
+.icon-x-gray {
+  background-image: image-url('scorebook/icon-x-gray.png');
+  background-repeat: no-repeat;
+  background-position:center;
+}
+
+.teaching-cart table tbody tr {
+  background: #f7f5f5 !important;
+}
+.teaching-cart table tbody tr:first-child td:nth-child(1) {
+  border-top-left-radius: 5px;
+}
+.teaching-cart table tbody tr:first-child td:nth-child(3) {
+  border-top-right-radius: 5px;
+}
+.teaching-cart table tbody tr:last-child td:nth-child(1) {
+  border-bottom-left-radius: 5px;
+}
+.teaching-cart table tbody tr:last-child td:nth-child(3) {
+  border-bottom-right-radius: 5px;
+}
+.teaching-cart table tbody tr td:nth-child(1) {
+  width: 5%;
+}
+.teaching-cart table tbody tr td:nth-child(2) {
+  width: 90%;
+  text-align: left !important;
+}
+.teaching-cart table tbody tr td:nth-child(3) {
+  border-right: 1px solid #cecece;
+  width: 5%;
+}
+.teaching-cart .fake-border {
+  width: 99.4%;
+  margin: 0 auto;
+  position: relative;
+  bottom: 1px;
+}
+
+.teaching-cart #continue.hidden,
+.hidden-button {
+  display:none;
+
+}
+
+.teaching-cart .fake-border {
+  width: 99.4%;
+  margin: 0 auto;
+  position: relative;
+  bottom: 1px;
+}

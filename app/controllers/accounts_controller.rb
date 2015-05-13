@@ -15,14 +15,11 @@ class AccountsController < ApplicationController
     @user.attributes = user_params
     @user.name = capitalized_name
     @user.safe_role_assignment(role)
-
+    @user.validate_username = true
     if @user.save
       sign_in @user
-
       AccountCreationWorker.perform_async(@user.id)
-
       @user.subscribe_to_newsletter
-
       redirect_to profile_path
     else
       render 'accounts/new'
@@ -32,9 +29,15 @@ class AccountsController < ApplicationController
   def update
     user_params.delete(:password) unless user_params[:password].present?
     @user = current_user
-    @user.attributes = user_params
 
-    if @user.save
+    if user_params[:username] == @user.username
+      validate_username = false
+    else
+      validate_username = true
+    end
+
+    user_params.merge! validate_username: validate_username
+    if @user.update_attributes user_params
       redirect_to updated_account_path
     else
       render 'accounts/edit'
