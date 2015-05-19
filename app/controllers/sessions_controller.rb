@@ -12,6 +12,10 @@ class SessionsController < ApplicationController
     end
   end
 
+  # Theres an issue here - if a student belongs to multiple clever classrooms, then the student
+  # will get moved to the quill classroom of her clever teacher that most recently signed in
+  # (since right now a student on quill can only belong to one classroom)
+  # TODO: refactor code so that a student can belong to more than one classroom
   def clever
     @auth_hash = request.env['omniauth.auth']
 
