@@ -10,17 +10,6 @@ describe Classroom, :type => :model do
     end
   end
 
-  describe "#units" do
-  	describe "#create_next" do
-	  	before do
-	  		@classroom = FactoryGirl.create(:classroom)
-	  	end
-	  	it "must generate a valid unit" do
-	  		expect(@classroom.units.create_next).to be_an_instance_of(Unit)
-	  	end
-    end
-	end
-
   context "when is created" do
     before do
       @classroom = FactoryGirl.build(:classroom, name: nil)

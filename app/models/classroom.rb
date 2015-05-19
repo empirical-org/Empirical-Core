@@ -7,11 +7,7 @@ class Classroom < ActiveRecord::Base
   validates_presence_of :name
 
 
-  has_many :units do
-    def create_next
-      create(name: "Unit #{@association.owner.units.count + 1}")
-    end
-  end
+  has_many :units
 
   has_many :classroom_activities
   has_many :activities, through: :classroom_activities
@@ -71,8 +67,6 @@ class Classroom < ActiveRecord::Base
       teacher: User.teacher.where(clever_id: section.teacher.id).first,
       grade: section.grade
     )
-
-    if c.units.empty? and c.save! then c.units.create_next end
 
     c.import_students!
 
