@@ -156,9 +156,10 @@ class User < ActiveRecord::Base
   end
 
   def self.setup_from_clever(auth_hash)
-    user = User.create_from_clever(auth_hash[:info])
+    d = District.create_from_clever(auth_hash[:info][:district])
 
-    District.create_from_clever(user.clever_district_id)
+    user = User.create_from_clever(auth_hash)
+    user.districts << d unless user.districts.include?(d)
 
     user.connect_to_classrooms! if user.student?
     user.create_classrooms! if user.teacher?
@@ -273,14 +274,14 @@ class User < ActiveRecord::Base
 
   # Create the user from a Clever info hash
   def self.create_from_clever(hash, role_override = nil)
-    user = User.where(email: hash[:email]).first_or_initialize
+    user = User.where(email: hash[:info][:email]).first_or_initialize
     user = User.new if user.email.nil?
     user.update_attributes(
-      clever_id: hash[:id],
-      token: hash[:token],
-      role: role_override || hash[:user_type],
-      first_name: hash[:name][:first],
-      last_name: hash[:name][:last]
+      clever_id: hash[:info][:id],
+      token: (hash[:credentials] ? hash[:credentials][:token] : nil),
+      role: role_override || hash[:info][:user_type],
+      first_name: hash[:info][:name][:first],
+      last_name: hash[:info][:name][:last]
     )
     user
   end
@@ -288,7 +289,7 @@ class User < ActiveRecord::Base
   # Create all classrooms this teacher is connected to
   def create_classrooms!
     clever_user.sections.each do |section|
-      Classroom.setup_from_clever(section)
+      Classroom.setup_from_clever(section, self)
     end
   end
 
@@ -301,7 +302,7 @@ private
   # Clever integration
   def clever_user
     klass = "Clever::#{self.role.capitalize}".constantize
-    @clever_user ||= klass.retrieve(self.clever_id)
+    @clever_user ||= klass.retrieve(self.clever_id, self.districts.first.token)
   end
 
   # validation filters
