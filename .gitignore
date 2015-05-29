@@ -12,7 +12,6 @@
 # database
 config/database.yml
 latest.dump
-dump.rdb
 
 # compilation
 public/assets
