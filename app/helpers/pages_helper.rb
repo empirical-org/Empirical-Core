@@ -35,10 +35,10 @@ module PagesHelper
 		  },
 		  {
 
-		      img: 'thumb-ryan.jpg',
-		      name: "Ryan Novas",
-		      title: "Operations Director, Cofounder",
-		      desc: "Ryan works with teachers to create new features content for Quill. He also helps integrate Quill into classrooms and oversees daily operations at Empirical."
+		      img: 'thumb-elliot.png',
+		      name: "Elliot Mandel",
+		      title: "Partnerships Director, Cofounder",
+		      desc: "Elliot Mandel is the director of partnerships and product, with a focus on truly making learning interactive for all students. He is a graduate of the Harvard Graduate School of Education, where he specialized in building educational tools that empower all students to succeed."
 	  	  },
 	  	  {
 		      img: 'thumb-tom.png',
@@ -52,12 +52,13 @@ module PagesHelper
 		      title: 'Technical Director, Cofounder',
 		      desc: "Marcello has a background in pure math from Brown University, and he currently enjoys reading about ideas in analytic philosophy."
 		  },
-	  	  {
-		      img: 'thumb_collin.png',
-		      name: "Collin Cowdery",
-		      title: "Development Director, Cofounder",
-		      desc: "Collin studied Japanese at Oberlin College. He raises funds for Quill via grants and sales. He also assists teachers and helps develop new learning mechanics for our apps."
-	      },
+		  {
+
+		      img: 'thumb-ryan.jpg',
+		      name: "Ryan Novas",
+		      title: "Operations Director, Cofounder",
+		      desc: "Ryan works with teachers to create new features content for Quill. He also helps integrate Quill into classrooms and oversees daily operations at Empirical."
+	  	  },
 	      {
 		      img: 'thumb_kris.jpg',
 		      name: 'Kristopher Kelly',
