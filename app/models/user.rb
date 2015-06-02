@@ -199,6 +199,7 @@ class User < ActiveRecord::Base
 
   def refresh_token!
     update_attributes token: SecureRandom.urlsafe_base64
+    save validate: false
   end
 
   def serialized
