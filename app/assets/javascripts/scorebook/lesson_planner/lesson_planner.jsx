@@ -1,10 +1,9 @@
-
 $(function () {
 	ele = $('#activity-planner');
 	if (ele.length > 0) {
 		React.render(React.createElement(EC.LessonPlanner), ele[0]);
 	}
-	
+
 });
 
 
