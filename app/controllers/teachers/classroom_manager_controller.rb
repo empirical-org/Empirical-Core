@@ -82,6 +82,30 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
+  # needed to simply render a page, lets React.js do the rest
+  def my_account
+  end
+
+  def my_account_data
+    @user = current_user
+    render json: @user
+  end
+
+  def update_my_account
+    params.permit(:name, :username, :email, :school_id)
+    current_user.update_attributes name: params[:name], username: params[:username], email: params[:email]
+
+    school = School.find params[:school_id]
+    if school.present?
+      puts "\n found school"
+    else
+      puts "\n did not find school"
+    end
+    (current_user.schools << School.find(params[:school_id])) unless params[:school_id].nil?
+
+    render json: {}
+  end
+
   private
 
   def authorize!

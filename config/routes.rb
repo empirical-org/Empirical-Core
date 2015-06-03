@@ -24,6 +24,12 @@ EmpiricalGrammar::Application.routes.draw do
     resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
 
+
+    get 'my_account' => 'classroom_manager#my_account'
+    get 'my_account_data' => 'classroom_manager#my_account_data'
+    put 'update_my_account' => 'classroom_manager#update_my_account'
+
+
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
@@ -68,7 +74,6 @@ EmpiricalGrammar::Application.routes.draw do
       %w(invite_students accounts import).each do |page|
         get page => "classroom_manager##{page}"
       end
-
 
     end
   end

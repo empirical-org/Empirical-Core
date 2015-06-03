@@ -1,0 +1,21 @@
+#my-account {
+
+  .form-header {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .row {
+    padding: 10px;
+    .form-label, input {
+      height: 40px;
+      line-height: 40px;
+    }
+    select, input {
+      width: 100%;
+    }
+  }
+  button {
+    color: white;
+    margin-top: 30px;
+  }
+}

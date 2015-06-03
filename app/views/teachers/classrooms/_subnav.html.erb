@@ -8,6 +8,7 @@
 	      <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: ((action_name == 'index') or (action_name == 'edit')) ? 'active' : '' %></li>
 	  <% end %>
 	  <li><%= active_link_to 'Create a Class', new_teachers_classroom_path %></li>
+    <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
     </ul>
 
   </div> <!-- //.container -->
