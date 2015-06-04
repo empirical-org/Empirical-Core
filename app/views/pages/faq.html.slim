@@ -9,17 +9,7 @@
   hr
 
   p
-    | Quill is a web based application that provides personalized writing and grammar lessons. Students using Quill learn English grammar by writing sentences and proofreading passages.
-
-  h4.names You may reach us at:
-  p 
-    strong Peter Gault - peter@quill.org 
-  p.title 
-    em Founder, Product Director
-  p 
-    strong Ryan Novas - ryan@quill.org
-  p.title 
-    em Operations Director 
+    | Quill provides 150 activities built directly from 42 Common Core language standards. Our activities were built by a small team of language educators. We took each topic from the Common Core language section, and we researched how that topic was being taught by consulting with teachers and searching on BetterLesson, ShareMyLesson, and LearnZillion. We now work with some of the most active Quill teachers to develop new activities. These activities, and the standards they are built from, can be viewed at <a href='http://www.quill.org/lessons/'>Quill.org/lessons</a>
 
   hr
   h4 General Questions
@@ -32,28 +22,35 @@
           strong What is Quill?
         .accordion-body.collapse
           p.accordion-inner
-            | Quill is a is a free, web-based tool that provides personalized, interactive writing and grammar activities. Students using Quill learn writing and grammar skills by writing sentences and proofreading passages. 
+            | Quill is a lightweight learning management system integrated with a suite of online apps that teach writing, grammar, and vocabulary skills to students. Students using Quill learn English grammar and vocabulary by fixing sentences, proofreading passages, and collaboratively writing passages. Quill is part of Empirical, a 501(c)3 nonprofit organization. 
 
       #who-uses-quill.accordion-heading.question
         a.accordion-toggle href="#who-uses-quill" data-parent="#general-questions"
           strong Who is using Quill?
         .accordion-body.collapse
           p.accordion-inner
-            | As of May, 2014, 4,500 students have signed up for Quill and complete approximately 500 lessons each day. From Rhode Island to Russia, and the Bay Area to Great Britain, these students live all over the world.
+            | As of March, 2015, 5,000 teachers and 70,000 students have signed up for Quill and complete approximately 3,200 activities each day. 
 
-      #how-many-lessons.accordion-heading.question
-        a.accordion-toggle href="#how-many-lessons" data-parent="#general-questions"
-          strong How many lessons do you have?
+      #how-many-activities.accordion-heading.question
+        a.accordion-toggle href="#how-many-activities" data-parent="#general-questions"
+          strong How many activities do you have?
         .accordion-body.collapse
           p.accordion-inner
-            | As of May, 2014, we have created 150 lessons, covering Common Core topics for grades 1-8. Each lesson is approximately 10-15 minutes in length.
+            | As of March, 2015, we have over 150 activities, covering Common Core topics for grades 1-8. Each activity is approximately 10-15 minutes in length, and we are constantly adding more.
             
       #quill-cost.accordion-heading.question
         a.accordion-toggle href="#quill-cost" data-parent="#general-questions"
           strong How much does Quill cost?
         .accordion-body.collapse
           p.accordion-inner
-            | Quill is free. We are working on a premium service that will offer additional functionality and analytics; however, our lessons and content will always be free.
+            | All of Quill’s apps and activities are free. We are launching a paid version, which provides additional analytics, reports, and features in March, 2015.
+
+      #parent-child.accordion-heading.question
+        a.accordion-toggle href="#parent-child" data-parent="#general-questions"
+          strong I am a parent. Can I use Quill for my child?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Yes. However, as of March, 2015, we do not offer parent accounts. You will need to sign up for a teacher account, create a classroom, and then add your child to it as a student.
 
   hr
   h4 Technical Questions
@@ -66,17 +63,21 @@
           strong What are Quill's technical requirements?
         .accordion-body.collapse
           p.accordion-inner
-            | Quill is built in HTML5 and runs on all tablets and modern browsers.
-              Quill runs in Firefox, Chrome, Safari, and Internet Explorer 9, 10 and 11.
-              Empirical recommends that students have access to keyboards so that
-              they can type their responses.
+            | Quill is built in HTML5 and runs on all tablets and modern browsers. Quill runs in Firefox, Chrome, Safari, and Internet Explorer 9, 10 and 11. While all of our apps can be used on tablets, since they are writing intensive we suggest using a device with a keyboard for the best experience. 
+            
+      #quill-technologies.accordion-heading.question
+        a.accordion-toggle href="#quill-technologies" data-parent="#technical-questions"
+          strong What technologies is Quill built off of?
+        .accordion-body.collapse
+          p.accordion-inner
+            | The Quill LMS is built in Ruby on Rails. As of March, 2015, all of our apps are built in Angular.js and Ruby on Rails. 
    
       #how-to-setup.accordion-heading.question
         a.accordion-toggle href="#how-to-setup" data-parent="#technical-questions" 
           strong How do you set up Quill?
         .accordion-body.collapse
           p.accordion-inner
-            | Teachers create teacher accounts and students create student accounts by clicking here: <a href='http://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. We are currently working on allowing teachers to import their classes with .csv data and sign in through Google Apps.
+            | Teachers create teacher accounts and students create student accounts by clicking <a href='http://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. We are currently working on allowing teachers to import their classes with .csv data and sign in through Google Apps.
    
   hr
   h4 Implementation Questions
@@ -84,33 +85,26 @@
   .accordion#implementation-questions
     .accordion-group
 
+      #now-what.accordion-heading.question
+        a.accordion-toggle href="#now-what" data-parent="#implementation-questions"
+          strong I just signed up for Quill. Now what?
+        .accordion-body.collapse
+          p.accordion-inner
+            | We have a getting started guide <a href='http://support.quill.org/knowledgebase/topics/55638-getting-started'>here.</a> 
+   
       #larger-classroom.accordion-heading.question
         a.accordion-toggle href="#larger-classroom" data-parent="#implementation-questions"
           strong How does Quill fit into the larger classroom experience?
         .accordion-body.collapse
           p.accordion-inner
-            | Quill lessons are approximately 15 minutes in length. Teachers who have
-              a 1:1 computer ratio tend to use Quill as a warm up lesson at the
-              beginning of a class. Teachers who have a limited availability of
-              laptops tend to have their students rotate through the computers while
-              the rest of the class engages in other activities. We are currently
-              developing a few paper based games for the rest of the class to play
-              while certain students work with Quill.
-
-      #student-quit.accordion-heading.question
-        a.accordion-toggle href="#student-quit" data-parent="#implementation-questions"
-          strong What happens if a student quits a lesson half way through?
-        .accordion-body.collapse
-          p.accordion-inner
-            | Quill saves the student's current progress. A student may resume a
-              lesson at any time.
+            | Quill activities are approximately 10 minutes in length. Classes that are one-to-one often use Quill as a warm up activity at the beginning of a class. In classes with fewer devices available, students often go through a rotation, where Quill is used on available devices and the rest of the class engages in other activities.         
 
       #fixed-progression.accordion-heading.question
         a.accordion-toggle href="#fixed-progression" data-parent="#implementation-questions"
-          strong Is there a fixed progression of lessons?
+          strong Is there a fixed progression of activities?
         .accordion-body.collapse
           p.accordion-inner
-            | While our lessons are arranged by Common Core Standard, there is not a fixed progression of lessons. Teachers have all of our lessons available to them, and they may choose to assign any lesson they're interested in teaching.
+            | While our activities are arranged by Common Core Standard, there is not a fixed progression of activities. Teachers have all of our activities available to them, and they may choose to assign any activity they're interested in teaching.
    
   hr
   h4 Pedagogical Questions
@@ -118,38 +112,34 @@
   .accordion#pedagogical-questions
     .accordion-group
     
-      #build-lessons.accordion-heading.question
-        a.accordion-toggle href="#build-lessons" data-parent="#pedagogical-questions"
-          strong How do you build your lessons?
+      #build-activities.accordion-heading.question
+        a.accordion-toggle href="#build-activites" data-parent="#pedagogical-questions"
+          strong How do you build your activites?
         .accordion-body.collapse
           p.accordion-inner
-            | We take each topic from the Common Core language section, and we research how that topic is being taught by consulting with teachers and searching on BetterLesson, ShareMyLesson, and LearnZillion. We then synthesize these resources and experiences to build our own lessons.
+            | We take each standard from the Common Core language section, and then we consult with a team of educators to find the best ways of teaching the topic. Finally, we collaborate with a group of teachers that creates the content. If you’re interested in helping us create content, please email us at <a href='mailto:hello@quill.org'>hello@quill.org</a>.
           
       #incorrect-answer.accordion-heading.question
         a.accordion-toggle href="#incorrect-answer" data-parent="#pedagogical-questions"
           strong What happens if a student answers a question incorrectly?
         .accordion-body.collapse
           p.accordion-inner
-            | Students can retry each question once per lesson. If they answer incorrectly twice they move on to the next question. Students are able to retake lessons as many times as they would like.
+            | Students can retry each question once per sentence writing activity. If they answer incorrectly twice they move on to the next question.
 
    
-      #assign-lessons.accordion-heading.question
-        a.accordion-toggle href="#assign-lessons" data-parent="#pedagogical-questions"
-          strong How can I assign lessons to individual students / groups?
+      #retry-activity.accordion-heading.question
+        a.accordion-toggle href="#retry-activity" data-parent="#pedagogical-questions"
+          strong What happens if a student wants to retry an activity?
         .accordion-body.collapse
           p.accordion-inner
-            | Teachers can assign lessons to individual students, groups of students, or the whole classroom by clicking “Lesson Planner” from their profile, then selecting “Assign Lesson.”  
+            | Students are able to retake activities as many times as they would like. The score shown in the scorebook is their highest score.  
             
       #colored-scores.accordion-heading.question
         a.accordion-toggle href="#colored-scores" data-parent="#pedagogical-questions"
           strong How do the colored scores work?
         .accordion-body.collapse
           p.accordion-inner
-            | Quill utilizes a stoplight system of green, yellow, and red scores. A
-              green square indicates that the student answered most of the questions
-              correctly. A yellow square indicates the student struggled with a few
-              concepts. A red square indicates that the student did not demonstrate
-              mastery of the lesson. A grey square indicates an uncompleted lesson.
+            | Quill utilizes a stoplight system of green, yellow, and red scores. A green square indicates that the student scored 76-100%. A yellow square indicates the student scored 50-75%. A red square indicates that the student scored 0-49%. A grey square indicates an uncompleted lesson.
    
       #common-core-lessons.accordion-heading.question
         a.accordion-toggle href="#common-core-lessons" data-parent="#pedagogical-questions"
@@ -171,16 +161,10 @@
     
       #not-for-profit.accordion-heading.question
         a.accordion-toggle href="#not-for-profit" data-parent="#organizational-questions"
-          strong Why is Empirical a nonprofit organization?
+          strong Why is Quill a nonprofit organization?
         .accordion-body.collapse
           p.accordion-inner
-            | Empirical's mission is to collaboratively build educational materials
-              and make those materials freely available. We work with a large team of
-              volunteers who spend their time on this project because they believe
-              in this mission. We, in turn, have no interest of ever being purchased
-              by another company or being sold on the stock market. While we are a
-              commercial nonprofit, and intend to generate sustainable revenue, our
-              mission is to revolutionize how students learn.
+            | Quill's mission is to collaboratively build educational materials and make those materials freely available. We work with a large team of volunteers who spend their time on this project because they believe in this mission. We, in turn, have no interest of ever being purchased by another company or being sold on the stock market. While we are a commercial nonprofit, and intend to generate sustainable revenue, our mission is to revolutionize how students learn.
 
       #similar-organizations.accordion-heading.question
         a.accordion-toggle href="#similar-organizations" data-parent="#organizational-questions"
@@ -212,6 +196,35 @@
             | All of our instructional materials are made available under a Creative
               Commons BY-SA-NC license. This means that you may reuse our materials
               for any non-commercial purpose.
+
+
+  hr
+  h4 Supporting Quill
+
+  .accordion#supporting-quill-questions
+    .accordion-group
+    
+      #donate-to-quill.accordion-heading.question
+        a.accordion-toggle href="#donate-to-quill" data-parent="#supporting-quill-questions"
+          strong Can I donate to Quill?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Yes, as a 501(c)3 charitable organization, you can make a tax deductible donation to us. Please email <a href='hello@quill.org'>hello@quill.org</a> for more information about this.
+    
+      #quill-educator.accordion-heading.question
+        a.accordion-toggle href="#quill-educator" data-parent="#supporting-quill-questions"
+          strong How can I work with Quill as an educator?
+        .accordion-body.collapse
+          p.accordion-inner
+            | We are always looking for educators who are interested in helping Quill by providing feedback, creating content, or giving us ideas for new apps. Please contact us at <a href='hello@quill.org'>hello@quill.org</a> if you would like to do any of these things.
+
+      #quill-developer.accordion-heading.question
+        a.accordion-toggle href="#quill-developer" data-parent="#supporting-quill-questions"
+          strong How can I work with Quill as a developer?
+        .accordion-body.collapse
+          p.accordion-inner
+            | Were open source and can always use volunteer developers! We reccomend you start off by reviewing our documentation here: <a href="http://community.quill.org/teams/quill-lms/docs/">http://community.quill.org/teams/quill-lms/docs/</a> and our GitHub here: <a href="https://github.com/empirical-org">https://github.com/empirical-org</a>. You can also chat with us here: <a href="http://community.quill.org/chat/">http://community.quill.org/chat/</a>.               
+              
 
   .bottom
 
