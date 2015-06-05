@@ -1,3 +1,2 @@
-article.simple-rounded-box
-  h1 Editing user
-  = render 'form'
+- if @user.teacher?
+  #admin-teacher-account-editor data-id=@user.id

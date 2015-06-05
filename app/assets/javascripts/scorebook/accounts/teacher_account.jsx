@@ -1,14 +1,30 @@
 'use strict';
-console.log('hi from my account')
 $(function () {
-  var ele = $('#my-account');
-  if (ele.length > 0) {
-    React.render(React.createElement(EC.MyAccount), ele[0]);
+  var ele1 = $('#my-account');
+  var ele2 = $('#admin-teacher-account-editor');
+  var props;
+  var ele;
+  if (ele1.length > 0) {
+    ele = ele1[0];
+    props = {
+      userType: 'teacher'
+    }
+  } else if (ele2.length > 0) {
+    ele = ele2[0];
+    props = {
+      userType: 'admin',
+      teacherId: ele2.data('id')
+    }
+  }
+
+  if ((ele1.length > 0) || (ele2.length > 0)) {
+    React.render(React.createElement(EC.TeacherAccount, props), ele);
   }
 });
 
-EC.MyAccount = React.createClass({
+EC.TeacherAccount = React.createClass({
   getInitialState: function () {
+    console.log('in intiial state, props: ', this.props);
     return ({
       name: '',
       username: '',
@@ -18,15 +34,21 @@ EC.MyAccount = React.createClass({
       originalSelectedSchool: null,
       schoolOptions: [],
       schoolOptionsDoNotApply: false,
+      role: null,
       password: null,
       passwordConfirmation: null,
       errors: {}
     });
   },
   componentDidMount: function () {
+    var url, data;
+    if (this.props.userType == 'admin') {
+      url = '/cms/users/' + this.props.teacherId + '/show_json'
+    } else {
+      url = '/teachers/my_account_data';
+    }
     $.ajax({
-      url: '/teachers/my_account_data',
-      data: {},
+      url: url,
       success: this.populateData
     });
   },
@@ -51,6 +73,8 @@ EC.MyAccount = React.createClass({
       name: data.user.name,
       username: data.user.username,
       email: data.user.email,
+      subscription: data.user.subscription,
+      role: data.user.role,
       selectedSchool: schoolData,
       originalSelectedSchoolId: schoolData.id
     });
@@ -72,6 +96,9 @@ EC.MyAccount = React.createClass({
     var x = $(this.refs.email.getDOMNode()).val();
     this.setState({email: x});
   },
+  updateSubscription: function (subscription) {
+    this.setState({subscription: subscription})
+  },
   determineSaveButtonClass: function () {
     var className;
     if (this.state.isSaving) {
@@ -87,16 +114,24 @@ EC.MyAccount = React.createClass({
       name: this.state.name,
       username: this.state.username,
       email: this.state.email,
+      role: this.state.role,
       password: this.state.password,
       password_confirmation: this.state.passwordConfirmation,
       school_id: this.state.selectedSchool.id,
       original_selected_school_id: this.state.originalSelectedSchoolId,
-      school_options_do_not_apply: this.state.schoolOptionsDoNotApply
+      school_options_do_not_apply: this.state.schoolOptionsDoNotApply,
+      subscription: this.state.subscription
+    }
+    var url;
+    if (this.props.userType == 'admin') {
+      url = '/cms/users/' + this.state.id;
+    } else if (this.props.userType == 'teacher') {
+      url = '/teachers/update_my_account';
     }
     $.ajax({
       type: "PUT",
       data: data,
-      url: '/teachers/update_my_account',
+      url: url,
       success: this.uponUpdateAttempt
     });
   },
@@ -182,7 +217,32 @@ EC.MyAccount = React.createClass({
     var passwordConfirmation = $(this.refs.passwordConfirmation.getDOMNode()).val();
     this.setState({passwordConfirmation: passwordConfirmation});
   },
+  updateRole: function (role) {
+    this.setState({role: role});
+  },
   render: function () {
+    var selectRole, subscription;
+    if (this.props.userType == 'admin') {
+      selectRole = <EC.SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
+      subscription = <EC.SelectSubscription userId={this.state.id} />
+    } else {
+      selectRole = null;
+      subscription = (
+        <div className='row'>
+          <div className='form-label col-xs-2'>
+            Status
+          </div>
+          <div className='col-xs-2'>
+            <input disabled className='inactive' value='Free'/>
+          </div>
+          <div className='col-xs-3'>
+            <a href="http://quill.org/premium" target="_new">
+              <button className='get-premium'>Get Premium</button>
+            </a>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className='container'>
         <div className='row'>
@@ -214,6 +274,9 @@ EC.MyAccount = React.createClass({
                 {this.state.errors.username}
               </div>
             </div>
+
+            {selectRole}
+
             <div className='row'>
               <div className='form-label col-xs-2'>
                 Email
@@ -259,20 +322,7 @@ EC.MyAccount = React.createClass({
               </div>
             </div>
 
-            <div className='row'>
-              <div className='form-label col-xs-2'>
-                Status
-              </div>
-              <div className='col-xs-2'>
-                <input disabled className='inactive' value='Free'/>
-              </div>
-              <div className='col-xs-3'>
-                <a href="http://quill.org/premium" target="_new">
-                  <button className='get-premium'>Get Premium</button>
-                </a>
-              </div>
-
-            </div>
+            {subscription}
 
             <div className='row'>
               <div className='col-xs-2'></div>

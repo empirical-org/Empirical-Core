@@ -122,10 +122,13 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :users do
+      resource :subscription
+
       collection do
         match 'search' => 'users#search', via: [:get, :post], as: :search
       end
       member do
+        get :show_json
         put :sign_in
       end
     end

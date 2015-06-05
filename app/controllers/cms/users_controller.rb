@@ -1,6 +1,7 @@
 class CMS::UsersController < ApplicationController
   before_filter :signed_in!
   before_filter :admin!
+  layout :determine_layout
 
   def index
     @q = User.includes([:schools, :classroom]).search(params[:q])
@@ -19,6 +20,11 @@ class CMS::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+  end
+
+  def show_json
+    @user = User.find(params[:id])
+    render json: @user
   end
 
   def create
@@ -41,13 +47,25 @@ class CMS::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def determine_layout
+    if action_name == 'edit' and (User.find(params[:id])).teacher?
+      'scorebook'
+    else
+      'application'
+    end
+  end
+
   def update
     @user = User.find(params[:id])
-
-    if @user.update_attributes(user_params)
-      redirect_to cms_users_path, notice: 'User was successfully updated.'
+    if @user.teacher?
+      response = @user.update_teacher params
+      render json: response
     else
-      render action: 'edit'
+      if @user.update_attributes(user_params)
+        redirect_to cms_users_path, notice: 'User was successfully updated.'
+      else
+        render action: 'edit'
+      end
     end
   end
 
