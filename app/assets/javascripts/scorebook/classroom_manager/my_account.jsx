@@ -14,7 +14,11 @@ EC.MyAccount = React.createClass({
       username: '',
       email: '',
       isSaving: false,
-      selectedSchool: null
+      selectedSchool: null,
+      schoolOptions: [],
+      schoolOptionsDoNotApply: false,
+      password: null,
+      passwordConfirmation: null
     });
   },
   componentDidMount: function () {
@@ -36,14 +40,17 @@ EC.MyAccount = React.createClass({
         text: school.name,
         zipcode: school.zipcode
       };
+      this.requestSchools(school.zipcode);
+      // couldnt get react to re-render the default value of zipcode based on state change so have to use the below
+      $('input.zip-input').val(school.zipcode);
     };
     this.setState({
+      id: data.user.id,
       name: data.user.name,
       username: data.user.username,
       email: data.user.email,
       selectedSchool: schoolData
     });
-    this.render();
   },
   displayHeader: function () {
     var str = this.state.name;
@@ -55,11 +62,11 @@ EC.MyAccount = React.createClass({
     this.setState({name: x});
   },
   updateUsername: function () {
-    var x = $(this.refs.username.getDOMNode().val());
+    var x = $(this.refs.username.getDOMNode()).val();
     this.setState({username: x});
   },
   updateEmail: function () {
-    var x = $(this.refs.email.getDOMNode().val());
+    var x = $(this.refs.email.getDOMNode()).val();
     this.setState({email: x});
   },
   determineSaveButtonClass: function () {
@@ -77,7 +84,10 @@ EC.MyAccount = React.createClass({
       name: this.state.name,
       username: this.state.username,
       email: this.state.email,
-      school_id: this.state.school_id
+      password: this.state.password,
+      password_confirmation: this.state.passwordConfirmation,
+      school_id: this.state.selectedSchool.id,
+      school_options_do_not_apply: this.state.schoolOptionsDoNotApply
     }
     $.ajax({
       type: "PUT",
@@ -89,9 +99,81 @@ EC.MyAccount = React.createClass({
   uponUpdateAttempt: function (data) {
     console.log('uponj update attempt', data);
     this.setState({isSaving: false});
+    if (data.user != null) {
+      // name may have been capitalized on back-end
+      this.setState({
+        name: data.user.name,
+      });
+    } else {
+
+    }
   },
   updateSchool: function (school) {
     this.setState({selectedSchool: school});
+  },
+  requestSchools: function (zip) {
+    console.log('populate schools', zip);
+    $.ajax({
+      url: '/schools.json',
+      data: {zipcode: zip},
+      success: this.populateSchools
+    });
+  },
+  populateSchools: function (data) {
+    console.log('schools', data)
+    this.setState({schoolOptions: data});
+  },
+  attemptDeleteAccount: function () {
+    var confirmed = confirm('Are you sure you want to delete this account?');
+    if (confirmed) {
+      $.ajax({
+        type: 'DELETE',
+        url: '/teachers/delete_my_account',
+        data: {id: this.state.id}
+      }).done(function () {
+         window.location.href="http://quill.org";
+      });
+    }
+  },
+  updateSchoolOptionsDoNotApply: function () {
+    var x = $(this.refs.schoolOptionsDoNotApply.getDOMNode()).attr('checked');
+    var schoolOptionsDoNotApply;
+    console.log('checked', x);
+
+    if (x == 'checked') {
+      schoolOptionsDoNotApply = true;
+    } else {
+      schoolOptionsDoNotApply = false;
+    }
+    this.setState({schoolOptionsDoNotApply: schoolOptionsDoNotApply});
+  },
+  updateSubscribedToNewsletter: function () {
+    var x = $(this.refs.subscribedToNewsletter.getDOMNode()).attr('checked');
+    var subscribedToNewsletter;
+    console.log('checked', x);
+    if (x == 'checked') {
+      subscribedToNewsletter = true;
+    } else {
+      subscribedToNewsletter = false;
+    }
+    this.setState({subscribedToNewsletter: subscribedToNewsletter});
+  },
+  determineIfSchoolOptionsDoNotApplyShouldBeChecked: function () {
+    var value;
+    if (this.state.schoolOptionsDoNotApply) {
+      value = 'checked';
+    } else {
+      value = null;
+    }
+    return value;
+  },
+  updatePassword: function () {
+    var password = $(this.refs.password.getDOMNode()).val()
+    this.setState({password: password});
+  },
+  updatePasswordConfirmation: function () {
+    var passwordConfirmation = $(this.refs.passwordConfirmation.getDOMNode()).val();
+    this.setState({passwordConfirmation: passwordConfirmation});
   },
   render: function () {
     return (
@@ -142,15 +224,49 @@ EC.MyAccount = React.createClass({
                 <input ref='passwordConfirmation' onChange={this.updatePasswordConfirmation} placeholder="Re-Enter New Password"/>
               </div>
             </div>
-            <EC.SelectSchool selectedSchool={this.state.selectedSchool} updateSchool={this.updateSchool} />
+            <EC.SelectSchool selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
+
+            <div className='row school-checkbox'>
+              <div className='form-label col-xs-2'>
+              </div>
+              <div className='col-xs-1 no-pr'>
+                <input ref='schoolOptionsDoNotApply' onChange={this.updateSchoolOptionsDoNotApply} type='checkbox' checked={this.determineIfSchoolOptionsDoNotApplyShouldBeChecked()}/>
+              </div>
+              <div className='col-xs-6 no-pl form-label checkbox-label'>
+                My school is not listed or I do not teach in the United States.
+              </div>
+            </div>
+
+            <div className='row'>
+              <div className='form-label col-xs-2'>
+                Status
+              </div>
+              <div className='col-xs-2'>
+                <input disabled className='inactive' value='Free'/>
+              </div>
+              <div className='col-xs-3'>
+                <a href="http://quill.org/premium" target="_new">
+                  <button className='get-premium'>Get Premium</button>
+                </a>
+              </div>
+
+            </div>
 
             <div className='row'>
               <div className='col-xs-2'></div>
               <div className='col-xs-4'>
                 <button onClick={this.clickSave} className={this.determineSaveButtonClass()}
-                >Save</button>
+                >Save Changes</button>
               </div>
             </div>
+
+            <div className='row'>
+              <div className='col-xs-2'></div>
+              <div onClick={this.attemptDeleteAccount} className='col-xs-2 delete-account'>
+                Delete Account
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
