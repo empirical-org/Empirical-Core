@@ -13,7 +13,6 @@ class AccountsController < ApplicationController
     @user = User.find_by_id(session[:temporary_user_id]) || User.new
 
     @user.attributes = user_params
-    @user.name = capitalized_name
     @user.safe_role_assignment(role)
     @user.validate_username = true
     if @user.save
@@ -54,16 +53,4 @@ protected
     params.require(:user).permit(:classcode, :email, :name, :username, :password, :password_confirmation, :newsletter, :terms_of_service, :school_ids)
   end
 
-  def capitalized_name
-    result = user_params[:name]
-    if user_params[:name].present?
-      f,l = user_params[:name].split(/\s+/)
-      if f.present? and l.present?
-        result = "#{f.capitalize} #{l.capitalize}"
-      else
-        result = user_params[:name].capitalize
-      end
-    end
-    result
-  end
 end

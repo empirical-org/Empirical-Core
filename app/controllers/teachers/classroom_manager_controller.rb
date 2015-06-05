@@ -92,17 +92,62 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_my_account
-    params.permit(:name, :username, :email, :school_id)
-    current_user.update_attributes name: params[:name], username: params[:username], email: params[:email]
 
-    school = School.find params[:school_id]
-    if school.present?
-      puts "\n found school"
+    # incoming request
+
+    # var data = {
+    #   name: this.state.name,
+    #   username: this.state.username,
+    #   email: this.state.email,
+    #   password: this.state.password,
+    #   password_confirmation: this.state.passwordConfirmation,
+    #   school_id: this.state.selectedSchool.id,
+    #   school_options_do_not_apply: this.state.schoolOptionsDoNotApply
+    # }
+
+    params.permit(:name,
+                  :username,
+                  :email,
+                  :password,
+                  :password_confirmation,
+                  :school_options_do_not_apply,
+                  :school_id)
+
+    current_user.validate_username = true
+
+    school_indication_ok = true
+    puts "params[:school_options_do_not_apply] : #{params[:school_options_do_not_apply]}"
+    if params[:school_options_do_not_apply] == 'false'
+      puts 'school options DO aply'
+      if params[:school_id].nil?
+        school_indication_ok = false
+        render json: {school: "can't be blank"}
+      else
+        (current_user.schools << School.find(params[:school_id])) unless current_user.schools.where(id: params[:school_id]).any?
+      end
     else
-      puts "\n did not find school"
+      puts 'school options DONT apply'
     end
-    (current_user.schools << School.find(params[:school_id])) unless params[:school_id].nil?
 
+    puts "\n current user schools : "
+    puts "\n #{current_user.schools.to_json}"
+
+    if school_indication_ok
+      if current_user.update_attributes(username: params[:username],
+                                        email: params[:email],
+                                        name: params[:name],
+                                        password: params[:password],
+                                        password_confirmation: params[:password_confirmation])
+        render json: current_user
+      else
+        render json: current_user.errors
+      end
+    end
+  end
+
+  def delete_my_account
+    sign_out
+    #User.find(params[:id]).destroy
     render json: {}
   end
 

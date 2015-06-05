@@ -9,13 +9,33 @@
     .form-label, input {
       height: 40px;
       line-height: 40px;
+      float:left;
+      clear:none;
     }
     select, input {
       width: 100%;
     }
   }
+  input[type='checkbox'] {
+    height: 40px;
+    margin: 0px !important;
+  }
+
   button {
     color: white;
     margin-top: 30px;
+  }
+  button.get-premium {
+    margin-top: 0px;
+    background-color: #EA9A1A;
+  }
+  .row.school-checkbox {
+    //padding-top: 0 !important;
+    //padding-bottom: 0 !important;
+
+  }
+  .delete-account {
+    pointer: cursor !important;
+    color: #027360;
   }
 }

@@ -28,6 +28,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'my_account' => 'classroom_manager#my_account'
     get 'my_account_data' => 'classroom_manager#my_account_data'
     put 'update_my_account' => 'classroom_manager#update_my_account'
+    delete 'delete_my_account' => 'classroom_manager#delete_my_account'
 
 
     namespace :progress_reports do
