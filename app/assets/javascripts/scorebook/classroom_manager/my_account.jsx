@@ -15,10 +15,12 @@ EC.MyAccount = React.createClass({
       email: '',
       isSaving: false,
       selectedSchool: null,
+      originalSelectedSchool: null,
       schoolOptions: [],
       schoolOptionsDoNotApply: false,
       password: null,
-      passwordConfirmation: null
+      passwordConfirmation: null,
+      errors: {}
     });
   },
   componentDidMount: function () {
@@ -49,7 +51,8 @@ EC.MyAccount = React.createClass({
       name: data.user.name,
       username: data.user.username,
       email: data.user.email,
-      selectedSchool: schoolData
+      selectedSchool: schoolData,
+      originalSelectedSchoolId: schoolData.id
     });
   },
   displayHeader: function () {
@@ -87,6 +90,7 @@ EC.MyAccount = React.createClass({
       password: this.state.password,
       password_confirmation: this.state.passwordConfirmation,
       school_id: this.state.selectedSchool.id,
+      original_selected_school_id: this.state.originalSelectedSchoolId,
       school_options_do_not_apply: this.state.schoolOptionsDoNotApply
     }
     $.ajax({
@@ -99,14 +103,17 @@ EC.MyAccount = React.createClass({
   uponUpdateAttempt: function (data) {
     console.log('uponj update attempt', data);
     this.setState({isSaving: false});
-    if (data.user != null) {
+    if (data.errors == null) {
       // name may have been capitalized on back-end
+      data.errors = {};
       this.setState({
         name: data.user.name,
       });
-    } else {
-
     }
+    this.setState({errors: data.errors});
+  },
+  displayErrors: function (errors) {
+    this.setState({errors: errors});
   },
   updateSchool: function (school) {
     this.setState({selectedSchool: school});
@@ -192,6 +199,9 @@ EC.MyAccount = React.createClass({
               <div className='col-xs-4'>
                 <input ref='name' onChange={this.updateName} value={this.state.name}/>
               </div>
+              <div className='col-xs-4 error'>
+                {this.state.errors.name}
+              </div>
             </div>
             <div className='row'>
               <div className='form-label col-xs-2'>
@@ -199,6 +209,9 @@ EC.MyAccount = React.createClass({
               </div>
               <div className='col-xs-4'>
                 <input ref='username' onChange={this.updateUsername} value={this.state.username}/>
+              </div>
+              <div className='col-xs-4 error'>
+                {this.state.errors.username}
               </div>
             </div>
             <div className='row'>
@@ -208,6 +221,9 @@ EC.MyAccount = React.createClass({
               <div className='col-xs-4'>
                 <input ref='email' onChange={this.updateEmail} value={this.state.email}/>
               </div>
+              <div className='col-xs-4 error'>
+                {this.state.errors.email}
+              </div>
             </div>
             <div className='row'>
               <div className='form-label col-xs-2'>
@@ -216,6 +232,9 @@ EC.MyAccount = React.createClass({
               <div className='col-xs-4'>
                 <input ref='password' onChange={this.updatePassword} placeholder="Input New Password"/>
               </div>
+              <div className='col-xs-4 error'>
+                {this.state.errors.password}
+              </div>
             </div>
             <div className='row'>
               <div className='form-label col-xs-2'>
@@ -223,8 +242,11 @@ EC.MyAccount = React.createClass({
               <div className='col-xs-4'>
                 <input ref='passwordConfirmation' onChange={this.updatePasswordConfirmation} placeholder="Re-Enter New Password"/>
               </div>
+              <div className='col-xs-4 error'>
+                {this.state.errors.password_confirmation}
+              </div>
             </div>
-            <EC.SelectSchool selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
+            <EC.SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
 
             <div className='row school-checkbox'>
               <div className='form-label col-xs-2'>
