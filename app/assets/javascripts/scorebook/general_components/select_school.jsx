@@ -56,6 +56,9 @@ EC.SelectSchool = React.createClass({
             {schoolOptions}
           </select>
         </div>
+        <div className='col-xs-4 error'>
+          {this.props.errors}
+        </div>
       </div>
     );
   }

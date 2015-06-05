@@ -111,26 +111,25 @@ class Teachers::ClassroomManagerController < ApplicationController
                   :password,
                   :password_confirmation,
                   :school_options_do_not_apply,
-                  :school_id)
+                  :school_id,
+                  :original_selected_school_id)
 
     current_user.validate_username = true
 
     school_indication_ok = true
-    puts "params[:school_options_do_not_apply] : #{params[:school_options_do_not_apply]}"
     if params[:school_options_do_not_apply] == 'false'
-      puts 'school options DO aply'
-      if params[:school_id].nil?
+      if params[:school_id].nil? or params[:school_id].length == 0
         school_indication_ok = false
-        render json: {school: "can't be blank"}
+        render json: {errors: {school: "can't be blank"}}
       else
+        if !(params[:original_selected_school_id].nil? or params[:original_selected_school_id].length == 0)
+          if params[:original_selected_school_id] != params[:school_id]
+            current_user.schools.delete(School.find(params[:school_id])) # this will not destroy the school, just the assocation to this user
+          end
+        end
         (current_user.schools << School.find(params[:school_id])) unless current_user.schools.where(id: params[:school_id]).any?
       end
-    else
-      puts 'school options DONT apply'
     end
-
-    puts "\n current user schools : "
-    puts "\n #{current_user.schools.to_json}"
 
     if school_indication_ok
       if current_user.update_attributes(username: params[:username],
@@ -140,7 +139,7 @@ class Teachers::ClassroomManagerController < ApplicationController
                                         password_confirmation: params[:password_confirmation])
         render json: current_user
       else
-        render json: current_user.errors
+        render json: {errors: current_user.errors}
       end
     end
   end

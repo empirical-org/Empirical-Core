@@ -6,7 +6,7 @@
   }
   .row {
     padding: 10px;
-    .form-label, input {
+    .form-label, input, .error {
       height: 40px;
       line-height: 40px;
       float:left;
@@ -35,7 +35,10 @@
 
   }
   .delete-account {
-    pointer: cursor !important;
+    cursor: pointer;
     color: #027360;
+  }
+  .error {
+    color: red;
   }
 }
