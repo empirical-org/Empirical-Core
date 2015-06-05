@@ -85,4 +85,57 @@ module Teacher
 
     [all, is_last_page]
   end
+
+  def update_teacher params
+    return if !self.teacher?
+    params.permit(:id,
+                  :name,
+                  :role,
+                  :username,
+                  :email,
+                  :password,
+                  :password_confirmation,
+                  :school_options_do_not_apply,
+                  :school_id,
+                  :original_selected_school_id)
+
+    self.validate_username = true
+
+    are_there_school_related_errors = false
+    if params[:school_options_do_not_apply] == 'false'
+      if params[:school_id].nil? or params[:school_id].length == 0
+        are_there_school_related_errors = true
+      else
+        if !(params[:original_selected_school_id].nil? or params[:original_selected_school_id].length == 0)
+          if params[:original_selected_school_id] != params[:school_id]
+            self.schools.delete(School.find(params[:school_id])) # this will not destroy the school, just the assocation to this user
+          end
+        end
+        (self.schools << School.find(params[:school_id])) unless self.schools.where(id: params[:school_id]).any?
+      end
+    end
+
+    if !are_there_school_related_errors
+      if self.update_attributes(username: params[:username],
+                                        email: params[:email],
+                                        name: params[:name],
+                                        password: params[:password],
+                                        password_confirmation: params[:password_confirmation],
+                                        role: params[:role])
+        are_there_non_school_related_errors = false
+      else
+        are_there_non_school_related_errors = true
+      end
+    end
+
+
+    if are_there_school_related_errors
+      response = {errors: {school: "can't be blank"}}
+    elsif are_there_non_school_related_errors
+      response = {errors: self.errors}
+    else
+      response = self
+    end
+    response
+  end
 end

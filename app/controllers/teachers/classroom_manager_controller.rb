@@ -105,48 +105,13 @@ class Teachers::ClassroomManagerController < ApplicationController
     #   school_options_do_not_apply: this.state.schoolOptionsDoNotApply
     # }
 
-    params.permit(:name,
-                  :username,
-                  :email,
-                  :password,
-                  :password_confirmation,
-                  :school_options_do_not_apply,
-                  :school_id,
-                  :original_selected_school_id)
-
-    current_user.validate_username = true
-
-    school_indication_ok = true
-    if params[:school_options_do_not_apply] == 'false'
-      if params[:school_id].nil? or params[:school_id].length == 0
-        school_indication_ok = false
-        render json: {errors: {school: "can't be blank"}}
-      else
-        if !(params[:original_selected_school_id].nil? or params[:original_selected_school_id].length == 0)
-          if params[:original_selected_school_id] != params[:school_id]
-            current_user.schools.delete(School.find(params[:school_id])) # this will not destroy the school, just the assocation to this user
-          end
-        end
-        (current_user.schools << School.find(params[:school_id])) unless current_user.schools.where(id: params[:school_id]).any?
-      end
-    end
-
-    if school_indication_ok
-      if current_user.update_attributes(username: params[:username],
-                                        email: params[:email],
-                                        name: params[:name],
-                                        password: params[:password],
-                                        password_confirmation: params[:password_confirmation])
-        render json: current_user
-      else
-        render json: {errors: current_user.errors}
-      end
-    end
+    response = current_user.update_teacher params
+    render json: response
   end
 
   def delete_my_account
     sign_out
-    #User.find(params[:id]).destroy
+    User.find(params[:id]).destroy
     render json: {}
   end
 

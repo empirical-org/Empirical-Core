@@ -31,3 +31,7 @@
 //= require review_questions
 //= require rule_question_page
 
+//= require lodash.min.js
+//= require underscore.string
+
+//= require es5-shim/es5-shim
