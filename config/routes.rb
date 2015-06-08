@@ -6,7 +6,7 @@ EmpiricalGrammar::Application.routes.draw do
   # authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   # end
-
+  resources :subscriptions
   resources :assessments
   resources :assignments
   resource :profile

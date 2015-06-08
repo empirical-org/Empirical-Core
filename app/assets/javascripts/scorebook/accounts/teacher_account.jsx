@@ -24,8 +24,8 @@ $(function () {
 
 EC.TeacherAccount = React.createClass({
   getInitialState: function () {
-    console.log('in intiial state, props: ', this.props);
     return ({
+      id: null,
       name: '',
       username: '',
       email: '',
@@ -37,7 +37,9 @@ EC.TeacherAccount = React.createClass({
       role: null,
       password: null,
       passwordConfirmation: null,
-      errors: {}
+      errors: {},
+      subscription: {id: null, expiration: null, account_limit: null},
+      subscriptionType: 'free'
     });
   },
   componentDidMount: function () {
@@ -53,7 +55,6 @@ EC.TeacherAccount = React.createClass({
     });
   },
   populateData: function (data) {
-    console.log('data',data)
     var school = data.user.schools[0];
     var schoolData;
     if (school == null) {
@@ -68,15 +69,28 @@ EC.TeacherAccount = React.createClass({
       // couldnt get react to re-render the default value of zipcode based on state change so have to use the below
       $('input.zip-input').val(school.zipcode);
     };
+    var subscriptionType, subscription;
+    if (data.user.subscriptions.length == 0) {
+      subscriptionType = 'free';
+      subscription = {
+        id: null,
+        expiration: '2016-01-01',
+        account_limit: null
+      }
+    } else {
+      subscriptionType = 'premium';
+      subscription = data.user.subscriptions[0];
+    }
     this.setState({
       id: data.user.id,
       name: data.user.name,
       username: data.user.username,
       email: data.user.email,
-      subscription: data.user.subscription,
       role: data.user.role,
       selectedSchool: schoolData,
-      originalSelectedSchoolId: schoolData.id
+      originalSelectedSchoolId: schoolData.id,
+      subscription: subscription,
+      subscriptionType: subscriptionType
     });
   },
   displayHeader: function () {
@@ -95,9 +109,6 @@ EC.TeacherAccount = React.createClass({
   updateEmail: function () {
     var x = $(this.refs.email.getDOMNode()).val();
     this.setState({email: x});
-  },
-  updateSubscription: function (subscription) {
-    this.setState({subscription: subscription})
   },
   determineSaveButtonClass: function () {
     var className;
@@ -119,8 +130,7 @@ EC.TeacherAccount = React.createClass({
       password_confirmation: this.state.passwordConfirmation,
       school_id: this.state.selectedSchool.id,
       original_selected_school_id: this.state.originalSelectedSchoolId,
-      school_options_do_not_apply: this.state.schoolOptionsDoNotApply,
-      subscription: this.state.subscription
+      school_options_do_not_apply: this.state.schoolOptionsDoNotApply
     }
     var url;
     if (this.props.userType == 'admin') {
@@ -136,7 +146,6 @@ EC.TeacherAccount = React.createClass({
     });
   },
   uponUpdateAttempt: function (data) {
-    console.log('uponj update attempt', data);
     this.setState({isSaving: false});
     if (data.errors == null) {
       // name may have been capitalized on back-end
@@ -144,8 +153,63 @@ EC.TeacherAccount = React.createClass({
       this.setState({
         name: data.user.name,
       });
+      this.saveSubscription();
     }
     this.setState({errors: data.errors});
+  },
+
+  saveSubscription: function () {
+    if (this.state.subscriptionType == 'free') {
+      if (this.state.subscription.id != null) {
+        this.destroySubscription()
+      }
+    } else if (this.state.subscriptionType == 'premium') {
+      if (this.state.subscription.id == null) {
+        this.createSubscription();
+      } else {
+        this.updateSubscription();
+      }
+    }
+  },
+  createSubscription: function () {
+    $.ajax({
+      type: 'POST',
+      url: '/subscriptions',
+      data: {user_id: this.state.id, expiration: this.state.subscription.expiration, account_limit: this.state.subscription.account_limit},
+      success: this.uponSaveSubscription
+    });
+  },
+  updateSubscription: function () {
+    $.ajax({
+      type: 'PUT',
+      url: '/subscriptions/' + this.state.subscription.id,
+      data: {expiration: this.state.subscription.expiration, account_limit: this.state.subscription.account_limit},
+      success: this.uponSaveSubscription
+    })
+  },
+  uponSaveSubscription: function (data) {
+    this.setState({subscription: data.subscription});
+  },
+  destroySubscription: function () {
+    console.log('going to destroy subscription')
+    var that = this;
+    $.ajax({
+      type: 'DELETE',
+      url: '/subscriptions/' + this.state.subscription.id
+    }).done(function () {
+      var subscription = {
+        id: null,
+        account_limit: null,
+        expiration: null
+      }
+      that.setState({subscription: subscription});
+    });
+  },
+  updateSubscriptionState: function (subscription) {
+    this.setState({subscription: subscription});
+  },
+  updateSubscriptionType: function (type) {
+    this.setState({subscriptionType: type});
   },
   displayErrors: function (errors) {
     this.setState({errors: errors});
@@ -154,7 +218,6 @@ EC.TeacherAccount = React.createClass({
     this.setState({selectedSchool: school});
   },
   requestSchools: function (zip) {
-    console.log('populate schools', zip);
     $.ajax({
       url: '/schools.json',
       data: {zipcode: zip},
@@ -162,7 +225,6 @@ EC.TeacherAccount = React.createClass({
     });
   },
   populateSchools: function (data) {
-    console.log('schools', data)
     this.setState({schoolOptions: data});
   },
   attemptDeleteAccount: function () {
@@ -180,7 +242,6 @@ EC.TeacherAccount = React.createClass({
   updateSchoolOptionsDoNotApply: function () {
     var x = $(this.refs.schoolOptionsDoNotApply.getDOMNode()).attr('checked');
     var schoolOptionsDoNotApply;
-    console.log('checked', x);
 
     if (x == 'checked') {
       schoolOptionsDoNotApply = true;
@@ -188,17 +249,6 @@ EC.TeacherAccount = React.createClass({
       schoolOptionsDoNotApply = false;
     }
     this.setState({schoolOptionsDoNotApply: schoolOptionsDoNotApply});
-  },
-  updateSubscribedToNewsletter: function () {
-    var x = $(this.refs.subscribedToNewsletter.getDOMNode()).attr('checked');
-    var subscribedToNewsletter;
-    console.log('checked', x);
-    if (x == 'checked') {
-      subscribedToNewsletter = true;
-    } else {
-      subscribedToNewsletter = false;
-    }
-    this.setState({subscribedToNewsletter: subscribedToNewsletter});
   },
   determineIfSchoolOptionsDoNotApplyShouldBeChecked: function () {
     var value;
@@ -224,7 +274,10 @@ EC.TeacherAccount = React.createClass({
     var selectRole, subscription;
     if (this.props.userType == 'admin') {
       selectRole = <EC.SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
-      subscription = <EC.SelectSubscription userId={this.state.id} />
+      subscription = <EC.SelectSubscription subscription={this.state.subscription}
+                                            subscriptionType={this.state.subscriptionType}
+                                            updateSubscriptionType={this.updateSubscriptionType}
+                                            updateSubscriptionState={this.updateSubscriptionState} />
     } else {
       selectRole = null;
       subscription = (
