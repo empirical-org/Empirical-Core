@@ -14,6 +14,8 @@ article.simple-rounded-box.cms
     = f.search_field :schools_city_cont
     = f.label :classroom_code_cont
     = f.search_field :classroom_code_cont
+    = f.label :subscriptions_id_present, 'has premium'
+    = f.check_box :subscriptions_id_present
     = f.submit class: 'btn btn-primary btn-mid'
 
   table.table.table-stripe.table-hover-row
@@ -22,6 +24,8 @@ article.simple-rounded-box.cms
       th Email
       th Role
       th Class
+      th School
+      th Subscription
       th
       th
 
@@ -35,6 +39,11 @@ article.simple-rounded-box.cms
           td= user.email
           td class="role-#{user.role}"= user.role[0]
           td= user.classcode
+          td= user.schools.any? ? user.schools.first.name : ''
+          - if user.subscriptions.any?
+            td= "#{user.subscriptions.first.account_limit} accounts"
+          - else
+            td Free
           - if current_user.admin?
             td= link_to 'Edit', edit_cms_user_path(user)
             td= link_to 'Details', cms_user_path(user)
