@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
-  has_one :subscription
+  has_many :subscriptions
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 

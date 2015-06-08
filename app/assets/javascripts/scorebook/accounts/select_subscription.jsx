@@ -3,44 +3,29 @@ lets just update subscription through our own ajax pathway here, to the subscrip
 */
 
 EC.SelectSubscription = React.createClass({
-  getInitialState: function () {
-    return ({
-      id: null,
-      expiration: null,
-      accountLimit: null
-    });
+  updateSubscriptionType: function () {
+    var value = $(this.refs.select.getDOMNode()).val();
+    this.props.updateSubscriptionType(value);
   },
-  componentDidMount: function () {
-    $.ajax({
-      url: '/users/' + this.props.userId + '/subscription'
-    }).done(function (data) {
-      this.setState({id: data.id, expiration: data.expiration, accountLimit: data.account_limit});
-    });
+  updateExpiration: function (newDate) {
+    //  YYYY-MM-DD
+    subscription = this.props.subscription;
+    subscription.expiration = newDate;
+    this.props.updateSubscriptionState(subscription);
   },
-  createOrDestroySubscription: function () {
-    var x = $(this.refs.select.getDOMNode()).val();
-    if (x == 'free') {
-      this.destroySubscription();
+  updateSubscriptionAccountLimit: function () {
+    var value, accountLimit;
+    value = $(this.refs.accountLimit.getDOMNode()).val();
+    subscription = this.props.subscription;
+    subscription.account_limit = value;
+    this.props.updateSubscriptionState(subscription);
+  },
+  getErrors: function (type) {
+    if (this.props.subscription.errors != null) {
+      return this.props.subscription.errors[type]
     } else {
-      this.createSubscription();
+      return null;
     }
-  },
-  createSubscription: function () {
-    var expiration, accountLimit;
-    expiration = null;
-    accountLimit = null;
-    $.ajax({
-      type: 'POST',
-      url: '/users/' + this.props.userId + '/subscription',
-      data: {expiration: expiration, account_limit: accountLimit}
-    });
-  },
-  destroySubscription: function () {
-    $.ajax({
-      type: 'POST',
-      url: '/users/' + this.props.userId + '/subscription',
-      data: {id: this.state.id}
-    });
   },
   render: function () {
     var optionStrings = ['free', 'premium'];
@@ -48,16 +33,37 @@ EC.SelectSubscription = React.createClass({
       return <option key={optionString} value={optionString}>{optionString}</option>;
     });
     return (
-      <div className='row'>
-        <div className='col-xs-2 form-label'>
-          Status
+      <span>
+        <div className='row'>
+          <div className='col-xs-2 form-label'>
+            Status
+          </div>
+          <div className='col-xs-4'>
+            <select ref='select' onChange={this.updateSubscriptionType} value={this.props.subscriptionType}>
+              {options}
+            </select>
+          </div>
         </div>
-        <div className='col-xs-4'>
-          <select ref='select' onChange={this.createOrDestroySubscription} value={this.props.subscription}>
-            {options}
-          </select>
+        <div className='row'>
+          <div className='col-xs-2 form-label'>
+            Expiration
+          </div>
+
+          <EC.DropdownDateSelector date={this.props.subscription.expiration} updateDate={this.updateExpiration}/>
+
         </div>
-      </div>
+        <div className='row'>
+          <div className='col-xs-2 form-label'>
+            Account Limit
+          </div>
+          <div className='col-xs-4'>
+            <input ref='accountLimit' value={this.props.subscription.account_limit} onChange={this.updateSubscriptionAccountLimit}/>
+          </div>
+          <div className='col-xs-2 error'>
+            {this.getErrors('account_limit')}
+          </div>
+        </div>
+      </span>
     );
   }
 });
