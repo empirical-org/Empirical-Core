@@ -110,7 +110,6 @@ class User < ActiveRecord::Base
   end
 
   def capitalize_name
-    puts 'capitalize name being called'
     result = name
     if name.present?
       f,l = name.split(/\s+/)
@@ -121,7 +120,6 @@ class User < ActiveRecord::Base
       end
     end
     self.name = result
-    puts "\n now name is : \n #{self.name}"
   end
 
   def self.for_standards_report(teacher, filters)

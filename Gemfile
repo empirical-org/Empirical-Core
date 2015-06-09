@@ -18,7 +18,7 @@ gem 'postgres_ext'
 
 # USER AUTH, ETC
 gem 'bcrypt'
-gem 'doorkeeper'
+gem 'doorkeeper', '1.4.1' # must use 4.1.1 or > 2.0.0 - http://seclists.org/oss-sec/2014/q4/1076
 gem 'omniauth'
 gem 'omniauth-clever'
 gem 'cancancan'
