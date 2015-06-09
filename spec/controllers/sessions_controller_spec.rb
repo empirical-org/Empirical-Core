@@ -3,6 +3,7 @@ require 'rails_helper'
 describe SessionsController, :type => :controller do
   before do
     User.create(email: 'student@quill.org',
+                name: 'John Smith',
                 username: 'student1',
                 password: '12345',
                 password_confirmation: '12345',

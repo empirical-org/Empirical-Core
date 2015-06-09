@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include Student, Teacher
 
-  attr_accessor :validate_username
+  attr_accessor :validate_username, :require_password_confirmation_when_password_present
 
   before_save :capitalize_name
 
@@ -338,7 +338,7 @@ private
   end
 
   def requires_password_confirmation?
-    password.present?
+    require_password_confirmation_when_password_present.present? || (requires_password? && password.present?)
   end
 
   # FIXME: may not be being called anywhere

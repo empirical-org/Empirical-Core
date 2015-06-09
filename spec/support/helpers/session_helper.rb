@@ -1,6 +1,7 @@
 module SessionHelper
   def user_params hash = {}
     {
+      name: 'John Smith',
       email: 'user@example.com',
       password: '123456',
       password_confirmation: '123456',
