@@ -1,4 +1,4 @@
-article.simple-rounded-box.cms
+article.simple-rounded-box.cms.cms-user-index
   h1 Directory
   = search_form_for @q, url: search_cms_users_path,
                         html: { method: :post, class: 'searchable' } do |f|
@@ -17,15 +17,16 @@ article.simple-rounded-box.cms
     = f.label :subscriptions_id_present, 'has premium'
     = f.check_box :subscriptions_id_present
     = f.submit class: 'btn btn-primary btn-mid'
-
-  table.table.table-stripe.table-hover-row
+  br
+  br
+  table.table.table-stripe.table-hover-row.cms-user-index-table
     tr
       th Name
       th Email
       th Role
       th Class
       th School
-      th Subscription
+      th Premium
       th
       th
 
@@ -43,7 +44,7 @@ article.simple-rounded-box.cms
           - if user.subscriptions.any?
             td= "#{user.subscriptions.first.account_limit} accounts"
           - else
-            td Free
+            td -
           - if current_user.admin?
             td= link_to 'Edit', edit_cms_user_path(user)
             td= link_to 'Details', cms_user_path(user)
