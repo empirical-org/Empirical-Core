@@ -23,6 +23,10 @@ $(function () {
 });
 
 EC.TeacherAccount = React.createClass({
+  propTypes: {
+    userType: React.PropTypes.string.isRequired,
+    teacherId: React.PropTypes.number
+  },
   getInitialState: function () {
     return ({
       id: null,
@@ -34,11 +38,11 @@ EC.TeacherAccount = React.createClass({
       originalSelectedSchool: null,
       schoolOptions: [],
       schoolOptionsDoNotApply: false,
-      role: null,
+      role: 'teacher',
       password: null,
       passwordConfirmation: null,
       errors: {},
-      subscription: {id: null, expiration: null, account_limit: null},
+      subscription: {id: null, expiration: '2016-01-01', account_limit: null},
       subscriptionType: 'free'
     });
   },
@@ -153,7 +157,9 @@ EC.TeacherAccount = React.createClass({
       this.setState({
         name: data.user.name,
       });
-      this.saveSubscription();
+      if (this.props.userType == 'admin') {
+        this.saveSubscription();
+      }
     }
     this.setState({errors: data.errors});
   },
@@ -211,9 +217,6 @@ EC.TeacherAccount = React.createClass({
   updateSubscriptionType: function (type) {
     this.setState({subscriptionType: type});
   },
-  displayErrors: function (errors) {
-    this.setState({errors: errors});
-  },
   updateSchool: function (school) {
     this.setState({selectedSchool: school});
   },
@@ -259,14 +262,6 @@ EC.TeacherAccount = React.createClass({
     }
     return value;
   },
-  transformDate: function (string) {
-    var year, month, day, newString;
-    year = string.slice(0,4)
-    month = string.slice(5,7)
-    day = string.slice(8,10)
-    newString = month + "/" + day + "/" + year;
-    return newString;
-  },
   updatePassword: function () {
     var password = $(this.refs.password.getDOMNode()).val()
     this.setState({password: password});
@@ -288,49 +283,8 @@ EC.TeacherAccount = React.createClass({
                                             updateSubscriptionState={this.updateSubscriptionState} />
     } else {
       selectRole = null;
-      var getPremium, subscriptionDetails;
-      if (this.state.subscriptionType == 'free') {
-        getPremium = (
-          <div className='col-xs-3'>
-            <a href="http://quill.org/premium" target="_new">
-              <button className='get-premium'>Get Premium</button>
-            </a>
-          </div>);
-        subscriptionDetails = null;
-      } else {
-        getPremium = null;
-        subscriptionDetails = (
-            <span className='gray-text'>
-              <div className='row'>
-                <div className='col-xs-2'></div>
-                <div className='col-xs-3'>
-                  {"Expires:     " + this.transformDate(this.state.subscription.expiration)}
-                </div>
-              </div>
-              <div className='row'>
-                <div className='col-xs-2'></div>
-                <div className='col-xs-3'>
-                  {"Accounts:       " + this.state.subscription.account_limit + " students"}
-                </div>
-              </div>
-            </span>
-          );
-      }
-      subscription = (
-        <span>
-          <div className='row'>
-            <div className='form-label col-xs-2'>
-              Status
-            </div>
-            <div className='col-xs-2'>
-              <input disabled className='inactive' value={this.state.subscriptionType}/>
-            </div>
-            {getPremium}
-
-          </div>
-          {subscriptionDetails}
-        </span>
-      );
+      subscription = <EC.StaticDisplaySubscription subscriptionType={this.state.subscriptionType}
+                                                   subscription={this.state.subscription} />
     }
     return (
       <div className='container'>
@@ -382,7 +336,7 @@ EC.TeacherAccount = React.createClass({
                 Password
               </div>
               <div className='col-xs-4'>
-                <input ref='password' onChange={this.updatePassword} placeholder="Input New Password"/>
+                <input type='password' ref='password' onChange={this.updatePassword} placeholder="Input New Password"/>
               </div>
               <div className='col-xs-4 error'>
                 {this.state.errors.password}
@@ -392,7 +346,7 @@ EC.TeacherAccount = React.createClass({
               <div className='form-label col-xs-2'>
               </div>
               <div className='col-xs-4'>
-                <input ref='passwordConfirmation' onChange={this.updatePasswordConfirmation} placeholder="Re-Enter New Password"/>
+                <input type='password' ref='passwordConfirmation' onChange={this.updatePasswordConfirmation} placeholder="Re-Enter New Password"/>
               </div>
               <div className='col-xs-4 error'>
                 {this.state.errors.password_confirmation}

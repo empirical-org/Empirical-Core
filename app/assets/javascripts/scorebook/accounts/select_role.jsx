@@ -1,10 +1,15 @@
+'use strict';
 EC.SelectRole = React.createClass({
+  propTypes: {
+    role: React.PropTypes.string.isRequired,
+    updateRole: React.PropTypes.func.isRequired
+  },
   updateRole: function () {
     var x = $(this.refs.select.getDOMNode()).val();
     this.props.updateRole(x);
   },
   render: function () {
-    options = _.map(['teacher', 'student', 'admin'], function (role) {
+    var options = _.map(['teacher', 'student', 'admin'], function (role) {
       return <option key={role} value={role}>{role}</option>;
     });
     return (

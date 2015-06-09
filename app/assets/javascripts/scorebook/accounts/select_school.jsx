@@ -1,17 +1,11 @@
-/*
-used in teacher-facing teacher-account editor
-and in admin-facing teacher-account editor
-*/
+'use strict';
 EC.SelectSchool = React.createClass({
   propTypes: {
     updateSchool: React.PropTypes.func.isRequired,
-    requestSchools: React.PropTypes.func.isRequired
-  },
-
-  getInitialState: function () {
-    return ({
-      schoolOptions: []
-    });
+    requestSchools: React.PropTypes.func.isRequired,
+    selectedSchool: React.PropTypes.object,
+    schoolOptions: React.PropTypes.array,
+    errors: React.PropTypes.array
   },
   updateZip: function () {
     var zip = $(this.refs.zip.getDOMNode()).val();
@@ -26,15 +20,16 @@ EC.SelectSchool = React.createClass({
     } else {
       zip = this.props.selectedSchool.zipcode;
     }
-    console.log('determineDefaultZip', zip)
     return zip;
   },
   selectOption: function () {
-    console.log('select opotin');
-    var x = $(this.refs.select.getDOMNode()).val();
-    this.props.updateSchool(x);
+    var schoolId, schoolObject;
+    schoolId = $(this.refs.select.getDOMNode()).val();
+    schoolObject = _.findWhere(this.props.schoolOptions, {id: parseInt(schoolId)});
+    this.props.updateSchool(schoolObject);
   },
   render: function () {
+    console.log('this.props', this.props)
     var schoolOptions;
     var initialValue;
     if (this.props.schoolOptions.length == 0) {
@@ -47,12 +42,11 @@ EC.SelectSchool = React.createClass({
       if (this.props.selectedSchool != null) {
         initialValue = this.props.selectedSchool.id;
       } else {
-        var defaultOption = <option value="choose">Choose Your School</option>;
-        initialValue = "choose"
+        var defaultOption = <option key='choose' value="choose">Choose Your School</option>;
+        initialValue = "choose";
         schoolOptions.unshift(defaultOption);
       }
     }
-
     return (
       <div className='row'>
         <div className='form-label col-xs-2'>
