@@ -1,14 +1,18 @@
-/*
-lets just update subscription through our own ajax pathway here, to the subscriptions controller
-*/
-
+'use strict';
 EC.SelectSubscription = React.createClass({
+  propTypes: {
+    subscription: React.PropTypes.object.isRequired,
+    updateSubscriptionState: React.PropTypes.func.isRequired,
+    subscriptionType: React.PropTypes.string.isRequired,
+    updateSubscriptionType: React.PropTypes.func.isRequired
+  },
   updateSubscriptionType: function () {
     var value = $(this.refs.select.getDOMNode()).val();
     this.props.updateSubscriptionType(value);
   },
   updateExpiration: function (newDate) {
     //  YYYY-MM-DD
+    var subscription;
     subscription = this.props.subscription;
     subscription.expiration = newDate;
     this.props.updateSubscriptionState(subscription);

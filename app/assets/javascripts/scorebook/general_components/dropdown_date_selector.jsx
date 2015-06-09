@@ -1,5 +1,9 @@
 'use strict';
 EC.DropdownDateSelector = React.createClass({
+  propTypes : {
+    date: React.PropTypes.string.isRequired,
+    updateDate: React.PropTypes.func.isRequired
+  },
   getDateParts: function () {
     var dateParts, year, month, day;
     if (this.props.date != null) {
