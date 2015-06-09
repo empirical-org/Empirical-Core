@@ -259,6 +259,14 @@ EC.TeacherAccount = React.createClass({
     }
     return value;
   },
+  transformDate: function (string) {
+    var year, month, day, newString;
+    year = string.slice(0,4)
+    month = string.slice(5,7)
+    day = string.slice(8,10)
+    newString = month + "/" + day + "/" + year;
+    return newString;
+  },
   updatePassword: function () {
     var password = $(this.refs.password.getDOMNode()).val()
     this.setState({password: password});
@@ -280,20 +288,48 @@ EC.TeacherAccount = React.createClass({
                                             updateSubscriptionState={this.updateSubscriptionState} />
     } else {
       selectRole = null;
-      subscription = (
-        <div className='row'>
-          <div className='form-label col-xs-2'>
-            Status
-          </div>
-          <div className='col-xs-2'>
-            <input disabled className='inactive' value='Free'/>
-          </div>
+      var getPremium, subscriptionDetails;
+      if (this.state.subscriptionType == 'free') {
+        getPremium = (
           <div className='col-xs-3'>
             <a href="http://quill.org/premium" target="_new">
               <button className='get-premium'>Get Premium</button>
             </a>
+          </div>);
+        subscriptionDetails = null;
+      } else {
+        getPremium = null;
+        subscriptionDetails = (
+            <span className='gray-text'>
+              <div className='row'>
+                <div className='col-xs-2'></div>
+                <div className='col-xs-3'>
+                  {"Expires:     " + this.transformDate(this.state.subscription.expiration)}
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col-xs-2'></div>
+                <div className='col-xs-3'>
+                  {"Accounts:       " + this.state.subscription.account_limit + " students"}
+                </div>
+              </div>
+            </span>
+          );
+      }
+      subscription = (
+        <span>
+          <div className='row'>
+            <div className='form-label col-xs-2'>
+              Status
+            </div>
+            <div className='col-xs-2'>
+              <input disabled className='inactive' value={this.state.subscriptionType}/>
+            </div>
+            {getPremium}
+
           </div>
-        </div>
+          {subscriptionDetails}
+        </span>
       );
     }
     return (
