@@ -100,6 +100,7 @@ module Teacher
                   :original_selected_school_id)
 
     self.validate_username = true
+    self.require_password_confirmation_when_password_present = true
 
     are_there_school_related_errors = false
     if params[:school_options_do_not_apply] == 'false'
