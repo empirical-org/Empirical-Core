@@ -34,3 +34,5 @@
 
 //= require jquery.turbolinks
 //= require jquery_ujs
+
+//= require crazy-egg
