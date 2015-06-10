@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   before_filter :signed_in!, only: [:destroy]
 
   def create
+    params[:user][:email].downcase! unless params[:user][:email].nil?
     if @user = User.authenticate(params[:user])
       sign_in(@user)
 
