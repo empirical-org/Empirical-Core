@@ -1,7 +1,0 @@
-%h2 Questions
-.accordion.question#comments-accordion-0
-  - for comment in @comments.models
-    - locals = comment: comment, title: comment.get('title'), body: comment.get('body'), id: comment.id, depth: comment.get('depth'), children: comment.get('children'), parent_id: 0
-    != JST['backbone/templates/comments/comment'](locals)
-
-  != JST['backbone/templates/comments/new_comment'](comment_type : "question", parent_id: 0)
