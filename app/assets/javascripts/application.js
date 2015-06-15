@@ -17,9 +17,6 @@
 //= require jsdiff
 //= require turbolinks
 //= require select2
-//= require counter
-//= require edit_in_place
-//= require home
 //= require loadingbutton
 //= require porthole
 //= require quill-core
