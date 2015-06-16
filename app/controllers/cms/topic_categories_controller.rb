@@ -1,4 +1,5 @@
 class CMS::TopicCategoriesController < ApplicationController
+  layout 'old'  
   before_action :set_topic_category, only: [:show, :edit, :update, :destroy]
 
   def index

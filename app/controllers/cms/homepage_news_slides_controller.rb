@@ -1,4 +1,5 @@
 class CMS::HomepageNewsSlidesController < CMS::BaseController
+  layout 'old'
   helper_method :subject
 
   protected

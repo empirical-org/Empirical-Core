@@ -70,8 +70,6 @@ class PagesController < ApplicationController
       'about'
     when 'premium_access'
       'premium'
-    else
-      'application'
     end
   end
 

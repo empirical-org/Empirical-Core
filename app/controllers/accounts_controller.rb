@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   before_filter :signed_in!, only: [:edit, :update]
+  layout 'old'
 
   def new
     @user = User.new(role: params[:as] || 'student')

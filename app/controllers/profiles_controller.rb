@@ -33,7 +33,7 @@ class ProfilesController < ApplicationController
 
       render 'student', layout: 'scorebook'
     else
-      render 'join-classroom'
+      render 'join-classroom', layout: 'old'
     end
   end
 
@@ -46,7 +46,7 @@ class ProfilesController < ApplicationController
   end
 
   def admin
-    render :admin
+    render :admin, :layout => 'old'
   end
 
 protected

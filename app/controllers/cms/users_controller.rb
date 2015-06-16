@@ -51,7 +51,7 @@ class CMS::UsersController < ApplicationController
     if action_name == 'edit' and (User.find(params[:id])).teacher?
       'scorebook'
     else
-      'application'
+      'old'
     end
   end
 
