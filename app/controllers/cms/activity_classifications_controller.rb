@@ -1,4 +1,6 @@
 class CMS::ActivityClassificationsController < ApplicationController
+  layout 'old'
+
   def index
     @activity_classifications = ActivityClassification.all
   end

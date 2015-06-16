@@ -1,4 +1,5 @@
 class CMS::TopicsController < ApplicationController
+  layout 'old' 
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
   def index
