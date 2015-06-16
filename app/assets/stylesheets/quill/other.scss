@@ -1,5 +1,4 @@
 body {
-  background-color: $skyblue;
   &.white-page { background-color: white }
 }
 
@@ -129,6 +128,7 @@ form.box-full-form .btn {
   }
 }
 
+// Used on users section of CMS
 form.searchable {
   label {
     float: left;
@@ -144,15 +144,4 @@ form.searchable {
 
   input {float: left; clear: right;}
   input[type="submit"].btn {float: left; clear: both;}
-}
-
-form#new_classroom {
-  label {
-    float: none; clear: none; display: inline;
-    position: relative; top: 1px; margin: 0 5px 0 10px;
-  }
-
-  select {width: 100px;}
-
-  .btn {position: relative; top: 0px; margin: 0 0 0 10px;}
 }
