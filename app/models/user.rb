@@ -338,7 +338,7 @@ private
   end
 
   def requires_password_confirmation?
-    require_password_confirmation_when_password_present.present? || (requires_password? && password.present?)
+    password.present? && (require_password_confirmation_when_password_present.present? || requires_password?)
   end
 
   # FIXME: may not be being called anywhere
