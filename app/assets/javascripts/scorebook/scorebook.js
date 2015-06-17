@@ -11,7 +11,6 @@
 //= require selecter.js
 //= require scorebook/custom
 
-//= require scorebook/lol.js
 //= require slick.js
 //= require tabslet.js
 
