@@ -18,7 +18,7 @@ gem 'postgres_ext'
 
 # USER AUTH, ETC
 gem 'bcrypt'
-gem 'doorkeeper', '1.4.1' # must use 4.1.1 or > 2.0.0 - http://seclists.org/oss-sec/2014/q4/1076
+gem 'doorkeeper', '1.4.1' # must use 1.4.1 or > 2.0.0 - http://seclists.org/oss-sec/2014/q4/1076
 gem 'omniauth'
 gem 'omniauth-clever'
 gem 'cancancan'
@@ -61,10 +61,9 @@ gem "active_model_serializers"
 
 # UI HELPERS
 gem 'sass'
-gem 'sass-rails', '4.0.2' #github: 'rails/sass-rails'
+gem 'sass-rails', github: 'rails/sass-rails'
 gem 'bootstrap-sass', '~> 2.1.1.0' # app is locked to bootstrap 2.1.0
 gem 'compass-rails'
-gem 'sprockets', '2.11.0'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
