@@ -33,7 +33,7 @@ class ProfilesController < ApplicationController
 
       render 'student', layout: 'scorebook'
     else
-      render 'join-classroom', layout: 'old'
+      render 'join-classroom', layout: 'scorebook'
     end
   end
 
