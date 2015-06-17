@@ -1,9 +1,8 @@
 'use strict';
 $(function () {
-  var ele1 = $('#my-account');
-  var ele2 = $('#admin-teacher-account-editor');
-  var props;
-  var ele;
+  var ele1, ele2, props, ele
+  ele1 = $('#my-account');
+  ele2 = $('#admin-teacher-account-editor');
   if (ele1.length > 0) {
     ele = ele1[0];
     props = {
@@ -25,7 +24,7 @@ $(function () {
 EC.TeacherAccount = React.createClass({
   propTypes: {
     userType: React.PropTypes.string.isRequired,
-    teacherId: React.PropTypes.number
+    teacherId: React.PropTypes.number.isRequired
   },
   getInitialState: function () {
     return ({
@@ -59,16 +58,18 @@ EC.TeacherAccount = React.createClass({
     });
   },
   populateData: function (data) {
-    var school = data.user.schools[0];
-    var schoolData;
+    var school, schoolData, originalSelectedSchoolId;
+    school = data.user.schools[0];
     if (school == null) {
       schoolData = null;
+      originalSelectedSchoolId = null;
     } else {
       schoolData = {
         id: school.id,
         text: school.name,
         zipcode: school.zipcode
       };
+      originalSelectedSchoolId = school.id;
       this.requestSchools(school.zipcode);
       // couldnt get react to re-render the default value of zipcode based on state change so have to use the below
       $('input.zip-input').val(school.zipcode);
@@ -92,7 +93,8 @@ EC.TeacherAccount = React.createClass({
       email: data.user.email,
       role: data.user.role,
       selectedSchool: schoolData,
-      originalSelectedSchoolId: schoolData.id,
+      originalSelectedSchoolId: originalSelectedSchoolId,
+      schoolOptionsDoNotApply: (originalSelectedSchoolId == null),
       subscription: subscription,
       subscriptionType: subscriptionType
     });
@@ -132,7 +134,7 @@ EC.TeacherAccount = React.createClass({
       role: this.state.role,
       password: this.state.password,
       password_confirmation: this.state.passwordConfirmation,
-      school_id: this.state.selectedSchool.id,
+      school_id: ((this.state.selectedSchool == null) ? null : this.state.selectedSchool.id),
       original_selected_school_id: this.state.originalSelectedSchoolId,
       school_options_do_not_apply: this.state.schoolOptionsDoNotApply
     }
