@@ -30,8 +30,7 @@
 *= require ./custom-whole-page.css.scss
 
 *= require ./rounded-box.css.scss
-*= require ./pages/activities.css.scss
-*= require ./pages/final_score_page.css.scss
+*= require_tree ./pages
 
 *= require_self
 

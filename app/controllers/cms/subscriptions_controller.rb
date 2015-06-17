@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  layout 'old'  
+  layout 'scorebook'  
   # does rails automatically pull user given that this is a nested resource?
   before_action :get_user
 

@@ -1,5 +1,5 @@
 class CMS::DataController < CMS::ActivitiesController
-  layout 'old'
+  layout 'scorebook'
 
   def show
     params[:id] = params[:activity_id]

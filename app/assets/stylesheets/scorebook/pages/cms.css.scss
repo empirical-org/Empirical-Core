@@ -1,0 +1,26 @@
+@import "../../variables";
+
+// Used on users section of CMS
+form.searchable {
+  label {
+    float: left;
+    clear: left;
+    position: relative; width: 215px;
+    top: 5px; margin-right: 10px;
+  }
+
+  div {
+    label {width: 90px;}
+    select {float: left; width: 115px; margin-right: 10px;}
+  }
+
+  input {float: left; clear: right;}
+  input[type="submit"].btn {float: left; clear: both;}
+}
+
+article.cms {
+  .role-admin, .role-student, .role-teacher, .role-user { font-weight: bold; }
+  .role-admin   { color: $missed-color }
+  .role-student { color: $found-color }
+  .role-teacher { color: $introduced-color }
+}

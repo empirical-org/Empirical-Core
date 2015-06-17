@@ -1,6 +1,7 @@
-article.simple-rounded-box
-  = form_for [:cms, @topic], html: { class: 'form-horizontal box-full-form' } do |f|
-    = f.string :name
-    = f.choices :section_id, Section.all.map{|t| [t.name, t.id]}
-    = f.choices :topic_category_id, TopicCategory.all.map{|t| [t.name, t.id]}
-    = f.actions
+.container
+  article.simple-rounded-box
+    = form_for [:cms, @topic], html: { class: 'form-horizontal box-full-form' } do |f|
+      = f.string :name
+      = f.choices :section_id, Section.all.map{|t| [t.name, t.id]}
+      = f.choices :topic_category_id, TopicCategory.all.map{|t| [t.name, t.id]}
+      = f.actions

@@ -1,5 +1,5 @@
 class CMS::FileUploadsController < CMS::BaseController
-  layout 'old'
+  layout 'scorebook'
   helper_method :subject
 
   protected
