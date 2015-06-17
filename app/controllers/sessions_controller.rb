@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   before_filter :signed_in!, only: [:destroy]
-  layout 'old'
+  layout 'scorebook'
 
   def create
     params[:user][:email].downcase! unless params[:user][:email].nil?
