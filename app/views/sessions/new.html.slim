@@ -1,13 +1,11 @@
 article.new-session-page
   h3.form-horizontal-header 
 
-  - if flash[:error]
-    .error-message.form-horizontal-header= flash[:error]
-
-
   .container
     .row
       .col-sm-6.col-md-4.col-md-offset-4
+        - if flash[:error]
+          .error-message.form-horizontal-header= flash[:error]
 
         br
         br

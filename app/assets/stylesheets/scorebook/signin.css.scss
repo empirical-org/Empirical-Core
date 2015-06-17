@@ -2,12 +2,18 @@
 
 // SIGN IN 
 
-%login_form_button {
-  padding: 5px;
-  height: 40px;
-  background-color: $quillgreen;
-  color: white;
-  border-color: $quillgreen;  
+%login_form {
+  .control-group {
+    margin-bottom: 10px;
+  }
+
+  input[type=submit] {
+    padding: 5px;
+    height: 40px;
+    background-color: $quillgreen;
+    color: white;
+    border-color: $quillgreen;  
+  }  
 }
 
 .form-signin {
@@ -19,15 +25,11 @@
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
   }
-  input[type=submit] {
-    @extend %login_form_button;
-  }
+  @extend %login_form;
 }
 
 .form-signup {
-  input[type=submit] {
-    @extend %login_form_button;  
-  }
+  @extend %login_form;
 
   label {
     font-weight: normal;
