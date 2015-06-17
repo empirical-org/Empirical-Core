@@ -1,61 +1,62 @@
-article.simple-rounded-box.cms.cms-user-index
-  h1 Directory
-  = search_form_for @q, url: search_cms_users_path,
-                        html: { method: :post, class: 'searchable' } do |f|
-    = f.label :name_cont
-    = f.search_field :name_cont
-    = f.label :email_cont
-    = f.search_field :email_cont
-    = f.label :ip_address_eq
-    = f.search_field :ip_address_eq
-    = f.label :schools_name_cont
-    = f.search_field :schools_name_cont
-    = f.label :schools_city_cont
-    = f.search_field :schools_city_cont
-    = f.label :classroom_code_cont
-    = f.search_field :classroom_code_cont
-    = f.label :subscriptions_id_present, 'has premium'
-    = f.check_box :subscriptions_id_present
-    = f.submit class: 'btn btn-primary btn-mid'
-  br
-  br
-  table.table.table-stripe.table-hover-row.cms-user-index-table
-    tr
-      th Name
-      th Email
-      th Role
-      th Class
-      th School
-      th Premium
-      th
-      th
+.container
+  article.simple-rounded-box.cms.cms-user-index
+    h1 Directory
+    = search_form_for @q, url: search_cms_users_path,
+                          html: { method: :post, class: 'searchable' } do |f|
+      = f.label :name_cont
+      = f.search_field :name_cont
+      = f.label :email_cont
+      = f.search_field :email_cont
+      = f.label :ip_address_eq
+      = f.search_field :ip_address_eq
+      = f.label :schools_name_cont
+      = f.search_field :schools_name_cont
+      = f.label :schools_city_cont
+      = f.search_field :schools_city_cont
+      = f.label :classroom_code_cont
+      = f.search_field :classroom_code_cont
+      = f.label :subscriptions_id_present, 'has premium'
+      = f.check_box :subscriptions_id_present
+      = f.submit class: 'btn btn-primary btn-mid'
+    br
+    br
+    table.table.table-stripe.table-hover-row.cms-user-index-table
+      tr
+        th Name
+        th Email
+        th Role
+        th Class
+        th School
+        th Premium
+        th
+        th
 
-    - if @users.empty?
-        tr
-          td colspan=4 No results found!
-    - else
-      - @users.each do |user|
-        tr
-          td= user.name
-          td= user.email
-          td class="role-#{user.role}"= user.role[0]
-          td= user.classcode
-          td= user.schools.any? ? user.schools.first.name : ''
-          - if user.subscriptions.any?
-            td= "#{user.subscriptions.first.account_limit} accounts"
-          - else
-            td -
-          - if current_user.admin?
-            td= link_to 'Edit', edit_cms_user_path(user)
-            td= link_to 'Details', cms_user_path(user)
-            td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
+      - if @users.empty?
+          tr
+            td colspan=4 No results found!
+      - else
+        - @users.each do |user|
+          tr
+            td= user.name
+            td= user.email
+            td class="role-#{user.role}"= user.role[0]
+            td= user.classcode
+            td= user.schools.any? ? user.schools.first.name : ''
+            - if user.subscriptions.any?
+              td= "#{user.subscriptions.first.account_limit} accounts"
+            - else
+              td -
+            - if current_user.admin?
+              td= link_to 'Edit', edit_cms_user_path(user)
+              td= link_to 'Details', cms_user_path(user)
+              td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
 
-  = paginate @users
+    = paginate @users
 
-  br
+    br
 
-  -if current_user.admin?
-    = link_to 'Add A User', new_cms_user_path
+    -if current_user.admin?
+      = link_to 'Add A User', new_cms_user_path
 
-  -if current_user.teacher?
-    = link_to 'Invite a Student to My Class', new_cms_user_path
+    -if current_user.teacher?
+      = link_to 'Invite a Student to My Class', new_cms_user_path

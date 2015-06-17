@@ -46,7 +46,7 @@ class ProfilesController < ApplicationController
   end
 
   def admin
-    render :admin, :layout => 'old'
+    render :admin, :layout => 'scorebook'
   end
 
 protected

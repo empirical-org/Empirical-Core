@@ -1,5 +1,5 @@
 class CMS::ActivityClassificationsController < ApplicationController
-  layout 'old'
+  layout 'scorebook'
 
   def index
     @activity_classifications = ActivityClassification.all

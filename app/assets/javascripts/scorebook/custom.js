@@ -101,6 +101,11 @@ $(document).ready(function(){
 	});
 
 
+  // CMS
+  $('.js-delete-link').on('ajax:success', function (e) {
+    $(e.target).closest('tr').remove();
+  });
+
 });
 	
 

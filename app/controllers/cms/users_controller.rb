@@ -1,7 +1,7 @@
 class CMS::UsersController < ApplicationController
   before_filter :signed_in!
   before_filter :admin!
-  layout :determine_layout
+  layout 'scorebook'
 
   def index
     @q = User.includes([:schools, :classroom]).search(params[:q])
@@ -45,14 +45,6 @@ class CMS::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-  end
-
-  def determine_layout
-    if action_name == 'edit' and (User.find(params[:id])).teacher?
-      'scorebook'
-    else
-      'old'
-    end
   end
 
   def update
