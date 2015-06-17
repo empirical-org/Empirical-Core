@@ -20,7 +20,6 @@
 //= require loadingbutton
 //= require porthole
 //= require quill-core
-//= require quill-idlecheck
 
 //= require lodash.min.js
 //= require underscore.string
