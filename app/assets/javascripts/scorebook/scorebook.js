@@ -35,4 +35,5 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 
+//= require porthole
 //= require crazy-egg
