@@ -9,6 +9,7 @@
 //= require react
 
 //= require selecter.js
+//= require select2
 //= require scorebook/custom
 
 //= require slick.js
