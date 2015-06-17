@@ -1,6 +1,8 @@
 @import "bootstrap/mixins";
 @import "../mixins";
 
+$leftPadding: 180px;
+
 // Ported from the old Quill design.
 .simple-rounded-box {
   @include border-radius(15px);
@@ -17,18 +19,22 @@
   }
 
   .form-horizontal-header {
-    margin-left: 180px;
+    margin-left: $leftPadding;
   }
 
   .box-full-form {
     margin-bottom: 0;
+
+    .control-group {
+      padding-left: $leftPadding;
+    }
 
     .form-actions {
       margin: 0 -20px -20px -20px;
     }
 
     &.form-horizontal .form-actions {
-      padding-left: 180px + 20px;
+      padding-left: $leftPadding + 20px;
     }
   }
 }
