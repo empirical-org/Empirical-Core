@@ -24,3 +24,19 @@ article.cms {
   .role-student { color: $found-color }
   .role-teacher { color: $introduced-color }
 }
+
+// for admin users cms tool
+.cms-user-index {
+  input.btn {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+  }
+}
+
+.cms-user-index-table {
+  margin-left: -50px;
+  margin-right: -50px;
+  background-color: white;
+  border: 1px solid rgb(220,220,220);
+  width: 1000px !important;
+}
