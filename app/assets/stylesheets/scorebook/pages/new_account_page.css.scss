@@ -24,7 +24,7 @@
   }
 
   b {
-    @include bold;
+    font-weight: bold;
   }
 
   .form-school-select {
@@ -41,6 +41,9 @@
         .select2-arrow b {position: absolute; top: 7px;}
         abbr {top: 14px;}
       }
+    }
+    .school_select {
+      height: 50px;
     }
   }
 
