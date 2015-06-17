@@ -1,5 +1,5 @@
 class ActivitySessionsController < ApplicationController
-  layout 'old'
+  layout 'scorebook'
   
   def show
     @activity_session = ActivitySession.find_by_uid!(params[:id])
