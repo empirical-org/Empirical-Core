@@ -2,12 +2,13 @@
   javascript:
     mixpanel.track('lms-prod-500');
 
-article.simple-rounded-box
-  h2.text-center.centered 500
+.container
+  article.simple-rounded-box
+    h2.text-center.centered 500
 
-  .text-center.centered
-    h3 There was an error trying to serve you this page.
-    div
-      | Please #{link_to('go back to the homepage', root_path)} and try your request again.
-      br
-      | If you continue to encounter this problem, please email us at hello@quill.org.
+    .text-center.centered
+      h3 There was an error trying to serve you this page.
+      div
+        | Please #{link_to('go back to the homepage', root_path)} and try your request again.
+        br
+        | If you continue to encounter this problem, please email us at hello@quill.org.
