@@ -20,6 +20,7 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
 end
 
+
 Capybara.configure do |config|
   # Use a high(er) timeout for JS-based UI -- e.g., React.js
   # cf http://docs.travis-ci.com/user/common-build-problems/#Capybara%3A-I'm-getting-errors-about-elements-not-being-found

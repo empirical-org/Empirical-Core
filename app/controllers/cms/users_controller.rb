@@ -1,6 +1,7 @@
 class CMS::UsersController < ApplicationController
   before_filter :signed_in!
   before_filter :admin!
+  before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
 
   def index
     @q = User.includes([:schools, :classroom]).search(params[:q])
@@ -18,11 +19,9 @@ class CMS::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def show_json
-    @user = User.find(params[:id])
     render json: @user
   end
 
@@ -43,11 +42,9 @@ class CMS::UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.teacher?
       response = @user.update_teacher params
       render json: response
@@ -61,12 +58,14 @@ class CMS::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     redirect_to cms_users_path
   end
 
 protected
+  def set_user
+    @user = User.find params[:id]
+  end
 
   def user_params
     params.require(:user).permit!
