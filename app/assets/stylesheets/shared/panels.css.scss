@@ -1,0 +1,60 @@
+/* =================================================================================
+   Panel styles
+   ========================================================================== */
+
+.panel-group .panel {
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.panel-default:first-child {
+  margin-top: 20px;
+}
+
+.panel-body {
+  .row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  input[type=checkbox].css-checkbox + label.css-label {
+    font-size: 14px;
+    font-weight: normal;
+  }
+}
+
+.panel-heading {
+  input[type=checkbox].css-checkbox + label.css-label {
+    font-size: 14px;
+    margin-top: 7px;
+  }
+  .panel-select-by-student {
+    line-height: 40px;
+    width: 150px;
+  }
+  .title a {
+    margin-bottom: 7px;
+  }
+}
+
+.ph-caret-up, .ph-caret-down, .ph-caret-toggle {
+  background-repeat: no-repeat;
+  background-position-x: 130px;
+  background-position-y: 14px;
+}
+
+.ph-caret-up {
+  /*background-image: url(/assets/scorebook/caret-up.png);*/
+  background-image: image-url("scorebook/caret-up.png");
+}
+
+.ph-caret-down, .ph-caret-toggle {
+  background-image: image-url("scorebook/caret-down.png");
+}
+
+.collapsed .ph-caret-toggle {
+  background-image: image-url("scorebook/caret-up.png");
+}

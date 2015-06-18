@@ -6,24 +6,11 @@
 *= require slick.css.scss
 *= require selecter.css.scss
 *= require select2
-*= require ./custom-home.css.scss
 
 *= require ./custom.css.scss
-*= require ./custom-breadcrumbs.css.scss
 
-*= require ./footer.css.scss
-*= require ./shared.css.scss
-
-*= require ./custom-pages.css.scss
-
-*= require ./custom-slick.css.scss
-*= require ./my_account.css.scss
-
-*= require ./custom-whole-page.css.scss
-
-*= require ./rounded-box.css.scss
 *= require_tree ./pages
-
+*= require_tree ./shared
 *= require_self
 
 */

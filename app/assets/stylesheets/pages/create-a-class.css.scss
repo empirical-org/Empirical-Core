@@ -1,0 +1,53 @@
+.create-a-class {
+  h1 {
+    margin-bottom: 20px;
+  }
+  input, select, button, label, a {
+    float: left;
+    clear: both;
+    font-weight: normal;
+    margin-bottom: 20px;
+  }
+  .help-inline {
+    padding: 9px;
+    margin-left: 10px;
+    display: inline-block;
+    color: #b94a48;
+  }
+  input.class-code {
+    margin-bottom: 10px;
+  }
+  span.generate-code {
+    float: left;
+    clear: right;
+    cursor: pointer;
+    line-height: 40px;
+    margin-left: 20px;
+    color: #027360;
+  }
+  button {
+    margin-top: 20px;
+  }
+  > div {
+    margin-bottom: 20px;
+  }
+  input:not(.inactive) {
+    width: 315px;
+  }
+  .select-gray-wrapper {
+    width: 180px;
+    .dropdown-menu {
+      width: 180px !important;
+      left: auto;
+      top: auto;
+    }
+  }
+  .class-code-wrapper {
+    div {
+      margin-bottom: 10px;
+    }
+    span {
+      margin-left: 15px;
+    }
+  }
+}

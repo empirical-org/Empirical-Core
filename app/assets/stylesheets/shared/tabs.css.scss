@@ -1,0 +1,59 @@
+/* ==========================================================================
+   Tabs
+   ========================================================================== */
+
+.tabs-navigation-list li a {
+  font-size: 16px;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+#first-tab {
+  border-left: 1px solid #cecece;
+}
+
+.tab-subnavigation-wrapper {
+  padding: 8px 0;
+  background: #fff;
+  border-bottom: 1px solid #cecece;
+  border-top: 1px solid #cecece;
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    float: left;
+    li {
+      float: left;
+      padding: 10px 16.5px;
+      a {
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #000;
+        height: 35px;
+        &.active {
+          background: #e6e6e6;
+        }
+      }
+    }
+  }
+}
+
+.student-subnavigation {
+  padding: 12px 0;
+  a {
+    font-size: 14px;
+    color: #999;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  span {
+    line-height: 24px;
+  }
+  img {
+    margin-right: 9px;
+  }
+}

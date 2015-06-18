@@ -1,0 +1,102 @@
+.breadcrumb > li + li:before {
+  content: ">";
+}
+
+.breadcrumb a {
+  color: #00E;
+  text-decoration: underline;
+}
+
+
+// TODO: The styles below are extracted from custom.css.scss, which was
+// generated from Vlad's LESS stylesheets.
+//
+// There seem to be no instances of elements with an ID of 'crumbs' in the
+// app, so if it can be verified that this isn't used anywhere, it should
+// be removed.
+
+#crumbs {
+  text-align: center;
+  position: relative;
+  left: 30px;
+  ul {
+    list-style: none;
+    display: inline-table;
+    li {
+      display: inline;
+      a {
+        display: block;
+        float: left;
+        background: #e6e6e6;
+        text-align: center;
+        padding: 6px 38px;
+        position: relative;
+        margin: 0;
+        color: #000;
+        font-size: 14px;
+        text-decoration: none;
+        border: 1px solid #cecece;
+        &:hover {
+          color: #000;
+        }
+        &.active {
+          background: #fff;
+          color: #000;
+          &:after {
+            border-left: 16px solid #fff;
+          }
+        }
+        &:after {
+          content: "";
+          border-top: 16px solid transparent;
+          border-bottom: 16px solid transparent;
+          border-left: 16px solid #e6e6e6;
+          position: absolute;
+          right: -16px;
+          top: 0;
+          z-index: 1;
+        }
+        &:hover:after {
+          content: "";
+          border-top: 16px solid transparent;
+          border-bottom: 16px solid transparent;
+          border-left: 16px solid #fff;
+          position: absolute;
+          right: -16px;
+          top: 0;
+          z-index: 1;
+        }
+        &:before {
+          content: "";
+          border-top: 16px solid transparent;
+          border-bottom: 16px solid transparent;
+          border-left: 16px solid #cecece;
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+      }
+      &:first-child a {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding: 6px 38px 6px 20px;
+        &:before {
+          display: none;
+        }
+      }
+      &:last-child a {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        &:after {
+          display: none;
+        }
+      }
+      a:hover {
+        background: #fff;
+        &:after:not(.active) {
+          border-left-color: #e6e6e6;
+        }
+      }
+    }
+  }
+}
