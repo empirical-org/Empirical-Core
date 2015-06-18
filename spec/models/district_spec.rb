@@ -30,7 +30,7 @@ describe District, type: :model do
   describe 'create from clever', :vcr do
     it 'gets data from clever' do
       def create_district
-        @district = District.create_from_clever('535e91b05fc8cb160e001645')
+        @district = District.create_from_clever('535e91b05fc8cb160e001645', '123')
       end
 
       expect { create_district }.not_to change { other_object_counts }
@@ -45,7 +45,8 @@ describe District, type: :model do
     before do
       @district = District.create({
         clever_id: '535e91b05fc8cb160e001645',
-        name: '#DEMO Clever Team Testing'
+        name: '#DEMO Clever Team Testing',
+        token: '123'
       })
 
       @school = School.create({
