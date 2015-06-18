@@ -1,0 +1,31 @@
+/* ==========================================================================
+   Helper styles to quickly manipulate the looks
+   ========================================================================== */
+
+.fake-border {
+  border-top: 1px solid #cecece;
+}
+
+.no-border {
+  border: none;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.m-20 {
+  margin: 20px 0;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.no-pl {
+  padding-left: 0;
+}
+
+.no-pr {
+  padding-right: 0;
+}

@@ -1,0 +1,22 @@
+/* ==========================================================================
+
+   Tooltips
+   ========================================================================== */
+
+.tooltip.in {
+  opacity: 1;
+}
+
+#activity-planner #activities_table .tooltip.top .tooltip-arrow {
+  border-top-color: #cecece;
+}
+
+.react-lightbox, .react-lightbox-modal {
+  height: 200px;
+  width: 200px;
+}
+
+.tooltip .concept-class {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}

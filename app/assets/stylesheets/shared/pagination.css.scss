@@ -1,0 +1,27 @@
+/* ==========================================================================
+   Pagination
+   ========================================================================== */
+
+.pagination {
+  margin: 0;
+  list-style-type: none;
+  * {
+    cursor: pointer;
+  }
+  li {
+    display: block;
+    clear: none;
+    float: left;
+    span {
+      height: 40px;
+    }
+  }
+  .page_number, .active {
+    float: left;
+    clear: none;
+  }
+  .fa {
+    color: #737373;
+    font-size: 1.3em;
+  }
+}

@@ -1,0 +1,39 @@
+/* ==========================================================================
+
+   Fake table styles
+   ========================================================================== */
+
+.fake-table {
+  border: 1px solid #cecece;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .header {
+    background-color: #e6e6e6;
+    padding: 12px 12px;
+    color: #000;
+    font-weight: bold;
+  }
+  .line {
+    padding: 10px 12px;
+    border-bottom: 1px solid #cecece;
+    &:last-child {
+      border-bottom: 0;
+    }
+    a {
+      color: #027360;
+    }
+  }
+  a {
+    float: right;
+    line-height: 40px;
+  }
+  .header-list-counter {
+    color: #aeaeae;
+    float: right;
+    font-size: 14px;
+    font-weight: normal;
+  }
+}

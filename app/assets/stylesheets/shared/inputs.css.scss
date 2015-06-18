@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Inputs, selects, etc
+   ========================================================================== */
+
+input {
+  border-radius: 5px;
+  border: 1px solid #cecece;
+  color: #000;
+  font-size: 14px;
+  padding: 9px 12px;
+  transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -webkit-transition: 0.1s ease-out;
+  &:focus {
+    outline: none;
+    border: 1px solid #5bc1a9;
+  }
+}
+
+.datepicker-input {
+  height: 31px;
+  width: 148px;
+  /*background-image: url(../images/icon-calendar.png);*/
+  background-image: image-url("scorebook/icon-calendar.png");
+  background-repeat: no-repeat;
+  background-position-x: 120px;
+  background-position-y: 3px;
+}
+
+input.inactive {
+  background: #f7f5f5;
+  width: 120px;
+  border: 1px dashed #cecece;
+  &:focus {
+    border: 1px dashed #5bc1a9;
+  }
+}
+
+select {
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #cecece;
+  color: #000;
+  font-size: 14px;
+  padding: 9px 14px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.button-select-wrapper {
+  button {
+    border-radius: 5px;
+    border: 1px solid #cecece;
+    color: #000;
+    font-size: 14px;
+    padding: 9px 14px;
+    text-align: left;
+    width: 100%;
+  }
+  .dropdown-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 14px;
+    a {
+      padding: 5px 14px;
+      display: block;
+      color: #000;
+      &:hover {
+        background: #f0f0f0;
+        -webkit-appearance: none;
+      }
+      &:focus, &:active {
+        -webkit-appearance: none;
+      }
+    }
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  .fa {
+    color: #737373;
+    position: relative;
+    float: right;
+    font-size: 1.3em;
+    text-align: right;
+    line-height: normal;
+    width: auto;
+  }
+}
+
+.select-white-wrapper .dropdown-menu {
+  width: 265px;
+}
+
+.select-gray-wrapper .dropdown-menu {
+  width: 100% !important;
+}
+
+.select-box-disabled {
+  background: #ebebeb;
+}
+
+.select-white-wrapper {
+  width: 280px;
+}
+
+.select-white {
+  background: #fff;
+}
+
+.select-gray-wrapper {
+  width: 220px;
+}
+
+.select-gray {
+  background: #ebebeb;
+}
+
+.select-box-trigger {
+  padding: 13px 40px;
+  width: 284px;
+  display: block;
+  position: relative;
+  right: 20px;
+}

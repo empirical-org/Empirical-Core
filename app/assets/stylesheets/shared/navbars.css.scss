@@ -1,0 +1,31 @@
+/* ==========================================================================
+   Navbar styles
+   ========================================================================== */
+
+.image-brand img {
+  padding-top: 5px;
+}
+
+.navbar-brand {
+  cursor: pointer !important;
+}
+
+.navbar-default .navbar-nav {
+  > li > a {
+    color: #000;
+    font-size: 16px;
+    line-height: 45px;
+    padding: 10px 20px;
+    font-weight: 500;
+    border-top: none;
+    .fa {
+      color: #737373;
+      margin-left: 5px;
+    }
+    &:hover, &:focus {
+      border-top: none;
+    }
+  }
+  position: relative;
+  left: 30px;
+}

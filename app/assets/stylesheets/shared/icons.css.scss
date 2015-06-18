@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Icons
+   ========================================================================== */
+
+.icons-wrapper {
+  padding-top: 30px;
+}
+
+.icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  float: left;
+}
+
+.icon-row {
+  margin-bottom: 15px;
+  .icon-wrapper {
+    margin-right: 17px;
+    float: none;
+    display: inline-block;
+  }
+  &:first-child {
+    margin-top: 26px;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.icon-green {
+  background: #58b146;
+}
+
+.icon-orange {
+  background: #f8a724;
+}
+
+.icon-red {
+  background: #e8522c;
+}
+
+.icon-gray {
+  background: #b7b7b7;
+}
+
+.icon-pencil {
+  background-image: image-url("scorebook/icon-pencil.png");
+  background-repeat: no-repeat;
+  background-position: 9px;
+}
+
+.icon-puzzle {
+  background-image: image-url("scorebook/icon-puzzle.png");
+  background-repeat: no-repeat;
+  background-position: 11px 7px;
+}
+
+.icon-puzzle-gray {
+  background-image: image-url("scorebook/icon-puzzle-gray.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
+.icon-flag {
+  background-image: image-url("scorebook/icon-flag.png");
+  background-repeat: no-repeat;
+  background-position: 9px;
+}
+
+.icon-flag-gray {
+  background-image: image-url("scorebook/icon-flag-gray.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
+.icons-description-wrapper {
+  float: left;
+  position: relative;
+  margin-left: 10px;
+}

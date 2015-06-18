@@ -1,0 +1,82 @@
+/*Form Wizard*/
+
+.bs-wizard {
+  border-bottom: 0 !important;
+  margin-bottom: 40px;
+  position: relative;
+  right: 75px;
+  border-bottom: solid 1px #e0e0e0;
+  > .bs-wizard-step {
+    padding: 0;
+    position: relative;
+    .bs-wizard-stepnum {
+      color: #595959;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    .bs-wizard-info {
+      color: #000;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+    > {
+      .bs-wizard-dot {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        display: block;
+        background: #5bc1a9;
+        top: 20px;
+        left: 55%;
+        margin-top: -15px;
+        margin-left: -15px;
+        border-radius: 50%;
+      }
+      .progress {
+        position: relative;
+        border-radius: 0px;
+        height: 2px;
+        box-shadow: none;
+        margin: 10px 0;
+        > .progress-bar {
+          width: 0px;
+          box-shadow: none;
+          background: #5bc1a9;
+        }
+      }
+    }
+    &.complete > .progress > .progress-bar {
+      width: 100%;
+    }
+    &.active > .progress > .progress-bar {
+      width: 50%;
+    }
+    &:first-child.active > .progress > .progress-bar {
+      width: 0%;
+    }
+    &:last-child.active > .progress > .progress-bar {
+      width: 100%;
+    }
+    &.disabled > {
+      .bs-wizard-dot {
+        background-color: #cecece;
+        &:after {
+          opacity: 0;
+        }
+      }
+      .progress {
+        background-color: #cecece;
+      }
+    }
+    &:first-child > .progress {
+      left: 50%;
+      width: 50%;
+    }
+    &:last-child > .progress {
+      width: 50%;
+    }
+    &.disabled a.bs-wizard-dot {
+      pointer-events: none;
+    }
+  }
+}
