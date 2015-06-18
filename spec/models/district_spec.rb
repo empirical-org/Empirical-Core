@@ -10,11 +10,11 @@ describe District, type: :model do
       def setup_district
         @district = District.setup_from_clever({
           info: {
-            name: 'Fake District',
-            id: '535e91b05fc8cb160e001645'
+            name: '#DEMO Quill Sandbox District',
+            id: '53ea7c626e727c2e0d000018'
           },
           credentials: {
-            token: '123'
+            token: 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88'
           }
         })
       end
@@ -23,19 +23,19 @@ describe District, type: :model do
 
       expect(@district.valid?).to be_truthy
       expect(@district.id).to_not be_nil
-      expect(@district.name).to eq('Fake District')
+      expect(@district.name).to eq('#DEMO Quill Sandbox District')
     end
   end
 
   describe 'create from clever', :vcr do
     it 'gets data from clever' do
       def create_district
-        @district = District.create_from_clever('535e91b05fc8cb160e001645', '123')
+        @district = District.create_from_clever('53ea7c626e727c2e0d000018', 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88')
       end
 
       expect { create_district }.not_to change { other_object_counts }
 
-      expect(@district.name).to eq('#DEMO Clever Team Testing')
+      expect(@district.name).to eq('#DEMO Quill Sandbox District')
       expect(@district.valid?).to be_truthy
       expect(@district.id).to_not be_nil
     end
@@ -44,9 +44,9 @@ describe District, type: :model do
   describe 'importing users', :vcr do
     before do
       @district = District.create({
-        clever_id: '535e91b05fc8cb160e001645',
-        name: '#DEMO Clever Team Testing',
-        token: '123'
+        clever_id: '53ea7c626e727c2e0d000018',
+        name: '#DEMO Quill Sandbox District',
+        token: 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88'
       })
 
       @school = School.create({
