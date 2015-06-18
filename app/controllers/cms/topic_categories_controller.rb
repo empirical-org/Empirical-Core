@@ -1,5 +1,4 @@
 class CMS::TopicCategoriesController < ApplicationController
-  layout 'scorebook'  
   before_action :set_topic_category, only: [:show, :edit, :update, :destroy]
 
   def index

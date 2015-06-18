@@ -1,9 +1,7 @@
 class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
-  layout 'classroom_manager'
   before_filter :teacher!
   before_filter :authorize!
-  layout 'scorebook'
   include ScorebookHelper
   RESULTS_PER_PAGE = 12
 

@@ -1,7 +1,6 @@
 class CMS::ActivitiesController < ApplicationController
   before_filter :admin!
   before_filter :find_classification
-  layout 'scorebook'
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production

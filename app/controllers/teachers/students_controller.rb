@@ -1,5 +1,4 @@
 class Teachers::StudentsController < ApplicationController
-  layout 'scorebook'
   before_filter :teacher!
   before_filter :authorize!
 

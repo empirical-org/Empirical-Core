@@ -2,11 +2,6 @@ class Teachers::ClassroomsController < ApplicationController
   respond_to :json, :html
   before_filter :teacher!
   before_filter :authorize!
-  layout 'scorebook'
-
-
-
-
 
   def index
     if current_user.classrooms.empty?
@@ -17,19 +12,16 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
-
   def new
     @classroom = current_user.classrooms.new
     @classroom.generate_code
   end
-
 
   def regenerate_code
     cl = Classroom.new
     cl.generate_code
     render json: {code: cl.code}
   end
-
 
   def show
     redirect_to teachers_classroom_scorebook_path(@classroom)

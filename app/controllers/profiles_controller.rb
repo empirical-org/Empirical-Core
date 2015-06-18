@@ -31,9 +31,9 @@ class ProfilesController < ApplicationController
 
       @next_activity = @next_activity_session.activity if @next_activity_session.present?
 
-      render 'student', layout: 'scorebook'
+      render 'student'
     else
-      render 'join-classroom', layout: 'scorebook'
+      render 'join-classroom'
     end
   end
 
@@ -46,7 +46,7 @@ class ProfilesController < ApplicationController
   end
 
   def admin
-    render :admin, :layout => 'scorebook'
+    render :admin
   end
 
 protected

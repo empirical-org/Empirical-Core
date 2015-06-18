@@ -1,5 +1,4 @@
 class CMS::SectionsController < ApplicationController
-  layout 'scorebook'  
   before_action :set_section, only: [:show, :edit, :update, :destroy]
 
   def index
