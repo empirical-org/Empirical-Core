@@ -72,7 +72,7 @@ EmpiricalGrammar::Application.configure do
                                  scorebook/*
                                  scorebook/**/*
                                  application.css.scss
-                                 scorebook/scorebook.js
+                                 application.js
 
                             
                                  )
