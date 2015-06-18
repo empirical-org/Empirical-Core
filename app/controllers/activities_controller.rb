@@ -1,5 +1,4 @@
 class ActivitiesController < ApplicationController
-  layout 'scorebook'
   before_action :authorize!, only: [:show]
   before_action :get_activity, only: [:update, :retry, :show]
 

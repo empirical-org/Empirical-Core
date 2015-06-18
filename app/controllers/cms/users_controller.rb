@@ -1,7 +1,6 @@
 class CMS::UsersController < ApplicationController
   before_filter :signed_in!
   before_filter :admin!
-  layout 'scorebook'
 
   def index
     @q = User.includes([:schools, :classroom]).search(params[:q])

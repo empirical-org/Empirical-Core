@@ -1,5 +1,4 @@
 class CMS::HomepageNewsSlidesController < CMS::BaseController
-  layout 'scorebook'
   helper_method :subject
 
   protected

@@ -1,6 +1,5 @@
 class Teachers::ProgressReportsController < ApplicationController
   before_action :authorize!, except: :demo
-  layout 'scorebook'
   before_action :set_vary_header, if: -> { request.xhr? }
 
   def demo

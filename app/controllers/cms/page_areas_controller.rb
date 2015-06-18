@@ -1,5 +1,4 @@
 class CMS::PageAreasController < CMS::BaseController
-  layout 'scorebook'  
   helper_method :subject
 
   protected
