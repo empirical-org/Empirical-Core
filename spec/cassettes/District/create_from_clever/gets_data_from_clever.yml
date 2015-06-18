@@ -198,4 +198,59 @@ http_interactions:
         Accounts","school_number":"2","district":"535e91b05fc8cb160e001645","created":"2014-08-13T07:18:21.230Z","sis_id":"2","last_modified":"2014-08-13T07:18:21.232Z","id":"53cda353713654171d21df6e"},"uri":"/v1.1/schools/53cda353713654171d21df6e"}],"paging":{"current":1,"total":1,"count":2},"links":[{"rel":"self","uri":"/v1.1/districts/535e91b05fc8cb160e001645/schools"}]}'
     http_version: 
   recorded_at: Mon, 29 Sep 2014 19:07:51 GMT
+- request:
+    method: get
+    uri: https://api.clever.com/v1.1/districts/535e91b05fc8cb160e001645
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer 123
+      User-Agent:
+      - Clever/RubyBindings/0.10.0
+      X-Clever-Client-User-Agent:
+      - '{"bindings_version":"0.10.0","lang":"ruby","lang_version":"2.1.2 p95","platform":"x86_64-darwin13.0","publisher":"clever","uname":"Darwin
+        Marcellos-Air 14.1.0 Darwin Kernel Version 14.1.0: Mon Dec 22 23:10:38 PST
+        2014; root:xnu-2782.10.72~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 18 Jun 2015 18:07:14 GMT
+      Www-Authenticate:
+      - Basic
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - bearer
+      X-Ratelimit-Limit:
+      - '1200'
+      X-Ratelimit-Remaining:
+      - '1199'
+      X-Ratelimit-Reset:
+      - '1434650894'
+      Content-Length:
+      - '37'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"error":"Unrecognized token string"}'
+    http_version: 
+  recorded_at: Thu, 18 Jun 2015 18:07:13 GMT
 recorded_with: VCR 2.9.3

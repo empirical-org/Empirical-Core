@@ -18,7 +18,9 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
   c.configure_rspec_metadata!
+  c.default_cassette_options = {:record => :new_episodes}
 end
+
 
 Capybara.configure do |config|
   # Use a high(er) timeout for JS-based UI -- e.g., React.js
