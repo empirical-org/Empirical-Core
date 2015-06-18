@@ -1,2 +1,8 @@
 - if @user.teacher?
   #admin-teacher-account-editor data-id=@user.id
+- else
+  article.simple-rounded-box
+    h1 Editing user
+    br
+    br
+    = render 'form'
