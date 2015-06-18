@@ -3,15 +3,16 @@ class District < ActiveRecord::Base
 
   def self.setup_from_clever(auth_hash)
     district = ::District.where(clever_id: auth_hash[:info][:id]).first_or_initialize
-    district.import_from_clever! if district.new_record?
     district.update_attributes(name: auth_hash[:info][:name], token: auth_hash[:credentials][:token])
+    district.import_from_clever! if district.new_record?
     district
   end
 
-  def self.create_from_clever(id)
+  def self.create_from_clever(id, token)
     district = ::District.where(clever_id: id).first_or_initialize
-    district.import_from_clever! if district.new_record?
+    district.update_attributes(token: token)
     district.update_attributes(name: district.clever_district_name)
+    district.import_from_clever! if district.new_record?
     district
   end
 
