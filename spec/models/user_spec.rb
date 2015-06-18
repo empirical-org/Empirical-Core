@@ -547,22 +547,24 @@ describe User, :type => :model do
 
   describe 'clever', :vcr do
     describe 'student' do
-      let(:user) { FactoryGirl.build(:user, role: 'student', clever_id: '535ea6e816b90a4529c18feb') }
+      let(:district) { District.create_from_clever('53ea7c626e727c2e0d000018', 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88') }
+      let(:user) { FactoryGirl.build(:user, role: 'student', clever_id: '53ea7d7ae87f28ae1e5c5132', districts: [district]) }
 
       it 'finds its clever user for a' do
         u = user.send(:clever_user)
 
-        expect(u.id).to eq('535ea6e816b90a4529c18feb')
+        expect(u.id).to eq('53ea7d7ae87f28ae1e5c5132')
       end
     end
 
     describe 'teacher' do
-      let(:user) { FactoryGirl.build(:user, role: 'teacher', clever_id: '535ea6e416b90a4529c18fd3') }
+      let(:district) { District.create_from_clever('53ea7c626e727c2e0d000018', 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88') }
+      let(:user) { FactoryGirl.build(:user, role: 'teacher', clever_id: '53ea7d70804342a11e497bb7', districts: [district]) }
 
       it 'finds its clever user for a' do
         u = user.send(:clever_user)
 
-        expect(u.id).to eq('535ea6e416b90a4529c18fd3')
+        expect(u.id).to eq('53ea7d70804342a11e497bb7')
       end
     end
 
