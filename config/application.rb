@@ -31,8 +31,6 @@ module EmpiricalGrammar
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    config.hamlcoffee.escapeHtml = false
-
     config.assets.initialize_on_precompile = false
 
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"

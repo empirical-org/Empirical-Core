@@ -62,17 +62,14 @@ gem "active_model_serializers"
 # UI HELPERS
 gem 'sass'
 gem 'sass-rails', github: 'rails/sass-rails'
-gem 'bootstrap-sass', '~> 2.1.1.0' # app is locked to bootstrap 2.1.0
 gem 'compass-rails'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'backbone-on-rails'
 
 gem 'slim-rails'
 gem 'haml-rails'
-gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
 
 gem 'es5-shim-rails'
 gem 'react-rails', '~>0.12.0.0'
