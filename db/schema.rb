@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622181401) do
+ActiveRecord::Schema.define(version: 20150622182815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,24 +75,6 @@ ActiveRecord::Schema.define(version: 20150622181401) do
   add_index "activity_sessions", ["state"], name: "index_activity_sessions_on_state", using: :btree
   add_index "activity_sessions", ["uid"], name: "index_activity_sessions_on_uid", unique: true, using: :btree
   add_index "activity_sessions", ["user_id"], name: "index_activity_sessions_on_user_id", using: :btree
-
-  create_table "activity_time_entries", force: true do |t|
-    t.integer  "activity_session_id"
-    t.datetime "started_at"
-    t.datetime "ended_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "activity_time_entries", ["activity_session_id"], name: "index_activity_time_entries_on_activity_session_id", using: :btree
-
-  create_table "assessments", force: true do |t|
-    t.text     "body"
-    t.integer  "chapter_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.text     "instructions"
-  end
 
   create_table "categories", force: true do |t|
     t.text     "title"
