@@ -65,8 +65,6 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'premium_access'
-      'premium'
     end
   end
 
