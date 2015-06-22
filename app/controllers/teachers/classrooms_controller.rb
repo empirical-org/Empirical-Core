@@ -23,10 +23,6 @@ class Teachers::ClassroomsController < ApplicationController
     render json: {code: cl.code}
   end
 
-  def show
-    redirect_to teachers_classroom_scorebook_path(@classroom)
-  end
-
   def create
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
     if @classroom.valid?
