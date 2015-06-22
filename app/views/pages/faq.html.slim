@@ -1,7 +1,7 @@
 = render partial: 'pages/shared/pages_tabs'
 = render partial: 'pages/shared/about_subtabs'
 
-.container.pages-container
+.container.pages-container.pages-faq
 
 
   hr
@@ -214,16 +214,3 @@
               for any non-commercial purpose.
 
   .bottom
-
-    javascript:
-      (function($) {
-        $(document).ready( function() {
-          $('a.accordion-toggle').click( function(e) { 
-            e.preventDefault(); 
-            $(this).next('.accordion-body').collapse('toggle');
-          }); 
-          if(window.location.hash) { 
-            $(window.location.hash+' .accordion-body').collapse('toggle'); 
-          }
-        });
-      })(jQuery);
