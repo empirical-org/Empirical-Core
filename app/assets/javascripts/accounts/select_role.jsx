@@ -18,7 +18,7 @@ EC.SelectRole = React.createClass({
           Role
         </div>
         <div className='col-xs-4'>
-          <select ref='select' value={this.props.role} onChange={this.updateRole}>
+          <select ref='select' value={this.props.role.toLowerCase()} onChange={this.updateRole}>
             {options}
           </select>
         </div>
