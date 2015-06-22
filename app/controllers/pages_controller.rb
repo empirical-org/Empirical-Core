@@ -1,7 +1,6 @@
 class PagesController < ApplicationController
   before_filter :resolve_body_class
   layout :determine_layout
-  #layout "about", only: [:mission, :develop, :about, :faq]
 
   def home
     if signed_in?
@@ -66,8 +65,6 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'mission', 'develop', 'faq', 'impact', 'team', 'activities', 'premium', 'stats'
-      'about'
     when 'premium_access'
       'premium'
     end
