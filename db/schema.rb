@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616191252) do
+ActiveRecord::Schema.define(version: 20150622172421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,28 +100,6 @@ ActiveRecord::Schema.define(version: 20150616191252) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "chapter_levels", force: true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "workbook_id"
-  end
-
-  create_table "chapters", force: true do |t|
-    t.string   "title"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "workbook_id"
-    t.text     "article_header"
-    t.text     "rule_position"
-    t.text     "description"
-    t.text     "practice_description"
-    t.integer  "chapter_level_id"
-  end
-
-  add_index "chapters", ["chapter_level_id"], name: "index_chapters_on_chapter_level_id", using: :btree
-
   create_table "classroom_activities", force: true do |t|
     t.integer  "classroom_id"
     t.integer  "activity_id"
@@ -136,16 +114,6 @@ ActiveRecord::Schema.define(version: 20150616191252) do
   add_index "classroom_activities", ["classroom_id"], name: "index_classroom_activities_on_classroom_id", using: :btree
   add_index "classroom_activities", ["unit_id"], name: "index_classroom_activities_on_unit_id", using: :btree
 
-  create_table "classroom_chapters", force: true do |t|
-    t.string   "classcode"
-    t.integer  "chapter_id"
-    t.datetime "due_date"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "temporary",    default: false, null: false
-    t.integer  "classroom_id"
-  end
-
   create_table "classrooms", force: true do |t|
     t.string   "name"
     t.string   "code"
@@ -158,19 +126,6 @@ ActiveRecord::Schema.define(version: 20150616191252) do
 
   add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree
   add_index "classrooms", ["grade"], name: "index_classrooms_on_grade", using: :btree
-
-  create_table "comments", force: true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.integer  "user_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "ancestry"
-    t.string   "reply_type"
-    t.integer  "lecture_chapter_id"
-  end
-
-  add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
 
   create_table "concept_categories", force: true do |t|
     t.string   "name"
@@ -239,21 +194,6 @@ ActiveRecord::Schema.define(version: 20150616191252) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "grammar_rules", force: true do |t|
-    t.string   "identifier"
-    t.text     "description"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.text     "practice_lesson"
-    t.integer  "author_id"
-  end
-
-  create_table "grammar_tests", force: true do |t|
-    t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "homepage_news_slides", force: true do |t|
     t.string   "link"
     t.integer  "position"
@@ -311,64 +251,6 @@ ActiveRecord::Schema.define(version: 20150616191252) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "rule_examples", force: true do |t|
-    t.text     "title"
-    t.boolean  "correct",    default: false, null: false
-    t.text     "text"
-    t.integer  "rule_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "rule_question_inputs", force: true do |t|
-    t.string   "step"
-    t.integer  "rule_question_id"
-    t.integer  "score_id"
-    t.text     "first_input"
-    t.text     "second_input"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "activity_session_id"
-  end
-
-  add_index "rule_question_inputs", ["activity_session_id"], name: "index_rule_question_inputs_on_activity_session_id", using: :btree
-  add_index "rule_question_inputs", ["rule_question_id"], name: "index_rule_question_inputs_on_rule_question_id", using: :btree
-  add_index "rule_question_inputs", ["step"], name: "index_rule_question_inputs_on_step", using: :btree
-
-  create_table "rule_questions", force: true do |t|
-    t.text     "body"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "rule_id"
-    t.text     "prompt"
-    t.text     "instructions"
-    t.text     "hint"
-  end
-
-  create_table "rules", force: true do |t|
-    t.text     "name"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "category_id"
-    t.integer  "workbook_id",    default: 1
-    t.text     "description"
-    t.string   "classification"
-    t.string   "uid"
-    t.string   "flags",          default: [], null: false, array: true
-  end
-
-  add_index "rules", ["uid"], name: "index_rules_on_uid", unique: true, using: :btree
-
-  create_table "rules_misseds", force: true do |t|
-    t.integer  "rule_id"
-    t.integer  "user_id"
-    t.integer  "assessment_id"
-    t.datetime "time_take"
-    t.boolean  "missed"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "schools", force: true do |t|
     t.string   "nces_id"
     t.string   "lea_id"
@@ -415,18 +297,6 @@ ActiveRecord::Schema.define(version: 20150616191252) do
   add_index "schools_users", ["school_id", "user_id"], name: "index_schools_users_on_school_id_and_user_id", using: :btree
   add_index "schools_users", ["school_id"], name: "index_schools_users_on_school_id", using: :btree
   add_index "schools_users", ["user_id"], name: "index_schools_users_on_user_id", using: :btree
-
-  create_table "scores", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "classroom_chapter_id"
-    t.datetime "completion_date"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.text     "missed_rules"
-    t.string   "state",                default: "unstarted", null: false
-    t.text     "story_step_input"
-    t.float    "grade"
-  end
 
   create_table "sections", force: true do |t|
     t.string   "name"
