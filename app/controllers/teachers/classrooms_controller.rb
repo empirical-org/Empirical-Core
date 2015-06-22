@@ -4,10 +4,6 @@ class Teachers::ClassroomsController < ApplicationController
   before_filter :authorize!
   layout 'scorebook'
 
-
-
-
-
   def index
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
@@ -28,11 +24,6 @@ class Teachers::ClassroomsController < ApplicationController
     cl = Classroom.new
     cl.generate_code
     render json: {code: cl.code}
-  end
-
-
-  def show
-    redirect_to teachers_classroom_scorebook_path(@classroom)
   end
 
   def create
