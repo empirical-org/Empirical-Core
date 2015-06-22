@@ -11,13 +11,16 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    @subscription = Subscription.create params.permit(:user_id, :expiration, :account_limit)
+    @subscription = Subscription.find_by user_id: subscription_params[:user_id]
+    if extant.nil?
+      @subscription = Subscription.create params.permit(:user_id, :expiration, :account_limit)
+    end
     render json: @subscription
   end
 
   def update
-    @subscription.update_attributes params.permit(:id, :expiration, :account_limit)
-    render json: response
+    @subscription.update_attributes subscription_params
+    render json: @subscription
   end
 
   def destroy
@@ -26,6 +29,10 @@ class SubscriptionsController < ApplicationController
   end
 
   private
+    def subscription_params
+      params.permit(:id, :user_id, :expiration, :account_limit)
+    end
+
     def set_subscription
       @subscription = Subscription.find params[:id]
     end

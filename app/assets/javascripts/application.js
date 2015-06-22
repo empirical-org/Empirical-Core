@@ -37,3 +37,5 @@
 //= require es5-shim/es5-shim
 
 //= require crazy-egg
+
+//= require selecter
