@@ -199,7 +199,6 @@ EC.TeacherAccount = React.createClass({
     this.setState({subscription: data.subscription});
   },
   destroySubscription: function () {
-    console.log('going to destroy subscription')
     var that = this;
     $.ajax({
       type: 'DELETE',
