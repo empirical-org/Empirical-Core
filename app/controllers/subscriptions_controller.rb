@@ -12,7 +12,7 @@ class SubscriptionsController < ApplicationController
 
   def create
     @subscription = Subscription.find_by user_id: subscription_params[:user_id]
-    if extant.nil?
+    if @subscription.nil?
       @subscription = Subscription.create params.permit(:user_id, :expiration, :account_limit)
     end
     render json: @subscription
