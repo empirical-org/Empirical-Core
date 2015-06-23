@@ -1,11 +1,10 @@
-@import "bootstrap/mixins";
 @import "mixins";
 
 $leftPadding: 180px;
 
 // Ported from the old Quill design.
 .simple-rounded-box {
-  @include border-radius(15px);
+  border-radius: 15px;
   padding: 20px;
   background-color: #fff;
   @include pie-clearfix;
