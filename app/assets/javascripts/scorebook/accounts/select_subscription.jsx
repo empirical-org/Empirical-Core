@@ -18,7 +18,7 @@ EC.SelectSubscription = React.createClass({
     this.props.updateSubscriptionState(subscription);
   },
   updateSubscriptionAccountLimit: function () {
-    var value, accountLimit;
+    var value, subscription;
     value = $(this.refs.accountLimit.getDOMNode()).val();
     subscription = this.props.subscription;
     subscription.account_limit = value;
