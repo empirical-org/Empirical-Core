@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
   let!(:teacher) { FactoryGirl.create(:teacher) }
@@ -9,6 +10,8 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#create' do
+    let!(:unit) {FactoryGirl.create(:unit)}
+
     it 'kicks off a background job' do
       expect {
         post :create, classroom_id: classroom.id,
@@ -20,7 +23,13 @@ describe Teachers::UnitsController, type: :controller do
         expect(response.status).to eq(200)
       }.to change(AssignActivityWorker.jobs, :size).by(1)
     end
+
+    it 'validates the presence of name' do
+      expect(unit.name).to_not be_empty
+    end
   end
+
+
 
   describe '#index' do
     let!(:activity) {FactoryGirl.create(:activity)}
