@@ -73,6 +73,7 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     blankslate (2.1.2.4)
+    bootstrap-sass (2.1.1.0)
     builder (3.2.2)
     bullet (4.14.4)
       activesupport (>= 3.0.0)
@@ -511,6 +512,7 @@ DEPENDENCIES
   bcrypt
   better_errors
   binding_of_caller
+  bootstrap-sass (~> 2.1.1.0)
   bullet
   byebug
   cancancan

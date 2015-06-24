@@ -63,6 +63,7 @@ gem "active_model_serializers"
 gem 'sass'
 gem 'sass-rails', github: 'rails/sass-rails'
 gem 'compass-rails'
+gem 'bootstrap-sass', '~> 2.1.1.0' # honey-cms needs this, unused by the main app
 
 gem 'coffee-rails'
 gem 'jquery-rails'
