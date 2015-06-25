@@ -1,5 +1,6 @@
 class Api::V1::ActivitiesController < ApiController
 
+  doorkeeper_for :create, :update, :destroy
   before_action :find_activity, except: [:index, :create]
 
   def index

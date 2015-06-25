@@ -26,4 +26,23 @@ describe Api::V1::ActivitiesController, :type => :controller do
     #   expect(@parsed_body['object']['uid']).to eq(@activity1.uid)
     # end
   end
+
+  context 'when not authenticated via OAuth' do
+    it 'POST #create returns 401 Unauthorized' do
+      post :create, format: :json
+      expect(response.status).to eq(401)
+    end
+
+    it 'PUT #update returns 401 Unauthorized' do
+      activity = FactoryGirl.create(:activity)
+      put :update, format: :json, id: activity.uid
+      expect(response.status).to eq(401)
+    end
+
+    it 'DELETE #destroy returns 401 Unauthorized' do
+      activity = FactoryGirl.create(:activity)
+      delete :destroy, format: :json, id: activity.uid
+      expect(response.status).to eq(401)
+    end        
+  end
 end

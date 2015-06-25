@@ -1,13 +1,10 @@
 class Api::V1::ActivitySessionsController < ApiController
 
-  before_action :find_activity_session, except: [:index, :create]
+  doorkeeper_for :update, :destroy
+  before_action :find_activity_session, only: [:show, :update, :destroy]
+  before_action :strip_access_token_from_request
 
   before_action :transform_incoming_request, only: [:update] # TODO: Also include create?
-
-  def index
-    # FIXME: original API doesn't support index
-    @activities = ActivitySession.all
-  end
 
   # GET
   def show
@@ -68,14 +65,26 @@ class Api::V1::ActivitySessionsController < ApiController
   private
 
   def find_activity_session
-    @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
+    if current_user
+      @activity_session = current_user.activity_sessions.find_by_uid!(params[:id])
+    else
+      @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
+    end
   end
 
   def activity_session_params
     params.delete(:activity_session)
     @data = params.delete(:data)
     concept_tag_keys = [:concept_tag_name, :metadata => concept_tag_result_allowed_keys]
-    params.permit(:id, :percentage, :state, :time_spent, :completed_at, :activity_uid, :anonymous, concept_tag_results_attributes:  concept_tag_keys)
+    params.permit(:id,
+                  :access_token, # Required by OAuth
+                  :percentage,
+                  :state,
+                  :time_spent,
+                  :completed_at,
+                  :activity_uid,
+                  :anonymous,
+                  concept_tag_results_attributes:  concept_tag_keys)
       .merge(data: @data).reject {|k,v| v.nil? }
   end
 
@@ -121,6 +130,10 @@ class Api::V1::ActivitySessionsController < ApiController
     else
       params.delete(:concept_tag_results)
     end
+  end
+
+  def strip_access_token_from_request
+    params.delete(:access_token)
   end
 end
 
