@@ -7,7 +7,11 @@ class SessionsController < ApplicationController
       sign_in(@user)
 
       UserLoginWorker.perform_async(@user.id, request.remote_ip)
-      redirect_to profile_path
+      if params[:redirect].present?
+        redirect_to params[:redirect]
+      else
+        redirect_to profile_path
+      end
     else
       login_failure 'Incorrect username/email or password'
     end

@@ -11,7 +11,7 @@ article.new-session-page
         br
         br
         br
-        = form_for @user, url: session_path, html: { class: 'form-signin' } do |f|
+        = form_for @user, url: session_path(redirect: params[:redirect]), html: { class: 'form-signin' } do |f|
           = f.string :email, placeholder: 'Email or Username', label: 'Email or Username', class: 'form-control', autocomplete: 'off'
           = f.password :password, placeholder: 'Password', class: 'password', class: 'form-control', autocomplete: 'off'
           = f.submit 'Sign in' do
