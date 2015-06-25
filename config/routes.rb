@@ -87,6 +87,7 @@ EmpiricalGrammar::Application.routes.draw do
 
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
+      resource :firebase_tokens,          only: [:create]
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
