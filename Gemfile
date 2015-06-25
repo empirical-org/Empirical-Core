@@ -22,6 +22,7 @@ gem 'doorkeeper', '1.4.1' # must use 1.4.1 or > 2.0.0 - http://seclists.org/oss-
 gem 'omniauth'
 gem 'omniauth-clever'
 gem 'cancancan'
+gem 'firebase_token_generator'
 
 # UPLOADS
 gem 'carrierwave'

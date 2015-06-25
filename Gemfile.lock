@@ -157,6 +157,7 @@ GEM
     faraday_middleware (0.9.1)
       faraday (>= 0.7.4, < 0.10)
     ffi (1.9.3)
+    firebase_token_generator (2.0.0)
     fog (1.23.0)
       fog-brightbox
       fog-core (~> 1.23)
@@ -528,6 +529,7 @@ DEPENDENCIES
   factory_girl
   factory_girl_rails
   faraday_middleware
+  firebase_token_generator
   fog
   foreman
   forgery
