@@ -5,7 +5,7 @@
 
 **CLA:** [Please register an account & sign our CLA.] (http://community.quill.org/signup/cla/)
 
-The Mailing List, Chat, Issues, and Docs can all be accessed from the community page.
+The Mailing List, Chat, Issues, and Docs can all be accessed from the community page. 
 
 # Empirical Easy Install
 
@@ -26,28 +26,25 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 3. Clone the Empirical Core project. Navigate to whatever directory you'd like Empirical Core to live in, and then use `git clone https://github.com/empirical-org/Empirical-Core.git`. From here on in, all the commands you have to type should be in the new Empirical Core directory you just downloaded, so you should probably `cd Empirical-Core`.
 
-4. Make a .env file in the root directory (in the folder 'empirical-grammar') and copy into it the contents of the file .env-sample
-This can be done on the command line with ```cp .env-sample .env```
-
-5. Install Redis. You can either [download it directly](http://redis.io/download), or you can use [homebrew](http://brew.sh/) instead:
+4. Install Redis. You can either [download it directly](http://redis.io/download), or you can use [homebrew](http://brew.sh/) instead:
 	1. ```brew update```
 	2. ```brew install redis```
 
-6. To run `js: true`/`:js`-tagged `feature` specs, [install PhantomJS](https://github.com/teampoltergeist/poltergeist#installing-phantomjs)
+5. To run `js: true`/`:js`-tagged `feature` specs, [install PhantomJS](https://github.com/teampoltergeist/poltergeist#installing-phantomjs)
 
-7. Install bundler with `gem install bundler`
+6. Install bundler with `gem install bundler`
 
-8. Install the bundle with `bundle install`.
+7. Install the bundle with `bundle install`.
 
-9. Set up your database with `bin/rake empirical:setup`.
+8. Set up your database with `bin/rake empirical:setup`.
 
-10. Run Redis with ```redis-server```
+9. Run Redis with ```redis-server```
 
-11. Run the server with `bundle exec rails s`.
+10. Run the server with `bundle exec rails s`.
  - Navigate your browser to localhost:3000 and you should see Empirical-Core pull up properly!
  - When you're done with the server, use Ctrl-C to break it and return to your commandline.
 
-12. Run `bin/guard` to have [Guard](https://github.com/guard/guard-rspec) run
+11. Run `bin/guard` to have [Guard](https://github.com/guard/guard-rspec) run
     specs when you save files.
 
 The installation comes with three users, though you can create as many more as you like:
