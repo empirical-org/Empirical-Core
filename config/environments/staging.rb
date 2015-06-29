@@ -32,7 +32,7 @@ EmpiricalGrammar::Application.configure do
 
   # Generate digests for assets URLs.
   config.assets.digest = true
-  
+
 
 
   # Version of your assets, change this if you want to expire all your assets.
@@ -43,7 +43,7 @@ EmpiricalGrammar::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.log_level = :debug
@@ -74,7 +74,7 @@ EmpiricalGrammar::Application.configure do
                                  application.css.scss
                                  application.js
 
-                            
+
                                  )
 
   # Disable delivery errors, bad email addresses will be ignored
