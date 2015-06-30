@@ -43,5 +43,16 @@ describe Api::V1::FirebaseTokensController, :type => :controller do
         subject
       end
     end
+
+    context 'when the firebase app does not exist' do
+      subject do
+        post :create, app: 'nonexistent'
+      end
+
+      it 'responds with 404' do
+        subject
+        expect(response.status).to eq(404)
+      end
+    end
   end
 end
