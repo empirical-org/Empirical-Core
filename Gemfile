@@ -99,6 +99,7 @@ gem 'clever-ruby', '0.10.0'
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
+  gem 'lograge' # for making logs more dense
 end
 
 group :development do
