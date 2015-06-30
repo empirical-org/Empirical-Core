@@ -3,7 +3,7 @@ namespace :test do
   task :activities => :environment do
 
     a1_data = {
-      uid: "tWwOHnapjOTXqMQOY6p7-g",
+      uid: "tWwOHnapjOTXqMQOY6p7-g-test",
       name: 'Test A1 (And, Or)',
       description: "Write 10 sentences using the conjunctions and, or.",
       data: {"rule_position"=>"---\n- - '423'\n  - '1'\n"},
@@ -12,7 +12,7 @@ namespace :test do
     }
 
     a2_data = {
-      uid: "VolwH12xgS732exLTniUDQ",
+      uid: "VolwH12xgS732exLTniUDQ-test",
       name: "Test A2 (Snow Day, Fiction)",
       description: "Proofread a passage to ensure that commas are plac...",
       data: {"body"=>"--- \"Alex woke up at seven o’clock as always. {+However,-However|173} when he looked\n  out his window, he could barely see anything.\\r\\n\"\n", "instructions"=>"--- This story has three introductory words. However, they do not have a comma placed\n  after them.<br><br> To make changes, click on a word and add a comma to the end\n  of it.\n...\n"},
@@ -22,7 +22,7 @@ namespace :test do
 
 
     a3_data = {
-        uid: "Pgcl7c_giqeHwWvdgJA3CQ",
+        uid: "Pgcl7c_giqeHwWvdgJA3CQ-test",
         name: "Test A3 (So, Because)",
         description: "Write 10 sentences using the conjunctions so or be...",
         data: {"rule_position"=>"---\n- - '423'\n  - '1'\n"},
