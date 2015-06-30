@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe Api::V1::FirebaseTokensController, :type => :controller do
 
-  context 'PUT #update' do
+  context 'POST #create' do
     let!(:app) { FirebaseApp.create!(name: 'foobar', secret: '12345abcde') }
     let!(:user) { FactoryGirl.create(:student) }
 
-    context 'default behavior' do
+    context 'when accessing anonymously' do
       before do
         subject
       end
@@ -25,5 +25,23 @@ describe Api::V1::FirebaseTokensController, :type => :controller do
       end
     end
 
+    context 'when authenticated via OAuth' do
+      let(:application) { Doorkeeper::Application.create!(:name => "MyFirebaseApp", :redirect_uri => "http://app.com") }
+      let(:token) { Doorkeeper::AccessToken.create! :application_id => application.id, :resource_owner_id => user.id }
+
+      def subject
+        post :create, app: 'foobar', access_token: token.token
+      end
+
+      it 'responds with 200' do
+        subject
+        expect(response.status).to eq(200)
+      end
+
+      it 'creates the token with the correct user info' do
+        expect_any_instance_of(FirebaseApp).to receive(:token_for).with(user).at_least(:once)
+        subject
+      end
+    end
   end
 end
