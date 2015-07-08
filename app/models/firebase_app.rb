@@ -1,10 +1,9 @@
 require 'firebase_token_generator'
-require 'securerandom'
 
 class FirebaseApp < ActiveRecord::Base
 
   def token_for(user)
-    payload = {:uid => "custom:#{SecureRandom.uuid}"}
+    payload = {uid: user.present? ? user.id.to_s : ''}
 
     if user.nil?
       payload[:anonymous] = true
