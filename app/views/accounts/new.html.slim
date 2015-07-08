@@ -9,7 +9,7 @@
         = f.string :username
         = f.password :password
         = f.password :password_confirmation
-        = f.email :email
+        = f.email :email, required: true
         .form-school-select
           .field.string.school_select.control-group
             .controls.zipcode
