@@ -9,17 +9,13 @@ class AccountsController < ApplicationController
   # if a temporary_user_id is present in the session, it uses that
   # user record instead of creating a new one.
   def create
-    params[:school_ids] = nil
     role = params[:user].delete(:role)
     @user = User.find_by_id(session[:temporary_user_id]) || User.new
-
-    puts "\n user_params : \n #{user_params.to_json}"
     @user.attributes = user_params
-
     @user.safe_role_assignment(role)
     @user.validate_username = true
 
-    if @user.save!
+    if @user.save
       sign_in @user
       AccountCreationWorker.perform_async(@user.id)
       @user.subscribe_to_newsletter

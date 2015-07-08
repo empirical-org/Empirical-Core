@@ -1,0 +1,578 @@
+diff --git a/app/controllers/accounts_controller.rb b/app/controllers/accounts_controller.rb
+index ebb7abb..aa14cc0 100644
+--- a/app/controllers/accounts_controller.rb
++++ b/app/controllers/accounts_controller.rb
+@@ -9,17 +9,13 @@ class AccountsController < ApplicationController
+   # if a temporary_user_id is present in the session, it uses that
+   # user record instead of creating a new one.
+   def create
+-    params[:school_ids] = nil
+     role = params[:user].delete(:role)
+     @user = User.find_by_id(session[:temporary_user_id]) || User.new
+ 
+-    puts "\n user_params : \n #{user_params.to_json}"
+     @user.attributes = user_params
+-
+     @user.safe_role_assignment(role)
+     @user.validate_username = true
+-
+-    if @user.save!
++    if @user.save
+       sign_in @user
+       AccountCreationWorker.perform_async(@user.id)
+       @user.subscribe_to_newsletter
+diff --git a/app/views/accounts/new.html.slim b/app/views/accounts/new.html.slim
+index 49cd42f..9f63b15 100644
+--- a/app/views/accounts/new.html.slim
++++ b/app/views/accounts/new.html.slim
+@@ -9,7 +9,7 @@
+         = f.string :username
+         = f.password :password
+         = f.password :password_confirmation
+-        = f.email :email, required: true
++        = f.email :email
+         .form-school-select
+           .field.string.school_select.control-group
+             .controls.zipcode
+diff --git a/spec/features/sign_up_spec.rb b/spec/features/sign_up_spec.rb
+index 45bc252..fada31e 100644
+--- a/spec/features/sign_up_spec.rb
++++ b/spec/features/sign_up_spec.rb
+@@ -54,267 +54,266 @@ feature 'Signing up', js: true do
+       before(:each) { sign_up_teacher mr_kotter }
+ 
+       it_behaves_like signup_succeeded
++
++      context 'with no zipcode/school info' do
++        let(:school_not_listed) { false }
++        let(:zipcode)           { '' }
++
++        it_behaves_like signup_succeeded
++      end
++
++      context 'without accepting the Terms of Service' do
++        let(:accept_terms) { false }
++
++        it 'shows the problem on the form' do
++          expect(sign_up_page).to have_content 'Terms of service must be accepted'
++
++          expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
++                                                          type: user_type,
++                                                 accept_terms?: accept_terms,
++                                              send_newsletter?: send_newsletter)
++        end
++
++        context 'with a mixed-case username' do
++          let(:username)  { 'MrKotter' }
++          let(:mr_kotter) { FactoryGirl.build :mr_kotter, username: username }
++
++          describe 'the errored form' do
++            it 'down-cases the username' do
++              # make it expect downcase for comparing against the form
++              mr_kotter.username.downcase!
++
++              expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
++                                                              type: user_type,
++                                                     accept_terms?: accept_terms,
++                                                  send_newsletter?: send_newsletter)
++            end
++          end
++        end
++      end
++
++      context 'with blank password' do
++        let(:mr_kotter) do
++          FactoryGirl.build :mr_kotter, password: ''
++        end
++
++        it 'shows the problem on the form' do
++          expect(sign_up_page).to have_content password_cannot_be_blank
++
++          expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
++                                                          type: user_type,
++                                                 accept_terms?: accept_terms,
++                                              send_newsletter?: send_newsletter)
++        end
++      end
++
++      context 'with mismatched password and confirmation' do
++        let(:mr_kotter) do
++          FactoryGirl.build :mr_kotter, password:              'something',
++                                        password_confirmation: 'different'
++        end
++
++        it 'shows the problem on the form' do
++          expect(sign_up_page).to have_content "Password confirmation doesn't match Password"
++
++          expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
++                                                          type: user_type,
++                                                 accept_terms?: accept_terms,
++                                              send_newsletter?: send_newsletter)
++        end
++      end
++    end
++
++    context 'with minimal info' do
++      let(:x) { 'x' }
++
++      let(:professor_x) do
++        FactoryGirl.build :teacher,
++                            name: 'x x',
++                            password: x,
++               password_confirmation: x,
++                               email: 'x@x.x'
++      end
++
++      let(:zipcode)           { '' }
++      let(:school_not_listed) { false }
++      let(:send_newsletter)   { false }
++
++      before(:each) { sign_up_teacher professor_x }
++
++      it_behaves_like signup_succeeded
++    end
++
++    context 'with duplicate info' do
++      before(:each) do
++        FactoryGirl.create :mr_kotter
++
++        sign_up_teacher mr_kotter
++      end
++
++      it 'shows the errors on the form' do
++        expect(sign_up_page).to have_content username_already_taken
++        expect(sign_up_page).to have_content 'Email has already been taken'
++
++        expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
++                                                        type: user_type,
++                                               accept_terms?: accept_terms,
++                                             end_newsletter?: send_newsletter)
++      end
++    end
++  end
++
++  context 'a Student' do
++    let(:user_type)    { :student }
++    let(:vinnie)       { FactoryGirl.build :vinnie_barbarino }
++
++    let(:accept_terms) { true }
++
++    before(:each) do
++      # at least 1 Section must already exist
++      FactoryGirl.create :section
++
++      sign_up_page.be_a_student
++    end
++
++    def sign_up_student(user)
++      sign_up_page.sign_up(type: user_type,
++                           name: user.name,
++                       username: user.username,
++                       password: user.password,
++          password_confirmation: user.password_confirmation,
++                          email: user.email,
++                   accept_terms: accept_terms)
++    end
++
++    def self.signup_succeeded; 'signup succeeded and'; end
++    shared_examples_for signup_succeeded do
++      it 'goes to the profile page' do
++        expect(current_path).to eq '/profile'
++      end
+     end
+ 
+-    #   context 'with no zipcode/school info' do
+-    #     let(:school_not_listed) { false }
+-    #     let(:zipcode)           { '' }
+-
+-    #     it_behaves_like signup_succeeded
+-    #   end
+-
+-  #     context 'without accepting the Terms of Service' do
+-  #       let(:accept_terms) { false }
+-
+-  #       it 'shows the problem on the form' do
+-  #         expect(sign_up_page).to have_content 'Terms of service must be accepted'
+-
+-  #         expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
+-  #                                                         type: user_type,
+-  #                                                accept_terms?: accept_terms,
+-  #                                             send_newsletter?: send_newsletter)
+-  #       end
+-
+-  #       context 'with a mixed-case username' do
+-  #         let(:username)  { 'MrKotter' }
+-  #         let(:mr_kotter) { FactoryGirl.build :mr_kotter, username: username }
+-
+-  #         describe 'the errored form' do
+-  #           it 'down-cases the username' do
+-  #             # make it expect downcase for comparing against the form
+-  #             mr_kotter.username.downcase!
+-
+-  #             expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
+-  #                                                             type: user_type,
+-  #                                                    accept_terms?: accept_terms,
+-  #                                                 send_newsletter?: send_newsletter)
+-  #           end
+-  #         end
+-  #       end
+-  #     end
+-
+-  #     context 'with blank password' do
+-  #       let(:mr_kotter) do
+-  #         FactoryGirl.build :mr_kotter, password: ''
+-  #       end
+-
+-  #       it 'shows the problem on the form' do
+-  #         expect(sign_up_page).to have_content password_cannot_be_blank
+-
+-  #         expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
+-  #                                                         type: user_type,
+-  #                                                accept_terms?: accept_terms,
+-  #                                             send_newsletter?: send_newsletter)
+-  #       end
+-  #     end
+-
+-  #     context 'with mismatched password and confirmation' do
+-  #       let(:mr_kotter) do
+-  #         FactoryGirl.build :mr_kotter, password:              'something',
+-  #                                       password_confirmation: 'different'
+-  #       end
+-
+-  #       it 'shows the problem on the form' do
+-  #         expect(sign_up_page).to have_content "Password confirmation doesn't match Password"
+-
+-  #         expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
+-  #                                                         type: user_type,
+-  #                                                accept_terms?: accept_terms,
+-  #                                             send_newsletter?: send_newsletter)
+-  #       end
+-  #     end
+-  #   end
+-
+-  #   context 'with minimal info' do
+-  #     let(:x) { 'x' }
+-
+-  #     let(:professor_x) do
+-  #       FactoryGirl.build :teacher,
+-  #                           name: 'x x',
+-  #                           password: x,
+-  #              password_confirmation: x,
+-  #                              email: 'x@x.x'
+-  #     end
+-
+-  #     let(:zipcode)           { '' }
+-  #     let(:school_not_listed) { false }
+-  #     let(:send_newsletter)   { false }
+-
+-  #     before(:each) { sign_up_teacher professor_x }
+-
+-  #     it_behaves_like signup_succeeded
+-  #   end
+-
+-  #   context 'with duplicate info' do
+-  #     before(:each) do
+-  #       FactoryGirl.create :mr_kotter
+-
+-  #       sign_up_teacher mr_kotter
+-  #     end
+-
+-  #     it 'shows the errors on the form' do
+-  #       expect(sign_up_page).to have_content username_already_taken
+-  #       expect(sign_up_page).to have_content 'Email has already been taken'
+-
+-  #       expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
+-  #                                                       type: user_type,
+-  #                                              accept_terms?: accept_terms,
+-  #                                            end_newsletter?: send_newsletter)
+-  #     end
+-  #   end
+-  # end
+-
+-  # context 'a Student' do
+-  #   let(:user_type)    { :student }
+-  #   let(:vinnie)       { FactoryGirl.build :vinnie_barbarino }
+-
+-  #   let(:accept_terms) { true }
+-
+-  #   before(:each) do
+-  #     # at least 1 Section must already exist
+-  #     FactoryGirl.create :section
+-
+-  #     sign_up_page.be_a_student
+-  #   end
+-
+-  #   def sign_up_student(user)
+-  #     sign_up_page.sign_up(type: user_type,
+-  #                          name: user.name,
+-  #                      username: user.username,
+-  #                      password: user.password,
+-  #         password_confirmation: user.password_confirmation,
+-  #                         email: user.email,
+-  #                  accept_terms: accept_terms)
+-  #   end
+-
+-  #   def self.signup_succeeded; 'signup succeeded and'; end
+-  #   shared_examples_for signup_succeeded do
+-  #     it 'goes to the profile page' do
+-  #       expect(current_path).to eq '/profile'
+-  #     end
+-  #   end
+-
+-  #   context 'the form' do
+-  #     it "does not mark the 'email' field as 'required'" do
+-  #       expect(sign_up_page).not_to have_email_required
+-  #     end
+-  #   end
+-
+-  #   context 'with no info' do
+-  #     before(:each) do
+-  #       sign_up_page.be_a_student
+-  #       sign_up_page.submit_form
+-  #     end
+-
+-  #     it 'shows the problem(s) on the form' do
+-  #       expect(sign_up_page).to have_content "Username can't be blank"
+-  #       expect(sign_up_page).to have_content password_cannot_be_blank
+-  #       expect(sign_up_page).to have_content "Email can't be blank"
+-  #       expect(sign_up_page).to have_content 'Terms of service must be accepted'
+-  #     end
+-  #   end
+-
+-  #   context 'with new info' do
+-  #     before(:each) { sign_up_student vinnie }
+-
+-  #     it_behaves_like signup_succeeded
+-
+-  #     context 'without accepting the Terms of Service' do
+-  #       let(:accept_terms) { false }
+-
+-  #       it 'shows the problem on the form' do
+-  #         expect(sign_up_page).to have_content 'Terms of service must be accepted'
+-
+-  #         expect(sign_up_page).to be_errored_sign_up_form(vinnie,
+-  #                                                         type: user_type)
+-  #       end
+-
+-  #       context 'with a mixed-case username' do
+-  #         let(:username)  { 'Vinnie_Barbarino' }
+-  #         let(:vinnie) { FactoryGirl.build :vinnie_barbarino, username: username }
+-
+-  #         describe 'the errored form' do
+-  #           it 'down-cases the username' do
+-  #             # make it expect downcase for comparing against the form
+-  #             vinnie.username.downcase!
+-
+-  #             expect(sign_up_page).to be_errored_sign_up_form(vinnie,
+-  #                                                             type: user_type)
+-  #           end
+-  #         end
+-  #       end
+-  #     end
+-
+-  #     context 'with blank password' do
+-  #       let(:vinnie) do
+-  #         FactoryGirl.build :vinnie_barbarino, password: ''
+-  #       end
+-
+-  #       it 'shows the problem on the form' do
+-  #         expect(sign_up_page).to have_content password_cannot_be_blank
+-
+-  #         expect(sign_up_page).to be_errored_sign_up_form(vinnie,
+-  #                                                         type: user_type)
+-  #       end
+-  #     end
+-
+-  #     context 'with mismatched password and confirmation' do
+-  #       let(:vinnie) do
+-  #         FactoryGirl.build :vinnie_barbarino, password:              'something',
+-  #                                              password_confirmation: 'different'
+-  #       end
+-
+-  #       it 'shows the problem on the form' do
+-  #         expect(sign_up_page).to have_content "Password confirmation doesn't match Password"
+-
+-  #         expect(sign_up_page).to be_errored_sign_up_form(vinnie,
+-  #                                                         type: user_type)
+-  #       end
+-  #     end
+-  #   end
+-
+-  #   context 'with minimal info' do
+-  #     let(:x) { 'x' }
+-
+-  #     let(:student_x) do
+-  #       FactoryGirl.build :student,
+-  #                          name: 'x x',
+-  #                           username: x,
+-  #                           password: x,
+-  #              password_confirmation: x,
+-  #                              email: ''
+-  #     end
+-
+-  #     before(:each) { sign_up_student student_x }
+-
+-  #     it_behaves_like signup_succeeded
+-  #   end
+-
+-  #   context 'with duplicate info' do
+-  #     before(:each) do
+-  #       FactoryGirl.create :vinnie_barbarino
+-
+-  #       sign_up_student vinnie
+-  #     end
+-
+-  #     it 'shows the errors on the form' do
+-  #       expect(sign_up_page).to have_content username_already_taken
+-
+-  #       expect(sign_up_page).to be_errored_sign_up_form(vinnie, type: user_type)
+-  #     end
+-  #   end
+-
+-  #   context 'with duplicate e-mail' do
+-  #     let(:dup_email) { 'sweathog@yarhoo.com' }
+-  #     let(:horshack)  { FactoryGirl.build :arnold_horshack, email: dup_email }
+-
+-  #     before(:each) do
+-  #       FactoryGirl.create :vinnie_barbarino, email: dup_email
++    context 'the form' do
++      it "does not mark the 'email' field as 'required'" do
++        expect(sign_up_page).not_to have_email_required
++      end
++    end
++
++    context 'with no info' do
++      before(:each) do
++        sign_up_page.be_a_student
++        sign_up_page.submit_form
++      end
++
++      it 'shows the problem(s) on the form' do
++        expect(sign_up_page).to have_content "Username can't be blank"
++        expect(sign_up_page).to have_content password_cannot_be_blank
++        expect(sign_up_page).to have_content "Email can't be blank"
++        expect(sign_up_page).to have_content 'Terms of service must be accepted'
++      end
++    end
++
++    context 'with new info' do
++      before(:each) { sign_up_student vinnie }
++
++      it_behaves_like signup_succeeded
++
++      context 'without accepting the Terms of Service' do
++        let(:accept_terms) { false }
++
++        it 'shows the problem on the form' do
++          expect(sign_up_page).to have_content 'Terms of service must be accepted'
++
++          expect(sign_up_page).to be_errored_sign_up_form(vinnie,
++                                                          type: user_type)
++        end
++
++        context 'with a mixed-case username' do
++          let(:username)  { 'Vinnie_Barbarino' }
++          let(:vinnie) { FactoryGirl.build :vinnie_barbarino, username: username }
++
++          describe 'the errored form' do
++            it 'down-cases the username' do
++              # make it expect downcase for comparing against the form
++              vinnie.username.downcase!
++
++              expect(sign_up_page).to be_errored_sign_up_form(vinnie,
++                                                              type: user_type)
++            end
++          end
++        end
++      end
++
++      context 'with blank password' do
++        let(:vinnie) do
++          FactoryGirl.build :vinnie_barbarino, password: ''
++        end
++
++        it 'shows the problem on the form' do
++          expect(sign_up_page).to have_content password_cannot_be_blank
++
++          expect(sign_up_page).to be_errored_sign_up_form(vinnie,
++                                                          type: user_type)
++        end
++      end
++
++      context 'with mismatched password and confirmation' do
++        let(:vinnie) do
++          FactoryGirl.build :vinnie_barbarino, password:              'something',
++                                               password_confirmation: 'different'
++        end
+ 
+-  #       sign_up_student horshack
+-  #     end
++        it 'shows the problem on the form' do
++          expect(sign_up_page).to have_content "Password confirmation doesn't match Password"
+ 
+-  #     it_behaves_like signup_succeeded
+-  #   end
++          expect(sign_up_page).to be_errored_sign_up_form(vinnie,
++                                                          type: user_type)
++        end
++      end
++    end
++
++    context 'with minimal info' do
++      let(:x) { 'x' }
++
++      let(:student_x) do
++        FactoryGirl.build :student,
++                           name: 'x x',
++                            username: x,
++                            password: x,
++               password_confirmation: x,
++                               email: ''
++      end
++
++      before(:each) { sign_up_student student_x }
++
++      it_behaves_like signup_succeeded
++    end
++
++    context 'with duplicate info' do
++      before(:each) do
++        FactoryGirl.create :vinnie_barbarino
++
++        sign_up_student vinnie
++      end
++
++      it 'shows the errors on the form' do
++        expect(sign_up_page).to have_content username_already_taken
++
++        expect(sign_up_page).to be_errored_sign_up_form(vinnie, type: user_type)
++      end
++    end
++
++    context 'with duplicate e-mail' do
++      let(:dup_email) { 'sweathog@yarhoo.com' }
++      let(:horshack)  { FactoryGirl.build :arnold_horshack, email: dup_email }
++
++      before(:each) do
++        FactoryGirl.create :vinnie_barbarino, email: dup_email
++
++        sign_up_student horshack
++      end
++
++      it_behaves_like signup_succeeded
++    end
+   end
+ end
+diff --git a/spec/support/pages/sign_up_page.rb b/spec/support/pages/sign_up_page.rb
+index dc16d48..f283192 100644
+--- a/spec/support/pages/sign_up_page.rb
++++ b/spec/support/pages/sign_up_page.rb
+@@ -18,7 +18,7 @@ class SignUpPage < Page
+ 
+     # e.g.,
+     #   has_input_field :email, :email_field, :user_email
+-    # produces
++    # producces
+     #   #email       - fetch the form's 'email' value
+     #   #email_field - private method to access the :user_email element
+     has_input_field attrib, attrib_field, user_attrib
