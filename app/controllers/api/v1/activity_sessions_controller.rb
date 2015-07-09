@@ -1,6 +1,6 @@
 class Api::V1::ActivitySessionsController < ApiController
 
-  doorkeeper_for :update, :destroy
+  doorkeeper_for :update, :destroy, :show
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
 

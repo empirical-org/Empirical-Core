@@ -2,6 +2,31 @@ require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, :type => :controller do
 
+  shared_examples_for 'protected endpoint' do
+    before do
+      subject
+    end
+
+    it 'requires an OAuth access token' do
+      expect(response.status).to eq(401)
+    end
+  end
+
+  context 'OAuth' do
+    let!(:activity_session) { FactoryGirl.create(:activity_session, user: user) }
+    let!(:user) { FactoryGirl.create(:student) }
+
+    context 'PUT #update' do
+      subject { put :update, id: activity_session.uid }
+      it_behaves_like 'protected endpoint'
+    end
+
+    context 'GET #show' do
+      subject { get :show, id: activity_session.uid }
+      it_behaves_like 'protected endpoint'
+    end
+  end
+
   context 'PUT #update' do
     let(:token) { double :acceptable? => true, :resource_owner_id => user.id }
     let(:user) { FactoryGirl.create(:student) }
