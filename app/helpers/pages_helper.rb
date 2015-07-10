@@ -120,7 +120,7 @@ module PagesHelper
 	      	name: "Timothy Grieves",
 	      	title: "Board Member",
 	      	desc: "Timothy is the chief administrator of the Northwest AEA, a regional agency that advises 33,000 students in Iowa."
-	      },
+	      }
 	      
 	     ]
 	    arr
