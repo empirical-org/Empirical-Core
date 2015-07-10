@@ -97,6 +97,12 @@ module PagesHelper
 		      title: "Editor",
 		      desc: "Bill has thirty years' experience writing and editing his way through engineering failure analysis, gaming, life sciences, corporate training, hardware & software procedural documentation, political survey design, and education."
 	      },
+	      {
+	        img: "thumb_anthony.png",
+	      	name: "Anthony Principe",
+	      	title: "Teacher Champion",
+	      	desc: "Anthony is a special education teacher and administrator who was instrumental in developing cutting-edge inclusion programs for students diagnosed with a wide range of disabilities in Newton, MA. Anthony is a mentor to edtech entrepreneurs at the Learn Launch Accelerator Program and an advisor to JFY Networks. "
+	      },
 		  # {
 
 		  #     img: 'thumb-matt.png',
