@@ -1,10 +1,9 @@
 ActiveRecord::Base.connection.execute(File.read('./db/oauth.sql'))
 ActiveRecord::Base.connection.execute(File.read('./db/activities.sql'))
 
-
 [:admin, :teacher, :student].each do |role|
   User.create(
-    name: role.capitalize,
+    name: "#{role.capitalize} #{role.capitalize}son",
     email: "#{role}@quill.org",
     password: role,
     password_confirmation: role,
