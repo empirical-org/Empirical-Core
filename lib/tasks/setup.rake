@@ -8,6 +8,9 @@ namespace :empirical do
     puts "** Copying DB Credentials..."
     `cp config/database.yml.example config/database.yml`
 
+    puts '** Copying env variables...'
+    `cp .env-sample .env`
+
     puts "** Creating database..."
     Rake::Task["db:create"].invoke
 

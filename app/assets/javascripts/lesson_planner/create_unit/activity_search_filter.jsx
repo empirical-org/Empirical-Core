@@ -1,5 +1,5 @@
 EC.ActivitySearchFilter = React.createClass({
-	
+
 	selectFilterOption: function (optionId) {
 		this.props.selectFilterOption(this.props.data.field, optionId)
 	},
@@ -38,13 +38,16 @@ EC.ActivitySearchFilter = React.createClass({
 				</li>
 			);
 			visibleOptions.unshift(clearSelection);
-		}				
+		}
 		return visibleOptions;
 	},
 
 	getFilterHeader: function() {
 		if (this.props.data.selected) {
-			return this.getSelectedOption().name;
+			var selectedOption, name;
+			selectedOption = this.getSelectedOption();
+			name = selectedOption.alias ? selectedOption.alias : selectedOption.name;
+			return name;
 		} else {
 			return "Filter by " + this.props.data.alias;
 		}
@@ -62,9 +65,9 @@ EC.ActivitySearchFilter = React.createClass({
 		return (
 			<div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
 				<div className="button-select">
-					
+
 					<button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-						{this.getFilterHeader()}				
+						{this.getFilterHeader()}
 						<i className="fa fa-caret-down"></i>
 					</button>
 

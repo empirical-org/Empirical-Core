@@ -136,6 +136,7 @@ EmpiricalGrammar::Application.routes.draw do
   %w(middle_school story learning develop mission faq tos privacy activities new impact stats team premium_access premium).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
+  get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work

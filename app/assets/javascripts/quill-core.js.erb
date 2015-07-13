@@ -67,7 +67,7 @@ window.Quill = function Quill (host, options) {
 
   // assign host.
   this.host = host;
-  if (!host) this.host = 'http://www.quill.org/api/v1/';
+  if (!host) this.host = "<%= ENV['QUILL_API_URL'] %>";
 
   // if the iframe is present, we assume we are on quill.org
   if ($('iframe#activity-iframe').length > 0) {
@@ -244,7 +244,7 @@ jQuery.extend(Quill.prototype, {
     $(window).on('message', function (e) {
       var data = JSON.parse(e.originalEvent.data);
       if (typeof data.messageType !== 'undefined') {
-        this.events[data.messageType](data.payload);        
+        this.events[data.messageType](data.payload);
       }
     }.bind(this));
   }

@@ -8,7 +8,7 @@ class ClassificationSerializer < ActiveModel::Serializer
   		'Quill Proofreader'
   	when 2
   		'Quill Grammar'
-  	end 
+  	end
   end
 
   def image_class
@@ -19,8 +19,6 @@ class ClassificationSerializer < ActiveModel::Serializer
   		'icon-puzzle-gray'
   	end
   end
-
-
 
   def scorebook_icon_class
     case object.id
