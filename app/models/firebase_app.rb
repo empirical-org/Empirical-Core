@@ -10,7 +10,7 @@ class FirebaseApp < ActiveRecord::Base
   private
 
   def create_payload(user)
-    user_id = user.present? ? user.id.to_s : ''
+    user_id = user.present? ? user.id.to_s : 'anonymous'
     payload = {uid: "custom:#{user_id}"}
 
     if user.nil?
