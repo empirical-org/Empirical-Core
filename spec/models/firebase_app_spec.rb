@@ -43,6 +43,11 @@ describe FirebaseApp, :type => :model do
 
     context 'for an anonymous user' do
       let(:user) { nil }
+      it "generates a token with the uid in the payload, where the uid is 'custom:anonymous'" do
+        payload = firebase_app.send(:create_payload, user)
+        uid = payload[:uid]
+        expect(uid).to eq("custom:anonymous")
+      end
 
       it 'generates a token with the anonymous flag in the payload' do
         expect(generator).to receive(:create_token).with(hash_including({:anonymous => true}))
