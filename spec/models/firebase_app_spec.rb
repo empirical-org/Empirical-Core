@@ -2,15 +2,15 @@ require 'rails_helper'
 
 describe FirebaseApp, :type => :model do
 
-  let(:firebase_app){ FactoryGirl.create(:firebase_app) } 
+  let(:firebase_app){ FactoryGirl.create(:firebase_app) }
 
-  context "#token_for" do 
+  context "#token_for" do
     let(:generator) { double("Firebase::FirebaseTokenGenerator") }
-    
+
     before do
       allow(firebase_app).to receive(:token_generator).and_return(generator)
     end
-    
+
     subject do
       firebase_app.token_for(user)
     end
@@ -21,6 +21,12 @@ describe FirebaseApp, :type => :model do
         expected_subhash = { role => true }
         expect(generator).to receive(:create_token).with(hash_including(expected_subhash))
         subject
+      end
+
+      it "generates a token with the uid in the payload, where the uid is of the form 'custom:user.id'" do
+        payload = firebase_app.send(:create_payload, user)
+        uid = payload[:uid]
+        expect(uid).to eq("custom:#{user.id}")
       end
 
       it 'returns the token' do
