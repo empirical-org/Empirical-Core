@@ -18,7 +18,7 @@ class SignUpPage < Page
 
     # e.g.,
     #   has_input_field :email, :email_field, :user_email
-    # producces
+    # produces
     #   #email       - fetch the form's 'email' value
     #   #email_field - private method to access the :user_email element
     has_input_field attrib, attrib_field, user_attrib
