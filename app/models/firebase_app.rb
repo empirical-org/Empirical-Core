@@ -1,10 +1,17 @@
 require 'firebase_token_generator'
-require 'securerandom'
 
 class FirebaseApp < ActiveRecord::Base
 
   def token_for(user)
-    payload = {:uid => "custom:#{SecureRandom.uuid}"}
+    payload = create_payload(user)
+    token_generator.create_token(payload)
+  end
+
+  private
+
+  def create_payload(user)
+    user_id = user.present? ? user.id.to_s : 'anonymous'
+    payload = {uid: "custom:#{user_id}"}
 
     if user.nil?
       payload[:anonymous] = true
@@ -15,11 +22,8 @@ class FirebaseApp < ActiveRecord::Base
     elsif user.student?
       payload[:student] = true
     end
-
-    token_generator.create_token(payload)
+    payload
   end
-
-  private
 
   def token_generator
     @generator ||= Firebase::FirebaseTokenGenerator.new(secret)
