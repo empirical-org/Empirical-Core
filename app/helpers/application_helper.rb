@@ -58,8 +58,4 @@ module ApplicationHelper
   def root_path
     root_url
   end
-
-  def homepage_story_url(activity)
-    activity.module_url(:anonymous, :homepage)
-  end
 end
