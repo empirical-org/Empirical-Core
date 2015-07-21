@@ -17,10 +17,10 @@ module ScorebookHelper
   end
 
   def icon_for_classification(classification)
-    case classification.key
-    when 'story'
+    case classification.id
+    when 1
       'flag'
-    when 'practice_question_set'
+    when 2
       'puzzle'
     else
       ''
