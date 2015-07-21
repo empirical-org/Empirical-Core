@@ -42,6 +42,7 @@ EC.Unit = React.createClass({
 	render: function () {
 		var classroomActivities = _.map(this.props.data.classroom_activities, function (ca) {
 			return (<EC.ClassroomActivity
+							key={ca.id}
 							updateDueDate={this.props.updateDueDate}
 							deleteClassroomActivity={this.props.deleteClassroomActivity}
 							data={ca} />);
