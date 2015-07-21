@@ -204,7 +204,7 @@ namespace :demo do
 =begin
       Special Lesson Score Distribution:
   (none of these should be proofreading lessons)
-  (so activity_classification_id should be 2 for Practice Questions)
+  (so activity_classification_id should be 2)
     3 Lessons:
       Green 95%
       Yellow: 5%
