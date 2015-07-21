@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.2.2'
 
 # CORE DEPS
 gem 'rails', '~> 4.1.4'
@@ -63,7 +63,6 @@ gem "active_model_serializers"
 # UI HELPERS
 gem 'sass'
 gem 'sass-rails', github: 'rails/sass-rails'
-gem 'compass-rails'
 gem 'bootstrap-sass', '~> 2.1.1.0' # honey-cms needs this, unused by the main app
 
 gem 'coffee-rails'
