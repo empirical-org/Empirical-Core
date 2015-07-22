@@ -1,4 +1,4 @@
-class CMS::DataController < CMS::ActivitiesController
+class Cms::DataController < Cms::ActivitiesController
 
   def show
     params[:id] = params[:activity_id]
