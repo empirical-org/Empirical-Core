@@ -85,9 +85,6 @@ gem 'kaminari'
 gem 'rack-cache', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
 
-# CMS (HONEY)
-gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
-
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
 gem 'asset_sync'
