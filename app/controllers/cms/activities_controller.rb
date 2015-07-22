@@ -1,4 +1,4 @@
-class CMS::ActivitiesController < ApplicationController
+class Cms::ActivitiesController < ApplicationController
   before_filter :admin!
   before_filter :find_classification
 
@@ -25,7 +25,7 @@ class CMS::ActivitiesController < ApplicationController
     @activity = @activity_classification.activities.new(activity_params)
 
     if @activity.save
-      redirect_to cms_activity_data_path(@activity_classification.key, @activity), notice: 'Activity was successfully created.'
+      redirect_to cms_activity_data_path(@activity_classification.id, @activity), notice: 'Activity was successfully created.'
     else
       render :new
     end
@@ -35,7 +35,7 @@ class CMS::ActivitiesController < ApplicationController
     @activity = subject
 
     if @activity.update_attributes(activity_params)
-      redirect_to cms_activity_data_path(@activity_classification.key, @activity), notice: 'Activity was successfully updated.'
+      redirect_to cms_activity_data_path(@activity_classification.id, @activity), notice: 'Activity was successfully updated.'
     else
       render :new
     end
@@ -60,7 +60,7 @@ protected
   end
 
   def find_classification
-    @activity_classification = ActivityClassification.find_by_key!(params[:key])
+    @activity_classification = ActivityClassification.find_by_id!(params[:activity_classification_id])
   end
 
   def activity_params

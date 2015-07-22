@@ -1,7 +1,11 @@
-article.simple-rounded-box
-  = form_for [:cms, @activity_classification], html: { class: 'form-horizontal box-full-form' } do |f|
-    = f.string :name
-    = f.string :key
-    = f.string :form_url
-    = f.string :module_url
-    = f.actions
+.cms-form
+  = form_for [:cms, @activity_classification] do |f|
+    = f.label :name
+    = f.text_field :name
+    = f.label :key
+    = f.text_field :key
+    = f.label :form_url
+    = f.text_field :form_url
+    = f.label :module_url
+    = f.text_field :form_url
+    = f.submit

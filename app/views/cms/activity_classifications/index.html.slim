@@ -10,6 +10,6 @@
           td= activity_classification.name
           td
             span>= link_to 'Edit', edit_cms_activity_classification_path(activity_classification)
-            span>= link_to 'Activities', url_for(controller: 'cms/activities', key: activity_classification.key, action: 'index')
+            span>= link_to 'Activities', url_for(controller: 'cms/activities', activity_classification_id: activity_classification.id, action: 'index')
 
     = link_to 'Add a new type of activity', new_cms_activity_classification_path

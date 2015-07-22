@@ -40,3 +40,15 @@ article.cms {
   border: 1px solid rgb(220,220,220);
   width: 1000px !important;
 }
+
+.cms-form {
+  margin-left: 100px;
+  * {
+  float:left;
+  clear:both;
+  }
+  input, textarea {
+    min-width: 700px;
+    width: 100%;
+  }
+}

@@ -1,4 +1,4 @@
-class CMS::UsersController < ApplicationController
+class Cms::UsersController < ApplicationController
   before_filter :signed_in!
   before_filter :admin!
   before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
