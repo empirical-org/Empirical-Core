@@ -1,28 +1,27 @@
-article.new-session-page
-  h3.form-horizontal-header 
+.container
+  .row
+    .account-form.col-sm-6.col-md-4.col-md-offset-4
+      - if flash[:error]
+        .error= flash[:error]
 
-  .container
-    .row
-      .col-sm-6.col-md-4.col-md-offset-4
-        - if flash[:error]
-          .error-message.form-horizontal-header= flash[:error]
-
+      br
+      br
+      br
+      br
+      = form_for @user, url: session_path(redirect: params[:redirect]) do |f|
+        = f.label :email
+        = f.text_field :email, placeholder: 'Email or Username'
+        = f.label :password
+        = f.text_field :password, placeholder: 'Password', class: 'Password'
+        = f.submit 'Sign in' do
         br
         br
-        br
-        br
-        = form_for @user, url: session_path(redirect: params[:redirect]), html: { class: 'form-signin' } do |f|
-          = f.string :email, placeholder: 'Email or Username', label: 'Email or Username', class: 'form-control', autocomplete: 'off'
-          = f.password :password, placeholder: 'Password', class: 'password', class: 'form-control', autocomplete: 'off'
-          = f.submit 'Sign in' do
+        - if @district_id
+          = link_to image_tag('http://assets.clever.com/sign-in-with-clever/sign-in-with-clever-medium.png'), "https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: 'read:user', district_id: @district_id}.to_param }"
           br
-          br
-          - if @district_id
-            = link_to image_tag('http://assets.clever.com/sign-in-with-clever/sign-in-with-clever-medium.png'), "https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: 'read:user', district_id: @district_id}.to_param }"
-            br
-          br 
-          br
-          div
-            = link_to 'Forgot your password?', password_reset_index_path
+        br
+        br
+        div
+          = link_to 'Forgot your password?', password_reset_index_path
 
 

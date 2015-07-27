@@ -12,6 +12,9 @@
     <%= form_for [:teachers, @classroom] do |f| %>
       <div class='row'>
         <div class='col-xs-12'>
+          <div class='newline-error'>
+            <%= @classroom.errors.full_messages_for(:name).first %>
+          </div>
           <%= f.text_field :name, class: 'big-input', placeholder: 'Class Name' %>
         </div>
       </div>
@@ -30,7 +33,7 @@
 
 
 
-      <%= f.button 'Create Class', class: 'button-green' %>
+      <%= f.submit 'Create Class', class: 'button-green' %>
     <% end %>
 
   </section>
