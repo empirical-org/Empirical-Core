@@ -1,11 +1,12 @@
-.container
-  article.new-session-page.simple-rounded-box
-    h3.form-horizontal-header Set your new password
+.container.account-form
+  h3 Set your new password
 
-    - if flash[:error]
-      .error-message.form-horizontal-header= flash[:error]
+  - if flash[:error]
+    .error= flash[:error]
 
-    = form_for @user, url: password_reset_path(@user.token), html: { class: 'form-horizontal box-full-form' } do |f|
-      = f.password :password
-      = f.password :password_confirmation
-      = f.actions save: 'Update password'
+  = form_for @user, url: password_reset_path(@user.token) do |f|
+    = f.label :password
+    = f.password_field :password
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+    = f.submit 'Update password'
