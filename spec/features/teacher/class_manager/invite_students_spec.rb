@@ -83,6 +83,8 @@ feature 'Invite-Students page' do
              student.last_name,
              student.username]
           end
+          puts "\n\nlets print the page to see if the students are indeed sorted by last name : \n"
+          print page.html
 
           expect(invite_students_page.student_table_rows).to eq expected_rows
         end
