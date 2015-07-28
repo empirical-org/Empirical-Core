@@ -2,12 +2,44 @@ require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, :type => :controller do
 
+  shared_examples_for 'protected endpoint' do
+    before do
+      subject
+    end
+
+    it 'requires an OAuth access token' do
+      expect(response.status).to eq(401)
+    end
+  end
+
+  context 'OAuth' do
+    let!(:activity_session) { FactoryGirl.create(:activity_session, user: user) }
+    let!(:user) { FactoryGirl.create(:student) }
+
+    context 'PUT #update' do
+      subject { put :update, id: activity_session.uid }
+      it_behaves_like 'protected endpoint'
+    end
+
+    context 'GET #show' do
+      subject { get :show, id: activity_session.uid }
+      it_behaves_like 'protected endpoint'
+    end
+  end
+
   context 'PUT #update' do
+    let(:token) { double :acceptable? => true, :resource_owner_id => user.id }
+    let(:user) { FactoryGirl.create(:student) }
+
+    before do
+      allow(controller).to receive(:doorkeeper_token) {token}
+      @activity_session = FactoryGirl.create(:activity_session, user: user)
+    end
+
     context 'default behavior' do
       include_context "calling the api"
 
       before do
-        @activity_session = FactoryGirl.create(:activity_session)
         subject
         @parsed_body = JSON.parse(response.body)
       end
@@ -29,7 +61,6 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
 
     context 'when concept tag results are included' do
       before do
-        @activity_session = FactoryGirl.create(:activity_session)
         @writing_class = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
         @sports_class = FactoryGirl.create(:concept_class, name: 'Sporting Events')
         @writing_category = FactoryGirl.create(:concept_category, concept_class: @writing_class)
@@ -77,7 +108,6 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
 
     context 'when the concept tag name is ambiguous (belongs to multiple categories)' do
       before do
-        @activity_session = FactoryGirl.create(:activity_session)
         @writing_class = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
         @grammar_class = FactoryGirl.create(:concept_class, name: 'Grammar Concepts')
         @writing_category = FactoryGirl.create(:concept_category, concept_class: @writing_class)
@@ -114,7 +144,6 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
 
     context 'when a result is assigned to a non-existent concept tag' do
       before do
-        @activity_session = FactoryGirl.create(:activity_session)
         @writing_class = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
       end
 

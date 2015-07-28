@@ -87,6 +87,7 @@ EmpiricalGrammar::Application.routes.draw do
 
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
+      resource :firebase_tokens,          only: [:create]
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -108,14 +109,14 @@ EmpiricalGrammar::Application.routes.draw do
   get '/auth/clever/callback', to: 'sessions#clever'
   get '/auth/failure', to: 'sessions#failure'
 
-  CMS::Routes.new(self).draw do
+  namespace :cms do
     resources :categories
     resources :sections
     resources :activity_classifications
     resources :topics
     resources :topic_categories
 
-    resources :activities, path: 'activity_type/:key/activities' do
+    resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data
     end
 

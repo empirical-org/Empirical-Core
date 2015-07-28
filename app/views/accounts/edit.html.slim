@@ -1,9 +1,13 @@
-article.edit-account-page
+.account-form
   h4 Edit your account
 
   = form_for @user, url: account_path do |f|
-    = f.string :name
-    = f.email :email
-    = f.password :password
-    = f.password :password_confirmation
-    = f.actions save: 'Save'
+    = f.label :name
+    = f.text_field :name
+    = f.label :email
+    = f.text_field :email
+    = f.label :password
+    = f.text_field :password
+    = f.label :password_confirmation
+    = f.text_field :password_confirmation
+    = f.submit 'Save'

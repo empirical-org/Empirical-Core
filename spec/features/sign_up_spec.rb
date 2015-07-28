@@ -44,12 +44,6 @@ feature 'Signing up', js: true do
       end
     end
 
-    context 'the form' do
-      it "marks the 'email' field as 'required'" do
-        expect(sign_up_page).to have_email_required
-      end
-    end
-
     context 'with new info' do
       before(:each) { sign_up_teacher mr_kotter }
 
