@@ -1,4 +1,4 @@
-class CMS::ActivityClassificationsController < ApplicationController
+class Cms::ActivityClassificationsController < ApplicationController
 
   def index
     @activity_classifications = ActivityClassification.all

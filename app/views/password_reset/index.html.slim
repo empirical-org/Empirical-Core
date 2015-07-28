@@ -1,15 +1,17 @@
-.container
-  article.new-session-page.simple-rounded-box
-    h3.form-horizontal-header Reset your password
+.container.account-form
+  .row
+    .col-sm-6.col-md-4.col-md-offset-4
+      h3 Reset your password
 
-    - if flash[:error]
-      .error-message.form-horizontal-header= flash[:error]
+      - if flash[:error]
+        .error= flash[:error]
 
-    - if flash[:notice]
-      .success-message.form-horizontal-header= flash[:notice]
+      - if flash[:notice]
+        .success= flash[:notice]
 
-    = form_for @user, url: password_reset_index_path, html: { class: 'form-horizontal box-full-form' } do |f|
-      = f.string :email
-      = f.actions save: 'Reset password' do
-        br
-        = link_to 'Forgot your password?', password_reset_index_path
+      = form_for @user, url: password_reset_index_path do |f|
+        = f.label :email
+        = f.text_field :email
+        = f.submit 'Reset password' do
+          br
+          = link_to 'Forgot your password?', password_reset_index_path

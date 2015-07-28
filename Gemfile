@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.2.2'
 
 # CORE DEPS
 gem 'rails', '~> 4.1.4'
@@ -22,6 +22,7 @@ gem 'doorkeeper', '1.4.1' # must use 1.4.1 or > 2.0.0 - http://seclists.org/oss-
 gem 'omniauth'
 gem 'omniauth-clever'
 gem 'cancancan'
+gem 'firebase_token_generator'
 
 # UPLOADS
 gem 'carrierwave'
@@ -62,7 +63,6 @@ gem "active_model_serializers"
 # UI HELPERS
 gem 'sass'
 gem 'sass-rails', github: 'rails/sass-rails'
-gem 'compass-rails'
 gem 'bootstrap-sass', '~> 2.1.1.0' # honey-cms needs this, unused by the main app
 
 gem 'coffee-rails'
@@ -84,9 +84,6 @@ gem 'kaminari'
 # MIDDLEWARE
 gem 'rack-cache', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
-
-# CMS (HONEY)
-gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'

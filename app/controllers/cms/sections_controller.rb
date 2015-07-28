@@ -1,4 +1,4 @@
-class CMS::SectionsController < ApplicationController
+class Cms::SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
 
   def index
