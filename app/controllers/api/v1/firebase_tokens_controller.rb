@@ -1,4 +1,4 @@
-class Api::V1::FirebaseTokensController < ApiController
+class Api::V1::FirebaseTokensController < Api::ApiController
   skip_before_action :verify_authenticity_token
 
   def create
