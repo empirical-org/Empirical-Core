@@ -1,4 +1,4 @@
-class ApiController < ActionController::Base
+class Api::ApiController < ActionController::Base
 
   # this will fail because .find(id) isn't working right now, as it's uid not
   # id that's in use here...
