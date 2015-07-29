@@ -76,5 +76,31 @@ describe User, :type => :model do
         end
       end
     end
+
+    describe '#is_trial_expired_helper' do
+      let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
+      let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher)}
+      let!(:student1) {FactoryGirl.create(:user, classcode: classroom.code)}
+      let!(:unit1) {FactoryGirl.create(:unit)}
+      let!(:classroom_activity1) {FactoryGirl.create(:classroom_activity)}
+      let!(:classroom_activity2) {FactoryGirl.create(:classroom_activity)}
+      let!(:activity_session1)   {FactoryGirl.create(:activity_session, user: student1, classroom_activity: classroom_activity1, completed_at: trial_start_date)}
+      let!(:activity_session2)   {FactoryGirl.create(:activity_session, user: student1, classroom_activity: classroom_activity2, completed_at: trial_start_date)}
+      let!(:trial_start_date) {Date.yesterday}
+      let!(:trial_account_limit) {1}
+
+      context 'teacher has not exceeded limit of activity_sessions after start_date of trial' do
+        let!(:updated_activity_session1) {activity_session1.update_attributes(completed_at: trial_start_date - 1)}
+        it 'returns false' do
+          expect(teacher.is_trial_expired_helper(trial_start_date, trial_account_limit)).to be false
+        end
+      end
+
+      context 'teacher has exceeded limit of activity_sessions' do
+        it 'returns true' do
+          expect(teacher.is_trial_expired_helper(trial_start_date, trial_account_limit)).to be true
+        end
+      end
+    end
   end
 end

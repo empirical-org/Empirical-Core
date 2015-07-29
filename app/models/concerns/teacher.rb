@@ -1,6 +1,8 @@
 module Teacher
   extend ActiveSupport::Concern
   SCORES_PER_PAGE = 200
+  PROGRESS_REPORT_TRIAL_LIMIT = 30
+  PROGRESS_REPORT_TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
 
   included do
     has_many :classrooms, foreign_key: 'teacher_id'
@@ -153,4 +155,18 @@ module Teacher
         .where("teachers.id = ?", self.id)
   end
 
+  def is_trial_expired?
+    # extracted logic into below helper so that we can test the functionality in a way thats agnostic to the constants
+    self.is_trial_expired_helper(PROGRESS_REPORT_TRIAL_START_DATE, PROGRESS_REPORT_TRIAL_LIMIT)
+  end
+
+  def is_trial_expired_helper trial_start_date, trial_limit
+    acss = self.teachers_activity_sessions_since_date(trial_start_date)
+    acss.count > trial_limit
+  end
+
+  def teachers_activity_sessions_since_date date
+    ActivitySession.where(user: self.my_students)
+                   .where("completed_at >= ?", date)
+  end
 end
