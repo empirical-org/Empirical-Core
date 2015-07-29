@@ -139,4 +139,18 @@ module Teacher
     end
     response
   end
+
+  def is_premium?
+    subscriptions
+      .where("subscriptions.expiration >= ?", Date.today)
+      .where("subscriptions.account_limit >= ?", self.my_students.length)
+      .any?
+  end
+
+  def my_students
+    User.joins("JOIN classrooms ON users.classcode = classrooms.code")
+        .joins("JOIN users AS teachers ON teachers.id = classrooms.teacher_id")
+        .where("teachers.id = ?", self.id)
+  end
+
 end
