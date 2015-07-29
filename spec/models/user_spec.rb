@@ -678,45 +678,4 @@ describe User, :type => :model do
 
   it 'does not care about all the validation stuff when the user is temporary'
   it 'disallows regular assignment of roles that are restricted'
-
-
-  describe 'teacher concern' do
-    describe '#scorebook_scores' do
-      let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
-      let!(:student) {FactoryGirl.create(:user, role: 'student')}
-      let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher, students: [student])}
-
-      let!(:section) {FactoryGirl.create(:section)}
-      let!(:topic_category) {FactoryGirl.create(:topic_category)}
-      let!(:topic) {FactoryGirl.create(:topic, topic_category: topic_category, section: section)}
-      let!(:activity_classification) {FactoryGirl.create :activity_classification}
-
-      let!(:activity) {FactoryGirl.create(:activity, topic: topic, classification: activity_classification)}
-
-      let!(:unit) {FactoryGirl.create(:unit)}
-
-      let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom, unit: unit )}
-
-      let!(:activity_session1) {FactoryGirl.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity)}
-      let!(:activity_session2) {FactoryGirl.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity)}
-
-
-      it 'does not return a completed activities that is not a final scores' do
-        all, is_last_page = teacher.scorebook_scores
-        x = all.find{|x| x[:user] == student}
-        y = x[:results].find{|y| y[:id] == activity_session2.id}
-        expect(y).to be_nil
-      end
-
-      it 'does return a completed activity that is a final score' do
-        all, is_last_page = teacher.scorebook_scores
-        x = all.find{|x| x[:user] == student}
-        y = x[:results].find{|y| y[:id] == activity_session1.id}
-        expect(y).to be_present
-      end
-
-
-    end
-  end
-
 end
