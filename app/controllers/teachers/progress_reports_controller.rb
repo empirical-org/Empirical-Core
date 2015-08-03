@@ -1,5 +1,6 @@
 class Teachers::ProgressReportsController < ApplicationController
   before_action :authorize!, except: :demo
+  before_action :handle_expired_trial, except: :demo
   before_action :set_vary_header, if: -> { request.xhr? }
 
   def demo
@@ -9,6 +10,11 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private
+
+  def handle_expired_trial
+    return if current_user.is_premium? or !current_user.is_trial_expired?
+    render :trial_expired
+  end
 
   def authorize!
     return if current_user.try(:teacher?)
