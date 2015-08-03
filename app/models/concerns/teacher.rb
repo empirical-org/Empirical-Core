@@ -1,7 +1,7 @@
 module Teacher
   extend ActiveSupport::Concern
   SCORES_PER_PAGE = 200
-  PROGRESS_REPORT_TRIAL_LIMIT = 30
+  PROGRESS_REPORT_TRIAL_LIMIT = 250
   PROGRESS_REPORT_TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
 
   included do
@@ -15,6 +15,14 @@ module Teacher
     def scope
       User.where(role: 'teacher')
     end
+  end
+
+  def trial_start_date
+    PROGRESS_REPORT_TRIAL_START_DATE
+  end
+
+  def trial_limit
+    PROGRESS_REPORT_TRIAL_LIMIT
   end
 
   # Occasionally teachers are populated in the view with
@@ -157,12 +165,12 @@ module Teacher
 
   def is_trial_expired?
     # extracted logic into below helper so that we can test the functionality in a way thats agnostic to the constants
-    self.is_trial_expired_helper(PROGRESS_REPORT_TRIAL_START_DATE, PROGRESS_REPORT_TRIAL_LIMIT)
+    self.is_trial_expired_helper(trial_start_date, trial_limit)
   end
 
-  def is_trial_expired_helper trial_start_date, trial_limit
-    acss = self.teachers_activity_sessions_since_date(trial_start_date)
-    acss.count > trial_limit
+  def is_trial_expired_helper trial_start_date1, trial_limit1
+    acss = self.teachers_activity_sessions_since_date(trial_start_date1)
+    acss.count > trial_limit1
   end
 
   def teachers_activity_sessions_since_date date
