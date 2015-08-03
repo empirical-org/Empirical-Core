@@ -121,12 +121,6 @@ module PagesHelper
 	      	name: "Timothy Grieves",
 	      	title: "Board Member",
 	      	desc: "Timothy is the chief administrator of the Northwest AEA, a regional agency that advises 33,000 students in Iowa."
-	      },
-	      {
-
-	      	name: "Anthony Principe",
-	      	title: "Advisor",
-	      	desc: "Anthony is a retired special education teacher and administrator who was instrumental in developing cutting-edge inclusion programs for students diagnosed with a wide range of disabilities in Newton, MA. Anthony is a mentor to edtech entrepreneurs at the Learn Launch Accelerator Program and an advisor to JFY Networks. "
 	      }
 	     ]
 	    arr
