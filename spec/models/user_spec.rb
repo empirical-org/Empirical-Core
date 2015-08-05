@@ -243,8 +243,8 @@ describe User, :type => :model do
   describe "#email_required?" do
     let(:user) { FactoryGirl.build(:user) }
 
-    it "returns true for all roles but temporary" do
-      user.safe_role_assignment "user"
+    it "returns true for teacher" do
+      user.safe_role_assignment "teacher"
       expect(user.send(:email_required?)).to eq(true)
     end
 
@@ -309,7 +309,7 @@ describe User, :type => :model do
 
       context "when role requires email" do
         it "is invalid without email" do
-          user.safe_role_assignment "student"
+          user.safe_role_assignment "teacher"
           user.email = nil
           expect(user).to_not be_valid
         end

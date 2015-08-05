@@ -23,7 +23,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
     @results_per_page = RESULTS_PER_PAGE
     @activities = @activities.map{|a| (ActivitySerializer.new(a)).as_json(root: false)}
-    puts 'search activities being called'
     render json: {
       activities: @activities,
       activity_classifications: @activity_classifications,

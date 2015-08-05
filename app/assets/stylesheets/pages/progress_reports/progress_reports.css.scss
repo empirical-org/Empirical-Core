@@ -1,5 +1,11 @@
-@import "variables";
 @import "shared/icons";
+
+.progress-report-symbol {
+  i {
+    height: inherit;
+    line-height: inherit;
+  }
+}
 
 .progress-reports-standards-classroom-topics {
   table {
