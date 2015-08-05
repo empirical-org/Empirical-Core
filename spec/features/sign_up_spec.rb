@@ -307,7 +307,11 @@ feature 'Signing up', js: true do
         sign_up_student horshack
       end
 
-      it_behaves_like signup_succeeded
+      it 'shows the errors on the form' do
+        # previously this was expeted to succeed;
+        # however, even though emails are not required of students, if they are supplied then we expect them to be unique
+        expect(sign_up_page).to be_errored_sign_up_form(horshack, type: user_type)
+      end
     end
   end
 end

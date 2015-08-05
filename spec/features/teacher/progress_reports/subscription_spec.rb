@@ -40,15 +40,19 @@ feature 'Subscription to Progress Report', js: true do
   end
 
   context 'no subscription' do
-    # context 'trial is not expired' do
-    #   it 'displays activity session data ' do
-    #     expect(report_page).to_not have_content(student.name)
-    #   end
+    context 'trial is not expired' do
+      before do
+        report_page.visit
+      end
 
-    #   it 'displays trial message' do
-    #     expect(report_page).to have_content(trial_message)
-    #   end
-    # end
+      it 'displays activity session data' do
+        expect(report_page).to have_content(student.name)
+      end
+
+      it 'displays trial message' do
+        expect(report_page).to have_content(trial_message)
+      end
+    end
 
 
 
@@ -70,13 +74,19 @@ feature 'Subscription to Progress Report', js: true do
 
   end
 
-  # context 'has subscription' do
-  #   it 'displays activity session data' do
-  #     expect(report_page.table_rows.first.first).to eq(student.name)
-  #   end
+  context 'has subscription' do
+    let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, expiration: Date.tomorrow, account_limit: 5)}
 
-  #   it 'does not display trial message' do
-  #     expect(report_page).to_not have_content(trial_message)
-  #   end
-  # end
+    before do
+      report_page.visit
+    end
+
+    it 'displays activity session data' do
+      expect(report_page.table_rows.first.first).to eq(student.name)
+    end
+
+    it 'does not display trial message' do
+      expect(report_page).to_not have_content(trial_message)
+    end
+  end
 end

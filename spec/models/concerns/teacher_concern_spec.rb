@@ -77,28 +77,31 @@ describe User, :type => :model do
       end
     end
 
-    describe '#is_trial_expired_helper' do
+    describe '#is_trial_expired?' do
       let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
       let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher)}
       let!(:student1) {FactoryGirl.create(:user, classcode: classroom.code)}
       let!(:unit1) {FactoryGirl.create(:unit)}
       let!(:classroom_activity1) {FactoryGirl.create(:classroom_activity)}
       let!(:classroom_activity2) {FactoryGirl.create(:classroom_activity)}
-      let!(:activity_session1)   {FactoryGirl.create(:activity_session, user: student1, classroom_activity: classroom_activity1, completed_at: trial_start_date)}
-      let!(:activity_session2)   {FactoryGirl.create(:activity_session, user: student1, classroom_activity: classroom_activity2, completed_at: trial_start_date)}
       let!(:trial_start_date) {Date.yesterday}
-      let!(:trial_account_limit) {1}
+      let!(:activity_session1)   {FactoryGirl.create(:activity_session, user: student1, classroom_activity: classroom_activity1, completed_at: trial_start_date)}
+
+      before do
+        allow_any_instance_of(Teacher).to receive(:trial_start_date).and_return(trial_start_date)
+        allow_any_instance_of(Teacher).to receive(:trial_limit).and_return(1)
+      end
 
       context 'teacher has not exceeded limit of activity_sessions after start_date of trial' do
-        let!(:updated_activity_session1) {activity_session1.update_attributes(completed_at: trial_start_date - 1)}
         it 'returns false' do
-          expect(teacher.is_trial_expired_helper(trial_start_date, trial_account_limit)).to be false
+          expect(teacher.is_trial_expired?).to be false
         end
       end
 
       context 'teacher has exceeded limit of activity_sessions' do
+        let!(:activity_session2)   {FactoryGirl.create(:activity_session, user: student1, classroom_activity: classroom_activity2, completed_at: trial_start_date)}
         it 'returns true' do
-          expect(teacher.is_trial_expired_helper(trial_start_date, trial_account_limit)).to be true
+          expect(teacher.is_trial_expired?).to be true
         end
       end
     end

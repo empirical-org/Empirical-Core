@@ -177,4 +177,31 @@ module Teacher
     ActivitySession.where(user: self.my_students)
                    .where("completed_at >= ?", date)
   end
+
+  def trial_activities_display_ratio
+    "#{teachers_activity_sessions_since_date(trial_start_date).count} / #{trial_limit}"
+  end
+
+  def trial_activities_numerical_ratio
+    teachers_activity_sessions_since_date(trial_start_date).count/trial_limit
+  end
+
+  def premium_state
+    if is_beta_period_over?
+      "beta"
+    elsif is_premium?
+      "premium"
+    elsif !is_trial_expired?
+      "trial"
+    else
+      "locked"
+    end
+  end
+
+
+  def is_beta_period_over?
+    Date.today >= Teacher::PROGRESS_REPORT_TRIAL_START_DATE
+  end
+
+
 end
