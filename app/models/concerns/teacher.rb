@@ -187,7 +187,7 @@ module Teacher
 
 
   def is_beta_period_over?
-    Date.today >= Teacher::TRIAL_START_DATE
+    Date.today >= TRIAL_START_DATE
   end
 
 
