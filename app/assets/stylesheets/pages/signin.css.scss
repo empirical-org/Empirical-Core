@@ -1,6 +1,4 @@
-@import "variables";
-
-// SIGN IN 
+// SIGN IN
 
 %login_form {
   .control-group {
@@ -12,8 +10,8 @@
     height: 40px;
     background-color: $quillgreen;
     color: white;
-    border-color: $quillgreen;  
-  }  
+    border-color: $quillgreen;
+  }
 }
 
 .form-signin {

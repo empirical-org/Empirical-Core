@@ -88,8 +88,8 @@ describe User, :type => :model do
       let!(:activity_session1)   {FactoryGirl.create(:activity_session, user: student1, classroom_activity: classroom_activity1, completed_at: trial_start_date)}
 
       before do
-        allow_any_instance_of(Teacher).to receive(:trial_start_date).and_return(trial_start_date)
-        allow_any_instance_of(Teacher).to receive(:trial_limit).and_return(1)
+        stub_const("Teacher::TRIAL_START_DATE", trial_start_date)
+        stub_const("Teacher::TRIAL_LIMIT", 1)
       end
 
       context 'teacher has not exceeded limit of activity_sessions after start_date of trial' do
