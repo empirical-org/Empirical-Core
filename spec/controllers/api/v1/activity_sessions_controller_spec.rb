@@ -68,12 +68,16 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
       def subject
         results = [
           {
-            concept: @writing_concept.uid,
-            foo: 'bar',
+            concept_uid: @writing_concept.uid,
+            metadata: {
+              foo: 'bar',
+            },
           },
           {
-            concept: @climbing_concept.uid,
-            baz: 'foo'
+            concept_uid: @climbing_concept.uid,
+            metadata: {
+              baz: 'foo'
+            }
           }
         ]
         put :update, id: @activity_session.uid, concept_results: results
@@ -107,8 +111,10 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
       def subject
         results = [
           {
-            concept: 'Non-existent UID',
-            foo: 'bar',
+            concept_uid: 'Non-existent UID',
+            metadata: {
+              foo: 'bar',
+            }
           }
         ]
         put :update, id: @activity_session.uid, concept_results: results

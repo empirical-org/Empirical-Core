@@ -75,7 +75,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def activity_session_params
     params.delete(:activity_session)
     @data = params.delete(:data)
-    concept_tag_keys = [:concept, :metadata => concept_result_allowed_keys]
+    concept_result_keys = [:concept_uid, :metadata => concept_result_allowed_keys]
     params.permit(:id,
                   :access_token, # Required by OAuth
                   :percentage,
@@ -84,7 +84,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :completed_at,
                   :activity_uid,
                   :anonymous,
-                  concept_results_attributes:  concept_tag_keys)
+                  concept_results_attributes:  concept_result_keys)
       .merge(data: @data).reject {|k,v| v.nil? }
   end
 
@@ -101,30 +101,11 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   end
 
   # Transform the incoming request parameters so that it can be easily ingested by ActiveRecord.
-  # Alias the following request parameters:
-  # Map each result to the following structure:
-  # {
-  #   concept: "uid-abcde12345",
-  #   student_input: "The dog jumped over the cat."
-  # },
-  # Becomes this:
-  # {
-  #   metadata: {
-  #     concept: "uid-abcde12345",
-  #     student_input: "The dog jumped over the cat."
-  #   }
-  # }
-  #
-  # concept_results -> concept_results_attributes
+  # 'concept_results' is the key for the results, but Rails' nested attributes
+  # will only work with 'concept_results_attributes' as a key.
   def transform_incoming_request
     if params[:concept_results].present?
-      results = params.delete(:concept_results)
-      transformed_results = results.reduce [] do |accumulator, result|
-        accumulator << {
-          metadata: result
-        }
-      end
-      params[:concept_results_attributes] = transformed_results
+      params[:concept_results_attributes] = params.delete(:concept_results)
     else
       params.delete(:concept_results)
     end
