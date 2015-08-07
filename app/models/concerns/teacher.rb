@@ -166,11 +166,11 @@ module Teacher
   end
 
   def trial_activities_display_ratio
-    "#{teachers_activity_sessions_since_date(trial_start_date).count} / #{trial_limit}"
+    "#{teachers_activity_sessions_since_date(TRIAL_START_DATE).count} / #{TRIAL_LIMIT}"
   end
 
   def trial_activities_numerical_ratio
-    teachers_activity_sessions_since_date(trial_start_date).count/trial_limit
+    teachers_activity_sessions_since_date(TRIAL_START_DATE).count/TRIAL_LIMIT
   end
 
   def premium_state
