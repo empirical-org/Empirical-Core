@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%= favicon_link_tag 'favicon.ico' %>
-    <title>Quill.org &mdash; Interactive Writing and Grammar</title>
-    <%= render partial: 'head' %>
-  </head>
+  <%= render partial: 'head' %>
+
   <body id="new-home-page">
 
-  <%= render partial: 'home_nav' %>
+    <%= render partial: 'home_nav' %>
 
-  <%= yield %>
+    <%= yield %>
 
-  <%= render partial: 'footer' %>
+    <%= render partial: 'footer' %>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-</body>
+  </body>
 </html>

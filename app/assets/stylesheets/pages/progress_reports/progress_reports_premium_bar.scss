@@ -1,0 +1,48 @@
+.premium-bar {
+  background: $darkorange;
+  color: white;
+  .bar-text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 20px;
+    float:left;
+    clear:none;
+    display:inline-block;
+    margin-right: 20px;
+  }
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+
+  .premium-bar-extra-wide {
+    margin-left: -35px;
+    margin-right: -35px;
+  }
+
+  .premium-bar-progress-bar {
+    height: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100px;
+    //position: relative;
+    border: 1px solid white;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    overflow: hidden;
+    display: inline-block;
+    float:left;
+    clear:none;
+    margin-right: 20px;
+    span {
+      display: block;
+      margin: -1px;
+      height: 100%;// 20px;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      background-color: white;
+      position: relative;
+    }
+  }
+}

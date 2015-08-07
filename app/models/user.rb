@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   validates :password,              confirmation: { if: :requires_password_confirmation? },
                                     presence:     { if: :requires_password? }
 
-  validates :email,                 uniqueness:   { allow_blank: true, if: :email_required? },
+  validates :email,                 uniqueness:   { if: :email_required_or_present? },
                                     presence:     { if: :email_required? }
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
@@ -324,11 +324,14 @@ private
   end
 
   # validation filters
+  def email_required_or_present?
+    email_required? or email.present?
+  end
+
   def email_required?
     return false if self.clever_id
     return false if role.temporary?
     return true if teacher?
-
     username.blank?
   end
 
