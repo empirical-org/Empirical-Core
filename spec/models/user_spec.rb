@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'io/console'
 
 describe User, :type => :model do
   let(:user) { FactoryGirl.build(:user) }

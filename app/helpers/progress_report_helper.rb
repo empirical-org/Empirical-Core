@@ -33,7 +33,7 @@ module ProgressReportHelper
       val = "<div class='bar-text'>As a Quill early adopter, you have free access to progress reports until August 20th, 2015.&nbsp; #{link_to 'Learn More & Request a Quote', premium_access_path}.</div>"
     when 'trial'
       val = "<div class='bar-text'>As a Quill Premium trial user, you have access for the first #{Teacher::TRIAL_LIMIT} activities completed.</div>" +
-            "#{progress_bar}   <div class='bar-text'>#{current_user.trial_activities_display_ratio} Completed</div>" +
+            "#{progress_bar}   <div class='bar-text'>#{trial_activities_display_ratio} Completed</div>" +
             "<div class='bar-text'>#{link_to('Learn More & Request a Quote', premium_access_path)}.</div>"
     when 'locked'
       val = "<div class='bar-text'>Your trial has expired. Please purchase Quill Premium to unlock the progress reports. #{link_to('Learn More & Request a Quote', premium_access_path)}.</div>"
@@ -48,6 +48,10 @@ module ProgressReportHelper
   def progress_bar_width
     ratio = current_user.trial_activities_numerical_ratio
     "width: #{ratio * 100}%"
+  end
+
+  def trial_activities_display_ratio
+    "#{current_user.teachers_activity_sessions_since_trial_start_date.count} / #{Teacher::TRIAL_LIMIT}"
   end
 
 end

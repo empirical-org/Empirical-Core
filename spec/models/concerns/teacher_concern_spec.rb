@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'io/console'
 
 describe User, :type => :model do
   describe 'teacher concern' do
@@ -52,7 +51,8 @@ describe User, :type => :model do
 
       context 'user has an associated subscription' do
         context 'that has expired' do
-          let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.yesterday)}
+          # for some reason Rspec was setting expiration as today if I set it at Date.yesterday, so had to minus 1 from yesterday
+          let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.yesterday-1)}
           it 'returns false' do
             expect(teacher.is_premium?).to be false
           end
@@ -60,9 +60,9 @@ describe User, :type => :model do
 
         context 'that has not expired' do
           let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.tomorrow)}
-          let!(:student1) {FactoryGirl.create(:user, classcode: classroom.code)}
+          let!(:student1) {FactoryGirl.create(:user, role: 'student', classcode: classroom.code)}
           context 'that has passed its account limit' do
-            let!(:student2) {FactoryGirl.create(:user, classcode: classroom.code)}
+            let!(:student2) {FactoryGirl.create(:user, role: 'student', classcode: classroom.code)}
             it 'returns false' do
               expect(teacher.is_premium?).to be false
             end
@@ -80,7 +80,7 @@ describe User, :type => :model do
     describe '#is_trial_expired?' do
       let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
       let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher)}
-      let!(:student1) {FactoryGirl.create(:user, classcode: classroom.code)}
+      let!(:student1) {FactoryGirl.create(:user, role: 'student', classcode: classroom.code)}
       let!(:unit1) {FactoryGirl.create(:unit)}
       let!(:classroom_activity1) {FactoryGirl.create(:classroom_activity)}
       let!(:classroom_activity2) {FactoryGirl.create(:classroom_activity)}

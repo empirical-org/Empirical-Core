@@ -145,32 +145,22 @@ module Teacher
   def is_premium?
     subscriptions
       .where("subscriptions.expiration >= ?", Date.today)
-      .where("subscriptions.account_limit >= ?", self.my_students.length)
+      .where("subscriptions.account_limit >= ?", self.students.count)
       .any?
   end
 
-  def my_students
-    User.joins("JOIN classrooms ON users.classcode = classrooms.code")
-        .joins("JOIN users AS teachers ON teachers.id = classrooms.teacher_id")
-        .where("teachers.id = ?", self.id)
-  end
-
   def is_trial_expired?
-    acss = self.teachers_activity_sessions_since_date(TRIAL_START_DATE)
+    acss = self.teachers_activity_sessions_since_trial_start_date
     acss.count > TRIAL_LIMIT
   end
 
-  def teachers_activity_sessions_since_date date
-    ActivitySession.where(user: self.my_students)
-                   .where("completed_at >= ?", date)
-  end
-
-  def trial_activities_display_ratio
-    "#{teachers_activity_sessions_since_date(TRIAL_START_DATE).count} / #{TRIAL_LIMIT}"
+  def teachers_activity_sessions_since_trial_start_date
+    ActivitySession.where(user: self.students)
+                   .where("completed_at >= ?", TRIAL_START_DATE)
   end
 
   def trial_activities_numerical_ratio
-    teachers_activity_sessions_since_date(TRIAL_START_DATE).count/TRIAL_LIMIT
+    teachers_activity_sessions_since_trial_start_date.count/TRIAL_LIMIT
   end
 
   def premium_state
