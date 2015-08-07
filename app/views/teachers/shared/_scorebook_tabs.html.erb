@@ -18,7 +18,7 @@
       </li>
 
       <li class="<%= is_progress_report_page? ? 'active' : '' %>">
-        <%= link_to raw('Progress Reports<span class="btn button-yellow">BETA</span>'), teachers_progress_reports_standards_classrooms_path, class: 'progress-reports-nav', role: 'tab' %>
+        <%= link_to raw("Progress Reports<span class='btn button-yellow progress-report-symbol'>#{tab_symbol}</span>"), teachers_progress_reports_standards_classrooms_path, class: 'progress-reports-nav', role: 'tab' %>
       </li>
       <li class="<%= (action_name == 'premium_access') ? 'premium-tab active' : 'premium-tab' %>">
         <%= link_to 'Premium', premium_access_path, role: 'tab' %>

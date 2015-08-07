@@ -2,7 +2,12 @@
   <%= render partial: 'head' %>
   <body>
     <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
+
+    <%= render partial: 'teachers/shared/scorebook_tabs' %>
+    <%= render partial: 'teachers/progress_reports/subnav'%>
+
     <%= yield %>
+
     <%= render partial: 'footer', media: 'all', 'data-turbolinks-track' => true %>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

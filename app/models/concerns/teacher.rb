@@ -1,6 +1,8 @@
 module Teacher
   extend ActiveSupport::Concern
   SCORES_PER_PAGE = 200
+  TRIAL_LIMIT = 250
+  TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
 
   included do
     has_many :classrooms, foreign_key: 'teacher_id'
@@ -139,4 +141,40 @@ module Teacher
     end
     response
   end
+
+  def is_premium?
+    subscriptions
+      .where("subscriptions.expiration >= ?", Date.today)
+      .where("subscriptions.account_limit >= ?", self.students.count)
+      .any?
+  end
+
+  def is_trial_expired?
+    acss = self.teachers_activity_sessions_since_trial_start_date
+    acss.count > TRIAL_LIMIT
+  end
+
+  def teachers_activity_sessions_since_trial_start_date
+    ActivitySession.where(user: self.students)
+                   .where("completed_at >= ?", TRIAL_START_DATE)
+  end
+
+  def premium_state
+    if is_beta_period_over?
+      "beta"
+    elsif is_premium?
+      "premium"
+    elsif !is_trial_expired?
+      "trial"
+    else
+      "locked"
+    end
+  end
+
+
+  def is_beta_period_over?
+    Date.today >= TRIAL_START_DATE
+  end
+
+
 end
