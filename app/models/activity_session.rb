@@ -6,8 +6,9 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :activity
   has_one :unit, through: :classroom_activity
   has_many :concept_tag_results
+  has_many :concept_results
 
-  accepts_nested_attributes_for :concept_tag_results
+  accepts_nested_attributes_for :concept_results
 
   ownable :user
   after_save { if user.present? then user.touch end}
