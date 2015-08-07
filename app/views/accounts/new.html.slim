@@ -1,4 +1,22 @@
+script src="https://apis.google.com/js/platform.js" async='async' defer='defer'
+meta name="google-signin-client_id" content="Y81778652204-aib7use9kn9hghp3mmo72h8i2lnq94bu.apps.googleusercontent.com
+"
+javascript:
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());
+  }
+
+
 .container.account-form
+  .row
+    .col-xs-12
+      .g-signin2 data-onsuccess="onSignIn"
+
+
   .row
     .col-xs-6
       h3 Sign up for an account
