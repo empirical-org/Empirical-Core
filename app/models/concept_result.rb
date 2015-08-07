@@ -3,8 +3,6 @@ class ConceptResult < ActiveRecord::Base
   belongs_to :concept
   belongs_to :activity_session
 
-  before_validation :extract_tag_from_metadata, on: :create
-
   validates :concept, presence: true
   validates :activity_session, presence: true
 
@@ -72,13 +70,7 @@ class ConceptResult < ActiveRecord::Base
   #   "DISTINCT(COUNT(concept_tag_results.id)) as total_result_count"
   # end
 
-  private
-
-  def extract_tag_from_metadata
-    return unless metadata.present?
-    concept_uid = metadata.delete("concept") # Can't use symbols because it's a JSON hash
-    if concept_uid.present?
-      self.concept = Concept.where(uid: concept_uid).first
-    end
+  def concept_uid=(concept_uid)
+    self.concept = Concept.where(uid: concept_uid).first
   end
 end
