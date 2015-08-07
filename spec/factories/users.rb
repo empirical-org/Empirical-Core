@@ -8,11 +8,13 @@ FactoryGirl.define do
   sequence(:email) { |n| "user#{n}@example.com" }
 
   factory :user do
+
     name 'Test User'
     role 'user'
     password '123456'
     password_confirmation '123456'
-    email
+    sequence(:email) {|n| "user#{n}@gmail.com"}
+    sequence(:username) {|n| "username_is#{n}"}
 
     factory :admin do
       role 'admin'

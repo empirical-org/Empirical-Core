@@ -1,0 +1,28 @@
+.trial-expired {
+  h1, h2, h3, h4, .btn {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    line-height: 2em;
+  }
+  h1, h2 {
+    margin-bottom: 40px;
+  }
+  h4 {
+    margin-bottom: 40px;
+    width: 75%;
+  }
+  .btn {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    display: block;
+    background-color: $orange;
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
