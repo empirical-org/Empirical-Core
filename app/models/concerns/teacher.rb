@@ -159,10 +159,6 @@ module Teacher
                    .where("completed_at >= ?", TRIAL_START_DATE)
   end
 
-  def trial_activities_numerical_ratio
-    teachers_activity_sessions_since_trial_start_date.count/TRIAL_LIMIT
-  end
-
   def premium_state
     if is_beta_period_over?
       "beta"
