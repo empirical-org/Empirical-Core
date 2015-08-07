@@ -45,8 +45,12 @@ module ProgressReportHelper
     "<div class='premium-bar-progress-bar'><span style='#{progress_bar_width}'></span></div>"
   end
 
+  def trial_activities_numerical_ratio
+    current_user.teachers_activity_sessions_since_trial_start_date.count/Teacher::TRIAL_LIMIT
+  end
+
   def progress_bar_width
-    ratio = current_user.trial_activities_numerical_ratio
+    ratio = trial_activities_numerical_ratio
     "width: #{ratio * 100}%"
   end
 
