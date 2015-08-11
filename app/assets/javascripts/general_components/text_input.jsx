@@ -26,10 +26,14 @@ EC.TextInput = React.createClass({
     return (this.props.name === 'password') ? 'password' : null;
   },
 
+  determineLabel: function () {
+    return this.determine('label', this.titleCase(this.props.name));
+  },
+
   displayErrors: function () {
     var result;
     if (this.props.errors) {
-      result = this.determine('label', this.titleCase(this.props.name)) + ' ' + this.props.errors[0];
+      result = this.determine('errorLabel', this.determineLabel()) + ' ' + this.props.errors[0];
     } else {
       result = null;
     }
@@ -43,7 +47,7 @@ EC.TextInput = React.createClass({
           <div className='row'>
             <div className='col-xs-12'>
               <div className='form-label'>
-                {this.determine('label', this.titleCase(this.props.name))}
+                {this.determineLabel()}
               </div>
             </div>
           </div>

@@ -54,7 +54,6 @@ EC.NewAccount = React.createClass({
 
   signUpError: function (xhr) {
     var errors = $.parseJSON(xhr.responseText).errors;
-    console.log('errors', errors);
     this.setState({errors: errors});
   },
 

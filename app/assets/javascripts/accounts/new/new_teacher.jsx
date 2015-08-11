@@ -9,7 +9,8 @@ EC.NewTeacher = React.createClass({
   getInitialState: function () {
     return {
       selectedSchool: {},
-      schoolOptions: []
+      schoolOptions: [],
+
     }
   },
 
@@ -26,10 +27,12 @@ EC.NewTeacher = React.createClass({
   },
 
   updateSchool: function (school) {
+    console.log('update school', JSON.stringify(school))
     this.setState({selectedSchool: school});
   },
 
   selectSchool: function () {
+    console.log('select school', this.state.selectedSchool.id)
     $.ajax({
       type: 'PUT',
       url: '/select_school',
@@ -82,32 +85,62 @@ EC.NewTeacher = React.createClass({
       }, this);
       return (
         <div className='row'>
-          <div className='row'>
-            <h3>Sign up for a teacher account</h3>
-          </div>
-          <div className='row'>
-            <div className='col-xs-offset-3 col-xs-9'>
-              {inputs}
-              <input type='checkbox' ref='sendNewsletter' onChange={this.updateSendNewsletter} checked={this.props.sendNewsletter}>Send me monthly Quill updates</input>
-              <div>By signing up, you agree to our <a href='/tos'>terms of service</a> and <a href='/privacy'>privacy policy</a>.</div>
-              <button id='sign_up' className='button-green col-xs-8' onClick={this.props.signUp}>Sign Up</button>
+          <div className='col-xs-offset-3 col-xs-9'>
+            <div className='row'>
+              <div className='col-xs-8'>
+                <h3 className='sign-up-header'>Sign up for a Teacher Account</h3>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-xs-12'>
+                {inputs}
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-xs-8'>
+                <input type='checkbox' name='sendNewsletter' ref='sendNewsletter' onChange={this.updateSendNewsletter} checked={this.props.sendNewsletter}>Send me monthly Quill updates</input>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-xs-12'>
+                <button id='sign_up' className='button-green col-xs-8' onClick={this.props.signUp}>Sign Up</button>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-xs-8'>
+                <div className='text-align-center'>By signing up, you agree to our <a href='/tos'>terms of service</a> and <a href='/privacy'>privacy policy</a>.</div>
+              </div>
             </div>
           </div>
         </div>
       );
     } else if (this.props.stage ===2) {
       return (
-        <span>
-          <h3>{"Let's find your school"}</h3>
-          <EC.SelectSchool selectedSchool={this.state.selectedSchool}
+        <div className='row'>
+          <div className='col-xs-offset-3 col-xs-6'>
+            <div className='row'>
+              <h3 className='sign-up-header col-xs-12'>{"Let's find your school"}</h3>
+            </div>
+            <div className='row'>
+              <div className='col-xs-12'>
+                <EC.SelectSchool selectedSchool={this.state.selectedSchool}
                            schoolOptions={this.state.schoolOptions}
                            requestSchools={this.requestSchools}
-                           updateSchool={this.updateSchool} />
-
-          <div onClick={this.selectSchool} className='button-green'>Select your school</div>
-          <div>My school is not listed, or I do not teach in the United States</div>
-          <div onClick={this.skipSelectSchool} className='button-grey'>Skip</div>
-        </span>
+                           updateSchool={this.updateSchool}
+                           isForSignUp={true}/>
+              </div>
+            </div>
+            <div className='row'>
+              <button onClick={this.selectSchool} className='button-green col-xs-12 select_school_button'>Select your school</button>
+            </div>
+            <div className='row'>
+              <div className='col-xs-12 no-pl school_not_listed'>My school is not listed, or I do not teach in the United States</div>
+            </div>
+            <div className='row'>
+              <button onClick={this.skipSelectSchool} className='button-grey col-xs-12'>Skip</button>
+            </div>
+          </div>
+        </div>
       );
     }
   }
