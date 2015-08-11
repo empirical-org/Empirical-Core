@@ -1,7 +1,7 @@
 class Teachers::ProgressReportsController < ApplicationController
   before_action :authorize!, except: :demo
   before_action :handle_expired_trial, except: :demo
-  before_action :set_vary_header, if: -> { request.xhr? }
+  before_action :set_vary_header, if: -> { request.xhr? || request.format == :json }
   layout 'progress_reports'
 
   def demo

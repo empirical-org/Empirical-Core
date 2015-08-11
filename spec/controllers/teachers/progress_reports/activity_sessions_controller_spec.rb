@@ -23,27 +23,27 @@ describe Teachers::ProgressReports::ActivitySessionsController, :type => :contro
       end
 
       it 'includes the serialized data for activity sessions' do
-        xhr :get, :index, page: 1
+        get :index, page: 1, format: :json
         expect(json['activity_sessions'][0]['activity_classification_name']).to_not be_nil
       end
 
       it 'includes the number of pages of results' do
-        xhr :get, :index, {page: 1}
+        get :index, {page: 1, format: :json}
         expect(json['page_count']).to eq(1)
       end
 
       it 'can filter by classroom' do
-        xhr :get, :index, {classroom_id: empty_classroom.id, page: 1}
+        get :index, {classroom_id: empty_classroom.id, page: 1, format: :json}
         expect(json['activity_sessions'].size).to eq(0)
       end
 
       it 'can filter by student' do
-        xhr :get, :index, {student_id: zojirushi.id, page: 1}
+        get :index, {student_id: zojirushi.id, page: 1, format: :json}
         expect(json['activity_sessions'].size).to eq(1)
       end
 
       it 'fetches classroom and student data for the filter options' do
-        xhr :get, :index, page: 1
+        get :index, page: 1, format: :json
         expect(json['classrooms'].size).to eq(1)
         expect(json['students'].size).to eq(visible_students.size)
       end
