@@ -8,7 +8,8 @@ $(function() {
     '.progress-reports-standards-classroom-students': EC.StandardsClassroomStudentsProgressReport,
     '.progress-reports-standards-topics': EC.StandardsTopicsProgressReport,
     '.progress-reports-standards-classroom-topics': EC.StandardsClassroomTopicsProgressReport,
-    '.progress-reports-standards-topic-students': EC.StandardsTopicStudentsProgressReport
+    '.progress-reports-standards-topic-students': EC.StandardsTopicStudentsProgressReport,
+    '.progress-reports-concepts-students': EC.ConceptsStudentsProgressReport
   };
 
   _.each(progressReportMapping, function(component, rootNodeSelector) {

@@ -2,6 +2,7 @@ class Concept < ActiveRecord::Base
   include Uid
   belongs_to :parent, class_name: 'Concept', foreign_key: :parent_id
   validates :name, presence: true
+  has_many :concept_results
 
   # Find all the concepts that are not a parent of any other concept
   def self.leaf_nodes
