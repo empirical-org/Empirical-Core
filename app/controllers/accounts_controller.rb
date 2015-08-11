@@ -19,10 +19,15 @@ class AccountsController < ApplicationController
       sign_in @user
       AccountCreationWorker.perform_async(@user.id)
       @user.subscribe_to_newsletter
-      redirect_to profile_path
+      render json: @user
     else
-      render 'accounts/new'
+      render json: {errors: @user.errors}, status: 422
     end
+  end
+
+  def select_school
+    current_user.schools << School.find(params[:school_id])
+    render json: {}
   end
 
   def update
@@ -50,7 +55,7 @@ class AccountsController < ApplicationController
 protected
 
   def user_params
-    params.require(:user).permit(:classcode, :email, :name, :username, :password, :password_confirmation, :newsletter, :terms_of_service, :school_ids)
+    params.require(:user).permit(:classcode, :email, :name, :username, :password, :newsletter, :terms_of_service, :send_newsletter, :school_ids)
   end
 
 end
