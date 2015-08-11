@@ -1,7 +1,6 @@
-// The progress report showing all students in a given classroom
-// along with their result counts.
+// The progress report shows all concepts for a given student.
 
-EC.ConceptsStudentsProgressReport = React.createClass({
+EC.ConceptsConceptsProgressReport = React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired
   },
@@ -16,13 +15,8 @@ EC.ConceptsStudentsProgressReport = React.createClass({
     return [
       {
         name: 'Name',
-        field: 'name',
-        sortByField: 'name',
-        customCell: function(row) {
-          return (
-            <a className="concepts-view" href={row['concepts_href']}>{row['name']}</a>
-          );
-        }
+        field: 'concept_name',
+        sortByField: 'concept_name'
       },
       {
         name: 'Questions',
@@ -45,13 +39,13 @@ EC.ConceptsStudentsProgressReport = React.createClass({
   sortDefinitions: function() {
     return {
       config: {
-        name: 'natural',
+        concept_name: 'natural',
         total_result_count: 'numeric',
         correct_result_count: 'numeric',
         incorrect_result_count: 'numeric'
       },
       default: {
-        field: 'name',
+        field: 'concept_name',
         direction: 'asc'
       }
     };
@@ -59,7 +53,7 @@ EC.ConceptsStudentsProgressReport = React.createClass({
 
   onFetchSuccess: function(responseData) {
     this.setState({
-      students: responseData.students
+      students: responseData.concepts
     });
   },
 
@@ -69,10 +63,10 @@ EC.ConceptsStudentsProgressReport = React.createClass({
                          pagination={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'students'}
+                         jsonResultsKey={'concepts'}
                          onFetchSuccess={this.onFetchSuccess}
                          filterTypes={[]}>
-        <h2>Results by Student</h2>
+        <h2>Results by Concept</h2>
       </EC.ProgressReport>
     );
   }
