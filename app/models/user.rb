@@ -18,17 +18,15 @@ class User < ActiveRecord::Base
 
   validate :name_must_contain_first_and_last_name
 
-  validates :password,              confirmation: { if: :requires_password_confirmation? },
-                                    presence:     { if: :requires_password? }
+  validates :password,              presence:     { if: :requires_password? }
 
-  validates :email,                 uniqueness:   { if: :email_required_or_present? },
-                                    presence:     { if: :email_required? }
+  validates :email,                 presence:     { if: :email_required? },
+                                    uniqueness:   { if: :email_required_or_present? }
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true },
                                     format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?}
 
-  validates :terms_of_service,      acceptance:   { on: :create }
 
   ROLES      = %w(student teacher temporary user admin)
   SAFE_ROLES = %w(student teacher temporary)
@@ -332,16 +330,12 @@ private
     return false if self.clever_id
     return false if role.temporary?
     return true if teacher?
-    username.blank?
+    false
   end
 
   def requires_password?
     return false if self.clever_id
     permanent? && new_record?
-  end
-
-  def requires_password_confirmation?
-    password.present? && (require_password_confirmation_when_password_present.present? || requires_password?)
   end
 
   # FIXME: may not be being called anywhere

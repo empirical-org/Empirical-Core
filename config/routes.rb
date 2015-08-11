@@ -109,6 +109,8 @@ EmpiricalGrammar::Application.routes.draw do
   get '/auth/clever/callback', to: 'sessions#clever'
   get '/auth/failure', to: 'sessions#failure'
 
+  put '/select_school', to: 'accounts#select_school'
+
   namespace :cms do
     resources :categories
     resources :sections

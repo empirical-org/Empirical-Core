@@ -7,9 +7,9 @@ EC.RoleOption = React.createClass({
   },
   render: function () {
     return (
-      <span onClick={this.selectRole}>
-        {this.props.role}
-      </span>
+      <button className={'select_' + this.props.role + ' button-green'} onClick={this.selectRole}>
+        {this.props.role[0].toUpperCase() + this.props.role.substring(1)}
+      </button>
     );
   }
 });
