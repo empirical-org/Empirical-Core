@@ -18,83 +18,81 @@ feature 'Signing up', js: true do
   end
 
   context 'a Teacher' do
-    # let(:user_type)         { :teacher }
-    # let(:mr_kotter)         { FactoryGirl.build :mr_kotter }
+    let(:user_type)         { :teacher }
+    let(:mr_kotter)         { FactoryGirl.build :mr_kotter }
+    let!(:school)            { FactoryGirl.create :school, name: "Brooklyn Charter School", zipcode: '11206'}
+    let(:send_newsletter)   { true }
 
-    # let(:send_newsletter)   { true }
+    before(:each) { sign_up_page.be_a_teacher }
 
-    # before(:each) { sign_up_page.be_a_teacher }
+    def sign_up_teacher(user)
+      sign_up_page.sign_up(type: user_type,
+                           first_name: user.first_name,
+                           last_name: user.last_name,
+                       username: user.username,
+                       password: user.password,
+                          email: user.email,
+                send_newsletter: send_newsletter)
+    end
 
-    # def sign_up_teacher(user)
-    #   sign_up_page.sign_up(type: user_type,
-    #                        first_name: user.first_name,
-    #                        last_name: user.last_name,
-    #                    username: user.username,
-    #                    password: user.password,
-    #                       email: user.email,
-    #             send_newsletter: send_newsletter)
-    # end
+    def sign_up_teacher_and_select_school(user, skips_school_selection)
+      sign_up_teacher(user)
+      sign_up_page.select_school(skips_school_selection)
+    end
 
-    # def self.signup_succeeded; 'signup succeeded and'; end
-    # shared_examples_for signup_succeeded do
-    #   it 'prompts for class creation' do
-    #     expect(page).to have_content('Create a class')
-    #   end
-    # end
+    def self.signup_succeeded; 'signup succeeded and'; end
+    shared_examples_for signup_succeeded do
+      it 'prompts for class creation' do
+        expect(page).to have_content('Create a class')
+      end
+    end
 
-    # context 'with new info' do
-    #   before(:each) { sign_up_teacher mr_kotter }
+    context 'with new info' do
+      before(:each) { sign_up_teacher_and_select_school mr_kotter, false }
+      it_behaves_like signup_succeeded
+    end
 
-    #   it_behaves_like signup_succeeded
+    context 'with blank password' do
+      let(:mr_kotter) do
+        FactoryGirl.build :mr_kotter, password: ''
+      end
 
-    #   context 'with blank password' do
-    #     let(:mr_kotter) do
-    #       FactoryGirl.build :mr_kotter, password: ''
-    #     end
+      before(:each) { sign_up_teacher mr_kotter }
 
-    #     it 'shows the problem on the form' do
-    #       expect(sign_up_page).to have_content password_cannot_be_blank
-    #     end
-    #   end
+      it 'shows the problem on the form' do
+        expect(sign_up_page).to have_content password_cannot_be_blank
+      end
+    end
 
-    # end
+    context 'with minimal info' do
+      let(:x) { 'x' }
 
-    # context 'with minimal info' do
-    #   let(:x) { 'x' }
+      let(:professor_x) do
+        FactoryGirl.build :teacher,
+                            name: 'x x',
+                            password: x,
+                               email: 'x@x.x'
+      end
 
-    #   let(:professor_x) do
-    #     FactoryGirl.build :teacher,
-    #                         name: 'x x',
-    #                         password: x,
-    #            password_confirmation: x,
-    #                            email: 'x@x.x'
-    #   end
 
-    #   let(:zipcode)           { '' }
-    #   let(:school_not_listed) { false }
-    #   let(:send_newsletter)   { false }
+      let(:send_newsletter)   { false }
 
-    #   before(:each) { sign_up_teacher professor_x }
+      before(:each) { sign_up_teacher_and_select_school professor_x, true }
 
-    #   it_behaves_like signup_succeeded
-    # end
+      it_behaves_like signup_succeeded
+    end
 
-    # context 'with duplicate info' do
-    #   before(:each) do
-    #     FactoryGirl.create :mr_kotter
+    context 'with duplicate info' do
+      before(:each) do
+        FactoryGirl.create :mr_kotter
+        sign_up_teacher mr_kotter
+      end
 
-    #     sign_up_teacher mr_kotter
-    #   end
-
-    #   it 'shows the errors on the form' do
-    #     expect(sign_up_page).to have_content username_already_taken
-    #     expect(sign_up_page).to have_content 'Email has already been taken'
-
-    #     expect(sign_up_page).to be_errored_sign_up_form(mr_kotter,
-    #                                                     type: user_type,
-    #                                          end_newsletter?: send_newsletter)
-    #   end
-    # end
+      it 'shows the errors on the form' do
+        expect(sign_up_page).to have_content username_already_taken
+        expect(sign_up_page).to have_content email_already_taken
+      end
+    end
   end
 
   context 'a Student' do
@@ -132,68 +130,67 @@ feature 'Signing up', js: true do
       it 'shows the problem(s) on the form' do
         expect(sign_up_page).to have_content "Username can't be blank"
         expect(sign_up_page).to have_content password_cannot_be_blank
-        expect(sign_up_page).to have_content "Email can't be blank"
       end
     end
 
-  #   context 'with new info' do
-  #     before(:each) { sign_up_student vinnie }
+    context 'with new info' do
+      before(:each) { sign_up_student vinnie }
 
-  #     it_behaves_like signup_succeeded
+      it_behaves_like signup_succeeded
 
-  #     context 'with blank password' do
-  #       let(:vinnie) do
-  #         FactoryGirl.build :vinnie_barbarino, password: ''
-  #       end
+      context 'with blank password' do
+        let(:vinnie) do
+          FactoryGirl.build :vinnie_barbarino, password: ''
+        end
 
-  #       it 'shows the problem on the form' do
-  #         expect(sign_up_page).to have_content password_cannot_be_blank
-  #       end
-  #     end
-  #   end
+        it 'shows the problem on the form' do
+          expect(sign_up_page).to have_content password_cannot_be_blank
+        end
+      end
+    end
 
-  #   context 'with minimal info' do
-  #     let(:x) { 'x' }
+    context 'with minimal info' do
+      let(:x) { 'x' }
 
-  #     let(:student_x) do
-  #       FactoryGirl.build :student,
-  #                          name: 'x x',
-  #                           username: x,
-  #                           password: x,
-  #                              email: ''
-  #     end
+      let(:student_x) do
+        FactoryGirl.build :student,
+                           name: 'x x',
+                            username: x,
+                            password: x,
+                               email: ''
+      end
 
-  #     before(:each) { sign_up_student student_x }
+      before(:each) { sign_up_student student_x }
 
-  #     it_behaves_like signup_succeeded
-  #   end
+      it_behaves_like signup_succeeded
+    end
 
-  #   context 'with duplicate info' do
-  #     before(:each) do
-  #       FactoryGirl.create :vinnie_barbarino
+    context 'with duplicate info' do
+      before(:each) do
+        FactoryGirl.create :vinnie_barbarino
 
-  #       sign_up_student vinnie
-  #     end
+        sign_up_student vinnie
+      end
 
-  #     it 'shows the errors on the form' do
-  #       expect(sign_up_page).to have_content username_already_taken
-  #     end
-  #   end
+      it 'shows the errors on the form' do
+        expect(sign_up_page).to have_content username_already_taken
+      end
+    end
 
-  #   context 'with duplicate e-mail' do
-  #     let(:dup_email) { 'sweathog@yarhoo.com' }
-  #     let(:horshack)  { FactoryGirl.build :arnold_horshack, email: dup_email }
+    context 'with duplicate e-mail' do
+      let(:dup_email) { 'sweathog@yarhoo.com' }
+      let(:horshack)  { FactoryGirl.build :arnold_horshack, email: dup_email }
 
-  #     before(:each) do
-  #       FactoryGirl.create :vinnie_barbarino, email: dup_email
-  #       sign_up_student horshack
-  #     end
+      before(:each) do
+        FactoryGirl.create :vinnie_barbarino, email: dup_email
+        sign_up_student horshack
+      end
 
-  #     it 'shows the errors on the form' do
-  #       # previously this was expeted to succeed;
-  #       # however, even though emails are not required of students, if they are supplied then we expect them to be unique
-  #       expect(sign_up_page).to have_content email_already_taken
-  #     end
-  #   end
+      it 'shows the errors on the form' do
+        # previously this was expeted to succeed;
+        # however, even though emails are not required of students, if they are supplied then we expect them to be unique
+        expect(sign_up_page).to have_content email_already_taken
+      end
+    end
   end
 end

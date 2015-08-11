@@ -23,9 +23,12 @@ EC.SelectSchool = React.createClass({
     return zip;
   },
   selectOption: function () {
+    console.log('selectOption')
     var schoolId, schoolObject;
     schoolId = $(this.refs.select.getDOMNode()).val();
     schoolObject = _.findWhere(this.props.schoolOptions, {id: parseInt(schoolId)});
+    console.log('schoolId', schoolId)
+    console.log('schoolObject', JSON.stringify(schoolObject))
     this.props.updateSchool(schoolObject);
   },
   render: function () {
@@ -46,23 +49,61 @@ EC.SelectSchool = React.createClass({
         schoolOptions.unshift(defaultOption);
       }
     }
-    return (
-      <div className='row'>
-        <div className='form-label col-xs-2'>
-          School
+
+    if (this.props.isForSignUp) {
+      return (
+        <div className='row'>
+          <div className='row'>
+            <div className='col-xs-6 col-xs-offset-3'>
+              <div className='row'>
+                <div className='form-label col-xs-12'>
+                  ZIP Code
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col-xs-12'>
+                  <input name='zip' id='zip' ref='zip' className='zip-input' onChange={this.updateZip} placeholder="Zip"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-xs-12'>
+              <div className='row'>
+                <div className='col-xs-12 form-label'>
+                  School
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col-xs-12'>
+                  <select ref='select' id='select_school' className='col-xs-12' value={initialValue} onChange={this.selectOption}>
+                    {schoolOptions}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className='col-xs-2'>
-           <input ref='zip' className='zip-input' onChange={this.updateZip} placeholder="Zip"/>
+      );
+    } else {
+      return (
+        <div className='row'>
+          <div className='form-label col-xs-2'>
+            School
+          </div>
+          <div className='col-xs-2'>
+             <input name='zip' id='zip' ref='zip' className='zip-input' onChange={this.updateZip} placeholder="Zip"/>
+          </div>
+          <div className='col-xs-4'>
+            <select ref='select' id='select_school' value={initialValue} onChange={this.selectOption}>
+              {schoolOptions}
+            </select>
+          </div>
+          <div className='col-xs-4 error'>
+            {this.props.errors}
+          </div>
         </div>
-        <div className='col-xs-4'>
-          <select ref='select' value={initialValue} onChange={this.selectOption}>
-            {schoolOptions}
-          </select>
-        </div>
-        <div className='col-xs-4 error'>
-          {this.props.errors}
-        </div>
-      </div>
-    );
+      );
+    }
   }
 });
