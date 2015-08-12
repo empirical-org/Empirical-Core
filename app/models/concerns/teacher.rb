@@ -96,13 +96,11 @@ module Teacher
                   :username,
                   :email,
                   :password,
-                  :password_confirmation,
                   :school_options_do_not_apply,
                   :school_id,
                   :original_selected_school_id)
 
     self.validate_username = true
-    self.require_password_confirmation_when_password_present = true
 
     are_there_school_related_errors = false
     if params[:school_options_do_not_apply] == 'false'
@@ -123,7 +121,6 @@ module Teacher
                                         email: params[:email],
                                         name: params[:name],
                                         password: params[:password],
-                                        password_confirmation: params[:password_confirmation],
                                         role: params[:role])
         are_there_non_school_related_errors = false
       else

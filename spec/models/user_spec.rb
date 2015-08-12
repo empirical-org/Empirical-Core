@@ -42,8 +42,8 @@ describe User, :type => :model do
     let(:email_password) { '654321' }
 
     before do
-      FactoryGirl.create(:user, username: username, password: username_password, password_confirmation: username_password)
-      FactoryGirl.create(:user,    email: email,    password:    email_password, password_confirmation:    email_password)
+      FactoryGirl.create(:user, username: username, password: username_password)
+      FactoryGirl.create(:user,    email: email,    password:    email_password)
     end
 
     subject(:authentication_result) do
@@ -190,36 +190,12 @@ describe User, :type => :model do
     end
   end
 
-  describe "#requires_password_confirmation?" do
-    it "required confirmation if require_password? is true and password present" do
-      user = FactoryGirl.build(:user,  password: "presentpassword")
-      user.safe_role_assignment "user"
-      expect(user.send(:requires_password_confirmation?)).to eq(true)
-    end
-
-    it "confirmation not required when password is not present" do
-      user = FactoryGirl.build(:user,  password: nil)
-      expect(user.send(:requires_password_confirmation?)).to eq(false)
-    end
-
-    it "confirmation not required when require_password? is false and password present" do
-      user = FactoryGirl.build(:user,  password: "presentpassword")
-      user.safe_role_assignment "temporary"
-      expect(user.send(:requires_password_confirmation?)).to eq(false)
-    end
-  end
-
   describe "#generate_password" do
     let(:user) { FactoryGirl.build(:user, password: "currentpassword", last_name: "lastname") }
 
-    it "sets password confirmation to value of last_name" do
-      user.generate_password
-      expect(user.password_confirmation).to eq(user.last_name)
-    end
-
     it "sets password to value of last_name" do
       user.generate_password
-      expect(user.password_confirmation).to eq(user.last_name)
+      expect(user.password).to eq(user.last_name)
     end
   end
 
@@ -279,7 +255,7 @@ describe User, :type => :model do
         end
 
         it "is valid with password" do
-          user = FactoryGirl.build(:user,  password: "somepassword", password_confirmation: "somepassword" )
+          user = FactoryGirl.build(:user,  password: "somepassword")
           user.safe_role_assignment "student"
           expect(user).to be_valid
         end
@@ -352,20 +328,6 @@ describe User, :type => :model do
           user.email = nil
           expect(user).to be_valid
         end
-      end
-    end
-
-    describe "terms_of_service attribute" do
-      it "is valid if accepted" do
-        #maps true to "1"
-        user = FactoryGirl.build(:user,  terms_of_service: "1")
-        expect(user).to be_valid
-      end
-
-      it "is invalid if not accepted" do
-        #maps false to "0"
-        user = FactoryGirl.build(:user,  terms_of_service: "0")
-        expect(user).to_not be_valid
       end
     end
   end

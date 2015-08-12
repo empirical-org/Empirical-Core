@@ -39,7 +39,6 @@ EC.TeacherAccount = React.createClass({
       schoolOptionsDoNotApply: false,
       role: 'teacher',
       password: null,
-      passwordConfirmation: null,
       errors: {},
       subscription: {id: null, expiration: '2016-01-01', account_limit: null},
       subscriptionType: 'free'
@@ -133,7 +132,6 @@ EC.TeacherAccount = React.createClass({
       email: this.state.email,
       role: this.state.role,
       password: this.state.password,
-      password_confirmation: this.state.passwordConfirmation,
       school_id: ((this.state.selectedSchool == null) ? null : this.state.selectedSchool.id),
       original_selected_school_id: this.state.originalSelectedSchoolId,
       school_options_do_not_apply: this.state.schoolOptionsDoNotApply
@@ -267,10 +265,6 @@ EC.TeacherAccount = React.createClass({
     var password = $(this.refs.password.getDOMNode()).val()
     this.setState({password: password});
   },
-  updatePasswordConfirmation: function () {
-    var passwordConfirmation = $(this.refs.passwordConfirmation.getDOMNode()).val();
-    this.setState({passwordConfirmation: passwordConfirmation});
-  },
   updateRole: function (role) {
     this.setState({role: role});
   },
@@ -341,16 +335,6 @@ EC.TeacherAccount = React.createClass({
               </div>
               <div className='col-xs-4 error'>
                 {this.state.errors.password}
-              </div>
-            </div>
-            <div className='row'>
-              <div className='form-label col-xs-2'>
-              </div>
-              <div className='col-xs-4'>
-                <input type='password' ref='passwordConfirmation' onChange={this.updatePasswordConfirmation} placeholder="Re-Enter New Password"/>
-              </div>
-              <div className='col-xs-4 error'>
-                {this.state.errors.password_confirmation}
               </div>
             </div>
             <EC.SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
