@@ -7,7 +7,8 @@ EC.ConceptsConceptsProgressReport = React.createClass({
 
   getInitialState: function() {
     return {
-      students: {}
+      concepts: {},
+      student: {}
     }
   },
 
@@ -61,7 +62,7 @@ EC.ConceptsConceptsProgressReport = React.createClass({
 
   onFetchSuccess: function(responseData) {
     this.setState({
-      students: responseData.concepts
+      student: responseData.student
     });
   },
 
@@ -74,7 +75,7 @@ EC.ConceptsConceptsProgressReport = React.createClass({
                          jsonResultsKey={'concepts'}
                          onFetchSuccess={this.onFetchSuccess}
                          filterTypes={[]}>
-        <h2>Results by Concept</h2>
+        <h2>{this.state.student.name}</h2>
       </EC.ProgressReport>
     );
   }
