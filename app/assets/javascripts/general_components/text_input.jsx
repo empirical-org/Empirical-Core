@@ -1,3 +1,4 @@
+'use strict';
 EC.TextInput = React.createClass({
   propTypes: {
     update: React.PropTypes.func.isRequired,
@@ -16,7 +17,6 @@ EC.TextInput = React.createClass({
     result = string[0].toUpperCase() + string.substring(1);
     return result;
   },
-
 
   determine: function (desired, fallback) {
     return this.props[desired] ? this.props[desired] : fallback;
@@ -63,4 +63,4 @@ EC.TextInput = React.createClass({
       </div>
     );
   }
-})
+});

@@ -7,9 +7,6 @@ $(function () {
 });
 
 EC.NewAccount = React.createClass({
-  propTypes: {
-
-  },
 
   getInitialState: function () {
     return {
@@ -25,10 +22,6 @@ EC.NewAccount = React.createClass({
       teacherStage: 1,
       sendNewsletter: true
     };
-  },
-
-  updateSendNewsletter: function (val) {
-    this.setState({sendNewsletter: val});
   },
 
   selectRole: function (role) {
@@ -65,14 +58,13 @@ EC.NewAccount = React.createClass({
       email: this.state.email,
       password: this.state.password
     };
-    if (this.state.role == 'teacher') {
-      data.newsletter = (this.state.sendNewsletter == 'checked');
+    if (this.state.role === 'teacher') {
+      data.newsletter = (this.state.sendNewsletter === 'checked');
     }
     return {user: data};
   },
 
   uponSignUp: function (data) {
-
     if (this.state.role === 'student') {
       window.location = "/profile";
     } else if (this.state.role === 'teacher') {
@@ -83,33 +75,12 @@ EC.NewAccount = React.createClass({
   render: function () {
     var view;
     if (this.state.stage === 1) {
-      view = (
-        <div className='row sign_up_select_role'>
-          <div className='col-xs-4 col-xs-offset-4'>
-            <div className='row'>
-              <h3 className='col-xs-12'>
-                Sign up for Quill as:
-              </h3>
-            </div>
-            <div className='row'>
-              <div className='col-xs-6'>
-                <EC.RoleOption selectRole={this.selectRole} role='teacher' />
-              </div>
-              <div className='col-xs-6'>
-                <EC.RoleOption selectRole={this.selectRole} role='student' />
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col-xs-12'>Already signed up? Return to <a href='/session/new'>Login</a></div>
-            </div>
-          </div>
-        </div>
-      );
+      view = <EC.NewAccountStage1 selectRole={this.selectRole} />;
     } else if (this.state.stage === 2) {
       if (this.state.role === 'student') {
         view = <EC.NewStudent update={this.update} signUp={this.signUp} errors={this.state.errors}/>;
       } else {
-        view = <EC.NewTeacher sendNewsletter={this.state.sendNewsletter} updateSendNewsletter={this.updateSendNewsletter} stage={this.state.teacherStage} update={this.update} signUp={this.signUp} errors={this.state.errors} />;
+        view = <EC.NewTeacher sendNewsletter={this.state.sendNewsletter} stage={this.state.teacherStage} update={this.update} signUp={this.signUp} errors={this.state.errors} />;
       }
     }
     return view;

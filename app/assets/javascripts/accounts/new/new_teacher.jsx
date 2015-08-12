@@ -1,16 +1,16 @@
+'use strict';
 EC.NewTeacher = React.createClass({
   propTypes: {
     signUp: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object,
     stage: React.PropTypes.number.isRequired,
-    updateSendNewsletter: React.PropTypes.func.isRequired
+    update: React.PropTypes.func.isRequired
   },
 
   getInitialState: function () {
     return {
       selectedSchool: {},
       schoolOptions: [],
-
     }
   },
 
@@ -27,12 +27,10 @@ EC.NewTeacher = React.createClass({
   },
 
   updateSchool: function (school) {
-    console.log('update school', JSON.stringify(school))
     this.setState({selectedSchool: school});
   },
 
   selectSchool: function () {
-    console.log('select school', this.state.selectedSchool.id)
     $.ajax({
       type: 'PUT',
       url: '/select_school',
@@ -74,14 +72,18 @@ EC.NewTeacher = React.createClass({
 
   updateSendNewsletter: function () {
     var val = $(this.refs.sendNewsletter.getDOMNode()).attr('checked');
-    this.props.updateSendNewsletter(val);
+    this.props.update('sendNewsletter', val);
   },
 
   render: function () {
     if (this.props.stage ===1) {
       var inputs;
       inputs = _.map(this.formFields, function (ele) {
-        return <EC.TextInput key={ele.name} update={this.props.update} name={ele.name} label={ele.label} errors={this.props.errors[ele.name]}/>;
+        return <EC.TextInput key={ele.name}
+                             update={this.props.update}
+                             name={ele.name}
+                             label={ele.label}
+                             errors={this.props.errors[ele.name]}/>;
       }, this);
       return (
         <div className='row'>
@@ -98,7 +100,13 @@ EC.NewTeacher = React.createClass({
             </div>
             <div className='row'>
               <div className='col-xs-8'>
-                <input type='checkbox' name='sendNewsletter' ref='sendNewsletter' onChange={this.updateSendNewsletter} checked={this.props.sendNewsletter}>Send me monthly Quill updates</input>
+                <input type='checkbox'
+                       name='sendNewsletter'
+                       ref='sendNewsletter'
+                       onChange={this.updateSendNewsletter}
+                       checked={this.props.sendNewsletter}>
+                    Send me monthly Quill updates
+                  </input>
               </div>
             </div>
             <div className='row'>
@@ -124,10 +132,10 @@ EC.NewTeacher = React.createClass({
             <div className='row'>
               <div className='col-xs-12'>
                 <EC.SelectSchool selectedSchool={this.state.selectedSchool}
-                           schoolOptions={this.state.schoolOptions}
-                           requestSchools={this.requestSchools}
-                           updateSchool={this.updateSchool}
-                           isForSignUp={true}/>
+                                 schoolOptions={this.state.schoolOptions}
+                                 requestSchools={this.requestSchools}
+                                 updateSchool={this.updateSchool}
+                                 isForSignUp={true}/>
               </div>
             </div>
             <div className='row'>
