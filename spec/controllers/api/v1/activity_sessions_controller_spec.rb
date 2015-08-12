@@ -59,103 +59,65 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
 
     end
 
-    context 'when concept tag results are included' do
+    context 'when concept results are included' do
       before do
-        @writing_class = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
-        @sports_class = FactoryGirl.create(:concept_class, name: 'Sporting Events')
-        @writing_category = FactoryGirl.create(:concept_category, concept_class: @writing_class)
-        @sports_category = FactoryGirl.create(:concept_category, concept_class: @sports_class)
-        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Creative Writing', concept_class: @writing_class)
-        @climbing_tag = FactoryGirl.create(:concept_tag, name: 'Competitive Ice-climbing', concept_class: @sports_class)
+        @writing_concept = FactoryGirl.create(:concept, name: 'Creative Writing')
+        @climbing_concept = FactoryGirl.create(:concept, name: 'Competitive Ice-climbing')
       end
 
       def subject
         results = [
           {
-            concept_class: @writing_class.name,
-            concept_tag: @writing_tag.name,
-            concept_category: @writing_category.name,
-            foo: 'bar',
+            concept_uid: @writing_concept.uid,
+            metadata: {
+              foo: 'bar',
+            },
           },
           {
-            concept_class: @sports_class.name,
-            concept_category: @sports_category.name,
-            concept_tag: @climbing_tag.name,
-            baz: 'foo'
+            concept_uid: @climbing_concept.uid,
+            metadata: {
+              baz: 'foo'
+            }
           }
         ]
-        put :update, id: @activity_session.uid, concept_tag_results: results
+        put :update, id: @activity_session.uid, concept_results: results
       end
 
-      it 'stores the concept tag results' do
+      it 'succeeds' do
+        subject
+        expect(response.status).to eq(200)
+      end
+
+      it 'stores the concept results' do
         subject
         @activity_session.reload
-        expect(@activity_session.concept_tag_results.size).to eq(2)
+        expect(@activity_session.concept_results.size).to eq(2)
       end
 
       it 'saves the arbitrary metadata for the results' do
         subject
         @activity_session.reload
-        expect(@activity_session.concept_tag_results.first.metadata).to eq({'foo' => 'bar'})
+        expect(@activity_session.concept_results.first.metadata).to eq({'foo' => 'bar'})
       end
 
       it 'saves the concept tag relationship (ID) in the result' do
         subject
         @activity_session.reload
-        expect(@activity_session.concept_tag_results.first.concept_tag.id).to eq(@writing_tag.id)
-      end
-    end
-
-    context 'when the concept tag name is ambiguous (belongs to multiple categories)' do
-      before do
-        @writing_class = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
-        @grammar_class = FactoryGirl.create(:concept_class, name: 'Grammar Concepts')
-        @writing_category = FactoryGirl.create(:concept_category, concept_class: @writing_class)
-        @grammar_category = FactoryGirl.create(:concept_category, concept_class: @grammar_class)
-        @writing_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_class: @writing_class)
-        @grammar_tag = FactoryGirl.create(:concept_tag, name: 'Their', concept_class: @grammar_class)
-      end
-
-      def subject
-        results = [
-          {
-            concept_class: @grammar_class.name,
-            concept_category: @grammar_category.name,
-            concept_tag: @grammar_tag.name,
-            baz: 'foo'
-          },
-          {
-            concept_class: @writing_class.name,
-            concept_category: @writing_category.name,
-            concept_tag: @writing_tag.name,
-            foo: 'bar',
-          }
-        ]
-        put :update, id: @activity_session.uid, concept_tag_results: results
-      end
-
-      it 'stores the right concept tag for the given concept tag category' do
-        subject
-        @activity_session.reload
-        expect(@activity_session.concept_tag_results[0].concept_tag_id).to eq(@grammar_tag.id)
-        expect(@activity_session.concept_tag_results[1].concept_tag_id).to eq(@writing_tag.id)
+        expect(@activity_session.concept_results.first.concept.id).to eq(@writing_concept.id)
       end
     end
 
     context 'when a result is assigned to a non-existent concept tag' do
-      before do
-        @writing_class = FactoryGirl.create(:concept_class, name: 'Writing Concepts')
-      end
-
       def subject
         results = [
           {
-            concept_class: @writing_class.name,
-            concept_tag: 'Non-existent tag',
-            foo: 'bar',
+            concept_uid: 'Non-existent UID',
+            metadata: {
+              foo: 'bar',
+            }
           }
         ]
-        put :update, id: @activity_session.uid, concept_tag_results: results
+        put :update, id: @activity_session.uid, concept_results: results
       end
 
       it 'raises a 422 (Unprocessable Entity) status code' do

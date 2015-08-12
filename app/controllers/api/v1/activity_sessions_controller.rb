@@ -75,7 +75,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def activity_session_params
     params.delete(:activity_session)
     @data = params.delete(:data)
-    concept_tag_keys = [:concept_tag_name, :metadata => concept_tag_result_allowed_keys]
+    concept_result_keys = [:concept_uid, :metadata => concept_result_allowed_keys]
     params.permit(:id,
                   :access_token, # Required by OAuth
                   :percentage,
@@ -84,15 +84,15 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :completed_at,
                   :activity_uid,
                   :anonymous,
-                  concept_tag_results_attributes:  concept_tag_keys)
+                  concept_results_attributes:  concept_result_keys)
       .merge(data: @data).reject {|k,v| v.nil? }
   end
 
   # Grab a list of all the arbitrarily-named keys that are provided in the concept tag results payload.
   # Returns a list of symbols, e.g. [:student_input, :wpm]
-  def concept_tag_result_allowed_keys
-    if params[:concept_tag_results_attributes]
-      params[:concept_tag_results_attributes].reduce [] do |acc, hash|
+  def concept_result_allowed_keys
+    if params[:concept_results_attributes]
+      params[:concept_results_attributes].reduce [] do |acc, hash|
         acc + hash[:metadata].keys.map(&:to_sym)
       end.uniq
     else
@@ -101,34 +101,13 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   end
 
   # Transform the incoming request parameters so that it can be easily ingested by ActiveRecord.
-  # Alias the following request parameters:
-  # Map each result to the following structure:
-  # {
-  #   concept_tag: "Creative Writing",
-  #   concept_class: "Writing Concepts",
-  #   student_input: "The dog jumped over the cat."
-  # },
-  # Becomes this:
-  # {
-  #   metadata: {
-  #     concept_tag: "Creative Writing",
-  #     concept_class: "Writing Concepts",
-  #     student_input: "The dog jumped over the cat."
-  #   }
-  # }
-  #
-  # concept_tag_results -> concept_tag_results_attributes
+  # 'concept_results' is the key for the results, but Rails' nested attributes
+  # will only work with 'concept_results_attributes' as a key.
   def transform_incoming_request
-    if params[:concept_tag_results].present?
-      results = params.delete(:concept_tag_results)
-      transformed_results = results.reduce [] do |accumulator, result|
-        accumulator << {
-          metadata: result
-        }
-      end
-      params[:concept_tag_results_attributes] = transformed_results
+    if params[:concept_results].present?
+      params[:concept_results_attributes] = params.delete(:concept_results)
     else
-      params.delete(:concept_tag_results)
+      params.delete(:concept_results)
     end
   end
 
