@@ -12,7 +12,18 @@ class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::Progre
 
   def json_payload
     {
-      concepts: ::ProgressReports::Concepts::Concept.results(current_user, {})
+      concepts: concepts_as_json
     }
+  end
+
+  def concepts
+    ::ProgressReports::Concepts::Concept.results(current_user, {})
+  end
+
+  def concepts_as_json
+    concepts.map do |concept|
+      serializer = ::ProgressReports::Concepts::ConceptSerializer.new(concept)
+      serializer.as_json(root: false)
+    end
   end
 end
