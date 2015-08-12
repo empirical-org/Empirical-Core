@@ -1,3 +1,4 @@
+'use strict';
 EC.NewStudent = React.createClass({
   propTypes: {
     signUp: React.PropTypes.func.isRequired,
@@ -27,9 +28,13 @@ EC.NewStudent = React.createClass({
   ],
 
   render: function () {
-    var inputs;
-    inputs = _.map(this.formFields, function (ele) {
-      return <EC.TextInput key={ele.name} update={this.props.update} name={ele.name} label={ele.label} errorLabel={ele.errorLabel} errors={this.props.errors[ele.name]}/>;
+    var inputs = _.map(this.formFields, function (ele) {
+      return <EC.TextInput key={ele.name}
+                           update={this.props.update}
+                           name={ele.name}
+                           label={ele.label}
+                           errorLabel={ele.errorLabel}
+                           errors={this.props.errors[ele.name]}/>;
     }, this);
     return (
       <div className='row'>

@@ -43,7 +43,7 @@ feature 'Signing up', js: true do
     def self.signup_succeeded; 'signup succeeded and'; end
     shared_examples_for signup_succeeded do
       it 'prompts for class creation' do
-        expect(page).to have_content('Create a class')
+        expect(page).to have_content('Create a Class')
       end
     end
 

@@ -1,30 +1,39 @@
 require 'rails_helper'
 
 describe 'Sign up', :type => :request do
+
+  def sign_up_succeeds
+    expect(response.status).to eq(200)
+  end
+
+  def sign_up_fails
+    expect(response.status).to_not eq(200)
+  end
+
   describe 'Create New Teacher Account' do
     it 'requires unique email' do
       post '/account', user: user_params
-      expect(response).to redirect_to(profile_path)
+      sign_up_succeeds
 
       post '/account', user: user_params
-      expect(response).to_not redirect_to(profile_path)
-      expect(response.body).to include('Email has already been taken')
+      sign_up_fails
+      expect(JSON.parse(response.body)['errors']['email']).to include('has already been taken')
     end
   end
 
   describe 'Create New Student Account (from sign up)' do
     it 'requires unique username' do
       post '/account', user: user_params(username: 'TestStudent', role: 'student')
-      expect(response).to redirect_to(profile_path)
+      sign_up_succeeds
 
       post '/account', user: user_params(username: 'TestStudent', role: 'student')
-      expect(response).to_not redirect_to(profile_path)
-      expect(response.body).to include('Username has already been taken')
+      sign_up_fails
+      expect(JSON.parse(response.body)['errors']['username']).to include('has already been taken')
     end
 
     it 'does not require email' do
       post '/account', user: user_params(username: 'TestStudent', role: 'student').except(:email)
-      expect(response).to redirect_to(profile_path)
+      sign_up_succeeds
     end
   end
 
@@ -35,9 +44,6 @@ describe 'Sign up', :type => :request do
       create(:section)
       classroom = create(:classroom)
       post '/account', user: user_params(username: 'TestStudent', role: 'student')
-      follow_redirect!
-
-      expect(response.body).to match(/input.*classcode/)
 
       put '/profile', user: { classcode: classroom.code }
       follow_redirect!

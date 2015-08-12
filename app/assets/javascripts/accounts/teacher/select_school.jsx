@@ -7,12 +7,14 @@ EC.SelectSchool = React.createClass({
     schoolOptions: React.PropTypes.array,
     errors: React.PropTypes.array
   },
+
   updateZip: function () {
     var zip = $(this.refs.zip.getDOMNode()).val();
     if (zip.length == 5) {
       this.props.requestSchools(zip);
     }
   },
+
   determineDefaultZip: function () {
     var zip;
     if (this.props.selectedSchool == null) {
@@ -22,18 +24,16 @@ EC.SelectSchool = React.createClass({
     }
     return zip;
   },
+
   selectOption: function () {
-    console.log('selectOption')
     var schoolId, schoolObject;
     schoolId = $(this.refs.select.getDOMNode()).val();
     schoolObject = _.findWhere(this.props.schoolOptions, {id: parseInt(schoolId)});
-    console.log('schoolId', schoolId)
-    console.log('schoolObject', JSON.stringify(schoolObject))
     this.props.updateSchool(schoolObject);
   },
+
   render: function () {
-    var schoolOptions;
-    var initialValue;
+    var schoolOptions, initialValue;
     if (this.props.schoolOptions.length == 0) {
       schoolOptions = <option value="enter-zipcode" >Enter Your School&#39;s Zip Code</option>;
       initialValue = "enter-zipcode";
@@ -62,7 +62,12 @@ EC.SelectSchool = React.createClass({
               </div>
               <div className='row'>
                 <div className='col-xs-12'>
-                  <input name='zip' id='zip' ref='zip' className='zip-input' onChange={this.updateZip} placeholder="Zip"/>
+                  <input name='zip'
+                         id='zip'
+                         ref='zip'
+                         className='zip-input'
+                         onChange={this.updateZip}
+                         placeholder="Zip"/>
                 </div>
               </div>
             </div>
@@ -76,7 +81,11 @@ EC.SelectSchool = React.createClass({
               </div>
               <div className='row'>
                 <div className='col-xs-12'>
-                  <select ref='select' id='select_school' className='col-xs-12' value={initialValue} onChange={this.selectOption}>
+                  <select ref='select'
+                          id='select_school'
+                          className='col-xs-12'
+                          value={initialValue}
+                          onChange={this.selectOption}>
                     {schoolOptions}
                   </select>
                 </div>
@@ -92,10 +101,18 @@ EC.SelectSchool = React.createClass({
             School
           </div>
           <div className='col-xs-2'>
-             <input name='zip' id='zip' ref='zip' className='zip-input' onChange={this.updateZip} placeholder="Zip"/>
+             <input name='zip'
+                    id='zip'
+                    ref='zip'
+                    className='zip-input'
+                    onChange={this.updateZip}
+                    placeholder="Zip"/>
           </div>
           <div className='col-xs-4'>
-            <select ref='select' id='select_school' value={initialValue} onChange={this.selectOption}>
+            <select ref='select'
+                    id='select_school'
+                    value={initialValue}
+                    onChange={this.selectOption}>
               {schoolOptions}
             </select>
           </div>

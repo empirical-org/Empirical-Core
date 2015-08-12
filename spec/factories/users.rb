@@ -12,7 +12,6 @@ FactoryGirl.define do
     name 'Test User'
     role 'user'
     password '123456'
-    password_confirmation '123456'
     sequence(:email) {|n| "user#{n}@gmail.com"}
     sequence(:username) {|n| "username_is#{n}"}
 
@@ -28,7 +27,6 @@ FactoryGirl.define do
         username              'mrkotter'
         email                 'gabe.kotter@jamesbuchananhigh.edu'
         password              'sweathogs'
-        password_confirmation { password }
       end
 
       factory :mr_woodman do
@@ -45,7 +43,6 @@ FactoryGirl.define do
         name                  'Arnold Horshack'
         username              'horshack'
         password              'dingfelder'
-        password_confirmation { password }
         email                 'ahorshack@coldmail.com'
       end
 
@@ -53,7 +50,6 @@ FactoryGirl.define do
         name                  'Vinnie Barbarino'
         username              'vinnie_barbarino'
         password              'sally'
-        password_confirmation { password }
         email                 'vinnieb@geemail.com'
       end
     end
