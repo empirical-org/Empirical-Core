@@ -7,7 +7,7 @@ EC.NewAccountStage1 = React.createClass({
     var roleOptions = _.map(['teacher', 'student'], function (role) {
       return (
         <div className='col-xs-6'>
-          <EC.RoleOption selectRole={this.props.selectRole} role={role} />
+          <EC.RoleOption key={role} selectRole={this.props.selectRole} role={role} />
         </div>
       );
     }, this);
