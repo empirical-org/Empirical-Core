@@ -18,6 +18,6 @@ class Teachers::ProgressReportsController < ApplicationController
 
   def authorize!
     return if current_user.try(:teacher?)
-    render nothing: true, status: :unauthorized
+    auth_failed
   end
 end
