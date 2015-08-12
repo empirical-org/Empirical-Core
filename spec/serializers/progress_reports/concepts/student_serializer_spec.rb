@@ -17,7 +17,8 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
       state: 'finished',
       completed_at: 5.minutes.ago,
     )
-    activity_session.concept_results.create!(concept: concept)
+    activity_session.concept_results.create!(concept: concept, metadata: {'correct' => 1})
+    activity_session.concept_results.create!(concept: concept, metadata: {'correct' => 0})
   end
 
   describe '#to_json' do
@@ -31,7 +32,12 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
                            total_result_count
                            correct_result_count
                            incorrect_result_count
+                           percentage
                           )
+    end
+
+    it 'includes the percentage' do
+      expect(parsed_student['percentage']).to eq(50)
     end
   end
 end
