@@ -37,12 +37,19 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, :type => :cont
         expect(json['concepts'].size).to be > 0
       end
 
-      context 'filtering by student ID' do
-        subject { get :index, student_id: 123456789, format: :json }
+      it 'includes the student in the JSON' do
+        subject
+        expect(json).to have_key('student')
+        expect(json['student']['name']).to eq(student.name)
+      end
 
-        it 'works' do
-          subject
-          expect(json['concepts'].size).to eq(0)
+      context 'accessing another teacher\'s student data' do
+        subject { get :index, student_id: other_student.id, format: :json }
+
+        it 'raises error' do
+          expect {
+            subject
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end
