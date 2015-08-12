@@ -12,7 +12,7 @@ shared_examples_for "Progress Report" do
 
     it 'requires an authenticated teacher' do
       subject
-      expect(response.status).to eq(401)
+      expect(response.status).to eq(303)
     end
 
     describe 'when the teacher is logged in' do
@@ -33,7 +33,7 @@ shared_examples_for "Progress Report" do
 
     it 'requires a logged-in teacher' do
       subject
-      expect(response.status).to eq(401)
+      expect(response.status).to eq(303)
     end
 
     describe 'when the teacher is logged in' do

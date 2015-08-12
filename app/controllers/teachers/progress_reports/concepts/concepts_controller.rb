@@ -17,7 +17,11 @@ class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::Progre
   end
 
   def concepts
-    ::ProgressReports::Concepts::Concept.results(current_user, {})
+    ::ProgressReports::Concepts::Concept.results(current_user, concept_filters)
+  end
+
+  def concept_filters
+    { student_id: params[:student_id] }
   end
 
   def concepts_as_json
