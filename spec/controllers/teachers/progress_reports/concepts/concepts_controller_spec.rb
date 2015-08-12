@@ -9,6 +9,20 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, :type => :cont
     let(:expected_result_count) { activity_session.concepts.size }
   end
 
+  context 'GET #index' do
+    render_views
+
+    subject { get :index, student_id: student.id }
+    before do
+      session[:user_id] = teacher.id
+    end
+
+    it 'assigns the student to the view' do
+      subject
+      expect(assigns[:student]).to be_present
+    end
+  end
+
   context 'GET #index json' do
     context 'when logged in' do
       let(:json) { JSON.parse(response.body) }

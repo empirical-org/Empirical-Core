@@ -1,0 +1,5 @@
+- if @student.present?
+  .row
+    ol.breadcrumb
+      li=link_to "All Students", teachers_progress_reports_concepts_students_path
+      li=link_to @student.name, teachers_progress_reports_concepts_student_concepts_path(student_id: @student.id)

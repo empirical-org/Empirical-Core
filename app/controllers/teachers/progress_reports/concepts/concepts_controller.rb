@@ -1,7 +1,9 @@
 class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::ProgressReportsController
   def index
     respond_to do |format|
-      format.html
+      format.html do
+        @student = student
+      end
       format.json do
         render json: json_payload
       end
@@ -29,5 +31,9 @@ class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::Progre
       serializer = ::ProgressReports::Concepts::ConceptSerializer.new(concept)
       serializer.as_json(root: false)
     end
+  end
+
+  def student
+    current_user.students.find(params[:student_id])
   end
 end
