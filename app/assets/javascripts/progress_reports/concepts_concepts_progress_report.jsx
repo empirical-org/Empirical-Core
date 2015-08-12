@@ -32,6 +32,14 @@ EC.ConceptsConceptsProgressReport = React.createClass({
         name: 'Incorrect',
         field: 'incorrect_result_count',
         sortByField: 'incorrect_result_count'
+      },
+      {
+        name: 'Percentage',
+        field: 'percentage',
+        sortByField: 'percentage',
+        customCell: function(row) {
+          return row['percentage'] + '%';
+        }
       }
     ];
   },
