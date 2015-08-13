@@ -56,7 +56,8 @@ EC.ConceptsStudentsProgressReport = React.createClass({
         name: 'natural',
         total_result_count: 'numeric',
         correct_result_count: 'numeric',
-        incorrect_result_count: 'numeric'
+        incorrect_result_count: 'numeric',
+        percentage: 'numeric'
       },
       default: {
         field: 'name',
