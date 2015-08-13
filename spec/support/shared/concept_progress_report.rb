@@ -17,7 +17,9 @@ shared_context 'Concept Progress Report' do
                                           activity: activity,
                                           unit: unit) }
 
-  let!(:writing_tag) { FactoryGirl.create(:concept, name: "Writing Tag") }
+  let!(:writing_grandparent_concept) { FactoryGirl.create(:concept, name: 'Writing Grandparent') }
+  let!(:writing_parent_concept) { FactoryGirl.create(:concept, name: 'Writing Parent', parent: writing_grandparent_concept)}
+  let!(:writing_concept) { FactoryGirl.create(:concept, name: "Writing Tag", parent: writing_parent_concept) }
   let!(:grammar_tag) { FactoryGirl.create(:concept, name: "Grammar Tag") }
 
   let!(:activity_session) { FactoryGirl.create(:activity_session,
@@ -30,21 +32,21 @@ shared_context 'Concept Progress Report' do
 
   let!(:correct_writing_result1) { FactoryGirl.create(:concept_result,
     activity_session: activity_session,
-    concept: writing_tag,
+    concept: writing_concept,
     metadata: {
       "correct" => 1
     }) }
 
   let!(:correct_writing_result2) { FactoryGirl.create(:concept_result,
     activity_session: activity_session,
-    concept: writing_tag,
+    concept: writing_concept,
     metadata: {
       "correct" => 1
     }) }
 
   let!(:incorrect_writing_result) { FactoryGirl.create(:concept_result,
     activity_session: activity_session,
-    concept: writing_tag,
+    concept: writing_concept,
     metadata: {
       "correct" => 0
     }) }
@@ -79,12 +81,11 @@ shared_context 'Concept Progress Report' do
     percentage: 0.75) }
   let!(:other_grammar_result) { FactoryGirl.create(:concept_result,
     activity_session: other_activity_session,
-    concept: writing_tag,
+    concept: writing_concept,
     metadata: {
       "correct" => 1
     }) }
 
   let!(:writing_results) { [correct_writing_result1, correct_writing_result2, incorrect_writing_result] }
   let!(:grammar_results) { [correct_grammar_result, incorrect_grammar_result] }
-  let!(:writing_category_tags) { [writing_tag] }
 end

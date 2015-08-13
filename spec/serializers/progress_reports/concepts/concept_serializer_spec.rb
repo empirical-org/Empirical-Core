@@ -31,7 +31,8 @@ describe ProgressReports::Concepts::ConceptSerializer, type: :serializer do
                            concept_name
                            total_result_count
                            correct_result_count
-                           incorrect_result_count          
+                           incorrect_result_count
+                           level_2_concept_name
                            percentage
                           )
     end

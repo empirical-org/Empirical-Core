@@ -15,6 +15,11 @@ EC.ConceptsConceptsProgressReport = React.createClass({
   columnDefinitions: function() {
     return [
       {
+        name: 'Category',
+        field: 'level_2_concept_name',
+        sortByField: 'level_2_concept_name'
+      },
+      {
         name: 'Name',
         field: 'concept_name',
         sortByField: 'concept_name'
@@ -48,6 +53,7 @@ EC.ConceptsConceptsProgressReport = React.createClass({
   sortDefinitions: function() {
     return {
       config: {
+        level_2_concept_name: 'natural',
         concept_name: 'natural',
         total_result_count: 'numeric',
         correct_result_count: 'numeric',

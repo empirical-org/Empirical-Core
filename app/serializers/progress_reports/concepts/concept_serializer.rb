@@ -4,6 +4,7 @@ class ProgressReports::Concepts::ConceptSerializer  < ActiveModel::Serializer
              :total_result_count,
              :correct_result_count,
              :incorrect_result_count,
+             :level_2_concept_name,
              :percentage
 
   def percentage
