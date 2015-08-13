@@ -57,7 +57,8 @@ EC.ConceptsConceptsProgressReport = React.createClass({
         concept_name: 'natural',
         total_result_count: 'numeric',
         correct_result_count: 'numeric',
-        incorrect_result_count: 'numeric'
+        incorrect_result_count: 'numeric',
+        percentage: 'numeric'
       },
       default: {
         field: 'concept_name',
