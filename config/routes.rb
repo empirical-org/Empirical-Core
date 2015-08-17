@@ -84,6 +84,9 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :v1 do
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_sessions,       except: [:index, :new, :edit]
+      resources :sections,                only: [:index]
+      resources :topics,                  only: [:index]
+      resources :topic_categories,        only: [:index]
 
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
