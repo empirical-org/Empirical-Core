@@ -1,5 +1,6 @@
 module Flags
   extend ActiveSupport::Concern
+  FLAGS = %w(production, archived, alpha, beta)
 
   module ClassMethods
     def flag_all flag
