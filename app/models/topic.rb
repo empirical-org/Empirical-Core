@@ -1,4 +1,5 @@
 class Topic < ActiveRecord::Base
+  extend ApiData
   include Uid
 
   belongs_to :section

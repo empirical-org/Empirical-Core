@@ -1,10 +1,7 @@
-class Api::V1:SectionsController < Api:ApiController
+class Api::V1::SectionsController < Api::ApiController
 
   def index
-    data = Section.map do |s|
-      (Api::SectionSerializer.new(s)).as_json(root: false)
-    end
-    render json: data
+    render json: Section.api_data
   end
 
 end
