@@ -10,6 +10,7 @@ class Topic < ActiveRecord::Base
 
   validates :section, presence: true
   validates :name, presence: true, uniqueness: true
+  validates :uid, presence: true
 
   def self.for_standards_report(teacher, filters)
     Topic.from_cte('best_activity_sessions', ActivitySession.for_standards_report(teacher, filters))
