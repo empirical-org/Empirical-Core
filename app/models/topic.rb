@@ -1,4 +1,5 @@
 class Topic < ActiveRecord::Base
+  include Uid
 
   belongs_to :section
   belongs_to :topic_category
