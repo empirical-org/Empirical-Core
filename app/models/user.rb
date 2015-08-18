@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
   validates :password,              presence:     { if: :requires_password? }
 
   validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { if: :email_required_or_present? }
+                                    uniqueness:   { if: :email_required_or_present? },
+                                    format:       { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true },
