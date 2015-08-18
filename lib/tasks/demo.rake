@@ -71,6 +71,7 @@ namespace :demo do
 
     unit_data[:activity_names].each do |activity_name|
       activity = Activity.find_by_name activity_name
+      next if activity.nil?
       classrooms.each do |classroom|
         # after_create callback for classroom_activity will create the desired activity_sessions for students
         # due dates are randomly generated dates in the month of march
@@ -220,14 +221,18 @@ namespace :demo do
                            .select{|activity| activity.activity_classification_id == 2}
                            .shuffle
 
-    special_activities1 = activities[0..2]
-    special_activities2 = activities[3..4]
+    x = (activities.length) -1
+    y = (activities.count*0.5).ceil
+    z = y + 1
+
+    special_activities1 = activities[0..y]
+    special_activities2 = activities[z..x]
 
     students = classrooms.map(&:students).flatten
     not_special_students = students - special_students
 
     special_activities1.each{|sa1| special_scores_activity_group1(sa1, not_special_students)}
-    special_activities2.each{|sa2| special_scores_activity_group2(sa2, not_special_students)} unless special_activities2.empty?
+    special_activities2.each{|sa2| special_scores_activity_group2(sa2, not_special_students)} unless (special_activities2.nil? or special_activities2.empty?)
   end
 
   def special_scores_activity_group1 activity, not_special_students
