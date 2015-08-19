@@ -17,9 +17,6 @@ class Api::V1::ConceptsController < Api::ApiController
   private
 
   def concept_params
-    parent = Concept.find_by uid: params[:parent_uid]
-    params[:parent_id] = parent.id
-    params.permit(:name, :parent_id)
+    params.permit(:name, :parent_uid)
   end
-
 end
