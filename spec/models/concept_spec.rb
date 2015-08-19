@@ -34,14 +34,14 @@ describe Concept, :type => :model do
       Concept.all_with_depth
     end
 
+    it 'assigns depth level 0 to child_of_root' do
+      cor = subject.where("concepts_tree.name = ?", "child_of_root")[0]
+      expect(cor['depth']).to eq(0)
+    end
+
     it 'assigns depth level 1 to root' do
       root = subject.where("concepts_tree.name = ?", "root")[0]
       expect(root['depth']).to eq(1)
-    end
-
-    it 'assigns depth level 2 to child_of_root' do
-      cor = subject.where("concepts_tree.name = ?", "child_of_root")[0]
-      expect(cor['depth']).to eq(2)
     end
   end
 end
