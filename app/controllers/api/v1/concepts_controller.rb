@@ -10,6 +10,10 @@ class Api::V1::ConceptsController < Api::ApiController
     end
   end
 
+  def index
+    render json: Concept.all_with_depth
+  end
+
   private
 
   def concept_params
