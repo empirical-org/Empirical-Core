@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
   validates :email,                 presence:     { if: :email_required? },
                                     uniqueness:   { if: :email_required_or_present? }
 
+  # gem validates_email_format_of
+  validates_email_format_of :email, if: :email_required_or_present?
+
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true },
                                     format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?}

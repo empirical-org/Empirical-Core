@@ -9,7 +9,7 @@
           span.caret
 
         ul.dropdown-menu
-          - (ACTIVITY_FLAGS - [@flag]).each do |flag|
+          - (Activity::FLAGS - [@flag]).each do |flag|
             li= link_to flag, url_for(flag: flag)
 
       .explanation-text

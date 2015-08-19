@@ -4,11 +4,7 @@ describe Topic, :type => :model do
 
 	let!(:topic){FactoryGirl.create(:topic, name: "a")}
 
-	describe 'can behave like an uid class' do
-    context 'when behaves like uid' do
-      it_behaves_like 'uid'
-    end
-  end
+  it_behaves_like 'uid'
 
 	context "when the default order is by name" do
 
