@@ -559,6 +559,8 @@ GEM
     unf_ext (0.0.7.1)
     unicode_utils (1.4.0)
     uniform_notifier (1.9.0)
+    validates_email_format_of (1.6.3)
+      i18n
     vcr (2.9.3)
     webmock (1.21.0)
       addressable (>= 2.3.6)
@@ -660,6 +662,7 @@ DEPENDENCIES
   timecop
   turbolinks
   uglifier
+  validates_email_format_of
   vcr
   webmock
 

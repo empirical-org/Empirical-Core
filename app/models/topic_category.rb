@@ -1,5 +1,4 @@
 class TopicCategory < ActiveRecord::Base
-  extend ApiData
   include Uid
 	has_many :topics
 
