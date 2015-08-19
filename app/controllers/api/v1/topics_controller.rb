@@ -1,7 +1,7 @@
 class Api::V1::TopicsController < Api::ApiController
 
   def index
-    render json: Topic.api_data
+    render json: ApiPresenter.new(Topic).simple_index
   end
 
 end

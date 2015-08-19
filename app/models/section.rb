@@ -1,5 +1,4 @@
 class Section < ActiveRecord::Base
-  extend  ApiData
   include Uid
   include RankedModel
 

@@ -1,7 +1,6 @@
 class Api::V1::SectionsController < Api::ApiController
 
   def index
-    render json: Section.api_data
+    render json: ApiPresenter.new(Section).simple_index
   end
-
 end
