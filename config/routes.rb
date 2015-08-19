@@ -88,7 +88,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :sections,                only: [:index]
       resources :topics,                  only: [:index]
       resources :topic_categories,        only: [:index]
-      resources :concepts,                only: [:create]
+      resources :concepts,                only: [:index, :create]
 
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
