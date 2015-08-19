@@ -53,7 +53,6 @@ describe Api::V1::ConceptsController, type: :controller do
     end
 
     it 'returns all concepts' do
-      puts "\n\n response : #{response.body}"
       expect(@parsed_body['concepts'].length).to eq(2)
     end
   end
