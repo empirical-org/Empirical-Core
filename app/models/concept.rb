@@ -16,11 +16,11 @@ class Concept < ActiveRecord::Base
     where.not(concepts[:id].in(distinct_parent_ids))
   end
 
-  def self.all_with_depth
+  def self.all_with_level
     # https://github.com/dockyard/postgres_ext/blob/master/docs/querying.md
 
     Concept.with.recursive(concepts_tree: <<-SQL
-      SELECT c1.id, c1.name, c1.uid, c1.parent_id, 0 as depth
+      SELECT c1.id, c1.name, c1.uid, c1.parent_id, 0 as level
       FROM      concepts c1
       LEFT JOIN concepts c2
       ON c1.id = c2.parent_id
@@ -28,7 +28,7 @@ class Concept < ActiveRecord::Base
 
       UNION
 
-      SELECT c.id, c.name, c.uid, c.parent_id, (concepts_tree.depth + 1)
+      SELECT c.id, c.name, c.uid, c.parent_id, (concepts_tree.level + 1)
       FROM concepts c, concepts_tree
       WHERE c.id = concepts_tree.parent_id
     SQL
