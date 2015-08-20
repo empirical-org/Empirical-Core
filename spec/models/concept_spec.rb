@@ -31,7 +31,7 @@ describe Concept, :type => :model do
     let!(:child_of_root) {FactoryGirl.create(:concept, name: 'child_of_root', parent: root)}
 
     subject do
-      Concept.all_with_depth
+      Concept.all_with_level
     end
 
     it 'assigns level 0 to child_of_root' do
