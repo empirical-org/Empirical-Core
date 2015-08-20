@@ -10,8 +10,8 @@ EC.NewAccount = React.createClass({
 
   getInitialState: function () {
     return {
-      stage: 1,
-      role: null,
+      stage: 2,//1,
+      role: 'student',//null,
       first_name: null,
       last_name: null,
       username: null,
