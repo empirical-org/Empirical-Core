@@ -71,7 +71,7 @@ feature 'Signing up', js: true do
         FactoryGirl.build :teacher,
                             name: 'x x',
                             password: x,
-                               email: 'x@x.x'
+                               email: 'x@x.com'
       end
 
 

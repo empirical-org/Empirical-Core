@@ -4,11 +4,7 @@ describe Section, type: :model do
 
 	let(:section){ FactoryGirl.build(:section) }
 
-	describe 'can behave like an uid class' do
-    context 'when behaves like uid' do
-      it_behaves_like 'uid'
-    end
-  end
+  it_behaves_like 'uid'
 
 	context "when it's created/updated" do
 

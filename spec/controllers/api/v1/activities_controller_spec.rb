@@ -60,6 +60,6 @@ describe Api::V1::ActivitiesController, :type => :controller do
       activity = FactoryGirl.create(:activity)
       delete :destroy, format: :json, id: activity.uid
       expect(response.status).to eq(401)
-    end        
+    end
   end
 end
