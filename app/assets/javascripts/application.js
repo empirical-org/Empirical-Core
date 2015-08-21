@@ -7,7 +7,7 @@
 //= require underscore.string
 
 //= require es5-shim/es5-shim
-//= require react
+//= require react-with-addons
 
 //= require selecter.js
 //= require select2
