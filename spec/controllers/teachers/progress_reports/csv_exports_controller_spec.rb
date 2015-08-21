@@ -73,7 +73,7 @@ describe Teachers::ProgressReports::CsvExportsController, :type => :controller d
     context 'when not authenticated as a teacher' do
       it 'requires a logged-in teacher' do
         subject
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(303)
       end
     end
   end

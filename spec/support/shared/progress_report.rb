@@ -7,12 +7,12 @@ shared_examples_for "Progress Report" do
     session[:user_id] = teacher.id
   end
 
-  describe 'GET #index' do
+  describe 'GET #index HTML' do
     subject { get :index, default_filters }
 
     it 'requires an authenticated teacher' do
       subject
-      expect(response.status).to eq(401)
+      expect(response.status).to eq(303)
     end
 
     describe 'when the teacher is logged in' do
@@ -27,13 +27,13 @@ shared_examples_for "Progress Report" do
     end
   end
 
-  describe 'XHR GET #index' do
-    subject { xhr :get, :index, default_filters }
+  describe 'GET #index JSON' do
+    subject { get :index, default_filters.merge(format: :json) }
     let(:json) { JSON.parse(response.body) }
 
     it 'requires a logged-in teacher' do
       subject
-      expect(response.status).to eq(401)
+      expect(response.status).to eq(303)
     end
 
     describe 'when the teacher is logged in' do
@@ -52,6 +52,11 @@ shared_examples_for "Progress Report" do
         expect(json).to_not be_nil
       end
 
+      it 'renders a JSON with the results key' do
+        subject
+        expect(json).to have_key(result_key)
+      end
+
       it 'renders the correct number of results in the JSON' do
         subject
         expect(json[result_key].size).to eq(expected_result_count)
@@ -62,9 +67,9 @@ end
 
 shared_examples_for "filtering progress reports by Unit" do
 
-  let(:filters) { default_filters.merge({unit_id: filter_value})}
+  let(:filters) { default_filters.merge({unit_id: filter_value, format: :json})}
 
-  describe 'XHR GET #index' do
+  describe 'GET #index JSON' do
     before do
       login
     end
@@ -91,7 +96,7 @@ shared_examples_for "exporting to CSV" do
     subject
   end
 
-  subject { xhr :get, :index, default_filters }
+  subject { get :index, default_filters.merge(format: :json) }
   let(:json) { JSON.parse(response.body) }
 
   it "includes the teacher data in the JSON response" do
