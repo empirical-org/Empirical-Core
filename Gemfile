@@ -135,7 +135,6 @@ group :test, :development do
   gem 'guard-shell'
   gem 'terminal-notifier-guard'
   gem 'teaspoon-mocha'
-  gem "capybara-webkit"
 end
 
 group :test do
