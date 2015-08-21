@@ -84,6 +84,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.6.0)
+      capybara (>= 2.3.0, < 2.5.0)
+      json
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -536,6 +539,10 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    teaspoon (1.0.2)
+      railties (>= 3.2.5, < 5)
+    teaspoon-mocha (2.2.4)
+      teaspoon (>= 1.0.0)
     temple (0.7.6)
     terminal-notifier-guard (1.6.4)
     therubyracer (0.12.2)
@@ -590,6 +597,7 @@ DEPENDENCIES
   byebug
   cancancan
   capybara
+  capybara-webkit
   carrierwave
   clever-ruby (= 0.10.0)
   coffee-rails
@@ -657,6 +665,7 @@ DEPENDENCIES
   slim-rails
   spring
   spring-commands-rspec
+  teaspoon-mocha
   terminal-notifier-guard
   therubyracer
   timecop
@@ -667,4 +676,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
