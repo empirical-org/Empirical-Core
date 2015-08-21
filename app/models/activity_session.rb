@@ -7,6 +7,7 @@ class ActivitySession < ActiveRecord::Base
   has_one :unit, through: :classroom_activity
   has_many :concept_tag_results
   has_many :concept_results
+  has_many :concepts, -> { uniq }, through: :concept_results
 
   accepts_nested_attributes_for :concept_results
 

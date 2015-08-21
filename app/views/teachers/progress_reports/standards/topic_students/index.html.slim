@@ -5,4 +5,4 @@
       li=link_to "Standard View", teachers_progress_reports_standards_classroom_topics_path(classroom_id: params[:classroom_id])
       li Individual Standard
 
-  .progress-reports-standards-topic-students data-url=url_for
+  .progress-reports-standards-topic-students data-url=url_for(format: :json)
