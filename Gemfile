@@ -24,6 +24,9 @@ gem 'omniauth-clever'
 gem 'cancancan'
 gem 'firebase_token_generator'
 
+# VALIDATIONS
+gem 'validates_email_format_of'
+
 # UPLOADS
 gem 'carrierwave'
 gem 'fog', require: 'fog/aws/storage'

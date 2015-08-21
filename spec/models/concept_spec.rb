@@ -25,4 +25,23 @@ describe Concept, :type => :model do
       expect(subject.map(&:name)).to match(['leaf1', 'leaf2'])
     end
   end
+
+  describe '.all_with_level' do
+    let!(:root) {FactoryGirl.create(:concept, name: 'root')}
+    let!(:child_of_root) {FactoryGirl.create(:concept, name: 'child_of_root', parent: root)}
+
+    subject do
+      Concept.all_with_level
+    end
+
+    it 'assigns level 0 to child_of_root' do
+      cor = subject.where("concepts_tree.name = ?", "child_of_root")[0]
+      expect(cor['level']).to eq(0)
+    end
+
+    it 'assigns level 1 to root' do
+      root = subject.where("concepts_tree.name = ?", "root")[0]
+      expect(root['level']).to eq(1)
+    end
+  end
 end

@@ -116,11 +116,6 @@ ActiveRecord::Schema.define(version: 20150817164507) do
     t.datetime "updated_at"
   end
 
-  create_table "concept_child_relations", force: true do |t|
-    t.integer "parent_id"
-    t.integer "child_id"
-  end
-
   create_table "concept_classes", force: true do |t|
     t.string "name"
   end
@@ -151,7 +146,7 @@ ActiveRecord::Schema.define(version: 20150817164507) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "parent_id"
-    t.string   "uid"
+    t.string   "uid",        null: false
   end
 
   create_table "csv_exports", force: true do |t|
