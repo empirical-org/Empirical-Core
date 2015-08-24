@@ -29,9 +29,9 @@ EC.NewAccount = React.createClass({
     this.setState({stage: 2});
   },
 
-  update: function (name, value) {
+  update: function (hash) {
     var state = this.state;
-    state[name] = value;
+    state = _.merge(state, hash)
     this.setState(state);
   },
 
