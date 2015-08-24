@@ -34,9 +34,42 @@ describe('ActivityIconWithTooltip', function() {
     expect(this.component).to.be.ok();
   });
 
-  it('has a title containing all the necessary markup for the tooltip', function() {
-    var domNode = this.component.refs.activateTooltip.getDOMNode();
-    var title = $(domNode).data('original-title');
-    expect(title).to.eql('<h1>Activity Name</h1><p>Classification Name</p><p>Section Name</p><p>Topic Name</p><p>Activity Description</p><p>Topic Category Name</p><p>100%</p><p>8/21/2015</p>');
+  describe('the tooltip popover', function () {
+    beforeEach(function () {
+      this.node = this.component.refs.activateTooltip.getDOMNode();
+      this.tooltipMarkup = $(this.node).data()['bs.tooltip'].options.title;
+    });
+
+    it('includes the activity name', function () {
+      expect(this.tooltipMarkup).to.contain('Activity Name');
+    });
+
+    it('includes the activity classification name', function () {
+      expect(this.tooltipMarkup).to.contain('Classification Name');
+    });
+
+    it('includes the section name', function () {
+      expect(this.tooltipMarkup).to.contain('Section Name');
+    });
+
+    it('includes the topic name', function () {
+      expect(this.tooltipMarkup).to.contain('Topic Name');
+    });
+
+    it('includes the activity description', function () {
+      expect(this.tooltipMarkup).to.contain('Activity Description');
+    });
+
+    it('includes the topic category name', function () {
+      expect(this.tooltipMarkup).to.contain('Topic Category Name');
+    });
+
+    it('includes the score', function () {
+      expect(this.tooltipMarkup).to.contain('100%');
+    });
+
+    it('includes the completion date', function () {
+      expect(this.tooltipMarkup).to.contain('8/21/2015');
+    });
   });
 });
