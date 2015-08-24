@@ -145,7 +145,7 @@ EC.NewTeacher = React.createClass({
               <div className='col-xs-12 no-pl school_not_listed'>My school is not listed, or I do not teach in the United States</div>
             </div>
             <div className='row'>
-              <button onClick={this.skipSelectSchool} className='button-grey col-xs-12'>Skip</button>
+              <button onClick={this.skipSelectSchool} className='button-green col-xs-12'>Skip</button>
             </div>
           </div>
         </div>
