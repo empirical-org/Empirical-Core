@@ -65,7 +65,7 @@ EC.ActivityIconWithTooltip = React.createClass({
         data-toggle='tooltip'
         data-html={true}
         data-placement='top'
-        title= {this.tooltipTitle()}
+        title={this.tooltipTitle()}
       >
       </div>
     );
