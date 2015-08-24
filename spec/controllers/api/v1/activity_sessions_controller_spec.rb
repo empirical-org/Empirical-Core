@@ -53,6 +53,7 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
       before do
         @writing_concept = FactoryGirl.create(:concept, name: 'Creative Writing')
         @climbing_concept = FactoryGirl.create(:concept, name: 'Competitive Ice-climbing')
+        @pie_fighting_concept = FactoryGirl.create(:concept, name: 'Ultimate Pie Fighting')
       end
 
       def subject
@@ -68,6 +69,9 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
             metadata: {
               baz: 'foo'
             }
+          },
+          {
+            concept_uid: @pie_fighting_concept.uid
           }
         ]
         put :update, id: @activity_session.uid, concept_results: results
@@ -81,7 +85,7 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
       it 'stores the concept results' do
         subject
         @activity_session.reload
-        expect(@activity_session.concept_results.size).to eq(2)
+        expect(@activity_session.concept_results.size).to eq(3)
       end
 
       it 'saves the arbitrary metadata for the results' do
