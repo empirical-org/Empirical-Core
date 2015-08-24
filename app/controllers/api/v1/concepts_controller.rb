@@ -11,7 +11,7 @@ class Api::V1::ConceptsController < Api::ApiController
   end
 
   def index
-    render json: Concept.all_with_depth
+    render json: Concept.all_with_level
   end
 
   private
