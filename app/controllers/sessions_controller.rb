@@ -17,6 +17,14 @@ class SessionsController < ApplicationController
     end
   end
 
+  def google
+    @auth = request.env['omniauth.auth']['credentials']
+    ga = GoogleAuthenticate.new(@auth)
+    user = ga.find_or_create_user
+    sign_in user
+    redirect_to profile_path
+  end
+
   # Theres an issue here - if a student belongs to multiple clever classrooms, then the student
   # will get moved to the quill classroom of her clever teacher that most recently signed in
   # (since right now a student on quill can only belong to one classroom)

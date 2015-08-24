@@ -72,7 +72,7 @@ EC.NewTeacher = React.createClass({
 
   updateSendNewsletter: function () {
     var val = $(this.refs.sendNewsletter.getDOMNode()).attr('checked');
-    this.props.update('sendNewsletter', val);
+    this.props.update({sendNewsletter: val});
   },
 
   render: function () {
@@ -91,6 +91,11 @@ EC.NewTeacher = React.createClass({
             <div className='row'>
               <div className='col-xs-8'>
                 <h3 className='sign-up-header'>Sign up for a Teacher Account</h3>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-xs-8'>
+                <EC.GoogleSignUp update={this.props.update}/>
               </div>
             </div>
             <div className='row'>

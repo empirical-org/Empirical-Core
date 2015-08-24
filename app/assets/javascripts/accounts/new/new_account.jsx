@@ -10,8 +10,8 @@ EC.NewAccount = React.createClass({
 
   getInitialState: function () {
     return {
-      stage: 2,//1,
-      role: 'student',//null,
+      stage: 1,
+      role: null,
       first_name: null,
       last_name: null,
       username: null,
@@ -29,9 +29,9 @@ EC.NewAccount = React.createClass({
     this.setState({stage: 2});
   },
 
-  update: function (name, value) {
+  update: function (hash) {
     var state = this.state;
-    state[name] = value;
+    state = _.merge(state, hash)
     this.setState(state);
   },
 

@@ -55,7 +55,16 @@ class AccountsController < ApplicationController
 protected
 
   def user_params
-    params.require(:user).permit(:classcode, :email, :name, :username, :password, :newsletter, :terms_of_service, :send_newsletter, :school_ids)
+    params.require(:user).permit(
+                                 :classcode,
+                                 :email,
+                                 :name,
+                                 :username,
+                                 :password,
+                                 :newsletter,
+                                 :terms_of_service,
+                                 :send_newsletter,
+                                 :school_ids)
   end
 
 end
