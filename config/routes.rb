@@ -111,6 +111,7 @@ EmpiricalGrammar::Application.routes.draw do
   # so we have the patch below:
   get '/session', to: 'sessions#destroy'
   resource :session, :account
+  get "/auth/:provider/callback" => 'sessions#google'
   get '/auth/clever/callback', to: 'sessions#clever'
   get '/auth/failure', to: 'sessions#failure'
 

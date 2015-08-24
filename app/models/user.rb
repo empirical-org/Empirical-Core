@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
   include Student, Teacher
 
-  attr_accessor :validate_username, :require_password_confirmation_when_password_present
+  attr_accessor :validate_username,
+                :require_password_confirmation_when_password_present,
+                :google_sign_in
 
   before_save :capitalize_name
 
@@ -338,6 +340,7 @@ private
 
   def requires_password?
     return false if self.clever_id
+    return false if self.google_sign_in
     permanent? && new_record?
   end
 

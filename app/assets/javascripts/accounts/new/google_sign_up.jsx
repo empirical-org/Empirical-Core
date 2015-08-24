@@ -1,12 +1,9 @@
 EC.GoogleSignUp = React.createClass({
-
-  signUp: function () {
-    console.log('sing up google');
-  },
-
   render: function () {
     return (
-      <div onClick={this.signUp} className='google-sign-up'></div>
+      <a href='/auth/google_oauth2'>
+        <div className='google-sign-up'></div>
+      </a>
     );
   }
 });
