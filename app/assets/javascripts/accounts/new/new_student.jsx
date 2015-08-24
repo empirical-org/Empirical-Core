@@ -46,7 +46,7 @@ EC.NewStudent = React.createClass({
           </div>
           <div className='row'>
             <div className='col-xs-8'>
-              <EC.GoogleSignUp update={this.props.update}/>
+              <EC.GoogleSignUp/>
             </div>
           </div>
           <div className='row'>
