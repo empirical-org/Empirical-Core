@@ -20,9 +20,14 @@ gem 'postgres_ext'
 gem 'bcrypt'
 gem 'doorkeeper', '1.4.1' # must use 1.4.1 or > 2.0.0 - http://seclists.org/oss-sec/2014/q4/1076
 gem 'omniauth'
+gem 'omniauth-google-oauth2'
 gem 'omniauth-clever'
 gem 'cancancan'
 gem 'firebase_token_generator'
+
+
+# VALIDATIONS
+gem 'validates_email_format_of'
 
 # UPLOADS
 gem 'carrierwave'

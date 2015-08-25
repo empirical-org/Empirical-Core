@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+
 shared_context "calling the api" do
   render_views
 
@@ -12,6 +14,29 @@ shared_context "calling the api" do
   it_behaves_like "an api request"
 
 end
+
+shared_examples "a simple api request" do
+  let(:lwc_model_name) {controller.controller_name.classify.underscore}
+
+  before do
+    FactoryGirl.create_list(lwc_model_name.to_sym, 10)
+    get :index
+  end
+
+  it 'sends a list' do
+    expect(response).to be_success
+    json = JSON.parse(response.body)
+    expect(json[lwc_model_name.pluralize].length).to eq(10)
+  end
+
+  it 'includes only uid and name' do
+    json = JSON.parse(response.body)
+    hash = json[lwc_model_name.pluralize][0]
+    expect(hash.keys).to match_array(['uid', 'name'])
+  end
+end
+
+
 
 shared_examples "an api request" do
   context "has standard response items" do
