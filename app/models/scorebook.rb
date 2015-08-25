@@ -90,7 +90,8 @@ class Scorebook
       id: activity_session.id,
       percentage: activity_session.percentage,
       due_date_or_completed_at_date: activity_session.display_due_date_or_completed_at_date,
-      activity: (ActivitySerializer.new(activity_session.activity)).as_json(root: false)
+      activity: (ActivitySerializer.new(activity_session.activity)).as_json(root: false),
+      concept_results: activity_session.concept_results.map {|result| ConceptResultSerializer.new(result).as_json(root: false) }
     }
   end
 end
