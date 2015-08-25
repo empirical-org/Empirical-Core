@@ -6,13 +6,17 @@ describe('ConceptResultStats', function() {
   beforeEach(function() {
     this.conceptResults = [
       {
-        concept_name: 'Foobar',
+        concept: {
+          name: 'Foobar'
+        },
         metadata: {
           correct: 1
         }
       },
       {
-        concept_name: 'Foobar',
+        concept: {
+          name: 'Foobar'
+        },
         metadata: {
           correct: 0
         }
