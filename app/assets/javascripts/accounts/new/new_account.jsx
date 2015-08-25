@@ -2,16 +2,17 @@
 $(function () {
   var ele = $('#sign-up');
   if (ele.length) {
-    React.render(React.createElement(EC.NewAccount), ele[0]);
+    var teacherFromGoogleSignUp = ele.data('teacher-from-google-sign-up');
+    var props = {teacherFromGoogleSignUp: teacherFromGoogleSignUp};
+    React.render(React.createElement(EC.NewAccount, props), ele[0]);
   }
 });
 
 EC.NewAccount = React.createClass({
 
   getInitialState: function () {
-    return {
-      stage: 1,
-      role: null,
+    var hash, subHash;
+    hash = {
       first_name: null,
       last_name: null,
       username: null,
@@ -19,9 +20,24 @@ EC.NewAccount = React.createClass({
       password: null,
       password_confirmation: null,
       errors: {},
-      teacherStage: 1,
       sendNewsletter: true
     };
+
+    if (this.props.teacherFromGoogleSignUp) {
+      subHash = {
+        role: 'teacher',
+        stage: 2,
+        teacherStage: 2
+      };
+    } else {
+      subHash = {
+        role: null,
+        stage: 1,
+        teacherStage: 1
+      };
+    }
+    hash = _.merge(hash, subHash)
+    return hash;
   },
 
   selectRole: function (role) {
