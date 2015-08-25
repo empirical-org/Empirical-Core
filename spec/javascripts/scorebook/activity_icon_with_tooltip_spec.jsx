@@ -23,6 +23,7 @@ describe('ActivityIconWithTooltip', function() {
           }
         }
       },
+      concept_results: []
     };
 
     this.component = TestUtils.renderIntoDocument(
