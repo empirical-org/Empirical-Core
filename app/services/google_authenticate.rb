@@ -42,5 +42,6 @@ class GoogleAuthenticate
       :parameters => {'userId' => 'me'},
       :headers => {'Content-Type' => 'application/json'})
     data = JSON.parse(result.body)
+    data
   end
 end
