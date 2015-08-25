@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
 
   def new
     session[:role] = nil
-    @user = User.new(role: params[:as] || 'student')
+    @teacherFromGoogleSignUp = false
   end
 
   def role
