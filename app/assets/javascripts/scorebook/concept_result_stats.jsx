@@ -31,7 +31,7 @@ EC.ConceptResultStats = React.createClass({
                                    incorrect={statsRow.incorrect} />;
     });
     return (
-      <div>
+      <div className='concept-stats'>
         {rows}
       </div>
     );
