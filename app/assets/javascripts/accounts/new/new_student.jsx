@@ -45,6 +45,11 @@ EC.NewStudent = React.createClass({
             </div>
           </div>
           <div className='row'>
+            <div className='col-xs-8'>
+              <EC.GoogleSignUp/>
+            </div>
+          </div>
+          <div className='row'>
             <div className='col-xs-12'>
               {inputs}
             </div>
