@@ -12,7 +12,7 @@
       = f.label :description
       = f.text_area :description, rows: 10, cols: 100
       = f.label :flag
-      = f.select :flag, ACTIVITY_FLAGS
+      = f.select :flag, Activity::FLAGS
       = f.label :topic_category
       = f.collection_select :topic_id, Topic.all, :id, :name
 

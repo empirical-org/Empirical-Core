@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805224448) do
+ActiveRecord::Schema.define(version: 20150817164507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -291,6 +291,7 @@ ActiveRecord::Schema.define(version: 20150805224448) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "workbook_id"
+    t.string   "uid"
   end
 
   create_table "subscriptions", force: true do |t|
@@ -309,6 +310,7 @@ ActiveRecord::Schema.define(version: 20150805224448) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "uid"
   end
 
   add_index "topic_categories", ["name"], name: "index_topic_categories_on_name", using: :btree
@@ -319,6 +321,7 @@ ActiveRecord::Schema.define(version: 20150805224448) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "topic_category_id"
+    t.string   "uid"
   end
 
   add_index "topics", ["topic_category_id"], name: "index_topics_on_topic_category_id", using: :btree

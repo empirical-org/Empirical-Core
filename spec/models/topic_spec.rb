@@ -4,6 +4,8 @@ describe Topic, :type => :model do
 
 	let!(:topic){FactoryGirl.create(:topic, name: "a")}
 
+  it_behaves_like 'uid'
+
 	context "when the default order is by name" do
 
 		let!(:topic1){FactoryGirl.create(:topic, name: "c")}

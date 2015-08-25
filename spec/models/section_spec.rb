@@ -4,6 +4,8 @@ describe Section, type: :model do
 
 	let(:section){ FactoryGirl.build(:section) }
 
+  it_behaves_like 'uid'
+
 	context "when it's created/updated" do
 
 		it "must be valid with valid info" do
@@ -17,6 +19,7 @@ describe Section, type: :model do
 				section.valid?
 				expect(section.errors[:name]).to include "can't be blank"
 			end
+
 		end
 	end
 end

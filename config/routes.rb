@@ -83,7 +83,12 @@ EmpiricalGrammar::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :activities,              except: [:index, :new, :edit]
+      resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
+      resources :sections,                only: [:index]
+      resources :topics,                  only: [:index]
+      resources :topic_categories,        only: [:index]
+      resources :concepts,                only: [:index, :create]
 
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
@@ -105,7 +110,13 @@ EmpiricalGrammar::Application.routes.draw do
   # for some reason, session_path with method :delete does not evaluate correctly in profiles/student.html.erb
   # so we have the patch below:
   get '/session', to: 'sessions#destroy'
-  resource :session, :account
+  resource :session
+
+  resource :account do
+    post :role, to: 'accounts#role'
+  end
+
+  get "/auth/:provider/callback" => 'sessions#google'
   get '/auth/clever/callback', to: 'sessions#clever'
   get '/auth/failure', to: 'sessions#failure'
 
