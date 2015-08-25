@@ -4,7 +4,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :clever, Clever::CLIENT_ID, Clever::CLIENT_SECRET, options
   provider :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"],
     {
-      scope: ['email']
+      scope: ['email'], access_type: 'offline'
     }
 end
 
