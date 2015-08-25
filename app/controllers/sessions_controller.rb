@@ -19,8 +19,10 @@ class SessionsController < ApplicationController
 
   def google
     @auth = request.env['omniauth.auth']['credentials']
+    puts "\n\n @auth : #{@auth.to_json}\n\n"
     ga = GoogleAuthenticate.new(@auth)
     user = ga.find_or_create_user
+    puts "user : #{user.errors.to_json}"
     sign_in user
     redirect_to profile_path
   end
