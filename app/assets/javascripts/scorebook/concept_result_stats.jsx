@@ -6,12 +6,12 @@ EC.ConceptResultStats = React.createClass({
 
   calculateStats: function() {
     var stats = this.props.results.reduce(function (memo, conceptResult) {
-      var statsRow = memo[conceptResult.concept_name] || {
-        name: conceptResult.concept_name,
+      var statsRow = memo[conceptResult.concept.name] || {
+        name: conceptResult.concept.name,
         correct: 0,
         incorrect: 0
       };
-      memo[conceptResult.concept_name] = statsRow;
+      memo[conceptResult.concept.name] = statsRow;
       var correct = parseInt(conceptResult.metadata.correct);
       if (correct) {
         statsRow.correct++;
