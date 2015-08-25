@@ -2,7 +2,13 @@ class AccountsController < ApplicationController
   before_filter :signed_in!, only: [:edit, :update]
 
   def new
+    session[:role] = nil
     @user = User.new(role: params[:as] || 'student')
+  end
+
+  def role
+    session[:role] = params[:role]
+    render json: {}
   end
 
   # creates a new user from params.
@@ -55,7 +61,16 @@ class AccountsController < ApplicationController
 protected
 
   def user_params
-    params.require(:user).permit(:classcode, :email, :name, :username, :password, :newsletter, :terms_of_service, :send_newsletter, :school_ids)
+    params.require(:user).permit(
+                                 :classcode,
+                                 :email,
+                                 :name,
+                                 :username,
+                                 :password,
+                                 :newsletter,
+                                 :terms_of_service,
+                                 :send_newsletter,
+                                 :school_ids)
   end
 
 end

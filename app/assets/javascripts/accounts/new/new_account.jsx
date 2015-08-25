@@ -25,13 +25,21 @@ EC.NewAccount = React.createClass({
   },
 
   selectRole: function (role) {
-    this.setState({role: role});
-    this.setState({stage: 2});
+    var that = this;
+    $.ajax({
+      type: 'POST',
+      url: '/account/role',
+      data: {role: role},
+      success: function () {
+        that.setState({role: role});
+        that.setState({stage: 2});
+      }
+    });
   },
 
-  update: function (name, value) {
+  update: function (hash) {
     var state = this.state;
-    state[name] = value;
+    state = _.merge(state, hash)
     this.setState(state);
   },
 

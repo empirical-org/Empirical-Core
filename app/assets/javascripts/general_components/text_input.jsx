@@ -9,7 +9,9 @@ EC.TextInput = React.createClass({
 
   update: function () {
     var value = $(this.refs[this.props.name].getDOMNode()).val();
-    this.props.update(this.props.name, value);
+    var hash = {}
+    hash[this.props.name] = value;
+    this.props.update(hash);
   },
 
   titleCase: function (string) {
