@@ -72,7 +72,7 @@ EC.NewTeacher = React.createClass({
 
   updateSendNewsletter: function () {
     var val = $(this.refs.sendNewsletter.getDOMNode()).attr('checked');
-    this.props.update('sendNewsletter', val);
+    this.props.update({sendNewsletter: val});
   },
 
   render: function () {
@@ -91,6 +91,11 @@ EC.NewTeacher = React.createClass({
             <div className='row'>
               <div className='col-xs-8'>
                 <h3 className='sign-up-header'>Sign up for a Teacher Account</h3>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-xs-8'>
+                <EC.GoogleSignUp/>
               </div>
             </div>
             <div className='row'>
@@ -145,7 +150,7 @@ EC.NewTeacher = React.createClass({
               <div className='col-xs-12 no-pl school_not_listed'>My school is not listed, or I do not teach in the United States</div>
             </div>
             <div className='row'>
-              <button onClick={this.skipSelectSchool} className='button-grey col-xs-12'>Skip</button>
+              <button onClick={this.skipSelectSchool} className='button-green col-xs-12'>Skip</button>
             </div>
           </div>
         </div>
