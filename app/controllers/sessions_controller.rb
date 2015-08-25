@@ -26,7 +26,12 @@ class SessionsController < ApplicationController
         redirect_to new_account_path
       else
         sign_in user
-        redirect_to profile_path
+        if user.role == 'teacher'
+          @teacherFromGoogleSignUp = true
+          render 'accounts/new'
+        else
+          redirect_to profile_path
+        end
       end
     else
       user = ga.find_user
