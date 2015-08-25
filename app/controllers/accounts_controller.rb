@@ -2,7 +2,13 @@ class AccountsController < ApplicationController
   before_filter :signed_in!, only: [:edit, :update]
 
   def new
+    session[:role] = nil
     @user = User.new(role: params[:as] || 'student')
+  end
+
+  def role
+    session[:role] = params[:role]
+    render json: {}
   end
 
   # creates a new user from params.

@@ -6,14 +6,19 @@ class GoogleAuthenticate
     @access_token  = auth['token']
   end
 
-  def find_or_create_user
+  def find_or_create_user(role='teacher')
     user = User.find_or_initialize_by email: email
     if user.new_record?
       user.google_sign_in = true # so that password is not required in validations
       user.name = name
+      user.role = role
       user.save
     end
     user
+  end
+
+  def find_user
+    user = User.find_by email: email
   end
 
   private
