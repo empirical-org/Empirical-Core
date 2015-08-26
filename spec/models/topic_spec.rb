@@ -48,7 +48,7 @@ describe Topic, :type => :model do
     let(:filters) { {} }
 	  include_context 'Topic Progress Report'
 
-	  subject { Topic.for_standards_report(teacher, filters).to_a }
+	  subject { ProgressReports::Standards::Topic.new(teacher).results(filters).to_a }
 
 	  it "retrieves aggregated topics data" do
 	  	found_topics = subject

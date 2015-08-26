@@ -7,7 +7,7 @@ describe ProgressReports::Standards::TopicSerializer, type: :serializer do
   let!(:topic) { FactoryGirl.create(:topic) }
   let(:activity) { FactoryGirl.create(:activity, topic: topic) }
   let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
-  let(:topic_for_report) { Topic.for_standards_report(teacher, {}).first }
+  let(:topic_for_report) { ProgressReports::Standards::Topic.new(teacher).results({}).first }
   let(:serializer) do
     serializer = described_class.new(topic_for_report)
     serializer.classroom_id = 123

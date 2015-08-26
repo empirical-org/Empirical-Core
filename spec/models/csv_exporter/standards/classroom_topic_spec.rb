@@ -19,7 +19,7 @@ describe CsvExporter::Standards::ClassroomTopic do
     let(:filters) { { classroom_id: full_classroom.id } }
 
     let(:model_instance) {
-      Topic.for_standards_report(teacher, {}).first
+      ProgressReports::Standards::Topic.new(teacher).results({}).first
     }
 
     let(:expected_data_row) {
