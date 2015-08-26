@@ -16,7 +16,7 @@ describe CsvExporter::Standards::TopicStudent do
     let(:filters) { { topic_id: first_grade_topic.id } }
 
     let(:model_instance) {
-      User.for_standards_report(teacher, {}).first
+      ProgressReports::Standards::Student.new(teacher).results({}).first
     }
 
     let(:expected_data_row) {

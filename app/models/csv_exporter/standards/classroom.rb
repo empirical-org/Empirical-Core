@@ -28,9 +28,8 @@ module CsvExporter::Standards
     end
 
     def model_data(teacher, filters)
-      ::Classroom.for_standards_report(
-        teacher,
-        HashWithIndifferentAccess.new(filters) || {})
+      ::ProgressReports::Standards::Classroom.new(teacher)
+        .results(HashWithIndifferentAccess.new(filters) || {})
     end
   end
 end
