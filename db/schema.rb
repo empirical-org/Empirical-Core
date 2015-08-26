@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817164507) do
+ActiveRecord::Schema.define(version: 20150826175849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,36 +109,10 @@ ActiveRecord::Schema.define(version: 20150817164507) do
   add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree
   add_index "classrooms", ["grade"], name: "index_classrooms_on_grade", using: :btree
 
-  create_table "concept_categories", force: true do |t|
-    t.string   "name"
-    t.integer  "concept_class_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "concept_classes", force: true do |t|
-    t.string "name"
-  end
-
   create_table "concept_results", force: true do |t|
     t.integer "activity_session_id"
     t.integer "concept_id",          null: false
     t.json    "metadata"
-  end
-
-  create_table "concept_tag_results", force: true do |t|
-    t.integer "activity_session_id"
-    t.integer "concept_tag_id",      null: false
-    t.json    "metadata"
-    t.integer "concept_category_id"
-  end
-
-  create_table "concept_tags", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "concept_class_id",    null: false
-    t.string   "additional_concepts"
   end
 
   create_table "concepts", force: true do |t|

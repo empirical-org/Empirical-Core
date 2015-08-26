@@ -6,6 +6,7 @@ shared_examples_for 'serializer' do
   let(:parsed) { JSON.parse(json) }
   let(:result_key) { record_instance.class.to_s.underscore }
   let(:nested_hash_keys) { [] }
+  let(:nested_array_keys) { [] }
 
   describe '#to_json output' do
     it "includes a wrapping key" do
@@ -20,6 +21,12 @@ shared_examples_for 'serializer' do
     it 'has nested hashes on the correct keys' do
       nested_hash_keys.each do |nested_hash_key|
         expect(parsed[result_key][nested_hash_key]).to be_a(Hash), "expected '#{nested_hash_key}' to be a Hash"
+      end
+    end
+
+    it 'has nested arrays on the correct keys' do
+      nested_array_keys.each do |nested_array_key|
+        expect(parsed[result_key][nested_array_key]).to be_a(Array), "expected '#{nested_array_key}' to be an Array"
       end
     end
   end  

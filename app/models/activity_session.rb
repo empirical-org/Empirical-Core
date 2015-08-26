@@ -5,7 +5,6 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :classroom_activity
   belongs_to :activity
   has_one :unit, through: :classroom_activity
-  has_many :concept_tag_results
   has_many :concept_results
   has_many :concepts, -> { uniq }, through: :concept_results
 
@@ -54,7 +53,6 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def self.with_filters(query, filters)
-    # Some duplication between here and ConceptTagResult
     if filters[:classroom_id].present?
       query = query.where("classrooms.id = ?", filters[:classroom_id])
     end
