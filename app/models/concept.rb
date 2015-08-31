@@ -33,8 +33,7 @@ class Concept < ActiveRecord::Base
       FROM concepts c, concepts_tree
       WHERE c.id = concepts_tree.parent_id
     SQL
-    ).select('*').from('concepts_tree')
-
+    ).select('*').from('concepts_tree').includes(:parent)
   end
 
 end

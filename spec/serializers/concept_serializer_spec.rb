@@ -9,7 +9,8 @@ describe ConceptSerializer, type: :serializer do
          name
          uid
          level
-         parent_id)
+         parent_id
+         parent_uid)
     end
   end
 end
