@@ -5,7 +5,7 @@ class ProgressReports::Standards::Topic
 
   def results(filters)
     best_activity_sessions = ProgressReports::Standards::ActivitySession.new(@teacher).results(filters)
-    Topic.from_cte('best_activity_sessions', best_activity_sessions)
+    ::Topic.from_cte('best_activity_sessions', best_activity_sessions)
       .with(best_per_topic_user: ProgressReports::Standards::Student.best_per_topic_user)
       .select(<<-SQL
         topics.id,
