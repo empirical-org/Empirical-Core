@@ -44,11 +44,7 @@ EC.NewStudent = React.createClass({
               <h3 className='sign-up-header'>Sign up for a Student Account</h3>
             </div>
           </div>
-          <div className='row'>
-            <div className='col-xs-8'>
-              <EC.GoogleSignUp/>
-            </div>
-          </div>
+          <EC.AuthSignUp />
           <div className='row'>
             <div className='col-xs-12'>
               {inputs}

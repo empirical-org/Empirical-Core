@@ -83,7 +83,6 @@ class SessionsController < ApplicationController
   def new
     @user = User.new
     session[:role] = nil
-    @district_id = params[:district_id]
   end
 
   def failure
