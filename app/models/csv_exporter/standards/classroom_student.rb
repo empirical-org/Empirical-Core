@@ -31,8 +31,7 @@ module CsvExporter
       end
 
       def model_data(teacher, filters)
-        ::User.for_standards_report(
-          teacher, filters)
+        ::ProgressReports::Standards::Student.new(teacher).results(filters)
       end
 
       private

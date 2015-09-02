@@ -32,9 +32,8 @@ module CsvExporter
     end
 
     def model_data(teacher, filters)
-      ::ActivitySession.for_standalone_progress_report(
-        teacher,
-        HashWithIndifferentAccess.new(filters) || {})
+      ::ProgressReports::ActivitySession.new(teacher)
+        .results(HashWithIndifferentAccess.new(filters) || {})
     end
   end
 end
