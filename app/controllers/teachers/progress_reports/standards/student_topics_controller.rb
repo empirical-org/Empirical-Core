@@ -3,11 +3,11 @@ class Teachers::ProgressReports::Standards::StudentTopicsController < Teachers::
     respond_to do |format|
       format.html
       format.json do
-        topics = Topic.for_standards_report(current_user, params)
+        topics = ::ProgressReports::Standards::Topic.new(current_user).results(params)
         render json: {
           topics: topics,
           student: current_user.students.find(params[:student_id]),
-          units: Unit.for_standards_progress_report(current_user, {}),
+          units: ProgressReports::Standards::Unit.new(current_user).results({}),
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
         }
       end

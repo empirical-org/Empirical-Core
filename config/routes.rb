@@ -35,12 +35,6 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
 
-      resources :concept_categories, only: [:index] do
-        resources :concept_tags, only: [:index] do
-          resources :students, controller: "concept_tags_students", only: [:index]
-        end
-      end
-
       namespace :concepts do
         resources :students, only: [:index] do
           resources :concepts, only: [:index]

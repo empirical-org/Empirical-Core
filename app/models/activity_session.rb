@@ -5,7 +5,6 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :classroom_activity
   belongs_to :activity
   has_one :unit, through: :classroom_activity
-  has_many :concept_tag_results
   has_many :concept_results
   has_many :concepts, -> { uniq }, through: :concept_results
 
@@ -38,23 +37,20 @@ class ActivitySession < ActiveRecord::Base
 
   RESULTS_PER_PAGE = 25
 
-  def self.for_standalone_progress_report(teacher, filters)
-    filters = (filters || {}).with_indifferent_access
-    query = includes(:user, :activity => [:topic, :classification], :classroom_activity => :classroom)
-      .references(:classification)
-      .completed
-      .by_teacher(teacher)
-      .order(search_sort_sql(filters[:sort]))
-    with_filters(query, filters)
-  end
-
   def self.paginate(current_page, per_page)
     offset = (current_page.to_i - 1) * per_page
     limit(per_page).offset(offset)
   end
 
+  def self.with_best_scores
+    where(is_final_score: true)
+  end
+
+  def self.by_teacher(teacher)
+    self.joins(:user => :teacher).where(teachers_users: {id: teacher.id})
+  end
+
   def self.with_filters(query, filters)
-    # Some duplication between here and ConceptTagResult
     if filters[:classroom_id].present?
       query = query.where("classrooms.id = ?", filters[:classroom_id])
     end
@@ -76,26 +72,6 @@ class ActivitySession < ActiveRecord::Base
     end
 
     query
-  end
-
-  def self.for_standards_report(teacher, filters)
-    query = select(<<-SELECT
-      activity_sessions.*,
-      activities.topic_id as topic_id
-    SELECT
-    ).completed
-      .with_best_scores
-      .by_teacher(teacher)
-    query = with_filters(query, filters)
-    query
-  end
-
-  def self.with_best_scores
-    where(is_final_score: true)
-  end
-
-  def self.by_teacher(teacher)
-    self.joins(:user => :teacher).where(teachers_users: {id: teacher.id})
   end
 
   def determine_if_final_score

@@ -10,7 +10,7 @@ describe CsvExporter::Standards::Classroom do
     let(:filters) { {} }
 
     let(:model_instance) {
-      Classroom.for_standards_report(teacher, filters).where(id: full_classroom.id).first
+      ProgressReports::Standards::Classroom.new(teacher).results(filters).where(id: full_classroom.id).first
     }
 
     let(:expected_data_row) {
