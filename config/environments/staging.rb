@@ -73,6 +73,7 @@ EmpiricalGrammar::Application.configure do
                                  scorebook/**/*
                                  application.css.scss
                                  application.js
+                                 sign_up_email.css
                                  )
 
   # Disable delivery errors, bad email addresses will be ignored
