@@ -25,6 +25,9 @@ gem 'omniauth-clever'
 gem 'cancancan'
 gem 'firebase_token_generator'
 
+# EMAIL
+gem 'premailer-rails'
+gem 'nokogiri' # required for premailer
 
 # VALIDATIONS
 gem 'validates_email_format_of'
