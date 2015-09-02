@@ -9,7 +9,7 @@
         .google-sign-in
   .row
     .col-sm-6.col-md-4.col-md-offset-4
-      = link_to ("https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: 'read:user'}.to_param }")
+      = link_to ("https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }")
         .clever-sign-in
 
 

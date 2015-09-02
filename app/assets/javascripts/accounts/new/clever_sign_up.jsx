@@ -2,8 +2,9 @@
 EC.CleverSignUp = React.createClass({
   getInitialState: function () {
     return {
-      redirect_uri: null,
-      client_id: null,
+      redirectUri: null,
+      clientId: null,
+      cleverScope: null,
       detailsLoaded: false,
       notAvailable: false
     };
@@ -17,8 +18,9 @@ EC.CleverSignUp = React.createClass({
 
   loadState: function (data) {
     this.setState({
-      redirect_uri: data.redirect_uri,
-      client_id: data.client_id,
+      redirectUri: data.redirect_uri,
+      clientId: data.client_id,
+      CleverScope: data.clever_scope,
       detailsLoaded: true
     });
   },
@@ -30,12 +32,12 @@ EC.CleverSignUp = React.createClass({
   buildLink: function () {
     var link;
     if (this.state.detailsLoaded) {
-      var base, scope, redirect_uri, client_id;
+      var base, scope, redirectUri, clientId;
       base = "https://clever.com/oauth/authorize?response_type=code";
-      scope = "&scope=" + encodeURIComponent('read:user')
-      redirect_uri = "&redirect_uri=" + encodeURIComponent(this.state.redirect_uri);
-      client_id = "&client_id=" + encodeURIComponent(this.state.client_id);
-      link = base + scope + redirect_uri + client_id;
+      scope = "&scope=" + encodeURIComponent(this.state.cleverScope)
+      redirectUri = "&redirect_uri=" + encodeURIComponent(this.state.redirectUri);
+      clientId = "&client_id=" + encodeURIComponent(this.state.clientId);
+      link = base + scope + redirectUri + clientId;
     } else {
       link = "";
     }
