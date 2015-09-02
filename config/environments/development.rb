@@ -27,6 +27,8 @@ EmpiricalGrammar::Application.configure do
     authentication: :plain
   }
 
+  config.assets.precompile += %w(sign_up_email.css)
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
   config.log_level = :debug

@@ -171,6 +171,10 @@ EmpiricalGrammar::Application.routes.draw do
 
   root to: 'pages#home'
 
+  # http://stackoverflow.com/questions/26130130/what-are-the-routes-i-need-to-set-up-to-preview-emails-using-rails-4-1-actionmai
+  get '/lib/mailer_previews' => "rails/mailers#index"
+  get '/lib/mailer_previews/*path' => "rails/mailers#preview"
+
   # catch-all 404
   get '*path', :to => 'application#routing_error'
 end
