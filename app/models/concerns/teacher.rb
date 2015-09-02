@@ -95,7 +95,7 @@ module Teacher
   end
 
   def premium_state
-    if is_beta_period_over?
+    if !is_beta_period_over?
       "beta"
     elsif is_premium?
       "premium"

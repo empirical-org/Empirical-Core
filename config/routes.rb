@@ -122,8 +122,9 @@ EmpiricalGrammar::Application.routes.draw do
     post :role, to: 'accounts#role'
   end
 
-  get "/auth/:provider/callback" => 'sessions#google'
+  get "/auth/google/callback" => 'sessions#google'
   get '/auth/clever/callback', to: 'sessions#clever'
+  get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/auth/failure', to: 'sessions#failure'
 
   put '/select_school', to: 'accounts#select_school'

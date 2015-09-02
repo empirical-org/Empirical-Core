@@ -7,1010 +7,162 @@
         <title>*|MC:SUBJECT|*</title>
 
     <style type="text/css">
-    body,#bodyTable,#bodyCell{
-      height:100% !important;
-      margin:0;
-      padding:0;
-      width:100% !important;
+    body {
+      margin: 0px;
+      background-color: rgb(241,242,242);
+      font-family:arial,helvetica neue,helvetica,sans-serif;
+      line-height:1.6em;
+      font-size: 14px;
+      box-sizing: border-box;
     }
-    table{
-      border-collapse:collapse;
-    }
-    img,a img{
-      border:0;
-      outline:none;
-      text-decoration:none;
-    }
-    h1,h2,h3,h4,h5,h6{
-      margin:0;
-      padding:0;
-    }
-    p{
-      margin:1em 0;
-      padding:0;
-    }
-    a{
-      word-wrap:break-word;
-    }
-    .ReadMsgBody{
-      width:100%;
-    }
-    .ExternalClass{
-      width:100%;
-    }
-    .ExternalClass,.ExternalClass p,.ExternalClass span,.ExternalClass font,.ExternalClass td,.ExternalClass div{
-      line-height:100%;
-    }
-    table,td{
-      mso-table-lspace:0pt;
-      mso-table-rspace:0pt;
-    }
-    #outlook a{
-      padding:0;
-    }
-    img{
-      -ms-interpolation-mode:bicubic;
-    }
-    body,table,td,p,a,li,blockquote{
-      -ms-text-size-adjust:100%;
-      -webkit-text-size-adjust:100%;
-    }
-    #bodyCell{
-      padding:20px;
-    }
-    .mcnImage{
-      vertical-align:bottom;
-    }
-    .mcnTextContent img{
-      height:auto !important;
-    }
-  /*
-  @tab Page
-  @section background style
-  @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
-  */
-    body,#bodyTable{
-      /*@editable*/background-color:#389cc9;
-    }
-  /*
-  @tab Page
-  @section background style
-  @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
-  */
-    #bodyCell{
-      /*@editable*/border-top:0;
-    }
-  /*
-  @tab Page
-  @section email border
-  @tip Set the border for your email.
-  */
-    #templateContainer{
-      /*@editable*/border:0;
-    }
-  /*
-  @tab Page
-  @section heading 1
-  @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
-  @style heading 1
-  */
-    h1{
-      /*@editable*/color:#606060 !important;
-      display:block;
-      /*@editable*/font-family:Helvetica;
-      /*@editable*/font-size:40px;
-      /*@editable*/font-style:normal;
-      /*@editable*/font-weight:bold;
-      /*@editable*/line-height:125%;
-      /*@editable*/letter-spacing:-1px;
-      margin:0;
-      /*@editable*/text-align:left;
-    }
-  /*
-  @tab Page
-  @section heading 2
-  @tip Set the styling for all second-level headings in your emails.
-  @style heading 2
-  */
-    h2{
-      /*@editable*/color:#404040 !important;
-      display:block;
-      /*@editable*/font-family:Helvetica;
-      /*@editable*/font-size:26px;
-      /*@editable*/font-style:normal;
-      /*@editable*/font-weight:bold;
-      /*@editable*/line-height:125%;
-      /*@editable*/letter-spacing:-.75px;
-      margin:0;
-      /*@editable*/text-align:left;
-    }
-  /*
-  @tab Page
-  @section heading 3
-  @tip Set the styling for all third-level headings in your emails.
-  @style heading 3
-  */
-    h3{
-      /*@editable*/color:#606060 !important;
-      display:block;
-      /*@editable*/font-family:Helvetica;
-      /*@editable*/font-size:18px;
-      /*@editable*/font-style:normal;
-      /*@editable*/font-weight:bold;
-      /*@editable*/line-height:125%;
-      /*@editable*/letter-spacing:-.5px;
-      margin:0;
-      /*@editable*/text-align:left;
-    }
-  /*
-  @tab Page
-  @section heading 4
-  @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
-  @style heading 4
-  */
-    h4{
-      /*@editable*/color:#808080 !important;
-      display:block;
-      /*@editable*/font-family:Helvetica;
-      /*@editable*/font-size:16px;
-      /*@editable*/font-style:normal;
-      /*@editable*/font-weight:bold;
-      /*@editable*/line-height:125%;
-      /*@editable*/letter-spacing:normal;
-      margin:0;
-      /*@editable*/text-align:left;
-    }
-  /*
-  @tab Preheader
-  @section preheader style
-  @tip Set the background color and borders for your email's preheader area.
-  */
-    #templatePreheader{
-      /*@editable*/background-color:#3b9cc9;
-      /*@editable*/border-top:0;
-      /*@editable*/border-bottom:0;
-    }
-  /*
-  @tab Preheader
-  @section preheader text
-  @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
-  */
-    .preheaderContainer .mcnTextContent,.preheaderContainer .mcnTextContent p{
-      /*@editable*/color:#606060;
-      /*@editable*/font-family:Helvetica;
-      /*@editable*/font-size:11px;
-      /*@editable*/line-height:125%;
-      /*@editable*/text-align:left;
-    }
-  /*
-  @tab Preheader
-  @section preheader link
-  @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
-  */
-    .preheaderContainer .mcnTextContent a{
-      /*@editable*/color:#606060;
-      /*@editable*/font-weight:normal;
-      /*@editable*/text-decoration:underline;
-    }
-  /*
-  @tab Header
-  @section header style
-  @tip Set the background color and borders for your email's header area.
-  */
-    #templateHeader{
-      /*@editable*/background-color:#389cc9;
-      /*@editable*/border-top:0;
-      /*@editable*/border-bottom:0;
-    }
-  /*
-  @tab Header
-  @section header text
-  @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
-  */
-    .headerContainer .mcnTextContent,.headerContainer .mcnTextContent p{
-      /*@editable*/color:#606060;
-      /*@editable*/font-family:Helvetica;
-      /*@editable*/font-size:15px;
-      /*@editable*/line-height:100%;
-      /*@editable*/text-align:left;
-    }
-  /*
-  @tab Header
-  @section header link
-  @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
-  */
-    .headerContainer .mcnTextContent a{
-      /*@editable*/color:#6DC6DD;
-      /*@editable*/font-weight:normal;
-      /*@editable*/text-decoration:underline;
-    }
-  /*
-  @tab Body
-  @section body style
-  @tip Set the background color and borders for your email's body area.
-  */
-    #templateBody{
-      /*@editable*/background-color:#ffffff;
-      /*@editable*/border-top:0;
-      /*@editable*/border-bottom:0;
-    }
-  /*
-  @tab Body
-  @section body text
-  @tip Set the styling for your email's body text. Choose a size and color that is easy to read.
-  */
-    .bodyContainer .mcnTextContent,.bodyContainer .mcnTextContent p{
-      /*@editable*/color:#606060;
-      /*@editable*/font-family:Helvetica;
-      /*@editable*/font-size:15px;
-      /*@editable*/line-height:150%;
-      /*@editable*/text-align:left;
-    }
-  /*
-  @tab Body
-  @section body link
-  @tip Set the styling for your email's body links. Choose a color that helps them stand out from your text.
-  */
-    .bodyContainer .mcnTextContent a{
-      /*@editable*/color:#6DC6DD;
-      /*@editable*/font-weight:normal;
-      /*@editable*/text-decoration:underline;
-    }
-  /*
-  @tab Footer
-  @section footer style
-  @tip Set the background color and borders for your email's footer area.
-  */
-    #templateFooter{
-      /*@editable*/background-color:#eeeeee;
-      /*@editable*/border-top:0;
-      /*@editable*/border-bottom:0;
-    }
-  /*
-  @tab Footer
-  @section footer text
-  @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
-  */
-    .footerContainer .mcnTextContent,.footerContainer .mcnTextContent p{
-      /*@editable*/color:#606060;
-      /*@editable*/font-family:Helvetica;
-      /*@editable*/font-size:11px;
-      /*@editable*/line-height:125%;
-      /*@editable*/text-align:left;
-    }
-  /*
-  @tab Footer
-  @section footer link
-  @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
-  */
-    .footerContainer .mcnTextContent a{
-      /*@editable*/color:#606060;
-      /*@editable*/font-weight:normal;
-      /*@editable*/text-decoration:underline;
-    }
-  @media only screen and (max-width: 480px){
-    body,table,td,p,a,li,blockquote{
-      -webkit-text-size-adjust:none !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    body{
-      width:100% !important;
-      min-width:100% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[id=bodyCell]{
-      padding:10px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    table[class=mcnTextContentContainer]{
-      width:100% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    table[class=mcnBoxedTextContentContainer]{
-      width:100% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    table[class=mcpreview-image-uploader]{
-      width:100% !important;
-      display:none !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    img[class=mcnImage]{
-      width:100% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    table[class=mcnImageGroupContentContainer]{
-      width:100% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnImageGroupContent]{
-      padding:9px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnImageGroupBlockInner]{
-      padding-bottom:0 !important;
-      padding-top:0 !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    tbody[class=mcnImageGroupBlockOuter]{
-      padding-bottom:9px !important;
-      padding-top:9px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    table[class=mcnCaptionTopContent],table[class=mcnCaptionBottomContent]{
-      width:100% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    table[class=mcnCaptionLeftTextContentContainer],table[class=mcnCaptionRightTextContentContainer],table[class=mcnCaptionLeftImageContentContainer],table[class=mcnCaptionRightImageContentContainer],table[class=mcnImageCardLeftTextContentContainer],table[class=mcnImageCardRightTextContentContainer]{
-      width:100% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnImageCardLeftImageContent],td[class=mcnImageCardRightImageContent]{
-      padding-right:18px !important;
-      padding-left:18px !important;
-      padding-bottom:0 !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnImageCardBottomImageContent]{
-      padding-bottom:9px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnImageCardTopImageContent]{
-      padding-top:18px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnImageCardLeftImageContent],td[class=mcnImageCardRightImageContent]{
-      padding-right:18px !important;
-      padding-left:18px !important;
-      padding-bottom:0 !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnImageCardBottomImageContent]{
-      padding-bottom:9px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnImageCardTopImageContent]{
-      padding-top:18px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    table[class=mcnCaptionLeftContentOuter] td[class=mcnTextContent],table[class=mcnCaptionRightContentOuter] td[class=mcnTextContent]{
-      padding-top:9px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnCaptionBlockInner] table[class=mcnCaptionTopContent]:last-child td[class=mcnTextContent]{
-      padding-top:18px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnBoxedTextContentColumn]{
-      padding-left:18px !important;
-      padding-right:18px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-    td[class=mcnTextContent]{
-      padding-right:18px !important;
-      padding-left:18px !important;
-    }
-
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section template width
-  @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
-  */
-    table[id=templateContainer],table[id=templatePreheader],table[id=templateHeader],table[id=templateBody],table[id=templateFooter]{
-      /*@tab Mobile Styles
-@section template width
-@tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.*/max-width:600px !important;
-      /*@editable*/width:100% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section heading 1
-  @tip Make the first-level headings larger in size for better readability on small screens.
-  */
-    h1{
-      /*@editable*/font-size:24px !important;
-      /*@editable*/line-height:125% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section heading 2
-  @tip Make the second-level headings larger in size for better readability on small screens.
-  */
-    h2{
-      /*@editable*/font-size:20px !important;
-      /*@editable*/line-height:125% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section heading 3
-  @tip Make the third-level headings larger in size for better readability on small screens.
-  */
-    h3{
-      /*@editable*/font-size:18px !important;
-      /*@editable*/line-height:125% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section heading 4
-  @tip Make the fourth-level headings larger in size for better readability on small screens.
-  */
-    h4{
-      /*@editable*/font-size:16px !important;
-      /*@editable*/line-height:125% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section Boxed Text
-  @tip Make the boxed text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-  */
-    table[class=mcnBoxedTextContentContainer] td[class=mcnTextContent],td[class=mcnBoxedTextContentContainer] td[class=mcnTextContent] p{
-      /*@editable*/font-size:18px !important;
-      /*@editable*/line-height:125% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section Preheader Visibility
-  @tip Set the visibility of the email's preheader on small screens. You can hide it to save space.
-  */
-    table[id=templatePreheader]{
-      /*@editable*/display:block !important;
-    }
-
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section Preheader Text
-  @tip Make the preheader text larger in size for better readability on small screens.
-  */
-    td[class=preheaderContainer] td[class=mcnTextContent],td[class=preheaderContainer] td[class=mcnTextContent] p{
-      /*@editable*/font-size:14px !important;
-      /*@editable*/line-height:115% !important;
-    }
-
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section Header Text
-  @tip Make the header text larger in size for better readability on small screens.
-  */
-    td[class=headerContainer] td[class=mcnTextContent],td[class=headerContainer] td[class=mcnTextContent] p{
-      /*@editable*/font-size:18px !important;
-      /*@editable*/line-height:125% !important;
-    }
 
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section Body Text
-  @tip Make the body text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-  */
-    td[class=bodyContainer] td[class=mcnTextContent],td[class=bodyContainer] td[class=mcnTextContent] p{
-      /*@editable*/font-size:18px !important;
-      /*@editable*/line-height:125% !important;
+    .header {
+      background-color: #00c2a2;
+      padding-top: 50px;
+      padding-bottom: 35px;
     }
 
-} @media only screen and (max-width: 480px){
-  /*
-  @tab Mobile Styles
-  @section footer text
-  @tip Make the body content text larger in size for better readability on small screens.
-  */
-    td[class=footerContainer] td[class=mcnTextContent],td[class=footerContainer] td[class=mcnTextContent] p{
-      /*@editable*/font-size:14px !important;
-      /*@editable*/line-height:115% !important;
+    .main-width {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-} @media only screen and (max-width: 480px){
-    td[class=footerContainer] a[class=utilityLink]{
-      display:block !important;
+    .container {
+      padding-top: 30px;
+      padding-bottom: 30px;
     }
-
-}</style></head>
-    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
-        <center>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
-                <tr>
-                    <td align="center" valign="top" id="bodyCell">
-                        <!-- BEGIN TEMPLATE // -->
-                        <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer">
-                            <tr>
-                                <td align="center" valign="top">
-                                    <!-- BEGIN PREHEADER // -->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templatePreheader">
-                                        <tr>
-                                          <td valign="top" class="preheaderContainer" style="padding-top:9px;"></td>
-                                        </tr>
-                                    </table>
-                                    <!-- // END PREHEADER -->
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="top">
-                                    <!-- BEGIN HEADER // -->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
-                                        <tr>
-                                            <td valign="top" class="headerContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock">
-    <tbody class="mcnImageBlockOuter" style="background:#3b9cc9">
-            <tr>
-                <td valign="top" style="padding:0px" class="mcnImageBlockInner">
-                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer">
-                        <tbody style="background:#fff"><tr style="background:#3b9cc9">
-                            <td class="mcnImageContent" valign="top" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0;">
-
-                                    <a href="http://www.quill.org" title="" class="" target="_blank">
-                                        <img align="left" alt="" src="https://gallery.mailchimp.com/6efffadd89fc71ad0ca41dc4d/images/Quill_Email_Header.png" width="600" style="max-width:600px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
-                                    </a>
-
-                            </td>
-                        </tr>
-                    </tbody></table>
-                </td>
-            </tr>
-    </tbody>
-</table></td>
-                                        </tr>
-                                    </table>
-                                    <!-- // END HEADER -->
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="top">
-                                    <!-- BEGIN BODY // -->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
-                                        <tr>
-                                            <td valign="top" class="bodyContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-    <tbody class="mcnTextBlockOuter">
-        <tr>
-            <td valign="top" class="mcnTextBlockInner">
-
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                    <tbody><tr>
-
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-
-                            <h2 style="text-align:center;margin:0;padding:0;display:block;font-family:Helvetica;font-size:26px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:-.75px;color:#404040!important"><br>
-<span style="font-size:32px">Welcome to Quill!</span></h2>
-<font size="-1"><span><br>
-Quill provides over 150 free writing and grammar activities that are built directly from the Common Core! To find the perfect activity for your students, click the button below to sign in to your profile. 
-</font><br>
-&nbsp;
-                        </td>
-                    </tr>
-                </tbody></table>
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
-    <tbody class="mcnButtonBlockOuter">
-        <tr>
-            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border: 2px solid #7CC24C;border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;background-color: #7CC24C;">
-                    <tbody>
-                        <tr>
-                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
-                                <a class="mcnButton " title="Sign in Here" href="http://www.quill.org/session/new" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Sign in Here</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-    <tbody class="mcnTextBlockOuter">
-        <tr>
-            <td valign="top" class="mcnTextBlockInner">
-
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                    <tbody><tr>
-
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-
-                            <h2 style="text-align:center;margin:0;padding:0;display:block;font-family:Helvetica;font-size:26px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:-.75px;color:#404040!important"><br>
-<span style="font-size:32px">Explore Popular Activities</span></h2>
-<br>
-<font size="-1">Some of our more popular activities include: 
-<br>
-<ul>
-    <li><a href="http://www.quill.org/activities/183?anonymous=true">1.2a: Capitalize Dates and Names of People</a></li>
-        <li><a href="http://www.quill.org/activities/180?anonymous=true">3.2c: Use Commas and Quotation Marks in Dialogue</a></li>
-    <li><a href="http://www.quill.org/activities/67?anonymous=true">4.1g: Commonly Confused Words</a></li>
-</ul>
-Click below to see our full list of activities!
-<br>
-</font>
-&nbsp;
-                        </td>
-                    </tr>
-                </tbody></table>
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
-    <tbody class="mcnButtonBlockOuter">
-        <tr>
-            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border: 2px solid #7CC24C;border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;background-color: #7CC24C;">
-                    <tbody>
-                        <tr>
-                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
-                                <a class="mcnButton " title="View Our Activities" href="http://www.quill.org/lessons" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">View Our Lessons</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-    <tbody class="mcnTextBlockOuter">
-        <tr>
-            <td valign="top" class="mcnTextBlockInner">
-
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                    <tbody><tr>
-
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-
-                            <h2 style="text-align:center;margin:0;padding:0;display:block;font-family:Helvetica;font-size:26px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:-.75px;color:#404040!important"><br>
-<span style="font-size:32px"><strong>Connect with Us</strong></span></h2>
-
-<div style="text-align:left"><br>
-<font size="-1">We’re here to help! Contact Ryan Novas at <a href="mailto:ryan@quill.org">ryan@quill.org</a> with questions. He’ll get back to you promptly!
-<br>
-<br>
-For help setting up your class, please see our getting started guide. 
-</font><br>
-&nbsp;</div>
-
-                        </td>
-                    </tr>
-                </tbody></table>
-
-            </td>
-        </tr>
-    </tbody>
-</table><table class="mcnButtonBlock" border="0" cellpadding="0" cellspacing="0" width="100%">
-    <tbody class="mcnButtonBlockOuter">
-        <tr>
-            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" class="mcnButtonBlockInner" align="center" valign="top">
-                <table class="mcnButtonContentContainer" style="border-collapse: separate ! important;border: 2px solid #7CC24C;border-radius: 5px;background-color: #7CC24C;" border="0" cellpadding="0" cellspacing="0">
-                    <tbody>
-                        <tr>
-                            <td style="font-family: Arial; font-size: 16px; padding: 16px;" class="mcnButtonContent" align="center" valign="middle">
-                                <a class="mcnButton " title="Getting Started Guide" href="https://quill-discussion.uservoice.com/knowledgebase/topics/55638-getting-started" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Getting Started Guide</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-    <tbody class="mcnTextBlockOuter">
-        <tr>
-            <td valign="top" class="mcnTextBlockInner">
-
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                    <tbody><tr>
-
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-
-                            <h2 style="text-align:center;margin:0;padding:0;display:block;font-family:Helvetica;font-size:26px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:-.75px;color:#404040!important"><br>
-<span style="font-size:32px">About Empirical</span></h2>
-<br>
-<font size="2">Quill is being built by Empirical, a nonprofit, open source organization. Over fifty educators and developers have contributed code and activities. 
-</font><br>
-&nbsp;
-                        </td>
-                    </tr>
-                </tbody></table>
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
-    <tbody class="mcnButtonBlockOuter">
-        <tr>
-            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border: 2px solid #7CC24C;border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;background-color: #7CC24C;">
-                    <tbody>
-                        <tr>
-                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
-                                <a class="mcnButton " title="Learn About Our Mission" href="http://www.quill.org/mission" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Learn About Our Mission</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock">
-    <tbody class="mcnFollowBlockOuter">
-        <tr>
-            <td align="center" valign="top" style="padding:9px" class="mcnFollowBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer">
-    <tbody><tr>
-        <td align="left" style="padding-left:9px;padding-right:9px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContent">
-                <tbody><tr>
-                    <td align="left" valign="top" style="padding-top:9px; padding-right:9px; padding-left:9px;">
-            <table border="0" cellpadding="0" cellspacing="0">
-              <tbody><tr>
-                <td valign="top">
-
-
-                                      <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnFollowStacked">
-
-                                          <tbody><tr>
-                                              <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right:10px; padding-bottom:5px;">
-                                                  <a href="mailto:hello@quill.org" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block/color-forwardtofriend-128.png" alt="Email" class="mcnFollowBlockIcon" width="48" style="width:48px; max-width:48px; display:block;"></a>
-                                              </td>
-                                          </tr>
-
-
-                                          <tr>
-                                              <td align="center" valign="top" class="mcnFollowTextContent" style="padding-right:10px; padding-bottom:9px;">
-                                                  <a href="mailto:hello@quill.org" target="_blank" style="color: #EB4102;font-family: Arial;font-size: 11px;font-weight: normal;line-height: 100%;text-align: center;text-decoration: none;">Email</a>
-                                              </td>
-                                          </tr>
-
-                                      </tbody></table>
-
-
-                <!--[if gte mso 6]>
-                </td>
-                  <td align="left" valign="top">
-                <![endif]-->
-
-
-                                      <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnFollowStacked">
-
-                                          <tbody><tr>
-                                              <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right:10px; padding-bottom:5px;">
-                                                  <a href="http://www.quill.org" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block/color-link-128.png" alt="Homepage" class="mcnFollowBlockIcon" width="48" style="width:48px; max-width:48px; display:block;"></a>
-                                              </td>
-                                          </tr>
-
-
-                                          <tr>
-                                              <td align="center" valign="top" class="mcnFollowTextContent" style="padding-right:10px; padding-bottom:9px;">
-                                                  <a href="http://www.quill.org" target="_blank" style="color: #EB4102;font-family: Arial;font-size: 11px;font-weight: normal;line-height: 100%;text-align: center;text-decoration: none;">Homepage</a>
-                                              </td>
-                                          </tr>
-
-                                      </tbody></table>
-
-
-                <!--[if gte mso 6]>
-                </td>
-                  <td align="left" valign="top">
-                <![endif]-->
-
-
-                                      <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnFollowStacked">
-
-                                          <tbody><tr>
-                                              <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right:0; padding-bottom:5px;">
-                                                  <a href="https://twitter.com/Quill_org" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block/color-twitter-128.png" alt="Twitter" class="mcnFollowBlockIcon" width="48" style="width:48px; max-width:48px; display:block;"></a>
-                                              </td>
-                                          </tr>
-
-
-                                          <tr>
-                                              <td align="center" valign="top" class="mcnFollowTextContent" style="padding-right:0; padding-bottom:9px;">
-                                                  <a href="https://twitter.com/Quill_org" target="_blank" style="color: #EB4102;font-family: Arial;font-size: 11px;font-weight: normal;line-height: 100%;text-align: center;text-decoration: none;">Twitter</a>
-                                              </td>
-                                          </tr>
-
-                                      </tbody></table>
-
-
-                <!--[if gte mso 6]>
-                </td>
-                  <td align="left" valign="top">
-                <![endif]-->
-
-                </td>
-              </tr>
-            </tbody></table>
-                    </td>
-                </tr>
-            </tbody></table>
-        </td>
-    </tr>
-</tbody></table>
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnShareBlock">
-    <tbody class="mcnShareBlockOuter">
-            <tr>
-                <td valign="top" style="padding:9px" class="mcnShareBlockInner">
-                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnShareContentContainer">
-    <tbody><tr>
-        <td align="left" style="padding-top:9px; padding-left:9px; padding-bottom:0; padding-right:9px;">
-            <table border="0" cellpadding="0" cellspacing="0" class="mcnShareContent">
-                <tbody><tr>
-                    <td valign="top" class="mcnShareContentItemContainer">
-
-                            <table align="left" border="0" cellpadding="0" cellspacing="0">
-                                <tbody><tr>
-                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnShareContentItemContainer">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="" class="mcnShareContentItem" style="border-collapse: separate;background-color: #FFFFFF;border: 1px solid #CCCCCC;border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;">
-                                            <tbody><tr>
-                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
-                                                        <tbody><tr>
-                                                            <td align="center" valign="middle" width="18" class="mcnShareIconContent">
-                                                                <a href="http://www.facebook.com/sharer/sharer.php?u=*|URL:ARCHIVE_LINK_SHORT|*" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block/color-facebook-128.png" style="display:block;" height="18" width="18" class=""></a>
-                                                            </td>
-                                                            <td align="left" valign="middle" class="mcnShareTextContent" style="padding-left:5px;">
-                                                                <a href="http://www.facebook.com/sharer/sharer.php?u=*|URL:ARCHIVE_LINK_SHORT|*" target="" style="color: #505050;font-family: Arial;font-size: 12px;text-decoration: none;font-weight: normal;line-height: 100%;text-align: center;">Share</a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody></table>
-                                                </td>
-                                            </tr>
-                                        </tbody></table>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-
-                            <table align="left" border="0" cellpadding="0" cellspacing="0">
-                                <tbody><tr>
-                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnShareContentItemContainer">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="" class="mcnShareContentItem" style="border-collapse: separate;background-color: #FFFFFF;border: 1px solid #CCCCCC;border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;">
-                                            <tbody><tr>
-                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
-                                                        <tbody><tr>
-                                                            <td align="center" valign="middle" width="18" class="mcnShareIconContent">
-                                                                <a href="http://twitter.com/intent/tweet?text=*|URL:MC_SUBJECT|*: *|URL:ARCHIVE_LINK_SHORT|*" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block/color-twitter-128.png" style="display:block;" height="18" width="18" class=""></a>
-                                                            </td>
-                                                            <td align="left" valign="middle" class="mcnShareTextContent" style="padding-left:5px;">
-                                                                <a href="http://twitter.com/intent/tweet?text=*|URL:MC_SUBJECT|*: *|URL:ARCHIVE_LINK_SHORT|*" target="" style="color: #505050;font-family: Arial;font-size: 12px;text-decoration: none;font-weight: normal;line-height: 100%;text-align: center;">Tweet</a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody></table>
-                                                </td>
-                                            </tr>
-                                        </tbody></table>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-
-                            <table align="left" border="0" cellpadding="0" cellspacing="0">
-                                <tbody><tr>
-                                    <td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnShareContentItemContainer">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="" class="mcnShareContentItem" style="border-collapse: separate;background-color: #FFFFFF;border: 1px solid #CCCCCC;border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;">
-                                            <tbody><tr>
-                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
-                                                        <tbody><tr>
-                                                            <td align="center" valign="middle" width="18" class="mcnShareIconContent">
-                                                                <a href="*|FORWARD|*" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block/color-forwardtofriend-128.png" style="display:block;" height="18" width="18" class=""></a>
-                                                            </td>
-                                                            <td align="left" valign="middle" class="mcnShareTextContent" style="padding-left:5px;">
-                                                                <a href="*|FORWARD|*" target="" style="color: #505050;font-family: Arial;font-size: 12px;text-decoration: none;font-weight: normal;line-height: 100%;text-align: center;">Forward to Friend</a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody></table>
-                                                </td>
-                                            </tr>
-                                        </tbody></table>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-
-                    </td>
-                </tr>
-            </tbody></table>
-        </td>
-    </tr>
-</tbody></table>
-
-                </td>
-            </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock">
-    <tbody class="mcnImageBlockOuter">
-            <tr>
-                <td valign="top" style="padding:0px" class="mcnImageBlockInner">
-                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer">
-                        <tbody><tr>
-                            <td class="mcnImageContent" valign="top" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0;">
-
-
-                                        <img align="left" alt="" src="https://gallery.mailchimp.com/6efffadd89fc71ad0ca41dc4d/images/unnamed.png" width="600" style="max-width:600px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
-
-
-                            </td>
-                        </tr>
-                    </tbody></table>
-                </td>
-            </tr>
-    </tbody>
-</table></td>
-                                        </tr>
-                                    </table>
-                                    <!-- // END BODY -->
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="top">
-                                    <!-- BEGIN FOOTER // -->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateFooter">
-                                        <tr>
-                                            <td valign="top" class="footerContainer" style="padding-bottom:9px; background:#eee"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-    <tbody class="mcnTextBlockOuter">
-        <tr>
-            <td valign="top" class="mcnTextBlockInner">
-
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                    <tbody><tr>
-
-                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px; background:#eee">
-
-                            Empirical is an open source nonprofit building interactive education. Quill is a web application that provides interactive English grammar lessons. We currently feature 30 hours of Common Core lessons. Explore our lessons at&nbsp;<a href="http://www.quill.org/lessons" target="_blank">quill.org/lessons</a>.<br>
-<br>
-<br>
-                        </td>
-                    </tr>
-                </tbody></table>
-
-            </td>
-        </tr>
-    </tbody>
-</table></td>
-                                        </tr>
-                                    </table>
-                                    <!-- // END FOOTER -->
-                                </td>
-                            </tr>
-                        </table>
-                        <!-- // END TEMPLATE -->
-                    </td>
-                </tr>
-            </table>
-        </center>
+
+    .section {
+      margin-bottom: 40px;
+      display: inline-block;
+      float: left;
+      clear:both;
+    }
+
+    .title, .content, .btn {
+      margin-bottom: 20px;
+      float: left;
+      clear:both;
+    }
+
+    .title {
+      color: #333333;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .content {
+      font-size: 14px;
+    }
+
+    .content-section {
+      float: left;
+      clear:both;
+    }
+
+    .content-section, .activities {
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    .activities a {
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .btn {
+      background-color: #00c2a2;
+      padding: 10px;
+      text-align: center;
+      color: white;
+      border-radius: 5px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .content a {
+      color: #027360;
+    }
+
+    .activities {
+      float:left;
+      clear:both;
+    }
+
+    .activities a {
+      float: left;
+      clear: both;
+    }
+
+</style></head>
+    <body>
+      <div class='header'>
+        <div class='main-width'>
+          <img src='https://ci5.googleusercontent.com/proxy/a4zYv3v3GQLqWWSoJdISs5xG3WfVtDrsdOjmF7FYlzR1Uxl3DLKYJDguWOe0-RwKbs1b2kdz8Rp2SQYyEmnTmY4MooTpM_eJ-6guOtGlFt6NlXe0Bnq9dns-h7K-LPOzHXinrPHox5o0YA7AIdoHL5OUk40cBgojm4HuN-U=s0-d-e1-ft#https://gallery.mailchimp.com/6efffadd89fc71ad0ca41dc4d/images/ad694fbe-b270-4348-b9c1-3f43f848e6b1.png'/>
+        </div>
+      </div>
+      <div class='container main-width'>
+        <div class='section'>
+          <div class='title'>
+            Welcome to Quill!
+          </div>
+          <div class='content'>
+            Quill provides over 150 free writing and grammar activities that are built directly from the Common Core! To find the perfect activity for your students, click the button below to sign in to your profile.
+          </div>
+          <a class='btn' href='https://quill.org/session/new'>
+            Sign in here
+          </a>
+        </div>
+        <div class='section'>
+          <div class='title'>
+            Explore Popular Activities
+          </div>
+          <div class='content'>
+            <div class='content-section'>
+              Some of our more popular activities include:
+            </div>
+            <div class='activities'>
+              <a href='https://www.quill.org/activities/183?anonymous=true'>1.2a: Capitalize Dates and Names of People</a>
+              <a href='https://www.quill.org/activities/180?anonymous=true'>3.2c: Use Commas and Quotation Marks in Dialogue</a>
+              <a href='https://www.quill.org/activities/67?anonymous=true'>4.1g: Commonly Confused Words</a>
+            </div>
+            <div class='content-section'>
+              Click below to see our full list of activities!
+            </div>
+          </div>
+          <a class='btn' href='https://www.quill.org/lessons'>
+            View our Lessons
+          </a>
+        </div>
+        <div class='section'>
+          <div class='title'>
+            Connect With Us
+          </div>
+          <div class='content'>
+            <div class='content-section'>
+              We’re here to help! Contact Elliot Mandel at elliot@quill.org with questions. He’ll get back to you promptly!
+            </div>
+            <div class='content-section'>
+              For help setting up your class, please see our getting started guide.
+            </div>
+          </div>
+          <a class='btn' href='http://support.quill.org/knowledgebase/topics/55638-getting-started'>
+            Getting Started Guide
+          </a>
+        </div>
+        <div class='section'>
+          <div class='title'>
+            About Quill
+          </div>
+          <div class='content'>
+            Quill is a nonprofit, open source organization. Over 100 educators and developers have contributed code and activities.
+          </div>
+          <a class='btn' href='https://www.quill.org/mission'>
+            Learn About Our Mission
+          </a>
+        </div>
     </body>
 </html>
