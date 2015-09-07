@@ -14,7 +14,7 @@ class UsernameGenerator
     else
       final = "#{part1}@#{classcode}"
     end
-    self.username = final
+    final
   end
 
   private
