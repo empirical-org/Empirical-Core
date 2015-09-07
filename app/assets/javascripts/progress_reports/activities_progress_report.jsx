@@ -1,6 +1,10 @@
 "use strict";
 
 EC.ActivitiesProgressReport = React.createClass({
+  propTypes: {
+    sourceUrl: React.PropTypes.string.isRequired
+  },
+
   columnDefinitions: function() {
     // Student, Date, Activity, Score, Standard, App
     return [
@@ -64,7 +68,7 @@ EC.ActivitiesProgressReport = React.createClass({
     return (
       <EC.ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={true}
-                         sourceUrl={'/teachers/progress_reports/activity_sessions'}
+                         sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'activity_sessions'}
                          exportCsv={'activity_sessions'}

@@ -93,7 +93,11 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def concept_result_allowed_keys
     if params[:concept_results_attributes]
       params[:concept_results_attributes].reduce [] do |acc, hash|
-        acc + hash[:metadata].keys.map(&:to_sym)
+        if hash.has_key?(:metadata)
+          acc + hash[:metadata].keys.map(&:to_sym)
+        else
+          acc
+        end
       end.uniq
     else
       nil

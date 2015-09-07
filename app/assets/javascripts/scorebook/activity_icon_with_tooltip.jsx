@@ -19,7 +19,11 @@ EC.ActivityIconWithTooltip = React.createClass({
   },
 
   componentDidMount: function () {
-    $(this.refs.activateTooltip.getDOMNode()).tooltip();
+    $(this.refs.activateTooltip.getDOMNode()).tooltip({
+      html: true,
+      placement: 'top',
+      title: this.tooltipTitle()
+    });
   },
 
   icon_for_classification: function () {
@@ -40,20 +44,28 @@ EC.ActivityIconWithTooltip = React.createClass({
       return (Math.round(100*this.props.data.percentage)) + "%";
     }
   },
+
+  tooltipClasses: function () {
+    return "activate-tooltip icon-wrapper icon-" + this.percentage_color() + " icon-" + this.icon_for_classification();
+  },
+
   tooltipTitle: function () {
     var topicCategoryName;
     if (this.props.data.activity.topic.topic_category) {
       topicCategoryName = this.props.data.activity.topic.topic_category.name;
     }
-    return (
-          "<h1>" + this.props.data.activity.name +  "</h1>"
-        + "<p>" + this.props.data.activity.classification.alias + "</p>"
-        + "<p>" + this.props.data.activity.topic.section.name + "</p>"
-        + "<p>" + this.props.data.activity.topic.name + "</p>"
-        + "<p>" + this.props.data.activity.description + "</p>"
-        + "<p>" + topicCategoryName + "</p>"
-        + "<p>" + this.displayPercentage() + "</p>"
-        + "<p>" + this.props.data.due_date_or_completed_at_date + "</p>"
+    return React.renderToString(
+      <div>
+        <h1>{this.props.data.activity.name}</h1>
+        <p>{this.props.data.activity.classification.alias}</p>
+        <p>{this.props.data.activity.topic.section.name}</p>
+        <p>{this.props.data.activity.topic.name}</p>
+        <p>{this.props.data.activity.description}</p>
+        <p>{topicCategoryName}</p>
+        <p>{this.displayPercentage()}</p>
+        <p>{this.props.data.due_date_or_completed_at_date}</p>
+        <EC.ConceptResultStats results={this.props.data.concept_results} />
+      </div>
     );
   },
 
@@ -61,12 +73,7 @@ EC.ActivityIconWithTooltip = React.createClass({
     return (
       <div
         ref='activateTooltip'
-        className={"activate-tooltip icon-wrapper icon-" + this.percentage_color() + " icon-" + this.icon_for_classification() }
-        data-toggle='tooltip'
-        data-html={true}
-        data-placement='top'
-        title= {this.tooltipTitle()}
-      >
+        className={this.tooltipClasses()}>
       </div>
     );
   }

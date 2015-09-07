@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
                 :google_sign_in
 
   before_save :capitalize_name
+  before_save :generate_student_username_if_absent
 
   has_secure_password validations: false
 
@@ -66,29 +67,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.for_concept_tag_progress_report(teacher, filters)
-    with(filtered_correct_results: ConceptTagResult.correct_results_for_progress_report(teacher, filters))
-      .select(<<-SELECT
-        users.id,
-        users.name,
-        COUNT(filtered_correct_results.*) as total_result_count,
-        SUM(CASE WHEN filtered_correct_results.is_correct = 1 THEN 1 ELSE 0 END) as correct_result_count,
-        SUM(CASE WHEN filtered_correct_results.is_correct = 0 THEN 1 ELSE 0 END) as incorrect_result_count
-      SELECT
-      ).joins('JOIN filtered_correct_results ON users.id = filtered_correct_results.user_id')
-      .group('users.id')
-      .order('users.name asc')
-  end
-
-  # Helper method used as CTE in other queries. Do not attempt to use this by itself
-  def self.best_per_topic_user
-    <<-BEST
-      select topic_id, user_id, AVG(percentage) as avg_score_in_topic
-      from best_activity_sessions
-      group by topic_id, user_id
-    BEST
-  end
-
   def self.sorting_name_sql
     <<-SQL
       substring(
@@ -125,49 +103,6 @@ class User < ActiveRecord::Base
     self.name = result
   end
 
-  def self.for_standards_report(teacher, filters)
-    User.from_cte('best_activity_sessions', ActivitySession.for_standards_report(teacher, filters))
-      .with(best_per_topic_user: best_per_topic_user)
-      .select(<<-SQL
-        users.id,
-        users.name,
-        #{sorting_name_sql},
-        AVG(best_activity_sessions.percentage) as average_score,
-        COUNT(DISTINCT(best_activity_sessions.topic_id)) as total_standard_count,
-        COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count,
-        COALESCE(AVG(proficient_count.topic_count), 0)::integer as proficient_standard_count,
-        COALESCE(AVG(near_proficient_count.topic_count), 0)::integer as near_proficient_standard_count,
-        COALESCE(AVG(not_proficient_count.topic_count), 0)::integer as not_proficient_standard_count
-      SQL
-      ).joins('JOIN users ON users.id = best_activity_sessions.user_id')
-      .joins(<<-JOINS
-      LEFT JOIN (
-          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
-           from best_per_topic_user
-           where avg_score_in_topic > 0.75
-           group by user_id
-        ) as proficient_count ON proficient_count.user_id = users.id
-      JOINS
-      ).joins(<<-JOINS
-      LEFT JOIN (
-          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
-           from best_per_topic_user
-           where avg_score_in_topic <= 0.75 AND avg_score_in_topic >= 0.50
-           group by user_id
-        ) as near_proficient_count ON near_proficient_count.user_id = users.id
-      JOINS
-      ).joins(<<-JOINS
-      LEFT JOIN (
-          select COUNT(DISTINCT(topic_id)) as topic_count, user_id
-           from best_per_topic_user
-           where avg_score_in_topic < 0.5
-           group by user_id
-        ) as not_proficient_count ON not_proficient_count.user_id = users.id
-      JOINS
-      )
-      .group('users.id, sorting_name')
-      .order('sorting_name asc')
-  end
 
   # def authenticate
   def self.authenticate(params)
@@ -314,6 +249,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def generate_student_username_if_absent
+    return if not student?
+    return if username.present?
+    generate_username
+  end
+
 private
   def prep_authentication_terms
     self.email = email.downcase unless email.blank?
@@ -350,15 +291,7 @@ private
   end
 
   def generate_username
-    part1 = "#{first_name}.#{last_name}"
-    part1_pattern = "%#{part1}%"
-    extant = User.where("username ILIKE ?", part1_pattern)
-    if extant.any?
-      final = "#{part1}#{extant.length + 1}@#{classcode}"
-    else
-      final = "#{part1}@#{classcode}"
-    end
-    self.username = final
+    self.username = UsernameGenerator.new(self).student
   end
 
   def newsletter?
