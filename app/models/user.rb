@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
                 :google_sign_in
 
   before_save :capitalize_name
+  before_save :generate_student_username_if_absent
 
   has_secure_password validations: false
 
@@ -300,6 +301,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def generate_student_username_if_absent
+    return if not student?
+    return if username.present?
+    generate_username
+  end
+
 private
   def prep_authentication_terms
     self.email = email.downcase unless email.blank?
@@ -336,15 +343,7 @@ private
   end
 
   def generate_username
-    part1 = "#{first_name}.#{last_name}"
-    part1_pattern = "%#{part1}%"
-    extant = User.where("username ILIKE ?", part1_pattern)
-    if extant.any?
-      final = "#{part1}#{extant.length + 1}@#{classcode}"
-    else
-      final = "#{part1}@#{classcode}"
-    end
-    self.username = final
+    self.username = UsernameGenerator.new(self).student
   end
 
   def newsletter?
