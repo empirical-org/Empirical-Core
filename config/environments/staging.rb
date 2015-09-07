@@ -73,8 +73,7 @@ EmpiricalGrammar::Application.configure do
                                  scorebook/**/*
                                  application.css.scss
                                  application.js
-
-
+                                 sign_up_email.css
                                  )
 
   # Disable delivery errors, bad email addresses will be ignored
@@ -109,7 +108,7 @@ EmpiricalGrammar::Application.configure do
   config.action_mailer.default_url_options = { :host => 'staging.quill.org' }
 
   # condense logging in with lograge
-  config.lograge.enabled = true
+  config.lograge.enabled = false
   config.lograge.custom_options = lambda do |event|
     params = event.payload[:params].reject do |k|
       ['controller', 'action'].include? k

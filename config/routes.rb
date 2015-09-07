@@ -116,7 +116,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :role, to: 'accounts#role'
   end
 
-  get "/auth/google/callback" => 'sessions#google'
+  get "/auth/google_oauth2/callback" => 'sessions#google'
   get '/auth/clever/callback', to: 'sessions#clever'
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/auth/failure', to: 'sessions#failure'
@@ -164,6 +164,10 @@ EmpiricalGrammar::Application.routes.draw do
   get '500' => 'errors#error_500'
 
   root to: 'pages#home'
+
+  # http://stackoverflow.com/questions/26130130/what-are-the-routes-i-need-to-set-up-to-preview-emails-using-rails-4-1-actionmai
+  get '/lib/mailer_previews' => "rails/mailers#index"
+  get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
   # catch-all 404
   get '*path', :to => 'application#routing_error'
