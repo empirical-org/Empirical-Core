@@ -35,9 +35,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
 
-      resources :concept_categories, only: [:index] do
-        resources :concept_tags, only: [:index] do
-          resources :students, controller: "concept_tags_students", only: [:index]
+      namespace :concepts do
+        resources :students, only: [:index] do
+          resources :concepts, only: [:index]
         end
       end
 
@@ -116,8 +116,9 @@ EmpiricalGrammar::Application.routes.draw do
     post :role, to: 'accounts#role'
   end
 
-  get "/auth/:provider/callback" => 'sessions#google'
+  get "/auth/google_oauth2/callback" => 'sessions#google'
   get '/auth/clever/callback', to: 'sessions#clever'
+  get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/auth/failure', to: 'sessions#failure'
 
   put '/select_school', to: 'accounts#select_school'
@@ -163,6 +164,10 @@ EmpiricalGrammar::Application.routes.draw do
   get '500' => 'errors#error_500'
 
   root to: 'pages#home'
+
+  # http://stackoverflow.com/questions/26130130/what-are-the-routes-i-need-to-set-up-to-preview-emails-using-rails-4-1-actionmai
+  get '/lib/mailer_previews' => "rails/mailers#index"
+  get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
   # catch-all 404
   get '*path', :to => 'application#routing_error'

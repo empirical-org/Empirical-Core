@@ -6,10 +6,8 @@ shared_context 'Student Concept Progress Report' do
   let(:fred) { FactoryGirl.create(:student, name: "Fred Kewl") }
   let(:zojirushi) { FactoryGirl.create(:student, name: "Zojirushi Kewel") }
 
-  let(:concept_class) { FactoryGirl.create(:concept_class) }
-  let(:concept_tag) { FactoryGirl.create(:concept_tag, concept_class: concept_class) }
-  let(:concept_category) { FactoryGirl.create(:concept_category, concept_class: concept_class) }
-  let(:hidden_concept_tag) { FactoryGirl.create(:concept_tag, name: "Hidden", concept_class: concept_class) }
+  let(:concept) { FactoryGirl.create(:concept) }
+  let(:hidden_concept) { FactoryGirl.create(:concept, name: "Hidden") }
 
   # Boilerplate
   let(:classroom) { FactoryGirl.create(:classroom,
@@ -53,33 +51,29 @@ shared_context 'Student Concept Progress Report' do
 
   before do
     # Incorrect result for Alice
-    alice_session.concept_tag_results.create!(
-      concept_tag: concept_tag,
-      concept_category: concept_category,
+    alice_session.concept_results.create!(
+      concept: concept,
       metadata: {
         "correct" => 0
       })
 
     # Correct result for Alice
-    alice_session.concept_tag_results.create!(
-      concept_tag: concept_tag,
-      concept_category: concept_category,
+    alice_session.concept_results.create!(
+      concept: concept,
       metadata: {
         "correct" => 1
       })
 
     # Incorrect result for Fred
-    fred_session.concept_tag_results.create!(
-      concept_tag: concept_tag,
-      concept_category: concept_category,
+    fred_session.concept_results.create!(
+      concept: concept,
       metadata: {
         "correct" => 0
       })
 
     # Correct result for Fred for hidden tag (not displayed)
-    fred_session.concept_tag_results.create!(
-      concept_tag: hidden_concept_tag,
-      concept_category: concept_category,
+    fred_session.concept_results.create!(
+      concept: hidden_concept,
       metadata: {
         "correct" => 1
       })

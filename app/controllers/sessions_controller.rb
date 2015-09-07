@@ -21,26 +21,36 @@ class SessionsController < ApplicationController
     @auth = request.env['omniauth.auth']['credentials']
     ga = GoogleAuthenticate.new(@auth)
     if session[:role].present?
-      user = ga.find_or_create_user(session[:role])
-      if user.errors.any?
-        redirect_to new_account_path
-      else
-        sign_in user
-        if user.role == 'teacher'
-          @teacherFromGoogleSignUp = true
-          render 'accounts/new'
-        else
-          redirect_to profile_path
-        end
-      end
+      google_sign_up(ga)
     else
-      user = ga.find_user
-      if user.present?
-        sign_in user
-        redirect_to profile_path
+      google_login(ga)
+    end
+  end
+
+  def google_sign_up ga
+    user = ga.find_or_create_user(session[:role])
+    if user.errors.any?
+      redirect_to new_account_path
+    else
+      sign_in user
+      AccountCreationWorker.perform_async(user.id)
+      user.subscribe_to_newsletter
+      if user.role == 'teacher'
+        @teacherFromGoogleSignUp = true
+        render 'accounts/new'
       else
-        redirect_to new_account_path
+        redirect_to profile_path
       end
+    end
+  end
+
+  def google_login ga
+    user = ga.find_user
+    if user.present?
+      sign_in user
+      redirect_to profile_path
+    else
+      redirect_to new_account_path
     end
   end
 
@@ -75,7 +85,6 @@ class SessionsController < ApplicationController
   def new
     @user = User.new
     session[:role] = nil
-    @district_id = params[:district_id]
   end
 
   def failure

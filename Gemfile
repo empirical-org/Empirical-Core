@@ -25,6 +25,9 @@ gem 'omniauth-clever'
 gem 'cancancan'
 gem 'firebase_token_generator'
 
+# EMAIL
+gem 'premailer-rails'
+gem 'nokogiri' # required for premailer
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -136,6 +139,7 @@ group :test, :development do
   gem 'guard-rspec'
   gem 'guard-shell'
   gem 'terminal-notifier-guard'
+  gem 'teaspoon-mocha'
 end
 
 group :test do
