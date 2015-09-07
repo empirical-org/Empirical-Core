@@ -20,7 +20,7 @@ describe CsvExporter::Standards::ClassroomStudent do
     let(:filters) { { classroom_id: full_classroom.id } }
 
     let(:model_instance) {
-      User.for_standards_report(teacher, {}).first
+      ProgressReports::Standards::Student.new(teacher).results({}).first
     }
 
     let(:expected_data_row) {

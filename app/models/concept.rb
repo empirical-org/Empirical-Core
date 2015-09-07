@@ -2,6 +2,7 @@ class Concept < ActiveRecord::Base
   include Uid
   belongs_to :parent, class_name: 'Concept', foreign_key: :parent_id
   validates :name, presence: true
+  has_many :concept_results
 
   # need the below because those making POST requests to /api/v1/concepts know only uids, not ids
   def parent_uid= uid
