@@ -6,7 +6,7 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let(:activity) { FactoryGirl.create(:activity) }
   let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
-  let(:student_for_report) { User.for_standards_report(teacher, {}).first }
+  let(:student_for_report) { ProgressReports::Standards::Student.new(teacher).results({}).first }
   let(:serializer) do
     serializer = described_class.new(student_for_report)
     serializer.classroom_id = 123

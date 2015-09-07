@@ -1,3 +1,4 @@
+//= require jquery-1.8.2.js
 //= require jquery.selectbox-0.2.js
 //= require bootstrap
 
@@ -6,7 +7,7 @@
 //= require underscore.string
 
 //= require es5-shim/es5-shim
-//= require react
+//= require react-with-addons
 
 //= require selecter.js
 //= require select2
