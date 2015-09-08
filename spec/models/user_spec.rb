@@ -47,8 +47,8 @@ describe User, :type => :model do
     end
 
     subject(:authentication_result) do
-      user = User.find_by_username_or_email login_name
-      user.authenticate(password)
+      User.authenticate(email: login_name,
+                     password: password)
     end
 
     %i(email username).each do |cred_base|
