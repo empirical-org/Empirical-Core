@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
   include Student, Teacher
 
   attr_accessor :validate_username,
-                :require_password_confirmation_when_password_present,
-                :signed_up_with_google
+                :require_password_confirmation_when_password_present
 
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
@@ -103,9 +102,9 @@ class User < ActiveRecord::Base
     self.name = result
   end
 
-  def self.authenticate(params)
-    user =  User.where("email = ? OR username = ?", params[:email].downcase, params[:email].downcase).first
-    user.try(:authenticate, params[:password])
+  def self.find_by_username_or_email(login_name)
+    login_name.downcase!
+    User.where("email = ? OR username = ?", login_name, login_name).first
   end
 
   def self.setup_from_clever(auth_hash)

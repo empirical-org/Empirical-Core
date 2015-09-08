@@ -71,7 +71,8 @@ describe 'Sign up', :type => :request do
       end
 
       it 'generates password' do
-        expect(User.authenticate(email: expected_student_email, password: expected_student_password)).to be_truthy
+        user = User.find_by_username_or_email(expected_student_email)
+        expect(user.authenticate(expected_student_password)).to be_truthy
       end
 
       it 'generates username' do
