@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if @user.nil?
       login_failure_message
     elsif @user.signed_up_with_google
-      login_failure 'You signed up with google, please sign in with google'
+      login_failure 'You signed up with google, please sign in with google using the link above'
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
       UserLoginWorker.perform_async(@user.id, request.remote_ip)
