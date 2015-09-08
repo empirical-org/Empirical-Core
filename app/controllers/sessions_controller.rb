@@ -3,9 +3,14 @@ class SessionsController < ApplicationController
 
   def create
     params[:user][:email].downcase! unless params[:user][:email].nil?
-    if @user = User.authenticate(params[:user])
-      sign_in(@user)
+    @user =  User.find_by_username_or_email(params[:user][:email])
 
+    if @user.nil?
+      login_failure_message
+    elsif @user.signed_up_with_google
+      login_failure 'You signed up with google, please sign in with google using the link above'
+    elsif @user.authenticate(params[:user][:password])
+      sign_in(@user)
       UserLoginWorker.perform_async(@user.id, request.remote_ip)
       if params[:redirect].present?
         redirect_to params[:redirect]
@@ -13,7 +18,7 @@ class SessionsController < ApplicationController
         redirect_to profile_path
       end
     else
-      login_failure 'Incorrect username/email or password'
+      login_failure_message
     end
   end
 
@@ -92,6 +97,10 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def login_failure_message
+    login_failure 'Incorrect username/email or password'
+  end
 
   def import_clever_schools
     if @auth_hash[:info][:id] && @auth_hash[:credentials][:token]
