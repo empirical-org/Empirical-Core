@@ -9,7 +9,7 @@ class GoogleAuthenticate
   def find_or_create_user(role='teacher')
     user = User.find_or_initialize_by email: email
     if user.new_record?
-      user.google_sign_in = true # so that password is not required in validations
+      user.signed_up_with_google = true
       user.name = name
       user.role = role
       user.save
