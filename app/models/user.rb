@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
   include Student, Teacher
 
   attr_accessor :validate_username,
-                :require_password_confirmation_when_password_present,
-                :signed_up_with_google
+                :require_password_confirmation_when_password_present
 
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
