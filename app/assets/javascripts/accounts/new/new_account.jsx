@@ -41,11 +41,15 @@ EC.NewAccount = React.createClass({
   },
 
   selectRole: function (role) {
+    var authenticityToken = $('meta[name=csrf-token]').attr('content');
     var that = this;
     $.ajax({
       type: 'POST',
       url: '/account/role',
-      data: {role: role},
+      data: {
+        role: role,
+        authenticity_token: authenticityToken
+      },
       success: function () {
         that.setState({role: role});
         that.setState({stage: 2});
