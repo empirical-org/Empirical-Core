@@ -88,5 +88,9 @@ feature 'Subscription to Progress Report', js: true do
     it 'does not display trial message' do
       expect(report_page).to_not have_content(trial_message)
     end
+
+    it 'does not display premium tab' do
+      expect(report_page).to_not have_css('.premium-tab')
+    end
   end
 end
