@@ -5,7 +5,7 @@ class ActivitySerializer < ActiveModel::Serializer
   has_one :topic
 
   def anonymous_path
-  	Rails.application.routes.url_helpers.activity_path(object.id, anonymous: true)
+  	Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: object.id)
   end
 
 end

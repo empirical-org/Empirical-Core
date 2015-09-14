@@ -79,24 +79,14 @@ class Activity < ActiveRecord::Base
     url
   end
 
-  def module_url(activity_session=nil, homepage=nil)
-    url = Addressable::URI.parse(classification.module_url)
+  def module_url(activity_session)
+    initial_params = {student: activity_session.uid}
+    module_url_helper(initial_params)
+  end
 
-    params = (url.query_values || {})
-
-    params[:uid] = uid if uid.present?
-
-    if activity_session.present? && activity_session.is_a?(ActivitySession)
-      params[:student] = activity_session.uid
-      # params << ['access_token', activity_session.access_token]
-    else
-      params[:anonymous] = true
-    end
-
-    url.path = homepage_path(url.path, classification) if homepage.present?
-    url.query_values = params
-
-    fix_angular_fragment!(url)
+  def anonymous_module_url
+    initial_params = {anonymous: true}
+    module_url_helper(initial_params)
   end
 
   # TODO cleanup
@@ -111,6 +101,16 @@ class Activity < ActiveRecord::Base
   end
 
   private
+
+  def module_url_helper(initial_params)
+    url = Addressable::URI.parse(classification.module_url)
+    params = (url.query_values || {})
+    params.merge!(initial_params)
+    params[:uid] = uid if uid.present?
+    url.query_values = params
+    fix_angular_fragment!(url)
+  end
+
 
   def homepage_path(path, classification)
     case classification.app_name.to_sym
