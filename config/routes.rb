@@ -12,7 +12,12 @@ EmpiricalGrammar::Application.routes.draw do
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
-  resources :activity_sessions, only: [:show]
+
+  resources :activity_sessions, only: [:show] do
+    get :anonymous, on: :collection
+  end
+
+  get 'activity_session/result/:uid' => 'activity_sessions#result'
 
   resources :activities, only: [:show, :update] do
     post :retry, on: :member
