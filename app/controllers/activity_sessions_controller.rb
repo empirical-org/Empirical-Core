@@ -6,6 +6,7 @@ class ActivitySessionsController < ApplicationController
   before_action :activity_session_authorize!, only: [:show, :result]
 
   def show
+    @module_url = @activity.module_url(@activity_session)
   end
 
   def result
@@ -13,6 +14,8 @@ class ActivitySessionsController < ApplicationController
 
   def anonymous
     @activity = Activity.find(params[:activity_id])
+    @module_url = @activity.anonymous_module_url
+    render 'show'
   end
 
 
