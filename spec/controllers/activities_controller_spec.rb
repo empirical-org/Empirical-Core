@@ -10,14 +10,6 @@ describe ActivitiesController, :type => :controller do
                                               state: 'unstarted',
                                               user: student) }
 
-  describe 'PUT' do
-    it 'should start the activity session' do
-      expect(activity_session.started_at).to be_nil
-      put :update, { session: activity_session.id, id: activity.id}
-      expect(activity_session.reload.started_at).to_not be_nil
-      expect(response).to be_redirect
-    end
-  end
 
   describe 'POST #retry' do
     let(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom) }
