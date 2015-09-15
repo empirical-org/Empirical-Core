@@ -31,7 +31,7 @@
         - activities.order('activities.name ASC').each do |activity|
           .row
             .col-xs-12.col-md-10 = activity.name
-            .col-xs-12.col-md-2  = link_to "View Activity", activity_path(activity, anonymous: true), class: 'green-link'
+            .col-xs-12.col-md-2  = link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.id), class: 'green-link'
 
           .row.activity-description
             .col-xs-12
