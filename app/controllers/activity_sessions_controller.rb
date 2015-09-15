@@ -1,6 +1,7 @@
 class ActivitySessionsController < ApplicationController
   before_action :activity_session_from_id, only: [:show]
   before_action :activity_session_from_uid, only: [:result]
+  before_action :activity_session_for_update, only: [:update]
   before_action :activity, only: [:show, :result]
 
   before_action :activity_session_authorize!, only: [:show, :result]
@@ -18,6 +19,11 @@ class ActivitySessionsController < ApplicationController
     render 'show'
   end
 
+  def update
+    @activity_session.start
+    @activity_session.save!
+    redirect_to activity_session_path(@activity_session)
+  end
 
   private
 
@@ -28,6 +34,14 @@ class ActivitySessionsController < ApplicationController
 
   def activity_session_from_uid
     @activity_session ||= ActivitySession.find_by_uid!(params[:uid])
+  end
+
+  def activity_session_for_update
+    @activity_session ||= if params[:anonymous]
+      nil
+    else
+      ActivitySession.unscoped.find(params[:id])
+    end
   end
 
   def activity
