@@ -25,6 +25,8 @@ module QuillAuthentication
   end
 
   def sign_in user
+    remote_ip = (request.present? ? request.remote_ip : nil)
+    UserLoginWorker.perform_async(user.id, remote_ip)
     session[:user_id] = user.id
     @current_user = user
   end
