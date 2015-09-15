@@ -23,6 +23,8 @@ class UserLoginWorker
     analytics = SegmentAnalytics.new
     if @user.role == 'teacher'
       analytics.track_teacher_signin(@user)
+    elsif @user.role == 'student'
+      analytics.track_student_signin(@user)
     end
 
   end

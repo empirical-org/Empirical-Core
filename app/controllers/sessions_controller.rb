@@ -14,7 +14,6 @@ class SessionsController < ApplicationController
       login_failure 'Login failed. Did you sign up with google? If so, please log in with google using the link above.'
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
-      UserLoginWorker.perform_async(@user.id, request.remote_ip)
       if params[:redirect].present?
         redirect_to params[:redirect]
       else

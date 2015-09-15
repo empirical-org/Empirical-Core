@@ -62,7 +62,6 @@ gem 'active_link_to'
 
 # METRICS
 gem 'keen'
-gem 'mixpanel-ruby'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
