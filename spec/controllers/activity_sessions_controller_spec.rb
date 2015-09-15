@@ -16,7 +16,7 @@ describe ActivitySessionsController, type: :controller do
     let!(:user2) { FactoryGirl.create(:user) }
 
     def subject
-      get :show, {id: activity_session.id}
+      get :start, {id: activity_session.id}
     end
 
     def login_user user

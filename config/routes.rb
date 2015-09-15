@@ -13,11 +13,14 @@ EmpiricalGrammar::Application.routes.draw do
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
 
-  resources :activity_sessions, only: [:show, :update] do
+  resources :activity_sessions, only: [:update] do
     get :anonymous, on: :collection
+    get :start, on: :member
   end
 
-  get 'activity_session/result/:uid' => 'activity_sessions#result'
+  # 3rd party apps depend on the below, do not change :
+  get 'activity_sessions/:uid' => 'activity_sessions#result'
+
 
   resources :activities, only: [] do
     post :retry, on: :member
