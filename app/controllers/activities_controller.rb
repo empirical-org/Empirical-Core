@@ -11,7 +11,7 @@ class ActivitiesController < ApplicationController
                                             classroom_activity_id: params[:classroom_activity_id])
     @activity_session.start
     @activity_session.save!
-    redirect_to start_activity_session_path(@activity_session)
+    redirect_to play_activity_session_path(@activity_session)
   end
 
 protected
