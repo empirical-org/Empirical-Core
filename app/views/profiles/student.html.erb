@@ -38,7 +38,7 @@
 
 
               <div class="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
-                  <%= button_to 'Start Your Next Lesson', activity_path(@next_activity, session: @next_activity_session), method: :put, class: 'button-green' %>
+                  <%= button_to 'Start Your Next Lesson', activity_session_path(@next_activity_session), method: :put, class: 'button-green' %>
               </div>
             </div>
 
@@ -79,7 +79,7 @@
                         <%= activity_icon_with_tooltip(activity, activity_session, include_activity_title: true) %>
                       </div>
                       <div class="col-xs-3 col-sm-2 col-xl-2">
-                        <%= link_to 'Start Lesson', activity_path(activity, session: activity_session), method: :put %>
+                        <%= link_to 'Start Lesson', activity_session_path(activity_session), method: :put %>
                       </div>
                     </div>
                   </div> <!-- //.line-1 -->
