@@ -66,6 +66,12 @@ class SegmentAnalytics
     })
   end
 
+  def track_click_sign_up
+    track({
+      event: SegmentIo::Events::CLICK_SIGN_UP
+    })
+  end
+
   private
 
   def identify(user)
