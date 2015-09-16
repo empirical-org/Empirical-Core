@@ -3,6 +3,7 @@ class AccountsController < ApplicationController
   before_filter :set_cache_buster, only: [:new]
 
   def new
+    ClickSignUpWorker.perform_async
     session[:role] = nil
     @teacherFromGoogleSignUp = false
   end
