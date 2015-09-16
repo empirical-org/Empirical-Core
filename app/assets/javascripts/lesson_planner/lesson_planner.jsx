@@ -3,7 +3,7 @@ $(function () {
 	var ele = $('#activity-planner');
 	if (ele.length > 0) {
 		var props = {
-			analytics: new AnalyticsWrapper()
+			analytics: new EC.AnalyticsWrapper()
 		};
 		React.render(React.createElement(EC.LessonPlanner, props), ele[0]);
 	}
