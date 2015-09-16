@@ -20,7 +20,7 @@ EC.LessonPlanner = React.createClass({
 	},
 	toggleTab: function (tab) {
 		if (tab == 'createUnit') {
-			this.props.analytics.track({'click Create Unit', {}});
+			this.props.analytics.track('click Create Unit', {});
 		}
 		this.setState({tab: tab});
 
