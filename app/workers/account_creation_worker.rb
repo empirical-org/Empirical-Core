@@ -8,11 +8,6 @@ class AccountCreationWorker
     # send email, subscriptions
     @user.send_welcome_email
 
-    # tell mixpanel
-    $mixpanel.try(:track, @user.id, 'account created')
-    $mixpanel.try(:track, @user.id, "#{@user.role} created")
-
-
     # tell keen
     KeenWrapper.publish(:accounts, {event: 'creation', role: @user.role, classcode: @user.classcode})
 
