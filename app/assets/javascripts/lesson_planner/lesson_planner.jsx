@@ -1,3 +1,4 @@
+'use strict';
 $(function () {
 	ele = $('#activity-planner');
 	if (ele.length > 0) {
@@ -12,6 +13,9 @@ $(function () {
 
 
 EC.LessonPlanner = React.createClass({
+	propTypes: {
+		analytics: React.PropTypes.object.isRequired
+	},
 
 	getInitialState: function () {
 		return {

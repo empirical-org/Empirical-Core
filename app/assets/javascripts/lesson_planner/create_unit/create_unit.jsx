@@ -1,5 +1,8 @@
 "use strict";
 EC.CreateUnit = React.createClass({
+	propTypes: {
+		analytics: React.PropTypes.object.isRequired
+	},
 
 	getInitialState: function () {
 		return {
@@ -21,6 +24,7 @@ EC.CreateUnit = React.createClass({
 	toggleActivitySelection: function (true_or_false, activity) {
 		var selectedActivities = this.state.selectedActivities;
 		if (true_or_false) {
+			this.props.analytics.track('select activity in lesson planner', {name: activity.name, id: activity.id});
 			selectedActivities.push(activity);
 		} else {
 			selectedActivities = _.reject(selectedActivities, activity);
@@ -76,6 +80,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	clickContinue: function () {
+		this.props.analytics.track('click Continue in lesson planner');
 		this.fetchClassrooms();
 		this.setState({stage: 2});
 	},
