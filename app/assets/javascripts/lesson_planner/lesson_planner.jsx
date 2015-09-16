@@ -1,6 +1,6 @@
 'use strict';
 $(function () {
-	ele = $('#activity-planner');
+	var ele = $('#activity-planner');
 	if (ele.length > 0) {
 		var props = {
 			analytics: new AnalyticsWrapper()
