@@ -3,7 +3,8 @@ $(function () {
   var ele = $('#sign-up');
   if (ele.length) {
     var teacherFromGoogleSignUp = ele.data('teacher-from-google-sign-up');
-    var props = {teacherFromGoogleSignUp: teacherFromGoogleSignUp};
+    var props = {teacherFromGoogleSignUp: teacherFromGoogleSignUp,
+                 analytics: new EC.AnalyticsWrapper()};
     React.render(React.createElement(EC.NewAccount, props), ele[0]);
   }
 });
@@ -41,6 +42,8 @@ EC.NewAccount = React.createClass({
   },
 
   selectRole: function (role) {
+    this.props.analytics.track('select role', {role: role});
+
     var authenticityToken = $('meta[name=csrf-token]').attr('content');
     var that = this;
     $.ajax({
