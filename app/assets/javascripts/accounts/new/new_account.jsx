@@ -10,6 +10,9 @@ $(function () {
 });
 
 EC.NewAccount = React.createClass({
+  propTyps: {
+    analytics: React.PropTypes.object.isRequired
+  },
 
   getInitialState: function () {
     var hash, subHash;
@@ -111,7 +114,12 @@ EC.NewAccount = React.createClass({
       if (this.state.role === 'student') {
         view = <EC.NewStudent update={this.update} signUp={this.signUp} errors={this.state.errors}/>;
       } else {
-        view = <EC.NewTeacher sendNewsletter={this.state.sendNewsletter} stage={this.state.teacherStage} update={this.update} signUp={this.signUp} errors={this.state.errors} />;
+        view = <EC.NewTeacher sendNewsletter={this.state.sendNewsletter}
+                              stage={this.state.teacherStage}
+                              update={this.update}
+                              signUp={this.signUp}
+                              errors={this.state.errors}
+                              analytics={this.props.analytics}/>;
       }
     }
     return view;

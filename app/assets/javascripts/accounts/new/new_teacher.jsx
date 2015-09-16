@@ -1,6 +1,7 @@
 'use strict';
 EC.NewTeacher = React.createClass({
   propTypes: {
+    analytics: React.PropTypes.object.isRequired,
     signUp: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object,
     stage: React.PropTypes.number.isRequired,
@@ -31,6 +32,7 @@ EC.NewTeacher = React.createClass({
   },
 
   selectSchool: function () {
+    this.props.analytics.track('select school');
     $.ajax({
       type: 'PUT',
       url: '/select_school',
@@ -42,6 +44,7 @@ EC.NewTeacher = React.createClass({
   },
 
   skipSelectSchool: function () {
+    this.props.analytics.track('skip select school');
     this.goToProfile()
   },
 
