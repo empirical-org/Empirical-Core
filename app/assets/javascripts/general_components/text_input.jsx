@@ -4,7 +4,7 @@ EC.TextInput = React.createClass({
     update: React.PropTypes.func.isRequired,
     name: React.PropTypes.string.isRequired,
     default: React.PropTypes.string,
-    errors: React.PropTypes.array
+    errors: React.PropTypes.object
   },
 
   update: function () {
@@ -32,10 +32,31 @@ EC.TextInput = React.createClass({
     return this.determine('label', this.titleCase(this.props.name));
   },
 
+  determineErrorLabel: function () {
+    return this.determine('errorLabel', this.determineLabel());
+  },
+
+  determineErrorKey: function () {
+    return this.determine('errorKey', this.props.name);
+  },
+
+  determineError: function () {
+    var errorKey, error;
+    errorKey = this.determineErrorKey();
+    if ((this.props.errors) && (this.props.errors[errorKey])) {
+      error = this.props.errors[errorKey][0];
+    } else {
+      error = null;
+    }
+    return error;
+  },
+
   displayErrors: function () {
-    var result;
-    if (this.props.errors) {
-      result = this.determine('errorLabel', this.determineLabel()) + ' ' + this.props.errors[0];
+    var error, result;
+    error = this.determineError();
+
+    if ((error !== null) && (error !== undefined)) {
+      result = this.determineErrorLabel() + ' ' + error;
     } else {
       result = null;
     }
