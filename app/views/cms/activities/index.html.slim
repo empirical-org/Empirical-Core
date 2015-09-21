@@ -23,7 +23,7 @@
 
       - @activities.each do |activity|
         tr
-          td= link_to activity.name, activity_path(activity.id, anonymous: true)
+          td= link_to activity.name, anonymous_activity_sessions_path(activity_id: activity.id)
           td= link_to 'Edit', url_for(controller: 'cms/activities', key: params[:key], action: 'edit', id: activity.id)
 
     = link_to 'Add a new activity', new_cms_activity_path
