@@ -9,7 +9,7 @@ EC.AnalyticsWrapper = function () {
 
   var whenAnalyticsNotDefined = function () {
     // console.log('not tracking segment analytics because its not defined');
-  }
+  };
 
   this.track = function (event, data) {
     if (segmentAnalyticsPresent) {
