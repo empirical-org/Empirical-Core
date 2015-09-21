@@ -68,11 +68,16 @@ class SegmentAnalytics
 
   def track_click_sign_up
     track({
+      user_id: anonymous_uid,
       event: SegmentIo::Events::CLICK_SIGN_UP
     })
   end
 
   private
+
+  def anonymous_uid
+    SecureRandom.urlsafe_base64
+  end
 
   def identify(user)
     backend.identify(identify_params(user))
