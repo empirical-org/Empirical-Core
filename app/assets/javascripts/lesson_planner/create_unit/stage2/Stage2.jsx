@@ -43,8 +43,6 @@ EC.Stage2 = React.createClass({
   },
 
   render: function() {
-    console.log('areAnyStudentsSelected', this.props.areAnyStudentsSelected)
-    console.log('areAllDueDatesProvided', this.props.areAllDueDatesProvided)
     var classroomList = this.props.classrooms.map(function(entry) {
       return <EC.Classroom classroom={entry.classroom}
                            students={entry.students}

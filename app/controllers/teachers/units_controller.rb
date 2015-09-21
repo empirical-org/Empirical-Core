@@ -30,8 +30,6 @@ class Teachers::UnitsController < ApplicationController
                                           classroom_id: classroom_data['id'],
                                           assigned_student_ids: (classroom_data['student_ids'] ) ,
                                           due_date: due_date)
-        # student_ids = (classroom['allStudents'] == true) ? nil : classroom['studentIds']
-        # #unit.classroom_activities.create activity_id: activity_id, classroom_id: classroom['classroom_id'], assigned_student_ids: student_ids, due_date: due_date
       end
     end
 
