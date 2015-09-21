@@ -4,14 +4,16 @@ $(function () {
   if (ele.length) {
     var teacherFromGoogleSignUp = ele.data('teacher-from-google-sign-up');
     var props = {teacherFromGoogleSignUp: teacherFromGoogleSignUp,
-                 analytics: new EC.AnalyticsWrapper()};
+                 analytics: new EC.AnalyticsWrapper(),
+                 textInputGenerator: new EC.TextInputGenerator()};
     React.render(React.createElement(EC.NewAccount, props), ele[0]);
   }
 });
 
 EC.NewAccount = React.createClass({
   propTyps: {
-    analytics: React.PropTypes.object.isRequired
+    analytics: React.PropTypes.object.isRequired,
+    textInputGenerator: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
@@ -87,7 +89,7 @@ EC.NewAccount = React.createClass({
   signUpData: function () {
     var data = {
       role: this.state.role,
-      name: this.state.first_name + ' ' + this.state.last_name,
+      name: this.determineNameInput(),
       username: this.state.username,
       email: this.state.email,
       password: this.state.password
@@ -98,6 +100,26 @@ EC.NewAccount = React.createClass({
     return {user: data};
   },
 
+  determineNameInput: function () {
+    var name;
+    name = _.reduce([this.state.first_name, this.state.last_name], function (memo, current) {
+      var nextMemo;
+      if (!this.existy(memo)) {
+        nextMemo = current;
+      } else if (!this.existy(current)) {
+        nextMemo = memo;
+      } else {
+        nextMemo = memo + ' ' + current;
+      }
+      return nextMemo;
+    }, null, this);
+    return name;
+  },
+
+  existy: function (item) {
+    return !( (item === null) || (item === undefined) || (item === '') );
+  },
+
   uponSignUp: function (data) {
     if (this.state.role === 'student') {
       window.location = "/profile";
@@ -106,15 +128,25 @@ EC.NewAccount = React.createClass({
     }
   },
 
+  initializeTextInputGenerator: function () {
+    this.props.textInputGenerator.setUpdate(this.update);
+    this.props.textInputGenerator.setErrors(this.state.errors);
+  },
+
   render: function () {
+    this.initializeTextInputGenerator();
     var view;
     if (this.state.stage === 1) {
       view = <EC.NewAccountStage1 selectRole={this.selectRole} />;
     } else if (this.state.stage === 2) {
       if (this.state.role === 'student') {
-        view = <EC.NewStudent update={this.update} signUp={this.signUp} errors={this.state.errors}/>;
+        view = <EC.NewStudent textInputGenerator={this.props.textInputGenerator}
+                              update={this.update}
+                              signUp={this.signUp}
+                              errors={this.state.errors}/>;
       } else {
-        view = <EC.NewTeacher sendNewsletter={this.state.sendNewsletter}
+        view = <EC.NewTeacher textInputGenerator={this.props.textInputGenerator}
+                              sendNewsletter={this.state.sendNewsletter}
                               stage={this.state.teacherStage}
                               update={this.update}
                               signUp={this.signUp}
@@ -124,4 +156,4 @@ EC.NewAccount = React.createClass({
     }
     return view;
   }
-})
+});

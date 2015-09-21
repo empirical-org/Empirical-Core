@@ -5,13 +5,14 @@ EC.NewTeacher = React.createClass({
     signUp: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object,
     stage: React.PropTypes.number.isRequired,
-    update: React.PropTypes.func.isRequired
+    update: React.PropTypes.func.isRequired,
+    textInputGenerator: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
     return {
       selectedSchool: {},
-      schoolOptions: [],
+      schoolOptions: []
     }
   },
 
@@ -55,12 +56,15 @@ EC.NewTeacher = React.createClass({
   formFields: [
     {
       name: 'first_name',
-      label: 'First Name'
+      label: 'First Name',
+      errorKey: 'name',
+      errorLabel: 'Name'
     },
-
     {
       name: 'last_name',
-      label: 'Last Name'
+      label: 'Last Name',
+      errorKey: 'name',
+      errorLabel: 'Name'
     },
     {
       name: 'username'
@@ -81,13 +85,7 @@ EC.NewTeacher = React.createClass({
   render: function () {
     if (this.props.stage ===1) {
       var inputs;
-      inputs = _.map(this.formFields, function (ele) {
-        return <EC.TextInput key={ele.name}
-                             update={this.props.update}
-                             name={ele.name}
-                             label={ele.label}
-                             errors={this.props.errors[ele.name]}/>;
-      }, this);
+      inputs = this.props.textInputGenerator.generate(this.formFields);
       return (
         <div className='row'>
           <div className='col-xs-offset-3 col-xs-9'>

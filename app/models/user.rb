@@ -15,10 +15,11 @@ class User < ActiveRecord::Base
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
+
   validates :name,                  presence: true,
                                     format:       {without: /\t/, message: 'cannot contain tabs'}
 
-  validate :name_must_contain_first_and_last_name
+  validates_with FullnameValidator
 
   validates :password,              presence:     { if: :requires_password? }
 
@@ -54,15 +55,6 @@ class User < ActiveRecord::Base
       sanitized_role
     else
       'user'
-    end
-  end
-
-  # one of the validations
-  def name_must_contain_first_and_last_name
-    return if name.nil?
-    f,l = name.try(:split, /\s+/)
-    if f.nil? or l.nil?
-      errors.add :name, "must contain first and last name"
     end
   end
 
