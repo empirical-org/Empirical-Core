@@ -7,11 +7,15 @@ EC.AnalyticsWrapper = function () {
     segmentAnalyticsPresent = true;
   }
 
+  var whenAnalyticsNotDefined = function () {
+    // console.log('not tracking segment analytics because its not defined');
+  }
+
   this.track = function (event, data) {
     if (segmentAnalyticsPresent) {
       analytics.track(event, data);
     } else {
-      console.log('not tracking segment analytics because its not defined');
+      whenAnalyticsNotDefined();
     }
   };
 };
