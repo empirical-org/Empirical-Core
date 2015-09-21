@@ -13,7 +13,7 @@ EC.Classroom = React.createClass({
 
   determineCheckbox: function () {
     var allSelected;
-    if (this.props.students) {
+    if (this.props.students.length > 0) {
       var selected = _.where(this.props.students, {isSelected: true});
       allSelected = (selected.length == this.props.students.length);
     } else {

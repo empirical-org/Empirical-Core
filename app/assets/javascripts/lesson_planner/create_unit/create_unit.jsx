@@ -36,7 +36,9 @@ EC.CreateUnit = React.createClass({
 		var classrooms = this.state.classrooms;
 		var updated = _.map(classrooms, function (c) {
 			if (c.classroom.id == classroom.id) {
-				if (c.students) {
+				if (c.students.length == 0) {
+					c.emptyClassroomSelected = (this.toggleEmptyClassroomSelected(c));
+				} else {
 					var selected = _.where(c.students, {isSelected: true});
 					if (selected.length == c.students.length) {
 						var updatedStudents = _.map(c.students, function (s) {
@@ -53,25 +55,23 @@ EC.CreateUnit = React.createClass({
 				}
 			}
 			return c;
-		});
+		}, this);
 		this.setState({classrooms: updated});
 	},
 
 	toggleStudentSelection: function(student, classroom, flag) {
 		var updated = _.map(this.state.classrooms, function (c) {
 			if (c.classroom.id == classroom.id) {
-				if (c.students) {
-					var updated_students = _.map(c.students, function (s) {
-						if (s.id == student.id) {
-							s.isSelected = flag;
-						}
-						return s;
-					});
-					c.students = updated_students;
-				}
+				var updated_students = _.map(c.students, function (s) {
+					if (s.id == student.id) {
+						s.isSelected = flag;
+					}
+					return s;
+				});
+				c.students = updated_students;
 			}
 			return c;
-		});
+		}, this);
 		this.setState({classrooms: updated});
 	},
 
@@ -110,14 +110,15 @@ EC.CreateUnit = React.createClass({
 
 	formatCreateRequestData: function() {
 		var classroomPostData = _.select(this.state.classrooms, function (c) {
-			var selectedStudents;
-			if (!c.students) {
-				selectedStudents = [];
+			var includeClassroom, selectedStudents;
+			if (this.emptyClassroomSelected(c)) {
+				includeClassroom = true;
 			} else {
 				selectedStudents = _.where(c.students, {isSelected: true});
+				includeClassroom = selectedStudents.length > 0;
 			}
-			return (selectedStudents.length > 0);
-		});
+			return includeClassroom;
+		}, this);
 
 		classroomPostData = _.map(classroomPostData, function (c) {
 			var selectedStudentIds;
@@ -160,11 +161,29 @@ EC.CreateUnit = React.createClass({
 		return (a && b);
 	},
 
+	emptyClassroomSelected: function (c) {
+		var val = (c.emptyClassroomSelected === true);
+		return val;
+	},
+
+	toggleEmptyClassroomSelected: function (c) {
+		return !(this.emptyClassroomSelected(c));
+	},
+
 	areAnyStudentsSelected: function () {
 		var x = _.select(this.state.classrooms, function (c) {
-			var y = _.where(c.students, {isSelected: true});
-			return (y.length > 0);
-		});
+			var includeClassroom;
+			if (this.emptyClassroomSelected(c)) {
+				includeClassroom = true;
+			} else {
+				var y = _.where(c.students, {isSelected: true});
+				includeClassroom = y.length > 0;
+			}
+			return includeClassroom;
+		}, this);
+
+		console.log('this classrooms', this.state.classrooms);
+		console.log('x', x);
 		return (x.length > 0);
 	},
 
