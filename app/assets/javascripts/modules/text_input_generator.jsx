@@ -6,7 +6,7 @@ EC.TextInputGenerator = function () {
     update: null
   };
 
-  fun1 = function (ele) {
+  var fun1 = function (ele) {
       return <EC.TextInput key={ele.name}
                            update={config.update}
                            name={ele.name}
@@ -14,15 +14,15 @@ EC.TextInputGenerator = function () {
                            errors={config.errors}
                            errorLabel={ele.errorLabel}
                            errorKey={ele.errorKey}/>;
-  }
+  };
 
   this.setUpdate = function (updateFunction) {
     config.update = updateFunction;
-  },
+  };
 
   this.setErrors = function (errors) {
     config.errors = errors;
-  }
+  };
 
   this.generate = function (fieldObjs) {
     var inputs;
@@ -32,5 +32,5 @@ EC.TextInputGenerator = function () {
       inputs = [];
     }
     return inputs;
-  }
+  };
 };
