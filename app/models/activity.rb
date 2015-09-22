@@ -2,6 +2,7 @@ class Activity < ActiveRecord::Base
   include Flags
   include Uid
 
+  has_and_belongs_to_many :unit_templates
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :topic
 
