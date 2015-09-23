@@ -29,4 +29,17 @@ describe ActivitiesController, :type => :controller do
       expect(created_session.started_at).to_not be_nil
     end
   end
+
+
+  describe 'GET #search' do
+    let!(:activity1) { FactoryGirl.create(:activity) }
+    let!(:activity2) { FactoryGirl.create(:activity) }
+    let(:parsed_body) { JSON.parse(response.body) }
+
+    it 'returns activities' do
+      get :search, ({search: {search_query: '', filters: [], sort: nil}})
+      expect(parsed_body['activities'].length).to eq(2)
+    end
+
+  end
 end
