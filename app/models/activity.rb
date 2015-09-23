@@ -11,6 +11,8 @@ class Activity < ActiveRecord::Base
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
 
+  before_create :flag_as_beta, :unless => :flags?
+
   scope :production, -> {
     where(<<-SQL, :production)
       activities.flags = '{}' OR ? = ANY (activities.flags)
@@ -101,6 +103,10 @@ class Activity < ActiveRecord::Base
   end
 
   private
+
+  def flag_as_beta
+    flag 'beta'
+  end
 
   def module_url_helper(initial_params)
     url = Addressable::URI.parse(classification.module_url)

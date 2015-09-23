@@ -10,9 +10,6 @@ shared_context "calling the api" do
   before do
     allow(controller).to receive(:doorkeeper_token) { token }
   end
-
-  it_behaves_like "an api request"
-
 end
 
 shared_examples "a simple api request" do
