@@ -4,6 +4,37 @@ describe Activity, :type => :model do
 
   let!(:activity){ FactoryGirl.build(:activity) }
 
+  describe 'validations' do
+    it 'requires a unique uid' do
+      activity.save!
+      invalid_activity = FactoryGirl.build(:activity, uid: activity.uid)
+      invalid_activity.valid?
+      expect(invalid_activity.errors).to include(:uid)
+    end
+  end
+
+  describe 'callbacks' do
+    describe 'flagging the activity' do
+      describe 'record is created and flag is not set' do
+        it 'defaults the flag to beta' do
+          activity.save!
+          expect(activity.flags).to include(:beta)
+        end
+      end
+
+      describe 'record is created and flag is already set' do
+        before do
+          activity.flag 'archived'
+        end
+
+        it 'does nothing' do
+          activity.save!
+          expect(activity.flags).to eq([:archived])
+        end
+      end
+    end
+  end
+
   describe "#classification_key" do
   	describe "#classification_key="
 	  it "must set classification relationship" do
