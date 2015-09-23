@@ -21,6 +21,14 @@ class Activity < ActiveRecord::Base
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
+  def topic_uid= uid
+    self.topic_id = Topic.find_by_uid(uid).id
+  end
+
+  def activity_classification_uid= uid
+    self.activity_classification_id = ActivityClassification.find_by(uid: uid).id
+  end
+
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(search_text, filters, sort)
