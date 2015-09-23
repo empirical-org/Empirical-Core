@@ -34,13 +34,17 @@ class Api::V1::ActivitiesController < Api::ApiController
 
     if activity.valid? && activity.save
       @status = :success
+      @response_status = :ok
       @message = "Activity Created"
     else
       @status = :failed
+      @response_status = :unprocessable_entity
       @message = "Activity Create Failed"
     end
 
-    render json: @activity, meta: {status: @status, message: @message, errors: @activity.errors}
+    render json: activity,
+      meta: {status: @status, message: @message, errors: activity.errors},
+      status: @response_status
   end
 
   # DELETE
@@ -65,7 +69,7 @@ class Api::V1::ActivitiesController < Api::ApiController
     params.delete(:activity) # read only and therefore static
     @data = params.delete(:data) # the thing likely to be persisted
 
-    params.except(:id).permit(:name, :description, :activity_classification_id, :topic_id, :flags).merge(data: @data).reject {|k,v| v.nil? }
+    params.except(:id).permit(:name, :description, :activity_classification_id, :topic_id, :flags, :uid).merge(data: @data).reject {|k,v| v.nil? }
   end
 
 end
