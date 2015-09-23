@@ -14,7 +14,6 @@ class ActivitySearchWrapper
   end
 
   def search
-    puts "search_query : #{@search_query}, @filters: #{@filters}, @sort: #{@sort}"
     @activities = ActivitySearch.search(@search_query, @filters, @sort)
     @activity_classifications = @activities.map(&:classification).uniq.compact
     @activity_classifications = @activity_classifications.map{|c| ClassificationSerializer.new(c).as_json(root: false)}

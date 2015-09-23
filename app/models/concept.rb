@@ -6,7 +6,7 @@ class Concept < ActiveRecord::Base
 
   # need the below because those making POST requests to /api/v1/concepts know only uids, not ids
   def parent_uid= uid
-    parent_id = Concept.find_by(uid: uid).id
+    self.parent_id = Concept.find_by(uid: uid).id
   end
 
   # Find all the concepts that are not a parent of any other concept
