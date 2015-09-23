@@ -69,7 +69,14 @@ class Api::V1::ActivitiesController < Api::ApiController
     params.delete(:activity) # read only and therefore static
     @data = params.delete(:data) # the thing likely to be persisted
 
-    params.except(:id).permit(:name, :description, :activity_classification_id, :topic_id, :flags, :uid).merge(data: @data).reject {|k,v| v.nil? }
+    params.except(:id).permit(:name,
+                              :description,
+                              :activity_classification_uid,
+                              :topic_uid,
+                              :flags,
+                              :uid)
+                      .merge(data: @data)
+                      .reject {|k,v| v.nil? }
   end
 
 end

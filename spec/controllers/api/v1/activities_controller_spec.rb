@@ -45,10 +45,18 @@ describe Api::V1::ActivitiesController, :type => :controller do
   end
 
   context 'POST #create' do
-    include_context 'calling the api'    
-    
+    include_context 'calling the api'
+    let(:topic) { FactoryGirl.create(:topic) }
+    let(:section) { FactoryGirl.create(:section) }
+    let(:activity_classification) { FactoryGirl.create(:activity_classification) }
+
     subject do
-      post :create, name: 'foobar', uid: 'abcdef123'
+      post :create, {
+        name: 'foobar',
+        uid: 'abcdef123',
+        topic_uid: topic.uid,
+        activity_classification_uid: activity_classification.uid
+      }
     end
 
     describe 'general API behavior' do
@@ -65,6 +73,18 @@ describe Api::V1::ActivitiesController, :type => :controller do
 
       it 'flags activities as beta by default' do
         expect(@parsed_body['activity']['flags']).to eq(['beta'])
+      end
+
+      describe 'handles uid information' do
+        let(:activity) { Activity.find_by_uid(@parsed_body['activity']['uid']) }
+
+        it 'sets topic_id from topic_uid' do
+          expect(activity.topic).to be_present
+        end
+
+        it 'sets activity_classification_id from activity_classification_uid' do
+          expect(activity.classification).to be_present
+        end
       end
     end
 
