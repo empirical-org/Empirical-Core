@@ -13,7 +13,7 @@ class FullnameGenerator
         new_name = "Firstname Lastname"
       end
     else
-        new_name = @name
+      new_name = @name
     end
     new_name
   end
