@@ -12,6 +12,8 @@ class Activity < ActiveRecord::Base
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
 
+  before_create :flag_as_beta, :unless => :flags?
+
   scope :production, -> {
     where(<<-SQL, :production)
       activities.flags = '{}' OR ? = ANY (activities.flags)
@@ -20,6 +22,53 @@ class Activity < ActiveRecord::Base
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
+  def topic_uid= uid
+    self.topic_id = Topic.find_by_uid(uid).id
+  end
+
+  def activity_classification_uid= uid
+    self.activity_classification_id = ActivityClassification.find_by(uid: uid).id
+  end
+
+  # filters = hash of model_name/model_id pairs
+  # sort = hash with 'field' and 'asc_or_desc' (?) as keys
+  def self.search(search_text, filters, sort)
+    query = includes(:classification, :topic => [:section, :topic_category])
+      .where("'production' = ANY(activities.flags)")
+      .where("(activities.name ILIKE ?) OR (topic_categories.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
+      .where("topic_categories.id IS NOT NULL AND sections.id IS NOT NULL")
+      .order(search_sort_sql(sort)).references(:topic)
+
+    # Sorry for the meta-programming.
+    filters.each do |model_name, model_id| # :activity_classifications, 123
+      query = query.where("#{model_name}.id = ?", model_id)
+    end
+
+    query
+  end
+
+  def self.search_sort_sql(sort)
+    return 'sections.name asc' if sort.blank?
+
+    if sort['asc_or_desc'] == 'desc'
+      order = 'desc'
+    else
+      order = 'asc'
+    end
+
+    case sort['field']
+    when 'activity'
+      field = 'activities.name'
+    when 'activity_classification'
+      field = 'activity_classifications.name'
+    when 'section'
+      field = 'sections.name'
+    when 'topic_category'
+      field = 'topic_categories.name'
+    end
+
+    field + ' ' + order
+  end
 
   def classification_key= key
     self.classification = ActivityClassification.find_by_key(key)
@@ -63,6 +112,10 @@ class Activity < ActiveRecord::Base
   end
 
   private
+
+  def flag_as_beta
+    flag 'beta'
+  end
 
   def module_url_helper(initial_params)
     url = Addressable::URI.parse(classification.module_url)
