@@ -1,5 +1,5 @@
 "use strict";
-EC.Stage1 = React.createClass({
+EC.UnitStage1 = React.createClass({
   getInitialState: function() {
     return {
       activitySearchResults: [],
@@ -72,12 +72,13 @@ EC.Stage1 = React.createClass({
 
   searchRequest: function () {
     $.ajax({
-      url: '/teachers/classrooms/search_activities',
+      url: '/activities/search',
       context: this,
       data: this.searchRequestData(),
       success: this.searchRequestSuccess,
+      dataType: 'json',
       error: function () {
-        //console.log('error searching activities');
+        console.log('error searching activities');
       }
     });
   },
@@ -110,6 +111,7 @@ EC.Stage1 = React.createClass({
   },
 
   searchRequestSuccess: function (data) {
+    console.log('search requst success', data);
     var hash = {
       activitySearchResults: data.activities,
       numberOfPages: data.number_of_pages,

@@ -2,8 +2,10 @@
   article.simple-rounded-box: table.table
     thead: th Admin Console
     tr: td= link_to 'Activities Editor', cms_activity_classifications_path
+    tr: td= link_to "Activity Packs Editor", cms_unit_templates_path
     tr: td= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('stories/module', 'cms/rules')
     tr: td= link_to 'User Manager', cms_users_path
     tr: td= link_to 'Sections Manager', cms_sections_path
     tr: td= link_to 'Topics Manager', cms_topics_path
     tr: td= link_to "Topic Categories Manager (these appear as 'Concepts' in the Activity Planner)", cms_topic_categories_path
+

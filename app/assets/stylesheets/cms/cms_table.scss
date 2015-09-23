@@ -1,0 +1,24 @@
+.container.cms-container {
+
+  padding-top: 50px;
+  margin-bottom: 130px;
+
+  .button-top {
+    margin-bottom: 40px;
+  }
+  .table {
+    thead {
+      border: 1px solid $lightgray;
+    }
+    th {
+      border: 1px solid $lightgray;
+    }
+    tbody {
+      background: white;
+
+      tr {
+        border: 1px solid $lightgray;
+      }
+    }
+  }
+}

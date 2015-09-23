@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922164057) do
+ActiveRecord::Schema.define(version: 20150922180615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 20150922164057) do
   add_index "activities", ["activity_classification_id"], name: "index_activities_on_activity_classification_id", using: :btree
   add_index "activities", ["topic_id"], name: "index_activities_on_topic_id", using: :btree
   add_index "activities", ["uid"], name: "index_activities_on_uid", unique: true, using: :btree
+
+  create_table "activities_unit_templates", id: false, force: true do |t|
+    t.integer "unit_template_id", null: false
+    t.integer "activity_id",      null: false
+  end
+
+  add_index "activities_unit_templates", ["activity_id", "unit_template_id"], name: "aut", using: :btree
+  add_index "activities_unit_templates", ["unit_template_id", "activity_id"], name: "uta", using: :btree
 
   create_table "activity_classifications", force: true do |t|
     t.string   "name"
@@ -303,14 +311,6 @@ ActiveRecord::Schema.define(version: 20150922164057) do
   create_table "unit_templates", force: true do |t|
     t.string "name"
   end
-
-  create_table "unit_templates_activities", id: false, force: true do |t|
-    t.integer "unit_template_id"
-    t.integer "activity_id"
-  end
-
-  add_index "unit_templates_activities", ["activity_id"], name: "index_unit_templates_activities_on_activity_id", using: :btree
-  add_index "unit_templates_activities", ["unit_template_id"], name: "index_unit_templates_activities_on_unit_template_id", using: :btree
 
   create_table "units", force: true do |t|
     t.string   "name"

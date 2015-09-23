@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def teacher!
     return if current_user.try(:teacher?)
-    auth_failed
+    admin!
   end
 
   def student!

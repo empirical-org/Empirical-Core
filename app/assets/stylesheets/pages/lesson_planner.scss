@@ -2,7 +2,8 @@
   margin-bottom: 200px;
 }
 
-#activity-planner {
+#activity-planner,
+#unit-template-editor {
   .error-message-and-button {
     display: inline-block;
     position: relative;
@@ -82,7 +83,8 @@
 below is obselete for now, changed link to span :
 */
 
-#activity-planner {
+#activity-planner,
+#unit-template-editor {
   table {
     margin-top: 20px;
     border-collapse: separate;
