@@ -12,6 +12,7 @@ EmpiricalGrammar::Application.routes.draw do
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
+  resources :unit_templates, only: [:index, :show], format: 'json'
 
   resources :activity_sessions, only: [] do
     get :anonymous, on: :collection
@@ -24,6 +25,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :activities, only: [] do
     post :retry, on: :member
+    get :search, on: :collection
   end
 
   get :porthole_proxy, to: 'porthole_proxy#index'
@@ -137,6 +139,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :activity_classifications
     resources :topics
     resources :topic_categories
+    resources :unit_templates, only: [:index, :show, :new, :update, :destroy]
 
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data

@@ -182,8 +182,6 @@ EC.CreateUnit = React.createClass({
 			return includeClassroom;
 		}, this);
 
-		console.log('this classrooms', this.state.classrooms);
-		console.log('x', x);
 		return (x.length > 0);
 	},
 
@@ -231,7 +229,7 @@ EC.CreateUnit = React.createClass({
 		var stageSpecificComponents;
 
 		if (this.state.stage === 1) {
-			stageSpecificComponents = <EC.Stage1 toggleActivitySelection={this.toggleActivitySelection}
+			stageSpecificComponents = <EC.UnitStage1 toggleActivitySelection={this.toggleActivitySelection}
 								 unitName = {this.state.unitName}
 								 updateUnitName={this.updateUnitName}
 								 selectedActivities={this.state.selectedActivities}
