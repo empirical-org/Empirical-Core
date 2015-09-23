@@ -4,7 +4,7 @@ module Uid
   included do
     before_validation :generate_uid
 
-    validates :uid, presence: true
+    validates :uid, presence: true, uniqueness: true
   end
 
   private
