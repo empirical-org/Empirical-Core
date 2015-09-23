@@ -32,8 +32,8 @@ describe ActivitiesController, :type => :controller do
 
 
   describe 'GET #search' do
-    let!(:activity1) { FactoryGirl.create(:activity) }
-    let!(:activity2) { FactoryGirl.create(:activity) }
+    let!(:activity1) { FactoryGirl.create(:activity, flags: ['production']) }
+    let!(:activity2) { FactoryGirl.create(:activity, flags: ['production']) }
     let(:parsed_body) { JSON.parse(response.body) }
 
     it 'returns activities' do
