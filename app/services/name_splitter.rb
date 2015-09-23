@@ -4,7 +4,11 @@ class NameSplitter
   end
 
   def split
-    f,l = @name.lstrip.rstrip.try(:split, /\s+/)
+    if @name.nil?
+      f,l = [nil, nil]
+    else
+      f,l = @name.lstrip.rstrip.try(:split, /\s+/)
+    end
     [f,l]
   end
 end

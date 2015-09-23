@@ -7,8 +7,10 @@ describe 'FullnameGenerator' do
   let!(:name3) { "  John"}
   let!(:name4) { "John "}
   let!(:name5) { "  " }
+  let!(:name6) { nil }
   let!(:corrected) { "John John" }
   let!(:default_name) { "Firstname Lastname" }
+
 
   def generate name
     FullnameGenerator.new(name).generate
@@ -36,6 +38,11 @@ describe 'FullnameGenerator' do
 
   it 'handles empty names' do
     new_name = generate(name5)
+    expect(new_name).to eq(default_name)
+  end
+
+  it 'handles nil names' do
+    new_name = generate(name6)
     expect(new_name).to eq(default_name)
   end
 end
