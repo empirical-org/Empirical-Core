@@ -11,6 +11,8 @@ class Activity < ActiveRecord::Base
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
 
+  before_create :flag_as_beta, :unless => :flags?
+
   scope :production, -> {
     where(<<-SQL, :production)
       activities.flags = '{}' OR ? = ANY (activities.flags)
@@ -18,6 +20,14 @@ class Activity < ActiveRecord::Base
   }
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
+
+  def topic_uid= uid
+    self.topic_id = Topic.find_by_uid(uid).id
+  end
+
+  def activity_classification_uid= uid
+    self.activity_classification_id = ActivityClassification.find_by(uid: uid).id
+  end
 
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
@@ -101,6 +111,10 @@ class Activity < ActiveRecord::Base
   end
 
   private
+
+  def flag_as_beta
+    flag 'beta'
+  end
 
   def module_url_helper(initial_params)
     url = Addressable::URI.parse(classification.module_url)

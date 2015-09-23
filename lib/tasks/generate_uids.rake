@@ -5,7 +5,7 @@ namespace :uid do
   end
 
   def generate_uids
-    [Topic, TopicCategory, Section, Concept].each do |model|
+    [Topic, TopicCategory, Section, Concept, ActivityClassification].each do |model|
       model.find_each do |record|
         record.send(:generate_uid)
         record.save
