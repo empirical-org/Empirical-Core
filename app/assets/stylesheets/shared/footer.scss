@@ -68,6 +68,8 @@ footer {
     }
   }
   .footer-line {
+    width: calc(100% - 60px);
+    max-width: 622px;
     margin: 30px auto;
     display: block;
   }
