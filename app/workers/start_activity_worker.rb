@@ -1,5 +1,7 @@
 class StartActivityWorker
   include Sidekiq::Worker
+  sidekiq_options :retry => 2
+
 
   def perform(uid, start_time, attempts=0)
 
