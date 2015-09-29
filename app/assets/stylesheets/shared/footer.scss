@@ -8,7 +8,6 @@ footer {
       margin-left: 0;
       &:last-child {
         //margin-left: 0;
-     
       }
     }
   }
@@ -22,19 +21,28 @@ footer {
   .wrapper {
     margin: 0 auto;
   }
-  .footer-contacts, .footer-contact a {
+  .footer-contacts {
     color: #333333 !important;
     font-size: 18px;
-    width: 633px;
+    width: 100%;
+    max-width: 633px;
     margin: 0 auto;
   }
   .footer-contacts li {
-    float: left;
+    text-align: center;
+    @media (max-width: 700px) {
+      margin-bottom: 1em;
+    }
+    @media (min-width: 700px) {
+      float: left;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
     margin-right: 20px;
     margin-left: 21px;
-    &:last-child {
-      margin-right: 0;
-    }
+
   }
   .footer-social {
     width: 340px;
@@ -68,6 +76,8 @@ footer {
     }
   }
   .footer-line {
+    width: calc(100% - 60px);
+    max-width: 622px;
     margin: 30px auto;
     display: block;
   }
