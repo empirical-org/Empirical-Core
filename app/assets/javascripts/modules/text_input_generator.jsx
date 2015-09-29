@@ -13,6 +13,7 @@ EC.TextInputGenerator = function () {
                            label={ele.label}
                            errors={config.errors}
                            errorLabel={ele.errorLabel}
+                           size={ele.size}
                            errorKey={ele.errorKey}/>;
   };
 

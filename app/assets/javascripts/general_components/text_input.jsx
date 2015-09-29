@@ -4,7 +4,11 @@ EC.TextInput = React.createClass({
     update: React.PropTypes.func.isRequired,
     name: React.PropTypes.string.isRequired,
     default: React.PropTypes.string,
-    errors: React.PropTypes.object
+    errors: React.PropTypes.object,
+    label: React.PropTypes.string,
+    errorLabel: React.PropTypes.string,
+    errorKey: React.PropTypes.string,
+    size: React.PropTypes.string
   },
 
   update: function () {
@@ -63,9 +67,28 @@ EC.TextInput = React.createClass({
     return result;
   },
 
+  determineInputTag: function () {
+    var result;
+    if (this.props.size == 'medium') {
+      result = (<textarea id={this.props.name}
+                         type={this.determineType()}
+                         ref={this.props.name}
+                         onChange={this.update}
+                         defaultValue={this.determine('default', null)} />)
+
+    } else {
+      result = (<input id={this.props.name}
+                       type={this.determineType()}
+                       ref={this.props.name}
+                       onChange={this.update}
+                       defaultValue={this.determine('default', null)} />);
+    }
+    return result;
+  },
+
   render: function () {
     return (
-      <div className='row'>
+      <div className='row text-input-row'>
         <div className='col-xs-12'>
           <div className='row'>
             <div className='col-xs-12'>
@@ -76,7 +99,7 @@ EC.TextInput = React.createClass({
           </div>
           <div className='row'>
             <div className='col-xs-8'>
-              <input id={this.props.name} type={this.determineType()} ref={this.props.name} onChange={this.update} defaultValue={this.determine('default', null)}/>
+              {this.determineInputTag()}
             </div>
             <div className='col-xs-4 error'>
               {this.displayErrors()}
