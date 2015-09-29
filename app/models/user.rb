@@ -190,7 +190,6 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome_email
-    puts "__SEND_WELCOME_EMAIL"
     UserMailer.welcome_email(self).deliver! if email.present?
   end
 
