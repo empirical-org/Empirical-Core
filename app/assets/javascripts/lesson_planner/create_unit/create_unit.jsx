@@ -11,7 +11,8 @@ EC.CreateUnit = React.createClass({
 			selectedActivities : [],
 			selectedClassrooms: [],
 			classrooms: [],
-			dueDates: {}
+			dueDates: {},
+			fnl: new EC.fnl()
 		}
 	},
 
@@ -22,14 +23,11 @@ EC.CreateUnit = React.createClass({
 	},
 
 	toggleActivitySelection: function (true_or_false, activity) {
-		var selectedActivities = this.state.selectedActivities;
 		if (true_or_false) {
 			this.props.analytics.track('select activity in lesson planner', {name: activity.name, id: activity.id});
-			selectedActivities.push(activity);
-		} else {
-			selectedActivities = _.reject(selectedActivities, activity);
 		}
-		this.setState({selectedActivities: selectedActivities});
+		var sas = this.state.fnl.toggle(this.state.selectedActivities, activity, true_or_false);
+		this.setState({selectedActivities: sas});
 	},
 
 	toggleClassroomSelection: function(classroom, flag) {
@@ -155,7 +153,7 @@ EC.CreateUnit = React.createClass({
 		return ((this.state.unitName != null) && (this.state.unitName != ''));
 	},
 
-	determineIfEnoughInputProvidedForStage1: function () {
+	determineIfEnoughInputProvidedToContinue: function () {
 		var a = this.isUnitNameSelected();
 		var b = (this.state.selectedActivities.length > 0);
 		return (a && b);
@@ -225,29 +223,37 @@ EC.CreateUnit = React.createClass({
 		return msg;
 	},
 
+	stage1SpecificComponents: function () {
+		return (<EC.UnitStage1 toggleActivitySelection={this.toggleActivitySelection}
+								 unitName = {this.state.unitName}
+								 updateUnitName={this.updateUnitName}
+								 selectedActivities={this.state.selectedActivities}
+								 isEnoughInputProvidedToContinue={this.determineIfEnoughInputProvidedToContinue()}
+								 errorMessage={this.determineStage1ErrorMessage()}
+								 clickContinue={this.clickContinue} />);
+	},
+
+	stage2SpecificComponents: function () {
+			return (<EC.Stage2 selectedActivities={this.state.selectedActivities}
+								 classrooms={this.state.classrooms}
+								 toggleActivitySelection={this.toggleActivitySelection}
+								 toggleClassroomSelection={this.toggleClassroomSelection}
+								 toggleStudentSelection={this.toggleStudentSelection}
+								 finish={this.finish}
+								 unitName={this.state.unitName}
+								 assignActivityDueDate={this.assignActivityDueDate}
+								 areAnyStudentsSelected={this.areAnyStudentsSelected()}
+								 areAllDueDatesProvided={this.areAllDueDatesProvided()}
+								 errorMessage={this.determineStage2ErrorMessage()}/>);
+	},
+
 	render: function () {
 		var stageSpecificComponents;
 
 		if (this.state.stage === 1) {
-			stageSpecificComponents = <EC.UnitStage1 toggleActivitySelection={this.toggleActivitySelection}
-								 unitName = {this.state.unitName}
-								 updateUnitName={this.updateUnitName}
-								 selectedActivities={this.state.selectedActivities}
-								 isEnoughInputProvidedForStage1={this.determineIfEnoughInputProvidedForStage1()}
-								 errorMessage={this.determineStage1ErrorMessage()}
-								 clickContinue={this.clickContinue} />;
+			stageSpecificComponents = this.stage1SpecificComponents();
 		} else {
-			stageSpecificComponents = <EC.Stage2 selectedActivities={this.state.selectedActivities}
-																					 classrooms={this.state.classrooms}
-																					 toggleActivitySelection={this.toggleActivitySelection}
-																					 toggleClassroomSelection={this.toggleClassroomSelection}
-																					 toggleStudentSelection={this.toggleStudentSelection}
-																					 finish={this.finish}
-																					 unitName={this.state.unitName}
-																					 assignActivityDueDate={this.assignActivityDueDate}
-																					 areAnyStudentsSelected={this.areAnyStudentsSelected()}
-																					 areAllDueDatesProvided={this.areAllDueDatesProvided()}
-																					 errorMessage={this.determineStage2ErrorMessage()}/>;
+			stageSpecificComponents = this.stage2SpecificComponents();
 		}
 		return (
 			<span>

@@ -1,0 +1,13 @@
+#unit-template-editor {
+  .text-input-row {
+    min-width: 500px;
+    margin-top: 30px;
+    textarea, input {
+      width: 100%;
+    }
+
+    textarea {
+      height: 250px;
+    }
+  }
+}

@@ -11,7 +11,6 @@ FactoryGirl.define do
 
     topic { Topic.first || FactoryGirl.create(:topic) }
     classification { ActivityClassification.first || FactoryGirl.create(:classification) }
-
   end
 
 end
