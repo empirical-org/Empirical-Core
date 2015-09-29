@@ -548,11 +548,20 @@
         overflow: hidden;
         margin: 0;
         -webkit-padding-start: 0;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+
         li {
           display: block;
-          float: left;
-          width: 28%;
+          @media (min-width: 700px) {
+            float: left;
+            width: 28%;
+          }
           &.active {
+            @media (max-width: 700px) {
+              margin-bottom: 1em;
+            }
             a {
               border-color: $white;
             }
@@ -561,7 +570,8 @@
             }
           }
           &:nth-child(2) {
-            margin: 0 8%;
+            margin-left: 8%;
+            margin-right: 8%;
           }
         }
         a {

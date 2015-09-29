@@ -1,4 +1,4 @@
-class CreateCMS < ActiveRecord::Migration
+class CreateCms < ActiveRecord::Migration
   def change
     create_table :file_uploads do |t|
       t.string :name
