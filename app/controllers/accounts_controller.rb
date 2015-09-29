@@ -25,8 +25,7 @@ class AccountsController < ApplicationController
 
     if @user.save
       sign_in @user
-      @user.send_welcome_email
-      AccountCreationWorker.perform_async(@user.id)
+      AccountCreationCallbacks.new(@user).trigger
       @user.subscribe_to_newsletter
       render json: @user
     else

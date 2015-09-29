@@ -79,8 +79,7 @@ class SessionsController < ApplicationController
       redirect_to new_account_path
     else
       sign_in user
-      user.send_welcome_email
-      AccountCreationWorker.perform_async(user.id)
+      AccountCreationCallbacks.new(user).trigger
       user.subscribe_to_newsletter
       if user.role == 'teacher'
         @teacherFromGoogleSignUp = true
