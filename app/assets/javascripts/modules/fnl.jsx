@@ -4,12 +4,13 @@
 
 EC.fnl = function () {
 
-  this.toggle = function (array, item, true_or_false) {
-    var newArray;
-    if (true_or_false) {
-      newArray = _.chain(array).push(item).value();
+  this.toggle = function (array, item) {
+    var newArray, alreadyThere;
+    alreadyThere = _.contains(array, item)
+    if (alreadyThere) {
+      newArray = _.reject(array, function (ele) {return ele == item});
     } else {
-      newArray = _.reject(array, item);
+      newArray = _.chain(array).push(item).value();
     }
     return newArray;
   };

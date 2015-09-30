@@ -22,11 +22,11 @@ EC.CreateUnit = React.createClass({
 		this.setState({dueDates: dueDates});
 	},
 
-	toggleActivitySelection: function (true_or_false, activity) {
+	toggleActivitySelection: function (activity, true_or_false) {
 		if (true_or_false) {
 			this.props.analytics.track('select activity in lesson planner', {name: activity.name, id: activity.id});
 		}
-		var sas = this.state.fnl.toggle(this.state.selectedActivities, activity, true_or_false);
+		var sas = this.state.fnl.toggle(this.state.selectedActivities, activity);
 		this.setState({selectedActivities: sas});
 	},
 

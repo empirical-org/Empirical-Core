@@ -28,6 +28,8 @@ EmpiricalGrammar::Application.routes.draw do
     get :search, on: :collection
   end
 
+  resources :grades, only: [:index]
+
   get :porthole_proxy, to: 'porthole_proxy#index'
 
   namespace :teachers do
@@ -139,7 +141,8 @@ EmpiricalGrammar::Application.routes.draw do
     resources :activity_classifications
     resources :topics
     resources :topic_categories
-    resources :unit_templates, only: [:index, :show, :new, :update, :destroy]
+    resources :unit_templates, only: [:index, :update, :destroy]
+    resources :unit_template_categories, only: [:index, :update, :destroy]
 
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data

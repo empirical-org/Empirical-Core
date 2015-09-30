@@ -1,9 +1,10 @@
-EC.TextInputGenerator = function () {
+'use strict';
+EC.TextInputGenerator = function (component, update) {
 
 
   var config = {
     errors: [],
-    update: null
+    update: update
   };
 
   var fun1 = function (ele) {
@@ -15,10 +16,6 @@ EC.TextInputGenerator = function () {
                            errorLabel={ele.errorLabel}
                            size={ele.size}
                            errorKey={ele.errorKey}/>;
-  };
-
-  this.setUpdate = function (updateFunction) {
-    config.update = updateFunction;
   };
 
   this.setErrors = function (errors) {

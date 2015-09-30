@@ -4,10 +4,14 @@
 
 #activity-planner,
 #unit-template-editor {
+  section {
+    border-bottom: none;
+  }
   .error-message-and-button {
     display: inline-block;
     position: relative;
     width: 100%;
+    margin-bottom: 85px;
     .error-message {
       position: absolute;
       float: left;
@@ -32,7 +36,7 @@
     border: none;
     color: #fff;
     font-weight: bold;
-    margin-top: 20px;
+    //margin-top: 20px;
   }
   .select-box-trigger {
     width: auto;
@@ -180,7 +184,7 @@ below is obselete for now, changed link to span :
 .teaching-cart {
   display: block;
   border: none;
-  padding-bottom: 85px;
+  //padding-bottom: 85px;
   table {
     border: none;
     tbody {
@@ -198,6 +202,7 @@ below is obselete for now, changed link to span :
 .teaching-cart {
   table tbody tr {
     background: #f7f5f5 !important;
+
     &:first-child td {
       &:nth-child(1) {
         border-top-left-radius: 5px;
@@ -206,7 +211,9 @@ below is obselete for now, changed link to span :
         border-top-right-radius: 5px;
       }
     }
+
     &:last-child td {
+      border-bottom: 1px solid #cecece;
       &:nth-child(1) {
         border-bottom-left-radius: 5px;
       }
@@ -234,6 +241,7 @@ below is obselete for now, changed link to span :
     position: relative;
     bottom: 1px;
   }
+
   #continue.hidden {
     display: none;
   }

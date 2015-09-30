@@ -4,19 +4,21 @@ $(function () {
   if (ele.length) {
     var teacherFromGoogleSignUp = ele.data('teacher-from-google-sign-up');
     var props = {teacherFromGoogleSignUp: teacherFromGoogleSignUp,
-                 analytics: new EC.AnalyticsWrapper(),
-                 textInputGenerator: new EC.TextInputGenerator()};
+                 analytics: new EC.AnalyticsWrapper()};
     React.render(React.createElement(EC.NewAccount, props), ele[0]);
   }
 });
 
 EC.NewAccount = React.createClass({
-  propTyps: {
-    analytics: React.PropTypes.object.isRequired,
-    textInputGenerator: React.PropTypes.object.isRequired
+  propTypes: {
+    analytics: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
+    this.modules = {
+      textInputGenerator: new EC.TextInputGenerator(this, this.updateKeyValue)
+    };
+
     var hash, subHash;
     hash = {
       first_name: null,
@@ -63,6 +65,12 @@ EC.NewAccount = React.createClass({
         that.setState({stage: 2});
       }
     });
+  },
+
+  updateKeyValue: function (key, value) {
+    var state = this.state;
+    state[key] = value;
+    this.setState(state);
   },
 
   update: function (hash) {
@@ -129,23 +137,22 @@ EC.NewAccount = React.createClass({
   },
 
   initializeTextInputGenerator: function () {
-    this.props.textInputGenerator.setUpdate(this.update);
-    this.props.textInputGenerator.setErrors(this.state.errors);
+    this.modules.textInputGenerator.setErrors(this.state.errors);
   },
 
   render: function () {
-    this.initializeTextInputGenerator();
     var view;
+    this.initializeTextInputGenerator();
     if (this.state.stage === 1) {
       view = <EC.NewAccountStage1 selectRole={this.selectRole} />;
     } else if (this.state.stage === 2) {
       if (this.state.role === 'student') {
-        view = <EC.NewStudent textInputGenerator={this.props.textInputGenerator}
+        view = <EC.NewStudent textInputGenerator={this.modules.textInputGenerator}
                               update={this.update}
                               signUp={this.signUp}
                               errors={this.state.errors}/>;
       } else {
-        view = <EC.NewTeacher textInputGenerator={this.props.textInputGenerator}
+        view = <EC.NewTeacher textInputGenerator={this.modules.textInputGenerator}
                               sendNewsletter={this.state.sendNewsletter}
                               stage={this.state.teacherStage}
                               update={this.update}
