@@ -3,6 +3,7 @@
     thead: th Admin Console
     tr: td= link_to 'Activities Editor', cms_activity_classifications_path
     tr: td= link_to "Activity Packs Editor", cms_unit_templates_path
+    tr: td= link_to "Activity Packs Categories Editor", cms_unit_template_categories_path
     tr: td= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('stories/module', 'cms/rules')
     tr: td= link_to 'User Manager', cms_users_path
     tr: td= link_to 'Sections Manager', cms_sections_path

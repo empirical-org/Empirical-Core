@@ -1,6 +1,6 @@
 EC.SelectedActivity = React.createClass({
 	deSelectActivity: function () {
-		this.props.toggleActivitySelection(false, this.props.data);
+		this.props.toggleActivitySelection(this.props.data, false);
 	},
 	render: function () {
 

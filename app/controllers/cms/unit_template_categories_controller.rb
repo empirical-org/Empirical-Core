@@ -1,11 +1,11 @@
-class Cms::UnitTemplatesController < ApplicationController
+class Cms::UnitTemplateCategoriesController < ApplicationController
   before_filter :admin!
 
   def index
     respond_to do |format|
       format.html
       format.json do
-        render json: UnitTemplate.all
+        render json: []#UnitTemplateCategory.all
       end
     end
   end
@@ -15,4 +15,5 @@ class Cms::UnitTemplatesController < ApplicationController
 
   def destroy
   end
+
 end
