@@ -7,7 +7,8 @@ EC.CheckBoxes = React.createClass({
   },
 
   determineIfChecked: function (item) {
-    return _.contains(this.props.selectedItems, item);
+    var val = _.contains(this.props.selectedItems, item);
+    return val;
   },
 
   generateCheckBox: function (item) {

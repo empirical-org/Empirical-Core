@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001185332) do
+ActiveRecord::Schema.define(version: 20151001221349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -315,6 +315,9 @@ ActiveRecord::Schema.define(version: 20151001185332) do
   create_table "unit_templates", force: true do |t|
     t.string  "name"
     t.integer "unit_template_category_id"
+    t.integer "time"
+    t.text    "description"
+    t.text    "grades"
   end
 
   add_index "unit_templates", ["unit_template_category_id"], name: "index_unit_templates_on_unit_template_category_id", using: :btree

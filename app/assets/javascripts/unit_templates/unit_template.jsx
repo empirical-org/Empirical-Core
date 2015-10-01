@@ -5,6 +5,9 @@ EC.UnitTemplate = React.createClass({
     returnToIndex: React.PropTypes.func.isRequired
   },
 
+  resourceNameSingular: 'unit_template',
+  resourceNamePlural: 'unit_templates',
+
   formFields: [
     {
       name: 'name'
@@ -30,7 +33,7 @@ EC.UnitTemplate = React.createClass({
     this.modelOptions = [
       {name: 'times', value: this.timeOptions(), fromServer: false},
       {name: 'grades', value: [], fromServer: true},
-      {name: 'unit_template_categories', value: [], fromServer: false}
+      {name: 'unit_template_categories', value: [], fromServer: true, cmsController: true}
     ]
   },
 
@@ -44,7 +47,7 @@ EC.UnitTemplate = React.createClass({
       time: null,
       grades: [],
       activities: [],
-      unit_template_category: null,
+      unit_template_category_id: null
     };
 
     model = _.extend(model, this.props.unitTemplate);
@@ -83,8 +86,11 @@ EC.UnitTemplate = React.createClass({
     return _.range(20).map(function (n) {return 10*n});
   },
 
-  clickContinue: function () {
-
+  save: function () {
+    var data = _.omit(this.state.model, 'activities')
+    data.activity_ids = _.pluck(this.state.model.activities, 'id');
+    console.log('data', data)
+    this.modules.server.cmsSave(data, this.props.returnToIndex)
   },
 
   isEnoughInputProvidedToContinue: function () {
@@ -112,7 +118,8 @@ EC.UnitTemplate = React.createClass({
 
   getUnitTemplateCategorySelect: function () {
     return <EC.DropdownSelector
-                select={this.modules.indicatorGenerator.selector('unit_template_category')}
+                select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
+                defaultValue={this.state.model.unit_template_category_id}
                 options={this.state.options.unit_template_categories}
                 label={'Select Activity Pack Category'} />;
   },
@@ -120,6 +127,7 @@ EC.UnitTemplate = React.createClass({
   getTimeDropdownSelect: function () {
       return <EC.DropdownSelector
                 select={this.modules.indicatorGenerator.selector('time')}
+                defaultValue={this.state.model.time}
                 options={this.state.options.times}
                 label={'Select time in minutes'} />;
   },
@@ -135,7 +143,7 @@ EC.UnitTemplate = React.createClass({
   getErrorMessageAndButton: function () {
     return <div className='error-message-and-button'>
               <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
-              <button onClick={this.clickContinue} className={this.determineContinueButtonClass()} id='continue'>Continue</button>
+              <button onClick={this.save} className={this.determineContinueButtonClass()} id='continue'>Continue</button>
           </div>
   },
 
