@@ -9,8 +9,9 @@ EC.Server = function (component) {
   };
 
   // PUBLIC
-  this.getStateFromServer = function (resource, url) {
+  this.getStateFromServer = function (resource, url, callback) {
     var url = (url ? url :  ['/', resource].join(''));
-    $.get(url, {}, resourceUpdater(resource), 'json');
+    var callback = (callback ? callback : resourceUpdater)
+    $.get(url, {}, callback(resource), 'json');
   };
 }

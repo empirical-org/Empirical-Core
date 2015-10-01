@@ -11,13 +11,13 @@ EC.UnitTemplateCategory = React.createClass({
 
   initializeModules: function () {
     this.modules = {
-      textInputGenerator: new EC.TextInputGenerator(this, this.updateSelectedState)
+      textInputGenerator: new EC.TextInputGenerator(this, this.updateModelState)
     }
   },
 
-  updateSelectedState: function (key, value) {
+  updateModelState: function (key, value) {
     var newState = this.state;
-    newState.selected[key] = value;
+    newState.model[key] = value;
     this.setState(newState);
   },
 
