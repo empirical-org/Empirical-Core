@@ -5,7 +5,7 @@ class Cms::UnitTemplateCategoriesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: []#UnitTemplateCategory.all
+        render json: UnitTemplateCategory.all
       end
     end
   end

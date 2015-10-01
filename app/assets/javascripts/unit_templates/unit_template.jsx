@@ -17,36 +17,47 @@ EC.UnitTemplate = React.createClass({
 
   initializeModules: function () {
     var fnl = new EC.fnl();
+    var server = new EC.Server(this);
     this.modules = {
-      textInputGenerator: new EC.TextInputGenerator(this, this.updateSelectedState),
-      server: new EC.Server(this),
-      indicatorGenerator: new EC.IndicatorGenerator(this, fnl)
+      textInputGenerator: new EC.TextInputGenerator(this, this.updateModelState),
+      server: server,
+      indicatorGenerator: new EC.IndicatorGenerator(this, fnl),
+      optionsLoader: new EC.OptionLoader(this, server)
     };
+  },
+
+  initializeModelOptions: function () {
+    this.modelOptions = [
+      {name: 'times', value: this.timeOptions(), fromServer: false},
+      {name: 'grades', value: [], fromServer: true},
+      {name: 'unit_template_categories', value: [], fromServer: false}
+    ]
   },
 
   getInitialState: function () {
     this.initializeModules();
+    this.initializeModelOptions();
 
-    var selected = {
-      activities: [],
-      grades: [],
-      time: null,
-      unit_template_category: null,
+    var model = {
       name: null,
-      description: null
-    };
-
-    selected = _.extend(selected, this.props.unitTemplate);
-
-    var hash = {
+      description: null,
+      time: null,
       grades: [],
-      times: this.timeOptions(),
-      unit_template_categories: ['cat1', 'cat2'],
-      selected: selected
+      activities: [],
+      unit_template_category: null,
     };
 
+    model = _.extend(model, this.props.unitTemplate);
+    var options = this.modules.optionsLoader.initialOptions()
+
+    var hash = {model: model, options: options};
     return hash;
   },
+
+  componentDidMount: function () {
+    this.modules.optionsLoader.get();
+  },
+
 
   // TODO: abstract out the below 3 methods
   // can also combine first two by replacing 'key' with fnl equivalent
@@ -56,9 +67,9 @@ EC.UnitTemplate = React.createClass({
     this.setState(newState);
   },
 
-  updateSelectedState: function (key, value) {
+  updateModelState: function (key, value) {
     var newState = this.state;
-    newState.selected[key] = value;
+    newState.model[key] = value;
     this.setState(newState);
   },
 
@@ -70,11 +81,6 @@ EC.UnitTemplate = React.createClass({
 
   timeOptions: function () {
     return _.range(20).map(function (n) {return 10*n});
-  },
-
-  componentDidMount: function () {
-    this.modules.server.getStateFromServer('grades');
-    this.modules.server.getStateFromServer('unit_template_categories');
   },
 
   clickContinue: function () {
@@ -99,24 +105,40 @@ EC.UnitTemplate = React.createClass({
 
   getGradeCheckBoxes: function () {
       return <EC.CheckBoxes label={"Grades"}
-            items={_.map(this.state.grades, String)}
-            selectedItems={this.state.selected.grades}
+            items={this.state.options.grades}
+            selectedItems={this.state.model.grades}
             toggleItem={this.modules.indicatorGenerator.stateItemToggler('grades')} />;
   },
 
   getUnitTemplateCategorySelect: function () {
     return <EC.DropdownSelector
                 select={this.modules.indicatorGenerator.selector('unit_template_category')}
-                options={this.state.unit_template_categories}
+                options={this.state.options.unit_template_categories}
                 label={'Select Activity Pack Category'} />;
   },
 
   getTimeDropdownSelect: function () {
       return <EC.DropdownSelector
                 select={this.modules.indicatorGenerator.selector('time')}
-                options={this.state.times}
+                options={this.state.options.times}
                 label={'Select time in minutes'} />;
   },
+
+  getActivitySearchAndSelect: function () {
+    return <EC.ActivitySearchAndSelect selectedActivities={this.state.model.activities}
+                                      toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
+                                      clickContinue={this.clickContinue}
+                                      isEnoughInputProvidedToContinue={this.isEnoughInputProvidedToContinue()}
+                                      errorMessage={this.props.errorMessage} />
+  },
+
+  getErrorMessageAndButton: function () {
+    return <div className='error-message-and-button'>
+              <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
+              <button onClick={this.clickContinue} className={this.determineContinueButtonClass()} id='continue'>Continue</button>
+          </div>
+  },
+
 
   render: function () {
     var inputs;
@@ -131,15 +153,8 @@ EC.UnitTemplate = React.createClass({
         {this.getTimeDropdownSelect()}
         {this.getGradeCheckBoxes()}
         <span>
-          <EC.ActivitySearchAndSelect selectedActivities={this.state.selected.activities}
-                                      toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
-                                      clickContinue={this.clickContinue}
-                                      isEnoughInputProvidedToContinue={this.isEnoughInputProvidedToContinue()}
-                                      errorMessage={this.props.errorMessage} />
-          <div className='error-message-and-button'>
-            <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
-            <button onClick={this.clickContinue} className={this.determineContinueButtonClass()} id='continue'>Continue</button>
-        </div>
+          {this.getActivitySearchAndSelect()}
+          {this.getErrorMessageAndButton()}
         </span>
       </span>
     );
