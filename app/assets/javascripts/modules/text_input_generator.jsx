@@ -8,6 +8,13 @@ EC.TextInputGenerator = function (component, update) {
   };
 
   var fun1 = function (ele) {
+      var default1;
+      if (ele.default) {
+        default1 = ele.default
+      } else {
+        default1 = component.state.model[ele.name];
+      }
+
       return <EC.TextInput key={ele.name}
                            update={config.update}
                            name={ele.name}
@@ -15,6 +22,7 @@ EC.TextInputGenerator = function (component, update) {
                            errors={config.errors}
                            errorLabel={ele.errorLabel}
                            size={ele.size}
+                           default={default1}
                            errorKey={ele.errorKey}/>;
   };
 

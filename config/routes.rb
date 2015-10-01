@@ -141,8 +141,8 @@ EmpiricalGrammar::Application.routes.draw do
     resources :activity_classifications
     resources :topics
     resources :topic_categories
-    resources :unit_templates, only: [:index, :update, :destroy]
-    resources :unit_template_categories, only: [:index, :update, :destroy]
+    resources :unit_templates, only: [:index, :create, :update, :destroy]
+    resources :unit_template_categories, only: [:index, :create, :update, :destroy]
 
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data

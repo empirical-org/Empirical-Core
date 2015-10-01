@@ -13,13 +13,13 @@ $(function () {
 EC.UnitTemplatesCms = React.createClass({
 
   resourceComponentGenerator: function (cmsComponent) {
-    return (<EC.UnitTemplate unitTemplate={cmsComponent.resourceToEdit}
+    return (<EC.UnitTemplate unitTemplate={cmsComponent.state.resourceToEdit}
                      returnToIndex={cmsComponent.returnToIndex}/>);
   },
 
   render: function () {
     return (
-      <EC.Cms resourceName='unit_template'
+      <EC.Cms resourceNameSingular='unit_template'
               resourceNamePlural='unit_templates'
               resourceComponentGenerator={this.resourceComponentGenerator}/>
 

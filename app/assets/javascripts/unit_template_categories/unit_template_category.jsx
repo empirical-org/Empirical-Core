@@ -2,16 +2,28 @@ EC.UnitTemplateCategory = React.createClass({
 
   getInitialState: function () {
     this.initializeModules();
-    return {
-      selected: {
-        name: null
-      }
+
+    var model = {
+      name: null
     };
+    console.log('intial model', this.props.unitTemplateCategory)
+    var model2 = _.extend(model, this.props.unitTemplateCategory);
+
+    var hash = {
+      model: model2
+    };
+    console.log('initial state', hash)
+    return hash;
   },
+
+  resourceNameSingular: 'unit_template_category',
+  resourceNamePlural: 'unit_template_categories',
+
 
   initializeModules: function () {
     this.modules = {
-      textInputGenerator: new EC.TextInputGenerator(this, this.updateModelState)
+      textInputGenerator: new EC.TextInputGenerator(this, this.updateModelState),
+      server: new EC.Server(this)
     }
   },
 
@@ -22,17 +34,19 @@ EC.UnitTemplateCategory = React.createClass({
   },
 
   save: function () {
-    console.log('save')
+    this.modules.server.cmsSave(this.state.model, this.props.returnToIndex)
   },
 
-  formFields: [
-    {
-      name: 'name'
-    }
-  ],
+  formFields: function () {
+    return [
+      {
+        name: 'name'
+      }
+    ]
+  },
 
   render: function () {
-    var inputs = this.modules.textInputGenerator.generate(this.formFields);
+    var inputs = this.modules.textInputGenerator.generate(this.formFields());
     return (
       <div>
         <a onClick={this.props.returnToIndex}>Back to List of Activity Pack Categories</a>

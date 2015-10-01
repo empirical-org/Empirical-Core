@@ -6,13 +6,15 @@ EC.DropdownSelector = React.createClass({
   },
 
   select: function () {
-    var value = $(this.refs.select.getDOMNode()).val();
-    this.props.select(value);
+    var id = $(this.refs.select.getDOMNode()).val();
+    this.props.select(id);
   },
 
   generateOption: function (option) {
+    var id = (option.id ? option.id : option)
+    var name = (option.name ? option.name : option)
     return (
-      <option key={option} value={option}>{option}</option>
+      <option key={id} value={id}>{name}</option>
     );
   },
 
@@ -21,7 +23,7 @@ EC.DropdownSelector = React.createClass({
     return (
       <div className='dropdown-select-and-label'>
         <h3 className='dropdown-select-label'>{this.props.label}</h3>
-        <select ref={'select'} onChange={this.select}>
+        <select ref={'select'} value={this.props.defaultValue} onChange={this.select}>
          {options}
         </select>
       </div>

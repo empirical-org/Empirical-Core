@@ -13,13 +13,13 @@ EC.UnitTemplateCategoriesCms = React.createClass({
 
   resourceComponentGenerator: function (cmsComponent) {
     return (<EC.UnitTemplateCategory
-                     unitTemplateCategory={cmsComponent.resourceToEdit}
+                     unitTemplateCategory={cmsComponent.state.resourceToEdit}
                      returnToIndex={cmsComponent.returnToIndex}/>);
   },
 
   render: function () {
     return (
-      <EC.Cms resourceName='unit_template_category'
+      <EC.Cms resourceNameSingular='unit_template_category'
               resourceNamePlural='unit_template_categories'
               resourceComponentGenerator={this.resourceComponentGenerator}/>
 

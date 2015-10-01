@@ -1,13 +1,15 @@
 EC.Cms = React.createClass({
 
   propTypes: {
-    resourceName: React.PropTypes.string.isRequired,
+    resourceNameSingular: React.PropTypes.string.isRequired,
     resourceNamePlural: React.PropTypes.string.isRequired
   },
 
   initializeModules: function () {
+    var server = new EC.Server(this);
+    server.setResourceNames(this.props.resourceNameSingular, this.props.resourceNamePlural);
     this.modules = {
-      server: new EC.Server(this)
+      server: server
     }
   },
 
@@ -33,9 +35,11 @@ EC.Cms = React.createClass({
   },
 
   componentDidMount: function () {
-    if (this.state.crudState == 'index') {
-      this.modules.server.getStateFromServer(this.props.resourceNamePlural, this.indexUrl());
-    }
+    this.getIndexFromServer();
+  },
+
+  getIndexFromServer: function () {
+    this.modules.server.getStateFromServer(this.props.resourceNamePlural, this.indexUrl());
   },
 
   indexTable: function () {
@@ -58,6 +62,7 @@ EC.Cms = React.createClass({
   },
 
   returnToIndex: function () {
+    this.getIndexFromServer();
     this.setState({crudState: 'index'});
   },
 
@@ -66,11 +71,13 @@ EC.Cms = React.createClass({
   },
 
   edit: function (resource) {
+    console.log('edit', resource);
     this.setState({crudState: 'edit', resourceToEdit: resource});
   },
 
-  delete: function () {
-    alert('delete')
+  delete: function (resource) {
+    this.modules.server.cmsDestroy(resource.id);
+    this.getIndexFromServer();
   },
 
   crudNew: function () {
