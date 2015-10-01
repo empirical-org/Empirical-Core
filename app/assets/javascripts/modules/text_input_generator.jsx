@@ -11,8 +11,10 @@ EC.TextInputGenerator = function (component, update) {
       var default1;
       if (ele.default) {
         default1 = ele.default
-      } else {
+      } else if (component.state.model) {
         default1 = component.state.model[ele.name];
+      } else {
+        default1 = null;
       }
 
       return <EC.TextInput key={ele.name}
