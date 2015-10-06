@@ -1,16 +1,16 @@
 'use strict';
-EC.IndicatorGenerator = function (component, fnl) {
+EC.IndicatorGenerator = function (getModelState, setModelState, fnl) {
 
   this.stateItemToggler = function (key) {
     return function (item, boolean) {
-      var x = fnl.toggle(component.state.model[key], item);
-      component.updateModelState(key, x);
+      var x = fnl.toggle(getModelState[key], item);
+      setModelState(key, x);
     }
   };
 
   this.selector = function (key) {
     return function (value) {
-      component.updateModelState(key, value);
+      setModelState(key, value);
     }
   };
 }
