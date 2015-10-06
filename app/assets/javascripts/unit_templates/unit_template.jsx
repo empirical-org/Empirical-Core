@@ -13,9 +13,6 @@ EC.UnitTemplate = React.createClass({
       name: 'name'
     },
     {
-      name: 'author'
-    },
-    {
       name: 'description',
       size: 'medium'
     }
@@ -23,7 +20,7 @@ EC.UnitTemplate = React.createClass({
 
   initializeModules: function () {
     var fnl = new EC.fnl();
-    var server = new EC.Server(this);
+    var server = new EC.Server(this.resourceNameSingular, this.resourceNamePlural);
     this.modules = {
       textInputGenerator: new EC.TextInputGenerator(this, this.updateModelState),
       server: server,
@@ -36,7 +33,8 @@ EC.UnitTemplate = React.createClass({
     this.modelOptions = [
       {name: 'times', value: this.timeOptions(), fromServer: false},
       {name: 'grades', value: [], fromServer: true},
-      {name: 'unit_template_categories', value: [], fromServer: true, cmsController: true}
+      {name: 'unit_template_categories', value: [], fromServer: true, cmsController: true},
+      {name: 'authors', value: [], fromServer: true, cmsController: true}
     ];
     return this.modelOptions;
   },
@@ -51,7 +49,8 @@ EC.UnitTemplate = React.createClass({
       time: null,
       grades: [],
       activities: [],
-      unit_template_category_id: null
+      unit_template_category_id: null,
+      author_id: null
     };
 
     model = _.extend(model, this.props.unitTemplate);
@@ -81,6 +80,7 @@ EC.UnitTemplate = React.createClass({
   updateModelState: function (key, value) {
     var newState = this.state;
     newState.model[key] = value;
+    console.log('newState', newState)
     this.setState(newState);
   },
 
@@ -95,7 +95,8 @@ EC.UnitTemplate = React.createClass({
   },
 
   save: function () {
-    var data = _.omit(this.state.model, 'activities')
+    var data = _.omit(this.state.model, ['activities', 'author'])
+
     data.activity_ids = _.pluck(this.state.model.activities, 'id');
     console.log('data', data)
     this.modules.server.cmsSave(data, this.props.returnToIndex)
@@ -132,6 +133,14 @@ EC.UnitTemplate = React.createClass({
                 label={'Select Activity Pack Category'} />;
   },
 
+  getAuthorSelect: function () {
+    return <EC.DropdownSelector
+              select={this.modules.indicatorGenerator.selector('author_id')}
+              defaultValue={this.state.model.author_id}
+              options={this.state.options.authors}
+              label={'Select Author'} />;
+  },
+
   getTimeDropdownSelect: function () {
       return <EC.DropdownSelector
                 select={this.modules.indicatorGenerator.selector('time')}
@@ -165,6 +174,7 @@ EC.UnitTemplate = React.createClass({
         <span>
           {inputs}
         </span>
+        {this.getAuthorSelect()}
         {this.getUnitTemplateCategorySelect()}
         {this.getTimeDropdownSelect()}
         {this.getGradeCheckBoxes()}

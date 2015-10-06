@@ -36,6 +36,9 @@ gem 'validates_email_format_of'
 gem 'carrierwave'
 gem 'fog', require: 'fog/aws/storage'
 
+# IMAGE UPLOADS
+gem 'paperclip'
+
 # OTHERS
 gem 'global'
 gem 'google-api-client'

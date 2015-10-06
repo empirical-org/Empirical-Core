@@ -6,8 +6,7 @@ EC.Cms = React.createClass({
   },
 
   initializeModules: function () {
-    var server = new EC.Server(this);
-    server.setResourceNames(this.props.resourceNameSingular, this.props.resourceNamePlural);
+    var server = new EC.Server(this.props.resourceNameSingular, this.props.resourceNamePlural);
     this.modules = {
       server: server
     }
@@ -39,7 +38,17 @@ EC.Cms = React.createClass({
   },
 
   getIndexFromServer: function () {
-    this.modules.server.getStateFromServer(this.props.resourceNamePlural, this.indexUrl());
+    this.modules.server.getStateFromServer(this.props.resourceNamePlural, this.indexUrl(), this.populateResources);
+  },
+
+  populateResources: function (resource) {
+    // FIXME this fn does not have to be so complicated, need to change server module
+    that = this;
+    return function (data) {
+      var newState = that.state;
+      newState[that.props.resourceNamePlural] = data[that.props.resourceNamePlural];
+      that.setState(newState);
+    }
   },
 
   indexTable: function () {
