@@ -24,8 +24,8 @@ EC.UnitTemplate = React.createClass({
     this.modules = {
       textInputGenerator: new EC.TextInputGenerator(this, this.updateModelState),
       server: server,
-      indicatorGenerator: new EC.IndicatorGenerator(this, fnl),
-      optionsLoader: new EC.OptionLoader(this, server)
+      indicatorGenerator: new EC.IndicatorGenerator(this.getModelState, this.updateModelState, fnl),
+      optionsLoader: new EC.OptionLoader(this.modelOptions, this.updateState, server)
     };
   },
 
@@ -34,12 +34,14 @@ EC.UnitTemplate = React.createClass({
       {name: 'times', value: this.timeOptions(), fromServer: false},
       {name: 'grades', value: [], fromServer: true},
       {name: 'unit_template_categories', value: [], fromServer: true, cmsController: true}
-    ]
+    ];
+    return this.modelOptions;
   },
 
   getInitialState: function () {
-    this.initializeModules();
     this.initializeModelOptions();
+    this.initializeModules();
+
 
     var model = {
       name: null,
@@ -68,6 +70,10 @@ EC.UnitTemplate = React.createClass({
     var newState = this.state;
     newState[key] = value;
     this.setState(newState);
+  },
+
+  getModelState: function (key) {
+    return this.model.state[key];
   },
 
   updateModelState: function (key, value) {

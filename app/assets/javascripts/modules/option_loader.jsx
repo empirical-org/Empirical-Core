@@ -1,5 +1,5 @@
 'use strict';
-EC.OptionLoader = function (component, server) {
+EC.OptionLoader = function (modelOptions, setStateByKey, server) {
 
   var optionTypesObjArr;
 
@@ -7,7 +7,7 @@ EC.OptionLoader = function (component, server) {
 
   var updateState = function () {
     var total = _.extend(initialOptions, results);
-    component.updateState('options', total);
+    setStateByKey('options', total);
   }
 
   var updater = function (optionType) {
@@ -26,13 +26,13 @@ EC.OptionLoader = function (component, server) {
   }
 
   this.get = function () {
-    optionTypesObjArr = _.filter(component.modelOptions, _.property('fromServer'));
+    optionTypesObjArr = _.filter(modelOptions, _.property('fromServer'));
     _.each(optionTypesObjArr, retrieve)
   }
 
   var initialOptions;
   var initialOptionsMaker = function () {
-    initialOptions = _.reduce(component.modelOptions, function (hash, ele) {
+    initialOptions = _.reduce(modelOptions, function (hash, ele) {
       hash[ele.name] = ele.value;
       return hash
     }, {});
