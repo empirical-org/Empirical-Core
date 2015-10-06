@@ -6,7 +6,6 @@ EC.ActivityDueDate = React.createClass({
       selectOtherMonths: true,
       dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       minDate: -20,
-      maxDate: "+1M +10D",
       dateFormat: "mm-dd-yy",
       altField: ('#railsFormatDate' + this.props.activity.id),
       altFormat: 'yy-mm-dd',
