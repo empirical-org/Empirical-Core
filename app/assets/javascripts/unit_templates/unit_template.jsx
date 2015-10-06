@@ -13,6 +13,9 @@ EC.UnitTemplate = React.createClass({
       name: 'name'
     },
     {
+      name: 'author'
+    },
+    {
       name: 'description',
       size: 'medium'
     }
@@ -25,7 +28,7 @@ EC.UnitTemplate = React.createClass({
       textInputGenerator: new EC.TextInputGenerator(this, this.updateModelState),
       server: server,
       indicatorGenerator: new EC.IndicatorGenerator(this.getModelState, this.updateModelState, fnl),
-      optionsLoader: new EC.OptionLoader(this.modelOptions, this.updateState, server)
+      optionsLoader: new EC.OptionLoader(this.initializeModelOptions(), this.updateState, server)
     };
   },
 
@@ -39,7 +42,6 @@ EC.UnitTemplate = React.createClass({
   },
 
   getInitialState: function () {
-    this.initializeModelOptions();
     this.initializeModules();
 
 
