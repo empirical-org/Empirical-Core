@@ -43,7 +43,7 @@ class Cms::UnitTemplatesController < ApplicationController
     params.require(:unit_template)
             .permit(:id,
                     :name,
-                    :author,
+                    :author_id,
                     :description,
                     :time,
                     :unit_template_category_id,

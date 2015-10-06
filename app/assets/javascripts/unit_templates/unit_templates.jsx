@@ -13,6 +13,7 @@ $(function () {
 EC.UnitTemplatesCms = React.createClass({
 
   resourceComponentGenerator: function (cmsComponent) {
+    // FIXME : replace below with more genearl EC.Resource and the appropriate props
     return (<EC.UnitTemplate unitTemplate={cmsComponent.state.resourceToEdit}
                      returnToIndex={cmsComponent.returnToIndex}/>);
   },

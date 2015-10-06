@@ -12,9 +12,28 @@ $(function () {
 EC.UnitTemplateCategoriesCms = React.createClass({
 
   resourceComponentGenerator: function (cmsComponent) {
-    return (<EC.UnitTemplateCategory
-                     unitTemplateCategory={cmsComponent.state.resourceToEdit}
-                     returnToIndex={cmsComponent.returnToIndex}/>);
+    var initialModel = {
+      name: null
+    };
+
+    var savingKeys = ['name', 'id'];
+
+    var formFields = [
+      {
+        name: 'name'
+      }
+    ];
+
+    return (<EC.Resource
+                  resourceNameSingular='unit_template_category'
+                  resourceNamePlural='unit_template_categories'
+                  resource={cmsComponent.state.resourceToEdit}
+                  returnToIndex={cmsComponent.returnToIndex}
+                  initialModel={initialModel}
+                  savingKeys={savingKeys}
+                  formFields={formFields}/>
+
+    );
   },
 
   render: function () {

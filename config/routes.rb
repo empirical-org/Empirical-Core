@@ -141,6 +141,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :activity_classifications
     resources :topics
     resources :topic_categories
+    resources :authors, only: [:index, :create, :update, :destroy]
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
 

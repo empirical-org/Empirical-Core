@@ -1,5 +1,5 @@
 class AddAuthorToUnitTemplates < ActiveRecord::Migration
   def change
-    add_column :unit_templates, :author, :string
+    add_reference :unit_templates, :author, index: true
   end
 end

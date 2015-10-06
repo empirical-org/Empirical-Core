@@ -6,13 +6,11 @@ EC.UnitTemplateCategory = React.createClass({
     var model = {
       name: null
     };
-    console.log('intial model', this.props.unitTemplateCategory)
     var model2 = _.extend(model, this.props.unitTemplateCategory);
 
     var hash = {
       model: model2
     };
-    console.log('initial state', hash)
     return hash;
   },
 

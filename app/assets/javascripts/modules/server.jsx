@@ -1,20 +1,6 @@
 'use strict';
-EC.Server = function (component) {
+EC.Server = function (resourceNameSingular, resourceNamePlural) {
 
-  var resourceNameSingular = component.resourceNameSingular;
-  var resourceNamePlural = component.resourceNamePlural;
-
-  this.setResourceNames = function (singular, plural) {
-    resourceNameSingular = singular;
-    resourceNamePlural = plural;
-  }
-
-  // PRIVATE
-  var resourceUpdater = function (resource) {
-    return function (data) {
-      component.updateState(resource, data[resource]);
-    }
-  };
 
   var saveCallback = function (data) {
     console.log('saveSuccess');
@@ -23,7 +9,6 @@ EC.Server = function (component) {
   // PUBLIC
   this.getStateFromServer = function (resource, url, callback) {
     var url = (url ? url :  ['/', resource].join(''));
-    var callback = (callback ? callback : resourceUpdater)
     $.get(url, {}, callback(resource), 'json');
   };
 
@@ -56,8 +41,6 @@ EC.Server = function (component) {
   }
 
   this.cmsSave = function (data, callback) {
-    console.log('resrouces names', [resourceNameSingular, resourceNamePlural])
-    console.log('resouce name on component', component.resourceNamePlural)
     var sendData = constructData(data)
     if (!data.id) {
       var url = ['/cms/', resourceNamePlural].join('');
