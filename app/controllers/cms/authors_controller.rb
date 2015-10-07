@@ -6,7 +6,7 @@ class Cms::AuthorsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: Author.all
+        render json: Author.all.map{|a| AuthorSerializer.new(a).as_json(root: false)}
       end
     end
   end
@@ -43,5 +43,4 @@ class Cms::AuthorsController < ApplicationController
   def author_params
     params.require(:author).permit(:id, :name, :avatar)
   end
-
 end

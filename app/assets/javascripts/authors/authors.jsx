@@ -11,6 +11,18 @@ $(function () {
 
 EC.Authors = React.createClass({
 
+  getImageUrl: function (cmsComponent) {
+    var url;
+    if (cmsComponent.state.resourceToEdit) {
+      url = cmsComponent.state.resourceToEdit.avatar_url;
+    } else {
+      url = null;
+    }
+    console.log('url', url)
+    console.log('cmsComponent',cmsComponent )
+    return url;
+  },
+
   resourceComponentGenerator: function (cmsComponent) {
 
     var initialModel = {
@@ -19,25 +31,38 @@ EC.Authors = React.createClass({
       //avatar: null
     };
 
-    var savingKeys = ['id', 'name']
+    var savingKeys = ['id', 'name', 'avatar']
 
     var formFields = [
       {
         name: 'name',
       },
       {
-        name: 'avatar'
+        name: 'avatar',
+        type: 'file'
       }
     ];
 
-    return (<EC.Resource
-                     resourceNameSingular='author'
-                     resourceNamePlural='authors'
-                     initialModel={initialModel}
-                     resource={cmsComponent.state.resourceToEdit}
-                     formFields={formFields}
-                     savingKeys={savingKeys}
-                     returnToIndex={cmsComponent.returnToIndex} />
+    return (
+            <div>
+              <div className='row'>
+                <div className='col-xs-12'>
+                  <img src={this.getImageUrl(cmsComponent)} />
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col-xs-12'>
+                  <EC.Resource
+                           resourceNameSingular='author'
+                           resourceNamePlural='authors'
+                           initialModel={initialModel}
+                           resource={cmsComponent.state.resourceToEdit}
+                           formFields={formFields}
+                           savingKeys={savingKeys}
+                           returnToIndex={cmsComponent.returnToIndex} />
+                </div>
+              </div>
+            </div>
            );
   },
 
