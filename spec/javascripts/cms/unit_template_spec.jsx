@@ -6,7 +6,7 @@ var TestUtils = React.addons.TestUtils;
 describe('UnitTemplate', function () {
   beforeEach(function () {
     this.component = TestUtils.renderIntoDocument(
-      <EC.UnitTemplate />
+      <EC.Cms.UnitTemplate />
     );
     this.component.getInitialState();
   });

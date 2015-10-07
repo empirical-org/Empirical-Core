@@ -1,1 +1,3 @@
-window.EC = {}
+window.EC = {
+  cms: {}
+};

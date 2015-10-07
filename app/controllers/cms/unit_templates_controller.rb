@@ -6,7 +6,7 @@ class Cms::UnitTemplatesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: UnitTemplate.all.map{|u| UnitTemplateSerializer.new(u).as_json(root: false)}
+        render json: UnitTemplate.all.map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
       end
     end
   end
