@@ -49,5 +49,10 @@ module Setup
     def string_to_json(response_string)
       JSON.parse(response_string)
     end
+
+    def run
+      self.fetch_concepts
+      self.create_all
+    end
   end
 end 
