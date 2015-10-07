@@ -14,7 +14,7 @@ EC.Resource = React.createClass({
     var model1 = _.extend(this.props.initialModel, this.props.resource);
 
     var hash = {
-      model: model2
+      model: model1
     };
     return hash;
   },

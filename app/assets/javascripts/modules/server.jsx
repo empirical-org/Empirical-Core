@@ -2,6 +2,8 @@
 EC.Server = function (resourceNameSingular, resourceNamePlural) {
 
 
+  var ajaxDataProcessor = new EC.AjaxDataProcessor();
+
   var saveCallback = function (data) {
     console.log('saveSuccess');
   }
@@ -16,16 +18,28 @@ EC.Server = function (resourceNameSingular, resourceNamePlural) {
 
   var saveHelper = function (data, url, callback) {
     var callback = (callback ? callback : saveCallback);
-    $.post(url, data, callback)
+    //$.post(url, data, callback)
+    var hash = {
+      url: url,
+      type: 'POST',
+      success: callback
+    };
+    extrasAndAjax(hash, data)
   }
 
   var updateHelper = function (data, url, callback) {
-    $.ajax({
-        url: url,
-        type: 'PUT',
-        data: data,
-        success: callback
-    });
+    var hash = {
+      url: url,
+      type: 'PUT',
+      suceess: callback
+    };
+    extrasAndAjax(hash, data)
+  }
+
+  var extrasAndAjax = function (hash, data) {
+    var extras = ajaxDataProcessor.requestObjectExtras(data)
+    var newHash = _.extend(hash, extras)
+    $.ajax(newHash);
   }
 
   var constructData = function (data) {

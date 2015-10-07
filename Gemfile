@@ -38,6 +38,7 @@ gem 'fog', require: 'fog/aws/storage'
 
 # IMAGE UPLOADS
 gem 'paperclip'
+gem "jquery-fileupload-rails"
 
 # OTHERS
 gem 'global'

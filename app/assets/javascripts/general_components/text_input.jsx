@@ -11,7 +11,7 @@ EC.TextInput = React.createClass({
     size: React.PropTypes.string
   },
 
-  update: function () {
+  update: function (e) {
     var value = $(this.refs[this.props.name].getDOMNode()).val();
     this.props.update(this.props.name, value);
   },
@@ -27,7 +27,13 @@ EC.TextInput = React.createClass({
   },
 
   determineType: function () {
-    return (this.props.name === 'password') ? 'password' : null;
+    var type = null;
+    if (this.props.type != undefined) {
+      type = this.props.type
+    } else if (this.props.name === 'passwword') {
+      type = 'password';
+    }
+    return type;
   },
 
   determineLabel: function () {
@@ -65,6 +71,18 @@ EC.TextInput = React.createClass({
     return result;
   },
 
+  getId: function () {
+    return this.props.name;
+  },
+
+  getUpdateFn: function () {
+    var fn = null
+    if (this.determineType() !== 'file') {
+      fn = this.update;
+    }
+    return fn;
+  },
+
   determineInputTag: function () {
     var result;
     if (this.props.size == 'medium') {
@@ -75,13 +93,26 @@ EC.TextInput = React.createClass({
                          defaultValue={this.determine('default', null)} />)
 
     } else {
-      result = (<input id={this.props.name}
+      result = (<input id={this.getId()}
                        type={this.determineType()}
                        ref={this.props.name}
-                       onChange={this.update}
+                       onChange={this.getUpdateFn()}
                        defaultValue={this.determine('default', null)} />);
     }
     return result;
+  },
+
+  componentDidMount: function () {
+    that = this;
+    if (this.determineType() == 'file') {
+      $('#' + this.getId()).fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+          var file = data.files[0]
+          that.props.update(that.props.name, file);
+        }
+      });
+    }
   },
 
   render: function () {

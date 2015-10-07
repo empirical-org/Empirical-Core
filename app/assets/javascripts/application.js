@@ -28,6 +28,7 @@
 
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery-fileupload/basic
 
 //= require porthole
 //= require crazy-egg

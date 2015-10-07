@@ -1,8 +1,11 @@
 class UnitTemplatesController < ApplicationController
 
   def index
-  end
-
-  def show
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: UnitTemplate.all
+      end
+    end
   end
 end

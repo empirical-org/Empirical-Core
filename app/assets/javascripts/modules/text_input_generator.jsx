@@ -25,6 +25,7 @@ EC.TextInputGenerator = function (component, update) {
                            errorLabel={ele.errorLabel}
                            size={ele.size}
                            default={default1}
+                           type={ele.type}
                            errorKey={ele.errorKey}/>;
   };
 
