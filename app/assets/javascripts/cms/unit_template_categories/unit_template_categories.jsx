@@ -4,12 +4,12 @@ $(function () {
   if (ele.length > 0) {
     var props, comp;
     props = {}
-    comp = React.createElement(EC.UnitTemplateCategoriesCms, props);
+    comp = React.createElement(EC.Cms.UnitTemplateCategories, props);
     React.render(comp, ele[0]);
   }
 });
 
-EC.UnitTemplateCategoriesCms = React.createClass({
+EC.Cms.UnitTemplateCategories = React.createClass({
 
   resourceComponentGenerator: function (cmsComponent) {
     var initialModel = {

@@ -14,6 +14,23 @@ EC.Server = function (resourceNameSingular, resourceNamePlural) {
     $.get(url, {}, callback(resource), 'json');
   };
 
+  var urlPrefix = null;
+  this.setUrlPrefix = function (prefix) {
+    urlPrefix = prefix;
+  }
+
+  var _indexCallbackGenerator = function (updater) {
+    return function (data) {
+      var gold = data[resourceNamePlural];
+      updater(gold)
+    }
+  }
+
+  this.getModels = function (updater) {
+    var url = [urlPrefix, '/', resourceNamePlural].join('');
+    $.get(url, {}, _indexCallbackGenerator(updater), 'json');
+  }
+
 
 
   var saveHelper = function (data, url, callback) {
