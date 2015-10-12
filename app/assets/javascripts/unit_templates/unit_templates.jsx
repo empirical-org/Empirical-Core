@@ -16,8 +16,10 @@ EC.UnitTemplates = React.createClass({
   getInitialState: function () {
     this.initializeModules()
     return ({
-      models: []
-    })
+      models: [],
+      displayedModels: [],
+      unitTemplateCategories: []
+    });
   },
 
   initializeModules: function () {
@@ -34,20 +36,58 @@ EC.UnitTemplates = React.createClass({
 
   updateModels: function (models) {
     this.setState({models: models});
+    this.updateUnitTemplateCategories();
+    this.bootstrapDisplayedModels();
+  },
+
+  updateUnitTemplateCategories: function () {
+    this.setState({unitTemplateCategories: this.getUnitTemplateCategories()})
+  },
+
+  bootstrapDisplayedModels: function () {
+    this.setState({displayedModels: this.state.models});
   },
 
   generateUnitTemplateViews: function () {
-    return _.map(this.state.models, this.generateUnitTemplateView, this);
+    return _.map(this.state.displayedModels, this.generateUnitTemplateView, this);
   },
 
   generateUnitTemplateView: function (model) {
-    return <EC.UnitTemplate data={model} />
+    return <EC.UnitTemplate key={model.id} data={model} />
+  },
+
+  getUnitTemplateCategories: function () {
+    return _.chain(this.state.models)
+              .pluck('unit_template_category')
+              .uniq(_.property('id'))
+              .value();
+  },
+
+  filterByUnitTemplateCategory: function (categoryId) {
+    var uts = _.where(this.state.models, {unit_template_category: {id: categoryId}})
+    this.setState({displayedModels: uts});
+  },
+
+  listFilterOptions: function () {
+    return <EC.ListFilterOptions options={this.state.unitTemplateCategories}
+                  select={this.filterByUnitTemplateCategory} />
   },
 
   render: function () {
     return (
-      <div>
-        {this.generateUnitTemplateViews()}
+      <div className='row'>
+        <div className='col-xs-12'>
+          <div className='row'>
+            <div className='col-xs-12'>
+              {this.listFilterOptions()}
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-xs-12'>
+              {this.generateUnitTemplateViews()}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
