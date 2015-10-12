@@ -74,7 +74,8 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getModelState: function (key) {
-    return this.model.state[key];
+    console.log('model in getModelState', this.state.model)
+    return this.state.model[key];
   },
 
   updateModelState: function (key, value) {
@@ -98,7 +99,7 @@ EC.Cms.UnitTemplate = React.createClass({
     var data = _.omit(this.state.model, ['activities', 'author'])
 
     data.activity_ids = _.pluck(this.state.model.activities, 'id');
-    console.log('data', data)
+    console.log('data before save', data)
     this.modules.server.cmsSave(data, this.props.returnToIndex)
   },
 
