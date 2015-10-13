@@ -12,7 +12,7 @@ EC.AjaxDataProcessor = function () {
             var next = _.map(values, function (val) {
                 return _getAllValues(val);
             })
-            var flattenedNext = _.flatten(next);
+            var flattenedNext = _.flattenDeep(next);
             total = _(values).concat(flattenedNext).value();
         } else {
             total = [value];

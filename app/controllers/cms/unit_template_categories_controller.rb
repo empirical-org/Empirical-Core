@@ -36,7 +36,7 @@ class Cms::UnitTemplateCategoriesController < ApplicationController
   private
 
   def unit_template_category_params
-    params.require(:unit_template_category).permit(:id, :name)
+    params.require(:unit_template_category).permit(:id, :name, :primary_color, :secondary_color)
   end
 
   def set_unit_template_category

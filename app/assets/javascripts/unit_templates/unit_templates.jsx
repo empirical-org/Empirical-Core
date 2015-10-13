@@ -1,6 +1,6 @@
 'use strict';
 $(function () {
-  var ele = $('#unit-templates');
+  var ele = $('#teachers-unit-templates');
   if (ele.length > 0) {
     var props, comp;
     props = {}
@@ -18,7 +18,8 @@ EC.UnitTemplates = React.createClass({
     return ({
       models: [],
       displayedModels: [],
-      unitTemplateCategories: []
+      unitTemplateCategories: [],
+      selectedCategoryId: null
     });
   },
 
@@ -26,7 +27,8 @@ EC.UnitTemplates = React.createClass({
     var server = new EC.Server('unit_template', 'unit_templates');
     server.setUrlPrefix('/teachers');
     this.modules = {
-      server: server
+      server: server,
+      rowsCreator: new EC.RowsCreator(this.colView, this.rowView, 2)
     }
   },
 
@@ -49,11 +51,34 @@ EC.UnitTemplates = React.createClass({
   },
 
   generateUnitTemplateViews: function () {
-    return _.map(this.state.displayedModels, this.generateUnitTemplateView, this);
+    var rows = this.modules.rowsCreator.create(this.state.displayedModels);
+    return <span>{rows}</span>;
   },
 
-  generateUnitTemplateView: function (model) {
-    return <EC.UnitTemplate key={model.id} data={model} />
+  generateUnitTemplateView: function (model, index) {
+    return <EC.UnitTemplate
+              filterByUnitTemplateCategory={this.filterByUnitTemplateCategory}
+              key={model.id}
+              data={model}
+              index={index} />
+  },
+
+  colView: function (data, index) {
+    var className;
+    if (index === 0) {
+      className = 'col-xs-6 no-pr'
+    } else {
+      className = 'col-xs-6 no-pl'
+    }
+    return (
+      <div className={className}>
+        {this.generateUnitTemplateView(data, index)}
+      </div>
+    );
+  },
+
+  rowView: function (cols) {
+    return <div className='row'>{cols}</div>;
   },
 
   getUnitTemplateCategories: function () {
@@ -64,13 +89,24 @@ EC.UnitTemplates = React.createClass({
   },
 
   filterByUnitTemplateCategory: function (categoryId) {
-    var uts = _.where(this.state.models, {unit_template_category: {id: categoryId}})
-    this.setState({displayedModels: uts});
+    if (categoryId) {
+      var uts = _.where(this.state.models, {unit_template_category: {id: categoryId}})
+    } else {
+      var uts = this.state.models;
+    }
+
+    this.setState({displayedModels: uts, selectedCategoryId: categoryId});
   },
 
   listFilterOptions: function () {
-    return <EC.ListFilterOptions options={this.state.unitTemplateCategories}
+    return (
+        <div className='list-filter-options-container'>
+          <EC.ListFilterOptions
+                  options={this.state.unitTemplateCategories}
+                  selectedId={this.state.selectedCategoryId}
                   select={this.filterByUnitTemplateCategory} />
+        </div>
+    );
   },
 
   render: function () {

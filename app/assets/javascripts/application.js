@@ -3,7 +3,7 @@
 //= require bootstrap
 
 
-//= require lodash.min.js
+//= require lodash
 //= require underscore.string
 
 //= require es5-shim/es5-shim

@@ -327,6 +327,8 @@ GEM
     listen (3.0.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    lodash-rails (3.10.1)
+      railties (>= 3.1)
     lograge (0.3.4)
       actionpack (>= 3)
       activesupport (>= 3)
@@ -649,6 +651,7 @@ DEPENDENCIES
   kaminari
   keen
   letter_opener
+  lodash-rails
   lograge
   mailchimp-api
   newrelic_rpm

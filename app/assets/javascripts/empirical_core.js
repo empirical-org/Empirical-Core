@@ -1,3 +1,4 @@
 window.EC = {
-  cms: {}
+  cms: {},
+  modules: {}
 };
