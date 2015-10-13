@@ -1,6 +1,15 @@
 EC.UnitTemplate = React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired,
+    filterByUnitTemplateCategory: React.PropTypes.func.isRequired,
+    index: React.PropTypes.func.isRequired
+  },
+
+  getInitialState: function () {
+    this.modules = {
+      string: new EC.modules.String()
+    }
+    return {};
   },
 
   number_of_activities: function () {
@@ -11,47 +20,11 @@ EC.UnitTemplate = React.createClass({
     return [this.props.data.time, 'mins'].join(' ');
   },
 
-  author_name: function () {
-    var name;
-    if (this.props.data.author) {
-      name = this.props.data.author.name;
-    } else {
-      name = null;
-    }
-    return name;
-  },
-
-  say_author: function () {
-    return ['by', this.author_name()].join(' ');
-  },
-
-  say_number_of_things: function (number, singular, plural) {
-    var value;
-    if (number == 1) {
-      value = singular;
-    } else {
-      value = plural;
-    }
-    return [number, value].join(' ');
-  },
-
   say_number_of_activities: function () {
-    return this.say_number_of_things(this.number_of_activities(), 'Activity', 'Activities')
+    return this.modules.string.sayNumberOfThings(this.number_of_activities(), 'Activity', 'Activities')
   },
 
-  say_number_of_standards: function () {
-    return this.say_number_of_things(this.props.data.number_of_standards, 'Standard', 'Standards');
-  },
 
-  unit_template_category_name: function () {
-    var name;
-    if (this.props.data.unit_template_category) {
-      name = this.props.data.unit_template_category.name;
-    } else {
-      name = null;
-    }
-    return name;
-  },
 
   getData: function () {
     return [this.props.data.name,
@@ -75,10 +48,45 @@ EC.UnitTemplate = React.createClass({
       </div>);
   },
 
+  avatarUrl: function () {
+    var url;
+    if (this.props.data.author) {
+      url = this.props.data.author.avatar_url
+    } else {
+      url = null;
+    }
+    return url;
+  },
+
+  displayPicture: function () {
+    return (
+      <div className='picture'>
+        <img src={this.avatarUrl()}></img>
+      </div>
+    );
+  },
+
+  getClassName: function () {
+    var val;
+    if (this.props.index === 1) {
+      val = 'row unit-template pull-right'
+    } else {
+      val = 'row unit-template'
+    }
+    return val;
+  },
+
   render: function () {
     return (
-      <div className='unit-template'>
-        {this.displayData()}
+      <div className={this.getClassName()}>
+        <div className='col-xs-12'>
+          <EC.UnitTemplateFirstRow
+              filterByUnitTemplateCategory={this.props.filterByUnitTemplateCategory}
+              data={this.props.data}
+              modules={{string: this.modules.string}} />
+          <EC.UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
+          {this.displayPicture()}
+        </div>
       </div>
     );
   }

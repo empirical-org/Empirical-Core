@@ -16,11 +16,19 @@ EC.Cms.UnitTemplateCategories = React.createClass({
       name: null
     };
 
-    var savingKeys = ['name', 'id'];
+    var savingKeys = ['name', 'id', 'primary_color', 'secondary_color'];
 
     var formFields = [
       {
         name: 'name'
+      },
+      {
+        name: 'primary_color',
+        label: 'primary color'
+      },
+      {
+        name: 'secondary_color',
+        label: 'secondary color'
       }
     ];
 

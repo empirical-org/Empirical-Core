@@ -4,7 +4,6 @@ class UnitTemplateSerializer < ActiveModel::Serializer
   has_one :unit_template_category
   has_one :author
 
-
   def number_of_standards
     object.activities
           .map(&:topic)
