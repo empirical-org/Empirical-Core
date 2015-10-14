@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-feature 'unit_templates', js: true do
+feature 'unit templates manager', js: true do
   let(:author) { FactoryGirl.create(:author, name: 'author1') }
   let(:section) { FactoryGirl.create(:section, name: 'section1') }
   let(:topic) { FactoryGirl.create(:topic, name: 'topic1', section: section) }
@@ -36,6 +36,9 @@ feature 'unit_templates', js: true do
                 )
   }
 
+  def assign_btn
+    'assign'
+  end
 
 
   before(:each) do
@@ -43,17 +46,25 @@ feature 'unit_templates', js: true do
     visit('/teachers/unit_templates')
   end
 
-  it 'shows unit_template name' do
-    expect(page).to have_content(unit_template.name)
-    expect(page).to have_content(unit_template2.name)
+  context 'list of unit_templates' do
+    it 'shows unit_template name' do
+      expect(page).to have_content(unit_template.name)
+      expect(page).to have_content(unit_template2.name)
+    end
+
+    it 'can filter by unit_template_category' do
+      xpath = "//*[contains(@class, 'list-filter-option') and contains(text(), '#{unit_template_category_name}')]"
+      page.find(:xpath, xpath)
+          .trigger(:click)
+
+      expect(page).to_not have_content(unit_template2.name)
+    end
   end
 
-  it 'can filter by unit_template_category' do
-    xpath = "//*[contains(@class, 'list-filter-option') and contains(text(), '#{unit_template_category_name}')]"
-    page.find(:xpath, xpath)
-        .trigger(:click)
-
-    expect(page).to_not have_content(unit_template2.name)
+  context 'unit template profile' do
+    it 'is accessible from list of unit_templates' do
+      page.find(:css, '.unit-template').trigger(:click)
+      expect(page).to have_content(assign_btn)
+    end
   end
-
 end

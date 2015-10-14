@@ -1,65 +1,36 @@
-'use strict';
-$(function () {
-  var ele = $('#teachers-unit-templates');
-  if (ele.length > 0) {
-    var props, comp;
-    props = {}
-    comp = React.createElement(EC.UnitTemplates, props);
-    React.render(comp, ele[0]);
-  }
-});
-
-
-
 EC.UnitTemplates = React.createClass({
+  propTypes: {
+    models: React.PropTypes.array.isRequired,
+    categories: React.PropTypes.array.isRequired,
+    selectModel: React.PropTypes.func.isRequired
+  },
 
   getInitialState: function () {
     this.initializeModules()
     return ({
-      models: [],
-      displayedModels: [],
-      unitTemplateCategories: [],
+      displayedModels: this.props.models,
       selectedCategoryId: null
     });
   },
 
   initializeModules: function () {
-    var server = new EC.Server('unit_template', 'unit_templates');
-    server.setUrlPrefix('/teachers');
     this.modules = {
-      server: server,
       rowsCreator: new EC.RowsCreator(this.colView, this.rowView, 2)
     }
   },
 
-  componentDidMount: function () {
-    this.modules.server.getModels(this.updateModels);
-  },
-
-  updateModels: function (models) {
-    this.setState({models: models});
-    this.updateUnitTemplateCategories();
-    this.bootstrapDisplayedModels();
-  },
-
-  updateUnitTemplateCategories: function () {
-    this.setState({unitTemplateCategories: this.getUnitTemplateCategories()})
-  },
-
-  bootstrapDisplayedModels: function () {
-    this.setState({displayedModels: this.state.models});
-  },
-
   generateUnitTemplateViews: function () {
-    var rows = this.modules.rowsCreator.create(this.state.displayedModels);
+    var displayedModels = (this.state.displayedModels.length ? this.state.displayedModels: this.props.models);
+    var rows = this.modules.rowsCreator.create(displayedModels);
     return <span>{rows}</span>;
   },
 
   generateUnitTemplateView: function (model, index) {
-    return <EC.UnitTemplate
+    return <EC.UnitTemplateMini
               filterByUnitTemplateCategory={this.filterByUnitTemplateCategory}
               key={model.id}
               data={model}
+              selectModel={this.props.selectModel}
               index={index} />
   },
 
@@ -81,18 +52,11 @@ EC.UnitTemplates = React.createClass({
     return <div className='row'>{cols}</div>;
   },
 
-  getUnitTemplateCategories: function () {
-    return _.chain(this.state.models)
-              .pluck('unit_template_category')
-              .uniq(_.property('id'))
-              .value();
-  },
-
   filterByUnitTemplateCategory: function (categoryId) {
     if (categoryId) {
-      var uts = _.where(this.state.models, {unit_template_category: {id: categoryId}})
+      var uts = _.where(this.props.models, {unit_template_category: {id: categoryId}})
     } else {
-      var uts = this.state.models;
+      var uts = this.props.models;
     }
 
     this.setState({displayedModels: uts, selectedCategoryId: categoryId});
@@ -102,7 +66,7 @@ EC.UnitTemplates = React.createClass({
     return (
         <div className='list-filter-options-container'>
           <EC.ListFilterOptions
-                  options={this.state.unitTemplateCategories}
+                  options={this.props.categories}
                   selectedId={this.state.selectedCategoryId}
                   select={this.filterByUnitTemplateCategory} />
         </div>

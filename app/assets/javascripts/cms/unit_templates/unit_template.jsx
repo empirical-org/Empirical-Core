@@ -13,7 +13,16 @@ EC.Cms.UnitTemplate = React.createClass({
       name: 'name'
     },
     {
-      name: 'description',
+      name: 'problem',
+      size: 'medium'
+    },
+    {
+      name: 'summary',
+      size: 'medium'
+    },
+    {
+      name: 'teacher_review',
+      label: 'teacher review',
       size: 'medium'
     }
   ],
@@ -45,10 +54,13 @@ EC.Cms.UnitTemplate = React.createClass({
 
     var model = {
       name: null,
-      description: null,
+      problem: null,
+      summary: null,
+      teacher_review: null,
       time: null,
       grades: [],
       activities: [],
+      related_unit_templates: [],
       unit_template_category_id: null,
       author_id: null
     };
@@ -96,11 +108,12 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   save: function () {
-    var data = _.omit(this.state.model, ['activities', 'author'])
-
-    data.activity_ids = _.pluck(this.state.model.activities, 'id');
-    console.log('data before save', data)
-    this.modules.server.cmsSave(data, this.props.returnToIndex)
+    var fieldsToNormalize = [
+      {name: 'author', idName: 'author_id'},
+      {name: 'activities', idName: 'activity_ids'},
+      {name: 'related_unit_templates', idName: 'related_unit_template_ids'}
+    ];
+    this.modules.server.cmsSave(data, this.props.returnToIndex, fieldsToNormalize)
   },
 
   isEnoughInputProvidedToContinue: function () {
