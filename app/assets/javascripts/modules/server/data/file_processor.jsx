@@ -1,4 +1,4 @@
-EC.AjaxDataProcessor = function () {
+EC.modules.FileProcessor = function () {
     // we have to go through all of this because in order to send files (for example images) over ajax, we have to turn the request data into a FormData object,
     // and addinng nested values to FormData objects requires much of the code you see below.
 
@@ -63,19 +63,17 @@ EC.AjaxDataProcessor = function () {
     }
 
 
-    this.requestObjectExtras = function (data) {
-        var extras;
-        var values = _getAllValues(data);
+    this.process = function (data) {
+        var values, newData;
+
+        values = _getAllValues(data);
         if (_includesFile(values)) {
-            extras = {
-                data: _intoFormData(data),
-                processData: false,
-                contentType: false
-            }
-        } else {
-            extras = {data: data}
+            newData = _intoFormData(data);
         }
-        return extras;
+        } else {
+            newData = data
+        }
+        return newData;
     }
 
 }

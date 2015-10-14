@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013204326) do
+ActiveRecord::Schema.define(version: 20151014172251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20151013204326) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.text     "description"
   end
 
   create_table "categories", force: true do |t|
@@ -326,9 +327,11 @@ ActiveRecord::Schema.define(version: 20151013204326) do
     t.string  "name"
     t.integer "unit_template_category_id"
     t.integer "time"
-    t.text    "description"
     t.text    "grades"
     t.integer "author_id"
+    t.text    "problem"
+    t.text    "summary"
+    t.text    "teacher_review"
   end
 
   add_index "unit_templates", ["author_id"], name: "index_unit_templates_on_author_id", using: :btree
