@@ -30,6 +30,15 @@ class Classroom < ActiveRecord::Base
   end
 
   def unique_topic_count
+    if unique_topic_count_array.any?
+      val = unique_topic_count_array.first.topic_count
+    else
+      val = nil
+    end
+    val
+  end
+
+  def unique_topic_count_array
     filters = {}
     best_activity_sessions = ProgressReports::Standards::ActivitySession.new(teacher).results(filters)
     ActivitySession.from_cte('best_activity_sessions', best_activity_sessions)
@@ -39,7 +48,6 @@ class Classroom < ActiveRecord::Base
       .where('classroom_activities.classroom_id = ?', id)
       .group('classroom_activities.classroom_id')
       .order('')
-      .first.topic_count
   end
 
   def self.setup_from_clever(section, teacher)
