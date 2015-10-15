@@ -4,7 +4,8 @@ class ProgressReports::Standards::ActivitySession
   end
 
   def results(filters)
-    query = ActivitySession.select(<<-SELECT
+    # for some reason indicating the root namespace is necessary in this first assignment
+    query = ::ActivitySession.select(<<-SELECT
       activity_sessions.*,
       activities.topic_id as topic_id
     SELECT
