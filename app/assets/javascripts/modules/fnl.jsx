@@ -2,7 +2,7 @@
 // functional utilities
 // dependency : lodash.js
 
-EC.fnl = function () {
+EC.modules.fnl = function () {
 
   this.toggle = function (array, item) {
     var newArray, alreadyThere;

@@ -1,5 +1,5 @@
 class UnitTemplateSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :time, :grades, :number_of_standards
+  attributes :id, :name, :problem, :summary, :teacher_review, :time, :grades, :number_of_standards
   has_many :activities
   has_one :unit_template_category
   has_one :author

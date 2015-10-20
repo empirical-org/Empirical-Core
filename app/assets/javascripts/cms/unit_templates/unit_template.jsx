@@ -28,13 +28,13 @@ EC.Cms.UnitTemplate = React.createClass({
   ],
 
   initializeModules: function () {
-    var fnl = new EC.fnl();
-    var server = new EC.Server(this.resourceNameSingular, this.resourceNamePlural);
+    var fnl = new EC.modules.fnl();
+    var server = new EC.modules.Server(this.resourceNameSingular, this.resourceNamePlural, '/cms');
     this.modules = {
-      textInputGenerator: new EC.TextInputGenerator(this, this.updateModelState),
+      textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateModelState),
       server: server,
-      indicatorGenerator: new EC.IndicatorGenerator(this.getModelState, this.updateModelState, fnl),
-      optionsLoader: new EC.OptionLoader(this.initializeModelOptions(), this.updateState, server)
+      indicatorGenerator: new EC.modules.IndicatorGenerator(this.getModelState, this.updateModelState, fnl),
+      optionsLoader: new EC.modules.OptionLoader(this.initializeModelOptions(), this.updateState, server)
     };
   },
 
@@ -113,7 +113,7 @@ EC.Cms.UnitTemplate = React.createClass({
       {name: 'activities', idName: 'activity_ids'},
       {name: 'related_unit_templates', idName: 'related_unit_template_ids'}
     ];
-    this.modules.server.cmsSave(data, this.props.returnToIndex, fieldsToNormalize)
+    this.modules.server.save(this.state.model, {callback: this.props.returnToIndex, fieldsToNormalize: fieldsToNormalize})
   },
 
   isEnoughInputProvidedToContinue: function () {

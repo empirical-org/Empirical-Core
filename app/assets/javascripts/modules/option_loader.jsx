@@ -1,5 +1,5 @@
 'use strict';
-EC.OptionLoader = function (modelOptions, setStateByKey, server) {
+EC.modules.OptionLoader = function (modelOptions, setStateByKey, server) {
 
   var optionTypesObjArr;
 

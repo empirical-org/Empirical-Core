@@ -2,7 +2,7 @@
 
 describe('EC.modules.Normalizer', function () {
   beforeEach(function () {
-    this.module = new EC.modules.Normal();
+    this.module = new EC.modules.Normalizer();
     this.obj = {
       name: 'cool',
       author: {name: 'great', id: 3},

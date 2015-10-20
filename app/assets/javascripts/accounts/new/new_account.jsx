@@ -16,7 +16,7 @@ EC.NewAccount = React.createClass({
 
   getInitialState: function () {
     this.modules = {
-      textInputGenerator: new EC.TextInputGenerator(this, this.updateKeyValue)
+      textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateKeyValue)
     };
 
     var hash, subHash;

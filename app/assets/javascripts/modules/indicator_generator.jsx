@@ -1,5 +1,5 @@
 'use strict';
-EC.IndicatorGenerator = function (getModelState, setModelState, fnl) {
+EC.modules.IndicatorGenerator = function (getModelState, setModelState, fnl) {
 
   this.stateItemToggler = function (key) {
     return function (item, boolean) {

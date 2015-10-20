@@ -23,8 +23,7 @@ EC.UnitTemplatesManager = React.createClass({
   },
 
   initializeModules: function () {
-    var server = new EC.Server('unit_template', 'unit_templates');
-    server.setUrlPrefix('/teachers');
+    var server = new EC.modules.Server('unit_template', 'unit_templates', '/teachers');
     this.modules = {
       server: server
     }

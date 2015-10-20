@@ -1,5 +1,5 @@
 'use strict';
-EC.RowsCreator = function (columnFn, rowFn, numCols) {
+EC.modules.RowsCreator = function (columnFn, rowFn, numCols) {
 
   var columnFn = columnFn;
   var rowFn = rowFn;

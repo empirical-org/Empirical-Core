@@ -6,8 +6,14 @@ var TestUtils = React.addons.TestUtils;
 describe('UnitTemplates', function () {
   beforeEach(function () {
 
+    var props = {
+      models: [],
+      categories: [],
+      selectModel: function () {}
+    }
+
     this.component = TestUtils.renderIntoDocument(
-      <EC.UnitTemplates />
+      <EC.UnitTemplates models={props.models} categories={props.categories} selectModel={props.selectModel} />
     );
     this.component.getInitialState();
   });

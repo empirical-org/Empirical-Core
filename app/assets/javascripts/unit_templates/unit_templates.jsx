@@ -15,7 +15,7 @@ EC.UnitTemplates = React.createClass({
 
   initializeModules: function () {
     this.modules = {
-      rowsCreator: new EC.RowsCreator(this.colView, this.rowView, 2)
+      rowsCreator: new EC.modules.RowsCreator(this.colView, this.rowView, 2)
     }
   },
 

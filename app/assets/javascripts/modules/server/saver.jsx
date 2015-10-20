@@ -1,4 +1,4 @@
-EC.Saver = function () {
+EC.modules.Saver = function () {
 
   var _modules = {
     data:   new EC.modules.Data(),
