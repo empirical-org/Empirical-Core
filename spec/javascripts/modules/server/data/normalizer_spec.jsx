@@ -34,7 +34,6 @@ describe('EC.modules.Normalizer', function () {
     var fieldDatas = this.fieldDatas.concat([{name: 'activities', idName: 'activity_ids'}])
     var expected = _.extend({}, this.expected, {activity_ids: [4,5]});
     var actual = this.module.process(obj, fieldDatas)
-    console.log('actual', JSON.stringify(actual))
     expect(actual).to.eql(expected);
   })
 })
