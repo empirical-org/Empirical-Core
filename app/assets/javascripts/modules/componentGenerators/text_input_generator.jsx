@@ -1,5 +1,5 @@
 'use strict';
-EC.TextInputGenerator = function (component, update) {
+EC.modules.TextInputGenerator = function (component, update) {
 
 
   var config = {

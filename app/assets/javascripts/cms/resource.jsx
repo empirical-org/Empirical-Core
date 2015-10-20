@@ -22,8 +22,8 @@ EC.Resource = React.createClass({
 
   initializeModules: function () {
     this.modules = {
-      textInputGenerator: new EC.TextInputGenerator(this, this.updateModelState),
-      server: new EC.Server(this.props.resourceNameSingular, this.props.resourceNamePlural)
+      textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateModelState),
+      server: new EC.modules.Server(this.props.resourceNameSingular, this.props.resourceNamePlural)
     }
   },
 

@@ -69,7 +69,6 @@ EC.modules.FileProcessor = function () {
         values = _getAllValues(data);
         if (_includesFile(values)) {
             newData = _intoFormData(data);
-        }
         } else {
             newData = data
         }

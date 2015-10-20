@@ -12,7 +12,7 @@ EC.CreateUnit = React.createClass({
 			selectedClassrooms: [],
 			classrooms: [],
 			dueDates: {},
-			fnl: new EC.fnl()
+			fnl: new EC.modules.fnl()
 		}
 	},
 

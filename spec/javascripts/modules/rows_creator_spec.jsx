@@ -5,7 +5,7 @@ describe('EC.RowsCreator', function () {
     var colFn = function (n) {return n*2};
     var rowFn = function (arr) {return {row: arr}};
     var numCols = 3
-    this.module = new EC.RowsCreator(colFn, rowFn, numCols);
+    this.module = new EC.modules.RowsCreator(colFn, rowFn, numCols);
   });
 
   it('exists', function () {

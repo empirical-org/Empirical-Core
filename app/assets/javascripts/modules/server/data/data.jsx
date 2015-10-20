@@ -2,7 +2,7 @@ EC.modules.Data = function () {
 
   var _modules = {
     fileProcessor: new EC.modules.FileProcessor(),
-    normalizer: new EC.modules.Normal()
+    normalizer: new EC.modules.Normalizer()
   }
 
   var _constructData = function (resourceNameSingular) {

@@ -6,7 +6,7 @@ EC.Cms = React.createClass({
   },
 
   initializeModules: function () {
-    var server = new EC.Server(this.props.resourceNameSingular, this.props.resourceNamePlural);
+    var server = new EC.modules.Server(this.props.resourceNameSingular, this.props.resourceNamePlural);
     this.modules = {
       server: server
     }

@@ -1,5 +1,5 @@
 'use strict';
-EC.Server = function (resourceNameSingular, resourceNamePlural, urlPrefix) {
+EC.modules.Server = function (resourceNameSingular, resourceNamePlural, urlPrefix) {
 
   var _urlPrefix = urlPrefix;
 

@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20151014172251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
-  enable_extension "pg_stat_statements"
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -95,8 +94,8 @@ ActiveRecord::Schema.define(version: 20151014172251) do
 
   create_table "categories", force: true do |t|
     t.text     "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "classroom_activities", force: true do |t|
@@ -171,8 +170,8 @@ ActiveRecord::Schema.define(version: 20151014172251) do
     t.string   "name"
     t.string   "file"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "firebase_apps", force: true do |t|
@@ -225,8 +224,8 @@ ActiveRecord::Schema.define(version: 20151014172251) do
     t.string   "name"
     t.string   "description"
     t.text     "content"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "schools", force: true do |t|
@@ -293,10 +292,6 @@ ActiveRecord::Schema.define(version: 20151014172251) do
     t.datetime "updated_at"
   end
 
-  create_table "t1", id: false, force: true do |t|
-    t.integer "id"
-  end
-
   create_table "topic_categories", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -349,8 +344,8 @@ ActiveRecord::Schema.define(version: 20151014172251) do
     t.string   "email"
     t.string   "password_digest"
     t.string   "role",                  default: "user"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "classcode"
     t.boolean  "active",                default: false
     t.string   "username"
@@ -369,8 +364,8 @@ ActiveRecord::Schema.define(version: 20151014172251) do
 
   create_table "workbooks", force: true do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -3,7 +3,7 @@
 var TestUtils = React.addons.TestUtils;
 
 
-describe('UnitTemplate', function () {
+describe('CMS::UnitTemplate', function () {
   beforeEach(function () {
     this.component = TestUtils.renderIntoDocument(
       <EC.Cms.UnitTemplate />

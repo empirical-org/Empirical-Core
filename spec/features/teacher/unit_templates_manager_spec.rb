@@ -13,7 +13,6 @@ feature 'unit templates manager', js: true do
   let!(:unit_template) {
     FactoryGirl.create(:unit_template,
                 name: 'Unit Template 1',
-                description: 'desc',
                 grades: [1,2],
                 author: author,
                 activities: [activity],
@@ -27,7 +26,6 @@ feature 'unit templates manager', js: true do
   let!(:unit_template2) {
     FactoryGirl.create(:unit_template,
                 name: 'Unit Template 2',
-                description: 'desc',
                 grades: [1,2],
                 author: author,
                 activities: [activity],
@@ -63,7 +61,7 @@ feature 'unit templates manager', js: true do
 
   context 'unit template profile' do
     it 'is accessible from list of unit_templates' do
-      page.find(:css, '.unit-template').trigger(:click)
+      page.first(:css, '.unit-template').trigger(:click)
       expect(page).to have_content(assign_btn)
     end
   end
