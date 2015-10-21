@@ -10,11 +10,11 @@ class AccountCreationWorker
     KeenWrapper.publish(:accounts, {event: 'creation', role: @user.role, classcode: @user.classcode})
 
     # tell segment.io
-    analytics = SegmentAnalytics.new
+    analytics = AccountCreationAnalytics.new
     if @user.role == 'teacher'
-      analytics.track_teacher_creation(@user)
-    else
-      analytics.track_student_creation(@user)
+      analytics.track_teacher(@user)
+    elsif @user.role == 'student'
+      analytics.track_student(@user)
     end
   end
 end

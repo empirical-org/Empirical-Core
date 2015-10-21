@@ -24,9 +24,9 @@ class UserLoginWorker
 
     analytics = SigninAnalytics.new
     if @user.role == 'teacher'
-      analytics.track_teacher_signin(@user)
+      analytics.track_teacher(@user)
     elsif @user.role == 'student'
-      analytics.track_student_signin(@user)
+      analytics.track_student(@user)
     end
 
   end
