@@ -22,32 +22,11 @@ class SegmentAnalytics
     })
   end
 
-  def track_activity_completion(activity_session)
-    return if activity_session.classroom_activity.nil?
-    return if activity_session.classroom_activity.classroom.nil?
-    track({
-      user_id: activity_session.classroom_activity.classroom.teacher.id,
-      event: SegmentIo::Events::ACTIVITY_COMPLETION
-    })
-  end
-
   def track_classroom_creation(classroom)
     track({
       user_id: classroom.teacher.id,
       event: SegmentIo::Events::CLASSROOM_CREATION
     })
-  end
-
-  def track_teacher_signin(teacher)
-    track({
-      user_id: teacher.id,
-      event: SegmentIo::Events::TEACHER_SIGNIN
-    })
-  end
-
-  def track_student_signin(student)
-    track_teachers_student_signin(student)
-    track_student_signin_proper(student)
   end
 
   def track_click_sign_up
