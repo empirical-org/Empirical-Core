@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe ClassroomCreationWorker, type: :worker do
   let(:worker) { ClassroomCreationWorker.new }

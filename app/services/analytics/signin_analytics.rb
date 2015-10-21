@@ -2,38 +2,46 @@ class SigninAnalytics
   attr_accessor :analytics
 
   def initialize
-    analytics = SegmentAnalytics.new
+    self.analytics = SegmentAnalytics.new
   end
 
-  def track_teacher_signin(teacher)
-    track({
+  def track_teacher(teacher)
+    analytics_identify(teacher)
+    analytics_track({
       user_id: teacher.id,
       event: SegmentIo::Events::TEACHER_SIGNIN
     })
   end
 
-  def track_student_signin(student)
-    track_teachers_student_signin(student)
-    track_student_signin_proper(student)
+  def track_student(student)
+    # keep these in the following order so the student is the last one identified
+    track_teachers_student(student)
+    track_student_proper(student)
   end
 
   private
 
-  def track hash
+  def analytics_track hash
     analytics.track hash
   end
 
-  def track_student_signin_proper(student)
-    track({
+  def analytics_identify(user)
+    analytics.identify(user)
+  end
+
+  def track_student_proper(student)
+    analytics_identify(student)
+    analytics_track({
       user_id: student.id,
       event: SegmentIo::Events::STUDENT_SIGNIN
     })
   end
 
-  def track_teachers_student_signin(student)
+  def track_teachers_student(student)
     teacher = student.teacher
     return if teacher.nil?
-    track({
+    analytics_identify(teacher)
+    analytics_track({
       user_id: teacher.id,
       event: SegmentIo::Events::TEACHERS_STUDENT_SIGNIN
     })

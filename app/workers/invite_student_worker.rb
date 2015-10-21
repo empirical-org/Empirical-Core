@@ -1,4 +1,4 @@
-class StudentCreationWorker
+class InviteStudentWorker
   include Sidekiq::Worker
   sidekiq_options :retry => 2
 
@@ -7,7 +7,7 @@ class StudentCreationWorker
     teacher = User.find(teacher_id)
     student = User.find(student_id)
 
-    analytics = SegmentAnalytics.new
-    analytics.track_student_creation_by_teacher(teacher, student)
+    analytics = InviteStudentAnalytics.new
+    analytics.track(teacher, student)
   end
 end

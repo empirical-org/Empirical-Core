@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe FinishActivityWorker, type: :worker do
   let(:worker) { FinishActivityWorker.new }

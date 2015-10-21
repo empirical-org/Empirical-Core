@@ -9,34 +9,6 @@ describe 'SegmentAnalytics' do
   let(:track_calls) { analytics.backend.track_calls }
   let(:identify_calls) { analytics.backend.identify_calls }
 
-  context 'tracking student account creation by teacher' do
-    let(:teacher) { FactoryGirl.create(:teacher) }
-    let(:student) { FactoryGirl.create(:student) }
-
-    it 'sends an event' do
-      analytics.track_student_creation_by_teacher(teacher, student)
-      expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:user_id]).to eq(teacher.id)
-      expect(track_calls[0][:event]).to eq(SegmentIo::Events::STUDENT_ACCOUNT_CREATION_BY_TEACHER)
-    end
-  end
-
-  context 'tracking teacher account creation' do
-    let(:teacher) { FactoryGirl.create(:teacher) }
-
-    it 'identifies the new user and send an event' do
-      analytics.track_teacher_creation(teacher)
-      expect(identify_calls.size).to eq(1)
-      expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
-    end
-
-    it 'sends an event' do
-      analytics.track_teacher_creation(teacher)
-      expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::Events::TEACHER_ACCOUNT_CREATION)
-      expect(track_calls[0][:user_id]).to eq(teacher.id)
-    end
-  end
 
   context 'tracking classroom creation' do
     let(:classroom) { FactoryGirl.create(:classroom) }

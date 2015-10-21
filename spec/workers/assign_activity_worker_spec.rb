@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe AssignActivityWorker, type: :worker do
   let(:worker) { AssignActivityWorker.new }

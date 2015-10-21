@@ -14,7 +14,7 @@ class Teachers::StudentsController < ApplicationController
       @student = @classroom.students.build(user_params)
       @student.generate_student
       @student.save!
-      StudentCreationWorker.perform_async(current_user.id, @student.id)
+      InviteStudentWorker.perform_async(current_user.id, @student.id)
       redirect_to teachers_classroom_invite_students_path(@classroom)
     end
   end
