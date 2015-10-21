@@ -28,8 +28,8 @@ class FinishActivityWorker
     # publish event data
     KeenWrapper.publish(:activity_sessions, event_data)
 
-    analytics = SegmentAnalytics.new
-    analytics.track_activity_completion(activity_session)
+    analytics = FinishActivityAnalytics.new
+    analytics.track(activity_session)
 
     # add it to the student's scorebook
     #
