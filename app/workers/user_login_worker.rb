@@ -22,7 +22,7 @@ class UserLoginWorker
 
     KeenWrapper.publish(:login, data)
 
-    analytics = SegmentAnalytics.new
+    analytics = SigninAnalytics.new
     if @user.role == 'teacher'
       analytics.track_teacher_signin(@user)
     elsif @user.role == 'student'
