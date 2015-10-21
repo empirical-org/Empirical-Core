@@ -13,6 +13,8 @@ class AccountCreationWorker
     analytics = SegmentAnalytics.new
     if @user.role == 'teacher'
       analytics.track_teacher_creation(@user)
+    else
+      analytics.track_student_creation(@user)
     end
   end
 end

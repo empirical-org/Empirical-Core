@@ -1,4 +1,4 @@
-require 'segment_io'
+require 'analytics/segment_io'
 
 if !Rails.env.test?
   SegmentIo.configure do |c|
