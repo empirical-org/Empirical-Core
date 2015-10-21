@@ -22,8 +22,8 @@ describe "FinishActivityAnalytics" do
                                                 classroom_activity: classroom_activity) }
 
     it 'sends an event' do
-      analytics.track_activity_completion(activity_session)
-      expect(identify_calls.size).to eq(0)
+      analytics.track(activity_session)
+      expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::ACTIVITY_COMPLETION)
       expect(track_calls[0][:user_id]).to eq(activity_session.classroom_activity.classroom.teacher.id)
@@ -34,8 +34,9 @@ describe "FinishActivityAnalytics" do
     let(:activity_session) { FactoryGirl.create(:activity_session, state: 'finished') }
 
     it 'does nothing' do
-      analytics.track_activity_completion(activity_session)
+      analytics.track(activity_session)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(0)
     end
   end
+end
