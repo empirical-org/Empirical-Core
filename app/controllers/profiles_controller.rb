@@ -10,7 +10,7 @@ class ProfilesController < ApplicationController
     # this is called by the 'join classroom' page
     @user = current_user
     @user.update_attributes(user_params)
-    JoinClassroomWorker.perform(@user.id)
+    JoinClassroomWorker.perform_async(@user.id)
     @user.assign_classroom_activities
     redirect_to profile_path
   end
