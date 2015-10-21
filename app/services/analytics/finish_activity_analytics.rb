@@ -9,6 +9,8 @@ class FinishActivityAnalytics
     return if activity_session.classroom_activity.nil?
     return if activity_session.classroom_activity.classroom.nil?
     teacher = activity_session.classroom_activity.classroom.teacher
+    return if teacher.nil?
+
     analytics_identify(teacher)
     analytics_track({
       user_id: teacher.id,
