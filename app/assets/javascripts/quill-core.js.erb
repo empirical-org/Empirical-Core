@@ -112,7 +112,6 @@ jQuery.extend(Quill.prototype, {
     // this is the handler for the finish event for an activity. The iframe sends this
     // event when the user is done with the activity.
     activityFinished: function (options) {
-      if (window.mixpanel) mixpanel.track('activity finished');
       window.location = '/activity_sessions/' + options.id;
     },
 
