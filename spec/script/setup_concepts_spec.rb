@@ -1,16 +1,18 @@
 require 'spec_helper'
 require 'rails_helper'
 require 'setup_concepts'
+require 'download_concepts'
+require 'create_concepts'
 
 VCR.configure do |config|
   config.cassette_library_dir = "fixtures/vcr_cassettes"
   config.hook_into :webmock # or :fakeweb
 end
 
-describe 'Setting up concepts' do
+describe 'Downloading the concepts' do
   VCR.use_cassette('fetching concepts') do
 
-    setup = Setup::Concepts.new
+    setup = Setup::DownloadConcepts.new
     
     it "should have an attribute concepts" do
       expect(setup.concepts.class).to eq(Array)
@@ -46,51 +48,57 @@ describe 'Setting up concepts' do
       expect(Concept.count).to eq(0)
     end
 
-    parent = {"id"=>1, "name"=>"Capitalization", "uid"=>"BRTGfOy7FGG4LB49eIxJQg", "parent_id"=>nil, "level"=>2}
-    child = {"id"=>2, "name"=>"Greece", "uid"=>"GPzZYKvZ2nSKmu7zC540bA", "parent_id"=>1, "level"=>0}
-    setup.concepts = [child, parent]
-    
-		it "can find its parent concept" do
-		  found_parent = setup.find_parent_concept_from_concepts(child)	
-      expect(found_parent).to eq(parent)
-		end
+  end
+  
+end
 
-    it "can find or create its parent in the database" do
-      expect(Concept.find_by_id(child["parent_id"])).to be_nil
-      found_parent = setup.find_or_create_parent_in_db(child)
-      expect(found_parent.name).to eq(parent["name"])
-    end
+describe "Creating the concepts" do
 
-    it "should have a valid parent if required" do
-      Concept.delete_all
-      setup.create_concept(child)
-      expect(Concept.where(name: "Greece").first.parent_id).to eq(Concept.where(name: "Capitalization").first.id)
-    end
-    
 
-    it "should be able add the concepts array into the db" do
-      expect(Concept.count).to eq(0)
-      setup.create_all
-      expect(Concept.count).to eq(setup.concepts.length)
-      expect(Concept.find_by_name("Greece").parent).to eq(Concept.find_by_name("Capitalization"))
-    end
-    
-    grandparent = {"id"=>3, "name"=>"Alphabet", "uid"=>"BRTGfOy7FGG4LB49eIxJQf", "parent_id"=>nil, "level"=>1}
-    parent = {"id"=>1, "name"=>"Capitalization", "uid"=>"BRTGfOy7FGG4LB49eIxJQg", "parent_id"=>3, "level"=>2}
-    child = {"id"=>2, "name"=>"Greece", "uid"=>"GPzZYKvZ2nSKmu7zC540bA", "parent_id"=>1, "level"=>0}
-    setup.concepts = [child, parent, grandparent]
 
-    it "should be able recursively set parents" do
-      expect(Concept.count).to eq(0)
-      setup.create_concept(child)
-      expect(Concept.count).to eq(setup.concepts.length)
-      nchild = Concept.find_by_name("Greece")
-      nparent = Concept.find_by_name("Capitalization")
-      ngrandparent = Concept.find_by_name("Alphabet")
-      expect(nchild.parent).to eq(nparent)
-      expect(nparent.parent).to eq(ngrandparent)
-    end
+  parent = {"id"=>1, "name"=>"Capitalization", "uid"=>"BRTGfOy7FGG4LB49eIxJQg", "parent_id"=>nil, "level"=>2}
+  child = {"id"=>2, "name"=>"Greece", "uid"=>"GPzZYKvZ2nSKmu7zC540bA", "parent_id"=>1, "level"=>0}
+  creator = Setup::CreateConcepts.new([child, parent])
+  
+	it "can find its parent concept" do
+	  found_parent = creator.find_parent_concept_from_concepts(child)	
+    expect(found_parent).to eq(parent)
+	end
 
+  it "can find or create its parent in the database" do
+    expect(Concept.find_by_id(child["parent_id"])).to be_nil
+    found_parent = creator.find_or_create_parent_in_db(child)
+    expect(found_parent.name).to eq(parent["name"])
+  end
+
+  it "should have a valid parent if required" do
+    Concept.delete_all
+    creator.create_concept(child)
+    expect(Concept.where(name: "Greece").first.parent_id).to eq(Concept.where(name: "Capitalization").first.id)
+  end
+  
+
+  it "should be able add the concepts array into the db" do
+    expect(Concept.count).to eq(0)
+    creator.create_all
+    expect(Concept.count).to eq(creator.concepts.length)
+    expect(Concept.find_by_name("Greece").parent).to eq(Concept.find_by_name("Capitalization"))
+  end
+  
+  grandparent = {"id"=>3, "name"=>"Alphabet", "uid"=>"BRTGfOy7FGG4LB49eIxJQf", "parent_id"=>nil, "level"=>1}
+  parent = {"id"=>1, "name"=>"Capitalization", "uid"=>"BRTGfOy7FGG4LB49eIxJQg", "parent_id"=>3, "level"=>2}
+  child = {"id"=>2, "name"=>"Greece", "uid"=>"GPzZYKvZ2nSKmu7zC540bA", "parent_id"=>1, "level"=>0}
+  creator.concepts = [child, parent, grandparent]
+
+  it "should be able recursively set parents" do
+    expect(Concept.count).to eq(0)
+    creator.create_concept(child)
+    expect(Concept.count).to eq(creator.concepts.length)
+    nchild = Concept.find_by_name("Greece")
+    nparent = Concept.find_by_name("Capitalization")
+    ngrandparent = Concept.find_by_name("Alphabet")
+    expect(nchild.parent).to eq(nparent)
+    expect(nparent.parent).to eq(ngrandparent)
   end
   
 end
