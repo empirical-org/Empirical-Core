@@ -30,7 +30,7 @@ EC.TextInput = React.createClass({
     var type = null;
     if (this.props.type != undefined) {
       type = this.props.type
-    } else if (this.props.name === 'passwword') {
+    } else if (this.props.name === 'password') {
       type = 'password';
     }
     return type;
@@ -103,7 +103,7 @@ EC.TextInput = React.createClass({
   },
 
   componentDidMount: function () {
-    that = this;
+    var that = this;
     if (this.determineType() == 'file') {
       $('#' + this.getId()).fileupload({
         dataType: 'json',
