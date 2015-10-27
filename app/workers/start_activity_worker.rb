@@ -1,7 +1,5 @@
 class StartActivityWorker
   include Sidekiq::Worker
-  sidekiq_options :retry => 2
-
 
   def perform(uid, start_time, attempts=0)
 
@@ -18,11 +16,7 @@ class StartActivityWorker
     end
 
     # publish event data
-    KeenWrapper.publish(:activity_sessions, activity_session.as_keen)
-
-    # add it to the student's scorebook
-    #
-    # anything else?
-
+    # no keen for now, were not using it yet
+    # KeenWrapper.publish(:activity_sessions, activity_session.as_keen)
   end
 end
