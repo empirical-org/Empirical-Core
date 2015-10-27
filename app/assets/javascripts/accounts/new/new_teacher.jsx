@@ -79,7 +79,8 @@ EC.NewTeacher = React.createClass({
 
   updateSendNewsletter: function () {
     var val = $(this.refs.sendNewsletter.getDOMNode()).attr('checked');
-    this.props.update({sendNewsletter: val});
+    var bool = (val === 'checked')
+    this.props.update({sendNewsletter: bool});
   },
 
   render: function () {

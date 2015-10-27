@@ -418,13 +418,13 @@ describe User, :type => :model do
   describe "#newsletter?" do
     let(:user) { FactoryGirl.build(:user) }
 
-    it 'returns true when newsletter set to 1' do
-      user.newsletter="1"
+    it 'returns true when send_newsletter is true' do
+      user.send_newsletter = true
       expect(user.send(:newsletter?)).to eq(true)
     end
 
-    it 'returns true when newsletter set to anything other than 1' do
-      user.newsletter="anything"
+    it 'returns false when send_newsletter is false' do
+      user.send_newsletter = false
       expect(user.send(:newsletter?)).to eq(false)
     end
   end
@@ -458,10 +458,10 @@ describe User, :type => :model do
   end
 
   describe "#subscribe_to_newsletter" do
-    let(:user) { FactoryGirl.build(:user, newsletter: newsletter) }
+    let(:user) { FactoryGirl.build(:user, send_newsletter: newsletter) }
 
-    context 'when #newsletter = 0' do
-      let(:newsletter) { 0 }
+    context 'send_newsletter = false' do
+      let(:newsletter) { false }
 
       it 'does not call MailchimpConnection.subscribe_to_newsletter' do
         expect(MailchimpConnection).not_to receive(:subscribe_to_newsletter)
@@ -470,8 +470,8 @@ describe User, :type => :model do
       end
     end
 
-    context 'when #newsletter = 1' do
-      let(:newsletter) { 1 }
+    context 'send_newsletter = true' do
+      let(:newsletter) { true }
 
       it 'calls MailchimpConnection.subscribe_to_newsletter' do
         expect(MailchimpConnection).to receive(:subscribe_to_newsletter)
