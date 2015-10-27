@@ -19,6 +19,7 @@ class AccountsController < ApplicationController
   def create
     role = params[:user].delete(:role)
     @user = User.find_by_id(session[:temporary_user_id]) || User.new
+
     @user.attributes = user_params
     @user.safe_role_assignment(role)
     @user.validate_username = true
@@ -69,7 +70,6 @@ protected
                                  :name,
                                  :username,
                                  :password,
-                                 :newsletter,
                                  :terms_of_service,
                                  :send_newsletter,
                                  :school_ids)

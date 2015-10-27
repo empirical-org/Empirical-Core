@@ -103,7 +103,7 @@ EC.NewAccount = React.createClass({
       password: this.state.password
     };
     if (this.state.role === 'teacher') {
-      data.newsletter = (this.state.sendNewsletter === 'checked');
+      data.send_newsletter = this.state.sendNewsletter;
     }
     return {user: data};
   },

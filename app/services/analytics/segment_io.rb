@@ -16,6 +16,7 @@ module SegmentIo
   module Events
     CLICK_SIGN_UP = 'Click Sign Up'
     TEACHER_ACCOUNT_CREATION = 'Teacher created an account'
+    TEACHER_SIGNED_UP_FOR_NEWSLETTER = 'Teacher signed up for newsletter'
     STUDENT_ACCOUNT_CREATION = 'Student created an account'
     TEACHERS_STUDENT_ACCOUNT_CREATION = "Teacher's student account created"
     TEACHER_SIGNIN = 'Teacher signed in'

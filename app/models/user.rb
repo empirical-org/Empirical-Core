@@ -284,7 +284,8 @@ private
   end
 
   def newsletter?
-    newsletter.to_i == 1
+    #newsletter.to_i == 1
+    send_newsletter
   end
 
 end

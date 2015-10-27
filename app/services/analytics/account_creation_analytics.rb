@@ -7,10 +7,8 @@ class AccountCreationAnalytics
 
   def track_teacher(teacher)
     analytics_identify(teacher)
-    analytics_track({
-      user_id: teacher.id,
-      event: SegmentIo::Events::TEACHER_ACCOUNT_CREATION
-    })
+    basic_track_teacher(teacher)
+    track_teacher_newsletter(teacher)
   end
 
   def track_student(student)
@@ -22,6 +20,21 @@ class AccountCreationAnalytics
   end
 
   private
+
+  def basic_track_teacher(teacher)
+    analytics_track({
+      user_id: teacher.id,
+      event: SegmentIo::Events::TEACHER_ACCOUNT_CREATION
+    })
+  end
+
+  def track_teacher_newsletter(teacher)
+    return if not teacher.send_newsletter
+    analytics_track({
+      user_id: teacher.id,
+      event: SegmentIo::Events::TEACHER_SIGNED_UP_FOR_NEWSLETTER
+    })
+  end
 
   def analytics_track(hash)
     analytics.track hash

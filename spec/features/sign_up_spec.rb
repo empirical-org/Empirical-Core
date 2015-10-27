@@ -50,7 +50,24 @@ feature 'Signing up', js: true do
     context 'with new info' do
       before(:each) { sign_up_teacher_and_select_school mr_kotter, false }
       it_behaves_like signup_succeeded
+
+      context 'send_newsletter is false' do
+        let(:send_newsletter) { false }
+        it 'marks it appropriately' do
+          user = User.find_by username: mr_kotter.username
+          expect(user.send_newsletter).to eq(false)
+        end
+      end
+
+      context 'send_newsletter is true' do
+        let(:send_newsletter) { true }
+        it 'marks it appropriately' do
+          user = User.find_by username: mr_kotter.username
+          expect(user.send_newsletter).to eq(true)
+        end
+      end
     end
+
 
     context 'with blank password' do
       let(:mr_kotter) do
