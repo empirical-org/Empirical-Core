@@ -1,6 +1,6 @@
 module MailchimpConnection
   def subscribe_to_newsletter(email)
-    if Global.call_external_service.mailchimp
+    if Global.call_external_service.try(:mailchimp)
       connection = Mailchimp::API.new(ENV['MAILCHIMP_API_KEY'])
       connection.lists.subscribe('eadf6d8153',     # id
                                  { email: email }, # email
