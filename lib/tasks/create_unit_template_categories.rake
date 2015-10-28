@@ -5,8 +5,18 @@ namespace :unit_template_categories do
 
   def create_unit_template_categories
     data.each do |d|
-      utc = UnitTemplateCategory.new(name: d[0], primary_color: d[1], secondary_color: d[2])
-      utc.save!
+      name = d[0]
+      utc = UnitTemplateCategory.where(name: name)
+      if utc.any?
+        puts "#{name} already exists"
+      else
+        utc = UnitTemplateCategory.new(name: name, primary_color: d[1], secondary_color: d[2])
+        if utc.save
+          puts "saved #{name} successfully"
+        else
+          puts "failure saving #{name}"
+        end
+      end
     end
   end
 
