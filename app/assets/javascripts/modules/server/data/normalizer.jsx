@@ -29,6 +29,8 @@ EC.modules.Normalizer = function () {
 
   // PUBLIC
   this.process = function (object, fieldDatas) {
+    console.log('object', object)
+    console.log('fieldDatas', fieldDatas)
     return _.reduce(fieldDatas, _normalizeField, object);
   }
 

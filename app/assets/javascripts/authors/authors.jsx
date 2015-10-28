@@ -18,8 +18,6 @@ EC.Authors = React.createClass({
     } else {
       url = null;
     }
-    console.log('url', url)
-    console.log('cmsComponent',cmsComponent )
     return url;
   },
 
@@ -32,6 +30,7 @@ EC.Authors = React.createClass({
     };
 
     var savingKeys = ['id', 'name', 'avatar']
+    var fieldsToNormalize = []
 
     var formFields = [
       {
@@ -47,7 +46,7 @@ EC.Authors = React.createClass({
             <div>
               <div className='row'>
                 <div className='col-xs-12'>
-                  <img src={this.getImageUrl(cmsComponent)} />
+                  <img src={this.getImageUrl(cmsComponent)}></img>
                 </div>
               </div>
               <div className='row'>
@@ -59,6 +58,7 @@ EC.Authors = React.createClass({
                            resource={cmsComponent.state.resourceToEdit}
                            formFields={formFields}
                            savingKeys={savingKeys}
+                           fieldsToNormalize={fieldsToNormalize}
                            returnToIndex={cmsComponent.returnToIndex} />
                 </div>
               </div>

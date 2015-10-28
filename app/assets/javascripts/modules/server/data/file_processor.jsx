@@ -45,7 +45,7 @@ EC.modules.FileProcessor = function () {
               }
 
               // if the property is an object, but not a File,
-              // use recursivity.
+              // recur
               if(typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
 
                 _intoFormData(obj[property], fd, formKey);

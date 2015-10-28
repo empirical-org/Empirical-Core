@@ -1,3 +1,4 @@
+'use strict';
 EC.modules.Data = function () {
 
   var _modules = {
@@ -15,15 +16,28 @@ EC.modules.Data = function () {
 
   var _normalizer = function (fieldDatas) {
     return function (data) {
-      this.modules.normalizer(data, fieldDatas);
+      return _modules.normalizer.process(data, fieldDatas);
     }
   }
 
-  this.process = function (resourceNameSingular, fieldsToNormalize) {
+  var _partsPicker = function (savingKeys) {
+    return function (data) {
+      var result;
+      if (savingKeys && savingKeys.length) {
+        result = _.pick(data, savingKeys);
+      } else {
+        result = data;
+      }
+      return result;
+    }
+  }
+
+  this.process = function (resourceNameSingular, options) {
     return _.compose(
         _modules.fileProcessor.process,
         _constructData(resourceNameSingular),
-        _normalizer(fieldsToNormalize)
+        _partsPicker(options.savingKeys),
+        _normalizer(options.fieldsToNormalize)
     );
   }
 }

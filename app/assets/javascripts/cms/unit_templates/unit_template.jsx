@@ -1,4 +1,10 @@
 'use strict';
+
+/*
+this should be refactored using resource.jsx the way authors.jsx is
+
+*/
+
 EC.Cms.UnitTemplate = React.createClass({
   propTypes: {
     unitTemplate: React.PropTypes.object.isRequired,
@@ -60,7 +66,6 @@ EC.Cms.UnitTemplate = React.createClass({
       time: null,
       grades: [],
       activities: [],
-      related_unit_templates: [],
       unit_template_category_id: null,
       author_id: null
     };
@@ -109,9 +114,9 @@ EC.Cms.UnitTemplate = React.createClass({
 
   save: function () {
     var fieldsToNormalize = [
-      {name: 'author', idName: 'author_id'},
-      {name: 'activities', idName: 'activity_ids'},
-      {name: 'related_unit_templates', idName: 'related_unit_template_ids'}
+      //{name: 'author', idName: 'author_id'},
+      {name: 'activities', idName: 'activity_ids'}//,
+      //{name: 'related_unit_templates', idName: 'related_unit_template_ids'}
     ];
     this.modules.server.save(this.state.model, {callback: this.props.returnToIndex, fieldsToNormalize: fieldsToNormalize})
   },
