@@ -7,10 +7,10 @@ EC.modules.Server = function (resourceNameSingular, resourceNamePlural, urlPrefi
     saver: new EC.modules.Saver()
   }
 
-
+  var _saveCallback = function () {console.log('save success')}
 
   var _destroyHelper = function (url, callback) {
-    var callback = (callback ? callback : saveCallback);
+    var callback = (callback ? callback : _saveCallback);
     $.ajax({url: url, type: 'DELETE', success: callback})
   }
 
@@ -28,9 +28,12 @@ EC.modules.Server = function (resourceNameSingular, resourceNamePlural, urlPrefi
 
   // SAVE
   this.save = function (data, options) {
+    console.log('data', data)
     var options = _.merge({}, options, {urlPrefix: _urlPrefix});
-    var hash = _modules.saver.processor(data, resourceNameSingular, resourceNamePlural, options);
-    $.ajax(hash);
+    var hash = _modules.saver.process(data, resourceNameSingular, resourceNamePlural, options);
+    var ajax = options.ajax ? options.ajax : $.ajax // so we can stub out in tests
+    console.log('hash', hash)
+    return ajax(hash); // return for tests purposes
   }
 
   // GET
