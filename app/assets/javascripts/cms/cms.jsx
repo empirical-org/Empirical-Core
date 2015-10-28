@@ -71,7 +71,6 @@ EC.Cms = React.createClass({
   },
 
   returnToIndex: function () {
-    console.log('return to index')
     this.getIndexFromServer();
     this.setState({crudState: 'index'});
   },
@@ -81,7 +80,6 @@ EC.Cms = React.createClass({
   },
 
   edit: function (resource) {
-    console.log('edit', resource);
     this.setState({crudState: 'edit', resourceToEdit: resource});
   },
 

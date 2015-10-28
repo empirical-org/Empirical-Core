@@ -91,14 +91,12 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getModelState: function (key) {
-    console.log('model in getModelState', this.state.model)
     return this.state.model[key];
   },
 
   updateModelState: function (key, value) {
     var newState = this.state;
     newState.model[key] = value;
-    console.log('newState', newState)
     this.setState(newState);
   },
 
