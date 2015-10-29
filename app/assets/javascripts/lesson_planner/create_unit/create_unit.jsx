@@ -1,19 +1,38 @@
 "use strict";
 EC.CreateUnit = React.createClass({
 	propTypes: {
+		data: React.PropTypes.object.isRequired, // {classrooms: [], stage: Int, resource: UnitTemplate}
+		toggleStage: React.PropTypes.func.isRequired,
 		analytics: React.PropTypes.object.isRequired
 	},
 
 	getInitialState: function () {
 		return {
-			unitName: null,
-			stage: 1, // stage 1 is selecting activities, stage 2 is selecting students and dates
 			selectedActivities : [],
 			selectedClassrooms: [],
 			classrooms: [],
-			dueDates: {},
-			fnl: new EC.modules.fnl()
+			dueDates: {}
 		}
+	},
+
+	getStage: function () {
+		return this.props.data.stage;
+	},
+
+	getSelectedActivities: function () {
+		return this.props.data.model.selectedActivities;
+	},
+
+	getClassrooms: function () {
+		return this.props.data.options.classrooms;
+	},
+
+	getUnitName: function () {
+		return this.props.data.model.name;
+	},
+
+	toggleActivitySelection: function (activity, true_or_false) {
+		this.props.data.toggleActivitySelection(activity, true_or_false)
 	},
 
 	assignActivityDueDate: function(activity, dueDate) {
@@ -22,16 +41,8 @@ EC.CreateUnit = React.createClass({
 		this.setState({dueDates: dueDates});
 	},
 
-	toggleActivitySelection: function (activity, true_or_false) {
-		if (true_or_false) {
-			this.props.analytics.track('select activity in lesson planner', {name: activity.name, id: activity.id});
-		}
-		var sas = this.state.fnl.toggle(this.state.selectedActivities, activity);
-		this.setState({selectedActivities: sas});
-	},
-
 	toggleClassroomSelection: function(classroom, flag) {
-		var classrooms = this.state.classrooms;
+		var classrooms = this.getClassrooms();
 		var updated = _.map(classrooms, function (c) {
 			if (c.classroom.id == classroom.id) {
 				if (c.students.length == 0) {
@@ -58,7 +69,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	toggleStudentSelection: function(student, classroom, flag) {
-		var updated = _.map(this.state.classrooms, function (c) {
+		var updated = _.map(this.getClassrooms(), function (c) {
 			if (c.classroom.id == classroom.id) {
 				var updated_students = _.map(c.students, function (s) {
 					if (s.id == student.id) {
@@ -74,28 +85,13 @@ EC.CreateUnit = React.createClass({
 	},
 
 	updateUnitName: function (unitName) {
-		this.setState({unitName: unitName});
+		this.props.data.update({name: unitName})
 	},
 
 	clickContinue: function () {
 		this.props.analytics.track('click Continue in lesson planner');
-		this.fetchClassrooms();
-		this.setState({stage: 2});
+		this.props.toggleStage(2);
 	},
-
-	fetchClassrooms: function() {
-    var that = this;
-    $.ajax({
-      url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
-      context: this,
-      success: function (data) {
-        that.setState({classrooms: data.classrooms_and_their_students});
-      },
-      error: function () {
-        console.log('error fetching classrooms');
-      }
-    });
-  },
 
 	finish: function() {
 		$.ajax({
@@ -107,7 +103,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	formatCreateRequestData: function() {
-		var classroomPostData = _.select(this.state.classrooms, function (c) {
+		var classroomPostData = _.select(this.getClassrooms(), function (c) {
 			var includeClassroom, selectedStudents;
 			if (this.emptyClassroomSelected(c)) {
 				includeClassroom = true;
@@ -137,7 +133,7 @@ EC.CreateUnit = React.createClass({
 		});
 		var x = {
 			unit: {
-				name: this.state.unitName,
+				name: this.getUnitName(),
 				classrooms: classroomPostData,
 				activities: activityPostData
 			}
@@ -150,12 +146,12 @@ EC.CreateUnit = React.createClass({
 	},
 
 	isUnitNameSelected: function () {
-		return ((this.state.unitName != null) && (this.state.unitName != ''));
+		return ((this.getUnitName() != null) && (this.getUnitName() != ''));
 	},
 
 	determineIfEnoughInputProvidedToContinue: function () {
 		var a = this.isUnitNameSelected();
-		var b = (this.state.selectedActivities.length > 0);
+		var b = (this.getSelectedActivities().length > 0);
 		return (a && b);
 	},
 
@@ -169,7 +165,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	areAnyStudentsSelected: function () {
-		var x = _.select(this.state.classrooms, function (c) {
+		var x = _.select(this.getClassrooms(), function (c) {
 			var includeClassroom;
 			if (this.emptyClassroomSelected(c)) {
 				includeClassroom = true;
@@ -184,12 +180,12 @@ EC.CreateUnit = React.createClass({
 	},
 
 	areAllDueDatesProvided: function () {
-		return (Object.keys(this.state.dueDates).length == this.state.selectedActivities.length);
+		return (Object.keys(this.state.dueDates).length == this.getSelectedActivities().length);
 	},
 
 	determineStage1ErrorMessage: function () {
 		var a = this.isUnitNameSelected();
-		var b = (this.state.selectedActivities.length > 0);
+		var b = (this.getSelectedActivities().length > 0);
 		var msg;
 		if (!a) {
 			if (!b) {
@@ -225,22 +221,22 @@ EC.CreateUnit = React.createClass({
 
 	stage1SpecificComponents: function () {
 		return (<EC.UnitStage1 toggleActivitySelection={this.toggleActivitySelection}
-								 unitName = {this.state.unitName}
+								 unitName = {this.getUnitName()}
 								 updateUnitName={this.updateUnitName}
-								 selectedActivities={this.state.selectedActivities}
+								 selectedActivities={this.getSelectedActivities()}
 								 isEnoughInputProvidedToContinue={this.determineIfEnoughInputProvidedToContinue()}
 								 errorMessage={this.determineStage1ErrorMessage()}
 								 clickContinue={this.clickContinue} />);
 	},
 
 	stage2SpecificComponents: function () {
-			return (<EC.Stage2 selectedActivities={this.state.selectedActivities}
-								 classrooms={this.state.classrooms}
+			return (<EC.Stage2 selectedActivities={this.getSelectedActivities()}
+								 classrooms={this.getClassrooms()}
 								 toggleActivitySelection={this.toggleActivitySelection}
 								 toggleClassroomSelection={this.toggleClassroomSelection}
 								 toggleStudentSelection={this.toggleStudentSelection}
 								 finish={this.finish}
-								 unitName={this.state.unitName}
+								 unitName={this.getUnitName()}
 								 assignActivityDueDate={this.assignActivityDueDate}
 								 areAnyStudentsSelected={this.areAnyStudentsSelected()}
 								 areAllDueDatesProvided={this.areAllDueDatesProvided()}
@@ -250,14 +246,14 @@ EC.CreateUnit = React.createClass({
 	render: function () {
 		var stageSpecificComponents;
 
-		if (this.state.stage === 1) {
+		if (this.getStage() === 1) {
 			stageSpecificComponents = this.stage1SpecificComponents();
 		} else {
 			stageSpecificComponents = this.stage2SpecificComponents();
 		}
 		return (
 			<span>
-				<EC.ProgressBar stage={this.state.stage}/>
+				<EC.ProgressBar stage={this.getStage}/>
 				<div className='container lesson_planner_main'>
 					{stageSpecificComponents}
 				</div>
