@@ -1,16 +1,8 @@
 'use strict';
-$(function () {
-  var ele = $('#teachers-unit-templates');
-  if (ele.length > 0) {
-    var props, comp;
-    props = {}
-    comp = React.createElement(EC.UnitTemplatesManager, props);
-    React.render(comp, ele[0]);
-  }
-});
-
-
 EC.UnitTemplatesManager = React.createClass({
+  propTypes: {
+    loadActivityPackIntoUnitCreator: React.PropTypes.func.isRequired
+  },
 
   getInitialState: function () {
     this.initializeModules()
@@ -55,7 +47,7 @@ EC.UnitTemplatesManager = React.createClass({
 
   assign: function (data) {
     // takes you to stage 2 of unit creator
-    console.log('assign', data);
+    this.props.loadActivityPackIntoUnitCreator(data);
   },
 
   returnToIndex: function () {this.setState({stage: 'index', model: null})},
@@ -77,6 +69,10 @@ EC.UnitTemplatesManager = React.createClass({
   },
 
   render: function () {
-    return (this.stageSpecificComponents());
+    return (
+      <div className='container unit-templates-manager'>
+        {this.stageSpecificComponents()}
+      </div>
+    );
   }
 })
