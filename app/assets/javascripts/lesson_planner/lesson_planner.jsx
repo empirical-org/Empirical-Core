@@ -10,8 +10,6 @@ $(function () {
   }
 });
 
-
-
 EC.LessonPlanner = React.createClass({
 	propTypes: {
 		analytics: React.PropTypes.object.isRequired
@@ -62,7 +60,6 @@ EC.LessonPlanner = React.createClass({
     }
     return state;
 	},
-
 
   selectModel: function (ut) {
     var relatedModels = this._modelsInCategory(ut.unit_template_category.id)
