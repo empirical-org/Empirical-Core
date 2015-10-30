@@ -1,12 +1,15 @@
 module ConceptHelper
   def all_concept_stats(activity_session)
-    return '' unless activity_session.present?
-    # Generate a header for each applicable concept class (activity session has concept tag results for that class)
-    concept_results = activity_session.concept_results
-    concepts = activity_session.concepts
-    concepts.reduce "" do |html, concept|
-      html += stats_for_concept(concept, concept_results)
-    end
+    # return nothing for now because this is too expensive, killing response times
+
+    # return '' unless activity_session.present?
+    # # Generate a header for each applicable concept class (activity session has concept tag results for that class)
+    # concept_results = activity_session.concept_results
+    # concepts = activity_session.concepts
+    # concepts.reduce "" do |html, concept|
+    #   html += stats_for_concept(concept, concept_results)
+    # end
+    return ''
   end
 
   private
