@@ -3,6 +3,23 @@ require 'rails_helper'
 describe User, :type => :model do
   let(:user) { FactoryGirl.build(:user) }
 
+
+  describe '#newsletter?' do
+    context 'user.send_newsletter = false' do
+      let(:teacher) { FactoryGirl.create(:user, send_newsletter: false) }
+      it 'returns false' do
+        expect(teacher.newsletter?).to eq(false)
+      end
+    end
+
+    context 'user.send_newsletter = true' do
+      let(:teacher) { FactoryGirl.create(:user, send_newsletter: true) }
+      it 'returns true' do
+        expect(teacher.newsletter?).to eq(true)
+      end
+    end
+  end
+
   describe "default scope" do
     let(:user1) { FactoryGirl.create(:user) }
     let(:user2) { FactoryGirl.create(:user) }
