@@ -78,6 +78,10 @@ EmpiricalGrammar::Application.routes.draw do
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
       end
 
+      member do
+        put :archive
+      end
+
       resources :activities, controller: 'classroom_activities'
 
       resources :students do

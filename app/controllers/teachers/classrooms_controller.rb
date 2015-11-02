@@ -44,9 +44,12 @@ class Teachers::ClassroomsController < ApplicationController
     redirect_to teachers_classrooms_path
   end
 
-  def hide
-
+  def archive
+    Classroom.find(params["id"]).update(archived: true)
+    redirect_to teachers_classrooms_path
   end
+
+
 
 private
 

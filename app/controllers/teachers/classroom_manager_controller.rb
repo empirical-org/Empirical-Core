@@ -28,6 +28,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     @classrooms = current_user.classrooms
   end
 
+
+
   def scorebook
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
