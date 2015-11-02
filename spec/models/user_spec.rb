@@ -580,24 +580,6 @@ describe User, :type => :model do
       expect(student.activity_sessions.size).to eq(1)
       expect(student.activity_sessions.first.activity).to eq(activity)
     end
-
-    describe '#complete_and_incomplete_activity_sessions_by_classification' do
-      context 'when a unit is specified' do
-        it 'excludes interrupted retries' do
-          retry1 = FactoryGirl.create :activity_session_incompleted, user: student, is_retry: true, classroom_activity: classroom_activity, activity: activity
-          x = student.complete_and_incomplete_activity_sessions_by_classification(unit)
-          expect(x.length).to eq(1)
-        end
-      end
-
-      context 'when a unit is not specified' do
-        it 'excludes interrupted retries' do
-          retry1 = FactoryGirl.create :activity_session_incompleted, user: student, is_retry: true, classroom_activity: classroom_activity, activity: activity
-          x = student.complete_and_incomplete_activity_sessions_by_classification
-          expect(x.length).to eq(1)
-        end
-      end
-    end
   end
 
   it 'does not care about all the validation stuff when the user is temporary'
