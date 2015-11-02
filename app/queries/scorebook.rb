@@ -50,6 +50,7 @@ class Scorebook
     # Find all the 'final' activity sessions for all the students in all the classrooms
     results = ActivitySession.select("users.name, activity_sessions.id, activity_sessions.percentage,
                                 #{User.sorting_name_sql}")
+                              .preload(:concept_results => :concept)
                               .includes(:user, :activity => [:classification, :topic => [:section, :topic_category]])
                               .references(:user)
                               .where(user: users)
@@ -72,7 +73,7 @@ class Scorebook
     if begin_date.present?
       results = results.where("activity_sessions.completed_at > ?", (begin_date.to_date - 1.day))
     end
-    if end_date.present?
+    if end_date.present? 
       results = results.where("activity_sessions.completed_at < ?", (end_date.to_date + 1.day) )
     end
     results
@@ -91,7 +92,7 @@ class Scorebook
       percentage: activity_session.percentage,
       due_date_or_completed_at_date: activity_session.display_due_date_or_completed_at_date,
       activity: (ActivitySerializer.new(activity_session.activity)).as_json(root: false),
-      concept_results: []# FIXME: this is too slow, had to cut it out : activity_session.concept_results.map {|result| ConceptResultSerializer.new(result).as_json(root: false) }
+      concept_results: activity_session.concept_results.map {|result| ConceptResultSerializer.new(result).as_json(root: false) }
     }
   end
 end
