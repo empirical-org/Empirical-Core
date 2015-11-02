@@ -99,7 +99,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def authorize!
     if current_user.classrooms.visible.any?
       if params[:classroom_id].present? and params[:classroom_id].length > 0
-        @classroom = Classroom.find(params[:classroom_id])
+        @classroom = Classroom.visible.find(params[:classroom_id])
       end
 
       @classroom ||= current_user.classrooms.visible.first
