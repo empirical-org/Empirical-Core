@@ -37,12 +37,15 @@ class Teachers::ClassroomsController < ApplicationController
     @classroom.update_attributes(classroom_params)
     # this is updated from the students tab of the scorebook, so will make sure we keep user there
     redirect_to teachers_classroom_students_path(@classroom.id)
-
   end
 
   def destroy
     @classroom.destroy
     redirect_to teachers_classrooms_path
+  end
+
+  def hide
+
   end
 
 private
