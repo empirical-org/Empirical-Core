@@ -4,7 +4,7 @@
 
     <ul>
       <%- if current_user.has_classrooms? %>
-	      <li><%= active_link_to 'Invite Students', (teachers_classroom_invite_students_path(classroom_id: current_user.classrooms.first)) %></li>
+	      <li><%= active_link_to 'Invite Students', (teachers_classroom_invite_students_path(classroom_id: current_user.classrooms.visible.first)) %></li>
 	      <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: ((action_name == 'index') or (action_name == 'edit')) ? 'active' : '' %></li>
 	  <% end %>
 	  <li><%= active_link_to 'Create a Class', new_teachers_classroom_path %></li>
