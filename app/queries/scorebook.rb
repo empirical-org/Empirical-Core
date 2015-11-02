@@ -72,7 +72,7 @@ class Scorebook
     if begin_date.present?
       results = results.where("activity_sessions.completed_at > ?", (begin_date.to_date - 1.day))
     end
-    if end_date.present?
+    if end_date.present? 
       results = results.where("activity_sessions.completed_at < ?", (end_date.to_date + 1.day) )
     end
     results
@@ -91,7 +91,7 @@ class Scorebook
       percentage: activity_session.percentage,
       due_date_or_completed_at_date: activity_session.display_due_date_or_completed_at_date,
       activity: (ActivitySerializer.new(activity_session.activity)).as_json(root: false),
-      concept_results: []# FIXME: this is too slow, had to cut it out : activity_session.concept_results.map {|result| ConceptResultSerializer.new(result).as_json(root: false) }
+      concept_results: activity_session.concept_results.map {|result| ConceptResultSerializer.new(result).as_json(root: false) }
     }
   end
 end
