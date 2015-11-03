@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151102202446) do
+ActiveRecord::Schema.define(version: 20151103143507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 20151102202446) do
     t.datetime "updated_at"
     t.string   "clever_id"
     t.string   "grade"
-    t.boolean  "archived",   default: false, null: false
+    t.boolean  "hidden",     default: false, null: false
   end
 
   add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree

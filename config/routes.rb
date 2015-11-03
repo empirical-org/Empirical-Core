@@ -79,7 +79,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       member do
-        put :archive
+        put :hide
       end
 
       resources :activities, controller: 'classroom_activities'
