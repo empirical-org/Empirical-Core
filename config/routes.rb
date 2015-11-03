@@ -79,6 +79,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       member do
+        get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
         put :hide
       end
 
