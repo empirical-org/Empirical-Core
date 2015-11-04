@@ -18,7 +18,7 @@
                 span.pull-right.delete-class
                   = link_to 'Delete Class',
                             hide_teachers_classroom_path(@classroom),
-                            method: 'put',
+                            method: 'get',
                             data: {confirm: 'Are you sure you want to delete this class?'},
                             class: 'pull-right delete-class'
 
