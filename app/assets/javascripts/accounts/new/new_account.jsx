@@ -80,6 +80,7 @@ EC.NewAccount = React.createClass({
   },
 
   signUp: function () {
+    this.props.analytics.track('signed up');
     $.ajax({
       type: 'POST',
       url: '/account',
