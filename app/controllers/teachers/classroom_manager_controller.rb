@@ -5,13 +5,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   def lesson_planner
-    if current_user.classrooms.empty?
+    if current_user.classrooms.visible.empty?
       redirect_to new_teachers_classroom_path
     end
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    current_user.classrooms.each do |classroom|
+    current_user.classrooms.visible.each do |classroom|
       obj = {
         classroom: classroom,
         students: classroom.students.sort_by(&:sorting_name)
@@ -25,21 +25,23 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def invite_students
-    @classrooms = current_user.classrooms
+    @classrooms = current_user.classrooms.visible
   end
 
+
+
   def scorebook
-    if current_user.classrooms.empty?
+    if current_user.classrooms.visible.empty?
       redirect_to new_teachers_classroom_path
     end
   end
 
   def scores
-    classrooms = current_user.classrooms.includes(:classroom_activities => [:unit])
+    classrooms = current_user.classrooms.visible.includes(:classroom_activities => [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
 
     if params[:no_load_has_ever_occurred_yet] == 'true'
-      params[:classroom_id] = current_user.classrooms.first
+      params[:classroom_id] = current_user.classrooms.visible.first
       was_classroom_selected_in_controller = true
       selected_classroom = Classroom.find params[:classroom_id]
     else
@@ -95,12 +97,12 @@ class Teachers::ClassroomManagerController < ApplicationController
   private
 
   def authorize!
-    if current_user.classrooms.any?
+    if current_user.classrooms.visible.any?
       if params[:classroom_id].present? and params[:classroom_id].length > 0
-        @classroom = Classroom.find(params[:classroom_id])
+        @classroom = Classroom.visible.find(params[:classroom_id])
       end
 
-      @classroom ||= current_user.classrooms.first
+      @classroom ||= current_user.classrooms.visible.first
       auth_failed unless @classroom.teacher == current_user
     end
   end
