@@ -7,16 +7,15 @@ describe 'ScorebookQuery' do
   let!(:activity) { FactoryGirl.create(:activity) }
   let!(:activity_session) { FactoryGirl.create(:activity_session, user: student, activity: activity) }
 
-  let!(:scorebook) { Scorebook.new(teacher) }
+  let!(:scorebook_query) { ScorebookQuery.new(teacher) }
 
   def subject
-    scorebook.scores
+    scorebook_query.query
   end
 
-  # FIXME: break this method out into a separate class so were not testing a private method
-  it '#student_activity_sessions' do
-    sessions = scorebook.send(:student_activity_sessions, classroom.id)
-    expect(sessions).to_not be_empty
+  it 'works' do
+    all, is_last_page = subject
+    expect(all).to_not be_empty
   end
 
 end
