@@ -11,7 +11,7 @@ describe ActivitySession, :type => :model do
 
   end
 
-  let(:activity_session) {FactoryGirl.build(:activity_session, time_spent: nil)}
+  let(:activity_session) {FactoryGirl.build(:activity_session, time_spent: nil, completed_at: 5.minutes.ago)}
 
   describe "#activity" do
 
