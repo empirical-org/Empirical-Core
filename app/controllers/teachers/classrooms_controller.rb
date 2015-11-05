@@ -7,7 +7,7 @@ class Teachers::ClassroomsController < ApplicationController
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
     else
-      @classrooms = current_user.classrooms.visible
+      @classrooms = current_user.classrooms
       @classroom = @classrooms.first
     end
   end
