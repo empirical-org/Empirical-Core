@@ -244,6 +244,11 @@ class User < ActiveRecord::Base
     generate_username
   end
 
+  def newsletter?
+    #newsletter.to_i == 1
+    send_newsletter
+  end
+
 private
   def prep_authentication_terms
     self.email = email.downcase unless email.blank?
@@ -282,10 +287,4 @@ private
   def generate_username
     self.username = UsernameGenerator.new(self).student
   end
-
-  def newsletter?
-    #newsletter.to_i == 1
-    send_newsletter
-  end
-
 end

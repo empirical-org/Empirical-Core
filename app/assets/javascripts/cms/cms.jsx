@@ -80,7 +80,6 @@ EC.Cms = React.createClass({
   },
 
   edit: function (resource) {
-    console.log('edit', resource);
     this.setState({crudState: 'edit', resourceToEdit: resource});
   },
 

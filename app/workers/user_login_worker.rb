@@ -1,7 +1,5 @@
 class UserLoginWorker
   include Sidekiq::Worker
-  sidekiq_options :retry => 2
-
 
   def perform(id, ip_address)
 
@@ -10,17 +8,19 @@ class UserLoginWorker
     @user.update_attributes(ip_address: ip_address)
     @user.save
 
-    data = @user.serialized.as_json(root: false)
+    # no keen for now, were not using it yet
 
-    data[:keen] = {
-      addons: [{
-          name: "keen:ip_to_geo",
-          input: {ip: "ip_address"},
-          output: "ip_geo_info"
-        }]
-    }
+    # data = @user.serialized.as_json(root: false)
 
-    KeenWrapper.publish(:login, data)
+    # data[:keen] = {
+    #   addons: [{
+    #       name: "keen:ip_to_geo",
+    #       input: {ip: "ip_address"},
+    #       output: "ip_geo_info"
+    #     }]
+    # }
+
+    # KeenWrapper.publish(:login, data)
 
     analytics = SigninAnalytics.new
     if @user.role == 'teacher'
