@@ -6,7 +6,8 @@ EC.Resource = React.createClass({
     resource: React.PropTypes.object.isRequired,
     formFields: React.PropTypes.array.isRequired,
     returnToIndex: React.PropTypes.func.isRequired,
-    savingKeys: React.PropTypes.array.isRequired
+    savingKeys: React.PropTypes.array.isRequired,
+    fieldsToNormalize: React.PropTypes.array.isRequired
   },
 
   getInitialState: function () {
@@ -23,7 +24,7 @@ EC.Resource = React.createClass({
   initializeModules: function () {
     this.modules = {
       textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateModelState),
-      server: new EC.modules.Server(this.props.resourceNameSingular, this.props.resourceNamePlural)
+      server: new EC.modules.Server(this.props.resourceNameSingular, this.props.resourceNamePlural, '/cms')
     }
   },
 
@@ -34,10 +35,13 @@ EC.Resource = React.createClass({
   },
 
   save: function () {
-    console.log('model', this.state.model)
     var data = _.pick(this.state.model, this.props.savingKeys);
-    console.log('data', data)
-    this.modules.server.cmsSave(data, this.props.returnToIndex);
+    var options = {
+      callback: this.props.returnToIndex,
+      savingKeys: this.props.savingKeys,
+      fieldsToNormalize: this.props.fieldsToNormalize
+    }
+    this.modules.server.save(data, options);
   },
 
   render: function () {

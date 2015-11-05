@@ -1,6 +1,5 @@
 class FinishActivityWorker
   include Sidekiq::Worker
-  sidekiq_options :retry => 2
 
 
   def perform(uid)
@@ -26,7 +25,8 @@ class FinishActivityWorker
     end
 
     # publish event data
-    KeenWrapper.publish(:activity_sessions, event_data)
+    # no keen for now, were not using it yet
+    # KeenWrapper.publish(:activity_sessions, event_data)
 
     analytics = FinishActivityAnalytics.new
     analytics.track(activity_session)

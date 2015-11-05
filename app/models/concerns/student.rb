@@ -31,9 +31,10 @@ module Student
     def percentages_by_classification(unit = nil)
 
       if unit.nil?
-        sessions = self.activity_sessions.where(is_final_score: true).completed
+        sessions = self.activity_sessions.preload(:concept_results => [:concept]).where(is_final_score: true).completed
       else
         sessions = ActivitySession.joins(:classroom_activity)
+                  .preload(:concept_results => [:concept])
                   .where(is_final_score: true)
                   .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                   .select("activity_sessions.*").completed
@@ -61,12 +62,13 @@ module Student
 
 
     def incomplete_activity_sessions_by_classification(unit = nil)
-
       if unit.nil?
-        sessions = self.activity_sessions.incomplete
+        sessions = self.activity_sessions.preload(:concept_results => [:concept]).incomplete
       else
 
-        sessions = ActivitySession.joins(:classroom_activity)
+        sessions = ActivitySession
+                    .preload(:concept_results => [:concept])
+                    .joins(:classroom_activity)
                     .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                     .where("activity_sessions.completed_at is null")
                     .where("activity_sessions.is_retry = false")
@@ -77,17 +79,6 @@ module Student
       sessions.sort do |a,b|
         b.activity.classification.key <=> a.activity.classification.key
       end
-
-
-    end
-
-
-
-    def complete_and_incomplete_activity_sessions_by_classification(unit = nil)
-      arr1 = self.percentages_by_classification(unit)
-      arr2 = self.incomplete_activity_sessions_by_classification(unit)
-      arr3 = arr1.concat(arr2)
-      arr3
     end
 
     def assign_classroom_activities
@@ -105,8 +96,6 @@ module Student
         end
       end
     end
-
-
 
     has_many :activity_sessions, dependent: :destroy do
       def rel_for_activity activity

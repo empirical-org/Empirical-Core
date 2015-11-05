@@ -9,7 +9,7 @@ EC.modules.Saver = function () {
   this.process = function (data, resourceNameSingular, resourceNamePlural, options) {
     return _.compose(
       _modules.params.process(data.id, resourceNamePlural, options),
-      _modules.data.process(resourceNameSingular, options.fieldsToNormalize)
+      _modules.data.process(resourceNameSingular, options)
     )(data)
   }
 }

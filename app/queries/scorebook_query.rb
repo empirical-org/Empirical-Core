@@ -1,11 +1,11 @@
-class Scorebook
+class ScorebookQuery
   SCORES_PER_PAGE = 200
   def initialize(teacher)
     @teacher = teacher
   end
 
-  def scores(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
-    results = student_activity_sessions(classroom_id)
+  def query(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
+    results = ActivitySessionsQuery.new.query(@teacher, classroom_id)
     results = filter_by_unit(results, unit_id)
     results = filter_by_dates(results, begin_date, end_date)
     results = paginate(results, current_page)
@@ -40,24 +40,6 @@ class Scorebook
 
   private
 
-  def student_activity_sessions(classroom_id)
-    if classroom_id.present?
-      users = Classroom.find(classroom_id).students
-    else
-      users = @teacher.classrooms.map(&:students).flatten.compact.uniq
-    end
-
-    # Find all the 'final' activity sessions for all the students in all the classrooms
-    results = ActivitySession.select("users.name, activity_sessions.id, activity_sessions.percentage,
-                                #{User.sorting_name_sql}")
-                              .includes(:user, :activity => [:classification, :topic => [:section, :topic_category]])
-                              .references(:user)
-                              .where(user: users)
-                              .where('(activity_sessions.is_final_score = true) or ((activity_sessions.completed_at IS NULL) and activity_sessions.is_retry = false)')
-
-    results
-  end
-
   def filter_by_unit(results, unit_id)
     if unit_id.present?
       classroom_activity_ids = Unit.find(unit_id).classroom_activities.map(&:id)
@@ -72,7 +54,7 @@ class Scorebook
     if begin_date.present?
       results = results.where("activity_sessions.completed_at > ?", (begin_date.to_date - 1.day))
     end
-    if end_date.present? 
+    if end_date.present?
       results = results.where("activity_sessions.completed_at < ?", (end_date.to_date + 1.day) )
     end
     results
@@ -91,7 +73,7 @@ class Scorebook
       percentage: activity_session.percentage,
       due_date_or_completed_at_date: activity_session.display_due_date_or_completed_at_date,
       activity: (ActivitySerializer.new(activity_session.activity)).as_json(root: false),
-      concept_results: activity_session.concept_results.map {|result| ConceptResultSerializer.new(result).as_json(root: false) }
+      concept_results: activity_session.concept_results.map{|result| {concept: result.concept, metadata: result.metadata}}
     }
   end
 end
