@@ -5,6 +5,7 @@ class Classroom < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :teacher_id
   validates :grade, presence: true
   validates_presence_of :name
+  default_scope { where(hidden: false)}
 
 
   has_many :units
