@@ -7,7 +7,7 @@ class Teachers::ClassroomsController < ApplicationController
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
     else
-      @classrooms = current_user.classrooms.visible
+      @classrooms = current_user.classrooms
       @classroom = @classrooms.first
     end
   end
@@ -44,12 +44,10 @@ class Teachers::ClassroomsController < ApplicationController
     redirect_to teachers_classrooms_path
   end
 
-  def archive
-    Classroom.find(params["id"]).update(archived: true)
+  def hide
+    Classroom.find(params[:id]).update(hidden: true)
     redirect_to teachers_classrooms_path
   end
-
-
 
 private
 

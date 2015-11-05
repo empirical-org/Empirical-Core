@@ -1,2 +1,0 @@
-      invoke  active_record
-      remove    db/migrate/20151102200632_add_archived_to_classrooms.rb
