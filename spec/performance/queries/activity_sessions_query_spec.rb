@@ -21,7 +21,7 @@ describe 'Scorebook' do
     activity_sessions_query.query(teacher, classroom.id)
   end
 
-  it 'it takes less than 1 sec' do
+  it 'takes less than 1 sec' do
     time = Benchmark.realtime{ subject }
     expect(time).to be < 1
   end
