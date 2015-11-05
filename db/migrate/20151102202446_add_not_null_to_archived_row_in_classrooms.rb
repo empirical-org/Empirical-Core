@@ -5,7 +5,7 @@ class AddNotNullToArchivedRowInClassrooms < ActiveRecord::Migration
     end
   end
   def self.down
-    change_table :tablename do |t|
+    change_table :classrooms do |t|
       t.change :archived, :boolean, default: false
     end
   end
