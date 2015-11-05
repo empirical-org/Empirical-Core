@@ -3,7 +3,7 @@
   <div class="container">
 
     <ul>
-      <%- if current_user.classrooms.any? %>
+      <%- if current_user.has_classrooms? %>
 	      <li><%= active_link_to 'Invite Students', (teachers_classroom_invite_students_path(classroom_id: current_user.classrooms.first)) %></li>
 	      <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: ((action_name == 'index') or (action_name == 'edit')) ? 'active' : '' %></li>
 	  <% end %>
