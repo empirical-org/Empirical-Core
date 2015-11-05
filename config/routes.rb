@@ -78,6 +78,11 @@ EmpiricalGrammar::Application.routes.draw do
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
       end
 
+      member do
+        get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
+        put :hide
+      end
+
       resources :activities, controller: 'classroom_activities'
 
       resources :students do
