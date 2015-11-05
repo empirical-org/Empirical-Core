@@ -97,7 +97,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   private
 
   def authorize!
-    if current_user.classrooms.any?
+    if current_user.has_classrooms?
       if params[:classroom_id].present? and params[:classroom_id].length > 0
         @classroom = Classroom.find(params[:classroom_id])
       end
