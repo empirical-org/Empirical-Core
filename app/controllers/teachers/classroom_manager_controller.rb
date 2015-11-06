@@ -43,7 +43,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     if params[:no_load_has_ever_occurred_yet] == 'true'
       params[:classroom_id] = current_user.classrooms.first
       was_classroom_selected_in_controller = true
-      selected_classroom = Classroom.find params[:classroom_id]
+      selected_classroom = Classroom.new(name: "Select Classroom", grade: 2)
     else
       was_classroom_selected_in_controller = false
       selected_classroom = nil
