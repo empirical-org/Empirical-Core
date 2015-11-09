@@ -4,14 +4,15 @@
 .container.pages-container
 
   h3.page-subtitle2 Meet The Team
-  - (team_info).in_groups_of(3) do |members|
+  - (team_info).each do |team_type|
     .row
-    - members.each do |person|
-      - if person.present?
-        .col-md-4.col-xs-1
-          =image_tag person[:img]
-          h4 =person[:name]
-          p =person[:title]
-          p =person[:desc]
-        
-
+    h3 #{team_type[:team]}
+    - team_type[:members].in_groups_of(3) do |people|
+          .row
+          - people.each do |person|
+            - if person
+              .col-md-4.col-xs-1
+                =image_tag person[:img]
+                h4 =person[:name]
+                p =person[:title]
+                p =person[:desc]
