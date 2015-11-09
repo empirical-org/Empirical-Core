@@ -157,18 +157,3 @@ module PagesHelper
 	    arr
 	end
 end
-
-
-
-
-=begin
-
-
-
-      =image_tag 'thumb-tim.png'
-      h4 Timothy Grieves
-      p Board Member
-      p Timothy Grieves is the chief administrator of the Northwest AEA, a regional agency that advises 33,000 students in Iowa.
-
-
-=end
