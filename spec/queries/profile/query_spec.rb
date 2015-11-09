@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'StudentProfileQuery' do
+describe 'Profile::Query' do
   let(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let(:student) { FactoryGirl.create(:user, role: 'student', classroom: classroom) }
@@ -25,17 +25,16 @@ describe 'StudentProfileQuery' do
 
 
   def subject
-    StudentProfileQuery.new.query(student)
+    Profile::Query.new.query(student)
   end
 
   before do
     as1.update_attributes(percentage: 1, state: 'finished')
   end
 
-  it 'returns completed as first ele' do
+  it 'returns all activity sessions' do
     sessions = subject
-    puts "result : #{sessions.to_json}"
-    expect(sessions).to_not be_empty
+    expect(sessions.count).to eq(2)
   end
 
 
