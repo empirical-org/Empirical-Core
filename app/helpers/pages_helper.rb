@@ -48,7 +48,7 @@ module PagesHelper
 		      desc: "Thomas is a designer who likes to think about strategy, people, and science fiction. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
 	      },
 	      {
-		      img: 'thumb-marcello.jpg',
+		      img: 'thumb-marcello.png',
 		      name: 'Marcello Sachs',
 		      title: 'Technical Director, Cofounder',
 		      desc: "Marcello has a background in pure math from Brown University, and he currently enjoys reading about ideas in analytic philosophy."
@@ -58,31 +58,7 @@ module PagesHelper
 		      name: "Ryan Novas",
 		      title: "Operations Director, Cofounder",
 		      desc: "Ryan works with teachers to create new features content for Quill. He also helps integrate Quill into classrooms and oversees daily operations at Empirical."
-	  	  },
-	      {
-		      img: 'thumb_kris.jpg',
-		      name: 'Kristopher Kelly',
-		      title: "Senior Developer",
-		      desc: "Kristopher Kelly has been writing code professionally for the past 8 years. He previously was the lead developer of Omeka, an open source citation tool that is popular with digital historians."
-		  },
-			{
-					img: 'thumb-maggie.png',
-					name: "Maggie Wunderlich",
-					title: "Activity Writer",
-					desc: "Maggie is the Senior Achievement Associate at Rocketship Education and has taught upper elementary school and middle school English for the past four years. She creates and edits activities for Quill."
-				},
-				{
-					img: 'thumb-bill.png',
-					name: "W.D Robinson",
-					title: "Editor",
-					desc: "Bill has thirty years' experience writing and editing his way through engineering failure analysis, gaming, life sciences, corporate training, hardware & software procedural documentation, political survey design, and education."
-				},
-   		{
-		      img: 'thumb-will.jpg',
-		      name: 'Will Laurance',
-		      title: 'Lead Apps Developer',
-		      desc: "Will is passionate about HTTP, web and mobile applications, distributed systems, databases, network security, and computer science as a whole. Open Source is changing the world one repository at a time, and he tries to open source as much as much as possible on GitHub."
-   		}
+  	  }
 			]},
 			{team: 'Board of Directors',
 			members: [
@@ -100,8 +76,8 @@ module PagesHelper
 					},
 						img: "thumb-jane.png",
 						name: "Jane Parver",
-						title: "Board Member",
-						desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the area of civil and white collar litigation and internal investigations."
+						title: "Board Chair",
+						desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the areas of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, as well as part of the ASCPA board and the Columbia Law School Board of Vistors"
 			]},
 			{team: 'Education Advisory Board',
 			members: [
@@ -115,7 +91,7 @@ module PagesHelper
 					img: 'thumb-emily.jpg',
 					name: 'Emily Dalton Smith',
 					title: 'Advisory Board Member',
-					desc: 'Emily Dalton Smith is a program officer with College-Ready Education at the Gates Foundation.'
+					desc: "Emily Dalton Smith was Quill's program officer at the Gates Foundation during the Literacy Courseware Challenge. She currently works at Facebook."
 				},
 				{
 					img: "thumb_anthony.png",
