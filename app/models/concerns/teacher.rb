@@ -23,7 +23,7 @@ module Teacher
   end
 
   def scorebook_scores(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
-    ScorebookQuery.new(self).query(current_page, classroom_id, unit_id, begin_date, end_date)
+    Scorebook::Query.new(self).query(current_page, classroom_id, unit_id, begin_date, end_date)
   end
 
   def update_teacher params
