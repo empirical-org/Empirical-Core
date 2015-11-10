@@ -77,7 +77,7 @@ module PagesHelper
 						img: "thumb-jane.png",
 						name: "Jane Parver",
 						title: "Board Chair",
-						desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the area of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, part of the ASCPA board, and Columbia Law School Board of Vistors"
+						desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the areas of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, as well as part of the ASCPA board and the Columbia Law School Board of Vistors"
 			]},
 			{team: 'Education Advisory Board',
 			members: [
