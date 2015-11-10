@@ -11,7 +11,7 @@ describe 'Scorebook' do
 
   let!(:concept) { FactoryGirl.create(:concept) }
 
-  let!(:scorebook_query) { ScorebookQuery.new(teacher) }
+  let!(:scorebook_query) { Scorebook::Query.new(teacher) }
 
   before do
     activity_sessions.map{ |as| FactoryGirl.create_list(:concept_result, 30, concept: concept, activity_session: as) }

@@ -49,7 +49,7 @@
             - if current_user.admin?
               td= link_to 'Edit', edit_cms_user_path(user)
               td= link_to 'Details', cms_user_path(user)
-              td= link_to 'Sign in', sign_in_cms_user_path(user), method: :put
+              td= button_to 'Sign in', sign_in_cms_user_path(user), method: :put
 
     = paginate @users
 

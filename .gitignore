@@ -30,6 +30,7 @@ redo
 *.swp
 deploy-keys
 .guard_result
+dump.rdb
 
 # a local init to remove the noisy cms thing
 /config/initializers/remove_noise.rb
