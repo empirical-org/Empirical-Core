@@ -45,7 +45,9 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def hide
-    Classroom.find(params[:id]).update(visible: false)
+    classroom = Classroom.find(params[:id])
+    classroom.visible = false #
+    classroom.save(validate: false)
     redirect_to teachers_classrooms_path
   end
 
