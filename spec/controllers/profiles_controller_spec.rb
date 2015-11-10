@@ -6,7 +6,8 @@ describe ProfilesController, :type => :controller do
   describe 'as a student' do
     let(:student) { FactoryGirl.create(:student) }
     let(:activity) { FactoryGirl.create(:activity) }
-    let(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity: activity) }
+    let(:unit) { FactoryGirl.create(:unit) }
+    let(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity: activity, unit: unit) }
     let!(:activity_session) { FactoryGirl.create(:activity_session_incompleted,
                                                 classroom_activity: classroom_activity,
                                                 activity: activity,

@@ -1,11 +1,11 @@
-class ScorebookQuery
+class Scorebook::Query
   SCORES_PER_PAGE = 200
   def initialize(teacher)
     @teacher = teacher
   end
 
   def query(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
-    results = ActivitySessionsQuery.new.query(@teacher, classroom_id)
+    results = Scorebook::ActivitySessionsQuery.new.query(@teacher, classroom_id)
     results = filter_by_unit(results, unit_id)
     results = filter_by_dates(results, begin_date, end_date)
     results = paginate(results, current_page)
