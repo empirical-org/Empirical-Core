@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027174224) do
+ActiveRecord::Schema.define(version: 20151109231813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "pg_stat_statements"
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -94,8 +95,8 @@ ActiveRecord::Schema.define(version: 20151027174224) do
 
   create_table "categories", force: true do |t|
     t.text     "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "classroom_activities", force: true do |t|
@@ -120,10 +121,24 @@ ActiveRecord::Schema.define(version: 20151027174224) do
     t.datetime "updated_at"
     t.string   "clever_id"
     t.string   "grade"
+    t.boolean  "visible",    default: true, null: false
   end
 
   add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree
   add_index "classrooms", ["grade"], name: "index_classrooms_on_grade", using: :btree
+
+  create_table "comments", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "user_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "ancestry"
+    t.string   "reply_type"
+    t.integer  "lecture_chapter_id"
+  end
+
+  add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
 
   create_table "concept_results", force: true do |t|
     t.integer "activity_session_id"
@@ -170,8 +185,8 @@ ActiveRecord::Schema.define(version: 20151027174224) do
     t.string   "name"
     t.string   "file"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "firebase_apps", force: true do |t|
@@ -224,8 +239,18 @@ ActiveRecord::Schema.define(version: 20151027174224) do
     t.string   "name"
     t.string   "description"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "rules_misseds", force: true do |t|
+    t.integer  "rule_id"
+    t.integer  "user_id"
+    t.integer  "assessment_id"
+    t.datetime "time_take"
+    t.boolean  "missed"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "schools", force: true do |t|
@@ -344,8 +369,8 @@ ActiveRecord::Schema.define(version: 20151027174224) do
     t.string   "email"
     t.string   "password_digest"
     t.string   "role",                  default: "user"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "classcode"
     t.boolean  "active",                default: false
     t.string   "username"
@@ -365,8 +390,8 @@ ActiveRecord::Schema.define(version: 20151027174224) do
 
   create_table "workbooks", force: true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

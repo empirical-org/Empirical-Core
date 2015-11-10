@@ -47,31 +47,17 @@
       <%- end %>
 
       <div class="container">
-        <% @units.each do |unit| %>
-
-
-
-
-
-
-          <%- unit_completed_activity_sessions = current_user.percentages_by_classification(unit) %>
-
-          <%- unit_uncompleted_activity_sessions = current_user.incomplete_activity_sessions_by_classification(unit) %>
-
-
-
-          <%- if ((! unit_completed_activity_sessions.empty?) or (! unit_uncompleted_activity_sessions.empty?)) %>
-
+        <%- @grouped_scores.each do |unit_name, scores|  %>
             <section>
-              <h3 class="section-header"><%= unit.name %></h3>
-
+              <h3 class="section-header"><%= unit_name %></h3>
 
               <div class="fake-table">
                 <div class="header">Assigned Activities
-                  <span class="header-list-counter"><%= unit_uncompleted_activity_sessions.size %> of <%= (unit_uncompleted_activity_sessions.uniq.size + unit_completed_activity_sessions.collect(&:activity).uniq.size) %></span>
+                  <span class="header-list-counter"><%= scores['unstarted'].size %> of <%= (scores['unstarted'].size + scores['finished'].size) %></span>
                 </div>
 
-                <% unit_uncompleted_activity_sessions.each do |activity_session| %>
+
+                <% scores['unstarted'].each do |activity_session| %>
                   <%- activity = activity_session.activity %>
                   <div class="line">
                     <div class="row">
@@ -84,19 +70,15 @@
                     </div>
                   </div> <!-- //.line-1 -->
                 <% end %>
-
-              </div> <!-- //.fake-table -->
+              </div>
 
               <div class="fake-table">
                 <div class="header">Completed Activities
-                  <span class="header-list-counter"><%= unit_completed_activity_sessions.collect(&:activity).uniq.size %> of <%= (unit_uncompleted_activity_sessions.uniq.size + unit_completed_activity_sessions.collect(&:activity).uniq.size) %></span>
+                  <span class="header-list-counter"><%= scores['finished'].size %> of <%= (scores['unstarted'].size + scores['finished'].size) %></span>
                 </div>
 
-                <% seen_activities = [] %>
-                <% unit_completed_activity_sessions.each do |activity_session| %>
+                <% scores['finished'].each do |activity_session| %>
                   <%- activity = activity_session.activity %>
-                  <%- next if seen_activities.include?(activity) %>
-                  <%- seen_activities << activity %>
                   <div class="line">
                     <div class="row">
                       <div class="col-xs-9 col-sm-10 col-xl-10 pull-left">
@@ -108,11 +90,10 @@
                     </div>
                   </div> <!-- //.line-1 -->
                 <% end %>
+              </div>
 
             </section>
-          <% end %>
         <% end %>
-
       </div>
 
   </div> <!-- //#page-content-wrapper -->
