@@ -58,13 +58,7 @@ module PagesHelper
 		      name: "Ryan Novas",
 		      title: "Operations Director, Cofounder",
 		      desc: "Ryan works with teachers to create new features content for Quill. He also helps integrate Quill into classrooms and oversees daily operations at Empirical."
-	  	  },
-	      {
-		      img: 'thumb-donald.jpg',
-		      name: 'Donald McKendrick',
-		      title: "Senior Developer",
-		      desc: "Kristopher Kelly has been writing code professionally for the past 8 years. He previously was the lead developer of Omeka, an open source citation tool that is popular with digital historians."
-		  }
+  	  }
 			]},
 			{team: 'Board of Directors',
 			members: [
