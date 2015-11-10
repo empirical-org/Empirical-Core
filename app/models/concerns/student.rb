@@ -31,10 +31,10 @@ module Student
     def percentages_by_classification(unit = nil)
 
       if unit.nil?
-        sessions = self.activity_sessions.preload(:concept_results).where(is_final_score: true).completed
+        sessions = self.activity_sessions.preload(:concept_results => [:concept]).where(is_final_score: true).completed
       else
         sessions = ActivitySession.joins(:classroom_activity)
-                  .preload(:concept_results)
+                  .preload(:concept_results => [:concept])
                   .where(is_final_score: true)
                   .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                   .select("activity_sessions.*").completed
@@ -62,13 +62,12 @@ module Student
 
 
     def incomplete_activity_sessions_by_classification(unit = nil)
-
       if unit.nil?
-        sessions = self.activity_sessions.preload(:concept_results).incomplete
+        sessions = self.activity_sessions.preload(:concept_results => [:concept]).incomplete
       else
 
         sessions = ActivitySession
-                    .preload(:concept_results)
+                    .preload(:concept_results => [:concept])
                     .joins(:classroom_activity)
                     .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
                     .where("activity_sessions.completed_at is null")
@@ -80,8 +79,6 @@ module Student
       sessions.sort do |a,b|
         b.activity.classification.key <=> a.activity.classification.key
       end
-
-
     end
 
     def assign_classroom_activities
