@@ -71,6 +71,27 @@
                   </div> <!-- //.line-1 -->
                 <% end %>
               </div>
+
+              <div class="fake-table">
+                <div class="header">Completed Activities
+                  <span class="header-list-counter"><%= scores['finished'].size %> of <%= (scores['unstarted'].size + scores['finished'].size) %></span>
+                </div>
+
+                <% scores['finished'].each do |activity_session| %>
+                  <%- activity = activity_session.activity %>
+                  <div class="line">
+                    <div class="row">
+                      <div class="col-xs-9 col-sm-10 col-xl-10 pull-left">
+                        <%= activity_icon_with_tooltip(activity, activity_session, include_activity_title: true) %>
+                      </div>
+                      <div class="col-xs-3 col-sm-2 col-xl-2">
+                        <%= link_to 'Retry Lesson', retry_activity_path(activity, classroom_activity_id: activity_session.classroom_activity_id), method: :post %>
+                      </div>
+                    </div>
+                  </div> <!-- //.line-1 -->
+                <% end %>
+              </div>
+
             </section>
         <% end %>
       </div>

@@ -18,4 +18,12 @@ feature 'Profile', js: true do
     expect(page).to have_content(unit1.name)
   end
 
+  it 'includes activity name for unstarted activity_session' do
+    expect(page).to have_content(as2.activity.name)
+  end
+
+  it 'includes activity name for finished activity_session' do
+    expect(page).to have_content(as1.activity.name)
+  end
+
 end

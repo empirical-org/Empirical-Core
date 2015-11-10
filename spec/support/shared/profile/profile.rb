@@ -73,4 +73,11 @@ shared_context 'profile' do
   let!(:as_2a) { classroom_activity_2a.session_for(student) }
   let!(:as_2aa) { classroom_activity_2aa.session_for(student) }
   let!(:as_2b) { classroom_activity_2b.session_for(student) }
+
+  before do
+    as1.update_attributes(percentage: 0.8, state: 'finished')
+    as_1a.update_attributes(percentage: 0.5, state: 'finished')
+    as_1aa.update_attributes(percentage: 0.5, state: 'finished')
+    as_1b.update_attributes(percentage: 1, state: 'finished')
+  end
 end
