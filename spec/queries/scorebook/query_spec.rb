@@ -7,7 +7,7 @@ describe 'ScorebookQuery' do
   let!(:activity) { FactoryGirl.create(:activity) }
   let!(:activity_session) { FactoryGirl.create(:activity_session, user: student, activity: activity) }
 
-  let!(:scorebook_query) { ScorebookQuery.new(teacher) }
+  let!(:scorebook_query) { Scorebook::Query.new(teacher) }
 
   def subject
     scorebook_query.query

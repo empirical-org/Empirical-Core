@@ -1,4 +1,4 @@
-class ActivitySessionsQuery
+class Scorebook::ActivitySessionsQuery
 
   def query(teacher, classroom_id=nil)
     if classroom_id.present?
