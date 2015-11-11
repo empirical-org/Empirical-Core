@@ -1,16 +1,12 @@
 EC.UnitTemplates = React.createClass({
   propTypes: {
-    models: React.PropTypes.array.isRequired,
-    categories: React.PropTypes.array.isRequired,
-    selectModel: React.PropTypes.func.isRequired
+    data: React.PropTypes.object.isRequired,
+    eventHandlers: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
     this.initializeModules()
-    return ({
-      displayedModels: this.props.models,
-      selectedCategoryId: null
-    });
+    return {};
   },
 
   initializeModules: function () {
@@ -20,18 +16,15 @@ EC.UnitTemplates = React.createClass({
   },
 
   generateUnitTemplateViews: function () {
-    var displayedModels = (this.state.displayedModels.length ? this.state.displayedModels: this.props.models);
-    var rows = this.modules.rowsCreator.create(displayedModels);
+    var rows = this.modules.rowsCreator.create(this.props.data.displayedModels);
     return <span>{rows}</span>;
   },
 
   generateUnitTemplateView: function (model, index) {
-    return <EC.UnitTemplateMini
-              filterByUnitTemplateCategory={this.filterByUnitTemplateCategory}
-              key={model.id}
-              data={model}
-              selectModel={this.props.selectModel}
-              index={index} />
+    return <EC.UnitTemplateMini key={model.id}
+                                data={model}
+                                index={index}
+                                eventHandlers={this.props.eventHandlers} />
   },
 
   colView: function (data, index) {
@@ -52,23 +45,13 @@ EC.UnitTemplates = React.createClass({
     return <div className='row'>{cols}</div>;
   },
 
-  filterByUnitTemplateCategory: function (categoryId) {
-    if (categoryId) {
-      var uts = _.where(this.props.models, {unit_template_category: {id: categoryId}})
-    } else {
-      var uts = this.props.models;
-    }
-
-    this.setState({displayedModels: uts, selectedCategoryId: categoryId});
-  },
-
   listFilterOptions: function () {
     return (
         <div className='list-filter-options-container'>
           <EC.ListFilterOptions
-                  options={this.props.categories}
-                  selectedId={this.state.selectedCategoryId}
-                  select={this.filterByUnitTemplateCategory} />
+                  options={this.props.data.categories}
+                  selectedId={this.props.data.selectedCategoryId}
+                  select={this.props.eventHandlers.filterByCategory} />
         </div>
     );
   },
