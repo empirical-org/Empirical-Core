@@ -111,12 +111,16 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   save: function () {
+    var model = this.state.model;
+    if (this.state.options.authors.length == 1) {
+      model.author_id = this.state.options.authors[0].id;
+    }
     var fieldsToNormalize = [
       //{name: 'author', idName: 'author_id'},
       {name: 'activities', idName: 'activity_ids'}//,
       //{name: 'related_unit_templates', idName: 'related_unit_template_ids'}
     ];
-    this.modules.server.save(this.state.model, {callback: this.props.returnToIndex, fieldsToNormalize: fieldsToNormalize})
+    this.modules.server.save(model, {callback: this.props.returnToIndex, fieldsToNormalize: fieldsToNormalize})
   },
 
   isEnoughInputProvidedToContinue: function () {

@@ -1,7 +1,18 @@
 "use strict";
 EC.CreateUnit = React.createClass({
 	propTypes: {
-		data: React.PropTypes.object.isRequired, // {classrooms: [], stage: Int, resource: UnitTemplate}
+		data: React.PropTypes.object.isRequired,
+		// createUnit: {
+		// 		stage: 1,
+		// 		toggleActivitySelection: this.toggleActivitySelection,
+		// 		update: this.updateCreateUnitModel,
+		// 		options: {
+		// 			classrooms: []
+		// 		},
+		// 		model: {
+		// 			name: null,
+		// 			selectedActivities: []
+		// 		}
 		toggleStage: React.PropTypes.func.isRequired,
 		analytics: React.PropTypes.object.isRequired
 	},
@@ -10,7 +21,6 @@ EC.CreateUnit = React.createClass({
 		return {
 			selectedActivities : [],
 			selectedClassrooms: [],
-			classrooms: [],
 			dueDates: {}
 		}
 	},
@@ -230,6 +240,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	stage2SpecificComponents: function () {
+			console.log(this.getClassrooms())
 			return (<EC.Stage2 selectedActivities={this.getSelectedActivities()}
 								 classrooms={this.getClassrooms()}
 								 toggleActivitySelection={this.toggleActivitySelection}

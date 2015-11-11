@@ -1,7 +1,7 @@
 EC.UnitTemplateFirstRow = React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    filterByUnitTemplateCategory: React.PropTypes.func.isRequired,
+    eventHandlers: React.PropTypes.object.isRequired,
     modules: React.PropTypes.shape({
       string: React.PropTypes.object.isRequired
     })
@@ -23,7 +23,7 @@ EC.UnitTemplateFirstRow = React.createClass({
 
   filterCategory: function () {
     if (this.props.data.unit_template_category) {
-      this.props.filterByUnitTemplateCategory(this.props.data.unit_template_category.id)
+      this.props.eventHandlers.filterByCategory(this.props.data.unit_template_category.id)
     }
   },
 

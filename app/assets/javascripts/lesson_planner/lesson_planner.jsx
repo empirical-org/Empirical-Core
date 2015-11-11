@@ -19,7 +19,8 @@ EC.LessonPlanner = React.createClass({
 
 	getInitialState: function () {
 		return {
-			tab: 'manageUnits',
+			//tab: 'manageUnits',
+			tab: 'exploreActivityPacks',
 			createUnit: {
 				stage: 1,
 				toggleActivitySelection: this.toggleActivitySelection,
@@ -36,22 +37,19 @@ EC.LessonPlanner = React.createClass({
 	},
 
 	updateCreateUnit: function (hash) {
-		var newState = this.state;
-		var newCU = _.extend({}, this.state.createUnit, hash)
-		newState.createUnit = newCU;
-		this.setState(newState);
+		this.setState(this.modules.LessonPlannerState.updateCreateUnit(this.state, hash), this.forceUpdate);
 	},
 
 	updateCreateUnitModel: function (hash) {
-		var model = _.extend({}, this.state.createUnit.model, hash);
-		var newState = this.state;
-		newState.createUnit.model = model;
-		this.setState(newState);
+		var newState = this.modules.LessonPlannerState.updateCreateUnitModel(this.state, hash)
+		console.log('newState', newState)
+		this.setState(newState, this.forceUpdate);
 	},
 
 	componentDidMount: function () {
 		this.modules = {
-			fnl: new EC.modules.fnl()
+			fnl: new EC.modules.fnl(),
+			LessonPlannerState: new EC.modules.LessonPlannerState()
 		};
 	},
 
@@ -75,9 +73,7 @@ EC.LessonPlanner = React.createClass({
       url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
       context: this,
       success: function (data) {
-        var newState = that.state;
-        newState.createUnit.classrooms = data.classrooms_and_their_students;
-        that.setState(newState);
+        that.updateCreateUnit({options: {classrooms: data.classrooms_and_their_students}})
       },
       error: function () {
         console.log('error fetching classrooms');
@@ -98,20 +94,17 @@ EC.LessonPlanner = React.createClass({
 	},
 
 	loadActivityPackIntoUnitCreator: function (unitTemplate) {
-		this.toggleTab('createUnit')
 		this.updateCreateUnit({stage: 2})
-		var newState = this.state;
-		newState.createUnit.stage = 2;
-		newState.createUnit.model.name = unitTemplate.name;
-		//newState.
-
-		// this.updateCreateUnitModel({
-		// 	name: unitTemplate.name,
-		// 	selectedActivities: unitTemplate.activities
-		// })
+		this.updateCreateUnitModel({
+			name: unitTemplate.name,
+			selectedActivities: unitTemplate.activities
+		})
+		this.toggleTab('createUnit')
+		this.fetchClassrooms()
 	},
 
 	render: function () {
+		console.log('this.state.createUnit', this.state.createUnit)
 		var tabSpecificComponents;
 		if (this.state.tab == 'createUnit') {
 			tabSpecificComponents = <EC.CreateUnit toggleTab={this.toggleTab}
@@ -127,13 +120,10 @@ EC.LessonPlanner = React.createClass({
 
 		return (
 			<span>
-
 				<EC.UnitTabs tab={this.state.tab} toggleTab={this.toggleTab}/>
 				<div id="lesson_planner" >
 					{tabSpecificComponents}
 				</div>
-
-
 			</span>
 		);
 
