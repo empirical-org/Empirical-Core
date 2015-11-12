@@ -7,9 +7,11 @@ javascript:
 
   function receiveMessage(event)
   {
-    if (event.origin !== "http://localhost:3001") {
-      return;
-    } else {
+    if (event.origin === "http://localhost:3001") {
       window.location.reload();
+    } else if (event.origin === "https://grammar.quill.org"){
+      window.location.reload();
+    } else {
+      return
     }
   }
