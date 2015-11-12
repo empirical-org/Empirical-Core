@@ -1,3 +1,15 @@
 .container
   article.extra-padding.activity-form.activity-show
     iframe#activity-iframe src=@module_url name='activity-iframe'
+
+javascript:
+  window.addEventListener("message", receiveMessage, false);
+
+  function receiveMessage(event)
+  {
+    if (event.origin !== "http://localhost:3001") {
+      return;
+    } else {
+      window.location.reload();
+    }
+  }
