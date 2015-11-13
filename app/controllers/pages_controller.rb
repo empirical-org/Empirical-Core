@@ -23,6 +23,10 @@ class PagesController < ApplicationController
   def mission
   end
 
+  def play
+
+  end
+
   def about
     @body_class = 'full-width-page white-page'
   end
