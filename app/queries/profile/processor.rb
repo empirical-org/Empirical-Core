@@ -45,11 +45,18 @@ class Profile::Processor
   end
 
   def sort_unstarted activity_sessions
-    activity_sessions.sort_by{|as| [as.classroom_activity.due_date, as.activity.activity_classification_id]}
+    activity_sessions.sort_by{|as| [date_helper(as.classroom_activity.due_date), as.activity.activity_classification_id]}
   end
 
   def sort_finished activity_sessions
     activity_sessions.sort_by{|as| [(-1*as.percentage), as.activity.activity_classification_id]}
+  end
+
+  def date_helper(date)
+    unless date
+      date = Time.zone.now
+    end
+    return date
   end
 
 end

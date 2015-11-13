@@ -81,6 +81,11 @@ EC.CreateUnit = React.createClass({
 		this.props.analytics.track('click Continue in lesson planner');
 		this.fetchClassrooms();
 		this.setState({stage: 2});
+		this.resetWindowPosition();
+	},
+
+	resetWindowPosition: function () {
+		window.scrollTo(500, 0);
 	},
 
 	fetchClassrooms: function() {
