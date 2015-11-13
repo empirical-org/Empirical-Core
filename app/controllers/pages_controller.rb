@@ -17,9 +17,6 @@ class PagesController < ApplicationController
   def develop
   end
 
-  def teacher_resources
-  end
-
   def mission
   end
 
