@@ -20,6 +20,10 @@ class PagesController < ApplicationController
   def mission
   end
 
+  def play
+
+  end
+
   def about
     @body_class = 'full-width-page white-page'
   end
@@ -39,6 +43,9 @@ class PagesController < ApplicationController
 
   def tos
     @body_class = 'auxiliary white-page formatted-text'
+  end
+
+  def press_kit
   end
 
   def privacy
