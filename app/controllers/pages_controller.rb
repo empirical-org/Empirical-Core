@@ -44,6 +44,9 @@ class PagesController < ApplicationController
     @body_class = 'auxiliary white-page formatted-text'
   end
 
+  def press_kit
+  end
+
   def privacy
     @body_class = 'auxiliary white-page formatted-text'
   end
