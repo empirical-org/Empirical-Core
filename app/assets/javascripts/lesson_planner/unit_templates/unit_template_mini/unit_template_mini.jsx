@@ -35,7 +35,7 @@ EC.UnitTemplateMini = React.createClass({
 
   displayPicture: function () {
     return (
-      <div className='picture'>
+      <div className='author-picture'>
         <img src={this.avatarUrl()}></img>
       </div>
     );

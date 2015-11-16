@@ -49,9 +49,9 @@ EC.UnitTemplateFirstRow = React.createClass({
                 {this.sayNumberOfStandards()}
               </div>
             </div>
-            <div className='col-xs-4 unit-template-category-label-container'>
+            <div className='col-xs-4'>
               <div onClick={this.filterCategory}
-                    className='unit-template-category-label img-rounded'
+                    className='unit-template-category-label img-rounded float-right'
                     style={{backgroundColor: this.getCategoryBackgroundColor()}}>
                 {this.sayCategory()}
               </div>

@@ -30,9 +30,9 @@ EC.UnitTemplates = React.createClass({
   colView: function (data, index) {
     var className;
     if (index === 0) {
-      className = 'col-xs-6 no-pr'
+      className = 'col-sm-6 col-xs-12 no-pr'
     } else {
-      className = 'col-xs-6 no-pl'
+      className = 'col-sm-6 col-xs-12 no-pl'
     }
     return (
       <div className={className}>

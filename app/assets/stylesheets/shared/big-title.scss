@@ -1,0 +1,19 @@
+.big-title {
+  position: relative;
+  padding-top: 2em;
+  padding-bottom: 8em;
+  text-align: center;
+  color: white;
+
+  &.middle-school {
+    background-color: $orange;
+  }
+
+  .author-details {
+    position: absolute;
+    bottom: 0;
+    // margin-top: -40px;
+  }
+
+
+}
