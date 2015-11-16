@@ -7,8 +7,6 @@
   <%= activity_session ? "<p>#{activity_session.percentage_as_percent_prefixed_by_scored}</p>" : '' %>
 
   <%= (activity_session and activity_session.classroom_activity.present? and activity_session.classroom_activity.due_date.present?) ? "<p>Due #{activity_session.classroom_activity.due_date.strftime('%A %B %d, %Y')}</p>" : '' %>
-
-  <%= all_concept_stats(activity_session) %>
   "
  ></div>
 <% if include_activity_title %>
