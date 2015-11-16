@@ -173,7 +173,6 @@ EC.Cms.UnitTemplate = React.createClass({
   getActivitySearchAndSelect: function () {
     return <EC.ActivitySearchAndSelect selectedActivities={this.state.model.activities}
                                       toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
-                                      clickContinue={this.clickContinue}
                                       isEnoughInputProvidedToContinue={this.isEnoughInputProvidedToContinue()}
                                       errorMessage={this.props.errorMessage} />
   },
