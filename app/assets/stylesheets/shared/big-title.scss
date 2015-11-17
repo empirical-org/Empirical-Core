@@ -1,7 +1,9 @@
 .big-title {
   position: relative;
-  padding-top: 2em;
-  padding-bottom: 8em;
+  width: 100%;
+  padding-top: 3em;
+  padding-bottom: 5em;
+  margin-bottom: 8em;
   text-align: center;
   color: white;
 
@@ -9,11 +11,35 @@
     background-color: $orange;
   }
 
+  p {
+    margin-bottom: 1em;
+  }
+
+  .unit-template-category-label {
+    margin-bottom: 1em;
+  }
+
+  h1 {
+    max-width: 525px;
+    margin: 0 auto;
+  }
+
   .author-details {
     position: absolute;
-    margin-left: auto
-    bottom: 0;
-    // margin-top: -40px;
+    top: 100%;
+    margin-top: -40px;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    transform: translate(-50%);
+
+    .author-picture {
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      color: $darkgrey;
+    }
   }
 
 
