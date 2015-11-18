@@ -51,8 +51,8 @@ EC.UnitTemplate = React.createClass({
           <div className='col-xs-6'>
             <div className='row'>
               <div className='col-xs-12'>
-                <button className='button-green' onClick={this.assign}>assign</button>
-                <p>Estimated Time: 45 mins</p>
+                <button className='button-green full-width' onClick={this.assign}>Assign to Your Class</button>
+                <p className="est-time"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Estimated Time: 45 mins</p>
               </div>
             </div>
             <div className="row">
