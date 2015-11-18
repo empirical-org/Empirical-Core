@@ -15,7 +15,7 @@ EC.SelectedActivities = React.createClass({
 		return (
 			<section className="teaching-cart">
 				<h3 className="section-header unit_name">{this.props.unitName}</h3>
-				<table className="table">
+				<table className="table activity-table">
 					<tbody>
 						{rows}
 					</tbody>

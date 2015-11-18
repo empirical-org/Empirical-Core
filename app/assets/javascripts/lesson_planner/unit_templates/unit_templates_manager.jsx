@@ -30,9 +30,7 @@ EC.UnitTemplatesManager = React.createClass({
   },
 
   selectModel: function (ut) {
-    console.log('ut', ut)
     var relatedModels = this.modelsInCategory(ut.unit_template_category.id)
-    console.log('relatedModels', relatedModels)
     this.setState({stage: 'profile', model: ut, relatedModels: relatedModels})
   },
 
@@ -44,7 +42,7 @@ EC.UnitTemplatesManager = React.createClass({
     this.setState({models: models, displayedModels: models});
     this.updateUnitTemplateCategories();
     // just while working on html :
-    //this.selectModel(models[0])
+    this.selectModel(models[0])
   },
 
   updateUnitTemplateCategories: function () {
@@ -91,14 +89,14 @@ EC.UnitTemplatesManager = React.createClass({
     }
   },
 
-  unitTemplateData: function () {
+  unitTemplateProfileData: function () {
     return {
       model: this.state.model,
       relatedModels: this.state.relatedModels
     }
   },
 
-  unitTemplateEventHandlers: function () {
+  unitTemplateProfileEventHandlers: function () {
     return {
       assign: this.assign,
       selectModel: this.selectModel,
@@ -117,9 +115,9 @@ EC.UnitTemplatesManager = React.createClass({
       );
     } else if (this.state.stage === 'profile') {
       return (
-        <EC.UnitTemplate
-            data={this.unitTemplateData()}
-            eventHandlers={this.unitTemplateEventHandlers()} />
+        <EC.UnitTemplateProfile
+            data={this.unitTemplateProfileData()}
+            eventHandlers={this.unitTemplateProfileEventHandlers()} />
       )
     }
   },

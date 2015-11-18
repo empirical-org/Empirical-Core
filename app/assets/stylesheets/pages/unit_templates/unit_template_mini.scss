@@ -1,32 +1,3 @@
-
-
-.unit-template-category-label {
-  //float:right;
-  background-color: rgba(0,0,0,0.2);
-  color: white;
-  padding: 5px 20px;
-  font-size: 12px;
-  font-weight: bold;
-  text-decoration: none;
-  text-align: center;
-  &:hover {
-    color: white;
-    text-decoration:none;
-  }
-}
-
-.author-picture {
-  height: 80px;
-  width: 80px;
-  overflow: hidden;
-  border-radius: 50%;
-  img {
-    height: 100%;
-  }
-}
-
-
-
 #lesson_planner {
   margin-bottom: 100px;
   .list-filter-options-container {
@@ -60,7 +31,7 @@
     }
   }
 
-  .unit-template {
+  .unit-template-mini {
     width: 100%;
     margin-top: 30px;
     outline: 1px solid rgb(100,100,100);
@@ -109,12 +80,8 @@
           }
         }
         .time {
-          vertical-align: middle;
-
           .fa-clock-o {
-            vertical-align: middle;
             font-size: 18px;
-            margin-right: 5px;
             float:left;
           }
           .time-number {
