@@ -44,9 +44,9 @@ EC.UnitTemplateMini = React.createClass({
   getClassName: function () {
     var val;
     if (this.props.index === 1) {
-      val = 'row unit-template pull-right'
+      val = 'row unit-template-mini pull-right'
     } else {
-      val = 'row unit-template'
+      val = 'row unit-template-mini'
     }
     return val;
   },

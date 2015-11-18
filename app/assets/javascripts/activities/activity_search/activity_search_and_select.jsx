@@ -218,7 +218,7 @@ EC.ActivitySearchAndSelect = React.createClass({
         <EC.SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
         <EC.ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} />
 
-        <table className='table' id='activities_table'>
+        <table className='table activity-table search-and-select'>
           <thead>
             <EC.ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
           </thead>

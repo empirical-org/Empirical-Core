@@ -37,7 +37,7 @@ EC.ActivitySearchResult = React.createClass({
 				</td>
 
 
-				<td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger'  >{this.props.data.topic.section.name}</td>
+				<td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger'>{this.props.data.topic.section.name}</td>
 
 				<td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger'>{this.props.data.topic.topic_category.name}</td>
 			</tr>

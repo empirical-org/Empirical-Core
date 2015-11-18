@@ -1,0 +1,66 @@
+.unit-template-profile {
+  background-color: white;
+  .first-content-section {
+    margin-bottom: 4em;
+
+    .left-hand-side {
+      dl {
+        dt {
+          margin-bottom: 0.5em;
+        }
+
+        dd {
+          margin-bottom: 2em;
+        }
+      }
+    }
+
+    button {
+      margin-left: 0px;
+      font-size: 1.5em;
+      margin-bottom: 1em;
+    }
+
+    .time {
+      text-align: center;
+      .fa.fa-clock-o {
+        font-size: 24px;
+        color: $mediumdarkgray;
+      }
+    }
+
+    .standards-and-concepts {
+      margin: 1.9em 0em;
+
+      dl {
+        margin-bottom: 0em;
+        dt {
+          margin-bottom: 1.2em;
+        }
+
+        dt.concepts {
+          margin-top: 3em;
+          margin-bottom: 0.2em;
+        }
+
+        dd {
+          margin-bottom: 1.2em;
+        }
+
+        dd.concept {
+          margin-bottom: 0em;
+          display: inline-block;
+          padding: 0.2em 0.5em;
+          margin-right: 1em;
+          margin-top: 1em;
+          border-radius: 5px;
+          background-color: $verylightgray;
+        }
+      }
+    }
+
+    .share {
+
+    }
+  }
+}
