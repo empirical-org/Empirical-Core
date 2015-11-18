@@ -1,0 +1,57 @@
+
+.teaching-cart {
+  display: block;
+  border: none;
+  //padding-bottom: 85px;
+  table {
+    border: none;
+    tbody {
+      border: none;
+    }
+  }
+  table tbody tr {
+    background: #f7f5f5 !important;
+
+    &:first-child td {
+      &:nth-child(1) {
+        border-top-left-radius: 5px;
+      }
+      &:nth-child(3) {
+        border-top-right-radius: 5px;
+      }
+    }
+
+    &:last-child td {
+      border-bottom: 1px solid #cecece;
+      &:nth-child(1) {
+        border-bottom-left-radius: 5px;
+      }
+      &:nth-child(3) {
+        border-bottom-right-radius: 5px;
+      }
+    }
+    td {
+      &:nth-child(1) {
+        width: 5%;
+      }
+      &:nth-child(2) {
+        width: 90%;
+        text-align: left !important;
+      }
+      &:nth-child(3) {
+        border-right: 1px solid #cecece;
+        width: 5%;
+      }
+    }
+  }
+  .fake-border {
+    width: 99.4%;
+    margin: 0 auto;
+    position: relative;
+    bottom: 1px;
+  }
+
+  #continue.hidden {
+    display: none;
+  }
+}
