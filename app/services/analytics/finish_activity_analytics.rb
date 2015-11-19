@@ -13,7 +13,9 @@ class FinishActivityAnalytics
 
     analytics_identify(teacher)
     analytics_track({
+
       user_id: teacher.id,
+
       event: SegmentIo::Events::ACTIVITY_COMPLETION
     })
   end
