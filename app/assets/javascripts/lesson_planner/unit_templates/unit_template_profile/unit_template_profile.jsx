@@ -90,6 +90,11 @@ EC.UnitTemplateProfile = React.createClass({
           </div>
 
           <div className='row'>
+            <div className='col-xs-12 no-pl'>
+              <h2>{"What's Inside The Pack"}</h2>
+            </div>
+          </div>
+          <div className='row'>
             <div classsName='col-xs-12'>
               <table className='table activity-table activity-pack'>
                 <thead>
@@ -129,9 +134,7 @@ EC.UnitTemplateProfile = React.createClass({
           <EC.RelatedUnitTemplates models={this.props.data.relatedModels}
                                    eventHandlers={this.props.eventHandlers} />
           <div className='row'>
-            <div className='center-block'>
-              <button onClick={this.props.eventHandlers.returnToIndex} className='button-grey button-dark-grey'>See All Activity Packs</button>
-            </div>
+            <button onClick={this.props.eventHandlers.returnToIndex} className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button>
           </div>
         </div>
       </div>
