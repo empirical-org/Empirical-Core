@@ -225,8 +225,6 @@ EC.ActivitySearchAndSelect = React.createClass({
           <EC.ActivitySearchResults selectedActivities = {this.props.selectedActivities} currentPageSearchResults ={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />
         </table>
 
-        <div className='fake-border'></div>
-
         <EC.Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />
 
         <EC.SelectedActivities clickContinue={this.props.clickContinue}

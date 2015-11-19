@@ -1,0 +1,16 @@
+table.activity-table.selected-activities {
+  tbody tr {
+    td {
+      &:nth-child(1) {
+        background-color: blue;
+        width: 5%;
+      }
+      &:nth-child(2) {
+        width: 90%;
+      }
+      &:nth-child(3) {
+        width: 5%;
+      }
+    }
+  }
+}

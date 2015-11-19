@@ -91,7 +91,7 @@ EC.UnitTemplateProfile = React.createClass({
 
           <div className='row'>
             <div classsName='col-xs-12'>
-              <table className='table' id='activities_table'>
+              <table className='table activity-table'>
                 <thead>
                   <th>App</th>
                   <th>Activity</th>
