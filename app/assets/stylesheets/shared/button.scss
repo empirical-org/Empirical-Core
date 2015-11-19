@@ -2,3 +2,23 @@
   background-color: rgb(100,100,100);
   color: $white;
 }
+
+.btn-social {
+  border: none;
+  border-radius: 0;
+  margin: auto 5px auto 0;
+  color: white;
+  float: right;
+}
+
+.btn-facebook {
+  background-color: #3b5998;
+}
+
+.btn-twitter {
+  background-color: #4099FF;
+}
+
+.btn-linkedin {
+  background-color: #4875B4;
+}
