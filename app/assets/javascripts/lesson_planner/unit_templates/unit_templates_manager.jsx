@@ -124,7 +124,7 @@ EC.UnitTemplatesManager = React.createClass({
 
   render: function () {
     return (
-      <div className='container unit-templates-manager'>
+      <div className='unit-templates-manager'>
         {this.stageSpecificComponents()}
       </div>
     );

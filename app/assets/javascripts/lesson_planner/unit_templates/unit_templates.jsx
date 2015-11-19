@@ -58,16 +58,18 @@ EC.UnitTemplates = React.createClass({
 
   render: function () {
     return (
-      <div className='row'>
-        <div className='col-xs-12'>
-          <div className='row'>
-            <div className='col-xs-12'>
-              {this.listFilterOptions()}
+      <div className="container">
+        <div className='row'>
+          <div className='col-xs-12'>
+            <div className='row'>
+              <div className='col-xs-12'>
+                {this.listFilterOptions()}
+              </div>
             </div>
-          </div>
-          <div className='row'>
-            <div className='col-xs-12'>
-              {this.generateUnitTemplateViews()}
+            <div className='row'>
+              <div className='col-xs-12'>
+                {this.generateUnitTemplateViews()}
+              </div>
             </div>
           </div>
         </div>
