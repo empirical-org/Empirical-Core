@@ -15,20 +15,9 @@ EC.UnitTemplateProfile = React.createClass({
   render: function () {
     return (
       <div className='unit-template-profile'>
-        <div className='big-title middle-school'>
 
-            <p>
-              <a className='unit-template-category-label img-rounded'>UNIVERSITY</a>
-            </p>
-            <h1><strong>Practicing Commonly Confused Words Lorem Ested</strong></h1>
-            <div className="author-details">
-              <div className="author-picture">
-                <img src="http://www.fillmurray.com/300/300"></img>
-              </div>
-              <p>by Bill Murray</p>
-            </div>
-
-        </div>
+        <EC.UnitTemplateProfileHeader data={this.props.data}
+                                   eventHandlers={this.props.eventHandlers} />
 
         <div className="container white">
 
