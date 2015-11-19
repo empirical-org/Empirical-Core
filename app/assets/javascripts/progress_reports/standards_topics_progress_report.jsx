@@ -6,7 +6,6 @@ EC.StandardsTopicsProgressReport = React.createClass({
   },
 
   getInitialState: function() {
-    alert('standards_topic_progress_report.jsx')
     return {
       student: {}
     };
