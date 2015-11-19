@@ -15,7 +15,7 @@ EC.SelectedActivities = React.createClass({
 		return (
 			<section>
 				<h3 className="section-header unit_name">{this.props.unitName}</h3>
-				<table className="table activity-table headless-rounded-table">
+				<table className="table activity-table selected-activities headless-rounded-table">
 					<tbody>
 						{rows}
 					</tbody>

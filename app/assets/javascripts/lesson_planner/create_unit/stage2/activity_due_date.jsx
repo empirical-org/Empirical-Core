@@ -32,7 +32,7 @@ EC.ActivityDueDate = React.createClass({
   },
 
   removeActivity: function () {
-    this.props.toggleActivitySelection(false, this.props.activity);
+    this.props.toggleActivitySelection(this.props.activity, false);
   },
 
   render: function() {
