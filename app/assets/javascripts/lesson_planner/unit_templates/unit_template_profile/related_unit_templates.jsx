@@ -29,9 +29,9 @@ EC.RelatedUnitTemplates = React.createClass({
       <span>
         <div className='row'>
           <div className='col-xs-12 no-pl'>
-            <h3>
-              Other Activity Packs You Might Love
-            </h3>
+            <h2>
+              Other Packs You Might Like
+            </h2>
           </div>
         </div>
         <div className='row'>
