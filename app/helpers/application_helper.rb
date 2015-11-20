@@ -16,6 +16,10 @@ module ApplicationHelper
 
   end
 
+  def combine(array_1, array_2)
+    array_1 + array_2
+  end
+
   def body_class
     @body_class
   end
