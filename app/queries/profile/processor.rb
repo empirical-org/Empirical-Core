@@ -5,6 +5,7 @@ class Profile::Processor
     by_unit = group_by_unit(all)
     by_unit_by_state = group_by_state_within_unit(by_unit)
     sorted = sort_sessions(by_unit_by_state)
+    return sorted
   end
 
   private
@@ -34,19 +35,22 @@ class Profile::Processor
 
   def sort_sessions_helper hash
     result = {}
-    ['unstarted', 'finished'].each do |state|
+    ['unstarted', 'started', 'finished'].each do |state|
       if hash[state].nil?
         result[state] = []
+      elsif state == 'finished'
+        result[state] = self.send("sort_finished", hash[state])
       else
-        result[state] = self.send("sort_#{state}", hash[state])
+        result[state] = self.send("sort_rest", hash[state])
       end
     end
     result
   end
 
-  def sort_unstarted activity_sessions
+  def sort_rest activity_sessions
     activity_sessions.sort_by{|as| [date_helper(as.classroom_activity.due_date), as.activity.activity_classification_id]}
   end
+
 
   def sort_finished activity_sessions
     activity_sessions.sort_by{|as| [(-1*as.percentage), as.activity.activity_classification_id]}

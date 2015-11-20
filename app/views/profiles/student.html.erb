@@ -57,7 +57,8 @@
                 </div>
 
 
-                <% scores['unstarted'].each do |activity_session| %>
+                <% not_finished = scores['unstarted'] + scores['started']%>
+                <% not_finished.each do |activity_session| %>
                   <%- activity = activity_session.activity %>
                   <div class="line">
                     <div class="row">
