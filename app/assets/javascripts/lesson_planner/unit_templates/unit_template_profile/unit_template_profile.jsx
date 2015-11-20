@@ -23,19 +23,8 @@ EC.UnitTemplateProfile = React.createClass({
 
           <div className='row first-content-section'>
             <div className='col-xs-6 left-hand-side'>
-              <dl>
-                <dt><strong>Problem</strong></dt>
-                <dd>Students often forget to add commas in addresses and to add apostrophes in contractions</dd>
-
-                <dt><strong>Summary</strong></dt>
-                <dd>Students often forget to add commas in addresses and to add apostrophes in contractions</dd>
-
-                <dt><strong>About the Author</strong></dt>
-                <dd>Students often forget to add commas in addresses and to add apostrophes in contractions</dd>
-
-                <dt><strong>Teacher Review</strong></dt>
-                <dd>Students often forget to add commas in addresses and to add apostrophes in contractions</dd>
-              </dl>
+              <EC.UnitTemplateProfileDescription data={this.props.data}
+                                   eventHandlers={this.props.eventHandlers} />
             </div>
 
             <div className='col-xs-6'>
