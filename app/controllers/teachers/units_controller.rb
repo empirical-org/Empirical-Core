@@ -79,10 +79,18 @@ class Teachers::UnitsController < ApplicationController
     render json: arr
   end
 
+  def hide
+    unit = Unit.find(params[:id])
+    unit.visible = false
+    unit.save(validate: false)
+    render json: {}
+  end
+
   def destroy
     (Unit.find params[:id]).destroy
     render json: {}
   end
+
 
   private
 
