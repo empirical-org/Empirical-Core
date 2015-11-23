@@ -27,6 +27,8 @@ class ApplicationController < ActionController::Base
   end
 
   def routing_error(error = 'Routing error', status = :not_found, exception=nil)
+    @current_user = current_user
+    #if current_user == nil render_error(404) : render_error()
     render_error(404)
   end
 
