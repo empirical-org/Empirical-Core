@@ -41,8 +41,6 @@ EC.UnitTemplatesManager = React.createClass({
   updateModels: function (models) {
     this.setState({models: models, displayedModels: models});
     this.updateUnitTemplateCategories();
-    // just while working on html :
-    //this.selectModel(models[0])
   },
 
   updateUnitTemplateCategories: function () {
@@ -108,7 +106,7 @@ EC.UnitTemplatesManager = React.createClass({
   stageSpecificComponents: function () {
     if (this.state.stage === 'index') {
       return (
-        <EC.UnitTemplates
+        <EC.UnitTemplateMinis
             data={this.unitTemplatesData()}
             eventHandlers={this.unitTemplatesEventHandlers()}/>
 

@@ -1,5 +1,10 @@
 .unit-template-minis-header {
   text-align: center;
-  color: white;
+  color: $white;
   background-image: image-url('unit-templates/activity_pack_banner_large');
+  padding: 8em 26em;
+  h1 {
+    font-weight: 900;
+    margin-bottom: 2em;
+  }
 }
