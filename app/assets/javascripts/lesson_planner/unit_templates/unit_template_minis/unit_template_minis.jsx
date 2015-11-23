@@ -70,7 +70,7 @@ EC.UnitTemplateMinis = React.createClass({
               </div>
               <div className='row'>
                 <div className='col-xs-12'>
-                  {this.generateUnitTemplateViews()}
+                  //{this.generateUnitTemplateViews()}
                 </div>
               </div>
             </div>

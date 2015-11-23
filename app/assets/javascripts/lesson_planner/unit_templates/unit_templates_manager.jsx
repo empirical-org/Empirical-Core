@@ -42,7 +42,7 @@ EC.UnitTemplatesManager = React.createClass({
     this.setState({models: models, displayedModels: models});
     this.updateUnitTemplateCategories();
     // just while working on html :
-    this.selectModel(models[0])
+    //this.selectModel(models[0])
   },
 
   updateUnitTemplateCategories: function () {
