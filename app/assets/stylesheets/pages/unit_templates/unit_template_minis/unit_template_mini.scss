@@ -1,0 +1,61 @@
+.unit-template-mini {
+  width: 100%;
+  margin-top: 30px;
+  outline: 1px solid rgb(100,100,100);
+  position: relative;
+  cursor: pointer;
+
+  .first-row {
+    padding-left: 12px;
+    padding-top: 16px;
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+    height: 200px;
+    font-size: 18px;
+
+    .standards-count {
+
+    }
+    .unit-template-name {
+      margin-top: 18px;
+      font-size: 22px;
+      font-weight: 900;
+    }
+  }
+
+  .author-picture {
+    position: absolute;
+    bottom: 50px;
+    left: 27px;
+  }
+
+  .white-row {
+    background-color: white;
+    color: rgb(100,100,100);
+    height: 70px;
+    font-weight: 400;
+    padding-top: 36px;
+    .info-row {
+      padding-left: 12px;
+      line-height: 18px;
+      height: 18px;
+      .activities-count {
+        float:right;
+        .fa-th-list {
+          margin-right: 5px;
+        }
+      }
+      .time {
+        .fa-clock-o {
+          font-size: 18px;
+          float:left;
+        }
+        .time-number {
+          float:left;
+        }
+      }
+
+    }
+  }
+}

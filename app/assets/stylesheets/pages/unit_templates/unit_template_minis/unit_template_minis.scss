@@ -1,0 +1,32 @@
+.unit-template-minis {
+  margin-bottom: 100px;
+  .list-filter-options-container {
+    // needed to get the centering to work
+    // http://stackoverflow.com/questions/283961/centering-a-div-block-without-the-width
+    text-align: center;
+    .list-filter-options {
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      margin-left: auto;
+      margin-right: auto;
+      display: inline-block;
+      margin-top: 60px;
+      margin-bottom: 30px;
+
+      .list-filter-option {
+        padding: 5px;
+        clear:none;
+        float:left;
+        text-decoration: none;
+        margin-right: 45px;
+      }
+      .list-filter-option:last-child {
+        margin-right: 0px;
+      }
+      .list-filter-option.selected,
+      .list-filter-option:hover {
+        border-bottom: 2px solid blue;
+      }
+    }
+  }
