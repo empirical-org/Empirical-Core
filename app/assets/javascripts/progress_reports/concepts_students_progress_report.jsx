@@ -82,6 +82,8 @@ EC.ConceptsStudentsProgressReport = React.createClass({
                          onFetchSuccess={this.onFetchSuccess}
                          filterTypes={[]}>
         <h2>Results by Student</h2>
+        <br></br>
+        <p>This page shows how students are performing on individual questions. One question equals one results, and you can click on an individual concept to drill down.</p>
       </EC.ProgressReport>
     );
   }
