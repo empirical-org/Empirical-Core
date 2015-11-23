@@ -42,7 +42,6 @@ EC.LessonPlanner = React.createClass({
 
 	updateCreateUnitModel: function (hash) {
 		var newState = this.modules.LessonPlannerState.updateCreateUnitModel(this.state, hash)
-		console.log('newState', newState)
 		this.setState(newState, this.forceUpdate);
 	},
 
