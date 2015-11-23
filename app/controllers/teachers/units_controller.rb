@@ -68,8 +68,11 @@ class Teachers::UnitsController < ApplicationController
 
       x1 = x1.uniq{|y| y[:activity_id] }
 
-      ele = {unit: Unit.find(unit_id), classroom_activities: x1, num_students_assigned: num_students_assigned, classrooms: classrooms}
-      arr.push ele
+      unit = Unit.where(id: unit_id).first
+      if unit.present?
+        ele = {unit: unit, classroom_activities: x1, num_students_assigned: num_students_assigned, classrooms: classrooms}
+        arr.push ele
+      end
     end
 
 
