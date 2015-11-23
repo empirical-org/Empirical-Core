@@ -23,6 +23,7 @@ class ProfilesController < ApplicationController
     if @classroom = current_user.classroom
       #@units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq
       @grouped_scores = Profile::Processor.new.query(current_user)
+      
 
       @next_activity_session = ActivitySession.joins(:classroom_activity)
           .where("activity_sessions.completed_at IS NULL")

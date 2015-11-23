@@ -7,7 +7,7 @@
           th.position-column Position
           th.actions-column
 
-        - @sections.each do |chapter_level|
+        - @sections.order(position: :asc).each do |chapter_level|
           tr
             td= chapter_level.name
             td= chapter_level.position

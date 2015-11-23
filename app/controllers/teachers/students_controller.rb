@@ -3,6 +3,7 @@ class Teachers::StudentsController < ApplicationController
   before_filter :authorize!
 
   def create
+    strip_first_and_last_names
     if user_params[:first_name].blank? or user_params[:last_name].blank?
       flash[:notice] = 'Please provide both a first name and a last name.'
       redirect_to teachers_classroom_invite_students_path(@classroom)
@@ -62,6 +63,11 @@ protected
     auth_failed unless @classroom.teacher == current_user
     params[:id] = params[:student_id] if params[:student_id].present?
     @student = @classroom.students.find(params[:id]) if params[:id].present?
+  end
+
+  def strip_first_and_last_names
+    user_params[:first_name].strip!
+    user_params[:last_name].strip!
   end
 
   def do_names_contain_spaces
