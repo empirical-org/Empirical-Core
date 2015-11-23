@@ -104,7 +104,6 @@ EC.LessonPlanner = React.createClass({
 	},
 
 	render: function () {
-		console.log('this.state.createUnit', this.state.createUnit)
 		var tabSpecificComponents;
 		if (this.state.tab == 'createUnit') {
 			tabSpecificComponents = <EC.CreateUnit toggleTab={this.toggleTab}
