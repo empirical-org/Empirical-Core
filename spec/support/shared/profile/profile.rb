@@ -64,6 +64,17 @@ shared_context 'profile' do
                                                     due_date: Date.today + 1)}
 
 
+
+
+  # let(:activity3) { FactoryGirl.create(:activity, classification: game1) }
+
+  # let!(:unit3) { FactoryGirl.create(:unit) }
+  # let!(:classroom_activity3) { FactoryGirl.create(:classroom_activity,
+  #                                                 classroom: classroom,
+  #                                                 activity: activity3,
+  #                                                 unit: unit3,
+  #                                                 due_date: Date.today + 3) }
+
   let!(:as1) { classroom_activity.session_for(student) }
   let!(:as_1a) { classroom_activity_1a.session_for(student) }
   let!(:as_1aa) { classroom_activity_1aa.session_for(student) }
@@ -74,10 +85,20 @@ shared_context 'profile' do
   let!(:as_2aa) { classroom_activity_2aa.session_for(student) }
   let!(:as_2b) { classroom_activity_2b.session_for(student) }
 
+  # let!(:as3_unstarted) { classroom_activity3.session_for(student) }
+  # let!(:as3_started) { classroom_activity3.session_for(student) }
+  # let!(:as3_finished) { classroom_activity3.session_for(student) }
+
   before do
     as1.update_attributes(percentage: 0.8, state: 'finished')
     as_1a.update_attributes(percentage: 0.5, state: 'finished')
     as_1aa.update_attributes(percentage: 0.5, state: 'finished')
     as_1b.update_attributes(percentage: 1, state: 'finished')
   end
+
+  # before do
+  #   as3_unstarted.update_attributes(state: 'unstarted')
+  #   as3_started.update_attributes(percentage: 0.5, state: 'started')
+  #   as3_finished.update_attributes(percentage: 0.5, state: 'finished')
+  # end
 end
