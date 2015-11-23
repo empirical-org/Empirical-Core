@@ -34,16 +34,11 @@ class Profile::Processor
   end
 
   def sort_sessions_helper hash
-    result = {}
-    ['unstarted', 'started', 'finished'].each do |state|
-      if hash[state].nil?
-        result[state] = []
-      elsif state == 'finished'
-        result[state] = self.send("sort_finished", hash[state])
-      else
-        result[state] = self.send("sort_rest", hash[state])
-      end
-    end
+    result = {
+      "finished" => sort_finished(hash["finished"] || []) }
+    arr = hash["started"] || []
+    arr += (hash["unstarted"]) if hash["unstarted"]
+    result["unstarted"] = sort_rest(arr) || []
     result
   end
 

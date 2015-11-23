@@ -53,11 +53,11 @@
 
               <div class="fake-table">
                 <div class="header">Assigned Activities
-                  <span class="header-list-counter"><%= scores['unstarted'].size %> of <%= (scores['unstarted'].size + scores['finished'].size) %></span>
+                  <span class="header-list-counter"><%= scores['unstarted'].length %> of <%= (scores['unstarted'].length + scores['finished'].length) %></span>
                 </div>
 
 
-                <% combine(scores['unstarted'],scores['started']).each do |activity_session|%>
+                <% scores['unstarted'].each do |activity_session|%>
                   <%- activity = activity_session.activity %>
                   <div class="line">
                     <div class="row">

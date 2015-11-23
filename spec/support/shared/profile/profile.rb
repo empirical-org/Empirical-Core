@@ -67,7 +67,7 @@ shared_context 'profile' do
 
 
   # let(:activity3) { FactoryGirl.create(:activity, classification: game1) }
-  #
+
   # let!(:unit3) { FactoryGirl.create(:unit) }
   # let!(:classroom_activity3) { FactoryGirl.create(:classroom_activity,
   #                                                 classroom: classroom,
