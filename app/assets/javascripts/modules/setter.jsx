@@ -45,8 +45,6 @@ EC.modules.setter = function () {
       } else {
         nestedItem[lastKey] = value;
       }
-
-
     }
 
     return object;

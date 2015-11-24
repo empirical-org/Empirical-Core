@@ -217,8 +217,3 @@ EC.LessonPlanner = React.createClass({
 
 	}
 });
-
-
-
-
-
