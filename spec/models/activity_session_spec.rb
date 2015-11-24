@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe ActivitySession, :type => :model do
+describe ActivitySession, type: :model do
 
   describe "can behave like an uid class" do
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SchoolsController, :type => :controller do
+describe SchoolsController, type: :controller do
   render_views
 
   before do

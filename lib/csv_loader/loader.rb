@@ -16,8 +16,8 @@ class GoogleDriveLoader
   def client
     return @client if defined? @client
     @client = Google::APIClient.new(
-      :application_name => 'Example Ruby application',
-      :application_version => '1.0.0'
+      application_name: 'Example Ruby application',
+      application_version: '1.0.0'
     )
 
     authorize!

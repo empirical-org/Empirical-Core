@@ -5,7 +5,7 @@ class Teachers::UnitTemplatesController < ApplicationController
       format.html
       format.json do
         render json: UnitTemplate.all
-                                  .includes(:author, :activities => [:topic, :section])
+                                  .includes(:author, activities: [:topic, :section])
                                   .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
       end
     end

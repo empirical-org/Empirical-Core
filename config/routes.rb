@@ -191,5 +191,5 @@ EmpiricalGrammar::Application.routes.draw do
   get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
   # catch-all 404
-  get '*path', :to => 'application#routing_error'
+  get '*path', to: 'application#routing_error'
 end

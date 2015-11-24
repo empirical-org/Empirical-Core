@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ProfilesController, :type => :controller do
+describe ProfilesController, type: :controller do
   render_views
 
   describe 'as a student' do
