@@ -13,7 +13,7 @@ EC.CreateUnit = React.createClass({
 		// 			name: null,
 		// 			selectedActivities: []
 		// 		}
-		toggleStage: React.PropTypes.func.isRequired,
+		actions: React.PropTypes.object.isRequired,
 		analytics: React.PropTypes.object.isRequired
 	},
 
@@ -100,7 +100,7 @@ EC.CreateUnit = React.createClass({
 
 	clickContinue: function () {
 		this.props.analytics.track('click Continue in lesson planner');
-		this.props.toggleStage(2);
+		this.props.actions.toggleStage(2);
 		this.resetWindowPosition();
 	},
 
@@ -157,7 +157,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	onCreateSuccess: function(response) {
-		this.props.toggleTab('manageUnits');
+		this.props.actions.toggleTab('manageUnits');
 	},
 
 	isUnitNameSelected: function () {

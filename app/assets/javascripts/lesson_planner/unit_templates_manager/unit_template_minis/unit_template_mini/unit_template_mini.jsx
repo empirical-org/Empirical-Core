@@ -1,7 +1,7 @@
 EC.UnitTemplateMini = React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    eventHandlers: React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
@@ -52,7 +52,7 @@ EC.UnitTemplateMini = React.createClass({
   },
 
   selectModel: function () {
-    this.props.eventHandlers.selectModel(this.props.data)
+    this.props.actions.selectModel(this.props.data)
   },
 
   render: function () {
@@ -60,7 +60,7 @@ EC.UnitTemplateMini = React.createClass({
       <div className={this.getClassName()} onClick={this.selectModel}>
         <div className='col-xs-12'>
           <EC.UnitTemplateFirstRow
-              eventHandlers={{filterByCategory: this.props.eventHandlers.filterByCategory}}
+              actions={{filterByCategory: this.props.actions.filterByCategory}}
               data={this.props.data}
               modules={{string: this.modules.string}} />
           <EC.UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />

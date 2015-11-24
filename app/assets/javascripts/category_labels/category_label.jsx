@@ -1,15 +1,18 @@
 EC.CategoryLabel = React.createClass({
 
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    eventHandlers: React.PropTypes.object.isRequired
+    name: React.PropTypes.string.isRequired,
+    extraClassName: React.PropTypes.string.isRequired,
+    filterByCategory: React.PropTypes.func.isRequired
+  },
+
+  generateClassName: function () {
+    return ['category-label', 'img-rounded', this.props.extraClassName].join(' ')
   },
 
   render: function () {
     return (
-      <p>
-        <a className='unit-template-category-label img-rounded'>{this.props.data.model.unit_template_category.name.toUpperCase()}</a>
-      </p>
+      <div onClick={this.props.filterByCategory} className={this.generateClassName()}>{this.props.name}</div>
     )
   }
 });

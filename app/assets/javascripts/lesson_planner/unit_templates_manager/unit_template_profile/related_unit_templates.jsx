@@ -1,7 +1,7 @@
 EC.RelatedUnitTemplates = React.createClass({
   propTypes: {
     models: React.PropTypes.array.isRequired,
-    eventHandlers: React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
   },
 
   miniView: function (model, index) {
@@ -17,7 +17,7 @@ EC.RelatedUnitTemplates = React.createClass({
         <EC.UnitTemplateMini
               data={model}
               key={model.id}
-              eventHandlers={this.props.eventHandlers}
+              actions={this.props.actions}
               index={index} />
       </div>
     )

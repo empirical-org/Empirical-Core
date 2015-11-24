@@ -1,7 +1,7 @@
 EC.UnitTemplateFirstRow = React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    eventHandlers: React.PropTypes.object.isRequired,
+    actions: React.PropTypes.object.isRequired,
     modules: React.PropTypes.shape({
       string: React.PropTypes.object.isRequired
     })
@@ -21,9 +21,11 @@ EC.UnitTemplateFirstRow = React.createClass({
     return name;
   },
 
-  filterCategory: function () {
+  filterByCategory: function (e) {
+    console.log('filterByCategory')
+    e.stopPropagation()
     if (this.props.data.unit_template_category) {
-      this.props.eventHandlers.filterByCategory(this.props.data.unit_template_category.id)
+      this.props.actions.filterByCategory(this.props.data.unit_template_category.id)
     }
   },
 
@@ -40,6 +42,7 @@ EC.UnitTemplateFirstRow = React.createClass({
   },
 
   render: function () {
+
     return (
       <div style={{backgroundColor: this.getBackgroundColor()}} className={this.getClassName()}>
         <div className='col-xs-12'>
@@ -49,12 +52,12 @@ EC.UnitTemplateFirstRow = React.createClass({
                 {this.sayNumberOfStandards()}
               </div>
             </div>
-            <div className='col-xs-4'>
-              <div onClick={this.filterCategory}
-                    className='unit-template-category-label img-rounded float-right'
-                    style={{backgroundColor: this.getCategoryBackgroundColor()}}>
-                {this.sayCategory()}
-              </div>
+            <div className='col-xs-4 text-right'>
+              <EC.CategoryLabel
+                  filterByCategory={this.filterByCategory}
+                  extraClassName='float-right'
+                  backgroundColor={this.getCategoryBackgroundColor()}
+                  name={this.sayCategory()}/>
             </div>
           </div>
           <div className='row'>

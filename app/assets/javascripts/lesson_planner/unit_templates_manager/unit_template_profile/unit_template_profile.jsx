@@ -1,15 +1,11 @@
 EC.UnitTemplateProfile = React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    eventHandlers: React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
     return {};
-  },
-
-  assign: function () {
-    this.props.eventHandlers.assign(this.props.data.model);
   },
 
   render: function () {
@@ -17,20 +13,19 @@ EC.UnitTemplateProfile = React.createClass({
       <div className='unit-template-profile'>
 
         <EC.UnitTemplateProfileHeader data={this.props.data}
-                                   eventHandlers={this.props.eventHandlers} />
+                                   actions={this.props.actions} />
 
         <div className="container white">
 
           <div className='row first-content-section'>
             <div className='col-xs-6 left-hand-side'>
-              <EC.UnitTemplateProfileDescription data={this.props.data}
-                                   eventHandlers={this.props.eventHandlers} />
+              <EC.UnitTemplateProfileDescription data={this.props.data} />
             </div>
 
             <div className='col-xs-6'>
               <div className='row'>
                 <div className='col-xs-12'>
-                  <button className='button-green full-width' onClick={this.assign}>Assign to Your Class</button>
+                  <button className='button-green full-width' onClick={this.props.actions.assign}>Assign to Your Class</button>
                   <p className="time"><i className='fa fa-clock-o'></i>Estimated Time: &nbsp;45 mins</p>
                 </div>
               </div>
@@ -113,9 +108,9 @@ EC.UnitTemplateProfile = React.createClass({
 
 
           <EC.RelatedUnitTemplates models={this.props.data.relatedModels}
-                                   eventHandlers={this.props.eventHandlers} />
+                                   actions={this.props.actions} />
           <div className='row'>
-            <button onClick={this.props.eventHandlers.returnToIndex} className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button>
+            <button onClick={this.props.actions.returnToIndex} className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button>
           </div>
         </div>
       </div>
