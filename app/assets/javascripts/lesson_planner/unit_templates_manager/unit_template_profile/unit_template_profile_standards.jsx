@@ -3,33 +3,21 @@ EC.UnitTemplateProfileStandards = React.createClass({
     data: React.PropTypes.object.isRequired
   },
 
-  getStandards: function () {
-    return _.map(this.props.data.model.activities, function (act) {
-      return act.topic
-    })
-  },
-
-  renderStandards: function (standards) {
-    return _.map(standards, function(standard){
-      return <dd>{standard.name}</dd>
-    })
-  },
-
-  renderConcepts: function (standards) {
-    return _.map(standards, function(standard){
-      return <dd className='concept'>{standard.topic_category.name}</dd>
-    })
-  },
-
   render: function () {
     return (
       <div className='standards-and-concepts light-gray-bordered-box'>
         <dl>
           <dt><strong>Standards</strong></dt>
-          { this.renderStandards(this.getStandards()) }
+          <dd>3.1g Form and use Comparative and Superlative Adjectives.</dd>
+          <dd>3.2b Use Commas in Addresses</dd>
+          <dd>3.2c Form and use Possessives</dd>
 
           <dt className='concepts'><strong>Concepts</strong></dt>
-          { this.renderConcepts(this.getStandards()) }
+          <dd className='concept'>Commas in Numbers</dd>
+          <dd className='concept'>Capitalization</dd>
+          <dd className='concept'>Determiners</dd>
+          <dd className='concept'>Prepositions</dd>
+          <dd className='concept'>Commas & Proper Nouns</dd>
         </dl>
       </div>
     )
