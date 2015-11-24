@@ -23,8 +23,7 @@ class ActivitySession < ActiveRecord::Base
 
   around_save   :trigger_events
 
-  default_scope -> { joins(:activity)}
-  default_scope { where(visible: true)}
+  default_scope -> { joins(:activity) }
 
   scope :completed,  -> { where('completed_at is not null') }
   scope :incomplete, -> { where('completed_at is null').where('is_retry = false') }
