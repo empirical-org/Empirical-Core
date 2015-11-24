@@ -1,7 +1,7 @@
 class Profile::Processor
 
   def query(student)
-    all = Profile::Query.new.query(student)
+    all = Profile::Query.new.query(student).select{|s| s.unit.present?}
     by_unit = group_by_unit(all)
     by_unit_by_state = group_by_state_within_unit(by_unit)
     sorted = sort_sessions(by_unit_by_state)
