@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ActivityClassification, :type => :model do
+describe ActivityClassification, type: :model do
 
 	let(:activity_classification){FactoryGirl.build(:activity_classification) }
 

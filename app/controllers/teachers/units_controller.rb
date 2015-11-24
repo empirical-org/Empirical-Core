@@ -87,7 +87,7 @@ class Teachers::UnitsController < ApplicationController
   private
 
   def unit_params
-    params.require(:unit).permit(:name, classrooms: [:id, :all_students, :student_ids => []], activities: [:id, :due_date])
+    params.require(:unit).permit(:name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
   end
 
 #   def setup

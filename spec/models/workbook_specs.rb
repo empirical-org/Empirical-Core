@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Workbook, :type => :model do
+describe Workbook, type: :model do
 
 	let(:workbook){ FactoryGirl.build(:workbook, title: "some title") } 
 

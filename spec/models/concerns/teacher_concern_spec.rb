@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User, :type => :model do
+describe User, type: :model do
   describe 'teacher concern' do
     describe '#scorebook_scores' do
       let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}

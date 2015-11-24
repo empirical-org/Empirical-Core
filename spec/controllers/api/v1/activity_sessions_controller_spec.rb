@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::V1::ActivitySessionsController, :type => :controller do
+describe Api::V1::ActivitySessionsController, type: :controller do
 
   context 'OAuth' do
     let!(:activity_session) { FactoryGirl.create(:activity_session, user: user) }
@@ -18,7 +18,7 @@ describe Api::V1::ActivitySessionsController, :type => :controller do
   end
 
   context 'PUT #update' do
-    let(:token) { double :acceptable? => true, :resource_owner_id => user.id }
+    let(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let(:user) { FactoryGirl.create(:student) }
 
     before do

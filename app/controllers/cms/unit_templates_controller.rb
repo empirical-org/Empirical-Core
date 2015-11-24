@@ -49,7 +49,7 @@ class Cms::UnitTemplatesController < ApplicationController
                     :teacher_review,
                     :time,
                     :unit_template_category_id,
-                    :grades => [],
-                    :activity_ids => [])
+                    grades: [],
+                    activity_ids: [])
   end
 end
