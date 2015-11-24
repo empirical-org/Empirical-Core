@@ -13,7 +13,7 @@ class Profile::Query
 
     classroom_ids = finished_sessions.map{|s| s.classroom_activity_id}.uniq
 
-    other_sessions = student.activity_sessions.where("classroom_activity_id NOT IN (?)", classroom_ids)
+    other_sessions = not_finished_query(classroom_ids, student)
 
     sessions = finished_sessions + other_sessions
 
@@ -25,6 +25,14 @@ class Profile::Query
     end
     puts store[:sessions]
     return store[:sessions]
+  end
+
+  def not_finished_query classroom_ids, student
+    if classroom_ids.empty?
+      student.activity_sessions
+    else
+      student.activity_sessions.where("classroom_activity_id NOT IN (?)", classroom_ids)
+    end
   end
 
 end
