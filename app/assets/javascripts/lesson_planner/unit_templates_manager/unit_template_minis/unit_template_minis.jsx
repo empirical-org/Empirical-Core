@@ -1,18 +1,14 @@
 EC.UnitTemplateMinis = React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    eventHandlers: React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
-    this.initializeModules()
-    return {};
-  },
-
-  initializeModules: function () {
     this.modules = {
       rowsCreator: new EC.modules.RowsCreator(this.colView, this.rowView, 2)
     }
+    return {};
   },
 
   generateUnitTemplateViews: function () {
@@ -24,7 +20,7 @@ EC.UnitTemplateMinis = React.createClass({
     return <EC.UnitTemplateMini key={model.id}
                                 data={model}
                                 index={index}
-                                eventHandlers={this.props.eventHandlers} />
+                                actions={this.props.actions} />
   },
 
   colView: function (data, index) {
@@ -51,7 +47,7 @@ EC.UnitTemplateMinis = React.createClass({
           <EC.ListFilterOptions
                   options={this.props.data.categories}
                   selectedId={this.props.data.selectedCategoryId}
-                  select={this.props.eventHandlers.filterByCategory} />
+                  select={this.props.actions.filterByCategory} />
         </div>
     );
   },
@@ -64,14 +60,10 @@ EC.UnitTemplateMinis = React.createClass({
           <div className='row'>
             <div className='col-xs-12'>
               <div className='row'>
-                <div className='col-xs-12'>
-                  {this.listFilterOptions()}
-                </div>
+                {this.listFilterOptions()}
               </div>
               <div className='row'>
-                <div className='col-xs-12'>
-                  {this.generateUnitTemplateViews()}
-                </div>
+                {this.generateUnitTemplateViews()}
               </div>
             </div>
           </div>

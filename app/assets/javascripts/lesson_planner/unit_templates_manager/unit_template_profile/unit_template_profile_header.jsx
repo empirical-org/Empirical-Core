@@ -1,7 +1,7 @@
 EC.UnitTemplateProfileHeader = React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    eventHandlers: React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
   },
 
   divStyle: function () {
@@ -12,8 +12,10 @@ EC.UnitTemplateProfileHeader = React.createClass({
 
   render: function () {
     return (
-      <div className='big-title' style={this.divStyle()}>
-        <EC.CategoryLabel data={this.props.data} eventHandlers={this.props.eventHandlers} />
+      <div className='big-title row' style={this.divStyle()}>
+        <EC.CategoryLabel name={this.props.data.model.unit_template_category.name}
+                          onClick={this.props.actions.filterByCategory}
+                          backgroundColor={this.props.data.model.unit_template_category.secondaryColor} />
         <h1><strong>{this.props.data.model.name}</strong></h1>
         <div className="author-details">
           <div className="author-picture">

@@ -1,7 +1,6 @@
 EC.UnitTemplateProfileDescription = React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    eventHandlers: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired
   },
 
   render: function () {
