@@ -58,37 +58,8 @@ EC.UnitTemplateProfile = React.createClass({
           </div>
           <div className='row'>
             <div classsName='col-xs-12'>
-              <table className='table activity-table activity-pack'>
-                <thead>
-                  <th>App</th>
-                  <th>Activity</th>
-                  <th>Concept</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div className='icon-puzzle-gray'></div>
-                    </td>
-                    <td>
-                      The Last Flight of the Apollo : The Apollo-Soyuz Test Mission (History)
-                    </td>
-                    <td>
-                      Summative Assessments
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='icon-flag-gray'></div>
-                    </td>
-                    <td>
-                      The Day the Island Breathed (Fiction)
-                    </td>
-                    <td>
-                      Prepositions
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <EC.UnitTemplateProfileActivityTable data={this.props.data}
+                                   actions={this.props.actions} />
             </div>
           </div>
 
