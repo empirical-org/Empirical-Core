@@ -153,7 +153,7 @@ EC.LessonPlanner = React.createClass({
 
 	assign: function () {
 		this.fetchClassrooms()
-		var unitTemplate = this.state.UnitTemplatesManager.model;
+		var unitTemplate = this.state.unitTemplatesManager.model;
 		var state = this.state;
 		var hash = {
 			tab: 'createUnit',

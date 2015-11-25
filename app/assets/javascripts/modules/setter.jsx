@@ -1,4 +1,5 @@
 'use strict';
+// FIXME: make a test for this
 EC.modules.setter = function () {
   this.setOrExtend = function (object, path, value) {
     var pathArr = path.split('.');
