@@ -18,7 +18,7 @@ EC.UnitTemplateProfileActivityTable = React.createClass({
             {act.topic.topic_category.name}
           </td>
           <td>
-            <a href={act.anonymous_path} className="button-green full-width preview-button">Preview Activity</a>
+            <a href={act.anonymous_path} target="_blank" className="button-green full-width preview-button">Preview Activity</a>
           </td>
         </tr>
       )
