@@ -76,6 +76,7 @@ EC.ManageUnits = React.createClass({
 	},
 
 	render: function () {
+		console.log('units', this.state.units)
 		return (
 			<div className="container manage-units">
 				<div  className= "create-unit-button-container">
