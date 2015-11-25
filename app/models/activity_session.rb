@@ -23,6 +23,7 @@ class ActivitySession < ActiveRecord::Base
 
   around_save   :trigger_events
 
+  # FIXME: do we need the below? if we omit it, may make things faster
   default_scope -> { joins(:activity) }
 
   scope :completed,  -> { where('completed_at is not null') }
