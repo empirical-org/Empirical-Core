@@ -25,8 +25,8 @@ EC.UnitTemplateProfile = React.createClass({
             <div className='col-xs-6'>
               <div className='row'>
                 <div className='col-xs-12'>
-                  <button className='button-green full-width' onClick={this.props.actions.assign}>Assign to Your Class</button>
-                  <p className="time"><i className='fa fa-clock-o'></i>Estimated Time: &nbsp;45 mins</p>
+                  <EC.UnitTemplateProfileAssignButton data={this.props.data}
+                                   actions={this.props.actions} />
                 </div>
               </div>
               <div className="row">
