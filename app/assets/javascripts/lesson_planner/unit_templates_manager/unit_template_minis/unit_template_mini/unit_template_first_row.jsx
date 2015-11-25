@@ -11,24 +11,6 @@ EC.UnitTemplateFirstRow = React.createClass({
     return this.props.modules.string.sayNumberOfThings(this.props.data.number_of_standards, 'Standard', 'Standards');
   },
 
-  sayCategory: function () {
-    var name;
-    if (this.props.data.unit_template_category) {
-      name = this.props.data.unit_template_category.name.toUpperCase();
-    } else {
-      name = null;
-    }
-    return name;
-  },
-
-  filterByCategory: function (e) {
-    console.log('filterByCategory')
-    e.stopPropagation()
-    if (this.props.data.unit_template_category) {
-      this.props.actions.filterByCategory(this.props.data.unit_template_category.id)
-    }
-  },
-
   getClassName: function () {
     return ['row', 'first-row'].join(' ');
   },
@@ -54,10 +36,10 @@ EC.UnitTemplateFirstRow = React.createClass({
             </div>
             <div className='col-xs-4 text-right'>
               <EC.CategoryLabel
-                  filterByCategory={this.filterByCategory}
+                  filterByCategory={this.props.actions.filterByCategory}
+                  data={this.props.data.unit_template_category}
                   extraClassName='float-right'
-                  backgroundColor={this.getCategoryBackgroundColor()}
-                  name={this.sayCategory()}/>
+                  backgroundColor={this.getCategoryBackgroundColor()}/>
             </div>
           </div>
           <div className='row'>
