@@ -23,6 +23,16 @@ table.activity-table {
   tbody tr td {
     font-size: 14px;
     padding: 7px;
+
+    .preview-button {
+      opacity: 0;
+    }
+  }
+
+  tbody tr:hover {
+    .preview-button {
+      opacity: 1;
+    }
   }
 
 }
