@@ -1,9 +1,14 @@
 EC.CategoryLabel = React.createClass({
 
   propTypes: {
-    name: React.PropTypes.string.isRequired,
+    data: React.PropTypes.object.isRequired,
     extraClassName: React.PropTypes.string.isRequired,
     filterByCategory: React.PropTypes.func.isRequired
+  },
+
+  filterByCategory: function (e) {
+    e.stopPropagation();
+    this.props.filterByCategory(this.props.data.id);
   },
 
   generateClassName: function () {
@@ -12,7 +17,7 @@ EC.CategoryLabel = React.createClass({
 
   render: function () {
     return (
-      <div onClick={this.props.filterByCategory} className={this.generateClassName()}>{this.props.name}</div>
+      <div onClick={this.filterByCategory} className={this.generateClassName()}>{this.props.data.name}</div>
     )
   }
 });
