@@ -25,6 +25,7 @@ EC.LessonPlanner = React.createClass({
       windowPosition: new EC.modules.WindowPosition(),
 		};
 
+    this.deepExtendState = this.modules.updaterGenerator.updater(null)
 		this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
 		this.updateCreateUnitModel = this.modules.updaterGenerator.updater('createUnit.model');
 		this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
@@ -94,12 +95,6 @@ EC.LessonPlanner = React.createClass({
     this.updateUnitTemplatesManager({stage: 'index', displayedModels: uts, selectedCategoryId: categoryId});
   },
 
-  mergeState: function (hash) {
-  	var state = this.state;
-  	var newState = _.merge({}, state, hash);
-  	this.setState(newState);
-  },
-
   fetchUnitTemplateModels: function () {
     this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
   },
@@ -113,9 +108,18 @@ EC.LessonPlanner = React.createClass({
 	toggleTab: function (tab) {
 		if (tab == 'createUnit') {
 			this.props.analytics.track('click Create Unit', {});
-		}
-		if (tab == 'exploreActivityPacks') {
-			this.mergeState({tab: tab, unitTemplatesManager: {stage: 'index'}})
+      this.updateCreateUnit({
+                              stage: 1,
+                              model: {
+                                name: null,
+                                selectedActivities: []
+                              }
+                            });
+
+      this.setState({tab: tab})
+
+		} else if (tab == 'exploreActivityPacks') {
+			this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index'}})
       this.fetchUnitTemplateModels();
 		} else {
 			this.setState({tab: tab})
@@ -167,7 +171,7 @@ EC.LessonPlanner = React.createClass({
 				}
 			}
 		}
-		this.mergeState(hash);
+		this.deepExtendState(hash);
 	},
 
 	unitTemplatesManagerActions: function () {
