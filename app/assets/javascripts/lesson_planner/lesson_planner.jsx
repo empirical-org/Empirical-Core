@@ -21,7 +21,8 @@ EC.LessonPlanner = React.createClass({
 		this.modules = {
 			fnl: new EC.modules.fnl(),
 			updaterGenerator: new EC.modules.updaterGenerator(this),
-			unitTemplatesServer: new EC.modules.Server('unit_template', 'unit_templates', '/teachers')
+			unitTemplatesServer: new EC.modules.Server('unit_template', 'unit_templates', '/teachers'),
+      windowPosition: new EC.modules.WindowPosition(),
 		};
 
 		this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
@@ -58,6 +59,7 @@ EC.LessonPlanner = React.createClass({
   selectModel: function (ut) {
     var relatedModels = this._modelsInCategory(ut.unit_template_category.id)
     this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
+    this.modules.windowPosition.reset();
   },
 
   _modelsInCategory: function (categoryId) {
