@@ -17,7 +17,7 @@ EC.CategoryLabel = React.createClass({
 
   render: function () {
     return (
-      <div onClick={this.filterByCategory} className={this.generateClassName()}>{this.props.data.name}</div>
+      <div onClick={this.filterByCategory} className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
     )
   }
 });
