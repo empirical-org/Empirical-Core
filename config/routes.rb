@@ -34,7 +34,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :teachers do
     resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
-    resources :unit_templates, only: [:index]
+    resources :unit_templates, only: [:index, :show]
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
 
 

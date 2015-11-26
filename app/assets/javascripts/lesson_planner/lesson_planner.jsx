@@ -1,13 +1,16 @@
 'use strict';
 $(function () {
-	var ele = $('#activity-planner');
-	if (ele.length > 0) {
+	var activityPlanner, unitTemplate;
+  activityPlanner = $('#activity-planner')[0];
+  unitTemplate = $('#teachers-unit-template')[0];
+	if (activityPlanner) {
 		var props = {
 			analytics: new EC.AnalyticsWrapper()
 		};
-		React.render(React.createElement(EC.LessonPlanner, props), ele[0]);
-	}
-
+		React.render(React.createElement(EC.LessonPlanner, props), activityPlanner);
+	} else if (unitTemplate) {
+      console.log('implement deep linking')
+  }
 });
 
 
