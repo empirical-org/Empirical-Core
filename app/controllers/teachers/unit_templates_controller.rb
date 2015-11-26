@@ -10,4 +10,8 @@ class Teachers::UnitTemplatesController < ApplicationController
       end
     end
   end
+
+  def show
+    @unit_template_id = params[:id]
+  end
 end
