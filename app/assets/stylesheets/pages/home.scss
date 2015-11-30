@@ -10,6 +10,11 @@
   font-size: 19px;
   font-weight: 700;
 }
+
+#partners {
+  margin-bottom: 100px;
+}
+
 #partner-text {
   margin-top: 89px;
   text-align: center;
@@ -21,10 +26,11 @@
   }
 }
 
-
 .partner-logo {
-    height: 130.6px;
-    width: 325px;
+    height: 131px;
+    max-width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .gates {
