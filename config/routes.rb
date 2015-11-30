@@ -42,7 +42,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'my_account_data' => 'classroom_manager#my_account_data'
     put 'update_my_account' => 'classroom_manager#update_my_account'
     delete 'delete_my_account' => 'classroom_manager#delete_my_account'
-
+    get 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
 
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
