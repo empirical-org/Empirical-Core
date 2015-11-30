@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-
 feature 'unit templates manager', js: true do
+  let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
+  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let(:author) { FactoryGirl.create(:author, name: 'author1') }
   let(:section) { FactoryGirl.create(:section, name: 'section1') }
   let(:topic) { FactoryGirl.create(:topic, name: 'topic1', section: section) }
@@ -35,13 +36,18 @@ feature 'unit templates manager', js: true do
   }
 
   def assign_btn
-    'assign'
+    'Assign'
   end
 
 
   before(:each) do
     vcr_ignores_localhost
-    visit('/teachers/unit_templates')
+    sign_in_user(teacher) # defined in feature_helper
+    visit('/teachers/classrooms/lesson_planner')
+    xpath = "//*[contains(text(), 'Explore Activity Packs')]"
+    page.find(:xpath, xpath)
+        .trigger(:click)
+
   end
 
   context 'list of unit_templates' do
@@ -56,13 +62,6 @@ feature 'unit templates manager', js: true do
           .trigger(:click)
 
       expect(page).to_not have_content(unit_template2.name)
-    end
-  end
-
-  context 'unit template profile' do
-    it 'is accessible from list of unit_templates' do
-      page.first(:css, '.unit-template').trigger(:click)
-      expect(page).to have_content(assign_btn)
     end
   end
 end
