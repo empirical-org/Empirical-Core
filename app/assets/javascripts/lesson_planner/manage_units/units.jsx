@@ -1,12 +1,4 @@
 EC.Units = React.createClass({
-
-
-
-
-
-
-
-
 	render: function () {
 		var units = _.map(this.props.data, function (data) {
 			return (<EC.Unit
@@ -22,8 +14,6 @@ EC.Units = React.createClass({
 				{units}
 			</span>
 		);
-
 	}
-
 
 });
