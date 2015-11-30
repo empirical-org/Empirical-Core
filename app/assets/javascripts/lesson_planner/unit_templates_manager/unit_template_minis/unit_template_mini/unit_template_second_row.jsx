@@ -38,18 +38,16 @@ EC.UnitTemplateSecondRow = React.createClass({
       <div className='row white-row'>
         <div className='col-xs-12'>
           <div className='row info-row'>
-            <div className='col-xs-4'>
+            <div className='col-xs-6'>
               <div className='author'>
                 {this.sayAttribution()}
               </div>
             </div>
-            <div className='col-xs-4'>
+            <div className='col-xs-6'>
               <div className='activities-count'>
                 <i className='fa fa-th-list'></i>
                 {this.sayActivitiesCount()}
               </div>
-            </div>
-            <div className='col-xs-4'>
               <div className='time'>
                 <i className='fa fa-clock-o'></i>
                 <div className='time-number'>
