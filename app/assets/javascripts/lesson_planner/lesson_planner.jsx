@@ -95,6 +95,7 @@ EC.LessonPlanner = React.createClass({
 
   returnToIndex: function () {
   	this.updateUnitTemplatesManager({stage: 'index'})
+    window.scrollTo(0, 0);
   },
 
   filterByCategory: function (categoryId) {
