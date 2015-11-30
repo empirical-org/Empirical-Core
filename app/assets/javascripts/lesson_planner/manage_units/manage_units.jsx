@@ -29,7 +29,7 @@ EC.ManageUnits = React.createClass({
 		this.setState({units: x1});
 
 		$.ajax({
-			type: "get",
+			type: "put",
 			url: "/teachers/units/" + id + "/hide",
 			success: function () {
 			},
