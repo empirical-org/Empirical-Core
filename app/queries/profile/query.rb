@@ -23,7 +23,6 @@ class Profile::Query
         store[:sessions].push(s)
       end
     end
-    puts store[:sessions]
     return store[:sessions]
   end
 

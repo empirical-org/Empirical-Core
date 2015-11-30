@@ -2,14 +2,11 @@
 $(function () {
 	var activityPlanner, unitTemplate;
   activityPlanner = $('#activity-planner')[0];
-  unitTemplate = $('#teachers-unit-template')[0];
 	if (activityPlanner) {
 		var props = {
 			analytics: new EC.AnalyticsWrapper()
 		};
 		React.render(React.createElement(EC.LessonPlanner, props), activityPlanner);
-	} else if (unitTemplate) {
-      console.log('implement deep linking')
   }
 });
 
@@ -33,7 +30,7 @@ EC.LessonPlanner = React.createClass({
 		this.updateCreateUnitModel = this.modules.updaterGenerator.updater('createUnit.model');
 		this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
 
-		return {
+		var state = {
 			tab: 'exploreActivityPacks', // 'manageUnits', 'createUnit'
 			createUnit: {
 				stage: 1,
@@ -52,11 +49,20 @@ EC.LessonPlanner = React.createClass({
 	      categories: [],
 	      stage: 'index', // index, profile,
 	      model: null,
+        model_id: null,
 	      relatedModels: [],
 	      displayedModels: [],
 	      selectedCategoryId: null
 			}
 		}
+
+    //FIXME: this concern should be handled with a react-router
+    var individualUnitTemplate = $('.teachers-unit-template')[0]
+    if (individualUnitTemplate) {
+      state.tab = 'exploreActivityPacks';
+      state.unitTemplatesManager.model_id = $('.teachers-unit-template').data('id');
+    }
+    return state;
 	},
 
 
@@ -81,7 +87,11 @@ EC.LessonPlanner = React.createClass({
     	displayedModels: models,
     	categories: categories
     }
-    console.log('newHash', newHash)
+    var model_id = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
+    if (model_id) {
+      newHash.model = _.findWhere(models, {id: model_id});
+      newHash.stage = 'profile'
+    }
     this.updateUnitTemplatesManager(newHash)
   },
 
@@ -122,7 +132,7 @@ EC.LessonPlanner = React.createClass({
       this.setState({tab: tab})
 
 		} else if (tab == 'exploreActivityPacks') {
-			this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index'}})
+			this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index', model_id: null, model: null}})
       this.fetchUnitTemplateModels();
 		} else {
 			this.setState({tab: tab})
