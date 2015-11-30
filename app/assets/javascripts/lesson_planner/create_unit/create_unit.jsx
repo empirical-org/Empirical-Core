@@ -240,7 +240,6 @@ EC.CreateUnit = React.createClass({
 	},
 
 	stage2SpecificComponents: function () {
-			console.log(this.getClassrooms())
 			return (<EC.Stage2 selectedActivities={this.getSelectedActivities()}
 								 classrooms={this.getClassrooms()}
 								 toggleActivitySelection={this.toggleActivitySelection}
