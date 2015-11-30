@@ -31,7 +31,7 @@ EC.LessonPlanner = React.createClass({
 		this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
 
 		var state = {
-			tab: 'exploreActivityPacks', // 'manageUnits', 'createUnit'
+			tab: 'manageUnits', // 'manageUnits', 'createUnit'
 			createUnit: {
 				stage: 1,
 				options: {
