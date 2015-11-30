@@ -4,8 +4,6 @@ EC.CreateUnit = React.createClass({
 		data: React.PropTypes.object.isRequired,
 		// createUnit: {
 		// 		stage: 1,
-		// 		toggleActivitySelection: this.toggleActivitySelection,
-		// 		update: this.updateCreateUnitModel,
 		// 		options: {
 		// 			classrooms: []
 		// 		},
@@ -39,10 +37,6 @@ EC.CreateUnit = React.createClass({
 
 	getUnitName: function () {
 		return this.props.data.model.name;
-	},
-
-	toggleActivitySelection: function (activity, true_or_false) {
-		this.props.data.toggleActivitySelection(activity, true_or_false)
 	},
 
 	assignActivityDueDate: function(activity, dueDate) {
@@ -96,7 +90,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	updateUnitName: function (unitName) {
-		this.props.data.update({name: unitName})
+		this.props.actions.update({name: unitName})
 	},
 
 	clickContinue: function () {
@@ -236,7 +230,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	stage1SpecificComponents: function () {
-		return (<EC.UnitStage1 toggleActivitySelection={this.toggleActivitySelection}
+		return (<EC.UnitStage1 toggleActivitySelection={this.props.actions.toggleActivitySelection}
 								 unitName = {this.getUnitName()}
 								 updateUnitName={this.updateUnitName}
 								 selectedActivities={this.getSelectedActivities()}

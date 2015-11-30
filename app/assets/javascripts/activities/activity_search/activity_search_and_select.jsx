@@ -210,6 +210,7 @@ EC.ActivitySearchAndSelect = React.createClass({
   },
 
   render: function() {
+    console.log('selected activities in activity search and select', this.props.selectedActivities)
 
     var currentPageSearchResults = this.determineCurrentPageSearchResults();
     return (
