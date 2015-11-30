@@ -4,7 +4,7 @@ EC.modules.setter = function () {
 
   //http://stackoverflow.com/questions/14843815/recursive-deep-extend-assign-in-underscore-js
   var _deep = function(a, b) {
-    return _.isObject(a) && _.isObject(b) ? _.extend(a, b, _deep) : b;
+    return _.isObject(a) && _.isObject(b) && (!_.isArray(b)) ? _.extend(a, b, _deep) : b;
   };
 
   this.setOrExtend = function (object, path, value) {
@@ -28,6 +28,8 @@ EC.modules.setter = function () {
       } else {
         nestedItem[lastKey] = value;
       }
+
+
     }
 
     return object;

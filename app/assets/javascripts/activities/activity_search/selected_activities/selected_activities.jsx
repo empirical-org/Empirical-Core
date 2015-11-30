@@ -9,7 +9,7 @@ EC.SelectedActivities = React.createClass({
 		var rows, buttonClassName;
 
 		rows = _.map(this.props.selectedActivities, function (ele){
-			return <EC.SelectedActivity toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />
+			return <EC.SelectedActivity key={ele.id} toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />
 		}, this);
 
 		return (

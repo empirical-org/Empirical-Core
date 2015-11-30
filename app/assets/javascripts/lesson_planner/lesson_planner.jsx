@@ -34,8 +34,6 @@ EC.LessonPlanner = React.createClass({
 			tab: 'exploreActivityPacks', // 'manageUnits', 'createUnit'
 			createUnit: {
 				stage: 1,
-				toggleActivitySelection: this.toggleActivitySelection,
-				update: this.updateCreateUnitModel,
 				options: {
 					classrooms: []
 				},
@@ -166,7 +164,9 @@ EC.LessonPlanner = React.createClass({
 		if (true_or_false) {
 			this.props.analytics.track('select activity in lesson planner', {name: activity.name, id: activity.id});
 		}
+    console.log('toggleActivitySelection', activity)
 		var sas = this.modules.fnl.toggle(this.getSelectedActivities(), activity);
+    console.log('sas after', sas)
 		this.updateCreateUnitModel({selectedActivities: sas});
 	},
 
@@ -200,7 +200,10 @@ EC.LessonPlanner = React.createClass({
 		var tabSpecificComponents;
 		if (this.state.tab == 'createUnit') {
 			tabSpecificComponents = <EC.CreateUnit data={this.state.createUnit}
-																						 actions={{toggleStage: this.toggleStage, toggleTab: this.toggleTab}}
+																						 actions={{toggleStage: this.toggleStage,
+                                                       toggleTab: this.toggleTab,
+                                                       update: this.updateCreateUnitModel,
+                                                       toggleActivitySelection: this.toggleActivitySelection}}
 																						 analytics={this.props.analytics}/>;
 		} else if (this.state.tab == 'manageUnits') {
 			tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;
