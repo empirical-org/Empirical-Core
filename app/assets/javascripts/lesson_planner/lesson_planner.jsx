@@ -149,9 +149,6 @@ EC.LessonPlanner = React.createClass({
       context: this,
       success: function (data) {
         that.updateCreateUnit({options: {classrooms: data.classrooms_and_their_students}})
-      },
-      error: function () {
-        console.log('error fetching classrooms');
       }
     });
   },
@@ -164,9 +161,7 @@ EC.LessonPlanner = React.createClass({
 		if (true_or_false) {
 			this.props.analytics.track('select activity in lesson planner', {name: activity.name, id: activity.id});
 		}
-    console.log('toggleActivitySelection', activity)
 		var sas = this.modules.fnl.toggle(this.getSelectedActivities(), activity);
-    console.log('sas after', sas)
 		this.updateCreateUnitModel({selectedActivities: sas});
 	},
 
