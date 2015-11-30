@@ -72,7 +72,6 @@ EC.ActivitySearchAndSelect = React.createClass({
   },
 
   searchRequestSuccess: function (data) {
-    console.log('search requst success', data);
     var hash = {
       activitySearchResults: data.activities,
       numberOfPages: data.number_of_pages,
