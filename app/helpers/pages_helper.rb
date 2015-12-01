@@ -17,7 +17,7 @@ module PagesHelper
 
 	end
 
-	def about_subtab_class tabname
+	def subtab_class tabname
 		if action_name == tabname
 			"active"
 		else
