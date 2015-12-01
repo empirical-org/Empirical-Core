@@ -11,6 +11,75 @@
   font-weight: 700;
 }
 
+#partners {
+  margin-bottom: 100px;
+    #partner-text {
+      margin-top: 89px;
+      text-align: center;
+      font-size: 21px;
+      margin-bottom: 31px;
+      a {
+        color: #03735F;
+        text-decoration: none;
+      }
+    }
+    .partner-logo {
+        height: 131px;
+        max-width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .gates {
+      background-image: image-url('home/partners/gates_grey.png');
+    }
+
+    .gates:hover {
+      background-image: image-url('home/partners/gates_color.png');
+    }
+
+    .google {
+      background-image: image-url('home/partners/google_grey.png');
+    }
+
+    .google:hover {
+      background-image: image-url('home/partners/google_color.png');
+    }
+
+    .aspire {
+      background-image: image-url('home/partners/aspire_grey.png');
+    }
+
+    .aspire:hover {
+      background-image: image-url('home/partners/aspire_color.png');
+    }
+    .fastforward {
+      background-image: image-url('home/partners/fastforward_grey.png');
+    }
+
+    .fastforward:hover {
+      background-image: image-url('home/partners/fastforward_color.png');
+    }
+    .gould {
+      background-image: image-url('home/partners/gould_grey.png');
+    }
+
+    .gould:hover {
+      background-image: image-url('home/partners/gould_color.png');
+    }
+
+    .blackrock {
+      background-image: image-url('home/partners/blackrock_grey.png');
+    }
+
+    .blackrock:hover {
+      background-image: image-url('home/partners/blackrock_color.png');
+    }
+}
+
+
+
+
+
 .ul-reset-mixin {
   padding: 0;
   margin: 0;
@@ -93,7 +162,7 @@
   }
 }
 .home-page-navbar {
-  margin: 0;  
+  margin: 0;
   background-color: $quillgreen;
   height: 130px;
   padding: 30px 0 0;
