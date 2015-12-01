@@ -1,5 +1,7 @@
 class Profile::Processor
 
+  # need to serialize
+
   def query(student)
     all = Profile::Query.new.query(student).select{|s| s.unit.present?}
     by_unit = group_by_unit(all)
