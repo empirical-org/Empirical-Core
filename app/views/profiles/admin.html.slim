@@ -1,13 +1,22 @@
 .container
-  article.simple-rounded-box: table.table
-    thead: th Admin Console
-    tr: td= link_to 'Activities Editor', cms_activity_classifications_path
-    tr: td= link_to "Activity Packs Editor", cms_unit_templates_path
-    tr: td= link_to "Activity Packs Categories Editor", cms_unit_template_categories_path
-    tr: td= link_to "Authors Editor", cms_authors_path
-    tr: td= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('stories/module', 'cms/rules')
-    tr: td= link_to 'User Manager', cms_users_path
-    tr: td= link_to 'Sections Manager', cms_sections_path
-    tr: td= link_to 'Topics Manager', cms_topics_path
-    tr: td= link_to "Topic Categories Manager (these appear as 'Concepts' in the Activity Planner)", cms_topic_categories_path
+  #admin_panel
+    article.simple-rounded-box: table.table
+      thead: th Admin Console
+      tr: td= link_to 'User Manager', cms_users_path
 
+    article.simple-rounded-box: table.table
+      thead: th Content Management System
+      tr: td= link_to 'Activities Editor', cms_activity_classifications_path
+      tr: td= link_to "Activity Packs Editor", cms_unit_templates_path
+      tr: td= link_to "Activity Packs Categories Editor", cms_unit_template_categories_path
+      tr: td= link_to "Authors Editor", cms_authors_path
+      tr: td= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('stories/module', 'cms/rules')
+      tr: td= link_to 'Sections Manager', cms_sections_path
+      tr: td= link_to 'Topics Manager', cms_topics_path
+      tr: td= link_to "Topic Categories Manager (these appear as 'Concepts' in the Activity Planner)", cms_topic_categories_path
+
+    article.simple-rounded-box: table.table
+      thead: th Data Dashboards
+      tr: td= link_to "LMS Performance", "https://community.quill.org/teams/quill-lms/performance/"
+      tr: td= link_to "Daily Usage", "https://quill.geckoboard.com/edit/dashboards/138770"
+      tr: td= link_to "Memory/Response Time Stats", "https://log2viz.herokuapp.com/app/empirical-grammar"
