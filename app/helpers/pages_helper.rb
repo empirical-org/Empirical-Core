@@ -4,9 +4,12 @@ module PagesHelper
 		about_actions = ["mission", "develop", "faq", "team"]
 		impact_actions = ['impact']
 		activities_actions = ['activities']
+		media_actions = ['news', 'press', 'blog_posts', 'press_kit']
 
 		if tabname == "about"
 			about_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == "media"
+			media_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == "impact"
 			impact_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == 'activities'
