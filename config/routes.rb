@@ -168,7 +168,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  %w(middle_school story learning develop mission faq tos privacy activities new impact stats team premium_access premium teacher_resources press_kit play).each do |page|
+  %w(press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium_access premium teacher_resources press_kit play media).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
