@@ -182,14 +182,6 @@ button:not(.select-mixin) {
   }
 }
 
-.student-course-info span {
-  margin-right: 50px;
-  color: #999;
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
 .title {
   font-size: 14px;
 }
@@ -230,11 +222,6 @@ button:not(.select-mixin) {
 .start-activity-wrapper form {
   float: right;
 }
-
-.student-page .section-header {
-  margin-bottom: 30px;
-}
-
 
 .grade-select {
   width: 140px;

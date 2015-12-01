@@ -3,7 +3,14 @@ class ProfilesController < ApplicationController
 
   def show
     @user = current_user
-    send current_user.role
+    if current_user.role == 'student'
+      respond_to do |format|
+        format.html {student(false)}
+        format.json {student(true)}
+      end
+    else
+      send current_user.role
+    end
   end
 
   def update
@@ -19,11 +26,12 @@ class ProfilesController < ApplicationController
     student
   end
 
-  def student
+  def student(is_json=true)
+    puts "is_json : #{is_json}"
     if @classroom = current_user.classroom
       #@units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq
       @grouped_scores = Profile::Processor.new.query(current_user)
-      
+      @student_id = current_user.id
 
       @next_activity_session = ActivitySession.joins(:classroom_activity)
           .where("activity_sessions.completed_at IS NULL")
@@ -34,7 +42,11 @@ class ProfilesController < ApplicationController
 
       @next_activity = @next_activity_session.activity if @next_activity_session.present?
 
-      render 'student'
+      if is_json
+        render json: {grouped_scores: @grouped_scores, next_activity_session: @next_activity_session}
+      else
+        render 'student'
+      end
     else
       render 'join-classroom'
     end
