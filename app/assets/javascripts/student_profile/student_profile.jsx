@@ -8,7 +8,9 @@ $(function () {
 EC.StudentProfile = React.createClass({
   getInitialState: function () {
     return {
-
+      next_activity_session: {activity: {}},
+      student: {classroom: {teacher: {}}},
+      grouped_scores: {}
     }
   },
 
@@ -17,16 +19,15 @@ EC.StudentProfile = React.createClass({
   },
 
   loadProfile: function (data) {
-    console.log('data', data)
     this.setState(data)
   },
 
   render: function () {
     return (
       <div>
-        <EC.StudentProfileHeader studentName={"John Johnson"} classroomName={"3rd Grade Englash"} teacherName={"Teacher Lasname"} />
-        <EC.NextLesson data={{name: 'A, An, The'}} />
-        <EC.StudentProfileUnits />
+        <EC.StudentProfileHeader data={this.state.student} />
+        <EC.NextLesson data={this.state.next_activity_session} />
+        <EC.StudentProfileUnits data={this.state.grouped_scores} />
       </div>
     )
   }

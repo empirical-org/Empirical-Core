@@ -26,7 +26,7 @@ class ProfilesController < ApplicationController
     student
   end
 
-  def student(is_json=true)
+  def student(is_json=false)
     puts "is_json : #{is_json}"
     if @classroom = current_user.classroom
       #@units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq
@@ -43,7 +43,7 @@ class ProfilesController < ApplicationController
       @next_activity = @next_activity_session.activity if @next_activity_session.present?
 
       if is_json
-        render json: {grouped_scores: @grouped_scores, next_activity_session: @next_activity_session}
+        render json: {student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: @grouped_scores, next_activity_session: Profile::ActivitySessionSerializer.new(@next_activity_session, root: false)}
       else
         render 'student'
       end
