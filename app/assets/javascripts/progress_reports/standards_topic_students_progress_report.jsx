@@ -17,7 +17,12 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
         name: 'Student Name',
         field: 'name',
         sortByField: 'sorting_name',
-        className: 'student-name-column'
+        className: 'student-name-column',
+        customCell: function(row) {
+          return (
+            <a className="student-view" href={row['student_topics_href']}>{row['name']}</a>
+          );
+        }
       },
       {
         name: 'Activities',

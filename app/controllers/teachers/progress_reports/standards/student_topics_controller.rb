@@ -4,8 +4,14 @@ class Teachers::ProgressReports::Standards::StudentTopicsController < Teachers::
       format.html
       format.json do
         topics = ::ProgressReports::Standards::Topic.new(current_user).results(params)
+        topics_json = topics.map do |topic|
+          serializer = ::ProgressReports::Standards::TopicSerializer.new(topic)
+          # Doing this because can't figure out how to get custom params into serializers
+          serializer.classroom_id = params[:classroom_id]
+          serializer.as_json(root: false)
+        end
         render json: {
-          topics: topics,
+          topics: topics_json,
           student: current_user.students.find(params[:student_id]),
           units: ProgressReports::Standards::Unit.new(current_user).results({}),
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
