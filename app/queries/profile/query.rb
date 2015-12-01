@@ -6,7 +6,7 @@ class Profile::Query
       sessions: []
     }
 
-    finished_sessions = student.activity_sessions
+    finished_sessions = student.activity_sessions.includes(:unit, classroom_activity: [:unit], activity: [:classification])
                         .where(state: "finished")
                         .sort_by {|s| s.percentage}
                         .reverse
@@ -23,15 +23,14 @@ class Profile::Query
         store[:sessions].push(s)
       end
     end
-    puts store[:sessions]
     return store[:sessions]
   end
 
   def not_finished_query classroom_ids, student
     if classroom_ids.empty?
-      student.activity_sessions
+      student.activity_sessions.includes(:unit, classroom_activity: [:unit], activity: [:classification])
     else
-      student.activity_sessions.where("classroom_activity_id NOT IN (?)", classroom_ids)
+      student.activity_sessions.where("classroom_activity_id NOT IN (?)", classroom_ids).includes(:unit, classroom_activity: [:unit], activity: [:classification])
     end
   end
 
