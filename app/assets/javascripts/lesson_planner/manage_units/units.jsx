@@ -1,18 +1,10 @@
 EC.Units = React.createClass({
-
-
-
-
-
-
-
-
 	render: function () {
 		var units = _.map(this.props.data, function (data) {
 			return (<EC.Unit
 							key={data.unit.id}
 							updateDueDate={this.props.updateDueDate}
-							deleteUnit={this.props.deleteUnit}
+							hideUnit={this.props.hideUnit}
 							deleteClassroomActivity={this.props.deleteClassroomActivity}
 							data={data} />);
 		}, this);
@@ -22,8 +14,6 @@ EC.Units = React.createClass({
 				{units}
 			</span>
 		);
-
 	}
-
 
 });
