@@ -7,24 +7,35 @@ $(function () {
 
 EC.StudentProfile = React.createClass({
   getInitialState: function () {
+    this.modules = {
+      scrollify: new EC.modules.scrollify()
+    }
     return {
       next_activity_session: {activity: {}},
       student: {classroom: {teacher: {}}},
       grouped_scores: {},
-      ajaxReturned: false
+      isLastPage: false,
+      currentPage: null,
+      loading: false
     }
   },
 
   componentDidMount: function () {
-    $.ajax({url: '/profile.json', format: 'json', success: this.loadProfile})
+    this.modules.scrollify.scrollify('#page-content-wrapper', this)
+    this.setState({loading: true})
+    this.fetchData();
+  },
+
+  fetchData: function () {
+    $.ajax({url: '/profile.json', data: {current_page: this.state.currentPage}, format: 'json', success: this.loadProfile})
   },
 
   loadProfile: function (data) {
-    this.setState(_.extend(data, {ajaxReturned: true}))
+    this.setState(_.extend(data, {ajaxReturned: true, loading: false}))
   },
 
   render: function () {
-    if (this.state.ajaxReturned) {
+    if (this.state.currentPage) {
       return (
         <div>
           <EC.StudentProfileHeader data={this.state.student} />

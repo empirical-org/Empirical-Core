@@ -1,4 +1,6 @@
 class Profile::Query
+  BATCH_SIZE = 10
+
   def query(student)
 
     store = {
