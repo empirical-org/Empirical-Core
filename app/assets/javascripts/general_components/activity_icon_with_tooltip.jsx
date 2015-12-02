@@ -1,5 +1,18 @@
 "use strict";
 EC.ActivityIconWithTooltip = React.createClass({
+  propTypes: {
+    data: React.PropTypes.object.isRequired,
+    context: React.PropTypes.string.isRequired, // studentProfile, scorebook
+    placement: React.PropTypes.string // not required
+  },
+
+  getDefaultProps: function () {
+    return {
+      context: 'scorebook',
+      placement: 'top'
+    }
+  },
+
   percentage_color: function (percentage) {
     var y;
     var x = this.props.data.percentage;
@@ -21,7 +34,7 @@ EC.ActivityIconWithTooltip = React.createClass({
   componentDidMount: function () {
     $(this.refs.activateTooltip.getDOMNode()).tooltip({
       html: true,
-      placement: 'top',
+      placement: this.props.placement,
       title: this.tooltipTitle()
     });
   },
@@ -54,6 +67,17 @@ EC.ActivityIconWithTooltip = React.createClass({
     if (this.props.data.activity.topic.topic_category) {
       topicCategoryName = this.props.data.activity.topic.topic_category.name;
     }
+
+    var contextSpecific;
+
+    switch(this.props.context) {
+      case 'studentProfile':
+        contextSpecific = null
+        break;
+      case 'scorebook':
+        contextSpecific = <EC.ConceptResultStats results={this.props.data.concept_results} />
+    }
+
     return React.renderToString(
       <div>
         <h1>{this.props.data.activity.name}</h1>
@@ -64,7 +88,7 @@ EC.ActivityIconWithTooltip = React.createClass({
         <p>{topicCategoryName}</p>
         <p>{this.displayPercentage()}</p>
         <p>{this.props.data.due_date_or_completed_at_date}</p>
-        <EC.ConceptResultStats results={this.props.data.concept_results} />
+        {contextSpecific}
       </div>
     );
   },

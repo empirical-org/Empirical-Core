@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe 'Profile::Processor' do
+describe 'Profile::SubProcessor' do
   include_context "profile"
 
 
   def subject
-    Profile::Processor.new.query(student)
+    Profile::SubProcessor.new.query(student)
   end
 
   before do
@@ -44,7 +44,7 @@ describe 'Profile::Processor' do
     as_1aa.update_attributes(percentage: 0.5, state: 'finished')
     as_1b.update_attributes(percentage: 1, state: 'finished')
     results = subject
-    x = Profile::Processor.new.send("sort_sessions_helper", results[unit1.name])
+    x = Profile::SubProcessor.new.send("sort_sessions_helper", results[unit1.name])
     expect(x).to eq({"unstarted" => [as_1a, as1], "finished" => [as_1b, as_1aa]})
   end
 
@@ -53,7 +53,7 @@ describe 'Profile::Processor' do
     as_1b.update_attributes(classroom_activity_id: classroom_activity.id, state: 'unstarted')
     as_1a.update_attributes(classroom_activity_id: classroom_activity.id, state: 'started')
     as_1aa.update_attributes(classroom_activity_id: classroom_activity.id, percentage: 0.5, state: 'finished')
-    results = Profile::Processor.new.query(student)
+    results = Profile::SubProcessor.new.query(student)
     puts results[unit1.name]
     expect(results[unit1.name]).to eq({"finished" =>[as_1aa], "unstarted" => []})
   end

@@ -1,7 +1,7 @@
 'use strict';
 EC.StudentProfileUnits = React.createClass({
   propTypes: {
-    grouped_scores: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired
   },
 
   render: function () {
