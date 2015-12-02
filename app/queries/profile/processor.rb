@@ -5,7 +5,8 @@ class Profile::Processor
   def query(student)
     sorted = Profile::SubProcessor.new.query(student)
     serialized = serialize(sorted)
-    return serialized
+    is_last_page = serialized.length < Profile::Query::BATCH_SIZE
+    return [serialized, is_last_page]
   end
 
   private

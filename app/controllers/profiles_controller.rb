@@ -28,20 +28,18 @@ class ProfilesController < ApplicationController
 
   def student(is_json=false)
     if @classroom = current_user.classroom
-      #@units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq
-      @grouped_scores = Profile::Processor.new.query(current_user)
-      @student_id = current_user.id
-
-      @next_activity_session = ActivitySession.joins(:classroom_activity)
-          .where("activity_sessions.completed_at IS NULL")
-          .where("activity_sessions.user_id = ?", current_user.id)
-          .order("classroom_activities.due_date DESC")
-          .select("activity_sessions.*")
-          .first
-
-      @next_activity = @next_activity_session.activity if @next_activity_session.present?
-
       if is_json
+
+        grouped_scores, is_last_page = Profile::Processor.new.query(current_user)
+
+
+        next_activity_session = ActivitySession.joins(:classroom_activity)
+            .where("activity_sessions.completed_at IS NULL")
+            .where("activity_sessions.user_id = ?", current_user.id)
+            .order("classroom_activities.due_date DESC")
+            .select("activity_sessions.*")
+            .first
+
         render json: {student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: @grouped_scores, next_activity_session: Profile::ActivitySessionSerializer.new(@next_activity_session, root: false)}
       else
         render 'student'

@@ -10,6 +10,9 @@ EC.Scorebook = React.createClass({
 	mixins: [EC.TableFilterMixin],
 
 	getInitialState: function () {
+		this.modules = {
+			scrollify: new EC.modules.scrollify()
+		};
 		return {
 			units: [],
 			classrooms: [],
@@ -26,28 +29,9 @@ EC.Scorebook = React.createClass({
 		}
 	},
 
-	scrollComputation: function () {
-		var y = $('#page-content-wrapper').height();
-		var w = 1/(this.state.currentPage + 1);
-		var z = y*(1 - w);
-		return z;
-	},
-
 	componentDidMount: function () {
 		this.fetchData();
-		var that = this;
-		$(window).scroll(function (e) {
-			if (($(window).scrollTop() + document.body.clientHeight) > (that.scrollComputation() )) {
-				if (!that.state.loading && !that.state.isLastPage) {
-					that.loadMore();
-				}
-			}
-		});
-	},
-
-	loadMore: function () {
-		this.setState({currentPage: this.state.currentPage + 1});
-		this.fetchData();
+		this.modules.scrollify.scrollify('#page-content-wrapper', this);
 	},
 
 	fetchData: function () {
