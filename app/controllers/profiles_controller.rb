@@ -27,7 +27,6 @@ class ProfilesController < ApplicationController
   end
 
   def student(is_json=false)
-    puts "is_json : #{is_json}"
     if @classroom = current_user.classroom
       #@units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq
       @grouped_scores = Profile::Processor.new.query(current_user)

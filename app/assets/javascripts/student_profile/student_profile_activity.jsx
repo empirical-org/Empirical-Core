@@ -9,7 +9,7 @@ EC.StudentProfileActivity = React.createClass({
       <div className="line">
         <div className="row">
           <div className="col-xs-9 col-sm-10 col-xl-10 pull-left">
-            <div className="activate-tooltip icon-wrapper icon-gray icon-puzzle"></div>
+            <EC.ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} />
             <div className="icons-description-wrapper">
               <p className="title title-v-centered">{this.props.data.activity.name}</p>
             </div>

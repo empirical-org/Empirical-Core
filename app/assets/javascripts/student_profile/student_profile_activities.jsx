@@ -1,7 +1,7 @@
 'use strict';
 EC.StudentProfileActivities = React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
+    data: React.PropTypes.array.isRequired,
     header: React.PropTypes.string.isRequired
   },
 

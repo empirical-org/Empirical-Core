@@ -10,7 +10,8 @@ EC.StudentProfile = React.createClass({
     return {
       next_activity_session: {activity: {}},
       student: {classroom: {teacher: {}}},
-      grouped_scores: {}
+      grouped_scores: {},
+      ajaxReturned: false
     }
   },
 
@@ -19,17 +20,19 @@ EC.StudentProfile = React.createClass({
   },
 
   loadProfile: function (data) {
-    this.setState(data)
+    this.setState(_.extend(data, {ajaxReturned: true}))
   },
 
   render: function () {
-    return (
-      <div>
-        <EC.StudentProfileHeader data={this.state.student} />
-        <EC.NextLesson data={this.state.next_activity_session} />
-        <EC.StudentProfileUnits data={this.state.grouped_scores} />
-      </div>
-    )
+    if (this.state.ajaxReturned) {
+      return (
+        <div>
+          <EC.StudentProfileHeader data={this.state.student} />
+          <EC.NextActivity data={this.state.next_activity_session} />
+          <EC.StudentProfileUnits data={this.state.grouped_scores} />
+        </div>
+      )
+    } else return <span></span>
   }
 });
 

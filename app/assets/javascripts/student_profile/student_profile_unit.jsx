@@ -14,7 +14,7 @@ EC.StudentProfileUnit = React.createClass({
     });
     return (
       <section>
-        <h3 className="section-header">{this.props.unitName}</h3>
+        <h3 className="section-header">{this.props.data.unitName}</h3>
         {activities}
       </section>
     );
