@@ -11,7 +11,7 @@ EC.StudentProfileActivities = React.createClass({
 
   render: function () {
     var activities = _.map(this.props.data, function (ele) {
-      return <EC.StudentProfileActivity data={ele} />
+      return <EC.StudentProfileActivity key={ele.id} data={ele} />
     });
     return (
       <div className="fake-table">

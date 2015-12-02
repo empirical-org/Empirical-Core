@@ -1,5 +1,5 @@
 class Profile::ActivitySessionSerializer < ActiveModel::Serializer
-  attributes :percentage, :link, :due_date_or_completed_at_date
+  attributes :id, :percentage, :link, :due_date_or_completed_at_date
   has_one :activity, serializer: Profile::ActivitySerializer
 
   def link

@@ -10,7 +10,7 @@ EC.StudentProfileUnit = React.createClass({
     */
     var count = this.props.data.unstarted.length + this.props.data.finished.length;
     var activities = _.map([{data: this.props.data.unstarted, header: 'Assigned Activities'}, {data: this.props.data.finished, header: 'Completed Activities'}], function (ele) {
-      return <EC.StudentProfileActivities data={ele.data} header={ele.header} count={count} />
+      return <EC.StudentProfileActivities key={ele.header} data={ele.data} header={ele.header} count={count} />
     });
     return (
       <section>
