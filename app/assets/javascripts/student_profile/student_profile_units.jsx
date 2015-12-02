@@ -6,7 +6,7 @@ EC.StudentProfileUnits = React.createClass({
 
   render: function () {
     var units = _.reduce(this.props.data, function (acc, value, key) {
-      var x = <EC.StudentProfileUnit data={_.extend(value, {unitName: key})} />
+      var x = <EC.StudentProfileUnit key={key} data={_.extend(value, {unitName: key})} />
       return _.chain(acc).push(x).value()
     }, []);
     return (
