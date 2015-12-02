@@ -36,6 +36,11 @@ feature 'Standards for Student Progress Report', js: true do
       )
     end
 
+    it 'makes a link off of standard names' do
+      click_link(first_grade_topic.name)
+      expect(report_page).to have_content("Standards: #{first_grade_topic.name}")
+    end
+
     # it 'can export a CSV' do
     #   report_page.export_csv
     # end

@@ -20,7 +20,7 @@ EC.ManageUnits = React.createClass({
 	displayUnits: function (data) {
 		this.setState({units: data.units});
 	},
-	deleteUnit: function (id) {
+	hideUnit: function (id) {
 		var units, x1;
 		units = this.state.units;
 		x1 = _.reject(units, function (unit) {
@@ -29,8 +29,8 @@ EC.ManageUnits = React.createClass({
 		this.setState({units: x1});
 
 		$.ajax({
-			type: "delete",
-			url: "/teachers/units/" + id,
+			type: "put",
+			url: "/teachers/units/" + id + "/hide",
 			success: function () {
 			},
 			error: function () {
@@ -85,7 +85,7 @@ EC.ManageUnits = React.createClass({
 				<EC.Units
 					updateDueDate={this.updateDueDate}
 					deleteClassroomActivity={this.deleteClassroomActivity}
-					deleteUnit={this.deleteUnit} data={this.state.units} />
+					hideUnit={this.hideUnit} data={this.state.units} />
 			</div>
 		);
 
