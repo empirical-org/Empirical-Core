@@ -19,5 +19,5 @@ class ProgressReports::Standards::Classroom
       .joins('INNER JOIN user_info ON user_info.id = users.id')
       .order("classrooms.name asc")
       .group("classrooms.id")
-  end  
+  end
 end
