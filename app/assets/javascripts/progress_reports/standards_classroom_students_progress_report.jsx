@@ -12,7 +12,6 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
   },
 
   columnDefinitions: function() {
-    alert('standards_classroom_students')
     return [
       {
         name: 'Student',
