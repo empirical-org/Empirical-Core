@@ -4,7 +4,7 @@ describe CsvExporter::Standards::Classroom do
   include_context 'Topic Progress Report'
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {
-      ['Page Title', 'Class Name', 'Students', 'Proficient Students', 'Nearly Proficient Students', 'Not Proficient Students', 'Standards']
+      ['Page Title', 'Class Name', 'Students', 'Proficient Students', 'Not Proficient Students', 'Standards']
     }
 
     let(:filters) { {} }
@@ -19,7 +19,6 @@ describe CsvExporter::Standards::Classroom do
         full_classroom.name,
         visible_students.size,
         proficient_students.size,
-        near_proficient_students.size,
         not_proficient_students.size,
         visible_topics.size
       ]
