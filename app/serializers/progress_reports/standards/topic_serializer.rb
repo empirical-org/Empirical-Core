@@ -29,8 +29,6 @@ class ProgressReports::Standards::TopicSerializer < ActiveModel::Serializer
   def mastery_status
     if average_score >= 0.75
       "Proficient"
-    elsif average_score < 0.75 and average_score >= 0.5
-      "Nearly Proficient"
     else
       "Not Proficient"
     end
