@@ -25,7 +25,7 @@ describe CsvExporter::Standards::StudentTopic do
         model_instance.section_name,
         model_instance.name,
         model_instance.total_activity_count,
-        'Nearly Proficient'
+        'Not Proficient'
       ]
     }
 
