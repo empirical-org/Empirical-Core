@@ -18,7 +18,6 @@ feature 'Standards by Student Progress Report', js: true do
           'Student',
           'Standards',
           'Proficient',
-          'Nearly Proficient',
           'Not Proficient',
           'Activities',
           'Average',
@@ -34,7 +33,6 @@ feature 'Standards by Student Progress Report', js: true do
           '2',
           '1 standards', # Alice is proficient in 1 standard and near in 1 other
           '1 standards',
-          '0 standards',
           '2', # Has completed 2 activities
           '85%', # Avg score also taken from Topic Progress Report
           'Proficient'
