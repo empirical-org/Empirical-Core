@@ -81,9 +81,7 @@ shared_context 'Topic Progress Report' do
 
   let(:proficient_students) { [alice] }
 
-  let(:near_proficient_students) { [fred] }
-
-  let(:not_proficient_students) { [zojirushi] }
+  let(:not_proficient_students) { [zojirushi, fred] }
 
   let!(:first_grade_topic_students) { [alice, fred] }
 
