@@ -10,7 +10,6 @@ describe CsvExporter::Standards::ClassroomTopic do
         'Standard Name',
         'Students',
         'Proficient Students',
-        'Nearly Proficient Students',
         'Not Proficient Students',
         'Activities'
       ]
@@ -29,7 +28,6 @@ describe CsvExporter::Standards::ClassroomTopic do
         model_instance.name,
         model_instance.total_student_count,
         model_instance.proficient_student_count,
-        model_instance.near_proficient_student_count,
         model_instance.not_proficient_student_count,
         model_instance.total_activity_count
       ]
