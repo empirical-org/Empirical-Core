@@ -7,7 +7,6 @@ module CsvExporter::Standards
         'Standard Name',
         'Students',
         'Proficient Students',
-        'Nearly Proficient Students',
         'Not Proficient Students',
         'Activities'
       ]
@@ -21,7 +20,6 @@ module CsvExporter::Standards
         json_hash[:name],
         json_hash[:total_student_count],
         json_hash[:proficient_student_count],
-        json_hash[:near_proficient_student_count],
         json_hash[:not_proficient_student_count],
         json_hash[:total_activity_count]
       ]
