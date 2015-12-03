@@ -21,7 +21,6 @@ feature 'Standards: All Classrooms Progress Report', js: true do
           '',
           'Students',
           'Proficient',
-          'Nearly Proficient',
           'Not Proficient',
           'Standards'
         ]
@@ -36,7 +35,6 @@ feature 'Standards: All Classrooms Progress Report', js: true do
           'Standard View',
           visible_students.size.to_s,
           "#{proficient_students.size} students",
-          "#{near_proficient_students.size} students",
           "#{not_proficient_students.size} students",
           visible_topics.size.to_s
         ]
