@@ -28,6 +28,10 @@ class PagesController < ApplicationController
     @body_class = 'full-width-page white-page'
   end
 
+  def media
+
+  end
+
   def faq
   end
 
