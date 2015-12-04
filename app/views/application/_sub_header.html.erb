@@ -14,24 +14,25 @@
 	</div>
 
 	<div id="home-collapsed-navbar" class="collapse navbar-collapse">
-		<ul class="home-navbar-list">
-			<li class="active"><%= link_to "Discover", activities_path %></li>
-			<li><%= link_to "Teacher Resources",  teacher_resources_path%></li>
 
+		<ul class="home-navbar-list">
 			<%- if current_user.nil? %>
 				<li><%= link_to "Login", new_session_path  %></li>
-			<%- else %>
-				<li><%= link_to "Support", "http://support.quill.org" %></li>
-				<%- if current_user.role == 'teacher' %>
-					<li><%= link_to "Profile", profile_path, class: "sign-up-btn" %></li>
-				<%- end %>
-				<li><%= link_to "Logout", '/session' %></li>
-        	<% end %>
-
-
-			<%- if current_user.nil? %>
 				<li class="sign-up-wrapper"><%= link_to "Sign Up", new_account_path, class: "sign-up-btn" %></li>
-			<% end %>
+
+			<% elsif current_user.role == 'student'%>
+				<li><%= link_to "Support", "http://support.quill.org" %></li>
+				<li><%= link_to "Logout", '/session' %></li>
+
+			<% else %>
+				<li class="active"><%= link_to "Discover", activities_path %></li>
+				<li><%= link_to "Teacher Resources",  teacher_resources_path%></li>
+				<li><%= link_to "Support", "http://support.quill.org" %></li>
+				<li><%= link_to "Profile", profile_path, class: "sign-up-btn" %></li>
+				<li><%= link_to "Logout", '/session' %></li>
+			<%- end %>
+
+
 		</ul>
 	</div>
 
