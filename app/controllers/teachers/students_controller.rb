@@ -18,8 +18,9 @@ class Teachers::StudentsController < ApplicationController
       InviteStudentWorker.perform_async(current_user.id, @student.id)
       respond_to do |format|
         format.js {render 'create'}
+        format.html {redirect_to teachers_classroom_invite_students_path(@classroom)}
       end
-      #redirect_to teachers_classroom_invite_students_path(@classroom)
+      #
     end
   end
 
