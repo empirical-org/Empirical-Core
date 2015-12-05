@@ -16,11 +16,15 @@
 	<div id="home-collapsed-navbar" class="collapse navbar-collapse">
 		<ul class="home-navbar-list">
 			<li class="active"><%= link_to "Discover", activities_path %></li>
-			<li><%= link_to "Teacher Resources",  teacher_resources_path%></li>
+			
 
 			<%- if current_user.nil? %>
+				<li><%= link_to "Teacher Resources",  teacher_resources_path%></li>
 				<li><%= link_to "Login", new_session_path  %></li>
 			<%- else %>
+				<%- if current_user.role == 'teacher' %>
+				<li><%= link_to "Teacher Resources",  teacher_resources_path%></li>
+				<%- end %>
 				<li><%= link_to "Support", "http://support.quill.org" %></li>
 				
 					<li><%= link_to "Profile", profile_path, class: "sign-up-btn" %></li>
