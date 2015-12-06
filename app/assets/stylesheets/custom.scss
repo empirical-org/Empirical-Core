@@ -359,3 +359,25 @@ button:not(.select-mixin) {
     background-color: #217dcf;
   }
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.my-account {
+  top: 47px !important;
+  min-width: 0px !important;
+  margin: 0 !important;
+  height: 35px !important;
+  left: 4px;
+}
+
+.my-account li {
+  padding: 0px;
+}
+
+.my-account a {
+  text-decoration: none !important;
+  margin-top: 0px !important;
+  padding: 0px !important;  
+}
