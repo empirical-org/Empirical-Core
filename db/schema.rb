@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109231813) do
+ActiveRecord::Schema.define(version: 20151123211533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20151109231813) do
     t.datetime "started_at"
     t.boolean  "is_retry",              default: false
     t.boolean  "is_final_score",        default: false
+    t.boolean  "visible",               default: true,        null: false
   end
 
   add_index "activity_sessions", ["activity_id"], name: "index_activity_sessions_on_activity_id", using: :btree
@@ -362,6 +363,7 @@ ActiveRecord::Schema.define(version: 20151109231813) do
     t.integer  "classroom_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "visible",      default: true, null: false
   end
 
   create_table "users", force: true do |t|
