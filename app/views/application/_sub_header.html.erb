@@ -23,7 +23,14 @@
 			<%- else %>
 				<li><%= link_to "Support", "http://support.quill.org" %></li>
 				<%- if current_user.role == 'teacher' %>
-					<li><%= link_to "Profile", profile_path, class: "sign-up-btn" %></li>
+            <li class="dropdown">
+                <%= link_to profile_path, class: "sign-up-btn dropdown-toggle", "data-hover" => "dropdown" do %>
+                  Profile <span class="caret"></span>
+                <% end %>
+                <ul class="dropdown-menu my-account">
+                  <li><%= link_to 'My Account', teachers_my_account_path %></li>
+                </ul>
+            </li>
 				<%- end %>
 				<li><%= link_to "Logout", '/session' %></li>
         	<% end %>
