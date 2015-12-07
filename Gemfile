@@ -151,4 +151,5 @@ group :test do
   gem 'poltergeist'
   gem "vcr"
   gem "webmock"
+  gem "codeclimate-test-reporter", require: nil
 end

@@ -40,4 +40,9 @@ article.simple-rounded-box,
 article.extra-padding {
   margin-top: 40px;
   margin-bottom: 40px;
+
+  &.activity-form {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 }
