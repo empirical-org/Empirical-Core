@@ -1,7 +1,9 @@
 <html lang='en'>
   <%= render partial: 'head' %>
   <body>
-    <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
+    <div id='application_nav_bar'>
+      <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
+    </div>
     <%= yield %>
     <%= render partial: 'footer', media: 'all', 'data-turbolinks-track' => true %>
 
