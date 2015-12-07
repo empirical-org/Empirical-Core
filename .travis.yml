@@ -11,6 +11,8 @@ before_script:
   - bundle exec rake db:migrate
 addons:
   postgresql: "9.3"
+  code_climate:
+    repo_token: 284c330b001fc405fe9b1c8a013ebaed90e6f81b0318b2e3d0df66559dd0eb3e
 env:
   FOG_DIRECTORY=empirical-core-travis-test
   PROGRESS_REPORT_FOG_DIRECTORY=empirical-progress-report-travis-test
