@@ -26,7 +26,7 @@
       <div class='row'>
         <div class='col-xs-12'>
           <%= f.label :code, "Class Code" %>
-          <%= f.text_field :code, class: 'inactive class-code' %>
+          <%= f.text_field :code, class: 'inactive class-code', :readonly => true%> %>
           <span class='generate-code'>Generate a New Code</span>
         </div>
       </div>
