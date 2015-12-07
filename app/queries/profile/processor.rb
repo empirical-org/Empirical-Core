@@ -1,15 +1,18 @@
 class Profile::Processor
-
+  BATCH_SIZE = 10
   # need to serialize
 
-  def query(student)
-    sorted = Profile::SubProcessor.new.query(student)
+  def query(student, current_page)
+    sorted, is_last_page = Profile::SubProcessor.new.query(student, BATCH_SIZE, offset(current_page))
     serialized = serialize(sorted)
-    is_last_page = serialized.length < Profile::Query::BATCH_SIZE
     return [serialized, is_last_page]
   end
 
   private
+
+  def offset(current_page)
+    current_page*BATCH_SIZE # current_page will be 0 on first fetch
+  end
 
   def serialize(groups_of_groups)
     groups_of_groups.reduce({}) do |acc, (k, group)|

@@ -30,8 +30,7 @@ class ProfilesController < ApplicationController
     if @classroom = current_user.classroom
       if is_json
 
-        grouped_scores, is_last_page = Profile::Processor.new.query(current_user)
-
+        grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i)
 
         next_activity_session = ActivitySession.joins(:classroom_activity)
             .where("activity_sessions.completed_at IS NULL")
@@ -39,8 +38,9 @@ class ProfilesController < ApplicationController
             .order("classroom_activities.due_date DESC")
             .select("activity_sessions.*")
             .first
-
-        render json: {student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: @grouped_scores, next_activity_session: Profile::ActivitySessionSerializer.new(@next_activity_session, root: false)}
+        render json: {student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: grouped_scores,
+          is_last_page: is_last_page,
+          next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
       else
         render 'student'
       end
