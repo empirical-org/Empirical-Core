@@ -8,7 +8,7 @@ script:
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database test;' -U postgres
-  - ! 'RAILS_ENV=test bundle exec rake db:schema:load || :'
+  - bundle exec rake db:migrate
 addons:
   postgresql: "9.3"
 env:
