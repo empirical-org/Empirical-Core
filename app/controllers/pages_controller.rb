@@ -62,6 +62,9 @@ class PagesController < ApplicationController
     @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
   end
 
+  def activity_packs
+  end
+
   # for link to premium within 'about' (discover) pages
   def premium
   end
