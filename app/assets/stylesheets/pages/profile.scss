@@ -1,0 +1,45 @@
+#student-profile {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+
+
+  .section-header {
+    margin-bottom: 30px;
+  }
+
+  .student-course-info {
+    .classroom,
+    .teacher {
+      position: relative;
+      display: inline-block;
+      float:left;
+      margin-right: 50px;
+      color: #999;
+    }
+    .teacher {
+      margin-right: 0;
+    }
+    .teacher-name {
+      margin-left: 40px;
+    }
+
+    .classroom-name {
+      margin-left: 34px;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+    }
+    .icon-book-white {
+      margin-top: -9px;
+    }
+
+    .icon-hat-white {
+      margin-top: -8px;
+    }
+  }
+
+}
+

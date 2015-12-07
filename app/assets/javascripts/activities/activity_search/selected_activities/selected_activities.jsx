@@ -9,13 +9,13 @@ EC.SelectedActivities = React.createClass({
 		var rows, buttonClassName;
 
 		rows = _.map(this.props.selectedActivities, function (ele){
-			return <EC.SelectedActivity toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />
+			return <EC.SelectedActivity key={ele.id} toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />
 		}, this);
 
 		return (
-			<section className="teaching-cart">
+			<section>
 				<h3 className="section-header unit_name">{this.props.unitName}</h3>
-				<table className="table">
+				<table className="table activity-table selected-activities headless-rounded-table">
 					<tbody>
 						{rows}
 					</tbody>

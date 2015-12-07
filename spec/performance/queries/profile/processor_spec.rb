@@ -8,12 +8,12 @@ describe 'Profile::Processor' do
   let(:profile_processor) { Profile::Processor.new }
 
   def subject
-    profile_processor.query(student)
+    profile_processor.query(student, 0)
   end
 
-  it 'takes less than 1 sec' do
+  it 'takes less than 2 secs' do
     time = Benchmark.realtime{ subject }
-    expect(time).to be < 1
+    expect(time).to be < 2
   end
 
 

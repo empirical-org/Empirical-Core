@@ -72,7 +72,6 @@ EC.ActivitySearchAndSelect = React.createClass({
   },
 
   searchRequestSuccess: function (data) {
-    console.log('search requst success', data);
     var hash = {
       activitySearchResults: data.activities,
       numberOfPages: data.number_of_pages,
@@ -210,6 +209,7 @@ EC.ActivitySearchAndSelect = React.createClass({
   },
 
   render: function() {
+    console.log('selected activities in activity search and select', this.props.selectedActivities)
 
     var currentPageSearchResults = this.determineCurrentPageSearchResults();
     return (
@@ -218,14 +218,12 @@ EC.ActivitySearchAndSelect = React.createClass({
         <EC.SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
         <EC.ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} />
 
-        <table className='table' id='activities_table'>
+        <table className='table activity-table search-and-select'>
           <thead>
             <EC.ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
           </thead>
           <EC.ActivitySearchResults selectedActivities = {this.props.selectedActivities} currentPageSearchResults ={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />
         </table>
-
-        <div className='fake-border'></div>
 
         <EC.Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />
 

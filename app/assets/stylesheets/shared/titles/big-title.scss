@@ -1,0 +1,38 @@
+.big-title {
+  position: relative;
+  width: 100%;
+  padding-top: 3em;
+  padding-bottom: 5em;
+  margin-bottom: 10em;
+  text-align: center;
+  color: white;
+
+  .category-label {
+    margin-bottom: 1em;
+  }
+
+  h1 {
+    max-width: 525px;
+    margin: 0 auto;
+  }
+
+  .author-details {
+    position: absolute;
+    top: 100%;
+    margin-top: -40px;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    transform: translate(-50%);
+
+    .author-picture {
+      margin: 0 auto 0.5em;
+    }
+
+    p {
+      color: $darkgray;
+    }
+  }
+
+
+}

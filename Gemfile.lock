@@ -62,6 +62,10 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
+    babel-source (5.8.33)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -101,6 +105,8 @@ GEM
     cliver (0.3.2)
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
+    codeclimate-test-reporter (0.4.8)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -120,6 +126,7 @@ GEM
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     doorkeeper (1.4.1)
       railties (>= 3.1)
     dotenv (2.0.2)
@@ -465,11 +472,13 @@ GEM
     rb-fsevent (0.9.5)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
-    react-rails (0.12.0.0)
+    react-rails (1.4.1)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
       execjs
-      rails (>= 3.1)
-      react-source (= 0.12)
-    react-source (0.12.0)
+      rails (>= 3.2)
+      tilt
     redcarpet (3.3.2)
     redis (3.2.1)
     redis-actionpack (4.0.0)
@@ -541,6 +550,11 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
+    simplecov (0.11.1)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -624,6 +638,7 @@ DEPENDENCIES
   capybara
   carrierwave
   clever-ruby (= 0.10.0)
+  codeclimate-test-reporter
   coffee-rails
   database_cleaner
   doorkeeper (= 1.4.1)
@@ -680,7 +695,7 @@ DEPENDENCIES
   rails_12factor
   ranked-model
   ransack
-  react-rails (~> 0.12.0.0)
+  react-rails (= 1.4.1)
   redcarpet
   redis-rails
   rspec-rails
