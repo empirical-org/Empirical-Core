@@ -1,7 +1,8 @@
 /*
 component must have the following API -
 
-.state.isLastPage
+.setState (as any React component should)
+.state.is_last_page
 .state.currentPage
 .state.loading
 .fetchData()
@@ -18,14 +19,13 @@ EC.modules.scrollify = function () {
   };
 
   var _loadMore = function (component) {
-    component.setState({currentPage: component.state.currentPage + 1});
     component.fetchData();
   };
 
   this.scrollify = function (selector, component) {
     $(window).scroll(function (e) {
       if (($(window).scrollTop() + document.body.clientHeight) > (_scrollComputation(selector, component) )) {
-        if (!component.state.loading && !component.state.isLastPage) {
+        if (!component.state.loading && !component.state.is_last_page) {
           console.log('gonna load more')
           _loadMore(component);
         }

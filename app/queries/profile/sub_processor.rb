@@ -2,12 +2,13 @@ class Profile::SubProcessor
 
   # need to serialize
 
-  def query(student)
-    all = Profile::Query.new.query(student).select{|s| s.unit.present?}
+  def query(student, batch_size, offset)
+    all = Profile::Query.new.query(student, batch_size, offset)
+    is_last_page = (all.count < batch_size)
     by_unit = group_by_unit(all)
     by_unit_by_state = group_by_state_within_unit(by_unit)
     sorted = sort_sessions(by_unit_by_state)
-    return sorted
+    return [sorted, is_last_page]
   end
 
 

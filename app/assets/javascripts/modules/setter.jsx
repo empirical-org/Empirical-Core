@@ -3,12 +3,29 @@
 EC.modules.setter = function () {
 
   //http://stackoverflow.com/questions/14843815/recursive-deep-extend-assign-in-underscore-js
-  var _deep = function(a, b) {
-    return _.isObject(a) && _.isObject(b) && (!_.isArray(b)) ? _.extend(a, b, _deep) : b;
-  };
+  var _deepFunction = function(mergeArrays) {
+    var f = function(a, b) {
+      var result;
+      if (_.isArray(a) && _.isArray(b)) {
+        if (mergeArrays) {
+          result = a.concat(b)
+        } else {
+          result = b
+        }
+      } else if (_.isObject(a) && _.isObject(b)) {
+          result = _.extend(a, b, f)
+      } else {
+        result = b;
+      }
+      return result;
+    };
+    return f
+  }
 
-  this.setOrExtend = function (object, path, value) {
-    var pathArr, len, keysExceptLastKey, lastKey;
+
+  this.setOrExtend = function (object, path, value, mergeArrays) {
+    var pathArr, len, keysExceptLastKey, lastKey, _deep;
+    _deep = _deepFunction(mergeArrays)
 
     if (!path) {
       object = _.extend({}, object, value, _deep);

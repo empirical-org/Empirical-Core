@@ -12,8 +12,8 @@ describe('EC.modules.setter', function () {
     };
     this.path = '';
     this.value = 'newValue';
-    this.subject = function () {
-      return this.module.setOrExtend(this.object, this.path, this.value)
+    this.subject = function (mergeArrays) {
+      return this.module.setOrExtend(this.object, this.path, this.value, mergeArrays)
     }
   });
 
@@ -74,7 +74,7 @@ describe('EC.modules.setter', function () {
     expect(actual).to.eql(expected)
   })
 
-  it('', function () {
+  it('works for really deep objects', function () {
     var actual, expected;
     this.path = 'key2'
     this.value = {
@@ -123,7 +123,23 @@ describe('EC.modules.setter', function () {
     expect(actual).to.eql(expected)
   });
 
+  it('doesnt mergeArrays if mergeArrays=false', function () {
+    var actual, expected;
+    this.object = {items: [1,2,3]}
+    this.value = {items: [4,5,6]}
+    actual = this.subject();
+    expected = {items: [4,5,6]}
+    expect(actual).to.eql(expected)
+  })
 
+  it('does mergeArrays if mergeArrays=true', function () {
+    var actual, expected;
+    this.object = {items: [1,2,3]}
+    this.value  = {items: [4,5,6]}
+    actual = this.subject(true)
+    expected = {items: [1,2,3,4,5,6]}
+    expect(actual).to.eql(expected)
+  })
  })
 
 

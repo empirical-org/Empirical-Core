@@ -24,7 +24,7 @@ EC.Scorebook = React.createClass({
 			endDate: null,
 			currentPage: 1,
 			loading: false,
-			isLastPage: false,
+			is_last_page: false,
 			noLoadHasEverOccurredYet: true
 		}
 	},
@@ -57,7 +57,7 @@ EC.Scorebook = React.createClass({
 		this.setState({
 			classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
 			unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
-			isLastPage: data.is_last_page,
+			is_last_page: data.is_last_page,
 			noLoadHasEverOccurredYet: false
 		});
 		if (this.state.currentPage == 1) {

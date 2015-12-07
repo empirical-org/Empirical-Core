@@ -8,7 +8,7 @@ describe 'Profile::Processor' do
   let(:profile_processor) { Profile::Processor.new }
 
   def subject
-    profile_processor.query(student)
+    profile_processor.query(student, 0)
   end
 
   it 'takes less than 2 secs' do
