@@ -31,7 +31,7 @@ EC.ActivitySearchResult = React.createClass({
 
 
 				<td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger activity_name'>
-					<a href={this.props.data.anonymous_path} target='_new'>
+					<a className='activity_link' href={this.props.data.anonymous_path} target='_new'>
 						{this.props.data.name}
 					</a>
 				</td>
