@@ -10,16 +10,20 @@ EC.StudentProfileActivities = React.createClass({
   },
 
   render: function () {
+    var result;
     var activities = _.map(this.props.data, function (ele) {
       return <EC.StudentProfileActivity key={ele.id} data={ele} />
     });
-    return (
-      <div className="fake-table">
+    if (this.props.data.length > 0) {
+     result = <div className="fake-table">
         <div className="header">{this.props.header}
           <span className="header-list-counter">{this.sayCount()}</span>
         </div>
         {activities}
       </div>
-    );
+    } else {
+      result = <span></span>
+    }
+    return result;
   }
 })

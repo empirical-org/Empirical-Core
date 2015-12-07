@@ -6,6 +6,15 @@ class Profile::Query
            .includes(classroom_activity: [:unit], activity: [:classification])
            .limit(batch_size)
            .offset(offset)
+           .references(classroom_activity: [:unit])
+           .order("units.created_at DESC")
+           .order(unfinished_first)
+  end
+
+  private
+
+  def unfinished_first
+    "(state = 'finished')" # false will occur first since default ordering is ASC
   end
 
 end
