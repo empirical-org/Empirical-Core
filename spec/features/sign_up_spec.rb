@@ -29,7 +29,6 @@ feature 'Signing up', js: true do
       sign_up_page.sign_up(type: user_type,
                            first_name: user.first_name,
                            last_name: user.last_name,
-                       username: user.username,
                        password: user.password,
                           email: user.email,
                 send_newsletter: send_newsletter)
@@ -54,7 +53,7 @@ feature 'Signing up', js: true do
       context 'send_newsletter is false' do
         let(:send_newsletter) { false }
         it 'marks it appropriately' do
-          user = User.find_by username: mr_kotter.username
+          user = User.find_by email: mr_kotter.email
           expect(user.send_newsletter).to eq(false)
         end
       end
@@ -62,7 +61,7 @@ feature 'Signing up', js: true do
       context 'send_newsletter is true' do
         let(:send_newsletter) { true }
         it 'marks it appropriately' do
-          user = User.find_by username: mr_kotter.username
+          user = User.find_by email: mr_kotter.email
           expect(user.send_newsletter).to eq(true)
         end
       end
@@ -106,7 +105,6 @@ feature 'Signing up', js: true do
       end
 
       it 'shows the errors on the form' do
-        expect(sign_up_page).to have_content username_already_taken
         expect(sign_up_page).to have_content email_already_taken
       end
     end
