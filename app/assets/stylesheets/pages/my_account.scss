@@ -1,4 +1,4 @@
-#my-account, #admin-teacher-account-editor {
+#my-account, #admin-teacher-account-editor, .user-profile-editor {
 
   .form-header {
     margin-top: 30px;
@@ -10,7 +10,7 @@
       height: 40px;
       line-height: 40px;
       float:left;
-      clear:none;
+      // clear:none;
     }
     select, input {
       width: 100%;
@@ -25,6 +25,9 @@
     color: white;
     margin-top: 30px;
   }
+  input.btn-warning {
+    line-height: 0;
+  }
   button.get-premium {
     margin-top: 0px;
     background-color: #EA9A1A;
@@ -32,11 +35,9 @@
   .row.school-checkbox {
     //padding-top: 0 !important;
     //padding-bottom: 0 !important;
-
   }
-  .delete-account {
-    cursor: pointer;
-    color: #027360;
+  .delete-account.btn {
+    line-height: 0;
   }
   .error {
     color: red;
