@@ -7,13 +7,18 @@ describe('UnitTemplates', function () {
   beforeEach(function () {
 
     var props = {
-      models: [],
-      categories: [],
-      selectModel: function () {}
+      data: {
+        models: [],
+        categories: []
+      },
+      eventHandlers: {
+        selectModel: function () {},
+        filterByCategory: function () {}
     }
 
     this.component = TestUtils.renderIntoDocument(
-      <EC.UnitTemplates models={props.models} categories={props.categories} selectModel={props.selectModel} />
+      <EC.UnitTemplates data={props.data}
+                        eventHandlers={props.eventHandlers} />
     );
     this.component.getInitialState();
   });

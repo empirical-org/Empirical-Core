@@ -25,7 +25,7 @@ describe 'Profile::Query' do
 
 
   def subject
-    Profile::Query.new.query(student)
+    Profile::Query.new.query(student, 20, 0)
   end
 
   before do

@@ -1,7 +1,10 @@
 EC.ActivityDueDate = React.createClass({
   componentDidMount: function() {
     // Set up the datepicker on the dueDate input
+    this.initializeDatePicker();
+  },
 
+  initializeDatePicker: function () {
     $(this.refs.dueDate.getDOMNode()).datepicker({
       selectOtherMonths: true,
       dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -11,7 +14,6 @@ EC.ActivityDueDate = React.createClass({
       altFormat: 'yy-mm-dd',
       onSelect: this.handleChange
     });
-
   },
 
   tooltipTrigger: function (e) {
@@ -32,7 +34,8 @@ EC.ActivityDueDate = React.createClass({
   },
 
   removeActivity: function () {
-    this.props.toggleActivitySelection(false, this.props.activity);
+    this.props.toggleActivitySelection(this.props.activity, false);
+    this.initializeDatePicker();
   },
 
   render: function() {

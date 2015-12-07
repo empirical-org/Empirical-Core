@@ -10,6 +10,9 @@ EC.Scorebook = React.createClass({
 	mixins: [EC.TableFilterMixin],
 
 	getInitialState: function () {
+		this.modules = {
+			scrollify: new EC.modules.scrollify()
+		};
 		return {
 			units: [],
 			classrooms: [],
@@ -21,33 +24,14 @@ EC.Scorebook = React.createClass({
 			endDate: null,
 			currentPage: 1,
 			loading: false,
-			isLastPage: false,
+			is_last_page: false,
 			noLoadHasEverOccurredYet: true
 		}
 	},
 
-	scrollComputation: function () {
-		var y = $('#page-content-wrapper').height();
-		var w = 1/(this.state.currentPage + 1);
-		var z = y*(1 - w);
-		return z;
-	},
-
 	componentDidMount: function () {
 		this.fetchData();
-		var that = this;
-		$(window).scroll(function (e) {
-			if (($(window).scrollTop() + document.body.clientHeight) > (that.scrollComputation() )) {
-				if (!that.state.loading && !that.state.isLastPage) {
-					that.loadMore();
-				}
-			}
-		});
-	},
-
-	loadMore: function () {
-		this.setState({currentPage: this.state.currentPage + 1});
-		this.fetchData();
+		this.modules.scrollify.scrollify('#page-content-wrapper', this);
 	},
 
 	fetchData: function () {
@@ -73,7 +57,7 @@ EC.Scorebook = React.createClass({
 		this.setState({
 			classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
 			unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
-			isLastPage: data.is_last_page,
+			is_last_page: data.is_last_page,
 			noLoadHasEverOccurredYet: false
 		});
 		if (this.state.currentPage == 1) {

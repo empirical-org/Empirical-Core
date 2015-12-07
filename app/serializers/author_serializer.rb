@@ -1,5 +1,5 @@
 class AuthorSerializer < ActiveModel::Serializer
-  attributes :id, :name, :avatar_url
+  attributes :id, :name, :avatar_url, :description
 
 
   def avatar_url

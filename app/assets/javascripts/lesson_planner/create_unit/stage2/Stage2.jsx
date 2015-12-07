@@ -53,6 +53,7 @@ EC.Stage2 = React.createClass({
 
     var dueDateList = this.props.selectedActivities.map(function(activity) {
       return <EC.ActivityDueDate activity={activity}
+                                 key={activity.id}
                                  toggleActivitySelection={this.props.toggleActivitySelection}
                                  assignActivityDueDate={this.props.assignActivityDueDate}/>;
     }, this);
@@ -67,14 +68,14 @@ EC.Stage2 = React.createClass({
           <h1 className="section-header">
             Assign Dates for {this.props.unitName}
           </h1>
-          <table className="table">
+          <table className="table activity-table">
             <tbody>
               {dueDateList}
             </tbody>
           </table>
           <div className="error-message-and-button">
             <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
-            <button ref="button" className={this.determineAssignButtonClass() + " pull-right"} id="assign" onClick={this.finish}>{this.determineButtonText()}</button>
+            <button ref="button" id='assign' className={this.determineAssignButtonClass() + " pull-right"} id="assign" onClick={this.finish}>{this.determineButtonText()}</button>
           </div>
         </section>
       </span>

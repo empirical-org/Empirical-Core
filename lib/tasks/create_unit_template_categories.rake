@@ -4,7 +4,7 @@ namespace :unit_template_categories do
   end
 
   def create_unit_template_categories
-    data.each do |d|
+    utc_data.each do |d|
       name = d[0]
       utc = UnitTemplateCategory.where(name: name)
       if utc.any?
@@ -20,7 +20,7 @@ namespace :unit_template_categories do
     end
   end
 
-  def data
+  def utc_data
       [
         %w(ELL #348fdf #014f92),
         %w(Elementary #9c2bde #560684),
