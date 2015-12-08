@@ -22,7 +22,7 @@ EC.Scorebook = React.createClass({
 			unitFilters: [],
 			beginDate: null,
 			endDate: null,
-			currentPage: 1,
+			currentPage: 0,
 			loading: false,
 			is_last_page: false,
 			noLoadHasEverOccurredYet: true
@@ -35,11 +35,12 @@ EC.Scorebook = React.createClass({
 	},
 
 	fetchData: function () {
-		this.setState({loading: true})
+		var newCurrentPage = this.state.currentPage + 1;
+		this.setState({loading: true, currentPage: newCurrentPage})
 		$.ajax({
 			url: 'scores',
 			data: {
-				current_page: this.state.currentPage,
+				current_page: newCurrentPage,
 				classroom_id: this.state.selectedClassroom.value,
 				unit_id: this.state.selectedUnit.value,
 				begin_date: this.state.beginDate,
@@ -89,18 +90,18 @@ EC.Scorebook = React.createClass({
 			var all_scores = y1.concat(new_scores)
 			this.setState({scores: all_scores});
 		}
-		this.setState({loading: false, currentPage: this.state.currentPage + 1});
+		this.setState({loading: false});
 	},
 
 	selectUnit: function (option) {
-		this.setState({currentPage: 1, selectedUnit: option}, this.fetchData);
+		this.setState({currentPage: 0, selectedUnit: option}, this.fetchData);
 	},
 
 	selectClassroom: function (option) {
-		this.setState({currentPage: 1, selectedClassroom: option}, this.fetchData);
+		this.setState({currentPage: 0, selectedClassroom: option}, this.fetchData);
 	},
 	selectDates: function (val1, val2) {
-		this.setState({currentPage: 1, beginDate: val1, endDate: val2}, this.fetchData);
+		this.setState({currentPage: 0, beginDate: val1, endDate: val2}, this.fetchData);
 	},
 	render: function() {
 		var scores = _.map(this.state.scores, function (data) {

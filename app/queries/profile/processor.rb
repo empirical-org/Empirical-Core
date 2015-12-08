@@ -11,7 +11,7 @@ class Profile::Processor
   private
 
   def offset(current_page)
-    current_page*BATCH_SIZE # current_page will be 0 on first fetch
+    (current_page - 1)*BATCH_SIZE # current_page will be 0 on first fetch
   end
 
   def serialize(groups_of_groups)

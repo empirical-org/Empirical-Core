@@ -17,6 +17,7 @@ EC.StudentProfile = React.createClass({
       grouped_scores: {},
       is_last_page: false,
       currentPage: 0,
+      firstBatchLoaded: false,
       loading: false
     };
   },
@@ -28,8 +29,9 @@ EC.StudentProfile = React.createClass({
   },
 
   fetchData: function () {
-    this.setState({loading: true})
-    $.ajax({url: '/profile.json', data: {current_page: this.state.currentPage}, format: 'json', success: this.loadProfile})
+    var newCurrentPage = this.state.currentPage + 1;
+    this.setState({loading: true, currentPage: newCurrentPage})
+    $.ajax({url: '/profile.json', data: {current_page: newCurrentPage}, format: 'json', success: this.loadProfile})
   },
 
   loadProfile: function (data) {
@@ -37,13 +39,11 @@ EC.StudentProfile = React.createClass({
     var mergeArrays, merged;
     mergeArrays = true;
     merged = this.modules.setter.setOrExtend(this.state, null, data, mergeArrays)
-    console.log('data', data)
-    console.log('merged', merged)
-    this.setState(_.extend(merged, {ajaxReturned: true, loading: false, currentPage: this.state.currentPage + 1}))
+    this.setState(_.extend(merged, {ajaxReturned: true, loading: false, firstBatchLoaded: true}))
   },
 
   render: function () {
-    if (this.state.currentPage > 0) {
+    if (this.state.firstBatchLoaded) {
       return (
         <div>
           <EC.StudentProfileHeader data={this.state.student} />
