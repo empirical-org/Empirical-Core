@@ -21,6 +21,13 @@ describe 'Profile::SubProcessor' do
     expect(results.keys).to contain_exactly(unit1.name, unit2.name)
   end
 
+  it 'doesnt explode when theres a classroom_activity with no unit' do
+    classroom_activity = FactoryGirl.create(:classroom_activity)
+    as2 = FactoryGirl.create(:activity_session, classroom_activity: classroom_activity, user: student)
+    results = subject
+    expect(results.keys).to contain_exactly(unit1.name, unit2.name)
+  end
+
   it 'groups by state within unit' do
     results = subject
     x = results[unit1.name]['finished']
