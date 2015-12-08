@@ -5,24 +5,31 @@ EC.NextActivity = React.createClass({
   },
   //<div className="activate-tooltip icon-wrapper icon-gray icon-puzzle"></div>
   render: function () {
-    return (
-      <div className="container">
-        <section>
-          <div className="row">
-            <div className="col-xs-12 col-sm-7 col-xl-7">
-              <EC.ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} placement={'bottom'}/>
-              <div className="icons-description-wrapper">
-                <p className="title title-v-centered">{this.props.data.activity.name}</p>
+    var result;
+    if (this.props.data) {
+      result = (
+        <div className="container">
+          <section>
+            <div className="row">
+              <div className="col-xs-12 col-sm-7 col-xl-7">
+                <EC.ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} placement={'bottom'}/>
+                <div className="icons-description-wrapper">
+                  <p className="title title-v-centered">{this.props.data.activity.name}</p>
+                </div>
+              </div>
+              <div className="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
+                <a href={this.props.data.link}>
+                  <button className='button-green pull-right'>Start Your Next Lesson</button>
+                </a>
               </div>
             </div>
-            <div className="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
-              <a href={this.props.data.link}>
-                <button className='button-green pull-right'>Start Your Next Lesson</button>
-              </a>
-            </div>
-          </div>
-        </section>
-      </div>
-    )
+          </section>
+        </div>
+      )
+    } else {
+      result = <span></span>
+    }
+    return result;
+
   }
 })
