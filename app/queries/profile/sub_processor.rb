@@ -48,7 +48,7 @@ class Profile::SubProcessor
   end
 
   def sort_rest activity_sessions
-    activity_sessions.sort_by{|as| [date_helper(as.classroom_activity.due_date), as.activity.activity_classification_id]}
+    activity_sessions.sort_by{|as| [due_date_helper(as.classroom_activity.due_date), as.created_at, as.activity.activity_classification_id]}
   end
 
 
@@ -57,10 +57,8 @@ class Profile::SubProcessor
   end
 
   def date_helper(date)
-    unless date
-      date = Time.zone.now
-    end
-    return date
+    return  Time.zone.now + 1000 if date.nil?
+    date
   end
 
 end
