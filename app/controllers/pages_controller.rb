@@ -63,9 +63,11 @@ class PagesController < ApplicationController
   end
 
   def activity_packs
+    @teacher = !!current_user.try(:teacher?)
   end
 
   def show_activity_packs
+    @teacher = !!current_user.try(:teacher?)
     begin
       unit = UnitTemplate.find(params[:id])
     rescue ActiveRecord::RecordNotFound
