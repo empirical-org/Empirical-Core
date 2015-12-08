@@ -51,6 +51,7 @@ EC.Scorebook = React.createClass({
 	},
 
 	displayData: function (data) {
+
 		if (data.was_classroom_selected_in_controller) {
 			this.setState({selectedClassroom: data.selected_classroom});
 		}
@@ -88,7 +89,7 @@ EC.Scorebook = React.createClass({
 			var all_scores = y1.concat(new_scores)
 			this.setState({scores: all_scores});
 		}
-		this.setState({loading: false});
+		this.setState({loading: false, currentPage: this.state.currentPage + 1});
 	},
 
 	selectUnit: function (option) {
