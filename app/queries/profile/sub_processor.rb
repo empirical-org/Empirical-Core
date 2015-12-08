@@ -16,7 +16,8 @@ class Profile::SubProcessor
   private
 
   def group_by_unit(all)
-    all.group_by{|s| s.classroom_activity.unit.name}
+    all.select{|s| s.classroom_activity.unit.present?}
+       .group_by{|s| s.classroom_activity.unit.name}
   end
 
   def group_by_state_within_unit(by_unit)
