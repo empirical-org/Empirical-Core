@@ -8,7 +8,7 @@ EC.UnitTemplateProfileAssignButton = React.createClass({
     if (this.props.data.authenticated) {
       return <button className='button-green full-width' onClick={this.props.actions.assign}>Assign to Your Class</button>
     } else {
-      return <button className='button-green full-width' onClick={this.props.actions.assign}>Sign in</button>
+      return <button className='button-green full-width' onClick={this.props.actions.signUp}>Sign Up</button>
     }
   },
 

@@ -173,12 +173,17 @@ EC.PublicActivityPacks = React.createClass({
     this.deepExtendState(hash);
   },
 
+  signUp: function () {
+    window.location.href = "/account/new";
+  },
+
   unitTemplatesManagerActions: function () {
     return {
       assign: this.assign,
       returnToIndex: this.returnToIndex,
       filterByCategory: this.filterByCategory,
-      selectModel: this.selectModel
+      selectModel: this.selectModel,
+      signUp: this.signUp
     }
   },
 
