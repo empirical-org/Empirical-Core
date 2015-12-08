@@ -173,6 +173,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'pages#activity_packs'
+  get 'activities/packs/:id' => 'pages#show_activity_packs'
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work

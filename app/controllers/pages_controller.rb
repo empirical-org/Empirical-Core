@@ -65,6 +65,15 @@ class PagesController < ApplicationController
   def activity_packs
   end
 
+  def show_activity_packs
+    begin
+      unit = UnitTemplate.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :activities_packs
+    end
+    @unit_template_id = params[:id]
+  end
+
   # for link to premium within 'about' (discover) pages
   def premium
   end
