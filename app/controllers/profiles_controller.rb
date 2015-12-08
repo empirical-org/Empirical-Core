@@ -32,9 +32,10 @@ class ProfilesController < ApplicationController
 
         grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i)
 
-        next_activity_session = ActivitySession.joins(:classroom_activity)
+        next_activity_session = ActivitySession.joins(classroom_activity: [:unit])
             .where("activity_sessions.completed_at IS NULL")
             .where("activity_sessions.user_id = ?", current_user.id)
+            .order("units.created_at DESC")
             .order("classroom_activities.due_date DESC")
             .select("activity_sessions.*")
             .first
