@@ -10,7 +10,7 @@ EC.Stage2 = React.createClass({
   },
 
   finish: function () {
-    if ((!this.state.buttonDisabled) && (this.props.areAnyStudentsSelected) && (this.props.areAllDueDatesProvided)) {
+    if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
       this.setState({buttonDisabled: true});
       this.props.finish();
     } else if (!this.state.buttonDisabled) {
@@ -19,7 +19,7 @@ EC.Stage2 = React.createClass({
   },
 
   determineAssignButtonClass: function () {
-    if ((!this.state.buttonDisabled) && (this.props.areAnyStudentsSelected && this.props.areAllDueDatesProvided)) {
+    if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
       return "button-green";
     } else {
       return "button-grey";
@@ -66,7 +66,7 @@ EC.Stage2 = React.createClass({
         </section>
         <section className="assign-dates">
           <h1 className="section-header">
-            Assign Dates for {this.props.unitName}
+            Assign Dates for {this.props.unitName} (optional)
           </h1>
           <table className="table activity-table">
             <tbody>
