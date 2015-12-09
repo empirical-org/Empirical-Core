@@ -135,21 +135,14 @@ EC.CreateUnit = React.createClass({
 			return {id: c.classroom.id, student_ids: selectedStudentIds};
 		});
 
-		var that = this;
-		var _findDueDate = function (id) {
-			_.reduce(that.state.dueDates, function (acc, v, k) {
-				if (v == id) acc = k
-				return acc
-			}, null)
-		}
 		var sas = this.getSelectedActivities()
 
 		var activityPostData = _.map(sas, function (sa) {
 			return {
 				id: sa.id,
-				due_date: _findDueDate(sa.id)
+				due_date: this.state.dueDates[sa.id]
 			}
-		})
+		}, this)
 
 		var x = {
 			unit: {
