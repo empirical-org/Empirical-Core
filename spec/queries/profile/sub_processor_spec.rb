@@ -30,19 +30,19 @@ describe 'Profile::SubProcessor' do
 
   it 'groups by state within unit' do
     results = subject
-    x = results[unit1.name]['finished']
+    x = results[unit1.name][:finished]
     expect(x).to contain_exactly(as1, as_1a, as_1aa, as_1b)
   end
 
   it 'sorts finished activities by percentage, then activity.activity_classification_id' do
     results = subject
-    x = results[unit1.name]['finished']
+    x = results[unit1.name][:finished]
     expect(x).to eq([as_1b, as1, as_1a, as_1aa])
   end
 
   it 'sorts unstarted activities by due_date, then activity.activity_classification_id' do
     results = subject
-    x = results[unit2.name]['unstarted']
+    x = results[unit2.name][:not_finished]
     expect(x).to eq([as_2b, as2, as_2a, as_2aa])
   end
 
@@ -52,8 +52,8 @@ describe 'Profile::SubProcessor' do
     as_1aa.update_attributes(percentage: 0.5, state: 'finished')
     as_1b.update_attributes(percentage: 1, state: 'finished')
     results = subject
-    x = Profile::SubProcessor.new.send("sort_sessions_helper", results[unit1.name])
-    expect(x).to eq({"unstarted" => [as_1a, as1], "finished" => [as_1b, as_1aa]})
+    x = results[unit1.name]
+    expect(x).to eq({not_finished: [as_1a, as1], finished: [as_1b, as_1aa]})
   end
 
   it 'only shows completed activities when there are others with the same classroom_activity_id' do
@@ -62,7 +62,7 @@ describe 'Profile::SubProcessor' do
     as_1a.update_attributes(classroom_activity_id: classroom_activity.id, state: 'started', is_retry: true)
     as_1aa.update_attributes(classroom_activity_id: classroom_activity.id, percentage: 0.5, state: 'finished')
     results = subject
-    expect(results[unit1.name]).to eq({"finished" =>[as_1aa], "unstarted" => []})
+    expect(results[unit1.name]).to eq({finished: [as_1aa]})
   end
 
 end

@@ -9,7 +9,7 @@ class Profile::Query
            .references(classroom_activity: [:unit])
            .order("units.created_at DESC")
            .order(unfinished_first)
-           .order("classroom_activity.due_date")
+           .order("classroom_activities.due_date")
            .order("activity_sessions.created_at")
   end
 
