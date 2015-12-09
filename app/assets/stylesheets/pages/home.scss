@@ -672,6 +672,73 @@
       }
     }
   }
+
+  .teacher-stories {
+    background-color: #348fdf;
+    color: $white;
+    h2 {
+      color: #014f92;
+    }
+    .tabs-teacher-stories {
+      ul {
+        list-style-type: none;
+        overflow: hidden;
+        margin: 0;
+        -webkit-padding-start: 0;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        li {
+          display: block;
+          @media (min-width: 700px) {
+            float: left;
+            width: 28%;
+          }
+          &.active {
+            @media (max-width: 700px) {
+              margin-bottom: 1em;
+            }
+            a {
+              border-color: $white;
+            }
+            img {
+              opacity: 1;
+            }
+          }
+          &:nth-child(2) {
+            margin-left: 8%;
+            margin-right: 8%;
+          }
+        }
+        a {
+          display: block;
+          border-bottom: 4px solid;
+          border-color: transparent;
+          min-height: 82px;
+        }
+        img {
+          opacity: 0.5;
+          &.kipp {
+            margin-top: 10px;
+          }
+        }
+      }
+      .tab-content {
+        font-size: 21px;
+        color: $white;
+        margin-bottom: 75px;
+        min-height: 140px;
+      }
+      .quote-author {
+        color: #014f92;
+        font-size: 16px;
+        margin-top: 17px;
+        margin-bottom: 45px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+  }
   .get-started {
     padding: 0;
     background-image: image-url('get-started.jpg');
@@ -695,6 +762,11 @@
   .button-red {
     font-weight: 700;
   }
+  .button-white {
+    font-weight: 700;
+    background-color: white;
+    color: #0096eb;
+  }
 }
 .other-pages-navbar {
   padding: 24px 0 0;
@@ -710,6 +782,9 @@
   @extend %extend_1;
 }
 .button-marine.big {
+  @extend %extend_1;
+}
+.button-white.big {
   @extend %extend_1;
 }
 .nav-tabs > li {

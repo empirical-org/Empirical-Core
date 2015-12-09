@@ -38,7 +38,15 @@ $(document).ready(function(){
 	}
 
 	tableSortIcons();
-	
+
+	$('.tabs-teacher-stories').tabslet({
+		autorotate: true,
+		delay: 1000,
+		pauseonhover: false,
+		animation: true,
+		active: 1
+	});
+
 	$('.tabs-testimonials').tabslet({
 		autorotate: true,
 		delay: 10000,
@@ -54,21 +62,21 @@ $(document).ready(function(){
       		selectOtherMonths: true,
       		dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       		minDate: -20,
-      		maxDate: "+1M +10D" 
+      		maxDate: "+1M +10D"
 	    });
 
 	    $( "#datepicker2" ).datepicker({
       		selectOtherMonths: true,
       		dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       		minDate: -20,
-      		maxDate: "+1M +10D" 
+      		maxDate: "+1M +10D"
 	    });
 
 	    $( "#datepicker3" ).datepicker({
       		selectOtherMonths: true,
       		dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       		minDate: -20,
-      		maxDate: "+1M +10D" 
+      		maxDate: "+1M +10D"
 	    });
 
 	    $( "#datepicker4" ).datepicker({
@@ -83,7 +91,7 @@ $(document).ready(function(){
       		selectOtherMonths: true,
       		dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       		minDate: -20,
-      		maxDate: "+1M +10D" 
+      		maxDate: "+1M +10D"
 	    });
   	});
 
@@ -94,7 +102,7 @@ $(document).ready(function(){
 	$( '#grade-select' ).selecter({
 		customClass: "grade-select"
 	});
-	
+
 
 	$('#tooltip-test').tooltip({
 		html: 'true'
@@ -107,5 +115,3 @@ $(document).ready(function(){
   });
 
 });
-	
-
