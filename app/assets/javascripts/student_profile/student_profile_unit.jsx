@@ -8,8 +8,20 @@ EC.StudentProfileUnit = React.createClass({
     /*
     completed activities is just another fake table under unstarted activities
     */
-    var count = this.props.data.unstarted.length + this.props.data.finished.length;
-    var activities = _.map([{data: this.props.data.unstarted, header: 'Assigned Activities'}, {data: this.props.data.finished, header: 'Completed Activities'}], function (ele) {
+    var headers = {
+      finished: 'Completed Activities',
+      not_finished: 'Assigned Activities'
+    };
+    var arr = [{data: this.props.data.not_finished, header: headers.not_finished},
+           {data: this.props.data.finished, header: headers.finished}]
+
+    var compacted = _.filter(arr, function (ele) { return ele.data }) // in case there are no finished, or no not_finished activity_sessions
+    var count = _.reduce(compacted, function (acc, ele) {
+      acc += ele.data.length
+      return acc
+    }, 0);
+
+    var activities = _.map(compacted, function (ele) {
       return <EC.StudentProfileActivities key={ele.header} data={ele.data} header={ele.header} count={count} />
     });
     return (

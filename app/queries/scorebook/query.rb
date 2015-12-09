@@ -61,9 +61,11 @@ class Scorebook::Query
   end
 
   def paginate(results, current_page)
-    results.order('sorting_name, activity_sessions.completed_at, activity_sessions.id')
-                      .limit(SCORES_PER_PAGE)
-                      .offset( (current_page -1 )*SCORES_PER_PAGE)
+    results.order('sorting_name')
+           .order('activity_sessions.completed_at')
+           .order('activity_sessions.created_at')
+           .limit(SCORES_PER_PAGE)
+           .offset( (current_page -1 )*SCORES_PER_PAGE)
   end
 
   # TODO: This belongs in the view layer.

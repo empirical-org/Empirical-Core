@@ -1,7 +1,7 @@
 'use strict';
 EC.NextActivity = React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object // may be absent if there is no next_activity (student has completed all assigned activities)
   },
   //<div className="activate-tooltip icon-wrapper icon-gray icon-puzzle"></div>
   render: function () {

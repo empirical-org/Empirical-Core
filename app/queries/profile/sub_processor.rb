@@ -11,9 +11,8 @@ class Profile::SubProcessor
     return [sorted, is_last_page]
   end
 
-
-
   private
+
 
   def group_by_unit(all)
     all.select{|s| s.classroom_activity.unit.present?}
@@ -22,45 +21,51 @@ class Profile::SubProcessor
 
   def group_by_state_within_unit(by_unit)
     result = by_unit.reduce({}) do |acc, (k, v)|
-      acc[k] = group_by_state(v)
+      acc[k] = group_by_presentation_state(v)
       acc
     end
     result
   end
 
-  def group_by_state r
-    r.group_by{|s| s.state}
+  def group_by_presentation_state(r)
+    r.group_by do |s|
+       if s.state == 'finished'
+        result = :finished
+       else
+        result = :not_finished
+       end
+       result
+    end
   end
 
-  def sort_sessions hash
+  def sort_sessions(hash)
     result = hash.reduce({}) do |acc, (k,v)|
-      acc[k] = sort_sessions_helper(v)
+      acc[k] = sort_within_unit(v)
       acc
     end
   end
 
-  def sort_sessions_helper hash
-    result = {"finished" => sort_finished(hash["finished"] || []) }
-    arr = hash["started"] || []
-    arr += (hash["unstarted"]) if hash["unstarted"]
-    result["unstarted"] = sort_rest(arr) || []
-    result
-  end
-
-  def sort_rest activity_sessions
-    activity_sessions.sort_by{|as| [date_helper(as.classroom_activity.due_date), as.activity.activity_classification_id]}
-  end
-
-
-  def sort_finished activity_sessions
-    activity_sessions.sort_by{|as| [(-1*as.percentage), as.activity.activity_classification_id]}
-  end
-
-  def date_helper(date)
-    unless date
-      date = Time.zone.now
+  def sort_within_unit(hash)
+    hash.reduce({}) do |acc, (k,v)|
+      acc[k] = send("sort_#{k}", v)
+      acc
     end
-    return date
   end
 
+  def sort_finished(activity_sessions)
+    activity_sessions.sort_by{ |as| [(-1*as.percentage), as.activity.activity_classification_id] }
+  end
+
+  def sort_not_finished(activity_sessions)
+    dued, not_dued = activity_sessions.partition{|as| as.classroom_activity.due_date.present? }
+    sort_dued(dued).concat(sort_not_dued(not_dued))
+  end
+
+  def sort_dued(activity_sessions)
+    activity_sessions.sort_by{ |as| [as.classroom_activity.due_date, as.activity.activity_classification_id] }
+  end
+
+  def sort_not_dued(activity_sessions)
+    activity_sessions.sort_by{ |as| as.created_at }
+  end
 end
