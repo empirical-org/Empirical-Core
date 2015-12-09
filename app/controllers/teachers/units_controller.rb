@@ -75,8 +75,9 @@ class Teachers::UnitsController < ApplicationController
       end
     end
 
-    arr = arr.sort_by{ |ele| ele[:unit].created_at }.reverse
-    render json: arr
+    arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
+    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}.reverse
+    render json: arr1.concat(arr2)
   end
 
   def hide
