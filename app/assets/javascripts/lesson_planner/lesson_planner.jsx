@@ -48,9 +48,15 @@ EC.LessonPlanner = React.createClass({
         model_id: null,
 	      relatedModels: [],
 	      displayedModels: [],
-	      selectedCategoryId: null
+	      selectedCategoryId: null,
+        grade: null
 			}
 		}
+
+    var grade = ($('#activity-planner').data('grade'));
+    if (grade) {
+      state.unitTemplatesManager.grade = grade;
+    }
 
     var tab = ($('#activity-planner').data('tab'));
     if (tab) {
@@ -62,6 +68,7 @@ EC.LessonPlanner = React.createClass({
       state.tab = 'exploreActivityPacks';
       state.unitTemplatesManager.model_id = $('.teachers-unit-template').data('id');
     }
+
     return state;
 	},
 
@@ -73,6 +80,12 @@ EC.LessonPlanner = React.createClass({
 
   _modelsInCategory: function (categoryId) {
     return _.where(this.state.unitTemplatesManager.models, {unit_template_category: {id: categoryId}})
+  },
+
+  _modelsInGrade: function (grade) {
+    return _.reject(this.state.unitTemplatesManager.models, function (m){
+      return _.indexOf(m.grades, grade)
+    });
   },
 
   updateUnitTemplateModels: function (models) {
@@ -97,6 +110,16 @@ EC.LessonPlanner = React.createClass({
   returnToIndex: function () {
   	this.updateUnitTemplatesManager({stage: 'index'})
     window.scrollTo(0, 0);
+  },
+
+  filterByGrade: function () {
+    var grade  = this.state.unitTemplatesManager.grade;
+    if (grade) {
+      var uts = this._modelsInGrade(grade)
+    } else {
+      var uts = this.state.unitTemplatesManager.models;
+    }
+    this.updateUnitTemplatesManager({stage: 'index', displayedModels: uts});
   },
 
   filterByCategory: function (categoryId) {
@@ -189,6 +212,7 @@ EC.LessonPlanner = React.createClass({
 			assign: this.assign,
 			returnToIndex: this.returnToIndex,
       filterByCategory: this.filterByCategory,
+      filterByGrade: this.filterByGrade,
       selectModel: this.selectModel
 		}
 	},

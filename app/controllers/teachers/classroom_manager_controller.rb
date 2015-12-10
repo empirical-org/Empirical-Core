@@ -5,9 +5,8 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   def lesson_planner
-    puts "################"
-    puts params
     @tab = params[:tab] #|| "manageUnits"
+    @grade = params[:grade]
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
     end
