@@ -10,6 +10,7 @@ class Cms::UsersController < ApplicationController
   end
 
   def search
+    binding.pry
     index
     render :index
   end
