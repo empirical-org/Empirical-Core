@@ -1,7 +1,6 @@
 'use strict';
 $(function () {
   var packs = $('#public-activity-packs')[0];
-  console.log(packs);
   if (packs) {
     React.render(React.createElement(EC.PublicActivityPacks), packs)
   }
