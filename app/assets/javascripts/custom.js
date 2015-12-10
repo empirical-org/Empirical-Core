@@ -41,7 +41,7 @@ $(document).ready(function(){
 
 	$('.tabs-teacher-stories').tabslet({
 		autorotate: true,
-		delay: 4000,
+		delay: 10000,
 		pauseonhover: true,
 		animation: true,
 		active: 1

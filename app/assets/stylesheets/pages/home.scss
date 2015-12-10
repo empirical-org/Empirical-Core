@@ -569,6 +569,9 @@
       &.dark-red {
         color: $color_thunderbird_approx;
       }
+      &#teacher-subheader {
+        color: #014f92;
+      }
     }
     .header {
       font-size: 36px;
@@ -662,11 +665,10 @@
   .teacher-stories {
     background-color: #348fdf;
     color: $white;
-    border
-    h2 {
-      color: #014f92;
-    }
     .tabs-teacher-stories {
+      #teacher-subheader {
+        color: #014f92 !important;
+      }
       ul {
         display: inline-block;
         list-style-type: none;
@@ -676,6 +678,7 @@
         width: 50%;
         max-width: 900px;
         margin: 0 auto;
+        padding-top: 13px;
         li {
           margin-left: 17px;
           margin-right: 17px;
@@ -693,6 +696,7 @@
           }
           &.active, &:hover {
             border-bottom: 4px solid;
+            margin-top: -11px;
             @media (max-width: 700px) {
               margin-bottom: 1em;
             }
