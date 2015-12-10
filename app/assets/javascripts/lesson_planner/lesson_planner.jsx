@@ -52,6 +52,10 @@ EC.LessonPlanner = React.createClass({
 			}
 		}
 
+    var tab = ($('#activity-planner').data('tab'));
+    if (tab) {
+      state.tab = tab;
+    }
     //FIXME: this concern should be handled with a react-router
     var individualUnitTemplate = $('.teachers-unit-template')[0]
     if (individualUnitTemplate) {
