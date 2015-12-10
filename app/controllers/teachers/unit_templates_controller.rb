@@ -7,6 +7,11 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def show
+    begin
+      unit = UnitTemplate.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks")
+    end
     @unit_template_id = params[:id]
   end
 end

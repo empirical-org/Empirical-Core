@@ -45,7 +45,7 @@ EC.PublicActivityPacks = React.createClass({
         selectedCategoryId: null
       }
     }
-    state.unitTemplatesManager.authenticated = $('#public-activity-packs').data('authenticated');
+    state.unitTemplatesManager.non_authenticated = !($('#public-activity-packs').data('authenticated'));
     //FIXME: this concern should be handled with a react-router
     var individualUnitTemplate = $('.teachers-unit-template')[0]
     if (individualUnitTemplate) {

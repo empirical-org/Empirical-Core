@@ -5,10 +5,10 @@ EC.UnitTemplateProfileAssignButton = React.createClass({
   },
 
   stateSpecificComponent: function () {
-    if (this.props.data.authenticated) {
-      return <button className='button-green full-width' onClick={this.props.actions.assign}>Assign to Your Class</button>
-    } else {
+    if (this.props.data.non_authenticated) {
       return <button className='button-green full-width' onClick={this.props.actions.signUp}>Sign Up</button>
+    } else {
+      return <button className='button-green full-width' onClick={this.props.actions.assign}>Assign to Your Class</button>
     }
   },
 

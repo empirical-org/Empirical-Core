@@ -63,17 +63,29 @@ class PagesController < ApplicationController
   end
 
   def activity_packs
+    if !!current_user.try(:teacher?)
+      redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks")
+    end
     @teacher = !!current_user.try(:teacher?)
   end
 
   def show_activity_packs
-    @teacher = !!current_user.try(:teacher?)
-    begin
-      unit = UnitTemplate.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to :activities_packs
+    if !!current_user.try(:teacher?)
+      begin
+        unit = UnitTemplate.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to :activities_packs
+      end
+      redirect_to(controller: "teachers/unit_templates", action: "show", id: params[:id])
+    else
+      @teacher = !!current_user.try(:teacher?)
+      begin
+        unit = UnitTemplate.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to :activities_packs
+      end
+      @unit_template_id = params[:id]
     end
-    @unit_template_id = params[:id]
   end
 
   # for link to premium within 'about' (discover) pages
