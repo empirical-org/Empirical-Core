@@ -155,7 +155,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	onCreateSuccess: function(response) {
-		this.props.actions.toggleTab('manageUnits');
+		window.location.href = "/profile";
 	},
 
 	isUnitNameSelected: function () {
