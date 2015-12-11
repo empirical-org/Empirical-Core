@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Teachers::ProgressReports::CsvExportsController, :type => :controller do
+describe Teachers::ProgressReports::CsvExportsController, type: :controller do
   include_context 'Activity Progress Report'
 
   describe 'POST #create' do

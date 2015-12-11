@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Topic, :type => :model do
+describe Topic, type: :model do
 
 	let!(:topic){FactoryGirl.create(:topic, name: "a")}
 

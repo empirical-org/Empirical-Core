@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe LessonPlanner, :type => :model do
+describe LessonPlanner, type: :model do
 
   let!(:activity) { FactoryGirl.create(:activity) }
   let(:classroom) { FactoryGirl.build(:classroom) }

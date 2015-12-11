@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Sign in', :type => :request do
+describe 'Sign in', type: :request do
   before do
     User.create(email: 'student@quill.org',
                 name: 'John Smith',

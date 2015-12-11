@@ -4,7 +4,7 @@ describe Api::V1::ConceptsController, type: :controller do
 
   context 'POST #create' do
     let!(:user) { FactoryGirl.create(:admin) }
-    let!(:token) { double :acceptable? => true, :resource_owner_id => user.id }
+    let!(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let!(:concept_name) { 'Concept1' }
     let!(:parent_concept) { FactoryGirl.create(:concept) }
 
