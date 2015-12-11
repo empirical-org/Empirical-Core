@@ -1,7 +1,7 @@
 require 'rails_helper'
 require "cancan/matchers"
 
-describe "User", :type => :model do
+describe "User", type: :model do
   describe "abilities" do
     subject(:ability) { Ability.new(user) }
     let(:user) { nil }

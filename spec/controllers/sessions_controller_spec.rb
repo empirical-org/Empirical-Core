@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SessionsController, :type => :controller do
+describe SessionsController, type: :controller do
   before do
     User.create(email: 'student@quill.org',
                 name: 'John Smith',

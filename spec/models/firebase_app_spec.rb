@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe FirebaseApp, :type => :model do
+describe FirebaseApp, type: :model do
 
   let(:firebase_app){ FactoryGirl.create(:firebase_app) }
 
@@ -50,7 +50,7 @@ describe FirebaseApp, :type => :model do
       end
 
       it 'generates a token with the anonymous flag in the payload' do
-        expect(generator).to receive(:create_token).with(hash_including({:anonymous => true}))
+        expect(generator).to receive(:create_token).with(hash_including({anonymous: true}))
         subject
       end
     end

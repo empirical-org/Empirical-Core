@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ConceptResult, :type => :model do
+describe ConceptResult, type: :model do
 
   let(:concept_result) { FactoryGirl.build(:concept_result, concept: nil) }
   let!(:concept) { FactoryGirl.create(:concept) }

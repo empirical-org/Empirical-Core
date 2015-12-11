@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Teachers::ProgressReports::ActivitySessionsController, :type => :controller do
+describe Teachers::ProgressReports::ActivitySessionsController, type: :controller do
   let(:teacher) { FactoryGirl.create(:teacher) }
   include_context 'Topic Progress Report'
   it_behaves_like 'Progress Report' do
