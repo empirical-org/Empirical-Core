@@ -15,8 +15,10 @@
 
 	<div id="home-collapsed-navbar" class="collapse navbar-collapse">
 		<ul class="home-navbar-list">
-			<li class="active"><%= link_to "Discover", activities_path %></li>
-			<li><%= link_to "Teacher Resources",  teacher_resources_path%></li>
+			<% if !current_user || current_user.role != "student" %>
+				<li class="active"><%= link_to "Discover", activities_path %></li>
+				<li><%= link_to "Teacher Resources",  teacher_resources_path%></li>
+			<% end %>
 
 			<%- if current_user.nil? %>
 				<li><%= link_to "Login", new_session_path  %></li>
