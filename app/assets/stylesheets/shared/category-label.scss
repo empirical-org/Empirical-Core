@@ -1,0 +1,25 @@
+.category-label {
+  display: inline-block;
+  cursor: pointer;
+  background-color: rgba(0,0,0,0.2);
+  color: white;
+  padding: 5px 30px;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  &:hover {
+    color: white;
+    text-decoration:none;
+  }
+}
+
+.author-picture {
+  height: 80px;
+  width: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+  img {
+    height: 100%;
+  }
+}

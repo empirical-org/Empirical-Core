@@ -222,7 +222,7 @@
     }
     .button-anchor {
       &:hover {
-        background-color: $darkgrey;
+        background-color: $darkgray;
         button {
           //Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
           box-shadow: 0 0 0.3rem $black_40;
@@ -273,7 +273,7 @@
     }
     .home-navbar-list {
       float: none;
-      background-color: $darkgrey;
+      background-color: $darkgray;
       border-top: none;
       padding-left: 0;
       li {
@@ -448,7 +448,7 @@
       p {
         font-size: 14px;
         text-align: center;
-        color: $darkgrey;
+        color: $darkgray;
         font-weight: 400;
       }
     }
@@ -576,7 +576,7 @@
       text-transform: uppercase;
       font-weight: 700;
       &.black {
-        color: $darkgrey;
+        color: $darkgray;
       }
       &.dark-yellow {
         color: $color_rusty_nail_approx;
@@ -598,7 +598,7 @@
       margin-bottom: 49px;
       font-weight: 400;
       &.black {
-        color: $darkgrey;
+        color: $darkgray;
       }
     }
   }

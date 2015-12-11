@@ -45,9 +45,9 @@ class Teachers::UnitsController < ApplicationController
     arr = []
     units.each do |unit_id, classroom_activities|
 
-      x1 = classroom_activities.reject{|ca| ca.due_date.nil?}.compact
+      x1 = classroom_activities.compact
 
-      x1 = x1.sort{|a, b| a.due_date <=> b.due_date}
+      x1 = ClassroomActivitySorter::sort(x1)
 
       x1 = x1.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
 
@@ -75,8 +75,9 @@ class Teachers::UnitsController < ApplicationController
       end
     end
 
-
-    render json: arr
+    arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
+    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}.reverse
+    render json: arr1.concat(arr2)
   end
 
   def hide

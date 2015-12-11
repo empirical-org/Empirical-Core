@@ -13,7 +13,8 @@
       <div class='row'>
         <div class='col-xs-12'>
           <div class='newline-error'>
-            <%= @classroom.errors.full_messages_for(:name).first %>
+            <p><%= @classroom.errors.full_messages_for(:name).first %></p>
+            <p><%= @classroom.errors.full_messages_for(:grade).first %></p>
           </div>
           <%= f.text_field :name, class: 'big-input', placeholder: 'Class Name' %>
         </div>

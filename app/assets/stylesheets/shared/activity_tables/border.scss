@@ -1,0 +1,35 @@
+table.activity-table {
+  thead {
+    border: 1px solid #cecece;
+    tr th {
+      border-left: 1px solid #cecece;
+      border-bottom: none;
+      border-top: 1px solid #cecece !important;
+
+      &:first-child {
+        border-top-left-radius: 5px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 5px;
+        border-right: 1px solid #cecece;
+      }
+    }
+  }
+
+  tbody tr {
+    &:last-child {
+      td {
+        border-bottom: 1px solid #cecece;
+      }
+    }
+    td {
+      &:first-child {
+        border-left: 1px solid #cecece !important;
+      }
+      &:last-child {
+        border-right: 1px solid #cecece;
+      }
+    }
+  }
+}
