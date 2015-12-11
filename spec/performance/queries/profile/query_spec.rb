@@ -8,7 +8,7 @@ describe 'Profile::Query' do
   let(:profile_query) { Profile::Query.new }
 
   def subject
-    profile_query.query(student)
+    profile_query.query(student, 20, 20)
   end
 
   it 'takes less than 1 sec' do

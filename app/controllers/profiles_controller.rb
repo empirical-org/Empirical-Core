@@ -3,7 +3,14 @@ class ProfilesController < ApplicationController
 
   def show
     @user = current_user
-    send current_user.role
+    if current_user.role == 'student'
+      respond_to do |format|
+        format.html {student(false)}
+        format.json {student(true)}
+      end
+    else
+      send current_user.role
+    end
   end
 
   def update
@@ -19,22 +26,25 @@ class ProfilesController < ApplicationController
     student
   end
 
-  def student
+  def student(is_json=false)
     if @classroom = current_user.classroom
-      #@units = @classroom.classroom_activities.includes(:unit).map(&:unit).uniq
-      @grouped_scores = Profile::Processor.new.query(current_user)
-      
+      if is_json
 
-      @next_activity_session = ActivitySession.joins(:classroom_activity)
-          .where("activity_sessions.completed_at IS NULL")
-          .where("activity_sessions.user_id = ?", current_user.id)
-          .order("classroom_activities.due_date DESC")
-          .select("activity_sessions.*")
-          .first
+        grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i)
 
-      @next_activity = @next_activity_session.activity if @next_activity_session.present?
-
-      render 'student'
+        next_activity_session = ActivitySession.joins(classroom_activity: [:unit])
+            .where("activity_sessions.completed_at IS NULL")
+            .where("activity_sessions.user_id = ?", current_user.id)
+            .order("units.created_at DESC")
+            .order("classroom_activities.due_date ASC")
+            .select("activity_sessions.*")
+            .first
+        render json: {student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: grouped_scores,
+          is_last_page: is_last_page,
+          next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
+      else
+        render 'student'
+      end
     else
       render 'join-classroom'
     end

@@ -10,6 +10,9 @@ EC.Scorebook = React.createClass({
 	mixins: [EC.TableFilterMixin],
 
 	getInitialState: function () {
+		this.modules = {
+			scrollify: new EC.modules.scrollify()
+		};
 		return {
 			units: [],
 			classrooms: [],
@@ -19,43 +22,25 @@ EC.Scorebook = React.createClass({
 			unitFilters: [],
 			beginDate: null,
 			endDate: null,
-			currentPage: 1,
+			currentPage: 0,
 			loading: false,
-			isLastPage: false,
+			is_last_page: false,
 			noLoadHasEverOccurredYet: true
 		}
 	},
 
-	scrollComputation: function () {
-		var y = $('#page-content-wrapper').height();
-		var w = 1/(this.state.currentPage + 1);
-		var z = y*(1 - w);
-		return z;
-	},
-
 	componentDidMount: function () {
 		this.fetchData();
-		var that = this;
-		$(window).scroll(function (e) {
-			if (($(window).scrollTop() + document.body.clientHeight) > (that.scrollComputation() )) {
-				if (!that.state.loading && !that.state.isLastPage) {
-					that.loadMore();
-				}
-			}
-		});
-	},
-
-	loadMore: function () {
-		this.setState({currentPage: this.state.currentPage + 1});
-		this.fetchData();
+		this.modules.scrollify.scrollify('#page-content-wrapper', this);
 	},
 
 	fetchData: function () {
-		this.setState({loading: true})
+		var newCurrentPage = this.state.currentPage + 1;
+		this.setState({loading: true, currentPage: newCurrentPage})
 		$.ajax({
 			url: 'scores',
 			data: {
-				current_page: this.state.currentPage,
+				current_page: newCurrentPage,
 				classroom_id: this.state.selectedClassroom.value,
 				unit_id: this.state.selectedUnit.value,
 				begin_date: this.state.beginDate,
@@ -67,13 +52,14 @@ EC.Scorebook = React.createClass({
 	},
 
 	displayData: function (data) {
+
 		if (data.was_classroom_selected_in_controller) {
 			this.setState({selectedClassroom: data.selected_classroom});
 		}
 		this.setState({
 			classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
 			unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
-			isLastPage: data.is_last_page,
+			is_last_page: data.is_last_page,
 			noLoadHasEverOccurredYet: false
 		});
 		if (this.state.currentPage == 1) {
@@ -108,14 +94,14 @@ EC.Scorebook = React.createClass({
 	},
 
 	selectUnit: function (option) {
-		this.setState({currentPage: 1, selectedUnit: option}, this.fetchData);
+		this.setState({currentPage: 0, selectedUnit: option}, this.fetchData);
 	},
 
 	selectClassroom: function (option) {
-		this.setState({currentPage: 1, selectedClassroom: option}, this.fetchData);
+		this.setState({currentPage: 0, selectedClassroom: option}, this.fetchData);
 	},
 	selectDates: function (val1, val2) {
-		this.setState({currentPage: 1, beginDate: val1, endDate: val2}, this.fetchData);
+		this.setState({currentPage: 0, beginDate: val1, endDate: val2}, this.fetchData);
 	},
 	render: function() {
 		var scores = _.map(this.state.scores, function (data) {
