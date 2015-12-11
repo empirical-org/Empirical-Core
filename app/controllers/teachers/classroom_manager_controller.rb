@@ -5,6 +5,8 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   def lesson_planner
+    @tab = params[:tab] #|| "manageUnits"
+    @grade = params[:grade]
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
     end
@@ -33,6 +35,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
+    end
+
+    if current_user.students.empty?
+      if current_user.classrooms.last.activities.empty?
+        redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms.last.grade)
+      else
+        redirect_to teachers_classroom_invite_students_path(current_user.classrooms.last)
+      end
     end
   end
 

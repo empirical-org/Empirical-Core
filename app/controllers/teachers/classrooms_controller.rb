@@ -27,7 +27,11 @@ class Teachers::ClassroomsController < ApplicationController
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
     if @classroom.valid?
       ClassroomCreationWorker.perform_async(@classroom.id)
-      redirect_to teachers_classroom_invite_students_path(@classroom)
+      if current_user.students.empty?
+        redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: @classroom.grade)
+      else
+        redirect_to teachers_classroom_invite_students_path(@classroom)
+      end
     else
       render :new
     end
