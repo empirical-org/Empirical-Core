@@ -5,6 +5,8 @@
                           html: { method: :post, class: 'searchable' } do |f|
       = f.label :name_cont
       = f.search_field :name_cont
+      = f.label :username_cont
+      = f.search_field :username_cont
       = f.label :email_cont
       = f.search_field :email_cont
       = f.label :ip_address_eq
@@ -15,14 +17,13 @@
       = f.search_field :schools_city_cont
       = f.label :classroom_code_cont
       = f.search_field :classroom_code_cont
-      = f.label :subscriptions_id_present, 'has premium'
-      = f.check_box :subscriptions_id_present
       = f.submit class: 'btn btn-primary btn-mid'
     br
     br
     table.table.table-stripe.table-hover-row.cms-user-index-table
       tr
         th Name
+        th Username
         th Email
         th Role
         th Class
@@ -35,7 +36,7 @@
           tr
             td colspan=4 No results found!
       - else
-        - @users.each do |user|
+        - @users.sort_by{|u| u.updated_at}.reverse.each do |user|
           tr
             td= user.name
             td= user.email
@@ -60,4 +61,3 @@
 
     -if current_user.teacher?
       = link_to 'Invite a Student to My Class', new_cms_user_path
-
