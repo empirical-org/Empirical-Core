@@ -2,7 +2,6 @@ class AccountCreationWorker
   include Sidekiq::Worker
 
   def perform(id)
-
     @user = User.find(id)
 
     # tell keen
