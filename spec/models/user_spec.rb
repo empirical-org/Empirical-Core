@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User, :type => :model do
+describe User, type: :model do
   let(:user) { FactoryGirl.build(:user) }
 
 

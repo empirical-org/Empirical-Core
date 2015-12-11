@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ActivitiesController, :type => :controller do
+describe ActivitiesController, type: :controller do
   render_views
 
   let(:student) { FactoryGirl.create(:student) }

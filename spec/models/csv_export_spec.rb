@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CsvExport, :type => :model do
+describe CsvExport, type: :model do
 
   include_context 'Activity Progress Report'
   let(:csv_export) { CsvExport.new }

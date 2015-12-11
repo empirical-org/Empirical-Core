@@ -9,6 +9,6 @@ Fog.credentials = {
 carrierwave_fog = CarrierWave::Storage::Fog.new(CsvUploader.new)
 connection = carrierwave_fog.connection
 
-# connection = Fog::Storage.new(:provider => 'AWS')
-connection.directories.create(:key => ENV.fetch('FOG_DIRECTORY'))
-connection.directories.create(:key => ENV.fetch('PROGRESS_REPORT_FOG_DIRECTORY'))
+# connection = Fog::Storage.new(provider: 'AWS')
+connection.directories.create(key: ENV.fetch('FOG_DIRECTORY'))
+connection.directories.create(key: ENV.fetch('PROGRESS_REPORT_FOG_DIRECTORY'))
