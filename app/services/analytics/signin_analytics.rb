@@ -10,6 +10,7 @@ class SigninAnalytics
     analytics_track({
       user_id: teacher.id,
       event: SegmentIo::Events::TEACHER_SIGNIN
+      context: {:ip => teacher.ip_address }
     })
   end
 
@@ -34,6 +35,7 @@ class SigninAnalytics
     analytics_track({
       user_id: student.id,
       event: SegmentIo::Events::STUDENT_SIGNIN
+      context: {:ip => student.ip_address }
     })
   end
 
@@ -44,6 +46,7 @@ class SigninAnalytics
     analytics_track({
       user_id: teacher.id,
       event: SegmentIo::Events::TEACHERS_STUDENT_SIGNIN
+      context: {:ip => teacher.ip_address }
     })
   end
 

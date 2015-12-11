@@ -18,6 +18,7 @@ class InviteStudentAnalytics
     analytics_track({
       user_id: student.id,
       event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION
+      context: {:ip => student.ip_address }
     })
   end
 
@@ -26,6 +27,7 @@ class InviteStudentAnalytics
     analytics_track({
       user_id: teacher.id,
       event: SegmentIo::Events::TEACHERS_STUDENT_ACCOUNT_CREATION
+      context: {:ip => teacher.ip_address }
     })
   end
 
