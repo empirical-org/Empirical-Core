@@ -37,7 +37,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    classrooms = current_user.classrooms.includes(:classroom_activities => [:unit])
+    classrooms = current_user.classrooms.includes(classroom_activities: [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
 
     if params[:no_load_has_ever_occurred_yet] == 'true'

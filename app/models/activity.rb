@@ -12,7 +12,7 @@ class Activity < ActiveRecord::Base
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
 
-  before_create :flag_as_beta, :unless => :flags?
+  before_create :flag_as_beta, unless: :flags?
 
   scope :production, -> {
     where(<<-SQL, :production)
@@ -33,7 +33,7 @@ class Activity < ActiveRecord::Base
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(search_text, filters, sort)
-    query = includes(:classification, :topic => [:section, :topic_category])
+    query = includes(:classification, topic: [:section, :topic_category])
       .where("'production' = ANY(activities.flags)")
       .where("(activities.name ILIKE ?) OR (topic_categories.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
       .where("topic_categories.id IS NOT NULL AND sections.id IS NOT NULL")

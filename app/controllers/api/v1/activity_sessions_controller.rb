@@ -75,7 +75,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def activity_session_params
     params.delete(:activity_session)
     @data = params.delete(:data)
-    concept_result_keys = [:concept_uid, :metadata => concept_result_allowed_keys]
+    concept_result_keys = [:concept_uid, metadata: concept_result_allowed_keys]
     params.permit(:id,
                   :access_token, # Required by OAuth
                   :percentage,

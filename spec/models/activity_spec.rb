@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Activity, :type => :model do
+describe Activity, type: :model do
 
   let!(:activity){ FactoryGirl.build(:activity) }
 

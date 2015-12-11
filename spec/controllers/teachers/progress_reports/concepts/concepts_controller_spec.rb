@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Teachers::ProgressReports::Concepts::ConceptsController, :type => :controller do
+describe Teachers::ProgressReports::Concepts::ConceptsController, type: :controller do
   let!(:teacher) { FactoryGirl.create(:teacher) }
   include_context 'Concept Progress Report'
   it_behaves_like 'Progress Report' do

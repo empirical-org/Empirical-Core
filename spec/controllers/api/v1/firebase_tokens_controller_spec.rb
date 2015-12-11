@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::V1::FirebaseTokensController, :type => :controller do
+describe Api::V1::FirebaseTokensController, type: :controller do
 
   context 'POST #create' do
     let!(:app) { FirebaseApp.create!(name: 'foobar', secret: '12345abcde') }
@@ -26,8 +26,8 @@ describe Api::V1::FirebaseTokensController, :type => :controller do
     end
 
     context 'when authenticated via OAuth' do
-      let(:application) { Doorkeeper::Application.create!(:name => "MyFirebaseApp", :redirect_uri => "http://app.com") }
-      let(:token) { Doorkeeper::AccessToken.create! :application_id => application.id, :resource_owner_id => user.id }
+      let(:application) { Doorkeeper::Application.create!(name: "MyFirebaseApp", redirect_uri: "http://app.com") }
+      let(:token) { Doorkeeper::AccessToken.create! application_id: application.id, resource_owner_id: user.id }
 
       def subject
         post :create, app: 'foobar', access_token: token.token
