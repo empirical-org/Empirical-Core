@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Sign up', :type => :request do
+describe 'Sign up', type: :request do
 
   def sign_up_succeeds
     expect(response.status).to eq(200)
