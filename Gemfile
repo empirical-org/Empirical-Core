@@ -85,7 +85,7 @@ gem 'slim-rails'
 gem 'haml-rails'
 
 gem 'es5-shim-rails'
-gem 'react-rails', '~>0.12.0.0'
+gem 'react-rails', '1.4.1'
 
 # ASSET/UI
 gem 'therubyracer', require: false
@@ -151,4 +151,5 @@ group :test do
   gem 'poltergeist'
   gem "vcr"
   gem "webmock"
+  gem "codeclimate-test-reporter", require: nil
 end

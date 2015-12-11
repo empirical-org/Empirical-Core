@@ -1,37 +1,22 @@
 class Profile::Query
-  def query(student)
 
-    store = {
-      ids: [],
-      sessions: []
-    }
-
-    finished_sessions = student.activity_sessions.includes(:unit, classroom_activity: [:unit], activity: [:classification])
-                        .where(state: "finished")
-                        .sort_by {|s| s.percentage}
-                        .reverse
-
-    classroom_ids = finished_sessions.map{|s| s.classroom_activity_id}.uniq
-
-    other_sessions = not_finished_query(classroom_ids, student)
-
-    sessions = finished_sessions + other_sessions
-
-    sessions.each do |s|
-      unless store[:ids].include?(s.classroom_activity_id)
-        store[:ids].push(s.classroom_activity_id)
-        store[:sessions].push(s)
-      end
-    end
-    return store[:sessions]
+  def query(student, batch_size, offset)
+    student.activity_sessions
+           .where("((state = 'finished') and (is_final_score = true)) or ((state != 'finished') and (is_retry = false))")
+           .includes(classroom_activity: [:unit], activity: [:classification])
+           .limit(batch_size)
+           .offset(offset)
+           .references(classroom_activity: [:unit])
+           .order("units.created_at DESC")
+           .order(unfinished_first)
+           .order("classroom_activities.due_date")
+           .order("activity_sessions.created_at")
   end
 
-  def not_finished_query classroom_ids, student
-    if classroom_ids.empty?
-      student.activity_sessions.includes(:unit, classroom_activity: [:unit], activity: [:classification])
-    else
-      student.activity_sessions.where("classroom_activity_id NOT IN (?)", classroom_ids).includes(:unit, classroom_activity: [:unit], activity: [:classification])
-    end
+  private
+
+  def unfinished_first
+    "(state = 'finished')" # false will occur first since default ordering is ASC
   end
 
 end

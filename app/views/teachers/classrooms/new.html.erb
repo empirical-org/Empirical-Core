@@ -13,7 +13,8 @@
       <div class='row'>
         <div class='col-xs-12'>
           <div class='newline-error'>
-            <%= @classroom.errors.full_messages_for(:name).first %>
+            <p><%= @classroom.errors.full_messages_for(:name).first %></p>
+            <p><%= @classroom.errors.full_messages_for(:grade).first %></p>
           </div>
           <%= f.text_field :name, class: 'big-input', placeholder: 'Class Name' %>
         </div>
@@ -26,7 +27,7 @@
       <div class='row'>
         <div class='col-xs-12'>
           <%= f.label :code, "Class Code" %>
-          <%= f.text_field :code, class: 'inactive class-code' %>
+          <%= f.text_field :code, class: 'inactive class-code', :readonly => true%> %>
           <span class='generate-code'>Generate a New Code</span>
         </div>
       </div>
