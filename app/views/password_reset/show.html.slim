@@ -1,12 +1,14 @@
 .container.account-form
-  h3 Set your new password
+  .row
+    .col-sm-6.col-md-4.col-md-offset-4
+	  h3 Set your new password
 
-  - if flash[:error]
-    .error= flash[:error]
+	  - if flash[:error]
+	    .error= flash[:error]
 
-  = form_for @user, url: password_reset_path(@user.token) do |f|
-    = f.label :password
-    = f.password_field :password
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
-    = f.submit 'Update password'
+	  = form_for @user, url: password_reset_path(@user.token) do |f|
+	    = f.label :password
+	    = f.password_field :password
+	    = f.label :password_confirmation
+	    = f.password_field :password_confirmation
+	    = f.submit 'Update password'
