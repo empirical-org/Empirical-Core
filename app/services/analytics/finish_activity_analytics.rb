@@ -17,6 +17,8 @@ class FinishActivityAnalytics
       user_id: teacher.id,
 
       event: SegmentIo::Events::ACTIVITY_COMPLETION
+
+      context: {:ip => teacher.ip_address }
     })
   end
 
