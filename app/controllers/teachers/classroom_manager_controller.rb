@@ -11,7 +11,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    current_user.classrooms.each do |classroom|
+    current_user.classrooms.includes(:students).each do |classroom|
       obj = {
         classroom: classroom,
         students: classroom.students.sort_by(&:sorting_name)
