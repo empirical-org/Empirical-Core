@@ -16,6 +16,7 @@ class AccountCreationAnalytics
     analytics_track({
       user_id: student.id,
       event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION
+      context: {:ip => student.ip_address }
     })
   end
 
@@ -25,6 +26,7 @@ class AccountCreationAnalytics
     analytics_track({
       user_id: teacher.id,
       event: SegmentIo::Events::TEACHER_ACCOUNT_CREATION
+      context: {:ip => teacher.ip_address }
     })
   end
 
@@ -33,6 +35,7 @@ class AccountCreationAnalytics
     analytics_track({
       user_id: teacher.id,
       event: SegmentIo::Events::TEACHER_SIGNED_UP_FOR_NEWSLETTER
+      context: {:ip => teacher.ip_address }
     })
   end
 
