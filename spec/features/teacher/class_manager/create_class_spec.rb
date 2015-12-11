@@ -36,9 +36,27 @@ feature 'Create-a-Class page' do
         expect(invite_students_page.class_code).not_to eq sweathogs.code
       end
 
+      it "does not add classrooms without a grade and raises an error" do
+        page.fill_in 'classroom_name', :with => "gutter-punk"
+        expect { page.click_button 'Create Class' }.to change { Classroom.count }.by(0)
+        expect { page.to have_content("Grade can't be blank")}
+      end
+
+      it "does not add classrooms without a name and raises an error" do
+        within '#classroom_grade' do
+          find("option[value='1']").click
+        end
+        expect { page.click_button 'Create Class' }.to change { Classroom.count }.by(0)
+        expect { page.to have_content("Name can't be blank")}
+      end
+
+
+
+
       def create_sweathogs
         create_classroom_page.create_class name: 'sweathogs', grade: 11
       end
+
 
       describe 'clicking the new-code item' do
         it 'generates a new class-code', js: true do
