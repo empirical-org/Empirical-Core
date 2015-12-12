@@ -53,10 +53,10 @@ EmpiricalGrammar::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  config.cache_store = :redis_store, ENV["REDISTOGO_URL"], { expires_in: 90.minutes }
+  config.cache_store = :redis_store, ENV['REDISTOGO_URL'], { expires_in: 90.minutes }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = '//d2t498vi8pate3.cloudfront.net' #'//cdn.quill.org'
+  config.action_controller.asset_host = '//d2t498vi8pate3.cloudfront.net' # '//cdn.quill.org'
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -70,7 +70,7 @@ EmpiricalGrammar::Application.configure do
                                  scorebook/*
                                  scorebook/**/*
                                  sign_up_email.css
-                                 )
+                              )
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
@@ -81,7 +81,7 @@ EmpiricalGrammar::Application.configure do
     user_name:      ENV['MAILGUN_SMTP_LOGIN'],
     password:       ENV['MAILGUN_SMTP_PASSWORD'],
     domain:         'empirical-grammar.heroku.com',
-    authentication: :plain,
+    authentication: :plain
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -107,8 +107,8 @@ EmpiricalGrammar::Application.configure do
   config.lograge.enabled = true
   config.lograge.custom_options = lambda do |event|
     params = event.payload[:params].reject do |k|
-      ['controller', 'action'].include? k
+      %w(controller action).include? k
     end
-    { "params" => params }
+    { 'params' => params }
   end
 end

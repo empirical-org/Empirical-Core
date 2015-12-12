@@ -1,7 +1,7 @@
 shared_examples_for 'serializer' do
   # Relies on an 'expected_serialized_keys' value
   # Relies on a 'record_instance' value
-  let(:serializer)     { described_class.new(record_instance) }
+  let(:serializer) { described_class.new(record_instance) }
   let(:json)   { serializer.to_json }
   let(:parsed) { JSON.parse(json) }
   let(:result_key) { record_instance.class.to_s.underscore }
@@ -9,7 +9,7 @@ shared_examples_for 'serializer' do
   let(:nested_array_keys) { [] }
 
   describe '#to_json output' do
-    it "includes a wrapping key" do
+    it 'includes a wrapping key' do
       expect(parsed.keys).to include(result_key)
     end
 
@@ -29,5 +29,5 @@ shared_examples_for 'serializer' do
         expect(parsed[result_key][nested_array_key]).to be_a(Array), "expected '#{nested_array_key}' to be an Array"
       end
     end
-  end  
+  end
 end

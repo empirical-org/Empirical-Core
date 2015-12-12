@@ -20,8 +20,8 @@ feature 'Signing up', js: true do
   context 'a Teacher' do
     let(:user_type)         { :teacher }
     let(:mr_kotter)         { FactoryGirl.build :mr_kotter }
-    let!(:school)            { FactoryGirl.create :school, name: "Brooklyn Charter School", zipcode: '11206'}
-    let(:send_newsletter)   { true }
+    let!(:school) { FactoryGirl.create :school, name: 'Brooklyn Charter School', zipcode: '11206' }
+    let(:send_newsletter) { true }
 
     before(:each) { sign_up_page.be_a_teacher }
 
@@ -29,9 +29,9 @@ feature 'Signing up', js: true do
       sign_up_page.sign_up(type: user_type,
                            first_name: user.first_name,
                            last_name: user.last_name,
-                       password: user.password,
-                          email: user.email,
-                send_newsletter: send_newsletter)
+                           password: user.password,
+                           email: user.email,
+                           send_newsletter: send_newsletter)
     end
 
     def sign_up_teacher_and_select_school(user, skips_school_selection)
@@ -39,7 +39,9 @@ feature 'Signing up', js: true do
       sign_up_page.select_school(skips_school_selection)
     end
 
-    def self.signup_succeeded; 'signup succeeded and'; end
+    def self.signup_succeeded
+      'signup succeeded and'
+    end
     shared_examples_for signup_succeeded do
       it 'prompts for class creation' do
         expect(page).to have_content('Create a Class')
@@ -67,7 +69,6 @@ feature 'Signing up', js: true do
       end
     end
 
-
     context 'with blank password' do
       let(:mr_kotter) do
         FactoryGirl.build :mr_kotter, password: ''
@@ -85,13 +86,12 @@ feature 'Signing up', js: true do
 
       let(:professor_x) do
         FactoryGirl.build :teacher,
-                            name: 'x x',
-                            password: x,
-                               email: 'x@x.com'
+                          name: 'x x',
+                          password: x,
+                          email: 'x@x.com'
       end
 
-
-      let(:send_newsletter)   { false }
+      let(:send_newsletter) { false }
 
       before(:each) { sign_up_teacher_and_select_school professor_x, true }
 
@@ -125,15 +125,17 @@ feature 'Signing up', js: true do
       sign_up_page.sign_up(type: user_type,
                            first_name: user.first_name,
                            last_name: user.last_name,
-                       username: user.username,
-                       password: user.password,
-                          email: user.email)
+                           username: user.username,
+                           password: user.password,
+                           email: user.email)
     end
 
-    def self.signup_succeeded; 'signup succeeded and'; end
+    def self.signup_succeeded
+      'signup succeeded and'
+    end
     shared_examples_for signup_succeeded do
       it 'goes to the profile page' do
-        expect(page).to have_content "Join my class"
+        expect(page).to have_content 'Join my class'
       end
     end
 
@@ -169,10 +171,10 @@ feature 'Signing up', js: true do
 
       let(:student_x) do
         FactoryGirl.build :student,
-                           name: 'x x',
-                            username: x,
-                            password: x,
-                               email: ''
+                          name: 'x x',
+                          username: x,
+                          password: x,
+                          email: ''
       end
 
       before(:each) { sign_up_student student_x }

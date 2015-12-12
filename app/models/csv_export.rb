@@ -12,7 +12,7 @@ class CsvExport < ActiveRecord::Base
 
   mount_uploader :csv_file, CsvUploader
 
-  validates :export_type, inclusion: {in: EXPORT_TYPE_OPTIONS}
+  validates :export_type, inclusion: { in: EXPORT_TYPE_OPTIONS }
 
   def sent?
     emailed_at.present?
@@ -64,7 +64,7 @@ class CsvExport < ActiveRecord::Base
       when :standards_student_topics
         CsvExporter::Standards::StudentTopic.new
       else
-        raise "Export type named #{export_type} could not be found!"
+        fail "Export type named #{export_type} could not be found!"
       end
   end
 

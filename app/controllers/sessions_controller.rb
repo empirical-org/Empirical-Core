@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     params[:user][:email].downcase! unless params[:user][:email].nil?
-    @user =  User.find_by_username_or_email(params[:user][:email])
+    @user = User.find_by_username_or_email(params[:user][:email])
 
     if @user.nil?
       login_failure_message
@@ -41,7 +41,7 @@ class SessionsController < ApplicationController
   def clever
     @auth_hash = request.env['omniauth.auth']
 
-    if @auth_hash[:info][:user_type] == "district"
+    if @auth_hash[:info][:user_type] == 'district'
       import_clever_schools
     else
       create_clever_user
@@ -68,12 +68,12 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    login_failure "You could not be logged in! Check to make sure your user is authorized and your username and password are correct."
+    login_failure 'You could not be logged in! Check to make sure your user is authorized and your username and password are correct.'
   end
 
   private
 
-  def google_sign_up ga
+  def google_sign_up(ga)
     user = ga.find_or_create_user(session[:role])
     if user.errors.any?
       redirect_to new_account_path
@@ -90,7 +90,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def google_login ga
+  def google_login(ga)
     user = ga.find_user
     if user.present?
       sign_in user
@@ -125,7 +125,7 @@ class SessionsController < ApplicationController
       @user.update_attributes(ip_address: request.remote_ip)
 
       sign_in @user
-      redirect_to profile_url(protocol: 'http') # TODO Change this to use SSL when grammar supports SSL
+      redirect_to profile_url(protocol: 'http') # TODO: Change this to use SSL when grammar supports SSL
     else
       login_failure 'Invalid response received from Clever.'
     end
@@ -136,5 +136,4 @@ class SessionsController < ApplicationController
     flash[:error] = error
     render :new
   end
-
 end

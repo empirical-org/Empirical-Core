@@ -18,7 +18,7 @@ class ProgressReports::Standards::Student
         COALESCE(AVG(near_proficient_count.topic_count), 0)::integer as near_proficient_standard_count,
         COALESCE(AVG(not_proficient_count.topic_count), 0)::integer as not_proficient_standard_count
       SQL
-      ).joins('JOIN users ON users.id = best_activity_sessions.user_id')
+             ).joins('JOIN users ON users.id = best_activity_sessions.user_id')
       .joins(<<-JOINS
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
@@ -27,7 +27,7 @@ class ProgressReports::Standards::Student
            group by user_id
         ) as proficient_count ON proficient_count.user_id = users.id
       JOINS
-      ).joins(<<-JOINS
+            ).joins(<<-JOINS
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
            from best_per_topic_user
@@ -35,7 +35,7 @@ class ProgressReports::Standards::Student
            group by user_id
         ) as near_proficient_count ON near_proficient_count.user_id = users.id
       JOINS
-      ).joins(<<-JOINS
+                   ).joins(<<-JOINS
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
            from best_per_topic_user
@@ -43,10 +43,10 @@ class ProgressReports::Standards::Student
            group by user_id
         ) as not_proficient_count ON not_proficient_count.user_id = users.id
       JOINS
-      )
+                          )
       .group('users.id, sorting_name')
       .order('sorting_name asc')
-  end  
+  end
 
   # Helper method used as CTE in other queries. Do not attempt to use this by itself
   def self.best_per_topic_user
@@ -55,5 +55,5 @@ class ProgressReports::Standards::Student
       from best_activity_sessions
       group by topic_id, user_id
     BEST
-  end  
+  end
 end

@@ -3,7 +3,7 @@ module Flags
   FLAGS = %w(production archive alpha beta)
 
   module ClassMethods
-    def flag_all flag
+    def flag_all(flag)
       not_flagged(flag).update_all sanitize_sql(['flags = array_append(flags, ?)', flag])
     end
   end
@@ -14,11 +14,11 @@ module Flags
     scope :not_archived, -> { not_flagged(:archived) }
   end
 
-  def flag flag_name
+  def flag(flag_name)
     self.flags = (flags << flag_name).uniq
   end
 
-  def unflag flag_name
+  def unflag(flag_name)
     self.flags = (flags - [flag_name]).uniq
   end
 
@@ -26,12 +26,12 @@ module Flags
     self[:flags].map(&:intern)
   end
 
-  def flag! flag_name
+  def flag!(flag_name)
     flag flag_name
     save!
   end
 
-  def unflag! flag_name
+  def unflag!(flag_name)
     unflag flag_name
     save!
   end

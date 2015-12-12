@@ -6,9 +6,9 @@ class UnitTemplateSerializer < ActiveModel::Serializer
 
   def number_of_standards
     object.activities
-          .map(&:topic)
-          .map(&:section_id)
-          .uniq
-          .count
+      .map(&:topic)
+      .map(&:section_id)
+      .uniq
+      .count
   end
 end

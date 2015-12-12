@@ -1,6 +1,6 @@
 namespace :uid do
   desc 'generate uids'
-  task :generate => :environment do
+  task generate: :environment do
     generate_uids
   end
 

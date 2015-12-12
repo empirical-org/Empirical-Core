@@ -38,6 +38,5 @@ feature 'Students for Standard Progress Report', js: true do
       click_link(alice.name)
       expect(report_page).to have_content("Standards: #{alice.name}")
     end
-
   end
 end

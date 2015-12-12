@@ -2,8 +2,7 @@ require 'rails_helper'
 require 'benchmark'
 
 describe 'Profile::Query' do
-
-  include_context "big profile"
+  include_context 'big profile'
 
   let(:profile_query) { Profile::Query.new }
 
@@ -12,9 +11,7 @@ describe 'Profile::Query' do
   end
 
   it 'takes less than 1 sec' do
-    time = Benchmark.realtime{ subject }
+    time = Benchmark.realtime { subject }
     expect(time).to be < 1
   end
-
-
 end

@@ -15,7 +15,7 @@ class ProgressReports::Concepts::User
         SUM(CASE WHEN filtered_correct_results.is_correct = 1 THEN 1 ELSE 0 END) as correct_result_count,
         SUM(CASE WHEN filtered_correct_results.is_correct = 0 THEN 1 ELSE 0 END) as incorrect_result_count
       SELECT
-      ).joins('JOIN filtered_correct_results ON users.id = filtered_correct_results.user_id')
+             ).joins('JOIN filtered_correct_results ON users.id = filtered_correct_results.user_id')
       .group('users.id')
       .order('users.name asc')
   end

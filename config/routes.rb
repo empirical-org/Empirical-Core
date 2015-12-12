@@ -4,7 +4,7 @@ EmpiricalGrammar::Application.routes.draw do
   use_doorkeeper
 
   # authenticate :user, lambda { |u| u.admin? } do
-    mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/sidekiq'
   # end
   resources :subscriptions
   resources :assessments
@@ -22,7 +22,6 @@ EmpiricalGrammar::Application.routes.draw do
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
-
   resources :activities, only: [] do
     post :retry, on: :member
     get :search, on: :collection
@@ -33,10 +32,9 @@ EmpiricalGrammar::Application.routes.draw do
   get :porthole_proxy, to: 'porthole_proxy#index'
 
   namespace :teachers do
-    resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
+    resources :units, as: 'units_path' # moved from within classroom, since units are now cross-classroom
     resources :unit_templates, only: [:index, :show]
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
-
 
     get 'my_account' => 'classroom_manager#my_account'
     get 'my_account_data' => 'classroom_manager#my_account_data'
@@ -56,12 +54,12 @@ EmpiricalGrammar::Application.routes.draw do
 
       namespace :standards do
         resources :classrooms, only: [:index] do
-          resources :students, controller: "classroom_students", only: [:index] do
-            resources :topics, controller: "student_topics", only: [:index]
+          resources :students, controller: 'classroom_students', only: [:index] do
+            resources :topics, controller: 'student_topics', only: [:index]
           end
 
-          resources :topics, controller: "classroom_topics", only: [:index] do
-            resources :students, controller: "topic_students", only: [:index]
+          resources :topics, controller: 'classroom_topics', only: [:index] do
+            resources :students, controller: 'topic_students', only: [:index]
           end
         end
       end
@@ -70,7 +68,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms do
       collection do
         get :regenerate_code
-        get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
+        get :lesson_planner, controller: 'classroom_manager', action: 'lesson_planner'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
         get :search_activities, controller: 'classroom_manager', action: 'search_activities'
@@ -79,7 +77,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       member do
-        get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
+        get :hide # I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
         put :hide
       end
 
@@ -93,7 +91,6 @@ EmpiricalGrammar::Application.routes.draw do
       %w(invite_students accounts import).each do |page|
         get page => "classroom_manager##{page}"
       end
-
     end
   end
 
@@ -134,7 +131,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :role, to: 'accounts#role'
   end
 
-  get "/auth/google_oauth2/callback" => 'sessions#google'
+  get '/auth/google_oauth2/callback' => 'sessions#google'
   get '/auth/clever/callback', to: 'sessions#clever'
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/auth/failure', to: 'sessions#failure'
@@ -171,7 +168,7 @@ EmpiricalGrammar::Application.routes.draw do
   %w(press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium_access premium teacher_resources press_kit play media).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
-  get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
+  get 'activities/section/:section_id' => 'pages#activities', as: 'activities_section'
   get 'activities/packs' => 'pages#activity_packs'
   get 'activities/packs/:id' => 'pages#show_activity_packs'
 
@@ -181,7 +178,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 
   patch 'verify_question' => 'chapter/practice#verify'
-  get   'verify_question' => 'chapter/practice#verify_status'
+  get 'verify_question' => 'chapter/practice#verify_status'
   patch 'cheat'           => 'chapter/practice#cheat'
   get '404' => 'errors#error_404'
   get '500' => 'errors#error_500'
@@ -189,8 +186,8 @@ EmpiricalGrammar::Application.routes.draw do
   root to: 'pages#home'
 
   # http://stackoverflow.com/questions/26130130/what-are-the-routes-i-need-to-set-up-to-preview-emails-using-rails-4-1-actionmai
-  get '/lib/mailer_previews' => "rails/mailers#index"
-  get '/lib/mailer_previews/*path' => "rails/mailers#preview"
+  get '/lib/mailer_previews' => 'rails/mailers#index'
+  get '/lib/mailer_previews/*path' => 'rails/mailers#preview'
 
   # catch-all 404
   get '*path', to: 'application#routing_error'

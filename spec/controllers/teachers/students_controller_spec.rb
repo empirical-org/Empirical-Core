@@ -10,10 +10,10 @@ describe Teachers::StudentsController, type: :controller do
     end
 
     it 'kicks off a background job' do
-      expect {
-        post :create, classroom_id: classroom.id, user: {first_name: 'Joe', last_name: 'Bob'}
+      expect do
+        post :create, classroom_id: classroom.id, user: { first_name: 'Joe', last_name: 'Bob' }
         expect(response.status).to eq(302) # Redirects after success
-      }.to change(InviteStudentWorker.jobs, :size).by(1)
+      end.to change(InviteStudentWorker.jobs, :size).by(1)
     end
   end
 end

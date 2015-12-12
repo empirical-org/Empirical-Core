@@ -10,21 +10,19 @@ module QuillAuthentication
   end
 
   def current_user
-    begin
-      if session[:user_id]
-        return @current_user ||= User.find(session[:user_id])
-      else
-        authenticate_with_http_basic do |username, password|
-          return @current_user ||= User.find_by_token!(username) if username.present?
-        end
+    if session[:user_id]
+      return @current_user ||= User.find(session[:user_id])
+    else
+      authenticate_with_http_basic do |username, _password|
+        return @current_user ||= User.find_by_token!(username) if username.present?
       end
-    rescue ActiveRecord::RecordNotFound
-      sign_out
-      nil
     end
+  rescue ActiveRecord::RecordNotFound
+    sign_out
+    nil
   end
 
-  def sign_in user
+  def sign_in(user)
     remote_ip = (request.present? ? request.remote_ip : nil)
     UserLoginWorker.perform_async(user.id, remote_ip)
     session[:user_id] = user.id
@@ -56,14 +54,13 @@ module QuillAuthentication
   end
 
   def signed_out!
-
   end
 
   def admin?
     signed_in? && current_user.role.admin?
   end
 
-  def signed_in_path source
+  def signed_in_path(_source)
     session[:attempted_path] || current_user.role.admin? ? cms_path : root_path
   end
 

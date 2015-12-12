@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Teachers::ClassroomsController, type: :controller do 
+describe Teachers::ClassroomsController, type: :controller do
   describe 'creating a classroom' do
     render_views
     let(:teacher) { FactoryGirl.create(:teacher) }
@@ -10,10 +10,10 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'kicks off a background job' do
-      expect {
-        post :create, classroom: {name: 'My Class', grade: '8', code: 'whatever-whatever'}
+      expect do
+        post :create, classroom: { name: 'My Class', grade: '8', code: 'whatever-whatever' }
         expect(response.status).to eq(302) # Redirects after success
-      }.to change(ClassroomCreationWorker.jobs, :size).by(1)
+      end.to change(ClassroomCreationWorker.jobs, :size).by(1)
     end
 
     it 'displays the form' do

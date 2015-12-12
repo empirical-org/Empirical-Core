@@ -32,31 +32,27 @@ feature 'Create-a-Class page' do
         new_class = Classroom.last
 
         invite_students_page = Teachers::InviteStudentsPage.new(new_class)
-        expect(current_path)                       .to eq invite_students_page.path
+        expect(current_path) .to eq invite_students_page.path
         expect(invite_students_page.class_code).not_to eq sweathogs.code
       end
 
-      it "does not add classrooms without a grade and raises an error" do
-        page.fill_in 'classroom_name', :with => "gutter-punk"
+      it 'does not add classrooms without a grade and raises an error' do
+        page.fill_in 'classroom_name', with: 'gutter-punk'
         expect { page.click_button 'Create Class' }.to change { Classroom.count }.by(0)
-        expect { page.to have_content("Grade can't be blank")}
+        expect { page.to have_content("Grade can't be blank") }
       end
 
-      it "does not add classrooms without a name and raises an error" do
+      it 'does not add classrooms without a name and raises an error' do
         within '#classroom_grade' do
           find("option[value='1']").click
         end
         expect { page.click_button 'Create Class' }.to change { Classroom.count }.by(0)
-        expect { page.to have_content("Name can't be blank")}
+        expect { page.to have_content("Name can't be blank") }
       end
-
-
-
 
       def create_sweathogs
         create_classroom_page.create_class name: 'sweathogs', grade: 11
       end
-
 
       describe 'clicking the new-code item' do
         it 'generates a new class-code', js: true do
@@ -66,7 +62,7 @@ feature 'Create-a-Class page' do
       end
 
       it "offers only 'Create new'" do
-        expect(create_classroom_page).to     have_create_class
+        expect(create_classroom_page).to have_create_class
         expect(create_classroom_page).not_to have_manage_classes
         expect(create_classroom_page).not_to have_invite_students
       end
@@ -78,7 +74,7 @@ feature 'Create-a-Class page' do
       end
 
       [Teachers::CreateClassPage.activity_planner_tab_pair,
-       Teachers::CreateClassPage.       scorebook_tab_pair
+       Teachers::CreateClassPage. scorebook_tab_pair
       ].each do |pair|
         tabname, sym = pair
         select_tab   = :"select_#{sym}"
@@ -108,12 +104,12 @@ feature 'Create-a-Class page' do
       it 'cannot create a new class with the same name' do
         same_class_name = sweathogs.name
 
-        expect {
+        expect do
           create_classroom_page.create_class name: same_class_name, grade: 11
-        }.not_to change { Classroom.count }
+        end.not_to change { Classroom.count }
 
         expect(create_classroom_page).to have_content(
-          "Your Class Name has already been taken"
+          'Your Class Name has already been taken'
         )
       end
     end

@@ -34,7 +34,6 @@ class District < ActiveRecord::Base
   private
 
   def clever_district
-    @clever_district ||= Clever::District.retrieve(self.clever_id, self.token)
+    @clever_district ||= Clever::District.retrieve(clever_id, token)
   end
-
 end

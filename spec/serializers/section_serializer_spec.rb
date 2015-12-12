@@ -26,13 +26,12 @@ describe SectionSerializer, type: :serializer do
                              name
                              created_at
                              updated_at) +
-                            [workbook_key]
+            [workbook_key]
       end
 
       it "includes a '#{workbook_key}' Hash" do
         expect(parsed_section[workbook_key]).to be_a(Hash)
       end
-
     end
   end
 end

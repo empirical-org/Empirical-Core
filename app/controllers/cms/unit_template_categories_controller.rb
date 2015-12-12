@@ -16,7 +16,7 @@ class Cms::UnitTemplateCategoriesController < ApplicationController
     if @unit_template_category.save!
       render json: @unit_template_category
     else
-      render json: {errors: @unit_template_category.erros}, status: 422
+      render json: { errors: @unit_template_category.erros }, status: 422
     end
   end
 
@@ -24,7 +24,7 @@ class Cms::UnitTemplateCategoriesController < ApplicationController
     if @unit_template_category.update_attributes(unit_template_category_params)
       render json: @unit_template_category
     else
-      render json: {errors: @unit_template_category.errors}, status: 422
+      render json: { errors: @unit_template_category.errors }, status: 422
     end
   end
 
@@ -42,5 +42,4 @@ class Cms::UnitTemplateCategoriesController < ApplicationController
   def set_unit_template_category
     @unit_template_category = UnitTemplateCategory.find(params[:id])
   end
-
 end

@@ -1,4 +1,4 @@
-class ProgressReports::Standards::ClassroomSerializer  < ActiveModel::Serializer
+class ProgressReports::Standards::ClassroomSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
   attributes :name,

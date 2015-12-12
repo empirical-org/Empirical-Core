@@ -3,10 +3,10 @@ class ActivitySearch
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(search_text, filters, sort)
     query = Activity.includes(:classification, topic: [:section, :topic_category])
-      .where("'production' = ANY(activities.flags)")
-      .where("(activities.name ILIKE ?) OR (topic_categories.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
-      .where("topic_categories.id IS NOT NULL AND sections.id IS NOT NULL")
-      .order(search_sort_sql(sort)).references(:topic)
+            .where("'production' = ANY(activities.flags)")
+            .where('(activities.name ILIKE ?) OR (topic_categories.name ILIKE ?)', "%#{search_text}%", "%#{search_text}%")
+            .where('topic_categories.id IS NOT NULL AND sections.id IS NOT NULL')
+            .order(search_sort_sql(sort)).references(:topic)
 
     # Sorry for the meta-programming.
     filters.each do |model_name, model_id| # :activity_classifications, 123

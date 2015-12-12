@@ -1,12 +1,9 @@
 namespace :keen do
-
-  desc "bulk import activity_sessions"
-  task :activity_sessions => :environment do
-
+  desc 'bulk import activity_sessions'
+  task activity_sessions: :environment do
     iter = 1
 
     ActivitySession.started_or_better.in_groups_of(2500) do |group|
-
       fh = open("activity-sessions-#{iter}.json", 'a')
 
       group.each do |as|
@@ -17,10 +14,7 @@ namespace :keen do
       fh.close
       iter += 1
     end
-
-
   end
-
 
   def create_initial_event(activity_session)
     event_data = {
@@ -43,5 +37,4 @@ namespace :keen do
 
     event_data.to_json
   end
-
 end

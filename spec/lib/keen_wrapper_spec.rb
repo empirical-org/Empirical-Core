@@ -20,10 +20,9 @@ describe KeenWrapper do
         response_body = 'error'
         expect(Keen).to receive(:publish).with(event, options).and_raise(Keen::BadRequestError, response_body)
         expect(Rails.logger).to receive(:error).with(/#{response_body}/)
-        expect {
+        expect do
           subject
-          }.to_not raise_error
-
+        end.to_not raise_error
       end
     end
   end

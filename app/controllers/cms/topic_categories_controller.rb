@@ -21,7 +21,7 @@ class Cms::TopicCategoriesController < ApplicationController
 
   def update
     if @topic_category.update_attributes(topic_category_params)
-      redirect_to cms_topic_categories_url, notice: "Topic Category was successfully created"
+      redirect_to cms_topic_categories_url, notice: 'Topic Category was successfully created'
     else
       render action: 'edit'
     end
@@ -32,7 +32,7 @@ class Cms::TopicCategoriesController < ApplicationController
     head :ok
   end
 
-private
+  private
 
   def set_topic_category
     @topic_category = TopicCategory.find(params[:id])

@@ -1,5 +1,4 @@
 class CleverController < ApplicationController
-
   def auth_url_details
     render json: {
       redirect_uri: Clever::REDIRECT_URL,

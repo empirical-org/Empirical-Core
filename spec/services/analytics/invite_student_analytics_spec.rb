@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-describe "InviteStudentAnalytics" do
-
+describe 'InviteStudentAnalytics' do
   let(:analytics) { InviteStudentAnalytics.new }
   let(:segment_analytics) { SegmentAnalytics.new }
   let(:track_calls) { segment_analytics.backend.track_calls }
@@ -31,5 +30,4 @@ describe "InviteStudentAnalytics" do
     expect(track_calls[1][:event]).to eq(SegmentIo::Events::TEACHERS_STUDENT_ACCOUNT_CREATION)
     expect(track_calls[1][:user_id]).to eq(teacher.id)
   end
-
 end

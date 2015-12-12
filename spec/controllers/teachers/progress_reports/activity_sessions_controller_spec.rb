@@ -4,11 +4,11 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
   let(:teacher) { FactoryGirl.create(:teacher) }
   include_context 'Topic Progress Report'
   it_behaves_like 'Progress Report' do
-    let(:default_filters) { {page: 1} }
+    let(:default_filters) { { page: 1 } }
     let(:result_key) { 'activity_sessions' }
     let(:expected_result_count) { visible_activity_sessions.size }
 
-    it_behaves_like "filtering progress reports by Unit" do
+    it_behaves_like 'filtering progress reports by Unit' do
       let(:filter_value) { empty_unit.id }
       let(:expected_result_count) { 0 }
     end
@@ -28,17 +28,17 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
       end
 
       it 'includes the number of pages of results' do
-        get :index, {page: 1, format: :json}
+        get :index, page: 1, format: :json
         expect(json['page_count']).to eq(1)
       end
 
       it 'can filter by classroom' do
-        get :index, {classroom_id: empty_classroom.id, page: 1, format: :json}
+        get :index, classroom_id: empty_classroom.id, page: 1, format: :json
         expect(json['activity_sessions'].size).to eq(0)
       end
 
       it 'can filter by student' do
-        get :index, {student_id: zojirushi.id, page: 1, format: :json}
+        get :index, student_id: zojirushi.id, page: 1, format: :json
         expect(json['activity_sessions'].size).to eq(1)
       end
 
@@ -49,5 +49,4 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
       end
     end
   end
-
 end

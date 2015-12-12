@@ -14,7 +14,7 @@ feature 'Create Unit', js: true do
 
   context 'stage1' do
     it 'displays the right page' do
-      expect(page).to have_content("Name the New Unit")
+      expect(page).to have_content('Name the New Unit')
     end
   end
 
@@ -36,7 +36,4 @@ feature 'Create Unit', js: true do
   #   end
 
   # end
-
-
-
 end

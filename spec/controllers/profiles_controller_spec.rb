@@ -8,11 +8,13 @@ describe ProfilesController, type: :controller do
     let(:activity) { FactoryGirl.create(:activity) }
     let(:unit) { FactoryGirl.create(:unit) }
     let(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity: activity, unit: unit) }
-    let!(:activity_session) { FactoryGirl.create(:activity_session_incompleted,
-                                                classroom_activity: classroom_activity,
-                                                activity: activity,
-                                                state: 'unstarted',
-                                                user: student) }
+    let!(:activity_session) do
+      FactoryGirl.create(:activity_session_incompleted,
+                         classroom_activity: classroom_activity,
+                         activity: activity,
+                         state: 'unstarted',
+                         user: student)
+    end
 
     before do
       session[:user_id] = student.id

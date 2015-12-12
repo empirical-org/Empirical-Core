@@ -14,10 +14,10 @@ class ProgressReports::Concepts::Concept
         SUM(CASE WHEN filtered_correct_results.is_correct = 0 THEN 1 ELSE 0 END) as incorrect_result_count,
         gp_concepts.name as level_2_concept_name
       SELECT
-      ).joins('JOIN filtered_correct_results ON concepts.id = filtered_correct_results.concept_id')
+             ).joins('JOIN filtered_correct_results ON concepts.id = filtered_correct_results.concept_id')
       .joins('LEFT JOIN concepts as parent_concepts ON parent_concepts.id = concepts.parent_id')
       .joins('LEFT JOIN concepts as gp_concepts ON gp_concepts.id = parent_concepts.parent_id')
-      .group("concepts.id, gp_concepts.name")
-      .order("concepts.name asc")
+      .group('concepts.id, gp_concepts.name')
+      .order('concepts.name asc')
   end
 end

@@ -7,22 +7,24 @@ describe 'Profile::Query' do
 
   let(:activity) { FactoryGirl.create(:activity) }
   let(:unit1) { FactoryGirl.create(:unit) }
-  let!(:classroom_activity) { FactoryGirl.create(:classroom_activity,
-                                                  classroom: classroom,
-                                                  activity: activity,
-                                                  unit: unit1) }
+  let!(:classroom_activity) do
+    FactoryGirl.create(:classroom_activity,
+                       classroom: classroom,
+                       activity: activity,
+                       unit: unit1)
+  end
 
   let(:activity2) { FactoryGirl.create(:activity) }
   let!(:unit2) { FactoryGirl.create(:unit) }
-  let!(:classroom_activity2) { FactoryGirl.create(:classroom_activity,
-                                                  classroom: classroom,
-                                                  activity: activity2,
-                                                  unit: unit2) }
-
+  let!(:classroom_activity2) do
+    FactoryGirl.create(:classroom_activity,
+                       classroom: classroom,
+                       activity: activity2,
+                       unit: unit2)
+  end
 
   let!(:as1) { classroom_activity.session_for(student) }
   let!(:as2) { classroom_activity2.session_for(student) }
-
 
   def subject
     Profile::Query.new.query(student, 20, 0)
@@ -36,6 +38,4 @@ describe 'Profile::Query' do
     sessions = subject
     expect(sessions.count).to eq(2)
   end
-
-
 end

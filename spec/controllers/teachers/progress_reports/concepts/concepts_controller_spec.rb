@@ -47,9 +47,9 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
         subject { get :index, student_id: other_student.id, format: :json }
 
         it 'raises error' do
-          expect {
+          expect do
             subject
-          }.to raise_error(ActiveRecord::RecordNotFound)
+          end.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end

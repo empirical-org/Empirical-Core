@@ -1,9 +1,9 @@
 require 'active_support/inflector'
 
-shared_context "calling the api" do
+shared_context 'calling the api' do
   render_views
 
-  let(:application) { Doorkeeper::Application.create!(name: "MyApp", redirect_uri: "http://app.com") }
+  let(:application) { Doorkeeper::Application.create!(name: 'MyApp', redirect_uri: 'http://app.com') }
   let(:user) { FactoryGirl.create(:user) }
   let(:token) { Doorkeeper::AccessToken.create! application_id: application.id, resource_owner_id: user.id }
 
@@ -12,8 +12,8 @@ shared_context "calling the api" do
   end
 end
 
-shared_examples "a simple api request" do
-  let(:lwc_model_name) {controller.controller_name.classify.underscore}
+shared_examples 'a simple api request' do
+  let(:lwc_model_name) { controller.controller_name.classify.underscore }
 
   before do
     FactoryGirl.create_list(lwc_model_name.to_sym, 10)
@@ -29,39 +29,34 @@ shared_examples "a simple api request" do
   it 'includes only uid and name' do
     json = JSON.parse(response.body)
     hash = json[lwc_model_name.pluralize][0]
-    expect(hash.keys).to match_array(['uid', 'name'])
+    expect(hash.keys).to match_array(%w(uid name))
   end
 end
 
-
-
-shared_examples "an api request" do
-  context "has standard response items" do
-
-    describe "root nodes" do
-      it "has a meta attribute" do
+shared_examples 'an api request' do
+  context 'has standard response items' do
+    describe 'root nodes' do
+      it 'has a meta attribute' do
         expect(@parsed_body.keys).to include('meta')
       end
 
-      context "meta node" do
+      context 'meta node' do
         before(:each) do
           @meta = @parsed_body['meta']
         end
 
-        it "has a status attribute" do
+        it 'has a status attribute' do
           expect(@meta.keys).to include('status')
         end
 
-        it "has a message attribute" do
+        it 'has a message attribute' do
           expect(@meta.keys).to include('message')
         end
 
-        it "has a errors attribute" do
+        it 'has a errors attribute' do
           expect(@meta.keys).to include('errors')
         end
-
       end
-
     end
   end
 end

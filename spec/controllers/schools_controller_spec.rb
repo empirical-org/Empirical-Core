@@ -28,5 +28,4 @@ describe SchoolsController, type: :controller do
     json = JSON.parse(response.body)
     expect(json['error']).to eq('You must past a zipcode.')
   end
-
 end

@@ -24,9 +24,9 @@ describe TopicSerializer, type: :serializer do
           .to match_array %w(id
                              created_at
                              name) +
-                            [section_key] +
-                          %w(topic_category
-                             updated_at)
+            [section_key] +
+            %w(topic_category
+               updated_at)
       end
 
       it "includes a '#{section_key}' Hash" do

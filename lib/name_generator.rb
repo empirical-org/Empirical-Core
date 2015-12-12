@@ -1,5 +1,4 @@
 module NameGenerator
-
   def generate
     "#{color}-#{animal}"
   end
@@ -14,9 +13,9 @@ module NameGenerator
 
   extend self
 
-private
+  private
 
-  def sample file
+  def sample(file)
     File.readlines(Rails.root.join('db', file)).sample.strip
   end
 end

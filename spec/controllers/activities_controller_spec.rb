@@ -5,24 +5,25 @@ describe ActivitiesController, type: :controller do
 
   let(:student) { FactoryGirl.create(:student) }
   let(:activity) { FactoryGirl.create(:activity) }
-  let(:activity_session) { FactoryGirl.create(:activity_session,
-                                              activity: activity,
-                                              state: 'unstarted',
-                                              user: student) }
-
+  let(:activity_session) do
+    FactoryGirl.create(:activity_session,
+                       activity: activity,
+                       state: 'unstarted',
+                       user: student)
+  end
 
   describe 'POST #retry' do
     let(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom) }
-    let(:classroom)  { FactoryGirl.create(:classroom) }
+    let(:classroom) { FactoryGirl.create(:classroom) }
 
     before do
       session[:user_id] = student.id
     end
 
     it 'should create a new activity session and start it' do
-      expect {
-        post :retry, { classroom_activity_id: classroom_activity.id, id: activity.id}
-      }.to change(ActivitySession, :count).by(1)
+      expect do
+        post :retry, { classroom_activity_id: classroom_activity.id, id: activity.id }
+      end.to change(ActivitySession, :count).by(1)
       created_session = ActivitySession.find_by_classroom_activity_id(classroom_activity.id)
       expect(created_session.is_retry).to be(true)
       expect(created_session.state).to eq('started')
@@ -30,16 +31,14 @@ describe ActivitiesController, type: :controller do
     end
   end
 
-
   describe 'GET #search' do
     let!(:activity1) { FactoryGirl.create(:activity, flags: ['production']) }
     let!(:activity2) { FactoryGirl.create(:activity, flags: ['production']) }
     let(:parsed_body) { JSON.parse(response.body) }
 
     it 'returns activities' do
-      get :search, ({search: {search_query: '', filters: [], sort: nil}})
+      get :search, ({ search: { search_query: '', filters: [], sort: nil } })
       expect(parsed_body['activities'].length).to eq(2)
     end
-
   end
 end

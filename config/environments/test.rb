@@ -14,7 +14,7 @@ EmpiricalGrammar::Application.configure do
 
   # Configure static asset server for tests with Cache-Control for performance.
   config.serve_static_assets  = true
-  config.static_cache_control = "public, max-age=3600"
+  config.static_cache_control = 'public, max-age=3600'
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -34,5 +34,5 @@ EmpiricalGrammar::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  config.cache_store = :memory_store, {size: 64.megabytes}
+  config.cache_store = :memory_store, { size: 64.megabytes }
 end

@@ -8,7 +8,7 @@ class UsernameGenerator
   def student
     part1 = "#{first_name}.#{last_name}"
     part1_pattern = "%#{part1}%"
-    extant = User.where("username ILIKE ?", part1_pattern)
+    extant = User.where('username ILIKE ?', part1_pattern)
     if extant.any?
       final = "#{part1}#{extant.length + 1}@#{classcode}"
     else
@@ -18,6 +18,7 @@ class UsernameGenerator
   end
 
   private
+
   # to foreground this class's expectations about the user data structure :
   def first_name
     user.first_name

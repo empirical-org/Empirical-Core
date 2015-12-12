@@ -10,13 +10,13 @@ module Teachers
 
     def add_student(student)
       fill_in :user_first_name, with: student.first_name
-      fill_in  :user_last_name, with: student.last_name
+      fill_in :user_last_name, with: student.last_name
 
       click_on 'Add Student'
     end
 
     def class_code
-      find(:xpath, %q(//*[@class='class-code']/following-sibling::input)).value
+      find(:xpath, "//*[@class='class-code']/following-sibling::input").value
     end
 
     def class_menu

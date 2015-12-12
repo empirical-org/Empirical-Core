@@ -54,11 +54,10 @@ class GoogleDriveLoader
     # # Exchange authorization code for access token
     # $stdout.write  "Enter authorization code: "
     # client.authorization.code = gets.chomp
-    auth = {"access_token"=>
-            "ya29.1.AADtN_W0xsGWc-TkqxlxE8f_xyok7kl3oM0XxAnWvZ_7EPTeAeSJINIoU0Y8gg",
-            "token_type"=>"Bearer",
-            "expires_in"=>3600,
-            "refresh_token"=>"1/e7iTzkgqVstNgpGjdvvk-hWDB9x_YgyUQe2PMKhO2Qg"
+    auth = { 'access_token' =>             'ya29.1.AADtN_W0xsGWc-TkqxlxE8f_xyok7kl3oM0XxAnWvZ_7EPTeAeSJINIoU0Y8gg',
+             'token_type' => 'Bearer',
+             'expires_in' => 3600,
+             'refresh_token' => '1/e7iTzkgqVstNgpGjdvvk-hWDB9x_YgyUQe2PMKhO2Qg'
            }
 
     client.authorization.code = nil
@@ -70,31 +69,31 @@ class GoogleDriveLoader
     return @csv_files if defined? @csv_files
 
     res = client.execute(api_method: drive.children.list, parameters: {
-      'folderId' => '0B2HguQEg6QQ1TnFCbUZ4UWZqVk0',
-      'maxResults' => 1000
-    })
+                           'folderId' => '0B2HguQEg6QQ1TnFCbUZ4UWZqVk0',
+                           'maxResults' => 1000
+                         })
 
     @csv_files = res.data.items
   end
 
   def files
-    @files ||= csv_files.map{|f| GoogleDriveFile.new(self, f) }
+    @files ||= csv_files.map { |f| GoogleDriveFile.new(self, f) }
   end
 end
 
 class GoogleDriveFile
   delegate :client, :drive, to: :@loader
 
-  def initialize loader, child
-    raise if loader.nil?
+  def initialize(loader, child)
+    fail if loader.nil?
     @loader = loader
     @child = child
   end
 
   def doc
     @doc ||= client.execute(api_method: drive.files.get, parameters: {
-      'fileId' => @child.id
-    })
+                              'fileId' => @child.id
+                            })
   end
 
   def download_url

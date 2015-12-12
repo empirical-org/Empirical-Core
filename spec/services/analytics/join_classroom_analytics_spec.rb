@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-describe "JoinClassroomAnalytics" do
-
+describe 'JoinClassroomAnalytics' do
   let(:analytics) { JoinClassroomAnalytics.new }
   let(:segment_analytics) { SegmentAnalytics.new }
   let(:track_calls) { segment_analytics.backend.track_calls }
@@ -10,7 +9,6 @@ describe "JoinClassroomAnalytics" do
   let(:teacher) { FactoryGirl.create(:teacher) }
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let(:student) { FactoryGirl.create(:student, classroom: classroom) }
-
 
   it 'identifies teacher' do
     analytics.track(student)
@@ -22,5 +20,4 @@ describe "JoinClassroomAnalytics" do
     expect(track_calls[0][:event]).to eq(SegmentIo::Events::TEACHERS_STUDENT_ACCOUNT_CREATION)
     expect(track_calls[0][:user_id]).to eq(teacher.id)
   end
-
 end

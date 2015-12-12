@@ -1,5 +1,4 @@
 class Api::V1::ActivitiesController < Api::ApiController
-
   doorkeeper_for :create, :update, :destroy
   before_action :find_activity, except: [:index, :create]
 
@@ -10,21 +9,20 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   # GET
   def show
-    render json: @activity, meta: {status: 'success', message: nil, errors: nil}
+    render json: @activity, meta: { status: 'success', message: nil, errors: nil }
   end
 
   # PATCH, PUT
   def update
     if @activity.update(activity_params)
       @status = :success
-      @message = "Activity Updated"
+      @message = 'Activity Updated'
     else
       @status = :failed
-      @message = "Activity Update Failed"
+      @message = 'Activity Update Failed'
     end
 
-    render json: @activity, meta: {status: @status, message: @message, errors: @activity.errors}
-
+    render json: @activity, meta: { status: @status, message: @message, errors: @activity.errors }
   end
 
   # POST
@@ -35,27 +33,25 @@ class Api::V1::ActivitiesController < Api::ApiController
     if activity.valid? && activity.save
       @status = :success
       @response_status = :ok
-      @message = "Activity Created"
+      @message = 'Activity Created'
     else
       @status = :failed
       @response_status = :unprocessable_entity
-      @message = "Activity Create Failed"
+      @message = 'Activity Create Failed'
     end
 
     render json: activity,
-      meta: {status: @status, message: @message, errors: activity.errors},
-      status: @response_status
+           meta: { status: @status, message: @message, errors: activity.errors },
+           status: @response_status
   end
 
   # DELETE
   def destroy
-
     if @activity.destroy!
-      render json: Activity.new, meta: {status: 'success', message: "Activity Destroy Successful", errors: nil}
+      render json: Activity.new, meta: { status: 'success', message: 'Activity Destroy Successful', errors: nil }
     else
-      render json: @activity, meta: {status: 'failed', message: "Activity Destroy Failed", errors: @activity.errors}
+      render json: @activity, meta: { status: 'failed', message: 'Activity Destroy Failed', errors: @activity.errors }
     end
-
   end
 
   private
@@ -75,8 +71,7 @@ class Api::V1::ActivitiesController < Api::ApiController
                               :topic_uid,
                               :flags,
                               :uid)
-                      .merge(data: @data)
-                      .reject {|k,v| v.nil? }
+      .merge(data: @data)
+      .reject { |_k, v| v.nil? }
   end
-
 end

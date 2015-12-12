@@ -1,9 +1,7 @@
 class FinishActivityWorker
   include Sidekiq::Worker
 
-
   def perform(uid)
-
     activity_session = ActivitySession.find_by_uid(uid)
     return if activity_session.nil?
 
@@ -34,6 +32,5 @@ class FinishActivityWorker
     # add it to the student's scorebook
     #
     # anything else?
-
   end
 end

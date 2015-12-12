@@ -1,11 +1,18 @@
 class MakeUsernameDowncase < ActiveRecord::Migration
   def change
+    User.all.each do |u|
+      em = begin
+             u.try(:email).downcase
+           rescue
+             nil
+           end
+      un = begin
+             u.try(:username).downcase
+           rescue
+             nil
+           end
 
-    User.all.each { |u| 
-      em = u.try(:email).downcase rescue nil
-      un = u.try(:username).downcase rescue nil
-
-      u.update_columns(email: em, username: un) }
-
+      u.update_columns(email: em, username: un)
+    end
   end
 end

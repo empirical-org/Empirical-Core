@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe  Teachers::UnitTemplatesController, type: :controller do
+describe Teachers::UnitTemplatesController, type: :controller do
   let!(:unit_template1) { FactoryGirl.create(:unit_template) }
   let!(:unit_template2) { FactoryGirl.create(:unit_template) }
-  let!(:teacher) { FactoryGirl.create(:user, role: 'teacher')}
+  let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
 
   let(:parsed_body) { JSON.parse(response.body) }
 
-  def login_user user
+  def login_user(user)
     session[:user_id] = user.id
   end
 

@@ -14,7 +14,7 @@ module CsvExporter::Standards
       ]
     end
 
-    def data_row(record, filters)
+    def data_row(record, _filters)
       json_hash = ProgressReports::Standards::ClassroomSerializer.new(record).as_json(root: false)
       [
         PAGE_TITLE,
@@ -23,7 +23,7 @@ module CsvExporter::Standards
         json_hash[:proficient_student_count],
         json_hash[:near_proficient_student_count],
         json_hash[:not_proficient_student_count],
-        json_hash[:total_standard_count],
+        json_hash[:total_standard_count]
       ]
     end
 

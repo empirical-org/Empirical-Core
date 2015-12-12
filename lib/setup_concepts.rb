@@ -1,6 +1,6 @@
-require "net/http"
-require "uri"
-require "json"
+require 'net/http'
+require 'uri'
+require 'json'
 
 module Setup
   class Concepts
@@ -13,4 +13,4 @@ module Setup
       creator.create_all
     end
   end
-end 
+end

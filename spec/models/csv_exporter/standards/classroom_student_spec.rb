@@ -3,7 +3,7 @@ require 'rails_helper'
 describe CsvExporter::Standards::ClassroomStudent do
   include_context 'Topic Progress Report'
   it_behaves_like 'CSV Exporter' do
-    let(:expected_header_row) {
+    let(:expected_header_row) do
       [
         'Page Title',
         'Student',
@@ -15,15 +15,15 @@ describe CsvExporter::Standards::ClassroomStudent do
         'Average',
         'Overall Mastery Status'
       ]
-    }
+    end
 
     let(:filters) { { classroom_id: full_classroom.id } }
 
-    let(:model_instance) {
+    let(:model_instance) do
       ProgressReports::Standards::Student.new(teacher).results({}).first
-    }
+    end
 
-    let(:expected_data_row) {
+    let(:expected_data_row) do
       [
         "Standards by Student: #{full_classroom.name}",
         model_instance.name,
@@ -35,10 +35,10 @@ describe CsvExporter::Standards::ClassroomStudent do
         model_instance.average_score,
         'Proficient'
       ]
-    }
+    end
 
-    let(:expected_model_data_size) {
+    let(:expected_model_data_size) do
       visible_students.size
-    }
+    end
   end
 end

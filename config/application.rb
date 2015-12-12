@@ -1,10 +1,10 @@
 require File.expand_path('../boot', __FILE__)
 
 # Pick the frameworks you want:
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "sprockets/railtie"
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'sprockets/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -39,7 +39,7 @@ module EmpiricalGrammar
 
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 
-    config.exceptions_app = Proc.new do |env|
+    config.exceptions_app = proc do |env|
       ApplicationController.action(:show_errors).call(env)
     end
 
@@ -60,5 +60,5 @@ module EmpiricalGrammar
 end
 
 Raven.configure do |config|
-  config.environments = %W(staging production) # Do not enable in development or test environments
+  config.environments = %w(staging production) # Do not enable in development or test environments
 end

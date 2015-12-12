@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 describe Api::V1::ActivitiesController, type: :controller do
-
   context 'GET #show' do
-    include_context "calling the api"
+    include_context 'calling the api'
 
     before do
       @activity1 = FactoryGirl.create(:activity)
@@ -28,7 +27,7 @@ describe Api::V1::ActivitiesController, type: :controller do
   end
 
   context 'PUT #update' do
-    include_context "calling the api" # this handles the doorkeeper auth
+    include_context 'calling the api' # this handles the doorkeeper auth
 
     let!(:activity) { FactoryGirl.create(:activity) }
 
@@ -51,12 +50,10 @@ describe Api::V1::ActivitiesController, type: :controller do
     let(:activity_classification) { FactoryGirl.create(:activity_classification) }
 
     subject do
-      post :create, {
-        name: 'foobar',
-        uid: 'abcdef123',
-        topic_uid: topic.uid,
-        activity_classification_uid: activity_classification.uid
-      }
+      post :create,         name: 'foobar',
+                            uid: 'abcdef123',
+                            topic_uid: topic.uid,
+                            activity_classification_uid: activity_classification.uid
     end
 
     describe 'general API behavior' do
@@ -90,9 +87,9 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     describe 'when the request is valid' do
       it 'creates an activity' do
-        expect {
+        expect do
           subject
-        }.to change(Activity, :count).by(1)
+        end.to change(Activity, :count).by(1)
       end
 
       it 'responds with 200' do

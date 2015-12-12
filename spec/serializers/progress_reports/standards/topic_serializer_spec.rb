@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::TopicSerializer, type: :serializer do
   let(:teacher) { FactoryGirl.create(:teacher) }
-  let!(:student) { FactoryGirl.create(:student, teacher: teacher)}
+  let!(:student) { FactoryGirl.create(:student, teacher: teacher) }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let!(:topic) { FactoryGirl.create(:topic) }
   let(:activity) { FactoryGirl.create(:activity, topic: topic) }
@@ -41,7 +41,7 @@ describe ProgressReports::Standards::TopicSerializer, type: :serializer do
                            average_score
                            topic_students_href
                            mastery_status
-                          )
+                        )
     end
 
     it 'includes properly rounded scores' do

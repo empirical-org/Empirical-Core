@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 feature 'Profile', js: true do
-  include_context "profile"
-
+  include_context 'profile'
 
   before :each do
     vcr_ignores_localhost
@@ -25,5 +24,4 @@ feature 'Profile', js: true do
   it 'includes activity name for finished activity_session' do
     expect(page).to have_content(as1.activity.name)
   end
-
 end

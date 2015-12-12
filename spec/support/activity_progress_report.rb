@@ -4,13 +4,17 @@ shared_context 'Activity Progress Report' do
   let(:activity) { FactoryGirl.create(:activity) }
   let(:sweathogs) { FactoryGirl.create(:sweathogs, teacher: mr_kotter) }
   # Absolutely no way that this could get confusing.
-  let(:sweatdogs) { FactoryGirl.create(:classroom, name: "Sweatdogs", teacher: mr_kotter)}
+  let(:sweatdogs) { FactoryGirl.create(:classroom, name: 'Sweatdogs', teacher: mr_kotter) }
   let!(:horshack) { FactoryGirl.create(:arnold_horshack, classroom: sweathogs) }
   let!(:barbarino) { FactoryGirl.create(:vinnie_barbarino, classroom: sweatdogs) }
-  let(:sweathogs_classroom_activity) { FactoryGirl.create(:classroom_activity,
-    classroom: sweathogs, unit: sweathogs.units.first, activity: activity) }
-  let(:sweatdogs_classroom_activity) { FactoryGirl.create(:classroom_activity,
-    classroom: sweatdogs, unit: sweatdogs.units.first, activity: activity) }
+  let(:sweathogs_classroom_activity) do
+    FactoryGirl.create(:classroom_activity,
+                       classroom: sweathogs, unit: sweathogs.units.first, activity: activity)
+  end
+  let(:sweatdogs_classroom_activity) do
+    FactoryGirl.create(:classroom_activity,
+                       classroom: sweatdogs, unit: sweatdogs.units.first, activity: activity)
+  end
 
   let(:horshack_session) do
     horshack.activity_sessions.create!(
@@ -29,7 +33,7 @@ shared_context 'Activity Progress Report' do
     )
   end
 
-  let(:sweathogs_sessions) { [horshack_session]}
+  let(:sweathogs_sessions) { [horshack_session] }
   let(:sweatdogs_sessions) { [barbarino_session] }
-  let!(:all_sessions) { sweathogs_sessions + sweatdogs_sessions}
+  let!(:all_sessions) { sweathogs_sessions + sweatdogs_sessions }
 end

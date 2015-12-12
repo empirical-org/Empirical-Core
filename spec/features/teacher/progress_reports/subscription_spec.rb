@@ -5,34 +5,33 @@ feature 'Subscription to Progress Report', js: true do
 
   let!(:report_page) { Teachers::ActivityProgressReportPage.new }
 
-  let!(:teacher) { FactoryGirl.create :user, role: 'teacher'}
+  let!(:teacher) { FactoryGirl.create :user, role: 'teacher' }
 
   let!(:activity) { FactoryGirl.create(:activity) }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let!(:student) { FactoryGirl.create(:arnold_horshack, classroom: classroom) }
-  let!(:unit) {FactoryGirl.create(:unit)}
-  let!(:classroom_activity) { FactoryGirl.create(:classroom_activity,
-    classroom: classroom, unit: unit, activity: activity) }
+  let!(:unit) { FactoryGirl.create(:unit) }
+  let!(:classroom_activity) do
+    FactoryGirl.create(:classroom_activity,
+                       classroom: classroom, unit: unit, activity: activity)
+  end
 
-
-
-  let!(:activity_session) {
+  let!(:activity_session) do
     FactoryGirl.create(:activity_session,
-                             user: student,
-                             state: 'finished',
-                             time_spent: 120,
-                             percentage: 1,
-                             classroom_activity: classroom_activity,
-                             completed_at: Date.today)
-  }
-
+                       user: student,
+                       state: 'finished',
+                       time_spent: 120,
+                       percentage: 1,
+                       classroom_activity: classroom_activity,
+                       completed_at: Date.today)
+  end
 
   def trial_message
-    "As a Quill Premium trial user"
+    'As a Quill Premium trial user'
   end
 
   def expired_trial_message
-    "trial has expired"
+    'trial has expired'
   end
 
   before do
@@ -54,10 +53,7 @@ feature 'Subscription to Progress Report', js: true do
       end
     end
 
-
-
     context 'trial is expired' do
-
       before do
         allow_any_instance_of(Teacher).to receive(:is_trial_expired?).and_return(true)
         report_page.visit
@@ -71,11 +67,10 @@ feature 'Subscription to Progress Report', js: true do
         expect(report_page).to have_content(expired_trial_message)
       end
     end
-
   end
 
   context 'has subscription' do
-    let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, expiration: Date.tomorrow, account_limit: 5)}
+    let!(:subscription) { FactoryGirl.create(:subscription, user: teacher, expiration: Date.tomorrow, account_limit: 5) }
 
     before do
       report_page.visit

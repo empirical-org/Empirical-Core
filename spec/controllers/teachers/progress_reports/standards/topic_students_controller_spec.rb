@@ -4,15 +4,15 @@ describe Teachers::ProgressReports::Standards::TopicStudentsController, type: :c
   include_context 'Topic Progress Report'
 
   it_behaves_like 'Progress Report' do
-    let(:default_filters) { {classroom_id: full_classroom.id, topic_id: first_grade_topic.id }}
+    let(:default_filters) { { classroom_id: full_classroom.id, topic_id: first_grade_topic.id } }
     let(:result_key) { 'students' }
     let(:expected_result_count) { first_grade_topic_students.size }
 
-    it_behaves_like "filtering progress reports by Unit" do
+    it_behaves_like 'filtering progress reports by Unit' do
       let(:filter_value) { empty_unit.id }
       let(:expected_result_count) { 0 }
     end
 
-    it_behaves_like "exporting to CSV"
+    it_behaves_like 'exporting to CSV'
   end
 end

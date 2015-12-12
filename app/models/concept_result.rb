@@ -1,5 +1,4 @@
 class ConceptResult < ActiveRecord::Base
-
   belongs_to :concept
   belongs_to :activity_session
 
@@ -14,7 +13,7 @@ class ConceptResult < ActiveRecord::Base
   # end
 
   def correct?
-    metadata.has_key?('correct') && metadata['correct'] == 1
+    metadata.key?('correct') && metadata['correct'] == 1
   end
 
   def concept_uid=(concept_uid)

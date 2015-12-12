@@ -1,4 +1,4 @@
-class ProgressReports::Concepts::ConceptSerializer  < ActiveModel::Serializer
+class ProgressReports::Concepts::ConceptSerializer < ActiveModel::Serializer
   attributes :concept_name,
              :concept_id,
              :total_result_count,

@@ -1,5 +1,4 @@
 class ActivitySession < ActiveRecord::Base
-
   include Uid
 
   belongs_to :classroom_activity
@@ -11,27 +10,25 @@ class ActivitySession < ActiveRecord::Base
   accepts_nested_attributes_for :concept_results
 
   ownable :user
-  after_save { if user.present? then user.touch end}
-
+  after_save { user.touch if user.present? }
 
   before_create :set_state
-  before_save   :set_completed_at
-  before_save   :set_activity_id
+  before_save :set_completed_at
+  before_save :set_activity_id
 
-  after_save    :determine_if_final_score
+  after_save :determine_if_final_score
 
-
-  around_save   :trigger_events
+  around_save :trigger_events
 
   # FIXME: do we need the below? if we omit it, may make things faster
   default_scope -> { joins(:activity) }
-  default_scope { where(visible: true)}
+  default_scope { where(visible: true) }
 
   scope :completed,  -> { where('completed_at is not null') }
   scope :incomplete, -> { where('completed_at is null').where('is_retry = false') }
   scope :started_or_better, -> { where("state != 'unstarted'") }
 
-  scope :current_session, -> {
+  scope :current_session, lambda {
     complete_session   = completed.first
     incomplete_session = incomplete.first
     (complete_session || incomplete_session)
@@ -49,20 +46,20 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def self.by_teacher(teacher)
-    self.joins(user: :teacher).where(teachers_users: {id: teacher.id})
+    joins(user: :teacher).where(teachers_users: { id: teacher.id })
   end
 
   def self.with_filters(query, filters)
     if filters[:classroom_id].present?
-      query = query.where("classrooms.id = ?", filters[:classroom_id])
+      query = query.where('classrooms.id = ?', filters[:classroom_id])
     end
 
     if filters[:student_id].present?
-      query = query.where("activity_sessions.user_id = ?", filters[:student_id])
+      query = query.where('activity_sessions.user_id = ?', filters[:student_id])
     end
 
     if filters[:unit_id].present?
-      query = query.joins(:classroom_activity).where("classroom_activities.unit_id = ?", filters[:unit_id])
+      query = query.joins(:classroom_activity).where('classroom_activities.unit_id = ?', filters[:unit_id])
     end
 
     if filters[:section_id].present?
@@ -77,17 +74,17 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def determine_if_final_score
-    return true if (self.percentage.nil? or self.state != 'finished')
-    a = ActivitySession.where(classroom_activity: self.classroom_activity, user: self.user, is_final_score: true)
-                       .where.not(id: self.id).first
+    return true if percentage.nil? || state != 'finished'
+    a = ActivitySession.where(classroom_activity: classroom_activity, user: user, is_final_score: true)
+        .where.not(id: id).first
     if a.nil?
-      self.update_columns is_final_score: true
-    elsif self.percentage > a.percentage
-      self.update_columns is_final_score: true
+      update_columns is_final_score: true
+    elsif percentage > a.percentage
+      update_columns is_final_score: true
       a.update_columns is_final_score: false
     end
     # return true otherwise save will be prevented
-    return true
+    true
   end
 
   def activity
@@ -99,12 +96,12 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def display_due_date_or_completed_at_date
-    if self.completed_at.present?
-      "Completed #{self.completed_at.strftime('%A %B, %d, %Y')}"
-    elsif (self.classroom_activity.present? and self.classroom_activity.due_date.present?)
-      "Due #{self.classroom_activity.due_date.strftime('%A %B, %d, %Y')}"
+    if completed_at.present?
+      "Completed #{completed_at.strftime('%A %B, %d, %Y')}"
+    elsif classroom_activity.present? && classroom_activity.due_date.present?
+      "Due #{classroom_activity.due_date.strftime('%A %B, %d, %Y')}"
     else
-      ""
+      ''
     end
   end
 
@@ -123,15 +120,15 @@ class ActivitySession < ActiveRecord::Base
 
   def percentage_as_percent_prefixed_by_scored
     if percentage.nil?
-      "Not completed yet"
+      'Not completed yet'
     else
-      x = (percentage*100).round.to_s + '%'
+      x = (percentage * 100).round.to_s + '%'
       "Scored #{x}"
     end
   end
 
   def percentage_with_zero_if_nil
-    ((percentage || 0)*100).round
+    ((percentage || 0) * 100).round
   end
 
   def percentage_as_decimal
@@ -140,14 +137,14 @@ class ActivitySession < ActiveRecord::Base
 
   def percentage_as_percent
     if percentage.nil?
-      "no percentage"
+      'no percentage'
     else
-      (percentage*100).round.to_s + '%'
+      (percentage * 100).round.to_s + '%'
     end
   end
 
   def score
-    (percentage*100).round
+    (percentage * 100).round
   end
 
   def start
@@ -158,10 +155,10 @@ class ActivitySession < ActiveRecord::Base
 
   def data=(input)
     data_will_change!
-    self['data'] = self.data.to_h.update(input.except("activity_session"))
+    self['data'] = data.to_h.update(input.except('activity_session'))
   end
 
-  def activity_uid= uid
+  def activity_uid=(uid)
     self.activity_id = Activity.find_by_uid!(uid).id
   end
 
@@ -177,10 +174,10 @@ class ActivitySession < ActiveRecord::Base
     percentage
   end
 
-  alias owner user
+  alias_method :owner, :user
 
-  # TODO legacy fix
-  def anonymous= anonymous
+  # TODO: legacy fix
+  def anonymous=(anonymous)
     self.temporary = anonymous
   end
 
@@ -188,13 +185,13 @@ class ActivitySession < ActiveRecord::Base
     temporary
   end
 
-  def owned_by? user
+  def owned_by?(user)
     return true if temporary
     super
   end
 
   def calculate_time_spent!
-    if (time_spent.blank? || time_spent == 0) and completed_at.present? and started_at.present?
+    if (time_spent.blank? || time_spent == 0) && completed_at.present? && started_at.present?
       self.time_spent = (completed_at.to_f - started_at.to_f).to_i
     end
   end
@@ -220,13 +217,13 @@ class ActivitySession < ActiveRecord::Base
       event_data.merge!(anonymous: false, student: StudentSerializer.new(user, root: false))
     end
 
-    return event_data
+    event_data
   end
 
   private
 
   def self.search_sort_sql(sort)
-    if sort.blank? or sort[:field].blank?
+    if sort.blank? || sort[:field].blank?
       sort = {
         field: 'completed_at',
         direction: 'desc'
@@ -266,15 +263,15 @@ class ActivitySession < ActiveRecord::Base
     return unless should_async
 
     if state == 'started'
-      StartActivityWorker.perform_async(self.uid, Time.current)
+      StartActivityWorker.perform_async(uid, Time.current)
     elsif state == 'finished'
-      FinishActivityWorker.perform_async(self.uid)
+      FinishActivityWorker.perform_async(uid)
     end
   end
 
   def set_state
     self.state ||= 'unstarted'
-    self.data ||= Hash.new
+    self.data ||= {}
   end
 
   def set_activity_id
@@ -286,5 +283,4 @@ class ActivitySession < ActiveRecord::Base
     self.completed_at ||= Time.current
     calculate_time_spent!
   end
-
 end

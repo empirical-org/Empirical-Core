@@ -5,8 +5,8 @@ class ProfilesController < ApplicationController
     @user = current_user
     if current_user.role == 'student'
       respond_to do |format|
-        format.html {student(false)}
-        format.json {student(true)}
+        format.html { student(false) }
+        format.json { student(true) }
       end
     else
       send current_user.role
@@ -26,22 +26,22 @@ class ProfilesController < ApplicationController
     student
   end
 
-  def student(is_json=false)
+  def student(is_json = false)
     if @classroom = current_user.classroom
       if is_json
 
         grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i)
 
         next_activity_session = ActivitySession.joins(classroom_activity: [:unit])
-            .where("activity_sessions.completed_at IS NULL")
-            .where("activity_sessions.user_id = ?", current_user.id)
-            .order("units.created_at DESC")
-            .order("classroom_activities.due_date ASC")
-            .select("activity_sessions.*")
-            .first
-        render json: {student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: grouped_scores,
-          is_last_page: is_last_page,
-          next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
+                                .where('activity_sessions.completed_at IS NULL')
+                                .where('activity_sessions.user_id = ?', current_user.id)
+                                .order('units.created_at DESC')
+                                .order('classroom_activities.due_date ASC')
+                                .select('activity_sessions.*')
+                                .first
+        render json: { student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: grouped_scores,
+                       is_last_page: is_last_page,
+                       next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false) }
       else
         render 'student'
       end
@@ -62,7 +62,8 @@ class ProfilesController < ApplicationController
     render :admin
   end
 
-protected
+  protected
+
   def user_params
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
   end

@@ -32,7 +32,7 @@ describe ProgressReports::Standards::ClassroomSerializer, type: :serializer do
                            total_standard_count
                            students_href
                            topics_href
-                          )
+                        )
     end
   end
 end
