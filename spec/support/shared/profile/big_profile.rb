@@ -1,7 +1,7 @@
-shared_context "big profile" do
-  #include_context "profile"
+shared_context 'big profile' do
+  # include_context "profile"
   let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
-  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher)}
+  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let!(:student) { FactoryGirl.create(:user, role: 'student', classroom: classroom) }
 
   let!(:number_of_units) { 20 }
@@ -21,13 +21,11 @@ shared_context "big profile" do
   end
 
   let!(:sessions) do
-    classroom_activities.map{|ca| ca.session_for(student) }
+    classroom_activities.map { |ca| ca.session_for(student) }
   end
 
   let!(:finished) do
     s = units.take(5).map(&:classroom_activities).flatten.map(&:activity_sessions).flatten
-    s.each{|s| s.update_attributes(state: 'finished', percentage: 1)}
+    s.each { |s| s.update_attributes(state: 'finished', percentage: 1) }
   end
-
-
 end

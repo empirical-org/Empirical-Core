@@ -7,9 +7,8 @@ describe UserLoginWorker, type: :worker do
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let(:student) { FactoryGirl.create(:student, classroom: classroom) }
 
-
   it 'sends a segment.io event when a teacher logs in' do
-    worker.perform(teacher.id, "127.0.0.1")
+    worker.perform(teacher.id, '127.0.0.1')
 
     expect(analytics.backend.track_calls.size).to eq(1)
     expect(analytics.backend.track_calls[0][:event]).to eq(SegmentIo::Events::TEACHER_SIGNIN)
@@ -18,7 +17,7 @@ describe UserLoginWorker, type: :worker do
 
   context 'student with teacher logs in' do
     before :each do
-      worker.perform(student.id, "127.0.0.1")
+      worker.perform(student.id, '127.0.0.1')
     end
 
     it 'sends two segment.io event' do
@@ -39,7 +38,7 @@ describe UserLoginWorker, type: :worker do
   context 'student with no teacher logs in' do
     before :each do
       student.update_attributes(classcode: nil)
-      worker.perform(student.id, "127.0.0.1")
+      worker.perform(student.id, '127.0.0.1')
     end
 
     it 'only sends 1 event' do

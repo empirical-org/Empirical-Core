@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :district do
-    clever_id "MyString"
-    name "MyString"
-    token "MyString"
+    clever_id 'MyString'
+    name 'MyString'
+    token 'MyString'
   end
 end

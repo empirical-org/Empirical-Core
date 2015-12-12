@@ -5,7 +5,7 @@ if Rails.env.development?
 
   module Sass
     class Engine
-      def initialize(template, options={})
+      def initialize(template, options = {})
         @options = self.class.normalize_options(options)
         @options[:debug_info] = true
         @template = template

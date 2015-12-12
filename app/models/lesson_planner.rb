@@ -1,7 +1,7 @@
 class LessonPlanner < Hash
   attr_reader :classroom
 
-  def initialize classroom
+  def initialize(classroom)
     @classroom = classroom
   end
 
@@ -15,6 +15,6 @@ class LessonPlanner < Hash
   end
 
   def load
-    map.to_a.sort{|a,b| a.first <=> b.first}.map(&:last).map(&:to_a).map(&:first)
+    map.to_a.sort { |a, b| a.first <=> b.first }.map(&:last).map(&:to_a).map(&:first)
   end
 end

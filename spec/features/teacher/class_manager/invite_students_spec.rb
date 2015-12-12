@@ -39,9 +39,9 @@ feature 'Invite-Students page' do
         let(:vinnie) { FactoryGirl.build :vinnie_barbarino }
 
         it 'adds a new student' do
-          expect {
+          expect do
             add_student vinnie
-          }.to change { invite_students_page.student_count }.by(1)
+          end.to change { invite_students_page.student_count }.by(1)
 
           username = generate_username(vinnie, invite_students_page.class_code)
 
@@ -49,7 +49,7 @@ feature 'Invite-Students page' do
 
           expect(new_student_row.first_name).to eq vinnie.first_name
           expect(new_student_row. last_name).to eq vinnie. last_name
-          expect(new_student_row.  username).to eq username
+          expect(new_student_row. username).to eq username
         end
 
         context 'having added a student' do
@@ -90,9 +90,9 @@ feature 'Invite-Students page' do
         it 'can add a duplicate-looking student' do
           dup_student = christopher_brown
 
-          expect {
+          expect do
             invite_students_page.add_student dup_student
-          }.to change { invite_students_page.student_count }.by(1)
+          end.to change { invite_students_page.student_count }.by(1)
 
           student_row = invite_students_page.student_row(User.last)
           username    = generate_username(dup_student,
@@ -100,7 +100,7 @@ feature 'Invite-Students page' do
 
           expect(student_row.first_name).to eq dup_student.first_name
           expect(student_row. last_name).to eq dup_student. last_name
-          expect(student_row.  username).to eq username
+          expect(student_row. username).to eq username
         end
       end
     end
@@ -153,7 +153,7 @@ feature 'Invite-Students page' do
     class_names.each do |name|
       let!(:"class_#{name}") do
         FactoryGirl.create :classroom, name: name,
-                                    teacher: mr_kotter
+                                       teacher: mr_kotter
       end
     end
 
@@ -172,13 +172,13 @@ feature 'Invite-Students page' do
         mr_woodman        = FactoryGirl.create :mr_woodman
         mr_woodmans_class = FactoryGirl.create :classroom,
                                                name: 'real students',
-                                            teacher: mr_woodman
+                                               teacher: mr_woodman
 
         pending 'Issue #580 - menu should list classes in alphabetic order'
         class_names_list = invite_students_page.class_names
         expect(class_names_list).to eq mr_kotter.classrooms
-                                                .order(:name)
-                                                .map(&:name)
+          .order(:name)
+          .map(&:name)
 
         expect(class_names_list).not_to include mr_woodmans_class.name
       end

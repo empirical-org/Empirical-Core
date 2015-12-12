@@ -10,48 +10,47 @@ module Student
 
     after_create :assign_classroom_activities
 
-    def unfinished_activities classroom
+    def unfinished_activities(classroom)
       classroom.activities - finished_activities(classroom)
     end
 
-    def finished_activities classroom
+    def finished_activities(classroom)
       classroom_activity_score_join(classroom).where('activity_sessions.completed_at is not null')
     end
 
-    def classroom_activity_score_join classroom
+    def classroom_activity_score_join(classroom)
       started_activities.where(classroom_activities: { classroom_id: classroom.id })
     end
     protected :classroom_activity_score_join
 
     def completed_activities
       activity_sessions.completed
-                        .where(is_final_score: true)
+        .where(is_final_score: true)
     end
 
     def percentages_by_classification(unit = nil)
-
       if unit.nil?
-        sessions = self.activity_sessions.preload(concept_results: [:concept]).where(is_final_score: true).completed
+        sessions = activity_sessions.preload(concept_results: [:concept]).where(is_final_score: true).completed
       else
         sessions = ActivitySession.joins(:classroom_activity)
-                  .preload(concept_results: [:concept])
-                  .where(is_final_score: true)
-                  .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
-                  .select("activity_sessions.*").completed
+                   .preload(concept_results: [:concept])
+                   .where(is_final_score: true)
+                   .where('activity_sessions.user_id = ? AND classroom_activities.unit_id = ?', id, unit.id)
+                   .select('activity_sessions.*').completed
 
       end
 
       # we only want to show one session per classroom activity (highest score), there may be multiple bc of retries :
       arr = []
-      x1 = sessions.to_a.group_by{|as| as.classroom_activity_id}
-      x1.each do |key, ca_group|
-        x2 = ca_group.max{|a, b| a.percentile <=> b.percentile}
+      x1 = sessions.to_a.group_by(&:classroom_activity_id)
+      x1.each do |_key, ca_group|
+        x2 = ca_group.max { |a, b| a.percentile <=> b.percentile }
         arr.push x2
       end
       sessions = arr
 
       # sort by percentage
-      sessions.sort do |a,b|
+      sessions.sort do |a, b|
         if a.percentile == b.percentile
           b.activity.classification.key <=> a.activity.classification.key
         else
@@ -60,23 +59,22 @@ module Student
       end
     end
 
-
     def incomplete_activity_sessions_by_classification(unit = nil)
       if unit.nil?
-        sessions = self.activity_sessions.preload(concept_results: [:concept]).incomplete
+        sessions = activity_sessions.preload(concept_results: [:concept]).incomplete
       else
 
         sessions = ActivitySession
-                    .preload(concept_results: [:concept])
-                    .joins(:classroom_activity)
-                    .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
-                    .where("activity_sessions.completed_at is null")
-                    .where("activity_sessions.is_retry = false")
-                    .select("activity_sessions.*")
+                   .preload(concept_results: [:concept])
+                   .joins(:classroom_activity)
+                   .where('activity_sessions.user_id = ? AND classroom_activities.unit_id = ?', id, unit.id)
+                   .where('activity_sessions.completed_at is null')
+                   .where('activity_sessions.is_retry = false')
+                   .select('activity_sessions.*')
 
       end
 
-      sessions.sort do |a,b|
+      sessions.sort do |a, b|
         b.activity.classification.key <=> a.activity.classification.key
       end
     end
@@ -86,31 +84,29 @@ module Student
       classroom.classroom_activities.each do |ca|
         if !ca.assigned_student_ids.try(:any?)
           assign = true
-        elsif ca.assigned_student_ids.include?(self.id)
+        elsif ca.assigned_student_ids.include?(id)
           assign = true
         else
           assign = false
         end
-        if assign
-          ca.session_for(self)
-        end
+        ca.session_for(self) if assign
       end
     end
 
     has_many :activity_sessions, dependent: :destroy do
-      def rel_for_activity activity
+      def rel_for_activity(activity)
         includes(:classroom_activity).where(classroom_activities: { activity_id: activity.id })
       end
 
-      def for_activity activity
+      def for_activity(activity)
         rel_for_activity(activity).first
       end
 
-      def completed_for_activity activity
+      def completed_for_activity(activity)
         rel_for_activity(activity).where('activity_sessions.completed_at is not null')
       end
 
-      def for_classroom classroom
+      def for_classroom(classroom)
         includes(:classroom_activity).where(classroom_activities: { classroom_id: classroom.id })
       end
     end

@@ -8,12 +8,11 @@ FactoryGirl.define do
   sequence(:email) { |n| "user#{n}@example.com" }
 
   factory :user do
-
     name 'Test User'
     role 'user'
     password '123456'
-    sequence(:email) {|n| "user#{n}@gmail.com"}
-    sequence(:username) {|n| "username_is#{n}"}
+    sequence(:email) { |n| "user#{n}@gmail.com" }
+    sequence(:username) { |n| "username_is#{n}" }
 
     factory :admin do
       role 'admin'
@@ -23,10 +22,10 @@ FactoryGirl.define do
       role 'teacher'
 
       factory :mr_kotter do
-        name                  'Gabe Kotter'
-        username              'mrkotter'
-        email                 'gabe.kotter@jamesbuchananhigh.edu'
-        password              'sweathogs'
+        name 'Gabe Kotter'
+        username 'mrkotter'
+        email 'gabe.kotter@jamesbuchananhigh.edu'
+        password 'sweathogs'
       end
 
       factory :mr_woodman do
@@ -40,17 +39,17 @@ FactoryGirl.define do
       classroom
 
       factory :arnold_horshack do
-        name                  'Arnold Horshack'
-        username              'horshack'
-        password              'dingfelder'
-        email                 'ahorshack@coldmail.com'
+        name 'Arnold Horshack'
+        username 'horshack'
+        password 'dingfelder'
+        email 'ahorshack@coldmail.com'
       end
 
       factory :vinnie_barbarino do
-        name                  'Vinnie Barbarino'
-        username              'vinnie_barbarino'
-        password              'sally'
-        email                 'vinnieb@geemail.com'
+        name 'Vinnie Barbarino'
+        username 'vinnie_barbarino'
+        password 'sally'
+        email 'vinnieb@geemail.com'
       end
     end
 
@@ -68,13 +67,12 @@ FactoryGirl.define do
       end
     end
 
-
     factory :student_with_one_activity do
       role 'student'
       username
       classroom
 
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _evaluator|
         create_list(:activity_session, 1, user: user)
       end
     end
@@ -84,10 +82,9 @@ FactoryGirl.define do
       username
       classroom { FactoryGirl.create(:classroom_with_one_student) }
 
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _evaluator|
         create_list(:classroom_activity, 1, assigned_student_ids: [user.id], classroom: user.classroom)
       end
     end
-
   end
 end

@@ -1,10 +1,10 @@
 namespace :demo do
   desc 'make demo accounts'
-  task :create => :environment do
+  task create: :environment do
     create_demo
   end
 
-  task :destroy => :environment do
+  task destroy: :environment do
     teacher = User.find_by_username 'demo'
     classrooms = teacher.classrooms
     classroom_activities = classrooms.map(&:classroom_activities).flatten
@@ -35,20 +35,20 @@ namespace :demo do
     if teacher.nil?
       teacher = User.create(role: 'teacher', name: 'Ms. Chavez', username: 'demo', email: 'chavezdemo279@gmail.com', password: 'demo', password_confirmation: 'demo')
     end
-    classrooms = classrooms_data.map.with_index{|c, index| create_classroom(c, teacher, index)}
+    classrooms = classrooms_data.map.with_index { |c, index| create_classroom(c, teacher, index) }
   end
 
-  def create_classroom data, teacher, index
+  def create_classroom(data, teacher, index)
     classroom = Classroom.find_or_create_by name: data[:name], teacher: teacher, code: "cool-demo-#{index}", grade: '3'
     students = create_students classroom, data[:student_names]
     classroom
   end
 
-  def create_students classroom, student_names
-    students = student_names.map{|student_name| create_student(classroom, student_name)}
+  def create_students(classroom, student_names)
+    students = student_names.map { |student_name| create_student(classroom, student_name) }
   end
 
-  def create_student classroom, name
+  def create_student(classroom, name)
     extant = classroom.students.find_by name: name
     return extant if extant.present?
     student = User.new(classcode: classroom.code, name: name, role: 'student', password: 'pwd', password_confirmation: 'pwd')
@@ -57,13 +57,13 @@ namespace :demo do
     student
   end
 
-  def create_and_assign_units classrooms
-    units = units_data.map{|u| create_and_assign_unit(u, classrooms)}
+  def create_and_assign_units(classrooms)
+    units = units_data.map { |u| create_and_assign_unit(u, classrooms) }
   end
 
-  def create_and_assign_unit unit_data, classrooms
+  def create_and_assign_unit(unit_data, classrooms)
     ca = classrooms.map(&:classroom_activities).flatten.compact.first
-    if ca.nil? or ca.unit.nil?
+    if ca.nil? || ca.unit.nil?
       unit = Unit.create(name: unit_data[:name])
     else
       unit = ca.unit
@@ -88,21 +88,21 @@ namespace :demo do
   def random_due_date
     min_date = Time.parse '2015-03-01'
     max_date = Time.parse '2015-03-31'
-    x = (max_date.to_f - min_date.to_f)*rand + min_date.to_f
+    x = (max_date.to_f - min_date.to_f) * rand + min_date.to_f
     date = Time.at(x).to_date
     date
   end
 
-  def create_score_distribution classrooms, units
+  def create_score_distribution(classrooms, _units)
     create_default_score_distribution classrooms
     create_special_score_distribution classrooms
   end
 
-  def create_default_score_distribution classrooms
-    classrooms.each{|c| create_default_score_distribution_for_classroom c}
+  def create_default_score_distribution(classrooms)
+    classrooms.each { |c| create_default_score_distribution_for_classroom c }
   end
 
-  def create_default_score_distribution_for_classroom classroom
+  def create_default_score_distribution_for_classroom(classroom)
     ratios = {
       green: 0.7,
       yellow: 0.2,
@@ -111,17 +111,16 @@ namespace :demo do
 
     ass = classroom.students.map(&:activity_sessions).flatten
 
-    ass.each{|as| as.update_attributes(state: 'finished', completed_at: Time.now, is_final_score: true)}
+    ass.each { |as| as.update_attributes(state: 'finished', completed_at: Time.now, is_final_score: true) }
 
     score_town ratios, ass
 
     ass.each do |as|
-      if as.percentage.nil? then as.update_attributes(percentage: random_green_score) end
+      as.update_attributes(percentage: random_green_score) if as.percentage.nil?
     end
-
   end
 
-  def score_town ratios, population
+  def score_town(ratios, population)
     population = population.shuffle
     actual = create_actual_distribution_from_ratios ratios, population.size
     records = {}
@@ -133,22 +132,22 @@ namespace :demo do
       records[key] = x
     end
 
-    records[:green].each{|as| as.update_attributes(percentage: random_green_score)}
-    records[:yellow].each{|as| as.update_attributes(percentage: random_yellow_score)}
-    records[:red].each{|as| as.update_attributes(percentage: random_red_score)}
+    records[:green].each { |as| as.update_attributes(percentage: random_green_score) }
+    records[:yellow].each { |as| as.update_attributes(percentage: random_yellow_score) }
+    records[:red].each { |as| as.update_attributes(percentage: random_red_score) }
   end
 
-  def create_special_score_distribution classrooms
+  def create_special_score_distribution(classrooms)
     special_students = special_student_score_distribution classrooms
     special_lesson_score_distribution classrooms, special_students
   end
 
-  def special_student_score_distribution classrooms
-    special_students = classrooms.map{|c| special_student_score_distribution_for_classroom(c)}.flatten
+  def special_student_score_distribution(classrooms)
+    special_students = classrooms.map { |c| special_student_score_distribution_for_classroom(c) }.flatten
     special_students
   end
 
-  def special_student_score_distribution_for_classroom classroom
+  def special_student_score_distribution_for_classroom(classroom)
     students = classroom.students.shuffle
     special_students_group1 = students[0..1]
     special_students_group2 = students[2..5]
@@ -161,16 +160,15 @@ namespace :demo do
       special_students_group3 = []
     end
 
-    special_students_group1.each{|s1| special_scores_student_group1(s1)}
-    special_students_group2.each{|s2| special_scores_student_group2(s2)}
-    special_students_group3.each{|s3| special_scores_student_group3(s3)}
-
+    special_students_group1.each { |s1| special_scores_student_group1(s1) }
+    special_students_group2.each { |s2| special_scores_student_group2(s2) }
+    special_students_group3.each { |s3| special_scores_student_group3(s3) }
 
     special_students = special_students_group1.concat(special_students_group2).concat(special_students_group3)
     special_students
   end
 
-  def special_scores_student_group1 student
+  def special_scores_student_group1(student)
     ratios = {
       green: 0.10,
       yellow: 0.55,
@@ -180,17 +178,17 @@ namespace :demo do
     score_town ratios, ass
   end
 
-  def special_scores_student_group2 student
+  def special_scores_student_group2(student)
     ratios = {
       green: 1.0,
       yellow: 0.0,
       red: 0.0
     }
     ass = student.activity_sessions
-    ass.each{|as| as.update_attributes(percentage: random_green_score)}
+    ass.each { |as| as.update_attributes(percentage: random_green_score) }
   end
 
-  def special_scores_student_group3 student
+  def special_scores_student_group3(student)
     ratios = {
       green: 0.00,
       yellow: 0.05,
@@ -200,29 +198,27 @@ namespace :demo do
     score_town ratios, ass
   end
 
-  def special_lesson_score_distribution classrooms, special_students
+  def special_lesson_score_distribution(classrooms, special_students)
     # avoid affecting the scores of the special students
-=begin
-      Special Lesson Score Distribution:
-  (none of these should be proofreading lessons)
-  (so activity_classification_id should be 2)
-    3 Lessons:
-      Green 95%
-      Yellow: 5%
-    2 Lessons
-      Green: 20%
-      Yellow: 60%
-      Red: 20%
-=end
+    #       Special Lesson Score Distribution:
+    #   (none of these should be proofreading lessons)
+    #   (so activity_classification_id should be 2)
+    #     3 Lessons:
+    #       Green 95%
+    #       Yellow: 5%
+    #     2 Lessons
+    #       Green: 20%
+    #       Yellow: 60%
+    #       Red: 20%
     activities = classrooms.map(&:classroom_activities)
-                           .flatten
-                           .map(&:activity)
-                           .uniq
-                           .select{|activity| activity.activity_classification_id == 2}
-                           .shuffle
+                 .flatten
+                 .map(&:activity)
+                 .uniq
+                 .select { |activity| activity.activity_classification_id == 2 }
+                 .shuffle
 
-    x = (activities.length) -1
-    y = (activities.count*0.5).ceil
+    x = (activities.length) - 1
+    y = (activities.count * 0.5).ceil
     z = y + 1
 
     special_activities1 = activities[0..y]
@@ -231,39 +227,39 @@ namespace :demo do
     students = classrooms.map(&:students).flatten
     not_special_students = students - special_students
 
-    special_activities1.each{|sa1| special_scores_activity_group1(sa1, not_special_students)}
-    special_activities2.each{|sa2| special_scores_activity_group2(sa2, not_special_students)} unless (special_activities2.nil? or special_activities2.empty?)
+    special_activities1.each { |sa1| special_scores_activity_group1(sa1, not_special_students) }
+    special_activities2.each { |sa2| special_scores_activity_group2(sa2, not_special_students) } unless special_activities2.nil? || special_activities2.empty?
   end
 
-  def special_scores_activity_group1 activity, not_special_students
-      ratios = {
-        green: 0.95,
-        yellow: 0.05,
-        red: 0.00
-      }
+  def special_scores_activity_group1(activity, not_special_students)
+    ratios = {
+      green: 0.95,
+      yellow: 0.05,
+      red: 0.00
+    }
 
-      ass = ActivitySession.where(user: not_special_students)
-                           .where(activity: activity)
+    ass = ActivitySession.where(user: not_special_students)
+          .where(activity: activity)
 
-      score_town ratios, ass
+    score_town ratios, ass
   end
 
-  def special_scores_activity_group2 activity, not_special_students
-      ratios = {
-        green: 0.20,
-        yellow: 0.60,
-        red: 0.20
-      }
-      ass = ActivitySession.where(user: not_special_students)
-                            .where(activity: activity)
+  def special_scores_activity_group2(activity, not_special_students)
+    ratios = {
+      green: 0.20,
+      yellow: 0.60,
+      red: 0.20
+    }
+    ass = ActivitySession.where(user: not_special_students)
+          .where(activity: activity)
 
-      score_town ratios, ass
+    score_town ratios, ass
   end
 
-  def create_actual_distribution_from_ratios ratios, population_size
+  def create_actual_distribution_from_ratios(ratios, population_size)
     actual = {}
     ratios.each do |key, value|
-      actual[key] = (population_size*value).floor
+      actual[key] = (population_size * value).floor
     end
     # might have some leftover since weve been taking #floor
     pre_total = actual.values.reduce(:+)
@@ -284,110 +280,110 @@ namespace :demo do
     random_score 0.00, 0.49
   end
 
-  def random_score min, max
-    score = min + ((max - min)*rand)
+  def random_score(min, max)
+    score = min + ((max - min) * rand)
     score
   end
 
   # DATA
 
   def classrooms_data
-      [
-        {
-          name: 'Period 1',
-          student_names:
+    [
+      {
+        name: 'Period 1',
+        student_names:
+          %w(
+            Sharri\ Villar
+            Victor\ Bartos
+            Azni\ Aslakhanov
+            Damien\ Newburn
+            Andra\ Moffatt
+            Ona\ Scheer
+            Kristy\ Sanchez
+            Flor\ Sabino
+            Ritchie\ Barillas
+            Carl\ Pittman
+            Lakita\ Lingenfelter
+            June\ Oslund
+            Casta\ Porto
+            Florida\ Mescher
+            Jolyn\ Brosnan
+            Emily\ Roberts
+            Eunice\ Phelps
+            Benny\ Loman
+            Sage\ Imel
+            Collin\ Loadholt
+            Sage\ Imel
+            Carry\ Adcox
+            Remedios\ Bermudez
+            Sam\ Martinez
+          )
+      },
+      {
+        name: 'Period 2',
+        student_names:
             %w(
-                Sharri\ Villar
-                Victor\ Bartos
-                Azni\ Aslakhanov
-                Damien\ Newburn
-                Andra\ Moffatt
-                Ona\ Scheer
-                Kristy\ Sanchez
-                Flor\ Sabino
-                Ritchie\ Barillas
-                Carl\ Pittman
-                Lakita\ Lingenfelter
-                June\ Oslund
-                Casta\ Porto
-                Florida\ Mescher
-                Jolyn\ Brosnan
-                Emily\ Roberts
-                Eunice\ Phelps
-                Benny\ Loman
-                Sage\ Imel
-                Collin\ Loadholt
-                Sage\ Imel
-                Carry\ Adcox
-                Remedios\ Bermudez
-                Sam\ Martinez
+              Pearl\ Bucholz
+              Margarita\ Winrow
+              Leticia\ Villagran
+              Victor\ Olivas
+              Sherwood\ Jacobi
+              Edith\ Yates
+              Dee\ Davi
+              Ellie\ Nelson
+              Kathryn\ Pace
+              Isaac\ Powers
+              Sara\ Connor
+              Sean\ Adkins
+              Lamont\ Beachy
+              Darby\ Gossett
+              Gayla\ Gordillo
+              Zuri\ Afolayan
+              Hermine\ Gillett
+              Eloisa\ Mackey
+              Jane\ Rogerson
+              Charles\ Andrews
+              German\ Mar
+              Leota\ Kerfien
+              Evie\ Brannock
+              Dylan\ Anderson
+              Cristobal\ Rugh
+              Ralph\ Patterson
             )
-        },
-        {
-          name: 'Period 2',
-          student_names:
-              %w(
-                Pearl\ Bucholz
-                Margarita\ Winrow
-                Leticia\ Villagran
-                Victor\ Olivas
-                Sherwood\ Jacobi
-                Edith\ Yates
-                Dee\ Davi
-                Ellie\ Nelson
-                Kathryn\ Pace
-                Isaac\ Powers
-                Sara\ Connor
-                Sean\ Adkins
-                Lamont\ Beachy
-                Darby\ Gossett
-                Gayla\ Gordillo
-                Zuri\ Afolayan
-                Hermine\ Gillett
-                Eloisa\ Mackey
-                Jane\ Rogerson
-                Charles\ Andrews
-                German\ Mar
-                Leota\ Kerfien
-                Evie\ Brannock
-                Dylan\ Anderson
-                Cristobal\ Rugh
-                Ralph\ Patterson
-              )
-        },
-        {
-          name: 'Period 3',
-          student_names:
-            %w(
-                Margarete\ Woolley
-                Brigid\ Coppock
-                Macario\ Palomo
-                Earlean\ Kuehn
-                Julina\ Chirino
-                Rea\ Lubinski
-                Jim\ Hogan
-                Jerrold\ Mosso
-                Dantel\ Lorenz
-                Annmarie\ Pilling
-                Myrle\ Bartelt
-                Elisa\ Villarruel
-                Regina\ Cain
-                Patric\ MacIver
-                Serenity\ White
-                Artura\ Saucedo
-                Allena\ Hebron
-                Jose\ Nichols
-                Antwan\ Jerrell
-                Chiumbo\ Afolayan
-                Novia\ Vicente
-                Kira\ Wentzel
-                Shona\ Gable
-                George\ Richard
-                Tyler\ Kelly
-                Amos\ Sylva
-              )
-        }
-      ]
+      },
+      {
+        name: 'Period 3',
+        student_names:
+          %w(
+            Margarete\ Woolley
+            Brigid\ Coppock
+            Macario\ Palomo
+            Earlean\ Kuehn
+            Julina\ Chirino
+            Rea\ Lubinski
+            Jim\ Hogan
+            Jerrold\ Mosso
+            Dantel\ Lorenz
+            Annmarie\ Pilling
+            Myrle\ Bartelt
+            Elisa\ Villarruel
+            Regina\ Cain
+            Patric\ MacIver
+            Serenity\ White
+            Artura\ Saucedo
+            Allena\ Hebron
+            Jose\ Nichols
+            Antwan\ Jerrell
+            Chiumbo\ Afolayan
+            Novia\ Vicente
+            Kira\ Wentzel
+            Shona\ Gable
+            George\ Richard
+            Tyler\ Kelly
+            Amos\ Sylva
+          )
+      }
+    ]
   end
 
   def units_data
@@ -397,24 +393,24 @@ namespace :demo do
         name: 'Unit 1: Verbs',
         activity_names:
           [
-            "Singular and Plural Nouns with Matching Verbs",
-            "We Choose The Moon (History)",
-            "The Progressive Tense",
-            "Change Sentences from Passive to Active",
-            "Change Sentences from Active to Passive",
-            "Recognize and Correct Inappropriate Shifts in Verb Voice and Mood",
-            "Future Tense Verbs"
+            'Singular and Plural Nouns with Matching Verbs',
+            'We Choose The Moon (History)',
+            'The Progressive Tense',
+            'Change Sentences from Passive to Active',
+            'Change Sentences from Active to Passive',
+            'Recognize and Correct Inappropriate Shifts in Verb Voice and Mood',
+            'Future Tense Verbs'
           ]
       },
       {
         name: 'Unit 2: Punctuation',
         activity_names:
           [
-            "Spaces with Punctuation",
-            "At, In, On (Time)",
-            "At, In, On (Place)",
+            'Spaces with Punctuation',
+            'At, In, On (Time)',
+            'At, In, On (Place)',
             "I've, That's, It's",
-            "Putting the World in Perspective: The Apollo 8 Photograph (History)",
+            'Putting the World in Perspective: The Apollo 8 Photograph (History)',
             "Can't, Won't"
           ]
       },
@@ -422,13 +418,13 @@ namespace :demo do
         name: 'Unit 3: Commonly Confused Words',
         activity_names:
           [
-            "Lose, Loose",
-            "To, Too, Two",
+            'Lose, Loose',
+            'To, Too, Two',
             "You're, Your",
-            "Than, Then",
+            'Than, Then',
             "It's, Its",
-            "Of, Off",
-            "Ernest Shackleton Escapes the Antarctic (History)",
+            'Of, Off',
+            'Ernest Shackleton Escapes the Antarctic (History)',
             "Their, They're, There"
           ]
       },
@@ -436,12 +432,12 @@ namespace :demo do
         name: 'Unit 4: End of Year Review',
         activity_names:
           [
-            "Singular and Plural Nouns with Matching Verbs",
-            "Change into Proper Passive or Active Sentences",
-            "Putting the World in Perspective: The Apollo 8 Photograph (History)",
-            "At, In, On (Place)",
-            "Ernest Shackleton Escapes the Antarctic (History)",
-            "To, Too, Two",
+            'Singular and Plural Nouns with Matching Verbs',
+            'Change into Proper Passive or Active Sentences',
+            'Putting the World in Perspective: The Apollo 8 Photograph (History)',
+            'At, In, On (Place)',
+            'Ernest Shackleton Escapes the Antarctic (History)',
+            'To, Too, Two',
             "Their, They're, There"
           ]
       }

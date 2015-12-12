@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'benchmark'
 
 describe 'Scorebook' do
-
   let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let!(:student) { FactoryGirl.create(:user, role: 'student', classcode: classroom.code) }
@@ -14,7 +13,7 @@ describe 'Scorebook' do
   let!(:activity_sessions_query) { Scorebook::ActivitySessionsQuery.new }
 
   before do
-    activity_sessions.map{ |as| FactoryGirl.create_list(:concept_result, 30, concept: concept, activity_session: as) }
+    activity_sessions.map { |as| FactoryGirl.create_list(:concept_result, 30, concept: concept, activity_session: as) }
   end
 
   def subject
@@ -22,9 +21,7 @@ describe 'Scorebook' do
   end
 
   it 'takes less than 1 sec' do
-    time = Benchmark.realtime{ subject }
+    time = Benchmark.realtime { subject }
     expect(time).to be < 1
   end
-
-
 end

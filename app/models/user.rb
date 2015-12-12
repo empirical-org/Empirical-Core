@@ -15,9 +15,8 @@ class User < ActiveRecord::Base
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
-
   validates :name,                  presence: true,
-                                    format:       {without: /\t/, message: 'cannot contain tabs'}
+                                    format:       { without: /\t/, message: 'cannot contain tabs' }
 
   validates_with FullnameValidator
 
@@ -31,16 +30,15 @@ class User < ActiveRecord::Base
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true },
-                                    format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?}
-
+                                    format:       { without: /\s/, message: 'cannot contain spaces', if: :validate_username? }
 
   ROLES      = %w(student teacher temporary user admin)
   SAFE_ROLES = %w(student teacher temporary)
 
   default_scope -> { where('users.role != ?', 'temporary') }
 
-  scope :teacher, lambda { where(role: 'teacher') }
-  scope :student, lambda { where(role: 'student') }
+  scope :teacher, -> { where(role: 'teacher') }
+  scope :student, -> { where(role: 'student') }
 
   attr_accessor :newsletter
 
@@ -50,11 +48,11 @@ class User < ActiveRecord::Base
     validate_username.present? ? validate_username : false
   end
 
-  def safe_role_assignment role
-    self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
-      sanitized_role
-    else
-      'user'
+  def safe_role_assignment(role)
+    self.role = if sanitized_role = SAFE_ROLES.find { |r| r == role.strip }
+                  sanitized_role
+                else
+                  'user'
     end
   end
 
@@ -84,8 +82,8 @@ class User < ActiveRecord::Base
   def capitalize_name
     result = name
     if name.present?
-      f,l = name.split(/\s+/)
-      if f.present? and l.present?
+      f, l = name.split(/\s+/)
+      if f.present? && l.present?
         result = "#{f.capitalize} #{l.capitalize}"
       else
         result = name.capitalize
@@ -96,7 +94,7 @@ class User < ActiveRecord::Base
 
   def self.find_by_username_or_email(login_name)
     login_name.downcase!
-    User.where("email = ? OR username = ?", login_name, login_name).first
+    User.where('email = ? OR username = ?', login_name, login_name).first
   end
 
   def self.setup_from_clever(auth_hash)
@@ -116,7 +114,7 @@ class User < ActiveRecord::Base
     @role_inquirer ||= ActiveSupport::StringInquirer.new(self[:role])
   end
 
-  def role= role
+  def role=(role)
     remove_instance_variable :@role_inquirer if defined?(@role_inquirer)
     super
   end
@@ -150,13 +148,13 @@ class User < ActiveRecord::Base
     "#{role.capitalize}Serializer".constantize.new(self)
   end
 
-  def first_name= first_name
+  def first_name=(first_name)
     last_name
     @first_name = first_name
     set_name
   end
 
-  def last_name= last_name
+  def last_name=(last_name)
     first_name
     @last_name = last_name
     set_name
@@ -173,7 +171,6 @@ class User < ActiveRecord::Base
   def set_name
     self.name = [@first_name, @last_name].compact.join(' ')
   end
-
 
   def generate_password
     self.password = self.password_confirmation = last_name
@@ -199,22 +196,22 @@ class User < ActiveRecord::Base
   end
 
   def imported_from_clever?
-    self.token
+    token
   end
 
   def school
-    self.schools.first
+    schools.first
   end
 
-  ransacker :created_at_date, type: :date do |parent|
-    Arel::Nodes::SqlLiteral.new "date(items.created_at)"
+  ransacker :created_at_date, type: :date do |_parent|
+    Arel::Nodes::SqlLiteral.new 'date(items.created_at)'
   end
 
   # Connect to any classrooms already created by a teacher
   def connect_to_classrooms!
     classrooms = Classroom.where(clever_id: clever_user.sections.collect(&:id)).all
 
-    classrooms.each { |c| c.students << self}
+    classrooms.each { |c| c.students << self }
   end
 
   # Create the user from a Clever info hash
@@ -239,43 +236,44 @@ class User < ActiveRecord::Base
   end
 
   def generate_student_username_if_absent
-    return if not student?
+    return unless student?
     return if username.present?
     generate_username
   end
 
   def newsletter?
-    #newsletter.to_i == 1
+    # newsletter.to_i == 1
     send_newsletter
   end
 
-private
+  private
+
   def prep_authentication_terms
     self.email = email.downcase unless email.blank?
-    self.username= username.downcase unless username.blank?
+    self.username = username.downcase unless username.blank?
   end
 
   # Clever integration
   def clever_user
-    klass = "Clever::#{self.role.capitalize}".constantize
-    @clever_user ||= klass.retrieve(self.clever_id, self.districts.first.token)
+    klass = "Clever::#{role.capitalize}".constantize
+    @clever_user ||= klass.retrieve(clever_id, districts.first.token)
   end
 
   # validation filters
   def email_required_or_present?
-    email_required? or email.present?
+    email_required? || email.present?
   end
 
   def email_required?
-    return false if self.clever_id
+    return false if clever_id
     return false if role.temporary?
     return true if teacher?
     false
   end
 
   def requires_password?
-    return false if self.clever_id
-    return false if self.signed_up_with_google
+    return false if clever_id
+    return false if signed_up_with_google
     permanent? && new_record?
   end
 

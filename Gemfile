@@ -38,7 +38,7 @@ gem 'fog', require: 'fog/aws/storage'
 
 # IMAGE UPLOADS
 gem 'paperclip'
-gem "jquery-fileupload-rails"
+gem 'jquery-fileupload-rails'
 
 # OTHERS
 gem 'global'
@@ -55,7 +55,7 @@ gem 'addressable'
 gem 'sidekiq'
 gem 'sidekiq-retries'
 gem 'redis-rails'
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra', '>= 1.3.0', require: nil
 
 # JS/APP/UI
 gem 'turbolinks'
@@ -67,10 +67,10 @@ gem 'lodash-rails'
 
 # METRICS
 gem 'keen'
-gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
+gem 'analytics-ruby', '~> 2.0.0', require: 'segment/analytics'
 
 # API
-gem "active_model_serializers"
+gem 'active_model_serializers'
 
 # UI HELPERS
 gem 'sass'
@@ -91,7 +91,6 @@ gem 'react-rails', '1.4.1'
 gem 'therubyracer', require: false
 gem 'uglifier',     require: false
 gem 'kaminari'
-
 
 # MIDDLEWARE
 gem 'rack-cache', require: 'rack/cache'
@@ -116,28 +115,28 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'foreman'
-  gem "letter_opener"
+  gem 'letter_opener'
   gem 'spring'
   gem 'spring-commands-rspec'
 end
 
-gem "awesome_print", github: 'imajes/awesome_print'
+gem 'awesome_print', github: 'imajes/awesome_print'
 
 group :test, :development do
-  gem "quiet_assets"
+  gem 'quiet_assets'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
-  gem "rspec-rails"
+  gem 'rspec-rails'
   gem 'fuubar', '~> 2.0.0.rc1'
-  gem "timecop"
-  gem "factory_girl"
-  gem "factory_girl_rails"
-  gem "forgery"
-  gem "database_cleaner"
+  gem 'timecop'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'forgery'
+  gem 'database_cleaner'
   gem 'byebug'
   gem 'guard'
   gem 'guard-rspec'
@@ -149,7 +148,7 @@ end
 group :test do
   gem 'capybara'
   gem 'poltergeist'
-  gem "vcr"
-  gem "webmock"
-  gem "codeclimate-test-reporter", require: nil
+  gem 'vcr'
+  gem 'webmock'
+  gem 'codeclimate-test-reporter', require: nil
 end

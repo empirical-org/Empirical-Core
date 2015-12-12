@@ -1,5 +1,4 @@
 class PasswordResetController < ApplicationController
-
   def index
     @user = User.new
   end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe UserWithEmailSerializer, type: :serializer do
   let(:user) { FactoryGirl.create(:teacher) }
-  let(:serializer)     { UserWithEmailSerializer.new(user) }
+  let(:serializer) { UserWithEmailSerializer.new(user) }
 
   describe '#to_json output' do
     let(:json)   { serializer.to_json(root: 'user') }
@@ -17,7 +17,7 @@ describe UserWithEmailSerializer, type: :serializer do
 
       it 'has the extra email key' do
         expect(parsed_user.keys)
-          .to include("email")
+          .to include('email')
       end
     end
   end

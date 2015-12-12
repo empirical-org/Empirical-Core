@@ -10,7 +10,7 @@ EmpiricalGrammar::Application.configure do
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
   config.action_dispatch.show_detailed_exceptions = false
   config.action_controller.perform_caching = false
 
@@ -41,22 +41,17 @@ EmpiricalGrammar::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-
-
-
   config.sass.line_comments = true
   config.sass.line_numbers = true
   config.sass.debug_info = true
   config.action_mailer.default_url_options = { host: 'quill.dev' }
 
   # Image Uploads (see paperclip gem)
-  Paperclip.options[:command_path] = "/usr/local/bin/"
-
+  Paperclip.options[:command_path] = '/usr/local/bin/'
 
   config.after_initialize do
     Bullet.enable = true
     Bullet.console = true
     Bullet.rails_logger = true
   end
-
 end

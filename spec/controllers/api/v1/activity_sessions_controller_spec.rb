@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, type: :controller do
-
   context 'OAuth' do
     let!(:activity_session) { FactoryGirl.create(:activity_session, user: user) }
     let!(:user) { FactoryGirl.create(:student) }
@@ -18,16 +17,16 @@ describe Api::V1::ActivitySessionsController, type: :controller do
   end
 
   context 'PUT #update' do
-    let(:token) { double :acceptable? => true, resource_owner_id: user.id }
+    let(:token) { double acceptable?: true, resource_owner_id: user.id }
     let(:user) { FactoryGirl.create(:student) }
 
     before do
-      allow(controller).to receive(:doorkeeper_token) {token}
+      allow(controller).to receive(:doorkeeper_token) { token }
       @activity_session = FactoryGirl.create(:activity_session, user: user)
     end
 
     context 'default behavior' do
-      include_context "calling the api"
+      include_context 'calling the api'
 
       before do
         subject
@@ -46,7 +45,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       it 'responds with the updated activity session' do
         expect(@parsed_body['activity_session']['uid']).to eq(@activity_session.uid)
       end
-
     end
 
     context 'when concept results are included' do
@@ -61,8 +59,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           {
             concept_uid: @writing_concept.uid,
             metadata: {
-              foo: 'bar',
-            },
+              foo: 'bar'
+            }
           },
           {
             concept_uid: @climbing_concept.uid,
@@ -91,7 +89,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       it 'saves the arbitrary metadata for the results' do
         subject
         @activity_session.reload
-        expect(@activity_session.concept_results.first.metadata).to eq({'foo' => 'bar'})
+        expect(@activity_session.concept_results.first.metadata).to eq('foo' => 'bar')
       end
 
       it 'saves the concept tag relationship (ID) in the result' do
@@ -107,7 +105,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           {
             concept_uid: 'Non-existent UID',
             metadata: {
-              foo: 'bar',
+              foo: 'bar'
             }
           }
         ]

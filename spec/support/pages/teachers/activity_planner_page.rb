@@ -7,7 +7,6 @@ module Teachers
       "#{Teachers.classrooms_path}/lesson_planner"
     end
 
-
     def create_unit(name, activity)
       find(:xpath, "//a[text()='Create a Unit']").click
 

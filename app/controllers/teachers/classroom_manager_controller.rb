@@ -5,11 +5,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   def lesson_planner
-    @tab = params[:tab] #|| "manageUnits"
+    @tab = params[:tab] # || "manageUnits"
     @grade = params[:grade]
-    if current_user.classrooms.empty?
-      redirect_to new_teachers_classroom_path
-    end
+    redirect_to new_teachers_classroom_path if current_user.classrooms.empty?
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
@@ -18,9 +16,9 @@ class Teachers::ClassroomManagerController < ApplicationController
         classroom: classroom,
         students: classroom.students.sort_by(&:sorting_name)
       }
-      ( @classrooms_and_their_students ||= [] ).push obj
+      (@classrooms_and_their_students ||= []).push obj
     end
-    #render partial: 'assign', layout: false
+    # render partial: 'assign', layout: false
     render json: {
       classrooms_and_their_students: @classrooms_and_their_students
     }
@@ -30,16 +28,12 @@ class Teachers::ClassroomManagerController < ApplicationController
     @classrooms = current_user.classrooms
   end
 
-
-
   def scorebook
-    if current_user.classrooms.empty?
-      redirect_to new_teachers_classroom_path
-    end
+    redirect_to new_teachers_classroom_path if current_user.classrooms.empty?
 
     if current_user.students.empty?
       if current_user.classrooms.last.activities.empty?
-        redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms.last.grade)
+        redirect_to(controller: 'teachers/classroom_manager', action: 'lesson_planner', tab: 'exploreActivityPacks', grade: current_user.classrooms.last.grade)
       else
         redirect_to teachers_classroom_invite_students_path(current_user.classrooms.last)
       end
@@ -81,7 +75,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_my_account
-
     # incoming request
 
     # var data = {
@@ -108,7 +101,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def authorize!
     if current_user.classrooms.any?
-      if params[:classroom_id].present? and params[:classroom_id].length > 0
+      if params[:classroom_id].present? && params[:classroom_id].length > 0
         @classroom = Classroom.find(params[:classroom_id])
       end
 

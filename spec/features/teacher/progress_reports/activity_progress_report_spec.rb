@@ -15,14 +15,13 @@ feature 'Activity Listing Progress Report', js: true do
 
     it 'displays the right headers' do
       expect(report_page.column_headers).to eq(
-        [
-          'Student',
-          'Date',
-          'Activity',
-          'Score',
-          'Standard',
-          'App',
-        ]
+        %w(
+          Student
+          Date
+          Activity
+          Score
+          Standard
+          App)
       )
     end
 

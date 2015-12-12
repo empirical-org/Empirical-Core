@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def next_page
     next_action = pages[pages.index(params[:action]) + 1] || 'home'
     url_for(controller: 'pages', action: next_action)
@@ -13,7 +12,6 @@ module ApplicationHelper
   end
 
   def question_section
-
   end
 
   def combine(array_1, array_2)
@@ -29,7 +27,7 @@ module ApplicationHelper
   end
 
   def active_on_first(i)
-    "active" if i == 0
+    'active' if i == 0
   end
 
   def root_path

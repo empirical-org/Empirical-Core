@@ -1,5 +1,5 @@
 namespace :unit_templates do
-  task :create => :environment do
+  task create: :environment do
     create_unit_templates
   end
 
@@ -9,7 +9,7 @@ namespace :unit_templates do
     end
   end
 
-  def create_unit_template arr
+  def create_unit_template(arr)
     author = Author.find_or_create_by name: "#{arr[0]} #{arr[1]}"
     UnitTemplate.create(author_id: author.id, name: arr[2], activity_ids: activity_ids, time: 40, unit_template_category_id: UnitTemplateCategory.first.id)
   end
@@ -19,10 +19,10 @@ namespace :unit_templates do
   end
 
   def ut_data
-      [
-        %w(John Landis Cool),
-        %w(Sarah Furth Great),
-        %w(Sarah Furth Nice)
-      ]
+    [
+      %w(John Landis Cool),
+      %w(Sarah Furth Great),
+      %w(Sarah Furth Nice)
+    ]
   end
 end

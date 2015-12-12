@@ -1,5 +1,5 @@
 class EgFormBuilder < CMS::FormBuilder
-  def radio name, *args
+  def radio(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     values = args
@@ -23,11 +23,11 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def location name, options
+  def location(name, options)
     autocomplete name, options.merge(prepend: @template.content_tag(:div, '', class: 'geolocate'))
   end
 
-  def autocomplete name, *args
+  def autocomplete(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     options.reverse_merge!(waiting: 'Searching...')
@@ -50,7 +50,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def text_with_counter name, *args
+  def text_with_counter(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
 
@@ -61,41 +61,41 @@ class EgFormBuilder < CMS::FormBuilder
     text(name, options.merge(label: options[:label], append: counter))
   end
 
-  def boolean *args
+  def boolean(*args)
     field :boolean, *_apply_default_options(args, label_first: false)
   end
 
-  def string *args
+  def string(*args)
     field :string, *args
   end
 
-  def search *args
+  def search(*args)
     field :search, *args
   end
 
-  def text *args
+  def text(*args)
     field :text, *args
   end
 
-  def email *args
+  def email(*args)
     field :email, *args
   end
 
-  def password *args
+  def password(*args)
     field :password, *args
   end
 
-  def hidden *args
+  def hidden(*args)
     field :hidden, *_apply_default_options(args, label: false, wrap_field: false)
   end
 
-  def choices attribute, choices, *args
-    field :choices, *_apply_default_options(args << attribute,  choices: choices)
+  def choices(attribute, choices, *args)
+    field :choices, *_apply_default_options(args << attribute, choices: choices)
   end
 
   # slider is weird enough that we will not use the default field helper.
   # instead, we will construct our own field that looks like a regular field.
-  def slider name, *args
+  def slider(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     out = ''.html_safe
@@ -107,39 +107,39 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def toggle name, *args
+  def toggle(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     out = ''.html_safe
 
-    field_wrapper :toggle, name, :'data-default' => options[:default] do
+    field_wrapper :toggle, name, 'data-default': options[:default] do
       @template.content_tag(:div, class: "controls #{name} toggle") do
         check_box(name) << label(name, options[:label], style: 'display: inline-block')
       end
     end
   end
 
-  def actions options = {}, &block
+  def actions(options = {}, &block)
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'form-actions', save_class: 'btn btn-primary'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
-      actions << submit(options[:save], data: {disable_with: options[:saving]}, class: options[:save_class])
+      actions << submit(options[:save], data: { disable_with: options[:saving] }, class: options[:save_class])
       actions << status
       actions << @template.capture(&block) if block_given?
       actions
     end
   end
 
-  def modal_actions options = {}
+  def modal_actions(options = {})
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'modal-footer'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
-      actions << @template.link_to('Close', '#close', class: 'btn', data: {dismiss: 'modal'})
+      actions << @template.link_to('Close', '#close', class: 'btn', data: { dismiss: 'modal' })
       actions << submit(options[:save], disable_with: options[:saving], class: 'btn btn-primary')
     end
   end
 
-  def status options = {}
+  def status(options = {})
     options.reverse_merge! success: 'Saved!', error: 'Failed!'
     out = @template.content_tag(:div, class: 'status') do
       status = ''.html_safe
@@ -149,7 +149,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def field_wrapper type, name, options = {}
+  def field_wrapper(type, name, options = {})
     classes = "field #{type} #{name.to_s.dasherize} control-group"
     classes << options[:classes] if options[:classes]
     classes << ' error' if object.errors.include? name
@@ -163,7 +163,7 @@ class EgFormBuilder < CMS::FormBuilder
   #   [:autocomplete, :placeholder]
   # end
 
-  def field *args, &block
+  def field(*args, &_block)
     type, name, options = _extract_field_args(args)
     out = ''.html_safe
 
@@ -187,12 +187,9 @@ class EgFormBuilder < CMS::FormBuilder
       input_options[:required] = 'required' if options[:required] == true
     end
 
-    unless options[:choices].nil?
-      input_args << options[:choices]
-    end
+    input_args << options[:choices] unless options[:choices].nil?
 
     out.concat options[:prepend] if options[:prepend]
-
 
     label_html = label(name, options[:label], class: 'control-label')
 
@@ -200,7 +197,7 @@ class EgFormBuilder < CMS::FormBuilder
 
     if options[:help_text]
       help_text = send("#{name}_help_text")
-      help_html = %Q(<a class="tipsy" title="#{help_text}" href="#">learn more</a>).html_safe
+      help_html = %(<a class="tipsy" title="#{help_text}" href="#">learn more</a>).html_safe
       out.concat help_html
     end
 
@@ -224,13 +221,13 @@ class EgFormBuilder < CMS::FormBuilder
   end
 
   # simple helper method for extracting and applying default options.
-  def _apply_default_options args, defaults
+  def _apply_default_options(args, defaults)
     options = args.extract_options!
     args << options.reverse_merge!(defaults)
   end
 
   # apply the default options for all fields.
-  def _apply_field_defaults args
+  def _apply_field_defaults(args)
     _apply_default_options args, field_options.reverse_merge(label: true, wrap_field: true, label_first: true)
   end
 
@@ -239,7 +236,7 @@ class EgFormBuilder < CMS::FormBuilder
   end
 
   # single use method for parsing options provided by the +field+ helper
-  def _extract_field_args args
+  def _extract_field_args(args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     name = args.pop
@@ -278,11 +275,11 @@ class EgFormBuilder < CMS::FormBuilder
   end
 end
 
-ActionView::Base.field_error_proc = Proc.new do |html, instance|
+ActionView::Base.field_error_proc = proc do |html, instance|
   if html =~ /<label/
     html
   else
-    message = instance.error_message.map{|m| "#{instance.instance_variable_get(:@method_name).humanize} #{m}"}.join(', ')
+    message = instance.error_message.map { |m| "#{instance.instance_variable_get(:@method_name).humanize} #{m}" }.join(', ')
     "#{html}<div class=\"help-inline\">#{message}</div>".html_safe
   end
 end

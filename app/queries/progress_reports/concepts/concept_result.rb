@@ -1,29 +1,28 @@
 class ProgressReports::Concepts::ConceptResult
-
   def self.results(teacher, filters)
     query = ::ConceptResult.select(<<-SELECT
       cast(concept_results.metadata->>'correct' as int) as is_correct,
       activity_sessions.user_id,
       concept_results.concept_id
     SELECT
-    ).joins({activity_session: {classroom_activity: :classroom}})
-      .where("activity_sessions.state = ?", "finished")
-      .where("classrooms.teacher_id = ?", teacher.id) # Always by teacher
+                                  ).joins(activity_session: { classroom_activity: :classroom })
+            .where('activity_sessions.state = ?', 'finished')
+            .where('classrooms.teacher_id = ?', teacher.id) # Always by teacher
 
     if filters[:classroom_id].present?
-      query = query.where("classrooms.id = ?", filters[:classroom_id])
+      query = query.where('classrooms.id = ?', filters[:classroom_id])
     end
 
     if filters[:student_id].present?
-      query = query.where("activity_sessions.user_id = ?", filters[:student_id])
+      query = query.where('activity_sessions.user_id = ?', filters[:student_id])
     end
 
     if filters[:unit_id].present?
-      query = query.where("classroom_activities.unit_id = ?", filters[:unit_id])
+      query = query.where('classroom_activities.unit_id = ?', filters[:unit_id])
     end
 
     if filters[:concept_id].present?
-      query = query.where("concept_results.concept_id = ?", filters[:concept_id])
+      query = query.where('concept_results.concept_id = ?', filters[:concept_id])
     end
 
     query
@@ -53,5 +52,4 @@ class ProgressReports::Concepts::ConceptResult
   # def self.total_result_count_sql
   #   "DISTINCT(COUNT(concept_tag_results.id)) as total_result_count"
   # end
-
 end

@@ -1,5 +1,4 @@
 class Api::V1::ActivitySessionsController < Api::ApiController
-
   doorkeeper_for :update, :destroy, :show
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
@@ -8,7 +7,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
   # GET
   def show
-    render json: @activity_session, meta: {status: 'success', message: nil, errors: nil}
+    render json: @activity_session, meta: { status: 'success', message: nil, errors: nil }
   end
 
   # PATCH, PUT
@@ -20,13 +19,13 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       @message =
       render json: @activity_session, meta: {
         status: :success,
-        message: "Activity Session Updated",
+        message: 'Activity Session Updated',
         errors: [] # FIXME: this is dumb
       }
     else
       render json: @activity_session, meta: {
         status: :failed,
-        message: "Activity Session Update Failed",
+        message: 'Activity Session Update Failed',
         errors: @activity_session.errors
       }, status: :unprocessable_entity
     end
@@ -40,26 +39,24 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
     if activity_session.valid? && activity_session.save
       @status = :success
-      @message = "Activity Session Created"
+      @message = 'Activity Session Created'
     else
       @status = :failed
-      @message = "Activity Session Create Failed"
+      @message = 'Activity Session Create Failed'
     end
 
-    render json: activity_session, meta: {status: @status, message: @message, errors: activity_session.errors}
+    render json: activity_session, meta: { status: @status, message: @message, errors: activity_session.errors }
   end
 
   # DELETE
   def destroy
-
     if @activity_session.destroy!
       render json: ActivitySession.new, meta:
-        {status: 'success', message: "Activity Session Destroy Successful", errors: nil}
+        { status: 'success', message: 'Activity Session Destroy Successful', errors: nil }
     else
       render json: @activity_session, meta:
-        {status: 'failed', message: "Activity Session Destroy Failed", errors: @activity_session.errors}
+        { status: 'failed', message: 'Activity Session Destroy Failed', errors: @activity_session.errors }
     end
-
   end
 
   private
@@ -85,7 +82,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :activity_uid,
                   :anonymous,
                   concept_results_attributes:  concept_result_keys)
-      .merge(data: @data).reject {|k,v| v.nil? }
+      .merge(data: @data).reject { |_k, v| v.nil? }
   end
 
   # Grab a list of all the arbitrarily-named keys that are provided in the concept tag results payload.
@@ -93,14 +90,12 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def concept_result_allowed_keys
     if params[:concept_results_attributes]
       params[:concept_results_attributes].reduce [] do |acc, hash|
-        if hash.has_key?(:metadata)
+        if hash.key?(:metadata)
           acc + hash[:metadata].keys.map(&:to_sym)
         else
           acc
         end
       end.uniq
-    else
-      nil
     end
   end
 
@@ -119,4 +114,3 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     params.delete(:access_token)
   end
 end
-

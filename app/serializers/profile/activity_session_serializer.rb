@@ -9,5 +9,4 @@ class Profile::ActivitySessionSerializer < ActiveModel::Serializer
   def due_date_or_completed_at_date
     object.display_due_date_or_completed_at_date
   end
-
 end

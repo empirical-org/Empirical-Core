@@ -1,5 +1,4 @@
 class Api::ApiController < ActionController::Base
-
   # this will fail because .find(id) isn't working right now, as it's uid not
   # id that's in use here...
   #
@@ -11,9 +10,9 @@ class Api::ApiController < ActionController::Base
   #   render json: { error_message: 'The resource you were looking for does not exist' }, status: 404
   # end
   #
-  rescue_from ActiveRecord::RecordNotFound do |e|
-    render json: {meta: { message: 'The resource you were looking for does not exist', status: :not_found }},
-         status: 404
+  rescue_from ActiveRecord::RecordNotFound do |_e|
+    render json: { meta: { message: 'The resource you were looking for does not exist', status: :not_found } },
+           status: 404
   end
   #
   # rescue_from CanCan::AccessDenied do
@@ -37,5 +36,4 @@ class Api::ApiController < ActionController::Base
     methods = Doorkeeper.configuration.access_token_methods
     @token = Doorkeeper::OAuth::Token.authenticate(request, *methods)
   end
-
 end

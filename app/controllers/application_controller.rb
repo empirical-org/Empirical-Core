@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include QuillAuthentication
-  #helper CMS::Helper
+  # helper CMS::Helper
 
   # FIXME: disabled till it's clear what this does
   # before_action :setup_visitor
@@ -22,13 +22,13 @@ class ApplicationController < ActionController::Base
   end
 
   def show_errors
-    status = env["PATH_INFO"][1..-1]
+    status = env['PATH_INFO'][1..-1]
     render_error(status)
   end
 
-  def routing_error(error = 'Routing error', status = :not_found, exception=nil)
+  def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
     @current_user = current_user
-    #if current_user == nil render_error(404) : render_error()
+    # if current_user == nil render_error(404) : render_error()
     render_error(404)
   end
 
@@ -49,12 +49,12 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_vary_header
-     response.headers['Vary'] = 'Accept'
+    response.headers['Vary'] = 'Accept'
   end
 
   def set_cache_buster
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 end

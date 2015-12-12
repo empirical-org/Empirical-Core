@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-describe "AccountCreationAnalytics" do
-
+describe 'AccountCreationAnalytics' do
   let(:analytics) { AccountCreationAnalytics.new }
   let(:segment_analytics) { SegmentAnalytics.new }
   let(:track_calls) { segment_analytics.backend.track_calls }
@@ -44,7 +43,6 @@ describe "AccountCreationAnalytics" do
         expect(track_calls.size).to eq(1)
       end
     end
-
   end
 
   context 'tracking student creating her own account' do
@@ -62,7 +60,5 @@ describe "AccountCreationAnalytics" do
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::STUDENT_ACCOUNT_CREATION)
       expect(track_calls[0][:user_id]).to eq(student.id)
     end
-
   end
-
 end

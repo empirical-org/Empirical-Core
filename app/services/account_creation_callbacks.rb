@@ -11,5 +11,4 @@ class AccountCreationCallbacks
     WelcomeEmailWorker.perform_async(@user.id)
     AccountCreationWorker.perform_async(@user.id)
   end
-
 end

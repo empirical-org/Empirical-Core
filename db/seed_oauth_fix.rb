@@ -1,8 +1,7 @@
-def subit rec, col
+def subit(rec, col)
   rec.update_column col, rec.send(col).sub('grammar.quill.org', 'localhost:3002')
   rec.update_column col, rec.send(col).sub('localdocker', 'localhost')
 end
-
 
 Doorkeeper::Application.all.each do |app|
   subit(app, :redirect_uri)

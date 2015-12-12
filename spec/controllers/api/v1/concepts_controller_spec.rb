@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 describe Api::V1::ConceptsController, type: :controller do
-
   context 'POST #create' do
     let!(:user) { FactoryGirl.create(:admin) }
-    let!(:token) { double :acceptable? => true, resource_owner_id: user.id }
+    let!(:token) { double acceptable?: true, resource_owner_id: user.id }
     let!(:concept_name) { 'Concept1' }
     let!(:parent_concept) { FactoryGirl.create(:concept) }
 
     def subject
-      post :create, {name: concept_name, parent_uid: parent_concept.uid}
+      post :create, name: concept_name, parent_uid: parent_concept.uid
     end
 
     it_behaves_like 'protected endpoint'
@@ -18,7 +17,7 @@ describe Api::V1::ConceptsController, type: :controller do
       let(:parsed_body) { JSON.parse(response.body) }
 
       before do
-        allow(controller).to receive(:doorkeeper_token) {token}
+        allow(controller).to receive(:doorkeeper_token) { token }
         subject
       end
 

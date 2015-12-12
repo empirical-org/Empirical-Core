@@ -6,7 +6,7 @@ class Cms::UnitTemplatesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: UnitTemplate.all.map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
+        render json: UnitTemplate.all.map { |u| Cms::UnitTemplateSerializer.new(u).as_json(root: false) }
       end
     end
   end
@@ -16,7 +16,7 @@ class Cms::UnitTemplatesController < ApplicationController
     if @unit_template.save!
       render json: @unit_template
     else
-      render json: {errors: @unit_template.errors}, status: 422
+      render json: { errors: @unit_template.errors }, status: 422
     end
   end
 
@@ -24,7 +24,7 @@ class Cms::UnitTemplatesController < ApplicationController
     if @unit_template.update_attributes(unit_template_params)
       render json: @unit_template
     else
-      render json: {errors: @unit_template.errors}, status: 422
+      render json: { errors: @unit_template.errors }, status: 422
     end
   end
 
@@ -41,15 +41,15 @@ class Cms::UnitTemplatesController < ApplicationController
 
   def unit_template_params
     params.require(:unit_template)
-            .permit(:id,
-                    :name,
-                    :author_id,
-                    :problem,
-                    :summary,
-                    :teacher_review,
-                    :time,
-                    :unit_template_category_id,
-                    grades: [],
-                    activity_ids: [])
+      .permit(:id,
+              :name,
+              :author_id,
+              :problem,
+              :summary,
+              :teacher_review,
+              :time,
+              :unit_template_category_id,
+              grades: [],
+              activity_ids: [])
   end
 end

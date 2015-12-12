@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'Sign up', type: :request do
-
   def sign_up_succeeds
     expect(response.status).to eq(200)
   end
@@ -67,7 +66,7 @@ describe 'Sign up', type: :request do
 
     context "when the teacher enters the student's name correctly" do
       before do
-        post teachers_classroom_students_path(classroom), user: {first_name: student_first_name, last_name: student_last_name}
+        post teachers_classroom_students_path(classroom), user: { first_name: student_first_name, last_name: student_last_name }
         follow_redirect!
       end
 

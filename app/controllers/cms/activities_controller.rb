@@ -7,9 +7,9 @@ class Cms::ActivitiesController < ApplicationController
     @flag = :archived if @flag == :archive
 
     @activities = if @flag == :production
-      @activity_classification.activities.production
-    else
-      @activity_classification.activities.flagged(@flag)
+                    @activity_classification.activities.production
+                  else
+                    @activity_classification.activities.flagged(@flag)
     end
   end
 
@@ -53,7 +53,7 @@ class Cms::ActivitiesController < ApplicationController
     redirect_to cms_activities_path
   end
 
-protected
+  protected
 
   def subject
     @activity_classification.activities.find(params[:id])

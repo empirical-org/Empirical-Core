@@ -1,18 +1,16 @@
 require 'rails_helper'
 
 describe 'FullnameGenerator' do
-
-  let!(:name1) { "John Smith" }
-  let!(:name2) { "John" }
-  let!(:name3) { "  John"}
-  let!(:name4) { "John "}
-  let!(:name5) { "  " }
+  let!(:name1) { 'John Smith' }
+  let!(:name2) { 'John' }
+  let!(:name3) { '  John' }
+  let!(:name4) { 'John ' }
+  let!(:name5) { '  ' }
   let!(:name6) { nil }
-  let!(:corrected) { "John John" }
-  let!(:default_name) { "Firstname Lastname" }
+  let!(:corrected) { 'John John' }
+  let!(:default_name) { 'Firstname Lastname' }
 
-
-  def generate name
+  def generate(name)
     FullnameGenerator.new(name).generate
   end
 

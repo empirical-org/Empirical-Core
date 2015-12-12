@@ -60,12 +60,12 @@ Doorkeeper.configure do
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
   # For example if dealing with trusted a application.
-  skip_authorization do |resource_owner, client|
+  skip_authorization do |_resource_owner, _client|
     # client.superapp? or resource_owner.admin?
     # for now, only admins can create apps.
     true
   end
 
-  # WWW-Authenticate Realm (default "Doorkeeper").
+  #  WWW-Authenticate Realm (default "Doorkeeper").
   # realm "Doorkeeper"
 end

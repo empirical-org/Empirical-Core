@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe ConceptResult, type: :model do
-
   let(:concept_result) { FactoryGirl.build(:concept_result, concept: nil) }
   let!(:concept) { FactoryGirl.create(:concept) }
 
@@ -11,5 +10,4 @@ describe ConceptResult, type: :model do
       expect(concept_result.concept).to eq(concept)
     end
   end
-
 end

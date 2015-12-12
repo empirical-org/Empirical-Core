@@ -30,7 +30,7 @@ class AccountsController < ApplicationController
       @user.subscribe_to_newsletter
       render json: @user
     else
-      render json: {errors: @user.errors}, status: 422
+      render json: { errors: @user.errors }, status: 422
     end
   end
 
@@ -61,18 +61,17 @@ class AccountsController < ApplicationController
     @user = current_user
   end
 
-protected
+  protected
 
   def user_params
     params.require(:user).permit(
-                                 :classcode,
-                                 :email,
-                                 :name,
-                                 :username,
-                                 :password,
-                                 :terms_of_service,
-                                 :send_newsletter,
-                                 :school_ids)
+      :classcode,
+      :email,
+      :name,
+      :username,
+      :password,
+      :terms_of_service,
+      :send_newsletter,
+      :school_ids)
   end
-
 end

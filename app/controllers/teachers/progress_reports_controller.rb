@@ -13,7 +13,7 @@ class Teachers::ProgressReportsController < ApplicationController
   private
 
   def handle_expired_trial
-    render :trial_expired if (current_user.premium_state == 'locked')
+    render :trial_expired if current_user.premium_state == 'locked'
   end
 
   def authorize!

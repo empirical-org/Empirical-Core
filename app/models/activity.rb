@@ -14,7 +14,7 @@ class Activity < ActiveRecord::Base
 
   before_create :flag_as_beta, unless: :flags?
 
-  scope :production, -> {
+  scope :production, lambda {
     where(<<-SQL, :production)
       activities.flags = '{}' OR ? = ANY (activities.flags)
     SQL
@@ -22,11 +22,11 @@ class Activity < ActiveRecord::Base
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
-  def topic_uid= uid
+  def topic_uid=(uid)
     self.topic_id = Topic.find_by_uid(uid).id
   end
 
-  def activity_classification_uid= uid
+  def activity_classification_uid=(uid)
     self.activity_classification_id = ActivityClassification.find_by(uid: uid).id
   end
 
@@ -34,10 +34,10 @@ class Activity < ActiveRecord::Base
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(search_text, filters, sort)
     query = includes(:classification, topic: [:section, :topic_category])
-      .where("'production' = ANY(activities.flags)")
-      .where("(activities.name ILIKE ?) OR (topic_categories.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
-      .where("topic_categories.id IS NOT NULL AND sections.id IS NOT NULL")
-      .order(search_sort_sql(sort)).references(:topic)
+            .where("'production' = ANY(activities.flags)")
+            .where('(activities.name ILIKE ?) OR (topic_categories.name ILIKE ?)', "%#{search_text}%", "%#{search_text}%")
+            .where('topic_categories.id IS NOT NULL AND sections.id IS NOT NULL')
+            .order(search_sort_sql(sort)).references(:topic)
 
     # Sorry for the meta-programming.
     filters.each do |model_name, model_id| # :activity_classifications, 123
@@ -70,7 +70,7 @@ class Activity < ActiveRecord::Base
     field + ' ' + order
   end
 
-  def classification_key= key
+  def classification_key=(key)
     self.classification = ActivityClassification.find_by_key(key)
   end
 
@@ -91,22 +91,22 @@ class Activity < ActiveRecord::Base
   end
 
   def module_url(activity_session)
-    initial_params = {student: activity_session.uid}
+    initial_params = { student: activity_session.uid }
     module_url_helper(initial_params)
   end
 
   def anonymous_module_url
-    initial_params = {anonymous: true}
+    initial_params = { anonymous: true }
     module_url_helper(initial_params)
   end
 
-  # TODO cleanup
-  def flag flag = nil
+  # TODO: cleanup
+  def flag(flag = nil)
     return super(flag) unless flag.nil?
     flags.first
   end
 
-  def flag= flag
+  def flag=(flag)
     flag = :archived if flag.to_sym == :archive
     self.flags = [flag]
   end
@@ -126,8 +126,7 @@ class Activity < ActiveRecord::Base
     fix_angular_fragment!(url)
   end
 
-
-  def homepage_path(path, classification)
+  def homepage_path(_path, classification)
     case classification.app_name.to_sym
     when :grammar
       '/stories/homepage'
@@ -137,12 +136,11 @@ class Activity < ActiveRecord::Base
   end
 
   def fix_angular_fragment!(url)
-
     unless url.fragment.blank?
       url.path = "/##{url.fragment}"
       url.fragment = nil
     end
 
-    return url
+    url
   end
 end

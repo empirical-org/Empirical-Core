@@ -1,5 +1,5 @@
 module SessionHelper
-  def user_params hash = {}
+  def user_params(hash = {})
     {
       name: 'John Smith',
       email: 'user@example.com',
@@ -8,10 +8,10 @@ module SessionHelper
     }.merge(hash)
   end
 
-  def sign_in *args
+  def sign_in(*args)
     user = args.first if args.length == 1
     email, password = if user then [user.email || user.username, user.password] else args end
     password = password.presence || '123456'
-    post '/session', user: {email: email, password: password}
+    post '/session', user: { email: email, password: password }
   end
 end

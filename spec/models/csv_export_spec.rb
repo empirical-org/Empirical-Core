@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe CsvExport, type: :model do
-
   include_context 'Activity Progress Report'
   let(:csv_export) { CsvExport.new }
 
@@ -14,7 +13,7 @@ describe CsvExport, type: :model do
     csv_export.filters = filters
   end
 
-  shared_examples_for "CSV Export Type" do
+  shared_examples_for 'CSV Export Type' do
     it 'is valid' do
       expect(csv_export).to be_valid
     end
@@ -27,37 +26,37 @@ describe CsvExport, type: :model do
   describe 'export types' do
     context 'activity sessions' do
       let(:export_type) { 'activity_sessions' }
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: all classrooms' do
       let(:export_type) { 'standards_classrooms' }
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: students by classroom' do
       let(:filters) { { classroom_id: sweathogs.id } }
       let(:export_type) { 'standards_classroom_students' }
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: topics by classroom' do
       let(:filters) { { classroom_id: sweathogs.id } }
       let(:export_type) { 'standards_classroom_topics' }
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: topics by student' do
       let(:filters) { { student_id: horshack.id } }
       let(:export_type) { 'standards_student_topics' }
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: students by topic' do
-      let!(:topic) { FactoryGirl.create(:topic)}
+      let!(:topic) { FactoryGirl.create(:topic) }
       let(:filters) { { topic_id: topic.id } }
       let(:export_type) { 'standards_topic_students' }
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
   end
 
@@ -96,5 +95,4 @@ describe CsvExport, type: :model do
       end
     end
   end
-
 end

@@ -6,7 +6,7 @@ class Cms::AuthorsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: Author.all.map{|a| AuthorSerializer.new(a).as_json(root: false)}
+        render json: Author.all.map { |a| AuthorSerializer.new(a).as_json(root: false) }
       end
     end
   end

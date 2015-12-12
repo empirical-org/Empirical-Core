@@ -9,9 +9,9 @@ class ProgressReports::Standards::ActivitySession
       activity_sessions.*,
       activities.topic_id as topic_id
     SELECT
-    ).completed
-      .with_best_scores
-      .by_teacher(@teacher)
+                                    ).completed
+            .with_best_scores
+            .by_teacher(@teacher)
     ActivitySession.with_filters(query, filters)
   end
 end

@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 describe 'Profile::SubProcessor' do
-  include_context "profile"
-
+  include_context 'profile'
 
   def subject
     results, is_last_page = Profile::SubProcessor.new.query(student, 20, 0)
@@ -53,7 +52,7 @@ describe 'Profile::SubProcessor' do
     as_1b.update_attributes(percentage: 1, state: 'finished')
     results = subject
     x = results[unit1.name]
-    expect(x).to eq({not_finished: [as_1a, as1], finished: [as_1b, as_1aa]})
+    expect(x).to eq(not_finished: [as_1a, as1], finished: [as_1b, as_1aa])
   end
 
   it 'only shows completed activities when there are others with the same classroom_activity_id' do
@@ -62,7 +61,6 @@ describe 'Profile::SubProcessor' do
     as_1a.update_attributes(classroom_activity_id: classroom_activity.id, state: 'started', is_retry: true)
     as_1aa.update_attributes(classroom_activity_id: classroom_activity.id, percentage: 0.5, state: 'finished')
     results = subject
-    expect(results[unit1.name]).to eq({finished: [as_1aa]})
+    expect(results[unit1.name]).to eq(finished: [as_1aa])
   end
-
 end

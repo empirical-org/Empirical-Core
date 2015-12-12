@@ -2,7 +2,6 @@ class UserLoginWorker
   include Sidekiq::Worker
 
   def perform(id, ip_address)
-
     @user = User.find(id)
 
     @user.update_attributes(ip_address: ip_address)
@@ -28,6 +27,5 @@ class UserLoginWorker
     elsif @user.role == 'student'
       analytics.track_student(@user)
     end
-
   end
 end

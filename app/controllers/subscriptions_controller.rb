@@ -29,11 +29,12 @@ class SubscriptionsController < ApplicationController
   end
 
   private
-    def subscription_params
-      params.permit(:id, :user_id, :expiration, :account_limit)
-    end
 
-    def set_subscription
-      @subscription = Subscription.find params[:id]
-    end
+  def subscription_params
+    params.permit(:id, :user_id, :expiration, :account_limit)
+  end
+
+  def set_subscription
+    @subscription = Subscription.find params[:id]
+  end
 end

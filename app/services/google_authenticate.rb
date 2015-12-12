@@ -1,12 +1,11 @@
 require 'google/api_client'
 
 class GoogleAuthenticate
-
   def initialize(auth)
-    @access_token  = auth['token']
+    @access_token = auth['token']
   end
 
-  def find_or_create_user(role='teacher')
+  def find_or_create_user(role = 'teacher')
     user = User.find_or_initialize_by email: email
     if user.new_record?
       user.signed_up_with_google = true
@@ -39,8 +38,8 @@ class GoogleAuthenticate
     service = client.discovered_api('plus')
     result = client.execute(
       api_method: service.people.get,
-      parameters: {'userId' => 'me'},
-      headers: {'Content-Type' => 'application/json'})
+      parameters: { 'userId' => 'me' },
+      headers: { 'Content-Type' => 'application/json' })
     data = JSON.parse(result.body)
     data
   end

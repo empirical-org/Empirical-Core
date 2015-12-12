@@ -5,7 +5,7 @@ class Concept < ActiveRecord::Base
   has_many :concept_results
 
   # need the below because those making POST requests to /api/v1/concepts know only uids, not ids
-  def parent_uid= uid
+  def parent_uid=(uid)
     self.parent_id = Concept.find_by(uid: uid).id
   end
 
@@ -13,7 +13,7 @@ class Concept < ActiveRecord::Base
   def self.leaf_nodes
     concepts = Concept.arel_table
     distinct_parent_ids = concepts.project('DISTINCT(parent_id)')
-                                  .where(concepts[:parent_id].not_eq(nil))
+                          .where(concepts[:parent_id].not_eq(nil))
     where.not(concepts[:id].in(distinct_parent_ids))
   end
 
@@ -33,8 +33,6 @@ class Concept < ActiveRecord::Base
       FROM concepts c, concepts_tree
       WHERE c.id = concepts_tree.parent_id
     SQL
-    ).select('*').from('concepts_tree')
-
+                          ).select('*').from('concepts_tree')
   end
-
 end

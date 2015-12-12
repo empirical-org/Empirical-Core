@@ -62,7 +62,8 @@ class Cms::UsersController < ApplicationController
     redirect_to cms_users_path
   end
 
-protected
+  protected
+
   def set_user
     @user = User.find params[:id]
   end

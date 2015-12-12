@@ -18,5 +18,4 @@ describe 'ActivitySessionsQuery' do
     sessions = subject
     expect(sessions).to_not be_empty
   end
-
 end

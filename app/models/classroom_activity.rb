@@ -5,8 +5,7 @@ class ClassroomActivity < ActiveRecord::Base
   has_one :topic, through: :activity
   has_many :activity_sessions, dependent: :destroy
 
-  scope :with_topic, ->(tid) { joins(:topic).where(topics: {id: tid}) }
-
+  scope :with_topic, ->(tid) { joins(:topic).where(topics: { id: tid }) }
 
   after_create :assign_to_students
 
@@ -14,7 +13,7 @@ class ClassroomActivity < ActiveRecord::Base
     User.where(id: assigned_student_ids)
   end
 
-  def due_date_string= val
+  def due_date_string=(val)
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
   end
 
@@ -22,12 +21,12 @@ class ClassroomActivity < ActiveRecord::Base
     due_date.try(:to_formatted_s, :quill_default)
   end
 
-  def session_for user
+  def session_for(user)
     ass = activity_sessions.where(user: user, activity: activity).order(created_at: :asc)
     as = if ass.any? then ass.first else activity_sessions.create(user: user, activity: activity) end
   end
 
-  def for_student? student
+  def for_student?(student)
     return true if assigned_student_ids.nil? || assigned_student_ids.empty?
     assigned_student_ids.include?(student.id)
   end
@@ -40,8 +39,6 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
-
-
   def completed
     activity_sessions.completed.includes([:user, :activity]).joins(:user).where('users.role' == 'student')
   end
@@ -49,8 +46,7 @@ class ClassroomActivity < ActiveRecord::Base
   def scorebook
     @score_book = {}
     completed.each do |activity_session|
-
-      new_score = {activity: activity_session.activity, session: activity_session, score: activity_session.percentage}
+      new_score = { activity: activity_session.activity, session: activity_session, score: activity_session.percentage }
 
       user = @score_book[activity_session.user.id] ||= {}
 

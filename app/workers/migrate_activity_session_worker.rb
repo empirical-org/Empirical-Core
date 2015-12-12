@@ -2,9 +2,7 @@ class MigrateActivitySessionWorker
   include Sidekiq::Worker
 
   def perform(id)
-
     as = activity_session = ActivitySession.unscoped.find(id)
-
 
     updates = {}
 
@@ -42,6 +40,4 @@ class MigrateActivitySessionWorker
 
     as.update_columns(updates) if updates.any?
   end
-
-
 end

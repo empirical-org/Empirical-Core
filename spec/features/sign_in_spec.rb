@@ -63,7 +63,7 @@ feature 'Signing in' do
 
     def sign_in_user
       sign_in_page.sign_in mr_kotter, using: credential,
-                                  cred_case: credential_input_case
+                                      cred_case: credential_input_case
     end
 
     context '-- with no classrooms --' do
@@ -97,7 +97,7 @@ feature 'Signing in' do
 
     before(:each) do
       sign_in_page.sign_in vinnie, using: credential,
-                               cred_case: credential_input_case
+                                   cred_case: credential_input_case
     end
 
     include_examples :sign_in_methods_succeed
@@ -106,7 +106,7 @@ feature 'Signing in' do
   context 'with an unknown' do
     let(:unknown_user) do
       FactoryGirl.build :user, username: 'some_name',
-                                  email: 'some.name@coldmail.com',
+                               email: 'some.name@coldmail.com',
                                password: 'doesnt_matter'
     end
 

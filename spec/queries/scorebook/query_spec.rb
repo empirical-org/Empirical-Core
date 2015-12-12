@@ -17,5 +17,4 @@ describe 'ScorebookQuery' do
     all, is_last_page = subject
     expect(all).to_not be_empty
   end
-
 end

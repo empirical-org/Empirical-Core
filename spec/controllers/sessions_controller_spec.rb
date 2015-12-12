@@ -12,7 +12,7 @@ describe SessionsController, type: :controller do
 
   describe 'create with valid attributes' do
     before do
-      post :create, user: {email: 'Student@quill.org', password: '12345'}
+      post :create, user: { email: 'Student@quill.org', password: '12345' }
     end
 
     it { is_expected.to redirect_to profile_path }
@@ -20,7 +20,7 @@ describe SessionsController, type: :controller do
 
   describe 'create with invalid attributes' do
     before do
-      post :create, user: {email: 'Student@quill.org', password: 'wrong'}
+      post :create, user: { email: 'Student@quill.org', password: 'wrong' }
     end
 
     it { is_expected.not_to redirect_to profile_path }

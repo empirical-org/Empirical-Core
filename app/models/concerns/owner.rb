@@ -4,7 +4,7 @@ module Owner
   module ClassMethods
     attr_accessor :owner_name
 
-    def ownable owner_name = :owner
+    def ownable(owner_name = :owner)
       self.owner_name = owner_name
 
       if owner_name == :owner
@@ -23,7 +23,7 @@ module Owner
     end
   end
 
-  def set_owner object
+  def set_owner(object)
     send "#{self.class.owner_name}=", object
   end
 
@@ -31,7 +31,7 @@ module Owner
     self.class.owner_name.present?
   end
 
-  def owned_by? user
+  def owned_by?(user)
     return false if owner.blank?
     return false if user.blank?
     owner == user

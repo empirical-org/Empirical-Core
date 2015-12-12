@@ -21,31 +21,29 @@ class SignUpPage < Page
   def sign_up(type: nil,
               first_name: '',
               last_name: '',
-          username: '',
-          password: '',
-             email: '',
-   send_newsletter: true)
+              username: '',
+              password: '',
+              email: '',
+              send_newsletter: true)
 
     # ideally these are in the order seen on the form
     # so that the form appears to be filled out from
     # top to bottom
 
-
-    fill_in                 'first_name', with:  first_name
-    fill_in                  'last_name', with: last_name
-    fill_in              'username', with: username if type == :student
-    fill_in              'password', with: password
-    fill_in                'email', with: email
+    fill_in 'first_name', with:  first_name
+    fill_in 'last_name', with: last_name
+    fill_in 'username', with: username if type == :student
+    fill_in 'password', with: password
+    fill_in 'email', with: email
 
     if type == :teacher
       send_newsletter ? (check 'sendNewsletter') : (uncheck 'sendNewsletter')
     end
 
-
     submit_form
   end
 
-  def select_school(skips_school_selection)
+  def select_school(_skips_school_selection)
     # FIXME : cant get capybara to trigger the onChange event for React,
     # so cannot simulate the selection of a school.
     # For now well just 'skip' every time.
@@ -65,5 +63,4 @@ class SignUpPage < Page
   def self.submit_target_path
     '/account'
   end
-
 end

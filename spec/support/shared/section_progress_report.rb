@@ -22,7 +22,7 @@ shared_context 'Section Progress Report' do
                                               classroom: classroom,
                                               activity: activity,
                                               unit: unit)
-      3.times do |j|
+      3.times do |_j|
         activity_session = FactoryGirl.create(:activity_session,
                                               classroom_activity: classroom_activity,
                                               user: student,
@@ -30,7 +30,6 @@ shared_context 'Section Progress Report' do
                                               state: 'finished',
                                               percentage: i / 3.0)
       end
-
     end
   end
 end

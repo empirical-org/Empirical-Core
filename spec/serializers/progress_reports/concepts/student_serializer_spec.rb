@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
   let(:teacher) { FactoryGirl.create(:teacher) }
-  let!(:student) { FactoryGirl.create(:student, teacher: teacher)}
+  let!(:student) { FactoryGirl.create(:student, teacher: teacher) }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let(:activity) { FactoryGirl.create(:activity) }
   let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
@@ -15,10 +15,10 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
       classroom_activity: classroom_activity,
       percentage: 0.7547,
       state: 'finished',
-      completed_at: 5.minutes.ago,
+      completed_at: 5.minutes.ago
     )
-    activity_session.concept_results.create!(concept: concept, metadata: {'correct' => 1})
-    activity_session.concept_results.create!(concept: concept, metadata: {'correct' => 0})
+    activity_session.concept_results.create!(concept: concept, metadata: { 'correct' => 1 })
+    activity_session.concept_results.create!(concept: concept, metadata: { 'correct' => 0 })
   end
 
   describe '#to_json' do
@@ -33,7 +33,7 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
                            correct_result_count
                            incorrect_result_count
                            percentage
-                          )
+                        )
     end
 
     it 'includes the percentage' do

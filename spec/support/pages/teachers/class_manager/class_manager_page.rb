@@ -11,11 +11,11 @@ module Teachers
      ['Manage Classes',  :manage_classes]].each do |pair|
       text, sym = pair
 
-      module_eval_str __LINE__, %{
+      module_eval_str __LINE__, %(
         def has_#{sym}?
           has_link? '#{text}'
         end
-      }
+      )
     end
 
     [['Activity Planner', :activity_planner],
@@ -24,7 +24,7 @@ module Teachers
     ].each do |pair|
       text, sym = pair
 
-      module_eval_str __LINE__, %{
+      module_eval_str __LINE__, %(
         def self.#{sym}_tab_pair
           #{pair}
         end
@@ -32,7 +32,7 @@ module Teachers
         def select_#{sym}
           click_link '#{text}'
         end
-      }
+      )
     end
   end
 end

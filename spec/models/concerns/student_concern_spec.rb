@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 describe 'Student Concern' do
   let(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }

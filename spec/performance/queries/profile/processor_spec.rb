@@ -2,8 +2,7 @@ require 'rails_helper'
 require 'benchmark'
 
 describe 'Profile::Processor' do
-
-  include_context "big profile"
+  include_context 'big profile'
 
   let(:profile_processor) { Profile::Processor.new }
 
@@ -12,9 +11,7 @@ describe 'Profile::Processor' do
   end
 
   it 'takes less than 2 secs' do
-    time = Benchmark.realtime{ subject }
+    time = Benchmark.realtime { subject }
     expect(time).to be < 2
   end
-
-
 end

@@ -1,11 +1,11 @@
 shared_context :ms_sorter_and_sort_fodder do
   let(:ms_sorter) do
     FactoryGirl.create :teacher, name: 'Sally Sorter',
-                              username: 'ms_sorter'
+                                 username: 'ms_sorter'
   end
   let(:sort_fodder) do
     FactoryGirl.create :classroom, name: 'Sort Fodder',
-                                teacher: ms_sorter
+                                   teacher: ms_sorter
   end
 
   def add_sort_fodder(hash)
@@ -27,37 +27,37 @@ shared_context :ms_sorter_and_sort_fodder do
 
   let(:alex_smith) do
     add_sort_fodder name: 'Alex Smith',
-                username: "alexsmith@#{sort_fodder.code}"
+                    username: "alexsmith@#{sort_fodder.code}"
   end
 
   let(:christine_no_last_name) do
     add_sort_fodder name: 'Christine',
-                username: "christine@#{sort_fodder.code}"
+                    username: "christine@#{sort_fodder.code}"
   end
 
   let(:chris_no_last_name) do
     add_sort_fodder name: 'Chris',
-                username: 'christine'
+                    username: 'christine'
   end
 
   let(:alex_brown) do
     add_sort_fodder name: 'Alex Brown',
-                username: 'alexbrown'
+                    username: 'alexbrown'
   end
 
   let(:christopher_no_last_name) do
     add_sort_fodder name: 'Christopher',
-                username: 'christopher'
+                    username: 'christopher'
   end
 
   let(:christopher_brown) do
     add_sort_fodder name: 'Christopher Brown',
-                username: 'cbrown'
+                    username: 'cbrown'
   end
 
   let(:christine_brown) do
     add_sort_fodder name: 'Christine Brown',
-                username: "christinebrown@#{sort_fodder.code}"
+                    username: "christinebrown@#{sort_fodder.code}"
   end
 
   let!(:sort_fodder_sorted) do

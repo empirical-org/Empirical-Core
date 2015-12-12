@@ -3,7 +3,6 @@ module Visitor
 
   module ClassMethods
     def create_visitor
-      
     end
   end
 end

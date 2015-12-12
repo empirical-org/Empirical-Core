@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe CsvExportWorker, type: :worker do
   let(:worker) { CsvExportWorker.new }
-  let(:csv_export) { FactoryGirl.create(:csv_export, teacher: teacher)}
+  let(:csv_export) { FactoryGirl.create(:csv_export, teacher: teacher) }
   let(:teacher) { FactoryGirl.create(:teacher) }
 
   subject { worker.perform(csv_export.id) }
@@ -14,9 +14,9 @@ describe CsvExportWorker, type: :worker do
     end
 
     it 'sends an email to the teacher' do
-      expect {
+      expect do
         subject
-      }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
 
     it 'marks the export as having been processed' do
@@ -33,14 +33,14 @@ describe CsvExportWorker, type: :worker do
 
     it 'does not re-generate the CSV' do
       subject
-       # Expect nil because it's never been generated
+      # Expect nil because it's never been generated
       expect(csv_export.reload.csv_file.url).to be_nil
     end
 
     it 'does not re-send the email' do
-      expect {
+      expect do
         subject
-      }.to_not change { ActionMailer::Base.deliveries.count }
+      end.to_not change { ActionMailer::Base.deliveries.count }
     end
   end
 end

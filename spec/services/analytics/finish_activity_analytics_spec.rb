@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-describe "FinishActivityAnalytics" do
-
+describe 'FinishActivityAnalytics' do
   let(:analytics) { FinishActivityAnalytics.new }
   let(:segment_analytics) { SegmentAnalytics.new }
   let(:track_calls) { segment_analytics.backend.track_calls }
@@ -15,11 +14,13 @@ describe "FinishActivityAnalytics" do
     # This object graph is kind of crazy and doesn't make all that much sense.
 
     let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom) }
-    let!(:unit) {FactoryGirl.create(:unit, classroom_activities: [classroom_activity])}
+    let!(:unit) { FactoryGirl.create(:unit, classroom_activities: [classroom_activity]) }
 
-    let!(:activity_session) { FactoryGirl.create(:activity_session,
-                                                state: 'finished',
-                                                classroom_activity: classroom_activity) }
+    let!(:activity_session) do
+      FactoryGirl.create(:activity_session,
+                         state: 'finished',
+                         classroom_activity: classroom_activity)
+    end
 
     it 'sends an event' do
       analytics.track(activity_session)

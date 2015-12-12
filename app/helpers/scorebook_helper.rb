@@ -1,5 +1,4 @@
 module ScorebookHelper
-
   def percentage_color(score)
     return 'gray' unless score
     score = score.to_f / 100.0 if score > 1
@@ -57,7 +56,7 @@ module ScorebookHelper
     end
   end
 
-  def alias_by_id id
+  def alias_by_id(id)
     case id
     when 1
       'Quill Proofreader'
@@ -66,20 +65,17 @@ module ScorebookHelper
     end
   end
 
+  def activity_planner_tooltip_html(activity_hash) # note: not an active record object, a hash
+    activity_name = activity_hash['activity_name'].nil? ? '' : ('<h1>' + (activity_hash['activity_name'].gsub(/"/, '&quot;')) + '</h1>')
+    activity_description = activity_hash['activity_description'].nil? ? '' : ('<p>' + (activity_hash['activity_description'].gsub(/"/, '&quot;')) + '</p>')
 
+    app_name = activity_hash['activity_classification_name'].nil? ? '' : ('<p> App: ' + (activity_hash['activity_classification_name'].gsub(/"/, '&quot;')) + '</p>')
 
-  def activity_planner_tooltip_html activity_hash # note: not an active record object, a hash
-    activity_name = activity_hash['activity_name'].nil? ? '' : ("<h1>" + (activity_hash['activity_name'].gsub(/"/, '&quot;')) + "</h1>")
-    activity_description = activity_hash['activity_description'].nil? ? '' : ("<p>" + (activity_hash['activity_description'].gsub(/"/, '&quot;')) + "</p>")
-
-    app_name = activity_hash['activity_classification_name'].nil? ? '' : ("<p> App: " + (activity_hash['activity_classification_name'].gsub(/"/, '&quot;')) + "</p>")
-
-
-    %Q(data-toggle="tooltip" data-html=true data-placement="left" title="#{activity_name}#{app_name}#{activity_description}").html_safe
+    %(data-toggle="tooltip" data-html=true data-placement="left" title="#{activity_name}#{app_name}#{activity_description}").html_safe
   end
 
   def activity_icon_with_tooltip(activity, activity_session, include_activity_title: false)
-    #activity, session = activity_and_session(activity_or_session)
+    # activity, session = activity_and_session(activity_or_session)
 
     render partial: 'activity_icon_with_tooltip', locals: {
       activity: activity,
