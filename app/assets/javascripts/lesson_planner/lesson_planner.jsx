@@ -15,6 +15,34 @@ EC.LessonPlanner = React.createClass({
 		analytics: React.PropTypes.object.isRequired
 	},
 
+  blankState: function () {
+    return {
+      tab: 'manageUnits', // 'createUnit', 'exploreActivityPacks'
+      createUnit: {
+        stage: 1,
+        options: {
+          classrooms: []
+        },
+        model: {
+          name: null,
+          selectedActivities: []
+        }
+      },
+      unitTemplatesManager: {
+        firstAssignButtonClicked: false,
+        models: [],
+        categories: [],
+        stage: 'index', // index, profile,
+        model: null,
+        model_id: null,
+        relatedModels: [],
+        displayedModels: [],
+        selectedCategoryId: null,
+        grade: null
+      }
+    }
+  },
+
 	getInitialState: function () {
 		this.modules = {
 			fnl: new EC.modules.fnl(),
@@ -28,30 +56,7 @@ EC.LessonPlanner = React.createClass({
 		this.updateCreateUnitModel = this.modules.updaterGenerator.updater('createUnit.model');
 		this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
 
-		var state = {
-			tab: 'manageUnits', // 'createUnit', 'exploreActivityPacks'
-			createUnit: {
-				stage: 1,
-				options: {
-					classrooms: []
-				},
-				model: {
-					name: null,
-					selectedActivities: []
-				}
-			},
-			unitTemplatesManager: {
-	      models: [],
-	      categories: [],
-	      stage: 'index', // index, profile,
-	      model: null,
-        model_id: null,
-	      relatedModels: [],
-	      displayedModels: [],
-	      selectedCategoryId: null,
-        grade: null
-			}
-		}
+    var state = this.blankState()
 
     var grade = ($('#activity-planner').data('grade'));
     if (grade) {
@@ -155,7 +160,7 @@ EC.LessonPlanner = React.createClass({
       this.setState({tab: tab})
 
 		} else if (tab == 'exploreActivityPacks') {
-			this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index', model_id: null, model: null}})
+			this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index', firstAssignButtonClicked: false, model_id: null, model: null}})
       this.fetchUnitTemplateModels();
 		} else {
 			this.setState({tab: tab})
@@ -190,12 +195,30 @@ EC.LessonPlanner = React.createClass({
 		this.updateCreateUnitModel({selectedActivities: sas});
 	},
 
-	assign: function () {
+  clickAssignButton: function () {
+    this.updateUnitTemplatesManager({firstAssignButtonClicked: true})
+  },
+
+  fastAssign: function () {
+    $.ajax({
+      url: '/teachers/unit_templates/fast_assign',
+      data: {id: this.state.unitTemplatesManager.model.id},
+      type: 'POST',
+      success: this.onFastAssignSuccess
+    })
+  },
+
+  onFastAssignSuccess: function () {
+    this.deepExtendState(this.blankState())
+  },
+
+	customAssign: function () {
 		this.fetchClassrooms()
 		var unitTemplate = this.state.unitTemplatesManager.model;
 		var state = this.state;
 		var hash = {
 			tab: 'createUnit',
+      unitTemplatesManager: {firstAssignButtonClicked: false},
 			createUnit: {
 				stage: 2,
 				model: {
@@ -209,7 +232,9 @@ EC.LessonPlanner = React.createClass({
 
 	unitTemplatesManagerActions: function () {
 		return {
-			assign: this.assign,
+      customAssign: this.customAssign,
+      fastAssign: this.fastAssign,
+			clickAssignButton: this.clickAssignButton,
 			returnToIndex: this.returnToIndex,
       filterByCategory: this.filterByCategory,
       filterByGrade: this.filterByGrade,
