@@ -21,7 +21,7 @@ feature 'Standards: All Classrooms Progress Report', js: true do
           '',
           'Students',
           'Proficient',
-          'Not Proficient',
+          'Not Yet Proficient',
           'Standards'
         ]
       )

@@ -50,7 +50,7 @@ shared_context 'Topic Progress Report' do
 
   let!(:zojirushi_second_grade_topic_session) do
     session = zojirushi.activity_sessions.for_activity(activity_for_second_grade_topic)
-    session.update!(state: 'finished', percentage: 0.49, completed_at: 25.days.ago) # Not Proficient
+    session.update!(state: 'finished', percentage: 0.49, completed_at: 25.days.ago) # Not Yet Proficient
     session
   end
 

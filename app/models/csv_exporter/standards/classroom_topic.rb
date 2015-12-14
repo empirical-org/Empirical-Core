@@ -7,7 +7,7 @@ module CsvExporter::Standards
         'Standard Name',
         'Students',
         'Proficient Students',
-        'Not Proficient Students',
+        'Not Yet Proficient Students',
         'Activities'
       ]
     end
