@@ -53,7 +53,8 @@ describe 'Profile::SubProcessor' do
     as_1b.update_attributes(percentage: 1, state: 'finished')
     results = subject
     x = results[unit1.name]
-    expect(x).to eq({not_finished: [as_1a, as1], finished: [as_1b, as_1aa]})
+    expect(x[:not_finished]).to match_array([as_1a, as1])
+    expect(x[:finished]).to match_array([as_1b, as_1aa])
   end
 
   it 'only shows completed activities when there are others with the same classroom_activity_id' do
