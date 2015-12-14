@@ -11,8 +11,8 @@ module Units::Creator
     self.create_helper(teacher, name, activities_data, classrooms_data)
   end
 
-  def self.one_click_assign_activity_pack(teacher, unit_template_id)
-    unit_template = UnitTemplate.find(params[:id])
+  def self.fast_assign_unit_template(teacher, unit_template_id)
+    unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     classrooms_data = teacher.classrooms.map{ |c| {id: c.id, student_ids: []} }
     self.create_helper(teacher, unit_template.name, activities_data, classrooms_data)
