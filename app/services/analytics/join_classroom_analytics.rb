@@ -12,7 +12,7 @@ class JoinClassroomAnalytics
     analytics_identify(teacher)
     analytics_track({
       user_id: teacher.id,
-      event: SegmentIo::Events::TEACHERS_STUDENT_ACCOUNT_CREATION
+      event: SegmentIo::Events::TEACHERS_STUDENT_ACCOUNT_CREATION,
       context: {:ip => teacher.ip_address }
     })
   end
