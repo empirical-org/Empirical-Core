@@ -160,7 +160,7 @@ EC.LessonPlanner = React.createClass({
       this.setState({tab: tab})
 
 		} else if (tab == 'exploreActivityPacks') {
-			this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index', model_id: null, model: null}})
+			this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index', firstAssignButtonClicked: false, model_id: null, model: null}})
       this.fetchUnitTemplateModels();
 		} else {
 			this.setState({tab: tab})
