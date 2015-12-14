@@ -82,7 +82,7 @@ feature 'Signing in' do
       before(:each) { sign_in_user }
 
       let(:sign_in_succeeded_path) do
-        Teachers::ScorebookPage.new(sweathogs_classroom).path
+        lesson_planner_teachers_classrooms_path
       end
 
       include_examples :sign_in_methods_succeed
