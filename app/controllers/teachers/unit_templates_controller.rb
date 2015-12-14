@@ -6,8 +6,9 @@ class Teachers::UnitTemplatesController < ApplicationController
                   .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
   end
 
-  def one_click_assign
-    Units::Creator.one_click_assign(current_user, params[:id])
+  def fast_assign
+    Units::Creator.fast_assign_unit_template(current_user, params[:id])
+    render json: {}
   end
 
   def show

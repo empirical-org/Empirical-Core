@@ -16,6 +16,8 @@
 //= require slick.js
 //= require tabslet.js
 
+
+
 //= require custom-slick.js
 
 //= require jquery-ui-custom.min.js
