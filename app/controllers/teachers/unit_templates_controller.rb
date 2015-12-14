@@ -6,6 +6,10 @@ class Teachers::UnitTemplatesController < ApplicationController
                   .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
   end
 
+  def one_click_assign
+    Units::Creator.one_click_assign(current_user, params[:id])
+  end
+
   def show
     begin
       unit = UnitTemplate.find(params[:id])

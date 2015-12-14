@@ -3,40 +3,8 @@ class Teachers::UnitsController < ApplicationController
   before_filter :teacher!
 
   def create
-
-    # create a unit
-    unit = Unit.create name: unit_params['name']
-
-    # Request format:
-    #   unit: {
-    #     name: string
-    #     classrooms: [{
-    #       id: int
-    #       all_students: boolean
-    #       student_ids: [int]
-    #     }]
-    #     activities: [{
-    #       id: int
-    #       due_date: string
-    #     }]
-    #   }
-
-    unit_params['activities'].each do |key, activity_data|
-      activity_id = activity_data['id']
-      due_date = activity_data['due_date']
-      unit_params['classrooms'].each do |key, classroom_data|
-        classroom_data['student_ids'] ||= []
-        unit.classroom_activities.create!(activity_id: activity_id,
-                                          classroom_id: classroom_data['id'],
-                                          assigned_student_ids: (classroom_data['student_ids'] ) ,
-                                          due_date: due_date)
-      end
-    end
-
-    # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
-    AssignActivityWorker.perform_async(current_user.id) # current_user should be the teacher
+    Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
     render json: {}
-
   end
 
   def index
