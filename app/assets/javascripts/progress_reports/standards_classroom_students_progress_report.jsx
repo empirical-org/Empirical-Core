@@ -40,7 +40,7 @@ EC.StandardsClassroomStudentsProgressReport = React.createClass({
         }
       },
       {
-        name: 'Not Proficient',
+        name: 'Not Yet Proficient',
         field: 'not_proficient_standard_count',
         sortByField: 'not_proficient_standard_count',
         className: 'not-proficient-column',

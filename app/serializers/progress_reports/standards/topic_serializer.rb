@@ -30,7 +30,7 @@ class ProgressReports::Standards::TopicSerializer < ActiveModel::Serializer
     if average_score >= 0.75
       "Proficient"
     else
-      "Not Proficient"
+      "Not Yet Proficient"
     end
   end
 end
