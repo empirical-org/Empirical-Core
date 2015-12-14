@@ -107,7 +107,9 @@ EC.CreateUnit = React.createClass({
 		$.ajax({
 			type: 'POST',
 			url: '/teachers/units',
-			data: this.formatCreateRequestData(),
+			data: JSON.stringify(this.formatCreateRequestData()),
+			dataType: 'json',
+			contentType: 'application/json',
 			success: this.onCreateSuccess,
 		});
 	},
