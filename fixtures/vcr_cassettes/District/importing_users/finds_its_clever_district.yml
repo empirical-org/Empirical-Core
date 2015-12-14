@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.clever.com/v1.1/districts/53ea7c626e727c2e0d000018
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer c0b73f915c29bf2541454b7f20a98ed65c0bbc88
+      User-Agent:
+      - Clever/RubyBindings/0.10.0
+      X-Clever-Client-User-Agent:
+      - '{"bindings_version":"0.10.0","lang":"ruby","lang_version":"2.2.2 p95","platform":"x86_64-darwin14","publisher":"clever","uname":"Darwin
+        Marcellos-MacBook-Air.local 15.0.0 Darwin Kernel Version 15.0.0: Sat Sep 19
+        15:53:46 PDT 2015; root:xnu-3247.10.11~1/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 14 Dec 2015 16:39:44 GMT
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - bearer
+      X-Ratelimit-Limit:
+      - '1200'
+      X-Ratelimit-Remaining:
+      - '1198'
+      X-Ratelimit-Reset:
+      - '1450111244'
+      Content-Length:
+      - '549'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"mdr_number":"","name":"#DEMO Quill Sandbox District","id":"53ea7c626e727c2e0d000018"},"links":[{"rel":"self","uri":"/v1.1/districts/53ea7c626e727c2e0d000018"},{"rel":"schools","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/schools"},{"rel":"teachers","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/teachers"},{"rel":"students","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/students"},{"rel":"sections","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/sections"},{"rel":"events","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/events"}]}'
+    http_version: 
+  recorded_at: Mon, 14 Dec 2015 16:39:45 GMT
+recorded_with: VCR 2.9.3
