@@ -4,7 +4,6 @@ class Section < ActiveRecord::Base
 
   ranks :position
 
-  belongs_to :workbook
   has_many :topics, dependent: :destroy
 
   validates :name, presence: true

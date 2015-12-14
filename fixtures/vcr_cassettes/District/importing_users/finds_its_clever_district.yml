@@ -51,6 +51,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"data":{"mdr_number":"","name":"#DEMO Quill Sandbox District","id":"53ea7c626e727c2e0d000018"},"links":[{"rel":"self","uri":"/v1.1/districts/53ea7c626e727c2e0d000018"},{"rel":"schools","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/schools"},{"rel":"teachers","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/teachers"},{"rel":"students","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/students"},{"rel":"sections","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/sections"},{"rel":"events","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/events"}]}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 14 Dec 2015 16:39:45 GMT
 recorded_with: VCR 2.9.3

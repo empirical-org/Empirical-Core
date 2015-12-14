@@ -51,7 +51,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"data":{"mdr_number":"","name":"#DEMO Quill Sandbox District","id":"53ea7c626e727c2e0d000018"},"links":[{"rel":"self","uri":"/v1.1/districts/53ea7c626e727c2e0d000018"},{"rel":"schools","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/schools"},{"rel":"teachers","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/teachers"},{"rel":"students","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/students"},{"rel":"sections","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/sections"},{"rel":"events","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/events"}]}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 14 Dec 2015 16:41:33 GMT
 - request:
     method: get
@@ -107,6 +107,6 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"created":"2014-08-12T20:47:54.787Z","credentials":{"district_username":"debrab27","district_password":"EShah6quoh2qu"},"district":"53ea7c626e727c2e0d000018","dob":"10/21/2001","ell_status":"Y","email":"debra.b@example.net","gender":"F","grade":"6","hispanic_ethnicity":"N","last_modified":"2014-08-12T20:47:54.789Z","location":{"zip":"10302"},"name":{"first":"Debra","middle":"F","last":"Boyle"},"race":"Two
         or More Races","school":"53ea7d6b2187a9bc1e188be2","sis_id":"109999627","state_id":"393918489","student_number":"109999627","id":"53ea7d7ae87f28ae1e5c5132"},"links":[{"rel":"self","uri":"/v1.1/students/53ea7d7ae87f28ae1e5c5132"},{"rel":"district","uri":"/v1.1/students/53ea7d7ae87f28ae1e5c5132/district"},{"rel":"sections","uri":"/v1.1/students/53ea7d7ae87f28ae1e5c5132/sections"},{"rel":"school","uri":"/v1.1/students/53ea7d7ae87f28ae1e5c5132/school"},{"rel":"teachers","uri":"/v1.1/students/53ea7d7ae87f28ae1e5c5132/teachers"},{"rel":"contacts","uri":"/v1.1/students/53ea7d7ae87f28ae1e5c5132/contacts"},{"rel":"events","uri":"/v1.1/students/53ea7d7ae87f28ae1e5c5132/events"}]}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 14 Dec 2015 16:41:34 GMT
 recorded_with: VCR 2.9.3
