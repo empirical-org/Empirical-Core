@@ -18,9 +18,7 @@ feature 'Create-a-Class page' do
         new_class = Classroom.last
         expect(new_class.code).to eq class_code
 
-        invite_students_page = Teachers::InviteStudentsPage.new(new_class)
-        expect(current_path)                   .to eq invite_students_page.path
-        expect(invite_students_page.class_code).to eq class_code
+        expect(current_path)                   .to eq lesson_planner_teachers_classrooms_path
       end
 
       it "creates a class with the same name as another Teacher's" do
@@ -31,9 +29,7 @@ feature 'Create-a-Class page' do
 
         new_class = Classroom.last
 
-        invite_students_page = Teachers::InviteStudentsPage.new(new_class)
-        expect(current_path)                       .to eq invite_students_page.path
-        expect(invite_students_page.class_code).not_to eq sweathogs.code
+        expect(current_path).to eq lesson_planner_teachers_classrooms_path
       end
 
       it "does not add classrooms without a grade and raises an error" do
@@ -50,13 +46,9 @@ feature 'Create-a-Class page' do
         expect { page.to have_content("Name can't be blank")}
       end
 
-
-
-
       def create_sweathogs
         create_classroom_page.create_class name: 'sweathogs', grade: 11
       end
-
 
       describe 'clicking the new-code item' do
         it 'generates a new class-code', js: true do
