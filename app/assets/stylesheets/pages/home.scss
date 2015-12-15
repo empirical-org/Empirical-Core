@@ -683,19 +683,25 @@
         overflow: hidden;
         margin: 0;
         -webkit-padding-start: 0;
-        width: 50%;
-        max-width: 900px;
+        width: 85%;
         margin: 0 auto;
         padding-top: 13px;
+        @media only screen and (max-device-width: 667px)
+        and (-webkit-device-pixel-ratio: 2) {
+          width: 200px;
+          li {
+            margin-left: 25px;
+            margin-right: 25px;
+            margin-bottom: 2em;
+          }
+        }
+
         li {
           margin-left: 17px;
           margin-right: 17px;
           width: 90px;
           padding-bottom: 7px;
-          @media (min-width: 700px) {
-            float: left;
-            width: 15%;
-          }
+          margin-bottom: 3em;
           img {
             margin: auto;
             border-radius: 50%;
@@ -749,7 +755,7 @@
         font-size: 21px;
         color: $white;
         margin-bottom: 75px;
-        min-height: 140px;
+        min-height: 196px;
       }
       .quote-author {
         color: #014f92;
