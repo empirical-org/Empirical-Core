@@ -68,9 +68,6 @@ EC.NewTeacher = React.createClass({
       errorLabel: 'Name'
     },
     {
-      name: 'username'
-    },
-    {
       name: 'email'
     },
     {

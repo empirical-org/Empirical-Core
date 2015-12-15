@@ -1,0 +1,16 @@
+var studentIdClass = '<%='user_' + '@student.id'%>'
+var studentFirstName = '<%=@student.first_name%>'
+var studentLastName = '<%=@student.last_name%>'
+var studentUserName = '<%=@student.username%>'
+
+$("table tbody").prepend('<tr class="user" id="'+ studentIdClass + '">' +
+                        '<td>'+studentFirstName+'</td>' +
+                        '<td>'+studentLastName+'</td>' +
+                        '<td>'+studentUserName+'</td>' +
+                        '</tr>');
+
+$(':input','#new_user')
+  .not(':button, :submit')
+  .val('')
+
+$('#user_first_name')[0].focus();

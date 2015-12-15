@@ -7,7 +7,7 @@
 //= require underscore.string
 
 //= require es5-shim/es5-shim
-//= require react-with-addons
+//= require react-with-addons.js
 
 //= require selecter.js
 //= require select2
@@ -15,6 +15,8 @@
 
 //= require slick.js
 //= require tabslet.js
+
+
 
 //= require custom-slick.js
 

@@ -47,7 +47,7 @@ EmpiricalGrammar::Application.configure do
   config.sass.line_comments = true
   config.sass.line_numbers = true
   config.sass.debug_info = true
-  config.action_mailer.default_url_options = { :host => 'quill.dev' }
+  config.action_mailer.default_url_options = { host: 'quill.dev' }
 
   # Image Uploads (see paperclip gem)
   Paperclip.options[:command_path] = "/usr/local/bin/"
@@ -57,6 +57,7 @@ EmpiricalGrammar::Application.configure do
     Bullet.enable = true
     Bullet.console = true
     Bullet.rails_logger = true
+    Bullet.add_footer = true
   end
 
 end

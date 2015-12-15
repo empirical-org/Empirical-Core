@@ -1,0 +1,22 @@
+// need ot make this have bckgrnd 'scorebook/icon-book-white.png'
+// need this to point to scorebook/icon-hat-white.png'
+
+.icon-book-white, .icon-hat-white {
+  display: inline-block;
+  float: left;
+  clear: none;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.icon-book-white {
+  background-image: image-url('scorebook/icon-book-white');
+  height: 18px;
+  width: 23px;
+}
+
+.icon-hat-white {
+  background-image: image-url('scorebook/icon-hat-white');
+  height: 16px;
+  width: 29px;
+}

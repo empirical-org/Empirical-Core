@@ -57,7 +57,7 @@ EC.Unit = React.createClass({
 				<div className="unit-label">
 					{this.assignedToText()}
 				</div>
-				<div className="table">
+				<div className="table assigned-activities">
 					{classroomActivities}
 				</div>
 			</section>

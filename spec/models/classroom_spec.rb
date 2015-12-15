@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Classroom, :type => :model do
+describe Classroom, type: :model do
 
   let(:classroom) { FactoryGirl.build(:classroom) }
 

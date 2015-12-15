@@ -19,13 +19,13 @@ class Teachers::ProgressReports::CsvExportsController < Teachers::ProgressReport
   private
 
   def export_params
-    params.require(:csv_export).permit(:export_type, :filters => [
+    params.require(:csv_export).permit(:export_type, filters: [
       :page,
       :classroom_id,
       :student_id,
       :unit_id,
       :topic_id,
-      :sort => [:field, :direction]])
+      sort: [:field, :direction]])
   end
 
   def extra_url_params

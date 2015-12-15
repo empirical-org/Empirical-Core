@@ -175,17 +175,10 @@ button:not(.select-mixin) {
   color: #fff;
   &:hover {
     background-color: #44b49a;
+    color: #fff;
   }
   &#assign {
     float: right;
-  }
-}
-
-.student-course-info span {
-  margin-right: 50px;
-  color: #999;
-  &:last-child {
-    margin-right: 0;
   }
 }
 
@@ -229,11 +222,6 @@ button:not(.select-mixin) {
 .start-activity-wrapper form {
   float: right;
 }
-
-.student-page .section-header {
-  margin-bottom: 30px;
-}
-
 
 .grade-select {
   width: 140px;
@@ -357,5 +345,11 @@ button:not(.select-mixin) {
   color: #fff;
   &:hover {
     background-color: #217dcf;
+  }
+}
+.spinner-container {
+  margin: 75px auto;
+  .nc-icon {
+
   }
 }

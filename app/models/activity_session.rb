@@ -23,6 +23,7 @@ class ActivitySession < ActiveRecord::Base
 
   around_save   :trigger_events
 
+  # FIXME: do we need the below? if we omit it, may make things faster
   default_scope -> { joins(:activity) }
   default_scope { where(visible: true)}
 
@@ -48,7 +49,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def self.by_teacher(teacher)
-    self.joins(:user => :teacher).where(teachers_users: {id: teacher.id})
+    self.joins(user: :teacher).where(teachers_users: {id: teacher.id})
   end
 
   def self.with_filters(query, filters)
@@ -65,7 +66,7 @@ class ActivitySession < ActiveRecord::Base
     end
 
     if filters[:section_id].present?
-      query = query.joins(:activity => :topic).where('topics.section_id IN (?)', filters[:section_id])
+      query = query.joins(activity: :topic).where('topics.section_id IN (?)', filters[:section_id])
     end
 
     if filters[:topic_id].present?

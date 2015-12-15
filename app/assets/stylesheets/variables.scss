@@ -5,10 +5,12 @@ $white: #fff;
 $black: #000;
 $orange: #f8a724;
 $gray: #b7b7b7;
+$verylightgray: rgb(230,230,230);
 $lightgray: #cecece;
+$mediumdarkgray: rgb(150, 150, 150);
 $darkgreen: #027360;
 $darkorange: #EA9A1A;
-$darkgrey: #3b3b3b;
+$darkgray: #3b3b3b;
 $darkblue: #0f4c7a;
 
 // Generated from css -> scss conversion
@@ -53,7 +55,7 @@ $spinner-thickness:  8px;
 .con-pink           { background: $pink; }
 .con-white          { background: $white; }
 .con-darkblue       { background: $darkblue; }
-.con-darkgrey       { background: $darkgrey; }
+.con-darkgrey       { background: $darkgray; }
 
 $header-font: "Comfortaa", cursive;
 

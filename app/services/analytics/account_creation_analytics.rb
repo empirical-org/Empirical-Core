@@ -15,7 +15,8 @@ class AccountCreationAnalytics
     analytics_identify(student)
     analytics_track({
       user_id: student.id,
-      event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION
+      event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION,
+      context: {:ip => student.ip_address }
     })
   end
 
@@ -24,7 +25,8 @@ class AccountCreationAnalytics
   def basic_track_teacher(teacher)
     analytics_track({
       user_id: teacher.id,
-      event: SegmentIo::Events::TEACHER_ACCOUNT_CREATION
+      event: SegmentIo::Events::TEACHER_ACCOUNT_CREATION,
+      context: {:ip => teacher.ip_address }
     })
   end
 
@@ -32,7 +34,8 @@ class AccountCreationAnalytics
     return if not teacher.send_newsletter
     analytics_track({
       user_id: teacher.id,
-      event: SegmentIo::Events::TEACHER_SIGNED_UP_FOR_NEWSLETTER
+      event: SegmentIo::Events::TEACHER_SIGNED_UP_FOR_NEWSLETTER,
+      context: {:ip => teacher.ip_address }
     })
   end
 

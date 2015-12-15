@@ -1,0 +1,12 @@
+table.table.activity-table.activity-pack {
+  margin-bottom: 4em;
+  thead {
+    background-color: $white;
+    th:not(:first-child) {
+      border-left: none;
+    }
+    th:not(:last-child) {
+      border-right: none;
+    }
+  }
+}

@@ -25,6 +25,8 @@ module EmpiricalGrammar
       #{config.root}/app/queries/scorebook
     )
 
+    # https://github.com/reactjs/react-rails
+    config.react.addons = true
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -40,6 +42,9 @@ module EmpiricalGrammar
     config.exceptions_app = Proc.new do |env|
       ApplicationController.action(:show_errors).call(env)
     end
+
+    # http://stackoverflow.com/questions/14647731/rails-converts-empty-arrays-into-nils-in-params-of-the-request
+    config.action_dispatch.perform_deep_munge = false
 
     config.middleware.use Rack::Cors do
       allow do

@@ -6,7 +6,7 @@ class ProgressReports::Concepts::ConceptResult
       activity_sessions.user_id,
       concept_results.concept_id
     SELECT
-    ).joins({:activity_session => {:classroom_activity => :classroom}})
+    ).joins({activity_session: {classroom_activity: :classroom}})
       .where("activity_sessions.state = ?", "finished")
       .where("classrooms.teacher_id = ?", teacher.id) # Always by teacher
 
@@ -35,7 +35,7 @@ class ProgressReports::Concepts::ConceptResult
 
   # def self.grammar_counts
   #   select("concept_tags.name, #{correct_result_count_sql} as correct_result_count, #{incorrect_result_count_sql}  as incorrect_result_count")
-  #   .joins(:concept_tag => :concept_class)
+  #   .joins(concept_tag: :concept_class)
   #   .where(concept_classes: {name: "Grammar Concepts"})
   #   .group("concept_tags.name")
   #   .order("concept_tags.name asc")
