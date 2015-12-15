@@ -1,5 +1,8 @@
+[![Code Climate](https://codeclimate.com/github/empirical-org/Empirical-Core/badges/gpa.svg)](https://codeclimate.com/github/empirical-org/Empirical-Core) [![Test Coverage](https://codeclimate.com/github/empirical-org/Empirical-Core/badges/coverage.svg)](https://codeclimate.com/github/empirical-org/Empirical-Core/coverage)
+
 # Welcome to Empirical Core!
 
+**Fork and Clone this repository to submit a Pull Request**
 
 **Getting Started:** [Visit our Community Page](http://community.quill.org/teams/quill-lms/)
 
@@ -36,7 +39,7 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 7. Install the bundle with `bundle install`.
 
-8. Set up your database with `bin/rake empirical:setup`.
+8. Set up your database with `rake empirical:setup`.
 
 9. Run Redis with ```redis-server```
 

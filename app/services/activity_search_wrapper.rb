@@ -18,7 +18,7 @@ class ActivitySearchWrapper
     @activity_classifications = @activities.map(&:classification).uniq.compact
     @activity_classifications = @activity_classifications.map{|c| ClassificationSerializer.new(c).as_json(root: false)}
 
-    @topics = @activities.map(&:topic).uniq.compact
+    @topics = @activities.includes(topic: :topic_category).map(&:topic).uniq.compact
     @topic_categories = @topics.map(&:topic_category).uniq.compact
     @sections = @topics.map(&:section).uniq.compact
 

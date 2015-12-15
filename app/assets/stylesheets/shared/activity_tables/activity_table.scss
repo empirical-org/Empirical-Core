@@ -1,0 +1,37 @@
+table.activity-table {
+  margin-top: 20px;
+  margin-bottom: 0;
+  border-collapse: separate;
+  thead {
+    background: #f7f5f5;
+    tr th {
+      cursor: pointer;
+      transition: 0.1s ease-out;
+      -moz-transition: 0.1s ease-out;
+      -webkit-transition: 0.1s ease-out;
+      .fa {
+        float: right;
+        color: #737373;
+        font-size: 1.3em;
+      }
+      &.active {
+        background: #e6e6e6;
+      }
+    }
+  }
+
+  tbody tr td {
+    font-size: 14px;
+    padding: 7px;
+
+    .preview-button {
+      opacity: 0;
+    }
+  }
+
+  tbody tr:hover {
+    .preview-button {
+      opacity: 1;
+    }
+  }
+}

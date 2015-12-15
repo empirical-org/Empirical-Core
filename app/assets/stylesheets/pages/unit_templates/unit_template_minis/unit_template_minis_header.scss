@@ -1,0 +1,16 @@
+.unit-template-minis-header {
+  text-align: center;
+  color: $white;
+  background-image: image-url('unit-templates/activity_pack_banner_large');
+  padding: 8em 1em;
+
+  h1, h3 {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-weight: 900;
+    margin-bottom: 1em;
+  }
+}

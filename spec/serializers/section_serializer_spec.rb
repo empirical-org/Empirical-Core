@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 describe SectionSerializer, type: :serializer do
-  let(:workbook)   { FactoryGirl.create(:workbook) }
-  let(:section)    { FactoryGirl.create(:section, workbook: workbook) }
+  let(:section)    { FactoryGirl.create(:section)}
   let(:serializer) { SectionSerializer.new(section) }
 
   describe '#to_json output' do
@@ -18,19 +17,13 @@ describe SectionSerializer, type: :serializer do
     describe "'#{section_key}' object" do
       let(:parsed_section) { parsed[section_key] }
 
-      workbook_key = 'workbook'
 
       it 'has the correct keys' do
         expect(parsed_section.keys)
           .to match_array %w(id
                              name
                              created_at
-                             updated_at) +
-                            [workbook_key]
-      end
-
-      it "includes a '#{workbook_key}' Hash" do
-        expect(parsed_section[workbook_key]).to be_a(Hash)
+                             updated_at)
       end
 
     end

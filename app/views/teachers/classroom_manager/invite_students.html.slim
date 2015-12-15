@@ -45,7 +45,7 @@
         br
         | For example, ‘Smith’ (first letter is capitalized).
     .m-20
-      = form_for User.new, url: teachers_classroom_students_path(@classroom) do |f|
+      = form_for User.new, url: teachers_classroom_students_path(@classroom), remote: true do |f|
         = f.text_field :first_name, placeholder: 'First Name'
         = f.text_field :last_name, placeholder: 'Last Name'
         = f.submit 'Add Student', class: 'button-green'

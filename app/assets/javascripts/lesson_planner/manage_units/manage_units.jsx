@@ -3,7 +3,8 @@ EC.ManageUnits = React.createClass({
 
 	getInitialState: function () {
 		return {
-			units: []
+			units: [],
+			loaded: false
 		}
 	},
 
@@ -18,7 +19,8 @@ EC.ManageUnits = React.createClass({
 		});
 	},
 	displayUnits: function (data) {
-		this.setState({units: data.units});
+		this.setState({units: data.units,
+									 loaded: true});
 	},
 	hideUnit: function (id) {
 		var units, x1;
@@ -75,16 +77,39 @@ EC.ManageUnits = React.createClass({
 		this.props.toggleTab('createUnit');
 	},
 
+	switchToExploreActivityPacks: function () {
+		this.props.toggleTab('exploreActivityPacks');
+	},
+
+	stateBasedComponent: function () {
+		if (this.state.units.length === 0 && this.state.loaded) {
+			return (
+				<div className="row">
+					<div className="col-xs-12">
+						<h4>Want to create an Activity Pack quickly? Check out our featured packs!</h4>
+						<br/>
+						<button onClick={this.switchToExploreActivityPacks} className="button-green create-unit">Browse Featured Activity Packs</button>
+					</div>
+				</div>
+			)
+		} else {
+			return (
+				<EC.Units
+					updateDueDate={this.updateDueDate}
+					deleteClassroomActivity={this.deleteClassroomActivity}
+					hideUnit={this.hideUnit} data={this.state.units} />
+			)
+		}
+	},
+
 	render: function () {
+		console.log('units', this.state.units)
 		return (
 			<div className="container manage-units">
 				<div  className= "create-unit-button-container">
 					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Create a New Unit</button>
 				</div>
-				<EC.Units
-					updateDueDate={this.updateDueDate}
-					deleteClassroomActivity={this.deleteClassroomActivity}
-					hideUnit={this.hideUnit} data={this.state.units} />
+				{this.stateBasedComponent()}
 			</div>
 		);
 
