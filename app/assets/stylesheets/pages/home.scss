@@ -669,8 +669,16 @@
       #teacher-subheader {
         color: #014f92 !important;
       }
-      ul {
-        display: inline-block;
+      .teacher-list {
+        display: -webkit-flex;
+       display: flex;
+       -webkit-flex-direction: row;
+       flex-direction: row;
+       -webkit-align-items: center;
+       align-items: center;
+       -webkit-justify-content: center;
+       justify-content: center;
+       flex-wrap: wrap;
         list-style-type: none;
         overflow: hidden;
         margin: 0;
