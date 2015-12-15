@@ -4,9 +4,15 @@ EC.UnitTemplateProfileStandards = React.createClass({
   },
 
   getStandards: function () {
-    return _.map(this.props.data.model.activities, function (act) {
+    return _.uniq(_.map(this.props.data.model.activities, function (act) {
       return act.topic
-    })
+    }))
+  },
+
+  getConcepts: function () {
+    return _.uniq(_.map(this.getStandards(), function (standard) {
+      return standard.topic_category.name
+    }))
   },
 
   renderStandards: function (standards) {
@@ -15,9 +21,9 @@ EC.UnitTemplateProfileStandards = React.createClass({
     })
   },
 
-  renderConcepts: function (standards) {
-    return _.map(standards, function(standard){
-      return <dd className='concept'>{standard.topic_category.name}</dd>
+  renderConcepts: function (concepts) {
+    return _.map(concepts, function(concept){
+      return <dd className='concept'>{concept}</dd>
     })
   },
 
@@ -29,7 +35,7 @@ EC.UnitTemplateProfileStandards = React.createClass({
           { this.renderStandards(this.getStandards()) }
 
           <dt className='concepts'><strong>Concepts</strong></dt>
-          { this.renderConcepts(this.getStandards()) }
+          { this.renderConcepts(this.getConcepts()) }
         </dl>
       </div>
     )

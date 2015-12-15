@@ -117,6 +117,11 @@ EC.LessonPlanner = React.createClass({
     window.scrollTo(0, 0);
   },
 
+  showAllGrades: function () {
+    this.updateUnitTemplatesManager({grade: null});
+    window.scrollTo(0, 0);
+  },
+
   filterByGrade: function () {
     var grade  = this.state.unitTemplatesManager.grade;
     if (grade) {
@@ -238,7 +243,8 @@ EC.LessonPlanner = React.createClass({
 			returnToIndex: this.returnToIndex,
       filterByCategory: this.filterByCategory,
       filterByGrade: this.filterByGrade,
-      selectModel: this.selectModel
+      selectModel: this.selectModel,
+      showAllGrades: this.showAllGrades
 		}
 	},
 

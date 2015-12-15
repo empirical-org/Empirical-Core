@@ -33,6 +33,16 @@ EC.UnitTemplateMinis = React.createClass({
                                 actions={this.props.actions} />
   },
 
+  generateShowAllGradesView: function () {
+    if (this.props.data.grade) {
+      return (
+        <button className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all" onClick={this.props.actions.showAllGrades}>Show all Activity Packs</button>
+      )
+    } else {
+      return
+    }
+  },
+
   colView: function (data, index) {
     var className;
     if (index === 0) {
@@ -78,6 +88,9 @@ EC.UnitTemplateMinis = React.createClass({
               </div>
               <div className='row'>
                 {this.generateUnitTemplateViews()}
+              </div>
+              <div className='row'>
+                {this.generateShowAllGradesView()}
               </div>
             </div>
           </div>

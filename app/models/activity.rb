@@ -7,7 +7,6 @@ class Activity < ActiveRecord::Base
   belongs_to :topic
 
   has_one :section, through: :topic
-  has_one :workbook, through: :section
 
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities

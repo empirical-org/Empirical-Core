@@ -51,7 +51,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"data":{"mdr_number":"","name":"#DEMO Quill Sandbox District","id":"53ea7c626e727c2e0d000018"},"links":[{"rel":"self","uri":"/v1.1/districts/53ea7c626e727c2e0d000018"},{"rel":"schools","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/schools"},{"rel":"teachers","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/teachers"},{"rel":"students","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/students"},{"rel":"sections","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/sections"},{"rel":"events","uri":"/v1.1/districts/53ea7c626e727c2e0d000018/events"}]}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 14 Dec 2015 16:41:34 GMT
 - request:
     method: get
@@ -105,6 +105,6 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"created":"2014-08-12T20:47:44.140Z","credentials":{"district_username":"letitia.jacobs","district_password":"zuGae2iemoo"},"district":"53ea7c626e727c2e0d000018","email":"letitia_jacobs@example.org","last_modified":"2014-08-12T20:47:44.142Z","name":{"first":"Letitia","middle":"O","last":"Jacobs"},"school":"53ea7d6b2187a9bc1e188be0","sis_id":"58","teacher_number":"673866","title":"High
         School Spanish Teacher","id":"53ea7d70804342a11e497bb7"},"links":[{"rel":"self","uri":"/v1.1/teachers/53ea7d70804342a11e497bb7"},{"rel":"district","uri":"/v1.1/teachers/53ea7d70804342a11e497bb7/district"},{"rel":"school","uri":"/v1.1/teachers/53ea7d70804342a11e497bb7/school"},{"rel":"students","uri":"/v1.1/teachers/53ea7d70804342a11e497bb7/students"},{"rel":"sections","uri":"/v1.1/teachers/53ea7d70804342a11e497bb7/sections"},{"rel":"grade_levels","uri":"/v1.1/teachers/53ea7d70804342a11e497bb7/grade_levels"},{"rel":"events","uri":"/v1.1/teachers/53ea7d70804342a11e497bb7/events"}]}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 14 Dec 2015 16:41:35 GMT
 recorded_with: VCR 2.9.3
