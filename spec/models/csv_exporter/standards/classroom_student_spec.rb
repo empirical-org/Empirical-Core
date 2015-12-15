@@ -9,8 +9,7 @@ describe CsvExporter::Standards::ClassroomStudent do
         'Student',
         'Standards',
         'Proficient Standards',
-        'Nearly Proficient Standards',
-        'Not Proficient Standards',
+        'Not Yet Proficient Standards',
         'Activities',
         'Average',
         'Overall Mastery Status'
@@ -29,7 +28,6 @@ describe CsvExporter::Standards::ClassroomStudent do
         model_instance.name,
         model_instance.total_standard_count,
         model_instance.proficient_standard_count,
-        model_instance.near_proficient_standard_count,
         model_instance.not_proficient_standard_count,
         model_instance.total_activity_count,
         model_instance.average_score,

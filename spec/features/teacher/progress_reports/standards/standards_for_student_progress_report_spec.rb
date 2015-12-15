@@ -31,7 +31,7 @@ feature 'Standards for Student Progress Report', js: true do
           first_grade_topic.name,
           '1', # Only 1 activity
           '70%', # Alice score on the single activity session for that topic
-          'Nearly Proficient'
+          'Not Yet Proficient'
         ]
       )
     end
