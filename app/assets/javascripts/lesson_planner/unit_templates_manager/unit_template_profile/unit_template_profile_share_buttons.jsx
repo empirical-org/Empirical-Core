@@ -4,8 +4,12 @@ EC.UnitTemplateProfileShareButtons = React.createClass({
     data: React.PropTypes.object.isRequired
   },
 
+  urlForPublicPage: function () {
+    return window.location.origin + "/activities/packs/" + this.props.data.model.id
+  },
+
   render: function () {
-    var url = "http://www.quill.org/activities/packs/" + this.props.data.model.id;
+    var url = this.urlForPublicPage();
 
     var stuff = [
       {

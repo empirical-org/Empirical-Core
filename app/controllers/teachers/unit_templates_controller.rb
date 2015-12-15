@@ -2,7 +2,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   def index
     render json: UnitTemplate.all
-                  .includes(:author, activities: [topic: [:topic_category]])
+                  .includes(:author, :unit_template_category, activities: [{topic: [:topic_category]}, :classification])
                   .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
   end
 
