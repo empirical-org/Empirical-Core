@@ -1,257 +1,348 @@
 </div>
 
+<div class="home-hero">
+<div id="home-slider">
 
-	<div class="home-hero">
-		<div id="home-slider">
+  <div>
+    <div class="container proofreader one-slide">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-xl-4 cta">
+          <div class="animation-taglines">
+            <h1>Free tools to make your</h1>
+            <h1>students better writers.</h1>
+          </div>
+          <div class="buttons">
+            <%= link_to "Play It Now", play_path, class: "filled" %>
+            <%= link_to "Sign Up", new_account_path %>
+          </div>
+        </div>
 
-			<div>
-				<div class="container proofreader one-slide">
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-4 col-xl-4 cta">
-							<div class="animation-taglines">
-								<h1>Free tools to make your</h1>
-								<h1>students better writers.</h1>
-							</div>
-							<div class="buttons">
-								<%= link_to "Play It Now", play_path, class: "filled" %>
-								<%= link_to "Sign Up", new_account_path %>
-							</div>
-						</div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-xl-8 graphics">
+          <%= image_tag 'proofreader.gif', class: 'gif' %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-						<div class="col-xs-12 col-sm-12 col-md-8 col-xl-8 graphics">
-							<%= image_tag 'proofreader.gif', class: 'gif' %>
-						</div>
-					</div>
-				</div>
-			</div>
+  <div>
+    <div class="container writer one-slide">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-xl-4 cta">
+          <div class="animation-taglines">
+            <h1>Free tools to make your</h1>
+            <h1>students better writers.</h1>
+          </div>
+          <div class="buttons">
+            <a class="filled" href="https://quillwriter.org/#/beta">Play It Now</a>
+            <%= link_to "Sign Up", new_account_path %>
+          </div>
+        </div>
 
-			<div>
-				<div class="container writer one-slide">
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-4 col-xl-4 cta">
-							<div class="animation-taglines">
-								<h1>Free tools to make your</h1>
-								<h1>students better writers.</h1>
-							</div>
-							<div class="buttons">
-								<a href="https://quillwriter.org/#/beta" class="filled">Play It Now</a>
-								<%= link_to "Sign Up", new_account_path %>
-							</div>
-						</div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-xl-8 graphics">
+          <%= image_tag 'writer.gif', class: 'gif' %>
+        </div>
 
-						<div class="col-xs-12 col-sm-12 col-md-8 col-xl-8 graphics">
-							<%= image_tag 'writer.gif', class: 'gif' %>
-						</div>
+      </div>
+    </div>
+  </div>
 
-					</div>
-				</div>
-			</div>
+  <div>
+    <div class="container dashboard one-slide">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-xl-4 cta">
+          <div class="animation-taglines">
+            <h1>Free tools to make your</h1>
+            <h1>students better writers.</h1>
+          </div>
+          <div class="buttons">
+            <%= link_to "Play It Now", play_path, class: "filled" %>
+            <%= link_to "Sign Up", new_account_path %>
+          </div>
+        </div>
 
+        <div class="col-xs-12 col-sm-12 col-md-8 col-xl-8 graphics">
+          <%= image_tag 'dashboard.gif', class: 'gif' %>
+        </div>
 
-			<div>
-				<div class="container dashboard one-slide">
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-4 col-xl-4 cta">
-							<div class="animation-taglines">
-								<h1>Free tools to make your</h1>
-								<h1>students better writers.</h1>
-							</div>
-							<div class="buttons">
-								<%= link_to "Play It Now", play_path, class: "filled" %>
-								<%= link_to "Sign Up", new_account_path %>
-							</div>
-						</div>
+      </div>
+    </div>
+  </div>
 
-						<div class="col-xs-12 col-sm-12 col-md-8 col-xl-8 graphics">
-							<%= image_tag 'dashboard.gif', class: 'gif' %>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<div class="home-page-new">
-		<section class="purpose">
-			<div class="container">
-
-				<h2 class="subheader black">Our Purpose</h2>
-
-				<h1 class="header black">Write Your Own Stories</h1>
-
-				<p class="description black">Quill provides free writing, grammar, and vocabulary<br> activities to middle and high school students.</p>
-
-				<%= button_to "Our Mission", mission_path, method: :get, class: "button-red big" %>
-
-				<div class="home-page">
-					<div class="row apps">
-						<div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
-							<div class="app-inner">
-								<div class="icon-top icon-big-proofreader"></div>
-								<h1 class="app-header">Quill Proofreader</h1>
-								<p class="app-description">Quill Proofreader gives<br>
-															students passages that<br>
-															have grammatical errors<br>
-															placed in them.
-								</p>
-							</div>
-							<%= link_to "Play It Now", play_path, class: "button-blue" %>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
-							<div class="app-inner">
-								<div class="icon-top icon-big-grammar"></div>
-								<h1 class="app-header">Quill Grammar</h1>
-								<p class="app-description">Quill Grammar teaches<br>
-								grammatical concepts<br>
-								through sentence<br>
-								writing exercises.
-								</p>
-
-							</div>
-							<a href="https://www.quill.org/activity_sessions/anonymous?activity_id=110" class="button-marine">Play It Now</a>
-
-						</div>
-
-						<div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
-							<div class="app-inner">
-								<div class="icon-top icon-big-writer"></div>
-								<h1 class="app-header">Quill Writer</h1>
-								<p class="app-description">Quill Writer is a two-player<br>
-								activity where students take<br>
-								turns writing a passage<br>
-								together from a shared<br>
-								list of words.
-								</p>
-							</div>
-							<a href="https://quillwriter.org/#/beta" class="button-yellow">Play It Now</a>
-
-						</div>
-
-
-						<div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
-							<div class="app-inner">
-								<div class="icon-top icon-big-shuffle"></div>
-								<h1 class="app-header">Sentence Shuffle</h1>
-								<p class="app-description">Sentence Shuffle takes a<br>
-								text and shuffles it up.<br>
-								Students rearrange the<br>
-								sentences into the<br>
-								correct order.</p>
-								<div class="coming-soon">Coming in Spring 2016</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</section>
-	</div>
-
-	<div class="home-page-new">
-		<section class="common-core">
-			<div class="container">
-				<h2 class="subheader dark-yellow bold">Following Standards</h2>
-
-				<h1 class="header">Built from the Common Core</h1>
-
-				<p class="description">We’ve created 154 activities starting from 42 Common Core language standards.<br>
-				We’ve translated these Common Core directives into purposeful activities.</p>
-			</div>
-
-			<%= image_tag 'icons/common-core.png' %>
-		</section>
-	</div>
-
-	<div class="home-page-new">
-	<section class="testimonials">
-		<div class="container">
-			<h2 class="subheader dark-red bold">Testimonials</h2>
-			<h1 class="header">Teacher Stories</h1>
-		</div>
-
-
-		<div class="tabs tabs-testimonials">
-			<div id="tab-1" class="tab-content">
-					<div class="container">
-						“Over the past two years, I have used Quill to teach my 7th and 8th grade special education
-						English classes. Students are eager to use the program and are quick to celebrate
-						getting a ‘green square,’ denoting that they have passed an assigned skill.”
-
-						<p class="quote-author">Stephanie Wieland, KIPP DC Key Academy</p>
-					</div>
-			</div>
-			<div id="tab-2" class="tab-content">
-				<div class="container">
-					“The website is wonderful. My students enjoy it and I like knowing they are getting
-					some additional grammar practice, while improving their keyboarding skills.”
-
-					<p class="quote-author">Cheryl Green, Ahlf Junior High School</p>
-				</div>
-			</div>
-			<div id="tab-3" class="tab-content">
-				<div class="container">
-					“QuilI is the best grammar tool for my students, and it teaches them how to closely read information.
-					I appreciate the fact that students are required to check spelling and punctuation to score “green.’”
-
-					<p class="quote-author">Randall Carswell, Charlotte Mecklenburg Schools</p>
-				</div>
-			</div>
-
-
-			<ul>
-				<li><a href="#tab-1"><%= image_tag 'testimonials/tab1.png', class: 'kipp' %></a></li>
-				<li><a href="#tab-2"><%= image_tag 'testimonials/tab2.png' %></a></li>
-				<li><a href="#tab-3"><%= image_tag 'testimonials/tab3.png' %></a></li>
-			</ul>
-
-		</div>
-
-	</section>
+</div>
 </div>
 
-	<div class="home-page-new">
-		<section class="get-started">
-			<a href=<%=new_account_path%> class="anchor-block button-marine big">Get Started</a>
-		</section>
-	</div>
+<div class="home-page-new">
+<section class="teacher-stories">
+  <div class="container">
+    <h2 class="subheader bold" id="teacher-subheader">Teacher Stories</h2>
+    <h1 class="header">Quill in the Classroom</h1>
+  </div>
 
-	<div id="partners"class='container'>
-		<p id='partner-text'>Helping every student succeed thanks to our partners.</p>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="partner-logo gates">
+  <div class="tabs tabs-testimonials tabs-teacher-stories">
+    <div class="tab-content" id="tab-1">
+      <div class="container">
+        “What’s great about Quill is that you can assign more difficult activities for students who are further ahead.”
 
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="partner-logo google">
+        <p class="quote-author">David Barba, College Ready Middle Academy</p>
 
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="partner-logo aspire">
+        <%=button_to "View My Story", "#", method: :get, class: "button-white big"%>
 
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="partner-logo fastforward bottom">
+      </div>
+    </div>
+    <div class="tab-content" id="tab-2">
+      <div class="container">
+        “Quill gave me the tools to let my students address their specific misconceptions and fix them for good.”
 
-				</div>
-			</div>
-			<div class="col-md-4 ">
-				<div class="partner-logo gould bottom">
+        <p class="quote-author">Stephanie Layson, KIPP DC Key Academy</p>
 
-				</div>
-			</div>
-			<div class="col-md-4 ">
-				<div class="partner-logo blackrock bottom">
+        <%=button_to "View My Story", "#", method: :get, class: "button-white big"%>
 
-				</div>
-			</div>
-		</div>
-		</div>
-	</div>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-3">
+      <div class="container">
+        “Writing a powerful sentence is essential for students to succeed in middle and high school. With Quill, my students get practice on sentence structure for maximum effects.”
+
+        <p class="quote-author">Daniel Scibiesnki, Princeton Public Schools</p>
+
+        <%=button_to "View My Story", "#", method: :get, class: "button-white big"%>
+
+      </div>
+    </div>
+    <div class="tab-content" id="tab-4">
+      <div class="container">
+        “Writing a powerful sentence is essential for students to succeed in middle and high school. With Quill, my students get practice on sentence structure for maximum effects.”
+
+        <p class="quote-author">Daniel Scibiesnki, Princeton Public Schools</p>
+
+        <%=button_to "View My Story", "#", method: :get, class: "button-white big"%>
+
+      </div>
+    </div>
+    <div class="tab-content" id="tab-5">
+      <div class="container">
+        “Quill allowed me to reinforce concepts to practice and to track their progress through the program.”
+
+        <p class="quote-author">Michael Giovacchini, Shanghai Normal University</p>
+
+        <%=button_to "View My Story", "#", method: :get, class: "button-white big"%>
+      </div>
+    </div>
+
+    <ul class='inline teacher-list'>
+      <li>
+        <a href="#tab-1"><%= image_tag 'David_Barba_90.png'%><br>
+          <p class="teacher-description">
+            8th Grade<br>
+            Educator
+          </p>
+        </a>
+      </li>
+      <li>
+        <a href="#tab-2"><%= image_tag 'Stephanie_Layson_90.png' %><br>
+          <p class="teacher-description">
+            7th Grade<br>
+            Educator
+          </p>
+        </a>
+      </li>
+      <li>
+        <a href="#tab-3"><%= image_tag 'Daniel_Scibienski_90.png' %><br>
+          <p class="teacher-description">
+            6th Grade<br>
+            Educator
+          </p>
+        </a>
+      </li>
+      <li>
+        <a href="#tab-4"><%= image_tag 'Melinda_Barron_90.png' %><br>
+          <p class="teacher-description">
+            10th Grade<br>
+            Educator
+          </p>
+        </a>
+      </li>
+      <li>
+        <a href="#tab-5"><%= image_tag 'teacher_champion_giovacchi_90.png' %><br>
+          <p class="teacher-description">
+            12th Grade<br>
+            Educator
+          </p>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+</section>
+</div>
+
+<div class="home-page-new">
+<section class="purpose">
+  <div class="container">
+
+    <h2 class="subheader black">Our Purpose</h2>
+
+    <h1 class="header black">Write Your Own Stories</h1>
+
+    <p class="description black">Quill provides free writing, grammar, and vocabulary<br>
+      activities to middle and high school students.</p>
+
+    <div class="home-page">
+      <div class="row apps">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
+          <div class="app-inner">
+            <div class="icon-top icon-big-proofreader"></div>
+            <h1 class="app-header">Quill Proofreader</h1>
+            <p class="app-description">Quill Proofreader gives<br>
+              students passages that<br>
+              have grammatical errors<br>
+              placed in them.
+            </p>
+          </div>
+          <%= link_to "Play It Now", play_path, class: "button-blue" %>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
+          <div class="app-inner">
+            <div class="icon-top icon-big-grammar"></div>
+            <h1 class="app-header">Quill Grammar</h1>
+            <p class="app-description">Quill Grammar teaches<br>
+              grammatical concepts<br>
+              through sentence<br>
+              writing exercises.
+            </p>
+
+          </div>
+          <a class="button-marine" href="https://www.quill.org/activity_sessions/anonymous?activity_id=110">Play It Now</a>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
+          <div class="app-inner">
+            <div class="icon-top icon-big-writer"></div>
+            <h1 class="app-header">Quill Writer</h1>
+            <p class="app-description">Quill Writer is a two-player<br>
+              activity where students take<br>
+              turns writing a passage<br>
+              together from a shared<br>
+              list of words.
+            </p>
+          </div>
+          <a class="button-yellow" href="https://quillwriter.org/#/beta">Play It Now</a>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
+          <div class="app-inner">
+            <div class="icon-top icon-big-shuffle"></div>
+            <h1 class="app-header">Sentence Shuffle</h1>
+            <p class="app-description">Sentence Shuffle takes a<br>
+              text and shuffles it up.<br>
+              Students rearrange the<br>
+              sentences into the<br>
+              correct order.</p>
+            <div class="coming-soon">Coming in Spring 2016</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<div class="home-page-new">
+<section class="common-core">
+  <div class="container">
+    <h2 class="subheader dark-yellow bold">Following Standards</h2>
+
+    <h1 class="header">Built from the Common Core</h1>
+
+    <p class="description">We’ve created 154 activities starting from 42 Common Core language standards.<br>
+      We’ve translated these Common Core directives into purposeful activities.</p>
+  </div>
+
+  <%= image_tag 'icons/common-core.png' %>
+</section>
+</div>
+
+<div class="home-page-new">
+<section class="testimonials">
+  <div class="container">
+    <h2 class="subheader dark-red bold">Testimonials</h2>
+    <h1 class="header">School Success</h1>
+  </div>
+
+  <div class="tabs tabs-testimonials">
+    <div class="tab-content" id="tab-1">
+      <div class="container">
+        “Over the past two years, I have used Quill to teach my 7th and 8th grade special education English classes. Students are eager to use the program and are quick to celebrate getting a ‘green square,’ denoting that they have passed an assigned skill.”
+
+        <p class="quote-author">Stephanie Wieland, KIPP DC Key Academy</p>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-2">
+      <div class="container">
+        “The website is wonderful. My students enjoy it and I like knowing they are getting some additional grammar practice, while improving their keyboarding skills.”
+
+        <p class="quote-author">Cheryl Green, Ahlf Junior High School</p>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-3">
+      <div class="container">
+        “QuilI is the best grammar tool for my students, and it teaches them how to closely read information. I appreciate the fact that students are required to check spelling and punctuation to score “green.’”
+
+        <p class="quote-author">Randall Carswell, Charlotte Mecklenburg Schools</p>
+      </div>
+    </div>
+
+    <ul>
+      <li>
+        <a href="#tab-1"><%= image_tag 'testimonials/tab1.png', class: 'kipp' %></a>
+      </li>
+      <li>
+        <a href="#tab-2"><%= image_tag 'testimonials/tab2.png' %></a>
+      </li>
+      <li>
+        <a href="#tab-3"><%= image_tag 'testimonials/tab3.png' %></a>
+      </li>
+    </ul>
+
+  </div>
+
+</section>
+</div>
+
+<div class="home-page-new">
+<section class="get-started">
+  <a href=<%=new_account_path%>
+    class="anchor-block button-marine big">Get Started</a>
+</section>
+</div>
+
+<div class='container' id="partners">
+<p id='partner-text'>Helping every student succeed thanks to our partners.</p>
+<div class="row">
+  <div class="col-md-4">
+    <div class="partner-logo gates"></div>
+  </div>
+  <div class="col-md-4">
+    <div class="partner-logo google"></div>
+  </div>
+  <div class="col-md-4">
+    <div class="partner-logo aspire"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="partner-logo fastforward bottom"></div>
+  </div>
+  <div class="col-md-4 ">
+    <div class="partner-logo gould bottom"></div>
+  </div>
+  <div class="col-md-4 ">
+    <div class="partner-logo blackrock bottom"></div>
+  </div>
+</div>
+</div>
+</div>
