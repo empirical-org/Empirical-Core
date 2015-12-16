@@ -4,9 +4,10 @@ EC.UnitTemplateProfileStandards = React.createClass({
   },
 
   getStandards: function () {
-    return _.uniq(_.map(this.props.data.model.activities, function (act) {
-      return act.topic
-    }))
+    return _.chain(this.props.data.model.activities)
+            .map(_.property('topic'))
+            .uniq(_.property('name'))
+            .value()
   },
 
   getConcepts: function () {
