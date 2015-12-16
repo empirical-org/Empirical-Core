@@ -22,6 +22,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def show
+    @content = "Try out the #{@unit_template.name} Activity Pack I’m using at Quill.org"
     @unit_template_id = @unit_template.id
     render 'public_show' if not @is_teacher
   end

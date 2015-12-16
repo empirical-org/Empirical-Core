@@ -10,6 +10,10 @@
   <meta property="og:title"              content="Free tools to make your students better writers." />
   <meta property="og:image"              content=<%= image_url('share/facebook.png') %> />
 
+  <%- @content ||= "" %>
+  <%= tag('meta', {property: 'og:description', content: @content}) %>
+
+
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <%= render partial: 'typekit' %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
