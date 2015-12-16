@@ -297,94 +297,45 @@ namespace :demo do
           name: 'Period 1',
           student_names:
             %w(
-                Sharri\ Villar
-                Victor\ Bartos
-                Azni\ Aslakhanov
-                Damien\ Newburn
-                Andra\ Moffatt
-                Ona\ Scheer
-                Kristy\ Sanchez
-                Flor\ Sabino
-                Ritchie\ Barillas
-                Carl\ Pittman
-                Lakita\ Lingenfelter
-                June\ Oslund
-                Casta\ Porto
-                Florida\ Mescher
-                Jolyn\ Brosnan
-                Emily\ Roberts
-                Eunice\ Phelps
-                Benny\ Loman
-                Sage\ Imel
-                Collin\ Loadholt
-                Sage\ Imel
-                Carry\ Adcox
-                Remedios\ Bermudez
-                Sam\ Martinez
+              Maya\ Angelou
+              Margaret\ Atwood
+              Jane\ Austen
+              Anton\ Chekhov
+              Charles\ Dickens
+              Fyodor\ Dostoevsky
+              William\ Faulkner
+              Laura\ Esquivel
+              Ernest\ Hemingway
             )
         },
         {
           name: 'Period 2',
           student_names:
               %w(
-                Pearl\ Bucholz
-                Margarita\ Winrow
-                Leticia\ Villagran
-                Victor\ Olivas
-                Sherwood\ Jacobi
-                Edith\ Yates
-                Dee\ Davi
-                Ellie\ Nelson
-                Kathryn\ Pace
-                Isaac\ Powers
-                Sara\ Connor
-                Sean\ Adkins
-                Lamont\ Beachy
-                Darby\ Gossett
-                Gayla\ Gordillo
-                Zuri\ Afolayan
-                Hermine\ Gillett
-                Eloisa\ Mackey
-                Jane\ Rogerson
-                Charles\ Andrews
-                German\ Mar
-                Leota\ Kerfien
-                Evie\ Brannock
-                Dylan\ Anderson
-                Cristobal\ Rugh
-                Ralph\ Patterson
+                Gustave\ Flaubert
+                James\ Joyce
+                Harper\ Lee
+                Toni\ Morrison
+                Vladimir\ Nabokov
+                Dougas\ Adams
+                Isabel\ Allende
+                Bill\ Bryson
+                Kazuo\ Ishiguro
               )
         },
         {
           name: 'Period 3',
           student_names:
             %w(
-                Margarete\ Woolley
-                Brigid\ Coppock
-                Macario\ Palomo
-                Earlean\ Kuehn
-                Julina\ Chirino
-                Rea\ Lubinski
-                Jim\ Hogan
-                Jerrold\ Mosso
-                Dantel\ Lorenz
-                Annmarie\ Pilling
-                Myrle\ Bartelt
-                Elisa\ Villarruel
-                Regina\ Cain
-                Patric\ MacIver
-                Serenity\ White
-                Artura\ Saucedo
-                Allena\ Hebron
-                Jose\ Nichols
-                Antwan\ Jerrell
-                Chiumbo\ Afolayan
-                Novia\ Vicente
-                Kira\ Wentzel
-                Shona\ Gable
-                George\ Richard
-                Tyler\ Kelly
-                Amos\ Sylva
+                J.K.\ Rowling
+                William\ Shakespeare
+                Zadie\ Smith
+                Leo\ Tolstoy
+                Virginia\ Woolf
+                Agathy\ Christie
+                Beveryly\ Cleary
+                Rita\ Dove
+                Langston\ Hughes
               )
         }
       ]
