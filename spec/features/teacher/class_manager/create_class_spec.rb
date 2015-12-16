@@ -51,7 +51,7 @@ feature 'Create-a-Class page' do
       end
 
       describe 'clicking the new-code item' do
-        it 'generates a new class-code', js: true do
+        it 'generates a new class-code', js: true, retry: 3 do
           expect { create_classroom_page.generate_new_class_code }
             .to change { create_classroom_page.class_code }
         end

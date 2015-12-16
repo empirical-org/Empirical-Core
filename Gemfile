@@ -144,6 +144,7 @@ group :test, :development do
   gem 'guard-shell'
   gem 'terminal-notifier-guard'
   gem 'teaspoon-mocha'
+  gem 'rspec-retry'
 end
 
 group :test do
