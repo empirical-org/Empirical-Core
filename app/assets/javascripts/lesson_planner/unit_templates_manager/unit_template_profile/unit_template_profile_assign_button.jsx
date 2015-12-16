@@ -11,8 +11,8 @@ EC.UnitTemplateProfileAssignButton = React.createClass({
       return <button className='button-green full-width' onClick={this.props.actions.clickAssignButton}>Assign to Your Class</button>
     } else {
       return (<span>
-        <button className='button-green full-width' onClick={this.props.actions.fastAssign}>Assign to everyone, with no due dates</button>
-        <button className='button-green full-width' onClick={this.props.actions.customAssign}>Pick specific students and due dates</button>
+        <button className='button-green full-width' onClick={this.props.actions.fastAssign}>Assign to Everyone</button>
+        <button className='button-green full-width' onClick={this.props.actions.customAssign}>Assign to Specific Students and Set Due Dates</button>
       </span>)
     }
   },
