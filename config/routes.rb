@@ -35,7 +35,7 @@ EmpiricalGrammar::Application.routes.draw do
   namespace :teachers do
     resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
 
-    resources :unit_templates, only: [:index, :show] do
+    resources :unit_templates, only: [:index] do
       collection do
         post :fast_assign, controller: 'unit_templates', action: 'fast_assign'
       end
@@ -178,8 +178,8 @@ EmpiricalGrammar::Application.routes.draw do
     get page => "pages##{page}", as: "#{page}"
   end
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
-  get 'activities/packs' => 'pages#activity_packs'
-  get 'activities/packs/:id' => 'pages#show_activity_packs'
+  get 'activities/packs' => 'teachers/unit_templates#index'
+  get 'activities/packs/:id' => 'teachers/unit_templates#show'
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work

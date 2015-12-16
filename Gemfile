@@ -96,6 +96,7 @@ gem 'kaminari'
 # MIDDLEWARE
 gem 'rack-cache', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
+gem "rack-timeout"
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
