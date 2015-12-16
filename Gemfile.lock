@@ -440,6 +440,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-timeout (0.3.2)
     rails (4.1.13)
       actionmailer (= 4.1.13)
       actionpack (= 4.1.13)
@@ -693,6 +694,7 @@ DEPENDENCIES
   rack-cache
   rack-cors
   rack-heartbeat
+  rack-timeout
   rails (~> 4.1.4)
   rails_12factor
   ranked-model

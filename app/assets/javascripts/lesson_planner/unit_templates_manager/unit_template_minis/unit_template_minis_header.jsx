@@ -6,7 +6,7 @@ EC.UnitTemplateMinisHeader = React.createClass({
   stateSpecificComponent: function () {
     var grade = this.props.data.grade;
     if (grade) {
-      return "Perfect For Your Grade " + grade + " Class";
+      return "Great Activity Packs for Your Class";
     } else {
       return "Featured Activity Packs"
     }
