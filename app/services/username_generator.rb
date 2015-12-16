@@ -10,9 +10,9 @@ class UsernameGenerator
     part1_pattern = "%#{part1}%"
     extant = User.where("username ILIKE ?", part1_pattern)
     if extant.any?
-      final = "#{part1}#{extant.length + 1}@#{classcode}"
+      final = "#{part1}#{extant.length + 1}#{at_classcode}"
     else
-      final = "#{part1}@#{classcode}"
+      final = "#{part1}#{at_classcode}"
     end
     final
   end
@@ -27,7 +27,8 @@ class UsernameGenerator
     user.last_name
   end
 
-  def classcode
-    user.classcode
+  def at_classcode
+    return "" if user.classcode.nil?
+    "@#{user.classcode}"
   end
 end
