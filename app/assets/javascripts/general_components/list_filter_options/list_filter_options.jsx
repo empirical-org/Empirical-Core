@@ -5,12 +5,19 @@ EC.ListFilterOptions = React.createClass({
     //selectedId: null | number
   },
 
+  sortViews: function (views) {
+    var order = ["All", "Elementary", "Middle", "High", "University", "ELL", "Themed"];
+    return _.compact(_.map(order, function(option) {
+      return _.findWhere(views, {name: option})
+    }))
+  },
+
   generateViews: function () {
     var allOption = {
       id: null,
       name: 'All'
     };
-    var options = [allOption].concat(this.props.options)
+    var options = this.sortViews([allOption].concat(this.props.options));
     var arr =_.map(options, this.generateView, this);
     return arr;
   },
