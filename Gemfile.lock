@@ -523,6 +523,8 @@ GEM
       rspec-expectations (~> 3.3.0)
       rspec-mocks (~> 3.3.0)
       rspec-support (~> 3.3.0)
+    rspec-retry (0.4.5)
+      rspec-core
     rspec-support (3.3.0)
     ruby-progressbar (1.7.5)
     ruby_parser (3.7.0)
@@ -699,6 +701,7 @@ DEPENDENCIES
   redcarpet
   redis-rails
   rspec-rails
+  rspec-retry
   sass
   sass-rails!
   select2-rails
