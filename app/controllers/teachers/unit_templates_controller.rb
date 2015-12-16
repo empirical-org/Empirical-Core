@@ -22,7 +22,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def show
-    @unit_template_id = params[:id]
+    @unit_template_id = @unit_template.id
     render 'public_show' if not @is_teacher
   end
 
@@ -34,7 +34,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   def redirect_to_public_index_if_no_unit_template_found
     begin
-      unit = UnitTemplate.find(params[:id])
+      @unit_template = UnitTemplate.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       redirect_to :public_index
     end
