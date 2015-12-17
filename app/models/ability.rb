@@ -6,7 +6,7 @@ class Ability
     self.send(@user.role.to_sym || :temporary) # If a role is unset, then the role should be temporary
   end
 
-  def admin
+  def staff
     can :manage, :all
     teacher
   end

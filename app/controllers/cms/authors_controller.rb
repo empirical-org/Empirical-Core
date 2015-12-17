@@ -1,5 +1,5 @@
 class Cms::AuthorsController < ApplicationController
-  before_filter :admin!
+  before_filter :staff!
   before_action :set_author, only: [:update, :destroy]
 
   def index
