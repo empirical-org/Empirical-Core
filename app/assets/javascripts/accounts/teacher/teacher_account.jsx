@@ -2,7 +2,7 @@
 $(function () {
   var ele1, ele2, props, ele
   ele1 = $('#my-account');
-  ele2 = $('#admin-teacher-account-editor');
+  ele2 = $('#staff-teacher-account-editor');
   if (ele1.length > 0) {
     ele = ele1[0];
     props = {
@@ -11,7 +11,7 @@ $(function () {
   } else if (ele2.length > 0) {
     ele = ele2[0];
     props = {
-      userType: 'admin',
+      userType: 'staff',
       teacherId: ele2.data('id')
     }
   }
@@ -46,7 +46,7 @@ EC.TeacherAccount = React.createClass({
   },
   componentDidMount: function () {
     var url, data;
-    if (this.props.userType == 'admin') {
+    if (this.props.userType == 'staff') {
       url = '/cms/users/' + this.props.teacherId + '/show_json'
     } else {
       url = '/teachers/my_account_data';
@@ -137,7 +137,7 @@ EC.TeacherAccount = React.createClass({
       school_options_do_not_apply: this.state.schoolOptionsDoNotApply
     }
     var url;
-    if (this.props.userType == 'admin') {
+    if (this.props.userType == 'staff') {
       url = '/cms/users/' + this.state.id;
     } else if (this.props.userType == 'teacher') {
       url = '/teachers/update_my_account';
@@ -157,7 +157,7 @@ EC.TeacherAccount = React.createClass({
       this.setState({
         name: data.user.name,
       });
-      if (this.props.userType == 'admin') {
+      if (this.props.userType == 'staff') {
         this.saveSubscription();
       }
     }
@@ -270,7 +270,7 @@ EC.TeacherAccount = React.createClass({
   },
   render: function () {
     var selectRole, subscription;
-    if (this.props.userType == 'admin') {
+    if (this.props.userType == 'staff') {
       selectRole = <EC.SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
       subscription = <EC.SelectSubscription subscription={this.state.subscription}
                                             subscriptionType={this.state.subscriptionType}

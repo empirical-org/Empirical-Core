@@ -9,7 +9,7 @@ EC.SelectRole = React.createClass({
     this.props.updateRole(x);
   },
   render: function () {
-    var options = _.map(['teacher', 'student', 'admin'], function (role) {
+    var options = _.map(['teacher', 'student', 'admin', 'staff'], function (role) {
       return <option key={role} value={role}>{role}</option>;
     });
     return (

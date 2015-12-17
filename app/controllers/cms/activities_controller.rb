@@ -1,5 +1,5 @@
 class Cms::ActivitiesController < ApplicationController
-  before_filter :admin!
+  before_filter :staff!
   before_filter :find_classification
 
   def index

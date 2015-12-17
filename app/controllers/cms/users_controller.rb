@@ -1,6 +1,6 @@
 class Cms::UsersController < ApplicationController
   before_filter :signed_in!
-  before_filter :admin!
+  before_filter :staff!
   before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
 
   def index
@@ -36,7 +36,7 @@ class Cms::UsersController < ApplicationController
   end
 
   def sign_in
-    session[:admin_id] = current_user.id
+    session[:staff_id] = current_user.id
     super(User.find(params[:id]))
     redirect_to profile_path
   end
