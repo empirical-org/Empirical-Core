@@ -12,7 +12,7 @@ shared_examples_for "teacher" do
     end
 
   end
-    
+
   context "with the ActiveRecords's delegated methods" do
       describe ".all" do
         it "must me included in methods" do
@@ -45,18 +45,19 @@ shared_examples_for "teacher" do
       end
   end
 
-  describe "default scope" do 
+  describe "default scope" do
     let(:teacher){FactoryGirl.create(:teacher)}
     let(:user){FactoryGirl.create(:user)}
     let(:student){FactoryGirl.create(:student)}
     let(:admin){FactoryGirl.create(:admin)}
+    let(:staff){FactoryGirl.create(:staff)}
 
-    it "must list only teacher users" do 
+    it "must list only teacher users" do
       Teacher.all.each do |teacher|
         expect(teacher).to be_teacher
       end
     end
-    
+
   end
 
 end

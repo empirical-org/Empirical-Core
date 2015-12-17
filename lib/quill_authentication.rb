@@ -2,7 +2,7 @@ module QuillAuthentication
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_user, :signed_in?, :sign_out?, :admin?
+    helper_method :current_user, :signed_in?, :sign_out?, :admin?, :staff?
   end
 
   def require_user
@@ -61,6 +61,10 @@ module QuillAuthentication
 
   def admin?
     signed_in? && current_user.role.admin?
+  end
+
+  def staff?
+    signed_in? && current_user.role.staff?
   end
 
   def signed_in_path source

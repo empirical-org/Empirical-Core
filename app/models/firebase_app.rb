@@ -15,6 +15,8 @@ class FirebaseApp < ActiveRecord::Base
 
     if user.nil?
       payload[:anonymous] = true
+    elsif user.staff?
+      payload[:staff] = true
     elsif user.admin?
       payload[:admin] = true
     elsif user.teacher?

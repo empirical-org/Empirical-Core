@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
                                     format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?}
 
 
-  ROLES      = %w(student teacher temporary user admin)
+  ROLES      = %w(student teacher temporary user admin staff)
   SAFE_ROLES = %w(student teacher temporary)
 
   default_scope -> { where('users.role != ?', 'temporary') }
@@ -135,6 +135,10 @@ class User < ActiveRecord::Base
 
   def admin?
     role.admin?
+  end
+
+  def staff?
+    role.staff?
   end
 
   def permanent?
