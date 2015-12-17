@@ -6,7 +6,7 @@ class ActivityAuthorizer
   end
 
   def authorize
-    return true if @current_user.try(:admin?)
+    return true if @current_user.try(:staff?)
 
     if @activity_session.blank? || @activity_session.user != @current_user
       return false

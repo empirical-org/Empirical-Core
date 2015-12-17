@@ -6,8 +6,8 @@ describe "User", type: :model do
     subject(:ability) { Ability.new(user) }
     let(:user) { nil }
 
-    context "when an admin" do
-      let(:user) { FactoryGirl.build(:admin) }
+    context "when an staff" do
+      let(:user) { FactoryGirl.build(:staff) }
 
       it { is_expected.to be_able_to(:manage, ActivitySession.new) }
       it { is_expected.to be_able_to(:manage, User.new) }

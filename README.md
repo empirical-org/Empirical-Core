@@ -8,7 +8,7 @@
 
 **CLA:** [Please register an account & sign our CLA.] (http://community.quill.org/signup/cla/)
 
-The Mailing List, Chat, Issues, and Docs can all be accessed from the community page. 
+The Mailing List, Chat, Issues, and Docs can all be accessed from the community page.
 
 # Empirical Easy Install
 
@@ -55,3 +55,4 @@ The installation comes with three users, though you can create as many more as y
 1. A teacher, username `teacher` and password `teacher`.
 2. A student, username `student` and password `student`.
 3. An admin, username `admin` and password `admin`.
+4. An admin, username `staff` and password `staff`.
