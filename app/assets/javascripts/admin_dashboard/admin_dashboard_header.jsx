@@ -16,7 +16,7 @@ EC.AdminDashboardHeader = React.createClass({
               </div>
               <div className="col-xs-9">
                 <h5>Elliot Mandel</h5>
-                <p>As your Quill Representative, I'm here to help!
+                <p>"As your Quill Representative, I'm here to help!"
                   <br/>
                   <br/>
                   201-491-5568<br/>

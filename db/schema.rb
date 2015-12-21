@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214204602) do
+ActiveRecord::Schema.define(version: 20151221190346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,17 @@ ActiveRecord::Schema.define(version: 20151214204602) do
   add_index "activity_sessions", ["state"], name: "index_activity_sessions_on_state", using: :btree
   add_index "activity_sessions", ["uid"], name: "index_activity_sessions_on_uid", unique: true, using: :btree
   add_index "activity_sessions", ["user_id"], name: "index_activity_sessions_on_user_id", using: :btree
+
+  create_table "admin_relationships", force: true do |t|
+    t.integer  "admin_id"
+    t.integer  "teacher_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admin_relationships", ["admin_id", "teacher_id"], name: "index_admin_relationships_on_admin_id_and_teacher_id", unique: true, using: :btree
+  add_index "admin_relationships", ["admin_id"], name: "index_admin_relationships_on_admin_id", using: :btree
+  add_index "admin_relationships", ["teacher_id"], name: "index_admin_relationships_on_teacher_id", using: :btree
 
   create_table "authors", force: true do |t|
     t.string   "name"
