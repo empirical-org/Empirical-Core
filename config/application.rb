@@ -18,7 +18,8 @@ module EmpiricalGrammar
 
     config.paperclip_defaults = {
       storage: :fog,
-      fog_credentials: { provider: ENV.fetch('FOG_PROVIDER', 'AWS'), aws_access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID', '')},
+      fog_credentials: { provider: ENV.fetch('FOG_PROVIDER', 'AWS'), aws_access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID', ''),
+                         aws_secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY', '')},
       fog_directory: ENV.fetch('FOG_DIRECTORY', 'empirical-dev')
     }
 
