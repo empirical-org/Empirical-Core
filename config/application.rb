@@ -16,6 +16,12 @@ module EmpiricalGrammar
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.paperclip_defaults = {
+      storage: :fog,
+      fog_credentials: { provider: ENV.fetch('FOG_PROVIDER', 'AWS'), aws_access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID', '')},
+      fog_directory: ENV.fetch('FOG_DIRECTORY', 'empirical-dev')
+    }
+
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(
       #{config.root}/app/controllers/concerns
