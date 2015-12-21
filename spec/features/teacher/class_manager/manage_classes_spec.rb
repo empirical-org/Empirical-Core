@@ -14,7 +14,7 @@ describe 'Teacher Manage-Class page' do
         manage_class_page.visit
       end
 
-      it 'shows the students, sorted by (last, first) name' do
+      it 'shows the students, sorted by (last, first) name', retry: 3 do
         expected_rows = sort_fodder_sorted.map do |student|
           [student.name,
            student.username]

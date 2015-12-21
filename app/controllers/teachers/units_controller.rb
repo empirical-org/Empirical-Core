@@ -3,51 +3,20 @@ class Teachers::UnitsController < ApplicationController
   before_filter :teacher!
 
   def create
-
-    # create a unit
-    unit = Unit.create name: unit_params['name']
-
-    # Request format:
-    #   unit: {
-    #     name: string
-    #     classrooms: [{
-    #       id: int
-    #       all_students: boolean
-    #       student_ids: [int]
-    #     }]
-    #     activities: [{
-    #       id: int
-    #       due_date: string
-    #     }]
-    #   }
-
-    unit_params['activities'].each do |key, activity_data|
-      activity_id = activity_data['id']
-      due_date = activity_data['due_date']
-      unit_params['classrooms'].each do |key, classroom_data|
-        classroom_data['student_ids'] ||= []
-        unit.classroom_activities.create!(activity_id: activity_id,
-                                          classroom_id: classroom_data['id'],
-                                          assigned_student_ids: (classroom_data['student_ids'] ) ,
-                                          due_date: due_date)
-      end
-    end
-
-    # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
-    AssignActivityWorker.perform_async(current_user.id) # current_user should be the teacher
+    Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
     render json: {}
-
   end
 
   def index
-    cas = current_user.classrooms.map(&:classroom_activities).flatten
+    # cas = current_user.classrooms.includes(:students, classroom_activities: :activity, classroom_activities: :topic).map(&:classroom_activities).flatten
+    cas = current_user.classrooms.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten
     units = cas.group_by{|ca| ca.unit_id}
     arr = []
     units.each do |unit_id, classroom_activities|
 
-      x1 = classroom_activities.reject{|ca| ca.due_date.nil?}.compact
+      x1 = classroom_activities.compact
 
-      x1 = x1.sort{|a, b| a.due_date <=> b.due_date}
+      x1 = ClassroomActivitySorter::sort(x1)
 
       x1 = x1.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
 
@@ -75,8 +44,9 @@ class Teachers::UnitsController < ApplicationController
       end
     end
 
-
-    render json: arr
+    arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
+    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}.reverse
+    render json: arr1.concat(arr2)
   end
 
   def hide
@@ -95,7 +65,7 @@ class Teachers::UnitsController < ApplicationController
   private
 
   def unit_params
-    params.require(:unit).permit(:name, classrooms: [:id, :all_students, :student_ids => []], activities: [:id, :due_date])
+    params.require(:unit).permit(:name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
   end
 
 #   def setup

@@ -1,5 +1,6 @@
 
 <div id="page-content-wrapper">
+
 	<div class="row">
     	<div class="col-xs-12 col-xl-12">
 
@@ -15,60 +16,82 @@
 
 
 				<div class="container">
+					<div class='user-profile-editor'>
+						<section class="no-border">
+							<h3 class="form-header col-xs-12"><%= "#{@student.name}'s Account" %></h1>
 
-					<section class="no-border">
-						<h1 class="section-header"><%= "#{@student.name}'s Account" %></h1>
-
-						<%= form_for @student, url: teachers_classroom_student_path(@classroom, @student), class: 'edit-student-page' do |f| %>
-							<div class='first-div'>
-								<%= f.label :name, 'Real Name', class: 'input-description-inline' %>
-								<%= f.text_field :name, class: 'second-part'%>
-							</div>
-							<div>
-								<%= f.label :username, 'Username', class: 'input-description-inline' %>
-								<%= f.text_field :username, class: 'second-part'%>
-							</div>
-
-							<div class='third-div'>
-								<%= f.label :classcode, 'Class Code', class: 'input-description-inline' %>
-								<div class='second-part classcode'>
-									<input disabled type='text' class='inactive' value=<%= @classroom.code %>>
+							<%= form_for @student, url: teachers_classroom_student_path(@classroom, @student), class: 'edit-student-page' do |f| %>
+								<div class='row'>
+									<div class='form-label col-xs-2'>
+										Real Name
+									</div>
+									<div class='col-xs-4'>
+										<%= f.text_field :name, class: 'col-xs-4'%>
+									</div>
 								</div>
-							</div>
-							<div class='fourth-div'>
-								<%= f.label :password, 'Password', class: 'input-description-inline' %>
-								<div class='second-part password'>
-									<%- if @was_teacher_the_last_user_to_reset_students_password %>
-										<input disabled class='inactive' value=<%= @student.last_name %>>
-									<%- else %>
-										<input disabled type='password' class='inactive' value='password'>
-									<% end %>
+								<div class='row'>
+									<div class='form-label col-xs-2'>
+										Username
+									</div>
+									<div class='col-xs-4'>
+											<%= f.text_field :username, class: 'col-xs-4'%>
+									</div>
 								</div>
-								<%=link_to "Reset", teachers_classroom_student_reset_password_path(@classroom, @student), method: 'put', class: 'password-reset' %>
-							</div>
 
-							<div class="input-description second-part">
-								After resetting a password, the student's password will be the student's last name.
-							</div>
-
-							<div class="second-part">
-								<!--<button class="button-green">Save Changes</button>-->
-								<%= f.button "Save Changes", class: 'button-green' %>
-							</div>
-
-							<div class="second-part">
-								<!--<a href="#">Delete Account</a>-->
-								<%= link_to "Delete Account", teachers_classroom_student_path(@classroom, @student),data: {confirm: 'Are you sure you want to delete this account?'}, method: 'delete' %>
-							</div>
+								<div class='row'>
+									<div class='form-label col-xs-2'>
+										Class Code
+									</div>
+									<div class='col-xs-4'>
+										<input disabled type='text' class='inactive col-xs-4' value=<%= @classroom.code %>>
+									</div>
 
 
-						<% end %>
+								</div>
+								<div class='row'>
+									<div class='form-label col-xs-2'>
+										Password
+									</div>
+										<div class='col-xs-4'>
+											<%- if @was_teacher_the_last_user_to_reset_students_password %>
+												<input disabled class='inactive' value=<%= @student.last_name %>>
+											<%- else %>
+												<input disabled type='password' class='inactive' value='password'>
+											<% end %>
+										</div>
+									</div>
+									<div class='row'>
+										<div class="col-xs-3 col-xs-offset-2">
+											<%=button_to "Reset Password", teachers_classroom_student_reset_password_path(@classroom, @student), method: 'put', class: 'btn-warning' %>
+										</div>
+										<br>
+											<p class='button-helper'>After resetting a password, the student's password will be the student's last name.</p>
+									</div>
 
 
-					</section>
 
+								<div class='row'>
+									<div class="col-xs-4 col-xs-offset-2">
+										<!--<button class="button-green">Save Changes</button>-->
+										<%= f.button "Save Changes", class: 'button-green' %>
+									</div>
+								</div>
+
+								<div class='row'>
+									<div class="col-xs-2 col-xs-offset-2">
+										<%= button_to "Delete Account", teachers_classroom_student_path(@classroom, @student),data: {confirm: 'Are you sure you want to delete this account?'}, method: 'delete', class: 'delete-account btn btn-danger' %>
+									</div>
+								</div>
+
+
+							<% end %>
+
+
+						</section>
+
+						</div>
+					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 </div>

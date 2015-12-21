@@ -36,7 +36,7 @@ class ProfilesController < ApplicationController
             .where("activity_sessions.completed_at IS NULL")
             .where("activity_sessions.user_id = ?", current_user.id)
             .order("units.created_at DESC")
-            .order("classroom_activities.due_date DESC")
+            .order("classroom_activities.due_date ASC")
             .select("activity_sessions.*")
             .first
         render json: {student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: grouped_scores,

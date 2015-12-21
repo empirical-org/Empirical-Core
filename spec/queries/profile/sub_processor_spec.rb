@@ -28,21 +28,29 @@ describe 'Profile::SubProcessor' do
     expect(results.keys).to contain_exactly(unit1.name, unit2.name)
   end
 
+  it 'doesnt explode when theres a classroom_activity with no due_date' do
+    classroom_activity = FactoryGirl.create(:classroom_activity, unit: unit1, due_date: nil)
+    as2 = FactoryGirl.create(:activity_session, classroom_activity: classroom_activity, user: student)
+    results = subject
+    activity_sessions = results[unit1.name][:not_finished]
+    expect(activity_sessions).to include(as2)
+  end
+
   it 'groups by state within unit' do
     results = subject
-    x = results[unit1.name]['finished']
+    x = results[unit1.name][:finished]
     expect(x).to contain_exactly(as1, as_1a, as_1aa, as_1b)
   end
 
   it 'sorts finished activities by percentage, then activity.activity_classification_id' do
     results = subject
-    x = results[unit1.name]['finished']
+    x = results[unit1.name][:finished]
     expect(x).to eq([as_1b, as1, as_1a, as_1aa])
   end
 
   it 'sorts unstarted activities by due_date, then activity.activity_classification_id' do
     results = subject
-    x = results[unit2.name]['unstarted']
+    x = results[unit2.name][:not_finished]
     expect(x).to eq([as_2b, as2, as_2a, as_2aa])
   end
 
@@ -52,8 +60,9 @@ describe 'Profile::SubProcessor' do
     as_1aa.update_attributes(percentage: 0.5, state: 'finished')
     as_1b.update_attributes(percentage: 1, state: 'finished')
     results = subject
-    x = Profile::SubProcessor.new.send("sort_sessions_helper", results[unit1.name])
-    expect(x).to eq({"unstarted" => [as_1a, as1], "finished" => [as_1b, as_1aa]})
+    x = results[unit1.name]
+    expect(x[:not_finished]).to match_array([as_1a, as1])
+    expect(x[:finished]).to match_array([as_1b, as_1aa])
   end
 
   it 'only shows completed activities when there are others with the same classroom_activity_id' do
@@ -62,7 +71,7 @@ describe 'Profile::SubProcessor' do
     as_1a.update_attributes(classroom_activity_id: classroom_activity.id, state: 'started', is_retry: true)
     as_1aa.update_attributes(classroom_activity_id: classroom_activity.id, percentage: 0.5, state: 'finished')
     results = subject
-    expect(results[unit1.name]).to eq({"finished" =>[as_1aa], "unstarted" => []})
+    expect(results[unit1.name]).to eq({finished: [as_1aa]})
   end
 
 end

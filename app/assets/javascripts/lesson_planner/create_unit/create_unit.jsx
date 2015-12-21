@@ -107,7 +107,9 @@ EC.CreateUnit = React.createClass({
 		$.ajax({
 			type: 'POST',
 			url: '/teachers/units',
-			data: this.formatCreateRequestData(),
+			data: JSON.stringify(this.formatCreateRequestData()),
+			dataType: 'json',
+			contentType: 'application/json',
 			success: this.onCreateSuccess,
 		});
 	},
@@ -135,12 +137,15 @@ EC.CreateUnit = React.createClass({
 			return {id: c.classroom.id, student_ids: selectedStudentIds};
 		});
 
-		var activityPostData = _.map(this.state.dueDates, function(key, value) {
+		var sas = this.getSelectedActivities()
+
+		var activityPostData = _.map(sas, function (sa) {
 			return {
-				id: value,
-				due_date: key
+				id: sa.id,
+				due_date: this.state.dueDates[sa.id]
 			}
-		});
+		}, this)
+
 		var x = {
 			unit: {
 				name: this.getUnitName(),
@@ -152,7 +157,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	onCreateSuccess: function(response) {
-		this.props.actions.toggleTab('manageUnits');
+		window.location.href = "/profile";
 	},
 
 	isUnitNameSelected: function () {
@@ -189,10 +194,6 @@ EC.CreateUnit = React.createClass({
 		return (x.length > 0);
 	},
 
-	areAllDueDatesProvided: function () {
-		return (Object.keys(this.state.dueDates).length == this.getSelectedActivities().length);
-	},
-
 	determineStage1ErrorMessage: function () {
 		var a = this.isUnitNameSelected();
 		var b = (this.getSelectedActivities().length > 0);
@@ -213,16 +214,9 @@ EC.CreateUnit = React.createClass({
 
 	determineStage2ErrorMessage: function () {
 		var a = this.areAnyStudentsSelected();
-		var b = this.areAllDueDatesProvided();
 		var msg;
 		if (!a) {
-			if (!b) {
-				msg = "Please select students and due dates";
-			} else {
-				msg = "Please select students";
-			}
-		} else if (!b) {
-			msg = "Please select due dates";
+			msg = "Please select students";
 		} else {
 			msg = null;
 		}
@@ -249,7 +243,6 @@ EC.CreateUnit = React.createClass({
 								 unitName={this.getUnitName()}
 								 assignActivityDueDate={this.assignActivityDueDate}
 								 areAnyStudentsSelected={this.areAnyStudentsSelected()}
-								 areAllDueDatesProvided={this.areAllDueDatesProvided()}
 								 errorMessage={this.determineStage2ErrorMessage()}/>);
 	},
 

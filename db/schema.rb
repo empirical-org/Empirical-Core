@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208175620) do
+ActiveRecord::Schema.define(version: 20151214204602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -306,7 +306,6 @@ ActiveRecord::Schema.define(version: 20151208175620) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "workbook_id"
     t.string   "uid"
   end
 
@@ -389,11 +388,5 @@ ActiveRecord::Schema.define(version: 20151208175620) do
   add_index "users", ["role"], name: "index_users_on_role", using: :btree
   add_index "users", ["token"], name: "index_users_on_token", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", using: :btree
-
-  create_table "workbooks", force: true do |t|
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
 end

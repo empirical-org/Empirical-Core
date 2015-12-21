@@ -18,9 +18,7 @@ feature 'Create-a-Class page' do
         new_class = Classroom.last
         expect(new_class.code).to eq class_code
 
-        invite_students_page = Teachers::InviteStudentsPage.new(new_class)
-        expect(current_path)                   .to eq invite_students_page.path
-        expect(invite_students_page.class_code).to eq class_code
+        expect(current_path)                   .to eq lesson_planner_teachers_classrooms_path
       end
 
       it "creates a class with the same name as another Teacher's" do
@@ -31,9 +29,21 @@ feature 'Create-a-Class page' do
 
         new_class = Classroom.last
 
-        invite_students_page = Teachers::InviteStudentsPage.new(new_class)
-        expect(current_path)                       .to eq invite_students_page.path
-        expect(invite_students_page.class_code).not_to eq sweathogs.code
+        expect(current_path).to eq lesson_planner_teachers_classrooms_path
+      end
+
+      it "does not add classrooms without a grade and raises an error" do
+        page.fill_in 'classroom_name', :with => "gutter-punk"
+        expect { page.click_button 'Create Class' }.to change { Classroom.count }.by(0)
+        expect { page.to have_content("Grade can't be blank")}
+      end
+
+      it "does not add classrooms without a name and raises an error" do
+        within '#classroom_grade' do
+          find("option[value='1']").click
+        end
+        expect { page.click_button 'Create Class' }.to change { Classroom.count }.by(0)
+        expect { page.to have_content("Name can't be blank")}
       end
 
       def create_sweathogs
@@ -41,7 +51,7 @@ feature 'Create-a-Class page' do
       end
 
       describe 'clicking the new-code item' do
-        it 'generates a new class-code', js: true do
+        it 'generates a new class-code', js: true, retry: 3 do
           expect { create_classroom_page.generate_new_class_code }
             .to change { create_classroom_page.class_code }
         end
