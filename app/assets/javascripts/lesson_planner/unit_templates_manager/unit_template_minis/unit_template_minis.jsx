@@ -17,7 +17,7 @@ EC.UnitTemplateMinis = React.createClass({
     var models;
     if (grade) {
       models = _.reject(this.props.data.displayedModels, function (m){
-        return _.indexOf(m.grades, grade.toString());
+        return _.contains(m.grades, grade.toString());
       });
     } else {
       models = this.props.data.displayedModels
