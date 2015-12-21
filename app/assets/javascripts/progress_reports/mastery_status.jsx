@@ -8,20 +8,16 @@ EC.MasteryStatus = React.createClass({
   circleClass: function() {
     if (this.props.score > 0.75) {
       return 'circle proficient';
-    } else if (this.props.score < 0.50) {
-      return 'circle not-proficient';
     } else {
-      return 'circle near-proficient';
+      return 'circle not-proficient';
     }
   },
 
   text: function() {
     if (this.props.score > 0.75) {
       return 'Proficient';
-    } else if (this.props.score < 0.50) {
-      return 'Not Proficient';
-    } else if (this.props.score >= 0.50 && this.props.score <= 0.75) {
-      return 'Nearly Proficient';
+    } else if (this.props.score <= 0.75) {
+      return 'Not Yet Proficient';
     }
   },
 

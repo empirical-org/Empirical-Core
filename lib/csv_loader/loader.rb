@@ -16,8 +16,8 @@ class GoogleDriveLoader
   def client
     return @client if defined? @client
     @client = Google::APIClient.new(
-      :application_name => 'Example Ruby application',
-      :application_version => '1.0.0'
+      application_name: 'Example Ruby application',
+      application_version: '1.0.0'
     )
 
     authorize!
@@ -102,7 +102,7 @@ class GoogleDriveFile
 
     data = doc.data
     @download_url = data.download_url || data.export_links['text/plain']
-    binding.pry if @download_url.blank?
+    #binding.pry if @download_url.blank?
     @download_url
   end
 

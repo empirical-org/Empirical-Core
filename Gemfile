@@ -96,6 +96,7 @@ gem 'kaminari'
 # MIDDLEWARE
 gem 'rack-cache', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
+gem "rack-timeout"
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
@@ -144,6 +145,7 @@ group :test, :development do
   gem 'guard-shell'
   gem 'terminal-notifier-guard'
   gem 'teaspoon-mocha'
+  gem 'rspec-retry'
 end
 
 group :test do

@@ -34,7 +34,13 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :teachers do
     resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
-    resources :unit_templates, only: [:index, :show]
+
+    resources :unit_templates, only: [:index] do
+      collection do
+        post :fast_assign, controller: 'unit_templates', action: 'fast_assign'
+      end
+    end
+
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
 
 
@@ -172,6 +178,8 @@ EmpiricalGrammar::Application.routes.draw do
     get page => "pages##{page}", as: "#{page}"
   end
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
+  get 'activities/packs' => 'teachers/unit_templates#index'
+  get 'activities/packs/:id' => 'teachers/unit_templates#show'
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
@@ -191,5 +199,5 @@ EmpiricalGrammar::Application.routes.draw do
   get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
   # catch-all 404
-  get '*path', :to => 'application#routing_error'
+  get '*path', to: 'application#routing_error'
 end

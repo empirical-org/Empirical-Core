@@ -38,9 +38,9 @@ class GoogleAuthenticate
     client.authorization.access_token = @access_token
     service = client.discovered_api('plus')
     result = client.execute(
-      :api_method => service.people.get,
-      :parameters => {'userId' => 'me'},
-      :headers => {'Content-Type' => 'application/json'})
+      api_method: service.people.get,
+      parameters: {'userId' => 'me'},
+      headers: {'Content-Type' => 'application/json'})
     data = JSON.parse(result.body)
     data
   end

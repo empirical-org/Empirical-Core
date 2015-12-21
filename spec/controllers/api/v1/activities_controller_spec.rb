@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::V1::ActivitiesController, :type => :controller do
+describe Api::V1::ActivitiesController, type: :controller do
 
   context 'GET #show' do
     include_context "calling the api"
