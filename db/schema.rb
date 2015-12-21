@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221190346) do
+ActiveRecord::Schema.define(version: 20151221195736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,16 +85,30 @@ ActiveRecord::Schema.define(version: 20151221190346) do
   add_index "activity_sessions", ["uid"], name: "index_activity_sessions_on_uid", unique: true, using: :btree
   add_index "activity_sessions", ["user_id"], name: "index_activity_sessions_on_user_id", using: :btree
 
-  create_table "admin_relationships", force: true do |t|
+  create_table "admin_accounts", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "admin_accounts_admins", force: true do |t|
+    t.integer  "admin_account_id"
     t.integer  "admin_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admin_accounts_admins", ["admin_account_id"], name: "index_admin_accounts_admins_on_admin_account_id", using: :btree
+  add_index "admin_accounts_admins", ["admin_id"], name: "index_admin_accounts_admins_on_admin_id", using: :btree
+
+  create_table "admin_accounts_teachers", force: true do |t|
+    t.integer  "admin_account_id"
     t.integer  "teacher_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "admin_relationships", ["admin_id", "teacher_id"], name: "index_admin_relationships_on_admin_id_and_teacher_id", unique: true, using: :btree
-  add_index "admin_relationships", ["admin_id"], name: "index_admin_relationships_on_admin_id", using: :btree
-  add_index "admin_relationships", ["teacher_id"], name: "index_admin_relationships_on_teacher_id", using: :btree
+  add_index "admin_accounts_teachers", ["admin_account_id"], name: "index_admin_accounts_teachers_on_admin_account_id", using: :btree
+  add_index "admin_accounts_teachers", ["teacher_id"], name: "index_admin_accounts_teachers_on_teacher_id", using: :btree
 
   create_table "authors", force: true do |t|
     t.string   "name"

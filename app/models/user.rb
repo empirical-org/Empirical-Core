@@ -9,17 +9,14 @@ class User < ActiveRecord::Base
 
   has_secure_password validations: false
 
-  has_many :teacher_relationships, class_name: "AdminRelationship",
-                                   foreign_key: "admin_id",
-                                   dependent: :destroy
 
-  has_many :admin_relationships, class_name: "AdminRelationship",
-                                 foreign_key: "teacher_id",
-                                 dependent: :destroy
+  has_many :admin_accounts_teachers,
+            class_name: "AdminAccountsTeachers",
+            foreign_key: :teacher_id,
+            dependent: :destroy
 
-  has_many :teachers, through: :teacher_relationships, source: :teacher
-
-  has_many :admins, through: :admin_relationships, source: :admin
+  has_many :admin_accounts, through: :admin_accounts_teachers, source: :admin_account
+  has_many :admins, through: :admin_accounts, source: :admin
 
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
