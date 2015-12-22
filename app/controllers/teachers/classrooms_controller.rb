@@ -4,7 +4,7 @@ class Teachers::ClassroomsController < ApplicationController
   before_filter :authorize!
 
   def index
-    if current_user.classrooms.empty?
+    if new_teacher?
       redirect_to new_teachers_classroom_path
     else
       @classrooms = current_user.classrooms

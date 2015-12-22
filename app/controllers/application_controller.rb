@@ -46,6 +46,10 @@ class ApplicationController < ActionController::Base
     # sign_in(User.create_visitor)
   end
 
+  def new_teacher?
+    current_user.classrooms.any?
+  end
+
   protected
 
   def set_vary_header
