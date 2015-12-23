@@ -188,6 +188,14 @@ EC.LessonPlanner = React.createClass({
     });
   },
 
+	getInviteStudentsUrl: function() {
+		return ('http://localhost:3000/teachers/classrooms/' + $(".tab-pane").data().classroomId + '/invite_students');
+	},
+
+	getLastClassroomName: function() {
+		return $(".tab-pane").data().classroomName;
+	},
+
   getSelectedActivities: function () {
   	return this.state.createUnit.model.selectedActivities;
   },
@@ -216,6 +224,7 @@ EC.LessonPlanner = React.createClass({
   onFastAssignSuccess: function () {
 		this.deepExtendState(this.blankState());
 		this.updateUnitTemplatesManager({assignSuccess: true});
+		this.fetchClassrooms();
   },
 
 	customAssign: function () {
@@ -247,40 +256,22 @@ EC.LessonPlanner = React.createClass({
       filterByGrade: this.filterByGrade,
       selectModel: this.selectModel,
       showAllGrades: this.showAllGrades
-		}
+		};
 	},
 
-
-
-		// render: function () {
-		// 	var tabSpecificComponents;
-		// 	if (this.state.tab == 'createUnit') {
-		// 		if (this.state.unitTemplatesManager.assignSuccess === true) {
-		// 			alert('this.state.unitTemplatesManager.assignSuccess === true');}
-		// 		tabSpecificComponents = <EC.CreateUnit data={this.state.createUnit}
-		// 																					 actions={{toggleStage: this.toggleStage,
-	  //                                                      toggleTab: this.toggleTab,
-	  //                                                      update: this.updateCreateUnitModel,
-	  //                                                      toggleActivitySelection: this.toggleActivitySelection}}
-		// 																					 analytics={this.props.analytics}/>;
-		// 	} else if (this.state.tab == 'manageUnits') {
-		// 		if ((this.state.unitTemplatesManager.assignSuccess === true) && ($(".tab-pane").data().students === false)) {
-		// 		tabSpecificComponents = <EC.UnitTemplatesAssigned toggleTab={this.toggleTab} />;
-		// 		} else {tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;}
-		// 	} else if (this.state.tab == 'exploreActivityPacks') {
-		// 		tabSpecificComponents = <EC.UnitTemplatesManager
-		// 																	data={this.state.unitTemplatesManager}
-		// 																	actions={this.unitTemplatesManagerActions()}/>;
-		// 	}
+	unitTemplatesAssignedActions: function() {
+		return {
+			getInviteStudentsUrl: this.getInviteStudentsUrl,
+			getLastClassroomName: this.getLastClassroomName
+		};
+	},
 
 
 	render: function () {
 		var tabSpecificComponents;
-		console.log('assignSuccess ' + this.state.unitTemplatesManager.assignSuccess);
-		console.log('students ' + $(".tab-pane").data().students);
 		if ((this.state.unitTemplatesManager.assignSuccess === true) && ($(".tab-pane").data().students === false))  {
-			alert('no students');
-			tabSpecificComponents = <EC.UnitTemplatesAssigned toggleTab={this.toggleTab} />;
+			tabSpecificComponents = <EC.UnitTemplatesAssigned
+																		actions={this.unitTemplatesAssignedActions()}/>;
 		} else if (this.state.tab == 'createUnit') {
 			tabSpecificComponents = <EC.CreateUnit data={this.state.createUnit}
 																						 actions={{toggleStage: this.toggleStage,
