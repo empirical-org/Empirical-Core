@@ -6,6 +6,18 @@ EmpiricalGrammar::Application.routes.draw do
   # authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   # end
+
+  resources :admins, only: [:show], format: 'json'
+
+  # for admins to sign in as teachers
+  resources :users do
+    member do
+      get :admin_sign_in_classroom_manager, to: 'admins#sign_in_classroom_manager'
+      get :admin_sign_in_progress_reports, to: 'admins#sign_in_progress_reports'
+    end
+  end
+
+
   resources :subscriptions
   resources :assessments
   resources :assignments
@@ -33,6 +45,7 @@ EmpiricalGrammar::Application.routes.draw do
   get :porthole_proxy, to: 'porthole_proxy#index'
 
   namespace :teachers do
+
     resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
 
     resources :unit_templates, only: [:index] do

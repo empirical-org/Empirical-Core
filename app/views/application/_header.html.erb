@@ -1,3 +1,14 @@
 <nav class="navbar home-page-navbar npr other-pages-navbar" role="navigation">
 	<%= render partial: 'sub_header' %>
 </nav>
+<%- if session[:admin_id].present? %>
+  <div id='admin-dashboard-nav-panel'>
+    <div class='container' />
+      <div class='row'>
+        <div class='col-xs-12'>
+          Administrator
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

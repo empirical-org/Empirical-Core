@@ -58,7 +58,13 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_to profile_path
     else
-      redirect_to signed_out_path, notice: 'Logged Out'
+      staff_id = session.delete(:staff_id)
+      if user = User.find_by_id(staff_id)
+        sign_in user
+        redirect_to profile_path
+      else
+        redirect_to signed_out_path, notice: 'Logged Out'
+      end
     end
   end
 

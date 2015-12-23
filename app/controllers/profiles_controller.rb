@@ -59,6 +59,7 @@ class ProfilesController < ApplicationController
   end
 
   def admin
+    session[:admin_id] = current_user.id
     render :admin
   end
 
