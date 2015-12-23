@@ -8,7 +8,6 @@ EC.UnitTemplatesAssigned = React.createClass({
 
 
   render: function () {
-    debugger;
     return (
       <div className='successBox'>
         <div className='messageBox'><h2>Success</h2></div>

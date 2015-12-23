@@ -188,8 +188,9 @@ EC.LessonPlanner = React.createClass({
     });
   },
 
+	// TODO: remove staging from the URL or build a regex that grabs everythig before the third slash using window.location.href
 	getInviteStudentsUrl: function() {
-		return ('http://localhost:3000/teachers/classrooms/' + $(".tab-pane").data().classroomId + '/invite_students');
+		return ('https://staging.quill.org/teachers/classrooms/' + $(".tab-pane").data().classroomId + '/invite_students');
 	},
 
 	getLastClassroomName: function() {
