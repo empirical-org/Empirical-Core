@@ -148,6 +148,8 @@ EmpiricalGrammar::Application.routes.draw do
   put '/select_school', to: 'accounts#select_school'
 
   namespace :cms do
+    resources :admin_accounts, only: [:index, :create, :update, :destroy]
+    resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
     resources :sections
     resources :activity_classifications

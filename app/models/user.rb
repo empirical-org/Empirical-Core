@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
             foreign_key: :teacher_id,
             dependent: :destroy
 
-  has_many :admin_accounts, through: :admin_accounts_teachers, source: :admin_account
+  has_many :admin_accounts, through: :admin_accounts_teachers, source: :admin_account, inverse_of: :admins
   has_many :admins, through: :admin_accounts, source: :admin
 
   has_and_belongs_to_many :schools
