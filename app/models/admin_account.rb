@@ -15,6 +15,6 @@ class AdminAccount < ActiveRecord::Base
             foreign_key: "admin_account_id",
             dependent: :destroy
 
-  has_many :teachers, through: :admin_accounts_teachers, source: :teacher
+  has_many :teachers, through: :admin_accounts_teachers, source: :teacher, inverse_of: :admin_accounts_im_in
 
 end
