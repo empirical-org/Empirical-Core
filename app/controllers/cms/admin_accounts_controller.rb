@@ -26,7 +26,7 @@ class Cms::AdminAccountsController < ApplicationController
 
     if admin_account_params[:admins].present?
       admin_emails = admin_account_params[:admins].map{ |aa| aa[:email] }
-      @admin_account.admins = User.where(email: admin_emails)
+      @admin_account.admins = User.where(email: admin_emails, role: 'admin')
     else
       @admin_account.admins = []
     end
