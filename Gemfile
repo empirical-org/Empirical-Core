@@ -18,7 +18,7 @@ gem 'postgres_ext'
 
 # USER AUTH, ETC
 gem 'bcrypt'
-gem 'doorkeeper', '2.1.2' # must use 1.4.1 or > 2.0.0 - http://seclists.org/oss-sec/2014/q4/1076
+gem 'doorkeeper', '1.4.1' # must use 1.4.1 or > 2.0.0 - http://seclists.org/oss-sec/2014/q4/1076
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-clever'
@@ -27,7 +27,7 @@ gem 'firebase_token_generator'
 
 # EMAIL
 gem 'premailer-rails'
-gem 'nokogiri', '1.6.7.1' # required for premailer
+gem 'nokogiri' # required for premailer
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -89,13 +89,14 @@ gem 'react-rails', '1.4.1'
 
 # ASSET/UI
 gem 'therubyracer', require: false
-gem 'uglifier', '2.7.2', require: false
+gem 'uglifier',     require: false
 gem 'kaminari'
 
 
 # MIDDLEWARE
 gem 'rack-cache', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
+gem "rack-timeout"
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
@@ -109,7 +110,6 @@ group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'lograge' # for making logs more dense
-  gem "rack-timeout"
 end
 
 group :development do

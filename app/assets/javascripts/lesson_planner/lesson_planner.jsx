@@ -261,9 +261,9 @@ EC.LessonPlanner = React.createClass({
                                                        toggleActivitySelection: this.toggleActivitySelection}}
 																						 analytics={this.props.analytics}/>;
 		} else if (this.state.tab == 'manageUnits') {
-			if (this.state.unitTemplatesManager.assignSuccess === true) {
+			if ((this.state.unitTemplatesManager.assignSuccess === true) && ($(".tab-pane").data().students === false)) {
 				alert('this.state.unitTemplatesManager.assignSuccess === true');}
-			tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;
+			tabSpecificComponents = <EC.UnitTemplatesAssigned toggleTab={this.toggleTab} />;
 		} else if (this.state.tab == 'exploreActivityPacks') {
 			tabSpecificComponents = <EC.UnitTemplatesManager
 																		data={this.state.unitTemplatesManager}

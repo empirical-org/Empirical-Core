@@ -127,7 +127,7 @@ GEM
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    doorkeeper (2.1.2)
+    doorkeeper (1.4.1)
       railties (>= 3.1)
     dotenv (2.0.2)
     dotenv-rails (2.0.2)
@@ -644,7 +644,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   coffee-rails
   database_cleaner
-  doorkeeper (= 2.1.2)
+  doorkeeper (= 1.4.1)
   dotenv-rails
   es5-shim-rails
   factory_girl
@@ -673,7 +673,7 @@ DEPENDENCIES
   lograge
   mailchimp-api
   newrelic_rpm
-  nokogiri (= 1.6.7.1)
+  nokogiri
   omniauth
   omniauth-clever
   omniauth-google-oauth2
@@ -719,7 +719,7 @@ DEPENDENCIES
   therubyracer
   timecop
   turbolinks
-  uglifier (= 2.7.2)
+  uglifier
   validates_email_format_of
   vcr
   webmock

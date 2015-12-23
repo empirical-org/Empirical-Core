@@ -7,6 +7,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def lesson_planner
     @tab = params[:tab] #|| "manageUnits"
     @grade = params[:grade]
+    @students_exist = !!current_user.students
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
     end
