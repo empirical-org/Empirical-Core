@@ -122,7 +122,7 @@
   margin: auto;
   border: solid;
   border-color: #00C2A2;
-  width: 65%;
+  width: 55%;
   margin-top: 100px;
   text-align: center;
   .messageBox{
@@ -133,12 +133,13 @@
     p {
       font-size:14pt;
     }
-    .create-unit-button-container {
+    .add-students-button-container {
       height: 130px;
       width: 100%;
       padding-top: 25px;
+      margin: 2em;
       //outline: 1px solid black;
-      button.create-unit {
+      button.add-students {
         margin: none !important;
         float:right;
       }

@@ -8,7 +8,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     @tab = params[:tab] #|| "manageUnits"
     @grade = params[:grade]
     @students_exist = current_user.students.any?
-    @classroom = current_user.classrooms.last
+    @last_classroom_name = current_user.classrooms.last.name
+    @last_classroom_id = current_user.classrooms.last.id
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
     end
