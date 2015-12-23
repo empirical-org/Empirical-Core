@@ -6,12 +6,18 @@ EC.UnitTemplatesAssigned = React.createClass({
   },
 
   stageSpecificComponents: function () {
-    alert('I"M RENDERING!!!');
   },
 
   render: function () {
     return (
-      <h1>REND</h1>
+      <div className='successBox'>
+        <div className='messageBox'><h2>Success</h2></div>
+        <p>You've assigned an activity-pack to your class!</p>
+        <p>Your next step is to add students.</p>
+        <div  className= "create-unit-button-container">
+            <button onClick={this.switchToCreateUnit} className="button-green create-unit">Create a New Unit</button>
+        </div>
+      </div>
     );
   }
 });

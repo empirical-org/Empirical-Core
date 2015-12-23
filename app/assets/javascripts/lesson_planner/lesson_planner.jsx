@@ -215,6 +215,7 @@ EC.LessonPlanner = React.createClass({
 
   onFastAssignSuccess: function () {
 		this.deepExtendState(this.blankState());
+		this.updateUnitTemplatesManager({assignSuccess: true});
   },
 
 	customAssign: function () {
@@ -249,11 +250,38 @@ EC.LessonPlanner = React.createClass({
 		}
 	},
 
+
+
+		// render: function () {
+		// 	var tabSpecificComponents;
+		// 	if (this.state.tab == 'createUnit') {
+		// 		if (this.state.unitTemplatesManager.assignSuccess === true) {
+		// 			alert('this.state.unitTemplatesManager.assignSuccess === true');}
+		// 		tabSpecificComponents = <EC.CreateUnit data={this.state.createUnit}
+		// 																					 actions={{toggleStage: this.toggleStage,
+	  //                                                      toggleTab: this.toggleTab,
+	  //                                                      update: this.updateCreateUnitModel,
+	  //                                                      toggleActivitySelection: this.toggleActivitySelection}}
+		// 																					 analytics={this.props.analytics}/>;
+		// 	} else if (this.state.tab == 'manageUnits') {
+		// 		if ((this.state.unitTemplatesManager.assignSuccess === true) && ($(".tab-pane").data().students === false)) {
+		// 		tabSpecificComponents = <EC.UnitTemplatesAssigned toggleTab={this.toggleTab} />;
+		// 		} else {tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;}
+		// 	} else if (this.state.tab == 'exploreActivityPacks') {
+		// 		tabSpecificComponents = <EC.UnitTemplatesManager
+		// 																	data={this.state.unitTemplatesManager}
+		// 																	actions={this.unitTemplatesManagerActions()}/>;
+		// 	}
+
+
 	render: function () {
 		var tabSpecificComponents;
-		if (this.state.tab == 'createUnit') {
-			if (this.state.unitTemplatesManager.assignSuccess === true) {
-				alert('this.state.unitTemplatesManager.assignSuccess === true');}
+		console.log('assignSuccess ' + this.state.unitTemplatesManager.assignSuccess);
+		console.log('students ' + $(".tab-pane").data().students);
+		if ((this.state.unitTemplatesManager.assignSuccess === true) && ($(".tab-pane").data().students === false))  {
+			alert('no students');
+			tabSpecificComponents = <EC.UnitTemplatesAssigned toggleTab={this.toggleTab} />;
+		} else if (this.state.tab == 'createUnit') {
 			tabSpecificComponents = <EC.CreateUnit data={this.state.createUnit}
 																						 actions={{toggleStage: this.toggleStage,
                                                        toggleTab: this.toggleTab,
@@ -261,9 +289,7 @@ EC.LessonPlanner = React.createClass({
                                                        toggleActivitySelection: this.toggleActivitySelection}}
 																						 analytics={this.props.analytics}/>;
 		} else if (this.state.tab == 'manageUnits') {
-			if ((this.state.unitTemplatesManager.assignSuccess === true) && ($(".tab-pane").data().students === false)) {
-				alert('this.state.unitTemplatesManager.assignSuccess === true');}
-			tabSpecificComponents = <EC.UnitTemplatesAssigned toggleTab={this.toggleTab} />;
+			tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;
 		} else if (this.state.tab == 'exploreActivityPacks') {
 			tabSpecificComponents = <EC.UnitTemplatesManager
 																		data={this.state.unitTemplatesManager}

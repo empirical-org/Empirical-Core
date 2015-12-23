@@ -117,3 +117,31 @@
 .hidden-button {
   display: none;
 }
+
+.successBox {
+  margin: auto;
+  border: solid;
+  border-color: #00C2A2;
+  width: 65%;
+  margin-top: 100px;
+  text-align: center;
+  .messageBox{
+    color: white;
+    background-color: #00C2A2;
+    padding: 1em;
+    margin-bottom: 2em;
+    p {
+      font-size:14pt;
+    }
+    .create-unit-button-container {
+      height: 130px;
+      width: 100%;
+      padding-top: 25px;
+      //outline: 1px solid black;
+      button.create-unit {
+        margin: none !important;
+        float:right;
+      }
+    }
+  }
+}
