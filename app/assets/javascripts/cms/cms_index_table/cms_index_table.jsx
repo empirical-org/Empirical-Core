@@ -1,21 +1,23 @@
 EC.CmsIndexTable = React.createClass({
   propTypes: {
-    resources: React.PropTypes.array.isRequired,
-    edit: React.PropTypes.func.isRequired,
-    delete: React.PropTypes.func.isRequired
+    data: React.PropTypes.object.isRequired,
+    actions: React.PropTypes.object.isRequired
   },
 
   furnishRows: function () {
-    var rows = _.map(this.props.resources, this.furnishRow, this);
+    var rows = _.map(this.props.data.resources, this.furnishRow, this);
     return rows;
   },
 
   furnishRow: function (resource) {
     return <EC.CmsIndexTableRow
-                  resource={resource}
+                  data={{resource: resource, identifier: this.props.data.identifier}}
                   key={resource.id}
-                  edit={this.props.edit}
-                  delete={this.props.delete} />;
+                  actions={this.props.actions} />;
+  },
+
+  identifier: function () {
+    return x = (this.props.data.identifier || 'Name')
   },
 
   render: function () {
@@ -24,7 +26,7 @@ EC.CmsIndexTable = React.createClass({
       <table className='table'>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>{this.identifier()}</th>
             <th>Actions</th>
           </tr>
         </thead>
