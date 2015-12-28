@@ -190,7 +190,11 @@ EC.LessonPlanner = React.createClass({
 
 	// TODO: remove staging from the URL or build a regex that grabs everythig before the third slash using window.location.href
 	getInviteStudentsUrl: function() {
-		return ('https://staging.quill.org/teachers/classrooms/' + $(".tab-pane").data().classroomId + '/invite_students');
+		return ('/teachers/classrooms/' + $(".tab-pane").data().classroomId + '/invite_students');
+	},
+
+	studentsPresent: function() {
+		return $(".tab-pane").data().students;
 	},
 
 	getLastClassroomName: function() {
@@ -262,16 +266,19 @@ EC.LessonPlanner = React.createClass({
 
 	unitTemplatesAssignedActions: function() {
 		return {
+			studentsPresent: this.studentsPresent,
 			getInviteStudentsUrl: this.getInviteStudentsUrl,
-			getLastClassroomName: this.getLastClassroomName
+			getLastClassroomName: this.getLastClassroomName,
+			unitTemplatesManagerActions: this.unitTemplatesManagerActions
 		};
 	},
 
 
 	render: function () {
 		var tabSpecificComponents;
-		if ((this.state.unitTemplatesManager.assignSuccess === true) && ($(".tab-pane").data().students === false))  {
+		if (this.state.unitTemplatesManager.assignSuccess === true)  {
 			tabSpecificComponents = <EC.UnitTemplatesAssigned
+																		data={this.state.unitTemplatesManager}
 																		actions={this.unitTemplatesAssignedActions()}/>;
 		} else if (this.state.tab == 'createUnit') {
 			tabSpecificComponents = <EC.CreateUnit data={this.state.createUnit}

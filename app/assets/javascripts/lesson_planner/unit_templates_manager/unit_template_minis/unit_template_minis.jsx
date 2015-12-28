@@ -20,7 +20,7 @@ EC.UnitTemplateMinis = React.createClass({
         return _.contains(m.grades, grade.toString());
       });
     } else {
-      models = this.props.data.displayedModels
+      models = this.props.data.displayedModels;
     }
     var rows = this.modules.rowsCreator.create(models);
     return <span>{rows}</span>;
