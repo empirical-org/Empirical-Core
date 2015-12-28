@@ -52,17 +52,19 @@ class SessionsController < ApplicationController
 
   def destroy
     admin_id = session.delete(:admin_id)
-    sign_out
 
     if user = User.find_by_id(admin_id)
+      sign_out
       sign_in user
       redirect_to profile_path
     else
       staff_id = session.delete(:staff_id)
       if user = User.find_by_id(staff_id)
+        sign_out
         sign_in user
         redirect_to profile_path
       else
+        sign_out
         redirect_to signed_out_path, notice: 'Logged Out'
       end
     end

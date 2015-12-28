@@ -24,8 +24,12 @@ EC.Resource = React.createClass({
   initializeModules: function () {
     this.modules = {
       textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateModelState),
-      server: new EC.modules.Server(this.props.resourceNameSingular, this.props.resourceNamePlural, '/cms')
+      server: new EC.modules.Server(this.props.resourceNameSingular, this.props.resourceNamePlural, '/cms'),
+      nestedResources: []
     }
+    _.each(this.props.nestedResources, function (nr) {
+      this.modules.nestedResources[nr.name] = new EC.modules.NestedResource(this, nr.name)
+    }, this);
   },
 
   updateModelState: function (key, value) {
@@ -34,36 +38,28 @@ EC.Resource = React.createClass({
     this.setState(newState);
   },
 
-  removeNestedResourceAndSave: function (kind, resource) {
-    var newModel = this.state.model
-    var nest = newModel[kind]
-    var newNest = _.reject(nest, function (r) { return r.id == resource.id })
-    this.nestedResourceSaveHelper(kind, newNest)
+  addNestedResource: function (kind, resource) {
+    var newModel = this.modules.nestedResources[kind].add(resource)
+    this.nestedResourceSaveHelper(newModel)
   },
 
-  nestedResourceSaveHelper: function (kind, newNest) {
-    var newModel = this.state.model
-    newModel[kind] = newNest;
+  removeNestedResourceAndSave: function (kind, resource) {
+    var newModel = this.modules.nestedResources[kind].remove(resource)
+    this.nestedResourceSaveHelper(newModel)
+  },
+
+  nestedResourceSaveHelper: function (newModel) {
     var data = _.pick(newModel, this.props.savingKeys)
     var options = {
-      callback: this.nestedResourceSaveCallback,
+      callback: this.updateModelSaveCallback,
       savingKeys: this.props.savingKeys,
       fieldsToNormalize: this.props.fieldsToNormalize
     }
     this.modules.server.save(data, options)
   },
 
-  nestedResourceSaveCallback: function (data) {
-    console.log('callback data', data)
-    this.setState({model: data.admin_account})
-  },
-
-  saveNestedResource: function (kind, resource) {
-    //https://robots.thoughtbot.com/accepts-nested-attributes-for-with-has-many-through
-    var newModel = this.state.model
-    var nest = newModel[kind]
-    var newNest = _.chain(nest).push(resource).value()
-    this.nestedResourceSaveHelper(kind, newNest)
+  updateModelSaveCallback: function (data) {
+    this.setState({model: data[this.props.resourceNameSingular]})
   },
 
   save: function () {
@@ -84,7 +80,7 @@ EC.Resource = React.createClass({
     var nestedResources = _.map(this.props.nestedResources, function (nr) {
       var resources = this.state.model[nr.name];
       var data = _.extend(nr, {resources: resources})
-      return <EC.cms.NestedResource data={data} actions={{save: this.saveNestedResource, delete: this.removeNestedResourceAndSave}} />
+      return <EC.cms.NestedResource data={data} actions={{save: this.addNestedResource, delete: this.removeNestedResourceAndSave}} />
     }, this);
     return (
       <div className='row'>

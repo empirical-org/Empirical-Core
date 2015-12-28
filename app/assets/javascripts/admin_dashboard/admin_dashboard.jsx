@@ -20,7 +20,14 @@ EC.AdminDashboard = React.createClass({
 
   getInitialState: function () {
     return {
-      model: {}
+      model: {
+        teachers: []
+      },
+      newTeacher: {
+        first_name: null,
+        last_name: null,
+        email: null
+      }
     }
   },
 
@@ -35,13 +42,53 @@ EC.AdminDashboard = React.createClass({
     this.setState({model: data})
   },
 
+  inviteUsersActions: function () {
+    return {
+      update: this.updateNewTeacher,
+      save: this.saveNewTeacher
+    }
+  },
+
+  saveNewTeacher: function () {
+    console.log('saveNewTeacher')
+    $.ajax({
+      url: '/admins/' + this.props.id + '/teachers',
+      data: {teacher: this.state.newTeacher},
+      type: 'POST',
+      success: this.saveNewTeacherSuccess
+    })
+  },
+
+  saveNewTeacherSuccess: function (data) {
+    console.log('save new teacher success', data)
+    var newModel = this.state.model
+    var newTeachers = _.chain(newModel.teachers).unshift(data).value();
+    newModel.teachers = newTeachers;
+    this.setState({model: newModel});
+  },
+
+  updateNewTeacher: function (field, value) {
+    var newState = this.state
+    newState.newTeacher[field] = value
+    this.setState(newState)
+  },
+
+  inviteUsersData: function () {
+    return {
+      model: this.state.newTeacher,
+      userType: 'Teacher',
+      update: this.updateNewTeacher,
+      save: this.saveNewTeacher
+    }
+  },
+
   render: function () {
     return (
       <div>
         <EC.AdminDashboardHeader/>
+        <EC.InviteUsers data={this.inviteUsersData()} actions={this.inviteUsersActions()} />
         <EC.AdminsTeachers data={this.state.model.teachers} />
       </div>
-
     )
   }
 

@@ -31,12 +31,14 @@ EC.cms.AdminAccounts = React.createClass({
     var nestedResources = [
       {
         name: 'admins',
+        message: 'must be an existing admin (can create one in the Admin cms)',
         formFields: [{name: 'email'}],
         identifier: 'email',
         findOrCreate: 'find'
       },
       {
         name: 'teachers',
+        message: 'must be an existing teacher',
         formFields: [{name: 'email'}],
         identifier: 'email',
         findOrCreate: 'find'
