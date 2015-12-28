@@ -5,14 +5,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   def lesson_planner
+    if current_user.classrooms.empty?
+      return redirect_to new_teachers_classroom_path
+    end
     @tab = params[:tab] #|| "manageUnits"
     @grade = params[:grade]
     @students_exist = current_user.students.any?
     @last_classroom_name = current_user.classrooms.last.name
     @last_classroom_id = current_user.classrooms.last.id
-    if current_user.classrooms.empty?
-      redirect_to new_teachers_classroom_path
-    end
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
