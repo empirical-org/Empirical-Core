@@ -38,7 +38,13 @@ EC.UnitTemplatesAssigned = React.createClass({
           </div>
         </span>);
     };
-    return message;
+    return (<div className='successBox'>
+      <div className='messageBox'>
+        <h2>Success</h2 >
+      </div>
+      {message}
+    </div>);
+
   },
 
   render: function () {
