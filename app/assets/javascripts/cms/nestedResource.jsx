@@ -33,6 +33,8 @@ EC.cms.NestedResource = React.createClass({
           <div className='row'>
             <div className='col-xs-12'>
               <h3>{this.props.data.name}</h3>
+              <br />
+              <p>{this.props.data.message}</p>
             </div>
           </div>
           <br /><br />

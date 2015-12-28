@@ -5,10 +5,16 @@ EC.AdminsTeachers = React.createClass({
 
   render: function () {
     var teachers = _.map(this.props.data, function (teacher) {
-      return <EC.AdminsTeacher data={teacher} />
+      return <EC.AdminsTeacher key={teacher.id} data={teacher} />
     }, this)
     return (
-      <span>{teachers}</span>
+      <span>
+        <EC.ReactCSSTransitionGroup Rct transitionName='adminTeacher'
+             transitionEnterTimeout={3000}
+             transitionEnterLeaveTimeout={300}>
+          {teachers}
+        </EC.ReactCSSTransitionGroup>
+      </span>
     );
   }
 });

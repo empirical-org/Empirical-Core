@@ -5,9 +5,14 @@
   <div id='admin-dashboard-nav-panel'>
     <div class='container' />
       <div class='row'>
-        <div class='col-xs-12'>
-          Administrator
+        <div class='col-xs-3'>
+          Administrator Dashboard
         </div>
+        <%- if not current_user.admin? %>
+          <div class='col-xs-6'>
+            <%= " > #{current_user.name}'s Dashboard" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

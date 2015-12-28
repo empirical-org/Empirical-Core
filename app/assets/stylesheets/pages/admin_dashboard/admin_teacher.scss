@@ -1,0 +1,19 @@
+.adminTeacher-enter {
+  opacity: 0.01;
+  color: blue;
+}
+
+.adminTeacher-enter.adminTeacher-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+  color: red;
+}
+
+.adminTeacher-leave {
+  opacity: 1;
+}
+
+.adminTeacher-leave.adminTeacher-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

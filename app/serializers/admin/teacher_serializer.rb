@@ -1,7 +1,8 @@
 class Admin::TeacherSerializer < ActiveModel::Serializer
   attributes :id, :name, :email,
             :classroom_manager_path,
-            :progress_reports_path
+            :progress_reports_path,
+            :number_of_students
 
   def classroom_manager_path
     admin_sign_in_classroom_manager_user_path(object)
