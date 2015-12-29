@@ -24,10 +24,6 @@ class FinishActivityWorker
       event_data.merge!(anonymous: false, student: StudentSerializer.new(activity_session.user))
     end
 
-    # publish event data
-    # no keen for now, were not using it yet
-    # KeenWrapper.publish(:activity_sessions, event_data)
-
     analytics = FinishActivityAnalytics.new
     analytics.track(activity_session)
 
