@@ -227,6 +227,7 @@ EC.LessonPlanner = React.createClass({
   },
 
   onFastAssignSuccess: function () {
+		this.props.analytics.track('click Create Unit', {});
 		this.deepExtendState(this.blankState());
 		this.updateUnitTemplatesManager({assignSuccess: true});
 		this.fetchClassrooms();
