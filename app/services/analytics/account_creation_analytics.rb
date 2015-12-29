@@ -16,7 +16,8 @@ class AccountCreationAnalytics
     analytics_track({
       user_id: student.id,
       event: SegmentIo::Events::STUDENT_ACCOUNT_CREATION,
-      context: {:ip => student.ip_address }
+      context: {:ip => student.ip_address },
+      integrations: { intercom: 'false' }
     })
   end
 
