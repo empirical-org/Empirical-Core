@@ -9,7 +9,7 @@ feature 'Create Unit', js: true do
     vcr_ignores_localhost
     sign_in_user teacher
     visit('/teachers/classrooms/lesson_planner')
-    page.find('a', text: 'Create a Unit').trigger(:click)
+    page.find('a', text: 'Create').trigger(:click)
   end
 
   context 'stage1' do
