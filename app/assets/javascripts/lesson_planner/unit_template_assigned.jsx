@@ -11,8 +11,8 @@ EC.UnitTemplatesAssigned = React.createClass({
     if (this.props.actions.studentsPresent() === true) {
       message = (
         <span>
-          <p>Your activity-pack has been assigned.</p>
-          <div className="assignSuccess-button-container">
+          <p className='assign-success-message'>Your activity pack has been assigned.</p>
+          <div className="assign-success-button-container">
             <a href = '/teachers/classrooms/lesson_planner'>
               <button onClick className="button-green add-students">
                 View Assigned Activity Packs
