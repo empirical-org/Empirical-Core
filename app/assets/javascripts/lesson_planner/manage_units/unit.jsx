@@ -1,7 +1,7 @@
 "use strict";
 EC.Unit = React.createClass({
 	hideUnit: function () {
-		var x = confirm("Are you sure you want to delete this Unit? It will delete all assignments given to students associated with this unit, even if those assignments have already been completed.");
+		var x = confirm("Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.");
 		if (x) {
 			this.props.hideUnit(this.props.data.unit.id);
 		}
@@ -51,8 +51,8 @@ EC.Unit = React.createClass({
 		return (
 			<section >
 				<div className="row vertical-align">
-					<h3 className="col-md-10 vcenter">{this.props.data.unit.name}</h3>
-					<div className="col-md-2 vcenter pull-right delete-unit" onClick={this.hideUnit}>Delete Unit</div>
+					<h3 className="col-md-9 vcenter">{this.props.data.unit.name}</h3>
+					<div className="col-md-3 vcenter pull-right delete-unit" onClick={this.hideUnit}>Delete Activity Pack</div>
 				</div>
 				<div className="unit-label">
 					{this.assignedToText()}

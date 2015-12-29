@@ -85,22 +85,28 @@ EC.ManageUnits = React.createClass({
 	stateBasedComponent: function () {
 		if (this.state.units.length === 0 && this.state.loaded) {
 			return (
-				<div className="row">
-					<div className="col-xs-8 empty-unit-manager">
-						<p>Welcome! This is where your assigned activity packs are stored, but its empty at the moment.</p>
-						<p>Let's add your first activity fromt he Featured Activity Pack library.</p>
-						<br/>
-						<button onClick={this.switchToExploreActivityPacks} className="button-green create-unit">Browse Featured Activity Packs</button>
+				<div className="row empty-unit-manager">
+					<div className="col-xs-7">
+						<p>Welcome! This is where your assigned activity packs are stored, but it's empty at the moment.</p>
+						<p>Let's add your first activity from the Featured Activity Pack library.</p>
+					</div>
+					<div className="col-xs-4">
+						<button onClick={this.switchToExploreActivityPacks} className="button-green create-unit featured-button">Browse Featured Activity Packs</button>
 					</div>
 				</div>
-			)
+			);
 		} else {
 			return (
+				<span>
+				<div  className= "create-unit-button-container">
+					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Create Activity Pack</button>
+				</div>
 				<EC.Units
 					updateDueDate={this.updateDueDate}
 					deleteClassroomActivity={this.deleteClassroomActivity}
 					hideUnit={this.hideUnit} data={this.state.units} />
-			)
+				</span>
+			);
 		}
 	},
 
@@ -109,9 +115,6 @@ EC.ManageUnits = React.createClass({
 		return (
 			<div className="container manage-units">
 				{this.stateBasedComponent()}
-				<div  className= "create-unit-button-container">
-					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Or, build your own!</button>
-				</div>
 			</div>
 		);
 

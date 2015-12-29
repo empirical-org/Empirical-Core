@@ -1,120 +1,105 @@
-
 .unit-tabs {
-	li {
-		cursor: pointer;
-	}
+  li {
+    cursor: pointer;
+  }
 }
-
 .container.manage-units {
-	padding-top: 0px !important;
-
-
-	.create-unit-button-container {
-		height: 130px;
-		width: 100%;
-		padding-top: 25px;
-		//outline: 1px solid black;
-		button.create-unit {
-			margin: none !important;
-			float:right;
-		}
-	}
-
-	padding-top: 80px;
-
-	section {
-		border-bottom: none;
-		border-top: 1px solid #cecece;
-	}
-
-	.vertical-align {
-		display: flex;
-		align-items: center;
-	}
-
-
-	.delete-unit {
-		cursor: pointer;
-		color: #137779;
-		text-align:right;
-		padding-right: 30px;
-	}
-
-	.assigned-activities a{
-		color: #027360;
-	}
-
-	.unit-label {
-	  font-weight: bold;
-	  margin-top: 30px;
-	  text-align: left !important;
-	  border-bottom: none;
-	  border-top: 1px solid #cecece !important;
-	  background-color: #e6e6e6;
-	  padding: 8px 12px;
-	  width: 100% !important;
-	  border-top-left-radius: 5px;
-
-	  border-left: 1px solid #cecece;
-	  border-top-right-radius: 5px;
-	  border-right: 1px solid #cecece;
-	  padding-left: 17px;
-	}
-	.table {
-		margin-top: 0px !important;
-		border: 1px solid #cecece !important;
-	  	border-bottom-right-radius: 5px;
-	 	border-bottom-left-radius: 5px;
-	 	width: 100%;
-
-
-	 	.row:last-child {
-	 		border-bottom: none;
-	 	}
-	 	.row {
-	 		border-bottom: 1px solid #cecece;
-	 		display: flex;
-	 		align-items: center;
-	 		padding:0px;
-	 		margin: 0px !important;
-
-	 		.cell:first-child {
-	 			padding-right: 10px;
-	 		}
-	 		.cell:nth-child(2) {
-	 			padding-left: 0px;
-	 		}
-	 		.cell:nth-child(3) {
-	 			padding-left: 35px;
-	 		}
-	 		.cell:nth-child(4) {
-	 			//padding-left: 5px;
-	 			//padding-right: 5px;
-	 			padding-left: 12px;
-	 			padding-right: 8px;
-	 			.icon-x-gray {
-	 				height: 40px;
-	 				width: 40px;
-					
-	 			}
-	 		}
-	 		.cell {
-	 			text-align:left !important;
-	 			padding-top: 10px !important;
-	 			padding-bottom: 10px !important;
-	 			.vcenter {
-	 				height: 100%;
-	 			}
-	 		}
-
-
-	 	}
-
-
-	}
-
-
-
-
-
+  padding-top: 0 !important;
+  .create-unit-button-container {
+    height: 130px;
+    width: 100%;
+    padding-top: 25px;
+    //outline: 1px solid black;
+    button.create-unit {
+      margin: none !important;
+      float: right;
+    }
+  }
+  .empty-unit-manager {
+    p {
+      font-size: 18px;
+      margin: 2em;
+    }
+    .featured-button {
+      margin-top: 50px;
+      margin-left: 40px;
+    }
+  }
+  padding-top: 80px;
+  section {
+    border-bottom: none;
+    border-top: 1px solid #cecece;
+  }
+  .vertical-align {
+    display: flex;
+    align-items: center;
+  }
+  .delete-unit {
+    cursor: pointer;
+    color: #137779;
+    text-align: right;
+    padding-right: 30px;
+  }
+  .assigned-activities a {
+    color: #027360;
+  }
+  .unit-label {
+    font-weight: bold;
+    margin-top: 30px;
+    text-align: left !important;
+    border-bottom: none;
+    border-top: 1px solid #cecece !important;
+    background-color: #e6e6e6;
+    padding: 8px 12px;
+    width: 100% !important;
+    border-top-left-radius: 5px;
+    border-left: 1px solid #cecece;
+    border-top-right-radius: 5px;
+    border-right: 1px solid #cecece;
+    padding-left: 17px;
+  }
+  .table {
+    margin-top: 0 !important;
+    border: 1px solid #cecece !important;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 100%;
+    .row:last-child {
+      border-bottom: none;
+    }
+    .row {
+      border-bottom: 1px solid #cecece;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      margin: 0 !important;
+      .cell:first-child {
+        padding-right: 10px;
+      }
+      .cell:nth-child(2) {
+        padding-left: 0;
+      }
+      .cell:nth-child(3) {
+        padding-left: 35px;
+      }
+      .cell:nth-child(4) {
+        //padding-left: 5px;
+        //padding-right: 5px;
+        padding-left: 12px;
+        padding-right: 8px;
+        .icon-x-gray {
+          height: 40px;
+          width: 40px;
+        }
+      }
+      .cell {
+        text-align: left !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px;
+        .vcenter {
+          height: 100%;
+        }
+      }
+    }
+  }
 }
