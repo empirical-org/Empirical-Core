@@ -17,8 +17,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :activity_sessions, only: [] do
     get :anonymous, on: :collection
     get :play, on: :member
+    put :play, on: :member
   end
-  put 'activity_sessions/:id/play' => 'activity_sessions#update'
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
