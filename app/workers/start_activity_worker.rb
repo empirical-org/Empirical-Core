@@ -14,9 +14,5 @@ class StartActivityWorker
       end
       return
     end
-
-    # publish event data
-    # no keen for now, were not using it yet
-    # KeenWrapper.publish(:activity_sessions, activity_session.as_keen)
   end
 end
