@@ -123,16 +123,21 @@
   margin: auto;
   border: solid;
   border-color: #00C2A2;
-  width: 55%;
+  width: 40%;
   margin-top: 100px;
   text-align: center;
+  h2 {
+    margin: 0;
+  }
   .messageBox{
     color: white;
     background-color: #00C2A2;
     padding: 1em;
     margin-bottom: 2em;
     p {
-      font-size:14pt;
+      font-size: 16pt;
+      padding-top: 16px;
+      padding-bottom: 23px;
     }
     .add-students-button-container {
       height: 130px;
@@ -141,7 +146,7 @@
       margin: 2em;
       //outline: 1px solid black;
       button.add-students {
-        margin: none !important;
+        margin-bottom: 40px;
         float:right;
       }
     }
