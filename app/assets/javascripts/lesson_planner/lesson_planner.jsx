@@ -15,6 +15,12 @@ EC.LessonPlanner = React.createClass({
 		analytics: React.PropTypes.object.isRequired
 	},
 
+	lastActivityAssigned: function () {
+		if (!this.state){
+			return null
+		} else {return this.state.unitTemplatesManager.model};
+	},
+
   blankState: function () {
     return {
       tab: 'manageUnits', // 'createUnit', 'exploreActivityPacks'
@@ -39,6 +45,7 @@ EC.LessonPlanner = React.createClass({
         relatedModels: [],
         displayedModels: [],
         selectedCategoryId: null,
+				lastActivityAssigned: this.lastActivityAssigned(),
         grade: null
       }
     }
@@ -278,7 +285,7 @@ EC.LessonPlanner = React.createClass({
 		var tabSpecificComponents;
 		if (this.state.unitTemplatesManager.assignSuccess === true)  {
 			tabSpecificComponents = <EC.UnitTemplatesAssigned
-																		data={this.state.unitTemplatesManager}
+																		data={this.state.unitTemplatesManager.lastActivityAssigned}
 																		actions={this.unitTemplatesAssignedActions()}/>;
 		} else if (this.state.tab == 'createUnit') {
 			tabSpecificComponents = <EC.CreateUnit data={this.state.createUnit}

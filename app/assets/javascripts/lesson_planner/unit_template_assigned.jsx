@@ -6,7 +6,14 @@ EC.UnitTemplatesAssigned = React.createClass({
     actions: React.PropTypes.object.isRequired
   },
 
+  hideSubNavBars: function() {
+    $(".unit-tabs").hide();
+    $(".tab-outer-wrap").hide();
+  },
+
   teacherSpecificComponents: function() {
+    this.hideSubNavBars();
+    console.log(this.props.data);
     var message;
     if (this.props.actions.studentsPresent() === true) {
       message = (
