@@ -96,7 +96,6 @@ gem 'kaminari'
 # MIDDLEWARE
 gem 'rack-cache', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
-gem "rack-timeout"
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
@@ -110,6 +109,7 @@ group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'lograge' # for making logs more dense
+  gem "rack-timeout"
 end
 
 group :development do
