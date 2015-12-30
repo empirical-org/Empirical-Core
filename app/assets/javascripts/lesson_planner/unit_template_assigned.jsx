@@ -11,14 +11,17 @@ EC.UnitTemplatesAssigned = React.createClass({
     $(".tab-outer-wrap").hide();
   },
 
+  activityName: function() {
+    return this.props.data.name;
+  },
+
   teacherSpecificComponents: function() {
     this.hideSubNavBars();
     console.log(this.props.data);
-    var message;
+    var proceedButton;
     if (this.props.actions.studentsPresent() === true) {
-      message = (
+      proceedButton = (
         <span>
-          <p className='assign-success-message'>Your activity pack has been assigned.</p>
           <div className="assign-success-button-container">
             <a href = '/teachers/classrooms/lesson_planner'>
               <button onClick className="button-green add-students">
@@ -26,16 +29,11 @@ EC.UnitTemplatesAssigned = React.createClass({
               </button>
             </a>
           </div>
-       </span>);
+        </span>);
     } else {
-      message = (
+      proceedButton = (
         <span>
-          <p>
-            You've assigned an activity-pack to:
-              <b>{this.props.actions.getLastClassroomName()}</b>
-          </p>
           <div className = "assignSuccess-button-container">
-            <p>Your next step is to add students.</p>
             <a href = {this.props.actions.getInviteStudentsUrl()} >
               <button onClick className="button-green add-students">
                 Add Students
@@ -44,16 +42,16 @@ EC.UnitTemplatesAssigned = React.createClass({
           </div>
         </span>);
     };
-    return (<div className='successBox'>
-      <div className='messageBox'>
-        <h2>Success</h2 >
-      </div>
-      {message}
-    </div>);
+    return (proceedButton);
 
   },
 
   render: function () {
-    return this.teacherSpecificComponents();
+    debugger;
+    return (
+    <div className='successBox'>
+        <span className='assign-success-message'>You’ve successfully assigned the {this.activityName()} Activity Pack!{this.teacherSpecificComponents()}</span>
+    </div>
+  );
   }
 });

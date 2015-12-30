@@ -15,11 +15,11 @@ EC.LessonPlanner = React.createClass({
 		analytics: React.PropTypes.object.isRequired
 	},
 
-	lastActivityAssigned: function () {
-		if (!this.state){
-			return null
-		} else {return this.state.unitTemplatesManager.model};
-	},
+	// lastActivityAssigned: function () {
+	// 	if (!this.state){
+	// 		return null
+	// 	} else {return this.state.unitTemplatesManager.model};
+	// },
 
   blankState: function () {
     return {
@@ -45,7 +45,7 @@ EC.LessonPlanner = React.createClass({
         relatedModels: [],
         displayedModels: [],
         selectedCategoryId: null,
-				lastActivityAssigned: this.lastActivityAssigned(),
+				lastActivityAssigned: null,
         grade: null
       }
     }
@@ -234,13 +234,16 @@ EC.LessonPlanner = React.createClass({
   },
 
   onFastAssignSuccess: function () {
+		var lastActivity = this.state.unitTemplatesManager.model;
 		this.props.analytics.track('click Create Unit', {});
 		this.deepExtendState(this.blankState());
-		this.updateUnitTemplatesManager({assignSuccess: true});
+		this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
 		this.fetchClassrooms();
+		this.updateUnitTemplatesManager({assignSuccess: true});
   },
 
 	customAssign: function () {
+		var lastActivity = this.state.unitTemplatesManager.model;
 		this.fetchClassrooms();
 		var unitTemplate = this.state.unitTemplatesManager.model;
 		var state = this.state;
@@ -256,6 +259,7 @@ EC.LessonPlanner = React.createClass({
 			}
 		};
 		this.deepExtendState(hash);
+		this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
 	},
 
 	unitTemplatesManagerActions: function () {
