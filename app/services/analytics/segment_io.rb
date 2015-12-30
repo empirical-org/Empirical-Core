@@ -25,5 +25,6 @@ module SegmentIo
     CLASSROOM_CREATION = 'Teacher created a classroom'
     ACTIVITY_COMPLETION = 'Student completed an activity'
     ACTIVITY_ASSIGNMENT = 'Teacher assigned an activity'
+    ACCESS_PROGRESS_REPORT = 'Teacher opened progress report'
   end
 end
