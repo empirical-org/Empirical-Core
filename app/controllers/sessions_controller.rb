@@ -52,16 +52,18 @@ class SessionsController < ApplicationController
 
   def destroy
     admin_id = session.delete(:admin_id)
-
-    if user = User.find_by_id(admin_id)
+    admin = User.find_by_id(admin_id)
+    staff_id = session.delete(:staff_id)
+    if admin.present? and (admin != current_user)
       sign_out
-      sign_in user
+      sign_in(admin)
+      session[:staff_id] = staff_id unless staff_id.nil? # since it will be lost in sign_out
       redirect_to profile_path
-    else
-      staff_id = session.delete(:staff_id)
-      if user = User.find_by_id(staff_id)
+    else # we must go deeper
+      staff = User.find_by_id(staff_id)
+      if staff.present? and (staff != current_user)
         sign_out
-        sign_in user
+        sign_in(staff)
         redirect_to profile_path
       else
         sign_out

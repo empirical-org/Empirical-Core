@@ -1,12 +1,14 @@
 'use strict';
 EC.modules.TextInputGenerator = function (component, update, options) {
 
-
   var config = {
     errors: [],
-    update: update,
-    isSingleRow: options.isSingleRow
+    update: update
   };
+
+  if (options) {
+    config = _.merge(config, options)
+  }
 
   var _fun1 = function (ele) {
       var default1;
