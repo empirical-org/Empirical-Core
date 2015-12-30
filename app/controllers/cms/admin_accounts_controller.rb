@@ -13,36 +13,12 @@ class Cms::AdminAccountsController < ApplicationController
   end
 
   def create
-    @admin_account = AdminAccount.new(admin_account_params)
-    if @admin_account.save
-      render json: @admin_account
-    else
-      render json: @admin_account.errors, status: 422
-    end
+    @admin_account = AdminAccount.new
+    create_and_update_helper(@admin_account, admin_account_params)
   end
 
   def update
-    @admin_account.update(name: admin_account_params[:name])
-
-    if admin_account_params[:admins].present?
-      admin_emails = admin_account_params[:admins].map{ |aa| aa[:email] }
-      @admin_account.admins = User.where(email: admin_emails, role: 'admin')
-    else
-      @admin_account.admins = []
-    end
-
-    if admin_account_params[:teachers].present?
-      teacher_emails = admin_account_params[:teachers].map{ |ta| ta[:email] }
-      @admin_account.teachers = User.where(email: teacher_emails)
-    else
-      @admin_account.teachers = []
-    end
-
-    if @admin_account.save
-      render json: @admin_account
-    else
-      render json: @admin_account.errors, status: 422
-    end
+    create_and_update_helper(@admin_account, admin_account_params)
   end
 
   def destroy
@@ -51,6 +27,30 @@ class Cms::AdminAccountsController < ApplicationController
   end
 
   private
+
+  def create_and_update_helper(admin_account, hash)
+    admin_account.update(name: hash[:name])
+
+    if hash[:admins].present?
+      admin_emails = hash[:admins].map{ |aa| aa[:email] }
+      admin_account.admins = User.where(email: admin_emails, role: 'admin')
+    else
+      admin_account.admins = []
+    end
+
+    if hash[:teachers].present?
+      teacher_emails = hash[:teachers].map{ |ta| ta[:email] }
+      admin_account.teachers = User.where(email: teacher_emails)
+    else
+      admin_account.teachers = []
+    end
+
+    if admin_account.save
+      render json: admin_account
+    else
+      render json: admin_account.errors, status: 422
+    end
+  end
 
   def set_admin_account
     @admin_account = AdminAccount.find(params[:id])
