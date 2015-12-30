@@ -12,22 +12,10 @@ EC.RelatedUnitTemplates = React.createClass({
     } else {
       className = 'col-xs-6 no-pl';
     }
-
     return (
-      <span>
-        <div className='row'>
-          <div className='col-xs-12 no-pl'>
-            <h2>
-              Other Packs You Might Like
-            </h2>
-          </div>
-        </div>
-        <div className='row'>
-          <div className={className}>
-            <EC.UnitTemplateMini data={model} key={model.id} actions={this.props.actions} index={index}/>
-          </div>
-        </div>
-      </span>
+      <div className={className}>
+        <EC.UnitTemplateMini data={model} key={model.id} actions={this.props.actions} index={index}/>
+      </div>
     );
   },
 
@@ -38,7 +26,18 @@ EC.RelatedUnitTemplates = React.createClass({
     });
     var cols = _.map(relatedModels.slice(0, 2), this.miniView);
     return (
-      <span>{cols}</span>
+      <span>
+        <div className='row'>
+          <div className='col-xs-12 no-pl'>
+            <h2>
+              Related Activity Packs:
+            </h2>
+          </div>
+        </div>
+        <div className='row'>
+          {cols}
+        </div>
+      </span>
     );
   }
 });
