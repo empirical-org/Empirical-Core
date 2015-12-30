@@ -1,7 +1,10 @@
 class Teachers::ProgressReports::Standards::ClassroomsController < Teachers::ProgressReportsController
   def index
     respond_to do |format|
-      format.html
+      format.html do
+        AccessProgressReportWorker.perform_async(current_user.id)
+      end
+
       format.json do
         classrooms = ::ProgressReports::Standards::Classroom.new(current_user).results(params)
         classroom_json = classrooms.map do |classroom|
