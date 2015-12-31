@@ -39,11 +39,22 @@ EC.UnitTemplatesAssigned = React.createClass({
         </span>);
     };
     return (proceedButton);
-
   },
+
+  // socialButtons: function() {
+  //   return
+  // },
+
+  // <div className='row'>
+  //   <div className='twitter-button col-md-1 col-md-offset-2'>Tweet</div>
+  //   <div className='facebook-button col-md-1'>Tweet</div>
+  //   <div className='pinterest-button col-md-1'>Tweet</div>
+  //   <div className='google-plus-button col-md-1'>Tweet</div>
+  // </div>
 
   render: function () {
     return (
+      <div className='assign-success-container'>
     <div className='successBox'>
       <div className='container'>
         <div className='row' id='successBoxMessage'>
@@ -58,6 +69,21 @@ EC.UnitTemplatesAssigned = React.createClass({
           </div>
         </div>
       </div>
+    </div>
+    <div className='sharing-container'>
+      <h2>
+        Share Quill With Your Colleagues
+      </h2>
+      <p>
+        We’re a nonprofit providing free literacy activities. The more people that use Quill, the more free activities we can create.
+      </p>
+      <p className='social-copy'>
+        <i>I’m using the Commonly Confused Words Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/3</i>
+      </p>
+      <div className='container'>
+        <EC.UnitTemplateProfileShareButtons data={this.props.data} />
+      </div>
+    </div>
     </div>
   );
   }
