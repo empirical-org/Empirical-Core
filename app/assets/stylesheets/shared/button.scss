@@ -1,3 +1,11 @@
+@mixin reusable-btn-social($base-color) {
+  background-color: $base-color;
+  &:hover {
+    background-color: darken($base-color, 10%);
+    color: white;
+  }
+}
+
 .button-dark-grey.button-grey {
   background-color: rgb(100,100,100);
   color: $white;
@@ -12,15 +20,23 @@
 }
 
 .btn-facebook {
-  background-color: #3b5998;
+  @include reusable-btn-social(#3b5998)
 }
 
 .btn-twitter {
-  background-color: #4099FF;
+  @include reusable-btn-social(#4099FF)
 }
 
 .btn-linkedin {
-  background-color: #4875B4;
+  @include reusable-btn-social(#4875B4)
+}
+
+.btn-google-plus {
+  @include reusable-btn-social(#f03527)
+}
+
+.btn-pinterest {
+  @include reusable-btn-social(#bd081c)
 }
 
 .see-all-activity-packs.show-all {

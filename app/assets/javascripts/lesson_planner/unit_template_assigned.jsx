@@ -74,9 +74,10 @@ EC.UnitTemplatesAssigned = React.createClass({
       <h2>
         Share Quill With Your Colleagues
       </h2>
-      <p>
-        We’re a nonprofit providing free literacy activities. The more people that use Quill, the more free activities we can create.
-      </p>
+        <p className='nonprofit-copy'>
+          We’re a nonprofit providing free literacy activities. The more people <br></br>
+          that use Quill, the more free activities we can create.
+        </p>
       <p className='social-copy'>
         <i>I’m using the Commonly Confused Words Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/3</i>
       </p>
