@@ -120,28 +120,21 @@
 }
 
 .successBox {
-  margin: auto;
-  border: solid;
-  border-color: #00C2A2;
-  width: 40%;
-  margin-top: 100px;
+  background-color: #C1FFC6;
+  width: 100%;
   text-align: center;
-  h2 {
-    margin: 0;
+  height: 100px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  .row {
+    display: flex;
+    align-items: center;
   }
-  p {
-    font-size: 14pt;
-    padding-top: 16px;
-    padding-bottom: 23px;
-  }
-  .add-students-button-container, .assign-success-button-container {
-    height: 130px;
-    width: 100%;
-    padding-top: 25px;
-    //outline: 1px solid black;
-    button.add-students {
-      margin-bottom: 40px;
-    }
+  .fa-check-circle {
+    color: #457818;
+    font-size: 31px;
+    text-align: left;
   }
   .messageBox{
     color: white;
