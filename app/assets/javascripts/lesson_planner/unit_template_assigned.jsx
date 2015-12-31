@@ -22,24 +22,20 @@ EC.UnitTemplatesAssigned = React.createClass({
     if (this.props.actions.studentsPresent() === true) {
       proceedButton = (
         <span>
-          <div className="assign-success-button-container">
             <a href = '/teachers/classrooms/lesson_planner'>
-              <button onClick className="button-green add-students">
-                View Assigned Activity Packs
+              <button onClick className="button-green add-students pull-right">
+                View Assigned Activity Packs <i class="fa fa-long-arrow-right"></i>
               </button>
             </a>
-          </div>
         </span>);
     } else {
       proceedButton = (
         <span>
-          <div className = "assignSuccess-button-container">
             <a href = {this.props.actions.getInviteStudentsUrl()} >
-              <button onClick className="button-green add-students">
-                Add Students
+              <button onClick className="button-green add-students pull-right">
+                Add Students <i class="fa fa-long-arrow-right"></i>
               </button>
             </a>
-          </div>
         </span>);
     };
     return (proceedButton);
@@ -47,10 +43,21 @@ EC.UnitTemplatesAssigned = React.createClass({
   },
 
   render: function () {
-    debugger;
     return (
     <div className='successBox'>
-        <span className='assign-success-message'>You’ve successfully assigned the {this.activityName()} Activity Pack!{this.teacherSpecificComponents()}</span>
+      <div className='container'>
+        <div className='row' id='successBoxMessage'>
+          <div className='col-md-1 cold-md-offset-1'>
+            <i className="fa fa-check-circle pull-left"></i>
+          </div>
+          <div className='col-md-7 assign-success-message pull-left'>
+            You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!
+          </div>
+          <div className='col-md-4 pull-right'>
+            {this.teacherSpecificComponents()}
+          </div>
+        </div>
+      </div>
     </div>
   );
   }
