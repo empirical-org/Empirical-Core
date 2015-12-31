@@ -1,18 +1,15 @@
 .assign-dates {
   margin-bottom: 200px;
 }
-
 .fake-border {
   width: 99.4%;
   margin: 0 auto;
   position: relative;
   bottom: 1px;
 }
-
 #continue.hidden {
   display: none;
 }
-
 #activity-planner,
 #unit-template-editor {
   section {
@@ -37,7 +34,8 @@
     }
   }
   input {
-    &#search_activities_input, &#unit_name {
+    &#search_activities_input,
+    &#unit_name {
       width: 326px;
       margin-top: 20px;
     }
@@ -64,7 +62,6 @@
     margin-top: 20px;
   }
 }
-
 .activity-page-dropdown-wrapper {
   margin-top: 20px;
   cursor: pointer;
@@ -83,7 +80,8 @@
         background: #f0f0f0;
         -webkit-appearance: none;
       }
-      &:focus, &:active {
+      &:focus,
+      &:active {
         -webkit-appearance: none;
       }
     }
@@ -97,39 +95,37 @@
     }
   }
 }
-
 .activity_link {
-  color:  #027360;
+  color: #027360;
 }
-
 .scorebook-icon-check {
   background-image: image-url("scorebook/icon-check.png");
   background-repeat: no-repeat;
   background-position: center;
 }
-
 .icon-x-gray {
   background-image: image-url("scorebook/icon-x-gray.png");
   background-repeat: no-repeat;
   background-position: center;
   background-position-x: 21px;
 }
-
 .hidden-button {
   display: none;
 }
-
 .assign-success-container {
+  font-size: 18px;
   .row {
     display: flex;
     align-items: center;
+  }
+  .assign-success-message: {
+    text-align: left;
   }
   .successBox {
     background-color: #C1FFC6;
     width: 100%;
     text-align: center;
     height: 100px;
-    font-size: 18px;
     display: flex;
     align-items: center;
     .fa-check-circle {
@@ -137,7 +133,7 @@
       font-size: 31px;
       text-align: left;
     }
-    .messageBox{
+    .messageBox {
       color: white;
       background-color: #00C2A2;
       padding: 1em;
@@ -146,9 +142,51 @@
   }
   .sharing-container {
     text-align: center;
+    h2 {
+      font-size: 24px;
+          font-weight: bold;
+          margin-top: 2em;
+          margin-bottom: .75em;
+    }
+    .nonprofit-copy {
+      width: 53%;
+      margin: auto;
+      margin-bottom: 1.4em;
+
+    }
     .social-copy {
       padding: 21px;
-      border: 1px solid;
+      border: 1px solid #979797;
+      width: 53%;
+      margin: auto;
+      border-radius: 8px;
+    }
+  }
+  .light-gray-bordered-box {
+    border: none;
+    .container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: auto;
+    }
+    .btn-social {
+      margin-top: 1em;
+      width: 145px;
+      margin-right: 2em;
+      height: 39px;
+      font-size: 18px;
+    }
+    a {
+      border-radius: 4px;
+      margin: 1em;
+    }
+    strong {
+      display: none;
+    }
+    i {
+      font-size: 18px;
     }
   }
 }
