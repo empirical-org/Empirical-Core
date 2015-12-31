@@ -119,27 +119,36 @@
   display: none;
 }
 
-.successBox {
-  background-color: #C1FFC6;
-  width: 100%;
-  text-align: center;
-  height: 100px;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
+.assign-success-container {
   .row {
     display: flex;
     align-items: center;
   }
-  .fa-check-circle {
-    color: #457818;
-    font-size: 31px;
-    text-align: left;
+  .successBox {
+    background-color: #C1FFC6;
+    width: 100%;
+    text-align: center;
+    height: 100px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    .fa-check-circle {
+      color: #457818;
+      font-size: 31px;
+      text-align: left;
+    }
+    .messageBox{
+      color: white;
+      background-color: #00C2A2;
+      padding: 1em;
+      margin-bottom: 2em;
+    }
   }
-  .messageBox{
-    color: white;
-    background-color: #00C2A2;
-    padding: 1em;
-    margin-bottom: 2em;
+  .sharing-container {
+    text-align: center;
+    .social-copy {
+      padding: 21px;
+      border: 1px solid;
+    }
   }
 }

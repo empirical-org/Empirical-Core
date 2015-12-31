@@ -5,7 +5,8 @@ EC.UnitTemplateProfileShareButtons = React.createClass({
   },
 
   urlForPublicPage: function () {
-    return window.location.origin + "/activities/packs/" + this.props.data.model.id
+    debugger;
+    return window.location.origin + "/activities/packs/" + this.props.data.id;
   },
 
   render: function () {
@@ -15,13 +16,13 @@ EC.UnitTemplateProfileShareButtons = React.createClass({
       {
         icon: 'fa-envelope',
         className: 'btn-linkedin',
-        href: "mailto:?subject=Checkout this " + this.props.data.model.name +  " Activity pack by Quill.org&source=Quill.org&body=" + url,
+        href: "mailto:?subject=Checkout this " + this.props.data.name +  " Activity pack by Quill.org&source=Quill.org&body=" + url,
         title: 'Share by Email',
       },
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: "http://twitter.com/home?status=" + url + " checkout this " + this.props.data.model.name +  " Activity pack by @Quill_org",
+        href: "http://twitter.com/home?status=" + url + " checkout this " + this.props.data.name +  " Activity pack by @Quill_org",
         title: 'Share on Twitter',
       },
       {
