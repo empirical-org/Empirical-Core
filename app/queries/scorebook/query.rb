@@ -5,7 +5,7 @@ class Scorebook::Query
   end
 
   def query(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
-    results = Scorebook::ActivitySessionsQuery.new.query(@teacher, classroom_id).includes(:classroom_activity) #TODO MAKE THIS WORK!!
+    results = Scorebook::ActivitySessionsQuery.new.query(@teacher, classroom_id) #TODO MAKE THIS WORK!!
     results = filter_by_unit(results, unit_id)
     results = filter_by_dates(results, begin_date, end_date)
     results = paginate(results, current_page)
@@ -61,9 +61,7 @@ class Scorebook::Query
   end
 
   def paginate(results, current_page)
-    results.order('sorting_name')
-           .order('activity_sessions.completed_at')
-           .order('activity_sessions.created_at')
+    results.order('sorting_name, activity_sessions.id, activity_sessions.completed_at')
            .limit(SCORES_PER_PAGE)
            .offset( (current_page -1 )*SCORES_PER_PAGE)
   end
