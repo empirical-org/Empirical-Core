@@ -16,11 +16,11 @@ EC.UnitTemplateMinis = React.createClass({
     var grade = this.props.data.grade;
     var models;
     if (grade) {
-      models = _.reject(this.props.data.displayedModels, function (m){
+      models = _.filter(this.props.data.displayedModels, function (m){
         return _.contains(m.grades, grade.toString());
       });
     } else {
-      models = this.props.data.displayedModels
+      models = this.props.data.displayedModels;
     }
     var rows = this.modules.rowsCreator.create(models);
     return <span>{rows}</span>;
