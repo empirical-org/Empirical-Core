@@ -240,6 +240,15 @@ EC.LessonPlanner = React.createClass({
 		this.updateUnitTemplatesManager({assignSuccess: true});
   },
 
+	unitTemplatesAssignedActions: function() {
+		return {
+			studentsPresent: this.studentsPresent,
+			getInviteStudentsUrl: this.getInviteStudentsUrl,
+			getLastClassroomName: this.getLastClassroomName,
+			unitTemplatesManagerActions: this.unitTemplatesManagerActions
+		};
+	},
+
 	customAssign: function () {
 		this.fetchClassrooms();
 		var unitTemplate = this.state.unitTemplatesManager.model;
@@ -271,14 +280,7 @@ EC.LessonPlanner = React.createClass({
 		};
 	},
 
-	unitTemplatesAssignedActions: function() {
-		return {
-			studentsPresent: this.studentsPresent,
-			getInviteStudentsUrl: this.getInviteStudentsUrl,
-			getLastClassroomName: this.getLastClassroomName,
-			unitTemplatesManagerActions: this.unitTemplatesManagerActions
-		};
-	},
+
 
 
 	render: function () {
@@ -288,11 +290,13 @@ EC.LessonPlanner = React.createClass({
 																		data={this.state.unitTemplatesManager.lastActivityAssigned}
 																		actions={this.unitTemplatesAssignedActions()}/>;
 		} else if (this.state.tab == 'createUnit') {
-			tabSpecificComponents = <EC.CreateUnit data={this.state.createUnit}
+			tabSpecificComponents = <EC.CreateUnit data={{createUnitData: this.state.createUnit,
+																						assignSuccessData: this.state.unitTemplatesManager.model}}
 																						 actions={{toggleStage: this.toggleStage,
                                                        toggleTab: this.toggleTab,
                                                        update: this.updateCreateUnitModel,
-                                                       toggleActivitySelection: this.toggleActivitySelection}}
+                                                       toggleActivitySelection: this.toggleActivitySelection,
+																										 	 assignSuccessActions: 	this.unitTemplatesAssignedActions()}}
 																						 analytics={this.props.analytics}/>;
 		} else if (this.state.tab == 'manageUnits') {
 			tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;
