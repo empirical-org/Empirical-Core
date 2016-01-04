@@ -178,7 +178,7 @@ EC.LessonPlanner = React.createClass({
 	},
 
 	toggleStage: function (stage) {
-		this.updateCreateUnit({stage: 2})
+		this.updateCreateUnit({stage: stage})
 		this.fetchClassrooms();
 	},
 

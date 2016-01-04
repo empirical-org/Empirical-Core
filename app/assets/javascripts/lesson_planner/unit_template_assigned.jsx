@@ -9,6 +9,7 @@ EC.UnitTemplatesAssigned = React.createClass({
   hideSubNavBars: function() {
     $(".unit-tabs").hide();
     $(".tab-outer-wrap").hide();
+    $(".section-content-wrapper").hide();
   },
 
   activityName: function() {
@@ -58,6 +59,7 @@ EC.UnitTemplatesAssigned = React.createClass({
   // </div>
 
   render: function () {
+    var socialButtons = <EC.UnitTemplateProfileShareButtons data={this.props.data} />
     return (
       <div className='assign-success-container'>
     <div className='successBox'>
@@ -81,7 +83,7 @@ EC.UnitTemplatesAssigned = React.createClass({
           that use Quill, the more free activities we can create.
         </p>
       <p className='social-copy'>
-        <i>I’m using the Commonly Confused Words Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/3</i>
+        <i>I’m using the {this.activityName()} Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/3</i>
       </p>
       <div className='container'>
         <EC.UnitTemplateProfileShareButtons data={this.props.data} />

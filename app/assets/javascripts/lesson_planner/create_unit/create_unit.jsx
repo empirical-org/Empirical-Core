@@ -157,7 +157,8 @@ EC.CreateUnit = React.createClass({
 	},
 
 	onCreateSuccess: function(response) {
-		window.location.href = "/profile";
+		this.props.actions.toggleStage(3);
+		// this.stage3specificComponents();
 	},
 
 	isUnitNameSelected: function () {
@@ -248,13 +249,25 @@ EC.CreateUnit = React.createClass({
 								 errorMessage={this.determineStage2ErrorMessage()}/>);
 	},
 
+	stage3specificComponents: function () {
+		if ((!!this.props.actions.assignSuccessActions) && (!!this.props.data.assignSuccessData)) {
+			return (<EC.UnitTemplatesAssigned actions={this.props.actions.assignSuccessActions}
+																					 data={this.props.data.assignSuccessData}/>);
+		}
+		else {
+			window.location.href = "/profile";
+		}
+	},
+
 	render: function () {
 		var stageSpecificComponents;
 
 		if (this.getStage() === 1) {
 			stageSpecificComponents = this.stage1SpecificComponents();
-		} else {
+		} else if (this.getStage() === 2) {
 			stageSpecificComponents = this.stage2SpecificComponents();
+		} else if (this.getStage() === 3) {
+			stageSpecificComponents = this.stage3specificComponents();
 		}
 		return (
 			<span>
