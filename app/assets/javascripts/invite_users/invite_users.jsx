@@ -24,7 +24,7 @@ EC.InviteUsers = React.createClass({
       <span>
         {inputs}
         <button onClick={this.props.actions.save}
-                className='button-green'>
+                className='button-green add-user'>
             {"Add " + this.props.data.userType}
         </button>
       </span>
