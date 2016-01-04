@@ -17,8 +17,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :activity_sessions, only: [] do
     get :anonymous, on: :collection
     get :play, on: :member
+    put :play, on: :member
   end
-  put 'activity_sessions/:id/play' => 'activity_sessions#update'
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
@@ -174,7 +174,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  %w(press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium_access premium teacher_resources press_kit play media).each do |page|
+  %w(press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium_access premium teacher_resources press_kit play media news).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
