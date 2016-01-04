@@ -24,23 +24,23 @@ EC.CreateUnit = React.createClass({
 	},
 
 	getStage: function () {
-		return this.props.data.stage;
+		return this.props.data.createUnitData.stage;
 	},
 
 	getSelectedActivities: function () {
-		return this.props.data.model.selectedActivities;
+		return this.props.data.createUnitData.model.selectedActivities;
 	},
 
 	getClassrooms: function () {
-		return this.props.data.options.classrooms;
+		return this.props.data.createUnitData.options.classrooms;
 	},
 
 	getUnitName: function () {
-		return this.props.data.model.name;
+		return this.props.data.createUnitData.model.name;
 	},
 
 	assignActivityDueDate: function(activity, dueDate) {
-		console.log('assign acitivyt due date in EC.CreateUnit', {activity: activity, dueDate: dueDate})
+		console.log('assign activity due date in EC.CreateUnit', {activity: activity, dueDate: dueDate})
 		var dueDates = this.state.dueDates;
 		dueDates[activity.id] = dueDate;
 		this.setState({dueDates: dueDates});
@@ -235,6 +235,8 @@ EC.CreateUnit = React.createClass({
 
 	stage2SpecificComponents: function () {
 			return (<EC.Stage2 selectedActivities={this.getSelectedActivities()}
+								 data={this.props.data.assignSuccessData}
+								 actions={this.props.actions.assignSuccessActions}
 								 classrooms={this.getClassrooms()}
 								 toggleActivitySelection={this.toggleActivitySelection}
 								 toggleClassroomSelection={this.toggleClassroomSelection}
