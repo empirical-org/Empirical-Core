@@ -1,6 +1,7 @@
 <!-- Nav tabs -->
+<%- extra_class = (session[:admin_id].present? ? "background-color-white" : "") %>
 
-<div class="tab-outer-wrap">
+<div class="<%="tab-outer-wrap #{extra_class}"%>" >
   <div class="container">
 
     <ul class="nav nav-tabs tabs-navigation-list" role="tablist">

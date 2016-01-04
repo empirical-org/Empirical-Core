@@ -85,12 +85,16 @@ EC.AdminDashboard = React.createClass({
   render: function () {
     return (
       <div>
-        <EC.AdminDashboardHeader/>
-        <EC.InviteUsers data={this.inviteUsersData()} actions={this.inviteUsersActions()} />
-        <EC.AdminsTeachers data={this.state.model.teachers} />
+        <EC.AdminDashboardTop />
+        <div className='container'>
+          <div className='row'>
+            <div className='col-xs-12'>
+              <EC.InviteUsers data={this.inviteUsersData()} actions={this.inviteUsersActions()} />
+              <EC.AdminsTeachers data={this.state.model.teachers} />
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
-
 })
-

@@ -1,0 +1,23 @@
+.admin-dashboard-top {
+  margin-top: 60px;
+  margin-bottom: 120px;
+
+  .representative {
+    height: 110px;
+    .representative-header {
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .representative-contact {
+      margin-top: 15px;
+    }
+
+    .thumb-elliot {
+      background-image: image-url('thumb-elliot.png');
+      background-repeat: no-repeat;
+      height: 100%;
+    }
+  }
+
+}
