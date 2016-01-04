@@ -125,10 +125,14 @@
     height: 100px;
     display: flex;
     align-items: center;
+    .successMessage {
+      text-align: left;
+    }
     .fa-check-circle {
       color: #457818;
       font-size: 31px;
       text-align: left;
+      margin-right: .3em;
     }
     .assignBoxMessage: {
         text-align: left;
@@ -157,7 +161,7 @@
     .social-copy {
       padding: 21px;
       border: 1px solid #979797;
-      width: 53%;
+      width: 45%;
       margin: auto;
       border-radius: 8px;
     }
