@@ -2,14 +2,18 @@ require 'rails_helper'
 
 describe 'TeachersData' do
 
+  let!(:teachers_data_module) { TeachersData }
+
   let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
   let!(:teacher_ids) { [teacher.id] }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let!(:student1) { FactoryGirl.create(:user, role: 'student', classroom: classroom) }
   let!(:student2) { FactoryGirl.create(:user, role: 'student', classroom: classroom) }
 
-  let!(:time1) { Time.now - (1.days + 2.hours) }
   let!(:time2) { Time.now }
+  let!(:time1) { time2 - (10.minutes) }
+  let!(:default_time_spent) { teachers_data_module::AVERAGE_TIME_SPENT }
+
 
   let!(:activity_session1) { FactoryGirl.create(:activity_session, user: student1, started_at: time1, completed_at: time2) }
   let!(:activity_session2) { FactoryGirl.create(:activity_session, user: student1, started_at: time1, completed_at: time2) }
@@ -19,14 +23,14 @@ describe 'TeachersData' do
   let!(:concept_result2) { FactoryGirl.create(:concept_result, concept: concept2, activity_session: activity_session2) }
 
   def subject
-    TeachersData.run(teacher_ids).first
+    teachers_data_module.run(teacher_ids).first
   end
 
   before :each do
     @result = subject
   end
 
-  it 'numer_of_students works' do
+  it 'number_of_students works' do
     expect(@result.number_of_students).to eq(2)
   end
 
@@ -36,6 +40,24 @@ describe 'TeachersData' do
 
   it 'time_spent works' do
     expect(@result.time_spent).to eq(2*(time2 - time1))
+  end
+
+  context 'time spent on activities is less than 1 minute' do
+
+    let!(:time1) { time2 - 2.seconds }
+
+    it 'uses default_time_spent instead' do
+      expect(@result.time_spent).to eq(2*default_time_spent)
+    end
+  end
+
+  context 'time spent on activities is greater than 30 minutes' do
+
+    let!(:time1) { time2 - 2.days}
+
+    it 'uses default_time_spent instead' do
+      expect(@result.time_spent).to eq(2*default_time_spent)
+    end
   end
 
 end
