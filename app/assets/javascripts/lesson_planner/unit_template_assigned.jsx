@@ -52,19 +52,21 @@ EC.UnitTemplatesAssigned = React.createClass({
   //   <div className='google-plus-button col-md-1'>Tweet</div>
   // </div>
 
+
+  // <div className='col-md-7 assign-success-message pull-left'>
+  //   You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!
+  // </div>
+
   render: function () {
     return (
       <div className='assign-success-container'>
     <div className='successBox'>
       <div className='container'>
         <div className='row' id='successBoxMessage'>
-          <div className='col-md-1 cold-md-offset-1'>
-            <i className="fa fa-check-circle pull-left"></i>
+          <div className='col-md-9 successMessage'>
+            <i className="fa fa-check-circle pull-left"></i>You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!
           </div>
-          <div className='col-md-7 assign-success-message pull-left'>
-            You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!
-          </div>
-          <div className='col-md-4 pull-right'>
+          <div className='col-md-4'>
             {this.teacherSpecificComponents()}
           </div>
         </div>
