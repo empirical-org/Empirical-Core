@@ -7,6 +7,8 @@ class ActivitySessionsController < ApplicationController
   before_action :activity_session_authorize!, only: [:play, :result]
 
   def play
+    @activity_session.start
+    @activity_session.save!
     @module_url = @activity.module_url(@activity_session)
   end
 
@@ -17,12 +19,6 @@ class ActivitySessionsController < ApplicationController
     @activity = Activity.find(params[:activity_id])
     @module_url = @activity.anonymous_module_url
     render 'play'
-  end
-
-  def update
-    @activity_session.start
-    @activity_session.save!
-    redirect_to play_activity_session_path(@activity_session)
   end
 
   private
