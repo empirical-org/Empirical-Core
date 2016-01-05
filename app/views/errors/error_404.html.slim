@@ -5,10 +5,10 @@
       br
       div
         h3 Quill provides free writing, grammar,
-        h3 and vocabulary activities.
+        h3 and proofreading activities.
         - if @current_user
             a.btn.button-marine.status_404_button href=profile_path Return to My Profile
         - else
             a.btn.button-marine.status_404_button href=new_account_path Sign Up
             a.btn.button-marine.status_404_button href=new_session_path Login
-            a.btn.button-marine.status_404_button href=profile_path Explore the Homepage
+            a.btn.button-marine.status_404_button href=index Explore the Homepage
