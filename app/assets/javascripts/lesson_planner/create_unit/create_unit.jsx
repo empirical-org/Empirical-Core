@@ -255,7 +255,7 @@ EC.CreateUnit = React.createClass({
 																					 data={this.props.data.assignSuccessData}/>);
 		}
 		else {
-			window.location.href = "/profile";
+			window.location.href = "/teachers/classrooms/lesson_planner";
 		}
 	},
 
