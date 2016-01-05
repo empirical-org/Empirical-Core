@@ -3,7 +3,8 @@ EC.AdminsTeachers = React.createClass({
     data: React.PropTypes.object.isRequired,
     sortHandler: React.PropTypes.func.isRequired,
     currentSort: React.PropTypes.object.isRequired,
-    columns: React.PropTypes.object.isRequired
+    columns: React.PropTypes.object.isRequired,
+    loading: React.PropTypes.bool.isRequired
   },
 
   rows: function () {
@@ -27,6 +28,7 @@ EC.AdminsTeachers = React.createClass({
       <div className='admins-teachers'>
         <EC.SortableTable columns={this.props.columns}
                           rows={this.rows()}
+                          loading={this.props.loading}
                           currentSort={this.props.currentSort}
                           sortHandler={this.props.sortHandler}
                           shouldTransition={true}
