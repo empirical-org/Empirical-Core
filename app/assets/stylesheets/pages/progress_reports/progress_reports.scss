@@ -62,30 +62,7 @@ a.progress-reports-nav {
     text-decoration: none;
   }
 
-  .table-header-arrow {
-    padding-left: 9px;
-  }
-
-  .table {
-    margin-bottom: 0px;
-
-    tr {
-      line-height: 39px;
-    }
-
-    th.sorter, td {
-      padding-left: 11px;
-      padding-right: 11px;
-    }
-
-    th.sorter.current {
-      background-color: #e6e6e6;
-    }
-  }
-
   table {
-    font-size: 14px;
-    table-layout: fixed;
 
     // All column sizes are based on 14px font
     .proficient-column {
@@ -203,21 +180,6 @@ a.progress-reports-nav {
     margin-top: 0; // Duplicated from elsewhere in the CSS
   }
 
-  .table {
-    thead {
-      border: 1px solid $lightgray;
-    }
-    th {
-      border: 1px solid $lightgray;
-    }
-    tbody {
-      background: white;
-
-      tr {
-        border: 1px solid $lightgray;
-      }
-    }
-  }
 }
 
 .progress-report-filters {

@@ -16,6 +16,7 @@ EmpiricalGrammar::Application.routes.draw do
     member do
       get :admin_sign_in_classroom_manager, to: 'admins#sign_in_classroom_manager'
       get :admin_sign_in_progress_reports, to: 'admins#sign_in_progress_reports'
+      get :admin_sign_in_account_settings, to: 'admins#sign_in_account_settings'
     end
   end
 

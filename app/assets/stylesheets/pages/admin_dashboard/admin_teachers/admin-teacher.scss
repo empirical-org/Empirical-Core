@@ -1,12 +1,12 @@
 .adminTeacher-enter {
   opacity: 0.01;
-  color: blue;
+  color: $quillgreen;
 }
 
 .adminTeacher-enter.adminTeacher-enter-active {
   opacity: 1;
   transition: opacity 500ms ease-in;
-  color: red;
+  color: $quillgreen;
 }
 
 .adminTeacher-leave {

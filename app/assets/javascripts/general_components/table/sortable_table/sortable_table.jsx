@@ -3,7 +3,12 @@ EC.SortableTable = React.createClass({
     currentSort: React.PropTypes.object.isRequired,
     columns: React.PropTypes.array.isRequired,
     rows: React.PropTypes.array.isRequired, // [{classification_name: 'foobar', ...}]
-    sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
+    sortHandler: React.PropTypes.func.isRequired, // Handle sorting of columns
+    shouldTransition: React.PropTypes.bool
+  },
+
+  shouldTransition: function () {
+    return !!this.props.shouldTransition
   },
 
   // Return a handler function that includes the field name as the 1st arg.
@@ -26,22 +31,35 @@ EC.SortableTable = React.createClass({
   },
 
   rows: function() {
+
     return _.map(this.props.rows, function(row, i) {
       return <EC.SortableTr key={row.id || i} row={row} columns={this.props.columns} />
     }, this);
   },
 
   render: function() {
+    var tbody;
+    if (this.shouldTransition()) {
+      tbody = (
+        <EC.ReactCSSTransitionGroup component='tbody'
+                                   transitionName={this.props.transitionName}
+                                   transitionEnterTimeout={3000}
+                                   transitionEnterLeaveTimeout={3000}>
+          {this.rows()}
+        </EC.ReactCSSTransitionGroup>
+      )
+    } else {
+      tbody = <tbody>{rows}</tbody>
+    }
+
     return (
-      <table className='table'>
+      <table className='table sortable-table'>
         <thead>
           <tr>
             {this.columns()}
           </tr>
         </thead>
-        <tbody>
-          {this.rows()}
-        </tbody>
+       {tbody}
       </table>
     );
   }
