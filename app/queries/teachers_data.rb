@@ -19,21 +19,25 @@ module TeachersData
     activity_sessions = ActivitySession.arel_table
     concept_results = ConceptResult.arel_table
 
-    x = teachers.project(teachers[:id]).where(teachers[:id].in(teacher_ids))
-            .join(classrooms, Arel::Nodes::OuterJoin).on(teachers[:id].eq(classrooms[:teacher_id]))
-            .join(students, Arel::Nodes::OuterJoin).on(classrooms[:code].eq(students[:classcode]))
-            .join(activity_sessions, Arel::Nodes::OuterJoin).on(students[:id].eq(activity_sessions[:user_id]))
-            .join(concept_results, Arel::Nodes::OuterJoin).on(activity_sessions[:id].eq(concept_results[:activity_session_id]))
-            .group(teachers[:id])
-            .project(teachers[:id], teachers[:name], teachers[:email],
-                     students[:id].count(true).as('number_of_students'),
-                     concept_results[:id].count(true).as('number_of_questions_completed'))
+    x = teachers.project(teachers[:id])
+                .where(teachers[:id].in(teacher_ids))
+                .join(classrooms, Arel::Nodes::OuterJoin).on(teachers[:id].eq(classrooms[:teacher_id]))
+                .join(students, Arel::Nodes::OuterJoin).on(classrooms[:code].eq(students[:classcode]))
+                .join(activity_sessions, Arel::Nodes::OuterJoin).on(students[:id].eq(activity_sessions[:user_id]))
+                .join(concept_results, Arel::Nodes::OuterJoin).on(activity_sessions[:id].eq(concept_results[:activity_session_id]))
+                .group(teachers[:id])
+                .project(teachers[:id], teachers[:name], teachers[:email],
+                         students[:id].count(true).as('number_of_students'),
+                         concept_results[:id].count(true).as('number_of_questions_completed'))
 
 
-   y = teachers.project(teachers[:id].as('teacher_id'), activity_sessions[:id].as('activity_session_id')).where(teachers[:id].in(teacher_ids))
+   y = teachers.project(teachers[:id].as('teacher_id'),
+                        activity_sessions[:id].as('activity_session_id'))
+               .where(teachers[:id].in(teacher_ids))
                .join(classrooms).on(teachers[:id].eq(classrooms[:teacher_id]))
                .join(students).on(classrooms[:code].eq(students[:classcode]))
                .join(activity_sessions).on(students[:id].eq(activity_sessions[:user_id]))
+               .where(activity_sessions[:state].eq('finished'))
                .group(teachers[:id], activity_sessions[:id])
                .as('acss_ids')
 
