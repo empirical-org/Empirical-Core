@@ -60,7 +60,8 @@ EC.UnitTemplateProfile = React.createClass({
 
 
           <EC.RelatedUnitTemplates models={this.props.data.relatedModels}
-                                   actions={this.props.actions} />
+                                   actions={this.props.actions}
+                                   data={this.props.data.model.id}/>
           <div className='row'>
             <button onClick={this.props.actions.returnToIndex} className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button>
           </div>
