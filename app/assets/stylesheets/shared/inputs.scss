@@ -19,11 +19,12 @@ input {
 
 .datepicker-input {
   height: 31px;
-  width: 148px;
+  width: 162px;
+  margin-right: 10px;
   /*background-image: url(../images/icon-calendar.png);*/
   background-image: image-url("scorebook/icon-calendar.png");
   background-repeat: no-repeat;
-  background-position-x: 120px;
+  background-position-x: 140px;
   background-position-y: 3px;
 }
 
