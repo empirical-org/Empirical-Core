@@ -24,23 +24,23 @@ EC.CreateUnit = React.createClass({
 	},
 
 	getStage: function () {
-		return this.props.data.stage;
+		return this.props.data.createUnitData.stage;
 	},
 
 	getSelectedActivities: function () {
-		return this.props.data.model.selectedActivities;
+		return this.props.data.createUnitData.model.selectedActivities;
 	},
 
 	getClassrooms: function () {
-		return this.props.data.options.classrooms;
+		return this.props.data.createUnitData.options.classrooms;
 	},
 
 	getUnitName: function () {
-		return this.props.data.model.name;
+		return this.props.data.createUnitData.model.name;
 	},
 
 	assignActivityDueDate: function(activity, dueDate) {
-		console.log('assign acitivyt due date in EC.CreateUnit', {activity: activity, dueDate: dueDate})
+		console.log('assign activity due date in EC.CreateUnit', {activity: activity, dueDate: dueDate})
 		var dueDates = this.state.dueDates;
 		dueDates[activity.id] = dueDate;
 		this.setState({dueDates: dueDates});
@@ -157,7 +157,8 @@ EC.CreateUnit = React.createClass({
 	},
 
 	onCreateSuccess: function(response) {
-		window.location.href = "/profile";
+		this.props.actions.toggleStage(3);
+		// this.stage3specificComponents();
 	},
 
 	isUnitNameSelected: function () {
@@ -235,6 +236,8 @@ EC.CreateUnit = React.createClass({
 
 	stage2SpecificComponents: function () {
 			return (<EC.Stage2 selectedActivities={this.getSelectedActivities()}
+								 data={this.props.data.assignSuccessData}
+								 actions={this.props.actions.assignSuccessActions}
 								 classrooms={this.getClassrooms()}
 								 toggleActivitySelection={this.toggleActivitySelection}
 								 toggleClassroomSelection={this.toggleClassroomSelection}
@@ -246,13 +249,25 @@ EC.CreateUnit = React.createClass({
 								 errorMessage={this.determineStage2ErrorMessage()}/>);
 	},
 
+	stage3specificComponents: function () {
+		if ((!!this.props.actions.assignSuccessActions) && (!!this.props.data.assignSuccessData)) {
+			return (<EC.UnitTemplatesAssigned actions={this.props.actions.assignSuccessActions}
+																					 data={this.props.data.assignSuccessData}/>);
+		}
+		else {
+			window.location.href = "/teachers/classrooms/lesson_planner";
+		}
+	},
+
 	render: function () {
 		var stageSpecificComponents;
 
 		if (this.getStage() === 1) {
 			stageSpecificComponents = this.stage1SpecificComponents();
-		} else {
+		} else if (this.getStage() === 2) {
 			stageSpecificComponents = this.stage2SpecificComponents();
+		} else if (this.getStage() === 3) {
+			stageSpecificComponents = this.stage3specificComponents();
 		}
 		return (
 			<span>

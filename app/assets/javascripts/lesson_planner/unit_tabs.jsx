@@ -21,9 +21,9 @@ EC.UnitTabs = React.createClass({
 			<div className="unit-tabs tab-subnavigation-wrapper">
 				<div className="container">
 					<ul>
-						<li onClick={this.select('manageUnits')}><a className={classes.manageUnits}>My Units</a></li>
-						<li onClick={this.select('exploreActivityPacks')}><a className={classes.exploreActivityPacks}>Explore Activity Packs</a></li>
-						<li onClick={this.select('createUnit')}><a className={classes.createUnit}>Create a Unit</a></li>
+						<li onClick={this.select('manageUnits')}><a className={classes.manageUnits}>My Activity Packs</a></li>
+						<li onClick={this.select('exploreActivityPacks')}><a className={classes.exploreActivityPacks}>Featured Activity Packs</a></li>
+						<li onClick={this.select('createUnit')}><a className={classes.createUnit}>Create an Activity Pack</a></li>
 					</ul>
 				</div>
 			</div>
