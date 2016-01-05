@@ -1,4 +1,19 @@
 .light-gray-bordered-box {
-    outline: 1px solid $lightgray;
-    padding: 1.8em 1.5em;
+  border: 1px solid $lightgray;
+  padding: 1.8em 1.5em;
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    .btn-social {
+      margin-top: 1em;
+      margin-right: 0.75em;
+      justify-content: flex-start;
+      i {
+        margin-right: 1em;
+      }
+    }
+  }
 }
