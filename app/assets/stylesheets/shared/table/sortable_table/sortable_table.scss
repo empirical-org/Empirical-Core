@@ -1,9 +1,21 @@
+.sortable-table-spinner-container {
+  width: 100%;
+  text-align: center;
+  padding: 80px;
+  .sortable-table-spinner {
+    &:before {
+      font-size: 200px;
+      color: $gray;
+    }
+  }
+}
+
+
 table.sortable-table {
   font-size: 14px;
   margin-bottom: 0px;
 
   table-layout: fixed;
-
 
   thead {
     border: 1px solid $lightgray;

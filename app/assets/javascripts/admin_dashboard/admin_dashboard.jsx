@@ -22,6 +22,7 @@ EC.AdminDashboard = React.createClass({
 
   getInitialState: function () {
     return {
+      loading: true,
       model: {
         teachers: []
       },
@@ -99,7 +100,7 @@ EC.AdminDashboard = React.createClass({
   },
 
   receiveData: function (data) {
-    this.setState({model: data})
+    this.setState({model: data, loading: false})
   },
 
   inviteUsersActions: function () {
@@ -152,6 +153,7 @@ EC.AdminDashboard = React.createClass({
             <div className='col-xs-12'>
               <EC.InviteUsers data={this.inviteUsersData()} actions={this.inviteUsersActions()} />
               <EC.AdminsTeachers currentSort={this.state.currentSort}
+                                 loading={this.state.loading}
                                  sortHandler={this.sortHandler()}
                                  data={teachers}
                                  columns={this.teacherColumns()} />
