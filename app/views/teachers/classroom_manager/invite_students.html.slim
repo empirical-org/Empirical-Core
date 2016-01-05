@@ -1,5 +1,6 @@
 = render partial: 'teachers/shared/scorebook_tabs'
 = render partial: 'teachers/classrooms/subnav'
+= javascript_include_tag "add_students.js"
 
 .container.invite-students
   section.no-border
@@ -22,8 +23,8 @@
     ol
       li Have students sign up at quill.org/account/new
       li
-        Once students sign up, in the "Join My Class" field,
-        br
+        Once Once students sign up, in the "Join My Class" field,
+          <br>
         ' they enter the class code
         strong= @classroom.code
 
@@ -34,7 +35,7 @@
     h1.section-header Or You Create Student Accounts
 
     div
-      | The students’ username is their name combined with your
+      | The students’ usernames are their names combined with your
       br
       | class code. For example, John Smith is 'John.Smith@
       = @classroom.code
@@ -48,21 +49,15 @@
       = form_for User.new, url: teachers_classroom_students_path(@classroom), remote: true do |f|
         = f.text_field :first_name, placeholder: 'First Name'
         = f.text_field :last_name, placeholder: 'Last Name'
-        = f.submit 'Add Student', class: 'button-green'
-      - if flash[:notice]
-        .flash-notice= flash[:notice]
+        = f.submit 'Add Student', class: 'button-green ajax-button'
 
-    table.table.students
+    table.table.students.hidden
       thead
         tr
           th First Name
           th Last Name
           th Username
       tbody
-        - if @classroom.students.empty?
-          tr
-            td[colspan="3"] There are no students in this classroom yet.
-        - else
           - @classroom.students.sort_by(&:sorting_name).each do |student|
             tr class=dom_class(student) id=dom_id(student)
               - %i(first_name last_name username).each do |sym|
