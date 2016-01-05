@@ -69,18 +69,18 @@ module PagesHelper
 						img: 'thumb_ben.png',
 						name: "Ben Sussman",
 						title: "Board Member",
-						desc: "Ben is the Director of Engineering at Zoc Doc and advises Quill on all things technical."
+						desc: "Ben Sussman is the Director of Engineering at Zoc Doc and is a technical advisor to Quill. He has 10+ years of experience as a computer programmer and entrepreneur. His years at Zoc Doc have fed his passion for combining technology and user education."
 					},
 					{
 						img: "thumb-tim.png",
 						name: "Timothy Grieves",
 						title: "Board Member",
-						desc: "Timothy is the chief administrator of the Northwest AEA, a regional agency that advises 33,000 students in Iowa."
+						desc: "Timothy Grieves is the chief administrator of the Northwest AEA, a regional agency that advises 33,000 students in Iowa. Northwest AEA provides visionary leadership and quality, student-centered services through relationships with families, schools and communities."
 					},
 						img: "thumb-jane.png",
 						name: "Jane Parver",
 						title: "Board Chair",
-						desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the areas of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, as well as part of the ASCPA board and the Columbia Law School Board of Visitors"
+						desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the areas of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, as well as part of the ASCPA board and the Columbia Law School Board of Visitors. Ms. Parver established and now oversees the Susan Price Carr Scholarship Committee, which awards several scholarships annually to Columbia Law School students."
 			]},
 			{team: 'Education Advisory Board',
 			members: [
