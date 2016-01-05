@@ -2,14 +2,14 @@ EC.AdminDashboardTop = React.createClass({
 
   render: function () {
     return (
-      <div className="container admin-dashboard-top">
+      <div className="admin-dashboard-top">
         <div className="row">
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-md-7">
             <a href="mailto:ryan@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
               <button className="button-green">Bulk Upload Teachers via CSV</button>
             </a>
           </div>
-          <div className="col-xs-12 col-md-6 representative">
+          <div className="col-xs-12 col-md-5 representative">
             <div className='row'>
               <div className='col-xs-12'>
                 <h4 className='representative-header'>Your Personal Quill Premium Representative</h4>

@@ -9,6 +9,9 @@ module TeachersData
   # num_questions_completd
   # num_time_spent
 
+  # use Outer Joins to account for the fact that some of the teachers shown in the admin dashboard
+  # will have no classrooms, etc.
+
   def self.run(teacher_ids)
     teachers = User.arel_table
     classrooms = Classroom.arel_table
@@ -17,8 +20,8 @@ module TeachersData
     concept_results = ConceptResult.arel_table
 
     x = teachers.project(teachers[:id]).where(teachers[:id].in(teacher_ids))
-            .join(classrooms).on(teachers[:id].eq(classrooms[:teacher_id]))
-            .join(students).on(classrooms[:code].eq(students[:classcode]))
+            .join(classrooms, Arel::Nodes::OuterJoin).on(teachers[:id].eq(classrooms[:teacher_id]))
+            .join(students, Arel::Nodes::OuterJoin).on(classrooms[:code].eq(students[:classcode]))
             .join(activity_sessions, Arel::Nodes::OuterJoin).on(students[:id].eq(activity_sessions[:user_id]))
             .join(concept_results, Arel::Nodes::OuterJoin).on(activity_sessions[:id].eq(concept_results[:activity_session_id]))
             .group(teachers[:id])
@@ -40,7 +43,7 @@ module TeachersData
                                  self.time_spent.as('time_spent'))
                         .as('time_spent_query')
 
-   z2 = x.join(z).on(teachers[:id].eq(z[:teacher_id]))
+   z2 = x.join(z, Arel::Nodes::OuterJoin).on(teachers[:id].eq(z[:teacher_id]))
          .project(z[:time_spent].maximum.as('time_spent'))
 
 
