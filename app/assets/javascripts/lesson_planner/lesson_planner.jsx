@@ -15,6 +15,12 @@ EC.LessonPlanner = React.createClass({
 		analytics: React.PropTypes.object.isRequired
 	},
 
+	// lastActivityAssigned: function () {
+	// 	if (!this.state){
+	// 		return null
+	// 	} else {return this.state.unitTemplatesManager.model};
+	// },
+
   blankState: function () {
     return {
       tab: 'manageUnits', // 'createUnit', 'exploreActivityPacks'
@@ -30,6 +36,7 @@ EC.LessonPlanner = React.createClass({
       },
       unitTemplatesManager: {
         firstAssignButtonClicked: false,
+				assignSuccess: false,
         models: [],
         categories: [],
         stage: 'index', // index, profile,
@@ -38,6 +45,7 @@ EC.LessonPlanner = React.createClass({
         relatedModels: [],
         displayedModels: [],
         selectedCategoryId: null,
+				lastActivityAssigned: null,
         grade: null
       }
     }
@@ -56,7 +64,7 @@ EC.LessonPlanner = React.createClass({
 		this.updateCreateUnitModel = this.modules.updaterGenerator.updater('createUnit.model');
 		this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
 
-    var state = this.blankState()
+    var state = this.blankState();
 
     var grade = ($('#activity-planner').data('grade'));
     if (grade) {
@@ -73,7 +81,6 @@ EC.LessonPlanner = React.createClass({
       state.tab = 'exploreActivityPacks';
       state.unitTemplatesManager.model_id = $('.teachers-unit-template').data('id');
     }
-
     return state;
 	},
 
@@ -98,7 +105,6 @@ EC.LessonPlanner = React.createClass({
 					              .pluck('unit_template_category')
 					              .uniq(_.property('id'))
 					              .value();
-
     var newHash = {
     	models: models,
     	displayedModels: models,
@@ -162,18 +168,17 @@ EC.LessonPlanner = React.createClass({
                               }
                             });
 
-      this.setState({tab: tab})
-
+      this.setState({tab: tab});
 		} else if (tab == 'exploreActivityPacks') {
-			this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index', firstAssignButtonClicked: false, model_id: null, model: null}})
+			this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index', firstAssignButtonClicked: false, model_id: null, model: null}});
       this.fetchUnitTemplateModels();
 		} else {
-			this.setState({tab: tab})
+			this.setState({tab: tab});
 		}
 	},
 
 	toggleStage: function (stage) {
-		this.updateCreateUnit({stage: 2})
+		this.updateCreateUnit({stage: stage})
 		this.fetchClassrooms();
 	},
 
@@ -188,6 +193,19 @@ EC.LessonPlanner = React.createClass({
     });
   },
 
+	// TODO: remove staging from the URL or build a regex that grabs everythig before the third slash using window.location.href
+	getInviteStudentsUrl: function() {
+		return ('/teachers/classrooms/' + $(".tab-pane").data().classroomId + '/invite_students');
+	},
+
+	studentsPresent: function() {
+		return $(".tab-pane").data().students;
+	},
+
+	getLastClassroomName: function() {
+		return $(".tab-pane").data().classroomName;
+	},
+
   getSelectedActivities: function () {
   	return this.state.createUnit.model.selectedActivities;
   },
@@ -201,7 +219,7 @@ EC.LessonPlanner = React.createClass({
 	},
 
   clickAssignButton: function () {
-    this.updateUnitTemplatesManager({firstAssignButtonClicked: true})
+    this.updateUnitTemplatesManager({firstAssignButtonClicked: true});
   },
 
   fastAssign: function () {
@@ -210,15 +228,29 @@ EC.LessonPlanner = React.createClass({
       data: {id: this.state.unitTemplatesManager.model.id},
       type: 'POST',
       success: this.onFastAssignSuccess
-    })
+    });
   },
 
   onFastAssignSuccess: function () {
-    this.deepExtendState(this.blankState())
+		var lastActivity = this.state.unitTemplatesManager.model;
+		this.props.analytics.track('click Create Unit', {});
+		this.deepExtendState(this.blankState());
+		this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
+		this.fetchClassrooms();
+		this.updateUnitTemplatesManager({assignSuccess: true});
   },
 
+	unitTemplatesAssignedActions: function() {
+		return {
+			studentsPresent: this.studentsPresent,
+			getInviteStudentsUrl: this.getInviteStudentsUrl,
+			getLastClassroomName: this.getLastClassroomName,
+			unitTemplatesManagerActions: this.unitTemplatesManagerActions
+		};
+	},
+
 	customAssign: function () {
-		this.fetchClassrooms()
+		this.fetchClassrooms();
 		var unitTemplate = this.state.unitTemplatesManager.model;
 		var state = this.state;
 		var hash = {
@@ -231,7 +263,7 @@ EC.LessonPlanner = React.createClass({
 					selectedActivities: unitTemplate.activities
 				}
 			}
-		}
+		};
 		this.deepExtendState(hash);
 	},
 
@@ -245,17 +277,26 @@ EC.LessonPlanner = React.createClass({
       filterByGrade: this.filterByGrade,
       selectModel: this.selectModel,
       showAllGrades: this.showAllGrades
-		}
+		};
 	},
+
+
+
 
 	render: function () {
 		var tabSpecificComponents;
-		if (this.state.tab == 'createUnit') {
-			tabSpecificComponents = <EC.CreateUnit data={this.state.createUnit}
+		if (this.state.unitTemplatesManager.assignSuccess === true)  {
+			tabSpecificComponents = <EC.UnitTemplatesAssigned
+																		data={this.state.unitTemplatesManager.lastActivityAssigned}
+																		actions={this.unitTemplatesAssignedActions()}/>;
+		} else if (this.state.tab == 'createUnit') {
+			tabSpecificComponents = <EC.CreateUnit data={{createUnitData: this.state.createUnit,
+																						assignSuccessData: this.state.unitTemplatesManager.model}}
 																						 actions={{toggleStage: this.toggleStage,
                                                        toggleTab: this.toggleTab,
                                                        update: this.updateCreateUnitModel,
-                                                       toggleActivitySelection: this.toggleActivitySelection}}
+                                                       toggleActivitySelection: this.toggleActivitySelection,
+																										 	 assignSuccessActions: 	this.unitTemplatesAssignedActions()}}
 																						 analytics={this.props.analytics}/>;
 		} else if (this.state.tab == 'manageUnits') {
 			tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;
