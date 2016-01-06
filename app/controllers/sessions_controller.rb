@@ -9,9 +9,9 @@ class SessionsController < ApplicationController
     if @user.nil?
       login_failure_message
     elsif @user.signed_up_with_google
-      login_failure 'You signed up with google, please log in with google using the link above.'
+      login_failure 'You signed up with Google, please log in with Google using the link above.'
     elsif @user.password_digest.nil?
-      login_failure 'Login failed. Did you sign up with google? If so, please log in with google using the link above.'
+      login_failure 'Login failed. Did you sign up with Google? If so, please log in with Google using the link above.'
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
       if params[:redirect].present?
@@ -27,11 +27,16 @@ class SessionsController < ApplicationController
   def google
     @auth = request.env['omniauth.auth']['credentials']
     ga = GoogleAuthenticate.new(@auth)
-    if session[:role].present?
-      google_sign_up(ga)
-    else
+    if ga.find_user
       google_login(ga)
+    else
+      google_sign_up(ga)
     end
+    # if session[:role].present?
+    #   google_sign_up(ga)
+    # else
+    #
+    # end
   end
 
   # Theres an issue here - if a student belongs to multiple clever classrooms, then the student
