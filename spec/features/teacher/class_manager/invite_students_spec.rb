@@ -28,7 +28,6 @@ feature 'Invite-Students page' do
         end
 
         it 'shows no students' do
-          expect(invite_students_page).to have_content 'are no students'
           expect(invite_students_page.student_count).to eq 0
         end
 
