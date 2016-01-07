@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214204602) do
+ActiveRecord::Schema.define(version: 20160107221454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,8 @@ ActiveRecord::Schema.define(version: 20151214204602) do
     t.integer "concept_id",          null: false
     t.json    "metadata"
   end
+
+  add_index "concept_results", ["activity_session_id"], name: "index_concept_results_on_activity_session_id", using: :btree
 
   create_table "concepts", force: true do |t|
     t.string   "name"
