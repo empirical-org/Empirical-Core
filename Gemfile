@@ -27,6 +27,8 @@ gem 'firebase_token_generator'
 
 # EMAIL
 gem 'premailer-rails'
+# if you have trouble installing nokogiri on a mac,
+# try uninstalling nokogiri, running `xcode-select --install`, and then `bundle install` once more
 gem 'nokogiri' # required for premailer
 
 # VALIDATIONS
