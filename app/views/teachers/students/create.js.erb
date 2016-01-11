@@ -3,6 +3,8 @@ var studentFirstName = '<%=@student.first_name%>'
 var studentLastName = '<%=@student.last_name%>'
 var studentUserName = '<%=@student.username%>'
 
+$('.ajax-button').attr("disabled", true);
+
 $("table tbody").prepend('<tr class="user" id="'+ studentIdClass + '">' +
                         '<td>'+studentFirstName+'</td>' +
                         '<td>'+studentLastName+'</td>' +
@@ -14,3 +16,7 @@ $(':input','#new_user')
   .val('')
 
 $('#user_first_name')[0].focus();
+
+$('.table').removeClass('hidden');
+
+setTimeout(function() {$('.ajax-button').attr("disabled", false)}, 250);

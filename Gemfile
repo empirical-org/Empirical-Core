@@ -157,3 +157,5 @@ group :test do
   gem "webmock"
   gem "codeclimate-test-reporter", require: nil
 end
+
+gem "skylight"
