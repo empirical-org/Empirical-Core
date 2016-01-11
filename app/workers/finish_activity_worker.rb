@@ -14,7 +14,7 @@ class FinishActivityWorker
       percentage: activity_session.percentage,
       percentile: activity_session.percentile,
       activity: ActivitySerializer.new(activity_session.activity),
-      event_started: activity_session.created_at,
+      event_started: activity_session.started_at,
       event_finished: activity_session.completed_at
     }
 

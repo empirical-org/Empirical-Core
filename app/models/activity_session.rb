@@ -261,13 +261,11 @@ class ActivitySession < ActiveRecord::Base
   def trigger_events
     should_async = state_changed?
 
-    yield
+    yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
 
     return unless should_async
 
-    if state == 'started'
-      StartActivityWorker.perform_async(self.uid, Time.current)
-    elsif state == 'finished'
+    if state == 'finished'
       FinishActivityWorker.perform_async(self.uid)
     end
   end
