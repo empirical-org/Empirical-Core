@@ -3,6 +3,9 @@ EC.modules.Params = function () {
   // data -> params
   this.process = function (id, resourceNamePlural, options) {
     return _.compose(
+      _paramAdder2(_jsonData),
+      _paramAdder(_contentType),
+      _paramAdder(_dataType),
       _paramAdder(_callbackParam, options.callback),
       _paramAdder(_urlParam, id, resourceNamePlural, options.urlPrefix),
       _paramAdder(_typeParam, id),
@@ -32,6 +35,19 @@ EC.modules.Params = function () {
   var _callbackParam = function (callback) {
     var callback = (callback? callback : _defaultCallback)
     return {success: callback}
+  }
+
+  var _jsonData = function (params) {
+    console.log('params', params)
+    return {data: JSON.stringify(params.data)}
+  }
+
+  var _dataType = function () {
+    return {dataType: 'json'}
+  }
+
+  var _contentType = function () {
+    return {contentType: 'application/json'}
   }
 
   var _urlParam = function (id, resourceNamePlural, urlPrefix) {

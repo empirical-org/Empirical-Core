@@ -35,7 +35,7 @@ describe User, type: :model do
   describe "User scope" do
     describe "::ROLES" do
       it "must contain all roles" do
-        ["student", "teacher", "temporary", "user", "admin"].each do |role|
+        ["student", "teacher", "temporary", "user", "admin", "staff"].each do |role|
           expect(User::ROLES).to include role
         end
       end
@@ -395,16 +395,16 @@ describe User, type: :model do
     end
   end
 
-  describe "#admin?" do
+  describe "#staff?" do
     let(:user)  { FactoryGirl.build(:user, role: "user") }
-    let(:admin) { FactoryGirl.build(:admin)}
+    let(:staff) { FactoryGirl.build(:staff)}
 
-    it "must be true for admin role" do
-      expect(admin).to be_admin
+    it "must be true for staff role" do
+      expect(staff).to be_staff
     end
 
     it "must be false for another roles" do
-      expect(user).to_not be_admin
+      expect(user).to_not be_staff
     end
   end
 

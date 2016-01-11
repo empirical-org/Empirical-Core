@@ -1,3 +1,3 @@
-class AdminSerializer < UserSerializer
+class StaffSerializer < UserSerializer
 
 end

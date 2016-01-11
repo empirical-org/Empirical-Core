@@ -15,6 +15,10 @@ FactoryGirl.define do
     sequence(:email) {|n| "user#{n}@gmail.com"}
     sequence(:username) {|n| "username_is#{n}"}
 
+    factory :staff do
+      role 'staff'
+    end
+
     factory :admin do
       role 'admin'
     end

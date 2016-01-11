@@ -61,9 +61,8 @@ EC.Cms = React.createClass({
         </div>
         <div className='row'>
           <div className='col-xs-12'>
-            <EC.CmsIndexTable resources={this.state[this.props.resourceNamePlural]}
-                              edit={this.edit}
-                              delete={this.delete}/>
+            <EC.CmsIndexTable data={{resources: this.state[this.props.resourceNamePlural] }}
+                              actions={{edit: this.edit, delete: this.delete}}/>
           </div>
         </div>
       </span>

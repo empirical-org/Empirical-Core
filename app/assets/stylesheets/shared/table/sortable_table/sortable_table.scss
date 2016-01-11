@@ -1,0 +1,50 @@
+.sortable-table-spinner-container {
+  width: 100%;
+  text-align: center;
+  padding: 80px;
+  .sortable-table-spinner {
+    &:before {
+      font-size: 200px;
+      color: $gray;
+    }
+  }
+}
+
+
+table.sortable-table {
+  font-size: 14px;
+  margin-bottom: 0px;
+
+  table-layout: fixed;
+
+  thead {
+    border: 1px solid $lightgray;
+    th {
+      border: 1px solid $lightgray;
+      &.sorter {
+        padding-left: 11px;
+        padding-right: 11px;
+      }
+    }
+  }
+
+  tbody {
+    background: white;
+    tr {
+      line-height: 39px;
+      border: 1px solid $lightgray;
+      td {
+        padding-left: 11px;
+        padding-right: 11px;
+      }
+    }
+  }
+
+  th.sorter.current {
+    background-color: #e6e6e6;
+  }
+
+ .table-header-arrow {
+    padding-left: 9px;
+  }
+}
