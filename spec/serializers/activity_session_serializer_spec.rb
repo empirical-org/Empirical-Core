@@ -15,7 +15,6 @@ describe ActivitySessionSerializer, type: :serializer do
          percentage
          state
          temporary
-         time_spent
          uid)
     end
 
