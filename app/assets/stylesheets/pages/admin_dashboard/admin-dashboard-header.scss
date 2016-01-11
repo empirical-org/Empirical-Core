@@ -1,0 +1,21 @@
+#admin-dashboard-header {
+  background-color: white;
+  h4 {
+    cursor: pointer;
+    font-weight: 700 !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  i {
+    margin: 0px 15px;
+    color: $lightgray
+  }
+  hr {
+    border-top-color: $gray;
+    margin: 0px;
+  }
+}
+
+#admin-dashboard-header.teacher-dashboard {
+  padding-bottom: 10px;
+}

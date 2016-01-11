@@ -1,13 +1,16 @@
 'use strict';
-EC.modules.TextInputGenerator = function (component, update) {
-
+EC.modules.TextInputGenerator = function (component, update, options) {
 
   var config = {
     errors: [],
     update: update
   };
 
-  var fun1 = function (ele) {
+  if (options) {
+    config = _.merge(config, options)
+  }
+
+  var _fun1 = function (ele) {
       var default1;
       if (ele.default) {
         default1 = ele.default
@@ -23,10 +26,12 @@ EC.modules.TextInputGenerator = function (component, update) {
                            label={ele.label}
                            errors={config.errors}
                            errorLabel={ele.errorLabel}
+                           noLabel={ele.noLabel}
                            size={ele.size}
                            default={default1}
                            type={ele.type}
-                           errorKey={ele.errorKey}/>;
+                           errorKey={ele.errorKey}
+                           isSingleRow={config.isSingleRow}/>;
   };
 
   this.setErrors = function (errors) {
@@ -36,7 +41,7 @@ EC.modules.TextInputGenerator = function (component, update) {
   this.generate = function (fieldObjs) {
     var inputs;
     if (config.update !== null) {
-      inputs = _.map(fieldObjs, fun1)
+      inputs = _.map(fieldObjs, _fun1)
     } else {
       inputs = [];
     }

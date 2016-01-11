@@ -42,6 +42,9 @@ gem 'fog', require: 'fog/aws/storage'
 gem 'paperclip'
 gem "jquery-fileupload-rails"
 
+# TIME
+gem 'time_difference'
+
 # OTHERS
 gem 'global'
 gem 'google-api-client'

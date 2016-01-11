@@ -8,7 +8,8 @@ EC.TextInput = React.createClass({
     label: React.PropTypes.string,
     errorLabel: React.PropTypes.string,
     errorKey: React.PropTypes.string,
-    size: React.PropTypes.string
+    size: React.PropTypes.string,
+    noLabel: React.PropTypes.bool
   },
 
   update: function (e) {
@@ -17,9 +18,19 @@ EC.TextInput = React.createClass({
   },
 
   titleCase: function (string) {
-    var result;
-    result = string[0].toUpperCase() + string.substring(1);
+    var words = string.split(' ')
+    var TitleCaseWords = _.map(words, function (word) {
+      return this.titleCaseHelper(word)
+    }, this);
+    var result = _.reduce(TitleCaseWords, function (acc, word) {
+      return acc + ' ' + word;
+    }, '')
+
     return result;
+  },
+
+  titleCaseHelper: function (word) {
+    return word[0].toUpperCase() + word.substring(1);
   },
 
   determine: function (desired, fallback) {
@@ -37,7 +48,15 @@ EC.TextInput = React.createClass({
   },
 
   determineLabel: function () {
-    return this.determine('label', this.titleCase(this.props.name));
+    return this.determine('label', this.titleCase(this.removeUnderscore(this.props.name)));
+  },
+
+  removeUnderscore: function (string) {
+    return string.replace(/_/g, ' ');
+  },
+
+  determinePlaceholder: function () {
+    return this.determineLabel();
   },
 
   determineErrorLabel: function () {
@@ -94,6 +113,7 @@ EC.TextInput = React.createClass({
 
     } else {
       result = (<input id={this.getId()}
+                       placeholder={this.determinePlaceholder()}
                        type={this.determineType()}
                        ref={this.props.name}
                        onChange={this.getUpdateFn()}
@@ -115,27 +135,43 @@ EC.TextInput = React.createClass({
     }
   },
 
-  render: function () {
-    return (
-      <div className='row text-input-row'>
-        <div className='col-xs-12'>
-          <div className='row'>
-            <div className='col-xs-12'>
-              <div className='form-label'>
-                {this.determineLabel()}
-              </div>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-xs-8'>
-              {this.determineInputTag()}
-            </div>
-            <div className='col-xs-4 error'>
-              {this.displayErrors()}
+  labelOrNot: function () {
+    if (this.props.noLabel) {
+      return null;
+    } else {
+      return (
+        <div className='row'>
+          <div className='col-xs-12'>
+            <div className='form-label'>
+              {this.determineLabel()}
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+  },
+
+  render: function () {
+    var result;
+    if (this.props.isSingleRow) {
+      result = this.determineInputTag();
+    } else {
+      result = (
+          <div className='row text-input-row'>
+            <div className='col-xs-12'>
+              {this.labelOrNot()}
+              <div className='row'>
+                <div className='col-xs-8'>
+                  {this.determineInputTag()}
+                </div>
+                <div className='col-xs-4 error'>
+                  {this.displayErrors()}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+    }
+    return result;
   }
 });
