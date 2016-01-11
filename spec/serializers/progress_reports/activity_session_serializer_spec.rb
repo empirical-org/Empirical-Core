@@ -48,8 +48,8 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
       let(:activity_session)   { FactoryGirl.create(:activity_session,
           completed_at: nil,
           percentage: nil,
-          classroom_activity: classroom_activity,
-          time_spent: nil) }
+          classroom_activity: classroom_activity)
+      }
       let(:topic) { nil }
 
       it 'still works' do

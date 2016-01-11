@@ -11,7 +11,7 @@ describe ActivitySession, type: :model do
 
   end
 
-  let(:activity_session) {FactoryGirl.build(:activity_session, time_spent: nil, completed_at: 5.minutes.ago)}
+  let(:activity_session) {FactoryGirl.build(:activity_session, completed_at: 5.minutes.ago)}
 
   describe "#activity" do
 
@@ -181,31 +181,6 @@ describe ActivitySession, type: :model do
           }.to_not change {
             activity_session.reload.completed_at
           }
-        end
-      end
-
-      context "when time_spent is not set, but started_at and completed_at are" do
-        before do
-          activity_session.time_spent = nil
-          activity_session.started_at = 10.minutes.ago
-          activity_session.completed_at = 5.minutes.ago
-          activity_session.save!
-        end
-
-        it "should update time_spent" do
-          expect(activity_session.time_spent).to eq(300)
-        end
-      end
-
-      context "when time_spent is not set, and either started_at or completed_at is missing" do
-        before do
-          activity_session.started_at = nil
-          activity_session.completed_at = 5.minutes.ago
-          activity_session.save!
-        end
-
-        it "should not update time_spent" do
-          expect(activity_session.time_spent).to be_nil
         end
       end
 

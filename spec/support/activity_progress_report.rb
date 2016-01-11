@@ -15,7 +15,6 @@ shared_context 'Activity Progress Report' do
   let(:horshack_session) do
     horshack.activity_sessions.create!(
       state: 'finished',
-      time_spent: 120,
       percentage: 0.777778,
       classroom_activity: sweathogs_classroom_activity
     )
@@ -23,7 +22,6 @@ shared_context 'Activity Progress Report' do
   let(:barbarino_session) do
     barbarino.activity_sessions.create!(
       state: 'finished',
-      time_spent: 120,
       percentage: 0.75,
       classroom_activity: sweatdogs_classroom_activity
     )

@@ -26,7 +26,6 @@ namespace :keen do
     event_data = {
       event: 'started',
       uid: activity_session.uid,
-      time_spent: 0,
       activity: ActivitySerializer.new(activity_session.activity, root: false),
       event_started: activity_session.started_at,
       event_finished: nil,

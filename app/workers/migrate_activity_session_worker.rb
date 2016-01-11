@@ -36,10 +36,6 @@ class MigrateActivitySessionWorker
       updates[:started_at] = as.created_at if as.started_at.nil?
     end
 
-    if as.time_spent.nil? && !as.completed_at.nil?
-      updates[:time_spent] = as.completed_at.to_f - updates[:started_at].to_f
-    end
-
     as.update_columns(updates) if updates.any?
   end
 
