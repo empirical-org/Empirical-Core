@@ -193,17 +193,10 @@ class ActivitySession < ActiveRecord::Base
     super
   end
 
-  def calculate_time_spent!
-    if (time_spent.blank? || time_spent == 0) and completed_at.present? and started_at.present?
-      self.time_spent = (completed_at.to_f - started_at.to_f).to_i
-    end
-  end
-
   def as_keen
     event_data = {
       event: state,
       uid: uid,
-      time_spent: time_spent,
       percentage: percentage,
       percentile: percentile,
       activity: ActivitySerializer.new(activity, root: false),
@@ -261,13 +254,11 @@ class ActivitySession < ActiveRecord::Base
   def trigger_events
     should_async = state_changed?
 
-    yield
+    yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
 
     return unless should_async
 
-    if state == 'started'
-      StartActivityWorker.perform_async(self.uid, Time.current)
-    elsif state == 'finished'
+    if state == 'finished'
       FinishActivityWorker.perform_async(self.uid)
     end
   end
@@ -284,7 +275,6 @@ class ActivitySession < ActiveRecord::Base
   def set_completed_at
     return true if state != 'finished'
     self.completed_at ||= Time.current
-    calculate_time_spent!
   end
 
 end
