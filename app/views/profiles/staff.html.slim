@@ -3,6 +3,8 @@
     article.simple-rounded-box: table.table
       thead: th Staff Console
       tr: td= link_to 'User Manager', cms_users_path
+      tr: td= link_to 'Admin Accounts Editor', cms_admin_accounts_path
+      tr: td= link_to 'Admins Editor', cms_admins_path
 
     article.simple-rounded-box: table.table
       thead: th Project Kanban Board
@@ -10,8 +12,6 @@
 
     article.simple-rounded-box: table.table
       thead: th Content Management System
-      tr: td= link_to 'Admin Accounts Editor', cms_admin_accounts_path
-      tr: td= link_to 'Admins Editor', cms_admins_path
       tr: td= link_to 'Activities Editor', cms_activity_classifications_path
       tr: td= link_to "Activity Packs Editor", cms_unit_templates_path
       tr: td= link_to "Activity Packs Categories Editor", cms_unit_template_categories_path
