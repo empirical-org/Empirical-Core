@@ -51,6 +51,7 @@ class MigrateToNewFormats < ActiveRecord::Migration
       t.float :percentage
       t.string :state, default: 'unstarted', null: false
       t.timestamp :completed_at
+			t.integer :time_spent
       t.string :uid
       t.boolean :temporary
 
