@@ -59,13 +59,4 @@ describe ActivitySessionsController, type: :controller do
     end
   end
 
-  describe 'PUT' do
-    it 'should start the activity session' do
-      expect(activity_session.started_at).to be_nil
-      put :update, { id: activity_session.id}
-      expect(activity_session.reload.started_at).to_not be_nil
-      expect(response).to be_redirect
-    end
-  end
-
 end
