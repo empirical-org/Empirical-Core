@@ -15,8 +15,18 @@ describe 'TeachersData' do
   let!(:default_time_spent) { teachers_data_module::AVERAGE_TIME_SPENT }
 
 
-  let!(:activity_session1) { FactoryGirl.create(:activity_session, user: student1, started_at: time1, completed_at: time2) }
-  let!(:activity_session2) { FactoryGirl.create(:activity_session, user: student1, started_at: time1, completed_at: time2) }
+  let!(:activity_session1) { FactoryGirl.create(:activity_session,
+                                                user: student1,
+                                                state: 'finished',
+                                                started_at: time1,
+                                                completed_at: time2) }
+
+  let!(:activity_session2) { FactoryGirl.create(:activity_session,
+                                                user: student1,
+                                                state: 'finished',
+                                                started_at: time1,
+                                                completed_at: time2) }
+
   let!(:concept1) { FactoryGirl.create(:concept) }
   let!(:concept2) { FactoryGirl.create(:concept) }
   let!(:concept_result1) { FactoryGirl.create(:concept_result, concept: concept1, activity_session: activity_session1) }
