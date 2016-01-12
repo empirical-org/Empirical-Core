@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107221454) do
+ActiveRecord::Schema.define(version: 20160111193235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(version: 20160107221454) do
     t.string   "pairing_id"
     t.float    "percentage"
     t.string   "state",                 default: "unstarted", null: false
-    t.integer  "time_spent"
     t.datetime "completed_at"
     t.string   "uid"
     t.boolean  "temporary",             default: false

@@ -80,7 +80,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :access_token, # Required by OAuth
                   :percentage,
                   :state,
-                  :time_spent,
                   :completed_at,
                   :activity_uid,
                   :anonymous,

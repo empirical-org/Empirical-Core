@@ -68,27 +68,29 @@ EC.ActivityIconWithTooltip = React.createClass({
       topicCategoryName = this.props.data.activity.topic.topic_category.name;
     }
 
-    var contextSpecific;
+    var conceptResultsOrNot, sectionOrNot;
 
     switch(this.props.context) {
       case 'studentProfile':
-        contextSpecific = null
+        conceptResultsOrNot = null;
+        sectionOrNot = null;
         break;
       case 'scorebook':
-        contextSpecific = <EC.ConceptResultStats results={this.props.data.concept_results} />
+        conceptResultsOrNot = <EC.ConceptResultStats results={this.props.data.concept_results} />;
+        sectionOrNot =  <p>{this.props.data.activity.topic.section.name}</p>;
     }
 
     return React.renderToString(
       <div>
         <h1>{this.props.data.activity.name}</h1>
         <p>{this.props.data.activity.classification.alias}</p>
-        <p>{this.props.data.activity.topic.section.name}</p>
+        {sectionOrNot}
         <p>{this.props.data.activity.topic.name}</p>
         <p>{this.props.data.activity.description}</p>
         <p>{topicCategoryName}</p>
         <p>{this.displayPercentage()}</p>
         <p>{this.props.data.due_date_or_completed_at_date}</p>
-        {contextSpecific}
+        {conceptResultsOrNot}
       </div>
     );
   },

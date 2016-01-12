@@ -4,7 +4,6 @@ FactoryGirl.define do
     is_retry false
     percentage 0.50
     state "started"
-    time_spent 100
     temporary false
 
     user { User.first || FactoryGirl.create(:user) }
