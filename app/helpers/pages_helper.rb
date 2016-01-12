@@ -50,18 +50,27 @@ module PagesHelper
 		      title: "Creative Director, Cofounder",
 		      desc: "Thomas is a designer who likes to think about strategy, people, and science fiction. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
 	      },
+				{
+					img: 'thumb-ryan.png',
+					name: "Ryan Novas",
+					title: "Web Developer, Cofounder",
+					desc: "Ryan develops new features for Quill and maintains the website. He also helps integrate Quill into classrooms and was formerly Director of Operations."
+				},
+				{
+					img: 'thumb-donald.png',
+		      name: 'Donald Mckendrick',
+		      title: 'Technical Director, Cofounder',
+		      desc: "Donald is a developer who likes to create open platforms for learning.
+					He has a Masters degree in chemistry with a specialization in computer
+					aided modeling and statistical analysis."
+				},
 	      {
 		      img: 'thumb-marcello.png',
 		      name: 'Marcello Sachs',
-		      title: 'Technical Director, Cofounder',
+		      title: 'Web Developer',
 		      desc: "Marcello has a background in pure math from Brown University, and he currently enjoys reading about ideas in analytic philosophy."
-		  },
-		  {
-		      img: 'thumb-ryan.jpg',
-		      name: "Ryan Novas",
-		      title: "Operations Director, Cofounder",
-		      desc: "Ryan works with teachers to create new features content for Quill. He also helps integrate Quill into classrooms and oversees daily operations at Empirical."
-  	  }
+		  }
+
 			]},
 			{team: 'Board of Directors',
 			members: [
