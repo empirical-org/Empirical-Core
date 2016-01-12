@@ -20,7 +20,6 @@ feature 'Subscription to Progress Report', js: true do
     FactoryGirl.create(:activity_session,
                              user: student,
                              state: 'finished',
-                             time_spent: 120,
                              percentage: 1,
                              classroom_activity: classroom_activity,
                              completed_at: Date.today)

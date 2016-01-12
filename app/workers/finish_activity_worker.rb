@@ -10,11 +10,10 @@ class FinishActivityWorker
     event_data = {
       event: 'finished',
       uid: activity_session.uid,
-      time_spent: activity_session.time_spent,
       percentage: activity_session.percentage,
       percentile: activity_session.percentile,
       activity: ActivitySerializer.new(activity_session.activity),
-      event_started: activity_session.created_at,
+      event_started: activity_session.started_at,
       event_finished: activity_session.completed_at
     }
 
