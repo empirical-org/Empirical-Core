@@ -9,7 +9,7 @@ EC.ActivityIconWithTooltip = React.createClass({
   getDefaultProps: function () {
     return {
       context: 'scorebook',
-      placement: 'top'
+      placement: 'bottom'
     }
   },
 
