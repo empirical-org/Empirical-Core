@@ -38,6 +38,7 @@ class SegmentAnalytics
 
 
   def track(options)
+    puts "calling backend track"
     backend.track(options)
   end
 
