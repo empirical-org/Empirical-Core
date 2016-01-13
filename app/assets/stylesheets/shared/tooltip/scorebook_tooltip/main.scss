@@ -1,0 +1,71 @@
+.scorebook-tooltip {
+  .main {
+    padding: 0px 15px;
+    .concept-stats {
+      width: 280px;
+      font-size: 13px;
+      padding: 0px;
+      margin: 0px;
+      .row {
+        margin: 0px;
+        border-bottom: 1px solid $lightgray;
+        padding: 4px 0px;
+        display: flex;
+        align-items: center;
+
+        .correct-answer, .incorrect-answer {
+          font-weight: 700;
+          text-align: right;
+          line-height: 18px;
+        }
+
+        .correct-answer {
+          color: $darkgreen2;
+        }
+        .incorrect-answer {
+          color: $darkred;
+        }
+      }
+    }
+    .total-score {
+      text-align: center;
+      padding: 7px;
+      font-size: 15px;
+      .percentage {
+        margin-left: 5px;
+        font-weight: 700;
+      }
+    }
+
+    .activity-details {
+      border-top: 1px solid $lightgray;
+      padding: 12px 0px 0px 0px;
+      font-size: 13px;
+
+
+      .activity-detail {
+        margin-bottom: 12px;
+        .activity-detail-title {
+          font-weight: 800;
+          margin-right: 5px;
+          &.objective-title {
+            font-size: 14px;
+            .grammar-icon-tooltip {
+              clear:none;
+              float:left;
+              background-image: image-url('icons/grammar_icon_tooltip.png');
+              height: 14px;
+              width: 14px;
+              margin-top: 1.2px;
+              margin-right: 5px;
+              background-repeat: no-repeat;
+            }
+          }
+        }
+        .activity-detail-body {
+          color: $darkgray;
+        }
+      }
+    }
+  }
+}
