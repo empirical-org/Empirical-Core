@@ -10,6 +10,10 @@
         <%= link_to 'Scorebook', scorebook_path(current_user), role: 'tab', id: 'first-tab'  %>
       </li>
 
+      <li class="<%= is_progress_report_page? ? 'active' : '' %>">
+        <%= link_to raw("Progress Reports<span class='btn button-yellow progress-report-symbol'>#{tab_symbol}</span>"), teachers_progress_reports_concepts_students_path, class: 'progress-reports-nav', role: 'tab' %>
+      </li>
+
       <li class="<%= controller_name == 'classroom_manager' && action_name == 'lesson_planner' ? 'active' : '' %>" >
         <%= link_to "Activity Planner", lesson_planner_teachers_classrooms_path %>
       </li>
@@ -18,9 +22,7 @@
         <%= link_to 'Class Manager', teachers_classrooms_path, role: 'tab'  %>
       </li>
 
-      <li class="<%= is_progress_report_page? ? 'active' : '' %>">
-        <%= link_to raw("Progress Reports<span class='btn button-yellow progress-report-symbol'>#{tab_symbol}</span>"), teachers_progress_reports_standards_classrooms_path, class: 'progress-reports-nav', role: 'tab' %>
-      </li>
+
       <%- unless current_user.is_premium? %>
         <li class="<%= (action_name == 'premium_access') ? 'premium-tab active' : 'premium-tab' %>">
           <%= link_to 'Premium', premium_access_path, role: 'tab' %>

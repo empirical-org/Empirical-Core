@@ -5,7 +5,7 @@ EC.UnitTemplateProfileShareButtons = React.createClass({
   },
 
   urlForPublicPage: function () {
-    return window.location.origin + "/activities/packs/" + this.props.data.id;
+    return window.location.origin + "/activities/packs/" + (this.props.data.id ? this.props.data.id:this.props.data.model.id);
   },
 
   render: function () {
