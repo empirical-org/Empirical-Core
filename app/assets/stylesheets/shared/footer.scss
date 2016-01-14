@@ -29,6 +29,9 @@ footer {
     margin: 0 auto;
   }
   .footer-contacts li {
+    a {
+      color: #333333;
+    }
     text-align: center;
     @media (max-width: 700px) {
       margin-bottom: 1em;
