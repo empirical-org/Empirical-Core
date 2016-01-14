@@ -1,5 +1,3 @@
-require 'pry-remote'
-
 module Units::Creator
   #    activities_data: [{
   #       id: int
