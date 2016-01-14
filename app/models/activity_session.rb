@@ -193,29 +193,6 @@ class ActivitySession < ActiveRecord::Base
     super
   end
 
-  def as_keen
-    event_data = {
-      event: state,
-      uid: uid,
-      percentage: percentage,
-      percentile: percentile,
-      activity: ActivitySerializer.new(activity, root: false),
-      event_started: started_at,
-      event_finished: completed_at,
-      keen: {
-        timestamp: started_at
-      }
-    }
-
-    if user.nil?
-      event_data.merge!(anonymous: true)
-    else
-      event_data.merge!(anonymous: false, student: StudentSerializer.new(user, root: false))
-    end
-
-    return event_data
-  end
-
   private
 
   def self.search_sort_sql(sort)

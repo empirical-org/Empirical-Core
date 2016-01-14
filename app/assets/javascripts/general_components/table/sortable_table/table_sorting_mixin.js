@@ -68,6 +68,7 @@ EC.TableSortingMixin = {
   },
 
   sortResults: function(after, sortByFieldName, sortDirection) {
+    console.log('sort results being called')
     this.setState({
       currentSort: {
         field: sortByFieldName,

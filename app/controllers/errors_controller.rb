@@ -4,5 +4,6 @@ class ErrorsController < ApplicationController
   end
 
   def error_500
+    ErrorWorker.perform_async
   end
 end
