@@ -17,7 +17,8 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def fast_assign
-    Units::Creator.fast_assign_unit_template(current_user, params[:id])
+    FastAssignWorker.perform_async(current_user.id, params[:id])
+    # Units::Creator.fast_assign_unit_template(current_user, params[:id])
     render json: {}
   end
 

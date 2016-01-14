@@ -9,6 +9,26 @@ class User < ActiveRecord::Base
 
   has_secure_password validations: false
 
+
+  has_many :admin_accounts_teachers,
+            class_name: "AdminAccountsTeachers",
+            foreign_key: :teacher_id,
+            dependent: :destroy
+
+  has_many :admin_accounts_admins,
+            class_name: "AdminAccountsAdmins",
+            foreign_key: :admin_id,
+            dependent: :destroy
+
+  has_many :admin_accounts_im_in, through: :admin_accounts_teachers, source: :admin_account, inverse_of: :teachers
+
+  has_many :admin_accounts, through: :admin_accounts_admins, source: :admin_account, inverse_of: :admins
+
+  has_many :teachers, through: :admin_accounts, source: :teachers, inverse_of: :my_admins
+
+  has_many :my_admins, through: :admin_accounts_im_in, source: :admins, inverse_of: :teachers
+
+
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
   has_many :subscriptions
@@ -34,7 +54,7 @@ class User < ActiveRecord::Base
                                     format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?}
 
 
-  ROLES      = %w(student teacher temporary user admin)
+  ROLES      = %w(student teacher temporary user admin staff)
   SAFE_ROLES = %w(student teacher temporary)
 
   default_scope -> { where('users.role != ?', 'temporary') }
@@ -135,6 +155,10 @@ class User < ActiveRecord::Base
 
   def admin?
     role.admin?
+  end
+
+  def staff?
+    role.staff?
   end
 
   def permanent?

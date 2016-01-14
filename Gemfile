@@ -42,6 +42,9 @@ gem 'fog', require: 'fog/aws/storage'
 gem 'paperclip'
 gem "jquery-fileupload-rails"
 
+# TIME
+gem 'time_difference'
+
 # OTHERS
 gem 'global'
 gem 'google-api-client'
@@ -111,7 +114,7 @@ group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'lograge' # for making logs more dense
-  gem "rack-timeout"
+  # gem "rack-timeout"
 end
 
 group :development do

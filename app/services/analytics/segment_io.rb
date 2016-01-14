@@ -26,5 +26,6 @@ module SegmentIo
     ACTIVITY_COMPLETION = 'Student completed an activity'
     ACTIVITY_ASSIGNMENT = 'Teacher assigned an activity'
     ACCESS_PROGRESS_REPORT = 'Teacher opened progress report'
+    ERROR_500 = '500 Error'
   end
 end

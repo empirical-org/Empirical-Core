@@ -1,8 +1,10 @@
 .container
-  #admin_panel
+  #staff_panel
     article.simple-rounded-box: table.table
-      thead: th Admin Console
+      thead: th Staff Console
       tr: td= link_to 'User Manager', cms_users_path
+      tr: td= link_to 'Admin Accounts Editor', cms_admin_accounts_path
+      tr: td= link_to 'Admins Editor', cms_admins_path
 
     article.simple-rounded-box: table.table
       thead: th Project Kanban Board

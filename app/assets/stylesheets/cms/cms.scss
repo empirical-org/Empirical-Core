@@ -17,13 +17,13 @@ form.searchable {
 }
 
 article.cms {
-  .role-admin, .role-student, .role-teacher, .role-user { font-weight: bold; }
-  .role-admin   { color: $missed-color }
+  .role-staff, .role-student, .role-teacher, .role-user { font-weight: bold; }
+  .role-staff   { color: $missed-color }
   .role-student { color: $found-color }
   .role-teacher { color: $introduced-color }
 }
 
-// for admin users cms tool
+// for staff users cms tool
 .cms-user-index {
   input.btn {
     margin-top: 15px !important;
