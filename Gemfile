@@ -114,7 +114,7 @@ group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'lograge' # for making logs more dense
-  gem "rack-timeout"
+  # gem "rack-timeout"
 end
 
 group :development do
