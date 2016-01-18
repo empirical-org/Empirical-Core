@@ -53,15 +53,20 @@
           margin-right: 5px;
           &.objective-title {
             font-size: 14px;
-            .grammar-icon-tooltip {
+            .app-icon-tooltip {
               clear:none;
               float:left;
-              background-image: image-url('icons/grammar_icon_tooltip.png');
               height: 14px;
               width: 14px;
               margin-top: 1.2px;
               margin-right: 5px;
               background-repeat: no-repeat;
+              &.grammar-icon-tooltip {
+                background-image: image-url('icons/grammar_icon_tooltip.png');
+              }
+              &.proofreader-icon-tooltip {
+                background-image: image-url('icons/proofreader_icon_tooltip.png');
+              }
             }
           }
         }
