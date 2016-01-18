@@ -59,6 +59,7 @@ EC.UnitTemplatesAssigned = React.createClass({
   // </div>
 
   render: function () {
+    $('html,body').scrollTop(0);
     var socialButtons = <EC.UnitTemplateProfileShareButtons data={this.props.data} />
     return (
       <div className='assign-success-container'>
