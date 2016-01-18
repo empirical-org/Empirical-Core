@@ -1,0 +1,23 @@
+.scorebook-tooltip {
+  .advert {
+    background-color: $darkorange;
+    padding: 18px 27px 21px 27px;
+    .advert-icon {
+      background-image: image-url('icons/progress_reports_icon_tooltip.png');
+      background-repeat: no-repeat;
+      width: 42px;
+      height: 42px;
+      float: left;
+      clear: none;
+      margin-top: 2px;
+      margin-right: 16px;
+    }
+    .advert-copy {
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 23px;
+
+    }
+  }
+}
