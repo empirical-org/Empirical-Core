@@ -1,5 +1,10 @@
 "use strict";
 EC.StudentScores = React.createClass({
+	propTypes: {
+		data: React.PropTypes.object.isRequired,
+		premium_state: React.PropTypes.string.isRequired
+	},
+
 	render: function () {
 		var n = 10;
 		var x = _.chain(this.props.data.results).groupBy(function (element, index) {
@@ -7,7 +12,7 @@ EC.StudentScores = React.createClass({
 		}).toArray().value();
 		var icon_rows = _.map(x, function (ele, i) {
 			return (
-				<EC.IconRow key={'icon-row-' + ele[0].id + '-' + ele[ele.length-1].id} data={ele} />
+				<EC.IconRow key={'icon-row-' + ele[0].id + '-' + ele[ele.length-1].id} data={ele} premium_state={this.props.premium_state} />
 			);
 		}, this);
 		return (

@@ -21,6 +21,7 @@ EC.Scorebook = React.createClass({
 			classroomFilters: [],
 			unitFilters: [],
 			beginDate: null,
+			premium_state: null,
 			endDate: null,
 			currentPage: 0,
 			loading: false,
@@ -60,6 +61,7 @@ EC.Scorebook = React.createClass({
 			classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
 			unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
 			is_last_page: data.is_last_page,
+			premium_state: data.teacher.premium_state,
 			noLoadHasEverOccurredYet: false
 		});
 		if (this.state.currentPage == 1) {
@@ -105,8 +107,8 @@ EC.Scorebook = React.createClass({
 	},
 	render: function() {
 		var scores = _.map(this.state.scores, function (data) {
-			return <EC.StudentScores key={data.user.id} data={data} />
-		});
+			return <EC.StudentScores key={data.user.id} data={data} premium_state={this.state.premium_state} />
+		}, this);
 		if (this.state.loading) {
 			var loadingIndicator = <EC.LoadingIndicator />;
 		} else {
