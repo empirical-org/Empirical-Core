@@ -3,7 +3,14 @@ EC.modules.ScorebookTooltipTitleGenerator = function (percentageDisplayer) {
   var _displayPercentage = percentageDisplayer.run
 
   this.generate = function (data) {
-    var result;
+    var result, aboutPremiumOrNot;
+
+    if (data.premium_state == 'locked') {
+      aboutPremiumOrNot = <EC.AboutPremium />
+    } else {
+      aboutPremiumOrNot = null;
+    }
+
     result = (
       <div className='scorebook-tooltip'>
         <div className='title'>
@@ -13,7 +20,7 @@ EC.modules.ScorebookTooltipTitleGenerator = function (percentageDisplayer) {
           <EC.ConceptResultStats results={data.concept_results} />
           <EC.ActivityDetails data={data} />
         </div>
-        <EC.AboutPremium />
+        {aboutPremiumOrNot}
       </div>
     );
     return React.renderToString(result)

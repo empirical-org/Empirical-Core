@@ -3,6 +3,7 @@ EC.ActivityIconWithTooltip = React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     context: React.PropTypes.string.isRequired, // studentProfile, scorebook
+    premiumState: React.PropTypes.string,
     placement: React.PropTypes.string // not required
   },
 
@@ -32,8 +33,14 @@ EC.ActivityIconWithTooltip = React.createClass({
   },
 
   componentDidMount: function () {
+    var data;
+    if (this.props.context == 'scorebook') {
+      data = _.merge(this.props.data, {premium_state: this.props.premium_state})
+    } else {
+      data = this.props.data;
+    }
     this.modules = {
-      titleGenerator: new EC.modules.TooltipTitleGeneratorGenerator(this.props.context).generate(this.props.data)
+      titleGenerator: new EC.modules.TooltipTitleGeneratorGenerator(this.props.context).generate(data)
     }
     $(this.refs.activateTooltip.getDOMNode()).tooltip({
       html: true,
