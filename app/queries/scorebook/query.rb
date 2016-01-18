@@ -68,12 +68,18 @@ class Scorebook::Query
 
   # TODO: This belongs in the view layer.
   def present(activity_session)
-    {
+    hash = {
       id: activity_session.id,
       percentage: activity_session.percentage,
-      due_date_or_completed_at_date: activity_session.display_due_date_or_completed_at_date,
+      state: activity_session.state,
       activity: (ActivitySerializer.new(activity_session.activity)).as_json(root: false),
       concept_results: activity_session.concept_results.map{|result| {concept: result.concept, metadata: result.metadata}}
     }
+    if activity_session.state == 'finished'
+      hash[:completed_at] = activity_session.formatted_completed_at
+    else
+      hash[:due_date] = activity_session.formatted_due_date
+    end
+    hash
   end
 end

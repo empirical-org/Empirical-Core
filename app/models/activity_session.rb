@@ -98,6 +98,16 @@ class ActivitySession < ActiveRecord::Base
     unit.classroom
   end
 
+  def formatted_due_date
+    return nil if self.classroom_activity.nil? or self.classroom_activity.due_date.nil?
+    self.classroom_activity.due_date.strftime('%A, %B %d, %Y')
+  end
+
+  def formatted_completed_at
+    return nil if self.completed_at.nil?
+    self.completed_at.strftime('%A, %B %d, %Y')
+  end
+
   def display_due_date_or_completed_at_date
     if self.completed_at.present?
       "Completed #{self.completed_at.strftime('%A, %B %d, %Y')}"

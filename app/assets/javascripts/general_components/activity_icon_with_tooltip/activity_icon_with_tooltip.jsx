@@ -32,10 +32,13 @@ EC.ActivityIconWithTooltip = React.createClass({
   },
 
   componentDidMount: function () {
+    this.modules = {
+      titleGenerator: new EC.modules.TooltipTitleGeneratorGenerator(this.props.context).generate(this.props.data)
+    }
     $(this.refs.activateTooltip.getDOMNode()).tooltip({
       html: true,
       placement: this.props.placement,
-      title: this.tooltipTitle()
+      title: this.modules.titleGenerator.generate(this.props.data)
     });
   },
 
@@ -50,49 +53,8 @@ EC.ActivityIconWithTooltip = React.createClass({
       return y;
   },
 
-  displayPercentage: function () {
-    if (this.props.data.percentage == null) {
-      return "Not completed yet";
-    } else {
-      return (Math.round(100*this.props.data.percentage)) + "%";
-    }
-  },
-
   tooltipClasses: function () {
     return "activate-tooltip icon-wrapper icon-" + this.percentage_color() + " icon-" + this.icon_for_classification();
-  },
-
-  tooltipTitle: function () {
-    var topicCategoryName;
-    if (this.props.data.activity.topic.topic_category) {
-      topicCategoryName = this.props.data.activity.topic.topic_category.name;
-    }
-
-    var conceptResultsOrNot, sectionOrNot;
-
-    switch(this.props.context) {
-      case 'studentProfile':
-        conceptResultsOrNot = null;
-        sectionOrNot = null;
-        break;
-      case 'scorebook':
-        conceptResultsOrNot = <EC.ConceptResultStats results={this.props.data.concept_results} />;
-        sectionOrNot =  <p>{this.props.data.activity.topic.section.name}</p>;
-    }
-
-    return React.renderToString(
-      <div>
-        <h1>{this.props.data.activity.name}</h1>
-        <p>{this.props.data.activity.classification.alias}</p>
-        {sectionOrNot}
-        <p>{this.props.data.activity.topic.name}</p>
-        <p>{this.props.data.activity.description}</p>
-        <p>{topicCategoryName}</p>
-        <p>{this.displayPercentage()}</p>
-        <p>{this.props.data.due_date_or_completed_at_date}</p>
-        {conceptResultsOrNot}
-      </div>
-    );
   },
 
   render: function () {

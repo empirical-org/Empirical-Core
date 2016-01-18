@@ -1,3 +1,10 @@
+#scorebook .tooltip .tooltip-inner {
+  // need to override Bootstrap defaults
+  max-width: none;
+  padding: 0px;
+  border: 0px;
+}
+
 .scorebook-tooltip {
   width: 310px;
   background-color: white;
