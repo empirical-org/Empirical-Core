@@ -42,6 +42,9 @@
       padding: 12px 0px 0px 0px;
       font-size: 13px;
 
+      &.no-concept-results {
+        border-top: 0px;
+      }
 
       .activity-detail {
         margin-bottom: 12px;
