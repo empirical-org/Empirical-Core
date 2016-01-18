@@ -32,7 +32,7 @@ EC.ActivityIconWithTooltip = React.createClass({
     return y;
   },
 
-  componentDidMount: function () {
+  loadTooltipTitle: function () {
     var data;
     if (this.props.context == 'scorebook') {
       data = _.merge(this.props.data, {premium_state: this.props.premium_state})
@@ -67,6 +67,7 @@ EC.ActivityIconWithTooltip = React.createClass({
   render: function () {
     return (
       <div
+        onMouseEnter={this.loadTooltipTitle}
         ref='activateTooltip'
         className={this.tooltipClasses()}>
       </div>
