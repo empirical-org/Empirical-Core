@@ -5,10 +5,10 @@ EC.modules.ScorebookTooltipTitleGenerator = function (percentageDisplayer) {
   this.generate = function (data) {
     var result, aboutPremiumOrNot;
 
-    if (data.premium_state == 'locked') {
-      aboutPremiumOrNot = <EC.AboutPremium />
-    } else {
+    if (data.premium_state == 'premium') {
       aboutPremiumOrNot = null;
+    } else {
+      aboutPremiumOrNot = <EC.AboutPremium />;
     }
 
     result = (
