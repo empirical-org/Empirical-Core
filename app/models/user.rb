@@ -120,14 +120,15 @@ class User < ActiveRecord::Base
   end
 
   def self.setup_from_clever(auth_hash)
-    d = District.create_from_clever(auth_hash[:info][:district], auth_hash[:credentials][:token])
-
     user = User.create_from_clever(auth_hash)
     user.districts << d unless user.districts.include?(d)
 
-    user.connect_to_classrooms! if user.student?
-    user.create_classrooms! if user.teacher?
-
+    if user.teacher?
+      d = District.create_from_clever(auth_hash[:info][:district], auth_hash[:credentials][:token])
+      user.create_classrooms!
+    elsif user.student?
+      user.connect_to_classrooms!
+    end
     user
   end
 
@@ -282,7 +283,7 @@ private
   # Clever integration
   def clever_user
     klass = "Clever::#{self.role.capitalize}".constantize
-    @clever_user ||= klass.retrieve(self.clever_id, self.districts.first.token)
+    @clever_user ||= klass.retrieve(self.clever_id, self.token)
   end
 
   # validation filters
