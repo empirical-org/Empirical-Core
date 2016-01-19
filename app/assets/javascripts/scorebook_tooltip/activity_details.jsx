@@ -12,21 +12,47 @@ EC.ActivityDetails = React.createClass({
     return (this.props.data.concept_results.length ? 'activity-details' : 'activity-details no-concept-results')
   },
 
-  render: function () {
-    var dateTitle, dateBody;
-    if (this.props.data.state == 'finished') {
-      dateTitle = 'Completed:';
-      dateBody = this.props.data.completed_at;
+  dateOrNot: function () {
+    if ((this.props.data.state != 'finished') && (!this.props.data.due_date)) {
+      return null
     } else {
-      dateTitle = 'Due:';
-      dateBody = this.props.data.due_date;
+      var dateTitle, dateBody;
+      if (this.props.data.state == 'finished') {
+        dateTitle = 'Completed:';
+        dateBody = this.props.data.completed_at;
+      } else {
+        dateTitle = 'Due:';
+        dateBody = this.props.data.due_date;
+      }
+      return (
+        <div className='activity-detail'>
+          <span className='activity-detail-title'>
+            {dateTitle}
+          </span>
+          <span className='activity-detail-body'>
+            {dateBody}
+          </span>
+        </div>
+      )
     }
+  },
 
+  iconClassName: function () {
+    var extra;
+    if (this.props.data.activity.classification.alias == 'Quill Grammar') {
+      extra =  'grammar-icon-tooltip'
+    } else {
+      extra = 'proofreader-icon-tooltip'
+    }
+    return ['app-icon-tooltip', extra].join(' ')
+  },
+
+  render: function () {
     return (
       <div className={this.getClassName()}>
         <div className='activity-detail'>
           <div className='activity-detail-title objective-title'>
-            <div className='grammar-icon-tooltip' />
+            <div className={this.iconClassName()} />
             {this.objectiveTitle()}
           </div>
           <div className='activity-detail-body'>
@@ -41,14 +67,7 @@ EC.ActivityDetails = React.createClass({
             {this.props.data.activity.name}
           </span>
         </div>
-        <div className='activity-detail'>
-          <span className='activity-detail-title'>
-            {dateTitle}
-          </span>
-          <span className='activity-detail-body'>
-            {dateBody}
-          </span>
-        </div>
+        {this.dateOrNot()}
       </div>
     );
   }
