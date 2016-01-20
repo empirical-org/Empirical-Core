@@ -9,7 +9,11 @@ EC.ActivityDetails = React.createClass({
   },
 
   getClassName: function () {
-    return (this.props.data.concept_results.length ? 'activity-details' : 'activity-details no-concept-results')
+    if (this.props.data.concept_results && this.props.data.concept_results.length) {
+      return 'activity-details'
+    } else {
+      return 'activity-details no-concept-results'
+    }
   },
 
   dateOrNot: function () {
