@@ -59,7 +59,7 @@ class SegmentAnalytics
   def identify_params(user)
     {
       user_id: user.id,
-      traits: user_traits(user)
+      traits: {premium: !!user.subscriptions}.merge(user_traits(user))
     }
   end
 
