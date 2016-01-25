@@ -2,7 +2,6 @@ class Classroom < ActiveRecord::Base
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
 
   validates_uniqueness_of :code
-  validates_uniqueness_of :name, scope: :teacher_id
   validates :grade, presence: true
   validates_presence_of :name
   default_scope { where(visible: true)}
