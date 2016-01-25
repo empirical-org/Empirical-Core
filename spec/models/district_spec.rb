@@ -42,11 +42,12 @@ describe District, type: :model do
   end
 
   describe 'importing users', :vcr do
+    let!(:token) {'c0b73f915c29bf2541454b7f20a98ed65c0bbc88'}
     before do
       @district = District.create({
         clever_id: '53ea7c626e727c2e0d000018',
         name: '#DEMO Quill Sandbox District',
-        token: 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88'
+        token: token
       })
 
       @school = School.create({
@@ -56,7 +57,7 @@ describe District, type: :model do
     end
 
     it 'finds its clever district' do
-      d = @district.send(:clever_district)
+      d = @district.send(:clever_district, token)
 
       expect(d.id).to eq(@district.clever_id)
       expect(d.name).to eq(@district.name)

@@ -1,11 +1,13 @@
-#scorebook .tooltip .tooltip-inner {
-  // need to override Bootstrap defaults
-  max-width: none;
-  padding: 0px;
-  border: 0px;
+#scorebook, #student-profile {
+  .tooltip .tooltip-inner {
+    // need to override Bootstrap defaults
+    max-width: none;
+    padding: 0px;
+    border: 0px;
+  }
 }
 
-.scorebook-tooltip {
+.scorebook-tooltip, .student-profile-tooltip {
   width: 310px;
   background-color: white;
   border: 1px solid $lightgray;
