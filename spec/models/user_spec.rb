@@ -525,8 +525,7 @@ describe User, type: :model do
 
   describe 'clever', :vcr do
     describe 'student' do
-      let(:district) { District.create_from_clever('53ea7c626e727c2e0d000018', 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88') }
-      let(:user) { FactoryGirl.build(:user, role: 'student', clever_id: '53ea7d7ae87f28ae1e5c5132', districts: [district]) }
+      let(:user) { FactoryGirl.build(:user, role: 'student', token: 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88', clever_id: '53ea7d7ae87f28ae1e5c5132') }
 
       it 'finds its clever user for a' do
         u = user.send(:clever_user)
@@ -536,8 +535,7 @@ describe User, type: :model do
     end
 
     describe 'teacher' do
-      let(:district) { District.create_from_clever('53ea7c626e727c2e0d000018', 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88') }
-      let(:user) { FactoryGirl.build(:user, role: 'teacher', clever_id: '53ea7d70804342a11e497bb7', districts: [district]) }
+      let(:user) { FactoryGirl.build(:user, role: 'teacher', token: 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88', clever_id: '53ea7d70804342a11e497bb7') }
 
       it 'finds its clever user for a' do
         u = user.send(:clever_user)
