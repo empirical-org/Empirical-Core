@@ -23,6 +23,28 @@ namespace :demo do
     create_score_distribution classrooms, units
   end
 
+=begin
+  def add_concept_results(activity_session)
+    p = activity_session.percentage # should already be assigned
+    data = get_concept_result_data_from_csv(activity_session.activity)
+    crs = data.reduce([]) do |acc, ele|
+      concept = Concept.find_or_create_by(name: ele[:concept])
+      concept_results = ele[:number_of_concept_results].times do |x|
+        ConceptResult.find_or_create_by(concept: concept,
+                                        activity_session: activity_session)
+      end
+      acc = acc.concat(concept_results)
+      acc
+    end
+    x = round_up(p*crs2.count)
+    activity_session.update(percentage: x)
+    the_correct = crs.shuffle.take(x)
+    the_correct.map{|y| ... set correct is true in metadata}
+    set incorrect is true in the rest of crs
+    done!
+  end
+=end
+
   def create_classrooms_and_create_and_assign_units
     # all units assigned to all students in all classes
     classrooms = create_classrooms
