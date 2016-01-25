@@ -164,3 +164,4 @@ end
 # Memory profiling
 gem "skylight"
 gem "oink"
+gem 'puma_worker_killer'
