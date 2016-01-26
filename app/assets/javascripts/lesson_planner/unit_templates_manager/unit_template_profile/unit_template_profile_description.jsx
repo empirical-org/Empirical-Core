@@ -5,25 +5,25 @@ EC.UnitTemplateProfileDescription = React.createClass({
 
   renderProblem: function () {
     if (this.props.data.model["problem"]) {
-      return [(<dt><strong>Problem</strong></dt>),(<dd className='unit-template-dd'>{this.props.data.model["problem"]}</dd>)]
+      return [(<dt><strong>Problem</strong></dt>),(<dd>{this.props.data.model["problem"]}</dd>)]
     }
   },
 
   renderSummary: function () {
     if (this.props.data.model["summary"]) {
-      return [(<dt><strong>Summary</strong></dt>),(<dd className='unit-template-dd'>{this.props.data.model["summary"]}</dd>)]
+      return [(<dt><strong>Summary</strong></dt>),(<dd>{this.props.data.model["summary"]}</dd>)]
     }
   },
 
   renderTeacherReview: function () {
     if (this.props.data.model["teacher_review"]) {
-      return [(<dt><strong>Teacher Review</strong></dt>),(<dd className='unit-template-dd'>{this.props.data.model["teacher_review"]}</dd>)]
+      return [(<dt><strong>Teacher Review</strong></dt>),(<dd>{this.props.data.model["teacher_review"]}</dd>)]
     }
   },
 
   renderAuthor: function () {
     if (this.props.data.model["author"]["description"]) {
-      return [(<dt><strong>About the Author</strong></dt>),(<dd className='unit-template-dd'>{this.props.data.model["author"]["description"]}</dd>)]
+      return [(<dt><strong>About the Author</strong></dt>),(<dd>{this.props.data.model["author"]["description"]}</dd>)]
     }
   },
 
