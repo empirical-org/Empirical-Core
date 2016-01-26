@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126222414) do
+ActiveRecord::Schema.define(version: 20160126232843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,15 @@ ActiveRecord::Schema.define(version: 20160126222414) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "ip_locations_users", id: false, force: true do |t|
+    t.integer "ip_locations_id"
+    t.integer "user_id"
+  end
+
+  add_index "ip_locations_users", ["ip_locations_id", "user_id"], name: "index_ip_locations_users_on_ip_locations_id_and_user_id", using: :btree
+  add_index "ip_locations_users", ["ip_locations_id"], name: "index_ip_locations_users_on_ip_locations_id", using: :btree
+  add_index "ip_locations_users", ["user_id"], name: "index_ip_locations_users_on_user_id", using: :btree
 
   create_table "oauth_access_grants", force: true do |t|
     t.integer  "resource_owner_id", null: false
