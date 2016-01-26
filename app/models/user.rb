@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
   has_many :subscriptions
+  belongs_to :ip_location
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 

@@ -1,15 +1,7 @@
 require 'sidekiq/web'
 
 EmpiricalGrammar::Application.routes.draw do
-  get 'ip_location/index'
 
-  get 'ip_location/new'
-
-  get 'ip_location/create'
-
-  get 'ip_location/update'
-
-  get 'ip_location/destroy'
 
   use_doorkeeper
 
@@ -30,7 +22,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-
+  resources :ip_location
   resources :subscriptions
   resources :assessments
   resources :assignments

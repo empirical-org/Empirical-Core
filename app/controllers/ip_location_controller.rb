@@ -4,9 +4,11 @@ class IpLocationController < ApplicationController
   end
 
   def new
+    @ip_location = IpLocation.new
   end
 
   def create
+    @ip_location = IpLocation.create(ip_location.params)
   end
 
   def update
