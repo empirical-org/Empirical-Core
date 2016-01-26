@@ -111,4 +111,6 @@ EmpiricalGrammar::Application.configure do
     end
     { "params" => params }
   end
+
+  config.middleware.use( Oink::Middleware, :logger => Hodel3000CompliantLogger.new(STDOUT))
 end
