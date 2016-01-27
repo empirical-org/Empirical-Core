@@ -1,7 +1,8 @@
 class ActivitySession < ActiveRecord::Base
 
   include Uid
-
+  
+  default_scope { where(visible: true)}
   belongs_to :classroom_activity
   belongs_to :activity
   has_one :unit, through: :classroom_activity
@@ -25,7 +26,6 @@ class ActivitySession < ActiveRecord::Base
 
   # FIXME: do we need the below? if we omit it, may make things faster
   default_scope -> { joins(:activity) }
-  default_scope { where(visible: true)}
 
   scope :completed,  -> { where('completed_at is not null') }
   scope :incomplete, -> { where('completed_at is null').where('is_retry = false') }
