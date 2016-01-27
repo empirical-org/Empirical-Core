@@ -11,6 +11,7 @@
 
 # database
 config/database.yml
+config/pointpin.rb
 latest.dump
 
 # compilation
