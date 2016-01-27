@@ -2,19 +2,12 @@ class IpLocationWorker
   include Sidekiq::Worker
 
   def perform(id, ip_address)
-    ip_address = "72.69.133.250"
+    puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n#{ip_address}\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
     @user = User.find(id)
-
     location = Pointpin.locate(ip_address)
+    puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n#{location}\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
     new_ip_location = IpLocation.new
-    # new_ip_location.country = location["country_code"]
-    new_ip_location.state = location["region_name"]
-    new_ip_location.city = location["city_name"]
-    new_ip_location.zip = location["zip_code"]
-    new_ip_location.save!
-    binding.pry
-    puts "you reached meeeeeeeeee!!!! \n \n \n\n\n\n\ "
-
+    IpLocation.create(country: location["country_name"], state: location["region_name"], city: location["city_name"], zip: location["post_code"], user_id: @user.id)
   end
 
 end

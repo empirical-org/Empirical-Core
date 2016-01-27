@@ -22,7 +22,6 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  resources :ip_location
   resources :subscriptions
   resources :assessments
   resources :assignments
