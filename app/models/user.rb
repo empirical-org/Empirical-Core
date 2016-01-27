@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
 
   has_secure_password validations: false
 
-
   has_many :admin_accounts_teachers,
             class_name: "AdminAccountsTeachers",
             foreign_key: :teacher_id,
@@ -33,7 +32,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :districts
   has_and_belongs_to_many :ip_locations
   has_many :subscriptions
-  # belongs_to :ip_location
+  has_one :ip_location
+
+
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
