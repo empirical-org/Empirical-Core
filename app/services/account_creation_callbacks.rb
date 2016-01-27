@@ -8,7 +8,9 @@ class AccountCreationCallbacks
   def trigger
     # dont combine these into one worker, because
     # each worker continuously retries if it fails (so you dont want to repeatedly do the one which doesnt fail)
-    WelcomeEmailWorker.perform_async(@user.id)
+    if @user.role == 'teacher'
+      WelcomeEmailWorker.perform_async(@user.id)
+    end
     AccountCreationWorker.perform_async(@user.id)
   end
 
