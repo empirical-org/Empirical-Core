@@ -167,6 +167,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
+    resources :concepts
     resources :sections
     resources :activity_classifications
     resources :topics
