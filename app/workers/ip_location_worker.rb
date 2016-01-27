@@ -4,9 +4,9 @@ class IpLocationWorker
   def perform(id, ip_address)
     @user = User.find(id)
     location = Pointpin.locate(ip_address)
-    unless location["post_code"] == "10005" #blocks our zip from creating accounts so they don't disrupt database accuracy
+    unless location["postcode"] == ("10005" || "11237" || "11385") #locations where we've had offices and therefore triggered a ton of false ip addresses
       new_ip_location = IpLocation.new
-      IpLocation.create(country: location["country_name"], state: location["region_name"], city: location["city_name"], zip: location["post_code"].to_i, user_id: @user.id)
+      IpLocation.create(country: location["country_name"], state: location["region_name"], city: location["city_name"], zip: location["postcode"].to_i, user_id: @user.id)
     end
   end
 
