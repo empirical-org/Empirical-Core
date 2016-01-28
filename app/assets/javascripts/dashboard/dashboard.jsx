@@ -40,7 +40,9 @@ $(function () {
   	render: function() {
 
   		return (
-        <h4>Teacher Dashboard</h4>
+				<div>
+						<EC.MyClasses/>
+				</div>
   		);
   	}
   });
