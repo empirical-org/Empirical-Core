@@ -3,6 +3,10 @@ EC.UnitTemplateMinisHeader = React.createClass({
     data: React.PropTypes.object.isRequired
   },
 
+  componentDidMount: function() {
+    $('.activities-nav-tab').addClass('active');
+  },
+
   stateSpecificComponent: function () {
     var grade = this.props.data.grade;
     if (grade) {
