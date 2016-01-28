@@ -9,7 +9,7 @@ namespace :ip_location do
   def generate_location(target)
     #blacklist is an optional argument for locations we don't want, i.e. current/present Quill offices
     target.each do |t|
-      IpLocationWorker.perform_async(t.id, t.ip_address, ["10005", "11237", "11385"])
+      IpLocationWorker.perform_async(t.id, t.ip_address, ["10005", "11237", "11385", "11212"])
     end
   end
 
