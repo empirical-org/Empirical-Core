@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
 
+
   has_secure_password validations: false
 
   has_many :admin_accounts_teachers,
@@ -30,7 +31,6 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
-  has_and_belongs_to_many :ip_locations
   has_many :subscriptions
   has_one :ip_location
 
@@ -305,10 +305,6 @@ private
     return false if self.clever_id
     return false if self.signed_up_with_google
     permanent? && new_record?
-  end
-
-  def create_ip_location
-    binding.pry
   end
 
   # FIXME: may not be being called anywhere
