@@ -50,6 +50,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
+  def dashboard
+  end
+
   def scores
     classrooms = current_user.classrooms.includes(classroom_activities: [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact

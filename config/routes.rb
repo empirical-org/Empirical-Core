@@ -96,6 +96,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
+        get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :search_activities, controller: 'classroom_manager', action: 'search_activities'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
