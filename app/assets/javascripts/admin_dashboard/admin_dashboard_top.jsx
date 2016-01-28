@@ -23,7 +23,7 @@ EC.AdminDashboardTop = React.createClass({
                 <h3>Elliot Mandel</h3>
                 <p>{"As your Quill Representative, I'm here to help!"}</p>
                 <div className='representative-contact'>
-                  <p>201-491-5568</p>
+                  <p>646-820-7136</p>
                   <p>
                     <a className='green-link' href="mailto:elliot@quill.org">elliot@quill.org</a>
                   </p>

@@ -11,15 +11,19 @@
       tr: td= link_to 'Admin Dashboard Project', 'https://waffle.io/empirical-org/empirical-core?milestone=Admin%20Dashboard'
 
     article.simple-rounded-box: table.table
-      thead: th Content Management System
+      thead: th Activity Management System
       tr: td= link_to 'Activities Editor', cms_activity_classifications_path
       tr: td= link_to "Activity Packs Editor", cms_unit_templates_path
       tr: td= link_to "Activity Packs Categories Editor", cms_unit_template_categories_path
       tr: td= link_to "Authors Editor", cms_authors_path
-      tr: td= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('stories/module', 'cms/rules')
-      tr: td= link_to 'Sections Manager', cms_sections_path
-      tr: td= link_to 'Topics Manager', cms_topics_path
-      tr: td= link_to "Topic Categories Manager (these appear as 'Concepts' in the Activity Planner)", cms_topic_categories_path
+
+    article.simple-rounded-box: table.table
+      thead: th Concept Management System
+      tr: td= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('stories/module', 'cms/concepts')
+      tr: td= link_to 'Sections Manager (Standard Level)', cms_sections_path
+      tr: td= link_to "Topic Categories Manager", cms_topic_categories_path
+      tr: td= link_to 'Topics Manager (Standard)', cms_topics_path
+      tr: td= link_to "Concepts Manager (Create level 2 & 1 here)", cms_concepts_path
 
     article.simple-rounded-box: table.table
       thead: th Data Dashboards
