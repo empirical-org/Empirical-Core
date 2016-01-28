@@ -2,7 +2,6 @@ class IpLocationWorker
   include Sidekiq::Worker
 
   def perform(id, ip_address, blacklist = [])
-    puts "\n\n\n\n\n\n\n\n\n\n\nREACHED ME\n\n\n\n\n\n\n\n\n"
     @user = User.find(id)
     location = Pointpin.locate(ip_address)
     unless blacklist.include?(location["postcode"])
