@@ -26,7 +26,6 @@ module QuillAuthentication
 
   def sign_in user
     remote_ip = (request.present? ? request.remote_ip : nil)
-    IpLocationWorker.perform_async(user.id, remote_ip) if (user.ip_location == nil) && (user.role != 'student')
     UserLoginWorker.perform_async(user.id, remote_ip)
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?
