@@ -9,39 +9,43 @@ $(function () {
 
 
   EC.Dashboard = React.createClass({
-    //
-  	// getInitialState: function () {
-    //
-  	// },
-    //
-  	// componentDidMount: function () {
-  	// 	this.fetchData();
-  	// },
-
-  	fetchData: function () {
-  		// $.ajax({
-  		// 	url: 'scores',
-  		// 	data: {
-  		// 		current_page: newCurrentPage,
-  		// 		classroom_id: this.state.selectedClassroom.value,
-  		// 		unit_id: this.state.selectedUnit.value,
-  		// 		begin_date: this.state.beginDate,
-  		// 		end_date: this.state.endDate,
-  		// 		no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet
-  		// 	},
-  		// 	success: this.displayData
-  		// });
+  	getInitialState: function () {
+			return (
+			{
+				classrooms: null
+			}
+		);
   	},
 
-  	displayData: function (data) {
+  	componentWillMount: function () {
+			console.log('componentwillMount')
+			this.serverRequest = $.get('classroom_mini', function (result) {
+				console.log(result)
+					this.setState({
+						classrooms: result.classes
+					});
+				}.bind(this));
   	},
 
+	componentWillUnmount: function() {
+			this.serverRequest.abort();
+	 },
+
+	 stateSpecificComponents: function(){
+		 if (this.state.classrooms === null)
+		 	return ('no classrooms');
+		 else {
+			return (
+				<EC.MyClasses classList={this.state.classrooms}/>
+			);
+		 }
+	 },
 
   	render: function() {
 
   		return (
 				<div>
-						<EC.MyClasses/>
+						{this.stateSpecificComponents()}
 				</div>
   		);
   	}
