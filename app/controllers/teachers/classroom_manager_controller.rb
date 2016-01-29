@@ -53,6 +53,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   def dashboard
   end
 
+  def classrooms
+    teachers_classes = current_user.classrooms.includes(classroom_activities: [:unit])
+    render json: {
+      classes: teachers_classes
+    }
+  end
+
   def scores
     classrooms = current_user.classrooms.includes(classroom_activities: [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
