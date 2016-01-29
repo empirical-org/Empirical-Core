@@ -1,28 +1,34 @@
 EC.ClassMini = React.createClass({
 
-  // offset: function() {
-  //   if (this.props.rowNum !== 1) {
-  //     return  "col-md-offset-1";
-  //     }
-  // },
+  studentCount: function(){
+    if (this.props.classObj.students !== 0) {
+      return (this.props.classObj.students + ' Students');
+    }
+    else {
+      return (<button type='button' className='btn btn-primary'></button>)
+    }
+  },
 
-  // render: function() {
-  //   console.log('class mini rendered');
-  //   return (
-  //     <div className={"classroom_mini col-md-2 row_num_" + this.props.rowNum}>
-  //       {this.props.classObj}
-  //     </div>
-  //   );
-  // }
+  activityCount: function(){
+    // if (this.props.classObj.activities_completed !== 0) {
+      return (this.props.classObj.activities_completed + ' Activities Completed');
+    // }
+    // else {
+    //   return (<button type='button' className='btn btn-primary'></button>)
+    // }
+  },
+
   render: function() {
-    console.log('class_mini');
     return (
       <div className={"classroom_mini_container col-md-4 row_num_" + this.props.rowNum}>
-        <div className ={"classroom_mini_content"}>
-          <h3>Name: {this.props.classObj.classroom.name}</h3>
-          <h4>Code: {this.props.classObj.classroom.code}</h4>
-          <h4>Student Count: {this.props.classObj.students}</h4>
-          <h4></h4>
+        <div className ={"classroom_mini_content text-center"}>
+          <img src='/class_icon.png'></img>
+          <h3 className='classroom_name'> {this.props.classObj.classroom.name}</h3>
+          <div className='classMetaData'>
+            <p> Classcode: {this.props.classObj.classroom.code}</p>
+            <p> {this.studentCount()} </p>
+            <p><b>{this.activityCount()}</b></p>
+          </div>
         </div>
       </div>
     );
