@@ -1,6 +1,10 @@
 #dashboard {
   width: 980px;
   margin: auto;
-
-
+  .classroom_mini_content {
+    width: 300px;
+    height: 270px;
+    border-style: solid;
+    border-color: black;
+  }
 }
