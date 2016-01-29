@@ -13,6 +13,22 @@ EC.MyClasses = React.createClass({
     return minis;
   },
 
+  componentDidMount: function() {
+    this.fetchData();
+  },
+
+  fetchData: function () {
+    $.ajax({
+    	url: 'classrooms',
+    	success: this.displayData
+    });
+  },
+
+  displayData: function (data) {
+    console.table(data);
+  },
+
+
 
   render: function() {
     return (
