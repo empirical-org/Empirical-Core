@@ -19,7 +19,10 @@ EC.ClassMini = React.createClass({
     return (
       <div className={"classroom_mini_container col-md-4 row_num_" + this.props.rowNum}>
         <div className ={"classroom_mini_content"}>
-          {this.props.classObj}
+          <h3>Name: {this.props.classObj.classroom.name}</h3>
+          <h4>Code: {this.props.classObj.classroom.code}</h4>
+          <h4>Student Count: {this.props.classObj.students}</h4>
+          <h4></h4>
         </div>
       </div>
     );

@@ -1,8 +1,9 @@
-EC.MyClasses = React.createClass({
+EC.MiniRow = React.createClass({
+
 
   createMinis: function() {
     var i = 0;
-    var minis = _.map(this.props.classList, function(classObj) {
+    var minis = _.map(classes, function(classObj) {
       if (i === 3) {
         i = 0;
       }
@@ -12,15 +13,13 @@ EC.MyClasses = React.createClass({
     return minis;
   },
 
+
   render: function() {
+    console.log('class_mini');
     return (
-      <div className='classes_container'>
-    <h3 className='dashboard-header'>My Classes</h3>
-      <div className='row'>
+      <div className="row">
         {this.createMinis()}
       </div>
-    </div>
     );
   }
-
 });
