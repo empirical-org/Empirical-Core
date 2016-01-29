@@ -58,12 +58,12 @@ class Teachers::ClassroomManagerController < ApplicationController
       obj = {
         classroom: classroom,
         students: classroom.students.count,
-        activites_completed: classroom.activity_sessions.where(state: "finished").count
+        activities_completed: classroom.activity_sessions.where(state: "finished").count
       }
       ( @classrooms ||= [] ).push obj
     end
 
-    
+
     render json: {
       classes: @classrooms
     }

@@ -1,10 +1,32 @@
 #dashboard {
   width: 980px;
   margin: auto;
+  .dashboard-header {
+    margin-top: 71px;
+    text-align: left;
+    padding-top: 36px;
+    padding-bottom: 16px;
+    width: 100%;
+    border-top: 1px solid #cecece;
+  }
   .classroom_mini_content {
+    margin: auto;
     width: 300px;
     height: 270px;
-    border-style: solid;
-    border-color: black;
+    border: 1px solid #cecece;
+    background-color: #ffffff;
+    margin-bottom: 40px;
+    .classroom_name {
+      margin: auto;
+      width: 280px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid #cecece;
+      margin-bottom: 12px;
+      margin-top: 7px;
+    }
+    img {
+      margin: auto;
+      padding-top: 19px;
+    }
   }
 }
