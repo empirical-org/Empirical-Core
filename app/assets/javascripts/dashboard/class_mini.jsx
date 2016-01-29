@@ -15,7 +15,7 @@ EC.ClassMini = React.createClass({
   //   );
   // }
   render: function() {
-    console.log('class mini rendered');
+    console.log('class_mini');
     return (
       <div className={"classroom_mini_container col-md-4 row_num_" + this.props.rowNum}>
         <div className ={"classroom_mini_content"}>

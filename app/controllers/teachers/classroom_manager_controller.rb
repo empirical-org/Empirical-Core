@@ -54,20 +54,19 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def classroom_mini
-    # current_user.classrooms.includes(:students).each do |classroom|
-    #   obj = {
-    #     classroom: classroom,
-    #     students: classroom.students.sort_by(&:sorting_name)
-    #   }
-    #   ( @classrooms_and_their_students ||= [] ).push obj
-    #
-    #
-    #
-    #
-    # teachers_classes = current_user.classrooms.includes(classroom_activities: [:unit])
-    # render json: {
-    #   classes: teachers_classes
-    # }
+    current_user.classrooms.includes(:students).each do |classroom|
+      obj = {
+        classroom: classroom,
+        students: classroom.students.count,
+        activites_completed: classroom.activity_sessions.where(state: "finished").count
+      }
+      ( @classrooms ||= [] ).push obj
+    end
+
+    
+    render json: {
+      classes: @classrooms
+    }
   end
 
   def scores
