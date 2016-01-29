@@ -1,7 +1,7 @@
 EC.MyClasses = React.createClass({
 
-  createMinis: function() {
-    var classes = ['1st Period','2nd Period','3rd Period', '5th Period','6th Period','7th Period'];
+  createMinis: function(classes) {
+    debugger;
     var i = 0;
     var minis = _.map(classes, function(classObj) {
       if (i === 3) {
@@ -14,18 +14,19 @@ EC.MyClasses = React.createClass({
   },
 
   componentDidMount: function() {
-    this.fetchData();
+    // this.fetchData();
   },
 
   fetchData: function () {
     $.ajax({
-    	url: 'classrooms',
+    	url: 'retrieve_classrooms_for_assigning_activities',
+    	// url: 'classrooms',
     	success: this.displayData
     });
   },
 
   displayData: function (data) {
-    console.table(data);
+    return this.createMinis(data.classrooms_and_their_students);
   },
 
 
@@ -35,7 +36,7 @@ EC.MyClasses = React.createClass({
       <div className='classes_container'>
     <h3 className='dashboard-header'>My Classes</h3>
       <div className='row'>
-        {this.createMinis()}
+        {this.fetchData()}
       </div>
     </div>
     );

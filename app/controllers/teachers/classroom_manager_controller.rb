@@ -53,11 +53,21 @@ class Teachers::ClassroomManagerController < ApplicationController
   def dashboard
   end
 
-  def classrooms
-    teachers_classes = current_user.classrooms.includes(classroom_activities: [:unit])
-    render json: {
-      classes: teachers_classes
-    }
+  def classroom_mini
+    # current_user.classrooms.includes(:students).each do |classroom|
+    #   obj = {
+    #     classroom: classroom,
+    #     students: classroom.students.sort_by(&:sorting_name)
+    #   }
+    #   ( @classrooms_and_their_students ||= [] ).push obj
+    #
+    #
+    #
+    #
+    # teachers_classes = current_user.classrooms.includes(classroom_activities: [:unit])
+    # render json: {
+    #   classes: teachers_classes
+    # }
   end
 
   def scores
