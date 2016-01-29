@@ -19,7 +19,7 @@ EC.MyClasses = React.createClass({
 
   fetchData: function () {
     $.ajax({
-    	url: 'retrieve_classrooms_for_assigning_activities',
+    	url: 'classroom_mini',
     	// url: 'classrooms',
     	success: this.displayData
     });
