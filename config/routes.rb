@@ -94,6 +94,7 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get :regenerate_code
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
+        post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
