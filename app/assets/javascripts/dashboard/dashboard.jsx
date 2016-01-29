@@ -18,9 +18,7 @@ $(function () {
   	},
 
   	componentWillMount: function () {
-			console.log('componentwillMount')
 			this.serverRequest = $.get('classroom_mini', function (result) {
-				console.log(result)
 					this.setState({
 						classrooms: result.classes
 					});

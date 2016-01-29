@@ -2,7 +2,11 @@ EC.MyClasses = React.createClass({
 
   createMinis: function() {
     var i = 0;
-    var minis = _.map(this.props.classList, function(classObj) {
+    var classes = this.props.classList;
+    // 'addClass' is pushed as the last element of the array so that we know can always add
+    // an addClass button at the end
+    classes.push('addClass');
+    var minis = _.map(classes, function(classObj) {
       if (i === 3) {
         i = 0;
       }
