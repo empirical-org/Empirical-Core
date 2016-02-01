@@ -29,7 +29,7 @@ EC.Dashboard = React.createClass({
     this.premiumRequest.abort();
   },
 
-  stateSpecificComponents: function() {
+  hasClasses: function() {
     if (this.state.classrooms === null)
       return <EC.AddClassMini/>;
     else {
@@ -41,7 +41,7 @@ EC.Dashboard = React.createClass({
 
     return (
       <div>
-        {this.stateSpecificComponents()}
+        {this.hasClasses()}
       </div>
     );
   }
