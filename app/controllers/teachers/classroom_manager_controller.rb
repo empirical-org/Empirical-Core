@@ -51,6 +51,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   def dashboard
   end
 
+  def premium
+    @has_premium = current_user.is_premium?
+    render json: {
+      hasPremium: @has_premium
+    }
+  end
+
   def classroom_mini
     current_user.classrooms.includes(:students).each do |classroom|
       obj = {
