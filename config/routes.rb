@@ -98,6 +98,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
+        get :premium, controller: 'classroom_manager', action: 'premium'
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :search_activities, controller: 'classroom_manager', action: 'search_activities'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
