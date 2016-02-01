@@ -74,7 +74,6 @@ gem 'active_link_to'
 gem 'lodash-rails'
 
 # METRICS
-gem 'keen'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
