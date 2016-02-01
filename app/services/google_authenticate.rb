@@ -4,6 +4,8 @@ class GoogleAuthenticate
 
   def initialize(auth)
     @access_token  = auth['token']
+    puts "access token is: #{@access_token}"
+    @access_token
   end
 
   def find_or_create_user(role='teacher')
