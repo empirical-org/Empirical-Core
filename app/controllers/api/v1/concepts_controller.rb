@@ -4,7 +4,7 @@ class Api::V1::ConceptsController < Api::ApiController
   def create
     concept = Concept.new(concept_params)
     if concept.save
-      render json: {concept: Api::SimpleSerializer.new(concept).as_json(root: false)}
+      render json: {concept: {name: concept.name, uid: concept.uid}}
     else
       render json: concept.errors, status: 422
     end
