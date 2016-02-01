@@ -31,7 +31,7 @@ $(function () {
 
 	 stateSpecificComponents: function(){
 		 if (this.state.classrooms === null)
-		 	return ('no classrooms');
+		 	return <EC.AddClassMini/>;
 		 else {
 			return (
 				<EC.MyClasses classList={this.state.classrooms}/>
