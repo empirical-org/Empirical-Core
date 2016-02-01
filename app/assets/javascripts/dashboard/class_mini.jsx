@@ -72,7 +72,7 @@ EC.ClassMini = React.createClass({
           {this.props.classObj.classroom.name}</h3>
         <div className='classMetaData text-center'>
           <p>
-            Classcode: {this.props.classObj.classroom.code}</p>
+            Class Code: {this.props.classObj.classroom.code}</p>
           <p>
             {this.studentCount()}
           </p>

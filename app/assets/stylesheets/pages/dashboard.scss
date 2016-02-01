@@ -1,5 +1,5 @@
 #dashboard {
-  width: 980px;
+  max-width: 980px;
   margin: auto;
   .dashboard-header {
     margin-top: 71px;
@@ -8,6 +8,7 @@
     padding-bottom: 16px;
     width: 100%;
     border-top: 1px solid #cecece;
+    font-weight: 700;
   }
   .classroom_mini_content {
     margin: auto;
@@ -17,6 +18,7 @@
     background-color: #ffffff;
     margin-bottom: 40px;
     .classroom_name {
+      font-weight: 600;
       margin: auto;
       width: 280px;
       padding-bottom: 7px;
@@ -27,13 +29,13 @@
     .classMetaData {
       margin: auto;
       height: 66px;
-      width: 161px;
       margin-bottom: 15px;
     }
     .button-green {
       width: 160px;
       height: 40px;
-    } img {}
+      font-weight: 700;
+    }
     .class-gear {
       padding: 12px;
     }
