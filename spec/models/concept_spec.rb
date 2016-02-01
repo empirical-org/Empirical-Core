@@ -27,20 +27,20 @@ describe Concept, type: :model do
   end
 
   describe '.all_with_level' do
-    let!(:root) {FactoryGirl.create(:concept, name: 'root')}
-    let!(:child_of_root) {FactoryGirl.create(:concept, name: 'child_of_root', parent: root)}
+    let!(:level_2_concept) {FactoryGirl.create(:concept, name: 'level_2_concept')}
+    let!(:level_1_concept) {FactoryGirl.create(:concept, name: 'level_1_concept', parent: level_2_concept)}
 
     subject do
       Concept.all_with_level
     end
 
-    it 'assigns level 0 to child_of_root' do
-      cor = subject.where("concepts_tree.name = ?", "child_of_root")[0]
-      expect(cor['level']).to eq(0)
+    it 'assigns level 2 to level_2_concept' do
+      cor = subject.find{ |c| c.name == "level_2_concept" }
+      expect(cor['level']).to eq(2)
     end
 
-    it 'assigns level 1 to root' do
-      root = subject.where("concepts_tree.name = ?", "root")[0]
+    it 'assigns level 1 to level_1_concept' do
+      root = subject.find{ |c| c.name == "level_1_concept" }
       expect(root['level']).to eq(1)
     end
   end
