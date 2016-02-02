@@ -1,8 +1,9 @@
 class AccountCreationCallbacks
   # cant necessarily attach this directly as callback on User.rb because in some cases this shouldnt fire (student invited by teacher)
 
-  def initialize(user)
+  def initialize(user, ip)
     @user = user
+    @ip = ip
   end
 
   def trigger
@@ -12,6 +13,7 @@ class AccountCreationCallbacks
       WelcomeEmailWorker.perform_async(@user.id)
     end
     AccountCreationWorker.perform_async(@user.id)
+    IpLocationWorker.perform_async(@user.id, @ip) if @user.role != 'student'
   end
 
 end
