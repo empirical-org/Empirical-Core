@@ -4,13 +4,22 @@ EC.OverviewMini = React.createClass({
     results = this.props.overviewObj.results;
     var leftColumn = Object.keys(results);
     var dataRows = _.map(leftColumn, function(left) {
-      return (<tr>
+      return (<tr key={left}>
                 <td>{left}</td>
                 <td>{results[left]}</td>
-              </tr>);
+              </tr>
+            );
     });
     return (
-      dataRows
+      <div>
+        {this.header()}
+        <table>
+           <tbody>
+          {dataRows}
+          </tbody>
+        </table>
+
+    </div>
     );
   },
 
@@ -22,7 +31,6 @@ EC.OverviewMini = React.createClass({
     return (
       <div className={"mini_container col-md-4 col-sm-5 text-center"}>
         <div className ={"mini_content "}>
-          {this.header()}
           {this.overviewMiniBuilder()}
         </div>
       </div>
