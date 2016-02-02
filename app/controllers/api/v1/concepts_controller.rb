@@ -4,7 +4,7 @@ class Api::V1::ConceptsController < Api::ApiController
   def create
     concept = Concept.new(concept_params)
     if concept.save
-      render json: {concept: concept.as_json}
+      render json: {concept: {name: concept.name, uid: concept.uid}}
     else
       render json: concept.errors, status: 422
     end
@@ -17,6 +17,6 @@ class Api::V1::ConceptsController < Api::ApiController
   private
 
   def concept_params
-    params.require(:concept).permit(:name, :parent_uid)
+    params.permit(:name, :parent_uid)
   end
 end
