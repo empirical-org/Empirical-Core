@@ -53,6 +53,7 @@ gem 'global'
 gem 'google-api-client'
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
+gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
 
 # PARSING
 gem 'parslet'
@@ -71,7 +72,7 @@ gem 'jquery-turbolinks'
 gem 'select2-rails'
 gem 'jbuilder'
 gem 'active_link_to'
-gem 'lodash-rails'
+gem 'lodash-rails', '~> 3.10.1'
 
 # METRICS
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
@@ -91,7 +92,7 @@ gem 'slim-rails'
 gem 'haml-rails'
 
 gem 'es5-shim-rails'
-gem 'react-rails'
+gem 'react-rails', '~> 1.4.1'
 
 # ASSET/UI
 gem 'therubyracer', require: false
@@ -128,7 +129,7 @@ group :development do
   gem 'spring-commands-rspec'
 end
 
-gem "awesome_print", github: 'imajes/awesome_print'
+gem "awesome_print"
 
 group :test, :development do
   gem "quiet_assets"
