@@ -6,8 +6,6 @@ class Dashboard
     sessions = sessions.where.not(percentage: nil)
     ## we plan on limiting the timespan of this query
     #sessions = sessions.where(["completed_at > ?", 30.days.ago])
-
-
     # # JUST BLOCKING THIS OUT FOR TESTING
     # # if sessions.count < 30
     # #   return null
@@ -21,7 +19,7 @@ class Dashboard
     sessions = sessions.group_by(&:user_id)
     sessions.each do |u, s|
       total = s.sum(&:percentage)
-      averages[u] = total/(sessions[u].count)
+      averages[u] = (total/(sessions[u].count)*100).to_i
     end
     averages = averages.sort_by{|user, score| score}[0..4]
     add_names_to_averages(averages)
@@ -38,8 +36,8 @@ class Dashboard
     h = Hash.new { |hash, key| hash[key] = {correct: 0, total: 0}}
     sessions.each do |s|
       s.concept_results.each do |cr|
-        h[cr.concept.name][:correct] += cr.metadata["correct"]
-        h[cr.concept.name][:total] += 1
+        h[cr.concept_id][:correct] += cr.metadata["correct"]
+        h[cr.concept_id][:total] += 1
       end
     end
     clean_concepts_hash(h)
@@ -48,11 +46,11 @@ class Dashboard
   def self.clean_concepts_hash(h)
     dif_concepts = {}
     h.each do |k,v|
-      dif_concepts[k] = v[:correct].to_f/v[:total]
+      dif_concepts[Concept.find(k).name] = ((v[:correct].to_f/v[:total])*100).to_i
     end
     dif_concepts.sort_by{|k,v| v}[0..4].to_h
     ## TODO remove this line, it is just for local testing!
-    dif_concepts = {"Commas in Addresses"=>0.5603448275862069, "Future Tense Verbs"=>0.6146496815286624, "Commas and Quotation Marks in Dialogue"=>0.6675977653631285, "That"=>0.7213114754098361, "Singular Possessive"=>0.7225325884543762}
+    dif_concepts = {"Commas in Addresses"=>56, "Future Tense Verbs"=>61, "Commas and Quotation Marks in Dialogue"=>66, "That"=>72, "Singular Possessive"=>72}
   end
 
 
