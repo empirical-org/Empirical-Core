@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.3.0'
 
 # CORE DEPS
-gem 'rails', '~> 4.1.4'
+gem 'rails'
 gem 'puma'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -34,6 +34,9 @@ gem 'nokogiri' # required for premailer
 # VALIDATIONS
 gem 'validates_email_format_of'
 
+# CONTROLLERS
+gem 'responders'
+
 # UPLOADS
 gem 'carrierwave'
 gem 'fog', require: 'fog/aws/storage'
@@ -50,6 +53,7 @@ gem 'global'
 gem 'google-api-client'
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
+gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
 
 # PARSING
 gem 'parslet'
@@ -68,10 +72,9 @@ gem 'jquery-turbolinks'
 gem 'select2-rails'
 gem 'jbuilder'
 gem 'active_link_to'
-gem 'lodash-rails'
+gem 'lodash-rails', '~> 3.10.1'
 
 # METRICS
-gem 'keen'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
@@ -79,8 +82,7 @@ gem "active_model_serializers"
 
 # UI HELPERS
 gem 'sass'
-gem 'sass-rails', github: 'rails/sass-rails'
-gem 'bootstrap-sass', '~> 2.1.1.0' # honey-cms needs this, unused by the main app
+gem 'sass-rails'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
@@ -90,7 +92,7 @@ gem 'slim-rails'
 gem 'haml-rails'
 
 gem 'es5-shim-rails'
-gem 'react-rails', '1.4.1'
+gem 'react-rails', '~> 1.4.1'
 
 # ASSET/UI
 gem 'therubyracer', require: false
@@ -108,7 +110,7 @@ gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby', '0.10.0'
+gem 'clever-ruby', '~> 0.1'
 
 group :production, :staging do
   gem 'rails_12factor'
@@ -127,7 +129,7 @@ group :development do
   gem 'spring-commands-rspec'
 end
 
-gem "awesome_print", github: 'imajes/awesome_print'
+gem "awesome_print"
 
 group :test, :development do
   gem "quiet_assets"

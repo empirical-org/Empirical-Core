@@ -26,7 +26,8 @@ class AccountsController < ApplicationController
 
     if @user.save
       sign_in @user
-      AccountCreationCallbacks.new(@user).trigger
+      ip = request.remote_ip
+      AccountCreationCallbacks.new(@user, ip).trigger
       @user.subscribe_to_newsletter
       render json: @user
     else

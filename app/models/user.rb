@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
 
-  has_secure_password validations: false
 
+  has_secure_password validations: false
 
   has_many :admin_accounts_teachers,
             class_name: "AdminAccountsTeachers",
@@ -32,6 +32,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
   has_many :subscriptions
+  has_one :ip_location
+
+
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
@@ -121,10 +124,10 @@ class User < ActiveRecord::Base
 
   def self.setup_from_clever(auth_hash)
     user = User.create_from_clever(auth_hash)
-    user.districts << d unless user.districts.include?(d)
 
     if user.teacher?
       d = District.create_from_clever(auth_hash[:info][:district], auth_hash[:credentials][:token])
+      user.districts << d unless user.districts.include?(d)
       user.create_classrooms!
     elsif user.student?
       user.connect_to_classrooms!
