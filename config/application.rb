@@ -46,9 +46,14 @@ module EmpiricalGrammar
 
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 
-    config.exceptions_app = Proc.new do |env|
-      ApplicationController.action(:show_errors).call(env)
-    end
+    # changed config.exceptions_app from what was commented out
+    # in order to enable custom controller actions https://mattbrictson.com/dynamic-rails-error-pages
+    config.exceptions_app = self.routes
+    # config.exceptions_app = Proc.new do |env|
+    #   ApplicationController.action(:show_errors).call(env)
+    # end
+
+
 
     # http://stackoverflow.com/questions/14647731/rails-converts-empty-arrays-into-nils-in-params-of-the-request
     config.action_dispatch.perform_deep_munge = false
