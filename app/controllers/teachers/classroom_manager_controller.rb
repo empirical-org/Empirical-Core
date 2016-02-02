@@ -73,7 +73,10 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def dashboard_query
-    Dashboard.queries(current_user)
+    @query_results = Dashboard.queries(current_user)
+    render json: {
+      performanceQuery: @query_results
+    }
   end
 
   def scores

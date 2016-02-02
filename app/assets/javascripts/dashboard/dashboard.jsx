@@ -12,7 +12,7 @@ EC.Dashboard = React.createClass({
     return ({
       classrooms: null,
       hasPremium: null,
-      performance: null
+      performanceQuery: null
     });
   },
 
@@ -24,7 +24,7 @@ EC.Dashboard = React.createClass({
       this.setState({hasPremium: result.hasPremium});
     }.bind(this));
     this.performanceQuery = $.get('dashboard_query', function(result) {
-      this.setState({performance: result});
+      this.setState({performanceQuery: result.performanceQuery});
     }.bind(this));
   },
 
