@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 EmpiricalGrammar::Application.routes.draw do
+
+
   use_doorkeeper
 
   # authenticate :user, lambda { |u| u.admin? } do
@@ -19,7 +21,6 @@ EmpiricalGrammar::Application.routes.draw do
       get :admin_sign_in_account_settings, to: 'admins#sign_in_account_settings'
     end
   end
-
 
   resources :subscriptions
   resources :assessments

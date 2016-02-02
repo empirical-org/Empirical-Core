@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
 
-  has_secure_password validations: false
 
+  has_secure_password validations: false
 
   has_many :admin_accounts_teachers,
             class_name: "AdminAccountsTeachers",
@@ -32,6 +32,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
   has_many :subscriptions
+  has_one :ip_location
+
+
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
