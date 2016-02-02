@@ -5,7 +5,7 @@ class Teachers::ProgressReportsController < ApplicationController
   layout 'progress_reports'
 
   def demo
-    @user = User.find_by_username 'demo'
+    @user = User.find_by_username 'cool-demo'
     sign_in @user
     redirect_to teachers_progress_reports_standards_classrooms_path
   end
