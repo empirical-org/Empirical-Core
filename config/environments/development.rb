@@ -10,7 +10,10 @@ EmpiricalGrammar::Application.configure do
   config.eager_load = true
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  #config.consider_all_requests_local       = true
+  # changed this while debugging 500 page, change back to 'true' if you find this still here
+  config.consider_all_requests_local       = false
+
   config.action_dispatch.show_detailed_exceptions = false
   config.action_controller.perform_caching = false
 
