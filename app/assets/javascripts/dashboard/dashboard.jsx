@@ -44,6 +44,7 @@ EC.Dashboard = React.createClass({
   render: function() {
     return (
       <div>
+        <EC.ClassOverview data={this.state.performanceQuery}/>
         {this.hasClasses()}
       </div>
     );
