@@ -128,7 +128,7 @@ group :development do
   gem 'spring-commands-rspec'
 end
 
-gem "awesome_print", github: 'imajes/awesome_print'
+gem "awesome_print"
 
 group :test, :development do
   gem "quiet_assets"
