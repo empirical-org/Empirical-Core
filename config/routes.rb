@@ -97,12 +97,15 @@ EmpiricalGrammar::Application.routes.draw do
         post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
-        get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
-        get :premium, controller: 'classroom_manager', action: 'premium'
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :search_activities, controller: 'classroom_manager', action: 'search_activities'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
+
+        ##DASHBOARD ROUTES
+        get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
+        get :dashboard_query, controller: 'classroom_manager', action: 'dashboard_query'
+        get :premium, controller: 'classroom_manager', action: 'premium'
       end
 
       member do

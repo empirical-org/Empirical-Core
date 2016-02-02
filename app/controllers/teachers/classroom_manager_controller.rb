@@ -67,11 +67,13 @@ class Teachers::ClassroomManagerController < ApplicationController
       }
       ( @classrooms ||= [] ).push obj
     end
-
-
     render json: {
       classes: @classrooms
     }
+  end
+
+  def dashboard_query
+    Dashboard.queries(current_user)
   end
 
   def scores
