@@ -3,6 +3,8 @@ class PagesController < ApplicationController
   layout :determine_layout
 
   def home
+    x = nil
+    x.great.cool
     if signed_in?
       redirect_to(profile_path) && return
     end

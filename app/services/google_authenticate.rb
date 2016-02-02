@@ -44,6 +44,16 @@ class GoogleAuthenticate
       parameters: {'userId' => 'me'},
       headers: {'Content-Type' => 'application/json'})
     data = JSON.parse(result.body)
+    puts "fetched data from plus : #{data.to_json}"
+    fetch_classroom_data(client)
     data
+  end
+
+  def fetch_classroom_data(client)
+    service = client.discovered_api('classroom', 'v1')
+    result = client.execute(api_method: service.courses.list)
+    data = JSON.parse(result.body)
+    puts "fetched data from classroom : #{data.to_json}"
+
   end
 end

@@ -210,8 +210,8 @@ EmpiricalGrammar::Application.routes.draw do
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
   patch 'cheat'           => 'chapter/practice#cheat'
-  get '404' => 'errors#error_404'
-  get '500' => 'errors#error_500'
+  get '/404' => 'errors#error_404'
+  get '/500' => 'errors#error_500'
 
   root to: 'pages#home'
 
