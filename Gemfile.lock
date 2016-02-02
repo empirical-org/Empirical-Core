@@ -403,6 +403,10 @@ GEM
       blankslate (>= 2.0, <= 4.0)
     pg (0.18.4)
     pg_array_parser (0.0.9)
+    pointpin (1.0.1)
+      faraday
+      hashie
+      multi_json
     poltergeist (1.8.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -712,6 +716,7 @@ DEPENDENCIES
   paperclip
   parslet
   pg
+  pointpin (~> 1.0.0)
   poltergeist
   postgres_ext
   premailer-rails
