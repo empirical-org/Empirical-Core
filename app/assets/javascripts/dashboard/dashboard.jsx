@@ -12,7 +12,7 @@ EC.Dashboard = React.createClass({
     return ({
       classrooms: null,
       hasPremium: null,
-      performanceQuery: null
+      performanceQuery: [{header: "Struggling Students", results: null},{header: "Difficult Concepts", results: null}]
     });
   },
 
@@ -31,6 +31,7 @@ EC.Dashboard = React.createClass({
   componentWillUnmount: function() {
     this.classRoomRequest.abort();
     this.premiumRequest.abort();
+    this.performanceQuery.abort();
   },
 
   hasClasses: function() {
@@ -42,6 +43,7 @@ EC.Dashboard = React.createClass({
   },
 
   render: function() {
+    console.log(this.state.performanceQuery)
     return (
       <div>
         <EC.ClassOverview data={this.state.performanceQuery}/>

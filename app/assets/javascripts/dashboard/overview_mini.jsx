@@ -1,9 +1,21 @@
 EC.OverviewMini = React.createClass({
 
   overviewMiniBuilder: function() {
-    results = this.props.overviewObj.results;
-    var leftColumn = Object.keys(results);
-    var dataRows = _.map(leftColumn, function(left) {
+    this.stateSpecificComponents();
+    return (
+      <div>
+        {this.header()}
+        {this.stateSpecificComponents()}
+        {this.miniSpecificButton()}
+      </div>
+    );
+  },
+
+  stateSpecificComponents: function(){
+    var results = this.props.overviewObj.results;
+    if (results) {
+      var leftColumn = Object.keys(results);
+      var dataRows = _.map(leftColumn, function(left) {
       return (
         <tr key={left}>
           <td className="left-column">{left}</td>
@@ -12,16 +24,16 @@ EC.OverviewMini = React.createClass({
       );
     });
     return (
-      <div>
-        {this.header()}
-        <table>
-          <tbody>
-            {dataRows}
-          </tbody>
-        </table>
-        {this.miniSpecificButton()}
-      </div>
+      <table>
+        <tbody>
+          {dataRows}
+        </tbody>
+      </table>
     );
+    }
+    else {
+      return (<EC.LoadingIndicator/>);
+    }
   },
 
   miniSpecificButton: function() {
