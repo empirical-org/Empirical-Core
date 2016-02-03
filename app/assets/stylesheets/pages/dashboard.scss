@@ -1,6 +1,8 @@
 #dashboard {
   max-width: 980px;
   margin: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   .dashboard-header {
     margin-top: 71px;
     text-align: left;
@@ -10,6 +12,11 @@
     border-top: 1px solid #cecece;
     font-weight: 700;
   }
+  button {
+    width: 160px;
+    height: 40px;
+    font-weight: 700;
+  }
   .mini_content {
     margin: auto;
     width: 300px;
@@ -17,6 +24,19 @@
     border: 1px solid #cecece;
     background-color: #ffffff;
     margin-bottom: 40px;
+    table {
+      width: 100%;
+      .left-column {
+        text-align: left;
+        padding-left: 20px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .right-column {
+        text-align: right;
+        padding-right: 20px;
+      }
+    }
     .classroom_name {
       font-weight: 600;
       margin: auto;
@@ -31,11 +51,6 @@
       height: 66px;
       margin-bottom: 15px;
     }
-    .button-green {
-      width: 160px;
-      height: 40px;
-      font-weight: 700;
-    }
     .class-gear {
       padding: 12px;
     }
@@ -48,8 +63,30 @@
       padding-top: 96px;
       padding-bottom: 15px;
     }
-    // .add_class_link :hover {
-    //     border: 3px solid #cecece;
-    // }
+  }
+  .results-overview-mini-container {
+    margin-top: 40px;
+    .header {
+      margin: auto;
+      margin-top: 11px;
+      margin-bottom: 14px;
+      width: 280px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #cecece;
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      p {
+        margin-top: 5px;
+        color: #646464;
+      }
+    }
+    .button-white {
+      width: 233px;
+      margin-top: 13px;
+      border: 1px solid #737373;
+      background: white;
+    }
   }
 }
