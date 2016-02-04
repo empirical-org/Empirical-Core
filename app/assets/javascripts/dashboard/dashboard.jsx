@@ -35,11 +35,9 @@ EC.Dashboard = React.createClass({
   },
 
   hasClasses: function() {
-    if (this.state.classrooms === null)
-      return <EC.AddClassMini/>;
-    else {
-      return (<EC.MyClasses classList={this.state.classrooms}/>);
-    }
+    if (this.state.classrooms) {
+        return (<EC.MyClasses classList={this.state.classrooms}/>);
+      }
   },
 
   render: function() {

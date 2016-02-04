@@ -6,29 +6,34 @@ EC.OverviewMini = React.createClass({
       <div>
         {this.header()}
         {this.stateSpecificComponents()}
-        {this.miniSpecificButton()}
       </div>
     );
   },
 
   stateSpecificComponents: function(){
     var results = this.props.overviewObj.results;
+    var button = this.miniSpecificButton();
     if (results) {
       var leftColumn = Object.keys(results);
       var dataRows = _.map(leftColumn, function(left) {
       return (
+
         <tr key={left}>
           <td className="left-column">{left}</td>
           <td className="right-column">{results[left]}%</td>
         </tr>
+
       );
     });
     return (
+        <div>
       <table>
         <tbody>
           {dataRows}
         </tbody>
       </table>
+        {button}
+        </div>
     );
     }
     else {

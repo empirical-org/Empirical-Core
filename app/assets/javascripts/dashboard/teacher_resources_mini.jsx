@@ -5,7 +5,7 @@ EC.TeacherResourcesMini = React.createClass({
       <div className='resources-container'>
         <h4>Lorem Ipsum Dolar</h4>
         <a href='/teacher_resources'>
-          <img src='teacher_resources_icons.png'></img>
+          <img src='/teacher_resources_icons.png'></img>
         </a>
         <p>Consectetur adipiscing elit cras sed.</p>
       </div>
