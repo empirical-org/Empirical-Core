@@ -7,11 +7,15 @@ class Dashboard
     ## we plan on limiting the timespan of this query
     #sessions = sessions.where(["completed_at > ?", 30.days.ago])
     # # JUST BLOCKING THIS OUT FOR TESTING
-    # # if sessions.count < 30
-    # #   return null
-    # # end
-    results = [{header: 'Struggling Students', results: struggling_students(sessions)},
-              {header: 'Difficult Concepts', results: difficult_concepts(sessions)}]
+    if sessions.count < 30
+      strug_stud = struggling_students(sessions)
+      dif_con = difficult_concepts(sessions)
+    else
+      strug_stud = 'insufficient data'
+      dif_con = 'insufficient data'
+    end
+    results = [{header: 'Struggling Students', results: strug_stud, placeholderImg: '/struggling_students_no_data.png'},
+              {header: 'Difficult Concepts', results: dif_con, placeholderImg: '/difficult_concepts_no_data.png'}]
   end
 
   def self.struggling_students(sessions)
