@@ -31,6 +31,10 @@
   .resources-container {
     display: inline-block;
     vertical-align: middle;
+    .img {
+      margin-top: 27px;
+      margin-bottom: 25px;
+    }
     iframe {
       border: none;
     }
@@ -126,5 +130,23 @@
       background-color: white;
       border: 1px solid #737373;
     }
+  }
+  .footer-row {
+    display: block;
+  text-align: center;
+  .review-request {
+      margin-top: 45px;
+      margin-bottom: 20px;
+    span {
+      padding-right: 5px;
+    }
+    i {
+      color: red
+    }
+    a {
+      color: #027360;
+      text-decoration: none;
+    }
+  }
   }
 }
