@@ -10,33 +10,33 @@ EC.OverviewMini = React.createClass({
     );
   },
 
-  stateSpecificComponents: function(){
+  stateSpecificComponents: function() {
     var results = this.props.overviewObj.results;
-    var button = this.miniSpecificButton();
-    if (results) {
+    if (results === 'insufficient data') {
+      return <img src={this.props.overviewObj.placeholderImg}/>;
+    } else if (results) {
+      var button = this.miniSpecificButton();
       var leftColumn = Object.keys(results);
       var dataRows = _.map(leftColumn, function(left) {
+        return (
+          <tr key={left}>
+            <td className="left-column">{left}</td>
+            <td className="right-column">{results[left]}%</td>
+          </tr>
+
+        );
+      });
       return (
-
-        <tr key={left}>
-          <td className="left-column">{left}</td>
-          <td className="right-column">{results[left]}%</td>
-        </tr>
-
-      );
-    });
-    return (
         <div>
-      <table>
-        <tbody>
-          {dataRows}
-        </tbody>
-      </table>
-        {button}
+          <table>
+            <tbody>
+              {dataRows}
+            </tbody>
+          </table>
+          {button}
         </div>
-    );
-    }
-    else {
+      );
+    } else {
       return (<EC.LoadingIndicator/>);
     }
   },
@@ -50,12 +50,14 @@ EC.OverviewMini = React.createClass({
         return (
           <a href="progress_reports/concepts/students">
             <button className='button-white'>View All Student Results</button>
-          </a>);
+          </a>
+        );
       else if (header.indexOf('concept') > -1) {
         return (
-        <a href="progress_reports/standards/classrooms">
-          <button className='button-white'>View All Concept Results</button>
-        </a>);
+          <a href="progress_reports/standards/classrooms">
+            <button className='button-white'>View All Concept Results</button>
+          </a>
+        );
       }
     };
     return buttonLink();
