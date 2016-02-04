@@ -12,6 +12,10 @@
     border-top: 1px solid #cecece;
     font-weight: 700;
   }
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+  }
   button {
     width: 160px;
     height: 40px;
@@ -22,6 +26,28 @@
     margin: auto;
     padding: 0;
   }
+  .video-container,
+  .resources-container {
+    display: inline-block;
+    vertical-align: middle;
+    iframe {
+      border: none;
+    }
+    h4 {
+      padding: 5px;
+      line-height: 25px;
+      margin: auto;
+      margin-bottom: 4px;
+      margin-top: 6px;
+      width: 280px;
+      border-bottom: 1px solid #cecece;
+    }
+    p {
+      line-height: 22px;
+      color: #646464;
+      margin: 15px 0 20px;
+    }
+  }
   .mini_content {
     margin: auto;
     width: 300px;
@@ -30,6 +56,7 @@
     background-color: #ffffff;
     margin-bottom: 40px;
     table {
+      line-height: 25px;
       font-size: 14px;
       width: 100%;
       table-layout: fixed;
@@ -50,8 +77,8 @@
       }
     }
     .button-white.class-mini-btn {
-        background-color: white;
-        border: 1px solid #737373;
+      background-color: white;
+      border: 1px solid #737373;
     }
     .classroom_name {
       font-weight: 600;
@@ -83,16 +110,10 @@
   .results-overview-mini-container {
     margin-top: 40px;
     .header {
-      margin: auto;
-      margin-top: 11px;
-      margin-bottom: 14px;
+      margin: 11px auto 12px;
       width: 280px;
       padding-bottom: 10px;
       border-bottom: 1px solid #cecece;
-      h4 {
-        font-size: 16px;
-        font-weight: 600;
-      }
       p {
         margin-top: 5px;
         color: #646464;
@@ -100,7 +121,7 @@
     }
     .button-white {
       width: 233px;
-      margin-top: 23px;
+      margin-top: 9px;
       background-color: white;
       border: 1px solid #737373;
     }

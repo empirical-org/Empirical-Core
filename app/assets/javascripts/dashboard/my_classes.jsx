@@ -10,13 +10,13 @@ EC.MyClasses = React.createClass({
 
   render: function() {
     return (
-      <div className='classes_container'>
-    <h3 className='dashboard-header'>My Classes</h3>
-      <div className='row'>
-        {this.createMinis()}
-        <EC.AddClassMini/>
+      <div className='dashboard-section-container'>
+        <h3 className='dashboard-header'>My Classes</h3>
+        <div className='row'>
+          {this.createMinis()}
+          <EC.AddClassMini/>
+        </div>
       </div>
-    </div>
     );
   }
 
