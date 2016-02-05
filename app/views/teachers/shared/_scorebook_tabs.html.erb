@@ -5,8 +5,8 @@
   <div class="container">
 
     <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
-
-      <li class="<%= (controller_name == 'classrooms' or (controller_name == 'classroom_manager' and (action_name == 'invite_students' || 'dashboard')) or controller_name == 'students' ) && !is_progress_report_page? ? 'active' : '' %>">
+      <li class="<%=(controller_name == 'classrooms' or
+        (controller_name == 'classroom_manager' and (action_name == ('invite_students' || 'dashboard')) or controller_name == 'students' )) && !is_progress_report_page? ? 'active' : '' %>">
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab', id: 'first-tab'  %>
       </li>
 
