@@ -4,10 +4,9 @@ class Dashboard
     students = user.students.map(&:id)
     sessions = ActivitySession.where(user_id: students).includes(:concept_results)
     sessions = sessions.where.not(percentage: nil)
-    ## we plan on limiting the timespan of this query
-    #sessions = sessions.where(["completed_at > ?", 30.days.ago])
-    # # JUST BLOCKING THIS OUT FOR TESTING
-    if sessions.count < 30
+    # we plan on limiting the timespan of this query
+    # sessions = sessions.where(["completed_at > ?", 30.days.ago])
+    if sessions.count > 30
       strug_stud = struggling_students(sessions)
       dif_con = difficult_concepts(sessions)
     else
@@ -53,8 +52,8 @@ class Dashboard
       dif_concepts[Concept.find(k).name] = ((v[:correct].to_f/v[:total])*100).to_i
     end
     dif_concepts.sort_by{|k,v| v}[0..4].to_h
-    ## TODO remove this line, it is just for local testing!
-    dif_concepts = {"Commas in Addresses"=>56, "Future Tense Verbs"=>61, "Commas and Quotation Marks in Dialogue"=>66, "That"=>72, "Singular Possessive"=>72}
+    ## Line below if for local testing where concept results aren't always accessible
+    # dif_concepts = {"Commas in Addresses"=>56, "Future Tense Verbs"=>61, "Commas and Quotation Marks in Dialogue"=>66, "That"=>72, "Singular Possessive"=>72}
   end
 
 
