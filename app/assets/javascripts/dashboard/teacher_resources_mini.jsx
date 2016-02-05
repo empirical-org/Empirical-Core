@@ -3,11 +3,11 @@ EC.TeacherResourcesMini = React.createClass({
   miniBuilder: function() {
     return (
       <div className='resources-container'>
-        <h4>Lorem Ipsum Dolar</h4>
+        <h4>Teacher Resources</h4>
         <a href='/teacher_resources'>
           <img src='/teacher_resources_icons.png'></img>
         </a>
-        <p>Consectetur adipiscing elit cras sed.</p>
+        <p>Introduce fellow educators to Quill with presentations, guides, and videos.</p>
       </div>
     );
   },
