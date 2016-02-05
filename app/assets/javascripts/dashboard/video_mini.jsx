@@ -5,9 +5,9 @@ EC.VideoMini = React.createClass({
     var fullEmbedCode = videoCode + '?&theme=light&autohide=2&showinfo=0'
     return (
       <div className='video-container'>
-        <h4>Lorem Ipsum Dolar</h4>
+        <h4>Building Better Writers</h4>
         <iframe width='298' height='168' src={fullEmbedCode} frameborder="0"></iframe>
-        <p>Consectetur adipiscing elit cras sed.</p>
+        <p>An overview of how Quill works.</p>
       </div>
 );
 },
