@@ -6,6 +6,10 @@
 
     <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
 
+      <li class="<%= (controller_name == 'classrooms' or (controller_name == 'classroom_manager' and action_name == 'invite_students') or controller_name == 'students' ) && !is_progress_report_page? ? 'active' : '' %>">
+        <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab'  %>
+      </li>
+
       <li class="<%= controller_name == 'classroom_manager' && action_name == 'scorebook' ? 'active' : '' %>">
         <%= link_to 'Scorebook', scorebook_path(current_user), role: 'tab', id: 'first-tab'  %>
       </li>
@@ -18,9 +22,6 @@
         <%= link_to "Activity Planner", lesson_planner_teachers_classrooms_path %>
       </li>
 
-      <li class="<%= (controller_name == 'classrooms' or (controller_name == 'classroom_manager' and action_name == 'invite_students')or controller_name == 'students' ) && !is_progress_report_page? ? 'active' : '' %>">
-        <%= link_to 'Class Manager', teachers_classrooms_path, role: 'tab'  %>
-      </li>
 
 
       <%- unless current_user.is_premium? %>
