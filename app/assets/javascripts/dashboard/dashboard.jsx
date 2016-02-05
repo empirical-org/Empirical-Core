@@ -20,10 +20,9 @@ EC.Dashboard = React.createClass({
     this.classRoomRequest = $.get('classroom_mini', function(result) {
       this.setState({classrooms: result.classes});
     }.bind(this));
-    // NOT YET USING THIS ONE
-    // this.premiumRequest = $.get('premium', function(result) {
-    //   this.setState({hasPremium: result.hasPremium});
-    // }.bind(this));
+    this.premiumRequest = $.get('premium', function(result) {
+      this.setState({hasPremium: result.hasPremium});
+    }.bind(this));
     this.performanceQuery = $.get('dashboard_query', function(result) {
       this.setState({performanceQuery: result.performanceQuery});
     }.bind(this));
@@ -44,7 +43,7 @@ EC.Dashboard = React.createClass({
   render: function() {
     return (
       <div>
-        <EC.ClassOverview data={this.state.performanceQuery}/>
+        <EC.ClassOverview data={this.state.performanceQuery} premium={this.state.hasPremium}/>
         {this.hasClasses()}
         <EC.MyResources data={this.state}/>
         <EC.DashboardFooter/>
