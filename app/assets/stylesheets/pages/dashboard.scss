@@ -12,6 +12,10 @@
     border-top: 1px solid #cecece;
     font-weight: 700;
   }
+  a {
+    color: #027360;
+    text-decoration: none;
+  }
   h4 {
     font-size: 16px;
     font-weight: 600;
@@ -27,7 +31,8 @@
     padding: 0;
   }
   .video-container,
-  .resources-container {
+  .resources-container,
+  .premium-container {
     display: inline-block;
     vertical-align: middle;
     .img {
@@ -39,8 +44,9 @@
     }
     h4 {
       padding: 5px;
+      padding-bottom: 10px;
       line-height: 25px;
-      margin: 6px auto 4px;
+      margin: 6px auto 0px;
       width: 280px;
     }
     p {
@@ -49,10 +55,12 @@
       margin: 15px 0 20px;
     }
   }
-  .resources-container {
+  .resources-container, .premium-container {
     h4 {
         border-bottom: 1px solid #cecece;
     }
+  }
+  .resources-container {
     img {
       margin-top: 25px;
       margin-bottom: 18px;
@@ -61,6 +69,26 @@
       width: 280px;
       border-top: 1px solid #cecece;
       padding-top: 5px;
+    }
+  }
+  .premium-container {
+    .btn-orange {
+      margin-top: 26px;
+      width: 252px;
+      height: 40px;
+      background-color: #eda41b;
+      color: white;
+    }
+    .credit-card {
+      line-height: 0px;
+      color: #646464;
+      margin-top: 16px;
+    }
+    p {
+      width: 271px;
+      color: #333333;
+      line-height: 22px;
+      margin-top: 37px
     }
   }
   .mini_content {
@@ -155,10 +183,6 @@
       }
       i {
         color: red;
-      }
-      a {
-        color: #027360;
-        text-decoration: none;
       }
     }
   }

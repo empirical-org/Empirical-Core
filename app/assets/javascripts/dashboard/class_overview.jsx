@@ -7,11 +7,18 @@ EC.ClassOverview = React.createClass({
     return minis;
   },
 
+  hasPremium: function() {
+    if (this.props.premium === false) {
+      return <EC.PremiumMini/>;
+    }
+  },
+
 
   render: function() {
     return (
       <div className='row'>
         {this.overviewMinis()}
+        {this.hasPremium()}
       </div>
     );
   }

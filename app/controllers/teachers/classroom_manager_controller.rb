@@ -49,6 +49,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def dashboard
+    if current_user.classrooms.empty?
+      redirect_to new_teachers_classroom_path
+    end
   end
 
   def premium
