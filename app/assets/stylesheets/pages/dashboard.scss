@@ -43,10 +43,9 @@
       border: none;
     }
     h4 {
-      padding: 5px;
-      padding-bottom: 10px;
+      padding: 5px 5px 10px;
       line-height: 25px;
-      margin: 6px auto 0px;
+      margin: 6px auto 0;
       width: 280px;
     }
     p {
@@ -55,9 +54,10 @@
       margin: 15px 0 20px;
     }
   }
-  .resources-container, .premium-container {
+  .resources-container,
+  .premium-container {
     h4 {
-        border-bottom: 1px solid #cecece;
+      border-bottom: 1px solid #cecece;
     }
   }
   .resources-container {
@@ -80,7 +80,7 @@
       color: white;
     }
     .credit-card {
-      line-height: 0px;
+      line-height: 0;
       color: #646464;
       margin-top: 16px;
     }
@@ -88,7 +88,7 @@
       width: 271px;
       color: #333333;
       line-height: 22px;
-      margin-top: 37px
+      margin-top: 37px;
     }
   }
   .mini_content {

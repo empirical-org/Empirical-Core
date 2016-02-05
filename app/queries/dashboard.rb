@@ -13,7 +13,7 @@ class Dashboard
       strug_stud = 'insufficient data'
       dif_con = 'insufficient data'
     end
-    results = [{header: 'Lowester Performing Students', results: strug_stud, placeholderImg: '/lowest_perfoming_students_no_data.png'},
+    results = [{header: 'Lowest Performing Students', results: strug_stud, placeholderImg: '/lowest_perfoming_students_no_data.png'},
               {header: 'Difficult Concepts', results: dif_con, placeholderImg: '/difficult_concepts_no_data.png'}]
   end
 
