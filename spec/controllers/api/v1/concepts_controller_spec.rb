@@ -9,7 +9,7 @@ describe Api::V1::ConceptsController, type: :controller do
     let!(:parent_concept) { FactoryGirl.create(:concept) }
 
     def subject
-      post :create, {name: concept_name, parent_uid: parent_concept.uid}
+      post :create, {concept: {name: concept_name, parent_uid: parent_concept.uid}}
     end
 
     it_behaves_like 'protected endpoint'
@@ -27,7 +27,7 @@ describe Api::V1::ConceptsController, type: :controller do
       end
 
       it 'responds with correct keys' do
-        expect(parsed_body['concept'].keys).to match_array(%w(uid name))
+        expect(parsed_body['concept'].keys).to match_array(%w(id uid name parent_id))
       end
 
       it 'responds with correct values' do
