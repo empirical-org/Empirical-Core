@@ -83,35 +83,35 @@ describe User, type: :model do
 
       context 'user has never had a subscription' do
         it "returns 'none'" do
-          expect(teacher.premium_state).to be 'none'
+          expect(teacher.premium_state).to eq('none')
         end
       end
 
       context 'user is part of an admin account' do
         let!(:school_account) {FactoryGirl.create(:admin_account_teacher, admin_account_id: 1, teacher_id: teacher.id)}
         it "returns 'school'" do
-          expect(teacher.premium.state).to be 'school'
+          expect(teacher.premium_state).to eq('school')
         end
       end
 
       context 'user is on a valid trial' do
         let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.tomorrow, type: 'trial')}
         it "returns 'trial'" do
-          expect(teacher.premium.state).to be 'trial'
+          expect(teacher.premium_state).to eq('trial')
         end
       end
 
       context 'user is on a paid plan' do
-        let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.tomorrow, type: 'paid')}
+        let!(:subscription) {FactoryGirl.create(:subscription, user_id: teacher.id, account_limit: 1, expiration: Date.tomorrow, type: 'paid')}
         it "returns 'paid'" do
-          expect(teacher.premium.state).to be 'paid'
+          expect(teacher.premium_state).to eq('paid')
         end
       end
 
       context 'users trial is expired' do
-        let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.yesterday, type: 'paid')}
+        let!(:subscription) {FactoryGirl.create(:subscription, user_id: teacher.id, account_limit: 1, expiration: Date.yesterday, type: 'paid')}
         it "returns 'locked'" do
-          expect(teacher.premium.state).to be 'locked'
+          expect(teacher.premium_state).to eq('locked')
         end
       end
 
