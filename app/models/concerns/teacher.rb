@@ -91,13 +91,12 @@ module Teacher
       .type
   end
 
-  def part_of_admin_account
-    binding.pry
-    # current_user.admin_account.any?
+  def part_of_admin_account?
+    admin_accounts.any?
   end
 
   def is_trial_expired?
-    subcriptions
+    subscriptions
       .where("subscriptions.expiration < ?", Date.today)
       .any?
   end
@@ -114,7 +113,7 @@ module Teacher
     elsif is_premium?
       ## returns trial or purchased
       subcriptions.find("subscriptions.expiration >= ?", Date.today).type
-    elsif part_of_admin_account
+    elsif part_of_admin_account?
       'school'
     elsif is_trial_expired?
       "locked"

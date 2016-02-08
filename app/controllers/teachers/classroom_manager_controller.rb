@@ -55,7 +55,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def premium
-    @subscription_type = current_user.subscription_type
+    @subscription_type = current_user.premium_state
     render json: {
       hasPremium: @subscription_type
     }
