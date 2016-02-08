@@ -123,6 +123,7 @@ EC.Scorebook = React.createClass({
 	                  </ul>
 	                </div>
 	            </div>
+							<EC.PremiumBanner/>
 	            <div className="container">
 		            <section className="section-content-wrapper">
 				            <EC.ScorebookFilters
