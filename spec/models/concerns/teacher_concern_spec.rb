@@ -77,33 +77,5 @@ describe User, type: :model do
       end
     end
 
-    describe '#is_trial_expired?' do
-      let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
-      let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher)}
-      let!(:student1) {FactoryGirl.create(:user, role: 'student', classcode: classroom.code)}
-      let!(:unit1) {FactoryGirl.create(:unit)}
-      let!(:classroom_activity1) {FactoryGirl.create(:classroom_activity)}
-      let!(:classroom_activity2) {FactoryGirl.create(:classroom_activity)}
-      let!(:trial_start_date) {Date.yesterday}
-      let!(:activity_session1)   {FactoryGirl.create(:activity_session, user: student1, classroom_activity: classroom_activity1, completed_at: trial_start_date)}
-
-      before do
-        stub_const("Teacher::TRIAL_START_DATE", trial_start_date)
-        stub_const("Teacher::TRIAL_LIMIT", 1)
-      end
-
-      context 'teacher has not exceeded limit of activity_sessions after start_date of trial' do
-        it 'returns false' do
-          expect(teacher.is_trial_expired?).to be false
-        end
-      end
-
-      context 'teacher has exceeded limit of activity_sessions' do
-        let!(:activity_session2)   {FactoryGirl.create(:activity_session, user: student1, classroom_activity: classroom_activity2, completed_at: trial_start_date)}
-        it 'returns true' do
-          expect(teacher.is_trial_expired?).to be true
-        end
-      end
-    end
   end
 end

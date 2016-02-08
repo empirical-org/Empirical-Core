@@ -112,7 +112,7 @@ module Teacher
       "beta"
     elsif is_premium?
       ## returns trial or purchased
-      subcriptions.find("subscriptions.expiration >= ?", Date.today).type
+      subscriptions.find("subscriptions.expiration >= ?", Date.today).type
     elsif part_of_admin_account?
       'school'
     elsif is_trial_expired?
