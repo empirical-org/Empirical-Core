@@ -77,5 +77,46 @@ describe User, type: :model do
       end
     end
 
+
+    describe '#premium_state' do
+      let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
+
+      context 'user has never had a subscription' do
+        it "returns 'none'" do
+          expect(teacher.premium_state).to be 'none'
+        end
+      end
+
+      context 'user is part of an admin account' do
+        let!(:school_account) {FactoryGirl.create(:admin_account_teacher, admin_account_id: 1, teacher_id: teacher.id)}
+        it "returns 'school'" do
+          expect(teacher.premium.state).to be 'school'
+        end
+      end
+
+      context 'user is on a valid trial' do
+        let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.tomorrow, type: 'trial')}
+        it "returns 'trial'" do
+          expect(teacher.premium.state).to be 'trial'
+        end
+      end
+
+      context 'user is on a paid plan' do
+        let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.tomorrow, type: 'paid')}
+        it "returns 'paid'" do
+          expect(teacher.premium.state).to be 'paid'
+        end
+      end
+
+      context 'users trial is expired' do
+        let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.yesterday, type: 'paid')}
+        it "returns 'locked'" do
+          expect(teacher.premium.state).to be 'locked'
+        end
+      end
+
+
+    end
+
   end
 end
