@@ -94,7 +94,8 @@ class SessionsController < ApplicationController
       redirect_to new_account_path
     else
       sign_in(user)
-      AccountCreationCallbacks.new(user).trigger
+      ip = request.remote_ip
+      AccountCreationCallbacks.new(user, ip).trigger
       user.subscribe_to_newsletter
       if user.role == 'teacher'
         @teacherFromGoogleSignUp = true
