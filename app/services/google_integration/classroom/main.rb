@@ -1,8 +1,8 @@
 module GoogleIntegration::Classroom::Main
 
   def self.fetch_data(user, access_token)
-    client = self.client(access_token)
-    send(user.role, user, client)
+    #client = self.client(access_token)
+    #send(user.role, user, client)
   end
 
   private

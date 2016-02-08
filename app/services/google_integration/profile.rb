@@ -1,6 +1,7 @@
 module GoogleIntegration::Profile
 
   def self.fetch_name_and_email(access_token)
+    puts "access_token : #{access_token}"
     data = self.fetch_data(access_token)
     name = data['displayName']
     email = data['emails'][0]['value']
@@ -20,7 +21,7 @@ module GoogleIntegration::Profile
     data
   end
 
-  def self.client
+  def self.client(access_token)
     GoogleIntegration::Client.create(access_token)
   end
 end
