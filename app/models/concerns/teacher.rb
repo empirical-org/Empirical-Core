@@ -88,7 +88,7 @@ module Teacher
     subscriptions
       .where("subscriptions.expiration >= ?", Date.today)
       .first
-      .type
+      .account_type
   end
 
   def part_of_admin_account?
@@ -112,7 +112,7 @@ module Teacher
       "beta"
     elsif is_premium?
       ## returns trial or purchased
-      subscriptions.find("subscriptions.expiration >= ?", Date.today).type
+      subscriptions.where("subscriptions.expiration >= ?", Date.today).first.account_type
     elsif part_of_admin_account?
       'school'
     elsif is_trial_expired?
