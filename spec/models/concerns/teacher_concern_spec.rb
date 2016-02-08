@@ -52,14 +52,14 @@ describe User, type: :model do
       context 'user has an associated subscription' do
         context 'that has expired' do
           # for some reason Rspec was setting expiration as today if I set it at Date.yesterday, so had to minus 1 from yesterday
-          let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.yesterday-1)}
+          let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.yesterday-1, type: 'premium')}
           it 'returns false' do
             expect(teacher.is_premium?).to be false
           end
         end
 
         context 'that has not expired' do
-          let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.tomorrow)}
+          let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.tomorrow, type: 'trial')}
           let!(:student1) {FactoryGirl.create(:user, role: 'student', classcode: classroom.code)}
           context 'that has passed its account limit' do
             let!(:student2) {FactoryGirl.create(:user, role: 'student', classcode: classroom.code)}
