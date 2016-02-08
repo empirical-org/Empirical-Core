@@ -5,21 +5,17 @@
   <div class="container">
 
     <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
-      <li class="<%=(controller_name == 'classrooms' or
-        (controller_name == 'classroom_manager' and (action_name == ('invite_students' || 'dashboard')) or controller_name == 'students' )) && !is_progress_report_page? ? 'active' : '' %>">
+      <%#binding.pry%>
+      <li class="<%=((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab', id: 'first-tab'  %>
       </li>
 
       <li class="<%= is_progress_report_page? ? 'active' : '' %>">
-        <%= link_to raw("Student Reports"), teachers_progress_reports_concepts_students_path, class: 'progress-reports-nav', role: 'tab' %>
+        <%= link_to "Student Reports", scorebook_path(current_user), class: 'progress-reports-nav', role: 'tab' %>
       </li>
 
       <li class="<%= controller_name == 'classroom_manager' && action_name == 'lesson_planner' ? 'active' : '' %>" >
         <%= link_to "Activity Planner", lesson_planner_teachers_classrooms_path %>
-      </li>
-
-      <li class="<%= controller_name == 'classroom_manager' && action_name == 'scorebook' ? 'active' : '' %>">
-        <%= link_to 'Scorebook', scorebook_path(current_user), role: 'tab' %>
       </li>
 
       <%- unless current_user.is_premium? %>
