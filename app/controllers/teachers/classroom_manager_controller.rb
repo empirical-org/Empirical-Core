@@ -55,11 +55,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def premium
-    @has_premium = current_user.is_premium?
+    @subscription_type = current_user.subscription_type
     render json: {
-      hasPremium: @has_premium
+      hasPremium: @subscription_type
     }
   end
+
+
 
   def classroom_mini
     current_user.classrooms.includes(:students).each do |classroom|

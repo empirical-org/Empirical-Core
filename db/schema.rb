@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201185836) do
+ActiveRecord::Schema.define(version: 20160208191348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,7 +132,8 @@ ActiveRecord::Schema.define(version: 20160201185836) do
     t.datetime "due_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "assigned_student_ids", array: true
+    t.integer  "assigned_student_ids",                             array: true
+    t.boolean  "visible",              default: true, null: false
   end
 
   add_index "classroom_activities", ["activity_id"], name: "index_classroom_activities_on_activity_id", using: :btree
@@ -225,9 +226,9 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   end
 
   create_table "ip_locations", force: :cascade do |t|
-    t.string   "country"
-    t.string   "city"
-    t.string   "state"
+    t.string   "country",    limit: 255
+    t.string   "city",       limit: 255
+    t.string   "state",      limit: 255
     t.integer  "zip"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -355,6 +356,7 @@ ActiveRecord::Schema.define(version: 20160201185836) do
     t.integer  "account_limit"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   create_table "topic_categories", force: :cascade do |t|
