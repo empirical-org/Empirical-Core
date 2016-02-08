@@ -70,7 +70,7 @@ feature 'Create-a-Class page' do
       end
 
       [Teachers::CreateClassPage.activity_planner_tab_pair,
-       Teachers::CreateClassPage.       scorebook_tab_pair
+       Teachers::CreateClassPage.       student_reports_tab_pair
       ].each do |pair|
         tabname, sym = pair
         select_tab   = :"select_#{sym}"
@@ -82,8 +82,8 @@ feature 'Create-a-Class page' do
         end
       end
 
-      describe 'selecting the Class Manager' do
-        before(:each) { create_classroom_page.select_class_manager }
+      describe 'selecting the Classes tab' do
+        before(:each) { create_classroom_page.select_classes }
         include_examples :navigates_to_create_class
       end
     end
