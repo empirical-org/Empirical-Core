@@ -40,15 +40,15 @@ namespace :demo do
     end
 
     def self.create_classrooms
-      teacher = User.find_by name: 'Ms. Chavez', username: 'demo', email: 'chavezdemo279@gmail.com', role: 'teacher'
+      teacher = User.find_by name: 'Ms. King', username: 'cool-demo', email: 'kingdemo279@gmail.com', role: 'teacher'
       if teacher.nil?
-        teacher = User.create(role: 'teacher', name: 'Ms. Chavez', username: 'demo', email: 'chavezdemo279@gmail.com', password: 'demo', password_confirmation: 'demo')
+        teacher = User.create(role: 'teacher', name: 'Ms. King', username: 'cool-demo', email: 'kingdemo279@gmail.com', password: 'demo', password_confirmation: 'demo')
       end
       classrooms = self.classrooms_data.map.with_index{|c, index| self.create_classroom(c, teacher, index)}
     end
 
     def self.create_classroom data, teacher, index
-      classroom = Classroom.find_or_create_by name: data[:name], teacher: teacher, code: "cool-demo-#{index}", grade: '3'
+      classroom = Classroom.find_or_create_by name: data[:name], teacher: teacher, code: "new-cool-demo-#{index}", grade: '3'
       students = self.create_students classroom, data[:student_names]
       classroom
     end
@@ -162,11 +162,11 @@ namespace :demo do
       special_students_group1 = students[0..1]
       special_students_group2 = students[2..5]
 
-      if classroom.name == 'Period 1'
+      if classroom.name == 'First Period'
         special_students_group3 = students[6..7]
-      elsif classroom.name == 'Period 2'
+      elsif classroom.name == 'Second Period'
         special_students_group3 = students[6..6]
-      elsif classroom.name == 'Period 3'
+      elsif classroom.name == 'Third Period'
         special_students_group3 = []
       end
 
@@ -303,7 +303,7 @@ namespace :demo do
     def self.classrooms_data
         [
           {
-            name: 'Period 1',
+            name: 'First Period',
             student_names:
               %w(
                 Maya\ Angelou
@@ -318,7 +318,7 @@ namespace :demo do
               )
           },
           {
-            name: 'Period 2',
+            name: 'Second Period',
             student_names:
                 %w(
                   Gustave\ Flaubert
@@ -333,7 +333,7 @@ namespace :demo do
                 )
           },
           {
-            name: 'Period 3',
+            name: 'Third Period',
             student_names:
               %w(
                   J.K.\ Rowling
