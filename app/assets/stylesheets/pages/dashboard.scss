@@ -12,10 +12,7 @@
     border-top: 1px solid #cecece;
     font-weight: 700;
   }
-  a {
-    color: #027360;
-    text-decoration: none;
-  }
+
   h4 {
     font-size: 16px;
     font-weight: 600;
@@ -168,6 +165,7 @@
       margin-top: 9px;
       background-color: white;
       border: 1px solid #737373;
+      color: #333333;
     }
   }
   .footer-row {
@@ -175,6 +173,10 @@
     text-align: center;
     margin-top: 10px;
     white-space: nowrap;
+    a {
+      color: #027360;
+      text-decoration: none;
+    }
     .review-request {
       margin-top: 18px;
       margin-bottom: 20px;

@@ -119,7 +119,7 @@ EC.Scorebook = React.createClass({
 				<div className="tab-subnavigation-wrapper">
 	                <div className="container">
 	                  <ul>
-	                    <li><a href="" className="active">Student View</a></li>
+	                    <li><a href="" className="active">Overview</a></li>
 	                  </ul>
 	                </div>
 	            </div>
