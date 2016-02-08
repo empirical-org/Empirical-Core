@@ -5,12 +5,12 @@
   <div class="container">
 
     <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
-      <%#binding.pry%>
+
       <li class="<%=((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab', id: 'first-tab'  %>
       </li>
 
-      <li class="<%= is_progress_report_page? ? 'active' : '' %>">
+      <li class="<%= (is_progress_report_page? || (action_name == 'scorebook')) ? 'active' : '' %>">
         <%= link_to "Student Reports", scorebook_path(current_user), class: 'progress-reports-nav', role: 'tab' %>
       </li>
 
