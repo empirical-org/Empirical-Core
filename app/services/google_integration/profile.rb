@@ -1,5 +1,3 @@
-require 'google/api_client'
-
 module GoogleIntegration::Profile
 
   def self.fetch_name_and_email(access_token)
@@ -12,8 +10,7 @@ module GoogleIntegration::Profile
   private
 
   def self.fetch_data(access_token)
-    client = Google::APIClient.new(application_name: 'quill')
-    client.authorization.access_token = access_token
+    client = self.client(access_token)
     service = client.discovered_api('plus')
     result = client.execute(
       api_method: service.people.get,
@@ -21,5 +18,9 @@ module GoogleIntegration::Profile
       headers: {'Content-Type' => 'application/json'})
     data = JSON.parse(result.body)
     data
+  end
+
+  def self.client
+    GoogleIntegration::Client.create(access_token)
   end
 end

@@ -75,7 +75,7 @@ class SessionsController < ApplicationController
     access_token = request.env['omniauth.auth']['credentials']['token']
     name, email = GoogleIntegration::Profile.fetch_name_and_email(access_token)
     if session[:role].present?
-      google_sign_up(name, email, session[:role])
+      google_sign_up(name, email, session[:role], access_token)
     else
       google_login(email)
     end
@@ -83,7 +83,7 @@ class SessionsController < ApplicationController
 
   private
 
-  def google_sign_up(name, email, role)
+  def google_sign_up(name, email, role, access_token)
     user = User.find_or_initialize_by email: email
     if user.new_record?
       user.attributes = {signed_up_with_google: true, name: name, role: role}
@@ -95,6 +95,7 @@ class SessionsController < ApplicationController
     else
       sign_in(user)
       ip = request.remote_ip
+      GoogleIntegration::Classroom::Main.fetch_data(user, access_token)
       AccountCreationCallbacks.new(user, ip).trigger
       user.subscribe_to_newsletter
       if user.role == 'teacher'
