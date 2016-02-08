@@ -1,0 +1,23 @@
+#premium-banner{
+  color: #333333;
+  // height: 115px;
+  background-color: #ffe7c0;
+  background-image: url('/images/star_pattern_5.png');
+  background-repeat: repeat;
+  font-size: 14px;
+  // line-height: 21px;
+  padding-top: 22px;
+  h4 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  a {
+    color:  #027360;
+  }
+  .row > div {
+    margin-bottom: 24px;
+  }
+  h4, .btn-orange {
+    margin-bottom: 7px;
+  }
+}
