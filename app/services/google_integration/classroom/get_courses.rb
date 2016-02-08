@@ -10,8 +10,9 @@ module GoogleIntegration::Classroom::GetCourses
   # keep this here.
   # if the response changes, then we've localized the 'translation' work to this module
   def self.parse_response(response)
-    courses = response["courses"].map do |hash|
-      {id: hash[:id], name: hash[:name]}
+    x = JSON.parse(response.body)
+    courses = x["courses"].map do |hash|
+      {id: hash[:id].to_i, name: hash[:name]}
     end
   end
 end
