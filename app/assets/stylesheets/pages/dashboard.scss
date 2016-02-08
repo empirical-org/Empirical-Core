@@ -1,4 +1,5 @@
 #dashboard {
+  $link-color: #027360;
   max-width: 980px;
   margin: auto;
   text-overflow: ellipsis;
@@ -12,7 +13,6 @@
     border-top: 1px solid #cecece;
     font-weight: 700;
   }
-
   h4 {
     font-size: 16px;
     font-weight: 600;
@@ -32,6 +32,9 @@
   .premium-container {
     display: inline-block;
     vertical-align: middle;
+    a {
+      color: $link-color;
+    }
     .img {
       margin-top: 27px;
       margin-bottom: 25px;
@@ -174,7 +177,7 @@
     margin-top: 10px;
     white-space: nowrap;
     a {
-      color: #027360;
+      color: $link-color;
       text-decoration: none;
     }
     .review-request {
