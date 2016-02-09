@@ -1,4 +1,4 @@
-module GoogleIntegration::Classroom::Teacher::Main
+module GoogleIntegration::Classroom::Teacher
 
   def self.run(user, courses, students_requester)
     classrooms = self.create_classrooms(user, courses)

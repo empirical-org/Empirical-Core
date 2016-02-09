@@ -110,8 +110,7 @@ gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-# gem 'clever-ruby', '~> 0.1'
-gem 'clever-ruby', :git => 'git://github.com/marcellosachs/clever-ruby.git'
+gem 'clever-ruby'
 
 group :production, :staging do
   gem 'rails_12factor'

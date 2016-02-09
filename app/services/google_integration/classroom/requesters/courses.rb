@@ -1,4 +1,4 @@
-module GoogleIntegration::Classroom::Requester::Courses
+module GoogleIntegration::Classroom::Requesters::Courses
 
   def self.run(client)
     service = client.discovered_api('classroom', 'v1')

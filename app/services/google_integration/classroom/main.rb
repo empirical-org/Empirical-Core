@@ -1,8 +1,8 @@
 module GoogleIntegration::Classroom::Main
 
   def self.pull_and_save_data(user, access_token)
-    client = self.client(access_token)
-    send(user.role, user, client)
+    client = self.create_client(access_token)
+    self.submain_pull_and_save_data(user, self.course_response(client), self.students_requester(client))
   end
 
   private
@@ -10,20 +10,13 @@ module GoogleIntegration::Classroom::Main
   # this module should be the only one which knows about the requesters in GoogleIntegration::Classroom::Requesters
   # this way we dont have to worry about making real requests in specs
 
-  def self.client(access_token)
-    client = GoogleIntegration::Client.create(access_token)
+
+  def self.create_client
+    GoogleIntegration::Client.create(access_token)
   end
 
-  def self.student(user, client)
-    GoogleIntegration::Classroom::Student.run(user, self.courses(client))
-  end
-
-  def self.teacher(user, client)
-    GoogleIntegration::Classroom::Teacher.run(user, self.courses(client), self.students_requester(client))
-  end
-
-  def self.courses(client)
-    GoogleIntegration::Classroom::Parsers::Courses.run(self.course_response(client))
+  def self.submain_pull_and_save_data(user, course_response, students_requester)
+    GoogleIntegration::Classroom::SubMain.pull_and_save_data(user, course_response, students_requester)
   end
 
   def self.course_response(client)
