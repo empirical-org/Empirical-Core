@@ -33,6 +33,7 @@ example result of JSON.parse(response.body) :
     profile_data = hash['profile']
     {
       name: profile_data['name']['fullName'],
+      last_name: profile_data['name']['familyName'], # we will use for their initial password
       email: profile_data['emailAddress']
     }
   end

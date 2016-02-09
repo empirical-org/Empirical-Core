@@ -10,8 +10,8 @@ example JSON.parse(response.body) :
 
   def self.run(response)
     x = JSON.parse(response.body)
-    courses = x["courses"].map do |hash|
-      {id: hash[:id].to_i, name: hash[:name]}
+    courses = x['courses'].map do |hash|
+      {id: hash['id'].to_i, name: hash['name']}
     end
     courses
   end
