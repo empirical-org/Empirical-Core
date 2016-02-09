@@ -95,7 +95,7 @@ class SessionsController < ApplicationController
     else
       sign_in(user)
       ip = request.remote_ip
-      GoogleIntegration::Classroom::Main.fetch_data(user, access_token)
+      GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
       AccountCreationCallbacks.new(user, ip).trigger
       user.subscribe_to_newsletter
       if user.role == 'teacher'

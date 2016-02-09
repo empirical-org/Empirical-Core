@@ -1,4 +1,4 @@
-module GoogleIntegration::Classroom::GetCourses::Processor
+module GoogleIntegration::Classroom::Parsers::Courses
 
 
 =begin
@@ -16,4 +16,3 @@ example JSON.parse(response.body) :
     courses
   end
 end
-
