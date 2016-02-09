@@ -1,5 +1,5 @@
-EC.FreeTrialBanner = React.createClass({
-  
+EC.NewSignUpBanner = React.createClass({
+
   beginTrial: function() {
     this.startTrial = $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'}, function(result) {
     }.bind(this));
