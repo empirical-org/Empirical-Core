@@ -11,9 +11,14 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    @subscription = Subscription.find_by user_id: subscription_params[:user_id]
+
+    puts params
+    @id = current_user.id
+    @subscription = Subscription.find_by_user_id @id
+    binding.pry
+    params[:expiration] = Date.today + 30 if params[:account_type] == 'trial'
     if @subscription.nil?
-      @subscription = Subscription.create params.permit(:user_id, :expiration, :account_limit)
+      @subscription = Subscription.create subscription_params
     end
     render json: @subscription
   end
@@ -30,10 +35,10 @@ class SubscriptionsController < ApplicationController
 
   private
     def subscription_params
-      params.permit(:id, :user_id, :expiration, :account_limit)
+      params.permit(:id, :expiration, :account_limit, :account_type)
     end
 
     def set_subscription
-      @subscription = Subscription.find params[:id]
+      @subscription = Subscription.find subscription_params[:id]
     end
 end

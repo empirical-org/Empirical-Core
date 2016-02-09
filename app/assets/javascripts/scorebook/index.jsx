@@ -35,6 +35,13 @@ EC.Scorebook = React.createClass({
 		this.modules.scrollify.scrollify('#page-content-wrapper', this);
 	},
 
+	hasTeacherId: function () {
+		var teacherId = this.state.selectedClassroom.teacher_id;
+		if (teacherId) {
+			return <EC.PremiumBanner data={teacherId}/>
+		}
+	},
+
 	fetchData: function () {
 		var newCurrentPage = this.state.currentPage + 1;
 		this.setState({loading: true, currentPage: newCurrentPage})
@@ -123,7 +130,7 @@ EC.Scorebook = React.createClass({
 	                  </ul>
 	                </div>
 	            </div>
-							<EC.PremiumBanner/>
+							{this.hasTeacherId()}
 	            <div className="container">
 		            <section className="section-content-wrapper">
 				            <EC.ScorebookFilters

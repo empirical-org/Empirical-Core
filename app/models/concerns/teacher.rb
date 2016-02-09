@@ -111,7 +111,7 @@ module Teacher
     if !is_beta_period_over?
       "beta"
     elsif is_premium?
-      ## returns trial or purchased
+      ## returns 'trial' or 'purchased'
       subscriptions.where("subscriptions.expiration >= ?", Date.today).first.account_type
     elsif part_of_admin_account?
       'school'

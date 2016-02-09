@@ -11,13 +11,18 @@ EC.PremiumBanner = React.createClass({
         </div>
         <div className='col-md-3 col-xs-12 pull-right'>
           <div className='premium-button-box text-center'>
-            <button type='button' className='btn-orange'>Try it Free for 30 Days</button>
+            <button type='button' onClick={this.beginTrial} className='btn-orange'>Try it Free for 30 Days</button>
             <br/>
             <span>No credit card required</span>
           </div>
         </div>
       </div>
     );
+  },
+
+  beginTrial: function() {
+    this.startTrial = $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'}, function(result) {
+    }.bind(this));
   },
 
   render: function() {
