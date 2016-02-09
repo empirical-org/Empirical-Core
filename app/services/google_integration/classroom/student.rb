@@ -1,7 +1,7 @@
 module GoogleIntegration::Classroom::Student
 
-  def self.run(user, client)
-    courses = self.get_courses
+  def self.run(user, client, course_getter)
+    courses = course_getter.run(client)
 
     if courses.any?
       first_course = courses.first
@@ -14,9 +14,6 @@ module GoogleIntegration::Classroom::Student
 
   private
 
-  def self.get_courses
-    GoogleIntegration::Classroom::GetCourses.run(client)
-  end
 
   def self.join_classroom_and_assign_activities(user, classroom)
     user.update(classcode: classroom.code)
