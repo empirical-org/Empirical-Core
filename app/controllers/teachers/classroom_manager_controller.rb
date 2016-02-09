@@ -87,7 +87,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scores
     classrooms = current_user.classrooms.includes(classroom_activities: [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
-
     if params[:no_load_has_ever_occurred_yet] == 'true'
       params[:classroom_id] = current_user.classrooms.first
       was_classroom_selected_in_controller = true
@@ -101,6 +100,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     render json: {
       teacher: Scorebook::TeacherSerializer.new(current_user).as_json(root: false),
+      trial_days_remaining: current_user.trial_days_remaining,
       classrooms: classrooms,
       units: units,
       scores: scores,

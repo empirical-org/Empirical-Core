@@ -53,7 +53,6 @@ EC.Scorebook = React.createClass({
 	},
 
 	displayData: function (data) {
-
 		if (data.was_classroom_selected_in_controller) {
 			this.setState({selectedClassroom: data.selected_classroom});
 		}
@@ -62,6 +61,7 @@ EC.Scorebook = React.createClass({
 			unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
 			is_last_page: data.is_last_page,
 			premium_state: data.teacher.premium_state,
+			trial_days_remaining: data.trial_days_remaining,
 			noLoadHasEverOccurredYet: false
 		});
 		if (this.state.currentPage == 1) {
@@ -123,7 +123,7 @@ EC.Scorebook = React.createClass({
 	                  </ul>
 	                </div>
 	            </div>
-							<EC.PremiumBannerBuilder state={this.state.premium_state}/>
+							<EC.PremiumBannerBuilder state={this.state.premium_state} daysLeft={this.state.trial_days_remaining}/>
 	            <div className="container">
 		            <section className="section-content-wrapper">
 				            <EC.ScorebookFilters

@@ -111,7 +111,12 @@ module Teacher
   end
 
   def trial_days_remaining
-    binding.pry
+    valid_subscription = subscriptions.where("subscriptions.expiration >= ?", Date.today).first
+    if valid_subscription && (valid_subscription.account_type == 'trial')
+      (valid_subscription.expiration - Date.today).to_i
+    else
+      nil
+    end
   end
 
   def premium_state

@@ -1,29 +1,27 @@
-#premium-banner{
+#premium-banner {
   color: #333333;
   // height: 115px;
-  background-color: #ffe7c0;
-  background-image: url('/images/star_pattern_5.png');
-  background-repeat: repeat;
   font-size: 14px;
   // line-height: 21px;
   padding-top: 22px;
+  background-image: url(/images/star_pattern_5.png);
   .spinner-container {
     max-height: 97px;
     margin: 0;
-    padding: 0;
-    padding-bottom: 22px;
+    padding: 0 0 22px;
   }
   h4 {
     font-size: 18px;
     font-weight: 700;
   }
   a {
-    color:  #027360;
+    color: #027360;
   }
   .row > div {
     margin-bottom: 24px;
   }
-  h4, .btn-orange {
+  h4,
+  .btn-orange {
     margin-bottom: 7px;
   }
 }
