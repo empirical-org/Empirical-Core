@@ -1,6 +1,11 @@
-EC.PremiumBanner = React.createClass({
+EC.FreeTrialBanner = React.createClass({
+  
+  beginTrial: function() {
+    this.startTrial = $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'}, function(result) {
+    }.bind(this));
+  },
 
-  stateSpecificComponents: function() {
+  render: function() {
     return (
       <div className='row'>
         <div className='col-md-9 col-xs-12 pull-left'>
@@ -15,21 +20,6 @@ EC.PremiumBanner = React.createClass({
             <br/>
             <span>No credit card required</span>
           </div>
-        </div>
-      </div>
-    );
-  },
-
-  beginTrial: function() {
-    this.startTrial = $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'}, function(result) {
-    }.bind(this));
-  },
-
-  render: function() {
-    return (
-      <div id='premium-banner'>
-        <div className='container'>
-          {this.stateSpecificComponents()}
         </div>
       </div>
     );

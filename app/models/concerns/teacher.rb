@@ -110,12 +110,16 @@ module Teacher
     premium_state == 'none'
   end
 
+  def trial_days_remaining
+    binding.pry
+  end
+
   def premium_state
     # the beta period is obsolete -- but may break things by removing it
     if !is_beta_period_over?
       "beta"
     elsif is_premium?
-      ## returns 'trial' or 'purchased'
+      ## returns 'trial' or 'paid'
       subscriptions.where("subscriptions.expiration >= ?", Date.today).first.account_type
     elsif part_of_admin_account?
       'school'
@@ -125,6 +129,7 @@ module Teacher
       'none'
     end
   end
+
 
 
   def is_beta_period_over?
