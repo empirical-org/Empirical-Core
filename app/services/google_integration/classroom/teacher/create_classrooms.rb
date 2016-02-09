@@ -1,15 +1,11 @@
 module GoogleIntegration::Classroom::Teacher::CreateClassrooms
 
-  def self.run(user, client)
-    courses = self.get_courses(client)
+  def self.run(user, client, course_getter)
+    courses = course_getter.run(client)
     classrooms = self.create_classrooms(courses)
   end
 
   private
-
-  def self.get_courses(client)
-    GoogleIntegration::Classroom::Teacher::CreateClassrooms.run(courses)
-  end
 
   def self.create_classrooms(courses)
     courses.map{ |course| self.create_classroom(course) }

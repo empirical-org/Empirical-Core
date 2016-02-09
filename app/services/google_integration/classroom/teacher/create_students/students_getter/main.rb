@@ -1,13 +1,11 @@
-module GoogleIntegration::Classroom::Teacher::CreateStudents::Get
+module GoogleIntegration::Classroom::Teacher::CreateStudents::StudentsGetter::Main
 
-  def self.run(client, course_id)
-    service = client.discovered_api('classroom', 'v1')
-    api_method = service.courses.students.list
-    response = client.execute(api_method: api_method,
-                            parameters: {'courseId' => course_id})
-
-    student_data = self.parse_response(response)
-    student_data
+  def self.generate(students_getter)
+    lambda do |course_id|
+      response = students_getter.run(course_id)
+      parsed_response = self.parse_response(response)
+      parsed_response
+    end
   end
 
   private
