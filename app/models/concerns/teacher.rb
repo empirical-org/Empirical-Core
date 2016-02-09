@@ -106,6 +106,10 @@ module Teacher
                    .where("completed_at >= ?", TRIAL_START_DATE)
   end
 
+  def eligible_for_trial?
+    premium_state == 'none'
+  end
+
   def premium_state
     # the beta period is obsolete -- but may break things by removing it
     if !is_beta_period_over?

@@ -11,15 +11,13 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-
-    puts params
-    @id = current_user.id
-    @subscription = Subscription.find_by_user_id @id
-    binding.pry
-    params[:expiration] = Date.today + 30 if params[:account_type] == 'trial'
-    if @subscription.nil?
-      @subscription = Subscription.create subscription_params
+    params[:user_id] = current_user.id
+    if params[:account_type] == 'trial' && current_user.eligible_for_trial?
+      params[:expiration] = Date.today + 30
+    elsif params[:account_type] == 'paid'
+      params[:expiration] = Date.today + 365
     end
+    @subscription = Subscription.create subscription_params
     render json: @subscription
   end
 
@@ -35,7 +33,8 @@ class SubscriptionsController < ApplicationController
 
   private
     def subscription_params
-      params.permit(:id, :expiration, :account_limit, :account_type)
+      params.require(:account_type)
+      params.permit(:id, :user_id, :expiration, :account_limit, :account_type)
     end
 
     def set_subscription
