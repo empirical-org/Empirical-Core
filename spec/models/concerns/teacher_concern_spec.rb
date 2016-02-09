@@ -89,12 +89,12 @@ describe User, type: :model do
 
 
       #TODO: figure out why this factory girl isn't working
-      # context 'user is part of an admin account' do
+      context 'user is part of an admin account' do
       #   let!(:school_account) {FactoryGirl.create(:admin_account_teacher, admin_account_id: 1, teacher_id: teacher.id)}
-      #   it "returns 'school'" do
+        it "returns 'school'" #do
       #     expect(teacher.premium_state).to eq('school')
       #   end
-      # end
+      end
 
       context 'user is on a valid trial' do
         let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.today + 1, account_type: 'trial')}
