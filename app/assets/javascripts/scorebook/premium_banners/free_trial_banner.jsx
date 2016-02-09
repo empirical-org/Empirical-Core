@@ -1,4 +1,4 @@
-EC.FreeTrialCountDown = React.createClass({
+EC.FreeTrialBanner = React.createClass({
 
   beginTrial: function() {
     this.startTrial = $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'}, function(result) {
@@ -7,7 +7,7 @@ EC.FreeTrialCountDown = React.createClass({
 
   render: function() {
     return (
-      <div className='row'>
+      <div className='row free-trial-promo'>
         <div className='col-md-9 col-xs-12 pull-left'>
           <h4>Try Premium for Free</h4>
           <span>Unlock your Premium trial to save time grading and gain actionable insights.</span>
