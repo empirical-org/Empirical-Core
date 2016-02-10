@@ -31,7 +31,10 @@ EC.PremiumBannerBuilder = React.createClass({
     }
   },
 
-  render: function() {
+  hasPremium: function() {
+  if ((this.props.state === 'school') || (this.props.state === 'paid')) {
+    return (<span/>);
+  } else {
     var color = this.stateSpecificBackGroundColor();
     var img = this.stateSpecificBackGroundImage();
     var divStyle = {
@@ -45,6 +48,12 @@ EC.PremiumBannerBuilder = React.createClass({
         </div>
       </div>
     );
+  }
+},
+
+  render: function() {
+    return (this.hasPremium());
+
   }
 
 });
