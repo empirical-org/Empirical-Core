@@ -11,7 +11,7 @@ module GoogleIntegration::Classroom::Main
   # this way we dont have to worry about making real requests in specs
 
 
-  def self.create_client
+  def self.create_client(access_token)
     GoogleIntegration::Client.create(access_token)
   end
 

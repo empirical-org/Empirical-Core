@@ -34,7 +34,7 @@ module GoogleIntegration::Classroom::Creators::Students
   end
 
   def self.create_student(data)
-    student = User.find_or_initialize_by(email: data[:email])
+    student = ::User.find_or_initialize_by(email: data[:email])
     return if not student.new_record?
     student.update(name: data[:name],
                    role: 'student',

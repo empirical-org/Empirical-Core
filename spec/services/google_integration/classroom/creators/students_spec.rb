@@ -4,7 +4,7 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
 
   def subject(classrooms, students_requester)
     x = GoogleIntegration::Classroom::Creators::Students.run(classrooms, students_requester)
-    x.map{ |y| { name: y.name, email: y.email, classcode: y.classcode } }
+    x.map(&:reload).map{ |y| { name: y.name, email: y.email, classcode: y.classcode } }
   end
 
   let!(:classroom) { FactoryGirl.create(:classroom) }
@@ -49,8 +49,8 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
   context 'no students have been previously created' do
     let!(:expected) {
       [
-        { name: 'test1_s1 s1', email: 'test1_s1@gedu.demo.rockerz.xyz', classcode: classroom.code },
-        { name: 'test1_s2 s2', email: 'test1_s2@gedu.demo.rockerz.xyz', classcode: classroom.code }
+        { name: 'Test1_s1 S1', email: 'test1_s1@gedu.demo.rockerz.xyz', classcode: classroom.code },
+        { name: 'Test1_s2 S2', email: 'test1_s2@gedu.demo.rockerz.xyz', classcode: classroom.code }
       ]
     }
 
@@ -66,7 +66,7 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
 
     let!(:expected) {
       [
-        { name: 'test1_s2 s2', email: 'test1_s2@gedu.demo.rockerz.xyz', classcode: classroom.code }
+        { name: 'Test1_s2 S2', email: 'test1_s2@gedu.demo.rockerz.xyz', classcode: classroom.code }
       ]
     }
 
@@ -75,4 +75,19 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
     end
   end
 
+  context 'activities have been assigned to the classroom in the past' do
+
+    def subject
+      GoogleIntegration::Classroom::Creators::Students.run(classrooms, students_requester)
+    end
+
+    let!(:activity) { FactoryGirl.create(:activity) }
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
+
+    it 'assigns those activities to the new students' do
+      students = subject
+      acss = ActivitySession.where(classroom_activity: classroom_activity, user: students.map(&:id))
+      expect(acss.count).to eq(students.count)
+    end
+  end
 end
