@@ -44,24 +44,71 @@ li.premium-tab > a:hover {
 }
 
 #first-preview-section {
-  padding-top: 62px;
-  padding-bottom: 115px;
-  color: #3C3B3B;
+  // this lives in premium_pricing_guide.jsx
+}
 
-  .title {
-    color: #333333;
+#premium-pricing-guide {
+  & > .row > div  {
+    margin-bottom: 4%;
   }
-
-  .copy {
-    margin-top: 37px;
+  .pricing-mini {
+    border: 1px solid #cecece;
   }
-
-  .button-green {
+  section {
+    border: none;
+  }
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  li {
+    margin-bottom: 6px;
+  }
+  .pricing-mini-header {
+    height: 95px;
     color: white;
-    margin-top: 44px;
-    margin-bottom: 137px;
+  }
+  .pricing-info {
+    color: #333333;
+    .premium-rates {
+      min-height: 74px;
+      h3 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 7px;
+      }
+    }
+  }
+  .mini-btn {
+    height: 40px;
+    padding-top: 6.5px;
+    padding-bottom: 4.5px;
+    font-size: 14px;
+    color: white;
+    margin-bottom: 26px;
+  }
+  .blue {
+    background-color: $quillblue;
+    &.button {
+      width: 122px;}
+  }
+  .empty-blue {
+    border: 2px solid $quillblue;
+    color: $quillblue;
+    &.button {
+      width: 122px;  
+    }
+
+  }
+  .green {
+    background-color: $quillgreen;
+  }
+  .purple {
+    background-color: #9c2bde;
   }
 }
+
+
 
 #second-preview-section {
   background-color: #EA9A1A;
@@ -198,7 +245,7 @@ li.premium-tab > a:hover {
 
 #fourth-preview-section {
   padding-top: 100px;
-  background-color: #348fdf;
+  background-color: $quillblue;
   color: white;
 
   .super-title {
@@ -243,21 +290,3 @@ li.premium-tab > a:hover {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
