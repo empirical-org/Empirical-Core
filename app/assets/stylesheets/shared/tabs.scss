@@ -41,6 +41,25 @@
   }
 }
 
+.student-reports-subnav.tab-subnavigation-wrapper {
+  $orange: #eda41b;
+  a:not(.default) {
+    border: 1px solid $orange;
+    color: #875a12;
+    &.active {
+      background: $orange;
+      color: white;
+      i {
+        color: white;
+      }
+    }
+    i {
+      color: $orange;
+    }
+  }
+
+}
+
 .student-subnavigation {
   padding: 12px 0;
   a {
