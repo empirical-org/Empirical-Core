@@ -5,13 +5,13 @@ EC.PremiumBannerBuilder = React.createClass({
       return <EC.LoadingIndicator/>;
     }
     else if (this.props.state == 'none'){
-        return(<EC.FreeTrialBanner/>);
+      return(<EC.FreeTrialBanner/>);
     }
     else if (this.props.daysLeft == 30){
       return(<EC.NewSignUpBanner/>);
     }
     else if ((this.props.state == 'trial') || (this.props.state == 'locked')){
-        return(<EC.FreeTrialStatus status={this.props.state} data={this.props.daysLeft}/>);
+      return(<EC.FreeTrialStatus status={this.props.state} data={this.props.daysLeft}/>);
     }
   },
 
