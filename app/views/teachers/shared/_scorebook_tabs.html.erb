@@ -18,9 +18,9 @@
         <%= link_to "Activity Planner", lesson_planner_teachers_classrooms_path %>
       </li>
 
-      <%- unless current_user.is_premium? %>
+      <%- unless ((current_user.premium_state == 'paid') || (current_user.premium_state == 'school')) %>
         <li class="<%= (action_name == 'premium_access') ? 'premium-tab active' : 'premium-tab' %>">
-          <%= link_to raw("Try Premium for Free <i class='fa fa-star'></i>"), premium_access_path, role: 'tab' %>
+          <%= link_to raw(premium_tab_copy), premium_access_path, role: 'tab' %>
         </li>
       <% end %>
     </ul>
