@@ -185,11 +185,13 @@ li.premium-tab > a:hover {
     }
   }
   .preview-image {
-    width: 852px;
     margin-left: auto;
     margin-right: auto;
     img {
+      @media (max-width: 853px) {
       width: 100%;
+      }
+
     }
   }
 }
