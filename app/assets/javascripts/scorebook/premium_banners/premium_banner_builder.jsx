@@ -11,7 +11,9 @@ EC.PremiumBannerBuilder = React.createClass({
       return(<EC.NewSignUpBanner/>);
     }
     else if ((this.props.state == 'trial') || (this.props.state == 'locked')){
-      return(<EC.FreeTrialStatus status={this.props.state} data={this.props.daysLeft}/>);
+      return(<span>
+        <EC.FreeTrialStatus status={this.props.state} data={this.props.daysLeft}/>
+        </span>);
     }
   },
 
