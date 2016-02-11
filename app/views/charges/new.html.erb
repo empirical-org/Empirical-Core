@@ -1,3 +1,7 @@
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<%= javascript_include_tag "charges" %>
+
+
 <%= form_tag charges_path do %>
   <article>
     <% if flash[:error].present? %>
@@ -7,12 +11,10 @@
     <% end %>
     <label class="amount">
       <span>Amount: $5.00</span>
+      <button type='button' class='btn btn-orange' id='purchase-btn'>BUY NOW</button>
     </label>
   </article>
 
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="A month's subscription"
-          data-amount="500"
-          data-locale="auto"></script>
+  <script>
+
 <% end %>
