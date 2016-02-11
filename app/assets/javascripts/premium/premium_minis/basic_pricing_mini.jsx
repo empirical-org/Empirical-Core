@@ -4,6 +4,9 @@ EC.BasicPricingMini = React.createClass({
     return (
       <div className='pricing-mini'>
         <header className='pricing-mini-header green'>
+          <div className='img-holder basic'>
+            <img src="/images/basic_icon.png" alt="basic_icon"/>
+          </div>
           <h4>Basic</h4>
         </header>
         <section className='pricing-info'>
@@ -18,7 +21,7 @@ EC.BasicPricingMini = React.createClass({
             <li>Sign on with Clever or Google</li>
           </ul>
         </section>
-        <button type='button' className='btn btn-default mini-btn green'>Sign Up</button>
+        <a href='/account/new'><button type='button' className='btn btn-default mini-btn green'>Sign Up</button></a>
       </div>
     );
   }
