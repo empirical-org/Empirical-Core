@@ -7,11 +7,10 @@ EC.DistrictPricingMini = React.createClass({
       <h4>School & District Premium</h4>
     </header>
     <section className='pricing-info'>
-      <div className='premium-rates'>
-      <h4>Discounts available</h4>
-      <h4>for multiple schools</h4>
+      <div className='premium-rates all-h4'>
+      <h4>Discounts available<br/>for multiple schools</h4>
       </div>
-      <ul className='text-left'>
+      <ul>
         <li>Everything in Teacher Premium</li>
         <li>Professional development sessions</li>
         <li>Batch rostering students</li>
