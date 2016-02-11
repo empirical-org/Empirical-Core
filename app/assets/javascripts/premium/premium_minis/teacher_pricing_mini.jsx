@@ -19,12 +19,8 @@ EC.TeacherPricingMini = React.createClass({
           </ul>
         </section>
         <div className='row'>
-          <div className='col-md-6'>
             <button type='button' className='btn btn-default mini-btn empty-blue'>Free Trial</button>
-          </div>
-          <div className='col-md-6'>
             <button type='button' className='btn btn-default mini-btn blue'>Sign Up</button>
-          </div>
         </div>
       </div>
     );
