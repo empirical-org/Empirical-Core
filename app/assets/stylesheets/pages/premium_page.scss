@@ -82,6 +82,14 @@ li.premium-tab > a:hover {
   .pricing-mini-header {
     height: 95px;
     color: white;
+    .img-holder {
+      height: 57px;
+      padding-top: 14px;
+      margin-bottom: 9px;
+      &.basic {
+        padding-top: 17px;
+      }
+    }
   }
   .pricing-info {
     color: #333333;
@@ -140,6 +148,22 @@ li.premium-tab > a:hover {
     padding-left: 22px;
     padding-right: 22px;
   }
+}
+.premium-testimonial {
+  margin: auto;
+  margin-top: 69px;
+  margin-bottom: 69px;
+  max-width: 691px;
+  p {
+    margin-top: 8px;
+    font-size: 21px;
+  }
+  .quote-author {
+    margin-top: 14px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
 }
 #second-preview-section {
   background-color: #EA9A1A;

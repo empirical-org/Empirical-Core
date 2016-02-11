@@ -13,9 +13,10 @@ EC.PremiumPricingGuide = React.createClass({
       <div className='container' id='premium-pricing-guide'>
         <div className='overview text-center'>
           <h1>Pricing Guide</h1>
-          <p>Save time grading and gain actionable insights with Quill Premium.</p>
+          <p>Save time grading and gain<br/>actionable insights with Quill Premium.</p>
         </div>
           <EC.PremiumPricingMinisRow/>
+          <EC.TeacherTestimonial/>
           </div>
     )
   }
