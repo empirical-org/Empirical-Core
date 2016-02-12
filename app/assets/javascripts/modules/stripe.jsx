@@ -8,7 +8,7 @@ EC.modules.Stripe = function () {
 
         // Use the token to create the charge with a server-side script.
         // You can access the token ID with `token.id`
-          $.post('/charges', {stripeToken: token.id});
+          $.post('/charges', {authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token.id});
     }
     });
 
