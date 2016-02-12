@@ -5,6 +5,7 @@ image: 'https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-I
 token: function(token) {
   // Use the token to create the charge with a server-side script.
   // You can access the token ID with `token.id`
+  $.post('/charges/new', {token: token.id});
 }
 });
 

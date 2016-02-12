@@ -25,6 +25,7 @@ EmpiricalGrammar::Application.routes.draw do
   # for Stripe
   resources :charges
 
+
   resources :subscriptions
   resources :assessments
   resources :assignments
