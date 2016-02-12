@@ -12,6 +12,7 @@ class ChargesController < ApplicationController
     :source  => params[:stripeToken]
   )
 
+  binding.pry
   charge = Stripe::Charge.create(
     :customer    => customer.id,
     :amount      => @amount,
