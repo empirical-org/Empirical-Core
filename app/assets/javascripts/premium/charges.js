@@ -1,6 +1,7 @@
 var handler = StripeCheckout.configure({
 key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
 locale: 'auto',
+image: 'https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Icon.svg',
 token: function(token) {
   // Use the token to create the charge with a server-side script.
   // You can access the token ID with `token.id`
@@ -10,9 +11,9 @@ token: function(token) {
 $('#purchase-btn').on('click', function(e) {
 // Open Checkout with further options
 handler.open({
-  name: 'Stripe.com',
-  description: '2 widgets',
-  amount: 2000
+  name: 'Quill Premium',
+  description: '$80 Teacher Premium',
+  amount: 8000
 });
 e.preventDefault();
 });
