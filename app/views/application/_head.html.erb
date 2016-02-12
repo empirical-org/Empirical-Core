@@ -13,7 +13,6 @@
   <%- @content ||= "" %>
   <%= tag('meta', {property: 'og:description', content: @content}) %>
 
-
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <%= render partial: 'typekit' %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -21,7 +20,7 @@
   <link href="//fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
 
   <%= render partial: 'application/head_embed_codes' %>
-
+  <script src="https://checkout.stripe.com/checkout.js"></script>
 
 <!--[if !IE 7]>
   <style type="text/css">
