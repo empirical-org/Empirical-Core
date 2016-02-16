@@ -3,7 +3,13 @@ EC.TeacherPricingMini = React.createClass({
   // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
   charge: function() {
-    new EC.modules.Stripe()
+    new EC.modules.Stripe();
+  },
+
+  beginTrial: function() {
+    this.startTrial = $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'}, function(result) {
+    }.bind(this));
+    window.location.assign('/');
   },
 
   render: function() {
@@ -29,7 +35,7 @@ EC.TeacherPricingMini = React.createClass({
           </ul>
         </section>
         <div className='row'>
-            <button type='button' className='btn btn-default mini-btn empty-blue'>Free Trial</button>
+            <button type='button' className='btn btn-default mini-btn empty-blue' onClick={this.startTrial}>Free Trial</button>
             <button type='button' id='purchase-btn' onClick={this.charge} className='btn btn-default mini-btn blue'>Buy Now</button>
         </div>
       </div>

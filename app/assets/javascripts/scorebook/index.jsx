@@ -68,6 +68,7 @@ EC.Scorebook = React.createClass({
       is_last_page: data.is_last_page,
       premium_state: data.teacher.premium_state,
       trial_days_remaining: data.trial_days_remaining,
+      first_day_of_premium_or_trial: data.first_day_of_premium_or_trial,
       noLoadHasEverOccurredYet: false
     });
     if (this.state.currentPage == 1) {
@@ -121,7 +122,7 @@ EC.Scorebook = React.createClass({
       endDate: val2
     }, this.fetchData);
   },
-	
+
   render: function() {
     var scores = _.map(this.state.scores, function(data) {
       return <EC.StudentScores key={data.user.id} data={data} premium_state={this.state.premium_state}/>
@@ -133,7 +134,7 @@ EC.Scorebook = React.createClass({
     }
     return (
       <span>
-        <EC.PremiumBannerBuilder state={this.state.premium_state} daysLeft={this.state.trial_days_remaining}/>
+        <EC.PremiumBannerBuilder state={this.state.premium_state} daysLeft={this.state.trial_days_remaining} new={this.state.first_day_of_premium_or_trial}/>
         <div className="container">
           <section className="section-content-wrapper">
             <EC.ScorebookFilters selectedClassroom= {this.state.selectedClassroom} classroomFilters= {this.state.classroomFilters} selectClassroom= {this.selectClassroom} selectedUnit= {this.state.selectedUnit} unitFilters= {this.state.unitFilters} selectUnit= {this.selectUnit} selectDates= {this.selectDates}/>
