@@ -1,12 +1,21 @@
 EC.FreeTrialBanner = React.createClass({
 
+  getInitialState: function() {
+  return {trial_started: false};
+  },
+
   beginTrial: function() {
     this.startTrial = $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'}, function(result) {
     }.bind(this));
+    this.setState({trial_started: true});
   },
 
   render: function() {
-    return (
+
+      if (this.state.trial_started) {
+        return (<EC.NewSignUpBanner status={'trial'}/>);
+      }
+      else {return (
       <div className='row free-trial-promo'>
         <div className='col-md-9 col-xs-12 pull-left'>
           <h4>Try Premium for Free</h4>
@@ -23,6 +32,7 @@ EC.FreeTrialBanner = React.createClass({
         </div>
       </div>
     );
+    }
   }
 
 });
