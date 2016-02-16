@@ -43,9 +43,9 @@ EC.Scorebook = React.createClass({
 
   fetchData: function() {
     var newCurrentPage = this.state.currentPage + 1;
-    this.setState({loading: true, currentPage: newCurrentPage})
+    this.setState({loading: true, currentPage: newCurrentPage});
     $.ajax({
-      url: 'scores',
+      url: '/teachers/classrooms/scores',
       data: {
         current_page: newCurrentPage,
         classroom_id: this.state.selectedClassroom.value,
@@ -67,8 +67,6 @@ EC.Scorebook = React.createClass({
       unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
       is_last_page: data.is_last_page,
       premium_state: data.teacher.premium_state,
-      trial_days_remaining: data.trial_days_remaining,
-      first_day_of_premium_or_trial: data.first_day_of_premium_or_trial,
       noLoadHasEverOccurredYet: false
     });
     if (this.state.currentPage == 1) {
@@ -134,7 +132,7 @@ EC.Scorebook = React.createClass({
     }
     return (
       <span>
-        <EC.PremiumBannerBuilder state={this.state.premium_state} daysLeft={this.state.trial_days_remaining} new={this.state.first_day_of_premium_or_trial}/>
+        <EC.PremiumBannerBuilder/>
         <div className="container">
           <section className="section-content-wrapper">
             <EC.ScorebookFilters selectedClassroom= {this.state.selectedClassroom} classroomFilters= {this.state.classroomFilters} selectClassroom= {this.selectClassroom} selectedUnit= {this.state.selectedUnit} unitFilters= {this.state.unitFilters} selectUnit= {this.selectUnit} selectDates= {this.selectDates}/>
