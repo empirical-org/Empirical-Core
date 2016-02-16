@@ -6,7 +6,7 @@ EC.VideoMini = React.createClass({
     return (
       <div className='video-container'>
         <h4>Building Better Writers</h4>
-        <iframe width='298' height='168' src={fullEmbedCode} frameborder="0"></iframe>
+        <iframe width='298' height='168' src={fullEmbedCode} frameBorder="0"></iframe>
         <p>An overview of how Quill works.</p>
       </div>
 );
