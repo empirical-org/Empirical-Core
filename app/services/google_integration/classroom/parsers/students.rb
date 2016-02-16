@@ -22,6 +22,7 @@ example result of JSON.parse(response.body) :
 
   def self.run(response)
     x = JSON.parse(response.body)
+    return [] if x['students'].nil?
     student_data = x['students'].map do |hash|
       self.parse_hash(hash)
     end
