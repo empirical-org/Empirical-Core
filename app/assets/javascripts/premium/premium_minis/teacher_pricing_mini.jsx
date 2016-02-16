@@ -2,13 +2,6 @@ EC.TeacherPricingMini = React.createClass({
 
   // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
-  // getInitialState: function() {
-  //   this.modules = {
-  //     stripe:
-  //   };
-  //   return {user: 'state'};
-  // },
-
   charge: function() {
     new EC.modules.Stripe()
   },
