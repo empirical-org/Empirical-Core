@@ -5,16 +5,19 @@ EC.PremiumBannerBuilder = React.createClass({
       return <EC.LoadingIndicator/>;
     }
     else if (this.props.state == 'none'){
-      return(<EC.FreeTrialBanner/>);
+      return(<EC.FreeTrialBanner status={this.props.state}/>);
     }
-    else if (this.props.daysLeft == 30){
-      return(<EC.NewSignUpBanner/>);
+    else if (this.props.new ){
+      return(<EC.NewSignUpBanner status={this.props.state}/>);
     }
     else if ((this.props.state == 'trial') || (this.props.state == 'locked')){
       return(<span>
         <EC.FreeTrialStatus status={this.props.state} data={this.props.daysLeft}/>
         </span>);
     }
+    else if ((this.props.state === 'school') || ((this.props.state === 'paid') && (this.props.new === false))) {
+        return (<span/>);
+      }
   },
 
   stateSpecificBackGroundColor: function() {
@@ -34,9 +37,6 @@ EC.PremiumBannerBuilder = React.createClass({
   },
 
   hasPremium: function() {
-  if ((this.props.state === 'school') || (this.props.state === 'paid')) {
-    return (<span/>);
-  } else {
     var color = this.stateSpecificBackGroundColor();
     var img = this.stateSpecificBackGroundImage();
     var divStyle = {
@@ -50,8 +50,7 @@ EC.PremiumBannerBuilder = React.createClass({
         </div>
       </div>
     );
-  }
-},
+  },
 
   render: function() {
     return (this.hasPremium());

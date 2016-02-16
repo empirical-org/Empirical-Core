@@ -119,6 +119,10 @@ module Teacher
     end
   end
 
+  def premium_updated_or_created_today?
+    subscriptions.where("created_at >= ? OR updated_at >= ?", Time.zone.now.beginning_of_day, Time.zone.now.beginning_of_day).any?
+  end
+
   def premium_state
     # the beta period is obsolete -- but may break things by removing it
     if !is_beta_period_over?

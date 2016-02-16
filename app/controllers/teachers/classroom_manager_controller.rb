@@ -97,10 +97,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
 
     scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, params[:classroom_id], params[:unit_id], params[:begin_date], params[:end_date]
-
     render json: {
       teacher: Scorebook::TeacherSerializer.new(current_user).as_json(root: false),
       trial_days_remaining: current_user.trial_days_remaining,
+      first_day_of_premium_or_trial: current_user.premium_updated_or_created_today?,
       classrooms: classrooms,
       units: units,
       scores: scores,
