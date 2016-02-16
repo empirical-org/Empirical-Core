@@ -9,7 +9,6 @@ class ChargesController < ApplicationController
     :source  => params[:source][:id]
   )
 
-
   charge = Stripe::Charge.create(
     :customer    => customer.id,
     :amount      => params['amount'].to_i,
@@ -17,16 +16,14 @@ class ChargesController < ApplicationController
     :currency    => 'usd'
   )
 
-  @redirect_route = premium_redirect
+  Subscription.create_premium(current_user) if charge
 
   respond_to  do |format|
-    format.json { render :json => {route: @redirect_route}}
+    format.json { render :json => {route: premium_redirect}}
    end
-
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
-
   end
 
 

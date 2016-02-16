@@ -22,8 +22,6 @@ EC.modules.Stripe = function () {
       description: '$80 Teacher Premium',
       amount: amount,
     });
-    // e.preventDefault();
-    // });
 
     // Close Checkout on page navigation
     $(window).on('popstate', function() {
