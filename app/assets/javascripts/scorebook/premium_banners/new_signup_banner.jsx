@@ -16,7 +16,7 @@ EC.NewSignUpBanner = React.createClass({
         </div>
         <div className='col-md-3 col-xs-12 pull-right'>
           <div className='premium-button-box text-center'>
-            <button type='button' className='button-green'>Check out Your Premium Student Results</button>
+            <a href='/teachers/progress_reports/concepts/students'><button type='button' className='button-green'>Check out Your Premium Student Results</button></a>
           </div>
         </div>
       </div>
