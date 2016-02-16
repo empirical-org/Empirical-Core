@@ -7,13 +7,13 @@ class Dashboard
     # we plan on limiting the timespan of this query
     # sessions = sessions.where(["completed_at > ?", 30.days.ago])
     if sessions.count > 30
-      strug_stud = lowest_perfoming_students(sessions)
+      strug_stud = lowest_performing_students(sessions)
       dif_con = difficult_concepts(sessions)
     else
       strug_stud = 'insufficient data'
       dif_con = 'insufficient data'
     end
-    results = [{header: 'Lowest Performing Students', results: strug_stud, placeholderImg: '/lowest_perfoming_students_no_data.png'},
+    results = [{header: 'Lowest Performing Students', results: strug_stud, placeholderImg: '/lowest_performing_students_no_data.png'},
               {header: 'Difficult Concepts', results: dif_con, placeholderImg: '/difficult_concepts_no_data.png'}]
   end
 

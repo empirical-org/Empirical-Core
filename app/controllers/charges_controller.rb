@@ -16,7 +16,7 @@ class ChargesController < ApplicationController
     :currency    => 'usd'
   )
 
-  Subscription.create_premium(current_user) if charge
+  Subscription.start_premium(current_user) if charge
 
   respond_to  do |format|
     format.json { render :json => {route: premium_redirect}}
