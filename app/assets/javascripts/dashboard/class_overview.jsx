@@ -8,7 +8,7 @@ EC.ClassOverview = React.createClass({
   },
 
   hasPremium: function() {
-    if (this.props.premium === false) {
+    if ((this.props.premium === 'none') || (this.props.premium === null)) {
       return <EC.PremiumMini/>;
     }
   },
