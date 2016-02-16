@@ -4,26 +4,48 @@ class ChargesController < ApplicationController
   end
 
   def create
-  # Amount in cents
-  @amount = 500
-
   customer = Stripe::Customer.create(
     :description => "testing",
     :source  => params[:source][:id]
   )
 
-  binding.pry
 
   charge = Stripe::Charge.create(
     :customer    => customer.id,
-    :amount      => @amount,
+    :amount      => params['amount'].to_i,
     :description => 'Premium',
     :currency    => 'usd'
   )
+
+  @redirect_route = premium_redirect
+
+  respond_to  do |format|
+    format.json { render :json => {route: @redirect_route}}
+   end
+
+
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    # redirect_to new_charge_path
+
   end
+
+
+  private
+
+  def premium_redirect
+    if current_user
+      teachers_progress_reports_concepts_students_path
+    else
+      new_session_path
+    end
+  end
+
+
+
+
+
+
+
 
 
 end

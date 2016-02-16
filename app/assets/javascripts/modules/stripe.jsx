@@ -1,14 +1,16 @@
 
 EC.modules.Stripe = function () {
+    var amount = 8000;
     var handler = StripeCheckout.configure({
     key: 'pk_test_1DcdMAZJOFtEhqyV496DUvZs',
     image: 'https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Icon.svg',
     locale: 'auto',
     token: function(token) {
-
-        // Use the token to create the charge with a server-side script.
-        // You can access the token ID with `token.id`
-          $.post('/charges', {authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card});
+          $.post('charges.json',
+          {authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, amount: amount})
+          .done(function( data ) {
+            window.location.assign(data.route);
+          });
     }
     });
 
@@ -18,7 +20,7 @@ EC.modules.Stripe = function () {
     handler.open({
       name: 'Quill Premium',
       description: '$80 Teacher Premium',
-      amount: 8000
+      amount: amount,
     });
     // e.preventDefault();
     // });
