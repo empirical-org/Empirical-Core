@@ -7,9 +7,8 @@ EC.TeacherPricingMini = React.createClass({
   },
 
   beginTrial: function() {
-    this.startTrial = $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'}, function(result) {
-    }.bind(this));
-    window.location.assign('/');
+    $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'})
+    .success(function(){window.location.assign('/teachers/classrooms/scorebook');});
   },
 
   render: function() {
@@ -35,7 +34,7 @@ EC.TeacherPricingMini = React.createClass({
           </ul>
         </section>
         <div className='row'>
-            <button type='button' className='btn btn-default mini-btn empty-blue' onClick={this.startTrial}>Free Trial</button>
+            <button type='button' className='btn btn-default mini-btn empty-blue' onClick={this.beginTrial}>Free Trial</button>
             <button type='button' id='purchase-btn' onClick={this.charge} className='btn btn-default mini-btn blue'>Buy Now</button>
         </div>
       </div>

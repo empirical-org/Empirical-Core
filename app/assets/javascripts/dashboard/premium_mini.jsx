@@ -1,9 +1,15 @@
 EC.PremiumMini = React.createClass({
+
+    beginTrial: function() {
+      $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'})
+      .success(function(){window.location.assign('/teachers/classrooms/scorebook');});
+    },
+
   miniBuilder: function() {
     return (
       <div className='premium-container '>
         <h4>Try Premium for Free</h4>
-        <button type='button' className='btn btn-orange'>Get Premium Free for 30 days</button>
+        <button type='button' className='btn btn-orange' onClick={this.beginTrial}>Get Premium Free for 30 days</button>
         <p className='credit-card'>No credit card required.</p>
         <p>Unlock your Premium trial to save time grading and gain actionable insights.</p>
         <a href='/premium_access'>Learn more about Premium ></a>

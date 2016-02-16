@@ -18,7 +18,7 @@ EC.DistrictPricingMini = React.createClass({
         <li>Professional development sessions</li>
         <li>Batch rostering students</li>
         <li>Administrator dashboard for school-<br/>
-          wide and district wide information
+          wide and district-wide information
         </li>
       </ul>
     </section>
