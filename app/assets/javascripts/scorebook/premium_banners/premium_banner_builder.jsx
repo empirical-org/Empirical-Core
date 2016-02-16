@@ -1,21 +1,39 @@
 EC.PremiumBannerBuilder = React.createClass({
 
+
+  getInitialState: function() {
+    return {has_premium: null,
+            trial_days_remaining: null,
+            first_day_of_premium_or_trial: null
+    };
+  },
+
+  fetchData: function() {
+    var that = this;
+    $.get('/teachers/classrooms/premium')
+    .success(function(data) {
+      that.setState({
+        has_premium: data['hasPremium'],
+        trial_days_remaining: data['trial_days_remaining'],
+        first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
+  },
+
   stateSpecificComponents: function() {
-    if (this.props.state === null){
+    if (this.state.has_premium === null){
       return <EC.LoadingIndicator/>;
     }
-    else if (this.props.state == 'none'){
-      return(<EC.FreeTrialBanner status={this.props.state}/>);
+    else if (this.state.has_premium == 'none'){
+      return(<EC.FreeTrialBanner status={this.state.has_premium}/>);
     }
-    else if (this.props.new ){
-      return(<EC.NewSignUpBanner status={this.props.state}/>);
+    else if (this.state.first_day_of_premium_or_trial ){
+      return(<EC.NewSignUpBanner status={this.state.has_premium}/>);
     }
-    else if ((this.props.state == 'trial') || (this.props.state == 'locked')){
+    else if ((this.state.has_premium == 'trial') || (this.state.has_premium == 'locked')){
       return(<span>
-        <EC.FreeTrialStatus status={this.props.state} data={this.props.daysLeft}/>
+        <EC.FreeTrialStatus status={this.state.has_premium} data={this.state.trial_days_remaining}/>
         </span>);
     }
-    else if ((this.props.state === 'school') || ((this.props.state === 'paid') && (this.props.new === false))) {
+    else if ((this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
         return (<span/>);
       }
   },
@@ -51,6 +69,11 @@ EC.PremiumBannerBuilder = React.createClass({
       </div>
     );
   },
+
+  componentDidMount: function() {
+    this.fetchData();
+  },
+
 
   render: function() {
     return (this.hasPremium());

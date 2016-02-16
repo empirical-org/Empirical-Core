@@ -6,7 +6,7 @@ EC.FreeTrialBanner = React.createClass({
 
   beginTrial: function() {
     $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'})
-    .success(function(){window.location.assign('/teachers/classrooms/scorebook');});
+    .success(this.setState({trial_started: true}));
   },
 
   render: function() {

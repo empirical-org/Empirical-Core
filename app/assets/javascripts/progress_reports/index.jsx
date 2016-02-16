@@ -1,4 +1,10 @@
 $(function() {
+  var ele = $('.container.progress-report');
+  if (ele.length > 0) {
+    React.render(React.createElement(EC.Scorebook), $(ele[0]).prev()[0]);
+  }
+
+
   var progressReportMapping = {
     '.progress-reports-activities': EC.ActivitiesProgressReport,
     '.progress-reports-standards-classrooms': EC.StandardsAllClassroomsProgressReport,
