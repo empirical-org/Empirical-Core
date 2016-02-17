@@ -286,7 +286,7 @@ private
   # Clever integration
   def clever_user
     klass = "Clever::#{self.role.capitalize}".constantize
-    @clever_user ||= klass.retrieve(self.clever_id, self.token)
+    @clever_user ||= klass.retrieve(self.clever_id, self.districts.first.token)
   end
 
   # validation filters
