@@ -133,7 +133,11 @@ class User < ActiveRecord::Base
     user.districts << d unless user.districts.include?(d)
 
     if user.teacher?
-      user.create_classrooms!
+      d = District.find_by(clever_id: auth_hash[:info][:district])
+      if d.present?
+        user.districts << d unless user.districts.include?(d)
+        user.create_classrooms!
+      end
     elsif user.student?
       user.connect_to_classrooms!
     end
