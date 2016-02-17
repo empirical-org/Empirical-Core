@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.clever.com/v1.1/students/123
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer 123
+      User-Agent:
+      - Clever/RubyBindings/0.13.1
+      X-Clever-Client-User-Agent:
+      - '{"bindings_version":"0.13.1","lang":"ruby","lang_version":"2.3.0 p0","platform":"x86_64-darwin15","publisher":"clever","uname":"Darwin
+        Marcellos-Air.home 15.2.0 Darwin Kernel Version 15.2.0: Fri Nov 13 19:56:56
+        PST 2015; root:xnu-3248.20.55~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type,Authorization,X-Requested-With,Accept,Origin,Referer,User-Agent
+      Access-Control-Allow-Methods:
+      - GET,PATCH,POST,DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 02 Feb 2016 18:41:38 GMT
+      Www-Authenticate:
+      - Bearer
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Bucket:
+      - bearer
+      X-Ratelimit-Limit:
+      - '1200'
+      X-Ratelimit-Remaining:
+      - '1199'
+      X-Ratelimit-Reset:
+      - '1454438558'
+      Content-Length:
+      - '58'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"code":101,"error":"Unrecognized token string","data":{}}'
+    http_version: 
+  recorded_at: Tue, 02 Feb 2016 18:41:38 GMT
+recorded_with: VCR 3.0.1

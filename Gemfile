@@ -50,7 +50,7 @@ gem 'time_difference'
 
 # OTHERS
 gem 'global'
-gem 'google-api-client'
+gem 'google-api-client', '0.8.6'
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
 gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
@@ -110,7 +110,7 @@ gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby', '~> 0.1'
+gem 'clever-ruby'
 
 group :production, :staging do
   gem 'rails_12factor'
@@ -146,7 +146,7 @@ group :test, :development do
   gem "factory_girl_rails"
   gem "forgery"
   gem "database_cleaner"
-  gem 'byebug'
+  gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-shell'

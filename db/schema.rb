@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201185836) do
+ActiveRecord::Schema.define(version: 20160208185912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,15 +19,15 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   enable_extension "pg_stat_statements"
 
   create_table "activities", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",                       limit: 255
     t.text     "description"
-    t.string   "uid",                                     null: false
+    t.string   "uid",                        limit: 255,              null: false
     t.hstore   "data"
     t.integer  "activity_classification_id"
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "flags",                      default: [], null: false, array: true
+    t.string   "flags",                      limit: 255, default: [], null: false, array: true
   end
 
   add_index "activities", ["activity_classification_id"], name: "index_activities_on_activity_classification_id", using: :btree
@@ -43,14 +43,14 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "activities_unit_templates", ["unit_template_id", "activity_id"], name: "uta", using: :btree
 
   create_table "activity_classifications", force: :cascade do |t|
-    t.string   "name"
-    t.string   "key",        null: false
-    t.string   "form_url"
-    t.string   "uid",        null: false
-    t.string   "module_url"
+    t.string   "name",       limit: 255
+    t.string   "key",        limit: 255, null: false
+    t.string   "form_url",   limit: 255
+    t.string   "uid",        limit: 255, null: false
+    t.string   "module_url", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "app_name"
+    t.string   "app_name",   limit: 255
   end
 
   add_index "activity_classifications", ["key"], name: "index_activity_classifications_on_key", unique: true, using: :btree
@@ -60,19 +60,19 @@ ActiveRecord::Schema.define(version: 20160201185836) do
     t.integer  "classroom_activity_id"
     t.integer  "activity_id"
     t.integer  "user_id"
-    t.string   "pairing_id"
+    t.string   "pairing_id",            limit: 255
     t.float    "percentage"
-    t.string   "state",                 default: "unstarted", null: false
+    t.string   "state",                 limit: 255, default: "unstarted", null: false
     t.datetime "completed_at"
-    t.string   "uid"
-    t.boolean  "temporary",             default: false
+    t.string   "uid",                   limit: 255
+    t.boolean  "temporary",                         default: false
     t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "started_at"
-    t.boolean  "is_retry",              default: false
-    t.boolean  "is_final_score",        default: false
-    t.boolean  "visible",               default: true,        null: false
+    t.boolean  "is_retry",                          default: false
+    t.boolean  "is_final_score",                    default: false
+    t.boolean  "visible",                           default: true,        null: false
   end
 
   add_index "activity_sessions", ["activity_id"], name: "index_activity_sessions_on_activity_id", using: :btree
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   create_table "admin_accounts", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",       limit: 255
   end
 
   create_table "admin_accounts_admins", force: :cascade do |t|
@@ -111,9 +111,9 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "admin_accounts_teachers", ["teacher_id"], name: "index_admin_accounts_teachers_on_teacher_id", using: :btree
 
   create_table "authors", force: :cascade do |t|
-    t.string   "name"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
+    t.string   "name",                limit: 255
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.text     "description"
@@ -132,8 +132,7 @@ ActiveRecord::Schema.define(version: 20160201185836) do
     t.datetime "due_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "assigned_student_ids",                             array: true
-    t.boolean  "visible",              default: true, null: false
+    t.integer  "assigned_student_ids", array: true
   end
 
   add_index "classroom_activities", ["activity_id"], name: "index_classroom_activities_on_activity_id", using: :btree
@@ -141,27 +140,28 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "classroom_activities", ["unit_id"], name: "index_classroom_activities_on_unit_id", using: :btree
 
   create_table "classrooms", force: :cascade do |t|
-    t.string   "name"
-    t.string   "code"
+    t.string   "name",                limit: 255
+    t.string   "code",                limit: 255
     t.integer  "teacher_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "clever_id"
-    t.string   "grade"
-    t.boolean  "visible",    default: true, null: false
+    t.string   "clever_id",           limit: 255
+    t.string   "grade",               limit: 255
+    t.boolean  "visible",                         default: true, null: false
+    t.integer  "google_classroom_id"
   end
 
   add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree
   add_index "classrooms", ["grade"], name: "index_classrooms_on_grade", using: :btree
 
   create_table "comments", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",              limit: 255
     t.text     "body"
     t.integer  "user_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "ancestry"
-    t.string   "reply_type"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "ancestry",           limit: 255
+    t.string   "reply_type",         limit: 255
     t.integer  "lecture_chapter_id"
   end
 
@@ -176,27 +176,27 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "concept_results", ["activity_session_id"], name: "index_concept_results_on_activity_session_id", using: :btree
 
   create_table "concepts", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "parent_id"
-    t.string   "uid",        null: false
+    t.string   "uid",        limit: 255, null: false
   end
 
   create_table "csv_exports", force: :cascade do |t|
-    t.string   "export_type"
+    t.string   "export_type", limit: 255
     t.datetime "emailed_at"
     t.json     "filters"
     t.integer  "teacher_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "csv_file"
+    t.string   "csv_file",    limit: 255
   end
 
   create_table "districts", force: :cascade do |t|
-    t.string   "clever_id"
-    t.string   "name"
-    t.string   "token"
+    t.string   "clever_id",  limit: 255
+    t.string   "name",       limit: 255
+    t.string   "token",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -211,16 +211,16 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "districts_users", ["user_id"], name: "index_districts_users_on_user_id", using: :btree
 
   create_table "file_uploads", force: :cascade do |t|
-    t.string   "name"
-    t.string   "file"
+    t.string   "name",        limit: 255
+    t.string   "file",        limit: 255
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "firebase_apps", force: :cascade do |t|
-    t.string   "name"
-    t.string   "secret"
+    t.string   "name",       limit: 255
+    t.string   "secret",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -239,14 +239,14 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "ip_locations", ["zip"], name: "index_ip_locations_on_zip", using: :btree
 
   create_table "oauth_access_grants", force: :cascade do |t|
-    t.integer  "resource_owner_id", null: false
-    t.integer  "application_id",    null: false
-    t.string   "token",             null: false
-    t.integer  "expires_in",        null: false
-    t.text     "redirect_uri",      null: false
-    t.datetime "created_at",        null: false
+    t.integer  "resource_owner_id",             null: false
+    t.integer  "application_id",                null: false
+    t.string   "token",             limit: 255, null: false
+    t.integer  "expires_in",                    null: false
+    t.text     "redirect_uri",                  null: false
+    t.datetime "created_at",                    null: false
     t.datetime "revoked_at"
-    t.string   "scopes"
+    t.string   "scopes",            limit: 255
   end
 
   add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
@@ -254,12 +254,12 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   create_table "oauth_access_tokens", force: :cascade do |t|
     t.integer  "resource_owner_id"
     t.integer  "application_id"
-    t.string   "token",             null: false
-    t.string   "refresh_token"
+    t.string   "token",             limit: 255, null: false
+    t.string   "refresh_token",     limit: 255
     t.integer  "expires_in"
     t.datetime "revoked_at"
-    t.datetime "created_at",        null: false
-    t.string   "scopes"
+    t.datetime "created_at",                    null: false
+    t.string   "scopes",            limit: 255
   end
 
   add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
@@ -267,10 +267,10 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
   create_table "oauth_applications", force: :cascade do |t|
-    t.string   "name",         null: false
-    t.string   "uid",          null: false
-    t.string   "secret",       null: false
-    t.text     "redirect_uri", null: false
+    t.string   "name",         limit: 255, null: false
+    t.string   "uid",          limit: 255, null: false
+    t.string   "secret",       limit: 255, null: false
+    t.text     "redirect_uri",             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -278,11 +278,11 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "page_areas", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
     t.text     "content"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "rules_misseds", force: :cascade do |t|
@@ -296,26 +296,26 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   end
 
   create_table "schools", force: :cascade do |t|
-    t.string   "nces_id"
-    t.string   "lea_id"
-    t.string   "leanm"
-    t.string   "name"
-    t.string   "phone"
-    t.string   "mail_street"
-    t.string   "mail_city"
-    t.string   "mail_state"
-    t.string   "mail_zipcode"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
-    t.string   "nces_type_code"
-    t.string   "nces_status_code"
-    t.string   "magnet"
-    t.string   "charter"
-    t.string   "ethnic_group"
-    t.decimal  "longitude",             precision: 9, scale: 6
-    t.decimal  "latitude",              precision: 9, scale: 6
+    t.string   "nces_id",               limit: 255
+    t.string   "lea_id",                limit: 255
+    t.string   "leanm",                 limit: 255
+    t.string   "name",                  limit: 255
+    t.string   "phone",                 limit: 255
+    t.string   "mail_street",           limit: 255
+    t.string   "mail_city",             limit: 255
+    t.string   "mail_state",            limit: 255
+    t.string   "mail_zipcode",          limit: 255
+    t.string   "street",                limit: 255
+    t.string   "city",                  limit: 255
+    t.string   "state",                 limit: 255
+    t.string   "zipcode",               limit: 255
+    t.string   "nces_type_code",        limit: 255
+    t.string   "nces_status_code",      limit: 255
+    t.string   "magnet",                limit: 255
+    t.string   "charter",               limit: 255
+    t.string   "ethnic_group",          limit: 255
+    t.decimal  "longitude",                         precision: 9, scale: 6
+    t.decimal  "latitude",                          precision: 9, scale: 6
     t.integer  "ulocal"
     t.integer  "fte_classroom_teacher"
     t.integer  "lower_grade"
@@ -325,7 +325,7 @@ ActiveRecord::Schema.define(version: 20160201185836) do
     t.integer  "total_students"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "clever_id"
+    t.string   "clever_id",             limit: 255
   end
 
   add_index "schools", ["name"], name: "index_schools_on_name", using: :btree
@@ -343,11 +343,11 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "schools_users", ["user_id"], name: "index_schools_users_on_user_id", using: :btree
 
   create_table "sections", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "uid"
+    t.string   "uid",        limit: 255
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -359,33 +359,33 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   end
 
   create_table "topic_categories", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "uid"
+    t.string   "uid",        limit: 255
   end
 
   add_index "topic_categories", ["name"], name: "index_topic_categories_on_name", using: :btree
 
   create_table "topics", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",              limit: 255
     t.integer  "section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "topic_category_id"
-    t.string   "uid"
+    t.string   "uid",               limit: 255
   end
 
   add_index "topics", ["topic_category_id"], name: "index_topics_on_topic_category_id", using: :btree
 
   create_table "unit_template_categories", force: :cascade do |t|
-    t.string "name"
-    t.string "primary_color"
-    t.string "secondary_color"
+    t.string "name",            limit: 255
+    t.string "primary_color",   limit: 255
+    t.string "secondary_color", limit: 255
   end
 
   create_table "unit_templates", force: :cascade do |t|
-    t.string  "name"
+    t.string  "name",                      limit: 255
     t.integer "unit_template_category_id"
     t.integer "time"
     t.text    "grades"
@@ -399,28 +399,28 @@ ActiveRecord::Schema.define(version: 20160201185836) do
   add_index "unit_templates", ["unit_template_category_id"], name: "index_unit_templates_on_unit_template_category_id", using: :btree
 
   create_table "units", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",         limit: 255
     t.integer  "classroom_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "visible",      default: true, null: false
+    t.boolean  "visible",                  default: true, null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.string   "role",                  default: "user"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.string   "classcode"
-    t.boolean  "active",                default: false
-    t.string   "username"
-    t.string   "token"
+    t.string   "name",                  limit: 255
+    t.string   "email",                 limit: 255
+    t.string   "password_digest",       limit: 255
+    t.string   "role",                  limit: 255, default: "user"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "classcode",             limit: 255
+    t.boolean  "active",                            default: false
+    t.string   "username",              limit: 255
+    t.string   "token",                 limit: 255
     t.inet     "ip_address"
-    t.string   "clever_id"
-    t.boolean  "signed_up_with_google", default: false
-    t.boolean  "send_newsletter",       default: false
+    t.string   "clever_id",             limit: 255
+    t.boolean  "signed_up_with_google",             default: false
+    t.boolean  "send_newsletter",                   default: false
   end
 
   add_index "users", ["active"], name: "index_users_on_active", using: :btree
