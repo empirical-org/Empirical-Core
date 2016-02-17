@@ -128,16 +128,13 @@ class User < ActiveRecord::Base
     d = District.find_by(clever_id: auth_hash[:info][:district])
 
 
-    return if d.nil? #FIXME: replace with ERROR("DISTRICT NOT FOUND")
+    return user if d.nil? #FIXME: replace with ERROR("DISTRICT NOT FOUND")
 
     user.districts << d unless user.districts.include?(d)
 
     if user.teacher?
-      d = District.find_by(clever_id: auth_hash[:info][:district])
-      if d.present?
-        user.districts << d unless user.districts.include?(d)
-        user.create_classrooms!
-      end
+      user.districts << d unless user.districts.include?(d)
+      user.create_classrooms!
     elsif user.student?
       user.connect_to_classrooms!
     end
