@@ -88,7 +88,7 @@ class Classroom < ActiveRecord::Base
 
   # Clever integration
   def clever_classroom
-    Clever::Section.retrieve(self.clever_id, teacher.token)
+    Clever::Section.retrieve(self.clever_id, teacher.districts.first.token)
   end
 
 
