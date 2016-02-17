@@ -32,12 +32,6 @@ feature 'Create-a-Class page' do
         expect(current_path).to eq lesson_planner_teachers_classrooms_path
       end
 
-      it "does not add classrooms without a grade and raises an error" do
-        page.fill_in 'classroom_name', :with => "gutter-punk"
-        expect { page.click_button 'Create Class' }.to change { Classroom.count }.by(0)
-        expect { page.to have_content("Grade can't be blank")}
-      end
-
       it "does not add classrooms without a name and raises an error" do
         within '#classroom_grade' do
           find("option[value='1']").click
