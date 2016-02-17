@@ -9,13 +9,6 @@ class District < ActiveRecord::Base
     district
   end
 
-  def self.create_from_clever(id, token)
-    district = ::District.where(clever_id: id).first_or_initialize
-    district.update_attributes(name: district.clever_district(token).name)
-    district.import_from_clever!(token) if district.new_record?
-    district
-  end
-
   def import_from_clever!(token)
     clever_district(token).schools.each do |school|
       next unless school.nces_id
