@@ -141,14 +141,15 @@ ActiveRecord::Schema.define(version: 20160208230538) do
   add_index "classroom_activities", ["unit_id"], name: "index_classroom_activities_on_unit_id", using: :btree
 
   create_table "classrooms", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "code",       limit: 255
+    t.string   "name",                limit: 255
+    t.string   "code",                limit: 255
     t.integer  "teacher_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "clever_id",  limit: 255
-    t.string   "grade",      limit: 255
-    t.boolean  "visible",                default: true, null: false
+    t.string   "clever_id",           limit: 255
+    t.string   "grade",               limit: 255
+    t.boolean  "visible",                         default: true, null: false
+    t.integer  "google_classroom_id"
   end
 
   add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree

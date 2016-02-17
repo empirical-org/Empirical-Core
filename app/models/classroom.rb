@@ -3,7 +3,7 @@ class Classroom < ActiveRecord::Base
 
   validates_uniqueness_of :code
   validates_uniqueness_of :name, scope: :teacher_id
-  validates :grade, presence: true
+  # NO LONGER POSSIBLE WITH GOOGLE CLASSROOM : validates :grade, presence: true
   validates_presence_of :name
   default_scope { where(visible: true)}
 
@@ -88,7 +88,7 @@ class Classroom < ActiveRecord::Base
 
   # Clever integration
   def clever_classroom
-    Clever::Section.retrieve(self.clever_id, teacher.token)
+    Clever::Section.retrieve(self.clever_id, teacher.districts.first.token)
   end
 
 
