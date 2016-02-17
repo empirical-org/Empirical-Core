@@ -125,9 +125,14 @@ class User < ActiveRecord::Base
   def self.setup_from_clever(auth_hash)
     user = User.create_from_clever(auth_hash)
 
+    d = District.find_by(clever_id: auth_hash[:info][:district])
+
+
+    return if d.nil? #FIXME: replace with ERROR("DISTRICT NOT FOUND")
+
+    user.districts << d unless user.districts.include?(d)
+
     if user.teacher?
-      d = District.create_from_clever(auth_hash[:info][:district], auth_hash[:credentials][:token])
-      user.districts << d unless user.districts.include?(d)
       user.create_classrooms!
     elsif user.student?
       user.connect_to_classrooms!
