@@ -14,7 +14,7 @@ class SubscriptionsController < ApplicationController
     params[:user_id] = current_user.id
     if params[:account_type] == 'trial' && current_user.eligible_for_trial?
       params[:expiration] = Date.today + 30
-      PremiumAnaltyicsWorker.perform_async(current_user.id, params[:account_type])
+      PremiumAnalyticsWorker.perform_async(current_user.id, params[:account_type])
     end
     @subscription = Subscription.create subscription_params
     render json: @subscription

@@ -1,4 +1,4 @@
-class PremiumAnaltyicsWorker
+class PremiumAnalyticsWorker
   include Sidekiq::Worker
 
   def perform(id, account_type)
