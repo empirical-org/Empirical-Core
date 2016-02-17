@@ -3,7 +3,8 @@
 
 EC.ConceptsStudentsProgressReport = React.createClass({
   propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired
+    sourceUrl: React.PropTypes.string.isRequired,
+    premiumStatus: React.PropTypes.string.isRequired
   },
 
   getInitialState: function() {
@@ -80,7 +81,9 @@ EC.ConceptsStudentsProgressReport = React.createClass({
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'students'}
                          onFetchSuccess={this.onFetchSuccess}
-                         filterTypes={[]}>
+                         filterTypes={[]}
+                         premiumStatus={this.props.premiumStatus}
+                         >
         <h2>Results by Student</h2>
         <br></br>
         <p>This page shows how students are performing on individual questions. One question equals one results, and you can click on an individual concept to drill down.</p>

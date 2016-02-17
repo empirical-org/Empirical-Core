@@ -11,6 +11,15 @@
   }
 }
 
+.progress-reports-concepts-students {
+  div.premium-status-none {
+    td:first-child {
+      color: transparent;
+      text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+    }
+  }
+}
+
 .premium-bar {
   background: $darkorange;
   color: white;

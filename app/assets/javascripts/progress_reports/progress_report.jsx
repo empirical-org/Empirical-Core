@@ -11,7 +11,8 @@ EC.ProgressReport = React.createClass({
     sortDefinitions: React.PropTypes.func.isRequired,
     jsonResultsKey: React.PropTypes.string.isRequired,
     onFetchSuccess: React.PropTypes.func, // Optional
-    exportCsv: React.PropTypes.string
+    exportCsv: React.PropTypes.string,
+    premiumStatus: React.PropTypes.string.isRequired
   },
 
   getDefaultProps: function() {
@@ -162,7 +163,7 @@ EC.ProgressReport = React.createClass({
     }
 
     return (
-      <div>
+      <div className={'premium-status-'+this.props.premiumStatus}>
         <div className="row">
           <div className="col-md-8 header-section">
             {this.props.children}
