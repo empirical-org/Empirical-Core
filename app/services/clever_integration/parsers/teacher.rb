@@ -6,7 +6,7 @@ module CleverIntegration::Parsers::Teacher
     {
       clever_id: info[:id],
       email: info[:email],
-      name: name
+      name: name,
       token: hash[:credentials][:token],
       district_id: info[:district]
     }
