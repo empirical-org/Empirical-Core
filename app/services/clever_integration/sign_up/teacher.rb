@@ -9,10 +9,9 @@ module CleverIntegration::SignUp::Teacher
 
     teacher = self.create_teacher(parsed_data)
     self.associate_teacher_to_district(teacher, district)
-    clever_teacher = self.request_teacher_data_from_clever(parsed_data[:clever_id], district.token)
-    sections = self.get_sections(clever_teacher)
-    classrooms = self.create_classrooms(sections)
 
+    classrooms = self.import_classrooms(teacher, district.token)
+    students = self.import_students(classrooms, district.token)
   end
 
   private
@@ -26,22 +25,14 @@ module CleverIntegration::SignUp::Teacher
   end
 
   def self.associate_teacher_to_district(teacher, district)
-    CleverIntegration::Associator::TeacherDistrict.run(teacher, district)
+    CleverIntegration::Associator::TeacherToDistrict.run(teacher, district)
   end
 
-  def self.request_teacher_data_from_clever(teacher_clever_id, district_token)
-    CleverIntegration::Requester::Teacher.run(teacher_clever_id, district_token)
+  def self.import_classrooms(teacher, district_token)
+    CleverIntegration::Importers::Classrooms(teacher_id, teacher_clever_id, district_token)
   end
 
-  def self.get_sections(clever_teacher)
-    CleverIntegration::Requester::Sections.from_clever_teacher(clever_teacher)
-  end
-
-  def self.create_classrooms(sections)
-    classrooms = sections.map do |section|
-      parsed_data = CleverIntegration::Parser::Section.run(section)
-      classroom = CleverIntegration::Creator::Classroom.run(parsed_data)
-    end
-    classrooms
+  def self.import_students(classrooms, district_token)
+    CleverIntegration::Importers::Students(classrooms, district_token)
   end
 end
