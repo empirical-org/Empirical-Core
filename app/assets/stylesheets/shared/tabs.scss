@@ -6,12 +6,17 @@
   font-size: 16px;
 }
 
+#teacher-nav-tabs li a {
+  height: 54px;
+}
+
 .nav-tabs {
   border-bottom: none;
 }
 
 #first-tab {
   border-left: 1px solid #cecece;
+  padding-bottom: 15px;
 }
 
 .tab-subnavigation-wrapper {
@@ -42,6 +47,7 @@
 }
 
 .student-reports-subnav.tab-subnavigation-wrapper {
+  margin-top: -1px;
   $orange: #eda41b;
   a:not(.default) {
     border: 1px solid $orange;
