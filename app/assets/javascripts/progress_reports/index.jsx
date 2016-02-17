@@ -1,7 +1,7 @@
 $(function() {
   var ele = $('.container.progress-report');
   if (ele.length > 0) {
-    React.render(React.createElement(EC.Scorebook), $(ele[0]).prev()[0]);
+    React.render(React.createElement(EC.PremiumBannerBuilder), $(ele[0]).prev()[0]);
   }
 
 
