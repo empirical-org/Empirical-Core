@@ -157,8 +157,11 @@ EmpiricalGrammar::Application.routes.draw do
     post :role, to: 'accounts#role'
   end
 
-  get "/auth/google_oauth2/callback" => 'sessions#google'
-  get '/auth/clever/callback', to: 'sessions#clever'
+  namespace :auth do
+    get "/google_oauth2/callback" => 'google#google'
+    get '/clever/callback', to: 'clever#clever'
+  end
+
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/auth/failure', to: 'sessions#failure'
 
