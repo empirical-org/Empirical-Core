@@ -525,7 +525,12 @@ describe User, type: :model do
 
   describe 'clever', :vcr do
     describe 'student' do
-      let(:user) { FactoryGirl.build(:user, role: 'student', token: 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88', clever_id: '53ea7d7ae87f28ae1e5c5132') }
+      let!(:token) { 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88' }
+      let!(:clever_id) { '53ea7d7ae87f28ae1e5c5132' }
+      let(:user) { FactoryGirl.build(:user,
+                                      role: 'student',
+                                      token: token,
+                                      clever_id: clever_id) }
 
       it 'finds its clever user for a' do
         u = user.send(:clever_user)
@@ -535,7 +540,13 @@ describe User, type: :model do
     end
 
     describe 'teacher' do
-      let(:user) { FactoryGirl.build(:user, role: 'teacher', token: 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88', clever_id: '53ea7d70804342a11e497bb7') }
+      let!(:token) { 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88' }
+      let!(:clever_id) { '53ea7d70804342a11e497bb7' }
+
+      let(:user) { FactoryGirl.build(:user,
+                                      role: 'teacher',
+                                      token: token,
+                                      clever_id: clever_id) }
 
       it 'finds its clever user for a' do
         u = user.send(:clever_user)
