@@ -130,8 +130,9 @@ class User < ActiveRecord::Base
 
     return user if d.nil? #FIXME: replace with ERROR("DISTRICT NOT FOUND")
 
+    user.districts << d unless user.districts.include?(d)
+
     if user.teacher?
-      user.districts << d unless user.districts.include?(d)
       user.create_classrooms!
     elsif user.student?
       user.connect_to_classrooms!
