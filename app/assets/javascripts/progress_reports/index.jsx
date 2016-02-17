@@ -15,20 +15,16 @@ $(function() {
     '.progress-reports-concepts-concepts': EC.ConceptsConceptsProgressReport
   };
 
-  $.get('/teachers/classrooms/premium.json').done(function(data) {
-    genReports(data.hasPremium);
-  });
-
-  var genReports = function(status) {
-    _.each(progressReportMapping, function(component, rootNodeSelector) {
-      var $el = $(rootNodeSelector);
-      var props = {
-        sourceUrl: $el.data('url'),
-        premiumStatus: status
-      };
-      if ($el.length) {
+  _.each(progressReportMapping, function(component, rootNodeSelector) {
+    var $el = $(rootNodeSelector);
+    if ($el.length) {
+      $.get('/teachers/classrooms/premium.json').done(function(data) {
+        var props = {
+          sourceUrl: $el.data('url'),
+          premiumStatus: data.hasPremium
+        };
         React.render(React.createElement(component, props), $el[0]);
-      }
-    });
-  };
+      });
+    }
+  });
 });
