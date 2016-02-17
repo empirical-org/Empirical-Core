@@ -11,7 +11,7 @@ class Subscription < ActiveRecord::Base
     else
       self.create(user_id: current_user.id, expiration: (Date.today + 365), account_limit: 1000, account_type: 'paid')
     end
-    PremiumAnaltyicsWorker.perform_async(current_user.id, 'paid')
+    PremiumAnalyticsWorker.perform_async(current_user.id, 'paid')
   end
 
 end
