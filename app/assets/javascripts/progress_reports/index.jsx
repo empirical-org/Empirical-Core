@@ -1,7 +1,7 @@
 $(function() {
-  var ele = $('.container.progress-report');
+  var ele = $('.student-reports-subnav.tab-subnavigation-wrapper');
   if (ele.length > 0) {
-    React.render(React.createElement(EC.PremiumBannerBuilder), $(ele[0]).prev()[0]);
+    React.render(React.createElement(EC.PremiumBannerBuilder), $(ele[0]).next()[0]);
   }
 
 

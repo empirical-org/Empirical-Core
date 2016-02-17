@@ -132,7 +132,6 @@ EC.Scorebook = React.createClass({
     }
     return (
       <span>
-        <EC.PremiumBannerBuilder/>
         <div className="container">
           <section className="section-content-wrapper">
             <EC.ScorebookFilters selectedClassroom= {this.state.selectedClassroom} classroomFilters= {this.state.classroomFilters} selectClassroom= {this.selectClassroom} selectedUnit= {this.state.selectedUnit} unitFilters= {this.state.unitFilters} selectUnit= {this.selectUnit} selectDates= {this.selectDates}/>
