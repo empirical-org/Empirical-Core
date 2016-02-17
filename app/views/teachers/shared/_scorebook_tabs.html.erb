@@ -4,7 +4,7 @@
 <div class="<%="tab-outer-wrap #{extra_class}"%>" >
   <div class="container">
 
-    <ul class="nav nav-tabs tabs-navigation-list" role="tablist">
+    <ul class="nav nav-tabs tabs-navigation-list" role="tablist" id="teacher-nav-tabs">
 
       <li class="<%=((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab', id: 'first-tab'  %>
