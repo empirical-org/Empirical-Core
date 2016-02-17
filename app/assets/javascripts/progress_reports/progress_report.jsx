@@ -53,7 +53,7 @@ EC.ProgressReport = React.createClass({
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     this.fetchData();
-    if (this.props.premiumStatus === 'none') {
+    if (this.props.premiumStatus === 'none' && (!$('.progress-reports-standards-classrooms').length)) {
       setTimeout(function() {
         $(".premium-status-none a").click(function(e) {
           e.preventDefault();
