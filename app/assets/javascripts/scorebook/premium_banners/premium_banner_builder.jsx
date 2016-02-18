@@ -19,10 +19,11 @@ EC.PremiumBannerBuilder = React.createClass({
   },
 
   stateSpecificComponents: function() {
-    if (this.state.has_premium === null){
-      return <EC.LoadingIndicator/>;
-    }
-    else if (this.state.has_premium == 'none'){
+    // //////  if loading this banner becomes slow, uncomment this.
+    // if (this.state.has_premium === null){
+    //   return <EC.LoadingIndicator/>;
+    // }
+    if (this.state.has_premium == 'none'){
       return(<EC.FreeTrialBanner status={this.state.has_premium}/>);
     }
     else if (this.state.first_day_of_premium_or_trial ){
@@ -61,7 +62,7 @@ EC.PremiumBannerBuilder = React.createClass({
       backgroundColor: color,
       backgroundImage: img
     };
-    if ((this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
+    if ((this.state.has_premium === null) || (this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
         return (<span/>);
       } else
       {
