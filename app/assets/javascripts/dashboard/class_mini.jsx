@@ -45,7 +45,7 @@ EC.ClassMini = React.createClass({
       );
     } else {
       return (
-        <a href="http://localhost:3000/teachers/classrooms/scorebook">
+        <a href="/teachers/classrooms/scorebook">
           <button className='button-white class-mini-btn'>View Results</button>
         </a>
       );
