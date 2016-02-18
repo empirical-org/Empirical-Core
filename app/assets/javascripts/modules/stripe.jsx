@@ -2,7 +2,7 @@
 EC.modules.Stripe = function () {
     var amount = 8000;
     var handler = StripeCheckout.configure({
-    key: 'pk_test_1DcdMAZJOFtEhqyV496DUvZs',
+    key: stripePubKey,
     image: 'https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Icon.svg',
     locale: 'auto',
     token: function(token) {
