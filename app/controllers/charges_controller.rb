@@ -12,8 +12,9 @@ class ChargesController < ApplicationController
   charge = Stripe::Charge.create(
     :customer    => customer.id,
     :amount      => params['amount'].to_i,
-    :description => 'Premium',
-    :currency    => 'usd'
+    :description => 'Teacher Premium',
+    :currency    => 'usd',
+    :receipt_email =>  params['source']['email']
   )
 
   Subscription.start_premium(current_user) if charge

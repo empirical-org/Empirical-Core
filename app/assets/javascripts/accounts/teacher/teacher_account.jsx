@@ -181,7 +181,7 @@ EC.TeacherAccount = React.createClass({
     $.ajax({
       type: 'POST',
       url: '/subscriptions',
-      data: {user_id: this.state.id, expiration: this.state.subscription.expiration, account_limit: this.state.subscription.account_limit},
+      data: {user_id: this.state.id, expiration: this.state.subscription.expiration, account_limit: this.state.subscription.account_limit, account_type: this.state.subscriptionType},
       success: this.uponSaveSubscription
     });
   },
@@ -189,7 +189,7 @@ EC.TeacherAccount = React.createClass({
     $.ajax({
       type: 'PUT',
       url: '/subscriptions/' + this.state.subscription.id,
-      data: {expiration: this.state.subscription.expiration, account_limit: this.state.subscription.account_limit},
+      data: {expiration: this.state.subscription.expiration, account_limit: this.state.subscription.account_limit, account_type: this.state.subscriptionType},
       success: this.uponSaveSubscription
     })
   },
