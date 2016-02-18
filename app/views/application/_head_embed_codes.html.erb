@@ -1,4 +1,6 @@
+
 <% unless Rails.env.development? || Rails.env.test? %>
+  <script type="text/javascript">  //prod stripe key</script>
   <script src="//cdn.optimizely.com/js/4397742167.js"></script>
   <!-- start Segment.io -->
   <script type="text/javascript">
@@ -21,8 +23,8 @@
   <!-- end Segment.io -->
 <% end %>
 
-<!-- For Stripe Integration  -->
+<script>var stripePubKey="<%=ENV["STRIPE_PUBLIC_KEY"] %>"</script>
 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button">
-      data-key= "<%=ENV["STRIPE_PUBLIC_KEY"] %>"
+      data-key= stripePubKey
       data-locale="auto">
 </script>
