@@ -17,7 +17,7 @@ class Dashboard
               {header: 'Difficult Concepts', results: dif_con, placeholderImg: '/difficult_concepts_no_data.png'}]
   end
 
-  def self.lowest_perfoming_students(sessions)
+  def self.lowest_performing_students(sessions)
     averages = {}
     sessions = sessions.group_by(&:user_id)
     sessions.each do |u, s|
