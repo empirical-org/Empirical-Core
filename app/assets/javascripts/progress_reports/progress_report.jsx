@@ -49,15 +49,22 @@ EC.ProgressReport = React.createClass({
     };
   },
 
+  disableLinks: function() {
+    $('.export-csv .button-green').prop('disabled', true);
+    if (!$('.progress-reports-standards-classrooms').length)
+      $(".premium-status-none a").click(function(e) {
+        e.preventDefault();
+    });
+  },
+
   componentDidMount: function() {
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     this.fetchData();
-    if (this.props.premiumStatus === 'none' && (!$('.progress-reports-standards-classrooms').length)) {
+    var that = this;
+    if (this.props.premiumStatus === 'none') {
       setTimeout(function() {
-        $(".premium-status-none a").click(function(e) {
-          e.preventDefault();
-        });
+        that.disableLinks();
       }, 750);
     }
   },
