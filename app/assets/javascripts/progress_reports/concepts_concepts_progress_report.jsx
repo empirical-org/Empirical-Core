@@ -2,7 +2,8 @@
 
 EC.ConceptsConceptsProgressReport = React.createClass({
   propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired
+    sourceUrl: React.PropTypes.string.isRequired,
+    premiumStatus: React.PropTypes.string.isRequired
   },
 
   getInitialState: function() {
@@ -81,7 +82,8 @@ EC.ConceptsConceptsProgressReport = React.createClass({
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'concepts'}
                          onFetchSuccess={this.onFetchSuccess}
-                         filterTypes={[]}>
+                         filterTypes={[]}
+                         premiumStatus={this.props.premiumStatus}>
         <h2>{this.state.student.name}</h2>
       </EC.ProgressReport>
     );

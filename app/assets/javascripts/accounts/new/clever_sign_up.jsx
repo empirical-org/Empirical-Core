@@ -50,7 +50,7 @@ EC.CleverSignUp = React.createClass({
       result = <span></span>;
     } else {
       result = (<a href={this.buildLink()}>
-                  <div className='clever-sign-up'></div>
+                  <img className='google-sign-up' src='/images/sign_up_with_clever.png'/>
                 </a>);
     }
     return result;

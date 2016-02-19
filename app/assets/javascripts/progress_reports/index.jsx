@@ -1,4 +1,9 @@
 $(function() {
+  var ele = $('.student-reports-subnav.tab-subnavigation-wrapper');
+  if (ele.length > 0) {
+    React.render(React.createElement(EC.PremiumBannerBuilder), $(ele[0]).next()[0]);
+  }
+
   var progressReportMapping = {
     '.progress-reports-activities': EC.ActivitiesProgressReport,
     '.progress-reports-standards-classrooms': EC.StandardsAllClassroomsProgressReport,
@@ -12,11 +17,14 @@ $(function() {
 
   _.each(progressReportMapping, function(component, rootNodeSelector) {
     var $el = $(rootNodeSelector);
-    var props = {
-      sourceUrl: $el.data('url')
-    };
     if ($el.length) {
-      React.render(React.createElement(component, props), $el[0]);
+      $.get('/teachers/classrooms/premium.json').done(function(data) {
+        var props = {
+          sourceUrl: $el.data('url'),
+          premiumStatus: data.hasPremium
+        };
+        React.render(React.createElement(component, props), $el[0]);
+      });
     }
   });
 });
