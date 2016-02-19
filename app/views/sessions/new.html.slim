@@ -2,7 +2,7 @@
   .sign-in-header
     h3 Welcome Back to Quill!
     span
-      <a href='/auth/google_oauth2 className='google-sign-in''><img src='/images/login_with_google.png'></a>
+      <a href='/auth/google_oauth2' className='google-sign-in''><img src='/images/login_with_google.png'></a>
 
       = link_to image_tag("/images/login_with_clever.png"), ("https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }")
 
@@ -16,7 +16,7 @@
 
       br
       = form_for @user, url: session_path(redirect: params[:redirect]) do |f|
-        = f.label :email_or_Username
+        = f.label :email_or_username, 'Email or Username'
         = f.text_field :email, placeholder: 'Email or Username'
         = f.label :password
         = f.password_field :password, placeholder: 'Password', class: 'Password'
