@@ -1,6 +1,7 @@
 EC.StandardsAllClassroomsProgressReport = React.createClass({
   propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired
+    sourceUrl: React.PropTypes.string.isRequired,
+    premiumStatus: React.PropTypes.string.isRequired
   },
 
   columnDefinitions: function() {
@@ -90,7 +91,8 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'classrooms'}
                          exportCsv={'standards_classrooms'}
-                         filterTypes={[]}>
+                         filterTypes={[]}
+                         premiumStatus={this.props.premiumStatus}>
         <h2>Standards: All Classrooms</h2>
         <p className="description">Select Student View to see how each student is performing. Select Standard View to see how the entire class is performing on each each standard.</p>
       </EC.ProgressReport>

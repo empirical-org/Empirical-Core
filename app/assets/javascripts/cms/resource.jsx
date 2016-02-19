@@ -85,7 +85,7 @@ EC.Resource = React.createClass({
     return (
       <div className='row'>
         <div className='col-xs-12'>
-          <div clasName='row'>
+          <div className='row'>
             <div className='col-xs-12'>
               <a onClick={this.props.returnToIndex}>{['Back to List of', this.props.resourceNamePlural].join(' ')}</a>
             </div>
