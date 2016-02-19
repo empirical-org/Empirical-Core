@@ -13,7 +13,7 @@ module ProgressReportHelper
     case current_user.premium_state
     when 'beta'
       'BETA'
-    when 'premium'
+    when 'paid' || 'school'
       "<i class='fa fa-star'></i>"
     when 'trial'
       'TRIAL'
@@ -32,7 +32,7 @@ module ProgressReportHelper
     case current_user.premium_state
     when 'beta'
       val = "<div class='bar-text'>As a Quill early adopter, you have free access to progress reports until August 20th, 2015.&nbsp; #{link_to 'Learn More & Request a Quote', premium_access_path}.</div>"
-    when 'trial'
+    when (['trial', 'paid', 'school'].include? current_user.premium_state)
       val = "<div class='bar-text'>As a Quill Premium trial user, you have access for the first #{Teacher::TRIAL_LIMIT} activities completed.</div>" +
             "#{progress_bar}   <div class='bar-text'>#{trial_activities_display_ratio} Completed</div>" +
             "<div class='bar-text'>#{link_to('Learn More & Request a Quote', premium_access_path)}.</div>"
