@@ -54,6 +54,7 @@ gem 'google-api-client', '0.8.6'
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
 gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
+gem 'stripe'
 
 # PARSING
 gem 'parslet'

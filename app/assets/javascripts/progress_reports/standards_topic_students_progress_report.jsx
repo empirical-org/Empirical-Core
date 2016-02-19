@@ -2,7 +2,8 @@
 
 EC.StandardsTopicStudentsProgressReport = React.createClass({
   propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired
+    sourceUrl: React.PropTypes.string.isRequired,
+    premiumStatus: React.PropTypes.string.isRequired
   },
 
   getInitialState: function() {
@@ -80,7 +81,8 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
                          jsonResultsKey={'students'}
                          exportCsv={'standards_topic_students'}
                          onFetchSuccess={this.onFetchSuccess}
-                         filterTypes={['unit']}>
+                         filterTypes={['unit']}
+                         premiumStatus={this.props.premiumStatus}>
         <h2>Standards: {this.state.topic.name}</h2>
       </EC.ProgressReport>
     );

@@ -1,7 +1,9 @@
 //= require ./../general_components/table/sortable_table/table_filter_mixin.js
 //= require ./../general_components/table/sortable_table/table_sorting_mixin.js
 EC.ProgressReport = React.createClass({
-  mixins: [EC.TableFilterMixin, EC.TableSortingMixin],
+  mixins: [
+    EC.TableFilterMixin, EC.TableSortingMixin
+  ],
 
   propTypes: {
     columnDefinitions: React.PropTypes.func.isRequired,
@@ -11,13 +13,12 @@ EC.ProgressReport = React.createClass({
     sortDefinitions: React.PropTypes.func.isRequired,
     jsonResultsKey: React.PropTypes.string.isRequired,
     onFetchSuccess: React.PropTypes.func, // Optional
-    exportCsv: React.PropTypes.string
+    exportCsv: React.PropTypes.string,
+    premiumStatus: React.PropTypes.string.isRequired
   },
 
   getDefaultProps: function() {
-    return {
-      maxPageNumber: 4
-    };
+    return {maxPageNumber: 4};
   },
 
   getInitialState: function() {
@@ -33,18 +34,40 @@ EC.ProgressReport = React.createClass({
       unitFilters: [],
       teacher: {},
 
-      selectedClassroom: {name: 'All Classrooms', value: ''},
-      selectedStudent: {name: 'All Students', value: ''},
-      selectedUnit: {name: 'All Units', value: ''}
+      selectedClassroom: {
+        name: 'All Classrooms',
+        value: ''
+      },
+      selectedStudent: {
+        name: 'All Students',
+        value: ''
+      },
+      selectedUnit: {
+        name: 'All Units',
+        value: ''
+      }
     };
+  },
+
+  disableLinks: function() {
+    $('.export-csv .button-green').prop('disabled', true);
+    if (!$('.progress-reports-standards-classrooms').length)
+      $(".premium-status-none a").click(function(e) {
+        e.preventDefault();
+    });
   },
 
   componentDidMount: function() {
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     this.fetchData();
+    var that = this;
+    if (this.props.premiumStatus === 'none') {
+      setTimeout(function() {
+        that.disableLinks();
+      }, 750);
+    }
   },
-
 
   // Get results with all filters, sorting
   getFilteredResults: function() {
@@ -65,7 +88,9 @@ EC.ProgressReport = React.createClass({
   },
 
   resetPagination: function(next) {
-    this.setState({currentPage: 1}, next);
+    this.setState({
+      currentPage: 1
+    }, next);
   },
 
   // Filter sessions based on the classroom ID.
@@ -136,52 +161,36 @@ EC.ProgressReport = React.createClass({
   },
 
   render: function() {
-    var pagination, csvExport, mainSection;
+    var pagination,
+      csvExport,
+      mainSection;
     var filteredResults = this.getFilteredResults();
     if (this.props.pagination) {
-      pagination = <EC.Pagination maxPageNumber={this.props.maxPageNumber}
-                                  selectPageNumber={this.goToPage}
-                                  currentPage={this.state.currentPage}
-                                  numberOfPages={this.state.numPages}  />;
+      pagination = <EC.Pagination maxPageNumber={this.props.maxPageNumber} selectPageNumber={this.goToPage} currentPage={this.state.currentPage} numberOfPages={this.state.numPages}/>;
     }
     var visibleResults = this.getVisibleResults(filteredResults);
 
     if (this.props.exportCsv) {
-      csvExport = <EC.ExportCsv exportType={this.props.exportCsv}
-                                reportUrl={this.props.sourceUrl}
-                                filters={this.state.currentFilters}
-                                teacher={this.state.teacher} />;
+      csvExport = <EC.ExportCsv exportType={this.props.exportCsv} reportUrl={this.props.sourceUrl} filters={this.state.currentFilters} teacher={this.state.teacher}/>;
     }
     if (this.state.loading) {
-      mainSection = <EC.LoadingIndicator />;
+      mainSection = <EC.LoadingIndicator/>;
     } else {
-      mainSection = <EC.SortableTable rows={visibleResults}
-                                      columns={this.props.columnDefinitions()}
-                                      sortHandler={this.handleSort()}
-                                      currentSort={this.state.currentSort} />;
+      mainSection = <EC.SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
     }
 
     return (
-      <div>
+      <div className={'premium-status-' + this.props.premiumStatus}>
         <div className="row">
           <div className="col-md-8 header-section">
             {this.props.children}
           </div>
           <div className="col-md-3 col-md-offset-1">
             {csvExport}
-            <EC.FaqLink />
+            <EC.FaqLink/>
           </div>
         </div>
-        <EC.ProgressReportFilters classroomFilters={this.state.classroomFilters}
-                                  studentFilters={this.state.studentFilters}
-                                  unitFilters={this.state.unitFilters}
-                                  selectClassroom={this.selectClassroom}
-                                  selectedClassroom={this.state.selectedClassroom}
-                                  selectStudent={this.selectStudent}
-                                  selectedStudent={this.state.selectedStudent}
-                                  selectUnit={this.selectUnit}
-                                  selectedUnit={this.state.selectedUnit}
-                                  filterTypes={this.props.filterTypes} />
+        <EC.ProgressReportFilters classroomFilters={this.state.classroomFilters} studentFilters={this.state.studentFilters} unitFilters={this.state.unitFilters} selectClassroom={this.selectClassroom} selectedClassroom={this.state.selectedClassroom} selectStudent={this.selectStudent} selectedStudent={this.state.selectedStudent} selectUnit={this.selectUnit} selectedUnit={this.state.selectedUnit} filterTypes={this.props.filterTypes}/>
         {mainSection}
         {pagination}
       </div>

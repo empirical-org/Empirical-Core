@@ -11,7 +11,7 @@ EC.modules.ScorebookTooltipTitleGenerator = function (percentageDisplayer) {
       totalScoreOrNot = <EC.TotalScore percentage={_displayPercentage(data.percentage)} />
     }
 
-    if (data.premium_state == 'premium') {
+    if ((data.premium_state == 'school') || (data.premium_state == 'paid') || (data.premium_state == 'trial') ) {
       aboutPremiumOrNot = null;
     } else {
       aboutPremiumOrNot = <EC.AboutPremium />;
