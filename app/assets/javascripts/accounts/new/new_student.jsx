@@ -38,10 +38,14 @@ EC.NewStudent = React.createClass({
         <div className='col-xs-offset-3 col-xs-9'>
           <div className='row'>
             <div className='col-xs-8'>
-              <h3 className='sign-up-header'>Sign up for a Student Account</h3>
+              <h3 className='sign-up-header'>Sign up for a Teacher Account</h3>
             </div>
           </div>
           <EC.AuthSignUp />
+          <div className='col-xs-8 col-xs-offset-2'>
+            <p className='support-p'>We now support Google Classroom!</p>
+          </div>
+          <div className='col-xs-8 need-a-border'/>
           <div className='row'>
             <div className='col-xs-12'>
               {inputs}
