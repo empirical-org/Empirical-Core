@@ -48,13 +48,13 @@ EC.OverviewMini = React.createClass({
     var buttonLink = function() {
       if (header.indexOf('student') > -1)
         return (
-          <a href="progress_reports/concepts/students">
+          <a href="/teachers/progress_reports/concepts/students">
             <button className='button-white'>View All Student Results</button>
           </a>
         );
       else if (header.indexOf('concept') > -1) {
         return (
-          <a href="progress_reports/standards/classrooms">
+          <a href="/teachers/progress_reports/standards/classrooms">
             <button className='button-white'>View All Concept Results</button>
           </a>
         );
