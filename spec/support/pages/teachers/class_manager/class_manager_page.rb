@@ -19,8 +19,8 @@ module Teachers
     end
 
     [['Activity Planner', :activity_planner],
-     ['Class Manager',    :class_manager],
-     ['Scorebook',        :scorebook]
+     ['Classes',    :classes],
+     ['Student Reports',        :student_reports]
     ].each do |pair|
       text, sym = pair
 

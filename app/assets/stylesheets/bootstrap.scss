@@ -3623,10 +3623,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-radius: none;
   background: #e6e6e6;
 }
-.nav-tabs > li > a:hover {
-  border-bottom: 1px solid transparent;
-  border-right: 1px solid #cecece;
-}
+// .nav-tabs > li > a:hover {
+//   border-bottom: 1px solid transparent;
+//   border-right: 1px solid #cecece;
+// }
+.nav-tabs > li > a:hover,
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
