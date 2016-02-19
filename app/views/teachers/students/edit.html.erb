@@ -63,7 +63,7 @@
 									</div>
 									<div class='row'>
 										<div class="col-xs-3 col-xs-offset-2">
-											<%=button_to "Reset Password", teachers_classroom_student_reset_password_path(@classroom, @student), method: 'put', class: 'btn-warning' %>
+										    <%=link_to "<button class='btn-warning'>Reset Password</button>".html_safe,  teachers_classroom_student_reset_password_path(@classroom, @student), method: 'put', class: 'password-reset' %>
 										</div>
 										<br>
 											<p class='button-helper'>After resetting a password, the student's password will be the student's last name.</p>
