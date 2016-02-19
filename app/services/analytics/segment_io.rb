@@ -27,5 +27,7 @@ module SegmentIo
     ACTIVITY_ASSIGNMENT ||= 'Teacher assigned an activity'
     ACCESS_PROGRESS_REPORT ||= 'Teacher opened progress report'
     ERROR_500 ||= '500 Error'
+    BEGAN_TRIAL ||= 'Teacher began trial'
+    BEGAN_PREMIUM ||= 'Teacher began trial'
   end
 end
