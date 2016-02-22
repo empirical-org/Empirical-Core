@@ -10,6 +10,7 @@ module CleverIntegration::SignUp::Teacher
     teacher = self.create_teacher(parsed_data)
     self.associate_teacher_to_district(teacher, district)
 
+    school = self.import_school(teacher, district.token)
     classrooms = self.import_classrooms(teacher, district.token)
     students = self.import_students(classrooms, district.token)
   end
@@ -26,6 +27,10 @@ module CleverIntegration::SignUp::Teacher
 
   def self.associate_teacher_to_district(teacher, district)
     CleverIntegration::Associator::TeacherToDistrict.run(teacher, district)
+  end
+
+  def self.import_school(teacher, district_token)
+    CleverIntegration::Importers::School.run(teacher, district_token)
   end
 
   def self.import_classrooms(teacher, district_token)
