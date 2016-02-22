@@ -1,4 +1,5 @@
 
+<% unless Rails.env.development? || Rails.env.test? %>
   <script type="text/javascript">  //prod stripe key</script>
   <script src="//cdn.optimizely.com/js/4397742167.js"></script>
   <!-- start Segment.io -->
@@ -8,9 +9,7 @@
 
     analytics.load("<%= ENV["SEGMENT_WRITE_KEY"] %>");
     analytics.page();
-
     <% if current_user && current_user.role == 'teacher' %>
-    <%binding.pry%>
       analytics.identify(<%= current_user.id %>, <%= raw(SegmentAnalyticsUserSerializer.new(current_user).to_json(root: false)) %>)
       // Here is where we poll Intercom for new messages.
       setInterval(function() {
@@ -21,6 +20,8 @@
     <% end %>
   }}();
   </script>
+  <!-- end Segment.io -->
+<% end %>
 
 <script>var stripePubKey="<%=ENV["STRIPE_PUBLIC_KEY"] %>"</script>
 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button">
