@@ -29,7 +29,7 @@ Capybara.configure do |config|
   config.default_wait_time = 200  # increased from 15 since we were getting Net Timeout errors on Tracis CI (and not on local)
 
   Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, js_errors: false)
+    Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 60)
   end
 
   config.javascript_driver = :poltergeist
