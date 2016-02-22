@@ -57,17 +57,18 @@ class SegmentAnalytics
 
   def integration_rules(user)
     intercom = (user.role == 'teacher')
-    {
+    integrations = {
      all: true,
      Intercom: intercom
     }
+    integrations
   end
 
 
   def identify_params(user)
     params = {
       user_id: user.id,
-      traits: {premium: user.subscriptions.empty?}.merge(user_traits(user))
+      traits: {premium: user.subscriptions.empty?}.merge(user_traits(user)),
       integrations: integration_rules(user)
     }
   end
