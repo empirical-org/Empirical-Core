@@ -9,8 +9,7 @@ module CleverIntegration::Creators::Classrooms
 
   def self.create_classroom(data)
     c = Classroom.find_or_initialize_by(data[:clever_id])
-    c.update(teacher_id: data[:teacher_id],
-             name: data[:name],
+    c.update(name: data[:name],
              grade: data[:grade])
     c.reload
   end

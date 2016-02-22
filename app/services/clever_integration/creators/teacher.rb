@@ -7,5 +7,6 @@ module CleverIntegration::Creators::Teacher
       name: hash[:name],
       role: 'teacher'
     )
+    teacher.reload
   end
 end

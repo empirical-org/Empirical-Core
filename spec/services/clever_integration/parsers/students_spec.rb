@@ -2,18 +2,9 @@ require 'rails_helper'
 
 describe 'CleverIntegration::Parsers::Students' do
 
-      name = self.generate_name(student_response[:name][:first], student_response[:name][:last])
-      {
-        clever_id: student_response[:id],
-        email: student_response[:email],
-        name: name
-      }
-
-
-
   let!(:response) {
     [
-      {id: '1', email: 'student@gmail.com', name: {first: 'john' last: 'smith'}}
+      {id: '1', email: 'student@gmail.com', name: {first: 'john', last: 'smith'}}
     ]
   }
 

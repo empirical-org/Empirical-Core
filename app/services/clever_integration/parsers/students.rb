@@ -2,7 +2,8 @@ module CleverIntegration::Parsers::Students
 
   def self.run(students_response)
     parsed_response = students_response.map do |student_response|
-      name = self.generate_name(student_response[:name][:first], student_response[:name][:last])
+      name_hash = student_response[:name]
+      name = self.generate_name(name_hash[:first], name_hash[:last])
       {
         clever_id: student_response[:id],
         email: student_response[:email],

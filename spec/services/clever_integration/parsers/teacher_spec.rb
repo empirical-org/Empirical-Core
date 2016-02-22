@@ -2,14 +2,6 @@ require 'rails_helper'
 
 describe 'CleverIntegration::Parsers::Teacher' do
 
-    info = auth_hash[:info]
-    name = self.generate_name(info[:name][:first], info[:name][:last])
-    {
-      clever_id: info[:id],
-      email: info[:email],
-      name: name,
-    }
-
   let!(:response) {
     {
       info: {
