@@ -38,7 +38,7 @@ feature 'Subscription to Progress Report', js: true do
     sign_in_user teacher
   end
 
-  context 'no subscription' do
+  context 'no paid subscription' do
     context 'trial is not expired' do
       before do
         report_page.visit
@@ -92,6 +92,10 @@ feature 'Subscription to Progress Report', js: true do
       expect(report_page).to_not have_content(trial_message)
     end
 
+    it 'does not display premium tab' do
+      expect(report_page).to_not have_css('div.premium-tab')
+    end
+
     context 'that started that day' do
       it 'displays new sign up banner' do
         expect(report_page).to have_content('Success! You now have Premium')
@@ -100,13 +104,11 @@ feature 'Subscription to Progress Report', js: true do
 
     context 'that did not start that day' do
       let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, expiration: Date.tomorrow, account_limit: 5, account_type: 'premium', updated_at: 'Time.current - 1.day')}
-      it 'displays new sign up banner' do
+      it 'does not display new sign up banner' do
         expect(report_page).to_not have_content('Success! You now have Premium')
       end
     end
 
-    it 'does not display premium tab' do
-      expect(report_page).to_not have_css('.premium-tab')
-    end
+
   end
 end
