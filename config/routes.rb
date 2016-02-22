@@ -22,6 +22,10 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  # for Stripe
+  resources :charges
+
+
   resources :subscriptions
   resources :assessments
   resources :assignments
@@ -94,11 +98,18 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get :regenerate_code
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
+        post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
+        get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :search_activities, controller: 'classroom_manager', action: 'search_activities'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
+
+        ##DASHBOARD ROUTES
+        get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
+        get :dashboard_query, controller: 'classroom_manager', action: 'dashboard_query'
+        get :premium, controller: 'classroom_manager', action: 'premium'
       end
 
       member do

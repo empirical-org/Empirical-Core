@@ -2,7 +2,8 @@
 
 EC.ActivitiesProgressReport = React.createClass({
   propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired
+    sourceUrl: React.PropTypes.string.isRequired,
+    premiumStatus: React.PropTypes.string.isRequired
   },
 
   columnDefinitions: function() {
@@ -72,7 +73,8 @@ EC.ActivitiesProgressReport = React.createClass({
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'activity_sessions'}
                          exportCsv={'activity_sessions'}
-                         filterTypes={['unit', 'classroom', 'student']}>
+                         filterTypes={['unit', 'classroom', 'student']}
+                         premiumStatus={this.props.premiumStatus}>
         <h2>Activities: All Students</h2>
         <p className="description">View all of the activities your students have completed. Filter by classroom, unit, or student.</p>
       </EC.ProgressReport>

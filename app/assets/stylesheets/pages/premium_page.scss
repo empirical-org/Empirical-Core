@@ -1,5 +1,4 @@
 .premium-tab a {
-
   background-color: #EA9A1A !important;
   color: #FFFFFF !important;
   padding-left: 40px;
@@ -7,18 +6,14 @@
   border-right: none !important;
   cursor: pointer !important;
 }
-
 li.active.premium-tab > a,
 li.premium-tab > a:hover {
   border-top: 3px solid #875A12 !important;
 }
-
 .premium-tab a.active,
 .premium-tab a:hover {
   border-top: 3px solid #875A12 !important;
 }
-
-
 .preview-section {
   text-align: center;
   color: #3C3B3B;
@@ -42,36 +37,141 @@ li.premium-tab > a:hover {
     font-weight: 700;
   }
 }
-
 #first-preview-section {
-  padding-top: 62px;
-  padding-bottom: 115px;
-  color: #3C3B3B;
-
-  .title {
-    color: #333333;
+  // this lives in premium_pricing_guide.jsx
+}
+#premium-pricing-guide {
+  color: #333333;
+  padding-top: 60px;
+  & > .row > div {
+    margin-bottom: 4%;
   }
-
-  .copy {
-    margin-top: 37px;
-  }
-
-  .button-green {
-    color: white;
-    margin-top: 44px;
-    margin-bottom: 137px;
+  .overview {
+    margin: auto auto 63px;
+    max-width: 406px;
+    h1 {
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    p {
+      font-size: 21px;
+    }
   }
 }
+.pricing-mini {
+  background: white;
+  border: 1px solid #cecece;
+  font-size: 15px;
+  @media (max-width: 990px) {
+    max-width: 383px;
+    margin: auto;
+  }
+  section {
+    border: none;
+  }
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  ul {
+    text-align: left;
+  }
+  li {
+    margin-bottom: 6px;
+  }
+  .pricing-mini-header {
+    height: 95px;
+    color: white;
+    .img-holder {
+      height: 57px;
+      padding-top: 14px;
+      margin-bottom: 9px;
+      &.basic {
+        padding-top: 17px;
+      }
+    }
+  }
+  .pricing-info {
+    color: #333333;
+    min-height: 350px;
+    @media (max-width: 990px) {
+      min-height: 0;
+      ul {
+        margin: auto;
+        display: inline-block;
+      }
+    }
+    .premium-rates {
+      min-height: 74px;
+      h3 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 7px;
+      }
+      &.all-h4 {
+        h4 {
+          font-weight: 800;
+          padding-top: 8px;
+        }
+      }
+    }
+  }
+  .mini-btn {
+    height: 40px;
+    padding-top: 6.5px;
+    padding-bottom: 4.5px;
+    font-size: 14px;
+    color: white;
+    margin-bottom: 26px;
+    width: 140px;
+    &.empty-blue,
+    &.blue {
+      width: 122px;
+      margin-left: 6px;
+      margin-right: 6px;
+    }
+  }
+  .blue {
+    background-color: $quillblue;
+  }
+  .empty-blue {
+    border: 2px solid $quillblue;
+    color: $quillblue;
+  }
+  .green {
+    background-color: $quillgreen;
+  }
+  .purple {
+    background-color: #9c2bde;
+  }
+  .button-container {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+.premium-testimonial {
+  margin: auto;
+  margin-top: 69px;
+  margin-bottom: 69px;
+  max-width: 691px;
+  p {
+    margin-top: 8px;
+    font-size: 21px;
+  }
+  .quote-author {
+    margin-top: 14px;
+    font-size: 16px;
+    font-weight: 700;
+  }
 
+}
 #second-preview-section {
   background-color: #EA9A1A;
   color: white;
   padding-top: 100px;
-
   .super-title {
     color: #875A12;
   }
-
   .copy {
     margin-top: 43px;
     margin-bottom: 59px;
@@ -85,22 +185,19 @@ li.premium-tab > a:hover {
     }
   }
   .preview-image {
-    width: 852px;
     margin-left: auto;
     margin-right: auto;
     img {
+      @media (max-width: 853px) {
       width: 100%;
+      }
+
     }
   }
 }
-
 #features-preview-table {
-
   table {
-    margin-top: 137px;
-    margin-bottom: 99px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 137px auto 99px;
     border: 1px solid #CECECE;
     border-radius: 6px;
     border-collapse: separate !important;
@@ -108,7 +205,6 @@ li.premium-tab > a:hover {
       font-size: 18px;
       height: 65px;
     }
-
     th.features-table-header {
       color: black;
       font-weight: 500;
@@ -116,7 +212,8 @@ li.premium-tab > a:hover {
       background-color: #E6E6E6;
       border-top-left-radius: 6px;
     }
-    th.quill-table-header, th.quill-premium-table-header {
+    th.quill-table-header,
+    th.quill-premium-table-header {
       color: white;
       font-weight: 700;
       width: 266px;
@@ -129,10 +226,10 @@ li.premium-tab > a:hover {
       background-color: #EA9A1A;
       border-top-right-radius: 6px;
     }
-    th.features-table-header, td:first-child {
+    th.features-table-header,
+    td:first-child {
       padding-left: 22px;
     }
-
     tr {
       border-collapse: collapse;
       background-color: white;
@@ -140,7 +237,6 @@ li.premium-tab > a:hover {
       color: black;
       font-size: 15px;
     }
-
     tr:last-child {
       td:first-child {
         border-bottom-left-radius: 6px;
@@ -164,15 +260,12 @@ li.premium-tab > a:hover {
     }
   }
 }
-
 #third-preview-section {
   padding-bottom: 132px;
   color: #3C3B3B;
-
   .title {
     color: #333333;
   }
-
   .preview-btns {
     margin-top: 37px;
     margin-bottom: 48px;
@@ -186,34 +279,26 @@ li.premium-tab > a:hover {
       border: 2px solid #EA9A1A;
     }
   }
-
   .span-dash {
     border-top: 1px solid #3C3B3B;
     width: 20px;
     height: 7px;
     display: inline-block;
-    margin: 0px 15px;
+    margin: 0 15px;
   }
 }
-
 #fourth-preview-section {
   padding-top: 100px;
-  background-color: #348fdf;
+  background-color: $quillblue;
   color: white;
-
   .super-title {
     color: #014f92;
   }
-
   .preview-questions {
     font-size: 15px;
     text-align: left;
-    margin-top: 43px;
-    margin-bottom: 134px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 43px auto 134px;
     display: inline-block;
-
     .preview-questions-column:first-child {
       margin-right: 56px;
     }
@@ -221,14 +306,11 @@ li.premium-tab > a:hover {
       width: 416px;
       float: left;
       clear: none;
-
       .preview-question-and-answer {
-
         .preview-question {
           font-weight: 700;
           margin-bottom: 16px;
         }
-
         .preview-answer {
           color: #C9E6FF;
           a {
@@ -238,26 +320,8 @@ li.premium-tab > a:hover {
         }
       }
       .preview-question-and-answer.preview-question-and-answer-with-margin {
-          margin-bottom: 39px;
+        margin-bottom: 39px;
       }
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
