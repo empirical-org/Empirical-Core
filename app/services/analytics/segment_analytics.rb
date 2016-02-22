@@ -55,11 +55,20 @@ class SegmentAnalytics
     SecureRandom.urlsafe_base64
   end
 
+  def integration_rules(user)
+    intercom = (user.role == 'teacher')
+    {
+     all: true,
+     Intercom: intercom
+    }
+  end
+
 
   def identify_params(user)
-    {
+    params = {
       user_id: user.id,
-      traits: {premium: !!user.subscriptions}.merge(user_traits(user))
+      traits: {premium: user.subscriptions.empty?}.merge(user_traits(user))
+      integrations: integration_rules(user)
     }
   end
 
