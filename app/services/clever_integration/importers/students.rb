@@ -2,10 +2,11 @@ module CleverIntegration::Importers::Students
 
   def self.run(classrooms, district_token)
     students_arr_of_arrs = classrooms.map do |classroom|
-      self.import_students_for_single_classroom(classroom, district_token)
+      students = self.import_students_for_single_classroom(classroom, district_token)
+      students
     end
-    student_arr = students_arr_of_arrs.flatten
-    student_arr
+    students = students_arr_of_arrs.flatten
+    students
   end
 
   private

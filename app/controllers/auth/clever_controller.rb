@@ -4,6 +4,9 @@ class Auth::CleverController < ApplicationController
   # will get moved to the quill classroom of her clever teacher that most recently signed in
   # (since right now a student on quill can only belong to one classroom)
   # TODO: refactor code so that a student can belong to more than one classroom
+
+  # Note that we import everything not just on sign up, but on login as well
+  # since a teacher may have created more clever classrooms /students betwixt logins
   def clever
     auth_hash = request.env['omniauth.auth']
     result = CleverIntegration::Main.run(auth_hash)
