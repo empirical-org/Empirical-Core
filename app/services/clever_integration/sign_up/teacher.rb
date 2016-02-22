@@ -18,7 +18,7 @@ module CleverIntegration::SignUp::Teacher
   private
 
   def self.parse_data(auth_hash)
-    CleverIntegration::Parsers::Teacher.run(auth_hash)
+    CleverIntegration::Parsers::TeacherFromAuth.run(auth_hash)
   end
 
   def self.create_teacher(parsed_data)

@@ -4,11 +4,9 @@ describe 'CleverIntegration::Parsers::Teacher' do
 
   let!(:response) {
     {
-      info: {
-        id: '1',
-        name: {first: 'john', last: 'smith'},
-        email: 'teacher@gmail.com'
-      }
+      id: '1',
+      name: {first: 'john', last: 'smith'},
+      email: 'teacher@gmail.com'
     }
   }
 
