@@ -1,5 +1,9 @@
 class Teachers::ProgressReports::Concepts::StudentsController < Teachers::ProgressReportsController
   def index
+    if current_user.classrooms.empty?
+      redirect_to new_teachers_classroom_path
+      return 
+    end
     respond_to do |format|
       format.html
       format.json { render json: json_payload }

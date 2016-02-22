@@ -84,9 +84,21 @@ module Teacher
       .any?
   end
 
+  def teacher_subscription
+    subscriptions
+      .where("subscriptions.expiration >= ?", Date.today)
+      .first
+      .account_type
+  end
+
+  def part_of_admin_account?
+    admin_accounts.any?
+  end
+
   def is_trial_expired?
-    acss = self.teachers_activity_sessions_since_trial_start_date
-    acss.count > TRIAL_LIMIT
+    subscriptions
+      .where("subscriptions.expiration < ?", Date.today)
+      .any?
   end
 
   def teachers_activity_sessions_since_trial_start_date
@@ -94,17 +106,39 @@ module Teacher
                    .where("completed_at >= ?", TRIAL_START_DATE)
   end
 
+  def eligible_for_trial?
+    premium_state == 'none'
+  end
+
+  def trial_days_remaining
+    valid_subscription = subscriptions.where("subscriptions.expiration >= ?", Date.today).first
+    if valid_subscription && (valid_subscription.account_type == 'trial')
+      (valid_subscription.expiration - Date.today).to_i
+    else
+      nil
+    end
+  end
+
+  def premium_updated_or_created_today?
+    subscriptions.where("created_at >= ? OR updated_at >= ?", Time.zone.now.beginning_of_day, Time.zone.now.beginning_of_day).any?
+  end
+
   def premium_state
+    # the beta period is obsolete -- but may break things by removing it
     if !is_beta_period_over?
       "beta"
     elsif is_premium?
-      "premium"
-    elsif !is_trial_expired?
-      "trial"
-    else
+      ## returns 'trial' or 'paid'
+      subscriptions.where("subscriptions.expiration >= ?", Date.today).first.account_type
+    elsif part_of_admin_account?
+      'school'
+    elsif is_trial_expired?
       "locked"
+    else
+      'none'
     end
   end
+
 
 
   def is_beta_period_over?

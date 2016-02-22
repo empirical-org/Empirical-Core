@@ -74,7 +74,7 @@ feature 'Subscription to Progress Report', js: true do
   end
 
   context 'has subscription' do
-    let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, expiration: Date.tomorrow, account_limit: 5)}
+    let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, expiration: Date.tomorrow, account_limit: 5, type: 'premium')}
 
     before do
       report_page.visit

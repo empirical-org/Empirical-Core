@@ -34,8 +34,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     @classrooms = current_user.classrooms
   end
 
-
-
   def scorebook
     if current_user.classrooms.empty?
       redirect_to new_teachers_classroom_path
@@ -50,10 +48,47 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
+  def dashboard
+    if current_user.classrooms.empty?
+      redirect_to new_teachers_classroom_path
+    end
+  end
+
+  def premium
+    @subscription_type = current_user.premium_state
+    render json: {
+      hasPremium: @subscription_type,
+      trial_days_remaining: current_user.trial_days_remaining,
+      first_day_of_premium_or_trial: current_user.premium_updated_or_created_today?
+    }
+  end
+
+
+
+  def classroom_mini
+    current_user.classrooms.includes(:students).each do |classroom|
+      obj = {
+        classroom: classroom,
+        students: classroom.students.count,
+        activities_completed: classroom.activity_sessions.where(state: "finished").count
+      }
+      ( @classrooms ||= [] ).push obj
+    end
+    render json: {
+      classes: @classrooms
+    }
+  end
+
+  def dashboard_query
+    @query_results = Dashboard.queries(current_user)
+    render json: {
+      performanceQuery: @query_results
+    }
+  end
+
   def scores
     classrooms = current_user.classrooms.includes(classroom_activities: [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
-
     if params[:no_load_has_ever_occurred_yet] == 'true'
       params[:classroom_id] = current_user.classrooms.first
       was_classroom_selected_in_controller = true
@@ -64,7 +99,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
 
     scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, params[:classroom_id], params[:unit_id], params[:begin_date], params[:end_date]
-
     render json: {
       teacher: Scorebook::TeacherSerializer.new(current_user).as_json(root: false),
       classrooms: classrooms,
