@@ -36,7 +36,7 @@ class SigninAnalytics
       user_id: student.id,
       event: SegmentIo::Events::STUDENT_SIGNIN,
       context: {:ip => student.ip_address },
-      integrations: { intercom: 'false' }
+      integrations: { all: true, Intercom: false }
     })
   end
 
