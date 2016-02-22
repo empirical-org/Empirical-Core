@@ -1,4 +1,4 @@
-module CleverIntegration::Parsers::District
+module CleverIntegration::Parsers::DistrictFromAuth
 
   def self.run(auth_hash)
     {

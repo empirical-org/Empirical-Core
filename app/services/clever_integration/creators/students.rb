@@ -14,7 +14,7 @@ module CleverIntegration::Creators::Students
     student = User.find_or_initialize_by(parsed_student_response[:clever_id])
     student = student.update({
       name: parsed_student_response[:name],
-      username: parsed_student_response[:credentials][:district_username],
+      username: parsed_student_response[:username],
       email: parsed_student_response[:email]
     })
     student.reload

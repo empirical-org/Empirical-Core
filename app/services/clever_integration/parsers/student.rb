@@ -1,10 +1,12 @@
-module CleverIntegration::Parsers::Teacher
+module CleverIntegration::Parsers::Student
 
   def self.run(hash)
-    name = self.generate_name(hash[:name][:first], hash[:name][:last])
+    name_hash = hash[:name]
+    name = self.generate_name(name_hash[:first], name_hash[:last])
     {
       clever_id: hash[:id],
       email: hash[:email],
+      username: hash[:credentials][:district_username],
       name: name
     }
   end

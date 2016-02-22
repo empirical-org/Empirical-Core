@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'CleverIntegration::Parsers::District' do
+describe 'CleverIntegration::Parsers::DistrictFromAuth' do
 
   let!(:response) {
     {
@@ -21,7 +21,7 @@ describe 'CleverIntegration::Parsers::District' do
   }
 
   def subject
-    CleverIntegration::Parsers::District.run(response)
+    CleverIntegration::Parsers::DistrictFromAuth.run(response)
   end
 
   it 'works' do
