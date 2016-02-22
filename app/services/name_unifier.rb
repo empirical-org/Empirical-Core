@@ -17,7 +17,7 @@ module NameUnifier
     result
   end
 
-  def self.inavlid(name_part)
+  def self.invalid(name_part)
     name_part.nil? || name_part == ''
   end
 end

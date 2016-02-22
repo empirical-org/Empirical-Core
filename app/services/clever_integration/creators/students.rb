@@ -17,6 +17,6 @@ module CleverIntegration::Creators::Students
       username: parsed_student_response[:credentials][:district_username],
       email: parsed_student_response[:email]
     })
-    student
+    student.reload
   end
 end
