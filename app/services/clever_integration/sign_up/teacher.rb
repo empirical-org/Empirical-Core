@@ -1,6 +1,6 @@
 module CleverIntegration::SignUp::Teacher
 
-  def self.run(auth_hash)
+  def self.run(auth_hash, requesters)
     parsed_data = self.parse_data(auth_hash)
     district = District.find_by(clever_id: parsed_data[:district_id])
 
@@ -10,9 +10,9 @@ module CleverIntegration::SignUp::Teacher
     teacher = self.create_teacher(parsed_data)
     self.associate_teacher_to_district(teacher, district)
 
-    school = self.import_school(teacher, district.token)
-    classrooms = self.import_classrooms(teacher, district.token)
-    students = self.import_students(classrooms, district.token)
+    school = self.import_school(teacher, district.token, requesters)
+    classrooms = self.import_classrooms(teacher, district.token, requesters)
+    students = self.import_students(classrooms, district.token, requesters)
   end
 
   private
@@ -29,15 +29,15 @@ module CleverIntegration::SignUp::Teacher
     CleverIntegration::Associator::TeacherToDistrict.run(teacher, district)
   end
 
-  def self.import_school(teacher, district_token)
-    CleverIntegration::Importers::School.run(teacher, district_token)
+  def self.import_school(teacher, district_token, requesters)
+    CleverIntegration::Importers::School.run(teacher, district_token, requesters[:teacher_requester])
   end
 
-  def self.import_classrooms(teacher, district_token)
-    CleverIntegration::Importers::Classrooms(teacher_id, teacher_clever_id, district_token)
+  def self.import_classrooms(teacher, district_token, requesters)
+    CleverIntegration::Importers::Classrooms(teacher_id, teacher_clever_id, district_token, requesters[:teacher_requester])
   end
 
-  def self.import_students(classrooms, district_token)
-    CleverIntegration::Importers::Students(classrooms, district_token)
+  def self.import_students(classrooms, district_token, requesters)
+    CleverIntegration::Importers::Students(classrooms, district_token, requesters[:section_requester])
   end
 end
