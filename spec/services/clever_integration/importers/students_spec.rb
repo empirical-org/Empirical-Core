@@ -40,7 +40,7 @@ describe 'CleverIntegration::Importers::Students' do
 
   def subject
     CleverIntegration::Importers::Students.run(classrooms, district_token, section_requester)
-    User.find_by(name: 'John Smith', email: 'student@gmail.com', username: 'student_username', clever_id: '1')
+    User.find_by(name: 'John Smith', email: 'student@gmail.com', username: 'student_username', clever_id: '1', role: 'student')
   end
 
   it 'creates a student' do

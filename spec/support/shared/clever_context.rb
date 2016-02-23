@@ -46,7 +46,10 @@ shared_context 'clever' do
   }
 
   def teacher
-    User.find_by(clever_id: 'teacher_id_1', name: "Teacherjohn Teachersmith", email: 'teacher@gmail.com')
+    User.find_by(clever_id: 'teacher_id_1',
+                 name: "Teacherjohn Teachersmith",
+                 email: 'teacher@gmail.com',
+                 role: 'teacher')
   end
 
   def classroom
@@ -57,6 +60,11 @@ shared_context 'clever' do
     User.find_by(clever_id: 'student_id_1',
                  name: 'Studentjohn Studentsmith',
                  email: 'student@gmail.com',
-                 username: 'student_username')
+                 username: 'student_username',
+                 role: 'student')
+  end
+
+  def school
+    School.find_by(name: 'school1')
   end
 end

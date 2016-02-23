@@ -6,7 +6,8 @@ describe 'CleverIntegration::Parsers::Teacher' do
     {
       id: '1',
       name: {first: 'john', last: 'smith'},
-      email: 'teacher@gmail.com'
+      email: 'teacher@gmail.com',
+      district: 'district_id_1'
     }
   }
 
@@ -14,7 +15,8 @@ describe 'CleverIntegration::Parsers::Teacher' do
     {
       clever_id: '1',
       email: 'teacher@gmail.com',
-      name: 'John Smith'
+      name: 'John Smith',
+      district_id: 'district_id_1'
     }
   }
 
