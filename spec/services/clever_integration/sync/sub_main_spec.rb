@@ -48,6 +48,16 @@ describe 'CleverIntegration::Sync::SubMain' do
     expect(teacher.districts.first).to eq(district)
   end
 
+  it 'creates teachers school' do
+    subject
+    expect(school).to be_present
+  end
+
+  it 'associates school to teacher' do
+    subject
+    expect(teacher.schools.first).to eq(school)
+  end
+
   it 'creates classrooms' do
     subject
     expect(classroom).to be_present

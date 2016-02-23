@@ -15,7 +15,8 @@ module CleverIntegration::Creators::Students
     student.update({
       name: parsed_student_response[:name],
       username: parsed_student_response[:username],
-      email: parsed_student_response[:email]
+      email: parsed_student_response[:email],
+      role: 'student'
     })
     student.reload
   end

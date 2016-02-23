@@ -96,6 +96,16 @@ describe 'CleverIntegration::SignUp::SubMain' do
         expect(teacher.districts.first).to eq(district)
       end
 
+      it 'creates the teachers school' do
+        subject
+        expect(school).to be_present
+      end
+
+      it 'associates the school to the teacher' do
+        subject
+        expect(teacher.schools.first).to eq(school)
+      end
+
       it "creates teacher's classrooms" do
         subject
         expect(classroom).to be_present
@@ -115,6 +125,7 @@ describe 'CleverIntegration::SignUp::SubMain' do
         subject
         expect(student.classroom).to eq(classroom)
       end
+
     end
   end
 end
