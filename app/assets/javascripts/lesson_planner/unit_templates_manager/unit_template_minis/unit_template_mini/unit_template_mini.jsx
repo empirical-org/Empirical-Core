@@ -61,9 +61,16 @@ EC.UnitTemplateMini = React.createClass({
 
   miniSpecificComponents: function() {
     if (this.props.data.id == 'createYourOwn') {
-      return <div>Build Your Own Activity Pack</div>;
+      return (
+        <div className='text-center col-xs-12 create-your-own'>
+          <div className='content-wrapper'>
+            <img className='plus_icon' src='/add_class.png'></img>
+            <h3>Build Your Own Activity Pack</h3>
+          </div>
+      </div>
+    );
       }
-    // otherwise it is a normal mini
+    // else it is a normal mini
     else {
       return(
           <div className='col-xs-12'>
