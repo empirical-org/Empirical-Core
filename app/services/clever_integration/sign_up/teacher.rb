@@ -5,14 +5,21 @@ module CleverIntegration::SignUp::Teacher
     district = District.find_by(clever_id: parsed_data[:district_id])
 
     # TODO: error message for no district found (district has not authorized this school yet)
-    return if district.nil?
-
-    teacher = self.create_teacher(parsed_data)
-    self.associate_teacher_to_district(teacher, district)
-
-    school = self.import_school(teacher, district.token, requesters)
-    classrooms = self.import_classrooms(teacher, district.token, requesters)
-    students = self.import_students(classrooms, district.token, requesters)
+    if district.nil?
+      result = {type: 'user_failure'}
+    else
+      teacher = self.create_teacher(parsed_data)
+      if teacher.present?
+        self.associate_teacher_to_district(teacher, district)
+        school = self.import_school(teacher, district.token, requesters)
+        classrooms = self.import_classrooms(teacher, district.token, requesters)
+        students = self.import_students(classrooms, district.token, requesters)
+        result = {type: 'user_success', data: teacher}
+      else
+        result = {type: 'user_failure'}
+      end
+    end
+    result
   end
 
   private
@@ -26,7 +33,7 @@ module CleverIntegration::SignUp::Teacher
   end
 
   def self.associate_teacher_to_district(teacher, district)
-    CleverIntegration::Associator::TeacherToDistrict.run(teacher, district)
+    CleverIntegration::Associators::TeacherToDistrict.run(teacher, district)
   end
 
   def self.import_school(teacher, district_token, requesters)
@@ -34,10 +41,10 @@ module CleverIntegration::SignUp::Teacher
   end
 
   def self.import_classrooms(teacher, district_token, requesters)
-    CleverIntegration::Importers::Classrooms(teacher_id, teacher_clever_id, district_token, requesters[:teacher_requester])
+    CleverIntegration::Importers::Classrooms.run(teacher, district_token, requesters[:teacher_requester])
   end
 
   def self.import_students(classrooms, district_token, requesters)
-    CleverIntegration::Importers::Students(classrooms, district_token, requesters[:section_requester])
+    CleverIntegration::Importers::Students.run(classrooms, district_token, requesters[:section_requester])
   end
 end

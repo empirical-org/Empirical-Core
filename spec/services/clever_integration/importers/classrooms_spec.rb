@@ -1,16 +1,18 @@
 require 'rails_helper'
 
-describe 'CleverIntegration::Importers::Helpers::Classrooms' do
+describe 'CleverIntegration::Importers::Classrooms' do
 
   let!(:teacher) {
-    FactoryGirl.create(:district, name: 'district1', clever_id: '1', token: '1')
+    FactoryGirl.create(:user, name: 'John Smith', clever_id: '1')
   }
 
   let!(:district_token) { '1' }
 
   let!(:sections_response) {
     [
-
+      {id: '1',
+       name: 'section1',
+       grade: '2'}
     ]
   }
 
@@ -26,8 +28,8 @@ describe 'CleverIntegration::Importers::Helpers::Classrooms' do
 
 
   def subject
-    CleverIntegration::Importers::Helpers::Classrooms.run(teacher, district_token, teacher_requester)
-
+    CleverIntegration::Importers::Classrooms.run(teacher, district_token, teacher_requester)
+    Classroom.first#find_by(clever_id: '1', name: 'section1', grade: '2')
   end
 
   it 'creates a classroom' do
@@ -35,6 +37,6 @@ describe 'CleverIntegration::Importers::Helpers::Classrooms' do
   end
 
   it 'associates classroom to teacher' do
-    expect(subject.districts.first).to eq(district)
+    expect(subject.teacher).to eq(teacher)
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'CleverIntegration::Importers::Helpers::Teachers' do
+describe 'CleverIntegration::Importers::Teachers' do
 
   let!(:district) {
     FactoryGirl.create(:district, name: 'district1', clever_id: '1', token: '1')
@@ -30,7 +30,7 @@ describe 'CleverIntegration::Importers::Helpers::Teachers' do
 
 
   def subject
-    CleverIntegration::Importers::Helpers::Teachers.run(district, district_requester)
+    CleverIntegration::Importers::Teachers.run(district, district_requester)
     User.find_by(name: 'John Smith', email: 'teacher@gmail.com', clever_id: '1')
   end
 

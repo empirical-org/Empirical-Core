@@ -23,7 +23,7 @@ module CleverIntegration::Importers::School
   end
 
   def self.associate_school_to_teacher(school, teacher)
-    school = CleverIntegration::Associators::SchoolToTeacher(teacher, school)
+    school = CleverIntegration::Associators::SchoolToTeacher.run(school, teacher)
     school
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'CleverIntegration::Importers::Helpers::Students' do
+describe 'CleverIntegration::Importers::Students' do
 
   let!(:classroom) {
     FactoryGirl.create(:classroom, name: 'class1', code: 'nice-great')
@@ -39,7 +39,7 @@ describe 'CleverIntegration::Importers::Helpers::Students' do
 
 
   def subject
-    CleverIntegration::Importers::Helpers::Students.run(classrooms, district_token, section_requester)
+    CleverIntegration::Importers::Students.run(classrooms, district_token, section_requester)
     User.find_by(name: 'John Smith', email: 'student@gmail.com', username: 'student_username', clever_id: '1')
   end
 
