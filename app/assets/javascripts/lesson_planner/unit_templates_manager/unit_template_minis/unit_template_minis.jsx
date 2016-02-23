@@ -27,6 +27,7 @@ EC.UnitTemplateMinis = React.createClass({
     return <span>{rows}</span>;
   },
 
+  //adds a final model, which is simply flagged as a createYourOwn one via the key
   addCreateYourOwnModel: function(models) {
     if (models.length) {
       models.push({});
