@@ -46,7 +46,6 @@ feature 'Subscription to Progress Report', js: true do
   end
 
   context 'no paid subscription' do
-    context 'trial is not expired' do
       before do
         report_page.visit
       end
@@ -64,7 +63,6 @@ feature 'Subscription to Progress Report', js: true do
          ##eventually comes from AsyncHelper.rb accepts arguments {timeout: x, interval: y}
          eventually {  expect(teacher.premium_state).to eq('trial') }
       end
-    end
 
 
 
@@ -76,7 +74,7 @@ feature 'Subscription to Progress Report', js: true do
       end
 
       it 'flags div as premium-status-none to blur out elements' do
-        expect(report_page).to have_css('div.premium-status-none')
+        eventually {expect(report_page).to have_css('div.premium-status-none')}
       end
 
       it 'does not show activity session data' do
