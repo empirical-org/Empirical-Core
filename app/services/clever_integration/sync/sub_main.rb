@@ -1,6 +1,6 @@
 # used in clever_sync.rake (not in sign up)
 
-module CleverIntegration::Sync::Main
+module CleverIntegration::Sync::SubMain
 
   def self.run(requesters)
     District.all.each do |district|
