@@ -10,6 +10,6 @@ module CleverIntegration::Parsers::Students
   private
 
   def self.parse_student(student_response)
-    CleverIntegration::Parsers::Students.run(student_response)
+    CleverIntegration::Parsers::Student.run(student_response)
   end
 end
