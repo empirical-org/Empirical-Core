@@ -14,9 +14,10 @@ module CleverIntegration::Requesters
 
   private
 
-  def helper(klass)
+  def helper(resource_kind)
     lambda do |clever_id, district_token|
-      Clever::klass.retrieve(clever_id, district_token)
+      klass = "Clever::#{resource_kind.capitalize}".constantize
+      klass.retrieve(clever_id, district_token)
     end
   end
 

@@ -19,10 +19,6 @@ class Auth::CleverController < ApplicationController
     render status: 200, nothing: true # Don't bother rendering anything.
   end
 
-  def district_failure(data)
-    render status: 500, nothing: true
-  end
-
   def user_success(data) # data is a User record
     data.update_attributes(ip_address: request.remote_ip)
     sign_in(data)

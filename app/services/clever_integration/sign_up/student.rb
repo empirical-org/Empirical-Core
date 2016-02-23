@@ -2,6 +2,11 @@ module CleverIntegration::SignUp::Student
   # teacher must have signed up first (importing associated students)
   def self.run(auth_hash)
     student = User.find_by(clever_id: auth_hash[:info][:id])
-    student
+    if student.present?
+      result = {type: 'user_succcess', data: student}
+    else
+      result = {type: 'user_failure'}
+    end
+    result
   end
 end
