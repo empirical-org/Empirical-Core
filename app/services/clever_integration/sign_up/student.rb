@@ -3,7 +3,7 @@ module CleverIntegration::SignUp::Student
   def self.run(auth_hash)
     student = User.find_by(clever_id: auth_hash[:info][:id])
     if student.present?
-      result = {type: 'user_succcess', data: student}
+      result = {type: 'user_success', data: student}
     else
       result = {type: 'user_failure'}
     end
