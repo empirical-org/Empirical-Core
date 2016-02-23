@@ -13,8 +13,7 @@ class Scorebook::ActivitySessionsQuery
                               .includes(:user, activity: [:classification, topic: [:section, :topic_category]])
                               .references(:user)
                               .where(user: users)
-                              .where('(activity_sessions.is_final_score = true) or ((activity_sessions.completed_at IS NULL) and activity_sessions.is_retry = false)
-                               and classroom_activities.assigned_student_ids IS NOT NULL')
+                              .where('(activity_sessions.is_final_score = true) or ((activity_sessions.completed_at IS NULL) and activity_sessions.is_retry = false)')
 
     results
   end
