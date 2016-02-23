@@ -1,4 +1,5 @@
 require 'rails_helper'
+include AsyncHelper
 
 feature 'Subscription to Progress Report', js: true do
   before(:each) { vcr_ignores_localhost }
@@ -40,9 +41,7 @@ feature 'Subscription to Progress Report', js: true do
 
   context 'trial has not begun' do
 
-    it "shows premium state as 'none'" do
-      expect(teacher.premium_state).to eq('none')
-    end
+
 
   end
 
@@ -52,8 +51,18 @@ feature 'Subscription to Progress Report', js: true do
         report_page.visit
       end
 
+      it "shows premium state as 'none'" do
+        expect(teacher.premium_state).to eq('none')
+      end
+
       it 'displays activity session data' do
         expect(report_page).to have_content(student.name)
+      end
+
+      it 'initiates a trial when "Try it Free for 30 Days" button is clicked ' do
+         click_button('Try it Free for 30 Days')
+         ##eventually comes from AsyncHelper.rb accepts arguments {timeout: x, interval: y}
+         eventually {  expect(teacher.premium_state).to eq('trial') }
       end
     end
 
