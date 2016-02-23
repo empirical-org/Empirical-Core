@@ -38,6 +38,14 @@ feature 'Subscription to Progress Report', js: true do
     sign_in_user teacher
   end
 
+  context 'trial has not begun' do
+
+    it "shows premium state as 'none'" do
+      expect(teacher.premium_state).to eq('none')
+    end
+
+  end
+
   context 'no paid subscription' do
     context 'trial is not expired' do
       before do
