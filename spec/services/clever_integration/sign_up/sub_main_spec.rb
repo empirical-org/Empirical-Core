@@ -2,51 +2,8 @@ require 'rails_helper'
 
 describe 'CleverIntegration::SignUp::SubMain' do
 
-  let!(:teacher_response) {
-    Response = Struct.new(:sections, :school)
-    sections = [
-      {
-        id: 'section_id_1',
-        name: 'section1',
-        grade: '2'
-      }
-    ]
-    school = {name: 'school1'}
-    x = Response.new(sections, school)
-    x
-  }
+  include_context 'clever'
 
-  let!(:section_response) {
-    Response = Struct.new(:students)
-    students = [
-      {
-        id: 'student_id_1',
-        name: {
-          first: 'studentjohn',
-          last: 'studentsmith'
-        },
-        email: 'student@gmail.com',
-        credentials: {
-          district_username: 'student_username'
-        }
-      }
-    ]
-    x = Response.new(students)
-    x
-  }
-
-  def helper(response)
-    lambda do |clever_id, district_token|
-      response
-    end
-  end
-
-  let!(:requesters) {
-    {
-      teacher_requester: helper(teacher_response),
-      section_requester: helper(section_response)
-    }
-  }
 
   def subject
     CleverIntegration::SignUp::SubMain.run(auth_hash, requesters)
@@ -108,8 +65,8 @@ describe 'CleverIntegration::SignUp::SubMain' do
           user_type: 'teacher',
           id: 'teacher_id_1',
           name: {
-            first: 'john',
-            last: 'smith'
+            first: 'teacherjohn',
+            last: 'teachersmith'
           },
           email: 'teacher@gmail.com',
           district: 'district_id_1'
@@ -131,44 +88,32 @@ describe 'CleverIntegration::SignUp::SubMain' do
 
       it 'creates the teacher' do
         subject
-        u = User.find_by(email: 'teacher@gmail.com', clever_id: 'teacher_id_1', name: 'John Smith')
-        puts "users : #{User.all.to_json}"
-        expect(u).to be_present
+        expect(teacher).to be_present
       end
 
       it 'associates the teacher to the district' do
         subject
-        u = User.find_by(email: 'teacher@gmail.com')
-        expect(u.districts.first).to eq(district)
+        expect(teacher.districts.first).to eq(district)
       end
 
       it "creates teacher's classrooms" do
         subject
-        c = Classroom.find_by(name: 'section1', clever_id: 'section_id_1')
-        expect(c).to be_present
+        expect(classroom).to be_present
       end
 
       it 'associates classrooms to teacher' do
         subject
-        c = Classroom.find_by(name: 'section1', clever_id: 'section_id_1')
-        t = User.find_by(email: 'teacher@gmail.com')
-        expect(c.teacher).to eq(t)
+        expect(classroom.teacher).to eq(teacher)
       end
 
       it 'creates students for teachers classrooms' do
         subject
-        u = User.find_by(clever_id: 'student_id_1',
-                         name: 'Studentjohn Studentsmith',
-                         email: 'student@gmail.com',
-                         username: 'student_username')
-        expect(u).to be_present
+        expect(student).to be_present
       end
 
       it 'associates students to teachers classrooms' do
         subject
-        u = User.find_by(clever_id: 'student_id_1')
-        c = Classroom.find_by(name: 'section1')
-        expect(u.classroom).to eq(c)
+        expect(student.classroom).to eq(classroom)
       end
     end
   end

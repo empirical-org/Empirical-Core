@@ -2,20 +2,69 @@ require 'rails_helper'
 
 describe 'CleverIntegration::Sync::SubMain' do
 
+  include_context 'clever'
+
+  let!(:district) {
+    FactoryGirl.create(:district, clever_id: 'district_id_1', token: 'token1')
+  }
+
+  let!(:district_response) {
+    Response = Struct.new(:teachers)
+    teachers = [
+      {
+        id: 'teacher_id_1',
+        name: {
+          first: 'teacherjohn',
+          last: 'teachersmith'
+        },
+        email: 'teacher@gmail.com',
+        district: 'district_id_1'
+      }
+
+    ]
+    x = Response.new(teachers)
+    x
+  }
+
+  let!(:requesters2) {
+    requesters.merge(
+      {district_requester: helper(district_response)}
+    )
+  }
+
   def subject
-    CleverIntegration::Sync::SubMain.run
+    CleverIntegration::Sync::SubMain.run(requesters2)
   end
 
-=begin
-creates teachers
-associates teachers to district
-creates sections
-associations sections to teachers
-creates students
-associates students to sections
-=end
 
 
+  it 'creates teachers' do
+    subject
+    expect(teacher).to be_present
+  end
 
+  it 'associates teachers to district' do
+    subject
+    expect(teacher.districts.first).to eq(district)
+  end
 
+  it 'creates classrooms' do
+    subject
+    expect(classroom).to be_present
+  end
+
+  it 'associates classrooms to teacher' do
+    subject
+    expect(classroom.teacher).to eq(teacher)
+  end
+
+  it 'creates students' do
+    subject
+    expect(student).to be_present
+  end
+
+  it 'associates student to classroom' do
+    subject
+    expect(student.classroom).to eq(classroom)
+  end
 end
