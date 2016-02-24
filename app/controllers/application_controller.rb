@@ -51,6 +51,17 @@ class ApplicationController < ActionController::Base
     # sign_in(User.create_visitor)
   end
 
+  def login_failure_message
+    login_failure 'Incorrect username/email or password'
+  end
+
+
+  def login_failure(error)
+    @user = User.new
+    flash[:error] = error
+    render :new
+  end
+
   protected
 
   def set_vary_header
