@@ -5,7 +5,7 @@ module CleverIntegration::Parsers::Student
     name = self.generate_name(name_hash[:first], name_hash[:last])
     {
       clever_id: hash[:id],
-      email: hash[:email],
+      email: hash[:email].downcase,
       username: hash[:credentials][:district_username],
       name: name
     }

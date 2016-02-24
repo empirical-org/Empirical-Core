@@ -4,7 +4,7 @@ module CleverIntegration::Parsers::Teacher
     name = self.generate_name(hash[:name][:first], hash[:name][:last])
     {
       clever_id: hash[:id],
-      email: hash[:email],
+      email: hash[:email].downcase,
       name: name,
       district_id: hash[:district]
     }
