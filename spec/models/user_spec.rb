@@ -523,60 +523,6 @@ describe User, type: :model do
     end
   end
 
-  describe 'clever', :vcr do
-    describe 'student' do
-      let!(:token) { 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88' }
-      let!(:clever_id) { '53ea7d7ae87f28ae1e5c5132' }
-      let(:user) { FactoryGirl.build(:user,
-                                      role: 'student',
-                                      token: token,
-                                      clever_id: clever_id) }
-
-      it 'finds its clever user for a' do
-        u = user.send(:clever_user)
-
-        expect(u.id).to eq('53ea7d7ae87f28ae1e5c5132')
-      end
-    end
-
-    describe 'teacher' do
-      let!(:token) { 'c0b73f915c29bf2541454b7f20a98ed65c0bbc88' }
-      let!(:clever_id) { '53ea7d70804342a11e497bb7' }
-
-      let(:user) { FactoryGirl.build(:user,
-                                      role: 'teacher',
-                                      token: token,
-                                      clever_id: clever_id) }
-
-      it 'finds its clever user for a' do
-        u = user.send(:clever_user)
-
-        expect(u.id).to eq('53ea7d70804342a11e497bb7')
-      end
-    end
-
-    describe 'setup from clever' do
-      it 'passes an auth hash for a user to be setup' do
-        pending("This spec's VCR cassette returns a 404, so this test always fails")
-        @user = User.setup_from_clever({
-          info: {
-            email: 'foo@bar.wee',
-            id: '123',
-            user_type: 'student',
-            name: {first: 'Joshy', last: 'Washy'}
-          },
-          credentials: {
-            token: '123'
-          }
-        })
-
-        expect(@user.valid?).to be_truthy
-        expect(@user.id).to_not be_nil
-        expect(@user.email).to eq('foo@bar.wee')
-      end
-    end
-  end
-
   describe 'student behavior' do
     let!(:classroom)          { FactoryGirl.create(:classroom) }
     let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom) }
