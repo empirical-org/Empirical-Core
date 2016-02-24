@@ -11,11 +11,11 @@ EC.TeacherPricingMini = React.createClass({
   },
 
   getInitialState: function() {
-    return {isUserSignedIn: $('#user-logged-in').data().signedIn === true};
+    return {isUserSignedIn: ($('#user-logged-in').data().signedIn === true)};
   },
 
   beginTrial: function() {
-  if (this.state.signedIn === true) {
+  if (this.state.isUserSignedIn === true) {
     $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'})
     .success(function(){window.location.assign('/teachers/classrooms/scorebook');});
   } else {
