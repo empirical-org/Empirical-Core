@@ -8,9 +8,9 @@ module CleverIntegration::Sync::Main
 
   def self.requesters
     {
-      teacher_requester: CleverIntegration::Requester.teacher,
-      section_requester: CleverIntegration::Requester.section,
-      district_requester: CleverIntegration::Requester.district
+      teacher_requester: CleverIntegration::Requesters.teacher,
+      section_requester: CleverIntegration::Requesters.section,
+      district_requester: CleverIntegration::Requesters.district
     }
   end
 
