@@ -269,6 +269,7 @@ EC.LessonPlanner = React.createClass({
 
 	unitTemplatesManagerActions: function () {
 		return {
+			toggleTab: this.toggleTab,
       customAssign: this.customAssign,
       fastAssign: this.fastAssign,
 			clickAssignButton: this.clickAssignButton,
