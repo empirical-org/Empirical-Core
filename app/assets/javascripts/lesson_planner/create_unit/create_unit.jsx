@@ -271,7 +271,7 @@ EC.CreateUnit = React.createClass({
 		}
 		return (
 			<span>
-				<EC.ProgressBar stage={this.getStage}/>
+				<EC.ProgressBar stage={this.getStage()}/>
 				<div className='container lesson_planner_main'>
 					{stageSpecificComponents}
 				</div>
