@@ -51,21 +51,44 @@ EC.UnitTemplateMini = React.createClass({
     return val;
   },
 
-  selectModel: function () {
-    this.props.actions.selectModel(this.props.data)
+  onClickAction: function () {
+    if (this.props.data.id == 'createYourOwn') {
+      this.props.actions.toggleTab('createUnit');
+    } else {
+      this.props.actions.selectModel(this.props.data);
+    }
+  },
+
+  miniSpecificComponents: function() {
+    if (this.props.data.id == 'createYourOwn') {
+      return (
+        <div className='text-center col-xs-12 create-your-own'>
+          <div className='content-wrapper'>
+            <img className='plus_icon' src='/add_class.png'></img>
+            <h3>Build Your Own Activity Pack</h3>
+          </div>
+      </div>
+    );
+      }
+    // else it is a normal mini
+    else {
+      return(
+          <div className='col-xs-12'>
+              <EC.UnitTemplateFirstRow
+                  actions={{filterByCategory: this.props.actions.filterByCategory}}
+                  data={this.props.data}
+                  modules={{string: this.modules.string}} />
+              <EC.UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
+              {this.displayPicture()}
+            </div>
+          );
+          }
   },
 
   render: function () {
     return (
-      <div className={this.getClassName()} onClick={this.selectModel}>
-        <div className='col-xs-12'>
-          <EC.UnitTemplateFirstRow
-              actions={{filterByCategory: this.props.actions.filterByCategory}}
-              data={this.props.data}
-              modules={{string: this.modules.string}} />
-          <EC.UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
-          {this.displayPicture()}
-        </div>
+      <div className={this.getClassName()} onClick={this.onClickAction}>
+        {this.miniSpecificComponents()}
       </div>
     );
   }

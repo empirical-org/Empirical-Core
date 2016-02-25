@@ -4,14 +4,10 @@ EC.UnitTemplateProfile = React.createClass({
     actions: React.PropTypes.object.isRequired
   },
 
-  getInitialState: function () {
-    return {};
-  },
 
   render: function () {
     return (
       <div className='unit-template-profile'>
-
         <EC.UnitTemplateProfileHeader data={this.props.data}
                                    actions={this.props.actions} />
 
@@ -38,7 +34,7 @@ EC.UnitTemplateProfile = React.createClass({
                   </div>
                   <div className='row'>
                     <div className='col-xs-12'>
-                      <EC.UnitTemplateProfileShareButtons data={this.props.data} />
+                      <EC.UnitTemplateProfileShareButtons data={this.props.data.model} />
                     </div>
                   </div>
                 </div>
