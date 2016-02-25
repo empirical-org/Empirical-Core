@@ -4,6 +4,18 @@
   position: relative;
   cursor: pointer;
 
+  .create-your-own {
+    background-color: white;
+    height: 300px;
+    border: 1px dashed #929292;
+    .content-wrapper {
+      margin-top: 102px;
+      img {
+        margin-bottom: 26px;
+      }
+    }
+  }
+
   .first-row {
     padding-left: 12px;
     padding-top: 16px;
