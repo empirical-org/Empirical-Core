@@ -21,7 +21,7 @@ class SignInPage < Page
   end
 
   def submit_form
-    click_button 'Sign in'
+    click_button 'Login'
   end
 
   private

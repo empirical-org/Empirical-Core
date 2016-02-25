@@ -1,6 +1,11 @@
 "use strict";
 EC.Classroom = React.createClass({
 
+  componentDidMount: function(){
+  		$('body').scrollTop(0)
+  },
+
+
   handleClassroomSelection: function(e) {
     var checked = $(e.target).is(':checked');
     this.props.toggleClassroomSelection(this.props.classroom, checked);

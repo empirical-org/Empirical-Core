@@ -6,6 +6,13 @@
   border-right: none !important;
   cursor: pointer !important;
 }
+
+.modal-content {
+  max-width: 700px;
+  .modal-title {
+    margin-left: 40px;
+  }
+}
 li.active.premium-tab > a,
 li.premium-tab > a:hover {
   border-top: 3px solid #875A12 !important;
