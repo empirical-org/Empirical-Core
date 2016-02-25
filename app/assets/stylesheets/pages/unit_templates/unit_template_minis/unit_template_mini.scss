@@ -3,7 +3,17 @@
   margin-top: 30px;
   position: relative;
   cursor: pointer;
-
+  .create-your-own {
+    background-color: white;
+    height: 270px;
+    border: 1px dashed #929292;
+    .content-wrapper {
+      img {
+        margin-bottom: 26px;
+      }
+      @include vertical-align();
+    }
+  }
   .first-row {
     padding-left: 12px;
     padding-top: 16px;
@@ -12,38 +22,31 @@
     font-weight: bold;
     height: 200px;
     font-size: 18px;
-
-    .standards-count {
-
-    }
+    .standards-count {}
     .unit-template-name {
       margin-top: 18px;
       font-size: 22px;
       font-weight: 900;
     }
   }
-
   .author-picture {
     position: absolute;
     bottom: 50px;
     left: 27px;
   }
-
   .white-row {
     background-color: white;
     color: rgb(100,100,100);
     height: 70px;
     font-weight: 400;
     padding-top: 36px;
-
     border: 1px solid #929292;
-
     .info-row {
       padding-left: 12px;
       line-height: 18px;
       height: 18px;
       .activities-count {
-        float:right;
+        float: right;
         .fa-th-list {
           margin-right: 5px;
         }
@@ -51,13 +54,12 @@
       .time {
         .fa-clock-o {
           font-size: 18px;
-          float:left;
+          float: left;
         }
         .time-number {
-          float:left;
+          float: left;
         }
       }
-
     }
   }
 }

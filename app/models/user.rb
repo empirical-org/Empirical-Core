@@ -318,6 +318,6 @@ private
   end
 
   def generate_username
-    self.username = UsernameGenerator.new(self).student
+    self.username = UsernameGenerator.run(self.first_name, self.last_name, self.classcode)
   end
 end
