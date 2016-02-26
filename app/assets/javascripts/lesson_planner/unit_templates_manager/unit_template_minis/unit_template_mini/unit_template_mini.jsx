@@ -82,7 +82,7 @@ EC.UnitTemplateMini = React.createClass({
               {this.displayPicture()}
             </div>
           );
-          }
+        }
   },
 
   render: function () {
