@@ -15,7 +15,7 @@ module Demo::ConceptResults
   #private
 
   def self.create_concept_results_for_activity_session(data_from_csv, activity_session)
-    data = data_from_csv.find{ |ele| ele[:activity] = activity_session.activity.name }
+    data = data_from_csv.find{ |ele| ele[:activity] == activity_session.activity.name }
     crs = data[:concept_result_data].reduce([]) do |acc, ele|
       crs_for_concept = self.create_concept_results_for_concept(ele[:concept],
                                                                 ele[:number_of_concept_results],
