@@ -16,7 +16,7 @@ module UsernameGenerator
 
   private
 
-  def at_classcode
+  def self.at_classcode(classcode)
     return "" if classcode.nil?
     "@#{classcode}"
   end
