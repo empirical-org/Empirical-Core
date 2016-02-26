@@ -29,7 +29,7 @@ window.addEventListener("message", receiveMessage, false);
 
 function receiveMessage(event)
 {
-  if (event.origin === "http://localhost:3000") {
+  if (event.origin === "http://localhost:3001") {
     if (event.data.action === "message") {window.location.reload()};
   } else if (event.origin === "https://grammar.quill.org"){
     if (event.data.action === "message") {window.location.reload()};
