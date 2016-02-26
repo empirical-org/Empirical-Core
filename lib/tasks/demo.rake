@@ -306,7 +306,7 @@ namespace :demo do
             name: 'First Period',
             student_names:
               %w(
-                Maya\ Angelou
+                Bill\ Bryson
                 Margaret\ Atwood
                 Jane\ Austen
                 Anton\ Chekhov
@@ -328,7 +328,7 @@ namespace :demo do
                   Vladimir\ Nabokov
                   Dougas\ Adams
                   Isabel\ Allende
-                  Bill\ Bryson
+                  Maya\ Angelou
                   Kazuo\ Ishiguro
                 )
           },
