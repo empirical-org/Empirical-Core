@@ -5,7 +5,7 @@ namespace :demo do
   end
 
   task :destroy => :environment do
-    teacher = User.find_by_username 'demo'
+    teacher = User.find_by_username 'cool-demo'
     classrooms = teacher.classrooms
     classroom_activities = classrooms.map(&:classroom_activities).flatten
     students = classrooms.map(&:students).flatten
