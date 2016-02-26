@@ -61,7 +61,7 @@ module EmpiricalGrammar
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         # localhost dev...
-        origins 'http://localhost:3000'
+        origins 'http://localhost:3001'
 
         resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put]
       end
