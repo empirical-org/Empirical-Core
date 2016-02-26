@@ -33,7 +33,7 @@ EC.ClassMini = React.createClass({
   classroomSpecificButton: function() {
     if (!this.studentCount()) {
       return (
-        <a href="/teachers/classrooms/2575/invite_students">
+        <a href={this.inviteStudentsLink()}>
           <button className='button-green'>Invite Students</button>
         </a>
       );
@@ -50,17 +50,6 @@ EC.ClassMini = React.createClass({
         </a>
       );
     }
-  },
-
-  addClassMini: function() {
-    return (
-      <div>
-        <a className='add_class_link' href="/teachers/classrooms/new">
-          <img className='plus_icon' src='/add_class.png'></img>
-          <h3>Add a Class</h3>
-        </a>
-      </div>
-    );
   },
 
   classroomMini: function() {

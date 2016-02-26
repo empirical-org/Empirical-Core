@@ -3,6 +3,10 @@ jQuery(function ($) {
     return;
   }
 
+  if ($('.firewall-test-image').length && $('.firewall-test-image')[0].naturalWidth === 0) {
+    React.render(React.createElement(EC.FirewallWarning), $('.container-fluid')[0]);
+  }
+
   var moduleUrl = $('iframe').prop('src');
   window.quill = new Quill(moduleUrl);
   quill.listen();
@@ -37,5 +41,3 @@ function receiveMessage(event)
     return
   }
 }
-
-
