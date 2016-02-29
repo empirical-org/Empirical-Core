@@ -5,6 +5,7 @@ EC.MyResources = React.createClass({
       <div>
         <EC.VideoMini videoCode='https://www.youtube.com/embed/i-clKDhqrqQ'/>
         <EC.TeacherResourcesMini/>
+        <EC.GoogleClassroomMini/>
       </div>);
   },
 
