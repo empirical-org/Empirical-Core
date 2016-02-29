@@ -22,8 +22,17 @@ EC.UnitTemplateMinis = React.createClass({
     } else {
       models = this.props.data.displayedModels;
     }
+    models = this.addCreateYourOwnModel(models);
     var rows = this.modules.rowsCreator.create(models);
     return <span>{rows}</span>;
+  },
+
+  //adds a final model, which is simply flagged as a createYourOwn one via the key
+  addCreateYourOwnModel: function(models) {
+    if (models.length) {
+      models.push({id: 'createYourOwn'});
+      }
+    return models;
   },
 
   generateUnitTemplateView: function (model, index) {

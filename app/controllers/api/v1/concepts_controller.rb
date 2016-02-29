@@ -11,6 +11,14 @@ class Api::V1::ConceptsController < Api::ApiController
   end
 
   def index
+    # Returns all the concepts, sorted by level
+    # Example Response:
+    # {
+    #   concept_level_2: [concepts where the parent id is null],
+    #   concept_level_1: [concepts where parent id matches a level two concept],
+    #   concept_level_0: [concepts where parent id matches a level one concept]
+    # }
+    #
     render json: Concept.all_with_level
   end
 

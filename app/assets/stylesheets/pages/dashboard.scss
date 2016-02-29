@@ -68,7 +68,24 @@
     p {
       width: 280px;
       border-top: 1px solid #cecece;
+      line-height: 19px;
       padding-top: 5px;
+    }
+    &.google-classroom-announcement {
+      p {
+        border-top: none;
+        margin: 0;
+        padding-top: 0;
+      }
+      img {
+        margin-top: 21px;
+        margin-bottom: 15px;
+      }
+      span {
+        display: inline-block;
+        color: $link-color;
+        margin-top: 16px;
+      }
     }
   }
   .premium-container {
