@@ -68,7 +68,7 @@ class SegmentAnalytics
   def identify_params(user)
     params = {
       user_id: user.id,
-      traits: {premium: !user.subscriptions.empty?}.merge(user_traits(user)),
+      traits: {premium: user.premium_state),
       integrations: integration_rules(user)
     }
   end
