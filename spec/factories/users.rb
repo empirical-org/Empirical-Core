@@ -41,7 +41,7 @@ FactoryGirl.define do
     factory :student do
       role 'student'
       username
-      classroom
+      classrooms { [ FactoryGirl.create(:classroom) ] }
 
       factory :arnold_horshack do
         name                  'Arnold Horshack'
