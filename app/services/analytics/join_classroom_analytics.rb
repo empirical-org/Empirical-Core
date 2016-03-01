@@ -7,7 +7,7 @@ class JoinClassroomAnalytics
 
 
   def track student
-    teacher = student.teacher
+    teacher = StudentsTeacher.run(student)
     return if teacher.nil?
     analytics_identify(teacher)
     analytics_track({
