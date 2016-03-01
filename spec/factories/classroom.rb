@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :classroom do
     sequence(:name) { |i| "classroom #{i}" }
-    teacher
+    #teacher
     grade '8'
 
     # factory :classroom_with_one_student do
