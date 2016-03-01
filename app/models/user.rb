@@ -212,9 +212,9 @@ class User < ActiveRecord::Base
     self.password = self.password_confirmation = last_name
   end
 
-  def generate_student
+  def generate_student(classroom_id)
     self.role = 'student'
-    generate_username
+    generate_username(classroom_id)
     generate_password
   end
 
@@ -317,7 +317,7 @@ private
     password.present?
   end
 
-  def generate_username
-    self.username = UsernameGenerator.run(self.first_name, self.last_name, self.classroom.code)
+  def generate_username(classroom_id)
+    self.username = UsernameGenerator.run(self.first_name, self.last_name, Classroom.find(classroom_id).code)
   end
 end

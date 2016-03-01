@@ -14,7 +14,7 @@ describe "JoinClassroomAnalytics" do
 
   it 'identifies teacher' do
     analytics.track(student)
-    expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
+    expect(identify_calls[0][:user_id]).to eq(teacher.id)
   end
 
   it 'sends event for teacher' do
