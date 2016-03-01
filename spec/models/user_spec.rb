@@ -217,17 +217,18 @@ describe User, type: :model do
   end
 
   describe "#generate_username" do
-    let!(:user) { FactoryGirl.build(:user, first_name: "first", last_name: "last", classcode: "cc")}
+    let!(:classroom) { FactoryGirl.create(:classroom, code: 'cc') }
+    let!(:user) { FactoryGirl.build(:user, first_name: "first", last_name: "last", classrooms: [classroom])}
 
     it "generates last name, first name, and class code" do
       expect(user.send(:generate_username)).to eq("first.last@cc")
     end
 
     it 'handles students with identical names and classrooms' do
-      user1 = FactoryGirl.build(:user, first_name: "first", last_name: "last", classcode: "cc")
+      user1 = FactoryGirl.build(:user, first_name: "first", last_name: "last", classrooms: [classroom])
       user1.generate_student
       user1.save
-      user2 = FactoryGirl.build(:user, first_name: "first", last_name: "last", classcode: "cc")
+      user2 = FactoryGirl.build(:user, first_name: "first", last_name: "last", classrooms: [classroom])
       expect(user2.send(:generate_username)).to eq("first.last2@cc")
     end
   end
@@ -525,11 +526,11 @@ describe User, type: :model do
 
   describe 'student behavior' do
     let!(:classroom)          { FactoryGirl.create(:classroom) }
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom) }
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classrooms: classroom) }
     let!(:activity)           { classroom_activity.activity }
 
     let!(:unit)    { FactoryGirl.create(:unit, classroom_activities: [classroom_activity])}
-    let!(:student) { FactoryGirl.create(:student, classroom: classroom) }
+    let!(:student) { FactoryGirl.create(:student, classrooms: [classroom]) }
 
     it 'assigns newly-created students to all activities previously assigned to their classroom' do
       expect(student.activity_sessions.size).to eq(1)
