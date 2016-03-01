@@ -10,7 +10,7 @@ feature 'Subscription to Progress Report', js: true do
 
   let!(:activity) { FactoryGirl.create(:activity) }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let!(:student) { FactoryGirl.create(:arnold_horshack, classroom: classroom) }
+  let!(:student) { FactoryGirl.create(:arnold_horshack, classrooms: [classroom]) }
   let!(:unit) {FactoryGirl.create(:unit)}
   let!(:classroom_activity) { FactoryGirl.create(:classroom_activity,
     classroom: classroom, unit: unit, activity: activity) }

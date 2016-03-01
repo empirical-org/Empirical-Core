@@ -7,8 +7,8 @@ describe 'TeachersData' do
   let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
   let!(:teacher_ids) { [teacher.id] }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let!(:student1) { FactoryGirl.create(:user, role: 'student', classroom: classroom) }
-  let!(:student2) { FactoryGirl.create(:user, role: 'student', classroom: classroom) }
+  let!(:student1) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
+  let!(:student2) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
 
   let!(:time2) { Time.now }
   let!(:time1) { time2 - (10.minutes) }

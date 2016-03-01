@@ -2,7 +2,7 @@ shared_context "big profile" do
   #include_context "profile"
   let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher)}
-  let!(:student) { FactoryGirl.create(:user, role: 'student', classroom: classroom) }
+  let!(:student) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
 
   let!(:number_of_units) { 20 }
   let!(:number_of_activities_per_unit) { 20 }

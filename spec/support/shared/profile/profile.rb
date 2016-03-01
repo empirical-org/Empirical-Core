@@ -1,7 +1,7 @@
 shared_context 'profile' do
   let(:teacher) { FactoryGirl.create(:user, role: 'teacher', name: 'Teacher teacher') }
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let(:student) { FactoryGirl.create(:user, role: 'student', classroom: classroom) }
+  let(:student) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
 
   let(:game1) { FactoryGirl.create(:activity_classification, id: 1) }
   let(:game2) { FactoryGirl.create(:activity_classification, id: 2) }
