@@ -17,6 +17,10 @@ module Student
       classrooms.first
     end
 
+    def teacher
+      classroom.teacher
+    end
+
     def unfinished_activities classroom
       classroom.activities - finished_activities(classroom)
     end
