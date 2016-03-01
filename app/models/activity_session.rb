@@ -1,7 +1,7 @@
 class ActivitySession < ActiveRecord::Base
 
   include Uid
-  
+
   default_scope { where(visible: true)}
   belongs_to :classroom_activity
   belongs_to :activity
@@ -49,7 +49,21 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def self.by_teacher(teacher)
-    self.joins(user: :teacher).where(teachers_users: {id: teacher.id})
+    self.joins(
+      " JOIN classroom_activities ca ON activity_sessions.classroom_activity_id = ca.id
+        JOIN classrooms ON ca.classroom_id = classrooms.id
+        JOIN users teachers ON classrooms.teacher_id = teachers.id
+      "
+    ).where("teachers.id = ?", teacher.id)
+  end
+
+  def self.by_teacher_variation_2(teacher)
+    self.joins(
+      " JOIN classroom_activities ca ON activity_sessions.classroom_activity_id = ca.id
+        JOIN classrooms c1 ON ca.classroom_id = c1.id
+        JOIN users teachers ON c1.teacher_id = teachers.id
+      "
+    ).where("teachers.id = ?", teacher.id)
   end
 
   def self.with_filters(query, filters)
