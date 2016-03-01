@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::TopicSerializer, type: :serializer do
   let(:teacher) { FactoryGirl.create(:teacher) }
-  let!(:student) { FactoryGirl.create(:student, teacher: teacher)}
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
+  let!(:student) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom])}
   let!(:topic) { FactoryGirl.create(:topic) }
   let(:activity) { FactoryGirl.create(:activity, topic: topic) }
   let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
