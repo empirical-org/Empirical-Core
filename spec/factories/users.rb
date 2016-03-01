@@ -89,7 +89,7 @@ FactoryGirl.define do
       classrooms { [ FactoryGirl.create(:classroom_with_one_student) ] }
 
       after(:create) do |user, evaluator|
-        create_list(:classroom_activity, 1, assigned_student_ids: [user.id], classroom: user.classroom)
+        create_list(:classroom_activity, 1, assigned_student_ids: [user.id], classroom: user.classrooms.first)
       end
     end
 
