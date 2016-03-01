@@ -5,7 +5,7 @@ module Teacher
 
   included do
     # has_many :classrooms, foreign_key: 'teacher_id'
-    has_many :students, through: :classrooms
+    #has_many :students, through: :classrooms
   end
 
   class << self
