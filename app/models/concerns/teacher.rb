@@ -4,7 +4,7 @@ module Teacher
   TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
 
   included do
-    has_many :classrooms, foreign_key: 'teacher_id'
+    # has_many :classrooms, foreign_key: 'teacher_id'
     has_many :students, through: :classrooms
   end
 
