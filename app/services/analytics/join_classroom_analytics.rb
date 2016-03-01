@@ -1,6 +1,8 @@
 class JoinClassroomAnalytics
   attr_accessor :analytics
 
+  include StudentsTeacher
+
   def initialize
     self.analytics = SegmentAnalytics.new
   end
