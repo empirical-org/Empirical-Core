@@ -9,7 +9,7 @@ describe "JoinClassroomAnalytics" do
 
   let(:teacher) { FactoryGirl.create(:teacher) }
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let(:student) { FactoryGirl.create(:student, classroom: classroom) }
+  let(:student) { FactoryGirl.create(:student, classrooms: [classroom]) }
 
 
   it 'identifies teacher' do

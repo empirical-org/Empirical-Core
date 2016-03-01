@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::Unit do
   let!(:classroom) {FactoryGirl.create(:classroom)}
-  let!(:student) {FactoryGirl.create(:student, classroom: classroom)}
+  let!(:student) {FactoryGirl.create(:student, classrooms: [classroom])}
   let!(:classroom_activity) {FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom)}
   let!(:unit) {FactoryGirl.create :unit, classroom_activities: [classroom_activity]}
 

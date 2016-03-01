@@ -19,7 +19,7 @@ module Units::Creator
     puts "UNIT TEMPLATE FOUND #{unit_template}"
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     puts "ACTIVITY DATA FOUND #{activities_data}"
-    classrooms_data = teacher.classrooms.map{ |c| {id: c.id, student_ids: []} }
+    classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
     puts "CLASSROOM DATA FOUND #{classrooms_data}"
     self.create_helper(teacher, unit_template.name, activities_data, classrooms_data)
   end

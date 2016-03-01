@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Create Unit', js: true do
   let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let!(:student) { FactoryGirl.create(:user, role: 'student', classroom: classroom) }
+  let!(:student) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
   let!(:activity) { FactoryGirl.create(:activity) }
   before do
     vcr_ignores_localhost
