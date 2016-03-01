@@ -20,7 +20,7 @@ article.simple-rounded-box.cms
     dd= "#{@user.school_mail_city}, #{@user.school_mail_state}" if @user.school
     - if @user.teacher?
       dt Grades
-      dd= @user.classrooms.collect {|c| "#{c.name} - #{c.grade}"}.join('<br />').html_safe
+      dd= @user.classrooms_i_teach.collect {|c| "#{c.name} - #{c.grade}"}.join('<br />').html_safe
     dt IP Address
     dd= @user.ip_address
     dt Created

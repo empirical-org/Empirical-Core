@@ -11,10 +11,10 @@ shared_context 'Topic Progress Report' do
   let!(:teacher) { FactoryGirl.create(:teacher, name: 'Teacher Person', username: 'teacherperson') }
   let!(:section) { FactoryGirl.create(:section) }
   let!(:full_classroom) { FactoryGirl.create(:classroom, name: "full", teacher: teacher) }
-  let!(:alice) { FactoryGirl.create(:student, name: "Alice Cool", classroom: full_classroom) }
-  let!(:fred) { FactoryGirl.create(:student, name: "Fred Kewl", classroom: full_classroom) }
-  let!(:zojirushi) { FactoryGirl.create(:student, name: "Zojirushi Kewel", classroom: full_classroom) }
-  let!(:unassigned_student) { FactoryGirl.create(:student, classroom: nil) }
+  let!(:alice) { FactoryGirl.create(:student, name: "Alice Cool", classrooms: [full_classroom]) }
+  let!(:fred) { FactoryGirl.create(:student, name: "Fred Kewl", classrooms: [full_classroom]) }
+  let!(:zojirushi) { FactoryGirl.create(:student, name: "Zojirushi Kewel", classrooms: [full_classroom]) }
+  let!(:unassigned_student) { FactoryGirl.create(:student, classrooms: []) }
   let!(:second_grade_topic) { FactoryGirl.create(:topic, section: section, name: "2nd Grade CCSS") }
   let!(:first_grade_topic) { FactoryGirl.create(:topic, section: section, name: "1st Grade CCSS") }
   let!(:hidden_topic) { FactoryGirl.create(:topic, section: section) }

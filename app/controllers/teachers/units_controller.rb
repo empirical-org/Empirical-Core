@@ -9,7 +9,7 @@ class Teachers::UnitsController < ApplicationController
 
   def index
     # cas = current_user.classrooms.includes(:students, classroom_activities: :activity, classroom_activities: :topic).map(&:classroom_activities).flatten
-    cas = current_user.classrooms.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten
+    cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten
     units = cas.group_by{|ca| ca.unit_id}
     arr = []
     units.each do |unit_id, classroom_activities|

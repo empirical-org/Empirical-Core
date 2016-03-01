@@ -51,7 +51,7 @@ class ProfilesController < ApplicationController
   end
 
   def teacher
-    if @user.classrooms.any?
+    if @user.classrooms_i_teach.any?
       redirect_to dashboard_teachers_classrooms_path
     else
       redirect_to new_teachers_classroom_path
