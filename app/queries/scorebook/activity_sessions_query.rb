@@ -4,7 +4,7 @@ class Scorebook::ActivitySessionsQuery
     if classroom_id.present?
       users = Classroom.find(classroom_id).students
     else
-      users = teacher.classrooms.includes(:students).map(&:students).flatten.compact.uniq
+      users = teacher.classrooms_i_teach.includes(:students).map(&:students).flatten.compact.uniq
     end
 
     # Find all the 'final' activity sessions for all the students in all the classrooms
