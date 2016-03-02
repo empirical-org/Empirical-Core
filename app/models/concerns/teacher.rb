@@ -19,7 +19,7 @@ module Teacher
   # Occasionally teachers are populated in the view with
   # a single blank classroom.
   def has_classrooms?
-    !classrooms.empty? && !classrooms.all?(&:new_record?)
+    classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
   end
 
   def scorebook_scores(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
