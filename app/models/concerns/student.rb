@@ -100,7 +100,7 @@ module Student
 
     def assign_classroom_activities_for_classroom(classroom)
       classroom.classroom_activities.each do |ca|
-        if !ca.assigned_student_ids.try(:any?)
+        if ca.assigned_student_ids.try(:empty?)
           assign = true
         elsif ca.assigned_student_ids.include?(self.id)
           assign = true
