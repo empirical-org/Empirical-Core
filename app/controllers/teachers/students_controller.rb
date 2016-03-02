@@ -9,6 +9,7 @@ class Teachers::StudentsController < ApplicationController
       redirect_to teachers_classroom_invite_students_path(@classroom)
     else
       @student = Creators::StudentCreator.create_student(user_params, @classroom.id)
+      Associators::StudentsToClassrooms.run(@student, @classroom)
     end
     InviteStudentWorker.perform_async(current_user.id, @student.id)
     respond_to do |format|
