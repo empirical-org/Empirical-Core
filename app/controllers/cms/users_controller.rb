@@ -4,7 +4,7 @@ class Cms::UsersController < ApplicationController
   before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
 
   def index
-    @q = User.includes([:schools, :classroom]).search(params[:q])
+    @q = User.includes([:schools, :classrooms]).search(params[:q])
 
     @q.sorts = 'created_at desc' if @q.sorts.empty?
 
