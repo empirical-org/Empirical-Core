@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ProgressReports::Standards::StudentSerializer, type: :serializer do
-  let(:teacher) { FactoryGirl.create(:teacher)
+  let(:teacher) { FactoryGirl.create(:teacher) }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let!(:student) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom])}
   let(:activity) { FactoryGirl.create(:activity) }
