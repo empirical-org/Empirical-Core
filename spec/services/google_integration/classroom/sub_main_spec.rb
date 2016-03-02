@@ -66,7 +66,7 @@ describe 'GoogleIntegration::Classroom::SubMain' do
 
     it 'associates student to her first google classroom' do
       subject
-      expect(user.classroom).to eq(extant_google_classroom)
+      expect(user.classrooms.first).to eq(extant_google_classroom)
     end
   end
 
