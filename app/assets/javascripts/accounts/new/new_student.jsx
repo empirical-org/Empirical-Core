@@ -34,6 +34,7 @@ EC.NewStudent = React.createClass({
     var inputs;
     inputs = this.props.textInputGenerator.generate(this.formFields);
     return (
+      <div>
       <div className='row'>
         <div className='col-xs-offset-3 col-xs-9'>
           <div className='row'>
@@ -42,9 +43,11 @@ EC.NewStudent = React.createClass({
             </div>
           </div>
           <EC.AuthSignUp />
-          <div className='col-xs-8 col-xs-offset-2'>
-            <p className='support-p'>We now support Google Classroom!</p>
           </div>
+            <p className='text-center support-p'>We now support Google Classroom!</p>
+          </div>
+          <div className='row'>
+            <div className='col-xs-offset-3 col-xs-9'>
           <div className='col-xs-8 need-a-border'/>
           <div className='row'>
             <div className='col-xs-12'>
@@ -63,6 +66,7 @@ EC.NewStudent = React.createClass({
           </div>
         </div>
       </div>
+    </div>
     );
   }
 });
