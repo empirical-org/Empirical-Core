@@ -113,7 +113,7 @@ feature 'Subscription to Progress Report', js: true do
 
     context 'that started that day' do
       it 'displays new sign up banner' do
-        expect(report_page).to have_content('Success! You now have Premium')
+        eventually {expect(report_page).to have_content('Success! You now have Premium')}
       end
     end
 
