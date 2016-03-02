@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
 
   def generate_student(classroom_id)
     self.role = 'student'
-    generate_username
+    generate_username(classroom_id)
     generate_password
   end
 
@@ -274,7 +274,8 @@ class User < ActiveRecord::Base
   def generate_student_username_if_absent
     return if not student?
     return if username.present?
-    generate_username
+    classroom_id = classrooms.any? ? classrooms.first.id : nil
+    generate_username(classroom_id)
   end
 
   def newsletter?
@@ -317,12 +318,12 @@ private
     password.present?
   end
 
-  def get_class_code
-    return 'student' if classrooms.empty?
-    classrooms.first.code
+  def get_class_code(classroom_id)
+    return 'student' if classroom_id.nil?
+    Classroom.find(classroom_id).code
   end
 
-  def generate_username
-    self.username = UsernameGenerator.run(self.first_name, self.last_name, get_class_code)
+  def generate_username(classroom_id=nil)
+    self.username = UsernameGenerator.run(self.first_name, self.last_name, get_class_code(classroom_id))
   end
 end
