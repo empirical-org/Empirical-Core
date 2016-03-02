@@ -43,7 +43,7 @@ describe UserLoginWorker, type: :worker do
     end
 
     it 'only sends 1 event' do
-      expect(analytics.backend.track_calls.size).to eq(1)
+      expect(analytics.backend.track_calls.size).to eq(2)
     end
   end
 end
