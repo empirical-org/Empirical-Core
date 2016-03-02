@@ -56,15 +56,6 @@ class ActivitySession < ActiveRecord::Base
     ).where("teachers.id = ?", teacher.id)
   end
 
-  def self.by_teacher_variation_2(teacher)
-    self.joins(
-      " JOIN classroom_activities ca ON activity_sessions.classroom_activity_id = ca.id
-        JOIN classrooms c1 ON ca.classroom_id = c1.id
-        JOIN users teachers ON c1.teacher_id = teachers.id
-      "
-    ).where("teachers.id = ?", teacher.id)
-  end
-
   def self.with_filters(query, filters)
     if filters[:classroom_id].present?
       query = query.where("classrooms.id = ?", filters[:classroom_id])
