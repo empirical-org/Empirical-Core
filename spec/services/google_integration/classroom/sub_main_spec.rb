@@ -91,7 +91,7 @@ describe 'GoogleIntegration::Classroom::SubMain' do
           { name: student.name, email: student.email }
         end
       end
-      expect(x).to eq([
+      expect(x).to match_array([
         [
           { name: 'Test1_s2 S2', email: "#{google_classroom_id}.test1_s2@gedu.demo.rockerz.xyz" },
           { name: 'Test1_s1 S1', email: "#{google_classroom_id}.test1_s1@gedu.demo.rockerz.xyz" }
