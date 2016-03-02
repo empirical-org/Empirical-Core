@@ -8,7 +8,7 @@ class ProgressReports::ActivitySession
     query = ActivitySession.includes(:user, :classroom_activity, activity: [:topic, :classification])
       .references(:classification)
       .completed
-      .by_teacher_variation_2(@teacher)
+      .by_teacher(@teacher)
       .order(ActivitySession.search_sort_sql(filters[:sort]))
     ActivitySession.with_filters(query, filters)
   end

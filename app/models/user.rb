@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
 
   def generate_student(classroom_id)
     self.role = 'student'
-    generate_username(classroom_id)
+    generate_username
     generate_password
   end
 
