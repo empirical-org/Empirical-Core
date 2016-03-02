@@ -93,7 +93,12 @@ module Student
     end
 
     def assign_classroom_activities
-      return if classroom.nil?
+      classrooms.each do |classroom|
+        assign_classroom_activities_for_classroom(classroom)
+      end
+    end
+
+    def assign_classroom_activities_for_classroom(classroom)
       classroom.classroom_activities.each do |ca|
         if !ca.assigned_student_ids.try(:any?)
           assign = true

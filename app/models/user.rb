@@ -317,7 +317,12 @@ private
     password.present?
   end
 
-  def generate_username(classroom_id)
-    self.username = UsernameGenerator.run(self.first_name, self.last_name, Classroom.find(classroom_id).code)
+  def get_class_code
+    return 'student' if classrooms.empty?
+    classrooms.first.code
+  end
+
+  def generate_username
+    self.username = UsernameGenerator.run(self.first_name, self.last_name, get_class_code)
   end
 end
