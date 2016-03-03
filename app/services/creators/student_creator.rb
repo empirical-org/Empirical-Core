@@ -12,7 +12,6 @@ module Creators::StudentCreator
 
   def self.create_student(user_params, classroom_id)
     @student = User.new(user_params)
-
     @student.generate_student(classroom_id)
     @student.save!
     buildClassroomRelation(classroom_id)
@@ -20,7 +19,7 @@ module Creators::StudentCreator
   end
 
   def self.buildClassroomRelation(classroom_id)
-    StudentsClassrooms.create!(student_id: @student.id, classroom_id: classroom_id)
+    StudentsClassrooms.find_or_create_by(student_id: @student.id, classroom_id: classroom_id)
   end
 
 end
