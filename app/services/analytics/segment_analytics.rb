@@ -68,7 +68,7 @@ class SegmentAnalytics
   def identify_params(user)
     params = {
       user_id: user.id,
-      traits: {premium: user.premium_state},
+      traits: {premium_state: user.premium_state},
       integrations: integration_rules(user)
     }
   end
