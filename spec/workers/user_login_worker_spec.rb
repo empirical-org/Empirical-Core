@@ -5,7 +5,7 @@ describe UserLoginWorker, type: :worker do
   let(:analytics) { SegmentAnalytics.new }
   let(:teacher) { FactoryGirl.create(:teacher) }
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let(:student) { FactoryGirl.create(:student, classroom: classroom) }
+  let(:student) { FactoryGirl.create(:student, classrooms: [classroom]) }
 
 
   it 'sends a segment.io event when a teacher logs in' do
@@ -43,7 +43,7 @@ describe UserLoginWorker, type: :worker do
     end
 
     it 'only sends 1 event' do
-      expect(analytics.backend.track_calls.size).to eq(1)
+      expect(analytics.backend.track_calls.size).to eq(2)
     end
   end
 end

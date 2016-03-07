@@ -15,8 +15,7 @@
       = f.search_field :schools_name_cont
       = f.label :schools_city_cont
       = f.search_field :schools_city_cont
-      = f.label :classroom_code_cont
-      = f.search_field :classroom_code_cont
+
       = f.submit class: 'btn btn-primary btn-mid'
     br
     br
@@ -41,7 +40,6 @@
             td= user.name
             td= user.email
             td class="role-#{user.role}"= user.role[0]
-            td= user.classcode
             td= user.schools.any? ? user.schools.first.name : ''
             - if user.subscriptions.any?
               td= "#{user.subscriptions.first.account_limit} accounts"

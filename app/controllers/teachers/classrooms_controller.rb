@@ -4,16 +4,16 @@ class Teachers::ClassroomsController < ApplicationController
   before_filter :authorize!
 
   def index
-    if current_user.classrooms.empty?
+    if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     else
-      @classrooms = current_user.classrooms
+      @classrooms = current_user.classrooms_i_teach
       @classroom = @classrooms.first
     end
   end
 
   def new
-    @classroom = current_user.classrooms.new
+    @classroom = current_user.classrooms_i_teach.new
     @classroom.generate_code
   end
 

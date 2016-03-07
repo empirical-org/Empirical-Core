@@ -41,7 +41,7 @@ FactoryGirl.define do
     factory :student do
       role 'student'
       username
-      #classroom
+      classrooms { [ FactoryGirl.create(:classroom) ] }
 
       factory :arnold_horshack do
         name                  'Arnold Horshack'
@@ -61,7 +61,7 @@ FactoryGirl.define do
     factory :student_with_many_activities do
       role 'student'
       username
-      #classroom
+      classrooms { [ FactoryGirl.create(:classroom) ] }
 
       ignore do
         activity_count 5
@@ -76,7 +76,7 @@ FactoryGirl.define do
     factory :student_with_one_activity do
       role 'student'
       username
-      #classroom
+      classrooms { [ FactoryGirl.create(:classroom) ] }
 
       after(:create) do |user, evaluator|
         create_list(:activity_session, 1, user: user)
@@ -86,11 +86,11 @@ FactoryGirl.define do
     factory :student_with_one_assigned_activity do
       role 'student'
       username
-      #classroom { FactoryGirl.create(:classroom_with_one_student) }
+      classrooms { [ FactoryGirl.create(:classroom_with_one_student) ] }
 
-      # after(:create) do |user, evaluator|
-      #   create_list(:classroom_activity, 1, assigned_student_ids: [user.id], classroom: user.classroom)
-      # end
+      after(:create) do |user, evaluator|
+        create_list(:classroom_activity, 1, assigned_student_ids: [user.id], classroom: user.classrooms.first)
+      end
     end
 
   end

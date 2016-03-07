@@ -24,6 +24,15 @@ describe ProgressReports::Standards::Classroom do
       expect(subject.size).to eq(classrooms.size)
     end
 
+    it "ignores classrooms associated belonging to a different teacher (even if they share students with this teacher's classrooms" do
+      t = FactoryGirl.create(:user, role: 'teacher')
+      c = FactoryGirl.create(:classroom, teacher: t)
+      s = teacher.students.first
+      s.classrooms << c
+
+      expect(subject.size).to eq(classrooms.size)
+    end
+
     context 'sections' do
       let(:filters) { {section_id: section_ids} }
 

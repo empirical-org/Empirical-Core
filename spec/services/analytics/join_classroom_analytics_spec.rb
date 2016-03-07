@@ -9,12 +9,12 @@ describe "JoinClassroomAnalytics" do
 
   let(:teacher) { FactoryGirl.create(:teacher) }
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let(:student) { FactoryGirl.create(:student, classroom: classroom) }
+  let(:student) { FactoryGirl.create(:student, classrooms: [classroom]) }
 
 
   it 'identifies teacher' do
     analytics.track(student)
-    expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
+    expect(identify_calls[0][:user_id]).to eq(teacher.id)
   end
 
   it 'sends event for teacher' do
