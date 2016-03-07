@@ -2,13 +2,8 @@ module Student
   extend ActiveSupport::Concern
 
   included do
-    #TODO: move these relationships into the users model
-
     belongs_to :classroom, foreign_key: 'classcode', primary_key: 'code'
     has_one :teacher, through: :classroom
-
-    has_many :students_classrooms, foreign_key: 'student_id', dependent: :destroy
-    has_many :classrooms, through: :students_classrooms, source: :classrooms, inverse_of: :students
 
     has_many :assigned_activities, through: :classroom, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
