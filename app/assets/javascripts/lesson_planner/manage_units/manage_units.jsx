@@ -73,14 +73,14 @@ EC.ManageUnits = React.createClass({
 
 		});
 	},
+
 	switchToCreateUnit: function () {
-		this.props.toggleTab('createUnit');
+		this.props.actions.toggleTab('createUnit');
 	},
 
 	switchToExploreActivityPacks: function () {
-		this.props.toggleTab('exploreActivityPacks');
+		this.props.actions.toggleTab('exploreActivityPacks');
 	},
-
 
 	stateBasedComponent: function () {
 		if (this.state.units.length === 0 && this.state.loaded) {
@@ -103,6 +103,7 @@ EC.ManageUnits = React.createClass({
 				</div>
 				<EC.Units
 					updateDueDate={this.updateDueDate}
+					editUnit={this.props.actions.editUnit}
 					deleteClassroomActivity={this.deleteClassroomActivity}
 					hideUnit={this.hideUnit} data={this.state.units} />
 				</span>

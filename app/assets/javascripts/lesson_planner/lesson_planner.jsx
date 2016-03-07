@@ -31,7 +31,8 @@ EC.LessonPlanner = React.createClass({
         },
         model: {
           name: null,
-          selectedActivities: []
+          selectedActivities: [],
+          dueDates: {}
         }
       },
       unitTemplatesManager: {
@@ -83,6 +84,25 @@ EC.LessonPlanner = React.createClass({
     }
     return state;
 	},
+
+  editUnit: function(unitId) {
+    console.log('editUnit calledin lesson_planner', unitId)
+    $.ajax({
+      url: ['/teachers/units/', unitId, '/edit'].join(''),
+      success: this.editUnitRequestSuccess
+    })
+  },
+
+  editUnitRequestSuccess: function (data) {
+    console.log('editUnitRequestSuccess data', data)
+  },
+
+  assignActivityDueDate: function(activity, dueDate) {
+    var dueDates = this.state.createUnit.model.dueDates;
+    dueDates[activity.id] = dueDate;
+    this.updateCreateUnitModel({dueDates: dueDates})
+  },
+
 
   selectModel: function (ut) {
     var relatedModels = this._modelsInCategory(ut.unit_template_category.id)
@@ -295,12 +315,13 @@ EC.LessonPlanner = React.createClass({
 																						assignSuccessData: this.state.unitTemplatesManager.model}}
 																						 actions={{toggleStage: this.toggleStage,
                                                        toggleTab: this.toggleTab,
+                                                       assignActivityDueDate: this.assignActivityDueDate,
                                                        update: this.updateCreateUnitModel,
                                                        toggleActivitySelection: this.toggleActivitySelection,
 																										 	 assignSuccessActions: 	this.unitTemplatesAssignedActions()}}
 																						 analytics={this.props.analytics}/>;
 		} else if (this.state.tab == 'manageUnits') {
-			tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;
+			tabSpecificComponents = <EC.ManageUnits actions={{toggleTab: this.toggleTab, editUnit: this.editUnit}} />;
 		} else if (this.state.tab == 'exploreActivityPacks') {
 			tabSpecificComponents = <EC.UnitTemplatesManager
 																		data={this.state.unitTemplatesManager}
