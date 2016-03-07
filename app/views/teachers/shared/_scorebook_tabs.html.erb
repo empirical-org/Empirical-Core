@@ -19,8 +19,8 @@
       </li>
 
       <%- unless ((current_user.premium_state == 'paid') || (current_user.premium_state == 'school')) %>
-        <li class="<%= (action_name == 'premium_access') ? 'premium-tab active' : 'premium-tab' %>">
-          <%= link_to raw(premium_tab_copy), premium_access_path, role: 'tab' %>
+        <li class="<%= (action_name == 'premium') ? 'premium-tab active' : 'premium-tab' %>">
+          <%= link_to raw(premium_tab_copy), premium_path, role: 'tab' %>
         </li>
       <% end %>
     </ul>
