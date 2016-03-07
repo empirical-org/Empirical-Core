@@ -4,10 +4,10 @@ District tokens are the only meaningful auth tokens in Clever - Clever may send 
 Clever is a login service for schools - people can create a username and password on clever and then use that account to log in to a host of education apps. Our integration with Clever enables this - it enables teachers and students to sign in to Quill using their clever accounts, and to download classroom-related data that already exists on Clever.
 
 The code related for this feature exists
-  in the current directory
-  in app/controllers/auth/clever.rb
-  in config/omniauth.rb
-  and in environment variables, specified in .env in development and in heroku configs on heroku deployments
+  * in the current directory
+  * in app/controllers/auth/clever.rb
+  * in config/omniauth.rb
+  * and in environment variables, specified in .env in development and in heroku configs on heroku deployments
 
 We do not distinguish on our end between a clever sign up and a clever log in, we perform the same actions in either case (as you can see by looking in app/controllers/auth/clever.rb). From here forward when we refer to 'sign up' for brevity, but what is said about sign up applies equally to log in.
 
