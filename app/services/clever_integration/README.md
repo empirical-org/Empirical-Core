@@ -20,10 +20,10 @@ When a teacher signs up, if its district has not signed up previously, we abort 
 Since the teacher sign up process involves downloading all of that teacher's students, the student sign up process is very simple - we simply retrieve the record that we already created when that students teacher signed up. This implies that a teacher must sign up before one of the students tries to sign up. This could technically be changed, though it is probably unlikely that a student will sign up to quill before that student's teacher has signed up (and not much utility to doing so, since there will be no assigned activities to complete).
 
 These tasks are split into aspects, with associated files or sub-directories -
-  1) top-level sign up logic (in ./sign_up folder)
-  2) top-level data-importing logic (in ./importers folder)
+  1. top-level sign up logic (in ./sign_up folder)
+  2. top-level data-importing logic (in ./importers folder)
     importing can then be further broken down into 4 main aspects
-    a) requesting data from Clever (functions are isolated in the file ./requesters.rb, and are injected by sign_up/main.rb into sign_up/sub_main.rb)
-    b) parsing the response to the requests (handled in the folder ./parsers)
-    c) creating records in our database based on the responses (handled in the folder ./creators)
-    d) associating the records we create with each other in the appropriate way (handled in the folder ./associators)
+    1. requesting data from Clever (functions are isolated in the file ./requesters.rb, and are injected by sign_up/main.rb into sign_up/sub_main.rb)
+    2. parsing the response to the requests (handled in the folder ./parsers)
+    3. creating records in our database based on the responses (handled in the folder ./creators)
+    4. associating the records we create with each other in the appropriate way (handled in the folder ./associators)
