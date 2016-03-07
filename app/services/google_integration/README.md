@@ -1,12 +1,12 @@
 We currently use google integration for two things -
-1) SSO : allowing users to sign up / log in with their google account (so they dont have to manually enter in their name and email, and they dont have to come up with a new password).
-2) CLASSROOM : allowing teachers to import the classrooms and students they already created on google classroom, so they dont have to manually recreate them in Quill.
+1. SSO : allowing users to sign up / log in with their google account (so they dont have to manually enter in their name and email, and they dont have to come up with a new password).
+2. CLASSROOM : allowing teachers to import the classrooms and students they already created on google classroom, so they dont have to manually recreate them in Quill.
 
 Both of these integrations involve :
-  the code in this directory
-  the controllers in app/controllers/auth/google
-  configuration details specified in config/omniauth.rb
-  environment variables (specified in .env file in development, or in heroku config on a heroku deployment)
+  * the code in this directory
+  * the controllers in app/controllers/auth/google
+  * configuration details specified in config/omniauth.rb
+  * environment variables (specified in .env file in development, or in heroku config on a heroku deployment)
 
 A good introduction to how this stuff works is this blog post - https://www.twilio.com/blog/2014/09/gmail-api-oauth-rails.html.
 
@@ -25,9 +25,9 @@ CLASSROOM will not create classrooms records in our db for courses pertaining to
 Only when a teacher signs up are new records created in our db to match records of courses in google. In this case, any student records on google that are associated to those google courses are also downloaded and recorded in our db (we import courses and their rosters).
 
 The general process by which the CLASSROOM feature performs these tasks can be sliced into three aspects -
-1) requesting information from Google
-2) parsing the responses to those requests
-3) finding or creating records in our database using those parsed responses.
+1. requesting information from Google
+2. parsing the responses to those requests
+3. finding or creating records in our database using those parsed responses.
 
 Accordingly, the code for CLASSROOM is split into three main sub-directories - requesters, parsers, and creators.
 The requesters are substituted with mock objects in the specs.
