@@ -39,6 +39,10 @@ EC.Unit = React.createClass({
 		return txt;
 	},
 
+	editUnit: function () {
+		this.props.editUnit(this.props.data.unit.id)
+	},
+
 	render: function () {
 		var classroomActivities = _.map(this.props.data.classroom_activities, function (ca) {
 			return (<EC.ClassroomActivity
@@ -51,7 +55,8 @@ EC.Unit = React.createClass({
 		return (
 			<section >
 				<div className="row vertical-align">
-					<h3 className="col-md-9 vcenter">{this.props.data.unit.name}</h3>
+					<h3 className="col-md-7 vcenter">{this.props.data.unit.name}</h3>
+					<div className='col-md-2 vcenter pull-right delete-unit' onClick={this.editUnit}>Edit Activity Pack</div>
 					<div className="col-md-3 vcenter pull-right delete-unit" onClick={this.hideUnit}>Delete Activity Pack</div>
 				</div>
 				<div className="unit-label">
