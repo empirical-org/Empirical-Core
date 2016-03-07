@@ -18,7 +18,6 @@ EC.UnitTemplatesAssigned = React.createClass({
 
   teacherSpecificComponents: function() {
     this.hideSubNavBars();
-    console.log(this.props.data);
     var proceedButton;
     if (this.props.actions.studentsPresent() === true) {
       proceedButton = (
