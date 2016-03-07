@@ -4,11 +4,11 @@ FactoryGirl.define do
     teacher
     grade '8'
 
-    # factory :classroom_with_one_student do
-    #   after(:create) do |classroom, evaluator|
-    #     create_list(:student, 1, classroom: classroom)
-    #   end
-    # end
+    factory :classroom_with_one_student do
+      after(:create) do |classroom, evaluator|
+        create_list(:student, 1, classroom: classroom)
+      end
+    end
 
     factory :sweathogs do
       name  'Sweathogs'
