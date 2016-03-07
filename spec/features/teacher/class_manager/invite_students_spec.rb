@@ -175,7 +175,7 @@ feature 'Invite-Students page' do
 
         pending 'Issue #580 - menu should list classes in alphabetic order'
         class_names_list = invite_students_page.class_names
-        expect(class_names_list).to eq mr_kotter.classrooms
+        expect(class_names_list).to eq mr_kotter.classrooms_i_teach
                                                 .order(:name)
                                                 .map(&:name)
 

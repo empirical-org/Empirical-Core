@@ -66,7 +66,7 @@ describe 'GoogleIntegration::Classroom::SubMain' do
 
     it 'associates student to her first google classroom' do
       subject
-      expect(user.classroom).to eq(extant_google_classroom)
+      expect(user.classrooms.first).to eq(extant_google_classroom)
     end
   end
 
@@ -86,22 +86,15 @@ describe 'GoogleIntegration::Classroom::SubMain' do
 
     it 'creates students for the classrooms' do
       subject
-      x = classrooms.map(&:students).map do |students|
-        students.map do |student|
-          { name: student.name, email: student.email }
-        end
+      x = Classroom.find_by(google_classroom_id: google_classroom_id).students.map do |student|
+        { name: student.name, email: student.email }
       end
-      expect(x).to eq([
+      expect(x).to match_array(
         [
-          { name: 'Test1_s2 S2', email: "#{google_classroom_id}.test1_s2@gedu.demo.rockerz.xyz" },
-          { name: 'Test1_s1 S1', email: "#{google_classroom_id}.test1_s1@gedu.demo.rockerz.xyz" }
-        ],
-        [
-          { name: 'Test1_s2 S2', email: "#{google_classroom_id_2}.test1_s2@gedu.demo.rockerz.xyz" },
-          { name: 'Test1_s1 S1', email: "#{google_classroom_id_2}.test1_s1@gedu.demo.rockerz.xyz" }
+          { name: 'Test1_s1 S1', email: "#{google_classroom_id}.test1_s1@gedu.demo.rockerz.xyz" },
+          { name: 'Test1_s2 S2', email: "#{google_classroom_id}.test1_s2@gedu.demo.rockerz.xyz" }
         ]
-
-      ])
+      )
     end
   end
 end

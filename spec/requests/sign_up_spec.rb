@@ -85,8 +85,13 @@ describe 'Sign up', type: :request do
       it 'allows student to sign in' do
         sign_in(expected_student_email, expected_student_password)
         expect(response).to redirect_to(profile_path)
-        expect(User.find(session[:user_id]).classroom).to eq(classroom)
+        expect(User.find(session[:user_id])).to_not eq(nil)
       end
+
+      it "creates an association between the student and the teacher's classroom" do
+        expect(User.find_by_username_or_email(expected_student_email).classrooms).to include(classroom)
+      end
+
     end
   end
 end

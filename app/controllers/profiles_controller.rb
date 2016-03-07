@@ -16,9 +16,10 @@ class ProfilesController < ApplicationController
   def update
     # this is called by the 'join classroom' page
     @user = current_user
-    @user.update_attributes(user_params)
+    classcode = user_params[:classcode]
+    classroom = Classroom.where(code: classcode).first
+    Associators::StudentsToClassrooms.run(@user, classroom)
     JoinClassroomWorker.perform_async(@user.id)
-    @user.assign_classroom_activities
     redirect_to profile_path
   end
 
@@ -51,7 +52,7 @@ class ProfilesController < ApplicationController
   end
 
   def teacher
-    if @user.classrooms.any?
+    if @user.classrooms_i_teach.any?
       redirect_to dashboard_teachers_classrooms_path
     else
       redirect_to new_teachers_classroom_path

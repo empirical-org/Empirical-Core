@@ -13,11 +13,12 @@ shared_context :ms_sorter_and_sort_fodder do
     # There are still old records in the db with students that have only a first or last name, so we still want to test
     # that they are sorted appropriately.
     attribs = FactoryGirl.attributes_for :student
-
+    hash1 = attribs.merge(hash)
+    hash2 = hash1.merge({classrooms: [sort_fodder]})
     # Going to need to skip validations, since there is now a validation for having both a first and last name.
     # There are still old records in the db with students that have only a first or last name, so we still want to test
     # that they are sorted appropriately.
-    student = sort_fodder.students.build(attribs.merge(hash))
+    student = FactoryGirl.build(:user, hash2)
     student.save validate: false
     student
   end

@@ -4,16 +4,22 @@ module Student
   included do
     #TODO: move these relationships into the users model
 
-    belongs_to :classroom, foreign_key: 'classcode', primary_key: 'code'
-    has_one :teacher, through: :classroom
-
-    has_many :students_classrooms, foreign_key: 'student_id', dependent: :destroy
-    has_many :classrooms, through: :students_classrooms, source: :classrooms, inverse_of: :students
+    has_many :students_classrooms, foreign_key: 'student_id', dependent: :destroy, class_name: "StudentsClassrooms"
+    has_many :classrooms, through: :students_classrooms, source: :classroom, inverse_of: :students, class_name: "Classroom"
 
     has_many :assigned_activities, through: :classroom, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
 
     after_create :assign_classroom_activities
+
+    # FIXME: this is only to while constructing multiple_classrooms feature, after its done this should no longer exist
+    def classroom
+      classrooms.first
+    end
+
+    def teacher
+      classroom.teacher
+    end
 
     def unfinished_activities classroom
       classroom.activities - finished_activities(classroom)
@@ -87,9 +93,14 @@ module Student
     end
 
     def assign_classroom_activities
-      return if classroom.nil?
+      classrooms.each do |classroom|
+        assign_classroom_activities_for_classroom(classroom)
+      end
+    end
+
+    def assign_classroom_activities_for_classroom(classroom)
       classroom.classroom_activities.each do |ca|
-        if !ca.assigned_student_ids.try(:any?)
+        if ca.assigned_student_ids.try(:empty?)
           assign = true
         elsif ca.assigned_student_ids.include?(self.id)
           assign = true
