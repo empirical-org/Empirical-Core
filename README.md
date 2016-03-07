@@ -56,3 +56,24 @@ The installation comes with three users, though you can create as many more as y
 2. A student, username `student` and password `student`.
 3. An admin, username `admin` and password `admin`.
 4. An admin, username `staff` and password `staff`.
+
+
+# Documentation related to specific features
+
+api controllers
+* https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/api/README.md
+
+authentication controllers
+* https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/auth/README.md
+
+cms controllers
+* https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/cms/README.md
+
+clever integration
+* https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/clever_integration/README.md
+
+google integration
+* https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/google_integration/README.md
+
+
+
