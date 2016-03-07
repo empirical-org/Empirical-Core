@@ -2,7 +2,7 @@
 EC.CreateUnit = React.createClass({
 	propTypes: {
 		data: React.PropTypes.object.isRequired,
-		// createUnit: {
+		// createUnitData: {
 		// 		stage: 1,
 		// 		options: {
 		// 			classrooms: []
@@ -17,8 +17,6 @@ EC.CreateUnit = React.createClass({
 
 	getInitialState: function () {
 		return {
-			selectedActivities : [],
-			selectedClassrooms: [],
 			dueDates: {}
 		}
 	},
@@ -40,7 +38,6 @@ EC.CreateUnit = React.createClass({
 	},
 
 	assignActivityDueDate: function(activity, dueDate) {
-		console.log('assign activity due date in EC.CreateUnit', {activity: activity, dueDate: dueDate})
 		var dueDates = this.state.dueDates;
 		dueDates[activity.id] = dueDate;
 		this.setState({dueDates: dueDates});
