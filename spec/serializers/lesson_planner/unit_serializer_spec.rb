@@ -7,7 +7,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
     let!(:expected_serialized_keys) do
       %w(id
          name
-         selected_activities
+         selectedActivities
          classrooms
          dueDates)
     end
@@ -17,7 +17,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
     end
 
     let!(:neseted_array_keys) do
-      %w(selected_activities
+      %w(selectedActivities
          classrooms)
     end
   end
@@ -40,8 +40,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
       hash = {id: student.id, name: student.name, isSelected: true}
       expected_classrooms = [
         {
-          id: classroom.id,
-          name: classroom.name,
+          classroom: classroom,
           students: [hash]
         }
       ]
@@ -66,7 +65,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
     end
 
     it 'has correct selected_activities' do
-      expect(subject[:selected_activities]).to eq([{id: activity.id, name: activity.name}])
+      expect(subject[:selectedActivities]).to eq([ActivitySerializer.new(activity, root: false).as_json])
     end
 
     it 'has correct dueDates' do

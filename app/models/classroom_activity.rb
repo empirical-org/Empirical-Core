@@ -5,6 +5,7 @@ class ClassroomActivity < ActiveRecord::Base
   has_one :topic, through: :activity
   has_many :activity_sessions, dependent: :destroy
 
+  default_scope { where(visible: true) }
   scope :with_topic, ->(tid) { joins(:topic).where(topics: {id: tid}) }
 
 
@@ -40,6 +41,14 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def formatted_due_date
+    if due_date.present?
+      due_date.month.to_s + "-" + due_date.day.to_s + "-" + due_date.year.to_s
+    else
+      ""
+    end
+  end
+
 
 
   def completed
@@ -60,6 +69,12 @@ class ClassroomActivity < ActiveRecord::Base
     @score_book
   end
 
+  def assign_to_students
+    students.each do |student|
+      session_for(student)
+    end
+  end
+
   class << self
     # TODO: this method assumes that a student is only in ONE classroom.
     def create_session(activity, options = {})
@@ -68,11 +83,6 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
-  protected
 
-  def assign_to_students
-    students.each do |student|
-      session_for(student)
-    end
-  end
+
 end

@@ -1,7 +1,7 @@
 EC.NameTheUnit = React.createClass({
 
-	keyUp: function (e) {
-		var unitName = $('#unit_name').val();
+	updateName: function (e) {
+		var unitName = $(this.refs.name.getDOMNode()).val()
 		this.props.updateUnitName(unitName);
 	},
 
@@ -10,7 +10,7 @@ EC.NameTheUnit = React.createClass({
 			<section className="section-content-wrapper">
 				<div className="col-xs-12 col-md-9 col-sm-9 col-xl-9 no-pl">
 					<h3 className="section-header">Name the New Unit</h3>
-				</div>	
+				</div>
 
 				<div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 no-pl no-pr">
 
@@ -28,7 +28,7 @@ EC.NameTheUnit = React.createClass({
 
 				</div>
 
-				<input id="unit_name" onKeyUp={this.keyUp} type="text"  placeholder="e.g. Learning How to Use Nouns" />
+				<input id="unit_name" ref='name' onChange={this.updateName} value={this.props.unitName} type="text"  placeholder="e.g. Learning How to Use Nouns" />
 			</section>
 		);
 	}

@@ -35,6 +35,10 @@ EC.CreateUnit = React.createClass({
 		return this.props.data.createUnitData.model.name;
 	},
 
+	getId: function () {
+		return this.props.data.createUnitData.model.id;
+	},
+
 	toggleClassroomSelection: function(classroom, flag) {
 		var classrooms = this.getClassrooms();
 		var updated = _.map(classrooms, function (c) {
@@ -137,6 +141,7 @@ EC.CreateUnit = React.createClass({
 
 		var x = {
 			unit: {
+				id: this.getId(),
 				name: this.getUnitName(),
 				classrooms: classroomPostData,
 				activities: activityPostData
