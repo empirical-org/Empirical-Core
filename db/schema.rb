@@ -9,9 +9,9 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended that you check this file into your version control system. 
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229220357) do
+ActiveRecord::Schema.define(version: 20160308005554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,7 +132,8 @@ ActiveRecord::Schema.define(version: 20160229220357) do
     t.datetime "due_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "assigned_student_ids", array: true
+    t.integer  "assigned_student_ids",                             array: true
+    t.boolean  "visible",              default: true, null: false
   end
 
   add_index "classroom_activities", ["activity_id"], name: "index_classroom_activities_on_activity_id", using: :btree

@@ -30,6 +30,7 @@ EC.LessonPlanner = React.createClass({
           classrooms: []
         },
         model: {
+          id: null,
           name: null,
           selectedActivities: [],
           dueDates: {}
@@ -86,7 +87,6 @@ EC.LessonPlanner = React.createClass({
 	},
 
   editUnit: function(unitId) {
-    console.log('editUnit calledin lesson_planner', unitId)
     $.ajax({
       url: ['/teachers/units/', unitId, '/edit'].join(''),
       success: this.editUnitRequestSuccess
@@ -94,7 +94,10 @@ EC.LessonPlanner = React.createClass({
   },
 
   editUnitRequestSuccess: function (data) {
-    console.log('editUnitRequestSuccess data', data)
+    console.log('editUnitRequestSuccess', data)
+    this.updateCreateUnitModel({id: data.id, name: data.name, dueDates: data.dueDates, selectedActivities: data.selectedActivities})
+    this.updateCreateUnit({options: {classrooms: data.classrooms}})
+    this.setState({tab: 'createUnit'})
   },
 
   assignActivityDueDate: function(activity, dueDate) {
@@ -199,7 +202,9 @@ EC.LessonPlanner = React.createClass({
 
 	toggleStage: function (stage) {
 		this.updateCreateUnit({stage: stage})
-		this.fetchClassrooms();
+		if (!this.state.createUnit.options.classrooms.length) {
+      this.fetchClassrooms();
+    }
 	},
 
   fetchClassrooms: function() {
@@ -231,10 +236,14 @@ EC.LessonPlanner = React.createClass({
   },
 
   toggleActivitySelection: function (activity, true_or_false) {
+    console.log('toggleActivitySelection')
+    var selectedActivities = this.state.createUnit.model.selectedActivities
+    console.log('current selectedActivites', selectedActivities)
+    console.log('activity', activity)
 		if (true_or_false) {
 			this.props.analytics.track('select activity in lesson planner', {name: activity.name, id: activity.id});
 		}
-		var sas = this.modules.fnl.toggle(this.getSelectedActivities(), activity);
+		var sas = this.modules.fnl.toggleById(this.getSelectedActivities(), activity);
 		this.updateCreateUnitModel({selectedActivities: sas});
 	},
 
