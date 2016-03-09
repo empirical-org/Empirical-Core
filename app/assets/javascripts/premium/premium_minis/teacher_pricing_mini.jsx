@@ -3,7 +3,7 @@ EC.TeacherPricingMini = React.createClass({
   // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
   charge: function() {
-    if (this.state.signedIn === true) {
+    if (this.state.isUserSignedIn === true) {
       new EC.modules.Stripe();
     } else {
       this.pleaseLoginModal();
