@@ -32,7 +32,7 @@ EC.SelectSubscription = React.createClass({
     }
   },
   render: function () {
-    var optionStrings = ['free', 'premium'];
+    var optionStrings = ['none', 'paid', 'trial'];
     var options = _.map(optionStrings, function (optionString) {
       return <option key={optionString} value={optionString}>{optionString}</option>;
     });
