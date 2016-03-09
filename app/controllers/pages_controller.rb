@@ -66,10 +66,6 @@ class PagesController < ApplicationController
   def premium
   end
 
-  # for link to premium within logged-in teacher ui
-  def premium_access
-  end
-
   private
 
   def determine_layout
