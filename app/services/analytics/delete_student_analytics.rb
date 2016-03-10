@@ -25,6 +25,7 @@ class DeleteStudentAnalytics
         event: SegmentIo::Events::MYSTERY_STUDENT_DELETION,
         context: {:ip => teacher.ip_address }
       })
+    end
   end
 
   def analytics_track hash
