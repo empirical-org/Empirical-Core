@@ -1,8 +1,6 @@
-class DeleteStudentAnalytics
+class MysteryStudentDeletionAnalytics
   attr_accessor :analytics
-
   def initialize
-    puts DeleteStudentAnalytics
     self.analytics = SegmentAnalytics.new
   end
 
@@ -16,7 +14,7 @@ class DeleteStudentAnalytics
     analytics_identify(teacher)
       analytics_track({
         user_id: teacher.id,
-        event: SegmentIo::Events::TEACHER_DELETED_STUDENT_ACCOUNT,
+        event: SegmentIo::Events::MYSTERY_STUDENT_DELETION,
         context: {:ip => teacher.ip_address }
       })
   end
