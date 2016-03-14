@@ -51,7 +51,7 @@ module PagesHelper
 		      img: 'thumb-tom.png',
 		      name: "Tom Calabrese",
 		      title: "Creative Director, Cofounder",
-		      desc: "Thomas is a designer who likes to think about strategy, people, and science fiction. He studied at the 				Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of 				Visual Arts with a Masters in Branding."
+		      desc: "Thomas is a designer who likes to think about strategy, people, and science fiction. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
 	      },
 				{
 					img: 'thumb-ryan.png',
