@@ -36,19 +36,22 @@ module PagesHelper
 		      img: 'thumb-peter.png',
 		      name: 'Peter Gault',
 		      title: 'Executive Director, Founder',
-		      desc: "Peter designs the user's experience and coordinates the Empirical team. Peter wrote his senior thesis at Bates College on the role of emotion in moral judgements."
+		      desc: "Peter guides product development, coordinates the team, and leads fundraising. He studied philosophy and history at Bates College."
 		  },
 		  {
-		      img: 'thumb-elliot.png',
-		      name: "Elliot Mandel",
-		      title: "Partnerships Director, Cofounder",
-		      desc: "Elliot Mandel is the director of partnerships and product, with a focus on truly making learning interactive for all students. He is a graduate of the Harvard Graduate School of Education, where he specialized in building educational tools that empower all students to succeed."
-	  	  },
+		{
+			img: 'thumb-donald.png',
+			name: 'Donald Mckendrick',
+			title: 'Technical Director, Cofounder',
+			desc: "Donald is a developer who likes to create open platforms for learning.
+					He has a Masters degree in chemistry with a specialization in computer
+					aided modeling and statistical analysis."
+		},
 	  	  {
 		      img: 'thumb-tom.png',
 		      name: "Tom Calabrese",
 		      title: "Creative Director, Cofounder",
-		      desc: "Thomas is a designer who likes to think about strategy, people, and science fiction. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
+		      desc: "Thomas is a designer who likes to think about strategy, people, and science fiction. He studied at the 				Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of 				Visual Arts with a Masters in Branding."
 	      },
 				{
 					img: 'thumb-ryan.png',
@@ -56,14 +59,7 @@ module PagesHelper
 					title: "Web Developer, Cofounder",
 					desc: "Ryan develops new features for Quill and maintains the website. He also helps integrate Quill into classrooms and was formerly Director of Operations."
 				},
-				{
-					img: 'thumb-donald.png',
-		      name: 'Donald Mckendrick',
-		      title: 'Technical Director, Cofounder',
-		      desc: "Donald is a developer who likes to create open platforms for learning.
-					He has a Masters degree in chemistry with a specialization in computer
-					aided modeling and statistical analysis."
-				},
+
 	      {
 		      img: 'thumb-marcello.png',
 		      name: 'Marcello Sachs',
