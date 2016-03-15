@@ -12,4 +12,10 @@ export default class Question {
       return resp === response;
     });
   }
+
+  checkCaseInsensitiveMatch(response) {
+    return !!_.find(this.responses, (resp) => {
+      return resp.toLowerCase() === response.toLowerCase();
+    });
+  }
 }

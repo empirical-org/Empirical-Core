@@ -13,7 +13,16 @@ describe("The question object", () => {
   });
 
   it("should be able to check for an exact match in the responses.", () => {
-    var response = question.checkExactMatch("The fox ran.");
-    expect(response).toBe(true);
-  })
+    var correctResponse = question.checkExactMatch("The fox ran.");
+    expect(correctResponse).toBe(true);
+    var incorrectResponse = question.checkExactMatch("The dog ran.");
+    expect(incorrectResponse).toBe(false);
+  });
+
+  it("should be able to check for an case insensitive match in the responses.", () => {
+    var correctResponse = question.checkCaseInsensitiveMatch("the fox ran.");
+    expect(correctResponse).toBe(true);
+    var incorrectResponse = question.checkCaseInsensitiveMatch("the dog ran.");
+    expect(incorrectResponse).toBe(false);
+  });
 })
