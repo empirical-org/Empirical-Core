@@ -25,4 +25,11 @@ describe("The question object", () => {
     var incorrectResponse = question.checkCaseInsensitiveMatch("the dog ran.");
     expect(incorrectResponse).toBe(false);
   });
+
+  it("should be able to check for an punctuation insensitive match in the responses.", () => {
+    var correctResponse = question.checkPunctuationInsensitiveMatch("The fox ran");
+    expect(correctResponse).toBe(true);
+    var shoutyResponse = question.checkPunctuationInsensitiveMatch("The fox ran!");
+    expect(shoutyResponse).toBe(true);
+  });
 })

@@ -18,4 +18,10 @@ export default class Question {
       return resp.toLowerCase() === response.toLowerCase();
     });
   }
+
+  checkPunctuationInsensitiveMatch(response) {
+    return !!_.find(this.responses, (resp) => {
+      return resp.replace(/[^A-Za-z0-9\s]/g,"") === response.replace(/[^A-Za-z0-9\s]/g,"")
+    });
+  }
 }
