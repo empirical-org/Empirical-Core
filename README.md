@@ -1,5 +1,5 @@
-# QuillLimitless
-Limitless Version of Quill Grammar.
+# Quill-Connect
+Writing tool that focuses on sentence combining.
 
 Tools used
 
