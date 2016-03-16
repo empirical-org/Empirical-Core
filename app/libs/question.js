@@ -4,33 +4,36 @@ const jsDiff = require('diff');
 
 
 export default class Question {
-  constructor(prompt, sentences, responses) {
-    this.prompt = prompt;
-    this.sentences = sentences;
-    this.responses = responses;
+  constructor(data) {
+    this.prompt = data.prompt;
+    this.sentences = data.sentences;
+    this.responses = data.responses;
   }
 
   checkExactMatch(response) {
-    return !!_.find(this.responses, (resp) => {
-      return resp === response;
+    var response = _.find(this.responses, (resp) => {
+      return resp.text === response;
     });
+    return {found: !!response, response}
   }
 
   checkCaseInsensitiveMatch(response) {
-    return !!_.find(this.responses, (resp) => {
-      return resp.toLowerCase() === response.toLowerCase();
+    var response = _.find(this.responses, (resp) => {
+      return resp.text.toLowerCase() === response.toLowerCase();
     });
+    return {found: !!response, response}
   }
 
   checkPunctuationInsensitiveMatch(response) {
-    return !!_.find(this.responses, (resp) => {
-      return resp.replace(/[^A-Za-z0-9\s]/g,"") === response.replace(/[^A-Za-z0-9\s]/g,"")
+    var response = _.find(this.responses, (resp) => {
+      return resp.text.replace(/[^A-Za-z0-9\s]/g,"") === response.replace(/[^A-Za-z0-9\s]/g,"")
     });
+    return {found: !!response, response}
   }
 
   checkSmallTypoMatch(response) {
-    return !!_.find(this.responses, (resp) => {
-      var diff = jsDiff.diffChars(response, resp)
+    var response = !!_.find(this.responses, (resp) => {
+      var diff = jsDiff.diffChars(response, resp.text)
       var additions = _.where(diff, {added: true})
       if (additions.length > 1) {
         return false
@@ -41,14 +44,20 @@ export default class Question {
       }
       return false
     });
+    return {found: !!response, response}
   }
 
   checkFuzzyMatch(response) {
-    const set = fuzzy(this.responses);
+    const set = fuzzy(_.pluck(this.responses, "text"));
     const matches = set.get(response, []);
+    var response = undefined;
+    var text = undefined;
     if (matches.length > 0) {
-      return matches[0][0] > 0.8;
+      text = matches[0][0] > 0.8 ? matches[0][1] : null;
     }
-    return false;
+    if (text) {
+      response = _.findWhere(this.responses, {text})
+    }
+    return {found: !!response, response}
   }
 }
