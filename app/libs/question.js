@@ -10,6 +10,29 @@ export default class Question {
     this.responses = data.responses;
   }
 
+  checkMatch(response) {
+    var exactMatch = this.checkExactMatch(response)
+    if (exactMatch.found) {
+      return exactMatch
+    }
+    var lowerCaseMatch = this.checkCaseInsensitiveMatch(response)
+    if (lowerCaseMatch.found) {
+      lowerCaseMatch.caseError = true
+      return lowerCaseMatch
+    }
+    var punctuationMatch = this.checkPunctuationInsensitiveMatch(response)
+    if (punctuationMatch.found) {
+      punctuationMatch.punctuationError = true
+      return punctuationMatch
+    }
+    var typingErrorMatch = this.checkSmallTypoMatch(response)
+    if (typingErrorMatch.found) {
+      typingErrorMatch.typingError = true
+      return typingErrorMatch
+    }
+    return { found: false }
+  }
+
   checkExactMatch(response) {
     var response = _.find(this.responses, (resp) => {
       return resp.text === response;
@@ -33,16 +56,7 @@ export default class Question {
 
   checkSmallTypoMatch(response) {
     var response = !!_.find(this.responses, (resp) => {
-      var diff = jsDiff.diffChars(response, resp.text)
-      var additions = _.where(diff, {added: true})
-      if (additions.length > 1) {
-        return false
-      }
-      var count = _.reduce(additions, function(memo, num){ return memo + num.count; }, 0)
-      if (count < 3) {
-        return true
-      }
-      return false
+      return getLowAdditionCount(response, resp.text)
     });
     return {found: !!response, response}
   }
@@ -64,4 +78,17 @@ export default class Question {
 
 const removePunctuation = (string) => {
   return string.replace(/[^A-Za-z0-9\s]/g,"")
+}
+
+const getLowAdditionCount = (newString, oldString) => {
+  var diff = jsDiff.diffChars(newString, oldString)
+  var additions = _.where(diff, {added: true})
+  if (additions.length > 1) {
+    return false
+  }
+  var count = _.reduce(additions, function(memo, num){ return memo + num.count; }, 0)
+  if (count < 3) {
+    return true
+  }
+  return false
 }

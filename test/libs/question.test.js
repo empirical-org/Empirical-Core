@@ -64,4 +64,17 @@ describe("The question object", () => {
     var fuzzyMissingSpaceResponse = question.checkFuzzyMatch("Thefox ran.");
     expect(fuzzyMissingSpaceResponse.found).toBe(true);
   });
+
+  it("should be able to check a response and provide info on whats wrong", () => {
+    var correctResponse = question.checkMatch("The fox ran.");
+    expect(correctResponse.typingError).toBe(undefined);
+    var caseResponse = question.checkMatch("the fox ran.");
+    expect(caseResponse.caseError).toBe(true);
+    var punctuationResponse = question.checkMatch("The fox ran");
+    expect(punctuationResponse.punctuationError).toBe(true);
+    var typoResponse = question.checkMatch("The fox run.");
+    expect(typoResponse.typingError).toBe(true);
+    var noResponse = question.checkMatch("The dog walked.");
+    expect(noResponse.found).toBe(false);
+  })
 })
