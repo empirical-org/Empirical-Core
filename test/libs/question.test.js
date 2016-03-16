@@ -43,4 +43,15 @@ describe("The question object", () => {
     var missingSpaceResponse = question.checkSmallTypoMatch("Thefox ran.");
     expect(missingSpaceResponse).toBe(true);
   });
+
+  it("should be able to check for an fuzzy match in the responses.", () => {
+    var oneFuzzyResponse = question.checkFuzzyMatch("The fox run.");
+    expect(oneFuzzyResponse).toBe(true);
+    var twoFuzzyResponse = question.checkFuzzyMatch("That fox ran.");
+    expect(twoFuzzyResponse).toBe(true);
+    var threeFuzzyResponse = question.checkFuzzyMatch("The cat ran.");
+    expect(threeFuzzyResponse).toBe(false);
+    var fuzzyMissingSpaceResponse = question.checkFuzzyMatch("Thefox ran.");
+    expect(fuzzyMissingSpaceResponse).toBe(true);
+  });
 })

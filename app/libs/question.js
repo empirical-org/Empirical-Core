@@ -1,5 +1,7 @@
 import _ from 'underscore';
+import fuzzy from 'fuzzyset.js'
 const jsDiff = require('diff');
+
 
 export default class Question {
   constructor(prompt, sentences, responses) {
@@ -39,5 +41,14 @@ export default class Question {
       }
       return false
     });
+  }
+
+  checkFuzzyMatch(response) {
+    const set = fuzzy(this.responses);
+    const matches = set.get(response, []);
+    if (matches.length > 0) {
+      return matches[0][0] > 0.8;
+    }
+    return false;
   }
 }

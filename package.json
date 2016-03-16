@@ -25,6 +25,7 @@
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.5",
     "firebase": "^2.4.1",
+    "fuzzyset.js": "0.0.1",
     "history": "^1.13.1",
     "mocha": "^2.3.4",
     "node-sass": "^3.4.2",
