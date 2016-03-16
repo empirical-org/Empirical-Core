@@ -32,4 +32,15 @@ describe("The question object", () => {
     var shoutyResponse = question.checkPunctuationInsensitiveMatch("The fox ran!");
     expect(shoutyResponse).toBe(true);
   });
+
+  it("should be able to check for an small typo match in the responses.", () => {
+    var oneErrorResponse = question.checkSmallTypoMatch("The fox run.");
+    expect(oneErrorResponse).toBe(true);
+    var twoErrorResponse = question.checkSmallTypoMatch("That fox ran.");
+    expect(twoErrorResponse).toBe(true);
+    var threeErrorResponse = question.checkSmallTypoMatch("The cat ran.");
+    expect(threeErrorResponse).toBe(false);
+    var missingSpaceResponse = question.checkSmallTypoMatch("Thefox ran.");
+    expect(missingSpaceResponse).toBe(true);
+  });
 })
