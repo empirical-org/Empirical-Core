@@ -26,7 +26,7 @@ export default class Question {
 
   checkPunctuationInsensitiveMatch(response) {
     var response = _.find(this.responses, (resp) => {
-      return resp.text.replace(/[^A-Za-z0-9\s]/g,"") === response.replace(/[^A-Za-z0-9\s]/g,"")
+      return removePunctuation(resp.text) === removePunctuation(response)
     });
     return {found: !!response, response}
   }
@@ -60,4 +60,8 @@ export default class Question {
     }
     return {found: !!response, response}
   }
+}
+
+const removePunctuation = (string) => {
+  return string.replace(/[^A-Za-z0-9\s]/g,"")
 }
