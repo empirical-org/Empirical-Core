@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import {} from '../actions'
 import Welcome from "./welcome/welcome.jsx";
 import DevTools from '../utils/devTools';
+import NavBar from './navbar/navbar.jsx';
+import Footer from './footer/footer.jsx';
 import "../styles/style.scss";
 
 var Root = React.createClass({
@@ -25,7 +27,9 @@ var Root = React.createClass({
 
     return (
       <div>
+        <NavBar/>
         {this.stateSpecificComponent()}
+        <Footer />
         <DevTools/>
       </div>
     )

@@ -55,7 +55,7 @@ export default class Question {
   }
 
   checkSmallTypoMatch(response) {
-    var response = !!_.find(this.responses, (resp) => {
+    var response = _.find(this.responses, (resp) => {
       return getLowAdditionCount(response, resp.text)
     });
     return {found: !!response, response}
