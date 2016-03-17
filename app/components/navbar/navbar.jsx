@@ -1,20 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 export default React.createClass({
   render: function () {
     return (
-<header className="header">
+      <header className="header">
         <div className="container">
           <div className="header-left">
-            <a className="header-item" href="#">
-              Quill Connect
-            </a>
-            <a className="header-tab" href="#">
-              Play
-            </a>
-            <a className="header-tab" href="#">
-              Results
-            </a>
+            <Link to={'/'} className="header-item">Quill Connect</Link>
+            <Link to={'/play'} className="header-tab" activeClassName="is-active">Play</Link>
+            <Link to={'/results'} className="header-tab" activeClassName="is-active">Results</Link>
           </div>
           <span className="header-toggle">
             <span />
@@ -38,7 +33,6 @@ export default React.createClass({
           </div>
         </div>
       </header>
-
     )
   }
 })

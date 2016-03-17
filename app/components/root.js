@@ -23,12 +23,12 @@ var Root = React.createClass({
   },
 
   render(){
-    const { dispatch} = this.props;
+    const { dispatch } = this.props;
 
     return (
       <div>
         <NavBar/>
-        {this.stateSpecificComponent()}
+        {this.props.children}
         <Footer />
         <DevTools/>
       </div>
@@ -38,6 +38,8 @@ var Root = React.createClass({
 
 function select(state) {
   return {
+    question: state.question,
+    routing: state.routing
   }
 }
 

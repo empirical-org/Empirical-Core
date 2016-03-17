@@ -20,7 +20,7 @@ module.exports = {
     alias: {
       'redbox-react': path.join(__dirname, '..', '..', 'src')
     },
-    extensions: ['', '.js']
+    extensions: ['', '.js', '.jsx']
   },
   module: {
     loaders: [
