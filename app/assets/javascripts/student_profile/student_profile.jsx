@@ -9,7 +9,7 @@ EC.StudentProfile = React.createClass({
   getInitialState: function () {
     this.modules = {
       setter: new EC.modules.setter(),
-      scrollify: new EC.modules.scrollify()
+      // scrollify: new EC.modules.scrollify()
     };
     return {
       next_activity_session: {activity: {}},
@@ -23,7 +23,7 @@ EC.StudentProfile = React.createClass({
   },
 
   componentDidMount: function () {
-    this.modules.scrollify.scrollify('#page-content-wrapper', this)
+    // this.modules.scrollify.scrollify('#page-content-wrapper', this)
     this.setState({loading: true})
     this.fetchData();
   },
@@ -54,4 +54,3 @@ EC.StudentProfile = React.createClass({
     } else return <span></span>
   }
 });
-
