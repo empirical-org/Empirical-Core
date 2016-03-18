@@ -1,20 +1,20 @@
 import React from 'react'
-import { Link } from 'react-router'
 
 export default React.createClass({
+  componentDidMount: function () {
+    console.log(this.props.params.id)
+  },
+
   render: function () {
     return (
       <section className="section is-fullheight minus-nav">
         <div className="container">
           <h1 className="title">
-            Choose a lesson
+            Lesson {this.props.params.id}
           </h1>
           <h2 className="subtitle">
-            Combine multiple sentences into one strong one!
+            Ok, let's get started!
           </h2>
-          <ul>
-            <li><Link to={'/play/lesson/classroom'}>Classroom</Link></li>
-          </ul>
         </div>
       </section>
     )

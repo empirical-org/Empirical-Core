@@ -7,14 +7,11 @@ export default React.createClass({
       <section className="section is-fullheight minus-nav">
         <div className="container">
           <h1 className="title">
-            Choose a lesson
+            Welcome to the Admin panel
           </h1>
           <h2 className="subtitle">
-            Combine multiple sentences into one strong one!
+            Do you belong here?
           </h2>
-          <ul>
-            <li><Link to={'/play/lesson/classroom'}>Classroom</Link></li>
-          </ul>
         </div>
       </section>
     )

@@ -3,7 +3,9 @@ import { render } from 'react-dom'
 import Root from "./components/root";
 import Welcome from "./components/welcome/welcome.jsx";
 import Play from "./components/play/play.jsx";
+import Lesson from "./components/lesson/lesson.jsx";
 import Results from "./components/results/results.jsx";
+import Admin from "./components/admin/admin.jsx";
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import findAndFix from './reducers/combined';
@@ -20,13 +22,23 @@ const history = syncHistoryWithStore(hashhistory, store)
 
 const root = document.getElementById('root')
 
+const Passthrough = React.createClass({
+  render: function() {
+    return this.props.children
+  }
+})
+
 render((
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={Root}>
         <IndexRoute component={Welcome} />
-        <Route path="/play" component={Play}/>
+        <Route path="play" component={Passthrough}>
+          <IndexRoute component={Play} />
+          <Route path="lesson/:id" component={Lesson}/>
+        </Route>
         <Route path="/results" component={Results}/>
+        <Route path="/admin" component={Admin}/>
       </Route>
     </Router>
   </Provider>),

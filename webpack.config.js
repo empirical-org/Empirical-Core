@@ -1,6 +1,6 @@
+var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackErrorNotificationPlugin = require('webpack-error-notification')
-
 module.exports = {
   context: __dirname + "/app",
   entry: {
@@ -12,27 +12,19 @@ module.exports = {
     path: __dirname + "/dist",
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new WebpackErrorNotificationPlugin()
-  ]
-  resolve: {
-    alias: {
-      'redbox-react': path.join(__dirname, '..', '..', 'src')
-    },
-    extensions: ['', '.js', '.jsx']
-  },
+    new WebpackErrorNotificationPlugin(),
+  ],
   module: {
     loaders: [
-      // {
-      //   test: /\.jsx?$/,
-      //   exclude: /node_modules/,
-      //   loaders: ["react-hot", "babel-loader"],
-      // },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot?errorReporter=redbox-react', "babel"]
+        loaders: ["react-hot", "babel-loader"],
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: "babel",
         query:
           {
             presets:['es2015','react']

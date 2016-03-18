@@ -18,9 +18,7 @@ export default React.createClass({
           </span>
           <div className="header-right header-menu">
             <span className="header-item">
-              <a href="#">
-                About
-              </a>
+              <Link to={'/admin'} className="header-item" activeClassName="is-active">Admin</Link>
             </span>
             <span className="header-item">
               <a href="#">

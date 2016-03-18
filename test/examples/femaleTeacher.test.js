@@ -1,6 +1,6 @@
 import expect from 'expect';
 import Question from '../../app/libs/question';
-import data from './femaleTeacher.test.data'
+import data from '../../app/libs/femaleTeacher.test.data'
 
 describe("The female teacher example", () => {
   const question = new Question(data);
