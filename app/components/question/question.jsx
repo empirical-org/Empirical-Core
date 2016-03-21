@@ -10,7 +10,7 @@ const feedbackStrings = {
 
 export default React.createClass({
   getInitialState: function () {
-    return {feedback: false}
+    return {editing: false}
   },
 
   renderSentenceFragments: function () {
@@ -49,6 +49,18 @@ export default React.createClass({
     var question = new Question(this.props.question);
     var response = question.checkMatch(this.refs.response.value);
     this.props.submitResponse(response)
+    this.setState({editing: false})
+  },
+
+  toggleDisabled: function () {
+    if (this.state.editing) {
+      return "";
+    }
+    return "is-disabled"
+  },
+
+  handleChange: function () {
+    this.setState({editing: true})
   },
 
   render: function () {
@@ -60,10 +72,10 @@ export default React.createClass({
         </ul>
         {this.renderFeedback()}
         <div className="control">
-          <textarea className="textarea" ref="response" placeholder="Textarea"></textarea>
+          <textarea className="textarea" ref="response" placeholder="Textarea" onChange={this.handleChange}></textarea>
         </div>
         <p className="control">
-          <button className="button is-primary" onClick={this.checkAnswer}>Check answer</button>
+          <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
         </p>
       </div>
 
