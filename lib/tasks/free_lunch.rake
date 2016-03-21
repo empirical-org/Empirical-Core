@@ -10,9 +10,11 @@ namespace :free_lunch do
 
     def self.parse_csv
       file = File.expand_path('../lunch_column.csv', __FILE__)
+      puts 'Rake task beginning'
       CSV.foreach(file, headers: true) do |row|
         insert_free_lunch_data(row)
       end
+      puts 'Rake task completed'
     end
 
     def self.insert_free_lunch_data(row)
