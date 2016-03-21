@@ -24,45 +24,45 @@ describe("The question object", () => {
 
   it("should be able to check for an exact match in the responses.", () => {
     var correctResponse = question.checkExactMatch("The fox ran.");
-    expect(correctResponse.found).toBe(true);
+    expect(correctResponse).toExist()
     var incorrectResponse = question.checkExactMatch("The dog ran.");
-    expect(incorrectResponse.found).toBe(false);
+    expect(incorrectResponse).toNotExist();
   });
 
   it("should be able to check for an case insensitive match in the responses.", () => {
     var correctResponse = question.checkCaseInsensitiveMatch("the fox ran.");
-    expect(correctResponse.found).toBe(true);
+    expect(correctResponse).toExist()
     var incorrectResponse = question.checkCaseInsensitiveMatch("the dog ran.");
-    expect(incorrectResponse.found).toBe(false);
+    expect(incorrectResponse).toNotExist();
   });
 
   it("should be able to check for an punctuation insensitive match in the responses.", () => {
     var correctResponse = question.checkPunctuationInsensitiveMatch("The fox ran");
-    expect(correctResponse.found).toBe(true);
+    expect(correctResponse).toExist()
     var shoutyResponse = question.checkPunctuationInsensitiveMatch("The fox ran!");
-    expect(shoutyResponse.found).toBe(true);
+    expect(shoutyResponse).toExist()
   });
 
   it("should be able to check for an small typo match in the responses.", () => {
     var oneErrorResponse = question.checkSmallTypoMatch("The fox run.");
-    expect(oneErrorResponse.found).toBe(true);
+    expect(oneErrorResponse).toExist()
     var twoErrorResponse = question.checkSmallTypoMatch("That fox ran.");
-    expect(twoErrorResponse.found).toBe(true);
+    expect(twoErrorResponse).toExist()
     var threeErrorResponse = question.checkSmallTypoMatch("The cat ran.");
-    expect(threeErrorResponse.found).toBe(false);
+    expect(threeErrorResponse).toNotExist();
     var missingSpaceResponse = question.checkSmallTypoMatch("Thefox ran.");
-    expect(missingSpaceResponse.found).toBe(true);
+    expect(missingSpaceResponse).toExist()
   });
 
   it("should be able to check for an fuzzy match in the responses.", () => {
     var oneFuzzyResponse = question.checkFuzzyMatch("The fox run.");
-    expect(oneFuzzyResponse.found).toBe(true);
+    expect(oneFuzzyResponse).toExist()
     var twoFuzzyResponse = question.checkFuzzyMatch("That fox ran.");
-    expect(twoFuzzyResponse.found).toBe(true);
+    expect(twoFuzzyResponse).toExist()
     var threeFuzzyResponse = question.checkFuzzyMatch("The cat ran.");
-    expect(threeFuzzyResponse.found).toBe(false);
+    expect(threeFuzzyResponse).toNotExist();
     var fuzzyMissingSpaceResponse = question.checkFuzzyMatch("Thefox ran.");
-    expect(fuzzyMissingSpaceResponse.found).toBe(true);
+    expect(fuzzyMissingSpaceResponse).toExist()
   });
 
   it("should be able to check a response and provide info on whats wrong", () => {

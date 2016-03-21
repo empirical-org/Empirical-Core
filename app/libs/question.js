@@ -11,54 +11,60 @@ export default class Question {
   }
 
   checkMatch(response) {
-    var exactMatch = this.checkExactMatch(response)
-    if (exactMatch.found) {
-      return exactMatch
+    var returnValue = {
+      found: true,
+      submitted: response
+    }
+
+    var exactMatch = this.checkExactMatch(response)    
+    if (exactMatch !== undefined) {
+      returnValue.response = exactMatch
+      return returnValue
     }
     var lowerCaseMatch = this.checkCaseInsensitiveMatch(response)
-    if (lowerCaseMatch.found) {
-      lowerCaseMatch.caseError = true
-      return lowerCaseMatch
+    if (lowerCaseMatch !== undefined) {
+      returnValue.caseError = true
+      returnValue.response = lowerCaseMatch
+      return returnValue
     }
     var punctuationMatch = this.checkPunctuationInsensitiveMatch(response)
-    if (punctuationMatch.found) {
-      punctuationMatch.punctuationError = true
-      return punctuationMatch
+    if (punctuationMatch !== undefined) {
+      returnValue.punctuationError = true
+      returnValue.response = punctuationMatch
+      return returnValue
     }
     var typingErrorMatch = this.checkSmallTypoMatch(response)
-    if (typingErrorMatch.found) {
-      typingErrorMatch.typingError = true
-      return typingErrorMatch
+    if (typingErrorMatch !== undefined) {
+      returnValue.typingError = true
+      returnValue.response = typingErrorMatch
+      return returnValue
     }
-    return { found: false }
+    returnValue.found = false
+    return returnValue
   }
 
   checkExactMatch(response) {
-    var response = _.find(this.responses, (resp) => {
+    return _.find(this.responses, (resp) => {
       return resp.text === response;
     });
-    return {found: !!response, response}
   }
 
   checkCaseInsensitiveMatch(response) {
-    var response = _.find(this.responses, (resp) => {
+    return _.find(this.responses, (resp) => {
       return resp.text.toLowerCase() === response.toLowerCase();
     });
-    return {found: !!response, response}
   }
 
   checkPunctuationInsensitiveMatch(response) {
-    var response = _.find(this.responses, (resp) => {
+    return _.find(this.responses, (resp) => {
       return removePunctuation(resp.text) === removePunctuation(response)
     });
-    return {found: !!response, response}
   }
 
   checkSmallTypoMatch(response) {
-    var response = _.find(this.responses, (resp) => {
+    return _.find(this.responses, (resp) => {
       return getLowAdditionCount(response, resp.text)
     });
-    return {found: !!response, response}
   }
 
   checkFuzzyMatch(response) {
@@ -72,7 +78,7 @@ export default class Question {
     if (text) {
       response = _.findWhere(this.responses, {text})
     }
-    return {found: !!response, response}
+    return response
   }
 }
 
