@@ -34,11 +34,12 @@ export default React.createClass({
 
   renderFeedbackStatements: function (attempt) {
     const errors = _.pick(attempt, 'typingError', 'caseError', 'punctuationError');
-    console.log(errors);
-    var components = [(<li>{attempt.response.feedback}</li>)]
+    // add keys for react list elements
+
+    var components = [(<li key="feedback">{attempt.response.feedback}</li>)]
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li>Warning: You have made a {feedbackStrings[key]}.</li>)
+        return (<li key={key}>Warning: You have made a {feedbackStrings[key]}.</li>)
       }
     }))
     return components.concat(errorComponents)
