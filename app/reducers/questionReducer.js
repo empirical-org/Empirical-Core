@@ -8,17 +8,20 @@ const initialState = {
 function question(state = initialState, action) {
   switch (action.type) {
     case SubmitActions.NEXT_QUESTION:
-      const changes = {};
+      var changes = {};
       if (state.currentQuestion) {
         changes.answeredQuestions = state.answeredQuestions.concat([state.currentQuestion])
       }
       changes.currentQuestion = state.unansweredQuestions[0];
+      if (changes.currentQuestion) {
+        changes.currentQuestion.attempts = [];
+      }
       if (state.unansweredQuestions.length > 0) {
         changes.unansweredQuestions = state.unansweredQuestions.slice(1);
       }
       return Object.assign({}, state, changes)
     case SubmitActions.LOAD_DATA:
-      const changes2 = {
+      var changes2 = {
         unansweredQuestions: require('../utils/' + action.data).default,
         questionSet: action.data};
       return Object.assign({}, state, changes2)
@@ -28,6 +31,12 @@ function question(state = initialState, action) {
         answeredQuestions: [],
         unansweredQuestions: []
       })
+    case SubmitActions.SUBMIT_RESPONSE:
+      var changes = {currentQuestion:
+        Object.assign({}, state.currentQuestion, {
+        attempts: state.currentQuestion.attempts.concat([action.response])
+      })}
+      return Object.assign({}, state, changes)
     default:
       return state
   }
