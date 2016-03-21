@@ -19,7 +19,6 @@ namespace :free_lunch do
       n_id = santize_nces_id(row["NCESSCH"])
       school = School.find_by(nces_id: n_id)
       school.try {update(free_lunches: row["free_lunches"].to_i)}
-      puts n_id
     end
 
     def self.santize_nces_id(n_id)
