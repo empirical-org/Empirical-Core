@@ -1,5 +1,12 @@
 import React from 'react'
 import Question from '../../libs/question'
+import _ from 'underscore'
+
+const feedbackStrings = {
+  punctuationError: "punctuation error",
+  typingError: "spelling mistake",
+  caseError: "capitalization error"
+}
 
 export default React.createClass({
   getInitialState: function () {
@@ -16,15 +23,25 @@ export default React.createClass({
     const latestAttempt = getLatestAttempt(this.props.question.attempts)
     if (latestAttempt) {
       if (latestAttempt.found) {
-        return (
-          <p>{latestAttempt.response.feedback}</p>
-        )
+        return <ul>{this.renderFeedbackStatements(latestAttempt)}</ul>
       } else {
         return (
           <p> This is not a valid sentence </p>
         )
       }
     }
+  },
+
+  renderFeedbackStatements: function (attempt) {
+    const errors = _.pick(attempt, 'typingError', 'caseError', 'punctuationError');
+    console.log(errors);
+    var components = [(<li>{attempt.response.feedback}</li>)]
+    var errorComponents = _.values(_.mapObject(errors, (val, key) => {
+      if (val) {
+        return (<li>Warning: You have made a {feedbackStrings[key]}.</li>)
+      }
+    }))
+    return components.concat(errorComponents)
   },
 
   checkAnswer: function () {
