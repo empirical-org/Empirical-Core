@@ -13,10 +13,11 @@ export default React.createClass({
   },
 
   renderFeedback: function () {
-    if (this.props.question.attempts[0]) {
-      if (this.props.question.attempts[0].found) {
+    const latestAttempt = getLatestAttempt(this.props.question.attempts)
+    if (latestAttempt) {
+      if (latestAttempt.found) {
         return (
-          <p>{this.props.question.attempts[0].response.feedback}</p>
+          <p>{latestAttempt.response.feedback}</p>
         )
       } else {
         return (
@@ -51,3 +52,8 @@ export default React.createClass({
     )
   }
 })
+
+const getLatestAttempt = function (attempts = []) {
+  const lastIndex = attempts.length - 1;
+  return attempts[lastIndex]
+}
