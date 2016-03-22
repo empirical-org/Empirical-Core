@@ -32,8 +32,12 @@ export default React.createClass({
     }
   },
 
+  getErrorsForAttempt: function (attempt) {
+    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+  },
+
   renderFeedbackStatements: function (attempt) {
-    const errors = _.pick(attempt, 'typingError', 'caseError', 'punctuationError');
+    const errors = this.getErrorsForAttempt(attempt);
     // add keys for react list elements
 
     var components = [(<li key="feedback">{attempt.response.feedback}</li>)]
@@ -63,6 +67,29 @@ export default React.createClass({
     this.setState({editing: true})
   },
 
+  readyForNext: function () {
+    if (this.props.question.attempts.length > 0 ) {
+      var latestAttempt = getLatestAttempt(this.props.question.attempts)
+      if (latestAttempt.found) {
+
+
+        var errors = _.keys(this.getErrorsForAttempt(latestAttempt))
+        if (latestAttempt.response.status === 'optimal' && errors.length === 0) {
+          return true
+        }
+
+      }
+
+    }
+    return false
+  },
+
+  renderNextQuestionButton:  function () {
+    if (this.readyForNext()) {
+      return (<button className="button is-outlined is-success" onClick={console.log("next")}>Next</button>)
+    }
+  },
+
   render: function () {
     return (
       <div className="content">
@@ -74,9 +101,10 @@ export default React.createClass({
         <div className="control">
           <textarea className="textarea" ref="response" placeholder="Textarea" onChange={this.handleChange}></textarea>
         </div>
-        <p className="control">
-          <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-        </p>
+        <div className="button-group">
+          <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+          {this.renderNextQuestionButton()}
+        </div>
       </div>
 
     )
