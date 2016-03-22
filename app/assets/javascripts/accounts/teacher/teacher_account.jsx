@@ -23,8 +23,7 @@ $(function () {
 
 EC.TeacherAccount = React.createClass({
   propTypes: {
-    userType: React.PropTypes.string.isRequired,
-    teacherId: React.PropTypes.number.isRequired
+    userType: React.PropTypes.string.isRequired
   },
   getInitialState: function () {
     return ({
@@ -49,6 +48,7 @@ EC.TeacherAccount = React.createClass({
     if (this.props.userType == 'staff') {
       url = '/cms/users/' + this.props.teacherId + '/show_json'
     } else {
+      // url = '/cms/users/' + this.props.teacherId + '/show_json'
       url = '/teachers/my_account_data';
     }
     $.ajax({
@@ -57,8 +57,13 @@ EC.TeacherAccount = React.createClass({
     });
   },
   populateData: function (data) {
+    console.log(data)
     var school, schoolData, originalSelectedSchoolId;
-    school = data.schools[0];
+    // if (this.props.userType == 'teacher') {
+    //   school = data.user.schools[0]
+    // } else {
+      school = data.schools[0];
+    // }
     if (school == null) {
       schoolData = null;
       originalSelectedSchoolId = null;
