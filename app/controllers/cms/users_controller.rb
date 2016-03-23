@@ -24,11 +24,7 @@ class Cms::UsersController < ApplicationController
   end
 
   def show_json
-    user_attributes = @user.attributes
-    user_attributes[:schools] = @user.schools
-    user_attributes[:subscription] = @user.subscriptions.any? ? @user.subscriptions.first.attributes : nil
-    user_attributes[:subscription][:subscriptionType] = @user.premium_state
-    render json: user_attributes
+    render json: @user.generate_teacher_account_info
   end
 
   def create
