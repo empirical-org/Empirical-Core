@@ -115,12 +115,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def my_account_data
-    @user = current_user
-    user_attributes = @user.attributes
-    user_attributes[:schools] = @user.schools
-    user_attributes[:subscription] = @user.subscriptions.any? ? @user.subscriptions.first.attributes : nil
-    user_attributes[:subscription][:subscriptionType] = @user.premium_state
-    render json: user_attributes
+    render json: current_user.generate_teacher_account_info
   end
 
   def update_my_account
