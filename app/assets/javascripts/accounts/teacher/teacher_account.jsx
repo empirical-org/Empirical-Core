@@ -48,7 +48,6 @@ EC.TeacherAccount = React.createClass({
     if (this.props.userType == 'staff') {
       url = '/cms/users/' + this.props.teacherId + '/show_json'
     } else {
-      // url = '/cms/users/' + this.props.teacherId + '/show_json'
       url = '/teachers/my_account_data';
     }
     $.ajax({
@@ -57,13 +56,8 @@ EC.TeacherAccount = React.createClass({
     });
   },
   populateData: function (data) {
-    console.log(data)
     var school, schoolData, originalSelectedSchoolId;
-    // if (this.props.userType == 'teacher') {
-    //   school = data.user.schools[0]
-    // } else {
       school = data.schools[0];
-    // }
     if (school == null) {
       schoolData = null;
       originalSelectedSchoolId = null;
@@ -158,9 +152,6 @@ EC.TeacherAccount = React.createClass({
     if (data.errors == null) {
       // name may have been capitalized on back-end
       data.errors = {};
-      this.setState({
-        name: data.name,
-      });
       if (this.props.userType == 'staff') {
         this.saveSubscription();
       }
@@ -207,7 +198,6 @@ EC.TeacherAccount = React.createClass({
     $.ajax({
       type: 'DELETE',
       // not sure why, but strong params are blocking me from sending the
-      // data: {id: x.id, user_id: x.user_id, },
       data: {account_type: this.state.subscription.account_type},
       url: '/subscriptions/' + this.state.subscription.id
     }).done(function () {
