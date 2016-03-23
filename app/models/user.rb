@@ -282,6 +282,14 @@ class User < ActiveRecord::Base
     send_newsletter
   end
 
+  def generate_teacher_account_info
+    user_attributes = attributes
+    user_attributes[:schools] = schools
+    user_attributes[:subscription] = subscriptions.any? ? subscriptions.first.attributes : nil
+    user_attributes[:subscription][:subscriptionType] = premium_state
+    user_attributes
+  end
+
 private
   def prep_authentication_terms
     self.email = email.downcase unless email.blank?
