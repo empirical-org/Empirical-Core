@@ -102,7 +102,7 @@ gem 'kaminari'
 
 
 # MIDDLEWARE
-gem 'rack-cache', require: 'rack/cache'
+gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
 
 # DEPLOYMENT
