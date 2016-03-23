@@ -1,0 +1,42 @@
+import C from '../constants';
+
+const initialState = {
+  concepts: {
+    hasreceiveddata: false,
+    submittingnew: false,
+    states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
+    data: {} // this will contain firebase data
+  }
+}
+
+export default function(currentstate,action){
+    var newstate;
+    switch(action.type){
+        case C.RECEIVE_CONCEPTS_DATA:
+            return Object.assign({},currentstate,{
+                hasreceiveddata: true,
+                data: action.data
+            });
+        case C.AWAIT_NEW_CONCEPT_RESPONSE:
+            return Object.assign({},currentstate,{
+                submittingnew: true
+            });
+        case C.RECEIVE_NEW_CONCEPT_RESPONSE:
+            return Object.assign({},currentstate,{
+                submittingnew: false
+            });
+        case C.START_CONCEPT_EDIT:
+            newstate = _.cloneDeep(currentstate);
+            newstate.states[action.qid] = C.EDITING_CONCEPT;
+            return newstate;
+        case C.FINISH_CONCEPT_EDIT:
+            newstate = _.cloneDeep(currentstate);
+            delete newstate.states[action.qid];
+            return newstate;
+        case C.SUBMIT_CONCEPT_EDIT:
+            newstate = _.cloneDeep(currentstate);
+            newstate.states[action.qid] = C.SUBMITTING_CONCEPT;
+            return newstate;
+        default: return currentstate || initialState.concepts;
+    }
+};

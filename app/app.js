@@ -6,11 +6,15 @@ import Play from "./components/play/play.jsx";
 import Lesson from "./components/lesson/lesson.jsx";
 import Results from "./components/results/results.jsx";
 import Admin from "./components/admin/admin.jsx";
+import Concepts from "./components/concepts/concepts.jsx";
+import Concept from "./components/concepts/concept.jsx";
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import findAndFix from './reducers/combined';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+
+import actions from './actions/concepts'
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory'
@@ -37,10 +41,19 @@ render((
           <IndexRoute component={Play} />
           <Route path="lesson/:id" component={Lesson}/>
         </Route>
-        <Route path="/results" component={Results}/>
-        <Route path="/admin" component={Admin}/>
+        <Route path="results" component={Results}/>
+        <Route path="admin" component={Passthrough}>
+          <IndexRoute component={Admin} />
+          <Route path="concepts" component={Concepts}>
+            <Route path=":conceptID" component={Concept}/>
+          </Route>
+        </Route>
       </Route>
     </Router>
   </Provider>),
   root
 );
+
+setTimeout(function(){
+	store.dispatch( actions.startListeningToConcepts() );
+});
