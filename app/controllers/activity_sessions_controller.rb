@@ -23,9 +23,11 @@ class ActivitySessionsController < ApplicationController
 
   private
 
-
   def activity_session_from_id
-    @activity_session ||= ActivitySession.find(params[:id])
+    @activity_session ||= ActivitySession.where(id: params[:id]).first
+    unless @activity_session
+      render_error(404)
+    end
   end
 
   def activity_session_from_uid
@@ -46,7 +48,7 @@ class ActivitySessionsController < ApplicationController
 
   def activity_session_authorize!
     if not ActivityAuthorizer.new(current_user, @activity_session).authorize
-      render(status: 401)
+      render_error(404)
     end
   end
 end
