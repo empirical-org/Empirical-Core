@@ -115,8 +115,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def my_account_data
-    @user = current_user
-    render json: @user
+    render json: current_user.generate_teacher_account_info
   end
 
   def update_my_account

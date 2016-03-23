@@ -19,7 +19,7 @@
           i.fa.fa-caret-down
 
         ul.dropdown-menu role='menu'
-          - Section.all.each do |section|
+          - Section.all.sort_by(&:position).each do |section|
             li = link_to section.name, url_for(section_id: section.id)
 
 
