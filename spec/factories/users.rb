@@ -78,6 +78,7 @@ FactoryGirl.define do
       username
       classrooms { [ FactoryGirl.create(:classroom) ] }
 
+
       after(:create) do |user, evaluator|
         create_list(:activity_session, 1, user: user)
       end
