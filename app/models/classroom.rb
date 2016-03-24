@@ -14,9 +14,9 @@ class Classroom < ActiveRecord::Base
   has_many :activities, through: :classroom_activities
   has_many :activity_sessions, through: :classroom_activities
   has_many :sections, through: :activities
+
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
   has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
-
 
   has_many :students, -> { where role: 'student' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'code'
   belongs_to :teacher, class_name: 'User'

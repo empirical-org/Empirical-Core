@@ -29,8 +29,8 @@ describe ActivitySessionsController, type: :controller do
         subject
       end
 
-      it 'returns 401 Unauthorized' do
-        expect(response.status).to eq(401)
+      it 'returns 404 Unauthorized' do
+        expect(response.status).to eq(404)
       end
     end
 
@@ -41,8 +41,8 @@ describe ActivitySessionsController, type: :controller do
         subject
       end
 
-      it 'returns 401 Unauthorized' do
-        expect(response.status).to eq(401)
+      it 'returns 404 Not Found' do
+        expect(response.status).to eq(404)
       end
     end
 
