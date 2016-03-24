@@ -8,6 +8,7 @@ describe 'Student Concern' do
 
   let(:activity) { FactoryGirl.create(:activity) }
   let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
+  puts :classroom_activity
 
   let(:activity2) { FactoryGirl.create(:activity) }
   let!(:classroom_activity2) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity2) }
@@ -21,6 +22,7 @@ describe 'Student Concern' do
 
   describe '#percentages_by_classification' do
     it 'includes only completed activity_session' do
+      binding.pry
       ps = student.percentages_by_classification
       expect(ps).to eq([as1])
     end

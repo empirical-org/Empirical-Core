@@ -48,6 +48,8 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def destroy
+    referred_from_class_path = env["HTTP_REFERER"].include? 'teachers/classrooms/'
+    DeleteStudentWorker.perform_async(current_user.id, referred_from_class_path)
     @student.destroy
     redirect_to teachers_classroom_students_path(@classroom)
   end
@@ -66,4 +68,5 @@ protected
   def user_params
     params.require(:user).permit!
   end
+
 end
