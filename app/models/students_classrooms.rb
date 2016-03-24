@@ -4,4 +4,6 @@ class StudentsClassrooms < ActiveRecord::Base
   belongs_to :classroom, class_name: "Classroom"
   validates :student, uniqueness: {scope: :classroom}
 
+  default_scope { where(visible: true)}
+
 end
