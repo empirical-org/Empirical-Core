@@ -27,8 +27,9 @@ class ProfilesController < ApplicationController
     student
   end
 
-  def student(is_json=false)
-    if @classroom = current_user.classroom
+  def student(is_json=false, current_classroom = nil)
+    if current_user.classrooms.any?
+      current_classroom ||= current_user.classrooms.last
       if is_json
 
         grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i)
