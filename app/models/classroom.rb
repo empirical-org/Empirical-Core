@@ -17,6 +17,8 @@ class Classroom < ActiveRecord::Base
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
   has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
 
+
+  has_many :students, -> { where role: 'student' }, foreign_key: 'classcode', class_name: 'User', primary_key: 'code'
   belongs_to :teacher, class_name: 'User'
 
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}

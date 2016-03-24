@@ -9,9 +9,9 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended that you check this file into your version control system. 
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229220357) do
+ActiveRecord::Schema.define(version: 20160208230538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -349,17 +349,6 @@ ActiveRecord::Schema.define(version: 20160229220357) do
     t.datetime "updated_at"
     t.string   "uid",        limit: 255
   end
-
-  create_table "students_classrooms", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "classroom_id"
-    t.boolean  "visible",      default: true, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "students_classrooms", ["classroom_id"], name: "index_students_classrooms_on_classroom_id", using: :btree
-  add_index "students_classrooms", ["student_id"], name: "index_students_classrooms_on_student_id", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "user_id"

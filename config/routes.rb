@@ -209,7 +209,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.
-  %w(tooltip press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium_access premium teacher_resources press_kit play media news).each do |page|
+  %w(tooltip press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources press_kit play media news).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
