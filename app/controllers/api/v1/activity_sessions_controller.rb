@@ -65,11 +65,11 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private
 
   def find_activity_session
-    if current_user
-      @activity_session = current_user.activity_sessions.find_by_uid!(params[:id])
-    else
-      @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
-    end
+    # if current_user
+    #   @activity_session = current_user.activity_sessions.find_by_uid!(params[:id])
+    # else
+    @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
+    # end
   end
 
   def activity_session_params
