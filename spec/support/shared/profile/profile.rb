@@ -42,18 +42,21 @@ shared_context 'profile' do
                                                   classroom: classroom,
                                                   activity: activity2,
                                                   unit: unit2,
+                                                  assigned_student_ids: [],
                                                   due_date: Date.today + 3) }
 
   let!(:classroom_activity_2a) { FactoryGirl.create(:classroom_activity,
                                                     classroom: classroom,
                                                     activity: activity_2a,
                                                     unit: unit2,
+                                                    assigned_student_ids: [],
                                                     due_date: Date.today + 100)}
 
   let!(:classroom_activity_2aa) { FactoryGirl.create(:classroom_activity,
                                                     classroom: classroom,
                                                     activity: activity_2aa,
                                                     unit: unit2,
+                                                    assigned_student_ids: [],
                                                     due_date: Date.today + 100)}
 
 
@@ -61,6 +64,7 @@ shared_context 'profile' do
                                                     classroom: classroom,
                                                     activity: activity_2b,
                                                     unit: unit2,
+                                                    assigned_student_ids: [],
                                                     due_date: Date.today + 1)}
 
 
