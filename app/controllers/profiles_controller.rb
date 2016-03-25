@@ -31,7 +31,6 @@ class ProfilesController < ApplicationController
     if current_user.classrooms.any?
       current_classroom ||= current_user.classrooms.last
       if is_json
-
         grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i)
 
         next_activity_session = ActivitySession.joins(classroom_activity: [:unit])
@@ -41,7 +40,10 @@ class ProfilesController < ApplicationController
             .order("classroom_activities.due_date ASC")
             .select("activity_sessions.*")
             .first
-        render json: {student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: grouped_scores,
+
+        render json: {student: {name: current_user.name, classroom: {name: current_classroom.name,
+          teacher: {name: current_classroom.teacher.name}}},
+          grouped_scores: grouped_scores,
           is_last_page: is_last_page,
           next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
       else
