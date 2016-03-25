@@ -17,6 +17,10 @@ module Student
       classroom.activities - finished_activities(classroom)
     end
 
+    def teachers
+      classrooms.map(&:teacher)
+    end
+
     def finished_activities classroom
       classroom_activity_score_join(classroom).where('activity_sessions.completed_at is not null')
     end
