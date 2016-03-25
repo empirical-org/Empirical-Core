@@ -30,7 +30,7 @@ describe ActivitySession, type: :model do
 
 	    let!(:activity){ FactoryGirl.create(:activity) }
 	    let!(:student){ FactoryGirl.create(:student) }
-	    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, classroom_id: student.classroom.first.id) }
+	    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, classroom_id: student.classrooms.first.id) }
 		  let(:activity_session){   FactoryGirl.build(:activity_session, classroom_activity_id: classroom_activity.id)                     }
 
   		it "must return the classroom activity" do

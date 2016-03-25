@@ -48,7 +48,7 @@ shared_examples_for "student" do
   describe "#activity_sessions" do
     let!(:activity){ FactoryGirl.create(:activity) }
     let!(:student){ FactoryGirl.build(:student) }
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity,activity_id: activity.id, classroom_id: student.classroom.id) }
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity,activity_id: activity.id, classroom_id: student.classrooms.first.id) }
 
     it "must returns an empty array when none is assigned" do
       expect(student.activity_sessions).to be_empty
@@ -103,7 +103,7 @@ shared_examples_for "student" do
             describe "#for_classroom" do
 
               it "must be present" do
-                expect(student.activity_sessions.for_classroom(student.classroom)).to be_present
+                expect(student.activity_sessions.for_classroom(student.classrooms.first)).to be_present
               end
 
             end
