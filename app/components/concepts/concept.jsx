@@ -14,6 +14,10 @@ const Concepts = React.createClass({
   //   })
   // },
 
+  deleteConcept: function () {
+    this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
+  },
+
   render: function (){
     console.log(this.props.concepts)
     const {data} = this.props.concepts, {conceptID} = this.props.params;
@@ -21,11 +25,15 @@ const Concepts = React.createClass({
       return (
         <div>
           <p>Concept: {data[conceptID].name}</p>
-
+          <button className="button is-danger" onClick={this.deleteConcept}>Delete Concept</button>
         </div>
       )
-    } else {
+    } else if (this.props.concepts.hasreceiveddata === false){
       return (<p>Loading...</p>)
+    } else {
+      return (
+        <p>404: No Concept Found</p>
+      )
     }
 
   }
