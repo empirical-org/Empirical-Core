@@ -15,7 +15,8 @@ class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::Progre
   def json_payload
     {
       concepts: concepts_as_json,
-      student: ::StudentSerializer.new(student).as_json(root: false)
+      # student: ::StudentSerializer.new(student).as_json(root: false)
+      student: {name: student.name}
     }
   end
 
