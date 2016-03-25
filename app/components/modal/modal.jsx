@@ -10,7 +10,7 @@ export default React.createClass({
               {this.props.children}
           </div>
         </div>
-        <button className="modal-close" />
+        <button className="modal-close" onClick={this.props.close}/>
       </div>
     )
   }

@@ -23,7 +23,8 @@ export default function(currentstate,action){
             });
         case C.RECEIVE_NEW_CONCEPT_RESPONSE:
             return Object.assign({},currentstate,{
-                submittingnew: false
+                submittingnew: false,
+                newConceptModalOpen: false
             });
         case C.START_CONCEPT_EDIT:
             newstate = _.cloneDeep(currentstate);
@@ -37,6 +38,10 @@ export default function(currentstate,action){
             newstate = _.cloneDeep(currentstate);
             newstate.states[action.qid] = C.SUBMITTING_CONCEPT;
             return newstate;
+        case C.TOGGLE_NEW_CONCEPT_MODAL:
+            return Object.assign({},currentstate,{
+                newConceptModalOpen: !currentstate.newConceptModalOpen
+            });
         default: return currentstate || initialState.concepts;
     }
 };

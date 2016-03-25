@@ -44,6 +44,9 @@ module.exports = {
 				});
 		};
 	},
+  toggleNewConceptModal: function(){
+    return {type:C.TOGGLE_NEW_CONCEPT_MODAL}
+  },
 	submitNewConcept: function(content){
 		return function(dispatch,getState){
 			dispatch({type:C.AWAIT_NEW_CONCEPT_RESPONSE});
