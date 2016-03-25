@@ -36,8 +36,8 @@ shared_examples_for "student" do
       let(:activity){FactoryGirl.build(:activity)}
 
       it "must return one item" do
-        student.classroom.activities<<activity
-        expect(student.unfinished_activities(student.classroom).count).to eq 1
+        student.classrooms.first.activities<<activity
+        expect(student.unfinished_activities(student.classrooms.first).count).to eq 1
       end
 
     end
