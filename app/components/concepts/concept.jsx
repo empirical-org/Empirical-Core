@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions/concepts'
+import questionActions from '../../actions/questions'
 import _ from 'underscore'
 
 const Concepts = React.createClass({
@@ -18,6 +19,10 @@ const Concepts = React.createClass({
     this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
   },
 
+  submitNewQuestion: function () {
+    this.props.dispatch(questionActions.submitNewQuestion({name: "test", conceptID: this.props.params.conceptID}))
+  },
+
   render: function (){
     console.log(this.props.concepts)
     const {data} = this.props.concepts, {conceptID} = this.props.params;
@@ -25,6 +30,9 @@ const Concepts = React.createClass({
       return (
         <div>
           <p>Concept: {data[conceptID].name}</p>
+
+          <button className="button is-primary" onClick={this.submitNewQuestion}>Add Question</button>
+          <br/>
           <button className="button is-danger" onClick={this.deleteConcept}>Delete Concept</button>
         </div>
       )

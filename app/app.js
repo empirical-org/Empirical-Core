@@ -14,7 +14,8 @@ import findAndFix from './reducers/combined';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
-import actions from './actions/concepts'
+import conceptActions from './actions/concepts'
+import questionActions from './actions/questions'
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory'
@@ -55,5 +56,6 @@ render((
 );
 
 setTimeout(function(){
-	store.dispatch( actions.startListeningToConcepts() );
+	store.dispatch( conceptActions.startListeningToConcepts() );
+  store.dispatch( questionActions.startListeningToQuestions() );
 });
