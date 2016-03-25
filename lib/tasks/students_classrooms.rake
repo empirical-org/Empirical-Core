@@ -6,6 +6,7 @@ namespace :students_classrooms do
   end
 
   def create_initial_assocations
+    puts 'Rake Task Started'
     students = User.where(role: 'student')
     students.each do |s|
       if s.classcode
@@ -13,6 +14,7 @@ namespace :students_classrooms do
         StudentsClassrooms.find_or_create_by(student_id: s.id, classroom_id: classroom.id) if classroom
       end
     end
+    puts 'Rake Task Completed'
   end
 
 end
