@@ -41,7 +41,8 @@ class ProfilesController < ApplicationController
             .select("activity_sessions.*")
             .first
 
-        render json: {student: {name: current_user.name, classroom: {name: current_classroom.name,
+        render json: {student: {name: current_user.name,
+          classroom: {name: current_classroom.name,
           teacher: {name: current_classroom.teacher.name}}},
           grouped_scores: grouped_scores,
           is_last_page: is_last_page,

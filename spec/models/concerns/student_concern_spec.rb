@@ -7,11 +7,10 @@ describe 'Student Concern' do
   let(:student) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
 
   let(:activity) { FactoryGirl.create(:activity) }
-  let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
-  puts :classroom_activity
+  let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity, assigned_student_ids: []) }
 
   let(:activity2) { FactoryGirl.create(:activity) }
-  let!(:classroom_activity2) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity2) }
+  let!(:classroom_activity2) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity2, assigned_student_ids: []) }
 
   let!(:as1) { classroom_activity.session_for(student) }
   let!(:as2) { classroom_activity2.session_for(student) }
@@ -22,7 +21,6 @@ describe 'Student Concern' do
 
   describe '#percentages_by_classification' do
     it 'includes only completed activity_session' do
-      binding.pry
       ps = student.percentages_by_classification
       expect(ps).to eq([as1])
     end
