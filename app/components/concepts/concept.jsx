@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import actions from '../../actions/concepts'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
+import {hashToCollection} from '../../libs/hashToCollection'
 
 const Concepts = React.createClass({
 
@@ -20,7 +22,40 @@ const Concepts = React.createClass({
   },
 
   submitNewQuestion: function () {
-    this.props.dispatch(questionActions.submitNewQuestion({name: "test", conceptID: this.props.params.conceptID}))
+    if (this.refs.newQuestionPrompt.value !== '') {
+      this.props.dispatch(questionActions.submitNewQuestion({prompt: this.refs.newQuestionPrompt.value, conceptID: this.props.params.conceptID}))
+      this.refs.newQuestionPrompt.value = ''
+      this.refs.newQuestionPrompt.focus()
+    }
+  },
+
+  questionsForConcept: function () {
+    var questionsCollection = hashToCollection(this.props.questions.data)
+    return _.where(questionsCollection, {conceptID: this.props.params.conceptID})
+  },
+
+  renderQuestionsForConcept: function () {
+    var questionsForConcept = this.questionsForConcept()
+    var listItems = questionsForConcept.map((question) => {
+      return (<li key={question.key}><Link to={'/admin/questions/' + question.key}>{question.prompt}</Link></li>)
+    })
+    return (
+      <ul>{listItems}</ul>
+    )
+
+  },
+
+  renderNewQuestionForm: function () {
+    return (
+      <div className="box">
+        <h6 className="control subtitle">Create a new question</h6>
+        <label className="label">Prompt</label>
+        <p className="control">
+          <input className="input" type="text" ref="newQuestionPrompt"></input>
+        </p>
+        <button className="button is-primary" onClick={this.submitNewQuestion}>Add Question</button>
+      </div>
+    )
   },
 
   render: function (){
@@ -29,11 +64,14 @@ const Concepts = React.createClass({
     if (data[conceptID]) {
       return (
         <div>
-          <p>Concept: {data[conceptID].name}</p>
+          <h4 className="title">{data[conceptID].name}</h4>
+          <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
+          <p className="control">
+            <button className="button is-info" onClick={this.editConcept}>Edit Concept</button> <button className="button is-danger" onClick={this.deleteConcept}>Delete Concept</button>
+          </p>
+          {this.renderNewQuestionForm()}
 
-          <button className="button is-primary" onClick={this.submitNewQuestion}>Add Question</button>
-          <br/>
-          <button className="button is-danger" onClick={this.deleteConcept}>Delete Concept</button>
+          {this.renderQuestionsForConcept()}
         </div>
       )
     } else if (this.props.concepts.hasreceiveddata === false){
@@ -50,6 +88,7 @@ const Concepts = React.createClass({
 function select(state) {
   return {
     concepts: state.concepts,
+    questions: state.questions,
     routing: state.routing
   }
 }
