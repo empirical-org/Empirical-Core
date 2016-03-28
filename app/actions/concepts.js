@@ -1,6 +1,8 @@
 var C = require("../constants").default,
   Firebase = require("firebase"),
 	conceptsRef = new Firebase(C.FIREBASE).child("concepts")
+import { push } from 'react-router-redux'
+
 
 module.exports = {
 	// called when the app starts. this means we immediately download all quotes, and
@@ -50,12 +52,14 @@ module.exports = {
 	submitNewConcept: function(content){
 		return function(dispatch,getState){
 			dispatch({type:C.AWAIT_NEW_CONCEPT_RESPONSE});
-			conceptsRef.push(content,function(error){
+			var newRef = conceptsRef.push(content,function(error){
 				dispatch({type:C.RECEIVE_NEW_CONCEPT_RESPONSE});
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
+          var action = push('/admin/concepts/' + newRef.key())
+          dispatch(action)
 				}
 			});
 		}

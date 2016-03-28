@@ -3,10 +3,14 @@ import rootReducer from '../reducers/combined';
 import DevTools from './devTools';
 import { persistState } from 'redux-devtools';
 import thunk from 'redux-thunk';
+import { routerMiddleware } from 'react-router-redux'
+import createHashHistory from 'history/lib/createHashHistory'
+const hashhistory = createHashHistory({ queryKey: false })
+const middleware = routerMiddleware(hashhistory);
 
 const finalCreateStore = compose(
   // Middleware you want to use in development:
-  applyMiddleware(thunk),
+  applyMiddleware(thunk, middleware),
   // Required! Enable Redux DevTools with the monitors you chose
   DevTools.instrument(),
   // Optional. Lets you write ?debug_session=<key> in address bar to persist debug sessions
