@@ -47,18 +47,32 @@ module.exports = {
   toggleNewQuestionModal: function(){
     return {type:C.TOGGLE_NEW_QUESTION_MODAL}
   },
-	submitNewQuestion: function(content){
-		return function(dispatch,getState){
+	submitNewQuestion: function(content, response){
+		return (dispatch,getState) => {
 			dispatch({type:C.AWAIT_NEW_QUESTION_RESPONSE});
-			var newRef = questionsRef.push(content,function(error){
+			var newRef = questionsRef.push(content, (error) => {
 				dispatch({type:C.RECEIVE_NEW_QUESTION_RESPONSE});
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
-          console.log('newRef: ',newRef)
+          console.log('newRef: ', newRef.key())
+          dispatch(this.submitNewResponse(newRef.key(), response))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
 			});
 		}
-	}
+	},
+  submitNewResponse: function (qid, content) {
+    return function (dispatch,getState) {
+      dispatch({type:C.AWAIT_NEW_QUESTION_RESPONSE});
+			var newRef = questionsRef.child(qid).child('responses').push(content,function(error){
+				dispatch({type:C.RECEIVE_NEW_QUESTION_RESPONSE});
+				if (error){
+					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
+				} else {
+					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
+				}
+			});
+    }
+  }
 };

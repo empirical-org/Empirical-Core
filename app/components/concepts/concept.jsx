@@ -23,7 +23,10 @@ const Concepts = React.createClass({
 
   submitNewQuestion: function () {
     if (this.refs.newQuestionPrompt.value !== '') {
-      this.props.dispatch(questionActions.submitNewQuestion({prompt: this.refs.newQuestionPrompt.value, conceptID: this.props.params.conceptID}))
+      this.props.dispatch(questionActions.submitNewQuestion({
+        prompt: this.refs.newQuestionPrompt.value,
+        conceptID: this.props.params.conceptID},
+        {text: this.refs.newQuestionOptimalResponse.value, optimal: true, feedback: "Excellent, that's correct!"}))
       this.refs.newQuestionPrompt.value = ''
       this.refs.newQuestionPrompt.focus()
     }
@@ -52,6 +55,10 @@ const Concepts = React.createClass({
         <label className="label">Prompt</label>
         <p className="control">
           <input className="input" type="text" ref="newQuestionPrompt"></input>
+        </p>
+        <label className="label">Optimal Response</label>
+        <p className="control">
+          <input className="input" type="text" ref="newQuestionOptimalResponse"></input>
         </p>
         <button className="button is-primary" onClick={this.submitNewQuestion}>Add Question</button>
       </div>
