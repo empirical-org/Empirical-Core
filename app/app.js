@@ -8,6 +8,8 @@ import Results from "./components/results/results.jsx";
 import Admin from "./components/admin/admin.jsx";
 import Concepts from "./components/concepts/concepts.jsx";
 import Concept from "./components/concepts/concept.jsx";
+import Questions from "./components/questions/questions.jsx";
+import Question from "./components/questions/question.jsx";
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import findAndFix from './reducers/combined';
@@ -47,6 +49,9 @@ render((
           <IndexRoute component={Admin} />
           <Route path="concepts" component={Concepts}>
             <Route path=":conceptID" component={Concept}/>
+          </Route>
+          <Route path="questions" component={Questions}>
+            <Route path=":questionID" component={Question}/>
           </Route>
         </Route>
       </Route>
