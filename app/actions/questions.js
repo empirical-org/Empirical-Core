@@ -18,11 +18,11 @@ module.exports = {
 	cancelQuestionEdit: function(cid){
 		return {type:C.FINISH_QUESTION_EDIT,cid};
 	},
-	deleteQuestion: function(cid){
+	deleteQuestion: function(qid){
 		return function(dispatch,getState){
-			dispatch({type:C.SUBMIT_QUESTION_EDIT,cid});
-			questionsRef.child(cid).remove(function(error){
-				dispatch({type:C.FINISH_QUESTION_EDIT,cid});
+			dispatch({type:C.SUBMIT_QUESTION_EDIT,qid});
+			questionsRef.child(qid).remove(function(error){
+				dispatch({type:C.FINISH_QUESTION_EDIT,qid});
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
 				} else {

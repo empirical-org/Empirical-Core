@@ -16,7 +16,7 @@ const Question = React.createClass({
   // },
 
   deleteQuestion: function () {
-    this.props.dispatch(actions.deleteQuestion(this.props.params.questionID))
+    this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID))
   },
 
   submitNewResponse: function () {
