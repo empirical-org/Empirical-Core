@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
+import Modal from '../modal/modal.jsx'
+import EditFrom from './questionForm.jsx'
 
 const Question = React.createClass({
 
@@ -17,6 +19,18 @@ const Question = React.createClass({
 
   deleteQuestion: function () {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID))
+  },
+
+  startEditingQuestion: function () {
+    this.props.dispatch(questionActions.startQuestionEdit(this.props.params.questionID))
+  },
+
+  cancelEditingQuestion: function () {
+    this.props.dispatch(questionActions.cancelQuestionEdit(this.props.params.questionID))
+  },
+
+  saveQuestionEdits: function (vals) {
+    this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals))
   },
 
   submitNewResponse: function () {
@@ -87,16 +101,29 @@ const Question = React.createClass({
     )
   },
 
+  renderEditForm: function () {
+    const {data} = this.props.questions, {questionID} = this.props.params;
+    const question =  (data[questionID])
+    if (this.props.questions.states[questionID]) {
+      return (
+        <Modal close={this.cancelEditingQuestion}>
+          <EditFrom question={question} submit={this.saveQuestionEdits}/>
+        </Modal>
+      )
+    }
+  },
+
   render: function (){
     console.log(this.props.questions)
     const {data} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
       return (
         <div>
+          {this.renderEditForm()}
           <h4 className="title">{data[questionID].prompt}</h4>
           <h6 className="subtitle">x Responses</h6>
           <p className="control">
-            <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
+            <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button> <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
           </p>
           {this.renderNewResponseForm()}
           {this.renderResponses()}

@@ -12,11 +12,11 @@ module.exports = {
 			});
 		}
 	},
-	startQuestionEdit: function(cid){
-		return {type:C.START_QUESTION_EDIT,cid};
+	startQuestionEdit: function(qid){
+		return {type:C.START_QUESTION_EDIT,qid};
 	},
-	cancelQuestionEdit: function(cid){
-		return {type:C.FINISH_QUESTION_EDIT,cid};
+	cancelQuestionEdit: function(qid){
+		return {type:C.FINISH_QUESTION_EDIT,qid};
 	},
 	deleteQuestion: function(qid){
 		return function(dispatch,getState){
@@ -31,11 +31,11 @@ module.exports = {
 			});
 		};
 	},
-	submitQuestionEdit: function(cid,content){
+	submitQuestionEdit: function(qid,content){
 		return function(dispatch,getState){
-				dispatch({type:C.SUBMIT_QUESTION_EDIT,cid});
-				questionsRef.child(cid).set(content,function(error){
-					dispatch({type:C.FINISH_QUESTION_EDIT,cid});
+				dispatch({type:C.SUBMIT_QUESTION_EDIT,qid});
+				questionsRef.child(qid).update(content,function(error){
+					dispatch({type:C.FINISH_QUESTION_EDIT,qid});
 					if (error){
 						dispatch({type:C.DISPLAY_ERROR,error:"Update failed! "+error});
 					} else {
