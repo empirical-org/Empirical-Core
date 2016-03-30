@@ -5,6 +5,7 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Modal from '../modal/modal.jsx'
 import EditFrom from './questionForm.jsx'
+import Response from './response.jsx'
 import C from '../../constants'
 
 const Question = React.createClass({
@@ -46,48 +47,16 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals))
   },
 
-  deleteResponse: function (rid) {
-    this.props.dispatch(questionActions.deleteResponse(this.props.params.questionID, rid))
-  },
-
-  editResponse: function (rid) {
-    this.props.dispatch(questionActions.startResponseEdit(this.props.params.questionID, rid))
-  },
 
   renderResponses: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
     var responses = hashToCollection(data[questionID].responses)
     var responsesListItems = responses.map((resp) => {
-      if (states[questionID] === (C.START_RESPONSE_EDIT + "_" + resp.key)) {
-        return (<p>Editing...</p>)
-      } else {
-        return (
-          <div className="card is-fullwidth has-bottom-margin">
-            <header className="card-header">
-              <p className="card-header-title">
-                {resp.text}
-              </p>
-            </header>
-            <div className="card-content">
-              <div className="content">
-
-                <strong>Feedback:</strong> {resp.feedback}
-                <br />
-                <strong>Grade:</strong> { resp.optimal ? 'Optimal' : 'Sub-optimal' }
-                <br />
-                <small>
-                  Submissions: { resp.count ? resp.count : 0 }
-                </small>
-              </div>
-            </div>
-            <footer className="card-footer">
-              <a className="card-footer-item" onClick={this.editResponse.bind(null, resp.key)}>Edit</a>
-              <a className="card-footer-item" onClick={this.deleteResponse.bind(null, resp.key)}>Delete</a>
-            </footer>
-          </div>
-        )
-      }
-
+      return <Response
+        response={resp}
+        states={states}
+        questionID={questionID}
+        dispatch={this.props.dispatch} />
     })
     return responsesListItems
   },
