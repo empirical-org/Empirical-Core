@@ -22,31 +22,31 @@ export default React.createClass({
   },
 
   renderResponseContent: function (isEditing, response) {
+    var content;
+
     if (isEditing) {
-      return (
-        <div className="card-content">
-          <div className="content">
-
-            Editing...
-          </div>
+      content =
+        <div className="content">
+          Editing...
         </div>
-      )
     } else {
-      return (
-        <div className="card-content">
-          <div className="content">
-
-            <strong>Feedback:</strong> {response.feedback}
-              <br />
-              <strong>Grade:</strong> { response.optimal ? 'Optimal' : 'Sub-optimal' }
-                <br />
-                <small>
-                  Submissions: { response.count ? response.count : 0 }
-                </small>
-              </div>
-            </div>
-          )
+      content =
+        <div className="content">
+          <strong>Feedback:</strong> {response.feedback}
+          <br />
+          <strong>Grade:</strong> { response.optimal ? 'Optimal' : 'Sub-optimal' }
+          <br />
+          <small>
+            Submissions: { response.count ? response.count : 0 }
+          </small>
+        </div>
     }
+
+    return (
+      <div className="card-content">
+        {content}
+      </div>
+    )
   },
 
   renderResponseFooter: function (isEditing, response) {
