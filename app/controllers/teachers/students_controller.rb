@@ -3,24 +3,18 @@ class Teachers::StudentsController < ApplicationController
   before_filter :authorize!
 
   def create
-    strip_first_and_last_names
-    if user_params[:first_name].blank? or user_params[:last_name].blank?
-      flash[:notice] = 'Please provide both a first name and a last name.'
-      redirect_to teachers_classroom_invite_students_path(@classroom)
-    elsif do_names_contain_spaces
-      flash[:notice] = 'Names cannot contain spaces.'
+    valid_names = Creators::StudentCreator.check_names(params)
+    if valid_names[:status] == 'failed'
+      flash[:notice] = valid_names[:notice]
       redirect_to teachers_classroom_invite_students_path(@classroom)
     else
-      capitalize_first_and_last_name
-      @student = @classroom.students.build(user_params)
-      @student.generate_student
-      @student.save!
-      InviteStudentWorker.perform_async(current_user.id, @student.id)
-      respond_to do |format|
-        format.js {render 'create'}
-        format.html {redirect_to teachers_classroom_invite_students_path(@classroom)}
-      end
-      #
+      @student = Creators::StudentCreator.create_student(user_params, @classroom.id)
+      Associators::StudentsToClassrooms.run(@student, @classroom)
+    end
+    InviteStudentWorker.perform_async(current_user.id, @student.id)
+    respond_to do |format|
+      format.js {render 'create'}
+      format.html {redirect_to teachers_classroom_invite_students_path(@classroom)}
     end
   end
 
@@ -69,30 +63,6 @@ protected
     auth_failed unless @classroom.teacher == current_user
     params[:id] = params[:student_id] if params[:student_id].present?
     @student = @classroom.students.find(params[:id]) if params[:id].present?
-  end
-
-  def strip_first_and_last_names
-    user_params[:first_name].strip!
-    user_params[:last_name].strip!
-  end
-
-  def do_names_contain_spaces
-    a = user_params[:first_name].index(/\s/)
-    b = user_params[:last_name].index(/\s/)
-    !(a.nil? and b.nil?)
-  end
-
-  def capitalize_first_and_last_name
-    # make sure this is called after fix_full_name_in_first_name_field
-    user_params[:first_name].capitalize!
-    user_params[:last_name].capitalize!
-  end
-
-  def fix_full_name_in_first_name_field
-    if user_params[:last_name].blank? && (f,l = user_params[:first_name].split(/\s+/)).length > 1
-      user_params[:first_name] = f
-      user_params[:last_name] = l
-    end
   end
 
   def user_params

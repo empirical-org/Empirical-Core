@@ -19,7 +19,6 @@ describe 'Teacher Manage-Class page' do
           [student.name,
            student.username]
         end
-
         expect(manage_class_page.student_rows).to eq expected_rows
       end
     end

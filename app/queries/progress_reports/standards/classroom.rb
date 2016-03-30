@@ -15,6 +15,7 @@ class ProgressReports::Standards::Classroom
         SUM(CASE WHEN user_info.average_score <= 0.75 THEN 1 ELSE 0 END) as not_proficient_student_count
       SQL
       )
+      .where(teacher: @teacher)
       .joins(:students)
       .joins('INNER JOIN user_info ON user_info.id = users.id')
       .order("classrooms.name asc")

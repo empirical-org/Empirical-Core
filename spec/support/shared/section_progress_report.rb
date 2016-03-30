@@ -7,7 +7,7 @@ shared_context 'Section Progress Report' do
   before do
     ActivitySession.destroy_all
     3.times do |i|
-      student = FactoryGirl.create(:student)
+      student = FactoryGirl.create(:user, role: 'student')
       students << student
       classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [student])
       classrooms << classroom

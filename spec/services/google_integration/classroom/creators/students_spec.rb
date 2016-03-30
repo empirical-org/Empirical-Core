@@ -4,7 +4,7 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
 
   def subject(classrooms, students_requester)
     x = GoogleIntegration::Classroom::Creators::Students.run(classrooms, students_requester)
-    x.map(&:reload).map{ |y| { name: y.name, email: y.email, classcode: y.classcode } }
+    x.map(&:reload).map{ |y| { name: y.name, email: y.email } }
   end
 
   let!(:classroom) { FactoryGirl.create(:classroom) }
@@ -49,8 +49,8 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
   context 'no students have been previously created' do
     let!(:expected) {
       [
-        { name: 'Test1_s1 S1', email: 'test1_s1@gedu.demo.rockerz.xyz', classcode: classroom.code },
-        { name: 'Test1_s2 S2', email: 'test1_s2@gedu.demo.rockerz.xyz', classcode: classroom.code }
+        { name: 'Test1_s1 S1', email: 'test1_s1@gedu.demo.rockerz.xyz'},
+        { name: 'Test1_s2 S2', email: 'test1_s2@gedu.demo.rockerz.xyz'}
       ]
     }
 
@@ -59,21 +59,6 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
     end
   end
 
-  context 'one student already exists' do
-    let!(:extant) {
-      FactoryGirl.create(:user, email: 'test1_s1@gedu.demo.rockerz.xyz')
-    }
-
-    let!(:expected) {
-      [
-        { name: 'Test1_s2 S2', email: 'test1_s2@gedu.demo.rockerz.xyz', classcode: classroom.code }
-      ]
-    }
-
-    it 'creates only the new students' do
-      expect(subject(classrooms, students_requester)).to eq(expected)
-    end
-  end
 
   context 'activities have been assigned to the classroom in the past' do
 
