@@ -51,7 +51,7 @@ const Question = React.createClass({
   renderResponses: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
     var responses = hashToCollection(data[questionID].responses)
-    var responsesListItems = responses.map((resp) => {
+    var responsesListItems = _.sortBy(responses, 'count').reverse().map((resp) => {
       return <Response
         response={resp}
         states={states}
