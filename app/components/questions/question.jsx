@@ -114,14 +114,14 @@ const Question = React.createClass({
   },
 
   render: function (){
-    console.log(this.props.questions)
     const {data} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
+      var responses = hashToCollection(data[questionID].responses)
       return (
         <div>
           {this.renderEditForm()}
           <h4 className="title">{data[questionID].prompt}</h4>
-          <h6 className="subtitle">x Responses</h6>
+          <h6 className="subtitle">{responses.length} Responses</h6>
           <p className="control">
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button> <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
           </p>
