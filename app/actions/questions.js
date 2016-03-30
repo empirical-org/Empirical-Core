@@ -102,9 +102,22 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
 				} else {
-					dispatch({type:C.DISPLAY_MESSAGE,message:"Question successfully deleted!"});
+					dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully deleted!"});
 				}
 			});
 		};
+  },
+  incrementResponseCount: function(qid, rid) {
+    return function(dispatch, getState){
+      questionsRef.child(qid+ "/responses/" + rid + '/count').transaction(function(currentCount){
+        return currentCount+1
+      }, function(error){
+        if (error){
+          dispatch({type:C.DISPLAY_ERROR,error:"increment failed! "+error});
+        } else {
+          dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully incremented!"});
+        }
+      })
+    }
   }
 };

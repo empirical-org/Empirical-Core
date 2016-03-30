@@ -25,6 +25,10 @@ export default React.createClass({
     this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, newResp))
   },
 
+  incrementResponse: function (rid) {
+    this.props.dispatch(questionActions.incrementResponseCount(this.props.questionID, rid));
+  },
+
   renderResponseContent: function (isEditing, response) {
     var content;
 
@@ -64,9 +68,11 @@ export default React.createClass({
 
   renderResponseFooter: function (isEditing, response) {
     var buttons;
+
     if (isEditing) {
       buttons = [
         (<a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)} key='cancel' >Cancel</a>),
+        (<a className="card-footer-item" onClick={this.incrementResponse.bind(null, response.key)} key='increment' >Increment</a>),
         (<a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)} key='update' >Update</a>)
       ]
     } else {
