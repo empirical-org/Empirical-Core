@@ -43,6 +43,18 @@ export default function(currentstate,action){
             return Object.assign({},currentstate,{
                 newConceptModalOpen: !currentstate.newConceptModalOpen
             });
+        case C.START_RESPONSE_EDIT:
+            newstate = _.cloneDeep(currentstate);
+            newstate.states[action.qid] = C.START_RESPONSE_EDIT + "_" + action.rid;
+            return newstate;
+        case C.FINISH_RESPONSE_EDIT:
+            newstate = _.cloneDeep(currentstate);
+            delete newstate.states[action.qid];
+            return newstate;
+        case C.SUBMIT_RESPONSE_EDIT:
+            newstate = _.cloneDeep(currentstate);
+            newstate.states[action.qid] = C.SUBMITTING_RESPONSE;
+            return newstate;
         default: return currentstate || initialState.questions;
     }
 };
