@@ -21,7 +21,7 @@ const Questions = React.createClass({
     const {data} = this.props.questions;
     const keys = _.keys(data);
     return keys.map((key) => {
-      return (<li><Link to={'/admin/questions/' + key} activeClassName="is-disabled">{data[key].prompt}</Link></li>)
+      return (<li key={key}><Link to={'/admin/questions/' + key} activeClassName="is-disabled">{data[key].prompt}</Link></li>)
     })
   },
 

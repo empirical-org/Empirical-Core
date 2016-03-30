@@ -18,7 +18,11 @@ export default React.createClass({
   },
 
   updateResponse: function (rid) {
-    this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, {}))
+    var newResp = {
+      feedback: this.refs.newResponseFeedback.value,
+      optimal: this.refs.newResponseOptimal.checked
+    }
+    this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, newResp))
   },
 
   renderResponseContent: function (isEditing, response) {
@@ -27,7 +31,16 @@ export default React.createClass({
     if (isEditing) {
       content =
         <div className="content">
-          Editing...
+          <label className="label">Feedback</label>
+          <p className="control">
+            <input className="input" type="text" defaultValue={response.feedback} ref="newResponseFeedback"></input>
+          </p>
+          <p className="control">
+            <label className="checkbox">
+              <input ref="newResponseOptimal" defaultChecked={response.optimal} type="checkbox" />
+              Optimal?
+            </label>
+          </p>
         </div>
     } else {
       content =
@@ -53,13 +66,13 @@ export default React.createClass({
     var buttons;
     if (isEditing) {
       buttons = [
-        (<a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)}>Cancel</a>),
-        (<a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)}>Update</a>)
+        (<a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)} key='cancel' >Cancel</a>),
+        (<a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)} key='update' >Update</a>)
       ]
     } else {
       buttons = [
-        (<a className="card-footer-item" onClick={this.editResponse.bind(null, response.key)}>Edit</a>),
-        (<a className="card-footer-item" onClick={this.deleteResponse.bind(null, response.key)}>Delete</a>)
+        (<a className="card-footer-item" onClick={this.editResponse.bind(null, response.key)} key='edit' >Edit</a>),
+        (<a className="card-footer-item" onClick={this.deleteResponse.bind(null, response.key)} key='delete' >Delete</a>)
       ]
     }
     return (

@@ -56,7 +56,8 @@ const Question = React.createClass({
         response={resp}
         states={states}
         questionID={questionID}
-        dispatch={this.props.dispatch} />
+        dispatch={this.props.dispatch}
+        key={resp.key} />
     })
     return responsesListItems
   },
