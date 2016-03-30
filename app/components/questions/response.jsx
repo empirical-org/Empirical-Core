@@ -21,26 +21,52 @@ export default React.createClass({
     this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, {}))
   },
 
-  renderResponseContent: function (isEditing) {
-    // Return the info or the form based on state.
-  },
-
-  renderResponseFooter: function (isEditing, response) {
+  renderResponseContent: function (isEditing, response) {
     if (isEditing) {
       return (
-        <footer className="card-footer">
-          <a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)}>Cancel</a>
-          <a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)}>Update</a>
-        </footer>
+        <div className="card-content">
+          <div className="content">
+
+            Editing...
+          </div>
+        </div>
       )
     } else {
       return (
-        <footer className="card-footer">
-          <a className="card-footer-item" onClick={this.editResponse.bind(null, response.key)}>Edit</a>
-          <a className="card-footer-item" onClick={this.deleteResponse.bind(null, response.key)}>Delete</a>
-        </footer>
-      )
+        <div className="card-content">
+          <div className="content">
+
+            <strong>Feedback:</strong> {response.feedback}
+              <br />
+              <strong>Grade:</strong> { response.optimal ? 'Optimal' : 'Sub-optimal' }
+                <br />
+                <small>
+                  Submissions: { response.count ? response.count : 0 }
+                </small>
+              </div>
+            </div>
+          )
     }
+  },
+
+  renderResponseFooter: function (isEditing, response) {
+    var buttons;
+    if (isEditing) {
+      buttons = [
+        (<a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)}>Cancel</a>),
+        (<a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)}>Update</a>)
+      ]
+    } else {
+      buttons = [
+        (<a className="card-footer-item" onClick={this.editResponse.bind(null, response.key)}>Edit</a>),
+        (<a className="card-footer-item" onClick={this.deleteResponse.bind(null, response.key)}>Delete</a>)
+      ]
+    }
+    return (
+      <footer className="card-footer">
+        {buttons}
+      </footer>
+    )
     // Return the Edit and Delete button if not editing, and
     // the Cancel and Save button if editing.
   },
@@ -57,18 +83,7 @@ export default React.createClass({
             {response.text}
           </p>
         </header>
-        <div className="card-content">
-          <div className="content">
-
-            <strong>Feedback:</strong> {response.feedback}
-            <br />
-            <strong>Grade:</strong> { response.optimal ? 'Optimal' : 'Sub-optimal' }
-            <br />
-            <small>
-              Submissions: { response.count ? response.count : 0 }
-            </small>
-          </div>
-        </div>
+        {this.renderResponseContent(isEditing, response)}
         {this.renderResponseFooter(isEditing, response)}
       </div>
     )
