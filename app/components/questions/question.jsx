@@ -50,7 +50,7 @@ const Question = React.createClass({
     var responses = hashToCollection(data[questionID].responses)
     var responsesListItems = responses.map((resp) => {
       return (
-        <div className="card is-fullwidth">
+        <div className="card is-fullwidth has-bottom-margin">
           <header className="card-header">
             <p className="card-header-title">
               {resp.text}
