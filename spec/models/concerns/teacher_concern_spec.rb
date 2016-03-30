@@ -60,9 +60,9 @@ describe User, type: :model do
 
         context 'that has not expired' do
           let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.tomorrow, account_type: 'trial')}
-          let!(:student1) {FactoryGirl.create(:user, role: 'student', classcode: classroom.code)}
+          let!(:student1) {FactoryGirl.create(:user, role: 'student', classrooms: [classroom])}
           context 'that has passed its account limit' do
-            let!(:student2) {FactoryGirl.create(:user, role: 'student', classcode: classroom.code)}
+            let!(:student2) {FactoryGirl.create(:user, role: 'student', classrooms: [classroom])}
             it 'returns false' do
               expect(teacher.is_premium?).to be false
             end

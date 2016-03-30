@@ -1,13 +1,15 @@
 class JoinClassroomAnalytics
   attr_accessor :analytics
 
+  include StudentsTeacher
+
   def initialize
     self.analytics = SegmentAnalytics.new
   end
 
 
   def track student
-    teacher = student.teacher
+    teacher = StudentsTeacher.run(student)
     return if teacher.nil?
     analytics_identify(teacher)
     analytics_track({

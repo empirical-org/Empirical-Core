@@ -36,7 +36,7 @@ describe 'GoogleIntegration::Classroom::Parsers::Students' do
 
   let!(:expected_result) {
     [
-      {name: 'test1_s1 s1', last_name: 's1', email: 'test1_s1@gedu.demo.rockerz.xyz'}
+      {name: 'test1_s1 s1', last_name: 's1', first_name: "test1_s1", email: 'test1_s1@gedu.demo.rockerz.xyz'}
     ]
   }
 

@@ -5,19 +5,19 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   def lesson_planner
-    if current_user.classrooms.empty?
+    if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     else
       @tab = params[:tab] #|| "manageUnits"
       @grade = params[:grade]
       @students_exist = current_user.students.any?
-      @last_classroom_name = current_user.classrooms.last.name
-      @last_classroom_id = current_user.classrooms.last.id
+      @last_classroom_name = current_user.classrooms_i_teach.last.name
+      @last_classroom_id = current_user.classrooms_i_teach.last.id
     end
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    current_user.classrooms.includes(:students).each do |classroom|
+    current_user.classrooms_i_teach.includes(:students).each do |classroom|
       obj = {
         classroom: classroom,
         students: classroom.students.sort_by(&:sorting_name)
@@ -31,25 +31,25 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def invite_students
-    @classrooms = current_user.classrooms
+    @classrooms = current_user.classrooms_i_teach
   end
 
   def scorebook
-    if current_user.classrooms.empty?
+    if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     end
 
     if current_user.students.empty?
-      if current_user.classrooms.last.activities.empty?
-        redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms.last.grade)
+      if current_user.classrooms_i_teach.last.activities.empty?
+        redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms_i_teach.last.grade)
       else
-        redirect_to teachers_classroom_invite_students_path(current_user.classrooms.last)
+        redirect_to teachers_classroom_invite_students_path(current_user.classrooms_i_teach.last)
       end
     end
   end
 
   def dashboard
-    if current_user.classrooms.empty?
+    if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     end
   end
@@ -66,7 +66,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def classroom_mini
-    current_user.classrooms.includes(:students).each do |classroom|
+    current_user.classrooms_i_teach.includes(:students).each do |classroom|
       obj = {
         classroom: classroom,
         students: classroom.students.count,
@@ -87,10 +87,10 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    classrooms = current_user.classrooms.includes(classroom_activities: [:unit])
+    classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
     if params[:no_load_has_ever_occurred_yet] == 'true'
-      params[:classroom_id] = current_user.classrooms.first
+      params[:classroom_id] = current_user.classrooms_i_teach.first
       was_classroom_selected_in_controller = true
       selected_classroom = Classroom.find params[:classroom_id]
     else
@@ -145,12 +145,12 @@ class Teachers::ClassroomManagerController < ApplicationController
   private
 
   def authorize!
-    if current_user.classrooms.any?
+    if current_user.classrooms_i_teach.any?
       if params[:classroom_id].present? and params[:classroom_id].length > 0
         @classroom = Classroom.find(params[:classroom_id])
       end
 
-      @classroom ||= current_user.classrooms.first
+      @classroom ||= current_user.classrooms_i_teach.first
       auth_failed unless @classroom.teacher == current_user
     end
   end

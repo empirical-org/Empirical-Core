@@ -5,7 +5,7 @@ class ChargesController < ApplicationController
 
   def create
   customer = Stripe::Customer.create(
-    :description => "testing",
+    :description => "premium",
     :source  => params[:source][:id]
   )
 
