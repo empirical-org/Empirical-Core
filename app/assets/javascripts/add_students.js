@@ -1,5 +1,10 @@
 //Hacky fix until this page is done in React --
 // without this, the Add Student Button can easily be double triggered.
+$( document ).ready(function() {
+  buttonBlocker('.ajax-button');
+});
+
+
 var buttonBlocker = function(blockedButton) {
   $(blockedButton).click(function() {
     var that = this;
