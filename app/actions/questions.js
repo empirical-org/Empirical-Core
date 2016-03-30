@@ -74,5 +74,37 @@ module.exports = {
 				}
 			});
     }
+  },
+  startResponseEdit: function(qid,rid){
+		return {type:C.START_RESPONSE_EDIT,qid,rid};
+	},
+	cancelResponseEdit: function(qid,rid){
+		return {type:C.FINISH_RESPONSE_EDIT,qid,rid};
+	},
+  submitResponseEdit: function(qid,rid,content){
+		return function(dispatch,getState){
+				dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid,rid});
+				questionsRef.child(qid+ "/responses/" + rid).update(content,function(error){
+					dispatch({type:C.FINISH_RESPONSE_EDIT,qid,rid});
+					if (error){
+						dispatch({type:C.DISPLAY_ERROR,error:"Update failed! " + error});
+					} else {
+						dispatch({type:C.DISPLAY_MESSAGE,message:"Update successfully saved!"});
+					}
+				});
+		};
+	},
+  deleteResponse: function(qid,rid){
+		return function(dispatch,getState){
+			dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid});
+			questionsRef.child(qid+ "/responses/" + rid).remove(function(error){
+				dispatch({type:C.FINISH_RESPONSE_EDIT,qid});
+				if (error){
+					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
+				} else {
+					dispatch({type:C.DISPLAY_MESSAGE,message:"Question successfully deleted!"});
+				}
+			});
+		};
   }
 };

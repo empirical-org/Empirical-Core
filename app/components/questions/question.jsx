@@ -45,6 +45,10 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals))
   },
 
+  deleteResponse: function (rid) {
+    this.props.dispatch(questionActions.deleteResponse(this.props.params.questionID, rid))
+  },
+
   renderResponses: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
     var responses = hashToCollection(data[questionID].responses)
@@ -69,7 +73,7 @@ const Question = React.createClass({
           </div>
           <footer className="card-footer">
             <a className="card-footer-item">Edit</a>
-            <a className="card-footer-item">Delete</a>
+            <a className="card-footer-item" onClick={this.deleteResponse.bind(null, resp.key)}>Delete</a>
           </footer>
         </div>
 
