@@ -1,8 +1,8 @@
 class Teachers::ProgressReports::Concepts::StudentsController < Teachers::ProgressReportsController
   def index
-    if current_user.classrooms.empty?
+    if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
-      return 
+      return
     end
     respond_to do |format|
       format.html
