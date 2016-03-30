@@ -16,9 +16,10 @@ class ProfilesController < ApplicationController
   def update
     # this is called by the 'join classroom' page
     @user = current_user
-    @user.update_attributes(user_params)
+    classcode = user_params[:classcode]
+    classroom = Classroom.where(code: classcode).first
+    Associators::StudentsToClassrooms.run(@user, classroom)
     JoinClassroomWorker.perform_async(@user.id)
-    @user.assign_classroom_activities
     redirect_to profile_path
   end
 
@@ -26,10 +27,10 @@ class ProfilesController < ApplicationController
     student
   end
 
-  def student(is_json=false)
-    if @classroom = current_user.classroom
+  def student(is_json=false, current_classroom = nil)
+    if current_user.classrooms.any?
+      current_classroom ||= current_user.classrooms.last
       if is_json
-
         grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i)
 
         next_activity_session = ActivitySession.joins(classroom_activity: [:unit])
@@ -39,7 +40,11 @@ class ProfilesController < ApplicationController
             .order("classroom_activities.due_date ASC")
             .select("activity_sessions.*")
             .first
-        render json: {student: Profile::StudentSerializer.new(current_user, root: false), grouped_scores: grouped_scores,
+
+        render json: {student: {name: current_user.name,
+          classroom: {name: current_classroom.name,
+          teacher: {name: current_classroom.teacher.name}}},
+          grouped_scores: grouped_scores,
           is_last_page: is_last_page,
           next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
       else
@@ -51,7 +56,7 @@ class ProfilesController < ApplicationController
   end
 
   def teacher
-    if @user.classrooms.any?
+    if @user.classrooms_i_teach.any?
       redirect_to dashboard_teachers_classrooms_path
     else
       redirect_to new_teachers_classroom_path

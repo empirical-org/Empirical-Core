@@ -5,8 +5,8 @@ shared_context 'Activity Progress Report' do
   let(:sweathogs) { FactoryGirl.create(:sweathogs, teacher: mr_kotter) }
   # Absolutely no way that this could get confusing.
   let(:sweatdogs) { FactoryGirl.create(:classroom, name: "Sweatdogs", teacher: mr_kotter)}
-  let!(:horshack) { FactoryGirl.create(:arnold_horshack, classroom: sweathogs) }
-  let!(:barbarino) { FactoryGirl.create(:vinnie_barbarino, classroom: sweatdogs) }
+  let!(:horshack) { FactoryGirl.create(:arnold_horshack, classrooms: [sweathogs]) }
+  let!(:barbarino) { FactoryGirl.create(:vinnie_barbarino, classrooms: [sweatdogs]) }
   let(:sweathogs_classroom_activity) { FactoryGirl.create(:classroom_activity,
     classroom: sweathogs, unit: sweathogs.units.first, activity: activity) }
   let(:sweatdogs_classroom_activity) { FactoryGirl.create(:classroom_activity,

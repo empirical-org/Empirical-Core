@@ -75,6 +75,6 @@ describe 'CleverIntegration::Sync::SubMain' do
 
   it 'associates student to classroom' do
     subject
-    expect(student.classroom).to eq(classroom)
+    expect(student.classrooms).to include(classroom)
   end
 end

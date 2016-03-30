@@ -21,7 +21,7 @@ module GoogleIntegration::Classroom::Creators::Students
     course_ids = classrooms.map(&:google_classroom_id)
     student_data = course_ids.map.with_index do |course_id, i|
       array = students_requester_and_parser.call(course_id)
-      array.map{|ele| ele.merge({classcode: classrooms[i].code}) }
+      array.map{|ele| ele.merge({classroom: classrooms[i]}) }
     end
     student_data.flatten
   end
@@ -35,11 +35,14 @@ module GoogleIntegration::Classroom::Creators::Students
 
   def self.create_student(data)
     student = ::User.find_or_initialize_by(email: data[:email])
-    return if not student.new_record?
-    student.update(name: data[:name],
-                   role: 'student',
-                   password: data[:last_name],
-                   classcode: data[:classcode])
+    if student.new_record?
+      username = UsernameGenerator.run(data[:first_name], data[:last_name], data[:classroom].code)
+      student.update(name: data[:name],
+                     role: 'student',
+                     password: data[:last_name],
+                     username: username)
+    end
+    Associators::StudentsToClassrooms.run(student, data[:classroom])
     student
   end
 
