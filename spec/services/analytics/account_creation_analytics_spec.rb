@@ -17,7 +17,7 @@ describe "AccountCreationAnalytics" do
     it 'identifies the new user and send an event' do
       subject
       expect(identify_calls.size).to eq(1)
-      expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
+      expect(identify_calls[0][:traits].keys).to include(:premium_state)
     end
 
     it 'sends an account creation event' do
@@ -53,7 +53,7 @@ describe "AccountCreationAnalytics" do
     it 'identifies the new user and send an event' do
       analytics.track_student(student)
       expect(identify_calls.size).to eq(1)
-      expect(identify_calls[0][:traits].keys).to include(:id, :name, :role, :active, :username, :email, :created_at)
+      expect(identify_calls[0][:traits].keys).to include(:premium_state)
     end
 
     it 'sends an event' do

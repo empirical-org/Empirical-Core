@@ -8,19 +8,15 @@ module Units::Creator
   #       student_ids: Array
   #     }]
   def self.run(teacher, name, activities_data, classrooms_data)
+    puts "units creator called"
     self.create_helper(teacher, name, activities_data, classrooms_data)
   end
 
   def self.fast_assign_unit_template(id, unit_template_id)
     teacher = User.find(id)
-    puts "TEACHER ID: #{id}"
-    puts "TEACHER: #{teacher}"
     unit_template = UnitTemplate.find(unit_template_id)
-    puts "UNIT TEMPLATE FOUND #{unit_template}"
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
-    puts "ACTIVITY DATA FOUND #{activities_data}"
-    classrooms_data = teacher.classrooms.map{ |c| {id: c.id, student_ids: []} }
-    puts "CLASSROOM DATA FOUND #{classrooms_data}"
+    classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
     self.create_helper(teacher, unit_template.name, activities_data, classrooms_data)
   end
 

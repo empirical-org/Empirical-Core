@@ -48,6 +48,6 @@ describe 'CleverIntegration::Importers::Students' do
   end
 
   it 'associates student to classroom' do
-    expect(subject.classroom).to eq(classroom)
+    expect(subject.classrooms).to include(classroom)
   end
 end

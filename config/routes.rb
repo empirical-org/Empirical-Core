@@ -131,6 +131,8 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  put '/students_classrooms/hide', to: 'students_classrooms#hide', as: 'students_classrooms_archive'
+
   # API routes
   namespace :api do
     namespace :v1 do
