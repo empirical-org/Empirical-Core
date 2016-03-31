@@ -16,7 +16,7 @@ export default class Question {
       submitted: response
     }
 
-    var exactMatch = this.checkExactMatch(response)    
+    var exactMatch = this.checkExactMatch(response)
     if (exactMatch !== undefined) {
       returnValue.response = exactMatch
       return returnValue

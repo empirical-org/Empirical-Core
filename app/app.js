@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import Root from "./components/root";
 import Welcome from "./components/welcome/welcome.jsx";
 import Play from "./components/play/play.jsx";
+import PlayQuestion from "./components/play/playQuestion.jsx";
 import Lesson from "./components/lesson/lesson.jsx";
 import Results from "./components/results/results.jsx";
 import Admin from "./components/admin/admin.jsx";
@@ -43,6 +44,7 @@ render((
         <Route path="play" component={Passthrough}>
           <IndexRoute component={Play} />
           <Route path="lesson/:id" component={Lesson}/>
+          <Route path="questions/:questionID" component={PlayQuestion}/>
         </Route>
         <Route path="results" component={Results}/>
         <Route path="admin" component={Passthrough}>
