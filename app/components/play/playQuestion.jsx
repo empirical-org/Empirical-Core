@@ -4,6 +4,13 @@ import Question from '../../libs/question'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {submitResponse} from '../../actions.js'
+import questionActions from '../../actions/questions'
+
+const feedbackStrings = {
+  punctuationError: "punctuation error",
+  typingError: "spelling mistake",
+  caseError: "capitalization error"
+}
 
 const playQuestion = React.createClass({
   getInitialState: function () {
@@ -48,6 +55,17 @@ const playQuestion = React.createClass({
     return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
   },
 
+  generateFeedbackString: function (attempt) {
+    const errors = this.getErrorsForAttempt(attempt);
+    // add keys for react list elements
+    var errorComponents = _.values(_.mapObject(errors, (val, key) => {
+      if (val) {
+        return "You have made a " + feedbackStrings[key] + "."
+      }
+    }))
+    return errorComponents[0]
+  },
+
   renderFeedbackStatements: function (attempt) {
     const errors = this.getErrorsForAttempt(attempt);
     // add keys for react list elements
@@ -61,6 +79,38 @@ const playQuestion = React.createClass({
     return components.concat(errorComponents)
   },
 
+  updateReponseResource: function (response) {
+    console.log('Response: ', response)
+    if (response.found) {
+
+      // var latestAttempt = getLatestAttempt(this.props.question.attempts)
+      var errors = _.keys(this.getErrorsForAttempt(response))
+      if (errors.length === 0) {
+        this.props.dispatch(
+          questionActions.incrementResponseCount(this.props.params.questionID, response.response.key)
+        )
+      } else {
+        var newErrorResp = {
+          text: response.submitted,
+          count: 1,
+          parentID: response.response.key,
+          feedback: this.generateFeedbackString(response)
+        }
+        this.props.dispatch(
+          questionActions.submitNewResponse(this.props.params.questionID, newErrorResp)
+        )
+      }
+    } else {
+      var newResp = {
+        text: response.submitted,
+        count: 1
+      }
+      this.props.dispatch(
+        questionActions.submitNewResponse(this.props.params.questionID, newResp)
+      )
+    }
+  },
+
   checkAnswer: function () {
     var fields = {
       prompt: this.getQuestion().prompt,
@@ -68,8 +118,9 @@ const playQuestion = React.createClass({
     }
     var question = new Question(fields);
     var response = question.checkMatch(this.refs.response.value);
+    this.updateReponseResource(response)
     this.submitResponse(response)
-    this.setState({editing: false})
+    // this.setState({editing: false})
   },
 
   toggleDisabled: function () {

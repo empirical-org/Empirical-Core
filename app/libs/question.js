@@ -15,7 +15,6 @@ export default class Question {
       found: true,
       submitted: response
     }
-
     var exactMatch = this.checkExactMatch(response)
     if (exactMatch !== undefined) {
       returnValue.response = exactMatch
@@ -43,6 +42,12 @@ export default class Question {
     return returnValue
   }
 
+  nonChildResponses(responses) {
+    return _.filter(this.responses, function (resp){
+      return resp.parentID !== undefined && resp.feedback !== undefined
+    })
+  }
+
   checkExactMatch(response) {
     return _.find(this.responses, (resp) => {
       return resp.text === response;
@@ -50,19 +55,19 @@ export default class Question {
   }
 
   checkCaseInsensitiveMatch(response) {
-    return _.find(this.responses, (resp) => {
+    return _.find(this.nonChildResponses(this.responses), (resp) => {
       return resp.text.toLowerCase() === response.toLowerCase();
     });
   }
 
   checkPunctuationInsensitiveMatch(response) {
-    return _.find(this.responses, (resp) => {
+    return _.find(this.nonChildResponses(this.responses), (resp) => {
       return removePunctuation(resp.text) === removePunctuation(response)
     });
   }
 
   checkSmallTypoMatch(response) {
-    return _.find(this.responses, (resp) => {
+    return _.find(this.nonChildResponses(this.responses), (resp) => {
       return getLowAdditionCount(response, resp.text)
     });
   }
