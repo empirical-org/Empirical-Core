@@ -12,6 +12,7 @@ export default React.createClass({
           <h2 className="subtitle">
             Do you belong here?
           </h2>
+          <Link to={"admin/concepts"}>Concepts</Link>
         </div>
       </section>
     )
