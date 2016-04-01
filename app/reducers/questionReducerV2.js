@@ -11,6 +11,8 @@ function question(state = initialState, action) {
         attempts: state.attempts.concat([action.response])
       }
       return Object.assign({}, state, changes)
+    case SubmitActions.CLEAR_RESPONSES:
+      return Object.assign({}, state, initialState)
     default:
       return state
   }

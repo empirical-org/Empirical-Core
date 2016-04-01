@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Question from '../../libs/question'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
-import {submitResponse} from '../../actions.js'
+import {submitResponse, clearResponses} from '../../actions.js'
 import questionActions from '../../actions/questions'
 var C = require("../../constants").default,
   Firebase = require("firebase")
@@ -23,6 +23,7 @@ const playQuestion = React.createClass({
   },
 
   componentDidMount: function() {
+    this.props.dispatch(clearResponses())
     const {questionID} = this.props.params
     var sessionRef = sessionsRef.push({questionID}, (error) => {
       this.setState({sessionKey: sessionRef.key()})
