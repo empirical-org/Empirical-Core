@@ -47,6 +47,13 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals))
   },
 
+  // TODO: want to allow admin to toggle the
+  // order of the responses list by submission count,
+  // text, or timestamp.
+  toggleResponseSort: function (field) {
+    console.log(field);
+  },
+
 
   renderResponses: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
@@ -110,6 +117,11 @@ const Question = React.createClass({
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button> <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
           </p>
           {this.renderNewResponseForm()}
+          <div>
+            <a onClick={this.toggleResponseSort.bind(null, "submission")}>Submissions</a>
+            <a onClick={this.toggleResponseSort.bind(null, "text")}>Text</a>
+            <a onClick={this.toggleResponseSort.bind(null, "createdAt")}>Created At</a>
+          </div>
           {this.renderResponses()}
         </div>
       )
