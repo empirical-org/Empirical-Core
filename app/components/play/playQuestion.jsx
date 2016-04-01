@@ -192,7 +192,7 @@ const playQuestion = React.createClass({
   render: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
-      if (this.props.question.attempts.length > 4 ) {
+      if (this.props.question.attempts.length > 2 ) {
         return (
           <section className="section">
             <div className="container">
