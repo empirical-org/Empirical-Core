@@ -30,6 +30,7 @@
     "history": "^1.13.1",
     "lodash": "^4.6.1",
     "mocha": "^2.3.4",
+    "moment": "^2.12.0",
     "node-sass": "^3.4.2",
     "react-addons-css-transition-group": "^0.14.7",
     "react-addons-test-utils": "^0.14.3",
@@ -48,6 +49,7 @@
     "redux-thunk": "^2.0.1",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
+    "underscore": "^1.8.3",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0",
     "webpack-error-notification": "^0.1.6"

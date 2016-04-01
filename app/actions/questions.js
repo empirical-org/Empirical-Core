@@ -1,6 +1,7 @@
 var C = require("../constants").default,
   Firebase = require("firebase"),
-	questionsRef = new Firebase(C.FIREBASE).child("questions")
+	questionsRef = new Firebase(C.FIREBASE).child("questions"),
+	moment = require('moment');
 
 module.exports = {
 	// called when the app starts. this means we immediately download all questions, and
@@ -63,6 +64,7 @@ module.exports = {
 		}
 	},
   submitNewResponse: function (qid, content) {
+    content.createdAt = moment().format("x");
     return function (dispatch,getState) {
       dispatch({type:C.AWAIT_NEW_QUESTION_RESPONSE});
 			var newRef = questionsRef.child(qid).child('responses').push(content,function(error){
