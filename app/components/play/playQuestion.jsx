@@ -184,6 +184,10 @@ const playQuestion = React.createClass({
     return false
   },
 
+  getProgressPercent: function () {
+    return this.props.question.attempts.length / 3 * 100
+  },
+
   renderNextQuestionButton:  function () {
     if (this.readyForNext()) {
       return (<button className="button is-outlined is-success" onClick={console.log("next")}>Next</button>)
@@ -224,6 +228,7 @@ const playQuestion = React.createClass({
             <section className="section">
               <div className="container">
                 <div className="content">
+                  <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
                   <h4>Combine the sentences below into one sentence.</h4>
                   {this.renderSentenceFragments()}
                   {this.renderFeedback()}
@@ -245,6 +250,7 @@ const playQuestion = React.createClass({
           <section className="section">
             <div className="container">
               <div className="content">
+                <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
                 <h4>Combine the sentences below into one sentence.</h4>
                 {this.renderSentenceFragments()}
                 {this.renderFeedback()}
