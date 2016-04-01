@@ -19,6 +19,13 @@ const Question = React.createClass({
   //   })
   // },
 
+  getInitialState: function () {
+    return {
+      sorting: "count",
+      ascending: false
+    }
+  },
+
   deleteQuestion: function () {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID))
   },
@@ -47,11 +54,17 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals))
   },
 
+  toggleResponseSort: function (field) {
+    (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
+  },
+
 
   renderResponses: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
     var responses = hashToCollection(data[questionID].responses)
-    var responsesListItems = _.sortBy(responses, 'count').reverse().map((resp) => {
+    var responsesListItems = _.sortBy(responses, (resp) =>
+        {return resp[this.state.sorting] || 0 }
+      ).map((resp) => {
       return <Response
         response={resp}
         states={states}
@@ -59,7 +72,19 @@ const Question = React.createClass({
         dispatch={this.props.dispatch}
         key={resp.key} />
     })
-    return responsesListItems
+    if (this.state.ascending) {
+      return responsesListItems;
+    } else {
+      return responsesListItems.reverse();
+    }
+  },
+
+  renderArrow: function () {
+    return (
+      <p style="display: inline;">
+        {this.state.ascending ? "&uarr;" : "&darr;"}
+      </p>
+    )
   },
 
   renderNewResponseForm: function () {
@@ -87,7 +112,7 @@ const Question = React.createClass({
 
   renderEditForm: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
-    const question =  (data[questionID])
+    const question = (data[questionID])
     if (this.props.questions.states[questionID] === C.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
@@ -95,6 +120,35 @@ const Question = React.createClass({
         </Modal>
       )
     }
+  },
+
+  formatSortField: function (displayName, stateName) {
+    if (this.state.sorting === stateName) {
+      return (
+        <li className="is-active">
+          <a onClick={this.toggleResponseSort.bind(null, stateName)}>
+            {displayName} {this.state.ascending ? "^" : "v"}
+            </a>
+
+        </li>
+      )
+    } else {
+      return (
+        <li>
+          <a onClick={this.toggleResponseSort.bind(null, stateName)}>{displayName}</a>
+        </li>
+      );
+    }
+  },
+
+  renderSortingFields: function () {
+    return (
+      <ul>
+        {this.formatSortField('Submissions', 'count')}
+        {this.formatSortField('Text', 'text')}
+        {this.formatSortField('Created At', 'createdAt')}
+      </ul>
+    );
   },
 
   render: function (){
@@ -110,6 +164,9 @@ const Question = React.createClass({
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button> <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
           </p>
           {this.renderNewResponseForm()}
+          <div className="tabs is-toggle is-fullwidth">
+            {this.renderSortingFields()}
+          </div>
           {this.renderResponses()}
         </div>
       )
