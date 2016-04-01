@@ -47,8 +47,8 @@ render((
           <Route path="questions/:questionID" component={PlayQuestion}/>
         </Route>
         <Route path="results" component={Results}/>
-        <Route path="admin" component={Passthrough}>
-          <IndexRoute component={Admin} />
+        <Route path="admin" component={Admin}>
+
           <Route path="concepts" component={Concepts}>
             <Route path=":conceptID" component={Concept}/>
           </Route>

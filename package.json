@@ -38,6 +38,7 @@
     "react-radio-group": "^2.2.0",
     "react-redux": "^4.0.6",
     "react-router": "^1.0.0",
+    "react-router-active-component": "^3.0.0",
     "redbox-react": "^1.2.2",
     "redux": "^3.0.5",
     "redux-devtools": "^3.0.1",
