@@ -26,7 +26,7 @@ const Concepts = React.createClass({
       this.props.dispatch(questionActions.submitNewQuestion({
         prompt: this.refs.newQuestionPrompt.value,
         conceptID: this.props.params.conceptID},
-        {text: this.refs.newQuestionOptimalResponse.value, optimal: true, feedback: "Excellent, that's correct!"}))
+        {text: this.refs.newQuestionOptimalResponse.value, optimal: true, count: 0, feedback: "That's a great sentence!"}))
       this.refs.newQuestionPrompt.value = ''
       this.refs.newQuestionPrompt.focus()
     }
