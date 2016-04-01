@@ -11,6 +11,7 @@ export default class Question {
   }
 
   checkMatch(response) {
+    response = response.trim()
     var returnValue = {
       found: true,
       submitted: response
@@ -49,35 +50,30 @@ export default class Question {
   }
 
   checkExactMatch(response) {
-    response = response.trim()
     return _.find(this.responses, (resp) => {
       return resp.text === response;
     });
   }
 
   checkCaseInsensitiveMatch(response) {
-    response = response.trim()
     return _.find(this.nonChildResponses(this.responses), (resp) => {
       return resp.text.toLowerCase() === response.toLowerCase();
     });
   }
 
   checkPunctuationInsensitiveMatch(response) {
-    response = response.trim()
     return _.find(this.nonChildResponses(this.responses), (resp) => {
       return removePunctuation(resp.text) === removePunctuation(response)
     });
   }
 
   checkSmallTypoMatch(response) {
-    response = response.trim()
     return _.find(this.nonChildResponses(this.responses), (resp) => {
       return getLowAdditionCount(response, resp.text)
     });
   }
 
   checkFuzzyMatch(response) {
-    response = response.trim()
     const set = fuzzy(_.pluck(this.responses, "text"));
     const matches = set.get(response, []);
     var response = undefined;

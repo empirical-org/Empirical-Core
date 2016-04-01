@@ -29,16 +29,16 @@ describe("The question object", () => {
     expect(incorrectResponse).toNotExist();
   });
 
-  it("should ignore extra white space.", () => {
-    var correctResponse = question.checkExactMatch("    The fox ran.   ");
-    expect(correctResponse).toExist()
-    var correctResponse = question.checkExactMatch("The fox ran.   ");
-    expect(correctResponse).toExist()
-    var correctResponse = question.checkExactMatch("    The fox ran.");
-    expect(correctResponse).toExist()
-    var correctResponse = question.checkExactMatch("    The fox ran.\n");
-    expect(correctResponse).toExist()
-  });
+  // it("should ignore extra white space.", () => {
+  //   var correctResponse = question.checkExactMatch("    The fox ran.   ");
+  //   expect(correctResponse).toExist()
+  //   var correctResponse = question.checkExactMatch("The fox ran.   ");
+  //   expect(correctResponse).toExist()
+  //   var correctResponse = question.checkExactMatch("    The fox ran.");
+  //   expect(correctResponse).toExist()
+  //   var correctResponse = question.checkExactMatch("    The fox ran.\n");
+  //   expect(correctResponse).toExist()
+  // });
 
   it("should be able to check for an case insensitive match in the responses.", () => {
     var correctResponse = question.checkCaseInsensitiveMatch("the fox ran.");
@@ -78,6 +78,8 @@ describe("The question object", () => {
 
   it("should be able to check a response and provide info on whats wrong", () => {
     var correctResponse = question.checkMatch("The fox ran.");
+    expect(correctResponse.typingError).toBe(undefined);
+    var correctResponse = question.checkMatch("  The fox ran.  \n");
     expect(correctResponse.typingError).toBe(undefined);
     var caseResponse = question.checkMatch("the fox ran.");
     expect(caseResponse.caseError).toBe(true);
