@@ -80,7 +80,11 @@ const Question = React.createClass({
   },
 
   renderArrow: function () {
-    return this.state.ascending ? <p>&uarr;</p> : <p>&darr;</p>
+    return (
+      <p style="display: inline;">
+        {this.state.ascending ? "&uarr;" : "&darr;"}
+      </p>
+    )
   },
 
   renderNewResponseForm: function () {
@@ -118,6 +122,32 @@ const Question = React.createClass({
     }
   },
 
+  formatSortField: function (displayName, stateName) {
+    if (this.state.sorting === stateName) {
+      return (
+        <p>
+          {displayName} {this.state.ascending ? "^" : "v"} 
+        </p>
+      )
+    } else {
+      return (
+        <p>
+          {displayName} 
+        </p>
+      );
+    }
+  },
+
+  renderSortingFields: function () {
+    return (
+      <div>
+        <a onClick={this.toggleResponseSort.bind(null, "count")}>{this.formatSortField('Submissions', 'count')}</a>
+        <a onClick={this.toggleResponseSort.bind(null, "text")}>{this.formatSortField('Text', 'text')}</a>
+        <a onClick={this.toggleResponseSort.bind(null, "createdAt")}>{this.formatSortField('Created At', 'createdAt')} </a>
+      </div>
+    );
+  },
+
   render: function (){
     const {data} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
@@ -131,12 +161,7 @@ const Question = React.createClass({
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button> <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
           </p>
           {this.renderNewResponseForm()}
-          <div>
-            <a onClick={this.toggleResponseSort.bind(null, "count")}>Submissions </a>
-            <a onClick={this.toggleResponseSort.bind(null, "text")}>Text </a>
-            <a onClick={this.toggleResponseSort.bind(null, "createdAt")}>Created At</a>
-            {this.renderArrow()}
-          </div>
+          {this.renderSortingFields()}
           {this.renderResponses()}
         </div>
       )
