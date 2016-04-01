@@ -53,7 +53,7 @@ const playQuestion = React.createClass({
 
   renderSentenceFragments: function () {
     return (
-      <p>{this.getQuestion().prompt}</p>
+      <h4 className="title is-4">{this.getQuestion().prompt}</h4>
     )
     // return this.props.question.sentences.map((sentence, index) => {
     //   return (<li key={index}>{sentence}</li>)
@@ -64,10 +64,10 @@ const playQuestion = React.createClass({
     const latestAttempt = getLatestAttempt(this.props.question.attempts)
     if (latestAttempt) {
       if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
-        return <ul>{this.renderFeedbackStatements(latestAttempt)}</ul>
+        return <ul className="is-unstyled">{this.renderFeedbackStatements(latestAttempt)}</ul>
       } else {
         return (
-          <p>Try Again. What’s another way you could write this sentence?</p>
+          <h5 className="title is-5">Try Again. What’s another way you could write this sentence?</h5>
         )
       }
     }
@@ -94,19 +94,19 @@ const playQuestion = React.createClass({
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors) && (attempt.response.optimal !== true)) {
-      components = components.concat([(<li key="feedback">{attempt.response.feedback}</li>)])
+      components = components.concat([(<li key="feedback"><h5 className="title is-5">{attempt.response.feedback}</h5></li>)])
     }
     console.log("ping")
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}>Warning: You have made a {feedbackStrings[key]}.</li>)
+        return (<li key={key}><h5 className="title is-5">Warning: You have made a {feedbackStrings[key]}.</h5></li>)
       }
     }))
     // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
     if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
       const parentResponse = this.getQuestion().responses[attempt.response.parentID]
       console.log(parentResponse)
-      components = [(<li key="parentfeedback">{parentResponse.feedback}</li>)].concat(components)
+      components = [(<li key="parentfeedback"><h5 className="title is-5">{parentResponse.feedback}</h5></li>)].concat(components)
       console.log("comps, ", components)
     }
     return components.concat(errorComponents)
@@ -229,11 +229,11 @@ const playQuestion = React.createClass({
               <div className="container">
                 <div className="content">
                   <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                  <h4>Combine the sentences below into one sentence.</h4>
+                  <h6 className="title is-6">Combine the sentences below into one sentence.</h6>
                   {this.renderSentenceFragments()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <textarea className="textarea" ref="response" placeholder="Textarea" onChange={this.handleChange}></textarea>
+                    <textarea className="textarea" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                   </div>
                   <div className="button-group">
                     <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
@@ -251,11 +251,11 @@ const playQuestion = React.createClass({
             <div className="container">
               <div className="content">
                 <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                <h4>Combine the sentences below into one sentence.</h4>
+                <h6 className="title is-6">Combine the sentences below into one sentence.</h6>
                 {this.renderSentenceFragments()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea" ref="response" placeholder="Textarea" onChange={this.handleChange}></textarea>
+                  <textarea className="textarea" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                 </div>
                 <div className="button-group">
                   <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
