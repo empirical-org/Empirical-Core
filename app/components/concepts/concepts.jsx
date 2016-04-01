@@ -22,7 +22,7 @@ const Concept = React.createClass({
     const keys = _.keys(data);
     return keys.map((key) => {
       console.log(key, data, data[key])
-      return (<li><Link to={'/admin/concepts/' + key} activeClassName="is-disabled">{data[key].name}</Link></li>)
+      return (<li><Link to={'/admin/concepts/' + key} activeClassName="is-active">{data[key].name}</Link></li>)
     })
   },
 
@@ -56,13 +56,18 @@ const Concept = React.createClass({
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title">Concepts <button className="button is-primary" onClick={this.createNew}>Create New concept</button></h1>
+          <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New concept</button></h1>
           { this.renderModal() }
           <div className="columns">
             <div className="column">
-              <ul>
-                {this.renderConcepts()}
-              </ul>
+              <aside className="menu">
+                <p className="menu-label">
+                  Concepts
+                </p>
+                <ul className="menu-list">
+                  {this.renderConcepts()}
+                </ul>
+              </aside>
             </div>
             <div className="column">
               {this.props.children}
