@@ -36,6 +36,8 @@ describe("The question object", () => {
     expect(correctResponse).toExist()
     var correctResponse = question.checkExactMatch("    The fox ran.");
     expect(correctResponse).toExist()
+    var correctResponse = question.checkExactMatch("    The fox ran.\n");
+    expect(correctResponse).toExist()
   });
 
   it("should be able to check for an case insensitive match in the responses.", () => {
