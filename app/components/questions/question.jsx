@@ -19,6 +19,13 @@ const Question = React.createClass({
   //   })
   // },
 
+  getInitialState: function () {
+    return {
+      sorting: "count",
+      ascending: false
+    }
+  },
+
   deleteQuestion: function () {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID))
   },
@@ -47,18 +54,17 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals))
   },
 
-  // TODO: want to allow admin to toggle the
-  // order of the responses list by submission count,
-  // text, or timestamp.
   toggleResponseSort: function (field) {
-    console.log(field);
+    (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
   },
 
 
   renderResponses: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
     var responses = hashToCollection(data[questionID].responses)
-    var responsesListItems = _.sortBy(responses, 'count').reverse().map((resp) => {
+    var responsesListItems = _.sortBy(responses, (resp) =>
+        {return resp[this.state.sorting] || 0 }
+      ).map((resp) => {
       return <Response
         response={resp}
         states={states}
@@ -66,7 +72,15 @@ const Question = React.createClass({
         dispatch={this.props.dispatch}
         key={resp.key} />
     })
-    return responsesListItems
+    if (this.state.ascending) {
+      return responsesListItems;
+    } else {
+      return responsesListItems.reverse();
+    }
+  },
+
+  renderArrow: function () {
+    return this.state.ascending ? <p>&uarr;</p> : <p>&darr;</p>
   },
 
   renderNewResponseForm: function () {
@@ -94,7 +108,7 @@ const Question = React.createClass({
 
   renderEditForm: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
-    const question =  (data[questionID])
+    const question = (data[questionID])
     if (this.props.questions.states[questionID] === C.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
@@ -118,9 +132,10 @@ const Question = React.createClass({
           </p>
           {this.renderNewResponseForm()}
           <div>
-            <a onClick={this.toggleResponseSort.bind(null, "submission")}>Submissions</a>
-            <a onClick={this.toggleResponseSort.bind(null, "text")}>Text</a>
+            <a onClick={this.toggleResponseSort.bind(null, "count")}>Submissions </a>
+            <a onClick={this.toggleResponseSort.bind(null, "text")}>Text </a>
             <a onClick={this.toggleResponseSort.bind(null, "createdAt")}>Created At</a>
+            {this.renderArrow()}
           </div>
           {this.renderResponses()}
         </div>
