@@ -29,6 +29,15 @@ describe("The question object", () => {
     expect(incorrectResponse).toNotExist();
   });
 
+  it("should ignore extra white space.", () => {
+    var correctResponse = question.checkExactMatch("    The fox ran.   ");
+    expect(correctResponse).toExist()
+    var correctResponse = question.checkExactMatch("The fox ran.   ");
+    expect(correctResponse).toExist()
+    var correctResponse = question.checkExactMatch("    The fox ran.");
+    expect(correctResponse).toExist()
+  });
+
   it("should be able to check for an case insensitive match in the responses.", () => {
     var correctResponse = question.checkCaseInsensitiveMatch("the fox ran.");
     expect(correctResponse).toExist()
