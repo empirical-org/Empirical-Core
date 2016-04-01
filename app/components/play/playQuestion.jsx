@@ -5,6 +5,9 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {submitResponse} from '../../actions.js'
 import questionActions from '../../actions/questions'
+var C = require("../../constants").default,
+  Firebase = require("firebase")
+const sessionsRef = new Firebase(C.FIREBASE).child('sessions')
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -19,6 +22,21 @@ const playQuestion = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    const {questionID} = this.props.params
+    var sessionRef = sessionsRef.push({questionID}, (error) => {
+      this.setState({sessionKey: sessionRef.key()})
+    })
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.question.attempts.length > 0) {
+      var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(nextProps.question.attempts, (error) => {
+        return
+      })
+    }
+  },
+
   getQuestion: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
     return (data[questionID])
@@ -26,7 +44,10 @@ const playQuestion = React.createClass({
 
   submitResponse: function(response) {
     const action = submitResponse(response);
-    this.props.dispatch(action)
+    this.props.dispatch(action);
+    var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(this.props.question.attempts, (error) => {
+      return
+    })
   },
 
   renderSentenceFragments: function () {
@@ -41,7 +62,7 @@ const playQuestion = React.createClass({
   renderFeedback: function () {
     const latestAttempt = getLatestAttempt(this.props.question.attempts)
     if (latestAttempt) {
-      if (latestAttempt.found) {
+      if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
         return <ul>{this.renderFeedbackStatements(latestAttempt)}</ul>
       } else {
         return (
@@ -68,14 +89,25 @@ const playQuestion = React.createClass({
 
   renderFeedbackStatements: function (attempt) {
     const errors = this.getErrorsForAttempt(attempt);
+    console.log(_.isEmpty(errors), (attempt.response.optimal !== true))
     // add keys for react list elements
-
-    var components = [(<li key="feedback">{attempt.response.feedback}</li>)]
+    var components = []
+    if (_.isEmpty(errors) && (attempt.response.optimal !== true)) {
+      components = components.concat([(<li key="feedback">{attempt.response.feedback}</li>)])
+    }
+    console.log("ping")
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
         return (<li key={key}>Warning: You have made a {feedbackStrings[key]}.</li>)
       }
     }))
+    // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
+    if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
+      const parentResponse = this.getQuestion().responses[attempt.response.parentID]
+      console.log(parentResponse)
+      components = [(<li key="parentfeedback">{parentResponse.feedback}</li>)].concat(components)
+      console.log("comps, ", components)
+    }
     return components.concat(errorComponents)
   },
 
@@ -120,7 +152,7 @@ const playQuestion = React.createClass({
     var response = question.checkMatch(this.refs.response.value);
     this.updateReponseResource(response)
     this.submitResponse(response)
-    // this.setState({editing: false})
+    this.setState({editing: false})
   },
 
   toggleDisabled: function () {
@@ -141,7 +173,7 @@ const playQuestion = React.createClass({
 
 
         var errors = _.keys(this.getErrorsForAttempt(latestAttempt))
-        if (latestAttempt.response.status === 'optimal' && errors.length === 0) {
+        if (latestAttempt.response.optimal && errors.length === 0) {
           return true
         }
 
@@ -160,24 +192,73 @@ const playQuestion = React.createClass({
   render: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
-      return (
-      <section className="section">
-        <div className="container">
-        <div className="content">
-          <h4>{data.prompt}</h4>
-          {this.renderSentenceFragments()}
-          {this.renderFeedback()}
-          <div className="control">
-            <textarea className="textarea" ref="response" placeholder="Textarea" onChange={this.handleChange}></textarea>
-          </div>
-          <div className="button-group">
-            <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-            {this.renderNextQuestionButton()}
-          </div>
-        </div>
-      </div>
-      </section>
-      )
+      if (this.props.question.attempts.length > 4 ) {
+        return (
+          <section className="section">
+            <div className="container">
+              <div className="content">
+                <h4>You took too many attempts</h4>
+                <p>Thank you for playing</p>
+                <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
+              </div>
+            </div>
+          </section>
+        )
+      } else if (this.props.question.attempts.length > 0 ) {
+        var latestAttempt = getLatestAttempt(this.props.question.attempts)
+        if (this.readyForNext()) {
+          return (
+            <section className="section">
+              <div className="container">
+                <div className="content">
+                  <h4>Excellent</h4>
+                  <p>That's correct. Thank you for playing</p>
+                  <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
+                </div>
+              </div>
+            </section>
+          )
+        }else {
+          return (
+            <section className="section">
+              <div className="container">
+                <div className="content">
+                  <h4>Combine the sentences below into one sentence.</h4>
+                  {this.renderSentenceFragments()}
+                  {this.renderFeedback()}
+                  <div className="control">
+                    <textarea className="textarea" ref="response" placeholder="Textarea" onChange={this.handleChange}></textarea>
+                  </div>
+                  <div className="button-group">
+                    <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+                    {this.renderNextQuestionButton()}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )
+        }
+
+      } else {
+        return (
+          <section className="section">
+            <div className="container">
+              <div className="content">
+                <h4>Combine the sentences below into one sentence.</h4>
+                {this.renderSentenceFragments()}
+                {this.renderFeedback()}
+                <div className="control">
+                  <textarea className="textarea" ref="response" placeholder="Textarea" onChange={this.handleChange}></textarea>
+                </div>
+                <div className="button-group">
+                  <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+                  {this.renderNextQuestionButton()}
+                </div>
+              </div>
+            </div>
+          </section>
+        )
+      }
     } else {
       return (<p>Loading...</p>)
     }

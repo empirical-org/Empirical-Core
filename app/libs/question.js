@@ -44,7 +44,7 @@ export default class Question {
 
   nonChildResponses(responses) {
     return _.filter(this.responses, function (resp){
-      return resp.parentID !== undefined && resp.feedback !== undefined
+      return resp.parentID === undefined && resp.feedback !== undefined
     })
   }
 
