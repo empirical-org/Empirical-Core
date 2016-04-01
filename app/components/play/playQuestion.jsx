@@ -66,7 +66,7 @@ const playQuestion = React.createClass({
         return <ul>{this.renderFeedbackStatements(latestAttempt)}</ul>
       } else {
         return (
-          <p> This is not a valid sentence </p>
+          <p>Try Again. What’s another way you could write this sentence?</p>
         )
       }
     }
