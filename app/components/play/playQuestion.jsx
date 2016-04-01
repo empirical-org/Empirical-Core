@@ -197,8 +197,8 @@ const playQuestion = React.createClass({
           <section className="section">
             <div className="container">
               <div className="content">
-                <h4>You took too many attempts</h4>
-                <p>Thank you for playing</p>
+                <h4>You completed all of the attempts.</h4>
+                <p>Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
                 <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
               </div>
             </div>
@@ -212,7 +212,7 @@ const playQuestion = React.createClass({
               <div className="container">
                 <div className="content">
                   <h4>Excellent</h4>
-                  <p>That's correct. Thank you for playing</p>
+                  <p>That's correct. Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
                   <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
                 </div>
               </div>
