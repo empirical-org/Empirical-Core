@@ -29,19 +29,32 @@ export default React.createClass({
     this.props.dispatch(questionActions.incrementResponseCount(this.props.questionID, rid));
   },
 
+  removeLinkToParentID: function (rid) {
+    this.props.dispatch(questionActions.removeLinkToParentID(this.props.questionID, rid));
+  },
+
   renderResponseContent: function (isEditing, response) {
     var content;
     var parentDetails;
     if (response.parentID) {
       const parent = this.props.getResponse(response.parentID)
-      parentDetails = [
-        (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
-        (<br />)]
+      if (isEditing) {
+        parentDetails = [
+          (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
+          (<br />),
+          (<button className="button is-danger" onClick={this.removeLinkToParentID.bind(null, response.key)}>Remove Link to Parent </button>),
+          (<br />)]
+      } else {
+        parentDetails = [
+          (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
+          (<br />)]
+      }
     }
 
     if (isEditing) {
       content =
         <div className="content">
+          {parentDetails}
           <label className="label">Feedback</label>
           <p className="control">
             <input className="input" type="text" defaultValue={response.feedback} ref="newResponseFeedback"></input>

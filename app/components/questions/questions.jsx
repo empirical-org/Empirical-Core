@@ -60,7 +60,6 @@ const Questions = React.createClass({
   },
 
   render: function (){
-    console.log(this.props.questions)
     return (
       <section className="section">
         <div className="container">

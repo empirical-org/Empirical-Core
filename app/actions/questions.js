@@ -121,5 +121,16 @@ module.exports = {
         }
       })
     }
+  },
+  removeLinkToParentID: function(qid, rid) {
+    return function(dispatch, getState){
+      questionsRef.child(qid+ "/responses/" + rid + '/parentID').remove(function(error){
+				if (error){
+					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
+				} else {
+					dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully deleted!"});
+				}
+			});
+    }
   }
 };

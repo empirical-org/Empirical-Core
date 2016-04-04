@@ -9,6 +9,5 @@ export function embedKeys (hash) {
 
 export function hashToCollection (hash) {
   var wEmbeddedKeys = embedKeys(hash)
-  console.log(_.values(wEmbeddedKeys));
   return _.values(wEmbeddedKeys)
 }
