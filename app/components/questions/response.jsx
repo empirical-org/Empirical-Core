@@ -88,6 +88,9 @@ export default React.createClass({
   },
 
   renderResponseFooter: function (isEditing, response) {
+    if (this.props.readOnly) {
+      return
+    }
     var buttons;
 
     if (isEditing) {

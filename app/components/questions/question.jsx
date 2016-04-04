@@ -77,7 +77,8 @@ const Question = React.createClass({
         states={states}
         questionID={questionID}
         dispatch={this.props.dispatch}
-        key={resp.key} />
+        key={resp.key}
+        readOnly={false} />
     })
     if (this.state.ascending) {
       return responsesListItems;
