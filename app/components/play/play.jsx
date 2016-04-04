@@ -16,7 +16,7 @@ const play = React.createClass({
       )
       var questionsForConcept = _.where(questions, {conceptID: concept.key})
       var listItems = questionsForConcept.map((question) => {
-        return (<li key={question.key}><Link to={'/play/questions/' + question.key} activeClassName="is-disabled">{question.prompt}</Link></li>)
+        return (<li key={question.key}><Link to={'/play/questions/' + question.key} activeClassName="is-active">{question.prompt}</Link></li>)
       })
 
       if (questionsForConcept.length === 0) {
