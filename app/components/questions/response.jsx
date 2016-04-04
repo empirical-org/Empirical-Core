@@ -31,6 +31,13 @@ export default React.createClass({
 
   renderResponseContent: function (isEditing, response) {
     var content;
+    var parentDetails;
+    if (response.parentID) {
+      const parent = this.props.getResponse(response.parentID)
+      parentDetails = [
+        (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
+        (<br />)]
+    }
 
     if (isEditing) {
       content =
@@ -49,6 +56,7 @@ export default React.createClass({
     } else {
       content =
         <div className="content">
+          {parentDetails}
           <strong>Feedback:</strong> {response.feedback}
           <br />
           <strong>Grade:</strong> { response.optimal ? 'Optimal' : 'Sub-optimal' }

@@ -42,6 +42,12 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals))
   },
 
+  getResponse: function (responseID) {
+    const {data, states} = this.props.questions, {questionID} = this.props.params;
+    var responses = hashToCollection(data[questionID].responses)
+    return _.find(responses, {key: responseID})
+  },
+
   submitNewResponse: function () {
     var newResp = {
       vals: {
@@ -67,6 +73,7 @@ const Question = React.createClass({
       ).map((resp) => {
       return <Response
         response={resp}
+        getResponse={this.getResponse}
         states={states}
         questionID={questionID}
         dispatch={this.props.dispatch}

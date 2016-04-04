@@ -42126,6 +42126,7 @@
 	  _createClass(Question, [{
 	    key: 'checkMatch',
 	    value: function checkMatch(response) {
+	      response = response.trim();
 	      var returnValue = {
 	        found: true,
 	        submitted: response
@@ -42166,7 +42167,6 @@
 	  }, {
 	    key: 'checkExactMatch',
 	    value: function checkExactMatch(response) {
-	      response = response.trim();
 	      return _underscore2.default.find(this.responses, function (resp) {
 	        return resp.text === response;
 	      });
@@ -42174,7 +42174,6 @@
 	  }, {
 	    key: 'checkCaseInsensitiveMatch',
 	    value: function checkCaseInsensitiveMatch(response) {
-	      response = response.trim();
 	      return _underscore2.default.find(this.nonChildResponses(this.responses), function (resp) {
 	        return resp.text.toLowerCase() === response.toLowerCase();
 	      });
@@ -42182,7 +42181,6 @@
 	  }, {
 	    key: 'checkPunctuationInsensitiveMatch',
 	    value: function checkPunctuationInsensitiveMatch(response) {
-	      response = response.trim();
 	      return _underscore2.default.find(this.nonChildResponses(this.responses), function (resp) {
 	        return removePunctuation(resp.text) === removePunctuation(response);
 	      });
@@ -42190,7 +42188,6 @@
 	  }, {
 	    key: 'checkSmallTypoMatch',
 	    value: function checkSmallTypoMatch(response) {
-	      response = response.trim();
 	      return _underscore2.default.find(this.nonChildResponses(this.responses), function (resp) {
 	        return getLowAdditionCount(response, resp.text);
 	      });
@@ -42198,7 +42195,6 @@
 	  }, {
 	    key: 'checkFuzzyMatch',
 	    value: function checkFuzzyMatch(response) {
-	      response = response.trim();
 	      var set = (0, _fuzzyset2.default)(_underscore2.default.pluck(this.responses, "text"));
 	      var matches = set.get(response, []);
 	      var response = undefined;
