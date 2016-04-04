@@ -4,6 +4,7 @@ import actions from '../../actions/questions'
 import _ from 'underscore'
 import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
+import {hashToCollection} from '../../libs/hashToCollection'
 
 const Questions = React.createClass({
   createNew: function () {
@@ -18,10 +19,30 @@ const Questions = React.createClass({
   },
 
   renderQuestions: function () {
-    const {data} = this.props.questions;
-    const keys = _.keys(data);
-    return keys.map((key) => {
-      return (<li key={key}><Link to={'/admin/questions/' + key} activeClassName="is-disabled">{data[key].prompt}</Link></li>)
+    const concepts = hashToCollection(this.props.concepts.data);
+    const questions = hashToCollection(this.props.questions.data);
+    return concepts.map((concept) => {
+      var label = (
+        <p className="menu-label">
+          {concept.name}
+        </p>
+      )
+      var questionsForConcept = _.where(questions, {conceptID: concept.key})
+      var listItems = questionsForConcept.map((question) => {
+        return (<li key={question.key}><Link to={'/admin/questions/' + question.key} activeClassName="is-active">{question.prompt}</Link></li>)
+      })
+
+      if (questionsForConcept.length === 0) {
+        return
+      }
+
+      return [
+        label,
+        (<ul className="menu-list">
+          {listItems}
+        </ul>)
+      ]
+
     })
   },
 
@@ -63,7 +84,6 @@ const Questions = React.createClass({
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title">Questions</h1>
           { this.renderModal() }
           <div className="columns">
             <div className="column">
@@ -83,6 +103,7 @@ const Questions = React.createClass({
 
 function select(state) {
   return {
+    concepts: state.concepts,
     questions: state.questions,
     routing: state.routing
   }
