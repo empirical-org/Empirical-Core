@@ -6,6 +6,7 @@ import Play from "./components/play/play.jsx";
 import PlayQuestion from "./components/play/playQuestion.jsx";
 import Lesson from "./components/lesson/lesson.jsx";
 import Results from "./components/results/results.jsx";
+import Review from "./components/results/review.jsx";
 import Admin from "./components/admin/admin.jsx";
 import Concepts from "./components/concepts/concepts.jsx";
 import Concept from "./components/concepts/concept.jsx";
@@ -46,7 +47,10 @@ render((
           <Route path="lesson/:id" component={Lesson}/>
           <Route path="questions/:questionID" component={PlayQuestion}/>
         </Route>
-        <Route path="results" component={Results}/>
+        <Route path="results" component={Passthrough}>
+          <IndexRoute component={Results}/>
+          <Route path="questions/:questionID" component={Review}/>
+        </Route>
         <Route path="admin" component={Admin}>
 
           <Route path="concepts" component={Concepts}>

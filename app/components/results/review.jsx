@@ -3,12 +3,11 @@ import { connect } from 'react-redux'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
-import Modal from '../modal/modal.jsx'
-import EditFrom from './questionForm.jsx'
-import Response from './response.jsx'
+import Response from '../questions/response.jsx'
 import C from '../../constants'
+import SharedSection from '../shared/section.jsx'
 
-const Question = React.createClass({
+const Review = React.createClass({
 
   // renderQuestions: function () {
   //   const {data} = this.props.concepts;
@@ -71,14 +70,18 @@ const Question = React.createClass({
     var responsesListItems = _.sortBy(responses, (resp) =>
         {return resp[this.state.sorting] || 0 }
       ).map((resp) => {
-      return <Response
-        response={resp}
-        getResponse={this.getResponse}
-        states={states}
-        questionID={questionID}
-        dispatch={this.props.dispatch}
-        key={resp.key}
-        readOnly={false}/>
+      return (
+        <div className="column is-half">
+          <Response
+          response={resp}
+          getResponse={this.getResponse}
+          states={states}
+          questionID={questionID}
+          dispatch={this.props.dispatch}
+          key={resp.key}
+          readOnly={true} />
+        </div>
+      )
     })
     if (this.state.ascending) {
       return responsesListItems;
@@ -93,41 +96,6 @@ const Question = React.createClass({
         {this.state.ascending ? "&uarr;" : "&darr;"}
       </p>
     )
-  },
-
-  renderNewResponseForm: function () {
-    return (
-      <div className="box">
-        <h6 className="control subtitle">Add a new response</h6>
-        <label className="label">Response text</label>
-        <p className="control">
-          <input className="input" type="text" ref="newResponseText"></input>
-        </p>
-        <label className="label">Feedback</label>
-        <p className="control">
-          <input className="input" type="text" ref="newResponseFeedback"></input>
-        </p>
-        <p className="control">
-          <label className="checkbox">
-            <input ref="newResponseOptimal" type="checkbox" />
-            Optimal?
-          </label>
-        </p>
-        <button className="button is-primary" onClick={this.submitNewResponse}>Add Response</button>
-      </div>
-    )
-  },
-
-  renderEditForm: function () {
-    const {data} = this.props.questions, {questionID} = this.props.params;
-    const question = (data[questionID])
-    if (this.props.questions.states[questionID] === C.EDITING_QUESTION) {
-      return (
-        <Modal close={this.cancelEditingQuestion}>
-          <EditFrom question={question} submit={this.saveQuestionEdits}/>
-        </Modal>
-      )
-    }
   },
 
   formatSortField: function (displayName, stateName) {
@@ -164,19 +132,16 @@ const Question = React.createClass({
     if (data[questionID]) {
       var responses = hashToCollection(data[questionID].responses)
       return (
-        <div>
-          {this.renderEditForm()}
+        <SharedSection>
           <h4 className="title">{data[questionID].prompt}</h4>
           <h6 className="subtitle">{responses.length} Responses</h6>
-          <p className="control">
-            <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button> <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
-          </p>
-          {this.renderNewResponseForm()}
           <div className="tabs is-toggle is-fullwidth">
             {this.renderSortingFields()}
           </div>
-          {this.renderResponses()}
-        </div>
+          <div className="columns is-multiline">
+            {this.renderResponses()}
+          </div>
+        </SharedSection>
       )
     } else if (this.props.questions.hasreceiveddata === false){
       return (<p>Loading...</p>)
@@ -197,4 +162,4 @@ function select(state) {
   }
 }
 
-export default connect(select)(Question)
+export default connect(select)(Review)

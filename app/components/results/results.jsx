@@ -1,6 +1,38 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
+import {hashToCollection} from '../../libs/hashToCollection'
+import _ from 'underscore'
 
-export default React.createClass({
+const Results = React.createClass({
+  renderQuestions: function () {
+    const concepts = hashToCollection(this.props.concepts.data);
+    const questions = hashToCollection(this.props.questions.data);
+    return concepts.map((concept) => {
+      var label = (
+        <p className="menu-label">
+          {concept.name}
+        </p>
+      )
+      var questionsForConcept = _.where(questions, {conceptID: concept.key})
+      var listItems = questionsForConcept.map((question) => {
+        return (<li key={question.key}><Link to={'/results/questions/' + question.key} activeClassName="is-active">{question.prompt}</Link></li>)
+      })
+
+      if (questionsForConcept.length === 0) {
+        return
+      }
+
+      return [
+        label,
+        (<ul className="menu-list">
+          {listItems}
+        </ul>)
+      ]
+
+    })
+  },
+
   render: function () {
     return (
       <section className="section is-fullheight minus-nav">
@@ -11,8 +43,19 @@ export default React.createClass({
           <h2 className="subtitle">
             You can analyze the results here.
           </h2>
+          {this.renderQuestions()}
         </div>
       </section>
     )
   }
 })
+
+function select(state) {
+  return {
+    concepts: state.concepts,
+    questions: state.questions,
+    routing: state.routing
+  }
+}
+
+export default connect(select)(Results)

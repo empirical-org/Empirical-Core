@@ -9,6 +9,7 @@ export default React.createClass({
           <div className="header-left">
             <Link to={'/'} className="header-item">Quill Connect</Link>
             <Link to={'/play'} className="header-tab" activeClassName="is-active">Play</Link>
+            <Link to={'/results'} className="header-tab" activeClassName="is-active">Results</Link>
           </div>
           <span className="header-toggle">
             <span />
