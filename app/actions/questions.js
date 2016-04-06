@@ -3,6 +3,8 @@ var C = require("../constants").default,
 	questionsRef = new Firebase(C.FIREBASE).child("questions"),
 	moment = require('moment');
 
+import pathwaysActions from './pathways';
+
 module.exports = {
 	// called when the app starts. this means we immediately download all questions, and
 	// then receive all questions again as soon as anyone changes anything.
@@ -63,7 +65,7 @@ module.exports = {
 			});
 		}
 	},
-  submitNewResponse: function (qid, content) {
+  submitNewResponse: function (qid, content, prid) {
     content.createdAt = moment().format("x");
     return function (dispatch,getState) {
       dispatch({type:C.AWAIT_NEW_QUESTION_RESPONSE});
@@ -72,6 +74,7 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
+          dispatch(pathwaysActions.submitNewPathway(newRef.key(), prid, qid))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
 			});
@@ -109,14 +112,15 @@ module.exports = {
 			});
 		};
   },
-  incrementResponseCount: function(qid, rid) {
+  incrementResponseCount: function(qid, rid, prid) {
     return function(dispatch, getState){
-      questionsRef.child(qid+ "/responses/" + rid + '/count').transaction(function(currentCount){
+      var newRef = questionsRef.child(qid+ "/responses/" + rid + '/count').transaction(function(currentCount){
         return currentCount+1
       }, function(error){
         if (error){
           dispatch({type:C.DISPLAY_ERROR,error:"increment failed! "+error});
         } else {
+          dispatch(pathwaysActions.submitNewPathway(newRef.key(), prid, qid))
           dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully incremented!"});
         }
       })

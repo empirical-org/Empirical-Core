@@ -20,6 +20,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import conceptActions from './actions/concepts'
 import questionActions from './actions/questions'
+import pathwayActions from './actions/pathways'
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory'
@@ -69,4 +70,5 @@ render((
 setTimeout(function(){
 	store.dispatch( conceptActions.startListeningToConcepts() );
   store.dispatch( questionActions.startListeningToQuestions() );
+  store.dispatch( pathwayActions.startListeningToPathways() );
 });

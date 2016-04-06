@@ -78,41 +78,45 @@
 
 	var _results2 = _interopRequireDefault(_results);
 
-	var _admin = __webpack_require__(782);
+	var _review = __webpack_require__(782);
+
+	var _review2 = _interopRequireDefault(_review);
+
+	var _admin = __webpack_require__(785);
 
 	var _admin2 = _interopRequireDefault(_admin);
 
-	var _concepts = __webpack_require__(784);
+	var _concepts = __webpack_require__(787);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
-	var _concept = __webpack_require__(792);
+	var _concept = __webpack_require__(795);
 
 	var _concept2 = _interopRequireDefault(_concept);
 
-	var _questions = __webpack_require__(793);
+	var _questions = __webpack_require__(796);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
-	var _question = __webpack_require__(794);
+	var _question = __webpack_require__(797);
 
 	var _question2 = _interopRequireDefault(_question);
 
-	var _configureStore = __webpack_require__(797);
+	var _configureStore = __webpack_require__(799);
 
 	var _configureStore2 = _interopRequireDefault(_configureStore);
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _combined = __webpack_require__(798);
+	var _combined = __webpack_require__(800);
 
 	var _combined2 = _interopRequireDefault(_combined);
 
 	var _reactRouter = __webpack_require__(598);
 
-	var _reactRouterRedux = __webpack_require__(786);
+	var _reactRouterRedux = __webpack_require__(789);
 
-	var _concepts3 = __webpack_require__(785);
+	var _concepts3 = __webpack_require__(788);
 
 	var _concepts4 = _interopRequireDefault(_concepts3);
 
@@ -147,7 +151,7 @@
 	  }
 	});
 
-	(0, _reactDom.render)(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: history }, _react2.default.createElement(_reactRouter.Route, { path: "/", component: _root2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _welcome2.default }), _react2.default.createElement(_reactRouter.Route, { path: "play", component: Passthrough }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _play2.default }), _react2.default.createElement(_reactRouter.Route, { path: "lesson/:id", component: _lesson2.default }), _react2.default.createElement(_reactRouter.Route, { path: "questions/:questionID", component: _playQuestion2.default })), _react2.default.createElement(_reactRouter.Route, { path: "results", component: _results2.default }), _react2.default.createElement(_reactRouter.Route, { path: "admin", component: _admin2.default }, _react2.default.createElement(_reactRouter.Route, { path: "concepts", component: _concepts2.default }, _react2.default.createElement(_reactRouter.Route, { path: ":conceptID", component: _concept2.default })), _react2.default.createElement(_reactRouter.Route, { path: "questions", component: _questions2.default }, _react2.default.createElement(_reactRouter.Route, { path: ":questionID", component: _question2.default })))))), root);
+	(0, _reactDom.render)(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: history }, _react2.default.createElement(_reactRouter.Route, { path: "/", component: _root2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _welcome2.default }), _react2.default.createElement(_reactRouter.Route, { path: "play", component: Passthrough }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _play2.default }), _react2.default.createElement(_reactRouter.Route, { path: "lesson/:id", component: _lesson2.default }), _react2.default.createElement(_reactRouter.Route, { path: "questions/:questionID", component: _playQuestion2.default })), _react2.default.createElement(_reactRouter.Route, { path: "results", component: Passthrough }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _results2.default }), _react2.default.createElement(_reactRouter.Route, { path: "questions/:questionID", component: _review2.default })), _react2.default.createElement(_reactRouter.Route, { path: "admin", component: _admin2.default }, _react2.default.createElement(_reactRouter.Route, { path: "concepts", component: _concepts2.default }, _react2.default.createElement(_reactRouter.Route, { path: ":conceptID", component: _concept2.default })), _react2.default.createElement(_reactRouter.Route, { path: "questions", component: _questions2.default }, _react2.default.createElement(_reactRouter.Route, { path: ":questionID", component: _question2.default })))))), root);
 
 	setTimeout(function () {
 	  store.dispatch(_concepts4.default.startListeningToConcepts());
@@ -36663,7 +36667,7 @@
 	  displayName: 'navbar',
 
 	  render: function render() {
-	    return _react2.default.createElement('header', { className: 'header' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'header-left' }, _react2.default.createElement(_reactRouter.Link, { to: '/', className: 'header-item' }, 'Quill Connect'), _react2.default.createElement(_reactRouter.Link, { to: '/play', className: 'header-tab', activeClassName: 'is-active' }, 'Play')), _react2.default.createElement('span', { className: 'header-toggle' }, _react2.default.createElement('span', null), _react2.default.createElement('span', null), _react2.default.createElement('span', null))));
+	    return _react2.default.createElement('header', { className: 'header' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'header-left' }, _react2.default.createElement(_reactRouter.Link, { to: '/', className: 'header-item' }, 'Quill Connect'), _react2.default.createElement(_reactRouter.Link, { to: '/play', className: 'header-tab', activeClassName: 'is-active' }, 'Play'), _react2.default.createElement(_reactRouter.Link, { to: '/results', className: 'header-tab', activeClassName: 'is-active' }, 'Results')), _react2.default.createElement('span', { className: 'header-toggle' }, _react2.default.createElement('span', null), _react2.default.createElement('span', null), _react2.default.createElement('span', null))));
 	  }
 	});
 
@@ -74275,7 +74279,7 @@
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -74285,17 +74289,55 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(349);
+
+	var _reactRouter = __webpack_require__(598);
+
+	var _hashToCollection = __webpack_require__(654);
+
+	var _underscore = __webpack_require__(657);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	exports.default = _react2.default.createClass({
-	  displayName: "results",
+	var Results = _react2.default.createClass({
+	  displayName: 'Results',
+
+	  renderQuestions: function renderQuestions() {
+	    var concepts = (0, _hashToCollection.hashToCollection)(this.props.concepts.data);
+	    var questions = (0, _hashToCollection.hashToCollection)(this.props.questions.data);
+	    return concepts.map(function (concept) {
+	      var label = _react2.default.createElement('p', { className: 'menu-label' }, concept.name);
+	      var questionsForConcept = _underscore2.default.where(questions, { conceptID: concept.key });
+	      var listItems = questionsForConcept.map(function (question) {
+	        return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/results/questions/' + question.key, activeClassName: 'is-active' }, question.prompt));
+	      });
+
+	      if (questionsForConcept.length === 0) {
+	        return;
+	      }
+
+	      return [label, _react2.default.createElement('ul', { className: 'menu-list' }, listItems)];
+	    });
+	  },
 
 	  render: function render() {
-	    return _react2.default.createElement("section", { className: "section is-fullheight minus-nav" }, _react2.default.createElement("div", { className: "container" }, _react2.default.createElement("h1", { className: "title" }, "Choose a lesson"), _react2.default.createElement("h2", { className: "subtitle" }, "You can analyze the results here.")));
+	    return _react2.default.createElement('section', { className: 'section is-fullheight minus-nav' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h1', { className: 'title' }, 'Choose a lesson'), _react2.default.createElement('h2', { className: 'subtitle' }, 'You can analyze the results here.'), this.renderQuestions()));
 	  }
 	});
+
+	function select(state) {
+	  return {
+	    concepts: state.concepts,
+	    questions: state.questions,
+	    routing: state.routing
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(select)(Results);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "results.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -74315,9 +74357,324 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(349);
+
+	var _questions = __webpack_require__(677);
+
+	var _questions2 = _interopRequireDefault(_questions);
+
+	var _underscore = __webpack_require__(657);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	var _hashToCollection = __webpack_require__(654);
+
+	var _response = __webpack_require__(783);
+
+	var _response2 = _interopRequireDefault(_response);
+
+	var _constants = __webpack_require__(678);
+
+	var _constants2 = _interopRequireDefault(_constants);
+
+	var _section = __webpack_require__(784);
+
+	var _section2 = _interopRequireDefault(_section);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Review = _react2.default.createClass({
+	  displayName: 'Review',
+
+	  // renderQuestions: function () {
+	  //   const {data} = this.props.concepts;
+	  //   const keys = _.keys(data);
+	  //   return keys.map((key) => {
+	  //     console.log(key, data, data[key])
+	  //     return (<li><Link to={'/admin/concepts/' + key}>{data[key].name}</Link></li>)
+	  //   })
+	  // },
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      sorting: "count",
+	      ascending: false
+	    };
+	  },
+
+	  deleteQuestion: function deleteQuestion() {
+	    this.props.dispatch(_questions2.default.deleteQuestion(this.props.params.questionID));
+	  },
+
+	  startEditingQuestion: function startEditingQuestion() {
+	    this.props.dispatch(_questions2.default.startQuestionEdit(this.props.params.questionID));
+	  },
+
+	  cancelEditingQuestion: function cancelEditingQuestion() {
+	    this.props.dispatch(_questions2.default.cancelQuestionEdit(this.props.params.questionID));
+	  },
+
+	  saveQuestionEdits: function saveQuestionEdits(vals) {
+	    this.props.dispatch(_questions2.default.submitQuestionEdit(this.props.params.questionID, vals));
+	  },
+
+	  getResponse: function getResponse(responseID) {
+	    var _props$questions = this.props.questions;
+	    var data = _props$questions.data;
+	    var states = _props$questions.states;var questionID = this.props.params.questionID;
+
+	    var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
+	    return _underscore2.default.find(responses, { key: responseID });
+	  },
+
+	  submitNewResponse: function submitNewResponse() {
+	    var newResp = {
+	      vals: {
+	        text: this.refs.newResponseText.value,
+	        feedback: this.refs.newResponseFeedback.value,
+	        optimal: this.refs.newResponseOptimal.checked
+	      },
+	      questionID: this.props.params.questionID
+	    };
+	    this.props.dispatch(_questions2.default.submitNewResponse(newResp.questionID, newResp.vals));
+	  },
+
+	  toggleResponseSort: function toggleResponseSort(field) {
+	    field === this.state.sorting ? this.setState({ ascending: !this.state.ascending }) : this.setState({ sorting: field, ascending: false });
+	  },
+
+	  renderResponses: function renderResponses() {
+	    var _this = this;
+
+	    var _props$questions2 = this.props.questions;
+	    var data = _props$questions2.data;
+	    var states = _props$questions2.states;var questionID = this.props.params.questionID;
+
+	    var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
+	    var responsesListItems = _underscore2.default.sortBy(responses, function (resp) {
+	      return resp[_this.state.sorting] || 0;
+	    }).map(function (resp) {
+	      return _react2.default.createElement('div', { className: 'column is-half' }, _react2.default.createElement(_response2.default, {
+	        response: resp,
+	        getResponse: _this.getResponse,
+	        states: states,
+	        questionID: questionID,
+	        dispatch: _this.props.dispatch,
+	        key: resp.key,
+	        readOnly: true }));
+	    });
+	    if (this.state.ascending) {
+	      return responsesListItems;
+	    } else {
+	      return responsesListItems.reverse();
+	    }
+	  },
+
+	  renderArrow: function renderArrow() {
+	    return _react2.default.createElement('p', { style: 'display: inline;' }, this.state.ascending ? "&uarr;" : "&darr;");
+	  },
+
+	  formatSortField: function formatSortField(displayName, stateName) {
+	    if (this.state.sorting === stateName) {
+	      return _react2.default.createElement('li', { className: 'is-active' }, _react2.default.createElement('a', { onClick: this.toggleResponseSort.bind(null, stateName) }, displayName, ' ', this.state.ascending ? "^" : "v"));
+	    } else {
+	      return _react2.default.createElement('li', null, _react2.default.createElement('a', { onClick: this.toggleResponseSort.bind(null, stateName) }, displayName));
+	    }
+	  },
+
+	  renderSortingFields: function renderSortingFields() {
+	    return _react2.default.createElement('ul', null, this.formatSortField('Submissions', 'count'), this.formatSortField('Text', 'text'), this.formatSortField('Created At', 'createdAt'));
+	  },
+
+	  render: function render() {
+	    var data = this.props.questions.data;var questionID = this.props.params.questionID;
+
+	    if (data[questionID]) {
+	      var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
+	      return _react2.default.createElement(_section2.default, null, _react2.default.createElement('h4', { className: 'title' }, data[questionID].prompt), _react2.default.createElement('h6', { className: 'subtitle' }, responses.length, ' Responses'), _react2.default.createElement('div', { className: 'tabs is-toggle is-fullwidth' }, this.renderSortingFields()), _react2.default.createElement('div', { className: 'columns is-multiline' }, this.renderResponses()));
+	    } else if (this.props.questions.hasreceiveddata === false) {
+	      return _react2.default.createElement('p', null, 'Loading...');
+	    } else {
+	      return _react2.default.createElement('p', null, '404: No Question Found');
+	    }
+	  }
+	});
+
+	function select(state) {
+	  return {
+	    concepts: state.concepts,
+	    questions: state.questions,
+	    routing: state.routing
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(select)(Review);
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "review.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 783 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _constants = __webpack_require__(678);
+
+	var _constants2 = _interopRequireDefault(_constants);
+
+	var _questions = __webpack_require__(677);
+
+	var _questions2 = _interopRequireDefault(_questions);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'response',
+
+	  deleteResponse: function deleteResponse(rid) {
+	    this.props.dispatch(_questions2.default.deleteResponse(this.props.questionID, rid));
+	  },
+
+	  editResponse: function editResponse(rid) {
+	    this.props.dispatch(_questions2.default.startResponseEdit(this.props.questionID, rid));
+	  },
+
+	  // cancel editing function ^^^^
+	  cancelResponseEdit: function cancelResponseEdit(rid) {
+	    this.props.dispatch(_questions2.default.cancelResponseEdit(this.props.questionID, rid));
+	  },
+
+	  updateResponse: function updateResponse(rid) {
+	    var newResp = {
+	      feedback: this.refs.newResponseFeedback.value,
+	      optimal: this.refs.newResponseOptimal.checked
+	    };
+	    this.props.dispatch(_questions2.default.submitResponseEdit(this.props.questionID, rid, newResp));
+	  },
+
+	  incrementResponse: function incrementResponse(rid) {
+	    this.props.dispatch(_questions2.default.incrementResponseCount(this.props.questionID, rid));
+	  },
+
+	  removeLinkToParentID: function removeLinkToParentID(rid) {
+	    this.props.dispatch(_questions2.default.removeLinkToParentID(this.props.questionID, rid));
+	  },
+
+	  renderResponseContent: function renderResponseContent(isEditing, response) {
+	    var content;
+	    var parentDetails;
+	    if (response.parentID) {
+	      var parent = this.props.getResponse(response.parentID);
+	      if (isEditing) {
+	        parentDetails = [_react2.default.createElement('span', null, _react2.default.createElement('strong', null, 'Parent Feedback:'), ' ', parent.feedback), _react2.default.createElement('br', null), _react2.default.createElement('button', { className: 'button is-danger', onClick: this.removeLinkToParentID.bind(null, response.key) }, 'Remove Link to Parent '), _react2.default.createElement('br', null)];
+	      } else {
+	        parentDetails = [_react2.default.createElement('span', null, _react2.default.createElement('strong', null, 'Parent Feedback:'), ' ', parent.feedback), _react2.default.createElement('br', null)];
+	      }
+	    }
+
+	    if (isEditing) {
+	      content = _react2.default.createElement('div', { className: 'content' }, parentDetails, _react2.default.createElement('label', { className: 'label' }, 'Feedback'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', defaultValue: response.feedback, ref: 'newResponseFeedback' })), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('label', { className: 'checkbox' }, _react2.default.createElement('input', { ref: 'newResponseOptimal', defaultChecked: response.optimal, type: 'checkbox' }), 'Optimal?')));
+	    } else {
+	      content = _react2.default.createElement('div', { className: 'content' }, parentDetails, _react2.default.createElement('strong', null, 'Feedback:'), ' ', response.feedback, _react2.default.createElement('br', null), _react2.default.createElement('strong', null, 'Grade:'), ' ', response.optimal ? 'Optimal' : 'Sub-optimal', _react2.default.createElement('br', null), _react2.default.createElement('small', null, 'Submissions: ', response.count ? response.count : 0));
+	    }
+
+	    return _react2.default.createElement('div', { className: 'card-content' }, content);
+	  },
+
+	  renderResponseFooter: function renderResponseFooter(isEditing, response) {
+	    if (this.props.readOnly) {
+	      return;
+	    }
+	    var buttons;
+
+	    if (isEditing) {
+	      buttons = [_react2.default.createElement('a', { className: 'card-footer-item', onClick: this.cancelResponseEdit.bind(null, response.key), key: 'cancel' }, 'Cancel'), _react2.default.createElement('a', { className: 'card-footer-item', onClick: this.incrementResponse.bind(null, response.key), key: 'increment' }, 'Increment'), _react2.default.createElement('a', { className: 'card-footer-item', onClick: this.updateResponse.bind(null, response.key), key: 'update' }, 'Update')];
+	    } else {
+	      buttons = [_react2.default.createElement('a', { className: 'card-footer-item', onClick: this.editResponse.bind(null, response.key), key: 'edit' }, 'Edit'), _react2.default.createElement('a', { className: 'card-footer-item', onClick: this.deleteResponse.bind(null, response.key), key: 'delete' }, 'Delete')];
+	    }
+	    return _react2.default.createElement('footer', { className: 'card-footer' }, buttons);
+	    // Return the Edit and Delete button if not editing, and
+	    // the Cancel and Save button if editing.
+	  },
+
+	  render: function render() {
+	    var _props = this.props;
+	    var response = _props.response;
+	    var states = _props.states;
+	    var questionID = _props.questionID;
+
+	    var isEditing = states[questionID] === _constants2.default.START_RESPONSE_EDIT + "_" + response.key;
+
+	    return _react2.default.createElement('div', { className: 'card is-fullwidth has-bottom-margin' }, _react2.default.createElement('header', { className: 'card-header' }, _react2.default.createElement('p', { className: 'card-header-title' }, response.text)), this.renderResponseContent(isEditing, response), this.renderResponseFooter(isEditing, response));
+	  }
+
+	});
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "response.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 784 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = _react2.default.createClass({
+	  displayName: "section",
+
+	  render: function render() {
+	    return _react2.default.createElement("section", { className: "section" }, _react2.default.createElement("div", { className: "container" }, this.props.children));
+	  }
+	});
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "section.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 785 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _reactRouter = __webpack_require__(598);
 
-	var _reactRouterActiveComponent = __webpack_require__(783);
+	var _reactRouterActiveComponent = __webpack_require__(786);
 
 	var _reactRouterActiveComponent2 = _interopRequireDefault(_reactRouterActiveComponent);
 
@@ -74338,7 +74695,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "admin.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 783 */
+/* 786 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74444,7 +74801,7 @@
 	};
 
 /***/ },
-/* 784 */
+/* 787 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74461,7 +74818,7 @@
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _concepts = __webpack_require__(785);
+	var _concepts = __webpack_require__(788);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
@@ -74471,7 +74828,7 @@
 
 	var _reactRouter = __webpack_require__(598);
 
-	var _modal = __webpack_require__(791);
+	var _modal = __webpack_require__(794);
 
 	var _modal2 = _interopRequireDefault(_modal);
 
@@ -74533,14 +74890,14 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 785 */
+/* 788 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	"use strict";
 
-	var _reactRouterRedux = __webpack_require__(786);
+	var _reactRouterRedux = __webpack_require__(789);
 
 	var C = __webpack_require__(678).default,
 	    Firebase = __webpack_require__(679),
@@ -74611,7 +74968,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 786 */
+/* 789 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74621,7 +74978,7 @@
 	});
 	exports.routerMiddleware = exports.routerActions = exports.goForward = exports.goBack = exports.go = exports.replace = exports.push = exports.CALL_HISTORY_METHOD = exports.routerReducer = exports.LOCATION_CHANGE = exports.syncHistoryWithStore = undefined;
 
-	var _reducer = __webpack_require__(787);
+	var _reducer = __webpack_require__(790);
 
 	Object.defineProperty(exports, 'LOCATION_CHANGE', {
 	  enumerable: true,
@@ -74636,7 +74993,7 @@
 	  }
 	});
 
-	var _actions = __webpack_require__(788);
+	var _actions = __webpack_require__(791);
 
 	Object.defineProperty(exports, 'CALL_HISTORY_METHOD', {
 	  enumerable: true,
@@ -74681,11 +75038,11 @@
 	  }
 	});
 
-	var _sync = __webpack_require__(789);
+	var _sync = __webpack_require__(792);
 
 	var _sync2 = _interopRequireDefault(_sync);
 
-	var _middleware = __webpack_require__(790);
+	var _middleware = __webpack_require__(793);
 
 	var _middleware2 = _interopRequireDefault(_middleware);
 
@@ -74695,7 +75052,7 @@
 	exports.routerMiddleware = _middleware2.default;
 
 /***/ },
-/* 787 */
+/* 790 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -74737,7 +75094,7 @@
 	}
 
 /***/ },
-/* 788 */
+/* 791 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -74779,7 +75136,7 @@
 	var routerActions = exports.routerActions = { push: push, replace: replace, go: go, goBack: goBack, goForward: goForward };
 
 /***/ },
-/* 789 */
+/* 792 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74792,7 +75149,7 @@
 
 	exports.default = syncHistoryWithStore;
 
-	var _reducer = __webpack_require__(787);
+	var _reducer = __webpack_require__(790);
 
 	var defaultSelectLocationState = function defaultSelectLocationState(state) {
 	  return state.routing;
@@ -74931,7 +75288,7 @@
 	}
 
 /***/ },
-/* 790 */
+/* 793 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74941,7 +75298,7 @@
 	});
 	exports.default = routerMiddleware;
 
-	var _actions = __webpack_require__(788);
+	var _actions = __webpack_require__(791);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -74969,7 +75326,7 @@
 	}
 
 /***/ },
-/* 791 */
+/* 794 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74999,7 +75356,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "modal.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 792 */
+/* 795 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75018,7 +75375,7 @@
 
 	var _reactRouter = __webpack_require__(598);
 
-	var _concepts = __webpack_require__(785);
+	var _concepts = __webpack_require__(788);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
@@ -75106,7 +75463,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concept.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 793 */
+/* 796 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75133,7 +75490,7 @@
 
 	var _reactRouter = __webpack_require__(598);
 
-	var _modal = __webpack_require__(791);
+	var _modal = __webpack_require__(794);
 
 	var _modal2 = _interopRequireDefault(_modal);
 
@@ -75205,7 +75562,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questions.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 794 */
+/* 797 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75232,15 +75589,15 @@
 
 	var _hashToCollection = __webpack_require__(654);
 
-	var _modal = __webpack_require__(791);
+	var _modal = __webpack_require__(794);
 
 	var _modal2 = _interopRequireDefault(_modal);
 
-	var _questionForm = __webpack_require__(795);
+	var _questionForm = __webpack_require__(798);
 
 	var _questionForm2 = _interopRequireDefault(_questionForm);
 
-	var _response = __webpack_require__(796);
+	var _response = __webpack_require__(783);
 
 	var _response2 = _interopRequireDefault(_response);
 
@@ -75395,7 +75752,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "question.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 795 */
+/* 798 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75429,119 +75786,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questionForm.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 796 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _constants = __webpack_require__(678);
-
-	var _constants2 = _interopRequireDefault(_constants);
-
-	var _questions = __webpack_require__(677);
-
-	var _questions2 = _interopRequireDefault(_questions);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	exports.default = _react2.default.createClass({
-	  displayName: 'response',
-
-	  deleteResponse: function deleteResponse(rid) {
-	    this.props.dispatch(_questions2.default.deleteResponse(this.props.questionID, rid));
-	  },
-
-	  editResponse: function editResponse(rid) {
-	    this.props.dispatch(_questions2.default.startResponseEdit(this.props.questionID, rid));
-	  },
-
-	  // cancel editing function ^^^^
-	  cancelResponseEdit: function cancelResponseEdit(rid) {
-	    this.props.dispatch(_questions2.default.cancelResponseEdit(this.props.questionID, rid));
-	  },
-
-	  updateResponse: function updateResponse(rid) {
-	    var newResp = {
-	      feedback: this.refs.newResponseFeedback.value,
-	      optimal: this.refs.newResponseOptimal.checked
-	    };
-	    this.props.dispatch(_questions2.default.submitResponseEdit(this.props.questionID, rid, newResp));
-	  },
-
-	  incrementResponse: function incrementResponse(rid) {
-	    this.props.dispatch(_questions2.default.incrementResponseCount(this.props.questionID, rid));
-	  },
-
-	  removeLinkToParentID: function removeLinkToParentID(rid) {
-	    this.props.dispatch(_questions2.default.removeLinkToParentID(this.props.questionID, rid));
-	  },
-
-	  renderResponseContent: function renderResponseContent(isEditing, response) {
-	    var content;
-	    var parentDetails;
-	    if (response.parentID) {
-	      var parent = this.props.getResponse(response.parentID);
-	      if (isEditing) {
-	        parentDetails = [_react2.default.createElement('span', null, _react2.default.createElement('strong', null, 'Parent Feedback:'), ' ', parent.feedback), _react2.default.createElement('br', null), _react2.default.createElement('button', { className: 'button is-danger', onClick: this.removeLinkToParentID.bind(null, response.key) }, 'Remove Link to Parent '), _react2.default.createElement('br', null)];
-	      } else {
-	        parentDetails = [_react2.default.createElement('span', null, _react2.default.createElement('strong', null, 'Parent Feedback:'), ' ', parent.feedback), _react2.default.createElement('br', null)];
-	      }
-	    }
-
-	    if (isEditing) {
-	      content = _react2.default.createElement('div', { className: 'content' }, parentDetails, _react2.default.createElement('label', { className: 'label' }, 'Feedback'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', defaultValue: response.feedback, ref: 'newResponseFeedback' })), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('label', { className: 'checkbox' }, _react2.default.createElement('input', { ref: 'newResponseOptimal', defaultChecked: response.optimal, type: 'checkbox' }), 'Optimal?')));
-	    } else {
-	      content = _react2.default.createElement('div', { className: 'content' }, parentDetails, _react2.default.createElement('strong', null, 'Feedback:'), ' ', response.feedback, _react2.default.createElement('br', null), _react2.default.createElement('strong', null, 'Grade:'), ' ', response.optimal ? 'Optimal' : 'Sub-optimal', _react2.default.createElement('br', null), _react2.default.createElement('small', null, 'Submissions: ', response.count ? response.count : 0));
-	    }
-
-	    return _react2.default.createElement('div', { className: 'card-content' }, content);
-	  },
-
-	  renderResponseFooter: function renderResponseFooter(isEditing, response) {
-	    if (this.props.readOnly) {
-	      return;
-	    }
-	    var buttons;
-
-	    if (isEditing) {
-	      buttons = [_react2.default.createElement('a', { className: 'card-footer-item', onClick: this.cancelResponseEdit.bind(null, response.key), key: 'cancel' }, 'Cancel'), _react2.default.createElement('a', { className: 'card-footer-item', onClick: this.incrementResponse.bind(null, response.key), key: 'increment' }, 'Increment'), _react2.default.createElement('a', { className: 'card-footer-item', onClick: this.updateResponse.bind(null, response.key), key: 'update' }, 'Update')];
-	    } else {
-	      buttons = [_react2.default.createElement('a', { className: 'card-footer-item', onClick: this.editResponse.bind(null, response.key), key: 'edit' }, 'Edit'), _react2.default.createElement('a', { className: 'card-footer-item', onClick: this.deleteResponse.bind(null, response.key), key: 'delete' }, 'Delete')];
-	    }
-	    return _react2.default.createElement('footer', { className: 'card-footer' }, buttons);
-	    // Return the Edit and Delete button if not editing, and
-	    // the Cancel and Save button if editing.
-	  },
-
-	  render: function render() {
-	    var _props = this.props;
-	    var response = _props.response;
-	    var states = _props.states;
-	    var questionID = _props.questionID;
-
-	    var isEditing = states[questionID] === _constants2.default.START_RESPONSE_EDIT + "_" + response.key;
-
-	    return _react2.default.createElement('div', { className: 'card is-fullwidth has-bottom-margin' }, _react2.default.createElement('header', { className: 'card-header' }, _react2.default.createElement('p', { className: 'card-header-title' }, response.text)), this.renderResponseContent(isEditing, response), this.renderResponseFooter(isEditing, response));
-	  }
-
-	});
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "response.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 797 */
+/* 799 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75555,7 +75800,7 @@
 
 	var _redux = __webpack_require__(356);
 
-	var _combined = __webpack_require__(798);
+	var _combined = __webpack_require__(800);
 
 	var _combined2 = _interopRequireDefault(_combined);
 
@@ -75565,11 +75810,11 @@
 
 	var _reduxDevtools = __webpack_require__(370);
 
-	var _reduxThunk = __webpack_require__(802);
+	var _reduxThunk = __webpack_require__(804);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _reactRouterRedux = __webpack_require__(786);
+	var _reactRouterRedux = __webpack_require__(789);
 
 	var _createHashHistory = __webpack_require__(601);
 
@@ -75613,7 +75858,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "configureStore.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 798 */
+/* 800 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75628,19 +75873,19 @@
 
 	var _actions = __webpack_require__(367);
 
-	var _questionReducerV = __webpack_require__(799);
+	var _questionReducerV = __webpack_require__(801);
 
 	var _questionReducerV2 = _interopRequireDefault(_questionReducerV);
 
-	var _questions = __webpack_require__(800);
+	var _questions = __webpack_require__(802);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
-	var _concepts = __webpack_require__(801);
+	var _concepts = __webpack_require__(803);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
-	var _reactRouterRedux = __webpack_require__(786);
+	var _reactRouterRedux = __webpack_require__(789);
 
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -75658,7 +75903,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "combined.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 799 */
+/* 801 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75697,7 +75942,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questionReducerV2.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 800 */
+/* 802 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75784,7 +76029,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 801 */
+/* 803 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75859,7 +76104,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 802 */
+/* 804 */
 /***/ function(module, exports) {
 
 	'use strict';

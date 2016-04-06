@@ -5,6 +5,7 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {submitResponse, clearResponses} from '../../actions.js'
 import questionActions from '../../actions/questions'
+import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default,
   Firebase = require("firebase")
 const sessionsRef = new Firebase(C.FIREBASE).child('sessions')
@@ -96,7 +97,6 @@ const playQuestion = React.createClass({
     if (_.isEmpty(errors) && (attempt.response.optimal !== true)) {
       components = components.concat([(<li key="feedback"><h5 className="title is-5">{attempt.response.feedback}</h5></li>)])
     }
-    console.log("ping")
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
         return (<li key={key}><h5 className="title is-5">Warning: You have made a {feedbackStrings[key]}.</h5></li>)
@@ -113,6 +113,11 @@ const playQuestion = React.createClass({
   },
 
   updateReponseResource: function (response) {
+    var previousAttempt;
+    const responses = hashToCollection(this.getQuestion().responses);
+    const preAtt = getLatestAttempt(this.props.question.attempts)
+    if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
+    const prid = previousAttempt ? previousAttempt.key : undefined
     console.log('Response: ', response)
     if (response.found) {
 
@@ -120,7 +125,7 @@ const playQuestion = React.createClass({
       var errors = _.keys(this.getErrorsForAttempt(response))
       if (errors.length === 0) {
         this.props.dispatch(
-          questionActions.incrementResponseCount(this.props.params.questionID, response.response.key)
+          questionActions.incrementResponseCount(this.props.params.questionID, response.response.key, prid)
         )
       } else {
         var newErrorResp = {
@@ -130,7 +135,7 @@ const playQuestion = React.createClass({
           feedback: this.generateFeedbackString(response)
         }
         this.props.dispatch(
-          questionActions.submitNewResponse(this.props.params.questionID, newErrorResp)
+          questionActions.submitNewResponse(this.props.params.questionID, newErrorResp, prid)
         )
       }
     } else {
@@ -139,8 +144,28 @@ const playQuestion = React.createClass({
         count: 1
       }
       this.props.dispatch(
-        questionActions.submitNewResponse(this.props.params.questionID, newResp)
+        questionActions.submitNewResponse(this.props.params.questionID, newResp, prid)
       )
+    }
+  },
+
+  submitPathway: function (response) {
+    var data = {};
+    var previousAttempt;
+    const responses = hashToCollection(this.getQuestion().responses);
+    const preAtt = getLatestAttempt(this.props.question.attempts)
+    if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
+    const newAttempt = _.find(responses, {text: response.submitted})
+    console.log("previous attempt: ", previousAttempt)
+    console.log("new attempt: ", newAttempt)
+
+    if (previousAttempt) {
+      data.fromResponseID = previousAttempt.key
+    }
+    if (newAttempt) {
+      data.toResponseID = newAttempt.key
+      data.questionID = this.props.params.questionID
+      this.props.dispatch(pathwayActions.submitNewPathway(data))
     }
   },
 
@@ -171,15 +196,11 @@ const playQuestion = React.createClass({
     if (this.props.question.attempts.length > 0 ) {
       var latestAttempt = getLatestAttempt(this.props.question.attempts)
       if (latestAttempt.found) {
-
-
         var errors = _.keys(this.getErrorsForAttempt(latestAttempt))
         if (latestAttempt.response.optimal && errors.length === 0) {
           return true
         }
-
       }
-
     }
     return false
   },
