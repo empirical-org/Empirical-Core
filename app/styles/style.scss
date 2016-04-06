@@ -23,3 +23,18 @@ ul.is-unstyled {
     list-style-type: none;
   }
 }
+
+.common-error-response {
+  background-color: #FFF0F2;
+}
+
+.not-found-response {
+  background-color: #F6ECF8;
+}
+
+.sub-optimal-response {
+  background-color: #FFF9E8;
+}
+.optimal-response {
+  background-color: #F5FAEF;
+}

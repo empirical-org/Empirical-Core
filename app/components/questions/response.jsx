@@ -109,9 +109,30 @@ export default React.createClass({
       <footer className="card-footer">
         {buttons}
       </footer>
-    )
-    // Return the Edit and Delete button if not editing, and
-    // the Cancel and Save button if editing.
+    );
+  },
+
+  responseIsCommonError: function (response) {
+    return (response.feedback.includes("punctuation") || response.feedback.includes("spelling")) || response.feedback.includes("typo")
+  },
+
+  renderResponseHeader: function (response) {
+    var bgColor;
+    if (!response.feedback) {
+      bgColor = "not-found-response";
+    } else if (this.responseIsCommonError(response)) {
+      bgColor = "common-error-response";
+    } else {
+      bgColor = (response.optimal ? "optimal-response" : "sub-optimal-reponse");
+    }
+
+    return (
+      <header className={"card-header " + bgColor}>
+        <p className="card-header-title">
+          {response.text}
+        </p>
+      </header>
+    );
   },
 
   render: function () {
@@ -121,16 +142,10 @@ export default React.createClass({
 
     return (
       <div className="card is-fullwidth has-bottom-margin">
-        <header className="card-header">
-          <p className="card-header-title">
-            {response.text}
-          </p>
-        </header>
+        {this.renderResponseHeader(response)}
         {this.renderResponseContent(isEditing, response)}
         {this.renderResponseFooter(isEditing, response)}
       </div>
     )
-
   }
-
 })
