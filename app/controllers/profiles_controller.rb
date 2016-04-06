@@ -43,6 +43,7 @@ class ProfilesController < ApplicationController
 
         render json: {student: {name: current_user.name,
           classroom: {name: current_classroom.name,
+          id: current_classroom.id,
           teacher: {name: current_classroom.teacher.name}}},
           grouped_scores: grouped_scores,
           is_last_page: is_last_page,
@@ -53,6 +54,10 @@ class ProfilesController < ApplicationController
     else
       render 'join-classroom'
     end
+  end
+
+  def students_classrooms
+    render json: {classrooms: current_user.classrooms.map {|c| c.students_classrooms(current_user.id)}}
   end
 
   def teacher

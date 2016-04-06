@@ -8,6 +8,40 @@
     margin-bottom: 30px;
   }
 
+  .classroom-box {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 64px;
+    font-size: 14px;
+    line-height: 1.4;
+    width: 143px;
+    color: #626262;
+    border-left: solid 1px #cecece;
+    border-right: solid 1px #cecece;
+    text-overflow: ellipsis;
+    div:first-of-type {
+      margin-top: auto;
+    }
+    &.active {
+      color: black;
+      &:after {
+        display: block;
+        content: '';
+        width: 118px;
+        height: 3px;
+        margin: 0 auto;
+        margin-top: auto;
+        background-color: #027360;
+      }
+    }
+  }
+
+  .tab-subnavigation-wrapper {
+    padding: 0px;
+  }
+
   .student-course-info {
     .classroom,
     .teacher {
@@ -42,4 +76,3 @@
   }
 
 }
-
