@@ -86,6 +86,13 @@ class Classroom < ActiveRecord::Base
     if Classroom.find_by_code(code) then generate_code end
   end
 
+  def students_classrooms(student_id)
+    {name: self.name,
+     teacher: self.teacher.name,
+     id: self.id,
+     join_date: StudentsClassrooms.find_by_classroom_id_and_student_id(self.id, student_id).created_at}
+  end
+
   private
 
   # Clever integration

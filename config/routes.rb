@@ -43,6 +43,9 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
 
+  get 'students_classrooms' => 'profiles#students_classrooms'
+
+
   resources :activities, only: [] do
     post :retry, on: :member
     get :search, on: :collection
