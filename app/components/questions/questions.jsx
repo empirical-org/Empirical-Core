@@ -5,6 +5,7 @@ import _ from 'underscore'
 import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
 import {hashToCollection} from '../../libs/hashToCollection'
+import QuestionsList from './questionsList.jsx'
 
 const Questions = React.createClass({
   createNew: function () {
@@ -16,34 +17,6 @@ const Questions = React.createClass({
     this.props.dispatch(actions.submitNewQuestion(newQuestion))
     this.refs.newQuestionName.value = ""
     // this.props.dispatch(actions.toggleNewQuestionModal())
-  },
-
-  renderQuestions: function () {
-    const concepts = hashToCollection(this.props.concepts.data);
-    const questions = hashToCollection(this.props.questions.data);
-    return concepts.map((concept) => {
-      var label = (
-        <p className="menu-label">
-          {concept.name}
-        </p>
-      )
-      var questionsForConcept = _.where(questions, {conceptID: concept.key})
-      var listItems = questionsForConcept.map((question) => {
-        return (<li key={question.key}><Link to={'/admin/questions/' + question.key} activeClassName="is-active">{question.prompt}</Link></li>)
-      })
-
-      if (questionsForConcept.length === 0) {
-        return
-      }
-
-      return [
-        label,
-        (<ul className="menu-list">
-          {listItems}
-        </ul>)
-      ]
-
-    })
   },
 
   renderModal: function () {
@@ -81,15 +54,14 @@ const Questions = React.createClass({
   },
 
   render: function (){
+    const {questions, concepts} = this.props
     return (
       <section className="section">
         <div className="container">
           { this.renderModal() }
           <div className="columns">
             <div className="column">
-              <ul>
-                {this.renderQuestions()}
-              </ul>
+              <QuestionsList questions={questions} concepts={concepts} baseRoute={"admin"} />
             </div>
             <div className="column">
               {this.props.children}
