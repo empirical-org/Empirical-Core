@@ -123,7 +123,7 @@ export default React.createClass({
     } else if (this.responseIsCommonError(response)) {
       bgColor = "common-error-response";
     } else {
-      bgColor = (response.optimal ? "optimal-response" : "sub-optimal-reponse");
+      bgColor = (response.optimal ? "optimal-response" : "sub-optimal-response");
     }
 
     return (
