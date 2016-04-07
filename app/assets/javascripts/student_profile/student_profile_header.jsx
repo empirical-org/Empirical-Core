@@ -10,7 +10,7 @@ EC.StudentProfileHeader = React.createClass({
         <div className="container">
           <span className="section-header">{this.props.data.name}</span>
           <span className="pull-right student-course-info">
-            <EC.StudentsClassroomsHeader currentClassroomId={this.props.data.classroom.id}/>
+            <EC.StudentsClassroomsHeader currentClassroomId={this.props.data.classroom.id} fetchData={this.props.fetchData}/>
           </span>
         </div>
       </div>

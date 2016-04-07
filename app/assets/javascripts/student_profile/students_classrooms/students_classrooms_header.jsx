@@ -25,7 +25,7 @@ EC.StudentsClassroomsHeader = React.createClass({
     var that = this
     var classrooms = _.map(this.state.classrooms, function(classroom) {
       return (
-        <div className={that.isActive(classroom.id) + ' classroom-box'} key={classroom.id}>
+        <div className={that.isActive(classroom.id) + ' classroom-box'} key={classroom.id} onClick={that.props.fetchData.bind(null, classroom.id)}>
         <div>{classroom.teacher}</div>
         <div>{classroom.name}</div>
       </div>
