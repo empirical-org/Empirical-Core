@@ -120,7 +120,7 @@ export default React.createClass({
     var bgColor;
     if (!response.feedback) {
       bgColor = "not-found-response";
-    } else if (this.responseIsCommonError(response)) {
+    } else if (!!response.parentID) {
       bgColor = "common-error-response";
     } else {
       bgColor = (response.optimal ? "optimal-response" : "sub-optimal-response");
