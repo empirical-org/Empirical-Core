@@ -66,65 +66,65 @@
 
 	var _play2 = _interopRequireDefault(_play);
 
-	var _playQuestion = __webpack_require__(658);
+	var _playQuestion = __webpack_require__(768);
 
 	var _playQuestion2 = _interopRequireDefault(_playQuestion);
 
-	var _lesson = __webpack_require__(785);
+	var _lesson = __webpack_require__(787);
 
 	var _lesson2 = _interopRequireDefault(_lesson);
 
-	var _results = __webpack_require__(787);
+	var _results = __webpack_require__(789);
 
 	var _results2 = _interopRequireDefault(_results);
 
-	var _review = __webpack_require__(788);
+	var _review = __webpack_require__(790);
 
 	var _review2 = _interopRequireDefault(_review);
 
-	var _admin = __webpack_require__(791);
+	var _admin = __webpack_require__(793);
 
 	var _admin2 = _interopRequireDefault(_admin);
 
-	var _concepts = __webpack_require__(793);
+	var _concepts = __webpack_require__(795);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
-	var _concept = __webpack_require__(796);
+	var _concept = __webpack_require__(797);
 
 	var _concept2 = _interopRequireDefault(_concept);
 
-	var _questions = __webpack_require__(797);
+	var _questions = __webpack_require__(798);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
-	var _question = __webpack_require__(798);
+	var _question = __webpack_require__(799);
 
 	var _question2 = _interopRequireDefault(_question);
 
-	var _configureStore = __webpack_require__(800);
+	var _configureStore = __webpack_require__(801);
 
 	var _configureStore2 = _interopRequireDefault(_configureStore);
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _combined = __webpack_require__(801);
+	var _combined = __webpack_require__(802);
 
 	var _combined2 = _interopRequireDefault(_combined);
 
 	var _reactRouter = __webpack_require__(598);
 
-	var _reactRouterRedux = __webpack_require__(679);
+	var _reactRouterRedux = __webpack_require__(661);
 
-	var _concepts3 = __webpack_require__(794);
+	var _concepts3 = __webpack_require__(796);
 
 	var _concepts4 = _interopRequireDefault(_concepts3);
 
-	var _questions3 = __webpack_require__(677);
+	var _questions3 = __webpack_require__(659);
 
 	var _questions4 = _interopRequireDefault(_questions3);
 
-	var _pathways = __webpack_require__(678);
+	var _pathways = __webpack_require__(660);
 
 	var _pathways2 = _interopRequireDefault(_pathways);
 
@@ -41453,7 +41453,7 @@
 
 
 	// module
-	exports.push([module.id, ".is-fullheight.minus-nav {\n  min-height: calc(100vh - 50px); }\n\n.button-group .button {\n  margin-right: 5px; }\n  .button-group .button:last-child {\n    margin-right: 0px; }\n\n.has-bottom-margin {\n  margin-bottom: 20px; }\n\nul.is-unstyled {\n  margin: 1em 0; }\n  ul.is-unstyled li {\n    list-style-type: none; }\n", "", {"version":3,"sources":["/./app/styles/style.scss"],"names":[],"mappings":"AAAA;EACE,+BAAgB,EACjB;;AAED;EAEI,kBAAkB,EAKnB;EAPH;IAKM,kBAAkB,EACnB;;AAKL;EACE,oBAAoB,EACrB;;AAED;EACE,cAAc,EAIf;EALD;IAGI,sBAAsB,EACvB","file":"style.scss","sourcesContent":[".is-fullheight.minus-nav {\n  min-height: calc(100vh - 50px);\n}\n\n.button-group {\n  .button {\n    margin-right: 5px;\n\n    &:last-child {\n      margin-right: 0px;\n    }\n  }\n\n}\n\n.has-bottom-margin {\n  margin-bottom: 20px;\n}\n\nul.is-unstyled {\n  margin: 1em 0;\n  li {\n    list-style-type: none;\n  }\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".is-fullheight.minus-nav {\n  min-height: calc(100vh - 50px); }\n\n.button-group .button {\n  margin-right: 5px; }\n  .button-group .button:last-child {\n    margin-right: 0px; }\n\n.has-bottom-margin {\n  margin-bottom: 20px; }\n\nul.is-unstyled {\n  margin: 1em 0; }\n  ul.is-unstyled li {\n    list-style-type: none; }\n\n.common-error-response {\n  background-color: #FFF0F2; }\n\n.not-found-response {\n  background-color: #F6ECF8; }\n\n.sub-optimal-response {\n  background-color: #FFF9E8; }\n\n.optimal-response {\n  background-color: #F5FAEF; }\n", "", {"version":3,"sources":["/./app/styles/style.scss"],"names":[],"mappings":"AAAA;EACE,+BAAgB,EACjB;;AAED;EAEI,kBAAkB,EAKnB;EAPH;IAKM,kBAAkB,EACnB;;AAKL;EACE,oBAAoB,EACrB;;AAED;EACE,cAAc,EAIf;EALD;IAGI,sBAAsB,EACvB;;AAGH;EACE,0BAA0B,EAC3B;;AAED;EACE,0BAA0B,EAC3B;;AAED;EACE,0BAA0B,EAC3B;;AACD;EACE,0BAA0B,EAC3B","file":"style.scss","sourcesContent":[".is-fullheight.minus-nav {\n  min-height: calc(100vh - 50px);\n}\n\n.button-group {\n  .button {\n    margin-right: 5px;\n\n    &:last-child {\n      margin-right: 0px;\n    }\n  }\n\n}\n\n.has-bottom-margin {\n  margin-bottom: 20px;\n}\n\nul.is-unstyled {\n  margin: 1em 0;\n  li {\n    list-style-type: none;\n  }\n}\n\n.common-error-response {\n  background-color: #FFF0F2;\n}\n\n.not-found-response {\n  background-color: #F6ECF8;\n}\n\n.sub-optimal-response {\n  background-color: #FFF9E8;\n}\n.optimal-response {\n  background-color: #F5FAEF;\n}"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
@@ -41794,6 +41794,10 @@
 
 	var _underscore2 = _interopRequireDefault(_underscore);
 
+	var _questionsList = __webpack_require__(658);
+
+	var _questionsList2 = _interopRequireDefault(_questionsList);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -41801,26 +41805,12 @@
 	var play = _react2.default.createClass({
 	  displayName: 'play',
 
-	  renderQuestions: function renderQuestions() {
-	    var concepts = (0, _hashToCollection.hashToCollection)(this.props.concepts.data);
-	    var questions = (0, _hashToCollection.hashToCollection)(this.props.questions.data);
-	    return concepts.map(function (concept) {
-	      var label = _react2.default.createElement('p', { className: 'menu-label' }, concept.name);
-	      var questionsForConcept = _underscore2.default.where(questions, { conceptID: concept.key });
-	      var listItems = questionsForConcept.map(function (question) {
-	        return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/play/questions/' + question.key, activeClassName: 'is-active' }, question.prompt));
-	      });
-
-	      if (questionsForConcept.length === 0) {
-	        return;
-	      }
-
-	      return [label, _react2.default.createElement('ul', { className: 'menu-list' }, listItems)];
-	    });
-	  },
-
 	  render: function render() {
-	    return _react2.default.createElement('section', { className: 'section is-fullheight minus-nav' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h1', { className: 'title' }, 'Choose a Question'), _react2.default.createElement('h2', { className: 'subtitle' }, 'Combine multiple sentences into one strong one!'), _react2.default.createElement('aside', { className: 'menu' }, this.renderQuestions())));
+	    var _props = this.props;
+	    var questions = _props.questions;
+	    var concepts = _props.concepts;
+
+	    return _react2.default.createElement('section', { className: 'section is-fullheight minus-nav' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h1', { className: 'title' }, 'Choose a Question'), _react2.default.createElement('h2', { className: 'subtitle' }, 'Combine multiple sentences into one strong one!'), _react2.default.createElement(_questionsList2.default, { questions: questions, concepts: concepts, baseRoute: "play" })));
 	  }
 	});
 
@@ -58540,279 +58530,70 @@
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _question = __webpack_require__(659);
+	var _questions = __webpack_require__(659);
 
-	var _question2 = _interopRequireDefault(_question);
+	var _questions2 = _interopRequireDefault(_questions);
 
 	var _underscore = __webpack_require__(657);
 
 	var _underscore2 = _interopRequireDefault(_underscore);
 
+	var _reactRouter = __webpack_require__(598);
+
+	var _modal = __webpack_require__(767);
+
+	var _modal2 = _interopRequireDefault(_modal);
+
 	var _hashToCollection = __webpack_require__(654);
-
-	var _actions = __webpack_require__(367);
-
-	var _questions = __webpack_require__(677);
-
-	var _questions2 = _interopRequireDefault(_questions);
-
-	var _pathways = __webpack_require__(678);
-
-	var _pathways2 = _interopRequireDefault(_pathways);
 
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	var C = __webpack_require__(684).default,
-	    Firebase = __webpack_require__(685);
-	var sessionsRef = new Firebase(C.FIREBASE).child('sessions');
+	var QuestionsList = _react2.default.createClass({
+	  displayName: 'QuestionsList',
 
-	var feedbackStrings = {
-	  punctuationError: "punctuation error",
-	  typingError: "spelling mistake",
-	  caseError: "capitalization error"
-	};
-
-	var playQuestion = _react2.default.createClass({
-	  displayName: 'playQuestion',
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      editing: false
-	    };
+	  renderLabel: function renderLabel(concept) {
+	    return _react2.default.createElement('p', { className: 'menu-label' }, concept.name);
 	  },
 
-	  componentDidMount: function componentDidMount() {
+	  renderQuestionLinks: function renderQuestionLinks(questions) {
 	    var _this = this;
 
-	    this.props.dispatch((0, _actions.clearResponses)());
-	    var questionID = this.props.params.questionID;
-
-	    var sessionRef = sessionsRef.push({ questionID: questionID }, function (error) {
-	      _this.setState({ sessionKey: sessionRef.key() });
+	    return questions.map(function (question) {
+	      return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/' + _this.props.baseRoute + '/questions/' + question.key, activeClassName: 'is-active' }, question.prompt));
 	    });
 	  },
 
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.question.attempts.length > 0) {
-	      var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(nextProps.question.attempts, function (error) {
-	        return;
-	      });
-	    }
-	  },
-
-	  getQuestion: function getQuestion() {
-	    var data = this.props.questions.data;var questionID = this.props.params.questionID;
-
-	    return data[questionID];
-	  },
-
-	  submitResponse: function submitResponse(response) {
-	    var action = (0, _actions.submitResponse)(response);
-	    this.props.dispatch(action);
-	    var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(this.props.question.attempts, function (error) {
+	  renderConceptWithQuestions: function renderConceptWithQuestions(questions, label) {
+	    if (questions.length === 0) {
 	      return;
+	    }
+
+	    var listItems = this.renderQuestionLinks(questions);
+	    return [label, _react2.default.createElement('ul', { className: 'menu-list' }, listItems)];
+	  },
+
+	  mapConceptsToList: function mapConceptsToList() {
+	    var _this2 = this;
+
+	    var concepts = (0, _hashToCollection.hashToCollection)(this.props.concepts.data);
+	    var questions = (0, _hashToCollection.hashToCollection)(this.props.questions.data);
+	    return concepts.map(function (concept) {
+	      var label = _this2.renderLabel(concept);
+	      var questionsForConcept = _underscore2.default.where(questions, { conceptID: concept.key });
+	      return _this2.renderConceptWithQuestions(questionsForConcept, label);
 	    });
-	  },
-
-	  renderSentenceFragments: function renderSentenceFragments() {
-	    return _react2.default.createElement('h4', { className: 'title is-4' }, this.getQuestion().prompt);
-	    // return this.props.question.sentences.map((sentence, index) => {
-	    //   return (<li key={index}>{sentence}</li>)
-	    // })
-	  },
-
-	  renderFeedback: function renderFeedback() {
-	    var latestAttempt = getLatestAttempt(this.props.question.attempts);
-	    if (latestAttempt) {
-	      if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
-	        return _react2.default.createElement('ul', { className: 'is-unstyled' }, this.renderFeedbackStatements(latestAttempt));
-	      } else {
-	        return _react2.default.createElement('h5', { className: 'title is-5' }, 'Try Again. What’s another way you could write this sentence?');
-	      }
-	    }
-	  },
-
-	  getErrorsForAttempt: function getErrorsForAttempt(attempt) {
-	    return _underscore2.default.pick(attempt, 'typingError', 'caseError', 'punctuationError');
-	  },
-
-	  generateFeedbackString: function generateFeedbackString(attempt) {
-	    var errors = this.getErrorsForAttempt(attempt);
-	    // add keys for react list elements
-	    var errorComponents = _underscore2.default.values(_underscore2.default.mapObject(errors, function (val, key) {
-	      if (val) {
-	        return "You have made a " + feedbackStrings[key] + ".";
-	      }
-	    }));
-	    return errorComponents[0];
-	  },
-
-	  renderFeedbackStatements: function renderFeedbackStatements(attempt) {
-	    var errors = this.getErrorsForAttempt(attempt);
-	    console.log(_underscore2.default.isEmpty(errors), attempt.response.optimal !== true);
-	    // add keys for react list elements
-	    var components = [];
-	    if (_underscore2.default.isEmpty(errors) && attempt.response.optimal !== true) {
-	      components = components.concat([_react2.default.createElement('li', { key: 'feedback' }, _react2.default.createElement('h5', { className: 'title is-5' }, attempt.response.feedback))]);
-	    }
-	    var errorComponents = _underscore2.default.values(_underscore2.default.mapObject(errors, function (val, key) {
-	      if (val) {
-	        return _react2.default.createElement('li', { key: key }, _react2.default.createElement('h5', { className: 'title is-5' }, 'Warning: You have made a ', feedbackStrings[key], '.'));
-	      }
-	    }));
-	    // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
-	    if (attempt.response.parentID && this.getQuestion().responses[attempt.response.parentID].optimal !== true) {
-	      var parentResponse = this.getQuestion().responses[attempt.response.parentID];
-	      console.log(parentResponse);
-	      components = [_react2.default.createElement('li', { key: 'parentfeedback' }, _react2.default.createElement('h5', { className: 'title is-5' }, parentResponse.feedback))].concat(components);
-	      console.log("comps, ", components);
-	    }
-	    return components.concat(errorComponents);
-	  },
-
-	  updateReponseResource: function updateReponseResource(response) {
-	    var previousAttempt;
-	    var responses = (0, _hashToCollection.hashToCollection)(this.getQuestion().responses);
-	    var preAtt = getLatestAttempt(this.props.question.attempts);
-	    if (preAtt) {
-	      previousAttempt = _underscore2.default.find(responses, { text: getLatestAttempt(this.props.question.attempts).submitted });
-	    }
-	    var prid = previousAttempt ? previousAttempt.key : undefined;
-	    console.log('Response: ', response);
-	    if (response.found) {
-
-	      // var latestAttempt = getLatestAttempt(this.props.question.attempts)
-	      var errors = _underscore2.default.keys(this.getErrorsForAttempt(response));
-	      if (errors.length === 0) {
-	        this.props.dispatch(_questions2.default.incrementResponseCount(this.props.params.questionID, response.response.key, prid));
-	      } else {
-	        var newErrorResp = {
-	          text: response.submitted,
-	          count: 1,
-	          parentID: response.response.key,
-	          feedback: this.generateFeedbackString(response)
-	        };
-	        this.props.dispatch(_questions2.default.submitNewResponse(this.props.params.questionID, newErrorResp, prid));
-	      }
-	    } else {
-	      var newResp = {
-	        text: response.submitted,
-	        count: 1
-	      };
-	      this.props.dispatch(_questions2.default.submitNewResponse(this.props.params.questionID, newResp, prid));
-	    }
-	  },
-
-	  submitPathway: function submitPathway(response) {
-	    var data = {};
-	    var previousAttempt;
-	    var responses = (0, _hashToCollection.hashToCollection)(this.getQuestion().responses);
-	    var preAtt = getLatestAttempt(this.props.question.attempts);
-	    if (preAtt) {
-	      previousAttempt = _underscore2.default.find(responses, { text: getLatestAttempt(this.props.question.attempts).submitted });
-	    }
-	    var newAttempt = _underscore2.default.find(responses, { text: response.submitted });
-	    console.log("previous attempt: ", previousAttempt);
-	    console.log("new attempt: ", newAttempt);
-
-	    if (previousAttempt) {
-	      data.fromResponseID = previousAttempt.key;
-	    }
-	    if (newAttempt) {
-	      data.toResponseID = newAttempt.key;
-	      data.questionID = this.props.params.questionID;
-	      this.props.dispatch(_pathways2.default.submitNewPathway(data));
-	    }
-	  },
-
-	  checkAnswer: function checkAnswer() {
-	    var fields = {
-	      prompt: this.getQuestion().prompt,
-	      responses: (0, _hashToCollection.hashToCollection)(this.getQuestion().responses)
-	    };
-	    var question = new _question2.default(fields);
-	    var response = question.checkMatch(this.refs.response.value);
-	    this.updateReponseResource(response);
-	    this.submitResponse(response);
-	    this.setState({ editing: false });
-	  },
-
-	  toggleDisabled: function toggleDisabled() {
-	    if (this.state.editing) {
-	      return "";
-	    }
-	    return "is-disabled";
-	  },
-
-	  handleChange: function handleChange() {
-	    this.setState({ editing: true });
-	  },
-
-	  readyForNext: function readyForNext() {
-	    if (this.props.question.attempts.length > 0) {
-	      var latestAttempt = getLatestAttempt(this.props.question.attempts);
-	      if (latestAttempt.found) {
-	        var errors = _underscore2.default.keys(this.getErrorsForAttempt(latestAttempt));
-	        if (latestAttempt.response.optimal && errors.length === 0) {
-	          return true;
-	        }
-	      }
-	    }
-	    return false;
-	  },
-
-	  getProgressPercent: function getProgressPercent() {
-	    return this.props.question.attempts.length / 3 * 100;
-	  },
-
-	  renderNextQuestionButton: function renderNextQuestionButton() {
-	    if (this.readyForNext()) {
-	      return _react2.default.createElement('button', { className: 'button is-outlined is-success', onClick: console.log("next") }, 'Next');
-	    }
 	  },
 
 	  render: function render() {
-	    var data = this.props.questions.data;var questionID = this.props.params.questionID;
-
-	    if (data[questionID]) {
-	      if (this.props.question.attempts.length > 2) {
-	        return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'content' }, _react2.default.createElement('h4', null, 'You completed all of the attempts.'), _react2.default.createElement('p', null, 'Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.'), _react2.default.createElement('p', null, _react2.default.createElement('strong', null, 'Unique code:'), ' ', this.state.sessionKey))));
-	      } else if (this.props.question.attempts.length > 0) {
-	        var latestAttempt = getLatestAttempt(this.props.question.attempts);
-	        if (this.readyForNext()) {
-	          return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'content' }, _react2.default.createElement('h4', null, 'Excellent'), _react2.default.createElement('p', null, 'That\'s correct. Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.'), _react2.default.createElement('p', null, _react2.default.createElement('strong', null, 'Unique code:'), ' ', this.state.sessionKey))));
-	        } else {
-	          return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'content' }, _react2.default.createElement('progress', { className: 'progress is-primary', value: this.getProgressPercent(), max: '100' }, this.getProgressPercent(), '%'), _react2.default.createElement('h6', { className: 'title is-6' }, 'Combine the sentences below into one sentence.'), this.renderSentenceFragments(), this.renderFeedback(), _react2.default.createElement('div', { className: 'control' }, _react2.default.createElement('textarea', { className: 'textarea', ref: 'response', placeholder: 'Type your answer here. Rememeber, your answer should be just one sentence.', onChange: this.handleChange })), _react2.default.createElement('div', { className: 'button-group' }, _react2.default.createElement('button', { className: "button is-outlined is-primary " + this.toggleDisabled(), onClick: this.checkAnswer }, 'Check answer'), this.renderNextQuestionButton()))));
-	        }
-	      } else {
-	        return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'content' }, _react2.default.createElement('progress', { className: 'progress is-primary', value: this.getProgressPercent(), max: '100' }, this.getProgressPercent(), '%'), _react2.default.createElement('h6', { className: 'title is-6' }, 'Combine the sentences below into one sentence.'), this.renderSentenceFragments(), this.renderFeedback(), _react2.default.createElement('div', { className: 'control' }, _react2.default.createElement('textarea', { className: 'textarea', ref: 'response', placeholder: 'Type your answer here. Rememeber, your answer should be just one sentence.', onChange: this.handleChange })), _react2.default.createElement('div', { className: 'button-group' }, _react2.default.createElement('button', { className: "button is-outlined is-primary " + this.toggleDisabled(), onClick: this.checkAnswer }, 'Check answer'), this.renderNextQuestionButton()))));
-	      }
-	    } else {
-	      return _react2.default.createElement('p', null, 'Loading...');
-	    }
+	    return _react2.default.createElement('aside', { className: 'menu' }, this.mapConceptsToList());
 	  }
 	});
 
-	var getLatestAttempt = function getLatestAttempt() {
-	  var attempts = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	exports.default = QuestionsList;
 
-	  var lastIndex = attempts.length - 1;
-	  return attempts[lastIndex];
-	};
-
-	function select(state) {
-	  return {
-	    concepts: state.concepts,
-	    questions: state.questions,
-	    question: state.question,
-	    routing: state.routing
-	  };
-	}
-	exports.default = (0, _reactRedux.connect)(select)(playQuestion);
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "playQuestion.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questionsList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
 /* 659 */
@@ -58820,1717 +58601,9 @@
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
-	'use strict';
-
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _underscore = __webpack_require__(657);
-
-	var _underscore2 = _interopRequireDefault(_underscore);
-
-	var _fuzzyset = __webpack_require__(660);
-
-	var _fuzzyset2 = _interopRequireDefault(_fuzzyset);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-
-	var jsDiff = __webpack_require__(662);
-
-	var Question = (function () {
-	  function Question(data) {
-	    _classCallCheck(this, Question);
-
-	    this.prompt = data.prompt;
-	    this.sentences = data.sentences;
-	    this.responses = data.responses;
-	  }
-
-	  _createClass(Question, [{
-	    key: 'checkMatch',
-	    value: function checkMatch(response) {
-	      response = response.trim();
-	      var returnValue = {
-	        found: true,
-	        submitted: response
-	      };
-	      var exactMatch = this.checkExactMatch(response);
-	      if (exactMatch !== undefined) {
-	        returnValue.response = exactMatch;
-	        return returnValue;
-	      }
-	      var lowerCaseMatch = this.checkCaseInsensitiveMatch(response);
-	      if (lowerCaseMatch !== undefined) {
-	        returnValue.caseError = true;
-	        returnValue.response = lowerCaseMatch;
-	        return returnValue;
-	      }
-	      var punctuationMatch = this.checkPunctuationInsensitiveMatch(response);
-	      if (punctuationMatch !== undefined) {
-	        returnValue.punctuationError = true;
-	        returnValue.response = punctuationMatch;
-	        return returnValue;
-	      }
-	      var typingErrorMatch = this.checkSmallTypoMatch(response);
-	      if (typingErrorMatch !== undefined) {
-	        returnValue.typingError = true;
-	        returnValue.response = typingErrorMatch;
-	        return returnValue;
-	      }
-	      returnValue.found = false;
-	      return returnValue;
-	    }
-	  }, {
-	    key: 'nonChildResponses',
-	    value: function nonChildResponses(responses) {
-	      return _underscore2.default.filter(this.responses, function (resp) {
-	        return resp.parentID === undefined && resp.feedback !== undefined;
-	      });
-	    }
-	  }, {
-	    key: 'checkExactMatch',
-	    value: function checkExactMatch(response) {
-	      return _underscore2.default.find(this.responses, function (resp) {
-	        return resp.text === response;
-	      });
-	    }
-	  }, {
-	    key: 'checkCaseInsensitiveMatch',
-	    value: function checkCaseInsensitiveMatch(response) {
-	      return _underscore2.default.find(this.nonChildResponses(this.responses), function (resp) {
-	        return resp.text.toLowerCase() === response.toLowerCase();
-	      });
-	    }
-	  }, {
-	    key: 'checkPunctuationInsensitiveMatch',
-	    value: function checkPunctuationInsensitiveMatch(response) {
-	      return _underscore2.default.find(this.nonChildResponses(this.responses), function (resp) {
-	        return removePunctuation(resp.text) === removePunctuation(response);
-	      });
-	    }
-	  }, {
-	    key: 'checkSmallTypoMatch',
-	    value: function checkSmallTypoMatch(response) {
-	      return _underscore2.default.find(this.nonChildResponses(this.responses), function (resp) {
-	        return getLowAdditionCount(response, resp.text);
-	      });
-	    }
-	  }, {
-	    key: 'checkFuzzyMatch',
-	    value: function checkFuzzyMatch(response) {
-	      var set = (0, _fuzzyset2.default)(_underscore2.default.pluck(this.responses, "text"));
-	      var matches = set.get(response, []);
-	      var response = undefined;
-	      var text = undefined;
-	      if (matches.length > 0) {
-	        text = matches[0][0] > 0.8 ? matches[0][1] : null;
-	      }
-	      if (text) {
-	        response = _underscore2.default.findWhere(this.responses, { text: text });
-	      }
-	      return response;
-	    }
-	  }]);
-
-	  return Question;
-	})();
-
-	exports.default = Question;
-
-	var removePunctuation = function removePunctuation(string) {
-	  return string.replace(/[^A-Za-z0-9\s]/g, "");
-	};
-
-	var getLowAdditionCount = function getLowAdditionCount(newString, oldString) {
-	  var diff = jsDiff.diffChars(newString, oldString);
-	  var additions = _underscore2.default.where(diff, { added: true });
-	  if (additions.length > 1) {
-	    return false;
-	  }
-	  var count = _underscore2.default.reduce(additions, function (memo, num) {
-	    return memo + num.count;
-	  }, 0);
-	  if (count < 3) {
-	    return true;
-	  }
-	  return false;
-	};
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "question.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 660 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(661);
-
-
-/***/ },
-/* 661 */
-/***/ function(module, exports) {
-
-	(function() {
-
-	var FuzzySet = function(arr, useLevenshtein, gramSizeLower, gramSizeUpper) {
-	    var fuzzyset = {
-	        version: '0.0.1'
-	    };
-
-	    // default options
-	    arr = arr || [];
-	    fuzzyset.gramSizeLower = gramSizeLower || 2;
-	    fuzzyset.gramSizeUpper = gramSizeUpper || 3;
-	    fuzzyset.useLevenshtein = useLevenshtein || true;
-
-	    // define all the object functions and attributes
-	    fuzzyset.exactSet = {}
-	    fuzzyset.matchDict = {};
-	    fuzzyset.items = {};
-
-	    // helper functions
-	    var levenshtein = function(str1, str2) {
-	        var current = [], prev, value;
-
-	        for (var i = 0; i <= str2.length; i++)
-	            for (var j = 0; j <= str1.length; j++) {
-	            if (i && j)
-	                if (str1.charAt(j - 1) === str2.charAt(i - 1))
-	                value = prev;
-	                else
-	                value = Math.min(current[j], current[j - 1], prev) + 1;
-	            else
-	                value = i + j;
-
-	            prev = current[j];
-	            current[j] = value;
-	            }
-
-	        return current.pop();
-	    };
-
-	    // return an edit distance from 0 to 1
-	    var _distance = function(str1, str2) {
-	        if (str1 == null && str2 == null) throw 'Trying to compare two null values'
-	        if (str1 == null || str2 == null) return 0;
-	        str1 = String(str1); str2 = String(str2);
-
-	        var distance = levenshtein(str1, str2);
-	        if (str1.length > str2.length) {
-	            return 1 - distance / str1.length;
-	        } else {
-	            return 1 - distance / str2.length;
-	        }
-	    };
-	    var _nonWordRe = /[^\w, ]+/;
-
-	    var _iterateGrams = function(value, gramSize) {
-	        gramSize = gramSize || 2;
-	        var simplified = '-' + value.toLowerCase().replace(_nonWordRe, '') + '-',
-	            lenDiff = gramSize - simplified.length,
-	            results = [];
-	        if (lenDiff > 0) {
-	            for (var i = 0; i < lenDiff; ++i) {
-	                value += '-';
-	            }
-	        }
-	        for (var i = 0; i < simplified.length - gramSize + 1; ++i) {
-	            results.push(simplified.slice(i, i + gramSize))
-	        }
-	        return results;
-	    };
-
-	    var _gramCounter = function(value, gramSize) {
-	        gramSize = gramSize || 2;
-	        var result = {},
-	            grams = _iterateGrams(value, gramSize),
-	            i = 0;
-	        for (i; i < grams.length; ++i) {
-	            if (grams[i] in result) {
-	                result[grams[i]] += 1;
-	            } else {
-	                result[grams[i]] = 1;
-	            }
-	        }
-	        return result;
-	    };
-
-	    // the main functions
-	    fuzzyset.get = function(value, defaultValue) {
-	        var result = this._get(value);
-	        if (!result && defaultValue) {
-	            return defaultValue;
-	        }
-	        return result;
-	    };
-
-	    fuzzyset._get = function(value) {
-	        var normalizedValue = this._normalizeStr(value),
-	            result = this.exactSet[normalizedValue];
-	        if (result) {
-	            return [[1, result]];
-	        }
-	        var results = [];
-	        for (var gramSize = this.gramSizeUpper; gramSize > this.gramSizeLower; --gramSize) {
-	            results = this.__get(value, gramSize);
-	            if (results) {
-	                return results;
-	            }
-	        }
-	        return null;
-	    };
-
-	    fuzzyset.__get = function(value, gramSize) {
-	        var normalizedValue = this._normalizeStr(value),
-	            matches = {},
-	            gramCounts = _gramCounter(normalizedValue, gramSize),
-	            items = this.items[gramSize],
-	            sumOfSquareGramCounts = 0,
-	            gram,
-	            gramCount,
-	            i,
-	            index,
-	            otherGramCount;
-
-	        for (gram in gramCounts) {
-	            gramCount = gramCounts[gram];
-	            sumOfSquareGramCounts += Math.pow(gramCount, 2);
-	            if (gram in this.matchDict) {
-	                for (i = 0; i < this.matchDict[gram].length; ++i) {
-	                    index = this.matchDict[gram][i][0];
-	                    otherGramCount = this.matchDict[gram][i][1];
-	                    if (index in matches) {
-	                        matches[index] += gramCount * otherGramCount;
-	                    } else {
-	                        matches[index] = gramCount * otherGramCount;
-	                    }
-	                }
-	            }
-	        }
-
-	        function isEmptyObject(obj) {
-	            for(var prop in obj) {
-	                if(obj.hasOwnProperty(prop))
-	                    return false;
-	            }
-	            return true;
-	        }
-
-	        if (isEmptyObject(matches)) {
-	            return null;
-	        }
-
-	        var vectorNormal = Math.sqrt(sumOfSquareGramCounts),
-	            results = [],
-	            matchScore;
-	        // build a results list of [score, str]
-	        for (var matchIndex in matches) {
-	            matchScore = matches[matchIndex];
-	            results.push([matchScore / (vectorNormal * items[matchIndex][0]), items[matchIndex][1]]);
-	        }
-	        var sortDescending = function(a, b) {
-	            if (a[0] < b[0]) {
-	                return 1;
-	            } else if (a[0] > b[0]) {
-	                return -1;
-	            } else {
-	                return 0;
-	            }
-	        };
-	        results.sort(sortDescending);
-	        if (this.useLevenshtein) {
-	            var newResults = [],
-	                endIndex = Math.min(50, results.length);
-	            // truncate somewhat arbitrarily to 50
-	            for (var i = 0; i < endIndex; ++i) {
-	                newResults.push([_distance(results[i][1], normalizedValue), results[i][1]]);
-	            }
-	            results = newResults;
-	            results.sort(sortDescending);
-	        }
-	        var newResults = [];
-	        for (var i = 0; i < results.length; ++i) {
-	            if (results[i][0] == results[0][0]) {
-	                newResults.push([results[i][0], this.exactSet[results[i][1]]]);
-	            }
-	        }
-	        return newResults;
-	    };
-
-	    fuzzyset.add = function(value) {
-	        var normalizedValue = this._normalizeStr(value);
-	        if (normalizedValue in this.exactSet) {
-	            return false;
-	        }
-
-	        var i = this.gramSizeLower;
-	        for (i; i < this.gramSizeUpper + 1; ++i) {
-	            this._add(value, i);
-	        }
-	    };
-
-	    fuzzyset._add = function(value, gramSize) {
-	        var normalizedValue = this._normalizeStr(value),
-	            items = this.items[gramSize] || [],
-	            index = items.length;
-
-	        items.push(0);
-	        var gramCounts = _gramCounter(normalizedValue, gramSize),
-	            sumOfSquareGramCounts = 0,
-	            gram, gramCount;
-	        for (var gram in gramCounts) {
-	            gramCount = gramCounts[gram];
-	            sumOfSquareGramCounts += Math.pow(gramCount, 2);
-	            if (gram in this.matchDict) {
-	                this.matchDict[gram].push([index, gramCount]);
-	            } else {
-	                this.matchDict[gram] = [[index, gramCount]];
-	            }
-	        }
-	        var vectorNormal = Math.sqrt(sumOfSquareGramCounts);
-	        items[index] = [vectorNormal, normalizedValue];
-	        this.items[gramSize] = items;
-	        this.exactSet[normalizedValue] = value;
-	    };
-
-	    fuzzyset._normalizeStr = function(str) {
-	        if (Object.prototype.toString.call(str) !== '[object String]') throw 'Must use a string as argument to FuzzySet functions'
-	        return str.toLowerCase();
-	    };
-
-	    // return length of items in set
-	    fuzzyset.length = function() {
-	        var count = 0,
-	            prop;
-	        for (prop in this.exactSet) {
-	            if (this.exactSet.hasOwnProperty(prop)) {
-	                count += 1;
-	            }
-	        }
-	        return count;
-	    };
-
-	    // return is set is empty
-	    fuzzyset.isEmpty = function() {
-	        for (var prop in this.exactSet) {
-	            if (this.exactSet.hasOwnProperty(prop)) {
-	                return false;
-	            }
-	        }
-	        return true;
-	    };
-
-	    // return list of values loaded into set
-	    fuzzyset.values = function() {
-	        var values = [],
-	            prop;
-	        for (prop in this.exactSet) {
-	            if (this.exactSet.hasOwnProperty(prop)) {
-	                values.push(this.exactSet[prop])
-	            }
-	        }
-	        return values;
-	    };
-
-
-	    // initialization
-	    var i = fuzzyset.gramSizeLower;
-	    for (i; i < fuzzyset.gramSizeUpper + 1; ++i) {
-	        fuzzyset.items[i] = [];
-	    }
-	    // add all the items to the set
-	    for (i = 0; i < arr.length; ++i) {
-	        fuzzyset.add(arr[i]);
-	    }
-
-	    return fuzzyset;
-	};
-
-	var root = this;
-	// Export the fuzzyset object for **CommonJS**, with backwards-compatibility
-	// for the old `require()` API. If we're not in CommonJS, add `_` to the
-	// global object.
-	if (typeof module !== 'undefined' && module.exports) {
-	    module.exports = FuzzySet;
-	    root.FuzzySet = FuzzySet;
-	} else {
-	    root.FuzzySet = FuzzySet;
-	}
-
-	})();
-
-
-/***/ },
-/* 662 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* See LICENSE file for terms of use */
-
-	/*
-	 * Text diff implementation.
-	 *
-	 * This library supports the following APIS:
-	 * JsDiff.diffChars: Character by character diff
-	 * JsDiff.diffWords: Word (as defined by \b regex) diff which ignores whitespace
-	 * JsDiff.diffLines: Line based diff
-	 *
-	 * JsDiff.diffCss: Diff targeted at CSS content
-	 *
-	 * These methods are based on the implementation proposed in
-	 * "An O(ND) Difference Algorithm and its Variations" (Myers, 1986).
-	 * http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.4.6927
-	 */
-	'use strict';
-
-	exports.__esModule = true;
-	// istanbul ignore next
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _diffBase = __webpack_require__(663);
-
-	var _diffBase2 = _interopRequireDefault(_diffBase);
-
-	var _diffCharacter = __webpack_require__(664);
-
-	var _diffWord = __webpack_require__(665);
-
-	var _diffLine = __webpack_require__(667);
-
-	var _diffSentence = __webpack_require__(668);
-
-	var _diffCss = __webpack_require__(669);
-
-	var _diffJson = __webpack_require__(670);
-
-	var _patchApply = __webpack_require__(671);
-
-	var _patchParse = __webpack_require__(672);
-
-	var _patchCreate = __webpack_require__(674);
-
-	var _convertDmp = __webpack_require__(675);
-
-	var _convertXml = __webpack_require__(676);
-
-	exports.Diff = _diffBase2['default'];
-	exports.diffChars = _diffCharacter.diffChars;
-	exports.diffWords = _diffWord.diffWords;
-	exports.diffWordsWithSpace = _diffWord.diffWordsWithSpace;
-	exports.diffLines = _diffLine.diffLines;
-	exports.diffTrimmedLines = _diffLine.diffTrimmedLines;
-	exports.diffSentences = _diffSentence.diffSentences;
-	exports.diffCss = _diffCss.diffCss;
-	exports.diffJson = _diffJson.diffJson;
-	exports.structuredPatch = _patchCreate.structuredPatch;
-	exports.createTwoFilesPatch = _patchCreate.createTwoFilesPatch;
-	exports.createPatch = _patchCreate.createPatch;
-	exports.applyPatch = _patchApply.applyPatch;
-	exports.applyPatches = _patchApply.applyPatches;
-	exports.parsePatch = _patchParse.parsePatch;
-	exports.convertChangesToDMP = _convertDmp.convertChangesToDMP;
-	exports.convertChangesToXML = _convertXml.convertChangesToXML;
-	exports.canonicalize = _diffJson.canonicalize;
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozt3QkFnQmlCLGFBQWE7Ozs7NkJBQ04sa0JBQWtCOzt3QkFDRSxhQUFhOzt3QkFDZixhQUFhOzs0QkFDM0IsaUJBQWlCOzt1QkFFdkIsWUFBWTs7d0JBQ0csYUFBYTs7MEJBRVgsZUFBZTs7MEJBQzdCLGVBQWU7OzJCQUN3QixnQkFBZ0I7OzBCQUU5QyxlQUFlOzswQkFDZixlQUFlOztRQUcvQyxJQUFJO1FBRUosU0FBUztRQUNULFNBQVM7UUFDVCxrQkFBa0I7UUFDbEIsU0FBUztRQUNULGdCQUFnQjtRQUNoQixhQUFhO1FBRWIsT0FBTztRQUNQLFFBQVE7UUFFUixlQUFlO1FBQ2YsbUJBQW1CO1FBQ25CLFdBQVc7UUFDWCxVQUFVO1FBQ1YsWUFBWTtRQUNaLFVBQVU7UUFDVixtQkFBbUI7UUFDbkIsbUJBQW1CO1FBQ25CLFlBQVkiLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBTZWUgTElDRU5TRSBmaWxlIGZvciB0ZXJtcyBvZiB1c2UgKi9cblxuLypcbiAqIFRleHQgZGlmZiBpbXBsZW1lbnRhdGlvbi5cbiAqXG4gKiBUaGlzIGxpYnJhcnkgc3VwcG9ydHMgdGhlIGZvbGxvd2luZyBBUElTOlxuICogSnNEaWZmLmRpZmZDaGFyczogQ2hhcmFjdGVyIGJ5IGNoYXJhY3RlciBkaWZmXG4gKiBKc0RpZmYuZGlmZldvcmRzOiBXb3JkIChhcyBkZWZpbmVkIGJ5IFxcYiByZWdleCkgZGlmZiB3aGljaCBpZ25vcmVzIHdoaXRlc3BhY2VcbiAqIEpzRGlmZi5kaWZmTGluZXM6IExpbmUgYmFzZWQgZGlmZlxuICpcbiAqIEpzRGlmZi5kaWZmQ3NzOiBEaWZmIHRhcmdldGVkIGF0IENTUyBjb250ZW50XG4gKlxuICogVGhlc2UgbWV0aG9kcyBhcmUgYmFzZWQgb24gdGhlIGltcGxlbWVudGF0aW9uIHByb3Bvc2VkIGluXG4gKiBcIkFuIE8oTkQpIERpZmZlcmVuY2UgQWxnb3JpdGhtIGFuZCBpdHMgVmFyaWF0aW9uc1wiIChNeWVycywgMTk4NikuXG4gKiBodHRwOi8vY2l0ZXNlZXJ4LmlzdC5wc3UuZWR1L3ZpZXdkb2Mvc3VtbWFyeT9kb2k9MTAuMS4xLjQuNjkyN1xuICovXG5pbXBvcnQgRGlmZiBmcm9tICcuL2RpZmYvYmFzZSc7XG5pbXBvcnQge2RpZmZDaGFyc30gZnJvbSAnLi9kaWZmL2NoYXJhY3Rlcic7XG5pbXBvcnQge2RpZmZXb3JkcywgZGlmZldvcmRzV2l0aFNwYWNlfSBmcm9tICcuL2RpZmYvd29yZCc7XG5pbXBvcnQge2RpZmZMaW5lcywgZGlmZlRyaW1tZWRMaW5lc30gZnJvbSAnLi9kaWZmL2xpbmUnO1xuaW1wb3J0IHtkaWZmU2VudGVuY2VzfSBmcm9tICcuL2RpZmYvc2VudGVuY2UnO1xuXG5pbXBvcnQge2RpZmZDc3N9IGZyb20gJy4vZGlmZi9jc3MnO1xuaW1wb3J0IHtkaWZmSnNvbiwgY2Fub25pY2FsaXplfSBmcm9tICcuL2RpZmYvanNvbic7XG5cbmltcG9ydCB7YXBwbHlQYXRjaCwgYXBwbHlQYXRjaGVzfSBmcm9tICcuL3BhdGNoL2FwcGx5JztcbmltcG9ydCB7cGFyc2VQYXRjaH0gZnJvbSAnLi9wYXRjaC9wYXJzZSc7XG5pbXBvcnQge3N0cnVjdHVyZWRQYXRjaCwgY3JlYXRlVHdvRmlsZXNQYXRjaCwgY3JlYXRlUGF0Y2h9IGZyb20gJy4vcGF0Y2gvY3JlYXRlJztcblxuaW1wb3J0IHtjb252ZXJ0Q2hhbmdlc1RvRE1QfSBmcm9tICcuL2NvbnZlcnQvZG1wJztcbmltcG9ydCB7Y29udmVydENoYW5nZXNUb1hNTH0gZnJvbSAnLi9jb252ZXJ0L3htbCc7XG5cbmV4cG9ydCB7XG4gIERpZmYsXG5cbiAgZGlmZkNoYXJzLFxuICBkaWZmV29yZHMsXG4gIGRpZmZXb3Jkc1dpdGhTcGFjZSxcbiAgZGlmZkxpbmVzLFxuICBkaWZmVHJpbW1lZExpbmVzLFxuICBkaWZmU2VudGVuY2VzLFxuXG4gIGRpZmZDc3MsXG4gIGRpZmZKc29uLFxuXG4gIHN0cnVjdHVyZWRQYXRjaCxcbiAgY3JlYXRlVHdvRmlsZXNQYXRjaCxcbiAgY3JlYXRlUGF0Y2gsXG4gIGFwcGx5UGF0Y2gsXG4gIGFwcGx5UGF0Y2hlcyxcbiAgcGFyc2VQYXRjaCxcbiAgY29udmVydENoYW5nZXNUb0RNUCxcbiAgY29udmVydENoYW5nZXNUb1hNTCxcbiAgY2Fub25pY2FsaXplXG59O1xuIl19
-
-
-/***/ },
-/* 663 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports['default'] = Diff;
-
-	function Diff() {}
-
-	Diff.prototype = {
-	  diff: function diff(oldString, newString) {
-	    var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-
-	    var callback = options.callback;
-	    if (typeof options === 'function') {
-	      callback = options;
-	      options = {};
-	    }
-	    this.options = options;
-
-	    var self = this;
-
-	    function done(value) {
-	      if (callback) {
-	        setTimeout(function () {
-	          callback(undefined, value);
-	        }, 0);
-	        return true;
-	      } else {
-	        return value;
-	      }
-	    }
-
-	    // Allow subclasses to massage the input prior to running
-	    oldString = this.castInput(oldString);
-	    newString = this.castInput(newString);
-
-	    oldString = this.removeEmpty(this.tokenize(oldString));
-	    newString = this.removeEmpty(this.tokenize(newString));
-
-	    var newLen = newString.length,
-	        oldLen = oldString.length;
-	    var editLength = 1;
-	    var maxEditLength = newLen + oldLen;
-	    var bestPath = [{ newPos: -1, components: [] }];
-
-	    // Seed editLength = 0, i.e. the content starts with the same values
-	    var oldPos = this.extractCommon(bestPath[0], newString, oldString, 0);
-	    if (bestPath[0].newPos + 1 >= newLen && oldPos + 1 >= oldLen) {
-	      // Identity per the equality and tokenizer
-	      return done([{ value: newString.join(''), count: newString.length }]);
-	    }
-
-	    // Main worker method. checks all permutations of a given edit length for acceptance.
-	    function execEditLength() {
-	      for (var diagonalPath = -1 * editLength; diagonalPath <= editLength; diagonalPath += 2) {
-	        var basePath = undefined;
-	        var addPath = bestPath[diagonalPath - 1],
-	            removePath = bestPath[diagonalPath + 1],
-	            _oldPos = (removePath ? removePath.newPos : 0) - diagonalPath;
-	        if (addPath) {
-	          // No one else is going to attempt to use this value, clear it
-	          bestPath[diagonalPath - 1] = undefined;
-	        }
-
-	        var canAdd = addPath && addPath.newPos + 1 < newLen,
-	            canRemove = removePath && 0 <= _oldPos && _oldPos < oldLen;
-	        if (!canAdd && !canRemove) {
-	          // If this path is a terminal then prune
-	          bestPath[diagonalPath] = undefined;
-	          continue;
-	        }
-
-	        // Select the diagonal that we want to branch from. We select the prior
-	        // path whose position in the new string is the farthest from the origin
-	        // and does not pass the bounds of the diff graph
-	        if (!canAdd || canRemove && addPath.newPos < removePath.newPos) {
-	          basePath = clonePath(removePath);
-	          self.pushComponent(basePath.components, undefined, true);
-	        } else {
-	          basePath = addPath; // No need to clone, we've pulled it from the list
-	          basePath.newPos++;
-	          self.pushComponent(basePath.components, true, undefined);
-	        }
-
-	        _oldPos = self.extractCommon(basePath, newString, oldString, diagonalPath);
-
-	        // If we have hit the end of both strings, then we are done
-	        if (basePath.newPos + 1 >= newLen && _oldPos + 1 >= oldLen) {
-	          return done(buildValues(self, basePath.components, newString, oldString, self.useLongestToken));
-	        } else {
-	          // Otherwise track this path as a potential candidate and continue.
-	          bestPath[diagonalPath] = basePath;
-	        }
-	      }
-
-	      editLength++;
-	    }
-
-	    // Performs the length of edit iteration. Is a bit fugly as this has to support the
-	    // sync and async mode which is never fun. Loops over execEditLength until a value
-	    // is produced.
-	    if (callback) {
-	      (function exec() {
-	        setTimeout(function () {
-	          // This should not happen, but we want to be safe.
-	          /* istanbul ignore next */
-	          if (editLength > maxEditLength) {
-	            return callback();
-	          }
-
-	          if (!execEditLength()) {
-	            exec();
-	          }
-	        }, 0);
-	      })();
-	    } else {
-	      while (editLength <= maxEditLength) {
-	        var ret = execEditLength();
-	        if (ret) {
-	          return ret;
-	        }
-	      }
-	    }
-	  },
-
-	  pushComponent: function pushComponent(components, added, removed) {
-	    var last = components[components.length - 1];
-	    if (last && last.added === added && last.removed === removed) {
-	      // We need to clone here as the component clone operation is just
-	      // as shallow array clone
-	      components[components.length - 1] = { count: last.count + 1, added: added, removed: removed };
-	    } else {
-	      components.push({ count: 1, added: added, removed: removed });
-	    }
-	  },
-	  extractCommon: function extractCommon(basePath, newString, oldString, diagonalPath) {
-	    var newLen = newString.length,
-	        oldLen = oldString.length,
-	        newPos = basePath.newPos,
-	        oldPos = newPos - diagonalPath,
-	        commonCount = 0;
-	    while (newPos + 1 < newLen && oldPos + 1 < oldLen && this.equals(newString[newPos + 1], oldString[oldPos + 1])) {
-	      newPos++;
-	      oldPos++;
-	      commonCount++;
-	    }
-
-	    if (commonCount) {
-	      basePath.components.push({ count: commonCount });
-	    }
-
-	    basePath.newPos = newPos;
-	    return oldPos;
-	  },
-
-	  equals: function equals(left, right) {
-	    return left === right;
-	  },
-	  removeEmpty: function removeEmpty(array) {
-	    var ret = [];
-	    for (var i = 0; i < array.length; i++) {
-	      if (array[i]) {
-	        ret.push(array[i]);
-	      }
-	    }
-	    return ret;
-	  },
-	  castInput: function castInput(value) {
-	    return value;
-	  },
-	  tokenize: function tokenize(value) {
-	    return value.split('');
-	  }
-	};
-
-	function buildValues(diff, components, newString, oldString, useLongestToken) {
-	  var componentPos = 0,
-	      componentLen = components.length,
-	      newPos = 0,
-	      oldPos = 0;
-
-	  for (; componentPos < componentLen; componentPos++) {
-	    var component = components[componentPos];
-	    if (!component.removed) {
-	      if (!component.added && useLongestToken) {
-	        var value = newString.slice(newPos, newPos + component.count);
-	        value = value.map(function (value, i) {
-	          var oldValue = oldString[oldPos + i];
-	          return oldValue.length > value.length ? oldValue : value;
-	        });
-
-	        component.value = value.join('');
-	      } else {
-	        component.value = newString.slice(newPos, newPos + component.count).join('');
-	      }
-	      newPos += component.count;
-
-	      // Common case
-	      if (!component.added) {
-	        oldPos += component.count;
-	      }
-	    } else {
-	      component.value = oldString.slice(oldPos, oldPos + component.count).join('');
-	      oldPos += component.count;
-
-	      // Reverse add and remove so removes are output first to match common convention
-	      // The diffing algorithm is tied to add then remove output and this is the simplest
-	      // route to get the desired output with minimal overhead.
-	      if (componentPos && components[componentPos - 1].added) {
-	        var tmp = components[componentPos - 1];
-	        components[componentPos - 1] = components[componentPos];
-	        components[componentPos] = tmp;
-	      }
-	    }
-	  }
-
-	  // Special case handle for when one terminal is ignored. For this case we merge the
-	  // terminal into the prior string and drop the change.
-	  var lastComponent = components[componentLen - 1];
-	  if ((lastComponent.added || lastComponent.removed) && diff.equals('', lastComponent.value)) {
-	    components[componentLen - 2].value += lastComponent.value;
-	    components.pop();
-	  }
-
-	  return components;
-	}
-
-	function clonePath(path) {
-	  return { newPos: path.newPos, components: path.components.slice(0) };
-	}
-	module.exports = exports['default'];
-	//# sourceMappingURL=data:application/json;base64,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S0FBSyxDQUFDO0FBQzFELGNBQVUsQ0FBQyxHQUFHLEVBQUUsQ0FBQztHQUNsQjs7QUFFRCxTQUFPLFVBQVUsQ0FBQztDQUNuQjs7QUFFRCxTQUFTLFNBQVMsQ0FBQyxJQUFJLEVBQUU7QUFDdkIsU0FBTyxFQUFFLE1BQU0sRUFBRSxJQUFJLENBQUMsTUFBTSxFQUFFLFVBQVUsRUFBRSxJQUFJLENBQUMsVUFBVSxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDO0NBQ3RFIiwiZmlsZSI6ImJhc2UuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBEaWZmKCkge31cblxuRGlmZi5wcm90b3R5cGUgPSB7XG4gIGRpZmYob2xkU3RyaW5nLCBuZXdTdHJpbmcsIG9wdGlvbnMgPSB7fSkge1xuICAgIGxldCBjYWxsYmFjayA9IG9wdGlvbnMuY2FsbGJhY2s7XG4gICAgaWYgKHR5cGVvZiBvcHRpb25zID09PSAnZnVuY3Rpb24nKSB7XG4gICAgICBjYWxsYmFjayA9IG9wdGlvbnM7XG4gICAgICBvcHRpb25zID0ge307XG4gICAgfVxuICAgIHRoaXMub3B0aW9ucyA9IG9wdGlvbnM7XG5cbiAgICBsZXQgc2VsZiA9IHRoaXM7XG5cbiAgICBmdW5jdGlvbiBkb25lKHZhbHVlKSB7XG4gICAgICBpZiAoY2FsbGJhY2spIHtcbiAgICAgICAgc2V0VGltZW91dChmdW5jdGlvbigpIHsgY2FsbGJhY2sodW5kZWZpbmVkLCB2YWx1ZSk7IH0sIDApO1xuICAgICAgICByZXR1cm4gdHJ1ZTtcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIHJldHVybiB2YWx1ZTtcbiAgICAgIH1cbiAgICB9XG5cbiAgICAvLyBBbGxvdyBzdWJjbGFzc2VzIHRvIG1hc3NhZ2UgdGhlIGlucHV0IHByaW9yIHRvIHJ1bm5pbmdcbiAgICBvbGRTdHJpbmcgPSB0aGlzLmNhc3RJbnB1dChvbGRTdHJpbmcpO1xuICAgIG5ld1N0cmluZyA9IHRoaXMuY2FzdElucHV0KG5ld1N0cmluZyk7XG5cbiAgICBvbGRTdHJpbmcgPSB0aGlzLnJlbW92ZUVtcHR5KHRoaXMudG9rZW5pemUob2xkU3RyaW5nKSk7XG4gICAgbmV3U3RyaW5nID0gdGhpcy5yZW1vdmVFbXB0eSh0aGlzLnRva2VuaXplKG5ld1N0cmluZykpO1xuXG4gICAgbGV0IG5ld0xlbiA9IG5ld1N0cmluZy5sZW5ndGgsIG9sZExlbiA9IG9sZFN0cmluZy5sZW5ndGg7XG4gICAgbGV0IGVkaXRMZW5ndGggPSAxO1xuICAgIGxldCBtYXhFZGl0TGVuZ3RoID0gbmV3TGVuICsgb2xkTGVuO1xuICAgIGxldCBiZXN0UGF0aCA9IFt7IG5ld1BvczogLTEsIGNvbXBvbmVudHM6IFtdIH1dO1xuXG4gICAgLy8gU2VlZCBlZGl0TGVuZ3RoID0gMCwgaS5lLiB0aGUgY29udGVudCBzdGFydHMgd2l0aCB0aGUgc2FtZSB2YWx1ZXNcbiAgICBsZXQgb2xkUG9zID0gdGhpcy5leHRyYWN0Q29tbW9uKGJlc3RQYXRoWzBdLCBuZXdTdHJpbmcsIG9sZFN0cmluZywgMCk7XG4gICAgaWYgKGJlc3RQYXRoWzBdLm5ld1BvcyArIDEgPj0gbmV3TGVuICYmIG9sZFBvcyArIDEgPj0gb2xkTGVuKSB7XG4gICAgICAvLyBJZGVudGl0eSBwZXIgdGhlIGVxdWFsaXR5IGFuZCB0b2tlbml6ZXJcbiAgICAgIHJldHVybiBkb25lKFt7dmFsdWU6IG5ld1N0cmluZy5qb2luKCcnKSwgY291bnQ6IG5ld1N0cmluZy5sZW5ndGh9XSk7XG4gICAgfVxuXG4gICAgLy8gTWFpbiB3b3JrZXIgbWV0aG9kLiBjaGVja3MgYWxsIHBlcm11dGF0aW9ucyBvZiBhIGdpdmVuIGVkaXQgbGVuZ3RoIGZvciBhY2NlcHRhbmNlLlxuICAgIGZ1bmN0aW9uIGV4ZWNFZGl0TGVuZ3RoKCkge1xuICAgICAgZm9yIChsZXQgZGlhZ29uYWxQYXRoID0gLTEgKiBlZGl0TGVuZ3RoOyBkaWFnb25hbFBhdGggPD0gZWRpdExlbmd0aDsgZGlhZ29uYWxQYXRoICs9IDIpIHtcbiAgICAgICAgbGV0IGJhc2VQYXRoO1xuICAgICAgICBsZXQgYWRkUGF0aCA9IGJlc3RQYXRoW2RpYWdvbmFsUGF0aCAtIDFdLFxuICAgICAgICAgICAgcmVtb3ZlUGF0aCA9IGJlc3RQYXRoW2RpYWdvbmFsUGF0aCArIDFdLFxuICAgICAgICAgICAgb2xkUG9zID0gKHJlbW92ZVBhdGggPyByZW1vdmVQYXRoLm5ld1BvcyA6IDApIC0gZGlhZ29uYWxQYXRoO1xuICAgICAgICBpZiAoYWRkUGF0aCkge1xuICAgICAgICAgIC8vIE5vIG9uZSBlbHNlIGlzIGdvaW5nIHRvIGF0dGVtcHQgdG8gdXNlIHRoaXMgdmFsdWUsIGNsZWFyIGl0XG4gICAgICAgICAgYmVzdFBhdGhbZGlhZ29uYWxQYXRoIC0gMV0gPSB1bmRlZmluZWQ7XG4gICAgICAgIH1cblxuICAgICAgICBsZXQgY2FuQWRkID0gYWRkUGF0aCAmJiBhZGRQYXRoLm5ld1BvcyArIDEgPCBuZXdMZW4sXG4gICAgICAgICAgICBjYW5SZW1vdmUgPSByZW1vdmVQYXRoICYmIDAgPD0gb2xkUG9zICYmIG9sZFBvcyA8IG9sZExlbjtcbiAgICAgICAgaWYgKCFjYW5BZGQgJiYgIWNhblJlbW92ZSkge1xuICAgICAgICAgIC8vIElmIHRoaXMgcGF0aCBpcyBhIHRlcm1pbmFsIHRoZW4gcHJ1bmVcbiAgICAgICAgICBiZXN0UGF0aFtkaWFnb25hbFBhdGhdID0gdW5kZWZpbmVkO1xuICAgICAgICAgIGNvbnRpbnVlO1xuICAgICAgICB9XG5cbiAgICAgICAgLy8gU2VsZWN0IHRoZSBkaWFnb25hbCB0aGF0IHdlIHdhbnQgdG8gYnJhbmNoIGZyb20uIFdlIHNlbGVjdCB0aGUgcHJpb3JcbiAgICAgICAgLy8gcGF0aCB3aG9zZSBwb3NpdGlvbiBpbiB0aGUgbmV3IHN0cmluZyBpcyB0aGUgZmFydGhlc3QgZnJvbSB0aGUgb3JpZ2luXG4gICAgICAgIC8vIGFuZCBkb2VzIG5vdCBwYXNzIHRoZSBib3VuZHMgb2YgdGhlIGRpZmYgZ3JhcGhcbiAgICAgICAgaWYgKCFjYW5BZGQgfHwgKGNhblJlbW92ZSAmJiBhZGRQYXRoLm5ld1BvcyA8IHJlbW92ZVBhdGgubmV3UG9zKSkge1xuICAgICAgICAgIGJhc2VQYXRoID0gY2xvbmVQYXRoKHJlbW92ZVBhdGgpO1xuICAgICAgICAgIHNlbGYucHVzaENvbXBvbmVudChiYXNlUGF0aC5jb21wb25lbnRzLCB1bmRlZmluZWQsIHRydWUpO1xuICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgIGJhc2VQYXRoID0gYWRkUGF0aDsgICAvLyBObyBuZWVkIHRvIGNsb25lLCB3ZSd2ZSBwdWxsZWQgaXQgZnJvbSB0aGUgbGlzdFxuICAgICAgICAgIGJhc2VQYXRoLm5ld1BvcysrO1xuICAgICAgICAgIHNlbGYucHVzaENvbXBvbmVudChiYXNlUGF0aC5jb21wb25lbnRzLCB0cnVlLCB1bmRlZmluZWQpO1xuICAgICAgICB9XG5cbiAgICAgICAgb2xkUG9zID0gc2VsZi5leHRyYWN0Q29tbW9uKGJhc2VQYXRoLCBuZXdTdHJpbmcsIG9sZFN0cmluZywgZGlhZ29uYWxQYXRoKTtcblxuICAgICAgICAvLyBJZiB3ZSBoYXZlIGhpdCB0aGUgZW5kIG9mIGJvdGggc3RyaW5ncywgdGhlbiB3ZSBhcmUgZG9uZVxuICAgICAgICBpZiAoYmFzZVBhdGgubmV3UG9zICsgMSA+PSBuZXdMZW4gJiYgb2xkUG9zICsgMSA+PSBvbGRMZW4pIHtcbiAgICAgICAgICByZXR1cm4gZG9uZShidWlsZFZhbHVlcyhzZWxmLCBiYXNlUGF0aC5jb21wb25lbnRzLCBuZXdTdHJpbmcsIG9sZFN0cmluZywgc2VsZi51c2VMb25nZXN0VG9rZW4pKTtcbiAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAvLyBPdGhlcndpc2UgdHJhY2sgdGhpcyBwYXRoIGFzIGEgcG90ZW50aWFsIGNhbmRpZGF0ZSBhbmQgY29udGludWUuXG4gICAgICAgICAgYmVzdFBhdGhbZGlhZ29uYWxQYXRoXSA9IGJhc2VQYXRoO1xuICAgICAgICB9XG4gICAgICB9XG5cbiAgICAgIGVkaXRMZW5ndGgrKztcbiAgICB9XG5cbiAgICAvLyBQZXJmb3JtcyB0aGUgbGVuZ3RoIG9mIGVkaXQgaXRlcmF0aW9uLiBJcyBhIGJpdCBmdWdseSBhcyB0aGlzIGhhcyB0byBzdXBwb3J0IHRoZVxuICAgIC8vIHN5bmMgYW5kIGFzeW5jIG1vZGUgd2hpY2ggaXMgbmV2ZXIgZnVuLiBMb29wcyBvdmVyIGV4ZWNFZGl0TGVuZ3RoIHVudGlsIGEgdmFsdWVcbiAgICAvLyBpcyBwcm9kdWNlZC5cbiAgICBpZiAoY2FsbGJhY2spIHtcbiAgICAgIChmdW5jdGlvbiBleGVjKCkge1xuICAgICAgICBzZXRUaW1lb3V0KGZ1bmN0aW9uKCkge1xuICAgICAgICAgIC8vIFRoaXMgc2hvdWxkIG5vdCBoYXBwZW4sIGJ1dCB3ZSB3YW50IHRvIGJlIHNhZmUuXG4gICAgICAgICAgLyogaXN0YW5idWwgaWdub3JlIG5leHQgKi9cbiAgICAgICAgICBpZiAoZWRpdExlbmd0aCA+IG1heEVkaXRMZW5ndGgpIHtcbiAgICAgICAgICAgIHJldHVybiBjYWxsYmFjaygpO1xuICAgICAgICAgIH1cblxuICAgICAgICAgIGlmICghZXhlY0VkaXRMZW5ndGgoKSkge1xuICAgICAgICAgICAgZXhlYygpO1xuICAgICAgICAgIH1cbiAgICAgICAgfSwgMCk7XG4gICAgICB9KCkpO1xuICAgIH0gZWxzZSB7XG4gICAgICB3aGlsZSAoZWRpdExlbmd0aCA8PSBtYXhFZGl0TGVuZ3RoKSB7XG4gICAgICAgIGxldCByZXQgPSBleGVjRWRpdExlbmd0aCgpO1xuICAgICAgICBpZiAocmV0KSB7XG4gICAgICAgICAgcmV0dXJuIHJldDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfSxcblxuICBwdXNoQ29tcG9uZW50KGNvbXBvbmVudHMsIGFkZGVkLCByZW1vdmVkKSB7XG4gICAgbGV0IGxhc3QgPSBjb21wb25lbnRzW2NvbXBvbmVudHMubGVuZ3RoIC0gMV07XG4gICAgaWYgKGxhc3QgJiYgbGFzdC5hZGRlZCA9PT0gYWRkZWQgJiYgbGFzdC5yZW1vdmVkID09PSByZW1vdmVkKSB7XG4gICAgICAvLyBXZSBuZWVkIHRvIGNsb25lIGhlcmUgYXMgdGhlIGNvbXBvbmVudCBjbG9uZSBvcGVyYXRpb24gaXMganVzdFxuICAgICAgLy8gYXMgc2hhbGxvdyBhcnJheSBjbG9uZVxuICAgICAgY29tcG9uZW50c1tjb21wb25lbnRzLmxlbmd0aCAtIDFdID0ge2NvdW50OiBsYXN0LmNvdW50ICsgMSwgYWRkZWQ6IGFkZGVkLCByZW1vdmVkOiByZW1vdmVkIH07XG4gICAgfSBlbHNlIHtcbiAgICAgIGNvbXBvbmVudHMucHVzaCh7Y291bnQ6IDEsIGFkZGVkOiBhZGRlZCwgcmVtb3ZlZDogcmVtb3ZlZCB9KTtcbiAgICB9XG4gIH0sXG4gIGV4dHJhY3RDb21tb24oYmFzZVBhdGgsIG5ld1N0cmluZywgb2xkU3RyaW5nLCBkaWFnb25hbFBhdGgpIHtcbiAgICBsZXQgbmV3TGVuID0gbmV3U3RyaW5nLmxlbmd0aCxcbiAgICAgICAgb2xkTGVuID0gb2xkU3RyaW5nLmxlbmd0aCxcbiAgICAgICAgbmV3UG9zID0gYmFzZVBhdGgubmV3UG9zLFxuICAgICAgICBvbGRQb3MgPSBuZXdQb3MgLSBkaWFnb25hbFBhdGgsXG5cbiAgICAgICAgY29tbW9uQ291bnQgPSAwO1xuICAgIHdoaWxlIChuZXdQb3MgKyAxIDwgbmV3TGVuICYmIG9sZFBvcyArIDEgPCBvbGRMZW4gJiYgdGhpcy5lcXVhbHMobmV3U3RyaW5nW25ld1BvcyArIDFdLCBvbGRTdHJpbmdbb2xkUG9zICsgMV0pKSB7XG4gICAgICBuZXdQb3MrKztcbiAgICAgIG9sZFBvcysrO1xuICAgICAgY29tbW9uQ291bnQrKztcbiAgICB9XG5cbiAgICBpZiAoY29tbW9uQ291bnQpIHtcbiAgICAgIGJhc2VQYXRoLmNvbXBvbmVudHMucHVzaCh7Y291bnQ6IGNvbW1vbkNvdW50fSk7XG4gICAgfVxuXG4gICAgYmFzZVBhdGgubmV3UG9zID0gbmV3UG9zO1xuICAgIHJldHVybiBvbGRQb3M7XG4gIH0sXG5cbiAgZXF1YWxzKGxlZnQsIHJpZ2h0KSB7XG4gICAgcmV0dXJuIGxlZnQgPT09IHJpZ2h0O1xuICB9LFxuICByZW1vdmVFbXB0eShhcnJheSkge1xuICAgIGxldCByZXQgPSBbXTtcbiAgICBmb3IgKGxldCBpID0gMDsgaSA8IGFycmF5Lmxlbmd0aDsgaSsrKSB7XG4gICAgICBpZiAoYXJyYXlbaV0pIHtcbiAgICAgICAgcmV0LnB1c2goYXJyYXlbaV0pO1xuICAgICAgfVxuICAgIH1cbiAgICByZXR1cm4gcmV0O1xuICB9LFxuICBjYXN0SW5wdXQodmFsdWUpIHtcbiAgICByZXR1cm4gdmFsdWU7XG4gIH0sXG4gIHRva2VuaXplKHZhbHVlKSB7XG4gICAgcmV0dXJuIHZhbHVlLnNwbGl0KCcnKTtcbiAgfVxufTtcblxuZnVuY3Rpb24gYnVpbGRWYWx1ZXMoZGlmZiwgY29tcG9uZW50cywgbmV3U3RyaW5nLCBvbGRTdHJpbmcsIHVzZUxvbmdlc3RUb2tlbikge1xuICBsZXQgY29tcG9uZW50UG9zID0gMCxcbiAgICAgIGNvbXBvbmVudExlbiA9IGNvbXBvbmVudHMubGVuZ3RoLFxuICAgICAgbmV3UG9zID0gMCxcbiAgICAgIG9sZFBvcyA9IDA7XG5cbiAgZm9yICg7IGNvbXBvbmVudFBvcyA8IGNvbXBvbmVudExlbjsgY29tcG9uZW50UG9zKyspIHtcbiAgICBsZXQgY29tcG9uZW50ID0gY29tcG9uZW50c1tjb21wb25lbnRQb3NdO1xuICAgIGlmICghY29tcG9uZW50LnJlbW92ZWQpIHtcbiAgICAgIGlmICghY29tcG9uZW50LmFkZGVkICYmIHVzZUxvbmdlc3RUb2tlbikge1xuICAgICAgICBsZXQgdmFsdWUgPSBuZXdTdHJpbmcuc2xpY2UobmV3UG9zLCBuZXdQb3MgKyBjb21wb25lbnQuY291bnQpO1xuICAgICAgICB2YWx1ZSA9IHZhbHVlLm1hcChmdW5jdGlvbih2YWx1ZSwgaSkge1xuICAgICAgICAgIGxldCBvbGRWYWx1ZSA9IG9sZFN0cmluZ1tvbGRQb3MgKyBpXTtcbiAgICAgICAgICByZXR1cm4gb2xkVmFsdWUubGVuZ3RoID4gdmFsdWUubGVuZ3RoID8gb2xkVmFsdWUgOiB2YWx1ZTtcbiAgICAgICAgfSk7XG5cbiAgICAgICAgY29tcG9uZW50LnZhbHVlID0gdmFsdWUuam9pbignJyk7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICBjb21wb25lbnQudmFsdWUgPSBuZXdTdHJpbmcuc2xpY2UobmV3UG9zLCBuZXdQb3MgKyBjb21wb25lbnQuY291bnQpLmpvaW4oJycpO1xuICAgICAgfVxuICAgICAgbmV3UG9zICs9IGNvbXBvbmVudC5jb3VudDtcblxuICAgICAgLy8gQ29tbW9uIGNhc2VcbiAgICAgIGlmICghY29tcG9uZW50LmFkZGVkKSB7XG4gICAgICAgIG9sZFBvcyArPSBjb21wb25lbnQuY291bnQ7XG4gICAgICB9XG4gICAgfSBlbHNlIHtcbiAgICAgIGNvbXBvbmVudC52YWx1ZSA9IG9sZFN0cmluZy5zbGljZShvbGRQb3MsIG9sZFBvcyArIGNvbXBvbmVudC5jb3VudCkuam9pbignJyk7XG4gICAgICBvbGRQb3MgKz0gY29tcG9uZW50LmNvdW50O1xuXG4gICAgICAvLyBSZXZlcnNlIGFkZCBhbmQgcmVtb3ZlIHNvIHJlbW92ZXMgYXJlIG91dHB1dCBmaXJzdCB0byBtYXRjaCBjb21tb24gY29udmVudGlvblxuICAgICAgLy8gVGhlIGRpZmZpbmcgYWxnb3JpdGhtIGlzIHRpZWQgdG8gYWRkIHRoZW4gcmVtb3ZlIG91dHB1dCBhbmQgdGhpcyBpcyB0aGUgc2ltcGxlc3RcbiAgICAgIC8vIHJvdXRlIHRvIGdldCB0aGUgZGVzaXJlZCBvdXRwdXQgd2l0aCBtaW5pbWFsIG92ZXJoZWFkLlxuICAgICAgaWYgKGNvbXBvbmVudFBvcyAmJiBjb21wb25lbnRzW2NvbXBvbmVudFBvcyAtIDFdLmFkZGVkKSB7XG4gICAgICAgIGxldCB0bXAgPSBjb21wb25lbnRzW2NvbXBvbmVudFBvcyAtIDFdO1xuICAgICAgICBjb21wb25lbnRzW2NvbXBvbmVudFBvcyAtIDFdID0gY29tcG9uZW50c1tjb21wb25lbnRQb3NdO1xuICAgICAgICBjb21wb25lbnRzW2NvbXBvbmVudFBvc10gPSB0bXA7XG4gICAgICB9XG4gICAgfVxuICB9XG5cbiAgLy8gU3BlY2lhbCBjYXNlIGhhbmRsZSBmb3Igd2hlbiBvbmUgdGVybWluYWwgaXMgaWdub3JlZC4gRm9yIHRoaXMgY2FzZSB3ZSBtZXJnZSB0aGVcbiAgLy8gdGVybWluYWwgaW50byB0aGUgcHJpb3Igc3RyaW5nIGFuZCBkcm9wIHRoZSBjaGFuZ2UuXG4gIGxldCBsYXN0Q29tcG9uZW50ID0gY29tcG9uZW50c1tjb21wb25lbnRMZW4gLSAxXTtcbiAgaWYgKChsYXN0Q29tcG9uZW50LmFkZGVkIHx8IGxhc3RDb21wb25lbnQucmVtb3ZlZCkgJiYgZGlmZi5lcXVhbHMoJycsIGxhc3RDb21wb25lbnQudmFsdWUpKSB7XG4gICAgY29tcG9uZW50c1tjb21wb25lbnRMZW4gLSAyXS52YWx1ZSArPSBsYXN0Q29tcG9uZW50LnZhbHVlO1xuICAgIGNvbXBvbmVudHMucG9wKCk7XG4gIH1cblxuICByZXR1cm4gY29tcG9uZW50cztcbn1cblxuZnVuY3Rpb24gY2xvbmVQYXRoKHBhdGgpIHtcbiAgcmV0dXJuIHsgbmV3UG9zOiBwYXRoLm5ld1BvcywgY29tcG9uZW50czogcGF0aC5jb21wb25lbnRzLnNsaWNlKDApIH07XG59XG4iXX0=
-
-
-/***/ },
-/* 664 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.diffChars = diffChars;
-	// istanbul ignore next
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _base = __webpack_require__(663);
-
-	var _base2 = _interopRequireDefault(_base);
-
-	var characterDiff = new _base2['default']();
-	exports.characterDiff = characterDiff;
-
-	function diffChars(oldStr, newStr, callback) {
-	  return characterDiff.diff(oldStr, newStr, callback);
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2NoYXJhY3Rlci5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztvQkFBaUIsUUFBUTs7OztBQUVsQixJQUFNLGFBQWEsR0FBRyx1QkFBVSxDQUFDOzs7QUFDakMsU0FBUyxTQUFTLENBQUMsTUFBTSxFQUFFLE1BQU0sRUFBRSxRQUFRLEVBQUU7QUFBRSxTQUFPLGFBQWEsQ0FBQyxJQUFJLENBQUMsTUFBTSxFQUFFLE1BQU0sRUFBRSxRQUFRLENBQUMsQ0FBQztDQUFFIiwiZmlsZSI6ImNoYXJhY3Rlci5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBEaWZmIGZyb20gJy4vYmFzZSc7XG5cbmV4cG9ydCBjb25zdCBjaGFyYWN0ZXJEaWZmID0gbmV3IERpZmYoKTtcbmV4cG9ydCBmdW5jdGlvbiBkaWZmQ2hhcnMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBjaGFyYWN0ZXJEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKTsgfVxuIl19
-
-
-/***/ },
-/* 665 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.diffWords = diffWords;
-	exports.diffWordsWithSpace = diffWordsWithSpace;
-	// istanbul ignore next
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _base = __webpack_require__(663);
-
-	var _base2 = _interopRequireDefault(_base);
-
-	var _utilParams = __webpack_require__(666);
-
-	// Based on https://en.wikipedia.org/wiki/Latin_script_in_Unicode
-	//
-	// Ranges and exceptions:
-	// Latin-1 Supplement, 0080–00FF
-	//  - U+00D7  × Multiplication sign
-	//  - U+00F7  ÷ Division sign
-	// Latin Extended-A, 0100–017F
-	// Latin Extended-B, 0180–024F
-	// IPA Extensions, 0250–02AF
-	// Spacing Modifier Letters, 02B0–02FF
-	//  - U+02C7  ˇ &#711;  Caron
-	//  - U+02D8  ˘ &#728;  Breve
-	//  - U+02D9  ˙ &#729;  Dot Above
-	//  - U+02DA  ˚ &#730;  Ring Above
-	//  - U+02DB  ˛ &#731;  Ogonek
-	//  - U+02DC  ˜ &#732;  Small Tilde
-	//  - U+02DD  ˝ &#733;  Double Acute Accent
-	// Latin Extended Additional, 1E00–1EFF
-	var extendedWordChars = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/;
-
-	var reWhitespace = /\S/;
-
-	var wordDiff = new _base2['default']();
-	exports.wordDiff = wordDiff;
-	wordDiff.equals = function (left, right) {
-	  return left === right || this.options.ignoreWhitespace && !reWhitespace.test(left) && !reWhitespace.test(right);
-	};
-	wordDiff.tokenize = function (value) {
-	  var tokens = value.split(/(\s+|\b)/);
-
-	  // Join the boundary splits that we do not consider to be boundaries. This is primarily the extended Latin character set.
-	  for (var i = 0; i < tokens.length - 1; i++) {
-	    // If we have an empty string in the next field and we have only word chars before and after, merge
-	    if (!tokens[i + 1] && tokens[i + 2] && extendedWordChars.test(tokens[i]) && extendedWordChars.test(tokens[i + 2])) {
-	      tokens[i] += tokens[i + 2];
-	      tokens.splice(i + 1, 2);
-	      i--;
-	    }
-	  }
-
-	  return tokens;
-	};
-
-	function diffWords(oldStr, newStr, callback) {
-	  var options = _utilParams.generateOptions(callback, { ignoreWhitespace: true });
-	  return wordDiff.diff(oldStr, newStr, options);
-	}
-
-	function diffWordsWithSpace(oldStr, newStr, callback) {
-	  return wordDiff.diff(oldStr, newStr, callback);
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL3dvcmQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O29CQUFpQixRQUFROzs7OzBCQUNLLGdCQUFnQjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFvQjlDLElBQU0saUJBQWlCLEdBQUcsK0RBQXFHLENBQUM7O0FBRWhJLElBQU0sWUFBWSxHQUFHLElBQUksQ0FBQzs7QUFFbkIsSUFBTSxRQUFRLEdBQUcsdUJBQVUsQ0FBQzs7QUFDbkMsUUFBUSxDQUFDLE1BQU0sR0FBRyxVQUFTLElBQUksRUFBRSxLQUFLLEVBQUU7QUFDdEMsU0FBTyxJQUFJLEtBQUssS0FBSyxJQUFLLElBQUksQ0FBQyxPQUFPLENBQUMsZ0JBQWdCLElBQUksQ0FBQyxZQUFZLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsWUFBWSxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQUFBQyxDQUFDO0NBQ25ILENBQUM7QUFDRixRQUFRLENBQUMsUUFBUSxHQUFHLFVBQVMsS0FBSyxFQUFFO0FBQ2xDLE1BQUksTUFBTSxHQUFHLEtBQUssQ0FBQyxLQUFLLENBQUMsVUFBVSxDQUFDLENBQUM7OztBQUdyQyxPQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsTUFBTSxDQUFDLE1BQU0sR0FBRyxDQUFDLEVBQUUsQ0FBQyxFQUFFLEVBQUU7O0FBRTFDLFFBQUksQ0FBQyxNQUFNLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLE1BQU0sQ0FBQyxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQzFCLGlCQUFpQixDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLENBQUMsSUFDakMsaUJBQWlCLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsRUFBRTtBQUM5QyxZQUFNLENBQUMsQ0FBQyxDQUFDLElBQUksTUFBTSxDQUFDLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQztBQUMzQixZQUFNLENBQUMsTUFBTSxDQUFDLENBQUMsR0FBRyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUM7QUFDeEIsT0FBQyxFQUFFLENBQUM7S0FDTDtHQUNGOztBQUVELFNBQU8sTUFBTSxDQUFDO0NBQ2YsQ0FBQzs7QUFFSyxTQUFTLFNBQVMsQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsRUFBRTtBQUNsRCxNQUFJLE9BQU8sR0FBRyw0QkFBZ0IsUUFBUSxFQUFFLEVBQUMsZ0JBQWdCLEVBQUUsSUFBSSxFQUFDLENBQUMsQ0FBQztBQUNsRSxTQUFPLFFBQVEsQ0FBQyxJQUFJLENBQUMsTUFBTSxFQUFFLE1BQU0sRUFBRSxPQUFPLENBQUMsQ0FBQztDQUMvQzs7QUFDTSxTQUFTLGtCQUFrQixDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxFQUFFO0FBQzNELFNBQU8sUUFBUSxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFDO0NBQ2hEIiwiZmlsZSI6IndvcmQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgRGlmZiBmcm9tICcuL2Jhc2UnO1xuaW1wb3J0IHtnZW5lcmF0ZU9wdGlvbnN9IGZyb20gJy4uL3V0aWwvcGFyYW1zJztcblxuLy8gQmFzZWQgb24gaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvTGF0aW5fc2NyaXB0X2luX1VuaWNvZGVcbi8vXG4vLyBSYW5nZXMgYW5kIGV4Y2VwdGlvbnM6XG4vLyBMYXRpbi0xIFN1cHBsZW1lbnQsIDAwODDigJMwMEZGXG4vLyAgLSBVKzAwRDcgIMOXIE11bHRpcGxpY2F0aW9uIHNpZ25cbi8vICAtIFUrMDBGNyAgw7cgRGl2aXNpb24gc2lnblxuLy8gTGF0aW4gRXh0ZW5kZWQtQSwgMDEwMOKAkzAxN0Zcbi8vIExhdGluIEV4dGVuZGVkLUIsIDAxODDigJMwMjRGXG4vLyBJUEEgRXh0ZW5zaW9ucywgMDI1MOKAkzAyQUZcbi8vIFNwYWNpbmcgTW9kaWZpZXIgTGV0dGVycywgMDJCMOKAkzAyRkZcbi8vICAtIFUrMDJDNyAgy4cgJiM3MTE7ICBDYXJvblxuLy8gIC0gVSswMkQ4ICDLmCAmIzcyODsgIEJyZXZlXG4vLyAgLSBVKzAyRDkgIMuZICYjNzI5OyAgRG90IEFib3ZlXG4vLyAgLSBVKzAyREEgIMuaICYjNzMwOyAgUmluZyBBYm92ZVxuLy8gIC0gVSswMkRCICDLmyAmIzczMTsgIE9nb25la1xuLy8gIC0gVSswMkRDICDLnCAmIzczMjsgIFNtYWxsIFRpbGRlXG4vLyAgLSBVKzAyREQgIMudICYjNzMzOyAgRG91YmxlIEFjdXRlIEFjY2VudFxuLy8gTGF0aW4gRXh0ZW5kZWQgQWRkaXRpb25hbCwgMUUwMOKAkzFFRkZcbmNvbnN0IGV4dGVuZGVkV29yZENoYXJzID0gL15bYS16QS1aXFx1e0MwfS1cXHV7RkZ9XFx1e0Q4fS1cXHV7RjZ9XFx1e0Y4fS1cXHV7MkM2fVxcdXsyQzh9LVxcdXsyRDd9XFx1ezJERX0tXFx1ezJGRn1cXHV7MUUwMH0tXFx1ezFFRkZ9XSskL3U7XG5cbmNvbnN0IHJlV2hpdGVzcGFjZSA9IC9cXFMvO1xuXG5leHBvcnQgY29uc3Qgd29yZERpZmYgPSBuZXcgRGlmZigpO1xud29yZERpZmYuZXF1YWxzID0gZnVuY3Rpb24obGVmdCwgcmlnaHQpIHtcbiAgcmV0dXJuIGxlZnQgPT09IHJpZ2h0IHx8ICh0aGlzLm9wdGlvbnMuaWdub3JlV2hpdGVzcGFjZSAmJiAhcmVXaGl0ZXNwYWNlLnRlc3QobGVmdCkgJiYgIXJlV2hpdGVzcGFjZS50ZXN0KHJpZ2h0KSk7XG59O1xud29yZERpZmYudG9rZW5pemUgPSBmdW5jdGlvbih2YWx1ZSkge1xuICBsZXQgdG9rZW5zID0gdmFsdWUuc3BsaXQoLyhcXHMrfFxcYikvKTtcblxuICAvLyBKb2luIHRoZSBib3VuZGFyeSBzcGxpdHMgdGhhdCB3ZSBkbyBub3QgY29uc2lkZXIgdG8gYmUgYm91bmRhcmllcy4gVGhpcyBpcyBwcmltYXJpbHkgdGhlIGV4dGVuZGVkIExhdGluIGNoYXJhY3RlciBzZXQuXG4gIGZvciAobGV0IGkgPSAwOyBpIDwgdG9rZW5zLmxlbmd0aCAtIDE7IGkrKykge1xuICAgIC8vIElmIHdlIGhhdmUgYW4gZW1wdHkgc3RyaW5nIGluIHRoZSBuZXh0IGZpZWxkIGFuZCB3ZSBoYXZlIG9ubHkgd29yZCBjaGFycyBiZWZvcmUgYW5kIGFmdGVyLCBtZXJnZVxuICAgIGlmICghdG9rZW5zW2kgKyAxXSAmJiB0b2tlbnNbaSArIDJdXG4gICAgICAgICAgJiYgZXh0ZW5kZWRXb3JkQ2hhcnMudGVzdCh0b2tlbnNbaV0pXG4gICAgICAgICAgJiYgZXh0ZW5kZWRXb3JkQ2hhcnMudGVzdCh0b2tlbnNbaSArIDJdKSkge1xuICAgICAgdG9rZW5zW2ldICs9IHRva2Vuc1tpICsgMl07XG4gICAgICB0b2tlbnMuc3BsaWNlKGkgKyAxLCAyKTtcbiAgICAgIGktLTtcbiAgICB9XG4gIH1cblxuICByZXR1cm4gdG9rZW5zO1xufTtcblxuZXhwb3J0IGZ1bmN0aW9uIGRpZmZXb3JkcyhvbGRTdHIsIG5ld1N0ciwgY2FsbGJhY2spIHtcbiAgbGV0IG9wdGlvbnMgPSBnZW5lcmF0ZU9wdGlvbnMoY2FsbGJhY2ssIHtpZ25vcmVXaGl0ZXNwYWNlOiB0cnVlfSk7XG4gIHJldHVybiB3b3JkRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBvcHRpb25zKTtcbn1cbmV4cG9ydCBmdW5jdGlvbiBkaWZmV29yZHNXaXRoU3BhY2Uob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7XG4gIHJldHVybiB3b3JkRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjayk7XG59XG4iXX0=
-
-
-/***/ },
-/* 666 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.generateOptions = generateOptions;
-
-	function generateOptions(options, defaults) {
-	  if (typeof options === 'function') {
-	    defaults.callback = options;
-	  } else if (options) {
-	    for (var _name in options) {
-	      /* istanbul ignore else */
-	      if (options.hasOwnProperty(_name)) {
-	        defaults[_name] = options[_name];
-	      }
-	    }
-	  }
-	  return defaults;
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlsL3BhcmFtcy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFPLFNBQVMsZUFBZSxDQUFDLE9BQU8sRUFBRSxRQUFRLEVBQUU7QUFDakQsTUFBSSxPQUFPLE9BQU8sS0FBSyxVQUFVLEVBQUU7QUFDakMsWUFBUSxDQUFDLFFBQVEsR0FBRyxPQUFPLENBQUM7R0FDN0IsTUFBTSxJQUFJLE9BQU8sRUFBRTtBQUNsQixTQUFLLElBQUksS0FBSSxJQUFJLE9BQU8sRUFBRTs7QUFFeEIsVUFBSSxPQUFPLENBQUMsY0FBYyxDQUFDLEtBQUksQ0FBQyxFQUFFO0FBQ2hDLGdCQUFRLENBQUMsS0FBSSxDQUFDLEdBQUcsT0FBTyxDQUFDLEtBQUksQ0FBQyxDQUFDO09BQ2hDO0tBQ0Y7R0FDRjtBQUNELFNBQU8sUUFBUSxDQUFDO0NBQ2pCIiwiZmlsZSI6InBhcmFtcy5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBnZW5lcmF0ZU9wdGlvbnMob3B0aW9ucywgZGVmYXVsdHMpIHtcbiAgaWYgKHR5cGVvZiBvcHRpb25zID09PSAnZnVuY3Rpb24nKSB7XG4gICAgZGVmYXVsdHMuY2FsbGJhY2sgPSBvcHRpb25zO1xuICB9IGVsc2UgaWYgKG9wdGlvbnMpIHtcbiAgICBmb3IgKGxldCBuYW1lIGluIG9wdGlvbnMpIHtcbiAgICAgIC8qIGlzdGFuYnVsIGlnbm9yZSBlbHNlICovXG4gICAgICBpZiAob3B0aW9ucy5oYXNPd25Qcm9wZXJ0eShuYW1lKSkge1xuICAgICAgICBkZWZhdWx0c1tuYW1lXSA9IG9wdGlvbnNbbmFtZV07XG4gICAgICB9XG4gICAgfVxuICB9XG4gIHJldHVybiBkZWZhdWx0cztcbn1cbiJdfQ==
-
-
-/***/ },
-/* 667 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.diffLines = diffLines;
-	exports.diffTrimmedLines = diffTrimmedLines;
-	// istanbul ignore next
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _base = __webpack_require__(663);
-
-	var _base2 = _interopRequireDefault(_base);
-
-	var _utilParams = __webpack_require__(666);
-
-	var lineDiff = new _base2['default']();
-	exports.lineDiff = lineDiff;
-	lineDiff.tokenize = function (value) {
-	  var retLines = [],
-	      linesAndNewlines = value.split(/(\n|\r\n)/);
-
-	  // Ignore the final empty token that occurs if the string ends with a new line
-	  if (!linesAndNewlines[linesAndNewlines.length - 1]) {
-	    linesAndNewlines.pop();
-	  }
-
-	  // Merge the content and line separators into single tokens
-	  for (var i = 0; i < linesAndNewlines.length; i++) {
-	    var line = linesAndNewlines[i];
-
-	    if (i % 2 && !this.options.newlineIsToken) {
-	      retLines[retLines.length - 1] += line;
-	    } else {
-	      if (this.options.ignoreWhitespace) {
-	        line = line.trim();
-	      }
-	      retLines.push(line);
-	    }
-	  }
-
-	  return retLines;
-	};
-
-	function diffLines(oldStr, newStr, callback) {
-	  return lineDiff.diff(oldStr, newStr, callback);
-	}
-
-	function diffTrimmedLines(oldStr, newStr, callback) {
-	  var options = _utilParams.generateOptions(callback, { ignoreWhitespace: true });
-	  return lineDiff.diff(oldStr, newStr, options);
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2xpbmUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O29CQUFpQixRQUFROzs7OzBCQUNLLGdCQUFnQjs7QUFFdkMsSUFBTSxRQUFRLEdBQUcsdUJBQVUsQ0FBQzs7QUFDbkMsUUFBUSxDQUFDLFFBQVEsR0FBRyxVQUFTLEtBQUssRUFBRTtBQUNsQyxNQUFJLFFBQVEsR0FBRyxFQUFFO01BQ2IsZ0JBQWdCLEdBQUcsS0FBSyxDQUFDLEtBQUssQ0FBQyxXQUFXLENBQUMsQ0FBQzs7O0FBR2hELE1BQUksQ0FBQyxnQkFBZ0IsQ0FBQyxnQkFBZ0IsQ0FBQyxNQUFNLEdBQUcsQ0FBQyxDQUFDLEVBQUU7QUFDbEQsb0JBQWdCLENBQUMsR0FBRyxFQUFFLENBQUM7R0FDeEI7OztBQUdELE9BQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxnQkFBZ0IsQ0FBQyxNQUFNLEVBQUUsQ0FBQyxFQUFFLEVBQUU7QUFDaEQsUUFBSSxJQUFJLEdBQUcsZ0JBQWdCLENBQUMsQ0FBQyxDQUFDLENBQUM7O0FBRS9CLFFBQUksQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsY0FBYyxFQUFFO0FBQ3pDLGNBQVEsQ0FBQyxRQUFRLENBQUMsTUFBTSxHQUFHLENBQUMsQ0FBQyxJQUFJLElBQUksQ0FBQztLQUN2QyxNQUFNO0FBQ0wsVUFBSSxJQUFJLENBQUMsT0FBTyxDQUFDLGdCQUFnQixFQUFFO0FBQ2pDLFlBQUksR0FBRyxJQUFJLENBQUMsSUFBSSxFQUFFLENBQUM7T0FDcEI7QUFDRCxjQUFRLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO0tBQ3JCO0dBQ0Y7O0FBRUQsU0FBTyxRQUFRLENBQUM7Q0FDakIsQ0FBQzs7QUFFSyxTQUFTLFNBQVMsQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsRUFBRTtBQUFFLFNBQU8sUUFBUSxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFDO0NBQUU7O0FBQ2hHLFNBQVMsZ0JBQWdCLENBQUMsTUFBTSxFQUFFLE1BQU0sRUFBRSxRQUFRLEVBQUU7QUFDekQsTUFBSSxPQUFPLEdBQUcsNEJBQWdCLFFBQVEsRUFBRSxFQUFDLGdCQUFnQixFQUFFLElBQUksRUFBQyxDQUFDLENBQUM7QUFDbEUsU0FBTyxRQUFRLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsT0FBTyxDQUFDLENBQUM7Q0FDL0MiLCJmaWxlIjoibGluZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBEaWZmIGZyb20gJy4vYmFzZSc7XG5pbXBvcnQge2dlbmVyYXRlT3B0aW9uc30gZnJvbSAnLi4vdXRpbC9wYXJhbXMnO1xuXG5leHBvcnQgY29uc3QgbGluZURpZmYgPSBuZXcgRGlmZigpO1xubGluZURpZmYudG9rZW5pemUgPSBmdW5jdGlvbih2YWx1ZSkge1xuICBsZXQgcmV0TGluZXMgPSBbXSxcbiAgICAgIGxpbmVzQW5kTmV3bGluZXMgPSB2YWx1ZS5zcGxpdCgvKFxcbnxcXHJcXG4pLyk7XG5cbiAgLy8gSWdub3JlIHRoZSBmaW5hbCBlbXB0eSB0b2tlbiB0aGF0IG9jY3VycyBpZiB0aGUgc3RyaW5nIGVuZHMgd2l0aCBhIG5ldyBsaW5lXG4gIGlmICghbGluZXNBbmROZXdsaW5lc1tsaW5lc0FuZE5ld2xpbmVzLmxlbmd0aCAtIDFdKSB7XG4gICAgbGluZXNBbmROZXdsaW5lcy5wb3AoKTtcbiAgfVxuXG4gIC8vIE1lcmdlIHRoZSBjb250ZW50IGFuZCBsaW5lIHNlcGFyYXRvcnMgaW50byBzaW5nbGUgdG9rZW5zXG4gIGZvciAobGV0IGkgPSAwOyBpIDwgbGluZXNBbmROZXdsaW5lcy5sZW5ndGg7IGkrKykge1xuICAgIGxldCBsaW5lID0gbGluZXNBbmROZXdsaW5lc1tpXTtcblxuICAgIGlmIChpICUgMiAmJiAhdGhpcy5vcHRpb25zLm5ld2xpbmVJc1Rva2VuKSB7XG4gICAgICByZXRMaW5lc1tyZXRMaW5lcy5sZW5ndGggLSAxXSArPSBsaW5lO1xuICAgIH0gZWxzZSB7XG4gICAgICBpZiAodGhpcy5vcHRpb25zLmlnbm9yZVdoaXRlc3BhY2UpIHtcbiAgICAgICAgbGluZSA9IGxpbmUudHJpbSgpO1xuICAgICAgfVxuICAgICAgcmV0TGluZXMucHVzaChsaW5lKTtcbiAgICB9XG4gIH1cblxuICByZXR1cm4gcmV0TGluZXM7XG59O1xuXG5leHBvcnQgZnVuY3Rpb24gZGlmZkxpbmVzKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjaykgeyByZXR1cm4gbGluZURpZmYuZGlmZihvbGRTdHIsIG5ld1N0ciwgY2FsbGJhY2spOyB9XG5leHBvcnQgZnVuY3Rpb24gZGlmZlRyaW1tZWRMaW5lcyhvbGRTdHIsIG5ld1N0ciwgY2FsbGJhY2spIHtcbiAgbGV0IG9wdGlvbnMgPSBnZW5lcmF0ZU9wdGlvbnMoY2FsbGJhY2ssIHtpZ25vcmVXaGl0ZXNwYWNlOiB0cnVlfSk7XG4gIHJldHVybiBsaW5lRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBvcHRpb25zKTtcbn1cbiJdfQ==
-
-
-/***/ },
-/* 668 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.diffSentences = diffSentences;
-	// istanbul ignore next
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _base = __webpack_require__(663);
-
-	var _base2 = _interopRequireDefault(_base);
-
-	var sentenceDiff = new _base2['default']();
-	exports.sentenceDiff = sentenceDiff;
-	sentenceDiff.tokenize = function (value) {
-	  return value.split(/(\S.+?[.!?])(?=\s+|$)/);
-	};
-
-	function diffSentences(oldStr, newStr, callback) {
-	  return sentenceDiff.diff(oldStr, newStr, callback);
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL3NlbnRlbmNlLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O29CQUFpQixRQUFROzs7O0FBR2xCLElBQU0sWUFBWSxHQUFHLHVCQUFVLENBQUM7O0FBQ3ZDLFlBQVksQ0FBQyxRQUFRLEdBQUcsVUFBUyxLQUFLLEVBQUU7QUFDdEMsU0FBTyxLQUFLLENBQUMsS0FBSyxDQUFDLHVCQUF1QixDQUFDLENBQUM7Q0FDN0MsQ0FBQzs7QUFFSyxTQUFTLGFBQWEsQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsRUFBRTtBQUFFLFNBQU8sWUFBWSxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFDO0NBQUUiLCJmaWxlIjoic2VudGVuY2UuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgRGlmZiBmcm9tICcuL2Jhc2UnO1xuXG5cbmV4cG9ydCBjb25zdCBzZW50ZW5jZURpZmYgPSBuZXcgRGlmZigpO1xuc2VudGVuY2VEaWZmLnRva2VuaXplID0gZnVuY3Rpb24odmFsdWUpIHtcbiAgcmV0dXJuIHZhbHVlLnNwbGl0KC8oXFxTLis/Wy4hP10pKD89XFxzK3wkKS8pO1xufTtcblxuZXhwb3J0IGZ1bmN0aW9uIGRpZmZTZW50ZW5jZXMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBzZW50ZW5jZURpZmYuZGlmZihvbGRTdHIsIG5ld1N0ciwgY2FsbGJhY2spOyB9XG4iXX0=
-
-
-/***/ },
-/* 669 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.diffCss = diffCss;
-	// istanbul ignore next
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _base = __webpack_require__(663);
-
-	var _base2 = _interopRequireDefault(_base);
-
-	var cssDiff = new _base2['default']();
-	exports.cssDiff = cssDiff;
-	cssDiff.tokenize = function (value) {
-	  return value.split(/([{}:;,]|\s+)/);
-	};
-
-	function diffCss(oldStr, newStr, callback) {
-	  return cssDiff.diff(oldStr, newStr, callback);
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2Nzcy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztvQkFBaUIsUUFBUTs7OztBQUVsQixJQUFNLE9BQU8sR0FBRyx1QkFBVSxDQUFDOztBQUNsQyxPQUFPLENBQUMsUUFBUSxHQUFHLFVBQVMsS0FBSyxFQUFFO0FBQ2pDLFNBQU8sS0FBSyxDQUFDLEtBQUssQ0FBQyxlQUFlLENBQUMsQ0FBQztDQUNyQyxDQUFDOztBQUVLLFNBQVMsT0FBTyxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxFQUFFO0FBQUUsU0FBTyxPQUFPLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxDQUFDLENBQUM7Q0FBRSIsImZpbGUiOiJjc3MuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgRGlmZiBmcm9tICcuL2Jhc2UnO1xuXG5leHBvcnQgY29uc3QgY3NzRGlmZiA9IG5ldyBEaWZmKCk7XG5jc3NEaWZmLnRva2VuaXplID0gZnVuY3Rpb24odmFsdWUpIHtcbiAgcmV0dXJuIHZhbHVlLnNwbGl0KC8oW3t9OjssXXxcXHMrKS8pO1xufTtcblxuZXhwb3J0IGZ1bmN0aW9uIGRpZmZDc3Mob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBjc3NEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKTsgfVxuIl19
-
-
-/***/ },
-/* 670 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.diffJson = diffJson;
-	exports.canonicalize = canonicalize;
-	// istanbul ignore next
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _base = __webpack_require__(663);
-
-	var _base2 = _interopRequireDefault(_base);
-
-	var _line = __webpack_require__(667);
-
-	var objectPrototypeToString = Object.prototype.toString;
-
-	var jsonDiff = new _base2['default']();
-	exports.jsonDiff = jsonDiff;
-	// Discriminate between two lines of pretty-printed, serialized JSON where one of them has a
-	// dangling comma and the other doesn't. Turns out including the dangling comma yields the nicest output:
-	jsonDiff.useLongestToken = true;
-
-	jsonDiff.tokenize = _line.lineDiff.tokenize;
-	jsonDiff.castInput = function (value) {
-	  return typeof value === 'string' ? value : JSON.stringify(canonicalize(value), undefined, '  ');
-	};
-	jsonDiff.equals = function (left, right) {
-	  return _base2['default'].prototype.equals(left.replace(/,([\r\n])/g, '$1'), right.replace(/,([\r\n])/g, '$1'));
-	};
-
-	function diffJson(oldObj, newObj, callback) {
-	  return jsonDiff.diff(oldObj, newObj, callback);
-	}
-
-	// This function handles the presence of circular references by bailing out when encountering an
-	// object that is already on the "stack" of items being processed.
-
-	function canonicalize(obj, stack, replacementStack) {
-	  stack = stack || [];
-	  replacementStack = replacementStack || [];
-
-	  var i = undefined;
-
-	  for (i = 0; i < stack.length; i += 1) {
-	    if (stack[i] === obj) {
-	      return replacementStack[i];
-	    }
-	  }
-
-	  var canonicalizedObj = undefined;
-
-	  if ('[object Array]' === objectPrototypeToString.call(obj)) {
-	    stack.push(obj);
-	    canonicalizedObj = new Array(obj.length);
-	    replacementStack.push(canonicalizedObj);
-	    for (i = 0; i < obj.length; i += 1) {
-	      canonicalizedObj[i] = canonicalize(obj[i], stack, replacementStack);
-	    }
-	    stack.pop();
-	    replacementStack.pop();
-	  } else if (typeof obj === 'object' && obj !== null) {
-	    stack.push(obj);
-	    canonicalizedObj = {};
-	    replacementStack.push(canonicalizedObj);
-	    var sortedKeys = [],
-	        key = undefined;
-	    for (key in obj) {
-	      /* istanbul ignore else */
-	      if (obj.hasOwnProperty(key)) {
-	        sortedKeys.push(key);
-	      }
-	    }
-	    sortedKeys.sort();
-	    for (i = 0; i < sortedKeys.length; i += 1) {
-	      key = sortedKeys[i];
-	      canonicalizedObj[key] = canonicalize(obj[key], stack, replacementStack);
-	    }
-	    stack.pop();
-	    replacementStack.pop();
-	  } else {
-	    canonicalizedObj = obj;
-	  }
-	  return canonicalizedObj;
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2pzb24uanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O29CQUFpQixRQUFROzs7O29CQUNGLFFBQVE7O0FBRS9CLElBQU0sdUJBQXVCLEdBQUcsTUFBTSxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUM7O0FBR25ELElBQU0sUUFBUSxHQUFHLHVCQUFVLENBQUM7Ozs7QUFHbkMsUUFBUSxDQUFDLGVBQWUsR0FBRyxJQUFJLENBQUM7O0FBRWhDLFFBQVEsQ0FBQyxRQUFRLEdBQUcsZUFBUyxRQUFRLENBQUM7QUFDdEMsUUFBUSxDQUFDLFNBQVMsR0FBRyxVQUFTLEtBQUssRUFBRTtBQUNuQyxTQUFPLE9BQU8sS0FBSyxLQUFLLFFBQVEsR0FBRyxLQUFLLEdBQUcsSUFBSSxDQUFDLFNBQVMsQ0FBQyxZQUFZLENBQUMsS0FBSyxDQUFDLEVBQUUsU0FBUyxFQUFFLElBQUksQ0FBQyxDQUFDO0NBQ2pHLENBQUM7QUFDRixRQUFRLENBQUMsTUFBTSxHQUFHLFVBQVMsSUFBSSxFQUFFLEtBQUssRUFBRTtBQUN0QyxTQUFPLGtCQUFLLFNBQVMsQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxZQUFZLEVBQUUsSUFBSSxDQUFDLEVBQUUsS0FBSyxDQUFDLE9BQU8sQ0FBQyxZQUFZLEVBQUUsSUFBSSxDQUFDLENBQUMsQ0FBQztDQUNuRyxDQUFDOztBQUVLLFNBQVMsUUFBUSxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxFQUFFO0FBQUUsU0FBTyxRQUFRLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxDQUFDLENBQUM7Q0FBRTs7Ozs7QUFLL0YsU0FBUyxZQUFZLENBQUMsR0FBRyxFQUFFLEtBQUssRUFBRSxnQkFBZ0IsRUFBRTtBQUN6RCxPQUFLLEdBQUcsS0FBSyxJQUFJLEVBQUUsQ0FBQztBQUNwQixrQkFBZ0IsR0FBRyxnQkFBZ0IsSUFBSSxFQUFFLENBQUM7O0FBRTFDLE1BQUksQ0FBQyxZQUFBLENBQUM7O0FBRU4sT0FBSyxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxLQUFLLENBQUMsTUFBTSxFQUFFLENBQUMsSUFBSSxDQUFDLEVBQUU7QUFDcEMsUUFBSSxLQUFLLENBQUMsQ0FBQyxDQUFDLEtBQUssR0FBRyxFQUFFO0FBQ3BCLGFBQU8sZ0JBQWdCLENBQUMsQ0FBQyxDQUFDLENBQUM7S0FDNUI7R0FDRjs7QUFFRCxNQUFJLGdCQUFnQixZQUFBLENBQUM7O0FBRXJCLE1BQUksZ0JBQWdCLEtBQUssdUJBQXVCLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFO0FBQzFELFNBQUssQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLENBQUM7QUFDaEIsb0JBQWdCLEdBQUcsSUFBSSxLQUFLLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxDQUFDO0FBQ3pDLG9CQUFnQixDQUFDLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDO0FBQ3hDLFNBQUssQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsR0FBRyxDQUFDLE1BQU0sRUFBRSxDQUFDLElBQUksQ0FBQyxFQUFFO0FBQ2xDLHNCQUFnQixDQUFDLENBQUMsQ0FBQyxHQUFHLFlBQVksQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLEVBQUUsS0FBSyxFQUFFLGdCQUFnQixDQUFDLENBQUM7S0FDckU7QUFDRCxTQUFLLENBQUMsR0FBRyxFQUFFLENBQUM7QUFDWixvQkFBZ0IsQ0FBQyxHQUFHLEVBQUUsQ0FBQztHQUN4QixNQUFNLElBQUksT0FBTyxHQUFHLEtBQUssUUFBUSxJQUFJLEdBQUcsS0FBSyxJQUFJLEVBQUU7QUFDbEQsU0FBSyxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQztBQUNoQixvQkFBZ0IsR0FBRyxFQUFFLENBQUM7QUFDdEIsb0JBQWdCLENBQUMsSUFBSSxDQUFDLGdCQUFnQixDQUFDLENBQUM7QUFDeEMsUUFBSSxVQUFVLEdBQUcsRUFBRTtRQUNmLEdBQUcsWUFBQSxDQUFDO0FBQ1IsU0FBSyxHQUFHLElBQUksR0FBRyxFQUFFOztBQUVmLFVBQUksR0FBRyxDQUFDLGNBQWMsQ0FBQyxHQUFHLENBQUMsRUFBRTtBQUMzQixrQkFBVSxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQztPQUN0QjtLQUNGO0FBQ0QsY0FBVSxDQUFDLElBQUksRUFBRSxDQUFDO0FBQ2xCLFNBQUssQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsVUFBVSxDQUFDLE1BQU0sRUFBRSxDQUFDLElBQUksQ0FBQyxFQUFFO0FBQ3pDLFNBQUcsR0FBRyxVQUFVLENBQUMsQ0FBQyxDQUFDLENBQUM7QUFDcEIsc0JBQWdCLENBQUMsR0FBRyxDQUFDLEdBQUcsWUFBWSxDQUFDLEdBQUcsQ0FBQyxHQUFHLENBQUMsRUFBRSxLQUFLLEVBQUUsZ0JBQWdCLENBQUMsQ0FBQztLQUN6RTtBQUNELFNBQUssQ0FBQyxHQUFHLEVBQUUsQ0FBQztBQUNaLG9CQUFnQixDQUFDLEdBQUcsRUFBRSxDQUFDO0dBQ3hCLE1BQU07QUFDTCxvQkFBZ0IsR0FBRyxHQUFHLENBQUM7R0FDeEI7QUFDRCxTQUFPLGdCQUFnQixDQUFDO0NBQ3pCIiwiZmlsZSI6Impzb24uanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgRGlmZiBmcm9tICcuL2Jhc2UnO1xuaW1wb3J0IHtsaW5lRGlmZn0gZnJvbSAnLi9saW5lJztcblxuY29uc3Qgb2JqZWN0UHJvdG90eXBlVG9TdHJpbmcgPSBPYmplY3QucHJvdG90eXBlLnRvU3RyaW5nO1xuXG5cbmV4cG9ydCBjb25zdCBqc29uRGlmZiA9IG5ldyBEaWZmKCk7XG4vLyBEaXNjcmltaW5hdGUgYmV0d2VlbiB0d28gbGluZXMgb2YgcHJldHR5LXByaW50ZWQsIHNlcmlhbGl6ZWQgSlNPTiB3aGVyZSBvbmUgb2YgdGhlbSBoYXMgYVxuLy8gZGFuZ2xpbmcgY29tbWEgYW5kIHRoZSBvdGhlciBkb2Vzbid0LiBUdXJucyBvdXQgaW5jbHVkaW5nIHRoZSBkYW5nbGluZyBjb21tYSB5aWVsZHMgdGhlIG5pY2VzdCBvdXRwdXQ6XG5qc29uRGlmZi51c2VMb25nZXN0VG9rZW4gPSB0cnVlO1xuXG5qc29uRGlmZi50b2tlbml6ZSA9IGxpbmVEaWZmLnRva2VuaXplO1xuanNvbkRpZmYuY2FzdElucHV0ID0gZnVuY3Rpb24odmFsdWUpIHtcbiAgcmV0dXJuIHR5cGVvZiB2YWx1ZSA9PT0gJ3N0cmluZycgPyB2YWx1ZSA6IEpTT04uc3RyaW5naWZ5KGNhbm9uaWNhbGl6ZSh2YWx1ZSksIHVuZGVmaW5lZCwgJyAgJyk7XG59O1xuanNvbkRpZmYuZXF1YWxzID0gZnVuY3Rpb24obGVmdCwgcmlnaHQpIHtcbiAgcmV0dXJuIERpZmYucHJvdG90eXBlLmVxdWFscyhsZWZ0LnJlcGxhY2UoLywoW1xcclxcbl0pL2csICckMScpLCByaWdodC5yZXBsYWNlKC8sKFtcXHJcXG5dKS9nLCAnJDEnKSk7XG59O1xuXG5leHBvcnQgZnVuY3Rpb24gZGlmZkpzb24ob2xkT2JqLCBuZXdPYmosIGNhbGxiYWNrKSB7IHJldHVybiBqc29uRGlmZi5kaWZmKG9sZE9iaiwgbmV3T2JqLCBjYWxsYmFjayk7IH1cblxuXG4vLyBUaGlzIGZ1bmN0aW9uIGhhbmRsZXMgdGhlIHByZXNlbmNlIG9mIGNpcmN1bGFyIHJlZmVyZW5jZXMgYnkgYmFpbGluZyBvdXQgd2hlbiBlbmNvdW50ZXJpbmcgYW5cbi8vIG9iamVjdCB0aGF0IGlzIGFscmVhZHkgb24gdGhlIFwic3RhY2tcIiBvZiBpdGVtcyBiZWluZyBwcm9jZXNzZWQuXG5leHBvcnQgZnVuY3Rpb24gY2Fub25pY2FsaXplKG9iaiwgc3RhY2ssIHJlcGxhY2VtZW50U3RhY2spIHtcbiAgc3RhY2sgPSBzdGFjayB8fCBbXTtcbiAgcmVwbGFjZW1lbnRTdGFjayA9IHJlcGxhY2VtZW50U3RhY2sgfHwgW107XG5cbiAgbGV0IGk7XG5cbiAgZm9yIChpID0gMDsgaSA8IHN0YWNrLmxlbmd0aDsgaSArPSAxKSB7XG4gICAgaWYgKHN0YWNrW2ldID09PSBvYmopIHtcbiAgICAgIHJldHVybiByZXBsYWNlbWVudFN0YWNrW2ldO1xuICAgIH1cbiAgfVxuXG4gIGxldCBjYW5vbmljYWxpemVkT2JqO1xuXG4gIGlmICgnW29iamVjdCBBcnJheV0nID09PSBvYmplY3RQcm90b3R5cGVUb1N0cmluZy5jYWxsKG9iaikpIHtcbiAgICBzdGFjay5wdXNoKG9iaik7XG4gICAgY2Fub25pY2FsaXplZE9iaiA9IG5ldyBBcnJheShvYmoubGVuZ3RoKTtcbiAgICByZXBsYWNlbWVudFN0YWNrLnB1c2goY2Fub25pY2FsaXplZE9iaik7XG4gICAgZm9yIChpID0gMDsgaSA8IG9iai5sZW5ndGg7IGkgKz0gMSkge1xuICAgICAgY2Fub25pY2FsaXplZE9ialtpXSA9IGNhbm9uaWNhbGl6ZShvYmpbaV0sIHN0YWNrLCByZXBsYWNlbWVudFN0YWNrKTtcbiAgICB9XG4gICAgc3RhY2sucG9wKCk7XG4gICAgcmVwbGFjZW1lbnRTdGFjay5wb3AoKTtcbiAgfSBlbHNlIGlmICh0eXBlb2Ygb2JqID09PSAnb2JqZWN0JyAmJiBvYmogIT09IG51bGwpIHtcbiAgICBzdGFjay5wdXNoKG9iaik7XG4gICAgY2Fub25pY2FsaXplZE9iaiA9IHt9O1xuICAgIHJlcGxhY2VtZW50U3RhY2sucHVzaChjYW5vbmljYWxpemVkT2JqKTtcbiAgICBsZXQgc29ydGVkS2V5cyA9IFtdLFxuICAgICAgICBrZXk7XG4gICAgZm9yIChrZXkgaW4gb2JqKSB7XG4gICAgICAvKiBpc3RhbmJ1bCBpZ25vcmUgZWxzZSAqL1xuICAgICAgaWYgKG9iai5oYXNPd25Qcm9wZXJ0eShrZXkpKSB7XG4gICAgICAgIHNvcnRlZEtleXMucHVzaChrZXkpO1xuICAgICAgfVxuICAgIH1cbiAgICBzb3J0ZWRLZXlzLnNvcnQoKTtcbiAgICBmb3IgKGkgPSAwOyBpIDwgc29ydGVkS2V5cy5sZW5ndGg7IGkgKz0gMSkge1xuICAgICAga2V5ID0gc29ydGVkS2V5c1tpXTtcbiAgICAgIGNhbm9uaWNhbGl6ZWRPYmpba2V5XSA9IGNhbm9uaWNhbGl6ZShvYmpba2V5XSwgc3RhY2ssIHJlcGxhY2VtZW50U3RhY2spO1xuICAgIH1cbiAgICBzdGFjay5wb3AoKTtcbiAgICByZXBsYWNlbWVudFN0YWNrLnBvcCgpO1xuICB9IGVsc2Uge1xuICAgIGNhbm9uaWNhbGl6ZWRPYmogPSBvYmo7XG4gIH1cbiAgcmV0dXJuIGNhbm9uaWNhbGl6ZWRPYmo7XG59XG4iXX0=
-
-
-/***/ },
-/* 671 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.applyPatch = applyPatch;
-	exports.applyPatches = applyPatches;
-	// istanbul ignore next
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _parse = __webpack_require__(672);
-
-	var _utilDistanceIterator = __webpack_require__(673);
-
-	var _utilDistanceIterator2 = _interopRequireDefault(_utilDistanceIterator);
-
-	function applyPatch(source, uniDiff) {
-	  var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-
-	  if (typeof uniDiff === 'string') {
-	    uniDiff = _parse.parsePatch(uniDiff);
-	  }
-
-	  if (Array.isArray(uniDiff)) {
-	    if (uniDiff.length > 1) {
-	      throw new Error('applyPatch only works with a single input.');
-	    }
-
-	    uniDiff = uniDiff[0];
-	  }
-
-	  // Apply the diff to the input
-	  var lines = source.split('\n'),
-	      hunks = uniDiff.hunks,
-	      compareLine = options.compareLine || function (lineNumber, line, operation, patchContent) {
-	    return line === patchContent;
-	  },
-	      errorCount = 0,
-	      fuzzFactor = options.fuzzFactor || 0,
-	      minLine = 0,
-	      offset = 0,
-	      removeEOFNL = undefined,
-	      addEOFNL = undefined;
-
-	  /**
-	   * Checks if the hunk exactly fits on the provided location
-	   */
-	  function hunkFits(hunk, toPos) {
-	    for (var j = 0; j < hunk.lines.length; j++) {
-	      var line = hunk.lines[j],
-	          operation = line[0],
-	          content = line.substr(1);
-
-	      if (operation === ' ' || operation === '-') {
-	        // Context sanity check
-	        if (!compareLine(toPos + 1, lines[toPos], operation, content)) {
-	          errorCount++;
-
-	          if (errorCount > fuzzFactor) {
-	            return false;
-	          }
-	        }
-	        toPos++;
-	      }
-	    }
-
-	    return true;
-	  }
-
-	  // Search best fit offsets for each hunk based on the previous ones
-	  for (var i = 0; i < hunks.length; i++) {
-	    var hunk = hunks[i],
-	        maxLine = lines.length - hunk.oldLines,
-	        localOffset = 0,
-	        toPos = offset + hunk.oldStart - 1;
-
-	    var iterator = _utilDistanceIterator2['default'](toPos, minLine, maxLine);
-
-	    for (; localOffset !== undefined; localOffset = iterator()) {
-	      if (hunkFits(hunk, toPos + localOffset)) {
-	        hunk.offset = offset += localOffset;
-	        break;
-	      }
-	    }
-
-	    if (localOffset === undefined) {
-	      return false;
-	    }
-
-	    // Set lower text limit to end of the current hunk, so next ones don't try
-	    // to fit over already patched text
-	    minLine = hunk.offset + hunk.oldStart + hunk.oldLines;
-	  }
-
-	  // Apply patch hunks
-	  for (var i = 0; i < hunks.length; i++) {
-	    var hunk = hunks[i],
-	        toPos = hunk.offset + hunk.newStart - 1;
-
-	    for (var j = 0; j < hunk.lines.length; j++) {
-	      var line = hunk.lines[j],
-	          operation = line[0],
-	          content = line.substr(1);
-
-	      if (operation === ' ') {
-	        toPos++;
-	      } else if (operation === '-') {
-	        lines.splice(toPos, 1);
-	        /* istanbul ignore else */
-	      } else if (operation === '+') {
-	          lines.splice(toPos, 0, content);
-	          toPos++;
-	        } else if (operation === '\\') {
-	          var previousOperation = hunk.lines[j - 1] ? hunk.lines[j - 1][0] : null;
-	          if (previousOperation === '+') {
-	            removeEOFNL = true;
-	          } else if (previousOperation === '-') {
-	            addEOFNL = true;
-	          }
-	        }
-	    }
-	  }
-
-	  // Handle EOFNL insertion/removal
-	  if (removeEOFNL) {
-	    while (!lines[lines.length - 1]) {
-	      lines.pop();
-	    }
-	  } else if (addEOFNL) {
-	    lines.push('');
-	  }
-	  return lines.join('\n');
-	}
-
-	// Wrapper that supports multiple file patches via callbacks.
-
-	function applyPatches(uniDiff, options) {
-	  if (typeof uniDiff === 'string') {
-	    uniDiff = _parse.parsePatch(uniDiff);
-	  }
-
-	  var currentIndex = 0;
-	  function processIndex() {
-	    var index = uniDiff[currentIndex++];
-	    if (!index) {
-	      return options.complete();
-	    }
-
-	    options.loadFile(index, function (err, data) {
-	      if (err) {
-	        return options.complete(err);
-	      }
-
-	      var updatedContent = applyPatch(data, index, options);
-	      options.patched(index, updatedContent);
-
-	      setTimeout(processIndex, 0);
-	    });
-	  }
-	  processIndex();
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9wYXRjaC9hcHBseS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7cUJBQXlCLFNBQVM7O29DQUNMLDJCQUEyQjs7OztBQUVqRCxTQUFTLFVBQVUsQ0FBQyxNQUFNLEVBQUUsT0FBTyxFQUFnQjtNQUFkLE9BQU8seURBQUcsRUFBRTs7QUFDdEQsTUFBSSxPQUFPLE9BQU8sS0FBSyxRQUFRLEVBQUU7QUFDL0IsV0FBTyxHQUFHLGtCQUFXLE9BQU8sQ0FBQyxDQUFDO0dBQy9COztBQUVELE1BQUksS0FBSyxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsRUFBRTtBQUMxQixRQUFJLE9BQU8sQ0FBQyxNQUFNLEdBQUcsQ0FBQyxFQUFFO0FBQ3RCLFlBQU0sSUFBSSxLQUFLLENBQUMsNENBQTRDLENBQUMsQ0FBQztLQUMvRDs7QUFFRCxXQUFPLEdBQUcsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDO0dBQ3RCOzs7QUFHRCxNQUFJLEtBQUssR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFDLElBQUksQ0FBQztNQUMxQixLQUFLLEdBQUcsT0FBTyxDQUFDLEtBQUs7TUFFckIsV0FBVyxHQUFHLE9BQU8sQ0FBQyxXQUFXLElBQUssVUFBQyxVQUFVLEVBQUUsSUFBSSxFQUFFLFNBQVMsRUFBRSxZQUFZO1dBQUssSUFBSSxLQUFLLFlBQVk7R0FBQSxBQUFDO01BQzNHLFVBQVUsR0FBRyxDQUFDO01BQ2QsVUFBVSxHQUFHLE9BQU8sQ0FBQyxVQUFVLElBQUksQ0FBQztNQUNwQyxPQUFPLEdBQUcsQ0FBQztNQUNYLE1BQU0sR0FBRyxDQUFDO01BRVYsV0FBVyxZQUFBO01BQ1gsUUFBUSxZQUFBLENBQUM7Ozs7O0FBS2IsV0FBUyxRQUFRLENBQUMsSUFBSSxFQUFFLEtBQUssRUFBRTtBQUM3QixTQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsSUFBSSxDQUFDLEtBQUssQ0FBQyxNQUFNLEVBQUUsQ0FBQyxFQUFFLEVBQUU7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QyxHQUFHLENBQUMsQ0FBQztPQUM5Qjs7QUFFRCxVQUFJLGNBQWMsR0FBRyxVQUFVLENBQUMsSUFBSSxFQUFFLEtBQUssRUFBRSxPQUFPLENBQUMsQ0FBQztBQUN0RCxhQUFPLENBQUMsT0FBTyxDQUFDLEtBQUssRUFBRSxjQUFjLENBQUMsQ0FBQzs7QUFFdkMsZ0JBQVUsQ0FBQyxZQUFZLEVBQUUsQ0FBQyxDQUFDLENBQUM7S0FDN0IsQ0FBQyxDQUFDO0dBQ0o7QUFDRCxjQUFZLEVBQUUsQ0FBQztDQUNoQiIsImZpbGUiOiJhcHBseS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7cGFyc2VQYXRjaH0gZnJvbSAnLi9wYXJzZSc7XG5pbXBvcnQgZGlzdGFuY2VJdGVyYXRvciBmcm9tICcuLi91dGlsL2Rpc3RhbmNlLWl0ZXJhdG9yJztcblxuZXhwb3J0IGZ1bmN0aW9uIGFwcGx5UGF0Y2goc291cmNlLCB1bmlEaWZmLCBvcHRpb25zID0ge30pIHtcbiAgaWYgKHR5cGVvZiB1bmlEaWZmID09PSAnc3RyaW5nJykge1xuICAgIHVuaURpZmYgPSBwYXJzZVBhdGNoKHVuaURpZmYpO1xuICB9XG5cbiAgaWYgKEFycmF5LmlzQXJyYXkodW5pRGlmZikpIHtcbiAgICBpZiAodW5pRGlmZi5sZW5ndGggPiAxKSB7XG4gICAgICB0aHJvdyBuZXcgRXJyb3IoJ2FwcGx5UGF0Y2ggb25seSB3b3JrcyB3aXRoIGEgc2luZ2xlIGlucHV0LicpO1xuICAgIH1cblxuICAgIHVuaURpZmYgPSB1bmlEaWZmWzBdO1xuICB9XG5cbiAgLy8gQXBwbHkgdGhlIGRpZmYgdG8gdGhlIGlucHV0XG4gIGxldCBsaW5lcyA9IHNvdXJjZS5zcGxpdCgnXFxuJyksXG4gICAgICBodW5rcyA9IHVuaURpZmYuaHVua3MsXG5cbiAgICAgIGNvbXBhcmVMaW5lID0gb3B0aW9ucy5jb21wYXJlTGluZSB8fCAoKGxpbmVOdW1iZXIsIGxpbmUsIG9wZXJhdGlvbiwgcGF0Y2hDb250ZW50KSA9PiBsaW5lID09PSBwYXRjaENvbnRlbnQpLFxuICAgICAgZXJyb3JDb3VudCA9IDAsXG4gICAgICBmdXp6RmFjdG9yID0gb3B0aW9ucy5mdXp6RmFjdG9yIHx8IDAsXG4gICAgICBtaW5MaW5lID0gMCxcbiAgICAgIG9mZnNldCA9IDAsXG5cbiAgICAgIHJlbW92ZUVPRk5MLFxuICAgICAgYWRkRU9GTkw7XG5cbiAgLyoqXG4gICAqIENoZWNrcyBpZiB0aGUgaHVuayBleGFjdGx5IGZpdHMgb24gdGhlIHByb3ZpZGVkIGxvY2F0aW9uXG4gICAqL1xuICBmdW5jdGlvbiBodW5rRml0cyhodW5rLCB0b1Bvcykge1xuICAgIGZvciAobGV0IGogPSAwOyBqIDwgaHVuay5saW5lcy5sZW5ndGg7IGorKykge1xuICAgICAgbGV0IGxpbmUgPSBodW5rLmxpbmVzW2pdLFxuICAgICAgICAgIG9wZXJhdGlvbiA9IGxpbmVbMF0sXG4gICAgICAgICAgY29udGVudCA9IGxpbmUuc3Vic3RyKDEpO1xuXG4gICAgICBpZiAob3BlcmF0aW9uID09PSAnICcgfHwgb3BlcmF0aW9uID09PSAnLScpIHtcbiAgICAgICAgLy8gQ29udGV4dCBzYW5pdHkgY2hlY2tcbiAgICAgICAgaWYgKCFjb21wYXJlTGluZSh0b1BvcyArIDEsIGxpbmVzW3RvUG9zXSwgb3BlcmF0aW9uLCBjb250ZW50KSkge1xuICAgICAgICAgIGVycm9yQ291bnQrKztcblxuICAgICAgICAgIGlmIChlcnJvckNvdW50ID4gZnV6ekZhY3Rvcikge1xuICAgICAgICAgICAgcmV0dXJuIGZhbHNlO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgICB0b1BvcysrO1xuICAgICAgfVxuICAgIH1cblxuICAgIHJldHVybiB0cnVlO1xuICB9XG5cbiAgLy8gU2VhcmNoIGJlc3QgZml0IG9mZnNldHMgZm9yIGVhY2ggaHVuayBiYXNlZCBvbiB0aGUgcHJldmlvdXMgb25lc1xuICBmb3IgKGxldCBpID0gMDsgaSA8IGh1bmtzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGh1bmsgPSBodW5rc1tpXSxcbiAgICAgICAgbWF4TGluZSA9IGxpbmVzLmxlbmd0aCAtIGh1bmsub2xkTGluZXMsXG4gICAgICAgIGxvY2FsT2Zmc2V0ID0gMCxcbiAgICAgICAgdG9Qb3MgPSBvZmZzZXQgKyBodW5rLm9sZFN0YXJ0IC0gMTtcblxuICAgIGxldCBpdGVyYXRvciA9IGRpc3RhbmNlSXRlcmF0b3IodG9Qb3MsIG1pbkxpbmUsIG1heExpbmUpO1xuXG4gICAgZm9yICg7IGxvY2FsT2Zmc2V0ICE9PSB1bmRlZmluZWQ7IGxvY2FsT2Zmc2V0ID0gaXRlcmF0b3IoKSkge1xuICAgICAgaWYgKGh1bmtGaXRzKGh1bmssIHRvUG9zICsgbG9jYWxPZmZzZXQpKSB7XG4gICAgICAgIGh1bmsub2Zmc2V0ID0gb2Zmc2V0ICs9IGxvY2FsT2Zmc2V0O1xuICAgICAgICBicmVhaztcbiAgICAgIH1cbiAgICB9XG5cbiAgICBpZiAobG9jYWxPZmZzZXQgPT09IHVuZGVmaW5lZCkge1xuICAgICAgcmV0dXJuIGZhbHNlO1xuICAgIH1cblxuICAgIC8vIFNldCBsb3dlciB0ZXh0IGxpbWl0IHRvIGVuZCBvZiB0aGUgY3VycmVudCBodW5rLCBzbyBuZXh0IG9uZXMgZG9uJ3QgdHJ5XG4gICAgLy8gdG8gZml0IG92ZXIgYWxyZWFkeSBwYXRjaGVkIHRleHRcbiAgICBtaW5MaW5lID0gaHVuay5vZmZzZXQgKyBodW5rLm9sZFN0YXJ0ICsgaHVuay5vbGRMaW5lcztcbiAgfVxuXG4gIC8vIEFwcGx5IHBhdGNoIGh1bmtzXG4gIGZvciAobGV0IGkgPSAwOyBpIDwgaHVua3MubGVuZ3RoOyBpKyspIHtcbiAgICBsZXQgaHVuayA9IGh1bmtzW2ldLFxuICAgICAgICB0b1BvcyA9IGh1bmsub2Zmc2V0ICsgaHVuay5uZXdTdGFydCAtIDE7XG5cbiAgICBmb3IgKGxldCBqID0gMDsgaiA8IGh1bmsubGluZXMubGVuZ3RoOyBqKyspIHtcbiAgICAgIGxldCBsaW5lID0gaHVuay5saW5lc1tqXSxcbiAgICAgICAgICBvcGVyYXRpb24gPSBsaW5lWzBdLFxuICAgICAgICAgIGNvbnRlbnQgPSBsaW5lLnN1YnN0cigxKTtcblxuICAgICAgaWYgKG9wZXJhdGlvbiA9PT0gJyAnKSB7XG4gICAgICAgIHRvUG9zKys7XG4gICAgICB9IGVsc2UgaWYgKG9wZXJhdGlvbiA9PT0gJy0nKSB7XG4gICAgICAgIGxpbmVzLnNwbGljZSh0b1BvcywgMSk7XG4gICAgICAvKiBpc3RhbmJ1bCBpZ25vcmUgZWxzZSAqL1xuICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICcrJykge1xuICAgICAgICBsaW5lcy5zcGxpY2UodG9Qb3MsIDAsIGNvbnRlbnQpO1xuICAgICAgICB0b1BvcysrO1xuICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICdcXFxcJykge1xuICAgICAgICBsZXQgcHJldmlvdXNPcGVyYXRpb24gPSBodW5rLmxpbmVzW2ogLSAxXSA/IGh1bmsubGluZXNbaiAtIDFdWzBdIDogbnVsbDtcbiAgICAgICAgaWYgKHByZXZpb3VzT3BlcmF0aW9uID09PSAnKycpIHtcbiAgICAgICAgICByZW1vdmVFT0ZOTCA9IHRydWU7XG4gICAgICAgIH0gZWxzZSBpZiAocHJldmlvdXNPcGVyYXRpb24gPT09ICctJykge1xuICAgICAgICAgIGFkZEVPRk5MID0gdHJ1ZTtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIC8vIEhhbmRsZSBFT0ZOTCBpbnNlcnRpb24vcmVtb3ZhbFxuICBpZiAocmVtb3ZlRU9GTkwpIHtcbiAgICB3aGlsZSAoIWxpbmVzW2xpbmVzLmxlbmd0aCAtIDFdKSB7XG4gICAgICBsaW5lcy5wb3AoKTtcbiAgICB9XG4gIH0gZWxzZSBpZiAoYWRkRU9GTkwpIHtcbiAgICBsaW5lcy5wdXNoKCcnKTtcbiAgfVxuICByZXR1cm4gbGluZXMuam9pbignXFxuJyk7XG59XG5cbi8vIFdyYXBwZXIgdGhhdCBzdXBwb3J0cyBtdWx0aXBsZSBmaWxlIHBhdGNoZXMgdmlhIGNhbGxiYWNrcy5cbmV4cG9ydCBmdW5jdGlvbiBhcHBseVBhdGNoZXModW5pRGlmZiwgb3B0aW9ucykge1xuICBpZiAodHlwZW9mIHVuaURpZmYgPT09ICdzdHJpbmcnKSB7XG4gICAgdW5pRGlmZiA9IHBhcnNlUGF0Y2godW5pRGlmZik7XG4gIH1cblxuICBsZXQgY3VycmVudEluZGV4ID0gMDtcbiAgZnVuY3Rpb24gcHJvY2Vzc0luZGV4KCkge1xuICAgIGxldCBpbmRleCA9IHVuaURpZmZbY3VycmVudEluZGV4KytdO1xuICAgIGlmICghaW5kZXgpIHtcbiAgICAgIHJldHVybiBvcHRpb25zLmNvbXBsZXRlKCk7XG4gICAgfVxuXG4gICAgb3B0aW9ucy5sb2FkRmlsZShpbmRleCwgZnVuY3Rpb24oZXJyLCBkYXRhKSB7XG4gICAgICBpZiAoZXJyKSB7XG4gICAgICAgIHJldHVybiBvcHRpb25zLmNvbXBsZXRlKGVycik7XG4gICAgICB9XG5cbiAgICAgIGxldCB1cGRhdGVkQ29udGVudCA9IGFwcGx5UGF0Y2goZGF0YSwgaW5kZXgsIG9wdGlvbnMpO1xuICAgICAgb3B0aW9ucy5wYXRjaGVkKGluZGV4LCB1cGRhdGVkQ29udGVudCk7XG5cbiAgICAgIHNldFRpbWVvdXQocHJvY2Vzc0luZGV4LCAwKTtcbiAgICB9KTtcbiAgfVxuICBwcm9jZXNzSW5kZXgoKTtcbn1cbiJdfQ==
-
-
-/***/ },
-/* 672 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.parsePatch = parsePatch;
-
-	function parsePatch(uniDiff) {
-	  var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-	  var diffstr = uniDiff.split('\n'),
-	      list = [],
-	      i = 0;
-
-	  function parseIndex() {
-	    var index = {};
-	    list.push(index);
-
-	    // Parse diff metadata
-	    while (i < diffstr.length) {
-	      var line = diffstr[i];
-
-	      // File header found, end parsing diff metadata
-	      if (/^(\-\-\-|\+\+\+|@@)\s/.test(line)) {
-	        break;
-	      }
-
-	      // Diff index
-	      var header = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(line);
-	      if (header) {
-	        index.index = header[1];
-	      }
-
-	      i++;
-	    }
-
-	    // Parse file headers if they are defined. Unified diff requires them, but
-	    // there's no technical issues to have an isolated hunk without file header
-	    parseFileHeader(index);
-	    parseFileHeader(index);
-
-	    // Parse hunks
-	    index.hunks = [];
-
-	    while (i < diffstr.length) {
-	      var line = diffstr[i];
-
-	      if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(line)) {
-	        break;
-	      } else if (/^@@/.test(line)) {
-	        index.hunks.push(parseHunk());
-	      } else if (line && options.strict) {
-	        // Ignore unexpected content unless in strict mode
-	        throw new Error('Unknown line ' + (i + 1) + ' ' + JSON.stringify(line));
-	      } else {
-	        i++;
-	      }
-	    }
-	  }
-
-	  // Parses the --- and +++ headers, if none are found, no lines
-	  // are consumed.
-	  function parseFileHeader(index) {
-	    var fileHeader = /^(\-\-\-|\+\+\+)\s+(\S+)\s?(.+?)\s*$/.exec(diffstr[i]);
-	    if (fileHeader) {
-	      var keyPrefix = fileHeader[1] === '---' ? 'old' : 'new';
-	      index[keyPrefix + 'FileName'] = fileHeader[2];
-	      index[keyPrefix + 'Header'] = fileHeader[3];
-
-	      i++;
-	    }
-	  }
-
-	  // Parses a hunk
-	  // This assumes that we are at the start of a hunk.
-	  function parseHunk() {
-	    var chunkHeaderIndex = i,
-	        chunkHeaderLine = diffstr[i++],
-	        chunkHeader = chunkHeaderLine.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
-
-	    var hunk = {
-	      oldStart: +chunkHeader[1],
-	      oldLines: +chunkHeader[2] || 1,
-	      newStart: +chunkHeader[3],
-	      newLines: +chunkHeader[4] || 1,
-	      lines: []
-	    };
-
-	    var addCount = 0,
-	        removeCount = 0;
-	    for (; i < diffstr.length; i++) {
-	      var operation = diffstr[i][0];
-
-	      if (operation === '+' || operation === '-' || operation === ' ' || operation === '\\') {
-	        hunk.lines.push(diffstr[i]);
-
-	        if (operation === '+') {
-	          addCount++;
-	        } else if (operation === '-') {
-	          removeCount++;
-	        } else if (operation === ' ') {
-	          addCount++;
-	          removeCount++;
-	        }
-	      } else {
-	        break;
-	      }
-	    }
-
-	    // Handle the empty block count case
-	    if (!addCount && hunk.newLines === 1) {
-	      hunk.newLines = 0;
-	    }
-	    if (!removeCount && hunk.oldLines === 1) {
-	      hunk.oldLines = 0;
-	    }
-
-	    // Perform optional sanity checking
-	    if (options.strict) {
-	      if (addCount !== hunk.newLines) {
-	        throw new Error('Added line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
-	      }
-	      if (removeCount !== hunk.oldLines) {
-	        throw new Error('Removed line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
-	      }
-	    }
-
-	    return hunk;
-	  }
-
-	  while (i < diffstr.length) {
-	    parseIndex();
-	  }
-
-	  return list;
-	}
-	//# sourceMappingURL=data:application/json;base64,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QUM7S0FDbkI7OztBQUdELFFBQUksT0FBTyxDQUFDLE1BQU0sRUFBRTtBQUNsQixVQUFJLFFBQVEsS0FBSyxJQUFJLENBQUMsUUFBUSxFQUFFO0FBQzlCLGNBQU0sSUFBSSxLQUFLLENBQUMsa0RBQWtELElBQUksZ0JBQWdCLEdBQUcsQ0FBQyxDQUFBLEFBQUMsQ0FBQyxDQUFDO09BQzlGO0FBQ0QsVUFBSSxXQUFXLEtBQUssSUFBSSxDQUFDLFFBQVEsRUFBRTtBQUNqQyxjQUFNLElBQUksS0FBSyxDQUFDLG9EQUFvRCxJQUFJLGdCQUFnQixHQUFHLENBQUMsQ0FBQSxBQUFDLENBQUMsQ0FBQztPQUNoRztLQUNGOztBQUVELFdBQU8sSUFBSSxDQUFDO0dBQ2I7O0FBRUQsU0FBTyxDQUFDLEdBQUcsT0FBTyxDQUFDLE1BQU0sRUFBRTtBQUN6QixjQUFVLEVBQUUsQ0FBQztHQUNkOztBQUVELFNBQU8sSUFBSSxDQUFDO0NBQ2IiLCJmaWxlIjoicGFyc2UuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZnVuY3Rpb24gcGFyc2VQYXRjaCh1bmlEaWZmLCBvcHRpb25zID0ge30pIHtcbiAgbGV0IGRpZmZzdHIgPSB1bmlEaWZmLnNwbGl0KCdcXG4nKSxcbiAgICAgIGxpc3QgPSBbXSxcbiAgICAgIGkgPSAwO1xuXG4gIGZ1bmN0aW9uIHBhcnNlSW5kZXgoKSB7XG4gICAgbGV0IGluZGV4ID0ge307XG4gICAgbGlzdC5wdXNoKGluZGV4KTtcblxuICAgIC8vIFBhcnNlIGRpZmYgbWV0YWRhdGFcbiAgICB3aGlsZSAoaSA8IGRpZmZzdHIubGVuZ3RoKSB7XG4gICAgICBsZXQgbGluZSA9IGRpZmZzdHJbaV07XG5cbiAgICAgIC8vIEZpbGUgaGVhZGVyIGZvdW5kLCBlbmQgcGFyc2luZyBkaWZmIG1ldGFkYXRhXG4gICAgICBpZiAoL14oXFwtXFwtXFwtfFxcK1xcK1xcK3xAQClcXHMvLnRlc3QobGluZSkpIHtcbiAgICAgICAgYnJlYWs7XG4gICAgICB9XG5cbiAgICAgIC8vIERpZmYgaW5kZXhcbiAgICAgIGxldCBoZWFkZXIgPSAoL14oPzpJbmRleDp8ZGlmZig/OiAtciBcXHcrKSspXFxzKyguKz8pXFxzKiQvKS5leGVjKGxpbmUpO1xuICAgICAgaWYgKGhlYWRlcikge1xuICAgICAgICBpbmRleC5pbmRleCA9IGhlYWRlclsxXTtcbiAgICAgIH1cblxuICAgICAgaSsrO1xuICAgIH1cblxuICAgIC8vIFBhcnNlIGZpbGUgaGVhZGVycyBpZiB0aGV5IGFyZSBkZWZpbmVkLiBVbmlmaWVkIGRpZmYgcmVxdWlyZXMgdGhlbSwgYnV0XG4gICAgLy8gdGhlcmUncyBubyB0ZWNobmljYWwgaXNzdWVzIHRvIGhhdmUgYW4gaXNvbGF0ZWQgaHVuayB3aXRob3V0IGZpbGUgaGVhZGVyXG4gICAgcGFyc2VGaWxlSGVhZGVyKGluZGV4KTtcbiAgICBwYXJzZUZpbGVIZWFkZXIoaW5kZXgpO1xuXG4gICAgLy8gUGFyc2UgaHVua3NcbiAgICBpbmRleC5odW5rcyA9IFtdO1xuXG4gICAgd2hpbGUgKGkgPCBkaWZmc3RyLmxlbmd0aCkge1xuICAgICAgbGV0IGxpbmUgPSBkaWZmc3RyW2ldO1xuXG4gICAgICBpZiAoL14oSW5kZXg6fGRpZmZ8XFwtXFwtXFwtfFxcK1xcK1xcKylcXHMvLnRlc3QobGluZSkpIHtcbiAgICAgICAgYnJlYWs7XG4gICAgICB9IGVsc2UgaWYgKC9eQEAvLnRlc3QobGluZSkpIHtcbiAgICAgICAgaW5kZXguaHVua3MucHVzaChwYXJzZUh1bmsoKSk7XG4gICAgICB9IGVsc2UgaWYgKGxpbmUgJiYgb3B0aW9ucy5zdHJpY3QpIHtcbiAgICAgICAgLy8gSWdub3JlIHVuZXhwZWN0ZWQgY29udGVudCB1bmxlc3MgaW4gc3RyaWN0IG1vZGVcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKCdVbmtub3duIGxpbmUgJyArIChpICsgMSkgKyAnICcgKyBKU09OLnN0cmluZ2lmeShsaW5lKSk7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICBpKys7XG4gICAgICB9XG4gICAgfVxuICB9XG5cbiAgLy8gUGFyc2VzIHRoZSAtLS0gYW5kICsrKyBoZWFkZXJzLCBpZiBub25lIGFyZSBmb3VuZCwgbm8gbGluZXNcbiAgLy8gYXJlIGNvbnN1bWVkLlxuICBmdW5jdGlvbiBwYXJzZUZpbGVIZWFkZXIoaW5kZXgpIHtcbiAgICBsZXQgZmlsZUhlYWRlciA9ICgvXihcXC1cXC1cXC18XFwrXFwrXFwrKVxccysoXFxTKylcXHM/KC4rPylcXHMqJC8pLmV4ZWMoZGlmZnN0cltpXSk7XG4gICAgaWYgKGZpbGVIZWFkZXIpIHtcbiAgICAgIGxldCBrZXlQcmVmaXggPSBmaWxlSGVhZGVyWzFdID09PSAnLS0tJyA/ICdvbGQnIDogJ25ldyc7XG4gICAgICBpbmRleFtrZXlQcmVmaXggKyAnRmlsZU5hbWUnXSA9IGZpbGVIZWFkZXJbMl07XG4gICAgICBpbmRleFtrZXlQcmVmaXggKyAnSGVhZGVyJ10gPSBmaWxlSGVhZGVyWzNdO1xuXG4gICAgICBpKys7XG4gICAgfVxuICB9XG5cbiAgLy8gUGFyc2VzIGEgaHVua1xuICAvLyBUaGlzIGFzc3VtZXMgdGhhdCB3ZSBhcmUgYXQgdGhlIHN0YXJ0IG9mIGEgaHVuay5cbiAgZnVuY3Rpb24gcGFyc2VIdW5rKCkge1xuICAgIGxldCBjaHVua0hlYWRlckluZGV4ID0gaSxcbiAgICAgICAgY2h1bmtIZWFkZXJMaW5lID0gZGlmZnN0cltpKytdLFxuICAgICAgICBjaHVua0hlYWRlciA9IGNodW5rSGVhZGVyTGluZS5zcGxpdCgvQEAgLShcXGQrKSg/OiwoXFxkKykpPyBcXCsoXFxkKykoPzosKFxcZCspKT8gQEAvKTtcblxuICAgIGxldCBodW5rID0ge1xuICAgICAgb2xkU3RhcnQ6ICtjaHVua0hlYWRlclsxXSxcbiAgICAgIG9sZExpbmVzOiArY2h1bmtIZWFkZXJbMl0gfHwgMSxcbiAgICAgIG5ld1N0YXJ0OiArY2h1bmtIZWFkZXJbM10sXG4gICAgICBuZXdMaW5lczogK2NodW5rSGVhZGVyWzRdIHx8IDEsXG4gICAgICBsaW5lczogW11cbiAgICB9O1xuXG4gICAgbGV0IGFkZENvdW50ID0gMCxcbiAgICAgICAgcmVtb3ZlQ291bnQgPSAwO1xuICAgIGZvciAoOyBpIDwgZGlmZnN0ci5sZW5ndGg7IGkrKykge1xuICAgICAgbGV0IG9wZXJhdGlvbiA9IGRpZmZzdHJbaV1bMF07XG5cbiAgICAgIGlmIChvcGVyYXRpb24gPT09ICcrJyB8fCBvcGVyYXRpb24gPT09ICctJyB8fCBvcGVyYXRpb24gPT09ICcgJyB8fCBvcGVyYXRpb24gPT09ICdcXFxcJykge1xuICAgICAgICBodW5rLmxpbmVzLnB1c2goZGlmZnN0cltpXSk7XG5cbiAgICAgICAgaWYgKG9wZXJhdGlvbiA9PT0gJysnKSB7XG4gICAgICAgICAgYWRkQ291bnQrKztcbiAgICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICctJykge1xuICAgICAgICAgIHJlbW92ZUNvdW50Kys7XG4gICAgICAgIH0gZWxzZSBpZiAob3BlcmF0aW9uID09PSAnICcpIHtcbiAgICAgICAgICBhZGRDb3VudCsrO1xuICAgICAgICAgIHJlbW92ZUNvdW50Kys7XG4gICAgICAgIH1cbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfVxuICAgIH1cblxuICAgIC8vIEhhbmRsZSB0aGUgZW1wdHkgYmxvY2sgY291bnQgY2FzZVxuICAgIGlmICghYWRkQ291bnQgJiYgaHVuay5uZXdMaW5lcyA9PT0gMSkge1xuICAgICAgaHVuay5uZXdMaW5lcyA9IDA7XG4gICAgfVxuICAgIGlmICghcmVtb3ZlQ291bnQgJiYgaHVuay5vbGRMaW5lcyA9PT0gMSkge1xuICAgICAgaHVuay5vbGRMaW5lcyA9IDA7XG4gICAgfVxuXG4gICAgLy8gUGVyZm9ybSBvcHRpb25hbCBzYW5pdHkgY2hlY2tpbmdcbiAgICBpZiAob3B0aW9ucy5zdHJpY3QpIHtcbiAgICAgIGlmIChhZGRDb3VudCAhPT0gaHVuay5uZXdMaW5lcykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoJ0FkZGVkIGxpbmUgY291bnQgZGlkIG5vdCBtYXRjaCBmb3IgaHVuayBhdCBsaW5lICcgKyAoY2h1bmtIZWFkZXJJbmRleCArIDEpKTtcbiAgICAgIH1cbiAgICAgIGlmIChyZW1vdmVDb3VudCAhPT0gaHVuay5vbGRMaW5lcykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoJ1JlbW92ZWQgbGluZSBjb3VudCBkaWQgbm90IG1hdGNoIGZvciBodW5rIGF0IGxpbmUgJyArIChjaHVua0hlYWRlckluZGV4ICsgMSkpO1xuICAgICAgfVxuICAgIH1cblxuICAgIHJldHVybiBodW5rO1xuICB9XG5cbiAgd2hpbGUgKGkgPCBkaWZmc3RyLmxlbmd0aCkge1xuICAgIHBhcnNlSW5kZXgoKTtcbiAgfVxuXG4gIHJldHVybiBsaXN0O1xufVxuIl19
-
-
-/***/ },
-/* 673 */
-/***/ function(module, exports) {
-
-	// Iterator that traverses in the range of [min, max], stepping
-	// by distance from a given start position. I.e. for [0, 4], with
 	"use strict";
 
-	exports.__esModule = true;
-
-	exports["default"] = function (start, minLine, maxLine) {
-	  var wantForward = true,
-	      backwardExhausted = false,
-	      forwardExhausted = false,
-	      localOffset = 1;
-
-	  return function iterator() {
-	    var _again = true;
-
-	    _function: while (_again) {
-	      _again = false;
-
-	      if (wantForward && !forwardExhausted) {
-	        if (backwardExhausted) {
-	          localOffset++;
-	        } else {
-	          wantForward = false;
-	        }
-
-	        // Check if trying to fit beyond text length, and if not, check it fits
-	        // after offset location (or desired location on first iteration)
-	        if (start + localOffset <= maxLine) {
-	          return localOffset;
-	        }
-
-	        forwardExhausted = true;
-	      }
-
-	      if (!backwardExhausted) {
-	        if (!forwardExhausted) {
-	          wantForward = true;
-	        }
-
-	        // Check if trying to fit before text beginning, and if not, check it fits
-	        // before offset location
-	        if (minLine <= start - localOffset) {
-	          return - localOffset++;
-	        }
-
-	        backwardExhausted = true;
-	        _again = true;
-	        continue _function;
-	      }
-
-	      // We tried to fit hunk before text beginning and beyond text lenght, then
-	      // hunk can't fit on the text. Return undefined
-	    }
-	  };
-	};
-
-	module.exports = exports["default"];
-	// start of 2, this will iterate 2, 3, 1, 4, 0.
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlsL2Rpc3RhbmNlLWl0ZXJhdG9yLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztxQkFHZSxVQUFTLEtBQUssRUFBRSxPQUFPLEVBQUUsT0FBTyxFQUFFO0FBQy9DLE1BQUksV0FBVyxHQUFHLElBQUk7TUFDbEIsaUJBQWlCLEdBQUcsS0FBSztNQUN6QixnQkFBZ0IsR0FBRyxLQUFLO01BQ3hCLFdBQVcsR0FBRyxDQUFDLENBQUM7O0FBRXBCLFNBQU8sU0FBUyxRQUFROzs7OEJBQUc7OztBQUN6QixVQUFJLFdBQVcsSUFBSSxDQUFDLGdCQUFnQixFQUFFO0FBQ3BDLFlBQUksaUJBQWlCLEVBQUU7QUFDckIscUJBQVcsRUFBRSxDQUFDO1NBQ2YsTUFBTTtBQUNMLHFCQUFXLEdBQUcsS0FBSyxDQUFDO1NBQ3JCOzs7O0FBSUQsWUFBSSxLQUFLLEdBQUcsV0FBVyxJQUFJLE9BQU8sRUFBRTtBQUNsQyxpQkFBTyxXQUFXLENBQUM7U0FDcEI7O0FBRUQsd0JBQWdCLEdBQUcsSUFBSSxDQUFDO09BQ3pCOztBQUVELFVBQUksQ0FBQyxpQkFBaUIsRUFBRTtBQUN0QixZQUFJLENBQUMsZ0JBQWdCLEVBQUU7QUFDckIscUJBQVcsR0FBRyxJQUFJLENBQUM7U0FDcEI7Ozs7QUFJRCxZQUFJLE9BQU8sSUFBSSxLQUFLLEdBQUcsV0FBVyxFQUFFO0FBQ2xDLGlCQUFPLEVBQUMsV0FBVyxFQUFFLENBQUM7U0FDdkI7O0FBRUQseUJBQWlCLEdBQUcsSUFBSSxDQUFDOzs7T0FFMUI7Ozs7S0FJRjtHQUFBLENBQUM7Q0FDSCIsImZpbGUiOiJkaXN0YW5jZS1pdGVyYXRvci5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIEl0ZXJhdG9yIHRoYXQgdHJhdmVyc2VzIGluIHRoZSByYW5nZSBvZiBbbWluLCBtYXhdLCBzdGVwcGluZ1xuLy8gYnkgZGlzdGFuY2UgZnJvbSBhIGdpdmVuIHN0YXJ0IHBvc2l0aW9uLiBJLmUuIGZvciBbMCwgNF0sIHdpdGhcbi8vIHN0YXJ0IG9mIDIsIHRoaXMgd2lsbCBpdGVyYXRlIDIsIDMsIDEsIDQsIDAuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbihzdGFydCwgbWluTGluZSwgbWF4TGluZSkge1xuICBsZXQgd2FudEZvcndhcmQgPSB0cnVlLFxuICAgICAgYmFja3dhcmRFeGhhdXN0ZWQgPSBmYWxzZSxcbiAgICAgIGZvcndhcmRFeGhhdXN0ZWQgPSBmYWxzZSxcbiAgICAgIGxvY2FsT2Zmc2V0ID0gMTtcblxuICByZXR1cm4gZnVuY3Rpb24gaXRlcmF0b3IoKSB7XG4gICAgaWYgKHdhbnRGb3J3YXJkICYmICFmb3J3YXJkRXhoYXVzdGVkKSB7XG4gICAgICBpZiAoYmFja3dhcmRFeGhhdXN0ZWQpIHtcbiAgICAgICAgbG9jYWxPZmZzZXQrKztcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIHdhbnRGb3J3YXJkID0gZmFsc2U7XG4gICAgICB9XG5cbiAgICAgIC8vIENoZWNrIGlmIHRyeWluZyB0byBmaXQgYmV5b25kIHRleHQgbGVuZ3RoLCBhbmQgaWYgbm90LCBjaGVjayBpdCBmaXRzXG4gICAgICAvLyBhZnRlciBvZmZzZXQgbG9jYXRpb24gKG9yIGRlc2lyZWQgbG9jYXRpb24gb24gZmlyc3QgaXRlcmF0aW9uKVxuICAgICAgaWYgKHN0YXJ0ICsgbG9jYWxPZmZzZXQgPD0gbWF4TGluZSkge1xuICAgICAgICByZXR1cm4gbG9jYWxPZmZzZXQ7XG4gICAgICB9XG5cbiAgICAgIGZvcndhcmRFeGhhdXN0ZWQgPSB0cnVlO1xuICAgIH1cblxuICAgIGlmICghYmFja3dhcmRFeGhhdXN0ZWQpIHtcbiAgICAgIGlmICghZm9yd2FyZEV4aGF1c3RlZCkge1xuICAgICAgICB3YW50Rm9yd2FyZCA9IHRydWU7XG4gICAgICB9XG5cbiAgICAgIC8vIENoZWNrIGlmIHRyeWluZyB0byBmaXQgYmVmb3JlIHRleHQgYmVnaW5uaW5nLCBhbmQgaWYgbm90LCBjaGVjayBpdCBmaXRzXG4gICAgICAvLyBiZWZvcmUgb2Zmc2V0IGxvY2F0aW9uXG4gICAgICBpZiAobWluTGluZSA8PSBzdGFydCAtIGxvY2FsT2Zmc2V0KSB7XG4gICAgICAgIHJldHVybiAtbG9jYWxPZmZzZXQrKztcbiAgICAgIH1cblxuICAgICAgYmFja3dhcmRFeGhhdXN0ZWQgPSB0cnVlO1xuICAgICAgcmV0dXJuIGl0ZXJhdG9yKCk7XG4gICAgfVxuXG4gICAgLy8gV2UgdHJpZWQgdG8gZml0IGh1bmsgYmVmb3JlIHRleHQgYmVnaW5uaW5nIGFuZCBiZXlvbmQgdGV4dCBsZW5naHQsIHRoZW5cbiAgICAvLyBodW5rIGNhbid0IGZpdCBvbiB0aGUgdGV4dC4gUmV0dXJuIHVuZGVmaW5lZFxuICB9O1xufVxuIl19
-
-
-/***/ },
-/* 674 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.structuredPatch = structuredPatch;
-	exports.createTwoFilesPatch = createTwoFilesPatch;
-	exports.createPatch = createPatch;
-	// istanbul ignore next
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
-
-	var _diffLine = __webpack_require__(667);
-
-	function structuredPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options) {
-	  if (!options) {
-	    options = { context: 4 };
-	  }
-
-	  var diff = _diffLine.diffLines(oldStr, newStr);
-	  diff.push({ value: '', lines: [] }); // Append an empty value to make cleanup easier
-
-	  function contextLines(lines) {
-	    return lines.map(function (entry) {
-	      return ' ' + entry;
-	    });
-	  }
-
-	  var hunks = [];
-	  var oldRangeStart = 0,
-	      newRangeStart = 0,
-	      curRange = [],
-	      oldLine = 1,
-	      newLine = 1;
-
-	  var _loop = function (i) {
-	    var current = diff[i],
-	        lines = current.lines || current.value.replace(/\n$/, '').split('\n');
-	    current.lines = lines;
-
-	    if (current.added || current.removed) {
-	      // istanbul ignore next
-
-	      var _curRange;
-
-	      // If we have previous context, start with that
-	      if (!oldRangeStart) {
-	        var prev = diff[i - 1];
-	        oldRangeStart = oldLine;
-	        newRangeStart = newLine;
-
-	        if (prev) {
-	          curRange = options.context > 0 ? contextLines(prev.lines.slice(-options.context)) : [];
-	          oldRangeStart -= curRange.length;
-	          newRangeStart -= curRange.length;
-	        }
-	      }
-
-	      // Output our changes
-	      (_curRange = curRange).push.apply(_curRange, _toConsumableArray(lines.map(function (entry) {
-	        return (current.added ? '+' : '-') + entry;
-	      })));
-
-	      // Track the updated file position
-	      if (current.added) {
-	        newLine += lines.length;
-	      } else {
-	        oldLine += lines.length;
-	      }
-	    } else {
-	      // Identical context lines. Track line changes
-	      if (oldRangeStart) {
-	        // Close out any changes that have been output (or join overlapping)
-	        if (lines.length <= options.context * 2 && i < diff.length - 2) {
-	          // istanbul ignore next
-
-	          var _curRange2;
-
-	          // Overlapping
-	          (_curRange2 = curRange).push.apply(_curRange2, _toConsumableArray(contextLines(lines)));
-	        } else {
-	          // istanbul ignore next
-
-	          var _curRange3;
-
-	          // end the range and output
-	          var contextSize = Math.min(lines.length, options.context);
-	          (_curRange3 = curRange).push.apply(_curRange3, _toConsumableArray(contextLines(lines.slice(0, contextSize))));
-
-	          var hunk = {
-	            oldStart: oldRangeStart,
-	            oldLines: oldLine - oldRangeStart + contextSize,
-	            newStart: newRangeStart,
-	            newLines: newLine - newRangeStart + contextSize,
-	            lines: curRange
-	          };
-	          if (i >= diff.length - 2 && lines.length <= options.context) {
-	            // EOF is inside this hunk
-	            var oldEOFNewline = /\n$/.test(oldStr);
-	            var newEOFNewline = /\n$/.test(newStr);
-	            if (lines.length == 0 && !oldEOFNewline) {
-	              // special case: old has no eol and no trailing context; no-nl can end up before adds
-	              curRange.splice(hunk.oldLines, 0, '\\ No newline at end of file');
-	            } else if (!oldEOFNewline || !newEOFNewline) {
-	              curRange.push('\\ No newline at end of file');
-	            }
-	          }
-	          hunks.push(hunk);
-
-	          oldRangeStart = 0;
-	          newRangeStart = 0;
-	          curRange = [];
-	        }
-	      }
-	      oldLine += lines.length;
-	      newLine += lines.length;
-	    }
-	  };
-
-	  for (var i = 0; i < diff.length; i++) {
-	    _loop(i);
-	  }
-
-	  return {
-	    oldFileName: oldFileName, newFileName: newFileName,
-	    oldHeader: oldHeader, newHeader: newHeader,
-	    hunks: hunks
-	  };
-	}
-
-	function createTwoFilesPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options) {
-	  var diff = structuredPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options);
-
-	  var ret = [];
-	  if (oldFileName == newFileName) {
-	    ret.push('Index: ' + oldFileName);
-	  }
-	  ret.push('===================================================================');
-	  ret.push('--- ' + diff.oldFileName + (typeof diff.oldHeader === 'undefined' ? '' : '\t' + diff.oldHeader));
-	  ret.push('+++ ' + diff.newFileName + (typeof diff.newHeader === 'undefined' ? '' : '\t' + diff.newHeader));
-
-	  for (var i = 0; i < diff.hunks.length; i++) {
-	    var hunk = diff.hunks[i];
-	    ret.push('@@ -' + hunk.oldStart + ',' + hunk.oldLines + ' +' + hunk.newStart + ',' + hunk.newLines + ' @@');
-	    ret.push.apply(ret, hunk.lines);
-	  }
-
-	  return ret.join('\n') + '\n';
-	}
-
-	function createPatch(fileName, oldStr, newStr, oldHeader, newHeader, options) {
-	  return createTwoFilesPatch(fileName, fileName, oldStr, newStr, oldHeader, newHeader, options);
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9wYXRjaC9jcmVhdGUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozt3QkFBd0IsY0FBYzs7QUFFL0IsU0FBUyxlQUFlLENBQUMsV0FBVyxFQUFFLFdBQVcsRUFBRSxNQUFNLEVBQUUsTUFBTSxFQUFFLFNBQVMsRUFBRSxTQUFTLEVBQUUsT0FBTyxFQUFFO0FBQ3ZHLE1BQUksQ0FBQyxPQUFPLEVBQUU7QUFDWixXQUFPLEdBQUcsRUFBRSxPQUFPLEVBQUUsQ0FBQyxFQUFFLENBQUM7R0FDMUI7O0FBRUQsTUFBTSxJQUFJLEdBQUcsb0JBQVUsTUFBTSxFQUFFLE1BQU0sQ0FBQyxDQUFDO0FBQ3ZDLE1BQUksQ0FBQyxJQUFJLENBQUMsRUFBQyxLQUFLLEVBQUUsRUFBRSxFQUFFLEtBQUssRUFBRSxFQUFFLEVBQUMsQ0FBQyxDQUFDOztBQUVsQyxXQUFTLFlBQVksQ0FBQyxLQUFLLEVBQUU7QUFDM0IsV0FBTyxLQUFLLENBQUMsR0FBRyxDQUFDLFVBQVMsS0FBSyxFQUFFO0FBQUUsYUFBTyxHQUFHLEdBQUcsS0FBSyxDQUFDO0tBQUUsQ0FBQyxDQUFDO0dBQzNEOztBQUVELE1BQUksS0FBSyxHQUFHLEVBQUUsQ0FBQztBQUNmLE1BQUksYUFBYSxHQUFHLENBQUM7TUFBRSxhQUFhLEdBQUcsQ0FBQztNQUFFLFFBQVEsR0FBRyxFQUFFO01BQ25ELE9BQU8sR0FBRyxDQUFDO01BQUUsT0FBTyxHQUFHLENBQUMsQ0FBQzs7d0JBQ3BCLENBQUM7QUFDUixRQUFNLE9BQU8sR0FBRyxJQUFJLENBQUMsQ0FBQyxDQUFDO1FBQ2pCLEtBQUssR0FBRyxPQUFPLENBQUMsS0FBSyxJQUFJLE9BQU8sQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLEtBQUssRUFBRSxFQUFFLENBQUMsQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLENBQUM7QUFDNUUsV0FBTyxDQUFDLEtBQUssR0FBRyxLQUFLLENBQUM7O0FBRXRCLFFBQUksT0FBTyxDQUFDLEtB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QyxJQUFJLENBQUMsTUFBTSxHQUFHLElBQUksQ0FBQyxXQUFXLElBQUksT0FBTyxJQUFJLENBQUMsU0FBUyxLQUFLLFdBQVcsR0FBRyxFQUFFLEdBQUcsSUFBSSxHQUFHLElBQUksQ0FBQyxTQUFTLENBQUEsQUFBQyxDQUFDLENBQUM7O0FBRTNHLE9BQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLE1BQU0sRUFBRSxDQUFDLEVBQUUsRUFBRTtBQUMxQyxRQUFNLElBQUksR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQzNCLE9BQUcsQ0FBQyxJQUFJLENBQ04sTUFBTSxHQUFHLElBQUksQ0FBQyxRQUFRLEdBQUcsR0FBRyxHQUFHLElBQUksQ0FBQyxRQUFRLEdBQzFDLElBQUksR0FBRyxJQUFJLENBQUMsUUFBUSxHQUFHLEdBQUcsR0FBRyxJQUFJLENBQUMsUUFBUSxHQUMxQyxLQUFLLENBQ1IsQ0FBQztBQUNGLE9BQUcsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLEdBQUcsRUFBRSxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUM7R0FDakM7O0FBRUQsU0FBTyxHQUFHLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxHQUFHLElBQUksQ0FBQztDQUM5Qjs7QUFFTSxTQUFTLFdBQVcsQ0FBQyxRQUFRLEVBQUUsTUFBTSxFQUFFLE1BQU0sRUFBRSxTQUFTLEVBQUUsU0FBUyxFQUFFLE9BQU8sRUFBRTtBQUNuRixTQUFPLG1CQUFtQixDQUFDLFFBQVEsRUFBRSxRQUFRLEVBQUUsTUFBTSxFQUFFLE1BQU0sRUFBRSxTQUFTLEVBQUUsU0FBUyxFQUFFLE9BQU8sQ0FBQyxDQUFDO0NBQy9GIiwiZmlsZSI6ImNyZWF0ZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7ZGlmZkxpbmVzfSBmcm9tICcuLi9kaWZmL2xpbmUnO1xuXG5leHBvcnQgZnVuY3Rpb24gc3RydWN0dXJlZFBhdGNoKG9sZEZpbGVOYW1lLCBuZXdGaWxlTmFtZSwgb2xkU3RyLCBuZXdTdHIsIG9sZEhlYWRlciwgbmV3SGVhZGVyLCBvcHRpb25zKSB7XG4gIGlmICghb3B0aW9ucykge1xuICAgIG9wdGlvbnMgPSB7IGNvbnRleHQ6IDQgfTtcbiAgfVxuXG4gIGNvbnN0IGRpZmYgPSBkaWZmTGluZXMob2xkU3RyLCBuZXdTdHIpO1xuICBkaWZmLnB1c2goe3ZhbHVlOiAnJywgbGluZXM6IFtdfSk7ICAgLy8gQXBwZW5kIGFuIGVtcHR5IHZhbHVlIHRvIG1ha2UgY2xlYW51cCBlYXNpZXJcblxuICBmdW5jdGlvbiBjb250ZXh0TGluZXMobGluZXMpIHtcbiAgICByZXR1cm4gbGluZXMubWFwKGZ1bmN0aW9uKGVudHJ5KSB7IHJldHVybiAnICcgKyBlbnRyeTsgfSk7XG4gIH1cblxuICBsZXQgaHVua3MgPSBbXTtcbiAgbGV0IG9sZFJhbmdlU3RhcnQgPSAwLCBuZXdSYW5nZVN0YXJ0ID0gMCwgY3VyUmFuZ2UgPSBbXSxcbiAgICAgIG9sZExpbmUgPSAxLCBuZXdMaW5lID0gMTtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBkaWZmLmxlbmd0aDsgaSsrKSB7XG4gICAgY29uc3QgY3VycmVudCA9IGRpZmZbaV0sXG4gICAgICAgICAgbGluZXMgPSBjdXJyZW50LmxpbmVzIHx8IGN1cnJlbnQudmFsdWUucmVwbGFjZSgvXFxuJC8sICcnKS5zcGxpdCgnXFxuJyk7XG4gICAgY3VycmVudC5saW5lcyA9IGxpbmVzO1xuXG4gICAgaWYgKGN1cnJlbnQuYWRkZWQgfHwgY3VycmVudC5yZW1vdmVkKSB7XG4gICAgICAvLyBJZiB3ZSBoYXZlIHByZXZpb3VzIGNvbnRleHQsIHN0YXJ0IHdpdGggdGhhdFxuICAgICAgaWYgKCFvbGRSYW5nZVN0YXJ0KSB7XG4gICAgICAgIGNvbnN0IHByZXYgPSBkaWZmW2kgLSAxXTtcbiAgICAgICAgb2xkUmFuZ2VTdGFydCA9IG9sZExpbmU7XG4gICAgICAgIG5ld1JhbmdlU3RhcnQgPSBuZXdMaW5lO1xuXG4gICAgICAgIGlmIChwcmV2KSB7XG4gICAgICAgICAgY3VyUmFuZ2UgPSBvcHRpb25zLmNvbnRleHQgPiAwID8gY29udGV4dExpbmVzKHByZXYubGluZXMuc2xpY2UoLW9wdGlvbnMuY29udGV4dCkpIDogW107XG4gICAgICAgICAgb2xkUmFuZ2VTdGFydCAtPSBjdXJSYW5nZS5sZW5ndGg7XG4gICAgICAgICAgbmV3UmFuZ2VTdGFydCAtPSBjdXJSYW5nZS5sZW5ndGg7XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gT3V0cHV0IG91ciBjaGFuZ2VzXG4gICAgICBjdXJSYW5nZS5wdXNoKC4uLiBsaW5lcy5tYXAoZnVuY3Rpb24oZW50cnkpIHtcbiAgICAgICAgcmV0dXJuIChjdXJyZW50LmFkZGVkID8gJysnIDogJy0nKSArIGVudHJ5O1xuICAgICAgfSkpO1xuXG4gICAgICAvLyBUcmFjayB0aGUgdXBkYXRlZCBmaWxlIHBvc2l0aW9uXG4gICAgICBpZiAoY3VycmVudC5hZGRlZCkge1xuICAgICAgICBuZXdMaW5lICs9IGxpbmVzLmxlbmd0aDtcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIG9sZExpbmUgKz0gbGluZXMubGVuZ3RoO1xuICAgICAgfVxuICAgIH0gZWxzZSB7XG4gICAgICAvLyBJZGVudGljYWwgY29udGV4dCBsaW5lcy4gVHJhY2sgbGluZSBjaGFuZ2VzXG4gICAgICBpZiAob2xkUmFuZ2VTdGFydCkge1xuICAgICAgICAvLyBDbG9zZSBvdXQgYW55IGNoYW5nZXMgdGhhdCBoYXZlIGJlZW4gb3V0cHV0IChvciBqb2luIG92ZXJsYXBwaW5nKVxuICAgICAgICBpZiAobGluZXMubGVuZ3RoIDw9IG9wdGlvbnMuY29udGV4dCAqIDIgJiYgaSA8IGRpZmYubGVuZ3RoIC0gMikge1xuICAgICAgICAgIC8vIE92ZXJsYXBwaW5nXG4gICAgICAgICAgY3VyUmFuZ2UucHVzaCguLi4gY29udGV4dExpbmVzKGxpbmVzKSk7XG4gICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgLy8gZW5kIHRoZSByYW5nZSBhbmQgb3V0cHV0XG4gICAgICAgICAgbGV0IGNvbnRleHRTaXplID0gTWF0aC5taW4obGluZXMubGVuZ3RoLCBvcHRpb25zLmNvbnRleHQpO1xuICAgICAgICAgIGN1clJhbmdlLnB1c2goLi4uIGNvbnRleHRMaW5lcyhsaW5lcy5zbGljZSgwLCBjb250ZXh0U2l6ZSkpKTtcblxuICAgICAgICAgIGxldCBodW5rID0ge1xuICAgICAgICAgICAgb2xkU3RhcnQ6IG9sZFJhbmdlU3RhcnQsXG4gICAgICAgICAgICBvbGRMaW5lczogKG9sZExpbmUgLSBvbGRSYW5nZVN0YXJ0ICsgY29udGV4dFNpemUpLFxuICAgICAgICAgICAgbmV3U3RhcnQ6IG5ld1JhbmdlU3RhcnQsXG4gICAgICAgICAgICBuZXdMaW5lczogKG5ld0xpbmUgLSBuZXdSYW5nZVN0YXJ0ICsgY29udGV4dFNpemUpLFxuICAgICAgICAgICAgbGluZXM6IGN1clJhbmdlXG4gICAgICAgICAgfTtcbiAgICAgICAgICBpZiAoaSA+PSBkaWZmLmxlbmd0aCAtIDIgJiYgbGluZXMubGVuZ3RoIDw9IG9wdGlvbnMuY29udGV4dCkge1xuICAgICAgICAgICAgLy8gRU9GIGlzIGluc2lkZSB0aGlzIGh1bmtcbiAgICAgICAgICAgIGxldCBvbGRFT0ZOZXdsaW5lID0gKC9cXG4kLy50ZXN0KG9sZFN0cikpO1xuICAgICAgICAgICAgbGV0IG5ld0VPRk5ld2xpbmUgPSAoL1xcbiQvLnRlc3QobmV3U3RyKSk7XG4gICAgICAgICAgICBpZiAobGluZXMubGVuZ3RoID09IDAgJiYgIW9sZEVPRk5ld2xpbmUpIHtcbiAgICAgICAgICAgICAgLy8gc3BlY2lhbCBjYXNlOiBvbGQgaGFzIG5vIGVvbCBhbmQgbm8gdHJhaWxpbmcgY29udGV4dDsgbm8tbmwgY2FuIGVuZCB1cCBiZWZvcmUgYWRkc1xuICAgICAgICAgICAgICBjdXJSYW5nZS5zcGxpY2UoaHVuay5vbGRMaW5lcywgMCwgJ1xcXFwgTm8gbmV3bGluZSBhdCBlbmQgb2YgZmlsZScpO1xuICAgICAgICAgICAgfSBlbHNlIGlmICghb2xkRU9GTmV3bGluZSB8fCAhbmV3RU9GTmV3bGluZSkge1xuICAgICAgICAgICAgICBjdXJSYW5nZS5wdXNoKCdcXFxcIE5vIG5ld2xpbmUgYXQgZW5kIG9mIGZpbGUnKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9XG4gICAgICAgICAgaHVua3MucHVzaChodW5rKTtcblxuICAgICAgICAgIG9sZFJhbmdlU3RhcnQgPSAwO1xuICAgICAgICAgIG5ld1JhbmdlU3RhcnQgPSAwO1xuICAgICAgICAgIGN1clJhbmdlID0gW107XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICAgIG9sZExpbmUgKz0gbGluZXMubGVuZ3RoO1xuICAgICAgbmV3TGluZSArPSBsaW5lcy5sZW5ndGg7XG4gICAgfVxuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBvbGRGaWxlTmFtZTogb2xkRmlsZU5hbWUsIG5ld0ZpbGVOYW1lOiBuZXdGaWxlTmFtZSxcbiAgICBvbGRIZWFkZXI6IG9sZEhlYWRlciwgbmV3SGVhZGVyOiBuZXdIZWFkZXIsXG4gICAgaHVua3M6IGh1bmtzXG4gIH07XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBjcmVhdGVUd29GaWxlc1BhdGNoKG9sZEZpbGVOYW1lLCBuZXdGaWxlTmFtZSwgb2xkU3RyLCBuZXdTdHIsIG9sZEhlYWRlciwgbmV3SGVhZGVyLCBvcHRpb25zKSB7XG4gIGNvbnN0IGRpZmYgPSBzdHJ1Y3R1cmVkUGF0Y2gob2xkRmlsZU5hbWUsIG5ld0ZpbGVOYW1lLCBvbGRTdHIsIG5ld1N0ciwgb2xkSGVhZGVyLCBuZXdIZWFkZXIsIG9wdGlvbnMpO1xuXG4gIGNvbnN0IHJldCA9IFtdO1xuICBpZiAob2xkRmlsZU5hbWUgPT0gbmV3RmlsZU5hbWUpIHtcbiAgICByZXQucHVzaCgnSW5kZXg6ICcgKyBvbGRGaWxlTmFtZSk7XG4gIH1cbiAgcmV0LnB1c2goJz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0nKTtcbiAgcmV0LnB1c2goJy0tLSAnICsgZGlmZi5vbGRGaWxlTmFtZSArICh0eXBlb2YgZGlmZi5vbGRIZWFkZXIgPT09ICd1bmRlZmluZWQnID8gJycgOiAnXFx0JyArIGRpZmYub2xkSGVhZGVyKSk7XG4gIHJldC5wdXNoKCcrKysgJyArIGRpZmYubmV3RmlsZU5hbWUgKyAodHlwZW9mIGRpZmYubmV3SGVhZGVyID09PSAndW5kZWZpbmVkJyA/ICcnIDogJ1xcdCcgKyBkaWZmLm5ld0hlYWRlcikpO1xuXG4gIGZvciAobGV0IGkgPSAwOyBpIDwgZGlmZi5odW5rcy5sZW5ndGg7IGkrKykge1xuICAgIGNvbnN0IGh1bmsgPSBkaWZmLmh1bmtzW2ldO1xuICAgIHJldC5wdXNoKFxuICAgICAgJ0BAIC0nICsgaHVuay5vbGRTdGFydCArICcsJyArIGh1bmsub2xkTGluZXNcbiAgICAgICsgJyArJyArIGh1bmsubmV3U3RhcnQgKyAnLCcgKyBodW5rLm5ld0xpbmVzXG4gICAgICArICcgQEAnXG4gICAgKTtcbiAgICByZXQucHVzaC5hcHBseShyZXQsIGh1bmsubGluZXMpO1xuICB9XG5cbiAgcmV0dXJuIHJldC5qb2luKCdcXG4nKSArICdcXG4nO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gY3JlYXRlUGF0Y2goZmlsZU5hbWUsIG9sZFN0ciwgbmV3U3RyLCBvbGRIZWFkZXIsIG5ld0hlYWRlciwgb3B0aW9ucykge1xuICByZXR1cm4gY3JlYXRlVHdvRmlsZXNQYXRjaChmaWxlTmFtZSwgZmlsZU5hbWUsIG9sZFN0ciwgbmV3U3RyLCBvbGRIZWFkZXIsIG5ld0hlYWRlciwgb3B0aW9ucyk7XG59XG4iXX0=
-
-
-/***/ },
-/* 675 */
-/***/ function(module, exports) {
-
-	// See: http://code.google.com/p/google-diff-match-patch/wiki/API
-	"use strict";
-
-	exports.__esModule = true;
-	exports.convertChangesToDMP = convertChangesToDMP;
-
-	function convertChangesToDMP(changes) {
-	  var ret = [],
-	      change = undefined,
-	      operation = undefined;
-	  for (var i = 0; i < changes.length; i++) {
-	    change = changes[i];
-	    if (change.added) {
-	      operation = 1;
-	    } else if (change.removed) {
-	      operation = -1;
-	    } else {
-	      operation = 0;
-	    }
-
-	    ret.push([operation, change.value]);
-	  }
-	  return ret;
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9jb252ZXJ0L2RtcC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDTyxTQUFTLG1CQUFtQixDQUFDLE9BQU8sRUFBRTtBQUMzQyxNQUFJLEdBQUcsR0FBRyxFQUFFO01BQ1IsTUFBTSxZQUFBO01BQ04sU0FBUyxZQUFBLENBQUM7QUFDZCxPQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsT0FBTyxDQUFDLE1BQU0sRUFBRSxDQUFDLEVBQUUsRUFBRTtBQUN2QyxVQUFNLEdBQUcsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ3BCLFFBQUksTUFBTSxDQUFDLEtBQUssRUFBRTtBQUNoQixlQUFTLEdBQUcsQ0FBQyxDQUFDO0tBQ2YsTUFBTSxJQUFJLE1BQU0sQ0FBQyxPQUFPLEVBQUU7QUFDekIsZUFBUyxHQUFHLENBQUMsQ0FBQyxDQUFDO0tBQ2hCLE1BQU07QUFDTCxlQUFTLEdBQUcsQ0FBQyxDQUFDO0tBQ2Y7O0FBRUQsT0FBRyxDQUFDLElBQUksQ0FBQyxDQUFDLFNBQVMsRUFBRSxNQUFNLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQztHQUNyQztBQUNELFNBQU8sR0FBRyxDQUFDO0NBQ1oiLCJmaWxlIjoiZG1wLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gU2VlOiBodHRwOi8vY29kZS5nb29nbGUuY29tL3AvZ29vZ2xlLWRpZmYtbWF0Y2gtcGF0Y2gvd2lraS9BUElcbmV4cG9ydCBmdW5jdGlvbiBjb252ZXJ0Q2hhbmdlc1RvRE1QKGNoYW5nZXMpIHtcbiAgbGV0IHJldCA9IFtdLFxuICAgICAgY2hhbmdlLFxuICAgICAgb3BlcmF0aW9uO1xuICBmb3IgKGxldCBpID0gMDsgaSA8IGNoYW5nZXMubGVuZ3RoOyBpKyspIHtcbiAgICBjaGFuZ2UgPSBjaGFuZ2VzW2ldO1xuICAgIGlmIChjaGFuZ2UuYWRkZWQpIHtcbiAgICAgIG9wZXJhdGlvbiA9IDE7XG4gICAgfSBlbHNlIGlmIChjaGFuZ2UucmVtb3ZlZCkge1xuICAgICAgb3BlcmF0aW9uID0gLTE7XG4gICAgfSBlbHNlIHtcbiAgICAgIG9wZXJhdGlvbiA9IDA7XG4gICAgfVxuXG4gICAgcmV0LnB1c2goW29wZXJhdGlvbiwgY2hhbmdlLnZhbHVlXSk7XG4gIH1cbiAgcmV0dXJuIHJldDtcbn1cbiJdfQ==
-
-
-/***/ },
-/* 676 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.convertChangesToXML = convertChangesToXML;
-
-	function convertChangesToXML(changes) {
-	  var ret = [];
-	  for (var i = 0; i < changes.length; i++) {
-	    var change = changes[i];
-	    if (change.added) {
-	      ret.push('<ins>');
-	    } else if (change.removed) {
-	      ret.push('<del>');
-	    }
-
-	    ret.push(escapeHTML(change.value));
-
-	    if (change.added) {
-	      ret.push('</ins>');
-	    } else if (change.removed) {
-	      ret.push('</del>');
-	    }
-	  }
-	  return ret.join('');
-	}
-
-	function escapeHTML(s) {
-	  var n = s;
-	  n = n.replace(/&/g, '&amp;');
-	  n = n.replace(/</g, '&lt;');
-	  n = n.replace(/>/g, '&gt;');
-	  n = n.replace(/"/g, '&quot;');
-
-	  return n;
-	}
-	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9jb252ZXJ0L3htbC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFPLFNBQVMsbUJBQW1CLENBQUMsT0FBTyxFQUFFO0FBQzNDLE1BQUksR0FBRyxHQUFHLEVBQUUsQ0FBQztBQUNiLE9BQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxPQUFPLENBQUMsTUFBTSxFQUFFLENBQUMsRUFBRSxFQUFFO0FBQ3ZDLFFBQUksTUFBTSxHQUFHLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQztBQUN4QixRQUFJLE1BQU0sQ0FBQyxLQUFLLEVBQUU7QUFDaEIsU0FBRyxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQztLQUNuQixNQUFNLElBQUksTUFBTSxDQUFDLE9BQU8sRUFBRTtBQUN6QixTQUFHLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFDO0tBQ25COztBQUVELE9BQUcsQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDOztBQUVuQyxRQUFJLE1BQU0sQ0FBQyxLQUFLLEVBQUU7QUFDaEIsU0FBRyxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQztLQUNwQixNQUFNLElBQUksTUFBTSxDQUFDLE9BQU8sRUFBRTtBQUN6QixTQUFHLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0tBQ3BCO0dBQ0Y7QUFDRCxTQUFPLEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLENBQUM7Q0FDckI7O0FBRUQsU0FBUyxVQUFVLENBQUMsQ0FBQyxFQUFFO0FBQ3JCLE1BQUksQ0FBQyxHQUFHLENBQUMsQ0FBQztBQUNWLEdBQUMsR0FBRyxDQUFDLENBQUMsT0FBTyxDQUFDLElBQUksRUFBRSxPQUFPLENBQUMsQ0FBQztBQUM3QixHQUFDLEdBQUcsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxJQUFJLEVBQUUsTUFBTSxDQUFDLENBQUM7QUFDNUIsR0FBQyxHQUFHLENBQUMsQ0FBQyxPQUFPLENBQUMsSUFBSSxFQUFFLE1BQU0sQ0FBQyxDQUFDO0FBQzVCLEdBQUMsR0FBRyxDQUFDLENBQUMsT0FBTyxDQUFDLElBQUksRUFBRSxRQUFRLENBQUMsQ0FBQzs7QUFFOUIsU0FBTyxDQUFDLENBQUM7Q0FDViIsImZpbGUiOiJ4bWwuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZnVuY3Rpb24gY29udmVydENoYW5nZXNUb1hNTChjaGFuZ2VzKSB7XG4gIGxldCByZXQgPSBbXTtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBjaGFuZ2VzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGNoYW5nZSA9IGNoYW5nZXNbaV07XG4gICAgaWYgKGNoYW5nZS5hZGRlZCkge1xuICAgICAgcmV0LnB1c2goJzxpbnM+Jyk7XG4gICAgfSBlbHNlIGlmIChjaGFuZ2UucmVtb3ZlZCkge1xuICAgICAgcmV0LnB1c2goJzxkZWw+Jyk7XG4gICAgfVxuXG4gICAgcmV0LnB1c2goZXNjYXBlSFRNTChjaGFuZ2UudmFsdWUpKTtcblxuICAgIGlmIChjaGFuZ2UuYWRkZWQpIHtcbiAgICAgIHJldC5wdXNoKCc8L2lucz4nKTtcbiAgICB9IGVsc2UgaWYgKGNoYW5nZS5yZW1vdmVkKSB7XG4gICAgICByZXQucHVzaCgnPC9kZWw+Jyk7XG4gICAgfVxuICB9XG4gIHJldHVybiByZXQuam9pbignJyk7XG59XG5cbmZ1bmN0aW9uIGVzY2FwZUhUTUwocykge1xuICBsZXQgbiA9IHM7XG4gIG4gPSBuLnJlcGxhY2UoLyYvZywgJyZhbXA7Jyk7XG4gIG4gPSBuLnJlcGxhY2UoLzwvZywgJyZsdDsnKTtcbiAgbiA9IG4ucmVwbGFjZSgvPi9nLCAnJmd0OycpO1xuICBuID0gbi5yZXBsYWNlKC9cIi9nLCAnJnF1b3Q7Jyk7XG5cbiAgcmV0dXJuIG47XG59XG4iXX0=
-
-
-/***/ },
-/* 677 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	"use strict";
-
-	var _pathways = __webpack_require__(678);
+	var _pathways = __webpack_require__(660);
 
 	var _pathways2 = _interopRequireDefault(_pathways);
 
@@ -60538,10 +58611,10 @@
 		return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	var C = __webpack_require__(684).default,
-	    Firebase = __webpack_require__(685),
+	var C = __webpack_require__(666).default,
+	    Firebase = __webpack_require__(667),
 	    questionsRef = new Firebase(C.FIREBASE).child("questions"),
-	    moment = __webpack_require__(686);
+	    moment = __webpack_require__(668);
 
 	module.exports = {
 		// called when the app starts. this means we immediately download all questions, and
@@ -60682,7 +58755,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 678 */
+/* 660 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -60693,10 +58766,10 @@
 		value: true
 	});
 
-	var _reactRouterRedux = __webpack_require__(679);
+	var _reactRouterRedux = __webpack_require__(661);
 
-	var C = __webpack_require__(684).default,
-	    Firebase = __webpack_require__(685),
+	var C = __webpack_require__(666).default,
+	    Firebase = __webpack_require__(667),
 	    pathwaysRef = new Firebase(C.FIREBASE).child("pathways");
 	exports.default = {
 		startListeningToPathways: function startListeningToPathways() {
@@ -60731,7 +58804,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "pathways.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 679 */
+/* 661 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60741,7 +58814,7 @@
 	});
 	exports.routerMiddleware = exports.routerActions = exports.goForward = exports.goBack = exports.go = exports.replace = exports.push = exports.CALL_HISTORY_METHOD = exports.routerReducer = exports.LOCATION_CHANGE = exports.syncHistoryWithStore = undefined;
 
-	var _reducer = __webpack_require__(680);
+	var _reducer = __webpack_require__(662);
 
 	Object.defineProperty(exports, 'LOCATION_CHANGE', {
 	  enumerable: true,
@@ -60756,7 +58829,7 @@
 	  }
 	});
 
-	var _actions = __webpack_require__(681);
+	var _actions = __webpack_require__(663);
 
 	Object.defineProperty(exports, 'CALL_HISTORY_METHOD', {
 	  enumerable: true,
@@ -60801,11 +58874,11 @@
 	  }
 	});
 
-	var _sync = __webpack_require__(682);
+	var _sync = __webpack_require__(664);
 
 	var _sync2 = _interopRequireDefault(_sync);
 
-	var _middleware = __webpack_require__(683);
+	var _middleware = __webpack_require__(665);
 
 	var _middleware2 = _interopRequireDefault(_middleware);
 
@@ -60815,7 +58888,7 @@
 	exports.routerMiddleware = _middleware2.default;
 
 /***/ },
-/* 680 */
+/* 662 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -60857,7 +58930,7 @@
 	}
 
 /***/ },
-/* 681 */
+/* 663 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -60899,7 +58972,7 @@
 	var routerActions = exports.routerActions = { push: push, replace: replace, go: go, goBack: goBack, goForward: goForward };
 
 /***/ },
-/* 682 */
+/* 664 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60912,7 +58985,7 @@
 
 	exports.default = syncHistoryWithStore;
 
-	var _reducer = __webpack_require__(680);
+	var _reducer = __webpack_require__(662);
 
 	var defaultSelectLocationState = function defaultSelectLocationState(state) {
 	  return state.routing;
@@ -61051,7 +59124,7 @@
 	}
 
 /***/ },
-/* 683 */
+/* 665 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61061,7 +59134,7 @@
 	});
 	exports.default = routerMiddleware;
 
-	var _actions = __webpack_require__(681);
+	var _actions = __webpack_require__(663);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -61089,7 +59162,7 @@
 	}
 
 /***/ },
-/* 684 */
+/* 666 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -61160,7 +59233,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "constants.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 685 */
+/* 667 */
 /***/ function(module, exports) {
 
 	/*! @license Firebase v2.4.1
@@ -61445,7 +59518,7 @@
 
 
 /***/ },
-/* 686 */
+/* 668 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -61799,7 +59872,7 @@
 	                module && module.exports) {
 	            try {
 	                oldLocale = globalLocale._abbr;
-	                __webpack_require__(687)("./" + name);
+	                __webpack_require__(669)("./" + name);
 	                // because defineLocale currently also sets the global locale, we
 	                // want to undo that for lazy loaded locales
 	                locale_locales__getSetGlobalLocale(oldLocale);
@@ -65139,204 +63212,204 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(656)(module)))
 
 /***/ },
-/* 687 */
+/* 669 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./af": 688,
-		"./af.js": 688,
-		"./ar": 689,
-		"./ar-ma": 690,
-		"./ar-ma.js": 690,
-		"./ar-sa": 691,
-		"./ar-sa.js": 691,
-		"./ar-tn": 692,
-		"./ar-tn.js": 692,
-		"./ar.js": 689,
-		"./az": 693,
-		"./az.js": 693,
-		"./be": 694,
-		"./be.js": 694,
-		"./bg": 695,
-		"./bg.js": 695,
-		"./bn": 696,
-		"./bn.js": 696,
-		"./bo": 697,
-		"./bo.js": 697,
-		"./br": 698,
-		"./br.js": 698,
-		"./bs": 699,
-		"./bs.js": 699,
-		"./ca": 700,
-		"./ca.js": 700,
-		"./cs": 701,
-		"./cs.js": 701,
-		"./cv": 702,
-		"./cv.js": 702,
-		"./cy": 703,
-		"./cy.js": 703,
-		"./da": 704,
-		"./da.js": 704,
-		"./de": 705,
-		"./de-at": 706,
-		"./de-at.js": 706,
-		"./de.js": 705,
-		"./dv": 707,
-		"./dv.js": 707,
-		"./el": 708,
-		"./el.js": 708,
-		"./en-au": 709,
-		"./en-au.js": 709,
-		"./en-ca": 710,
-		"./en-ca.js": 710,
-		"./en-gb": 711,
-		"./en-gb.js": 711,
-		"./en-ie": 712,
-		"./en-ie.js": 712,
-		"./en-nz": 713,
-		"./en-nz.js": 713,
-		"./eo": 714,
-		"./eo.js": 714,
-		"./es": 715,
-		"./es.js": 715,
-		"./et": 716,
-		"./et.js": 716,
-		"./eu": 717,
-		"./eu.js": 717,
-		"./fa": 718,
-		"./fa.js": 718,
-		"./fi": 719,
-		"./fi.js": 719,
-		"./fo": 720,
-		"./fo.js": 720,
-		"./fr": 721,
-		"./fr-ca": 722,
-		"./fr-ca.js": 722,
-		"./fr-ch": 723,
-		"./fr-ch.js": 723,
-		"./fr.js": 721,
-		"./fy": 724,
-		"./fy.js": 724,
-		"./gd": 725,
-		"./gd.js": 725,
-		"./gl": 726,
-		"./gl.js": 726,
-		"./he": 727,
-		"./he.js": 727,
-		"./hi": 728,
-		"./hi.js": 728,
-		"./hr": 729,
-		"./hr.js": 729,
-		"./hu": 730,
-		"./hu.js": 730,
-		"./hy-am": 731,
-		"./hy-am.js": 731,
-		"./id": 732,
-		"./id.js": 732,
-		"./is": 733,
-		"./is.js": 733,
-		"./it": 734,
-		"./it.js": 734,
-		"./ja": 735,
-		"./ja.js": 735,
-		"./jv": 736,
-		"./jv.js": 736,
-		"./ka": 737,
-		"./ka.js": 737,
-		"./kk": 738,
-		"./kk.js": 738,
-		"./km": 739,
-		"./km.js": 739,
-		"./ko": 740,
-		"./ko.js": 740,
-		"./lb": 741,
-		"./lb.js": 741,
-		"./lo": 742,
-		"./lo.js": 742,
-		"./lt": 743,
-		"./lt.js": 743,
-		"./lv": 744,
-		"./lv.js": 744,
-		"./me": 745,
-		"./me.js": 745,
-		"./mk": 746,
-		"./mk.js": 746,
-		"./ml": 747,
-		"./ml.js": 747,
-		"./mr": 748,
-		"./mr.js": 748,
-		"./ms": 749,
-		"./ms-my": 750,
-		"./ms-my.js": 750,
-		"./ms.js": 749,
-		"./my": 751,
-		"./my.js": 751,
-		"./nb": 752,
-		"./nb.js": 752,
-		"./ne": 753,
-		"./ne.js": 753,
-		"./nl": 754,
-		"./nl.js": 754,
-		"./nn": 755,
-		"./nn.js": 755,
-		"./pa-in": 756,
-		"./pa-in.js": 756,
-		"./pl": 757,
-		"./pl.js": 757,
-		"./pt": 758,
-		"./pt-br": 759,
-		"./pt-br.js": 759,
-		"./pt.js": 758,
-		"./ro": 760,
-		"./ro.js": 760,
-		"./ru": 761,
-		"./ru.js": 761,
-		"./se": 762,
-		"./se.js": 762,
-		"./si": 763,
-		"./si.js": 763,
-		"./sk": 764,
-		"./sk.js": 764,
-		"./sl": 765,
-		"./sl.js": 765,
-		"./sq": 766,
-		"./sq.js": 766,
-		"./sr": 767,
-		"./sr-cyrl": 768,
-		"./sr-cyrl.js": 768,
-		"./sr.js": 767,
-		"./sv": 769,
-		"./sv.js": 769,
-		"./sw": 770,
-		"./sw.js": 770,
-		"./ta": 771,
-		"./ta.js": 771,
-		"./te": 772,
-		"./te.js": 772,
-		"./th": 773,
-		"./th.js": 773,
-		"./tl-ph": 774,
-		"./tl-ph.js": 774,
-		"./tlh": 775,
-		"./tlh.js": 775,
-		"./tr": 776,
-		"./tr.js": 776,
-		"./tzl": 777,
-		"./tzl.js": 777,
-		"./tzm": 778,
-		"./tzm-latn": 779,
-		"./tzm-latn.js": 779,
-		"./tzm.js": 778,
-		"./uk": 780,
-		"./uk.js": 780,
-		"./uz": 781,
-		"./uz.js": 781,
-		"./vi": 782,
-		"./vi.js": 782,
-		"./zh-cn": 783,
-		"./zh-cn.js": 783,
-		"./zh-tw": 784,
-		"./zh-tw.js": 784
+		"./af": 670,
+		"./af.js": 670,
+		"./ar": 671,
+		"./ar-ma": 672,
+		"./ar-ma.js": 672,
+		"./ar-sa": 673,
+		"./ar-sa.js": 673,
+		"./ar-tn": 674,
+		"./ar-tn.js": 674,
+		"./ar.js": 671,
+		"./az": 675,
+		"./az.js": 675,
+		"./be": 676,
+		"./be.js": 676,
+		"./bg": 677,
+		"./bg.js": 677,
+		"./bn": 678,
+		"./bn.js": 678,
+		"./bo": 679,
+		"./bo.js": 679,
+		"./br": 680,
+		"./br.js": 680,
+		"./bs": 681,
+		"./bs.js": 681,
+		"./ca": 682,
+		"./ca.js": 682,
+		"./cs": 683,
+		"./cs.js": 683,
+		"./cv": 684,
+		"./cv.js": 684,
+		"./cy": 685,
+		"./cy.js": 685,
+		"./da": 686,
+		"./da.js": 686,
+		"./de": 687,
+		"./de-at": 688,
+		"./de-at.js": 688,
+		"./de.js": 687,
+		"./dv": 689,
+		"./dv.js": 689,
+		"./el": 690,
+		"./el.js": 690,
+		"./en-au": 691,
+		"./en-au.js": 691,
+		"./en-ca": 692,
+		"./en-ca.js": 692,
+		"./en-gb": 693,
+		"./en-gb.js": 693,
+		"./en-ie": 694,
+		"./en-ie.js": 694,
+		"./en-nz": 695,
+		"./en-nz.js": 695,
+		"./eo": 696,
+		"./eo.js": 696,
+		"./es": 697,
+		"./es.js": 697,
+		"./et": 698,
+		"./et.js": 698,
+		"./eu": 699,
+		"./eu.js": 699,
+		"./fa": 700,
+		"./fa.js": 700,
+		"./fi": 701,
+		"./fi.js": 701,
+		"./fo": 702,
+		"./fo.js": 702,
+		"./fr": 703,
+		"./fr-ca": 704,
+		"./fr-ca.js": 704,
+		"./fr-ch": 705,
+		"./fr-ch.js": 705,
+		"./fr.js": 703,
+		"./fy": 706,
+		"./fy.js": 706,
+		"./gd": 707,
+		"./gd.js": 707,
+		"./gl": 708,
+		"./gl.js": 708,
+		"./he": 709,
+		"./he.js": 709,
+		"./hi": 710,
+		"./hi.js": 710,
+		"./hr": 711,
+		"./hr.js": 711,
+		"./hu": 712,
+		"./hu.js": 712,
+		"./hy-am": 713,
+		"./hy-am.js": 713,
+		"./id": 714,
+		"./id.js": 714,
+		"./is": 715,
+		"./is.js": 715,
+		"./it": 716,
+		"./it.js": 716,
+		"./ja": 717,
+		"./ja.js": 717,
+		"./jv": 718,
+		"./jv.js": 718,
+		"./ka": 719,
+		"./ka.js": 719,
+		"./kk": 720,
+		"./kk.js": 720,
+		"./km": 721,
+		"./km.js": 721,
+		"./ko": 722,
+		"./ko.js": 722,
+		"./lb": 723,
+		"./lb.js": 723,
+		"./lo": 724,
+		"./lo.js": 724,
+		"./lt": 725,
+		"./lt.js": 725,
+		"./lv": 726,
+		"./lv.js": 726,
+		"./me": 727,
+		"./me.js": 727,
+		"./mk": 728,
+		"./mk.js": 728,
+		"./ml": 729,
+		"./ml.js": 729,
+		"./mr": 730,
+		"./mr.js": 730,
+		"./ms": 731,
+		"./ms-my": 732,
+		"./ms-my.js": 732,
+		"./ms.js": 731,
+		"./my": 733,
+		"./my.js": 733,
+		"./nb": 734,
+		"./nb.js": 734,
+		"./ne": 735,
+		"./ne.js": 735,
+		"./nl": 736,
+		"./nl.js": 736,
+		"./nn": 737,
+		"./nn.js": 737,
+		"./pa-in": 738,
+		"./pa-in.js": 738,
+		"./pl": 739,
+		"./pl.js": 739,
+		"./pt": 740,
+		"./pt-br": 741,
+		"./pt-br.js": 741,
+		"./pt.js": 740,
+		"./ro": 742,
+		"./ro.js": 742,
+		"./ru": 743,
+		"./ru.js": 743,
+		"./se": 744,
+		"./se.js": 744,
+		"./si": 745,
+		"./si.js": 745,
+		"./sk": 746,
+		"./sk.js": 746,
+		"./sl": 747,
+		"./sl.js": 747,
+		"./sq": 748,
+		"./sq.js": 748,
+		"./sr": 749,
+		"./sr-cyrl": 750,
+		"./sr-cyrl.js": 750,
+		"./sr.js": 749,
+		"./sv": 751,
+		"./sv.js": 751,
+		"./sw": 752,
+		"./sw.js": 752,
+		"./ta": 753,
+		"./ta.js": 753,
+		"./te": 754,
+		"./te.js": 754,
+		"./th": 755,
+		"./th.js": 755,
+		"./tl-ph": 756,
+		"./tl-ph.js": 756,
+		"./tlh": 757,
+		"./tlh.js": 757,
+		"./tr": 758,
+		"./tr.js": 758,
+		"./tzl": 759,
+		"./tzl.js": 759,
+		"./tzm": 760,
+		"./tzm-latn": 761,
+		"./tzm-latn.js": 761,
+		"./tzm.js": 760,
+		"./uk": 762,
+		"./uk.js": 762,
+		"./uz": 763,
+		"./uz.js": 763,
+		"./vi": 764,
+		"./vi.js": 764,
+		"./zh-cn": 765,
+		"./zh-cn.js": 765,
+		"./zh-tw": 766,
+		"./zh-tw.js": 766
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -65349,11 +63422,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 687;
+	webpackContext.id = 669;
 
 
 /***/ },
-/* 688 */
+/* 670 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -65361,7 +63434,7 @@
 	//! author : Werner Mollentze : https://github.com/wernerm
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -65430,7 +63503,7 @@
 	}));
 
 /***/ },
-/* 689 */
+/* 671 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -65440,7 +63513,7 @@
 	//! Native plural forms: forabi https://github.com/forabi
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -65570,7 +63643,7 @@
 	}));
 
 /***/ },
-/* 690 */
+/* 672 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -65579,7 +63652,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -65633,7 +63706,7 @@
 	}));
 
 /***/ },
-/* 691 */
+/* 673 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -65641,7 +63714,7 @@
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -65740,14 +63813,14 @@
 	}));
 
 /***/ },
-/* 692 */
+/* 674 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale  : Tunisian Arabic (ar-tn)
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -65801,7 +63874,7 @@
 	}));
 
 /***/ },
-/* 693 */
+/* 675 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -65809,7 +63882,7 @@
 	//! author : topchiyev : https://github.com/topchiyev
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -65909,7 +63982,7 @@
 	}));
 
 /***/ },
-/* 694 */
+/* 676 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -65919,7 +63992,7 @@
 	//! Author : Menelion Elensúle : https://github.com/Oire
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -66047,7 +64120,7 @@
 	}));
 
 /***/ },
-/* 695 */
+/* 677 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -66055,7 +64128,7 @@
 	//! author : Krasen Borisov : https://github.com/kraz
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -66141,7 +64214,7 @@
 	}));
 
 /***/ },
-/* 696 */
+/* 678 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -66149,7 +64222,7 @@
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -66264,7 +64337,7 @@
 	}));
 
 /***/ },
-/* 697 */
+/* 679 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -66272,7 +64345,7 @@
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -66387,7 +64460,7 @@
 	}));
 
 /***/ },
-/* 698 */
+/* 680 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -66395,7 +64468,7 @@
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -66498,7 +64571,7 @@
 	}));
 
 /***/ },
-/* 699 */
+/* 681 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -66507,7 +64580,7 @@
 	//! based on (hr) translation by Bojan Marković
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -66643,7 +64716,7 @@
 	}));
 
 /***/ },
-/* 700 */
+/* 682 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -66651,7 +64724,7 @@
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -66726,7 +64799,7 @@
 	}));
 
 /***/ },
-/* 701 */
+/* 683 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -66734,7 +64807,7 @@
 	//! author : petrbela : https://github.com/petrbela
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -66901,7 +64974,7 @@
 	}));
 
 /***/ },
-/* 702 */
+/* 684 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -66909,7 +64982,7 @@
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -66968,7 +65041,7 @@
 	}));
 
 /***/ },
-/* 703 */
+/* 685 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -66976,7 +65049,7 @@
 	//! author : Robert Allen
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67051,7 +65124,7 @@
 	}));
 
 /***/ },
-/* 704 */
+/* 686 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67059,7 +65132,7 @@
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67115,7 +65188,7 @@
 	}));
 
 /***/ },
-/* 705 */
+/* 687 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67125,7 +65198,7 @@
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67195,7 +65268,7 @@
 	}));
 
 /***/ },
-/* 706 */
+/* 688 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67206,7 +65279,7 @@
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67276,7 +65349,7 @@
 	}));
 
 /***/ },
-/* 707 */
+/* 689 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67284,7 +65357,7 @@
 	//! author : Jawish Hameed : https://github.com/jawish
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67379,7 +65452,7 @@
 	}));
 
 /***/ },
-/* 708 */
+/* 690 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67387,7 +65460,7 @@
 	//! author : Aggelos Karalias : https://github.com/mehiel
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67481,14 +65554,14 @@
 	}));
 
 /***/ },
-/* 709 */
+/* 691 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : australian english (en-au)
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67551,7 +65624,7 @@
 	}));
 
 /***/ },
-/* 710 */
+/* 692 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67559,7 +65632,7 @@
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67618,7 +65691,7 @@
 	}));
 
 /***/ },
-/* 711 */
+/* 693 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67626,7 +65699,7 @@
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67689,7 +65762,7 @@
 	}));
 
 /***/ },
-/* 712 */
+/* 694 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67697,7 +65770,7 @@
 	//! author : Chris Cartlidge : https://github.com/chriscartlidge
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67760,14 +65833,14 @@
 	}));
 
 /***/ },
-/* 713 */
+/* 695 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : New Zealand english (en-nz)
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67830,7 +65903,7 @@
 	}));
 
 /***/ },
-/* 714 */
+/* 696 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67840,7 +65913,7 @@
 	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67907,7 +65980,7 @@
 	}));
 
 /***/ },
-/* 715 */
+/* 697 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67915,7 +65988,7 @@
 	//! author : Julio Napurí : https://github.com/julionc
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -67990,7 +66063,7 @@
 	}));
 
 /***/ },
-/* 716 */
+/* 698 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -67999,7 +66072,7 @@
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68074,7 +66147,7 @@
 	}));
 
 /***/ },
-/* 717 */
+/* 699 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68082,7 +66155,7 @@
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68142,7 +66215,7 @@
 	}));
 
 /***/ },
-/* 718 */
+/* 700 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68150,7 +66223,7 @@
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68251,7 +66324,7 @@
 	}));
 
 /***/ },
-/* 719 */
+/* 701 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68259,7 +66332,7 @@
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68362,7 +66435,7 @@
 	}));
 
 /***/ },
-/* 720 */
+/* 702 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68370,7 +66443,7 @@
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68426,7 +66499,7 @@
 	}));
 
 /***/ },
-/* 721 */
+/* 703 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68434,7 +66507,7 @@
 	//! author : John Fischer : https://github.com/jfroffice
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68492,7 +66565,7 @@
 	}));
 
 /***/ },
-/* 722 */
+/* 704 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68500,7 +66573,7 @@
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68554,7 +66627,7 @@
 	}));
 
 /***/ },
-/* 723 */
+/* 705 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68562,7 +66635,7 @@
 	//! author : Gaspard Bucher : https://github.com/gaspard
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68620,7 +66693,7 @@
 	}));
 
 /***/ },
-/* 724 */
+/* 706 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68628,7 +66701,7 @@
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68695,7 +66768,7 @@
 	}));
 
 /***/ },
-/* 725 */
+/* 707 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68703,7 +66776,7 @@
 	//! author : Jon Ashdown : https://github.com/jonashdown
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68775,7 +66848,7 @@
 	}));
 
 /***/ },
-/* 726 */
+/* 708 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68783,7 +66856,7 @@
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68854,7 +66927,7 @@
 	}));
 
 /***/ },
-/* 727 */
+/* 709 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68864,7 +66937,7 @@
 	//! author : Tal Ater : https://github.com/TalAter
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -68957,7 +67030,7 @@
 	}));
 
 /***/ },
-/* 728 */
+/* 710 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -68965,7 +67038,7 @@
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69084,7 +67157,7 @@
 	}));
 
 /***/ },
-/* 729 */
+/* 711 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -69092,7 +67165,7 @@
 	//! author : Bojan Marković : https://github.com/bmarkovic
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69231,7 +67304,7 @@
 	}));
 
 /***/ },
-/* 730 */
+/* 712 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -69239,7 +67312,7 @@
 	//! author : Adam Brunner : https://github.com/adambrunner
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69344,7 +67417,7 @@
 	}));
 
 /***/ },
-/* 731 */
+/* 713 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -69352,7 +67425,7 @@
 	//! author : Armendarabyan : https://github.com/armendarabyan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69443,7 +67516,7 @@
 	}));
 
 /***/ },
-/* 732 */
+/* 714 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -69452,7 +67525,7 @@
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69530,7 +67603,7 @@
 	}));
 
 /***/ },
-/* 733 */
+/* 715 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -69538,7 +67611,7 @@
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69661,7 +67734,7 @@
 	}));
 
 /***/ },
-/* 734 */
+/* 716 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -69670,7 +67743,7 @@
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69735,7 +67808,7 @@
 	}));
 
 /***/ },
-/* 735 */
+/* 717 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -69743,7 +67816,7 @@
 	//! author : LI Long : https://github.com/baryon
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69815,7 +67888,7 @@
 	}));
 
 /***/ },
-/* 736 */
+/* 718 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -69824,7 +67897,7 @@
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69902,7 +67975,7 @@
 	}));
 
 /***/ },
-/* 737 */
+/* 719 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -69910,7 +67983,7 @@
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -69995,7 +68068,7 @@
 	}));
 
 /***/ },
-/* 738 */
+/* 720 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70003,7 +68076,7 @@
 	//! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70086,7 +68159,7 @@
 	}));
 
 /***/ },
-/* 739 */
+/* 721 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70094,7 +68167,7 @@
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70148,7 +68221,7 @@
 	}));
 
 /***/ },
-/* 740 */
+/* 722 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70160,7 +68233,7 @@
 	//! - Jeeeyul Lee <jeeeyul@gmail.com>
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70220,7 +68293,7 @@
 	}));
 
 /***/ },
-/* 741 */
+/* 723 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70228,7 +68301,7 @@
 	//! author : mweimerskirch : https://github.com/mweimerskirch, David Raison : https://github.com/kwisatz
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70358,7 +68431,7 @@
 	}));
 
 /***/ },
-/* 742 */
+/* 724 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70366,7 +68439,7 @@
 	//! author : Ryan Hart : https://github.com/ryanhart2
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70431,7 +68504,7 @@
 	}));
 
 /***/ },
-/* 743 */
+/* 725 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70439,7 +68512,7 @@
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70550,7 +68623,7 @@
 	}));
 
 /***/ },
-/* 744 */
+/* 726 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70559,7 +68632,7 @@
 	//! author : Jānis Elmeris : https://github.com/JanisE
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70650,7 +68723,7 @@
 	}));
 
 /***/ },
-/* 745 */
+/* 727 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70658,7 +68731,7 @@
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70763,7 +68836,7 @@
 	}));
 
 /***/ },
-/* 746 */
+/* 728 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70771,7 +68844,7 @@
 	//! author : Borislav Mickov : https://github.com/B0k0
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70857,7 +68930,7 @@
 	}));
 
 /***/ },
-/* 747 */
+/* 729 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70865,7 +68938,7 @@
 	//! author : Floyd Pink : https://github.com/floydpink
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -70941,7 +69014,7 @@
 	}));
 
 /***/ },
-/* 748 */
+/* 730 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70950,7 +69023,7 @@
 	//! author : Vivek Athalye : https://github.com/vnathalye
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71103,7 +69176,7 @@
 	}));
 
 /***/ },
-/* 749 */
+/* 731 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71111,7 +69184,7 @@
 	//! author : Weldan Jamili : https://github.com/weldan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71189,7 +69262,7 @@
 	}));
 
 /***/ },
-/* 750 */
+/* 732 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71197,7 +69270,7 @@
 	//! author : Weldan Jamili : https://github.com/weldan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71275,7 +69348,7 @@
 	}));
 
 /***/ },
-/* 751 */
+/* 733 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71283,7 +69356,7 @@
 	//! author : Squar team, mysquar.com
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71372,7 +69445,7 @@
 	}));
 
 /***/ },
-/* 752 */
+/* 734 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71381,7 +69454,7 @@
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71437,7 +69510,7 @@
 	}));
 
 /***/ },
-/* 753 */
+/* 735 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71445,7 +69518,7 @@
 	//! author : suvash : https://github.com/suvash
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71562,7 +69635,7 @@
 	}));
 
 /***/ },
-/* 754 */
+/* 736 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71570,7 +69643,7 @@
 	//! author : Joris Röling : https://github.com/jjupiter
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71637,7 +69710,7 @@
 	}));
 
 /***/ },
-/* 755 */
+/* 737 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71645,7 +69718,7 @@
 	//! author : https://github.com/mechuwind
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71701,7 +69774,7 @@
 	}));
 
 /***/ },
-/* 756 */
+/* 738 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71709,7 +69782,7 @@
 	//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71829,7 +69902,7 @@
 	}));
 
 /***/ },
-/* 757 */
+/* 739 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71837,7 +69910,7 @@
 	//! author : Rafal Hirsz : https://github.com/evoL
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -71938,7 +70011,7 @@
 	}));
 
 /***/ },
-/* 758 */
+/* 740 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71946,7 +70019,7 @@
 	//! author : Jefferson : https://github.com/jalex79
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72006,7 +70079,7 @@
 	}));
 
 /***/ },
-/* 759 */
+/* 741 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72014,7 +70087,7 @@
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72070,7 +70143,7 @@
 	}));
 
 /***/ },
-/* 760 */
+/* 742 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72079,7 +70152,7 @@
 	//! author : Valentin Agachi : https://github.com/avaly
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72148,7 +70221,7 @@
 	}));
 
 /***/ },
-/* 761 */
+/* 743 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72158,7 +70231,7 @@
 	//! author : Коренберг Марк : https://github.com/socketpair
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72320,7 +70393,7 @@
 	}));
 
 /***/ },
-/* 762 */
+/* 744 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72328,7 +70401,7 @@
 	//! authors : Bård Rolstad Henriksen : https://github.com/karamell
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72385,7 +70458,7 @@
 	}));
 
 /***/ },
-/* 763 */
+/* 745 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72393,7 +70466,7 @@
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72459,7 +70532,7 @@
 	}));
 
 /***/ },
-/* 764 */
+/* 746 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72468,7 +70541,7 @@
 	//! based on work of petrbela : https://github.com/petrbela
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72613,7 +70686,7 @@
 	}));
 
 /***/ },
-/* 765 */
+/* 747 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72621,7 +70694,7 @@
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72777,7 +70850,7 @@
 	}));
 
 /***/ },
-/* 766 */
+/* 748 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72787,7 +70860,7 @@
 	//! author : Oerd Cukalla : https://github.com/oerd (fixes)
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72850,7 +70923,7 @@
 	}));
 
 /***/ },
-/* 767 */
+/* 749 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72858,7 +70931,7 @@
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -72962,7 +71035,7 @@
 	}));
 
 /***/ },
-/* 768 */
+/* 750 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72970,7 +71043,7 @@
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73074,7 +71147,7 @@
 	}));
 
 /***/ },
-/* 769 */
+/* 751 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73082,7 +71155,7 @@
 	//! author : Jens Alm : https://github.com/ulmus
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73145,7 +71218,7 @@
 	}));
 
 /***/ },
-/* 770 */
+/* 752 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73153,7 +71226,7 @@
 	//! author : Fahad Kassim : https://github.com/fadsel
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73207,7 +71280,7 @@
 	}));
 
 /***/ },
-/* 771 */
+/* 753 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73215,7 +71288,7 @@
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73340,7 +71413,7 @@
 	}));
 
 /***/ },
-/* 772 */
+/* 754 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73348,7 +71421,7 @@
 	//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73432,7 +71505,7 @@
 	}));
 
 /***/ },
-/* 773 */
+/* 755 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73440,7 +71513,7 @@
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73501,7 +71574,7 @@
 	}));
 
 /***/ },
-/* 774 */
+/* 756 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73509,7 +71582,7 @@
 	//! author : Dan Hagman
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73567,7 +71640,7 @@
 	}));
 
 /***/ },
-/* 775 */
+/* 757 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73575,7 +71648,7 @@
 	//! author : Dominika Kruk : https://github.com/amaranthrose
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73690,7 +71763,7 @@
 	}));
 
 /***/ },
-/* 776 */
+/* 758 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73699,7 +71772,7 @@
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73784,7 +71857,7 @@
 	}));
 
 /***/ },
-/* 777 */
+/* 759 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73792,7 +71865,7 @@
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v with the help of Iustì Canun
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73879,7 +71952,7 @@
 	}));
 
 /***/ },
-/* 778 */
+/* 760 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73887,7 +71960,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -73941,7 +72014,7 @@
 	}));
 
 /***/ },
-/* 779 */
+/* 761 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73949,7 +72022,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -74003,7 +72076,7 @@
 	}));
 
 /***/ },
-/* 780 */
+/* 762 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74012,7 +72085,7 @@
 	//! Author : Menelion Elensúle : https://github.com/Oire
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -74153,7 +72226,7 @@
 	}));
 
 /***/ },
-/* 781 */
+/* 763 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74161,7 +72234,7 @@
 	//! author : Sardor Muminov : https://github.com/muminoff
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -74215,7 +72288,7 @@
 	}));
 
 /***/ },
-/* 782 */
+/* 764 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74223,7 +72296,7 @@
 	//! author : Bang Nguyen : https://github.com/bangnk
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -74296,7 +72369,7 @@
 	}));
 
 /***/ },
-/* 783 */
+/* 765 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74305,7 +72378,7 @@
 	//! author : Zeno Zeng : https://github.com/zenozeng
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -74427,7 +72500,7 @@
 	}));
 
 /***/ },
-/* 784 */
+/* 766 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74435,7 +72508,7 @@
 	//! author : Ben : https://github.com/ben-lin
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(686)) :
+	    true ? factory(__webpack_require__(668)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -74532,7 +72605,37 @@
 	}));
 
 /***/ },
-/* 785 */
+/* 767 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = _react2.default.createClass({
+	  displayName: "modal",
+
+	  render: function render() {
+	    return _react2.default.createElement("div", { className: "modal is-active" }, _react2.default.createElement("div", { className: "modal-background" }), _react2.default.createElement("div", { className: "modal-container" }, _react2.default.createElement("div", { className: "modal-content" }, this.props.children)), _react2.default.createElement("button", { className: "modal-close", onClick: this.props.close }));
+	  }
+	});
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "modal.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 768 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74549,7 +72652,2007 @@
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _question = __webpack_require__(786);
+	var _question = __webpack_require__(769);
+
+	var _question2 = _interopRequireDefault(_question);
+
+	var _underscore = __webpack_require__(657);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	var _hashToCollection = __webpack_require__(654);
+
+	var _actions = __webpack_require__(367);
+
+	var _questions = __webpack_require__(659);
+
+	var _questions2 = _interopRequireDefault(_questions);
+
+	var _pathways = __webpack_require__(660);
+
+	var _pathways2 = _interopRequireDefault(_pathways);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var C = __webpack_require__(666).default,
+	    Firebase = __webpack_require__(667);
+	var sessionsRef = new Firebase(C.FIREBASE).child('sessions');
+
+	var feedbackStrings = {
+	  punctuationError: "punctuation error",
+	  typingError: "spelling mistake",
+	  caseError: "capitalization error"
+	};
+
+	var playQuestion = _react2.default.createClass({
+	  displayName: 'playQuestion',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      editing: false
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+
+	    this.props.dispatch((0, _actions.clearResponses)());
+	    var questionID = this.props.params.questionID;
+
+	    var sessionRef = sessionsRef.push({ questionID: questionID }, function (error) {
+	      _this.setState({ sessionKey: sessionRef.key() });
+	    });
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.question.attempts.length > 0) {
+	      var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(nextProps.question.attempts, function (error) {
+	        return;
+	      });
+	    }
+	  },
+
+	  getQuestion: function getQuestion() {
+	    var data = this.props.questions.data;var questionID = this.props.params.questionID;
+
+	    return data[questionID];
+	  },
+
+	  submitResponse: function submitResponse(response) {
+	    var action = (0, _actions.submitResponse)(response);
+	    this.props.dispatch(action);
+	    var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(this.props.question.attempts, function (error) {
+	      return;
+	    });
+	  },
+
+	  renderSentenceFragments: function renderSentenceFragments() {
+	    return _react2.default.createElement('h4', { className: 'title is-4' }, this.getQuestion().prompt);
+	    // return this.props.question.sentences.map((sentence, index) => {
+	    //   return (<li key={index}>{sentence}</li>)
+	    // })
+	  },
+
+	  renderFeedback: function renderFeedback() {
+	    var latestAttempt = getLatestAttempt(this.props.question.attempts);
+	    if (latestAttempt) {
+	      if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
+	        return _react2.default.createElement('ul', { className: 'is-unstyled' }, this.renderFeedbackStatements(latestAttempt));
+	      } else {
+	        return _react2.default.createElement('h5', { className: 'title is-5' }, 'Try Again. What’s another way you could write this sentence?');
+	      }
+	    }
+	  },
+
+	  getErrorsForAttempt: function getErrorsForAttempt(attempt) {
+	    return _underscore2.default.pick(attempt, 'typingError', 'caseError', 'punctuationError');
+	  },
+
+	  generateFeedbackString: function generateFeedbackString(attempt) {
+	    var errors = this.getErrorsForAttempt(attempt);
+	    // add keys for react list elements
+	    var errorComponents = _underscore2.default.values(_underscore2.default.mapObject(errors, function (val, key) {
+	      if (val) {
+	        return "You have made a " + feedbackStrings[key] + ".";
+	      }
+	    }));
+	    return errorComponents[0];
+	  },
+
+	  renderFeedbackStatements: function renderFeedbackStatements(attempt) {
+	    var errors = this.getErrorsForAttempt(attempt);
+	    console.log(_underscore2.default.isEmpty(errors), attempt.response.optimal !== true);
+	    // add keys for react list elements
+	    var components = [];
+	    if (_underscore2.default.isEmpty(errors) && attempt.response.optimal !== true) {
+	      components = components.concat([_react2.default.createElement('li', { key: 'feedback' }, _react2.default.createElement('h5', { className: 'title is-5' }, attempt.response.feedback))]);
+	    }
+	    var errorComponents = _underscore2.default.values(_underscore2.default.mapObject(errors, function (val, key) {
+	      if (val) {
+	        return _react2.default.createElement('li', { key: key }, _react2.default.createElement('h5', { className: 'title is-5' }, 'Warning: You have made a ', feedbackStrings[key], '.'));
+	      }
+	    }));
+	    // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
+	    if (attempt.response.parentID && this.getQuestion().responses[attempt.response.parentID].optimal !== true) {
+	      var parentResponse = this.getQuestion().responses[attempt.response.parentID];
+	      console.log(parentResponse);
+	      components = [_react2.default.createElement('li', { key: 'parentfeedback' }, _react2.default.createElement('h5', { className: 'title is-5' }, parentResponse.feedback))].concat(components);
+	      console.log("comps, ", components);
+	    }
+	    return components.concat(errorComponents);
+	  },
+
+	  updateReponseResource: function updateReponseResource(response) {
+	    var previousAttempt;
+	    var responses = (0, _hashToCollection.hashToCollection)(this.getQuestion().responses);
+	    var preAtt = getLatestAttempt(this.props.question.attempts);
+	    if (preAtt) {
+	      previousAttempt = _underscore2.default.find(responses, { text: getLatestAttempt(this.props.question.attempts).submitted });
+	    }
+	    var prid = previousAttempt ? previousAttempt.key : undefined;
+	    console.log('Response: ', response);
+	    if (response.found) {
+
+	      // var latestAttempt = getLatestAttempt(this.props.question.attempts)
+	      var errors = _underscore2.default.keys(this.getErrorsForAttempt(response));
+	      if (errors.length === 0) {
+	        this.props.dispatch(_questions2.default.incrementResponseCount(this.props.params.questionID, response.response.key, prid));
+	      } else {
+	        var newErrorResp = {
+	          text: response.submitted,
+	          count: 1,
+	          parentID: response.response.key,
+	          feedback: this.generateFeedbackString(response)
+	        };
+	        this.props.dispatch(_questions2.default.submitNewResponse(this.props.params.questionID, newErrorResp, prid));
+	      }
+	    } else {
+	      var newResp = {
+	        text: response.submitted,
+	        count: 1
+	      };
+	      this.props.dispatch(_questions2.default.submitNewResponse(this.props.params.questionID, newResp, prid));
+	    }
+	  },
+
+	  submitPathway: function submitPathway(response) {
+	    var data = {};
+	    var previousAttempt;
+	    var responses = (0, _hashToCollection.hashToCollection)(this.getQuestion().responses);
+	    var preAtt = getLatestAttempt(this.props.question.attempts);
+	    if (preAtt) {
+	      previousAttempt = _underscore2.default.find(responses, { text: getLatestAttempt(this.props.question.attempts).submitted });
+	    }
+	    var newAttempt = _underscore2.default.find(responses, { text: response.submitted });
+	    console.log("previous attempt: ", previousAttempt);
+	    console.log("new attempt: ", newAttempt);
+
+	    if (previousAttempt) {
+	      data.fromResponseID = previousAttempt.key;
+	    }
+	    if (newAttempt) {
+	      data.toResponseID = newAttempt.key;
+	      data.questionID = this.props.params.questionID;
+	      this.props.dispatch(_pathways2.default.submitNewPathway(data));
+	    }
+	  },
+
+	  checkAnswer: function checkAnswer() {
+	    var fields = {
+	      prompt: this.getQuestion().prompt,
+	      responses: (0, _hashToCollection.hashToCollection)(this.getQuestion().responses)
+	    };
+	    var question = new _question2.default(fields);
+	    var response = question.checkMatch(this.refs.response.value);
+	    this.updateReponseResource(response);
+	    this.submitResponse(response);
+	    this.setState({ editing: false });
+	  },
+
+	  toggleDisabled: function toggleDisabled() {
+	    if (this.state.editing) {
+	      return "";
+	    }
+	    return "is-disabled";
+	  },
+
+	  handleChange: function handleChange() {
+	    this.setState({ editing: true });
+	  },
+
+	  readyForNext: function readyForNext() {
+	    if (this.props.question.attempts.length > 0) {
+	      var latestAttempt = getLatestAttempt(this.props.question.attempts);
+	      if (latestAttempt.found) {
+	        var errors = _underscore2.default.keys(this.getErrorsForAttempt(latestAttempt));
+	        if (latestAttempt.response.optimal && errors.length === 0) {
+	          return true;
+	        }
+	      }
+	    }
+	    return false;
+	  },
+
+	  getProgressPercent: function getProgressPercent() {
+	    return this.props.question.attempts.length / 3 * 100;
+	  },
+
+	  renderNextQuestionButton: function renderNextQuestionButton() {
+	    if (this.readyForNext()) {
+	      return _react2.default.createElement('button', { className: 'button is-outlined is-success', onClick: console.log("next") }, 'Next');
+	    }
+	  },
+
+	  render: function render() {
+	    var data = this.props.questions.data;var questionID = this.props.params.questionID;
+
+	    if (data[questionID]) {
+	      if (this.props.question.attempts.length > 2) {
+	        return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'content' }, _react2.default.createElement('h4', null, 'You completed all of the attempts.'), _react2.default.createElement('p', null, 'Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.'), _react2.default.createElement('p', null, _react2.default.createElement('strong', null, 'Unique code:'), ' ', this.state.sessionKey))));
+	      } else if (this.props.question.attempts.length > 0) {
+	        var latestAttempt = getLatestAttempt(this.props.question.attempts);
+	        if (this.readyForNext()) {
+	          return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'content' }, _react2.default.createElement('h4', null, 'Excellent'), _react2.default.createElement('p', null, 'That\'s correct. Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.'), _react2.default.createElement('p', null, _react2.default.createElement('strong', null, 'Unique code:'), ' ', this.state.sessionKey))));
+	        } else {
+	          return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'content' }, _react2.default.createElement('progress', { className: 'progress is-primary', value: this.getProgressPercent(), max: '100' }, this.getProgressPercent(), '%'), _react2.default.createElement('h6', { className: 'title is-6' }, 'Combine the sentences below into one sentence.'), this.renderSentenceFragments(), this.renderFeedback(), _react2.default.createElement('div', { className: 'control' }, _react2.default.createElement('textarea', { className: 'textarea', ref: 'response', placeholder: 'Type your answer here. Rememeber, your answer should be just one sentence.', onChange: this.handleChange })), _react2.default.createElement('div', { className: 'button-group' }, _react2.default.createElement('button', { className: "button is-outlined is-primary " + this.toggleDisabled(), onClick: this.checkAnswer }, 'Check answer'), this.renderNextQuestionButton()))));
+	        }
+	      } else {
+	        return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'content' }, _react2.default.createElement('progress', { className: 'progress is-primary', value: this.getProgressPercent(), max: '100' }, this.getProgressPercent(), '%'), _react2.default.createElement('h6', { className: 'title is-6' }, 'Combine the sentences below into one sentence.'), this.renderSentenceFragments(), this.renderFeedback(), _react2.default.createElement('div', { className: 'control' }, _react2.default.createElement('textarea', { className: 'textarea', ref: 'response', placeholder: 'Type your answer here. Rememeber, your answer should be just one sentence.', onChange: this.handleChange })), _react2.default.createElement('div', { className: 'button-group' }, _react2.default.createElement('button', { className: "button is-outlined is-primary " + this.toggleDisabled(), onClick: this.checkAnswer }, 'Check answer'), this.renderNextQuestionButton()))));
+	      }
+	    } else {
+	      return _react2.default.createElement('p', null, 'Loading...');
+	    }
+	  }
+	});
+
+	var getLatestAttempt = function getLatestAttempt() {
+	  var attempts = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+
+	  var lastIndex = attempts.length - 1;
+	  return attempts[lastIndex];
+	};
+
+	function select(state) {
+	  return {
+	    concepts: state.concepts,
+	    questions: state.questions,
+	    question: state.question,
+	    routing: state.routing
+	  };
+	}
+	exports.default = (0, _reactRedux.connect)(select)(playQuestion);
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "playQuestion.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 769 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _underscore = __webpack_require__(657);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	var _fuzzyset = __webpack_require__(770);
+
+	var _fuzzyset2 = _interopRequireDefault(_fuzzyset);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	var jsDiff = __webpack_require__(772);
+
+	var Question = (function () {
+	  function Question(data) {
+	    _classCallCheck(this, Question);
+
+	    this.prompt = data.prompt;
+	    this.sentences = data.sentences;
+	    this.responses = data.responses;
+	  }
+
+	  _createClass(Question, [{
+	    key: 'checkMatch',
+	    value: function checkMatch(response) {
+	      response = response.trim();
+	      var returnValue = {
+	        found: true,
+	        submitted: response
+	      };
+	      var exactMatch = this.checkExactMatch(response);
+	      if (exactMatch !== undefined) {
+	        returnValue.response = exactMatch;
+	        return returnValue;
+	      }
+	      var lowerCaseMatch = this.checkCaseInsensitiveMatch(response);
+	      if (lowerCaseMatch !== undefined) {
+	        returnValue.caseError = true;
+	        returnValue.response = lowerCaseMatch;
+	        return returnValue;
+	      }
+	      var punctuationMatch = this.checkPunctuationInsensitiveMatch(response);
+	      if (punctuationMatch !== undefined) {
+	        returnValue.punctuationError = true;
+	        returnValue.response = punctuationMatch;
+	        return returnValue;
+	      }
+	      var typingErrorMatch = this.checkSmallTypoMatch(response);
+	      if (typingErrorMatch !== undefined) {
+	        returnValue.typingError = true;
+	        returnValue.response = typingErrorMatch;
+	        return returnValue;
+	      }
+	      returnValue.found = false;
+	      return returnValue;
+	    }
+	  }, {
+	    key: 'nonChildResponses',
+	    value: function nonChildResponses(responses) {
+	      return _underscore2.default.filter(this.responses, function (resp) {
+	        return resp.parentID === undefined && resp.feedback !== undefined;
+	      });
+	    }
+	  }, {
+	    key: 'checkExactMatch',
+	    value: function checkExactMatch(response) {
+	      return _underscore2.default.find(this.responses, function (resp) {
+	        return resp.text === response;
+	      });
+	    }
+	  }, {
+	    key: 'checkCaseInsensitiveMatch',
+	    value: function checkCaseInsensitiveMatch(response) {
+	      return _underscore2.default.find(this.nonChildResponses(this.responses), function (resp) {
+	        return resp.text.toLowerCase() === response.toLowerCase();
+	      });
+	    }
+	  }, {
+	    key: 'checkPunctuationInsensitiveMatch',
+	    value: function checkPunctuationInsensitiveMatch(response) {
+	      return _underscore2.default.find(this.nonChildResponses(this.responses), function (resp) {
+	        return removePunctuation(resp.text) === removePunctuation(response);
+	      });
+	    }
+	  }, {
+	    key: 'checkSmallTypoMatch',
+	    value: function checkSmallTypoMatch(response) {
+	      return _underscore2.default.find(this.nonChildResponses(this.responses), function (resp) {
+	        return getLowAdditionCount(response, resp.text);
+	      });
+	    }
+	  }, {
+	    key: 'checkFuzzyMatch',
+	    value: function checkFuzzyMatch(response) {
+	      var set = (0, _fuzzyset2.default)(_underscore2.default.pluck(this.responses, "text"));
+	      var matches = set.get(response, []);
+	      var response = undefined;
+	      var text = undefined;
+	      if (matches.length > 0) {
+	        text = matches[0][0] > 0.8 ? matches[0][1] : null;
+	      }
+	      if (text) {
+	        response = _underscore2.default.findWhere(this.responses, { text: text });
+	      }
+	      return response;
+	    }
+	  }]);
+
+	  return Question;
+	})();
+
+	exports.default = Question;
+
+	var removePunctuation = function removePunctuation(string) {
+	  return string.replace(/[^A-Za-z0-9\s]/g, "");
+	};
+
+	var getLowAdditionCount = function getLowAdditionCount(newString, oldString) {
+	  var diff = jsDiff.diffChars(newString, oldString);
+	  var additions = _underscore2.default.where(diff, { added: true });
+	  if (additions.length > 1) {
+	    return false;
+	  }
+	  var count = _underscore2.default.reduce(additions, function (memo, num) {
+	    return memo + num.count;
+	  }, 0);
+	  if (count < 3) {
+	    return true;
+	  }
+	  return false;
+	};
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "question.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 770 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(771);
+
+
+/***/ },
+/* 771 */
+/***/ function(module, exports) {
+
+	(function() {
+
+	var FuzzySet = function(arr, useLevenshtein, gramSizeLower, gramSizeUpper) {
+	    var fuzzyset = {
+	        version: '0.0.1'
+	    };
+
+	    // default options
+	    arr = arr || [];
+	    fuzzyset.gramSizeLower = gramSizeLower || 2;
+	    fuzzyset.gramSizeUpper = gramSizeUpper || 3;
+	    fuzzyset.useLevenshtein = useLevenshtein || true;
+
+	    // define all the object functions and attributes
+	    fuzzyset.exactSet = {}
+	    fuzzyset.matchDict = {};
+	    fuzzyset.items = {};
+
+	    // helper functions
+	    var levenshtein = function(str1, str2) {
+	        var current = [], prev, value;
+
+	        for (var i = 0; i <= str2.length; i++)
+	            for (var j = 0; j <= str1.length; j++) {
+	            if (i && j)
+	                if (str1.charAt(j - 1) === str2.charAt(i - 1))
+	                value = prev;
+	                else
+	                value = Math.min(current[j], current[j - 1], prev) + 1;
+	            else
+	                value = i + j;
+
+	            prev = current[j];
+	            current[j] = value;
+	            }
+
+	        return current.pop();
+	    };
+
+	    // return an edit distance from 0 to 1
+	    var _distance = function(str1, str2) {
+	        if (str1 == null && str2 == null) throw 'Trying to compare two null values'
+	        if (str1 == null || str2 == null) return 0;
+	        str1 = String(str1); str2 = String(str2);
+
+	        var distance = levenshtein(str1, str2);
+	        if (str1.length > str2.length) {
+	            return 1 - distance / str1.length;
+	        } else {
+	            return 1 - distance / str2.length;
+	        }
+	    };
+	    var _nonWordRe = /[^\w, ]+/;
+
+	    var _iterateGrams = function(value, gramSize) {
+	        gramSize = gramSize || 2;
+	        var simplified = '-' + value.toLowerCase().replace(_nonWordRe, '') + '-',
+	            lenDiff = gramSize - simplified.length,
+	            results = [];
+	        if (lenDiff > 0) {
+	            for (var i = 0; i < lenDiff; ++i) {
+	                value += '-';
+	            }
+	        }
+	        for (var i = 0; i < simplified.length - gramSize + 1; ++i) {
+	            results.push(simplified.slice(i, i + gramSize))
+	        }
+	        return results;
+	    };
+
+	    var _gramCounter = function(value, gramSize) {
+	        gramSize = gramSize || 2;
+	        var result = {},
+	            grams = _iterateGrams(value, gramSize),
+	            i = 0;
+	        for (i; i < grams.length; ++i) {
+	            if (grams[i] in result) {
+	                result[grams[i]] += 1;
+	            } else {
+	                result[grams[i]] = 1;
+	            }
+	        }
+	        return result;
+	    };
+
+	    // the main functions
+	    fuzzyset.get = function(value, defaultValue) {
+	        var result = this._get(value);
+	        if (!result && defaultValue) {
+	            return defaultValue;
+	        }
+	        return result;
+	    };
+
+	    fuzzyset._get = function(value) {
+	        var normalizedValue = this._normalizeStr(value),
+	            result = this.exactSet[normalizedValue];
+	        if (result) {
+	            return [[1, result]];
+	        }
+	        var results = [];
+	        for (var gramSize = this.gramSizeUpper; gramSize > this.gramSizeLower; --gramSize) {
+	            results = this.__get(value, gramSize);
+	            if (results) {
+	                return results;
+	            }
+	        }
+	        return null;
+	    };
+
+	    fuzzyset.__get = function(value, gramSize) {
+	        var normalizedValue = this._normalizeStr(value),
+	            matches = {},
+	            gramCounts = _gramCounter(normalizedValue, gramSize),
+	            items = this.items[gramSize],
+	            sumOfSquareGramCounts = 0,
+	            gram,
+	            gramCount,
+	            i,
+	            index,
+	            otherGramCount;
+
+	        for (gram in gramCounts) {
+	            gramCount = gramCounts[gram];
+	            sumOfSquareGramCounts += Math.pow(gramCount, 2);
+	            if (gram in this.matchDict) {
+	                for (i = 0; i < this.matchDict[gram].length; ++i) {
+	                    index = this.matchDict[gram][i][0];
+	                    otherGramCount = this.matchDict[gram][i][1];
+	                    if (index in matches) {
+	                        matches[index] += gramCount * otherGramCount;
+	                    } else {
+	                        matches[index] = gramCount * otherGramCount;
+	                    }
+	                }
+	            }
+	        }
+
+	        function isEmptyObject(obj) {
+	            for(var prop in obj) {
+	                if(obj.hasOwnProperty(prop))
+	                    return false;
+	            }
+	            return true;
+	        }
+
+	        if (isEmptyObject(matches)) {
+	            return null;
+	        }
+
+	        var vectorNormal = Math.sqrt(sumOfSquareGramCounts),
+	            results = [],
+	            matchScore;
+	        // build a results list of [score, str]
+	        for (var matchIndex in matches) {
+	            matchScore = matches[matchIndex];
+	            results.push([matchScore / (vectorNormal * items[matchIndex][0]), items[matchIndex][1]]);
+	        }
+	        var sortDescending = function(a, b) {
+	            if (a[0] < b[0]) {
+	                return 1;
+	            } else if (a[0] > b[0]) {
+	                return -1;
+	            } else {
+	                return 0;
+	            }
+	        };
+	        results.sort(sortDescending);
+	        if (this.useLevenshtein) {
+	            var newResults = [],
+	                endIndex = Math.min(50, results.length);
+	            // truncate somewhat arbitrarily to 50
+	            for (var i = 0; i < endIndex; ++i) {
+	                newResults.push([_distance(results[i][1], normalizedValue), results[i][1]]);
+	            }
+	            results = newResults;
+	            results.sort(sortDescending);
+	        }
+	        var newResults = [];
+	        for (var i = 0; i < results.length; ++i) {
+	            if (results[i][0] == results[0][0]) {
+	                newResults.push([results[i][0], this.exactSet[results[i][1]]]);
+	            }
+	        }
+	        return newResults;
+	    };
+
+	    fuzzyset.add = function(value) {
+	        var normalizedValue = this._normalizeStr(value);
+	        if (normalizedValue in this.exactSet) {
+	            return false;
+	        }
+
+	        var i = this.gramSizeLower;
+	        for (i; i < this.gramSizeUpper + 1; ++i) {
+	            this._add(value, i);
+	        }
+	    };
+
+	    fuzzyset._add = function(value, gramSize) {
+	        var normalizedValue = this._normalizeStr(value),
+	            items = this.items[gramSize] || [],
+	            index = items.length;
+
+	        items.push(0);
+	        var gramCounts = _gramCounter(normalizedValue, gramSize),
+	            sumOfSquareGramCounts = 0,
+	            gram, gramCount;
+	        for (var gram in gramCounts) {
+	            gramCount = gramCounts[gram];
+	            sumOfSquareGramCounts += Math.pow(gramCount, 2);
+	            if (gram in this.matchDict) {
+	                this.matchDict[gram].push([index, gramCount]);
+	            } else {
+	                this.matchDict[gram] = [[index, gramCount]];
+	            }
+	        }
+	        var vectorNormal = Math.sqrt(sumOfSquareGramCounts);
+	        items[index] = [vectorNormal, normalizedValue];
+	        this.items[gramSize] = items;
+	        this.exactSet[normalizedValue] = value;
+	    };
+
+	    fuzzyset._normalizeStr = function(str) {
+	        if (Object.prototype.toString.call(str) !== '[object String]') throw 'Must use a string as argument to FuzzySet functions'
+	        return str.toLowerCase();
+	    };
+
+	    // return length of items in set
+	    fuzzyset.length = function() {
+	        var count = 0,
+	            prop;
+	        for (prop in this.exactSet) {
+	            if (this.exactSet.hasOwnProperty(prop)) {
+	                count += 1;
+	            }
+	        }
+	        return count;
+	    };
+
+	    // return is set is empty
+	    fuzzyset.isEmpty = function() {
+	        for (var prop in this.exactSet) {
+	            if (this.exactSet.hasOwnProperty(prop)) {
+	                return false;
+	            }
+	        }
+	        return true;
+	    };
+
+	    // return list of values loaded into set
+	    fuzzyset.values = function() {
+	        var values = [],
+	            prop;
+	        for (prop in this.exactSet) {
+	            if (this.exactSet.hasOwnProperty(prop)) {
+	                values.push(this.exactSet[prop])
+	            }
+	        }
+	        return values;
+	    };
+
+
+	    // initialization
+	    var i = fuzzyset.gramSizeLower;
+	    for (i; i < fuzzyset.gramSizeUpper + 1; ++i) {
+	        fuzzyset.items[i] = [];
+	    }
+	    // add all the items to the set
+	    for (i = 0; i < arr.length; ++i) {
+	        fuzzyset.add(arr[i]);
+	    }
+
+	    return fuzzyset;
+	};
+
+	var root = this;
+	// Export the fuzzyset object for **CommonJS**, with backwards-compatibility
+	// for the old `require()` API. If we're not in CommonJS, add `_` to the
+	// global object.
+	if (typeof module !== 'undefined' && module.exports) {
+	    module.exports = FuzzySet;
+	    root.FuzzySet = FuzzySet;
+	} else {
+	    root.FuzzySet = FuzzySet;
+	}
+
+	})();
+
+
+/***/ },
+/* 772 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* See LICENSE file for terms of use */
+
+	/*
+	 * Text diff implementation.
+	 *
+	 * This library supports the following APIS:
+	 * JsDiff.diffChars: Character by character diff
+	 * JsDiff.diffWords: Word (as defined by \b regex) diff which ignores whitespace
+	 * JsDiff.diffLines: Line based diff
+	 *
+	 * JsDiff.diffCss: Diff targeted at CSS content
+	 *
+	 * These methods are based on the implementation proposed in
+	 * "An O(ND) Difference Algorithm and its Variations" (Myers, 1986).
+	 * http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.4.6927
+	 */
+	'use strict';
+
+	exports.__esModule = true;
+	// istanbul ignore next
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _diffBase = __webpack_require__(773);
+
+	var _diffBase2 = _interopRequireDefault(_diffBase);
+
+	var _diffCharacter = __webpack_require__(774);
+
+	var _diffWord = __webpack_require__(775);
+
+	var _diffLine = __webpack_require__(777);
+
+	var _diffSentence = __webpack_require__(778);
+
+	var _diffCss = __webpack_require__(779);
+
+	var _diffJson = __webpack_require__(780);
+
+	var _patchApply = __webpack_require__(781);
+
+	var _patchParse = __webpack_require__(782);
+
+	var _patchCreate = __webpack_require__(784);
+
+	var _convertDmp = __webpack_require__(785);
+
+	var _convertXml = __webpack_require__(786);
+
+	exports.Diff = _diffBase2['default'];
+	exports.diffChars = _diffCharacter.diffChars;
+	exports.diffWords = _diffWord.diffWords;
+	exports.diffWordsWithSpace = _diffWord.diffWordsWithSpace;
+	exports.diffLines = _diffLine.diffLines;
+	exports.diffTrimmedLines = _diffLine.diffTrimmedLines;
+	exports.diffSentences = _diffSentence.diffSentences;
+	exports.diffCss = _diffCss.diffCss;
+	exports.diffJson = _diffJson.diffJson;
+	exports.structuredPatch = _patchCreate.structuredPatch;
+	exports.createTwoFilesPatch = _patchCreate.createTwoFilesPatch;
+	exports.createPatch = _patchCreate.createPatch;
+	exports.applyPatch = _patchApply.applyPatch;
+	exports.applyPatches = _patchApply.applyPatches;
+	exports.parsePatch = _patchParse.parsePatch;
+	exports.convertChangesToDMP = _convertDmp.convertChangesToDMP;
+	exports.convertChangesToXML = _convertXml.convertChangesToXML;
+	exports.canonicalize = _diffJson.canonicalize;
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozt3QkFnQmlCLGFBQWE7Ozs7NkJBQ04sa0JBQWtCOzt3QkFDRSxhQUFhOzt3QkFDZixhQUFhOzs0QkFDM0IsaUJBQWlCOzt1QkFFdkIsWUFBWTs7d0JBQ0csYUFBYTs7MEJBRVgsZUFBZTs7MEJBQzdCLGVBQWU7OzJCQUN3QixnQkFBZ0I7OzBCQUU5QyxlQUFlOzswQkFDZixlQUFlOztRQUcvQyxJQUFJO1FBRUosU0FBUztRQUNULFNBQVM7UUFDVCxrQkFBa0I7UUFDbEIsU0FBUztRQUNULGdCQUFnQjtRQUNoQixhQUFhO1FBRWIsT0FBTztRQUNQLFFBQVE7UUFFUixlQUFlO1FBQ2YsbUJBQW1CO1FBQ25CLFdBQVc7UUFDWCxVQUFVO1FBQ1YsWUFBWTtRQUNaLFVBQVU7UUFDVixtQkFBbUI7UUFDbkIsbUJBQW1CO1FBQ25CLFlBQVkiLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBTZWUgTElDRU5TRSBmaWxlIGZvciB0ZXJtcyBvZiB1c2UgKi9cblxuLypcbiAqIFRleHQgZGlmZiBpbXBsZW1lbnRhdGlvbi5cbiAqXG4gKiBUaGlzIGxpYnJhcnkgc3VwcG9ydHMgdGhlIGZvbGxvd2luZyBBUElTOlxuICogSnNEaWZmLmRpZmZDaGFyczogQ2hhcmFjdGVyIGJ5IGNoYXJhY3RlciBkaWZmXG4gKiBKc0RpZmYuZGlmZldvcmRzOiBXb3JkIChhcyBkZWZpbmVkIGJ5IFxcYiByZWdleCkgZGlmZiB3aGljaCBpZ25vcmVzIHdoaXRlc3BhY2VcbiAqIEpzRGlmZi5kaWZmTGluZXM6IExpbmUgYmFzZWQgZGlmZlxuICpcbiAqIEpzRGlmZi5kaWZmQ3NzOiBEaWZmIHRhcmdldGVkIGF0IENTUyBjb250ZW50XG4gKlxuICogVGhlc2UgbWV0aG9kcyBhcmUgYmFzZWQgb24gdGhlIGltcGxlbWVudGF0aW9uIHByb3Bvc2VkIGluXG4gKiBcIkFuIE8oTkQpIERpZmZlcmVuY2UgQWxnb3JpdGhtIGFuZCBpdHMgVmFyaWF0aW9uc1wiIChNeWVycywgMTk4NikuXG4gKiBodHRwOi8vY2l0ZXNlZXJ4LmlzdC5wc3UuZWR1L3ZpZXdkb2Mvc3VtbWFyeT9kb2k9MTAuMS4xLjQuNjkyN1xuICovXG5pbXBvcnQgRGlmZiBmcm9tICcuL2RpZmYvYmFzZSc7XG5pbXBvcnQge2RpZmZDaGFyc30gZnJvbSAnLi9kaWZmL2NoYXJhY3Rlcic7XG5pbXBvcnQge2RpZmZXb3JkcywgZGlmZldvcmRzV2l0aFNwYWNlfSBmcm9tICcuL2RpZmYvd29yZCc7XG5pbXBvcnQge2RpZmZMaW5lcywgZGlmZlRyaW1tZWRMaW5lc30gZnJvbSAnLi9kaWZmL2xpbmUnO1xuaW1wb3J0IHtkaWZmU2VudGVuY2VzfSBmcm9tICcuL2RpZmYvc2VudGVuY2UnO1xuXG5pbXBvcnQge2RpZmZDc3N9IGZyb20gJy4vZGlmZi9jc3MnO1xuaW1wb3J0IHtkaWZmSnNvbiwgY2Fub25pY2FsaXplfSBmcm9tICcuL2RpZmYvanNvbic7XG5cbmltcG9ydCB7YXBwbHlQYXRjaCwgYXBwbHlQYXRjaGVzfSBmcm9tICcuL3BhdGNoL2FwcGx5JztcbmltcG9ydCB7cGFyc2VQYXRjaH0gZnJvbSAnLi9wYXRjaC9wYXJzZSc7XG5pbXBvcnQge3N0cnVjdHVyZWRQYXRjaCwgY3JlYXRlVHdvRmlsZXNQYXRjaCwgY3JlYXRlUGF0Y2h9IGZyb20gJy4vcGF0Y2gvY3JlYXRlJztcblxuaW1wb3J0IHtjb252ZXJ0Q2hhbmdlc1RvRE1QfSBmcm9tICcuL2NvbnZlcnQvZG1wJztcbmltcG9ydCB7Y29udmVydENoYW5nZXNUb1hNTH0gZnJvbSAnLi9jb252ZXJ0L3htbCc7XG5cbmV4cG9ydCB7XG4gIERpZmYsXG5cbiAgZGlmZkNoYXJzLFxuICBkaWZmV29yZHMsXG4gIGRpZmZXb3Jkc1dpdGhTcGFjZSxcbiAgZGlmZkxpbmVzLFxuICBkaWZmVHJpbW1lZExpbmVzLFxuICBkaWZmU2VudGVuY2VzLFxuXG4gIGRpZmZDc3MsXG4gIGRpZmZKc29uLFxuXG4gIHN0cnVjdHVyZWRQYXRjaCxcbiAgY3JlYXRlVHdvRmlsZXNQYXRjaCxcbiAgY3JlYXRlUGF0Y2gsXG4gIGFwcGx5UGF0Y2gsXG4gIGFwcGx5UGF0Y2hlcyxcbiAgcGFyc2VQYXRjaCxcbiAgY29udmVydENoYW5nZXNUb0RNUCxcbiAgY29udmVydENoYW5nZXNUb1hNTCxcbiAgY2Fub25pY2FsaXplXG59O1xuIl19
+
+
+/***/ },
+/* 773 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports['default'] = Diff;
+
+	function Diff() {}
+
+	Diff.prototype = {
+	  diff: function diff(oldString, newString) {
+	    var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
+	    var callback = options.callback;
+	    if (typeof options === 'function') {
+	      callback = options;
+	      options = {};
+	    }
+	    this.options = options;
+
+	    var self = this;
+
+	    function done(value) {
+	      if (callback) {
+	        setTimeout(function () {
+	          callback(undefined, value);
+	        }, 0);
+	        return true;
+	      } else {
+	        return value;
+	      }
+	    }
+
+	    // Allow subclasses to massage the input prior to running
+	    oldString = this.castInput(oldString);
+	    newString = this.castInput(newString);
+
+	    oldString = this.removeEmpty(this.tokenize(oldString));
+	    newString = this.removeEmpty(this.tokenize(newString));
+
+	    var newLen = newString.length,
+	        oldLen = oldString.length;
+	    var editLength = 1;
+	    var maxEditLength = newLen + oldLen;
+	    var bestPath = [{ newPos: -1, components: [] }];
+
+	    // Seed editLength = 0, i.e. the content starts with the same values
+	    var oldPos = this.extractCommon(bestPath[0], newString, oldString, 0);
+	    if (bestPath[0].newPos + 1 >= newLen && oldPos + 1 >= oldLen) {
+	      // Identity per the equality and tokenizer
+	      return done([{ value: newString.join(''), count: newString.length }]);
+	    }
+
+	    // Main worker method. checks all permutations of a given edit length for acceptance.
+	    function execEditLength() {
+	      for (var diagonalPath = -1 * editLength; diagonalPath <= editLength; diagonalPath += 2) {
+	        var basePath = undefined;
+	        var addPath = bestPath[diagonalPath - 1],
+	            removePath = bestPath[diagonalPath + 1],
+	            _oldPos = (removePath ? removePath.newPos : 0) - diagonalPath;
+	        if (addPath) {
+	          // No one else is going to attempt to use this value, clear it
+	          bestPath[diagonalPath - 1] = undefined;
+	        }
+
+	        var canAdd = addPath && addPath.newPos + 1 < newLen,
+	            canRemove = removePath && 0 <= _oldPos && _oldPos < oldLen;
+	        if (!canAdd && !canRemove) {
+	          // If this path is a terminal then prune
+	          bestPath[diagonalPath] = undefined;
+	          continue;
+	        }
+
+	        // Select the diagonal that we want to branch from. We select the prior
+	        // path whose position in the new string is the farthest from the origin
+	        // and does not pass the bounds of the diff graph
+	        if (!canAdd || canRemove && addPath.newPos < removePath.newPos) {
+	          basePath = clonePath(removePath);
+	          self.pushComponent(basePath.components, undefined, true);
+	        } else {
+	          basePath = addPath; // No need to clone, we've pulled it from the list
+	          basePath.newPos++;
+	          self.pushComponent(basePath.components, true, undefined);
+	        }
+
+	        _oldPos = self.extractCommon(basePath, newString, oldString, diagonalPath);
+
+	        // If we have hit the end of both strings, then we are done
+	        if (basePath.newPos + 1 >= newLen && _oldPos + 1 >= oldLen) {
+	          return done(buildValues(self, basePath.components, newString, oldString, self.useLongestToken));
+	        } else {
+	          // Otherwise track this path as a potential candidate and continue.
+	          bestPath[diagonalPath] = basePath;
+	        }
+	      }
+
+	      editLength++;
+	    }
+
+	    // Performs the length of edit iteration. Is a bit fugly as this has to support the
+	    // sync and async mode which is never fun. Loops over execEditLength until a value
+	    // is produced.
+	    if (callback) {
+	      (function exec() {
+	        setTimeout(function () {
+	          // This should not happen, but we want to be safe.
+	          /* istanbul ignore next */
+	          if (editLength > maxEditLength) {
+	            return callback();
+	          }
+
+	          if (!execEditLength()) {
+	            exec();
+	          }
+	        }, 0);
+	      })();
+	    } else {
+	      while (editLength <= maxEditLength) {
+	        var ret = execEditLength();
+	        if (ret) {
+	          return ret;
+	        }
+	      }
+	    }
+	  },
+
+	  pushComponent: function pushComponent(components, added, removed) {
+	    var last = components[components.length - 1];
+	    if (last && last.added === added && last.removed === removed) {
+	      // We need to clone here as the component clone operation is just
+	      // as shallow array clone
+	      components[components.length - 1] = { count: last.count + 1, added: added, removed: removed };
+	    } else {
+	      components.push({ count: 1, added: added, removed: removed });
+	    }
+	  },
+	  extractCommon: function extractCommon(basePath, newString, oldString, diagonalPath) {
+	    var newLen = newString.length,
+	        oldLen = oldString.length,
+	        newPos = basePath.newPos,
+	        oldPos = newPos - diagonalPath,
+	        commonCount = 0;
+	    while (newPos + 1 < newLen && oldPos + 1 < oldLen && this.equals(newString[newPos + 1], oldString[oldPos + 1])) {
+	      newPos++;
+	      oldPos++;
+	      commonCount++;
+	    }
+
+	    if (commonCount) {
+	      basePath.components.push({ count: commonCount });
+	    }
+
+	    basePath.newPos = newPos;
+	    return oldPos;
+	  },
+
+	  equals: function equals(left, right) {
+	    return left === right;
+	  },
+	  removeEmpty: function removeEmpty(array) {
+	    var ret = [];
+	    for (var i = 0; i < array.length; i++) {
+	      if (array[i]) {
+	        ret.push(array[i]);
+	      }
+	    }
+	    return ret;
+	  },
+	  castInput: function castInput(value) {
+	    return value;
+	  },
+	  tokenize: function tokenize(value) {
+	    return value.split('');
+	  }
+	};
+
+	function buildValues(diff, components, newString, oldString, useLongestToken) {
+	  var componentPos = 0,
+	      componentLen = components.length,
+	      newPos = 0,
+	      oldPos = 0;
+
+	  for (; componentPos < componentLen; componentPos++) {
+	    var component = components[componentPos];
+	    if (!component.removed) {
+	      if (!component.added && useLongestToken) {
+	        var value = newString.slice(newPos, newPos + component.count);
+	        value = value.map(function (value, i) {
+	          var oldValue = oldString[oldPos + i];
+	          return oldValue.length > value.length ? oldValue : value;
+	        });
+
+	        component.value = value.join('');
+	      } else {
+	        component.value = newString.slice(newPos, newPos + component.count).join('');
+	      }
+	      newPos += component.count;
+
+	      // Common case
+	      if (!component.added) {
+	        oldPos += component.count;
+	      }
+	    } else {
+	      component.value = oldString.slice(oldPos, oldPos + component.count).join('');
+	      oldPos += component.count;
+
+	      // Reverse add and remove so removes are output first to match common convention
+	      // The diffing algorithm is tied to add then remove output and this is the simplest
+	      // route to get the desired output with minimal overhead.
+	      if (componentPos && components[componentPos - 1].added) {
+	        var tmp = components[componentPos - 1];
+	        components[componentPos - 1] = components[componentPos];
+	        components[componentPos] = tmp;
+	      }
+	    }
+	  }
+
+	  // Special case handle for when one terminal is ignored. For this case we merge the
+	  // terminal into the prior string and drop the change.
+	  var lastComponent = components[componentLen - 1];
+	  if ((lastComponent.added || lastComponent.removed) && diff.equals('', lastComponent.value)) {
+	    components[componentLen - 2].value += lastComponent.value;
+	    components.pop();
+	  }
+
+	  return components;
+	}
+
+	function clonePath(path) {
+	  return { newPos: path.newPos, components: path.components.slice(0) };
+	}
+	module.exports = exports['default'];
+	//# sourceMappingURL=data:application/json;base64,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S0FBSyxDQUFDO0FBQzFELGNBQVUsQ0FBQyxHQUFHLEVBQUUsQ0FBQztHQUNsQjs7QUFFRCxTQUFPLFVBQVUsQ0FBQztDQUNuQjs7QUFFRCxTQUFTLFNBQVMsQ0FBQyxJQUFJLEVBQUU7QUFDdkIsU0FBTyxFQUFFLE1BQU0sRUFBRSxJQUFJLENBQUMsTUFBTSxFQUFFLFVBQVUsRUFBRSxJQUFJLENBQUMsVUFBVSxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDO0NBQ3RFIiwiZmlsZSI6ImJhc2UuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBEaWZmKCkge31cblxuRGlmZi5wcm90b3R5cGUgPSB7XG4gIGRpZmYob2xkU3RyaW5nLCBuZXdTdHJpbmcsIG9wdGlvbnMgPSB7fSkge1xuICAgIGxldCBjYWxsYmFjayA9IG9wdGlvbnMuY2FsbGJhY2s7XG4gICAgaWYgKHR5cGVvZiBvcHRpb25zID09PSAnZnVuY3Rpb24nKSB7XG4gICAgICBjYWxsYmFjayA9IG9wdGlvbnM7XG4gICAgICBvcHRpb25zID0ge307XG4gICAgfVxuICAgIHRoaXMub3B0aW9ucyA9IG9wdGlvbnM7XG5cbiAgICBsZXQgc2VsZiA9IHRoaXM7XG5cbiAgICBmdW5jdGlvbiBkb25lKHZhbHVlKSB7XG4gICAgICBpZiAoY2FsbGJhY2spIHtcbiAgICAgICAgc2V0VGltZW91dChmdW5jdGlvbigpIHsgY2FsbGJhY2sodW5kZWZpbmVkLCB2YWx1ZSk7IH0sIDApO1xuICAgICAgICByZXR1cm4gdHJ1ZTtcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIHJldHVybiB2YWx1ZTtcbiAgICAgIH1cbiAgICB9XG5cbiAgICAvLyBBbGxvdyBzdWJjbGFzc2VzIHRvIG1hc3NhZ2UgdGhlIGlucHV0IHByaW9yIHRvIHJ1bm5pbmdcbiAgICBvbGRTdHJpbmcgPSB0aGlzLmNhc3RJbnB1dChvbGRTdHJpbmcpO1xuICAgIG5ld1N0cmluZyA9IHRoaXMuY2FzdElucHV0KG5ld1N0cmluZyk7XG5cbiAgICBvbGRTdHJpbmcgPSB0aGlzLnJlbW92ZUVtcHR5KHRoaXMudG9rZW5pemUob2xkU3RyaW5nKSk7XG4gICAgbmV3U3RyaW5nID0gdGhpcy5yZW1vdmVFbXB0eSh0aGlzLnRva2VuaXplKG5ld1N0cmluZykpO1xuXG4gICAgbGV0IG5ld0xlbiA9IG5ld1N0cmluZy5sZW5ndGgsIG9sZExlbiA9IG9sZFN0cmluZy5sZW5ndGg7XG4gICAgbGV0IGVkaXRMZW5ndGggPSAxO1xuICAgIGxldCBtYXhFZGl0TGVuZ3RoID0gbmV3TGVuICsgb2xkTGVuO1xuICAgIGxldCBiZXN0UGF0aCA9IFt7IG5ld1BvczogLTEsIGNvbXBvbmVudHM6IFtdIH1dO1xuXG4gICAgLy8gU2VlZCBlZGl0TGVuZ3RoID0gMCwgaS5lLiB0aGUgY29udGVudCBzdGFydHMgd2l0aCB0aGUgc2FtZSB2YWx1ZXNcbiAgICBsZXQgb2xkUG9zID0gdGhpcy5leHRyYWN0Q29tbW9uKGJlc3RQYXRoWzBdLCBuZXdTdHJpbmcsIG9sZFN0cmluZywgMCk7XG4gICAgaWYgKGJlc3RQYXRoWzBdLm5ld1BvcyArIDEgPj0gbmV3TGVuICYmIG9sZFBvcyArIDEgPj0gb2xkTGVuKSB7XG4gICAgICAvLyBJZGVudGl0eSBwZXIgdGhlIGVxdWFsaXR5IGFuZCB0b2tlbml6ZXJcbiAgICAgIHJldHVybiBkb25lKFt7dmFsdWU6IG5ld1N0cmluZy5qb2luKCcnKSwgY291bnQ6IG5ld1N0cmluZy5sZW5ndGh9XSk7XG4gICAgfVxuXG4gICAgLy8gTWFpbiB3b3JrZXIgbWV0aG9kLiBjaGVja3MgYWxsIHBlcm11dGF0aW9ucyBvZiBhIGdpdmVuIGVkaXQgbGVuZ3RoIGZvciBhY2NlcHRhbmNlLlxuICAgIGZ1bmN0aW9uIGV4ZWNFZGl0TGVuZ3RoKCkge1xuICAgICAgZm9yIChsZXQgZGlhZ29uYWxQYXRoID0gLTEgKiBlZGl0TGVuZ3RoOyBkaWFnb25hbFBhdGggPD0gZWRpdExlbmd0aDsgZGlhZ29uYWxQYXRoICs9IDIpIHtcbiAgICAgICAgbGV0IGJhc2VQYXRoO1xuICAgICAgICBsZXQgYWRkUGF0aCA9IGJlc3RQYXRoW2RpYWdvbmFsUGF0aCAtIDFdLFxuICAgICAgICAgICAgcmVtb3ZlUGF0aCA9IGJlc3RQYXRoW2RpYWdvbmFsUGF0aCArIDFdLFxuICAgICAgICAgICAgb2xkUG9zID0gKHJlbW92ZVBhdGggPyByZW1vdmVQYXRoLm5ld1BvcyA6IDApIC0gZGlhZ29uYWxQYXRoO1xuICAgICAgICBpZiAoYWRkUGF0aCkge1xuICAgICAgICAgIC8vIE5vIG9uZSBlbHNlIGlzIGdvaW5nIHRvIGF0dGVtcHQgdG8gdXNlIHRoaXMgdmFsdWUsIGNsZWFyIGl0XG4gICAgICAgICAgYmVzdFBhdGhbZGlhZ29uYWxQYXRoIC0gMV0gPSB1bmRlZmluZWQ7XG4gICAgICAgIH1cblxuICAgICAgICBsZXQgY2FuQWRkID0gYWRkUGF0aCAmJiBhZGRQYXRoLm5ld1BvcyArIDEgPCBuZXdMZW4sXG4gICAgICAgICAgICBjYW5SZW1vdmUgPSByZW1vdmVQYXRoICYmIDAgPD0gb2xkUG9zICYmIG9sZFBvcyA8IG9sZExlbjtcbiAgICAgICAgaWYgKCFjYW5BZGQgJiYgIWNhblJlbW92ZSkge1xuICAgICAgICAgIC8vIElmIHRoaXMgcGF0aCBpcyBhIHRlcm1pbmFsIHRoZW4gcHJ1bmVcbiAgICAgICAgICBiZXN0UGF0aFtkaWFnb25hbFBhdGhdID0gdW5kZWZpbmVkO1xuICAgICAgICAgIGNvbnRpbnVlO1xuICAgICAgICB9XG5cbiAgICAgICAgLy8gU2VsZWN0IHRoZSBkaWFnb25hbCB0aGF0IHdlIHdhbnQgdG8gYnJhbmNoIGZyb20uIFdlIHNlbGVjdCB0aGUgcHJpb3JcbiAgICAgICAgLy8gcGF0aCB3aG9zZSBwb3NpdGlvbiBpbiB0aGUgbmV3IHN0cmluZyBpcyB0aGUgZmFydGhlc3QgZnJvbSB0aGUgb3JpZ2luXG4gICAgICAgIC8vIGFuZCBkb2VzIG5vdCBwYXNzIHRoZSBib3VuZHMgb2YgdGhlIGRpZmYgZ3JhcGhcbiAgICAgICAgaWYgKCFjYW5BZGQgfHwgKGNhblJlbW92ZSAmJiBhZGRQYXRoLm5ld1BvcyA8IHJlbW92ZVBhdGgubmV3UG9zKSkge1xuICAgICAgICAgIGJhc2VQYXRoID0gY2xvbmVQYXRoKHJlbW92ZVBhdGgpO1xuICAgICAgICAgIHNlbGYucHVzaENvbXBvbmVudChiYXNlUGF0aC5jb21wb25lbnRzLCB1bmRlZmluZWQsIHRydWUpO1xuICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgIGJhc2VQYXRoID0gYWRkUGF0aDsgICAvLyBObyBuZWVkIHRvIGNsb25lLCB3ZSd2ZSBwdWxsZWQgaXQgZnJvbSB0aGUgbGlzdFxuICAgICAgICAgIGJhc2VQYXRoLm5ld1BvcysrO1xuICAgICAgICAgIHNlbGYucHVzaENvbXBvbmVudChiYXNlUGF0aC5jb21wb25lbnRzLCB0cnVlLCB1bmRlZmluZWQpO1xuICAgICAgICB9XG5cbiAgICAgICAgb2xkUG9zID0gc2VsZi5leHRyYWN0Q29tbW9uKGJhc2VQYXRoLCBuZXdTdHJpbmcsIG9sZFN0cmluZywgZGlhZ29uYWxQYXRoKTtcblxuICAgICAgICAvLyBJZiB3ZSBoYXZlIGhpdCB0aGUgZW5kIG9mIGJvdGggc3RyaW5ncywgdGhlbiB3ZSBhcmUgZG9uZVxuICAgICAgICBpZiAoYmFzZVBhdGgubmV3UG9zICsgMSA+PSBuZXdMZW4gJiYgb2xkUG9zICsgMSA+PSBvbGRMZW4pIHtcbiAgICAgICAgICByZXR1cm4gZG9uZShidWlsZFZhbHVlcyhzZWxmLCBiYXNlUGF0aC5jb21wb25lbnRzLCBuZXdTdHJpbmcsIG9sZFN0cmluZywgc2VsZi51c2VMb25nZXN0VG9rZW4pKTtcbiAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAvLyBPdGhlcndpc2UgdHJhY2sgdGhpcyBwYXRoIGFzIGEgcG90ZW50aWFsIGNhbmRpZGF0ZSBhbmQgY29udGludWUuXG4gICAgICAgICAgYmVzdFBhdGhbZGlhZ29uYWxQYXRoXSA9IGJhc2VQYXRoO1xuICAgICAgICB9XG4gICAgICB9XG5cbiAgICAgIGVkaXRMZW5ndGgrKztcbiAgICB9XG5cbiAgICAvLyBQZXJmb3JtcyB0aGUgbGVuZ3RoIG9mIGVkaXQgaXRlcmF0aW9uLiBJcyBhIGJpdCBmdWdseSBhcyB0aGlzIGhhcyB0byBzdXBwb3J0IHRoZVxuICAgIC8vIHN5bmMgYW5kIGFzeW5jIG1vZGUgd2hpY2ggaXMgbmV2ZXIgZnVuLiBMb29wcyBvdmVyIGV4ZWNFZGl0TGVuZ3RoIHVudGlsIGEgdmFsdWVcbiAgICAvLyBpcyBwcm9kdWNlZC5cbiAgICBpZiAoY2FsbGJhY2spIHtcbiAgICAgIChmdW5jdGlvbiBleGVjKCkge1xuICAgICAgICBzZXRUaW1lb3V0KGZ1bmN0aW9uKCkge1xuICAgICAgICAgIC8vIFRoaXMgc2hvdWxkIG5vdCBoYXBwZW4sIGJ1dCB3ZSB3YW50IHRvIGJlIHNhZmUuXG4gICAgICAgICAgLyogaXN0YW5idWwgaWdub3JlIG5leHQgKi9cbiAgICAgICAgICBpZiAoZWRpdExlbmd0aCA+IG1heEVkaXRMZW5ndGgpIHtcbiAgICAgICAgICAgIHJldHVybiBjYWxsYmFjaygpO1xuICAgICAgICAgIH1cblxuICAgICAgICAgIGlmICghZXhlY0VkaXRMZW5ndGgoKSkge1xuICAgICAgICAgICAgZXhlYygpO1xuICAgICAgICAgIH1cbiAgICAgICAgfSwgMCk7XG4gICAgICB9KCkpO1xuICAgIH0gZWxzZSB7XG4gICAgICB3aGlsZSAoZWRpdExlbmd0aCA8PSBtYXhFZGl0TGVuZ3RoKSB7XG4gICAgICAgIGxldCByZXQgPSBleGVjRWRpdExlbmd0aCgpO1xuICAgICAgICBpZiAocmV0KSB7XG4gICAgICAgICAgcmV0dXJuIHJldDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfSxcblxuICBwdXNoQ29tcG9uZW50KGNvbXBvbmVudHMsIGFkZGVkLCByZW1vdmVkKSB7XG4gICAgbGV0IGxhc3QgPSBjb21wb25lbnRzW2NvbXBvbmVudHMubGVuZ3RoIC0gMV07XG4gICAgaWYgKGxhc3QgJiYgbGFzdC5hZGRlZCA9PT0gYWRkZWQgJiYgbGFzdC5yZW1vdmVkID09PSByZW1vdmVkKSB7XG4gICAgICAvLyBXZSBuZWVkIHRvIGNsb25lIGhlcmUgYXMgdGhlIGNvbXBvbmVudCBjbG9uZSBvcGVyYXRpb24gaXMganVzdFxuICAgICAgLy8gYXMgc2hhbGxvdyBhcnJheSBjbG9uZVxuICAgICAgY29tcG9uZW50c1tjb21wb25lbnRzLmxlbmd0aCAtIDFdID0ge2NvdW50OiBsYXN0LmNvdW50ICsgMSwgYWRkZWQ6IGFkZGVkLCByZW1vdmVkOiByZW1vdmVkIH07XG4gICAgfSBlbHNlIHtcbiAgICAgIGNvbXBvbmVudHMucHVzaCh7Y291bnQ6IDEsIGFkZGVkOiBhZGRlZCwgcmVtb3ZlZDogcmVtb3ZlZCB9KTtcbiAgICB9XG4gIH0sXG4gIGV4dHJhY3RDb21tb24oYmFzZVBhdGgsIG5ld1N0cmluZywgb2xkU3RyaW5nLCBkaWFnb25hbFBhdGgpIHtcbiAgICBsZXQgbmV3TGVuID0gbmV3U3RyaW5nLmxlbmd0aCxcbiAgICAgICAgb2xkTGVuID0gb2xkU3RyaW5nLmxlbmd0aCxcbiAgICAgICAgbmV3UG9zID0gYmFzZVBhdGgubmV3UG9zLFxuICAgICAgICBvbGRQb3MgPSBuZXdQb3MgLSBkaWFnb25hbFBhdGgsXG5cbiAgICAgICAgY29tbW9uQ291bnQgPSAwO1xuICAgIHdoaWxlIChuZXdQb3MgKyAxIDwgbmV3TGVuICYmIG9sZFBvcyArIDEgPCBvbGRMZW4gJiYgdGhpcy5lcXVhbHMobmV3U3RyaW5nW25ld1BvcyArIDFdLCBvbGRTdHJpbmdbb2xkUG9zICsgMV0pKSB7XG4gICAgICBuZXdQb3MrKztcbiAgICAgIG9sZFBvcysrO1xuICAgICAgY29tbW9uQ291bnQrKztcbiAgICB9XG5cbiAgICBpZiAoY29tbW9uQ291bnQpIHtcbiAgICAgIGJhc2VQYXRoLmNvbXBvbmVudHMucHVzaCh7Y291bnQ6IGNvbW1vbkNvdW50fSk7XG4gICAgfVxuXG4gICAgYmFzZVBhdGgubmV3UG9zID0gbmV3UG9zO1xuICAgIHJldHVybiBvbGRQb3M7XG4gIH0sXG5cbiAgZXF1YWxzKGxlZnQsIHJpZ2h0KSB7XG4gICAgcmV0dXJuIGxlZnQgPT09IHJpZ2h0O1xuICB9LFxuICByZW1vdmVFbXB0eShhcnJheSkge1xuICAgIGxldCByZXQgPSBbXTtcbiAgICBmb3IgKGxldCBpID0gMDsgaSA8IGFycmF5Lmxlbmd0aDsgaSsrKSB7XG4gICAgICBpZiAoYXJyYXlbaV0pIHtcbiAgICAgICAgcmV0LnB1c2goYXJyYXlbaV0pO1xuICAgICAgfVxuICAgIH1cbiAgICByZXR1cm4gcmV0O1xuICB9LFxuICBjYXN0SW5wdXQodmFsdWUpIHtcbiAgICByZXR1cm4gdmFsdWU7XG4gIH0sXG4gIHRva2VuaXplKHZhbHVlKSB7XG4gICAgcmV0dXJuIHZhbHVlLnNwbGl0KCcnKTtcbiAgfVxufTtcblxuZnVuY3Rpb24gYnVpbGRWYWx1ZXMoZGlmZiwgY29tcG9uZW50cywgbmV3U3RyaW5nLCBvbGRTdHJpbmcsIHVzZUxvbmdlc3RUb2tlbikge1xuICBsZXQgY29tcG9uZW50UG9zID0gMCxcbiAgICAgIGNvbXBvbmVudExlbiA9IGNvbXBvbmVudHMubGVuZ3RoLFxuICAgICAgbmV3UG9zID0gMCxcbiAgICAgIG9sZFBvcyA9IDA7XG5cbiAgZm9yICg7IGNvbXBvbmVudFBvcyA8IGNvbXBvbmVudExlbjsgY29tcG9uZW50UG9zKyspIHtcbiAgICBsZXQgY29tcG9uZW50ID0gY29tcG9uZW50c1tjb21wb25lbnRQb3NdO1xuICAgIGlmICghY29tcG9uZW50LnJlbW92ZWQpIHtcbiAgICAgIGlmICghY29tcG9uZW50LmFkZGVkICYmIHVzZUxvbmdlc3RUb2tlbikge1xuICAgICAgICBsZXQgdmFsdWUgPSBuZXdTdHJpbmcuc2xpY2UobmV3UG9zLCBuZXdQb3MgKyBjb21wb25lbnQuY291bnQpO1xuICAgICAgICB2YWx1ZSA9IHZhbHVlLm1hcChmdW5jdGlvbih2YWx1ZSwgaSkge1xuICAgICAgICAgIGxldCBvbGRWYWx1ZSA9IG9sZFN0cmluZ1tvbGRQb3MgKyBpXTtcbiAgICAgICAgICByZXR1cm4gb2xkVmFsdWUubGVuZ3RoID4gdmFsdWUubGVuZ3RoID8gb2xkVmFsdWUgOiB2YWx1ZTtcbiAgICAgICAgfSk7XG5cbiAgICAgICAgY29tcG9uZW50LnZhbHVlID0gdmFsdWUuam9pbignJyk7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICBjb21wb25lbnQudmFsdWUgPSBuZXdTdHJpbmcuc2xpY2UobmV3UG9zLCBuZXdQb3MgKyBjb21wb25lbnQuY291bnQpLmpvaW4oJycpO1xuICAgICAgfVxuICAgICAgbmV3UG9zICs9IGNvbXBvbmVudC5jb3VudDtcblxuICAgICAgLy8gQ29tbW9uIGNhc2VcbiAgICAgIGlmICghY29tcG9uZW50LmFkZGVkKSB7XG4gICAgICAgIG9sZFBvcyArPSBjb21wb25lbnQuY291bnQ7XG4gICAgICB9XG4gICAgfSBlbHNlIHtcbiAgICAgIGNvbXBvbmVudC52YWx1ZSA9IG9sZFN0cmluZy5zbGljZShvbGRQb3MsIG9sZFBvcyArIGNvbXBvbmVudC5jb3VudCkuam9pbignJyk7XG4gICAgICBvbGRQb3MgKz0gY29tcG9uZW50LmNvdW50O1xuXG4gICAgICAvLyBSZXZlcnNlIGFkZCBhbmQgcmVtb3ZlIHNvIHJlbW92ZXMgYXJlIG91dHB1dCBmaXJzdCB0byBtYXRjaCBjb21tb24gY29udmVudGlvblxuICAgICAgLy8gVGhlIGRpZmZpbmcgYWxnb3JpdGhtIGlzIHRpZWQgdG8gYWRkIHRoZW4gcmVtb3ZlIG91dHB1dCBhbmQgdGhpcyBpcyB0aGUgc2ltcGxlc3RcbiAgICAgIC8vIHJvdXRlIHRvIGdldCB0aGUgZGVzaXJlZCBvdXRwdXQgd2l0aCBtaW5pbWFsIG92ZXJoZWFkLlxuICAgICAgaWYgKGNvbXBvbmVudFBvcyAmJiBjb21wb25lbnRzW2NvbXBvbmVudFBvcyAtIDFdLmFkZGVkKSB7XG4gICAgICAgIGxldCB0bXAgPSBjb21wb25lbnRzW2NvbXBvbmVudFBvcyAtIDFdO1xuICAgICAgICBjb21wb25lbnRzW2NvbXBvbmVudFBvcyAtIDFdID0gY29tcG9uZW50c1tjb21wb25lbnRQb3NdO1xuICAgICAgICBjb21wb25lbnRzW2NvbXBvbmVudFBvc10gPSB0bXA7XG4gICAgICB9XG4gICAgfVxuICB9XG5cbiAgLy8gU3BlY2lhbCBjYXNlIGhhbmRsZSBmb3Igd2hlbiBvbmUgdGVybWluYWwgaXMgaWdub3JlZC4gRm9yIHRoaXMgY2FzZSB3ZSBtZXJnZSB0aGVcbiAgLy8gdGVybWluYWwgaW50byB0aGUgcHJpb3Igc3RyaW5nIGFuZCBkcm9wIHRoZSBjaGFuZ2UuXG4gIGxldCBsYXN0Q29tcG9uZW50ID0gY29tcG9uZW50c1tjb21wb25lbnRMZW4gLSAxXTtcbiAgaWYgKChsYXN0Q29tcG9uZW50LmFkZGVkIHx8IGxhc3RDb21wb25lbnQucmVtb3ZlZCkgJiYgZGlmZi5lcXVhbHMoJycsIGxhc3RDb21wb25lbnQudmFsdWUpKSB7XG4gICAgY29tcG9uZW50c1tjb21wb25lbnRMZW4gLSAyXS52YWx1ZSArPSBsYXN0Q29tcG9uZW50LnZhbHVlO1xuICAgIGNvbXBvbmVudHMucG9wKCk7XG4gIH1cblxuICByZXR1cm4gY29tcG9uZW50cztcbn1cblxuZnVuY3Rpb24gY2xvbmVQYXRoKHBhdGgpIHtcbiAgcmV0dXJuIHsgbmV3UG9zOiBwYXRoLm5ld1BvcywgY29tcG9uZW50czogcGF0aC5jb21wb25lbnRzLnNsaWNlKDApIH07XG59XG4iXX0=
+
+
+/***/ },
+/* 774 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.diffChars = diffChars;
+	// istanbul ignore next
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _base = __webpack_require__(773);
+
+	var _base2 = _interopRequireDefault(_base);
+
+	var characterDiff = new _base2['default']();
+	exports.characterDiff = characterDiff;
+
+	function diffChars(oldStr, newStr, callback) {
+	  return characterDiff.diff(oldStr, newStr, callback);
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2NoYXJhY3Rlci5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztvQkFBaUIsUUFBUTs7OztBQUVsQixJQUFNLGFBQWEsR0FBRyx1QkFBVSxDQUFDOzs7QUFDakMsU0FBUyxTQUFTLENBQUMsTUFBTSxFQUFFLE1BQU0sRUFBRSxRQUFRLEVBQUU7QUFBRSxTQUFPLGFBQWEsQ0FBQyxJQUFJLENBQUMsTUFBTSxFQUFFLE1BQU0sRUFBRSxRQUFRLENBQUMsQ0FBQztDQUFFIiwiZmlsZSI6ImNoYXJhY3Rlci5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBEaWZmIGZyb20gJy4vYmFzZSc7XG5cbmV4cG9ydCBjb25zdCBjaGFyYWN0ZXJEaWZmID0gbmV3IERpZmYoKTtcbmV4cG9ydCBmdW5jdGlvbiBkaWZmQ2hhcnMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBjaGFyYWN0ZXJEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKTsgfVxuIl19
+
+
+/***/ },
+/* 775 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.diffWords = diffWords;
+	exports.diffWordsWithSpace = diffWordsWithSpace;
+	// istanbul ignore next
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _base = __webpack_require__(773);
+
+	var _base2 = _interopRequireDefault(_base);
+
+	var _utilParams = __webpack_require__(776);
+
+	// Based on https://en.wikipedia.org/wiki/Latin_script_in_Unicode
+	//
+	// Ranges and exceptions:
+	// Latin-1 Supplement, 0080–00FF
+	//  - U+00D7  × Multiplication sign
+	//  - U+00F7  ÷ Division sign
+	// Latin Extended-A, 0100–017F
+	// Latin Extended-B, 0180–024F
+	// IPA Extensions, 0250–02AF
+	// Spacing Modifier Letters, 02B0–02FF
+	//  - U+02C7  ˇ &#711;  Caron
+	//  - U+02D8  ˘ &#728;  Breve
+	//  - U+02D9  ˙ &#729;  Dot Above
+	//  - U+02DA  ˚ &#730;  Ring Above
+	//  - U+02DB  ˛ &#731;  Ogonek
+	//  - U+02DC  ˜ &#732;  Small Tilde
+	//  - U+02DD  ˝ &#733;  Double Acute Accent
+	// Latin Extended Additional, 1E00–1EFF
+	var extendedWordChars = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/;
+
+	var reWhitespace = /\S/;
+
+	var wordDiff = new _base2['default']();
+	exports.wordDiff = wordDiff;
+	wordDiff.equals = function (left, right) {
+	  return left === right || this.options.ignoreWhitespace && !reWhitespace.test(left) && !reWhitespace.test(right);
+	};
+	wordDiff.tokenize = function (value) {
+	  var tokens = value.split(/(\s+|\b)/);
+
+	  // Join the boundary splits that we do not consider to be boundaries. This is primarily the extended Latin character set.
+	  for (var i = 0; i < tokens.length - 1; i++) {
+	    // If we have an empty string in the next field and we have only word chars before and after, merge
+	    if (!tokens[i + 1] && tokens[i + 2] && extendedWordChars.test(tokens[i]) && extendedWordChars.test(tokens[i + 2])) {
+	      tokens[i] += tokens[i + 2];
+	      tokens.splice(i + 1, 2);
+	      i--;
+	    }
+	  }
+
+	  return tokens;
+	};
+
+	function diffWords(oldStr, newStr, callback) {
+	  var options = _utilParams.generateOptions(callback, { ignoreWhitespace: true });
+	  return wordDiff.diff(oldStr, newStr, options);
+	}
+
+	function diffWordsWithSpace(oldStr, newStr, callback) {
+	  return wordDiff.diff(oldStr, newStr, callback);
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL3dvcmQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O29CQUFpQixRQUFROzs7OzBCQUNLLGdCQUFnQjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFvQjlDLElBQU0saUJBQWlCLEdBQUcsK0RBQXFHLENBQUM7O0FBRWhJLElBQU0sWUFBWSxHQUFHLElBQUksQ0FBQzs7QUFFbkIsSUFBTSxRQUFRLEdBQUcsdUJBQVUsQ0FBQzs7QUFDbkMsUUFBUSxDQUFDLE1BQU0sR0FBRyxVQUFTLElBQUksRUFBRSxLQUFLLEVBQUU7QUFDdEMsU0FBTyxJQUFJLEtBQUssS0FBSyxJQUFLLElBQUksQ0FBQyxPQUFPLENBQUMsZ0JBQWdCLElBQUksQ0FBQyxZQUFZLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsWUFBWSxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQUFBQyxDQUFDO0NBQ25ILENBQUM7QUFDRixRQUFRLENBQUMsUUFBUSxHQUFHLFVBQVMsS0FBSyxFQUFFO0FBQ2xDLE1BQUksTUFBTSxHQUFHLEtBQUssQ0FBQyxLQUFLLENBQUMsVUFBVSxDQUFDLENBQUM7OztBQUdyQyxPQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsTUFBTSxDQUFDLE1BQU0sR0FBRyxDQUFDLEVBQUUsQ0FBQyxFQUFFLEVBQUU7O0FBRTFDLFFBQUksQ0FBQyxNQUFNLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLE1BQU0sQ0FBQyxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQzFCLGlCQUFpQixDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLENBQUMsSUFDakMsaUJBQWlCLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsRUFBRTtBQUM5QyxZQUFNLENBQUMsQ0FBQyxDQUFDLElBQUksTUFBTSxDQUFDLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQztBQUMzQixZQUFNLENBQUMsTUFBTSxDQUFDLENBQUMsR0FBRyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUM7QUFDeEIsT0FBQyxFQUFFLENBQUM7S0FDTDtHQUNGOztBQUVELFNBQU8sTUFBTSxDQUFDO0NBQ2YsQ0FBQzs7QUFFSyxTQUFTLFNBQVMsQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsRUFBRTtBQUNsRCxNQUFJLE9BQU8sR0FBRyw0QkFBZ0IsUUFBUSxFQUFFLEVBQUMsZ0JBQWdCLEVBQUUsSUFBSSxFQUFDLENBQUMsQ0FBQztBQUNsRSxTQUFPLFFBQVEsQ0FBQyxJQUFJLENBQUMsTUFBTSxFQUFFLE1BQU0sRUFBRSxPQUFPLENBQUMsQ0FBQztDQUMvQzs7QUFDTSxTQUFTLGtCQUFrQixDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxFQUFFO0FBQzNELFNBQU8sUUFBUSxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFDO0NBQ2hEIiwiZmlsZSI6IndvcmQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgRGlmZiBmcm9tICcuL2Jhc2UnO1xuaW1wb3J0IHtnZW5lcmF0ZU9wdGlvbnN9IGZyb20gJy4uL3V0aWwvcGFyYW1zJztcblxuLy8gQmFzZWQgb24gaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvTGF0aW5fc2NyaXB0X2luX1VuaWNvZGVcbi8vXG4vLyBSYW5nZXMgYW5kIGV4Y2VwdGlvbnM6XG4vLyBMYXRpbi0xIFN1cHBsZW1lbnQsIDAwODDigJMwMEZGXG4vLyAgLSBVKzAwRDcgIMOXIE11bHRpcGxpY2F0aW9uIHNpZ25cbi8vICAtIFUrMDBGNyAgw7cgRGl2aXNpb24gc2lnblxuLy8gTGF0aW4gRXh0ZW5kZWQtQSwgMDEwMOKAkzAxN0Zcbi8vIExhdGluIEV4dGVuZGVkLUIsIDAxODDigJMwMjRGXG4vLyBJUEEgRXh0ZW5zaW9ucywgMDI1MOKAkzAyQUZcbi8vIFNwYWNpbmcgTW9kaWZpZXIgTGV0dGVycywgMDJCMOKAkzAyRkZcbi8vICAtIFUrMDJDNyAgy4cgJiM3MTE7ICBDYXJvblxuLy8gIC0gVSswMkQ4ICDLmCAmIzcyODsgIEJyZXZlXG4vLyAgLSBVKzAyRDkgIMuZICYjNzI5OyAgRG90IEFib3ZlXG4vLyAgLSBVKzAyREEgIMuaICYjNzMwOyAgUmluZyBBYm92ZVxuLy8gIC0gVSswMkRCICDLmyAmIzczMTsgIE9nb25la1xuLy8gIC0gVSswMkRDICDLnCAmIzczMjsgIFNtYWxsIFRpbGRlXG4vLyAgLSBVKzAyREQgIMudICYjNzMzOyAgRG91YmxlIEFjdXRlIEFjY2VudFxuLy8gTGF0aW4gRXh0ZW5kZWQgQWRkaXRpb25hbCwgMUUwMOKAkzFFRkZcbmNvbnN0IGV4dGVuZGVkV29yZENoYXJzID0gL15bYS16QS1aXFx1e0MwfS1cXHV7RkZ9XFx1e0Q4fS1cXHV7RjZ9XFx1e0Y4fS1cXHV7MkM2fVxcdXsyQzh9LVxcdXsyRDd9XFx1ezJERX0tXFx1ezJGRn1cXHV7MUUwMH0tXFx1ezFFRkZ9XSskL3U7XG5cbmNvbnN0IHJlV2hpdGVzcGFjZSA9IC9cXFMvO1xuXG5leHBvcnQgY29uc3Qgd29yZERpZmYgPSBuZXcgRGlmZigpO1xud29yZERpZmYuZXF1YWxzID0gZnVuY3Rpb24obGVmdCwgcmlnaHQpIHtcbiAgcmV0dXJuIGxlZnQgPT09IHJpZ2h0IHx8ICh0aGlzLm9wdGlvbnMuaWdub3JlV2hpdGVzcGFjZSAmJiAhcmVXaGl0ZXNwYWNlLnRlc3QobGVmdCkgJiYgIXJlV2hpdGVzcGFjZS50ZXN0KHJpZ2h0KSk7XG59O1xud29yZERpZmYudG9rZW5pemUgPSBmdW5jdGlvbih2YWx1ZSkge1xuICBsZXQgdG9rZW5zID0gdmFsdWUuc3BsaXQoLyhcXHMrfFxcYikvKTtcblxuICAvLyBKb2luIHRoZSBib3VuZGFyeSBzcGxpdHMgdGhhdCB3ZSBkbyBub3QgY29uc2lkZXIgdG8gYmUgYm91bmRhcmllcy4gVGhpcyBpcyBwcmltYXJpbHkgdGhlIGV4dGVuZGVkIExhdGluIGNoYXJhY3RlciBzZXQuXG4gIGZvciAobGV0IGkgPSAwOyBpIDwgdG9rZW5zLmxlbmd0aCAtIDE7IGkrKykge1xuICAgIC8vIElmIHdlIGhhdmUgYW4gZW1wdHkgc3RyaW5nIGluIHRoZSBuZXh0IGZpZWxkIGFuZCB3ZSBoYXZlIG9ubHkgd29yZCBjaGFycyBiZWZvcmUgYW5kIGFmdGVyLCBtZXJnZVxuICAgIGlmICghdG9rZW5zW2kgKyAxXSAmJiB0b2tlbnNbaSArIDJdXG4gICAgICAgICAgJiYgZXh0ZW5kZWRXb3JkQ2hhcnMudGVzdCh0b2tlbnNbaV0pXG4gICAgICAgICAgJiYgZXh0ZW5kZWRXb3JkQ2hhcnMudGVzdCh0b2tlbnNbaSArIDJdKSkge1xuICAgICAgdG9rZW5zW2ldICs9IHRva2Vuc1tpICsgMl07XG4gICAgICB0b2tlbnMuc3BsaWNlKGkgKyAxLCAyKTtcbiAgICAgIGktLTtcbiAgICB9XG4gIH1cblxuICByZXR1cm4gdG9rZW5zO1xufTtcblxuZXhwb3J0IGZ1bmN0aW9uIGRpZmZXb3JkcyhvbGRTdHIsIG5ld1N0ciwgY2FsbGJhY2spIHtcbiAgbGV0IG9wdGlvbnMgPSBnZW5lcmF0ZU9wdGlvbnMoY2FsbGJhY2ssIHtpZ25vcmVXaGl0ZXNwYWNlOiB0cnVlfSk7XG4gIHJldHVybiB3b3JkRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBvcHRpb25zKTtcbn1cbmV4cG9ydCBmdW5jdGlvbiBkaWZmV29yZHNXaXRoU3BhY2Uob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7XG4gIHJldHVybiB3b3JkRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjayk7XG59XG4iXX0=
+
+
+/***/ },
+/* 776 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.generateOptions = generateOptions;
+
+	function generateOptions(options, defaults) {
+	  if (typeof options === 'function') {
+	    defaults.callback = options;
+	  } else if (options) {
+	    for (var _name in options) {
+	      /* istanbul ignore else */
+	      if (options.hasOwnProperty(_name)) {
+	        defaults[_name] = options[_name];
+	      }
+	    }
+	  }
+	  return defaults;
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlsL3BhcmFtcy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFPLFNBQVMsZUFBZSxDQUFDLE9BQU8sRUFBRSxRQUFRLEVBQUU7QUFDakQsTUFBSSxPQUFPLE9BQU8sS0FBSyxVQUFVLEVBQUU7QUFDakMsWUFBUSxDQUFDLFFBQVEsR0FBRyxPQUFPLENBQUM7R0FDN0IsTUFBTSxJQUFJLE9BQU8sRUFBRTtBQUNsQixTQUFLLElBQUksS0FBSSxJQUFJLE9BQU8sRUFBRTs7QUFFeEIsVUFBSSxPQUFPLENBQUMsY0FBYyxDQUFDLEtBQUksQ0FBQyxFQUFFO0FBQ2hDLGdCQUFRLENBQUMsS0FBSSxDQUFDLEdBQUcsT0FBTyxDQUFDLEtBQUksQ0FBQyxDQUFDO09BQ2hDO0tBQ0Y7R0FDRjtBQUNELFNBQU8sUUFBUSxDQUFDO0NBQ2pCIiwiZmlsZSI6InBhcmFtcy5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBnZW5lcmF0ZU9wdGlvbnMob3B0aW9ucywgZGVmYXVsdHMpIHtcbiAgaWYgKHR5cGVvZiBvcHRpb25zID09PSAnZnVuY3Rpb24nKSB7XG4gICAgZGVmYXVsdHMuY2FsbGJhY2sgPSBvcHRpb25zO1xuICB9IGVsc2UgaWYgKG9wdGlvbnMpIHtcbiAgICBmb3IgKGxldCBuYW1lIGluIG9wdGlvbnMpIHtcbiAgICAgIC8qIGlzdGFuYnVsIGlnbm9yZSBlbHNlICovXG4gICAgICBpZiAob3B0aW9ucy5oYXNPd25Qcm9wZXJ0eShuYW1lKSkge1xuICAgICAgICBkZWZhdWx0c1tuYW1lXSA9IG9wdGlvbnNbbmFtZV07XG4gICAgICB9XG4gICAgfVxuICB9XG4gIHJldHVybiBkZWZhdWx0cztcbn1cbiJdfQ==
+
+
+/***/ },
+/* 777 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.diffLines = diffLines;
+	exports.diffTrimmedLines = diffTrimmedLines;
+	// istanbul ignore next
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _base = __webpack_require__(773);
+
+	var _base2 = _interopRequireDefault(_base);
+
+	var _utilParams = __webpack_require__(776);
+
+	var lineDiff = new _base2['default']();
+	exports.lineDiff = lineDiff;
+	lineDiff.tokenize = function (value) {
+	  var retLines = [],
+	      linesAndNewlines = value.split(/(\n|\r\n)/);
+
+	  // Ignore the final empty token that occurs if the string ends with a new line
+	  if (!linesAndNewlines[linesAndNewlines.length - 1]) {
+	    linesAndNewlines.pop();
+	  }
+
+	  // Merge the content and line separators into single tokens
+	  for (var i = 0; i < linesAndNewlines.length; i++) {
+	    var line = linesAndNewlines[i];
+
+	    if (i % 2 && !this.options.newlineIsToken) {
+	      retLines[retLines.length - 1] += line;
+	    } else {
+	      if (this.options.ignoreWhitespace) {
+	        line = line.trim();
+	      }
+	      retLines.push(line);
+	    }
+	  }
+
+	  return retLines;
+	};
+
+	function diffLines(oldStr, newStr, callback) {
+	  return lineDiff.diff(oldStr, newStr, callback);
+	}
+
+	function diffTrimmedLines(oldStr, newStr, callback) {
+	  var options = _utilParams.generateOptions(callback, { ignoreWhitespace: true });
+	  return lineDiff.diff(oldStr, newStr, options);
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2xpbmUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O29CQUFpQixRQUFROzs7OzBCQUNLLGdCQUFnQjs7QUFFdkMsSUFBTSxRQUFRLEdBQUcsdUJBQVUsQ0FBQzs7QUFDbkMsUUFBUSxDQUFDLFFBQVEsR0FBRyxVQUFTLEtBQUssRUFBRTtBQUNsQyxNQUFJLFFBQVEsR0FBRyxFQUFFO01BQ2IsZ0JBQWdCLEdBQUcsS0FBSyxDQUFDLEtBQUssQ0FBQyxXQUFXLENBQUMsQ0FBQzs7O0FBR2hELE1BQUksQ0FBQyxnQkFBZ0IsQ0FBQyxnQkFBZ0IsQ0FBQyxNQUFNLEdBQUcsQ0FBQyxDQUFDLEVBQUU7QUFDbEQsb0JBQWdCLENBQUMsR0FBRyxFQUFFLENBQUM7R0FDeEI7OztBQUdELE9BQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxnQkFBZ0IsQ0FBQyxNQUFNLEVBQUUsQ0FBQyxFQUFFLEVBQUU7QUFDaEQsUUFBSSxJQUFJLEdBQUcsZ0JBQWdCLENBQUMsQ0FBQyxDQUFDLENBQUM7O0FBRS9CLFFBQUksQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsY0FBYyxFQUFFO0FBQ3pDLGNBQVEsQ0FBQyxRQUFRLENBQUMsTUFBTSxHQUFHLENBQUMsQ0FBQyxJQUFJLElBQUksQ0FBQztLQUN2QyxNQUFNO0FBQ0wsVUFBSSxJQUFJLENBQUMsT0FBTyxDQUFDLGdCQUFnQixFQUFFO0FBQ2pDLFlBQUksR0FBRyxJQUFJLENBQUMsSUFBSSxFQUFFLENBQUM7T0FDcEI7QUFDRCxjQUFRLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO0tBQ3JCO0dBQ0Y7O0FBRUQsU0FBTyxRQUFRLENBQUM7Q0FDakIsQ0FBQzs7QUFFSyxTQUFTLFNBQVMsQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsRUFBRTtBQUFFLFNBQU8sUUFBUSxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFDO0NBQUU7O0FBQ2hHLFNBQVMsZ0JBQWdCLENBQUMsTUFBTSxFQUFFLE1BQU0sRUFBRSxRQUFRLEVBQUU7QUFDekQsTUFBSSxPQUFPLEdBQUcsNEJBQWdCLFFBQVEsRUFBRSxFQUFDLGdCQUFnQixFQUFFLElBQUksRUFBQyxDQUFDLENBQUM7QUFDbEUsU0FBTyxRQUFRLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsT0FBTyxDQUFDLENBQUM7Q0FDL0MiLCJmaWxlIjoibGluZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBEaWZmIGZyb20gJy4vYmFzZSc7XG5pbXBvcnQge2dlbmVyYXRlT3B0aW9uc30gZnJvbSAnLi4vdXRpbC9wYXJhbXMnO1xuXG5leHBvcnQgY29uc3QgbGluZURpZmYgPSBuZXcgRGlmZigpO1xubGluZURpZmYudG9rZW5pemUgPSBmdW5jdGlvbih2YWx1ZSkge1xuICBsZXQgcmV0TGluZXMgPSBbXSxcbiAgICAgIGxpbmVzQW5kTmV3bGluZXMgPSB2YWx1ZS5zcGxpdCgvKFxcbnxcXHJcXG4pLyk7XG5cbiAgLy8gSWdub3JlIHRoZSBmaW5hbCBlbXB0eSB0b2tlbiB0aGF0IG9jY3VycyBpZiB0aGUgc3RyaW5nIGVuZHMgd2l0aCBhIG5ldyBsaW5lXG4gIGlmICghbGluZXNBbmROZXdsaW5lc1tsaW5lc0FuZE5ld2xpbmVzLmxlbmd0aCAtIDFdKSB7XG4gICAgbGluZXNBbmROZXdsaW5lcy5wb3AoKTtcbiAgfVxuXG4gIC8vIE1lcmdlIHRoZSBjb250ZW50IGFuZCBsaW5lIHNlcGFyYXRvcnMgaW50byBzaW5nbGUgdG9rZW5zXG4gIGZvciAobGV0IGkgPSAwOyBpIDwgbGluZXNBbmROZXdsaW5lcy5sZW5ndGg7IGkrKykge1xuICAgIGxldCBsaW5lID0gbGluZXNBbmROZXdsaW5lc1tpXTtcblxuICAgIGlmIChpICUgMiAmJiAhdGhpcy5vcHRpb25zLm5ld2xpbmVJc1Rva2VuKSB7XG4gICAgICByZXRMaW5lc1tyZXRMaW5lcy5sZW5ndGggLSAxXSArPSBsaW5lO1xuICAgIH0gZWxzZSB7XG4gICAgICBpZiAodGhpcy5vcHRpb25zLmlnbm9yZVdoaXRlc3BhY2UpIHtcbiAgICAgICAgbGluZSA9IGxpbmUudHJpbSgpO1xuICAgICAgfVxuICAgICAgcmV0TGluZXMucHVzaChsaW5lKTtcbiAgICB9XG4gIH1cblxuICByZXR1cm4gcmV0TGluZXM7XG59O1xuXG5leHBvcnQgZnVuY3Rpb24gZGlmZkxpbmVzKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjaykgeyByZXR1cm4gbGluZURpZmYuZGlmZihvbGRTdHIsIG5ld1N0ciwgY2FsbGJhY2spOyB9XG5leHBvcnQgZnVuY3Rpb24gZGlmZlRyaW1tZWRMaW5lcyhvbGRTdHIsIG5ld1N0ciwgY2FsbGJhY2spIHtcbiAgbGV0IG9wdGlvbnMgPSBnZW5lcmF0ZU9wdGlvbnMoY2FsbGJhY2ssIHtpZ25vcmVXaGl0ZXNwYWNlOiB0cnVlfSk7XG4gIHJldHVybiBsaW5lRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBvcHRpb25zKTtcbn1cbiJdfQ==
+
+
+/***/ },
+/* 778 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.diffSentences = diffSentences;
+	// istanbul ignore next
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _base = __webpack_require__(773);
+
+	var _base2 = _interopRequireDefault(_base);
+
+	var sentenceDiff = new _base2['default']();
+	exports.sentenceDiff = sentenceDiff;
+	sentenceDiff.tokenize = function (value) {
+	  return value.split(/(\S.+?[.!?])(?=\s+|$)/);
+	};
+
+	function diffSentences(oldStr, newStr, callback) {
+	  return sentenceDiff.diff(oldStr, newStr, callback);
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL3NlbnRlbmNlLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O29CQUFpQixRQUFROzs7O0FBR2xCLElBQU0sWUFBWSxHQUFHLHVCQUFVLENBQUM7O0FBQ3ZDLFlBQVksQ0FBQyxRQUFRLEdBQUcsVUFBUyxLQUFLLEVBQUU7QUFDdEMsU0FBTyxLQUFLLENBQUMsS0FBSyxDQUFDLHVCQUF1QixDQUFDLENBQUM7Q0FDN0MsQ0FBQzs7QUFFSyxTQUFTLGFBQWEsQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsRUFBRTtBQUFFLFNBQU8sWUFBWSxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFDO0NBQUUiLCJmaWxlIjoic2VudGVuY2UuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgRGlmZiBmcm9tICcuL2Jhc2UnO1xuXG5cbmV4cG9ydCBjb25zdCBzZW50ZW5jZURpZmYgPSBuZXcgRGlmZigpO1xuc2VudGVuY2VEaWZmLnRva2VuaXplID0gZnVuY3Rpb24odmFsdWUpIHtcbiAgcmV0dXJuIHZhbHVlLnNwbGl0KC8oXFxTLis/Wy4hP10pKD89XFxzK3wkKS8pO1xufTtcblxuZXhwb3J0IGZ1bmN0aW9uIGRpZmZTZW50ZW5jZXMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBzZW50ZW5jZURpZmYuZGlmZihvbGRTdHIsIG5ld1N0ciwgY2FsbGJhY2spOyB9XG4iXX0=
+
+
+/***/ },
+/* 779 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.diffCss = diffCss;
+	// istanbul ignore next
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _base = __webpack_require__(773);
+
+	var _base2 = _interopRequireDefault(_base);
+
+	var cssDiff = new _base2['default']();
+	exports.cssDiff = cssDiff;
+	cssDiff.tokenize = function (value) {
+	  return value.split(/([{}:;,]|\s+)/);
+	};
+
+	function diffCss(oldStr, newStr, callback) {
+	  return cssDiff.diff(oldStr, newStr, callback);
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2Nzcy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztvQkFBaUIsUUFBUTs7OztBQUVsQixJQUFNLE9BQU8sR0FBRyx1QkFBVSxDQUFDOztBQUNsQyxPQUFPLENBQUMsUUFBUSxHQUFHLFVBQVMsS0FBSyxFQUFFO0FBQ2pDLFNBQU8sS0FBSyxDQUFDLEtBQUssQ0FBQyxlQUFlLENBQUMsQ0FBQztDQUNyQyxDQUFDOztBQUVLLFNBQVMsT0FBTyxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxFQUFFO0FBQUUsU0FBTyxPQUFPLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxDQUFDLENBQUM7Q0FBRSIsImZpbGUiOiJjc3MuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgRGlmZiBmcm9tICcuL2Jhc2UnO1xuXG5leHBvcnQgY29uc3QgY3NzRGlmZiA9IG5ldyBEaWZmKCk7XG5jc3NEaWZmLnRva2VuaXplID0gZnVuY3Rpb24odmFsdWUpIHtcbiAgcmV0dXJuIHZhbHVlLnNwbGl0KC8oW3t9OjssXXxcXHMrKS8pO1xufTtcblxuZXhwb3J0IGZ1bmN0aW9uIGRpZmZDc3Mob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBjc3NEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKTsgfVxuIl19
+
+
+/***/ },
+/* 780 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.diffJson = diffJson;
+	exports.canonicalize = canonicalize;
+	// istanbul ignore next
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _base = __webpack_require__(773);
+
+	var _base2 = _interopRequireDefault(_base);
+
+	var _line = __webpack_require__(777);
+
+	var objectPrototypeToString = Object.prototype.toString;
+
+	var jsonDiff = new _base2['default']();
+	exports.jsonDiff = jsonDiff;
+	// Discriminate between two lines of pretty-printed, serialized JSON where one of them has a
+	// dangling comma and the other doesn't. Turns out including the dangling comma yields the nicest output:
+	jsonDiff.useLongestToken = true;
+
+	jsonDiff.tokenize = _line.lineDiff.tokenize;
+	jsonDiff.castInput = function (value) {
+	  return typeof value === 'string' ? value : JSON.stringify(canonicalize(value), undefined, '  ');
+	};
+	jsonDiff.equals = function (left, right) {
+	  return _base2['default'].prototype.equals(left.replace(/,([\r\n])/g, '$1'), right.replace(/,([\r\n])/g, '$1'));
+	};
+
+	function diffJson(oldObj, newObj, callback) {
+	  return jsonDiff.diff(oldObj, newObj, callback);
+	}
+
+	// This function handles the presence of circular references by bailing out when encountering an
+	// object that is already on the "stack" of items being processed.
+
+	function canonicalize(obj, stack, replacementStack) {
+	  stack = stack || [];
+	  replacementStack = replacementStack || [];
+
+	  var i = undefined;
+
+	  for (i = 0; i < stack.length; i += 1) {
+	    if (stack[i] === obj) {
+	      return replacementStack[i];
+	    }
+	  }
+
+	  var canonicalizedObj = undefined;
+
+	  if ('[object Array]' === objectPrototypeToString.call(obj)) {
+	    stack.push(obj);
+	    canonicalizedObj = new Array(obj.length);
+	    replacementStack.push(canonicalizedObj);
+	    for (i = 0; i < obj.length; i += 1) {
+	      canonicalizedObj[i] = canonicalize(obj[i], stack, replacementStack);
+	    }
+	    stack.pop();
+	    replacementStack.pop();
+	  } else if (typeof obj === 'object' && obj !== null) {
+	    stack.push(obj);
+	    canonicalizedObj = {};
+	    replacementStack.push(canonicalizedObj);
+	    var sortedKeys = [],
+	        key = undefined;
+	    for (key in obj) {
+	      /* istanbul ignore else */
+	      if (obj.hasOwnProperty(key)) {
+	        sortedKeys.push(key);
+	      }
+	    }
+	    sortedKeys.sort();
+	    for (i = 0; i < sortedKeys.length; i += 1) {
+	      key = sortedKeys[i];
+	      canonicalizedObj[key] = canonicalize(obj[key], stack, replacementStack);
+	    }
+	    stack.pop();
+	    replacementStack.pop();
+	  } else {
+	    canonicalizedObj = obj;
+	  }
+	  return canonicalizedObj;
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2pzb24uanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O29CQUFpQixRQUFROzs7O29CQUNGLFFBQVE7O0FBRS9CLElBQU0sdUJBQXVCLEdBQUcsTUFBTSxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUM7O0FBR25ELElBQU0sUUFBUSxHQUFHLHVCQUFVLENBQUM7Ozs7QUFHbkMsUUFBUSxDQUFDLGVBQWUsR0FBRyxJQUFJLENBQUM7O0FBRWhDLFFBQVEsQ0FBQyxRQUFRLEdBQUcsZUFBUyxRQUFRLENBQUM7QUFDdEMsUUFBUSxDQUFDLFNBQVMsR0FBRyxVQUFTLEtBQUssRUFBRTtBQUNuQyxTQUFPLE9BQU8sS0FBSyxLQUFLLFFBQVEsR0FBRyxLQUFLLEdBQUcsSUFBSSxDQUFDLFNBQVMsQ0FBQyxZQUFZLENBQUMsS0FBSyxDQUFDLEVBQUUsU0FBUyxFQUFFLElBQUksQ0FBQyxDQUFDO0NBQ2pHLENBQUM7QUFDRixRQUFRLENBQUMsTUFBTSxHQUFHLFVBQVMsSUFBSSxFQUFFLEtBQUssRUFBRTtBQUN0QyxTQUFPLGtCQUFLLFNBQVMsQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxZQUFZLEVBQUUsSUFBSSxDQUFDLEVBQUUsS0FBSyxDQUFDLE9BQU8sQ0FBQyxZQUFZLEVBQUUsSUFBSSxDQUFDLENBQUMsQ0FBQztDQUNuRyxDQUFDOztBQUVLLFNBQVMsUUFBUSxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxFQUFFO0FBQUUsU0FBTyxRQUFRLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxNQUFNLEVBQUUsUUFBUSxDQUFDLENBQUM7Q0FBRTs7Ozs7QUFLL0YsU0FBUyxZQUFZLENBQUMsR0FBRyxFQUFFLEtBQUssRUFBRSxnQkFBZ0IsRUFBRTtBQUN6RCxPQUFLLEdBQUcsS0FBSyxJQUFJLEVBQUUsQ0FBQztBQUNwQixrQkFBZ0IsR0FBRyxnQkFBZ0IsSUFBSSxFQUFFLENBQUM7O0FBRTFDLE1BQUksQ0FBQyxZQUFBLENBQUM7O0FBRU4sT0FBSyxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxLQUFLLENBQUMsTUFBTSxFQUFFLENBQUMsSUFBSSxDQUFDLEVBQUU7QUFDcEMsUUFBSSxLQUFLLENBQUMsQ0FBQyxDQUFDLEtBQUssR0FBRyxFQUFFO0FBQ3BCLGFBQU8sZ0JBQWdCLENBQUMsQ0FBQyxDQUFDLENBQUM7S0FDNUI7R0FDRjs7QUFFRCxNQUFJLGdCQUFnQixZQUFBLENBQUM7O0FBRXJCLE1BQUksZ0JBQWdCLEtBQUssdUJBQXVCLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFO0FBQzFELFNBQUssQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLENBQUM7QUFDaEIsb0JBQWdCLEdBQUcsSUFBSSxLQUFLLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxDQUFDO0FBQ3pDLG9CQUFnQixDQUFDLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDO0FBQ3hDLFNBQUssQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsR0FBRyxDQUFDLE1BQU0sRUFBRSxDQUFDLElBQUksQ0FBQyxFQUFFO0FBQ2xDLHNCQUFnQixDQUFDLENBQUMsQ0FBQyxHQUFHLFlBQVksQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLEVBQUUsS0FBSyxFQUFFLGdCQUFnQixDQUFDLENBQUM7S0FDckU7QUFDRCxTQUFLLENBQUMsR0FBRyxFQUFFLENBQUM7QUFDWixvQkFBZ0IsQ0FBQyxHQUFHLEVBQUUsQ0FBQztHQUN4QixNQUFNLElBQUksT0FBTyxHQUFHLEtBQUssUUFBUSxJQUFJLEdBQUcsS0FBSyxJQUFJLEVBQUU7QUFDbEQsU0FBSyxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQztBQUNoQixvQkFBZ0IsR0FBRyxFQUFFLENBQUM7QUFDdEIsb0JBQWdCLENBQUMsSUFBSSxDQUFDLGdCQUFnQixDQUFDLENBQUM7QUFDeEMsUUFBSSxVQUFVLEdBQUcsRUFBRTtRQUNmLEdBQUcsWUFBQSxDQUFDO0FBQ1IsU0FBSyxHQUFHLElBQUksR0FBRyxFQUFFOztBQUVmLFVBQUksR0FBRyxDQUFDLGNBQWMsQ0FBQyxHQUFHLENBQUMsRUFBRTtBQUMzQixrQkFBVSxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQztPQUN0QjtLQUNGO0FBQ0QsY0FBVSxDQUFDLElBQUksRUFBRSxDQUFDO0FBQ2xCLFNBQUssQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsVUFBVSxDQUFDLE1BQU0sRUFBRSxDQUFDLElBQUksQ0FBQyxFQUFFO0FBQ3pDLFNBQUcsR0FBRyxVQUFVLENBQUMsQ0FBQyxDQUFDLENBQUM7QUFDcEIsc0JBQWdCLENBQUMsR0FBRyxDQUFDLEdBQUcsWUFBWSxDQUFDLEdBQUcsQ0FBQyxHQUFHLENBQUMsRUFBRSxLQUFLLEVBQUUsZ0JBQWdCLENBQUMsQ0FBQztLQUN6RTtBQUNELFNBQUssQ0FBQyxHQUFHLEVBQUUsQ0FBQztBQUNaLG9CQUFnQixDQUFDLEdBQUcsRUFBRSxDQUFDO0dBQ3hCLE1BQU07QUFDTCxvQkFBZ0IsR0FBRyxHQUFHLENBQUM7R0FDeEI7QUFDRCxTQUFPLGdCQUFnQixDQUFDO0NBQ3pCIiwiZmlsZSI6Impzb24uanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgRGlmZiBmcm9tICcuL2Jhc2UnO1xuaW1wb3J0IHtsaW5lRGlmZn0gZnJvbSAnLi9saW5lJztcblxuY29uc3Qgb2JqZWN0UHJvdG90eXBlVG9TdHJpbmcgPSBPYmplY3QucHJvdG90eXBlLnRvU3RyaW5nO1xuXG5cbmV4cG9ydCBjb25zdCBqc29uRGlmZiA9IG5ldyBEaWZmKCk7XG4vLyBEaXNjcmltaW5hdGUgYmV0d2VlbiB0d28gbGluZXMgb2YgcHJldHR5LXByaW50ZWQsIHNlcmlhbGl6ZWQgSlNPTiB3aGVyZSBvbmUgb2YgdGhlbSBoYXMgYVxuLy8gZGFuZ2xpbmcgY29tbWEgYW5kIHRoZSBvdGhlciBkb2Vzbid0LiBUdXJucyBvdXQgaW5jbHVkaW5nIHRoZSBkYW5nbGluZyBjb21tYSB5aWVsZHMgdGhlIG5pY2VzdCBvdXRwdXQ6XG5qc29uRGlmZi51c2VMb25nZXN0VG9rZW4gPSB0cnVlO1xuXG5qc29uRGlmZi50b2tlbml6ZSA9IGxpbmVEaWZmLnRva2VuaXplO1xuanNvbkRpZmYuY2FzdElucHV0ID0gZnVuY3Rpb24odmFsdWUpIHtcbiAgcmV0dXJuIHR5cGVvZiB2YWx1ZSA9PT0gJ3N0cmluZycgPyB2YWx1ZSA6IEpTT04uc3RyaW5naWZ5KGNhbm9uaWNhbGl6ZSh2YWx1ZSksIHVuZGVmaW5lZCwgJyAgJyk7XG59O1xuanNvbkRpZmYuZXF1YWxzID0gZnVuY3Rpb24obGVmdCwgcmlnaHQpIHtcbiAgcmV0dXJuIERpZmYucHJvdG90eXBlLmVxdWFscyhsZWZ0LnJlcGxhY2UoLywoW1xcclxcbl0pL2csICckMScpLCByaWdodC5yZXBsYWNlKC8sKFtcXHJcXG5dKS9nLCAnJDEnKSk7XG59O1xuXG5leHBvcnQgZnVuY3Rpb24gZGlmZkpzb24ob2xkT2JqLCBuZXdPYmosIGNhbGxiYWNrKSB7IHJldHVybiBqc29uRGlmZi5kaWZmKG9sZE9iaiwgbmV3T2JqLCBjYWxsYmFjayk7IH1cblxuXG4vLyBUaGlzIGZ1bmN0aW9uIGhhbmRsZXMgdGhlIHByZXNlbmNlIG9mIGNpcmN1bGFyIHJlZmVyZW5jZXMgYnkgYmFpbGluZyBvdXQgd2hlbiBlbmNvdW50ZXJpbmcgYW5cbi8vIG9iamVjdCB0aGF0IGlzIGFscmVhZHkgb24gdGhlIFwic3RhY2tcIiBvZiBpdGVtcyBiZWluZyBwcm9jZXNzZWQuXG5leHBvcnQgZnVuY3Rpb24gY2Fub25pY2FsaXplKG9iaiwgc3RhY2ssIHJlcGxhY2VtZW50U3RhY2spIHtcbiAgc3RhY2sgPSBzdGFjayB8fCBbXTtcbiAgcmVwbGFjZW1lbnRTdGFjayA9IHJlcGxhY2VtZW50U3RhY2sgfHwgW107XG5cbiAgbGV0IGk7XG5cbiAgZm9yIChpID0gMDsgaSA8IHN0YWNrLmxlbmd0aDsgaSArPSAxKSB7XG4gICAgaWYgKHN0YWNrW2ldID09PSBvYmopIHtcbiAgICAgIHJldHVybiByZXBsYWNlbWVudFN0YWNrW2ldO1xuICAgIH1cbiAgfVxuXG4gIGxldCBjYW5vbmljYWxpemVkT2JqO1xuXG4gIGlmICgnW29iamVjdCBBcnJheV0nID09PSBvYmplY3RQcm90b3R5cGVUb1N0cmluZy5jYWxsKG9iaikpIHtcbiAgICBzdGFjay5wdXNoKG9iaik7XG4gICAgY2Fub25pY2FsaXplZE9iaiA9IG5ldyBBcnJheShvYmoubGVuZ3RoKTtcbiAgICByZXBsYWNlbWVudFN0YWNrLnB1c2goY2Fub25pY2FsaXplZE9iaik7XG4gICAgZm9yIChpID0gMDsgaSA8IG9iai5sZW5ndGg7IGkgKz0gMSkge1xuICAgICAgY2Fub25pY2FsaXplZE9ialtpXSA9IGNhbm9uaWNhbGl6ZShvYmpbaV0sIHN0YWNrLCByZXBsYWNlbWVudFN0YWNrKTtcbiAgICB9XG4gICAgc3RhY2sucG9wKCk7XG4gICAgcmVwbGFjZW1lbnRTdGFjay5wb3AoKTtcbiAgfSBlbHNlIGlmICh0eXBlb2Ygb2JqID09PSAnb2JqZWN0JyAmJiBvYmogIT09IG51bGwpIHtcbiAgICBzdGFjay5wdXNoKG9iaik7XG4gICAgY2Fub25pY2FsaXplZE9iaiA9IHt9O1xuICAgIHJlcGxhY2VtZW50U3RhY2sucHVzaChjYW5vbmljYWxpemVkT2JqKTtcbiAgICBsZXQgc29ydGVkS2V5cyA9IFtdLFxuICAgICAgICBrZXk7XG4gICAgZm9yIChrZXkgaW4gb2JqKSB7XG4gICAgICAvKiBpc3RhbmJ1bCBpZ25vcmUgZWxzZSAqL1xuICAgICAgaWYgKG9iai5oYXNPd25Qcm9wZXJ0eShrZXkpKSB7XG4gICAgICAgIHNvcnRlZEtleXMucHVzaChrZXkpO1xuICAgICAgfVxuICAgIH1cbiAgICBzb3J0ZWRLZXlzLnNvcnQoKTtcbiAgICBmb3IgKGkgPSAwOyBpIDwgc29ydGVkS2V5cy5sZW5ndGg7IGkgKz0gMSkge1xuICAgICAga2V5ID0gc29ydGVkS2V5c1tpXTtcbiAgICAgIGNhbm9uaWNhbGl6ZWRPYmpba2V5XSA9IGNhbm9uaWNhbGl6ZShvYmpba2V5XSwgc3RhY2ssIHJlcGxhY2VtZW50U3RhY2spO1xuICAgIH1cbiAgICBzdGFjay5wb3AoKTtcbiAgICByZXBsYWNlbWVudFN0YWNrLnBvcCgpO1xuICB9IGVsc2Uge1xuICAgIGNhbm9uaWNhbGl6ZWRPYmogPSBvYmo7XG4gIH1cbiAgcmV0dXJuIGNhbm9uaWNhbGl6ZWRPYmo7XG59XG4iXX0=
+
+
+/***/ },
+/* 781 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.applyPatch = applyPatch;
+	exports.applyPatches = applyPatches;
+	// istanbul ignore next
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _parse = __webpack_require__(782);
+
+	var _utilDistanceIterator = __webpack_require__(783);
+
+	var _utilDistanceIterator2 = _interopRequireDefault(_utilDistanceIterator);
+
+	function applyPatch(source, uniDiff) {
+	  var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
+	  if (typeof uniDiff === 'string') {
+	    uniDiff = _parse.parsePatch(uniDiff);
+	  }
+
+	  if (Array.isArray(uniDiff)) {
+	    if (uniDiff.length > 1) {
+	      throw new Error('applyPatch only works with a single input.');
+	    }
+
+	    uniDiff = uniDiff[0];
+	  }
+
+	  // Apply the diff to the input
+	  var lines = source.split('\n'),
+	      hunks = uniDiff.hunks,
+	      compareLine = options.compareLine || function (lineNumber, line, operation, patchContent) {
+	    return line === patchContent;
+	  },
+	      errorCount = 0,
+	      fuzzFactor = options.fuzzFactor || 0,
+	      minLine = 0,
+	      offset = 0,
+	      removeEOFNL = undefined,
+	      addEOFNL = undefined;
+
+	  /**
+	   * Checks if the hunk exactly fits on the provided location
+	   */
+	  function hunkFits(hunk, toPos) {
+	    for (var j = 0; j < hunk.lines.length; j++) {
+	      var line = hunk.lines[j],
+	          operation = line[0],
+	          content = line.substr(1);
+
+	      if (operation === ' ' || operation === '-') {
+	        // Context sanity check
+	        if (!compareLine(toPos + 1, lines[toPos], operation, content)) {
+	          errorCount++;
+
+	          if (errorCount > fuzzFactor) {
+	            return false;
+	          }
+	        }
+	        toPos++;
+	      }
+	    }
+
+	    return true;
+	  }
+
+	  // Search best fit offsets for each hunk based on the previous ones
+	  for (var i = 0; i < hunks.length; i++) {
+	    var hunk = hunks[i],
+	        maxLine = lines.length - hunk.oldLines,
+	        localOffset = 0,
+	        toPos = offset + hunk.oldStart - 1;
+
+	    var iterator = _utilDistanceIterator2['default'](toPos, minLine, maxLine);
+
+	    for (; localOffset !== undefined; localOffset = iterator()) {
+	      if (hunkFits(hunk, toPos + localOffset)) {
+	        hunk.offset = offset += localOffset;
+	        break;
+	      }
+	    }
+
+	    if (localOffset === undefined) {
+	      return false;
+	    }
+
+	    // Set lower text limit to end of the current hunk, so next ones don't try
+	    // to fit over already patched text
+	    minLine = hunk.offset + hunk.oldStart + hunk.oldLines;
+	  }
+
+	  // Apply patch hunks
+	  for (var i = 0; i < hunks.length; i++) {
+	    var hunk = hunks[i],
+	        toPos = hunk.offset + hunk.newStart - 1;
+
+	    for (var j = 0; j < hunk.lines.length; j++) {
+	      var line = hunk.lines[j],
+	          operation = line[0],
+	          content = line.substr(1);
+
+	      if (operation === ' ') {
+	        toPos++;
+	      } else if (operation === '-') {
+	        lines.splice(toPos, 1);
+	        /* istanbul ignore else */
+	      } else if (operation === '+') {
+	          lines.splice(toPos, 0, content);
+	          toPos++;
+	        } else if (operation === '\\') {
+	          var previousOperation = hunk.lines[j - 1] ? hunk.lines[j - 1][0] : null;
+	          if (previousOperation === '+') {
+	            removeEOFNL = true;
+	          } else if (previousOperation === '-') {
+	            addEOFNL = true;
+	          }
+	        }
+	    }
+	  }
+
+	  // Handle EOFNL insertion/removal
+	  if (removeEOFNL) {
+	    while (!lines[lines.length - 1]) {
+	      lines.pop();
+	    }
+	  } else if (addEOFNL) {
+	    lines.push('');
+	  }
+	  return lines.join('\n');
+	}
+
+	// Wrapper that supports multiple file patches via callbacks.
+
+	function applyPatches(uniDiff, options) {
+	  if (typeof uniDiff === 'string') {
+	    uniDiff = _parse.parsePatch(uniDiff);
+	  }
+
+	  var currentIndex = 0;
+	  function processIndex() {
+	    var index = uniDiff[currentIndex++];
+	    if (!index) {
+	      return options.complete();
+	    }
+
+	    options.loadFile(index, function (err, data) {
+	      if (err) {
+	        return options.complete(err);
+	      }
+
+	      var updatedContent = applyPatch(data, index, options);
+	      options.patched(index, updatedContent);
+
+	      setTimeout(processIndex, 0);
+	    });
+	  }
+	  processIndex();
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9wYXRjaC9hcHBseS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7cUJBQXlCLFNBQVM7O29DQUNMLDJCQUEyQjs7OztBQUVqRCxTQUFTLFVBQVUsQ0FBQyxNQUFNLEVBQUUsT0FBTyxFQUFnQjtNQUFkLE9BQU8seURBQUcsRUFBRTs7QUFDdEQsTUFBSSxPQUFPLE9BQU8sS0FBSyxRQUFRLEVBQUU7QUFDL0IsV0FBTyxHQUFHLGtCQUFXLE9BQU8sQ0FBQyxDQUFDO0dBQy9COztBQUVELE1BQUksS0FBSyxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsRUFBRTtBQUMxQixRQUFJLE9BQU8sQ0FBQyxNQUFNLEdBQUcsQ0FBQyxFQUFFO0FBQ3RCLFlBQU0sSUFBSSxLQUFLLENBQUMsNENBQTRDLENBQUMsQ0FBQztLQUMvRDs7QUFFRCxXQUFPLEdBQUcsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDO0dBQ3RCOzs7QUFHRCxNQUFJLEtBQUssR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFDLElBQUksQ0FBQztNQUMxQixLQUFLLEdBQUcsT0FBTyxDQUFDLEtBQUs7TUFFckIsV0FBVyxHQUFHLE9BQU8sQ0FBQyxXQUFXLElBQUssVUFBQyxVQUFVLEVBQUUsSUFBSSxFQUFFLFNBQVMsRUFBRSxZQUFZO1dBQUssSUFBSSxLQUFLLFlBQVk7R0FBQSxBQUFDO01BQzNHLFVBQVUsR0FBRyxDQUFDO01BQ2QsVUFBVSxHQUFHLE9BQU8sQ0FBQyxVQUFVLElBQUksQ0FBQztNQUNwQyxPQUFPLEdBQUcsQ0FBQztNQUNYLE1BQU0sR0FBRyxDQUFDO01BRVYsV0FBVyxZQUFBO01BQ1gsUUFBUSxZQUFBLENBQUM7Ozs7O0FBS2IsV0FBUyxRQUFRLENBQUMsSUFBSSxFQUFFLEtBQUssRUFBRTtBQUM3QixTQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsSUFBSSxDQUFDLEtBQUssQ0FBQyxNQUFNLEVBQUUsQ0FBQyxFQUFFLEVBQUU7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QyxHQUFHLENBQUMsQ0FBQztPQUM5Qjs7QUFFRCxVQUFJLGNBQWMsR0FBRyxVQUFVLENBQUMsSUFBSSxFQUFFLEtBQUssRUFBRSxPQUFPLENBQUMsQ0FBQztBQUN0RCxhQUFPLENBQUMsT0FBTyxDQUFDLEtBQUssRUFBRSxjQUFjLENBQUMsQ0FBQzs7QUFFdkMsZ0JBQVUsQ0FBQyxZQUFZLEVBQUUsQ0FBQyxDQUFDLENBQUM7S0FDN0IsQ0FBQyxDQUFDO0dBQ0o7QUFDRCxjQUFZLEVBQUUsQ0FBQztDQUNoQiIsImZpbGUiOiJhcHBseS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7cGFyc2VQYXRjaH0gZnJvbSAnLi9wYXJzZSc7XG5pbXBvcnQgZGlzdGFuY2VJdGVyYXRvciBmcm9tICcuLi91dGlsL2Rpc3RhbmNlLWl0ZXJhdG9yJztcblxuZXhwb3J0IGZ1bmN0aW9uIGFwcGx5UGF0Y2goc291cmNlLCB1bmlEaWZmLCBvcHRpb25zID0ge30pIHtcbiAgaWYgKHR5cGVvZiB1bmlEaWZmID09PSAnc3RyaW5nJykge1xuICAgIHVuaURpZmYgPSBwYXJzZVBhdGNoKHVuaURpZmYpO1xuICB9XG5cbiAgaWYgKEFycmF5LmlzQXJyYXkodW5pRGlmZikpIHtcbiAgICBpZiAodW5pRGlmZi5sZW5ndGggPiAxKSB7XG4gICAgICB0aHJvdyBuZXcgRXJyb3IoJ2FwcGx5UGF0Y2ggb25seSB3b3JrcyB3aXRoIGEgc2luZ2xlIGlucHV0LicpO1xuICAgIH1cblxuICAgIHVuaURpZmYgPSB1bmlEaWZmWzBdO1xuICB9XG5cbiAgLy8gQXBwbHkgdGhlIGRpZmYgdG8gdGhlIGlucHV0XG4gIGxldCBsaW5lcyA9IHNvdXJjZS5zcGxpdCgnXFxuJyksXG4gICAgICBodW5rcyA9IHVuaURpZmYuaHVua3MsXG5cbiAgICAgIGNvbXBhcmVMaW5lID0gb3B0aW9ucy5jb21wYXJlTGluZSB8fCAoKGxpbmVOdW1iZXIsIGxpbmUsIG9wZXJhdGlvbiwgcGF0Y2hDb250ZW50KSA9PiBsaW5lID09PSBwYXRjaENvbnRlbnQpLFxuICAgICAgZXJyb3JDb3VudCA9IDAsXG4gICAgICBmdXp6RmFjdG9yID0gb3B0aW9ucy5mdXp6RmFjdG9yIHx8IDAsXG4gICAgICBtaW5MaW5lID0gMCxcbiAgICAgIG9mZnNldCA9IDAsXG5cbiAgICAgIHJlbW92ZUVPRk5MLFxuICAgICAgYWRkRU9GTkw7XG5cbiAgLyoqXG4gICAqIENoZWNrcyBpZiB0aGUgaHVuayBleGFjdGx5IGZpdHMgb24gdGhlIHByb3ZpZGVkIGxvY2F0aW9uXG4gICAqL1xuICBmdW5jdGlvbiBodW5rRml0cyhodW5rLCB0b1Bvcykge1xuICAgIGZvciAobGV0IGogPSAwOyBqIDwgaHVuay5saW5lcy5sZW5ndGg7IGorKykge1xuICAgICAgbGV0IGxpbmUgPSBodW5rLmxpbmVzW2pdLFxuICAgICAgICAgIG9wZXJhdGlvbiA9IGxpbmVbMF0sXG4gICAgICAgICAgY29udGVudCA9IGxpbmUuc3Vic3RyKDEpO1xuXG4gICAgICBpZiAob3BlcmF0aW9uID09PSAnICcgfHwgb3BlcmF0aW9uID09PSAnLScpIHtcbiAgICAgICAgLy8gQ29udGV4dCBzYW5pdHkgY2hlY2tcbiAgICAgICAgaWYgKCFjb21wYXJlTGluZSh0b1BvcyArIDEsIGxpbmVzW3RvUG9zXSwgb3BlcmF0aW9uLCBjb250ZW50KSkge1xuICAgICAgICAgIGVycm9yQ291bnQrKztcblxuICAgICAgICAgIGlmIChlcnJvckNvdW50ID4gZnV6ekZhY3Rvcikge1xuICAgICAgICAgICAgcmV0dXJuIGZhbHNlO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgICB0b1BvcysrO1xuICAgICAgfVxuICAgIH1cblxuICAgIHJldHVybiB0cnVlO1xuICB9XG5cbiAgLy8gU2VhcmNoIGJlc3QgZml0IG9mZnNldHMgZm9yIGVhY2ggaHVuayBiYXNlZCBvbiB0aGUgcHJldmlvdXMgb25lc1xuICBmb3IgKGxldCBpID0gMDsgaSA8IGh1bmtzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGh1bmsgPSBodW5rc1tpXSxcbiAgICAgICAgbWF4TGluZSA9IGxpbmVzLmxlbmd0aCAtIGh1bmsub2xkTGluZXMsXG4gICAgICAgIGxvY2FsT2Zmc2V0ID0gMCxcbiAgICAgICAgdG9Qb3MgPSBvZmZzZXQgKyBodW5rLm9sZFN0YXJ0IC0gMTtcblxuICAgIGxldCBpdGVyYXRvciA9IGRpc3RhbmNlSXRlcmF0b3IodG9Qb3MsIG1pbkxpbmUsIG1heExpbmUpO1xuXG4gICAgZm9yICg7IGxvY2FsT2Zmc2V0ICE9PSB1bmRlZmluZWQ7IGxvY2FsT2Zmc2V0ID0gaXRlcmF0b3IoKSkge1xuICAgICAgaWYgKGh1bmtGaXRzKGh1bmssIHRvUG9zICsgbG9jYWxPZmZzZXQpKSB7XG4gICAgICAgIGh1bmsub2Zmc2V0ID0gb2Zmc2V0ICs9IGxvY2FsT2Zmc2V0O1xuICAgICAgICBicmVhaztcbiAgICAgIH1cbiAgICB9XG5cbiAgICBpZiAobG9jYWxPZmZzZXQgPT09IHVuZGVmaW5lZCkge1xuICAgICAgcmV0dXJuIGZhbHNlO1xuICAgIH1cblxuICAgIC8vIFNldCBsb3dlciB0ZXh0IGxpbWl0IHRvIGVuZCBvZiB0aGUgY3VycmVudCBodW5rLCBzbyBuZXh0IG9uZXMgZG9uJ3QgdHJ5XG4gICAgLy8gdG8gZml0IG92ZXIgYWxyZWFkeSBwYXRjaGVkIHRleHRcbiAgICBtaW5MaW5lID0gaHVuay5vZmZzZXQgKyBodW5rLm9sZFN0YXJ0ICsgaHVuay5vbGRMaW5lcztcbiAgfVxuXG4gIC8vIEFwcGx5IHBhdGNoIGh1bmtzXG4gIGZvciAobGV0IGkgPSAwOyBpIDwgaHVua3MubGVuZ3RoOyBpKyspIHtcbiAgICBsZXQgaHVuayA9IGh1bmtzW2ldLFxuICAgICAgICB0b1BvcyA9IGh1bmsub2Zmc2V0ICsgaHVuay5uZXdTdGFydCAtIDE7XG5cbiAgICBmb3IgKGxldCBqID0gMDsgaiA8IGh1bmsubGluZXMubGVuZ3RoOyBqKyspIHtcbiAgICAgIGxldCBsaW5lID0gaHVuay5saW5lc1tqXSxcbiAgICAgICAgICBvcGVyYXRpb24gPSBsaW5lWzBdLFxuICAgICAgICAgIGNvbnRlbnQgPSBsaW5lLnN1YnN0cigxKTtcblxuICAgICAgaWYgKG9wZXJhdGlvbiA9PT0gJyAnKSB7XG4gICAgICAgIHRvUG9zKys7XG4gICAgICB9IGVsc2UgaWYgKG9wZXJhdGlvbiA9PT0gJy0nKSB7XG4gICAgICAgIGxpbmVzLnNwbGljZSh0b1BvcywgMSk7XG4gICAgICAvKiBpc3RhbmJ1bCBpZ25vcmUgZWxzZSAqL1xuICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICcrJykge1xuICAgICAgICBsaW5lcy5zcGxpY2UodG9Qb3MsIDAsIGNvbnRlbnQpO1xuICAgICAgICB0b1BvcysrO1xuICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICdcXFxcJykge1xuICAgICAgICBsZXQgcHJldmlvdXNPcGVyYXRpb24gPSBodW5rLmxpbmVzW2ogLSAxXSA/IGh1bmsubGluZXNbaiAtIDFdWzBdIDogbnVsbDtcbiAgICAgICAgaWYgKHByZXZpb3VzT3BlcmF0aW9uID09PSAnKycpIHtcbiAgICAgICAgICByZW1vdmVFT0ZOTCA9IHRydWU7XG4gICAgICAgIH0gZWxzZSBpZiAocHJldmlvdXNPcGVyYXRpb24gPT09ICctJykge1xuICAgICAgICAgIGFkZEVPRk5MID0gdHJ1ZTtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIC8vIEhhbmRsZSBFT0ZOTCBpbnNlcnRpb24vcmVtb3ZhbFxuICBpZiAocmVtb3ZlRU9GTkwpIHtcbiAgICB3aGlsZSAoIWxpbmVzW2xpbmVzLmxlbmd0aCAtIDFdKSB7XG4gICAgICBsaW5lcy5wb3AoKTtcbiAgICB9XG4gIH0gZWxzZSBpZiAoYWRkRU9GTkwpIHtcbiAgICBsaW5lcy5wdXNoKCcnKTtcbiAgfVxuICByZXR1cm4gbGluZXMuam9pbignXFxuJyk7XG59XG5cbi8vIFdyYXBwZXIgdGhhdCBzdXBwb3J0cyBtdWx0aXBsZSBmaWxlIHBhdGNoZXMgdmlhIGNhbGxiYWNrcy5cbmV4cG9ydCBmdW5jdGlvbiBhcHBseVBhdGNoZXModW5pRGlmZiwgb3B0aW9ucykge1xuICBpZiAodHlwZW9mIHVuaURpZmYgPT09ICdzdHJpbmcnKSB7XG4gICAgdW5pRGlmZiA9IHBhcnNlUGF0Y2godW5pRGlmZik7XG4gIH1cblxuICBsZXQgY3VycmVudEluZGV4ID0gMDtcbiAgZnVuY3Rpb24gcHJvY2Vzc0luZGV4KCkge1xuICAgIGxldCBpbmRleCA9IHVuaURpZmZbY3VycmVudEluZGV4KytdO1xuICAgIGlmICghaW5kZXgpIHtcbiAgICAgIHJldHVybiBvcHRpb25zLmNvbXBsZXRlKCk7XG4gICAgfVxuXG4gICAgb3B0aW9ucy5sb2FkRmlsZShpbmRleCwgZnVuY3Rpb24oZXJyLCBkYXRhKSB7XG4gICAgICBpZiAoZXJyKSB7XG4gICAgICAgIHJldHVybiBvcHRpb25zLmNvbXBsZXRlKGVycik7XG4gICAgICB9XG5cbiAgICAgIGxldCB1cGRhdGVkQ29udGVudCA9IGFwcGx5UGF0Y2goZGF0YSwgaW5kZXgsIG9wdGlvbnMpO1xuICAgICAgb3B0aW9ucy5wYXRjaGVkKGluZGV4LCB1cGRhdGVkQ29udGVudCk7XG5cbiAgICAgIHNldFRpbWVvdXQocHJvY2Vzc0luZGV4LCAwKTtcbiAgICB9KTtcbiAgfVxuICBwcm9jZXNzSW5kZXgoKTtcbn1cbiJdfQ==
+
+
+/***/ },
+/* 782 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.parsePatch = parsePatch;
+
+	function parsePatch(uniDiff) {
+	  var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	  var diffstr = uniDiff.split('\n'),
+	      list = [],
+	      i = 0;
+
+	  function parseIndex() {
+	    var index = {};
+	    list.push(index);
+
+	    // Parse diff metadata
+	    while (i < diffstr.length) {
+	      var line = diffstr[i];
+
+	      // File header found, end parsing diff metadata
+	      if (/^(\-\-\-|\+\+\+|@@)\s/.test(line)) {
+	        break;
+	      }
+
+	      // Diff index
+	      var header = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(line);
+	      if (header) {
+	        index.index = header[1];
+	      }
+
+	      i++;
+	    }
+
+	    // Parse file headers if they are defined. Unified diff requires them, but
+	    // there's no technical issues to have an isolated hunk without file header
+	    parseFileHeader(index);
+	    parseFileHeader(index);
+
+	    // Parse hunks
+	    index.hunks = [];
+
+	    while (i < diffstr.length) {
+	      var line = diffstr[i];
+
+	      if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(line)) {
+	        break;
+	      } else if (/^@@/.test(line)) {
+	        index.hunks.push(parseHunk());
+	      } else if (line && options.strict) {
+	        // Ignore unexpected content unless in strict mode
+	        throw new Error('Unknown line ' + (i + 1) + ' ' + JSON.stringify(line));
+	      } else {
+	        i++;
+	      }
+	    }
+	  }
+
+	  // Parses the --- and +++ headers, if none are found, no lines
+	  // are consumed.
+	  function parseFileHeader(index) {
+	    var fileHeader = /^(\-\-\-|\+\+\+)\s+(\S+)\s?(.+?)\s*$/.exec(diffstr[i]);
+	    if (fileHeader) {
+	      var keyPrefix = fileHeader[1] === '---' ? 'old' : 'new';
+	      index[keyPrefix + 'FileName'] = fileHeader[2];
+	      index[keyPrefix + 'Header'] = fileHeader[3];
+
+	      i++;
+	    }
+	  }
+
+	  // Parses a hunk
+	  // This assumes that we are at the start of a hunk.
+	  function parseHunk() {
+	    var chunkHeaderIndex = i,
+	        chunkHeaderLine = diffstr[i++],
+	        chunkHeader = chunkHeaderLine.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
+
+	    var hunk = {
+	      oldStart: +chunkHeader[1],
+	      oldLines: +chunkHeader[2] || 1,
+	      newStart: +chunkHeader[3],
+	      newLines: +chunkHeader[4] || 1,
+	      lines: []
+	    };
+
+	    var addCount = 0,
+	        removeCount = 0;
+	    for (; i < diffstr.length; i++) {
+	      var operation = diffstr[i][0];
+
+	      if (operation === '+' || operation === '-' || operation === ' ' || operation === '\\') {
+	        hunk.lines.push(diffstr[i]);
+
+	        if (operation === '+') {
+	          addCount++;
+	        } else if (operation === '-') {
+	          removeCount++;
+	        } else if (operation === ' ') {
+	          addCount++;
+	          removeCount++;
+	        }
+	      } else {
+	        break;
+	      }
+	    }
+
+	    // Handle the empty block count case
+	    if (!addCount && hunk.newLines === 1) {
+	      hunk.newLines = 0;
+	    }
+	    if (!removeCount && hunk.oldLines === 1) {
+	      hunk.oldLines = 0;
+	    }
+
+	    // Perform optional sanity checking
+	    if (options.strict) {
+	      if (addCount !== hunk.newLines) {
+	        throw new Error('Added line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
+	      }
+	      if (removeCount !== hunk.oldLines) {
+	        throw new Error('Removed line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
+	      }
+	    }
+
+	    return hunk;
+	  }
+
+	  while (i < diffstr.length) {
+	    parseIndex();
+	  }
+
+	  return list;
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9wYXRjaC9wYXJzZS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFPLFNBQVMsVUFBVSxDQUFDLE9BQU8sRUFBZ0I7TUFBZCxPQUFPLHlEQUFHLEVBQUU7O0FBQzlDLE1BQUksT0FBTyxHQUFHLE9BQU8sQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDO01BQzdCLElBQUksR0FBRyxFQUFFO01BQ1QsQ0FBQyxHQUFHLENBQUMsQ0FBQzs7QUFFVixXQUFTLFVBQVUsR0FBRztBQUNwQixRQUFJLEtBQUssR0FBRyxFQUFFLENBQUM7QUFDZixRQUFJLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDOzs7QUFHakIsV0FBTyxDQUFDLEdBQUcsT0FBTyxDQUFDLE1BQU0sRUFBRTtBQUN6QixVQUFJLElBQUksR0FBRyxPQUFPLENBQUMsQ0FBQyxDQUFDLENBQUM7OztBQUd0QixVQUFJLHVCQUF1QixDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsRUFBRTtBQUN0QyxjQUFNO09BQ1A7OztBQUdELFVBQUksTUFBTSxHQUFHLEFBQUMsMENBQTBDLENBQUUsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO0FBQ3JFLFVBQUksTUFBTSxFQUFFO0FBQ1YsYUFBSyxDQUFDLEtBQUssR0FBRyxNQUFNLENBQUMsQ0FBQyxDQUFDLENBQUM7T0FDekI7O0FBRUQsT0FBQyxFQUFFLENBQUM7S0FDTDs7OztBQUlELG1CQUFlLENBQUMsS0FBSyxDQUFDLENBQUM7QUFDdkIsbUJBQWUsQ0FBQyxLQUFLLENBQUMsQ0FBQzs7O0FBR3ZCLFNBQUssQ0FBQyxLQUFLLEdBQUcsRUFBRSxDQUFDOztBQUVqQixXQUFPLENBQUMsR0FBRyxPQUFPLENBQUMsTUFBTSxFQUFFO0FBQ3pCLFVBQUksSUFBSSxHQUFHLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQzs7QUFFdEIsVUFBSSxnQ0FBZ0MsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLEVBQUU7QUFDL0MsY0FBTTtPQUNQLE1BQU0sSUFBSSxLQUFLLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxFQUFFO0FBQzNCLGFBQUssQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLFNBQVMsRUFBRSxDQUFDLENBQUM7T0FDL0IsTUFBTSxJQUFJLElBQUksSUFBSSxPQUFPLENBQUMsTUFBTSxFQUFFOztBQUVqQyxjQUFNLElBQUksS0FBSyxDQUFDLGVBQWUsSUFBSSxDQUFDLEdBQUcsQ0FBQyxDQUFBLEFBQUMsR0FBRyxHQUFHLEdBQUcsSUFBSSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDO09BQ3pFLE1BQU07QUFDTCxTQUFDLEVBQUUsQ0FBQztPQUNMO0tBQ0Y7R0FDRjs7OztBQUlELFdBQVMsZUFBZSxDQUFDLEtBQUssRUFBRTtBQUM5QixRQUFJLFVBQVUsR0FBRyxBQUFDLHNDQUFzQyxDQUFFLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQztBQUMzRSxRQUFJLFVBQVUsRUFBRTtBQUNkLFVBQUksU0FBUyxHQUFHLFVBQVUsQ0FBQyxDQUFDLENBQUMsS0FBSyxLQUFLLEdBQUcsS0FBSyxHQUFHLEtBQUssQ0FBQztBQUN4RCxXQUFLLENBQUMsU0FBUyxHQUFHLFVBQVUsQ0FBQyxHQUFHLFVBQVUsQ0FBQyxDQUFDLENBQUMsQ0FBQztBQUM5QyxXQUFLLENBQUMsU0FBUyxHQUFHLFFBQVEsQ0FBQyxHQUFHLFVBQVUsQ0FBQyxDQUFDLENBQUMsQ0FBQzs7QUFFNUMsT0FBQyxFQUFFLENBQUM7S0FDTDtHQUNGOzs7O0FBSUQsV0FBUyxTQUFTLEdBQUc7QUFDbkIsUUFBSSxnQkFBZ0IsR0FBRyxDQUFDO1FBQ3BCLGVBQWUsR0FBRyxPQUFPLENBQUMsQ0FBQyxFQUFFLENBQUM7UUFDOUIsV0FBVyxHQUFHLGVBQWUsQ0FBQyxLQUFLLENBQUMsNENBQTRDLENBQUMsQ0FBQzs7QUFFdEYsUUFBSSxJQUFJLEdBQUc7QUFDVCxjQUFRLEVBQUUsQ0FBQyxXQUFXLENBQUMsQ0FBQyxDQUFDO0FBQ3pCLGNBQVEsRUFBRSxDQUFDLFdBQVcsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDO0FBQzlCLGNBQVEsRUFBRSxDQUFDLFdBQVcsQ0FBQyxDQUFDLENBQUM7QUFDekIsY0FBUSxFQUFFLENBQUMsV0FBVyxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUM7QUFDOUIsV0FBSyxFQUFFLEVBQUU7S0FDVixDQUFDOztBQUVGLFFBQUksUUFBUSxHQUFHLENBQUM7UUFDWixXQUFXLEdBQUcsQ0FBQyxDQUFDO0FBQ3BCLFdBQU8sQ0FBQyxHQUFHLE9BQU8sQ0FBQyxNQUFNLEVBQUUsQ0FBQyxFQUFFLEVBQUU7QUFDOUIsVUFBSSxTQUFTLEdBQUcsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDOztBQUU5QixVQUFJLFNBQVMsS0FBSyxHQUFHLElBQUksU0FBUyxLQUFLLEdBQUcsSUFBSSxTQUFTLEtBQUssR0FBRyxJQUFJLFNBQVMsS0FBSyxJQUFJLEVBQUU7QUFDckYsWUFBSSxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7O0FBRTVCLFlBQUksU0FBUyxLQUFLLEdBQUcsRUFBRTtBQUNyQixrQkFBUSxFQUFFLENBQUM7U0FDWixNQUFNLElBQUksU0FBUyxLQUFLLEdBQUcsRUFBRTtBQUM1QixxQkFBVyxFQUFFLENBQUM7U0FDZixNQUFNLElBQUksU0FBUyxLQUFLLEdBQUcsRUFBRTtBQUM1QixrQkFBUSxFQUFFLENBQUM7QUFDWCxxQkFBVyxFQUFFLENBQUM7U0FDZjtPQUNGLE1BQU07QUFDTCxjQUFNO09BQ1A7S0FDRjs7O0FBR0QsUUFBSSxDQUFDLFFBQVEsSUFBSSxJQUFJLENBQUMsUUFBUSxLQUFLLENBQUMsRUFBRTtBQUNwQyxVQUFJLENBQUMsUUFBUSxHQUFHLENBQUMsQ0FBQztLQUNuQjtBQUNELFFBQUksQ0FBQyxXQUFXLElBQUksSUFBSSxDQUFDLFFBQVEsS0FBSyxDQUFDLEVBQUU7QUFDdkMsVUFBSSxDQUFDLFFBQVEsR0FBRyxDQUFDLENBQUM7S0FDbkI7OztBQUdELFFBQUksT0FBTyxDQUFDLE1BQU0sRUFBRTtBQUNsQixVQUFJLFFBQVEsS0FBSyxJQUFJLENBQUMsUUFBUSxFQUFFO0FBQzlCLGNBQU0sSUFBSSxLQUFLLENBQUMsa0RBQWtELElBQUksZ0JBQWdCLEdBQUcsQ0FBQyxDQUFBLEFBQUMsQ0FBQyxDQUFDO09BQzlGO0FBQ0QsVUFBSSxXQUFXLEtBQUssSUFBSSxDQUFDLFFBQVEsRUFBRTtBQUNqQyxjQUFNLElBQUksS0FBSyxDQUFDLG9EQUFvRCxJQUFJLGdCQUFnQixHQUFHLENBQUMsQ0FBQSxBQUFDLENBQUMsQ0FBQztPQUNoRztLQUNGOztBQUVELFdBQU8sSUFBSSxDQUFDO0dBQ2I7O0FBRUQsU0FBTyxDQUFDLEdBQUcsT0FBTyxDQUFDLE1BQU0sRUFBRTtBQUN6QixjQUFVLEVBQUUsQ0FBQztHQUNkOztBQUVELFNBQU8sSUFBSSxDQUFDO0NBQ2IiLCJmaWxlIjoicGFyc2UuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZnVuY3Rpb24gcGFyc2VQYXRjaCh1bmlEaWZmLCBvcHRpb25zID0ge30pIHtcbiAgbGV0IGRpZmZzdHIgPSB1bmlEaWZmLnNwbGl0KCdcXG4nKSxcbiAgICAgIGxpc3QgPSBbXSxcbiAgICAgIGkgPSAwO1xuXG4gIGZ1bmN0aW9uIHBhcnNlSW5kZXgoKSB7XG4gICAgbGV0IGluZGV4ID0ge307XG4gICAgbGlzdC5wdXNoKGluZGV4KTtcblxuICAgIC8vIFBhcnNlIGRpZmYgbWV0YWRhdGFcbiAgICB3aGlsZSAoaSA8IGRpZmZzdHIubGVuZ3RoKSB7XG4gICAgICBsZXQgbGluZSA9IGRpZmZzdHJbaV07XG5cbiAgICAgIC8vIEZpbGUgaGVhZGVyIGZvdW5kLCBlbmQgcGFyc2luZyBkaWZmIG1ldGFkYXRhXG4gICAgICBpZiAoL14oXFwtXFwtXFwtfFxcK1xcK1xcK3xAQClcXHMvLnRlc3QobGluZSkpIHtcbiAgICAgICAgYnJlYWs7XG4gICAgICB9XG5cbiAgICAgIC8vIERpZmYgaW5kZXhcbiAgICAgIGxldCBoZWFkZXIgPSAoL14oPzpJbmRleDp8ZGlmZig/OiAtciBcXHcrKSspXFxzKyguKz8pXFxzKiQvKS5leGVjKGxpbmUpO1xuICAgICAgaWYgKGhlYWRlcikge1xuICAgICAgICBpbmRleC5pbmRleCA9IGhlYWRlclsxXTtcbiAgICAgIH1cblxuICAgICAgaSsrO1xuICAgIH1cblxuICAgIC8vIFBhcnNlIGZpbGUgaGVhZGVycyBpZiB0aGV5IGFyZSBkZWZpbmVkLiBVbmlmaWVkIGRpZmYgcmVxdWlyZXMgdGhlbSwgYnV0XG4gICAgLy8gdGhlcmUncyBubyB0ZWNobmljYWwgaXNzdWVzIHRvIGhhdmUgYW4gaXNvbGF0ZWQgaHVuayB3aXRob3V0IGZpbGUgaGVhZGVyXG4gICAgcGFyc2VGaWxlSGVhZGVyKGluZGV4KTtcbiAgICBwYXJzZUZpbGVIZWFkZXIoaW5kZXgpO1xuXG4gICAgLy8gUGFyc2UgaHVua3NcbiAgICBpbmRleC5odW5rcyA9IFtdO1xuXG4gICAgd2hpbGUgKGkgPCBkaWZmc3RyLmxlbmd0aCkge1xuICAgICAgbGV0IGxpbmUgPSBkaWZmc3RyW2ldO1xuXG4gICAgICBpZiAoL14oSW5kZXg6fGRpZmZ8XFwtXFwtXFwtfFxcK1xcK1xcKylcXHMvLnRlc3QobGluZSkpIHtcbiAgICAgICAgYnJlYWs7XG4gICAgICB9IGVsc2UgaWYgKC9eQEAvLnRlc3QobGluZSkpIHtcbiAgICAgICAgaW5kZXguaHVua3MucHVzaChwYXJzZUh1bmsoKSk7XG4gICAgICB9IGVsc2UgaWYgKGxpbmUgJiYgb3B0aW9ucy5zdHJpY3QpIHtcbiAgICAgICAgLy8gSWdub3JlIHVuZXhwZWN0ZWQgY29udGVudCB1bmxlc3MgaW4gc3RyaWN0IG1vZGVcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKCdVbmtub3duIGxpbmUgJyArIChpICsgMSkgKyAnICcgKyBKU09OLnN0cmluZ2lmeShsaW5lKSk7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICBpKys7XG4gICAgICB9XG4gICAgfVxuICB9XG5cbiAgLy8gUGFyc2VzIHRoZSAtLS0gYW5kICsrKyBoZWFkZXJzLCBpZiBub25lIGFyZSBmb3VuZCwgbm8gbGluZXNcbiAgLy8gYXJlIGNvbnN1bWVkLlxuICBmdW5jdGlvbiBwYXJzZUZpbGVIZWFkZXIoaW5kZXgpIHtcbiAgICBsZXQgZmlsZUhlYWRlciA9ICgvXihcXC1cXC1cXC18XFwrXFwrXFwrKVxccysoXFxTKylcXHM/KC4rPylcXHMqJC8pLmV4ZWMoZGlmZnN0cltpXSk7XG4gICAgaWYgKGZpbGVIZWFkZXIpIHtcbiAgICAgIGxldCBrZXlQcmVmaXggPSBmaWxlSGVhZGVyWzFdID09PSAnLS0tJyA/ICdvbGQnIDogJ25ldyc7XG4gICAgICBpbmRleFtrZXlQcmVmaXggKyAnRmlsZU5hbWUnXSA9IGZpbGVIZWFkZXJbMl07XG4gICAgICBpbmRleFtrZXlQcmVmaXggKyAnSGVhZGVyJ10gPSBmaWxlSGVhZGVyWzNdO1xuXG4gICAgICBpKys7XG4gICAgfVxuICB9XG5cbiAgLy8gUGFyc2VzIGEgaHVua1xuICAvLyBUaGlzIGFzc3VtZXMgdGhhdCB3ZSBhcmUgYXQgdGhlIHN0YXJ0IG9mIGEgaHVuay5cbiAgZnVuY3Rpb24gcGFyc2VIdW5rKCkge1xuICAgIGxldCBjaHVua0hlYWRlckluZGV4ID0gaSxcbiAgICAgICAgY2h1bmtIZWFkZXJMaW5lID0gZGlmZnN0cltpKytdLFxuICAgICAgICBjaHVua0hlYWRlciA9IGNodW5rSGVhZGVyTGluZS5zcGxpdCgvQEAgLShcXGQrKSg/OiwoXFxkKykpPyBcXCsoXFxkKykoPzosKFxcZCspKT8gQEAvKTtcblxuICAgIGxldCBodW5rID0ge1xuICAgICAgb2xkU3RhcnQ6ICtjaHVua0hlYWRlclsxXSxcbiAgICAgIG9sZExpbmVzOiArY2h1bmtIZWFkZXJbMl0gfHwgMSxcbiAgICAgIG5ld1N0YXJ0OiArY2h1bmtIZWFkZXJbM10sXG4gICAgICBuZXdMaW5lczogK2NodW5rSGVhZGVyWzRdIHx8IDEsXG4gICAgICBsaW5lczogW11cbiAgICB9O1xuXG4gICAgbGV0IGFkZENvdW50ID0gMCxcbiAgICAgICAgcmVtb3ZlQ291bnQgPSAwO1xuICAgIGZvciAoOyBpIDwgZGlmZnN0ci5sZW5ndGg7IGkrKykge1xuICAgICAgbGV0IG9wZXJhdGlvbiA9IGRpZmZzdHJbaV1bMF07XG5cbiAgICAgIGlmIChvcGVyYXRpb24gPT09ICcrJyB8fCBvcGVyYXRpb24gPT09ICctJyB8fCBvcGVyYXRpb24gPT09ICcgJyB8fCBvcGVyYXRpb24gPT09ICdcXFxcJykge1xuICAgICAgICBodW5rLmxpbmVzLnB1c2goZGlmZnN0cltpXSk7XG5cbiAgICAgICAgaWYgKG9wZXJhdGlvbiA9PT0gJysnKSB7XG4gICAgICAgICAgYWRkQ291bnQrKztcbiAgICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICctJykge1xuICAgICAgICAgIHJlbW92ZUNvdW50Kys7XG4gICAgICAgIH0gZWxzZSBpZiAob3BlcmF0aW9uID09PSAnICcpIHtcbiAgICAgICAgICBhZGRDb3VudCsrO1xuICAgICAgICAgIHJlbW92ZUNvdW50Kys7XG4gICAgICAgIH1cbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfVxuICAgIH1cblxuICAgIC8vIEhhbmRsZSB0aGUgZW1wdHkgYmxvY2sgY291bnQgY2FzZVxuICAgIGlmICghYWRkQ291bnQgJiYgaHVuay5uZXdMaW5lcyA9PT0gMSkge1xuICAgICAgaHVuay5uZXdMaW5lcyA9IDA7XG4gICAgfVxuICAgIGlmICghcmVtb3ZlQ291bnQgJiYgaHVuay5vbGRMaW5lcyA9PT0gMSkge1xuICAgICAgaHVuay5vbGRMaW5lcyA9IDA7XG4gICAgfVxuXG4gICAgLy8gUGVyZm9ybSBvcHRpb25hbCBzYW5pdHkgY2hlY2tpbmdcbiAgICBpZiAob3B0aW9ucy5zdHJpY3QpIHtcbiAgICAgIGlmIChhZGRDb3VudCAhPT0gaHVuay5uZXdMaW5lcykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoJ0FkZGVkIGxpbmUgY291bnQgZGlkIG5vdCBtYXRjaCBmb3IgaHVuayBhdCBsaW5lICcgKyAoY2h1bmtIZWFkZXJJbmRleCArIDEpKTtcbiAgICAgIH1cbiAgICAgIGlmIChyZW1vdmVDb3VudCAhPT0gaHVuay5vbGRMaW5lcykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoJ1JlbW92ZWQgbGluZSBjb3VudCBkaWQgbm90IG1hdGNoIGZvciBodW5rIGF0IGxpbmUgJyArIChjaHVua0hlYWRlckluZGV4ICsgMSkpO1xuICAgICAgfVxuICAgIH1cblxuICAgIHJldHVybiBodW5rO1xuICB9XG5cbiAgd2hpbGUgKGkgPCBkaWZmc3RyLmxlbmd0aCkge1xuICAgIHBhcnNlSW5kZXgoKTtcbiAgfVxuXG4gIHJldHVybiBsaXN0O1xufVxuIl19
+
+
+/***/ },
+/* 783 */
+/***/ function(module, exports) {
+
+	// Iterator that traverses in the range of [min, max], stepping
+	// by distance from a given start position. I.e. for [0, 4], with
+	"use strict";
+
+	exports.__esModule = true;
+
+	exports["default"] = function (start, minLine, maxLine) {
+	  var wantForward = true,
+	      backwardExhausted = false,
+	      forwardExhausted = false,
+	      localOffset = 1;
+
+	  return function iterator() {
+	    var _again = true;
+
+	    _function: while (_again) {
+	      _again = false;
+
+	      if (wantForward && !forwardExhausted) {
+	        if (backwardExhausted) {
+	          localOffset++;
+	        } else {
+	          wantForward = false;
+	        }
+
+	        // Check if trying to fit beyond text length, and if not, check it fits
+	        // after offset location (or desired location on first iteration)
+	        if (start + localOffset <= maxLine) {
+	          return localOffset;
+	        }
+
+	        forwardExhausted = true;
+	      }
+
+	      if (!backwardExhausted) {
+	        if (!forwardExhausted) {
+	          wantForward = true;
+	        }
+
+	        // Check if trying to fit before text beginning, and if not, check it fits
+	        // before offset location
+	        if (minLine <= start - localOffset) {
+	          return - localOffset++;
+	        }
+
+	        backwardExhausted = true;
+	        _again = true;
+	        continue _function;
+	      }
+
+	      // We tried to fit hunk before text beginning and beyond text lenght, then
+	      // hunk can't fit on the text. Return undefined
+	    }
+	  };
+	};
+
+	module.exports = exports["default"];
+	// start of 2, this will iterate 2, 3, 1, 4, 0.
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlsL2Rpc3RhbmNlLWl0ZXJhdG9yLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztxQkFHZSxVQUFTLEtBQUssRUFBRSxPQUFPLEVBQUUsT0FBTyxFQUFFO0FBQy9DLE1BQUksV0FBVyxHQUFHLElBQUk7TUFDbEIsaUJBQWlCLEdBQUcsS0FBSztNQUN6QixnQkFBZ0IsR0FBRyxLQUFLO01BQ3hCLFdBQVcsR0FBRyxDQUFDLENBQUM7O0FBRXBCLFNBQU8sU0FBUyxRQUFROzs7OEJBQUc7OztBQUN6QixVQUFJLFdBQVcsSUFBSSxDQUFDLGdCQUFnQixFQUFFO0FBQ3BDLFlBQUksaUJBQWlCLEVBQUU7QUFDckIscUJBQVcsRUFBRSxDQUFDO1NBQ2YsTUFBTTtBQUNMLHFCQUFXLEdBQUcsS0FBSyxDQUFDO1NBQ3JCOzs7O0FBSUQsWUFBSSxLQUFLLEdBQUcsV0FBVyxJQUFJLE9BQU8sRUFBRTtBQUNsQyxpQkFBTyxXQUFXLENBQUM7U0FDcEI7O0FBRUQsd0JBQWdCLEdBQUcsSUFBSSxDQUFDO09BQ3pCOztBQUVELFVBQUksQ0FBQyxpQkFBaUIsRUFBRTtBQUN0QixZQUFJLENBQUMsZ0JBQWdCLEVBQUU7QUFDckIscUJBQVcsR0FBRyxJQUFJLENBQUM7U0FDcEI7Ozs7QUFJRCxZQUFJLE9BQU8sSUFBSSxLQUFLLEdBQUcsV0FBVyxFQUFFO0FBQ2xDLGlCQUFPLEVBQUMsV0FBVyxFQUFFLENBQUM7U0FDdkI7O0FBRUQseUJBQWlCLEdBQUcsSUFBSSxDQUFDOzs7T0FFMUI7Ozs7S0FJRjtHQUFBLENBQUM7Q0FDSCIsImZpbGUiOiJkaXN0YW5jZS1pdGVyYXRvci5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIEl0ZXJhdG9yIHRoYXQgdHJhdmVyc2VzIGluIHRoZSByYW5nZSBvZiBbbWluLCBtYXhdLCBzdGVwcGluZ1xuLy8gYnkgZGlzdGFuY2UgZnJvbSBhIGdpdmVuIHN0YXJ0IHBvc2l0aW9uLiBJLmUuIGZvciBbMCwgNF0sIHdpdGhcbi8vIHN0YXJ0IG9mIDIsIHRoaXMgd2lsbCBpdGVyYXRlIDIsIDMsIDEsIDQsIDAuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbihzdGFydCwgbWluTGluZSwgbWF4TGluZSkge1xuICBsZXQgd2FudEZvcndhcmQgPSB0cnVlLFxuICAgICAgYmFja3dhcmRFeGhhdXN0ZWQgPSBmYWxzZSxcbiAgICAgIGZvcndhcmRFeGhhdXN0ZWQgPSBmYWxzZSxcbiAgICAgIGxvY2FsT2Zmc2V0ID0gMTtcblxuICByZXR1cm4gZnVuY3Rpb24gaXRlcmF0b3IoKSB7XG4gICAgaWYgKHdhbnRGb3J3YXJkICYmICFmb3J3YXJkRXhoYXVzdGVkKSB7XG4gICAgICBpZiAoYmFja3dhcmRFeGhhdXN0ZWQpIHtcbiAgICAgICAgbG9jYWxPZmZzZXQrKztcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIHdhbnRGb3J3YXJkID0gZmFsc2U7XG4gICAgICB9XG5cbiAgICAgIC8vIENoZWNrIGlmIHRyeWluZyB0byBmaXQgYmV5b25kIHRleHQgbGVuZ3RoLCBhbmQgaWYgbm90LCBjaGVjayBpdCBmaXRzXG4gICAgICAvLyBhZnRlciBvZmZzZXQgbG9jYXRpb24gKG9yIGRlc2lyZWQgbG9jYXRpb24gb24gZmlyc3QgaXRlcmF0aW9uKVxuICAgICAgaWYgKHN0YXJ0ICsgbG9jYWxPZmZzZXQgPD0gbWF4TGluZSkge1xuICAgICAgICByZXR1cm4gbG9jYWxPZmZzZXQ7XG4gICAgICB9XG5cbiAgICAgIGZvcndhcmRFeGhhdXN0ZWQgPSB0cnVlO1xuICAgIH1cblxuICAgIGlmICghYmFja3dhcmRFeGhhdXN0ZWQpIHtcbiAgICAgIGlmICghZm9yd2FyZEV4aGF1c3RlZCkge1xuICAgICAgICB3YW50Rm9yd2FyZCA9IHRydWU7XG4gICAgICB9XG5cbiAgICAgIC8vIENoZWNrIGlmIHRyeWluZyB0byBmaXQgYmVmb3JlIHRleHQgYmVnaW5uaW5nLCBhbmQgaWYgbm90LCBjaGVjayBpdCBmaXRzXG4gICAgICAvLyBiZWZvcmUgb2Zmc2V0IGxvY2F0aW9uXG4gICAgICBpZiAobWluTGluZSA8PSBzdGFydCAtIGxvY2FsT2Zmc2V0KSB7XG4gICAgICAgIHJldHVybiAtbG9jYWxPZmZzZXQrKztcbiAgICAgIH1cblxuICAgICAgYmFja3dhcmRFeGhhdXN0ZWQgPSB0cnVlO1xuICAgICAgcmV0dXJuIGl0ZXJhdG9yKCk7XG4gICAgfVxuXG4gICAgLy8gV2UgdHJpZWQgdG8gZml0IGh1bmsgYmVmb3JlIHRleHQgYmVnaW5uaW5nIGFuZCBiZXlvbmQgdGV4dCBsZW5naHQsIHRoZW5cbiAgICAvLyBodW5rIGNhbid0IGZpdCBvbiB0aGUgdGV4dC4gUmV0dXJuIHVuZGVmaW5lZFxuICB9O1xufVxuIl19
+
+
+/***/ },
+/* 784 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.structuredPatch = structuredPatch;
+	exports.createTwoFilesPatch = createTwoFilesPatch;
+	exports.createPatch = createPatch;
+	// istanbul ignore next
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
+
+	var _diffLine = __webpack_require__(777);
+
+	function structuredPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options) {
+	  if (!options) {
+	    options = { context: 4 };
+	  }
+
+	  var diff = _diffLine.diffLines(oldStr, newStr);
+	  diff.push({ value: '', lines: [] }); // Append an empty value to make cleanup easier
+
+	  function contextLines(lines) {
+	    return lines.map(function (entry) {
+	      return ' ' + entry;
+	    });
+	  }
+
+	  var hunks = [];
+	  var oldRangeStart = 0,
+	      newRangeStart = 0,
+	      curRange = [],
+	      oldLine = 1,
+	      newLine = 1;
+
+	  var _loop = function (i) {
+	    var current = diff[i],
+	        lines = current.lines || current.value.replace(/\n$/, '').split('\n');
+	    current.lines = lines;
+
+	    if (current.added || current.removed) {
+	      // istanbul ignore next
+
+	      var _curRange;
+
+	      // If we have previous context, start with that
+	      if (!oldRangeStart) {
+	        var prev = diff[i - 1];
+	        oldRangeStart = oldLine;
+	        newRangeStart = newLine;
+
+	        if (prev) {
+	          curRange = options.context > 0 ? contextLines(prev.lines.slice(-options.context)) : [];
+	          oldRangeStart -= curRange.length;
+	          newRangeStart -= curRange.length;
+	        }
+	      }
+
+	      // Output our changes
+	      (_curRange = curRange).push.apply(_curRange, _toConsumableArray(lines.map(function (entry) {
+	        return (current.added ? '+' : '-') + entry;
+	      })));
+
+	      // Track the updated file position
+	      if (current.added) {
+	        newLine += lines.length;
+	      } else {
+	        oldLine += lines.length;
+	      }
+	    } else {
+	      // Identical context lines. Track line changes
+	      if (oldRangeStart) {
+	        // Close out any changes that have been output (or join overlapping)
+	        if (lines.length <= options.context * 2 && i < diff.length - 2) {
+	          // istanbul ignore next
+
+	          var _curRange2;
+
+	          // Overlapping
+	          (_curRange2 = curRange).push.apply(_curRange2, _toConsumableArray(contextLines(lines)));
+	        } else {
+	          // istanbul ignore next
+
+	          var _curRange3;
+
+	          // end the range and output
+	          var contextSize = Math.min(lines.length, options.context);
+	          (_curRange3 = curRange).push.apply(_curRange3, _toConsumableArray(contextLines(lines.slice(0, contextSize))));
+
+	          var hunk = {
+	            oldStart: oldRangeStart,
+	            oldLines: oldLine - oldRangeStart + contextSize,
+	            newStart: newRangeStart,
+	            newLines: newLine - newRangeStart + contextSize,
+	            lines: curRange
+	          };
+	          if (i >= diff.length - 2 && lines.length <= options.context) {
+	            // EOF is inside this hunk
+	            var oldEOFNewline = /\n$/.test(oldStr);
+	            var newEOFNewline = /\n$/.test(newStr);
+	            if (lines.length == 0 && !oldEOFNewline) {
+	              // special case: old has no eol and no trailing context; no-nl can end up before adds
+	              curRange.splice(hunk.oldLines, 0, '\\ No newline at end of file');
+	            } else if (!oldEOFNewline || !newEOFNewline) {
+	              curRange.push('\\ No newline at end of file');
+	            }
+	          }
+	          hunks.push(hunk);
+
+	          oldRangeStart = 0;
+	          newRangeStart = 0;
+	          curRange = [];
+	        }
+	      }
+	      oldLine += lines.length;
+	      newLine += lines.length;
+	    }
+	  };
+
+	  for (var i = 0; i < diff.length; i++) {
+	    _loop(i);
+	  }
+
+	  return {
+	    oldFileName: oldFileName, newFileName: newFileName,
+	    oldHeader: oldHeader, newHeader: newHeader,
+	    hunks: hunks
+	  };
+	}
+
+	function createTwoFilesPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options) {
+	  var diff = structuredPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options);
+
+	  var ret = [];
+	  if (oldFileName == newFileName) {
+	    ret.push('Index: ' + oldFileName);
+	  }
+	  ret.push('===================================================================');
+	  ret.push('--- ' + diff.oldFileName + (typeof diff.oldHeader === 'undefined' ? '' : '\t' + diff.oldHeader));
+	  ret.push('+++ ' + diff.newFileName + (typeof diff.newHeader === 'undefined' ? '' : '\t' + diff.newHeader));
+
+	  for (var i = 0; i < diff.hunks.length; i++) {
+	    var hunk = diff.hunks[i];
+	    ret.push('@@ -' + hunk.oldStart + ',' + hunk.oldLines + ' +' + hunk.newStart + ',' + hunk.newLines + ' @@');
+	    ret.push.apply(ret, hunk.lines);
+	  }
+
+	  return ret.join('\n') + '\n';
+	}
+
+	function createPatch(fileName, oldStr, newStr, oldHeader, newHeader, options) {
+	  return createTwoFilesPatch(fileName, fileName, oldStr, newStr, oldHeader, newHeader, options);
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9wYXRjaC9jcmVhdGUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozt3QkFBd0IsY0FBYzs7QUFFL0IsU0FBUyxlQUFlLENBQUMsV0FBVyxFQUFFLFdBQVcsRUFBRSxNQUFNLEVBQUUsTUFBTSxFQUFFLFNBQVMsRUFBRSxTQUFTLEVBQUUsT0FBTyxFQUFFO0FBQ3ZHLE1BQUksQ0FBQyxPQUFPLEVBQUU7QUFDWixXQUFPLEdBQUcsRUFBRSxPQUFPLEVBQUUsQ0FBQyxFQUFFLENBQUM7R0FDMUI7O0FBRUQsTUFBTSxJQUFJLEdBQUcsb0JBQVUsTUFBTSxFQUFFLE1BQU0sQ0FBQyxDQUFDO0FBQ3ZDLE1BQUksQ0FBQyxJQUFJLENBQUMsRUFBQyxLQUFLLEVBQUUsRUFBRSxFQUFFLEtBQUssRUFBRSxFQUFFLEVBQUMsQ0FBQyxDQUFDOztBQUVsQyxXQUFTLFlBQVksQ0FBQyxLQUFLLEVBQUU7QUFDM0IsV0FBTyxLQUFLLENBQUMsR0FBRyxDQUFDLFVBQVMsS0FBSyxFQUFFO0FBQUUsYUFBTyxHQUFHLEdBQUcsS0FBSyxDQUFDO0tBQUUsQ0FBQyxDQUFDO0dBQzNEOztBQUVELE1BQUksS0FBSyxHQUFHLEVBQUUsQ0FBQztBQUNmLE1BQUksYUFBYSxHQUFHLENBQUM7TUFBRSxhQUFhLEdBQUcsQ0FBQztNQUFFLFFBQVEsR0FBRyxFQUFFO01BQ25ELE9BQU8sR0FBRyxDQUFDO01BQUUsT0FBTyxHQUFHLENBQUMsQ0FBQzs7d0JBQ3BCLENBQUM7QUFDUixRQUFNLE9BQU8sR0FBRyxJQUFJLENBQUMsQ0FBQyxDQUFDO1FBQ2pCLEtBQUssR0FBRyxPQUFPLENBQUMsS0FBSyxJQUFJLE9BQU8sQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLEtBQUssRUFBRSxFQUFFLENBQUMsQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLENBQUM7QUFDNUUsV0FBTyxDQUFDLEtBQUssR0FBRyxLQUFLLENBQUM7O0FBRXRCLFFBQUksT0FBTyxDQUFDLEtB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QyxJQUFJLENBQUMsTUFBTSxHQUFHLElBQUksQ0FBQyxXQUFXLElBQUksT0FBTyxJQUFJLENBQUMsU0FBUyxLQUFLLFdBQVcsR0FBRyxFQUFFLEdBQUcsSUFBSSxHQUFHLElBQUksQ0FBQyxTQUFTLENBQUEsQUFBQyxDQUFDLENBQUM7O0FBRTNHLE9BQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLE1BQU0sRUFBRSxDQUFDLEVBQUUsRUFBRTtBQUMxQyxRQUFNLElBQUksR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQzNCLE9BQUcsQ0FBQyxJQUFJLENBQ04sTUFBTSxHQUFHLElBQUksQ0FBQyxRQUFRLEdBQUcsR0FBRyxHQUFHLElBQUksQ0FBQyxRQUFRLEdBQzFDLElBQUksR0FBRyxJQUFJLENBQUMsUUFBUSxHQUFHLEdBQUcsR0FBRyxJQUFJLENBQUMsUUFBUSxHQUMxQyxLQUFLLENBQ1IsQ0FBQztBQUNGLE9BQUcsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLEdBQUcsRUFBRSxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUM7R0FDakM7O0FBRUQsU0FBTyxHQUFHLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxHQUFHLElBQUksQ0FBQztDQUM5Qjs7QUFFTSxTQUFTLFdBQVcsQ0FBQyxRQUFRLEVBQUUsTUFBTSxFQUFFLE1BQU0sRUFBRSxTQUFTLEVBQUUsU0FBUyxFQUFFLE9BQU8sRUFBRTtBQUNuRixTQUFPLG1CQUFtQixDQUFDLFFBQVEsRUFBRSxRQUFRLEVBQUUsTUFBTSxFQUFFLE1BQU0sRUFBRSxTQUFTLEVBQUUsU0FBUyxFQUFFLE9BQU8sQ0FBQyxDQUFDO0NBQy9GIiwiZmlsZSI6ImNyZWF0ZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7ZGlmZkxpbmVzfSBmcm9tICcuLi9kaWZmL2xpbmUnO1xuXG5leHBvcnQgZnVuY3Rpb24gc3RydWN0dXJlZFBhdGNoKG9sZEZpbGVOYW1lLCBuZXdGaWxlTmFtZSwgb2xkU3RyLCBuZXdTdHIsIG9sZEhlYWRlciwgbmV3SGVhZGVyLCBvcHRpb25zKSB7XG4gIGlmICghb3B0aW9ucykge1xuICAgIG9wdGlvbnMgPSB7IGNvbnRleHQ6IDQgfTtcbiAgfVxuXG4gIGNvbnN0IGRpZmYgPSBkaWZmTGluZXMob2xkU3RyLCBuZXdTdHIpO1xuICBkaWZmLnB1c2goe3ZhbHVlOiAnJywgbGluZXM6IFtdfSk7ICAgLy8gQXBwZW5kIGFuIGVtcHR5IHZhbHVlIHRvIG1ha2UgY2xlYW51cCBlYXNpZXJcblxuICBmdW5jdGlvbiBjb250ZXh0TGluZXMobGluZXMpIHtcbiAgICByZXR1cm4gbGluZXMubWFwKGZ1bmN0aW9uKGVudHJ5KSB7IHJldHVybiAnICcgKyBlbnRyeTsgfSk7XG4gIH1cblxuICBsZXQgaHVua3MgPSBbXTtcbiAgbGV0IG9sZFJhbmdlU3RhcnQgPSAwLCBuZXdSYW5nZVN0YXJ0ID0gMCwgY3VyUmFuZ2UgPSBbXSxcbiAgICAgIG9sZExpbmUgPSAxLCBuZXdMaW5lID0gMTtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBkaWZmLmxlbmd0aDsgaSsrKSB7XG4gICAgY29uc3QgY3VycmVudCA9IGRpZmZbaV0sXG4gICAgICAgICAgbGluZXMgPSBjdXJyZW50LmxpbmVzIHx8IGN1cnJlbnQudmFsdWUucmVwbGFjZSgvXFxuJC8sICcnKS5zcGxpdCgnXFxuJyk7XG4gICAgY3VycmVudC5saW5lcyA9IGxpbmVzO1xuXG4gICAgaWYgKGN1cnJlbnQuYWRkZWQgfHwgY3VycmVudC5yZW1vdmVkKSB7XG4gICAgICAvLyBJZiB3ZSBoYXZlIHByZXZpb3VzIGNvbnRleHQsIHN0YXJ0IHdpdGggdGhhdFxuICAgICAgaWYgKCFvbGRSYW5nZVN0YXJ0KSB7XG4gICAgICAgIGNvbnN0IHByZXYgPSBkaWZmW2kgLSAxXTtcbiAgICAgICAgb2xkUmFuZ2VTdGFydCA9IG9sZExpbmU7XG4gICAgICAgIG5ld1JhbmdlU3RhcnQgPSBuZXdMaW5lO1xuXG4gICAgICAgIGlmIChwcmV2KSB7XG4gICAgICAgICAgY3VyUmFuZ2UgPSBvcHRpb25zLmNvbnRleHQgPiAwID8gY29udGV4dExpbmVzKHByZXYubGluZXMuc2xpY2UoLW9wdGlvbnMuY29udGV4dCkpIDogW107XG4gICAgICAgICAgb2xkUmFuZ2VTdGFydCAtPSBjdXJSYW5nZS5sZW5ndGg7XG4gICAgICAgICAgbmV3UmFuZ2VTdGFydCAtPSBjdXJSYW5nZS5sZW5ndGg7XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gT3V0cHV0IG91ciBjaGFuZ2VzXG4gICAgICBjdXJSYW5nZS5wdXNoKC4uLiBsaW5lcy5tYXAoZnVuY3Rpb24oZW50cnkpIHtcbiAgICAgICAgcmV0dXJuIChjdXJyZW50LmFkZGVkID8gJysnIDogJy0nKSArIGVudHJ5O1xuICAgICAgfSkpO1xuXG4gICAgICAvLyBUcmFjayB0aGUgdXBkYXRlZCBmaWxlIHBvc2l0aW9uXG4gICAgICBpZiAoY3VycmVudC5hZGRlZCkge1xuICAgICAgICBuZXdMaW5lICs9IGxpbmVzLmxlbmd0aDtcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIG9sZExpbmUgKz0gbGluZXMubGVuZ3RoO1xuICAgICAgfVxuICAgIH0gZWxzZSB7XG4gICAgICAvLyBJZGVudGljYWwgY29udGV4dCBsaW5lcy4gVHJhY2sgbGluZSBjaGFuZ2VzXG4gICAgICBpZiAob2xkUmFuZ2VTdGFydCkge1xuICAgICAgICAvLyBDbG9zZSBvdXQgYW55IGNoYW5nZXMgdGhhdCBoYXZlIGJlZW4gb3V0cHV0IChvciBqb2luIG92ZXJsYXBwaW5nKVxuICAgICAgICBpZiAobGluZXMubGVuZ3RoIDw9IG9wdGlvbnMuY29udGV4dCAqIDIgJiYgaSA8IGRpZmYubGVuZ3RoIC0gMikge1xuICAgICAgICAgIC8vIE92ZXJsYXBwaW5nXG4gICAgICAgICAgY3VyUmFuZ2UucHVzaCguLi4gY29udGV4dExpbmVzKGxpbmVzKSk7XG4gICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgLy8gZW5kIHRoZSByYW5nZSBhbmQgb3V0cHV0XG4gICAgICAgICAgbGV0IGNvbnRleHRTaXplID0gTWF0aC5taW4obGluZXMubGVuZ3RoLCBvcHRpb25zLmNvbnRleHQpO1xuICAgICAgICAgIGN1clJhbmdlLnB1c2goLi4uIGNvbnRleHRMaW5lcyhsaW5lcy5zbGljZSgwLCBjb250ZXh0U2l6ZSkpKTtcblxuICAgICAgICAgIGxldCBodW5rID0ge1xuICAgICAgICAgICAgb2xkU3RhcnQ6IG9sZFJhbmdlU3RhcnQsXG4gICAgICAgICAgICBvbGRMaW5lczogKG9sZExpbmUgLSBvbGRSYW5nZVN0YXJ0ICsgY29udGV4dFNpemUpLFxuICAgICAgICAgICAgbmV3U3RhcnQ6IG5ld1JhbmdlU3RhcnQsXG4gICAgICAgICAgICBuZXdMaW5lczogKG5ld0xpbmUgLSBuZXdSYW5nZVN0YXJ0ICsgY29udGV4dFNpemUpLFxuICAgICAgICAgICAgbGluZXM6IGN1clJhbmdlXG4gICAgICAgICAgfTtcbiAgICAgICAgICBpZiAoaSA+PSBkaWZmLmxlbmd0aCAtIDIgJiYgbGluZXMubGVuZ3RoIDw9IG9wdGlvbnMuY29udGV4dCkge1xuICAgICAgICAgICAgLy8gRU9GIGlzIGluc2lkZSB0aGlzIGh1bmtcbiAgICAgICAgICAgIGxldCBvbGRFT0ZOZXdsaW5lID0gKC9cXG4kLy50ZXN0KG9sZFN0cikpO1xuICAgICAgICAgICAgbGV0IG5ld0VPRk5ld2xpbmUgPSAoL1xcbiQvLnRlc3QobmV3U3RyKSk7XG4gICAgICAgICAgICBpZiAobGluZXMubGVuZ3RoID09IDAgJiYgIW9sZEVPRk5ld2xpbmUpIHtcbiAgICAgICAgICAgICAgLy8gc3BlY2lhbCBjYXNlOiBvbGQgaGFzIG5vIGVvbCBhbmQgbm8gdHJhaWxpbmcgY29udGV4dDsgbm8tbmwgY2FuIGVuZCB1cCBiZWZvcmUgYWRkc1xuICAgICAgICAgICAgICBjdXJSYW5nZS5zcGxpY2UoaHVuay5vbGRMaW5lcywgMCwgJ1xcXFwgTm8gbmV3bGluZSBhdCBlbmQgb2YgZmlsZScpO1xuICAgICAgICAgICAgfSBlbHNlIGlmICghb2xkRU9GTmV3bGluZSB8fCAhbmV3RU9GTmV3bGluZSkge1xuICAgICAgICAgICAgICBjdXJSYW5nZS5wdXNoKCdcXFxcIE5vIG5ld2xpbmUgYXQgZW5kIG9mIGZpbGUnKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9XG4gICAgICAgICAgaHVua3MucHVzaChodW5rKTtcblxuICAgICAgICAgIG9sZFJhbmdlU3RhcnQgPSAwO1xuICAgICAgICAgIG5ld1JhbmdlU3RhcnQgPSAwO1xuICAgICAgICAgIGN1clJhbmdlID0gW107XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICAgIG9sZExpbmUgKz0gbGluZXMubGVuZ3RoO1xuICAgICAgbmV3TGluZSArPSBsaW5lcy5sZW5ndGg7XG4gICAgfVxuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBvbGRGaWxlTmFtZTogb2xkRmlsZU5hbWUsIG5ld0ZpbGVOYW1lOiBuZXdGaWxlTmFtZSxcbiAgICBvbGRIZWFkZXI6IG9sZEhlYWRlciwgbmV3SGVhZGVyOiBuZXdIZWFkZXIsXG4gICAgaHVua3M6IGh1bmtzXG4gIH07XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBjcmVhdGVUd29GaWxlc1BhdGNoKG9sZEZpbGVOYW1lLCBuZXdGaWxlTmFtZSwgb2xkU3RyLCBuZXdTdHIsIG9sZEhlYWRlciwgbmV3SGVhZGVyLCBvcHRpb25zKSB7XG4gIGNvbnN0IGRpZmYgPSBzdHJ1Y3R1cmVkUGF0Y2gob2xkRmlsZU5hbWUsIG5ld0ZpbGVOYW1lLCBvbGRTdHIsIG5ld1N0ciwgb2xkSGVhZGVyLCBuZXdIZWFkZXIsIG9wdGlvbnMpO1xuXG4gIGNvbnN0IHJldCA9IFtdO1xuICBpZiAob2xkRmlsZU5hbWUgPT0gbmV3RmlsZU5hbWUpIHtcbiAgICByZXQucHVzaCgnSW5kZXg6ICcgKyBvbGRGaWxlTmFtZSk7XG4gIH1cbiAgcmV0LnB1c2goJz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0nKTtcbiAgcmV0LnB1c2goJy0tLSAnICsgZGlmZi5vbGRGaWxlTmFtZSArICh0eXBlb2YgZGlmZi5vbGRIZWFkZXIgPT09ICd1bmRlZmluZWQnID8gJycgOiAnXFx0JyArIGRpZmYub2xkSGVhZGVyKSk7XG4gIHJldC5wdXNoKCcrKysgJyArIGRpZmYubmV3RmlsZU5hbWUgKyAodHlwZW9mIGRpZmYubmV3SGVhZGVyID09PSAndW5kZWZpbmVkJyA/ICcnIDogJ1xcdCcgKyBkaWZmLm5ld0hlYWRlcikpO1xuXG4gIGZvciAobGV0IGkgPSAwOyBpIDwgZGlmZi5odW5rcy5sZW5ndGg7IGkrKykge1xuICAgIGNvbnN0IGh1bmsgPSBkaWZmLmh1bmtzW2ldO1xuICAgIHJldC5wdXNoKFxuICAgICAgJ0BAIC0nICsgaHVuay5vbGRTdGFydCArICcsJyArIGh1bmsub2xkTGluZXNcbiAgICAgICsgJyArJyArIGh1bmsubmV3U3RhcnQgKyAnLCcgKyBodW5rLm5ld0xpbmVzXG4gICAgICArICcgQEAnXG4gICAgKTtcbiAgICByZXQucHVzaC5hcHBseShyZXQsIGh1bmsubGluZXMpO1xuICB9XG5cbiAgcmV0dXJuIHJldC5qb2luKCdcXG4nKSArICdcXG4nO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gY3JlYXRlUGF0Y2goZmlsZU5hbWUsIG9sZFN0ciwgbmV3U3RyLCBvbGRIZWFkZXIsIG5ld0hlYWRlciwgb3B0aW9ucykge1xuICByZXR1cm4gY3JlYXRlVHdvRmlsZXNQYXRjaChmaWxlTmFtZSwgZmlsZU5hbWUsIG9sZFN0ciwgbmV3U3RyLCBvbGRIZWFkZXIsIG5ld0hlYWRlciwgb3B0aW9ucyk7XG59XG4iXX0=
+
+
+/***/ },
+/* 785 */
+/***/ function(module, exports) {
+
+	// See: http://code.google.com/p/google-diff-match-patch/wiki/API
+	"use strict";
+
+	exports.__esModule = true;
+	exports.convertChangesToDMP = convertChangesToDMP;
+
+	function convertChangesToDMP(changes) {
+	  var ret = [],
+	      change = undefined,
+	      operation = undefined;
+	  for (var i = 0; i < changes.length; i++) {
+	    change = changes[i];
+	    if (change.added) {
+	      operation = 1;
+	    } else if (change.removed) {
+	      operation = -1;
+	    } else {
+	      operation = 0;
+	    }
+
+	    ret.push([operation, change.value]);
+	  }
+	  return ret;
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9jb252ZXJ0L2RtcC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDTyxTQUFTLG1CQUFtQixDQUFDLE9BQU8sRUFBRTtBQUMzQyxNQUFJLEdBQUcsR0FBRyxFQUFFO01BQ1IsTUFBTSxZQUFBO01BQ04sU0FBUyxZQUFBLENBQUM7QUFDZCxPQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsT0FBTyxDQUFDLE1BQU0sRUFBRSxDQUFDLEVBQUUsRUFBRTtBQUN2QyxVQUFNLEdBQUcsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ3BCLFFBQUksTUFBTSxDQUFDLEtBQUssRUFBRTtBQUNoQixlQUFTLEdBQUcsQ0FBQyxDQUFDO0tBQ2YsTUFBTSxJQUFJLE1BQU0sQ0FBQyxPQUFPLEVBQUU7QUFDekIsZUFBUyxHQUFHLENBQUMsQ0FBQyxDQUFDO0tBQ2hCLE1BQU07QUFDTCxlQUFTLEdBQUcsQ0FBQyxDQUFDO0tBQ2Y7O0FBRUQsT0FBRyxDQUFDLElBQUksQ0FBQyxDQUFDLFNBQVMsRUFBRSxNQUFNLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQztHQUNyQztBQUNELFNBQU8sR0FBRyxDQUFDO0NBQ1oiLCJmaWxlIjoiZG1wLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gU2VlOiBodHRwOi8vY29kZS5nb29nbGUuY29tL3AvZ29vZ2xlLWRpZmYtbWF0Y2gtcGF0Y2gvd2lraS9BUElcbmV4cG9ydCBmdW5jdGlvbiBjb252ZXJ0Q2hhbmdlc1RvRE1QKGNoYW5nZXMpIHtcbiAgbGV0IHJldCA9IFtdLFxuICAgICAgY2hhbmdlLFxuICAgICAgb3BlcmF0aW9uO1xuICBmb3IgKGxldCBpID0gMDsgaSA8IGNoYW5nZXMubGVuZ3RoOyBpKyspIHtcbiAgICBjaGFuZ2UgPSBjaGFuZ2VzW2ldO1xuICAgIGlmIChjaGFuZ2UuYWRkZWQpIHtcbiAgICAgIG9wZXJhdGlvbiA9IDE7XG4gICAgfSBlbHNlIGlmIChjaGFuZ2UucmVtb3ZlZCkge1xuICAgICAgb3BlcmF0aW9uID0gLTE7XG4gICAgfSBlbHNlIHtcbiAgICAgIG9wZXJhdGlvbiA9IDA7XG4gICAgfVxuXG4gICAgcmV0LnB1c2goW29wZXJhdGlvbiwgY2hhbmdlLnZhbHVlXSk7XG4gIH1cbiAgcmV0dXJuIHJldDtcbn1cbiJdfQ==
+
+
+/***/ },
+/* 786 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.convertChangesToXML = convertChangesToXML;
+
+	function convertChangesToXML(changes) {
+	  var ret = [];
+	  for (var i = 0; i < changes.length; i++) {
+	    var change = changes[i];
+	    if (change.added) {
+	      ret.push('<ins>');
+	    } else if (change.removed) {
+	      ret.push('<del>');
+	    }
+
+	    ret.push(escapeHTML(change.value));
+
+	    if (change.added) {
+	      ret.push('</ins>');
+	    } else if (change.removed) {
+	      ret.push('</del>');
+	    }
+	  }
+	  return ret.join('');
+	}
+
+	function escapeHTML(s) {
+	  var n = s;
+	  n = n.replace(/&/g, '&amp;');
+	  n = n.replace(/</g, '&lt;');
+	  n = n.replace(/>/g, '&gt;');
+	  n = n.replace(/"/g, '&quot;');
+
+	  return n;
+	}
+	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9jb252ZXJ0L3htbC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFPLFNBQVMsbUJBQW1CLENBQUMsT0FBTyxFQUFFO0FBQzNDLE1BQUksR0FBRyxHQUFHLEVBQUUsQ0FBQztBQUNiLE9BQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxPQUFPLENBQUMsTUFBTSxFQUFFLENBQUMsRUFBRSxFQUFFO0FBQ3ZDLFFBQUksTUFBTSxHQUFHLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQztBQUN4QixRQUFJLE1BQU0sQ0FBQyxLQUFLLEVBQUU7QUFDaEIsU0FBRyxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQztLQUNuQixNQUFNLElBQUksTUFBTSxDQUFDLE9BQU8sRUFBRTtBQUN6QixTQUFHLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFDO0tBQ25COztBQUVELE9BQUcsQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDOztBQUVuQyxRQUFJLE1BQU0sQ0FBQyxLQUFLLEVBQUU7QUFDaEIsU0FBRyxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQztLQUNwQixNQUFNLElBQUksTUFBTSxDQUFDLE9BQU8sRUFBRTtBQUN6QixTQUFHLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0tBQ3BCO0dBQ0Y7QUFDRCxTQUFPLEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLENBQUM7Q0FDckI7O0FBRUQsU0FBUyxVQUFVLENBQUMsQ0FBQyxFQUFFO0FBQ3JCLE1BQUksQ0FBQyxHQUFHLENBQUMsQ0FBQztBQUNWLEdBQUMsR0FBRyxDQUFDLENBQUMsT0FBTyxDQUFDLElBQUksRUFBRSxPQUFPLENBQUMsQ0FBQztBQUM3QixHQUFDLEdBQUcsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxJQUFJLEVBQUUsTUFBTSxDQUFDLENBQUM7QUFDNUIsR0FBQyxHQUFHLENBQUMsQ0FBQyxPQUFPLENBQUMsSUFBSSxFQUFFLE1BQU0sQ0FBQyxDQUFDO0FBQzVCLEdBQUMsR0FBRyxDQUFDLENBQUMsT0FBTyxDQUFDLElBQUksRUFBRSxRQUFRLENBQUMsQ0FBQzs7QUFFOUIsU0FBTyxDQUFDLENBQUM7Q0FDViIsImZpbGUiOiJ4bWwuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZnVuY3Rpb24gY29udmVydENoYW5nZXNUb1hNTChjaGFuZ2VzKSB7XG4gIGxldCByZXQgPSBbXTtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBjaGFuZ2VzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGNoYW5nZSA9IGNoYW5nZXNbaV07XG4gICAgaWYgKGNoYW5nZS5hZGRlZCkge1xuICAgICAgcmV0LnB1c2goJzxpbnM+Jyk7XG4gICAgfSBlbHNlIGlmIChjaGFuZ2UucmVtb3ZlZCkge1xuICAgICAgcmV0LnB1c2goJzxkZWw+Jyk7XG4gICAgfVxuXG4gICAgcmV0LnB1c2goZXNjYXBlSFRNTChjaGFuZ2UudmFsdWUpKTtcblxuICAgIGlmIChjaGFuZ2UuYWRkZWQpIHtcbiAgICAgIHJldC5wdXNoKCc8L2lucz4nKTtcbiAgICB9IGVsc2UgaWYgKGNoYW5nZS5yZW1vdmVkKSB7XG4gICAgICByZXQucHVzaCgnPC9kZWw+Jyk7XG4gICAgfVxuICB9XG4gIHJldHVybiByZXQuam9pbignJyk7XG59XG5cbmZ1bmN0aW9uIGVzY2FwZUhUTUwocykge1xuICBsZXQgbiA9IHM7XG4gIG4gPSBuLnJlcGxhY2UoLyYvZywgJyZhbXA7Jyk7XG4gIG4gPSBuLnJlcGxhY2UoLzwvZywgJyZsdDsnKTtcbiAgbiA9IG4ucmVwbGFjZSgvPi9nLCAnJmd0OycpO1xuICBuID0gbi5yZXBsYWNlKC9cIi9nLCAnJnF1b3Q7Jyk7XG5cbiAgcmV0dXJuIG47XG59XG4iXX0=
+
+
+/***/ },
+/* 787 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(349);
+
+	var _question = __webpack_require__(788);
 
 	var _question2 = _interopRequireDefault(_question);
 
@@ -74604,7 +74707,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "lesson.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 786 */
+/* 788 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74619,7 +74722,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _question = __webpack_require__(659);
+	var _question = __webpack_require__(769);
 
 	var _question2 = _interopRequireDefault(_question);
 
@@ -74731,7 +74834,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "question.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 787 */
+/* 789 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74756,6 +74859,10 @@
 
 	var _underscore2 = _interopRequireDefault(_underscore);
 
+	var _questionsList = __webpack_require__(658);
+
+	var _questionsList2 = _interopRequireDefault(_questionsList);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -74763,26 +74870,12 @@
 	var Results = _react2.default.createClass({
 	  displayName: 'Results',
 
-	  renderQuestions: function renderQuestions() {
-	    var concepts = (0, _hashToCollection.hashToCollection)(this.props.concepts.data);
-	    var questions = (0, _hashToCollection.hashToCollection)(this.props.questions.data);
-	    return concepts.map(function (concept) {
-	      var label = _react2.default.createElement('p', { className: 'menu-label' }, concept.name);
-	      var questionsForConcept = _underscore2.default.where(questions, { conceptID: concept.key });
-	      var listItems = questionsForConcept.map(function (question) {
-	        return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/results/questions/' + question.key, activeClassName: 'is-active' }, question.prompt));
-	      });
-
-	      if (questionsForConcept.length === 0) {
-	        return;
-	      }
-
-	      return [label, _react2.default.createElement('ul', { className: 'menu-list' }, listItems)];
-	    });
-	  },
-
 	  render: function render() {
-	    return _react2.default.createElement('section', { className: 'section is-fullheight minus-nav' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h1', { className: 'title' }, 'Choose a lesson'), _react2.default.createElement('h2', { className: 'subtitle' }, 'You can analyze the results here.'), this.renderQuestions()));
+	    var _props = this.props;
+	    var questions = _props.questions;
+	    var concepts = _props.concepts;
+
+	    return _react2.default.createElement('section', { className: 'section is-fullheight minus-nav' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h1', { className: 'title' }, 'Choose a lesson'), _react2.default.createElement('h2', { className: 'subtitle' }, 'You can analyze the results here.'), _react2.default.createElement(_questionsList2.default, { questions: questions, concepts: concepts, baseRoute: "results" })));
 	  }
 	});
 
@@ -74799,7 +74892,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "results.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 788 */
+/* 790 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74816,7 +74909,7 @@
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _questions = __webpack_require__(677);
+	var _questions = __webpack_require__(659);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
@@ -74826,15 +74919,15 @@
 
 	var _hashToCollection = __webpack_require__(654);
 
-	var _response = __webpack_require__(789);
+	var _response = __webpack_require__(791);
 
 	var _response2 = _interopRequireDefault(_response);
 
-	var _constants = __webpack_require__(684);
+	var _constants = __webpack_require__(666);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
-	var _section = __webpack_require__(790);
+	var _section = __webpack_require__(792);
 
 	var _section2 = _interopRequireDefault(_section);
 
@@ -74972,7 +75065,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "review.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 789 */
+/* 791 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -74987,11 +75080,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _constants = __webpack_require__(684);
+	var _constants = __webpack_require__(666);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
-	var _questions = __webpack_require__(677);
+	var _questions = __webpack_require__(659);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
@@ -75064,8 +75157,23 @@
 	      buttons = [_react2.default.createElement('a', { className: 'card-footer-item', onClick: this.editResponse.bind(null, response.key), key: 'edit' }, 'Edit'), _react2.default.createElement('a', { className: 'card-footer-item', onClick: this.deleteResponse.bind(null, response.key), key: 'delete' }, 'Delete')];
 	    }
 	    return _react2.default.createElement('footer', { className: 'card-footer' }, buttons);
-	    // Return the Edit and Delete button if not editing, and
-	    // the Cancel and Save button if editing.
+	  },
+
+	  responseIsCommonError: function responseIsCommonError(response) {
+	    return response.feedback.includes("punctuation") || response.feedback.includes("spelling") || response.feedback.includes("typo");
+	  },
+
+	  renderResponseHeader: function renderResponseHeader(response) {
+	    var bgColor;
+	    if (!response.feedback) {
+	      bgColor = "not-found-response";
+	    } else if (this.responseIsCommonError(response)) {
+	      bgColor = "common-error-response";
+	    } else {
+	      bgColor = response.optimal ? "optimal-response" : "sub-optimal-reponse";
+	    }
+
+	    return _react2.default.createElement('header', { className: "card-header " + bgColor }, _react2.default.createElement('p', { className: 'card-header-title' }, response.text));
 	  },
 
 	  render: function render() {
@@ -75076,15 +75184,14 @@
 
 	    var isEditing = states[questionID] === _constants2.default.START_RESPONSE_EDIT + "_" + response.key;
 
-	    return _react2.default.createElement('div', { className: 'card is-fullwidth has-bottom-margin' }, _react2.default.createElement('header', { className: 'card-header' }, _react2.default.createElement('p', { className: 'card-header-title' }, response.text)), this.renderResponseContent(isEditing, response), this.renderResponseFooter(isEditing, response));
+	    return _react2.default.createElement('div', { className: 'card is-fullwidth has-bottom-margin' }, this.renderResponseHeader(response), this.renderResponseContent(isEditing, response), this.renderResponseFooter(isEditing, response));
 	  }
-
 	});
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "response.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 790 */
+/* 792 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75114,7 +75221,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "section.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 791 */
+/* 793 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75131,7 +75238,7 @@
 
 	var _reactRouter = __webpack_require__(598);
 
-	var _reactRouterActiveComponent = __webpack_require__(792);
+	var _reactRouterActiveComponent = __webpack_require__(794);
 
 	var _reactRouterActiveComponent2 = _interopRequireDefault(_reactRouterActiveComponent);
 
@@ -75152,7 +75259,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "admin.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 792 */
+/* 794 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75258,7 +75365,7 @@
 	};
 
 /***/ },
-/* 793 */
+/* 795 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75275,7 +75382,7 @@
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _concepts = __webpack_require__(794);
+	var _concepts = __webpack_require__(796);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
@@ -75285,7 +75392,7 @@
 
 	var _reactRouter = __webpack_require__(598);
 
-	var _modal = __webpack_require__(795);
+	var _modal = __webpack_require__(767);
 
 	var _modal2 = _interopRequireDefault(_modal);
 
@@ -75347,17 +75454,17 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 794 */
+/* 796 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	"use strict";
 
-	var _reactRouterRedux = __webpack_require__(679);
+	var _reactRouterRedux = __webpack_require__(661);
 
-	var C = __webpack_require__(684).default,
-	    Firebase = __webpack_require__(685),
+	var C = __webpack_require__(666).default,
+	    Firebase = __webpack_require__(667),
 	    conceptsRef = new Firebase(C.FIREBASE).child("concepts");
 
 	module.exports = {
@@ -75425,37 +75532,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 795 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	exports.default = _react2.default.createClass({
-	  displayName: "modal",
-
-	  render: function render() {
-	    return _react2.default.createElement("div", { className: "modal is-active" }, _react2.default.createElement("div", { className: "modal-background" }), _react2.default.createElement("div", { className: "modal-container" }, _react2.default.createElement("div", { className: "modal-content" }, this.props.children)), _react2.default.createElement("button", { className: "modal-close", onClick: this.props.close }));
-	  }
-	});
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "modal.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 796 */
+/* 797 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75474,11 +75551,11 @@
 
 	var _reactRouter = __webpack_require__(598);
 
-	var _concepts = __webpack_require__(794);
+	var _concepts = __webpack_require__(796);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
-	var _questions = __webpack_require__(677);
+	var _questions = __webpack_require__(659);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
@@ -75562,7 +75639,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concept.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 797 */
+/* 798 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75579,7 +75656,7 @@
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _questions = __webpack_require__(677);
+	var _questions = __webpack_require__(659);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
@@ -75589,11 +75666,15 @@
 
 	var _reactRouter = __webpack_require__(598);
 
-	var _modal = __webpack_require__(795);
+	var _modal = __webpack_require__(767);
 
 	var _modal2 = _interopRequireDefault(_modal);
 
 	var _hashToCollection = __webpack_require__(654);
+
+	var _questionsList = __webpack_require__(658);
+
+	var _questionsList2 = _interopRequireDefault(_questionsList);
 
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -75613,24 +75694,6 @@
 	    // this.props.dispatch(actions.toggleNewQuestionModal())
 	  },
 
-	  renderQuestions: function renderQuestions() {
-	    var concepts = (0, _hashToCollection.hashToCollection)(this.props.concepts.data);
-	    var questions = (0, _hashToCollection.hashToCollection)(this.props.questions.data);
-	    return concepts.map(function (concept) {
-	      var label = _react2.default.createElement('p', { className: 'menu-label' }, concept.name);
-	      var questionsForConcept = _underscore2.default.where(questions, { conceptID: concept.key });
-	      var listItems = questionsForConcept.map(function (question) {
-	        return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/admin/questions/' + question.key, activeClassName: 'is-active' }, question.prompt));
-	      });
-
-	      if (questionsForConcept.length === 0) {
-	        return;
-	      }
-
-	      return [label, _react2.default.createElement('ul', { className: 'menu-list' }, listItems)];
-	    });
-	  },
-
 	  renderModal: function renderModal() {
 	    var stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
 	    if (this.props.questions.newQuestionModalOpen) {
@@ -75644,7 +75707,11 @@
 	  },
 
 	  render: function render() {
-	    return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, this.renderModal(), _react2.default.createElement('div', { className: 'columns' }, _react2.default.createElement('div', { className: 'column' }, _react2.default.createElement('ul', null, this.renderQuestions())), _react2.default.createElement('div', { className: 'column' }, this.props.children))));
+	    var _props = this.props;
+	    var questions = _props.questions;
+	    var concepts = _props.concepts;
+
+	    return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, this.renderModal(), _react2.default.createElement('div', { className: 'columns' }, _react2.default.createElement('div', { className: 'column' }, _react2.default.createElement(_questionsList2.default, { questions: questions, concepts: concepts, baseRoute: "admin" })), _react2.default.createElement('div', { className: 'column' }, this.props.children))));
 	  }
 	});
 
@@ -75661,7 +75728,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questions.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 798 */
+/* 799 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75678,7 +75745,7 @@
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _questions = __webpack_require__(677);
+	var _questions = __webpack_require__(659);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
@@ -75688,19 +75755,19 @@
 
 	var _hashToCollection = __webpack_require__(654);
 
-	var _modal = __webpack_require__(795);
+	var _modal = __webpack_require__(767);
 
 	var _modal2 = _interopRequireDefault(_modal);
 
-	var _questionForm = __webpack_require__(799);
+	var _questionForm = __webpack_require__(800);
 
 	var _questionForm2 = _interopRequireDefault(_questionForm);
 
-	var _response = __webpack_require__(789);
+	var _response = __webpack_require__(791);
 
 	var _response2 = _interopRequireDefault(_response);
 
-	var _constants = __webpack_require__(684);
+	var _constants = __webpack_require__(666);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
@@ -75851,7 +75918,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "question.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 799 */
+/* 800 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75885,7 +75952,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questionForm.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 800 */
+/* 801 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75899,7 +75966,7 @@
 
 	var _redux = __webpack_require__(356);
 
-	var _combined = __webpack_require__(801);
+	var _combined = __webpack_require__(802);
 
 	var _combined2 = _interopRequireDefault(_combined);
 
@@ -75909,11 +75976,11 @@
 
 	var _reduxDevtools = __webpack_require__(370);
 
-	var _reduxThunk = __webpack_require__(806);
+	var _reduxThunk = __webpack_require__(807);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _reactRouterRedux = __webpack_require__(679);
+	var _reactRouterRedux = __webpack_require__(661);
 
 	var _createHashHistory = __webpack_require__(601);
 
@@ -75957,7 +76024,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "configureStore.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 801 */
+/* 802 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -75972,23 +76039,23 @@
 
 	var _actions = __webpack_require__(367);
 
-	var _questionReducerV = __webpack_require__(802);
+	var _questionReducerV = __webpack_require__(803);
 
 	var _questionReducerV2 = _interopRequireDefault(_questionReducerV);
 
-	var _questions = __webpack_require__(803);
+	var _questions = __webpack_require__(804);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
-	var _concepts = __webpack_require__(804);
+	var _concepts = __webpack_require__(805);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
-	var _pathways = __webpack_require__(805);
+	var _pathways = __webpack_require__(806);
 
 	var _pathways2 = _interopRequireDefault(_pathways);
 
-	var _reactRouterRedux = __webpack_require__(679);
+	var _reactRouterRedux = __webpack_require__(661);
 
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -76007,7 +76074,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "combined.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 802 */
+/* 803 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76047,7 +76114,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questionReducerV2.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 803 */
+/* 804 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76108,7 +76175,7 @@
 	    }
 	};
 
-	var _constants = __webpack_require__(684);
+	var _constants = __webpack_require__(666);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
@@ -76134,7 +76201,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 804 */
+/* 805 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76183,7 +76250,7 @@
 	    }
 	};
 
-	var _constants = __webpack_require__(684);
+	var _constants = __webpack_require__(666);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
@@ -76209,7 +76276,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 805 */
+/* 806 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76258,7 +76325,7 @@
 	    }
 	};
 
-	var _constants = __webpack_require__(684);
+	var _constants = __webpack_require__(666);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
@@ -76284,7 +76351,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "pathways.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 806 */
+/* 807 */
 /***/ function(module, exports) {
 
 	'use strict';
