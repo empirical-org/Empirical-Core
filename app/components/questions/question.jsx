@@ -48,6 +48,23 @@ const Question = React.createClass({
     return _.find(responses, {key: responseID})
   },
 
+  responsesWithStatus: function () {
+    const {data, states} = this.props.questions, {questionID} = this.props.params;
+    var responses = hashToCollection(data[questionID].responses)
+    return responses.map((response) => {
+      var statusCode;
+      if (!response.feedback) {
+        statusCode = 3;
+      } else if (!!response.parentID) {
+        statusCode = 2;
+      } else {
+        statusCode = (response.optimal ? 0 : 1);
+      }
+      response.statusCode = statusCode
+      return response
+    })
+  },
+
   submitNewResponse: function () {
     var newResp = {
       vals: {
@@ -67,7 +84,7 @@ const Question = React.createClass({
 
   renderResponses: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = hashToCollection(data[questionID].responses)
+    var responses = this.responsesWithStatus()
     var responsesListItems = _.sortBy(responses, (resp) =>
         {return resp[this.state.sorting] || 0 }
       ).map((resp) => {
@@ -155,6 +172,7 @@ const Question = React.createClass({
         {this.formatSortField('Submissions', 'count')}
         {this.formatSortField('Text', 'text')}
         {this.formatSortField('Created At', 'createdAt')}
+        {this.formatSortField('Status', 'statusCode')}
       </ul>
     );
   },
