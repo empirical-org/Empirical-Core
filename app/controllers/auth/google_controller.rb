@@ -3,6 +3,7 @@ class Auth::GoogleController < ApplicationController
   def google
     access_token = request.env['omniauth.auth']['credentials']['token']
     name, email = GoogleIntegration::Profile.fetch_name_and_email(access_token)
+    puts session
     if session[:role].present?
       google_sign_up(name, email, session[:role], access_token)
     else
