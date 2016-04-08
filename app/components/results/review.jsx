@@ -26,6 +26,12 @@ const Review = React.createClass({
     return {
       sorting: "count",
       ascending: false,
+      visibleStatuses: {
+        "Optimal": true,
+        "Sub-Optimal": true,
+        "Common Error": true,
+        "Unmatched": true
+      },
       expanded: {}
     }
   },
@@ -115,10 +121,17 @@ const Review = React.createClass({
     })
   },
 
+  gatherVisibleResponses: function () {
+    var responses = this.responsesWithStatus();
+    return _.filter(responses, (response) => {
+      return this.state.visibleStatuses[labels[response.statusCode]]
+    });
+  },
+
 
   renderResponses: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = this.responsesWithStatus()
+    var responses = this.gatherVisibleResponses()
     var responsesListItems = _.sortBy(responses, (resp) =>
         {return resp[this.state.sorting] || 0 }
       ).map((resp) => {
@@ -180,6 +193,45 @@ const Review = React.createClass({
     );
   },
 
+  toggleField: function (status) {
+    var toggledStatus = {};
+    var newVisibleStatuses = {};
+    toggledStatus[status] = !this.state.visibleStatuses[status];
+    _.extend(newVisibleStatuses, this.state.visibleStatuses, toggledStatus);
+    this.setState({visibleStatuses: newVisibleStatuses});
+  },
+
+
+  formatToggleField: function (status) {
+    var checkBox;
+    if (this.state.visibleStatuses[status]) {
+      checkBox = (<input onChange={this.toggleField.bind(null, status)} type="checkbox" checked={true} />)
+    } else {
+      checkBox = (<input onChange={this.toggleField.bind(null, status)} type="checkbox" checked={false} />)
+    }
+
+    return (
+      <li>
+        <label className="panel-checkbox toggle">
+          {checkBox}
+          {status}
+        </label>
+      </li>
+    )
+  },
+
+  renderStatusToggleMenu: function () {
+    return (
+      <ul>
+        {this.formatToggleField(labels[0])}
+        {this.formatToggleField(labels[1])}
+        {this.formatToggleField(labels[2])}
+        {this.formatToggleField(labels[3])}
+      </ul>
+    )
+  },
+
+
   render: function (){
     const {data} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
@@ -196,7 +248,9 @@ const Review = React.createClass({
           <div className="tabs is-toggle is-fullwidth">
             {this.renderSortingFields()}
           </div>
-
+          <div className="tabs is-toggle is-fullwidth">
+            {this.renderStatusToggleMenu()}
+          </div>
           {this.renderResponses()}
 
         </SharedSection>

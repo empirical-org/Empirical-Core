@@ -12,12 +12,19 @@ import Chart from './pieChart.jsx'
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
+
 const Question = React.createClass({
 
   getInitialState: function () {
     return {
       sorting: "count",
       ascending: false,
+      visibleStatuses: {
+        "Optimal": true,
+        "Sub-Optimal": true,
+        "Common Error": true,
+        "Unmatched": true
+      },
       expanded: {}
     }
   },
@@ -107,10 +114,18 @@ const Question = React.createClass({
     (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
   },
 
+  gatherVisibleResponses: function () {
+    var responses = this.responsesWithStatus();
+    return _.filter(responses, (response) => {
+      return this.state.visibleStatuses[labels[response.statusCode]]
+    });
+  },
+
 
   renderResponses: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = this.responsesWithStatus()
+    var responses = this.gatherVisibleResponses();
+
     var responsesListItems = _.sortBy(responses, (resp) =>
         {return resp[this.state.sorting] || 0 }
       ).map((resp) => {
@@ -205,6 +220,44 @@ const Question = React.createClass({
     );
   },
 
+  toggleField: function (status) {
+    var toggledStatus = {};
+    var newVisibleStatuses = {};
+    toggledStatus[status] = !this.state.visibleStatuses[status];
+    _.extend(newVisibleStatuses, this.state.visibleStatuses, toggledStatus);
+    this.setState({visibleStatuses: newVisibleStatuses});
+  },
+
+
+  formatToggleField: function (status) {
+    var checkBox;
+    if (this.state.visibleStatuses[status]) {
+      checkBox = (<input onChange={this.toggleField.bind(null, status)} type="checkbox" checked={true} />)
+    } else {
+      checkBox = (<input onChange={this.toggleField.bind(null, status)} type="checkbox" checked={false} />)
+    }
+
+    return (
+      <li>
+        {checkBox}
+        <label className="panel-checkbox">
+          {status}
+        </label>
+      </li>
+    )
+  },
+
+  renderStatusToggleMenu: function () {
+    return (
+      <ul>
+        {this.formatToggleField(labels[0])}
+        {this.formatToggleField(labels[1])}
+        {this.formatToggleField(labels[2])}
+        {this.formatToggleField(labels[3])}
+      </ul>
+    )
+  },
+
   render: function (){
     const {data} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
@@ -221,6 +274,9 @@ const Question = React.createClass({
           {this.renderNewResponseForm()}
           <div className="tabs is-toggle is-fullwidth">
             {this.renderSortingFields()}
+          </div>
+          <div className="tabs is-toggle is-fullwidth">
+            {this.renderStatusToggleMenu()}
           </div>
           {this.renderResponses()}
         </div>
