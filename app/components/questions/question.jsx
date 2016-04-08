@@ -7,17 +7,12 @@ import Modal from '../modal/modal.jsx'
 import EditFrom from './questionForm.jsx'
 import Response from './response.jsx'
 import C from '../../constants'
+import Chart from './pieChart.jsx'
+
+const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
+const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
 const Question = React.createClass({
-
-  // renderQuestions: function () {
-  //   const {data} = this.props.concepts;
-  //   const keys = _.keys(data);
-  //   return keys.map((key) => {
-  //     console.log(key, data, data[key])
-  //     return (<li><Link to={'/admin/concepts/' + key}>{data[key].name}</Link></li>)
-  //   })
-  // },
 
   getInitialState: function () {
     return {
@@ -62,6 +57,30 @@ const Question = React.createClass({
       }
       response.statusCode = statusCode
       return response
+    })
+  },
+
+  responsesGroupedByStatus: function () {
+    return _.groupBy(this.responsesWithStatus(), 'statusCode')
+  },
+
+  responsesByStatusCodeAndResponseCount: function () {
+    return _.mapObject(this.responsesGroupedByStatus(), (val, key) => {
+      console.log("val: ", val)
+      return _.reduce(val, (memo, resp) => {
+
+        return memo + (resp.count || 0)
+      }, 0)
+    })
+  },
+
+  formatForPieChart: function () {
+    return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => {
+      return {
+        value: val,
+        label: labels[key],
+        color: colors[key]
+      }
     })
   },
 
@@ -186,6 +205,7 @@ const Question = React.createClass({
           {this.renderEditForm()}
           <h4 className="title">{data[questionID].prompt}</h4>
           <h6 className="subtitle">{responses.length} Responses</h6>
+          <Chart data={_.values(this.formatForPieChart())}/>
           <p className="control">
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button> <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
           </p>
