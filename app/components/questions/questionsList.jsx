@@ -18,13 +18,27 @@ const QuestionsList = React.createClass({
 	renderResponseCount: function (question) {
 		console.log(question)
 		if (this.props.baseRoute !== "play" && question.responses) {
-			return <span className="is-pulled-right">Responses: <strong>{_.keys(question.responses).length}</strong></span>
+			return <span className="is-pulled-right"><strong>{_.keys(question.responses).length}</strong></span>
 		}
 	},
 
   renderQuestionLinks: function (questions) {
     return questions.map((question) => {
-      return (<li key={question.key}><Link to={'/' + this.props.baseRoute + '/questions/' + question.key} activeClassName="is-active">{question.prompt}  {this.renderResponseCount(question)}</Link></li>);
+      return (
+				<li key={question.key}>
+					<Link to={'/' + this.props.baseRoute + '/questions/' + question.key} activeClassName="is-active">
+	          <div className="columns">
+							<div className="column">
+	            	<span>{question.prompt}</span>
+							</div>
+
+							<div className="column is-1">
+	              {this.renderResponseCount(question)}
+							</div>
+	          </div>
+					</Link>
+				</li>
+			);
     });
   },
 
