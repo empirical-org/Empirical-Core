@@ -75,12 +75,6 @@ export default React.createClass({
         <div className="content">
           {parentDetails}
           <strong>Feedback:</strong> {response.feedback}
-          <br />
-          <strong>Grade:</strong> { response.optimal ? 'Optimal' : 'Sub-optimal' }
-          <br />
-          <small>
-            Submissions: { response.count ? response.count : 0 }
-          </small>
         </div>
     }
 
@@ -131,10 +125,21 @@ export default React.createClass({
     }
 
     return (
-      <header className={"card-header " + bgColor} onClick={this.props.expand.bind(null, response.key)}>
-        <p className="card-header-title">
-          {response.text}
-        </p>
+      <header className={"card-content " + bgColor} onClick={this.props.expand.bind(null, response.key)}>
+        <div className="content">
+          <div className="media">
+
+          <div className="media-content">
+            <p>{response.text}</p>
+          </div>
+          <div className="media-right">
+            <figure className="image is-32x32">
+              <span>{ response.count ? response.count : 0 }</span>
+            </figure>
+          </div>
+        </div>
+      </div>
+
       </header>
     );
   },
