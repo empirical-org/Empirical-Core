@@ -125,23 +125,35 @@ export default React.createClass({
     }
 
     return (
-      <header className={"card-content " + bgColor} onClick={this.props.expand.bind(null, response.key)}>
+      <header className={"card-content " + bgColor + " " + this.headerClasses()} onClick={this.props.expand.bind(null, response.key)}>
         <div className="content">
           <div className="media">
-
-          <div className="media-content">
-            <p>{response.text}</p>
-          </div>
-          <div className="media-right">
-            <figure className="image is-32x32">
-              <span>{ response.count ? response.count : 0 }</span>
-            </figure>
+            <div className="media-content">
+              <p>{response.text}</p>
+            </div>
+            <div className="media-right">
+              <figure className="image is-32x32">
+                <span>{ response.count ? response.count : 0 }</span>
+              </figure>
+            </div>
           </div>
         </div>
-      </div>
-
       </header>
     );
+  },
+
+  cardClasses: function () {
+    if (this.props.expanded) {
+      return "has-bottom-margin has-top-margin"
+    }
+  },
+
+  headerClasses: function () {
+    if (!this.props.expanded) {
+      return "unexpanded"
+    } else {
+      return "expanded"
+    }
   },
 
   render: function () {
@@ -150,7 +162,7 @@ export default React.createClass({
     const isEditing = (states[questionID] === (C.START_RESPONSE_EDIT + "_" + response.key));
 
     return (
-      <div className="card is-fullwidth has-bottom-margin">
+      <div className={"card is-fullwidth " + this.cardClasses()}>
         {this.renderResponseHeader(response)}
         {this.renderResponseContent(isEditing, response)}
         {this.renderResponseFooter(isEditing, response)}

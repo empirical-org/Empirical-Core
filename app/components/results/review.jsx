@@ -25,8 +25,15 @@ const Review = React.createClass({
   getInitialState: function () {
     return {
       sorting: "count",
-      ascending: false
+      ascending: false,
+      expanded: {}
     }
+  },
+
+  expand: function (responseKey) {
+    var newState = this.state.expanded;
+    newState[responseKey] = !newState[responseKey];
+    this.setState({expanded: newState})
   },
 
   deleteQuestion: function () {
@@ -111,12 +118,11 @@ const Review = React.createClass({
 
   renderResponses: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = hashToCollection(data[questionID].responses)
+    var responses = this.responsesWithStatus()
     var responsesListItems = _.sortBy(responses, (resp) =>
         {return resp[this.state.sorting] || 0 }
       ).map((resp) => {
       return (
-        <div className="column is-half">
           <Response
           response={resp}
           getResponse={this.getResponse}
@@ -124,8 +130,9 @@ const Review = React.createClass({
           questionID={questionID}
           dispatch={this.props.dispatch}
           key={resp.key}
-          readOnly={true} />
-        </div>
+          readOnly={true}
+          expanded={this.state.expanded[resp.key]}
+          expand={this.expand}/>
       )
     })
     if (this.state.ascending) {
@@ -168,6 +175,7 @@ const Review = React.createClass({
         {this.formatSortField('Submissions', 'count')}
         {this.formatSortField('Text', 'text')}
         {this.formatSortField('Created At', 'createdAt')}
+        {this.formatSortField('Status', 'statusCode')}
       </ul>
     );
   },
@@ -188,9 +196,9 @@ const Review = React.createClass({
           <div className="tabs is-toggle is-fullwidth">
             {this.renderSortingFields()}
           </div>
-          <div className="columns is-multiline">
-            {this.renderResponses()}
-          </div>
+
+          {this.renderResponses()}
+
         </SharedSection>
       )
     } else if (this.props.questions.hasreceiveddata === false){
