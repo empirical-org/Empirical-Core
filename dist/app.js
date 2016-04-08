@@ -102,13 +102,13 @@
 
 	var _question2 = _interopRequireDefault(_question);
 
-	var _configureStore = __webpack_require__(801);
+	var _configureStore = __webpack_require__(803);
 
 	var _configureStore2 = _interopRequireDefault(_configureStore);
 
 	var _reactRedux = __webpack_require__(349);
 
-	var _combined = __webpack_require__(802);
+	var _combined = __webpack_require__(804);
 
 	var _combined2 = _interopRequireDefault(_combined);
 
@@ -58557,11 +58557,18 @@
 	    return _react2.default.createElement('p', { className: 'menu-label' }, concept.name);
 	  },
 
+	  renderResponseCount: function renderResponseCount(question) {
+	    console.log(question);
+	    if (this.props.baseRoute !== "play" && question.responses) {
+	      return _react2.default.createElement('span', { className: 'is-pulled-right' }, 'Responses: ', _react2.default.createElement('strong', null, _underscore2.default.keys(question.responses).length));
+	    }
+	  },
+
 	  renderQuestionLinks: function renderQuestionLinks(questions) {
 	    var _this = this;
 
 	    return questions.map(function (question) {
-	      return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/' + _this.props.baseRoute + '/questions/' + question.key, activeClassName: 'is-active' }, question.prompt));
+	      return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/' + _this.props.baseRoute + '/questions/' + question.key, activeClassName: 'is-active' }, question.prompt, '  ', _this.renderResponseCount(question)));
 	    });
 	  },
 
@@ -75167,10 +75174,10 @@
 	    var bgColor;
 	    if (!response.feedback) {
 	      bgColor = "not-found-response";
-	    } else if (this.responseIsCommonError(response)) {
+	    } else if (!!response.parentID) {
 	      bgColor = "common-error-response";
 	    } else {
-	      bgColor = response.optimal ? "optimal-response" : "sub-optimal-reponse";
+	      bgColor = response.optimal ? "optimal-response" : "sub-optimal-response";
 	    }
 
 	    return _react2.default.createElement('header', { className: "card-header " + bgColor }, _react2.default.createElement('p', { className: 'card-header-title' }, response.text));
@@ -75771,21 +75778,19 @@
 
 	var _constants2 = _interopRequireDefault(_constants);
 
+	var _pieChart = __webpack_require__(801);
+
+	var _pieChart2 = _interopRequireDefault(_pieChart);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 
+	var labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"];
+	var colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"];
+
 	var Question = _react2.default.createClass({
 	  displayName: 'Question',
-
-	  // renderQuestions: function () {
-	  //   const {data} = this.props.concepts;
-	  //   const keys = _.keys(data);
-	  //   return keys.map((key) => {
-	  //     console.log(key, data, data[key])
-	  //     return (<li><Link to={'/admin/concepts/' + key}>{data[key].name}</Link></li>)
-	  //   })
-	  // },
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -75819,6 +75824,50 @@
 	    return _underscore2.default.find(responses, { key: responseID });
 	  },
 
+	  responsesWithStatus: function responsesWithStatus() {
+	    var _props$questions2 = this.props.questions;
+	    var data = _props$questions2.data;
+	    var states = _props$questions2.states;var questionID = this.props.params.questionID;
+
+	    var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
+	    return responses.map(function (response) {
+	      var statusCode;
+	      if (!response.feedback) {
+	        statusCode = 3;
+	      } else if (!!response.parentID) {
+	        statusCode = 2;
+	      } else {
+	        statusCode = response.optimal ? 0 : 1;
+	      }
+	      response.statusCode = statusCode;
+	      return response;
+	    });
+	  },
+
+	  responsesGroupedByStatus: function responsesGroupedByStatus() {
+	    return _underscore2.default.groupBy(this.responsesWithStatus(), 'statusCode');
+	  },
+
+	  responsesByStatusCodeAndResponseCount: function responsesByStatusCodeAndResponseCount() {
+	    return _underscore2.default.mapObject(this.responsesGroupedByStatus(), function (val, key) {
+	      console.log("val: ", val);
+	      return _underscore2.default.reduce(val, function (memo, resp) {
+
+	        return memo + (resp.count || 0);
+	      }, 0);
+	    });
+	  },
+
+	  formatForPieChart: function formatForPieChart() {
+	    return _underscore2.default.mapObject(this.responsesByStatusCodeAndResponseCount(), function (val, key) {
+	      return {
+	        value: val,
+	        label: labels[key],
+	        color: colors[key]
+	      };
+	    });
+	  },
+
 	  submitNewResponse: function submitNewResponse() {
 	    var newResp = {
 	      vals: {
@@ -75838,11 +75887,11 @@
 	  renderResponses: function renderResponses() {
 	    var _this = this;
 
-	    var _props$questions2 = this.props.questions;
-	    var data = _props$questions2.data;
-	    var states = _props$questions2.states;var questionID = this.props.params.questionID;
+	    var _props$questions3 = this.props.questions;
+	    var data = _props$questions3.data;
+	    var states = _props$questions3.states;var questionID = this.props.params.questionID;
 
-	    var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
+	    var responses = this.responsesWithStatus();
 	    var responsesListItems = _underscore2.default.sortBy(responses, function (resp) {
 	      return resp[_this.state.sorting] || 0;
 	    }).map(function (resp) {
@@ -75888,7 +75937,7 @@
 	  },
 
 	  renderSortingFields: function renderSortingFields() {
-	    return _react2.default.createElement('ul', null, this.formatSortField('Submissions', 'count'), this.formatSortField('Text', 'text'), this.formatSortField('Created At', 'createdAt'));
+	    return _react2.default.createElement('ul', null, this.formatSortField('Submissions', 'count'), this.formatSortField('Text', 'text'), this.formatSortField('Created At', 'createdAt'), this.formatSortField('Status', 'statusCode'));
 	  },
 
 	  render: function render() {
@@ -75896,7 +75945,7 @@
 
 	    if (data[questionID]) {
 	      var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
-	      return _react2.default.createElement('div', null, this.renderEditForm(), _react2.default.createElement('h4', { className: 'title' }, data[questionID].prompt), _react2.default.createElement('h6', { className: 'subtitle' }, responses.length, ' Responses'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: 'button is-info', onClick: this.startEditingQuestion }, 'Edit Question'), ' ', _react2.default.createElement('button', { className: 'button is-danger', onClick: this.deleteQuestion }, 'Delete Question')), this.renderNewResponseForm(), _react2.default.createElement('div', { className: 'tabs is-toggle is-fullwidth' }, this.renderSortingFields()), this.renderResponses());
+	      return _react2.default.createElement('div', null, this.renderEditForm(), _react2.default.createElement('h4', { className: 'title' }, data[questionID].prompt), _react2.default.createElement('h6', { className: 'subtitle' }, responses.length, ' Responses'), _react2.default.createElement(_pieChart2.default, { data: _underscore2.default.values(this.formatForPieChart()) }), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: 'button is-info', onClick: this.startEditingQuestion }, 'Edit Question'), ' ', _react2.default.createElement('button', { className: 'button is-danger', onClick: this.deleteQuestion }, 'Delete Question')), this.renderNewResponseForm(), _react2.default.createElement('div', { className: 'tabs is-toggle is-fullwidth' }, this.renderSortingFields()), this.renderResponses());
 	    } else if (this.props.questions.hasreceiveddata === false) {
 	      return _react2.default.createElement('p', null, 'Loading...');
 	    } else {
@@ -75962,11 +76011,200 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactSimplePieChart = __webpack_require__(802);
+
+	var _reactSimplePieChart2 = _interopRequireDefault(_reactSimplePieChart);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'pieChart',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      expandedSector: null
+	    };
+	  },
+
+	  handleMouseEnterOnSector: function handleMouseEnterOnSector(sector) {
+	    this.setState({ expandedSector: sector });
+	  },
+
+	  handleMouseLeaveFromSector: function handleMouseLeaveFromSector() {
+	    this.setState({ expandedSector: null });
+	  },
+
+	  render: function render() {
+	    var _this = this;
+
+	    console.log(this.props.data);
+	    return _react2.default.createElement('div', { className: 'columns' }, _react2.default.createElement('div', { className: 'column' }, _react2.default.createElement(_reactSimplePieChart2.default, {
+	      slices: this.props.data
+
+	    })), _react2.default.createElement('div', { className: 'column' }, this.props.data.map(function (d, i) {
+	      return _react2.default.createElement('div', { key: i }, _react2.default.createElement('span', { style: { backgroundColor: d.color, width: '20px', marginRight: 5, color: d.color, borderRadius: '100%' } }, 'OO'), _react2.default.createElement('span', { style: { fontWeight: _this.state.expandedSector == i ? 'bold' : null } }, d.label, ' : ', d.value));
+	    })));
+	  }
+	});
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "pieChart.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 802 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PropTypes = _react2.default.PropTypes;
+
+	var size = 100;
+	var radCircumference = Math.PI * 2;
+	var center = size / 2;
+	var radius = center - 1; // padding to prevent clipping
+
+	/**
+	 * @param {Object[]} slices
+	 * @return {Object[]}
+	 */
+	function renderPaths(slices) {
+	  var total = slices.reduce(function (totalValue, _ref) {
+	    var value = _ref.value;
+	    return totalValue + value;
+	  }, 0);
+
+	  var radSegment = 0;
+	  var lastX = radius;
+	  var lastY = 0;
+
+	  return slices.map(function (_ref2, index) {
+	    var color = _ref2.color;
+	    var value = _ref2.value;
+
+	    // Should we just draw a circle?
+	    if (value === total) {
+	      return _react2.default.createElement('circle', {
+	        r: radius,
+	        cx: center,
+	        cy: center,
+	        fill: color,
+	        key: index
+	      });
+	    }
+
+	    if (value === 0) {
+	      return;
+	    }
+
+	    var valuePercentage = value / total;
+
+	    // Should the arc go the long way round?
+	    var longArc = valuePercentage <= 0.5 ? 0 : 1;
+
+	    radSegment += valuePercentage * radCircumference;
+	    var nextX = Math.cos(radSegment) * radius;
+	    var nextY = Math.sin(radSegment) * radius;
+
+	    // d is a string that describes the path of the slice.
+	    // The weirdly placed minus signs [eg, (-(lastY))] are due to the fact
+	    // that our calculations are for a graph with positive Y values going up,
+	    // but on the screen positive Y values go down.
+	    var d = ['M ' + center + ',' + center, 'l ' + lastX + ',' + -lastY, 'a' + radius + ',' + radius, '0', longArc + ',0', nextX - lastX + ',' + -(nextY - lastY), 'z'].join(' ');
+
+	    lastX = nextX;
+	    lastY = nextY;
+
+	    return _react2.default.createElement('path', { d: d, fill: color, key: index });
+	  });
+	}
+
+	/**
+	 * Generates an SVG pie chart.
+	 * @see {http://wiki.scribus.net/canvas/Making_a_Pie_Chart}
+	 */
+
+	var PieChart = (function (_React$Component) {
+	  _inherits(PieChart, _React$Component);
+
+	  function PieChart() {
+	    _classCallCheck(this, PieChart);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PieChart).apply(this, arguments));
+	  }
+
+	  _createClass(PieChart, [{
+	    key: 'render',
+
+	    /**
+	     * @return {Object}
+	     */
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'svg',
+	        { viewBox: '0 0 ' + size + ' ' + size },
+	        _react2.default.createElement(
+	          'g',
+	          { transform: 'rotate(-90 ' + center + ' ' + center + ')' },
+	          renderPaths(this.props.slices)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return PieChart;
+	})(_react2.default.Component);
+
+	exports.default = PieChart;
+
+	PieChart.propTypes = {
+	  slices: PropTypes.arrayOf(PropTypes.shape({
+	    color: PropTypes.string.isRequired, // hex color
+	    value: PropTypes.number.isRequired
+	  })).isRequired
+	};
+	module.exports = exports['default'];
+
+
+/***/ },
+/* 803 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.default = configureStore;
 
 	var _redux = __webpack_require__(356);
 
-	var _combined = __webpack_require__(802);
+	var _combined = __webpack_require__(804);
 
 	var _combined2 = _interopRequireDefault(_combined);
 
@@ -75976,7 +76214,7 @@
 
 	var _reduxDevtools = __webpack_require__(370);
 
-	var _reduxThunk = __webpack_require__(807);
+	var _reduxThunk = __webpack_require__(809);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -76024,7 +76262,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "configureStore.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 802 */
+/* 804 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76039,19 +76277,19 @@
 
 	var _actions = __webpack_require__(367);
 
-	var _questionReducerV = __webpack_require__(803);
+	var _questionReducerV = __webpack_require__(805);
 
 	var _questionReducerV2 = _interopRequireDefault(_questionReducerV);
 
-	var _questions = __webpack_require__(804);
+	var _questions = __webpack_require__(806);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
-	var _concepts = __webpack_require__(805);
+	var _concepts = __webpack_require__(807);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
-	var _pathways = __webpack_require__(806);
+	var _pathways = __webpack_require__(808);
 
 	var _pathways2 = _interopRequireDefault(_pathways);
 
@@ -76074,7 +76312,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "combined.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 803 */
+/* 805 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76114,7 +76352,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questionReducerV2.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 804 */
+/* 806 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76201,7 +76439,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 805 */
+/* 807 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76276,7 +76514,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 806 */
+/* 808 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -76351,7 +76589,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "pathways.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 807 */
+/* 809 */
 /***/ function(module, exports) {
 
 	'use strict';

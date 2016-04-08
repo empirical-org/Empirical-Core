@@ -32,7 +32,7 @@ export default React.createClass ({
             <div key={ i }>
               <span style={{ backgroundColor: d.color, width: '20px', marginRight: 5, color: d.color, borderRadius: '100%' }}>OO</span>
               <span style={{ fontWeight: this.state.expandedSector == i ? 'bold' : null }}>
-                { d.label } : { d.value }
+                { d.label }: { d.value }
               </span>
             </div>
           ))

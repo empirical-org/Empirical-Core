@@ -6,6 +6,10 @@ import {hashToCollection} from '../../libs/hashToCollection'
 import Response from '../questions/response.jsx'
 import C from '../../constants'
 import SharedSection from '../shared/section.jsx'
+import Chart from '../questions/pieChart.jsx'
+
+const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
+const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
 const Review = React.createClass({
 
@@ -61,6 +65,47 @@ const Review = React.createClass({
 
   toggleResponseSort: function (field) {
     (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
+  },
+
+  responsesWithStatus: function () {
+    const {data, states} = this.props.questions, {questionID} = this.props.params;
+    var responses = hashToCollection(data[questionID].responses)
+    return responses.map((response) => {
+      var statusCode;
+      if (!response.feedback) {
+        statusCode = 3;
+      } else if (!!response.parentID) {
+        statusCode = 2;
+      } else {
+        statusCode = (response.optimal ? 0 : 1);
+      }
+      response.statusCode = statusCode
+      return response
+    })
+  },
+
+  responsesGroupedByStatus: function () {
+    return _.groupBy(this.responsesWithStatus(), 'statusCode')
+  },
+
+  responsesByStatusCodeAndResponseCount: function () {
+    return _.mapObject(this.responsesGroupedByStatus(), (val, key) => {
+      console.log("val: ", val)
+      return _.reduce(val, (memo, resp) => {
+
+        return memo + (resp.count || 0)
+      }, 0)
+    })
+  },
+
+  formatForPieChart: function () {
+    return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => {
+      return {
+        value: val,
+        label: labels[key],
+        color: colors[key]
+      }
+    })
   },
 
 
@@ -135,6 +180,11 @@ const Review = React.createClass({
         <SharedSection>
           <h4 className="title">{data[questionID].prompt}</h4>
           <h6 className="subtitle">{responses.length} Responses</h6>
+            <div className='columns'>
+              <div className='column is-half'>
+                <Chart data={_.values(this.formatForPieChart())}/>
+              </div>
+          </div>
           <div className="tabs is-toggle is-fullwidth">
             {this.renderSortingFields()}
           </div>
