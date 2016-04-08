@@ -17,8 +17,15 @@ const Question = React.createClass({
   getInitialState: function () {
     return {
       sorting: "count",
-      ascending: false
+      ascending: false,
+      expanded: {}
     }
+  },
+
+  expand: function (responseKey) {
+    var newState = this.state.expanded;
+    newState[responseKey] = !newState[responseKey];
+    this.setState({expanded: newState})
   },
 
   deleteQuestion: function () {
@@ -114,7 +121,9 @@ const Question = React.createClass({
         questionID={questionID}
         dispatch={this.props.dispatch}
         key={resp.key}
-        readOnly={false}/>
+        readOnly={false}
+        expanded={this.state.expanded[resp.key]}
+        expand={this.expand}/>
     })
     if (this.state.ascending) {
       return responsesListItems;

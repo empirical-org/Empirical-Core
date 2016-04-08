@@ -36,6 +36,10 @@ export default React.createClass({
   renderResponseContent: function (isEditing, response) {
     var content;
     var parentDetails;
+    if (!this.props.expanded) {
+      return
+    }
+
     if (response.parentID) {
       const parent = this.props.getResponse(response.parentID)
       if (isEditing) {
@@ -88,7 +92,7 @@ export default React.createClass({
   },
 
   renderResponseFooter: function (isEditing, response) {
-    if (this.props.readOnly) {
+    if (this.props.readOnly || !this.props.expanded) {
       return
     }
     var buttons;
@@ -127,7 +131,7 @@ export default React.createClass({
     }
 
     return (
-      <header className={"card-header " + bgColor}>
+      <header className={"card-header " + bgColor} onClick={this.props.expand.bind(null, response.key)}>
         <p className="card-header-title">
           {response.text}
         </p>
