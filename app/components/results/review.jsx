@@ -7,7 +7,7 @@ import Response from '../questions/response.jsx'
 import C from '../../constants'
 import SharedSection from '../shared/section.jsx'
 import Chart from '../questions/pieChart.jsx'
-
+import ResponseList from '../questions/responseList.jsx'
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
@@ -134,25 +134,16 @@ const Review = React.createClass({
     var responses = this.gatherVisibleResponses()
     var responsesListItems = _.sortBy(responses, (resp) =>
         {return resp[this.state.sorting] || 0 }
-      ).map((resp) => {
-      return (
-          <Response
-          response={resp}
-          getResponse={this.getResponse}
-          states={states}
-          questionID={questionID}
-          dispatch={this.props.dispatch}
-          key={resp.key}
-          readOnly={true}
-          expanded={this.state.expanded[resp.key]}
-          expand={this.expand}/>
       )
-    })
-    if (this.state.ascending) {
-      return responsesListItems;
-    } else {
-      return responsesListItems.reverse();
-    }
+    return <ResponseList
+      responses={responsesListItems}
+      getResponse={this.getResponse}
+      states={states}
+      questionID={questionID}
+      dispatch={this.props.dispatch}
+      admin={false}
+      expanded={this.state.expanded}
+      expand={this.expand}/>
   },
 
   renderArrow: function () {

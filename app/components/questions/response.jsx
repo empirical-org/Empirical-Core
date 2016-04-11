@@ -157,9 +157,9 @@ export default React.createClass({
   },
 
   render: function () {
-    const {response, states, questionID} = this.props;
+    const {response, state, questionID} = this.props;
 
-    const isEditing = (states[questionID] === (C.START_RESPONSE_EDIT + "_" + response.key));
+    const isEditing = (state === (C.START_RESPONSE_EDIT + "_" + response.key));
 
     return (
       <div className={"card is-fullwidth " + this.cardClasses()}>
