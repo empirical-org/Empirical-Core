@@ -27,12 +27,13 @@ class ProfilesController < ApplicationController
     student
   end
 
-  def student(is_json=false, current_classroom = nil)
+  def student(is_json=false)
     if current_user.classrooms.any?
-      current_classroom ||= current_user.classrooms.last
+      current_classroom_id = params['current_classroom_id'] || current_user.classrooms.last.id
+      current_classroom_id = current_classroom_id.to_i
+      current_classroom = Classroom.find current_classroom_id
       if is_json
-        grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i)
-
+        grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i, current_classroom_id)
         next_activity_session = ActivitySession.joins(classroom_activity: [:unit])
             .where("activity_sessions.completed_at IS NULL")
             .where("activity_sessions.user_id = ?", current_user.id)
@@ -43,7 +44,7 @@ class ProfilesController < ApplicationController
 
         render json: {student: {name: current_user.name,
           classroom: {name: current_classroom.name,
-          id: current_classroom.id,
+          id: current_classroom_id,
           teacher: {name: current_classroom.teacher.name}}},
           grouped_scores: grouped_scores,
           is_last_page: is_last_page,
