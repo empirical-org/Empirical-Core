@@ -9,6 +9,7 @@ import SharedSection from '../shared/section.jsx'
 import Chart from '../questions/pieChart.jsx'
 import ResponseList from '../questions/responseList.jsx'
 import ResponseSortFields from '../questions/responseSortFields.jsx'
+import ResponseToggleFields from '../questions/responseToggleFields.jsx'
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
@@ -211,12 +212,11 @@ const Review = React.createClass({
 
   renderStatusToggleMenu: function () {
     return (
-      <ul>
-        {this.formatToggleField(labels[0])}
-        {this.formatToggleField(labels[1])}
-        {this.formatToggleField(labels[2])}
-        {this.formatToggleField(labels[3])}
-      </ul>
+      <ResponseToggleFields
+        labels={labels}
+        toggleField={this.toggleField}
+        visibleStatuses={this.state.visibleStatuses}
+        />
     )
   },
 
