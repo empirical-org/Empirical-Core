@@ -20,14 +20,6 @@ EC.StudentsClassroomsHeader = React.createClass({
      }
   },
 
-
-  findWithAttr: function (array, attr, value) {
-    for(var i = 0; i < array.length; i += 1) {
-        if(array[i]['props'][attr] === value) {
-            return i;
-        }
-    }
-  },
   mapClassrooms: function() {
     var that = this
     var classrooms = _.map(this.state.classrooms, function(classroom, index) {
@@ -38,14 +30,6 @@ EC.StudentsClassroomsHeader = React.createClass({
       </div>
     )
     });
-    // gets index of active classroom react element
-    var indx = that.findWithAttr(classrooms, 'className', 'active classroom-box')
-
-    // active splices active classroom element from array
-    var active = classrooms.splice(indx,1)[0]
-
-    // then this line moves it to front so that it will always be left most item
-    classrooms.unshift(active)
     return classrooms
   },
 
