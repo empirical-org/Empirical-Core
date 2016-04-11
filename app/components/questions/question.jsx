@@ -258,22 +258,29 @@ const Question = React.createClass({
     )
   },
 
-  expandOrCollapseAll: function () {
-    if (Object.keys(this.state.expanded).length > 0) {
-      this.setState({expanded: {}});
-    } else {
+  collapseAllResponses: function () {
+    this.setState({expanded: {}});
+  },
 
-    }
+  expandAllResponses: function () {
+    const responses = this.gatherVisibleResponses();
+    var newState = this.state.expanded;
+    for (var i = 0; i < responses.length; i++) {
+      newState[responses[i].key] = true;
+    };
+    this.setState({expanded: newState});
   },
 
   renderExpandCollapseAll: function () {
-    var text;
+    var text, handleClick;
     if (Object.keys(this.state.expanded).length === 0) {
+      handleClick = this.expandAllResponses;
       text = "Expand All";
     } else {
+      handleClick = this.collapseAllResponses;
       text = "Close All";
     }
-    return <a onClick={this.expandOrCollapseAll}> {text} </a>
+    return <a onClick={handleClick}> {text} </a>
   },
 
   render: function (){
