@@ -5,7 +5,7 @@
 
 
   .section-header {
-    margin-bottom: 30px;
+    line-height: 63px;
   }
 
   .classroom-box {
@@ -21,11 +21,12 @@
     border-left: solid 1px #cecece;
     border-right: solid 1px #cecece;
     text-overflow: ellipsis;
-    div:first-of-type {
-      margin-top: auto;
-    }
     &.active {
       color: black;
+      margin-top: auto;
+      div:first-of-type {
+        margin-top: auto;
+      }
       &:after {
         display: block;
         content: '';
@@ -56,6 +57,10 @@
     }
     .teacher-name {
       margin-left: 40px;
+    }
+    div:first-of-type {
+      display: flex;
+      justify-content: center;
     }
 
     .classroom-name {
