@@ -259,15 +259,19 @@ const Question = React.createClass({
   },
 
   expandOrCollapseAll: function () {
-    console.log("hey");
+    if (Object.keys(this.state.expanded).length > 0) {
+      this.setState({expanded: {}});
+    } else {
+
+    }
   },
 
   renderExpandCollapseAll: function () {
     var text;
     if (Object.keys(this.state.expanded).length === 0) {
-      text = "Show All";
+      text = "Expand All";
     } else {
-      text = "Hide All";
+      text = "Close All";
     }
     return <a onClick={this.expandOrCollapseAll}> {text} </a>
   },
