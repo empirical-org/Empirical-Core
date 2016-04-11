@@ -35,6 +35,7 @@ class ProfilesController < ApplicationController
       if is_json
         grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i, current_classroom_id)
         next_activity_session = ActivitySession.joins(classroom_activity: [:unit])
+            .where("classroom_activities.classroom_id = ?", current_classroom_id)
             .where("activity_sessions.completed_at IS NULL")
             .where("activity_sessions.user_id = ?", current_user.id)
             .order("units.created_at DESC")
@@ -58,7 +59,7 @@ class ProfilesController < ApplicationController
   end
 
   def students_classrooms
-    render json: {classrooms: current_user.classrooms.map {|c| c.students_classrooms(current_user.id)}}
+    render json: {classrooms: current_user.classrooms.reverse.map {|c| c.students_classrooms(current_user.id)}}
   end
 
   def teacher
