@@ -263,7 +263,7 @@ const Question = React.createClass({
   },
 
   expandAllResponses: function () {
-    const responses = this.gatherVisibleResponses();
+    const responses = this.responsesWithStatus();
     var newState = this.state.expanded;
     for (var i = 0; i < responses.length; i++) {
       newState[responses[i].key] = true;
