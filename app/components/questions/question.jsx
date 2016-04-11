@@ -258,6 +258,20 @@ const Question = React.createClass({
     )
   },
 
+  expandOrCollapseAll: function () {
+    console.log("hey");
+  },
+
+  renderExpandCollapseAll: function () {
+    var text;
+    if (Object.keys(this.state.expanded).length === 0) {
+      text = "Show All";
+    } else {
+      text = "Hide All";
+    }
+    return <a onClick={this.expandOrCollapseAll}> {text} </a>
+  },
+
   render: function (){
     const {data} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
@@ -277,6 +291,9 @@ const Question = React.createClass({
           </div>
           <div className="tabs is-toggle is-fullwidth">
             {this.renderStatusToggleMenu()}
+          </div>
+          <div className="tabs is-toggle is-fullwidth">
+            {this.renderExpandCollapseAll()}
           </div>
           {this.renderResponses()}
         </div>
