@@ -105,7 +105,6 @@ const Review = React.createClass({
 
   responsesByStatusCodeAndResponseCount: function () {
     return _.mapObject(this.responsesGroupedByStatus(), (val, key) => {
-      console.log("val: ", val)
       return _.reduce(val, (memo, resp) => {
 
         return memo + (resp.count || 0)
