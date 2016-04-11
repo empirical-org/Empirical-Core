@@ -190,25 +190,6 @@ const Review = React.createClass({
     this.setState({visibleStatuses: newVisibleStatuses});
   },
 
-
-  formatToggleField: function (status) {
-    var checkBox;
-    if (this.state.visibleStatuses[status]) {
-      checkBox = (<input onChange={this.toggleField.bind(null, status)} type="checkbox" checked={true} />)
-    } else {
-      checkBox = (<input onChange={this.toggleField.bind(null, status)} type="checkbox" checked={false} />)
-    }
-
-    return (
-      <li>
-        <label className="panel-checkbox toggle">
-          {checkBox}
-          {status}
-        </label>
-      </li>
-    )
-  },
-
   renderStatusToggleMenu: function () {
     return (
       <ResponseToggleFields
