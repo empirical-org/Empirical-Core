@@ -8,6 +8,7 @@ import C from '../../constants'
 import SharedSection from '../shared/section.jsx'
 import Chart from '../questions/pieChart.jsx'
 import ResponseList from '../questions/responseList.jsx'
+import ResponseSortFields from '../questions/responseSortFields.jsx'
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
@@ -175,14 +176,10 @@ const Review = React.createClass({
   },
 
   renderSortingFields: function () {
-    return (
-      <ul>
-        {this.formatSortField('Submissions', 'count')}
-        {this.formatSortField('Text', 'text')}
-        {this.formatSortField('Created At', 'createdAt')}
-        {this.formatSortField('Status', 'statusCode')}
-      </ul>
-    );
+    return <ResponseSortFields
+      sorting={this.state.sorting}
+      ascending={this.state.ascending}
+      toggleResponseSort={this.toggleResponseSort}/>
   },
 
   toggleField: function (status) {
