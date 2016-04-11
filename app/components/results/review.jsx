@@ -143,7 +143,8 @@ const Review = React.createClass({
       dispatch={this.props.dispatch}
       admin={false}
       expanded={this.state.expanded}
-      expand={this.expand}/>
+      expand={this.expand}
+      ascending={this.state.ascending}/>
   },
 
   renderArrow: function () {
