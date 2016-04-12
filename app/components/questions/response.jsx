@@ -63,9 +63,14 @@ export default React.createClass({
   renderResponseContent: function (isEditing, response) {
     var content;
     var parentDetails;
+    var childDetails;
     if (!this.props.expanded) {
       return
     }
+    if (!response.parentID) {
+      childDetails = (<a className="button is-outlined has-top-margin" onClick={this.viewChildResponses.bind(null, response.key)} key='view' >View Children</a>)
+    }
+
 
     if (response.parentID) {
       const parent = this.props.getResponse(response.parentID);
@@ -107,6 +112,8 @@ export default React.createClass({
         <div className="content">
           {parentDetails}
           <strong>Feedback:</strong> {response.feedback}
+          <br/>
+          {childDetails}
         </div>
     }
 
@@ -131,7 +138,6 @@ export default React.createClass({
       ]
     } else {
       buttons = [
-        (<a className="card-footer-item" onClick={this.viewChildResponses.bind(null, response.key)} key='view' >View Children</a>),
         (<a className="card-footer-item" onClick={this.editResponse.bind(null, response.key)} key='edit' >Edit</a>),
         (<a className="card-footer-item" onClick={this.deleteResponse.bind(null, response.key)} key='delete' >Delete</a>)
       ]
