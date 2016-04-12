@@ -29,7 +29,6 @@ EC.StudentProfile = React.createClass({
   },
 
   fetchData: function (currentClassroom) {
-    console.log(currentClassroom)
     // var newCurrentPage = this.state.currentPage + 1;
     this.setState({currentClassroom: currentClassroom});
     this.setState({loading: true})
