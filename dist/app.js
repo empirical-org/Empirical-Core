@@ -82,23 +82,23 @@
 
 	var _review2 = _interopRequireDefault(_review);
 
-	var _admin = __webpack_require__(793);
+	var _admin = __webpack_require__(795);
 
 	var _admin2 = _interopRequireDefault(_admin);
 
-	var _concepts = __webpack_require__(795);
+	var _concepts = __webpack_require__(797);
 
 	var _concepts2 = _interopRequireDefault(_concepts);
 
-	var _concept = __webpack_require__(797);
+	var _concept = __webpack_require__(799);
 
 	var _concept2 = _interopRequireDefault(_concept);
 
-	var _questions = __webpack_require__(798);
+	var _questions = __webpack_require__(800);
 
 	var _questions2 = _interopRequireDefault(_questions);
 
-	var _question = __webpack_require__(799);
+	var _question = __webpack_require__(801);
 
 	var _question2 = _interopRequireDefault(_question);
 
@@ -116,7 +116,7 @@
 
 	var _reactRouterRedux = __webpack_require__(661);
 
-	var _concepts3 = __webpack_require__(796);
+	var _concepts3 = __webpack_require__(798);
 
 	var _concepts4 = _interopRequireDefault(_concepts3);
 
@@ -41453,7 +41453,7 @@
 
 
 	// module
-	exports.push([module.id, ".is-fullheight.minus-nav {\n  min-height: calc(100vh - 50px); }\n\n.button-group .button {\n  margin-right: 5px; }\n  .button-group .button:last-child {\n    margin-right: 0px; }\n\n.has-bottom-margin {\n  margin-bottom: 20px; }\n\nul.is-unstyled {\n  margin: 1em 0; }\n  ul.is-unstyled li {\n    list-style-type: none; }\n\n.common-error-response {\n  background-color: #FFF0F2; }\n\n.not-found-response {\n  background-color: #F6ECF8; }\n\n.sub-optimal-response {\n  background-color: #FFF9E8; }\n\n.optimal-response {\n  background-color: #F5FAEF; }\n", "", {"version":3,"sources":["/./app/styles/style.scss"],"names":[],"mappings":"AAAA;EACE,+BAAgB,EACjB;;AAED;EAEI,kBAAkB,EAKnB;EAPH;IAKM,kBAAkB,EACnB;;AAKL;EACE,oBAAoB,EACrB;;AAED;EACE,cAAc,EAIf;EALD;IAGI,sBAAsB,EACvB;;AAGH;EACE,0BAA0B,EAC3B;;AAED;EACE,0BAA0B,EAC3B;;AAED;EACE,0BAA0B,EAC3B;;AACD;EACE,0BAA0B,EAC3B","file":"style.scss","sourcesContent":[".is-fullheight.minus-nav {\n  min-height: calc(100vh - 50px);\n}\n\n.button-group {\n  .button {\n    margin-right: 5px;\n\n    &:last-child {\n      margin-right: 0px;\n    }\n  }\n\n}\n\n.has-bottom-margin {\n  margin-bottom: 20px;\n}\n\nul.is-unstyled {\n  margin: 1em 0;\n  li {\n    list-style-type: none;\n  }\n}\n\n.common-error-response {\n  background-color: #FFF0F2;\n}\n\n.not-found-response {\n  background-color: #F6ECF8;\n}\n\n.sub-optimal-response {\n  background-color: #FFF9E8;\n}\n.optimal-response {\n  background-color: #F5FAEF;\n}"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".is-fullheight.minus-nav {\n  min-height: calc(100vh - 50px); }\n\nbody {\n  color: #3D3D3D; }\n\n.button-group .button {\n  margin-right: 5px; }\n  .button-group .button:last-child {\n    margin-right: 0px; }\n\n.has-bottom-margin {\n  margin-bottom: 20px; }\n\n.has-top-margin {\n  margin-top: 20px; }\n\nul.is-unstyled {\n  margin: 1em 0; }\n  ul.is-unstyled li {\n    list-style-type: none; }\n\n.common-error-response {\n  background-color: #FFF0F2; }\n\n.not-found-response {\n  background-color: #F6ECF8; }\n\n.sub-optimal-response {\n  background-color: #FFF9E8; }\n\n.optimal-response {\n  background-color: #F5FAEF; }\n\n.unexpanded {\n  padding: 10px 20px 0px; }\n\n.expanded {\n  padding: 20px 20px 10px; }\n\n.panel-checkbox.toggle {\n  display: inline;\n  padding: 9px 10px 9px 30px; }\n", "", {"version":3,"sources":["/./app/styles/style.scss"],"names":[],"mappings":"AAAA;EACE,+BAAgB,EACjB;;AAED;EACE,eACD,EAAC;;AAEF;EAEI,kBAAkB,EAKnB;EAPH;IAKM,kBAAkB,EACnB;;AAKL;EACE,oBAAoB,EACrB;;AAED;EACE,iBAAiB,EAClB;;AAED;EACE,cAAc,EAIf;EALD;IAGI,sBAAsB,EACvB;;AAGH;EACE,0BAA0B,EAC3B;;AAED;EACE,0BAA0B,EAC3B;;AAED;EACE,0BAA0B,EAC3B;;AACD;EACE,0BAA0B,EAC3B;;AAED;EACE,uBAAuB,EACxB;;AAED;EACE,wBAAwB,EACzB;;AAED;EACE,gBAAgB;EAChB,2BAA2B,EAC5B","file":"style.scss","sourcesContent":[".is-fullheight.minus-nav {\n  min-height: calc(100vh - 50px);\n}\n\nbody {\n  color: #3D3D3D\n}\n\n.button-group {\n  .button {\n    margin-right: 5px;\n\n    &:last-child {\n      margin-right: 0px;\n    }\n  }\n\n}\n\n.has-bottom-margin {\n  margin-bottom: 20px;\n}\n\n.has-top-margin {\n  margin-top: 20px;\n}\n\nul.is-unstyled {\n  margin: 1em 0;\n  li {\n    list-style-type: none;\n  }\n}\n\n.common-error-response {\n  background-color: #FFF0F2;\n}\n\n.not-found-response {\n  background-color: #F6ECF8;\n}\n\n.sub-optimal-response {\n  background-color: #FFF9E8;\n}\n.optimal-response {\n  background-color: #F5FAEF;\n}\n\n.unexpanded {\n  padding: 10px 20px 0px;\n}\n\n.expanded {\n  padding: 20px 20px 10px;\n}\n\n.panel-checkbox.toggle {\n  display: inline;\n  padding: 9px 10px 9px 30px;\n}\n"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
@@ -58560,7 +58560,7 @@
 	  renderResponseCount: function renderResponseCount(question) {
 	    console.log(question);
 	    if (this.props.baseRoute !== "play" && question.responses) {
-	      return _react2.default.createElement('span', { className: 'is-pulled-right' }, 'Responses: ', _react2.default.createElement('strong', null, _underscore2.default.keys(question.responses).length));
+	      return _react2.default.createElement('span', { className: 'is-pulled-right' }, _react2.default.createElement('strong', null, _underscore2.default.keys(question.responses).length));
 	    }
 	  },
 
@@ -58568,7 +58568,7 @@
 	    var _this = this;
 
 	    return questions.map(function (question) {
-	      return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/' + _this.props.baseRoute + '/questions/' + question.key, activeClassName: 'is-active' }, question.prompt, '  ', _this.renderResponseCount(question)));
+	      return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/' + _this.props.baseRoute + '/questions/' + question.key, activeClassName: 'is-active' }, _react2.default.createElement('div', { className: 'columns' }, _react2.default.createElement('div', { className: 'column' }, _react2.default.createElement('span', null, question.prompt)), _react2.default.createElement('div', { className: 'column is-1' }, _this.renderResponseCount(question)))));
 	    });
 	  },
 
@@ -74938,9 +74938,16 @@
 
 	var _section2 = _interopRequireDefault(_section);
 
+	var _pieChart = __webpack_require__(793);
+
+	var _pieChart2 = _interopRequireDefault(_pieChart);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
+
+	var labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"];
+	var colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"];
 
 	var Review = _react2.default.createClass({
 	  displayName: 'Review',
@@ -74957,8 +74964,21 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      sorting: "count",
-	      ascending: false
+	      ascending: false,
+	      visibleStatuses: {
+	        "Optimal": true,
+	        "Sub-Optimal": true,
+	        "Common Error": true,
+	        "Unmatched": true
+	      },
+	      expanded: {}
 	    };
+	  },
+
+	  expand: function expand(responseKey) {
+	    var newState = this.state.expanded;
+	    newState[responseKey] = !newState[responseKey];
+	    this.setState({ expanded: newState });
 	  },
 
 	  deleteQuestion: function deleteQuestion() {
@@ -75002,25 +75022,80 @@
 	    field === this.state.sorting ? this.setState({ ascending: !this.state.ascending }) : this.setState({ sorting: field, ascending: false });
 	  },
 
-	  renderResponses: function renderResponses() {
-	    var _this = this;
-
+	  responsesWithStatus: function responsesWithStatus() {
 	    var _props$questions2 = this.props.questions;
 	    var data = _props$questions2.data;
 	    var states = _props$questions2.states;var questionID = this.props.params.questionID;
 
 	    var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
+	    return responses.map(function (response) {
+	      var statusCode;
+	      if (!response.feedback) {
+	        statusCode = 3;
+	      } else if (!!response.parentID) {
+	        statusCode = 2;
+	      } else {
+	        statusCode = response.optimal ? 0 : 1;
+	      }
+	      response.statusCode = statusCode;
+	      return response;
+	    });
+	  },
+
+	  responsesGroupedByStatus: function responsesGroupedByStatus() {
+	    return _underscore2.default.groupBy(this.responsesWithStatus(), 'statusCode');
+	  },
+
+	  responsesByStatusCodeAndResponseCount: function responsesByStatusCodeAndResponseCount() {
+	    return _underscore2.default.mapObject(this.responsesGroupedByStatus(), function (val, key) {
+	      console.log("val: ", val);
+	      return _underscore2.default.reduce(val, function (memo, resp) {
+
+	        return memo + (resp.count || 0);
+	      }, 0);
+	    });
+	  },
+
+	  formatForPieChart: function formatForPieChart() {
+	    return _underscore2.default.mapObject(this.responsesByStatusCodeAndResponseCount(), function (val, key) {
+	      return {
+	        value: val,
+	        label: labels[key],
+	        color: colors[key]
+	      };
+	    });
+	  },
+
+	  gatherVisibleResponses: function gatherVisibleResponses() {
+	    var _this = this;
+
+	    var responses = this.responsesWithStatus();
+	    return _underscore2.default.filter(responses, function (response) {
+	      return _this.state.visibleStatuses[labels[response.statusCode]];
+	    });
+	  },
+
+	  renderResponses: function renderResponses() {
+	    var _this2 = this;
+
+	    var _props$questions3 = this.props.questions;
+	    var data = _props$questions3.data;
+	    var states = _props$questions3.states;var questionID = this.props.params.questionID;
+
+	    var responses = this.gatherVisibleResponses();
 	    var responsesListItems = _underscore2.default.sortBy(responses, function (resp) {
-	      return resp[_this.state.sorting] || 0;
+	      return resp[_this2.state.sorting] || 0;
 	    }).map(function (resp) {
-	      return _react2.default.createElement('div', { className: 'column is-half' }, _react2.default.createElement(_response2.default, {
+	      return _react2.default.createElement(_response2.default, {
 	        response: resp,
-	        getResponse: _this.getResponse,
+	        getResponse: _this2.getResponse,
 	        states: states,
 	        questionID: questionID,
-	        dispatch: _this.props.dispatch,
+	        dispatch: _this2.props.dispatch,
 	        key: resp.key,
-	        readOnly: true }));
+	        readOnly: true,
+	        expanded: _this2.state.expanded[resp.key],
+	        expand: _this2.expand });
 	    });
 	    if (this.state.ascending) {
 	      return responsesListItems;
@@ -75042,7 +75117,30 @@
 	  },
 
 	  renderSortingFields: function renderSortingFields() {
-	    return _react2.default.createElement('ul', null, this.formatSortField('Submissions', 'count'), this.formatSortField('Text', 'text'), this.formatSortField('Created At', 'createdAt'));
+	    return _react2.default.createElement('ul', null, this.formatSortField('Submissions', 'count'), this.formatSortField('Text', 'text'), this.formatSortField('Created At', 'createdAt'), this.formatSortField('Status', 'statusCode'));
+	  },
+
+	  toggleField: function toggleField(status) {
+	    var toggledStatus = {};
+	    var newVisibleStatuses = {};
+	    toggledStatus[status] = !this.state.visibleStatuses[status];
+	    _underscore2.default.extend(newVisibleStatuses, this.state.visibleStatuses, toggledStatus);
+	    this.setState({ visibleStatuses: newVisibleStatuses });
+	  },
+
+	  formatToggleField: function formatToggleField(status) {
+	    var checkBox;
+	    if (this.state.visibleStatuses[status]) {
+	      checkBox = _react2.default.createElement('input', { onChange: this.toggleField.bind(null, status), type: 'checkbox', checked: true });
+	    } else {
+	      checkBox = _react2.default.createElement('input', { onChange: this.toggleField.bind(null, status), type: 'checkbox', checked: false });
+	    }
+
+	    return _react2.default.createElement('li', null, _react2.default.createElement('label', { className: 'panel-checkbox toggle' }, checkBox, status));
+	  },
+
+	  renderStatusToggleMenu: function renderStatusToggleMenu() {
+	    return _react2.default.createElement('ul', null, this.formatToggleField(labels[0]), this.formatToggleField(labels[1]), this.formatToggleField(labels[2]), this.formatToggleField(labels[3]));
 	  },
 
 	  render: function render() {
@@ -75050,7 +75148,7 @@
 
 	    if (data[questionID]) {
 	      var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
-	      return _react2.default.createElement(_section2.default, null, _react2.default.createElement('h4', { className: 'title' }, data[questionID].prompt), _react2.default.createElement('h6', { className: 'subtitle' }, responses.length, ' Responses'), _react2.default.createElement('div', { className: 'tabs is-toggle is-fullwidth' }, this.renderSortingFields()), _react2.default.createElement('div', { className: 'columns is-multiline' }, this.renderResponses()));
+	      return _react2.default.createElement(_section2.default, null, _react2.default.createElement('h4', { className: 'title' }, data[questionID].prompt), _react2.default.createElement('h6', { className: 'subtitle' }, responses.length, ' Responses'), _react2.default.createElement('div', { className: 'columns' }, _react2.default.createElement('div', { className: 'column is-half' }, _react2.default.createElement(_pieChart2.default, { data: _underscore2.default.values(this.formatForPieChart()) }))), _react2.default.createElement('div', { className: 'tabs is-toggle is-fullwidth' }, this.renderSortingFields()), _react2.default.createElement('div', { className: 'tabs is-toggle is-fullwidth' }, this.renderStatusToggleMenu()), this.renderResponses());
 	    } else if (this.props.questions.hasreceiveddata === false) {
 	      return _react2.default.createElement('p', null, 'Loading...');
 	    } else {
@@ -75134,6 +75232,10 @@
 	  renderResponseContent: function renderResponseContent(isEditing, response) {
 	    var content;
 	    var parentDetails;
+	    if (!this.props.expanded) {
+	      return;
+	    }
+
 	    if (response.parentID) {
 	      var parent = this.props.getResponse(response.parentID);
 	      if (isEditing) {
@@ -75146,14 +75248,14 @@
 	    if (isEditing) {
 	      content = _react2.default.createElement('div', { className: 'content' }, parentDetails, _react2.default.createElement('label', { className: 'label' }, 'Feedback'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', defaultValue: response.feedback, ref: 'newResponseFeedback' })), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('label', { className: 'checkbox' }, _react2.default.createElement('input', { ref: 'newResponseOptimal', defaultChecked: response.optimal, type: 'checkbox' }), 'Optimal?')));
 	    } else {
-	      content = _react2.default.createElement('div', { className: 'content' }, parentDetails, _react2.default.createElement('strong', null, 'Feedback:'), ' ', response.feedback, _react2.default.createElement('br', null), _react2.default.createElement('strong', null, 'Grade:'), ' ', response.optimal ? 'Optimal' : 'Sub-optimal', _react2.default.createElement('br', null), _react2.default.createElement('small', null, 'Submissions: ', response.count ? response.count : 0));
+	      content = _react2.default.createElement('div', { className: 'content' }, parentDetails, _react2.default.createElement('strong', null, 'Feedback:'), ' ', response.feedback);
 	    }
 
 	    return _react2.default.createElement('div', { className: 'card-content' }, content);
 	  },
 
 	  renderResponseFooter: function renderResponseFooter(isEditing, response) {
-	    if (this.props.readOnly) {
+	    if (this.props.readOnly || !this.props.expanded) {
 	      return;
 	    }
 	    var buttons;
@@ -75180,7 +75282,21 @@
 	      bgColor = response.optimal ? "optimal-response" : "sub-optimal-response";
 	    }
 
-	    return _react2.default.createElement('header', { className: "card-header " + bgColor }, _react2.default.createElement('p', { className: 'card-header-title' }, response.text));
+	    return _react2.default.createElement('header', { className: "card-content " + bgColor + " " + this.headerClasses(), onClick: this.props.expand.bind(null, response.key) }, _react2.default.createElement('div', { className: 'content' }, _react2.default.createElement('div', { className: 'media' }, _react2.default.createElement('div', { className: 'media-content' }, _react2.default.createElement('p', null, response.text)), _react2.default.createElement('div', { className: 'media-right' }, _react2.default.createElement('figure', { className: 'image is-32x32' }, _react2.default.createElement('span', null, response.count ? response.count : 0))))));
+	  },
+
+	  cardClasses: function cardClasses() {
+	    if (this.props.expanded) {
+	      return "has-bottom-margin has-top-margin";
+	    }
+	  },
+
+	  headerClasses: function headerClasses() {
+	    if (!this.props.expanded) {
+	      return "unexpanded";
+	    } else {
+	      return "expanded";
+	    }
 	  },
 
 	  render: function render() {
@@ -75191,7 +75307,7 @@
 
 	    var isEditing = states[questionID] === _constants2.default.START_RESPONSE_EDIT + "_" + response.key;
 
-	    return _react2.default.createElement('div', { className: 'card is-fullwidth has-bottom-margin' }, this.renderResponseHeader(response), this.renderResponseContent(isEditing, response), this.renderResponseFooter(isEditing, response));
+	    return _react2.default.createElement('div', { className: "card is-fullwidth " + this.cardClasses() }, this.renderResponseHeader(response), this.renderResponseContent(isEditing, response), this.renderResponseFooter(isEditing, response));
 	  }
 	});
 
@@ -75243,780 +75359,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(598);
-
-	var _reactRouterActiveComponent = __webpack_require__(794);
-
-	var _reactRouterActiveComponent2 = _interopRequireDefault(_reactRouterActiveComponent);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	var TabLink = (0, _reactRouterActiveComponent2.default)('li');
-
-	exports.default = _react2.default.createClass({
-	  displayName: 'admin',
-
-	  render: function render() {
-	    return _react2.default.createElement('section', { className: 'section is-fullheight minus-nav' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h4', { className: 'subtitle' }, 'Admin'), _react2.default.createElement('div', { className: 'example' }, _react2.default.createElement('div', { className: 'tabs' }, _react2.default.createElement('ul', null, _react2.default.createElement(TabLink, { to: "admin/concepts", activeClassName: 'is-active' }, 'Concepts'), _react2.default.createElement(TabLink, { to: "admin/questions", activeClassName: 'is-active' }, 'Questions'), _react2.default.createElement(TabLink, { to: "admin/lessons", activeClassName: 'is-active' }, 'Lessons')))), this.props.children));
-	  }
-	});
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "admin.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 794 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(598);
-
-	module.exports = function activeComponent(Component, options) {
-	  if (!Component) {
-	    throw new Error('activeComponent() must be given a tag name or React component');
-	  }
-
-	  options = _extends({
-	    link: true,
-	    linkClassName: undefined
-	  }, options);
-
-	  return _react2['default'].createClass({
-	    contextTypes: {
-	      history: _react.PropTypes.object
-	    },
-
-	    propTypes: {
-	      activeClassName: _react.PropTypes.string.isRequired,
-	      to: _react.PropTypes.string.isRequired,
-
-	      activeStyle: _react.PropTypes.object,
-	      className: _react.PropTypes.string,
-	      link: _react.PropTypes.bool,
-	      linkClassName: _react.PropTypes.string,
-	      onlyActiveOnIndex: _react.PropTypes.bool,
-	      query: _react.PropTypes.object
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	      return {
-	        activeClassName: 'active',
-	        link: options.link,
-	        linkClassName: options.linkClassName,
-	        onlyActiveOnIndex: false
-	      };
-	    },
-
-	    render: function render() {
-	      var _props = this.props;
-	      var link = _props.link;
-	      var linkClassName = _props.linkClassName;
-	      var to = _props.to;
-	      var query = _props.query;
-	      var onlyActiveOnIndex = _props.onlyActiveOnIndex;
-	      var hash = _props.hash;
-	      var state = _props.state;
-	      var activeClassName = _props.activeClassName;
-	      var activeStyle = _props.activeStyle;
-
-	      var props = _objectWithoutProperties(_props, ['link', 'linkClassName', 'to', 'query', 'onlyActiveOnIndex', 'hash', 'state', 'activeClassName', 'activeStyle']);
-
-	      props.active = this.context.history.isActive(to, query, onlyActiveOnIndex);
-	      if (props.active) {
-	        if (activeClassName) {
-	          props.className = '' + (props.className || '') + (props.className ? ' ' : '') + activeClassName;
-	        }
-	        if (activeStyle) {
-	          props.style = _extends({}, props.style, { activeStyle: activeStyle });
-	        }
-	      }
-
-	      if (!link) {
-	        return _react2['default'].createElement(
-	          Component,
-	          props,
-	          this.props.children
-	        );
-	      }
-
-	      // Only use active styles on the container
-	      var linkProps = {
-	        to: to, query: query, hash: hash, state: state, onlyActiveOnIndex: onlyActiveOnIndex,
-	        activeClassName: null,
-	        activeStyle: null,
-	        className: linkClassName
-	      };
-	      return _react2['default'].createElement(
-	        Component,
-	        props,
-	        _react2['default'].createElement(
-	          _reactRouter.Link,
-	          linkProps,
-	          this.props.children
-	        )
-	      );
-	    }
-	  });
-	};
-
-/***/ },
-/* 795 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(349);
-
-	var _concepts = __webpack_require__(796);
-
-	var _concepts2 = _interopRequireDefault(_concepts);
-
-	var _underscore = __webpack_require__(657);
-
-	var _underscore2 = _interopRequireDefault(_underscore);
-
-	var _reactRouter = __webpack_require__(598);
-
-	var _modal = __webpack_require__(767);
-
-	var _modal2 = _interopRequireDefault(_modal);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	var Concept = _react2.default.createClass({
-	  displayName: 'Concept',
-
-	  createNew: function createNew() {
-	    this.props.dispatch(_concepts2.default.toggleNewConceptModal());
-	  },
-
-	  submitNewConcept: function submitNewConcept() {
-	    var newConcept = { name: this.refs.newConceptName.value };
-	    this.props.dispatch(_concepts2.default.submitNewConcept(newConcept));
-	    this.refs.newConceptName.value = "";
-	    // this.props.dispatch(actions.toggleNewConceptModal())
-	  },
-
-	  renderConcepts: function renderConcepts() {
-	    var data = this.props.concepts.data;
-
-	    var keys = _underscore2.default.keys(data);
-	    return keys.map(function (key) {
-	      console.log(key, data, data[key]);
-	      return _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { to: '/admin/concepts/' + key, activeClassName: 'is-active' }, data[key].name));
-	    });
-	  },
-
-	  renderModal: function renderModal() {
-	    var stateSpecificClass = this.props.concepts.submittingnew ? 'is-loading' : '';
-	    if (this.props.concepts.newConceptModalOpen) {
-	      return _react2.default.createElement(_modal2.default, { close: this.createNew }, _react2.default.createElement('div', { className: 'box' }, _react2.default.createElement('h4', { className: 'title' }, 'Add New Concept'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('label', { className: 'label' }, 'Name'), _react2.default.createElement('input', {
-	        className: 'input',
-	        type: 'text',
-	        placeholder: 'Text input',
-	        ref: 'newConceptName'
-	      })), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: "button is-primary " + stateSpecificClass, onClick: this.submitNewConcept }, 'Submit'))));
-	    }
-	  },
-
-	  render: function render() {
-	    console.log(this.props.concepts);
-	    return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h1', { className: 'title' }, _react2.default.createElement('button', { className: 'button is-primary', onClick: this.createNew }, 'Create New concept')), this.renderModal(), _react2.default.createElement('div', { className: 'columns' }, _react2.default.createElement('div', { className: 'column' }, _react2.default.createElement('aside', { className: 'menu' }, _react2.default.createElement('p', { className: 'menu-label' }, 'Concepts'), _react2.default.createElement('ul', { className: 'menu-list' }, this.renderConcepts()))), _react2.default.createElement('div', { className: 'column' }, this.props.children))));
-	  }
-	});
-
-	function select(state) {
-	  return {
-	    concepts: state.concepts,
-	    routing: state.routing
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(select)(Concept);
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 796 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	"use strict";
-
-	var _reactRouterRedux = __webpack_require__(661);
-
-	var C = __webpack_require__(666).default,
-	    Firebase = __webpack_require__(667),
-	    conceptsRef = new Firebase(C.FIREBASE).child("concepts");
-
-	module.exports = {
-		// called when the app starts. this means we immediately download all quotes, and
-		// then receive all quotes again as soon as anyone changes anything.
-		startListeningToConcepts: function startListeningToConcepts() {
-			return function (dispatch, getState) {
-				conceptsRef.on("value", function (snapshot) {
-					dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: snapshot.val() });
-				});
-			};
-		},
-		startConceptEdit: function startConceptEdit(cid) {
-			return { type: C.START_CONCEPT_EDIT, cid: cid };
-		},
-		cancelConceptEdit: function cancelConceptEdit(cid) {
-			return { type: C.FINISH_CONCEPT_EDIT, cid: cid };
-		},
-		deleteConcept: function deleteConcept(cid) {
-			return function (dispatch, getState) {
-				dispatch({ type: C.SUBMIT_CONCEPT_EDIT, cid: cid });
-				conceptsRef.child(cid).remove(function (error) {
-					dispatch({ type: C.FINISH_CONCEPT_EDIT, cid: cid });
-					if (error) {
-						dispatch({ type: C.DISPLAY_ERROR, error: "Deletion failed! " + error });
-					} else {
-						dispatch({ type: C.DISPLAY_MESSAGE, message: "Concept successfully deleted!" });
-					}
-				});
-			};
-		},
-		submitConceptEdit: function submitConceptEdit(cid, content) {
-			return function (dispatch, getState) {
-				dispatch({ type: C.SUBMIT_CONCEPT_EDIT, cid: cid });
-				conceptsRef.child(cid).set(content, function (error) {
-					dispatch({ type: C.FINISH_CONCEPT_EDIT, cid: cid });
-					if (error) {
-						dispatch({ type: C.DISPLAY_ERROR, error: "Update failed! " + error });
-					} else {
-						dispatch({ type: C.DISPLAY_MESSAGE, message: "Update successfully saved!" });
-					}
-				});
-			};
-		},
-		toggleNewConceptModal: function toggleNewConceptModal() {
-			return { type: C.TOGGLE_NEW_CONCEPT_MODAL };
-		},
-		submitNewConcept: function submitNewConcept(content) {
-			return function (dispatch, getState) {
-				dispatch({ type: C.AWAIT_NEW_CONCEPT_RESPONSE });
-				var newRef = conceptsRef.push(content, function (error) {
-					dispatch({ type: C.RECEIVE_NEW_CONCEPT_RESPONSE });
-					if (error) {
-						dispatch({ type: C.DISPLAY_ERROR, error: "Submission failed! " + error });
-					} else {
-						dispatch({ type: C.DISPLAY_MESSAGE, message: "Submission successfully saved!" });
-						var action = (0, _reactRouterRedux.push)('/admin/concepts/' + newRef.key());
-						dispatch(action);
-					}
-				});
-			};
-		}
-	};
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 797 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(349);
-
-	var _reactRouter = __webpack_require__(598);
-
-	var _concepts = __webpack_require__(796);
-
-	var _concepts2 = _interopRequireDefault(_concepts);
-
-	var _questions = __webpack_require__(659);
-
-	var _questions2 = _interopRequireDefault(_questions);
-
-	var _underscore = __webpack_require__(657);
-
-	var _underscore2 = _interopRequireDefault(_underscore);
-
-	var _hashToCollection = __webpack_require__(654);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	var Concepts = _react2.default.createClass({
-	  displayName: 'Concepts',
-
-	  // renderConcepts: function () {
-	  //   const {data} = this.props.concepts;
-	  //   const keys = _.keys(data);
-	  //   return keys.map((key) => {
-	  //     console.log(key, data, data[key])
-	  //     return (<li><Link to={'/admin/concepts/' + key}>{data[key].name}</Link></li>)
-	  //   })
-	  // },
-
-	  deleteConcept: function deleteConcept() {
-	    this.props.dispatch(_concepts2.default.deleteConcept(this.props.params.conceptID));
-	  },
-
-	  submitNewQuestion: function submitNewQuestion() {
-	    if (this.refs.newQuestionPrompt.value !== '') {
-	      this.props.dispatch(_questions2.default.submitNewQuestion({
-	        prompt: this.refs.newQuestionPrompt.value,
-	        conceptID: this.props.params.conceptID }, { text: this.refs.newQuestionOptimalResponse.value, optimal: true, count: 0, feedback: "That's a great sentence!" }));
-	      this.refs.newQuestionPrompt.value = '';
-	      this.refs.newQuestionPrompt.focus();
-	    }
-	  },
-
-	  questionsForConcept: function questionsForConcept() {
-	    var questionsCollection = (0, _hashToCollection.hashToCollection)(this.props.questions.data);
-	    return _underscore2.default.where(questionsCollection, { conceptID: this.props.params.conceptID });
-	  },
-
-	  renderQuestionsForConcept: function renderQuestionsForConcept() {
-	    var questionsForConcept = this.questionsForConcept();
-	    var listItems = questionsForConcept.map(function (question) {
-	      return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/admin/questions/' + question.key }, question.prompt));
-	    });
-	    return _react2.default.createElement('ul', null, listItems);
-	  },
-
-	  renderNewQuestionForm: function renderNewQuestionForm() {
-	    return _react2.default.createElement('div', { className: 'box' }, _react2.default.createElement('h6', { className: 'control subtitle' }, 'Create a new question'), _react2.default.createElement('label', { className: 'label' }, 'Prompt'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', ref: 'newQuestionPrompt' })), _react2.default.createElement('label', { className: 'label' }, 'Optimal Response'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', ref: 'newQuestionOptimalResponse' })), _react2.default.createElement('button', { className: 'button is-primary', onClick: this.submitNewQuestion }, 'Add Question'));
-	  },
-
-	  render: function render() {
-	    console.log(this.props.concepts);
-	    var data = this.props.concepts.data;var conceptID = this.props.params.conceptID;
-
-	    if (data[conceptID]) {
-	      return _react2.default.createElement('div', null, _react2.default.createElement('h4', { className: 'title' }, data[conceptID].name), _react2.default.createElement('h6', { className: 'subtitle' }, this.questionsForConcept().length, ' Questions'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: 'button is-info', onClick: this.editConcept }, 'Edit Concept'), ' ', _react2.default.createElement('button', { className: 'button is-danger', onClick: this.deleteConcept }, 'Delete Concept')), this.renderNewQuestionForm(), this.renderQuestionsForConcept());
-	    } else if (this.props.concepts.hasreceiveddata === false) {
-	      return _react2.default.createElement('p', null, 'Loading...');
-	    } else {
-	      return _react2.default.createElement('p', null, '404: No Concept Found');
-	    }
-	  }
-	});
-
-	function select(state) {
-	  return {
-	    concepts: state.concepts,
-	    questions: state.questions,
-	    routing: state.routing
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(select)(Concepts);
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concept.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 798 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(349);
-
-	var _questions = __webpack_require__(659);
-
-	var _questions2 = _interopRequireDefault(_questions);
-
-	var _underscore = __webpack_require__(657);
-
-	var _underscore2 = _interopRequireDefault(_underscore);
-
-	var _reactRouter = __webpack_require__(598);
-
-	var _modal = __webpack_require__(767);
-
-	var _modal2 = _interopRequireDefault(_modal);
-
-	var _hashToCollection = __webpack_require__(654);
-
-	var _questionsList = __webpack_require__(658);
-
-	var _questionsList2 = _interopRequireDefault(_questionsList);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	var Questions = _react2.default.createClass({
-	  displayName: 'Questions',
-
-	  createNew: function createNew() {
-	    this.props.dispatch(_questions2.default.toggleNewQuestionModal());
-	  },
-
-	  submitNewQuestion: function submitNewQuestion() {
-	    var newQuestion = { name: this.refs.newQuestionName.value };
-	    this.props.dispatch(_questions2.default.submitNewQuestion(newQuestion));
-	    this.refs.newQuestionName.value = "";
-	    // this.props.dispatch(actions.toggleNewQuestionModal())
-	  },
-
-	  renderModal: function renderModal() {
-	    var stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
-	    if (this.props.questions.newQuestionModalOpen) {
-	      return _react2.default.createElement(_modal2.default, { close: this.createNew }, _react2.default.createElement('div', { className: 'box' }, _react2.default.createElement('h4', { className: 'title' }, 'Add New Question'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('label', { className: 'label' }, 'Name'), _react2.default.createElement('input', {
-	        className: 'input',
-	        type: 'text',
-	        placeholder: 'Text input',
-	        ref: 'newQuestionName'
-	      })), _react2.default.createElement('p', { 'class': 'control' }, _react2.default.createElement('span', { 'class': 'select' }, _react2.default.createElement('select', null, _react2.default.createElement('option', null, 'Choose a concept'), _react2.default.createElement('option', null, 'And'), _react2.default.createElement('option', null, 'Or')))), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: "button is-primary " + stateSpecificClass, onClick: this.submitNewQuestion }, 'Submit'))));
-	    }
-	  },
-
-	  render: function render() {
-	    var _props = this.props;
-	    var questions = _props.questions;
-	    var concepts = _props.concepts;
-
-	    return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, this.renderModal(), _react2.default.createElement('div', { className: 'columns' }, _react2.default.createElement('div', { className: 'column' }, _react2.default.createElement(_questionsList2.default, { questions: questions, concepts: concepts, baseRoute: "admin" })), _react2.default.createElement('div', { className: 'column' }, this.props.children))));
-	  }
-	});
-
-	function select(state) {
-	  return {
-	    concepts: state.concepts,
-	    questions: state.questions,
-	    routing: state.routing
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(select)(Questions);
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questions.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 799 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(349);
-
-	var _questions = __webpack_require__(659);
-
-	var _questions2 = _interopRequireDefault(_questions);
-
-	var _underscore = __webpack_require__(657);
-
-	var _underscore2 = _interopRequireDefault(_underscore);
-
-	var _hashToCollection = __webpack_require__(654);
-
-	var _modal = __webpack_require__(767);
-
-	var _modal2 = _interopRequireDefault(_modal);
-
-	var _questionForm = __webpack_require__(800);
-
-	var _questionForm2 = _interopRequireDefault(_questionForm);
-
-	var _response = __webpack_require__(791);
-
-	var _response2 = _interopRequireDefault(_response);
-
-	var _constants = __webpack_require__(666);
-
-	var _constants2 = _interopRequireDefault(_constants);
-
-	var _pieChart = __webpack_require__(801);
-
-	var _pieChart2 = _interopRequireDefault(_pieChart);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	var labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"];
-	var colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"];
-
-	var Question = _react2.default.createClass({
-	  displayName: 'Question',
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      sorting: "count",
-	      ascending: false
-	    };
-	  },
-
-	  deleteQuestion: function deleteQuestion() {
-	    this.props.dispatch(_questions2.default.deleteQuestion(this.props.params.questionID));
-	  },
-
-	  startEditingQuestion: function startEditingQuestion() {
-	    this.props.dispatch(_questions2.default.startQuestionEdit(this.props.params.questionID));
-	  },
-
-	  cancelEditingQuestion: function cancelEditingQuestion() {
-	    this.props.dispatch(_questions2.default.cancelQuestionEdit(this.props.params.questionID));
-	  },
-
-	  saveQuestionEdits: function saveQuestionEdits(vals) {
-	    this.props.dispatch(_questions2.default.submitQuestionEdit(this.props.params.questionID, vals));
-	  },
-
-	  getResponse: function getResponse(responseID) {
-	    var _props$questions = this.props.questions;
-	    var data = _props$questions.data;
-	    var states = _props$questions.states;var questionID = this.props.params.questionID;
-
-	    var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
-	    return _underscore2.default.find(responses, { key: responseID });
-	  },
-
-	  responsesWithStatus: function responsesWithStatus() {
-	    var _props$questions2 = this.props.questions;
-	    var data = _props$questions2.data;
-	    var states = _props$questions2.states;var questionID = this.props.params.questionID;
-
-	    var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
-	    return responses.map(function (response) {
-	      var statusCode;
-	      if (!response.feedback) {
-	        statusCode = 3;
-	      } else if (!!response.parentID) {
-	        statusCode = 2;
-	      } else {
-	        statusCode = response.optimal ? 0 : 1;
-	      }
-	      response.statusCode = statusCode;
-	      return response;
-	    });
-	  },
-
-	  responsesGroupedByStatus: function responsesGroupedByStatus() {
-	    return _underscore2.default.groupBy(this.responsesWithStatus(), 'statusCode');
-	  },
-
-	  responsesByStatusCodeAndResponseCount: function responsesByStatusCodeAndResponseCount() {
-	    return _underscore2.default.mapObject(this.responsesGroupedByStatus(), function (val, key) {
-	      console.log("val: ", val);
-	      return _underscore2.default.reduce(val, function (memo, resp) {
-
-	        return memo + (resp.count || 0);
-	      }, 0);
-	    });
-	  },
-
-	  formatForPieChart: function formatForPieChart() {
-	    return _underscore2.default.mapObject(this.responsesByStatusCodeAndResponseCount(), function (val, key) {
-	      return {
-	        value: val,
-	        label: labels[key],
-	        color: colors[key]
-	      };
-	    });
-	  },
-
-	  submitNewResponse: function submitNewResponse() {
-	    var newResp = {
-	      vals: {
-	        text: this.refs.newResponseText.value,
-	        feedback: this.refs.newResponseFeedback.value,
-	        optimal: this.refs.newResponseOptimal.checked
-	      },
-	      questionID: this.props.params.questionID
-	    };
-	    this.props.dispatch(_questions2.default.submitNewResponse(newResp.questionID, newResp.vals));
-	  },
-
-	  toggleResponseSort: function toggleResponseSort(field) {
-	    field === this.state.sorting ? this.setState({ ascending: !this.state.ascending }) : this.setState({ sorting: field, ascending: false });
-	  },
-
-	  renderResponses: function renderResponses() {
-	    var _this = this;
-
-	    var _props$questions3 = this.props.questions;
-	    var data = _props$questions3.data;
-	    var states = _props$questions3.states;var questionID = this.props.params.questionID;
-
-	    var responses = this.responsesWithStatus();
-	    var responsesListItems = _underscore2.default.sortBy(responses, function (resp) {
-	      return resp[_this.state.sorting] || 0;
-	    }).map(function (resp) {
-	      return _react2.default.createElement(_response2.default, {
-	        response: resp,
-	        getResponse: _this.getResponse,
-	        states: states,
-	        questionID: questionID,
-	        dispatch: _this.props.dispatch,
-	        key: resp.key,
-	        readOnly: false });
-	    });
-	    if (this.state.ascending) {
-	      return responsesListItems;
-	    } else {
-	      return responsesListItems.reverse();
-	    }
-	  },
-
-	  renderArrow: function renderArrow() {
-	    return _react2.default.createElement('p', { style: 'display: inline;' }, this.state.ascending ? "&uarr;" : "&darr;");
-	  },
-
-	  renderNewResponseForm: function renderNewResponseForm() {
-	    return _react2.default.createElement('div', { className: 'box' }, _react2.default.createElement('h6', { className: 'control subtitle' }, 'Add a new response'), _react2.default.createElement('label', { className: 'label' }, 'Response text'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', ref: 'newResponseText' })), _react2.default.createElement('label', { className: 'label' }, 'Feedback'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', ref: 'newResponseFeedback' })), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('label', { className: 'checkbox' }, _react2.default.createElement('input', { ref: 'newResponseOptimal', type: 'checkbox' }), 'Optimal?')), _react2.default.createElement('button', { className: 'button is-primary', onClick: this.submitNewResponse }, 'Add Response'));
-	  },
-
-	  renderEditForm: function renderEditForm() {
-	    var data = this.props.questions.data;var questionID = this.props.params.questionID;
-
-	    var question = data[questionID];
-	    if (this.props.questions.states[questionID] === _constants2.default.EDITING_QUESTION) {
-	      return _react2.default.createElement(_modal2.default, { close: this.cancelEditingQuestion }, _react2.default.createElement(_questionForm2.default, { question: question, submit: this.saveQuestionEdits }));
-	    }
-	  },
-
-	  formatSortField: function formatSortField(displayName, stateName) {
-	    if (this.state.sorting === stateName) {
-	      return _react2.default.createElement('li', { className: 'is-active' }, _react2.default.createElement('a', { onClick: this.toggleResponseSort.bind(null, stateName) }, displayName, ' ', this.state.ascending ? "^" : "v"));
-	    } else {
-	      return _react2.default.createElement('li', null, _react2.default.createElement('a', { onClick: this.toggleResponseSort.bind(null, stateName) }, displayName));
-	    }
-	  },
-
-	  renderSortingFields: function renderSortingFields() {
-	    return _react2.default.createElement('ul', null, this.formatSortField('Submissions', 'count'), this.formatSortField('Text', 'text'), this.formatSortField('Created At', 'createdAt'), this.formatSortField('Status', 'statusCode'));
-	  },
-
-	  render: function render() {
-	    var data = this.props.questions.data;var questionID = this.props.params.questionID;
-
-	    if (data[questionID]) {
-	      var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
-	      return _react2.default.createElement('div', null, this.renderEditForm(), _react2.default.createElement('h4', { className: 'title' }, data[questionID].prompt), _react2.default.createElement('h6', { className: 'subtitle' }, responses.length, ' Responses'), _react2.default.createElement(_pieChart2.default, { data: _underscore2.default.values(this.formatForPieChart()) }), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: 'button is-info', onClick: this.startEditingQuestion }, 'Edit Question'), ' ', _react2.default.createElement('button', { className: 'button is-danger', onClick: this.deleteQuestion }, 'Delete Question')), this.renderNewResponseForm(), _react2.default.createElement('div', { className: 'tabs is-toggle is-fullwidth' }, this.renderSortingFields()), this.renderResponses());
-	    } else if (this.props.questions.hasreceiveddata === false) {
-	      return _react2.default.createElement('p', null, 'Loading...');
-	    } else {
-	      return _react2.default.createElement('p', null, '404: No Question Found');
-	    }
-	  }
-	});
-
-	function select(state) {
-	  return {
-	    concepts: state.concepts,
-	    questions: state.questions,
-	    routing: state.routing
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(select)(Question);
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "question.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 800 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	exports.default = _react2.default.createClass({
-	  displayName: "questionForm",
-
-	  submit: function submit() {
-	    this.props.submit({ prompt: this.refs.prompt.value });
-	  },
-
-	  render: function render() {
-	    return _react2.default.createElement("div", { className: "box" }, _react2.default.createElement("h6", { className: "control subtitle" }, "Create a new question"), _react2.default.createElement("label", { className: "label" }, "Prompt"), _react2.default.createElement("p", { className: "control" }, _react2.default.createElement("input", { className: "input", type: "text", ref: "prompt", defaultValue: this.props.question.prompt })), _react2.default.createElement("button", { className: "button is-primary", onClick: this.submit }, "Update Question"));
-	  }
-	});
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questionForm.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 801 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactSimplePieChart = __webpack_require__(802);
+	var _reactSimplePieChart = __webpack_require__(794);
 
 	var _reactSimplePieChart2 = _interopRequireDefault(_reactSimplePieChart);
 
@@ -76049,7 +75392,7 @@
 	      slices: this.props.data
 
 	    })), _react2.default.createElement('div', { className: 'column' }, this.props.data.map(function (d, i) {
-	      return _react2.default.createElement('div', { key: i }, _react2.default.createElement('span', { style: { backgroundColor: d.color, width: '20px', marginRight: 5, color: d.color, borderRadius: '100%' } }, 'OO'), _react2.default.createElement('span', { style: { fontWeight: _this.state.expandedSector == i ? 'bold' : null } }, d.label, ' : ', d.value));
+	      return _react2.default.createElement('div', { key: i }, _react2.default.createElement('span', { style: { backgroundColor: d.color, width: '20px', marginRight: 5, color: d.color, borderRadius: '100%' } }, 'OO'), _react2.default.createElement('span', { style: { fontWeight: _this.state.expandedSector == i ? 'bold' : null } }, d.label, ': ', d.value));
 	    })));
 	  }
 	});
@@ -76057,7 +75400,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "pieChart.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 802 */
+/* 794 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76188,6 +75531,827 @@
 	};
 	module.exports = exports['default'];
 
+
+/***/ },
+/* 795 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(598);
+
+	var _reactRouterActiveComponent = __webpack_require__(796);
+
+	var _reactRouterActiveComponent2 = _interopRequireDefault(_reactRouterActiveComponent);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var TabLink = (0, _reactRouterActiveComponent2.default)('li');
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'admin',
+
+	  render: function render() {
+	    return _react2.default.createElement('section', { className: 'section is-fullheight minus-nav' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h4', { className: 'subtitle' }, 'Admin'), _react2.default.createElement('div', { className: 'example' }, _react2.default.createElement('div', { className: 'tabs' }, _react2.default.createElement('ul', null, _react2.default.createElement(TabLink, { to: "admin/concepts", activeClassName: 'is-active' }, 'Concepts'), _react2.default.createElement(TabLink, { to: "admin/questions", activeClassName: 'is-active' }, 'Questions'), _react2.default.createElement(TabLink, { to: "admin/lessons", activeClassName: 'is-active' }, 'Lessons')))), this.props.children));
+	  }
+	});
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "admin.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 796 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(598);
+
+	module.exports = function activeComponent(Component, options) {
+	  if (!Component) {
+	    throw new Error('activeComponent() must be given a tag name or React component');
+	  }
+
+	  options = _extends({
+	    link: true,
+	    linkClassName: undefined
+	  }, options);
+
+	  return _react2['default'].createClass({
+	    contextTypes: {
+	      history: _react.PropTypes.object
+	    },
+
+	    propTypes: {
+	      activeClassName: _react.PropTypes.string.isRequired,
+	      to: _react.PropTypes.string.isRequired,
+
+	      activeStyle: _react.PropTypes.object,
+	      className: _react.PropTypes.string,
+	      link: _react.PropTypes.bool,
+	      linkClassName: _react.PropTypes.string,
+	      onlyActiveOnIndex: _react.PropTypes.bool,
+	      query: _react.PropTypes.object
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	      return {
+	        activeClassName: 'active',
+	        link: options.link,
+	        linkClassName: options.linkClassName,
+	        onlyActiveOnIndex: false
+	      };
+	    },
+
+	    render: function render() {
+	      var _props = this.props;
+	      var link = _props.link;
+	      var linkClassName = _props.linkClassName;
+	      var to = _props.to;
+	      var query = _props.query;
+	      var onlyActiveOnIndex = _props.onlyActiveOnIndex;
+	      var hash = _props.hash;
+	      var state = _props.state;
+	      var activeClassName = _props.activeClassName;
+	      var activeStyle = _props.activeStyle;
+
+	      var props = _objectWithoutProperties(_props, ['link', 'linkClassName', 'to', 'query', 'onlyActiveOnIndex', 'hash', 'state', 'activeClassName', 'activeStyle']);
+
+	      props.active = this.context.history.isActive(to, query, onlyActiveOnIndex);
+	      if (props.active) {
+	        if (activeClassName) {
+	          props.className = '' + (props.className || '') + (props.className ? ' ' : '') + activeClassName;
+	        }
+	        if (activeStyle) {
+	          props.style = _extends({}, props.style, { activeStyle: activeStyle });
+	        }
+	      }
+
+	      if (!link) {
+	        return _react2['default'].createElement(
+	          Component,
+	          props,
+	          this.props.children
+	        );
+	      }
+
+	      // Only use active styles on the container
+	      var linkProps = {
+	        to: to, query: query, hash: hash, state: state, onlyActiveOnIndex: onlyActiveOnIndex,
+	        activeClassName: null,
+	        activeStyle: null,
+	        className: linkClassName
+	      };
+	      return _react2['default'].createElement(
+	        Component,
+	        props,
+	        _react2['default'].createElement(
+	          _reactRouter.Link,
+	          linkProps,
+	          this.props.children
+	        )
+	      );
+	    }
+	  });
+	};
+
+/***/ },
+/* 797 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(349);
+
+	var _concepts = __webpack_require__(798);
+
+	var _concepts2 = _interopRequireDefault(_concepts);
+
+	var _underscore = __webpack_require__(657);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	var _reactRouter = __webpack_require__(598);
+
+	var _modal = __webpack_require__(767);
+
+	var _modal2 = _interopRequireDefault(_modal);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Concept = _react2.default.createClass({
+	  displayName: 'Concept',
+
+	  createNew: function createNew() {
+	    this.props.dispatch(_concepts2.default.toggleNewConceptModal());
+	  },
+
+	  submitNewConcept: function submitNewConcept() {
+	    var newConcept = { name: this.refs.newConceptName.value };
+	    this.props.dispatch(_concepts2.default.submitNewConcept(newConcept));
+	    this.refs.newConceptName.value = "";
+	    // this.props.dispatch(actions.toggleNewConceptModal())
+	  },
+
+	  renderConcepts: function renderConcepts() {
+	    var data = this.props.concepts.data;
+
+	    var keys = _underscore2.default.keys(data);
+	    return keys.map(function (key) {
+	      console.log(key, data, data[key]);
+	      return _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { to: '/admin/concepts/' + key, activeClassName: 'is-active' }, data[key].name));
+	    });
+	  },
+
+	  renderModal: function renderModal() {
+	    var stateSpecificClass = this.props.concepts.submittingnew ? 'is-loading' : '';
+	    if (this.props.concepts.newConceptModalOpen) {
+	      return _react2.default.createElement(_modal2.default, { close: this.createNew }, _react2.default.createElement('div', { className: 'box' }, _react2.default.createElement('h4', { className: 'title' }, 'Add New Concept'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('label', { className: 'label' }, 'Name'), _react2.default.createElement('input', {
+	        className: 'input',
+	        type: 'text',
+	        placeholder: 'Text input',
+	        ref: 'newConceptName'
+	      })), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: "button is-primary " + stateSpecificClass, onClick: this.submitNewConcept }, 'Submit'))));
+	    }
+	  },
+
+	  render: function render() {
+	    console.log(this.props.concepts);
+	    return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h1', { className: 'title' }, _react2.default.createElement('button', { className: 'button is-primary', onClick: this.createNew }, 'Create New concept')), this.renderModal(), _react2.default.createElement('div', { className: 'columns' }, _react2.default.createElement('div', { className: 'column' }, _react2.default.createElement('aside', { className: 'menu' }, _react2.default.createElement('p', { className: 'menu-label' }, 'Concepts'), _react2.default.createElement('ul', { className: 'menu-list' }, this.renderConcepts()))), _react2.default.createElement('div', { className: 'column' }, this.props.children))));
+	  }
+	});
+
+	function select(state) {
+	  return {
+	    concepts: state.concepts,
+	    routing: state.routing
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(select)(Concept);
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 798 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	"use strict";
+
+	var _reactRouterRedux = __webpack_require__(661);
+
+	var C = __webpack_require__(666).default,
+	    Firebase = __webpack_require__(667),
+	    conceptsRef = new Firebase(C.FIREBASE).child("concepts");
+
+	module.exports = {
+		// called when the app starts. this means we immediately download all quotes, and
+		// then receive all quotes again as soon as anyone changes anything.
+		startListeningToConcepts: function startListeningToConcepts() {
+			return function (dispatch, getState) {
+				conceptsRef.on("value", function (snapshot) {
+					dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: snapshot.val() });
+				});
+			};
+		},
+		startConceptEdit: function startConceptEdit(cid) {
+			return { type: C.START_CONCEPT_EDIT, cid: cid };
+		},
+		cancelConceptEdit: function cancelConceptEdit(cid) {
+			return { type: C.FINISH_CONCEPT_EDIT, cid: cid };
+		},
+		deleteConcept: function deleteConcept(cid) {
+			return function (dispatch, getState) {
+				dispatch({ type: C.SUBMIT_CONCEPT_EDIT, cid: cid });
+				conceptsRef.child(cid).remove(function (error) {
+					dispatch({ type: C.FINISH_CONCEPT_EDIT, cid: cid });
+					if (error) {
+						dispatch({ type: C.DISPLAY_ERROR, error: "Deletion failed! " + error });
+					} else {
+						dispatch({ type: C.DISPLAY_MESSAGE, message: "Concept successfully deleted!" });
+					}
+				});
+			};
+		},
+		submitConceptEdit: function submitConceptEdit(cid, content) {
+			return function (dispatch, getState) {
+				dispatch({ type: C.SUBMIT_CONCEPT_EDIT, cid: cid });
+				conceptsRef.child(cid).set(content, function (error) {
+					dispatch({ type: C.FINISH_CONCEPT_EDIT, cid: cid });
+					if (error) {
+						dispatch({ type: C.DISPLAY_ERROR, error: "Update failed! " + error });
+					} else {
+						dispatch({ type: C.DISPLAY_MESSAGE, message: "Update successfully saved!" });
+					}
+				});
+			};
+		},
+		toggleNewConceptModal: function toggleNewConceptModal() {
+			return { type: C.TOGGLE_NEW_CONCEPT_MODAL };
+		},
+		submitNewConcept: function submitNewConcept(content) {
+			return function (dispatch, getState) {
+				dispatch({ type: C.AWAIT_NEW_CONCEPT_RESPONSE });
+				var newRef = conceptsRef.push(content, function (error) {
+					dispatch({ type: C.RECEIVE_NEW_CONCEPT_RESPONSE });
+					if (error) {
+						dispatch({ type: C.DISPLAY_ERROR, error: "Submission failed! " + error });
+					} else {
+						dispatch({ type: C.DISPLAY_MESSAGE, message: "Submission successfully saved!" });
+						var action = (0, _reactRouterRedux.push)('/admin/concepts/' + newRef.key());
+						dispatch(action);
+					}
+				});
+			};
+		}
+	};
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concepts.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 799 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(349);
+
+	var _reactRouter = __webpack_require__(598);
+
+	var _concepts = __webpack_require__(798);
+
+	var _concepts2 = _interopRequireDefault(_concepts);
+
+	var _questions = __webpack_require__(659);
+
+	var _questions2 = _interopRequireDefault(_questions);
+
+	var _underscore = __webpack_require__(657);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	var _hashToCollection = __webpack_require__(654);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Concepts = _react2.default.createClass({
+	  displayName: 'Concepts',
+
+	  // renderConcepts: function () {
+	  //   const {data} = this.props.concepts;
+	  //   const keys = _.keys(data);
+	  //   return keys.map((key) => {
+	  //     console.log(key, data, data[key])
+	  //     return (<li><Link to={'/admin/concepts/' + key}>{data[key].name}</Link></li>)
+	  //   })
+	  // },
+
+	  deleteConcept: function deleteConcept() {
+	    this.props.dispatch(_concepts2.default.deleteConcept(this.props.params.conceptID));
+	  },
+
+	  submitNewQuestion: function submitNewQuestion() {
+	    if (this.refs.newQuestionPrompt.value !== '') {
+	      this.props.dispatch(_questions2.default.submitNewQuestion({
+	        prompt: this.refs.newQuestionPrompt.value,
+	        conceptID: this.props.params.conceptID }, { text: this.refs.newQuestionOptimalResponse.value, optimal: true, count: 0, feedback: "That's a great sentence!" }));
+	      this.refs.newQuestionPrompt.value = '';
+	      this.refs.newQuestionPrompt.focus();
+	    }
+	  },
+
+	  questionsForConcept: function questionsForConcept() {
+	    var questionsCollection = (0, _hashToCollection.hashToCollection)(this.props.questions.data);
+	    return _underscore2.default.where(questionsCollection, { conceptID: this.props.params.conceptID });
+	  },
+
+	  renderQuestionsForConcept: function renderQuestionsForConcept() {
+	    var questionsForConcept = this.questionsForConcept();
+	    var listItems = questionsForConcept.map(function (question) {
+	      return _react2.default.createElement('li', { key: question.key }, _react2.default.createElement(_reactRouter.Link, { to: '/admin/questions/' + question.key }, question.prompt));
+	    });
+	    return _react2.default.createElement('ul', null, listItems);
+	  },
+
+	  renderNewQuestionForm: function renderNewQuestionForm() {
+	    return _react2.default.createElement('div', { className: 'box' }, _react2.default.createElement('h6', { className: 'control subtitle' }, 'Create a new question'), _react2.default.createElement('label', { className: 'label' }, 'Prompt'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', ref: 'newQuestionPrompt' })), _react2.default.createElement('label', { className: 'label' }, 'Optimal Response'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', ref: 'newQuestionOptimalResponse' })), _react2.default.createElement('button', { className: 'button is-primary', onClick: this.submitNewQuestion }, 'Add Question'));
+	  },
+
+	  render: function render() {
+	    console.log(this.props.concepts);
+	    var data = this.props.concepts.data;var conceptID = this.props.params.conceptID;
+
+	    if (data[conceptID]) {
+	      return _react2.default.createElement('div', null, _react2.default.createElement('h4', { className: 'title' }, data[conceptID].name), _react2.default.createElement('h6', { className: 'subtitle' }, this.questionsForConcept().length, ' Questions'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: 'button is-info', onClick: this.editConcept }, 'Edit Concept'), ' ', _react2.default.createElement('button', { className: 'button is-danger', onClick: this.deleteConcept }, 'Delete Concept')), this.renderNewQuestionForm(), this.renderQuestionsForConcept());
+	    } else if (this.props.concepts.hasreceiveddata === false) {
+	      return _react2.default.createElement('p', null, 'Loading...');
+	    } else {
+	      return _react2.default.createElement('p', null, '404: No Concept Found');
+	    }
+	  }
+	});
+
+	function select(state) {
+	  return {
+	    concepts: state.concepts,
+	    questions: state.questions,
+	    routing: state.routing
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(select)(Concepts);
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "concept.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 800 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(349);
+
+	var _questions = __webpack_require__(659);
+
+	var _questions2 = _interopRequireDefault(_questions);
+
+	var _underscore = __webpack_require__(657);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	var _reactRouter = __webpack_require__(598);
+
+	var _modal = __webpack_require__(767);
+
+	var _modal2 = _interopRequireDefault(_modal);
+
+	var _hashToCollection = __webpack_require__(654);
+
+	var _questionsList = __webpack_require__(658);
+
+	var _questionsList2 = _interopRequireDefault(_questionsList);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Questions = _react2.default.createClass({
+	  displayName: 'Questions',
+
+	  createNew: function createNew() {
+	    this.props.dispatch(_questions2.default.toggleNewQuestionModal());
+	  },
+
+	  submitNewQuestion: function submitNewQuestion() {
+	    var newQuestion = { name: this.refs.newQuestionName.value };
+	    this.props.dispatch(_questions2.default.submitNewQuestion(newQuestion));
+	    this.refs.newQuestionName.value = "";
+	    // this.props.dispatch(actions.toggleNewQuestionModal())
+	  },
+
+	  renderModal: function renderModal() {
+	    var stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
+	    if (this.props.questions.newQuestionModalOpen) {
+	      return _react2.default.createElement(_modal2.default, { close: this.createNew }, _react2.default.createElement('div', { className: 'box' }, _react2.default.createElement('h4', { className: 'title' }, 'Add New Question'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('label', { className: 'label' }, 'Name'), _react2.default.createElement('input', {
+	        className: 'input',
+	        type: 'text',
+	        placeholder: 'Text input',
+	        ref: 'newQuestionName'
+	      })), _react2.default.createElement('p', { 'class': 'control' }, _react2.default.createElement('span', { 'class': 'select' }, _react2.default.createElement('select', null, _react2.default.createElement('option', null, 'Choose a concept'), _react2.default.createElement('option', null, 'And'), _react2.default.createElement('option', null, 'Or')))), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: "button is-primary " + stateSpecificClass, onClick: this.submitNewQuestion }, 'Submit'))));
+	    }
+	  },
+
+	  render: function render() {
+	    var _props = this.props;
+	    var questions = _props.questions;
+	    var concepts = _props.concepts;
+
+	    return _react2.default.createElement('section', { className: 'section' }, _react2.default.createElement('div', { className: 'container' }, this.renderModal(), _react2.default.createElement('div', { className: 'columns' }, _react2.default.createElement('div', { className: 'column' }, _react2.default.createElement(_questionsList2.default, { questions: questions, concepts: concepts, baseRoute: "admin" })), _react2.default.createElement('div', { className: 'column' }, this.props.children))));
+	  }
+	});
+
+	function select(state) {
+	  return {
+	    concepts: state.concepts,
+	    questions: state.questions,
+	    routing: state.routing
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(select)(Questions);
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questions.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 801 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(349);
+
+	var _questions = __webpack_require__(659);
+
+	var _questions2 = _interopRequireDefault(_questions);
+
+	var _underscore = __webpack_require__(657);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	var _hashToCollection = __webpack_require__(654);
+
+	var _modal = __webpack_require__(767);
+
+	var _modal2 = _interopRequireDefault(_modal);
+
+	var _questionForm = __webpack_require__(802);
+
+	var _questionForm2 = _interopRequireDefault(_questionForm);
+
+	var _response = __webpack_require__(791);
+
+	var _response2 = _interopRequireDefault(_response);
+
+	var _constants = __webpack_require__(666);
+
+	var _constants2 = _interopRequireDefault(_constants);
+
+	var _pieChart = __webpack_require__(793);
+
+	var _pieChart2 = _interopRequireDefault(_pieChart);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"];
+	var colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"];
+
+	var Question = _react2.default.createClass({
+	  displayName: 'Question',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      sorting: "count",
+	      ascending: false,
+	      visibleStatuses: {
+	        "Optimal": true,
+	        "Sub-Optimal": true,
+	        "Common Error": true,
+	        "Unmatched": true
+	      },
+	      expanded: {}
+	    };
+	  },
+
+	  expand: function expand(responseKey) {
+	    var newState = this.state.expanded;
+	    newState[responseKey] = !newState[responseKey];
+	    this.setState({ expanded: newState });
+	  },
+
+	  deleteQuestion: function deleteQuestion() {
+	    this.props.dispatch(_questions2.default.deleteQuestion(this.props.params.questionID));
+	  },
+
+	  startEditingQuestion: function startEditingQuestion() {
+	    this.props.dispatch(_questions2.default.startQuestionEdit(this.props.params.questionID));
+	  },
+
+	  cancelEditingQuestion: function cancelEditingQuestion() {
+	    this.props.dispatch(_questions2.default.cancelQuestionEdit(this.props.params.questionID));
+	  },
+
+	  saveQuestionEdits: function saveQuestionEdits(vals) {
+	    this.props.dispatch(_questions2.default.submitQuestionEdit(this.props.params.questionID, vals));
+	  },
+
+	  getResponse: function getResponse(responseID) {
+	    var _props$questions = this.props.questions;
+	    var data = _props$questions.data;
+	    var states = _props$questions.states;var questionID = this.props.params.questionID;
+
+	    var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
+	    return _underscore2.default.find(responses, { key: responseID });
+	  },
+
+	  responsesWithStatus: function responsesWithStatus() {
+	    var _props$questions2 = this.props.questions;
+	    var data = _props$questions2.data;
+	    var states = _props$questions2.states;var questionID = this.props.params.questionID;
+
+	    var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
+	    return responses.map(function (response) {
+	      var statusCode;
+	      if (!response.feedback) {
+	        statusCode = 3;
+	      } else if (!!response.parentID) {
+	        statusCode = 2;
+	      } else {
+	        statusCode = response.optimal ? 0 : 1;
+	      }
+	      response.statusCode = statusCode;
+	      return response;
+	    });
+	  },
+
+	  responsesGroupedByStatus: function responsesGroupedByStatus() {
+	    return _underscore2.default.groupBy(this.responsesWithStatus(), 'statusCode');
+	  },
+
+	  responsesByStatusCodeAndResponseCount: function responsesByStatusCodeAndResponseCount() {
+	    return _underscore2.default.mapObject(this.responsesGroupedByStatus(), function (val, key) {
+	      console.log("val: ", val);
+	      return _underscore2.default.reduce(val, function (memo, resp) {
+
+	        return memo + (resp.count || 0);
+	      }, 0);
+	    });
+	  },
+
+	  formatForPieChart: function formatForPieChart() {
+	    return _underscore2.default.mapObject(this.responsesByStatusCodeAndResponseCount(), function (val, key) {
+	      return {
+	        value: val,
+	        label: labels[key],
+	        color: colors[key]
+	      };
+	    });
+	  },
+
+	  submitNewResponse: function submitNewResponse() {
+	    var newResp = {
+	      vals: {
+	        text: this.refs.newResponseText.value,
+	        feedback: this.refs.newResponseFeedback.value,
+	        optimal: this.refs.newResponseOptimal.checked
+	      },
+	      questionID: this.props.params.questionID
+	    };
+	    this.props.dispatch(_questions2.default.submitNewResponse(newResp.questionID, newResp.vals));
+	  },
+
+	  toggleResponseSort: function toggleResponseSort(field) {
+	    field === this.state.sorting ? this.setState({ ascending: !this.state.ascending }) : this.setState({ sorting: field, ascending: false });
+	  },
+
+	  gatherVisibleResponses: function gatherVisibleResponses() {
+	    var _this = this;
+
+	    var responses = this.responsesWithStatus();
+	    return _underscore2.default.filter(responses, function (response) {
+	      return _this.state.visibleStatuses[labels[response.statusCode]];
+	    });
+	  },
+
+	  renderResponses: function renderResponses() {
+	    var _this2 = this;
+
+	    var _props$questions3 = this.props.questions;
+	    var data = _props$questions3.data;
+	    var states = _props$questions3.states;var questionID = this.props.params.questionID;
+
+	    var responses = this.gatherVisibleResponses();
+
+	    var responsesListItems = _underscore2.default.sortBy(responses, function (resp) {
+	      return resp[_this2.state.sorting] || 0;
+	    }).map(function (resp) {
+	      return _react2.default.createElement(_response2.default, {
+	        response: resp,
+	        getResponse: _this2.getResponse,
+	        states: states,
+	        questionID: questionID,
+	        dispatch: _this2.props.dispatch,
+	        key: resp.key,
+	        readOnly: false,
+	        expanded: _this2.state.expanded[resp.key],
+	        expand: _this2.expand });
+	    });
+	    if (this.state.ascending) {
+	      return responsesListItems;
+	    } else {
+	      return responsesListItems.reverse();
+	    }
+	  },
+
+	  renderArrow: function renderArrow() {
+	    return _react2.default.createElement('p', { style: 'display: inline;' }, this.state.ascending ? "&uarr;" : "&darr;");
+	  },
+
+	  renderNewResponseForm: function renderNewResponseForm() {
+	    return _react2.default.createElement('div', { className: 'box' }, _react2.default.createElement('h6', { className: 'control subtitle' }, 'Add a new response'), _react2.default.createElement('label', { className: 'label' }, 'Response text'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', ref: 'newResponseText' })), _react2.default.createElement('label', { className: 'label' }, 'Feedback'), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('input', { className: 'input', type: 'text', ref: 'newResponseFeedback' })), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('label', { className: 'checkbox' }, _react2.default.createElement('input', { ref: 'newResponseOptimal', type: 'checkbox' }), 'Optimal?')), _react2.default.createElement('button', { className: 'button is-primary', onClick: this.submitNewResponse }, 'Add Response'));
+	  },
+
+	  renderEditForm: function renderEditForm() {
+	    var data = this.props.questions.data;var questionID = this.props.params.questionID;
+
+	    var question = data[questionID];
+	    if (this.props.questions.states[questionID] === _constants2.default.EDITING_QUESTION) {
+	      return _react2.default.createElement(_modal2.default, { close: this.cancelEditingQuestion }, _react2.default.createElement(_questionForm2.default, { question: question, submit: this.saveQuestionEdits }));
+	    }
+	  },
+
+	  formatSortField: function formatSortField(displayName, stateName) {
+	    if (this.state.sorting === stateName) {
+	      return _react2.default.createElement('li', { className: 'is-active' }, _react2.default.createElement('a', { onClick: this.toggleResponseSort.bind(null, stateName) }, displayName, ' ', this.state.ascending ? "^" : "v"));
+	    } else {
+	      return _react2.default.createElement('li', null, _react2.default.createElement('a', { onClick: this.toggleResponseSort.bind(null, stateName) }, displayName));
+	    }
+	  },
+
+	  renderSortingFields: function renderSortingFields() {
+	    return _react2.default.createElement('ul', null, this.formatSortField('Submissions', 'count'), this.formatSortField('Text', 'text'), this.formatSortField('Created At', 'createdAt'), this.formatSortField('Status', 'statusCode'));
+	  },
+
+	  toggleField: function toggleField(status) {
+	    var toggledStatus = {};
+	    var newVisibleStatuses = {};
+	    toggledStatus[status] = !this.state.visibleStatuses[status];
+	    _underscore2.default.extend(newVisibleStatuses, this.state.visibleStatuses, toggledStatus);
+	    this.setState({ visibleStatuses: newVisibleStatuses });
+	  },
+
+	  formatToggleField: function formatToggleField(status) {
+	    var checkBox;
+	    if (this.state.visibleStatuses[status]) {
+	      checkBox = _react2.default.createElement('input', { onChange: this.toggleField.bind(null, status), type: 'checkbox', checked: true });
+	    } else {
+	      checkBox = _react2.default.createElement('input', { onChange: this.toggleField.bind(null, status), type: 'checkbox', checked: false });
+	    }
+
+	    return _react2.default.createElement('li', null, checkBox, _react2.default.createElement('label', { className: 'panel-checkbox' }, status));
+	  },
+
+	  renderStatusToggleMenu: function renderStatusToggleMenu() {
+	    return _react2.default.createElement('ul', null, this.formatToggleField(labels[0]), this.formatToggleField(labels[1]), this.formatToggleField(labels[2]), this.formatToggleField(labels[3]));
+	  },
+
+	  render: function render() {
+	    var data = this.props.questions.data;var questionID = this.props.params.questionID;
+
+	    if (data[questionID]) {
+	      var responses = (0, _hashToCollection.hashToCollection)(data[questionID].responses);
+	      return _react2.default.createElement('div', null, this.renderEditForm(), _react2.default.createElement('h4', { className: 'title' }, data[questionID].prompt), _react2.default.createElement('h6', { className: 'subtitle' }, responses.length, ' Responses'), _react2.default.createElement(_pieChart2.default, { data: _underscore2.default.values(this.formatForPieChart()) }), _react2.default.createElement('p', { className: 'control' }, _react2.default.createElement('button', { className: 'button is-info', onClick: this.startEditingQuestion }, 'Edit Question'), ' ', _react2.default.createElement('button', { className: 'button is-danger', onClick: this.deleteQuestion }, 'Delete Question')), this.renderNewResponseForm(), _react2.default.createElement('div', { className: 'tabs is-toggle is-fullwidth' }, this.renderSortingFields()), _react2.default.createElement('div', { className: 'tabs is-toggle is-fullwidth' }, this.renderStatusToggleMenu()), this.renderResponses());
+	    } else if (this.props.questions.hasreceiveddata === false) {
+	      return _react2.default.createElement('p', null, 'Loading...');
+	    } else {
+	      return _react2.default.createElement('p', null, '404: No Question Found');
+	    }
+	  }
+	});
+
+	function select(state) {
+	  return {
+	    concepts: state.concepts,
+	    questions: state.questions,
+	    routing: state.routing
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(select)(Question);
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "question.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 802 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = _react2.default.createClass({
+	  displayName: "questionForm",
+
+	  submit: function submit() {
+	    this.props.submit({ prompt: this.refs.prompt.value });
+	  },
+
+	  render: function render() {
+	    return _react2.default.createElement("div", { className: "box" }, _react2.default.createElement("h6", { className: "control subtitle" }, "Create a new question"), _react2.default.createElement("label", { className: "label" }, "Prompt"), _react2.default.createElement("p", { className: "control" }, _react2.default.createElement("input", { className: "input", type: "text", ref: "prompt", defaultValue: this.props.question.prompt })), _react2.default.createElement("button", { className: "button is-primary", onClick: this.submit }, "Update Question"));
+	  }
+	});
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/donald/Programming/Javascript/QuillConnect/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "questionForm.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
 /* 803 */

@@ -1,6 +1,7 @@
 import React from 'react'
 import C from '../../constants'
 import questionActions from '../../actions/questions'
+const jsDiff = require('diff');
 
 export default React.createClass({
 
@@ -33,6 +34,22 @@ export default React.createClass({
     this.props.dispatch(questionActions.removeLinkToParentID(this.props.questionID, rid));
   },
 
+  applyDiff: function (answer, response) {
+    answer = answer || '';
+    response = response || '';
+    var diff = jsDiff.diffWords(response, answer);
+    var spans = diff.map(function (part) {
+      var fontWeight = part.added ? 'bold' : 'normal';
+      var fontStyle = part.removed ? 'oblique' : 'normal';
+      var divStyle = {
+        fontWeight,
+        fontStyle
+      };
+      return <span style={divStyle}>{part.value}</span>;
+    });
+    return spans;
+  },
+
   renderResponseContent: function (isEditing, response) {
     var content;
     var parentDetails;
@@ -41,16 +58,21 @@ export default React.createClass({
     }
 
     if (response.parentID) {
-      const parent = this.props.getResponse(response.parentID)
+      const parent = this.props.getResponse(response.parentID);
+      const diffText = this.applyDiff(parent.text, response.text);
       if (isEditing) {
         parentDetails = [
           (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
           (<br />),
           (<button className="button is-danger" onClick={this.removeLinkToParentID.bind(null, response.key)}>Remove Link to Parent </button>),
+          (<br />),
+          (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />)]
       } else {
         parentDetails = [
           (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
+          (<br />),
+          (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />)]
       }
     }
@@ -86,7 +108,7 @@ export default React.createClass({
   },
 
   renderResponseFooter: function (isEditing, response) {
-    if (this.props.readOnly || !this.props.expanded) {
+    if (!this.props.readOnly || !this.props.expanded) {
       return
     }
     var buttons;
@@ -157,10 +179,8 @@ export default React.createClass({
   },
 
   render: function () {
-    const {response, states, questionID} = this.props;
-
-    const isEditing = (states[questionID] === (C.START_RESPONSE_EDIT + "_" + response.key));
-
+    const {response, state} = this.props;
+    const isEditing = (state === (C.START_RESPONSE_EDIT + "_" + response.key));
     return (
       <div className={"card is-fullwidth " + this.cardClasses()}>
         {this.renderResponseHeader(response)}

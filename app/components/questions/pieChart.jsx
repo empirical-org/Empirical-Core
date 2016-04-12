@@ -17,7 +17,6 @@ export default React.createClass ({
   },
 
   render: function () {
-    console.log(this.props.data)
     return (
       <div className='columns'>
         <div className='column'>
