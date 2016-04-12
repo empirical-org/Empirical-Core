@@ -107,6 +107,31 @@ export default React.createClass({
     )
   },
 
+  collapseAllResponses: function () {
+    this.setState({expanded: {}});
+  },
+
+  expandAllResponses: function () {
+    const responses = this.responsesWithStatus();
+    var newState = this.state.expanded;
+    for (var i = 0; i < responses.length; i++) {
+      newState[responses[i].key] = true;
+    };
+    this.setState({expanded: newState});
+  },
+
+  renderExpandCollapseAll: function () {
+    var text, handleClick;
+    if (Object.keys(this.state.expanded).length === 0) {
+      handleClick = this.expandAllResponses;
+      text = "Expand All";
+    } else {
+      handleClick = this.collapseAllResponses;
+      text = "Close All";
+    }
+    return <a className="button is-fullwidth" onClick={handleClick}> {text} </a>
+  },
+
   render: function () {
     return (
       <div>
@@ -115,6 +140,11 @@ export default React.createClass({
         </div>
         <div className="tabs is-toggle is-fullwidth">
           {this.renderStatusToggleMenu()}
+        </div>
+        <div className="columns">
+          <div className="column">
+            {this.renderExpandCollapseAll()}
+          </div>
         </div>
         {this.renderResponses()}
       </div>
