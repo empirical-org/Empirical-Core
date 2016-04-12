@@ -39,15 +39,13 @@ export default React.createClass({
     response = response || '';
     var diff = jsDiff.diffWords(response, answer);
     var spans = diff.map(function (part) {
-      var weight = part.added ? 'bold' : 'regular';
-      var decoration = part.added ? 'underline' : 'none';
-      var display = part.removed ? 'none' : '';
+      var fontWeight = part.added ? 'bold' : 'normal';
+      var fontStyle = part.removed ? 'oblique' : 'normal';
       var divStyle = {
-        display: display,
-        fontWeight: weight,
-        textDecoration: decoration
+        fontWeight,
+        fontStyle
       };
-      return <span style={divStyle}> {part.value} </span>;
+      return <span style={divStyle}>{part.value}</span>;
     });
     return spans;
   },
