@@ -29,27 +29,8 @@ class ProfilesController < ApplicationController
 
   def student(is_json=false)
     if current_user.classrooms.any?
-      current_classroom_id = params['current_classroom_id'] || current_user.classrooms.last.id
-      current_classroom_id = current_classroom_id.to_i
-      current_classroom = Classroom.find current_classroom_id
       if is_json
-        grouped_scores, is_last_page = Profile::Processor.new.query(current_user, params[:current_page].to_i, current_classroom_id)
-        next_activity_session = ActivitySession.joins(classroom_activity: [:unit])
-            .where("classroom_activities.classroom_id = ?", current_classroom_id)
-            .where("activity_sessions.completed_at IS NULL")
-            .where("activity_sessions.user_id = ?", current_user.id)
-            .order("units.created_at DESC")
-            .order("classroom_activities.due_date ASC")
-            .select("activity_sessions.*")
-            .first
-
-        render json: {student: {name: current_user.name,
-          classroom: {name: current_classroom.name,
-          id: current_classroom_id,
-          teacher: {name: current_classroom.teacher.name}}},
-          grouped_scores: grouped_scores,
-          is_last_page: is_last_page,
-          next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
+        render json: student_to_json(params[:current_classroom_id], params[:current_page].to_i)
       else
         render 'student'
       end
@@ -59,7 +40,7 @@ class ProfilesController < ApplicationController
   end
 
   def students_classrooms
-    render json: {classrooms: current_user.classrooms.reverse.map {|c| c.students_classrooms(current_user.id)}}
+    render json: {classrooms: current_user.classrooms.map {|c| c.students_classrooms(current_user.id)}}
   end
 
   def teacher
@@ -81,5 +62,21 @@ class ProfilesController < ApplicationController
 protected
   def user_params
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
+  end
+
+  def student_to_json(classroom_id, current_page)
+    classroom = current_classroom(classroom_id)
+    grouped_scores, is_last_page = Profile::Processor.new.query(current_user, current_page, classroom.id)
+    next_activity_session = current_user.next_activity_session(classroom.id)
+    {student: {name: current_user.name, classroom: {name: classroom.name, id: classroom.id, teacher: {name: classroom.teacher.name}}},
+    grouped_scores: grouped_scores, is_last_page: is_last_page, next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
+  end
+
+  def current_classroom(classroom_id = nil)
+    if !classroom_id
+       current_user.classrooms.last
+    else
+      Classroom.find(classroom_id.to_i) if !!classroom_id
+    end
   end
 end
