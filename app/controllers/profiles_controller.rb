@@ -40,7 +40,7 @@ class ProfilesController < ApplicationController
   end
 
   def students_classrooms
-    render json: {classrooms: current_user.classrooms.map {|c| c.students_classrooms(current_user.id)}}
+    render json: {classrooms: current_user.classrooms.includes(:teacher).map {|c| c.students_classrooms(current_user.id)}}
   end
 
   def teacher
