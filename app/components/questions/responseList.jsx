@@ -9,7 +9,7 @@ export default React.createClass({
           <Response
           response={resp}
           getResponse={this.props.getResponse}
-          states={this.props.states[this.props.questionID]}
+          state={this.props.states[this.props.questionID]}
           questionID={this.props.questionID}
           dispatch={this.props.dispatch}
           key={resp.key}

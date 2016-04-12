@@ -7,42 +7,11 @@ import Response from '../questions/response.jsx'
 import C from '../../constants'
 import SharedSection from '../shared/section.jsx'
 import Chart from '../questions/pieChart.jsx'
-import ResponseList from '../questions/responseList.jsx'
-import ResponseSortFields from '../questions/responseSortFields.jsx'
-import ResponseToggleFields from '../questions/responseToggleFields.jsx'
+import ResponseComponent from '../questions/ResponseComponent.jsx'
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
 const Review = React.createClass({
-
-  // renderQuestions: function () {
-  //   const {data} = this.props.concepts;
-  //   const keys = _.keys(data);
-  //   return keys.map((key) => {
-  //     console.log(key, data, data[key])
-  //     return (<li><Link to={'/admin/concepts/' + key}>{data[key].name}</Link></li>)
-  //   })
-  // },
-
-  getInitialState: function () {
-    return {
-      sorting: "count",
-      ascending: false,
-      visibleStatuses: {
-        "Optimal": true,
-        "Sub-Optimal": true,
-        "Common Error": true,
-        "Unmatched": true
-      },
-      expanded: {}
-    }
-  },
-
-  expand: function (responseKey) {
-    var newState = this.state.expanded;
-    newState[responseKey] = !newState[responseKey];
-    this.setState({expanded: newState})
-  },
 
   deleteQuestion: function () {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID))
@@ -76,10 +45,6 @@ const Review = React.createClass({
       questionID: this.props.params.questionID
     }
     this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals))
-  },
-
-  toggleResponseSort: function (field) {
-    (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
   },
 
   responsesWithStatus: function () {
@@ -122,87 +87,8 @@ const Review = React.createClass({
     })
   },
 
-  gatherVisibleResponses: function () {
-    var responses = this.responsesWithStatus();
-    return _.filter(responses, (response) => {
-      return this.state.visibleStatuses[labels[response.statusCode]]
-    });
-  },
-
-
-  renderResponses: function () {
-    const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = this.gatherVisibleResponses()
-    var responsesListItems = _.sortBy(responses, (resp) =>
-        {return resp[this.state.sorting] || 0 }
-      )
-    return <ResponseList
-      responses={responsesListItems}
-      getResponse={this.getResponse}
-      states={states}
-      questionID={questionID}
-      dispatch={this.props.dispatch}
-      admin={false}
-      expanded={this.state.expanded}
-      expand={this.expand}
-      ascending={this.state.ascending}/>
-  },
-
-  renderArrow: function () {
-    return (
-      <p style="display: inline;">
-        {this.state.ascending ? "&uarr;" : "&darr;"}
-      </p>
-    )
-  },
-
-  formatSortField: function (displayName, stateName) {
-    if (this.state.sorting === stateName) {
-      return (
-        <li className="is-active">
-          <a onClick={this.toggleResponseSort.bind(null, stateName)}>
-            {displayName} {this.state.ascending ? "^" : "v"}
-            </a>
-
-        </li>
-      )
-    } else {
-      return (
-        <li>
-          <a onClick={this.toggleResponseSort.bind(null, stateName)}>{displayName}</a>
-        </li>
-      );
-    }
-  },
-
-  renderSortingFields: function () {
-    return <ResponseSortFields
-      sorting={this.state.sorting}
-      ascending={this.state.ascending}
-      toggleResponseSort={this.toggleResponseSort}/>
-  },
-
-  toggleField: function (status) {
-    var toggledStatus = {};
-    var newVisibleStatuses = {};
-    toggledStatus[status] = !this.state.visibleStatuses[status];
-    _.extend(newVisibleStatuses, this.state.visibleStatuses, toggledStatus);
-    this.setState({visibleStatuses: newVisibleStatuses});
-  },
-
-  renderStatusToggleMenu: function () {
-    return (
-      <ResponseToggleFields
-        labels={labels}
-        toggleField={this.toggleField}
-        visibleStatuses={this.state.visibleStatuses}
-        />
-    )
-  },
-
-
   render: function (){
-    const {data} = this.props.questions, {questionID} = this.props.params;
+    const {data, states} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
       var responses = hashToCollection(data[questionID].responses)
       return (
@@ -214,14 +100,13 @@ const Review = React.createClass({
                 <Chart data={_.values(this.formatForPieChart())}/>
               </div>
           </div>
-          <div className="tabs is-toggle is-fullwidth">
-            {this.renderSortingFields()}
-          </div>
-          <div className="tabs is-toggle is-fullwidth">
-            {this.renderStatusToggleMenu()}
-          </div>
-          {this.renderResponses()}
 
+          <ResponseComponent
+            question={data[questionID]}
+            questionID={questionID}
+            states={states}
+            dispatch={this.props.dispatch}
+            admin={false}/>
         </SharedSection>
       )
     } else if (this.props.questions.hasreceiveddata === false){

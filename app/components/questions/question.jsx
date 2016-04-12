@@ -8,32 +8,13 @@ import EditFrom from './questionForm.jsx'
 import Response from './response.jsx'
 import C from '../../constants'
 import Chart from './pieChart.jsx'
+import ResponseComponent from '../questions/ResponseComponent.jsx'
 
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
 
 const Question = React.createClass({
-
-  getInitialState: function () {
-    return {
-      sorting: "count",
-      ascending: false,
-      visibleStatuses: {
-        "Optimal": true,
-        "Sub-Optimal": true,
-        "Common Error": true,
-        "Unmatched": true
-      },
-      expanded: {}
-    }
-  },
-
-  expand: function (responseKey) {
-    var newState = this.state.expanded;
-    newState[responseKey] = !newState[responseKey];
-    this.setState({expanded: newState})
-  },
 
   deleteQuestion: function () {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID))
@@ -49,12 +30,6 @@ const Question = React.createClass({
 
   saveQuestionEdits: function (vals) {
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals))
-  },
-
-  getResponse: function (responseID) {
-    const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = hashToCollection(data[questionID].responses)
-    return _.find(responses, {key: responseID})
   },
 
   responsesWithStatus: function () {
@@ -80,7 +55,6 @@ const Question = React.createClass({
 
   responsesByStatusCodeAndResponseCount: function () {
     return _.mapObject(this.responsesGroupedByStatus(), (val, key) => {
-      console.log("val: ", val)
       return _.reduce(val, (memo, resp) => {
 
         return memo + (resp.count || 0)
@@ -110,49 +84,11 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals))
   },
 
-  toggleResponseSort: function (field) {
-    (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
-  },
-
   gatherVisibleResponses: function () {
     var responses = this.responsesWithStatus();
     return _.filter(responses, (response) => {
       return this.state.visibleStatuses[labels[response.statusCode]]
     });
-  },
-
-
-  renderResponses: function () {
-    const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = this.gatherVisibleResponses();
-
-    var responsesListItems = _.sortBy(responses, (resp) =>
-        {return resp[this.state.sorting] || 0 }
-      ).map((resp) => {
-      return <Response
-        response={resp}
-        getResponse={this.getResponse}
-        states={states}
-        questionID={questionID}
-        dispatch={this.props.dispatch}
-        key={resp.key}
-        readOnly={false}
-        expanded={this.state.expanded[resp.key]}
-        expand={this.expand}/>
-    })
-    if (this.state.ascending) {
-      return responsesListItems;
-    } else {
-      return responsesListItems.reverse();
-    }
-  },
-
-  renderArrow: function () {
-    return (
-      <p style="display: inline;">
-        {this.state.ascending ? "&uarr;" : "&darr;"}
-      </p>
-    )
   },
 
   renderNewResponseForm: function () {
@@ -190,76 +126,8 @@ const Question = React.createClass({
     }
   },
 
-  formatSortField: function (displayName, stateName) {
-    if (this.state.sorting === stateName) {
-      return (
-        <li className="is-active">
-          <a onClick={this.toggleResponseSort.bind(null, stateName)}>
-            {displayName} {this.state.ascending ? "^" : "v"}
-            </a>
-
-        </li>
-      )
-    } else {
-      return (
-        <li>
-          <a onClick={this.toggleResponseSort.bind(null, stateName)}>{displayName}</a>
-        </li>
-      );
-    }
-  },
-
-  renderSortingFields: function () {
-    return (
-      <ul>
-        {this.formatSortField('Submissions', 'count')}
-        {this.formatSortField('Text', 'text')}
-        {this.formatSortField('Created At', 'createdAt')}
-        {this.formatSortField('Status', 'statusCode')}
-      </ul>
-    );
-  },
-
-  toggleField: function (status) {
-    var toggledStatus = {};
-    var newVisibleStatuses = {};
-    toggledStatus[status] = !this.state.visibleStatuses[status];
-    _.extend(newVisibleStatuses, this.state.visibleStatuses, toggledStatus);
-    this.setState({visibleStatuses: newVisibleStatuses});
-  },
-
-
-  formatToggleField: function (status) {
-    var checkBox;
-    if (this.state.visibleStatuses[status]) {
-      checkBox = (<input onChange={this.toggleField.bind(null, status)} type="checkbox" checked={true} />)
-    } else {
-      checkBox = (<input onChange={this.toggleField.bind(null, status)} type="checkbox" checked={false} />)
-    }
-
-    return (
-      <li>
-        {checkBox}
-        <label className="panel-checkbox">
-          {status}
-        </label>
-      </li>
-    )
-  },
-
-  renderStatusToggleMenu: function () {
-    return (
-      <ul>
-        {this.formatToggleField(labels[0])}
-        {this.formatToggleField(labels[1])}
-        {this.formatToggleField(labels[2])}
-        {this.formatToggleField(labels[3])}
-      </ul>
-    )
-  },
-
   render: function (){
-    const {data} = this.props.questions, {questionID} = this.props.params;
+    const {data, states} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
       var responses = hashToCollection(data[questionID].responses)
       return (
@@ -272,13 +140,12 @@ const Question = React.createClass({
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button> <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
           </p>
           {this.renderNewResponseForm()}
-          <div className="tabs is-toggle is-fullwidth">
-            {this.renderSortingFields()}
-          </div>
-          <div className="tabs is-toggle is-fullwidth">
-            {this.renderStatusToggleMenu()}
-          </div>
-          {this.renderResponses()}
+          <ResponseComponent
+            question={data[questionID]}
+            questionID={questionID}
+            states={states}
+            dispatch={this.props.dispatch}
+            admin={true}/>
         </div>
       )
     } else if (this.props.questions.hasreceiveddata === false){

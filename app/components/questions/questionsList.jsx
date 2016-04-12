@@ -16,7 +16,6 @@ const QuestionsList = React.createClass({
   },
 
 	renderResponseCount: function (question) {
-		console.log(question)
 		if (this.props.baseRoute !== "play" && question.responses) {
 			return <span className="is-pulled-right"><strong>{_.keys(question.responses).length}</strong></span>
 		}

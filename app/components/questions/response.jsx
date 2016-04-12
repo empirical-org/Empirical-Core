@@ -86,7 +86,7 @@ export default React.createClass({
   },
 
   renderResponseFooter: function (isEditing, response) {
-    if (this.props.readOnly || !this.props.expanded) {
+    if (!this.props.readOnly || !this.props.expanded) {
       return
     }
     var buttons;
@@ -157,10 +157,8 @@ export default React.createClass({
   },
 
   render: function () {
-    const {response, state, questionID} = this.props;
-
+    const {response, state} = this.props;
     const isEditing = (state === (C.START_RESPONSE_EDIT + "_" + response.key));
-
     return (
       <div className={"card is-fullwidth " + this.cardClasses()}>
         {this.renderResponseHeader(response)}
