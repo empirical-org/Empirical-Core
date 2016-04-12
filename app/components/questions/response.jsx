@@ -1,6 +1,7 @@
 import React from 'react'
 import C from '../../constants'
 import questionActions from '../../actions/questions'
+const jsDiff = require('diff');
 
 export default React.createClass({
 
@@ -33,6 +34,24 @@ export default React.createClass({
     this.props.dispatch(questionActions.removeLinkToParentID(this.props.questionID, rid));
   },
 
+  applyDiff: function (answer, response) {
+    answer = answer || '';
+    response = response || '';
+    var diff = jsDiff.diffWords(response, answer);
+    var spans = diff.map(function (part) {
+      var weight = part.added ? 'bold' : 'regular';
+      var decoration = part.added ? 'underline' : 'none';
+      var display = part.removed ? 'none' : '';
+      var divStyle = {
+        display: display,
+        fontWeight: weight,
+        textDecoration: decoration
+      };
+      return <span style={divStyle}> {part.value} </span>;
+    });
+    return spans;
+  },
+
   renderResponseContent: function (isEditing, response) {
     var content;
     var parentDetails;
@@ -41,16 +60,21 @@ export default React.createClass({
     }
 
     if (response.parentID) {
-      const parent = this.props.getResponse(response.parentID)
+      const parent = this.props.getResponse(response.parentID);
+      const diffText = this.applyDiff(parent.text, response.text);
       if (isEditing) {
         parentDetails = [
           (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
           (<br />),
           (<button className="button is-danger" onClick={this.removeLinkToParentID.bind(null, response.key)}>Remove Link to Parent </button>),
+          (<br />),
+          (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />)]
       } else {
         parentDetails = [
           (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
+          (<br />),
+          (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />)]
       }
     }
