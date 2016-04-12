@@ -3,6 +3,7 @@ import C from '../../constants'
 import questionActions from '../../actions/questions'
 const jsDiff = require('diff');
 import Modal from '../modal/modal.jsx'
+import ResponseList from './responseList.jsx'
 
 export default React.createClass({
 
@@ -192,7 +193,17 @@ export default React.createClass({
     if (isViewingChildResponses) {
       return (
         <Modal close={this.cancelChildResponseView.bind(null, key)}>
-          <p>Hi</p>
+          <ResponseList
+            responses={this.props.getChildResponses(key)}
+            getResponse={this.props.getResponse}
+            getChildResponses={this.props.getChildResponses}
+            states={this.props.states}
+            questionID={this.props.questionID}
+            dispatch={this.props.dispatch}
+            admin={false}
+            expanded={this.props.allExpanded}
+            expand={this.props.expand}
+            ascending={this.props.ascending}/>
         </Modal>
       )
     }

@@ -9,11 +9,14 @@ export default React.createClass({
           <Response
           response={resp}
           getResponse={this.props.getResponse}
+          getChildResponses={this.props.getChildResponses}
+          states={this.props.states}
           state={this.props.states[this.props.questionID]}
           questionID={this.props.questionID}
           dispatch={this.props.dispatch}
           key={resp.key}
           readOnly={this.props.admin}
+          allExpanded={this.props.expanded}
           expanded={this.props.expanded[resp.key]}
           expand={this.props.expand}/>
       )

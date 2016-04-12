@@ -3,6 +3,7 @@ import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
+import _ from 'underscore'
 
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
@@ -60,6 +61,11 @@ export default React.createClass({
     return _.find(responses, {key: responseID})
   },
 
+  getChildResponses: function (responseID) {
+    var responses = hashToCollection(this.props.question.responses)
+    return _.where(responses, {parentID: responseID})
+  },
+
   renderResponses: function () {
     const {questionID} = this.props;
     var responses = this.gatherVisibleResponses()
@@ -69,6 +75,7 @@ export default React.createClass({
     return <ResponseList
       responses={responsesListItems}
       getResponse={this.getResponse}
+      getChildResponses={this.getChildResponses}
       states={this.props.states}
       questionID={questionID}
       dispatch={this.props.dispatch}
