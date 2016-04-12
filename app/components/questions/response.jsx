@@ -87,6 +87,8 @@ export default React.createClass({
         parentDetails = [
           (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
           (<br />),
+          (<span><strong>Parent Text:</strong> {parent.text}</span>),
+          (<br />),
           (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />)]
       }
