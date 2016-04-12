@@ -2,6 +2,7 @@ import React from 'react'
 import C from '../../constants'
 import questionActions from '../../actions/questions'
 const jsDiff = require('diff');
+import Modal from '../modal/modal.jsx'
 
 export default React.createClass({
 
@@ -16,6 +17,14 @@ export default React.createClass({
   // cancel editing function ^^^^
   cancelResponseEdit: function (rid) {
     this.props.dispatch(questionActions.cancelResponseEdit(this.props.questionID, rid))
+  },
+
+  viewChildResponses: function (rid) {
+    this.props.dispatch(questionActions.startChildResponseView(this.props.questionID, rid))
+  },
+
+  cancelChildResponseView: function (rid) {
+    this.props.dispatch(questionActions.cancelChildResponseView(this.props.questionID, rid))
   },
 
   updateResponse: function (rid) {
@@ -121,6 +130,7 @@ export default React.createClass({
       ]
     } else {
       buttons = [
+        (<a className="card-footer-item" onClick={this.viewChildResponses.bind(null, response.key)} key='view' >View Children</a>),
         (<a className="card-footer-item" onClick={this.editResponse.bind(null, response.key)} key='edit' >Edit</a>),
         (<a className="card-footer-item" onClick={this.deleteResponse.bind(null, response.key)} key='delete' >Delete</a>)
       ]
@@ -178,14 +188,26 @@ export default React.createClass({
     }
   },
 
+  renderChildResponses: function (isViewingChildResponses, key) {
+    if (isViewingChildResponses) {
+      return (
+        <Modal close={this.cancelChildResponseView.bind(null, key)}>
+          <p>Hi</p>
+        </Modal>
+      )
+    }
+  },
+
   render: function () {
     const {response, state} = this.props;
     const isEditing = (state === (C.START_RESPONSE_EDIT + "_" + response.key));
+    const isViewingChildResponses = (state === (C.START_CHILD_RESPONSE_VIEW + "_" + response.key));
     return (
       <div className={"card is-fullwidth " + this.cardClasses()}>
         {this.renderResponseHeader(response)}
         {this.renderResponseContent(isEditing, response)}
         {this.renderResponseFooter(isEditing, response)}
+        {this.renderChildResponses(isViewingChildResponses, response.key)}
       </div>
     )
   }
