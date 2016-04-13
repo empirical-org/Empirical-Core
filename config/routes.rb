@@ -32,6 +32,11 @@ EmpiricalGrammar::Application.routes.draw do
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
+  resources :students_classrooms do
+    collection do
+      get :add_classroom
+    end
+  end
   resources :unit_templates, only: [:index, :show], format: 'json'
 
   resources :activity_sessions, only: [] do
