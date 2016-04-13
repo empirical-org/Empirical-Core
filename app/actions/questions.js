@@ -74,6 +74,7 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
+          console.log("new ref key: ", newRef.key())
           dispatch(pathwaysActions.submitNewPathway(newRef.key(), prid, qid))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
@@ -119,15 +120,34 @@ module.exports = {
 		};
   },
   incrementResponseCount: function(qid, rid, prid) {
-    return function(dispatch, getState){
-      var newRef = questionsRef.child(qid+ "/responses/" + rid + '/count').transaction(function(currentCount){
+    return (dispatch, getState) => {
+      var responseRef = questionsRef.child(qid+ "/responses/" + rid)
+      responseRef.child('/count').transaction(function(currentCount){
         return currentCount+1
       }, function(error){
         if (error){
           dispatch({type:C.DISPLAY_ERROR,error:"increment failed! "+error});
         } else {
-          dispatch(pathwaysActions.submitNewPathway(newRef.key(), prid, qid))
+          dispatch(pathwaysActions.submitNewPathway(rid, prid, qid))
           dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully incremented!"});
+        }
+      })
+      responseRef.child('parentID').once('value', (snap) => {
+        if (snap.val()) {
+          dispatch(this.incrementChildResponseCount(qid, snap.val()))
+        }
+      })
+    }
+  },
+  incrementChildResponseCount: function(qid, rid) {
+    return (dispatch, getState) => {
+      questionsRef.child(qid+ "/responses/" + rid + '/childCount').transaction(function(currentCount){
+        return currentCount+1
+      }, function(error){
+        if (error){
+          dispatch({type:C.DISPLAY_ERROR,error:"increment failed! "+error});
+        } else {
+          dispatch({type:C.DISPLAY_MESSAGE,message:"Child Response successfully incremented!"});
         }
       })
     }
