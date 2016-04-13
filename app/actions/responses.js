@@ -10,8 +10,8 @@ module.exports = {
    expandAllResponses: function (expandedResponses) {
       return {type:C.EXPAND_ALL_RESPONSES, expandedResponses}
    },
-   toggleStatusField: function (newVisibleStatuses) {
-      return {type:C.TOGGLE_STATUS_FIELD, newVisibleStatuses}
+   toggleStatusField: function (status) {
+      return {type:C.TOGGLE_STATUS_FIELD, status}
    },
    toggleResponseSort: function (field) {
       return {type:C.TOGGLE_RESPONSE_SORT, field}

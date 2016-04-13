@@ -2,15 +2,17 @@ import C from '../constants';
 import _ from 'lodash';
 
 const initialState = {
-   sorting: "count",
-   ascending: false,
-   visibleStatuses: {
-     "Optimal": true,
-     "Sub-Optimal": true,
-     "Common Error": true,
-     "Unmatched": true
-   },
-   expanded: {}
+   responses: {
+      sorting: "count",
+      ascending: false,
+      visibleStatuses: {
+        "Optimal": true,
+        "Sub-Optimal": true,
+        "Common Error": true,
+        "Unmatched": true
+      },
+      expanded: {}  // this will contain response keys set to true or false;
+   }
 }
 
 export default function(currentState, action) {
@@ -30,7 +32,7 @@ export default function(currentState, action) {
          return newState;
       case C.TOGGLE_STATUS_FIELD:
          newState = _.cloneDeep(currentState);
-         newState.visibleStatuses = action.newVisibleStatuses;
+         newState.visibleStatuses[action.status] = !currentState.visibleStatuses[action.status];
          return newState;
       case C.TOGGLE_RESPONSE_SORT:
          newState = _.cloneDeep(currentState);
@@ -42,7 +44,7 @@ export default function(currentState, action) {
          }
          return newState;
       default:
-         return currentState || initialState;
+         return currentState || initialState.responses;
    }
 }
 
