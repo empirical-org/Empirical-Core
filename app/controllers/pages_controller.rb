@@ -70,6 +70,9 @@ class PagesController < ApplicationController
   def premium_access
   end
 
+  def board
+  end
+
   private
 
   def determine_layout
