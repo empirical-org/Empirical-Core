@@ -12,26 +12,7 @@ const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
 const Responses = React.createClass({
-  // getInitialState: function () {
-  //   return {
-  //     sorting: "count",
-  //     ascending: false,
-  //     visibleStatuses: {
-  //       "Optimal": true,
-  //       "Sub-Optimal": true,
-  //       "Common Error": true,
-  //       "Unmatched": true
-  //     },
-  //     expanded: {}
-  //   }
-  // },
-
   expand: function (responseKey) {
-  //   debugger
-  //   var newState = this.state.expanded;
-  //   newState[responseKey] = !newState[responseKey];
-  //   this.setState({expanded: newState})
-
     this.props.dispatch(actions.toggleExpandSingleResponse(responseKey));
   },
 
@@ -92,10 +73,7 @@ const Responses = React.createClass({
   },
 
   toggleResponseSort: function (field) {
-    if (field === this.props.responses.sorting) {
-      this.props.dispatch(actions.toggleResponseSort(field));
-    }
-    // (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
+    this.props.dispatch(actions.toggleResponseSort(field));
   },
 
   renderSortingFields: function () {
@@ -106,13 +84,7 @@ const Responses = React.createClass({
   },
 
   toggleField: function (status) {
-    // var toggledStatus = {};
-    // var newVisibleStatuses = {};
-    // toggledStatus[status] = !this.props.visibleStatuses[status];
-    // _.extend(newVisibleStatuses, this.state.visibleStatuses, toggledStatus);
-
     this.props.dispatch(actions.toggleStatusField(status))
-    // this.setState({visibleStatuses: newVisibleStatuses});
   },
 
   renderStatusToggleMenu: function () {
@@ -125,7 +97,6 @@ const Responses = React.createClass({
   },
 
   collapseAllResponses: function () {
-  //   this.setState({expanded: {}});
     this.props.dispatch(actions.collapseAllResponses());
   },
 
@@ -135,7 +106,6 @@ const Responses = React.createClass({
     for (var i = 0; i < responses.length; i++) {
       newExpandedState[responses[i].key] = true;
     };
-    // this.setState({expanded: newState});
     this.props.dispatch(actions.expandAllResponses(newExpandedState));
   },
 
