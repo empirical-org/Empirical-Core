@@ -5,17 +5,11 @@ $(function () {
   }
 });
 
-
 'use strict'
 EC.JoinAnotherClass = React.createClass({
 
-
   getInitialState: function() {
     return ({stage: 1});
-  },
-
-  componentDidMount: function() {
-    // $.ajax({url: 'students_classrooms', format: 'json', success: this.updateClassrooms})
   },
 
   advanceStage: function() {
@@ -34,8 +28,4 @@ EC.JoinAnotherClass = React.createClass({
   render: function() {
     return (this.stateSpecificComponents());
   }
-
-
-
-
-})
+});
