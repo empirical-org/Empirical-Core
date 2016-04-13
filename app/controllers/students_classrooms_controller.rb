@@ -7,6 +7,9 @@ class StudentsClassroomsController < ApplicationController
       redirect_to teachers_classrooms_path
     end
 
+    def add_classroom
+      render :add_classroom
+    end
 
 
 end
