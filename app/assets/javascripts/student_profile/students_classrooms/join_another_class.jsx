@@ -18,15 +18,15 @@ EC.JoinAnotherClass = React.createClass({
     // $.ajax({url: 'students_classrooms', format: 'json', success: this.updateClassrooms})
   },
 
-  stage1: function() {
-
+  advanceStage: function() {
+    setState({stage: 2});
   },
 
   stateSpecificComponents: function() {
     if (this.state.stage === 1) {
-      return <h1>Join a New Class</h1>
+      return <EC.JoinClassStage1 advanceStage={this.advanceStage}/>;
     } else {
-      return <h1>Class Joined</h1>
+      return <EC.JoinClassStage2/>;
     }
   },
 
