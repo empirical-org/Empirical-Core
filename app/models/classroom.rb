@@ -86,7 +86,7 @@ class Classroom < ActiveRecord::Base
     if Classroom.find_by_code(code) then generate_code end
   end
 
-  def students_classrooms(student_id)
+  def students_classrooms_json(student_id)
     {name: self.name,
      teacher: self.teacher.name,
      id: self.id,

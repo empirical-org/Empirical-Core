@@ -13,16 +13,6 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def update
-    # this is called by the 'join classroom' page
-    @user = current_user
-    classcode = user_params[:classcode]
-    classroom = Classroom.where(code: classcode).first
-    Associators::StudentsToClassrooms.run(@user, classroom)
-    JoinClassroomWorker.perform_async(@user.id)
-    render json: current_user.classroom.last.attributes
-  end
-
   def user
     student
   end
@@ -39,8 +29,9 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def students_classrooms
-    render json: {classrooms: current_user.classrooms.includes(:teacher).map {|c| c.students_classrooms(current_user.id)}}
+  def students_classrooms_json
+    # render json: {classrooms: current_user.classrooms.includes(:teacher).map {|c| c.students_classrooms(current_user.id)}}
+    render json: {classrooms: current_user.classrooms.includes(:teacher)}
   end
 
   def teacher

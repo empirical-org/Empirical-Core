@@ -48,7 +48,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
 
-  get 'students_classrooms' => 'profiles#students_classrooms'
+  get 'students_classrooms_json' => 'profiles#students_classrooms_json'
 
 
   resources :activities, only: [] do
