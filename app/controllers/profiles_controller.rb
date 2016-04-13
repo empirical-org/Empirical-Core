@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
     classroom = Classroom.where(code: classcode).first
     Associators::StudentsToClassrooms.run(@user, classroom)
     JoinClassroomWorker.perform_async(@user.id)
-    redirect_to profile_path
+    render json: current_user.classroom.last.attributes
   end
 
   def user
@@ -35,7 +35,7 @@ class ProfilesController < ApplicationController
         render 'student'
       end
     else
-      render 'join-classroom'
+      render 'students_classrooms/add_classroom'
     end
   end
 
