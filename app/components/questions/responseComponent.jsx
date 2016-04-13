@@ -1,14 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import actions from '../../actions/responses'
+import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
-import _ from 'underscore'
+
 
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 
-export default React.createClass({
+const Responses = React.createClass({
   getInitialState: function () {
     return {
       sorting: "count",
@@ -23,10 +26,15 @@ export default React.createClass({
     }
   },
 
+  // expand: function (responseKey) {
+  //   debugger
+  //   var newState = this.state.expanded;
+  //   newState[responseKey] = !newState[responseKey];
+  //   this.setState({expanded: newState})
+  // },
+
   expand: function (responseKey) {
-    var newState = this.state.expanded;
-    newState[responseKey] = !newState[responseKey];
-    this.setState({expanded: newState})
+    this.props.dispatch(actions.toggleExpandSingleResponse(responseKey));
   },
 
   responsesWithStatus: function () {
@@ -109,8 +117,7 @@ export default React.createClass({
       <ResponseToggleFields
         labels={labels}
         toggleField={this.toggleField}
-        visibleStatuses={this.state.visibleStatuses}
-        />
+        visibleStatuses={this.state.visibleStatuses} />   
     )
   },
 
@@ -157,5 +164,15 @@ export default React.createClass({
       </div>
     )
   }
-
 })
+
+function select(state) {
+  return {
+    sorting: state.sorting,
+    ascending: state.ascending,
+    visibleStatuses: state.visibleStatuses,
+    expanded: state.expanded
+  }
+}
+
+export default connect(select)(Responses)
