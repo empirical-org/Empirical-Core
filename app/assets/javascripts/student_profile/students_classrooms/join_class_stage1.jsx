@@ -1,10 +1,24 @@
 EC.JoinClassStage1 = React.createClass({
 
+  getInitialState: function() {
+    return {error: null}
+  },
+
   addClass: function() {
+    var that = this
     $.post('../students_classrooms', {classcode: this.refs.classCodeInput.value})
-      .done(function(data){
-        // ensure that it was successful here
-      });
+      .done(function(){
+        alert('added');
+      })
+      .fail(function() {
+        that.setState({error: 'Invalid Classcode'})
+      })
+  },
+
+  errorMessage: function() {
+    if (this.state.error !== null) {
+      return <div><span className='error-message'>Invalid Classcode</span></div>;
+    }
   },
 
 
@@ -16,6 +30,7 @@ EC.JoinClassStage1 = React.createClass({
         <br/>
         <input ref='classCodeInput' placeholder='e.g. fresh-bread'></input>
         <br/>
+        {this.errorMessage()}
         <button className='button-green' onClick={this.addClass}>Join Your Class</button>
         <br/>
         <span>Don't know your classcode?<br/>
