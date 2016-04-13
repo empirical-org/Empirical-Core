@@ -19,7 +19,7 @@ EC.JoinAnotherClass = React.createClass({
   },
 
   advanceStage: function() {
-    setState({stage: 2});
+    this.setState({stage: 2});
   },
 
   stateSpecificComponents: function() {
