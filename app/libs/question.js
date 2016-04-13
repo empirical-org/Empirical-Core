@@ -33,7 +33,7 @@ export default class Question {
       returnValue.response = punctuationMatch
       return returnValue
     }
-    var typingErrorMatch = this.checkSmallTypoMatch(response)
+    var typingErrorMatch = this.checkFuzzyMatch(response)
     if (typingErrorMatch !== undefined) {
       returnValue.typingError = true
       returnValue.response = typingErrorMatch
@@ -79,7 +79,9 @@ export default class Question {
     var response = undefined;
     var text = undefined;
     if (matches.length > 0) {
-      text = matches[0][0] > 0.8 ? matches[0][1] : null;
+      var threshold = (matches[0][1].length - 3) / matches[0][1].length
+      // console.log("\nmatch: ", matches[0][0], " threshold: ", threshold)
+      text = matches[0][0] > threshold ? matches[0][1] : null;
     }
     if (text) {
       response = _.findWhere(this.responses, {text})
@@ -91,6 +93,8 @@ export default class Question {
 const removePunctuation = (string) => {
   return string.replace(/[^A-Za-z0-9\s]/g,"")
 }
+
+// Check number of chars added.
 
 const getLowAdditionCount = (newString, oldString) => {
   var diff = jsDiff.diffChars(newString, oldString)
