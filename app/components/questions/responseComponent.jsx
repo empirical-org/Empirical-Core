@@ -94,7 +94,10 @@ const Responses = React.createClass({
   },
 
   toggleResponseSort: function (field) {
-    (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
+    if (field === this.props.sorting) {
+      this.dispatch(actions.toggleResponseSort(field));
+    }
+    // (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
   },
 
   renderSortingFields: function () {
@@ -109,7 +112,9 @@ const Responses = React.createClass({
     var newVisibleStatuses = {};
     toggledStatus[status] = !this.state.visibleStatuses[status];
     _.extend(newVisibleStatuses, this.state.visibleStatuses, toggledStatus);
-    this.setState({visibleStatuses: newVisibleStatuses});
+
+    this.props.dispatch(actions.toggleStatusField(newVisibleStatuses))
+    // this.setState({visibleStatuses: newVisibleStatuses});
   },
 
   renderStatusToggleMenu: function () {
@@ -121,17 +126,22 @@ const Responses = React.createClass({
     )
   },
 
+  // collapseAllResponses: function () {
+  //   this.setState({expanded: {}});
+  // },
+
   collapseAllResponses: function () {
-    this.setState({expanded: {}});
+    this.props.dispatch(actions.collapseAllResponses());
   },
 
   expandAllResponses: function () {
     const responses = this.responsesWithStatus();
-    var newState = this.state.expanded;
+    var newExpandedState = this.state.expanded;
     for (var i = 0; i < responses.length; i++) {
-      newState[responses[i].key] = true;
+      newExpandedState[responses[i].key] = true;
     };
-    this.setState({expanded: newState});
+    // this.setState({expanded: newState});
+    this.props.dispatch(actions.expandAllResponses(newExpandedState));
   },
 
   renderExpandCollapseAll: function () {

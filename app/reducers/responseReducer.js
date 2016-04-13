@@ -17,9 +17,29 @@ export default function(currentState, action) {
    var newState;
    switch (action.type) {
       case C.TOGGLE_EXPAND_SINGLE_RESPONSE:
-         debugger
          newState = _.cloneDeep(currentState);
          newState.expanded[action.rkey] = !currentState.expanded[action.rkey];
+         return newState;
+      case C.COLLAPSE_ALL_RESPONSES:
+         newState = _.cloneDeep(currentState);
+         newState.expanded = {};
+         return newState;
+      case C.EXPAND_ALL_RESPONSES:
+         newState = _.cloneDeep(currentState);
+         newState.expanded = action.expandedResponses;
+         return newState;
+      case C.TOGGLE_STATUS_FIELD:
+         newState = _.cloneDeep(currentState);
+         newState.visibleStatuses = action.newVisibleStatuses;
+         return newState;
+      case C.TOGGLE_RESPONSE_SORT:
+         newState = _.cloneDeep(currentState);
+         if (currentState.sorting === action.field) {
+            newState.ascending = !currentState.ascending;
+         } else {
+            newState.ascending = false;
+            newState.sorting = action.field;
+         }
          return newState;
       default:
          return currentState || initialState;
