@@ -16,7 +16,9 @@ const feedbackStrings = {
 export default React.createClass({
 
   deleteResponse: function (rid) {
-    this.props.dispatch(questionActions.deleteResponse(this.props.questionID, rid))
+    if (window.confirm("Are you sure?")) {
+      this.props.dispatch(questionActions.deleteResponse(this.props.questionID, rid))
+    }
   },
 
   editResponse: function (rid) {

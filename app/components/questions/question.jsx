@@ -126,6 +126,10 @@ const Question = React.createClass({
     }
   },
 
+  renderDeleteQuestionButton: function () {
+    return <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
+  },
+
   render: function (){
     const {data, states} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
@@ -137,7 +141,7 @@ const Question = React.createClass({
           <h6 className="subtitle">{responses.length} Responses</h6>
           <Chart data={_.values(this.formatForPieChart())}/>
           <p className="control">
-            <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button> <button className="button is-danger" onClick={this.deleteQuestion}>Delete Question</button>
+            <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button>
           </p>
           {this.renderNewResponseForm()}
           <ResponseComponent
