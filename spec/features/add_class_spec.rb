@@ -18,6 +18,35 @@ feature 'Add Class', js: true do
     eventually { expect(page).to have_selector("input") }
   end
 
+  context 'upon submission'
+
+
+
+    context 'if the code is valid'
+
+    before :each do
+      page.find(".class-input").set(classroom3.code)
+      click_button('Join Your Class')
+    end
+
+      it 'it successfully adds a student to a classroom' do
+        # page.find(".class-input").set(classroom3.code)
+        # click_button('Join Your Class')
+        # this works IRL, not sure why it is failing
+        eventually { expect(student.students_classrooms).to include(classroom3)}
+      end
+
+      it 'tells the student they succesfully joined a classroom' do
+        eventually { expect(page).to have_content("Classroom Added")}
+      end
+
+    context 'if the code is not valid'
+
+
+
+
+
+
 
   # it 'successfully adds a student to a classroom' do
   #   page.find(".class-input").set(classroom3.code)
