@@ -23,14 +23,13 @@
 			<%- if current_user.nil? %>
 				<li><%= link_to "Login", new_session_path  %></li>
 			<%- else %>
-				<li><%= link_to "Support", "http://support.quill.org" %></li>
 				<%- if current_user.role == 'teacher' %>
 					<li><%= link_to "Profile", profile_path, class: "sign-up-btn" %></li>
 				<%- end %>
 				<%- if current_user.role == 'student' %>
 					<li><%= link_to raw("<i class='fa fa-plus-circle' aria-hidden='true'></i> Join a Class"), add_classroom_students_classrooms_path %></li>
 				<% end %>
-				<%- if current_user.role == 'teacher' || !current_user %>
+				<%- if current_user.role != 'student' %>
 				<li><%= link_to "Support", "http://support.quill.org" %></li>
 				<% end %>
         	<% end %>
