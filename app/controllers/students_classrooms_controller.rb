@@ -3,10 +3,19 @@ class StudentsClassroomsController < ApplicationController
     def create
       @user = current_user
       classcode = params[:classcode]
-      classroom = Classroom.where(code: classcode).first
-      Associators::StudentsToClassrooms.run(@user, classroom)
-      JoinClassroomWorker.perform_async(@user.id)
-      render json: classroom.attributes
+      begin
+        classroom = Classroom.where(code: classcode).first
+        Associators::StudentsToClassrooms.run(@user, classroom)
+        JoinClassroomWorker.perform_async(@user.id)
+      rescue NoMethodError => exception
+        render json: {
+                      error: "No such clascode",
+                      status: 400
+                    }, status: 400
+      else
+        render json: classroom.attributes
+      end
+
     end
 
     def hide
