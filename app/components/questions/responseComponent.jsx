@@ -144,7 +144,7 @@ const Responses = React.createClass({
       expand={this.expand}
       ascending={this.props.responses.ascending}
       getMatchingResponse={this.getMatchingResponse}
-      printPathways={this.printPathways} />
+      printPathways={this.mapCountToResponse} />
   },
 
   toggleResponseSort: function (field) {
@@ -218,8 +218,23 @@ const Responses = React.createClass({
   getFromPathwaysForResponse: function (rid) {
     var responseCollection = hashToCollection(this.props.pathways.data);
     var responsePathways = _.where(responseCollection, {fromResponseID: rid});
-    console.log(rid, responsePathways);
-    return responsePathways
+    return responsePathways;
+  },
+
+  getUniqAndCountedResponsePathways: function (rid) {
+    const counted = _.countBy(this.getFromPathwaysForResponse(rid), (path)=>{
+      return path.toResponseID;
+    });
+    return counted;
+  },
+
+  mapCountToResponse: function (rid) {
+    const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
+      var response = this.props.question.responses[key]
+      response.pathCount = value
+      return response
+    });
+    console.log(mapped)
   },
 
   render: function () {
