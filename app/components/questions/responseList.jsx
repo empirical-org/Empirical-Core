@@ -20,7 +20,8 @@ export default React.createClass({
           allExpanded={this.props.expanded}
           expanded={this.props.expanded[resp.key]}
           expand={this.props.expand}
-          getMatchingResponse={this.props.getMatchingResponse}/>
+          getMatchingResponse={this.props.getMatchingResponse}
+          printPathways={this.props.printPathways} />
       )
     })
     if (this.props.ascending) {

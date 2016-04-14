@@ -128,7 +128,9 @@ export default React.createClass({
       return
     }
     if (!response.parentID) {
-      childDetails = (<a className="button is-outlined has-top-margin" onClick={this.viewChildResponses.bind(null, response.key)} key='view' >View Children</a>)
+      childDetails = (
+        <a className="button is-outlined has-top-margin" onClick={this.viewChildResponses.bind(null, response.key)} key='view' >View Children</a>
+      );
     }
 
 
@@ -191,6 +193,12 @@ export default React.createClass({
           <strong>Feedback:</strong> {response.feedback}
           <br/>
           {childDetails}
+          <a
+            className="button is-outlined has-top-margin"
+            onClick={this.printResponsePathways}
+            key='print' >
+            Print Pathways
+          </a>
         </div>
     }
 
@@ -225,6 +233,7 @@ export default React.createClass({
     return (
       <footer className="card-footer">
         {buttons}
+
       </footer>
     );
   },
@@ -295,6 +304,27 @@ export default React.createClass({
     }
   },
 
+  printResponsePathways: function () {
+    this.props.printPathways(this.props.response.key);
+  },
+  // gatherPathways: function () {
+  //   debugger
+  //   var currentRespKey = this.props.response.key;
+  //   var allResponses = _.where(this.props.responses, {key: currentRespKey})
+  //   console.log();
+  // },
+
+  // renderPathwaysButton: function () {
+  //   return (
+  //     <a
+  //       className="button is-outlined has-top-margin"
+  //       onClick={this.gatherPathways}
+  //       key='view' >
+  //       Print Pathways
+  //     </a>
+  //   );
+  // },
+
   render: function () {
     const {response, state} = this.props;
     const isEditing = (state === (C.START_RESPONSE_EDIT + "_" + response.key));
@@ -307,6 +337,6 @@ export default React.createClass({
         {this.renderResponseFooter(isEditing, response)}
         {this.renderChildResponses(isViewingChildResponses, response.key)}
       </div>
-    )
+    );
   }
 })

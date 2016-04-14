@@ -143,7 +143,8 @@ const Responses = React.createClass({
       expanded={this.props.responses.expanded}
       expand={this.expand}
       ascending={this.props.responses.ascending}
-      getMatchingResponse={this.getMatchingResponse}/>
+      getMatchingResponse={this.getMatchingResponse}
+      printPathways={this.printPathways} />
   },
 
   toggleResponseSort: function (field) {
@@ -214,6 +215,13 @@ const Responses = React.createClass({
     }
   },
 
+  getFromPathwaysForResponse: function (rid) {
+    var responseCollection = hashToCollection(this.props.pathways.data);
+    var responsePathways = _.where(responseCollection, {fromResponseID: rid});
+    console.log(rid, responsePathways);
+    return responsePathways
+  },
+
   render: function () {
     return (
       <div>
@@ -236,9 +244,11 @@ const Responses = React.createClass({
   }
 })
 
+
 function select(state) {
   return {
-    responses: state.responses
+    responses: state.responses,
+    pathways: state.pathways
   }
 }
 
