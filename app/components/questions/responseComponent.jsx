@@ -4,16 +4,89 @@ import actions from '../../actions/responses'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
+import Question from '../../libs/question'
+import questionActions from '../../actions/questions'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
 
 
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
+const feedbackStrings = {
+  punctuationError: "punctuation error",
+  typingError: "spelling mistake",
+  caseError: "capitalization error"
+}
 
 const Responses = React.createClass({
   expand: function (responseKey) {
     this.props.dispatch(actions.toggleExpandSingleResponse(responseKey));
+  },
+
+  updateRematchedResponse: function (rid, vals) {
+    this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, vals))
+  },
+
+  getMatchingResponse: function (rid) {
+    var fields = {
+      responses: _.filter(this.responsesWithStatus(), (resp) => {
+        return resp.statusCode < 2
+      })
+    }
+    var question = new Question(fields);
+    return question.checkMatch(this.getResponse(rid).text);
+  },
+
+  getErrorsForAttempt: function (attempt) {
+    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+  },
+
+  generateFeedbackString: function (attempt) {
+    const errors = this.getErrorsForAttempt(attempt);
+    // add keys for react list elements
+    var errorComponents = _.values(_.mapObject(errors, (val, key) => {
+      if (val) {
+        return "You have made a " + feedbackStrings[key] + "."
+      }
+    }))
+    return errorComponents[0]
+  },
+
+  rematchResponse: function (rid) {
+    var newResponse = this.getMatchingResponse(rid)
+    var response = this.getResponse(rid)
+    if (!newResponse.found) {
+      var newValues = {
+        text: response.text,
+        count: response.count
+      }
+      this.props.dispatch(
+        questionActions.setUpdatedResponse(this.props.questionID, rid, newValues)
+      )
+      return
+    }
+    if (newResponse.response.key === response.parentID) {
+      return
+    }
+    else {
+      var newErrorResp = {
+        parentID: newResponse.response.key,
+        feedback: this.generateFeedbackString(newResponse)
+      }
+      this.updateRematchedResponse(rid, newErrorResp)
+    }
+    // this.updateReponseResource(response)
+    // this.submitResponse(response)
+    // this.setState({editing: false})
+  },
+
+  rematchAllResponses: function () {
+    const weak = _.filter(this.responsesWithStatus(), (resp) => {
+      return resp.statusCode > 1
+    })
+    weak.forEach((resp) => {
+      this.rematchResponse(resp.key)
+    })
   },
 
   responsesWithStatus: function () {
@@ -69,7 +142,8 @@ const Responses = React.createClass({
       admin={this.props.admin}
       expanded={this.props.responses.expanded}
       expand={this.expand}
-      ascending={this.props.responses.ascending}/>
+      ascending={this.props.responses.ascending}
+      getMatchingResponse={this.getMatchingResponse}/>
   },
 
   toggleResponseSort: function (field) {
@@ -92,7 +166,7 @@ const Responses = React.createClass({
       <ResponseToggleFields
         labels={labels}
         toggleField={this.toggleField}
-        visibleStatuses={this.props.responses.visibleStatuses} />   
+        visibleStatuses={this.props.responses.visibleStatuses} />
     )
   },
 
@@ -143,7 +217,11 @@ const Responses = React.createClass({
           <div className="column">
             {this.renderExpandCollapseAll()}
           </div>
+          <div className="column">
+            <button className="button is-fullwidth is-outlined" onClick={this.rematchAllResponses}> Rematch All </button>
+          </div>
         </div>
+
         {this.renderResponses()}
       </div>
     )
