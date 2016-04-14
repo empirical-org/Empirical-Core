@@ -8,6 +8,7 @@ export default React.createClass({
       return (
           <Response
           response={resp}
+          responses={this.props.responses}
           getResponse={this.props.getResponse}
           getChildResponses={this.props.getChildResponses}
           states={this.props.states}
@@ -18,7 +19,8 @@ export default React.createClass({
           readOnly={this.props.admin}
           allExpanded={this.props.expanded}
           expanded={this.props.expanded[resp.key]}
-          expand={this.props.expand}/>
+          expand={this.props.expand}
+          getMatchingResponse={this.props.getMatchingResponse}/>
       )
     })
     if (this.props.ascending) {

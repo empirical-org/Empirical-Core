@@ -112,7 +112,7 @@ const playQuestion = React.createClass({
     return components.concat(errorComponents)
   },
 
-  updateReponseResource: function (response) {
+  updateResponseResource: function (response) {
     var previousAttempt;
     const responses = hashToCollection(this.getQuestion().responses);
     const preAtt = getLatestAttempt(this.props.question.attempts)
@@ -176,7 +176,7 @@ const playQuestion = React.createClass({
     }
     var question = new Question(fields);
     var response = question.checkMatch(this.refs.response.value);
-    this.updateReponseResource(response)
+    this.updateResponseResource(response)
     this.submitResponse(response)
     this.setState({editing: false})
   },

@@ -1,6 +1,7 @@
 import React from 'react'
 import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
+import Question from '../../libs/question'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
 import _ from 'underscore'
@@ -27,6 +28,17 @@ export default React.createClass({
     var newState = this.state.expanded;
     newState[responseKey] = !newState[responseKey];
     this.setState({expanded: newState})
+  },
+
+  getMatchingResponse: function (rid) {
+    var fields = {
+      responses: _.filter(this.responsesWithStatus(), (resp) => {
+        return resp.statusCode < 2
+      })
+    }
+    console.log("responses: ", fields.responses)
+    var question = new Question(fields);
+    return question.checkMatch(this.getResponse(rid).text);
   },
 
   responsesWithStatus: function () {
@@ -82,7 +94,8 @@ export default React.createClass({
       admin={this.props.admin}
       expanded={this.state.expanded}
       expand={this.expand}
-      ascending={this.state.ascending}/>
+      ascending={this.state.ascending}
+      getMatchingResponse={this.getMatchingResponse}/>
   },
 
   toggleResponseSort: function (field) {

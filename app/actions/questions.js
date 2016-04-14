@@ -106,6 +106,19 @@ module.exports = {
 				});
 		};
 	},
+  setUpdatedResponse: function(qid,rid,content){
+		return function(dispatch,getState){
+				dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid,rid});
+				questionsRef.child(qid+ "/responses/" + rid).set(content,function(error){
+					dispatch({type:C.FINISH_RESPONSE_EDIT,qid,rid});
+					if (error){
+						dispatch({type:C.DISPLAY_ERROR,error:"Update failed! " + error});
+					} else {
+						dispatch({type:C.DISPLAY_MESSAGE,message:"Update successfully saved!"});
+					}
+				});
+		};
+	},
   deleteResponse: function(qid,rid){
 		return function(dispatch,getState){
 			dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid});

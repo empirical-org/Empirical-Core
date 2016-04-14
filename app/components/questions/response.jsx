@@ -1,9 +1,17 @@
 import React from 'react'
 import C from '../../constants'
 import questionActions from '../../actions/questions'
+import Question from '../../libs/question'
 const jsDiff = require('diff');
 import Modal from '../modal/modal.jsx'
 import ResponseList from './responseList.jsx'
+import _ from 'underscore'
+
+const feedbackStrings = {
+  punctuationError: "punctuation error",
+  typingError: "spelling mistake",
+  caseError: "capitalization error"
+}
 
 export default React.createClass({
 
@@ -34,6 +42,55 @@ export default React.createClass({
       optimal: this.refs.newResponseOptimal.checked
     }
     this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, newResp))
+  },
+
+  updateRematchedResponse: function (rid, vals) {
+    this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, vals))
+  },
+
+  getErrorsForAttempt: function (attempt) {
+    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+  },
+
+  generateFeedbackString: function (attempt) {
+    const errors = this.getErrorsForAttempt(attempt);
+    // add keys for react list elements
+    var errorComponents = _.values(_.mapObject(errors, (val, key) => {
+      if (val) {
+        return "You have made a " + feedbackStrings[key] + "."
+      }
+    }))
+    return errorComponents[0]
+  },
+
+  rematchResponse: function (rid) {
+    var newResponse = this.props.getMatchingResponse(rid)
+    console.log("new resp: ", newResponse)
+    if (!newResponse.found) {
+      console.log("Not found")
+      var newValues = {
+        text: this.props.response.text,
+        count: this.props.response.count
+      }
+      this.props.dispatch(
+        questionActions.setUpdatedResponse(this.props.questionID, rid, newValues)
+      )
+      return
+    }
+    if (newResponse.response.key === this.props.response.parentID) {
+      console.log("No Change")
+    }
+    else {
+      console.log("Changed response")
+      var newErrorResp = {
+        parentID: newResponse.response.key,
+        feedback: this.generateFeedbackString(newResponse)
+      }
+      this.updateRematchedResponse(rid, newErrorResp)
+    }
+    // this.updateReponseResource(response)
+    // this.submitResponse(response)
+    // this.setState({editing: false})
   },
 
   incrementResponse: function (rid) {
@@ -136,11 +193,13 @@ export default React.createClass({
       buttons = [
         (<a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)} key='cancel' >Cancel</a>),
         (<a className="card-footer-item" onClick={this.incrementResponse.bind(null, response.key)} key='increment' >Increment</a>),
+        (<a className="card-footer-item" onClick={this.rematchResponse.bind(null, response.key)} key='rematch' >Rematch</a>),
         (<a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)} key='update' >Update</a>)
       ]
     } else {
       buttons = [
         (<a className="card-footer-item" onClick={this.editResponse.bind(null, response.key)} key='edit' >Edit</a>),
+        (<a className="card-footer-item" onClick={this.rematchResponse.bind(null, response.key)} key='rematch' >Rematch</a>),
         (<a className="card-footer-item" onClick={this.deleteResponse.bind(null, response.key)} key='delete' >Delete</a>)
       ]
     }
@@ -221,6 +280,7 @@ export default React.createClass({
     const {response, state} = this.props;
     const isEditing = (state === (C.START_RESPONSE_EDIT + "_" + response.key));
     const isViewingChildResponses = (state === (C.START_CHILD_RESPONSE_VIEW + "_" + response.key));
+
     return (
       <div className={"card is-fullwidth " + this.cardClasses()}>
         {this.renderResponseHeader(response)}
