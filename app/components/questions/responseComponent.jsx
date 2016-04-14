@@ -2,12 +2,18 @@ import React from 'react'
 import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
 import Question from '../../libs/question'
+import questionActions from '../../actions/questions'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
 import _ from 'underscore'
 
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
+const feedbackStrings = {
+  punctuationError: "punctuation error",
+  typingError: "spelling mistake",
+  caseError: "capitalization error"
+}
 
 export default React.createClass({
   getInitialState: function () {
@@ -30,15 +36,70 @@ export default React.createClass({
     this.setState({expanded: newState})
   },
 
+  updateRematchedResponse: function (rid, vals) {
+    this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, vals))
+  },
+
   getMatchingResponse: function (rid) {
     var fields = {
       responses: _.filter(this.responsesWithStatus(), (resp) => {
         return resp.statusCode < 2
       })
     }
-    console.log("responses: ", fields.responses)
     var question = new Question(fields);
     return question.checkMatch(this.getResponse(rid).text);
+  },
+
+  getErrorsForAttempt: function (attempt) {
+    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+  },
+
+  generateFeedbackString: function (attempt) {
+    const errors = this.getErrorsForAttempt(attempt);
+    // add keys for react list elements
+    var errorComponents = _.values(_.mapObject(errors, (val, key) => {
+      if (val) {
+        return "You have made a " + feedbackStrings[key] + "."
+      }
+    }))
+    return errorComponents[0]
+  },
+
+  rematchResponse: function (rid) {
+    var newResponse = this.getMatchingResponse(rid)
+    var response = this.getResponse(rid)
+    if (!newResponse.found) {
+      var newValues = {
+        text: response.text,
+        count: response.count
+      }
+      this.props.dispatch(
+        questionActions.setUpdatedResponse(this.props.questionID, rid, newValues)
+      )
+      return
+    }
+    if (newResponse.response.key === response.parentID) {
+      return
+    }
+    else {
+      var newErrorResp = {
+        parentID: newResponse.response.key,
+        feedback: this.generateFeedbackString(newResponse)
+      }
+      this.updateRematchedResponse(rid, newErrorResp)
+    }
+    // this.updateReponseResource(response)
+    // this.submitResponse(response)
+    // this.setState({editing: false})
+  },
+
+  rematchAllResponses: function () {
+    const weak = _.filter(this.responsesWithStatus(), (resp) => {
+      return resp.statusCode > 1
+    })
+    weak.forEach((resp) => {
+      this.rematchResponse(resp.key)
+    })
   },
 
   responsesWithStatus: function () {
@@ -165,7 +226,11 @@ export default React.createClass({
           <div className="column">
             {this.renderExpandCollapseAll()}
           </div>
+          <div className="column">
+            <button className="button is-fullwidth is-outlined" onClick={this.rematchAllResponses}> Rematch All </button>
+          </div>
         </div>
+
         {this.renderResponses()}
       </div>
     )

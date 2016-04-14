@@ -65,9 +65,7 @@ export default React.createClass({
 
   rematchResponse: function (rid) {
     var newResponse = this.props.getMatchingResponse(rid)
-    console.log("new resp: ", newResponse)
     if (!newResponse.found) {
-      console.log("Not found")
       var newValues = {
         text: this.props.response.text,
         count: this.props.response.count
@@ -78,10 +76,9 @@ export default React.createClass({
       return
     }
     if (newResponse.response.key === this.props.response.parentID) {
-      console.log("No Change")
+      return
     }
     else {
-      console.log("Changed response")
       var newErrorResp = {
         parentID: newResponse.response.key,
         feedback: this.generateFeedbackString(newResponse)
