@@ -35,6 +35,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :students_classrooms do
     collection do
       get :add_classroom
+      get :classroom_manager
     end
   end
   resources :unit_templates, only: [:index, :show], format: 'json'
