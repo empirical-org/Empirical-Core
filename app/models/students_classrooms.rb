@@ -6,4 +6,9 @@ class StudentsClassrooms < ActiveRecord::Base
 
   default_scope { where(visible: true)}
 
+
+  def students_classrooms_manager
+    {joinDate: self.created_at, className: self.classroom.name, teacherName: self.teacher_name}
+  end
+
 end

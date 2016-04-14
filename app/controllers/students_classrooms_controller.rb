@@ -28,5 +28,15 @@ class StudentsClassroomsController < ApplicationController
       render :add_classroom
     end
 
+    def classroom_manager
+      render :students_classroom_manager
+    end
+
+    def classroom_manager_data
+      active = current_user.students_classrooms.each(&:students_classrooms_manager)
+      inactive = students_classrooms.unscoped.where(student_id: current_user.id, visible: false).each(&:students_classrooms_manager)
+      render json: {active: active, inactive: inactive}
+    end
+
 
 end
