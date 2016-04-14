@@ -1,11 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import actions from '../../actions/responses'
+import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
 import Question from '../../libs/question'
 import questionActions from '../../actions/questions'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
-import _ from 'underscore'
+
 
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
@@ -15,25 +18,9 @@ const feedbackStrings = {
   caseError: "capitalization error"
 }
 
-export default React.createClass({
-  getInitialState: function () {
-    return {
-      sorting: "count",
-      ascending: false,
-      visibleStatuses: {
-        "Optimal": true,
-        "Sub-Optimal": true,
-        "Common Error": true,
-        "Unmatched": true
-      },
-      expanded: {}
-    }
-  },
-
+const Responses = React.createClass({
   expand: function (responseKey) {
-    var newState = this.state.expanded;
-    newState[responseKey] = !newState[responseKey];
-    this.setState({expanded: newState})
+    this.props.dispatch(actions.toggleExpandSingleResponse(responseKey));
   },
 
   updateRematchedResponse: function (rid, vals) {
@@ -125,7 +112,7 @@ export default React.createClass({
   gatherVisibleResponses: function () {
     var responses = this.responsesWithStatus();
     return _.filter(responses, (response) => {
-      return this.state.visibleStatuses[labels[response.statusCode]]
+      return this.props.responses.visibleStatuses[labels[response.statusCode]]
     });
   },
 
@@ -141,9 +128,9 @@ export default React.createClass({
 
   renderResponses: function () {
     const {questionID} = this.props;
-    var responses = this.gatherVisibleResponses()
+    var responses = this.gatherVisibleResponses();
     var responsesListItems = _.sortBy(responses, (resp) =>
-        {return resp[this.state.sorting] || 0 }
+        {return resp[this.props.responses.sorting] || 0 }
       )
     return <ResponseList
       responses={responsesListItems}
@@ -153,29 +140,25 @@ export default React.createClass({
       questionID={questionID}
       dispatch={this.props.dispatch}
       admin={this.props.admin}
-      expanded={this.state.expanded}
+      expanded={this.props.responses.expanded}
       expand={this.expand}
-      ascending={this.state.ascending}
+      ascending={this.props.responses.ascending}
       getMatchingResponse={this.getMatchingResponse}/>
   },
 
   toggleResponseSort: function (field) {
-    (field === this.state.sorting ? this.setState({ascending: !this.state.ascending}) : this.setState({sorting: field, ascending: false}));
+    this.props.dispatch(actions.toggleResponseSort(field));
   },
 
   renderSortingFields: function () {
     return <ResponseSortFields
-      sorting={this.state.sorting}
-      ascending={this.state.ascending}
+      sorting={this.props.responses.sorting}
+      ascending={this.props.responses.ascending}
       toggleResponseSort={this.toggleResponseSort}/>
   },
 
   toggleField: function (status) {
-    var toggledStatus = {};
-    var newVisibleStatuses = {};
-    toggledStatus[status] = !this.state.visibleStatuses[status];
-    _.extend(newVisibleStatuses, this.state.visibleStatuses, toggledStatus);
-    this.setState({visibleStatuses: newVisibleStatuses});
+    this.props.dispatch(actions.toggleStatusField(status))
   },
 
   renderStatusToggleMenu: function () {
@@ -183,27 +166,35 @@ export default React.createClass({
       <ResponseToggleFields
         labels={labels}
         toggleField={this.toggleField}
-        visibleStatuses={this.state.visibleStatuses}
-        />
+        visibleStatuses={this.props.responses.visibleStatuses} />
     )
   },
 
   collapseAllResponses: function () {
-    this.setState({expanded: {}});
+    this.props.dispatch(actions.collapseAllResponses());
   },
 
   expandAllResponses: function () {
     const responses = this.responsesWithStatus();
-    var newState = this.state.expanded;
+    var newExpandedState = this.props.responses.expanded;
     for (var i = 0; i < responses.length; i++) {
-      newState[responses[i].key] = true;
+      newExpandedState[responses[i].key] = true;
     };
-    this.setState({expanded: newState});
+    this.props.dispatch(actions.expandAllResponses(newExpandedState));
+  },
+
+  allClosed: function () {
+    var expanded = this.props.responses.expanded;
+    for (var i in expanded) {
+        if (expanded[i] === true) return false;
+    }
+    return true;
   },
 
   renderExpandCollapseAll: function () {
     var text, handleClick;
-    if (Object.keys(this.state.expanded).length === 0) {
+
+    if (this.allClosed()) {
       handleClick = this.expandAllResponses;
       text = "Expand All";
     } else {
@@ -235,5 +226,12 @@ export default React.createClass({
       </div>
     )
   }
-
 })
+
+function select(state) {
+  return {
+    responses: state.responses
+  }
+}
+
+export default connect(select)(Responses);
