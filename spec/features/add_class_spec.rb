@@ -18,11 +18,11 @@ feature 'Add Class', js: true do
     eventually { expect(page).to have_selector("input") }
   end
 
-  context 'upon submission'
+  context 'upon submission' do
 
 
 
-    context 'if the code is valid'
+    context 'if the code is valid' do
 
     before :each do
       page.find(".class-input").set(classroom3.code)
@@ -40,7 +40,21 @@ feature 'Add Class', js: true do
         eventually { expect(page).to have_content("Classroom Added")}
       end
 
-    context 'if the code is not valid'
+    end
+
+    context 'if it the code is not valid' do
+
+      it 'displays an error message' do
+        page.find(".class-input").set('not-a-class')
+        click_button('Join Your Class')
+        eventually {expect(page).to have_content("Invalid Classcode")}
+      end
+
+    end
+
+  end
+
+
 
 
 
