@@ -17,10 +17,20 @@ feature 'Student Classroom Manager', js: true do
       page.find("#students_classrooms_manager")
     end
 
-    it 'shows a list displaying all of the current users classrooms' do
+    it 'shows a list displaying all of the current users active classrooms' do
       eventually { expect(page).to have_content(classroom1.name) }
       eventually { expect(page).to have_content(classroom2.name) }
     end
+
+    it 'can archive an existing classroom' do
+      page.click('')
+    end
+
+    # TODO: get this one passing
+    # it 'shows a list displaying all of the current users archived classrooms' do
+    #   eventually { expect(page).to have_content(classroom1.name) }
+    #   eventually { expect(page).to have_content(classroom2.name) }
+    # end
 
   end
 
