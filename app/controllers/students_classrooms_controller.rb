@@ -20,6 +20,12 @@ class StudentsClassroomsController < ApplicationController
       render json: sc
     end
 
+    def unhide
+      sc = StudentsClassrooms.unscoped.find(params[:id])
+      sc.update(visible: true)
+      render json: sc
+    end
+
     def teacher_hide
       row = StudentsClassrooms.where(student_id: params[:student_id], classroom_id: params[:classroom_id]).first
       row.update(visible: false)

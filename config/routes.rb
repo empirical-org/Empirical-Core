@@ -41,8 +41,9 @@ EmpiricalGrammar::Application.routes.draw do
 
     member do
       post :hide
+      post :unhide
     end
-    
+
   end
   resources :unit_templates, only: [:index, :show], format: 'json'
 
