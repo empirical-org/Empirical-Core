@@ -8,7 +8,7 @@ class StudentsClassrooms < ActiveRecord::Base
 
 
   def students_classrooms_manager
-    {joinDate: self.created_at, className: self.classroom.name, teacherName: self.teacher_name}
+    {joinDate: self.created_at.strftime("%m/%d/%Y"), className: self.classroom.name, teacherName: self.classroom.teacher.name, id: self.id}
   end
 
 end

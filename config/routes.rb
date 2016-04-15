@@ -36,7 +36,13 @@ EmpiricalGrammar::Application.routes.draw do
     collection do
       get :add_classroom
       get :classroom_manager
+      get :classroom_manager_data
     end
+
+    member do
+      post :hide
+    end
+    
   end
   resources :unit_templates, only: [:index, :show], format: 'json'
 
@@ -140,7 +146,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  put '/students_classrooms/hide', to: 'students_classrooms#hide', as: 'students_classrooms_archive'
+  put '/students_classrooms/teacher_hide', to: 'students_classrooms#teacher_hide', as: 'students_classrooms_teacher_archive'
 
   # API routes
   namespace :api do

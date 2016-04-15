@@ -27,21 +27,22 @@ EC.StudentsClassroomsManager = React.createClass({
     });
   },
 
- classAction: function(status) {
+ classAction: function(status, id) {
    var path = status == 'Archive' ? 'hide':'unhide';
-   $.ajax({url: status, context: this, success: this.getClassrooms()});
+   path = "/students_classrooms/" + id + '/' + path;
+   $.ajax({url: path, type: 'POST', context: this, success: this.getClassrooms()});
  },
 
   mapClassrooms: function(classrooms, status) {
     var that = this;
     var classes = _.map(classrooms, function(cl) {
       return (
-        <tr key={cl.className + cl.joinDate}>
+        <tr key={cl.id}>
           <td>{cl.teacherName}</td>
           <td>{cl.className}</td>
           <td>{cl.joinDate}</td>
           <td>
-            <span onClick={that.classAction.bind(null, status)} className={status.toLowerCase() + ' ' + cl.className.replace(/ /g,'')}>{status}</span>
+            <span onClick={that.classAction.bind(null, status, cl.id)} className={status.toLowerCase() + ' ' + cl.className.replace(/ /g,'')}>{status}</span>
           </td>
         </tr>
       );
