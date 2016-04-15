@@ -4,11 +4,15 @@ import { Link } from 'react-router'
 export default React.createClass({
   render: function () {
     return (
-      <header className="header">
+      <header className="header" style={{height: '65px'}}>
         <div className="container">
           <div className="header-left">
-            <Link to={'/'} className="header-item">Quill Connect</Link>
-            <Link to={'/play'} className="header-tab" activeClassName="is-active">Play</Link>
+            <Link to={'/'} className="header-item">
+              <img src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png" alt="" style={{height: "35px"}}/>
+            </Link>
+          </div>
+          <div className="header-right">
+            <Link to={'/play'} className="header-tab" activeClassName="is-active">Questions</Link>
             <Link to={'/results'} className="header-tab" activeClassName="is-active">Results</Link>
           </div>
           <span className="header-toggle">
