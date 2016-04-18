@@ -10,7 +10,7 @@ import SharedSection from '../shared/section.jsx'
 import Chart from '../questions/pieChart.jsx'
 import ResponseComponent from '../questions/ResponseComponent.jsx'
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
-const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
+const colors = ["#81c784", "#ffb74d", "#e57373", "#ba68c8"]
 
 const Review = React.createClass({
 

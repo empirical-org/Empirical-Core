@@ -12,7 +12,7 @@ import Chart from './pieChart.jsx'
 import ResponseComponent from '../questions/ResponseComponent.jsx'
 
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
-const colors = ["#e57373", "#ffb74d", "#81c784", "#ba68c8"]
+const colors = ["#81c784", "#ffb74d", "#e57373", "#ba68c8"]
 
 const Question = React.createClass({
 
