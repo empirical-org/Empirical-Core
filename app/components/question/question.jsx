@@ -43,7 +43,7 @@ export default React.createClass({
     var components = [(<li key="feedback">{attempt.response.feedback}</li>)]
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}>Warning: You have made a {feedbackStrings[key]}.</li>)
+        return (<li key={key}>Try again. There may be a {feedbackStrings[key]}.</li>)
       }
     }))
     return components.concat(errorComponents)

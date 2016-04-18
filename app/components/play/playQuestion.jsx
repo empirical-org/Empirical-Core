@@ -100,7 +100,7 @@ const playQuestion = React.createClass({
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}><h5 className="title is-5">Warning: You have made a {feedbackStrings[key]}.</h5></li>)
+        return (<li key={key}><h5 className="title is-5">Try again. There may be a {feedbackStrings[key]}.</h5></li>)
       }
     }))
     // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
