@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
@@ -95,10 +96,11 @@ const Review = React.createClass({
         <SharedSection>
           <h4 className="title">{data[questionID].prompt}</h4>
           <h6 className="subtitle">{responses.length} Responses</h6>
-            <div className='columns'>
-              <div className='column is-half'>
-                <Chart data={_.values(this.formatForPieChart())}/>
-              </div>
+          <Link to={'play/questions/' + questionID} className="button is-outlined is-primary">Play Question</Link><br/><br/>
+          <div className='columns'>
+            <div className='column is-half'>
+              <Chart data={_.values(this.formatForPieChart())}/>
+            </div>
           </div>
 
           <ResponseComponent
