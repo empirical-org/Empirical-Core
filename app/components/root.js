@@ -29,7 +29,6 @@ var Root = React.createClass({
       <div>
         <NavBar/>
         {this.props.children}
-        <Footer />
         <DevTools/>
       </div>
     )
