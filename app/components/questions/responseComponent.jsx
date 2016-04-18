@@ -204,6 +204,16 @@ const Responses = React.createClass({
     return <a className="button is-fullwidth" onClick={handleClick}> {text} </a>
   },
 
+  renderRematchAllButton: function () {
+    if (this.props.admin) {
+      return (
+        <div className="column">
+          <button className="button is-fullwidth is-outlined" onClick={this.rematchAllResponses}> Rematch All </button>
+        </div>
+      )
+    }
+  },
+
   render: function () {
     return (
       <div>
@@ -217,9 +227,7 @@ const Responses = React.createClass({
           <div className="column">
             {this.renderExpandCollapseAll()}
           </div>
-          <div className="column">
-            <button className="button is-fullwidth is-outlined" onClick={this.rematchAllResponses}> Rematch All </button>
-          </div>
+          {this.renderRematchAllButton()}
         </div>
 
         {this.renderResponses()}
