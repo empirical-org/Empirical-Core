@@ -2,6 +2,29 @@ import React from 'react'
 import { Link } from 'react-router'
 
 export default React.createClass({
+  getInitialState: function () {
+    return {
+      expanded: false
+    }
+  },
+
+  navStyles: function () {
+    if (this.state.expanded) {
+      return {
+        background: '#fff',
+        display: 'initial'
+      }
+    }
+  },
+
+  toggle: function () {
+    this.setState({expanded: !this.state.expanded})
+  },
+
+  reset: function () {
+    this.setState({expanded: false})
+  },
+
   render: function () {
     return (
       <header className="header" style={{height: '65px'}}>
@@ -13,12 +36,12 @@ export default React.createClass({
                 style={{height: "35px"}}/>
             </a>
           </div>
-          <div className="header-right">
+          <div className="header-right header-menu" style={this.navStyles()}>
             <a href="http://www.connect.quill.org/dwqa-questions/" className="header-tab" activeClassName="is-active">Questions</a>
-            <Link to={'/play'} className="header-tab" activeClassName="is-active">Demo</Link>
-            <Link to={'/results'} className="header-tab" activeClassName="is-active">Results</Link>
+            <Link to={'/play'} className="header-tab" activeClassName="is-active" onClick={this.reset}>Demo</Link>
+            <Link to={'/results'} className="header-tab" activeClassName="is-active" onClick={this.reset}>Results</Link>
           </div>
-          <span className="header-toggle">
+          <span className="header-toggle" onClick={this.toggle}>
             <span />
             <span />
             <span />
