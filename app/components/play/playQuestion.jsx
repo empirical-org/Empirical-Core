@@ -72,6 +72,10 @@ const playQuestion = React.createClass({
           <h5 className="title is-5">Try Again. What’s another way you could write this sentence?</h5>
         )
       }
+    } else {
+      return (
+        <h5 className="title is-5">Combine the sentences into one sentence.</h5>
+      )
     }
   },
 
@@ -95,7 +99,7 @@ const playQuestion = React.createClass({
     console.log(_.isEmpty(errors), (attempt.response.optimal !== true))
     // add keys for react list elements
     var components = []
-    if (_.isEmpty(errors) && (attempt.response.optimal !== true)) {
+    if (_.isEmpty(errors)) {
       components = components.concat([(<li key="feedback"><h5 className="title is-5">{attempt.response.feedback}</h5></li>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
@@ -210,24 +214,50 @@ const playQuestion = React.createClass({
     return this.props.question.attempts.length / 3 * 100
   },
 
-  renderNextQuestionButton:  function () {
-    if (this.readyForNext()) {
-      return (<button className="button is-outlined is-success" onClick={console.log("next")}>Next</button>)
+  finish: function () {
+    this.setState({finished: true})
+  },
+
+  renderNextQuestionButton:  function (correct) {
+    if (correct) {
+      return (<button className="button is-outlined is-success" onClick={this.finish}>Next</button>)
+    } else {
+      return (<button className="button is-outlined is-warning" onClick={this.finish}>Next</button>)
     }
   },
 
   render: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
+      if (this.state.finished) {
+        return (
+          <section className="section">
+            <div className="container">
+              <div className="content">
+                <h4>Thank you for playing</h4>
+                <p>Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
+                <p><Link to={'/play'} className="button is-primary is-outlined">Try Another Question</Link></p>
+                <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
+              </div>
+            </div>
+          </section>
+        )
+      }
       if (this.props.question.attempts.length > 2 ) {
         return (
           <section className="section">
             <div className="container">
               <div className="content">
-                <h4>You completed all of the attempts.</h4>
-                <p>Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
-                <p><Link to={'/play'} className="button is-primary is-outlined">Try Another Question</Link></p>
-                <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
+                <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
+                {this.renderSentenceFragments()}
+                {this.renderFeedback()}
+                <div className="control">
+                  <textarea className="textarea is-disabled" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                </div>
+                <div className="button-group">
+                  {this.renderNextQuestionButton()}
+                  <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
+                </div>
               </div>
             </div>
           </section>
@@ -239,10 +269,17 @@ const playQuestion = React.createClass({
             <section className="section">
               <div className="container">
                 <div className="content">
-                  <h4>Excellent</h4>
-                  <p>That's correct. Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
+                  <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
 
-                  <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
+                  {this.renderSentenceFragments()}
+                  {this.renderFeedback()}
+                  <div className="control">
+                    <textarea className="textarea is-disabled" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  </div>
+                  <div className="button-group">
+                    {this.renderNextQuestionButton(true)}
+                    <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
+                  </div>
                 </div>
               </div>
             </section>
@@ -253,7 +290,7 @@ const playQuestion = React.createClass({
               <div className="container">
                 <div className="content">
                   <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                  <h6 className="title is-6">Combine the sentences below into one sentence.</h6>
+
                   {this.renderSentenceFragments()}
                   {this.renderFeedback()}
                   <div className="control">
@@ -262,7 +299,7 @@ const playQuestion = React.createClass({
                   <div className="button-group">
                     <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
                     <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
-                    {this.renderNextQuestionButton()}
+
                   </div>
                 </div>
               </div>
@@ -276,7 +313,6 @@ const playQuestion = React.createClass({
             <div className="container">
               <div className="content">
                 <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                <h6 className="title is-6">Combine the sentences below into one sentence.</h6>
                 {this.renderSentenceFragments()}
                 {this.renderFeedback()}
                 <div className="control">
@@ -285,7 +321,7 @@ const playQuestion = React.createClass({
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
                   <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
-                  {this.renderNextQuestionButton()}
+
                 </div>
               </div>
             </div>
