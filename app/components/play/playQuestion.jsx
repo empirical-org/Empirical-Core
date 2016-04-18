@@ -260,7 +260,8 @@ const playQuestion = React.createClass({
                     <textarea className="textarea" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                   </div>
                   <div className="button-group">
-                    <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+                    <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+                    <Link to={'/results/questions' + questionID} className="button is-info is-outlined">View Results</Link>
                     {this.renderNextQuestionButton()}
                   </div>
                 </div>
@@ -282,7 +283,8 @@ const playQuestion = React.createClass({
                   <textarea className="textarea" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                 </div>
                 <div className="button-group">
-                  <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+                  <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+                  <Link to={'/results/questions' + questionID} className="button is-info is-outlined">View Results</Link>
                   {this.renderNextQuestionButton()}
                 </div>
               </div>
