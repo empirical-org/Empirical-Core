@@ -261,7 +261,7 @@ const playQuestion = React.createClass({
                   </div>
                   <div className="button-group">
                     <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-                    <Link to={'/results/questions' + questionID} className="button is-info is-outlined">View Results</Link>
+                    <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
                     {this.renderNextQuestionButton()}
                   </div>
                 </div>
@@ -284,7 +284,7 @@ const playQuestion = React.createClass({
                 </div>
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-                  <Link to={'/results/questions' + questionID} className="button is-info is-outlined">View Results</Link>
+                  <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
                   {this.renderNextQuestionButton()}
                 </div>
               </div>
