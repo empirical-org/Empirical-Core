@@ -92,6 +92,10 @@ export default React.createClass({
     // this.setState({editing: false})
   },
 
+  chooseBoilerplate: function(e) {
+    this.refs.newResponseFeedback.value = this.refs.boilerplate.value
+  },
+
   incrementResponse: function (rid) {
     this.props.dispatch(questionActions.incrementResponseCount(this.props.questionID, rid));
   },
@@ -150,6 +154,7 @@ export default React.createClass({
       }
     }
 
+
     if (isEditing) {
       content =
         <div className="content">
@@ -157,6 +162,20 @@ export default React.createClass({
           <label className="label">Feedback</label>
           <p className="control">
             <input className="input" type="text" defaultValue={response.feedback} ref="newResponseFeedback"></input>
+          </p>
+          <label className="label">Boilerplate feedback</label>
+          <p className="control">
+            <span className="select">
+              <select onChange={this.chooseBoilerplate} ref="boilerplate">
+                <option>Select boilerplate feedback</option>
+                <option>Is that really what the prompt suggested?</option>
+                <option>The what _?</option>
+                <option>What does _ describe?</option>
+                <option>What's a clearer way of describing _?</option>
+                <option>Great job! That's a strong sentence.</option>
+                <option>How can you make the sentence more concise (shorter, clearer)?</option>
+              </select>
+            </span>
           </p>
           <p className="control">
             <label className="checkbox">
