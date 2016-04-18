@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { Link } from 'react-router'
 import Question from '../../libs/question'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
@@ -225,6 +226,7 @@ const playQuestion = React.createClass({
               <div className="content">
                 <h4>You completed all of the attempts.</h4>
                 <p>Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
+                <p><Link to={'/play'} className="button is-primary is-outlined">Try Another Question</Link></p>
                 <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
               </div>
             </div>
@@ -239,6 +241,7 @@ const playQuestion = React.createClass({
                 <div className="content">
                   <h4>Excellent</h4>
                   <p>That's correct. Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
+
                   <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
                 </div>
               </div>
