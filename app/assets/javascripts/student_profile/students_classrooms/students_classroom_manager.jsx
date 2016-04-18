@@ -28,11 +28,13 @@ EC.StudentsClassroomsManager = React.createClass({
   },
 
  classAction: function(status, id) {
+   var that = this;
    var path = status == 'Archive' ? 'hide':'unhide';
    path = "/students_classrooms/" + id + '/' + path;
-   $.ajax({url: path, type: 'POST', context: this, done: function() {
-     this.getInitialState();
-    //  this.getClassrooms()});
+   $.post(path)
+       .always(
+         that.getClassrooms()
+       );
  },
 
   mapClassrooms: function(classrooms, status) {

@@ -54,7 +54,6 @@ class StudentsClassroomsController < ApplicationController
       else
         render json: {active: active, inactive: inactive}
       end
-
     end
 
 
