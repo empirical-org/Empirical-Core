@@ -57,7 +57,7 @@ EC.StudentsClassroomsManager = React.createClass({
 
   displayClassrooms: function(classrooms, status) {
     return (
-      <table>
+      <table className='table'>
         <thead>
           <tr>
             <th>Teacher Name</th>
