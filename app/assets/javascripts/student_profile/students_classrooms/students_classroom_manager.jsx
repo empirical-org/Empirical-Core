@@ -21,6 +21,7 @@ EC.StudentsClassroomsManager = React.createClass({
     $.ajax({
       url: "/students_classrooms/classroom_manager_data",
       context: this,
+      cache: false,
       success: function(data) {
         this.setState({classrooms: data, loading: false});
       }
@@ -32,7 +33,7 @@ EC.StudentsClassroomsManager = React.createClass({
    var path = status == 'Archive' ? 'hide':'unhide';
    path = "/students_classrooms/" + id + '/' + path;
    $.post(path)
-       .always(
+       .done(
          that.getClassrooms()
        );
  },
