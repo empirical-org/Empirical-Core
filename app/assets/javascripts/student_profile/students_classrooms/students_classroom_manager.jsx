@@ -89,6 +89,13 @@ EC.StudentsClassroomsManager = React.createClass({
   },
 
   render: function() {
-    return <div>{this.stateSpecificComponents()}</div>;
+    return (
+      <div>
+        <a href='/students_classrooms/add_classroom' className='btn button-green'>
+          Join a Class
+        </a>
+        {this.stateSpecificComponents()}
+      </div>
+    );
   }
 });
