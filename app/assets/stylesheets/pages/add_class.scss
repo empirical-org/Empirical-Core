@@ -1,0 +1,29 @@
+#add-additional-class {
+  height: 100%;
+  h1 {
+    font-size: 24px;
+    padding: 20px;
+    margin: 0;
+    font-weight: 600;
+  }
+  .additional-class.stage-1 {
+    span {
+      font-size: 14px;
+    }
+    button {
+      margin-top: 6px;
+      margin-bottom: 11px;
+
+    }
+    input {
+      margin: 10px;
+      width: 150px;
+    }
+    & > span:last-of-type {
+      color: #646464;
+    }
+  }
+  .stage-2 .error-message {
+    font-color: red;
+  }
+}
