@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
   def student(is_json=false)
     if current_user.classrooms.any?
       if is_json
-        render json: student_to_json(params[:current_classroom_id], params[:current_page].to_i)
+        render json: student_profile_data(params[:current_classroom_id], params[:current_page].to_i)
       else
         render 'student'
       end
@@ -54,7 +54,7 @@ protected
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
   end
 
-  def student_to_json(classroom_id, current_page)
+  def student_profile_data(classroom_id, current_page)
     classroom = current_classroom(classroom_id)
     grouped_scores, is_last_page = Profile::Processor.new.query(current_user, current_page, classroom.id)
     next_activity_session = current_user.next_activity_session(classroom.id)
