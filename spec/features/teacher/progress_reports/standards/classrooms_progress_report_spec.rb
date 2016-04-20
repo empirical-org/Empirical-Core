@@ -1,4 +1,5 @@
 require 'rails_helper'
+include AsyncHelper
 
 feature 'Standards: All Classrooms Progress Report', js: true do
   before(:each) { vcr_ignores_localhost }
@@ -43,7 +44,7 @@ feature 'Standards: All Classrooms Progress Report', js: true do
 
     it 'links to the Student View for a classroom' do
       report_page.click_student_view(0)
-      expect(report_page).to have_text('Standards by Student')
+      eventually { expect(report_page).to have_text('Standards by Student') }
     end
 
     # it 'can export a CSV' do

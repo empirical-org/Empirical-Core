@@ -35,6 +35,17 @@ module Student
                         .where(is_final_score: true)
     end
 
+    def next_activity_session(classroom_id)
+      ActivitySession.joins(classroom_activity: [:unit])
+          .where("classroom_activities.classroom_id = ?", classroom_id)
+          .where("activity_sessions.completed_at IS NULL")
+          .where("activity_sessions.user_id = ?", self.id)
+          .order("units.created_at DESC")
+          .order("classroom_activities.due_date ASC")
+          .select("activity_sessions.*")
+          .first
+    end
+
     def percentages_by_classification(unit = nil)
 
       if unit.nil?

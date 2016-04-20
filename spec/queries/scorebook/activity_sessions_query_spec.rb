@@ -5,7 +5,8 @@ describe 'ActivitySessionsQuery' do
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let!(:student) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
   let!(:activity) { FactoryGirl.create(:activity) }
-  let!(:activity_session) { FactoryGirl.create(:activity_session, user: student, activity: activity) }
+  let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, classroom_id: classroom.id)}
+  let!(:activity_session) { FactoryGirl.create(:activity_session, user: student, activity: activity, classroom_activity_id: classroom_activity.id) }
 
   let!(:activity_sessions_query) { Scorebook::ActivitySessionsQuery.new }
 
