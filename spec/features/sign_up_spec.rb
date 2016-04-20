@@ -133,7 +133,7 @@ feature 'Signing up', js: true do
     def self.signup_succeeded; 'signup succeeded and'; end
     shared_examples_for signup_succeeded do
       it 'goes to the profile page' do
-        expect(page).to have_content "Join my class"
+        expect(page).to have_content "Add Your Class"
       end
     end
 

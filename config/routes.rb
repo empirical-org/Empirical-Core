@@ -32,6 +32,19 @@ EmpiricalGrammar::Application.routes.draw do
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
+  resources :students_classrooms do
+    collection do
+      get :add_classroom
+      get :classroom_manager
+      get :classroom_manager_data
+    end
+
+    member do
+      post :hide
+      post :unhide
+    end
+
+  end
   resources :unit_templates, only: [:index, :show], format: 'json'
 
   resources :activity_sessions, only: [] do
@@ -43,7 +56,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
 
-  get 'students_classrooms' => 'profiles#students_classrooms'
+  get 'students_classrooms_json' => 'profiles#students_classrooms_json'
 
 
   resources :activities, only: [] do
@@ -134,7 +147,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  put '/students_classrooms/hide', to: 'students_classrooms#hide', as: 'students_classrooms_archive'
+  put '/students_classrooms/teacher_hide', to: 'students_classrooms#teacher_hide', as: 'students_classrooms_teacher_archive'
 
   # API routes
   namespace :api do

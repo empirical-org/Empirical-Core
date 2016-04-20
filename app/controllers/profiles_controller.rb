@@ -13,16 +13,6 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def update
-    # this is called by the 'join classroom' page
-    @user = current_user
-    classcode = user_params[:classcode]
-    classroom = Classroom.where(code: classcode).first
-    Associators::StudentsToClassrooms.run(@user, classroom)
-    JoinClassroomWorker.perform_async(@user.id)
-    redirect_to profile_path
-  end
-
   def user
     student
   end
@@ -30,17 +20,17 @@ class ProfilesController < ApplicationController
   def student(is_json=false)
     if current_user.classrooms.any?
       if is_json
-        render json: student_to_json(params[:current_classroom_id], params[:current_page].to_i)
+        render json: student_profile_data(params[:current_classroom_id], params[:current_page].to_i)
       else
         render 'student'
       end
     else
-      render 'join-classroom'
+      render 'students_classrooms/add_classroom'
     end
   end
 
-  def students_classrooms
-    render json: {classrooms: current_user.classrooms.includes(:teacher).map {|c| c.students_classrooms(current_user.id)}}
+  def students_classrooms_json
+    render json: {classrooms: current_user.classrooms.includes(:teacher).map {|c| c.students_classrooms_json(current_user.id)}}
   end
 
   def teacher
@@ -64,7 +54,7 @@ protected
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
   end
 
-  def student_to_json(classroom_id, current_page)
+  def student_profile_data(classroom_id, current_page)
     classroom = current_classroom(classroom_id)
     grouped_scores, is_last_page = Profile::Processor.new.query(current_user, current_page, classroom.id)
     next_activity_session = current_user.next_activity_session(classroom.id)
