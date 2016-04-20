@@ -41,7 +41,6 @@ EmpiricalGrammar::Application.routes.draw do
 
     member do
       post :teacher_hide
-      put '/students_classrooms/teacher_hide', to: 'students_classrooms#teacher_hide', as: 'students_classrooms_teacher_archive'
       post :hide
       post :unhide
     end
