@@ -3,9 +3,44 @@
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
 
-
   .section-header {
-    margin-bottom: 30px;
+    line-height: 63px;
+  }
+
+  .classroom-box {
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 64px;
+    font-size: 14px;
+    line-height: 1.4;
+    width: 143px;
+    color: #626262;
+    border-left: solid 1px #cecece;
+    border-right: solid 1px #cecece;
+    text-overflow: ellipsis;
+    &.active {
+      color: black;
+      margin-top: auto;
+      div:first-of-type {
+        margin-top: auto;
+      }
+      &:after {
+        display: block;
+        content: '';
+        width: 118px;
+        height: 3px;
+        margin: 0 auto;
+        margin-top: auto;
+        background-color: #027360;
+      }
+    }
+  }
+
+  .tab-subnavigation-wrapper {
+    padding: 0px;
   }
 
   .student-course-info {
@@ -22,6 +57,10 @@
     }
     .teacher-name {
       margin-left: 40px;
+    }
+    div:first-of-type {
+      display: flex;
+      justify-content: center;
     }
 
     .classroom-name {
@@ -42,4 +81,3 @@
   }
 
 }
-
