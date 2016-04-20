@@ -2,8 +2,8 @@ class Profile::Processor
   BATCH_SIZE = 10
   # need to serialize
 
-  def query(student, current_page)
-    sorted, is_last_page = Profile::SubProcessor.new.query(student, BATCH_SIZE, offset(current_page))
+  def query(student, current_page, classroom_id)
+    sorted, is_last_page = Profile::SubProcessor.new.query(student, BATCH_SIZE, offset(current_page), classroom_id)
     serialized = serialize(sorted)
     return [serialized, is_last_page]
   end

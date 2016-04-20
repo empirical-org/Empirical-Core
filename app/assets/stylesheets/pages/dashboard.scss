@@ -13,6 +13,17 @@
     border-top: 1px solid #cecece;
     font-weight: 700;
   }
+  @media (max-width: 1000px) {
+    .dashboard-header {
+      padding-left: 20px;
+    }
+  }
+  @media (max-width: 760px) {
+    .dashboard-header {
+      padding-left: 0;
+      text-align: center;
+    }
+  }
   h4 {
     font-size: 16px;
     font-weight: 600;
