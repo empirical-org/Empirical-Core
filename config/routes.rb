@@ -40,6 +40,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     member do
+      post :teacher_hide
       post :hide
       post :unhide
     end
@@ -147,7 +148,6 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  put '/students_classrooms/teacher_hide', to: 'students_classrooms#teacher_hide', as: 'students_classrooms_teacher_archive'
 
   # API routes
   namespace :api do
