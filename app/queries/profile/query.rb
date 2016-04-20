@@ -1,7 +1,9 @@
 class Profile::Query
 
-  def query(student, batch_size, offset)
+  def query(student, batch_size, offset, classroom_id)
     student.activity_sessions
+           .joins(:classroom_activity)
+           .where("classroom_activities.classroom_id = ?", classroom_id)
            .where("((state = 'finished') and (is_final_score = true)) or ((state != 'finished') and (is_retry = false))")
            .includes(classroom_activity: [:unit], activity: [:classification])
            .references(classroom_activity: [:unit])
