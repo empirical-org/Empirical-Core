@@ -16,7 +16,7 @@ EC.modules.fnl = function () {
   };
 
   this.toggleById = function (array, item) {
-    var newArray, alreadyThere;
+    var newArray, alreadyThere, extant;
     extant = _.find(array, function (ele) { return ele.id === item.id })
     alreadyThere = (extant != undefined)
     if (alreadyThere) {
