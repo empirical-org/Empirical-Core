@@ -2,7 +2,7 @@
 EC.CreateUnit = React.createClass({
 	propTypes: {
 		data: React.PropTypes.object.isRequired,
-		// createUnit: {
+		// createUnitData: {
 		// 		stage: 1,
 		// 		options: {
 		// 			classrooms: []
@@ -16,11 +16,7 @@ EC.CreateUnit = React.createClass({
 	},
 
 	getInitialState: function () {
-		return {
-			selectedActivities : [],
-			selectedClassrooms: [],
-			dueDates: {}
-		}
+		return {}
 	},
 
 	getStage: function () {
@@ -39,11 +35,8 @@ EC.CreateUnit = React.createClass({
 		return this.props.data.createUnitData.model.name;
 	},
 
-	assignActivityDueDate: function(activity, dueDate) {
-		console.log('assign activity due date in EC.CreateUnit', {activity: activity, dueDate: dueDate})
-		var dueDates = this.state.dueDates;
-		dueDates[activity.id] = dueDate;
-		this.setState({dueDates: dueDates});
+	getId: function () {
+		return this.props.data.createUnitData.model.id;
 	},
 
 	toggleClassroomSelection: function(classroom, flag) {
@@ -142,12 +135,13 @@ EC.CreateUnit = React.createClass({
 		var activityPostData = _.map(sas, function (sa) {
 			return {
 				id: sa.id,
-				due_date: this.state.dueDates[sa.id]
+				due_date: this.props.data.createUnitData.model.dueDates[sa.id]
 			}
 		}, this)
 
 		var x = {
 			unit: {
+				id: this.getId(),
 				name: this.getUnitName(),
 				classrooms: classroomPostData,
 				activities: activityPostData
@@ -237,6 +231,7 @@ EC.CreateUnit = React.createClass({
 	stage2SpecificComponents: function () {
 			return (<EC.Stage2 selectedActivities={this.getSelectedActivities()}
 								 data={this.props.data.assignSuccessData}
+								 dueDates={this.props.data.createUnitData.model.dueDates}
 								 actions={this.props.actions.assignSuccessActions}
 								 classrooms={this.getClassrooms()}
 								 toggleActivitySelection={this.toggleActivitySelection}
@@ -244,7 +239,7 @@ EC.CreateUnit = React.createClass({
 								 toggleStudentSelection={this.toggleStudentSelection}
 								 finish={this.finish}
 								 unitName={this.getUnitName()}
-								 assignActivityDueDate={this.assignActivityDueDate}
+								 assignActivityDueDate={this.props.actions.assignActivityDueDate}
 								 areAnyStudentsSelected={this.areAnyStudentsSelected()}
 								 errorMessage={this.determineStage2ErrorMessage()}/>);
 	},
