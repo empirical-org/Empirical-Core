@@ -5,8 +5,8 @@ describe 'ActivitySessionsQuery' do
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let!(:student) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
   let!(:activity) { FactoryGirl.create(:activity) }
-  let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, assigned_student_ids: [student.id]) }
-  let!(:activity_session) { FactoryGirl.create(:activity_session, user: student, activity: activity, classroom_activity: classroom_activity) }
+  let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, classroom_id: classroom.id)}
+  let!(:activity_session) { FactoryGirl.create(:activity_session, user: student, activity: activity, classroom_activity_id: classroom_activity.id) }
 
   let!(:activity_sessions_query) { Scorebook::ActivitySessionsQuery.new }
 
@@ -18,13 +18,6 @@ describe 'ActivitySessionsQuery' do
   it 'works' do
     sessions = subject
     expect(sessions).to_not be_empty
-  end
-
-  context 'classroom_activity has assigned_student_ids = nil' do
-    let!(:updated_classroom_activity) { classroom_activity.update(assigned_student_ids: nil) }
-    it 'excludes the associated activity_sessions' do
-      expect(subject).to be_empty
-    end
   end
 
 end

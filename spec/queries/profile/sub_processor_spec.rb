@@ -5,7 +5,7 @@ describe 'Profile::SubProcessor' do
 
 
   def subject
-    results, is_last_page = Profile::SubProcessor.new.query(student, 20, 0)
+    results, is_last_page = Profile::SubProcessor.new.query(student, 20, 0, student.classrooms.last.id)
     results
   end
 
@@ -29,7 +29,7 @@ describe 'Profile::SubProcessor' do
   end
 
   it 'doesnt explode when theres a classroom_activity with no due_date' do
-    classroom_activity = FactoryGirl.create(:classroom_activity, unit: unit1, due_date: nil)
+    classroom_activity = FactoryGirl.create(:classroom_activity, unit: unit1, due_date: nil, classroom: student.classrooms.last )
     as2 = FactoryGirl.create(:activity_session, classroom_activity: classroom_activity, user: student)
     results = subject
     activity_sessions = results[unit1.name][:not_finished]

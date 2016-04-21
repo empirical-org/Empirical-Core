@@ -6,10 +6,10 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     let!(:activity_session) { FactoryGirl.create(:activity_session, user: user) }
     let!(:user) { FactoryGirl.create(:student) }
 
-    context 'PUT #update' do
-      subject { put :update, id: activity_session.uid }
-      it_behaves_like 'protected endpoint'
-    end
+    # context 'PUT #update' do
+    #   subject { put :update, id: activity_session.uid }
+    #   it_behaves_like 'protected endpoint'
+    # end
 
     context 'GET #show' do
       subject { get :show, id: activity_session.uid }

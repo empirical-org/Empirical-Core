@@ -23,8 +23,7 @@ $(function () {
 
 EC.TeacherAccount = React.createClass({
   propTypes: {
-    userType: React.PropTypes.string.isRequired,
-    teacherId: React.PropTypes.number.isRequired
+    userType: React.PropTypes.string.isRequired
   },
   getInitialState: function () {
     return ({
@@ -41,7 +40,7 @@ EC.TeacherAccount = React.createClass({
       password: null,
       errors: {},
       subscription: {id: null, expiration: '2016-01-01', account_limit: null},
-      subscriptionType: 'free'
+      subscriptionType: 'none'
     });
   },
   componentDidMount: function () {
@@ -58,7 +57,7 @@ EC.TeacherAccount = React.createClass({
   },
   populateData: function (data) {
     var school, schoolData, originalSelectedSchoolId;
-    school = data.user.schools[0];
+      school = data.schools[0];
     if (school == null) {
       schoolData = null;
       originalSelectedSchoolId = null;
@@ -72,25 +71,24 @@ EC.TeacherAccount = React.createClass({
       this.requestSchools(school.zipcode);
       // couldnt get react to re-render the default value of zipcode based on state change so have to use the below
       $('input.zip-input').val(school.zipcode);
-    };
+    }
     var subscriptionType, subscription;
-    if (data.user.subscriptions.length == 0) {
-      subscriptionType = 'free';
+    subscriptionType = data.subscription ? data.subscription.subscriptionType : this.state.subscriptionType;
+    if (subscriptionType === 'none') {
       subscription = {
         id: null,
         expiration: '2016-01-01',
         account_limit: null
-      }
+      };
     } else {
-      subscriptionType = 'premium';
-      subscription = data.user.subscriptions[0];
+      subscription = data.subscription;
     }
     this.setState({
-      id: data.user.id,
-      name: data.user.name,
-      username: data.user.username,
-      email: data.user.email,
-      role: data.user.role,
+      id: data.id,
+      name: data.name,
+      username: data.username,
+      email: data.email,
+      role: data.role,
       selectedSchool: schoolData,
       originalSelectedSchoolId: originalSelectedSchoolId,
       schoolOptionsDoNotApply: (originalSelectedSchoolId == null),
@@ -154,9 +152,6 @@ EC.TeacherAccount = React.createClass({
     if (data.errors == null) {
       // name may have been capitalized on back-end
       data.errors = {};
-      this.setState({
-        name: data.user.name,
-      });
       if (this.props.userType == 'staff') {
         this.saveSubscription();
       }
@@ -165,11 +160,11 @@ EC.TeacherAccount = React.createClass({
   },
 
   saveSubscription: function () {
-    if (this.state.subscriptionType == 'free') {
+    if (this.state.subscription.account_type == 'none') {
       if (this.state.subscription.id != null) {
         this.destroySubscription()
       }
-    } else if (this.state.subscriptionType == 'premium') {
+    } else if (this.state.subscription.account_type == 'paid' || 'trial') {
       if (this.state.subscription.id == null) {
         this.createSubscription();
       } else {
@@ -178,10 +173,12 @@ EC.TeacherAccount = React.createClass({
     }
   },
   createSubscription: function () {
+    var sub = this.state.subscription;
+    sub.user_id =  this.state.id;
     $.ajax({
       type: 'POST',
       url: '/subscriptions',
-      data: {user_id: this.state.id, expiration: this.state.subscription.expiration, account_limit: this.state.subscription.account_limit, account_type: this.state.subscriptionType},
+      data: this.state.subscription,
       success: this.uponSaveSubscription
     });
   },
@@ -189,7 +186,7 @@ EC.TeacherAccount = React.createClass({
     $.ajax({
       type: 'PUT',
       url: '/subscriptions/' + this.state.subscription.id,
-      data: {expiration: this.state.subscription.expiration, account_limit: this.state.subscription.account_limit, account_type: this.state.subscriptionType},
+      data: {expiration: this.state.subscription.expiration, account_limit: this.state.subscription.account_limit, account_type: this.state.subscription.account_type},
       success: this.uponSaveSubscription
     })
   },
@@ -200,6 +197,8 @@ EC.TeacherAccount = React.createClass({
     var that = this;
     $.ajax({
       type: 'DELETE',
+      // not sure why, but strong params are blocking me from sending the
+      data: {account_type: this.state.subscription.account_type},
       url: '/subscriptions/' + this.state.subscription.id
     }).done(function () {
       var subscription = {
@@ -214,7 +213,11 @@ EC.TeacherAccount = React.createClass({
     this.setState({subscription: subscription});
   },
   updateSubscriptionType: function (type) {
-    this.setState({subscriptionType: type});
+    var new_sub = this.state.subscription;
+    new_sub.account_type = type;
+    this.setState({subscription: new_sub,
+                   subscriptionType: type
+    });
   },
   updateSchool: function (school) {
     this.setState({selectedSchool: school});

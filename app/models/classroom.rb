@@ -14,6 +14,7 @@ class Classroom < ActiveRecord::Base
   has_many :activities, through: :classroom_activities
   has_many :activity_sessions, through: :classroom_activities
   has_many :sections, through: :activities
+
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
   has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
 
@@ -83,6 +84,13 @@ class Classroom < ActiveRecord::Base
   def generate_code
     self.code = NameGenerator.generate
     if Classroom.find_by_code(code) then generate_code end
+  end
+
+  def students_classrooms_json(student_id)
+    {name: self.name,
+     teacher: self.teacher.name,
+     id: self.id,
+     join_date: StudentsClassrooms.find_by_classroom_id_and_student_id(self.id, student_id).created_at}
   end
 
   private

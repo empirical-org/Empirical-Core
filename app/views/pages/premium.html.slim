@@ -1,3 +1,6 @@
-= render 'pages/shared/pages_tabs'
+- if (current_user && current_user.role == 'teacher')
+  = render 'teachers/shared/scorebook_tabs'
+- else
+  = render 'pages/shared/pages_tabs'
 = render 'pages/shared/premium_subtabs'
 = render 'pages/shared/premium_main'

@@ -56,6 +56,9 @@ class PagesController < ApplicationController
     @body_class = 'auxiliary white-page formatted-text'
   end
 
+  def board
+  end
+
   def activities
     @body_class = 'full-width-page white-page'
     @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
@@ -64,10 +67,6 @@ class PagesController < ApplicationController
 
   # for link to premium within 'about' (discover) pages
   def premium
-  end
-
-  # for link to premium within logged-in teacher ui
-  def premium_access
   end
 
   private
