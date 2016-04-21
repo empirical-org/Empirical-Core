@@ -20,7 +20,12 @@ class Teachers::StudentsController < ApplicationController
 
   def edit
     # if teacher was the last user to reset the students password, we will show that password in the class manager to the teacher
-    @was_teacher_the_last_user_to_reset_students_password = (@student.password.present? && @student.authenticate(@student.last_name))
+    @was_teacher_the_last_user_to_reset_students_password =  (@student.password_digest && @student.authenticate(@student.last_name))
+    @sign_up_method = {
+      "Clever User": @student.clever_id,
+      "Google Sign On User": @student.signed_up_with_google,
+      "Student Email": @student.email
+    }
   end
 
   def index
