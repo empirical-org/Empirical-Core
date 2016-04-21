@@ -21,6 +21,27 @@ describe 'Teacher Manage-Class page' do
         end
         expect(manage_class_page.student_rows).to eq expected_rows
       end
+
+      context 'for an individual student' do
+        before(:each) do
+          first('.user').click_link('Edit Account')
+        end
+
+        # TODO: figure out how to find the digest of arbitrary strings
+        # it 'the teacher can reset the students password' do
+        #   binding.pry
+        #   sort_fodder_sorted.first.password = 'test'
+        #   click_button('Reset Password')
+        #   expect(sort_fodder_sorted.first.password).to eq sort_fodder_sorted.first.last_name
+        # end
+
+        it 'the teacher can remove the student from the classroom', js: true do
+           num = sort_fodder_sorted.first.students_classrooms.count
+           click_button('Remove From Classroom')
+           page.evaluate_script('window.confirm = function() { return true; }')
+           expect(sort_fodder_sorted.first.students_classrooms.count).to eq (num-1)
+        end
+      end
     end
   end
 end
