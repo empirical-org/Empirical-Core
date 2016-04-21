@@ -46,9 +46,23 @@
 									<div class='col-xs-4'>
 										<input disabled type='text' class='inactive col-xs-4' value=<%= @classroom.code %>>
 									</div>
-
-
 								</div>
+
+								<% @sign_up_method.each do |k,v|  %>
+									<% if v %>
+										 <div class='row'>
+												<div class='form-label col-xs-2'>
+													<%= k %>
+												</div>
+												<div class='col-xs-4'>
+													<input disabled type='text' class='inactive col-xs-4' value=<%= v %>>
+	  										</div>
+											</div>
+										<%end%>
+								 <%end%>
+
+
+
 								<div class='row'>
 									<div class='form-label col-xs-2'>
 										Password
