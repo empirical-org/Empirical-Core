@@ -5,6 +5,7 @@ EC.Units = React.createClass({
 							key={data.unit.id}
 							updateDueDate={this.props.updateDueDate}
 							hideUnit={this.props.hideUnit}
+							editUnit={this.props.editUnit}
 							deleteClassroomActivity={this.props.deleteClassroomActivity}
 							data={data} />);
 		}, this);
