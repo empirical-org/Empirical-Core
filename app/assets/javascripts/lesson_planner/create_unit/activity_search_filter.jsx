@@ -25,7 +25,7 @@ EC.ActivitySearchFilter = React.createClass({
 
 		visibleOptions = _.map(visibleOptions, function (option) {
 			return (
-				<EC.FilterOption selectFilterOption={this.selectFilterOption} data={option} />
+				<EC.FilterOption selectFilterOption={this.selectFilterOption} data={option} key={option.id} />
 			);
 		}, this);
 
