@@ -23,7 +23,9 @@ feature 'Student Classroom Manager', js: true do
     end
 
     it 'can archive an existing classroom' do
-      page.click('')
+      cl = student.classrooms.first
+      find(".#{cl.name.gsub(/\s+/, '')}", :text => 'Archive').click
+      eventually { expect(StudentsClassrooms.unscoped.where(student_id: student.id, visible: false, classroom_id: cl.id).count).to eq(1)}
     end
 
     # TODO: get this one passing

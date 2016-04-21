@@ -8,7 +8,6 @@ module Units::Creator
   #       student_ids: Array
   #     }]
   def self.run(teacher, name, activities_data, classrooms_data)
-    puts "units creator called"
     self.create_helper(teacher, name, activities_data, classrooms_data)
   end
 
