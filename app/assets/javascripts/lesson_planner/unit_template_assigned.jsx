@@ -24,7 +24,7 @@ EC.UnitTemplatesAssigned = React.createClass({
         <span>
             <a href = '/teachers/classrooms/lesson_planner'>
               <button onClick className="button-green add-students pull-right">
-                View Assigned Activity Packs <i class="fa fa-long-arrow-right"></i>
+                View Assigned Activity Packs <i className="fa fa-long-arrow-right"></i>
               </button>
             </a>
         </span>);
@@ -33,7 +33,7 @@ EC.UnitTemplatesAssigned = React.createClass({
         <span>
             <a href = {this.props.actions.getInviteStudentsUrl()} >
               <button onClick className="button-green add-students pull-right">
-                Add Students <i class="fa fa-long-arrow-right"></i>
+                Add Students <i className="fa fa-long-arrow-right"></i>
               </button>
             </a>
         </span>);

@@ -22,7 +22,7 @@ EC.NameTheUnit = React.createClass({
 								<i className="fa fa-long-arrow-right"></i>
 							</a>
 
-							<a href=""><i class="fa fa-long-arrow-right"></i></a>
+							<a href=""><i className="fa fa-long-arrow-right"></i></a>
 						</p>
 					</div>
 
@@ -34,5 +34,3 @@ EC.NameTheUnit = React.createClass({
 	}
 
 });
-
-
