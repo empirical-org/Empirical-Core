@@ -12,12 +12,12 @@ describe "InviteStudentAnalytics" do
 
   it 'identifies student' do
     analytics.track(teacher, student)
-    expect(identify_calls[0][:traits].keys).to include(:premium)
+    expect(identify_calls[0][:traits].keys).to include(:premium_state)
   end
 
   it 'identifies teacher' do
     analytics.track(teacher, student)
-    expect(identify_calls[1][:traits].keys).to include(:premium)
+    expect(identify_calls[1][:traits].keys).to include(:premium_state)
   end
 
   it 'sends event for student' do

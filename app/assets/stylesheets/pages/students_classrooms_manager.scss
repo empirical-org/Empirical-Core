@@ -1,0 +1,38 @@
+#students_classrooms_manager {
+  max-width: 950px;
+  margin: 0 auto;
+  .btn {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  h1 {
+    position: relative;
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+  h1:before {
+    content: '';
+    display: block;
+    background: #cecece;
+    height: 1px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .table {
+    border: solid 1px #cecece;
+    background-color: white;
+    font-size: 14px;
+    thead {
+      background-color: #e6e6e6;
+    }
+    td {
+      width: 30%;
+    }
+    tr td:last-of-type {
+      text-align: right;
+      color: #027360;
+      cursor: pointer;
+      padding-right: 13px;
+    }
+  }
+}

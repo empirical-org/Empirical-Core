@@ -5,6 +5,7 @@ module Student
     #TODO: move these relationships into the users model
 
     has_many :students_classrooms, foreign_key: 'student_id', dependent: :destroy, class_name: "StudentsClassrooms"
+
     has_many :classrooms, through: :students_classrooms, source: :classroom, inverse_of: :students, class_name: "Classroom"
 
     has_many :assigned_activities, through: :classroom, source: :activities
@@ -12,17 +13,12 @@ module Student
 
     after_create :assign_classroom_activities
 
-    # FIXME: this is only to while constructing multiple_classrooms feature, after its done this should no longer exist
-    def classroom
-      classrooms.first
-    end
-
-    def teacher
-      classroom.teacher
-    end
-
     def unfinished_activities classroom
       classroom.activities - finished_activities(classroom)
+    end
+
+    def teachers
+      classrooms.map(&:teacher)
     end
 
     def finished_activities classroom
@@ -37,6 +33,17 @@ module Student
     def completed_activities
       activity_sessions.completed
                         .where(is_final_score: true)
+    end
+
+    def next_activity_session(classroom_id)
+      ActivitySession.joins(classroom_activity: [:unit])
+          .where("classroom_activities.classroom_id = ?", classroom_id)
+          .where("activity_sessions.completed_at IS NULL")
+          .where("activity_sessions.user_id = ?", self.id)
+          .order("units.created_at DESC")
+          .order("classroom_activities.due_date ASC")
+          .select("activity_sessions.*")
+          .first
     end
 
     def percentages_by_classification(unit = nil)
@@ -100,7 +107,7 @@ module Student
 
     def assign_classroom_activities_for_classroom(classroom)
       classroom.classroom_activities.each do |ca|
-        if ca.assigned_student_ids.try(:empty?)
+        if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
           assign = true
         elsif ca.assigned_student_ids.include?(self.id)
           assign = true

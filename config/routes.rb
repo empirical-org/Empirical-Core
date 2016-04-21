@@ -32,6 +32,20 @@ EmpiricalGrammar::Application.routes.draw do
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
+  resources :students_classrooms do
+    collection do
+      get :add_classroom
+      get :classroom_manager
+      get :classroom_manager_data
+    end
+
+    member do
+      post :teacher_hide
+      post :hide
+      post :unhide
+    end
+
+  end
   resources :unit_templates, only: [:index, :show], format: 'json'
 
   resources :activity_sessions, only: [] do
@@ -41,6 +55,9 @@ EmpiricalGrammar::Application.routes.draw do
   end
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/:uid' => 'activity_sessions#result'
+
+
+  get 'students_classrooms_json' => 'profiles#students_classrooms_json'
 
 
   resources :activities, only: [] do
@@ -131,6 +148,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+
   # API routes
   namespace :api do
     namespace :v1 do
@@ -209,7 +227,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.
-  %w(tooltip press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium_access premium teacher_resources press_kit play media news).each do |page|
+  %w(tooltip board press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources press_kit play media news).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"

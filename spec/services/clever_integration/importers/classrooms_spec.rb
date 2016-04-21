@@ -29,7 +29,7 @@ describe 'CleverIntegration::Importers::Classrooms' do
 
   def subject
     CleverIntegration::Importers::Classrooms.run(teacher, district_token, teacher_requester)
-    Classroom.first#find_by(clever_id: '1', name: 'section1', grade: '2')
+    Classroom.find_by(clever_id: '1', name: 'section1', grade: '2')
   end
 
   it 'creates a classroom' do

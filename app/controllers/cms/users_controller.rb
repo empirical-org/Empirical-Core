@@ -24,7 +24,7 @@ class Cms::UsersController < ApplicationController
   end
 
   def show_json
-    render json: @user
+    render json: @user.generate_teacher_account_info
   end
 
   def create

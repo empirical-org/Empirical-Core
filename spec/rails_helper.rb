@@ -26,10 +26,10 @@ end
 Capybara.configure do |config|
   # Use a high(er) timeout for JS-based UI -- e.g., React.js
   # cf http://docs.travis-ci.com/user/common-build-problems/#Capybara%3A-I'm-getting-errors-about-elements-not-being-found
-  config.default_wait_time = 30  # increased from 15 since we were getting Net Timeout errors on Tracis CI (and not on local)
+  config.default_wait_time = 15  # increased from 15 since we were getting Net Timeout errors on Tracis CI (and not on local)
 
   Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 60)
+    Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 10)
   end
 
   config.javascript_driver = :poltergeist
