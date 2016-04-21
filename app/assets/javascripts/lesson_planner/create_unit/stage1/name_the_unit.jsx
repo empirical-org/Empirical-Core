@@ -19,7 +19,6 @@ EC.NameTheUnit = React.createClass({
 
 							<a href="http://support.quill.org/knowledgebase/articles/369614-assigning-lessons">
 								{"What's a Unit?"}
-								<i className="fa fa-long-arrow-right"></i>
 							</a>
 
 							<a href=""><i className="fa fa-long-arrow-right"></i></a>
