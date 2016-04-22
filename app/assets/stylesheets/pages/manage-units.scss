@@ -39,10 +39,14 @@
     color: #137779;
     text-align: right;
     padding-right: 30px;
+    .fa {
+      padding-right: 4px;
+      margin-top: 2px;
+      color: #9C9C9C;
+      padding-left: 35px;
+    }
   }
-  .fa {
-    padding-right: 10px;
-  }
+
   .assigned-activities a {
     color: #027360;
   }
