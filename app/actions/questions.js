@@ -93,6 +93,12 @@ module.exports = {
 	cancelChildResponseView: function(qid,rid){
 		return {type:C.CANCEL_CHILD_RESPONSE_VIEW,qid,rid};
 	},
+  startFromResponseView: function(qid,rid){
+		return {type:C.START_FROM_RESPONSE_VIEW,qid,rid};
+	},
+	cancelFromResponseView: function(qid,rid){
+		return {type:C.CANCEL_FROM_RESPONSE_VIEW,qid,rid};
+	},
   submitResponseEdit: function(qid,rid,content){
 		return function(dispatch,getState){
 				dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid,rid});

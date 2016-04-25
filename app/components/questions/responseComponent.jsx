@@ -235,6 +235,7 @@ const Responses = React.createClass({
       return response
     });
     console.log(mapped)
+    return _.values(mapped)
   },
 
   render: function () {

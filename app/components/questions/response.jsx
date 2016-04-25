@@ -34,6 +34,10 @@ export default React.createClass({
     this.props.dispatch(questionActions.startChildResponseView(this.props.questionID, rid))
   },
 
+  viewFromResponses: function (rid) {
+    this.props.dispatch(questionActions.startFromResponseView(this.props.questionID, rid))
+  },
+
   cancelChildResponseView: function (rid) {
     this.props.dispatch(questionActions.cancelChildResponseView(this.props.questionID, rid))
   },
@@ -305,8 +309,30 @@ export default React.createClass({
   },
 
   printResponsePathways: function () {
-    this.props.printPathways(this.props.response.key);
+    this.viewFromResponses(this.props.response.key)
+    // this.props.printPathways(this.props.response.key);
   },
+
+  renderFromResponsePathways: function (isViewingFromResponses, key) {
+    if (isViewingFromResponses) {
+      return (
+        <Modal close={this.cancelChildResponseView.bind(null, key)}>
+          <ResponseList
+            responses={this.props.printPathways(this.props.response.key)}
+            getResponse={this.props.getResponse}
+            getChildResponses={this.props.getChildResponses}
+            states={this.props.states}
+            questionID={this.props.questionID}
+            dispatch={this.props.dispatch}
+            admin={false}
+            expanded={this.props.allExpanded}
+            expand={this.props.expand}
+            ascending={this.props.ascending}/>
+        </Modal>
+      )
+    }
+  },
+
   // gatherPathways: function () {
   //   debugger
   //   var currentRespKey = this.props.response.key;
@@ -329,13 +355,14 @@ export default React.createClass({
     const {response, state} = this.props;
     const isEditing = (state === (C.START_RESPONSE_EDIT + "_" + response.key));
     const isViewingChildResponses = (state === (C.START_CHILD_RESPONSE_VIEW + "_" + response.key));
-
+    const isViewingFromResponses = (state === (C.START_FROM_RESPONSE_VIEW + "_" + response.key));
     return (
       <div className={"card is-fullwidth " + this.cardClasses()}>
         {this.renderResponseHeader(response)}
         {this.renderResponseContent(isEditing, response)}
         {this.renderResponseFooter(isEditing, response)}
         {this.renderChildResponses(isViewingChildResponses, response.key)}
+        {this.renderFromResponsePathways(isViewingFromResponses, response.key)}
       </div>
     );
   }
