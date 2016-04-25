@@ -35,6 +35,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scorebook
+    if params[:classroom_id]
+      @classroom = Classroom.find(params[:classroom_id]).to_json
+    end
     if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     end

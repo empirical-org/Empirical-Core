@@ -3,17 +3,4 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 <%= render partial: 'teachers/progress_reports/subnav' %>
 
-
-
-<div id="page-content-wrapper">
-
-  <div class="tab-pane" id="scorebook">
-
-    <%= render partial: 'application/spinner' %>
-
-  <!-- ==========================================================================
-     Scorebook React code operates here
-    ========================================================================== -->
-
-  </div>
-</div> <!-- //#page-content-wrapper -->
+<%= react_component('EC.Scorebook', selectedClassroom: @classroom) %>

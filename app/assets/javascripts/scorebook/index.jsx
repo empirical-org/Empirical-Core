@@ -1,10 +1,10 @@
 "use strict";
-$(function() {
-  var ele = $('#scorebook');
-  if (ele.length > 0) {
-    React.render(React.createElement(EC.Scorebook), ele[0]);
-  }
-});
+// $(function() {
+//   var ele = $('#scorebook');
+//   if (ele.length > 0) {
+//     React.render(React.createElement(EC.Scorebook), ele[0]);
+//   }
+// });
 
 EC.Scorebook = React.createClass({
   mixins: [EC.TableFilterMixin],
@@ -131,17 +131,21 @@ EC.Scorebook = React.createClass({
       var loadingIndicator = null;
     }
     return (
-      <span>
-        <div className="container">
-          <section className="section-content-wrapper">
-            <EC.ScorebookFilters selectedClassroom= {this.state.selectedClassroom} classroomFilters= {this.state.classroomFilters} selectClassroom= {this.selectClassroom} selectedUnit= {this.state.selectedUnit} unitFilters= {this.state.unitFilters} selectUnit= {this.selectUnit} selectDates= {this.selectDates}/>
-            <EC.ScoreLegend/>
-            <EC.AppLegend/>
-          </section>
-        </div>
-        {scores}
-        {loadingIndicator}
-      </span>
+      <div id="page-content-wrapper">
+         <div className="tab-pane" id="scorebook">
+             <span>
+                 <div className="container">
+                     <section className="section-content-wrapper">
+                         <EC.ScorebookFilters selectedClassroom={this.state.selectedClassroom} classroomFilters={this.state.classroomFilters} selectClassroom={this.selectClassroom} selectedUnit={this.state.selectedUnit} unitFilters={this.state.unitFilters} selectUnit={this.selectUnit} selectDates={this.selectDates}/>
+                         <EC.ScoreLegend/>
+                         <EC.AppLegend/>
+                     </section>
+                 </div>
+                 {scores}
+                 {loadingIndicator}
+             </span>
+         </div>
+     </div>
     );
   }
 });
