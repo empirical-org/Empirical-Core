@@ -20,10 +20,11 @@ EC.Scorebook = React.createClass({
         name: 'All Units',
         value: ''
       },
-      selectedClassroom: {
-        name: 'All Classrooms',
-        value: ''
-      },
+      selectedClassroom: this.selectedClassroom(),
+      // {
+      //   name: 'All Classrooms',
+      //   value: ''
+      // },
       classroomFilters: [],
       unitFilters: [],
       beginDate: null,
@@ -52,6 +53,7 @@ EC.Scorebook = React.createClass({
         unit_id: this.state.selectedUnit.value,
         begin_date: this.state.beginDate,
         end_date: this.state.endDate,
+        selectedClassroom: this.state.selectedClassroom,
         no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet
       },
       success: this.displayData
@@ -98,6 +100,14 @@ EC.Scorebook = React.createClass({
       this.setState({scores: all_scores});
     }
     this.setState({loading: false});
+  },
+
+  selectedClassroom: function() {
+    if (!this.props.selectedClassroom) {
+      return {name: 'All Classrooms', value: ''};
+    } else {
+      return this.props.selectedClassroom;
+    }
   },
 
   selectUnit: function(option) {
