@@ -100,6 +100,7 @@ const playQuestion = React.createClass({
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
+      console.log("response: ", attempt.response)
       components = components.concat([(<li key="feedback"><h5 className="title is-5">{attempt.response.feedback}</h5></li>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
@@ -110,7 +111,7 @@ const playQuestion = React.createClass({
     // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
     if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
       const parentResponse = this.getQuestion().responses[attempt.response.parentID]
-      console.log(parentResponse)
+      console.log("parent response: ", parentResponse)
       components = [(<li key="parentfeedback"><h5 className="title is-5">{parentResponse.feedback}</h5></li>)].concat(components)
       console.log("comps, ", components)
     }
