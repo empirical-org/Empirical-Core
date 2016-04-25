@@ -49,11 +49,11 @@ EC.Scorebook = React.createClass({
       url: '/teachers/classrooms/scores',
       data: {
         current_page: newCurrentPage,
-        classroom_id: this.state.selectedClassroom.value,
+        classroom_id: this.state.selectedClassroom.id,
         unit_id: this.state.selectedUnit.value,
         begin_date: this.state.beginDate,
         end_date: this.state.endDate,
-        selectedClassroom: this.state.selectedClassroom,
+        selectedClassroom: this.state.selectedClassroom.id,
         no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet
       },
       success: this.displayData
