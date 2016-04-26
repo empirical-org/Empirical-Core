@@ -6,6 +6,7 @@ const jsDiff = require('diff');
 import Modal from '../modal/modal.jsx'
 import ResponseList from './responseList.jsx'
 import _ from 'underscore'
+import {hashToCollection} from '../../libs/hashToCollection'
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -36,6 +37,22 @@ export default React.createClass({
 
   cancelChildResponseView: function (rid) {
     this.props.dispatch(questionActions.cancelChildResponseView(this.props.questionID, rid))
+  },
+
+  viewFromResponses: function (rid) {
+    this.props.dispatch(questionActions.startFromResponseView(this.props.questionID, rid))
+  },
+
+  cancelFromResponseView: function (rid) {
+    this.props.dispatch(questionActions.cancelFromResponseView(this.props.questionID, rid))
+  },
+
+  viewToResponses: function (rid) {
+    this.props.dispatch(questionActions.startToResponseView(this.props.questionID, rid))
+  },
+
+  cancelToResponseView: function (rid) {
+    this.props.dispatch(questionActions.cancelToResponseView(this.props.questionID, rid))
   },
 
   updateResponse: function (rid) {
@@ -124,11 +141,14 @@ export default React.createClass({
     var content;
     var parentDetails;
     var childDetails;
+    var pathwayDetails;
     if (!this.props.expanded) {
       return
     }
     if (!response.parentID) {
-      childDetails = (<a className="button is-outlined has-top-margin" onClick={this.viewChildResponses.bind(null, response.key)} key='view' >View Children</a>)
+      childDetails = (
+        <a className="button is-outlined has-top-margin" onClick={this.viewChildResponses.bind(null, response.key)} key='view' >View Children</a>
+      );
     }
 
 
@@ -152,6 +172,20 @@ export default React.createClass({
           (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />)]
       }
+    }
+
+    if (this.props.showPathways) {
+      pathwayDetails = (<span> <a
+                         className="button is-outlined has-top-margin"
+                         onClick={this.printResponsePathways.bind(null, this.props.key)}
+                         key='from' >
+                         From Pathways
+                       </a> <a
+                            className="button is-outlined has-top-margin"
+                            onClick={this.toResponsePathways}
+                            key='to' >
+                            To Pathways
+                          </a></span>)
     }
 
 
@@ -191,6 +225,7 @@ export default React.createClass({
           <strong>Feedback:</strong> {response.feedback}
           <br/>
           {childDetails}
+          {pathwayDetails}
         </div>
     }
 
@@ -225,6 +260,7 @@ export default React.createClass({
     return (
       <footer className="card-footer">
         {buttons}
+
       </footer>
     );
   },
@@ -289,24 +325,108 @@ export default React.createClass({
             admin={false}
             expanded={this.props.allExpanded}
             expand={this.props.expand}
-            ascending={this.props.ascending}/>
+            ascending={this.props.ascending}
+            showPathways={false}/>
         </Modal>
       )
     }
   },
 
+  printResponsePathways: function () {
+    this.viewFromResponses(this.props.response.key)
+    // this.props.printPathways(this.props.response.key);
+  },
+
+  toResponsePathways: function () {
+    this.viewToResponses(this.props.response.key)
+    // this.props.printPathways(this.props.response.key);
+  },
+
+  renderToResponsePathways: function (isViewingToResponses, key) {
+    if (isViewingToResponses) {
+      return (
+        <Modal close={this.cancelToResponseView.bind(null, key)}>
+          <ResponseList
+            responses={this.props.toPathways(this.props.response.key)}
+            getResponse={this.props.getResponse}
+            getChildResponses={this.props.getChildResponses}
+            states={this.props.states}
+            questionID={this.props.questionID}
+            dispatch={this.props.dispatch}
+            admin={false}
+            expanded={this.props.allExpanded}
+            expand={this.props.expand}
+            ascending={this.props.ascending}
+            showPathways={false}/>
+        </Modal>
+      )
+    }
+  },
+
+  renderFromResponsePathways: function (isViewingFromResponses, key) {
+    if (isViewingFromResponses) {
+      const pathways = this.props.printPathways(this.props.response.key)
+      var initialCount;
+      const resps = _.reject(hashToCollection(pathways), (fromer) => {return fromer.initial === true})
+      if (_.find(pathways, {initial: true})) {
+        initialCount = (
+          <p style={{color: 'white'}}>First attempt: {_.find(pathways, {initial: true}).pathCount}</p>
+        )
+      }
+      return (
+        <Modal close={this.cancelFromResponseView.bind(null, key)}>
+          {initialCount}
+        <br/>
+          <ResponseList
+            responses={resps}
+            getResponse={this.props.getResponse}
+            getChildResponses={this.props.getChildResponses}
+            states={this.props.states}
+            questionID={this.props.questionID}
+            dispatch={this.props.dispatch}
+            admin={false}
+            expanded={this.props.allExpanded}
+            expand={this.props.expand}
+            ascending={this.props.ascending}
+            showPathways={false}/>
+        </Modal>
+      )
+    }
+  },
+
+  // gatherPathways: function () {
+  //   debugger
+  //   var currentRespKey = this.props.response.key;
+  //   var allResponses = _.where(this.props.responses, {key: currentRespKey})
+  //   console.log();
+  // },
+
+  // renderPathwaysButton: function () {
+  //   return (
+  //     <a
+  //       className="button is-outlined has-top-margin"
+  //       onClick={this.gatherPathways}
+  //       key='view' >
+  //       Print Pathways
+  //     </a>
+  //   );
+  // },
+
   render: function () {
     const {response, state} = this.props;
     const isEditing = (state === (C.START_RESPONSE_EDIT + "_" + response.key));
     const isViewingChildResponses = (state === (C.START_CHILD_RESPONSE_VIEW + "_" + response.key));
-
+    const isViewingFromResponses = (state === (C.START_FROM_RESPONSE_VIEW + "_" + response.key));
+    const isViewingToResponses = (state === (C.START_TO_RESPONSE_VIEW + "_" + response.key));
     return (
       <div className={"card is-fullwidth " + this.cardClasses()}>
         {this.renderResponseHeader(response)}
         {this.renderResponseContent(isEditing, response)}
         {this.renderResponseFooter(isEditing, response)}
         {this.renderChildResponses(isViewingChildResponses, response.key)}
+        {this.renderFromResponsePathways(isViewingFromResponses, response.key)}
+        {this.renderToResponsePathways(isViewingToResponses, response.key)}
       </div>
-    )
+    );
   }
 })

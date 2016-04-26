@@ -5,7 +5,7 @@ export default React.createClass({
 
   render: function () {
     var responseListItems = this.props.responses.map((resp) => {
-      return (
+      if (resp) {return (
           <Response
           response={resp}
           responses={this.props.responses}
@@ -20,8 +20,11 @@ export default React.createClass({
           allExpanded={this.props.expanded}
           expanded={this.props.expanded[resp.key]}
           expand={this.props.expand}
-          getMatchingResponse={this.props.getMatchingResponse}/>
-      )
+          getMatchingResponse={this.props.getMatchingResponse}
+          showPathways={this.props.showPathways}
+          printPathways={this.props.printPathways}
+          toPathways={this.props.toPathways} />
+      )}
     })
     if (this.props.ascending) {
       return (
