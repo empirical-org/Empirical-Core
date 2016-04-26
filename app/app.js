@@ -4,7 +4,6 @@ import Root from "./components/root";
 import Welcome from "./components/welcome/welcome.jsx";
 import Play from "./components/play/play.jsx";
 import PlayQuestion from "./components/play/playQuestion.jsx";
-import Lesson from "./components/lesson/lesson.jsx";
 import Results from "./components/results/results.jsx";
 import Review from "./components/results/review.jsx";
 import Admin from "./components/admin/admin.jsx";
@@ -12,6 +11,8 @@ import Concepts from "./components/concepts/concepts.jsx";
 import Concept from "./components/concepts/concept.jsx";
 import Questions from "./components/questions/questions.jsx";
 import Question from "./components/questions/question.jsx";
+import Lessons from "./components/lessons/lessons.jsx";
+import Lesson from "./components/lessons/lesson.jsx";
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import findAndFix from './reducers/combined';
@@ -59,6 +60,9 @@ render((
           </Route>
           <Route path="questions" component={Questions}>
             <Route path=":questionID" component={Question}/>
+          </Route>
+          <Route path="lessons" component={Lessons}>
+            <Route path=":lessonID" component={Lesson}/>
           </Route>
         </Route>
       </Route>
