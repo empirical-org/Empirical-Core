@@ -67,6 +67,14 @@ export default function(currentstate,action){
             newstate = _.cloneDeep(currentstate);
             delete newstate.states[action.qid];
             return newstate;
+        case C.START_TO_RESPONSE_VIEW:
+            newstate = _.cloneDeep(currentstate);
+            newstate.states[action.qid] = C.START_TO_RESPONSE_VIEW + "_" + action.rid;
+            return newstate;
+        case C.CANCEL_TO_RESPONSE_VIEW:
+            newstate = _.cloneDeep(currentstate);
+            delete newstate.states[action.qid];
+            return newstate;
         case C.SUBMIT_RESPONSE_EDIT:
             newstate = _.cloneDeep(currentstate);
             newstate.states[action.qid] = C.SUBMITTING_RESPONSE;

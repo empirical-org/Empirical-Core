@@ -99,6 +99,12 @@ module.exports = {
 	cancelFromResponseView: function(qid,rid){
 		return {type:C.CANCEL_FROM_RESPONSE_VIEW,qid,rid};
 	},
+  startToResponseView: function(qid,rid){
+		return {type:C.START_TO_RESPONSE_VIEW,qid,rid};
+	},
+	cancelToResponseView: function(qid,rid){
+		return {type:C.CANCEL_TO_RESPONSE_VIEW,qid,rid};
+	},
   submitResponseEdit: function(qid,rid,content){
 		return function(dispatch,getState){
 				dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid,rid});

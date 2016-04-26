@@ -144,7 +144,9 @@ const Responses = React.createClass({
       expand={this.expand}
       ascending={this.props.responses.ascending}
       getMatchingResponse={this.getMatchingResponse}
-      printPathways={this.mapCountToResponse} />
+      showPathways={true}
+      printPathways={this.mapCountToResponse}
+      toPathways={this.mapCountToToResponse} />
   },
 
   toggleResponseSort: function (field) {
@@ -215,15 +217,39 @@ const Responses = React.createClass({
     }
   },
 
-  getFromPathwaysForResponse: function (rid) {
+  getToPathwaysForResponse: function (rid) {
     var responseCollection = hashToCollection(this.props.pathways.data);
     var responsePathways = _.where(responseCollection, {fromResponseID: rid});
     return responsePathways;
   },
 
+  getUniqAndCountedToResponsePathways: function (rid) {
+    const counted = _.countBy(this.getToPathwaysForResponse(rid), (path)=>{
+      return path.toResponseID;
+    });
+    return counted;
+  },
+
+  mapCountToToResponse: function (rid) {
+    const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
+      var response = this.props.question.responses[key]
+      // response.pathCount = value
+      return response
+    });
+    return _.values(mapped)
+  },
+
+  // From pathways
+
+  getFromPathwaysForResponse: function (rid) {
+    var responseCollection = hashToCollection(this.props.pathways.data);
+    var responsePathways = _.where(responseCollection, {toResponseID: rid});
+    return responsePathways;
+  },
+
   getUniqAndCountedResponsePathways: function (rid) {
     const counted = _.countBy(this.getFromPathwaysForResponse(rid), (path)=>{
-      return path.toResponseID;
+      return path.fromResponseID;
     });
     return counted;
   },
@@ -231,10 +257,17 @@ const Responses = React.createClass({
   mapCountToResponse: function (rid) {
     const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
       var response = this.props.question.responses[key]
-      response.pathCount = value
+      if (response) {
+        response.pathCount = value
+      } else {
+        response = {
+          initial: true,
+          pathCount: value,
+          key: 'initial'
+        }
+      }
       return response
     });
-    console.log(mapped)
     return _.values(mapped)
   },
 
