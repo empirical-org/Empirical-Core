@@ -13,6 +13,7 @@ import Questions from "./components/questions/questions.jsx";
 import Question from "./components/questions/question.jsx";
 import Lessons from "./components/lessons/lessons.jsx";
 import Lesson from "./components/lessons/lesson.jsx";
+import StudentLesson from "./components/studentLessons/lesson.jsx";
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import findAndFix from './reducers/combined';
@@ -47,8 +48,11 @@ render((
         <IndexRoute component={Welcome} />
         <Route path="play" component={Passthrough}>
           <IndexRoute component={Play} />
-          <Route path="lesson/:id" component={Lesson}/>
+          <Route path="lesson/:lessonID" component={StudentLesson}/>
           <Route path="questions/:questionID" component={PlayQuestion}/>
+        </Route>
+        <Route path="lessons" component={Passthrough}>
+
         </Route>
         <Route path="results" component={Passthrough}>
           <IndexRoute component={Results}/>

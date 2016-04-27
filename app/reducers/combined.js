@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { SubmitActions } from '../actions';
 import question from './questionReducerV2';
+import playLesson from './questionReducer';
 import questions from './questions';
 import concepts from './concepts';
 import lessons from './lessons';
@@ -15,6 +16,7 @@ const findAndFix = combineReducers({
   pathways,
   responses,
   lessons,
+  playLesson,
   routing: routerReducer
 })
 
