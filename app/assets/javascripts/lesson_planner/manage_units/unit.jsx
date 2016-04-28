@@ -56,8 +56,7 @@ EC.Unit = React.createClass({
 			<section >
 				<div className="row vertical-align">
 					<h3 className="col-md-9 vcenter">{this.props.data.unit.name}</h3>
-					<div className="col-md-1 vcenter pull-right delete-unit"><span onClick={this.hideUnit}>Delete</span></div>
-					<div className='col-md-2 vcenter pull-right delete-unit'><span onClick={this.editUnit}><i className="fa fa-cog" aria-hidden="true"></i>Edit</span></div>
+					<div className="col-md-3 vcenter pull-right delete-unit"><span onClick={this.hideUnit}>Delete</span></div>
 				</div>
 				<div className="unit-label">
 					{this.assignedToText()}
@@ -67,5 +66,20 @@ EC.Unit = React.createClass({
 				</div>
 			</section>
 		);
+		// return (
+		// 	<section >
+		// 		<div className="row vertical-align">
+		// 			<h3 className="col-md-9 vcenter">{this.props.data.unit.name}</h3>
+		// 			<div className="col-md-1 vcenter pull-right delete-unit"><span onClick={this.hideUnit}>Delete</span></div>
+		// 			<div className='col-md-2 vcenter pull-right delete-unit'><span onClick={this.editUnit}><i className="fa fa-cog" aria-hidden="true"></i>Edit</span></div>
+		// 		</div>
+		// 		<div className="unit-label">
+		// 			{this.assignedToText()}
+		// 		</div>
+		// 		<div className="table assigned-activities">
+		// 			{classroomActivities}
+		// 		</div>
+		// 	</section>
+		// );
 	}
 });
