@@ -19,7 +19,10 @@ EC.DropdownSelector = React.createClass({
   },
 
   render: function () {
-    var options = _.map(this.props.options, this.generateOption, this);
+    // makes shallow copy of array
+    var opt = this.props.options.slice(0);
+    opt.unshift('Select');
+    var options = _.map(opt, this.generateOption, this);
     return (
       <div className='dropdown-select-and-label'>
         <h3 className='dropdown-select-label'>{this.props.label}</h3>
