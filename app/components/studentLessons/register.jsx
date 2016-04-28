@@ -5,6 +5,10 @@ export default React.createClass({
     return this.props.lesson.name
   },
 
+  startActivity: function () {
+    this.props.startActivity(this.refs.name.value)
+  },
+
   render: function () {
     return (
       <section className="section is-fullheight minus-nav">
@@ -22,7 +26,7 @@ export default React.createClass({
             You are joining the <span style={{fontWeight: '700'}}>{this.getLessonName()}</span> class.
           </h4>
           <p className="control">
-            <input className="input" type="text" placeholder="Enter your name"></input>
+            <input className="input" type="text" ref="name" placeholder="Enter your name"></input>
           </p>
           <button className="button is-primary" onClick={this.startActivity}>Start</button>
           <br/>

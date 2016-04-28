@@ -37,6 +37,9 @@ function question(state = initialState, action) {
         attempts: state.currentQuestion.attempts.concat([action.response])
       })}
       return Object.assign({}, state, changes)
+    case SubmitActions.UPDATE_NAME:
+      var changes = {name: action.data}
+      return Object.assign({}, state, changes)
     default:
       return state
   }

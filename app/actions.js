@@ -6,13 +6,15 @@ export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const LOAD_DATA = 'LOAD_DATA'
 export const EXIT = 'EXIT'
 export const CLEAR_RESPONSES = 'CLEAR_RESPONSES'
+export const UPDATE_NAME = 'UPDATE_NAME'
 
 export const SubmitActions = {
   SUBMIT_RESPONSE,
   NEXT_QUESTION,
   LOAD_DATA,
   EXIT,
-  CLEAR_RESPONSES
+  CLEAR_RESPONSES,
+  UPDATE_NAME
 }
 
 /*
@@ -38,4 +40,8 @@ export function loadData(data) {
 
 export function exitToHome() {
   return { type: EXIT}
+}
+
+export function updateName(data) {
+  return { type: UPDATE_NAME, data}
 }
