@@ -4,12 +4,14 @@ article.simple-rounded-box.cms
   dl
     dt Email
     dd= @user.email
-    - if @user.imported_from_clever?
-      dt Clever Token
-      dd= @user.token
-    - else
-      dt Username
-      dd= @user.username
+    dt Google Sign-on?
+    dd= @user.signed_up_with_google
+    dt Clever Id (if exists)
+    dd= @user.clever_id
+    dt Token (if exists)
+    dd= @user.token
+    dt Username
+    dd= @user.username
     dt Role
     dd= @user.role
     dt Classcode
