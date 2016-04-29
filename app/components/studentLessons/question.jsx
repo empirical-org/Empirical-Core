@@ -13,9 +13,9 @@ var C = require("../../constants").default,
 const sessionsRef = new Firebase(C.FIREBASE).child('sessions')
 
 const feedbackStrings = {
-  punctuationError: "punctuation error",
-  typingError: "spelling mistake",
-  caseError: "capitalization error"
+  punctuationError: "There may be an error. How could you update the punctuation?",
+  typingError: "Try again. There may be a spelling mistake.",
+  caseError: "Try again. There may be a capitalization error."
 }
 
 const playLessonQuestion = React.createClass({
@@ -71,7 +71,7 @@ const playLessonQuestion = React.createClass({
         return <ul className="is-unstyled">{this.renderFeedbackStatements(latestAttempt)}</ul>
       } else {
         return (
-          <h5 className="title is-5">Try Again. What’s another way you could write this sentence?</h5>
+          <h5 className="title is-5">We have not seen this sentence before. Could you please try writing it in another way?</h5>
         )
       }
     } else {
@@ -90,7 +90,7 @@ const playLessonQuestion = React.createClass({
     // add keys for react list elements
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return "You have made a " + feedbackStrings[key] + "."
+        return feedbackStrings[key]
       }
     }))
     return errorComponents[0]
@@ -107,7 +107,7 @@ const playLessonQuestion = React.createClass({
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}><h5 className="title is-5">Try again. There may be a {feedbackStrings[key]}.</h5></li>)
+        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}</h5></li>)
       }
     }))
     // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)

@@ -13,9 +13,9 @@ import ResponseToggleFields from './responseToggleFields.jsx'
 const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
 const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
 const feedbackStrings = {
-  punctuationError: "punctuation error",
-  typingError: "spelling mistake",
-  caseError: "capitalization error"
+  punctuationError: "There may be an error. How could you update the punctuation?",
+  typingError: "Try again. There may be a spelling mistake.",
+  caseError: "Try again. There may be a capitalization error."
 }
 
 const Responses = React.createClass({
@@ -46,7 +46,7 @@ const Responses = React.createClass({
     // add keys for react list elements
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return "You have made a " + feedbackStrings[key] + "."
+        return feedbackStrings[key]
       }
     }))
     return errorComponents[0]
