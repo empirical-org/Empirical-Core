@@ -44,14 +44,19 @@ li.premium-tab > a:hover {
     font-weight: 700;
   }
 }
-#first-preview-section {
-  // this lives in premium_pricing_guide.jsx
-}
+
 #premium-pricing-guide {
   color: #333333;
-  padding-top: 60px;
+  padding: 60 0 0 0px;
   & > .row > div {
     margin-bottom: 4%;
+  }
+  p {
+    font-size: 21px;
+  }
+  .logo-tag  {
+    padding: 25 0 90 0px;
+    text-align: center;
   }
   .overview {
     margin: auto auto 63px;
@@ -60,10 +65,20 @@ li.premium-tab > a:hover {
       font-weight: 700;
       margin-bottom: 14px;
     }
-    p {
-      font-size: 21px;
-    }
   }
+}
+.logo-group-wrapper {
+  display: flex;
+  display: -webkit-flex;
+  max-width: 980px;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  .logo-wrapper {
+    margin: 5px;
+  }
+  // p {font-size: inherit}
 }
 .pricing-mini {
   background: white;
