@@ -1,6 +1,7 @@
 class ActivitySession < ActiveRecord::Base
 
   include Uid
+  include Concepts
 
   default_scope { where(visible: true)}
   belongs_to :classroom_activity
@@ -189,6 +190,10 @@ class ActivitySession < ActiveRecord::Base
 
   def grade
     percentage
+  end
+
+  def parse_for_results
+    all_concept_stats(self)
   end
 
   alias owner user
