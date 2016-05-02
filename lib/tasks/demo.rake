@@ -61,8 +61,10 @@ namespace :demo do
       extant = classroom.students.find_by name: name
       return extant if extant.present?
       student = User.new(classcode: classroom.code, name: name, role: 'student', password: 'pwd', password_confirmation: 'pwd')
+
       student.send(:generate_username)
       student.save
+      StudentsClassrooms.create(student_id: student.id, classroom_id: classroom.id)
       student
     end
 
@@ -158,6 +160,7 @@ namespace :demo do
     end
 
     def self.special_student_score_distribution_for_classroom classroom
+
       students = classroom.students.shuffle
       special_students_group1 = students[0..1]
       special_students_group2 = students[2..5]
@@ -173,7 +176,6 @@ namespace :demo do
       special_students_group1.each{|s1| self.special_scores_student_group1(s1)}
       special_students_group2.each{|s2| self.special_scores_student_group2(s2)}
       special_students_group3.each{|s3| self.special_scores_student_group3(s3)}
-
 
       special_students = special_students_group1.concat(special_students_group2).concat(special_students_group3)
       special_students
