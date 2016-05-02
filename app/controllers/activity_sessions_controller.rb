@@ -13,6 +13,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def result
+    @results  = @activity_session.parse_for_results
   end
 
   def anonymous
