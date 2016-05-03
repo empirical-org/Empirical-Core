@@ -15,14 +15,14 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    width: 100px;
-    height: 100px;
-    border: solid 5px #0c0;
-    -webkit-border-radius: 50px;
+    width: 28px;
+    height: 28px;
+    border: solid 3px #70a748;
+    -webkit-border-radius: 100%;
     /* Safari, Chrome */
-    -moz-border-radius: 50px;
+    -moz-border-radius: 100%;
     /* Firefox */
-    border-radius: 50px;
+    border-radius: 100%;
     /* CSS3 */
   }
 
@@ -30,16 +30,20 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    margin: 10px auto;
-    width: 70px;
-    height: 70px;
-    background-color: #0c0;
-    -webkit-border-radius: 35px;
+    margin: 3px auto;
+    width: 16px;
+    height: 16px;
+    background-color: #70a748;
+    -webkit-border-radius: 100%;
     /* Safari, Chrome */
-    -moz-border-radius: 35px;
+    -moz-border-radius: 100%;
     /* Firefox */
-    border-radius: 35px;
+    border-radius: 100%;
     /* CSS3 */
+  }
+
+  .circle-red {
+    border-color: #d9633e;
   }
 
 }
