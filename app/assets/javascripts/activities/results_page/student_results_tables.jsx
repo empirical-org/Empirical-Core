@@ -20,10 +20,20 @@ EC.StudentResultsTables = React.createClass({
     },
 
     displayImages: function(num, type) {
-        var src = type === 'correct' ? 'O' : 'X';
-        var x = '';
+      var correct = function() {return (<div className="circle">
+                                        <div className="inner-circle">
+                                        </div>
+                                      </div>
+                                    );
+                                  };
+      var incorrect = function() {return (
+                                    <div className="circle circle-red">
+                                      </div>);
+                                    };
+        var feedback = type === 'correct' ? correct : incorrect;
+        var x = [];
         for (var i = 0; i < num; i++) {
-            x = x + src;
+            x.push(feedback());
         }
         return (
             <span>{x}</span>
