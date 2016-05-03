@@ -49,7 +49,7 @@ EC.Scorebook = React.createClass({
       url: '/teachers/classrooms/scores',
       data: {
         current_page: newCurrentPage,
-        classroom_id: this.state.selectedClassroom.id,
+        classroom_id: this.state.selectedClassroom.value,
         unit_id: this.state.selectedUnit.value,
         begin_date: this.state.beginDate,
         end_date: this.state.endDate,
@@ -61,9 +61,6 @@ EC.Scorebook = React.createClass({
   },
 
   displayData: function(data) {
-    if (data.was_classroom_selected_in_controller) {
-      this.setState({selectedClassroom: data.selected_classroom});
-    }
     this.setState({
       classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
       unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
@@ -71,6 +68,7 @@ EC.Scorebook = React.createClass({
       premium_state: data.teacher.premium_state,
       noLoadHasEverOccurredYet: false
     });
+    ;
     if (this.state.currentPage == 1) {
       this.setState({scores: data.scores});
     } else {
@@ -121,7 +119,8 @@ EC.Scorebook = React.createClass({
     this.setState({
       currentPage: 0,
       selectedClassroom: option
-    }, this.fetchData);
+    }, this.fetchData
+  );
   },
   selectDates: function(val1, val2) {
     this.setState({
