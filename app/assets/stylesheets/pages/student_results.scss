@@ -1,0 +1,45 @@
+#results-page {
+  text-align: center;
+  .top-section {
+    background-color: white;
+  }
+  .bottom-section {
+    text-align: left;
+    .results-wrapper {
+      max-width: 950px;
+      margin: 0 auto;
+    }
+  }
+
+  .circle {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    border: solid 5px #0c0;
+    -webkit-border-radius: 50px;
+    /* Safari, Chrome */
+    -moz-border-radius: 50px;
+    /* Firefox */
+    border-radius: 50px;
+    /* CSS3 */
+  }
+
+  .inner-circle {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin: 10px auto;
+    width: 70px;
+    height: 70px;
+    background-color: #0c0;
+    -webkit-border-radius: 35px;
+    /* Safari, Chrome */
+    -moz-border-radius: 35px;
+    /* Firefox */
+    border-radius: 35px;
+    /* CSS3 */
+  }
+
+}
