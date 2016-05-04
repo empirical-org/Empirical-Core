@@ -1,7 +1,7 @@
 'use strict'
 EC.StudentResultsTables = React.createClass({
 
-    mapResults: function(results, name) {
+    mapResults: function(results) {
         var that = this;
         var section = results.map(function(result) {
             return (
@@ -19,31 +19,48 @@ EC.StudentResultsTables = React.createClass({
         return section
     },
 
+    correct: function() {
+        return (
+            <div className="circle">
+                <div className="inner-circle"></div>
+            </div>
+        );
+    },
+
+    incorrect: function() {
+        return (
+            <div className="circle circle-red"></div>
+        );
+    },
+
     displayImages: function(num, type) {
-      var correct = function() {return (<div className="circle">
-                                        <div className="inner-circle">
-                                        </div>
-                                      </div>
-                                    );
-                                  };
-      var incorrect = function() {return (
-                                    <div className="circle circle-red">
-                                      </div>);
-                                    };
-        var feedback = type === 'correct' ? correct : incorrect;
-        var x = [];
+        var feedback = type === 'correct' ? this.correct() : this.incorrect();
+        var shapes = [];
         for (var i = 0; i < num; i++) {
-            x.push(feedback());
+            shapes.push(feedback);
         }
         return (
-            <span>{x}</span>
+            <span>{shapes}</span>
         );
+    },
+
+    score: function(result) {
+        var correct = result.reduce(function(prev, curr) {
+            return prev.correctCount + curr.correctCount;
+        });
+        var total = result.reduce(function(prev, curr) {
+            return (prev.correctCount + prev.incorrectCount) + (curr.correctCount + curr.incorrectCount);
+        });
+        return <span className='pull-right'>{correct} of {total} Errors Found</span>
     },
 
     tableBuilder: function(data, name) {
         return (
             <div>
-                <span>{name}</span>
+              <div className='container'>
+                <span className='pull-left'>{name}</span>
+                <span className='pull-right'>{this.score(data)}</span>
+              </div>
                 <table className='table quill-table'>
                     <thead>
                         <tr>
@@ -62,7 +79,13 @@ EC.StudentResultsTables = React.createClass({
     render: function() {
         return (
             <div id='results-table-section'>
-                <h3>Results</h3>
+              <div className='container key'>
+                <div className='pull-left'>Results</div>
+                            <div className='pull-right'>
+                                <div>{this.correct()}<span className='key-div'>Correct</span></div>
+                                <div>{this.incorrect()}<span className='key-div'>Incorrect</span></div>
+                              </div>
+              </div>
                 {this.tableBuilder(this.props.results.story, 'Passage Proofreading')}
                 {this.tableBuilder(this.props.results.sentence, 'Sentence Writing')}
             </div>
