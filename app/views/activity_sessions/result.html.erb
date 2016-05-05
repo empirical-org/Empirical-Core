@@ -1,4 +1,6 @@
 <%= react_component('EC.ResultsPage',
           results: @results,
-          activityName: @activity_name,
-          percentage: @activity_session.percentage) %>
+          percentage: @activity_session.percentage,
+          activityName: @activity_session.activity.name,
+          activityType: ActivityClassification.find(@activity_session.activity.activity_classification_id).name
+          ) %>

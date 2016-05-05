@@ -1,18 +1,11 @@
 'use strict'
 EC.ResultsPage = React.createClass({
 
-
-    score: function() {
-        return <div>
-          {this.props.percentage}
-        </div>
-    },
-
     headerMessage: function() {
         return (
             <div>
                 <h1>Lesson Complete!</h1>
-                <h3>You completed the activity: {this.props.activitySession}</h3>
+                <h3>You completed the activity: {this.props.activityName}</h3>
                 <button className='btn button-green'>Back to Your Dashboard<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
                 </button>
             </div>
@@ -23,7 +16,7 @@ EC.ResultsPage = React.createClass({
         return (
             <div id='results-page' className='container-fluid'>
               <div className='top-section'>
-                {this.score()}
+                <EC.ResultsIcon percentage={this.props.percentage} activityType={this.props.activityType}/>
                 {this.headerMessage()}
               </div>
               <div className='bottom-section'>
