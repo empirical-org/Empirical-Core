@@ -6,7 +6,7 @@ EC.StudentResultsTables = React.createClass({
         var section = results.map(function(result) {
             return (
                 <tr key={result.conceptId}>
-                    <td>
+                    <td className='left-column'>
                         {result.conceptName}
                     </td>
                     <td>
@@ -16,7 +16,7 @@ EC.StudentResultsTables = React.createClass({
                 </tr>
             );
         });
-        return section
+        return section;
     },
 
     correct: function() {
@@ -57,14 +57,14 @@ EC.StudentResultsTables = React.createClass({
     tableBuilder: function(data, name) {
         return (
             <div>
-              <div className='container'>
+              <div className='container table-meta-data'>
                 <span className='pull-left'>{name}</span>
                 <span className='pull-right'>{this.score(data)}</span>
               </div>
                 <table className='table quill-table'>
                     <thead>
                         <tr>
-                            <th>Question</th>
+                            <th className='left-column'>Question</th>
                             <th>Result</th>
                         </tr>
                     </thead>
@@ -73,7 +73,7 @@ EC.StudentResultsTables = React.createClass({
                     </tbody>
                 </table>
             </div>
-        )
+        );
     },
 
     render: function() {
@@ -81,10 +81,10 @@ EC.StudentResultsTables = React.createClass({
             <div id='results-table-section'>
               <div className='container key'>
                 <div className='pull-left'>Results</div>
-                            <div className='pull-right'>
-                                <div>{this.correct()}<span className='key-div'>Correct</span></div>
-                                <div>{this.incorrect()}<span className='key-div'>Incorrect</span></div>
-                              </div>
+                <div className='pull-right'>
+                    <div className='correct'>{this.correct()}<span className='key-div'>Correct</span></div>
+                    <div>{this.incorrect()}<span className='key-div'>Incorrect</span></div>
+                  </div>
               </div>
                 {this.tableBuilder(this.props.results.story, 'Passage Proofreading')}
                 {this.tableBuilder(this.props.results.sentence, 'Sentence Writing')}
