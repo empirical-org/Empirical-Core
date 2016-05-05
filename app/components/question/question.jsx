@@ -3,9 +3,9 @@ import Question from '../../libs/question'
 import _ from 'underscore'
 
 const feedbackStrings = {
-  punctuationError: "punctuation error",
-  typingError: "spelling mistake",
-  caseError: "capitalization error"
+  punctuationError: "There may be an error. How could you update the punctuation?",
+  typingError: "Try again. There may be a spelling mistake.",
+  caseError: "Try again. There may be a capitalization error."
 }
 
 export default React.createClass({
@@ -26,7 +26,7 @@ export default React.createClass({
         return <ul>{this.renderFeedbackStatements(latestAttempt)}</ul>
       } else {
         return (
-          <p> This is not a valid sentence </p>
+          <p>We have not seen this sentence before. Could you please try writing it in another way?</p>
         )
       }
     }
@@ -43,7 +43,7 @@ export default React.createClass({
     var components = [(<li key="feedback">{attempt.response.feedback}</li>)]
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}>Try again. There may be a {feedbackStrings[key]}.</li>)
+        return (<li key={key}>{feedbackStrings[key]}</li>)
       }
     }))
     return components.concat(errorComponents)

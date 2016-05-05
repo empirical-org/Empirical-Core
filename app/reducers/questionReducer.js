@@ -1,5 +1,5 @@
 import { SubmitActions } from '../actions';
-
+ /// make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],
   unansweredQuestions: []
@@ -22,7 +22,7 @@ function question(state = initialState, action) {
       return Object.assign({}, state, changes)
     case SubmitActions.LOAD_DATA:
       var changes2 = {
-        unansweredQuestions: require('../utils/' + action.data).default,
+        unansweredQuestions: action.data,
         questionSet: action.data};
       return Object.assign({}, state, changes2)
     case SubmitActions.EXIT:
@@ -36,6 +36,9 @@ function question(state = initialState, action) {
         Object.assign({}, state.currentQuestion, {
         attempts: state.currentQuestion.attempts.concat([action.response])
       })}
+      return Object.assign({}, state, changes)
+    case SubmitActions.UPDATE_NAME:
+      var changes = {name: action.data}
       return Object.assign({}, state, changes)
     default:
       return state
