@@ -265,7 +265,6 @@ const playLessonQuestion = React.createClass({
                 </div>
                 <div className="button-group">
                   {this.renderNextQuestionButton()}
-                  <Link to={'/results/questions/' + this.props.question.key} className="button is-info is-outlined">View Results</Link>
                 </div>
               </div>
             </div>
@@ -287,7 +286,6 @@ const playLessonQuestion = React.createClass({
                   </div>
                   <div className="button-group">
                     {this.renderNextQuestionButton(true)}
-                    <Link to={'/results/questions/' + this.props.question.key} className="button is-info is-outlined">View Results</Link>
                   </div>
                 </div>
               </div>
@@ -307,7 +305,6 @@ const playLessonQuestion = React.createClass({
                   </div>
                   <div className="button-group">
                     <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-                    <Link to={'/results/questions/' + this.props.question.key} className="button is-info is-outlined">View Results</Link>
 
                   </div>
                 </div>
@@ -329,8 +326,6 @@ const playLessonQuestion = React.createClass({
                 </div>
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-                  <Link to={'/results/questions/' + this.props.question.key} className="button is-info is-outlined">View Results</Link>
-
                 </div>
               </div>
             </div>
