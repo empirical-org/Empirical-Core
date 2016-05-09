@@ -6,7 +6,7 @@ EC.ResultsIcon = React.createClass({
       var score = this.props.percentage;
       if (_.range(0,50).indexOf(score) > -1) {
         color = '#E7522C';
-      } else if (_score.range(51,75).indexOf(score) > -1) {
+      } else if (_.range(51,75).indexOf(score) > -1) {
         color = '#F6A625';
       } else {
         color = '#5AAF46';
