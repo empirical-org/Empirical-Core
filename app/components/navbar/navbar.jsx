@@ -34,8 +34,6 @@ const Navbar = React.createClass({
     if (this.inLesson()) {
       return (
         <div className="header-right header-menu" style={this.navStyles()}>
-          <a href="http://www.connect.quill.org/dwqa-questions/" className="header-tab" activeClassName="is-active">FAQ</a>
-          <Link to={'/play'} className="header-tab" activeClassName="is-active" onClick={this.reset}>Demo</Link>
         </div>
       )
     } else {
