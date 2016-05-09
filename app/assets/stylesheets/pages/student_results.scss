@@ -1,0 +1,126 @@
+#results-page {
+    text-align: center;
+    .top-section {
+        background-color: white;
+        padding-top: 22px;
+    }
+    .bottom-section {
+        text-align: left;
+        .results-wrapper {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+    }
+    .icon {
+      width: 105px;
+      height: 131px;
+      border-radius: 7%;
+      margin: 0 auto;
+      margin-bottom: 15px;
+      img {
+        margin: 17% auto;
+        position: relative;
+      }
+      img:after {
+        content: '';
+        display: block;
+        background: black;
+        height: 4px;
+        max-width: 35px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      h3 {
+        padding-top: 8%;
+      }
+    }
+    tr td:last-of-type {
+        text-align: left;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 36px;
+      margin-bottom: 6px;
+    }
+    h3 {
+      font-size: 24px;
+      color: #424242;
+    }
+    .btn {
+      margin: 23 0 26 0;
+      .fa {
+        margin-left: 5%;
+      }
+    }
+    .circle {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        width: 28px;
+        height: 28px;
+        border: solid 3px #70a748;
+        margin: 3 8 3 0;
+        -webkit-border-radius: 100%;
+        /* Safari, Chrome */
+        -moz-border-radius: 100%;
+        /* Firefox */
+        border-radius: 100%;
+        /* CSS3 */
+        position: relative;
+    }
+    .inner-circle {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        width: 16px;
+        height: 16px;
+        background-color: #70a748;
+        -webkit-border-radius: 100%;
+        /* Safari, Chrome */
+        -moz-border-radius: 100%;
+        /* Firefox */
+        border-radius: 100%;
+        /* CSS3 */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    .circle-red {
+        border-color: #d9633e;
+    }
+    .table-meta-data {
+      max-width: 950px;
+      margin-bottom: 10px;
+    }
+    .key {
+        display: inline-block;
+        max-width: 950px;
+        margin: 30 0 32 0px;
+        .pull-left {
+            font-size: 24px;
+        }
+        .pull-right {
+            display: flex;
+            .correct {
+              margin-right: 30px;
+            }
+            & > div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-top: 2px;
+            }
+        }
+        .circle,
+        div {
+            display: inline-block;
+        }
+        .table.quill-table {
+            margin-bottom: 32px;
+            .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+              padding-left: 15px;
+            }
+        }
+    }
+}
