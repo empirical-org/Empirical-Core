@@ -76,6 +76,19 @@ EC.StudentResultsTables = React.createClass({
         );
     },
 
+    resultTypes: function() {
+      if (this.props.results.story && this.props.results.sentence) {
+        return <div>
+                    {this.tableBuilder(this.props.results.story, 'Passage Proofreading')}
+                    {this.tableBuilder(this.props.results.sentence, 'Sentence Writing')}
+                </div>
+      } else if (this.props.results.story) {
+        return this.tableBuilder(this.props.results.story, 'Passage Proofreading');
+      } else {
+        return this.tableBuilder(this.props.results.sentence, 'Sentence Writing');
+      }
+    },
+
     render: function() {
         return (
             <div id='results-table-section'>
@@ -86,8 +99,7 @@ EC.StudentResultsTables = React.createClass({
                     <div>{this.incorrect()}<span className='key-div'>Incorrect</span></div>
                   </div>
               </div>
-                {this.tableBuilder(this.props.results.story, 'Passage Proofreading')}
-                {this.tableBuilder(this.props.results.sentence, 'Sentence Writing')}
+                {this.resultTypes()}
             </div>
         );
     }
