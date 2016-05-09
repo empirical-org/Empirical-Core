@@ -4,9 +4,9 @@ EC.ResultsIcon = React.createClass({
     backgroundColor: function() {
       var color;
       var score = this.props.percentage;
-      if (_.range(0,50).indexOf(score) > -1) {
+      if (_.range(0.0,0.50).indexOf(score) > -1) {
         color = '#E7522C';
-      } else if (_.range(51,75).indexOf(score) > -1) {
+      } else if (_.range(0.51,0.75).indexOf(score) > -1) {
         color = '#F6A625';
       } else {
         color = '#5AAF46';
