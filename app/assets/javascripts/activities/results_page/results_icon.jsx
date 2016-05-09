@@ -23,7 +23,7 @@ EC.ResultsIcon = React.createClass({
     render: function() {
       return <div className='icon' style={this.backgroundColor()}>
         <img src={this.imageSrc()} alt='activity-type'/>
-        <h3>{this.props.percentage + '%'}</h3>
+        <h3>{(this.props.percentage * 100) + '%'}</h3>
 
       </div>
     }
