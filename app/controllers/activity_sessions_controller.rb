@@ -7,6 +7,16 @@ class ActivitySessionsController < ApplicationController
   before_action :activity_session_authorize!, only: [:play, :result]
 
   def play
+    if @activity_session.state == "finished"
+      newSession = ActivitySession.create(
+       state: "unstarted",
+       user_id: @activity_session.user_id,
+       activity_id: @activity_session.activity_id,
+       classroom_activity_id: @activity_session.classroom_activity_id,
+       is_retry: true
+      )
+      redirect_to play_activity_session_path(newSession)
+    end
     @activity_session.start
     @activity_session.save!
     @module_url = @activity.module_url(@activity_session)
