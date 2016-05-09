@@ -1,7 +1,8 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import { Link } from 'react-router'
 
-export default React.createClass({
+const Navbar = React.createClass({
   getInitialState: function () {
     return {
       expanded: false
@@ -25,6 +26,29 @@ export default React.createClass({
     this.setState({expanded: false})
   },
 
+  inLesson: function () {
+    return (window.location.href.indexOf('play/lesson') !== -1);
+  },
+
+  renderLinks: function () {
+    if (this.inLesson()) {
+      return (
+        <div className="header-right header-menu" style={this.navStyles()}>
+          <a href="http://www.connect.quill.org/dwqa-questions/" className="header-tab" activeClassName="is-active">FAQ</a>
+          <Link to={'/play'} className="header-tab" activeClassName="is-active" onClick={this.reset}>Demo</Link>
+        </div>
+      )
+    } else {
+      return (
+        <div className="header-right header-menu" style={this.navStyles()}>
+          <a href="http://www.connect.quill.org/dwqa-questions/" className="header-tab" activeClassName="is-active">FAQ</a>
+          <Link to={'/play'} className="header-tab" activeClassName="is-active" onClick={this.reset}>Demo</Link>
+          <Link to={'/results'} className="header-tab" activeClassName="is-active" onClick={this.reset}>Results</Link>
+        </div>
+      )
+    }
+  },
+
   render: function () {
     return (
       <header className="header" style={{height: '65px'}}>
@@ -36,11 +60,7 @@ export default React.createClass({
                 style={{height: "35px"}}/>
             </a>
           </div>
-          <div className="header-right header-menu" style={this.navStyles()}>
-            <a href="http://www.connect.quill.org/dwqa-questions/" className="header-tab" activeClassName="is-active">Questions</a>
-            <Link to={'/play'} className="header-tab" activeClassName="is-active" onClick={this.reset}>Demo</Link>
-            <Link to={'/results'} className="header-tab" activeClassName="is-active" onClick={this.reset}>Results</Link>
-          </div>
+          {this.renderLinks()}
           <span className="header-toggle" onClick={this.toggle}>
             <span />
             <span />
@@ -65,3 +85,11 @@ const rightNav = (<div className="header-right header-menu">
     <a className="button" href="#">Button</a>
   </span>
 </div>)
+
+function select(state) {
+  return {
+    routing: state.routing
+  }
+}
+
+export default connect(select)(Navbar)
