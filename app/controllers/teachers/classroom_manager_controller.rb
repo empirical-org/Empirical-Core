@@ -34,10 +34,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scorebook
-    if params[:classroom_id]
-      classroom = Classroom.find(params[:classroom_id])
-      @selected_classroom = {name: classroom.name, value: classroom.id}.to_json
-    end
+    cr_id = params[:classroom_id] ? params[:classroom_id] : current_user.classrooms_i_teach.last.id
+    classroom = Classroom.find(cr_id)
+    @selected_classroom = {name: classroom.name, value: classroom.id, id: classroom.id}
     if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     end
@@ -66,8 +65,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
-
-
   def classroom_mini
     current_user.classrooms_i_teach.includes(:students).each do |classroom|
       obj = {
@@ -93,12 +90,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
     selected_classroom =  Classroom.find_by id: params[:classroom_id]
-    if params[:no_load_has_ever_occurred_yet] == 'true'
-
-      was_classroom_selected_in_controller = true
-    else
-      was_classroom_selected_in_controller = false
-    end
     scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, selected_classroom.try(:id), params[:unit_id], params[:begin_date], params[:end_date]
     render json: {
       teacher: Scorebook::TeacherSerializer.new(current_user).as_json(root: false),
@@ -106,7 +97,6 @@ class Teachers::ClassroomManagerController < ApplicationController
       units: units,
       scores: scores,
       is_last_page: is_last_page,
-      was_classroom_selected_in_controller: was_classroom_selected_in_controller,
       selected_classroom: selected_classroom
     }
   end
