@@ -20,17 +20,10 @@
       img {
         margin: 17% auto;
         position: relative;
-      }
-      img:after {
-        content: '';
-        display: block;
-        background: black;
-        height: 4px;
-        max-width: 35px;
-        width: 100%;
-        margin: 0 auto;
+        text-align: center;
       }
       h3 {
+        border-top: 2px solid rgba(255, 255, 255, 0.2);
         padding-top: 8%;
       }
     }
@@ -46,12 +39,19 @@
       font-size: 24px;
       color: #424242;
     }
-    .btn {
-      margin: 23 0 26 0;
+    a .btn {
+      width:320px;
+      font-size: 20px;
+      height: 55px;
+      margin: 30 0 30 0;
+      padding-bottom: 36px;
       .fa {
+        font-size: 20px;
         margin-left: 5%;
       }
     }
+    button:not(.select-mixin) {
+      padding: 13px 25px;}
     .circle {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -97,6 +97,7 @@
         display: inline-block;
         max-width: 950px;
         margin: 30 0 32 0px;
+        width: 100%;
         .pull-left {
             font-size: 24px;
         }

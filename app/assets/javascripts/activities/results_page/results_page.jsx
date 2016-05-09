@@ -6,8 +6,8 @@ EC.ResultsPage = React.createClass({
             <div>
                 <h1>Lesson Complete!</h1>
                 <h3>You completed the activity: {this.props.activityName}</h3>
-                <button className='btn button-green'>Back to Your Dashboard<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
-                </button>
+                <a href='/profile'><button className='btn button-green'>Back to Your Dashboard<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+                </button></a>
             </div>
         );
     },
