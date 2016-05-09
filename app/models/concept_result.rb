@@ -20,4 +20,6 @@ class ConceptResult < ActiveRecord::Base
   def concept_uid=(concept_uid)
     self.concept = Concept.where(uid: concept_uid).first
   end
+
+
 end
