@@ -4,6 +4,7 @@ EC.StudentResultsTables = React.createClass({
     mapResults: function(results) {
         var that = this;
         var section = results.map(function(result) {
+            if (result.correctCount + result.incorrectCount !== 0){
             return (
                 <tr key={result.conceptId}>
                     <td className='left-column'>
@@ -15,6 +16,7 @@ EC.StudentResultsTables = React.createClass({
                     </td>
                 </tr>
             );
+        }
         });
         return section;
     },
@@ -45,13 +47,13 @@ EC.StudentResultsTables = React.createClass({
     },
 
     score: function(result) {
-        var correct = result.reduce(function(prev, curr) {
-            return prev.correctCount + curr.correctCount;
-        });
-        var total = result.reduce(function(prev, curr) {
-            return (prev.correctCount + prev.incorrectCount) + (curr.correctCount + curr.incorrectCount);
-        });
-        return <span className='pull-right'>{correct} of {total} Errors Found</span>
+        var correct = result.reduce(function (prev, curr) {
+               return prev + curr.correctCount;
+           }, 0);
+        var incorrect = result.reduce(function (prev, curr) {
+               return prev + curr.incorrectCount;
+           }, 0);
+        return <span className='pull-right'>{correct} of {correct + incorrect} Errors Found</span>
     },
 
     tableBuilder: function(data, name) {
