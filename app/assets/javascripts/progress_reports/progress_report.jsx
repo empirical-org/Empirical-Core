@@ -62,7 +62,7 @@ EC.ProgressReport = React.createClass({
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     this.fetchData();
     var that = this;
-    if (this.props.premiumStatus === 'none') {
+    if (this.props.premiumStatus === ('none' || 'locked')) {
       setTimeout(function() {
         that.disableLinks();
       }, 750);
@@ -161,7 +161,7 @@ EC.ProgressReport = React.createClass({
   },
 
   blur: function() {
-    if (this.props.premiumStatus !== ('paid' || 'trial')) {
+    if (this.props.premiumStatus === ('locked' || 'none')) {
       return 'none';
     }
   },
