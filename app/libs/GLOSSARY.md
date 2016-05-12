@@ -24,7 +24,7 @@ The algorithm type indicates which algorithm was used to match the submission to
 - Fuzzy Matching
 
 Under Development:
-- Word Length Matching
+- Word Count Matching
 - Word Bank Matching
 - LanguageTools Matching
 - Parts of Speech Matching

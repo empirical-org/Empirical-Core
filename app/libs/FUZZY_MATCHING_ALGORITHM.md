@@ -47,4 +47,4 @@ This would require 4 edits to be made to the sentence, giving a score that would
 would match
 "The hazy sky has few clouds."
 ```
-The insertion of "a " meets the threshold of 2 edits, but we want this to be counted as a word insertion error (or length error). By making sure that the word count of the matched answer and the submission are equal we can exclude these kinds of matches from the fuzzy matching.
+The insertion of "a " meets the threshold of 2 edits, but we want this to be counted as a word insertion error (or word count error). By making sure that the word count of the matched answer and the submission are equal we can exclude these kinds of matches from the fuzzy matching.
