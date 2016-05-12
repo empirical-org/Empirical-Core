@@ -1,11 +1,15 @@
 namespace :demo do
   desc 'make demo accounts'
-  task :create => :environment do
-    DemoCreator::create_demo
+  task :create, [:name] => :environment do |t, args|
+    # to use this call rake demo:create["firstname lastname"]
+    DemoCreator::create_demo(args[:name].to_s)
   end
 
-  task :destroy => :environment do
-    teacher = User.find_by_username 'cool-demo'
+  task :destroy, [:id_as_string] => :environment do |t, args|
+    # must pass argument of id as string since it comes through as a symbol,
+    # then convert it back to a string, and finally into an integer
+    id = args[:id_as_string].to_s.to_i
+    teacher = User.find(id)
     classrooms = teacher.classrooms_i_teach
     classroom_activities = classrooms.map(&:classroom_activities).flatten
     students = classrooms.map(&:students).flatten
@@ -22,8 +26,9 @@ namespace :demo do
 
   module DemoCreator
 
-    def self.create_demo
-      classrooms, units = self.create_classrooms_and_create_and_assign_units
+    def self.create_demo(name)
+      classrooms = self.create_classrooms(name)
+      units = self.create_and_assign_units classrooms
       self.create_score_distribution(classrooms, units)
       self.create_concept_results(classrooms)
     end
@@ -32,23 +37,21 @@ namespace :demo do
       crs = Demo::ConceptResults.create_from_classrooms(classrooms)
     end
 
-    def self.create_classrooms_and_create_and_assign_units
-      # all units assigned to all students in all classes
-      classrooms = self.create_classrooms
-      units = self.create_and_assign_units classrooms
-      [classrooms, units]
-    end
-
-    def self.create_classrooms
-      teacher = User.find_by name: 'Ms. King', username: 'cool-demo', email: 'kingdemo279@gmail.com', role: 'teacher'
+    def self.create_classrooms(name)
+      # can't have whitespace in email/password
+      no_whitespace_name = name.split(' ').join('').downcase
+      teacher = User.find_by_email("hello+#{no_whitespace_name}@quill.org")
       if teacher.nil?
-        teacher = User.create(role: 'teacher', name: 'Ms. King', username: 'cool-demo', email: 'kingdemo279@gmail.com', password: 'demo', password_confirmation: 'demo')
+        teacher = User.create(role: "teacher", name: name, username: name, email: "hello+#{no_whitespace_name}@quill.org", password: no_whitespace_name, password_confirmation: no_whitespace_name)
       end
-      classrooms = self.classrooms_data.map.with_index{|c, index| self.create_classroom(c, teacher, index)}
+      classrooms = self.classrooms_data.map.with_index{|c, index| self.create_classroom(c, teacher, index, no_whitespace_name)}
     end
 
-    def self.create_classroom data, teacher, index
-      classroom = Classroom.find_or_create_by name: data[:name], teacher: teacher, code: "new-cool-demo-#{index}", grade: '3'
+    def self.create_classroom data, teacher, index, name
+      classroom = Classroom.find_by(teacher: teacher, name: data[:name])
+      if classroom.nil?
+        classroom = Classroom.create name: data[:name], teacher: teacher, code: "#{name}-#{index}", grade: '3'
+      end
       students = self.create_students classroom, data[:student_names]
       classroom
     end
@@ -60,10 +63,11 @@ namespace :demo do
     def self.create_student classroom, name
       extant = classroom.students.find_by name: name
       return extant if extant.present?
-      student = User.new(classcode: classroom.code, name: name, role: 'student', password: 'pwd', password_confirmation: 'pwd')
-
-      student.send(:generate_username)
-      student.save
+      student = User.find_by name: name, role: 'student', classcode: classroom.code
+      if student.nil?
+        student = User.create(name: name, username: "#{name}@#{classroom.code}", role: 'student', classcode: classroom.code, password: 'pwd', password_confirmation: 'pwd')
+        student.save
+      end
       StudentsClassrooms.create(student_id: student.id, classroom_id: classroom.id)
       student
     end
@@ -107,6 +111,7 @@ namespace :demo do
     def self.create_score_distribution classrooms, units
       self.create_default_score_distribution classrooms
       self.create_special_score_distribution classrooms
+
     end
 
     def self.create_default_score_distribution classrooms
@@ -160,11 +165,9 @@ namespace :demo do
     end
 
     def self.special_student_score_distribution_for_classroom classroom
-
       students = classroom.students.shuffle
       special_students_group1 = students[0..1]
       special_students_group2 = students[2..5]
-
       if classroom.name == 'First Period'
         special_students_group3 = students[6..7]
       elsif classroom.name == 'Second Period'
@@ -172,11 +175,9 @@ namespace :demo do
       elsif classroom.name == 'Third Period'
         special_students_group3 = []
       end
-
       special_students_group1.each{|s1| self.special_scores_student_group1(s1)}
       special_students_group2.each{|s2| self.special_scores_student_group2(s2)}
       special_students_group3.each{|s3| self.special_scores_student_group3(s3)}
-
       special_students = special_students_group1.concat(special_students_group2).concat(special_students_group3)
       special_students
     end
