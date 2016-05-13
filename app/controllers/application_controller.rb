@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
     @user = User.new
     flash[:error] = error
     puts("######\nLOGIN ERROR\n#{error}\n######")
-    render new_session
+    redirect_to "/session/new"
   end
 
   protected
