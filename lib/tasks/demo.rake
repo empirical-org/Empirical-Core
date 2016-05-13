@@ -2,13 +2,14 @@ namespace :demo do
   desc 'make demo accounts'
   task :create, [:name] => :environment do |t, args|
     # to use this call rake demo:create["firstname lastname"]
-    DemoCreator::create_demo(args[:name].to_s)
+    name = args[:name] ? args[:name].to_s : nil
+    DemoCreator::create_demo(name)
   end
 
   task :destroy, [:id_as_string] => :environment do |t, args|
     # must pass argument of id as string since it comes through as a symbol,
     # then convert it back to a string, and finally into an integer
-    id = args[:id_as_string].to_s.to_i
+    id = args[:id_as_string] ? args[:id_as_string].to_s.to_i : User.find_by_username('cool-demo').id
     teacher = User.find(id)
     classrooms = teacher.classrooms_i_teach
     classroom_activities = classrooms.map(&:classroom_activities).flatten
@@ -37,12 +38,16 @@ namespace :demo do
       crs = Demo::ConceptResults.create_from_classrooms(classrooms)
     end
 
-    def self.create_classrooms(name)
-      # can't have whitespace in email/password
-      no_whitespace_name = name.split(' ').join('').downcase
+    def self.create_classrooms(name = nil)
+      if name
+        # can't have whitespace in email/password
+        no_whitespace_name = name.split(' ').join('').downcase
+      else
+        no_whitespace_name = 'demo'
+      end
       teacher = User.find_by_email("hello+#{no_whitespace_name}@quill.org")
       if teacher.nil?
-        teacher = User.create(role: "teacher", name: name, username: name, email: "hello+#{no_whitespace_name}@quill.org", password: no_whitespace_name, password_confirmation: no_whitespace_name)
+        teacher = User.create(role: "teacher", name: (name || 'Mrs. King'), username: (name || 'cool-demo'), email: "hello+#{no_whitespace_name}@quill.org", password: no_whitespace_name, password_confirmation: no_whitespace_name)
       end
       classrooms = self.classrooms_data.map.with_index{|c, index| self.create_classroom(c, teacher, index, no_whitespace_name)}
     end
