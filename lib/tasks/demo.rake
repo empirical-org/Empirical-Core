@@ -344,7 +344,7 @@ namespace :demo do
                   Leo\ Tolstoy
                   Virginia\ Woolf
                   Agathy\ Christie
-                  Beveryly\ Cleary
+                  Beverly\ Cleary
                   Rita\ Dove
                   Langston\ Hughes
                 )
