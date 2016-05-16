@@ -11,7 +11,10 @@ export default class Question {
   }
 
   checkMatch(response) {
-    response = response.trim()
+    // remove leading and trailing whitespace
+    response = response.trim();
+    // make sure all words are single spaced
+    response = response.replace(/\s{2,}/g, ' ');
     var returnValue = {
       found: true,
       submitted: response
