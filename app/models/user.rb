@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
 
   has_many :my_admins, through: :admin_accounts_im_in, source: :admins, inverse_of: :teachers
 
-
+  has_many :checkboxes
+  has_many :objectives, through: :checkboxes
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
   has_many :subscriptions

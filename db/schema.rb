@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308005554) do
+ActiveRecord::Schema.define(version: 20160516214056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,16 @@ ActiveRecord::Schema.define(version: 20160308005554) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "checkboxes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "objective_id"
+    t.string   "metadata"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "checkboxes", ["user_id", "objective_id"], name: "index_checkboxes_on_user_id_and_objective_id", unique: true, using: :btree
 
   create_table "classroom_activities", force: :cascade do |t|
     t.integer  "classroom_id"
@@ -277,6 +287,12 @@ ActiveRecord::Schema.define(version: 20160308005554) do
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+
+  create_table "objectives", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "page_areas", force: :cascade do |t|
     t.string   "name",        limit: 255
