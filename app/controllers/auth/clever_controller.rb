@@ -26,6 +26,6 @@ class Auth::CleverController < ApplicationController
   end
 
   def user_failure(data)
-    login_failure('Invalid response received from Clever.')
+    login_failure(data)
   end
 end
