@@ -2,18 +2,22 @@
  * action types
  */
 export const SUBMIT_RESPONSE = 'SUBMIT_RESPONSE'
+export const SUBMIT_RESPONSE_ANON = 'SUBMIT_RESPONSE_ANON'
 export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const LOAD_DATA = 'LOAD_DATA'
 export const EXIT = 'EXIT'
 export const CLEAR_RESPONSES = 'CLEAR_RESPONSES'
+export const CLEAR_RESPONSES_ANON = 'CLEAR_RESPONSES_ANON'
 export const UPDATE_NAME = 'UPDATE_NAME'
 
 export const SubmitActions = {
   SUBMIT_RESPONSE,
+  SUBMIT_RESPONSE_ANON,
   NEXT_QUESTION,
   LOAD_DATA,
   EXIT,
   CLEAR_RESPONSES,
+  CLEAR_RESPONSES_ANON,
   UPDATE_NAME
 }
 
@@ -29,6 +33,13 @@ export function clearResponses() {
   return { type: CLEAR_RESPONSES}
 }
 
+export function submitResponseAnon(response) {
+  return { type: SUBMIT_RESPONSE_ANON, response}
+}
+
+export function clearResponsesAnon() {
+  return { type: CLEAR_RESPONSES_ANON}
+}
 
 export function nextQuestion() {
   return { type: NEXT_QUESTION}

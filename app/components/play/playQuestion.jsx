@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import Question from '../../libs/question'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
-import {submitResponse, clearResponses} from '../../actions.js'
+import {submitResponseAnon, clearResponsesAnon} from '../../actions.js'
 import questionActions from '../../actions/questions'
 import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default,
@@ -12,9 +12,9 @@ var C = require("../../constants").default,
 const sessionsRef = new Firebase(C.FIREBASE).child('sessions')
 
 const feedbackStrings = {
-  punctuationError: "punctuation error",
-  typingError: "spelling mistake",
-  caseError: "capitalization error"
+  punctuationError: "There may be an error. How could you update the punctuation?",
+  typingError: "Try again. There may be a spelling mistake.",
+  caseError: "Try again. There may be a capitalization error."
 }
 
 const playQuestion = React.createClass({
@@ -25,7 +25,7 @@ const playQuestion = React.createClass({
   },
 
   componentDidMount: function() {
-    this.props.dispatch(clearResponses())
+    this.props.dispatch(clearResponsesAnon())
     const {questionID} = this.props.params
     var sessionRef = sessionsRef.push({questionID}, (error) => {
       this.setState({sessionKey: sessionRef.key()})
@@ -46,7 +46,8 @@ const playQuestion = React.createClass({
   },
 
   submitResponse: function(response) {
-    const action = submitResponse(response);
+    const action = submitResponseAnon(response);
+
     this.props.dispatch(action);
     var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(this.props.question.attempts, (error) => {
       return
@@ -96,24 +97,19 @@ const playQuestion = React.createClass({
 
   renderFeedbackStatements: function (attempt) {
     const errors = this.getErrorsForAttempt(attempt);
-    console.log(_.isEmpty(errors), (attempt.response.optimal !== true))
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
-      console.log("response: ", attempt.response)
       components = components.concat([(<li key="feedback"><h5 className="title is-5">{attempt.response.feedback}</h5></li>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}><h5 className="title is-5">Try again. There may be a {feedbackStrings[key]}.</h5></li>)
+        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
       }
     }))
-    // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
     if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
       const parentResponse = this.getQuestion().responses[attempt.response.parentID]
-      console.log("parent response: ", parentResponse)
       components = [(<li key="parentfeedback"><h5 className="title is-5">{parentResponse.feedback}</h5></li>)].concat(components)
-      console.log("comps, ", components)
     }
     return components.concat(errorComponents)
   },
@@ -124,7 +120,6 @@ const playQuestion = React.createClass({
     const preAtt = getLatestAttempt(this.props.question.attempts)
     if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
     const prid = previousAttempt ? previousAttempt.key : undefined
-    console.log('Response: ', response)
     if (response.found) {
 
       // var latestAttempt = getLatestAttempt(this.props.question.attempts)
@@ -162,8 +157,6 @@ const playQuestion = React.createClass({
     const preAtt = getLatestAttempt(this.props.question.attempts)
     if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
     const newAttempt = _.find(responses, {text: response.submitted})
-    console.log("previous attempt: ", previousAttempt)
-    console.log("new attempt: ", newAttempt)
 
     if (previousAttempt) {
       data.fromResponseID = previousAttempt.key
@@ -264,7 +257,6 @@ const playQuestion = React.createClass({
           </section>
         )
       } else if (this.props.question.attempts.length > 0 ) {
-        var latestAttempt = getLatestAttempt(this.props.question.attempts)
         if (this.readyForNext()) {
           return (
             <section className="section">

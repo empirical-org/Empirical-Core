@@ -12,7 +12,6 @@ module.exports = {
     path: __dirname + "/dist",
   },
   plugins: [
-    new WebpackErrorNotificationPlugin(),
   ],
   module: {
     loaders: [
