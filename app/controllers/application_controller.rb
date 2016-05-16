@@ -59,9 +59,8 @@ class ApplicationController < ActionController::Base
   def login_failure(error)
     @user = User.new
     flash[:error] = error
-    console.log("######\nCLEVER LOGIN ERROR\n#{error}\n######")
-    raise "#{error}"
-    render :new
+    puts("######\nLOGIN ERROR\n#{error}\n######")
+    redirect_to "/session/new"
   end
 
   protected
