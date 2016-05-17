@@ -57,7 +57,7 @@ const Review = React.createClass({
         statusCode = 4;
       } else if (!!response.parentID) {
         var parentResponse = this.getResponse(response.parentID)
-        statusCode = (parentResponse.optimal ? 2 : 3);
+        statusCode = 3;
       } else {
         statusCode = (response.optimal ? 0 : 1);
       }
@@ -68,6 +68,23 @@ const Review = React.createClass({
 
   responsesGroupedByStatus: function () {
     return _.groupBy(this.responsesWithStatus(), 'statusCode')
+  },
+
+  responsesFromAlgorithms: function () {
+    const responses = this.responsesGroupedByStatus()
+    return responses["3"]
+  },
+
+  responsesGroupedByAuthor: function () {
+    return _.groupBy(this.responsesFromAlgorithms(), 'author')
+  },
+
+  responsesByAuthorAndResponseCount: function () {
+    return _.mapObject(this.responsesGroupedByAuthor(), (val, key) => {
+      return _.reduce(val, (memo, resp) => {
+        return memo + 1
+      }, 0)
+    })
   },
 
   responsesByStatusCodeAndResponseCount: function () {
@@ -89,6 +106,17 @@ const Review = React.createClass({
     })
   },
 
+  formatForAlgorithmPieChart: function () {
+    return _.mapObject(this.responsesByAuthorAndResponseCount(), (val, key, object) => {
+      const index = _.keys(object).indexOf(key);
+      return {
+        value: val,
+        label: key,
+        color: colors[index]
+      }
+    })
+  },
+
   render: function (){
     const {data, states} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
@@ -101,6 +129,9 @@ const Review = React.createClass({
           <div className='columns'>
             <div className='column is-half'>
               <Chart data={_.values(this.formatForPieChart())}/>
+            </div>
+            <div className='column is-half'>
+              <Chart data={_.values(this.formatForAlgorithmPieChart())}/>
             </div>
           </div>
 

@@ -47,7 +47,7 @@ const Question = React.createClass({
         statusCode = 4;
       } else if (!!response.parentID) {
         var parentResponse = this.getResponse(response.parentID)
-        statusCode = (parentResponse.optimal ? 2 : 3);
+        statusCode = 3;
       } else {
         statusCode = (response.optimal ? 0 : 1);
       }

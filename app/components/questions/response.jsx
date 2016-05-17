@@ -275,7 +275,7 @@ export default React.createClass({
       bgColor = "not-found-response";
     } else if (!!response.parentID) {
       var parentResponse = this.props.getResponse(response.parentID)
-      bgColor = (parentResponse.optimal ? 'algorithm-optimal-response' : "algorithm-sub-optimal-response");
+      bgColor = "algorithm-sub-optimal-response";
     } else {
       bgColor = (response.optimal ? "human-optimal-response" : "human-sub-optimal-response");
     }

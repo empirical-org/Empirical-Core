@@ -23,7 +23,6 @@ export default React.createClass({
       <div className="columns is-multiline">
         {this.renderToggleField(this.props.labels[0])}
         {this.renderToggleField(this.props.labels[1])}
-        {this.renderToggleField(this.props.labels[2])}
         {this.renderToggleField(this.props.labels[3])}
         {this.renderToggleField(this.props.labels[4])}
       </div>
