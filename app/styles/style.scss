@@ -1,14 +1,10 @@
-@import 'bulma/utilities/utilities';
-@import 'bulma/config/variables';
-@import 'bulma/config/generated-variables';
-@import 'bulma/base/base';
-@import 'bulma/elements/elements';
-@import 'bulma/components/components';
-@import 'bulma/layout/layout';
-
-// .is-fullheight.minus-nav {
-//   min-height: calc(100vh - 50px);
-// }
+@import './bulma/utilities/utilities';
+@import './bulma/config/variables';
+@import './bulma/config/generated-variables';
+@import './bulma/base/base';
+@import './bulma/elements/elements';
+@import './bulma/components/components';
+@import './bulma/layout/layout';
 
 body {
   color: #3D3D3D
