@@ -1,6 +1,6 @@
 class Classroom < ActiveRecord::Base
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
-
+  include CheckboxCallback
   validates_uniqueness_of :code
   validates_uniqueness_of :name, scope: :teacher_id
   # NO LONGER POSSIBLE WITH GOOGLE CLASSROOM : validates :grade, presence: true
@@ -22,6 +22,7 @@ class Classroom < ActiveRecord::Base
 
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
+  after_create {find_or_create_checkbox('Create a Classroom', self.teacher)}
 
   def x
     c = self
