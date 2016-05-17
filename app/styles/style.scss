@@ -36,18 +36,22 @@ ul.is-unstyled {
   }
 }
 
-.common-error-response {
-  background-color: #FFF0F2;
-}
-
-.not-found-response {
+.algorithm-optimal-response {
   background-color: #F6ECF8;
 }
 
-.sub-optimal-response {
+.algorithm-sub-optimal-response {
+  background-color: #E9EDF7;
+}
+
+.not-found-response {
+  background-color: #FFF0F2;
+}
+
+.human-sub-optimal-response {
   background-color: #FFF9E8;
 }
-.optimal-response {
+.human-optimal-response {
   background-color: #F5FAEF;
 }
 

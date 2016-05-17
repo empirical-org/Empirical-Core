@@ -6,9 +6,10 @@ const initialState = {
       sorting: "count",
       ascending: false,
       visibleStatuses: {
-        "Optimal": true,
-        "Sub-Optimal": true,
-        "Common Error": true,
+        "Human Optimal": true,
+        "Human Sub-Optimal": true,
+        "Algorithm Optimal": true,
+        "Algorithm Sub-Optimal": true,
         "Unmatched": true
       },
       expanded: {}  // this will contain response keys set to true or false;
@@ -47,4 +48,3 @@ export default function(currentState, action) {
          return currentState || initialState.responses;
    }
 }
-

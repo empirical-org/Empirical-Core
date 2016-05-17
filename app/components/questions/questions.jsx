@@ -60,10 +60,10 @@ const Questions = React.createClass({
         <div className="container">
           { this.renderModal() }
           <div className="columns">
-            <div className="column">
+            <div className="column is-half">
               <QuestionsList questions={questions} concepts={concepts} baseRoute={"admin"} />
             </div>
-            <div className="column">
+            <div className="column is-half">
               {this.props.children}
             </div>
           </div>

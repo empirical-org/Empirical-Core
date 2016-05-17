@@ -9,23 +9,24 @@ export default React.createClass({
         checked={!!this.props.visibleStatuses[status]} />
     )
     return (
-      <li>
+      <div className="column">
         <label className="panel-checkbox toggle">
           {checkBox}
           {status}
         </label>
-      </li>
+      </div>
     )
   },
 
   render: function () {
     return (
-      <ul>
+      <div className="columns is-multiline">
         {this.renderToggleField(this.props.labels[0])}
         {this.renderToggleField(this.props.labels[1])}
         {this.renderToggleField(this.props.labels[2])}
         {this.renderToggleField(this.props.labels[3])}
-      </ul>
+        {this.renderToggleField(this.props.labels[4])}
+      </div>
     )
   }
 })

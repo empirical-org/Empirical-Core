@@ -11,8 +11,8 @@ import C from '../../constants'
 import Chart from './pieChart.jsx'
 import ResponseComponent from '../questions/ResponseComponent.jsx'
 
-const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
-const colors = ["#81c784", "#ffb74d", "#e57373", "#ba68c8"]
+const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
+const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 
 const Question = React.createClass({
 
@@ -32,15 +32,22 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals))
   },
 
+  getResponse: function (responseID) {
+    const {data, states} = this.props.questions, {questionID} = this.props.params;
+    var responses = hashToCollection(data[questionID].responses)
+    return _.find(responses, {key: responseID})
+  },
+
   responsesWithStatus: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
     var responses = hashToCollection(data[questionID].responses)
     return responses.map((response) => {
       var statusCode;
       if (!response.feedback) {
-        statusCode = 3;
+        statusCode = 4;
       } else if (!!response.parentID) {
-        statusCode = 2;
+        var parentResponse = this.getResponse(response.parentID)
+        statusCode = (parentResponse.optimal ? 2 : 3);
       } else {
         statusCode = (response.optimal ? 0 : 1);
       }

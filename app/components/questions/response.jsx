@@ -274,9 +274,10 @@ export default React.createClass({
     if (!response.feedback) {
       bgColor = "not-found-response";
     } else if (!!response.parentID) {
-      bgColor = "common-error-response";
+      var parentResponse = this.props.getResponse(response.parentID)
+      bgColor = (parentResponse.optimal ? 'algorithm-optimal-response' : "algorithm-sub-optimal-response");
     } else {
-      bgColor = (response.optimal ? "optimal-response" : "sub-optimal-response");
+      bgColor = (response.optimal ? "human-optimal-response" : "human-sub-optimal-response");
     }
 
     return (

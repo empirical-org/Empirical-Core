@@ -10,8 +10,8 @@ import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
 
 
-const labels = ["Optimal", "Sub-Optimal", "Common Error", "Unmatched"]
-const colors = ["#F5FAEF", "#FFF9E8", "#FFF0F2", "#F6ECF8"]
+const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
+const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
   typingError: "Try again. There may be a spelling mistake.",
@@ -101,9 +101,10 @@ const Responses = React.createClass({
     return responses.map((response) => {
       var statusCode;
       if (!response.feedback) {
-        statusCode = 3;
+        statusCode = 4;
       } else if (!!response.parentID) {
-        statusCode = 2;
+        var parentResponse = this.getResponse(response.parentID)
+        statusCode = (parentResponse.optimal ? 2 : 3);
       } else {
         statusCode = (response.optimal ? 0 : 1);
       }
