@@ -133,6 +133,7 @@ const playQuestion = React.createClass({
           text: response.submitted,
           count: 1,
           parentID: response.response.key,
+          author: response.author,
           feedback: this.generateFeedbackString(response)
         }
         this.props.dispatch(

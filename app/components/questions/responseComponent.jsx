@@ -66,11 +66,18 @@ const Responses = React.createClass({
       return
     }
     if (newResponse.response.key === response.parentID) {
-      return
+      if (newResponse.author) {
+        var newErrorResp = {
+          author: newResponse.author,
+          feedback: this.generateFeedbackString(newResponse)
+        }
+        this.updateRematchedResponse(rid, newErrorResp)
+      }
     }
     else {
       var newErrorResp = {
         parentID: newResponse.response.key,
+        author: newResponse.author,
         feedback: this.generateFeedbackString(newResponse)
       }
       this.updateRematchedResponse(rid, newErrorResp)

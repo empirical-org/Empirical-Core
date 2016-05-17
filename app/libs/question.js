@@ -27,18 +27,21 @@ export default class Question {
     var lowerCaseMatch = this.checkCaseInsensitiveMatch(response)
     if (lowerCaseMatch !== undefined) {
       returnValue.caseError = true
+      returnValue.author = "CaseInsensitive"
       returnValue.response = lowerCaseMatch
       return returnValue
     }
     var punctuationMatch = this.checkPunctuationInsensitiveMatch(response)
     if (punctuationMatch !== undefined) {
       returnValue.punctuationError = true
+      returnValue.author = "PunctuationInsensitive"
       returnValue.response = punctuationMatch
       return returnValue
     }
     var typingErrorMatch = this.checkFuzzyMatch(response)
     if (typingErrorMatch !== undefined) {
       returnValue.typingError = true
+      returnValue.author = "Fuzzy"
       returnValue.response = typingErrorMatch
       return returnValue
     }
