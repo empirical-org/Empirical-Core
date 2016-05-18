@@ -9,7 +9,7 @@ namespace :objectives do
     def self.data
        ['Create a Classroom',
         'Add Students',
-        'Assign Featured Activity',
+        'Assign Featured Activity Pack',
         'Build Your Own Activity Pack',
         'Add School']
     end
