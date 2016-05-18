@@ -1,5 +1,3 @@
-require CleverIntegration
-
 class CleverStudentImporterWorker
   include Sidekiq::Worker
 
