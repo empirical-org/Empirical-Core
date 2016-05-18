@@ -6,7 +6,7 @@ module CleverIntegration::SignUp::Teacher
 
     # TODO: error message for no district found (district has not authorized this school yet)
     if district.nil?
-      result = {type: 'user_failure'}
+      result = {type: 'user_failure', data: "District has not authorized this school yet"}
     else
       teacher = self.create_teacher(parsed_data)
       if teacher.present?
