@@ -62,7 +62,7 @@ EC.ProgressReport = React.createClass({
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     this.fetchData();
     var that = this;
-    if (this.props.premiumStatus === 'none') {
+    if (this.props.premiumStatus === ('none' || 'locked')) {
       setTimeout(function() {
         that.disableLinks();
       }, 750);
@@ -160,6 +160,12 @@ EC.ProgressReport = React.createClass({
     return _.bind(this.sortResults, this, cb);
   },
 
+  blur: function() {
+    if (this.props.premiumStatus === ('locked' || 'none')) {
+      return 'none';
+    }
+  },
+
   render: function() {
     var pagination,
       csvExport,
@@ -180,7 +186,7 @@ EC.ProgressReport = React.createClass({
     }
 
     return (
-      <div className={'premium-status-' + this.props.premiumStatus}>
+      <div className={'premium-status-' + this.blur()}>
         <div className="row">
           <div className="col-md-8 header-section">
             {this.props.children}

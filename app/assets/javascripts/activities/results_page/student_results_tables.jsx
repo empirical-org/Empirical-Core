@@ -4,6 +4,7 @@ EC.StudentResultsTables = React.createClass({
     mapResults: function(results) {
         var that = this;
         var section = results.map(function(result) {
+            if (result.correctCount + result.incorrectCount !== 0){
             return (
                 <tr key={result.conceptId}>
                     <td className='left-column'>
@@ -15,6 +16,7 @@ EC.StudentResultsTables = React.createClass({
                     </td>
                 </tr>
             );
+        }
         });
         return section;
     },
@@ -45,13 +47,13 @@ EC.StudentResultsTables = React.createClass({
     },
 
     score: function(result) {
-        var correct = result.reduce(function(prev, curr) {
-            return prev.correctCount + curr.correctCount;
-        });
-        var total = result.reduce(function(prev, curr) {
-            return (prev.correctCount + prev.incorrectCount) + (curr.correctCount + curr.incorrectCount);
-        });
-        return <span className='pull-right'>{correct} of {total} Errors Found</span>
+        var correct = result.reduce(function (prev, curr) {
+               return prev + curr.correctCount;
+           }, 0);
+        var incorrect = result.reduce(function (prev, curr) {
+               return prev + curr.incorrectCount;
+           }, 0);
+        return <span className='pull-right'>{correct} of {correct + incorrect} Errors Found</span>
     },
 
     tableBuilder: function(data, name) {
@@ -76,6 +78,19 @@ EC.StudentResultsTables = React.createClass({
         );
     },
 
+    resultTypes: function() {
+      if (this.props.results.story && this.props.results.sentence) {
+        return <div>
+                    {this.tableBuilder(this.props.results.story, 'Passage Proofreading')}
+                    {this.tableBuilder(this.props.results.sentence, 'Sentence Writing')}
+                </div>
+      } else if (this.props.results.story) {
+        return this.tableBuilder(this.props.results.story, 'Passage Proofreading');
+      } else {
+        return this.tableBuilder(this.props.results.sentence, 'Sentence Writing');
+      }
+    },
+
     render: function() {
         return (
             <div id='results-table-section'>
@@ -86,8 +101,7 @@ EC.StudentResultsTables = React.createClass({
                     <div>{this.incorrect()}<span className='key-div'>Incorrect</span></div>
                   </div>
               </div>
-                {this.tableBuilder(this.props.results.story, 'Passage Proofreading')}
-                {this.tableBuilder(this.props.results.sentence, 'Sentence Writing')}
+                {this.resultTypes()}
             </div>
         );
     }
