@@ -11,6 +11,7 @@ module CleverIntegration::Creators::Students
   private
 
   def self.create_student(parsed_student_response)
+    puts "Creating Clever Student: #{parsed_student_response[:clever_id]}"
     student = User.find_or_initialize_by(clever_id: parsed_student_response[:clever_id])
     student.update({
       name: parsed_student_response[:name],
