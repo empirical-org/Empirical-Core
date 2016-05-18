@@ -7,6 +7,6 @@ class CleverStudentImporterWorker
     puts "district_token #{district_token}"
     puts "requesters #{requesters}"
     classrooms = Classroom.unscoped.where(id: classroom_ids)
-    CleverIntegration::Importers::Students.run(classrooms, district_token, requesters[:section_requester])
+    CleverIntegration::Importers::Students.run(classrooms, district_token, CleverIntegration::Requesters.section)
   end
 end
