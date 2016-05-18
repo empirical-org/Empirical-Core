@@ -1,11 +1,12 @@
 class CleverStudentImporterWorker
   include Sidekiq::Worker
 
-  def perform(classrooms, district_token, requesters)
+  def perform(classroom_ids, district_token, requesters)
     puts "Running Clever student import in the background"
     puts "Classrooms: #{classrooms}"
     puts "district_token #{district_token}"
     puts "requesters #{requesters}"
+    classrooms = Classroom.unscoped.where(id: classroom_ids)
     CleverIntegration::Importers::Students.run(classrooms, district_token, requesters[:section_requester])
   end
 end
