@@ -16,7 +16,7 @@ module CleverIntegration::SignUp::Teacher
         puts "Imported School"
         classrooms = self.import_classrooms(teacher, district.token, requesters)
         puts "Imported Classrooms"
-        students = self.import_students(classrooms, district.token, requesters)
+        students = self.import_students(classrooms, district.token)
         puts "Imported Students"
         result = {type: 'user_success', data: teacher}
       else
@@ -49,7 +49,8 @@ module CleverIntegration::SignUp::Teacher
     CleverIntegration::Importers::Classrooms.run(teacher, district_token, requesters[:teacher_requester])
   end
 
-  def self.import_students(classrooms, district_token, requesters)
-    CleverIntegration::Importers::Students.run(classrooms, district_token, requesters[:section_requester])
+  def self.import_students(classrooms, district_token)
+    classroom_ids = classrooms.collect {|c| c.id}
+    CleverStudentImporterWorker.perform_async(classroom_ids, district_token)
   end
 end
