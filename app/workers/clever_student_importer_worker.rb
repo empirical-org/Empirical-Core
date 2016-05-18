@@ -3,7 +3,7 @@ class CleverStudentImporterWorker
 
   def perform(classroom_ids, district_token, requesters)
     puts "Running Clever student import in the background"
-    puts "Classrooms: #{classrooms}"
+    # puts "Classrooms: #{classrooms}"
     puts "district_token #{district_token}"
     puts "requesters #{requesters}"
     classrooms = Classroom.unscoped.where(id: classroom_ids)
