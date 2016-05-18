@@ -50,6 +50,7 @@ module CleverIntegration::SignUp::Teacher
   end
 
   def self.import_students(classrooms, district_token, requesters)
-    CleverIntegration::Importers::Students.run(classrooms, district_token, requesters[:section_requester])
+    CleverStudentImportWorker.perform_async(classrooms, district_token, requesters)
+    # CleverIntegration::Importers::Students.run(classrooms, district_token, requesters[:section_requester])
   end
 end
