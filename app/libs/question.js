@@ -10,6 +10,10 @@ export default class Question {
     this.responses = data.responses;
   }
 
+  getOptimalResponses() {
+    return _.where(this.responses, {optimal: true})
+  }
+
   checkMatch(response) {
     // remove leading and trailing whitespace
     response = response.trim();
@@ -27,22 +31,36 @@ export default class Question {
     var lowerCaseMatch = this.checkCaseInsensitiveMatch(response)
     if (lowerCaseMatch !== undefined) {
       returnValue.caseError = true
-      returnValue.author = "CaseInsensitive"
+      returnValue.author = "Capitalization Hint"
       returnValue.response = lowerCaseMatch
       return returnValue
     }
     var punctuationMatch = this.checkPunctuationInsensitiveMatch(response)
     if (punctuationMatch !== undefined) {
       returnValue.punctuationError = true
-      returnValue.author = "PunctuationInsensitive"
+      returnValue.author = "Punctuation Hint"
       returnValue.response = punctuationMatch
       return returnValue
     }
     var typingErrorMatch = this.checkFuzzyMatch(response)
     if (typingErrorMatch !== undefined) {
       returnValue.typingError = true
-      returnValue.author = "Fuzzy"
+      returnValue.author = "Word Error Hint"
       returnValue.response = typingErrorMatch
+      return returnValue
+    }
+    var minLengthMatch = this.checkMinLengthMatch(response)
+    if (minLengthMatch !== undefined) {
+      returnValue.minLengthError = true
+      returnValue.author = "Missing Details Hint"
+      returnValue.response = minLengthMatch
+      return returnValue
+    }
+    var maxLengthMatch = this.checkMaxLengthMatch(response)
+    if (maxLengthMatch !== undefined) {
+      returnValue.maxLengthError = true
+      returnValue.author = "Not Concise Hint"
+      returnValue.response = maxLengthMatch
       return returnValue
     }
     returnValue.found = false
@@ -82,17 +100,53 @@ export default class Question {
   checkFuzzyMatch(response) {
     const set = fuzzy(_.pluck(this.responses, "text"));
     const matches = set.get(response, []);
-    var response = undefined;
+    var foundResponse = undefined;
     var text = undefined;
     if (matches.length > 0) {
       var threshold = (matches[0][1].length - 3) / matches[0][1].length
       // console.log("\nmatch: ", matches[0][0], " threshold: ", threshold)
-      text = matches[0][0] > threshold ? matches[0][1] : null;
+      text = (matches[0][0] > threshold) && (response.split(" ").length <= matches[0][1].split(" ").length) ? matches[0][1] : null;
     }
     if (text) {
-      response = _.findWhere(this.responses, {text})
+      foundResponse = _.findWhere(this.responses, {text})
     }
-    return response
+    return foundResponse
+  }
+
+  checkMinLengthMatch(response) {
+    const optimalResponses = this.getOptimalResponses();
+    if (optimalResponses.length < 5) {
+      return undefined
+    }
+    const lengthsOfResponses = optimalResponses.map((resp) => {
+      return resp.text.split(" ").length;
+    })
+    const minLength = _.min(lengthsOfResponses)
+    if (response.split(" ").length < minLength) {
+      return _.sortBy(optimalResponses, (resp) => {
+        return resp.text.length
+      })[0]
+    } else {
+      return undefined
+    }
+  }
+
+  checkMaxLengthMatch(response) {
+    const optimalResponses = this.getOptimalResponses();
+    if (optimalResponses.length < 5) {
+      return undefined
+    }
+    const lengthsOfResponses = optimalResponses.map((resp) => {
+      return resp.text.split(" ").length;
+    })
+    const maxLength = _.max(lengthsOfResponses)
+    if (response.split(" ").length > maxLength) {
+      return _.sortBy(optimalResponses, (resp) => {
+        return resp.text.length
+      }).reverse()[0]
+    } else {
+      return undefined
+    }
   }
 }
 
