@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe User, type: :model do
   let(:user) { FactoryGirl.build(:user) }
+  let!(:school) {FactoryGirl.create(:school) }
 
 
   describe '#newsletter?' do
@@ -19,6 +20,13 @@ describe User, type: :model do
       end
     end
   end
+
+  # it 'gets a checkbox for adding a school' do
+  #   obj = Objective.new(name: 'Add School')
+  #   user.schools.push(school)
+  #   user.save
+  #   expect(user.checkboxes.objective).to eq(obj)
+  # end
 
   describe "default scope" do
     let(:user1) { FactoryGirl.create(:user) }

@@ -37,6 +37,9 @@ class AccountsController < ApplicationController
 
   def select_school
     current_user.schools << School.find(params[:school_id])
+    if current_user.schools.compact.any?
+      find_or_create_checkbox('Add School', current_user)
+    end
     render json: {}
   end
 
