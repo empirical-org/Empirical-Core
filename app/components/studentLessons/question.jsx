@@ -15,7 +15,9 @@ const sessionsRef = new Firebase(C.FIREBASE).child('sessions')
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
   typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error."
+  caseError: "Try again. There may be a capitalization error.",
+  minLengthError: "Try again. Do you have all of the information from the prompt?",
+  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
 }
 
 const playLessonQuestion = React.createClass({
@@ -82,7 +84,7 @@ const playLessonQuestion = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
   },
 
   generateFeedbackString: function (attempt) {

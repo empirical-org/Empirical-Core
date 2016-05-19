@@ -15,7 +15,9 @@ const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
   typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error."
+  caseError: "Try again. There may be a capitalization error.",
+  minLengthError: "Try again. Do you have all of the information from the prompt?",
+  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
 }
 
 const Responses = React.createClass({
@@ -38,7 +40,7 @@ const Responses = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
   },
 
   generateFeedbackString: function (attempt) {
