@@ -47,6 +47,8 @@ describe("The female teacher example", () => {
     expect(response.caseError).toBe(undefined);
     expect(response.punctuationError).toBe(undefined);
     expect(response.typingError).toBe(undefined);
+    expect(response.minLengthError).toBe(undefined);
+    expect(response.maxLengthError).toBe(undefined);
     expect(response.response).toNotExist();
   });
 
@@ -67,5 +69,13 @@ describe("The female teacher example", () => {
     expect(response.typingError).toBe(true);
     expect(response.response.status).toBe("sub-optimal");
     expect(response.response.feedback).toBe("How do you refer to one specific teacher?");
+  });
+
+  it("should not return to short errors as there are less than 5 optimal answers", () => {
+    var response = question.checkMatch("The woman is in the room.");
+    expect(response.found).toBe(false);
+    expect(response.caseError).toBe(undefined);
+    expect(response.punctuationError).toBe(undefined);
+    expect(response.typingError).toBe(undefined);
   });
 })

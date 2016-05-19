@@ -23,6 +23,7 @@ describe("The question object", () => {
   ]
 
   const notExistTests = [
+    "The earth's crust is made up of huge plates that fit together like a a jigsaw.",
     "The earth's crust is made up of huge plates, and they fit together like a jigsaw puzzle.",
     "The earth's crust is made up of huge plates, the plates are huge, fit together and they fit like a jigsaw puzzle.",
     "The earth's crust is made up of plates, the plates are huge, the plates fit together, they fit like a jigsaw.",
