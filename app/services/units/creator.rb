@@ -1,4 +1,5 @@
 module Units::Creator
+
   #    activities_data: [{
   #       id: int
   #       due_date: string | nil
@@ -31,10 +32,9 @@ module Units::Creator
                                         classroom_id: classroom_data[:id],
                                         assigned_student_ids: classroom_data[:student_ids])
     end
-
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
-
     AssignActivityWorker.perform_async(teacher.id)
   end
+
 
 end

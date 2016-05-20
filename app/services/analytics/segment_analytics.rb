@@ -37,7 +37,6 @@ class SegmentAnalytics
   end
 
   def track_event_from_string(event, user_id)
-    
     track({
        user_id: user_id,
        event: "SegmentIo::Events::#{event}".constantize

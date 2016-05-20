@@ -1,4 +1,7 @@
 class ClassroomActivity < ActiveRecord::Base
+  include CheckboxCallback
+
+
   belongs_to :classroom
   belongs_to :activity
   belongs_to :unit, touch: true
@@ -10,6 +13,7 @@ class ClassroomActivity < ActiveRecord::Base
 
 
   after_create :assign_to_students
+  after_save :teacher_checkbox
 
   def assigned_students
     User.where(id: assigned_student_ids)
@@ -72,6 +76,19 @@ class ClassroomActivity < ActiveRecord::Base
   def assign_to_students
     students.each do |student|
       session_for(student)
+    end
+  end
+
+
+  def teacher_checkbox
+    teacher = self.classroom.teacher
+    if teacher
+      if UnitTemplate.find_by_name(self.unit.name)
+        checkbox_name = 'Assign Featured Activity Pack'
+      else
+        checkbox_name = 'Build Your Own Activity Pack'
+      end
+      find_or_create_checkbox(checkbox_name, teacher)
     end
   end
 
