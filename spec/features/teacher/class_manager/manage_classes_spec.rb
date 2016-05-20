@@ -29,7 +29,7 @@ describe 'Teacher Manage-Class page' do
 
         # TODO: figure out how to find the digest of arbitrary strings
         # it 'the teacher can reset the students password' do
-        #   binding.pry
+        #   
         #   sort_fodder_sorted.first.password = 'test'
         #   click_button('Reset Password')
         #   expect(sort_fodder_sorted.first.password).to eq sort_fodder_sorted.first.last_name

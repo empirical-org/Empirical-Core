@@ -1,5 +1,8 @@
 module Teacher
   extend ActiveSupport::Concern
+  include CheckboxCallback
+
+
   TRIAL_LIMIT = 250
   TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
 
@@ -50,7 +53,10 @@ module Teacher
             self.schools.delete(School.find(params[:school_id])) # this will not destroy the school, just the assocation to this user
           end
         end
-        (self.schools << School.find(params[:school_id])) unless self.schools.where(id: params[:school_id]).any?
+        unless self.schools.where(id: params[:school_id]).any?
+          (self.schools << School.find(params[:school_id]))
+          find_or_create_checkbox('Add School', self)
+        end
       end
     end
 

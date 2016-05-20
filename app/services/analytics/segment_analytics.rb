@@ -36,6 +36,14 @@ class SegmentAnalytics
     })
   end
 
+  def track_event_from_string(event, user_id)
+    
+    track({
+       user_id: user_id,
+       event: "SegmentIo::Events::#{event}".constantize
+      })
+  end
+
 
   def track(options)
     puts "calling backend track"
@@ -46,6 +54,7 @@ class SegmentAnalytics
   def identify(user)
     backend.identify(identify_params(user))
   end
+
 
 
   private

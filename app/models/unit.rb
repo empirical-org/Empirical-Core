@@ -19,6 +19,7 @@ class Unit < ActiveRecord::Base
       else
         checkbox_name = 'Build Your Own Activity Pack'
       end
+
       find_or_create_checkbox(checkbox_name, self.classroom.teacher)
     end
   end
