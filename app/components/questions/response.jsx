@@ -142,6 +142,7 @@ export default React.createClass({
     var parentDetails;
     var childDetails;
     var pathwayDetails;
+    var authorDetails;
     if (!this.props.expanded) {
       return
     }
@@ -170,6 +171,8 @@ export default React.createClass({
           (<span><strong>Parent Text:</strong> {parent.text}</span>),
           (<br />),
           (<span><strong>Differences:</strong> {diffText}</span>),
+          (<br />)]
+          authorDetails = [(<span><strong>Author:</strong> {response.author}</span>),
           (<br />)]
       }
     }
@@ -224,6 +227,7 @@ export default React.createClass({
           {parentDetails}
           <strong>Feedback:</strong> {response.feedback}
           <br/>
+          {authorDetails}
           {childDetails}
           {pathwayDetails}
         </div>
