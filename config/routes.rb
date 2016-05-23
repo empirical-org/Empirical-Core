@@ -80,8 +80,8 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
-
-
+    get 'add_students' => 'classroom_manager#generic_add_students'
+    get 'teacher_guide' => 'classroom_manager#teacher_guide'
     get 'my_account' => 'classroom_manager#my_account'
     get 'my_account_data' => 'classroom_manager#my_account_data'
     put 'update_my_account' => 'classroom_manager#update_my_account'
