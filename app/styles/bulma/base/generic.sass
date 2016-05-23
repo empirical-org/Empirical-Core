@@ -7,8 +7,15 @@ html
   overflow-x: hidden
   overflow-y: scroll
   text-rendering: optimizeLegibility
-  &.has-modal-open
-    overflow: hidden
+
+article,
+aside,
+figure,
+footer,
+header,
+hgroup,
+section
+  display: block
 
 body,
 button,
@@ -21,13 +28,16 @@ code,
 pre
   -moz-osx-font-smoothing: auto
   -webkit-font-smoothing: auto
-  font-family: monospace
+  font-family: $family-code
   line-height: 1.25
 
 body
   color: $text
   font-size: 1rem
+  font-weight: $weight-normal
   line-height: 1.428571428571429
+
+// Inline
 
 a
   color: $link
@@ -58,17 +68,15 @@ input[type="radio"]
 small
   font-size: $size-small
 
+span
+  font-style: inherit
+  font-weight: inherit
+
 strong
   color: $text-strong
+  font-weight: $weight-bold
 
-article,
-aside,
-figure,
-footer,
-header,
-hgroup,
-section
-  display: block
+// Block
 
 pre
   background: $pre-background
@@ -84,26 +92,9 @@ pre
 
 table
   width: 100%
-  th,
-  td
+  td,
+  th
     text-align: left
     vertical-align: top
   th
     color: $text-strong
-
-.block:not(:last-child)
-  margin-bottom: 20px
-
-.container
-  position: relative
-  +desktop
-    margin: 0 auto
-    max-width: 960px
-    &.is-fluid
-      margin: 0 20px
-      max-width: none
-
-.fa
-  font-size: 21px
-  text-align: center
-  vertical-align: top

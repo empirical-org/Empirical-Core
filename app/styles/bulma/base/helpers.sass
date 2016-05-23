@@ -1,7 +1,31 @@
 // Display
 
-.is-flex
-  display: flex
+$displays: 'block' 'flex' 'inline' 'inline-block' 'inline-flex'
+
+@each $display in $displays
+  .is-#{$display}
+    display: #{$display}
+  .is-#{$display}-mobile
+    +mobile
+      display: #{$display} !important
+  .is-#{$display}-tablet
+    +tablet
+      display: #{$display} !important
+  .is-#{$display}-tablet-only
+    +tablet-only
+      display: #{$display} !important
+  .is-#{$display}-touch
+    +touch
+      display: #{$display} !important
+  .is-#{$display}-desktop
+    +desktop
+      display: #{$display} !important
+  .is-#{$display}-desktop-only
+    +desktop-only
+      display: #{$display} !important
+  .is-#{$display}-widescreen
+    +widescreen
+      display: #{$display} !important
 
 // Float
 
@@ -14,28 +38,31 @@
 .is-pulled-right
   float: right
 
+// Overflow
+
+.is-clipped
+  overflow: hidden !important
+
 // Overlay
 
 .is-overlay
   +overlay
 
-// Size
-
-.is-fullwidth
-  width: 100%
-
 // Text
 
-.is-text-centered
+.has-text-centered
   text-align: center
 
-.is-text-left
+.has-text-left
   text-align: left
 
-.is-text-right
+.has-text-right
   text-align: right
 
 // Visibility
+
+.is-hidden
+  display: none !important
 
 .is-hidden-mobile
   +mobile
@@ -45,12 +72,24 @@
   +tablet
     display: none !important
 
+.is-hidden-tablet-only
+  +tablet-only
+    display: none !important
+
 .is-hidden-touch
   +touch
     display: none !important
 
 .is-hidden-desktop
   +desktop
+    display: none !important
+
+.is-hidden-desktop-only
+  +desktop-only
+    display: none !important
+
+.is-hidden-widescreen
+  +widescreen
     display: none !important
 
 // Other
@@ -62,5 +101,4 @@
   margin: 0 !important
 
 .is-unselectable
-  +unselectable
-
+  @extend .unselectable

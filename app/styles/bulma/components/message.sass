@@ -9,11 +9,9 @@
   background: $text
   border-radius: $radius $radius 0 0
   color: $text-invert
-  font-size: 10px
-  font-weight: bold
-  letter-spacing: 1px
-  padding: 3px 8px
-  text-transform: uppercase
+  padding: 7px 10px
+  strong
+    color: inherit
   & + .message-body
     border-radius: 0 0 $radius $radius
     border-top: none
@@ -22,10 +20,11 @@
   @extend .block
   background: $background
   border-radius: $radius
+  // Colors
   @each $name, $pair in $colors
     $color: nth($pair, 1)
     $color-invert: nth($pair, 2)
-    $lightning: (100% - lightness($color)) - 4%
+    $lightning: max((100% - lightness($color)) - 4%, 0%)
     $darkness: max(lightness($color) - 10%, lightness($color))
     &.is-#{$name}
       background: lighten($color, $lightning)

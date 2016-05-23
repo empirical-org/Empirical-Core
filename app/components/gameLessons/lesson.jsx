@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import PlayLessonQuestion from './question.jsx'
+import QuestionBrain from './questionBrain.jsx'
 
 import {loadData, nextQuestion, submitResponse, updateName} from '../../actions.js'
 import _ from 'underscore'
@@ -62,7 +62,7 @@ const Lesson = React.createClass({
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
         return (
-          <PlayLessonQuestion question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion}/>
+          <QuestionBrain question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion}/>
         )
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
