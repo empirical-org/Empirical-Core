@@ -8,32 +8,32 @@ export default {
     {
       text: "The woman in the next room is the teacher.",
       feedback: "Excellent, that's correct!",
-      status: "optimal",
+      optimal: true,
     },
     {
       text: "The woman in the next room is a teacher.",
       feedback: "How do you refer to one specific teacher?",
-      status: "sub-optimal",
+      optimal: false,
     },
     {
       text: "The woman teacher is in the next room.",
       feedback: "We write female teacher instead of woman teacher.",
-      status: "sub-optimal",
+      optimal: false,
     },
     {
       text: "The woman is the teacher in the next room.",
       feedback: "It is stronger to write \"In the next room\" before \"is the teacher.\"",
-      status: "sub-optimal",
+      optimal: false,
     },
     {
       text: "The female teacher is in the next room.",
       feedback: "Excellent, that's correct!",
-      status: "optimal",
+      optimal: false,
     },
     {
       text: "The teacher is in the next room.",
       feedback: "What gender is the teacher?",
-      status: "sub-optimal",
+      optimal: false
     }
   ]
 }

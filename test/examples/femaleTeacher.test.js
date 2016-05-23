@@ -11,7 +11,7 @@ describe("The female teacher example", () => {
     expect(response.caseError).toBe(undefined);
     expect(response.punctuationError).toBe(undefined);
     expect(response.typingError).toBe(undefined);
-    expect(response.response.status).toBe("optimal");
+    expect(response.response.optimal).toBe(true);
   });
 
   it("should be able to check a response and provide info on whats wrong 2", () => {
@@ -20,7 +20,7 @@ describe("The female teacher example", () => {
     expect(response.caseError).toBe(true);
     expect(response.punctuationError).toBe(undefined);
     expect(response.typingError).toBe(undefined);
-    expect(response.response.status).toBe("optimal");
+    expect(response.response.optimal).toBe(true);
   });
 
   it("should be able to check a response and provide info on whats wrong 3", () => {
@@ -29,7 +29,7 @@ describe("The female teacher example", () => {
     expect(response.caseError).toBe(undefined);
     expect(response.punctuationError).toBe(true);
     expect(response.typingError).toBe(undefined);
-    expect(response.response.status).toBe("optimal");
+    expect(response.response.optimal).toBe(true);
   });
 
   it("should be able to check a response and provide info on whats wrong 4", () => {
@@ -38,7 +38,7 @@ describe("The female teacher example", () => {
     expect(response.caseError).toBe(undefined);
     expect(response.punctuationError).toBe(undefined);
     expect(response.typingError).toBe(true);
-    expect(response.response.status).toBe("optimal");
+    expect(response.response.optimal).toBe(true);
   });
 
   it("should be able to check a response and provide info on whats wrong 5", () => {
@@ -58,7 +58,7 @@ describe("The female teacher example", () => {
     expect(response.caseError).toBe(undefined);
     expect(response.punctuationError).toBe(undefined);
     expect(response.typingError).toBe(undefined);
-    expect(response.response.status).toBe("sub-optimal");
+    expect(response.response.optimal).toBe(false);
   });
 
   it("should be able to check a response and provide info on whats wrong 7", () => {
@@ -67,7 +67,7 @@ describe("The female teacher example", () => {
     expect(response.caseError).toBe(undefined);
     expect(response.punctuationError).toBe(undefined);
     expect(response.typingError).toBe(true);
-    expect(response.response.status).toBe("sub-optimal");
+    expect(response.response.optimal).toBe(false);
     expect(response.response.feedback).toBe("How do you refer to one specific teacher?");
   });
 

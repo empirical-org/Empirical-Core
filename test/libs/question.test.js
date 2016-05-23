@@ -8,7 +8,7 @@ const data = {
     {
       text: "The fox ran.",
       feedback: "Excellent, that's correct!",
-      status: "optimal",
+      optimal: true,
     }
   ]
 }

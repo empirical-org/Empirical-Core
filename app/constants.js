@@ -78,5 +78,13 @@ export default {
 	COLLAPSE_ALL_RESPONSES:"COLLAPSE_ALL_RESPONSES",
 	EXPAND_ALL_RESPONSES:"EXPAND_ALL_RESPONSES",
 	TOGGLE_STATUS_FIELD:"TOGGLE_STATUS_FIELD",
-	TOGGLE_RESPONSE_SORT:"TOGGLE_RESPONSE_SORT"
+	TOGGLE_RESPONSE_SORT:"TOGGLE_RESPONSE_SORT",
+
+	FEEDBACK_STRINGS: {
+	  punctuationError: "There may be an error. How could you update the punctuation?",
+	  typingError: "Try again. There may be a spelling mistake.",
+	  caseError: "Try again. There may be a capitalization error.",
+	  minLengthError: "Try again. Do you have all of the information from the prompt?",
+	  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
+	}
 }

@@ -33,25 +33,26 @@ const Responses = React.createClass({
     var fields = {
       responses: _.filter(this.responsesWithStatus(), (resp) => {
         return resp.statusCode < 2
-      })
+      }),
+      focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : []
     }
     var question = new Question(fields);
     return question.checkMatch(this.getResponse(rid).text);
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return attempt.feedback
   },
 
   generateFeedbackString: function (attempt) {
     const errors = this.getErrorsForAttempt(attempt);
-    // add keys for react list elements
-    var errorComponents = _.values(_.mapObject(errors, (val, key) => {
-      if (val) {
-        return feedbackStrings[key]
-      }
-    }))
-    return errorComponents[0]
+    // // add keys for react list elements
+    // var errorComponents = _.values(_.mapObject(errors, (val, key) => {
+    //   if (val) {
+    //     return feedbackStrings[key]
+    //   }
+    // }))
+    return errors
   },
 
   rematchResponse: function (rid) {

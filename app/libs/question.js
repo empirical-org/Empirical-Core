@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import fuzzy from 'fuzzyset.js'
+import constants from '../constants';
 const jsDiff = require('diff');
 
 
@@ -8,10 +9,17 @@ export default class Question {
     this.prompt = data.prompt;
     this.sentences = data.sentences;
     this.responses = data.responses;
+    this.focusPoints = data.focusPoints || [];
   }
 
   getOptimalResponses() {
     return _.where(this.responses, {optimal: true})
+  }
+
+  getTopOptimalResponse() {
+    return _.sortBy(this.getOptimalResponses(), (r) => {
+      return r.count
+    }).reverse()[0]
   }
 
   checkMatch(response) {
@@ -28,9 +36,18 @@ export default class Question {
       returnValue.response = exactMatch
       return returnValue
     }
+    var focusPointMatch = this.checkFocusPointMatch(response)
+    if (focusPointMatch !== undefined) {
+      returnValue.focusPointError = true;
+      returnValue.feedback = focusPointMatch.feedback;
+      returnValue.author = "Focus Point Hint";
+      returnValue.response = this.getTopOptimalResponse();
+      return returnValue;
+    }
     var lowerCaseMatch = this.checkCaseInsensitiveMatch(response)
     if (lowerCaseMatch !== undefined) {
       returnValue.caseError = true
+      returnValue.feedback = constants.FEEDBACK_STRINGS.caseError;
       returnValue.author = "Capitalization Hint"
       returnValue.response = lowerCaseMatch
       return returnValue
@@ -38,6 +55,7 @@ export default class Question {
     var punctuationMatch = this.checkPunctuationInsensitiveMatch(response)
     if (punctuationMatch !== undefined) {
       returnValue.punctuationError = true
+      returnValue.feedback = constants.FEEDBACK_STRINGS.punctuationError;
       returnValue.author = "Punctuation Hint"
       returnValue.response = punctuationMatch
       return returnValue
@@ -45,6 +63,7 @@ export default class Question {
     var typingErrorMatch = this.checkFuzzyMatch(response)
     if (typingErrorMatch !== undefined) {
       returnValue.typingError = true
+      returnValue.feedback = constants.FEEDBACK_STRINGS.typingError;
       returnValue.author = "Word Error Hint"
       returnValue.response = typingErrorMatch
       return returnValue
@@ -52,6 +71,7 @@ export default class Question {
     var minLengthMatch = this.checkMinLengthMatch(response)
     if (minLengthMatch !== undefined) {
       returnValue.minLengthError = true
+      returnValue.feedback = constants.FEEDBACK_STRINGS.minLengthError;
       returnValue.author = "Missing Details Hint"
       returnValue.response = minLengthMatch
       return returnValue
@@ -59,6 +79,7 @@ export default class Question {
     var maxLengthMatch = this.checkMaxLengthMatch(response)
     if (maxLengthMatch !== undefined) {
       returnValue.maxLengthError = true
+      returnValue.feedback = constants.FEEDBACK_STRINGS.maxLengthError;
       returnValue.author = "Not Concise Hint"
       returnValue.response = maxLengthMatch
       return returnValue
@@ -80,13 +101,13 @@ export default class Question {
   }
 
   checkCaseInsensitiveMatch(response) {
-    return _.find(this.nonChildResponses(this.responses), (resp) => {
+    return _.find(this.getOptimalResponses(), (resp) => {
       return resp.text.toLowerCase() === response.toLowerCase();
     });
   }
 
   checkPunctuationInsensitiveMatch(response) {
-    return _.find(this.nonChildResponses(this.responses), (resp) => {
+    return _.find(this.getOptimalResponses(), (resp) => {
       return removePunctuation(resp.text) === removePunctuation(response)
     });
   }
@@ -127,7 +148,7 @@ export default class Question {
         return resp.text.length
       })[0]
     } else {
-      return undefined
+      return undefined;
     }
   }
 
@@ -147,6 +168,12 @@ export default class Question {
     } else {
       return undefined
     }
+  }
+
+  checkFocusPointMatch(response) {
+    return _.find(this.focusPoints, (fp) => {
+      return response.indexOf(fp.text) === -1;
+    });
   }
 }
 
