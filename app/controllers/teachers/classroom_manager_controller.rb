@@ -16,6 +16,14 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
+  def generic_add_students
+    if current_user && current_user.role == 'teacher'
+      @classroom = current_user.classrooms_i_teach.first
+      redirect_to teachers_classroom_invite_students_path(@classroom)
+    else redirect_to profile_path
+    end
+  end
+
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
     current_user.classrooms_i_teach.includes(:students).each do |classroom|
       obj = {
@@ -83,6 +91,13 @@ class Teachers::ClassroomManagerController < ApplicationController
     @query_results = Dashboard.queries(current_user)
     render json: {
       performanceQuery: @query_results
+    }
+  end
+
+  def teacher_guide
+    @checkbox_data = {
+      completed: current_user.checkboxes.map(&:objective_id),
+      potential: Objective.all
     }
   end
 
