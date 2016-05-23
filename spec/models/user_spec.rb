@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe User, type: :model do
   let(:user) { FactoryGirl.build(:user) }
-  let!(:school) {FactoryGirl.create(:school) }
 
 
   describe '#newsletter?' do

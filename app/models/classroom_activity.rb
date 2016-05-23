@@ -82,7 +82,7 @@ class ClassroomActivity < ActiveRecord::Base
 
   def teacher_checkbox
     teacher = self.classroom.teacher
-    if teacher
+    if teacher && self.unit && self.unit.name
       if UnitTemplate.find_by_name(self.unit.name)
         checkbox_name = 'Assign Featured Activity Pack'
       else
