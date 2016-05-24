@@ -5,7 +5,14 @@ class Teachers::ProgressReportsController < ApplicationController
   layout 'progress_reports'
 
   def demo
-    @user = User.find_by_username 'cool-demo'
+    if params[:name]
+      @user = User.find_by_email "hello+#{params[:name]}@quill.org"
+      if @user.nil?
+        @user = User.find_by_email 'hello+demo@quill.org'
+      end
+    else
+      @user = User.find_by_email 'hello+demo@quill.org'
+    end
     sign_in @user
     redirect_to teachers_progress_reports_standards_classrooms_path
   end
