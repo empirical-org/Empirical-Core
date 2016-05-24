@@ -1,15 +1,15 @@
 import React from 'react'
 
 export default React.createClass({
-  startActivity: function () {
-    this.props.startActivity()
+  startQuestion: function () {
+    this.props.startQuestion()
   },
 
   strongComponent: function () {
-    if (this.props.strong > 0) {
+    if (this.props.strongSentenceCount() > 0) {
       return (
         <h2 className="title is-3">
-          ⚡⚡ You've written {this.props.strong} strong sentences. ⚡⚡
+          ⚡⚡ You've written {this.props.strongSentenceCount()} strong sentences. ⚡⚡
         </h2>
       )
     }
@@ -22,10 +22,10 @@ export default React.createClass({
           <div className="container has-text-centered">
             {this.strongComponent()}
             <h2 className="title is-3">
-              🎯 Your Goal is to write five strong sentences. 🎯
+              🎯 Your Goal is to write {this.props.lesson.questions.length} strong sentences. 🎯
             </h2>
             <h4 className="title is-5">
-              <button className="button is-primary is-large" onClick={this.startActivity}>Continue</button>
+              <button className="button is-primary is-large" onClick={this.startQuestion}>Continue</button>
             </h4>
           </div>
         </div>

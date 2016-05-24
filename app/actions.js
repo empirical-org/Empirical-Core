@@ -9,6 +9,7 @@ export const EXIT = 'EXIT'
 export const CLEAR_RESPONSES = 'CLEAR_RESPONSES'
 export const CLEAR_RESPONSES_ANON = 'CLEAR_RESPONSES_ANON'
 export const UPDATE_NAME = 'UPDATE_NAME'
+export const START_QUESTION = 'START_QUESTION'
 
 export const SubmitActions = {
   SUBMIT_RESPONSE,
@@ -18,7 +19,8 @@ export const SubmitActions = {
   EXIT,
   CLEAR_RESPONSES,
   CLEAR_RESPONSES_ANON,
-  UPDATE_NAME
+  UPDATE_NAME,
+  START_QUESTION
 }
 
 /*
@@ -55,4 +57,8 @@ export function exitToHome() {
 
 export function updateName(data) {
   return { type: UPDATE_NAME, data}
+}
+
+export function startQuestion() {
+  return {type: START_QUESTION}
 }

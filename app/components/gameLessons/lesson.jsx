@@ -59,8 +59,14 @@ const Lesson = React.createClass({
     console.log("Starting activity: ", name);
   },
 
-  getNumberOfStrongAnswers: function () {
-    return 2
+  strongSentenceCount: function () {
+    if (this.props.playLesson.answeredQuestions.length === 0) {
+      return 0
+    } else {
+      return _.reduce(this.props.playLesson.answeredQuestions, (memo, question) => {
+        return memo + (question.attempts[question.attempts.length - 1].response.optimal ? 1 : 0)
+      }, 0)
+    }
   },
 
   render: function () {
@@ -68,7 +74,7 @@ const Lesson = React.createClass({
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
         return (
-          <QuestionBrain question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion}/>
+          <QuestionBrain strongSentenceCount={this.strongSentenceCount} lesson={this.getLesson()} question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion}/>
         )
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
@@ -76,8 +82,11 @@ const Lesson = React.createClass({
       }
       else {
         return (
-          <Goal lesson={this.getLesson()} strong={this.getNumberOfStrongAnswers()} startActivity={this.startActivity}/>
+          <Register lesson={this.getLesson()} startActivity={this.startActivity}/>
         )
+        // return (
+        //   <Goal lesson={this.getLesson()} strong={this.getNumberOfStrongAnswers()} startActivity={this.startActivity}/>
+        // )
         // return (
         //   <Reward caption={"Here’s an animation of space explorers"} imageUrl={"https://s3.amazonaws.com/quill-connect-funny-pictures/Explorers+1.gif"}/>
         // )

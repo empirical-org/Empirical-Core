@@ -12,10 +12,9 @@ export default React.createClass({
           <div className="container has-text-centered">
 
             <h2 className="title is-3">
-              🏆 Great job! {this.props.caption}:
+              🏆That's not quite right! Which of these do you think is the best answer?:
             </h2>
 
-              <img style={{maxHeight: '70vh', margin: '0 auto 20px'}} src={this.props.imageUrl}/>
             <h4 className="title is-5">
               <button className="button is-primary is-large" onClick={this.next}>Continue</button>
             </h4>
