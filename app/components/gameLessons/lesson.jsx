@@ -6,6 +6,8 @@ import {loadData, nextQuestion, submitResponse, updateName} from '../../actions.
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Register from './register.jsx'
+import Goal from './goal.jsx'
+import Reward from './reward.jsx'
 import Finished from './finished.jsx'
 
 const Lesson = React.createClass({
@@ -31,8 +33,8 @@ const Lesson = React.createClass({
     })
   },
 
-  startActivity: function (name) {
-    this.saveStudentName(name);
+  startActivity: function () {
+    // this.saveStudentName(name);
     const action = loadData(this.questionsForLesson())
     this.props.dispatch(action);
     const next = nextQuestion();
@@ -57,6 +59,10 @@ const Lesson = React.createClass({
     console.log("Starting activity: ", name);
   },
 
+  getNumberOfStrongAnswers: function () {
+    return 2
+  },
+
   render: function () {
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     if (data[lessonID]) {
@@ -70,8 +76,11 @@ const Lesson = React.createClass({
       }
       else {
         return (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity}/>
+          <Goal lesson={this.getLesson()} strong={this.getNumberOfStrongAnswers()} startActivity={this.startActivity}/>
         )
+        // return (
+        //   <Reward caption={"Here’s an animation of space explorers"} imageUrl={"https://s3.amazonaws.com/quill-connect-funny-pictures/Explorers+1.gif"}/>
+        // )
       }
     }
     else {
