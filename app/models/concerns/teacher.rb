@@ -101,6 +101,18 @@ module Teacher
     admin_accounts.any?
   end
 
+  def getting_started_info
+    checkbox_data = {
+      completed: self.checkboxes.map(&:objective_id),
+      potential: Objective.where(section: 'Getting Started')
+    }
+    if checkbox_data[:completed].count < checkbox_data[:potential].count
+      checkbox_data
+    else
+      checkbox_data[:necessary] = false
+    end
+  end
+
   def is_trial_expired?
     subscriptions
       .where("subscriptions.expiration < ?", Date.today)

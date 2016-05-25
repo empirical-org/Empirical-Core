@@ -1,10 +1,5 @@
 "use strict";
-// $(function() {
-//   var ele = $('#dashboard');
-//   if (ele.length > 0) {
-//     React.render(React.createElement(EC.Dashboard), ele[0]);
-//   }
-// });
+
 
 EC.Dashboard = React.createClass({
   getInitialState: function() {
