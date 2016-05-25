@@ -35,7 +35,7 @@ class AdminsController < ApplicationController
   end
 
   def admin_of_this_teacher!
-    return if current_user.teachers.include?(@teacher)
+    return if current_user.admin_accounts.first.teachers.include?(@teacher)
     auth_failed
   end
 
