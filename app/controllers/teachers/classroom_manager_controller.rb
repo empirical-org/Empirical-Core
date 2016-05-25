@@ -16,6 +16,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
+
   def generic_add_students
     if current_user && current_user.role == 'teacher'
       @classroom = current_user.classrooms_i_teach.first
@@ -64,6 +65,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
+
+
   def premium
     @subscription_type = current_user.premium_state
     render json: {
@@ -99,6 +102,11 @@ class Teachers::ClassroomManagerController < ApplicationController
       completed: current_user.checkboxes.map(&:objective_id),
       potential: Objective.all
     }
+  end
+
+  def getting_started
+    @checkbox_data = current_user.getting_started_info
+    render json: @checkbox_data
   end
 
   def scores

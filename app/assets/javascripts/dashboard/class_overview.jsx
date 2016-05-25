@@ -4,6 +4,7 @@ EC.ClassOverview = React.createClass({
     var minis = _.map(this.props.data, function(overviewObj){
       return <EC.OverviewMini overviewObj={overviewObj} key={overviewObj.header}/>;
     });
+    minis.unshift(<EC.TeacherGuide dashboardMini={true}/>);
     return minis;
   },
 
