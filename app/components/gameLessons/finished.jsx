@@ -8,7 +8,7 @@ const sessionsRef = new Firebase(C.FIREBASE).child('sessions')
 export default React.createClass({
   componentDidMount: function () {
     const values = {
-      name: this.props.data.name,
+      name: this.props.data.name || "Anonymous",
       lessonID: this.props.lessonID,
       questions: this.props.data.answeredQuestions
     }

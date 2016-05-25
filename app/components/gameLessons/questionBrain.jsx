@@ -23,19 +23,34 @@ const feedbackStrings = {
   maxLengthError: "Try again. How could this sentence be shorter and more concise?"
 }
 
+const imageCaptionPairs = [
+  {
+    imageUrl: "https://s3.amazonaws.com/quill-connect-funny-pictures/Gecko+Eating+Honey.png",
+    caption: "Here’s a picture of some gecko’s eating jam"
+  },
+  {
+    imageUrl: "https://s3.amazonaws.com/quill-connect-funny-pictures/Explorers+1.gif",
+    caption: "Here’s an animation of space explorers"
+  },
+  {
+    imageUrl: "https://s3.amazonaws.com/quill-connect-funny-pictures/Explorers+2.gif",
+    caption: "Here’s an animation of space explorers"
+  },
+  {
+    imageUrl: "https://s3.amazonaws.com/quill-connect-funny-pictures/Explorers+3.gif",
+    caption: "Here’s an animation of space explorers"
+  },
+  {
+    imageUrl: "https://s3.amazonaws.com/quill-connect-funny-pictures/Explorers+4.gif",
+    caption: "Here’s an animation of space explorers"
+  },
+]
+
 const playLessonQuestion = React.createClass({
   getInitialState: function () {
     return {
       editing: false
     }
-  },
-
-  componentDidMount: function() {
-    // this.props.dispatch(clearResponses())
-    // const {this.props.question.key} = this.props.params
-    // var sessionRef = sessionsRef.push({this.props.question.key}, (error) => {
-    //   this.setState({sessionKey: sessionRef.key()})
-    // })
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -47,7 +62,6 @@ const playLessonQuestion = React.createClass({
   },
 
   getQuestion: function () {
-    // const {data} = this.props.questions, {this.props.question.key} = this.props.params;
     return this.props.question
   },
 
@@ -57,6 +71,10 @@ const playLessonQuestion = React.createClass({
     var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(this.props.question.attempts, (error) => {
       return
     })
+  },
+
+  getRandomReward: function () {
+    return _.shuffle(imageCaptionPairs)[0]
   },
 
   renderSentenceFragments: function () {
@@ -244,7 +262,6 @@ const playLessonQuestion = React.createClass({
 
   nextQuestion: function () {
     this.props.nextQuestion()
-    // this.refs.response.value = ""
   },
 
   renderNextQuestionButton:  function (correct) {
@@ -265,7 +282,6 @@ const playLessonQuestion = React.createClass({
   },
 
   render: function () {
-    // const {data} = this.props.questions, {this.props.question.key} = this.props.params;
     if (this.props.question) {
       if (!this.props.question.started) {
         return (
@@ -288,8 +304,9 @@ const playLessonQuestion = React.createClass({
       }
       if (this.props.question.attempts.length > 2 ) {
         if (this.readyForNext()) {
+          const reward = this.getRandomReward()
           return (
-            <Reward caption={"Here’s an animation of space explorers"} imageUrl={"https://s3.amazonaws.com/quill-connect-funny-pictures/Explorers+1.gif"} next={this.nextQuestion}/>
+            <Reward caption={reward.caption} imageUrl={reward.imageUrl} next={this.nextQuestion}/>
           )
         } else {
           return (
@@ -316,8 +333,9 @@ const playLessonQuestion = React.createClass({
       } else if (this.props.question.attempts.length > 0 ) {
         var latestAttempt = getLatestAttempt(this.props.question.attempts)
         if (this.readyForNext()) {
+          const reward = this.getRandomReward()
           return (
-            <Reward caption={"Here’s an animation of space explorers"} imageUrl={"https://s3.amazonaws.com/quill-connect-funny-pictures/Explorers+1.gif"} next={this.nextQuestion}/>
+            <Reward caption={reward.caption} imageUrl={reward.imageUrl} next={this.nextQuestion}/>
           )
         }else {
           return (
