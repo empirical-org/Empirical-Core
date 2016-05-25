@@ -102,7 +102,6 @@ const playLessonQuestion = React.createClass({
 
   renderFeedbackStatements: function (attempt) {
     const errors = this.getErrorsForAttempt(attempt);
-    console.log(_.isEmpty(errors), (attempt.response.optimal !== true))
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
@@ -113,7 +112,6 @@ const playLessonQuestion = React.createClass({
         return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}</h5></li>)
       }
     }))
-    // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
     if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
       const parentResponse = this.getQuestion().responses[attempt.response.parentID]
       components = [(<li key="parentfeedback"><h5 className="title is-5">{parentResponse.feedback}</h5></li>)].concat(components)
@@ -127,7 +125,6 @@ const playLessonQuestion = React.createClass({
     const preAtt = getLatestAttempt(this.props.question.attempts)
     if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
     const prid = previousAttempt ? previousAttempt.key : undefined
-    console.log('Response: ', response)
     if (response.found) {
 
       // var latestAttempt = getLatestAttempt(this.props.question.attempts)
@@ -187,6 +184,30 @@ const playLessonQuestion = React.createClass({
     this.updateResponseResource(response)
     this.submitResponse(response)
     this.setState({editing: false})
+  },
+
+  getOptimalResponses: function () {
+    var fields = {
+      prompt: this.getQuestion().prompt,
+      responses: hashToCollection(this.getQuestion().responses)
+    }
+    var question = new Question(fields);
+    return question.getOptimalResponses()
+  },
+
+  getSubOptimalResponses: function () {
+    var fields = {
+      prompt: this.getQuestion().prompt,
+      responses: hashToCollection(this.getQuestion().responses)
+    }
+    var question = new Question(fields);
+    return question.getSubOptimalResponses()
+  },
+
+  get4MarkedResponses: function () {
+    var twoOptimal = _.first(_.shuffle(this.getOptimalResponses()), 2)
+    var twoSubOptimal = _.first(_.shuffle(this.getSubOptimalResponses()), 2)
+    return _.shuffle(twoOptimal.concat(twoSubOptimal))
   },
 
   toggleDisabled: function () {
@@ -272,7 +293,7 @@ const playLessonQuestion = React.createClass({
           )
         } else {
           return (
-            <Incorrect next={this.nextQuestion}/>
+            <Incorrect answers={this.get4MarkedResponses()} next={this.nextQuestion}/>
           )
         }
         return (

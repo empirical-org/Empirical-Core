@@ -16,6 +16,12 @@ export default class Question {
     return _.where(this.responses, {optimal: true})
   }
 
+  getSubOptimalResponses(responses) {
+    return _.filter(this.responses, function (resp){
+      return resp.parentID === undefined && resp.feedback !== undefined && resp.optimal !== true
+    })
+  }
+
   getTopOptimalResponse() {
     return _.sortBy(this.getOptimalResponses(), (r) => {
       return r.count

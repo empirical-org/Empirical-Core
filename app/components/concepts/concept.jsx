@@ -66,7 +66,6 @@ const Concepts = React.createClass({
   },
 
   render: function (){
-    console.log(this.props.concepts)
     const {data} = this.props.concepts, {conceptID} = this.props.params;
     if (data[conceptID]) {
       return (

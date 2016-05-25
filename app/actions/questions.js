@@ -58,7 +58,6 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
-          console.log('newRef: ', newRef.key())
           dispatch(this.submitNewResponse(newRef.key(), response))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
@@ -74,7 +73,6 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
-          console.log("new ref key: ", newRef.key())
           dispatch(pathwaysActions.submitNewPathway(newRef.key(), prid, qid))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
