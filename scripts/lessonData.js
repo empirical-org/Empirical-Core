@@ -23,10 +23,11 @@ lessonsRef.on("value", function(snapshot) {
       _.each(hashToCollection(snapshot.val()), function (studentValue) {
         console.log("\n")
         console.log(studentValue.name);
-        console.log("Prompt\tAttempt 1\tFeedback 1\tGrade 1\tAttempt 2\tFeedback 2\tGrade 2\tAttempt 3\tFeedback 3\tGrade 3")
+        console.log("Prompt\tNumber of Attempts\tAttempt 1\tFeedback 1\tGrade 1\tAttempt 2\tFeedback 2\tGrade 2\tAttempt 3\tFeedback 3\tGrade 3")
         _.each(studentValue.questions, function (question) {
           var string = ""
           string += question.prompt
+          string += "\t" + question.attempts.length
           _.each(question.attempts, function (attempt) {
             string += '\t' + attempt.submitted + '\t' + ((attempt.response && (attempt.response.feedback != undefined)) ? attempt.response.feedback : '') + '\t' + (attempt.response ? attempt.response.optimal : '')
             // console.log(attempt)
