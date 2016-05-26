@@ -1,7 +1,8 @@
 'use strict'
 EC.CheckboxSection = React.createClass({
   propTypes: {
-    checkboxes: React.PropTypes.array.isRequired
+    checkboxes: React.PropTypes.array.isRequired,
+    dashboard: React.PropTypes.bool.isRequired
   },
 
   checkOrNumber: function(box){
@@ -16,19 +17,34 @@ EC.CheckboxSection = React.createClass({
     return <div className='image-wrapper'><img src='/images/teacher-guide-check.png'/></div>
   },
 
+  pageBasedActionIcon: function(url) {
+    if (this.props.dashboard) {
+      return (<a href={url}><img src='/images/getting_started_arrow.png'/></a>);
+    } else {
+      return (<a className='btn btn-default' href={url}><div>
+           <div>Launch</div>
+           <div className='favicon-div'><i className="fa fa-long-arrow-right" aria-hidden="true"></i></div>
+         </div>
+       </a>);
+    }
+  },
+
+  pageBasedHelpInfo: function(url) {
+    var text = this.props.dashboard ? 'Guide' : 'View the Guide'
+    return <a href={url}>{text}</a>
+  },
+
+
+
   actionButton: function(url){
-    return <a className='btn btn-default' href={url}><div>
-      <div>Launch</div>
-      <div className='favicon-div'><i className="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-    </div>
-  </a>
+    return this.pageBasedActionIcon(url);
   },
 
 
   optionalInfo: function(box){
     var info = [];
     if (box.help_info) {
-      info.push(<td className='text-right help-info'><a href={box.help_info}>View the Guide</a></td>);
+      info.push(<td className='text-right help-info'>{this.pageBasedHelpInfo(box.help_info)}</td>);
     }
     if (box.action_url){
       info.push(<td className='text-right url-action'>{this.actionButton(box.action_url)}</td>);
@@ -36,9 +52,14 @@ EC.CheckboxSection = React.createClass({
     return info;
   },
 
+  category: function(){
+    if (!this.props.dashboard){
+      return <h3>{this.props.checkboxes[0].section || 'Miscellaneous'}</h3>
+  }
+},
+
   section: function(){
     var that = this;
-    var category = this.props.checkboxes[0].section || 'Miscellaneous';
     var boxes = this.props.checkboxes.map(box =>
       <tr key={box.id} className={'completed-' + box.completed}>
         <td className='check-or-number'>{that.checkOrNumber(box)}</td>
@@ -48,7 +69,7 @@ EC.CheckboxSection = React.createClass({
     );
     return (
       <div>
-        <h3>{category}</h3>
+        {this.category()}
         <table className='table quill-table'>
             <tbody>
               {boxes}

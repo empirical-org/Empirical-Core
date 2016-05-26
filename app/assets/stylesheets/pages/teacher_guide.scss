@@ -1,3 +1,105 @@
+#teacher-guide, #getting-started-mini {
+  .image-wrapper, .placement-number, .btn > div, .circle-graph {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .image-wrapper, .placement-number {
+    border-radius: 50%;
+    border: solid 1px #979797;
+    height: 31px;
+    width: 31px;
+  }
+  .image-wrapper {
+      background-color: #979797;
+  }
+}
+
+// #getting-started-mini {
+//   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+//   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+//   display: -ms-flexbox;      /* TWEENER - IE 10 */
+//   display: -webkit-flex;     /* NEW - Chrome */
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+
+#getting-started-mini {
+  margin-bottom: 40px;
+  .mini-content {
+    background: white;
+padding: 2%;
+border: solid 1px #cecece;
+    h3 {
+      font-size: 16px;
+      padding-top: 5px;
+      font-weight: 600;
+    }
+    .circle-graph {
+      height: 195px;
+      text-align: center;
+      margin: 0 auto;
+      & > div {
+        margin: 0 auto;
+      }
+    }
+
+    .quill-table  {
+    border: none;
+    .placement-number {
+      color:  #5a5a5a;
+    }
+    .completed-true .text-left{
+            color:  #5a5a5a;
+            text-decoration: line-through;
+    }
+    td {
+      border: none;
+      width: 0%;
+      &.help-info{
+        text-align: center;
+        a{    border: 1px solid #cecece;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 11%;
+      font-size: 13px;
+      color: #7a7a7a;
+      font-weight: 600;}
+      }
+      }
+    }
+
+  }
+
+
+}
+
+@media (min-width: 770px) {
+  #getting-started-mini  .mini-content {
+    max-height: 270px;
+    margin-bottom: 0;
+  }
+  #graph-section {
+    border-right: 1px solid #cecece;
+  }
+}
+@media (max-width: 770px) {
+  #getting-started-mini    .mini-content {
+    width: 300px;
+    margin: auto;
+  }
+  #graph-section {
+    margin-bottom: 17%;
+  }
+}
+
+
 #teacher-guide{
   max-width: 950px;
   width: 100%;
@@ -46,27 +148,9 @@
   .help-info a {
     color: #027360;
   }
-  .image-wrapper, .placement-number, .btn > div {
-    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox;      /* TWEENER - IE 10 */
-    display: -webkit-flex;     /* NEW - Chrome */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .image-wrapper, .placement-number {
-    border-radius: 50%;
-    border: solid 1px #979797;
-    height: 31px;
-    width: 31px;
-  }
   .placement-number {
     color: #979797;
     font-weight: 600;
-  }
-  .image-wrapper {
-    background-color: #979797;
   }
   .btn.btn-default {
     font-weight: 600;
@@ -196,7 +280,7 @@ color: #8b8b8b;
 .c100.p99 .fill,
 .c100.p100 .fill {
   position: absolute;
-  border: 0.08em solid #307bbb;
+  border: 0.08em solid $quillgreen;
   width: 0.84em;
   height: 0.84em;
   clip: rect(0em, 0.5em, 1em, 0em);
@@ -1103,7 +1187,7 @@ color: #8b8b8b;
   width: 3.33em;
   line-height: 3.33em;
   font-size: 0.3em;
-  color: #307bbb;
+  color: $quillgreen;
 }
 .c100:hover:after {
   top: 0.04em;

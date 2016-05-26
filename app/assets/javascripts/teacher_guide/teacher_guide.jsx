@@ -6,10 +6,12 @@ EC.TeacherGuide = React.createClass({
   },
 
   getInitialState: function(){
-    var state = {necessary: true};
+    var state = {necessary: true, dashboardMini: this.props.dashboardMini};
     if (this.props.dashboardMini) {
       state.loading = true;
       state.dashboard = true;
+      state.className = "mini_container results-overview-mini-container col-md-8 col-sm-10 text-center";
+      state.id = "getting-started-mini";
     } else {
       state.checkboxData = this.props.checkboxData;
     }
@@ -49,7 +51,7 @@ EC.TeacherGuide = React.createClass({
     var display = [];
     var sections = this.groupBySectionAndCompleted();
     for (var sect in sections){
-      display.push(<EC.CheckboxSection checkboxes={sections[sect]}/>);
+      display.push(<EC.CheckboxSection checkboxes={sections[sect]} dashboard={false}/>);
     }
     return display;
   },
@@ -71,16 +73,19 @@ EC.TeacherGuide = React.createClass({
       return (<span/>);
     }
     else if (this.state.dashboardMini) {
-      return <EC.GettingStartedMini checkboxData={this.groupBySectionAndCompleted()}/>;
+      return <EC.GettingStartedMini checkboxData={this.groupBySectionAndCompleted()["Getting Started"]}/>;
     } else {
       return (
-        [this.introCopy(), this.sectionPart()]
+        <div id='teacher-guide'>
+          {this.introCopy()}
+          {this.sectionPart()}
+        </div>
       );
     }
   },
 
   render: function() {
-    return (<div id='teacher-guide'>
+    return (<div className={this.state.className} id={this.state.id}>
       {this.stateSpecificComponents()}
     </div>);
   }
