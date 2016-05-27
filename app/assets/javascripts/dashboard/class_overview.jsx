@@ -1,4 +1,7 @@
 EC.ClassOverview = React.createClass({
+  propTypes: {
+    data: React.PropTypes.object.isRequired,
+  },
 
   overviewMinis: function() {
     var minis = _.map(this.props.data, function(overviewObj){
@@ -9,7 +12,7 @@ EC.ClassOverview = React.createClass({
   },
 
   hasPremium: function() {
-    if ((this.props.premium === 'none') || (this.props.premium === null)) {
+    if (this.props.data !== null && (this.props.premium === 'none') || (this.props.premium === null)) {
       return <EC.PremiumMini/>;
     }
   },

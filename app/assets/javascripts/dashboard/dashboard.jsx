@@ -2,6 +2,7 @@
 
 
 EC.Dashboard = React.createClass({
+
   getInitialState: function() {
     return ({
       classrooms: null,
