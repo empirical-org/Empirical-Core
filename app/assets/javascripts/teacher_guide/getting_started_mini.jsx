@@ -13,23 +13,23 @@ EC.GettingStartedMini = React.createClass({
 
   graphSection: function(){
     var content;
-    // if (this.props.checkboxData.loading) {
+    if (this.props.checkboxData.loading) {
       content = <EC.LoadingIndicator/>;
-    // } else {
-    //   content =
-    //     [<h3>Getting Started</h3>,
-    //     <EC.PercentageGraph percentage={this.percentageCompleted()}/>,
-    //     <a className='green-link' href='/teachers/teacher_guide'>View All Tasks ></a>]
-    // }
+    } else {
+      content =
+        [<h3>Getting Started</h3>,
+        <EC.PercentageGraph percentage={this.percentageCompleted()}/>,
+        <a className='green-link' href='/teachers/teacher_guide'>View All Tasks ></a>]
+    }
     return <div id='graph-section'>{content}</div>
   },
 
   checklistSection: function() {
     var content;
-    // if (this.props.checkboxData.loading) {
+    if (this.props.checkboxData.loading) {
       content = <EC.LoadingIndicator/>;
-    // } else {
-    //    content = <EC.CheckboxSection checkboxes={this.props.checkboxData} dashboard={true}/>};
+    } else {
+       content = <EC.CheckboxSection checkboxes={this.props.checkboxData} dashboard={true}/>};
    return content;
   },
 
