@@ -1,12 +1,6 @@
 #teacher-guide, #getting-started-mini {
   .image-wrapper, .placement-number, .btn > div, .circle-graph {
-    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox;      /* TWEENER - IE 10 */
-    display: -webkit-flex;     /* NEW - Chrome */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex_center()
   }
   .image-wrapper, .placement-number {
     border-radius: 50%;
@@ -19,19 +13,14 @@
   }
 }
 
-// #getting-started-mini {
-//   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-//   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-//   display: -ms-flexbox;      /* TWEENER - IE 10 */
-//   display: -webkit-flex;     /* NEW - Chrome */
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
-
-
 #getting-started-mini {
   margin-bottom: 40px;
+  .spinner-container {
+    height: 26%;
+    margin: auto auto;
+    padding: 0;
+    @include flex_center()
+  }
   .mini-content {
     background: white;
 padding: 2%;
