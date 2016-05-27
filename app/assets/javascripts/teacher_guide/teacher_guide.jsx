@@ -66,8 +66,8 @@ EC.TeacherGuide = React.createClass({
   },
 
   stateSpecificComponents: function(){
-    if (this.state.loading) {
-      return <div>LOADING</div>
+    if (this.state.loading && this.state.dashboardMini) {
+      return <EC.GettingStartedMini checkboxData={{loading: true}}/>
     }
     else if (!this.state.necessary) {
       return (<span/>);
