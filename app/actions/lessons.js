@@ -1,6 +1,7 @@
-var C = require("../constants").default,
-  Firebase = require("firebase"),
-	lessonsRef = new Firebase(C.FIREBASE).child("lessons")
+var C = require("../constants").default
+import rootRef from "../libs/firebase"
+console.log(rootRef);
+var	lessonsRef = rootRef.child("lessons")
 import { push } from 'react-router-redux'
 
 

@@ -1,6 +1,7 @@
-var C = require("../constants").default,
-  Firebase = require("firebase"),
-	questionsRef = new Firebase(C.FIREBASE).child("questions"),
+var C = require("../constants").default
+import rootRef from "../libs/firebase"
+console.log(rootRef);
+var	questionsRef = rootRef.child("questions"),
 	moment = require('moment');
 
 import pathwaysActions from './pathways';
