@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router'
-var C = require("../../constants").default,
-  Firebase = require("firebase")
-const sessionsRef = new Firebase(C.FIREBASE).child('sessions')
+var C = require("../../constants").default
+import rootRef from "../../libs/firebase"
+const sessionsRef = rootRef.child('sessions')
 
 
 export default React.createClass({

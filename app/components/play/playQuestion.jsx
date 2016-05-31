@@ -7,9 +7,9 @@ import {hashToCollection} from '../../libs/hashToCollection'
 import {submitResponseAnon, clearResponsesAnon} from '../../actions.js'
 import questionActions from '../../actions/questions'
 import pathwayActions from '../../actions/pathways'
-var C = require("../../constants").default,
-  Firebase = require("firebase")
-const sessionsRef = new Firebase(C.FIREBASE).child('sessions')
+var C = require("../../constants").default
+import rootRef from "../../libs/firebase"
+const sessionsRef = rootRef.child('sessions')
 
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
