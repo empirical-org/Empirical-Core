@@ -82,6 +82,20 @@ export default React.createClass({
     return errorComponents[0]
   },
 
+  markAsWeak: function (rid) {
+    const vals = {weak: true};
+    this.props.dispatch(
+      questionActions.submitResponseEdit(this.props.questionID, rid, vals)
+    )
+  },
+
+  unmarkAsWeak: function (rid) {
+    const vals = {weak: false};
+    this.props.dispatch(
+      questionActions.submitResponseEdit(this.props.questionID, rid, vals)
+    )
+  },
+
   rematchResponse: function (rid) {
     var newResponse = this.props.getMatchingResponse(rid)
     if (!newResponse.found) {
@@ -257,6 +271,13 @@ export default React.createClass({
         (<a className="card-footer-item" onClick={this.editResponse.bind(null, response.key)} key='edit' >Edit</a>),
         (<a className="card-footer-item" onClick={this.deleteResponse.bind(null, response.key)} key='delete' >Delete</a>)
       ]
+    }
+    if (this.props.response.statusCode === 3) {
+      if (this.props.response.weak) {
+        buttons = buttons.concat([(<a className="card-footer-item" onClick={this.unmarkAsWeak.bind(null, response.key)} key='weak' >Unmark as weak</a>)])
+      } else {
+        buttons = buttons.concat([(<a className="card-footer-item" onClick={this.markAsWeak.bind(null, response.key)} key='weak' >Mark as weak</a>)])
+      }
     }
     if (this.props.response.statusCode > 1) {
       buttons = buttons.concat([(<a className="card-footer-item" onClick={this.rematchResponse.bind(null, response.key)} key='rematch' >Rematch</a>)])
