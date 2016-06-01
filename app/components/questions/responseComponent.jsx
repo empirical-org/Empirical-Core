@@ -29,6 +29,10 @@ const Responses = React.createClass({
     this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, vals))
   },
 
+  getFocusPoint: function () {
+    return this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints)[0] : undefined
+  },
+
   getPercentageWeakResponses: function() {
     var fields = {
       responses: this.responsesWithStatus(),
@@ -294,9 +298,22 @@ const Responses = React.createClass({
     return _.values(mapped)
   },
 
+  renderFocusPoint: function () {
+    const fp = this.getFocusPoint()
+    if (fp) {
+      return (
+        <div className="box">
+          <h4 className="control title is-4">Focus Point: '{fp.text}'</h4>
+          <h6 className="control sub-title is-6">Feedback: {fp.feedback}</h6>
+        </div>
+      )
+    }
+  },
+
   render: function () {
     return (
       <div>
+        {this.renderFocusPoint()}
         <div className="columns">
           <div className="column">
             Percentage of weak reponses: {this.getPercentageWeakResponses()}%
