@@ -24,7 +24,7 @@ EC.TeacherGuide = React.createClass({
     if (!this.state.checkboxData) {
       $.get('/teachers/getting_started', function( data ) {
         that.setState({checkboxData: data,
-                       necessary: data.necessary || true,
+                       necessary: !!data || true,
                        loading: false
         });
       });
