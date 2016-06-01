@@ -297,6 +297,7 @@ export default React.createClass({
 
   renderResponseHeader: function (response) {
     var bgColor;
+    var icon;
     if (!response.feedback) {
       bgColor = "not-found-response";
     } else if (!!response.parentID) {
@@ -304,6 +305,9 @@ export default React.createClass({
       bgColor = "algorithm-sub-optimal-response";
     } else {
       bgColor = (response.optimal ? "human-optimal-response" : "human-sub-optimal-response");
+    }
+    if (response.weak) {
+      icon = "⚠️";
     }
 
     return (
@@ -315,7 +319,7 @@ export default React.createClass({
             </div>
             <div className="media-right">
               <figure className="image is-32x32">
-                <span>{ response.count ? response.count : 0 }</span>
+                <span>{ icon } { response.count ? response.count : 0 }</span>
               </figure>
             </div>
           </div>
