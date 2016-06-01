@@ -3,11 +3,21 @@ EC.ClassOverview = React.createClass({
     data: React.PropTypes.object.isRequired,
   },
 
+  getInitialState: function() {
+    return {displayTeacherGuide: true};
+  },
+
+  hideTeacherGuide: function(){
+    this.setState({displayTeacherGuide: false});
+  },
+
   overviewMinis: function() {
     var minis = _.map(this.props.data, function(overviewObj){
       return <EC.OverviewMini overviewObj={overviewObj} key={overviewObj.header}/>;
     });
-    minis.unshift(<EC.TeacherGuide dashboardMini={true}/>);
+    if (this.state.displayTeacherGuide){
+      minis.unshift(<EC.TeacherGuide dashboardMini={true} hideTeacherGuide={this.hideTeacherGuide}/>);
+    }
     return minis;
   },
 
