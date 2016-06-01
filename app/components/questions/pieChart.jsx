@@ -36,6 +36,7 @@ export default React.createClass ({
             </div>
           ))
         }
+          <a href="https://github.com/empirical-org/Quill-Connect/blob/master/app/libs/README.md">How our marking works</a>
         </div>
       </div>
     )
