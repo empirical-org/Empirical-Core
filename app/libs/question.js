@@ -36,7 +36,7 @@ export default class Question {
 
   getCommonUnmatchedResponses() {
     return _.filter(this.responses, function (resp) {
-      return resp.feedback === undefined && resp.count > 3
+      return resp.feedback === undefined && resp.count > 2
     })
   }
 
