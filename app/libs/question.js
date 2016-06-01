@@ -45,7 +45,7 @@ export default class Question {
   }
 
   getPercentageWeakResponses() {
-    return this.getSumOfWeakAndCommonUnmatchedResponses() / this.responses.length * 100
+    return (this.getSumOfWeakAndCommonUnmatchedResponses() / this.responses.length * 100).toPrecision(4)
   }
 
   checkMatch(response) {
