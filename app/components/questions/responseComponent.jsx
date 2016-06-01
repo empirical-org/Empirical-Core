@@ -29,6 +29,15 @@ const Responses = React.createClass({
     this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, vals))
   },
 
+  getPercentageWeakResponses: function() {
+    var fields = {
+      responses: this.responsesWithStatus(),
+      focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : []
+    }
+    var question = new Question(fields);
+    return question.getPercentageWeakResponses()
+  },
+
   getMatchingResponse: function (rid) {
     var fields = {
       responses: _.filter(this.responsesWithStatus(), (resp) => {
@@ -288,6 +297,11 @@ const Responses = React.createClass({
   render: function () {
     return (
       <div>
+        <div className="columns">
+          <div className="column">
+            Percentage of weak reponses: {this.getPercentageWeakResponses()}%
+          </div>
+        </div>
         <div className="tabs is-toggle is-fullwidth">
           {this.renderSortingFields()}
         </div>
