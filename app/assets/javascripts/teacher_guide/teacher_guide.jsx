@@ -8,7 +8,6 @@ EC.TeacherGuide = React.createClass({
 
     getInitialState: function() {
         var state = {
-            necessary: true,
             dashboardMini: this.props.dashboardMini
         };
         if (this.props.dashboardMini) {
@@ -73,8 +72,6 @@ EC.TeacherGuide = React.createClass({
             return <EC.GettingStartedMini checkboxData={{
                 loading: true
             }}/>
-        } else if (!this.state.necessary || !this.state.checkboxData) {
-            return (this.props.hideTeacherGuide());
         } else if (this.state.dashboardMini) {
             return <EC.GettingStartedMini checkboxData={this.groupBySectionAndCompleted()["Getting Started"]}/>;
         } else {
