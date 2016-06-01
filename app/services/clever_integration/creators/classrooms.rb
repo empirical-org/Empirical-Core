@@ -8,6 +8,7 @@ module CleverIntegration::Creators::Classrooms
   end
 
   def self.create_classroom(data)
+    puts "Creating Clever Classroom: #{data[:clever_id]}"
     c = Classroom.unscoped.find_or_initialize_by(clever_id: data[:clever_id])
     c.update(name: data[:name],
              grade: data[:grade])
