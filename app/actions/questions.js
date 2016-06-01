@@ -1,6 +1,5 @@
 var C = require("../constants").default
 import rootRef from "../libs/firebase"
-console.log(rootRef);
 var	questionsRef = rootRef.child("questions"),
 	moment = require('moment');
 
@@ -59,7 +58,7 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
-          dispatch(this.submitNewResponse(newRef.key(), response))
+          dispatch(this.submitNewResponse(newRef.key, response))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
 			});
@@ -74,7 +73,7 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
-          dispatch(pathwaysActions.submitNewPathway(newRef.key(), prid, qid))
+          dispatch(pathwaysActions.submitNewPathway(newRef.key, prid, qid))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
 			});

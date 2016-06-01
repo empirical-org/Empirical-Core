@@ -31,7 +31,7 @@ const playLessonQuestion = React.createClass({
     // this.props.dispatch(clearResponses())
     // const {this.props.question.key} = this.props.params
     // var sessionRef = sessionsRef.push({this.props.question.key}, (error) => {
-    //   this.setState({sessionKey: sessionRef.key()})
+    //   this.setState({sessionKey: sessionRef.key})
     // })
   },
 

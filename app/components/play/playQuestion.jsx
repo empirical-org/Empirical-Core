@@ -30,7 +30,7 @@ const playQuestion = React.createClass({
     this.props.dispatch(clearResponsesAnon())
     const {questionID} = this.props.params
     var sessionRef = sessionsRef.push({questionID}, (error) => {
-      this.setState({sessionKey: sessionRef.key()})
+      this.setState({sessionKey: sessionRef.key})
     })
   },
 

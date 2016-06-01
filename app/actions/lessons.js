@@ -1,6 +1,5 @@
 var C = require("../constants").default
 import rootRef from "../libs/firebase"
-console.log(rootRef);
 var	lessonsRef = rootRef.child("lessons")
 import { push } from 'react-router-redux'
 
@@ -59,7 +58,7 @@ module.exports = {
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
-          var action = push('/admin/lessons/' + newRef.key())
+          var action = push('/admin/lessons/' + newRef.key)
           dispatch(action)
 				}
 			});
