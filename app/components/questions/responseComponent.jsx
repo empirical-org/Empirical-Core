@@ -60,6 +60,7 @@ const Responses = React.createClass({
     var response = this.getResponse(rid)
     if (!newResponse.found) {
       var newValues = {
+        weak: false,
         text: response.text,
         count: response.count
       }
@@ -71,6 +72,7 @@ const Responses = React.createClass({
     if (newResponse.response.key === response.parentID) {
       if (newResponse.author) {
         var newErrorResp = {
+          weak: false,
           author: newResponse.author,
           feedback: this.generateFeedbackString(newResponse)
         }
@@ -79,6 +81,7 @@ const Responses = React.createClass({
     }
     else {
       var newErrorResp = {
+        weak: false,
         parentID: newResponse.response.key,
         author: newResponse.author,
         feedback: this.generateFeedbackString(newResponse)

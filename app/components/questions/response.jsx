@@ -57,6 +57,7 @@ export default React.createClass({
 
   updateResponse: function (rid) {
     var newResp = {
+      weak: false,
       feedback: this.refs.newResponseFeedback.value,
       optimal: this.refs.newResponseOptimal.checked
     }
