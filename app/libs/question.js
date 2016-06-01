@@ -28,6 +28,26 @@ export default class Question {
     }).reverse()[0]
   }
 
+  getWeakResponses() {
+    return _.filter(this.responses, function (resp) {
+      return resp.weak === true
+    })
+  }
+
+  getCommonUnmatchedResponses() {
+    return _.filter(this.responses, function (resp) {
+      return resp.feedback === undefined && resp.count > 3
+    })
+  }
+
+  getSumOfWeakAndCommonUnmatchedResponses() {
+    return this.getWeakResponses().length + this.getCommonUnmatchedResponses().length
+  }
+
+  getPercentageWeakResponses() {
+    return this.getSumOfWeakAndCommonUnmatchedResponses() / this.responses.length * 100
+  }
+
   checkMatch(response) {
     // remove leading and trailing whitespace
     response = response.trim();
