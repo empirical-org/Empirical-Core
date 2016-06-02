@@ -8,15 +8,6 @@ import {hashToCollection} from '../../libs/hashToCollection'
 
 const Concepts = React.createClass({
 
-  // renderConcepts: function () {
-  //   const {data} = this.props.concepts;
-  //   const keys = _.keys(data);
-  //   return keys.map((key) => {
-  //     console.log(key, data, data[key])
-  //     return (<li><Link to={'/admin/concepts/' + key}>{data[key].name}</Link></li>)
-  //   })
-  // },
-
   deleteConcept: function () {
     this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
   },
@@ -25,9 +16,12 @@ const Concepts = React.createClass({
     if (this.refs.newQuestionPrompt.value !== '') {
       this.props.dispatch(questionActions.submitNewQuestion({
         prompt: this.refs.newQuestionPrompt.value,
+        prefilledText: this.refs.newQuestionPrefilledText.value,
         conceptID: this.props.params.conceptID},
         {text: this.refs.newQuestionOptimalResponse.value, optimal: true, count: 0, feedback: "That's a great sentence!"}))
       this.refs.newQuestionPrompt.value = ''
+      this.refs.newQuestionOptimalResponse.value = ''
+      this.refs.newQuestionPrefilledText.value = ''
       this.refs.newQuestionPrompt.focus()
     }
   },
@@ -59,6 +53,10 @@ const Concepts = React.createClass({
         <label className="label">Optimal Response</label>
         <p className="control">
           <input className="input" type="text" ref="newQuestionOptimalResponse"></input>
+        </p>
+        <label className="label">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
+        <p className="control">
+          <input className="input" type="text" ref="newQuestionPrefilledText"></input>
         </p>
         <button className="button is-primary" onClick={this.submitNewQuestion}>Add Question</button>
       </div>
