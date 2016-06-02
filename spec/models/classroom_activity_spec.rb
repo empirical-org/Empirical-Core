@@ -72,7 +72,7 @@ describe ClassroomActivity, type: :model do
 	  		expect(classroom_activity.session_for(student)).to be_valid
 	  	end
 	  	it "must raise an error when user's input is not valid" do
-	  		expect{classroom_activity.session_for(0)}.to raise_error
+	  		expect{classroom_activity.session_for(0)}.to raise_error ActiveRecord::AssociationTypeMismatch
 	  	end
   end
 
