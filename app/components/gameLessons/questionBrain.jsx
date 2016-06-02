@@ -47,9 +47,16 @@ const imageCaptionPairs = [
 ]
 
 const playLessonQuestion = React.createClass({
+
   getInitialState: function () {
     return {
       editing: false
+    }
+  },
+
+  getInitialValue: function () {
+    if (this.props.prefill) {
+      return this.getQuestion().prefilledText
     }
   },
 
@@ -321,7 +328,7 @@ const playLessonQuestion = React.createClass({
                 {this.renderSentenceFragments()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea is-disabled" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <textarea className="textarea is-disabled" ref="response" defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                 </div>
                 <div className="button-group">
                   {this.renderNextQuestionButton()}
@@ -347,7 +354,7 @@ const playLessonQuestion = React.createClass({
                   {this.renderSentenceFragments()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <textarea className="textarea" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                    <textarea className="textarea" ref="response" defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                   </div>
                   <div className="button-group">
                     <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
@@ -368,7 +375,7 @@ const playLessonQuestion = React.createClass({
                 {this.renderSentenceFragments()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <textarea className="textarea" ref="response" defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                 </div>
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>

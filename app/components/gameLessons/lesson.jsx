@@ -74,7 +74,7 @@ const Lesson = React.createClass({
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
         return (
-          <QuestionBrain strongSentenceCount={this.strongSentenceCount} lesson={this.getLesson()} question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion}/>
+          <QuestionBrain strongSentenceCount={this.strongSentenceCount} lesson={this.getLesson()} question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
         )
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
