@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include Student, Teacher
+  include Student, Teacher, CheckboxCallback
 
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present
@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
 
   has_many :my_admins, through: :admin_accounts_im_in, source: :admins, inverse_of: :teachers
 
-
+  has_many :checkboxes
+  has_many :objectives, through: :checkboxes
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :districts
   has_many :subscriptions
@@ -68,6 +69,8 @@ class User < ActiveRecord::Base
   attr_accessor :newsletter
 
   before_validation :prep_authentication_terms
+
+  after_save :check_for_school
 
   def validate_username?
     validate_username.present? ? validate_username : false
@@ -295,6 +298,12 @@ private
   def prep_authentication_terms
     self.email = email.downcase unless email.blank?
     self.username= username.downcase unless username.blank?
+  end
+
+  def check_for_school
+    if self.school
+      find_or_create_checkbox('Add School', self)
+    end
   end
 
   # Clever integration

@@ -40,6 +40,11 @@ feature 'Add Class', js: true do
         eventually { expect(page).to have_content("Classroom Added")}
       end
 
+      it 'creates an add student checkbox for the teacher' do
+        add_students = Objective.create(name: 'Add Students')
+        expect(classroom3.teacher.checkboxes.last.objective).to eq(add_students)
+      end
+
     end
 
     context 'if it the code is not valid' do
