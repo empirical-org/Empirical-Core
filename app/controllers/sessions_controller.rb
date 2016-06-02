@@ -13,6 +13,9 @@ class SessionsController < ApplicationController
     elsif @user.password_digest.nil?
       login_failure 'Login failed. Did you sign up with Google? If so, please log in with Google using the link above.'
     elsif @user.authenticate(params[:user][:password])
+      if @user.role == 'teacher'
+        TestForEarnedCheckboxesWorker.perform_async(@user.id)
+      end
       sign_in(@user)
       if params[:redirect].present?
         redirect_to params[:redirect]

@@ -2,6 +2,8 @@ class AccountsController < ApplicationController
   before_filter :signed_in!, only: [:edit, :update]
   before_filter :set_cache_buster, only: [:new]
 
+  include CheckboxCallback
+
   def new
     ClickSignUpWorker.perform_async
     session[:role] = nil
@@ -37,6 +39,9 @@ class AccountsController < ApplicationController
 
   def select_school
     current_user.schools << School.find(params[:school_id])
+    if current_user.schools.compact.any?
+      find_or_create_checkbox('Add School', current_user)
+    end
     render json: {}
   end
 
