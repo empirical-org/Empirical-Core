@@ -63,7 +63,7 @@ FactoryGirl.define do
       username
       classrooms { [ FactoryGirl.create(:classroom) ] }
 
-      ignore do
+      transient do
         activity_count 5
       end
 

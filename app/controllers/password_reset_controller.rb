@@ -9,7 +9,7 @@ class PasswordResetController < ApplicationController
 
     if user && params[:user][:email].present?
       user.refresh_token!
-      UserMailer.password_reset_email(user).deliver!
+      UserMailer.password_reset_email(user).deliver_now!
       redirect_to password_reset_index_path, notice: 'We sent you an email with instructions on how to reset your password.'
     else
       @user = User.new

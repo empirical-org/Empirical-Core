@@ -223,7 +223,7 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome_email
-    UserMailer.welcome_email(self).deliver! if email.present?
+    UserMailer.welcome_email(self).deliver_now! if email.present?
   end
 
   def subscribe_to_newsletter
