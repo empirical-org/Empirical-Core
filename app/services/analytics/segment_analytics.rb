@@ -15,6 +15,16 @@ class SegmentAnalytics
     })
   end
 
+  def track_event_from_string(event_name, user_id)
+    # make sure that event name is written as a string in the pattern of
+    # those in app/services/analytics/segment_io.rb
+    # i.e. "BUILD_YOUR_OWN_ACTIVITY_PACK"
+    track({
+       user_id: user_id,
+       event: "SegmentIo::Events::#{event_name}".constantize
+      })
+  end
+
   def track_activity_assignment(teacher)
     track({
       user_id: teacher.id,
@@ -36,7 +46,6 @@ class SegmentAnalytics
     })
   end
 
-
   def track(options)
     puts "calling backend track"
     backend.track(options)
@@ -46,6 +55,7 @@ class SegmentAnalytics
   def identify(user)
     backend.identify(identify_params(user))
   end
+
 
 
   private

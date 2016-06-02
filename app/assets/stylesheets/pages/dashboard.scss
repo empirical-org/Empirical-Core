@@ -1,6 +1,7 @@
 #dashboard {
+  padding: 40px 20px;
   $link-color: #027360;
-  max-width: 980px;
+  max-width: 1020px;
   margin: auto;
   text-overflow: ellipsis;
   white-space: normal;
@@ -177,7 +178,6 @@
     }
   }
   .results-overview-mini-container {
-    margin-top: 40px;
     .header {
       margin: 11px auto 12px;
       width: 280px;
