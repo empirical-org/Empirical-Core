@@ -18,30 +18,6 @@ describe Unit, type: :model do
     end
   end
 
-  describe 'gives a checkbox when the teacher' do
-
-
-    before do
-      teacher = User.where(role: 'teacher').first
-      classroom.update(teacher_id: teacher.id)
-      unit.update(classroom_id: classroom.id)
-    end
-
-    it 'assigns a custom unit' do
-      obj = Objective.create(name: 'Build Your Own Activity Pack')
-      unit.save
-      expect(unit.classroom.teacher.checkboxes.last.objective).to eq(obj)
-    end
-
-    it 'assigns a featured activity pack' do
-      featured = UnitTemplate.create(name: 'Adverbs')
-      obj = Objective.create(name: 'Assign Featured Activity Pack')
-      unit.update(name: 'Adverbs')
-      expect(unit.classroom.teacher.checkboxes.last.objective).to eq(obj)
-    end
-
-  end
-
   describe '#destroy' do
     it 'destroys associated classroom_activities' do
       unit.destroy
