@@ -9,85 +9,11 @@ EC.NewTeacher = React.createClass({
     textInputGenerator: React.PropTypes.object.isRequired
   },
 
-  formFields: [
-    {
-      name: 'first_name',
-      label: 'First Name',
-      errorKey: 'name',
-      errorLabel: 'Name'
-    },
-    {
-      name: 'last_name',
-      label: 'Last Name',
-      errorKey: 'name',
-      errorLabel: 'Name'
-    },
-    {
-      name: 'email'
-    },
-    {
-      name: 'password'
-    }
-  ],
-
-  updateSendNewsletter: function () {
-    var val = $(this.refs.sendNewsletter.getDOMNode()).attr('checked');
-    var bool = (val === 'checked')
-    this.props.update({sendNewsletter: bool});
-  },
-
   render: function () {
     if (this.props.stage ===1) {
-      var inputs;
-      inputs = this.props.textInputGenerator.generate(this.formFields);
       return (
-        <div>
-        <div className='row'>
-          <div className='col-xs-offset-3 col-xs-9'>
-            <div className='row'>
-              <div className='col-xs-8'>
-                <h3 className='sign-up-header'>Sign up for a Teacher Account</h3>
-              </div>
-            </div>
-            <EC.AuthSignUp />
-            </div>
-          </div>
-            <div>
-              <p className='support-p text-center'>We now support Google Classroom!</p>
-                <div className='row'>
-                  <div className='col-xs-offset-3 col-xs-9'>
-            <div className='col-xs-8 need-a-border'/>
-            <div className='row'>
-              <div className='col-xs-12'>
-                {inputs}
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col-xs-8'>
-                <input type='checkbox'
-                       name='sendNewsletter'
-                       ref='sendNewsletter'
-                       onChange={this.updateSendNewsletter}
-                       checked={this.props.sendNewsletter}>
-                    Send me monthly Quill updates
-                  </input>
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col-xs-12'>
-                <button id='sign_up' className='button-green col-xs-8' onClick={this.props.signUp}>Sign Up</button>
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col-xs-8'>
-                <div className='text-align-center'>By signing up, you agree to our <a href='/tos'>terms of service</a> and <a href='/privacy'>privacy policy</a>.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-      );
+        <EC.BasicTeacherInfo textInputGenerator={this.props.textInputGenerator} signUp={this.props.signUp} update={this.props.update}/>
+      )
     } else if (this.props.stage ===2) {
       return (
         <EC.UsK12View analytics={this.props.analytics}/>
