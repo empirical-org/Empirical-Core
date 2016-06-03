@@ -78,6 +78,7 @@ border: solid 1px #cecece;
     }
   #graph-section {
     border-right: 1px solid #cecece;
+    padding-right: 7.5%;
   }
 }
 @media (max-width: 770px) {
@@ -87,6 +88,7 @@ border: solid 1px #cecece;
   }
   #graph-section {
     margin-bottom: 17%;
+    cursor: pointer;
   }
 }
 
@@ -423,6 +425,7 @@ color: #8b8b8b;
   left: 0;
   top: 0;
   width: 5em;
+  cursor: pointer;
   line-height: 5em;
   font-size: 0.2em;
   color: #00c2a2;
