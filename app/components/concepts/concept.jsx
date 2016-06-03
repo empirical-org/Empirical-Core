@@ -12,7 +12,8 @@ const Concepts = React.createClass({
     this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
   },
 
-  submitNewQuestion: function () {
+  submitNewQuestion: function (e) {
+    e.preventDefault()
     if (this.refs.newQuestionPrompt.value !== '') {
       this.props.dispatch(questionActions.submitNewQuestion({
         prompt: this.refs.newQuestionPrompt.value,
@@ -31,6 +32,10 @@ const Concepts = React.createClass({
     return _.where(questionsCollection, {conceptID: this.props.params.conceptID})
   },
 
+  copyAnswerToPrefill: function () {
+    this.refs.newQuestionPrefilledText.value = this.refs.newQuestionOptimalResponse.value
+  },
+
   renderQuestionsForConcept: function () {
     var questionsForConcept = this.questionsForConcept()
     var listItems = questionsForConcept.map((question) => {
@@ -44,7 +49,7 @@ const Concepts = React.createClass({
 
   renderNewQuestionForm: function () {
     return (
-      <div className="box">
+      <form className="box" onSubmit={this.submitNewQuestion}>
         <h6 className="control subtitle">Create a new question</h6>
         <label className="label">Prompt</label>
         <p className="control">
@@ -52,14 +57,14 @@ const Concepts = React.createClass({
         </p>
         <label className="label">Optimal Response</label>
         <p className="control">
-          <input className="input" type="text" ref="newQuestionOptimalResponse"></input>
+          <input className="input" type="text" ref="newQuestionOptimalResponse" onBlur={this.copyAnswerToPrefill}></input>
         </p>
         <label className="label">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
         <p className="control">
           <input className="input" type="text" ref="newQuestionPrefilledText"></input>
         </p>
-        <button className="button is-primary" onClick={this.submitNewQuestion}>Add Question</button>
-      </div>
+        <button type="submit" className="button is-primary" >Add Question</button>
+      </form>
     )
   },
 
