@@ -4,29 +4,25 @@ EC.NewAccountStage1 = React.createClass({
   },
 
   render: function () {
-    var roleOptions = _.map(['teacher', 'student'], function (role) {
+    var roleOptions = _.map(['educator', 'student'], function (role) {
       return (
-        <div key={role} className='col-xs-6'>
           <EC.RoleOption selectRole={this.props.selectRole} role={role} />
-        </div>
       );
     }, this);
 
     return (
         <div className='row sign_up_select_role'>
-          <div className='col-xs-4 col-xs-offset-4'>
             <div className='row'>
               <h3 className='col-xs-12'>
                 Sign up for Quill as:
               </h3>
             </div>
-            <div className='row'>
+            <div className='option-wrapper'>
               {roleOptions}
             </div>
             <div className='row'>
-              <div className='col-xs-12'>Already signed up? Return to <a href='/session/new'>Login</a></div>
+              <div className='col-xs-12'>Already signed up? <a href='/session/new'>Return to Login</a></div>
             </div>
-          </div>
         </div>
       );
   }
