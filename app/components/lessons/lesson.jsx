@@ -26,7 +26,6 @@ const Lesson = React.createClass({
   },
 
   render: function (){
-    console.log(this.props.lessons)
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     if (data[lessonID]) {
       return (

@@ -51,7 +51,6 @@ const playLessonQuestion = React.createClass({
 
   getQuestion: function () {
     // const {data} = this.props.questions, {this.props.question.key} = this.props.params;
-    console.log(this.props.question)
     return this.props.question
   },
 
@@ -106,11 +105,9 @@ const playLessonQuestion = React.createClass({
 
   renderFeedbackStatements: function (attempt) {
     const errors = this.getErrorsForAttempt(attempt);
-    console.log(_.isEmpty(errors), (attempt.response.optimal !== true))
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
-      console.log("response: ", attempt.response)
       components = components.concat([(<li key="feedback"><h5 className="title is-5">{attempt.response.feedback}</h5></li>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
@@ -121,9 +118,7 @@ const playLessonQuestion = React.createClass({
     // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
     if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
       const parentResponse = this.getQuestion().responses[attempt.response.parentID]
-      console.log("parent response: ", parentResponse)
       components = [(<li key="parentfeedback"><h5 className="title is-5">{parentResponse.feedback}</h5></li>)].concat(components)
-      console.log("comps, ", components)
     }
     return components.concat(errorComponents)
   },
@@ -134,7 +129,6 @@ const playLessonQuestion = React.createClass({
     const preAtt = getLatestAttempt(this.props.question.attempts)
     if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
     const prid = previousAttempt ? previousAttempt.key : undefined
-    console.log('Response: ', response)
     if (response.found) {
 
       // var latestAttempt = getLatestAttempt(this.props.question.attempts)
@@ -173,8 +167,6 @@ const playLessonQuestion = React.createClass({
     const preAtt = getLatestAttempt(this.props.question.attempts)
     if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
     const newAttempt = _.find(responses, {text: response.submitted})
-    console.log("previous attempt: ", previousAttempt)
-    console.log("new attempt: ", newAttempt)
 
     if (previousAttempt) {
       data.fromResponseID = previousAttempt.key

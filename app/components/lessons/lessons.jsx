@@ -37,15 +37,11 @@ const Lessons =  React.createClass({
   },
 
   handleChange: function (value) {
-    console.log(value)
     const currentSelectedQuestions = this.state.selectedQuestions;
-    console.log("current array: ", currentSelectedQuestions)
     var newSelectedQuestions;
     if (_.indexOf(currentSelectedQuestions, value) === -1) {
-      console.log("not in array")
       newSelectedQuestions = currentSelectedQuestions.concat([value]);
     } else {
-      console.log("in array")
       newSelectedQuestions = _.without(currentSelectedQuestions, value)
     }
     this.setState({selectedQuestions: newSelectedQuestions}, () => {

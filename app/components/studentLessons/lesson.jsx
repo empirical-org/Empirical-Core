@@ -58,7 +58,6 @@ const Lesson = React.createClass({
 
   saveStudentName: function (name) {
     this.props.dispatch(updateName(name))
-    console.log("Starting activity: ", name);
   },
 
   render: function () {
