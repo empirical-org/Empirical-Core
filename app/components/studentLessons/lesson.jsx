@@ -2,13 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PlayLessonQuestion from './question.jsx'
 
-import {loadData, nextQuestion, submitResponse, updateName} from '../../actions.js'
+import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../../actions.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Register from './register.jsx'
 import Finished from './finished.jsx'
 
 const Lesson = React.createClass({
+  componentWillMount: function() {
+    this.props.dispatch(clearData())
+  },
 
   submitResponse: function(response) {
     const action = submitResponse(response);
