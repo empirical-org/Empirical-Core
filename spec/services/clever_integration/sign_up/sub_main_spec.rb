@@ -53,7 +53,7 @@ describe 'CleverIntegration::SignUp::SubMain' do
 
     context 'student does not pre-exist in our system' do
       it 'returns failure message' do
-        expect(subject).to eq({type: 'user_failure'})
+        expect(subject).to eq({:type=>"user_failure", :data=>"No Student Present"})
       end
     end
   end
@@ -76,7 +76,7 @@ describe 'CleverIntegration::SignUp::SubMain' do
 
     context 'district does not pre-exist in our system' do
       it 'returns failure message' do
-        expect(subject).to eq({type: 'user_failure'})
+        expect(subject).to eq({type: 'user_failure', data: "District has not authorized this school yet"})
       end
     end
 
@@ -116,15 +116,15 @@ describe 'CleverIntegration::SignUp::SubMain' do
         expect(classroom.teacher).to eq(teacher)
       end
 
-      it 'creates students for teachers classrooms' do
-        subject
-        expect(student).to be_present
-      end
-
-      it 'associates students to teachers classrooms' do
-        subject
-        expect(student.classrooms).to include(classroom)
-      end
+      # it 'creates students for teachers classrooms' do
+      #   subject
+      #   expect(student).to be_present
+      # end
+      #
+      # it 'associates students to teachers classrooms' do
+      #   subject
+      #   expect(student.classrooms).to include(classroom)
+      # end
 
     end
   end
