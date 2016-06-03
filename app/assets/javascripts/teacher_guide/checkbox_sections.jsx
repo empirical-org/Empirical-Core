@@ -58,12 +58,18 @@ EC.CheckboxSection = React.createClass({
   }
 },
 
+sortBoxes: function(){
+  return this.props.checkboxes.sort((a,b) => a.section_placement - b.section_placement);
+},
+
+
+
   section: function(){
     var that = this;
-    var boxes = this.props.checkboxes.map(box =>
+    var boxes = this.sortBoxes().map(box =>
       <tr key={box.id} className={'completed-' + box.completed}>
         <td className='check-or-number'>{that.checkOrNumber(box)}</td>
-        <td className='text-left'>{box.name}</td>
+        <td className='text-left'><a href={box.action_url}>{box.name}</a></td>
         {this.optionalInfo(box)}
       </tr>
     );
