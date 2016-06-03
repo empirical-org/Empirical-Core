@@ -5,6 +5,7 @@ export const SUBMIT_RESPONSE = 'SUBMIT_RESPONSE'
 export const SUBMIT_RESPONSE_ANON = 'SUBMIT_RESPONSE_ANON'
 export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const LOAD_DATA = 'LOAD_DATA'
+export const CLEAR_DATA = 'CLEAR_DATA'
 export const EXIT = 'EXIT'
 export const CLEAR_RESPONSES = 'CLEAR_RESPONSES'
 export const CLEAR_RESPONSES_ANON = 'CLEAR_RESPONSES_ANON'
@@ -16,6 +17,7 @@ export const SubmitActions = {
   SUBMIT_RESPONSE_ANON,
   NEXT_QUESTION,
   LOAD_DATA,
+  CLEAR_DATA,
   EXIT,
   CLEAR_RESPONSES,
   CLEAR_RESPONSES_ANON,
@@ -49,6 +51,10 @@ export function nextQuestion() {
 
 export function loadData(data) {
   return { type: LOAD_DATA, data}
+}
+
+export function clearData(data) {
+  return { type: CLEAR_DATA, data}
 }
 
 export function exitToHome() {
