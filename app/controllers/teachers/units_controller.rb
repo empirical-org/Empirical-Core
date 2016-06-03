@@ -53,7 +53,9 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def hide
-    Units::Hiders::Unit.run(params[:id])
+    unit = Unit.find(params[:id])
+    unit.update(visible: false)
+    ArchiveUnitsClassroomActivitiesWorker.perform_async(unit.id)
     render json: {}
   end
 
