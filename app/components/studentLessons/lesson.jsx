@@ -22,7 +22,8 @@ const Lesson = React.createClass({
     if (this.props.question.currentQuestion) {
       return (<Question
                 question={this.props.question.currentQuestion}
-                submitResponse={this.submitResponse}/>)
+                submitResponse={this.submitResponse}
+                prefill={this.getLesson().prefill}/>)
     }
   },
 
@@ -65,7 +66,7 @@ const Lesson = React.createClass({
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
         return (
-          <PlayLessonQuestion question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion}/>
+          <PlayLessonQuestion key={this.props.playLesson.currentQuestion.key} question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
         )
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
