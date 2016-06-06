@@ -60,6 +60,22 @@ const playLessonQuestion = React.createClass({
     }
   },
 
+  removePrefilledUnderscores: function () {
+    this.refs.response.value = this.refs.response.value.replace(/_/g, "")
+  },
+
+  handleFocus: function (e) {
+    const indexOfUnderscores = e.target.value.indexOf("_");
+    const lastIndexOfUnderscores = e.target.value.lastIndexOf("_");
+    if (indexOfUnderscores !== -1) {
+      setTimeout(()=>{
+        e.target.selectionStart = indexOfUnderscores
+        e.target.selectionEnd = lastIndexOfUnderscores + 1
+      }, 50)
+
+    }
+  },
+
   componentWillReceiveProps: function(nextProps) {
     // if (nextProps.question.attempts.length > 0) {
     //   var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(nextProps.question.attempts, (error) => {
@@ -200,6 +216,7 @@ const playLessonQuestion = React.createClass({
   },
 
   checkAnswer: function () {
+    this.removePrefilledUnderscores()
     var fields = {
       prompt: this.getQuestion().prompt,
       responses: hashToCollection(this.getQuestion().responses)
@@ -328,7 +345,7 @@ const playLessonQuestion = React.createClass({
                 {this.renderSentenceFragments()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea is-disabled" ref="response" defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <textarea className="textarea is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                 </div>
                 <div className="button-group">
                   {this.renderNextQuestionButton()}
@@ -354,7 +371,7 @@ const playLessonQuestion = React.createClass({
                   {this.renderSentenceFragments()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <textarea className="textarea" ref="response" defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                    <textarea className="textarea" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                   </div>
                   <div className="button-group">
                     <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
@@ -375,7 +392,7 @@ const playLessonQuestion = React.createClass({
                 {this.renderSentenceFragments()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea" ref="response" defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <textarea className="textarea" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
                 </div>
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>

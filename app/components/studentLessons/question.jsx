@@ -33,12 +33,19 @@ const playLessonQuestion = React.createClass({
     }
   },
 
+  removePrefilledUnderscores: function () {
+    this.refs.response.value = this.refs.response.value.replace(/_/g, "")
+  },
+
   handleFocus: function (e) {
     const indexOfUnderscores = e.target.value.indexOf("_");
     const lastIndexOfUnderscores = e.target.value.lastIndexOf("_");
     if (indexOfUnderscores !== -1) {
-      e.target.selectionStart = indexOfUnderscores
-      e.target.selectionEnd = lastIndexOfUnderscores + 1
+      setTimeout(()=>{
+        e.target.selectionStart = indexOfUnderscores
+        e.target.selectionEnd = lastIndexOfUnderscores + 1
+      }, 50)
+
     }
   },
 
@@ -188,6 +195,7 @@ const playLessonQuestion = React.createClass({
   },
 
   checkAnswer: function () {
+    this.removePrefilledUnderscores()
     var fields = {
       prompt: this.getQuestion().prompt,
       responses: hashToCollection(this.getQuestion().responses)
