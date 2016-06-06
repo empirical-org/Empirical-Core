@@ -33,8 +33,8 @@ const Lesson = React.createClass({
     })
   },
 
-  startActivity: function () {
-    // this.saveStudentName(name);
+  startActivity: function (name) {
+    this.saveStudentName(name);
     const action = loadData(this.questionsForLesson())
     this.props.dispatch(action);
     const next = nextQuestion();

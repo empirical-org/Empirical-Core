@@ -6,12 +6,12 @@ export default React.createClass({
   },
 
   startActivity: function () {
-    this.props.startActivity()
+    this.props.startActivity(this.refs.name.value)
   },
 
   renderNameInput: function () {
     return (
-      <p className="control">
+      <p className="control" style={{width: '400px',maxWidth: '100%', margin: '0 auto 20'}}>
         <input className="input" type="text" ref="name" placeholder="Enter your name"></input>
       </p>
     )
@@ -32,6 +32,7 @@ export default React.createClass({
               There will always be more than one right answer!
             </h4>
             <img style={{maxHeight: '50vh', margin: '0 auto 20px'}} src={"http://i1.wp.com/www.connect.quill.org/wp-content/uploads/2016/04/animation.gif?fit=1100%2C265"}/>
+            {this.renderNameInput()}
             <h4 className="title is-5">
               <button className="button is-primary is-large" onClick={this.startActivity}>Start</button>
             </h4>
