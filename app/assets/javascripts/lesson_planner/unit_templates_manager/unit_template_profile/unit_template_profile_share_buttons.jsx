@@ -15,7 +15,7 @@ EC.UnitTemplateProfileShareButtons = React.createClass({
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: "http://twitter.com/home?status=" + url + " checkout this " + this.props.data.name +  " Activity pack by @Quill_org",
+        href: "http://twitter.com/home?status=" + url + " check out this " + this.props.data.name +  " Activity pack by @Quill_org",
         title: 'Share on Twitter',
         action: 'Tweet',
       },
@@ -43,7 +43,7 @@ EC.UnitTemplateProfileShareButtons = React.createClass({
       // {
       //   icon: 'fa-envelope',
       //   className: 'btn-linkedin',
-      //   href: "mailto:?subject=Checkout this " + this.props.data.name +  " Activity pack by Quill.org&source=Quill.org&body=" + url,
+      //   href: "mailto:?subject=Check out this " + this.props.data.name +  " Activity pack by Quill.org&source=Quill.org&body=" + url,
       //   title: 'Share by Email',
       // }
     ];
