@@ -20,6 +20,7 @@ class ActivitySessionsController < ApplicationController
     @activity_session.start
     @activity_session.save!
     @module_url = @activity.module_url(@activity_session)
+    redirect_to(@module_url.to_s)
   end
 
   def result
