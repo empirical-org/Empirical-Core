@@ -33,7 +33,7 @@ EC.EducatorType = React.createClass({
     if (this.state.stage === 1) {
       return (
         <div className='educator-type'>
-          <h3>Are you a faculty member at U.S K-12 School?*</h3>
+          <h3>Are you a faculty member at a U.S K-12 School?*</h3>
            <div className='option-wrapper'>
              <button className='button-green' onClick={() => this.goToStage(2)}>Yes</button>
              <button className='button-green' onClick={() => this.goToStage(3)}>No</button>
