@@ -35,7 +35,7 @@ EC.SelectSchool = React.createClass({
   render: function () {
     var schoolOptions, initialValue;
     if (this.props.schoolOptions.length == 0) {
-      schoolOptions = <option value="enter-zipcode" >Enter Your School&#39;s Zip Code</option>;
+      schoolOptions = <option value="enter-zipcode">Enter Your School&#39;s Zip Code</option>;
       initialValue = "enter-zipcode";
     } else {
       schoolOptions = _.map(this.props.schoolOptions, function (schoolOption) {
@@ -55,9 +55,9 @@ EC.SelectSchool = React.createClass({
         <div className='row'>
           <div className='row'>
             <div className='col-xs-6 col-xs-offset-3'>
-              <div className='row'>
-                <div className='form-label col-xs-12'>
-                  ZIP Code
+              <div className='row zip-row'>
+                <div className='form-label zip col-xs-12'>
+                  Add Your School's ZIP Code
                 </div>
               </div>
               <div className='row'>
@@ -76,7 +76,7 @@ EC.SelectSchool = React.createClass({
             <div className='col-xs-12'>
               <div className='row'>
                 <div className='col-xs-12 form-label'>
-                  School
+                  School Name
                 </div>
               </div>
               <div className='row'>
@@ -96,7 +96,7 @@ EC.SelectSchool = React.createClass({
       );
     } else {
       return (
-        <div className='row'>
+        <div className='row text-center'>
           <div className='form-label col-xs-2'>
             School
           </div>

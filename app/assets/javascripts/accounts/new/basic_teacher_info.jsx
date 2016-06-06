@@ -55,8 +55,8 @@ EC.BasicTeacherInfo = React.createClass({
                 <div className='row'>
                   <div className='col-xs-offset-3 col-xs-9'>
             <div className='col-xs-8 need-a-border'/>
-            <div className='row'>
-              <div className='col-xs-12'>
+            <div className='row new-teacher-form-fields'>
+              <div className='col-xs-12 form-fields'>
                 {inputs}
               </div>
             </div>

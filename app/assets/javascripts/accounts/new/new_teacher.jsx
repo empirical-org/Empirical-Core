@@ -9,15 +9,16 @@ EC.NewTeacher = React.createClass({
     textInputGenerator: React.PropTypes.object.isRequired
   },
 
+
   render: function () {
-    if (this.props.stage ===1) {
+    if (this.props.stage === 1) {
       return (
         <EC.BasicTeacherInfo textInputGenerator={this.props.textInputGenerator} signUp={this.props.signUp} update={this.props.update}/>
       )
-    } else if (this.props.stage ===2) {
+    } else if (this.props.stage === 2) {
       return (
-        <EC.UsK12View analytics={this.props.analytics}/>
-      );
+        <EC.EducatorType analytics={this.props.analytics}/>
+      )
     }
   }
 });

@@ -26,30 +26,35 @@ EC.UsK12View = React.createClass({
     this.setState({selectedSchool: school});
   },
 
-  selectSchool: function () {
-    this.props.analytics.track('select school');
-    $.ajax({
-      type: 'PUT',
-      url: '/select_school',
-      data: {
-        school_id: this.state.selectedSchool.id
-      },
-      success: this.goToProfile
-    });
-  },
-
-  goToProfile: function () {
-    window.location = '/profile';
-  },
-
   skipSelectSchool: function () {
     this.props.analytics.track('skip select school');
-    this.goToProfile();
+    this.props.goToProfile();
   },
+
+  submitSchool: function(){
+    var school;
+    if (this.state.selectedSchool && this.state.selectedSchool.id) {
+      school = this.state.selectedSchool.id;
+    } else {
+      school = 'not listed';
+    }
+    this.props.selectSchool(school);
+  },
+
+ showButton: function(){
+   var content;
+  if ($.isEmptyObject(this.state.selectedSchool)) {
+    content = <span/>;
+  } else {
+    content = <button onClick={this.submitSchool} className='button-green select_school_button'>Confirm School</button>;
+  }
+  return content;
+ },
+
 
   render: function() {
     return (
-      <div className='row'>
+      <div className='row text-center'>
         <div className='col-xs-offset-3 col-xs-6'>
           <div className='row'>
             <h3 className='sign-up-header col-xs-12'>{"Let's find your school"}</h3>
@@ -63,14 +68,9 @@ EC.UsK12View = React.createClass({
                                isForSignUp={true}/>
             </div>
           </div>
+          {this.showButton()}
           <div className='row'>
-            <button onClick={this.selectSchool} className='button-green col-xs-12 select_school_button'>Select your school</button>
-          </div>
-          <div className='row'>
-            <div className='col-xs-12 no-pl school_not_listed'>My school is not listed, or I do not teach in the United States</div>
-          </div>
-          <div className='row'>
-            <button onClick={this.skipSelectSchool} className='button-green col-xs-12'>Skip</button>
+            <div className='col-xs-12 no-pl school_not_listed'><a onClick={this.submitSchool}> My school is not listed</a></div>
           </div>
         </div>
       </div>
