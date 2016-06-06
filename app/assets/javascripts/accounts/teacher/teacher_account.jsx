@@ -349,7 +349,7 @@ EC.TeacherAccount = React.createClass({
                 <input ref='schoolOptionsDoNotApply' onChange={this.updateSchoolOptionsDoNotApply} type='checkbox' checked={this.determineIfSchoolOptionsDoNotApplyShouldBeChecked()}/>
               </div>
               <div className='col-xs-6 no-pl form-label checkbox-label'>
-                My school is not listed or I do not teach in the United States.
+                My school is not listed.
               </div>
             </div>
 

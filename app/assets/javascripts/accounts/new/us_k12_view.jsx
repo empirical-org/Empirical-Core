@@ -55,24 +55,17 @@ EC.UsK12View = React.createClass({
   render: function() {
     return (
       <div className='row text-center'>
-        <div className='col-xs-offset-3 col-xs-6'>
-          <div className='row'>
             <h3 className='sign-up-header col-xs-12'>{"Let's find your school"}</h3>
-          </div>
-          <div className='row'>
-            <div className='col-xs-12'>
               <EC.SelectSchool selectedSchool={this.state.selectedSchool}
                                schoolOptions={this.state.schoolOptions}
                                requestSchools={this.requestSchools}
                                updateSchool={this.updateSchool}
                                isForSignUp={true}/>
-            </div>
-          </div>
+
           {this.showButton()}
           <div className='row'>
             <div className='col-xs-12 no-pl school_not_listed'><a onClick={this.submitSchool}> My school is not listed</a></div>
           </div>
-        </div>
       </div>
     );
   }
