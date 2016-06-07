@@ -64,7 +64,7 @@ EC.UsK12View = React.createClass({
 
           {this.showButton()}
           <div className='row'>
-            <div className='col-xs-12 no-pl school_not_listed'><a onClick={this.submitSchool}> My school is not listed</a></div>
+            <div className='col-xs-12 no-pl school_not_listed'><a id='school_not_listed' onClick={this.submitSchool}>My school is not listed</a></div>
           </div>
       </div>
     );
