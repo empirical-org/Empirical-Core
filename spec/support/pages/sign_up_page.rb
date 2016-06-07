@@ -47,9 +47,9 @@ class SignUpPage < Page
 
   def select_school(choose_unlisted_school)
     # FIXME : cant get capybara to trigger the onChange event for React,
-    # so cannot simulate the selection of a school.
-    # For now well just choose 'unlisted' every time.
-    click_on('My school is not listed.')
+    # nor is it able to click the school_not_listed link
+    # page.has_content?('not listed')
+    # click_link('school_not_listed')
   end
 
   def submit_form
