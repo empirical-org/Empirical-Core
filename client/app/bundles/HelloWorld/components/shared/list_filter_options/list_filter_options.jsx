@@ -1,4 +1,11 @@
-EC.ListFilterOptions = React.createClass({
+'use strict'
+
+ import React from 'react'
+ import _ from 'underscore'
+ import ListFilterOption from './list_filter_options'
+
+
+ export default  React.createClass({
   propTypes: {
     options: React.PropTypes.array.isRequired,
     select: React.PropTypes.func.isRequired,
@@ -31,7 +38,7 @@ EC.ListFilterOptions = React.createClass({
   },
 
   generateView: function (option) {
-    return <EC.ListFilterOption
+    return <ListFilterOption
                     key={this.getKey(option)}
                     data={option}
                     isSelected={this.isSelected(option)}
