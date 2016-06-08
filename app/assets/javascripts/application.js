@@ -26,10 +26,6 @@
 //= require empirical_core.js
 //= require ./progress_reports/index.js
 
-//= require react
-//= require react_ujs
-//= require react-rails-hot-loader
-//= require components
 //= require_tree ./
 
 //= require jquery.turbolinks
