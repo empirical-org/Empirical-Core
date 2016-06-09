@@ -6,11 +6,11 @@ $(function () {
 		var props = {
 			analytics: new EC.AnalyticsWrapper()
 		};
-		React.render(React.createElement(EC.LessonPlanner, props), activityPlanner);
+		React.render(React.createElement(EC.ActivityPlanner, props), activityPlanner);
   }
 });
 
-EC.LessonPlanner = React.createClass({
+EC.ActivityPlanner = React.createClass({
 	propTypes: {
 		analytics: React.PropTypes.object.isRequired
 	},
@@ -340,7 +340,7 @@ EC.LessonPlanner = React.createClass({
 		return (
 			<span>
 				<EC.UnitTabs tab={this.state.tab} toggleTab={this.toggleTab}/>
-				<div id="lesson_planner" >
+				<div id="activity_planner" >
 					{tabSpecificComponents}
 				</div>
 			</span>

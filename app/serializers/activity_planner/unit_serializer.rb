@@ -1,4 +1,4 @@
-class LessonPlanner::UnitSerializer < ActiveModel::Serializer
+class ActivityPlanner::UnitSerializer < ActiveModel::Serializer
   attributes :id, :name, :selectedActivities, :classrooms, :dueDates
 
   private

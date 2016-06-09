@@ -39,7 +39,7 @@ EC.ClassMini = React.createClass({
       );
     } else if (!this.activityCount()) {
       return (
-        <a href="/teachers/classrooms/lesson_planner?tab=exploreActivityPacks">
+        <a href="/teachers/classrooms/activity_planner?tab=exploreActivityPacks">
           <button className='button-green'>Assign Activities</button>
         </a>
       );

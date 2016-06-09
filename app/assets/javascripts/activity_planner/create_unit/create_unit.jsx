@@ -250,7 +250,7 @@ EC.CreateUnit = React.createClass({
 																					 data={this.props.data.assignSuccessData}/>);
 		}
 		else {
-			window.location.href = "/teachers/classrooms/lesson_planner";
+			window.location.href = "/teachers/classrooms/activity_planner";
 		}
 	},
 
@@ -267,7 +267,7 @@ EC.CreateUnit = React.createClass({
 		return (
 			<span>
 				<EC.ProgressBar stage={this.getStage()}/>
-				<div className='container lesson_planner_main'>
+				<div className='container activity_planner_main'>
 					{stageSpecificComponents}
 				</div>
 			</span>

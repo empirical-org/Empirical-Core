@@ -4,7 +4,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize!
   include ScorebookHelper
 
-  def lesson_planner
+  def activity_planner
     if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     else
@@ -52,7 +52,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     if current_user.students.empty?
       if current_user.classrooms_i_teach.last.activities.empty?
-        redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms_i_teach.last.grade)
+        redirect_to(controller: "teachers/classroom_manager", action: "activity_planner", tab: "exploreActivityPacks", grade: current_user.classrooms_i_teach.last.grade)
       else
         redirect_to teachers_classroom_invite_students_path(current_user.classrooms_i_teach.first)
       end

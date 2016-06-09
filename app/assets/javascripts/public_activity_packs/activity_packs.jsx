@@ -195,7 +195,7 @@ EC.PublicActivityPacks = React.createClass({
 
     return (
       <span>
-        <div id="lesson_planner" >
+        <div id="activity_planner" >
           {tabSpecificComponents}
         </div>
       </span>

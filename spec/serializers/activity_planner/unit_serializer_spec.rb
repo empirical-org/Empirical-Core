@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe LessonPlanner::UnitSerializer, type: :serializer do
+describe ActivityPlanner::UnitSerializer, type: :serializer do
   it_behaves_like 'serializer' do
     let!(:record_instance) { FactoryGirl.create(:unit) }
 
@@ -48,7 +48,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
 
 
     def subject
-      LessonPlanner::UnitSerializer.new(unit, root: false).as_json
+      ActivityPlanner::UnitSerializer.new(unit, root: false).as_json
     end
 
     context 'assigned_student_ids = []' do
