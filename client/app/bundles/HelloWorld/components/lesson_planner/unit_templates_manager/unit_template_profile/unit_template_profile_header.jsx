@@ -1,7 +1,7 @@
 'use strict'
 
  import React from 'react'
- import CategoryLabel from ''
+ import CategoryLabel from '../../category_labels/category_label'
 
  export default  React.createClass({
   propTypes: {
@@ -18,7 +18,7 @@
   render: function () {
     return (
       <div className='big-title row' style={this.divStyle()}>
-        <EC.CategoryLabel data={this.props.data.model.unit_template_category}
+        <CategoryLabel data={this.props.data.model.unit_template_category}
                           filterByCategory={this.props.actions.filterByCategory}
                           backgroundColor={this.props.data.model.unit_template_category.secondaryColor} />
         <h1><strong>{this.props.data.model.name}</strong></h1>

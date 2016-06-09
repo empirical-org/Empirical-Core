@@ -8,6 +8,9 @@
  import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
  import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
  import UnitTabs	 from '../components/lesson_planner/unit_tabs'
+ import fnl from '../components/modules/fnl'
+ import updaterGenerator from '../components/modules/updater'
+ import Server from '../components/modules/server/server'
 
 
  export default React.createClass({
@@ -56,9 +59,9 @@
 
 	getInitialState: function () {
 		this.modules = {
-			fnl: new EC.modules.fnl(),
-			updaterGenerator: new EC.modules.updaterGenerator(this),
-			unitTemplatesServer: new EC.modules.Server('unit_template', 'unit_templates', '/teachers'),
+			fnl: new fnl,
+			updaterGenerator: new updaterGenerator(this),
+			unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
       windowPosition: new EC.modules.WindowPosition(),
 		};
 

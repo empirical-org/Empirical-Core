@@ -1,4 +1,8 @@
-EC.FilterOption = React.createClass({
+'use strict'
+
+ import React from 'react'
+
+ export default  React.createClass({
 
 
 	clickOption: function () {

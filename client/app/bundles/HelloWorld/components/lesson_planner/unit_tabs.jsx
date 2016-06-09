@@ -1,6 +1,10 @@
 'use strict';
 
-EC.UnitTabs = React.createClass({
+'use strict'
+
+ import React from 'react'
+
+ export default  React.createClass({
 	propTypes: {
 		tab: React.PropTypes.string.isRequired
 	},
@@ -32,5 +36,3 @@ EC.UnitTabs = React.createClass({
 
 
 });
-
-

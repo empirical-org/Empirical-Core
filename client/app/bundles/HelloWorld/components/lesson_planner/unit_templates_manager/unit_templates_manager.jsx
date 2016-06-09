@@ -1,5 +1,10 @@
-'use strict';
-EC.UnitTemplatesManager = React.createClass({
+'use strict'
+
+ import React from 'react'
+ import UnitTemplateMinis from './unit_template_minis/unit_template_minis'
+ import UnitTemplateProfile from './unit_template_profile/unit_template_profile'
+
+ export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object.isRequired
@@ -8,9 +13,9 @@ EC.UnitTemplatesManager = React.createClass({
   stageSpecificComponents: function () {
     var component;
     if (this.props.data.stage === 'index') {
-      return <EC.UnitTemplateMinis data={this.props.data} actions={this.props.actions} />
+      return <UnitTemplateMinis data={this.props.data} actions={this.props.actions} />
     } else {
-      return <EC.UnitTemplateProfile data={this.props.data} actions={this.props.actions} />
+      return <UnitTemplateProfile data={this.props.data} actions={this.props.actions} />
     }
   },
 
