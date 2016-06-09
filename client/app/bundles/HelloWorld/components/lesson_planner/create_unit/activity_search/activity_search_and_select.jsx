@@ -5,6 +5,9 @@
  import $ from 'jquery'
  import SearchActivitiesInput from './search_activities_input'
  import ActivitySearchFilters from './activity_search_filters/activity_search_filters'
+ import ActivitySearchFilterConfig from './activity_search_filters/activity_search_filter_config'
+ import ActivitySearchSort from './activity_search_sort/activity_search_sort'
+ import ActivitySearchSortConfig from './activity_search_sort/activity_search_sort_config'
  import ActivitySearchSorts from './activity_search_sort/activity_search_sorts'
  import ActivitySearchResults from './activity_search_results/activity_search_results'
  import Pagination from './pagination/pagination'
@@ -34,8 +37,8 @@
         'section': [],
         'topic_category': []
       },
-      filters: EC.ActivitySearchFilterConfig,
-      sorts: EC.ActivitySearchSortConfig
+      filters: ActivitySearchFilterConfig,
+      sorts: ActivitySearchSortConfig
     }
   },
 

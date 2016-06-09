@@ -5,8 +5,8 @@
 
  export default  React.createClass({
 	render: function () {
-		filters = _.map(this.props.data, function (filter) {
-			return <EC.ActivitySearchFilter key={filter.alias} selectFilterOption = {this.props.selectFilterOption} data={filter}/>
+		var filters = _.map(this.props.data, function (filter) {
+			return <ActivitySearchFilter key={filter.alias} selectFilterOption = {this.props.selectFilterOption} data={filter}/>
 		}, this);
 
 		return (

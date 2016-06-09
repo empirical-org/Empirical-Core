@@ -8,7 +8,7 @@
 
 
 	render: function () {
-		sorts = _.map(this.props.sorts, function (sort) {
+		var sorts = _.map(this.props.sorts, function (sort) {
 			return <ActivitySearchSort key={sort.alias} updateSort={this.props.updateSort} data={sort} />
 		}, this);
 

@@ -6,7 +6,7 @@
  export default React.createClass({
 
 	updateName: function (e) {
-		var unitName = $(this.refs.name.getDOMNode()).val()
+		var unitName = $(this.refs.name).val()
 		this.props.updateUnitName(unitName);
 	},
 
