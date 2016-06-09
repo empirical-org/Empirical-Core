@@ -1,6 +1,8 @@
 'use strict'
 
  import React from 'react'
+ import ReactDOM from 'react-dom';
+ import $ from 'jquery'
 
  export default  React.createClass({
 	callToggleActivitySelection: function (e) {
@@ -9,12 +11,17 @@
 	},
 	tooltipTrigger: function (e) {
 		e.stopPropagation();
-		$(this.refs.activateTooltip.getDOMNode()).tooltip('show');
+		ReactDOM.findDOMNode(this).tooltip('show');
+		// $(this.refs.activateTooltip).tooltip('show');
+    // this.refs.activateTooltip.tooltip('show');
+    // this.refs.activateTooltip.tooltip('show');
 
 	},
 	tooltipTriggerStop: function (e) {
 		e.stopPropagation();
-		$(this.refs.activateTooltip.getDOMNode()).tooltip('hide');
+		// $(this.refs.activateTooltip.getDOMNode()).tooltip('hide');
+    // $(this.refs.activateTooltip).tooltip('hide');
+    this.refs.activateTooltip.tooltip('hide');
 	},
 
 	render: function () {

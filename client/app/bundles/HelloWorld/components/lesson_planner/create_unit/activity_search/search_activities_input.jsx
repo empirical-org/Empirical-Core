@@ -5,7 +5,7 @@
  export default  React.createClass({
 
 	newSearchQuery: function () {
-		newQuery = $('#search_activities_input').val();
+		var newQuery = $('#search_activities_input').val();
 		this.props.updateSearchQuery(newQuery);
 	},
 

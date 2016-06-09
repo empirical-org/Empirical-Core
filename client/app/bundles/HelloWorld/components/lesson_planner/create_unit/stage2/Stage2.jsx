@@ -55,11 +55,11 @@
                            toggleClassroomSelection={this.props.toggleClassroomSelection}
                            toggleStudentSelection={this.props.toggleStudentSelection} />;
     }, this);
-
+    debugger;
+    // dueDate={this.props.dueDates[activity.id]}     
     var dueDateList = this.props.selectedActivities.map(function(activity) {
       return <ActivityDueDate activity={activity}
                                  key={activity.id}
-                                 dueDate={this.props.dueDates[activity.id]}
                                  toggleActivitySelection={this.props.toggleActivitySelection}
                                  assignActivityDueDate={this.props.assignActivityDueDate}/>;
     }, this);

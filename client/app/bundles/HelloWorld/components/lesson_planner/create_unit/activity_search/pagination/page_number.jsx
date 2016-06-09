@@ -3,22 +3,28 @@
  import React from 'react'
 
  export default React.createClass({
+
+  getInitialState: function(){
+    return {isCurrentPage: null, classy: null};
+  },
+
+  componentDidMount: function(){
+    if (this.props.number == this.props.currentPage) {
+      this.setState({isCurrentPage: true, classy: 'page_number active'});
+    } else {
+      this.setState({isCurrentPage: false, classy: 'page_number'});
+    }
+  },
+
 	clickNumber: function () {
-		if (!this.props.isCurrentPage) {
+		if (this.state.isCurrentPage) {
 			this.props.selectPageNumber(this.props.number);
 		}
 	},
-	render: function () {
-		if (this.props.number == this.props.currentPage) {
-			className = 'page_number active'
-			this.props.isCurrentPage = true;
-		} else {
-			className = 'page_number'
-			this.props.isCurrentPage = false;
-		}
 
+	render: function () {
 		return (
-			<li onClick={this.clickNumber} className={className}>
+			<li onClick={this.clickNumber} className={this.state.classy}>
 				<span>{this.props.number}</span>
 			</li>
 		);

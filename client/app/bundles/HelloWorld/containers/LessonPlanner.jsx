@@ -11,17 +11,22 @@
  import fnl from '../components/modules/fnl'
  import updaterGenerator from '../components/modules/updater'
  import Server from '../components/modules/server/server'
+ import WindowPosition from '../components/modules/windowPosition'
+ import AnalyticsWrapper from '../components/shared/analytics_wrapper'
 
 
  export default React.createClass({
 	propTypes: {
 		grade: React.PropTypes.string.isRequired,
 		tab: React.PropTypes.string.isRequired,
-		// unitTemplate: React.PropTypes.string.isRequired,
 		classroomName: React.PropTypes.string.isRequired,
 		classroomId: React.PropTypes.string.isRequired,
-		students: React.PropTypes.bool.isRequired,
+		students: React.PropTypes.string.isRequired,
 	},
+
+  analytics: function(){
+    return new AnalyticsWrapper();
+  },
 
 
 
@@ -62,7 +67,7 @@
 			fnl: new fnl,
 			updaterGenerator: new updaterGenerator(this),
 			unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
-      windowPosition: new EC.modules.WindowPosition(),
+      windowPosition: new WindowPosition(),
 		};
 
     this.deepExtendState = this.modules.updaterGenerator.updater(null)
@@ -185,7 +190,7 @@
 
 	toggleTab: function (tab) {
 		if (tab == 'createUnit') {
-			AnalyticsWrapper.track('click Create Unit', {});
+			this.analytics().track('click Create Unit', {});
       this.updateCreateUnit({
                               stage: 1,
                               model: {
@@ -232,7 +237,7 @@
   toggleActivitySelection: function (activity, true_or_false) {
     var selectedActivities = this.state.createUnit.model.selectedActivities
 		if (true_or_false) {
-			AnalyticsWrapper.track('select activity in lesson planner', {name: activity.name, id: activity.id});
+			this.analytics().track('select activity in lesson planner', {name: activity.name, id: activity.id});
 		}
 		var sas = this.modules.fnl.toggleById(this.getSelectedActivities(), activity);
 		this.updateCreateUnitModel({selectedActivities: sas});
@@ -253,7 +258,7 @@
 
   onFastAssignSuccess: function () {
 		var lastActivity = this.state.unitTemplatesManager.model;
-		AnalyticsWrapper.track('click Create Unit', {});
+		this.analytics().track('click Create Unit', {});
 		this.deepExtendState(this.blankState());
 		this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
 		this.fetchClassrooms();
@@ -319,7 +324,7 @@
                                                        update: this.updateCreateUnitModel,
                                                        toggleActivitySelection: this.toggleActivitySelection,
 																										 	 assignSuccessActions: 	this.unitTemplatesAssignedActions()}}
-																						 analytics={AnalyticsWrapper}/>;
+																						 analytics={this.analytics()}/>;
 		} else if (this.state.tab == 'manageUnits') {
 			tabSpecificComponents = <ManageUnits actions={{toggleTab: this.toggleTab, editUnit: this.editUnit}} />;
 		} else if (this.state.tab == 'exploreActivityPacks') {
