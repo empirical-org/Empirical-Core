@@ -1,6 +1,8 @@
 'use strict'
 
  import React from 'react'
+ import $ from 'jquery'
+ import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
 
  export default  React.createClass({
   propTypes: {
@@ -61,7 +63,6 @@
 
   render: function () {
     $('html,body').scrollTop(0);
-    var socialButtons = <EC.UnitTemplateProfileShareButtons data={this.props.data} />
     return (
       <div className='assign-success-container'>
     <div className='successBox'>
@@ -88,7 +89,7 @@
         <i>I’m using the {this.activityName()} Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/3</i>
       </p>
       <div className='container'>
-        <EC.UnitTemplateProfileShareButtons data={this.props.data} />
+        <UnitTemplateProfileShareButtons data={this.props.data} />
       </div>
     </div>
     </div>

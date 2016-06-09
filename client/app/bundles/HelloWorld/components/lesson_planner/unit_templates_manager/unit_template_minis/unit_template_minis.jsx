@@ -2,10 +2,8 @@
 
  import React from 'react'
  import UnitTemplateMini from './unit_template_mini/unit_template_mini'
- import ListFilterOptions from '../../../../shared/list_filter_options/list_filter_options'
- import UnitTemplateMinisHeader from './unit-template-minis-header'
-
-
+ import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
+ import UnitTemplateMinisHeader from './unit_template_minis_header'
 
 
  export default  React.createClass({
@@ -117,4 +115,4 @@
       </div>
     );
   }
-})
+});

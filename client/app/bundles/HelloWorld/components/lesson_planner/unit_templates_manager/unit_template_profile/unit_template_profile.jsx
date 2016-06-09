@@ -1,4 +1,15 @@
-EC.UnitTemplateProfile = React.createClass({
+'use strict'
+
+ import React from 'react'
+ import UnitTemplateProfileHeader from './unit_template_profile_header'
+ import UnitTemplateProfileDescription from './unit_template_profile_description'
+ import UnitTemplateProfileAssignButton from './unit_template_profile_assign_button'
+ import UnitTemplateProfileShareButton from './unit_template_profile_share_buttons'
+ import UnitTemplateProfileStandards from './unit_template_profile_standards'
+ import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table'
+ import RelatedUnitTemplates from './related_unit_templates'
+
+ export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object.isRequired
@@ -8,20 +19,20 @@ EC.UnitTemplateProfile = React.createClass({
   render: function () {
     return (
       <div className='unit-template-profile'>
-        <EC.UnitTemplateProfileHeader data={this.props.data}
+        <UnitTemplateProfileHeader data={this.props.data}
                                    actions={this.props.actions} />
 
         <div className="container white">
 
           <div className='row first-content-section'>
             <div className='col-xs-6 left-hand-side'>
-              <EC.UnitTemplateProfileDescription data={this.props.data} />
+              <UnitTemplateProfileDescription data={this.props.data} />
             </div>
 
             <div className='col-xs-6'>
               <div className='row'>
                 <div className='col-xs-12'>
-                  <EC.UnitTemplateProfileAssignButton data={this.props.data}
+                  <UnitTemplateProfileAssignButton data={this.props.data}
                                    actions={this.props.actions} />
                 </div>
               </div>
@@ -29,12 +40,12 @@ EC.UnitTemplateProfile = React.createClass({
                 <div className="col-xs-12">
                   <div className='row'>
                     <div className='col-xs-12'>
-                      <EC.UnitTemplateProfileStandards data={this.props.data} />
+                      <UnitTemplateProfileStandards data={this.props.data} />
                     </div>
                   </div>
                   <div className='row'>
                     <div className='col-xs-12'>
-                      <EC.UnitTemplateProfileShareButtons data={this.props.data.model} />
+                      <UnitTemplateProfileShareButtons data={this.props.data.model} />
                     </div>
                   </div>
                 </div>
@@ -49,13 +60,13 @@ EC.UnitTemplateProfile = React.createClass({
           </div>
           <div className='row'>
             <div classsName='col-xs-12'>
-              <EC.UnitTemplateProfileActivityTable data={this.props.data}
+              <UnitTemplateProfileActivityTable data={this.props.data}
                                    actions={this.props.actions} />
             </div>
           </div>
 
 
-          <EC.RelatedUnitTemplates models={this.props.data.relatedModels}
+          <RelatedUnitTemplates models={this.props.data.relatedModels}
                                    actions={this.props.actions}
                                    data={this.props.data.model.id}/>
           <div className='row'>

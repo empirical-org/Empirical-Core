@@ -6,7 +6,7 @@
  import UnitTemplatesAssigned from '../unit_template_assigned'
  import ProgressBar from './progress_bar'
  import _ from 'underscore'
- import $ from 'ajax'
+ import $ from 'jquery'
 
  export default React.createClass({
 	propTypes: {

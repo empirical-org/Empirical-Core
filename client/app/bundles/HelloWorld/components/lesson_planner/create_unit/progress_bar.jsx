@@ -2,7 +2,8 @@
 
  import React from 'react'
 
- export default function() {
+ export default React.createClass({
+   render: function() {
     var graphicClass1 = (this.props.stage === 1 ? 'disabled' : 'complete');
     return (
       <div className="container">

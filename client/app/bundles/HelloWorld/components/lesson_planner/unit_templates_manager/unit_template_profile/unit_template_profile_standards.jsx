@@ -1,4 +1,9 @@
-EC.UnitTemplateProfileStandards = React.createClass({
+'use strict'
+
+ import React from 'react'
+ import _ from 'underscore'
+ 
+ export default  React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired
   },
