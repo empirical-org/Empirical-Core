@@ -37,6 +37,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
     @activity_session = ActivitySession.new(activity_session_params)
     crs = @activity_session.concept_results
+    @activity_session.user = current_user if current_user
     @activity_session.concept_results = []
     # activity_session.set_owner(current_user) if activity_session.ownable?
     # activity_session.data = @data # FIXME: may no longer be necessary?
