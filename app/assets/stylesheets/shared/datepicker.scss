@@ -1,5 +1,3 @@
-#react-datepicker {
-
 .react-datepicker__tether-element-attached-top .react-datepicker__triangle, .react-datepicker__tether-element-attached-bottom .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow {
   margin-left: -8px;
   position: absolute;
@@ -49,7 +47,8 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 11px;
   background-color: #fff;
-  color: #000;
+  // color: #000;
+  color: red;
   border: 1px solid #aeaeae;
   border-radius: 4px;
   display: inline-block;
@@ -291,5 +290,4 @@
 
 .react-datepicker__tether-element {
   z-index: 2147483647;
-}
 }

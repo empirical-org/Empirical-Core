@@ -47,6 +47,14 @@
     }
   },
 
+  dueDate: function(activityId){
+    if (this.props.dueDates && this.props.dueDates[activityId]) {
+      return this.props.dueDates[activityId];
+    }
+  },
+
+
+
   render: function() {
     var classroomList = this.props.classrooms.map(function(entry) {
       return <Classroom classroom={entry.classroom}
@@ -55,11 +63,11 @@
                            toggleClassroomSelection={this.props.toggleClassroomSelection}
                            toggleStudentSelection={this.props.toggleStudentSelection} />;
     }, this);
-    debugger;
-    // dueDate={this.props.dueDates[activity.id]}     
+
     var dueDateList = this.props.selectedActivities.map(function(activity) {
       return <ActivityDueDate activity={activity}
                                  key={activity.id}
+                                 dueDate={this.dueDate()}
                                  toggleActivitySelection={this.props.toggleActivitySelection}
                                  assignActivityDueDate={this.props.assignActivityDueDate}/>;
     }, this);
