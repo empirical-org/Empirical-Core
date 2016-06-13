@@ -3,6 +3,7 @@ require 'sidekiq/web'
 EmpiricalGrammar::Application.routes.draw do
 
 
+  get 'hello_world', to: 'hello_world#index'
   use_doorkeeper
 
   # authenticate :user, lambda { |u| u.admin? } do
