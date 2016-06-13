@@ -4,7 +4,7 @@ module Concepts
   def all_concept_stats(activity_session)
     return '' unless activity_session.present?
     # Generate a header for each applicable concept class (activity session has concept tag results for that class)
-    concept_results = activity_session.concept_results.partition{|c| c.metadata['wpm']}
+    concept_results = activity_session.concept_results.partition{|c| c.metadata['questionUid']}
     # concept_results[0] is from sentence writing, [1] from story
     concepts = activity_session.concepts
     organize_by_type(concept_results, concepts)
