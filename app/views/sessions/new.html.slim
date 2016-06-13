@@ -1,7 +1,7 @@
 .container.account-form
-  .sign-in-header
+  .sign-in-header.text-center
     h3 Welcome Back to Quill!
-    span
+    div.text-center
       <a href='/auth/google_oauth2' className='google-sign-in''><img src='/images/login_with_google.png'></a>
 
       = link_to ("https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }")
@@ -10,7 +10,7 @@
 
 
   .row
-    .col-sm-6.col-md-4.col-md-offset-4.need-a-border
+    need-a-border
     .col-sm-6.col-md-4.col-md-offset-4
       - if flash[:error]
         .error= flash[:error]
