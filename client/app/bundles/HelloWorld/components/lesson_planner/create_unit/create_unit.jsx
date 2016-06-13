@@ -139,6 +139,7 @@
 			return {id: c.classroom.id, student_ids: selectedStudentIds};
 		});
 
+
 		var sas = this.getSelectedActivities()
 
 		var activityPostData = _.map(sas, function (sa) {
