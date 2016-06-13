@@ -11,11 +11,16 @@ export default React.createClass({
     // displayName: 'Example',
 
     getInitialState: function() {
+      // moment comes from momentJS library
         return {startDate: moment()};
     },
 
+
     handleChange: function(date) {
         this.setState({startDate: date});
+        // months are an array that start at index 0;
+        var formattedDate = date.year() + '-' + (date.month() + 1) + '-' + date.date();
+        this.props.assignActivityDueDate(this.props.activity, formattedDate);
     },
 
     // initializeDatePicker: function() {

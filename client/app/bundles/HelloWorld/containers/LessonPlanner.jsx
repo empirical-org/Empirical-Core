@@ -109,7 +109,7 @@
   },
 
   assignActivityDueDate: function(activity, dueDate) {
-    var dueDates = this.state.createUnit.model.dueDates;
+    var dueDates = this.state.createUnit.model.dueDates || {}
     dueDates[activity.id] = dueDate;
     this.updateCreateUnitModel({dueDates: dueDates})
   },
