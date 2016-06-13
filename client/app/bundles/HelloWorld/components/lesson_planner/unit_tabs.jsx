@@ -27,7 +27,7 @@
 					<ul>
 						<li onClick={this.select('manageUnits')}><a className={classes.manageUnits}>My Activity Packs</a></li>
 						<li onClick={this.select('exploreActivityPacks')}><a className={classes.exploreActivityPacks}>Featured Activity Packs</a></li>
-						<li onClick={this.select('createUnit')}><a className={classes.createUnit}>Create an Activity Pack</a></li>
+						<li onClick={this.select('createUnit')}><a className={classes.createUnit}>Create An Activity Pack</a></li>
 					</ul>
 				</div>
 			</div>
