@@ -11,7 +11,7 @@ class SignUpPage < Page
   end
 
   def be_a_teacher
-    click_button('Teacher')
+    click_button('Educator')
   end
 
   def path
@@ -45,11 +45,11 @@ class SignUpPage < Page
     submit_form
   end
 
-  def select_school(skips_school_selection)
+  def select_school(choose_unlisted_school)
     # FIXME : cant get capybara to trigger the onChange event for React,
-    # so cannot simulate the selection of a school.
-    # For now well just 'skip' every time.
-    click_button('Skip')
+    # nor is it able to click the school_not_listed link
+    # page.has_content?('not listed')
+    # click_link('school_not_listed')
   end
 
   def submit_form
