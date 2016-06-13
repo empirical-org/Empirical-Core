@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const autoprefixer = require('autoprefixer');
 
 const devBuild = process.env.NODE_ENV !== 'production';
 const nodeEnv = devBuild ? 'development' : 'production';
@@ -14,9 +15,12 @@ module.exports = {
 
     // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
-      'babel-polyfill',
-      'jquery',
-    ],
+       'babel-polyfill',
+       'es5-shim/es5-shim',
+       'es5-shim/es5-sham',
+       'jquery-ujs',
+       'jquery',
+     ],
 
     // This will contain the app entry points defined by webpack.hot.config and
     // webpack.rails.config
@@ -37,6 +41,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv),
       },
+      TRACE_TURBOLINKS: devBuild,
     }),
 
     // https://webpack.github.io/docs/list-of-plugins.html#2-explicit-vendor-chunk
@@ -54,12 +59,22 @@ module.exports = {
     }),
   ],
   module: {
-    loaders: [
+   loaders: [
+     { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
+     { test: /\.(ttf|eot)$/, loader: 'file' },
+     { test: /\.(jpe?g|png|gif|svg|ico)$/, loader: 'url?limit=10000' },
+     { test: require.resolve('jquery'), loader: 'expose?jQuery' },
+     { test: require.resolve('jquery'), loader: 'expose?$' },
+   ],
+ },
 
-      // Not all apps require jQuery. Many Rails apps do, such as those using TurboLinks or
-      // bootstrap js
-      { test: require.resolve('jquery'), loader: 'expose?jQuery' },
-      { test: require.resolve('jquery'), loader: 'expose?$' },
-    ],
-  },
+ // Place here all postCSS plugins here, so postcss-loader will apply them
+ postcss: [autoprefixer],
+
+ // Place here all SASS files with variables, mixins etc.
+ // And sass-resources-loader will load them in every CSS Module (SASS file) for you
+ // (so don't need to @import them explicitly)
+ // https://github.com/shakacode/sass-resources-loader
+ sassResources: ['./app/assets/styles/app-variables.scss'],
+
 };
