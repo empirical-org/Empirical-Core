@@ -33,7 +33,6 @@
 
 
 	render: function () {
-    debugger;
 		return (
 			<div className="row">
 				<div className="cell col-md-1">
