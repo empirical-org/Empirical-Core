@@ -2,22 +2,14 @@
 
  import React from 'react'
  import $ from 'jquery'
+ import DatePicker from 'react-datepicker';
+ import moment from 'moment';
 
  export default  React.createClass({
 
-	componentDidMount: function () {
-		$(this.refs.dueDate.getDOMNode()).datepicker({
-	    	selectOtherMonths: true,
-	      	dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-	      	minDate: -20,
-	      	maxDate: "+1M +10D",
-	      	dateFormat: "mm-dd-yy",
-	      	altField: ('#railsFormatDate' + this.props.data.id),
-	      	altFormat: 'yy-mm-dd',
-	      	onSelect: this.handleChange
-	    });
-
-	},
+  getInitialState: function(){
+    return {startDate: moment(this.props.data.due_date)}
+  },
 
 
 	deleteClassroomActivity: function () {
@@ -27,16 +19,21 @@
 		}
 	},
 
-	handleChange: function () {
-	    var x1, dom, val;
-	    x1 = '#railsFormatDate' + this.props.data.id;
-	    dom = $(x1);
-	    val = dom.val();
-	    this.props.updateDueDate(this.props.data.id, val);
-	},
+
+
+
+    handleChange: function(date) {
+        this.setState({startDate: date});
+        // months are an array that start at index 0;
+        var formattedDate = date.year() + '-' + (date.month() + 1) + '-' + date.date();
+        this.props.updateDueDate(this.props.data.id, formattedDate);
+    },
+
+
+
 
 	render: function () {
-
+    debugger;
 		return (
 			<div className="row">
 				<div className="cell col-md-1">
@@ -48,8 +45,7 @@
 					</a>
 				</div>
 				<div className="cell col-md-2">
-					<input type="text" value={this.props.data.formatted_due_date} ref="dueDate" className="datepicker-input" placeholder="Optional Due Date" />
-					<input type="text"  className="railsFormatDate" id={"railsFormatDate" + this.props.data.id} ref="railsFormatDate" />
+          <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>
 				</div>
 				<div className="cell col-md-1">
 				</div>

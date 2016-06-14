@@ -23,19 +23,6 @@ export default React.createClass({
         this.props.assignActivityDueDate(this.props.activity, formattedDate);
     },
 
-    // initializeDatePicker: function() {
-    //     // $(this.refs.dueDate.getDOMNode()).datepicker({
-    //     //   selectOtherMonths: true,
-    //     //   dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-    //     //   minDate: -20,
-    //     //   dateFormat: "mm-dd-yy",
-    //     //   altField: ('#railsFormatDate' + this.props.activity.id),
-    //     //   altFormat: 'yy-mm-dd',
-    //     //   onSelect: this.handleChange,
-    //     // });
-    //     return <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>;
-    // },
-
     tooltipTrigger: function(e) {
         e.stopPropagation();
         this.refs.activateTooltip.getDOMNode().tooltip('show');
