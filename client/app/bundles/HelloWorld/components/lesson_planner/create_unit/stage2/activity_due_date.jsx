@@ -8,7 +8,6 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 export default React.createClass({
-    // displayName: 'Example',
 
     getInitialState: function() {
       // moment comes from momentJS library
@@ -33,12 +32,6 @@ export default React.createClass({
         this.refs.activateTooltip.getDOMNode().tooltip('hide');
     },
 
-    // handleChange: function(e) {
-    //     var x1 = '#railsFormatDate' + this.props.activity.id;
-    //     var dom = $(x1);
-    //     var val = dom.val();
-    //     this.props.assignActivityDueDate(this.props.activity, val);
-    // },
 
     removeActivity: function() {
         this.props.toggleActivitySelection(this.props.activity, false);
@@ -53,8 +46,6 @@ export default React.createClass({
             </td>
             <td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger activity_name'>{this.props.activity.name}</td>
             <td>
-              {/*<input type="text" ref="dueDate" value={this.props.dueDate} className="datepicker-input" placeholder="mm/dd/yyyy" onChange={this.handleChange}/>*/}
-              {/*<input type="text" value={this.props.dueDate} className='railsFormatDate' id={"railsFormatDate" + this.props.activity.id} ref="railsFormatDate" onChange={this.handleChange} />*/}
               <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>
             </td>
             <td className="icon-x-gray" onClick={this.removeActivity}></td>

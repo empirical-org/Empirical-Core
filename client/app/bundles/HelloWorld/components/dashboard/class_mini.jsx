@@ -12,12 +12,12 @@ export default React.createClass({
   },
 
   manageClassLink: function() {
-    classId = this.props.classObj.classroom.id.toString();
+    var classId = this.props.classObj.classroom.id.toString();
     return ('/teachers/classrooms/' + classId + '/students');
   },
 
   inviteStudentsLink: function() {
-    classId = this.props.classObj.classroom.id.toString();
+    var classId = this.props.classObj.classroom.id.toString();
     return ('/teachers/classrooms/' + classId + '/invite_students');
   },
 
