@@ -3,6 +3,7 @@ require 'sidekiq/web'
 EmpiricalGrammar::Application.routes.draw do
 
 
+  mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
   use_doorkeeper
 
   # authenticate :user, lambda { |u| u.admin? } do
