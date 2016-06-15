@@ -4,7 +4,8 @@ EC.RoleOption = React.createClass({
     selectRole: React.PropTypes.func.isRequired
   },
   selectRole: function () {
-    this.props.selectRole(this.props.role);
+    var role = this.props.role == 'student' ? 'student' : 'teacher';
+    this.props.selectRole(role);
   },
   render: function () {
     return (

@@ -1,9 +1,14 @@
 #my-account, #staff-teacher-account-editor, .user-profile-editor {
-
+  a {
+    cursor: pointer;
+  }
   .form-header {
     margin-top: 30px;
     margin-bottom: 30px;
   }
+  // .zip-row {
+  //   width: 150px;
+  // }
   .row {
     padding: 10px;
     .form-label, input, .error {
@@ -12,8 +17,12 @@
       float:left;
       // clear:none;
     }
+    // .form-label .zip {
+    //   margin-bottom: 50px;
+    // }
     select, input {
       width: 100%;
+      margin-bottom: 30px;
     }
   }
   input[type='checkbox'] {
