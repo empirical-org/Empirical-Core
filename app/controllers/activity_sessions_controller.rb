@@ -16,10 +16,12 @@ class ActivitySessionsController < ApplicationController
        is_retry: true
       )
       redirect_to play_activity_session_path(newSession)
+    else
+      @activity_session.start
+      @activity_session.save!
+      @module_url = @activity.module_url(@activity_session)
+      redirect_to(@module_url.to_s)
     end
-    @activity_session.start
-    @activity_session.save!
-    @module_url = @activity.module_url(@activity_session)
   end
 
   def result
@@ -30,13 +32,13 @@ class ActivitySessionsController < ApplicationController
   def anonymous
     @activity = Activity.find(params[:activity_id])
     @module_url = @activity.anonymous_module_url
-    render 'play'
+    redirect_to(@module_url.to_s)
   end
 
   private
 
   def activity_session_from_id
-    @activity_session ||= ActivitySession.where(id: params[:id]).first
+    @activity_session ||= ActivitySession.where(id: params[:id]).first || ActivitySession.where(uid: params[:id]).first
     unless @activity_session
       render_error(404)
     end
@@ -59,7 +61,9 @@ class ActivitySessionsController < ApplicationController
   end
 
   def activity_session_authorize!
-    if not ActivityAuthorizer.new(current_user, @activity_session).authorize
+    if @activity_session.user_id.nil?
+      return true
+    elsif !ActivityAuthorizer.new(current_user, @activity_session).authorize
       render_error(404)
     end
   end
