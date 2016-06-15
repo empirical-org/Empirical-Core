@@ -6,6 +6,10 @@
   "engines": {
     "node": "4.2.0"
   },
+  "cacheDirectories": [
+  "node_modules",
+  "client/node_modules"
+],
   "scripts": {
     "postinstall": "cd ./client && npm install",
     "gulp": "cd ./client && npm run gulp",
