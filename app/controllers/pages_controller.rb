@@ -32,9 +32,6 @@ class PagesController < ApplicationController
 
   end
 
-  def ideas
-  end
-
   def faq
   end
 
