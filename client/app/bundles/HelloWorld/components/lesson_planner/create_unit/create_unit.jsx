@@ -143,6 +143,7 @@
 		var sas = this.getSelectedActivities()
 
 		var activityPostData = _.map(sas, function (sa) {
+      debugger;
 			return {
 				id: sa.id,
 				due_date: this.props.data.createUnitData.model.dueDates[sa.id]

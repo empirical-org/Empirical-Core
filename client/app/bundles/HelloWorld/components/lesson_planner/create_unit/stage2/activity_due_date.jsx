@@ -11,14 +11,14 @@ export default React.createClass({
 
     getInitialState: function() {
       // moment comes from momentJS library
-        return {startDate: moment()};
+        return {startDate: null};
     },
 
 
     handleChange: function(date) {
         this.setState({startDate: date});
-        // months are an array that start at index 0;
-        var formattedDate = date.year() + '-' + (date.month() + 1) + '-' + date.date();
+        // months and days are an array that start at index 0;
+        var formattedDate = date.year() + '-' + (date.month() + 1) + '-' + (date.date() + 1);
         this.props.assignActivityDueDate(this.props.activity, formattedDate);
     },
 
@@ -46,7 +46,7 @@ export default React.createClass({
             </td>
             <td onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger activity_name'>{this.props.activity.name}</td>
             <td>
-              <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>
+              <DatePicker selected={this.state.startDate}  minDate={moment()} onChange={this.handleChange}   placeholderText='Optional'/>
             </td>
             <td className="icon-x-gray" onClick={this.removeActivity}></td>
           </tr>
