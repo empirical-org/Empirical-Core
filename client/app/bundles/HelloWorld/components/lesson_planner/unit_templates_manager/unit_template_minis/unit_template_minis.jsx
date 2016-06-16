@@ -41,7 +41,7 @@
 
   //adds a final model, which is simply flagged as a createYourOwn one via the key
   addCreateYourOwnModel: function(models) {
-    if (models.length) {
+    if (models && models.length) {
       models.push({id: 'createYourOwn'});
       }
     return models;
