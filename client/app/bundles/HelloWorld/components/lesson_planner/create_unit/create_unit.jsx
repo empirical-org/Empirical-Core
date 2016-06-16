@@ -143,10 +143,9 @@
 		var sas = this.getSelectedActivities()
 
 		var activityPostData = _.map(sas, function (sa) {
-      debugger;
 			return {
 				id: sa.id,
-				due_date: this.props.data.createUnitData.model.dueDates[sa.id]
+				due_date: this.dueDate(sa.id)
 			}
 		}, this)
 
@@ -228,6 +227,12 @@
 		}
 		return msg;
 	},
+
+  dueDate: function(id){
+    if (this.props.data.createUnitData.model.dueDates && this.props.data.createUnitData.model.dueDates[id]) {
+      return this.props.data.createUnitData.model.dueDates[id];
+    }
+  },
 
 	stage1SpecificComponents: function () {
 		return (<UnitStage1 toggleActivitySelection={this.props.actions.toggleActivitySelection}
