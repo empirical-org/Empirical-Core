@@ -68,6 +68,10 @@ class Classroom < ActiveRecord::Base
     c
   end
 
+  def archived_classrooms_manager
+    {createdDate: self.created_at.strftime("%m/%d/%Y"), className: self.name, id: self.id}
+  end
+
   def import_students!
     clever_students = clever_classroom.students
 
