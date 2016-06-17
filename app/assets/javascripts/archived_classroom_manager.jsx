@@ -15,7 +15,7 @@ EC.ArchivedClassroomsManager = React.createClass({
       basePath = '/students_classrooms';
       getClassroomsPath = basePath + "/classroom_manager_data";
     }
-    return {loading: true, classrooms: null, getClassroomsPath: getClassroomsPath};
+    return {loading: true, classrooms: null, basePath: basePath, getClassroomsPath: getClassroomsPath};
   },
 
   componentDidMount: function() {
@@ -36,7 +36,7 @@ EC.ArchivedClassroomsManager = React.createClass({
  classAction: function(status, id) {
    var that = this;
    var path = status == 'Archive' ? 'hide':'unhide';
-   path = "/students_classrooms/" + id + '/' + path;
+   path = this.state.basePath + '/' + id + '/' + path;
    $.post(path)
        .done(
          that.getClassrooms()
@@ -104,6 +104,18 @@ EC.ArchivedClassroomsManager = React.createClass({
     );
   },
 
+  joinOrAddClass: function(){
+    if (this.props.role === 'teacher') {
+      return(        <a href='/teachers/classrooms/new' className='btn button-green'>
+                Add a Class
+              </a>)
+    } else if (this.props.role === 'students') {
+      return(        <a href='/students_classrooms/add_classroom' className='btn button-green'>
+                Join a Class
+              </a>)
+    }
+  },
+
   stateSpecificComponents: function() {
     if (this.state.classrooms !== null) {
       return (
@@ -122,9 +134,7 @@ EC.ArchivedClassroomsManager = React.createClass({
   render: function() {
     return (
       <div id='archived_classrooms_manager'>
-        <a href='/students_classrooms/add_classroom' className='btn button-green'>
-          Join a Class
-        </a>
+        {this.joinOrAddClass()}
         {this.stateSpecificComponents()}
       </div>
     );
