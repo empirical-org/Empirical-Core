@@ -1,5 +1,5 @@
 'use strict';
-EC.modules.LessonPlannerState = function () {
+EC.modules.ActivityPlannerState = function () {
 
   this.updateCreateUnit = function (state, hash) {
     var newCU = _.extend({}, state.createUnit, hash)

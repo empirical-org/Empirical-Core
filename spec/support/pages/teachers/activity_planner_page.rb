@@ -2,9 +2,9 @@ require_relative '../page'
 require_relative './teachers'
 
 module Teachers
-  class LessonPlannerPage < Page
+  class ActivityPlannerPage < Page
     def self.path
-      "#{Teachers.classrooms_path}/lesson_planner"
+      "#{Teachers.classrooms_path}/activity_planner"
     end
 
 

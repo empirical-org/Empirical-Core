@@ -1,4 +1,4 @@
-class LessonPlanner < Hash
+class ActivityPlanner < Hash
   attr_reader :classroom
 
   def initialize classroom

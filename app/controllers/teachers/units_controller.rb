@@ -66,7 +66,7 @@ class Teachers::UnitsController < ApplicationController
 
   def edit
     unit = Unit.find(params[:id])
-    render json: LessonPlanner::UnitSerializer.new(unit, root: false)
+    render json: ActivityPlanner::UnitSerializer.new(unit, root: false)
   end
 
 

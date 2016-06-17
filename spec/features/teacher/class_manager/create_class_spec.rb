@@ -18,7 +18,7 @@ feature 'Create-a-Class page' do
         new_class = Classroom.last
         expect(new_class.code).to eq class_code
 
-        expect(current_path)                   .to eq lesson_planner_teachers_classrooms_path
+        expect(current_path)                   .to eq activity_planner_teachers_classrooms_path
       end
 
       it 'gives the teacher a checkbox for creating the classroom' do
@@ -35,7 +35,7 @@ feature 'Create-a-Class page' do
 
         new_class = Classroom.last
 
-        expect(current_path).to eq lesson_planner_teachers_classrooms_path
+        expect(current_path).to eq activity_planner_teachers_classrooms_path
       end
 
       it "does not add classrooms without a name and raises an error" do

@@ -14,8 +14,8 @@
         <%= link_to "Student Reports", scorebook_path(current_user), class: 'progress-reports-nav', role: 'tab' %>
       </li>
 
-      <li class="<%= controller_name == 'classroom_manager' && action_name == 'lesson_planner' ? 'active' : '' %>" >
-        <%= link_to "Activity Planner", lesson_planner_teachers_classrooms_path %>
+      <li class="<%= controller_name == 'classroom_manager' && action_name == 'activity_planner' ? 'active' : '' %>" >
+        <%= link_to "Activity Planner", activity_planner_teachers_classrooms_path %>
       </li>
 
       <%- unless ((current_user.premium_state == 'paid') || (current_user.premium_state == 'school')) %>

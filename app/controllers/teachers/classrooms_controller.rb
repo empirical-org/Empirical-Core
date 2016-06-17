@@ -28,7 +28,7 @@ class Teachers::ClassroomsController < ApplicationController
     if @classroom.valid?
       ClassroomCreationWorker.perform_async(@classroom.id)
       if current_user.students.empty?
-        redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: @classroom.grade)
+        redirect_to(controller: "teachers/classroom_manager", action: "activity_planner", tab: "exploreActivityPacks", grade: @classroom.grade)
       else
         redirect_to teachers_classroom_invite_students_path(@classroom)
       end

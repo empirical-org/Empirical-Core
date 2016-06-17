@@ -8,7 +8,7 @@ feature 'Create Unit', js: true do
   before do
     vcr_ignores_localhost
     sign_in_user teacher
-    visit('/teachers/classrooms/lesson_planner')
+    visit('/teachers/classrooms/activity_planner')
     page.find('a', text: 'Create').trigger(:click)
   end
 
