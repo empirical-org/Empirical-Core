@@ -116,6 +116,8 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms do
       collection do
         get :regenerate_code
+        get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
+        get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
