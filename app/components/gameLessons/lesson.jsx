@@ -77,7 +77,7 @@ const Lesson = React.createClass({
         )
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
-        return (<Finished data={this.props.playLesson} lessonID={this.props.params.lessonID}/>)
+        return (<Finished data={this.props.playLesson} lessonID={this.props.params.lessonID} activitySessionID={this.props.routing.locationBeforeTransitions.query.student}/>)
       }
       else {
         return (

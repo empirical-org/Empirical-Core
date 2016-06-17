@@ -21,7 +21,7 @@ import GameLesson from "./components/gameLessons/lesson.jsx";
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import findAndFix from './reducers/combined';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory, Redirect} from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import conceptActions from './actions/concepts'
@@ -45,6 +45,16 @@ const Passthrough = React.createClass({
   }
 })
 
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 render((
   <Provider store={store}>
     <Router history={history}>
@@ -52,8 +62,23 @@ render((
         <IndexRoute component={Welcome} />
         <Route path="play" component={Passthrough}>
           <IndexRoute component={Play} />
+          <Route path="game" component={Passthrough}>
+            <IndexRoute component={Passthrough}
+              onEnter={
+                (nextState, replaceWith) => {
+                  var lessonID = getParameterByName('uid');
+                  var studentID = getParameterByName('student');
+                  if(lessonID){
+                    document.location.href = document.location.origin + document.location.pathname + "#/play/game/" + lessonID + "?student=" + studentID;
+                  }
+                }
+              }
+            />
+            <Route path=":lessonID" component={GameLesson}/>
+          </Route>
           <Route path="lesson/:lessonID" component={StudentLesson}/>
-          <Route path="game/:lessonID" component={GameLesson}/>
+
+          <Redirect from="game/?student=:studentID&uid=:lessonID" to="/game/:lessonID" />
           <Route path="questions/:questionID" component={PlayQuestion}/>
         </Route>
         <Route path="lessons" component={Passthrough}>
