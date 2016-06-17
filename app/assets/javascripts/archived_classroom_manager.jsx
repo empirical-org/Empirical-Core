@@ -43,11 +43,18 @@ EC.ArchivedClassroomsManager = React.createClass({
        );
  },
 
+ manageClassroom: function(cl){
+   return <a href={this.state.basePath + '/' + cl.id + '/students'}>Manage Class</a>
+ },
+
  tableRows: function(cl){
    var rows;
    if (this.props.role === 'teacher') {
      rows = [<td>{cl.className}</td>,
-     <td>{cl.createdDate}</td>];
+              <td>{cl.classcode}</td>,
+              <td className='student-count'>{cl.studentCount}</td>,
+              <td className='created-date'>{cl.createdDate}</td>,
+                <td>{this.manageClassroom(cl)}</td>];
    } else if (this.props.role === 'student') {
      rows = [   <td>{cl.teacherName}</td>,
                <td>{cl.className}</td>,
@@ -61,7 +68,10 @@ EC.ArchivedClassroomsManager = React.createClass({
    if (this.props.role === 'teacher') {
      return ([
        <th>Class Name</th>,
-       <th>Date Created</th>,
+       <th>Classcode</th>,
+       <th className='student-count'>Student Count</th>,
+       <th className='created-date'>Date Created</th>,
+       <th>Manage Class</th>,
        <th></th>
      ]);
    } else if (this.props.role === 'student') {
@@ -106,24 +116,28 @@ EC.ArchivedClassroomsManager = React.createClass({
 
   joinOrAddClass: function(){
     if (this.props.role === 'teacher') {
-      return(        <a href='/teachers/classrooms/new' className='btn button-green'>
-                Add a Class
-              </a>)
+      return(<a href='/teachers/classrooms/new' className='btn button-green'>Add a Class</a>)
     } else if (this.props.role === 'students') {
-      return(        <a href='/students_classrooms/add_classroom' className='btn button-green'>
-                Join a Class
-              </a>)
+      return(<a href='/students_classrooms/add_classroom' className='btn button-green'>Join a Class</a>)
+    }
+  },
+
+  activeOrArchived: function(section, action){
+    var classes = this.state.classrooms[section];
+    var header = <h1>{section.charAt(0).toUpperCase() + section.slice(1) + ' Classes'}</h1>;
+    if (classes.length > 0) {
+      return(
+        [header, this.displayClassrooms(this.state.classrooms[section], action)]
+      );
     }
   },
 
   stateSpecificComponents: function() {
     if (this.state.classrooms !== null) {
       return (
-        <div>
-          <h1>Active Classes</h1>
-          {this.displayClassrooms(this.state.classrooms.active, "Archive")}
-          <h1>Archived Classes</h1>
-          {this.displayClassrooms(this.state.classrooms.inactive, "Unarchive")}
+        <div className={this.props.role}>
+          {this.activeOrArchived('active', 'Archive')}
+          {this.activeOrArchived('inactive', 'Unarchive')}
         </div>
       );
     } else {

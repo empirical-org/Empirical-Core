@@ -59,7 +59,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def unhide
-    #can't use param[:id] here or else rails magic looks up a classroom with that id
+    # can't use param[:id] here or else rails magic looks up a classroom with that id
     # kicks an active record error (because it is out of the default scope), and returns a 404
     classroom = Classroom.unscoped.find(params[:class_id])
     classroom.update(visible: true)
