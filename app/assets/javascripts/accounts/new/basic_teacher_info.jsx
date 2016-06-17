@@ -62,10 +62,9 @@ EC.BasicTeacherInfo = React.createClass({
                     </div>
                     <div className='row'>
                         <div className='col-xs-8'>
-                            <div className='text-align-center'>By signing up, you agree to our
-                                <a href='/tos'>terms of service</a>
-                                and
-                                <a href='/privacy'>privacy policy</a>.</div>
+                            <div className='text-align-center'>
+                              By signing up, you agree to our <a href='/tos' target='_blank'>terms of service</a> and <a href='/privacy' target='_blank'>privacy policy</a>.
+                            </div>
                         </div>
                     </div>
                 </div>
