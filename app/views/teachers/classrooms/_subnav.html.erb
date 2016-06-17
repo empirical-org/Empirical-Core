@@ -7,7 +7,6 @@
         <li><%= active_link_to 'Overview', dashboard_teachers_classrooms_path%></li>
 	      <li><%= link_to 'Invite Students', (teachers_classroom_invite_students_path(classroom_id: current_user.classrooms_i_teach.first)) %></li>
 	      <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: ((action_name == 'index') or (action_name == 'edit')) ? 'active' : '' %></li>
-	      <li><%= link_to 'Manage Archived Classes', manage_archived_classrooms_teachers_classrooms_path, class: ((action_name == 'index') or (action_name == 'edit')) ? 'active' : '' %></li>
 	  <% end %>
 	  <li><%= active_link_to 'Create a Class', new_teachers_classroom_path %></li>
     <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
