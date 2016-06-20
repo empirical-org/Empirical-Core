@@ -295,7 +295,7 @@ EC.TeacherAccount = React.createClass({
             </div>
             <div className='row'>
               <div className='form-label col-xs-2'>
-                Real Name
+                Name
               </div>
               <div className='col-xs-4'>
                 <input ref='name' onChange={this.updateName} value={this.state.name}/>

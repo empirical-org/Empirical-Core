@@ -8,10 +8,20 @@ EC.SelectSchool = React.createClass({
     errors: React.PropTypes.array
   },
 
+  getInitialState: function(){
+    return {editSchool: false}
+  },
+
   updateZip: function () {
     var zip = $(this.refs.zip.getDOMNode()).val();
     if (zip.length == 5) {
       this.props.requestSchools(zip);
+    }
+  },
+
+  stateSpecificComponents: function(){
+    if (this.state.editSchool) {
+      return (<div className='account-form'><EC.EducatorType analytics={new EC.AnalyticsWrapper()}/></div>);
     }
   },
 
@@ -30,6 +40,16 @@ EC.SelectSchool = React.createClass({
     schoolId = $(this.refs.select.getDOMNode()).val();
     schoolObject = _.findWhere(this.props.schoolOptions, {id: parseInt(schoolId)});
     this.props.updateSchool(schoolObject);
+  },
+
+  schoolName: function(){
+    if (this.props.selectedSchool && this.props.selectedSchool.text) {
+      return this.props.selectedSchool.text;
+    }
+  },
+
+  editSchool: function(){
+    this.setState({editSchool: true})
   },
 
   render: function () {
@@ -81,30 +101,28 @@ EC.SelectSchool = React.createClass({
       );
     } else {
       return (
-        <div className=' text-center'>
-          <div className='form-label'>
+        <div>
+        <div className='row '>
+          <div className='form-label col-xs-2'>
             School
           </div>
-          <div >
-             <input name='zip'
-                    id='zip'
-                    ref='zip'
-                    className='zip-input'
-                    onChange={this.updateZip}
-                    placeholder="Zip"/>
+          <div className='col-xs-3'>
+            <input
+                    className='inactive'
+                    value={this.schoolName()}>
+            </input>
           </div>
-          <div>
-            <select ref='select'
-                    id='select_school'
-                    value={initialValue}
-                    onChange={this.selectOption}>
-              {schoolOptions}
-            </select>
+          <div className='col-xs-3'>
+            <button className='button btn button-green' onClick={this.editSchool}>
+              Add/Edit School
+            </button>
           </div>
           <div className='error'>
             {this.props.errors}
           </div>
         </div>
+      {this.stateSpecificComponents()}
+      </div>
       );
     }
   }
