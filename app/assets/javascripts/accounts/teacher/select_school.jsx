@@ -19,10 +19,22 @@ EC.SelectSchool = React.createClass({
     }
   },
 
-  stateSpecificComponents: function(){
-    if (this.state.editSchool) {
-      return (<div className='account-form'><EC.EducatorType analytics={new EC.AnalyticsWrapper()}/></div>);
-    }
+  modal: function(){
+    return (
+      <div className="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div className='container'>
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                      <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i className="fa fa-close"></i></span></button>
+                  </div>
+                  <div className="modal-body csv-email-modal">
+                    <div className='account-form'><EC.EducatorType analytics={new EC.AnalyticsWrapper()} modal='true'/></div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>)
   },
 
   determineDefaultZip: function () {
@@ -50,6 +62,16 @@ EC.SelectSchool = React.createClass({
 
   editSchool: function(){
     this.setState({editSchool: true})
+  },
+
+  editschoolButton: function(){
+    var action = this.props.selectedSchool && this.props.selectedSchool.text ?
+                'Edit' : 'Add'
+    return(
+    <button type='button' className='button btn button-green' data-toggle="modal" data-target="#myModal">
+      {action + ' School'}
+    </button>
+    )
   },
 
   render: function () {
@@ -113,15 +135,13 @@ EC.SelectSchool = React.createClass({
             </input>
           </div>
           <div className='col-xs-3'>
-            <button className='button btn button-green' onClick={this.editSchool}>
-              Add/Edit School
-            </button>
+            {this.editschoolButton()}
           </div>
           <div className='error'>
             {this.props.errors}
           </div>
         </div>
-      {this.stateSpecificComponents()}
+        {this.modal()}
       </div>
       );
     }
