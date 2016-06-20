@@ -97,7 +97,15 @@ form.class-page {
   margin-bottom: 0em;
 }
 
-.class-page .delete-class a {
+.delete-class {
   color: #027360;
   line-height: 50.5px;
+  margin-top: 10px;
+}
+
+.edit_classroom {
+  label, select, input {
+    display: block !important;
+    margin-bottom: 10px;
+  }
 }

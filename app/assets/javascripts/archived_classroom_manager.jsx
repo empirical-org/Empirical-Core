@@ -44,7 +44,7 @@ EC.ArchivedClassroomsManager = React.createClass({
  },
 
  manageClassroom: function(cl){
-   return <a href={this.state.basePath + '/' + cl.id + '/students'}>Manage Class</a>
+   return <a className='manage-class' href={this.state.basePath + '/' + cl.id + '/students'}>Manage Class</a>
  },
 
  tableRows: function(cl){
