@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="170px" height="64px" viewBox="0 0 170 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 5</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="10.5" width="170" height="52.5"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="170" height="52.5" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Activity-Planner---Choose-an-Assignment" transform="translate(-916.000000, -319.000000)">
+            <g id="Group-5" transform="translate(916.000000, 320.000000)">
+                <use id="Rectangle-601" stroke="#CECECE" mask="url(#mask-2)" stroke-width="2" stroke-dasharray="8" fill="#F8F6F6" xlink:href="#path-1"></use>
+                <g id="Group-4" transform="translate(11.543210, 0.000000)">
+                    <polyline id="Path-2351" stroke="#82BF3C" stroke-width="1.5" fill="#FFFFFF" points="140.647732 31.4618584 140.647732 0 0 1.63503358e-14 2.55354991e-15 39.5864526 125.889436 39.5864526"></polyline>
+                    <polygon id="Shape" stroke="#707070" stroke-width="1.5" fill="#FFFFFF" points="144.666973 32.8390454 123.82716 27.3 129.662308 47.082305 133.83027 39.9606752 142.999788 48.6648894 146.334158 45.4997206 137.16464 36.7955064"></polygon>
+                    <text id="Misplaced-Modifiers" font-family="AdelleSans-SemiBold, Adelle Sans" font-size="12.5925926" font-weight="500" line-spacing="13" fill="#646464">
+                        <tspan x="12.5925926" y="26.55">Misplaced Modifiers</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
