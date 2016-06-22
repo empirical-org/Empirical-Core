@@ -236,6 +236,11 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/packs' => 'teachers/unit_templates#index'
   get 'activities/packs/:id' => 'teachers/unit_templates#show'
 
+
+  # Count route to get quantities
+  get 'count/featured_packs' => 'teachers/unit_templates#count'
+  get 'count/activities' => 'activities#count'
+
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
 
