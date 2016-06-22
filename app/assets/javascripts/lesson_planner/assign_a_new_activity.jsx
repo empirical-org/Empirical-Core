@@ -13,8 +13,30 @@ EC.AssignANewActivity = React.createClass({
     bodyText={'Find your students’ writing abilities through a 15 question diagnostic.'}
     directions={'use intermittently'}
     routeToGetQuantity={'...'}
-    unit = {'diagnostic'}
-    timeDuration={'~20 Min.'}/>]
+    unit = {{singular: 'Diagnostic', plural: 'Diagnostics'}}
+    timeDuration={'~20 Min.'}/>,
+
+    <EC.AssignmentTypeMini
+      title={'Featured Activity Packs'}
+        img={'....'}
+    bodyText={'Quickly assign packs of activities created by experienced educators.'}
+    directions={'use continuosly'}
+    routeToGetQuantity={'/count/featured_packs'}
+    unit = {{singular: 'Pack', plural: 'Packs'}}
+    timeDuration={'~1 Hour'}/>,
+
+    <EC.AssignmentTypeMini
+      title={'Custom Activity Packs'}
+        img={'....'}
+    bodyText={'Browse through our entire library of activities and create a custom sequence.'}
+    directions={'use continuously'}
+    routeToGetQuantity={'/count/activities'}
+    unit = {{singular: 'Activity', plural: 'Activities'}}
+    timeDuration={'~10 Min.'}/>,
+
+
+
+]
   )
 },
 
