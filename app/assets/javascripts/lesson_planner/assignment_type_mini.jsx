@@ -34,8 +34,8 @@ EC.AssignmentTypeMini = React.createClass({
             <img src={this.props.img} alt="assignment-type-image"/>
             <p className='overview'>{this.props.bodyText}</p>
             <div className='meta-info-wrapper'>
-                <span clasName='directions'>{this.props.directions}</span>
-                <br/> {this.state.count + ' ' + unit.plural + ' | ' + this.props.timeDuration + ' ' + 'per ' + unit.singular.charAt(0).toUpperCase() + unit.singular.slice(1)}
+                <span className='directions'>{this.props.directions}</span>
+                <br/> {this.state.count + ' ' + unit.plural + '  |  ' + this.props.timeDuration + ' ' + 'per ' + unit.singular.charAt(0).toUpperCase() + unit.singular.slice(1)}
             </div>
         </div>
     }
