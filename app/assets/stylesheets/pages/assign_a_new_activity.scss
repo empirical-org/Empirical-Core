@@ -1,0 +1,16 @@
+.assignment-type-mini {
+  width: 300px;
+  height: 270px;
+  background: #fff;
+  border: solid 1px #cecece;
+  padding: 10px;
+  &:hover {
+    border: solid 1.5px #00c2a2;
+  }
+  .meta-info-wrapper {
+     border-top: solid 1px #cecece;
+  }
+  .directions {
+    text-transform: uppercase;
+  }
+}
