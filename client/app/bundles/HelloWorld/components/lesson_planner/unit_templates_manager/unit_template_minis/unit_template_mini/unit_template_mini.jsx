@@ -3,6 +3,7 @@
  import React from 'react'
  import UnitTemplateFirstRow from './unit_template_first_row'
  import UnitTemplateSecondRow from './unit_template_second_row'
+ import String from '../../../../modules/string.jsx'
 
  export default  React.createClass({
   propTypes: {
@@ -12,7 +13,7 @@
 
   getInitialState: function () {
     this.modules = {
-      string: new EC.modules.String()
+      string: new String()
     }
     return {};
   },

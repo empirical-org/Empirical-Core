@@ -1,4 +1,7 @@
-EC.modules.String = function () {
+'use strict'
+
+
+ export default  function () {
 
   this.sayNumberOfThings = function (number, singular, plural) {
     var value;
