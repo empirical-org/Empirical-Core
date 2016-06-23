@@ -85,7 +85,8 @@
   listFilterOptions: function () {
     if (this.props.data.grade) {
       return
-    } else {
+    }
+    else {
       return (
           <div className='list-filter-options-container'>
             <ListFilterOptions

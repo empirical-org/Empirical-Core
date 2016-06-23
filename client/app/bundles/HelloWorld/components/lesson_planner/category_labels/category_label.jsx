@@ -6,8 +6,8 @@
 
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    extraClassName: React.PropTypes.string.isRequired,
-    filterByCategory: React.PropTypes.func.isRequired
+    filterByCategory: React.PropTypes.func.isRequired,
+    extraClassName: React.PropTypes.string
   },
 
   filterByCategory: function (e) {

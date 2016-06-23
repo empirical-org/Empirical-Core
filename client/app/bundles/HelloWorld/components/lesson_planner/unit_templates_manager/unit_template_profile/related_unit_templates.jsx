@@ -8,7 +8,7 @@
   propTypes: {
     models: React.PropTypes.array.isRequired,
     actions: React.PropTypes.object.isRequired,
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.number.isRequired
   },
 
   miniView: function(model, index) {

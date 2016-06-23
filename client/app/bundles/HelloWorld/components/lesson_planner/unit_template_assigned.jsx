@@ -23,7 +23,7 @@
   teacherSpecificComponents: function() {
     this.hideSubNavBars();
     var proceedButton;
-    if (this.props.actions.studentsPresent() === true) {
+    if (this.props.actions.studentsPresent === true) {
       proceedButton = (
         <span>
             <a href = '/teachers/classrooms/lesson_planner'>

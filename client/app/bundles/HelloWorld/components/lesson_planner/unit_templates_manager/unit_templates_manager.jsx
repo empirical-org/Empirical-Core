@@ -10,11 +10,12 @@
     actions: React.PropTypes.object.isRequired
   },
 
+
   stageSpecificComponents: function () {
-    var component;
     if (this.props.data.stage === 'index') {
       return <UnitTemplateMinis data={this.props.data} actions={this.props.actions} />
-    } else {
+    }
+    else {
       return <UnitTemplateProfile data={this.props.data} actions={this.props.actions} />
     }
   },

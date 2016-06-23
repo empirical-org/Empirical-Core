@@ -2,7 +2,7 @@
 
  import React from 'react'
  import _ from 'underscore'
- import ListFilterOption from './list_filter_options'
+ import ListFilterOption from './list_filter_option'
 
 
  export default  React.createClass({
@@ -15,8 +15,8 @@
   sortViews: function (views) {
     var order = ["All", "Elementary", "Middle", "High", "University", "ELL", "Themed"];
     return _.compact(_.map(order, function(option) {
-      return _.findWhere(views, {name: option})
-    }))
+      return _.findWhere(views, {name: option});
+    }));
   },
 
   generateViews: function () {
@@ -24,8 +24,10 @@
       id: null,
       name: 'All'
     };
-    var options = this.sortViews([allOption].concat(this.props.options));
-    var arr =_.map(options, this.generateView, this);
+    var options = this.props.options ? [allOption].concat(this.props.options) : [allOption];
+    var sortedOptions = this.sortViews(options);
+    // var options = this.sortViews([allOption].concat(this.props.options));
+    var arr =_.map(sortedOptions, this.generateView, this);
     return arr;
   },
 

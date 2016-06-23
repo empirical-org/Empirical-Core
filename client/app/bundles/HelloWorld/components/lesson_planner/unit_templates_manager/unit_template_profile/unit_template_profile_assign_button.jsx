@@ -17,6 +17,7 @@
     } else if (!this.props.data.firstAssignButtonClicked && ($(".tab-pane").data().students === false)) {
       return <button className='button-green full-width' onClick={this.props.actions.fastAssign}>Assign to Your Class</button>
     } else {
+      debugger;
       return (<span>
         <button className='button-green full-width' onClick={this.props.actions.fastAssign}>Assign to All Students</button>
         <button className='button-green full-width' onClick={this.props.actions.customAssign}>Customize Students and Due Dates</button>
