@@ -4,7 +4,7 @@
  import UnitTemplateProfileHeader from './unit_template_profile_header'
  import UnitTemplateProfileDescription from './unit_template_profile_description'
  import UnitTemplateProfileAssignButton from './unit_template_profile_assign_button'
- import UnitTemplateProfileShareButton from './unit_template_profile_share_buttons'
+ import UnitTemplateProfileShareButtons from './unit_template_profile_share_buttons'
  import UnitTemplateProfileStandards from './unit_template_profile_standards'
  import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table'
  import RelatedUnitTemplates from './related_unit_templates'
