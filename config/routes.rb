@@ -70,6 +70,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   get :porthole_proxy, to: 'porthole_proxy#index'
 
+  post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
+
   namespace :teachers do
 
     resources :units, as: 'units_path' # moved from within classroom, since units are now cross-classroom
@@ -116,6 +118,8 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms do
       collection do
         get :regenerate_code
+        get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
+        get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
@@ -133,8 +137,10 @@ EmpiricalGrammar::Application.routes.draw do
 
       member do
         get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
-        put :hide
+        post :hide
       end
+      #this can't go in with member because the id is outside of the default scope
+
 
       resources :activities, controller: 'classroom_activities'
 
