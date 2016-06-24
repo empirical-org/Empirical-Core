@@ -10,8 +10,13 @@ EC.EducatorType = React.createClass({
     this.setState({stage: num});
   },
 
-  goToProfile: function () {
-    window.location = '/profile';
+  finish: function () {
+    if (this.props.modal) {
+      // refresh teacher account page;
+      window.location = '/teachers/my_account';
+    } else {
+      window.location = '/profile';
+    }
   },
 
 
@@ -23,9 +28,10 @@ EC.EducatorType = React.createClass({
       data: {
         school_id_or_type: school_id_or_type
       },
-      success: this.goToProfile
+      success: this.finish
     });
   },
+
 
 
 
@@ -46,7 +52,7 @@ EC.EducatorType = React.createClass({
       );
     } else if (this.state.stage === 2) {
       return (
-        <EC.UsK12View analytics={this.props.analytics} goToProfile={this.goToProfile} selectSchool={this.selectSchool}/>
+        <EC.UsK12View analytics={this.props.analytics} finish={this.finish} selectSchool={this.selectSchool} />
       );
     } else if (this.state.stage === 3) {
       return (
