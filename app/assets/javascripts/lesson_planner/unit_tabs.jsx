@@ -22,8 +22,9 @@ EC.UnitTabs = React.createClass({
 				<div className="container">
 					<ul>
 						<li onClick={this.select('manageUnits')}><a className={classes.manageUnits}>My Activity Packs</a></li>
-						<li onClick={this.select('exploreActivityPacks')}><a className={classes.exploreActivityPacks}>Featured Activity Packs</a></li>
-						<li onClick={this.select('createUnit')}><a className={classes.createUnit}>Create an Activity Pack</a></li>
+						<li onClick={this.select('assignANewActivity')}><a className={classes.assignANewActivity}>Assign A New Activity</a></li>
+						{/*<li onClick={this.select('exploreActivityPacks')}><a className={classes.exploreActivityPacks}>Featured Activity Packs</a></li>*/}
+						{/*<li onClick={this.select('createUnit')}><a className={classes.createUnit}>Create an Activity Pack</a></li>*/}
 					</ul>
 				</div>
 			</div>
@@ -32,5 +33,3 @@ EC.UnitTabs = React.createClass({
 
 
 });
-
-
