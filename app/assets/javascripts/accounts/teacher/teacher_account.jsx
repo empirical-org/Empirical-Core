@@ -295,7 +295,7 @@ EC.TeacherAccount = React.createClass({
             </div>
             <div className='row'>
               <div className='form-label col-xs-2'>
-                Real Name
+                Name
               </div>
               <div className='col-xs-4'>
                 <input ref='name' onChange={this.updateName} value={this.state.name}/>
@@ -342,16 +342,6 @@ EC.TeacherAccount = React.createClass({
             </div>
             <EC.SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
 
-            <div className='row school-checkbox'>
-              <div className='form-label col-xs-2'>
-              </div>
-              <div className='col-xs-1 no-pr'>
-                <input ref='schoolOptionsDoNotApply' onChange={this.updateSchoolOptionsDoNotApply} type='checkbox' checked={this.determineIfSchoolOptionsDoNotApplyShouldBeChecked()}/>
-              </div>
-              <div className='col-xs-6 no-pl form-label checkbox-label'>
-                My school is not listed.
-              </div>
-            </div>
 
             {subscription}
 
