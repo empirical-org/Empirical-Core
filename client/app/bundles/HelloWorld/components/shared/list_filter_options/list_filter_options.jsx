@@ -9,7 +9,6 @@
   propTypes: {
     options: React.PropTypes.array.isRequired,
     select: React.PropTypes.func.isRequired,
-    //selectedId: null | number
   },
 
   sortViews: function (views) {

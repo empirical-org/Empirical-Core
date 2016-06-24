@@ -216,6 +216,7 @@
 	},
 
   fetchClassrooms: function() {
+    console.log('fetchClassrooms')
     var that = this;
     $.ajax({
       url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
@@ -328,7 +329,6 @@
 		} else if (this.state.tab == 'manageUnits') {
 			tabSpecificComponents = <ManageUnits actions={{toggleTab: this.toggleTab, editUnit: this.editUnit}} />;
 		} else if (this.state.tab == 'exploreActivityPacks') {
-      console.log("data",  this.state.unitTemplatesManager)
 			tabSpecificComponents = <UnitTemplatesManager
 																		data={this.state.unitTemplatesManager}
 																		actions={this.unitTemplatesManagerActions()}/>;
