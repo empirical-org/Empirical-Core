@@ -56,13 +56,18 @@
 
 
   render: function() {
-    var classroomList = this.props.classrooms.map(function(entry) {
-      return <Classroom classroom={entry.classroom}
-                           students={entry.students}
-                           allSelected={entry.allSelected}
-                           toggleClassroomSelection={this.props.toggleClassroomSelection}
-                           toggleStudentSelection={this.props.toggleStudentSelection} />;
-    }, this);
+    var classroomList;
+    if (this.props.classrooms) {
+      classroomList = this.props.classrooms.map(function(entry) {
+        return <Classroom classroom={entry.classroom}
+                             students={entry.students}
+                             allSelected={entry.allSelected}
+                             toggleClassroomSelection={this.props.toggleClassroomSelection}
+                             toggleStudentSelection={this.props.toggleStudentSelection} />;
+      }, this);
+    } else {
+      classroomList = []
+    }
 
     var dueDateList = this.props.selectedActivities.map(function(activity) {
       return <ActivityDueDate activity={activity}

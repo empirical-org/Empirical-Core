@@ -37,7 +37,12 @@
 	},
 
 	getClassrooms: function () {
-		return this.props.data.createUnitData.options.classrooms;
+    if (this.props.data.createUnitData.options) {
+      return this.props.data.createUnitData.options.classrooms || [];
+    } else {
+      return undefined
+    }
+
 	},
 
 	getUnitName: function () {
@@ -50,6 +55,9 @@
 
 	toggleClassroomSelection: function(classroom, flag) {
 		var classrooms = this.getClassrooms();
+    if (!classrooms) {
+      return;
+    }
 		var updated = _.map(classrooms, function (c) {
 			if (c.classroom.id == classroom.id) {
 				if (c.students.length == 0) {

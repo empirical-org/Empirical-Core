@@ -90,7 +90,7 @@
       return (
           <div className='list-filter-options-container'>
             <ListFilterOptions
-                    options={this.props.data.categories}
+                    options={this.props.data.categories || []}
                     selectedId={this.props.data.selectedCategoryId}
                     select={this.props.actions.filterByCategory} />
           </div>
