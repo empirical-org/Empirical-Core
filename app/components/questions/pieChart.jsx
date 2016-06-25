@@ -36,6 +36,14 @@ export default React.createClass ({
             </div>
           ))
         }
+        {
+          this.props.total ?
+            <div>
+              <span style={{marginRight: '28px'}}></span>
+              <span>Total: {this.props.total}</span>
+            </div>
+          : ''
+        }
           <a href="https://github.com/empirical-org/Quill-Connect/blob/master/app/libs/README.md">How our marking works</a>
         </div>
       </div>
