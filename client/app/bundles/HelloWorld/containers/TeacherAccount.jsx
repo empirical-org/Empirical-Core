@@ -1,5 +1,3 @@
-'use strict';
-
 // TODO: delete this once we have the admin version running
 // $(function () {
 //   var ele1, ele2, props, ele
@@ -24,7 +22,11 @@
 // });
 
 'use strict'
-import React from 'react'
+import React from 'react';
+import SelectRole from '../components/accounts/edit/select_role';
+import SelectSubscription from '../components/accounts/subscriptions/select_subscription';
+import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
+import SelectSchool from '../components/accounts/school/select_school';
 
 export default React.createClass({
     propTypes: {
@@ -288,11 +290,11 @@ export default React.createClass({
         var selectRole,
             subscription;
         if (this.props.userType == 'staff') {
-            selectRole = <EC.SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
-            subscription = <EC.SelectSubscription subscription={this.state.subscription} subscriptionType={this.state.subscriptionType} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState}/>
+            selectRole = <SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
+            subscription = <SelectSubscription subscription={this.state.subscription} subscriptionType={this.state.subscriptionType} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState}/>
         } else {
             selectRole = null;
-            subscription = <EC.StaticDisplaySubscription subscriptionType={this.state.subscriptionType} subscription={this.state.subscription}/>
+            subscription = <StaticDisplaySubscription subscriptionType={this.state.subscriptionType} subscription={this.state.subscription}/>
         }
         return (
             <div className='container'>
@@ -350,7 +352,7 @@ export default React.createClass({
                                 {this.state.errors.password}
                             </div>
                         </div>
-                        <EC.SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool}/>
+                        <SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool}/>
 
                         <div className='row school-checkbox'>
                             <div className='form-label col-xs-2'></div>
@@ -382,4 +384,5 @@ export default React.createClass({
                 </div>
             </div>
         );
-    })}
+    }
+  });

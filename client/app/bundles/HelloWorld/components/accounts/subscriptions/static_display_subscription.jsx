@@ -1,14 +1,17 @@
 'use strict';
-EC.StaticDisplaySubscription = React.createClass({
+
+import React from 'react';
+
+export default React.createClass({
   propTypes: {
     subscription: React.PropTypes.object.isRequired,
     subscriptionType: React.PropTypes.string.isRequired
   },
   transformDate: function (string) {
     var year, month, day, newString;
-    year = string.slice(0,4)
-    month = string.slice(5,7)
-    day = string.slice(8,10)
+    year = string.slice(0,4);
+    month = string.slice(5,7);
+    day = string.slice(8,10);
     newString = month + "/" + day + "/" + year;
     return newString;
   },

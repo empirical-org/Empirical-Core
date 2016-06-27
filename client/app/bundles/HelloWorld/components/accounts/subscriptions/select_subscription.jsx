@@ -1,5 +1,11 @@
 'use strict';
-EC.SelectSubscription = React.createClass({
+'use strict';
+
+import React from 'react';
+import _ from 'underscore';
+import $ from 'jquery';
+
+export default React.createClass({
   propTypes: {
     subscription: React.PropTypes.object.isRequired,
     updateSubscriptionState: React.PropTypes.func.isRequired,

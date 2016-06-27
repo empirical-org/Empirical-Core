@@ -1,6 +1,9 @@
 'use strict'
-
-EC.EducatorType = React.createClass({
+import React from 'react'
+import $ from 'jquery'
+import UsK12View from '../school/us_k12_view'
+import NotUsK12View from '../school/us_k12_view'
+export default React.createClass({
 
   getInitialState: function() {
     return ({stage: 1});
@@ -52,11 +55,11 @@ EC.EducatorType = React.createClass({
       );
     } else if (this.state.stage === 2) {
       return (
-        <EC.UsK12View analytics={this.props.analytics} finish={this.finish} selectSchool={this.selectSchool} />
+        <UsK12View analytics={this.props.analytics} finish={this.finish} selectSchool={this.selectSchool} />
       );
     } else if (this.state.stage === 3) {
       return (
-        <EC.notUSK12View analytics={this.props.analytics} selectSchool={this.selectSchool}/>
+        <NotUSK12View analytics={this.props.analytics} selectSchool={this.selectSchool}/>
       )
     }
   },
