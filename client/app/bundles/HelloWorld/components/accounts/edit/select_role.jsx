@@ -1,5 +1,10 @@
 'use strict';
-EC.SelectRole = React.createClass({
+
+import React from 'react';
+import _ from 'underscore';
+import $ from 'jquery';
+
+export default React.createClass({
   propTypes: {
     role: React.PropTypes.string.isRequired,
     updateRole: React.PropTypes.func.isRequired

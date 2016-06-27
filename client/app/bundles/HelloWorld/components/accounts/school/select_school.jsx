@@ -1,5 +1,11 @@
 'use strict';
-EC.SelectSchool = React.createClass({
+import React from 'react'
+import $ from 'jquery'
+import _ from 'underscore'
+import EducatorType from '../new/educator_type';
+import AnalyticsWrapper from '../../shared/analytics_wrapper'
+
+export default React.createClass({
   propTypes: {
     updateSchool: React.PropTypes.func.isRequired,
     requestSchools: React.PropTypes.func.isRequired,
@@ -29,7 +35,7 @@ EC.SelectSchool = React.createClass({
                       <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i className="fa fa-close"></i></span></button>
                   </div>
                   <div className="modal-body csv-email-modal">
-                    <div className='account-form'><EC.EducatorType analytics={new EC.AnalyticsWrapper()} modal='true'/></div>
+                    <div className='account-form'><EducatorType analytics={new AnalyticsWrapper()} modal='true'/></div>
                   </div>
                 </div>
               </div>

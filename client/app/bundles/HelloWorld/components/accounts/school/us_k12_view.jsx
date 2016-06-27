@@ -1,6 +1,9 @@
 'use strict'
 
-EC.UsK12View = React.createClass({
+import React from 'react'
+import $ from 'jquery'
+
+export default React.createClass({
 
   getInitialState: function () {
     this.props.analytics.track('for google analytics teacher signed up');

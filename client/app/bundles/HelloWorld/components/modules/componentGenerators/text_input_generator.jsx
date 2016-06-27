@@ -1,5 +1,9 @@
 'use strict';
-EC.modules.TextInputGenerator = function (component, update, options) {
+import React from 'react'
+import _ from 'underscore'
+import TextInput from '../../general_components/text_input'
+
+export default function (component, update, options) {
 
   var config = {
     errors: [],
@@ -20,7 +24,7 @@ EC.modules.TextInputGenerator = function (component, update, options) {
         default1 = null;
       }
 
-      return <EC.TextInput key={ele.name}
+      return <TextInput key={ele.name}
                            update={config.update}
                            name={ele.name}
                            label={ele.label}

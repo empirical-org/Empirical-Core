@@ -1,5 +1,10 @@
 'use strict';
-EC.TextInput = React.createClass({
+
+import React from 'react'
+import $ from 'jquery'
+import _ from 'underscore'
+
+export default React.createClass({
   propTypes: {
     update: React.PropTypes.func.isRequired,
     name: React.PropTypes.string.isRequired,

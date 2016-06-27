@@ -1,15 +1,26 @@
 'use strict';
+import React from 'react'
+import $ from 'jquery'
+import AnalyticsWrapper from '../../shared/analytics_wrapper'
+import NewAccountStage1 from './new_account_stage1'
+import NewStudent from './new_student'
+import NewAccount from '/new_teacher'
+
+
+
 $(function () {
   var ele = $('#sign-up');
   if (ele.length) {
     var teacherFromGoogleSignUp = ele.data('teacher-from-google-sign-up');
     var props = {teacherFromGoogleSignUp: teacherFromGoogleSignUp,
-                 analytics: new EC.AnalyticsWrapper()};
+                 analytics: new AnalyticsWrapper()};
     React.render(React.createElement(EC.NewAccount, props), ele[0]);
   }
 });
 
-EC.NewAccount = React.createClass({
+
+
+export default React.createClass({
   propTypes: {
     analytics: React.PropTypes.object.isRequired
   },
@@ -144,15 +155,15 @@ EC.NewAccount = React.createClass({
     var view;
     this.initializeTextInputGenerator();
     if (this.state.stage === 1) {
-      view = <EC.NewAccountStage1 selectRole={this.selectRole} />;
+      view = <NewAccountStage1 selectRole={this.selectRole} />;
     } else if (this.state.stage === 2) {
       if (this.state.role === 'student') {
-        view = <EC.NewStudent textInputGenerator={this.modules.textInputGenerator}
+        view = <NewStudent textInputGenerator={this.modules.textInputGenerator}
                               update={this.update}
                               signUp={this.signUp}
                               errors={this.state.errors}/>;
       } else {
-        view = <EC.NewTeacher textInputGenerator={this.modules.textInputGenerator}
+        view = <NewTeacher textInputGenerator={this.modules.textInputGenerator}
                               sendNewsletter={this.state.sendNewsletter}
                               stage={this.state.teacherStage}
                               update={this.update}
