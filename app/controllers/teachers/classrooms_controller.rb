@@ -52,8 +52,21 @@ class Teachers::ClassroomsController < ApplicationController
     classroom = Classroom.find(params[:id])
     classroom.visible = false #
     classroom.save(validate: false)
-    redirect_to teachers_classrooms_path
+    respond_to do |format|
+      format.html{redirect_to teachers_classrooms_path}
+      format.json{render json: classroom}
+    end
   end
+
+  def unhide
+    # can't use param[:id] here or else rails magic looks up a classroom with that id
+    # kicks an active record error (because it is out of the default scope), and returns a 404
+    classroom = Classroom.unscoped.find(params[:class_id])
+    classroom.update(visible: true)
+    render json: classroom
+  end
+
+
 
 private
 

@@ -1,5 +1,6 @@
-#students_classrooms_manager {
-  max-width: 950px;
+#archived_classrooms_manager {
+  max-width: 990px;
+  padding: 20px;
   margin: 0 auto;
   .btn {
     margin-top: 30px;
@@ -22,17 +23,28 @@
     border: solid 1px #cecece;
     background-color: white;
     font-size: 14px;
+    margin-bottom: 30px;
     thead {
       background-color: #e6e6e6;
     }
     td {
       width: 30%;
     }
-    tr td:last-of-type {
+    tr td:last-of-type, .manage-class {
       text-align: right;
       color: #027360;
       cursor: pointer;
       padding-right: 13px;
+    }
+  }
+  .teacher {
+    td {
+      width: 18%;
+    }
+    @media (max-width: 900px) {
+      .student-count, .created-date {
+        display: none;
+      }
     }
   }
 }

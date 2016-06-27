@@ -28,7 +28,7 @@ EC.UsK12View = React.createClass({
 
   skipSelectSchool: function () {
     this.props.analytics.track('skip select school');
-    this.props.goToProfile();
+    this.props.finish();
   },
 
   submitSchool: function(){

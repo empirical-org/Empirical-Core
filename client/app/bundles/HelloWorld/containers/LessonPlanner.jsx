@@ -332,7 +332,9 @@
 			tabSpecificComponents = <UnitTemplatesManager
 																		data={this.state.unitTemplatesManager}
 																		actions={this.unitTemplatesManagerActions()}/>;
-		}
+    } else if (this.state.tab === 'assignANewActivity') {
+			tabSpecificComponents = <EC.AssignANewActivity toggleTab={this.toggleTab}/>;
+																}
 
 		return (
 			<span>

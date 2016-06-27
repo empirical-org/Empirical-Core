@@ -1,0 +1,8 @@
+<%= render partial: 'teachers/shared/scorebook_tabs' %>
+<%= render partial: 'teachers/classrooms/subnav' %>
+
+
+<%= react_component('LessonPlannerApp', props: {grade: @grade.to_s, tab: @tab.to_s, classroomName: @last_classroom_name, classroomId: @last_classroom_id.to_s, students: @students.to_s})%>
+<%= react_component('TeacherAccountApp', props: {userType: 'teacher'})%>
+
+#my-account

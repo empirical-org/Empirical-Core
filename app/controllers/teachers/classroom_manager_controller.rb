@@ -42,6 +42,24 @@ class Teachers::ClassroomManagerController < ApplicationController
     @classrooms = current_user.classrooms_i_teach
   end
 
+  def manage_archived_classrooms
+    render "student_teacher_shared/archived_classroom_manager"
+  end
+
+  def archived_classroom_manager_data
+    begin
+    active = current_user.classrooms_i_teach
+      .map(&:archived_classrooms_manager)
+    inactive = Classroom.unscoped
+      .where(teacher_id: current_user.id, visible: false)
+      .map(&:archived_classrooms_manager)
+    rescue NoMethodError => exception
+      render json: {error: "No classrooms yet!"}, status: 400
+    else
+      render json: {active: active, inactive: inactive}
+    end
+  end
+
   def scorebook
     cr_id = params[:classroom_id] ? params[:classroom_id] : current_user.classrooms_i_teach.last.id
     classroom = Classroom.find(cr_id)
