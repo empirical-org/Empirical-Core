@@ -25,7 +25,11 @@ class ProfilesController < ApplicationController
         render 'student'
       end
     else
-      render 'students_classrooms/add_classroom'
+      if is_json
+        render json: {error: 'Current user has no classrooms'}
+      else
+        render 'students_classrooms/add_classroom'
+      end
     end
   end
 

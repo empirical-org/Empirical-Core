@@ -8,11 +8,33 @@ EC.SelectSchool = React.createClass({
     errors: React.PropTypes.array
   },
 
+  getInitialState: function(){
+    return {editSchool: false}
+  },
+
   updateZip: function () {
     var zip = $(this.refs.zip.getDOMNode()).val();
     if (zip.length == 5) {
       this.props.requestSchools(zip);
     }
+  },
+
+  modal: function(){
+    return (
+      <div className="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div className='container'>
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                      <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i className="fa fa-close"></i></span></button>
+                  </div>
+                  <div className="modal-body csv-email-modal">
+                    <div className='account-form'><EC.EducatorType analytics={new EC.AnalyticsWrapper()} modal='true'/></div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>)
   },
 
   determineDefaultZip: function () {
@@ -30,6 +52,26 @@ EC.SelectSchool = React.createClass({
     schoolId = $(this.refs.select.getDOMNode()).val();
     schoolObject = _.findWhere(this.props.schoolOptions, {id: parseInt(schoolId)});
     this.props.updateSchool(schoolObject);
+  },
+
+  schoolName: function(){
+    if (this.props.selectedSchool && this.props.selectedSchool.text) {
+      return this.props.selectedSchool.text;
+    }
+  },
+
+  editSchool: function(){
+    this.setState({editSchool: true})
+  },
+
+  editschoolButton: function(){
+    var action = this.props.selectedSchool && this.props.selectedSchool.text ?
+                'Edit' : 'Add'
+    return(
+    <button type='button' className='button btn button-green' data-toggle="modal" data-target="#myModal">
+      {action + ' School'}
+    </button>
+    )
   },
 
   render: function () {
@@ -81,30 +123,26 @@ EC.SelectSchool = React.createClass({
       );
     } else {
       return (
-        <div className=' text-center'>
-          <div className='form-label'>
+        <div>
+        <div className='row '>
+          <div className='form-label col-xs-2'>
             School
           </div>
-          <div >
-             <input name='zip'
-                    id='zip'
-                    ref='zip'
-                    className='zip-input'
-                    onChange={this.updateZip}
-                    placeholder="Zip"/>
+          <div className='col-xs-3'>
+            <input
+                    className='inactive'
+                    value={this.schoolName()}>
+            </input>
           </div>
-          <div>
-            <select ref='select'
-                    id='select_school'
-                    value={initialValue}
-                    onChange={this.selectOption}>
-              {schoolOptions}
-            </select>
+          <div className='col-xs-3'>
+            {this.editschoolButton()}
           </div>
           <div className='error'>
             {this.props.errors}
           </div>
         </div>
+        {this.modal()}
+      </div>
       );
     }
   }
