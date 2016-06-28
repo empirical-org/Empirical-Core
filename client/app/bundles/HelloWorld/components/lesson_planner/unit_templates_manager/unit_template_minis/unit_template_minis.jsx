@@ -6,10 +6,6 @@
  import UnitTemplateMinisHeader from './unit_template_minis_header'
  import RowsCreator from '../../../modules/rows_creator'
 
- // client/app/bundles/HelloWorld/components/lesson_planner/unit_templates_manager/unit_template_minis/unit_template_minis.jsx
- // ../../../
-    // client/app/bundles/HelloWorld/components/modules/rows_creator.jsx
-
 
  export default  React.createClass({
   propTypes: {

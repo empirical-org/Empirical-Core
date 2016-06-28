@@ -12,7 +12,7 @@
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,
     isEnoughInputProvidedToContinue: React.PropTypes.bool.isRequired,
-    errorMessage: React.PropTypes.string.isRequired,
+    errorMessage: React.PropTypes.string,
     clickContinue: React.PropTypes.func.isRequired
   },
 

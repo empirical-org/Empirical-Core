@@ -8,9 +8,9 @@
     "npm": "3.9.5"
   },
   "cacheDirectories": [
-  "node_modules",
-  "client/node_modules"
-],
+    "node_modules",
+    "client/node_modules"
+  ],
   "scripts": {
     "postinstall": "cd ./client && npm install",
     "gulp": "cd ./client && npm run gulp",
@@ -45,6 +45,9 @@
     "babel-eslint": "^5.0.0-beta6",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^3.1.0",
-    "eslint-config-shakacode": "0.0.1"
+    "eslint-config-shakacode": "0.0.1",
+    "react": "^15.1.0",
+    "react-bootstrap": "^0.29.5",
+    "react-dom": "^15.1.0"
   }
 }
