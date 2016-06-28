@@ -9,6 +9,7 @@
  export default React.createClass({
 
   componentDidMount: function(){
+      console.log(this.props.toggleStudentSelection)
   		$('body').scrollTop(0)
   },
 
@@ -60,7 +61,7 @@
 
   render: function() {
     var studentList = this.props.students.map(function(student) {
-      return <Student student={student} classroom={this.props.classroom} />;
+      return <Student student={student} classroom={this.props.classroom} toggleStudentSelection={this.props.toggleStudentSelection}/>;
     }, this);
 
     return (
