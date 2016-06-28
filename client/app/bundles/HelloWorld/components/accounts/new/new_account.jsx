@@ -7,6 +7,7 @@ import NewStudent from './new_student'
 import NewAccount from './new_account'
 import NewTeacher from './new_teacher'
 import TextInputGenerator from '../../modules/componentGenerators/text_input_generator'
+import _ from 'lodash'
 
 
 
@@ -74,7 +75,7 @@ export default React.createClass({
 
   update: function (hash) {
     var state = this.state;
-    state = _.merge(state, hash)
+    state = _.merge(state, hash);
     this.setState(state);
   },
 
@@ -109,11 +110,13 @@ export default React.createClass({
 
   determineNameInput: function () {
     var name;
+    var that = this;
     name = _.reduce([this.state.first_name, this.state.last_name], function (memo, current) {
       var nextMemo;
-      if (!this.existy(memo)) {
+      debugger;
+      if (!that.existy(memo)) {
         nextMemo = current;
-      } else if (!this.existy(current)) {
+      } else if (!that.existy(current)) {
         nextMemo = memo;
       } else {
         nextMemo = memo + ' ' + current;
@@ -160,6 +163,6 @@ export default React.createClass({
                               analytics={this.state.analytics}/>;
       }
     }
-    return view;
+    return <div className='container account-form' id='sign-up'>{view}</div>;
   }
 });
