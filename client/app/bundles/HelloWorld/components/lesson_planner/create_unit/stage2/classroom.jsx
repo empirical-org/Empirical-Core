@@ -3,11 +3,17 @@
  import React from 'react'
  import $ from 'jquery'
  import Student from './student'
+ import Button from 'react-bootstrap/lib/Button';
+ import Panel from 'react-bootstrap/lib/Panel';
 
  export default React.createClass({
 
   componentDidMount: function(){
   		$('body').scrollTop(0)
+  },
+
+  getInitialState: function(){
+    return {open: false}
   },
 
 
@@ -17,8 +23,8 @@
   },
 
   toggleClassroomCollapse: function(e) {
-    $(e.target.parentElement).toggleClass('collapsed'); // .parent here is a hack
-    $(this.refs.studentList.getDOMNode()).collapse('toggle');
+    this.setState({ open: !this.state.open });
+    console.log(this.state.open);
   },
 
   determineCheckbox: function () {
@@ -48,9 +54,13 @@
     }
   },
 
+  angleIcon: function(){
+    return this.state.open === true ? 'up' : 'down';
+  },
+
   render: function() {
     var studentList = this.props.students.map(function(student) {
-      return <Student student={student} classroom={this.props.classroom} toggleStudentSelection={this.props.toggleStudentSelection} />;
+      return <Student student={student} classroom={this.props.classroom} />;
     }, this);
 
     return (
@@ -61,11 +71,11 @@
               <span>
                 Select Entire Class
               </span>
-              <a data-toggle="collapse" className="collapsed" onClick={this.toggleClassroomCollapse}>
-                <span className="pull-right panel-select-by-student ph-caret-toggle">
-                  Select by Student
+              <Button className='toggle-button pull-right' onClick={ ()=> this.setState({ open: !this.state.open })}>
+                <span className="pull-right panel-select-by-student" >
+                  Select by Student <i className={"fa fa-angle-" + this.angleIcon() }></i>
                 </span>
-              </a>
+              </Button>
               <div>
                 {this.determineCheckbox()}
                 <label className="css-label" htmlFor={"classroom_checkbox_" + this.props.classroom.id}>
@@ -74,11 +84,11 @@
               </div>
             </h4>
           </div>
-          <div className="panel-collapse collapse" ref="studentList">
+          <Panel collapsible expanded={this.state.open} ref="studentList">
             <div className="panel-body">
               {studentList}
             </div>
-          </div>
+          </Panel>
         </div>
       </div>
     )

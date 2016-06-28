@@ -113,7 +113,6 @@ export default React.createClass({
     var that = this;
     name = _.reduce([this.state.first_name, this.state.last_name], function (memo, current) {
       var nextMemo;
-      debugger;
       if (!that.existy(memo)) {
         nextMemo = current;
       } else if (!that.existy(current)) {
