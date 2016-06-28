@@ -1,4 +1,8 @@
-EC.modules.StudentProfileTooltipTitleGenerator = function (percentageDisplayer) {
+import React from 'react'
+import TotalScore from '../../../general_components/tooltip/total_score.jsx'
+import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx'
+
+export default function (percentageDisplayer) {
 
   var _displayPercentage = percentageDisplayer.run
 
@@ -7,7 +11,7 @@ EC.modules.StudentProfileTooltipTitleGenerator = function (percentageDisplayer) 
     if (data.percentage == null) {
       totalScoreOrNot = null
     } else {
-      totalScoreOrNot = <EC.TotalScore percentage={_displayPercentage(data.percentage)} />
+      totalScoreOrNot = <TotalScore percentage={_displayPercentage(data.percentage)} />
     }
 
     return React.renderToString(
@@ -17,7 +21,7 @@ EC.modules.StudentProfileTooltipTitleGenerator = function (percentageDisplayer) 
         </div>
         <div className='main'>
           {totalScoreOrNot}
-          <EC.ActivityDetails data={data} />
+          <ActivityDetails data={data} />
         </div>
       </div>
     );

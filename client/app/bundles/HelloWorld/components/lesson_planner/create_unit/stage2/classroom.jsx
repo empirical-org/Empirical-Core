@@ -9,7 +9,6 @@
  export default React.createClass({
 
   componentDidMount: function(){
-      console.log(this.props.toggleStudentSelection)
   		$('body').scrollTop(0)
   },
 

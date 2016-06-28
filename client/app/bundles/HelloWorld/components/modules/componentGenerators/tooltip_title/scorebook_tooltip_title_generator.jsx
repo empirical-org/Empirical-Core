@@ -1,4 +1,10 @@
-EC.modules.ScorebookTooltipTitleGenerator = function (percentageDisplayer) {
+import React from 'react'
+import TotalScore from '../../../general_components/tooltip/total_score.jsx'
+import AboutPremium from '../../../general_components/tooltip/about_premium.jsx'
+import ConceptResultStats from '../../../general_components/tooltip/concept_result_stats.jsx'
+import ActivityDetailsStats from '../../../general_components/tooltip/activity_details.jsx'
+
+export default function (percentageDisplayer) {
 
   var _displayPercentage = percentageDisplayer.run
 
@@ -8,13 +14,13 @@ EC.modules.ScorebookTooltipTitleGenerator = function (percentageDisplayer) {
     if (data.percentage == null) {
       totalScoreOrNot = null
     } else {
-      totalScoreOrNot = <EC.TotalScore percentage={_displayPercentage(data.percentage)} />
+      totalScoreOrNot = <TotalScore percentage={_displayPercentage(data.percentage)} />
     }
 
     if ((data.premium_state == 'school') || (data.premium_state == 'paid') || (data.premium_state == 'trial') ) {
       aboutPremiumOrNot = null;
     } else {
-      aboutPremiumOrNot = <EC.AboutPremium />;
+      aboutPremiumOrNot = <AboutPremium />;
     }
 
 
@@ -25,13 +31,13 @@ EC.modules.ScorebookTooltipTitleGenerator = function (percentageDisplayer) {
           ACTIVITY RESULTS
         </div>
         <div className='main'>
-          <EC.ConceptResultStats results={data.concept_results} />
+          <ConceptResultStats results={data.concept_results} />
           {totalScoreOrNot}
-          <EC.ActivityDetails data={data} />
+          <ActivityDetails data={data} />
         </div>
         {aboutPremiumOrNot}
       </div>
     );
-    return React.renderToString(result)
-  }
+    return React.renderToString(result);
+  };
 }

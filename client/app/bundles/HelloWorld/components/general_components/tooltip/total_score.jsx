@@ -1,4 +1,6 @@
-EC.TotalScore = React.createClass({
+import React from 'react'
+
+export default React.createClass({
   propTypes: {
     percentage: React.PropTypes.number.isRequired
   },

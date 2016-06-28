@@ -9,7 +9,10 @@ component must have the following API -
 
 */
 'use strict';
-EC.modules.scrollify = function () {
+
+import _ from 'underscore'
+import $ from 'jquery'
+export default function () {
 
   var _scrollComputation = function (selector, component) {
     var y = $(selector).height();

@@ -1,5 +1,6 @@
 'use strict';
-EC.AboutPremium = React.createClass({
+import React from 'react'
+export default React.createClass({
   propTypes: {},
   render: function () {
     return (

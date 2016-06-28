@@ -1,5 +1,10 @@
 "use strict";
-EC.ActivityIconWithTooltip = React.createClass({
+
+import _ from 'underscore'
+import React from 'react'
+import TooltipTitleGeneratorGenerator from '../modules/componentGenerators/tooltip_title/tooltip_title_generator_generator'
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     context: React.PropTypes.string.isRequired, // studentProfile, scorebook
@@ -40,7 +45,7 @@ EC.ActivityIconWithTooltip = React.createClass({
       data = this.props.data;
     }
     this.modules = {
-      titleGenerator: new EC.modules.TooltipTitleGeneratorGenerator(this.props.context).generate(data)
+      titleGenerator: new TooltipTitleGeneratorGenerator(this.props.context).generate(data)
     }
     $(this.refs.activateTooltip.getDOMNode()).tooltip({
       html: true,

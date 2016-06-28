@@ -1,5 +1,8 @@
 'use strict';
-EC.ConceptResultStats = React.createClass({
+import React from 'react'
+import ConceptResultStat from './concept_result_stat.jsx'
+
+export default React.createClass({
   propTypes: {
     results: React.PropTypes.array.isRequired
   },
@@ -25,7 +28,7 @@ EC.ConceptResultStats = React.createClass({
 
   render: function () {
     var rows = this.calculateStats().map(function (statsRow) {
-      return <EC.ConceptResultStat key={statsRow.name}
+      return <ConceptResultStat key={statsRow.name}
                                    name={statsRow.name}
                                    correct={statsRow.correct}
                                    incorrect={statsRow.incorrect} />;

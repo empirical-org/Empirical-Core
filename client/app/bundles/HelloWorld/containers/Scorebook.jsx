@@ -1,21 +1,22 @@
 "use strict";
-// $(function() {
-//   var ele = $('#scorebook');
-//   if (ele.length > 0) {
-//     React.render(React.createElement(EC.Scorebook), ele[0]);
-//   }
-// });
+import React from 'react'
+import Scrollify from '../components/modules/scrollify'
+import $ from 'jquery'
+import _ from 'underscore'
+import TableFilterMixin from '../components/general_components/table/sortable_table/table_filter_mixin.js'
+import StudentScores from '../components/scorebook/student_scores'
+import LoadingIndicator from '../components/general_components/loading_indicator'
+import ScorebookFilters from '../components/scorebook/scorebook_filters'
+import ScoreLegend from '../components/scorebook/score_legend'
+import AppLegend from '../components/scorebook/app_legend.jsx'
 
-require TableFilterMixin from ''
-
-require React from 'react'
 
 export default React.createClass({
-  mixins: [EC.TableFilterMixin],
+  mixins: [TableFilterMixin],
 
   getInitialState: function() {
     this.modules = {
-      scrollify: new EC.modules.scrollify()
+      scrollify: new Scrollify()
     };
     return {
       units: [],
@@ -136,10 +137,10 @@ export default React.createClass({
 
   render: function() {
     var scores = _.map(this.state.scores, function(data) {
-      return <EC.StudentScores key={data.user.id} data={data} premium_state={this.state.premium_state}/>
+      return <StudentScores key={data.user.id} data={data} premium_state={this.state.premium_state}/>
     }, this);
     if (this.state.loading) {
-      var loadingIndicator = <EC.LoadingIndicator/>;
+      var loadingIndicator = <LoadingIndicator/>;
     } else {
       var loadingIndicator = null;
     }
@@ -149,9 +150,9 @@ export default React.createClass({
              <span>
                  <div className="container">
                      <section className="section-content-wrapper">
-                         <EC.ScorebookFilters selectedClassroom={this.state.selectedClassroom} classroomFilters={this.state.classroomFilters} selectClassroom={this.selectClassroom} selectedUnit={this.state.selectedUnit} unitFilters={this.state.unitFilters} selectUnit={this.selectUnit} selectDates={this.selectDates}/>
-                         <EC.ScoreLegend/>
-                         <EC.AppLegend/>
+                         <ScorebookFilters selectedClassroom={this.state.selectedClassroom} classroomFilters={this.state.classroomFilters} selectClassroom={this.selectClassroom} selectedUnit={this.state.selectedUnit} unitFilters={this.state.unitFilters} selectUnit={this.selectUnit} selectDates={this.selectDates}/>
+                         <ScoreLegend/>
+                         <AppLegend/>
                      </section>
                  </div>
                  {scores}

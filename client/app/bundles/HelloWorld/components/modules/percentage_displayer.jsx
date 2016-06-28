@@ -1,4 +1,4 @@
-EC.modules.PercentageDisplayer = function () {
+export default function () {
   this.run = function (value) {
     if (value == null) {
       return "Not completed yet";

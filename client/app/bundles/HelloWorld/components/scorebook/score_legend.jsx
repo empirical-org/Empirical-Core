@@ -1,5 +1,6 @@
 "use strict";
-EC.ScoreLegend = React.createClass({
+import React from 'react'
+export default React.createClass({
 	render: function () {
 		return (
 			 <div className="icons-wrapper icon-legend score-legend">
