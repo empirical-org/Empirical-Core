@@ -1,5 +1,7 @@
 'use strict';
-EC.modules.OptionLoader = function (modelOptions, setStateByKey, server) {
+import _ from 'underscore'
+
+export default function (modelOptions, setStateByKey, server) {
 
   var optionTypesObjArr;
 

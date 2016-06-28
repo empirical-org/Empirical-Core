@@ -1,4 +1,4 @@
-EC.modules.NestedResource = function (component, kind) {
+export default function (component, kind) {
   // returns a set of data, options
 
   this.add = function (resource) {

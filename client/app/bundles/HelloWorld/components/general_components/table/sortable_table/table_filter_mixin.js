@@ -1,4 +1,8 @@
-EC.TableFilterMixin = {
+import React from 'react'
+import _ from 'underscore'
+
+
+export default {
   getInitialState: function() {
     return {
       currentFilters: {}

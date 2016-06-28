@@ -1,5 +1,7 @@
 "use strict";
-EC.AppLegend = React.createClass({
+import React from 'react'
+
+export default React.createClass({
   render: function () {
     return (
       <div className="icons-wrapper icon-legend">

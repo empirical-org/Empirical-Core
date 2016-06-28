@@ -1,11 +1,16 @@
-EC.modules.TooltipTitleGeneratorGenerator = function (context) {
+import PercentageDisplayer  from '../../percentage_displayer.jsx'
+import StudentProfileTooltipTitleGenerator from './student_profile_tooltip_title_generator.jsx'
+import ScorebookTooltipTitleGenerator from './scorebook_tooltip_title_generator.jsx'
+
+
+export default function (context) {
   if (context == undefined) {
     throw "Error: required parameter in EC.modules.TooltipTitleGeneratorGenerator is undefined"
   }
 
-  var _percentageDisplayer = new EC.modules.PercentageDisplayer()
-  var _studentProfileTooltipTitleGenerator = EC.modules.StudentProfileTooltipTitleGenerator;
-  var _scorebookTooltipTitleGenerator = EC.modules.ScorebookTooltipTitleGenerator;
+  var _percentageDisplayer = new PercentageDisplayer()
+  var _studentProfileTooltipTitleGenerator = StudentProfileTooltipTitleGenerator;
+  var _scorebookTooltipTitleGenerator = ScorebookTooltipTitleGenerator;
 
   this.generate = function () {
     var result, finalResult;
@@ -15,7 +20,6 @@ EC.modules.TooltipTitleGeneratorGenerator = function (context) {
     } else if (context == 'scorebook') {
       result = _scorebookTooltipTitleGenerator;
     }
-    console.log('result', result)
     finalResult = new result(_percentageDisplayer);
     return finalResult;
   }

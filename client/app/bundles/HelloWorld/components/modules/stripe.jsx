@@ -1,5 +1,5 @@
-
-EC.modules.Stripe = function () {
+import # from 'jquery'
+export default function () {
     var amount = 8000;
     var handler = StripeCheckout.configure({
     key: stripePubKey,

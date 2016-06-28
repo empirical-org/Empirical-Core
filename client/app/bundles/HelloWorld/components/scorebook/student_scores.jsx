@@ -1,5 +1,8 @@
 "use strict";
-EC.StudentScores = React.createClass({
+import _ from 'underscore'
+import IconRow from './icon_row.jsx'
+
+export default React.createClass({
 	propTypes: {
 		data: React.PropTypes.object.isRequired,
 		premium_state: React.PropTypes.string.isRequired
@@ -12,7 +15,7 @@ EC.StudentScores = React.createClass({
 		}).toArray().value();
 		var icon_rows = _.map(x, function (ele, i) {
 			return (
-				<EC.IconRow key={'icon-row-' + ele[0].id + '-' + ele[ele.length-1].id} data={ele} premium_state={this.props.premium_state} />
+				<IconRow key={'icon-row-' + ele[0].id + '-' + ele[ele.length-1].id} data={ele} premium_state={this.props.premium_state} />
 			);
 		}, this);
 		return (

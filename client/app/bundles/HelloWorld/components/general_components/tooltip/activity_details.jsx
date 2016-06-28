@@ -1,5 +1,6 @@
 'use strict'
-EC.ActivityDetails = React.createClass({
+import React from 'react'
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired
   },
