@@ -2,7 +2,7 @@
 import React from 'react'
 import $ from 'jquery'
 import UsK12View from '../school/us_k12_view'
-import NotUsK12View from '../school/us_k12_view'
+import NotUsK12View from '../school/not_us_k12_view'
 export default React.createClass({
 
   getInitialState: function() {
@@ -59,7 +59,7 @@ export default React.createClass({
       );
     } else if (this.state.stage === 3) {
       return (
-        <NotUSK12View analytics={this.props.analytics} selectSchool={this.selectSchool}/>
+        <NotUsK12View analytics={this.props.analytics} selectSchool={this.selectSchool}/>
       )
     }
   },

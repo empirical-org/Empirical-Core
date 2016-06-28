@@ -1,5 +1,7 @@
 'use strict';
-EC.RoleOption = React.createClass({
+import React from 'react'
+
+export default React.createClass({
   propTypes: {
     selectRole: React.PropTypes.func.isRequired
   },

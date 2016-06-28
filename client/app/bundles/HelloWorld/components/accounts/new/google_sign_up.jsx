@@ -1,4 +1,6 @@
-EC.GoogleSignUp = React.createClass({
+import React from 'react'
+
+export default React.createClass({
   render: function () {
     return (
       <a href='/auth/google_oauth2'>

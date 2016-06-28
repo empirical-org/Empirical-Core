@@ -28,7 +28,7 @@ EC.JoinClassStage1 = React.createClass({
         <h1>Join a New Class</h1>
         <span>Add Your Class Code</span>
         <br/>
-        <input className='class-input' ref='classCodeInput' placeholder='e.g. fresh-bread'></input>
+        <input className='class-input' ref='classCodeInput' placeholder='e.g. fresh-bread'/input>
         <br/>
         {this.errorMessage()}
         <button className='button-green' onClick={this.addClassroom}>Join Your Class</button>

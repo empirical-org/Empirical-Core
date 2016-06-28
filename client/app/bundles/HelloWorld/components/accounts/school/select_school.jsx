@@ -1,6 +1,5 @@
 'use strict';
 import React from 'react'
-import $ from 'jquery'
 import _ from 'underscore'
 import EducatorType from '../new/educator_type';
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
@@ -18,8 +17,8 @@ export default React.createClass({
     return {editSchool: false}
   },
 
-  updateZip: function () {
-    var zip = $(this.refs.zip.getDOMNode()).val();
+  updateZip: function (event) {
+    var zip = event.target.value
     if (zip.length == 5) {
       this.props.requestSchools(zip);
     }
@@ -53,9 +52,9 @@ export default React.createClass({
     return zip;
   },
 
-  selectOption: function () {
+  selectOption: function (event) {
     var schoolId, schoolObject;
-    schoolId = $(this.refs.select.getDOMNode()).val();
+    schoolId = event.target.value;
     schoolObject = _.findWhere(this.props.schoolOptions, {id: parseInt(schoolId)});
     this.props.updateSchool(schoolObject);
   },

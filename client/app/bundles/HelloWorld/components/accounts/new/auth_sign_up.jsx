@@ -1,10 +1,14 @@
 'use strict';
-EC.AuthSignUp = React.createClass({
+import React from 'react'
+import GoogleSignUp from './google_sign_up'
+import CleverSignUp from './clever_sign_up'
+
+export default React.createClass({
   render: function () {
     return (
       <div className='text-center'>
-            <EC.GoogleSignUp/>
-            <EC.CleverSignUp/>
+            <GoogleSignUp/>
+            <CleverSignUp/>
       </div>
     );
   }

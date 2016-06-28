@@ -17,9 +17,8 @@ export default React.createClass({
     noLabel: React.PropTypes.bool
   },
 
-  update: function (e) {
-    var value = $(this.refs[this.props.name].getDOMNode()).val();
-    this.props.update(this.props.name, value);
+  update: function (event) {
+    this.props.update(this.props.name, event.target.value);
   },
 
   titleCase: function (string) {

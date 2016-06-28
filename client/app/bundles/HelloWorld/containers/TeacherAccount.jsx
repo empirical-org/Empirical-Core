@@ -116,17 +116,14 @@ export default React.createClass({
         var str2 = str + "'s Account";
         return str2;
     },
-    updateName: function() {
-        var x = $(this.refs.name.getDOMNode()).val();
-        this.setState({name: x});
+    updateName: function(event) {
+        this.setState({name: event.target.value});
     },
-    updateUsername: function() {
-        var x = $(this.refs.username.getDOMNode()).val();
-        this.setState({username: x});
+    updateUsername: function(event) {
+        this.setState({username: event.target.value});
     },
-    updateEmail: function() {
-        var x = $(this.refs.email.getDOMNode()).val();
-        this.setState({email: x});
+    updateEmail: function(event) {
+        this.setState({email: event.target.value});
     },
     determineSaveButtonClass: function() {
         var className;
@@ -297,7 +294,7 @@ export default React.createClass({
             subscription = <StaticDisplaySubscription subscriptionType={this.state.subscriptionType} subscription={this.state.subscription}/>
         }
         return (
-            <div className='container'>
+            <div className='container' id='my-account'>
                 <div className='row'>
                     <div className='col-xs-12'>
                         <div className='row'>
