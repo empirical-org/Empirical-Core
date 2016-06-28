@@ -4,5 +4,6 @@ import DashboardApp from './DashboardAppClient';
 import LessonPlannerApp from './LessonPlannerAppClient';
 import TeacherGuideApp from './TeacherGuideClient';
 import TeacherAccountApp from './TeacherAccountAppClient';
+import NewAccountApp from './NewAccountAppClient';
 // This is how react_on_rails can see the HelloWorldApp in the browser.
-ReactOnRails.register({ TeacherGuideApp, HelloWorldApp, DashboardApp, LessonPlannerApp, TeacherAccountApp});
+ReactOnRails.register({ TeacherGuideApp, HelloWorldApp, DashboardApp, LessonPlannerApp, TeacherAccountApp, NewAccountApp});

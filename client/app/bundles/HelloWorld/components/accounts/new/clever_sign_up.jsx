@@ -1,5 +1,8 @@
 'use strict';
-EC.CleverSignUp = React.createClass({
+import $ from 'jquery'
+import React from 'react'
+
+export default React.createClass({
   getInitialState: function () {
     return {
       redirectUri: null,

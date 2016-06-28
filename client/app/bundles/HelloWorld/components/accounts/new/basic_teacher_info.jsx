@@ -1,5 +1,8 @@
 'use strict';
-EC.BasicTeacherInfo = React.createClass({
+import React from 'react'
+import AuthSignUp from './auth_sign_up'
+
+export default React.createClass({
     propTypes: {
         analytics: React.PropTypes.object.isRequired,
         signUp: React.PropTypes.func.isRequired,
@@ -26,10 +29,9 @@ EC.BasicTeacherInfo = React.createClass({
         }
     ],
 
-    updateSendNewsletter: function() {
-        var val = $(this.refs.sendNewsletter.getDOMNode()).attr('checked');
-        var bool = (val === 'checked')
-        this.props.update({sendNewsletter: bool});
+    updateSendNewsletter: function(event) {
+      console.log(event.target.checked);
+        this.props.update({sendNewsletter: event.target.checked});
     },
 
     render: function() {
@@ -38,7 +40,7 @@ EC.BasicTeacherInfo = React.createClass({
         return (
             <div>
                 <h3 className='sign-up-header'>Sign up for a Teacher Account</h3>
-            <EC.AuthSignUp/>
+            <AuthSignUp/>
             <p className='support-p text-center'>We now support Google Classroom!</p>
             <div className='row'>
                 <div className='col-xs-offset-3 col-xs-9'>
@@ -50,9 +52,8 @@ EC.BasicTeacherInfo = React.createClass({
                     </div>
                     <div className='row'>
                         <div className='col-xs-8'>
-                            <input type='checkbox' name='sendNewsletter' ref='sendNewsletter' onChange={this.updateSendNewsletter} checked={this.props.sendNewsletter}>
+                            <input type='checkbox' name='sendNewsletter' ref='sendNewsletter' onChange={this.updateSendNewsletter} checked={this.props.sendNewsletter}/>
                                 Send me monthly Quill updates
-                            </input>
                         </div>
                     </div>
                     <div className='row'>

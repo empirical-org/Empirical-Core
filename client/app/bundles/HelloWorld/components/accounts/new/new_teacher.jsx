@@ -1,5 +1,10 @@
 'use strict';
-EC.NewTeacher = React.createClass({
+
+import React from 'react'
+import BasicTeacherInfo from './basic_teacher_info'
+import EducatorType from './educator_type'
+
+export default React.createClass({
   propTypes: {
     analytics: React.PropTypes.object.isRequired,
     signUp: React.PropTypes.func.isRequired,
@@ -13,11 +18,11 @@ EC.NewTeacher = React.createClass({
   render: function () {
     if (this.props.stage === 1) {
       return (
-        <EC.BasicTeacherInfo textInputGenerator={this.props.textInputGenerator} signUp={this.props.signUp} update={this.props.update}/>
+        <BasicTeacherInfo textInputGenerator={this.props.textInputGenerator} signUp={this.props.signUp} update={this.props.update}/>
       )
     } else if (this.props.stage === 2) {
       return (
-        <EC.EducatorType analytics={this.props.analytics}/>
+        <EducatorType analytics={this.props.analytics}/>
       )
     }
   }

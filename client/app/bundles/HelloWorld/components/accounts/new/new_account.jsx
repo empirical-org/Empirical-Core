@@ -4,30 +4,20 @@ import $ from 'jquery'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import NewAccountStage1 from './new_account_stage1'
 import NewStudent from './new_student'
-import NewAccount from '/new_teacher'
-
-
-
-$(function () {
-  var ele = $('#sign-up');
-  if (ele.length) {
-    var teacherFromGoogleSignUp = ele.data('teacher-from-google-sign-up');
-    var props = {teacherFromGoogleSignUp: teacherFromGoogleSignUp,
-                 analytics: new AnalyticsWrapper()};
-    React.render(React.createElement(EC.NewAccount, props), ele[0]);
-  }
-});
+import NewAccount from './new_account'
+import NewTeacher from './new_teacher'
+import TextInputGenerator from '../../modules/componentGenerators/text_input_generator'
 
 
 
 export default React.createClass({
   propTypes: {
-    analytics: React.PropTypes.object.isRequired
+    teacherFromGoogleSignUp: React.PropTypes.bool.isRequired
   },
 
   getInitialState: function () {
     this.modules = {
-      textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateKeyValue)
+      textInputGenerator: new TextInputGenerator(this, this.updateKeyValue)
     };
 
     var hash, subHash;
@@ -39,7 +29,8 @@ export default React.createClass({
       password: null,
       password_confirmation: null,
       errors: {},
-      sendNewsletter: true
+      sendNewsletter: true,
+      analytics: new AnalyticsWrapper()
     };
 
     if (this.props.teacherFromGoogleSignUp) {
@@ -60,7 +51,7 @@ export default React.createClass({
   },
 
   selectRole: function (role) {
-    this.props.analytics.track('select role', {role: role});
+    this.state.analytics.track('select role', {role: role});
 
     var authenticityToken = $('meta[name=csrf-token]').attr('content');
     var that = this;
@@ -169,7 +160,7 @@ export default React.createClass({
                               update={this.update}
                               signUp={this.signUp}
                               errors={this.state.errors}
-                              analytics={this.props.analytics}/>;
+                              analytics={this.state.analytics}/>;
       }
     }
     return view;

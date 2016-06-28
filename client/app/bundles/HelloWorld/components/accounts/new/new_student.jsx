@@ -1,5 +1,9 @@
 'use strict';
-EC.NewStudent = React.createClass({
+import React from 'react'
+import AuthSignUp from './auth_sign_up'
+
+
+export default React.createClass({
   propTypes: {
     signUp: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object,
@@ -42,7 +46,7 @@ EC.NewStudent = React.createClass({
               <h3 className='sign-up-header'>Sign up for a Student Account</h3>
             </div>
           </div>
-          <EC.AuthSignUp />
+          <AuthSignUp />
           </div>
             <p className='text-center support-p'>We now support Google Classroom!</p>
           </div>

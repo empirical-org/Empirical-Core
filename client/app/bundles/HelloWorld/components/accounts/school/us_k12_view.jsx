@@ -2,6 +2,7 @@
 
 import React from 'react'
 import $ from 'jquery'
+import SelectSchool from './select_school'
 
 export default React.createClass({
 
@@ -59,7 +60,7 @@ export default React.createClass({
     return (
       <div className='row text-center'>
             <h3 className='sign-up-header col-xs-12'>{"Let's find your school"}</h3>
-              <EC.SelectSchool selectedSchool={this.state.selectedSchool}
+              <SelectSchool selectedSchool={this.state.selectedSchool}
                                schoolOptions={this.state.schoolOptions}
                                requestSchools={this.requestSchools}
                                updateSchool={this.updateSchool}
