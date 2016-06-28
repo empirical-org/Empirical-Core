@@ -27,6 +27,7 @@ import SelectRole from '../components/accounts/edit/select_role';
 import SelectSubscription from '../components/accounts/subscriptions/select_subscription';
 import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../components/accounts/school/select_school';
+import $ from 'jquery';
 
 export default React.createClass({
     propTypes: {
@@ -138,6 +139,7 @@ export default React.createClass({
         this.setState({isSaving: true});
         var data = {
             name: this.state.name,
+            authenticity_token: $('meta[name=csrf-token]').attr('content'),
             username: this.state.username,
             email: this.state.email,
             role: this.state.role,
