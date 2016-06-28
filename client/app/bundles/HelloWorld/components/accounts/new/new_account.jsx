@@ -51,16 +51,13 @@ export default React.createClass({
   },
 
   selectRole: function (role) {
-    this.state.analytics.track('select role', {role: role});
-
-    var authenticityToken = $('meta[name=csrf-token]').attr('content');
     var that = this;
     $.ajax({
       type: 'POST',
       url: '/account/role',
       data: {
         role: role,
-        authenticity_token: authenticityToken
+        authenticity_token: $('meta[name=csrf-token]').attr('content')
       },
       success: function () {
         that.setState({role: role});

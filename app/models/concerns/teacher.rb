@@ -35,6 +35,7 @@ module Teacher
                   :name,
                   :role,
                   :username,
+                  :authenticity_token,
                   :email,
                   :password,
                   :school_options_do_not_apply,
