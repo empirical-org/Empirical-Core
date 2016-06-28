@@ -2,7 +2,7 @@
 
  import React from 'react'
  import FilterOption from './filter_option'
- import _ from 'underscore'
+ import _ from 'lodash'
  import $ from 'jquery'
 
  export default  React.createClass({
@@ -30,9 +30,10 @@
 			visibleOptions = this.props.data.options;
 		}
 
+    var that = this;
 		visibleOptions = _.map(visibleOptions, function (option) {
 			return (
-				<FilterOption key={option.name} selectFilterOption={this.selectFilterOption} data={option} />
+				<FilterOption key={option.name} selectFilterOption={that.selectFilterOption} data={option} />
 			);
 		}, this);
 
