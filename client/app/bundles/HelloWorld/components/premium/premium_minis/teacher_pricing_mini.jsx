@@ -1,13 +1,12 @@
-EC.TeacherPricingMini = React.createClass({
+import React from 'react'
+import PleaseLoginModal from '../please_login_modal.jsx'
+import Stripe from '../../modules/stripe.jsx'
+export default React.createClass({
 
   // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
   charge: function() {
-    if (this.state.isUserSignedIn === true) {
-      new EC.modules.Stripe();
-    } else {
-      this.pleaseLoginModal();
-    }
+      new Stripe();
   },
 
   getInitialState: function() {
@@ -24,7 +23,15 @@ EC.TeacherPricingMini = React.createClass({
   },
 
   pleaseLoginModal: function() {
-    $(this.refs.pleaseLoginModal.getDOMNode()).modal();
+    $(this.refs.pleaseLoginModal).modal();
+  },
+
+  purchaseButton: function(){
+    if (this.state.login) {
+      return <button type='button' id='purchase-btn' data-toggle="modal" data-target="#login-modal" className='btn btn-default mini-btn blue'>Buy Now</button>;
+    } else {
+      return <button type='button' id='purchase-btn' data-toggle="modal" onClick={this.charge} className='btn btn-default mini-btn blue'>Buy Now</button>;
+    }
   },
 
   render: function() {
@@ -51,8 +58,8 @@ EC.TeacherPricingMini = React.createClass({
         </section>
         <div className='row'>
             <button type='button' className='btn btn-default mini-btn empty-blue' onClick={this.beginTrial}>Free Trial</button>
-            <button type='button' id='purchase-btn' onClick={this.charge} className='btn btn-default mini-btn blue'>Buy Now</button>
-            <EC.pleaseLoginModal ref='pleaseLoginModal'/>
+            {this.purchaseButton()}
+            <PleaseLoginModal ref='pleaseLoginModal'/>
         </div>
       </div>
     );
