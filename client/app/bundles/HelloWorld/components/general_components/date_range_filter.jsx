@@ -1,5 +1,7 @@
 "use strict";
-EC.DateRangeFilter = React.createClass({
+import DatePicker from '../shared/date_picker.jsx'
+import React from 'react'
+export default React.createClass({
   propTypes: {
     selectDates: React.PropTypes.func.isRequired
   },
@@ -27,10 +29,10 @@ EC.DateRangeFilter = React.createClass({
     return (
       <div className="row date-range-filter">
         <div className="no-pl col-xs-6 col-sm-5">
-          <EC.DatePicker key='datepick1' placeHolder="Completed : From" handleChange={this.selectBeginDate}/>
+          <DatePicker key='datepick1' placeHolder="Completed : From" handleChange={this.selectBeginDate}/>
         </div>
         <div className="no-pl col-xs-6 col-sm-5">
-          <EC.DatePicker key='datepick2' placeHolder="Completed : To" handleChange={this.selectEndDate}/>
+          <DatePicker key='datepick2' placeHolder="Completed : To" handleChange={this.selectEndDate}/>
         </div>
       </div>
     );

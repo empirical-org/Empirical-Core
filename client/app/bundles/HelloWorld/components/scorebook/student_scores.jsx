@@ -1,6 +1,7 @@
 "use strict";
 import _ from 'underscore'
 import IconRow from './icon_row.jsx'
+import React from 'react'
 
 export default React.createClass({
 	propTypes: {
