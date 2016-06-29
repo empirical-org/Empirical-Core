@@ -1,4 +1,4 @@
-import # from 'jquery'
+import $ from 'jquery'
 export default function () {
     var amount = 8000;
     var handler = StripeCheckout.configure({
@@ -16,7 +16,7 @@ export default function () {
 
     // $('#purchase-btn').on('click', function(e) {
     // // Open Checkout with further options
-
+    console.log('in stripe');
     handler.open({
       name: 'Quill Premium',
       description: '$80 Teacher Premium',

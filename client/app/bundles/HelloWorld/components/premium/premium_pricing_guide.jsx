@@ -1,10 +1,9 @@
 "use strict";
 
 import React from 'react'
-import PremiumPricingMinisRow from '.'
-import TeacherTestimonial from '.'
-import SubscriberLogos from '.'
-
+import PremiumPricingMinisRow from './premium_pricing_minis_row.jsx'
+import TeacherTestimonial from './teacher_testimonial.jsx'
+import SubscriberLogos from './subscriber_logos.jsx'
 
 export default React.createClass({
 
@@ -41,7 +40,6 @@ export default React.createClass({
           <SubscriberLogos subscribers={this.subscribers()}/>
           <p className='logo-tag'>Trusted by some of the best schools in the country.</p>
           </div>
-
     )
   }
 })
