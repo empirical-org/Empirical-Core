@@ -1,6 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/empirical-org/Empirical-Core/badges/gpa.svg)](https://codeclimate.com/github/empirical-org/Empirical-Core) [![Test Coverage](https://codeclimate.com/github/empirical-org/Empirical-Core/badges/coverage.svg)](https://codeclimate.com/github/empirical-org/Empirical-Core/coverage)
 
-# Welcome to Empirical Core!
+# Welcome to Empirical Core
 
 **Fork and Clone this repository to submit a Pull Request**
 
@@ -74,6 +74,3 @@ clever integration
 
 google integration
 * https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/google_integration/README.md
-
-
-
