@@ -1,6 +1,7 @@
 "use strict";
+import React from 'react'
 
-EC.FaqLink = React.createClass({
+export default React.createClass({
   render: function() {
     return (
       <div className="how-we-grade">

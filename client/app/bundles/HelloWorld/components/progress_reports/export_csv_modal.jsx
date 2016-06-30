@@ -1,6 +1,8 @@
 "use strict";
 
-EC.ExportCsvModal = React.createClass({
+import React from 'react'
+
+export default React.createClass({
   propTypes: {
     email: React.PropTypes.string
   },

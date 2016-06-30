@@ -1,6 +1,9 @@
 "use strict";
+import React from 'react'
+import ProgressReport from './progress_report.jsx'
 
-EC.StandardsClassroomTopicsProgressReport = React.createClass({
+
+export default  React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired
   },
@@ -87,7 +90,7 @@ EC.StandardsClassroomTopicsProgressReport = React.createClass({
 
   render: function() {
     return (
-      <EC.ProgressReport columnDefinitions={this.columnDefinitions}
+      <ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
@@ -96,7 +99,7 @@ EC.StandardsClassroomTopicsProgressReport = React.createClass({
                          onFetchSuccess={this.onFetchSuccess}
                          filterTypes={['unit']}>
         <h2>Standards by Class: {this.state.classroom.name}</h2>
-      </EC.ProgressReport>
+      </ProgressReport>
     );
   }
 

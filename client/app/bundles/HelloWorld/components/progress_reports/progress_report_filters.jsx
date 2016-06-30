@@ -1,4 +1,7 @@
-EC.ProgressReportFilters = React.createClass({
+import React from 'react'
+import DropdownFilter from './dropdown_filter.jsx'
+
+export default React.createClass({
 
   propTypes: {
     filterTypes: React.PropTypes.array.isRequired,
@@ -13,7 +16,7 @@ EC.ProgressReportFilters = React.createClass({
   classroomFilter: function() {
     return (
       <div key="classroom-filter" className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 classroom-filter">
-        <EC.DropdownFilter selectedOption={this.props.selectedClassroom} options={this.props.classroomFilters} selectOption={this.props.selectClassroom} />
+        <DropdownFilter selectedOption={this.props.selectedClassroom} options={this.props.classroomFilters} selectOption={this.props.selectClassroom} />
       </div>
     );
   },
@@ -21,7 +24,7 @@ EC.ProgressReportFilters = React.createClass({
   unitFilter: function() {
     return (
       <div key="unit-filter" className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 unit-filter">
-        <EC.DropdownFilter selectedOption={this.props.selectedUnit} options={this.props.unitFilters} selectOption={this.props.selectUnit} />
+        <DropdownFilter selectedOption={this.props.selectedUnit} options={this.props.unitFilters} selectOption={this.props.selectUnit} />
       </div>
     );
   },
@@ -29,7 +32,7 @@ EC.ProgressReportFilters = React.createClass({
   studentFilter: function() {
     return (
       <div key="student-filter" className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 student-filter">
-        <EC.DropdownFilter selectedOption={this.props.selectedStudent} options={this.props.studentFilters} selectOption={this.props.selectStudent} />
+        <DropdownFilter selectedOption={this.props.selectedStudent} options={this.props.studentFilters} selectOption={this.props.selectStudent} />
       </div>
     );
   },

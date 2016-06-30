@@ -1,6 +1,9 @@
 // The progress report shows all concepts for a given student.
+import React from 'react'
+import ProgressReport from './progress_report.jsx'
 
-EC.ConceptsConceptsProgressReport = React.createClass({
+
+export default React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired,
     premiumStatus: React.PropTypes.string.isRequired
@@ -76,7 +79,7 @@ EC.ConceptsConceptsProgressReport = React.createClass({
 
   render: function() {
     return (
-      <EC.ProgressReport columnDefinitions={this.columnDefinitions}
+      <ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
@@ -85,7 +88,7 @@ EC.ConceptsConceptsProgressReport = React.createClass({
                          filterTypes={[]}
                          premiumStatus={this.props.premiumStatus}>
         <h2>{this.state.student.name}</h2>
-      </EC.ProgressReport>
+      </ProgressReport>
     );
   }
 });

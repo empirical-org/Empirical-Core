@@ -1,6 +1,8 @@
 "use strict";
 
-EC.ExportCsv = React.createClass({
+import React from 'react'
+import ExportCsvModal from './export_csv_modal.jsx'
+export default React.createClass({
   propTypes: {
     exportType: React.PropTypes.string.isRequired,
     filters: React.PropTypes.object.isRequired,
@@ -43,7 +45,7 @@ EC.ExportCsv = React.createClass({
   render: function() {
     return (
       <div className="export-csv">
-        <EC.ExportCsvModal email={this.props.teacher.email} ref="exportModal" />
+        <ExportCsvModal email={this.props.teacher.email} ref="exportModal" />
         <button className="button-green" onClick={this.createExport}>Download Report</button>
       </div>
     );

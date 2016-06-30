@@ -1,7 +1,10 @@
 // The progress report showing all students in a given classroom
 // along with their result counts.
+import React from 'react'
+import ProgressReport from './progress_report.jsx'
 
-EC.ConceptsStudentsProgressReport = React.createClass({
+
+export default React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired,
     premiumStatus: React.PropTypes.string.isRequired
@@ -75,7 +78,7 @@ EC.ConceptsStudentsProgressReport = React.createClass({
 
   render: function() {
     return (
-      <EC.ProgressReport columnDefinitions={this.columnDefinitions}
+      <ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
@@ -87,7 +90,7 @@ EC.ConceptsStudentsProgressReport = React.createClass({
         <h2>Results by Student</h2>
         <br></br>
         <p>This page shows how students are performing on individual questions. One question equals one results, and you can click on an individual concept to drill down.</p>
-      </EC.ProgressReport>
+      </ProgressReport>
     );
   }
 });

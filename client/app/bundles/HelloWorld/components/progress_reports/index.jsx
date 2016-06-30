@@ -16,6 +16,7 @@ $(function() {
   };
 
   _.each(progressReportMapping, function(component, rootNodeSelector) {
+    
     var $el = $(rootNodeSelector);
     if ($el.length) {
       $.get('/teachers/classrooms/premium.json').done(function(data) {
