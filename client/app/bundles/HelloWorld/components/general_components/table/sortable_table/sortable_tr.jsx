@@ -1,4 +1,7 @@
-EC.SortableTr = React.createClass({
+import _ from 'underscore'
+import React from 'react'
+
+export default React.createClass({
   propTypes: {
     row: React.PropTypes.object.isRequired,
     columns: React.PropTypes.array.isRequired

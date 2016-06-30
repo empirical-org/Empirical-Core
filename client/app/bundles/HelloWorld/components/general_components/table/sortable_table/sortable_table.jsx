@@ -1,4 +1,11 @@
-EC.SortableTable = React.createClass({
+import React from 'react'
+import _ from 'underscore'
+import SortableTh from './sortable_th.jsx'
+import SortableTr from './sortable_tr.jsx'
+// import ReactCSSTransitionGroup from '../../react_css_transition_group.jsx'
+
+
+export default React.createClass({
   propTypes: {
     currentSort: React.PropTypes.object.isRequired,
     columns: React.PropTypes.array.isRequired,
@@ -30,7 +37,7 @@ EC.SortableTable = React.createClass({
   columns: function() {
     return _.map(this.props.columns, function (column, i) {
       var isCurrentSort = (column.sortByField === this.props.currentSort.field);
-      return <EC.SortableTh key={i}
+      return <SortableTh key={i}
                             sortHandler={this.sortByColumn(column.sortByField)}
                             displayName={column.name}
                             displayClass={column.className}
@@ -41,7 +48,7 @@ EC.SortableTable = React.createClass({
 
   rows: function() {
     return _.map(this.props.rows, function(row, i) {
-      return <EC.SortableTr key={row.id || i} row={row} columns={this.props.columns} />
+      return <SortableTr key={row.id || i} row={row} columns={this.props.columns} />
     }, this);
   },
 
@@ -60,15 +67,16 @@ EC.SortableTable = React.createClass({
       var tbody;
 
       if (this.shouldTransition()) {
-        tbody = (
-          <EC.ReactCSSTransitionGroup component='tbody'
-                                     transitionName={this.props.transitionName}
-                                     transitionEnterTimeout={2000}
-                                     transitionLeaveTimeout={2000}>
-            {this.rows()}
-          </EC.ReactCSSTransitionGroup>
-        )
-      } else {
+        // TODO: bring this back in after speaking to Donald
+        // tbody = (
+        //   <ReactCSSTransitionGroup component='tbody'
+        //                              transitionName={this.props.transitionName}
+        //                              transitionEnterTimeout={2000}
+        //                              transitionLeaveTimeout={2000}>
+        //     {this.rows()}
+        //   </ReactCSSTransitionGroup>
+      //   )
+      // } else {
         tbody = <tbody>{this.rows()}</tbody>
       }
 

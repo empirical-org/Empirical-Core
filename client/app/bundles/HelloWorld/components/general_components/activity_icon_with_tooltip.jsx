@@ -1,6 +1,5 @@
 "use strict";
-
-import _ from 'underscore'
+import _ from 'lodash'
 import React from 'react'
 import TooltipTitleGeneratorGenerator from '../modules/componentGenerators/tooltip_title/tooltip_title_generator_generator'
 
