@@ -1,6 +1,6 @@
 "use strict";
-
-EC.MasteryStatus = React.createClass({
+import React from 'react'
+export default React.createClass({
   propTypes: {
     score: React.PropTypes.number.isRequired
   },

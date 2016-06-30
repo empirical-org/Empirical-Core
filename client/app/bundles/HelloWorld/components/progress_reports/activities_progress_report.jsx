@@ -1,6 +1,9 @@
 "use strict";
+import React from 'react'
+import ProgressReport from './progress_report.jsx'
 
-EC.ActivitiesProgressReport = React.createClass({
+
+export default React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired,
     premiumStatus: React.PropTypes.string.isRequired
@@ -67,7 +70,7 @@ EC.ActivitiesProgressReport = React.createClass({
 
   render: function() {
     return (
-      <EC.ProgressReport columnDefinitions={this.columnDefinitions}
+      <ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={true}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
@@ -77,7 +80,7 @@ EC.ActivitiesProgressReport = React.createClass({
                          premiumStatus={this.props.premiumStatus}>
         <h2>Activities: All Students</h2>
         <p className="description">View all of the activities your students have completed. Filter by classroom, unit, or student.</p>
-      </EC.ProgressReport>
+      </ProgressReport>
     );
   }
 });

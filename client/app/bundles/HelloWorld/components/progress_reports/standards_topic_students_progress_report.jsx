@@ -1,6 +1,10 @@
 "use strict";
+import React from 'react'
+import ProgressReport from './progress_report.jsx'
+import MasteryStatus from './mastery_status.jsx'
 
-EC.StandardsTopicStudentsProgressReport = React.createClass({
+
+export default  React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired,
     premiumStatus: React.PropTypes.string.isRequired
@@ -46,7 +50,7 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
         sortByField: 'average_score',
         className: 'average-score-column',
         customCell: function(row) {
-          return <EC.MasteryStatus score={row['average_score']} />;
+          return <MasteryStatus score={row['average_score']} />;
         }
       }
     ];
@@ -74,7 +78,7 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
 
   render: function() {
     return (
-      <EC.ProgressReport columnDefinitions={this.columnDefinitions}
+      <ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
@@ -84,7 +88,7 @@ EC.StandardsTopicStudentsProgressReport = React.createClass({
                          filterTypes={['unit']}
                          premiumStatus={this.props.premiumStatus}>
         <h2>Standards: {this.state.topic.name}</h2>
-      </EC.ProgressReport>
+      </ProgressReport>
     );
   }
 });

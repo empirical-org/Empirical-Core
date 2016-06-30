@@ -1,8 +1,17 @@
-//= require ./../general_components/table/sortable_table/table_filter_mixin.js
-//= require ./../general_components/table/sortable_table/table_sorting_mixin.js
-EC.ProgressReport = React.createClass({
+import React from 'react'
+import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
+import TableFilterMixin from '../general_components/table/sortable_table/table_sorting_mixin'
+import Pagination from '../lesson_planner/create_unit/activity_search/pagination/pagination'
+import ExportCsv from './export_csv'
+import LoadingIndicator from './shared/loading_indicator'
+import SortableTable from '../general_components/table/sortable_table'
+import FaqLink from './faq_link.jsx'
+import ProgressReportFilters from './progress_report_filters.jsx'
+import $ from 'jquery'
+
+export default  React.createClass({
   mixins: [
-    EC.TableFilterMixin, EC.TableSortingMixin
+    TableFilterMixin, TableSortingMixin
   ],
 
   propTypes: {
@@ -172,17 +181,17 @@ EC.ProgressReport = React.createClass({
       mainSection;
     var filteredResults = this.getFilteredResults();
     if (this.props.pagination) {
-      pagination = <EC.Pagination maxPageNumber={this.props.maxPageNumber} selectPageNumber={this.goToPage} currentPage={this.state.currentPage} numberOfPages={this.state.numPages}/>;
+      pagination = <Pagination maxPageNumber={this.props.maxPageNumber} selectPageNumber={this.goToPage} currentPage={this.state.currentPage} numberOfPages={this.state.numPages}/>;
     }
     var visibleResults = this.getVisibleResults(filteredResults);
 
     if (this.props.exportCsv) {
-      csvExport = <EC.ExportCsv exportType={this.props.exportCsv} reportUrl={this.props.sourceUrl} filters={this.state.currentFilters} teacher={this.state.teacher}/>;
+      csvExport = <ExportCsv exportType={this.props.exportCsv} reportUrl={this.props.sourceUrl} filters={this.state.currentFilters} teacher={this.state.teacher}/>;
     }
     if (this.state.loading) {
-      mainSection = <EC.LoadingIndicator/>;
+      mainSection = <LoadingIndicator/>;
     } else {
-      mainSection = <EC.SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
+      mainSection = <SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
     }
 
     return (
@@ -193,10 +202,10 @@ EC.ProgressReport = React.createClass({
           </div>
           <div className="col-md-3 col-md-offset-1">
             {csvExport}
-            <EC.FaqLink/>
+            <FaqLink/>
           </div>
         </div>
-        <EC.ProgressReportFilters classroomFilters={this.state.classroomFilters} studentFilters={this.state.studentFilters} unitFilters={this.state.unitFilters} selectClassroom={this.selectClassroom} selectedClassroom={this.state.selectedClassroom} selectStudent={this.selectStudent} selectedStudent={this.state.selectedStudent} selectUnit={this.selectUnit} selectedUnit={this.state.selectedUnit} filterTypes={this.props.filterTypes}/>
+        <ProgressReportFilters classroomFilters={this.state.classroomFilters} studentFilters={this.state.studentFilters} unitFilters={this.state.unitFilters} selectClassroom={this.selectClassroom} selectedClassroom={this.state.selectedClassroom} selectStudent={this.selectStudent} selectedStudent={this.state.selectedStudent} selectUnit={this.selectUnit} selectedUnit={this.state.selectedUnit} filterTypes={this.props.filterTypes}/>
         {mainSection}
         {pagination}
       </div>

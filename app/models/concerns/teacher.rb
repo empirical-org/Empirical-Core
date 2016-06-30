@@ -29,6 +29,10 @@ module Teacher
     Scorebook::Query.new(self).query(current_page, classroom_id, unit_id, begin_date, end_date)
   end
 
+  def transfer_account
+    TransferAccountWorker.perform_async(self.id, new_user.id);
+  end
+
   def update_teacher params
     return if !self.teacher?
     params.permit(:id,

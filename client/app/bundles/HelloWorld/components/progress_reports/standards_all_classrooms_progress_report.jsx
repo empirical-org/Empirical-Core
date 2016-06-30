@@ -1,4 +1,8 @@
-EC.StandardsAllClassroomsProgressReport = React.createClass({
+import React from 'react'
+import ProgressReport from './progress_report.jsx'
+
+
+export default  React.createClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired,
     premiumStatus: React.PropTypes.string.isRequired
@@ -85,7 +89,7 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
 
   render: function() {
     return (
-      <EC.ProgressReport columnDefinitions={this.columnDefinitions}
+      <ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}
@@ -95,7 +99,7 @@ EC.StandardsAllClassroomsProgressReport = React.createClass({
                          premiumStatus={this.props.premiumStatus}>
         <h2>Standards: All Classrooms</h2>
         <p className="description">Select Student View to see how each student is performing. Select Standard View to see how the entire class is performing on each each standard.</p>
-      </EC.ProgressReport>
+      </ProgressReport>
     );
   }
 });
