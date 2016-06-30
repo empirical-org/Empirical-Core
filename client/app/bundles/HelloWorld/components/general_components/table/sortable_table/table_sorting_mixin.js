@@ -3,7 +3,13 @@
 // Call defineSorting() in componentDidMount() of your component.
 // Call sortResults() when a sort changes (use as a handler function)
 // Call applySorting() on your data before displaying it in render().
-EC.TableSortingMixin = {
+import React from 'react'
+import _ from 'underscore'
+
+
+
+
+export default {
   getInitialState: function() {
     return {
       currentSort: {},

@@ -1,5 +1,8 @@
 // Ported from EC.ActivitySearchSort
-EC.SortableTh = React.createClass({
+import _ from 'underscore'
+import React from 'react'
+
+export default React.createClass({
   propTypes: {
     isCurrentSort: React.PropTypes.bool.isRequired,
     displayName: React.PropTypes.string.isRequired,
