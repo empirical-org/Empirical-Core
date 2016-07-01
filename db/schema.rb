@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520200929) do
+ActiveRecord::Schema.define(version: 20160624180702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,10 +180,12 @@ ActiveRecord::Schema.define(version: 20160520200929) do
 
   create_table "concept_results", force: :cascade do |t|
     t.integer "activity_session_id"
-    t.integer "concept_id",          null: false
+    t.integer "concept_id",                 null: false
     t.json    "metadata"
+    t.integer "activity_classification_id"
   end
 
+  add_index "concept_results", ["activity_classification_id"], name: "index_concept_results_on_activity_classification_id", using: :btree
   add_index "concept_results", ["activity_session_id"], name: "index_concept_results_on_activity_session_id", using: :btree
 
   create_table "concepts", force: :cascade do |t|
@@ -464,4 +466,5 @@ ActiveRecord::Schema.define(version: 20160520200929) do
   add_index "users", ["token"], name: "index_users_on_token", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", using: :btree
 
+  add_foreign_key "concept_results", "activity_classifications"
 end

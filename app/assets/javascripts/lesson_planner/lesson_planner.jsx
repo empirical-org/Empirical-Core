@@ -218,7 +218,6 @@ EC.LessonPlanner = React.createClass({
     });
   },
 
-	// TODO: remove staging from the URL or build a regex that grabs everythig before the third slash using window.location.href
 	getInviteStudentsUrl: function() {
 		return ('/teachers/classrooms/' + $(".tab-pane").data().classroomId + '/invite_students');
 	},
@@ -335,7 +334,9 @@ EC.LessonPlanner = React.createClass({
 			tabSpecificComponents = <EC.UnitTemplatesManager
 																		data={this.state.unitTemplatesManager}
 																		actions={this.unitTemplatesManagerActions()}/>;
-		}
+    } else if (this.state.tab === 'assignANewActivity') {
+			tabSpecificComponents = <EC.AssignANewActivity toggleTab={this.toggleTab}/>;
+																}
 
 		return (
 			<span>
