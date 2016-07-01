@@ -14,7 +14,7 @@ feature 'Student Classroom Manager', js: true do
   describe 'the Classroom Manager page' do
 
     it 'renders the correct view' do
-      page.find("#students_classrooms_manager")
+      page.find("#archived_classrooms_manager")
     end
 
     it 'shows a list displaying all of the current users active classrooms' do

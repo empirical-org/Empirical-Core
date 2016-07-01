@@ -2,6 +2,7 @@ class ConceptResult < ActiveRecord::Base
 
   belongs_to :concept
   belongs_to :activity_session
+  belongs_to :activity_classification
 
   validates :concept, presence: true
   validates :activity_session, presence: true

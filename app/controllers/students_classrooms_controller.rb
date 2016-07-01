@@ -37,18 +37,18 @@ class StudentsClassroomsController < ApplicationController
     end
 
     def classroom_manager
-      render :students_classroom_manager
+      render "student_teacher_shared/archived_classroom_manager"
     end
 
     def classroom_manager_data
       begin
       active = current_user.students_classrooms
         .includes(classroom: :teacher)
-        .map(&:students_classrooms_manager)
+        .map(&:archived_classrooms_manager)
       inactive = StudentsClassrooms.unscoped
         .where(student_id: current_user.id, visible: false)
         .includes(classroom: :teacher)
-        .map(&:students_classrooms_manager)
+        .map(&:archived_classrooms_manager)
       rescue NoMethodError => exception
         render json: {error: "No classrooms yet!"}, status: 400
       else

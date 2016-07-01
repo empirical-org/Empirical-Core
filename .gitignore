@@ -39,3 +39,6 @@ dump.rdb
 # Ignore application configuration
 /config/application.yml
 activity-sessions*.json
+node_modules/
+client/node_modules/
+npm-debug.log

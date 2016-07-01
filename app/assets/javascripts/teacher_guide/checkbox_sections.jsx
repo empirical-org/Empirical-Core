@@ -62,8 +62,6 @@ sortBoxes: function(){
   return this.props.checkboxes.sort((a,b) => a.section_placement - b.section_placement);
 },
 
-
-
   section: function(){
     var that = this;
     var boxes = this.sortBoxes().map(box =>

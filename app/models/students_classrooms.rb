@@ -8,7 +8,7 @@ class StudentsClassrooms < ActiveRecord::Base
   default_scope { where(visible: true)}
 
 
-  def students_classrooms_manager
+  def archived_classrooms_manager
     {joinDate: self.created_at.strftime("%m/%d/%Y"), className: self.classroom.name, teacherName: self.classroom.teacher.name, id: self.id}
   end
 

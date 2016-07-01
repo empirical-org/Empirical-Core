@@ -32,7 +32,6 @@
 
   button {
     color: white;
-    margin-top: 30px;
   }
   input.btn-warning {
     line-height: 0;
@@ -57,5 +56,27 @@
   .remove-from-class {
     width: 186px;
     font-weight: bold;
+  }
+  .modal-dialog {
+    .modal-header {
+      min-height: 59px;
+    }
+    .account-form {
+      margin-bottom: 50px;
+    }
+    .close {
+      background-color: black;
+    }
+    .form-label, #zip{
+      float: none;
+      height: inherit;
+    line-height: inherit;
+    }
+    .row {
+      padding: 0px;
+    }
+    #select_school {
+      width: 50%;
+    }
   }
 }

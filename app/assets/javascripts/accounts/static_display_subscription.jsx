@@ -12,9 +12,17 @@ EC.StaticDisplaySubscription = React.createClass({
     newString = month + "/" + day + "/" + year;
     return newString;
   },
+
+  subscriptionTypeInUserLanguage: function(){
+    if (this.props.subscriptionType === 'none' || 'locked') {
+      return ('basic');
+    } else {
+      return (this.props.subscriptionType);
+    }
+  },
   render: function () {
     var getPremium, subscriptionDetails;
-    if (this.props.subscriptionType == 'free') {
+    if (this.props.subscriptionType == 'free' || 'locked' || 'none') {
       getPremium = (
         <div className='col-xs-3'>
           <a href="http://quill.org/premium" target="_new">
@@ -48,7 +56,7 @@ EC.StaticDisplaySubscription = React.createClass({
             Status
           </div>
           <div className='col-xs-2'>
-            <input disabled className='inactive' value={this.props.subscriptionType}/>
+            <input disabled className='inactive' value={this.subscriptionTypeInUserLanguage()}/>
           </div>
           {getPremium}
 

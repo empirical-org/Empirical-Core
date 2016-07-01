@@ -35,7 +35,7 @@ module PagesHelper
 	      {
 		      img: 'thumb-peter.png',
 		      name: 'Peter Gault',
-		      title: 'Executive Director, Founder',
+		      title: 'Executive Director, Cofounder',
 		      desc: "Peter designs the user's experience and coordinates the Empirical team. Peter wrote his senior thesis at Bates College on the role of emotion in moral judgements."
 		  },
 			{
@@ -53,7 +53,7 @@ module PagesHelper
 				{
 					img: 'thumb-donald.png',
 		      name: 'Donald Mckendrick',
-		      title: 'Technical Director, Cofounder',
+		      title: 'Technology Director, Cofounder',
 		      desc: "Donald is a developer who likes to create open platforms for learning.
 					He has a Masters degree in chemistry with a specialization in computer
 					aided modeling and statistical analysis."

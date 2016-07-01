@@ -1,0 +1,58 @@
+#assign-new-activity-page {
+    h1 {
+      font-size: 24px;
+font-weight: 600;
+margin-top: 30px;
+    }
+    #minis {
+      max-width: 1020px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 40px 20px 40px 20px;
+      margin: auto;
+        .assignment-type-mini {
+            color: #333333;
+             font-size: 12px;
+            min-width: 300px;
+            width: 300px;
+            height: 270px;
+            background: #fff;
+            border: solid 1px #cecece;
+            padding: 10px;
+            margin-bottom: 40px;
+            h3 {
+              font-size: 20px;
+          font-weight: 600;
+          line-height: 1.25;
+          margin-top: 7px;
+            }
+            img {
+              padding: 20px;
+min-height: 112px;
+            }
+            &:hover {
+                outline: solid 2.5px #00c2a2;
+            }
+            p {
+              font-size: 14px;
+              line-height: 1.57;
+              margin-bottom: 10px;
+            }
+            .meta-info-wrapper {
+              padding-top: 8px;
+                border-top: solid 1px #cecece;
+                    line-height: 1.7;
+            }
+            .directions {
+                color: #868686;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
