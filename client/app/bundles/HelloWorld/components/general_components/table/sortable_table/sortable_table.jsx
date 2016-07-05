@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'underscore'
 import SortableTh from './sortable_th.jsx'
 import SortableTr from './sortable_tr.jsx'
-// import ReactCSSTransitionGroup from '../../react_css_transition_group.jsx'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 
 export default React.createClass({
@@ -65,20 +65,18 @@ export default React.createClass({
       return this.loadingView();
     } else {
       var tbody;
-
-      // if (this.shouldTransition()) {
-        // TODO: bring this back in after speaking to Donald
-        // tbody = (
-        //   <ReactCSSTransitionGroup component='tbody'
-        //                              transitionName={this.props.transitionName}
-        //                              transitionEnterTimeout={2000}
-        //                              transitionLeaveTimeout={2000}>
-        //     {this.rows()}
-        //   </ReactCSSTransitionGroup>
-      //   )
-      // } else {
+      if (this.shouldTransition()) {
+        tbody = (
+          <ReactCSSTransitionGroup component='tbody'
+                                     transitionName={this.props.transitionName}
+                                     transitionEnterTimeout={2000}
+                                     transitionLeaveTimeout={2000}>
+            {this.rows()}
+          </ReactCSSTransitionGroup>
+        );
+      } else {
         tbody = <tbody>{this.rows()}</tbody>
-      // }
+      }
 
       return (
         <table className='table sortable-table'>

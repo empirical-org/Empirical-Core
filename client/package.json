@@ -55,6 +55,8 @@
     "eslint-plugin-react": "^4.2.3",
     "jscs": "^2.11.0",
     "moments": "0.0.2",
+    "react": "^15.2.0",
+    "react-addons-css-transition-group": "^15.2.0",
     "react-datepicker": "^0.27.0",
     "react-transform-hmr": "^1.0.4",
     "webpack-dev-server": "^1.14.1"
