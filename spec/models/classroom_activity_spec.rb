@@ -6,7 +6,8 @@ describe ClassroomActivity, type: :model do
   let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
   let!(:student){ FactoryGirl.create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher, code: 'great', name: 'great', students: [student]) }
-  let!(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom) }
+  let!(:unit) { FactoryGirl.create(:unit)}
+  let!(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
 
 
   describe "#destroy" do
@@ -35,6 +36,30 @@ describe ClassroomActivity, type: :model do
 	    	expect(classroom_activity.assigned_students.first ).to eq(@student)
 	    end
 	end
+  end
+
+  describe 'gives a checkbox when the teacher' do
+
+
+    before do
+      classroom.update(teacher_id: teacher.id)
+    end
+
+    it 'assigns a classroom activity through a custom activity pack' do
+      obj = Objective.create(name: 'Build Your Own Activity Pack')
+      unit.update(name: 'There is no way a featured activity pack would have this name')
+      classroom_activity.save
+      expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
+    end
+
+    it 'assigns a classroom activity through a featured activity pack' do
+      featured = UnitTemplate.create(name: 'Adverbs')
+      obj = Objective.create(name: 'Assign Featured Activity Pack')
+      unit.update(name: 'Adverbs')
+      classroom_activity.save
+      expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
+    end
+
   end
 
   context "when it has a due_date_string attribute" do
@@ -72,7 +97,7 @@ describe ClassroomActivity, type: :model do
 	  		expect(classroom_activity.session_for(student)).to be_valid
 	  	end
 	  	it "must raise an error when user's input is not valid" do
-	  		expect{classroom_activity.session_for(0)}.to raise_error
+	  		expect{classroom_activity.session_for(0)}.to raise_error ActiveRecord::AssociationTypeMismatch
 	  	end
   end
 

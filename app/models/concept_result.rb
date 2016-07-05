@@ -2,6 +2,7 @@ class ConceptResult < ActiveRecord::Base
 
   belongs_to :concept
   belongs_to :activity_session
+  belongs_to :activity_classification
 
   validates :concept, presence: true
   validates :activity_session, presence: true
@@ -20,4 +21,6 @@ class ConceptResult < ActiveRecord::Base
   def concept_uid=(concept_uid)
     self.concept = Concept.where(uid: concept_uid).first
   end
+
+
 end

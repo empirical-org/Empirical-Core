@@ -21,6 +21,11 @@ class ActivitiesController < ApplicationController
     render json: asw.result
   end
 
+  def count
+    @count = Activity.where(flags: [:production]).count
+    render json: {count: @count}
+  end
+
 protected
 
   def activity

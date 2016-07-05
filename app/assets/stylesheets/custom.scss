@@ -15,7 +15,7 @@
 }
 
 .section-mixin {
-  padding: 30px 0;
+  padding: 30px 0px;
   border-bottom: 1px solid #cecece;
 }
 
@@ -353,6 +353,26 @@ button:not(.select-mixin) {
     background-color: #217dcf;
   }
 }
+.quill-table {
+  border: solid 1px #cecece;
+  background-color: white;
+  font-size: 14px;
+  thead {
+    background-color: #e6e6e6;
+  }
+  td {
+    width: 30%;
+  }
+  tr td:last-of-type {
+    text-align: right;
+    color: #027360;
+    cursor: pointer;
+    padding-right: 13px;
+  }
+}
+
+
+
 .spinner-container {
   margin: 75px auto;
   .nc-icon {

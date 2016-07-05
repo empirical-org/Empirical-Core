@@ -7,8 +7,8 @@ module Student
     has_many :students_classrooms, foreign_key: 'student_id', dependent: :destroy, class_name: "StudentsClassrooms"
 
     has_many :classrooms, through: :students_classrooms, source: :classroom, inverse_of: :students, class_name: "Classroom"
-
-    has_many :assigned_activities, through: :classroom, source: :activities
+    # has_many :activities, through: :classrooms
+    has_many :assigned_activities, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
 
     after_create :assign_classroom_activities
@@ -33,6 +33,17 @@ module Student
     def completed_activities
       activity_sessions.completed
                         .where(is_final_score: true)
+    end
+
+    def next_activity_session(classroom_id)
+      ActivitySession.joins(classroom_activity: [:unit])
+          .where("classroom_activities.classroom_id = ?", classroom_id)
+          .where("activity_sessions.completed_at IS NULL")
+          .where("activity_sessions.user_id = ?", self.id)
+          .order("units.created_at DESC")
+          .order("classroom_activities.due_date ASC")
+          .select("activity_sessions.*")
+          .first
     end
 
     def percentages_by_classification(unit = nil)

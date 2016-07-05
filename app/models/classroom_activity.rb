@@ -1,14 +1,19 @@
 class ClassroomActivity < ActiveRecord::Base
+  include CheckboxCallback
+
+
   belongs_to :classroom
   belongs_to :activity
   belongs_to :unit, touch: true
   has_one :topic, through: :activity
   has_many :activity_sessions, dependent: :destroy
 
+  default_scope { where(visible: true) }
   scope :with_topic, ->(tid) { joins(:topic).where(topics: {id: tid}) }
 
 
   after_create :assign_to_students
+  after_save :teacher_checkbox
 
   def assigned_students
     User.where(id: assigned_student_ids)
@@ -40,6 +45,14 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def formatted_due_date
+    if due_date.present?
+      due_date.month.to_s + "-" + due_date.day.to_s + "-" + due_date.year.to_s
+    else
+      ""
+    end
+  end
+
 
 
   def completed
@@ -60,6 +73,20 @@ class ClassroomActivity < ActiveRecord::Base
     @score_book
   end
 
+  def assign_to_students
+    students.each do |student|
+      session_for(student)
+    end
+  end
+
+  def teacher_checkbox
+    teacher = self.classroom.teacher
+    checkbox_name = checkbox_type
+    if teacher && self.unit && self.unit.name
+      find_or_create_checkbox(checkbox_name, teacher)
+    end
+  end
+
   class << self
     def create_session(activity, options = {})
       classroom_activity = where(activity_id: activity.id, classroom_id: options[:user].classrooms.last.id).first_or_create
@@ -67,11 +94,15 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
-  protected
 
-  def assign_to_students
-    students.each do |student|
-      session_for(student)
+  def checkbox_type
+    if (self.unit && UnitTemplate.find_by_name(self.unit.name))
+      checkbox_name = 'Assign Featured Activity Pack'
+    else
+      checkbox_name = 'Build Your Own Activity Pack'
     end
   end
+
+
+
 end

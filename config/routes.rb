@@ -3,6 +3,7 @@ require 'sidekiq/web'
 EmpiricalGrammar::Application.routes.draw do
 
 
+  mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
   use_doorkeeper
 
   # authenticate :user, lambda { |u| u.admin? } do
@@ -32,6 +33,20 @@ EmpiricalGrammar::Application.routes.draw do
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
+  resources :students_classrooms do
+    collection do
+      get :add_classroom
+      get :classroom_manager
+      get :classroom_manager_data
+    end
+
+    member do
+      post :teacher_hide
+      post :hide
+      post :unhide
+    end
+
+  end
   resources :unit_templates, only: [:index, :show], format: 'json'
 
   resources :activity_sessions, only: [] do
@@ -43,6 +58,9 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
 
+  get 'students_classrooms_json' => 'profiles#students_classrooms_json'
+
+
   resources :activities, only: [] do
     post :retry, on: :member
     get :search, on: :collection
@@ -52,9 +70,11 @@ EmpiricalGrammar::Application.routes.draw do
 
   get :porthole_proxy, to: 'porthole_proxy#index'
 
+  post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
+
   namespace :teachers do
 
-    resources :units, as: 'units_path'  # moved from within classroom, since units are now cross-classroom
+    resources :units, as: 'units_path' # moved from within classroom, since units are now cross-classroom
 
     resources :unit_templates, only: [:index] do
       collection do
@@ -63,8 +83,9 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
-
-
+    get 'getting_started' => 'classroom_manager#getting_started'
+    get 'add_students' => 'classroom_manager#generic_add_students'
+    get 'teacher_guide' => 'classroom_manager#teacher_guide'
     get 'my_account' => 'classroom_manager#my_account'
     get 'my_account_data' => 'classroom_manager#my_account_data'
     put 'update_my_account' => 'classroom_manager#update_my_account'
@@ -97,6 +118,8 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms do
       collection do
         get :regenerate_code
+        get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
+        get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
@@ -114,8 +137,10 @@ EmpiricalGrammar::Application.routes.draw do
 
       member do
         get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
-        put :hide
+        post :hide
       end
+      #this can't go in with member because the id is outside of the default scope
+
 
       resources :activities, controller: 'classroom_activities'
 
@@ -131,7 +156,6 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  put '/students_classrooms/hide', to: 'students_classrooms#hide', as: 'students_classrooms_archive'
 
   # API routes
   namespace :api do
@@ -211,12 +235,17 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.
-  %w(tooltip press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources press_kit play media news).each do |page|
+  %w(tooltip board press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources press_kit play media news).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
   get 'activities/packs/:id' => 'teachers/unit_templates#show'
+
+
+  # Count route to get quantities
+  get 'count/featured_packs' => 'teachers/unit_templates#count'
+  get 'count/activities' => 'activities#count'
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work

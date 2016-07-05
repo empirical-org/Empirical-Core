@@ -1,10 +1,10 @@
 "use strict";
-$(function() {
-  var ele = $('#scorebook');
-  if (ele.length > 0) {
-    React.render(React.createElement(EC.Scorebook), ele[0]);
-  }
-});
+// $(function() {
+//   var ele = $('#scorebook');
+//   if (ele.length > 0) {
+//     React.render(React.createElement(EC.Scorebook), ele[0]);
+//   }
+// });
 
 EC.Scorebook = React.createClass({
   mixins: [EC.TableFilterMixin],
@@ -20,10 +20,11 @@ EC.Scorebook = React.createClass({
         name: 'All Units',
         value: ''
       },
-      selectedClassroom: {
-        name: 'All Classrooms',
-        value: ''
-      },
+      selectedClassroom: this.selectedClassroom(),
+      // {
+      //   name: 'All Classrooms',
+      //   value: ''
+      // },
       classroomFilters: [],
       unitFilters: [],
       beginDate: null,
@@ -52,6 +53,7 @@ EC.Scorebook = React.createClass({
         unit_id: this.state.selectedUnit.value,
         begin_date: this.state.beginDate,
         end_date: this.state.endDate,
+        selectedClassroom: this.state.selectedClassroom.id,
         no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet
       },
       success: this.displayData
@@ -59,9 +61,6 @@ EC.Scorebook = React.createClass({
   },
 
   displayData: function(data) {
-    if (data.was_classroom_selected_in_controller) {
-      this.setState({selectedClassroom: data.selected_classroom});
-    }
     this.setState({
       classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
       unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
@@ -69,6 +68,7 @@ EC.Scorebook = React.createClass({
       premium_state: data.teacher.premium_state,
       noLoadHasEverOccurredYet: false
     });
+    ;
     if (this.state.currentPage == 1) {
       this.setState({scores: data.scores});
     } else {
@@ -100,6 +100,14 @@ EC.Scorebook = React.createClass({
     this.setState({loading: false});
   },
 
+  selectedClassroom: function() {
+    if (!this.props.selectedClassroom) {
+      return {name: 'All Classrooms', value: ''};
+    } else {
+      return this.props.selectedClassroom;
+    }
+  },
+
   selectUnit: function(option) {
     this.setState({
       currentPage: 0,
@@ -111,7 +119,8 @@ EC.Scorebook = React.createClass({
     this.setState({
       currentPage: 0,
       selectedClassroom: option
-    }, this.fetchData);
+    }, this.fetchData
+  );
   },
   selectDates: function(val1, val2) {
     this.setState({
@@ -131,17 +140,21 @@ EC.Scorebook = React.createClass({
       var loadingIndicator = null;
     }
     return (
-      <span>
-        <div className="container">
-          <section className="section-content-wrapper">
-            <EC.ScorebookFilters selectedClassroom= {this.state.selectedClassroom} classroomFilters= {this.state.classroomFilters} selectClassroom= {this.selectClassroom} selectedUnit= {this.state.selectedUnit} unitFilters= {this.state.unitFilters} selectUnit= {this.selectUnit} selectDates= {this.selectDates}/>
-            <EC.ScoreLegend/>
-            <EC.AppLegend/>
-          </section>
-        </div>
-        {scores}
-        {loadingIndicator}
-      </span>
+      <div id="page-content-wrapper">
+         <div className="tab-pane" id="scorebook">
+             <span>
+                 <div className="container">
+                     <section className="section-content-wrapper">
+                         <EC.ScorebookFilters selectedClassroom={this.state.selectedClassroom} classroomFilters={this.state.classroomFilters} selectClassroom={this.selectClassroom} selectedUnit={this.state.selectedUnit} unitFilters={this.state.unitFilters} selectUnit={this.selectUnit} selectDates={this.selectDates}/>
+                         <EC.ScoreLegend/>
+                         <EC.AppLegend/>
+                     </section>
+                 </div>
+                 {scores}
+                 {loadingIndicator}
+             </span>
+         </div>
+     </div>
     );
   }
 });

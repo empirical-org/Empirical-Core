@@ -21,6 +21,12 @@ feature 'Create-a-Class page' do
         expect(current_path)                   .to eq lesson_planner_teachers_classrooms_path
       end
 
+      it 'gives the teacher a checkbox for creating the classroom' do
+        objective = Objective.create(name: 'Create a Classroom')
+        create_sweathogs
+        expect(Classroom.last.teacher.checkboxes.last.objective).to eq(objective)
+      end
+
       it "creates a class with the same name as another Teacher's" do
         mr_woodman = FactoryGirl.create :mr_woodman
         sweathogs  = FactoryGirl.create :sweathogs, teacher: mr_woodman

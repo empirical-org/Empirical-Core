@@ -4,7 +4,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
 
-  before_action :transform_incoming_request, only: [:update] # TODO: Also include create?
+  before_action :transform_incoming_request, only: [:update, :create] # TODO: Also include create?
 
   # GET
   def show
@@ -34,24 +34,26 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
   # POST
   def create
-    activity_session = ActivitySession.new(activity_session_params)
-    activity_session.set_owner(current_user) if activity_session.ownable?
-    activity_session.data = @data # FIXME: may no longer be necessary?
 
-    if activity_session.valid? && activity_session.save
+    @activity_session = ActivitySession.new(activity_session_params)
+    crs = @activity_session.concept_results
+    @activity_session.user = current_user if current_user
+    @activity_session.concept_results = []
+    # activity_session.set_owner(current_user) if activity_session.ownable?
+    # activity_session.data = @data # FIXME: may no longer be necessary?
+    if @activity_session.valid? && @activity_session.save
+      @activity_session.update(activity_session_params)
       @status = :success
       @message = "Activity Session Created"
     else
       @status = :failed
       @message = "Activity Session Create Failed"
     end
-
-    render json: activity_session, meta: {status: @status, message: @message, errors: activity_session.errors}
+    render json: @activity_session, meta: {status: @status, message: @message, errors: @activity_session.errors}
   end
 
   # DELETE
   def destroy
-
     if @activity_session.destroy!
       render json: ActivitySession.new, meta:
         {status: 'success', message: "Activity Session Destroy Successful", errors: nil}
@@ -59,7 +61,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       render json: @activity_session, meta:
         {status: 'failed', message: "Activity Session Destroy Failed", errors: @activity_session.errors}
     end
-
   end
 
   private
@@ -75,14 +76,16 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def activity_session_params
     params.delete(:activity_session)
     @data = params.delete(:data)
-    concept_result_keys = [:concept_uid, metadata: concept_result_allowed_keys]
+    concept_result_keys = [:concept_uid, :activity_classification_id, metadata: concept_result_allowed_keys]
     params.permit(:id,
                   :access_token, # Required by OAuth
                   :percentage,
                   :state,
                   :completed_at,
                   :activity_uid,
+                  :activity_id,
                   :anonymous,
+                  :temporary,
                   concept_results_attributes:  concept_result_keys)
       .merge(data: @data).reject {|k,v| v.nil? }
   end

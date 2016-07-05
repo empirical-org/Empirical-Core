@@ -6,7 +6,9 @@ class Dashboard
     sessions = sessions.where.not(percentage: nil)
     # we plan on limiting the timespan of this query
     # sessions = sessions.where(["completed_at > ?", 30.days.ago])
-    if sessions.count > 30
+    if sessions.count == 0 || nil
+      return
+    elsif sessions.count > 30
       strug_stud = lowest_performing_students(sessions)
       dif_con = difficult_concepts(sessions)
     else

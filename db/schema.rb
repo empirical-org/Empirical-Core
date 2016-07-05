@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229220357) do
+ActiveRecord::Schema.define(version: 20160624180702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,16 @@ ActiveRecord::Schema.define(version: 20160229220357) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "checkboxes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "objective_id"
+    t.string   "metadata"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "checkboxes", ["user_id", "objective_id"], name: "index_checkboxes_on_user_id_and_objective_id", unique: true, using: :btree
+
   create_table "classroom_activities", force: :cascade do |t|
     t.integer  "classroom_id"
     t.integer  "activity_id"
@@ -132,7 +142,8 @@ ActiveRecord::Schema.define(version: 20160229220357) do
     t.datetime "due_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "assigned_student_ids", array: true
+    t.integer  "assigned_student_ids",                             array: true
+    t.boolean  "visible",              default: true, null: false
   end
 
   add_index "classroom_activities", ["activity_id"], name: "index_classroom_activities_on_activity_id", using: :btree
@@ -169,10 +180,12 @@ ActiveRecord::Schema.define(version: 20160229220357) do
 
   create_table "concept_results", force: :cascade do |t|
     t.integer "activity_session_id"
-    t.integer "concept_id",          null: false
+    t.integer "concept_id",                 null: false
     t.json    "metadata"
+    t.integer "activity_classification_id"
   end
 
+  add_index "concept_results", ["activity_classification_id"], name: "index_concept_results_on_activity_classification_id", using: :btree
   add_index "concept_results", ["activity_session_id"], name: "index_concept_results_on_activity_session_id", using: :btree
 
   create_table "concepts", force: :cascade do |t|
@@ -276,6 +289,17 @@ ActiveRecord::Schema.define(version: 20160229220357) do
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+
+  create_table "objectives", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "help_info"
+    t.string   "section"
+    t.string   "action_url"
+    t.integer  "section_placement"
+    t.boolean  "archived",          default: false
+  end
 
   create_table "page_areas", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -442,4 +466,5 @@ ActiveRecord::Schema.define(version: 20160229220357) do
   add_index "users", ["token"], name: "index_users_on_token", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", using: :btree
 
+  add_foreign_key "concept_results", "activity_classifications"
 end

@@ -1,6 +1,6 @@
 class Classroom < ActiveRecord::Base
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
-
+  include CheckboxCallback
   validates_uniqueness_of :code
   validates_uniqueness_of :name, scope: :teacher_id
   # NO LONGER POSSIBLE WITH GOOGLE CLASSROOM : validates :grade, presence: true
@@ -22,6 +22,7 @@ class Classroom < ActiveRecord::Base
 
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
+  after_create {find_or_create_checkbox('Create a Classroom', self.teacher)}
 
   def x
     c = self
@@ -67,6 +68,10 @@ class Classroom < ActiveRecord::Base
     c
   end
 
+  def archived_classrooms_manager
+    {createdDate: self.created_at.strftime("%m/%d/%Y"), className: self.name, id: self.id, studentCount: self.students.count, classcode: self.code}
+  end
+
   def import_students!
     clever_students = clever_classroom.students
 
@@ -84,6 +89,13 @@ class Classroom < ActiveRecord::Base
   def generate_code
     self.code = NameGenerator.generate
     if Classroom.find_by_code(code) then generate_code end
+  end
+
+  def students_classrooms_json(student_id)
+    {name: self.name,
+     teacher: self.teacher.name,
+     id: self.id,
+     join_date: StudentsClassrooms.find_by_classroom_id_and_student_id(self.id, student_id).created_at}
   end
 
   private

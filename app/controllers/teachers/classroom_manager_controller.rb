@@ -16,6 +16,15 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
+
+  def generic_add_students
+    if current_user && current_user.role == 'teacher'
+      @classroom = current_user.classrooms_i_teach.first
+      redirect_to teachers_classroom_invite_students_path(@classroom)
+    else redirect_to profile_path
+    end
+  end
+
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
     current_user.classrooms_i_teach.includes(:students).each do |classroom|
       obj = {
@@ -24,7 +33,6 @@ class Teachers::ClassroomManagerController < ApplicationController
       }
       ( @classrooms_and_their_students ||= [] ).push obj
     end
-    #render partial: 'assign', layout: false
     render json: {
       classrooms_and_their_students: @classrooms_and_their_students
     }
@@ -34,7 +42,28 @@ class Teachers::ClassroomManagerController < ApplicationController
     @classrooms = current_user.classrooms_i_teach
   end
 
+  def manage_archived_classrooms
+    render "student_teacher_shared/archived_classroom_manager"
+  end
+
+  def archived_classroom_manager_data
+    begin
+    active = current_user.classrooms_i_teach
+      .map(&:archived_classrooms_manager)
+    inactive = Classroom.unscoped
+      .where(teacher_id: current_user.id, visible: false)
+      .map(&:archived_classrooms_manager)
+    rescue NoMethodError => exception
+      render json: {error: "No classrooms yet!"}, status: 400
+    else
+      render json: {active: active, inactive: inactive}
+    end
+  end
+
   def scorebook
+    cr_id = params[:classroom_id] ? params[:classroom_id] : current_user.classrooms_i_teach.last.id
+    classroom = Classroom.find(cr_id)
+    @selected_classroom = {name: classroom.name, value: classroom.id, id: classroom.id}
     if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     end
@@ -43,7 +72,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       if current_user.classrooms_i_teach.last.activities.empty?
         redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms_i_teach.last.grade)
       else
-        redirect_to teachers_classroom_invite_students_path(current_user.classrooms_i_teach.last)
+        redirect_to teachers_classroom_invite_students_path(current_user.classrooms_i_teach.first)
       end
     end
   end
@@ -54,6 +83,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
+
+
   def premium
     @subscription_type = current_user.premium_state
     render json: {
@@ -62,8 +93,6 @@ class Teachers::ClassroomManagerController < ApplicationController
       first_day_of_premium_or_trial: current_user.premium_updated_or_created_today?
     }
   end
-
-
 
   def classroom_mini
     current_user.classrooms_i_teach.includes(:students).each do |classroom|
@@ -86,26 +115,29 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
+  def teacher_guide
+    @checkbox_data = {
+      completed: current_user.checkboxes.map(&:objective_id),
+      potential: Objective.all
+    }
+  end
+
+  def getting_started
+    @checkbox_data = current_user.getting_started_info
+    render json: @checkbox_data
+  end
+
   def scores
     classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [:unit])
     units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact
-    if params[:no_load_has_ever_occurred_yet] == 'true'
-      params[:classroom_id] = current_user.classrooms_i_teach.first
-      was_classroom_selected_in_controller = true
-      selected_classroom = Classroom.find params[:classroom_id]
-    else
-      was_classroom_selected_in_controller = false
-      selected_classroom = nil
-    end
-
-    scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, params[:classroom_id], params[:unit_id], params[:begin_date], params[:end_date]
+    selected_classroom =  Classroom.find_by id: params[:classroom_id]
+    scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, selected_classroom.try(:id), params[:unit_id], params[:begin_date], params[:end_date]
     render json: {
       teacher: Scorebook::TeacherSerializer.new(current_user).as_json(root: false),
       classrooms: classrooms,
       units: units,
       scores: scores,
       is_last_page: is_last_page,
-      was_classroom_selected_in_controller: was_classroom_selected_in_controller,
       selected_classroom: selected_classroom
     }
   end

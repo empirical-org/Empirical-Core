@@ -3,7 +3,11 @@ class Teachers::UnitsController < ApplicationController
   before_filter :teacher!
 
   def create
-    Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+    if unit_params[:id].nil?
+      Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+    else
+      Units::Updater.run(current_user, unit_params[:id], unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+    end
     render json: {}
   end
 
@@ -50,8 +54,8 @@ class Teachers::UnitsController < ApplicationController
 
   def hide
     unit = Unit.find(params[:id])
-    unit.visible = false
-    unit.save(validate: false)
+    unit.update(visible: false)
+    ArchiveUnitsClassroomActivitiesWorker.perform_async(unit.id)
     render json: {}
   end
 
@@ -60,11 +64,16 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
+  def edit
+    unit = Unit.find(params[:id])
+    render json: LessonPlanner::UnitSerializer.new(unit, root: false)
+  end
+
 
   private
 
   def unit_params
-    params.require(:unit).permit(:name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
+    params.require(:unit).permit(:id, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
   end
 
 #   def setup

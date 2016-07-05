@@ -2,10 +2,10 @@
 EC.AuthSignUp = React.createClass({
   render: function () {
     return (
-      <span>
+      <div className='text-center'>
             <EC.GoogleSignUp/>
             <EC.CleverSignUp/>
-      </span>
+      </div>
     );
   }
 });

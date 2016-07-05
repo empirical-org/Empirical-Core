@@ -30,8 +30,10 @@ EC.LessonPlanner = React.createClass({
           classrooms: []
         },
         model: {
+          id: null,
           name: null,
-          selectedActivities: []
+          selectedActivities: [],
+          dueDates: {}
         }
       },
       unitTemplatesManager: {
@@ -83,6 +85,27 @@ EC.LessonPlanner = React.createClass({
     }
     return state;
 	},
+
+  editUnit: function(unitId) {
+    $.ajax({
+      url: ['/teachers/units/', unitId, '/edit'].join(''),
+      success: this.editUnitRequestSuccess
+    })
+  },
+
+  editUnitRequestSuccess: function (data) {
+    console.log('editUnitRequestSuccess', data)
+    this.updateCreateUnitModel({id: data.id, name: data.name, dueDates: data.dueDates, selectedActivities: data.selectedActivities})
+    this.updateCreateUnit({options: {classrooms: data.classrooms}})
+    this.setState({tab: 'createUnit'})
+  },
+
+  assignActivityDueDate: function(activity, dueDate) {
+    var dueDates = this.state.createUnit.model.dueDates;
+    dueDates[activity.id] = dueDate;
+    this.updateCreateUnitModel({dueDates: dueDates})
+  },
+
 
   selectModel: function (ut) {
     var relatedModels = this._modelsInCategory(ut.unit_template_category.id)
@@ -179,7 +202,9 @@ EC.LessonPlanner = React.createClass({
 
 	toggleStage: function (stage) {
 		this.updateCreateUnit({stage: stage})
-		this.fetchClassrooms();
+		if (!this.state.createUnit.options.classrooms.length) {
+      this.fetchClassrooms();
+    }
 	},
 
   fetchClassrooms: function() {
@@ -193,7 +218,6 @@ EC.LessonPlanner = React.createClass({
     });
   },
 
-	// TODO: remove staging from the URL or build a regex that grabs everythig before the third slash using window.location.href
 	getInviteStudentsUrl: function() {
 		return ('/teachers/classrooms/' + $(".tab-pane").data().classroomId + '/invite_students');
 	},
@@ -211,10 +235,14 @@ EC.LessonPlanner = React.createClass({
   },
 
   toggleActivitySelection: function (activity, true_or_false) {
+    console.log('toggleActivitySelection')
+    var selectedActivities = this.state.createUnit.model.selectedActivities
+    console.log('current selectedActivites', selectedActivities)
+    console.log('activity', activity)
 		if (true_or_false) {
 			this.props.analytics.track('select activity in lesson planner', {name: activity.name, id: activity.id});
 		}
-		var sas = this.modules.fnl.toggle(this.getSelectedActivities(), activity);
+		var sas = this.modules.fnl.toggleById(this.getSelectedActivities(), activity);
 		this.updateCreateUnitModel({selectedActivities: sas});
 	},
 
@@ -295,17 +323,20 @@ EC.LessonPlanner = React.createClass({
 																						assignSuccessData: this.state.unitTemplatesManager.model}}
 																						 actions={{toggleStage: this.toggleStage,
                                                        toggleTab: this.toggleTab,
+                                                       assignActivityDueDate: this.assignActivityDueDate,
                                                        update: this.updateCreateUnitModel,
                                                        toggleActivitySelection: this.toggleActivitySelection,
 																										 	 assignSuccessActions: 	this.unitTemplatesAssignedActions()}}
 																						 analytics={this.props.analytics}/>;
 		} else if (this.state.tab == 'manageUnits') {
-			tabSpecificComponents = <EC.ManageUnits toggleTab={this.toggleTab} />;
+			tabSpecificComponents = <EC.ManageUnits actions={{toggleTab: this.toggleTab, editUnit: this.editUnit}} />;
 		} else if (this.state.tab == 'exploreActivityPacks') {
 			tabSpecificComponents = <EC.UnitTemplatesManager
 																		data={this.state.unitTemplatesManager}
 																		actions={this.unitTemplatesManagerActions()}/>;
-		}
+    } else if (this.state.tab === 'assignANewActivity') {
+			tabSpecificComponents = <EC.AssignANewActivity toggleTab={this.toggleTab}/>;
+																}
 
 		return (
 			<span>
