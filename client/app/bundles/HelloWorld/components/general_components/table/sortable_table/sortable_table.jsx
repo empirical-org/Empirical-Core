@@ -66,7 +66,7 @@ export default React.createClass({
     } else {
       var tbody;
 
-      if (this.shouldTransition()) {
+      // if (this.shouldTransition()) {
         // TODO: bring this back in after speaking to Donald
         // tbody = (
         //   <ReactCSSTransitionGroup component='tbody'
@@ -78,7 +78,7 @@ export default React.createClass({
       //   )
       // } else {
         tbody = <tbody>{this.rows()}</tbody>
-      }
+      // }
 
       return (
         <table className='table sortable-table'>
