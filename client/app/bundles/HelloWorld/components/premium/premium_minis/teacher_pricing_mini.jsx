@@ -15,7 +15,7 @@ export default React.createClass({
 
   beginTrial: function() {
   if (this.state.isUserSignedIn === true) {
-    $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'})
+    $.post('/subscriptions', {account_limit: 1000, account_type: 'trial',   authenticity_token: $('meta[name=csrf-token]').attr('content')})
     .success(function(){window.location.assign('/teachers/classrooms/scorebook');});
   } else {
     this.pleaseLoginModal();

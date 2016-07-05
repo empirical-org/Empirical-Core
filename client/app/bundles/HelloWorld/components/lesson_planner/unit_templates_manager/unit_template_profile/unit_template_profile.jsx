@@ -59,7 +59,7 @@
             </div>
           </div>
           <div className='row'>
-            <div classsName='col-xs-12'>
+            <div className='col-xs-12'>
               <UnitTemplateProfileActivityTable data={this.props.data}
                                    actions={this.props.actions} />
             </div>

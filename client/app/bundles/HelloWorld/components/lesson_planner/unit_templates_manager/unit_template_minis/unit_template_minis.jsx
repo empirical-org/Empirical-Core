@@ -68,14 +68,14 @@
       className = 'col-sm-6 col-xs-12 no-pl'
     }
     return (
-      <div className={className}>
+      <div className={className} key={index}>
         {this.generateUnitTemplateView(data, index)}
       </div>
     );
   },
 
-  rowView: function (cols) {
-    return <div className='row'>{cols}</div>;
+  rowView: function (cols, index) {
+    return <div className='row' key={index}>{cols}</div>;
   },
 
   listFilterOptions: function () {
