@@ -12,7 +12,9 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: 'center',
-    borderBottom: '1px solid grey'
+    borderBottom: '1px solid grey',
+    margin: '10px 0',
+    fontSize: 18
   },
   column: {
     display: "flex",
@@ -56,10 +58,10 @@ const Lesson = React.createClass({
   },
 
   getPercentageScore: function (answerArray) {
-    return Math.round(_.reduce(answerArray, (memo, answer) => {
+    return _.reduce(answerArray, (memo, answer) => {
       const score = this.answeredCorrectly(answer) ? 1 : 0;
       return memo + score
-    }, 0) / answerArray.length * 100)
+    }, 0) + "/" + answerArray.length;
   },
 
   showModal: function (session) {

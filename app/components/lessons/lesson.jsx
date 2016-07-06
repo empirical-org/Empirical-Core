@@ -33,6 +33,7 @@ const Lesson = React.createClass({
           <h4 className="title">{data[lessonID].name}</h4>
           <h6 className="subtitle">{data[lessonID].questions.length} Questions</h6>
           <h6 className="subtitle"><Link to={'play/lesson/' + lessonID}>{"quillconnect.firebaseapp.com/#/play/lesson/" + lessonID}</Link></h6>
+          <h6 className="subtitle"><Link to={'admin/lessons/' + lessonID + '/results'}>View Results</Link></h6>
           <p className="control">
             <button className="button is-info" onClick={this.editLesson}>Edit Lesson</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Lesson</button>
           </p>
