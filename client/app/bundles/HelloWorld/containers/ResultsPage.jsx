@@ -1,5 +1,12 @@
 'use strict'
-EC.ResultsPage = React.createClass({
+
+import React from 'react'
+import _ from 'underscore'
+import $ from 'jquery'
+import ResultsIcon from '../components/activities/results_page/results_icon.jsx'
+import StudentResultsTables from '../components/activities/results_page/student_results_tables.jsx'
+
+export default React.createClass({
   headerButton: function () {
     if (this.props.anonymous) {
       return (<a href='/account/new'>
@@ -38,14 +45,14 @@ EC.ResultsPage = React.createClass({
         id='results-page'
         className='container-fluid'>
         <div className='top-section'>
-          <EC.ResultsIcon
+          <ResultsIcon
             percentage={this.props.percentage}
             activityType={this.props.activityType}/>
           {this.headerMessage()}
         </div>
         <div className='bottom-section'>
           <div className='results-wrapper'>
-            <EC.StudentResultsTables results={this.props.results}/>
+            <StudentResultsTables results={this.props.results}/>
           </div>
         </div>
       </div>

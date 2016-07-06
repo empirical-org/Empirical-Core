@@ -1,5 +1,7 @@
 'use strict'
-EC.StudentResultsTables = React.createClass({
+import React from 'react'
+
+export default React.createClass({
 
     mapResults: function(results) {
         var that = this;

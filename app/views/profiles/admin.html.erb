@@ -1,3 +1,3 @@
 <div id="admin-dashboard" data-id=<%=current_user.id %>>
-
+  <%= react_component('AdminDashboardApp', props: {id: current_user.id}) %>
 </div>

@@ -1,5 +1,7 @@
 'use strict'
-EC.ResultsIcon = React.createClass({
+import React from 'react'
+
+export default React.createClass({
 
    getInitialState: function(){
      return {scoreColor: this.scoreColor()}

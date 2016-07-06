@@ -1,4 +1,6 @@
-EC.AdminsTeacher = React.createClass({
+'use strict'
+import React from 'react'
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired
   },
