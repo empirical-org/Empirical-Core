@@ -109,7 +109,7 @@ export default React.createClass({
     console.log('saveNewTeacher')
     $.ajax({
       url: '/admins/' + this.props.id + '/teachers',
-      data: {teacher: this.state.newTeacher},
+      data: {teacher: this.state.newTeacher, authenticity_token: $('meta[name=csrf-token]').attr('content')},
       type: 'POST',
       success: this.saveNewTeacherSuccess
     })
@@ -139,7 +139,6 @@ export default React.createClass({
 
   render: function () {
     var teachers = this.applySorting(this.state.model.teachers);
-    console.log('teachers', teachers)
     return (
       <div className='container'>
         <div className='sub-container'>

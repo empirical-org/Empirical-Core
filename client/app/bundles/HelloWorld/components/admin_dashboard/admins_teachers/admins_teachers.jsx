@@ -6,10 +6,10 @@ import SortableTable from '../../general_components/table/sortable_table/sortabl
 
 export default React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
+    data: React.PropTypes.array.isRequired,
     sortHandler: React.PropTypes.func.isRequired,
     currentSort: React.PropTypes.object.isRequired,
-    columns: React.PropTypes.object.isRequired,
+    columns: React.PropTypes.array.isRequired,
     loading: React.PropTypes.bool.isRequired
   },
 
@@ -17,7 +17,7 @@ export default React.createClass({
     return _.map(this.props.data, function (teacher) {
       var result;
       var links = _.map(teacher.links, function (link) {
-        return <div><a className='green-link' href={link.path}>{link.name}</a></div>
+        return <div key={link.name}><a className='green-link' href={link.path}>{link.name}</a></div>
       }, this);
       result = <span>{links}</span>
       teacher.link_components = result;
@@ -26,7 +26,6 @@ export default React.createClass({
   },
 
   render: function () {
-
     var teachers = _.map(this.props.data, function (teacher) {
       return <AdminsTeacher key={teacher.id} data={teacher} />
     }, this)
