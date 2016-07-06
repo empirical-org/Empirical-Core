@@ -1,5 +1,10 @@
 'use strict'
-EC.StudentsClassroomsHeader = React.createClass({
+import React from 'react'
+import $ from 'jquery'
+import _ from 'underscore'
+
+
+export default React.createClass({
 
 
   getInitialState: function() {

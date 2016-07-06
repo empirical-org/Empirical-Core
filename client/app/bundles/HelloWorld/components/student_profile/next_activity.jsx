@@ -1,5 +1,8 @@
 'use strict';
-EC.NextActivity = React.createClass({
+import React from 'react'
+import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx'
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object // may be absent if there is no next_activity (student has completed all assigned activities)
   },

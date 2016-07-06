@@ -8,6 +8,11 @@ import NewAccountApp from './NewAccountAppClient';
 import ScorebookApp from './ScorebookAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import ProgressReportApp from './ProgressReportAppClient';
+import StudentProfileApp from './StudentProfileAppClient';
+import ArchivedClassroomsManagerApp from './ArchivedClassroomsManagerAppClient'
+
+
 // This is how react_on_rails can see the HelloWorldApp in the browser.
 
-ReactOnRails.register({ TeacherGuideApp, HelloWorldApp, DashboardApp, LessonPlannerApp, TeacherAccountApp, NewAccountApp, ScorebookApp, PremiumPricingGuideApp, ProgressReportApp});
+ReactOnRails.register({ TeacherGuideApp, HelloWorldApp, DashboardApp, LessonPlannerApp,                       
+  TeacherAccountApp, NewAccountApp, ScorebookApp, PremiumPricingGuideApp, ProgressReportApp, StudentProfileApp, ArchivedClassroomsManagerApp});

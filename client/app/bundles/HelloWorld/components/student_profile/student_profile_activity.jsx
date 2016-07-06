@@ -1,5 +1,8 @@
 'use strict';
-EC.StudentProfileActivity = React.createClass({
+import React from 'react'
+import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx'
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired
   },
@@ -9,7 +12,7 @@ EC.StudentProfileActivity = React.createClass({
       <div className="line">
         <div className="row">
           <div className="col-xs-9 col-sm-10 col-xl-10 pull-left">
-            <EC.ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} />
+            <ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} />
             <div className="icons-description-wrapper">
               <p className="title title-v-centered">{this.props.data.activity.name}</p>
             </div>
