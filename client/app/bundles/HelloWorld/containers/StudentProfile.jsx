@@ -1,14 +1,15 @@
-$(function () {
-  var studentProfile = $('#student-profile')[0]
-  if (studentProfile) {
-    React.render(React.createElement(EC.StudentProfile), studentProfile)
-  }
-});
+import React from 'react'
+import $ from 'jquery'
+import _ from 'underscore'
+import StudentProfileHeader from '../components/student_profile/student_profile_header.jsx'
+import NextActivity from '../components/student_profile/next_activity.jsx'
+import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx'
+import Setter from '../components/modules/setter.jsx'
 
-EC.StudentProfile = React.createClass({
+export default React.createClass({
   getInitialState: function () {
     this.modules = {
-      setter: new EC.modules.setter(),
+      setter: new Setter(),
       // scrollify: new EC.modules.scrollify()
     };
     return {
@@ -50,9 +51,9 @@ EC.StudentProfile = React.createClass({
     if (this.state.firstBatchLoaded) {
       return (
         <div>
-          <EC.StudentProfileHeader data={this.state.student} fetchData={this.fetchData} />
-          <EC.NextActivity data={this.state.next_activity_session} />
-          <EC.StudentProfileUnits data={this.state.grouped_scores} />
+          <StudentProfileHeader data={this.state.student} fetchData={this.fetchData} />
+          <NextActivity data={this.state.next_activity_session} />
+          <StudentProfileUnits data={this.state.grouped_scores} />
         </div>
       )
     } else return <span></span>

@@ -1,5 +1,10 @@
 'use strict';
-EC.StudentProfileUnit = React.createClass({
+import React from 'react'
+import _ from 'underscore'
+import StudentProfileActivities from './student_profile_activities.jsx'
+
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired
   },
@@ -22,7 +27,7 @@ EC.StudentProfileUnit = React.createClass({
     }, 0);
 
     var activities = _.map(compacted, function (ele) {
-      return <EC.StudentProfileActivities key={ele.header} data={ele.data} header={ele.header} count={count} />
+      return <StudentProfileActivities key={ele.header} data={ele.data} header={ele.header} count={count} />
     });
     return (
       <section>

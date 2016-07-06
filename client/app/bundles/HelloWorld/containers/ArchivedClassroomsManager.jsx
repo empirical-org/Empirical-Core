@@ -1,5 +1,7 @@
 'use strict'
-EC.ArchivedClassroomsManager = React.createClass({
+import React from 'react'
+import $ from 'jquery'
+export default React.createClass({
 
   propTypes: {
     role: React.PropTypes.string.isRequired

@@ -1,4 +1,7 @@
-EC.JoinClassStage1 = React.createClass({
+import React from 'react'
+
+
+export default React.createClass({
 
   getInitialState: function() {
     return {error: null};
