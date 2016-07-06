@@ -1,4 +1,8 @@
-EC.InviteUsers = React.createClass({
+import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'
+import _ from 'lodash'
+import React from 'react'
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object.isRequired
@@ -9,7 +13,7 @@ EC.InviteUsers = React.createClass({
       isSingleRow: true
     }
     this.modules = {
-      textInputGenerator: new EC.modules.TextInputGenerator(this, this.props.actions.update, options)
+      textInputGenerator: new TextInputGenerator(this, this.props.actions.update, options)
     }
     return {}
   },

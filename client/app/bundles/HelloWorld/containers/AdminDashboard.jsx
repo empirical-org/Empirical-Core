@@ -1,22 +1,17 @@
 //= require ./../general_components/table/sortable_table/table_sorting_mixin.js
-'use strict';
-$(function () {
-  var adminDashboard;
-  adminDashboard = $('#admin-dashboard')[0];
-  if (adminDashboard) {
-    var id = $(adminDashboard).data('id')
-    var props = {
-      analytics: new EC.AnalyticsWrapper(),
-      id: id
-    };
-    React.render(React.createElement(EC.AdminDashboard, props), adminDashboard);
-  }
-});
+import React from 'react'
+import TableSortingMixin from '../components/general_components/table/sortable_table/table_sorting_mixin.js'
+import _ from 'underscore'
+import AdminDashboardTop from '../components/admin_dashboard/admin_dashboard_top.jsx'
+import InviteUsers from '../components/invite_users/invite_users.jsx'
+import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx'
 
-EC.AdminDashboard = React.createClass({
-  mixins: [EC.TableSortingMixin],
+export default React.createClass({
+  mixins: [TableSortingMixin],
   propTypes: {
-    analytics: React.PropTypes.object.isRequired,
+    // I found this as a required proptype, when migrating to react-on-rails,
+    // however, we don't seem to actually use it anywhere
+    // analytics: React.PropTypes.object.isRequired,
     id: React.PropTypes.number.isRequired
   },
 
@@ -148,11 +143,11 @@ EC.AdminDashboard = React.createClass({
     return (
       <div className='container'>
         <div className='sub-container'>
-          <EC.AdminDashboardTop />
+          <AdminDashboardTop />
           <div className='row'>
             <div className='col-xs-12'>
-              <EC.InviteUsers data={this.inviteUsersData()} actions={this.inviteUsersActions()} />
-              <EC.AdminsTeachers currentSort={this.state.currentSort}
+              <InviteUsers data={this.inviteUsersData()} actions={this.inviteUsersActions()} />
+              <AdminsTeachers currentSort={this.state.currentSort}
                                  loading={this.state.loading}
                                  sortHandler={this.sortHandler()}
                                  data={teachers}

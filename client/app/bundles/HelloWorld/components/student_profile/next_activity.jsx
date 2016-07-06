@@ -15,7 +15,7 @@ export default React.createClass({
           <section>
             <div className="row">
               <div className="col-xs-12 col-sm-7 col-xl-7">
-                <EC.ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} placement={'bottom'}/>
+                <ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} placement={'bottom'}/>
                 <div className="icons-description-wrapper">
                   <p className="title title-v-centered">{this.props.data.activity.name}</p>
                 </div>

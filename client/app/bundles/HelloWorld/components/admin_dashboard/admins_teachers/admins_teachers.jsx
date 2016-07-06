@@ -1,4 +1,10 @@
-EC.AdminsTeachers = React.createClass({
+'use strict'
+import React from 'react'
+import AdminsTeacher from './admins_teacher.jsx'
+import SortableTable from '../../general_components/table/sortable_table/sortable_table.jsx'
+
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     sortHandler: React.PropTypes.func.isRequired,
@@ -22,11 +28,11 @@ EC.AdminsTeachers = React.createClass({
   render: function () {
 
     var teachers = _.map(this.props.data, function (teacher) {
-      return <EC.AdminsTeacher key={teacher.id} data={teacher} />
+      return <AdminsTeacher key={teacher.id} data={teacher} />
     }, this)
     return (
       <div className='admins-teachers'>
-        <EC.SortableTable columns={this.props.columns}
+        <SortableTable columns={this.props.columns}
                           rows={this.rows()}
                           loading={this.props.loading}
                           currentSort={this.props.currentSort}
