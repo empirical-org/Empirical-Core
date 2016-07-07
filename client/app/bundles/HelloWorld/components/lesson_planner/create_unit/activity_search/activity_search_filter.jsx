@@ -1,7 +1,7 @@
 'use strict'
 
  import React from 'react'
-  import _ from 'lodash'
+  import _ from 'underscore'
 	import FilterOption from '../filter_option'
 
  export default  React.createClass({

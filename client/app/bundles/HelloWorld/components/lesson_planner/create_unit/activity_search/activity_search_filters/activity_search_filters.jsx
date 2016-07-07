@@ -2,6 +2,7 @@
 
  import React from 'react'
  import ActivitySearchFilter from './activity_search_filter'
+ import _ from 'underscore'
 
  export default  React.createClass({
 	render: function () {

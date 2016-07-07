@@ -2,7 +2,7 @@
 
  import React from 'react'
  import FilterOption from './filter_option'
- import _ from 'lodash'
+ import _ from 'underscore'
  import $ from 'jquery'
 
  export default  React.createClass({
