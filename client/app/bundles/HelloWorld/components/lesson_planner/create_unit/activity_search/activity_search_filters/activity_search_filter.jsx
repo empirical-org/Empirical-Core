@@ -4,6 +4,7 @@
  import FilterOption from './filter_option'
  import _ from 'underscore'
  import $ from 'jquery'
+ import naturalCmp from 'underscore.string/naturalCmp'
 
  export default  React.createClass({
 

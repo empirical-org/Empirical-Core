@@ -5,6 +5,7 @@
 // Call applySorting() on your data before displaying it in render().
 import React from 'react'
 import _ from 'underscore'
+import naturalCmp from 'underscore.string/naturalCmp'
 
 
 
