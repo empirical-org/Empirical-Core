@@ -25,5 +25,7 @@ Rails.application.config.assets.precompile +=
     "news.js",
     "sign_up_email.css",
     "application_#{type}.js",
+    "app-bundle.js",
+    "vendor-bundle.js",
     "application_#{type}.css"
   ]
