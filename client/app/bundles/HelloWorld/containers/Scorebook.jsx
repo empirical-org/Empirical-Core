@@ -48,6 +48,7 @@ export default React.createClass({
   },
 
   fetchData: function() {
+    console.log('about to fetch data')
     var newCurrentPage = this.state.currentPage + 1;
     this.setState({loading: true, currentPage: newCurrentPage});
     $.ajax({
@@ -73,7 +74,6 @@ export default React.createClass({
       premium_state: data.teacher.premium_state,
       noLoadHasEverOccurredYet: false
     });
-    ;
     if (this.state.currentPage == 1) {
       this.setState({scores: data.scores});
     } else {
