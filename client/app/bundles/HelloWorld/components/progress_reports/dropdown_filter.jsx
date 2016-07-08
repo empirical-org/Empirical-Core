@@ -1,6 +1,7 @@
 import React from 'react'
 import DropdownFilterOption from './dropdown_filter_option.jsx'
 import _ from 'underscore'
+import $ from 'jquery'
 
 export default React.createClass({
   propTypes: {
