@@ -1,5 +1,6 @@
 import React from 'react'
 import DropdownFilter from './dropdown_filter.jsx'
+import _ from 'underscore'
 
 export default React.createClass({
 
