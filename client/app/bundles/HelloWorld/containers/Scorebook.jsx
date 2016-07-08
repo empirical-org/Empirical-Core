@@ -67,6 +67,8 @@ export default React.createClass({
   },
 
   displayData: function(data) {
+    console.log('in displayData')
+    console.log(data.classrooms)
     this.setState({
       classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
       unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
