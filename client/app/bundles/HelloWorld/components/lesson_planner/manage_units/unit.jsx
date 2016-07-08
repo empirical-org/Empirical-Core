@@ -63,8 +63,9 @@
 					<h3 className="col-md-9 vcenter">{this.props.data.unit.name}</h3>
 					<div className="col-md-3 vcenter pull-right delete-unit"><span onClick={this.hideUnit}>Delete</span></div>
 				</div>
-				<div className="unit-label">
-					{this.assignedToText()}
+				<div className="unit-label row">
+					<div className='col-md-9'> {this.assignedToText()}</div>
+          <div className='col-md-3 due-date-header'>Due Date</div>
 				</div>
 				<div className="table assigned-activities">
 					{classroomActivities}
