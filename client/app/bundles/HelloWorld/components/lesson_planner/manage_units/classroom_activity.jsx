@@ -8,7 +8,7 @@
  export default  React.createClass({
 
   getInitialState: function(){
-    return {startDate: this.dueDate()}
+    return {startDate: this.dueDate(), formattedDate: this.formattedDate(this.dueDate())}
   },
 
   dueDate: function(){
@@ -25,13 +25,26 @@
 		}
 	},
 
+  formattedDate: function(date){
+    if (date) {
+      return date.year() + '-' + (date.month() + 1) + '-' + (date.date() + 1);
+      }
+  },
+
+
+  formattedForHumanDate: function(date){
+    if (date) {
+      return (date.month() + 1) + '-' + (date.date() + 1) +  '-' +  date.year();
+      }
+  },
+
 
 
 
     handleChange: function(date) {
         this.setState({startDate: date});
         // months and days are an array that start at index 0;
-        var formattedDate = date.year() + '-' + (date.month() + 1) + '-' + (date.date() + 1);
+        var formattedDate = this.formattedDate(date)
         this.props.updateDueDate(this.props.data.id, formattedDate);
     },
 
@@ -50,7 +63,8 @@
 					</a>
 				</div>
 				<div className="cell col-md-2">
-          <DatePicker minDate={moment()} selected={this.state.startDate} onChange={this.handleChange} placeholderText={'Optional'}/>
+          {this.formattedForHumanDate(this.state.startDate) || 'None'}
+          {/*<DatePicker minDate={moment()} selected={this.state.startDate} onChange={this.handleChange} placeholderText={'Optional'}/>*/}
 				</div>
 				<div className="cell col-md-1">
 				</div>
