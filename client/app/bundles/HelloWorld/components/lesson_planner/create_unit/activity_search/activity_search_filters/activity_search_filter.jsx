@@ -22,7 +22,7 @@
 		// Sort the options alphanumerically.
 		this.props.data.options.sort(function(a, b) {
 			// This is kind of a hack, but all of the filter's options have a 'name' property.
-			return s.naturalCmp(a.name, b.name);
+			return naturalCmp(a.name, b.name);
 		});
 
 		if (isThereASelection) {
