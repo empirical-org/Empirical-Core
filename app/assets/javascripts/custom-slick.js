@@ -9,6 +9,8 @@ $(document).ready(function () {
 		return;
 	}
 
+	// console.log('slick exists:' + $( '#home-slider' ).slick);
+	debugger;
 	$( '#home-slider' ).slick({
 		dots: true,
 		arrows: false,
@@ -43,11 +45,11 @@ $(document).ready(function () {
 			nav.removeClass('dashboard-navbar');
 			nav.addClass('proofreader-navbar');
 
-			hero.addClass('proofreader-outer')			
+			hero.addClass('proofreader-outer')
 			hero.removeClass('writer-outer');
 			hero.removeClass('dashboard-outer');
 
-			
+
 
 
 		}
@@ -66,11 +68,10 @@ $(document).ready(function () {
 			nav.removeClass('proofreader-navbar');
 
 			nav.addClass('dashboard-navbar');
-			
+
 			hero.removeClass('writer-outer');
 			hero.addClass('dashboard-outer');
 		}
 	});
 
 });
-
