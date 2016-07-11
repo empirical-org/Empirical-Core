@@ -1,1 +1,1 @@
-console.log('test_file_application_static.js loaded')
+console.log('test_file_application_non_webpack.js loaded')
