@@ -2,7 +2,7 @@
 
 // turbolinks comes from npm and is listed in webpack.client.base.config.js
 
-//= require jquery-1.8.2.js
+
 //= require jquery.selectbox-0.2.js
 //= require bootstrap
 
@@ -29,7 +29,6 @@
 //= require_tree ./
 
 //= require jquery.turbolinks
-// require jquery_ujs
 //= require jquery-fileupload/basic
 
 //= require porthole
