@@ -1,4 +1,5 @@
 import React from 'react'
+import $ from 'jquery'
 
 
 export default React.createClass({
@@ -9,7 +10,7 @@ export default React.createClass({
 
   addClassroom: function() {
     var that = this;
-    $.post('../students_classrooms', {classcode: this.refs.classCodeInput.value})
+    $.post('../students_classrooms', {classcode: this.refs.classCodeInput.value, authenticity_token:  $('meta[name=csrf-token]').attr('content')})
       .done(function(){
         that.props.advanceStage();
       })
@@ -31,7 +32,7 @@ export default React.createClass({
         <h1>Join a New Class</h1>
         <span>Add Your Class Code</span>
         <br/>
-        <input className='class-input' ref='classCodeInput' placeholder='e.g. fresh-bread'/input>
+        <input className='class-input' ref='classCodeInput' placeholder='e.g. fresh-bread'></input>
         <br/>
         {this.errorMessage()}
         <button className='button-green' onClick={this.addClassroom}>Join Your Class</button>

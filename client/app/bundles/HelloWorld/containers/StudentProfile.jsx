@@ -50,7 +50,7 @@ export default React.createClass({
   render: function () {
     if (this.state.firstBatchLoaded) {
       return (
-        <div>
+        <div id="student-profile">
           <StudentProfileHeader data={this.state.student} fetchData={this.fetchData} />
           <NextActivity data={this.state.next_activity_session} />
           <StudentProfileUnits data={this.state.grouped_scores} />

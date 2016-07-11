@@ -12,6 +12,7 @@ import StudentProfileApp from './StudentProfileAppClient';
 import ArchivedClassroomsManagerApp from './ArchivedClassroomsManagerAppClient'
 import ResultsPageApp from './ResultsPageAppClient'
 import AdminDashboardApp from './AdminDashboardAppClient'
+import JoinClassApp from './JoinClassAppClient'
 
 
 // This is how react_on_rails can see the HelloWorldApp in the browser.
@@ -19,4 +20,4 @@ import AdminDashboardApp from './AdminDashboardAppClient'
 ReactOnRails.register({ TeacherGuideApp, HelloWorldApp, DashboardApp,
   LessonPlannerApp, TeacherAccountApp, NewAccountApp, ScorebookApp,
   PremiumPricingGuideApp, ProgressReportApp, StudentProfileApp,
-  ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp});
+  ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, JoinClassApp});
