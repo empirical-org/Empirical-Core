@@ -37,8 +37,8 @@ $(document).ready(function(){
 		}
 	}
 
+	console.log(console.log('tablet exists:' + $('.tabs-teacher-stories').tabslet));
 	tableSortIcons();
-
 	$('.tabs-teacher-stories').tabslet({
 		autorotate: true,
 		delay: 10000,
