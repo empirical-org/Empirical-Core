@@ -2,6 +2,7 @@
 import React from 'react'
 import GettingStartedMini from './getting_started_mini.jsx'
 import CheckboxSection from './checkbox_sections.jsx'
+import _ from 'underscore'
 
 export default React.createClass({
     propTypes: {
