@@ -106,7 +106,6 @@ export default React.createClass({
   },
 
   saveNewTeacher: function () {
-    console.log('saveNewTeacher')
     $.ajax({
       url: '/admins/' + this.props.id + '/teachers',
       data: {teacher: this.state.newTeacher, authenticity_token: $('meta[name=csrf-token]').attr('content')},

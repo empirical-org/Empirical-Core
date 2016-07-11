@@ -30,7 +30,6 @@ export default React.createClass({
     ],
 
     updateSendNewsletter: function(event) {
-      console.log(event.target.checked);
         this.props.update({sendNewsletter: event.target.checked});
     },
 

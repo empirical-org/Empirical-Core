@@ -216,7 +216,6 @@
 	},
 
   fetchClassrooms: function() {
-    console.log('fetchClassrooms')
     var that = this;
     $.ajax({
       url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',

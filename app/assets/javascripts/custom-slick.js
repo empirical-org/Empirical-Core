@@ -9,7 +9,6 @@ $(document).ready(function () {
 		return;
 	}
 
-	// console.log('slick exists:' + $( '#home-slider' ).slick);
 	$( '#home-slider' ).slick({
 		dots: true,
 		arrows: false,
@@ -24,19 +23,12 @@ $(document).ready(function () {
 
 
 
-	// $('#home-slider').on('beforeChange', function(event) {
-	// 	window.setTimeout(function () {
-	// 		console.log('timeout')
-	// 	}, 1);
-	// });
-
 
 
 	$( '#home-slider' ).on('beforeChange', function(event, slick, currentSlide, nextSlide) {
 		var nav = $('.home-page-navbar');
 		var hero = $('.home-hero');
 
-		//$('.div[data-slick-index=' + nextSlide + ']').show()
 
 		if (nextSlide == 0) {
 
