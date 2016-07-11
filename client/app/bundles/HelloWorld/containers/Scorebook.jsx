@@ -48,7 +48,6 @@ export default React.createClass({
   },
 
   fetchData: function() {
-    console.log('about to fetch data')
     var newCurrentPage = this.state.currentPage + 1;
     this.setState({loading: true, currentPage: newCurrentPage});
     $.ajax({
@@ -67,8 +66,6 @@ export default React.createClass({
   },
 
   displayData: function(data) {
-    console.log('in displayData')
-    console.log(data.classrooms)
     this.setState({
       classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
       unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),

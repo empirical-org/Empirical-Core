@@ -16,7 +16,6 @@ export default function () {
 
     // $('#purchase-btn').on('click', function(e) {
     // // Open Checkout with further options
-    console.log('in stripe');
     handler.open({
       name: 'Quill Premium',
       description: '$80 Teacher Premium',
