@@ -10,7 +10,6 @@ $(document).ready(function () {
 	}
 
 	// console.log('slick exists:' + $( '#home-slider' ).slick);
-	debugger;
 	$( '#home-slider' ).slick({
 		dots: true,
 		arrows: false,

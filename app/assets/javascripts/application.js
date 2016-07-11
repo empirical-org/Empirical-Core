@@ -25,6 +25,7 @@
 //= require tabslet.js
 
 
+
 //= require custom-slick.js
 
 //= require jquery-ui-custom.min.js
@@ -37,3 +38,4 @@
 
 //= require porthole
 //= require crazy-egg
+//= require test_file_application.js

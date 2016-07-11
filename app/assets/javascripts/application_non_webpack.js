@@ -34,3 +34,5 @@
 
 //= require porthole
 //= require crazy-egg
+
+//= require test_file_application_non_webpack.js
