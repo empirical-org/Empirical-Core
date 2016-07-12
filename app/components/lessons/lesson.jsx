@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
+import {deleteLesson}  from '../../actions/lessons.js';
 
 const Lesson = React.createClass({
   questionsForLesson: function () {
@@ -23,6 +24,16 @@ const Lesson = React.createClass({
       <ul>{listItems}</ul>
     )
 
+  },
+
+  deleteLesson: function () {
+    const {lessonID} = this.props.params;
+    if(confirm("do you want to do this?")) {
+      this.props.dispatch(deleteLesson(lessonID))
+      console.log("content deleted");
+    } else {
+      console.log("cancel hit");
+    }
   },
 
   render: function (){
