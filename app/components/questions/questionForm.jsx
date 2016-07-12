@@ -17,7 +17,7 @@ export default React.createClass({
         <p className="control">
           <input className="input" type="text" ref="prompt" defaultValue={this.props.question.prompt}></input>
         </p>
-        <label className="label">Cues (seperated by commas, no spaces eg "however,therefore,hence")</label>
+        <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
           <input className="input" type="text" ref="cues" defaultValue={this.props.question.cues}></input>
         </p>
