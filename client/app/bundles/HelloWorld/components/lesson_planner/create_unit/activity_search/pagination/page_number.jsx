@@ -17,7 +17,7 @@
   },
 
 	clickNumber: function () {
-		if (this.state.isCurrentPage) {
+		if (this.state.isCurrentPage === false) {
 			this.props.selectPageNumber(this.props.number);
 		}
 	},
