@@ -46,7 +46,7 @@ export default React.createClass({
     this.modules = {
       titleGenerator: new TooltipTitleGeneratorGenerator(this.props.context).generate(data)
     }
-    $(this.refs.activateTooltip.getDOMNode()).tooltip({
+    $(this.refs.activateTooltip).tooltip({
       html: true,
       placement: this.props.placement,
       title: this.modules.titleGenerator.generate(this.props.data)

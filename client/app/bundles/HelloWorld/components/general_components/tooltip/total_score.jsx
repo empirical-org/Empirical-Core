@@ -2,7 +2,7 @@ import React from 'react'
 
 export default React.createClass({
   propTypes: {
-    percentage: React.PropTypes.number.isRequired
+    percentage: React.PropTypes.string.isRequired
   },
 
   render: function () {

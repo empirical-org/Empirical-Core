@@ -1,8 +1,10 @@
 import React from 'react'
+import ReactDOMServer from 'react-dom/server';
 import TotalScore from '../../../general_components/tooltip/total_score.jsx'
 import AboutPremium from '../../../general_components/tooltip/about_premium.jsx'
 import ConceptResultStats from '../../../general_components/tooltip/concept_result_stats.jsx'
-import ActivityDetailsStats from '../../../general_components/tooltip/activity_details.jsx'
+import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx'
+
 
 export default function (percentageDisplayer) {
 
@@ -38,6 +40,6 @@ export default function (percentageDisplayer) {
         {aboutPremiumOrNot}
       </div>
     );
-    return React.renderToString(result);
+    return ReactDOMServer.renderToString(result);
   };
 }

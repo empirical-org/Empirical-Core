@@ -7,7 +7,7 @@ import LoadingIndicator from '../shared/loading_indicator'
 
 export default React.createClass({
   propTypes: {
-    checkboxData: React.PropTypes.object.isRequired
+    checkboxData: React.PropTypes.array.isRequired
   },
 
   percentageCompleted: function(){
@@ -23,9 +23,9 @@ export default React.createClass({
       content = <LoadingIndicator/>;
     } else {
       content =
-        [<h3>Getting Started</h3>,
-        <PercentageGraph percentage={this.percentageCompleted()}/>,
-        <a className='green-link' href='/teachers/teacher_guide'>View All Tasks ></a>]
+        [<h3 key='h3-tag'>Getting Started</h3>,
+        <PercentageGraph key='percentage-graph' percentage={this.percentageCompleted()}/>,
+        <a className='green-link' key='all-tasks' href='/teachers/teacher_guide'>View All Tasks ></a>]
     }
     return <div id='graph-section'>{content}</div>
   },
