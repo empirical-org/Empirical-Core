@@ -8,7 +8,7 @@
 
  export default React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
+    data: React.PropTypes.array.isRequired,
   },
 
   getInitialState: function() {
@@ -24,7 +24,7 @@
       return <OverviewMini overviewObj={overviewObj} key={overviewObj.header}/>;
     });
     if (this.state.displayTeacherGuide){
-      minis.unshift(<TeacherGuide dashboardMini={true} hideTeacherGuide={this.hideTeacherGuide}/>);
+      minis.unshift(<TeacherGuide dashboardMini={true} key='teacher-guide-displayed' hideTeacherGuide={this.hideTeacherGuide}/>);
     }
     return minis;
   },

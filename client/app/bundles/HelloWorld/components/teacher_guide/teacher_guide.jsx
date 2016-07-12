@@ -6,7 +6,6 @@ import _ from 'underscore'
 
 export default React.createClass({
     propTypes: {
-        checkboxData: React.PropTypes.object,
         dashboardMini: React.PropTypes.bool.isRequired,
         hideTeacherGuide: React.PropTypes.func.isRequired
     },

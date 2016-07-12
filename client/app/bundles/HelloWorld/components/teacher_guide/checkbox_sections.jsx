@@ -45,10 +45,10 @@ export default React.createClass({
   optionalInfo: function(box){
     var info = [];
     if (box.help_info) {
-      info.push(<td className='text-right help-info'>{this.pageBasedHelpInfo(box.help_info)}</td>);
+      info.push(<td key={'help-info ' + box.action_url} className='text-right help-info'>{this.pageBasedHelpInfo(box.help_info)}</td>);
     }
     if (box.action_url){
-      info.push(<td className='text-right url-action'>{this.actionButton(box.action_url)}</td>);
+      info.push(<td key={'action ' + box.action_url} className='text-right url-action'>{this.actionButton(box.action_url)}</td>);
     }
     return info;
   },
