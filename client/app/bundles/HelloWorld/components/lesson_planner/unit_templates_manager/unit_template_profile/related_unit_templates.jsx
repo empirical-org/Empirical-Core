@@ -2,7 +2,7 @@
 
  import React from 'react'
  import _ from 'underscore'
- import UnitTemplatedMini from '../unit_template_minis/unit_template_mini/unit_template_mini'
+ import UnitTemplateMini from '../unit_template_minis/unit_template_mini/unit_template_mini'
 
  export default React.createClass({
   propTypes: {

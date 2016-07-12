@@ -25,7 +25,6 @@
     };
     var options = this.props.options ? [allOption].concat(this.props.options) : [allOption];
     var sortedOptions = this.sortViews(options);
-    // var options = this.sortViews([allOption].concat(this.props.options));
     var arr =_.map(sortedOptions, this.generateView, this);
     return arr;
   },
@@ -35,7 +34,7 @@
   },
 
   isSelected: function (option) {
-    return (this.props.selectedId === option.id)
+    return (this.props.selectedId === option.id);
   },
 
   generateView: function (option) {

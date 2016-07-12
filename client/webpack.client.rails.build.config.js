@@ -51,8 +51,11 @@ config.module.loaders.push(
 );
 
 config.plugins.push(
-  new ExtractTextPlugin('[name]-bundle.css', { allChunks: true }),
-  new webpack.optimize.DedupePlugin()
+  // new ExtractTextPlugin('[name]-bundle.css', { allChunks: true }),
+  // new webpack.optimize.DedupePlugin()
+  // COMMENTED OUT DedupePlugin as I was experiencing
+  //  this issue https://github.com/webpack/webpack/issues/959
+  new ExtractTextPlugin('[name]-bundle.css', { allChunks: true })
 );
 
 if (devBuild) {
