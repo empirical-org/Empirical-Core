@@ -1,6 +1,7 @@
 "use strict";
 import React from 'react'
 import ProgressReport from './progress_report.jsx'
+import MasteryStatus from './mastery_status.jsx'
 
 
 export default  React.createClass({
@@ -55,7 +56,7 @@ export default  React.createClass({
         sortByField: 'average_score',
         className: 'mastery-status-column',
         customCell: function(row) {
-          return <EC.MasteryStatus score={row['average_score']} />;
+          return <MasteryStatus score={row['average_score']} />;
         }
       }
     ];
