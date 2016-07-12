@@ -35,9 +35,8 @@ export default  React.createClass({
     return {
       currentPage: 1,
       numPages: 1,
-
+      disabled: this.disabled(),
       loading: false,
-
       results: [],
       classroomFilters: [],
       studentFilters: [],
@@ -59,8 +58,11 @@ export default  React.createClass({
     };
   },
 
+  disabled: function(){
+    return this.props.premiumStatus === 'none' || 'locked';
+  },
+
   disableLinks: function() {
-    $('.export-csv .button-green').prop('disabled', true);
     if (!$('.progress-reports-standards-classrooms').length)
       $(".premium-status-none a").click(function(e) {
         e.preventDefault();
@@ -72,7 +74,7 @@ export default  React.createClass({
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     this.fetchData();
     var that = this;
-    if (this.props.premiumStatus === ('none' || 'locked')) {
+    if (this.state.disabled) {
       setTimeout(function() {
         that.disableLinks();
       }, 750);
@@ -171,7 +173,7 @@ export default  React.createClass({
   },
 
   blur: function() {
-    if (this.props.premiumStatus === ('locked' || 'none')) {
+    if (this.state.disabled) {
       return 'none';
     }
   },
@@ -187,7 +189,7 @@ export default  React.createClass({
     var visibleResults = this.getVisibleResults(filteredResults);
 
     if (this.props.exportCsv) {
-      csvExport = <ExportCsv exportType={this.props.exportCsv} reportUrl={this.props.sourceUrl} filters={this.state.currentFilters} teacher={this.state.teacher}/>;
+      csvExport = <ExportCsv disabled={!!this.state.disabled} exportType={this.props.exportCsv} reportUrl={this.props.sourceUrl} filters={this.state.currentFilters} teacher={this.state.teacher}/>;
     }
     if (this.state.loading) {
       mainSection = <LoadingIndicator/>;

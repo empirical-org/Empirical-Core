@@ -8,7 +8,8 @@ export default React.createClass({
     exportType: React.PropTypes.string.isRequired,
     filters: React.PropTypes.object.isRequired,
     reportUrl: React.PropTypes.string.isRequired,
-    teacher: React.PropTypes.object.isRequired
+    teacher: React.PropTypes.object.isRequired,
+    disabled: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -18,26 +19,31 @@ export default React.createClass({
   },
 
   createExport: function() {
-    $.ajax({
-      url: this.props.requestUrl,
-      data: {
-        authenticity_token: $('meta[name=csrf-token]').attr('content'),
-        report_url: this.props.reportUrl,
-        csv_export: {
-          export_type: this.props.exportType,
-          filters: this.props.filters
+    if (this.props.disabled) {
+      alert('CSV Exports are a Quill Premium Feature! Upgrade to Premium for reports, diagnostics, and more.')
+    } else {
+      $.ajax({
+        url: this.props.requestUrl,
+        data: {
+          authenticity_token: $('meta[name=csrf-token]').attr('content'),
+          report_url: this.props.reportUrl,
+          csv_export: {
+            export_type: this.props.exportType,
+            filters: this.props.filters
+          }
+        },
+        context: this,
+        dataType: 'json',
+        type: 'POST',
+        success: function onSuccess(data) {
+          this.openModal();
+        },
+        error: function(xhr) {
+          alert('Something went wrong with your CSV export. Most likely it is not implemented yet.');
         }
-      },
-      context: this,
-      dataType: 'json',
-      type: 'POST',
-      success: function onSuccess(data) {
-        this.openModal();
-      },
-      error: function(xhr) {
-        alert('Something went wrong with your CSV export. Most likely it is not implemented yet.');
-      }
-    });
+      });
+    }
+
   },
 
   openModal: function() {
