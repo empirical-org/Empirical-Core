@@ -1,4 +1,10 @@
-EC.PremiumBannerBuilder = React.createClass({
+import React from 'react'
+import $ from 'jquery'
+import FreeTrialBanner from './free_trial_banner.jsx'
+import NewSignUpBanner from './new_signup_banner.jsx'
+import FreeTrialStatus from './free_trial_status.jsx'
+
+export default React.createClass({
 
 
   getInitialState: function() {
@@ -24,14 +30,14 @@ EC.PremiumBannerBuilder = React.createClass({
     //   return <EC.LoadingIndicator/>;
     // }
     if (this.state.has_premium == 'none'){
-      return(<EC.FreeTrialBanner status={this.state.has_premium}/>);
+      return(<FreeTrialBanner status={this.state.has_premium}/>);
     }
     else if (this.state.first_day_of_premium_or_trial ){
-      return(<EC.NewSignUpBanner status={this.state.has_premium}/>);
+      return(<NewSignUpBanner status={this.state.has_premium}/>);
     }
     else if ((this.state.has_premium == 'trial') || (this.state.has_premium == 'locked')){
       return(<span>
-        <EC.FreeTrialStatus status={this.state.has_premium} data={this.state.trial_days_remaining}/>
+        <FreeTrialStatus status={this.state.has_premium} data={this.state.trial_days_remaining}/>
         </span>);
     }
     else if ((this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {

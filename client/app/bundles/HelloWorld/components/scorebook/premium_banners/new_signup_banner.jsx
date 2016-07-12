@@ -1,4 +1,5 @@
-EC.NewSignUpBanner = React.createClass({
+import React from 'react'
+export default React.createClass({
   stateSpecificComponents: function() {
     if (this.props.status == 'trial') {
     return <h4>Success! You started your 30 day trial</h4>
