@@ -88,6 +88,10 @@ const Question = React.createClass({
       },
       questionID: this.props.params.questionID
     }
+    this.refs.newResponseText.value = null;
+    this.refs.newResponseFeedback.value = null;
+    this.refs.newResponseOptimal.checked = false;
+    this.refs.boilerplate.value = null;
     this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals))
   },
 
@@ -96,6 +100,10 @@ const Question = React.createClass({
     return _.filter(responses, (response) => {
       return this.state.visibleStatuses[labels[response.statusCode]]
     });
+  },
+
+  chooseBoilerplate: function(e) {
+    this.refs.newResponseFeedback.value = this.refs.boilerplate.value
   },
 
   renderNewResponseForm: function () {
@@ -109,6 +117,20 @@ const Question = React.createClass({
         <label className="label">Feedback</label>
         <p className="control">
           <input className="input" type="text" ref="newResponseFeedback"></input>
+        </p>
+        <label className="label">Boilerplate feedback</label>
+        <p className="control">
+          <span className="select">
+            <select onChange={this.chooseBoilerplate} ref="boilerplate">
+              <option>Select boilerplate feedback</option>
+              <option>Is that really what the prompt suggested?</option>
+              <option>The what _?</option>
+              <option>What does _ describe?</option>
+              <option>What's a clearer way of describing _?</option>
+              <option>Great job! That's a strong sentence.</option>
+              <option>How can you make the sentence more concise (shorter, clearer)?</option>
+            </select>
+          </span>
         </p>
         <p className="control">
           <label className="checkbox">

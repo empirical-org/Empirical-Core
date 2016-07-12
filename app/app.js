@@ -16,6 +16,7 @@ import Questions from "./components/questions/questions.jsx";
 import Question from "./components/questions/question.jsx";
 import Lessons from "./components/lessons/lessons.jsx";
 import Lesson from "./components/lessons/lesson.jsx";
+import LessonResults from "./components/lessons/lessonResults.jsx";
 import StudentLesson from "./components/studentLessons/lesson.jsx";
 import GameLesson from "./components/gameLessons/lesson.jsx";
 import createStore from './utils/configureStore';
@@ -98,6 +99,7 @@ render((
           </Route>
           <Route path="lessons" component={Lessons}>
             <Route path=":lessonID" component={Lesson}/>
+            <Route path=":lessonID/results" component={LessonResults}/>
           </Route>
         </Route>
       </Route>

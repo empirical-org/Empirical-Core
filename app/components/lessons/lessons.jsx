@@ -20,7 +20,8 @@ const Lessons =  React.createClass({
   submitNewLesson: function () {
     var newLesson = {
       name: this.refs.newLessonName.value,
-      questions: this.state.selectedQuestions
+      questions: this.state.selectedQuestions,
+      introURL: this.refs.introURL.value
     }
     this.props.dispatch(actions.submitNewLesson(newLesson))
     this.refs.newLessonName.value = ""
@@ -81,14 +82,23 @@ const Lessons =  React.createClass({
           <Modal close={this.createNew}>
             <div className="box">
               <h4 className="title">Add New Lesson</h4>
-                <p className="control">
-                  <label className="label">Name</label>
-                  <input
-                    className="input"
-                    type="text"
-                    placeholder="Text input"
-                    ref="newLessonName"
-                  />
+              <p className="control">
+                <label className="label">Name</label>
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Text input"
+                  ref="newLessonName"
+                />
+              </p>
+              <p className="control">
+                <label className="label">Intro URL (You can link to a video or slideshow)</label>
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="http://example.com"
+                  ref="introURL"
+                />
               </p>
               <p className="control">
                 {this.renderQuestionSelect()}

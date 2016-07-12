@@ -9,9 +9,6 @@ export default React.createClass({
     return (
       <section className="section is-fullheight minus-nav">
         <div className="container">
-          <h4 className="subtitle">
-            Admin
-          </h4>
           <div className="example">
             <div className="tabs">
               <ul>

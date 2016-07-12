@@ -18,6 +18,7 @@ const Concepts = React.createClass({
       this.props.dispatch(questionActions.submitNewQuestion({
         prompt: this.refs.newQuestionPrompt.value,
         prefilledText: this.refs.newQuestionPrefilledText.value,
+        cues: this.refs.cues.value.split(','),
         conceptID: this.props.params.conceptID},
         {text: this.refs.newQuestionOptimalResponse.value, optimal: true, count: 0, feedback: "That's a great sentence!"}))
       this.refs.newQuestionPrompt.value = ''
@@ -54,6 +55,10 @@ const Concepts = React.createClass({
         <label className="label">Prompt</label>
         <p className="control">
           <input className="input" type="text" ref="newQuestionPrompt"></input>
+        </p>
+        <label className="label">Cues (seperated by commas, no spaces eg "however,therefore,hence")</label>
+        <p className="control">
+          <input className="input" type="text" ref="cues"></input>
         </p>
         <label className="label">Optimal Response</label>
         <p className="control">
