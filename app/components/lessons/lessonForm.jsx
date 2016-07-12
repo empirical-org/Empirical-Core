@@ -4,10 +4,11 @@ import {hashToCollection} from '../../libs/hashToCollection'
 
 const LessonForm = React.createClass({
   getInitialState: function () {
+    const {currentValues} = this.props
     return {
-      name: "",
-      introURL: "",
-      selectedQuestions: []
+      name: currentValues ? currentValues.name : "",
+      introURL: currentValues ? currentValues.introURL : "",
+      selectedQuestions: currentValues ? currentValues.questions : []
     }
   },
 
@@ -50,7 +51,10 @@ const LessonForm = React.createClass({
       return (
         <p className="control">
           <label className="checkbox">
-            <input type="checkbox" onChange={this.handleChange.bind(null, question.value)}/>
+            <input
+            type="checkbox"
+            onChange={this.handleChange.bind(null, question.value)}
+            checked={this.state.selectedQuestions.indexOf(question.value) !== -1}/>
             {question.title}
           </label>
         </p>

@@ -4,6 +4,10 @@ import { Link } from 'react-router'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {deleteLesson, startLessonEdit}  from '../../actions/lessons.js';
+import lessonActions from '../../actions/lessons'
+import Modal from '../modal/modal.jsx'
+import C from '../../constants.js'
+import EditLessonForm from './lessonForm.jsx'
 
 const Lesson = React.createClass({
   questionsForLesson: function () {
@@ -36,10 +40,30 @@ const Lesson = React.createClass({
     }
   },
 
+  cancelEditingLesson: function () {
+    this.props.dispatch(lessonActions.cancelLessonEdit(this.props.params.lessonID))
+  },
+
+  saveLessonEdits: function (vals) {
+    this.props.dispatch(lessonActions.submitLessonEdit(this.props.params.lessonID, vals))
+  },
+
   editLesson: function() {
     const {lessonID} = this.props.params;
     this.props.dispatch(startLessonEdit(lessonID));
     //console.log("Edit button clicked");
+  },
+
+  renderEditLessonForm: function() {
+    const {data} = this.props.lessons, {lessonID} = this.props.params;
+    const lesson = (data[lessonID]);
+    if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
+      return (
+        <Modal close={this.cancelEditingLesson}>
+          <EditLessonForm lesson={lesson} submit={this.saveLessonEdits} currentValues={lesson}/>
+        </Modal>
+      )
+    }
   },
 
   render: function (){
@@ -47,6 +71,7 @@ const Lesson = React.createClass({
     if (data[lessonID]) {
       return (
         <div>
+          {this.renderEditLessonForm()}
           <h4 className="title">{data[lessonID].name}</h4>
           <h6 className="subtitle">{data[lessonID].questions.length} Questions</h6>
           <h6 className="subtitle"><Link to={'play/lesson/' + lessonID}>{"quillconnect.firebaseapp.com/#/play/lesson/" + lessonID}</Link></h6>
