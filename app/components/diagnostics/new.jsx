@@ -18,7 +18,11 @@ const Diagnostics = React.createClass({
     return concepts
   },
   wellFormedQuestions() {
-    return _.groupBy(this.props.questions.data, 'conceptID')
+    let questions = this.props.questions.data
+    for (const key in questions) {
+      questions[key] = { ...questions[key], key }
+    }
+    return questions
   },
   changeTitle(event) {
     this.setState({title: event.target.value})
@@ -31,12 +35,21 @@ const Diagnostics = React.createClass({
     }
     this.setState({ diagnosticQuestions })
   },
+  changeQuestion(i, event) {
+    let diagnosticQuestions = this.state.diagnosticQuestions
+    diagnosticQuestions[i] = {
+      ...diagnosticQuestions[i],
+      question: this.state.allQuestions[event.target.value]
+    }
+    this.setState({ diagnosticQuestions })
+  },
   addQuestion() {
     let concepts = this.state.concepts
     let questions = this.state.questions
     if (!questions) {
-      questions = this.wellFormedQuestions()
-      this.setState({ questions })
+      const allQuestions = this.wellFormedQuestions()
+      questions = _.groupBy(allQuestions, 'conceptID')
+      this.setState({ questions, allQuestions })
     }
     if (!concepts) {
       concepts = this.wellFormedConcepts(questions)
@@ -45,7 +58,7 @@ const Diagnostics = React.createClass({
     const firstConcept = Object.values(concepts)[0]
     const newDiagnosticQuestion = {
       concept: firstConcept,
-      question: questions[firstConcept.key],
+      question: questions[firstConcept.key][0],
     }
     this.setState({
       diagnosticQuestions: this.state.diagnosticQuestions.concat(newDiagnosticQuestion)
@@ -130,6 +143,7 @@ const Diagnostics = React.createClass({
                   <span className="select">
                     <select
                       value={diagnosticQuestion.question.key}
+                      onChange={this.changeQuestion.bind(this, i)}
                     >
                       { this.questionsForConcept(diagnosticQuestion.concept).map(question =>
                       <option value={question.key}>{ question.prompt }</option>
