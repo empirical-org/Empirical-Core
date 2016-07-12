@@ -96,6 +96,11 @@ const Review = React.createClass({
     })
   },
 
+  getTotalValue: function(data) {
+    const values = _.map(data, (obj) => obj.value);
+    return _.reduce(values, (memo, val) => memo + val, 0)
+  },
+
   formatForPieChart: function () {
     return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => {
       return {
@@ -121,6 +126,8 @@ const Review = React.createClass({
     const {data, states} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
       var responses = hashToCollection(data[questionID].responses)
+      const correctnessPieChartData = _.values(this.formatForPieChart());
+      const hintTypePieChartData = _.values(this.formatForAlgorithmPieChart());
       return (
         <SharedSection>
           <h4 className="title">{data[questionID].prompt}</h4>
@@ -128,10 +135,16 @@ const Review = React.createClass({
           <Link to={'play/questions/' + questionID} className="button is-outlined is-primary">Play Question</Link><br/><br/>
           <div className='columns'>
             <div className='column is-half'>
-              <Chart data={_.values(this.formatForPieChart())}/>
+              <Chart
+                data={correctnessPieChartData}
+                total={this.getTotalValue(correctnessPieChartData)}
+              />
             </div>
             <div className='column is-half'>
-              <Chart data={_.values(this.formatForAlgorithmPieChart())}/>
+              <Chart
+                data={hintTypePieChartData}
+                total={this.getTotalValue(hintTypePieChartData)}
+              />
             </div>
           </div>
 
