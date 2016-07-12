@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
-import {deleteLesson}  from '../../actions/lessons.js';
+import {deleteLesson, startLessonEdit}  from '../../actions/lessons.js';
 
 const Lesson = React.createClass({
   questionsForLesson: function () {
@@ -34,6 +34,12 @@ const Lesson = React.createClass({
     } else {
       console.log("cancel hit");
     }
+  },
+
+  editLesson: function() {
+    const {lessonID} = this.props.params;
+    this.props.dispatch(startLessonEdit(lessonID));
+    //console.log("Edit button clicked");
   },
 
   render: function (){

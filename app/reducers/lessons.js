@@ -29,15 +29,15 @@ export default function(currentstate,action){
             });
         case C.START_LESSON_EDIT:
             newstate = _.cloneDeep(currentstate);
-            newstate.states[action.qid] = C.EDITING_LESSON;
+            newstate.states[action.cid] = C.EDITING_LESSON;
             return newstate;
         case C.FINISH_LESSON_EDIT:
             newstate = _.cloneDeep(currentstate);
-            delete newstate.states[action.qid];
+            delete newstate.states[action.cid];
             return newstate;
         case C.SUBMIT_LESSON_EDIT:
             newstate = _.cloneDeep(currentstate);
-            newstate.states[action.qid] = C.SUBMITTING_LESSON;
+            newstate.states[action.cid] = C.SUBMITTING_LESSON;
             return newstate;
         case C.TOGGLE_NEW_LESSON_MODAL:
             return Object.assign({},currentstate,{
