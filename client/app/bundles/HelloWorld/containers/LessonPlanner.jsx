@@ -3,6 +3,7 @@
  import React from 'react'
  import $ from 'jquery'
  import _ from 'underscore'
+ import _l from "lodash"
  import  UnitTemplatesAssigned from '../components/lesson_planner/unit_template_assigned'
  import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
  import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
@@ -116,13 +117,9 @@
 
 
   selectModel: function (ut) {
-    var relatedModels = this._modelsInCategory(ut.unit_template_category.id)
+    var relatedModels = _l.filter(this.state.unitTemplatesManager.models, {unit_template_category: {id: ut.unit_template_category.id}})
     this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
     this.modules.windowPosition.reset();
-  },
-
-  _modelsInCategory: function (categoryId) {
-    return _.where(this.state.unitTemplatesManager.models, {unit_template_category: {id: categoryId}})
   },
 
   _modelsInGrade: function (grade) {
@@ -171,7 +168,7 @@
 
   filterByCategory: function (categoryId) {
     if (categoryId) {
-      var uts = this._modelsInCategory(categoryId)
+      var uts = _l.filter(this.state.unitTemplatesManager.models, {unit_template_category: {id: categoryId}})
     } else {
       var uts = this.state.unitTemplatesManager.models;
     }
@@ -332,7 +329,7 @@
 																		data={this.state.unitTemplatesManager}
 																		actions={this.unitTemplatesManagerActions()}/>;
     } else if (this.state.tab === 'assignANewActivity') {
-			tabSpecificComponents = <EC.AssignANewActivity toggleTab={this.toggleTab}/>;
+			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab}/>;
 																}
 
 		return (

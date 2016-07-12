@@ -46,7 +46,7 @@
 	},
 
 	getUnitName: function () {
-		return this.props.data.createUnitData.model.name;
+		return this.props.data.createUnitData.model.name || '';
 	},
 
 	getId: function () {
