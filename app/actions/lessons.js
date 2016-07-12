@@ -15,10 +15,10 @@ module.exports = {
 		}
 	},
 	startLessonEdit: function(cid){
-		return {type:C.START_LESSON_EDIT,cid};
+		return {type:C.START_LESSON_EDIT,cid: cid};
 	},
 	cancelLessonEdit: function(cid){
-		return {type:C.FINISH_LESSON_EDIT,cid};
+		return {type:C.FINISH_LESSON_EDIT,cid: cid};
 	},
 	deleteLesson: function(cid){
 		return function(dispatch,getState){
