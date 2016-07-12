@@ -17,6 +17,7 @@ module.exports = {
     new ExtractTextPlugin("style.css")
   ],
   module: {
+    noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     loaders: [
       {
         test: /\.jsx?$/,
