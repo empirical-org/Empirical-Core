@@ -1,20 +1,28 @@
-'use strict';
-$(function () {
-  var packs = $('#public-activity-packs')[0];
-  if (packs) {
-    React.render(React.createElement(EC.PublicActivityPacks), packs)
-  }
-});
+import React from 'react'
+import $ from 'jquery'
+import _ from 'underscore'
+import _l from "lodash"
+// import  UnitTemplatesAssigned from '../components/lesson_planner/unit_template_assigned'
+// import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
+import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
+import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
+// import UnitTabs	 from '../components/lesson_planner/unit_tabs'
+import fnl from '../components/modules/fnl'
+import updaterGenerator from '../components/modules/updater'
+import Server from '../components/modules/server/server'
+import WindowPosition from '../components/modules/windowPosition'
+import AnalyticsWrapper from '../components/shared/analytics_wrapper'
 
-EC.PublicActivityPacks = React.createClass({
+
+export default React.createClass({
 
   getInitialState: function () {
     this.modules = {
-      fnl: new EC.modules.fnl(),
-      updaterGenerator: new EC.modules.updaterGenerator(this),
-      unitTemplatesServer: new EC.modules.Server('unit_template', 'unit_templates', '/teachers'),
-      windowPosition: new EC.modules.WindowPosition(),
-    };
+			fnl: new fnl,
+			updaterGenerator: new updaterGenerator(this),
+			unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
+      windowPosition: new WindowPosition(),
+		};
 
     this.deepExtendState = this.modules.updaterGenerator.updater(null)
     this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
@@ -108,7 +116,6 @@ EC.PublicActivityPacks = React.createClass({
 
   toggleTab: function (tab) {
     if (tab == 'createUnit') {
-      this.props.analytics.track('click Create Unit', {});
       this.updateCreateUnit({
                               stage: 1,
                               model: {
@@ -148,9 +155,6 @@ EC.PublicActivityPacks = React.createClass({
   },
 
   toggleActivitySelection: function (activity, true_or_false) {
-    if (true_or_false) {
-      this.props.analytics.track('select activity in lesson planner', {name: activity.name, id: activity.id});
-    }
     var sas = this.modules.fnl.toggle(this.getSelectedActivities(), activity);
     this.updateCreateUnitModel({selectedActivities: sas});
   },
@@ -189,7 +193,7 @@ EC.PublicActivityPacks = React.createClass({
   render: function () {
     var tabSpecificComponents;
 
-    tabSpecificComponents = <EC.UnitTemplatesManager
+    tabSpecificComponents = <UnitTemplatesManager
                                     data={this.state.unitTemplatesManager}
                                     actions={this.unitTemplatesManagerActions()}/>;
 

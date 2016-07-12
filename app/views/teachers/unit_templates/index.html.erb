@@ -4,6 +4,6 @@
 
 <div id="page-content-wrapper">
   <div class="tab-pane" id="public-activity-packs" data-authenticated=<%=@is_teacher%>>
-    <%= render partial: 'application/spinner' %>
+      <%= react_component('PublicActivityPacksApp', props: {})%>
   </div>
 </div>
