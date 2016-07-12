@@ -1,4 +1,8 @@
-EC.FreeTrialBanner = React.createClass({
+import React from 'react'
+import $ from 'jquery'
+import NewSignUpBanner from './new_signup_banner.jsx'
+
+export default React.createClass({
 
   getInitialState: function() {
   return {trial_started: false};
@@ -12,7 +16,7 @@ EC.FreeTrialBanner = React.createClass({
   render: function() {
 
       if (this.state.trial_started) {
-        return (<EC.NewSignUpBanner status={'trial'}/>);
+        return (<NewSignUpBanner status={'trial'}/>);
       }
       else {return (
       <div className='row free-trial-promo'>

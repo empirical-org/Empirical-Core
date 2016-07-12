@@ -1,4 +1,6 @@
-EC.FreeTrialStatus = React.createClass({
+import React from 'react'
+
+export default React.createClass({
 
   stateSpecificComponents: function() {
     if (this.props.status == 'trial') {

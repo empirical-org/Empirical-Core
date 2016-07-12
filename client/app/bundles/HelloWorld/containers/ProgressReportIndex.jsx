@@ -6,7 +6,7 @@ import StandardsClassroomTopicsProgressReport from '../components/progress_repor
 import StandardsTopicStudentsProgressReport from '../components/progress_reports/standards_topics_progress_report.jsx'
 import ConceptsStudentsProgressReport from '../components/progress_reports/concepts_students_progress_report.jsx'
 import ConceptsConceptsProgressReport from '../components/progress_reports/concepts_concepts_progress_report.jsx'
-// import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder'
+import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder'
 import $ from 'jquery'
 import _ from 'underscore'
 import React from 'react'
@@ -15,9 +15,9 @@ import ReactDOM from 'react-dom'
 
 var renderRightComponentHack = function() {
   var ele = $('.student-reports-subnav.tab-subnavigation-wrapper');
-  // if (ele.length > 0) {
-  //   React.render(React.createElement(PremiumBannerBuilder), $(ele[0]).next()[0]);
-  // }
+  if (ele.length > 0) {
+    ReactDOM.render(React.createElement(PremiumBannerBuilder), $(ele[0]).next()[0]);
+  }
 
   var progressReportMapping = {
     '.progress-reports-activities': ActivitiesProgressReport,
