@@ -12,9 +12,10 @@ export default React.createClass({
           <div className="example">
             <div className="tabs">
               <ul>
-                <TabLink to={"admin/concepts"} activeClassName="is-active">Concepts</TabLink>
-                <TabLink to={"admin/questions"} activeClassName="is-active">Questions</TabLink>
-                <TabLink to={"admin/lessons"} activeClassName="is-active">Lessons</TabLink>
+                <TabLink to={"/admin/concepts"} activeClassName="is-active">Concepts</TabLink>
+                <TabLink to={"/admin/questions"} activeClassName="is-active">Questions</TabLink>
+                <TabLink to={"/admin/lessons"} activeClassName="is-active">Lessons</TabLink>
+                <TabLink to={"/admin/diagnostics"} activeClassName="is-active">Diagnostics</TabLink>
               </ul>
             </div>
           </div>

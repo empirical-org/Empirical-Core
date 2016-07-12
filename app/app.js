@@ -17,6 +17,8 @@ import Question from "./components/questions/question.jsx";
 import Lessons from "./components/lessons/lessons.jsx";
 import Lesson from "./components/lessons/lesson.jsx";
 import LessonResults from "./components/lessons/lessonResults.jsx";
+import Diagnostics from "./components/diagnostics/diagnostics.jsx";
+import NewDiagnostic from "./components/diagnostics/new.jsx";
 import StudentLesson from "./components/studentLessons/lesson.jsx";
 import GameLesson from "./components/gameLessons/lesson.jsx";
 import createStore from './utils/configureStore';
@@ -101,6 +103,8 @@ render((
             <Route path=":lessonID" component={Lesson}/>
             <Route path=":lessonID/results" component={LessonResults}/>
           </Route>
+          <Route path="diagnostics" component={Diagnostics}/>
+          <Route path="diagnostics/new" component={NewDiagnostic}/>
         </Route>
       </Route>
     </Router>
