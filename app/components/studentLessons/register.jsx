@@ -40,23 +40,23 @@ export default React.createClass({
     } else {
       return (
         <div className="container">
-          <h2 className="title is-3">
+          <h2 className="title is-3 register">
             Welcome to Quill Connect!
           </h2>
-          <h4 className="title is-5">
-            In Quill Connect, you will combine sentences together to create compound and complex sentences.
-          </h4>
-          <h4 className="title is-5">
-            There will always be more than one right answer!
-          </h4>
-          <h4 className="title is-5">
-            You are joining the <span style={{fontWeight: '700'}}>{this.getLessonName()}</span> class.
-          </h4>
-          <p className="control">
-            <input className="input" type="text" onChange={this.handleNameChange} placeholder="Enter your name"></input>
-          </p>
-          <button className="button is-primary" onClick={this.startActivity}>Start</button>
-          <br/>
+          <img style={{maxHeight: '50vh', margin: '0 auto 20px', display: 'block'}} src={"http://i1.wp.com/www.connect.quill.org/wp-content/uploads/2016/04/animation.gif?fit=1100%2C265"}/>
+          <div className="register-container">
+            <ul className="register-list">
+              <li>Combine the sentences together into one sentence.</li>
+              <li>You may add or remove words.</li>
+              <li>There is often more than one correct answer.</li>
+              <li>Remember to use correct spelling, capitalization, and punctuation!</li>
+            </ul>
+            <p className="control">
+              <input className="input" type="text" onChange={this.handleNameChange} placeholder="Enter your name"></input>
+            </p>
+            <button className="button is-primary is-fullwidth" onClick={this.startActivity}>Start</button>
+            <br/>
+          </div>
         </div>
       )
     }

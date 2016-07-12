@@ -96,3 +96,23 @@ ul.is-unstyled {
     text-transform: uppercase;
   }
 }
+
+.register-list {
+  display: 'inline-block';
+  margin: 0 auto;
+
+  li {
+    margin-bottom: 1em;
+    font-size: 22px;
+  }
+}
+
+.register-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+h2.register {
+  text-align: center;
+}
