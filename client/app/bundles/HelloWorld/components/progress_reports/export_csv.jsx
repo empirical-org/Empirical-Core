@@ -2,6 +2,7 @@
 
 import React from 'react'
 import ExportCsvModal from './export_csv_modal.jsx'
+import $ from 'jquery'
 export default React.createClass({
   propTypes: {
     exportType: React.PropTypes.string.isRequired,
@@ -20,6 +21,7 @@ export default React.createClass({
     $.ajax({
       url: this.props.requestUrl,
       data: {
+        authenticity_token: $('meta[name=csrf-token]').attr('content'),
         report_url: this.props.reportUrl,
         csv_export: {
           export_type: this.props.exportType,
@@ -39,7 +41,11 @@ export default React.createClass({
   },
 
   openModal: function() {
-    $(this.refs.exportModal.getDOMNode()).modal();
+    // TODO: fix modals using react-bootstrap so we can stop using js alerts
+    // alert('Your Quill Progress Report is on its way! This table is being emailed to you as a CSV spreadsheet, which can be opened with Google Sheets or Excel. It should arrive within the next five minutes. Please Check: ' + {this.props.email} + ' If you do not receive an email within 10 minutes, please check your spamfolder.')
+    alert('Your Progress Report is on its way!')
+    // console.log($(this.refs.exportModal.getDOMNode()));
+    // $(this.refs.exportModal.getDOMNode()).modal();
   },
 
   render: function() {
