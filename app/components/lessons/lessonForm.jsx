@@ -5,16 +5,24 @@ import {hashToCollection} from '../../libs/hashToCollection'
 const LessonForm = React.createClass({
   getInitialState: function () {
     return {
+      name: "",
+      introURL: "",
       selectedQuestions: []
     }
   },
 
   submit: function () {
     this.props.submit({
-      name: this.refs.newLessonName.value,
+      name: this.state.name,
       questions: this.state.selectedQuestions,
-      introURL: this.refs.introURL.value
+      introURL: this.state.introURL
     })
+  },
+
+  handleStateChange: function (key, event) {
+    var changes = {};
+    changes[key] = event.target.value;
+    this.setState(changes)
   },
 
   handleChange: function (value) {
@@ -65,7 +73,8 @@ const LessonForm = React.createClass({
           className="input"
           type="text"
           placeholder="Text input"
-          ref="newLessonName"
+          value={this.state.name}
+          onChange={this.handleStateChange.bind(null, "name")}
         />
       </p>
       <p className="control">
@@ -74,7 +83,8 @@ const LessonForm = React.createClass({
           className="input"
           type="text"
           placeholder="http://example.com"
-          ref="introURL"
+          value={this.state.introURL}
+          onChange={this.handleStateChange.bind(null, "introURL")}
         />
       </p>
       <p className="control">
