@@ -24,10 +24,10 @@ const Lesson = React.createClass({
     var listItems = questionsForLesson.map((question) => {
       return (<li key={question.key}><Link to={'/results/questions/' + question.key}>{question.prompt}</Link></li>)
     })
+
     return (
       <ul>{listItems}</ul>
     )
-
   },
 
   deleteLesson: function () {
