@@ -23,9 +23,22 @@ const Lessons =  React.createClass({
 
   renderLessons: function () {
     const {data} = this.props.lessons;
-    const keys = _.keys(data);
+
+    var l = this.props.lessons.data
+    var q = this.props.questions.data
+
+    const keys = _.keys(data); //keys are the hashkeys for each teacher on the page
     return keys.map((key) => {
-      return (<li key={key}><Link to={'/admin/lessons/' + key} activeClassName="is-active">{data[key].name}</Link></li>)
+      var questionsToDisplay = l[key].questions.map((question) => {
+        return (
+          <li key={q[question].key} className="menu-list">{q[question].prompt}</li>
+        );
+      });
+      return (<li key={key}><Link to={'/admin/lessons/' + key} className="menu-label" activeClassName="is-active">{data[key].name}</Link>
+              <p/>
+              <a href={'#/admin/lessons/'+key} activeClassName="is-active">Start Activity</a>
+              <ul>{questionsToDisplay}</ul>
+              </li>)
     })
   },
 
@@ -40,6 +53,7 @@ const Lessons =  React.createClass({
       }
   },
 
+
   render: function() {
     return (
       <section className="section">
@@ -52,7 +66,7 @@ const Lessons =  React.createClass({
                 <p className="menu-label">
                   Lessons
                 </p>
-                <ul className="menu-list">
+                <ul>
                   {this.renderLessons()}
                 </ul>
               </aside>
