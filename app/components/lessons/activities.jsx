@@ -34,10 +34,12 @@ const Lessons =  React.createClass({
           <li key={q[question].key} className="menu-list">{q[question].prompt}</li>
         );
       });
-      return (<li key={key}><Link to={'/admin/lessons/' + key} className="menu-label" activeClassName="is-active">{data[key].name}</Link>
-              <p/>
-              <a href={'#/admin/lessons/'+key} activeClassName="is-active">Start Activity</a>
-              <ul>{questionsToDisplay}</ul>
+      return (<li key={key}>
+                <div className="activities-title">
+                <Link to={'/play/lesson/' + key} className="menu-label" activeClassName="is-active">{data[key].name}</Link>
+                <Link to={'/play/lesson/' + key} className="menu-label is-pulled-right" activeClassName="is-active">Start Activity</Link>
+                </div>
+                <ul>{questionsToDisplay}</ul>
               </li>)
     })
   },
@@ -58,14 +60,12 @@ const Lessons =  React.createClass({
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Lesson</button></h1>
-          { this.renderModal() }
+          <h1 className="title is-3">
+            Lessons
+          </h1>
           <div className="columns">
             <div className="column">
               <aside className="menu">
-                <p className="menu-label">
-                  Lessons
-                </p>
                 <ul>
                   {this.renderLessons()}
                 </ul>

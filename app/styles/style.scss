@@ -96,3 +96,9 @@ ul.is-unstyled {
     text-transform: uppercase;
   }
 }
+
+.activities-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}

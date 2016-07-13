@@ -14,6 +14,7 @@ import Concepts from "./components/concepts/concepts.jsx";
 import Concept from "./components/concepts/concept.jsx";
 import Questions from "./components/questions/questions.jsx";
 import Question from "./components/questions/question.jsx";
+import Activities from "./components/lessons/activities.jsx";
 import Lessons from "./components/lessons/lessons.jsx";
 import Lesson from "./components/lessons/lesson.jsx";
 import LessonResults from "./components/lessons/lessonResults.jsx";
@@ -82,9 +83,7 @@ render((
           <Redirect from="game/?student=:studentID&uid=:lessonID" to="/game/:lessonID" />
           <Route path="questions/:questionID" component={PlayQuestion}/>
         </Route>
-        <Route path="lessons" component={Passthrough}>
-
-        </Route>
+        <Route path="lessons" component={Activities}/>
         <Route path="results" component={Passthrough}>
           <IndexRoute component={Results}/>
           <Route path="questions/:questionID" component={Review}/>
