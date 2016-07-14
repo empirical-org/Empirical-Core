@@ -24,17 +24,21 @@ const Lessons =  React.createClass({
   renderLessons: function () {
     const {data} = this.props.lessons;
 
-    console.log(this.props)
     var l = this.props.lessons.data
     var q = this.props.questions.data
 
-    const keys = _.keys(data); //keys are the hashkeys for each teacher on the page
+    var keys = _.keys(data);
+    keys = _.filter(keys, (key) => {
+      return data[key].isPublic
+    })
+
     return keys.map((key) => {
       var questionsToDisplay = l[key].questions.map((question) => {
         return (
           <li key={q[question].key} className="menu-list">{q[question].prompt}</li>
         );
       });
+
       return (<li key={key}>
                 <div className="activities-title">
                 <Link to={'/play/lesson/' + key} className="menu-label" activeClassName="is-active">{data[key].name}</Link>
