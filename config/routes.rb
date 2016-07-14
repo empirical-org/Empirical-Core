@@ -3,18 +3,13 @@ require 'sidekiq/web'
 EmpiricalGrammar::Application.routes.draw do
 
 
-
-
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
-
   use_doorkeeper
 
   # authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   # end
 
-  get 'hello_world', to: 'hello_world#index'
-  
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
   end
