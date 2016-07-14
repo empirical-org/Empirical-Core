@@ -7,6 +7,7 @@ import Modal from '../modal/modal.jsx'
 import ResponseList from './responseList.jsx'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
+import Textarea from 'react-textarea-autosize';
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -213,7 +214,7 @@ export default React.createClass({
           {parentDetails}
           <label className="label">Feedback</label>
           <p className="control">
-            <input className="input" type="text" defaultValue={response.feedback} ref="newResponseFeedback"></input>
+            <Textarea className="input" type="text" defaultValue={response.feedback} ref="newResponseFeedback"></Textarea>
           </p>
           <label className="label">Boilerplate feedback</label>
           <p className="control">
