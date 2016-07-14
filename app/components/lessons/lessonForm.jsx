@@ -91,6 +91,8 @@ const LessonForm = React.createClass({
           onChange={this.handleStateChange.bind(null, "introURL")}
         />
       </p>
+      <input type="checkbox">Make lesson public</input>
+      <p className="label">Questions</p>
       <p className="control">
         {this.renderQuestionSelect()}
       </p>
