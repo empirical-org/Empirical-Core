@@ -3,6 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import Question from '../../libs/question'
+import Textarea from 'react-textarea-autosize';
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {submitResponse, clearResponses} from '../../actions.js'
@@ -311,7 +312,7 @@ const playLessonQuestion = React.createClass({
                 {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <Textarea className="textarea is-question is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                 </div>
                 <div className="button-group">
                   {this.renderNextQuestionButton()}
@@ -333,7 +334,7 @@ const playLessonQuestion = React.createClass({
                   {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <textarea className="textarea is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                    <Textarea className="textarea is-question is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                   </div>
                   <div className="button-group">
                     {this.renderNextQuestionButton(true)}
@@ -353,7 +354,7 @@ const playLessonQuestion = React.createClass({
                   {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <textarea className="textarea" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                    <Textarea className="textarea is-question" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                   </div>
                   <div className="button-group">
                     <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
@@ -375,7 +376,7 @@ const playLessonQuestion = React.createClass({
                 {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <Textarea className="textarea is-question" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                 </div>
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
