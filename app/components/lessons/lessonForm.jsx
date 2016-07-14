@@ -7,8 +7,9 @@ const LessonForm = React.createClass({
     const {currentValues} = this.props
     return {
       name: currentValues ? currentValues.name : "",
-      introURL: currentValues ? currentValues.introURL : "",
-      selectedQuestions: currentValues ? currentValues.questions : []
+      introURL: currentValues ? currentValues.introURL || "" : "",
+      selectedQuestions: currentValues ? currentValues.questions : [],
+      isPublic: currentValues ? currentValues.isPublic || false : false
     }
   },
 
@@ -16,7 +17,8 @@ const LessonForm = React.createClass({
     this.props.submit({
       name: this.state.name,
       questions: this.state.selectedQuestions,
-      introURL: this.state.introURL
+      introURL: this.state.introURL,
+      isPublic: this.state.isPublic
     })
   },
 
@@ -34,9 +36,7 @@ const LessonForm = React.createClass({
     } else {
       newSelectedQuestions = _.without(currentSelectedQuestions, value)
     }
-    this.setState({selectedQuestions: newSelectedQuestions}, () => {
-      console.log("new state: ", this.state.selectedQuestions)
-    })
+    this.setState({selectedQuestions: newSelectedQuestions})
 
   },
 
@@ -47,7 +47,7 @@ const LessonForm = React.createClass({
         title: question.prompt
       }
     })
-    const components = formattedQuestions.map((question) => {
+    return formattedQuestions.map((question) => {
       return (
         <p className="control">
           <label className="checkbox">
@@ -60,11 +60,10 @@ const LessonForm = React.createClass({
         </p>
       )
     })
-    return (
-      <div>
-        {components}
-      </div>
-    )
+  },
+
+  handleCheckbox: function() {
+    this.setState({isPublic: !this.state.isPublic})
   },
 
   render: function () {
@@ -91,11 +90,14 @@ const LessonForm = React.createClass({
           onChange={this.handleStateChange.bind(null, "introURL")}
         />
       </p>
-      <input type="checkbox">Make lesson public</input>
+      <input
+        type="checkbox"
+        checked={this.state.isPublic}
+        onChange={this.handleCheckbox}/>
+        Make lesson Public
       <p className="label">Questions</p>
-      <p className="control">
-        {this.renderQuestionSelect()}
-      </p>
+
+      {this.renderQuestionSelect()}
       <p className="control">
         <button className={"button is-primary " + this.props.stateSpecificClass} onClick={this.submit}>Submit</button>
       </p>

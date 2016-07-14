@@ -24,6 +24,7 @@ const Lessons =  React.createClass({
   renderLessons: function () {
     const {data} = this.props.lessons;
 
+    console.log(this.props)
     var l = this.props.lessons.data
     var q = this.props.questions.data
 
