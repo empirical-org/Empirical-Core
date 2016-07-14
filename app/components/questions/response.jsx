@@ -8,6 +8,7 @@ import ResponseList from './responseList.jsx'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Textarea from 'react-textarea-autosize';
+var Markdown = require('react-remarkable');
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -16,6 +17,12 @@ const feedbackStrings = {
 }
 
 export default React.createClass({
+
+  getInitialState: function () {
+    return {
+      feedback: this.props.f
+    }
+  },
 
   deleteResponse: function (rid) {
     if (window.confirm("Are you sure?")) {
@@ -153,6 +160,11 @@ export default React.createClass({
     return spans;
   },
 
+  handleFeedbackChange: function (e) {
+    // const changes = this.state.feedback[String(rID)] = e.target.value
+    this.setState({feedback: e.target.value});
+  },
+
   renderResponseContent: function (isEditing, response) {
     var content;
     var parentDetails;
@@ -213,8 +225,9 @@ export default React.createClass({
         <div className="content">
           {parentDetails}
           <label className="label">Feedback</label>
+          <Markdown source={this.state.feedback || "#### Preview will show here"} />
           <p className="control">
-            <Textarea className="input" type="text" defaultValue={response.feedback} ref="newResponseFeedback"></Textarea>
+            <Textarea className="input" type="text" onChange={this.handleFeedbackChange} defaultValue={response.feedback} ref="newResponseFeedback"></Textarea>
           </p>
           <label className="label">Boilerplate feedback</label>
           <p className="control">

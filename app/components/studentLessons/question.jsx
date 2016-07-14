@@ -1,5 +1,5 @@
 import React from 'react'
-
+var Markdown = require('react-remarkable');
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import Question from '../../libs/question'
@@ -138,17 +138,16 @@ const playLessonQuestion = React.createClass({
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
-      components = components.concat([(<li key="feedback"><h5 className="title is-5">{attempt.response.feedback}</h5></li>)])
+      components = components.concat([(<li key="feedback"><Markdown source={attempt.response.feedback} /></li>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}</h5></li>)
+        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
       }
     }))
-    // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
     if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
       const parentResponse = this.getQuestion().responses[attempt.response.parentID]
-      components = [(<li key="parentfeedback"><h5 className="title is-5">{parentResponse.feedback}</h5></li>)].concat(components)
+      components = [(<li key="parentfeedback"><Markdown source={parentResponse.feedback}/></li>)].concat(components)
     }
     return components.concat(errorComponents)
   },
