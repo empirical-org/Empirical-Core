@@ -16,7 +16,7 @@ class SignInPage < Page
     submit_form
   end
 
-  def sign_in_failed_path
+  def path
     self.class.path
   end
 
