@@ -53,8 +53,8 @@ describe ActivitySessionsController, type: :controller do
         subject
       end
 
-      it 'responds with 200' do
-        expect(response.status).to eq(200)
+      it 'responds with 302 redirect' do
+        expect(response).to be_redirect
       end
     end
   end
