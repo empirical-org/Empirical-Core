@@ -49,7 +49,7 @@ const LessonForm = React.createClass({
     })
     return formattedQuestions.map((question) => {
       return (
-        <p className="control">
+        <p key={question.value} className="control">
           <label className="checkbox">
             <input
             type="checkbox"

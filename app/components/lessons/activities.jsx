@@ -29,7 +29,7 @@ const Lessons =  React.createClass({
 
     var keys = _.keys(data);
     keys = _.filter(keys, (key) => {
-      return data[key].isPublic
+      return data[key].flag==="Production"
     })
 
     return keys.map((key) => {
