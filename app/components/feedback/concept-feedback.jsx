@@ -26,8 +26,8 @@ const ConceptFeedback = React.createClass({
     }
   },
 
-  cancelEdit: function() {
-      this.props.dispatch(actions.cancelConceptsFeedbackEdit(this.props.feedbackID.feedbackID))
+  cancelEdit: function(feedbackID) {
+      this.props.dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
   },
 
   render: function (){
@@ -40,7 +40,7 @@ const ConceptFeedback = React.createClass({
         return (
           <div>
             <h4 className="title">{data[feedbackID].name}</h4>
-            <FeedbackForm feedbackText={data[feedbackID].feedbackText} feedbackID={feedbackID} submitNewFeedback={this.submitNewFeedback}/>
+            <FeedbackForm feedbackText={data[feedbackID].feedbackText} feedbackID={feedbackID} submitNewFeedback={this.submitNewFeedback} cancelEdit={this.cancelEdit}/>
           </div>
         )
       } else {
