@@ -60,7 +60,7 @@ const Diagnostics = React.createClass({
               />
             </div>
           </div>
-          <QuestionSelect />
+          <QuestionSelect showSubQuestions={true} />
         </div>
       </section>
     )

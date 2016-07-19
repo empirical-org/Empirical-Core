@@ -5,13 +5,17 @@ export default function(state = { questions: [] }, action) {
       questions = state.questions || []
       return {
         ...state,
-        questions: questions.concat(action.data)
+        questions: questions.concat({ [action.questionType]: action.data })
       }
     case 'QUESTION_SELECT.MODIFY_QUESTION':
       questions = state.questions
+      const data = {
+        ...questions[action.index][action.questionType],
+        ...action.data
+      }
       questions[action.index] = {
         ...questions[action.index],
-        ...action.change
+        [action.questionType]: data
       }
       return {
         ...state,

@@ -1,17 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-let AddQuestion = ({ dispatch, key, conceptID }) => (
+let AddQuestion = ({ dispatch, conceptID, questionType, index, buttonClass,
+                     text, actionType }) => (
   <button
-    className="button is-primary"
+    className={"button " + buttonClass}
     onClick={e => {
       dispatch({
-        type: 'QUESTION_SELECT.ADD_QUESTION',
+        type: 'QUESTION_SELECT.' + (actionType || 'ADD_QUESTION'),
+        questionType,
+        index,
         data: { conceptID, questionID: null }
       })
     }}
   >
-    &#43; Add question
+    <span>&#43; { text || 'Add question' }</span>
   </button>
 )
 

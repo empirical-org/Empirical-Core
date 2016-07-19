@@ -3,16 +3,16 @@ import _ from 'underscore'
 import { hashToCollection } from '../../libs/hashToCollection'
 import { connect } from 'react-redux'
 
-let QuestionSelecter = ({ dispatch, key, index, questions, questionID }) => (
+let QuestionSelecter = ({ dispatch, index, questions, questionID, questionType }) => (
   questions.length > 0 ?
     <span className="select">
       <select
         onChange={e => {
           dispatch({
             type: 'QUESTION_SELECT.MODIFY_QUESTION',
-            key,
             index,
-            change: { questionID: e.target.value },
+            questionType,
+            data: { questionID: e.target.value },
           })
         }}
         value={questionID}
@@ -36,7 +36,7 @@ function questionsForConcept(allQuestions, conceptID) {
 }
 
 function select(state, ownProps) {
-  const questionSelecter = state.questionSelect.questions[ownProps.index]
+  const questionSelecter = state.questionSelect.questions[ownProps.index][ownProps.questionType]
   const questions = questionsForConcept(state.questions.data, questionSelecter.conceptID)
   return {
     questions,

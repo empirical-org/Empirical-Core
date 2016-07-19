@@ -2,16 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import QuestionSelecter from './QuestionSelecter.jsx'
 
-let ConceptFilter = ({ dispatch, key, index, concepts, conceptID }) => (
+let ConceptFilter = ({ dispatch, index, concepts, conceptID, questionType }) => (
   <p className="control is-grouped">
     <span className="select">
       <select
         onChange={e => {
           dispatch({
             type: 'QUESTION_SELECT.MODIFY_QUESTION',
-            key,
             index,
-            change: { conceptID: e.target.value },
+            questionType,
+            data: { conceptID: e.target.value },
           })
         }}
       >
@@ -24,7 +24,7 @@ let ConceptFilter = ({ dispatch, key, index, concepts, conceptID }) => (
         ) }
       </select>
     </span>
-    <QuestionSelecter index={index} />
+    <QuestionSelecter index={index} questionType={questionType} />
   </p>
 )
 
@@ -36,7 +36,7 @@ function wellFormedConcepts(state) {
 }
 
 function select(state, ownProps) {
-  const questionSelecter = state.questionSelect.questions[ownProps.index]
+  const questionSelecter = state.questionSelect.questions[ownProps.index][ownProps.questionType]
   return {
     conceptID: questionSelecter.conceptID,
     concepts: wellFormedConcepts(state),

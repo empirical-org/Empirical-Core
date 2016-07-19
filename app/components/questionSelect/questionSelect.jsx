@@ -3,16 +3,36 @@ import { connect } from 'react-redux'
 import AddQuestion from './AddQuestion.jsx'
 import ConceptFilter from './ConceptFilter.jsx'
 
-const QuestionSelect = ({ questionSelect }) => (
+const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
   <div className="columns">
     <div className="column">
-      <AddQuestion />
       { questionSelect.map((b, i) =>
-        <div key={i}>
+        <div key={i} style={{
+          borderBottom: '1px solid #aaa',
+          marginBottom: 10,
+          paddingBottom: 10,
+        }}>
           <label className="label">{'Question #' + (i + 1)}</label>
-            <ConceptFilter index={i} />
+          <ConceptFilter index={i} questionType={'initial'} />
+          { showSubQuestions ?
+            ['optimal', 'suboptimal'].map(type =>
+              b[type] ?
+                <div style={{marginLeft: 10}}>
+                  <label className="label">{'If ' + type + ':'}</label>
+                  <ConceptFilter index={i} questionType={type} />
+                </div>
+              : <AddQuestion
+                  questionType={type}
+                  index={i}
+                  actionType='MODIFY_QUESTION'
+                  text={'Add ' +  type + ' question'}
+                />
+            )
+          : ''
+          }
         </div>
       )}
+      <AddQuestion questionType={'initial'} buttonClass='is-primary' />
     </div>
   </div>
 )
@@ -20,6 +40,8 @@ const QuestionSelect = ({ questionSelect }) => (
 function select(state) {
   return {
     questionSelect: state.questionSelect.questions || [],
+    // Small hack to get the display to rerender since things are pretty nested
+    questionTypes: state.questionSelect.questions.map(q => Object.keys(q))
   }
 }
 
