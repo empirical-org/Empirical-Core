@@ -10,6 +10,8 @@ import PlayQuestion from "./components/play/playQuestion.jsx";
 import Results from "./components/results/results.jsx";
 import Review from "./components/results/review.jsx";
 import Admin from "./components/admin/admin.jsx";
+import ConceptsFeedback from "./components/feedback/concepts-feedback.jsx";
+import ConceptFeedback from "./components/feedback/concept-feedback.jsx";
 import Concepts from "./components/concepts/concepts.jsx";
 import Concept from "./components/concepts/concept.jsx";
 import Questions from "./components/questions/questions.jsx";
@@ -27,6 +29,7 @@ import { Router, Route, IndexRoute, browserHistory, Redirect} from 'react-router
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import conceptActions from './actions/concepts'
+import conceptsFeedbackActions from './actions/concepts-feedback'
 import questionActions from './actions/questions'
 import pathwayActions from './actions/pathways'
 import lessonActions from './actions/lessons'
@@ -89,7 +92,6 @@ render((
           <Route path="questions/:questionID" component={Review}/>
         </Route>
         <Route path="admin" component={Admin}>
-
           {/*Concepts section*/}
           <Route path="concepts" component={Concepts}/>
           <Route path="concepts/:conceptID" component={Concept}/>
@@ -97,11 +99,15 @@ render((
           {/*Questions section*/}
           <Route path="questions" component={Questions}/>
           <Route path="questions/:questionID" component={Question}/>
-          
+
           {/*Lessons section*/}
           <Route path="lessons" component={Lessons}/>
           <Route path="lessons/:lessonID" component={Lesson}/>
           <Route path="lessons/:lessonID/results" component={LessonResults}/>
+
+          <Route path="concepts-feedback" component={ConceptsFeedback}>
+            <Route path=":feedbackID" component={ConceptFeedback}/>
+          </Route>
       </Route>
       </Route>
     </Router>
@@ -111,6 +117,7 @@ render((
 
 setTimeout(function(){
 	store.dispatch( conceptActions.startListeningToConcepts() );
+  store.dispatch( conceptsFeedbackActions.startListeningToConceptsFeedback() );
   store.dispatch( questionActions.startListeningToQuestions() );
   store.dispatch( pathwayActions.startListeningToPathways() );
   store.dispatch( lessonActions.startListeningToLessons() );
