@@ -9,11 +9,21 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
-import {Editor, EditorState, ContentState, convertFromHTML, convertToRaw} from 'draft-js';
+import {EditorState, ContentState, convertFromHTML, convertToRaw} from 'draft-js';
+import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import {stateToHTML} from 'draft-js-export-html';
 
+import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 
+const richButtonsPlugin = createRichButtonsPlugin();
+
+const {
+  // inline buttons
+  ItalicButton, BoldButton, MonospaceButton, UnderlineButton,
+  // block buttons
+  BlockquoteButton, OLButton, ULButton
+} = richButtonsPlugin;
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -235,8 +245,13 @@ export default React.createClass({
           <label className="label">Live Preview (<a href="http://commonmark.org/help/" target="_blank">Markdown Guide</a>)</label>
 
           <label className="label">Feedback</label>
-
-            <Editor editorState={this.state.feedback} onChange={this.handleFeedbackChange} />
+          <div className="myToolbar">
+            <BoldButton/>
+            <ItalicButton/>
+            <UnderlineButton/>
+            <BlockquoteButton/>
+          </div>
+          <Editor editorState={this.state.feedback} onChange={this.handleFeedbackChange} plugins={[richButtonsPlugin]}/>
 
 
           <label className="label">Boilerplate feedback</label>
