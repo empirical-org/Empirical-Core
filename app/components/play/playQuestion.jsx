@@ -103,7 +103,7 @@ const playQuestion = React.createClass({
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
-      components = components.concat([(<li key="feedback"><Markdown source={attempt.response.feedback} /></li>)])
+      components = components.concat([(<li key="feedback" dangerouslySetInnerHTML={{__html: attempt.response.feedback}}></li>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
@@ -112,7 +112,7 @@ const playQuestion = React.createClass({
     }))
     if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
       const parentResponse = this.getQuestion().responses[attempt.response.parentID]
-      components = [(<li key="parentfeedback"><Markdown source={parentResponse.feedback}/></li>)].concat(components)
+      components = [(<li key="parentfeedback" dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></li>)].concat(components)
     }
     return components.concat(errorComponents)
   },

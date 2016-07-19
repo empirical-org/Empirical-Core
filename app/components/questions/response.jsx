@@ -228,8 +228,6 @@ export default React.createClass({
       content =
         <div className="content">
           {parentDetails}
-          <label className="label">Live Preview (<a href="http://commonmark.org/help/" target="_blank">Markdown Guide</a>)</label>
-
           <label className="label">Feedback</label>
           <TextEditor feedback={this.props.response.feedback || ""} handleFeedbackChange={this.handleFeedbackChange}/>
 
