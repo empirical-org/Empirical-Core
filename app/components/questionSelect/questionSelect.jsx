@@ -5,7 +5,7 @@ import ConceptFilter from './ConceptFilter.jsx'
 
 const QuestionSelect = ({ questionSelect }) => (
   <div className="columns">
-    <div className="column is-half">
+    <div className="column">
       <AddQuestion />
       { questionSelect.map((b, i) =>
         <div key={i}>
