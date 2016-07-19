@@ -9,7 +9,7 @@ const LessonForm = React.createClass({
       name: currentValues ? currentValues.name : "",
       introURL: currentValues ? currentValues.introURL || "" : "",
       selectedQuestions: currentValues ? currentValues.questions : [],
-      isPublic: currentValues ? currentValues.isPublic || false : false
+      flag: currentValues ? currentValues.flag : "Alpha"
     }
   },
 
@@ -18,7 +18,7 @@ const LessonForm = React.createClass({
       name: this.state.name,
       questions: this.state.selectedQuestions,
       introURL: this.state.introURL,
-      isPublic: this.state.isPublic
+      flag: this.state.flag
     })
   },
 
@@ -62,8 +62,8 @@ const LessonForm = React.createClass({
     })
   },
 
-  handleCheckbox: function() {
-    this.setState({isPublic: !this.state.isPublic})
+  handleSelect: function(e) {
+    this.setState({flag: e.target.value})
   },
 
   render: function () {
@@ -90,11 +90,14 @@ const LessonForm = React.createClass({
           onChange={this.handleStateChange.bind(null, "introURL")}
         />
       </p>
-      <input
-        type="checkbox"
-        checked={this.state.isPublic}
-        onChange={this.handleCheckbox}/>
-        Make lesson Public
+      <span className="select">
+        <select defaultValue={this.state.flag} onChange={this.handleSelect}>
+          <option value="Alpha">Alpha</option>
+          <option value="Beta">Beta</option>
+          <option value="Production">Production</option>
+          <option value="Archive">Archive</option>
+        </select>
+      </span>
       <p className="label">Questions</p>
 
       {this.renderQuestionSelect()}
