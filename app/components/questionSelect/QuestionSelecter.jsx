@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'underscore'
 import { hashToCollection } from '../../libs/hashToCollection'
 import { connect } from 'react-redux'
 
@@ -37,7 +38,6 @@ function questionsForConcept(allQuestions, conceptID) {
 function select(state, ownProps) {
   const questionSelecter = state.questionSelect.questions[ownProps.index]
   const questions = questionsForConcept(state.questions.data, questionSelecter.conceptID)
-  console.log(questions)
   return {
     questions,
     questionID: questionSelecter.questionID,
