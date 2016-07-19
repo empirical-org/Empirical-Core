@@ -12,6 +12,10 @@ import questionsForLesson from './lesson.jsx'
 
 const Lessons =  React.createClass({
 
+  getInitialState: function() {
+    return {lessonFlags: "All Flags"}
+  },
+
   createNew: function () {
     this.props.dispatch(actions.toggleNewLessonModal())
   },
@@ -23,7 +27,12 @@ const Lessons =  React.createClass({
 
   renderLessons: function () {
     const {data} = this.props.lessons;
-    const keys = _.keys(data);
+    let keys = _.keys(data);
+    if(this.state.lessonFlags !== "All Flags") {
+      keys = _.filter(keys, (key) => {
+        return data[key].flag === this.state.lessonFlags
+      })
+    }
     return keys.map((key) => {
       return (<li key={key}><Link to={'/admin/lessons/' + key} activeClassName="is-active">{data[key].name}</Link></li>)
     })
@@ -40,12 +49,25 @@ const Lessons =  React.createClass({
       }
   },
 
+  handleSelect: function(e) {
+    this.setState({lessonFlags: e.target.value})
+  },
+
   render: function() {
     return (
       <section className="section">
         <div className="container">
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Lesson</button></h1>
           { this.renderModal() }
+          <span className="select">
+            <select defaultValue="All Flags" onChange={this.handleSelect}>
+              <option value="All Flags">All Flags</option>
+              <option value="Alpha">Alpha</option>
+              <option value="Beta">Beta</option>
+              <option value="Production">Production</option>
+              <option value="Archive">Archive</option>
+            </select>
+          </span>
           <div className="columns">
             <div className="column">
               <aside className="menu">
