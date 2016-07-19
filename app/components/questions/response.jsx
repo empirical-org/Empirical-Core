@@ -9,21 +9,7 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
-import {EditorState, ContentState, convertFromHTML, convertToRaw} from 'draft-js';
-import Editor from 'draft-js-plugins-editor';
-import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
-import {stateToHTML} from 'draft-js-export-html';
-
-import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
-
-const richButtonsPlugin = createRichButtonsPlugin();
-
-const {
-  // inline buttons
-  ItalicButton, BoldButton, MonospaceButton, UnderlineButton,
-  // block buttons
-  BlockquoteButton, OLButton, ULButton
-} = richButtonsPlugin;
+import TextEditor from './TextEditor.jsx';
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -37,7 +23,7 @@ export default React.createClass({
     return {
       // feedback:  EditorState.createEmpty()
       // feedback:  this.props.response.text
-      feedback: EditorState.createWithContent(ContentState.createFromBlockArray(DraftPasteProcessor.processHTML(this.props.response.feedback || "")))
+      feedback: this.props.response.feedback || ""
     }
   },
 
@@ -84,7 +70,7 @@ export default React.createClass({
     window.state = this.state.feedback;
     var newResp = {
       weak: false,
-      feedback: stateToHTML(this.state.feedback.getCurrentContent()),
+      feedback: this.state.feedback,
       optimal: this.refs.newResponseOptimal.checked
     }
     this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, newResp))
@@ -245,14 +231,7 @@ export default React.createClass({
           <label className="label">Live Preview (<a href="http://commonmark.org/help/" target="_blank">Markdown Guide</a>)</label>
 
           <label className="label">Feedback</label>
-          <div className="myToolbar">
-            <BoldButton/>
-            <ItalicButton/>
-            <UnderlineButton/>
-            <BlockquoteButton/>
-          </div>
-          <Editor editorState={this.state.feedback} onChange={this.handleFeedbackChange} plugins={[richButtonsPlugin]}/>
-
+          <TextEditor feedback={this.props.response.feedback || ""} handleFeedbackChange={this.handleFeedbackChange}/>
 
           <label className="label">Boilerplate feedback</label>
           <p className="control">
