@@ -1,34 +1,39 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import actions from '../../actions/concepts'
+import actions from '../../actions/concepts-feedback'
 import _ from 'underscore'
 import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
 
-const Concept = React.createClass({
+const ConceptsFeedback = React.createClass({
   createNew: function () {
-    this.props.dispatch(actions.toggleNewConceptModal())
+    this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
+    //alert("New feedback form being created")
   },
 
   submitNewConcept: function () {
+    //console.log(this.props)
+    //console.log(this.refs)
     var newConcept = {name: this.refs.newConceptName.value}
-    this.props.dispatch(actions.submitNewConcept(newConcept))
+    this.props.dispatch(actions.submitNewConceptsFeedback(newConcept))
     this.refs.newConceptName.value = ""
-    // this.props.dispatch(actions.toggleNewConceptModal())
+    this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
   },
 
-  renderConcepts: function () {
-    const {data} = this.props.concepts;
+  renderConceptsFeedback: function () {
+    const {data} = this.props.conceptsFeedback;
+    //console.log("renderConceptsFeedback", data)
     const keys = _.keys(data);
-    return keys.map((key) => {
+    return keys.map((id, index) => {
       //console.log(key, data, data[key])
-      return (<li><Link to={'/admin/concepts/' + key} activeClassName="is-active">{data[key].name}</Link></li>)
+      return (<li key={index}><Link to={'/admin/concepts-feedback/' + id} activeClassName="is-active">{data[id].name}</Link></li>)
     })
   },
 
   renderModal: function () {
-    var stateSpecificClass = this.props.concepts.submittingnew ? 'is-loading' : '';
-    if (this.props.concepts.newConceptModalOpen) {
+    const {data, submittingnew} = this.props.conceptsFeedback;
+    var stateSpecificClass = submittingnew ? 'is-loading' : '';
+    if (this.props.conceptsFeedback.newConceptModalOpen) {
         return (
           <Modal close={this.createNew}>
             <div className="box">
@@ -52,7 +57,7 @@ const Concept = React.createClass({
   },
 
   render: function (){
-    console.log("this.props.concepts", this.props.concepts)
+    //console.log("Inside render for left panel, all concepts, this:\n ", this)
     return (
       <section className="section">
         <div className="container">
@@ -65,7 +70,7 @@ const Concept = React.createClass({
                   Concepts
                 </p>
                 <ul className="menu-list">
-                  {this.renderConcepts()}
+                  {this.renderConceptsFeedback()}
                 </ul>
               </aside>
             </div>
@@ -81,9 +86,9 @@ const Concept = React.createClass({
 
 function select(state) {
   return {
-    concepts: state.concepts,
+    conceptsFeedback: state.conceptsFeedback,
     routing: state.routing
   }
 }
 
-export default connect(select)(Concept)
+export default connect(select)(ConceptsFeedback)
