@@ -1,75 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import QuestionSelect from '../questionSelect/questionSelect.jsx'
+import { embedKeys } from '../../lib/hashToCollection'
 
 const Diagnostics = React.createClass({
   getInitialState() {
+    // TODO This should just use state
     return {
       title: '',
-      diagnosticQuestions: [],
     }
-  },
-  wellFormedConcepts(questionsWithConceptIDs) {
-    const allConcepts = this.props.concepts.data
-    let concepts = {}
-    for (const key in questionsWithConceptIDs) {
-      concepts[key] = { ...allConcepts[key], key }
-    }
-    return concepts
-  },
-  wellFormedQuestions() {
-    let questions = this.props.questions.data
-    for (const key in questions) {
-      questions[key] = { ...questions[key], key }
-    }
-    return questions
   },
   changeTitle(event) {
     this.setState({title: event.target.value})
   },
-  changeConcept(i, event) {
-    let diagnosticQuestions = this.state.diagnosticQuestions
-    diagnosticQuestions[i] = {
-      ...diagnosticQuestions[i],
-      concept: this.state.concepts[event.target.value]
-    }
-    this.setState({ diagnosticQuestions })
-  },
-  changeQuestion(i, event) {
-    let diagnosticQuestions = this.state.diagnosticQuestions
-    diagnosticQuestions[i] = {
-      ...diagnosticQuestions[i],
-      question: this.state.allQuestions[event.target.value]
-    }
-    this.setState({ diagnosticQuestions })
-  },
-  addQuestion() {
-    let concepts = this.state.concepts
-    let questions = this.state.questions
-    if (!questions) {
-      const allQuestions = this.wellFormedQuestions()
-      questions = _.groupBy(allQuestions, 'conceptID')
-      this.setState({ questions, allQuestions })
-    }
-    if (!concepts) {
-      concepts = this.wellFormedConcepts(questions)
-      this.setState({ concepts })
-    }
-    const firstConcept = Object.values(concepts)[0]
-    const newDiagnosticQuestion = {
-      concept: firstConcept,
-      question: questions[firstConcept.key][0],
-    }
-    this.setState({
-      diagnosticQuestions: this.state.diagnosticQuestions.concat(newDiagnosticQuestion)
-    })
-  },
-  questionsForConcept(concept) {
-    const conceptKey = concept && concept.key
-    return this.state.questions[conceptKey] || []
-  },
   render() {
-    if (this.props.concepts.hasreceiveddata === false) {
+    if (!this.props.concepts.hasreceiveddata || !this.props.questions.hasreceiveddata) {
       return (<p>Loading...</p>)
     }
     return (
@@ -115,45 +61,7 @@ const Diagnostics = React.createClass({
               />
             </div>
           </div>
-          <div className="columns">
-            <div className="column is-half">
-              <button
-                className="button is-primary"
-                onClick={this.addQuestion}
-              >
-                &#43; Add question
-              </button>
-            </div>
-          </div>
-          { this.state.diagnosticQuestions.map((diagnosticQuestion, i) =>
-            <div className="columns" key={diagnosticQuestion.key}>
-              <div className="column is-half">
-                <label className="label">{'Question #' + (i + 1)}</label>
-                <p className="control is-grouped">
-                  <span className="select">
-                    <select
-                      value={diagnosticQuestion.concept.key}
-                      onChange={this.changeConcept.bind(this, i)}
-                    >
-                      { Object.values(this.state.concepts).map(concept =>
-                      <option value={concept.key}>{ concept.name }</option>
-                      ) }
-                    </select>
-                  </span>
-                  <span className="select">
-                    <select
-                      value={diagnosticQuestion.question.key}
-                      onChange={this.changeQuestion.bind(this, i)}
-                    >
-                      { this.questionsForConcept(diagnosticQuestion.concept).map(question =>
-                      <option value={question.key}>{ question.prompt }</option>
-                      ) }
-                    </select>
-                  </span>
-                </p>
-              </div>
-            </div>
-          )}
+          <QuestionSelect />
         </div>
       </section>
     )
