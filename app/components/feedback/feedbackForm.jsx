@@ -1,7 +1,7 @@
 import React from 'react'
 import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
-
+import { connect } from 'react-redux'
 
 export default React.createClass ({
 
@@ -13,28 +13,18 @@ export default React.createClass ({
     return {newFeedbackText: this.props.feedbackText};
   },
 
-  submitNewFeedback: function (e) {
-    e.preventDefault();
-    if(this.state.newFeedbackText !== '') {
-      this.props.dispatch(feedbackActions.submitConceptsFeedbackEdit(this.props.feedbackID.feedbackID, {
-        feedbackText: this.state.newFeedbackText})
-      )
-    }
-    // this.setState({feedbackText: this.refs.newFeedbackText.value})
-  },
-
   handleChange: function (e) {
     this.setState({newFeedbackText: e.target.value})
   },
 
-  cancelEdit: function() {
-    this.props.dispatch(actions.cancelConceptsFeedbackEdit(this.props.feedbackID.feedbackID))
+  submit: function(){
+    this.props.submitNewFeedback(this.props.feedbackID, this.state.newFeedbackText)
   },
 
   render: function () {
     console.log(this.props)
     return (
-      <form className="box" onSubmit={this.submitNewFeedback}>
+      <form className="box" onSubmit={this.submit}>
         <h6 className="control subtitle">New Feedback</h6>
 
         <label className="label">Enter the feedback associated with the concept</label>
@@ -47,4 +37,4 @@ export default React.createClass ({
     )
   }
 
-  })
+})
