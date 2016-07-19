@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import AddQuestion from './AddQuestion.jsx'
 import ConceptFilter from './ConceptFilter.jsx'
+import C from '../../constants'
 
 const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
   <div className="columns">
@@ -18,13 +19,13 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
             ['optimal', 'suboptimal'].map(type =>
               b[type] ?
                 <div style={{marginLeft: 10}}>
-                  <label className="label">{'If ' + type + ':'}</label>
+                  <label className="label">{'If answer is ' + type + ':'}</label>
                   <ConceptFilter index={i} questionType={type} />
                 </div>
               : <AddQuestion
                   questionType={type}
                   index={i}
-                  actionType='MODIFY_QUESTION'
+                  actionType={C.QUESTION_SELECT_MODIFY_QUESTION}
                   text={'Add ' +  type + ' question'}
                 />
             )
@@ -32,7 +33,7 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
           }
         </div>
       )}
-      <AddQuestion questionType={'initial'} buttonClass='is-primary' />
+      <AddQuestion questionType={'initial'} />
     </div>
   </div>
 )

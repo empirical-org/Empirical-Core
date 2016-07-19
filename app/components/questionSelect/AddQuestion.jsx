@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import C from '../../constants'
 
-let AddQuestion = ({ dispatch, conceptID, questionType, index, buttonClass,
-                     text, actionType }) => (
+let AddQuestion = ({ dispatch, conceptID, questionType, index, text, actionType }) => (
   <button
-    className={"button " + buttonClass}
+    className="button"
     onClick={e => {
       dispatch({
-        type: 'QUESTION_SELECT.' + (actionType || 'ADD_QUESTION'),
+        type: actionType || C.QUESTION_SELECT_ADD_QUESTION,
         questionType,
         index,
         data: { conceptID, questionID: null }

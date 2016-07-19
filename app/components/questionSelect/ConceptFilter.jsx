@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import QuestionSelecter from './QuestionSelecter.jsx'
+import C from '../../constants'
 
 let ConceptFilter = ({ dispatch, index, concepts, conceptID, questionType }) => (
   <p className="control is-grouped">
@@ -8,7 +9,7 @@ let ConceptFilter = ({ dispatch, index, concepts, conceptID, questionType }) => 
       <select
         onChange={e => {
           dispatch({
-            type: 'QUESTION_SELECT.MODIFY_QUESTION',
+            type: C.QUESTION_SELECT_MODIFY_QUESTION,
             index,
             questionType,
             data: { conceptID: e.target.value },

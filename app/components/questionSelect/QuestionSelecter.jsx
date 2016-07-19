@@ -2,6 +2,7 @@ import React from 'react'
 import _ from 'underscore'
 import { hashToCollection } from '../../libs/hashToCollection'
 import { connect } from 'react-redux'
+import C from '../../constants'
 
 let QuestionSelecter = ({ dispatch, index, questions, questionID, questionType }) => (
   questions.length > 0 ?
@@ -9,7 +10,7 @@ let QuestionSelecter = ({ dispatch, index, questions, questionID, questionType }
       <select
         onChange={e => {
           dispatch({
-            type: 'QUESTION_SELECT.MODIFY_QUESTION',
+            type: C.QUESTION_SELECT_MODIFY_QUESTION,
             index,
             questionType,
             data: { questionID: e.target.value },
