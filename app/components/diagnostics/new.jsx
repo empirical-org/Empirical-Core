@@ -2,16 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import QuestionSelect from '../questionSelect/questionSelect.jsx'
+import { submitDiagnostic } from '../../actions/diagnostics'
+import C from '../../constants'
 
 const Diagnostics = React.createClass({
-  getInitialState() {
-    // TODO This should just use state
-    return {
-      title: '',
-    }
-  },
   changeTitle(event) {
-    this.setState({title: event.target.value})
+    this.props.dispatch({
+      type: C.QUESTION_SELECT_UPDATE_TITLE,
+      title: event.target.value,
+    })
+  },
+  saveDiagnostic() {
+    this.props.dispatch(submitDiagnostic())
   },
   render() {
     if (!this.props.concepts.hasreceiveddata || !this.props.questions.hasreceiveddata) {
@@ -23,7 +25,7 @@ const Diagnostics = React.createClass({
           <h1 className="title">
             <Link to={"/admin/diagnostics"}>
               <button
-                className="button is-primary"
+                className="button is-info"
               >
                 &#8592; Back
               </button>
@@ -50,14 +52,22 @@ const Diagnostics = React.createClass({
             </ul>
           </div>
           <div className="columns">
-            <div className="column is-half">
+            <div className="column is-three-quarters">
               <label className="label">Title</label>
               <input
                 className="input"
                 placeholder="Diagnostic title"
-                value={this.state.title}
+                value={this.props.title}
                 onChange={this.changeTitle}
               />
+            </div>
+            <div className="column">
+              <button
+                className="button is-primary"
+                onClick={this.saveDiagnostic}
+              >
+                <span>Save diagnostic</span>
+              </button>
             </div>
           </div>
           <QuestionSelect showSubQuestions={true} />
@@ -72,6 +82,7 @@ function select(state) {
     concepts: state.concepts,
     routing: state.routing,
     questions: state.questions,
+    title: state.questionSelect.title,
   }
 }
 
