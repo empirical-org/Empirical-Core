@@ -8,14 +8,23 @@ import Modal from '../modal/modal.jsx'
 import C from '../../constants'
 
 export default React.createClass({
-    propTypes: {
-        getFocusPoint: React.PropTypes.func.isRequired,
-        submitFocusPoint: React.PropTypes.func.isRequired
 
+
+    propTypes: {
+        fp: React.PropTypes.object.isRequired,
+        submitFocusPoint: React.PropTypes.func.isRequired
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+      let fp = nextProps.fp;
+      this.setState({
+          fpText: fp ? fp.text : '',
+          fpFeedback: fp ? fp.feedback : ''
+        });
     },
 
     getInitialState: function() {
-        let fp = this.props.getFocusPoint();
+        let fp = this.props.fp;
         return ({modalDisplay: false,
           fpText: fp ? fp.text : '',
           fpFeedback: fp ? fp.feedback : ''
@@ -23,7 +32,7 @@ export default React.createClass({
     },
 
     addOrEditFocusPoint: function() {
-        let prefix = (!!this.props.getFocusPoint()? 'Edit': 'Add New');
+        let prefix = (!!this.props.fp ? 'Edit': 'Add New');
         return prefix + ' Focus Point'
     },
 
@@ -47,7 +56,7 @@ export default React.createClass({
     },
 
     modal: function() {
-        let fp = this.props.getFocusPoint();
+        let fp = this.props.fp;
         if (this.state.modalDisplay) {
             return (
                 <Modal close={this.toggleFocusPointForm}>
@@ -70,7 +79,7 @@ export default React.createClass({
     },
 
     render: function() {
-        let fp = this.props.getFocusPoint();
+        let fp = this.props.fp;
         let classy = fp? 'is-info' : 'is-primary';
         return (
             <div>

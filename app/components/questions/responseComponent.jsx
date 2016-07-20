@@ -9,6 +9,7 @@ import questionActions from '../../actions/questions'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
 import FocusPointForm from './focusPointForm.jsx'
+import FocusPointSummary from './focusPointSummary.jsx'
 
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
@@ -301,14 +302,18 @@ const Responses = React.createClass({
 
   submitFocusPointForm: function(data){
       if (this.getFocusPoint()) {
-        // update
+        this.props.disatch(questionActions.submitEditedFocusPoint(this.props.questionID, data))
       } else {
           this.props.dispatch(questionActions.submitNewFocusPoint(this.props.questionID, data));
       }
   },
 
   renderFocusPoint: function () {
-    return <FocusPointForm getFocusPoint={this.getFocusPoint} submitFocusPoint={this.submitFocusPointForm}/>
+    return (
+        <FocusPointSummary fp={this.getFocusPoint()}>
+          <FocusPointForm fp={this.getFocusPoint() || null} submitFocusPoint={this.submitFocusPointForm}/>
+        </FocusPointSummary>
+    )
   },
 
   render: function () {

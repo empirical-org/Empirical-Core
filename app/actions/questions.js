@@ -47,6 +47,13 @@ module.exports = {
 				});
 		};
 	},
+	submitEditedFocusPoint: function(qid, data) {
+		return function(dispatch,getState){
+				questionsRef.child(qid + "/focusPoints").update(data,function(error){
+					// console.log(error);
+				});
+		};
+	},
   toggleNewQuestionModal: function(){
     return {type:C.TOGGLE_NEW_QUESTION_MODAL}
   },
