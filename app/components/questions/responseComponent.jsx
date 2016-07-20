@@ -8,6 +8,8 @@ import Question from '../../libs/question'
 import questionActions from '../../actions/questions'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
+import FocusPointForm from './focusPointForm.jsx'
+import FocusPointSummary from './focusPointSummary.jsx'
 
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
@@ -298,16 +300,23 @@ const Responses = React.createClass({
     return _.values(mapped)
   },
 
+  submitFocusPointForm: function(data){
+      if (this.getFocusPoint()) {
+        this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.questionID, data, this.getFocusPoint().key))
+      } else {
+          this.props.dispatch(questionActions.submitNewFocusPoint(this.props.questionID, data));
+      }
+  },
+
   renderFocusPoint: function () {
-    const fp = this.getFocusPoint()
-    if (fp) {
-      return (
-        <div className="box">
-          <h4 className="control title is-4">Focus Point: '{fp.text}'</h4>
-          <h6 className="control sub-title is-6">Feedback: {fp.feedback}</h6>
-        </div>
-      )
-    }
+    // fp is a required prop for FocusPointForm, however, if a question doesn't have
+    // an fp, it evaluates to undefined, triggering an error on a required proptype.
+    let fp = this.getFocusPoint() ? this.getFocusPoint() : false;
+    return (
+        <FocusPointSummary fp={fp}>
+          <FocusPointForm fp={fp} submitFocusPoint={this.submitFocusPointForm}/>
+        </FocusPointSummary>
+    )
   },
 
   render: function () {
