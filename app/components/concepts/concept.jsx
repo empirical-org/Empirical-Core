@@ -5,8 +5,14 @@ import actions from '../../actions/concepts'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
+import TextEditor from '../questions/textEditor.jsx'
 
 const Concepts = React.createClass({
+  getInitialState: function (){
+    return {
+      prompt: ''
+    }
+  },
 
   deleteConcept: function () {
     this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
@@ -14,9 +20,9 @@ const Concepts = React.createClass({
 
   submitNewQuestion: function (e) {
     e.preventDefault()
-    if (this.refs.newQuestionPrompt.value !== '') {
+    if (this.state.prompt !== '') {
       this.props.dispatch(questionActions.submitNewQuestion({
-        prompt: this.refs.newQuestionPrompt.value,
+        prompt: this.state.prompt,
         prefilledText: this.refs.newQuestionPrefilledText.value,
         cues: this.refs.cues.value.split(','),
         conceptID: this.props.params.conceptID},
@@ -37,6 +43,10 @@ const Concepts = React.createClass({
     this.refs.newQuestionPrefilledText.value = this.refs.newQuestionOptimalResponse.value
   },
 
+  handlePromptChange: function (prompt) {
+    this.setState({prompt})
+  },
+
   renderQuestionsForConcept: function () {
     var questionsForConcept = this.questionsForConcept()
     var listItems = questionsForConcept.map((question) => {
@@ -53,9 +63,7 @@ const Concepts = React.createClass({
       <form className="box" onSubmit={this.submitNewQuestion}>
         <h6 className="control subtitle">Create a new question</h6>
         <label className="label">Prompt</label>
-        <p className="control">
-          <input className="input" type="text" ref="newQuestionPrompt"></input>
-        </p>
+        <TextEditor text={""} handleTextChange={this.handlePromptChange} />
         <label className="label">Cues (seperated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
           <input className="input" type="text" ref="cues"></input>
