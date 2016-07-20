@@ -302,7 +302,7 @@ const Responses = React.createClass({
 
   submitFocusPointForm: function(data){
       if (this.getFocusPoint()) {
-        this.props.disatch(questionActions.submitEditedFocusPoint(this.props.questionID, data))
+        this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.questionID, data, this.getFocusPoint().key))
       } else {
           this.props.dispatch(questionActions.submitNewFocusPoint(this.props.questionID, data));
       }

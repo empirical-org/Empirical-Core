@@ -47,10 +47,10 @@ module.exports = {
 				});
 		};
 	},
-	submitEditedFocusPoint: function(qid, data) {
+	submitEditedFocusPoint: function(qid, data, fpid) {
 		return function(dispatch,getState){
-				questionsRef.child(qid + "/focusPoints").update(data,function(error){
-					// console.log(error);
+				questionsRef.child(qid + "/focusPoints/" + fpid).update(data,function(error){
+					console.log(error);
 				});
 		};
 	},
