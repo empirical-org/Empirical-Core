@@ -10,10 +10,13 @@ import PlayQuestion from "./components/play/playQuestion.jsx";
 import Results from "./components/results/results.jsx";
 import Review from "./components/results/review.jsx";
 import Admin from "./components/admin/admin.jsx";
+import ConceptsFeedback from "./components/feedback/concepts-feedback.jsx";
+import ConceptFeedback from "./components/feedback/concept-feedback.jsx";
 import Concepts from "./components/concepts/concepts.jsx";
 import Concept from "./components/concepts/concept.jsx";
 import Questions from "./components/questions/questions.jsx";
 import Question from "./components/questions/question.jsx";
+import Activities from "./components/lessons/activities.jsx";
 import Lessons from "./components/lessons/lessons.jsx";
 import Lesson from "./components/lessons/lesson.jsx";
 import LessonResults from "./components/lessons/lessonResults.jsx";
@@ -28,6 +31,7 @@ import { Router, Route, IndexRoute, browserHistory, Redirect} from 'react-router
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import conceptActions from './actions/concepts'
+import conceptsFeedbackActions from './actions/concepts-feedback'
 import questionActions from './actions/questions'
 import pathwayActions from './actions/pathways'
 import lessonActions from './actions/lessons'
@@ -84,27 +88,30 @@ render((
           <Redirect from="game/?student=:studentID&uid=:lessonID" to="/game/:lessonID" />
           <Route path="questions/:questionID" component={PlayQuestion}/>
         </Route>
-        <Route path="lessons" component={Passthrough}>
-
-        </Route>
+        <Route path="lessons" component={Activities}/>
         <Route path="results" component={Passthrough}>
           <IndexRoute component={Results}/>
           <Route path="questions/:questionID" component={Review}/>
         </Route>
         <Route path="admin" component={Admin}>
+          {/*Concepts section*/}
+          <Route path="concepts" component={Concepts}/>
+          <Route path="concepts/:conceptID" component={Concept}/>
 
-          <Route path="concepts" component={Concepts}>
-            <Route path=":conceptID" component={Concept}/>
+          {/*Questions section*/}
+          <Route path="questions" component={Questions}/>
+          <Route path="questions/:questionID" component={Question}/>
+
+          {/*Lessons section*/}
+          <Route path="lessons" component={Lessons}/>
+          <Route path="lessons/:lessonID" component={Lesson}/>
+          <Route path="lessons/:lessonID/results" component={LessonResults}/>
+          <Route path="lessons/diagnostics" component={Diagnostics}/>
+          <Route path="lessons/diagnostics/new" component={NewDiagnostic}/>
+
+          <Route path="concepts-feedback" component={ConceptsFeedback}>
+            <Route path=":feedbackID" component={ConceptFeedback}/>
           </Route>
-          <Route path="questions" component={Questions}>
-            <Route path=":questionID" component={Question}/>
-          </Route>
-          <Route path="lessons" component={Lessons}>
-            <Route path=":lessonID" component={Lesson}/>
-            <Route path=":lessonID/results" component={LessonResults}/>
-          </Route>
-          <Route path="diagnostics" component={Diagnostics}/>
-          <Route path="diagnostics/new" component={NewDiagnostic}/>
         </Route>
       </Route>
     </Router>
@@ -114,6 +121,7 @@ render((
 
 setTimeout(function(){
 	store.dispatch( conceptActions.startListeningToConcepts() );
+  store.dispatch( conceptsFeedbackActions.startListeningToConceptsFeedback() );
   store.dispatch( questionActions.startListeningToQuestions() );
   store.dispatch( pathwayActions.startListeningToPathways() );
   store.dispatch( lessonActions.startListeningToLessons() );

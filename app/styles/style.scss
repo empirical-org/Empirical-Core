@@ -116,3 +116,13 @@ ul.is-unstyled {
 h2.register {
   text-align: center;
 }
+
+.is-question {
+  min-height: initial;
+}
+
+.activities-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}

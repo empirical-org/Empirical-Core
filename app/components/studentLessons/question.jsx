@@ -1,8 +1,9 @@
 import React from 'react'
-
+var Markdown = require('react-remarkable');
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import Question from '../../libs/question'
+import Textarea from 'react-textarea-autosize';
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {submitResponse, clearResponses} from '../../actions.js'
@@ -80,7 +81,7 @@ const playLessonQuestion = React.createClass({
 
   renderSentenceFragments: function () {
     return (
-      <h4 className="title is-4">{this.getQuestion().prompt}</h4>
+      <div dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
     )
     // return this.props.question.sentences.map((sentence, index) => {
     //   return (<li key={index}>{sentence}</li>)
@@ -137,17 +138,16 @@ const playLessonQuestion = React.createClass({
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
-      components = components.concat([(<li key="feedback"><h5 className="title is-5">{attempt.response.feedback}</h5></li>)])
+      components = components.concat([(<li key="feedback" dangerouslySetInnerHTML={{__html: attempt.response.feedback}}></li>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}</h5></li>)
+        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
       }
     }))
-    // console.log("parent response check: ", attempt.response.parentID, (this.getQuestion().responses[attempt.response.parentID].optimal !== true), this.getQuestion().responses[attempt.response.parentID].optimal)
     if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
       const parentResponse = this.getQuestion().responses[attempt.response.parentID]
-      components = [(<li key="parentfeedback"><h5 className="title is-5">{parentResponse.feedback}</h5></li>)].concat(components)
+      components = [(<li key="parentfeedback" dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></li>)].concat(components)
     }
     return components.concat(errorComponents)
   },
@@ -311,7 +311,7 @@ const playLessonQuestion = React.createClass({
                 {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <Textarea className="textarea is-question is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                 </div>
                 <div className="button-group">
                   {this.renderNextQuestionButton()}
@@ -333,7 +333,7 @@ const playLessonQuestion = React.createClass({
                   {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <textarea className="textarea is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                    <Textarea className="textarea is-question is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                   </div>
                   <div className="button-group">
                     {this.renderNextQuestionButton(true)}
@@ -353,7 +353,7 @@ const playLessonQuestion = React.createClass({
                   {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <textarea className="textarea" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                    <Textarea className="textarea is-question" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                   </div>
                   <div className="button-group">
                     <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
@@ -375,7 +375,7 @@ const playLessonQuestion = React.createClass({
                 {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <Textarea className="textarea is-question" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                 </div>
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
