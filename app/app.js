@@ -97,11 +97,10 @@ render((
           <Route path="questions" component={Questions}>
             <Route path=":questionID" component={Question}/>
           </Route>
-          <Route path="lessons" component={Lessons}>
-            <Route path=":lessonID" component={Lesson}/>
-            <Route path=":lessonID/results" component={LessonResults}/>
-          </Route>
-        </Route>
+          <Route path="lessons" component={Lessons}/>
+          <Route path="lessons/:lessonID" component={Lesson}/>
+          <Route path="lessons/:lessonID/results" component={LessonResults}/>
+      </Route>
       </Route>
     </Router>
   </Provider>),
