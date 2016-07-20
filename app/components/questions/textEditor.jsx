@@ -15,13 +15,13 @@ const {
 export default React.createClass({
   getInitialState: function () {
     return {
-      feedback: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.feedback || "")))
+      text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || "")))
     }
   },
 
-  handleFeedbackChange: function (e) {
-    this.setState({feedback: e}, () => {
-      this.props.handleFeedbackChange(stateToHTML(this.state.feedback.getCurrentContent()))
+  handleTextChange: function (e) {
+    this.setState({text: e}, () => {
+      this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()))
     });
   },
 
@@ -38,7 +38,7 @@ export default React.createClass({
         </header>
         <div className="card-content">
           <div className="content">
-            <Editor editorState={this.state.feedback} onChange={this.handleFeedbackChange} plugins={[richButtonsPlugin]}/>
+            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]}/>
           </div>
         </div>
       </div>

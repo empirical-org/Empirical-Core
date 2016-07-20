@@ -9,7 +9,7 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
-import TextEditor from './TextEditor.jsx';
+import TextEditor from './textEditor.jsx';
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -229,7 +229,7 @@ export default React.createClass({
         <div className="content">
           {parentDetails}
           <label className="label">Feedback</label>
-          <TextEditor feedback={this.props.response.feedback || ""} handleFeedbackChange={this.handleFeedbackChange}/>
+          <TextEditor text={this.props.response.feedback || ""} handleTextChange={this.handleFeedbackChange}/>
 
           <label className="label">Boilerplate feedback</label>
           <p className="control">

@@ -81,7 +81,7 @@ const playLessonQuestion = React.createClass({
 
   renderSentenceFragments: function () {
     return (
-      <h4 className="title is-4">{this.getQuestion().prompt}</h4>
+      <div dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
     )
     // return this.props.question.sentences.map((sentence, index) => {
     //   return (<li key={index}>{sentence}</li>)

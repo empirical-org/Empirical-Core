@@ -166,7 +166,7 @@ const Question = React.createClass({
       return (
         <div>
           {this.renderEditForm()}
-          <h4 className="title">{data[questionID].prompt}</h4>
+          <h4 className="title" dangerouslySetInnerHTML={{__html: data[questionID].prompt}}></h4>
           <h6 className="subtitle">{responses.length} Responses</h6>
           <Link to={'play/questions/' + questionID} className="button is-outlined is-primary">Play Question</Link><br/><br/>
           <Chart data={_.values(this.formatForPieChart())}/>
