@@ -10,10 +10,15 @@ import C from '../../constants'
 export default React.createClass({
     propTypes: {
         getFocusPoint: React.PropTypes.func.isRequired
+
     },
 
     getInitialState: function() {
-        return ({modalDisplay: false});
+        let fp = this.props.getFocusPoint();
+        return ({modalDisplay: false,
+          fpText: fp ? fp.text : '',
+          fpFeedback: fp ? fp.feedback : ''
+        });
     },
 
     addOrEditFocusPoint: function() {
@@ -21,21 +26,30 @@ export default React.createClass({
         return prefix + ' Focus Point'
     },
 
-    renderFocusPointForm: function() {
+    toggleFocusPointForm: function() {
         this.setState({
             modalDisplay: !this.state.modalDisplay
         });
     },
 
+    handleChange: function(stateKey, e) {
+      var obj = {};
+      obj[stateKey] = e.target.value;
+      this.setState(obj);
+    },
+
     modal: function() {
+        let fp = this.props.getFocusPoint();
         if (this.state.modalDisplay) {
             return (
-                <Modal>
+                <Modal close={this.toggleFocusPointForm}>
                     <div className="box">
                         <h4 className="title">{this.addOrEditFocusPoint()}</h4>
                         <p className="control">
-                            <label className="label">Name</label>
-                            <input className="input" type="text" placeholder="Text input" ref="newConceptName"/>
+                            <label className="label" >Focus Point Text</label>
+                            <input className="input" onChange={this.handleChange.bind(null, 'fpText')} type="text" value={this.state.fpText || ''} />
+                            <label className="label" >Feedback</label>
+                            <input className="input" onChange={this.handleChange.bind(null, 'fpFeedback')} type="text" value={this.state.fpFeedback || ''} />
                         </p>
                         <p className="control">
                             {/*<button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>*/}
@@ -52,7 +66,7 @@ export default React.createClass({
         let classy = fp? 'is-info' : 'is-primary';
         return (
             <div>
-                <button type='button' onClick={this.renderFocusPointForm} className={'button ' + classy}>{this.addOrEditFocusPoint()}</button>
+                <button type='button' onClick={this.toggleFocusPointForm} className={'button ' + classy}>{this.addOrEditFocusPoint()}</button>
                 {this.modal()}
             </div>
         );
