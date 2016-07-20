@@ -81,7 +81,7 @@ const playLessonQuestion = React.createClass({
 
   renderSentenceFragments: function () {
     return (
-      <div dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
+      <div className="draft-js sentence-fragments" dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
     )
     // return this.props.question.sentences.map((sentence, index) => {
     //   return (<li key={index}>{sentence}</li>)
@@ -305,9 +305,9 @@ const playLessonQuestion = React.createClass({
         return (
           <section className="section">
             <div className="container">
+              {this.renderSentenceFragments()}
               <div className="content">
-                <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                {this.renderSentenceFragments()}
+
                 {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
@@ -326,10 +326,9 @@ const playLessonQuestion = React.createClass({
           return (
             <section className="section">
               <div className="container">
+                {this.renderSentenceFragments()}
                 <div className="content">
-                  <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
 
-                  {this.renderSentenceFragments()}
                   {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
@@ -346,10 +345,9 @@ const playLessonQuestion = React.createClass({
           return (
             <section className="section">
               <div className="container">
+                {this.renderSentenceFragments()}
                 <div className="content">
-                  <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
 
-                  {this.renderSentenceFragments()}
                   {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
@@ -369,13 +367,13 @@ const playLessonQuestion = React.createClass({
         return (
           <section className="section">
             <div className="container">
+              {this.renderSentenceFragments()}
               <div className="content">
-                <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                {this.renderSentenceFragments()}
+
                 {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <Textarea className="textarea is-question" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
+                  <Textarea className="textarea is-question submission" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                 </div>
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>

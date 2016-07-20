@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import Question from '../../libs/question'
+import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
@@ -43,6 +44,28 @@ const playQuestion = React.createClass({
     }
   },
 
+  getInitialValue: function () {
+    if (this.props.prefill) {
+      return this.getQuestion().prefilledText
+    }
+  },
+
+  removePrefilledUnderscores: function () {
+    this.refs.response.value = this.refs.response.value.replace(/_/g, "")
+  },
+
+  handleFocus: function (e) {
+    const indexOfUnderscores = e.target.value.indexOf("_");
+    const lastIndexOfUnderscores = e.target.value.lastIndexOf("_");
+    if (indexOfUnderscores !== -1) {
+      setTimeout(()=>{
+        e.target.selectionStart = indexOfUnderscores
+        e.target.selectionEnd = lastIndexOfUnderscores + 1
+      }, 50)
+
+    }
+  },
+
   getQuestion: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
     return (data[questionID])
@@ -59,11 +82,29 @@ const playQuestion = React.createClass({
 
   renderSentenceFragments: function () {
     return (
-      <div dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
+      <div className="draft-js sentence-fragments" dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
     )
     // return this.props.question.sentences.map((sentence, index) => {
     //   return (<li key={index}>{sentence}</li>)
     // })
+  },
+
+  renderCues: function () {
+
+    if (this.getQuestion().cues && this.getQuestion().cues.length > 0 && this.getQuestion().cues[0] !== "") {
+      const cueDivs = this.getQuestion().cues.map((cue) => {
+        return (
+          <div className="cue">
+            {cue}
+          </div>
+        )
+      })
+      return (
+        <div className="cues">
+          {cueDivs}
+        </div>
+      )
+    }
   },
 
   renderFeedback: function () {
@@ -173,6 +214,7 @@ const playQuestion = React.createClass({
   },
 
   checkAnswer: function () {
+    this.removePrefilledUnderscores()
     var fields = {
       prompt: this.getQuestion().prompt,
       responses: hashToCollection(this.getQuestion().responses)
@@ -245,12 +287,12 @@ const playQuestion = React.createClass({
         return (
           <section className="section">
             <div className="container">
+              {this.renderSentenceFragments()}
               <div className="content">
-                <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                {this.renderSentenceFragments()}
+                {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea is-disabled" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <Textarea className="textarea is-question submission" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                 </div>
                 <div className="button-group">
                   {this.renderNextQuestionButton()}
@@ -265,13 +307,12 @@ const playQuestion = React.createClass({
           return (
             <section className="section">
               <div className="container">
+                {this.renderSentenceFragments()}
                 <div className="content">
-                  <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-
-                  {this.renderSentenceFragments()}
+                  {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <textarea className="textarea is-disabled" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                    <Textarea className="textarea is-question submission" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                   </div>
                   <div className="button-group">
                     {this.renderNextQuestionButton(true)}
@@ -285,13 +326,12 @@ const playQuestion = React.createClass({
           return (
             <section className="section">
               <div className="container">
+                {this.renderSentenceFragments()}
                 <div className="content">
-                  <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-
-                  {this.renderSentenceFragments()}
+                  {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <textarea className="textarea" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                    <Textarea className="textarea is-question submission" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                   </div>
                   <div className="button-group">
                     <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
@@ -308,12 +348,12 @@ const playQuestion = React.createClass({
         return (
           <section className="section">
             <div className="container">
+              {this.renderSentenceFragments()}
               <div className="content">
-                <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                {this.renderSentenceFragments()}
+                {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <textarea className="textarea" ref="response" placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+                  <Textarea className="textarea is-question submission" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                 </div>
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
