@@ -9,6 +9,7 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
+import TextEditor from './textEditor.jsx';
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -20,7 +21,9 @@ export default React.createClass({
 
   getInitialState: function () {
     return {
-      feedback: this.props.f
+      // feedback:  EditorState.createEmpty()
+      // feedback:  this.props.response.text
+      feedback: this.props.response.feedback || ""
     }
   },
 
@@ -64,9 +67,10 @@ export default React.createClass({
   },
 
   updateResponse: function (rid) {
+    window.state = this.state.feedback;
     var newResp = {
       weak: false,
-      feedback: this.refs.newResponseFeedback.value,
+      feedback: this.state.feedback,
       optimal: this.refs.newResponseOptimal.checked
     }
     this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, newResp))
@@ -162,7 +166,7 @@ export default React.createClass({
 
   handleFeedbackChange: function (e) {
     // const changes = this.state.feedback[String(rID)] = e.target.value
-    this.setState({feedback: e.target.value});
+    this.setState({feedback: e});
   },
 
   renderResponseContent: function (isEditing, response) {
@@ -225,10 +229,8 @@ export default React.createClass({
         <div className="content">
           {parentDetails}
           <label className="label">Feedback</label>
-          <Markdown source={this.state.feedback || "#### Preview will show here"} />
-          <p className="control">
-            <Textarea className="input" type="text" onChange={this.handleFeedbackChange} defaultValue={response.feedback} ref="newResponseFeedback"></Textarea>
-          </p>
+          <TextEditor text={this.props.response.feedback || ""} handleTextChange={this.handleFeedbackChange}/>
+
           <label className="label">Boilerplate feedback</label>
           <p className="control">
             <span className="select">
@@ -254,7 +256,8 @@ export default React.createClass({
       content =
         <div className="content">
           {parentDetails}
-          <strong>Feedback:</strong> {response.feedback}
+          <strong>Feedback:</strong> <br/>
+          <div dangerouslySetInnerHTML={{__html: response.feedback}}></div>
           <br/>
           {authorDetails}
           {childDetails}

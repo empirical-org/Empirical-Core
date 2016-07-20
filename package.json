@@ -61,6 +61,10 @@
     "webpack-error-notification": "^0.1.6"
   },
   "dependencies": {
+    "draft-js": "^0.7.0",
+    "draft-js-export-html": "^0.4.0",
+    "draft-js-plugins-editor": "^1.1.0",
+    "draft-js-richbuttons-plugin": "^1.1.0",
     "react": "^0.14.3",
     "react-router": "^1.0.3",
     "react-router-redux": "^4.0.0",

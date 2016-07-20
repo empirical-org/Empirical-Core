@@ -28,7 +28,7 @@ const QuestionsList = React.createClass({
 					<Link to={'/' + this.props.baseRoute + '/questions/' + question.key} activeClassName="is-active">
 	          <div className="columns">
 							<div className="column">
-	            	<span>{question.prompt}</span>
+	            	<span>{question.prompt.replace(/(<([^>]+)>)/ig, "")}</span>
 							</div>
 
 							<div className="column is-1">
