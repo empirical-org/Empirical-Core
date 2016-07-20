@@ -55,10 +55,6 @@ GEM
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
     awesome_print (1.6.1)
-    babel-source (5.8.35)
-    babel-transpiler (0.7.0)
-      babel-source (>= 4.0, < 6)
-      execjs (~> 2.0)
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -121,14 +117,10 @@ GEM
     dotenv-rails (2.1.0)
       dotenv (= 2.1.0)
       railties (>= 4.0, < 5.1)
-    em-websocket (0.5.1)
-      eventmachine (>= 0.12.9)
-      http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     es5-shim-rails (4.0.1)
       actionpack (>= 3.1)
       railties (>= 3.1)
-    eventmachine (1.2.0.1)
     excon (0.45.4)
     execjs (2.6.0)
     extlib (0.9.16)
@@ -321,7 +313,6 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     htmlentities (4.3.4)
-    http_parser.rb (0.6.0)
     i18n (0.7.0)
     inflecto (0.0.2)
     interception (0.5)
@@ -526,6 +517,7 @@ GEM
       activesupport (= 4.2.5.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (2.1.0)
     rake (10.5.0)
     ranked-model (0.4.0)
       activerecord (>= 3.1.12)
@@ -542,17 +534,12 @@ GEM
       builder
       nokogiri (>= 1.4.1)
       trollop
-    react-rails (1.6.2)
-      babel-transpiler (>= 0.7.0)
-      coffee-script-source (~> 1.8)
+    react_on_rails (5.2.0)
       connection_pool
-      execjs
+      execjs (~> 2.5)
+      foreman
       rails (>= 3.2)
-      tilt
-    react-rails-hot-loader (0.5.0)
-      em-websocket
-      rails
-      react-rails
+      rainbow (~> 2.1)
     redcarpet (3.3.4)
     redis (3.2.2)
     redis-actionpack (4.0.1)
@@ -785,8 +772,7 @@ DEPENDENCIES
   rails_admin
   ranked-model
   ransack
-  react-rails (~> 1.6, >= 1.6.2)
-  react-rails-hot-loader
+  react_on_rails (~> 5)
   redcarpet
   redis-rails
   responders

@@ -2,7 +2,7 @@
   #staff_panel
     article.simple-rounded-box: table.table
       thead: th Staff Console
-      tr: td= link_to 'Content Management Stytem (Beta)', rails_admin_path
+      tr: td= link_to 'Content Management System (Beta)', rails_admin_path
       tr: td= link_to 'User Manager', cms_users_path
       tr: td= link_to 'Admin Accounts Editor', cms_admin_accounts_path
       tr: td= link_to 'Admins Editor', cms_admins_path
@@ -20,7 +20,7 @@
 
     article.simple-rounded-box: table.table
       thead: th Concept Management System
-      tr: td= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('stories/module', 'cms/concepts')
+      tr: td= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('play/pf', 'cms')
       tr: td= link_to 'Sections Manager (Standard Level)', cms_sections_path
       tr: td= link_to "Topic Categories Manager", cms_topic_categories_path
       tr: td= link_to 'Topics Manager (Standard)', cms_topics_path

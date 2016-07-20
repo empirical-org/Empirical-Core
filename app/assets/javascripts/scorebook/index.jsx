@@ -6,7 +6,11 @@
 //   }
 // });
 
-EC.Scorebook = React.createClass({
+require TableFilterMixin from ''
+
+require React from 'react'
+
+export default React.createClass({
   mixins: [EC.TableFilterMixin],
 
   getInitialState: function() {
