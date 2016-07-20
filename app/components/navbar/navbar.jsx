@@ -42,6 +42,7 @@ const Navbar = React.createClass({
           <a href="http://www.connect.quill.org/dwqa-questions/" className="nav-item" activeClassName="is-active">FAQ</a>
           <Link to={'/play'} className="nav-item" activeClassName="is-active" onClick={this.reset}>Demo</Link>
           <Link to={'/results'} className="nav-item" activeClassName="is-active" onClick={this.reset}>Results</Link>
+          <Link to={'/lessons'} className="nav-item" activeClassName="is-active" onClick={this.reset}>Activities</Link>
         </div>
       )
     }

@@ -7,8 +7,9 @@ const LessonForm = React.createClass({
     const {currentValues} = this.props
     return {
       name: currentValues ? currentValues.name : "",
-      introURL: currentValues ? currentValues.introURL : "",
-      selectedQuestions: currentValues ? currentValues.questions : []
+      introURL: currentValues ? currentValues.introURL || "" : "",
+      selectedQuestions: currentValues ? currentValues.questions : [],
+      flag: currentValues ? currentValues.flag : "Alpha"
     }
   },
 
@@ -16,7 +17,8 @@ const LessonForm = React.createClass({
     this.props.submit({
       name: this.state.name,
       questions: this.state.selectedQuestions,
-      introURL: this.state.introURL
+      introURL: this.state.introURL,
+      flag: this.state.flag
     })
   },
 
@@ -34,9 +36,7 @@ const LessonForm = React.createClass({
     } else {
       newSelectedQuestions = _.without(currentSelectedQuestions, value)
     }
-    this.setState({selectedQuestions: newSelectedQuestions}, () => {
-      console.log("new state: ", this.state.selectedQuestions)
-    })
+    this.setState({selectedQuestions: newSelectedQuestions})
 
   },
 
@@ -47,9 +47,9 @@ const LessonForm = React.createClass({
         title: question.prompt
       }
     })
-    const components = formattedQuestions.map((question) => {
+    return formattedQuestions.map((question) => {
       return (
-        <p className="control">
+        <p key={question.value} className="control">
           <label className="checkbox">
             <input
             type="checkbox"
@@ -60,11 +60,10 @@ const LessonForm = React.createClass({
         </p>
       )
     })
-    return (
-      <div>
-        {components}
-      </div>
-    )
+  },
+
+  handleSelect: function(e) {
+    this.setState({flag: e.target.value})
   },
 
   render: function () {
@@ -91,9 +90,17 @@ const LessonForm = React.createClass({
           onChange={this.handleStateChange.bind(null, "introURL")}
         />
       </p>
-      <p className="control">
-        {this.renderQuestionSelect()}
-      </p>
+      <span className="select">
+        <select defaultValue={this.state.flag} onChange={this.handleSelect}>
+          <option value="Alpha">Alpha</option>
+          <option value="Beta">Beta</option>
+          <option value="Production">Production</option>
+          <option value="Archive">Archive</option>
+        </select>
+      </span>
+      <p className="label">Questions</p>
+
+      {this.renderQuestionSelect()}
       <p className="control">
         <button className={"button is-primary " + this.props.stateSpecificClass} onClick={this.submit}>Submit</button>
       </p>
