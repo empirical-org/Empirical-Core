@@ -58,8 +58,6 @@ const Concept = React.createClass({
         <div className="container">
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New concept</button></h1>
           { this.renderModal() }
-          <div className="columns">
-            <div className="column">
               <aside className="menu">
                 <p className="menu-label">
                   Concepts
@@ -68,11 +66,6 @@ const Concept = React.createClass({
                   {this.renderConcepts()}
                 </ul>
               </aside>
-            </div>
-            <div className="column">
-              {this.props.children}
-            </div>
-          </div>
         </div>
       </section>
     )
