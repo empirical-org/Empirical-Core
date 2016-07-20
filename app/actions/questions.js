@@ -50,7 +50,9 @@ module.exports = {
 	submitEditedFocusPoint: function(qid, data, fpid) {
 		return function(dispatch,getState){
 				questionsRef.child(qid + "/focusPoints/" + fpid).update(data,function(error){
-					console.log(error);
+						if (error) {
+							alert("Submission failed! "+error);
+						}
 				});
 		};
 	},
@@ -88,11 +90,11 @@ module.exports = {
   },
 	submitNewFocusPoint: function(qid, data) {
 		return function (dispatch, getState) {
-			// above example has    dispatch({type:C.AWAIT_NEW_QUESTION_RESPONSE});
 			questionsRef.child(qid + '/focusPoints').push(data, function(error){
-				console.log(error);
+				if (error) {
+					alert("Submission failed! "+error)
+				}
 			});
-			// let newFocusPoint = questionsRef.child(qid).child('focus point')
 		};
 	},
   startResponseEdit: function(qid,rid){
