@@ -25,7 +25,7 @@
     "diff": "^2.2.1",
     "expect": "^1.13.4",
     "expect-jsx": "^2.2.1",
-    "extract-text-webpack-plugin": "^0.9.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "firebase": "^3.0.3",
     "fuzzyset.js": "0.0.1",
@@ -54,7 +54,7 @@
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "underscore": "^1.8.3",
-    "webpack": "^1.12.9",
+    "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.0",
     "webpack-error-notification": "^0.1.6"
   },
