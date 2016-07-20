@@ -299,8 +299,16 @@ const Responses = React.createClass({
     return _.values(mapped)
   },
 
+  submitFocusPointForm: function(data){
+      if (this.getFocusPoint()) {
+        // update
+      } else {
+          this.props.dispatch(questionActions.submitNewFocusPoint(this.props.questionID, data));
+      }
+  },
+
   renderFocusPoint: function () {
-    return <FocusPointForm getFocusPoint={this.getFocusPoint}/>
+    return <FocusPointForm getFocusPoint={this.getFocusPoint} submitFocusPoint={this.submitFocusPointForm}/>
   },
 
   render: function () {

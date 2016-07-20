@@ -9,7 +9,8 @@ import C from '../../constants'
 
 export default React.createClass({
     propTypes: {
-        getFocusPoint: React.PropTypes.func.isRequired
+        getFocusPoint: React.PropTypes.func.isRequired,
+        submitFocusPoint: React.PropTypes.func.isRequired
 
     },
 
@@ -38,6 +39,13 @@ export default React.createClass({
       this.setState(obj);
     },
 
+    submit: function(){
+      let data = {text: this.state.fpText,
+              feedback: this.state.fpFeedback
+      };
+      this.props.submitFocusPoint(data);
+    },
+
     modal: function() {
         let fp = this.props.getFocusPoint();
         if (this.state.modalDisplay) {
@@ -53,7 +61,7 @@ export default React.createClass({
                         </p>
                         <p className="control">
                             {/*<button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>*/}
-                            <button className={"button is-primary "}>Submit</button>
+                            <button className={"button is-primary "} onClick={this.submit}>Submit</button>
                         </p>
                     </div>
                 </Modal>

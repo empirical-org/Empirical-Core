@@ -79,6 +79,15 @@ module.exports = {
 			});
     }
   },
+	submitNewFocusPoint: function(qid, data) {
+		return function (dispatch, getState) {
+			// above example has    dispatch({type:C.AWAIT_NEW_QUESTION_RESPONSE});
+			questionsRef.child(qid + '/focusPoints').push(data, function(error){
+				console.log(error);
+			});
+			// let newFocusPoint = questionsRef.child(qid).child('focus point')
+		};
+	},
   startResponseEdit: function(qid,rid){
 		return {type:C.START_RESPONSE_EDIT,qid,rid};
 	},
