@@ -63,9 +63,7 @@ EC.Resource = React.createClass({
   },
 
   save: function () {
-    console.log('modle to save', this.state.model)
     var data = _.pick(this.state.model, this.props.savingKeys);
-    console.log('data well send', data)
     var options = {
       callback: this.props.returnToIndex,
       savingKeys: this.props.savingKeys,

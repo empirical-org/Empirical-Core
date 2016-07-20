@@ -7,8 +7,8 @@
 <div id="page-content-wrapper">
 
 	<div class="tab-pane" id="activity-planner" data-tab="<%= @tab %>" data-grade="<%= @grade %>" data-students="<%= @students_exist %>" data-classroom-name="<%= @last_classroom_name%>" data-classroom-id="<%= @last_classroom_id%>">
-    <%= render partial: 'application/spinner' %>
 
+		<%= react_component('LessonPlannerApp', props: {grade: @grade.to_s, tab: @tab.to_s, classroomName: @last_classroom_name, classroomId: @last_classroom_id.to_s, students: @students.to_s})%>
 	<!-- ==========================================================================
 		 Progress tracker
 		========================================================================== -->
