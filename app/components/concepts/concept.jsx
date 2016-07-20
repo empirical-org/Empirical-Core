@@ -26,7 +26,7 @@ const Concepts = React.createClass({
         prefilledText: this.refs.newQuestionPrefilledText.value,
         cues: this.refs.cues.value.split(','),
         conceptID: this.props.params.conceptID},
-        {text: this.refs.newQuestionOptimalResponse.value, optimal: true, count: 0, feedback: "That's a great sentence!"}))
+        {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a great sentence!"}))
       this.refs.newQuestionPrompt.value = ''
       this.refs.newQuestionOptimalResponse.value = ''
       this.refs.newQuestionPrefilledText.value = ''
