@@ -91,12 +91,14 @@ render((
         </Route>
         <Route path="admin" component={Admin}>
 
-          <Route path="concepts" component={Concepts}>
-            <Route path=":conceptID" component={Concept}/>
-          </Route>
-          <Route path="questions" component={Questions}>
-            <Route path=":questionID" component={Question}/>
-          </Route>
+          {/*Concepts section*/}
+          <Route path="concepts" component={Concepts}/>
+          <Route path="concepts/:conceptID" component={Concept}/>
+
+          {/*Questions section*/}
+          <Route path="questions" component={Questions}/>
+          <Route path="questions/:questionID" component={Question}/>
+          {/*Lessons section*/}
           <Route path="lessons" component={Lessons}/>
           <Route path="lessons/:lessonID" component={Lesson}/>
           <Route path="lessons/:lessonID/results" component={LessonResults}/>

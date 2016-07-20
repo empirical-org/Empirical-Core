@@ -78,6 +78,7 @@ const Concepts = React.createClass({
     if (data[conceptID]) {
       return (
         <div>
+          <Link to ={'admin/concepts'}>Return to All Concepts</Link>
           <h4 className="title">{data[conceptID].name}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
           <p className="control">
