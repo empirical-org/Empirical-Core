@@ -11,13 +11,14 @@ export default React.createClass({
 
 
     propTypes: {
-        fp: React.PropTypes.object.isRequired,
+        fp: React.PropTypes.any.isRequired,
         submitFocusPoint: React.PropTypes.func.isRequired
     },
 
     componentWillReceiveProps: function(nextProps) {
       let fp = nextProps.fp;
       this.setState({
+          modalDisplay: false,
           fpText: fp ? fp.text : '',
           fpFeedback: fp ? fp.feedback : ''
         });

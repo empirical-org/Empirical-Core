@@ -309,9 +309,12 @@ const Responses = React.createClass({
   },
 
   renderFocusPoint: function () {
+    // fp is a required prop for FocusPointForm, however, if a question doesn't have
+    // an fp, it evaluates to undefined, triggering an error on a required proptype.
+    let fp = this.getFocusPoint() ? this.getFocusPoint() : false;
     return (
-        <FocusPointSummary fp={this.getFocusPoint()}>
-          <FocusPointForm fp={this.getFocusPoint() || null} submitFocusPoint={this.submitFocusPointForm}/>
+        <FocusPointSummary fp={fp}>
+          <FocusPointForm fp={fp} submitFocusPoint={this.submitFocusPointForm}/>
         </FocusPointSummary>
     )
   },
