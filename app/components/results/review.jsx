@@ -8,7 +8,7 @@ import Response from '../questions/response.jsx'
 import C from '../../constants'
 import SharedSection from '../shared/section.jsx'
 import Chart from '../questions/pieChart.jsx'
-import ResponseComponent from '../questions/ResponseComponent.jsx'
+import ResponseComponent from '../questions/responseComponent.jsx'
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 

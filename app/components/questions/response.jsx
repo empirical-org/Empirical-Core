@@ -443,7 +443,6 @@ export default React.createClass({
   },
 
   // gatherPathways: function () {
-  //   debugger
   //   var currentRespKey = this.props.response.key;
   //   var allResponses = _.where(this.props.responses, {key: currentRespKey})
   //   console.log();

@@ -8,6 +8,7 @@ import Question from '../../libs/question'
 import questionActions from '../../actions/questions'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
+import FocusPointForm from './focusPointForm.jsx'
 
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
@@ -299,15 +300,7 @@ const Responses = React.createClass({
   },
 
   renderFocusPoint: function () {
-    const fp = this.getFocusPoint()
-    if (fp) {
-      return (
-        <div className="box">
-          <h4 className="control title is-4">Focus Point: '{fp.text}'</h4>
-          <h6 className="control sub-title is-6">Feedback: {fp.feedback}</h6>
-        </div>
-      )
-    }
+    return <FocusPointForm getFocusPoint={this.getFocusPoint}/>
   },
 
   render: function () {
