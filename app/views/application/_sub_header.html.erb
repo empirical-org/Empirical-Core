@@ -28,7 +28,6 @@
 				<%- end %>
 				<%- if current_user.role == 'student' %>
 					<li><%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path %></li>
-					<li><%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Class Manager"), classroom_manager_students_classrooms_path %></li>
 				<% end %>
 				<%- if current_user.role != 'student' %>
 				<li><%= link_to "Support", "http://support.quill.org" %></li>
