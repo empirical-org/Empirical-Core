@@ -78,6 +78,8 @@ const Lessons =  React.createClass({
                   {this.renderLessons()}
                 </ul>
               </aside>
+            </div>
+          </div>
         </div>
       </section>
 
