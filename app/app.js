@@ -106,9 +106,12 @@ render((
           <Route path="lessons" component={Lessons}/>
           <Route path="lessons/:lessonID" component={Lesson}/>
           <Route path="lessons/:lessonID/results" component={LessonResults}/>
-          <Route path="lessons/diagnostics" component={Diagnostics}/>
-          <Route path="lessons/diagnostics/new" component={NewDiagnostic}/>
 
+          {/* Diagnostics */}
+          <Route path="diagnostics" component={Diagnostics}/>
+          <Route path="diagnostics/new" component={NewDiagnostic}/>
+
+          {/* Targeted Feedback */}
           <Route path="concepts-feedback" component={ConceptsFeedback}>
             <Route path=":feedbackID" component={ConceptFeedback}/>
           </Route>
