@@ -2,7 +2,7 @@
 
 The teacher dashboard is the first page that teachers are presented with after completing the onboarding workflow. The front-end is entirely in React, and relies primarily on the ```ClassroomManagerController``` (```app/controllers/teachers/classroom_manager_controller.rb```).
 
-See the demo dashboard here [htttp://www.Quill.org/demo]
+See the demo dashboard here [http://www.quill.org/demo?name=demoaccount]
 
 Each of the sections is detailed in the order it is presented.
 
