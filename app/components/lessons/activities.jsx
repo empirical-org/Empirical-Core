@@ -36,7 +36,7 @@ const Lessons =  React.createClass({
       var questionsToDisplay = l[key].questions.map((question) => {
         return (
           <li key={q[question].key} className="menu-list"><div className='column'>
-            <Link to={'/play/questions/' + question}>{q[question].prompt}</Link>
+            <Link to={'/play/questions/' + question}>{q[question].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link>
           </div></li>
         );
       });
