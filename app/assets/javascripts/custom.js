@@ -38,7 +38,6 @@ $(document).ready(function(){
 	}
 
 	tableSortIcons();
-
 	$('.tabs-teacher-stories').tabslet({
 		autorotate: true,
 		delay: 10000,

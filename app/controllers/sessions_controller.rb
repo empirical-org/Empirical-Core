@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
         redirect_to profile_path
       else
         sign_out
-        redirect_to signed_out_path, notice: 'Logged Out'
+        redirect_to signed_out_path
       end
     end
   end

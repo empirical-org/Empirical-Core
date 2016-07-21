@@ -3,4 +3,4 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 <%= render partial: 'teachers/progress_reports/subnav' %>
 
-<%= react_component('EC.Scorebook', selectedClassroom: @selected_classroom) %>
+<%= react_component('ScorebookApp', props: {selectedClassroom: @selected_classroom}) %>
