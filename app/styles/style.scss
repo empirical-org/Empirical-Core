@@ -21,6 +21,23 @@ body {
 
 }
 
+#pie-chart {
+  svg {
+    width: 200px;
+  }
+}
+
+#activities-section {
+  .menu-list a {
+    padding: 0;
+  }
+  .column {
+    padding-bottom: 4px;
+  }
+}
+
+
+
 .has-bottom-margin {
   margin-bottom: 20px;
 }
