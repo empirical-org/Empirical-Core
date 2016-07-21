@@ -68,8 +68,11 @@ const Lessons =  React.createClass({
       <section className="section" id='activities-section'>
         <div className="container">
           <h1 className="title is-3">
-            Lessons
+            Activities
           </h1>
+          <h4 className="subtitle is-5">
+            Created by our Curriculum Director
+          </h4>
           <div className="columns">
             <div className="column">
               <aside className="menu">
