@@ -22,7 +22,7 @@ const Concept = React.createClass({
     const keys = _.keys(data);
     return keys.map((key) => {
       //console.log(key, data, data[key])
-      return (<li><Link to={'/admin/concepts/' + key} activeClassName="is-active">{data[key].name}</Link></li>)
+      return (<li><Link to={'/admin/concepts/' + key} activeClassName="is-active" key={key}>{data[key].name}</Link></li>)
     })
   },
 

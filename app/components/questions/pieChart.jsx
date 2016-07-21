@@ -18,14 +18,11 @@ export default React.createClass ({
 
   render: function () {
     return (
-      <div className='columns'>
-        <div className='column'>
+      <div id='pie-chart'>
           <Pie
             slices= {this.props.data}
 
           />
-        </div>
-        <div className="column">
         {
           this.props.data.map((d, i) => (
             <div key={ i }>
@@ -45,7 +42,6 @@ export default React.createClass ({
           : ''
         }
           <a href="https://github.com/empirical-org/Quill-Connect/blob/master/app/libs/README.md">How our marking works</a>
-        </div>
       </div>
     )
   }
