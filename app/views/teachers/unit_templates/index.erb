@@ -1,9 +1,0 @@
-<!-- this is the public facing index, for signed-in-teacher facing index, see lesson planner -->
-<%= render partial: 'pages/shared/pages_tabs' %>
-<%= render partial: 'pages/shared/activities_subtabs' %>
-
-<div id="page-content-wrapper">
-  <div class="tab-pane" id="public-activity-packs" data-authenticated=<%=@is_teacher%>>
-    <%= render partial: 'application/spinner' %>
-  </div>
-</div>

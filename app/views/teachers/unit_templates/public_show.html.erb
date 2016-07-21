@@ -3,6 +3,6 @@
 
 <div id="#page-content-wrapper">
   <div id="public-activity-packs" class="tab-pane teachers-unit-template" data-id="<%= @unit_template_id %>" data-authenticated=<%=@is_teacher%>>
-    <%= render partial: 'application/spinner' %>
+  <%= react_component('PublicActivityPacksApp', props: {})%>
   </div>
 </div>

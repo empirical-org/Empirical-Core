@@ -11,17 +11,20 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    params[:user_id] ||= current_user.id
     if params[:account_type] == 'trial' && current_user.eligible_for_trial?
       params[:expiration] = Date.today + 30
       PremiumAnalyticsWorker.perform_async(current_user.id, params[:account_type])
-    end 
-    @subscription = Subscription.create subscription_params
+    end
+    attributes = subscription_params
+    attributes.delete(:authenticity_token)
+    @subscription = Subscription.create attributes
     render json: @subscription
   end
 
   def update
-    @subscription.update_attributes subscription_params
+    attributes = subscription_params
+    attributes.delete(:authenticity_token)
+    @subscription.update_attributes attributes
     render json: @subscription
   end
 
@@ -33,7 +36,7 @@ class SubscriptionsController < ApplicationController
   private
     def subscription_params
       params.require(:account_type)
-      params.permit(:id, :user_id, :expiration, :account_limit, :account_type)
+      params.permit(:id, :user_id, :expiration, :account_limit, :account_type, :authenticity_token)
     end
 
     def set_subscription

@@ -10,7 +10,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     else
       @tab = params[:tab] #|| "manageUnits"
       @grade = params[:grade]
-      @students_exist = current_user.students.any?
+      @students = current_user.students.any?
       @last_classroom_name = current_user.classrooms_i_teach.last.name
       @last_classroom_id = current_user.classrooms_i_teach.last.id
     end

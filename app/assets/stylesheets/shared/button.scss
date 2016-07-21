@@ -11,6 +11,15 @@
   color: $white;
 }
 
+// just for using with react-bootstrap toggle
+.toggle-button {
+  font-weight: inherit;
+  background-color: inherit;
+  span {
+    font-weight: normal;
+  }
+}
+
 .btn-social {
   border: none;
   border-radius: 0;
