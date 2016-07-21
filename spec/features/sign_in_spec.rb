@@ -37,7 +37,7 @@ feature 'Signing in' do
 
   shared_examples_for :sign_in_fails do
     it 'fails' do
-      expect(current_path).to eq sign_in_page.sign_in_failed_path
+      expect(current_path).to eq sign_in_page.path
 
       error_text = 'Incorrect username/email or password'
       expect(sign_in_page).to have_content error_text
