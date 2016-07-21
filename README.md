@@ -16,7 +16,7 @@ The Mailing List, Chat, Issues, and Docs can all be accessed from the community 
 
 If you want a simple guide to install Empirical Core, then you've come to the right place! Here's the step-by-step process to get Empirical Core running on your system:
 
-1. Download and install [rbenv](https://github.com/sstephenson/rbenv) (or a Ruby version manager of your choice). You need to install Ruby version 2.2.2 to properly use Empirical Core. The best way to do this is follow the README and wiki of whatever Ruby version manager you download, but if you decide to use rbenv, then [homebrew](http://brew.sh/) has a really great and easy-to-use setup and install process:
+1. Download and install [rbenv](https://github.com/sstephenson/rbenv) (or a Ruby version manager of your choice). You need to install Ruby version 2.3.0 to properly use Empirical Core. The best way to do this is follow the README and wiki of whatever Ruby version manager you download, but if you decide to use rbenv, then [homebrew](http://brew.sh/) has a really great and easy-to-use setup and install process:
   1. ```brew update```
   2. ```brew install rbenv ruby-build```
   3. ```echo 'eval "$(rbenv init -)"' >> ~/.bash_profile```
@@ -43,7 +43,10 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 9. Run Redis with ```redis-server```
 
-10. Run the server with `bundle exec rails s`.
+11. Run npm installer with ```npm install && cd ./client && npm install```
+
+
+10. Run the server with `foreman start -f Procfile.static`.
  - Navigate your browser to localhost:3000 and you should see Empirical-Core pull up properly!
  - When you're done with the server, use Ctrl-C to break it and return to your commandline.
 

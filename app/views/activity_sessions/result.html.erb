@@ -1,7 +1,7 @@
-<%= react_component('EC.ResultsPage',
-          results: @results,
-          percentage: @activity_session.percentage,
-          activityName: @activity_session.activity.name,
-          activityType: ActivityClassification.find(@activity_session.activity.activity_classification_id).name,
-          anonymous: !@activity_session.user_id && current_user.nil?
+<%= react_component('ResultsPageApp', props: {        results: @results,
+        percentage: @activity_session.percentage,
+        activityName: @activity_session.activity.name,
+        activityType: ActivityClassification.find(@activity_session.activity.activity_classification_id).name,
+        anonymous: !@activity_session.user_id && current_user.nil?}
+
           ) %>
