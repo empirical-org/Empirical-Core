@@ -19,6 +19,20 @@ export default React.createClass({
     }
   },
 
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.boilerplate !== this.props.boilerplate) {
+      this.setState({text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.boilerplate)))},
+      () => {
+        this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()))
+      }
+    )
+    }
+  },
+
+  getState: function () {
+    return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || "")))
+  },
+
   handleTextChange: function (e) {
     this.setState({text: e}, () => {
       this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()))

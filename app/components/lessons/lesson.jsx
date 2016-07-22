@@ -22,7 +22,7 @@ const Lesson = React.createClass({
   renderQuestionsForLesson: function () {
     var questionsForLesson = this.questionsForLesson()
     var listItems = questionsForLesson.map((question) => {
-      return (<li key={question.key}><Link to={'/results/questions/' + question.key}>{question.prompt}</Link></li>)
+      return (<li key={question.key}><Link to={'/results/questions/' + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
     })
 
     return (

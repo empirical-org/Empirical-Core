@@ -130,7 +130,7 @@ const Review = React.createClass({
       const hintTypePieChartData = _.values(this.formatForAlgorithmPieChart());
       return (
         <SharedSection>
-          <h4 className="title">{data[questionID].prompt}</h4>
+          <h4 className="title">{data[questionID].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</h4>
           <h6 className="subtitle">{responses.length} Responses</h6>
           <Link to={'play/questions/' + questionID} className="button is-outlined is-primary">Play Question</Link><br/><br/>
           <div className='columns'>

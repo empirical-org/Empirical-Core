@@ -23,7 +23,8 @@ export default React.createClass({
     return {
       // feedback:  EditorState.createEmpty()
       // feedback:  this.props.response.text
-      feedback: this.props.response.feedback || ""
+      feedback: this.props.response.feedback || "",
+      selectedBoilerplate: ""
     }
   },
 
@@ -137,7 +138,7 @@ export default React.createClass({
   },
 
   chooseBoilerplate: function(e) {
-    this.refs.newResponseFeedback.value = this.refs.boilerplate.value
+    this.setState({selectedBoilerplate: this.refs.boilerplate.value})
   },
 
   incrementResponse: function (rid) {
@@ -229,7 +230,7 @@ export default React.createClass({
         <div className="content">
           {parentDetails}
           <label className="label">Feedback</label>
-          <TextEditor text={this.props.response.feedback || ""} handleTextChange={this.handleFeedbackChange}/>
+          <TextEditor text={this.state.feedback || ""} handleTextChange={this.handleFeedbackChange} boilerplate={this.state.selectedBoilerplate}/>
 
           <label className="label">Boilerplate feedback</label>
           <p className="control">

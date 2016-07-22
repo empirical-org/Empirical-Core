@@ -50,7 +50,7 @@ const Concepts = React.createClass({
   renderQuestionsForConcept: function () {
     var questionsForConcept = this.questionsForConcept()
     var listItems = questionsForConcept.map((question) => {
-      return (<li key={question.key}><Link to={'/admin/questions/' + question.key}>{question.prompt}</Link></li>)
+      return (<li key={question.key}><Link to={'/admin/questions/' + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
     })
     return (
       <ul>{listItems}</ul>
