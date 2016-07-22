@@ -10,6 +10,7 @@ import {hashToCollection} from '../../libs/hashToCollection'
 import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
 import TextEditor from './textEditor.jsx';
+import feedbackActions from '../../actions/concepts-feedback.js'
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -24,7 +25,8 @@ export default React.createClass({
       // feedback:  EditorState.createEmpty()
       // feedback:  this.props.response.text
       feedback: this.props.response.feedback || "",
-      selectedBoilerplate: ""
+      selectedBoilerplate: "",
+      selectedConcept: this.props.response.concept || ""
     }
   },
 
@@ -141,6 +143,10 @@ export default React.createClass({
     this.setState({selectedBoilerplate: this.refs.boilerplate.value})
   },
 
+  chooseConcept: function(e) {
+    this.setState({selectedBoilerplate: this.refs.concept.value})
+  },
+
   incrementResponse: function (rid) {
     this.props.dispatch(questionActions.incrementResponseCount(this.props.questionID, rid));
   },
@@ -166,8 +172,15 @@ export default React.createClass({
   },
 
   handleFeedbackChange: function (e) {
-    // const changes = this.state.feedback[String(rID)] = e.target.value
     this.setState({feedback: e});
+  },
+
+  conceptsFeedbackToOptions: function () {
+    return hashToCollection(this.props.conceptsFeedback.data).map((cfs) => {
+      return (
+        <option value={cfs.feedbackText}>{cfs.name}</option>
+      )
+    })
   },
 
   renderResponseContent: function (isEditing, response) {
@@ -246,6 +259,17 @@ export default React.createClass({
               </select>
             </span>
           </p>
+
+          <label className="label">Grammar concept</label>
+          <p className="control">
+            <span className="select">
+              <select onChange={this.chooseConcept} ref="concept">
+                <option>Select Grammatical feedback</option>
+                {this.conceptsFeedbackToOptions()}
+              </select>
+            </span>
+          </p>
+
           <p className="control">
             <label className="checkbox">
               <input ref="newResponseOptimal" defaultChecked={response.optimal} type="checkbox" />

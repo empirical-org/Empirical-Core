@@ -23,7 +23,8 @@ export default React.createClass({
           getMatchingResponse={this.props.getMatchingResponse}
           showPathways={this.props.showPathways}
           printPathways={this.props.printPathways}
-          toPathways={this.props.toPathways} />
+          toPathways={this.props.toPathways}
+          conceptsFeedback={this.props.conceptsFeedback} />
       )}
     })
     if (this.props.ascending) {

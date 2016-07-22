@@ -49,6 +49,9 @@ module.exports = {
   toggleNewConceptsFeedbackModal: function(){
     return {type:C.TOGGLE_NEW_CONCEPTS_FEEDBACK_MODAL}
   },
+	testFeedback: function(){
+		console.log("Hello");
+	},
 	submitNewConceptsFeedback: function(content){
 		return function(dispatch,getState){
 			dispatch({type:C.AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE});
