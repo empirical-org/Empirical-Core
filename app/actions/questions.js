@@ -47,6 +47,15 @@ module.exports = {
 				});
 		};
 	},
+	submitEditedFocusPoint: function(qid, data, fpid) {
+		return function(dispatch,getState){
+				questionsRef.child(qid + "/focusPoints/" + fpid).update(data,function(error){
+						if (error) {
+							alert("Submission failed! "+error);
+						}
+				});
+		};
+	},
   toggleNewQuestionModal: function(){
     return {type:C.TOGGLE_NEW_QUESTION_MODAL}
   },
@@ -79,6 +88,15 @@ module.exports = {
 			});
     }
   },
+	submitNewFocusPoint: function(qid, data) {
+		return function (dispatch, getState) {
+			questionsRef.child(qid + '/focusPoints').push(data, function(error){
+				if (error) {
+					alert("Submission failed! "+error)
+				}
+			});
+		};
+	},
   startResponseEdit: function(qid,rid){
 		return {type:C.START_RESPONSE_EDIT,qid,rid};
 	},

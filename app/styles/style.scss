@@ -21,6 +21,23 @@ body {
 
 }
 
+#pie-chart {
+  svg {
+    width: 200px;
+  }
+}
+
+#activities-section {
+  .menu-list a {
+    padding: 0;
+  }
+  .column {
+    padding-bottom: 4px;
+  }
+}
+
+
+
 .has-bottom-margin {
   margin-bottom: 20px;
 }
@@ -97,8 +114,51 @@ ul.is-unstyled {
   }
 }
 
+<<<<<<< HEAD
+=======
+.register-list {
+  display: 'inline-block';
+  margin: 0 auto;
+
+  li {
+    margin-bottom: 1em;
+    font-size: 22px;
+  }
+}
+
+.register-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+h2.register {
+  text-align: center;
+}
+
+.is-question {
+  min-height: initial;
+}
+
+>>>>>>> origin/master
 .activities-title {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
+<<<<<<< HEAD
+=======
+
+textarea.submission {
+  font-size: 18px;
+}
+
+.sentence-fragments {
+  p {
+    font-size: 24px;
+    margin-bottom: 0em;
+  }
+  margin-bottom: 1em;
+  font-size: 24px;
+}
+>>>>>>> origin/master

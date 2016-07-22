@@ -20,6 +20,8 @@ import Activities from "./components/lessons/activities.jsx";
 import Lessons from "./components/lessons/lessons.jsx";
 import Lesson from "./components/lessons/lesson.jsx";
 import LessonResults from "./components/lessons/lessonResults.jsx";
+import Diagnostics from "./components/diagnostics/diagnostics.jsx";
+import NewDiagnostic from "./components/diagnostics/new.jsx";
 import StudentLesson from "./components/studentLessons/lesson.jsx";
 import GameLesson from "./components/gameLessons/lesson.jsx";
 import createStore from './utils/configureStore';
@@ -92,16 +94,26 @@ render((
           <Route path="questions/:questionID" component={Review}/>
         </Route>
         <Route path="admin" component={Admin}>
+          {/*Concepts section*/}
+          <Route path="concepts" component={Concepts}/>
+          <Route path="concepts/:conceptID" component={Concept}/>
 
-          <Route path="concepts" component={Concepts}>
-            <Route path=":conceptID" component={Concept}/>
-          </Route>
-          <Route path="questions" component={Questions}>
-            <Route path=":questionID" component={Question}/>
-          </Route>
-          <Route path="lessons" component={Lessons}>
-            <Route path=":lessonID" component={Lesson}/>
-            <Route path=":lessonID/results" component={LessonResults}/>
+          {/*Questions section*/}
+          <Route path="questions" component={Questions}/>
+          <Route path="questions/:questionID" component={Question}/>
+
+          {/*Lessons section*/}
+          <Route path="lessons" component={Lessons}/>
+          <Route path="lessons/:lessonID" component={Lesson}/>
+          <Route path="lessons/:lessonID/results" component={LessonResults}/>
+
+          {/* Diagnostics */}
+          <Route path="diagnostics" component={Diagnostics}/>
+          <Route path="diagnostics/new" component={NewDiagnostic}/>
+
+          {/* Targeted Feedback */}
+          <Route path="concepts-feedback" component={ConceptsFeedback}>
+            <Route path=":feedbackID" component={ConceptFeedback}/>
           </Route>
           <Route path="concepts-feedback" component={ConceptsFeedback}>
             <Route path=":feedbackID" component={ConceptFeedback}/>

@@ -22,7 +22,7 @@ const Lesson = React.createClass({
   renderQuestionsForLesson: function () {
     var questionsForLesson = this.questionsForLesson()
     var listItems = questionsForLesson.map((question) => {
-      return (<li key={question.key}><Link to={'/results/questions/' + question.key}>{question.prompt}</Link></li>)
+      return (<li key={question.key}><Link to={'/results/questions/' + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
     })
 
     return (
@@ -71,6 +71,8 @@ const Lesson = React.createClass({
     if (data[lessonID]) {
       return (
         <div>
+          <Link to ={'admin/lessons'}>Return to All Lessons</Link>
+          <br/>
           {this.renderEditLessonForm()}
           <h4 className="title">{data[lessonID].name}</h4>
           <h6 className="subtitle">{data[lessonID].questions.length} Questions</h6>

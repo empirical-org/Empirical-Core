@@ -102,7 +102,7 @@ const playLessonQuestion = React.createClass({
 
   renderSentenceFragments: function () {
     return (
-      <h4 className="title is-4">{this.getQuestion().prompt}</h4>
+      <div className="draft-js sentence-fragments" dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
     )
     // return this.props.question.sentences.map((sentence, index) => {
     //   return (<li key={index}>{sentence}</li>)
@@ -146,18 +146,35 @@ const playLessonQuestion = React.createClass({
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
-      components = components.concat([(<li key="feedback"><h5 className="title is-5">{attempt.response.feedback}</h5></li>)])
+      components = components.concat([(<li key="feedback" dangerouslySetInnerHTML={{__html: attempt.response.feedback}}></li>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}</h5></li>)
+        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
       }
     }))
     if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
       const parentResponse = this.getQuestion().responses[attempt.response.parentID]
-      components = [(<li key="parentfeedback"><h5 className="title is-5">{parentResponse.feedback}</h5></li>)].concat(components)
+      components = [(<li key="parentfeedback" dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></li>)].concat(components)
     }
     return components.concat(errorComponents)
+  },
+
+  renderCues: function () {
+    if (this.getQuestion().cues && this.getQuestion().cues.length > 0 && this.getQuestion().cues[0] !== "") {
+      const cueDivs = this.getQuestion().cues.map((cue) => {
+        return (
+          <div className="cue">
+            {cue}
+          </div>
+        )
+      })
+      return (
+        <div className="cues">
+          {cueDivs}
+        </div>
+      )
+    }
   },
 
   updateResponseResource: function (response) {
@@ -340,9 +357,9 @@ const playLessonQuestion = React.createClass({
         return (
           <section className="section">
             <div className="container">
-              <div className="content">
-                <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                {this.renderSentenceFragments()}
+              {this.renderSentenceFragments()}
+                <div className="content">
+                {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
                   <textarea className="textarea is-disabled" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
@@ -365,10 +382,9 @@ const playLessonQuestion = React.createClass({
           return (
             <section className="section">
               <div className="container">
-                <div className="content">
-                  <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-
-                  {this.renderSentenceFragments()}
+                {this.renderSentenceFragments()}
+                  <div className="content">
+                  {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
                     <textarea className="textarea" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
@@ -387,9 +403,9 @@ const playLessonQuestion = React.createClass({
         return (
           <section className="section">
             <div className="container">
-              <div className="content">
-                <progress className="progress is-primary" value={this.getProgressPercent()} max="100">{this.getProgressPercent()}%</progress>
-                {this.renderSentenceFragments()}
+              {this.renderSentenceFragments()}
+                <div className="content">
+                {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
                   <textarea className="textarea" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>

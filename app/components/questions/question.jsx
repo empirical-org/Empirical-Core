@@ -6,10 +6,10 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Modal from '../modal/modal.jsx'
 import EditFrom from './questionForm.jsx'
-// import Response from './response.jsx'
+import Response from './response.jsx'
 import C from '../../constants'
 import Chart from './pieChart.jsx'
-import ResponseComponent from '../questions/ResponseComponent.jsx'
+import ResponseComponent from './responseComponent.jsx'
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
@@ -166,7 +166,8 @@ const Question = React.createClass({
       return (
         <div>
           {this.renderEditForm()}
-          <h4 className="title">{data[questionID].prompt}</h4>
+          <Link to={'admin/questions'}> Return to All Questions </Link>
+          <h4 className="title" dangerouslySetInnerHTML={{__html: data[questionID].prompt}}></h4>
           <h6 className="subtitle">{responses.length} Responses</h6>
           <Link to={'play/questions/' + questionID} className="button is-outlined is-primary">Play Question</Link><br/><br/>
           <Chart data={_.values(this.formatForPieChart())}/>

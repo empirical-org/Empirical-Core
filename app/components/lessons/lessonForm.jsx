@@ -44,7 +44,7 @@ const LessonForm = React.createClass({
     const formattedQuestions = hashToCollection(this.props.questions.data).map((question) => {
       return {
         value: question.key,
-        title: question.prompt
+        title: question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
       }
     })
     return formattedQuestions.map((question) => {

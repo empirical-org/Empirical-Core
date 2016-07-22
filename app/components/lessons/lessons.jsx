@@ -79,9 +79,6 @@ const Lessons =  React.createClass({
                 </ul>
               </aside>
             </div>
-            <div className="column">
-              {this.props.children}
-            </div>
           </div>
         </div>
       </section>
