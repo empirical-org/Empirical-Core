@@ -22,8 +22,6 @@ export default React.createClass({
 
   getInitialState: function () {
     return {
-      // feedback:  EditorState.createEmpty()
-      // feedback:  this.props.response.text
       feedback: this.props.response.feedback || "",
       selectedBoilerplate: "",
       selectedConcept: this.props.response.concept || ""
