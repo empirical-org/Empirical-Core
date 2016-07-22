@@ -35,32 +35,20 @@ const Lessons =  React.createClass({
     return keys.map((key) => {
       var questionsToDisplay = l[key].questions.map((question) => {
         return (
-<<<<<<< HEAD
-          <li key={q[question].key} className="menu-list">{q[question].prompt}</li>
-=======
           <li key={q[question].key} className="menu-list"><div className='column'>
             <Link to={'/play/questions/' + question}>{q[question].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link>
           </div></li>
->>>>>>> origin/master
         );
       });
 
       return (<li key={key}>
                 <div className="activities-title">
                 <Link to={'/play/lesson/' + key} className="menu-label" activeClassName="is-active">{data[key].name}</Link>
-<<<<<<< HEAD
                 <Link to={'/play/lesson/' + key} className="menu-label is-pulled-right" activeClassName="is-active">Start Activity</Link>
                 </div>
                 <ul>{questionsToDisplay}</ul>
               </li>)
     })
-=======
-                <Link to={'/play/lesson/' + key} className="menu-label is-pulled-right button is-small is-success" activeClassName="is-active">Start Activity</Link>
-                </div>
-                <ul>{questionsToDisplay}</ul>
-              </li>);
-    });
->>>>>>> origin/master
   },
 
   renderModal: function () {
