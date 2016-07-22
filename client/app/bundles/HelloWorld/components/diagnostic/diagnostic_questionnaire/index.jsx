@@ -7,7 +7,7 @@ export default React.createClass({
 
     render: function() {
         return (
-            <div >
+            <div id='diagnostic-planner'>
                 <StatusBar/>
             </div>
         );

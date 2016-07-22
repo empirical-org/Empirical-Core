@@ -1,0 +1,23 @@
+#diagnostic-planner {
+  #status-bar {
+    display: flex;
+    justify-content: space-between;
+  }
+  .check-point {
+    border-radius: 50%;
+    border: solid 1px #979797;
+    height: 31px;
+    width: 31px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .connector-line {
+    border: 1px solid;
+    height: 1px;
+    align-self: center;
+    /* margin: 0 10px; */
+    min-width: 2px;
+    flex-grow: 5;
+  }
+}
