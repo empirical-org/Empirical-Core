@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624180702) do
+ActiveRecord::Schema.define(version: 20160722174111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,10 +160,12 @@ ActiveRecord::Schema.define(version: 20160624180702) do
     t.string   "grade",               limit: 255
     t.boolean  "visible",                         default: true, null: false
     t.integer  "google_classroom_id"
+    t.integer  "grade_level"
   end
 
   add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree
   add_index "classrooms", ["grade"], name: "index_classrooms_on_grade", using: :btree
+  add_index "classrooms", ["grade_level"], name: "index_classrooms_on_grade_level", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.string   "title",              limit: 255
