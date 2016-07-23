@@ -14,7 +14,7 @@
   "scripts": {
     "postinstall": "cd ./client && npm install",
     "gulp": "cd ./client && npm run gulp",
-    "test": "npm run build:test && rspec",
+    "test": "npm run build:test && bundle exec rake spec",
     "lint": "cd client && npm run lint",
     "install-react-on-rails": "cd client && npm run install-react-on-rails",
     "build:clean": "rm app/assets/webpack/* || true",
