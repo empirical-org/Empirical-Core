@@ -1,4 +1,4 @@
 test:
   adapter: postgresql
-  database: test
+  database: empiricalgrammar_test
   username: postgres
