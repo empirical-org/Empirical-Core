@@ -18,6 +18,7 @@
     "lint": "cd client && npm run lint",
     "install-react-on-rails": "cd client && npm run install-react-on-rails",
     "build:clean": "rm app/assets/webpack/* || true",
+    "build:test": "cd client && npm run build:test",
     "build:production:client": "(echo 'prod client assets' && cd client && npm run build:production:client --silent)",
     "build:production:server": "(echo 'prod server assets' && cd client && npm run build:production:server --silent)",
     "build:client": "(cd client && npm run build:client --silent",
