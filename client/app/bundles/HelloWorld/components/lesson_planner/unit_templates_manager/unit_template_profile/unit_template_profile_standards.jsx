@@ -38,10 +38,10 @@
       <div className='standards-and-concepts light-gray-bordered-box'>
         <dl>
           <dt><strong>Standards</strong></dt>
-          { this.renderStandards(this.getStandards()) }
+          {this.renderStandards(this.getStandards())}
 
           <dt className='concepts'><strong>Concepts</strong></dt>
-          { this.renderConcepts(this.getConcepts()) }
+          {this.renderConcepts(this.getConcepts())}
         </dl>
       </div>
     )
