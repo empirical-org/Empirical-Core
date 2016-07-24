@@ -1,4 +1,6 @@
 'use strict';
+import React from 'react'
+
 EC.DropdownDateSelector = React.createClass({
   propTypes : {
     date: React.PropTypes.string.isRequired,
