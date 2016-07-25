@@ -61,19 +61,19 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scorebook
-    cr_id = params[:classroom_id] ? params[:classroom_id] : current_user.classrooms_i_teach.last.id
-    classroom = Classroom.find(cr_id)
-    @selected_classroom = {name: classroom.name, value: classroom.id, id: classroom.id}
-    if current_user.classrooms_i_teach.empty?
-      redirect_to new_teachers_classroom_path
-    end
-
-    if current_user.students.empty?
-      if current_user.classrooms_i_teach.last.activities.empty?
-        redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms_i_teach.last.grade)
-      else
-        redirect_to teachers_classroom_invite_students_path(current_user.classrooms_i_teach.first)
+    if current_user.classrooms_i_teach.any?
+      cr_id = params[:classroom_id] ? params[:classroom_id] : current_user.classrooms_i_teach.last.id
+      classroom = Classroom.find_by_id(cr_id)
+      @selected_classroom = {name: classroom.name, value: classroom.id, id: classroom.id}
+      if current_user.students.empty?
+        if current_user.classrooms_i_teach.last.activities.empty?
+          redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms_i_teach.last.grade)
+        else
+          redirect_to teachers_classroom_invite_students_path(current_user.classrooms_i_teach.first)
+        end
       end
+    elsif current_user.classrooms_i_teach.empty?
+      redirect_to new_teachers_classroom_path
     end
   end
 
