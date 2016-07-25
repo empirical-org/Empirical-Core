@@ -155,8 +155,8 @@ export default  React.createClass({
       if (this.props.onFetchSuccess) {
         this.props.onFetchSuccess(data);
       }
-    }.bind(this)).fail(function error(error) {
-      console.log('An error occurred while fetching data', error);
+    }.bind(this)).fail((e) => {
+      console.log('An error occurred while fetching data', e);
     });
   },
 
