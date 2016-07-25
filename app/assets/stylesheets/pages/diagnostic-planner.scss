@@ -68,4 +68,11 @@ border-left: 6px solid transparent;
       font-size: 14px;
       color: #646464;
     }
+    .checkbox-mixin {
+      height: 21px;
+      width: 21px;
+      border-radius: 5px;
+      background: #e6e6e6;
+      border: 1px solid #cecece;
+    }
   }
