@@ -3,6 +3,10 @@ import fuzzy from 'fuzzyset.js'
 import constants from '../constants';
 const jsDiff = require('diff');
 
+String.prototype.normalize = function() {
+  return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
+}
+
 
 export default class Question {
   constructor(data) {
@@ -122,25 +126,25 @@ export default class Question {
 
   checkExactMatch(response) {
     return _.find(this.responses, (resp) => {
-      return resp.text === response;
+      return resp.text.normalize() === response.normalize();
     });
   }
 
   checkCaseInsensitiveMatch(response) {
     return _.find(this.getOptimalResponses(), (resp) => {
-      return resp.text.toLowerCase() === response.toLowerCase();
+      return resp.text.normalize().toLowerCase() === response.normalize().toLowerCase();
     });
   }
 
   checkPunctuationInsensitiveMatch(response) {
     return _.find(this.getOptimalResponses(), (resp) => {
-      return removePunctuation(resp.text) === removePunctuation(response)
+      return removePunctuation(resp.text.normalize()) === removePunctuation(response.normalize())
     });
   }
 
   checkSmallTypoMatch(response) {
     return _.find(this.nonChildResponses(this.responses), (resp) => {
-      return getLowAdditionCount(response, resp.text)
+      return getLowAdditionCount(response.normalize(), resp.text.normalize())
     });
   }
 
@@ -166,12 +170,12 @@ export default class Question {
       return undefined
     }
     const lengthsOfResponses = optimalResponses.map((resp) => {
-      return resp.text.split(" ").length;
+      return resp.text.normalize().split(" ").length;
     })
     const minLength = _.min(lengthsOfResponses)
     if (response.split(" ").length < minLength) {
       return _.sortBy(optimalResponses, (resp) => {
-        return resp.text.length
+        return resp.text.normalize().length
       })[0]
     } else {
       return undefined;
@@ -184,12 +188,12 @@ export default class Question {
       return undefined
     }
     const lengthsOfResponses = optimalResponses.map((resp) => {
-      return resp.text.split(" ").length;
+      return resp.text.normalize().split(" ").length;
     })
     const maxLength = _.max(lengthsOfResponses)
     if (response.split(" ").length > maxLength) {
       return _.sortBy(optimalResponses, (resp) => {
-        return resp.text.length
+        return resp.text.normalize().length
       }).reverse()[0]
     } else {
       return undefined
