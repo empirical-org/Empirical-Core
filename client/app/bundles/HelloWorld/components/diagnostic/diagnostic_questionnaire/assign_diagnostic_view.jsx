@@ -3,11 +3,11 @@
 import React from 'react'
 import StatusBar from './StatusBar.jsx'
 import IntroPage from './IntroPage'
-import ClassroomPage from './ClassroomPage.jsx'
 
 export default React.createClass({
 
   getInitialState: function() {
+    debugger;
     return {stage: 1}
   },
 
@@ -23,11 +23,10 @@ export default React.createClass({
 
   render: function() {
       return (
-          <div id='diagnostic-planner'>
-              <StatusBar/>
-              <ClassroomPage/>
-              {/*{this.content()}*/}
-          </div>
+        <div>
+          <StatusBar/>
+          <IntroPage/>
+        </div>
       );
   }
 

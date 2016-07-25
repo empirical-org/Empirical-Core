@@ -1,5 +1,7 @@
 'use strict';
-EC.CheckBox = React.createClass({
+import React from 'react'
+
+export default React.createClass({
   propTypes: {
     checked: React.PropTypes.bool.isRequired,
     toggleItem: React.PropTypes.func.isRequired,
