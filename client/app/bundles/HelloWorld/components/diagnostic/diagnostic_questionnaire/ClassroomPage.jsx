@@ -14,10 +14,46 @@ export default React.createClass({
               })
     },
 
+    // checkboxStateForEachClassroom: function(){
+    //     let checkboxes = {};
+    //     this.state.classrooms.forEach((classy) =>
+    //       checkboxes[classy.id] = false
+    //     );
+    //     this.state.checkboxes = checkboxes;
+    // },
+
+    grades: function(){
+      let grades = []
+      let formattedGrade;
+      for(let grade = 1; grade <= 12; grade++){
+        if (grade === 1) {
+          formattedGrade = grade + 'st'
+        } else if (grade === 2) {
+          formattedGrade = grade + 'nd'
+        } else if (grade === 3) {
+          formattedGrade = grade + 'rd'
+        } else {
+          formattedGrade = grade + 'th'
+        }
+        grades.push(<MenuItem key={formattedGrade} eventKey={formattedGrade}>{formattedGrade}</MenuItem>)
+      }
+      return grades
+    },
+
+
+    addCheckedProp: function(classrooms) {
+      let updatedClassrooms = classrooms.map((classy) => {
+        classy.checked = false
+        return classy
+      })
+      return updatedClassrooms
+    },
+
     componentDidMount: function() {
       let that = this;
         $.ajax('/teachers/classrooms/classrooms_i_teach').done(function(data) {
-          that.setState({classrooms: data.classrooms})
+            let classrooms = that.addCheckedProp(data.classrooms);
+            that.setState({classrooms: classrooms})
         }).fail(function() {
             alert('error');
         }).always(function() {
@@ -29,34 +65,23 @@ export default React.createClass({
         this.setState({selectedGrade: grade})
     },
 
-    grades: function() {
-        let grades = []
-        let formattedGrade;
-        for (let grade = 1; grade <= 12; grade++) {
-            if (grade === 1) {
-                formattedGrade = grade + 'st'
-            } else if (grade === 2) {
-                formattedGrade = grade + 'nd'
-            } else if (grade === 3) {
-                formattedGrade = grade + 'rd'
-            } else {
-                formattedGrade = grade + 'th'
-            }
-            grades.push(
-                <MenuItem key={formattedGrade} eventKey={formattedGrade}>{formattedGrade}</MenuItem>
-            )
-        }
-        return grades
+    handleChange: function(index){
+      let updatedState = Object.assign({}, this.state)
+      updatedState.classrooms[index].checked = !updatedState.classrooms[index].checked
+      this.setState({updatedState})
     },
 
-    buildClassRow: function(classy) {
+    buildClassRow: function(classy, index) {
       return (<div className='classroom-row' key={classy.id}>
         <div className='pull-left'>
-          <input type="checkbox" id={classy.name} className="css-checkbox" value="on"/>
+          <input type="checkbox" id={classy.name} className="css-checkbox" value="on" onChange={() => this.handleChange(index)}/>
           <label htmlFor={classy.name} id={classy.name} className="css-label">  <h3>{classy.name}</h3></label>
         </div>
-        <div className='pull-right'>
-
+        <div className={'pull-right' + ' is-checked-' + this.state.classrooms[index].checked}>
+          <DropdownButton bsStyle='default' title={this.state.selectedGrade || 'st'} id='select-grade' onSelect={this.handleSelect}>
+           {this.grades()}
+         </DropdownButton>
+         <a href='/'>Preview</a>
         </div>
       </div>)
     },
@@ -68,11 +93,15 @@ export default React.createClass({
       } else if (this.state.classrooms === [] || null) {
         return <span></span>
       } else {
-        return this.state.classrooms.map((classy) =>
-          this.buildClassRow(classy)
+       let rows = this.state.classrooms.map((classy, index) =>
+          this.buildClassRow(classy, index)
       );
+      return rows
       }
     },
+
+
+
 
     render: function() {
         return (
