@@ -24,6 +24,10 @@ import getResponse from '../renderForQuestions/checkAnswer.js'
 import handleFocus from '../renderForQuestions/handleFocus.js'
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
+import submitPathway from '../renderForQuestions/submitPathway.js'
+
+import ThankYou from '../renderForQuestions/renderThankYou.jsx'
+import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
 // http://localhost:8080/#/play/game/-KNDjIsOgG1y8Oeu-bUE is the link in the app that uses this file
 
@@ -237,21 +241,22 @@ const playLessonQuestion = React.createClass({
   },
 
   submitPathway: function (response) {
-    var data = {};
-    var previousAttempt;
-    const responses = hashToCollection(this.getQuestion().responses);
-    const preAtt = getLatestAttempt(this.props.question.attempts)
-    if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
-    const newAttempt = _.find(responses, {text: response.submitted})
-
-    if (previousAttempt) {
-      data.fromResponseID = previousAttempt.key
-    }
-    if (newAttempt) {
-      data.toResponseID = newAttempt.key
-      data.this.props.question.key = this.props.question.key
-      this.props.dispatch(pathwayActions.submitNewPathway(data))
-    }
+    submitPathway(response, this.props);
+    // var data = {};
+    // var previousAttempt;
+    // const responses = hashToCollection(this.getQuestion().responses);
+    // const preAtt = getLatestAttempt(this.props.question.attempts)
+    // if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
+    // const newAttempt = _.find(responses, {text: response.submitted})
+    //
+    // if (previousAttempt) {
+    //   data.fromResponseID = previousAttempt.key
+    // }
+    // if (newAttempt) {
+    //   data.toResponseID = newAttempt.key
+    //   data.this.props.question.key = this.props.question.key
+    //   this.props.dispatch(pathwayActions.submitNewPathway(data))
+    // }
   },
 
   checkAnswer: function () {
@@ -354,16 +359,17 @@ const playLessonQuestion = React.createClass({
       }
       if (this.state.finished) {
         return (
-          <section className="section">
-            <div className="container">
-              <div className="content">
-                <h4>Thank you for playing</h4>
-                <p>Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
-                <p><Link to={'/play'} className="button is-primary is-outlined">Try Another Question</Link></p>
-                <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
-              </div>
-            </div>
-          </section>
+          <StateFinished sessionKey={this.state.sessionKey} />
+          // <section className="section">
+          //   <div className="container">
+          //     <div className="content">
+          //       <h4>Thank you for playing</h4>
+          //       <p>Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
+          //       <p><Link to={'/play'} className="button is-primary is-outlined">Try Another Question</Link></p>
+          //       <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
+          //     </div>
+          //   </div>
+          // </section>
         )
       }
       if (this.props.question.attempts.length > 2 ) {
@@ -378,21 +384,26 @@ const playLessonQuestion = React.createClass({
           )
         }
         return (
-          <section className="section">
-            <div className="container">
-              {this.renderSentenceFragments()}
-                <div className="content">
-                {this.renderCues()}
-                {this.renderFeedback()}
-                <div className="control">
-                  <textarea className="textarea is-disabled" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
-                </div>
-                <div className="button-group">
-                  {this.renderNextQuestionButton()}
-                </div>
-              </div>
-            </div>
-          </section>
+          <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+                      feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                      handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
+                      textAreaClass="textarea is-disabled"/>
+
+          // <section className="section">
+          //   <div className="container">
+          //     {this.renderSentenceFragments()}
+          //       <div className="content">
+          //       {this.renderCues()}
+          //       {this.renderFeedback()}
+          //       <div className="control">
+          //         <textarea className="textarea is-disabled" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></textarea>
+          //       </div>
+          //       <div className="button-group">
+          //         {this.renderNextQuestionButton()}
+          //       </div>
+          //     </div>
+          //   </div>
+          // </section>
         )
       } else if (this.props.question.attempts.length > 0 ) {
         var latestAttempt = getLatestAttempt(this.props.question.attempts)
