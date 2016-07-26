@@ -13,6 +13,14 @@ var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
 
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
+import RenderQuestionCues from '../renderForQuestions/cues.jsx'
+import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
+import RenderFeedback from '../renderForQuestions/feedback.jsx'
+import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js'
+import getResponse from '../renderForQuestions/checkAnswer.js'
+import handleFocus from '../renderForQuestions/handleFocus.js'
+
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
   typingError: "Try again. There may be a spelling mistake.",
@@ -54,17 +62,18 @@ const playQuestion = React.createClass({
     this.refs.response.value = this.refs.response.value.replace(/_/g, "")
   },
 
-  handleFocus: function (e) {
-    const indexOfUnderscores = e.target.value.indexOf("_");
-    const lastIndexOfUnderscores = e.target.value.lastIndexOf("_");
-    if (indexOfUnderscores !== -1) {
-      setTimeout(()=>{
-        e.target.selectionStart = indexOfUnderscores
-        e.target.selectionEnd = lastIndexOfUnderscores + 1
-      }, 50)
-
-    }
-  },
+  // handleFocus: function (e) {
+  //   handleFocus(e);
+  //   const indexOfUnderscores = e.target.value.indexOf("_");
+  //   const lastIndexOfUnderscores = e.target.value.lastIndexOf("_");
+  //   if (indexOfUnderscores !== -1) {
+  //     setTimeout(()=>{
+  //       e.target.selectionStart = indexOfUnderscores
+  //       e.target.selectionEnd = lastIndexOfUnderscores + 1
+  //     }, 50)
+  //
+  //   }
+  // },
 
   getQuestion: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
@@ -81,93 +90,100 @@ const playQuestion = React.createClass({
   },
 
   renderSentenceFragments: function () {
-    return (
-      <div className="draft-js sentence-fragments" dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
-    )
+    return <RenderSentenceFragments getQuestion={this.getQuestion}/>
+    // return (
+    //   <div className="draft-js sentence-fragments" dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
+    // )
     // return this.props.question.sentences.map((sentence, index) => {
     //   return (<li key={index}>{sentence}</li>)
     // })
   },
 
   renderCues: function () {
-
-    if (this.getQuestion().cues && this.getQuestion().cues.length > 0 && this.getQuestion().cues[0] !== "") {
-      const cueDivs = this.getQuestion().cues.map((cue) => {
-        return (
-          <div className="cue">
-            {cue}
-          </div>
-        )
-      })
-      return (
-        <div className="cues">
-          {cueDivs}
-        </div>
-      )
-    }
+    return <RenderQuestionCues getQuestion={this.getQuestion}/>
+    // if (this.getQuestion().cues && this.getQuestion().cues.length > 0 && this.getQuestion().cues[0] !== "") {
+    //   const cueDivs = this.getQuestion().cues.map((cue) => {
+    //     return (
+    //       <div className="cue">
+    //         {cue}
+    //       </div>
+    //     )
+    //   })
+    //   return (
+    //     <div className="cues">
+    //       {cueDivs}
+    //     </div>
+    //   )
+    // }
   },
 
   renderFeedback: function () {
-    const latestAttempt = getLatestAttempt(this.props.question.attempts)
-    if (latestAttempt) {
-      if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
-        return <ul className="is-unstyled">{this.renderFeedbackStatements(latestAttempt)}</ul>
-      } else {
-        return (
-          <h5 className="title is-5">Try Again. What’s another way you could write this sentence?</h5>
-        )
-      }
-    } else {
-      return (
-        <h5 className="title is-5">Combine the sentences into one sentence.</h5>
-      )
-    }
+    // const latestAttempt = getLatestAttempt(this.props.question.attempts)
+    // if (latestAttempt) {
+    //   if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
+    //     return <ul className="is-unstyled">{this.renderFeedbackStatements(latestAttempt)}</ul>
+    //   } else {
+    //     return (
+    //       <h5 className="title is-5">Try Again. What’s another way you could write this sentence?</h5>
+    //     )
+    //   }
+    // } else {
+    //   return (
+    //     <h5 className="title is-5">Combine the sentences into one sentence.</h5>
+    //   )
+    // }
+    return <RenderFeedback sentence="Try Again. What’s another way you could write this sentence?"
+            question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}/>
   },
 
   getErrorsForAttempt: function (attempt) {
     return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
   },
 
-  generateFeedbackString: function (attempt) {
-    const errors = this.getErrorsForAttempt(attempt);
-    // add keys for react list elements
-    var errorComponents = _.values(_.mapObject(errors, (val, key) => {
-      if (val) {
-        return "You have made a " + feedbackStrings[key] + "."
-      }
-    }))
-    return errorComponents[0]
-  },
+  // generateFeedbackString: function (attempt) {
+  //   const errors = this.getErrorsForAttempt(attempt);
+  //   // add keys for react list elements
+  //   var errorComponents = _.values(_.mapObject(errors, (val, key) => {
+  //     if (val) {
+  //       return feedbackStrings[key]
+  //     }
+  //   }))
+  //   return errorComponents[0]
+  // },
 
   renderFeedbackStatements: function (attempt) {
-    const errors = this.getErrorsForAttempt(attempt);
-    // add keys for react list elements
-    var components = []
-    if (_.isEmpty(errors)) {
-      components = components.concat([(<li key="feedback" dangerouslySetInnerHTML={{__html: attempt.response.feedback}}></li>)])
-    }
-    var errorComponents = _.values(_.mapObject(errors, (val, key) => {
-      if (val) {
-        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
-      }
-    }))
-    if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
-      const parentResponse = this.getQuestion().responses[attempt.response.parentID]
-      components = [(<li key="parentfeedback" dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></li>)].concat(components)
-    }
-    return components.concat(errorComponents)
+    // const errors = this.getErrorsForAttempt(attempt);
+    // // add keys for react list elements
+    // var components = []
+    // if (_.isEmpty(errors)) {
+    //   components = components.concat([(<li key="feedback" dangerouslySetInnerHTML={{__html: attempt.response.feedback}}></li>)])
+    // }
+    // var errorComponents = _.values(_.mapObject(errors, (val, key) => {
+    //   if (val) {
+    //     return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
+    //   }
+    // }))
+    // if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
+    //   const parentResponse = this.getQuestion().responses[attempt.response.parentID]
+    //   components = [(<li key="parentfeedback" dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></li>)].concat(components)
+    // }
+    // return components.concat(errorComponents)
+    return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion}/>
   },
 
   updateResponseResource: function (response) {
+    console.log("Entering updateResponseResource")
     var previousAttempt;
     const responses = hashToCollection(this.getQuestion().responses);
     const preAtt = getLatestAttempt(this.props.question.attempts)
     if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
     const prid = previousAttempt ? previousAttempt.key : undefined
+    console.log("Response: ", response)
     if (response.found) {
 
       // var latestAttempt = getLatestAttempt(this.props.question.attempts)
       var errors = _.keys(this.getErrorsForAttempt(response))
+      console.log("Errors: ", errors)
       if (errors.length === 0) {
         this.props.dispatch(
           questionActions.incrementResponseCount(this.props.params.questionID, response.response.key, prid)
@@ -178,8 +194,9 @@ const playQuestion = React.createClass({
           count: 1,
           parentID: response.response.key,
           author: response.author,
-          feedback: this.generateFeedbackString(response)
+          feedback: generateFeedbackString(response)
         }
+        console.log("newErrorResp.feedback inside playQuestion: ", newErrorResp.feedback)
         this.props.dispatch(
           questionActions.submitNewResponse(this.props.params.questionID, newErrorResp, prid)
         )
@@ -215,12 +232,13 @@ const playQuestion = React.createClass({
 
   checkAnswer: function () {
     this.removePrefilledUnderscores()
-    var fields = {
-      prompt: this.getQuestion().prompt,
-      responses: hashToCollection(this.getQuestion().responses)
-    }
-    var question = new Question(fields);
-    var response = question.checkMatch(this.refs.response.value);
+    // var fields = {
+    //   prompt: this.getQuestion().prompt,
+    //   responses: hashToCollection(this.getQuestion().responses)
+    // }
+    // var question = new Question(fields);
+    // var response = question.checkMatch(this.refs.response.value);
+    var response = getResponse(this.getQuestion(), this.refs)
     this.updateResponseResource(response)
     this.submitResponse(response)
     this.setState({editing: false})
@@ -292,7 +310,7 @@ const playQuestion = React.createClass({
                 {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <Textarea className="textarea is-question submission" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
+                  <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                 </div>
                 <div className="button-group">
                   {this.renderNextQuestionButton()}
@@ -312,7 +330,7 @@ const playQuestion = React.createClass({
                   {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <Textarea className="textarea is-question submission" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
+                    <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                   </div>
                   <div className="button-group">
                     {this.renderNextQuestionButton(true)}
@@ -331,7 +349,7 @@ const playQuestion = React.createClass({
                   {this.renderCues()}
                   {this.renderFeedback()}
                   <div className="control">
-                    <Textarea className="textarea is-question submission" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
+                    <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                   </div>
                   <div className="button-group">
                     <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
@@ -353,7 +371,7 @@ const playQuestion = React.createClass({
                 {this.renderCues()}
                 {this.renderFeedback()}
                 <div className="control">
-                  <Textarea className="textarea is-question submission" ref="response" onFocus={this.handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
+                  <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
                 </div>
                 <div className="button-group">
                   <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
