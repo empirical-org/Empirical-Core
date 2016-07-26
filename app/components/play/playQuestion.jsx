@@ -20,6 +20,11 @@ import RenderFeedback from '../renderForQuestions/feedback.jsx'
 import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js'
 import getResponse from '../renderForQuestions/checkAnswer.js'
 import handleFocus from '../renderForQuestions/handleFocus.js'
+import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
+
+// http://localhost:8080/#/play/questions/-KNDOowPwioDRuYMr7uK is the link in the app that uses this file
+// KNDOowPwioDRuYMr7uK is an example of a question key
 
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
@@ -81,12 +86,12 @@ const playQuestion = React.createClass({
   },
 
   submitResponse: function(response) {
-    const action = submitResponseAnon(response);
-
-    this.props.dispatch(action);
-    var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(this.props.question.attempts, (error) => {
-      return
-    })
+    // const action = submitResponseAnon(qresponse);
+    // this.props.dispatch(action);
+    // var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(this.props.question.attempts, (error) => {
+    //   return
+    // })
+    submitQuestionResponse(response,this.props,this.state.sessionKey, submitResponseAnon);
   },
 
   renderSentenceFragments: function () {
@@ -172,44 +177,42 @@ const playQuestion = React.createClass({
   },
 
   updateResponseResource: function (response) {
-    console.log("Entering updateResponseResource")
-    var previousAttempt;
-    const responses = hashToCollection(this.getQuestion().responses);
-    const preAtt = getLatestAttempt(this.props.question.attempts)
-    if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
-    const prid = previousAttempt ? previousAttempt.key : undefined
-    console.log("Response: ", response)
-    if (response.found) {
-
-      // var latestAttempt = getLatestAttempt(this.props.question.attempts)
-      var errors = _.keys(this.getErrorsForAttempt(response))
-      console.log("Errors: ", errors)
-      if (errors.length === 0) {
-        this.props.dispatch(
-          questionActions.incrementResponseCount(this.props.params.questionID, response.response.key, prid)
-        )
-      } else {
-        var newErrorResp = {
-          text: response.submitted,
-          count: 1,
-          parentID: response.response.key,
-          author: response.author,
-          feedback: generateFeedbackString(response)
-        }
-        console.log("newErrorResp.feedback inside playQuestion: ", newErrorResp.feedback)
-        this.props.dispatch(
-          questionActions.submitNewResponse(this.props.params.questionID, newErrorResp, prid)
-        )
-      }
-    } else {
-      var newResp = {
-        text: response.submitted,
-        count: 1
-      }
-      this.props.dispatch(
-        questionActions.submitNewResponse(this.props.params.questionID, newResp, prid)
-      )
-    }
+    updateResponseResource(response, this.props, this.getErrorsForAttempt, "play")
+    // var previousAttempt;
+    // const responses = hashToCollection(this.getQuestion().responses);
+    // const preAtt = getLatestAttempt(this.props.question.attempts)
+    // if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
+    // const prid = previousAttempt ? previousAttempt.key : undefined
+    // if (response.found) {
+    //
+    //   // var latestAttempt = getLatestAttempt(this.props.question.attempts)
+    //   var errors = _.keys(this.getErrorsForAttempt(response))
+    //   if (errors.length === 0) {
+    //     this.props.dispatch(
+    //       questionActions.incrementResponseCount(this.props.params.questionID, response.response.key, prid)
+    //     )
+    //   } else {
+    //     var newErrorResp = {
+    //       text: response.submitted,
+    //       count: 1,
+    //       parentID: response.response.key,
+    //       author: response.author,
+    //       feedback: generateFeedbackString(response)
+    //     }
+    //     console.log("newErrorResp.feedback inside playQuestion: ", newErrorResp.feedback)
+    //     this.props.dispatch(
+    //       questionActions.submitNewResponse(this.props.params.questionID, newErrorResp, prid)
+    //     )
+    //   }
+    // } else {
+    //   var newResp = {
+    //     text: response.submitted,
+    //     count: 1
+    //   }
+    //   this.props.dispatch(
+    //     questionActions.submitNewResponse(this.props.params.questionID, newResp, prid)
+    //   )
+    // }
   },
 
   submitPathway: function (response) {
