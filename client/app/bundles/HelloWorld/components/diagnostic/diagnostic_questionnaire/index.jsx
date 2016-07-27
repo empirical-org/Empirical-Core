@@ -23,10 +23,9 @@ export default React.createClass({
 
   render: function() {
       return (
-          <div id='diagnostic-planner'>
+          <div id='diagnostic-planner-status-bar'>
               <StatusBar/>
-              <ClassroomPage/>
-              {/*{this.content()}*/}
+              {this.props.children}
           </div>
       );
   }

@@ -2,25 +2,18 @@ import React from 'react'
 import $ from 'jquery'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+require('../../../../../assets/styles/app-variables.scss')
 // import Checkbox from 'react-bootstrap/lib/Checkbox'
 
 export default React.createClass({
 
     getInitialState: function() {
         return ({
-                selectedGrade: '1st',
+                selectedGrade: '1st grade reading level',
                 loading: true,
                 classrooms: null
               })
     },
-
-    // checkboxStateForEachClassroom: function(){
-    //     let checkboxes = {};
-    //     this.state.classrooms.forEach((classy) =>
-    //       checkboxes[classy.id] = false
-    //     );
-    //     this.state.checkboxes = checkboxes;
-    // },
 
     grades: function(){
       let grades = []
@@ -35,6 +28,7 @@ export default React.createClass({
         } else {
           formattedGrade = grade + 'th'
         }
+        formattedGrade += ' grade reading level'
         grades.push(<MenuItem key={formattedGrade} eventKey={formattedGrade}>{formattedGrade}</MenuItem>)
       }
       return grades
@@ -77,7 +71,7 @@ export default React.createClass({
           <input type="checkbox" id={classy.name} className="css-checkbox" value="on" onChange={() => this.handleChange(index)}/>
           <label htmlFor={classy.name} id={classy.name} className="css-label">  <h3>{classy.name}</h3></label>
         </div>
-        <div className={'pull-right' + ' is-checked-' + this.state.classrooms[index].checked}>
+        <div className={'is-checked-' + this.state.classrooms[index].checked}>
           <DropdownButton bsStyle='default' title={this.state.selectedGrade || 'st'} id='select-grade' onSelect={this.handleSelect}>
            {this.grades()}
          </DropdownButton>
@@ -108,15 +102,12 @@ export default React.createClass({
             <div id='assign-page'>
                 <div>
                     <h2>Which classes would you like to assign the diagnostic to?</h2>
-                    {/*<DropdownButton bsStyle='default' title={this.state.selectedGrade || 'st'} id='select-grade' onSelect={this.handleSelect}>
-                        {this.grades()}
-                      </DropdownButton>*/}
                     <span>Which classes would you like to assign the diagnostic to?</span>
                 </div>
                 {this.classroomTable()}
-                <button className='button-green'>Preview the diagnostic</button>
+                <button className='button-green'>Save & Assign</button>
                 <br/>
-                <button className='button-green'>Continue to Assign</button>
+                <a href='/'>Continue to Assign</a>
             </div>
         )
     }
