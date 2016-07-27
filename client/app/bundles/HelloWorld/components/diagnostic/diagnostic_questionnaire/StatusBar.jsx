@@ -3,20 +3,28 @@ import React from 'react'
 
 export default React.createClass({
 
-    checkpointBuilder: function(stage, index, completed) {
+    checkpointBuilder: function(stage, index, green, current) {
         return (
-            <div className={'check-point completed-' + completed}>
-                <span>{index + 1}</span>
+            <div key={index*-1-20} className={'check-point green-' + green}>
+                {this.checkOrNum(current, index, green)}
                 <div className='check-point-type'>
-                    <span>{stage}</span>
+                    <span id={stage}>{stage}</span>
                 </div>
             </div>
         )
     },
 
-    connectorLineBuilder: function(completed) {
+    checkOrNum: function(current, index, green) {
+      if (!current && green) {
+        return <img src='/images/check_icon.svg' alt='checked'/>
+      } else {
+        return  <span>{index + 1}</span>
+      }
+    },
+
+    connectorLineBuilder: function(green, index) {
         return (
-            <div className={'connector-line completed-' + completed}></div>
+            <div key={index} className={'connector-line green-' + green}></div>
         )
     },
 
@@ -24,10 +32,12 @@ export default React.createClass({
         let stages = ['Introduction', 'Preview', 'Assign']
         let mappedStages = []
         stages.forEach((stage, index) => {
-            let completed = index < Number(this.props.stage) - 1
-            mappedStages.push(this.checkpointBuilder(stage, index, completed))
+            let green = index <= Number(this.props.stage) - 1
+            let current = index === Number(this.props.stage) - 1
+            mappedStages.push(this.checkpointBuilder(stage, index, green, current))
             if (index < stages.length - 1) {
-                mappedStages.push(this.connectorLineBuilder(completed))
+              let green = index < Number(this.props.stage) - 1
+                mappedStages.push(this.connectorLineBuilder(green, index))
             }
         })
         return mappedStages;
@@ -36,8 +46,8 @@ export default React.createClass({
     render: function() {
         return (
             <div id='status-bar-wrapper'>
-                <div>
-                    <img src="images/diagnostic_icon.svg" alt="diagnostic_icon"/>
+                <div id='diagnostic-icon-section'> 
+                    <img id='diagnostic-icon' src="images/diagnostic_icon.svg" alt="diagnostic_icon"/>
                     <span>Entry Diagnostic</span>
                 </div>
                 <div id='status-bar'>
