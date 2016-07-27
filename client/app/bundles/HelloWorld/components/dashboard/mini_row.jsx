@@ -2,7 +2,7 @@
 
  import React from 'react'
  import _ from 'underscore'
- import 'ClassMini' from './class_mini'
+ import ClassMini from './class_mini'
 
  export default React.createClass({
 
