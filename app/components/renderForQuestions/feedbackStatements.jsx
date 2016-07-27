@@ -2,8 +2,7 @@ import React from 'react'
 import _ from 'underscore'
 
 /*
-  1. Fix all function for question/question.jsx --> they're different from questionBrain, playQuestion, studentLesson/question.jsx
-  2. Test the changes
+  21 Test the changes
 */
 
 const feedbackStrings = {
@@ -30,6 +29,8 @@ export default React.createClass({
         return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
       }
     }))
+    console.log("data.getQuestion.responses: ", data.getQuestion().responses) //returns this.props.question
+    console.log("data: ", data)
     if (data.attempt.response.parentID && (data.getQuestion().responses[data.attempt.response.parentID].optimal !== true )) {
       const parentResponse = data.getQuestion().responses[data.attempt.response.parentID]
       components = [(<li key="parentfeedback" dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></li>)].concat(components)

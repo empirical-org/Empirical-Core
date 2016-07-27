@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import handleFocus from './handleFocus.js'
-import Textarea from 'react-textarea-autosize';
+import TextEditor from './renderTextEditor.jsx'
 
 export default React.createClass({
 
@@ -13,6 +13,13 @@ export default React.createClass({
       content = <Link to={'/results/questions/' + this.props.questionID} className="button is-info is-outlined">View Results</Link>
     }
 
+    var button;
+    if(!this.props.nextQuestionButton) {
+      button = <button className={"button is-primary " + this.props.toggleDisabled} onClick={this.props.checkAnswer}>Check answer</button>
+    } else {
+      button = this.props.nextQuestionButton
+    }
+    
     return (
       <section className="section">
         <div className="container">
@@ -20,11 +27,10 @@ export default React.createClass({
           <div className="content">
             {this.props.cues}
             {this.props.feedback}
-            <div className="control">
-              <Textarea className={this.props.textAreaClass} ref="response" onFocus={handleFocus} defaultValue={this.props.initialValue} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.props.handleChange}></Textarea>
-            </div>
+            <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue}
+                        handleChange={this.props.handleChange} />
             <div className="button-group">
-              {this.props.nextQuestionButton}
+              {button}
               {content}
             </div>
           </div>
@@ -33,3 +39,7 @@ export default React.createClass({
     )
   }
 })
+
+// <div className="control">
+//   <Textarea className={this.props.textAreaClass} ref="response" onFocus={handleFocus} defaultValue={this.props.initialValue} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.props.handleChange}></Textarea>
+// </div>

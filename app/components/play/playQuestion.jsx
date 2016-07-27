@@ -41,7 +41,8 @@ const feedbackStrings = {
 const playQuestion = React.createClass({
   getInitialState: function () {
     return {
-      editing: false
+      editing: false,
+      response: ""
     }
   },
 
@@ -68,7 +69,7 @@ const playQuestion = React.createClass({
   },
 
   removePrefilledUnderscores: function () {
-    this.refs.response.value = this.refs.response.value.replace(/_/g, "")
+    this.setState({response: this.state.response.replace(/_/g, "")})
   },
 
   // handleFocus: function (e) {
@@ -246,7 +247,8 @@ const playQuestion = React.createClass({
     // }
     // var question = new Question(fields);
     // var response = question.checkMatch(this.refs.response.value);
-    var response = getResponse(this.getQuestion(), this.refs)
+    var response = getResponse(this.getQuestion(), this.state.response)
+    //var response = getResponse(this.getQuestion(), this.state.response)
     this.updateResponseResource(response)
     this.submitResponse(response)
     this.setState({editing: false})
@@ -259,8 +261,8 @@ const playQuestion = React.createClass({
     return "is-disabled"
   },
 
-  handleChange: function () {
-    this.setState({editing: true})
+  handleChange: function (e) {
+    this.setState({editing: true,response: e.target.value})
   },
 
   readyForNext: function () {
@@ -316,7 +318,7 @@ const playQuestion = React.createClass({
           <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                       feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                       handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                      questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
+                      questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
           // <section className="section">
           //   <div className="container">
           //     {this.renderSentenceFragments()}
@@ -360,45 +362,55 @@ const playQuestion = React.createClass({
           )
         } else {
           return (
-            <section className="section">
-              <div className="container">
-                {this.renderSentenceFragments()}
-                <div className="content">
-                  {this.renderCues()}
-                  {this.renderFeedback()}
-                  <div className="control">
-                    <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
-                  </div>
-                  <div className="button-group">
-                    <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-                    <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
-
-                  </div>
-                </div>
-              </div>
-            </section>
+            <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                  handleChange={this.handleChange} textAreaClass="textarea is-question submission"
+                  toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
+                  id="playQuestion" questionID={questionID}/>
+            // <section className="section">
+            //   <div className="container">
+            //     {this.renderSentenceFragments()}
+            //     <div className="content">
+            //       {this.renderCues()}
+            //       {this.renderFeedback()}
+            //       <div className="control">
+            //         <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
+            //       </div>
+            //       <div className="button-group">
+            //         <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+            //         <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
+            //
+            //       </div>
+            //     </div>
+            //   </div>
+            // </section>
           )
         }
 
       } else {
         return (
-          <section className="section">
-            <div className="container">
-              {this.renderSentenceFragments()}
-              <div className="content">
-                {this.renderCues()}
-                {this.renderFeedback()}
-                <div className="control">
-                  <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
-                </div>
-                <div className="button-group">
-                  <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-                  <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
+          <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+                feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                handleChange={this.handleChange} textAreaClass="textarea is-question submission"
+                toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
+                id="playQuestion" questionID={questionID}/>
 
-                </div>
-              </div>
-            </div>
-          </section>
+          // <section className="section">
+          //   <div className="container">
+          //     {this.renderSentenceFragments()}
+          //     <div className="content">
+          //       {this.renderCues()}
+          //       {this.renderFeedback()}
+          //       <div className="control">
+          //         <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
+          //       </div>
+          //       <div className="button-group">
+          //         <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+          //         <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
+          //       </div>
+          //     </div>
+          //   </div>
+          // </section>
         )
       }
     } else {

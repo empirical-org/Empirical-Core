@@ -63,7 +63,7 @@ const Lesson = React.createClass({
       return 0
     } else {
       return _.reduce(this.props.playLesson.answeredQuestions, (memo, question) => {
-        return memo + (question.attempts[question.attempts.length - 1].response.optimal ? 1 : 0)
+        return memo + ((question.attempts[question.attempts.length - 1].response && question.attempts[question.attempts.length - 1].response.optimal) ? 1 : 0)
       }, 0)
     }
   },
