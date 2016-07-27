@@ -27,9 +27,6 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
-// http://localhost:8080/#/play/questions/-KNDOowPwioDRuYMr7uK is the link in the app that uses this file
-// KNDOowPwioDRuYMr7uK is an example of a question key
-
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
   typingError: "Try again. There may be a spelling mistake.",
@@ -72,76 +69,24 @@ const playQuestion = React.createClass({
     this.setState({response: this.state.response.replace(/_/g, "")})
   },
 
-  // handleFocus: function (e) {
-  //   handleFocus(e);
-  //   const indexOfUnderscores = e.target.value.indexOf("_");
-  //   const lastIndexOfUnderscores = e.target.value.lastIndexOf("_");
-  //   if (indexOfUnderscores !== -1) {
-  //     setTimeout(()=>{
-  //       e.target.selectionStart = indexOfUnderscores
-  //       e.target.selectionEnd = lastIndexOfUnderscores + 1
-  //     }, 50)
-  //
-  //   }
-  // },
-
   getQuestion: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
     return (data[questionID])
   },
 
   submitResponse: function(response) {
-    // const action = submitResponseAnon(qresponse);
-    // this.props.dispatch(action);
-    // var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(this.props.question.attempts, (error) => {
-    //   return
-    // })
     submitQuestionResponse(response,this.props,this.state.sessionKey, submitResponseAnon);
   },
 
   renderSentenceFragments: function () {
     return <RenderSentenceFragments getQuestion={this.getQuestion}/>
-    // return (
-    //   <div className="draft-js sentence-fragments" dangerouslySetInnerHTML={{__html: this.getQuestion().prompt}}></div>
-    // )
-    // return this.props.question.sentences.map((sentence, index) => {
-    //   return (<li key={index}>{sentence}</li>)
-    // })
   },
 
   renderCues: function () {
     return <RenderQuestionCues getQuestion={this.getQuestion}/>
-    // if (this.getQuestion().cues && this.getQuestion().cues.length > 0 && this.getQuestion().cues[0] !== "") {
-    //   const cueDivs = this.getQuestion().cues.map((cue) => {
-    //     return (
-    //       <div className="cue">
-    //         {cue}
-    //       </div>
-    //     )
-    //   })
-    //   return (
-    //     <div className="cues">
-    //       {cueDivs}
-    //     </div>
-    //   )
-    // }
   },
 
   renderFeedback: function () {
-    // const latestAttempt = getLatestAttempt(this.props.question.attempts)
-    // if (latestAttempt) {
-    //   if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
-    //     return <ul className="is-unstyled">{this.renderFeedbackStatements(latestAttempt)}</ul>
-    //   } else {
-    //     return (
-    //       <h5 className="title is-5">Try Again. What’s another way you could write this sentence?</h5>
-    //     )
-    //   }
-    // } else {
-    //   return (
-    //     <h5 className="title is-5">Combine the sentences into one sentence.</h5>
-    //   )
-    // }
     return <RenderFeedback sentence="Try Again. What’s another way you could write this sentence?"
             question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}/>
   },
@@ -150,105 +95,23 @@ const playQuestion = React.createClass({
     return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
   },
 
-  // generateFeedbackString: function (attempt) {
-  //   const errors = this.getErrorsForAttempt(attempt);
-  //   // add keys for react list elements
-  //   var errorComponents = _.values(_.mapObject(errors, (val, key) => {
-  //     if (val) {
-  //       return feedbackStrings[key]
-  //     }
-  //   }))
-  //   return errorComponents[0]
-  // },
-
   renderFeedbackStatements: function (attempt) {
-    // const errors = this.getErrorsForAttempt(attempt);
-    // // add keys for react list elements
-    // var components = []
-    // if (_.isEmpty(errors)) {
-    //   components = components.concat([(<li key="feedback" dangerouslySetInnerHTML={{__html: attempt.response.feedback}}></li>)])
-    // }
-    // var errorComponents = _.values(_.mapObject(errors, (val, key) => {
-    //   if (val) {
-    //     return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
-    //   }
-    // }))
-    // if (attempt.response.parentID && (this.getQuestion().responses[attempt.response.parentID].optimal !== true )) {
-    //   const parentResponse = this.getQuestion().responses[attempt.response.parentID]
-    //   components = [(<li key="parentfeedback" dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></li>)].concat(components)
-    // }
-    // return components.concat(errorComponents)
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion}/>
   },
 
   updateResponseResource: function (response) {
     updateResponseResource(response, this.props, this.getErrorsForAttempt, "play")
-    // var previousAttempt;
-    // const responses = hashToCollection(this.getQuestion().responses);
-    // const preAtt = getLatestAttempt(this.props.question.attempts)
-    // if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
-    // const prid = previousAttempt ? previousAttempt.key : undefined
-    // if (response.found) {
-    //
-    //   // var latestAttempt = getLatestAttempt(this.props.question.attempts)
-    //   var errors = _.keys(this.getErrorsForAttempt(response))
-    //   if (errors.length === 0) {
-    //     this.props.dispatch(
-    //       questionActions.incrementResponseCount(this.props.params.questionID, response.response.key, prid)
-    //     )
-    //   } else {
-    //     var newErrorResp = {
-    //       text: response.submitted,
-    //       count: 1,
-    //       parentID: response.response.key,
-    //       author: response.author,
-    //       feedback: generateFeedbackString(response)
-    //     }
-    //     console.log("newErrorResp.feedback inside playQuestion: ", newErrorResp.feedback)
-    //     this.props.dispatch(
-    //       questionActions.submitNewResponse(this.props.params.questionID, newErrorResp, prid)
-    //     )
-    //   }
-    // } else {
-    //   var newResp = {
-    //     text: response.submitted,
-    //     count: 1
-    //   }
-    //   this.props.dispatch(
-    //     questionActions.submitNewResponse(this.props.params.questionID, newResp, prid)
-    //   )
-    // }
   },
 
   submitPathway: function (response) {
     submitPathway(response, this.props, "play");
-    // var data = {};
-    // var previousAttempt;
-    // const responses = hashToCollection(this.getQuestion().responses);
-    // const preAtt = getLatestAttempt(this.props.question.attempts)
-    // if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(this.props.question.attempts).submitted}) }
-    // const newAttempt = _.find(responses, {text: response.submitted})
-    //
-    // if (previousAttempt) {
-    //   data.fromResponseID = previousAttempt.key
-    // }
-    // if (newAttempt) {
-    //   data.toResponseID = newAttempt.key
-    //   data.questionID = this.props.params.questionID
-    //   this.props.dispatch(pathwayActions.submitNewPathway(data))
-    // }
   },
 
   checkAnswer: function () {
     this.removePrefilledUnderscores()
-    // var fields = {
-    //   prompt: this.getQuestion().prompt,
-    //   responses: hashToCollection(this.getQuestion().responses)
-    // }
-    // var question = new Question(fields);
-    // var response = question.checkMatch(this.refs.response.value);
+
     var response = getResponse(this.getQuestion(), this.state.response)
-    //var response = getResponse(this.getQuestion(), this.state.response)
+
     this.updateResponseResource(response)
     this.submitResponse(response)
     this.setState({editing: false})
@@ -301,16 +164,6 @@ const playQuestion = React.createClass({
       if (this.state.finished) {
         return (
           <ThankYou sessionKey={this.state.sessionKey} />
-          // <section className="section">
-          //   <div className="container">
-          //     <div className="content">
-          //       <h4>Thank you for playing</h4>
-          //       <p>Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
-          //       <p><Link to={'/play'} className="button is-primary is-outlined">Try Another Question</Link></p>
-          //       <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
-          //     </div>
-          //   </div>
-          // </section>
         )
       }
       if (this.props.question.attempts.length > 2 ) {
@@ -318,23 +171,7 @@ const playQuestion = React.createClass({
           <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                       feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                       handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                      questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
-          // <section className="section">
-          //   <div className="container">
-          //     {this.renderSentenceFragments()}
-          //     <div className="content">
-          //       {this.renderCues()}
-          //       {this.renderFeedback()}
-          //       <div className="control">
-          //         <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
-          //       </div>
-          //       <div className="button-group">
-          //         {this.renderNextQuestionButton()}
-          //         <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
-          //       </div>
-          //     </div>
-          //   </div>
-          // </section>
+                      questionID={questionID} id="playQuestion" textAreaClass="textarea  is-disabled"/>
         )
       } else if (this.props.question.attempts.length > 0 ) {
         if (this.readyForNext()) {
@@ -343,22 +180,6 @@ const playQuestion = React.createClass({
                         feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                         handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
                         questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
-            // <section className="section">
-            //   <div className="container">
-            //     {this.renderSentenceFragments()}
-            //     <div className="content">
-            //       {this.renderCues()}
-            //       {this.renderFeedback()}
-            //       <div className="control">
-            //         <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
-            //       </div>
-            //       <div className="button-group">
-            //         {this.renderNextQuestionButton(true)}
-            //         <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
-            //       </div>
-            //     </div>
-            //   </div>
-            // </section>
           )
         } else {
           return (
@@ -367,23 +188,6 @@ const playQuestion = React.createClass({
                   handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
                   id="playQuestion" questionID={questionID}/>
-            // <section className="section">
-            //   <div className="container">
-            //     {this.renderSentenceFragments()}
-            //     <div className="content">
-            //       {this.renderCues()}
-            //       {this.renderFeedback()}
-            //       <div className="control">
-            //         <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
-            //       </div>
-            //       <div className="button-group">
-            //         <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-            //         <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
-            //
-            //       </div>
-            //     </div>
-            //   </div>
-            // </section>
           )
         }
 
@@ -394,23 +198,6 @@ const playQuestion = React.createClass({
                 handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
                 id="playQuestion" questionID={questionID}/>
-
-          // <section className="section">
-          //   <div className="container">
-          //     {this.renderSentenceFragments()}
-          //     <div className="content">
-          //       {this.renderCues()}
-          //       {this.renderFeedback()}
-          //       <div className="control">
-          //         <Textarea className="textarea is-question submission" ref="response" onFocus={handleFocus} defaultValue={this.getInitialValue()} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.handleChange}></Textarea>
-          //       </div>
-          //       <div className="button-group">
-          //         <button className={"button is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
-          //         <Link to={'/results/questions/' + questionID} className="button is-info is-outlined">View Results</Link>
-          //       </div>
-          //     </div>
-          //   </div>
-          // </section>
         )
       }
     } else {

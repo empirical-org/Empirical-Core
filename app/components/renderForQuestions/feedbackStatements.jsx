@@ -18,7 +18,6 @@ export default React.createClass({
   renderFeedbackStatements: function () {
     const data = this.props
     const errors = data.getErrorsForAttempt(data.attempt);
-    // console.log("getQuestion", data.getQuestion())
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
