@@ -6,8 +6,6 @@ import TextEditor from './renderTextEditor.jsx'
 export default React.createClass({
 
   render: function() {
-    console.log("control is reaching here")
-
     var content = <div />;
     if(this.props.id==="playQuestion") {
       content = <Link to={'/results/questions/' + this.props.questionID} className="button is-info is-outlined">View Results</Link>
@@ -19,7 +17,7 @@ export default React.createClass({
     } else {
       button = this.props.nextQuestionButton
     }
-    
+
     return (
       <section className="section">
         <div className="container">

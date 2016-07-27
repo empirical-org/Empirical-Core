@@ -5,7 +5,6 @@ import Textarea from 'react-textarea-autosize'
 export default React.createClass({
 
   render: function() {
-    console.log("rendering text editor")
     return (
       <div className="control">
         <Textarea className={this.props.className} onFocus={handleFocus}

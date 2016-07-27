@@ -158,7 +158,6 @@ const playQuestion = React.createClass({
   },
 
   render: function () {
-    console.log("initialValue: ", this.getInitialValue())
     const {data} = this.props.questions, {questionID} = this.props.params; //DIFFERENCE
     if (data[questionID]) {
       if (this.state.finished) {
@@ -171,7 +170,7 @@ const playQuestion = React.createClass({
           <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                       feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                       handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                      questionID={questionID} id="playQuestion" textAreaClass="textarea  is-disabled"/>
+                      questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
         )
       } else if (this.props.question.attempts.length > 0 ) {
         if (this.readyForNext()) {
