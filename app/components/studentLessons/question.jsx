@@ -24,7 +24,7 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
 import submitPathway from '../renderForQuestions/submitPathway.js'
 
-import ThankYou from '../renderForQuestions/renderThankYou.jsx'
+import StateFinished from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
 
@@ -317,7 +317,7 @@ const playLessonQuestion = React.createClass({
     if (this.props.question) {
       if (this.state.finished) {
         return (
-          <StateFinsihed sessionKey={this.state.sessionKey} />
+          <StateFinished sessionKey={this.state.sessionKey} />
           // <section className="section">
           //   <div className="container">
           //     <div className="content">

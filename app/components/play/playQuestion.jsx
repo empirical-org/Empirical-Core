@@ -293,6 +293,7 @@ const playQuestion = React.createClass({
   },
 
   render: function () {
+    console.log("initialValue: ", this.getInitialValue())
     const {data} = this.props.questions, {questionID} = this.props.params; //DIFFERENCE
     if (data[questionID]) {
       if (this.state.finished) {
