@@ -2,6 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import { Router, Route, Link, hashHistory } from 'react-router'
 
 
 export default React.createClass({
@@ -42,11 +43,11 @@ export default React.createClass({
                         {this.grades()}
                       </DropdownButton>
                         </span>grade reading level diagnostic?</h2>
-                    <span>The reading level may be higher or lower than the grade level.</span>
+                      <span id='subtext'>The reading level may be higher or lower than the grade level.</span>
                 </div>
                 <button className='button-green'>Preview the diagnostic</button>
                 <br/>
-                <button className='button-green'>Continue to Assign</button>
+                <Link to='/stage/3'><button className='button-green'>Continue to Assign</button></Link>
             </div>
         )
     }
