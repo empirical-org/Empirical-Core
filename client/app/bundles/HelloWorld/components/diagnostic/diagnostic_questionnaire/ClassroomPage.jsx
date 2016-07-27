@@ -2,8 +2,6 @@ import React from 'react'
 import $ from 'jquery'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-require('../../../../../assets/styles/app-variables.scss')
-// import Checkbox from 'react-bootstrap/lib/Checkbox'
 
 export default React.createClass({
 
