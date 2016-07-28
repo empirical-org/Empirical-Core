@@ -75,3 +75,30 @@ describe("finding the position of the substring", () => {
     expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
   })
 });
+
+
+describe("Returning change objects example 2", () => {
+  const target = "I like NYC for it has pizza.";
+  const user = "I like NYC because it has pizza.";
+  it("returns a inline style range object", () => {
+    const expected = {
+      length: 7,
+      offset: 11,
+      style: "UNDERLINED"
+    }
+    expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
+  })
+});
+
+describe("Returning change objects example 3: multiple additions", () => {
+  const target = "I like NYC for it has pizza.";
+  const user = "I like NYC because it had pizza.";
+  it("returns a inline style range object", () => {
+    const expected = {
+      length: 7,
+      offset: 11,
+      style: "UNDERLINED"
+    }
+    expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
+  })
+});
