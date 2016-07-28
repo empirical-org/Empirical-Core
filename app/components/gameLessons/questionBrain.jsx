@@ -240,12 +240,6 @@ const playLessonQuestion = React.createClass({
             <Incorrect answers={this.get4MarkedResponses()} next={this.nextQuestion}/>
           )
         }
-        return (
-          <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                      feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                      handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                      textAreaClass="textarea is-disabled"/>
-        )
       } else if (this.props.question.attempts.length > 0 ) {
         var latestAttempt = getLatestAttempt(this.props.question.attempts)
         if (this.readyForNext()) {
