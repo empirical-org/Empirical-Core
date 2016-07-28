@@ -175,7 +175,8 @@ const Responses = React.createClass({
       getMatchingResponse={this.getMatchingResponse}
       showPathways={true}
       printPathways={this.mapCountToResponse}
-      toPathways={this.mapCountToToResponse} />
+      toPathways={this.mapCountToToResponse}
+      conceptsFeedback={this.props.conceptsFeedback} />
   },
 
   toggleResponseSort: function (field) {
@@ -351,7 +352,8 @@ const Responses = React.createClass({
 function select(state) {
   return {
     responses: state.responses,
-    pathways: state.pathways
+    pathways: state.pathways,
+    conceptsFeedback: state.conceptsFeedback
   }
 }
 

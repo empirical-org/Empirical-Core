@@ -47,7 +47,7 @@ const ConceptFeedback = React.createClass({
         return (
           <div>
             <h4 className="title">{data[feedbackID].name}</h4>
-            <p>{data[feedbackID].feedbackText}</p>
+            <div dangerouslySetInnerHTML={{__html: data[feedbackID].feedbackText}}></div>
             <p className="control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept</button>
             </p>

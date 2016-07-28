@@ -2,6 +2,7 @@ import React from 'react'
 import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import { connect } from 'react-redux'
+import TextEditor from '../questions/textEditor.jsx'
 
 export default React.createClass ({
 
@@ -17,7 +18,7 @@ export default React.createClass ({
   },
 
   handleChange: function (e) {
-    this.setState({newFeedbackText: e.target.value})
+    this.setState({newFeedbackText: e})
   },
 
   submit: function(){
@@ -31,12 +32,11 @@ export default React.createClass ({
   render: function () {
     return (
       <form className="box" onSubmit={this.submit}>
-        <h6 className="control subtitle">New Feedback</h6>
+        <label className="label">Feedback</label>
 
-        <label className="label">Enter the feedback associated with the concept</label>
-        <p className="control">
-          <input className="input" type="text"  value={this.state.newFeedbackText} onChange={this.handleChange}></input>
-        </p>
+        <TextEditor text={this.state.newFeedbackText} handleTextChange={this.handleChange} />
+
+        <br />
         <button type="submit" className="button is-primary">Submit</button>
         <button className="button is-danger" onClick={this.cancel}>Cancel</button>
       </form>

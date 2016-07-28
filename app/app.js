@@ -115,6 +115,9 @@ render((
           <Route path="concepts-feedback" component={ConceptsFeedback}>
             <Route path=":feedbackID" component={ConceptFeedback}/>
           </Route>
+          <Route path="concepts-feedback" component={ConceptsFeedback}>
+            <Route path=":feedbackID" component={ConceptFeedback}/>
+          </Route>
         </Route>
       </Route>
     </Router>

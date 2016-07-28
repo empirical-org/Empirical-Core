@@ -22,7 +22,7 @@ const ConceptsFeedback = React.createClass({
 
   renderConceptsFeedback: function () {
     const {data} = this.props.conceptsFeedback;
-    //console.log("renderConceptsFeedback", data)
+    console.log("this.props.conceptsFeedback", data)
     const keys = _.keys(data);
     return keys.map((id, index) => {
       //console.log(key, data, data[key])

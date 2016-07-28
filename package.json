@@ -66,10 +66,13 @@
     "draft-js-export-html": "^0.4.0",
     "draft-js-plugins-editor": "^1.1.0",
     "draft-js-richbuttons-plugin": "^1.1.0",
+    "immutable": "^3.8.1",
     "react": "^0.14.3",
+    "react-remarkable": "^1.1.1",
     "react-router": "^1.0.3",
     "react-router-redux": "^4.0.0",
     "react-simple-pie-chart": "^0.3.1",
+    "remarkable": "^1.6.2",
     "request": "^2.65.0"
   }
 }
