@@ -39,8 +39,9 @@ dump.rdb
 # Ignore application configuration
 /config/application.yml
 activity-sessions*.json
+
 # React on Rails
-npm-debug.log
+npm-debug.log*
 node_modules
 
 # Generated js bundles
