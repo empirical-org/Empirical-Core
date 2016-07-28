@@ -26,7 +26,7 @@ export default React.createClass({
             {this.props.cues}
             {this.props.feedback}
             <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue}
-                        handleChange={this.props.handleChange} />
+                        handleChange={this.props.handleChange} value={this.props.value}/>
             <div className="button-group">
               {button}
               {content}

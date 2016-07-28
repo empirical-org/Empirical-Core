@@ -8,7 +8,7 @@ export default React.createClass({
     return (
       <div className="control">
         <Textarea className={this.props.className} onFocus={handleFocus}
-                  defaultValue={this.props.defaultValue} onChange={this.props.handleChange}
+                  defaultValue={this.props.defaultValue} onChange={this.props.handleChange} value={this.props.value} 
                   placeholder="Type your answer here. Rememeber, your answer should be just one sentence." />
       </div>
     )
