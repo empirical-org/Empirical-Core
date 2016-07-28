@@ -45,9 +45,9 @@ export default React.createClass({
                         </span>grade reading level diagnostic?</h2>
                       <span id='subtext'>The reading level may be higher or lower than the grade level.</span>
                 </div>
-                <button className='button-green'>Preview the diagnostic</button>
+                <button id='preview' className='button-green'>Preview the Diagnostic</button>
                 <br/>
-                <Link to='/stage/3'><button className='button-green'>Continue to Assign</button></Link>
+                <Link id='assign' to='/stage/3'><button className='button-green'>Continue to Assign</button></Link>
             </div>
         )
     }
