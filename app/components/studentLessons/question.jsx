@@ -53,22 +53,6 @@ const playLessonQuestion = React.createClass({
     this.setState({response: this.state.response.replace(/_/g, "")})
   },
 
-  componentDidMount: function() {
-    // this.props.dispatch(clearResponses())
-    // const {this.props.question.key} = this.props.params
-    // var sessionRef = sessionsRef.push({this.props.question.key}, (error) => {
-    //   this.setState({sessionKey: sessionRef.key})
-    // })
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    // if (nextProps.question.attempts.length > 0) {
-    //   var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(nextProps.question.attempts, (error) => {
-    //     return
-    //   })
-    // }
-  },
-
   getQuestion: function () {
     return this.props.question
   },
