@@ -26,7 +26,7 @@ export default React.createClass({
             {this.props.cues}
             {this.props.feedback}
             <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue}
-                        handleChange={this.props.handleChange} value={this.props.value}/>
+                        handleChange={this.props.handleChange} value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
             <div className="button-group">
               {button}
               {content}
@@ -37,6 +37,11 @@ export default React.createClass({
     )
   }
 })
+
+const getLatestAttempt = function (attempts = []) {
+  const lastIndex = attempts.length - 1;
+  return attempts[lastIndex]
+}
 
 // <div className="control">
 //   <Textarea className={this.props.textAreaClass} ref="response" onFocus={handleFocus} defaultValue={this.props.initialValue} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.props.handleChange}></Textarea>

@@ -38,6 +38,6 @@ export function getInlineStyleRangeObject (targetString, userString) {
   return {
     length: getErroneousWordLength(changeObjects),
     offset: getErroneousWordOffset(changeObjects),
-    style: "UNDERLINED"
+    style: "UNDERLINE"
   }
 }

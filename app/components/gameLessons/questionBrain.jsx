@@ -249,7 +249,7 @@ const playLessonQuestion = React.createClass({
           )
         } else {
           return (
-            <AnswerForm value={this.state.response} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+            <AnswerForm value={this.state.response} question={this.props.question} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                   feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                   handleChange={this.handleChange} textAreaClass="textarea"
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}/>
@@ -257,7 +257,7 @@ const playLessonQuestion = React.createClass({
         }
       } else {
         return (
-          <AnswerForm value={this.state.response} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+          <AnswerForm value={this.state.response} question={this.props.question} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                 feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                 handleChange={this.handleChange} textAreaClass="textarea"
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}/>

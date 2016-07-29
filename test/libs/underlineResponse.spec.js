@@ -70,7 +70,7 @@ describe("finding the position of the substring", () => {
     const expected = {
       length: 5,
       offset: 2,
-      style: "UNDERLINED"
+      style: "UNDERLINE"
     }
     expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
   })
@@ -84,7 +84,7 @@ describe("Returning change objects example 2", () => {
     const expected = {
       length: 7,
       offset: 11,
-      style: "UNDERLINED"
+      style: "UNDERLINE"
     }
     expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
   })
@@ -97,7 +97,20 @@ describe("Returning change objects example 3: multiple additions", () => {
     const expected = {
       length: 7,
       offset: 11,
-      style: "UNDERLINED"
+      style: "UNDERLINE"
+    }
+    expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
+  })
+});
+
+describe("Returning change objects example 4", () => {
+  const target = "I never drink soda for it is sugary.";
+  const user = "I never drank soda for it is sugary.";
+  it("returns a inline style range object", () => {
+    const expected = {
+      length: 5,
+      offset: 8,
+      style: "UNDERLINE"
     }
     expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
   })
