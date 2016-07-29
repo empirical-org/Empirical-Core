@@ -8,29 +8,6 @@ import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 
 export default React.createClass({
 
-    getInitialState: function() {
-        return ({loading: true, classrooms: null})
-    },
-
-    grades: function() {
-        let grades = []
-        for (let grade = 1; grade <= 12; grade++) {
-            let formattedGrade = NumberSuffix(grade)
-            formattedGrade += ' grade reading level'
-            grades.push(
-                <MenuItem key={formattedGrade} eventKey={grade}>{formattedGrade}</MenuItem>
-            )
-        }
-        return grades
-    },
-
-    addCheckedProp: function(classrooms) {
-        let updatedClassrooms = classrooms.map((classy) => {
-            classy.checked = false
-            return classy
-        })
-        return updatedClassrooms
-    },
 
     componentDidMount: function() {
         let that = this;
@@ -44,11 +21,37 @@ export default React.createClass({
         });
     },
 
+
+    getInitialState: function() {
+        return ({loading: true, classrooms: null})
+    },
+
+    grades: function() {
+        let grades = []
+        for (let grade = 1; grade <= 12; grade++) {
+            grades.push(
+                <MenuItem key={grade} eventKey={grade}>{this.readingLevelFormatter(grade)}</MenuItem>
+            )
+        }
+        return grades
+    },
+
+    addCheckedProp: function(classrooms) {
+        let updatedClassrooms = classrooms.map((classy) => {
+            classy.checked = false
+            return classy
+        })
+        return updatedClassrooms
+    },
+
+    readingLevelFormatter: function(num) {
+      return num ? NumberSuffix(num)+ ' grade reading level' : null
+    },
+
     handleSelect: function(index, grade) {
       let updatedClassrooms = this.state.classrooms.slice(0);
       updatedClassrooms[index].selectedGrade = grade
       this.setState({classrooms: updatedClassrooms})
-      console.log(this.state.classrooms[index].selectedGrade)
     },
 
     handleChange: function(index) {
@@ -58,6 +61,12 @@ export default React.createClass({
     },
 
     buildClassRow: function(classy, index) {
+        const currClass = this.state.classrooms[index]
+        let that = this
+        let readingLevel = function(){
+          let input = currClass.selectedGrade || classy.grade || 'Select a Reading Level'
+          return input === 'Select a Reading Level' ? input : that.readingLevelFormatter(input)
+        }
         return (
             <div className='classroom-row' key={classy.id}>
                 <div className='pull-left'>
@@ -66,8 +75,8 @@ export default React.createClass({
                         <h3>{classy.name}</h3>
                     </label>
                 </div>
-                <div className={'is-checked-' + this.state.classrooms[index].checked}>
-                    <DropdownButton bsStyle='default' title={'Select Grade' || this.state.classrooms[index].selectedGrade} id='select-grade' onSelect={this.handleSelect.bind(null, index)}>
+                <div className={'is-checked-' + currClass.checked}>
+                    <DropdownButton bsStyle='default' title={readingLevel()} id='select-grade' onSelect={this.handleSelect.bind(null, index)}>
                         {this.grades()}
                     </DropdownButton>
                     <a href='/'>Preview</a>
