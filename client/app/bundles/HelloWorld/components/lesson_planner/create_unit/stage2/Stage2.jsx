@@ -94,7 +94,7 @@
           </table>
           <div className="error-message-and-button">
             <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
-            <button ref="button" id='assign' className={this.determineAssignButtonClass() + " pull-right"} id="assign" onClick={this.finish}>{this.determineButtonText()}</button>
+            <button ref="button" id="assign" className={this.determineAssignButtonClass() + " pull-right"} onClick={this.finish}>{this.determineButtonText()}</button>
           </div>
         </section>
       </span>
