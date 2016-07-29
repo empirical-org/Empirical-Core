@@ -3,29 +3,22 @@ import $ from 'jquery'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import {Router, Route, Link, hashHistory} from 'react-router'
+import NumberSuffix from '../../modules/numberSuffixBuilder.js'
+
 
 export default React.createClass({
 
     getInitialState: function() {
-        return ({selectedGrade: '1st grade reading level', loading: true, classrooms: null})
+        return ({loading: true, classrooms: null})
     },
 
     grades: function() {
         let grades = []
-        let formattedGrade;
         for (let grade = 1; grade <= 12; grade++) {
-            if (grade === 1) {
-                formattedGrade = grade + 'st'
-            } else if (grade === 2) {
-                formattedGrade = grade + 'nd'
-            } else if (grade === 3) {
-                formattedGrade = grade + 'rd'
-            } else {
-                formattedGrade = grade + 'th'
-            }
+            let formattedGrade = NumberSuffix(grade)
             formattedGrade += ' grade reading level'
             grades.push(
-                <MenuItem key={formattedGrade} eventKey={formattedGrade}>{formattedGrade}</MenuItem>
+                <MenuItem key={formattedGrade} eventKey={grade}>{formattedGrade}</MenuItem>
             )
         }
         return grades
@@ -51,17 +44,17 @@ export default React.createClass({
         });
     },
 
-    handleSelect: function(grade, index) {
-      console.log(this.state)
-        let newState = Object.assign({}, this.state);
-        newState.classrooms[index].assignedGrade = grade
-        this.setState({newState})
+    handleSelect: function(index, grade) {
+      let updatedClassrooms = this.state.classrooms.slice(0);
+      updatedClassrooms[index].selectedGrade = grade
+      this.setState({classrooms: updatedClassrooms})
+      console.log(this.state.classrooms[index].selectedGrade)
     },
 
     handleChange: function(index) {
-        let updatedState = Object.assign({}, this.state)
-        updatedState.classrooms[index].checked = !updatedState.classrooms[index].checked
-        this.setState({updatedState})
+        let updatedClassrooms = this.state.classrooms.slice(0);
+        updatedClassrooms[index].checked = !updatedClassrooms[index].checked
+        this.setState({classrooms: updatedClassrooms})
     },
 
     buildClassRow: function(classy, index) {
@@ -74,7 +67,7 @@ export default React.createClass({
                     </label>
                 </div>
                 <div className={'is-checked-' + this.state.classrooms[index].checked}>
-                    <DropdownButton bsStyle='default' title={this.state.selectedGrade || this.state.classrooms[index].assignedGrade} id='select-grade' onSelect={() => this.handleSelect(classy.grade, index)}>
+                    <DropdownButton bsStyle='default' title={'Select Grade' || this.state.classrooms[index].selectedGrade} id='select-grade' onSelect={this.handleSelect.bind(null, index)}>
                         {this.grades()}
                     </DropdownButton>
                     <a href='/'>Preview</a>

@@ -59,6 +59,8 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
+    "react": "^15.2.1",
+    "react-addons-update": "^15.2.1",
     "react-bootstrap": "^0.29.5"
   }
 }
