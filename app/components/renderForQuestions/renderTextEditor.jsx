@@ -15,14 +15,28 @@ export default React.createClass({
     }
   },
 
+  getErrorsForAttempt: function (attempt) {
+    console.log("gotten errors: ", _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError'))
+    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+  },
+
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
-      const parentID = nextProps.latestAttempt.response.parentID
-      if (nextProps.latestAttempt.found && parentID) {
-        console.log("New: ", nextProps.latestAttempt.response, "old: ", nextProps.latestAttempt.submitted);
-        const parentResponse = this.props.getResponse(nextProps.latestAttempt.response.parentID)
-        console.log("parentResponse: ", parentResponse)
-        const newStyle = getInlineStyleRangeObject(parentResponse.text, nextProps.latestAttempt.submitted)
+      if (nextProps.latestAttempt.found) {
+        const parentID = nextProps.latestAttempt.response.parentID
+        const nErrors = _.keys(this.getErrorsForAttempt(nextProps.latestAttempt)).length;
+        var targetText;
+        if (parentID) {
+          const parentResponse = this.props.getResponse(nextProps.latestAttempt.response.parentID)
+          targetText = parentResponse.text
+        } else if (nErrors > 0) {
+          targetText = nextProps.latestAttempt.response.text
+        }
+        console.log("Target text: ", targetText);
+        // console.log("New: ", nextProps.latestAttempt.response, "old: ", nextProps.latestAttempt.submitted);
+        // const parentResponse = this.props.getResponse(nextProps.latestAttempt.response.parentID)
+        // console.log("parentResponse: ", parentResponse)
+        const newStyle = getInlineStyleRangeObject(targetText, nextProps.latestAttempt.submitted)
         var state = convertToRaw(this.state.text.getCurrentContent());
         // console.log("state", state)
         state.blocks[0].inlineStyleRanges = [newStyle]
