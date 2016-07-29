@@ -1,107 +1,11 @@
-// #diagnostic-planner-status-bar {
-//   max-width: 980px;
-//   margin: auto;
-//   text-align: center;
-//   #status-bar-wrapper {
-//     margin-bottom: 45px;
-//   }
-//   #status-bar {
-//     display: flex;
-//     justify-content: space-between;
-//     width: 300px;
-//     margin: auto;
-//     .check-point {
-//       border-radius: 50%;
-//       border: solid 1px #979797;
-//       height: 31px;
-//       width: 31px;
-//       display: flex;
-//       justify-content: center;
-//       align-items: center;
-//     }
-//     .check-point-type {
-//       position: absolute;
-//       span {
-//         position: relative;
-//         top: 30px;
-//       }
-//     }
-//     .connector-line {
-//       border: 1px solid;
-//       height: 1px;
-//       align-self: center;
-//       /* margin: 0 10px; */
-//       min-width: 2px;
-//       flex-grow: 5;
-//     }
-//   }
-//
-//
-// .diagnostic-planner-body {
-//
-//   .dropdown-toggle {
-//     padding: 3px 8px;
-//     margin-bottom: 10px;
-//     margin: 0 10 10 10px;
-//     font-size: 24px;
-//     font-weight: 500;
-//     border: solid 1px #d4d4d4;
-//   }
-//   .label h3 {
-//     margin-top: -4px;
-//   }
-//   .caret {
-//     display: inline-block;
-// width: 0;
-// height: 0;
-// margin-left: 2px;
-// vertical-align: middle;
-// margin-bottom: 5px;
-// border-color: #01c2a2;
-// border-top: 7px solid;
-// border-right: 6px solid transparent;
-// border-left: 6px solid transparent;
-//   }
-//   .button-green {
-//     width: 246px;
-//     height: 40px;
-//     font-size: 16px;
-//     margin-bottom: 16px;
-//   }
-//     h2 {
-//       font-size: 24px;
-//     }
-//     span {
-//       font-size: 14px;
-//       color: #646464;
-//     }
-//     .checkbox-mixin {
-//       height: 21px;
-//       width: 21px;
-//       border-radius: 5px;
-//       background: #e6e6e6;
-//       border: 1px solid #cecece;
-//     }
-//   }
-//   label h3 {
-//     font-size: 20px;
-//   }
-//   .is-checked-false {
-//     display: none;
-//   }
-//   .classroom-row {
-//     height: 74px;
-//     display: flex;
-//     border-bottom: solid 1px #cecece;
-//     align-items: center;
-//     justify-content: space-between;
-//   }
-//   #assign-page {
-//     a {
-//     	color: #027360;
-//     }
-//     .dropdown-toggle {
-//     font-size: 16px;
-//     margin: 0 14 0 0px;
-//   }}
-// }
+#diagnostic-planner-status-bar {
+  label.css-label {
+    background-image: image-url("diagnost_checkbox.png");
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
