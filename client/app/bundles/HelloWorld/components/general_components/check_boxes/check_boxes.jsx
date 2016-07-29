@@ -1,3 +1,5 @@
+import React from 'react'
+
 EC.CheckBoxes = React.createClass({
   propTypes: {
     label: React.PropTypes.string.isRequired,
