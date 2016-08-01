@@ -10,7 +10,7 @@ export default React.createClass({
     updateRole: React.PropTypes.func.isRequired
   },
   updateRole: function () {
-    var x = $(this.refs.select.getDOMNode()).val();
+    var x = $(this.refs.select).val();
     this.props.updateRole(x);
   },
   render: function () {

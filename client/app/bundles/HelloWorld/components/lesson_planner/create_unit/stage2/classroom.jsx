@@ -70,9 +70,9 @@
               <span>
                 Select Entire Class
               </span>
-              <Button className='toggle-button pull-right' onClick={ ()=> this.setState({ open: !this.state.open })}>
+              <Button className='toggle-button pull-right' onClick={()=> this.setState({ open: !this.state.open })}>
                 <span className="pull-right panel-select-by-student" >
-                  Select by Student <i className={"fa fa-angle-" + this.angleIcon() }></i>
+                  Select by Student <i className={"fa fa-angle-" + this.angleIcon()}></i>
                 </span>
               </Button>
               <div>
