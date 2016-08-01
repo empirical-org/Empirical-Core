@@ -120,6 +120,10 @@ render((
           </Route>
         </Route>
       </Route>
+
+          {/* Item Levels */}
+          <Route path="item-levels" component={ItemLevels}/>
+          <Route path=":itemLevelID" component={ItemLevel}/>
     </Router>
   </Provider>),
   root
