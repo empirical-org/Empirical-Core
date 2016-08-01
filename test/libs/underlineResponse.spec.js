@@ -1,6 +1,14 @@
 import expect from 'expect';
 import {diffWords} from 'diff'
-import { getChangeObjects, getChangeObjectsWithoutRemoved, getChangeObjectsWithoutAdded, getErroneousWordLength, getErroneousWordOffset, getInlineStyleRangeObject } from '../../app/libs/markupUserResponses.js'
+import {
+  getChangeObjects,
+  getChangeObjectsWithoutRemoved,
+  getChangeObjectsWithoutAdded,
+  getErroneousWordLength,
+  getErroneousWordOffset,
+  getInlineStyleRangeObject,
+  getErrorType
+} from '../../app/libs/markupUserResponses.js'
 
 
 describe("finding the position of the substring", () => {
@@ -115,3 +123,43 @@ describe("Returning change objects example 4", () => {
     expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
   })
 });
+
+describe("Cases for diff outcomes", () => {
+  it("has nothing to change", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I never drink soda for it is sugary.";
+    expect(getErrorType(target, user)).toEqual("NO_ERROR");
+  })
+
+  it("has an additional word", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I never drink soda for it is too sugary.";
+    expect(getErrorType(target, user)).toEqual("ADDITIONAL_WORD");
+  })
+
+  it("has a missing word", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I never drink for it is sugary.";
+    expect(getErrorType(target, user)).toEqual("MISSING_WORD");
+  })
+
+  it("has an incorrect word", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I never drink cider for it is sugary.";
+    expect(getErrorType(target, user)).toEqual("INCORRECT_WORD");
+  })
+
+  it("has a missing word and an additional word", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I never ever drink soda for it sugary.";
+    expect(getErrorType(target, user)).toNotEqual("INCORRECT_WORD");
+  })
+})
+
+describe("Marking up missing words", () => {
+  it("has a missing word", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I never soda for it is sugary.";
+    expect(getErrorType(target, user)).toEqual("MISSING_WORD");
+  })
+})
