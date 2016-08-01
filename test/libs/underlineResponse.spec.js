@@ -7,7 +7,9 @@ import {
   getErroneousWordLength,
   getErroneousWordOffset,
   getInlineStyleRangeObject,
-  getErrorType
+  getErrorType,
+  getMissingWordErrorString,
+  getMissingInlineStyleRangeObject
 } from '../../app/libs/markupUserResponses.js'
 
 
@@ -60,7 +62,7 @@ describe("finding the position of the substring", () => {
       { count: 3, value: ' NYC.' }
     ]
     const expected = 5;
-    expect(getErroneousWordLength(input)).toEqual(expected)
+    expect(getErroneousWordLength(input, 'added')).toEqual(expected)
   })
 
   it("gets offset of first erroneous word", () => {
@@ -70,7 +72,7 @@ describe("finding the position of the substring", () => {
       { count: 3, value: ' NYC.' }
     ]
     const expected = 2;
-    expect(getErroneousWordOffset(input)).toEqual(expected)
+    expect(getErroneousWordOffset(input, 'added')).toEqual(expected)
   })
 
 
@@ -157,9 +159,25 @@ describe("Cases for diff outcomes", () => {
 })
 
 describe("Marking up missing words", () => {
+  const target = "I never drink soda for it is sugary.";
+  const user = "I never soda for it is sugary.";
   it("has a missing word", () => {
-    const target = "I never drink soda for it is sugary.";
-    const user = "I never soda for it is sugary.";
     expect(getErrorType(target, user)).toEqual("MISSING_WORD");
   })
+
+  it("should be able to genrate a new string with space for underlines.", () => {
+    const changeObjects = getChangeObjects(target, user);
+    const expected = "I never       soda for it is sugary."
+    expect(getMissingWordErrorString(changeObjects)).toEqual(expected);
+  });
+
+  it("should be able to genrate an inline style object that takes account of the empty space", () => {
+    const changeObjects = getChangeObjects(target, user);
+    const expected = {
+      length: 5,
+      offset: 8,
+      style: "UNDERLINE"
+    }
+    expect(getMissingInlineStyleRangeObject(target, user)).toEqual(expected)
+  });
 })

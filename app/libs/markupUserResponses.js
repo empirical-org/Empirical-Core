@@ -26,14 +26,14 @@ export function getChangeObjectsWithoutAdded (targetString, userString) {
   })
 }
 
-export function getErroneousWordLength (changeObjects) {
-  const addedWord = _.filter(changeObjects, {added: true})[0]
+export function getErroneousWordLength (changeObjects, key) {
+  const addedWord = _.filter(changeObjects, {[key]: true})[0]
   return addedWord.value.length || 0
 }
 
-export function getErroneousWordOffset (changeObjects) {
+export function getErroneousWordOffset (changeObjects, key) {
   const precedingObjects = _.takeWhile(changeObjects, (changeObject) => {
-    return !changeObject.added
+    return !changeObject[key]
   })
   return _.reduce(precedingObjects, (sum, changeObject) => {
     return sum + changeObject.value.length
@@ -43,8 +43,8 @@ export function getErroneousWordOffset (changeObjects) {
 export function getInlineStyleRangeObject (targetString, userString) {
   const changeObjects = getChangeObjectsWithoutRemoved(targetString, userString)
   return {
-    length: getErroneousWordLength(changeObjects),
-    offset: getErroneousWordOffset(changeObjects),
+    length: getErroneousWordLength(changeObjects, 'added'),
+    offset: getErroneousWordOffset(changeObjects, 'added'),
     style: "UNDERLINE"
   }
 }
@@ -77,5 +77,24 @@ export function getErrorType (targetString, userString) {
     return ERROR_TYPES.MISSING_WORD
   } else {
     return ERROR_TYPES.NO_ERROR
+  }
+}
+
+export function getMissingWordErrorString (changeObjects) {
+  return changeObjects.map((changeObject) => {
+    if (changeObject.removed) {
+      return _.repeat(' ', changeObject.value.length)
+    } else {
+      return changeObject.value
+    }
+  }).join('')
+}
+
+export function getMissingInlineStyleRangeObject (targetString, userString) {
+  const changeObjects = getChangeObjects(targetString, userString)
+  return {
+    length: getErroneousWordLength(changeObjects, 'removed') -1,
+    offset: getErroneousWordOffset(changeObjects, 'removed'),
+    style: "UNDERLINE"
   }
 }
