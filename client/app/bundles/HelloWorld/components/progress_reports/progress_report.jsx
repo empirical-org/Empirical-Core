@@ -59,7 +59,7 @@ export default  React.createClass({
   },
 
   disabled: function(){
-    return this.props.premiumStatus === 'none' || 'locked';
+    return this.props.premiumStatus === ('none' || 'locked');
   },
 
   disableLinks: function() {
