@@ -1,7 +1,8 @@
 'use strict';
 import React from 'react'
+import _ from 'underscore'
 
-EC.DropdownDateSelector = React.createClass({
+export default React.createClass({
   propTypes : {
     date: React.PropTypes.string.isRequired,
     updateDate: React.PropTypes.func.isRequired
@@ -33,7 +34,7 @@ EC.DropdownDateSelector = React.createClass({
   },
   updateDatePart: function (part) {
     var value, dateParts, str;
-    value = $(this.refs[part].getDOMNode()).val();
+    value = $(this.refs[part]).val();
     dateParts = this.getDateParts();
     dateParts[part] = value;
     str = this.createDateString(dateParts);

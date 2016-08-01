@@ -1,0 +1,10 @@
+<% if @user.role == 'teacher'%>
+  <%= react_component('TeacherAccountApp', props: {userType: @current_user.role, teacherId: @user.id})%>
+<%else%>
+  <div class="article simple-rounded-box">
+    <h1>Editing User</h1>
+    <br>
+    <br>
+    <%= render "form" %>
+  </div>
+<%end%>
