@@ -98,3 +98,12 @@ export function getMissingInlineStyleRangeObject (targetString, userString) {
     style: "UNDERLINE"
   }
 }
+
+export function getAddtionalInlineStyleRangeObject (targetString, userString) {
+  const changeObjects = getChangeObjects(targetString, userString)
+  return {
+    length: getErroneousWordLength(changeObjects, 'added') -1,
+    offset: getErroneousWordOffset(changeObjects, 'added'),
+    style: "UNDERLINE"
+  }
+}

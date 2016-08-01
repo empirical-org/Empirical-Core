@@ -9,7 +9,8 @@ import {
   getInlineStyleRangeObject,
   getErrorType,
   getMissingWordErrorString,
-  getMissingInlineStyleRangeObject
+  getMissingInlineStyleRangeObject,
+  getAddtionalInlineStyleRangeObject
 } from '../../app/libs/markupUserResponses.js'
 
 
@@ -179,5 +180,23 @@ describe("Marking up missing words", () => {
       style: "UNDERLINE"
     }
     expect(getMissingInlineStyleRangeObject(target, user)).toEqual(expected)
+  });
+})
+
+describe("Marking up added words", () => {
+  const target = "I never drink soda for it is sugary.";
+  const user = "I never ever drink soda for it is sugary.";
+  it("has a added word", () => {
+    expect(getErrorType(target, user)).toEqual("ADDITIONAL_WORD");
+  })
+
+  it("should be able to genrate an inline style object that takes account of the empty space", () => {
+    const changeObjects = getChangeObjects(target, user);
+    const expected = {
+      length: 4,
+      offset: 8,
+      style: "UNDERLINE"
+    }
+    expect(getAddtionalInlineStyleRangeObject(target, user)).toEqual(expected)
   });
 })
