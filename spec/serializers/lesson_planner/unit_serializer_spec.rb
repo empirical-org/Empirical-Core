@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe LessonPlanner::UnitSerializer, type: :serializer do
+  before do
+    Timecop.freeze(Time.utc(2015, 1, 1, 12, 0, 0))
+  end
+
+  after do
+    Timecop.return
+  end
+
   it_behaves_like 'serializer' do
     let!(:record_instance) { FactoryGirl.create(:unit) }
 
