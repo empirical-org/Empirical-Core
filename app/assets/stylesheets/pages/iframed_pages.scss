@@ -34,9 +34,12 @@ border: none;
   position: relative;
 }
 
-.wp_iframe {
-  z-index: 0;
-  position: relative;
+#wp_iframe {
+  z-index: -20;
+      position: relative;
+      height: 3499px;
+      width: 100%;
+      top: -270px;
 }
 
 .medium-articles {
