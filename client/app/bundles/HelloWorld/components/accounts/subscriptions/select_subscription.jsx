@@ -4,6 +4,7 @@
 import React from 'react';
 import _ from 'underscore';
 import $ from 'jquery';
+import DropdownDateSelector from '../../general_components/dropdown_date_selector.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -13,7 +14,7 @@ export default React.createClass({
     updateSubscriptionType: React.PropTypes.func.isRequired
   },
   updateSubscriptionType: function () {
-    var value = $(this.refs.select.getDOMNode()).val();
+    var value = $(this.refs.select).val()
     this.props.updateSubscriptionType(value);
   },
   updateExpiration: function (newDate) {
@@ -25,7 +26,7 @@ export default React.createClass({
   },
   updateSubscriptionAccountLimit: function () {
     var value, subscription;
-    value = $(this.refs.accountLimit.getDOMNode()).val();
+    value = $(this.refs.accountLimit).val();
     subscription = this.props.subscription;
     subscription.account_limit = value;
     this.props.updateSubscriptionState(subscription);
@@ -59,7 +60,7 @@ export default React.createClass({
             Expiration
           </div>
 
-          <EC.DropdownDateSelector date={this.props.subscription.expiration} updateDate={this.updateExpiration}/>
+          <DropdownDateSelector date={this.props.subscription.expiration} updateDate={this.updateExpiration}/>
 
         </div>
         <div className='row'>

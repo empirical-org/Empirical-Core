@@ -1,4 +1,6 @@
 'use strict';
+import React from 'react'
+
 EC.CheckBox = React.createClass({
   propTypes: {
     checked: React.PropTypes.bool.isRequired,

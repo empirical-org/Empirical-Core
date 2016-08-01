@@ -31,12 +31,13 @@ import $ from 'jquery';
 
 export default React.createClass({
     propTypes: {
-        userType: React.PropTypes.string.isRequired
+        userType: React.PropTypes.string.isRequired,
+        teacherId: React.PropTypes.number.isRequired
     },
 
     getInitialState: function() {
         return ({
-            id: null,
+            id: this.props.teacherId,
             name: '',
             username: '',
             email: '',

@@ -1,4 +1,6 @@
 'use strict';
+import React from 'react'
+
 EC.ConceptResultStats = React.createClass({
   propTypes: {
     results: React.PropTypes.array.isRequired
