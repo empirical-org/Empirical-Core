@@ -801,11 +801,18 @@
   }
 }
 .other-pages-navbar {
+<<<<<<< HEAD
   padding: 0;
       height: 67px;
 }
 .tab-outer-wrap {
   padding-top: 8px;
+=======
+  padding: 24px 0 0;
+  height: 112px;
+}
+.tab-outer-wrap {
+>>>>>>> 7e86400a9caccb0e27ec1e0206cd781a9022318e
   background-color: $quillgreen;
 }
 .npr .container {
