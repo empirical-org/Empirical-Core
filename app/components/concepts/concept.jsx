@@ -58,7 +58,16 @@ const Concepts = React.createClass({
 
   },
 
+  itemLevelToOptions: function() {
+    return hashToCollection(this.props.itemLevels.data).map((level) => {
+      return (
+        <option>{level.name}</option>
+      )
+    })
+  },
+
   renderNewQuestionForm: function () {
+    console.log(this.props)
     return (
       <form className="box" onSubmit={this.submitNewQuestion}>
         <h6 className="control subtitle">Create a new question</h6>
@@ -75,6 +84,15 @@ const Concepts = React.createClass({
         <label className="label">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
         <p className="control">
           <input className="input" type="text" ref="newQuestionPrefilledText"></input>
+        </p>
+        <label className="label">Item level</label>
+        <p className="control">
+          <span className="select">
+            <select onChange={this.chooseConcept}>
+              <option>Select Item Level</option>
+              {this.itemLevelToOptions()}
+            </select>
+          </span>
         </p>
         <button type="submit" className="button is-primary" >Add Question</button>
       </form>
@@ -112,6 +130,7 @@ function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
+    itemLevels: state.itemLevels,
     routing: state.routing
   }
 }

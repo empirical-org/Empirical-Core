@@ -6,6 +6,7 @@ import questions from './questions';
 import questionSelect from './questionSelect';
 import concepts from './concepts';
 import conceptsFeedback from './concepts-feedback';
+import itemLevels from './item-levels'
 import lessons from './lessons';
 import pathways from './pathways';
 import responses from './responseReducer';
@@ -15,6 +16,7 @@ const findAndFix = combineReducers({
   question,
   concepts,
   conceptsFeedback,
+  itemLevels,
   questions,
   questionSelect,
   pathways,

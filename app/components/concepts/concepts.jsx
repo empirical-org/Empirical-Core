@@ -52,7 +52,7 @@ const Concept = React.createClass({
   },
 
   render: function (){
-    console.log("this.props.concepts", this.props.concepts)
+    // console.log("this.props.concepts", this.props.concepts)
     return (
       <section className="section">
         <div className="container">

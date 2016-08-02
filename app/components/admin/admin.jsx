@@ -17,6 +17,7 @@ export default React.createClass({
                 <TabLink to={"/admin/lessons"} activeClassName="is-active">Lessons</TabLink>
                 <TabLink to={"/admin/diagnostics"} activeClassName="is-active">Diagnostics</TabLink>
                 <TabLink to={"admin/concepts-feedback"} activeClassName="is-active">Concept Feeback</TabLink>
+                <TabLink to={"/admin/item-levels"} activeClassName="is-active">Item Levels</TabLink>
               </ul>
             </div>
           </div>

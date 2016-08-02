@@ -22,6 +22,9 @@ import Lesson from "./components/lessons/lesson.jsx";
 import LessonResults from "./components/lessons/lessonResults.jsx";
 import Diagnostics from "./components/diagnostics/diagnostics.jsx";
 import NewDiagnostic from "./components/diagnostics/new.jsx";
+import ItemLevels from "./components/itemLevels/itemLevels.jsx";
+import ItemLevel from "./components/itemLevels/itemLevel.jsx";
+import ItemLevelForm from "./components/itemLevels/itemLevelForm.jsx";
 import StudentLesson from "./components/studentLessons/lesson.jsx";
 import GameLesson from "./components/gameLessons/lesson.jsx";
 import createStore from './utils/configureStore';
@@ -35,6 +38,7 @@ import conceptsFeedbackActions from './actions/concepts-feedback'
 import questionActions from './actions/questions'
 import pathwayActions from './actions/pathways'
 import lessonActions from './actions/lessons'
+import levelActions from './actions/item-levels'
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory'
@@ -115,15 +119,15 @@ render((
           <Route path="concepts-feedback" component={ConceptsFeedback}>
             <Route path=":feedbackID" component={ConceptFeedback}/>
           </Route>
-          <Route path="concepts-feedback" component={ConceptsFeedback}>
-            <Route path=":feedbackID" component={ConceptFeedback}/>
-          </Route>
-        </Route>
-      </Route>
 
           {/* Item Levels */}
           <Route path="item-levels" component={ItemLevels}/>
-          <Route path=":itemLevelID" component={ItemLevel}/>
+          <Route path="item-levels/new" component={ItemLevelForm}/>
+          <Route path="item-levels/:itemLevelID" component={ItemLevel}/>
+
+        </Route>
+      </Route>
+
     </Router>
   </Provider>),
   root
@@ -135,4 +139,5 @@ setTimeout(function(){
   store.dispatch( questionActions.startListeningToQuestions() );
   store.dispatch( pathwayActions.startListeningToPathways() );
   store.dispatch( lessonActions.startListeningToLessons() );
+  store.dispatch( levelActions.startListeningToItemLevels() );
 });
