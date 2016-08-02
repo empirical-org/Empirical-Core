@@ -99,11 +99,46 @@ export function getMissingInlineStyleRangeObject (targetString, userString) {
   }
 }
 
-export function getAddtionalInlineStyleRangeObject (targetString, userString) {
+export function getAdditionalInlineStyleRangeObject (targetString, userString) {
   const changeObjects = getChangeObjects(targetString, userString)
   return {
     length: getErroneousWordLength(changeObjects, 'added') -1,
     offset: getErroneousWordOffset(changeObjects, 'added'),
     style: "UNDERLINE"
+  }
+}
+
+export function generateStyleObjects (targetString, userString) {
+  const errorType = getErrorType(targetString, userString);
+  switch (errorType) {
+    case ERROR_TYPES.INCORRECT_WORD:
+      return {
+        text: userString,
+        inlineStyleRanges: [
+          getInlineStyleRangeObject(targetString, userString)
+        ]
+      }
+      break;
+    case ERROR_TYPES.ADDITIONAL_WORD:
+      return {
+        text: userString,
+        inlineStyleRanges: [
+          getAdditionalInlineStyleRangeObject(targetString, userString)
+        ]
+      }
+      break;
+    case ERROR_TYPES.MISSING_WORD:
+      return {
+        text: getMissingWordErrorString(getChangeObjects(targetString, userString)),
+        inlineStyleRanges: [
+          getMissingInlineStyleRangeObject(targetString, userString)
+        ]
+      }
+      break;
+    default:
+      return {
+        text: userString,
+        inlineStyleRanges: []
+      }
   }
 }

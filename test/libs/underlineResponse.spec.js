@@ -1,4 +1,4 @@
-import expect from 'expect';
+import expect, { createSpy, spyOn, isSpy } from 'expect';
 import {diffWords} from 'diff'
 import {
   getChangeObjects,
@@ -10,7 +10,8 @@ import {
   getErrorType,
   getMissingWordErrorString,
   getMissingInlineStyleRangeObject,
-  getAddtionalInlineStyleRangeObject
+  getAdditionalInlineStyleRangeObject,
+  generateStyleObjects
 } from '../../app/libs/markupUserResponses.js'
 
 
@@ -190,13 +191,71 @@ describe("Marking up added words", () => {
     expect(getErrorType(target, user)).toEqual("ADDITIONAL_WORD");
   })
 
-  it("should be able to genrate an inline style object that takes account of the empty space", () => {
+  it("should be able to genrate an inline style object for additional words", () => {
     const changeObjects = getChangeObjects(target, user);
     const expected = {
       length: 4,
       offset: 8,
       style: "UNDERLINE"
     }
-    expect(getAddtionalInlineStyleRangeObject(target, user)).toEqual(expected)
+    expect(getAdditionalInlineStyleRangeObject(target, user)).toEqual(expected)
   });
+})
+
+describe("Calling the correct functions for different use cases", () => {
+  it("calls getAddtionalInlineStyleRangeObject when it should", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I never ever drink soda for it is sugary.";
+    const expected = {
+      text: user,
+      inlineStyleRanges: [{
+        length: 4,
+        offset: 8,
+        style: "UNDERLINE"
+      }]
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
+
+  it("calls getInlineStyleRangeObject when it should", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I ner drink soda for it is sugary.";
+    const expected = {
+      text: user,
+      inlineStyleRanges: [{
+        length: 3,
+        offset: 2,
+        style: "UNDERLINE"
+      }]
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
+
+  it("calls getMissingInlineStyleRangeObject when it should", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I drink soda for it is sugary.";
+    const expected = {
+      text: "I       drink soda for it is sugary.",
+      inlineStyleRanges: [{
+        length: 5,
+        offset: 2,
+        style: "UNDERLINE"
+      }]
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
+
+  it("returns the default when it should", () => {
+    const target = "I never drink soda for it is sugary.";
+    const user = "I never drink soda for it is sugary.";
+    const expected = {
+      text: user,
+      inlineStyleRanges: []
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
 })
