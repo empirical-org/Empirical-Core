@@ -8,27 +8,25 @@
             padding: 11px 34px;
             font-size: 15px;
             height: 46px;
+            &.mobile {
+              display: none;
+            }
         }
         &.active a {
             border-top: 3px solid #027360;
         }
     }
 }
+
 .nav-tabs {
     border-bottom: none;
 }
-// #first-tab {
-//     border-left: 1px solid #cecece;
-//     padding-bottom: 15px;
-// }
+
 .tab-subnavigation-wrapper {
     padding: 8px 0;
     background: #fff;
     border-bottom: 1px solid #cecece;
     border-top: 1px solid #cecece;
-    .container {
-      height: 30px;
-    }
     ul {
         padding: 0;
         margin: 0;
@@ -82,4 +80,31 @@
     img {
         margin-right: 9px;
     }
+}
+@media (max-width: 800px) {
+  #teacher-nav-tabs li a:not(.mobile) {
+    display: none;
+  }
+  #teacher-nav-tabs li a.mobile {
+    display: block;
+    padding: 11px 8px;
+  }
+  .tab-subnavigation-wrapper ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+-ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+-webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+        justify-content: space-between;
+
+    li {
+    padding: 5px 0px;
+    a {
+      padding: 5px 8px;
+    }
+  }
+}
+
 }
