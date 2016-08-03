@@ -53,8 +53,6 @@ module.exports = {
 	submitNewItemLevel: function(content){
 		return function(dispatch,getState){
 			dispatch({type:C.AWAIT_NEW_ITEM_LEVEL_RESPONSE});
-			console.log("Inside actions, levelsRef: ", levelsRef);
-			console.log("Inside actions, content: ", content)
 			var newRef = levelsRef.push(content,function(error){
 				dispatch({type:C.RECEIVE_NEW_ITEM_LEVEL_RESPONSE});
 				if (error){

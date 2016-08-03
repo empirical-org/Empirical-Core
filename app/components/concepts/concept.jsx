@@ -25,6 +25,7 @@ const Concepts = React.createClass({
         prompt: this.state.prompt,
         prefilledText: this.refs.newQuestionPrefilledText.value,
         cues: this.refs.cues.value.split(','),
+        itemLevel: this.refs.itemLevel.value,
         conceptID: this.props.params.conceptID},
         {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a great sentence!"}))
       this.refs.newQuestionPrompt.value = ''
@@ -67,7 +68,7 @@ const Concepts = React.createClass({
   },
 
   renderNewQuestionForm: function () {
-    console.log(this.props)
+    console.log("Rendering new question form: ", this.props)
     return (
       <form className="box" onSubmit={this.submitNewQuestion}>
         <h6 className="control subtitle">Create a new question</h6>
@@ -87,7 +88,7 @@ const Concepts = React.createClass({
         </p>
         <label className="label">Item level</label>
         <p className="control">
-          <span className="select">
+          <span className="select" ref="itemLevel">
             <select onChange={this.chooseConcept}>
               <option>Select Item Level</option>
               {this.itemLevelToOptions()}

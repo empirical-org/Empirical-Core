@@ -1,15 +1,36 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ItemLevelForm from './itemLevelForm.jsx'
+import levelActions from '../../actions/item-levels.js'
 
 const ItemLevel = React.createClass({
+
+  deleteItemLevel: function (levelID) {
+    this.props.dispatch(levelActions.deleteItemLevel(levelID))
+  },
+
+  toggleEdit: function () {
+    this.props.dispatch(levelActions.startItemLevelEdit(this.props.params.levelID))
+  },
+
+  submitNewItemLevel: function (newItemLevel, levelID) {
+    if(newItemLevel) {
+      this.props.dispatch(levelActions.submitItemLevelEdit(levelID, newItemLevel))
+    }
+  },
+
+  cancelEdit: function(levelID) {
+      this.props.dispatch(levelActions.cancelItemLevelEdit(levelID))
+  },
 
   render: function() {
     // this.props.params has the ID of the current itemLevel. this.props.itemLevels.data has all the itemLevels
     let data=this.props.itemLevels.data[this.props.params.itemLevelID]
-    console.log(this.props)
+    // console.log("Inside individual: ", this.props)
     return (
-      <ItemLevelForm data={data} mode="Edit"/>
+      <ItemLevelForm data={data} levelID={this.props.params.itemLevelID} mode="Edit"
+                     submitNewItemLevel={this.submitNewItemLevel} deleteItemLevel={this.deleteItemLevel}
+                     cancelEdit={this.cancelEdit}/>
     )
   }
 })
