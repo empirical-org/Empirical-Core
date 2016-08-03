@@ -67,7 +67,7 @@ export default React.createClass({
 
   render: function () {
     return (
-      <div className="card is-fullwidth">
+      <div className="text-editor card is-fullwidth">
         <div className="card-content">
           <div className="content">
             <Editor editorState={this.state.text} onChange={this.handleTextChange}/>
