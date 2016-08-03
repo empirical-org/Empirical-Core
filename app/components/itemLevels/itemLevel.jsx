@@ -26,7 +26,6 @@ const ItemLevel = React.createClass({
   render: function() {
     // this.props.params has the ID of the current itemLevel. this.props.itemLevels.data has all the itemLevels
     let data=this.props.itemLevels.data[this.props.params.itemLevelID]
-    // console.log("Inside individual: ", this.props)
     return (
       <ItemLevelForm data={data} levelID={this.props.params.itemLevelID} mode="Edit"
                      submitNewItemLevel={this.submitNewItemLevel} deleteItemLevel={this.deleteItemLevel}

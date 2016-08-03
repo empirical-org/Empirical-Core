@@ -1,6 +1,7 @@
 import React from 'react'
 import TextEditor from './textEditor.jsx';
 import {hashToCollection} from '../../libs/hashToCollection'
+import _ from 'lodash'
 
 export default React.createClass({
   getInitialState: function () {
@@ -24,7 +25,6 @@ export default React.createClass({
   },
 
   handleLevelChange: function(e) {
-    // console.log("refs: ", this.refs)
     this.setState({itemLevel: this.refs.itemLevel.value})
   },
 

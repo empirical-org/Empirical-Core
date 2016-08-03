@@ -25,6 +25,7 @@ import NewDiagnostic from "./components/diagnostics/new.jsx";
 import ItemLevels from "./components/itemLevels/itemLevels.jsx";
 import ItemLevel from "./components/itemLevels/itemLevel.jsx";
 import ItemLevelForm from "./components/itemLevels/itemLevelForm.jsx";
+import ItemLevelDetails from "./components/itemLevels/itemLevelDetails.jsx"
 import StudentLesson from "./components/studentLessons/lesson.jsx";
 import GameLesson from "./components/gameLessons/lesson.jsx";
 import createStore from './utils/configureStore';
@@ -123,8 +124,8 @@ render((
           {/* Item Levels */}
           <Route path="item-levels" component={ItemLevels}/>
           <Route path="item-levels/new" component={ItemLevelForm}/>
-          <Route path="item-levels/:itemLevelID" component={ItemLevel}/>
-
+          <Route path="item-levels/:itemLevelID" component={ItemLevelDetails}/>
+          <Route path="item-levels/:itemLevelID/edit" component={ItemLevel}/>
         </Route>
       </Route>
 

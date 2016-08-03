@@ -17,17 +17,17 @@ const ItemLevelForm = React.createClass({
               conceptID: this.props.data.conceptID
       }
     } else {
-      return {name: "",
-              description: "",
-              url: "",
-              conceptID: ""
+        return {name: "",
+                description: "",
+                url: "",
+                conceptID: ""
+        }
       }
-    }
   },
 
   submit: function() {
-    if(this.refs.concept.value==="Select Associated Concept") { //has not chosen an associated concept
-      alert("You must choose a concept for this item level")
+    if(this.refs.concept.value==="Select Associated Concept" || this.refs.newItemLevelName.value==="") { //has not chosen an associated concept
+      alert("You must choose a concept and name for this item level")
       return
     }
     var newItemLevel = {
@@ -73,17 +73,18 @@ const ItemLevelForm = React.createClass({
       url=this.props.data.url
       className="box"
       cancelAndDeleteButtons =
-      <div>
-        <Link to={'/admin/item-levels'}>
-          <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
-        </Link>
-        <Link to={'/admin/item-levels'}>
-          <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
-        </Link>
-      </div>
+        <div className="button-group">
+          <Link to={'/admin/item-levels'}>
+            <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
+          </Link>
+          <Link to={'/admin/item-levels'}>
+            <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
+          </Link>
+        </div>
     }
 
-    return (
+    if(this.props.concepts.hasreceiveddata===true) {
+      return (
       <div className={className}>
         <h4 className="title">Add New Item Level</h4>
         <p className="control">
@@ -122,7 +123,7 @@ const ItemLevelForm = React.createClass({
         <p className="control">
           <label className="label">Concept</label>
           <span className="select">
-            <select onChange={this.handleChange} ref="concept" value={this.state.conceptID!=="" ? this.props.concepts.data[this.state.conceptID].name : ""}>
+            <select defaultValue={this.state.conceptID!=="" ? this.props.concepts.data[this.state.conceptID].name : ""} onChange={this.handleChange} ref="concept">
               <option>Select Associated Concept</option>
               {this.conceptsToOptions()}
             </select>
@@ -135,7 +136,11 @@ const ItemLevelForm = React.createClass({
           {cancelAndDeleteButtons}
         </div>
       </div>
-    )
+    )} else {
+        return (
+          <div>Loading...</div>
+        )
+    }
   }
 })
 
