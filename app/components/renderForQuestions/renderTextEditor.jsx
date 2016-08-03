@@ -6,7 +6,7 @@ import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import {stateToHTML} from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
-import {getInlineStyleRangeObject} from '../../libs/markupUserResponses';
+import {generateStyleObjects} from '../../libs/markupUserResponses';
 
 export default React.createClass({
   getInitialState: function () {
@@ -31,15 +31,21 @@ export default React.createClass({
           targetText = parentResponse.text
         } else if (nErrors > 0) {
           targetText = nextProps.latestAttempt.response.text
+        } else {
+          var state = convertToRaw(this.state.text.getCurrentContent());
+          state.blocks[0].inlineStyleRanges = []
+          this.setState({
+            text: EditorState.createWithContent(convertFromRaw(state))
+          }, () => {
+            this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()))
+          });
+          return
         }
-        console.log("Target text: ", targetText);
-        // console.log("New: ", nextProps.latestAttempt.response, "old: ", nextProps.latestAttempt.submitted);
-        // const parentResponse = this.props.getResponse(nextProps.latestAttempt.response.parentID)
-        // console.log("parentResponse: ", parentResponse)
-        const newStyle = getInlineStyleRangeObject(targetText, nextProps.latestAttempt.submitted)
+        const newStyle = generateStyleObjects(targetText, nextProps.latestAttempt.submitted)
         var state = convertToRaw(this.state.text.getCurrentContent());
-        // console.log("state", state)
-        state.blocks[0].inlineStyleRanges = [newStyle]
+        console.log("state", state)
+        state.blocks[0].text = newStyle.text;
+        state.blocks[0].inlineStyleRanges = newStyle.inlineStyleRanges
         this.setState({
           text: EditorState.createWithContent(convertFromRaw(state))
         }, () => {
