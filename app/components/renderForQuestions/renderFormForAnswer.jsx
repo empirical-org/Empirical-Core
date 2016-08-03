@@ -6,7 +6,7 @@ import TextEditor from './renderTextEditor.jsx'
 export default React.createClass({
 
   render: function() {
-    var content = <div />;
+    var content;
     if(this.props.id==="playQuestion") {
       content = <Link to={'/results/questions/' + this.props.questionID} className="button is-info is-outlined">View Results</Link>
     }
@@ -27,9 +27,9 @@ export default React.createClass({
             {this.props.feedback}
             <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue}
                         handleChange={this.props.handleChange} value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
-            <div className="button-group">
-              {button}
+            <div className="question-button-group button-group">
               {content}
+              {button}
             </div>
           </div>
         </div>

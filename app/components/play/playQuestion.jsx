@@ -18,7 +18,7 @@ import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
 import RenderFeedback from '../renderForQuestions/feedback.jsx'
 import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js'
-import getResponse from '../renderForQuestions/checkAnswer.js'
+// import getResponse from '../renderForQuestions/checkAnswer.js'
 import handleFocus from '../renderForQuestions/handleFocus.js'
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
@@ -74,7 +74,7 @@ const playQuestion = React.createClass({
     return (data[questionID])
   },
 
-  getResponse2: function (rid) {
+  getResponse: function (rid) {
     const {data} = this.props.questions, {questionID} = this.props.params;
     return (data[questionID].responses[rid])
   },
@@ -173,7 +173,7 @@ const playQuestion = React.createClass({
       }
       if (this.props.question.attempts.length > 2 ) {
         return (
-          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                       feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                       handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
                       questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
@@ -181,14 +181,14 @@ const playQuestion = React.createClass({
       } else if (this.props.question.attempts.length > 0 ) {
         if (this.readyForNext()) {
           return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                         feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                         handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
                         questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
           )
         } else {
           return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                   feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                   handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
@@ -198,7 +198,7 @@ const playQuestion = React.createClass({
 
       } else {
         return (
-          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                 feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                 handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
