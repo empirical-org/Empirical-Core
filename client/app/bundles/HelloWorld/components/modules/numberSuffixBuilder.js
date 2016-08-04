@@ -2,7 +2,7 @@
 
 export default function(num) {
     let numS = String(num)
-    let numL = numS.length - 1
+    const numL = numS.length - 1
     if (num >= 11 && num <= 19) {
         numS += 'th'
     } else if (numS[numL] === '1') {
