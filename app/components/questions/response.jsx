@@ -29,9 +29,18 @@ export default React.createClass({
   },
 
   deleteResponse: function (rid) {
+    const childResponsesToDelete = this.props.responses.filter((response) => {
+      return response.parentID===rid
+    })
+
     if (window.confirm("Are you sure?")) {
       this.props.dispatch(questionActions.deleteResponse(this.props.questionID, rid))
     }
+    //delete all child responses as well
+    childResponsesToDelete.forEach((childResponse) => {
+      console.log("Deleting response with text \'" + childResponse.text + "\' as well")
+      this.props.dispatch(questionActions.deleteResponse(this.props.questionID, childResponse.key))
+    })
   },
 
   editResponse: function (rid) {

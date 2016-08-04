@@ -155,7 +155,7 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
 				} else {
-					dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully deleted!"});
+					dispatch({type:C.DISPLAY_MESSAGE,message:"Response and its immediate children successfully deleted!"});
 				}
 			});
 		};
