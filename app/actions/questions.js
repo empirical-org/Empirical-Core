@@ -1,7 +1,8 @@
 var C = require("../constants").default
 import rootRef from "../libs/firebase"
 var	questionsRef = rootRef.child("questions"),
-	moment = require('moment');
+moment = require('moment');
+import _ from 'lodash'
 
 import pathwaysActions from './pathways';
 
@@ -155,6 +156,15 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
 				} else {
+					questionsRef.child(qid).on("value", function(data) {
+						const childResponseKeys = _.keys(data.val().responses).filter((key) => {
+							return data.val().responses[key].parentID===rid
+						})
+						childResponseKeys.forEach((childKey) => {
+							dispatch(module.exports.deleteResponse(qid, childKey))
+						})
+					})
+
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully deleted!"});
 				}
 			});
