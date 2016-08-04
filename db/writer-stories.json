@@ -22,6 +22,62 @@
     "name": "Watercycle Overview",
     "description": "Two students write a passage together using the following words: evaporation, condensation, precipitation, and collection."
   },
+  {
+  "7": {
+    "wordList": [
+      {
+        "word": "accurate",
+        "definition": "(adj) without errors, completely correct"
+      },
+      {
+        "word": "alert",
+        "definition": "(adj) watchful and ready to act, (n) an alarm, (v) to warn or make aware of"
+      },
+      {
+        "word": "ancestor",
+        "definition": "(n) family member who lived in an earlier time"
+      },
+      {
+        "word": "disaster",
+        "definition": "(n) a terrible event that brings great damage"
+      },
+      {
+        "word": "elementary",
+        "definition": "(adj) beginning level of something"
+      },
+      {
+        "word": "envy",
+        "definition": "(n) resentment for what someone has (v) to want what someone else has"
+      },
+      {
+        "word": "epidemic",
+        "definition": "(adj) contagious (n) a rapid, widespread outbreak"
+      },
+      {
+        "word": "feeble",
+        "definition": "(adj) having little strength or force"
+      },
+      {
+        "word": "penetrate",
+        "definition": "(v) to force a way through"
+      },
+      {
+        "word": "romp",
+        "definition": "(n) noisy fun, (v) to run or play"
+      },
+      {
+        "word": "staple",
+        "definition": "(n) an item regularly used, (v) to fasten, (adj) used regularly"
+      },
+      {
+        "word": "survive",
+        "definition": "(v) to stay alive"
+      }
+    ],
+    "prompt": "You are a newspaper reporter and Michelle Obama has asked you to write an article about the major health problems students are facing today. The title of your article is: Let’s Be Healthy.",
+    "name": "Let's be Healthy",
+    "description": "Two students write a passage together using the following words: evaporation, condensation, precipitation, and collection."
+  },
   "4": {
     "wordList": [
       {
