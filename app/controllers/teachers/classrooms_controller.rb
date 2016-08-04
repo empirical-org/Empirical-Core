@@ -17,6 +17,11 @@ class Teachers::ClassroomsController < ApplicationController
     @classroom.generate_code
   end
 
+  def classrooms_i_teach
+    @classrooms = current_user.classrooms_i_teach
+    render json: @classrooms
+  end
+
   def regenerate_code
     cl = Classroom.new
     cl.generate_code
