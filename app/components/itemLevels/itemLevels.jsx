@@ -12,20 +12,9 @@ const ItemLevels = React.createClass({
   },
 
   submitNewItemLevel: function (newItemLevel) {
-    // var newItemLevel = {
-    //   name: this.refs.newItemLevelName.value,
-    //   description: this.refs.description.value,
-    //   url: this.refs.url.value
-    //   concept: this.refs.concept.value
-    // }
     this.props.dispatch(levelActions.submitNewItemLevel(newItemLevel))
     this.props.dispatch(levelActions.toggleNewItemLevelModal())
   },
-
-  // <br />
-  // <p className="control">
-  //   <button className={"button is-primary"} onClick={this.submitNewItemLevel}>Submit</button>
-  // </p> THIS WAS TAKEN OUT FROM renderModal below
 
   renderModal: function() {
     if(this.props.itemLevels.newConceptModalOpen)
@@ -61,15 +50,9 @@ const ItemLevels = React.createClass({
           </div>
         )
       } else {
-        return <div />
+        return (<div key={id}/>)
       }
     })
-
-    // const {data} = this.props.itemLevels
-    // const keys = _.keys(data);
-    // return keys.map((key) => {
-    //   return (<li key={key}><Link to={'admin/item-levels/' + key} activeClassName="is-active">{data[key].name}</Link></li>)
-    // })
   },
 
   render: function() {

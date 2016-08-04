@@ -7,9 +7,8 @@ import _ from 'lodash'
 
 const ItemLevelForm = React.createClass({
 
-  //CAN REMOVE REFS FROM THE FORM
-
-  getInitialState() {
+  getInitialState: function() {
+    while(this.props.hasreceiveddata===false) console.log("Hello")
     if(this.props.mode==="Edit") {
       return {name: this.props.data.name,
               description: this.props.data.description,
@@ -48,7 +47,7 @@ const ItemLevelForm = React.createClass({
     this.props.cancelEdit(this.props.levelID)
   },
 
-  handleChange: function(e) {
+  handleChange: function() {
     this.setState({
       name: this.refs.newItemLevelName.value,
       description: this.refs.description.value,
@@ -60,7 +59,7 @@ const ItemLevelForm = React.createClass({
   conceptsToOptions: function() {
     return hashToCollection(this.props.concepts.data).map((concept) => {
       return (
-        <option key={concept.key}>{concept.name}</option>
+        <option value={concept.name} key={concept.key}>{concept.name}</option>
       )
     })
   },
@@ -123,8 +122,8 @@ const ItemLevelForm = React.createClass({
         <p className="control">
           <label className="label">Concept</label>
           <span className="select">
-            <select defaultValue={this.state.conceptID!=="" ? this.props.concepts.data[this.state.conceptID].name : ""} onChange={this.handleChange} ref="concept">
-              <option>Select Associated Concept</option>
+            <select value={this.state.conceptID!=="" ? this.props.concepts.data[this.state.conceptID].name : "Select Associated Concept"} onChange={this.handleChange} ref="concept">
+              <option value="Select Associated Concept">Select Associated Concept</option>
               {this.conceptsToOptions()}
             </select>
           </span>

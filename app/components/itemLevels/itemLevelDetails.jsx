@@ -7,7 +7,6 @@ import _ from 'lodash'
 const ItemLevelDetails = React.createClass({
 
   render: function() {
-    console.log(this.props)
     if(this.props.itemLevels.hasreceiveddata===true) {
       const levelID = this.props.params.itemLevelID, itemLevels = this.props.itemLevels.data
 
@@ -33,6 +32,7 @@ const ItemLevelDetails = React.createClass({
           <ul className="menu-list">{questionsToRender}</ul>
           <br />
           <Link to={"/admin/item-levels/" + levelID + "/edit"}><button className="button is-info">Edit Level</button></Link>
+          <Link to={"/admin/item-levels"}><button className="button is-danger">Back</button></Link>
         </div>
       )
     } else {
