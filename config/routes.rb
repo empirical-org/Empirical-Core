@@ -117,6 +117,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :classrooms do
       collection do
+        get :classrooms_i_teach
         get :regenerate_code
         get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
         get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
@@ -249,6 +250,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
+  get 'diagnostic' =>'activities#diagnostic' # placeholder til we find where this sh
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 
