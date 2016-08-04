@@ -25,7 +25,7 @@ export default React.createClass({
     },
 
     getClassCode: function() {
-        $.ajax({url: 'regenerate_code', success: this.setClassCode})
+        $.ajax({url: '/teachers/classrooms/regenerate_code', success: this.setClassCode})
     },
 
     setClassCode: function(data) {
@@ -74,18 +74,18 @@ export default React.createClass({
     submitClassroom: function(){
       this.setState({loading: true})
       let that = this;
-      $.post('./', {classroom: this.state.classroom})
+      $.post('/teachers/classrooms/', {classroom: this.state.classroom})
         .success(function(data){
             let nextPage
-            if (that.props.modal) {
-              // close modal callback
+            if (that.props.closeModal) {
+              // only used if it is rendered within a modal
+              that.props.closeModal('because class added');
             }
             else if (data.toInviteStudents) {
-              nextPage = `/teachers/classrooms/${data.classroom.id}/invite_students`
+              window.location.assign(`/teachers/classrooms/${data.classroom.id}/invite_students`)
             } else {
-              nextPage = '/teachers/classrooms/scorebook'
+              window.location.assign('/teachers/classrooms/scorebook')
             }
-            window.location.assign(nextPage)
         })
         .error(function(data){
           that.setState({loading: false})
@@ -120,7 +120,6 @@ export default React.createClass({
                 <DropdownButton className={classroom.grade ? 'has-grade' : null} bsStyle='default' id='select-grade' title={formatTitle()}   onSelect={this.handleSelect}>
                     {this.grades()}
                 </DropdownButton>
-
                 <div>
                   <span>
                     <label htmlFor="classroom_code">Class Code:</label>

@@ -4,6 +4,8 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import {Router, Route, Link, hashHistory} from 'react-router'
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
+import Modal from 'react-bootstrap/lib/Modal';
+import CreateClass from '../../../containers/CreateClass.jsx'
 
 
 export default React.createClass({
@@ -11,19 +13,24 @@ export default React.createClass({
 
     componentDidMount: function() {
         let that = this;
-        $.ajax('/teachers/classrooms/classrooms_i_teach').done(function(data) {
-            let classrooms = that.addCheckedProp(data.classrooms);
-            that.setState({classrooms: classrooms})
-        }).fail(function() {
-            alert('error');
-        }).always(function() {
-            that.setState({loading: false})
-        });
+        this.getClassrooms()
     },
 
 
     getInitialState: function() {
-        return ({loading: true, classrooms: null})
+        return ({loading: true, classrooms: null, show: false})
+    },
+
+    getClassrooms: function() {
+      var that = this;
+      $.ajax('/teachers/classrooms/classrooms_i_teach').done(function(data) {
+          let classrooms = that.addCheckedProp(data.classrooms);
+          that.setState({classrooms: classrooms})
+      }).fail(function() {
+          alert('error');
+      }).always(function() {
+          that.setState({loading: false})
+      });
     },
 
     grades: function() {
@@ -96,6 +103,30 @@ export default React.createClass({
         }
     },
 
+    showModal() {
+      this.setState({show: true});
+    },
+
+    hideModal(becauseClassAdded) {
+      if (becauseClassAdded) {
+        this.getClassrooms()
+      }
+      this.setState({show: false});
+    },
+
+    modal(){
+      return (<Modal
+        {...this.props}
+        show={this.state.show}
+        onHide={this.hideModal}
+        dialogClassName="diagnostic-overview-modal"
+      >
+        <Modal.Body>
+          <CreateClass closeModal={this.hideModal}/>
+        </Modal.Body>
+      </Modal>)
+    },
+
     render: function() {
         return (
             <div id='assign-page'>
@@ -105,14 +136,16 @@ export default React.createClass({
                 </div>
                 {this.classroomTable()}
                 <div id="footer-buttons">
+                  <div className='pull-left text-center'>
+                      <button className='button button-transparent' onClick={this.showModal}>Add a Class</button>
+                      {this.modal()}
+                    </div>
                   <div className='pull-right text-center'>
                       <button className='button-green'>Save & Assign</button>
                       <br/>
                       <Link to='/stage/2'>Back</Link>
                     </div>
                 </div>
-
-
             </div>
         )
     }
