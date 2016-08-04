@@ -34,6 +34,8 @@ export default React.createClass({
   },
 
   handleTextChange: function (e) {
+    console.log("current context of editor: ", this.state.text.getCurrentContent())
+    console.log("current context of editor as raw: ", convertToRaw(this.state.text.getCurrentContent()))
     this.setState({text: e}, () => {
       this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()))
     });

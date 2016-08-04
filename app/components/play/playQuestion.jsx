@@ -74,6 +74,11 @@ const playQuestion = React.createClass({
     return (data[questionID])
   },
 
+  getResponse2: function (rid) {
+    const {data} = this.props.questions, {questionID} = this.props.params;
+    return (data[questionID].responses[rid])
+  },
+
   submitResponse: function(response) {
     submitQuestionResponse(response,this.props,this.state.sessionKey, submitResponseAnon);
   },
@@ -125,7 +130,7 @@ const playQuestion = React.createClass({
   },
 
   handleChange: function (e) {
-    this.setState({editing: true,response: e.target.value})
+    this.setState({editing: true,response: e})
   },
 
   readyForNext: function () {
@@ -159,7 +164,8 @@ const playQuestion = React.createClass({
 
   render: function () {
     const {data} = this.props.questions, {questionID} = this.props.params; //DIFFERENCE
-    if (data[questionID]) {
+    const question = data[questionID];
+    if (question) {
       if (this.state.finished) {
         return (
           <ThankYou sessionKey={this.state.sessionKey} />
@@ -167,7 +173,7 @@ const playQuestion = React.createClass({
       }
       if (this.props.question.attempts.length > 2 ) {
         return (
-          <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                       feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                       handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
                       questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
@@ -175,14 +181,14 @@ const playQuestion = React.createClass({
       } else if (this.props.question.attempts.length > 0 ) {
         if (this.readyForNext()) {
           return (
-            <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                         feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                         handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
                         questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
           )
         } else {
           return (
-            <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                   feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                   handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
@@ -192,7 +198,7 @@ const playQuestion = React.createClass({
 
       } else {
         return (
-          <AnswerForm sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                 feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                 handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
