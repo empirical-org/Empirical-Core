@@ -119,7 +119,6 @@ export default React.createClass({
         {...this.props}
         show={this.state.show}
         onHide={this.hideModal}
-        dialogClassName="diagnostic-overview-modal"
       >
         <Modal.Body>
           <CreateClass closeModal={this.hideModal}/>
