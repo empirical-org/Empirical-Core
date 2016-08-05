@@ -163,50 +163,68 @@ const playQuestion = React.createClass({
   },
 
   render: function () {
-    const {data} = this.props.questions, {questionID} = this.props.params; //DIFFERENCE
-    const question = data[questionID];
-    if (question) {
-      if (this.state.finished) {
-        return (
-          <ThankYou sessionKey={this.state.sessionKey} />
-        )
-      }
-      if (this.props.question.attempts.length > 2 ) {
-        return (
-          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                      feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                      handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                      questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
-        )
-      } else if (this.props.question.attempts.length > 0 ) {
-        if (this.readyForNext()) {
+    if(!this.props.itemLevels.hasreceiveddata) {
+      return (
+        <div>Loading...</div>
+      )
+    } else {
+      const {data} = this.props.questions, {questionID} = this.props.params;
+      const question = data[questionID];
+
+      if (question) {
+        var assetURL=""
+        if(!!question.itemLevel) {
+             //Each concept has a unique level
+             assetURL = _.find(this.props.itemLevels.data, (level) => {
+              return !!level.name && level.name===question.itemLevel && level.conceptID===question.conceptID
+            })
+            assetURL = assetURL.url
+        }
+
+        if (this.state.finished) {
+          return (
+            <ThankYou sessionKey={this.state.sessionKey} />
+          )
+        }
+        if (this.props.question.attempts.length > 2 ) {
           return (
             <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                         feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                         handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                        questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
+                        questionID={questionID} id="playQuestion" assetURL={assetURL} textAreaClass="textarea is-question is-disabled"/>
           )
+        } else if (this.props.question.attempts.length > 0 ) {
+          if (this.readyForNext()) {
+            return (
+              <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+                          feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                          handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
+                          questionID={questionID} id="playQuestion" assetURL={assetURL} textAreaClass="textarea is-question submission"/>
+            )
+          } else {
+            return (
+              <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+                    feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                    handleChange={this.handleChange} textAreaClass="textarea is-question submission"
+                    toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
+                    id="playQuestion" assetURL={assetURL} questionID={questionID}/>
+            )
+          }
+
         } else {
           return (
             <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                   feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
                   handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
-                  id="playQuestion" questionID={questionID}/>
+                  id="playQuestion" assetURL={assetURL} questionID={questionID}/>
           )
         }
-
       } else {
         return (
-          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                handleChange={this.handleChange} textAreaClass="textarea is-question submission"
-                toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
-                id="playQuestion" questionID={questionID}/>
+          <div>Loading...</div>
         )
       }
-    } else {
-      return (<p>Loading...</p>)
     }
   }
 })
@@ -221,6 +239,7 @@ function select(state) {
     concepts: state.concepts,
     questions: state.questions,
     question: state.question,
+    itemLevels: state.itemLevels,
     routing: state.routing
   }
 }

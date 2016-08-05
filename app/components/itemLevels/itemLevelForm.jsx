@@ -8,7 +8,6 @@ import _ from 'lodash'
 const ItemLevelForm = React.createClass({
 
   getInitialState: function() {
-    while(this.props.hasreceiveddata===false) console.log("Hello")
     if(this.props.mode==="Edit") {
       return {name: this.props.data.name,
               description: this.props.data.description,
@@ -65,24 +64,25 @@ const ItemLevelForm = React.createClass({
   },
 
   render: function() {
-    let name="Name", description="description", url="www.quill.org", className="", cancelAndDeleteButtons=<div />;
-    if(this.props.mode==="Edit") {
-      name=this.props.data.name
-      description=this.props.data.description
-      url=this.props.data.url
-      className="box"
-      cancelAndDeleteButtons =
-        <div className="button-group">
-          <Link to={'/admin/item-levels'}>
-            <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
-          </Link>
-          <Link to={'/admin/item-levels'}>
-            <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
-          </Link>
-        </div>
-    }
-
     if(this.props.concepts.hasreceiveddata===true) {
+      console.log(this.props)
+      let name="Name", description="description", url="www.quill.org", className="", cancelAndDeleteButtons=<div />;
+      if(this.props.mode==="Edit") {
+        name=this.props.data.name
+        description=this.props.data.description
+        url=this.props.data.url
+        className="box"
+        cancelAndDeleteButtons =
+          <div className="button-group">
+            <Link to={'/admin/item-levels'}>
+              <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
+            </Link>
+            <Link to={'/admin/item-levels'}>
+              <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
+            </Link>
+          </div>
+      }
+
       return (
       <div className={className}>
         <h4 className="title">Add New Item Level</h4>

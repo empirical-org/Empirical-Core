@@ -2,8 +2,27 @@ import React from 'react'
 import { Link } from 'react-router'
 import handleFocus from './handleFocus.js'
 import TextEditor from './renderTextEditor.jsx'
+import Modal from '../modal/modal.jsx'
 
 export default React.createClass({
+
+  getInitialState: function() {
+    return ({modalOpen: false})
+  },
+
+  getHelpModal: function() {
+    if (this.state.modalOpen) {
+      return (
+        <Modal close={() => {this.setState({modalOpen: false})}}>
+          <div className="box">
+            <h4 className="title">Hint</h4>
+            <iframe src={this.props.assetURL} frameBorder="0" width="960" height="569" allowFullScreen="true"
+                    mozallowfullscreen="true" webkitallowfullscreen="true"/>
+          </div>
+        </Modal>
+      )
+    }
+  },
 
   render: function() {
     var content;
@@ -18,6 +37,11 @@ export default React.createClass({
       button = this.props.nextQuestionButton
     }
 
+    var info;
+    if(!!this.props.assetURL) {
+      info = <button className={"button is-outlined is-success"} onClick={() => {this.setState({modalOpen:true})}}>Hint</button>
+    }
+
     return (
       <section className="section">
         <div className="container">
@@ -28,6 +52,8 @@ export default React.createClass({
             <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue}
                         handleChange={this.props.handleChange} value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
             <div className="question-button-group button-group">
+              {this.getHelpModal()}
+              {info}
               {content}
               {button}
             </div>

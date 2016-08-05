@@ -25,7 +25,7 @@ const Concepts = React.createClass({
         prompt: this.state.prompt,
         prefilledText: this.refs.newQuestionPrefilledText.value,
         cues: this.refs.cues.value.split(','),
-        itemLevel: this.refs.itemLevel.value,
+        itemLevel: this.refs.itemLevel.value==="Select Item Level" ? "" : this.refs.itemLevel.value,
         conceptID: this.props.params.conceptID},
         {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a great sentence!"}))
       this.refs.newQuestionPrompt.value = ''
@@ -48,6 +48,10 @@ const Concepts = React.createClass({
     this.setState({prompt})
   },
 
+  // handleLevelChange: function() {
+  //   this.setState({itemLevel: this.refs})
+  // },
+
   renderQuestionsForConcept: function () {
     var questionsForConcept = this.questionsForConcept()
     var listItems = questionsForConcept.map((question) => {
@@ -60,7 +64,9 @@ const Concepts = React.createClass({
   },
 
   itemLevelToOptions: function() {
-    return hashToCollection(this.props.itemLevels.data).map((level) => {
+    return hashToCollection(this.props.itemLevels.data).filter((itemLevel) => {
+      return itemLevel.conceptID===this.props.params.conceptID //we only want those itemLevels associated with the current concept
+    }).map((level) => {
       return (
         <option>{level.name}</option>
       )
@@ -88,9 +94,9 @@ const Concepts = React.createClass({
         </p>
         <label className="label">Item level</label>
         <p className="control">
-          <span className="select" ref="itemLevel">
-            <select onChange={this.chooseConcept}>
-              <option>Select Item Level</option>
+          <span className="select">
+            <select ref="itemLevel">
+              <option value="Select Item Level">Select Item Level</option>
               {this.itemLevelToOptions()}
             </select>
           </span>
