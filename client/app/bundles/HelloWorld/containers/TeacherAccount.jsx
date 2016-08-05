@@ -1,26 +1,3 @@
-// TODO: delete this once we have the admin version running
-// $(function () {
-//   var ele1, ele2, props, ele
-//   ele1 = $('#my-account');
-//   ele2 = $('#staff-teacher-account-editor');
-//   if (ele1.length > 0) {
-//     ele = ele1[0];
-//     props = {
-//       userType: 'teacher'
-//     }
-//   } else if (ele2.length > 0) {
-//     ele = ele2[0];
-//     props = {
-//       userType: 'staff',
-//       teacherId: ele2.data('id')
-//     }
-//   }
-//
-//   if ((ele1.length > 0) || (ele2.length > 0)) {
-//     React.render(React.createElement(EC.TeacherAccount, props), ele);
-//   }
-// });
-
 'use strict'
 import React from 'react';
 import SelectRole from '../components/accounts/edit/select_role';
@@ -95,7 +72,8 @@ export default React.createClass({
             subscription = {
                 id: null,
                 expiration: '2016-01-01',
-                account_limit: null
+                account_limit: null,
+                account_type: 'none'
             };
         } else {
             subscription = data.subscription;
@@ -153,7 +131,7 @@ export default React.createClass({
         }
         var url;
         if (this.props.userType == 'staff') {
-            url = '/cms/users/' + this.state.id;
+            url = '/cms/users/' + this.props.teacherId;
         } else if (this.props.userType == 'teacher') {
             url = '/teachers/update_my_account';
         }
@@ -185,10 +163,11 @@ export default React.createClass({
         }
     },
     createSubscription: function() {
-        var sub = this.state.subscription;
-        sub.user_id = this.state.id;
-        $.ajax({type: 'POST', url: '/subscriptions', data: this.state.subscription, success: this.uponSaveSubscription});
+        var sub = Object.assign({}, this.state.subscription)
+        sub.user_id = this.props.teacherId
+        $.ajax({type: 'POST', url: '/subscriptions', data: sub, success: alert('saved!')});
     },
+
     updateSubscription: function() {
         $.ajax({
             type: 'PUT',
@@ -196,14 +175,12 @@ export default React.createClass({
             data: {
                 expiration: this.state.subscription.expiration,
                 account_limit: this.state.subscription.account_limit,
-                account_type: this.state.subscription.account_type
+                account_type: this.state.subscription.account_type ||  this.state.account_type
             },
-            success: this.uponSaveSubscription
+            success: alert('saved!')
         })
     },
-    uponSaveSubscription: function(data) {
-        this.setState({subscription: data.subscription});
-    },
+
     destroySubscription: function() {
         var that = this;
         $.ajax({
@@ -226,7 +203,7 @@ export default React.createClass({
         this.setState({subscription: subscription});
     },
     updateSubscriptionType: function(type) {
-        var new_sub = this.state.subscription;
+        var new_sub = Object.assign({}, this.state.subscription)
         new_sub.account_type = type;
         this.setState({subscription: new_sub, subscriptionType: type});
     },
@@ -252,7 +229,7 @@ export default React.createClass({
                 type: 'DELETE',
                 url: '/teachers/delete_my_account',
                 data: {
-                    id: this.state.id
+                    id: this.props.teacherId
                 }
             }).done(function() {
                 window.location.href = "http://quill.org";

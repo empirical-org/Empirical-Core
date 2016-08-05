@@ -188,7 +188,7 @@
       float: left;
       position: relative;
       display: block;
-      padding: 19px 0;
+      padding: 18px 0;
       a {
         padding: 4px 11px 2px;
         margin: 0 5px;
@@ -801,10 +801,11 @@
   }
 }
 .other-pages-navbar {
-  padding: 24px 0 0;
-  height: 112px;
+  padding: 0;
+      height: 67px;
 }
 .tab-outer-wrap {
+  padding-top: 8px;
   background-color: $quillgreen;
 }
 .npr .container {

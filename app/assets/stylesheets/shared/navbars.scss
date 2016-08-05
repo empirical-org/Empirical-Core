@@ -10,6 +10,10 @@
   cursor: pointer !important;
 }
 
+#application_nav_bar {
+  max-height: 77px;
+}
+
 .navbar-default .navbar-nav {
   > li > a {
     color: #000;
