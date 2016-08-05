@@ -258,4 +258,19 @@ describe("Calling the correct functions for different use cases", () => {
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
   })
+
+  it("calls getMissingInlineStyleRangeObject when it should", () => {
+    const target = "Bill swept the floor while Andy painted the walls.";
+    const user = "Bill swept floor while Andy painted the walls.";
+    const expected = {
+      text: "Bill swept     floor while Andy painted the walls.",
+      inlineStyleRanges: [{
+        length: 3,
+        offset: 11,
+        style: "UNDERLINE"
+      }]
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
 })
