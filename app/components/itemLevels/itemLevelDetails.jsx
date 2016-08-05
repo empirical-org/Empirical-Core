@@ -7,7 +7,6 @@ import _ from 'lodash'
 const ItemLevelDetails = React.createClass({
 
   render: function() {
-    console.log(this.props)
     if(this.props.itemLevels.hasreceiveddata===true) {
       const levelID = this.props.params.itemLevelID, itemLevels = this.props.itemLevels.data
 

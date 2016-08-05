@@ -47,7 +47,6 @@ module.exports = {
 		};
 	},
   toggleNewItemLevelModal: function(){
-		console.log("Inside actions/toggleNewItemLevelModal")
     return {type:C.TOGGLE_NEW_ITEM_LEVEL_MODAL}
   },
 	submitNewItemLevel: function(content){

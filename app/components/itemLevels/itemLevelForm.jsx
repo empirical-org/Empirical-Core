@@ -65,7 +65,6 @@ const ItemLevelForm = React.createClass({
 
   render: function() {
     if(this.props.concepts.hasreceiveddata===true) {
-      console.log(this.props)
       let name="Name", description="description", url="www.quill.org", className="", cancelAndDeleteButtons=<div />;
       if(this.props.mode==="Edit") {
         name=this.props.data.name
