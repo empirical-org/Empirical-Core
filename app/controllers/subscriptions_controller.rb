@@ -16,7 +16,6 @@ class SubscriptionsController < ApplicationController
       PremiumAnalyticsWorker.perform_async(current_user.id, params[:account_type])
     end
     attributes = subscription_params
-    attributes[:user_id] = current_user.id
     attributes.delete(:authenticity_token)
     @subscription = Subscription.create attributes
     render json: @subscription
