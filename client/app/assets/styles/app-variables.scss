@@ -208,14 +208,20 @@ $green: #00c2a2;
 
   }
 
+  .add-class-modal {
+    max-width: 508px;
+  }
+
   // move to modal.scss
 
   .modal-backdrop {
     opacity: 0.7;
   }
 
+   .react-bootstrap-close {
+    height: 30px;
+  }
+
   .modal-content {
     border-radius: 0px;
   }
-
-  

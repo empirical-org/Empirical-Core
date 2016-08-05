@@ -119,8 +119,10 @@ export default React.createClass({
         {...this.props}
         show={this.state.show}
         onHide={this.hideModal}
+        dialogClassName='add-class-modal'
       >
         <Modal.Body>
+          <img className='pull-right react-bootstrap-close' onClick={this.hideModal} src="images/close_x.svg" alt="close-modal"/>
           <CreateClass closeModal={this.hideModal}/>
         </Modal.Body>
       </Modal>)
