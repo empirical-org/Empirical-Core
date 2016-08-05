@@ -289,8 +289,8 @@ class User < ActiveRecord::Base
   def generate_teacher_account_info
     user_attributes = attributes
     user_attributes[:schools] = schools
-    user_attributes[:subscription] = subscriptions.any? ? subscriptions.first.attributes : nil
-    user_attributes[:subscription][:subscriptionType] = premium_state
+    user_attributes[:subscription] = subscriptions.any? ? subscriptions.first.attributes : {}
+    user_attributes[:subscription]['subscriptionType'] = premium_state
     user_attributes
   end
 
