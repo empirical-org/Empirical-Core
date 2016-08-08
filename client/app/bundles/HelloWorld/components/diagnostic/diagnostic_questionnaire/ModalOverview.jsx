@@ -29,7 +29,12 @@ export default React.createClass({
         >
           <div id="modal-overview">
           <Modal.Body>
-            <img src="images/diagnostic_overview.svg" alt=""/>
+            <div id='close-wrapper'>
+                  <img className='pull-right react-bootstrap-close' onClick={this.hideModal} src="images/close_x.svg" alt="close-modal"/>
+            </div>
+
+            <br/>
+            <img className='modal-intro' src="images/diagnostic_overview.svg" alt=""/>
             <h1>Adaptive Testing</h1>
             <p>In this type of diagnostic, questions are selected dynamically such that the difficulty of each question is adapted to the estimated ability of the student.</p>
           </Modal.Body>
