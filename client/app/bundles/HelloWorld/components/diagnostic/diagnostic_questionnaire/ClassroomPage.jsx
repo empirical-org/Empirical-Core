@@ -133,7 +133,8 @@ export default React.createClass({
             <div id='assign-page'>
                 <div>
                     <h2>Which classes would you like to assign the diagnostic to?</h2>
-                    <span>Which classes would you like to assign the diagnostic to?</span>
+                    <span id='subtext'>Students will be able to complete the diagnostic once they join a class.</span>
+                    <a href="/placeholder">How should I determine the reading level of my classes?</a>
                 </div>
                 {this.classroomTable()}
                 <div id="footer-buttons">
