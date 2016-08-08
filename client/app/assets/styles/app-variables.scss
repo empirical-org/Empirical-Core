@@ -1,284 +1,284 @@
-$green: #00c2a2;
-#diagnostic-planner-status-bar {
-    max-width: 980px;
-    margin: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: center;
-    #status-bar-wrapper {
-        margin-bottom: 45px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 19px;
-        #diagnostic-icon {
-            height: 47px;
-        }
-        #diagnostic-icon-section {
-            padding-top: 13px;
-            span {
-                color: #646464;
-                padding-left: 5px;
-            }
-        }
-    }
-    #status-bar {
-        display: flex;
-        padding-top: 6px;
-        justify-content: space-between;
-        max-width: 300px;
-        min-width: 260px;
-        margin: auto;
-        color: #646464;
-        .check-point {
-            border-radius: 50%;
-            border: solid 1px #979797;
-            height: 26px;
-            width: 26px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            &.green-true {
-                background-color: $green;
-                border: solid 1px $green;
-                color: #fff;
-                font-weight: 800;
-            }
-            span {
-                top: 22px;
-            }
-            #introduction {
-                right: 46px;
-            }
-            #preview {
-                right: 29px;
-            }
-            #assign {
-                right: 24px;
-            }
-        }
-        .check-point-type {
-            position: absolute;
-            span {
-                color: #646464;
-                position: relative;
-                top: 28px;
-                font-weight: 400;
-            }
-        }
-        .connector-line {
-            border: 1px solid #cecece;
-            height: 1px;
-            align-self: center;
-            /* margin: 0 10px; */
-            min-width: 2px;
-            flex-grow: 5;
-            &.green-true {
-                border-color: $green;
-            }
-        }
-    }
-    .diagnostic-planner-body {
-        .dropdown-toggle {
-            padding: 3px 8px;
-            margin: 0 10 10 10px;
-            font-size: 24px;
-            font-weight: 500;
-            border: solid 1px #d4d4d4;
-            min-width: 82px;
-        }
-        .label h3 {
-            margin-top: -4px;
-        }
-        .caret {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            margin-left: 2px;
-            vertical-align: middle;
-            margin-bottom: 5px;
-            border-color: #01c2a2;
-            border-top: 7px solid;
-            border-right: 6px solid transparent;
-            border-left: 6px solid transparent;
-        }
-        .button-green {
-            width: 246px;
-            height: 40px;
-            font-size: 16px;
-        }
-        h2 {
-            font-size: 24px;
-            padding-bottom: 5px;
-        }
-        span {
-            font-size: 14px;
-            color: #646464;
-        }
-        .checkbox-mixin {
-            height: 21px;
-            width: 21px;
-            border-radius: 5px;
-            background: #e6e6e6;
-            border: 1px solid #cecece;
-        }
-    }
-    label h3 {
-        font-size: 20px;
-    }
-    .is-checked-false {
-        display: none;
-    }
-    .classroom-row {
-        height: 74px;
-        display: flex;
-        border-bottom: solid 1px #cecece;
-        align-items: center;
-        justify-content: space-between;
-    }
-    #assign-page {
-        a {
-            color: #027360;
-        }
-        li a {
-            color: #000;
-        }
-        #subtext:after {
-            display: block;
-            content: '';
-            background: #cecece;
-            width: 40px;
-            height: 2px;
-            margin: 7px auto;
-        }
-        .dropdown-toggle {
-            font-size: 16px;
-            margin: 0 14 0 0;
-            min-width: 204px;
-        }
-        .button-green {
-            margin-top: 27px;
-            margin-bottom: 12px;
-            width: 186px;
-        }
-        #footer-buttons {
-            height: 250px;
-            div {
-                text-align: center;
-            }
-        }
-    }
-    #intro-page {
-        #preview {
-            margin-top: 45px;
-            margin-bottom: 16px;
-        }
-        #assign button {
-            margin-bottom: 130px;
-        }
-    }
-}
-.diagnostic-overview-modal {
-    max-width: 584px;
-    max-height: 560px;
-    #close-wrapper {
-        position: relative;
-        top: -17px;
-        left: 70px;
-        img {
-            position: relative;
-            top: -7px;
-            left: 10px;
-        }
-    }
-    .modal-body {
-        padding: 45 100 0 100px;
-        text-align: center;
-    }
-    img {
-        margin-bottom: 28px;
-    }
-    h1 {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-    p {
-        font-size: 14px;
-        line-height: 1.5;
-        color: #333333;
-    }
-    .circle {
-        border-radius: 50%;
-        width: 10px;
-        height: 10px;
-        background-color: #cacaca;
-        margin: 45 4.2 0 4.2px;
-        display: inline-block;
-        &:active {
-            background-color: $green;
-        }
-    }
-    .modal-footer {
-        text-align: center;
-        border: none;
-        padding-bottom: 45px;
-    }
-    .button-green {
-        font-size: 16px;
-        padding-left: 43px;
-        padding-right: 43px;
-    }
-}
-// should be moved into a general modal scss file
-@media (max-width: 700px) {
-    .modal-dialog {
-        max-width: 100%;
-        margin: auto;
-    }
-    .modal-body {
-        padding: 20px;
-    }
-    #close-wrapper {
-      position: relative;
-      top: -17px;
-      left: 70px;
-    }
-}
-.modal-backdrop {
-    opacity: 0.7;
-}
-.react-bootstrap-close {
-    height: 30px;
-}
-.modal-content {
-    border-radius: 0;
-}
-
-@media (max-width: 700px) {
-  .diagnostic-overview-modal {
-    .modal-body {
-      padding: 20px;
-    }
-    img.modal-intro {
-        width: 85%;
-    }
-    #close-wrapper {
-      position: initial;
-    }
-  }
-  #diagnostic-icon-section {
-    display: none;
-  }
-
-}
-button.button-transparent {
-    padding: 10px 25px;
-    border: solid 1px #737373;
-    color: black;
-    margin-top: 27px;
-    background-color: inherit;
-}
-.add-class-modal {
-    max-width: 508px;
-}
+// $green: #00c2a2;
+// #diagnostic-planner-status-bar {
+//     max-width: 980px;
+//     margin: auto;
+//     padding-left: 15px;
+//     padding-right: 15px;
+//     text-align: center;
+//     #status-bar-wrapper {
+//         margin-bottom: 45px;
+//         display: flex;
+//         flex-wrap: wrap;
+//         justify-content: center;
+//         margin-top: 19px;
+//         #diagnostic-icon {
+//             height: 47px;
+//         }
+//         #diagnostic-icon-section {
+//             padding-top: 13px;
+//             span {
+//                 color: #646464;
+//                 padding-left: 5px;
+//             }
+//         }
+//     }
+//     #status-bar {
+//         display: flex;
+//         padding-top: 6px;
+//         justify-content: space-between;
+//         max-width: 300px;
+//         min-width: 260px;
+//         margin: auto;
+//         color: #646464;
+//         .check-point {
+//             border-radius: 50%;
+//             border: solid 1px #979797;
+//             height: 26px;
+//             width: 26px;
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//             &.green-true {
+//                 background-color: $green;
+//                 border: solid 1px $green;
+//                 color: #fff;
+//                 font-weight: 800;
+//             }
+//             span {
+//                 top: 22px;
+//             }
+//             #introduction {
+//                 right: 46px;
+//             }
+//             #preview {
+//                 right: 29px;
+//             }
+//             #assign {
+//                 right: 24px;
+//             }
+//         }
+//         .check-point-type {
+//             position: absolute;
+//             span {
+//                 color: #646464;
+//                 position: relative;
+//                 top: 28px;
+//                 font-weight: 400;
+//             }
+//         }
+//         .connector-line {
+//             border: 1px solid #cecece;
+//             height: 1px;
+//             align-self: center;
+//             /* margin: 0 10px; */
+//             min-width: 2px;
+//             flex-grow: 5;
+//             &.green-true {
+//                 border-color: $green;
+//             }
+//         }
+//     }
+//     .diagnostic-planner-body {
+//         .dropdown-toggle {
+//             padding: 3px 8px;
+//             margin: 0 10 10 10px;
+//             font-size: 24px;
+//             font-weight: 500;
+//             border: solid 1px #d4d4d4;
+//             min-width: 82px;
+//         }
+//         .label h3 {
+//             margin-top: -4px;
+//         }
+//         .caret {
+//             display: inline-block;
+//             width: 0;
+//             height: 0;
+//             margin-left: 2px;
+//             vertical-align: middle;
+//             margin-bottom: 5px;
+//             border-color: #01c2a2;
+//             border-top: 7px solid;
+//             border-right: 6px solid transparent;
+//             border-left: 6px solid transparent;
+//         }
+//         .button-green {
+//             width: 246px;
+//             height: 40px;
+//             font-size: 16px;
+//         }
+//         h2 {
+//             font-size: 24px;
+//             padding-bottom: 5px;
+//         }
+//         span {
+//             font-size: 14px;
+//             color: #646464;
+//         }
+//         .checkbox-mixin {
+//             height: 21px;
+//             width: 21px;
+//             border-radius: 5px;
+//             background: #e6e6e6;
+//             border: 1px solid #cecece;
+//         }
+//     }
+//     label h3 {
+//         font-size: 20px;
+//     }
+//     .is-checked-false {
+//         display: none;
+//     }
+//     .classroom-row {
+//         height: 74px;
+//         display: flex;
+//         border-bottom: solid 1px #cecece;
+//         align-items: center;
+//         justify-content: space-between;
+//     }
+//     #assign-page {
+//         a {
+//             color: #027360;
+//         }
+//         li a {
+//             color: #000;
+//         }
+//         #subtext:after {
+//             display: block;
+//             content: '';
+//             background: #cecece;
+//             width: 40px;
+//             height: 2px;
+//             margin: 7px auto;
+//         }
+//         .dropdown-toggle {
+//             font-size: 16px;
+//             margin: 0 14 0 0;
+//             min-width: 204px;
+//         }
+//         .button-green {
+//             margin-top: 27px;
+//             margin-bottom: 12px;
+//             width: 186px;
+//         }
+//         #footer-buttons {
+//             height: 250px;
+//             div {
+//                 text-align: center;
+//             }
+//         }
+//     }
+//     #intro-page {
+//         #preview {
+//             margin-top: 45px;
+//             margin-bottom: 16px;
+//         }
+//         #assign button {
+//             margin-bottom: 130px;
+//         }
+//     }
+// }
+// .diagnostic-overview-modal {
+//     max-width: 584px;
+//     max-height: 560px;
+//     #close-wrapper {
+//         position: relative;
+//         top: -17px;
+//         left: 70px;
+//         img {
+//             position: relative;
+//             top: -7px;
+//             left: 10px;
+//         }
+//     }
+//     .modal-body {
+//         padding: 45 100 0 100px;
+//         text-align: center;
+//     }
+//     img {
+//         margin-bottom: 28px;
+//     }
+//     h1 {
+//         font-size: 24px;
+//         font-weight: 700;
+//         margin-bottom: 10px;
+//     }
+//     p {
+//         font-size: 14px;
+//         line-height: 1.5;
+//         color: #333333;
+//     }
+//     .circle {
+//         border-radius: 50%;
+//         width: 10px;
+//         height: 10px;
+//         background-color: #cacaca;
+//         margin: 45 4.2 0 4.2px;
+//         display: inline-block;
+//         &:active {
+//             background-color: $green;
+//         }
+//     }
+//     .modal-footer {
+//         text-align: center;
+//         border: none;
+//         padding-bottom: 45px;
+//     }
+//     .button-green {
+//         font-size: 16px;
+//         padding-left: 43px;
+//         padding-right: 43px;
+//     }
+// }
+// // should be moved into a general modal scss file
+// @media (max-width: 700px) {
+//     .modal-dialog {
+//         max-width: 100%;
+//         margin: auto;
+//     }
+//     .modal-body {
+//         padding: 20px;
+//     }
+//     #close-wrapper {
+//       position: relative;
+//       top: -17px;
+//       left: 70px;
+//     }
+// }
+// .modal-backdrop {
+//     opacity: 0.7;
+// }
+// .react-bootstrap-close {
+//     height: 30px;
+// }
+// .modal-content {
+//     border-radius: 0;
+// }
+//
+// @media (max-width: 700px) {
+//   .diagnostic-overview-modal {
+//     .modal-body {
+//       padding: 20px;
+//     }
+//     img.modal-intro {
+//         width: 85%;
+//     }
+//     #close-wrapper {
+//       position: initial;
+//     }
+//   }
+//   #diagnostic-icon-section {
+//     display: none;
+//   }
+//
+// }
+// button.button-transparent {
+//     padding: 10px 25px;
+//     border: solid 1px #737373;
+//     color: black;
+//     margin-top: 27px;
+//     background-color: inherit;
+// }
+// .add-class-modal {
+//     max-width: 508px;
+// }
