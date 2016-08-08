@@ -6,6 +6,7 @@ import {Router, Route, Link, hashHistory} from 'react-router'
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 import Modal from 'react-bootstrap/lib/Modal';
 import CreateClass from '../../../containers/CreateClass.jsx'
+import LoadingSpinner from '../../shared/loading_indicator.jsx'
 
 
 export default React.createClass({
@@ -129,6 +130,7 @@ export default React.createClass({
     },
 
     render: function() {
+      let content = this.state.loading ? <LoadingSpinner/> : this.classroomTable()
         return (
             <div id='assign-page'>
                 <div>
@@ -136,7 +138,7 @@ export default React.createClass({
                     <span id='subtext'>Students will be able to complete the diagnostic once they join a class.</span>
                     <a href="/placeholder">How should I determine the reading level of my classes?</a>
                 </div>
-                {this.classroomTable()}
+                {content}
                 <div id="footer-buttons">
                   <div className='pull-left text-center'>
                       <button className='button button-transparent' onClick={this.showModal}>Add a Class</button>
