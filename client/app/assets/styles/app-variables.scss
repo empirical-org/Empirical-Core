@@ -109,6 +109,7 @@ $green: #00c2a2;
         }
         h2 {
             font-size: 24px;
+            padding-bottom: 5px;
         }
         span {
             font-size: 14px;
@@ -244,6 +245,15 @@ $green: #00c2a2;
       left: 70px;
     }
 }
+.modal-backdrop {
+    opacity: 0.7;
+}
+.react-bootstrap-close {
+    height: 30px;
+}
+.modal-content {
+    border-radius: 0;
+}
 
 @media (max-width: 700px) {
   .diagnostic-overview-modal {
@@ -271,14 +281,4 @@ button.button-transparent {
 }
 .add-class-modal {
     max-width: 508px;
-}
-// move to modal.scss
-.modal-backdrop {
-    opacity: 0.7;
-}
-.react-bootstrap-close {
-    height: 30px;
-}
-.modal-content {
-    border-radius: 0;
 }
