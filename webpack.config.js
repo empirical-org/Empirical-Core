@@ -2,7 +2,6 @@ const live = process.env.NODE_ENV === "production";
 console.log("in prod: ", live)
 var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var WebpackErrorNotificationPlugin = require('webpack-error-notification')
 module.exports = {
   context: __dirname + "/app",
   entry: {
