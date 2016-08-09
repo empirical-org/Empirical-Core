@@ -2,11 +2,20 @@ import React from 'react'
 import {connect} from 'react-redux'
 import ItemLevelForm from './itemLevelForm.jsx'
 import levelActions from '../../actions/item-levels.js'
+import questionActions from '../../actions/questions.js'
+import _ from 'lodash'
 
 const ItemLevel = React.createClass({
 
   deleteItemLevel: function (levelID) {
     this.props.dispatch(levelActions.deleteItemLevel(levelID))
+    //must delete the itemLevel field from each question that has this level
+    var questionKeys = _.keys(this.props.questions.data)
+    questionKeys.forEach((key) => {
+      if(this.props.itemLevels.data[levelID].name===this.props.questions.data[key].itemLevel) {
+        this.props.dispatch(questionActions.submitQuestionEdit(key, {itemLevel: ""}))
+      }
+    })
   },
 
   toggleEdit: function () {
@@ -37,6 +46,7 @@ const ItemLevel = React.createClass({
 function select(state) {
   return {
     itemLevels: state.itemLevels,
+    questions: state.questions,
     routing: state.routing
   }
 }

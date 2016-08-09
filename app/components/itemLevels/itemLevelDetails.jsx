@@ -12,7 +12,7 @@ const ItemLevelDetails = React.createClass({
 
       const questions = this.props.questions.data, targetConceptID = itemLevels[levelID].conceptID
       const questionKeys = _.keys(questions).filter((key)=> {
-        return questions[key].itemLevel===itemLevels[levelID].name
+        return questions[key].itemLevel===itemLevels[levelID].name && questions[key].conceptID===targetConceptID
       })
       const questionsToRender = questionKeys.map((key) => {
         return (<li key={key}><Link to={'/admin/questions/' + key}>{questions[key].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)

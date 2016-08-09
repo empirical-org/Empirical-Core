@@ -15,7 +15,6 @@ export default React.createClass({
         )
       }
     } else {
-      //check if data.getQuestion is defined because
       if (data.getQuestion && data.getQuestion().cues && data.getQuestion().cues.length > 0 && data.getQuestion().cues[0] !== "") {
         const cues = data.getQuestion().cues.join(', ')
         return (
