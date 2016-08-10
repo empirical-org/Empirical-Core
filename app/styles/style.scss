@@ -149,6 +149,15 @@ textarea.submission {
   font-size: 18px;
 }
 
+.text-editor-appear {
+  opacity: 0.01;
+}
+
+.text-editor-appear-active {
+  opacity: 1;
+  transition: opacity 3.0s ease-in;
+}
+
 .sentence-fragments {
   p {
     font-size: 24px;
