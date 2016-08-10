@@ -19,7 +19,7 @@ const sentenceFragmentForm = React.createClass({
       <div>
         <label className="label">Sentence / Fragment Text</label>
         <p className="control">
-          <input className="input" type="text" value={this.props.data.prompt} onChange={this.props.handleChange.bind(null, "prompt")}></input>
+          <input className="input" type="text" value={this.props.data.questionText} onChange={this.props.handleChange.bind(null, "questionText")}></input>
         </p>
         <p className="control">
           <label className="checkbox">

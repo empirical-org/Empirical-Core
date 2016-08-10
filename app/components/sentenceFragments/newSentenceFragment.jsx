@@ -6,7 +6,8 @@ const newSentenceFragment = React.createClass({
 
   getInitialState: function () {
     return {
-      prompt: "",
+      prompt: "Is this a sentence?",
+      questionText: "",
       isFragment: false,
       optimalResponseText: ""
     }
@@ -16,6 +17,9 @@ const newSentenceFragment = React.createClass({
     switch (key) {
       case 'prompt':
         this.setState({prompt: e.target.value})
+        break;
+      case 'questionText':
+        this.setState({questionText: e.target.value})
         break;
       case 'optimalResponseText':
         this.setState({optimalResponseText: e.target.value})
@@ -30,16 +34,19 @@ const newSentenceFragment = React.createClass({
   create: function () {
     const data = {};
     data.prompt = this.state.prompt
+    data.questionText = this.state.questionText
     data.isFragment = this.state.isFragment
     if (this.state.isFragment) {
       data.responses = [{
         text: this.state.optimalResponseText,
-        optimal: true
+        optimal: true,
+        feedback: "That's a great answer!"
       }]
     } else {
       data.responses = [{
-        text: this.state.prompt,
-        optimal: true
+        text: this.state.questionText,
+        optimal: true,
+        feedback: "That's a great answer!"
       }]
     }
 

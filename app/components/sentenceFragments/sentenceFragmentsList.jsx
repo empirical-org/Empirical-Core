@@ -7,7 +7,7 @@ export default React.createClass({
     }
     return this.props.sentenceFragments.map((sentenceFragment) => {
       return (
-        <li><Link to={'admin/sentence-fragments/' + sentenceFragment.key}>{sentenceFragment.prompt}</Link></li>
+        <li><Link to={'admin/sentence-fragments/' + sentenceFragment.key}>{sentenceFragment.questionText}</Link></li>
       )
     })
   },
