@@ -5,6 +5,7 @@ import ClassOverview from '../components/dashboard/class_overview'
 import MyClasses from '../components/dashboard/my_classes'
 import MyResources from '../components/dashboard/my_resources'
 import DashboardFooter from '../components/dashboard/dashboard_footer'
+import GoogleSync from '../components/accounts/new/google_sign_up.jsx'
 
 export default React.createClass({
   getInitialState: function() {
@@ -42,6 +43,7 @@ export default React.createClass({
   render: function() {
     return (
       <div id='dashboard'>
+        <GoogleSync/>
         <ClassOverview data={this.state.performanceQuery} premium={this.state.hasPremium}/>
         {this.hasClasses()}
         <MyResources data={this.state}/>
