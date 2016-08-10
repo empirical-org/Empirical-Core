@@ -7,7 +7,7 @@ import _ from 'lodash'
 module.exports = {
 	// called when the app starts. this means we immediately download all sentenceFragments, and
 	// then receive all sentenceFragments again as soon as anyone changes anything.
-	startListeningToQuestions: function(){
+	startListeningToSentenceFragments: function(){
 		return function(dispatch,getState){
 			sentenceFragmentsRef.on("value",function(snapshot){
 				dispatch({ type: C.RECEIVE_SENTENCE_FRAGMENTS_DATA, data: snapshot.val() });

@@ -39,6 +39,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import conceptActions from './actions/concepts'
 import conceptsFeedbackActions from './actions/concepts-feedback'
 import questionActions from './actions/questions'
+import sentenceFragmentActions from './actions/sentenceFragments'
 import pathwayActions from './actions/pathways'
 import lessonActions from './actions/lessons'
 import levelActions from './actions/item-levels'
@@ -144,6 +145,7 @@ setTimeout(function(){
 	store.dispatch( conceptActions.startListeningToConcepts() );
   store.dispatch( conceptsFeedbackActions.startListeningToConceptsFeedback() );
   store.dispatch( questionActions.startListeningToQuestions() );
+  store.dispatch( sentenceFragmentActions.startListeningToSentenceFragments() );
   store.dispatch( pathwayActions.startListeningToPathways() );
   store.dispatch( lessonActions.startListeningToLessons() );
   store.dispatch( levelActions.startListeningToItemLevels() );
