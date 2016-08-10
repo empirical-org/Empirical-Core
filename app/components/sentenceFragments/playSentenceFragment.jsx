@@ -23,13 +23,13 @@ var PlaySentenceFragment = React.createClass({
 
   checkChoice: function(choice) {
     if(choice===this.state.questionType) {
-      this.setState({prompt: "Well done! Maybe add more constructive feedback here? Can also add a button to continue."})
+      this.setState({prompt: "Well done! You identified correctly!"})
       //timeout below to allow for constructive feedback to stay on the screen for longer
       setTimeout(()=>{
         this.setState({
           choosingSentenceOrFragment: false,
           prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
-        })}, 1000)
+        })}, 4000)
     } else {
       this.setState({
         prompt: "Look closely. Do all the necessary the parts of speech (subject, verb) exist?"
@@ -46,19 +46,6 @@ var PlaySentenceFragment = React.createClass({
     )
   },
 
-  renderSentenceOrFragmentMode: function() {
-    if(this.state.choosingSentenceOrFragment) {
-      return (
-        <div>
-          <h5 className="title is-5">{this.state.prompt}</h5>
-          {this.getSentenceOrFragmentButtons()}
-        </div>
-      )
-    } else {
-      return <div />
-    }
-  },
-
   handleChange: function(e) {
     this.setState({response: e})
   },
@@ -72,6 +59,21 @@ var PlaySentenceFragment = React.createClass({
       this.setState({prompt: "That is a correct answer!"})
     } else {
       this.setState({prompt: "We have not seen that response before. Try writing the sentence in another way."})
+    }
+  },
+
+  renderSentenceOrFragmentMode: function() {
+    if(this.state.choosingSentenceOrFragment) {
+      return (
+        <ReactTransition transitionName={"sentence-fragment-buttons"} transitionLeave={true} transitionLeaveTimeout={1000}>
+          <div>
+              <h5 className="title is-5">{this.state.prompt}</h5>
+              {this.getSentenceOrFragmentButtons()}
+          </div>
+        </ReactTransition>
+      )
+    } else {
+      return <div />
     }
   },
 
