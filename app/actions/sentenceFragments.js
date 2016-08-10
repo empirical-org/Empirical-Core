@@ -14,13 +14,13 @@ module.exports = {
 			});
 		}
 	},
-	startQuestionEdit: function(sfid){
+	startSentenceFeedbackEdit: function(sfid){
 		return {type:C.START_SENTENCE_FRAGMENT_EDIT,sfid};
 	},
-	cancelQuestionEdit: function(sfid){
+	cancelSentenceFeedbackEdit: function(sfid){
 		return {type:C.FINISH_SENTENCE_FRAGMENT_EDIT,sfid};
 	},
-	deleteQuestion: function(sfid){
+	deleteSentenceFeedback: function(sfid){
 		return function(dispatch,getState){
 			dispatch({type:C.SUBMIT_SENTENCE_FRAGMENT_EDIT,sfid});
 			sentenceFragmentsRef.child(sfid).remove(function(error){
@@ -28,12 +28,12 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
 				} else {
-					dispatch({type:C.DISPLAY_MESSAGE,message:"Question successfully deleted!"});
+					dispatch({type:C.DISPLAY_MESSAGE,message:"SentenceFeedback successfully deleted!"});
 				}
 			});
 		};
 	},
-	submitQuestionEdit: function(sfid,content){
+	submitSentenceFeedbackEdit: function(sfid,content){
 		return function(dispatch,getState){
 				dispatch({type:C.SUBMIT_SENTENCE_FRAGMENT_EDIT,sfid});
 				sentenceFragmentsRef.child(sfid).update(content,function(error){
@@ -55,10 +55,10 @@ module.exports = {
 				});
 		};
 	},
-  toggleNewQuestionModal: function(){
+  toggleNewSentenceFeedbackModal: function(){
     return {type:C.TOGGLE_NEW_SENTENCE_FRAGMENT_MODAL}
   },
-	submitNewQuestion: function(content, response){
+	submitNewSentenceFeedback: function(content, response){
 		return (dispatch,getState) => {
 			dispatch({type:C.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE});
 			var newRef = sentenceFragmentsRef.push(content, (error) => {
