@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router'
 export default React.createClass({
   renderSentenceFragmentListItems: function () {
     if (this.props.sentenceFragments.length === 0) {
@@ -7,7 +7,7 @@ export default React.createClass({
     }
     return this.props.sentenceFragments.map((sentenceFragment) => {
       return (
-        <li>{sentenceFragment.prompt}</li>
+        <li><Link to={'admin/sentence-fragments/' + sentenceFragment.key}>{sentenceFragment.prompt}</Link></li>
       )
     })
   },
