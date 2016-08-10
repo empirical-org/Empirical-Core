@@ -12,9 +12,10 @@ const finalCreateStore = compose(
   // Middleware you want to use in development:
   applyMiddleware(thunk, middleware),
   // Required! Enable Redux DevTools with the monitors you chose
-  DevTools.instrument(),
+  // DevTools.instrument(),
   // Optional. Lets you write ?debug_session=<key> in address bar to persist debug sessions
-  persistState(getDebugSessionKey())
+  persistState(getDebugSessionKey()),
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore);
 
 function getDebugSessionKey() {

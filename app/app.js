@@ -16,6 +16,9 @@ import Concepts from "./components/concepts/concepts.jsx";
 import Concept from "./components/concepts/concept.jsx";
 import Questions from "./components/questions/questions.jsx";
 import Question from "./components/questions/question.jsx";
+import SentenceFragments from "./components/sentenceFragments/sentenceFragments.jsx";
+import NewSentenceFragment from "./components/sentenceFragments/newSentenceFragment.jsx";
+import SentenceFragment from "./components/sentenceFragments/sentenceFragment.jsx";
 import Activities from "./components/lessons/activities.jsx";
 import Lessons from "./components/lessons/lessons.jsx";
 import Lesson from "./components/lessons/lesson.jsx";
@@ -37,6 +40,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import conceptActions from './actions/concepts'
 import conceptsFeedbackActions from './actions/concepts-feedback'
 import questionActions from './actions/questions'
+import sentenceFragmentActions from './actions/sentenceFragments'
 import pathwayActions from './actions/pathways'
 import lessonActions from './actions/lessons'
 import levelActions from './actions/item-levels'
@@ -107,6 +111,11 @@ render((
           <Route path="questions" component={Questions}/>
           <Route path="questions/:questionID" component={Question}/>
 
+          {/*Sentence Fragment sections*/}
+          <Route path="sentence-fragments" component={SentenceFragments}/>
+          <Route path="sentence-fragments/new" component={NewSentenceFragment}/>
+          <Route path="sentence-fragments/:sentenceFragmentID" component={SentenceFragment}/>
+
           {/*Lessons section*/}
           <Route path="lessons" component={Lessons}/>
           <Route path="lessons/:lessonID" component={Lesson}/>
@@ -138,6 +147,7 @@ setTimeout(function(){
 	store.dispatch( conceptActions.startListeningToConcepts() );
   store.dispatch( conceptsFeedbackActions.startListeningToConceptsFeedback() );
   store.dispatch( questionActions.startListeningToQuestions() );
+  store.dispatch( sentenceFragmentActions.startListeningToSentenceFragments() );
   store.dispatch( pathwayActions.startListeningToPathways() );
   store.dispatch( lessonActions.startListeningToLessons() );
   store.dispatch( levelActions.startListeningToItemLevels() );
