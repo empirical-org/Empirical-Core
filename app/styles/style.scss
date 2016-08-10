@@ -145,17 +145,13 @@ h2.register {
   align-items: flex-end;
 }
 
-.sentence-fragment-buttons-leave{
+.sentence-fragment-buttons-leave {
   opacity: 1;
 }
 
-.sentence-fragment-buttons-leave-active{
+.sentence-fragment-buttons-leave.sentence-fragment-buttons-leave-active {
   opacity: 0.01;
   transition: opacity 3.0s ease-in;
-}
-
-textarea.submission {
-  font-size: 18px;
 }
 
 .text-editor-appear {
@@ -165,6 +161,10 @@ textarea.submission {
 .text-editor-appear.text-editor-appear-active {
   opacity: 1;
   transition: opacity 3.0s ease-in;
+}
+
+textarea.submission {
+  font-size: 18px;
 }
 
 .sentence-fragments {

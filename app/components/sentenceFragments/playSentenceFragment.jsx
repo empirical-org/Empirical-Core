@@ -6,7 +6,6 @@ import _ from 'underscore'
 import ReactTransition from 'react-addons-css-transition-group'
 
 var PlaySentenceFragment = React.createClass({
-
   getInitialState: function() {
     return {
       choosingSentenceOrFragment: true,
@@ -65,15 +64,17 @@ var PlaySentenceFragment = React.createClass({
   renderSentenceOrFragmentMode: function() {
     if(this.state.choosingSentenceOrFragment) {
       return (
-        <ReactTransition transitionName={"sentence-fragment-buttons"} transitionLeave={true} transitionLeaveTimeout={1000}>
-          <div>
+        <div className="container">
+          <ReactTransition transitionName={"sentence-fragment-buttons"} transitionLeave={true} transitionLeaveTimeout={2000}>
+            <div >
               <h5 className="title is-5">{this.state.prompt}</h5>
               {this.getSentenceOrFragmentButtons()}
-          </div>
-        </ReactTransition>
+            </div>
+          </ReactTransition>
+        </div>
       )
     } else {
-      return <div />
+        return <div />
     }
   },
 
@@ -81,8 +82,8 @@ var PlaySentenceFragment = React.createClass({
     if(!this.state.choosingSentenceOrFragment && this.state.questionType==="Fragment") {
       return (
         <div className="container">
-          <h5 className="title is-5">{this.state.prompt}</h5>
-          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={3000}>
+          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={2000} >
+            <h5 className="title is-5">{this.state.prompt}</h5>
             <TextEditor handleChange={this.handleChange}/>
             <div className="question-button-group">
               <button className="button is-primary" onClick={this.checkAnswer}>Check Answer</button>
@@ -105,7 +106,6 @@ var PlaySentenceFragment = React.createClass({
     )
   }
 })
-
 
 function select(state) {
   return {
