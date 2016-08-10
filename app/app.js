@@ -17,6 +17,7 @@ import Concept from "./components/concepts/concept.jsx";
 import Questions from "./components/questions/questions.jsx";
 import Question from "./components/questions/question.jsx";
 import SentenceFragments from "./components/sentenceFragments/sentenceFragments.jsx";
+import NewSentenceFragment from "./components/sentenceFragments/newSentenceFragment.jsx";
 import SentenceFragment from "./components/sentenceFragments/sentenceFragment.jsx";
 import Activities from "./components/lessons/activities.jsx";
 import Lessons from "./components/lessons/lessons.jsx";
@@ -112,6 +113,7 @@ render((
 
           {/*Sentence Fragment sections*/}
           <Route path="sentence-fragments" component={SentenceFragments}/>
+          <Route path="sentence-fragments/new" component={NewSentenceFragment}/>
           <Route path="sentence-fragments/:sentenceFragmentID" component={SentenceFragment}/>
 
           {/*Lessons section*/}
