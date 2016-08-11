@@ -98,6 +98,7 @@ feature 'Create-a-Class page' do
       end
 
       it 'cannot create a new class with the same name' do
+        pending("need to reflect and handle non-unique class name specs")
         same_class_name = sweathogs.name
 
         expect {
