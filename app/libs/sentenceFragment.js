@@ -7,8 +7,10 @@ String.prototype.normalize = function() {
 
 
 export default class POSMatcher {
-  constructor(data) {
-    this.optimalResponses = data;
+  constructor(responses) {
+     this.optimalResponses = _.filter(responses, (response)=>{
+      return response.optimal===true
+    })
   }
 
   checkMatch(userResponse) {
@@ -28,6 +30,7 @@ export default class POSMatcher {
       return returnValue
     }
 
+    console.log("User tags: ", qpos.getPartsOfSpeechTags(userResponse))
     const posMatch = this.checkPOSMatch(userResponse)
     if(posMatch!==undefined) {
       returnValue.response = posMatch
@@ -58,7 +61,7 @@ export default class POSMatcher {
 
     return _.find(correctPOSTags, (posTags)=>{
         var found = true;
-        // console.log("Optimal: ", posTags)
+        console.log("Optimal: ", posTags)
         posTags.forEach((tag, index)=>{
           if(tag!==userPOSTags[index]){
             found = false;

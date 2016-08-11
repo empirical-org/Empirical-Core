@@ -72,7 +72,7 @@ module.exports = {
 			});
 		}
 	},
-  submitNewResponse: function (sfid, content, prid) {
+  submitNewResponse: function (sfid, content) {
     content.createdAt = moment().format("x");
     return function (dispatch,getState) {
       dispatch({type:C.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE});
@@ -81,7 +81,7 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
-          dispatch(pathwaysActions.submitNewPathway(newRef.key, prid, sfid))
+          // dispatch(pathwaysActions.submitNewPathway(newRef.key, prid, sfid))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
 			});

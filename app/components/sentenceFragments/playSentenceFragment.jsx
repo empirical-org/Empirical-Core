@@ -5,6 +5,7 @@ import TextEditor from '../renderForQuestions/renderTextEditor.jsx'
 import _ from 'underscore'
 import ReactTransition from 'react-addons-css-transition-group'
 import POSMatcher from '../../libs/sentenceFragment.js'
+import fragmentActions from '../../actions/sentenceFragments.js'
 
 var PlaySentenceFragment = React.createClass({
   getInitialState: function() {
@@ -28,7 +29,7 @@ var PlaySentenceFragment = React.createClass({
         this.setState({
           choosingSentenceOrFragment: false,
           prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
-        })}, 4000)
+        })}, 3000)
     } else {
       this.setState({
         prompt: "Look closely. Do all the necessary the parts of speech (subject, verb) exist?"
@@ -51,15 +52,32 @@ var PlaySentenceFragment = React.createClass({
 
   checkAnswer: function() {
     const fragment = this.props.sentenceFragments.data[this.props.params.fragmentID]
-    const optimalResponses = _.filter(fragment.responses, (response)=>{
-      return response.optimal===true
+
+    const responseMatcher = new POSMatcher(fragment.responses);
+    const matched = responseMatcher.checkMatch(this.state.response); //matched only checks against optimal responses
+
+    var newResponse;
+    const keyExists = _.findKey(fragment.responses, (response) => {
+      return response.text === matched.submitted;
     })
 
-    const responseMatcher = new POSMatcher(optimalResponses);
-    const matched = responseMatcher.checkMatch(this.state.response);
+    if(matched.found || keyExists) {
+      // console.log("Inside matched.found, key: " + key + ", fragmentID: " + this.props.params.fragmentID)
+      this.props.dispatch(fragmentActions.incrementResponseCount(this.props.params.fragmentID, keyExists))
+    } else {
+      newResponse = {
+        text: matched.submitted,
+        optimal: false,
+        feedback: "We have not seen that sentence before. Try writing it another way.",
+        count: 1
+      }
+      this.props.dispatch(fragmentActions.submitNewResponse(this.props.params.fragmentID, newResponse))
+    }
 
     if(matched.posMatch || matched.exactMatch) {
       this.setState({prompt: "That is a correct answer!"})
+    } else if(keyExists) {
+      this.setState({prompt: "Try writing the sentence another way."})
     } else {
       this.setState({prompt: "We have not seen that response before. Try writing the sentence in another way."})
     }
@@ -99,6 +117,7 @@ var PlaySentenceFragment = React.createClass({
   },
 
   render: function() {
+    console.log(this.props)
     if(this.props.sentenceFragments.hasreceiveddata) {
       const fragment = this.props.sentenceFragments.data[this.props.params.fragmentID]
       return (
