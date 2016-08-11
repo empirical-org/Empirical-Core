@@ -66,10 +66,8 @@ var PlaySentenceFragment = React.createClass({
       return (
         <div className="container">
           <ReactTransition transitionName={"sentence-fragment-buttons"} transitionLeave={true} transitionLeaveTimeout={2000}>
-            <div >
-              <h5 className="title is-5">{this.state.prompt}</h5>
-              {this.getSentenceOrFragmentButtons()}
-            </div>
+            <h5 className="title is-5">{this.state.prompt}</h5>
+            {this.getSentenceOrFragmentButtons()}
           </ReactTransition>
         </div>
       )
