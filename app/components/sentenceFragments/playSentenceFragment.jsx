@@ -4,24 +4,24 @@ import { Link } from 'react-router'
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx'
 import _ from 'underscore'
 import ReactTransition from 'react-addons-css-transition-group'
+import POSMatcher from '../../libs/sentenceFragment.js'
 
 var PlaySentenceFragment = React.createClass({
   getInitialState: function() {
     return {
       choosingSentenceOrFragment: true,
-      questionType: "Fragment",
       prompt: "Is this a sentence or a fragment?",
-      optimalResponses: ["I like New York for it has pizza.", "I like New York because it has pizza", "I like New York pizza."],
       response: ""
     }
   },
 
   getQuestion: function() {
-    return "I New York pizza."
+    return this.props.sentenceFragments.data[this.props.params.fragmentID].questionText
   },
 
   checkChoice: function(choice) {
-    if(choice===this.state.questionType) {
+    const questionType = this.props.sentenceFragments.data[this.props.params.fragmentID].isFragment ? "Fragment" : "Sentence"
+    if(choice===questionType) {
       this.setState({prompt: "Well done! You identified correctly!"})
       //timeout below to allow for constructive feedback to stay on the screen for longer
       setTimeout(()=>{
@@ -50,11 +50,15 @@ var PlaySentenceFragment = React.createClass({
   },
 
   checkAnswer: function() {
-    const found = _.find(this.state.optimalResponses, (optimalResponse)=>{
-      return this.state.response.trim().replace(/\s{2,}/g, ' ')===optimalResponse
+    const fragment = this.props.sentenceFragments.data[this.props.params.fragmentID]
+    const optimalResponses = _.filter(fragment.responses, (response)=>{
+      return response.optimal===true
     })
 
-    if(found) {
+    const responseMatcher = new POSMatcher(optimalResponses);
+    const matched = responseMatcher.checkMatch(this.state.response);
+
+    if(matched.posMatch || matched.exactMatch) {
       this.setState({prompt: "That is a correct answer!"})
     } else {
       this.setState({prompt: "We have not seen that response before. Try writing the sentence in another way."})
@@ -77,7 +81,7 @@ var PlaySentenceFragment = React.createClass({
   },
 
   renderPlaySentenceFragmentMode: function() {
-    if(!this.state.choosingSentenceOrFragment && this.state.questionType==="Fragment") {
+    if(!this.state.choosingSentenceOrFragment && this.props.sentenceFragments.data[this.props.params.fragmentID].isFragment) {
       return (
         <div className="container">
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={2000} >
@@ -95,19 +99,25 @@ var PlaySentenceFragment = React.createClass({
   },
 
   render: function() {
-    return (
-      <div className="section container">
-        <p className="sentence-fragments">{this.getQuestion()}</p>
-        {this.renderSentenceOrFragmentMode()}
-        {this.renderPlaySentenceFragmentMode()}
-      </div>
-    )
+    if(this.props.sentenceFragments.hasreceiveddata) {
+      const fragment = this.props.sentenceFragments.data[this.props.params.fragmentID]
+      return (
+        <div className="section container">
+          <p className="sentence-fragments">{this.getQuestion()}</p>
+          {this.renderSentenceOrFragmentMode()}
+          {this.renderPlaySentenceFragmentMode()}
+        </div>
+      )
+    } else {
+      return (<div className="container">Loading...</div>)
+    }
   }
 })
 
 function select(state) {
   return {
-    routing: state.routing
+    routing: state.routing,
+    sentenceFragments: state.sentenceFragments
   }
 }
 

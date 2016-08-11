@@ -8,7 +8,7 @@ String.prototype.normalize = function() {
 
 export default class POSMatcher {
   constructor(data) {
-    this.optimalResponses = data.optimalResponses;
+    this.optimalResponses = data;
   }
 
   checkMatch(userResponse) {
@@ -46,13 +46,13 @@ export default class POSMatcher {
     // }
     // return exactMatch;
     return _.find(this.optimalResponses, (response)=>{
-      return response===userResponse
+      return response.text===userResponse
     })
   }
 
   checkPOSMatch(userResponse){
     const correctPOSTags = this.optimalResponses.map((correctResponse)=>{
-      return qpos.getPartsOfSpeechTags(correctResponse);
+      return qpos.getPartsOfSpeechTags(correctResponse.text);
     })
     const userPOSTags = qpos.getPartsOfSpeechTags(userResponse);
 
