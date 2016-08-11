@@ -23,7 +23,7 @@
 				<div className="container">
 					<ul>
 						<li onClick={this.select('manageUnits')}><a className={classes.manageUnits}>My Activity Packs</a></li>
-            <li onClick={this.select('assignANewActivity')}><a className={classes.assignANewActivity}>Assign A New Activity</a></li>
+            <li onClick={this.select('assignANewActivity')}><a className={classes.assignANewActivity}>Assign a New Activity</a></li>
 					</ul>
 				</div>
 			</div>
