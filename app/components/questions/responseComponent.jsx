@@ -6,11 +6,11 @@ import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
 import Question from '../../libs/question'
 import questionActions from '../../actions/questions'
+import sentenceFragmentActions from '../../actions/sentenceFragments'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
 import FocusPointForm from './focusPointForm.jsx'
 import FocusPointSummary from './focusPointSummary.jsx'
-
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
@@ -23,12 +23,24 @@ const feedbackStrings = {
 }
 
 const Responses = React.createClass({
+  getInitialState: function () {
+    let actions;
+    if (this.props.mode === "sentenceFragment") {
+      actions = sentenceFragmentActions;
+    } else {
+      actions = questionActions;
+    }
+    return {
+      actions
+    }
+  },
+
   expand: function (responseKey) {
     this.props.dispatch(actions.toggleExpandSingleResponse(responseKey));
   },
 
   updateRematchedResponse: function (rid, vals) {
-    this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, vals))
+    this.props.dispatch(this.state.actions.submitResponseEdit(this.props.questionID, rid, vals))
   },
 
   getFocusPoint: function () {
@@ -80,7 +92,7 @@ const Responses = React.createClass({
         count: response.count
       }
       this.props.dispatch(
-        questionActions.setUpdatedResponse(this.props.questionID, rid, newValues)
+        this.state.actions.setUpdatedResponse(this.props.questionID, rid, newValues)
       )
       return
     }
@@ -176,7 +188,8 @@ const Responses = React.createClass({
       showPathways={true}
       printPathways={this.mapCountToResponse}
       toPathways={this.mapCountToToResponse}
-      conceptsFeedback={this.props.conceptsFeedback} />
+      conceptsFeedback={this.props.conceptsFeedback}
+      mode={this.props.mode} />
   },
 
   toggleResponseSort: function (field) {
@@ -303,9 +316,9 @@ const Responses = React.createClass({
 
   submitFocusPointForm: function(data){
       if (this.getFocusPoint()) {
-        this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.questionID, data, this.getFocusPoint().key))
+        this.props.dispatch(this.state.actions.submitEditedFocusPoint(this.props.questionID, data, this.getFocusPoint().key))
       } else {
-          this.props.dispatch(questionActions.submitNewFocusPoint(this.props.questionID, data));
+          this.props.dispatch(this.state.actions.submitNewFocusPoint(this.props.questionID, data));
       }
   },
 

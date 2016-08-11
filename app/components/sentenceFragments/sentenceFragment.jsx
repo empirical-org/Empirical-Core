@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import ResponseComponent from '../questions/responseComponent.jsx'
+
 const SentenceFragment = React.createClass({
   render() {
-    const {data, hasreceiveddata} = this.props.sentenceFragments;
+    const {data, states, hasreceiveddata} = this.props.sentenceFragments;
     const {sentenceFragmentID} = this.props.params
     if (!hasreceiveddata) {
       return (
@@ -12,6 +14,13 @@ const SentenceFragment = React.createClass({
       return (
         <div>
           <p>{data[sentenceFragmentID].questionText}</p>
+          <ResponseComponent
+          question={data[sentenceFragmentID]}
+          questionID={sentenceFragmentID}
+          states={states}
+          dispatch={this.props.dispatch}
+          admin={true}
+          mode={"sentenceFragment"}/>
         </div>
       )
     } else {

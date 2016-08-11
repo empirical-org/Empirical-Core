@@ -1,6 +1,7 @@
 import React from 'react'
 import C from '../../constants'
 import questionActions from '../../actions/questions'
+import sentenceFragmentActions from '../../actions/sentenceFragments'
 import Question from '../../libs/question'
 const jsDiff = require('diff');
 import Modal from '../modal/modal.jsx'
@@ -21,50 +22,57 @@ const feedbackStrings = {
 export default React.createClass({
 
   getInitialState: function () {
+    let actions;
+    if (this.props.mode === "sentenceFragment") {
+      actions = sentenceFragmentActions;
+    } else {
+      actions = questionActions;
+    }
     return {
       feedback: this.props.response.feedback || "",
       selectedBoilerplate: "",
-      selectedConcept: this.props.response.concept || ""
+      selectedConcept: this.props.response.concept || "",
+      actions
     }
   },
 
   deleteResponse: function (rid) {
     if (window.confirm("Are you sure?")) {
-      this.props.dispatch(questionActions.deleteResponse(this.props.questionID, rid))
+      this.props.dispatch(this.state.actions.deleteResponse(this.props.questionID, rid))
     }
   },
 
   editResponse: function (rid) {
-    this.props.dispatch(questionActions.startResponseEdit(this.props.questionID, rid))
+    this.props.dispatch(this.state.actions.startResponseEdit(this.props.questionID, rid))
   },
 
   // cancel editing function ^^^^
   cancelResponseEdit: function (rid) {
-    this.props.dispatch(questionActions.cancelResponseEdit(this.props.questionID, rid))
+    this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid))
   },
 
   viewChildResponses: function (rid) {
-    this.props.dispatch(questionActions.startChildResponseView(this.props.questionID, rid))
+    this.props.dispatch(this.state.actions.startChildResponseView(this.props.questionID, rid))
   },
 
   cancelChildResponseView: function (rid) {
-    this.props.dispatch(questionActions.cancelChildResponseView(this.props.questionID, rid))
+    this.props.dispatch(this.state.actions.cancelChildResponseView(this.props.questionID, rid))
   },
 
   viewFromResponses: function (rid) {
-    this.props.dispatch(questionActions.startFromResponseView(this.props.questionID, rid))
+    this.props.dispatch(this.state.actions.startFromResponseView(this.props.questionID, rid))
   },
 
   cancelFromResponseView: function (rid) {
-    this.props.dispatch(questionActions.cancelFromResponseView(this.props.questionID, rid))
+    this.props.dispatch(this.state.actions.cancelFromResponseView(this.props.questionID, rid))
   },
 
   viewToResponses: function (rid) {
-    this.props.dispatch(questionActions.startToResponseView(this.props.questionID, rid))
+    this.props.dispatch(this.state.actions.startToResponseView(this.props.questionID, rid))
   },
 
   cancelToResponseView: function (rid) {
-    this.props.dispatch(questionActions.cancelToResponseView(this.props.questionID, rid))
+    this.props.dispatch(this.state.actions.cancelToResponseView(this.props.questionID, rid))
   },
 
   updateResponse: function (rid) {
@@ -74,11 +82,11 @@ export default React.createClass({
       feedback: this.state.feedback,
       optimal: this.refs.newResponseOptimal.checked
     }
-    this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, newResp))
+    this.props.dispatch(this.state.actions.submitResponseEdit(this.props.questionID, rid, newResp))
   },
 
   updateRematchedResponse: function (rid, vals) {
-    this.props.dispatch(questionActions.submitResponseEdit(this.props.questionID, rid, vals))
+    this.props.dispatch(this.state.actions.submitResponseEdit(this.props.questionID, rid, vals))
   },
 
   getErrorsForAttempt: function (attempt) {
@@ -99,14 +107,14 @@ export default React.createClass({
   markAsWeak: function (rid) {
     const vals = {weak: true};
     this.props.dispatch(
-      questionActions.submitResponseEdit(this.props.questionID, rid, vals)
+      this.state.actions.submitResponseEdit(this.props.questionID, rid, vals)
     )
   },
 
   unmarkAsWeak: function (rid) {
     const vals = {weak: false};
     this.props.dispatch(
-      questionActions.submitResponseEdit(this.props.questionID, rid, vals)
+      this.state.actions.submitResponseEdit(this.props.questionID, rid, vals)
     )
   },
 
@@ -118,7 +126,7 @@ export default React.createClass({
         count: this.props.response.count
       }
       this.props.dispatch(
-        questionActions.setUpdatedResponse(this.props.questionID, rid, newValues)
+        this.state.actions.setUpdatedResponse(this.props.questionID, rid, newValues)
       )
       return
     }
@@ -146,11 +154,11 @@ export default React.createClass({
   },
 
   incrementResponse: function (rid) {
-    this.props.dispatch(questionActions.incrementResponseCount(this.props.questionID, rid));
+    this.props.dispatch(this.state.actions.incrementResponseCount(this.props.questionID, rid));
   },
 
   removeLinkToParentID: function (rid) {
-    this.props.dispatch(questionActions.removeLinkToParentID(this.props.questionID, rid));
+    this.props.dispatch(this.state.actions.removeLinkToParentID(this.props.questionID, rid));
   },
 
   applyDiff: function (answer, response) {
