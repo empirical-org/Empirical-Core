@@ -61,6 +61,7 @@ const Lesson = React.createClass({
   },
 
   render: function () {
+    console.log("In the lesson.jsx file.")
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {

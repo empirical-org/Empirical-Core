@@ -88,7 +88,7 @@ describe("Converting a string to a list of parts of speech", () => {
     const userResponse = "Billy swept the floor while Andy painted the walls.";
     var tester = new POSMatcher({optimalResponses: optimalResponses});
 
-    console.log("\nUser: " + userResponse + "\nOptimal: " + optimalResponses + "\nThe POS matcher returns false because it doesn't read Billy as a proper noun.")
+    //console.log("\nUser: " + userResponse + "\nOptimal: " + optimalResponses + "\nThe POS matcher returns false because it doesn't read Billy as a proper noun.")
     const posMatch = tester.checkMatch(userResponse);
     expect(posMatch.posMatch).toEqual(false);
   })
