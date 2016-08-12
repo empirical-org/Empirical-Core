@@ -12,7 +12,9 @@ var PlaySentenceFragment = React.createClass({
     return {
       choosingSentenceOrFragment: true,
       prompt: "Is this a sentence or a fragment?",
-      response: ""
+      response: "",
+      goToNext: false,
+      isNextPage: false
     }
   },
 
@@ -57,9 +59,6 @@ var PlaySentenceFragment = React.createClass({
     const matched = responseMatcher.checkMatch(this.state.response); //matched only checks against optimal responses
 
     var newResponse;
-    // const keyExists = _.findKey(fragment.responses, (response) => {
-    //   return response.text === matched.submitted;
-    // })
 
     console.log("Matched: ", matched)
 
@@ -69,24 +68,14 @@ var PlaySentenceFragment = React.createClass({
           text: matched.submitted,
           parentID: matched.response.key,
           count: 1,
-          optimal: matched.response.optimal,
-          feedback: "Excellent!"
+          feedback: matched.response.optimal ? "Excellent!" : "Try writing the sentence in another way."
         }
+        if(matched.response.optimal) newResponse.optimal = matched.response.optimal
         this.props.dispatch(fragmentActions.submitNewResponse(this.props.params.fragmentID, newResponse))
         this.props.dispatch(fragmentActions.incrementChildResponseCount(this.props.params.fragmentID, matched.response.key)) //parent has no parentID
       } else {
         this.props.dispatch(fragmentActions.incrementResponseCount(this.props.params.fragmentID, matched.response.key, matched.response.parentID))
       }
-      // newResponse = {
-      //   text: matched.submitted,
-      //   parentID:
-      //   count: 1,
-      //   optimal: true,
-      //   feedback: "Excellent!"
-      // }
-      // this.props.dispatch(fragmentActions.submitNewResponse(this.props.params.fragmentID, newResponse2))
-      // console.log("Inside matched.found, key: " + key + ", fragmentID: " + this.props.params.fragmentID)
-      // this.props.dispatch(fragmentActions.incrementResponseCount(this.props.params.fragmentID, matched))
     } else {
       newResponse = {
         text: matched.submitted,
@@ -95,14 +84,24 @@ var PlaySentenceFragment = React.createClass({
       this.props.dispatch(fragmentActions.submitNewResponse(this.props.params.fragmentID, newResponse))
     }
 
-    if(matched.posMatch || matched.exactMatch) {
-      this.setState({prompt: "That is a correct answer!"})
+    if((matched.posMatch || matched.exactMatch) && matched.response.optimal) {
+      this.setState({
+        prompt: "That is a correct answer!",
+        goToNext: true
+      })
     }
-    // else if(keyExists) {
-    //   this.setState({prompt: "Try writing the sentence another way."})
-    // }
     else {
-      this.setState({prompt: "We have not seen that response before. Try writing the sentence in another way."})
+      this.setState({prompt: "Try writing the sentence in another way."})
+    }
+  },
+
+  renderNextPage: function() {
+    if(this.state.isNextPage) {
+      return (
+        <div className="container">
+          <h5 className="title is-5">Thank you for playing!</h5>
+        </div>
+      )
     }
   },
 
@@ -122,14 +121,20 @@ var PlaySentenceFragment = React.createClass({
   },
 
   renderPlaySentenceFragmentMode: function() {
-    if(!this.state.choosingSentenceOrFragment && this.props.sentenceFragments.data[this.props.params.fragmentID].isFragment) {
+    var button
+    if(this.state.goToNext) {
+      button = <button className="button is-warning" onClick={() => {this.setState({isNextPage: true})}}>Next</button>
+    } else {
+      button = button = <button className="button is-primary" onClick={this.checkAnswer}>Check Answer</button>
+    }
+    if(!this.state.choosingSentenceOrFragment && this.props.sentenceFragments.data[this.props.params.fragmentID].isFragment && !this.state.isNextPage) {
       return (
         <div className="container">
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={2000} >
             <h5 className="title is-5">{this.state.prompt}</h5>
             <TextEditor handleChange={this.handleChange}/>
             <div className="question-button-group">
-              <button className="button is-primary" onClick={this.checkAnswer}>Check Answer</button>
+              {button}
             </div>
           </ReactTransition>
         </div>
@@ -147,6 +152,7 @@ var PlaySentenceFragment = React.createClass({
           <p className="sentence-fragments">{this.getQuestion()}</p>
           {this.renderSentenceOrFragmentMode()}
           {this.renderPlaySentenceFragmentMode()}
+          {this.renderNextPage()}
         </div>
       )
     } else {
