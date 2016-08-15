@@ -258,7 +258,7 @@
 								 dueDates={this.props.data.createUnitData.model.dueDates}
 								 actions={this.props.actions.assignSuccessActions}
 								 classrooms={this.getClassrooms()}
-								 toggleActivitySelection={this.toggleActivitySelection}
+								 toggleActivitySelection={this.props.actions.toggleActivitySelection}
 								 toggleClassroomSelection={this.toggleClassroomSelection}
 								 toggleStudentSelection={this.toggleStudentSelection}
 								 finish={this.finish}
