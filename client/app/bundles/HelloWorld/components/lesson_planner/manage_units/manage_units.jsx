@@ -105,7 +105,7 @@
 			return (
 				<span>
 				<div  className= "create-unit-button-container">
-					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Create Activity Pack</button>
+					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Assign A New Activity</button>
 				</div>
 				<Units
 					updateDueDate={this.updateDueDate}
