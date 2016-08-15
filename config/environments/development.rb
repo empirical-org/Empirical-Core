@@ -21,11 +21,12 @@ EmpiricalGrammar::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name:      'empirical-4992b81d85ba4277',
-    password:       'a9fa483334b2eeeb',
-    address:        'mailtrap.io',
-    port:           '2525',
-    authentication: :plain
+    user_name:      ENV['SENDGRID_USERNAME'],
+    password:       ENV['SENDGRID_PASSWORD'],
+    address:        'smtp.sendgrid.net',
+    port:           '587',
+    authentication: :plain,
+    enable_starttls_auto: true
   }
 
   config.assets.precompile += %w(sign_up_email.css)
@@ -48,7 +49,7 @@ EmpiricalGrammar::Application.configure do
   config.sass.line_comments = true
   config.sass.line_numbers = true
   config.sass.debug_info = true
-  config.action_mailer.default_url_options = { host: 'quill.dev' }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
   # Image Uploads (see paperclip gem)
   Paperclip.options[:command_path] = "/usr/local/bin/"

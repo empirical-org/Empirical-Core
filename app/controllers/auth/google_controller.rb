@@ -6,17 +6,18 @@ class Auth::GoogleController < ApplicationController
     if session[:role].present?
       google_sign_up(name, email, session[:role], access_token)
     else
-      google_login(email)
+      google_login(email, access_token)
     end
   end
 
 
   private
 
-  def google_login(email)
+  def google_login(email, access_token)
     user = User.find_by(email: email)
     if user.present?
       sign_in(user)
+      GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
       redirect_to profile_path
     else
       redirect_to new_account_path

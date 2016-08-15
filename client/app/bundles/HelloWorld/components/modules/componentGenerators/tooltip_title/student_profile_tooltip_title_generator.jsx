@@ -1,6 +1,8 @@
 import React from 'react'
 import TotalScore from '../../../general_components/tooltip/total_score.jsx'
 import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx'
+import ReactDOMServer from 'react-dom/server';
+
 
 export default function (percentageDisplayer) {
 
@@ -14,7 +16,7 @@ export default function (percentageDisplayer) {
       totalScoreOrNot = <TotalScore percentage={_displayPercentage(data.percentage)} />
     }
 
-    return React.renderToString(
+  return ReactDOMServer.renderToString(
       <div className='student-profile-tooltip'>
         <div className='title'>
           ACTIVITY RESULTS

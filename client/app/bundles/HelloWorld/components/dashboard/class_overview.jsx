@@ -8,7 +8,7 @@
 
  export default React.createClass({
   propTypes: {
-    data: React.PropTypes.array.isRequired,
+    data: React.PropTypes.any
   },
 
   getInitialState: function() {
