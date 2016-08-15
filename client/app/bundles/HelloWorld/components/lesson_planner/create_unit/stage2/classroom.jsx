@@ -5,6 +5,7 @@
  import Student from './student'
  import Button from 'react-bootstrap/lib/Button';
  import Panel from 'react-bootstrap/lib/Panel';
+ import _ from 'underscore'
 
  export default React.createClass({
 

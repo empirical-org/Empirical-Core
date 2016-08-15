@@ -30,7 +30,7 @@ module Teachers
         end
 
         def select_#{sym}
-          click_link '#{text}'
+          first(:link, '#{text}').click
         end
       }
     end

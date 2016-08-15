@@ -2,6 +2,7 @@
 import _ from 'lodash'
 import React from 'react'
 import TooltipTitleGeneratorGenerator from '../modules/componentGenerators/tooltip_title/tooltip_title_generator_generator'
+import $ from 'jquery'
 
 export default React.createClass({
   propTypes: {
