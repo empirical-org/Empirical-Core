@@ -48,6 +48,11 @@
   @include reusable-btn-social(#bd081c)
 }
 
+.button-white {
+  background-color: white;
+	border: solid 1px #737373;
+}
+
 .see-all-activity-packs.show-all {
   margin-top: 2em;
 }
