@@ -16,26 +16,30 @@ export default React.createClass({
   },
 
   componentWillMount: function() {
-    this.classRoomRequest = $.get('classroom_mini', function(result) {
+    this.ajax = {}
+    this.ajax.classRoomRequest = $.get('classroom_mini', function(result) {
       this.setState({classrooms: result.classes});
     }.bind(this));
-    this.premiumRequest = $.get('premium', function(result) {
+    this.ajax.premiumRequest = $.get('premium', function(result) {
       this.setState({hasPremium: result.hasPremium});
     }.bind(this));
-    this.performanceQuery = $.get('dashboard_query', function(result) {
+    this.ajax.performanceQuery = $.get('dashboard_query', function(result) {
       this.setState({performanceQuery: result.performanceQuery});
     }.bind(this));
   },
 
   componentWillUnmount: function() {
-    this.classRoomRequest.abort();
-    this.premiumRequest.abort();
-    this.performanceQuery.abort();
+    let ajaxCalls = this.ajax
+      for (let key in ajaxCalls) {
+        if (ajaxCalls.hasOwnProperty(key)) {
+          ajaxCalls[key].abort();
+        }
+      }
   },
 
   hasClasses: function() {
     if (this.state.classrooms) {
-        return (<MyClasses classList={this.state.classrooms}/>);
+        return (<MyClasses classList={this.state.classrooms} user={JSON.parse(this.props.user)}/>);
       }
   },
 

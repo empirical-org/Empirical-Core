@@ -7,7 +7,7 @@ import LoadingIndicator from '../shared/loading_indicator'
 
 export default React.createClass({
   propTypes: {
-    checkboxData: React.PropTypes.array.isRequired
+    checkboxData: React.PropTypes.any.isRequired
   },
 
   percentageCompleted: function(){

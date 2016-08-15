@@ -23,12 +23,14 @@ If the user is a student, the feature requests the user's courses from google (c
 If such a classroom exists in our db, we connect the student to that classroom. That's it for CLASSROOM student sign up.
 CLASSROOM will not create classrooms records in our db for courses pertaining to the student if they do not already exist.
 
-Only when a teacher signs up are new records created in our db to match records of courses in google. In this case, any student records on google that are associated to those google courses are also downloaded and recorded in our db (we import courses and their rosters).
+When a user signs up, signs in, or re-syncs their google classroom, records are created in our db to match records of courses in google. In this case, any student records on google that are associated to those google courses are also downloaded and recorded in our db (we import courses and their rosters).
 
 The general process by which the CLASSROOM feature performs these tasks can be sliced into three aspects -
 1. requesting information from Google
 2. parsing the responses to those requests
 3. finding or creating records in our database using those parsed responses.
+    - When students are linked to classrooms through the GoogleStudentImporterWorker,
+      a background task.
 
 Accordingly, the code for CLASSROOM is split into three main sub-directories - requesters, parsers, and creators.
 The requesters are substituted with mock objects in the specs.
