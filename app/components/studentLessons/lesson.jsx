@@ -87,7 +87,7 @@ function select(state) {
   return {
     lessons: state.lessons,
     questions: state.questions,
-    playLesson: state.playLesson,
+    playLesson: state.playLesson, //the questionReducer
     routing: state.routing
   }
 }
