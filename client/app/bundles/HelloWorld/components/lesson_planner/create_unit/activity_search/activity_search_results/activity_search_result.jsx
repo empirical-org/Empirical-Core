@@ -11,17 +11,21 @@
 	},
 	tooltipTrigger: function (e) {
 		e.stopPropagation();
-		ReactDOM.findDOMNode(this).tooltip('show');
-		// $(this.refs.activateTooltip).tooltip('show');
-    // this.refs.activateTooltip.tooltip('show');
-    // this.refs.activateTooltip.tooltip('show');
-
+    // Before the migration to react-on-rails, we just did
+    //  $(this.refs.activateTooltip).tooltip('show')
+    // I am not sure why we need to wrap the whole thing with jQuery now --
+    // they do that in the Bootstrap docs (http://getbootstrap.com/javascript/#tooltips)
+    //  though and it is the only way I could get it to work
+    $(function(){
+      $(this.refs.activateTooltip).tooltip('show');
+    });
 	},
+  
 	tooltipTriggerStop: function (e) {
 		e.stopPropagation();
-		// $(this.refs.activateTooltip.getDOMNode()).tooltip('hide');
-    // $(this.refs.activateTooltip).tooltip('hide');
-    this.refs.activateTooltip.tooltip('hide');
+    $(function(){
+      $(this.refs.activateTooltip).tooltip('hide');
+    });
 	},
 
 	render: function () {
