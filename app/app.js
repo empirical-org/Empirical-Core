@@ -31,6 +31,7 @@ import ItemLevelForm from "./components/itemLevels/itemLevelForm.jsx";
 import ItemLevelDetails from "./components/itemLevels/itemLevelDetails.jsx"
 import StudentLesson from "./components/studentLessons/lesson.jsx";
 import GameLesson from "./components/gameLessons/lesson.jsx";
+import StudentDiagnostic from "./components/diagnostics/studentDiagnostic.jsx";
 import PlaySentenceFragment from "./components/sentenceFragments/playSentenceFragment.jsx"
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
@@ -94,6 +95,7 @@ render((
             <Route path=":lessonID" component={GameLesson}/>
           </Route>
           <Route path="lesson/:lessonID" component={StudentLesson}/>
+          <Route path="diagnostic/:diagnosticID" component={StudentDiagnostic}/>
 
           <Redirect from="game/?student=:studentID&uid=:lessonID" to="/game/:lessonID" />
           <Route path="questions/:questionID" component={PlayQuestion}/>
