@@ -12,9 +12,7 @@
 	render: function () {
 		var rows, buttonClassName;
 
-		rows = _.map(this.props.selectedActivities, function (ele){
-			return <SelectedActivity key={ele.id} toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />
-		}, this);
+		rows = this.props.selectedActivities.map((ele) => <SelectedActivity key={ele.id} toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />);
 
 		return (
 			<section>
