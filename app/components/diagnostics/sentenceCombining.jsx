@@ -26,6 +26,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 
 import StateFinished from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
+import TextEditor from '../renderForQuestions/renderTextEditor.jsx'
 
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
@@ -39,7 +40,8 @@ const playLessonQuestion = React.createClass({
   getInitialState: function () {
     return {
       editing: false,
-      response: ""
+      response: "",
+      readyForNext: false
     }
   },
 
@@ -59,7 +61,7 @@ const playLessonQuestion = React.createClass({
 
   getResponse2: function (rid) {
     const {data} = this.props.questions, questionID = this.props.question.key;
-    return (data[questionID].responses[rid])
+    return data[questionID].responses[rid]
   },
 
   submitResponse: function(response) {
@@ -108,7 +110,10 @@ const playLessonQuestion = React.createClass({
     this.updateResponseResource(response)
     this.submitResponse(response)
 
-    this.setState({editing: false})
+    // console.log(this.state)
+    this.setState({
+      editing: false
+    })
   },
 
   toggleDisabled: function () {
@@ -144,6 +149,7 @@ const playLessonQuestion = React.createClass({
   },
 
   nextQuestion: function () {
+    console.log("clicking next question");
     this.props.nextQuestion()
     this.setState({response: ""})
   },
@@ -158,47 +164,41 @@ const playLessonQuestion = React.createClass({
   },
 
   render: function () {
-    console.log("in the question.jsx file")
-    console.log(this.props)
+    // console.log("in the question.jsx file")
+    // console.log(this.props)
     const questionID = this.props.question.key;
+    var button;
+    // console.log("State: ", this.state)
+    if(this.props.question.attempts.length > 0) {
+      button = <button className="button is-warning" onClick={this.nextQuestion}>Next</button>
+    } else {
+      button= <button className="button is-primary" onClick={this.checkAnswer}>Check Answer</button>
+    }
     if (this.props.question) {
-      if (this.state.finished) {
+        // return (
+        //   <div className="container">
+        //     {this.renderSentenceFragments()}
+        //     <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
+        //                 handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
+        //     <div className="question-button-group button-group">
+        //       {button}
+        //     </div>
+        //   </div>
+        //   // <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+        //   //             feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+        //   //             handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
+        //   //             textAreaClass="textarea is-question is-disabled" questionID={questionID}/>
+        // )
         return (
-          <StateFinished sessionKey={this.state.sessionKey} />
+          <div className="container">
+            {this.renderSentenceFragments()}
+            <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
+                        handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
+            <div className="question-button-group button-group">
+              {button}
+            </div>
+          </div>
         )
-      }
-      if (this.props.question.attempts.length > 2 ) {
-        return (
-          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                      feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                      handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                      textAreaClass="textarea is-question is-disabled" questionID={questionID}/>
-        )
-      } else if (this.props.question.attempts.length > 0 ) {
-        var latestAttempt = getLatestAttempt(this.props.question.attempts)
-        if (this.readyForNext()) {
-          return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                      feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                      handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton(true)}
-                      textAreaClass="textarea is-question is-disabled" questionID={questionID}/>
-          )
-        } else {
-          return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                  handleChange={this.handleChange} textAreaClass="textarea is-question"
-                  toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} questionID={questionID}/>
-          )
-        }
-      } else {
-        return (
-          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                handleChange={this.handleChange} textAreaClass="textarea is-question submission"
-                toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} questionID={questionID}/>
-        )
-      }
     } else {
       return (<p>Loading...</p>)
     }

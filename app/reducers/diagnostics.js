@@ -14,7 +14,7 @@ function question(state = initialState, action) {
       }
       changes.currentQuestion = state.unansweredQuestions[0];
       if (changes.currentQuestion) {
-        changes.currentQuestion.attempts = [];
+        changes.currentQuestion.data.attempts = [];
       }
       if (state.unansweredQuestions.length > 0) {
         changes.unansweredQuestions = state.unansweredQuestions.slice(1);
@@ -34,10 +34,14 @@ function question(state = initialState, action) {
         unansweredQuestions: []
       })
     case SubmitActions.SUBMIT_RESPONSE:
-      var changes = {currentQuestion:
-        Object.assign({}, state.currentQuestion, {
-        attempts: state.currentQuestion.attempts.concat([action.response])
-      })}
+      var changes = {currentQuestion: Object.assign({}, state.currentQuestion, {
+            data: Object.assign({},
+              state.currentQuestion,
+              {
+                attempts: state.currentQuestion.data.attempts.concat([action.response])
+              })
+          })
+        }
       return Object.assign({}, state, changes)
     case SubmitActions.START_QUESTION:
     var changes = {currentQuestion:

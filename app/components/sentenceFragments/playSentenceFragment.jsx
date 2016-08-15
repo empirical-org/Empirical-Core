@@ -7,6 +7,8 @@ import ReactTransition from 'react-addons-css-transition-group'
 import POSMatcher from '../../libs/sentenceFragment.js'
 import fragmentActions from '../../actions/sentenceFragments.js'
 
+var key = "" //enables this component to be used by both play/sentence-fragments and play/diagnostic
+
 var PlaySentenceFragment = React.createClass({
   getInitialState: function() {
     return {
@@ -19,11 +21,11 @@ var PlaySentenceFragment = React.createClass({
   },
 
   getQuestion: function() {
-    return this.props.sentenceFragments.data[this.props.params.fragmentID].questionText
+    return this.props.sentenceFragments.data[key].questionText
   },
 
   checkChoice: function(choice) {
-    const questionType = this.props.sentenceFragments.data[this.props.params.fragmentID].isFragment ? "Fragment" : "Sentence"
+    const questionType = this.props.sentenceFragments.data[key].isFragment ? "Fragment" : "Sentence"
     if(choice===questionType) {
       this.setState({prompt: "Well done! You identified correctly!"})
       //timeout below to allow for constructive feedback to stay on the screen for longer
@@ -31,7 +33,7 @@ var PlaySentenceFragment = React.createClass({
         this.setState({
           choosingSentenceOrFragment: false,
           prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
-        })}, 3000)
+        })}, 250)
     } else {
       this.setState({
         prompt: "Look closely. Do all the necessary the parts of speech (subject, verb) exist?"
@@ -53,7 +55,7 @@ var PlaySentenceFragment = React.createClass({
   },
 
   checkAnswer: function() {
-    const fragment = this.props.sentenceFragments.data[this.props.params.fragmentID]
+    const fragment = this.props.sentenceFragments.data[key]
 
     const responseMatcher = new POSMatcher(fragment.responses);
     const matched = responseMatcher.checkMatch(this.state.response); //matched only checks against optimal responses
@@ -71,17 +73,17 @@ var PlaySentenceFragment = React.createClass({
           feedback: matched.response.optimal ? "Excellent!" : "Try writing the sentence in another way."
         }
         if(matched.response.optimal) newResponse.optimal = matched.response.optimal
-        this.props.dispatch(fragmentActions.submitNewResponse(this.props.params.fragmentID, newResponse))
-        this.props.dispatch(fragmentActions.incrementChildResponseCount(this.props.params.fragmentID, matched.response.key)) //parent has no parentID
+        this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
+        this.props.dispatch(fragmentActions.incrementChildResponseCount(key, matched.response.key)) //parent has no parentID
       } else {
-        this.props.dispatch(fragmentActions.incrementResponseCount(this.props.params.fragmentID, matched.response.key, matched.response.parentID))
+        this.props.dispatch(fragmentActions.incrementResponseCount(key, matched.response.key, matched.response.parentID))
       }
     } else {
       newResponse = {
         text: matched.submitted,
         count: 1
       }
-      this.props.dispatch(fragmentActions.submitNewResponse(this.props.params.fragmentID, newResponse))
+      this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
     }
 
     if((matched.posMatch || matched.exactMatch) && matched.response.optimal) {
@@ -96,12 +98,16 @@ var PlaySentenceFragment = React.createClass({
   },
 
   renderNextPage: function() {
-    if(this.state.isNextPage) {
-      return (
-        <div className="container">
-          <h5 className="title is-5">Thank you for playing!</h5>
-        </div>
-      )
+    if(!this.props.currentKey) {
+      if(this.state.isNextPage) {
+        return (
+          <div className="container">
+            <h5 className="title is-5">Thank you for playing!</h5>
+          </div>
+        )
+      }
+    } else if(this.state.isNextPage) {
+      this.props.nextQuestion()
     }
   },
 
@@ -127,7 +133,7 @@ var PlaySentenceFragment = React.createClass({
     } else {
       button = button = <button className="button is-primary" onClick={this.checkAnswer}>Check Answer</button>
     }
-    if(!this.state.choosingSentenceOrFragment && this.props.sentenceFragments.data[this.props.params.fragmentID].isFragment && !this.state.isNextPage) {
+    if(!this.state.choosingSentenceOrFragment && this.props.sentenceFragments.data[key].isFragment && !this.state.isNextPage) {
       return (
         <div className="container">
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={2000} >
@@ -146,7 +152,9 @@ var PlaySentenceFragment = React.createClass({
 
   render: function() {
     if(this.props.sentenceFragments.hasreceiveddata) {
-      const fragment = this.props.sentenceFragments.data[this.props.params.fragmentID]
+      console.log("Inside playSentenceFragment render: ", this.props)
+      key = this.props.params ? this.props.params.fragmentID : this.props.currentKey
+      const fragment = this.props.sentenceFragments.data[key]
       return (
         <div className="section container">
           <p className="sentence-fragments">{this.getQuestion()}</p>
