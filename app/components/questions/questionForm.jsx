@@ -16,12 +16,10 @@ export default React.createClass({
   },
 
   submit: function () {
-    var conceptID;
-    var temp = hashToCollection(this.props.concepts.data)
-
-    for(var index in temp) {
-      if(temp[index].name===this.state.concept) conceptID = temp[index].key
-    }
+    var conceptsData = hashToCollection(this.props.concepts.data)
+    const conceptID = _.find(conceptsData, (concept) => {
+      return concept.name===this.state.concept
+    }).key
 
     this.props.submit({
       prompt: this.state.prompt,
