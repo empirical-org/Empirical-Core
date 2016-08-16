@@ -10,11 +10,11 @@ export default React.createClass({
 
 
   render: function () {
-
       return (
         <Router history={hashHistory}>
           <Route path="/" component={App}>
             <Route path=':classrom_id/:report' component={Reports}/>
+            <Route path='**' component={Reports}/>
           </Route>
         </Router>
       );
