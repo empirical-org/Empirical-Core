@@ -1,17 +1,20 @@
 'use strict'
 
 import React from 'react'
+import { Router, Route, Link, hashHistory } from 'react-router'
+import GenericReport from './generic_report.jsx'
 
 export default React.createClass({
 
-  stage: function(){
-    let report;
-    if (this.props.params.report === '1'){
-      // stage = <ModalOverview/>
-    } else if (this.props.params.stage === '3') {
-      // stage = <ClassroomPage/>
+  report: function(){
+    let reportValue = this.props.params.report
+    let report
+    if (reportValue === '1'){
+      // report = <ModalOverview/>
+    } else if (reportValue === '3') {
+      // report = <ClassroomPage/>
     } else {
-      // stage = <IntroPage/>
+      report = <GenericReport/>
     }
     return report;
   },

@@ -97,6 +97,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :csv_exports, only: [:create]
 
       get 'diagnostic_reports' => 'diagnostic_reports#show'
+      get 'question_view' => 'diagnostic_reports#question_view'
 
       namespace :concepts do
         resources :students, only: [:index] do
