@@ -5,7 +5,7 @@ import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 
-import PlaySentenceFragment from '../sentenceFragments/playSentenceFragment.jsx'
+import PlaySentenceFragment from './sentenceFragment.jsx'
 import PlayDiagnosticQuestion from './sentenceCombining.jsx'
 
 var StudentDiagnostic = React.createClass({
@@ -96,12 +96,12 @@ var StudentDiagnostic = React.createClass({
             console.log("this.props.playDiagnostic: ", this.props.playDiagnostic)
             //prefill={this.getLesson().prefill} was removed from <PlayLessonQuestion> below
             return (
-              <PlayDiagnosticQuestion key={this.props.playDiagnostic.currentQuestion.data.key} question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}/>
+              <PlayDiagnosticQuestion question = {this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}/>
             )
           } else {
             console.log("this.props.playSentenceFragment: ", this.props.playDiagnostic.currentQuestion.data)
             return (
-              <PlaySentenceFragment currentKey={this.props.playDiagnostic.currentQuestion.data.key} nextQuestion={this.nextQuestion}/>
+              <PlaySentenceFragment question = {this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key} nextQuestion={this.nextQuestion}/>
             )
           }
 
@@ -109,7 +109,7 @@ var StudentDiagnostic = React.createClass({
           //   <PlayLessonQuestion key={this.props.playDiagnostic.currentQuestion.key} question={this.props.playDiagnostic.currentQuestion} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
           // )
         }
-        else if (this.props.playDiagnostic.answeredQuestions.length > 0 && (this.props.playDiagnostic.unansweredQuestions.length === 0 && this.props.playDiagnostic.currentQuestion === undefined )) {
+        else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
           return (<div>Finshed diagnostic</div>)
           // return (<Finished data={this.props.playDiagnostic} diagnosticID={this.props.params.diagnosticID}/>)
         }

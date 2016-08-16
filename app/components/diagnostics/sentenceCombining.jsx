@@ -36,7 +36,7 @@ const feedbackStrings = {
   maxLengthError: "Try again. How could this sentence be shorter and more concise?"
 }
 
-const playLessonQuestion = React.createClass({
+const PlayDiagnosticQuestion = React.createClass({
   getInitialState: function () {
     return {
       editing: false,
@@ -190,8 +190,9 @@ const playLessonQuestion = React.createClass({
         //   //             textAreaClass="textarea is-question is-disabled" questionID={questionID}/>
         // )
         return (
-          <div className="container">
+          <div className="section container">
             {this.renderSentenceFragments()}
+            <h5 className="title is-5">Combine the sentences into one sentence</h5>
             <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
                         handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
             <div className="question-button-group button-group">
@@ -217,4 +218,4 @@ function select(state) {
     routing: state.routing
   }
 }
-export default connect(select)(playLessonQuestion)
+export default connect(select)(PlayDiagnosticQuestion)
