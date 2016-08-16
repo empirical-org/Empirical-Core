@@ -7,16 +7,20 @@ export default React.createClass({
   getInitialState: function () {
     return {
       prompt: "",
-      itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : ""
+      itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
+      concept: this.props.question.conceptID ? this.props.concepts.data[this.props.question.conceptID].name : ""
     }
   },
 
   submit: function () {
+    const conceptID = _.find(this.props.concepts.data, {name: this.state.concept}).key
+    console.log("The new ID is: ", conceptID)
     this.props.submit({
       prompt: this.state.prompt,
       prefilledText: this.refs.prefilledText.value,
       cues: this.refs.cues.value.split(','),
-      itemLevel: this.state.itemLevel
+      itemLevel: this.state.itemLevel,
+      conceptID: conceptID
     })
   },
 
@@ -38,9 +42,20 @@ export default React.createClass({
     })
   },
 
+  handleConceptChange: function() {
+    this.setState({concept: this.refs.concept.value})
+  },
+
+  conceptsToOptions: function() {
+    return hashToCollection(this.props.concepts.data).map((concept) => {
+      return (
+        <option>{concept.name}</option>
+      )
+    })
+  },
+
   render: function () {
     console.log("inside questionForm.jsx, props: ", this.props)
-    console.log("inside questionForm.jsx, state: ", this.state)
     return (
       <div className="box">
         <h6 className="control subtitle">Create a new question</h6>
@@ -60,6 +75,15 @@ export default React.createClass({
             <select onChange={this.handleLevelChange} ref="itemLevel" value={this.state.itemLevel}>
               <option>Select Item Level</option>
               {this.itemLevelToOptions()}
+            </select>
+          </span>
+        </p>
+        <label className="label">Concept</label>
+        <p className="control">
+          <span className="select">
+            <select onChange={this.handleConceptChange} ref="concept" value={this.state.concept}>
+              <option>Select Concept</option>
+              {this.conceptsToOptions()}
             </select>
           </span>
         </p>

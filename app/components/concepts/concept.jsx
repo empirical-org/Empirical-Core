@@ -15,7 +15,9 @@ const Concepts = React.createClass({
   },
 
   deleteConcept: function () {
-    this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
+    if(confirm("Are you sure?")) {
+      this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
+    }
   },
 
   submitNewQuestion: function (e) {
