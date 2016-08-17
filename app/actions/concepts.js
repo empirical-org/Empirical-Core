@@ -2,7 +2,7 @@ var C = require("../constants").default
 // import rootRef from "../libs/firebase"
 import request from 'request'
 import _ from 'underscore'
-var	conceptsEndpoint = 'https://staging.quill.org/api/v1/concepts.json'
+var	conceptsEndpoint = 'https://www.quill.org/api/v1/concepts.json'
 import { push } from 'react-router-redux'
 
 function splitInLevels (concepts) {
@@ -11,7 +11,7 @@ function splitInLevels (concepts) {
 
 function getParentName (concept, concepts) {
 	const parent = _.find(concepts["1"], {id: concept.parent_id})
-	const grandParent = _.find(concepts["2"], {id: parent.parent_id}) 
+	const grandParent = _.find(concepts["2"], {id: parent.parent_id})
 	return grandParent.name + " | " + parent.name
 }
 
