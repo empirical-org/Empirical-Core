@@ -8,7 +8,7 @@ module GoogleIntegration::Classroom::Creators::Classrooms
   private
 
   def self.create_classroom(teacher, course)
-    classroom = ::Classroom.find_or_initialize_by(google_classroom_id: course[:id])
+    classroom = ::Classroom.unscoped.find_or_initialize_by(google_classroom_id: course[:id])
     if classroom.new_record?
       classroom.attributes = {name: course[:name], teacher_id: teacher.id}
       classroom.save
