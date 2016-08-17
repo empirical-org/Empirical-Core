@@ -11,6 +11,7 @@ import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
 import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
+import ConceptSelector from 'react-select-search'
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -185,13 +186,22 @@ export default React.createClass({
     })
   },
 
-  conceptsToOptions: function () {
-    return this.props.concepts.data["0"].map((cs) => {
+  conceptsToOptions: function() {
+    return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        <option selected={this.state.newConceptResult.conceptUID === cs.uid} value={cs.uid}>{cs.name}</option>
+        {name: concept.name, value: concept.uid}
       )
     })
   },
+
+
+  // conceptsToOptions: function () {
+  //   return this.props.concepts.data["0"].map((cs) => {
+  //     return (
+  //       <option selected={this.state.newConceptResult.conceptUID === cs.uid} value={cs.uid}>{cs.name}</option>
+  //     )
+  //   })
+  // },
 
   selectConceptForResult: function (e) {
     this.setState({
@@ -321,10 +331,11 @@ export default React.createClass({
           </ul>
           <p className="control">
             <span className="select">
-              <select onChange={this.selectConceptForResult}>
+              {/*<select onChange={this.selectConceptForResult}>
                 <option>Select Concept feedback</option>
                 {this.conceptsToOptions()}
-              </select>
+              </select>*/}
+              <ConceptSelector options={this.conceptsToOptions()} placeholder={this.state.concept} onChange={this.selectConceptForResult}/>
             </span>
           </p>
           <p className="control">

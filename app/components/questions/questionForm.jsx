@@ -4,29 +4,25 @@ import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'lodash'
 import ConceptSelector from 'react-select-search'
 // import ConceptSelector from 'react-selectize'.SimpleSelect
-var SimpleSelect = require("react-selectize").SimpleSelect
+// var SimpleSelect = require("react-selectize").SimpleSelect
 
 export default React.createClass({
   getInitialState: function () {
     return {
       prompt: "",
       itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
-      concept: this.props.question.conceptID ? this.props.concepts.data[this.props.question.conceptID].name : ""
+      concept: this.props.question.conceptID
     }
   },
 
   submit: function () {
-    var conceptsData = hashToCollection(this.props.concepts.data)
-    const conceptID = _.find(conceptsData, (concept) => {
-      return concept.name===this.state.concept
-    }).key
 
     this.props.submit({
       prompt: this.state.prompt,
       prefilledText: this.refs.prefilledText.value,
       cues: this.refs.cues.value.split(','),
       itemLevel: this.state.itemLevel,
-      conceptID: conceptID
+      conceptID: this.state.concept
     })
   },
 
@@ -57,9 +53,9 @@ export default React.createClass({
   },
 
   conceptsToOptions: function() {
-    return _.map(this.props.concepts.data, (concept)=>{
+    return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        {name: concept.name, value: concept.name}
+        {name: concept.name, value: concept.uid}
       )
     })
   },
