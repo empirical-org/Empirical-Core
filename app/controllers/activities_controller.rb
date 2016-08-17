@@ -26,6 +26,10 @@ class ActivitiesController < ApplicationController
     render json: {count: @count}
   end
 
+  def diagnostic
+    render 'pages/diagnostic'
+  end
+
 protected
 
   def activity

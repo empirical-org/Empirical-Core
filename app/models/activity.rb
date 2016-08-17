@@ -110,6 +110,7 @@ class Activity < ActiveRecord::Base
     self.flags = [flag]
   end
 
+
   private
 
   def flag_as_beta
