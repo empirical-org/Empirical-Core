@@ -23,6 +23,7 @@ const feedbackStrings = {
 }
 
 const Responses = React.createClass({
+
   expand: function (responseKey) {
     this.props.dispatch(actions.toggleExpandSingleResponse(responseKey));
   },
@@ -176,7 +177,8 @@ const Responses = React.createClass({
       showPathways={true}
       printPathways={this.mapCountToResponse}
       toPathways={this.mapCountToToResponse}
-      conceptsFeedback={this.props.conceptsFeedback} />
+      conceptsFeedback={this.props.conceptsFeedback}
+      concepts={this.props.concepts} />
   },
 
   toggleResponseSort: function (field) {
@@ -353,7 +355,8 @@ function select(state) {
   return {
     responses: state.responses,
     pathways: state.pathways,
-    conceptsFeedback: state.conceptsFeedback
+    conceptsFeedback: state.conceptsFeedback,
+    concepts: state.concepts
   }
 }
 
