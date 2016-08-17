@@ -98,6 +98,15 @@ module.exports = {
 			});
 		};
 	},
+	submitNewConceptResult: function(qid, rid, data) {
+		return function (dispatch, getState) {
+			questionsRef.child(qid + '/responses/' + rid + '/conceptResults').push(data, function(error){
+				if (error) {
+					alert("Submission failed! "+error)
+				}
+			});
+		};
+	},
   startResponseEdit: function(qid,rid){
 		return {type:C.START_RESPONSE_EDIT,qid,rid};
 	},
