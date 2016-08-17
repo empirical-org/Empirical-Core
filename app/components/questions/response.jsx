@@ -189,7 +189,7 @@ export default React.createClass({
   conceptsToOptions: function() {
     return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        {name: concept.name, value: concept.uid}
+        {name: concept.displayName, value: concept.uid}
       )
     })
   },
@@ -234,7 +234,7 @@ export default React.createClass({
     if (this.props.response.conceptResults) {
       return hashToCollection(this.props.response.conceptResults).map((cr) => {
         const concept = _.find(this.props.concepts.data["0"], {uid: cr.conceptUID})
-        return <li>{concept.name} {cr.correct ? "✔️" : "❌"}</li>
+        return <li>{concept.displayName} {cr.correct ? "✔️" : "❌"}</li>
       })
     }
   },
@@ -364,6 +364,10 @@ export default React.createClass({
           <strong>Feedback:</strong> <br/>
           <div dangerouslySetInnerHTML={{__html: response.feedback}}></div>
           <br/>
+          <label className="label">Concept Results</label>
+          <ul>
+            {this.renderConceptResults()}
+          </ul>
           {authorDetails}
           {childDetails}
           {pathwayDetails}
