@@ -204,7 +204,6 @@ export default React.createClass({
   // },
 
   selectConceptForResult: function (e) {
-    console.log(e);
     this.setState({
       newConceptResult: Object.assign({},
         this.state.newConceptResult,

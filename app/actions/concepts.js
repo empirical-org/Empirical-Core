@@ -26,12 +26,10 @@ module.exports = {
 			    // console.log(body) // Show the HTML for the Google homepage.
 					// console.log(JSON.parse(body));
 					const concepts = splitInLevels(JSON.parse(body).concepts);
-					console.log(concepts);
 					concepts["0"] = concepts["0"].map((concept) => {
 						concept.displayName = getParentName(concept, concepts) + " | " + concept.name
 						return concept
 					})
-					console.log(concepts);
 					dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: concepts });
 			  }
 			})

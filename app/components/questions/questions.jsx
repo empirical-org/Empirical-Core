@@ -6,6 +6,8 @@ import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
 import {hashToCollection} from '../../libs/hashToCollection'
 import QuestionsList from './questionsList.jsx'
+import QuestionSelector from 'react-select-search'
+import {push} from 'react-router-redux';
 
 const Questions = React.createClass({
   createNew: function () {
@@ -53,14 +55,32 @@ const Questions = React.createClass({
       }
   },
 
+  handleSearchChange: function(e) {
+    var action = push('/admin/questions/' + e.value)
+    this.props.dispatch(action)
+  },
+
+  renderSearchBox: function() {
+    const options = hashToCollection(this.props.questions.data)
+    if (options.length > 0) {
+      const formatted = options.map((opt) => {
+        return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
+      })
+      const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange}/>)
+      return searchBox
+    }
+
+  },
+
   render: function (){
     const {questions, concepts} = this.props
     return (
       <section className="section">
         <div className="container">
           { this.renderModal() }
-              <QuestionsList questions={questions} concepts={concepts} baseRoute={"admin"} />
-          </div>
+          { this.renderSearchBox() }
+          <QuestionsList questions={questions} concepts={concepts} baseRoute={"admin"} />
+        </div>
       </section>
     )
   }
