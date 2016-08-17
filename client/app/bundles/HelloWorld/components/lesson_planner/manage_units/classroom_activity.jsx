@@ -67,31 +67,11 @@
           {/*<DatePicker minDate={moment()} selected={this.state.startDate} onChange={this.handleChange} placeholderText={'Optional'}/>*/}
 				</div>
 				<div className="cell col-md-1">
+          <div className="pull-right icon-x-gray" onClick={this.deleteClassroomActivity}></div>
 				</div>
 			</div>
 
 		);
-		// to restore buttons
-		// return (
-		// 	<div className="row">
-		// 		<div className="cell col-md-1">
-		// 			<div className={"pull-left icon-gray icon-wrapper  " + this.props.data.activity.classification.scorebook_icon_class} />
-		// 		</div>
-		// 		<div className="cell col-md-8" >
-		// 			<a href={this.props.data.activity.anonymous_path} target="_new">
-		// 				{this.props.data.activity.name}
-		// 			</a>
-		// 		</div>
-		// 		<div className="cell col-md-2">
-		// 			<input type="text" value={this.props.data.formatted_due_date} ref="dueDate" className="datepicker-input" placeholder="Optional Due Date" />
-		// 			<input type="text"  className="railsFormatDate" id={"railsFormatDate" + this.props.data.id} ref="railsFormatDate" />
-		// 		</div>
-		// 		<div className="cell col-md-1">
-		// 			<div className="pull-right icon-x-gray" onClick={this.deleteClassroomActivity}>
-		// 			</div>
-		// 		</div>
-		// 	</div>
-		//
-		// );
+
 	}
 });
