@@ -55,7 +55,7 @@ export default React.createClass({
   conceptsToOptions: function() {
     return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        {name: concept.name, value: concept.uid}
+        {name: concept.displayName, value: concept.uid}
       )
     })
   },
