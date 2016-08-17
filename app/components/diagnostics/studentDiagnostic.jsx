@@ -64,7 +64,7 @@ var StudentDiagnostic = React.createClass({
     return [
       {
         type: "SF",
-        key: "-KOqKBMgXHF2dNMM8jhg"
+        key: "-KOqLomeMhOuHqX9Zdqv"
       },
       {
         type: "SC",
@@ -96,6 +96,7 @@ var StudentDiagnostic = React.createClass({
       var data = this.getFetchedData()
       if(data) {
         if (this.props.playDiagnostic.currentQuestion) {
+          console.log("Current: ", this.props.playDiagnostic.currentQuestion)
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
             return (
               <PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}/>
