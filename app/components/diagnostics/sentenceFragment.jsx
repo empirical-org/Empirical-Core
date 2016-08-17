@@ -21,11 +21,12 @@ var PlaySentenceFragment = React.createClass({
   },
 
   getQuestion: function() {
-    return this.props.sentenceFragments.data[key].questionText
+    return this.props.question.questionText
   },
 
   checkChoice: function(choice) {
-    const questionType = this.props.sentenceFragments.data[key].isFragment ? "Fragment" : "Sentence"
+    const questionType = this.props.question.isFragment ? "Fragment" : "Sentence"
+    this.props.markIdentify(choice === questionType)
     if(choice===questionType) {
       this.setState({prompt: "Well done! You identified correctly!"})
       //timeout below to allow for constructive feedback to stay on the screen for longer
@@ -72,7 +73,9 @@ var PlaySentenceFragment = React.createClass({
           count: 1,
           feedback: matched.response.optimal ? "Excellent!" : "Try writing the sentence in another way."
         }
-        if(matched.response.optimal) newResponse.optimal = matched.response.optimal
+        if (matched.response.optimal) {
+          newResponse.optimal = matched.response.optimal
+        }
         this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
         this.props.dispatch(fragmentActions.incrementChildResponseCount(key, matched.response.key)) //parent has no parentID
       } else {
@@ -85,7 +88,7 @@ var PlaySentenceFragment = React.createClass({
       }
       this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
     }
-
+    this.props.updateAttempts(matched);
     this.setState({goToNext: true})
     // if((matched.posMatch || matched.exactMatch) && matched.response.optimal) {
     //   this.setState({
