@@ -8,6 +8,7 @@ import questionSelect from './questionSelect';
 import concepts from './concepts';
 import conceptsFeedback from './concepts-feedback';
 import itemLevels from './item-levels'
+import playDiagnostic from './diagnostics'
 import lessons from './lessons';
 import pathways from './pathways';
 import responses from './responseReducer';
@@ -25,6 +26,7 @@ const findAndFix = combineReducers({
   responses,
   lessons,
   playLesson,
+  playDiagnostic,
   routing: routerReducer
 })
 
