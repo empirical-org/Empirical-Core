@@ -1,53 +1,52 @@
-.create-a-class {
-  h1 {
-    margin-bottom: 20px;
-  }
-  input, select, button, label, a {
-    float: left;
-    clear: both;
-    font-weight: normal;
-    margin-bottom: 20px;
-  }
-  .help-inline {
-    padding: 9px;
-    margin-left: 10px;
-    display: inline-block;
-    color: #b94a48;
-  }
-  input.class-code {
-    margin-bottom: 10px;
-  }
-  span.generate-code {
-    float: left;
-    clear: right;
-    cursor: pointer;
-    line-height: 40px;
-    margin-left: 20px;
-    color: #027360;
-  }
-  button {
-    margin-top: 20px;
-  }
-  > div {
-    margin-bottom: 20px;
-  }
-  input:not(.inactive) {
-    width: 315px;
-  }
-  .select-gray-wrapper {
-    width: 180px;
-    .dropdown-menu {
-      width: 180px !important;
-      left: auto;
-      top: auto;
+#new-classroom {
+  padding-bottom: 54px;
+  max-width: 508px;
+   h1 {
+     margin-top: 32px;
+     font-size: 24px;
+	font-weight: 600;
+   }
+   label {
+     font-size: 14px;
+     margin: 13px 0 6px 0;
+     font-weight: 400;
+   }
+    .dropdown-toggle {
+        padding: 9px;
+        margin: 0 10px 10px 0;
+        font-size: 14px;
+        font-weight: 500;
+        border: solid 1px #d4d4d4;
+        text-align: left;
+        min-width: 90px;
+        color: #b2b2b2;
+        margin-bottom: 13px;
+        &.has-grade {
+          color: #000;
+        }
     }
-  }
-  .class-code-wrapper {
-    div {
-      margin-bottom: 10px;
+    input.inactive {
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-bottom: 27px;
     }
-    span {
-      margin-left: 15px;
+    #regenerate-class-code {
+      margin-left: 10px;
+      color:  #027360;
+      cursor: pointer;
     }
-  }
+    .errors {
+      margin-top: 1em;
+      color: red;
+      font-weight: 700;
+    }
+    .caret {
+        float: right;
+        border-top: 6px solid;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+        position: relative;
+        top: 8px;
+        margin-left: 10px;
+    }
 }
