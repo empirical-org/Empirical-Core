@@ -45,7 +45,7 @@ export default React.createClass({
   },
 
   handleSelectorChange: function(e) {
-    this.setState({concept: e.name})
+    this.setState({concept: e.value})
   },
 
   handleConceptChange: function() {

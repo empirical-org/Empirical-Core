@@ -204,11 +204,12 @@ export default React.createClass({
   // },
 
   selectConceptForResult: function (e) {
+    console.log(e);
     this.setState({
       newConceptResult: Object.assign({},
         this.state.newConceptResult,
         {
-          conceptUID: e.target.value
+          conceptUID: e.value
         }
       )
     })
@@ -329,15 +330,13 @@ export default React.createClass({
             {this.renderConceptResults()}
             {/*<li>Commas in lists (placeholder)</li>*/}
           </ul>
-          <p className="control">
-            <span className="select">
+
               {/*<select onChange={this.selectConceptForResult}>
                 <option>Select Concept feedback</option>
                 {this.conceptsToOptions()}
               </select>*/}
               <ConceptSelector options={this.conceptsToOptions()} placeholder={this.state.concept} onChange={this.selectConceptForResult}/>
-            </span>
-          </p>
+
           <p className="control">
             <label className="checkbox">
               <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
