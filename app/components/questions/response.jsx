@@ -233,7 +233,8 @@ export default React.createClass({
   renderConceptResults: function () {
     if (this.props.response.conceptResults) {
       return hashToCollection(this.props.response.conceptResults).map((cr) => {
-        return <li>Hi {cr.conceptUID}</li>
+        const concept = _.find(this.props.concepts.data["0"], {uid: cr.conceptUID})
+        return <li>{concept.name} {cr.correct ? "✔️" : "❌"}</li>
       })
     }
   },
@@ -325,25 +326,29 @@ export default React.createClass({
             </span>
           </p>
 
-          <label className="label">Concept Results</label>
-          <ul>
-            {this.renderConceptResults()}
-            {/*<li>Commas in lists (placeholder)</li>*/}
-          </ul>
+          <div className="box">
+            <label className="label">Concept Results</label>
+            <ul>
+              {this.renderConceptResults()}
+              {/*<li>Commas in lists (placeholder)</li>*/}
+            </ul>
 
-              {/*<select onChange={this.selectConceptForResult}>
-                <option>Select Concept feedback</option>
-                {this.conceptsToOptions()}
-              </select>*/}
-              <ConceptSelector options={this.conceptsToOptions()} placeholder={this.state.concept} onChange={this.selectConceptForResult}/>
+                {/*<select onChange={this.selectConceptForResult}>
+                  <option>Select Concept feedback</option>
+                  {this.conceptsToOptions()}
+                </select>*/}
+                <ConceptSelector options={this.conceptsToOptions()} placeholder="Choose a concept to add" onChange={this.selectConceptForResult}/>
 
-          <p className="control">
-            <label className="checkbox">
-              <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
-              Correct?
-            </label>
-          </p>
-          <button onClick={this.saveNewConceptResult}>Save Concept Result</button>
+            <p className="control">
+              <label className="checkbox">
+                <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
+                Correct?
+              </label>
+            </p>
+            <button className="button" onClick={this.saveNewConceptResult}>Save Concept Result</button>
+          </div>
+
+
 
           <p className="control">
             <label className="checkbox">
