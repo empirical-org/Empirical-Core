@@ -125,7 +125,7 @@ var StudentDiagnostic = React.createClass({
         }
       }
     } else {
-      return (<p>Loading...</p>)
+      return (<div className="section container">Loading...</div>)
     }
   }
 })

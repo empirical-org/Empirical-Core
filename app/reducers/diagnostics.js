@@ -25,7 +25,7 @@ function question(state = initialState, action) {
         unansweredQuestions: action.data,
         questionSet: action.data};
       return Object.assign({}, state, changes2)
-    case SubmitActions.CLEAR_DATA:
+    case SubmitActions.CLEAR_DIAGNOSTIC_DATA:
       return initialState
     case SubmitActions.EXIT_DIAGNOSTIC:
      return Object.assign({}, state, {
