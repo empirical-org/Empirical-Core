@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../../actions/diagnostics.js'
+import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 
@@ -73,6 +73,11 @@ var StudentDiagnostic = React.createClass({
     ]
   },
 
+  markIdentify: function (bool) {
+    const action = updateCurrentQuestion({identified: bool})
+    this.props.dispatch(action)
+  },
+
   getFetchedData: function() {
     var returnValue = this.getData().map((obj)=>{
       var data = (obj.type==="SC") ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key]
@@ -91,27 +96,18 @@ var StudentDiagnostic = React.createClass({
       var data = this.getFetchedData()
       if(data) {
         if (this.props.playDiagnostic.currentQuestion) {
-          console.log("Current Question Type: ", this.props.playDiagnostic.currentQuestion)
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
-            console.log("this.props.playDiagnostic: ", this.props.playDiagnostic)
-            //prefill={this.getLesson().prefill} was removed from <PlayLessonQuestion> below
             return (
-              <PlayDiagnosticQuestion question = {this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}/>
+              <PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}/>
             )
           } else {
-            console.log("this.props.playSentenceFragment: ", this.props.playDiagnostic.currentQuestion.data)
             return (
-              <PlaySentenceFragment question = {this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key} nextQuestion={this.nextQuestion}/>
+              <PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key} nextQuestion={this.nextQuestion} markIdentify={this.markIdentify} updateAttempts={this.submitResponse}/>
             )
           }
-
-          // return (
-          //   <PlayLessonQuestion key={this.props.playDiagnostic.currentQuestion.key} question={this.props.playDiagnostic.currentQuestion} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
-          // )
         }
         else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
           return (<div>Finshed diagnostic</div>)
-          // return (<Finished data={this.props.playDiagnostic} diagnosticID={this.props.params.diagnosticID}/>)
         }
         else {
           return (
@@ -119,9 +115,6 @@ var StudentDiagnostic = React.createClass({
               <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
             </div>
           )
-          // return (
-          //   <Register lesson={this.getLesson()} startActivity={this.startActivity}/>
-          // )
         }
       }
     } else {

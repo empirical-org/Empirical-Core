@@ -36,7 +36,7 @@ function question(state = initialState, action) {
     case SubmitActions.SUBMIT_DIAGNOSTIC_RESPONSE:
       var changes = {currentQuestion: Object.assign({}, state.currentQuestion, {
             data: Object.assign({},
-              state.currentQuestion,
+              state.currentQuestion.data,
               {
                 attempts: state.currentQuestion.data.attempts.concat([action.response])
               })
@@ -51,6 +51,15 @@ function question(state = initialState, action) {
       return Object.assign({}, state, changes)
     case SubmitActions.UPDATE_DIAGNOSTIC_NAME:
       var changes = {name: action.data}
+      return Object.assign({}, state, changes)
+    case SubmitActions.UPDATE_DIAGNOSTIC_CURRENT_QUESTION:
+      var change = action.data
+      var changes = {currentQuestion: Object.assign({}, state.currentQuestion, {
+          data: Object.assign({},
+            state.currentQuestion.data,
+            change
+          )
+        })}
       return Object.assign({}, state, changes)
     default:
       return state
