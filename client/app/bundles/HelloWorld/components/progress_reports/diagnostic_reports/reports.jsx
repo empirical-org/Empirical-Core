@@ -6,6 +6,10 @@ import GenericReport from './generic_report.jsx'
 
 export default React.createClass({
 
+  getInitialState: function(){
+    return({hasPremium: ''})
+  },
+
   report: function(){
     let reportValue = this.props.params.report
     let report
@@ -14,9 +18,18 @@ export default React.createClass({
     } else if (reportValue === '3') {
       // report = <ClassroomPage/>
     } else {
-      report = <GenericReport/>
+      report = <GenericReport premiumState={this.state.hasPremium}/>
     }
     return report;
+  },
+
+  getPremiumState:function(){
+    let that = this;
+    $.get('/teachers/classrooms/premium', function(data) {that.setState({hasPremium: data.hasPremium})});
+  },
+
+  componentDidMount: function(){
+    this.getPremiumState()
   },
 
 

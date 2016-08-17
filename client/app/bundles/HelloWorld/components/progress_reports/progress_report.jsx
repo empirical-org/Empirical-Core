@@ -24,7 +24,8 @@ export default  React.createClass({
     jsonResultsKey: React.PropTypes.string.isRequired,
     onFetchSuccess: React.PropTypes.func, // Optional
     exportCsv: React.PropTypes.string,
-    premiumStatus: React.PropTypes.string.isRequired
+    premiumStatus: React.PropTypes.string.isRequired,
+    colorByScore: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -194,7 +195,7 @@ export default  React.createClass({
     if (this.state.loading) {
       mainSection = <LoadingIndicator/>;
     } else {
-      mainSection = <SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
+      mainSection = <SortableTable rows={visibleResults} colorByScore={this.props.colorByScore} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
     }
 
     return (
