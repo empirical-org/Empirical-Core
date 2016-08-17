@@ -236,6 +236,9 @@ textarea.submission {
 /** UL with the options */
 .select-search-box__options {
   height: 200px;
+  overflow: scroll;
+  background-color: white;
+  border: 1px solid grey;
 }
 
 /** The option (LI), look at the state classes below */
