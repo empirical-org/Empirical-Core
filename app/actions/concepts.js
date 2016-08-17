@@ -9,6 +9,12 @@ function splitInLevels (concepts) {
 	return _.groupBy(concepts, 'level');
 }
 
+function getParentName (concept, concepts) {
+	const parent = _.find(concepts["1"], {id: concept.parent_id})
+	const grandParent = _.find(concepts["2"], {id: parent.parent_id}) 
+	return grandParent.name + " | " + parent.name
+}
+
 
 module.exports = {
 	// called when the app starts. this means we immediately download all quotes, and
@@ -19,7 +25,14 @@ module.exports = {
 			  if (!error && response.statusCode == 200) {
 			    // console.log(body) // Show the HTML for the Google homepage.
 					// console.log(JSON.parse(body));
-					dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: splitInLevels(JSON.parse(body).concepts) });
+					const concepts = splitInLevels(JSON.parse(body).concepts);
+					console.log(concepts);
+					concepts["0"] = concepts["0"].map((concept) => {
+						concept.displayName = getParentName(concept, concepts) + " | " + concept.name
+						return concept
+					})
+					console.log(concepts);
+					dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: concepts });
 			  }
 			})
 			// conceptsRef.on("value",function(snapshot){

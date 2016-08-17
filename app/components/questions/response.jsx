@@ -11,6 +11,7 @@ import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
 import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
+import ConceptSelector from 'react-select-search'
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -185,20 +186,30 @@ export default React.createClass({
     })
   },
 
-  conceptsToOptions: function () {
-    return this.props.concepts.data["0"].map((cs) => {
+  conceptsToOptions: function() {
+    return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        <option selected={this.state.newConceptResult.conceptUID === cs.uid} value={cs.uid}>{cs.name}</option>
+        {name: concept.displayName, value: concept.uid}
       )
     })
   },
 
+
+  // conceptsToOptions: function () {
+  //   return this.props.concepts.data["0"].map((cs) => {
+  //     return (
+  //       <option selected={this.state.newConceptResult.conceptUID === cs.uid} value={cs.uid}>{cs.name}</option>
+  //     )
+  //   })
+  // },
+
   selectConceptForResult: function (e) {
+    console.log(e);
     this.setState({
       newConceptResult: Object.assign({},
         this.state.newConceptResult,
         {
-          conceptUID: e.target.value
+          conceptUID: e.value
         }
       )
     })
@@ -222,7 +233,8 @@ export default React.createClass({
   renderConceptResults: function () {
     if (this.props.response.conceptResults) {
       return hashToCollection(this.props.response.conceptResults).map((cr) => {
-        return <li>Hi {cr.conceptUID}</li>
+        const concept = _.find(this.props.concepts.data["0"], {uid: cr.conceptUID})
+        return <li>{concept.displayName} {cr.correct ? "✔️" : "❌"}</li>
       })
     }
   },
@@ -314,26 +326,29 @@ export default React.createClass({
             </span>
           </p>
 
-          <label className="label">Concept Results</label>
-          <ul>
-            {this.renderConceptResults()}
-            {/*<li>Commas in lists (placeholder)</li>*/}
-          </ul>
-          <p className="control">
-            <span className="select">
-              <select onChange={this.selectConceptForResult}>
-                <option>Select Concept feedback</option>
-                {this.conceptsToOptions()}
-              </select>
-            </span>
-          </p>
-          <p className="control">
-            <label className="checkbox">
-              <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
-              Correct?
-            </label>
-          </p>
-          <button onClick={this.saveNewConceptResult}>Save Concept Result</button>
+          <div className="box">
+            <label className="label">Concept Results</label>
+            <ul>
+              {this.renderConceptResults()}
+              {/*<li>Commas in lists (placeholder)</li>*/}
+            </ul>
+
+                {/*<select onChange={this.selectConceptForResult}>
+                  <option>Select Concept feedback</option>
+                  {this.conceptsToOptions()}
+                </select>*/}
+                <ConceptSelector options={this.conceptsToOptions()} placeholder="Choose a concept to add" onChange={this.selectConceptForResult}/>
+
+            <p className="control">
+              <label className="checkbox">
+                <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
+                Correct?
+              </label>
+            </p>
+            <button className="button" onClick={this.saveNewConceptResult}>Save Concept Result</button>
+          </div>
+
+
 
           <p className="control">
             <label className="checkbox">
@@ -349,6 +364,10 @@ export default React.createClass({
           <strong>Feedback:</strong> <br/>
           <div dangerouslySetInnerHTML={{__html: response.feedback}}></div>
           <br/>
+          <label className="label">Concept Results</label>
+          <ul>
+            {this.renderConceptResults()}
+          </ul>
           {authorDetails}
           {childDetails}
           {pathwayDetails}
