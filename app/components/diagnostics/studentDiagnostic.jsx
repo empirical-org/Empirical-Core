@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../../actions.js'
+import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../../actions/diagnostics.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 
