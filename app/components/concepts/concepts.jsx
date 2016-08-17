@@ -18,12 +18,14 @@ const Concept = React.createClass({
   },
 
   renderConcepts: function () {
-    const {data} = this.props.concepts;
-    const keys = _.keys(data);
-    return keys.map((key) => {
-      //console.log(key, data, data[key])
-      return (<li><Link to={'/admin/concepts/' + key} activeClassName="is-active" key={key}>{data[key].name}</Link></li>)
-    })
+    const data = this.props.concepts.data["0"];
+    // const keys = _.keys(data["0"]);
+    if (data) {
+      return data.map((concept) => {
+        //console.log(key, data, data[key])
+        return (<li><Link to={'/admin/concepts/' + concept.uid} activeClassName="is-active" key={concept.uid}>{concept.name}</Link></li>)
+      })
+    }
   },
 
   renderModal: function () {

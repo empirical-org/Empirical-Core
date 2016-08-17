@@ -24,7 +24,11 @@ export default React.createClass({
     return {
       feedback: this.props.response.feedback || "",
       selectedBoilerplate: "",
-      selectedConcept: this.props.response.concept || ""
+      selectedConcept: this.props.response.concept || "",
+      newConceptResult: {
+        conceptUID: "",
+        correct:  true
+      }
     }
   },
 
@@ -181,6 +185,48 @@ export default React.createClass({
     })
   },
 
+  conceptsToOptions: function () {
+    return this.props.concepts.data["0"].map((cs) => {
+      return (
+        <option selected={this.state.newConceptResult.conceptUID === cs.uid} value={cs.uid}>{cs.name}</option>
+      )
+    })
+  },
+
+  selectConceptForResult: function (e) {
+    this.setState({
+      newConceptResult: Object.assign({},
+        this.state.newConceptResult,
+        {
+          conceptUID: e.target.value
+        }
+      )
+    })
+  },
+
+  markNewConceptResult: function () {
+    this.setState({
+      newConceptResult: Object.assign({},
+        this.state.newConceptResult,
+        {
+          correct: !this.state.newConceptResult.correct
+        }
+      )
+    })
+  },
+
+  saveNewConceptResult: function () {
+    this.props.dispatch(questionActions.submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult))
+  },
+
+  renderConceptResults: function () {
+    if (this.props.response.conceptResults) {
+      return hashToCollection(this.props.response.conceptResults).map((cr) => {
+        return <li>Hi {cr.conceptUID}</li>
+      })
+    }
+  },
+
   renderResponseContent: function (isEditing, response) {
     var content;
     var parentDetails;
@@ -267,6 +313,27 @@ export default React.createClass({
               </select>
             </span>
           </p>
+
+          <label className="label">Concept Results</label>
+          <ul>
+            {this.renderConceptResults()}
+            {/*<li>Commas in lists (placeholder)</li>*/}
+          </ul>
+          <p className="control">
+            <span className="select">
+              <select onChange={this.selectConceptForResult}>
+                <option>Select Concept feedback</option>
+                {this.conceptsToOptions()}
+              </select>
+            </span>
+          </p>
+          <p className="control">
+            <label className="checkbox">
+              <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
+              Correct?
+            </label>
+          </p>
+          <button onClick={this.saveNewConceptResult}>Save Concept Result</button>
 
           <p className="control">
             <label className="checkbox">
