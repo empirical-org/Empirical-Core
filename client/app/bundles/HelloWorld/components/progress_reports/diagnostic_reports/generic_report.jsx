@@ -1,7 +1,6 @@
 import React from 'react'
-// The progress report showing all students in a given classroom
-// along with their result counts.
 import ProgressReport from '../progress_report.jsx'
+
 
 
 export default React.createClass({
@@ -31,12 +30,12 @@ export default React.createClass({
         }
       },
       {
-        name: 'instructions',
+        name: 'Instructions',
         field: 'instructions',
         sortByField: 'instructions'
       },
       {
-        name: 'prompt',
+        name: 'Prompt',
         field: 'prompt',
         sortByField: 'prompt'
       }
@@ -64,14 +63,18 @@ export default React.createClass({
     });
   },
 
+  colorByScore: function(grade){
+    return ScoreColor(grade)
+  },
+
   render: function() {
-    console.log('in progress report')
     return (
       <ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={false}
                          sourceUrl={'/teachers/progress_reports/question_view'}
                          sortDefinitions={this.sortDefinitions}
                          jsonResultsKey={'data'}
+                         colorByScore={Boolean(true)}
                         // onFetchSuccess={this.onFetchSuccess}
                          filterTypes={[]}
                          premiumStatus={this.props.premiumStatus}
