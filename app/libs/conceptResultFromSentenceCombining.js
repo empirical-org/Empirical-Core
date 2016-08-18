@@ -10,6 +10,12 @@ export function getConceptResultsForSentenceCombining(question) {
   } else {
     conceptResults = [];
   }
+  if (conceptResults.length === 0) {
+    conceptResults = [{
+      conceptUID: question.conceptUID,
+      correct: false
+    }]
+  }
   return conceptResults.map((conceptResult) => {
     return {
       concept_uid: conceptResult.conceptUID,
