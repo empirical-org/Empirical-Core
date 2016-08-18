@@ -13,10 +13,50 @@ export function getIdentificationConceptResult(question) {
   }
   returnValue.concept_uid = concept_uid
   returnValue.metadata = {
-    correct: correct,
-    directions: "Is this a sentence or a fragment?",
-    prompt: prompt,
-    answer: answer
+    correct,
+    directions,
+    prompt,
+    answer
   }
   return returnValue
+}
+
+export function getCompleteSentenceConceptResult(question) {
+  const returnValue = {};
+  const correct = calculateCorrectnessOfSentence(question.attempts[0]);
+  const concept_uid = 'iUE6tekeyep8U385dtmVfQ';
+  const answer = question.attempts[0].submitted;
+  const directions = "Add/change as few words as you can to change this fragment into a sentence"
+  const prompt = question.questionText
+  returnValue.concept_uid = concept_uid;
+  returnValue.metadata = {
+    correct,
+    directions,
+    prompt,
+    answer
+  }
+  return returnValue
+}
+
+
+function calculateCorrectnessOfSentence(attempt) {
+  if (attempt && attempt.response) {
+    return attempt.response.optimal ? 1 : 0
+  } else {
+    return 0
+  }
+}
+
+export function getAllSentenceFragmentConceptResults (question) {
+  if (!question.isFragment && question.identified) {
+    return [
+      getIdentificationConceptResult(question)
+    ]
+  } else {
+    return [
+      getIdentificationConceptResult(question),
+      getCompleteSentenceConceptResult(question)
+    ]
+  }
+
 }
