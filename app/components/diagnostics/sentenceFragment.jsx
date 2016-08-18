@@ -13,7 +13,7 @@ var PlaySentenceFragment = React.createClass({
   getInitialState: function() {
     return {
       // choosingSentenceOrFragment: true,
-      prompt: "Is this a sentence or a fragment?",
+      // prompt: "Is this a sentence or a fragment?",
       response: "",
       // goToNext: false,
       // isNextPage: false
@@ -54,11 +54,11 @@ var PlaySentenceFragment = React.createClass({
     //     prompt: "Look closely. Do all the necessary the parts of speech (subject, verb) exist?"
     //   })
     // }
-    if(choice==="Fragment") {
-      this.setState({
-        prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
-      })
-    }
+    // if(choice==="Fragment") {
+    //   this.setState({
+    //     prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
+    //   })
+    // }
   },
 
   getSentenceOrFragmentButtons() {
@@ -135,7 +135,7 @@ var PlaySentenceFragment = React.createClass({
       return (
         <div className="container">
           <ReactTransition transitionName={"sentence-fragment-buttons"} transitionLeave={true} transitionLeaveTimeout={2000}>
-            <h5 className="title is-5">{this.state.prompt}</h5>
+            <h5 className="title is-5">Is this a sentence or a fragment?</h5>
             {this.getSentenceOrFragmentButtons()}
           </ReactTransition>
         </div>
@@ -156,7 +156,7 @@ var PlaySentenceFragment = React.createClass({
       return (
         <div className="container">
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={2000} >
-            <h5 className="title is-5">{this.state.prompt}</h5>
+            <h5 className="title is-5">Add and/or change as few words as you can to turn this fragment into a sentence</h5>
             <TextEditor handleChange={this.handleChange}/>
             <div className="question-button-group">
               {button}
