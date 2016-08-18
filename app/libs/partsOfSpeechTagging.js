@@ -17,8 +17,6 @@ export function getPartsOfSpeechTags(input){
 export function checkPOSEquivalancy (input, target) {
   const inputTags = getPartsOfSpeechTags(input)
   const targetTags = getPartsOfSpeechTags(target)
-  console.log("\ninput: ", inputTags)
-  console.log("\ntarget: ", targetTags)
   return _.isEqual(inputTags,targetTags)
 }
 
