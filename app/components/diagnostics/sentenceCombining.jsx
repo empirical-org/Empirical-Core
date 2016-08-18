@@ -172,7 +172,7 @@ const PlayDiagnosticQuestion = React.createClass({
     if(this.props.question.attempts.length > 0) {
       button = <button className="button is-warning" onClick={this.nextQuestion}>Next</button>
     } else {
-      button= <button className="button is-primary" onClick={this.checkAnswer}>Check Answer</button>
+      button= <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
     }
     if (this.props.question) {
         // return (

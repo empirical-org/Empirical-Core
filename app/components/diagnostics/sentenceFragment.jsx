@@ -27,17 +27,27 @@ var PlaySentenceFragment = React.createClass({
   checkChoice: function(choice) {
     const questionType = this.props.question.isFragment ? "Fragment" : "Sentence"
     this.props.markIdentify(choice === questionType)
-    if(choice===questionType) {
-      this.setState({prompt: "Well done! You identified correctly!"})
-      //timeout below to allow for constructive feedback to stay on the screen for longer
-      setTimeout(()=>{
-        this.setState({
-          choosingSentenceOrFragment: false,
-          prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
-        })}, 250)
+    // if(choice===questionType) {
+    //   this.setState({prompt: "Well done! You identified correctly!"})
+    //   //timeout below to allow for constructive feedback to stay on the screen for longer
+    //   setTimeout(()=>{
+    //     this.setState({
+    //       choosingSentenceOrFragment: false,
+    //       prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
+    //     })}, 250)
+    // } else {
+    //   this.setState({ //here set goToNext as true
+    //     prompt: "Look closely. Do all the necessary the parts of speech (subject, verb) exist?"
+    //   })
+    // }
+    if(choice==="Fragment") {
+      this.setState({
+        choosingSentenceOrFragment: false,
+        prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
+      })
     } else {
-      this.setState({ //here set goToNext as true
-        prompt: "Look closely. Do all the necessary the parts of speech (subject, verb) exist?"
+      this.setState({
+        goToNext: true
       })
     }
   },
@@ -115,7 +125,7 @@ var PlaySentenceFragment = React.createClass({
   },
 
   renderSentenceOrFragmentMode: function() {
-    if(this.state.choosingSentenceOrFragment) {
+    if(this.state.choosingSentenceOrFragment && !this.state.goToNext) {
       return (
         <div className="container">
           <ReactTransition transitionName={"sentence-fragment-buttons"} transitionLeave={true} transitionLeaveTimeout={2000}>
@@ -134,9 +144,9 @@ var PlaySentenceFragment = React.createClass({
     if(this.state.goToNext) {
       button = <button className="button is-warning" onClick={() => {this.setState({isNextPage: true})}}>Next</button>
     } else {
-      button = <button className="button is-primary" onClick={this.checkAnswer}>Check Answer</button>
+      button = <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
     }
-    if(!this.state.choosingSentenceOrFragment && this.props.sentenceFragments.data[key].isFragment && !this.state.isNextPage) {
+    if(!this.state.choosingSentenceOrFragment && !this.state.isNextPage) {
       return (
         <div className="container">
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={2000} >
@@ -147,6 +157,10 @@ var PlaySentenceFragment = React.createClass({
             </div>
           </ReactTransition>
         </div>
+      )
+    } else if(this.state.goToNext) {
+      return (
+        <div>{button}</div>
       )
     } else {
       return <div />
