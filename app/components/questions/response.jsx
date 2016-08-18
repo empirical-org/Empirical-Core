@@ -234,7 +234,7 @@ export default React.createClass({
   },
 
   saveNewConceptResult: function () {
-    this.props.dispatch(questionActions.submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult))
+    this.props.dispatch(this.state.actions.submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult))
   },
 
   renderConceptResults: function () {

@@ -97,6 +97,15 @@ module.exports = {
 			});
 		};
 	},
+	submitNewConceptResult: function(sfid, rid, data) {
+		return function (dispatch, getState) {
+			sentenceFragmentsRef.child(sfid + '/responses/' + rid + '/conceptResults').push(data, function(error){
+				if (error) {
+					alert("Submission failed! "+error)
+				}
+			});
+		};
+	},
   startResponseEdit: function(sfid,rid){
 		return {type:C.START_RESPONSE_EDIT,sfid,rid};
 	},
