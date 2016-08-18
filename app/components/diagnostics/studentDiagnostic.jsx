@@ -73,11 +73,7 @@ var StudentDiagnostic = React.createClass({
       {
         type: "SC",
         key: "-KP-Mm-zR8JQcT62iUHW"
-      },
-      {
-        type: "SF",
-        key: "-KOqLomeMhOuHqX9Zdqv"
-      },
+      }
     ]
   },
 
