@@ -7,20 +7,21 @@ import GenericReport from './generic_report.jsx'
 export default React.createClass({
 
   getInitialState: function(){
-    return({hasPremium: ''})
+    return({hasPremium: '',
+            loading: true})
   },
 
   report: function(){
     let reportValue = this.props.params.report
-    let report
+    let report, nav;
     if (reportValue === '1'){
       // report = <ModalOverview/>
     } else if (reportValue === '3') {
       // report = <ClassroomPage/>
     } else {
-      report = <GenericReport premiumState={this.state.hasPremium}/>
+      report = <GenericReport key='Report' premiumState={this.state.hasPremium}/>
     }
-    return report;
+    return [nav, report];
   },
 
   getPremiumState:function(){
