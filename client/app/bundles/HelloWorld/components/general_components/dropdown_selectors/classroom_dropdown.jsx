@@ -24,8 +24,7 @@ export default React.createClass({
   },
 
 	handleSelect: function(classroomId) {
-		let newSelect = this.findClassroomById(classroomId);
-		this.setState({selectedClassroom: newSelect})
+		this.setState({selectedClassroom: this.findClassroomById(classroomId)})
     if (this.props.callback) {
       this.props.callback(classroomId)
     }
