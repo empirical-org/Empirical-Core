@@ -14,7 +14,7 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		this.ajaxCalls();
+		this.getClassrooms();
 	},
 
 	componentWillUnmount: function() {
@@ -26,14 +26,28 @@ export default React.createClass({
 		}
 	},
 
-	ajaxCalls: function() {
+	getClassrooms: function() {
 		this.ajax = {};
 		let ajax = this.ajax;
 		let that = this;
 		ajax.classrooms = $.get('/teachers/classrooms/classrooms_i_teach', function(data) {
-			that.setState({classrooms: data.classrooms, loading: false});
+			that.setState({classrooms: data.classrooms});
+			that.getStudents();
 		});
 	},
+
+	getClassroomId: function(){
+		return (this.props.params.classroomId || this.state.classrooms[0].id)
+	},
+
+	getStudents: function(){
+		// used as a getClassrooms callback so we'll have a first classroom
+		let that = this;
+		this.ajax.students = $.get('/teachers/classrooms/students', {id: that.getClassroomId()} ,function(data) {
+			that.setState({students: data.students, loading: false});
+		});
+	},
+
 
 	changeClassroom: function(classroomId) {
 		// below line works, but is being deprecated
@@ -44,14 +58,20 @@ export default React.createClass({
 		this.props.history.push((this.props.params.classroomId || 'classroom') + '/' + reportName)
 	},
 
+
+
 	render: function() {
 		if (this.state.loading) {
 			return <LoadingSpinner/>
 		} else {
 			return (
 				<div id='individual-activity-reports'>
-					<NavBar classrooms={this.state.classrooms} defaultClassId={this.props.params.classroomId} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport}>
-						{this.props.children}
+					<NavBar classrooms={this.state.classrooms}
+						defaultClassId={this.props.params.classroomId}
+						dropdownCallback={this.changeClassroom}
+						buttonGroupCallback={this.changeReport}
+						students={this.state.students}>
+							{this.props.children}
 					</NavBar>
 				</div>
 			);
