@@ -8,7 +8,7 @@ export default React.createClass({
 	propTypes: {
 		classrooms: React.PropTypes.array.isRequired,
     defaultClassId: React.PropTypes.number,
-    callback: React.PropTypes.func
+    callback: React.PropTypes.function
 	},
 
 	getInitialState: function() {
@@ -27,14 +27,13 @@ export default React.createClass({
 		let newSelect = this.findClassroomById(classroomId);
 		this.setState({selectedClassroom: newSelect})
     if (this.props.callback) {
-      // ultimately this callback should change the url params in the diagnostic report
-      this.props.callback()
+      this.props.callback(classroomId)
     }
 	},
 
 	render: function() {
 		return (
-			<DropdownButton bsStyle='default' title={this.state.selectedClassroom.name} id='select-classroom' onSelect={this.handleSelect}>
+			<DropdownButton bsStyle='default' title={this.state.selectedClassroom.name} id='select-classroom-dropdown' onSelect={this.handleSelect}>
 				{this.classrooms()}
 			</DropdownButton>
 		);
