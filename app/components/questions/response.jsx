@@ -12,6 +12,7 @@ import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
 import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
+import ConceptSelector from 'react-select-search'
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -32,7 +33,11 @@ export default React.createClass({
       feedback: this.props.response.feedback || "",
       selectedBoilerplate: "",
       selectedConcept: this.props.response.concept || "",
-      actions
+      actions,
+      newConceptResult: {
+        conceptUID: "",
+        correct:  true
+      }
     }
   },
 
@@ -189,6 +194,58 @@ export default React.createClass({
     })
   },
 
+  conceptsToOptions: function() {
+    return _.map(this.props.concepts.data["0"], (concept)=>{
+      return (
+        {name: concept.displayName, value: concept.uid}
+      )
+    })
+  },
+
+
+  // conceptsToOptions: function () {
+  //   return this.props.concepts.data["0"].map((cs) => {
+  //     return (
+  //       <option selected={this.state.newConceptResult.conceptUID === cs.uid} value={cs.uid}>{cs.name}</option>
+  //     )
+  //   })
+  // },
+
+  selectConceptForResult: function (e) {
+    this.setState({
+      newConceptResult: Object.assign({},
+        this.state.newConceptResult,
+        {
+          conceptUID: e.value
+        }
+      )
+    })
+  },
+
+  markNewConceptResult: function () {
+    this.setState({
+      newConceptResult: Object.assign({},
+        this.state.newConceptResult,
+        {
+          correct: !this.state.newConceptResult.correct
+        }
+      )
+    })
+  },
+
+  saveNewConceptResult: function () {
+    this.props.dispatch(questionActions.submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult))
+  },
+
+  renderConceptResults: function () {
+    if (this.props.response.conceptResults) {
+      return hashToCollection(this.props.response.conceptResults).map((cr) => {
+        const concept = _.find(this.props.concepts.data["0"], {uid: cr.conceptUID})
+        return <li>{concept.displayName} {cr.correct ? "✔️" : "❌"}</li>
+      })
+    }
+  },
+
   renderResponseContent: function (isEditing, response) {
     var content;
     var parentDetails;
@@ -276,6 +333,30 @@ export default React.createClass({
             </span>
           </p>
 
+          <div className="box">
+            <label className="label">Concept Results</label>
+            <ul>
+              {this.renderConceptResults()}
+              {/*<li>Commas in lists (placeholder)</li>*/}
+            </ul>
+
+                {/*<select onChange={this.selectConceptForResult}>
+                  <option>Select Concept feedback</option>
+                  {this.conceptsToOptions()}
+                </select>*/}
+                <ConceptSelector options={this.conceptsToOptions()} placeholder="Choose a concept to add" onChange={this.selectConceptForResult}/>
+
+            <p className="control">
+              <label className="checkbox">
+                <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
+                Correct?
+              </label>
+            </p>
+            <button className="button" onClick={this.saveNewConceptResult}>Save Concept Result</button>
+          </div>
+
+
+
           <p className="control">
             <label className="checkbox">
               <input ref="newResponseOptimal" defaultChecked={response.optimal} type="checkbox" />
@@ -290,6 +371,10 @@ export default React.createClass({
           <strong>Feedback:</strong> <br/>
           <div dangerouslySetInnerHTML={{__html: response.feedback}}></div>
           <br/>
+          <label className="label">Concept Results</label>
+          <ul>
+            {this.renderConceptResults()}
+          </ul>
           {authorDetails}
           {childDetails}
           {pathwayDetails}

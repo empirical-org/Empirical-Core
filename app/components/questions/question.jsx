@@ -149,7 +149,7 @@ const Question = React.createClass({
     if (this.props.questions.states[questionID] === C.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
-          <EditFrom question={question} submit={this.saveQuestionEdits} itemLevels={this.props.itemLevels}/>
+          <EditFrom question={question} submit={this.saveQuestionEdits} itemLevels={this.props.itemLevels} concepts={this.props.concepts}/>
         </Modal>
       )
     }

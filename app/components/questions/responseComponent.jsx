@@ -189,7 +189,8 @@ const Responses = React.createClass({
       printPathways={this.mapCountToResponse}
       toPathways={this.mapCountToToResponse}
       conceptsFeedback={this.props.conceptsFeedback}
-      mode={this.props.mode} />
+      mode={this.props.mode}
+      concepts={this.props.concepts} />
   },
 
   toggleResponseSort: function (field) {
@@ -366,7 +367,8 @@ function select(state) {
   return {
     responses: state.responses,
     pathways: state.pathways,
-    conceptsFeedback: state.conceptsFeedback
+    conceptsFeedback: state.conceptsFeedback,
+    concepts: state.concepts
   }
 }
 

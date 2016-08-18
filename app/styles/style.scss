@@ -6,6 +6,7 @@
 @import './bulma/components/components';
 @import './bulma/layout/layout';
 @import 'textbox';
+@import '../../node_modules/react-selectize/themes/index.css';
 
 body {
   color: #3D3D3D
@@ -145,6 +146,24 @@ h2.register {
   align-items: flex-end;
 }
 
+.sentence-fragment-buttons-leave {
+  opacity: 1;
+}
+
+.sentence-fragment-buttons-leave.sentence-fragment-buttons-leave-active {
+  opacity: 0.01;
+  transition: opacity 3.0s ease-in;
+}
+
+.text-editor-appear {
+  opacity: 0.01;
+}
+
+.text-editor-appear.text-editor-appear-active {
+  opacity: 1;
+  transition: opacity 2.0s ease-in;
+}
+
 textarea.submission {
   font-size: 18px;
 }
@@ -156,4 +175,91 @@ textarea.submission {
   }
   margin-bottom: 1em;
   font-size: 24px;
+}
+
+.dropdown-input.dropdown-menu > li > a {
+  &:hover,
+  &:focus {
+    color: #333; //$dropdown-link-color;
+    background-color: #fff; //$dropdown-bg;
+  }
+}
+.dropdown-input.dropdown-menu > .active > a {
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: #fff; // $dropdown-link-hover-color;  // #fff
+    background-color: #337ab7; // $dropdown-link-hover-bg;  // #337ab7
+  }
+}
+
+/** The option list should not be visible by default */
+.select-search-box__select {
+  display: none;
+}
+
+.select-search-box__search {
+  display: block;
+  width: 74%;
+  height: 32px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background: white;
+  outline: none;
+  font-size: 14px;
+  padding-left: 8px;
+  color: #303030;
+  -webkit-appearance: textfield;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-weight: none;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  font-family: sans-serif;
+  line-height: 50px;
+  justify-content: flex-start;
+  padding-right: 36px
+}
+
+/** If it's a multiple select, you can style it with this selector */
+.select-search-box--multiple .select-search-box__select {
+  display: block;
+}
+
+/** The list receives the modifier class "display" when the select has focus */
+.select-search-box__select--display {
+  display: block;
+}
+
+/** UL with the options */
+.select-search-box__options {
+  max-height: 200px;
+  overflow: scroll;
+  background-color: white;
+  border: 1px solid grey;
+}
+
+/** The option (LI), look at the state classes below */
+.select-search-box__option {
+  font-size: 14px;
+  font-weight: 400;
+  color: #616b74;
+  padding: 15px 15px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.1);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/** When the option has been selected */
+.select-search-box__option--selected {
+
+}
+
+/** When the option is selected (when navigation with the arrow keys, up/down) */
+.select-search-box__option--hover, .select-search-box__option:hover {
+
 }

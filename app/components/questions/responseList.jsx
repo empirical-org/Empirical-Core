@@ -25,7 +25,8 @@ export default React.createClass({
           printPathways={this.props.printPathways}
           toPathways={this.props.toPathways}
           conceptsFeedback={this.props.conceptsFeedback}
-          mode={this.props.mode} />
+          mode={this.props.mode}
+          concepts={this.props.concepts} />
       )}
     })
     if (this.props.ascending) {

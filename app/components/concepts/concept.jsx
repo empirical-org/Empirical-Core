@@ -14,8 +14,15 @@ const Concepts = React.createClass({
     }
   },
 
+  getConcept: function () {
+    const {data} = this.props.concepts, {conceptID} = this.props.params;
+    return _.find(data['0'], {uid: conceptID})
+  },
+
   deleteConcept: function () {
-    this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
+    if(confirm("Are you sure?")) {
+      this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
+    }
   },
 
   submitNewQuestion: function (e) {
@@ -108,17 +115,13 @@ const Concepts = React.createClass({
 
   render: function (){
     const {data} = this.props.concepts, {conceptID} = this.props.params;
-    if (data[conceptID]) {
+    if (this.getConcept()) {
       return (
         <div>
           <Link to ={'admin/concepts'}>Return to All Concepts</Link>
-          <h4 className="title">{data[conceptID].name}</h4>
+          <h4 className="title">{this.getConcept().name}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
-          <p className="control">
-            <button className="button is-info" onClick={this.editConcept}>Edit Concept</button> <button className="button is-danger" onClick={this.deleteConcept}>Delete Concept</button>
-          </p>
           {this.renderNewQuestionForm()}
-
           {this.renderQuestionsForConcept()}
         </div>
       )
