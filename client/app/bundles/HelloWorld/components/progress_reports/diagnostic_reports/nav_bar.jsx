@@ -22,7 +22,7 @@ export default React.createClass({
           <ClassroomDropdown classrooms={this.props.classrooms || [{name: 'Please Add a Classroom', id: null}]}
                              defaultClassId={this.props.defaultClassId}
                              callback={this.props.dropdownCallback}/>
-          <NavButtonGroup clickCallback={this.buttonGroupCallback}/>
+                           <NavButtonGroup clickCallback={this.props.buttonGroupCallback}/>
         </div>
         {this.props.children}
       </div>
