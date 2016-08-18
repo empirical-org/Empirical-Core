@@ -9,6 +9,7 @@ require('../../../../../assets/styles/app-variables.scss')
 
 export default React.createClass({
 
+
 	getInitialState: function() {
 		return ({loading: true, classrooms: null})
 	},
@@ -36,13 +37,12 @@ export default React.createClass({
 	},
 
 	changeClassroom: function(classroomId){
-		console.log('in change classroom')
-		// TODO: make this update the classroom param within the url
+		// below line works, but is being deprecated
+		this.props.history.push(classroomId.toString() + '/' + (this.props.params.report || 'report'))
 	},
 
 
 	changeReport: function(reportName){
-		console.log('in change report')
 		// TODO: make this update the classroom param within the url
 	},
 

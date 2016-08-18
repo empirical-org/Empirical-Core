@@ -14,13 +14,13 @@ export default React.createClass({
   report: function(){
     let reportValue = this.props.params.report
     let report, nav;
-    if (reportValue === '1'){
-      // report = <ModalOverview/>
-    } else if (reportValue === '3') {
-      // report = <ClassroomPage/>
-    } else {
+    // if (reportValue === '1'){
+    //   // report = <ModalOverview/>
+    // } else if (reportValue === '3') {
+    //   // report = <ClassroomPage/>
+    // } else {
       report = <GenericReport key='Report' premiumState={this.state.hasPremium}/>
-    }
+    // }
     return [nav, report];
   },
 

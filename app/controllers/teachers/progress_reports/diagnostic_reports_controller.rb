@@ -11,8 +11,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
                     instructions: 'Fix run on sentence',
                     prompt: 'Run'},
                     {question_id: 1323,
-                    score: 87,
-                    instructions: 'Fix run on sentence',
+                    score: 70,
+                    instructions: 'Go to the gym',
+                    prompt: 'Run'},
+                    {question_id: 112323,
+                    score: 30,
+                    instructions: "I can't it's too hard",
                     prompt: 'Run'}]
                   }
   end
