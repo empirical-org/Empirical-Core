@@ -35,14 +35,27 @@ export default React.createClass({
 		});
 	},
 
+	changeClassroom: function(classroomId){
+		console.log('in change classroom')
+		// TODO: make this update the classroom param within the url
+	},
+
+
+	changeReport: function(reportName){
+		console.log('in change report')
+		// TODO: make this update the classroom param within the url
+	},
 
   render: function() {
 		if (this.state.loading) {
 			return <LoadingSpinner/>
 		} else {
 			return (
-				<div id='diagnostic-planner-reports'>
-					<NavBar classrooms={this.state.classrooms}>
+				<div id='individual-activity-reports'>
+					<NavBar classrooms={this.state.classrooms}
+						defaultClassId={this.props.params.classroomId}
+						dropdownCallback={this.changeClassroom}
+						buttonGroupCallback={this.changeReport}>
 						{this.props.children}
 					</NavBar>
 				</div>
