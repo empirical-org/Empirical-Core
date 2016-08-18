@@ -9,7 +9,6 @@ require('../../../../../assets/styles/app-variables.scss')
 
 export default React.createClass({
 
-
 	getInitialState: function() {
 		return ({loading: true, classrooms: null})
 	},
@@ -36,30 +35,27 @@ export default React.createClass({
 		});
 	},
 
-	changeClassroom: function(classroomId){
+	changeClassroom: function(classroomId) {
 		// below line works, but is being deprecated
 		this.props.history.push(classroomId.toString() + '/' + (this.props.params.report || 'report'))
 	},
 
-
-	changeReport: function(reportName){
-		// TODO: make this update the classroom param within the url
+	changeReport: function(reportName) {
+		this.props.history.push((this.props.params.classroomId || 'classroom') + '/' + reportName)
 	},
 
-  render: function() {
+	render: function() {
 		if (this.state.loading) {
 			return <LoadingSpinner/>
 		} else {
 			return (
 				<div id='individual-activity-reports'>
-					<NavBar classrooms={this.state.classrooms}
-						defaultClassId={this.props.params.classroomId}
-						dropdownCallback={this.changeClassroom}
-						buttonGroupCallback={this.changeReport}>
+					<NavBar classrooms={this.state.classrooms} defaultClassId={this.props.params.classroomId} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport}>
 						{this.props.children}
 					</NavBar>
 				</div>
-      );
-	}}
+			);
+		}
+	}
 
 });
