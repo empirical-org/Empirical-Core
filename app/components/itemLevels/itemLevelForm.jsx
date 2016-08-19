@@ -131,6 +131,8 @@ const ItemLevelForm = React.createClass({
           <Link to={'admin/item-levels'}>
             <button className="button is-primary" onClick={this.submit}>Submit</button>
           </Link>
+        </div>
+        <div>
           {cancelAndDeleteButtons}
         </div>
       </div>

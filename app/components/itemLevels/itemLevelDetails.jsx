@@ -7,7 +7,7 @@ import _ from 'lodash'
 const ItemLevelDetails = React.createClass({
 
   render: function() {
-    if(this.props.itemLevels.hasreceiveddata===true) {
+    if(this.props.itemLevels.hasreceiveddata && this.props.concepts.hasreceiveddata) {
       const levelID = this.props.params.itemLevelID, itemLevels = this.props.itemLevels.data
 
       const questions = this.props.questions.data, targetConceptID = itemLevels[levelID].conceptID

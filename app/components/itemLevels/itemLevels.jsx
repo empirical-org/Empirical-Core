@@ -59,24 +59,30 @@ const ItemLevels = React.createClass({
   },
 
   render: function() {
-    return (
-      <section className="section">
-        <div className="container">
-          <h1 className="title">
-            <button className="button is-primary" onClick={this.createNew}>Create New Item Level</button>
-          </h1>
-              {this.renderModal()}
-              <aside className="menu">
-                <p className="menu-label">
-                  Item Levels
-                </p>
-                <ul className="menu-list">
-                  {this.renderItemLevels()}
-                </ul>
-              </aside>
-        </div>
-      </section>
-    )
+    if(this.props.concepts.hasreceiveddata && this.props.itemLevels.hasreceiveddata) {
+      return (
+        <section className="section">
+          <div className="container">
+            <h1 className="title">
+              <button className="button is-primary" onClick={this.createNew}>Create New Item Level</button>
+            </h1>
+                {this.renderModal()}
+                <aside className="menu">
+                  <p className="menu-label">
+                    Item Levels
+                  </p>
+                  <ul className="menu-list">
+                    {this.renderItemLevels()}
+                  </ul>
+                </aside>
+          </div>
+        </section>
+      )
+    } else {
+      return (
+        <div className="container">Loading...</div>
+      )
+    }
   }
 })
 
