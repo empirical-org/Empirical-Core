@@ -24,7 +24,6 @@ $lightgray: #cecece;
     text-overflow: ellipsis;
     overflow: hidden;
     font-weight: 400;
-    margin-right: 40px;
     text-align: left;
     .caret {
       float: right;
@@ -38,6 +37,8 @@ $lightgray: #cecece;
 }
 // for report-navbar.scss
 #report-button-group {
+  margin-right: 40px;
+  margin-left: 40px;
     border-radius: 6px;
     border: solid 1px $lightgray;
     button {
@@ -58,4 +59,31 @@ $lightgray: #cecece;
             color: white;
         }
     }
+}
+
+
+// for activity by classroom overview
+#individual-activity-classroom-view {
+  // table.table.sortable-table {
+  //   thead tr {
+  //     th.sorter:first-of-type {
+  //       width: 110 px;
+  //     }
+  //     th:nth-of-type(2) {
+  //       width: 70px
+  //     }
+  //   }
+  // }
+  th:first-of-type, tr td:first-of-type {
+    width: 110px;
+    text-align: right;
+  }
+  th:nth-of-type(2), tr td:nth-of-type(2){
+    width: 80px;
+    text-align: center;
+   }
+  th:nth-of-type(3), tr td:nth-of-type(3){
+    width: 465px;
+    text-align: left;
+   }
 }
