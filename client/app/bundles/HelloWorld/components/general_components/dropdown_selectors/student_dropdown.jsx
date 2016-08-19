@@ -17,7 +17,7 @@ export default React.createClass({
 
 	componentWillReceiveProps: function(nextProps){
 		if (nextProps.students.length) {
-			this.setState({selectedStudent: nextProps.students[0]})
+			this.setState({selectedStudent: nextProps.students[0] || {name: 'No Students'}})
 		}
 	},
 
@@ -39,7 +39,7 @@ export default React.createClass({
 
 	render: function() {
 			return (
-				<DropdownButton bsStyle='default' title={this.state.selectedStudent.name} id='select-classroom-dropdown' onSelect={this.handleSelect}>
+				<DropdownButton disabled={!this.props.students.length} bsStyle='default' title={this.state.selectedStudent.name} id='select-classroom-dropdown' onSelect={this.handleSelect}>
 					{this.students()}
 				</DropdownButton>
 			);
