@@ -28,9 +28,12 @@ var PlaySentenceFragment = React.createClass({
   showNextQuestionButton: function () {
     const {question} = this.props;
     const sentenceIdentifiedCorrectly = (question.isFragment === false && question.identified)
+    const fragmentIdentifiedIncorrectly = (question.isFragment && question.identified === false)
     const attempted = question.attempts.length > 0
-    if (sentenceIdentifiedCorrectly || attempted) {
+    if (sentenceIdentifiedCorrectly || fragmentIdentifiedIncorrectly || attempted) {
       return true
+    } else {
+      return false
     }
   },
 
@@ -169,7 +172,7 @@ var PlaySentenceFragment = React.createClass({
         <div>{button}</div>
       )
     } else {
-      return <div />
+      return (<div />)
     }
   },
 
