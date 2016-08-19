@@ -9,16 +9,18 @@ const ItemLevelForm = React.createClass({
 
   getInitialState: function() {
     if(this.props.mode==="Edit") {
-      return {name: this.props.data.name,
-              description: this.props.data.description,
-              url: this.props.data.url,
-              conceptID: this.props.data.conceptID
+      return {
+        name: this.props.data.name,
+        description: this.props.data.description,
+        url: this.props.data.url,
+        conceptID: this.props.data.conceptID
       }
     } else {
-        return {name: "",
-                description: "",
-                url: "",
-                conceptID: ""
+        return {
+          name: "",
+          description: "",
+          url: "",
+          conceptID: ""
         }
       }
   },
@@ -39,7 +41,9 @@ const ItemLevelForm = React.createClass({
   },
 
   deleteItemLevel: function() {
-    this.props.deleteItemLevel(this.props.levelID)
+    if(confirm("Are you sure you want to delete this item level?")) {
+      this.props.deleteItemLevel(this.props.levelID)
+    }
   },
 
   cancelEdit: function() {
