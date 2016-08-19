@@ -7,12 +7,12 @@ export default React.createClass({
 
 	propTypes: {
 		classrooms: React.PropTypes.array.isRequired,
-    defaultClassId: React.PropTypes.number,
+    defaultClassId: React.PropTypes.obj,
     callback: React.PropTypes.function
 	},
 
 	getInitialState: function() {
-		return ({selectedClassroom: this.findClassroomById(this.props.defaultClassId) || this.props.classrooms[0]});
+		return ({selectedClassroom: this.props.defaultClassroom || this.props.classrooms[0]});
 	},
 
 	classrooms: function() {
@@ -24,9 +24,10 @@ export default React.createClass({
   },
 
 	handleSelect: function(classroomId) {
-		this.setState({selectedClassroom: this.findClassroomById(classroomId)})
+		let classroom = this.findClassroomById(classroomId)
+		this.setState({selectedClassroom: classroom})
     if (this.props.callback) {
-      this.props.callback(classroomId)
+      this.props.callback(classroom)
     }
 	},
 

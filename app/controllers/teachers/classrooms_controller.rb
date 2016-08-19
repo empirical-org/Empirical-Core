@@ -21,6 +21,16 @@ class Teachers::ClassroomsController < ApplicationController
     render json: @classrooms.order(:updated_at)
   end
 
+  def classrooms_i_teach_with_students
+    classrooms = current_user.classrooms_i_teach.includes(:students)
+    classrooms_with_students = classrooms.map do |classroom|
+      classroom_h = classroom.attributes
+      classroom_h[:students] = classroom.students
+      classroom_h
+    end
+    render json: classrooms_with_students
+  end
+
   def students
     students = Classroom.find(params[:id]).students
     render json: {students: students}

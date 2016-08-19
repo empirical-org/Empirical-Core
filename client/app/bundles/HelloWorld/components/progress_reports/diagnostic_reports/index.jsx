@@ -14,7 +14,7 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		this.getClassrooms();
+		this.getClassroomsWithStudents();
 	},
 
 	componentWillUnmount: function() {
@@ -26,37 +26,50 @@ export default React.createClass({
 		}
 	},
 
-	getClassrooms: function() {
+	getClassroomsWithStudents: function() {
 		this.ajax = {};
 		let ajax = this.ajax;
 		let that = this;
-		ajax.classrooms = $.get('/teachers/classrooms/classrooms_i_teach', function(data) {
-			that.setState({classrooms: data.classrooms});
-			that.getStudents();
+		ajax.classrooms = $.get('/teachers/classrooms/classrooms_i_teach_with_students', function(data) {
+			that.setState({classrooms: data.classrooms, students: that.setStudents(data.classrooms[0]), loading: false});
 		});
 	},
 
-	getClassroomId: function(){
-		return (this.props.params.classroomId || this.state.classrooms[0].id)
+	setStudents: function(classroomArg){
+		let classroom = classroomArg || this.findClassroomById(this.props.params.classroomId) || this.state.classrooms[0];
+		return classroom.students
 	},
 
-	getStudents: function(){
-		// used as a getClassrooms callback so we'll have a first classroom
-		let that = this;
-		this.ajax.students = $.get('/teachers/classrooms/students', {id: that.getClassroomId()} ,function(data) {
-			that.setState({students: data.students, loading: false});
-		});
+	defaultClassroom: function(){
+		return this.props.params.classroomId ? this.findClassroomById(this.props.params.classroomId) : null
+	},
+
+	findClassroomById: function(id) {
+		return this.props.classrooms ? this.props.classrooms.find((c) => c.id === id) : null
 	},
 
 
-	changeClassroom: function(classroomId) {
-		// below line works, but is being deprecated
-		this.props.history.push(classroomId.toString() + '/' + (this.props.params.report || 'report'))
+	// getStudents: function(){
+	// 	// used as a getClassrooms callback so we'll have a first classroom
+	// 	let that = this;
+	// 	this.ajax.students = $.get('/teachers/classrooms/students', {id: that.getClassroomId()} ,function(data) {
+	// 		that.setState({students: data.students, loading: false});
+	// 	});
+	// },
+
+
+	changeClassroom: function(classroom) {
+		this.setState({students: classroom.students})
+		this.props.history.push(classroom.id.toString() + '/' + (this.props.params.report || 'report'))
 	},
+
+
 
 	changeReport: function(reportName) {
 		this.props.history.push((this.props.params.classroomId || 'classroom') + '/' + reportName)
 	},
+
+
 
 
 
@@ -67,10 +80,11 @@ export default React.createClass({
 			return (
 				<div id='individual-activity-reports'>
 					<NavBar classrooms={this.state.classrooms}
-						defaultClassId={this.props.params.classroomId}
+						defaultClassroom={this.defaultClassroom()}
 						dropdownCallback={this.changeClassroom}
 						buttonGroupCallback={this.changeReport}
-						students={this.state.students}>
+						students={this.state.students}
+						>
 							{this.props.children}
 					</NavBar>
 				</div>
