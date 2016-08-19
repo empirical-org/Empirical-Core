@@ -31,11 +31,6 @@ class Teachers::ClassroomsController < ApplicationController
     render json: classrooms_with_students
   end
 
-  def students
-    students = Classroom.find(params[:id]).students
-    render json: {students: students}
-  end
-
   def regenerate_code
     cl = Classroom.new
     cl.generate_code
