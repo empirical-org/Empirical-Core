@@ -25,7 +25,7 @@ const ItemLevelDetails = React.createClass({
           <div className="menu-list">
             <p>{"Description: " + itemLevels[levelID].description}</p>
             <p>Asset URL: </p><a href={itemLevels[levelID].url}>{itemLevels[levelID].url}</a>
-            <p>{"Associated grammar concept: " + this.props.concepts.data[targetConceptID].name}</p>
+            <p>{"Associated grammar concept: " + _.find(this.props.concepts.data["0"], {uid: targetConceptID}).name}</p>
           </div>
           <br/>
           <p>{questionsExist}</p>

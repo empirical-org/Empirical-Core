@@ -28,9 +28,12 @@ const ItemLevels = React.createClass({
   },
 
   renderItemLevels: function() {
-    const concepts = this.props.concepts.data, levels = this.props.itemLevels.data
+    const concepts = this.props.concepts.data["0"], levels = this.props.itemLevels.data
     const levelKeys = _.keys(levels)
-    const conceptKeys = _.keys(concepts)
+    // const conceptKeys = _.keys(concepts)
+    const conceptKeys = this.props.concepts.data[0].map((concept) => {
+      return concept.uid
+    })
 
     return conceptKeys.map((id) => {
       var levelsToRender;
@@ -45,7 +48,7 @@ const ItemLevels = React.createClass({
 
         return (
           <div key={id}>
-            <Link to={'admin/concepts/'+id}><div className="menu-label">{concepts[id].name}</div></Link>
+            <Link to={'admin/concepts/'+id}><div className="menu-label">{_.find(concepts, {uid:id}).name}</div></Link>
             <ul className="menu-list">{levelsToRender}</ul>
           </div>
         )
