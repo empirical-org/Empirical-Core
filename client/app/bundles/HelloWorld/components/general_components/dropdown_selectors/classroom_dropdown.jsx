@@ -33,7 +33,7 @@ export default React.createClass({
 
 	render: function() {
 		return (
-			<DropdownButton bsStyle='default' title={this.state.selectedClassroom.name} id='select-classroom-dropdown' onSelect={this.handleSelect}>
+			<DropdownButton disabled={!this.props.classrooms.length} bsStyle='default' title={this.state.selectedClassroom.name} id='select-classroom-dropdown' onSelect={this.handleSelect}>
 				{this.classrooms()}
 			</DropdownButton>
 		);
