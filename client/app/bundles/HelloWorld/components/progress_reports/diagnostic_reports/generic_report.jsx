@@ -69,17 +69,19 @@ export default React.createClass({
 
   render: function() {
     return (
-      <ProgressReport columnDefinitions={this.columnDefinitions}
-                         pagination={false}
-                         sourceUrl={'/teachers/progress_reports/question_view'}
-                         sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'data'}
-                         colorByScore={Boolean(true)}
-                        // onFetchSuccess={this.onFetchSuccess}
-                         filterTypes={[]}
-                         premiumStatus={this.props.premiumStatus}
-                         >
-      </ProgressReport>
+      <div id='individual-activity-classroom-view'>
+        <ProgressReport columnDefinitions={this.columnDefinitions}
+                           pagination={false}
+                           sourceUrl={'/teachers/progress_reports/question_view'}
+                           sortDefinitions={this.sortDefinitions}
+                           jsonResultsKey={'data'}
+                           colorByScore={Boolean(true)}
+                          // onFetchSuccess={this.onFetchSuccess}
+                           filterTypes={[]}
+                           premiumStatus={this.props.premiumStatus}
+                           >
+        </ProgressReport>
+      </div>
     );
   }
 });
