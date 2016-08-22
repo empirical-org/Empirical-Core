@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {hashToCollection} from '../../libs/hashToCollection'
+import QuestionSelector from 'react-select-search'
 
 const LessonForm = React.createClass({
   getInitialState: function () {
@@ -29,6 +30,7 @@ const LessonForm = React.createClass({
   },
 
   handleChange: function (value) {
+    console.log("Inside handleChange, value: ", value)
     const currentSelectedQuestions = this.state.selectedQuestions;
     var newSelectedQuestions;
     if (_.indexOf(currentSelectedQuestions, value) === -1) {
@@ -38,6 +40,10 @@ const LessonForm = React.createClass({
     }
     this.setState({selectedQuestions: newSelectedQuestions})
 
+  },
+
+  handleSearchChange: function(e) {
+    this.handleChange(e.value)
   },
 
   renderQuestionSelect: function () {
@@ -60,6 +66,18 @@ const LessonForm = React.createClass({
         </p>
       )
     })
+  },
+
+  renderSearchBox: function() {
+    const options = hashToCollection(this.props.questions.data)
+    if (options.length > 0) {
+      const formatted = options.map((opt) => {
+        return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
+      })
+      const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange}/>)
+      return searchBox
+    }
+
   },
 
   handleSelect: function(e) {
@@ -99,7 +117,8 @@ const LessonForm = React.createClass({
         </select>
       </span>
       <p className="label">Questions</p>
-
+      {this.renderSearchBox()}
+      <br />
       {this.renderQuestionSelect()}
       <p className="control">
         <button className={"button is-primary " + this.props.stateSpecificClass} onClick={this.submit}>Submit</button>
