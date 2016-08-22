@@ -67,6 +67,10 @@ const LessonForm = React.createClass({
     })
   },
 
+  onHighlight: function(e) {
+    console.log(e)
+  },
+
   renderSearchBox: function() {
     const options = hashToCollection(this.props.questions.data)
     if (options.length > 0) {
@@ -74,7 +78,7 @@ const LessonForm = React.createClass({
         return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
       })
       const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question"
-                          onChange={this.handleSearchChange}/>)
+                          onChange={this.handleSearchChange} onHighlight={this.onHighlight}/>)
       return searchBox
     }
 
