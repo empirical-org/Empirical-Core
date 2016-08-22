@@ -22,7 +22,7 @@ var PlaySentenceFragment = React.createClass({
 
   choosingSentenceOrFragment: function () {
     const {question} = this.props;
-    return question.identified === undefined;
+    return question.identified === undefined && question.needsIdentification;
   },
 
   showNextQuestionButton: function () {

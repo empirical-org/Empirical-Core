@@ -67,7 +67,7 @@ var StudentDiagnostic = React.createClass({
         key: "-KOqKBMgXHF2dNMM8jhg"
       },
       {
-        type: "SF",
+        type: "SF2",
         key: "-KOqLomeMhOuHqX9Zdqv"
       },
       {
@@ -86,6 +86,11 @@ var StudentDiagnostic = React.createClass({
     var returnValue = this.getData().map((obj)=>{
       var data = (obj.type==="SC") ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key]
       data.key = obj.key;
+      if(obj.type==="SF") {
+        data.needsIdentification = true
+      } else if(obj.type==="SF2") {
+        data.needsIdentification = false
+      }
       return {
         "type": obj.type,
         "data": data
@@ -105,9 +110,17 @@ var StudentDiagnostic = React.createClass({
             return (
               <PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}/>
             )
+          } else if(this.props.playDiagnostic.currentQuestion.type==="SF"){
+            return (
+              <PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+                                    nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+                                    updateAttempts={this.submitResponse}/>
+            )
           } else {
             return (
-              <PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key} nextQuestion={this.nextQuestion} markIdentify={this.markIdentify} updateAttempts={this.submitResponse}/>
+              <PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+                                    nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+                                    updateAttempts={this.submitResponse}/>
             )
           }
         }
