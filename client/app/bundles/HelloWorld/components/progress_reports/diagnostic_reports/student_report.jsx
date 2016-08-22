@@ -40,7 +40,7 @@ export default React.createClass({
 		// 	content = <LoadingSpinner/>
 		// } else {
 			content = (
-				<div id='individual-activity-classroom-view'>
+				<div id='individual-student-activity-view'>
           <div><h3>Question</h3><h3>Score</h3></div>
           {this.studentBoxes()}
 				</div>
