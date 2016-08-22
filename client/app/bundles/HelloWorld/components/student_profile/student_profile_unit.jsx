@@ -17,8 +17,8 @@ export default React.createClass({
       finished: 'Completed Activities',
       not_finished: 'Assigned Activities'
     };
-    var arr = [{data: this.props.data.not_finished, header: headers.not_finished},
-           {data: this.props.data.finished, header: headers.finished}]
+    var arr = [{data: this.props.data.not_finished, header: headers.not_finished, finished: false},
+           {data: this.props.data.finished, header: headers.finished, finished: true}]
 
     var compacted = _.filter(arr, function (ele) { return ele.data }) // in case there are no finished, or no not_finished activity_sessions
     var count = _.reduce(compacted, function (acc, ele) {
@@ -27,7 +27,7 @@ export default React.createClass({
     }, 0);
 
     var activities = _.map(compacted, function (ele) {
-      return <StudentProfileActivities key={ele.header} data={ele.data} header={ele.header} count={count} />
+      return <StudentProfileActivities key={ele.header} data={ele.data} header={ele.header} count={count} finished={ele.finished}  />
     });
     return (
       <section>

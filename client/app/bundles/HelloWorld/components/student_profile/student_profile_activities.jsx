@@ -15,8 +15,8 @@ export default React.createClass({
 
   render: function () {
     var result;
-    var activities = _.map(this.props.data, function (ele) {
-      return <StudentProfileActivity key={ele.id} data={ele} />
+    var activities = _.map(this.props.data, (ele) => {
+      return <StudentProfileActivity key={ele.id} data={ele} finished={this.props.finished} />
     });
     if (this.props.data.length > 0) {
      result = <div className="fake-table">
