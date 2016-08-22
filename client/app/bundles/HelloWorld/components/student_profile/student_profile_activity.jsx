@@ -8,10 +8,10 @@ export default React.createClass({
   },
 
   renderStartButton: function () {
-    if (this.props.data.activity.repeatable) {
-      return (<a href={this.props.data.link}>Start Lesson</a>)
-    } else {
+    if (!this.props.data.activity.repeatable && this.props.finished) {
       return (<p className="title-v-centered text-right">Completed</p>)
+    } else {
+      return (<a href={this.props.data.link}>Start Lesson</a>)
     }
   },
 
