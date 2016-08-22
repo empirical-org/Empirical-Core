@@ -36,6 +36,10 @@ const newSentenceFragment = React.createClass({
   },
 
   create: function () {
+    if(!this.state.isFragment && !this.state.needsIdentification) {
+      alert("If the prompt is a sentence, the student must identify whether it is a sentence or fragment")
+      return
+    }
     const data = {};
     data.prompt = this.state.prompt
     data.questionText = this.state.questionText

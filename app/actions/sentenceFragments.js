@@ -67,7 +67,7 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
-          dispatch(this.submitNewResponse(newRef.key, response))
+          dispatch(this.submitNewResponse(newRef.key, response));
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
 			});
