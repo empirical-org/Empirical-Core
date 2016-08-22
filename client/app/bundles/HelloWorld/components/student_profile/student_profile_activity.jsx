@@ -7,6 +7,14 @@ export default React.createClass({
     data: React.PropTypes.object.isRequired
   },
 
+  renderStartButton: function () {
+    if (this.props.data.activity.repeatable) {
+      return (<a href={this.props.data.link}>Start Lesson</a>)
+    } else {
+      return (<p className="title-v-centered text-right">Completed</p>)
+    }
+  },
+
   render: function () {
     return (
       <div className="line">
@@ -18,7 +26,7 @@ export default React.createClass({
             </div>
           </div>
           <div className="col-xs-3 col-sm-2 col-xl-2">
-            <a href={this.props.data.link}>Start Lesson</a>
+            {this.renderStartButton()}
           </div>
         </div>
       </div>
