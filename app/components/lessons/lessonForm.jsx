@@ -30,7 +30,6 @@ const LessonForm = React.createClass({
   },
 
   handleChange: function (value) {
-    console.log("Inside handleChange, value: ", value)
     const currentSelectedQuestions = this.state.selectedQuestions;
     var newSelectedQuestions;
     if (_.indexOf(currentSelectedQuestions, value) === -1) {
@@ -74,7 +73,8 @@ const LessonForm = React.createClass({
       const formatted = options.map((opt) => {
         return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
       })
-      const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange}/>)
+      const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question"
+                          onChange={this.handleSearchChange} onFocus={this.onFocus}/>)
       return searchBox
     }
 
