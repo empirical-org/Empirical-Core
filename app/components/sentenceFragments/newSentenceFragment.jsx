@@ -10,6 +10,7 @@ const newSentenceFragment = React.createClass({
       questionText: "",
       isFragment: false,
       optimalResponseText: ""
+      // needsIdentification: true
     }
   },
 
@@ -26,6 +27,9 @@ const newSentenceFragment = React.createClass({
         break;
       case 'isFragment':
         this.setState({isFragment: e.target.checked})
+      //   break;
+      // case 'needsIdentification':
+      //   this.setState({needsIdentification: e.target.checked})
       default:
         return
     }
@@ -36,6 +40,7 @@ const newSentenceFragment = React.createClass({
     data.prompt = this.state.prompt
     data.questionText = this.state.questionText
     data.isFragment = this.state.isFragment
+    // data.needsIdentification = this.state.needsIdentification
     if (this.state.isFragment) {
       data.responses = [{
         text: this.state.optimalResponseText,

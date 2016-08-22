@@ -67,7 +67,7 @@ var StudentDiagnostic = React.createClass({
         key: "-KOqKBMgXHF2dNMM8jhg"
       },
       {
-        type: "SF2",
+        type: "SF",
         key: "-KOqLomeMhOuHqX9Zdqv"
       },
       {
@@ -86,11 +86,11 @@ var StudentDiagnostic = React.createClass({
     var returnValue = this.getData().map((obj)=>{
       var data = (obj.type==="SC") ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key]
       data.key = obj.key;
-      if(obj.type==="SF") {
-        data.needsIdentification = true
-      } else if(obj.type==="SF2") {
-        data.needsIdentification = false
-      }
+      // if(obj.type==="SF") {
+      //   data.needsIdentification = true
+      // } else if(obj.type==="SF2") {
+      //   data.needsIdentification = false
+      // }
       return {
         "type": obj.type,
         "data": data
