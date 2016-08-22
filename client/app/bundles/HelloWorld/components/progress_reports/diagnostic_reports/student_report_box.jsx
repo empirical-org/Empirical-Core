@@ -26,7 +26,7 @@ export default React.createClass({
 						? 'check'
 						: 'X'}
         </td>
-        <td>{concept.description}</td>
+        <td>{concept.name}</td>
 			</tr>
 		))
 	},
@@ -38,9 +38,9 @@ export default React.createClass({
 				<table>
 					{this.header()}
 					<tr>
-						<td>{this.props.boxNumber}</td>
+						<td className='question-index'>{this.props.boxNumber}</td>
 						<td>
-							<table>
+							<table className='inner-table'>
 								<tr className='directions'>
 									<td>Directions</td>
 									<td></td>

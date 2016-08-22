@@ -77,3 +77,43 @@ $lightgray: #cecece;
     text-align: left;
    }
 }
+
+
+// for the individual student reports
+
+@mixin gray-border {
+  border: solid 1px #cecece;
+}
+#student-report-box {
+  table {
+    background-color: #fff;
+      width: 100%;
+      .question-index {
+        @include gray-border;
+        border-right: none;
+        width: 10%;
+        text-align: center;
+        font-size: 24px;
+      }
+    th {
+      text-align: center;
+      &:first-of-type {
+        width: 10%;
+      }
+    }
+  }
+  .inner-table {
+    @include gray-border;
+    border-left: none;
+    font-size: 14px;
+    tr {
+      height: 40px;
+
+      padding-left: 8px;
+    }
+    td {
+      padding-left: 3px;
+    }
+  }
+
+}
