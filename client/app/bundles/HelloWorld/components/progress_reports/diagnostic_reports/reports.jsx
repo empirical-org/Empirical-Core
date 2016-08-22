@@ -3,6 +3,7 @@
 import React from 'react'
 import { Router, Route, Link, hashHistory } from 'react-router'
 import GenericReport from './generic_report.jsx'
+import StudentReport from './student_report.jsx'
 
 export default React.createClass({
 
@@ -19,7 +20,8 @@ export default React.createClass({
     // } else if (reportValue === '3') {
     //   // report = <ClassroomPage/>
     // } else {
-      report = <GenericReport key='Report' premiumState={this.state.hasPremium}/>
+      // report = <GenericReport key='Report' premiumState={this.state.hasPremium}/>
+      report = <StudentReport key='Report' {...this.props} premiumState={this.state.hasPremium}/>
     // }
     return [nav, report];
   },
