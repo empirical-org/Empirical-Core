@@ -10,6 +10,7 @@ require('../../../../../assets/styles/app-variables.scss')
 export default React.createClass({
 
 	getInitialState: function() {
+		console.log("params", this.props.params.classroomId);
 		return ({loading: true, classrooms: null, selectedClassroom: null})
 	},
 
@@ -66,7 +67,7 @@ export default React.createClass({
 	},
 
 	childrenWithProps: function(){
-		return React.Children.map(this.props.children, (child) => React.cloneElement(child, {students: this.state.students, classroom: this.state.classroom}));
+		return React.Children.map(this.props.children, (child) => React.cloneElement(child, {students: this.state.students, classroom: this.props.params.classroomId}));
 	},
 
 
