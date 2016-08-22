@@ -27,6 +27,12 @@ const sentenceFragmentForm = React.createClass({
             Is this a Fragment?
           </label>
         </p>
+        <p className="control">
+          <label className="checkbox">
+            <input type="checkbox" checked={this.props.data.needsIdentification} onClick={this.props.handleChange.bind(null, "needsIdentification")}/>
+            If it is a fragment, does a student need to identify it before making it a sentence?
+          </label>
+        </p>
         {this.renderOptimalResponseTextInput()}
         <button className="button is-primary is-outlined" onClick={this.props.submit}>Save</button>
       </div>
@@ -35,10 +41,3 @@ const sentenceFragmentForm = React.createClass({
 })
 
 export default sentenceFragmentForm
-//
-// <p className="control">
-//   <label className="checkbox">
-//     <input type="checkbox" checked={this.props.data.needsIdentification} onClick={this.props.handleChange.bind(null, "needsIdentification")}/>
-//     If it is a fragment, does a student need to identify it before making it a sentence?
-//   </label>
-// </p>

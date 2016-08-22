@@ -22,7 +22,8 @@ var PlaySentenceFragment = React.createClass({
 
   choosingSentenceOrFragment: function () {
     const {question} = this.props;
-    return question.identified === undefined && question.needsIdentification;
+    return question.identified === undefined && (question.needsIdentification===undefined || question.needsIdentification===true);
+    // the case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
   },
 
   showNextQuestionButton: function () {
