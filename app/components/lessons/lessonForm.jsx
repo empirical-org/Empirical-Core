@@ -74,7 +74,7 @@ const LessonForm = React.createClass({
         return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
       })
       const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question"
-                          onChange={this.handleSearchChange} onFocus={this.onFocus}/>)
+                          onChange={this.handleSearchChange}/>)
       return searchBox
     }
 
