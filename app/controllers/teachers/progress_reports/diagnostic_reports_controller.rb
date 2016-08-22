@@ -36,26 +36,32 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     }
     scores[:students] = classroom.students.map { |student|
       loaded = student.activity_sessions.includes(concept_results: :concept).find_by(activity_id: diagnostic.id, is_final_score: true)
-      session = {
-        id: loaded.id,
-        concept_results: loaded.concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
-          {
-            directions: cr.first[:metadata]["directions"],
-            prompt: cr.first[:metadata]["prompt"],
-            answer: cr.first[:metadata]["answer"],
-            score: cr.inject(0) {|sum, crs| sum + crs[:metadata]["correct"]} / cr.length * 100,
-            concepts: cr.map { |crs|
-              {
-                id: crs.concept_id,
-                name: crs.concept.name,
-                correct: crs[:metadata]["correct"] == 1
-              }
-            },
-            question_number: cr.first[:metadata]["questionNumber"]
+      if loaded
+        session = {
+          id: loaded.id,
+          concept_results: loaded.concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
+            {
+              directions: cr.first[:metadata]["directions"],
+              prompt: cr.first[:metadata]["prompt"],
+              answer: cr.first[:metadata]["answer"],
+              score: cr.inject(0) {|sum, crs| sum + crs[:metadata]["correct"]} / cr.length * 100,
+              concepts: cr.map { |crs|
+                {
+                  id: crs.concept_id,
+                  name: crs.concept.name,
+                  correct: crs[:metadata]["correct"] == 1
+                }
+              },
+              question_number: cr.first[:metadata]["questionNumber"]
+            }
           }
         }
-      }
-
+      else
+        session = {
+          id: nil,
+          concept_results: []
+        }
+      end
       {
         id: student.id,
         name: student.name,

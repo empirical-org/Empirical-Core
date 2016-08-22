@@ -2,7 +2,7 @@ import React from 'react'
 import ProgressReport from '../progress_report.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import StudentReportBox from './student_report_box.jsx'
-
+import $ from 'jquery'
 export default React.createClass({
 
 	propTypes: {
@@ -14,9 +14,16 @@ export default React.createClass({
 		return {loading: true, questions: null}
 	},
 
+  componentDidMount: function () {
+    this.getStudentData()
+  },
+
   getStudentData: function(){
-    // ajax call
-    // this.setState({questions: data.questions, loading: false})
+    const that = this;
+    $.get('/teachers/progress_reports/students_by_classroom/' + that.props.classroom, (data) => {
+      that.setState({questions: data.students[0].session.concept_results, loading: false})
+    })
+    //
   },
 
   mockData: function(){
@@ -31,21 +38,21 @@ export default React.createClass({
 
 
   studentBoxes: function(){
-    return this.mockData().map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
+    return this.state.questions.map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
   },
 
 	render: function() {
 		let content;
-		// if (this.state.loading) {
-		// 	content = <LoadingSpinner/>
-		// } else {
+		if (this.state.loading) {
+			content = <LoadingSpinner/>
+		} else {
 			content = (
 				<div id='individual-student-activity-view'>
           <div><h3>Question</h3><h3>Score</h3></div>
           {this.studentBoxes()}
 				</div>
 			)
-		// }
+		}
 		return content
 	}
 });

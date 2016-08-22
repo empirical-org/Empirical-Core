@@ -21,7 +21,7 @@ export default React.createClass({
     //   // report = <ClassroomPage/>
     // } else {
       // report = <GenericReport key='Report' premiumState={this.state.hasPremium}/>
-      report = <StudentReport key='Report' {...this.props} premiumState={this.state.hasPremium}/>
+      report = <StudentReport key='Report' {...this.props} premiumState={this.state.hasPremium} classroom={this.props.classroom}/>
     // }
     return [nav, report];
   },
