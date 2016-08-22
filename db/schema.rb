@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624180702) do
+ActiveRecord::Schema.define(version: 20160822145724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,13 +21,14 @@ ActiveRecord::Schema.define(version: 20160624180702) do
   create_table "activities", force: :cascade do |t|
     t.string   "name",                       limit: 255
     t.text     "description"
-    t.string   "uid",                        limit: 255,              null: false
+    t.string   "uid",                        limit: 255,                null: false
     t.hstore   "data"
     t.integer  "activity_classification_id"
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "flags",                      limit: 255, default: [], null: false, array: true
+    t.string   "flags",                      limit: 255, default: [],   null: false, array: true
+    t.boolean  "repeatable",                             default: true
   end
 
   add_index "activities", ["activity_classification_id"], name: "index_activities_on_activity_classification_id", using: :btree
