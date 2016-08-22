@@ -10,9 +10,18 @@ export default React.createClass({
   propTypes: {
     classrooms: React.PropTypes.array.isRequired,
     students: React.PropTypes.array,
-    defaultClassroom: React.PropTypes.obj,
+    selectedClassroom: React.PropTypes.obj,
     dropdownCallback: React.PropTypes.function,
     buttonGroupCallback: React.PropTypes.function
+  },
+
+
+  students: function(){
+      if (this.props.selectedClassroom && this.props.selectedClassroom.students) {
+       return this.props.selectedClassroom.students
+     } else if (this.props.classrooms) {
+       return this.props.classrooms[0].students
+     }
   },
 
   render: function() {
@@ -22,11 +31,12 @@ export default React.createClass({
         <p>Activity Info</p>
         <div className='nav-elements'>
           <ClassroomDropdown classrooms={this.props.classrooms || [{name: 'Please Add a Classroom', id: null}]}
-                             defaultClassroom={this.props.defaultClassroom}
+                             selectedClassroom={this.props.selectedClassroom}
                              callback={this.props.dropdownCallback}/>
           <NavButtonGroup clickCallback={this.props.buttonGroupCallback}/>
           <StudentDropdown
-                            students = {this.props.students}
+                            //students = {this.props.students}
+                            students = {this.students()}
                             callback ={this.props.studentDropdownCallback}/>
         </div>
         {this.props.children}
