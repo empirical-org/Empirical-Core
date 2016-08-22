@@ -1,7 +1,7 @@
 import React from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import {Router, Route, Link, hashHistory} from 'react-router';
+// import {Router, Route, Link, hashHistory} from 'react-router';
 
 export default React.createClass({
 
@@ -11,19 +11,28 @@ export default React.createClass({
 	},
 
 	getInitialState: function() {
-			let initialStudent = this.props.students[0] || {name: 'No Students'};
-			return ({selectedStudent: initialStudent});
+		return this.checkStudents(this.props.students)
+	},
+
+	checkStudents: function(studentsProp){
+		let state;
+		if (studentsProp && studentsProp.length) {
+			state = {selectedStudent: studentsProp[0], disabled: false}
+		} else {
+			state = {selectedStudent: {name: 'No Students'}, disabled: true}
+		}
+		return state;
 	},
 
 	componentWillReceiveProps: function(nextProps){
-		if (nextProps.students.length) {
-			this.setState({selectedStudent: nextProps.students[0] || {name: 'No Students'}})
-		}
+		this.setState(this.checkStudents(nextProps.students))
 	},
 
 
 	students: function() {
-		return this.props.students.map((student) => <MenuItem key={student.id} eventKey={student.id}>{student.name}</MenuItem>)
+		if (!this.state.disabled) {
+				return this.props.students.map((student) => <MenuItem key={student.id} eventKey={student.id}>{student.name}</MenuItem>)
+		}
 	},
 
   findStudentById: function(id) {
@@ -39,7 +48,7 @@ export default React.createClass({
 
 	render: function() {
 			return (
-				<DropdownButton disabled={!this.props.students.length} bsStyle='default' title={this.state.selectedStudent.name} id='select-classroom-dropdown' onSelect={this.handleSelect}>
+				<DropdownButton disabled={this.state.disabled} bsStyle='default' title={this.state.selectedStudent.name} id='select-classroom-dropdown' onSelect={this.handleSelect}>
 					{this.students()}
 				</DropdownButton>
 			);

@@ -12,7 +12,7 @@ export default React.createClass({
 	},
 
 	getInitialState: function() {
-		return ({selectedClassroom: this.props.defaultClassroom || this.props.classrooms[0]});
+		return ({selectedClassroom: this.props.selectedClassroom || this.props.classrooms[0]});
 	},
 
 	classrooms: function() {
