@@ -33,15 +33,6 @@ table.sortable-table {
     tr {
       line-height: 39px;
       border: 1px solid $lightgray;
-      &.green {
-        background-color: #E7FEE8;
-      }
-      &.red {
-        background-color: #feedf0;;
-      }
-      &.yellow {
-        background-color: #fff6e2;
-      }
       td {
         padding-left: 11px;
         padding-right: 11px;

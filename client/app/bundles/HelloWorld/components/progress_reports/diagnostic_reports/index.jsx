@@ -10,8 +10,7 @@ require('../../../../../assets/styles/app-variables.scss')
 export default React.createClass({
 
 	getInitialState: function() {
-		console.log("params", this.props.params.classroomId);
-		return ({loading: true, classrooms: null, selectedClassroom: null})
+		return ({loading: true, classrooms: null, selectedClassroom: null, selectedStudent: null})
 	},
 
 	componentDidMount: function() {
@@ -51,6 +50,10 @@ export default React.createClass({
 			: null
 	},
 
+	changeStudent: function(student) {
+		this.setState({selectedStudentId: student})
+	},
+
 	findClassroomById: function(id) {
 		return this.props.classrooms
 			? this.props.classrooms.find((c) => c.id === id)
@@ -58,8 +61,11 @@ export default React.createClass({
 	},
 
 	changeClassroom: function(classroom) {
-		this.setState({selectedClassroom: classroom})
-		this.props.history.push(classroom.id.toString() + '/' + (this.props.params.report || 'report'))
+		if (classroom != this.state.selectedClassroom) {
+			// we changed classrooms, so we want to invalidate the current selected student
+			this.setState({selectedClassroom: classroom, selectedStudentId: null})
+			this.props.history.push(classroom.id.toString() + '/' + (this.props.params.report || 'report'))
+		}
 	},
 
 	changeReport: function(reportName) {
@@ -67,7 +73,7 @@ export default React.createClass({
 	},
 
 	childrenWithProps: function(){
-		return React.Children.map(this.props.children, (child) => React.cloneElement(child, {students: this.state.students, classroom: this.props.params.classroomId}));
+		return React.Children.map(this.props.children, (child) => React.cloneElement(child, {student: this.state.selectedStudentId, classroom: this.props.params.classroomId}));
 	},
 
 
@@ -77,7 +83,13 @@ export default React.createClass({
 		} else {
 			return (
 				<div id='individual-activity-reports'>
-					<NavBar classrooms={this.state.classrooms} selectedClassroom={this.state.selectedClassroom} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} students={this.state.students}>
+					<NavBar classrooms={this.state.classrooms}
+									selectedStudentId={this.state.selectedStudentId}
+									selectedClassroom={this.state.selectedClassroom}
+									studentDropdownCallback={this.changeStudent}
+									dropdownCallback={this.changeClassroom}
+									buttonGroupCallback={this.changeReport}
+									students={this.state.students}>
 						{this.childrenWithProps()}
 					</NavBar>
 				</div>

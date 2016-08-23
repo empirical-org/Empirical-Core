@@ -1,14 +1,10 @@
 // individual-activity-reports
 #individual-activity-reports {
-  margin: auto;
-  max-width: 950px;
-  padding-top: 44px;
-  padding-bottom: 91px;
+    margin: auto;
+    max-width: 950px;
+    padding-top: 44px;
+    padding-bottom: 91px;
 }
-
-
-
-
 // should be moved into select-classroom-dropdown file
 $darkgray3: #7e7e7e;
 $quillgreen: #00c2a2;
@@ -26,19 +22,19 @@ $lightgray: #cecece;
     font-weight: 400;
     text-align: left;
     .caret {
-      float: right;
-      position: relative;
-      top: 7px;
-      border-color: #7e7e7e;
-      border-top: 7px solid;
-      border-right: 6px solid transparent;
-      border-left: 6px solid transparent;
+        float: right;
+        position: relative;
+        top: 7px;
+        border-color: #7e7e7e;
+        border-top: 7px solid;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
     }
 }
 // for report-navbar.scss
 #report-button-group {
-  margin-right: 40px;
-  margin-left: 40px;
+    margin-right: 40px;
+    margin-left: 40px;
     border-radius: 6px;
     border: solid 1px $lightgray;
     button {
@@ -48,71 +44,115 @@ $lightgray: #cecece;
         border-bottom: none;
         font-weight: 400;
         &:last-of-type {
-          border-right: none;
+            border-right: none;
         }
         &:first-of-type {
-          border-left: none;
+            border-left: none;
         }
-        &:focus, &:hover {
+        &:focus,
+        &:hover {
             background-color: $quillgreen;
             border-color: $quillgreen;
             color: white;
         }
     }
 }
-
-
 // for activity by classroom overview
 #individual-activity-classroom-view {
-  th:first-of-type, tr td:first-of-type {
-    width: 110px;
-    text-align: right;
-  }
-  th:nth-of-type(2), tr td:nth-of-type(2){
-    width: 80px;
-    text-align: center;
-   }
-  th:nth-of-type(3), tr td:nth-of-type(3){
-    width: 465px;
-    text-align: left;
-   }
+    th:first-of-type,
+    tr td:first-of-type {
+        width: 110px;
+        text-align: right;
+    }
+    th:nth-of-type(2),
+    tr td:nth-of-type(2) {
+        width: 80px;
+        text-align: center;
+    }
+    th:nth-of-type(3),
+    tr td:nth-of-type(3) {
+        width: 465px;
+        text-align: left;
+    }
 }
-
 // for the individual student reports
-
 @mixin gray-border {
-  border: solid 1px #cecece;
+    border: solid 1px #cecece;
 }
 #student-report-box {
-  table {
-    background-color: #fff;
-      width: 100%;
-      .question-index {
+    margin-top: 50px;
+    max-width: 950px;
+    #student-report-table-and-index {
+      display: flex;
+      background-color: white;
+    }
+    .question-index {
         @include gray-border;
         border-right: none;
         width: 10%;
+        display: flex;
+        flex-direction: column;
         text-align: center;
+        justify-content: center;
         font-size: 24px;
-      }
-    th {
-      text-align: center;
-      &:first-of-type {
-        width: 10%;
-      }
     }
-  }
-  .inner-table {
-    @include gray-border;
-    border-left: none;
-    font-size: 14px;
-    tr {
-      height: 40px;
+    table {
+        background-color: white;
+        @include gray-border;
+        border-left: none;
+        font-size: 14;
+        max-width: 855px;
+        width: 100%;
+        tr {
+            height: 30px;
+            padding-left: 8px;
+            border-bottom: solid 0.5px #cecece;
+            &:first-of-type {
+              height: 0px;
+            }
+            // first of type has height of 0 so we don't want any borders
+            &:last-of-type, &:first-of-type {
+              border-bottom: none;
+            }
+            &.student-report-headers {
+              td div {
+                height: 0;
+              }
+              td div span {
+                position: relative;
+                top: -34px;
+                font-weight: 700;
+              }
+              td:first-of-type div span {
+                right: 82%;
+              }
+            }
+        }
+        td {
+          &:first-of-type {
+            padding-left: 10px;
+              width: 13.5%;
+          }
+          &:nth-of-type(2) {
+            width: 34px;
+            text-align: right;
+          }
+          &:last-of-type {
+            padding-left: 32px;
+            padding-right: 10px;
+          }
+        }
+    }
+}
 
-      padding-left: 8px;
-    }
-    td {
-      padding-left: 3px;
-    }
-  }
 
+// for shading by score
+.green-score-color {
+  background-color: #E7FEE8;
+}
+.red-score-color {
+  background-color: #feedf0;;
+}
+.yellow-score-color {
+  background-color: #fff6e2;
 }

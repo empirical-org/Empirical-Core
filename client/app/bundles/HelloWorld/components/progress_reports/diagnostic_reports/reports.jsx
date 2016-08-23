@@ -4,6 +4,7 @@ import React from 'react'
 import { Router, Route, Link, hashHistory } from 'react-router'
 import GenericReport from './generic_report.jsx'
 import StudentReport from './student_report.jsx'
+import ClassReport from '/.class_report.jsx'
 
 export default React.createClass({
 
@@ -21,7 +22,9 @@ export default React.createClass({
     //   // report = <ClassroomPage/>
     // } else {
       // report = <GenericReport key='Report' premiumState={this.state.hasPremium}/>
-      report = <StudentReport key='Report' {...this.props} premiumState={this.state.hasPremium} classroom={this.props.classroom}/>
+      // report = <StudentReport key='Report' {...this.props} premiumState={this.state.hasPremium} classroom={this.props.classroom}/>
+      report = <ClassReport key='Report' {...this.props} premiumState={this.state.hasPremium} classroom={this.props.classroom}/>
+
     // }
     return [nav, report];
   },

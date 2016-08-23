@@ -1,5 +1,5 @@
 'use strict';
-
+// generally used for setting color class names, hence the score color concat at end
 export default function(grade) {
 	let color;
 	if (grade >= 76) {
@@ -11,5 +11,5 @@ export default function(grade) {
 	} else {
 		color = null;
 	};
-	return color;
+	return color + '-score-color';
 };

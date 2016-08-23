@@ -17,9 +17,9 @@ export default React.createClass({
   columnDefinitions: function() {
     return [
       {
-        name: 'Questions',
-        field: 'question_id',
-        sortByField: 'question_id'
+        name: 'Name',
+        field: 'name',
+        sortByField: 'name'
       },
       {
         name: 'Score',
@@ -30,14 +30,14 @@ export default React.createClass({
         }
       },
       {
-        name: 'Instructions',
-        field: 'instructions',
-        sortByField: 'instructions'
+        name: 'Questions',
+        field: 'number_of_questions',
+        sortByField: 'number_of_questions'
       },
       {
-        name: 'Prompt',
-        field: 'prompt',
-        sortByField: 'prompt'
+        name: 'Total Time',
+        field: 'time',
+        sortByField: 'time'
       }
     ];
   },

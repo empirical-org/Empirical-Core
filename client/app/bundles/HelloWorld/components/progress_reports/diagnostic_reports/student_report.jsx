@@ -38,21 +38,21 @@ export default React.createClass({
 
 
   studentBoxes: function(){
-    return this.state.questions.map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
+    // return this.state.questions.map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
+    return this.mockData().map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
   },
 
 	render: function() {
 		let content;
-		if (this.state.loading) {
-			content = <LoadingSpinner/>
-		} else {
+		// if (this.state.loading) {
+		// 	content = <LoadingSpinner/>
+		// } else {
 			content = (
 				<div id='individual-student-activity-view'>
-          <div><h3>Question</h3><h3>Score</h3></div>
           {this.studentBoxes()}
 				</div>
 			)
-		}
+		// }
 		return content
 	}
 });
