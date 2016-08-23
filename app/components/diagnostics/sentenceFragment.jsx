@@ -68,8 +68,8 @@ var PlaySentenceFragment = React.createClass({
   getSentenceOrFragmentButtons() {
     return (
       <div className="button-group">
-        <button className="button is-primary" value="Sentence" onClick={() => {this.checkChoice("Sentence")}}>Sentence</button>
-        <button className="button is-info" value="Fragment" onClick={() => {this.checkChoice("Fragment")}}>Fragment</button>
+        <button className="button is-primary" value="Sentence" onClick={() => {this.checkChoice("Sentence")}}>Complete Sentence</button>
+        <button className="button is-info" value="Fragment" onClick={() => {this.checkChoice("Fragment")}}>Incomplete Sentence</button>
       </div>
     )
   },
@@ -139,7 +139,7 @@ var PlaySentenceFragment = React.createClass({
       return (
         <div className="container">
           <ReactTransition transitionName={"sentence-fragment-buttons"} transitionLeave={true} transitionLeaveTimeout={2000}>
-            <h5 className="title is-5">Is this a sentence or a fragment?</h5>
+            <h5 className="title is-5">Is this a complete or an incomplete sentence?</h5>
             {this.getSentenceOrFragmentButtons()}
           </ReactTransition>
         </div>
@@ -159,8 +159,8 @@ var PlaySentenceFragment = React.createClass({
     if(!this.choosingSentenceOrFragment() && !this.showNextQuestionButton()) {
       return (
         <div className="container">
-          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={2000} >
-            <h5 className="title is-5">Add and/or change as few words as you can to turn this fragment into a sentence</h5>
+          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200} >
+            <h5 className="title is-5">Add and/or change as few words as you can to make this a complete sentnece</h5>
             <TextEditor handleChange={this.handleChange}/>
             <div className="question-button-group">
               {button}

@@ -66,7 +66,7 @@ const newSentenceFragment = React.createClass({
     return (
       <section className="section">
         <div className="container">
-          <h4 className="title is-4">Create a new Sentence Fragment</h4>
+          <h4 className="title is-4">Create a New Sentence Fragment</h4>
           <Form data={this.state} handleChange={this.handleChange} submit={this.create}/>
         </div>
       </section>

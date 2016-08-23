@@ -30,7 +30,7 @@ const sentenceFragmentForm = React.createClass({
         <p className="control">
           <label className="checkbox">
             <input type="checkbox" checked={this.props.data.needsIdentification} onClick={this.props.handleChange.bind(null, "needsIdentification")}/>
-            If it is a fragment, does a student need to identify it before making it a sentence?
+            If it is a fragment, does a student need to identify it before completing it?
           </label>
         </p>
         {this.renderOptimalResponseTextInput()}
