@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {hashToCollection} from '../../libs/hashToCollection'
 import QuestionSelector from 'react-select-search'
+import SortableList from 'react-anything-sortable'
 
 const LessonForm = React.createClass({
   getInitialState: function () {
@@ -139,8 +140,8 @@ const LessonForm = React.createClass({
       <br />
       <p className="control">
         <label className="label">Currently Selected Questions</label>
-        {this.renderQuestionSelect()}
       </p>
+      {this.renderQuestionSelect()}
       <br />
       <p className="control">
         <button className={"button is-primary " + this.props.stateSpecificClass} onClick={this.submit}>Submit</button>
