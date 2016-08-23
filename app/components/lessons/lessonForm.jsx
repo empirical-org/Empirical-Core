@@ -49,6 +49,14 @@ const LessonForm = React.createClass({
     this.handleChange(e.value)
   },
 
+  dragStart: function(e) {
+    console.log(e)
+  },
+
+  dragEnd: function(e) {
+    console.log(e)
+  },
+
   renderQuestionSelect: function () {
     if(this.state.selectedQuestions) {
       return this.state.selectedQuestions.map((key) => {
@@ -59,7 +67,7 @@ const LessonForm = React.createClass({
         )
       })
     } else {
-      return (<div></div>)
+      return (<div>No questions</div>)
     }
     // const formattedQuestions = hashToCollection(this.props.questions.data).map((question) => {
     //   return {
@@ -135,10 +143,10 @@ const LessonForm = React.createClass({
           </select>
         </span>
       </p>
-      <p className="control">
+      <div className="control">
         <label className="label">Currently Selected Questions</label>
         {this.renderQuestionSelect()}
-      </p>
+      </div>
       <p className="label">All Questions</p>
       {this.renderSearchBox()}
       <br />
