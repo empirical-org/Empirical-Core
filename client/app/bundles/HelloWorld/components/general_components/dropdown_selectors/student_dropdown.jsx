@@ -7,6 +7,7 @@ export default React.createClass({
 
 	propTypes: {
 		students: React.PropTypes.array.isRequired,
+		selectedStudentId: React.PropTypes.num,
     callback: React.PropTypes.function
 	},
 
@@ -16,7 +17,9 @@ export default React.createClass({
 
 	checkStudents: function(studentsProp){
 		let state;
-		if (studentsProp && studentsProp.length) {
+		if (this.props.selectedStudent) {
+			state = {selectedStudent: this.findStudentById(this.props.selectedStudentId)}
+		} else if (studentsProp && studentsProp.length) {
 			state = {selectedStudent: studentsProp[0], disabled: false}
 		} else {
 			state = {selectedStudent: {name: 'No Students'}, disabled: true}
@@ -40,6 +43,8 @@ export default React.createClass({
   },
 
 	handleSelect: function(studentId) {
+		//TODO: fix this. this part is redundant (the selectedStudent state is set from higher up),
+		// but this potentially allows this class to be more modular and we are short ontime
 		this.setState({selectedStudent: this.findStudentById(studentId)})
     if (this.props.callback) {
       this.props.callback(studentId)

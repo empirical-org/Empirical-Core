@@ -1,4 +1,5 @@
 import React from 'react'
+import ScoreColor from '../../modules/score_color.js'
 
 export default React.createClass({
 	propTypes: {
@@ -9,22 +10,22 @@ export default React.createClass({
 	header: function() {
 		if (this.props.boxNumber === 1) {
 			return (
-				<tr>
-					<th>Question</th>
-					<th className='placeholder-th'></th>
-					<th>Score</th>
-				</tr>
+				<tr className="student-report-headers">
+					<td><div><span>Question</span></div></td>
+					<td><div><span>Score</span></div></td>
+					<td></td>
+    		</tr>
+
 			)
 		}
 	},
 
 	concepts: function() {
+
 		return this.props.questionData.concepts.map((concept) => (
 			<tr key={concept.id}>
 				<td>Concept</td>
-				<td>{concept.correct
-						? 'check'
-						: 'X'}
+				<td>{<img src={'/images/' + (concept.correct ? 'check' : 'x') + '.svg'}/>}
         </td>
         <td>{concept.name}</td>
 			</tr>
@@ -35,32 +36,28 @@ export default React.createClass({
 		const data = this.props.questionData;
 		return (
 			<div id="student-report-box">
-				<table>
-					{this.header()}
-					<tr>
-						<td className='question-index'>{this.props.boxNumber}</td>
-						<td>
-							<table className='inner-table'>
+				<div id='student-report-table-and-index'>
+						<div className='question-index'>{this.props.boxNumber}</div>
+							<table>
+								{this.header()}
 								<tr className='directions'>
 									<td>Directions</td>
 									<td></td>
-									<td>{data.directions}</td>
+									<td><span>{data.directions}</span></td>
 								</tr>
 								<tr>
 									<td>Prompt</td>
 									<td></td>
 									<td>{data.prompt}</td>
 								</tr>
-								<tr>
+								<tr className={ScoreColor(data.score)}>
 									<td>Response</td>
-									<td>{data.score}</td>
+									<td>{data.score + '%'}</td>
 									<td>{data.answer}</td>
 								</tr>
 								{this.concepts()}
 							</table>
-						</td>
-					</tr>
-				</table>
+			</div>
 			</div>
 		);
 	}
