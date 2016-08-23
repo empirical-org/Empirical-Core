@@ -49,14 +49,6 @@ const LessonForm = React.createClass({
     this.handleChange(e.value)
   },
 
-  dragStart: function(e) {
-    console.log(e)
-  },
-
-  dragEnd: function(e) {
-    console.log(e)
-  },
-
   renderQuestionSelect: function () {
     if(this.state.selectedQuestions) {
       return this.state.selectedQuestions.map((key) => {
@@ -69,26 +61,6 @@ const LessonForm = React.createClass({
     } else {
       return (<div>No questions</div>)
     }
-    // const formattedQuestions = hashToCollection(this.props.questions.data).map((question) => {
-    //   return {
-    //     value: question.key,
-    //     title: question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
-    //   }
-    // })
-    // const allUnchecked = this.state.selectedQuestions ? false : true
-    // return formattedQuestions.map((question) => {
-    //   return (
-    //     <p key={question.value} className="control">
-    //       <label className="checkbox">
-    //         <input
-    //         type="checkbox"
-    //         onChange={this.handleChange.bind(null, question.value)}
-    //         checked={(allUnchecked ? false : this.state.selectedQuestions.indexOf(question.value) !== -1)}/>
-    //         {question.title}
-    //       </label>
-    //     </p>
-    //   )
-    // })
   },
 
   renderSearchBox: function() {
