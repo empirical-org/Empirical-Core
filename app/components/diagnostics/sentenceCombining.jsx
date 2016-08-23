@@ -111,9 +111,9 @@ const PlayDiagnosticQuestion = React.createClass({
     this.updateResponseResource(response)
     this.submitResponse(response)
 
-    // console.log(this.state)
     this.setState({
-      editing: false
+      editing: false,
+      response: ""
     })
   },
 
@@ -150,7 +150,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   nextQuestion: function () {
-    console.log("clicking next question");
+    this.setState({response: ""})
     this.props.nextQuestion()
     this.setState({response: ""})
   },
@@ -165,15 +165,12 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   render: function () {
-    // console.log("in the question.jsx file")
-    // console.log(this.props)
     const questionID = this.props.question.key;
     var button;
-    // console.log("State: ", this.state)
     if(this.props.question.attempts.length > 0) {
       button = <button className="button is-warning" onClick={this.nextQuestion}>Next</button>
     } else {
-      button= <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
+      button = <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
     }
     if (this.props.question) {
         // return (

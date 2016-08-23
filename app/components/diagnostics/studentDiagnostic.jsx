@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
+import diagnosticQuestions from './diagnosticQuestions.jsx'
 
 import PlaySentenceFragment from './sentenceFragment.jsx'
 import PlayDiagnosticQuestion from './sentenceCombining.jsx'
@@ -61,28 +62,29 @@ var StudentDiagnostic = React.createClass({
   },
 
   getData: function() {
-    return [
-      {
-        type: "SF",
-        key: "-KOqKBMgXHF2dNMM8jhg"
-      },
-      {
-        type: "SF",
-        key: "-KOqLomeMhOuHqX9Zdqv"
-      },
-      {
-        type: "SC",
-        key: "-KP-Mm-zR8JQcT62iUHW"
-      },
-      {
-        type: "SF",
-        key: "-KPntt7hJrxRtP5JOiLm"
-      },
-      {
-        type:"SF",
-        key: "-KPnxMpaeiOBzG_fvpKx"
-      }
-    ]
+    return diagnosticQuestions()
+    // return [
+    //   {
+    //     type: "SF",
+    //     key: "-KOqKBMgXHF2dNMM8jhg"
+    //   },
+    //   {
+    //     type: "SF",
+    //     key: "-KOqLomeMhOuHqX9Zdqv"
+    //   },
+    //   {
+    //     type: "SC",
+    //     key: "-KP-Mm-zR8JQcT62iUHW"
+    //   },
+    //   {
+    //     type: "SF",
+    //     key: "-KPntt7hJrxRtP5JOiLm"
+    //   },
+    //   {
+    //     type:"SF",
+    //     key: "-KPnxMpaeiOBzG_fvpKx"
+    //   }
+    // ]
   },
 
   markIdentify: function (bool) {
@@ -116,17 +118,19 @@ var StudentDiagnostic = React.createClass({
           console.log("Current: ", this.props.playDiagnostic.currentQuestion)
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
             return (
-              <PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}/>
+              <PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key}/>
             )
           } else if(this.props.playDiagnostic.currentQuestion.type==="SF"){
             return (
               <PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+                                    key={this.props.playDiagnostic.currentQuestion.data.key}
                                     nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
                                     updateAttempts={this.submitResponse}/>
             )
           } else {
             return (
               <PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+                                    currentKey={this.props.playDiagnostic.currentQuestion.data.key}
                                     nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
                                     updateAttempts={this.submitResponse}/>
             )
