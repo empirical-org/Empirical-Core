@@ -135,13 +135,12 @@ const LessonForm = React.createClass({
           </select>
         </span>
       </p>
-      <p className="label">Questions</p>
-      {this.renderSearchBox()}
-      <br />
       <p className="control">
         <label className="label">Currently Selected Questions</label>
+        {this.renderQuestionSelect()}
       </p>
-      {this.renderQuestionSelect()}
+      <p className="label">All Questions</p>
+      {this.renderSearchBox()}
       <br />
       <p className="control">
         <button className={"button is-primary " + this.props.stateSpecificClass} onClick={this.submit}>Submit</button>
