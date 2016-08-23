@@ -37,28 +37,18 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     scores[:students] = classroom.students.map { |student|
       loaded = student.activity_sessions.includes(concept_results: :concept).find_by(activity_id: diagnostic.id, is_final_score: true)
       if loaded
+        formatted_concept_results = get_concept_results(loaded)
         session = {
           id: loaded.id,
-          concept_results: loaded.concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
-            {
-              directions: cr.first[:metadata]["directions"],
-              prompt: cr.first[:metadata]["prompt"],
-              answer: cr.first[:metadata]["answer"],
-              score: cr.inject(0) {|sum, crs| sum + crs[:metadata]["correct"]} / cr.length * 100,
-              concepts: cr.map { |crs|
-                {
-                  id: crs.concept_id,
-                  name: crs.concept.name,
-                  correct: crs[:metadata]["correct"] == 1
-                }
-              },
-              question_number: cr.first[:metadata]["questionNumber"]
-            }
-          }
+          time: get_time_in_minutes(loaded),
+          number_of_questions: formatted_concept_results.length,
+          concept_results: formatted_concept_results,
+          score: get_average_score(formatted_concept_results)
         }
       else
         session = {
           id: nil,
+          time: nil,
           concept_results: []
         }
       end
@@ -69,6 +59,37 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       }
     }
     scores
+  end
+
+  def get_time_in_minutes activity_session
+    ((activity_session.completed_at - activity_session.started_at) / 60).round()
+  end
+
+  def get_concept_results activity_session
+    activity_session.concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
+      {
+        directions: cr.first[:metadata]["directions"],
+        prompt: cr.first[:metadata]["prompt"],
+        answer: cr.first[:metadata]["answer"],
+        score: get_score_for_question(cr),
+        concepts: cr.map { |crs|
+          {
+            id: crs.concept_id,
+            name: crs.concept.name,
+            correct: crs[:metadata]["correct"] == 1
+          }
+        },
+        question_number: cr.first[:metadata]["questionNumber"]
+      }
+    }
+  end
+
+  def get_score_for_question concept_results
+    concept_results.inject(0) {|sum, crs| sum + crs[:metadata]["correct"]} / concept_results.length * 100
+  end
+
+  def get_average_score formatted_results
+    (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
   end
 
 end
