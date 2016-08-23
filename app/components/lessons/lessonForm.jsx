@@ -33,12 +33,15 @@ const LessonForm = React.createClass({
     const currentSelectedQuestions = this.state.selectedQuestions;
     var newSelectedQuestions;
     if (_.indexOf(currentSelectedQuestions, value) === -1) {
-      newSelectedQuestions = currentSelectedQuestions.concat([value]);
+      if(currentSelectedQuestions===undefined) {
+        newSelectedQuestions = [value]
+      } else {
+        newSelectedQuestions = currentSelectedQuestions.concat([value]);
+      }
     } else {
       newSelectedQuestions = _.without(currentSelectedQuestions, value)
     }
     this.setState({selectedQuestions: newSelectedQuestions})
-
   },
 
   handleSearchChange: function(e) {
@@ -46,29 +49,37 @@ const LessonForm = React.createClass({
   },
 
   renderQuestionSelect: function () {
-    const formattedQuestions = hashToCollection(this.props.questions.data).map((question) => {
-      return {
-        value: question.key,
-        title: question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
-      }
-    })
-    return formattedQuestions.map((question) => {
-      return (
-        <p key={question.value} className="control">
-          <label className="checkbox">
-            <input
-            type="checkbox"
-            onChange={this.handleChange.bind(null, question.value)}
-            checked={this.state.selectedQuestions.indexOf(question.value) !== -1}/>
-            {question.title}
-          </label>
-        </p>
-      )
-    })
-  },
-
-  onHighlight: function(e) {
-    console.log(e)
+    if(this.state.selectedQuestions) {
+      return this.state.selectedQuestions.map((key) => {
+        return (
+          <p key={key}>
+            {this.props.questions.data[key].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}
+          </p>
+        )
+      })
+    } else {
+      return (<div></div>)
+    }
+    // const formattedQuestions = hashToCollection(this.props.questions.data).map((question) => {
+    //   return {
+    //     value: question.key,
+    //     title: question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
+    //   }
+    // })
+    // const allUnchecked = this.state.selectedQuestions ? false : true
+    // return formattedQuestions.map((question) => {
+    //   return (
+    //     <p key={question.value} className="control">
+    //       <label className="checkbox">
+    //         <input
+    //         type="checkbox"
+    //         onChange={this.handleChange.bind(null, question.value)}
+    //         checked={(allUnchecked ? false : this.state.selectedQuestions.indexOf(question.value) !== -1)}/>
+    //         {question.title}
+    //       </label>
+    //     </p>
+    //   )
+    // })
   },
 
   renderSearchBox: function() {
@@ -78,7 +89,7 @@ const LessonForm = React.createClass({
         return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
       })
       const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question"
-                          onChange={this.handleSearchChange} onHighlight={this.onHighlight}/>)
+                          onChange={this.handleSearchChange} />)
       return searchBox
     }
 
@@ -112,18 +123,25 @@ const LessonForm = React.createClass({
           onChange={this.handleStateChange.bind(null, "introURL")}
         />
       </p>
-      <span className="select">
-        <select defaultValue={this.state.flag} onChange={this.handleSelect}>
-          <option value="Alpha">Alpha</option>
-          <option value="Beta">Beta</option>
-          <option value="Production">Production</option>
-          <option value="Archive">Archive</option>
-        </select>
-      </span>
+      <p className="control">
+        <label className="label">Flag</label>
+        <span className="select">
+          <select defaultValue={this.state.flag} onChange={this.handleSelect}>
+            <option value="Alpha">Alpha</option>
+            <option value="Beta">Beta</option>
+            <option value="Production">Production</option>
+            <option value="Archive">Archive</option>
+          </select>
+        </span>
+      </p>
       <p className="label">Questions</p>
       {this.renderSearchBox()}
       <br />
-      {this.renderQuestionSelect()}
+      <p className="control">
+        <label className="label">Currently Selected Questions</label>
+        {this.renderQuestionSelect()}
+      </p>
+      <br />
       <p className="control">
         <button className={"button is-primary " + this.props.stateSpecificClass} onClick={this.submit}>Submit</button>
       </p>
