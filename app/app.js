@@ -95,8 +95,10 @@ render((
             <Route path=":lessonID" component={GameLesson}/>
           </Route>
           <Route path="lesson/:lessonID" component={StudentLesson}/>
-          <Route path="diagnostic/:diagnosticID" component={StudentDiagnostic}/>
+          <Redirect from="diagnostic?student=:studentID&uid=:diagnosticID" to="/diagnostic/1" />
 
+          <Route path="diagnostic/" component={StudentDiagnostic}/>
+          <Route path="diagnostic/:diagnosticID" component={StudentDiagnostic}/>
           <Redirect from="game/?student=:studentID&uid=:lessonID" to="/game/:lessonID" />
           <Route path="questions/:questionID" component={PlayQuestion}/>
           <Route path="sentence-fragments/:fragmentID" component={PlaySentenceFragment}/>
