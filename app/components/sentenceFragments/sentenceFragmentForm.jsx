@@ -2,7 +2,6 @@ import React from 'react';
 
 const sentenceFragmentForm = React.createClass({
   renderOptimalResponseTextInput: function () {
-    if (this.props.data.isFragment) {
       return (
         [
           (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
@@ -11,7 +10,6 @@ const sentenceFragmentForm = React.createClass({
           </p>)
         ]
       )
-    }
   },
 
   render: function () {
@@ -24,13 +22,13 @@ const sentenceFragmentForm = React.createClass({
         <p className="control">
           <label className="checkbox">
             <input type="checkbox" checked={this.props.data.isFragment} onClick={this.props.handleChange.bind(null, "isFragment")}/>
-            Is this a Fragment?
+            This is a fragment.
           </label>
         </p>
         <p className="control">
           <label className="checkbox">
             <input type="checkbox" checked={this.props.data.needsIdentification} onClick={this.props.handleChange.bind(null, "needsIdentification")}/>
-            If it is a fragment, does a student need to identify it before completing it?
+            Show a multiple choice question to identify sentence or fragment.
           </label>
         </p>
         {this.renderOptimalResponseTextInput()}

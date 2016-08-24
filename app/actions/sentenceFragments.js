@@ -15,13 +15,13 @@ module.exports = {
 			});
 		}
 	},
-	startSentenceFeedbackEdit: function(sfid){
+	startSentenceFragmentEdit: function(sfid){
 		return {type:C.START_SENTENCE_FRAGMENT_EDIT,sfid};
 	},
-	cancelSentenceFeedbackEdit: function(sfid){
+	cancelSentenceFragmentEdit: function(sfid){
 		return {type:C.FINISH_SENTENCE_FRAGMENT_EDIT,sfid};
 	},
-	deleteSentenceFeedback: function(sfid){
+	deleteSentenceFragment: function(sfid){
 		return function(dispatch,getState){
 			dispatch({type:C.SUBMIT_SENTENCE_FRAGMENT_EDIT,sfid});
 			sentenceFragmentsRef.child(sfid).remove(function(error){
