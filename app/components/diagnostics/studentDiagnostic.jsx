@@ -161,14 +161,6 @@ var StudentDiagnostic = React.createClass({
                                     updateAttempts={this.submitResponse}/>
             )
           }
-        } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-            return (<div>Finshed diagnostic</div>)
-        } else {
-            return (
-              <div className="container">
-                <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
-              </div>
-            )
         }
         else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
           return (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)

@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {hashToCollection} from '../../libs/hashToCollection'
 import QuestionSelector from 'react-select-search'
-import SortableList from 'react-anything-sortable'
 
 const LessonForm = React.createClass({
   getInitialState: function () {
