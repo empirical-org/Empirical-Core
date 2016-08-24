@@ -10,11 +10,11 @@ export default React.createClass({
   propTypes: {
     classrooms: React.PropTypes.array.isRequired,
     students: React.PropTypes.array,
-    selectedClassroom: React.PropTypes.obj,
-    selectedStudentId: React.PropTypes.num,
-    studentDropdownCallBack: React.PropTypes.function,
-    dropdownCallback: React.PropTypes.function,
-    buttonGroupCallback: React.PropTypes.function
+    selectedClassroom: React.PropTypes.number,
+    selectedStudentId: React.PropTypes.number,
+    studentDropdownCallBack: React.PropTypes.func,
+    dropdownCallback: React.PropTypes.func,
+    buttonGroupCallback: React.PropTypes.func
   },
 
 

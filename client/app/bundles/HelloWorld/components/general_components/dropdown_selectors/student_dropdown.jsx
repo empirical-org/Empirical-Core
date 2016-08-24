@@ -7,8 +7,8 @@ export default React.createClass({
 
 	propTypes: {
 		students: React.PropTypes.array.isRequired,
-		selectedStudentId: React.PropTypes.num,
-    callback: React.PropTypes.function
+		selectedStudentId: React.PropTypes.number,
+    callback: React.PropTypes.func
 	},
 
 	getInitialState: function() {

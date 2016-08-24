@@ -83,7 +83,7 @@ export default React.createClass({
       overviewBoxes = <OverviewBoxes data={this.state.students}/>
     }
     return (
-      <div id='individual-activity-classroom-view'>
+      <div id='individual-classroom-view'>
         {overviewBoxes}
         <ProgressReport columnDefinitions={this.columnDefinitions}
                            pagination={false}

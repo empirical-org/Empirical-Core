@@ -16,16 +16,18 @@ export default React.createClass({
   report: function(){
     let reportValue = this.props.params.report
     let report, nav;
-    // if (reportValue === '1'){
-    //   // report = <ModalOverview/>
+    if (reportValue === 'student_report'){
+        report = <StudentReport key='Report' {...this.props} premiumState={this.state.hasPremium} classroom={this.props.classroom}/>
+    } else {
+        report = <ClassReport key='Report' params={this.props.params} premiumState={this.state.hasPremium}/>
+    //     }
     // } else if (reportValue === '3') {
     //   // report = <ClassroomPage/>
     // } else {
       // report = <GenericReport key='Report' premiumState={this.state.hasPremium}/>
-      // report = <StudentReport key='Report' {...this.props} premiumState={this.state.hasPremium} classroom={this.props.classroom}/>
-      report = <ClassReport key='Report' {...this.props} premiumState={this.state.hasPremium} classroom={this.props.classroom}/>
 
-    // }
+
+    }
     return [nav, report];
   },
 

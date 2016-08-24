@@ -7,8 +7,8 @@ export default React.createClass({
 
 	propTypes: {
 		classrooms: React.PropTypes.array.isRequired,
-    defaultClassId: React.PropTypes.obj,
-    callback: React.PropTypes.function
+    defaultClassId: React.PropTypes.number,
+    callback: React.PropTypes.func
 	},
 
 	getInitialState: function() {
