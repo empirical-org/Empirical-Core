@@ -5,31 +5,35 @@ import OverviewBoxes from './overview_boxes.jsx'
 
 
 export default React.createClass({
+
   propTypes: {
-    premiumStatus: React.PropTypes.string.isRequired
+    premiumStatus: React.PropTypes.string.isRequired,
+    params: React.PropTypes.object.isRequired
   },
-
-
 
   getInitialState: function() {
     return {
-      students: null,
+      students: null
     }
   },
 
   columnDefinitions: function() {
+    let params = this.props.params
     return [
       {
         name: 'Name',
         field: 'name',
-        sortByField: 'name'
+        sortByField: 'name',
+        customCell: function(row) {
+          return (<a href={`/teachers/progress_reports/diagnostic_reports#${params.classroomId}/student_report?studentId=${row.id}`}>{row['name']}</a>)
+        }
       },
       {
         name: 'Score',
         field: 'score',
         sortByField: 'score',
         customCell: function(row) {
-          return row['session']['concept_results'][0]['score'] + '%';
+          return row['session']['concept_results'][0]['score'] + '%'
         }
       },
       {
@@ -74,7 +78,7 @@ export default React.createClass({
 
 
   render: function() {
-    let overviewBoxes
+    let overviewBoxes;
     if (this.state.students) {
       overviewBoxes = <OverviewBoxes data={this.state.students}/>
     }
