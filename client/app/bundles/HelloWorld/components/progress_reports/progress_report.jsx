@@ -25,7 +25,7 @@ export default  React.createClass({
     onFetchSuccess: React.PropTypes.func, // Optional
     exportCsv: React.PropTypes.string,
     premiumStatus: React.PropTypes.string.isRequired,
-    colorByScore: React.PropTypes.bool
+    colorByScoreKeys: React.PropTypes.array
   },
 
   getDefaultProps: function() {
@@ -195,7 +195,7 @@ export default  React.createClass({
     if (this.state.loading) {
       mainSection = <LoadingIndicator/>;
     } else {
-      mainSection = <SortableTable rows={visibleResults} colorByScore={this.props.colorByScore} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
+      mainSection = <SortableTable rows={visibleResults} colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
     }
 
     return (
