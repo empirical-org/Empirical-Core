@@ -129,7 +129,7 @@ var StudentDiagnostic = React.createClass({
             )
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-            return (<div>Finshed diagnostic</div>)
+            return (<div>Finished diagnostic</div>)
         } else {
             return (
               <div className="container">
