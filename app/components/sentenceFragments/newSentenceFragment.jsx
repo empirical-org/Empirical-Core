@@ -9,7 +9,8 @@ const newSentenceFragment = React.createClass({
       prompt: "Is this a sentence?",
       questionText: "",
       isFragment: false,
-      optimalResponseText: ""
+      optimalResponseText: "",
+      needsIdentification: true
     }
   },
 
@@ -26,16 +27,24 @@ const newSentenceFragment = React.createClass({
         break;
       case 'isFragment':
         this.setState({isFragment: e.target.checked})
+        break;
+      case 'needsIdentification':
+        this.setState({needsIdentification: e.target.checked})
       default:
         return
     }
   },
 
   create: function () {
+    if(!this.state.isFragment && !this.state.needsIdentification) {
+      alert("If the prompt is a sentence, the student must identify whether it is a sentence or fragment")
+      return
+    }
     const data = {};
     data.prompt = this.state.prompt
     data.questionText = this.state.questionText
     data.isFragment = this.state.isFragment
+    data.needsIdentification = this.state.needsIdentification
     if (this.state.isFragment) {
       data.responses = [{
         text: this.state.optimalResponseText,
