@@ -16,6 +16,7 @@ const newSentenceFragment = React.createClass({
     data.isFragment = newSentenceFragment.isFragment
     data.needsIdentification = newSentenceFragment.needsIdentification
     data.optimalResponseText = newSentenceFragment.optimalResponseText
+    data.conceptID = newSentenceFragment.conceptID
     if (newSentenceFragment.isFragment) {
       data.responses = [{
         text: newSentenceFragment.optimalResponseText,
@@ -38,7 +39,7 @@ const newSentenceFragment = React.createClass({
       <section className="section">
         <div className="container">
           <h4 className="title is-4">Create a New Sentence Fragment</h4>
-          <Form mode="New" handleChange={this.handleChange} submit={this.createNewSentenceFragment}/>
+          <Form mode="New" handleChange={this.handleChange} submit={this.createNewSentenceFragment} concepts={this.props.concepts}/>
         </div>
       </section>
     )
@@ -49,6 +50,7 @@ const newSentenceFragment = React.createClass({
 function select(state) {
   return {
     sentenceFragments: state.sentenceFragments,
+    concepts: state.concepts,
     routing: state.routing
   }
 }

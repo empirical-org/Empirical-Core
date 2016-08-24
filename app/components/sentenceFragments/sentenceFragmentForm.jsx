@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router'
+import ConceptSelector from 'react-select-search'
 
 const sentenceFragmentForm = React.createClass({
 
@@ -11,7 +12,8 @@ const sentenceFragmentForm = React.createClass({
         questionText: "",
         isFragment: false,
         optimalResponseText: "",
-        needsIdentification: true
+        needsIdentification: true,
+        conceptID: ""
       }
     } else {
       return {
@@ -19,7 +21,8 @@ const sentenceFragmentForm = React.createClass({
         questionText: fragment.questionText,
         isFragment: fragment.isFragment,
         optimalResponseText: fragment.optimalResponseText!==undefined ? fragment.optimalResponseText : "",
-        needsIdentification: fragment.needsIdentification!==undefined ? fragment.needsIdentification : true
+        needsIdentification: fragment.needsIdentification!==undefined ? fragment.needsIdentification : true,
+        conceptID: fragment.conceptID
       }
     }
   },
@@ -40,6 +43,9 @@ const sentenceFragmentForm = React.createClass({
         break;
       case 'needsIdentification':
         this.setState({needsIdentification: e.target.checked})
+        break;
+      case 'concept':
+        this.setState({conceptID: e.value})
       default:
         return
     }
@@ -48,6 +54,14 @@ const sentenceFragmentForm = React.createClass({
   submitSentenceFragment: function() {
     const data = this.state
     this.props.submit(data)
+  },
+
+  conceptsToOptions: function() {
+    return _.map(this.props.concepts.data["0"], (concept)=>{
+      return (
+        {name: concept.displayName, value: concept.uid}
+      )
+    })
   },
 
   renderOptimalResponseTextInput: function () {
@@ -62,6 +76,7 @@ const sentenceFragmentForm = React.createClass({
   },
 
   render: function () {
+    console.log("State: ", this.state)
     return (
       <div>
         <label className="label">Sentence / Fragment Text</label>
@@ -81,6 +96,10 @@ const sentenceFragmentForm = React.createClass({
           </label>
         </p>
         {this.renderOptimalResponseTextInput()}
+        <p className="control">
+          <label className="label">Associated Concept</label>
+          <ConceptSelector options={this.conceptsToOptions()} value={this.state.concept} onChange={this.handleChange.bind(null, "concept")}/>
+        </p>
         <button className="button is-primary is-outlined" onClick={this.submitSentenceFragment}>Save</button>
       </div>
     )
