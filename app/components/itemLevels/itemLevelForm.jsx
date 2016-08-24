@@ -9,16 +9,18 @@ const ItemLevelForm = React.createClass({
 
   getInitialState: function() {
     if(this.props.mode==="Edit") {
-      return {name: this.props.data.name,
-              description: this.props.data.description,
-              url: this.props.data.url,
-              conceptID: this.props.data.conceptID
+      return {
+        name: this.props.data.name,
+        description: this.props.data.description,
+        url: this.props.data.url,
+        conceptID: this.props.data.conceptID
       }
     } else {
-        return {name: "",
-                description: "",
-                url: "",
-                conceptID: ""
+        return {
+          name: "",
+          description: "",
+          url: "",
+          conceptID: ""
         }
       }
   },
@@ -32,14 +34,16 @@ const ItemLevelForm = React.createClass({
       name: this.refs.newItemLevelName.value,
       description: this.refs.description.value,
       url: this.refs.url.value,
-      conceptID: _.find(this.props.concepts.data, (concept) => {return concept.name===this.refs.concept.value}).key
+      conceptID: _.find(this.props.concepts.data["0"], (concept) => {return concept.name===this.refs.concept.value}).uid
     }
     this.props.submitNewItemLevel(newItemLevel, this.props.levelID) //id will be undefined if creating a new level
     this.setState(newItemLevel)
   },
 
   deleteItemLevel: function() {
-    this.props.deleteItemLevel(this.props.levelID)
+    if(confirm("Are you sure you want to delete this item level?")) {
+      this.props.deleteItemLevel(this.props.levelID)
+    }
   },
 
   cancelEdit: function() {
@@ -51,14 +55,14 @@ const ItemLevelForm = React.createClass({
       name: this.refs.newItemLevelName.value,
       description: this.refs.description.value,
       url: this.refs.url.value,
-      conceptID: this.refs.concept.value==="Select Associated Concept" ? "" : _.find(this.props.concepts.data, (concept) => {return concept.name===this.refs.concept.value}).key
+      conceptID: this.refs.concept.value==="Select Associated Concept" ? "" : _.find(this.props.concepts.data["0"], (concept) => {return concept.name===this.refs.concept.value}).uid
     })
   },
 
   conceptsToOptions: function() {
-    return hashToCollection(this.props.concepts.data).map((concept) => {
+    return this.props.concepts.data["0"].map((concept) => {
       return (
-        <option value={concept.name} key={concept.key}>{concept.name}</option>
+        <option value={concept.name} key={concept.uid}>{concept.name}</option>
       )
     })
   },
@@ -121,7 +125,7 @@ const ItemLevelForm = React.createClass({
         <p className="control">
           <label className="label">Concept</label>
           <span className="select">
-            <select value={this.state.conceptID!=="" ? this.props.concepts.data[this.state.conceptID].name : "Select Associated Concept"} onChange={this.handleChange} ref="concept">
+            <select value={this.state.conceptID!=="" ? _.find(this.props.concepts.data["0"], {uid: this.state.conceptID}).name : "Select Associated Concept"} onChange={this.handleChange} ref="concept">
               <option value="Select Associated Concept">Select Associated Concept</option>
               {this.conceptsToOptions()}
             </select>
@@ -131,6 +135,8 @@ const ItemLevelForm = React.createClass({
           <Link to={'admin/item-levels'}>
             <button className="button is-primary" onClick={this.submit}>Submit</button>
           </Link>
+        </div>
+        <div>
           {cancelAndDeleteButtons}
         </div>
       </div>
