@@ -12,11 +12,7 @@ var key = "" //enables this component to be used by both play/sentence-fragments
 var PlaySentenceFragment = React.createClass({
   getInitialState: function() {
     return {
-      // choosingSentenceOrFragment: true,
-      // prompt: "Is this a sentence or a fragment?",
       response: "",
-      // goToNext: false,
-      // isNextPage: false
     }
   },
 
@@ -28,8 +24,6 @@ var PlaySentenceFragment = React.createClass({
 
   showNextQuestionButton: function () {
     const {question} = this.props;
-    const sentenceIdentifiedCorrectly = (question.isFragment === false && question.identified)
-    const fragmentIdentifiedIncorrectly = (question.isFragment && question.identified === false)
     const attempted = question.attempts.length > 0
     if (attempted) {
       return true
@@ -45,24 +39,6 @@ var PlaySentenceFragment = React.createClass({
   checkChoice: function(choice) {
     const questionType = this.props.question.isFragment ? "Fragment" : "Sentence"
     this.props.markIdentify(choice === questionType)
-    // if(choice===questionType) {
-    //   this.setState({prompt: "Well done! You identified correctly!"})
-    //   //timeout below to allow for constructive feedback to stay on the screen for longer
-    //   setTimeout(()=>{
-    //     this.setState({
-    //       choosingSentenceOrFragment: false,
-    //       prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
-    //     })}, 250)
-    // } else {
-    //   this.setState({ //here set goToNext as true
-    //     prompt: "Look closely. Do all the necessary the parts of speech (subject, verb) exist?"
-    //   })
-    // }
-    // if(choice==="Fragment") {
-    //   this.setState({
-    //     prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
-    //   })
-    // }
   },
 
   getSentenceOrFragmentButtons() {
@@ -82,7 +58,7 @@ var PlaySentenceFragment = React.createClass({
     const fragment = this.props.sentenceFragments.data[key]
 
     const responseMatcher = new POSMatcher(fragment.responses);
-    const matched = responseMatcher.checkMatch(this.state.response); //matched only checks against optimal responses
+    const matched = responseMatcher.checkMatch(this.state.response);
 
     var newResponse;
 
