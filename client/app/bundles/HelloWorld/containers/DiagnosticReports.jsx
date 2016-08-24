@@ -9,7 +9,7 @@ export default React.createClass({
 
 	render: function() {
 		return (
-			<Router history={hashHistory}>
+			<Router history={hashhistory}>
 				<Route path="/" component={Index}>
 					<Route path=':classroomId/:report' component={Reports}/>
 					{/*TODO: build a default route -- the ** below breaks the params*/}
