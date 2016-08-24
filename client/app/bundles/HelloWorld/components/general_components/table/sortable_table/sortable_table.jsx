@@ -13,7 +13,7 @@ export default React.createClass({
     sortHandler: React.PropTypes.func.isRequired, // Handle sorting of columns
     shouldTransition: React.PropTypes.bool,
     loading: React.PropTypes.bool,
-    colorByScore: React.PropTypes.bool
+    colorByScoreKeys: React.PropTypes.array
   },
 
   shouldTransition: function () {
@@ -49,7 +49,7 @@ export default React.createClass({
 
   rows: function() {
     return _.map(this.props.rows, function(row, i) {
-      return <SortableTr key={row.id || i} row={row} columns={this.props.columns} colorByScore={this.props.colorByScore} />
+      return <SortableTr key={row.id || i} row={row} columns={this.props.columns} colorByScoreKeys={this.props.colorByScoreKeys} />
     }, this);
   },
 

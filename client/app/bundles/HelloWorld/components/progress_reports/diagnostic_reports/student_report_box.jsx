@@ -15,7 +15,6 @@ export default React.createClass({
 					<td><div><span>Score</span></div></td>
 					<td></td>
     		</tr>
-
 			)
 		}
 	},
