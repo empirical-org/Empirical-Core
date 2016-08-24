@@ -71,6 +71,7 @@ export default React.createClass({
     return (
       <div id='individual-activity-classroom-view'>
         <ProgressReport columnDefinitions={this.columnDefinitions}
+                           hideFaqLink={Boolean(true)}
                            pagination={false}
                            sourceUrl={'/teachers/progress_reports/question_view'}
                            sortDefinitions={this.sortDefinitions}
