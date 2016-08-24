@@ -15,7 +15,7 @@ const newSentenceFragment = React.createClass({
     data.questionText = newSentenceFragment.questionText
     data.isFragment = newSentenceFragment.isFragment
     data.needsIdentification = newSentenceFragment.needsIdentification
-    data.optimalResponseText - newSentenceFragment.optimalResponseText
+    data.optimalResponseText = newSentenceFragment.optimalResponseText
     if (newSentenceFragment.isFragment) {
       data.responses = [{
         text: newSentenceFragment.optimalResponseText,

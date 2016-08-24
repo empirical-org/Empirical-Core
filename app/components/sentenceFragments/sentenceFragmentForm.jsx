@@ -46,8 +46,8 @@ const sentenceFragmentForm = React.createClass({
   },
 
   submitSentenceFragment: function() {
-    console.log("on submitting, state: ", this.state)
-    this.props.submit(this.state)
+    const data = this.state
+    this.props.submit(data)
   },
 
   renderOptimalResponseTextInput: function () {
