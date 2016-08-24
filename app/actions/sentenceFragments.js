@@ -34,7 +34,7 @@ module.exports = {
 			});
 		};
 	},
-	submitSentenceFeedbackEdit: function(sfid,content){
+	submitSentenceFragmentEdit: function(sfid,content){
 		return function(dispatch,getState){
 				dispatch({type:C.SUBMIT_SENTENCE_FRAGMENT_EDIT,sfid});
 				sentenceFragmentsRef.child(sfid).update(content,function(error){
@@ -59,7 +59,7 @@ module.exports = {
   toggleNewSentenceFeedbackModal: function(){
     return {type:C.TOGGLE_NEW_SENTENCE_FRAGMENT_MODAL}
   },
-	submitNewSentenceFeedback: function(content, response){
+	submitNewSentenceFragment: function(content, response){
 		return (dispatch,getState) => {
 			dispatch({type:C.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE});
 			var newRef = sentenceFragmentsRef.push(content, (error) => {

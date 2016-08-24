@@ -7,7 +7,25 @@ import fragmentActions from '../../actions/sentenceFragments.js'
 import C from '../../constants'
 
 const SentenceFragment = React.createClass({
-
+  getInitialState: function() {
+    if(this.props.sentenceFragments.hasreceiveddata) {
+      const fragment = this.props.sentenceFragments.data[this.props.params.sentenceFragmentID]
+      return {
+        prompt: fragment.prompt,
+        questionText: fragment.questionText,
+        isFragment: fragment.isFragment,
+        optimalResponseText: fragment.optimalResponseText ? fragment.optimalResponseText : "",
+        needsIdentification: fragment.needsIdentification ? fragment.needsIdentification : true
+      }
+    } else {
+      return {
+        prompt: "",
+        questionText: "",
+        optimalResponseText: "",
+        needsIdentification: true
+      }
+    }
+  },
 
   cancelEditingSentenceFragment: function() {
     this.props.dispatch(fragmentActions.cancelSentenceFragmentEdit(this.props.params.sentenceFragmentID))
@@ -17,12 +35,29 @@ const SentenceFragment = React.createClass({
     this.props.dispatch(fragmentActions.startSentenceFragmentEdit(this.props.params.sentenceFragmentID))
   },
 
-  saveSentenceFragmentEdits: function(e) {
-    console.log(e)
+  saveSentenceFragmentEdits: function() {
+    this.props.dispatch(fragmentActions.submitSentenceFragmentEdit(this.props.params.sentenceFragmentID, this.state))
   },
 
-  handleChange: function(e) {
-    console.log(e)
+  handleChange: function (key, e) {
+    switch (key) {
+      case 'prompt':
+        this.setState({prompt: e.target.value})
+        break;
+      case 'questionText':
+        this.setState({questionText: e.target.value})
+        break;
+      case 'optimalResponseText':
+        this.setState({optimalResponseText: e.target.value})
+        break;
+      case 'isFragment':
+        this.setState({isFragment: e.target.checked})
+        break;
+      case 'needsIdentification':
+        this.setState({needsIdentification: e.target.checked})
+      default:
+        return
+    }
   },
 
   renderEditForm: function() {

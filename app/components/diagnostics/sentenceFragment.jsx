@@ -31,7 +31,7 @@ var PlaySentenceFragment = React.createClass({
     const sentenceIdentifiedCorrectly = (question.isFragment === false && question.identified)
     const fragmentIdentifiedIncorrectly = (question.isFragment && question.identified === false)
     const attempted = question.attempts.length > 0
-    if (sentenceIdentifiedCorrectly || fragmentIdentifiedIncorrectly || attempted) {
+    if (attempted) {
       return true
     } else {
       return false
@@ -160,7 +160,7 @@ var PlaySentenceFragment = React.createClass({
       return (
         <div className="container">
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200} >
-            <h5 className="title is-5">Add and/or change as few words as you can to make this a complete sentnece</h5>
+            <h5 className="title is-5">Add punctuation and capitalization. If the sentence is incomplete, turn it into to a complete sentence.</h5>
             <TextEditor handleChange={this.handleChange}/>
             <div className="question-button-group">
               {button}

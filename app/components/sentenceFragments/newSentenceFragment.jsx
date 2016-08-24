@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {submitNewSentenceFeedback} from '../../actions/sentenceFragments'
+import fragmentActions from '../../actions/sentenceFragments.js'
 import Form from './sentenceFragmentForm.jsx'
 const newSentenceFragment = React.createClass({
 
@@ -59,7 +59,7 @@ const newSentenceFragment = React.createClass({
       }]
     }
 
-    this.props.dispatch(submitNewSentenceFeedback(data))
+    this.props.dispatch(fragmentActions.submitNewSentenceFragment(data, data.responses[0]))
   },
 
   render: function () {
