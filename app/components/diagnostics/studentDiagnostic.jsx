@@ -120,31 +120,22 @@ var StudentDiagnostic = React.createClass({
             return (
               <PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key}/>
             )
-          } else if(this.props.playDiagnostic.currentQuestion.type==="SF"){
+          } else {
             return (
               <PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
                                     key={this.props.playDiagnostic.currentQuestion.data.key}
                                     nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
                                     updateAttempts={this.submitResponse}/>
             )
-          } else {
-            return (
-              <PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-                                    currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-                                    nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-                                    updateAttempts={this.submitResponse}/>
-            )
           }
-        }
-        else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-          return (<div>Finshed diagnostic</div>)
-        }
-        else {
-          return (
-            <div className="container">
-              <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
-            </div>
-          )
+        } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
+            return (<div>Finshed diagnostic</div>)
+        } else {
+            return (
+              <div className="container">
+                <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
+              </div>
+            )
         }
       }
     } else {
