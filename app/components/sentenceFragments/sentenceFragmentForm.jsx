@@ -18,8 +18,8 @@ const sentenceFragmentForm = React.createClass({
         prompt: fragment.prompt,
         questionText: fragment.questionText,
         isFragment: fragment.isFragment,
-        optimalResponseText: fragment.optimalResponseText ? fragment.optimalResponseText : "",
-        needsIdentification: fragment.needsIdentification ? fragment.needsIdentification : true
+        optimalResponseText: fragment.optimalResponseText!==undefined ? fragment.optimalResponseText : "",
+        needsIdentification: fragment.needsIdentification!==undefined ? fragment.needsIdentification : true
       }
     }
   },
