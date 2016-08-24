@@ -2,58 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import fragmentActions from '../../actions/sentenceFragments.js'
 import Form from './sentenceFragmentForm.jsx'
+
 const newSentenceFragment = React.createClass({
 
-  getInitialState: function () {
-    return {
-      prompt: "Is this a sentence?",
-      questionText: "",
-      isFragment: false,
-      optimalResponseText: "",
-      needsIdentification: true
-    }
-  },
-
-  handleChange: function (key, e) {
-    switch (key) {
-      case 'prompt':
-        this.setState({prompt: e.target.value})
-        break;
-      case 'questionText':
-        this.setState({questionText: e.target.value})
-        break;
-      case 'optimalResponseText':
-        this.setState({optimalResponseText: e.target.value})
-        break;
-      case 'isFragment':
-        this.setState({isFragment: e.target.checked})
-        break;
-      case 'needsIdentification':
-        this.setState({needsIdentification: e.target.checked})
-      default:
-        return
-    }
-  },
-
-  create: function () {
-    if(!this.state.isFragment && !this.state.needsIdentification) {
-      alert("If the prompt is a sentence, the student must identify whether it is a sentence or fragment")
+  createNewSentenceFragment: function (newSentenceFragment) {
+    if(!newSentenceFragment.isFragment && !newSentenceFragment.needsIdentification) {
+      alert("If the prompt is a sentence, the student must identify whether it is a sentence or fragment. Please try again.")
       return
     }
     const data = {};
-    data.prompt = this.state.prompt
-    data.questionText = this.state.questionText
-    data.isFragment = this.state.isFragment
-    data.needsIdentification = this.state.needsIdentification
-    if (this.state.isFragment) {
+    data.prompt = newSentenceFragment.prompt
+    data.questionText = newSentenceFragment.questionText
+    data.isFragment = newSentenceFragment.isFragment
+    data.needsIdentification = newSentenceFragment.needsIdentification
+    data.optimalResponseText - newSentenceFragment.optimalResponseText
+    if (newSentenceFragment.isFragment) {
       data.responses = [{
-        text: this.state.optimalResponseText,
+        text: newSentenceFragment.optimalResponseText,
         optimal: true,
         feedback: "That's a great answer!"
       }]
     } else {
       data.responses = [{
-        text: this.state.questionText,
+        text: newSentenceFragment.questionText,
         optimal: true,
         feedback: "That's a great answer!"
       }]
@@ -67,7 +38,7 @@ const newSentenceFragment = React.createClass({
       <section className="section">
         <div className="container">
           <h4 className="title is-4">Create a New Sentence Fragment</h4>
-          <Form data={this.state} handleChange={this.handleChange} submit={this.create}/>
+          <Form mode="New" handleChange={this.handleChange} submit={this.createNewSentenceFragment}/>
         </div>
       </section>
     )
