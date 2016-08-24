@@ -26,10 +26,10 @@ export default React.createClass({
 	boxCreator: function(group, count) {
 		let range,
 			proficiency
-		if (group === 'red') {
+		if (group === 'red-score-color') {
 			range = '0 - 59%';
 			proficiency = 'Not Yet Proficient'
-		} else if (group === 'yellow') {
+		} else if (group === 'yellow-score-color') {
 			range = '60 - 79%';
 			proficiency = 'Nearly Proficient'
 		} else {
