@@ -15,13 +15,13 @@ module.exports = {
 			});
 		}
 	},
-	startSentenceFeedbackEdit: function(sfid){
+	startSentenceFragmentEdit: function(sfid){
 		return {type:C.START_SENTENCE_FRAGMENT_EDIT,sfid};
 	},
-	cancelSentenceFeedbackEdit: function(sfid){
+	cancelSentenceFragmentEdit: function(sfid){
 		return {type:C.FINISH_SENTENCE_FRAGMENT_EDIT,sfid};
 	},
-	deleteSentenceFeedback: function(sfid){
+	deleteSentenceFragment: function(sfid){
 		return function(dispatch,getState){
 			dispatch({type:C.SUBMIT_SENTENCE_FRAGMENT_EDIT,sfid});
 			sentenceFragmentsRef.child(sfid).remove(function(error){
@@ -34,7 +34,7 @@ module.exports = {
 			});
 		};
 	},
-	submitSentenceFeedbackEdit: function(sfid,content){
+	submitSentenceFragmentEdit: function(sfid,content){
 		return function(dispatch,getState){
 				dispatch({type:C.SUBMIT_SENTENCE_FRAGMENT_EDIT,sfid});
 				sentenceFragmentsRef.child(sfid).update(content,function(error){
@@ -59,7 +59,7 @@ module.exports = {
   toggleNewSentenceFeedbackModal: function(){
     return {type:C.TOGGLE_NEW_SENTENCE_FRAGMENT_MODAL}
   },
-	submitNewSentenceFeedback: function(content, response){
+	submitNewSentenceFragment: function(content, response){
 		return (dispatch,getState) => {
 			dispatch({type:C.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE});
 			var newRef = sentenceFragmentsRef.push(content, (error) => {
@@ -67,7 +67,7 @@ module.exports = {
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
-          dispatch(this.submitNewResponse(newRef.key, response))
+          dispatch(this.submitNewResponse(newRef.key, response));
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
 			});

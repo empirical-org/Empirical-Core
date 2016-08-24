@@ -11,7 +11,7 @@ var PlaySentenceFragment = React.createClass({
   getInitialState: function() {
     return {
       choosingSentenceOrFragment: true,
-      prompt: "Is this a sentence or a fragment?",
+      prompt: "Is this a complete or an incomplete sentence?",
       response: "",
       goToNext: false,
       isNextPage: false
@@ -30,7 +30,7 @@ var PlaySentenceFragment = React.createClass({
       setTimeout(()=>{
         this.setState({
           choosingSentenceOrFragment: false,
-          prompt: "Add and/or change as few words as you can to turn this fragment into a sentence"
+          prompt: "Add and/or change as few words as you can to make this a complete sentence."
         })}, 750)
     } else {
       this.setState({
@@ -42,8 +42,8 @@ var PlaySentenceFragment = React.createClass({
   getSentenceOrFragmentButtons() {
     return (
       <div className="button-group">
-        <button className="button is-primary" value="Sentence" onClick={() => {this.checkChoice("Sentence")}}>Sentence</button>
-        <button className="button is-info" value="Fragment" onClick={() => {this.checkChoice("Fragment")}}>Fragment</button>
+        <button className="button is-primary" value="Sentence" onClick={() => {this.checkChoice("Sentence")}}>Complete Sentence</button>
+        <button className="button is-info" value="Fragment" onClick={() => {this.checkChoice("Fragment")}}>Incomplete Sentence</button>
       </div>
     )
   },

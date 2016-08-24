@@ -65,7 +65,29 @@ describe("Getting concept results from an answered sf object", () => {
 
   it("should not return a complete sentence cr for correctly identified sentences", () => {
     const given = {
-      attempts: [],
+      attempts: [
+         {
+            "found":true,
+            "submitted":"Go away.",
+            "posMatch":true,
+            "exactMatch":true,
+            "response":{
+               "conceptResults":{
+                  "-KPTKtoxE2UabAeg59Rr":{
+                     "conceptUID":"iUE6tekeyep8U385dtmVfQ",
+                     "correct":true
+                  }
+               },
+               "count":5,
+               "createdAt":"1471534068015",
+               "feedback":"<p>Great job! That's a strong sentence.</p>",
+               "optimal":true,
+               "text":"I am listening to music on the ride home.",
+               "weak":false,
+               "key":"-KPTFz4xCW3ccaRQs2RI"
+            }
+         }
+      ],
       isFragment: false,
       identified: true,
       prompt: "Is this a sentence?",
@@ -78,6 +100,15 @@ describe("Getting concept results from an answered sf object", () => {
         directions: "Is this a sentence or a fragment?",
         prompt: "Go away.",
         answer: "Sentence"
+      }
+    },
+    {
+      concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+      metadata: {
+        correct: 1,
+        directions: "Add/change as few words as you can to change this fragment into a sentence",
+        prompt: "Go away.",
+        answer: "Go away."
       }
     }]
     const generated = getAllSentenceFragmentConceptResults(given)

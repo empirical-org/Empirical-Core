@@ -7,6 +7,7 @@ import Textarea from 'react-textarea-autosize';
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {submitResponse, clearResponses} from '../../actions/diagnostics.js'
+import ReactTransition from 'react-addons-css-transition-group'
 import questionActions from '../../actions/questions'
 import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default
@@ -110,9 +111,9 @@ const PlayDiagnosticQuestion = React.createClass({
     this.updateResponseResource(response)
     this.submitResponse(response)
 
-    // console.log(this.state)
     this.setState({
-      editing: false
+      editing: false,
+      response: ""
     })
   },
 
@@ -149,7 +150,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   nextQuestion: function () {
-    console.log("clicking next question");
+    this.setState({response: ""})
     this.props.nextQuestion()
     this.setState({response: ""})
   },
@@ -164,15 +165,12 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   render: function () {
-    // console.log("in the question.jsx file")
-    // console.log(this.props)
     const questionID = this.props.question.key;
     var button;
-    // console.log("State: ", this.state)
     if(this.props.question.attempts.length > 0) {
       button = <button className="button is-warning" onClick={this.nextQuestion}>Next</button>
     } else {
-      button= <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
+      button = <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
     }
     if (this.props.question) {
         // return (
@@ -193,11 +191,13 @@ const PlayDiagnosticQuestion = React.createClass({
           <div className="section container">
             {this.renderSentenceFragments()}
             <h5 className="title is-5">Combine the sentences into one sentence</h5>
-            <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
-                        handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
-            <div className="question-button-group button-group">
-              {button}
-            </div>
+            <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200}>
+              <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
+                          handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
+              <div className="question-button-group button-group">
+                {button}
+              </div>
+            </ReactTransition>
           </div>
         )
     } else {

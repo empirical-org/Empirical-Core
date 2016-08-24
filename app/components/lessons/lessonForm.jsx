@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {hashToCollection} from '../../libs/hashToCollection'
+import QuestionSelector from 'react-select-search'
+import SortableList from 'react-anything-sortable'
 
 const LessonForm = React.createClass({
   getInitialState: function () {
@@ -32,34 +34,47 @@ const LessonForm = React.createClass({
     const currentSelectedQuestions = this.state.selectedQuestions;
     var newSelectedQuestions;
     if (_.indexOf(currentSelectedQuestions, value) === -1) {
-      newSelectedQuestions = currentSelectedQuestions.concat([value]);
+      if(currentSelectedQuestions===undefined) {
+        newSelectedQuestions = [value]
+      } else {
+        newSelectedQuestions = currentSelectedQuestions.concat([value]);
+      }
     } else {
       newSelectedQuestions = _.without(currentSelectedQuestions, value)
     }
     this.setState({selectedQuestions: newSelectedQuestions})
+  },
 
+  handleSearchChange: function(e) {
+    this.handleChange(e.value)
   },
 
   renderQuestionSelect: function () {
-    const formattedQuestions = hashToCollection(this.props.questions.data).map((question) => {
-      return {
-        value: question.key,
-        title: question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
-      }
-    })
-    return formattedQuestions.map((question) => {
-      return (
-        <p key={question.value} className="control">
-          <label className="checkbox">
-            <input
-            type="checkbox"
-            onChange={this.handleChange.bind(null, question.value)}
-            checked={this.state.selectedQuestions.indexOf(question.value) !== -1}/>
-            {question.title}
-          </label>
-        </p>
-      )
-    })
+    if(this.state.selectedQuestions) {
+      return this.state.selectedQuestions.map((key) => {
+        return (
+          <p key={key}>
+            {this.props.questions.data[key].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}
+            <label onClick={this.handleChange.bind(null, key)}>❌</label>
+          </p>
+        )
+      })
+    } else {
+      return (<div>No questions</div>)
+    }
+  },
+
+  renderSearchBox: function() {
+    const options = hashToCollection(this.props.questions.data)
+    if (options.length > 0) {
+      const formatted = options.map((opt) => {
+        return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
+      })
+      const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question"
+                          onChange={this.handleSearchChange} />)
+      return searchBox
+    }
+
   },
 
   handleSelect: function(e) {
@@ -90,17 +105,24 @@ const LessonForm = React.createClass({
           onChange={this.handleStateChange.bind(null, "introURL")}
         />
       </p>
-      <span className="select">
-        <select defaultValue={this.state.flag} onChange={this.handleSelect}>
-          <option value="Alpha">Alpha</option>
-          <option value="Beta">Beta</option>
-          <option value="Production">Production</option>
-          <option value="Archive">Archive</option>
-        </select>
-      </span>
-      <p className="label">Questions</p>
-
-      {this.renderQuestionSelect()}
+      <p className="control">
+        <label className="label">Flag</label>
+        <span className="select">
+          <select defaultValue={this.state.flag} onChange={this.handleSelect}>
+            <option value="Alpha">Alpha</option>
+            <option value="Beta">Beta</option>
+            <option value="Production">Production</option>
+            <option value="Archive">Archive</option>
+          </select>
+        </span>
+      </p>
+      <div className="control">
+        <label className="label">Currently Selected Questions (click ❌ to delete)</label>
+        {this.renderQuestionSelect()}
+      </div>
+      <label className="label">All Questions</label>
+      {this.renderSearchBox()}
+      <br />
       <p className="control">
         <button className={"button is-primary " + this.props.stateSpecificClass} onClick={this.submit}>Submit</button>
       </p>

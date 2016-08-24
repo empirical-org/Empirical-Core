@@ -12,7 +12,10 @@ const SentenceFragments = React.createClass({
     return (
       <section className="section">
         <div className="container">
-          <Link to={'admin/sentence-fragments/new'}>Create a New Sentence Fragment</Link>
+          <Link to={'admin/sentence-fragments/new'}>
+            <button className="button is-primary">Create a New Sentence Fragment</button>
+          </Link>
+          <p className="menu-label">Sentence Fragments</p>
           <SentenceFragmentsList sentenceFragments={sentenceFragments || []}/>
         </div>
       </section>

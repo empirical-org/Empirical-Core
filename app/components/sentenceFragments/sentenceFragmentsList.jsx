@@ -14,7 +14,7 @@ export default React.createClass({
 
   render: function () {
     return (
-      <ul>
+      <ul className="menu-list">
         {this.renderSentenceFragmentListItems()}
       </ul>
     )
