@@ -4,7 +4,7 @@ import React from 'react'
 import { Router, Route, Link, hashHistory } from 'react-router'
 import GenericReport from './generic_report.jsx'
 import StudentReport from './student_report.jsx'
-import ClassReport from '/.class_report.jsx'
+import ClassReport from './class_report.jsx'
 
 export default React.createClass({
 

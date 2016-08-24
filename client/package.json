@@ -32,6 +32,7 @@
     "moment": "^2.14.1",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.4.2",
+    "pluralize": "^3.0.0",
     "postcss-loader": "^0.8.2",
     "react": "^15.0.0",
     "react-addons-css-transition-group": "^15.2.0",
