@@ -161,7 +161,7 @@ h2.register {
 
 .text-editor-appear.text-editor-appear-active {
   opacity: 1;
-  transition: opacity 2.0s ease-in;
+  transition: opacity 1.2s ease-in;
 }
 
 textarea.submission {
@@ -261,5 +261,5 @@ textarea.submission {
 
 /** When the option is selected (when navigation with the arrow keys, up/down) */
 .select-search-box__option--hover, .select-search-box__option:hover {
-
+  background-color: #eaeae5;
 }
