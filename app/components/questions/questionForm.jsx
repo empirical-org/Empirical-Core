@@ -62,7 +62,6 @@ export default React.createClass({
 
   render: function () {
     if(this.props.concepts.hasreceiveddata) {
-      console.log("State: ", this.state)
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
