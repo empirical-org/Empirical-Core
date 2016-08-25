@@ -51,14 +51,14 @@ const sentenceFragmentForm = React.createClass({
   },
 
   renderOptimalResponseTextInput: function () {
-      return (
-        [
-          (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
-          (<p className="control">
-            <input className="input" type="text" value={this.state.optimalResponseText} onChange={this.handleChange.bind(null, "optimalResponseText")}></input>
-          </p>)
-        ]
-      )
+    return (
+      [
+        (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
+        (<p className="control">
+          <input className="input" type="text" value={this.state.optimalResponseText} onChange={this.handleChange.bind(null, "optimalResponseText")}></input>
+        </p>)
+      ]
+    )
   },
 
   render: function () {

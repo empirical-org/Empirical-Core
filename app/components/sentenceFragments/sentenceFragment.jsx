@@ -27,7 +27,6 @@ const SentenceFragment = React.createClass({
 
   renderEditForm: function() {
     if(this.props.sentenceFragments.states[this.props.params.sentenceFragmentID]===C.EDITING_SENTENCE_FRAGMENT) {
-      console.log(this.props.sentenceFragments.data[this.props.params.sentenceFragmentID])
       return (
         <Modal close={this.cancelEditingSentenceFragment}>
           <div className="box">
@@ -41,7 +40,6 @@ const SentenceFragment = React.createClass({
   },
 
   render() {
-    // console.log("props: ", this.props)
     const {data, states, hasreceiveddata} = this.props.sentenceFragments;
     const {sentenceFragmentID} = this.props.params
     if (!hasreceiveddata) {

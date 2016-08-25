@@ -16,6 +16,7 @@ const newSentenceFragment = React.createClass({
     data.isFragment = newSentenceFragment.isFragment
     data.needsIdentification = newSentenceFragment.needsIdentification
     data.optimalResponseText = newSentenceFragment.optimalResponseText
+    // if edited later, this will not match responses[0].text. Similar to prefilled text in questions
     if (newSentenceFragment.isFragment) {
       data.responses = [{
         text: newSentenceFragment.optimalResponseText,
