@@ -39,7 +39,7 @@ export default React.createClass({
 		return (
 			<div className={'student-groupings ' + group} key={group}>
 				<h3>{(count || 0) + ' ' + Pluralize('Student', count)}</h3>
-				<span>{range + ' | ' + proficiency}</span>
+				<span>{range + '  |  ' + proficiency}</span>
 			</div>
 		)
 	},
