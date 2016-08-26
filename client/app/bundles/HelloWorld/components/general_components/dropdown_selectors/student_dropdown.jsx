@@ -7,7 +7,6 @@ export default React.createClass({
 
 	propTypes: {
 		students: React.PropTypes.array.isRequired,
-		selectedStudentId: React.PropTypes.number,
     callback: React.PropTypes.func
 	},
 

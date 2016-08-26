@@ -25,7 +25,7 @@ export default React.createClass({
         field: 'name',
         sortByField: 'name',
         customCell: function(row) {
-          return (<a href={`/teachers/progress_reports/diagnostic_reports#${params.classroomId}/student_report?studentId=${row.id}`}>{row['name']}</a>)
+          return (<a href={`/teachers/progress_reports/diagnostic_reports#${params.classroomId}/student_report/${row.id}`}>{row['name']}</a>)
         }
       },
       {
@@ -33,7 +33,7 @@ export default React.createClass({
         field: 'score',
         sortByField: 'score',
         customCell: function(row) {
-          return row['session']['concept_results'][0]['score'] + '%'
+          return row['session']['score'] + '%'
         }
       },
       {
@@ -85,13 +85,14 @@ export default React.createClass({
     return (
       <div id='individual-classroom-view'>
         {overviewBoxes}
-        <ProgressReport columnDefinitions={this.columnDefinitions}
+        <ProgressReport    key={this.props.params.classroomId}
+                          columnDefinitions={this.columnDefinitions}
                           hideFaqLink={Boolean(true)}
                            pagination={false}
-                           sourceUrl={'/teachers/progress_reports/students_by_classroom/' + this.props.classroom}
+                           sourceUrl={'/teachers/progress_reports/students_by_classroom/' + this.props.params.classroomId}
                            sortDefinitions={this.sortDefinitions}
                            jsonResultsKey={'students'}
-                           colorByScoreKeys={['session', 'concept_results',1, 'score']}
+                           colorByScoreKeys={['session','score']}
                            onFetchSuccess={this.onFetchSuccess}
                            filterTypes={[]}
                            premiumStatus={this.props.premiumStatus}
