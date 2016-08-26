@@ -197,3 +197,56 @@ $lightgray: #cecece;
     }
   }
 }
+
+.recommendations-explanation {
+  margin-top: 35px;
+  font-family: 'adelle-sans';
+  font-size: 18px;
+  line-height: 1.5em;
+  color: #000000;
+}
+
+.recommendations-container {
+  margin: 0 auto;
+  max-width: 1150px;
+  width: 100%
+}
+
+.recommendations-top-bar {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .recommendations-key {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .recommendations-key-icon {
+      height: 40px;
+      width: 40px;
+      border-radius: 4px;
+      background-color: #eafcff;
+      border: solid 1px #cecece;
+      margin-right: 9px;
+    }
+  }
+
+  .recommendations-assign-button {
+    height: 40px;
+    border-radius: 6px;
+    background-color: #01c2a2;
+
+    span {
+      font-family: 'adelle-sans';
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      color: #ffffff;
+      line-height: 40px;
+      margin: 0 28px;
+    }
+  }
+
+}
