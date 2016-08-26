@@ -7,17 +7,18 @@ require('../../../../../assets/styles/app-variables.scss')
 
 export default React.createClass({
 	propTypes: {
-		selectedButton: React.PropTypes.string,
 		clickCallback: React.PropTypes.func.isRequired
 	},
 
-	handleClick: function(e) {
-		this.props.clickCallback(e.target.innerHTML.toLowerCase())
+	buttonBuilder: function (name) {
+		return () => {
+			this.props.clickCallback(name.toLowerCase())
+		}
 	},
 
 	buttons: function() {
 		const contents = ['Students', 'Concepts', 'Questions'];
-		return contents.map((buttonName)=>	<button key={buttonName} type="button" onClick={this.handleClick} className="btn btn-secondary">{buttonName}</button>)
+		return contents.map((buttonName)=>	<button key={buttonName} type="button" onClick={this.buttonBuilder(buttonName)} className="btn btn-secondary">{buttonName}</button>)
 	},
 
 	render: function() {
