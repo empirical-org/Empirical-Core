@@ -99,6 +99,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'diagnostic_reports' => 'diagnostic_reports#show'
       get 'question_view' => 'diagnostic_reports#question_view'
       get 'students_by_classroom/:classroom_id' => 'diagnostic_reports#students_by_classroom'
+      get 'recommendations_for_classroom/:classroom_id' => 'diagnostic_reports#recommendations_for_classroom'
 
       namespace :concepts do
         resources :students, only: [:index] do
