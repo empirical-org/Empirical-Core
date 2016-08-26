@@ -5,23 +5,19 @@ import StudentReportBox from './student_report_box.jsx'
 import $ from 'jquery'
 export default React.createClass({
 
-	propTypes: {
-		// source: React.PropTypes.string.isRequired,
-		// studentId: React.PropTypes.string.isRequired
-	},
-
 	getInitialState: function() {
 		return {loading: true, questions: null}
 	},
+
 
   componentDidMount: function () {
     this.getStudentData()
   },
 
 	selectedStudent: function(students){
-		let query = this.props.params.query
-		if (query && query.studentId) {
-			return students.find(s => s.id === parseInt(query.studentId))
+		let {studentId} = this.props.params;
+		if (studentId) {
+			return students.find(s => s.id === parseInt(studentId))
 		} else {
 			return students[0]
 		}
@@ -29,14 +25,13 @@ export default React.createClass({
 
   getStudentData: function(){
     const that = this;
-    $.get('/teachers/progress_reports/students_by_classroom/' + that.props.classroom, (data) => {
-      // that.setState({questions: data.students[0].session.concept_results, loading: false})
-      that.setState({students: data.students, selectedStudent: this.selectedStudent(data.students), loading: false})
+    $.get('/teachers/progress_reports/students_by_classroom/' + that.props.params.classroomId, (data) => {
+      that.setState({students: data.students, loading: false})
     })
   },
 
   studentBoxes: function(){
-		let concept_results = this.state.selectedStudent.session.concept_results
+		let concept_results = this.selectedStudent(this.state.students).session.concept_results
     return concept_results.map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
   },
 
