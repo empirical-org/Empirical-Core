@@ -76,7 +76,7 @@ export default React.createClass({
                            sourceUrl={'/teachers/progress_reports/question_view'}
                            sortDefinitions={this.sortDefinitions}
                            jsonResultsKey={'data'}
-                           colorByScore={Boolean(true)}
+                           colorByScoreKeys={['score']}
                            filterTypes={[]}
                            premiumStatus={this.props.premiumStatus}
                            >
