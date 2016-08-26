@@ -33,7 +33,6 @@ export default React.createClass({
         field: 'score',
         sortByField: 'score',
         customCell: function(row) {
-          console.log(row)
           return row['session']['score'] + '%'
         }
       },
@@ -86,7 +85,8 @@ export default React.createClass({
     return (
       <div id='individual-classroom-view'>
         {overviewBoxes}
-        <ProgressReport columnDefinitions={this.columnDefinitions}
+        <ProgressReport    key={this.props.params.classroomId}
+                          columnDefinitions={this.columnDefinitions}
                           hideFaqLink={Boolean(true)}
                            pagination={false}
                            sourceUrl={'/teachers/progress_reports/students_by_classroom/' + this.props.params.classroomId}
