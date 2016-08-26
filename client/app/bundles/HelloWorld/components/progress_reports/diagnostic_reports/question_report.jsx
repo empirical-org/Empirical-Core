@@ -77,7 +77,6 @@ export default React.createClass({
                            sortDefinitions={this.sortDefinitions}
                            jsonResultsKey={'data'}
                            colorByScore={Boolean(true)}
-                          // onFetchSuccess={this.onFetchSuccess}
                            filterTypes={[]}
                            premiumStatus={this.props.premiumStatus}
                            >

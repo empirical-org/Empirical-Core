@@ -5,41 +5,34 @@ import StudentReportBox from './student_report_box.jsx'
 import $ from 'jquery'
 export default React.createClass({
 
-	propTypes: {
-		// source: React.PropTypes.string.isRequired,
-		// studentId: React.PropTypes.string.isRequired
-	},
-
 	getInitialState: function() {
 		return {loading: true, questions: null}
 	},
+
 
   componentDidMount: function () {
     this.getStudentData()
   },
 
+	selectedStudent: function(students){
+		let {studentId} = this.props.params;
+		if (studentId) {
+			return students.find(s => s.id === parseInt(studentId))
+		} else {
+			return students[0]
+		}
+	},
+
   getStudentData: function(){
     const that = this;
-    $.get('/teachers/progress_reports/students_by_classroom/' + that.props.classroom, (data) => {
-      that.setState({questions: data.students[0].session.concept_results, loading: false})
+    $.get('/teachers/progress_reports/students_by_classroom/' + that.props.params.classroomId, (data) => {
+      that.setState({students: data.students, loading: false})
     })
-    //
   },
-
-  mockData: function(){
-    return [{directions: 'Combine the two sentences below into one sentence using one of the words in parentheses. (although, and, so)',
-      prompt: 'The sky turned grey. The rain started. The game was canceled.',
-      score: 100,
-      answer: 'The sky turned grey, then the rain started and the game was canceled.',
-      concepts: [{id: 12232, correct: true, name: 'Punctuate Complex Sentence (beginning)'},
-                {id: 1222232, correct: false, name: 'Identify Fragments and Sentences'}]
-    }]
-  },
-
 
   studentBoxes: function(){
-    // return this.state.questions.map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
-    return this.state.questions.map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
+		let concept_results = this.selectedStudent(this.state.students).session.concept_results
+    return concept_results.map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
   },
 
 	render: function() {

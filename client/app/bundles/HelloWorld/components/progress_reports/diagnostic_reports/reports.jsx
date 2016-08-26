@@ -13,11 +13,15 @@ export default React.createClass({
             loading: true})
   },
 
+  componentDidMount: function(){
+    this.getPremiumState()
+  },
+
   report: function(){
     let reportValue = this.props.params.report
     let report, nav;
     if (reportValue === 'student_report'){
-        report = <StudentReport key='Report' {...this.props} premiumState={this.state.hasPremium} classroom={this.props.classroom}/>
+        report = <StudentReport key='Report' params={this.props.location} premiumState={this.state.hasPremium} classroom={this.props.classroom}/>
     } else {
         report = <ClassReport key='Report' params={this.props.params} premiumState={this.state.hasPremium}/>
     //     }
@@ -36,9 +40,7 @@ export default React.createClass({
     $.get('/teachers/classrooms/premium', function(data) {that.setState({hasPremium: data.hasPremium})});
   },
 
-  componentDidMount: function(){
-    this.getPremiumState()
-  },
+
 
 
   render: function() {
