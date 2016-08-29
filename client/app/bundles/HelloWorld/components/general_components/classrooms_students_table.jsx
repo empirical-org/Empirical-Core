@@ -4,10 +4,10 @@ import React from 'react'
 export default React.createClass({
   propTypes: {
     students: React.PropTypes.array.isRequired
-  }
+  },
 
   thead: function() {
-    <thead>
+    return(<thead>
       <tr>
         <th>
           First Name
@@ -19,33 +19,38 @@ export default React.createClass({
           Username
         </th>
       </tr>
-    </thead>
+    </thead>);
   },
 
   studentsIntoRows: function(){
-    this.props.students.forEach(student=>{
-      return individualStudentToRow(student)
+  return this.props.students.map(student=>{
+    return (<tr key={student.user_id} className="user" id={`user_${student.user_id}`}>
+      {this.individualStudentToRow(student)}
+    </tr>)
     })
   },
 
   individualStudentToRow: function(student){
+    const splitName = student.name.split(' ')
+    const firstName = splitName[0];
+    const lastName = splitName.slice(1).join(' ');
     return (
-      <tr className="user" id={`user_${user_id}`}>
-      <td className="first_name">
-        {student.first_name}
-      </td>
-      <td className="last_name">
-        {student.last_name}
-      </td>
-      <td className="user_name">
-        {student.user_name}
-      </td>
-    </tr>)
+      [
+      <td key={`first_name${student.user_id}`} className="first_name">
+        {firstName}
+      </td>,
+      <td key={`last_name${student.user_id}`} className="last_name">
+        {lastName}
+      </td>,
+      <td key={`user_name${student.user_id}`} className="user_name">
+        {student.username}
+      </td>]
+  )
   },
 
   render: function() {
     return (
-      <table class="table students hidden">
+      <table className="table students">
         {this.thead()}
         <tbody>
           {this.studentsIntoRows()}
