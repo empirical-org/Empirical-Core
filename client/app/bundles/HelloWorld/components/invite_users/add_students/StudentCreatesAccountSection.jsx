@@ -1,0 +1,24 @@
+import React from 'react'
+
+export default React.createClass({
+  render: function() {
+    return (
+      <div>
+      <h1 className="section-header">
+        Have Students Create Their Accounts
+      </h1>
+      <ol>
+        <li>
+          Have students sign up at quill.org/account/new
+        </li>
+        <li>
+          Once students sign up, in the "Join My Class" field,
+          <br/>they enter the class code
+          <strong>{this.props.classCode}</strong>
+        </li>
+      </ol>
+      <span className="class-code">Class Code</span><input className="inactive" disabled="" type="text" defaultValue={this.props.classCode}/>
+      </div>
+    );
+   }
+ });
