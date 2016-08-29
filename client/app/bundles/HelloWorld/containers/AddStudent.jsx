@@ -60,17 +60,23 @@ export default React.createClass({
   },
 
   submitStudent: function(e){
-    e.preventDefault();
-    const firstName = this.state.firstName;
-    const lastName = this.state.lastName;
-    if (firstName && lastName ) {
-        this.setState({disabled: true, loading: true})
-        let that = this
-        $.post(`/teachers/classrooms/${this.state.selectedClassroom.id}/students`, {user: {first_name: firstName, last_name: lastName}})
-        .success(this.setState({firstName: '', lastName: '', disabled: false, loading: false}))
-    } else {
-      this.setState({errors: 'Student requires a first and last name'})
-    }
+		console.log('submitted!')
+		if (!this.state.disabled) {
+			this.setState({disabled: true, loading: true},
+				()=>{
+					const firstName = this.state.firstName;
+					const lastName = this.state.lastName;
+					if (firstName && lastName) {
+							let that = this
+							$.post(`/teachers/classrooms/${this.state.selectedClassroom.id}/students`, {user: {first_name: firstName, last_name: lastName}})
+							.done(that.setState({firstName: '', lastName: '', disabled: false, loading: false}))
+					} else {
+						this.setState({errors: 'Student requires a first and last name', disabled: false, loading: false})
+					}
+				}
+			)
+		}
+
   },
 
 	render: function() {

@@ -1,7 +1,10 @@
 import React from 'react'
 
 export default React.createClass({
+
+
   render: function() {
+    let color = this.props.disabled ? 'gray' : 'green'
     return (
       <div>
         <h1 className="section-header">
@@ -15,9 +18,7 @@ export default React.createClass({
           <div className="add-student-fields">
             <input  placeholder='First Name' type="text" value={this.props.firstName} onChange={(e)=> this.props.nameChange(e, 'firstName')}/>
             <input  placeholder='Last Name' type="text" value={this.props.lastName} onChange={(e)=> this.props.nameChange(e, 'lastName')}/>
-            <div onClick={this.props.submitStudent}>
-                <button className='button-green ajax-button'>Add Student</button>
-            </div>
+            <div className={`button-${color} ajax-button`} onClick={this.props.submitStudent}>Add Student</div>
             <span className="errors">{this.props.errors}</span>
           </div>
         </div>
