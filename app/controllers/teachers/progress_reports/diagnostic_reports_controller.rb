@@ -252,8 +252,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
     activity_sessions.compact!
     activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
-
-    @@data.map do |activity_pack_recommendation|
+    unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
+    recommendations = @@data.map do |activity_pack_recommendation|
       students = []
       activity_sessions_counted.each do |activity_session|
         activity_pack_recommendation[:requirements].each do |req|
@@ -265,6 +265,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       end
       return_value_for_recommendation(students, activity_pack_recommendation)
     end
+    {
+      students: unique_students,
+      recommendations: recommendations
+    }
   end
 
   def return_value_for_recommendation students, activity_pack_recommendation
