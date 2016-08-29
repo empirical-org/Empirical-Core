@@ -166,7 +166,7 @@ var PlaySentenceFragment = React.createClass({
       const fragment = this.props.sentenceFragments.data[key]
       return (
         <div className="section container">
-          <p className="sentence-fragments">{this.getQuestion()}</p>
+          <p className="sentence-fragments prevent-selection">{this.getQuestion()}</p>
           {this.renderSentenceOrFragmentMode()}
           {this.renderPlaySentenceFragmentMode()}
           {this.renderNextPage()}
