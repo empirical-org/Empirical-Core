@@ -8,6 +8,7 @@ export default React.createClass({
     return {
       loading: true,
       recommendations: [],
+      selections: [],
       students: []
     }
   },
@@ -16,8 +17,16 @@ export default React.createClass({
     let that = this;
     $.get('/teachers/progress_reports/recommendations_for_classroom/' + that.props.params.classroomId, (data) => {
       console.log(data);
-      that.setState({recommendations: data.recommendations, students: data.students, loading: false})
+      that.setState({recommendations: data.recommendations, selections: data.recommendations, students: data.students, loading: false})
     })
+  },
+
+  studentIsSelected: function (student, selection) {
+    return (_.indexOf(selection.students, student.id) != -1)
+  },
+
+  studentIsRecommended: function (student, recommendation) {
+    return (_.indexOf(recommendation.students, student.id) != -1)
   },
 
   renderExplanation: function () {
@@ -80,16 +89,27 @@ export default React.createClass({
   },
 
   renderActivityPackRowItems: function (student) {
-    return this.state.recommendations.map((recommendation) => {
+    return this.state.recommendations.map((recommendation, i) => {
+      let selection = this.state.selections[i];
+      const recommended = this.studentIsRecommended(student, recommendation) ? " recommended " : "";
+      const selected = this.studentIsSelected(student, selection) ? " selected " : "";
       return (
-        <div className="recommendations-table-row-item">
+        <div className={"recommendations-table-row-item" + recommended + selected }>
           <div className="recommendations-table-row-item-checkbox">
-
+            {this.renderSelectedCheck(student, selection)}
           </div>
           <p>{recommendation.name}</p>
         </div>
       )
     })
+  },
+
+  renderSelectedCheck: function (student, selection) {
+    if (this.studentIsSelected(student, selection)) {
+      return (
+        <img className="recommendation-check" src="/images/recommendation_check.svg"></img>
+      )
+    }
   },
 
   render: function () {

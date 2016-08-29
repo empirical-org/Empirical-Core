@@ -305,7 +305,7 @@ $lightgray: #cecece;
     font-weight: 600;
     line-height: 1.25;
     background-color: #ffffff;
-    border: solid 1px #cecece;
+    border: solid 0.5px #cecece;
   }
 
   .recommendations-table-row-item {
@@ -319,7 +319,7 @@ $lightgray: #cecece;
     line-height: 1.25;
     overflow: hidden;
     background-color: #ffffff;
-    border: solid 1px #cecece;
+    border: solid 0.5px #cecece;
     align-items: center;
 
     .recommendations-table-row-item-checkbox {
@@ -330,10 +330,19 @@ $lightgray: #cecece;
       background-color: #ffffff;
       border: solid 1px #cecece;
       margin-right: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &.recommended {
       background-color: #eafcff;
+    }
+
+    &.selected {
+      p {
+        color: #333;
+      }
     }
 
     p {
