@@ -11,7 +11,8 @@ const sentenceFragmentForm = React.createClass({
         questionText: "",
         isFragment: false,
         optimalResponseText: "",
-        needsIdentification: true
+        needsIdentification: true,
+        instructions: ""
       }
     } else {
       return {
@@ -19,12 +20,14 @@ const sentenceFragmentForm = React.createClass({
         questionText: fragment.questionText,
         isFragment: fragment.isFragment,
         optimalResponseText: fragment.optimalResponseText!==undefined ? fragment.optimalResponseText : "",
-        needsIdentification: fragment.needsIdentification!==undefined ? fragment.needsIdentification : true
+        needsIdentification: fragment.needsIdentification!==undefined ? fragment.needsIdentification : true,
+        instructions: fragment.instructions ? fragment.instructions : ""
       }
     }
   },
 
   handleChange: function (key, e) {
+    console.log(e.target.value)
     switch (key) {
       case 'prompt':
         this.setState({prompt: e.target.value})
@@ -34,6 +37,9 @@ const sentenceFragmentForm = React.createClass({
         break;
       case 'optimalResponseText':
         this.setState({optimalResponseText: e.target.value})
+        break;
+      case 'instructions':
+        this.setState({instructions: e.target.value})
         break;
       case 'isFragment':
         this.setState({isFragment: e.target.checked})
@@ -67,6 +73,10 @@ const sentenceFragmentForm = React.createClass({
         <label className="label">Sentence / Fragment Text</label>
         <p className="control">
           <input className="input" type="text" value={this.state.questionText} onChange={this.handleChange.bind(null, "questionText")}></input>
+        </p>
+        <label className="label">Instructions</label>
+        <p className="control">
+          <input className="input" type="text" value={this.state.instructions} onChange={this.handleChange.bind(null, "instructions")}></input>
         </p>
         <p className="control">
           <label className="checkbox">
