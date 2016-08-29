@@ -125,7 +125,7 @@ var PlaySentenceFragment = React.createClass({
     }
   },
 
-  renderPlaySentenceFragmentMode: function() {
+  renderPlaySentenceFragmentMode: function(fragment) {
     var button
     if(this.showNextQuestionButton()) {
       button = <button className="button is-warning" onClick={this.props.nextQuestion}>Next</button>
@@ -144,7 +144,7 @@ var PlaySentenceFragment = React.createClass({
         <div className="container">
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200} >
             <h5 className="title is-5">{instructions}</h5>
-            <TextEditor handleChange={this.handleChange}/>
+            <TextEditor value={fragment.questionText} handleChange={this.handleChange}/>
             <div className="question-button-group">
               {button}
             </div>
@@ -168,7 +168,7 @@ var PlaySentenceFragment = React.createClass({
         <div className="section container">
           <p className="sentence-fragments prevent-selection">{this.getQuestion()}</p>
           {this.renderSentenceOrFragmentMode()}
-          {this.renderPlaySentenceFragmentMode()}
+          {this.renderPlaySentenceFragmentMode(fragment)}
           {this.renderNextPage()}
         </div>
       )
