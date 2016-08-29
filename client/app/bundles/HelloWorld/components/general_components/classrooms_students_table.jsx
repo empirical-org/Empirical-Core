@@ -24,7 +24,7 @@ export default React.createClass({
 
   studentsIntoRows: function(){
   return this.props.students.map(student=>{
-    return (<tr key={student.user_id} className="user" id={`user_${student.user_id}`}>
+    return (<tr key={String(student.id)} className="user">
       {this.individualStudentToRow(student)}
     </tr>)
     })
@@ -36,13 +36,13 @@ export default React.createClass({
     const lastName = splitName.slice(1).join(' ');
     return (
       [
-      <td key={`first_name${student.user_id}`} className="first_name">
+      <td key={`first_name${String(student.id)}`} className="first_name">
         {firstName}
       </td>,
-      <td key={`last_name${student.user_id}`} className="last_name">
+      <td key={`last_name${String(student.id)}`} className="last_name">
         {lastName}
       </td>,
-      <td key={`user_name${student.user_id}`} className="user_name">
+      <td key={`user_name${String(student.id)}`} className="user_name">
         {student.username}
       </td>]
   )

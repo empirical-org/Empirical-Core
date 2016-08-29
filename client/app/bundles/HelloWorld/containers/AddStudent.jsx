@@ -19,7 +19,10 @@ export default React.createClass({
 					id: 0
 				}
 			],
-			loading: true
+      firstName: '',
+      lastName: '',
+			loading: true,
+      errors: null
 		})
 	},
 
@@ -47,6 +50,23 @@ export default React.createClass({
 		}
 	},
 
+  nameChange: function(e, key){
+    let newNameState = {};
+    newNameState[key] = e.target.value
+    this.setState(newNameState)
+  },
+
+  submitStudent: function(){
+    const firstName = this.state.firstName;
+    const lastName = this.state.lastName;
+    if (firstName && lastName ) {
+        let that = this
+        $.post(`/teachers/classrooms/${this.state.selectedClassroom.id}/students`, {user: {first_name: firstName, last_name: lastName}})
+    } else {
+      this.setState({errors: 'Student requires a first and last name'})
+    }
+  },
+
 	render: function() {
 		return (
 			<div className="container invite-students">
@@ -70,7 +90,7 @@ export default React.createClass({
 						<strong>prize-bait</strong>
 					</li>
 				</ol>
-				<span className="class-code">Class Code</span><input className="inactive" disabled="" type="text" value="prize-bait"/>
+				<span className="class-code">Class Code</span><input className="inactive" disabled="" type="text" value={this.state.selectedClassroom.code}/>
 				<h1 className="section-header">
 					Or You Create Student Accounts
 				</h1>
@@ -79,6 +99,12 @@ export default React.createClass({
 					<div className="mt-15">
 						Students passwords are set to their last names by default.<br/>For example, ‘Smith’ (first letter is capitalized).
 					</div>
+          <div className="add-student-fields">
+            <input  placeholder='First Name' type="text" value={this.state.firstName} onChange={(e)=> this.nameChange(e, 'firstName')}/>
+            <input  placeholder='Last Name' type="text" value={this.state.lastName} onChange={(e)=> this.nameChange(e, 'lastName')}/>
+            <button className="button-green ajax-button" onClick={this.submitStudent}>Add Student</button>
+            <span className="errors">{this.state.errors}</span>
+          </div>
 				</div>
 				{this.stateSpecificComponent()}
 			</div>
