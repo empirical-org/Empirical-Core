@@ -27,7 +27,6 @@ const sentenceFragmentForm = React.createClass({
   },
 
   handleChange: function (key, e) {
-    console.log(e.target.value)
     switch (key) {
       case 'prompt':
         this.setState({prompt: e.target.value})

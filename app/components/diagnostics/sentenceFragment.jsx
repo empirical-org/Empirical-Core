@@ -139,7 +139,7 @@ var PlaySentenceFragment = React.createClass({
       } else {
         instructions =  "Add punctuation and capitalization. If the sentence is incomplete, turn it into to a complete sentence."
       }
-      
+
       return (
         <div className="container">
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200} >
