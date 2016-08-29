@@ -106,6 +106,7 @@ var StudentDiagnostic = React.createClass({
         "data": data
       }
     })
+    console.log("Data for diagnostic: ", returnValue)
     return returnValue
   },
 
