@@ -22,24 +22,25 @@ export default React.createClass({
       firstName: '',
       lastName: '',
 			loading: true,
-      errors: null
+      errors: null,
+      disabled: false
 		})
 	},
 
 	componentDidMount: function() {
-		this.retrieveStudents()
+		this.retrieveStudents(this.state.selectedClassroom.id)
 	},
 
-	retrieveStudents: function() {
+	retrieveStudents: function(classroomId) {
 		let that = this;
-		$.ajax({url: `/teachers/classrooms/${this.state.selectedClassroom.id}/students`}).success(function(data) {
+		$.ajax({url: `/teachers/classrooms/${classroomId}/students`}).success(function(data) {
       that.setState({students: data.students, loading: false})
 		});
 	},
 
 	updateClassroom: function(classroom) {
 		this.setState({selectedClassroom: classroom, loading: true})
-		this.retrieveStudents();
+		this.retrieveStudents(classroom.id);
 	},
 
 	stateSpecificComponent: function() {
@@ -56,12 +57,15 @@ export default React.createClass({
     this.setState(newNameState)
   },
 
-  submitStudent: function(){
+  submitStudent: function(e){
+    e.preventDefault();
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     if (firstName && lastName ) {
+        this.setState({disabled: true})
         let that = this
         $.post(`/teachers/classrooms/${this.state.selectedClassroom.id}/students`, {user: {first_name: firstName, last_name: lastName}})
+        .success(this.setState({firstName: '', lastName: '', disabled: false}))
     } else {
       this.setState({errors: 'Student requires a first and last name'})
     }
@@ -102,7 +106,7 @@ export default React.createClass({
           <div className="add-student-fields">
             <input  placeholder='First Name' type="text" value={this.state.firstName} onChange={(e)=> this.nameChange(e, 'firstName')}/>
             <input  placeholder='Last Name' type="text" value={this.state.lastName} onChange={(e)=> this.nameChange(e, 'lastName')}/>
-            <button className="button-green ajax-button" onClick={this.submitStudent}>Add Student</button>
+            <button disabled={this.state.disabled} className="button-green ajax-button" onClick={this.submitStudent}>Add Student</button>
             <span className="errors">{this.state.errors}</span>
           </div>
 				</div>
