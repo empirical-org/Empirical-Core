@@ -52,7 +52,6 @@ export default React.createClass({
 
 	changeStudent: function(student) {
 		this.setState({selectedStudentId: student})
-		this.props.history.push(this.props.params.classroomId + '/student_report/' + student)
 	},
 
 	findClassroomById: function(id) {
@@ -73,19 +72,27 @@ export default React.createClass({
 		this.props.history.push((this.props.params.classroomId || 'classroom') + '/' + reportName)
 	},
 
+	childrenWithProps: function(){
+		console.log()
+		return React.Children.map(this.props.children, (child) => React.cloneElement(child, {student: this.state.selectedStudentId, classroom: this.props.params.classroomId}));
+	},
+
+
 	render: function(){
 		if (this.state.loading) {
 			return <LoadingSpinner/>
 		} else {
 			return (
-				<div id='individual-activity-reports'>
+				<div>
 					<NavBar classrooms={this.state.classrooms}
+									selectedStudentId={this.state.selectedStudentId}
+									selectedClassroom={this.state.selectedClassroom}
 									studentDropdownCallback={this.changeStudent}
 									dropdownCallback={this.changeClassroom}
 									buttonGroupCallback={this.changeReport}
 									students={this.state.students}>
 					</NavBar>
-					{this.props.children}
+					{this.childrenWithProps()}
 				</div>
 			);
 		}

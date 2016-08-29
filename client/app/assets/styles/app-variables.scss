@@ -1,6 +1,12 @@
 // individual-activity-reports
-#individual-activity-reports {
-    margin: auto;
+.diagnostic-nav-container {
+  margin: 0 auto;
+  max-width: 950px;
+  padding-top: 44px;
+}
+
+.individual-activity-reports {
+    margin: 0 auto;
     max-width: 950px;
     padding-top: 44px;
     padding-bottom: 91px;
@@ -212,6 +218,12 @@ $lightgray: #cecece;
   width: 100%
 }
 
+.recommendations-explanation-container {
+  margin: 0 auto;
+  max-width: 950px;
+  width: 100%;
+}
+
 .recommendations-top-bar {
   margin-top: 35px;
   display: flex;
@@ -247,6 +259,94 @@ $lightgray: #cecece;
       line-height: 40px;
       margin: 0 28px;
     }
+  }
+
+}
+
+.recommendations-table-header {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  .recommendations-table-header-name {
+    width: 140px;
+    padding: 12px;
+    font-family: 'adelle-sans';
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .recommendations-table-header-item {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 12px;
+    font-family: 'adelle-sans';
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+
+  }
+
+}
+
+.recommendations-table-row {
+  display: flex;
+  flex-direction: row;
+  height: 48px;
+  // align-items: flex-end;
+
+  .recommendations-table-row-name {
+    width: 140px;
+    padding: 12px;
+    font-family: 'adelle-sans';
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+    background-color: #ffffff;
+    border: solid 1px #cecece;
+  }
+
+  .recommendations-table-row-item {
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 12px;
+    font-family: 'adelle-sans';
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: solid 1px #cecece;
+    align-items: center;
+
+    .recommendations-table-row-item-checkbox {
+      height: 17px;
+      width: 17px;
+      min-width: 17px;
+      border-radius: 3px;
+      background-color: #ffffff;
+      border: solid 1px #cecece;
+      margin-right: 6px;
+    }
+
+    &.recommended {
+      background-color: #eafcff;
+    }
+
+    p {
+      flex-shrink: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 30px;
+      font-weight: normal;
+      line-height: 1.15;
+      color: #646464;
+    }
+
+
   }
 
 }

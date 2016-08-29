@@ -26,18 +26,21 @@ export default React.createClass({
 
   render: function() {
     return (
-      <div id='reports-navbar'>
-        <h1>Activity Name</h1>
-        <p>Activity Info</p>
-        <div className='nav-elements'>
-          <ClassroomDropdown classrooms={this.props.classrooms || [{name: 'Please Add a Classroom', id: null}]}
-                             callback={this.props.dropdownCallback}/>
-          <NavButtonGroup clickCallback={this.props.buttonGroupCallback}/>
-          <StudentDropdown
-                            students = {this.students()}
-                            callback ={this.props.studentDropdownCallback}/>
+      <div className='diagnostic-nav-container'>
+        <div id='reports-navbar'>
+          <h1>Activity Name</h1>
+          <p>Activity Info</p>
+          <div className='nav-elements'>
+            <ClassroomDropdown classrooms={this.props.classrooms || [{name: 'Please Add a Classroom', id: null}]}
+                               callback={this.props.dropdownCallback}/>
+            <NavButtonGroup clickCallback={this.props.buttonGroupCallback}/>
+            <StudentDropdown
+                              students = {this.students()}
+                              callback ={this.props.studentDropdownCallback}/>
+          </div>
         </div>
       </div>
+
     );
    }
  });
