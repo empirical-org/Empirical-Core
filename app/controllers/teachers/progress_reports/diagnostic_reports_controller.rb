@@ -29,6 +29,15 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: get_recommendations_for_classroom(params[:classroom_id])
   end
 
+  def assign_selected_packs
+    teacher_id = current_user.id
+    classroom_id = params[:classroom_id]
+    params[:selections].values.each do |value|
+      Units::Creator.assign_unit_template_to_one_class(teacher_id, value[:id], classroom_id, value[:student_ids])
+    end
+    render json: {data: "Hi"}
+  end
+
   private
 
   def results_for_classroom classroom_id
@@ -99,7 +108,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   @@data = [
     {
       recommendation: "Fragments",
-      activityPackId: 1,
+      activityPackId: 3,
       requirements: [
         {
           concept_id: "j89kdRGDVjG8j37A12p37Q",
@@ -118,7 +127,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     {
       recommendation: "Compound Subjects, Objects, and Predicates",
-      activityPackId: 2,
+      activityPackId: 6,
       requirements: [
         {
           concept_id: "Jl4ByYtUfo4VhIKpMt23yA",
@@ -137,7 +146,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     {
       recommendation: "Adjectives",
-      activityPackId: 3,
+      activityPackId: 8,
       requirements: [
         {
           concept_id: "GiUZ6KPkH958AT8S413nJg",
@@ -148,7 +157,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     {
       recommendation: "Adverbs",
-      activityPackId: 4,
+      activityPackId: 7,
       requirements: [
         {
           concept_id: "GZ04vHSTxWUTzhWMGfwcUQ",
@@ -159,7 +168,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     {
       recommendation: "Compound Sentences",
-      activityPackId: 5,
+      activityPackId: 4,
       requirements: [
         {
           concept_id: "GiUZ6KPkH958AT8S413nJg",
@@ -186,7 +195,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     {
       recommendation: "Complex Sentences",
-      activityPackId: 6,
+      activityPackId: 5,
       requirements: [
         {
           concept_id: "nb0JW1r5pRB5ouwAzTgMbQ",
@@ -217,7 +226,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     {
       recommendation: "Appositive and Modifying Phrases",
-      activityPackId: 7,
+      activityPackId: 2,
       requirements: [
         {
           concept_id: "InfGdB6Plr2M930kqsn63g",
@@ -232,7 +241,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     {
       recommendation: "Parallel Structure",
-      activityPackId: 8,
+      activityPackId: 10,
       requirements: [
         {
           concept_id: "O9DCEPwtmVvmlRhmdiaw6w",

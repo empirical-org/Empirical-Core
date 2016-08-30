@@ -244,23 +244,22 @@ $lightgray: #cecece;
       margin-right: 9px;
     }
   }
+}
 
-  .recommendations-assign-button {
-    height: 40px;
-    border-radius: 6px;
-    background-color: #01c2a2;
+.recommendations-assign-button {
+  height: 40px;
+  border-radius: 6px;
+  background-color: #01c2a2;
 
-    span {
-      font-family: 'adelle-sans';
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      color: #ffffff;
-      line-height: 40px;
-      margin: 0 28px;
-    }
+  span {
+    font-family: 'adelle-sans';
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    line-height: 40px;
+    margin: 0 28px;
   }
-
 }
 
 .recommendations-table-header {
@@ -284,9 +283,18 @@ $lightgray: #cecece;
     padding: 12px;
     font-family: 'adelle-sans';
     font-size: 12px;
-    font-weight: 600;
-    line-height: 1.25;
 
+
+
+    p {
+      line-height: 1.25;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    a {
+
+      color: #027360;
+    }
   }
 
 }
@@ -302,10 +310,11 @@ $lightgray: #cecece;
     padding: 12px;
     font-family: 'adelle-sans';
     font-size: 12px;
-    font-weight: 600;
     line-height: 1.25;
     background-color: #ffffff;
     border: solid 0.5px #cecece;
+    display: flex;
+    align-items: center;
   }
 
   .recommendations-table-row-item {
@@ -315,7 +324,7 @@ $lightgray: #cecece;
     padding: 12px;
     font-family: 'adelle-sans';
     font-size: 12px;
-    font-weight: 600;
+    // font-weight: 600;
     line-height: 1.25;
     overflow: hidden;
     background-color: #ffffff;
@@ -346,10 +355,13 @@ $lightgray: #cecece;
     }
 
     p {
+      display: -webkit-box;
       flex-shrink: 1;
       overflow: hidden;
       text-overflow: ellipsis;
       max-height: 30px;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       font-weight: normal;
       line-height: 1.15;
       color: #646464;
@@ -358,4 +370,11 @@ $lightgray: #cecece;
 
   }
 
+}
+
+.recommendations-bottom-bar {
+  margin-top: 45px;
+  margin-bottom: 90px;
+  display: flex;
+  flex-direction: row-reverse;
 }
