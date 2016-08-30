@@ -83,7 +83,7 @@ export default React.createClass({
 		return (
 			<div className="container invite-students">
 				<ClassroomDropdown classrooms={this.props.classrooms} callback={this.updateClassroom}/>
-        <StudentCreatesAccountSection classCode={this.state.selectedClassroom.code} />
+        <StudentCreatesAccountSection key='student-section' classCode={this.state.selectedClassroom.code} />
         <TeacherCreatesAccountSection key="teacher-create-account"
                               firstName={this.state.firstName}
                               lastName={this.state.lastName}

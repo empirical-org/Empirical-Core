@@ -13,11 +13,10 @@ export default React.createClass({
         </li>
         <li>
           Once students sign up, in the "Join My Class" field,
-          <br/>they enter the class code
-          <strong>{this.props.classCode}</strong>
+          <br/>they enter the class code <strong>{this.props.classCode}</strong>
         </li>
       </ol>
-      <span className="class-code">Class Code</span><input className="inactive" disabled="" type="text" defaultValue={this.props.classCode}/>
+        <span className="class-code">Class Code</span><input className="inactive" disabled="" type="text" value={this.props.classCode}/>
       </div>
     );
    }
