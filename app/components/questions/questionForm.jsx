@@ -3,8 +3,6 @@ import TextEditor from './textEditor.jsx';
 import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'lodash'
 import ConceptSelector from 'react-select-search'
-// import ConceptSelector from 'react-selectize'.SimpleSelect
-// var SimpleSelect = require("react-selectize").SimpleSelect
 
 export default React.createClass({
   getInitialState: function () {
@@ -59,15 +57,20 @@ export default React.createClass({
   },
 
   conceptsToOptions: function() {
+    console.log("Concepts: ", this.props.concepts.data["0"])
     return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        {name: concept.displayName, value: concept.uid}
+        {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
       )
     })
   },
 
   render: function () {
     if(this.props.concepts.hasreceiveddata) {
+      const fuse = {
+        keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
+        threshold: 0.4
+      }
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
@@ -96,7 +99,8 @@ export default React.createClass({
           </p>
           <label className="label">Concept</label>
           <div>
-            <ConceptSelector options={this.conceptsToOptions()} placeholder={this.state.concept} onChange={this.handleSelectorChange}/>
+            <ConceptSelector options={this.conceptsToOptions()} placeholder={_.find(this.props.concepts.data["0"], {uid: this.state.concept}).displayName}
+                             onChange={this.handleSelectorChange} fuse={fuse}/>
           </div>
           <br/>
           <button className="button is-primary" onClick={this.submit}>Update Question</button>
@@ -107,15 +111,3 @@ export default React.createClass({
     }
   }
 })
-// <ConceptSelector options={[{label: "1", value: "1"}, {label: "2", value: "2"}]} placeholder="Select a concept" />
-// <p className="control">
-//   <span className="select">
-//     <select onChange={this.handleConceptChange} ref="concept" value={this.state.concept}>
-//       <option>Select Concept</option>
-//       {this.conceptsToOptions()}
-//     </select>
-//   </span>
-// </p>
-
-// <SimpleSelect theme="material" options={options} placeholder="Select a concept" filterOptions={(e)=>{this.filterOptions(options, e)}} className="selector" onValueChange={this.handleSelectorChange}>
-// </SimpleSelect>
