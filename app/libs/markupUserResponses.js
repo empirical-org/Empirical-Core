@@ -35,9 +35,18 @@ export function getErroneousWordOffset (changeObjects, key) {
   const precedingObjects = _.takeWhile(changeObjects, (changeObject) => {
     return !changeObject[key]
   })
-  return _.reduce(precedingObjects, (sum, changeObject) => {
+  const offset = _.reduce(precedingObjects, (sum, changeObject) => {
     return sum + changeObject.value.length
   }, 0)
+
+  //if the last changeObject is '.', it means that the last word was missing. Offset is incremented
+  //because of the space at the end of the second last word that was also missing, but that is added automatically.
+  //However, if the last word was simply misspelled, we don't need to increase the offset - the preceding space already exists
+  if(changeObjects.length>=2 && changeObjects[changeObjects.length-1].value==='.' && changeObjects[changeObjects.length-2].added===undefined) {
+    return offset+1
+  } else {
+    return offset
+  }
 }
 
 export function getInlineStyleRangeObject (targetString, userString) {
