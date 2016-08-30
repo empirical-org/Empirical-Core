@@ -89,7 +89,8 @@ export default React.createClass({
           </p>
           <label className="label">Concept</label>
           <div>
-            <ConceptSelector options={this.conceptsToOptions()} placeholder={this.state.concept} onChange={this.handleSelectorChange} fuse={fuse}/>
+            <ConceptSelector options={this.conceptsToOptions()} placeholder={_.find(this.props.concepts.data["0"], {uid: this.state.concept}).displayName}
+                             onChange={this.handleSelectorChange} fuse={fuse}/>
           </div>
           <br/>
           <button className="button is-primary" onClick={this.submit}>Update Question</button>
