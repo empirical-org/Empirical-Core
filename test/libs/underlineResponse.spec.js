@@ -301,8 +301,6 @@ describe("Calling the correct functions for different use cases", () => {
       }]
     }
     const styleObjects = generateStyleObjects(target, user)
-    console.log("\nStyle objects: ", styleObjects)
-    console.log("\nGet change objects: ", getChangeObjects(target, user))
     expect(styleObjects).toEqual(expected)
   })
 
@@ -318,23 +316,38 @@ describe("Calling the correct functions for different use cases", () => {
       }]
     }
     const styleObjects = generateStyleObjects(target, user)
-    console.log("\nStyle objects: ", styleObjects)
-    console.log("\nGet change objects: ", getChangeObjects(target, user))
     expect(styleObjects).toEqual(expected)
   })
 
-  it("inserts an underline for a missing comma", () => {
+  // it("inserts an underline for a missing comma", () => {
+  //   const target = "Since it was snowing, Marcella wore a sweater.";
+  //   const user = "Since it was snowing Marcella wore a sweater.";
+  //   const expected = {
+  //     text: "Since it was snowing  Marcella wore a sweater.",
+  //     inlineStyleRanges: [{
+  //       length: 1,
+  //       offset: 20,
+  //       style: "UNDERLINE"
+  //     }]
+  //   }
+  //   const styleObjects = generateStyleObjects(target, user)
+  //   expect(styleObjects).toEqual(expected)
+  // })
+
+  it("underlines the previous word for a missing comma", () => {
     const target = "Since it was snowing, Marcella wore a sweater.";
     const user = "Since it was snowing Marcella wore a sweater.";
     const expected = {
-      text: "Since it was snowing  Marcella wore a sweater.",
+      text: user,
       inlineStyleRanges: [{
-        length: 1,
-        offset: 20,
+        length: 7,
+        offset: 13,
         style: "UNDERLINE"
       }]
     }
     const styleObjects = generateStyleObjects(target, user)
+    console.log("\nchange objects: ", getChangeObjects(target, user))
+    console.log("\nerror type: ", getErrorType(target, user))
     expect(styleObjects).toEqual(expected)
   })
 })
