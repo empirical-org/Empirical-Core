@@ -17,7 +17,7 @@ const Results = React.createClass({
           <h2 className="subtitle">
             You can analyze the results here.
           </h2>
-          <QuestionsList preventNoConceptQuestions={true} questions={questions} concepts={concepts} baseRoute={"results"} />
+          <QuestionsList displayNoConceptQuestions={false} questions={questions} concepts={concepts} baseRoute={"results"} />
         </div>
       </section>
     )

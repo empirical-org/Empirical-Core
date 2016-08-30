@@ -10,6 +10,12 @@ import QuestionSelector from 'react-select-search'
 import {push} from 'react-router-redux';
 
 const Questions = React.createClass({
+  getInitialState: function() {
+    return {
+      displayNoConceptQuestions: false
+    }
+  },
+
   createNew: function () {
     this.props.dispatch(actions.toggleNewQuestionModal())
   },
@@ -60,6 +66,12 @@ const Questions = React.createClass({
     this.props.dispatch(action)
   },
 
+  toggleNoConceptQuestions: function() {
+    this.setState({
+      displayNoConceptQuestions: !this.state.displayNoConceptQuestions
+    })
+  },
+
   renderSearchBox: function() {
     const options = hashToCollection(this.props.questions.data)
     if (options.length > 0) {
@@ -72,17 +84,30 @@ const Questions = React.createClass({
 
   },
 
-  render: function (){
+  render: function () {
     const {questions, concepts} = this.props
-    return (
-      <section className="section">
-        <div className="container">
-          { this.renderModal() }
-          { this.renderSearchBox() }
-          <QuestionsList questions={questions} concepts={concepts} baseRoute={"admin"} />
-        </div>
-      </section>
-    )
+    if(this.props.questions.hasreceiveddata && this.props.concepts.hasreceiveddata) {
+      return (
+        <section className="section">
+          <div className="container">
+            { this.renderModal() }
+            { this.renderSearchBox() }
+            <br />
+            <label className="checkbox">
+              <input type="checkbox" checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions}/>
+              Display questions with no valid concept
+            </label>
+            <br />
+            <br />
+            <QuestionsList displayNoConceptQuestions={this.state.displayNoConceptQuestions} questions={questions} concepts={concepts} baseRoute={"admin"} />
+          </div>
+        </section>
+      )
+    } else {
+      return (
+        <div>Loading...</div>
+      )
+    }
   }
 })
 

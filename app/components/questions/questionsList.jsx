@@ -66,7 +66,7 @@ const QuestionsList = React.createClass({
   },
 
   renderQuestionsWithoutValidKey: function () {
-    if(this.props.preventNoConceptQuestions) {
+    if(!this.props.displayNoConceptQuestions) {
       return (<div></div>)
     } else {
       const concepts = hashToCollection(this.props.concepts.data['0']);
