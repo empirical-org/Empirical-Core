@@ -17,7 +17,7 @@ const play = React.createClass({
           <h2 className="subtitle">
             Combine multiple sentences into one strong one!
           </h2>
-          <QuestionsList questions={questions} concepts={concepts} baseRoute={"play"} />
+          <QuestionsList preventNoConceptQuestions={true} questions={questions} concepts={concepts} baseRoute={"play"} />
         </div>
       </section>
     )
