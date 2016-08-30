@@ -11,7 +11,7 @@ describe("Getting concept results from an answered sf object", () => {
 
   it("should have the correct score and concept uids", () => {
     const expected = {
-      concept_uid: 'T_Io_fJGN8BZWf_Nb30LBg',
+      concept_uid: 'j89kdRGDVjG8j37A12p37Q',
       metadata: {
         correct: 1,
         directions: "Is this a sentence or a fragment?",
@@ -26,7 +26,7 @@ describe("Getting concept results from an answered sf object", () => {
 
   it("should label as a complete sentence", () => {
     const expected = {
-      concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+      concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
       metadata: {
         correct: 1,
         directions: "Add/change as few words as you can to change this fragment into a sentence",
@@ -41,7 +41,7 @@ describe("Getting concept results from an answered sf object", () => {
   it("should be able to get all the concept results for a question", () => {
     const expected = [
       {
-        concept_uid: 'T_Io_fJGN8BZWf_Nb30LBg',
+        concept_uid: 'j89kdRGDVjG8j37A12p37Q',
         metadata: {
           correct: 1,
           directions: "Is this a sentence or a fragment?",
@@ -50,7 +50,7 @@ describe("Getting concept results from an answered sf object", () => {
         }
       },
       {
-        concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+        concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
         metadata: {
           correct: 1,
           directions: "Add/change as few words as you can to change this fragment into a sentence",
@@ -94,7 +94,7 @@ describe("Getting concept results from an answered sf object", () => {
       questionText: "Go away.",
     }
     const expected = [{
-      concept_uid: 'd3V33ijcTE33QIPIzLa4-Q',
+      concept_uid: 'LH3szu784pXA5k2N9lxgdA',
       metadata: {
         correct: 1,
         directions: "Is this a sentence or a fragment?",
@@ -103,7 +103,7 @@ describe("Getting concept results from an answered sf object", () => {
       }
     },
     {
-      concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+      concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
       metadata: {
         correct: 1,
         directions: "Add/change as few words as you can to change this fragment into a sentence",
