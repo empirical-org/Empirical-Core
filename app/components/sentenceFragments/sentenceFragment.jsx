@@ -32,7 +32,7 @@ const SentenceFragment = React.createClass({
           <div className="box">
             <h6 className="title is-h6">Edit Sentence Fragment</h6>
             <EditForm mode="Edit" data={this.props.sentenceFragments.data[this.props.params.sentenceFragmentID]}
-                      submit={this.saveSentenceFragmentEdits}/>
+                      submit={this.saveSentenceFragmentEdits} concepts={this.props.concepts}/>
           </div>
         </Modal>
       )
@@ -47,6 +47,8 @@ const SentenceFragment = React.createClass({
         <h1>Loading...</h1>
       )
     } else if (data[sentenceFragmentID]) {
+      console.log("conceptID: ", this.props.sentenceFragments.data[this.props.params.sentenceFragmentID].conceptID)
+
       return (
         <div>
           <h4 className="title">{data[sentenceFragmentID].questionText}</h4>
@@ -79,6 +81,7 @@ const SentenceFragment = React.createClass({
 function select(state) {
   return {
     sentenceFragments: state.sentenceFragments,
+    concepts: state.concepts,
     routing: state.routing
   }
 }

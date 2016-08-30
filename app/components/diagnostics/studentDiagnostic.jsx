@@ -8,8 +8,41 @@ import diagnosticQuestions from './diagnosticQuestions.jsx'
 
 import PlaySentenceFragment from './sentenceFragment.jsx'
 import PlayDiagnosticQuestion from './sentenceCombining.jsx'
+import FinishedDiagnostic from './finishedDiagnostic.jsx'
+import {getConceptResultsForAllQuestions} from '../../libs/conceptResultsFromDiagnostic'
+const request = require('request');
 
 var StudentDiagnostic = React.createClass({
+
+  getInitialState: function () {
+    return {
+      saved: false
+    }
+  },
+
+  saveToLMS: function () {
+    const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions)
+    request(
+      {url: 'http://localhost:3000/api/v1/activity_sessions/' + this.props.routing.locationBeforeTransitions.query.student,
+        method: 'PUT',
+        json:
+        {
+          state: 'finished',
+          concept_results: results,
+          percentage: 1
+        }
+      },
+      (err,httpResponse,body) => {
+        if (httpResponse.statusCode === 200) {
+          // document.location.href = "http://localhost:3000/activity_sessions/" + this.props.activitySessionID
+          this.setState({saved: true});
+        }
+        console.log(err,httpResponse,body)
+      }
+    )
+  },
+
+
   componentWillMount: function() {
     this.props.dispatch(clearData())
   },
@@ -128,13 +161,14 @@ var StudentDiagnostic = React.createClass({
             )
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-            return (<div>Finished diagnostic</div>)
-        } else {
-            return (
-              <div className="container">
-                <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
-              </div>
-            )
+          return (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
+        }
+        else {
+          return (
+            <div className="container">
+              <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
+            </div>
+          )
         }
       }
     } else {
