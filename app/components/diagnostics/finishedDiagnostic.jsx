@@ -27,6 +27,8 @@ export default React.createClass({
     return (
       <div className="container">
         Finished Diagnostic
+        {this.renderSavedIndicator()}
+        <button onClick={this.props.saveToLMS}>Save again.</button>
       </div>
     )
   },

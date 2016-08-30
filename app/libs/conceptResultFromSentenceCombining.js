@@ -12,7 +12,7 @@ export function getConceptResultsForSentenceCombining(question) {
   }
   if (conceptResults.length === 0) {
     conceptResults = [{
-      conceptUID: question.conceptUID,
+      conceptUID: question.conceptID,
       correct: false
     }]
   }

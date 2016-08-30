@@ -21,9 +21,9 @@ var StudentDiagnostic = React.createClass({
   },
 
   saveToLMS: function () {
-    const results = getConceptResultsForAllQuestions(this.props.question.answeredQuestions)
+    const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions)
     request(
-      {url: 'http://localhost:3000/api/v1/activity_sessions/' + this.props.activitySessionID,
+      {url: 'http://localhost:3000/api/v1/activity_sessions/' + this.props.routing.locationBeforeTransitions.query.student,
         method: 'PUT',
         json:
         {
