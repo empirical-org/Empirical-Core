@@ -173,33 +173,20 @@ const PlayDiagnosticQuestion = React.createClass({
       button = <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
     }
     if (this.props.question) {
-        // return (
-        //   <div className="container">
-        //     {this.renderSentenceFragments()}
-        //     <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
-        //                 handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
-        //     <div className="question-button-group button-group">
-        //       {button}
-        //     </div>
-        //   </div>
-        //   // <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-        //   //             feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-        //   //             handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-        //   //             textAreaClass="textarea is-question is-disabled" questionID={questionID}/>
-        // )
-        return (
-          <div className="section container">
-            {this.renderSentenceFragments()}
-            <h5 className="title is-5">Combine the sentences into one sentence</h5>
-            <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200}>
-              <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
-                          handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
-              <div className="question-button-group button-group">
-                {button}
-              </div>
-            </ReactTransition>
-          </div>
-        )
+      const instructions = (this.props.question.instructions && this.props.question.instructions!=="") ? this.props.question.instructions : "Combine the sentences into one sentence."
+      return (
+        <div className="section container">
+          {this.renderSentenceFragments()}
+          <h5 className="title is-5">{instructions}</h5>
+          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200}>
+            <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
+                        handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
+            <div className="question-button-group button-group">
+              {button}
+            </div>
+          </ReactTransition>
+        </div>
+      )
     } else {
       return (<p>Loading...</p>)
     }

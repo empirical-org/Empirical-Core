@@ -148,7 +148,6 @@ var StudentDiagnostic = React.createClass({
       var data = this.getFetchedData()
       if(data) {
         if (this.props.playDiagnostic.currentQuestion) {
-          console.log("Current: ", this.props.playDiagnostic.currentQuestion)
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
             return (
               <PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key}/>
@@ -161,8 +160,7 @@ var StudentDiagnostic = React.createClass({
                                     updateAttempts={this.submitResponse}/>
             )
           }
-        }
-        else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
+        } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
           return (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
         }
         else {

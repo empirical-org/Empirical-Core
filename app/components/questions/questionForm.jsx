@@ -11,7 +11,8 @@ export default React.createClass({
     return {
       prompt: "",
       itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
-      concept: this.props.question.conceptID
+      concept: this.props.question.conceptID,
+      instructions: this.props.question.instructions ? this.props.question.instructions : ""
     }
   },
 
@@ -22,7 +23,8 @@ export default React.createClass({
       prefilledText: this.refs.prefilledText.value,
       cues: this.refs.cues.value.split(','),
       itemLevel: this.state.itemLevel,
-      conceptID: this.state.concept
+      conceptID: this.state.concept,
+      instructions: this.state.instructions
     })
   },
 
@@ -32,6 +34,10 @@ export default React.createClass({
 
   handleLevelChange: function(e) {
     this.setState({itemLevel: this.refs.itemLevel.value})
+  },
+
+  handleInstructionsChange: function(e) {
+    this.setState({instructions: e.target.value})
   },
 
   itemLevelToOptions: function() {
@@ -62,12 +68,15 @@ export default React.createClass({
 
   render: function () {
     if(this.props.concepts.hasreceiveddata) {
-      console.log("State: ", this.state)
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
           <label className="label">Prompt</label>
           <TextEditor text={this.props.question.prompt || ""} handleTextChange={this.handlePromptChange}/>
+          <label className="label">Instructions for student</label>
+          <p className="control">
+            <input className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></input>
+          </p>
           <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
           <p className="control">
             <input className="input" type="text" ref="cues" defaultValue={this.props.question.cues}></input>

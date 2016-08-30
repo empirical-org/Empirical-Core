@@ -133,10 +133,17 @@ var PlaySentenceFragment = React.createClass({
       button = <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
     }
     if(!this.choosingSentenceOrFragment() && !this.showNextQuestionButton()) {
+      var instructions
+      if(this.props.question.instructions && this.props.question.instructions!=="") {
+        instructions = this.props.question.instructions
+      } else {
+        instructions =  "Add punctuation and capitalization. If the sentence is incomplete, turn it into to a complete sentence."
+      }
+
       return (
         <div className="container">
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200} >
-            <h5 className="title is-5">Add punctuation and capitalization. If the sentence is incomplete, turn it into to a complete sentence.</h5>
+            <h5 className="title is-5">{instructions}</h5>
             <TextEditor handleChange={this.handleChange}/>
             <div className="question-button-group">
               {button}
@@ -159,7 +166,7 @@ var PlaySentenceFragment = React.createClass({
       const fragment = this.props.sentenceFragments.data[key]
       return (
         <div className="section container">
-          <p className="sentence-fragments">{this.getQuestion()}</p>
+          <p className="sentence-fragments prevent-selection">{this.getQuestion()}</p>
           {this.renderSentenceOrFragmentMode()}
           {this.renderPlaySentenceFragmentMode()}
           {this.renderNextPage()}

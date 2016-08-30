@@ -13,6 +13,7 @@ const sentenceFragmentForm = React.createClass({
         isFragment: false,
         optimalResponseText: "",
         needsIdentification: true,
+        instructions: "",
         conceptID: ""
       }
     } else {
@@ -22,6 +23,7 @@ const sentenceFragmentForm = React.createClass({
         isFragment: fragment.isFragment,
         optimalResponseText: fragment.optimalResponseText!==undefined ? fragment.optimalResponseText : "",
         needsIdentification: fragment.needsIdentification!==undefined ? fragment.needsIdentification : true,
+        instructions: fragment.instructions ? fragment.instructions : "",
         conceptID: fragment.conceptID
       }
     }
@@ -37,6 +39,9 @@ const sentenceFragmentForm = React.createClass({
         break;
       case 'optimalResponseText':
         this.setState({optimalResponseText: e.target.value})
+        break;
+      case 'instructions':
+        this.setState({instructions: e.target.value})
         break;
       case 'isFragment':
         this.setState({isFragment: e.target.checked})
@@ -65,14 +70,14 @@ const sentenceFragmentForm = React.createClass({
   },
 
   renderOptimalResponseTextInput: function () {
-      return (
-        [
-          (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
-          (<p className="control">
-            <input className="input" type="text" value={this.state.optimalResponseText} onChange={this.handleChange.bind(null, "optimalResponseText")}></input>
-          </p>)
-        ]
-      )
+    return (
+      [
+        (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
+        (<p className="control">
+          <input className="input" type="text" value={this.state.optimalResponseText} onChange={this.handleChange.bind(null, "optimalResponseText")}></input>
+        </p>)
+      ]
+    )
   },
 
   render: function () {
@@ -82,6 +87,10 @@ const sentenceFragmentForm = React.createClass({
         <label className="label">Sentence / Fragment Text</label>
         <p className="control">
           <input className="input" type="text" value={this.state.questionText} onChange={this.handleChange.bind(null, "questionText")}></input>
+        </p>
+        <label className="label">Instructions</label>
+        <p className="control">
+          <input className="input" type="text" value={this.state.instructions} onChange={this.handleChange.bind(null, "instructions")}></input>
         </p>
         <p className="control">
           <label className="checkbox">
