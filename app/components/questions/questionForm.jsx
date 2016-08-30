@@ -3,8 +3,6 @@ import TextEditor from './textEditor.jsx';
 import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'lodash'
 import ConceptSelector from 'react-select-search'
-// import ConceptSelector from 'react-selectize'.SimpleSelect
-// var SimpleSelect = require("react-selectize").SimpleSelect
 
 export default React.createClass({
   getInitialState: function () {
@@ -53,16 +51,20 @@ export default React.createClass({
   },
 
   conceptsToOptions: function() {
+    console.log("Concepts: ", this.props.concepts.data["0"])
     return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        {name: concept.displayName, value: concept.uid}
+        {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
       )
     })
   },
 
   render: function () {
     if(this.props.concepts.hasreceiveddata) {
-      console.log("State: ", this.state)
+      const fuse = {
+        keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
+        threshold: 0.4
+      }
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
@@ -87,7 +89,7 @@ export default React.createClass({
           </p>
           <label className="label">Concept</label>
           <div>
-            <ConceptSelector options={this.conceptsToOptions()} placeholder={this.state.concept} onChange={this.handleSelectorChange}/>
+            <ConceptSelector options={this.conceptsToOptions()} placeholder={this.state.concept} onChange={this.handleSelectorChange} fuse={fuse}/>
           </div>
           <br/>
           <button className="button is-primary" onClick={this.submit}>Update Question</button>
