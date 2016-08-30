@@ -273,4 +273,19 @@ describe("Calling the correct functions for different use cases", () => {
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
   })
+
+  it("inserts an underline for a missing comma", () => {
+    const target = "Since it was snowing, Marcella wore a sweater.";
+    const user = "Since it was snowing Marcella wore a sweater.";
+    const expected = {
+      text: "Since it was snowing  Marcella wore a sweater.",
+      inlineStyleRanges: [{
+        length: 1,
+        offset: 20,
+        style: "UNDERLINE"
+      }]
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
 })

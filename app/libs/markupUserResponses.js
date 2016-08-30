@@ -92,8 +92,9 @@ export function getMissingWordErrorString (changeObjects) {
 
 export function getMissingInlineStyleRangeObject (targetString, userString) {
   const changeObjects = getChangeObjects(targetString, userString)
+  const length = getErroneousWordLength(changeObjects, 'removed')
   return {
-    length: getErroneousWordLength(changeObjects, 'removed') -1,
+    length: (length===1) ? 1 : length-1, //edge case for commas
     offset: getErroneousWordOffset(changeObjects, 'removed'),
     style: "UNDERLINE"
   }
