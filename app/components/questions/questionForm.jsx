@@ -101,15 +101,3 @@ export default React.createClass({
     }
   }
 })
-// <ConceptSelector options={[{label: "1", value: "1"}, {label: "2", value: "2"}]} placeholder="Select a concept" />
-// <p className="control">
-//   <span className="select">
-//     <select onChange={this.handleConceptChange} ref="concept" value={this.state.concept}>
-//       <option>Select Concept</option>
-//       {this.conceptsToOptions()}
-//     </select>
-//   </span>
-// </p>
-
-// <SimpleSelect theme="material" options={options} placeholder="Select a concept" filterOptions={(e)=>{this.filterOptions(options, e)}} className="selector" onValueChange={this.handleSelectorChange}>
-// </SimpleSelect>
