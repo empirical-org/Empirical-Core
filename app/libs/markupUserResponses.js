@@ -28,6 +28,13 @@ export function getChangeObjectsWithoutAdded (targetString, userString) {
 
 export function getErroneousWordLength (changeObjects, key) {
   const addedWord = _.filter(changeObjects, {[key]: true})[0]
+  if(addedWord.value===',') {
+    const precedingObjects = _.takeWhile(changeObjects, (changeObject) => {
+      return !changeObject[key]
+    })
+    const segmentBeforeComma = precedingObjects[precedingObjects.length-1].value
+    return segmentBeforeComma.length - segmentBeforeComma.lastIndexOf(' '); // no -1 because that is handled in the calling function
+  }
   return addedWord.value.length || 0
 }
 
@@ -35,9 +42,28 @@ export function getErroneousWordOffset (changeObjects, key) {
   const precedingObjects = _.takeWhile(changeObjects, (changeObject) => {
     return !changeObject[key]
   })
-  return _.reduce(precedingObjects, (sum, changeObject) => {
+  const offset = _.reduce(precedingObjects, (sum, changeObject) => {
     return sum + changeObject.value.length
   }, 0)
+
+  //below, edge case for underlining the previous word if a comma is missing
+  const firstError = _.find(changeObjects, (changeObject) => {
+    return changeObject[key]
+  })
+  if(firstError.value===',') {
+    const segmentBeforeComma = precedingObjects[precedingObjects.length-1].value
+    const wordBeforeComma = segmentBeforeComma.length - segmentBeforeComma.lastIndexOf(' ') - 1;
+    return offset - wordBeforeComma
+  }
+
+  //if the last changeObject is '.', it means that the last word was missing. Offset is incremented
+  //because of the space at the end of the second last word that was also missing, but that is added automatically.
+  //However, if the last word was simply misspelled, we don't need to increase the offset - the preceding space already exists
+  if(changeObjects.length>=2 && changeObjects[changeObjects.length-1].value==='.' && changeObjects[changeObjects.length-2].added===undefined) {
+    return offset+1
+  } else {
+    return offset
+  }
 }
 
 export function getInlineStyleRangeObject (targetString, userString) {
@@ -83,7 +109,7 @@ export function getErrorType (targetString, userString) {
 export function getMissingWordErrorString (changeObjects) {
   return changeObjects.map((changeObject) => {
     if (changeObject.removed) {
-      return _.repeat(' ', changeObject.value.length)
+      return changeObject.value===',' ? "" : _.repeat(' ', changeObject.value.length)
     } else {
       return changeObject.value
     }
@@ -93,7 +119,7 @@ export function getMissingWordErrorString (changeObjects) {
 export function getMissingInlineStyleRangeObject (targetString, userString) {
   const changeObjects = getChangeObjects(targetString, userString)
   return {
-    length: getErroneousWordLength(changeObjects, 'removed') -1,
+    length: getErroneousWordLength(changeObjects, 'removed')-1,
     offset: getErroneousWordOffset(changeObjects, 'removed'),
     style: "UNDERLINE"
   }

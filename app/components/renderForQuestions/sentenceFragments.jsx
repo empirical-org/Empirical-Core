@@ -5,7 +5,7 @@ export default React.createClass({
 
   renderSentenceFragments: function () {
     return (
-      <div className="draft-js sentence-fragments" dangerouslySetInnerHTML={{__html: this.props.getQuestion().prompt}}></div>
+      <div className="draft-js sentence-fragments prevent-selection" dangerouslySetInnerHTML={{__html: this.props.getQuestion().prompt}}></div>
     )
   },
 

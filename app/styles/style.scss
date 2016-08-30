@@ -263,3 +263,12 @@ textarea.submission {
 .select-search-box__option--hover, .select-search-box__option:hover {
   background-color: #a3e8dc;
 }
+
+.prevent-selection {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

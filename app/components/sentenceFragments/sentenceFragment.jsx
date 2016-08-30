@@ -40,7 +40,6 @@ const SentenceFragment = React.createClass({
   },
 
   render() {
-    console.log("props: ", this.props)
     const {data, states, hasreceiveddata} = this.props.sentenceFragments;
     const {sentenceFragmentID} = this.props.params
     if (!hasreceiveddata) {
@@ -49,7 +48,7 @@ const SentenceFragment = React.createClass({
       )
     } else if (data[sentenceFragmentID]) {
       console.log("conceptID: ", this.props.sentenceFragments.data[this.props.params.sentenceFragmentID].conceptID)
-      
+
       return (
         <div>
           <h4 className="title">{data[sentenceFragmentID].questionText}</h4>

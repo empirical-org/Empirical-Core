@@ -6,10 +6,10 @@ export function getIdentificationConceptResult(question) {
   let answer, concept_uid
   if(question.isFragment) {
     answer = question.identified ? "Fragment": "Sentence";
-    concept_uid = 'T_Io_fJGN8BZWf_Nb30LBg';
+    concept_uid = 'j89kdRGDVjG8j37A12p37Q';
   } else {
     answer = question.identified ? "Sentence": "Fragment";
-    concept_uid = 'd3V33ijcTE33QIPIzLa4-Q';
+    concept_uid = 'LH3szu784pXA5k2N9lxgdA';
   }
   returnValue.concept_uid = concept_uid
   returnValue.metadata = {
@@ -24,7 +24,7 @@ export function getIdentificationConceptResult(question) {
 export function getCompleteSentenceConceptResult(question) {
   const returnValue = {};
   const correct = calculateCorrectnessOfSentence(question.attempts[0]);
-  const concept_uid = 'iUE6tekeyep8U385dtmVfQ';
+  const concept_uid = 'KfA8-dg8FvlJz4eY0PkekA';
   const answer = question.attempts[0].submitted;
   const directions = "Add/change as few words as you can to change this fragment into a sentence"
   const prompt = question.questionText

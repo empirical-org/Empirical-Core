@@ -33,11 +33,13 @@ const Concepts = React.createClass({
         prefilledText: this.refs.newQuestionPrefilledText.value,
         cues: this.refs.cues.value.split(','),
         itemLevel: this.refs.itemLevel.value==="Select Item Level" ? "" : this.refs.itemLevel.value,
+        instructions: this.refs.instructions.value,
         conceptID: this.props.params.conceptID},
         {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a great sentence!"}))
       this.refs.newQuestionPrompt.value = ''
       this.refs.newQuestionOptimalResponse.value = ''
       this.refs.newQuestionPrefilledText.value = ''
+      this.refs.instructions.value = ''
       this.refs.newQuestionPrompt.focus()
     }
   },
@@ -81,12 +83,15 @@ const Concepts = React.createClass({
   },
 
   renderNewQuestionForm: function () {
-    console.log("Rendering new question form: ", this.props)
     return (
       <form className="box" onSubmit={this.submitNewQuestion}>
         <h6 className="control subtitle">Create a new question</h6>
         <label className="label">Prompt</label>
         <TextEditor text={""} handleTextChange={this.handlePromptChange} />
+        <label className="label">Instructions for student</label>
+        <p className="control">
+          <input className="input" type="text" ref="instructions"></input>
+        </p>
         <label className="label">Cues (seperated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
           <input className="input" type="text" ref="cues"></input>
@@ -119,7 +124,7 @@ const Concepts = React.createClass({
       return (
         <div>
           <Link to ={'admin/concepts'}>Return to All Concepts</Link>
-          <h4 className="title">{this.getConcept().name}</h4>
+          <h4 className="title">{this.getConcept().displayName}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
           {this.renderNewQuestionForm()}
           {this.renderQuestionsForConcept()}

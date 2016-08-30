@@ -64,8 +64,12 @@ const LessonForm = React.createClass({
   },
 
   renderSearchBox: function() {
-    const options = hashToCollection(this.props.questions.data)
+    let options = hashToCollection(this.props.questions.data)
+    const concepts = this.props.concepts.data["0"]
     if (options.length > 0) {
+      options = _.filter(options, (option) => {
+        return _.find(concepts, {uid: option.conceptID})
+      }) // filter out questions with no valid concept
       const formatted = options.map((opt) => {
         return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
       })
@@ -132,7 +136,8 @@ const LessonForm = React.createClass({
 
 function select(state) {
   return {
-    questions: state.questions
+    questions: state.questions,
+    concepts: state.concepts
   }
 }
 

@@ -273,4 +273,64 @@ describe("Calling the correct functions for different use cases", () => {
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
   })
+
+  it("calls getMissingInlineStyleRangeObject when it should", () => {
+    const target = "Since it was snowing, Marcella wore a sweater.";
+    const user = "Since it was snowing, wore a sweater.";
+    const expected = {
+      text: "Since it was snowing,          wore a sweater.",
+      inlineStyleRanges: [{
+        length: 8,
+        offset: 22,
+        style: "UNDERLINE"
+      }]
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
+
+  it("calls getMissingInlineStyleRangeObject when it should", () => {
+    const target = "The hazy sky has few clouds.";
+    const user = "The hazy sky has few.";
+    const expected = {
+      text: "The hazy sky has few       .",
+      inlineStyleRanges: [{
+        length: 6,
+        offset: 21,
+        style: "UNDERLINE"
+      }]
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
+
+  it("tags word as incorrect when it should", () => {
+    const target = "The hazy sky has few clouds.";
+    const user = "The hazy sky has few cloud.";
+    const expected = {
+      text: "The hazy sky has few cloud.",
+      inlineStyleRanges: [{
+        length: 5,
+        offset: 21,
+        style: "UNDERLINE"
+      }]
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
+
+  it("underlines the previous word for a missing comma", () => {
+    const target = "Since it was snowing, Marcella wore a sweater.";
+    const user = "Since it was snowing Marcella wore a sweater.";
+    const expected = {
+      text: user,
+      inlineStyleRanges: [{
+        length: 7,
+        offset: 13,
+        style: "UNDERLINE"
+      }]
+    }
+    const styleObjects = generateStyleObjects(target, user)
+    expect(styleObjects).toEqual(expected)
+  })
 })
