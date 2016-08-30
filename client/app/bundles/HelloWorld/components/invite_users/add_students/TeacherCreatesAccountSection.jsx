@@ -10,9 +10,10 @@ export default React.createClass({
           Or You Create Student Accounts
         </h1>
         <div>
-          The students’ usernames are their names combined with your<br/>class code. For example, John Smith is 'John.Smith@prize-bait'.<br/>
+          The students’ usernames are their names combined with your<br/>class code. For example, John Smith is <code>john.smith@prize-bait</code>.<br/>
           <div className="mt-15">
-            Students passwords are set to their last names by default.<br/>For example, ‘Smith’ (first letter is capitalized).
+            <h1 className="section-header">Student Passwords</h1>
+            If you create a student account, the passwords are set to the students' last names by default.<br/>For example, John Smith's password would be <code>Smith</code> (first letter is capitalized).
           </div>
           <div className="add-student-fields">
             <input  placeholder='First Name' type="text" value={this.props.firstName} onChange={(e)=> this.props.nameChange(e, 'firstName')}/>
