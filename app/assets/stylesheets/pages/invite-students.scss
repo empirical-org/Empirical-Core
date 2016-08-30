@@ -1,15 +1,14 @@
 .invite-students {
+
   .select-white-wrapper .dropdown-menu {
     left: auto;
     width: 280px;
     top: auto;
   }
-  .button-select {
+  #select-student-dropdown {
     /*margin-top: 30px;*/
-    button {
       min-width: 200px;
       text-align: left;
-    }
     .fa-caret-down {
       float: right;
       font-size: 18px;
