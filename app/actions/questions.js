@@ -3,7 +3,7 @@ import rootRef from "../libs/firebase"
 var	questionsRef = rootRef.child("questions"),
 moment = require('moment');
 import _ from 'lodash'
-
+import { push } from 'react-router-redux'
 import pathwaysActions from './pathways';
 
 module.exports = {
@@ -70,6 +70,8 @@ module.exports = {
 				} else {
           dispatch(this.submitNewResponse(newRef.key, response))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
+					var action = push('/admin/questions/' + newRef.key)
+          dispatch(action)
 				}
 			});
 		}
