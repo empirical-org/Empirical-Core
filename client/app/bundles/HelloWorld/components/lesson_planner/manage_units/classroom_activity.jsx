@@ -1,8 +1,6 @@
 'use strict'
 
  import React from 'react'
- import $ from 'jquery'
- import DatePicker from 'react-datepicker';
  import moment from 'moment';
 
  export default  React.createClass({
@@ -19,7 +17,7 @@
 
 
 	deleteClassroomActivity: function () {
-		var x = confirm("Are you sure you want do delete this assignment?");
+		var x = confirm('Are you sure you want do delete this assignment?');
 		if (x) {
 			this.props.deleteClassroomActivity(this.props.data.id, this.props.data.unit_id);
 		}
@@ -58,19 +56,19 @@
       url = window.location.href
     }
 		return (
-			<div className="row">
-				<div className="cell col-md-1">
-					<div className={"pull-left icon-gray icon-wrapper  " + this.props.data.activity.classification.scorebook_icon_class} />
+			<div className='row'>
+				<div className='cell col-md-1'>
+					<div className={'pull-left icon-gray icon-wrapper  ' + this.props.data.activity.classification.scorebook_icon_class} />
 				</div>
-				<div className="cell col-md-8" >
-					<a href={url} target="_new">
+				<div className='cell col-md-8' >
+					<a href={url} target='_new'>
 						{this.props.data.activity.name}
 					</a>
 				</div>
-				<div className="cell col-md-2">
+				<div className='cell col-md-2'>
           {finalCell}
 				</div>
-				<div className="cell col-md-1">
+				<div className='cell col-md-1'>
 				</div>
 			</div>
 
