@@ -66,7 +66,7 @@ const playQuestion = React.createClass({
   },
 
   removePrefilledUnderscores: function () {
-    this.setState({response: this.state.response.replace(/_/g, "")})
+    return this.state.response.replace(/_/g, "").replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
   },
 
   getQuestion: function () {
@@ -113,9 +113,8 @@ const playQuestion = React.createClass({
   },
 
   checkAnswer: function () {
-    this.removePrefilledUnderscores()
-
-    var response = getResponse(this.getQuestion(), this.state.response)
+    const filteredResponse = this.removePrefilledUnderscores()
+    var response = getResponse(this.getQuestion(), filteredResponse)
 
     this.updateResponseResource(response)
     this.submitResponse(response)
@@ -210,7 +209,6 @@ const playQuestion = React.createClass({
                     id="playQuestion" assetURL={assetURL} questionID={questionID}/>
             )
           }
-
         } else {
           return (
             <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}

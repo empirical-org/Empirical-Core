@@ -43,7 +43,6 @@ export default React.createClass({
         }
         const newStyle = generateStyleObjects(targetText, nextProps.latestAttempt.submitted)
         var state = convertToRaw(this.state.text.getCurrentContent());
-        console.log("state", state)
         state.blocks[0].text = newStyle.text;
         state.blocks[0].inlineStyleRanges = newStyle.inlineStyleRanges
         this.setState({
