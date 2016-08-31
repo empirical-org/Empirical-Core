@@ -84,6 +84,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
 
+  def students
+    @classroom = Classroom.find params[:id]
+    render json: {students: @classroom.students.sort{|a,b| b.created_at <=> a.created_at}}
+  end
+
 
   def premium
     @subscription_type = current_user.premium_state
