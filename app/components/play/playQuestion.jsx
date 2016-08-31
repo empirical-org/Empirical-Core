@@ -67,7 +67,7 @@ const playQuestion = React.createClass({
 
   removePrefilledUnderscores: function () {
     const filteredResponse = this.state.response.replace(/_/g, "").replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
-    this.setState({response: filteredResponse})
+    this.setState({response: filteredResponse}) //asynchronous, therefore store in variable and return
     return filteredResponse
   },
 
