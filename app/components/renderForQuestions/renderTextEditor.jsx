@@ -21,8 +21,6 @@ export default React.createClass({
   },
 
   componentWillReceiveProps: function (nextProps) {
-    console.log("Next props: ", nextProps)
-    console.log("This props: ", this.props)
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
       if (nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID
@@ -45,7 +43,6 @@ export default React.createClass({
         }
         const newStyle = generateStyleObjects(targetText, nextProps.latestAttempt.submitted)
         var state = convertToRaw(this.state.text.getCurrentContent());
-        // console.log("state", state)
         state.blocks[0].text = newStyle.text;
         state.blocks[0].inlineStyleRanges = newStyle.inlineStyleRanges
         this.setState({

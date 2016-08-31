@@ -114,7 +114,6 @@ const playQuestion = React.createClass({
 
   checkAnswer: function () {
     const filteredResponse = this.removePrefilledUnderscores()
-    console.log("Answer that is being checked: ", filteredResponse)
     var response = getResponse(this.getQuestion(), filteredResponse)
 
     this.updateResponseResource(response)
@@ -130,7 +129,6 @@ const playQuestion = React.createClass({
   },
 
   handleChange: function (e) {
-    console.log("Handle change is being called")
     this.setState({editing: true,response: e})
   },
 
@@ -169,7 +167,6 @@ const playQuestion = React.createClass({
         <div>Loading...</div>
       )
     } else {
-      console.log("State: ",this.state)
       const {data} = this.props.questions, {questionID} = this.props.params;
       const question = data[questionID];
 
