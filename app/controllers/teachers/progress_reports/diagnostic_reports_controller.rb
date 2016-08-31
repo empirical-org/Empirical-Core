@@ -22,20 +22,20 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def students_by_classroom
-    render json: results_for_classroom(params[:classroom_id])
+    render json: results_for_classroom(params[:classroom_id], params[:activity_id])
   end
 
   private
 
-  def results_for_classroom classroom_id
+  def results_for_classroom classroom_id, activity_id
     classroom = Classroom.find(classroom_id)
-    diagnostic = Activity.find(413)
+    activity = Activity.find(activity_id)
     scores = {
       id: classroom.id,
       name: classroom.name
     }
     scores[:students] = classroom.students.map { |student|
-      loaded = student.activity_sessions.includes(concept_results: :concept).find_by(activity_id: diagnostic.id, is_final_score: true)
+      loaded = student.activity_sessions.includes(concept_results: :concept).find_by(activity_id: activity.id, is_final_score: true)
       if loaded
         formatted_concept_results = get_concept_results(loaded)
         session = {

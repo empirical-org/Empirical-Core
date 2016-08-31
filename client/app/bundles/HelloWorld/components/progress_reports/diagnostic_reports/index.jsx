@@ -52,7 +52,8 @@ export default React.createClass({
 
 	changeStudent: function(student) {
 		this.setState({selectedStudentId: student})
-		this.props.history.push(this.props.params.classroomId + '/student_report/' + student)
+		const p = this.props.params;
+		this.props.history.push(`${p.activityId}/${p.classroomId}/student_report/${student}`)
 	},
 
 	findClassroomById: function(id) {
@@ -65,12 +66,14 @@ export default React.createClass({
 		if (classroom != this.state.selectedClassroom) {
 			// we changed classrooms, so we want to invalidate the current selected student
 			this.setState({selectedClassroom: classroom, selectedStudentId: null})
-			this.props.history.push(classroom.id.toString() + '/' + (this.props.params.report || 'report'))
+			const p = this.props.params;
+			this.props.history.push(`${p.activityId}/${classroom.id}/${p.report}`)
 		}
 	},
 
 	changeReport: function(reportName) {
-		this.props.history.push((this.props.params.classroomId || 'classroom') + '/' + reportName)
+		const p = this.props.params;
+		this.props.history.push(`${p.activityId}/${p.classroomId || 'classroom'}/${reportName}`)
 	},
 
 	render: function(){

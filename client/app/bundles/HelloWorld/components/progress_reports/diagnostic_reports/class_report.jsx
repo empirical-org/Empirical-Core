@@ -89,7 +89,7 @@ export default React.createClass({
                           columnDefinitions={this.columnDefinitions}
                           hideFaqLink={Boolean(true)}
                            pagination={false}
-                           sourceUrl={'/teachers/progress_reports/students_by_classroom/' + this.props.params.classroomId}
+                           sourceUrl={`/teachers/progress_reports/students_by_classroom/${this.props.params.activityId}/${this.props.params.classroomId}`}
                            sortDefinitions={this.sortDefinitions}
                            jsonResultsKey={'students'}
                            colorByScoreKeys={['session','score']}
