@@ -19,7 +19,7 @@ class Api::V1::ConceptsController < Api::ApiController
     #   concept_level_0: [concepts where parent id matches a level one concept]
     # }
     #
-    render json: Concept.all_with_level
+    render json: {concepts: Concept.all_with_level}.to_json
   end
 
   private
