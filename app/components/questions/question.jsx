@@ -167,7 +167,7 @@ const Question = React.createClass({
           <h6 className="subtitle">{responses.length} Responses</h6>
           <Link to={'play/questions/' + questionID} className="button is-outlined is-primary">Play Question</Link><br/><br/>
           <Chart data={_.values(this.formatForPieChart())}/>
-          <p className="control">
+          <p className="control button-group">
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button>
             <Link to={'admin/questions'} className="button is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
