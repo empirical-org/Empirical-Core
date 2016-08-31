@@ -96,28 +96,6 @@ var StudentDiagnostic = React.createClass({
 
   getData: function() {
     return diagnosticQuestions()
-    // return [
-    //   {
-    //     type: "SF",
-    //     key: "-KOqKBMgXHF2dNMM8jhg"
-    //   },
-    //   {
-    //     type: "SF",
-    //     key: "-KOqLomeMhOuHqX9Zdqv"
-    //   },
-    //   {
-    //     type: "SC",
-    //     key: "-KP-Mm-zR8JQcT62iUHW"
-    //   },
-    //   {
-    //     type: "SF",
-    //     key: "-KPntt7hJrxRtP5JOiLm"
-    //   },
-    //   {
-    //     type:"SF",
-    //     key: "-KPnxMpaeiOBzG_fvpKx"
-    //   }
-    // ]
   },
 
   markIdentify: function (bool) {
