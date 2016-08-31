@@ -104,6 +104,7 @@ const playLessonQuestion = React.createClass({
   },
 
   renderFeedback: function () {
+    console.log("Inside game, question: ", this.props.question)
     return <RenderFeedback question={this.props.question}
             sentence="We have not seen this sentence before. Could you please try writing it in another way?"
             renderFeedbackStatements = {this.renderFeedbackStatements}/>
@@ -171,7 +172,7 @@ const playLessonQuestion = React.createClass({
   },
 
   handleChange: function (e) {
-    this.setState({editing: true, response: e.target.value})
+    this.setState({editing: true, response: e})
   },
 
   readyForNext: function () {
@@ -179,7 +180,6 @@ const playLessonQuestion = React.createClass({
       var latestAttempt = getLatestAttempt(this.props.question.attempts)
       if (latestAttempt.found) {
         var errors = _.keys(this.getErrorsForAttempt(latestAttempt))
-        //console.log("Is it readyForNext?")
         if (latestAttempt.response.optimal && errors.length === 0) {
           return true
         }
@@ -250,7 +250,7 @@ const playLessonQuestion = React.createClass({
         } else {
           return (
             <AnswerForm value={this.state.response} question={this.props.question} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={this.props.question.key}
                   handleChange={this.handleChange} textAreaClass="textarea"
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}/>
           )
@@ -258,7 +258,7 @@ const playLessonQuestion = React.createClass({
       } else {
         return (
           <AnswerForm value={this.state.response} question={this.props.question} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={this.props.question.key}
                 handleChange={this.handleChange} textAreaClass="textarea"
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}/>
         )

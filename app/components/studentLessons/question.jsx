@@ -158,8 +158,6 @@ const playLessonQuestion = React.createClass({
   },
 
   render: function () {
-    console.log("in the question.jsx file")
-    console.log(this.props)
     const questionID = this.props.question.key;
     if (this.props.question) {
       if (this.state.finished) {

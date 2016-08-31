@@ -57,7 +57,7 @@ export default React.createClass({
   },
 
   conceptsToOptions: function() {
-    console.log("Concepts: ", this.props.concepts.data["0"])
+    // console.log("Concepts: ", this.props.concepts.data["0"])
     return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
         {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
