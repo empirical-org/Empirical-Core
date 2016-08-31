@@ -65,9 +65,11 @@ export default React.createClass({
 	changeClassroom: function(classroom) {
 		if (classroom != this.state.selectedClassroom) {
 			// we changed classrooms, so we want to invalidate the current selected student
-			this.setState({selectedClassroom: classroom, selectedStudentId: null})
-			const p = this.props.params;
-			this.props.history.push(`${p.activityId}/${classroom.id}/${p.report}`)
+			this.setState({
+				selectedClassroom: classroom,
+				selectedStudentId: null
+			})
+			this.props.history.push(`${this.props.params.activityId}/${classroom.id}/report`)
 		}
 	},
 
@@ -76,19 +78,13 @@ export default React.createClass({
 		this.props.history.push(`${p.activityId}/${p.classroomId || 'classroom'}/${reportName}`)
 	},
 
-	render: function(){
+	render: function() {
 		if (this.state.loading) {
 			return <LoadingSpinner/>
 		} else {
 			return (
 				<div id='individual-activity-reports'>
-					<NavBar classrooms={this.state.classrooms}
-									studentDropdownCallback={this.changeStudent}
-									dropdownCallback={this.changeClassroom}
-									buttonGroupCallback={this.changeReport}
-									students={this.state.students}
-									/>
-					{this.props.children}
+					<NavBar classrooms={this.state.classrooms} studentDropdownCallback={this.changeStudent} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} selectedClassroom={this.state.selectedClassroom} params={this.props.params}/> {this.props.children}
 				</div>
 			);
 		}
