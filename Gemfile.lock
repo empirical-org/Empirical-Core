@@ -534,7 +534,8 @@ GEM
       builder
       nokogiri (>= 1.4.1)
       trollop
-    react_on_rails (5.2.0)
+    react_on_rails (6.1.0)
+      addressable
       connection_pool
       execjs (~> 2.5)
       foreman
@@ -772,7 +773,7 @@ DEPENDENCIES
   rails_admin
   ranked-model
   ransack
-  react_on_rails (~> 5)
+  react_on_rails (~> 6)
   redcarpet
   redis-rails
   responders
@@ -801,5 +802,8 @@ DEPENDENCIES
   vcr
   webmock
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.11.2
+   1.12.5
