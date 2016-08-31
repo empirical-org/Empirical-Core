@@ -4,16 +4,14 @@ import actions from '../../actions/concepts-feedback'
 import _ from 'underscore'
 import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
+import {hashToCollection} from '../../libs/hashToCollection'
 
 const ConceptsFeedback = React.createClass({
   createNew: function () {
     this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
-    //alert("New feedback form being created")
   },
 
   submitNewConcept: function () {
-    //console.log(this.props)
-    //console.log(this.refs)
     var newConcept = {name: this.refs.newConceptName.value}
     this.props.dispatch(actions.submitNewConceptsFeedback(newConcept))
     this.refs.newConceptName.value = ""
@@ -21,13 +19,13 @@ const ConceptsFeedback = React.createClass({
   },
 
   renderConceptsFeedback: function () {
-    const {data} = this.props.conceptsFeedback;
-    console.log("this.props.conceptsFeedback", data)
-    const keys = _.keys(data);
-    return keys.map((id, index) => {
-      //console.log(key, data, data[key])
-      return (<li key={index}><Link to={'/admin/concepts-feedback/' + id} activeClassName="is-active">{data[id].name}</Link></li>)
-    })
+    const data = this.props.concepts.data;
+    if (data && data["0"]) {
+      return data["0"].map((concept) => {
+        const hasFeedback = !!this.props.conceptsFeedback.data[concept.uid];
+        return (<li key={concept.uid}><Link to={'/admin/concepts-feedback/' + concept.uid} className={hasFeedback ? "" : "no-feedback"} activeClassName="is-active">{concept.displayName}</Link></li>)
+      })
+    }
   },
 
   renderModal: function () {
@@ -61,8 +59,6 @@ const ConceptsFeedback = React.createClass({
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New concept</button></h1>
-          { this.renderModal() }
           <div className="columns">
             <div className="column">
               <aside className="menu">
@@ -86,6 +82,7 @@ const ConceptsFeedback = React.createClass({
 
 function select(state) {
   return {
+    concepts: state.concepts,
     conceptsFeedback: state.conceptsFeedback,
     routing: state.routing
   }
