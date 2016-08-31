@@ -9,7 +9,7 @@ const {
   // inline buttons
   ItalicButton, BoldButton, UnderlineButton,
   // block buttons
-  BlockquoteButton
+  BlockquoteButton, ULButton
 } = richButtonsPlugin;
 
 export default React.createClass({
@@ -40,6 +40,7 @@ export default React.createClass({
   },
 
   render: function () {
+
     return (
       <div className="card is-fullwidth">
         <header className="card-header">
@@ -48,6 +49,7 @@ export default React.createClass({
             <ItalicButton/>
             <UnderlineButton/>
             <BlockquoteButton/>
+            <ULButton/>
           </div>
         </header>
         <div className="card-content">

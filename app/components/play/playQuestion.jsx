@@ -92,8 +92,15 @@ const playQuestion = React.createClass({
   },
 
   renderFeedback: function () {
+    //For the two lines below,
+    //The component at renderForQuestions/feedback.jsx is used by 4 components - play lesson, play game,
+    //play question and the diagnostic. Some rely on the question prop having an instructions field, Some
+    //on it having an attempts array. The code below ensures that both the instructions and attempts are
+    //made available to the feedback component.
+    const question = this.props.questions.data[this.props.params.questionID]
+    question.attempts = this.props.question.attempts
     return <RenderFeedback sentence="Try Again. What’s another way you could write this sentence?"
-            question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}/>
+            question={question} renderFeedbackStatements={this.renderFeedbackStatements}/>
   },
 
   getErrorsForAttempt: function (attempt) {
@@ -169,7 +176,6 @@ const playQuestion = React.createClass({
     } else {
       const {data} = this.props.questions, {questionID} = this.props.params;
       const question = data[questionID];
-
       if (question) {
         var assetURL=""
         if(!!question.itemLevel) {

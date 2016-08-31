@@ -197,19 +197,10 @@ export default React.createClass({
   conceptsToOptions: function() {
     return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        {name: concept.displayName, value: concept.uid}
+        {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
       )
     })
   },
-
-
-  // conceptsToOptions: function () {
-  //   return this.props.concepts.data["0"].map((cs) => {
-  //     return (
-  //       <option selected={this.state.newConceptResult.conceptUID === cs.uid} value={cs.uid}>{cs.name}</option>
-  //     )
-  //   })
-  // },
 
   selectConceptForResult: function (e) {
     this.setState({
@@ -302,6 +293,10 @@ export default React.createClass({
 
 
     if (isEditing) {
+      const fuse = {
+        keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
+        threshold: 0.4
+      }
       content =
         <div className="content">
           {parentDetails}
@@ -340,11 +335,8 @@ export default React.createClass({
               {/*<li>Commas in lists (placeholder)</li>*/}
             </ul>
 
-                {/*<select onChange={this.selectConceptForResult}>
-                  <option>Select Concept feedback</option>
-                  {this.conceptsToOptions()}
-                </select>*/}
-                <ConceptSelector options={this.conceptsToOptions()} placeholder="Choose a concept to add" onChange={this.selectConceptForResult}/>
+            <ConceptSelector options={this.conceptsToOptions()} placeholder="Choose a concept to add"
+                             onChange={this.selectConceptForResult} fuse={fuse}/>
 
             <p className="control">
               <label className="checkbox">
