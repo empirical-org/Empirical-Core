@@ -66,7 +66,9 @@ const playQuestion = React.createClass({
   },
 
   removePrefilledUnderscores: function () {
-    this.setState({response: this.state.response.replace(/_/g, "")})
+    const filteredResponse = this.state.response.replace(/_/g, "").replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
+    this.setState({response: filteredResponse})
+    return filteredResponse
   },
 
   getQuestion: function () {
@@ -113,9 +115,9 @@ const playQuestion = React.createClass({
   },
 
   checkAnswer: function () {
-    this.removePrefilledUnderscores()
-
-    var response = getResponse(this.getQuestion(), this.state.response)
+    const filteredResponse = this.removePrefilledUnderscores()
+    console.log("Answer that is being checked: ", filteredResponse)
+    var response = getResponse(this.getQuestion(), filteredResponse)
 
     this.updateResponseResource(response)
     this.submitResponse(response)
@@ -168,6 +170,7 @@ const playQuestion = React.createClass({
         <div>Loading...</div>
       )
     } else {
+      console.log(this.state)
       const {data} = this.props.questions, {questionID} = this.props.params;
       const question = data[questionID];
 
@@ -187,6 +190,7 @@ const playQuestion = React.createClass({
           )
         }
         if (this.props.question.attempts.length > 2 ) {
+          console.log("this.props.question.attempts.length > 2 (finished with all attempts)")
           return (
             <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                         feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
@@ -195,6 +199,7 @@ const playQuestion = React.createClass({
           )
         } else if (this.props.question.attempts.length > 0 ) {
           if (this.readyForNext()) {
+            console.log("ready for next (1 or 2 attempts and answered correctly)")
             return (
               <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                           feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
@@ -202,6 +207,7 @@ const playQuestion = React.createClass({
                           questionID={questionID} id="playQuestion" assetURL={assetURL} textAreaClass="textarea is-question submission"/>
             )
           } else {
+            console.log("else (1 or 2 attempts but none is correct)")
             return (
               <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                     feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
@@ -210,8 +216,8 @@ const playQuestion = React.createClass({
                     id="playQuestion" assetURL={assetURL} questionID={questionID}/>
             )
           }
-
         } else {
+          console.log("0 attempts")
           return (
             <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                   feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
