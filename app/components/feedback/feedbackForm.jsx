@@ -3,7 +3,7 @@ import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import { connect } from 'react-redux'
 import TextEditor from '../questions/textEditor.jsx'
-
+import ConceptExplanation from './conceptExplanation.jsx'
 export default React.createClass ({
 
   // propTypes: {
@@ -30,8 +30,23 @@ export default React.createClass ({
     this.setState(newState)
   },
 
-  submit: function(){
-    this.props.submitNewFeedback(this.props.feedbackID, this.state.newFeedbackText)
+  submit: function(e){
+    e.preventDefault();
+    const {
+      title,
+      description,
+      leftBox,
+      rightBox,
+      rememberTo
+    } = this.state
+    const data = {
+      title,
+      description,
+      leftBox,
+      rightBox,
+      rememberTo
+    }
+    this.props.submitNewFeedback(this.props.feedbackID, data)
   },
 
   cancel: function() {
@@ -63,22 +78,26 @@ export default React.createClass ({
 
   render: function () {
     return (
-      <form className="box" onSubmit={this.submit}>
-        {this.renderEditor()}
-        {/*<label className="label">Title</label>
-        <TextEditor text={this.state.title} handleTextChange={this.handleChange.bind(null, "title")} key="title"/>
-        <label className="label">Description</label>
-        <TextEditor text={this.state.description} handleTextChange={this.handleChange.bind(null, "description")} key="description"/>
-        <label className="label">Left Box</label>
-        <TextEditor text={this.state.leftBox} handleTextChange={this.handleChange.bind(null, "leftBox")} key="leftBox"/>
-        <label className="label">Right Box</label>
-        <TextEditor text={this.state.rightBox} handleTextChange={this.handleChange.bind(null, "rightBox")} key="rightBox"/>
-        <label className="label">Remember To</label>
-        <TextEditor text={this.state.rememberTo} handleTextChange={this.handleChange.bind(null, "rememberTo")} key="rememberTo"/>*/}
-        <br />
-        <button type="submit" className="button is-primary">Submit</button>
-        <button className="button is-danger" onClick={this.cancel}>Cancel</button>
-      </form>
+      <div>
+        <form className="box" onSubmit={this.submit}>
+          {this.renderEditor()}
+          {/*<label className="label">Title</label>
+          <TextEditor text={this.state.title} handleTextChange={this.handleChange.bind(null, "title")} key="title"/>
+          <label className="label">Description</label>
+          <TextEditor text={this.state.description} handleTextChange={this.handleChange.bind(null, "description")} key="description"/>
+          <label className="label">Left Box</label>
+          <TextEditor text={this.state.leftBox} handleTextChange={this.handleChange.bind(null, "leftBox")} key="leftBox"/>
+          <label className="label">Right Box</label>
+          <TextEditor text={this.state.rightBox} handleTextChange={this.handleChange.bind(null, "rightBox")} key="rightBox"/>
+          <label className="label">Remember To</label>
+          <TextEditor text={this.state.rememberTo} handleTextChange={this.handleChange.bind(null, "rememberTo")} key="rememberTo"/>*/}
+          <br />
+          <button type="submit" className="button is-primary">Submit</button>
+          <button className="button is-danger" onClick={this.cancel}>Cancel</button>
+        </form>
+        <ConceptExplanation {...this.state}/>
+      </div>
+
     )
   }
 

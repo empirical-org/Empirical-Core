@@ -7,6 +7,7 @@ import feedbackActions from '../../actions/concepts-feedback'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import FeedbackForm from './feedbackForm.jsx'
+import ConceptExplanation from './conceptExplanation.jsx';
 
 const ConceptFeedback = React.createClass({
 
@@ -18,10 +19,9 @@ const ConceptFeedback = React.createClass({
     this.props.dispatch(actions.startConceptsFeedbackEdit(this.props.params.feedbackID))
   },
 
-  submitNewFeedback: function (feedbackID, newFeedbackText) {
-    if(newFeedbackText !== '') {
-      this.props.dispatch(feedbackActions.submitConceptsFeedbackEdit(feedbackID, {
-        feedbackText: newFeedbackText})
+  submitNewFeedback: function (feedbackID, data) {
+    if(true) {
+      this.props.dispatch(feedbackActions.submitConceptsFeedbackEdit(feedbackID, data)
       )
     }
   },
@@ -34,20 +34,19 @@ const ConceptFeedback = React.createClass({
     const {data, states} = this.props.conceptsFeedback;
     const {feedbackID} = this.props.params;
 
-    if (data[feedbackID]) {
+    if (data && data[feedbackID]) {
       const isEditing = (states[feedbackID] === C.START_CONCEPTS_FEEDBACK_EDIT);
       if (isEditing) {
         return (
           <div>
             <h4 className="title">{data[feedbackID].name}</h4>
-            <FeedbackForm feedbackText={data[feedbackID].feedbackText} feedbackID={feedbackID} submitNewFeedback={this.submitNewFeedback} cancelEdit={this.cancelEdit}/>
+            <FeedbackForm {...data[feedbackID]} feedbackID={feedbackID} submitNewFeedback={this.submitNewFeedback} cancelEdit={this.cancelEdit}/>
           </div>
         )
       } else {
         return (
           <div>
-            <h4 className="title">{data[feedbackID].name}</h4>
-            <div dangerouslySetInnerHTML={{__html: data[feedbackID].feedbackText}}></div>
+            <ConceptExplanation {...data[feedbackID]}/>
             <p className="control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept</button>
             </p>
@@ -59,7 +58,10 @@ const ConceptFeedback = React.createClass({
       return (<p>Loading...</p>)
     } else {
       return (
-        <p>404: No Concept Found</p>
+        <div className="container">
+          <p>404: No Concept Feedback Found... So lets make one! 🙌 🖋 🇬🇧 🇮🇳</p>
+          <FeedbackForm feedbackID={this.props.params.feedbackID} submitNewFeedback={this.submitNewFeedback} cancelEdit={this.cancelEdit}/>
+        </div>
       )
     }
 
