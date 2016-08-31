@@ -25,7 +25,7 @@ export default React.createClass({
 
   getStudentData: function(){
     const that = this;
-    $.get('/teachers/progress_reports/students_by_classroom/' + that.props.params.classroomId, (data) => {
+    $.get(`/teachers/progress_reports/students_by_classroom/${that.props.params.activityId}/${that.props.params.classroomId}`, (data) => {
       that.setState({students: data.students, loading: false})
     })
   },
