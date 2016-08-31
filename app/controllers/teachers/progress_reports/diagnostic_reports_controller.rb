@@ -25,7 +25,28 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: results_for_classroom(params[:classroom_id], params[:activity_id])
   end
 
+
+  def classrooms_with_students
+    render json: classrooms_with_students_that_completed_activity params[:unit_id] params[:classroom_activity_id]
+  end
+
   private
+
+  def classrooms_with_students_that_completed_activity unit_id, activity_id
+    h = {}
+    unit = Unit.find(unit_id)
+    class_acts = unit.classroom_activities.where(activity_id: activity_id)
+    class_acts.each do |ca|
+      classroom = ca.classroom.attributes
+      activity_sessions = ca.activity_sessions.where(is_final_score: true)
+      activity_sessions.each do |activity_session|
+        h[classroom['id']] ||= classroom
+        h[classroom['id']][:students] ||= []
+        h[classroom['id']][:students] << activity_session.user
+      end
+    end
+    h
+  end
 
   def results_for_classroom classroom_id, activity_id
     classroom = Classroom.find(classroom_id)
