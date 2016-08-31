@@ -22,7 +22,8 @@ const ConceptsFeedback = React.createClass({
     const data = this.props.concepts.data;
     if (data && data["0"]) {
       return data["0"].map((concept) => {
-        return (<li key={concept.uid}><Link to={'/admin/concepts-feedback/' + concept.uid} activeClassName="is-active">{concept.displayName}</Link></li>)
+        const hasFeedback = !!this.props.conceptsFeedback.data[concept.uid];
+        return (<li key={concept.uid}><Link to={'/admin/concepts-feedback/' + concept.uid} className={hasFeedback ? "" : "no-feedback"} activeClassName="is-active">{concept.displayName}</Link></li>)
       })
     }
   },
@@ -58,8 +59,6 @@ const ConceptsFeedback = React.createClass({
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New concept</button></h1>
-          { this.renderModal() }
           <div className="columns">
             <div className="column">
               <aside className="menu">
