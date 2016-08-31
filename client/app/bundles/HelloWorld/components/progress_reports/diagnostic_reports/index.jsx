@@ -33,22 +33,11 @@ export default React.createClass({
 		ajax.classrooms = $.get('/teachers/classrooms/classrooms_i_teach_with_students', function(data) {
 			that.setState({
 				classrooms: data.classrooms,
-				students: that.setStudents(data.classrooms[0]),
 				loading: false
 			});
 		});
 	},
 
-	setStudents: function(classroomArg) {
-		let classroom = classroomArg || this.findClassroomById(this.props.params.classroomId) || this.state.classrooms[0];
-		return classroom.students
-	},
-
-	selectedClassroom: function() {
-		return this.props.params.classroomId
-			? this.findClassroomById(this.props.params.classroomId)
-			: null
-	},
 
 	changeStudent: function(student) {
 		this.setState({selectedStudentId: student})
