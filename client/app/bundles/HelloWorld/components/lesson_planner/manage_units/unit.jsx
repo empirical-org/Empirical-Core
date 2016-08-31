@@ -48,24 +48,36 @@
 		this.props.editUnit(this.props.data.unit.id)
 	},
 
+  delete: function(){
+    if (this.props.type != 'report') {
+      return <div className="col-md-3 vcenter pull-right delete-unit"><span onClick={this.hideUnit}>Delete</span></div>
+    }
+  },
+
+  dueDate: function(){
+    if (this.props.type != 'report') {
+      return <div className='col-md-3 due-date-header'>Due Date</div>
+    }
+  },
+
 	render: function () {
 		var classroomActivities = _.map(this.props.data.classroom_activities, function (ca) {
 			return (<ClassroomActivity
 							key={ca.id}
+              type={'report'}
 							updateDueDate={this.props.updateDueDate}
 							deleteClassroomActivity={this.props.deleteClassroomActivity}
 							data={ca} />);
 		}, this);
-
 		return (
 			<section >
 				<div className="row vertical-align">
 					<h3 className="col-md-9 vcenter">{this.props.data.unit.name}</h3>
-					<div className="col-md-3 vcenter pull-right delete-unit"><span onClick={this.hideUnit}>Delete</span></div>
+					{this.delete()}
 				</div>
 				<div className="unit-label row">
 					<div className='col-md-9'> {this.assignedToText()}</div>
-          <div className='col-md-3 due-date-header'>Due Date</div>
+          {this.dueDate()}
 				</div>
 				<div className="table assigned-activities">
 					{classroomActivities}
