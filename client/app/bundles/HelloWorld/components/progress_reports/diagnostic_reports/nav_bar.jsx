@@ -12,13 +12,14 @@ export default React.createClass({
     students: React.PropTypes.array,
     studentDropdownCallBack: React.PropTypes.func,
     dropdownCallback: React.PropTypes.func,
-    buttonGroupCallback: React.PropTypes.func
+    buttonGroupCallback: React.PropTypes.func,
+    selectedClassroom: React.PropTypes.obj
   },
 
 
   students: function(){
-      if (this.props.selectedClassroom && this.props.selectedClassroom.students) {
-       return this.props.selectedClassroom.students
+      if (this.props.selectedClassroom) {
+       return this.props.selectedClassroom.students || null
      } else if (this.props.classrooms) {
        return this.props.classrooms[0].students
      }
