@@ -96,8 +96,7 @@ export default React.createClass({
                            onFetchSuccess={this.onFetchSuccess}
                            filterTypes={[]}
                            premiumStatus={this.props.premiumStatus}
-                           >
-        </ProgressReport>
+                           />
       </div>
     );
   }

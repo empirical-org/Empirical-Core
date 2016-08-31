@@ -86,8 +86,8 @@ export default React.createClass({
 									studentDropdownCallback={this.changeStudent}
 									dropdownCallback={this.changeClassroom}
 									buttonGroupCallback={this.changeReport}
-									students={this.state.students}>
-					</NavBar>
+									students={this.state.students}
+									/>
 					{this.props.children}
 				</div>
 			);
