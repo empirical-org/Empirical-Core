@@ -18,14 +18,14 @@ export default React.createClass({
   },
 
   columnDefinitions: function() {
-    let params = this.props.params
+    let p = this.props.params
     return [
       {
         name: 'Name',
         field: 'name',
         sortByField: 'name',
         customCell: function(row) {
-          return (<a href={`/teachers/progress_reports/diagnostic_reports#${params.classroomId}/student_report/${row.id}`}>{row['name']}</a>)
+          return (<a href={`/teachers/progress_reports/diagnostic_reports#u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${row.id}`}>{row['name']}</a>)
         }
       },
       {
@@ -89,7 +89,7 @@ export default React.createClass({
                           columnDefinitions={this.columnDefinitions}
                           hideFaqLink={Boolean(true)}
                            pagination={false}
-                           sourceUrl={`/teachers/progress_reports/students_by_classroom/${this.props.params.activityId}/${this.props.params.classroomId}`}
+                           sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${this.props.params.unitId}/a/${this.props.params.activityId}/c/${this.props.params.classroomId}`}
                            sortDefinitions={this.sortDefinitions}
                            jsonResultsKey={'students'}
                            colorByScoreKeys={['session','score']}

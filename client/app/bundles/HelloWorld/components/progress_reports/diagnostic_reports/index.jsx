@@ -42,7 +42,7 @@ export default React.createClass({
 	changeStudent: function(student) {
 		this.setState({selectedStudentId: student})
 		const p = this.props.params;
-		this.props.history.push(`${p.activityId}/${p.classroomId}/student_report/${student}`)
+		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
 	},
 
 	findClassroomById: function(id) {
@@ -58,13 +58,14 @@ export default React.createClass({
 				selectedClassroom: classroom,
 				selectedStudentId: null
 			})
-			this.props.history.push(`${this.props.params.activityId}/${classroom.id}/report`)
+			const p = this.props.params;
+			this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/report`)
 		}
 	},
 
 	changeReport: function(reportName) {
 		const p = this.props.params;
-		this.props.history.push(`${p.activityId}/${p.classroomId || 'classroom'}/${reportName}`)
+		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
 	},
 
 	render: function() {

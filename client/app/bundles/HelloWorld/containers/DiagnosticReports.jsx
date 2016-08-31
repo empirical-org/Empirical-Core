@@ -14,10 +14,10 @@ export default React.createClass({
 		return (
 			<Router history={hashhistory}>
 				<Route path="/" component={Index}>
-					<Route path=':activityId/:classroomId/student_report' component={StudentReport}/>
-					<Route path=':activityId/:classroomId/student_report/:studentId' component={StudentReport}/>
-					<Route path=':activityId/:classroomId/students' component={ClassReport}/>
-					<Route path=':activityId/:classroomId/questions' component={QuestionReport}/>
+					<Route path='u/:unitId/a/:activityId/c/:classroomId/student_report' component={StudentReport}/>
+					<Route path='u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' component={StudentReport}/>
+					<Route path='u/:unitId/a/:activityId/c/:classroomId/students' component={ClassReport}/>
+					<Route path='u/:unitId/a/:activityId/c/:classroomId/questions' component={QuestionReport}/>
 					<Route path='activity_packs' component={ActivityPacks}/>
 				</Route>
 			</Router>
