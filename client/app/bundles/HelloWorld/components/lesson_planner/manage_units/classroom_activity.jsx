@@ -68,7 +68,8 @@
 				<div className='cell col-md-2'>
           {finalCell}
 				</div>
-				<div className='cell col-md-1'>
+				<div className="cell col-md-1">
+          <div className="pull-right icon-x-gray" onClick={this.deleteClassroomActivity}></div>
 				</div>
 			</div>
 
