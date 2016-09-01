@@ -84,7 +84,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
 
-  def students
+  def students_list
     @classroom = Classroom.find params[:id]
     render json: {students: @classroom.students.sort{|a,b| b.created_at <=> a.created_at}}
   end
