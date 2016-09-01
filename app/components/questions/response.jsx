@@ -234,6 +234,13 @@ export default React.createClass({
         const concept = _.find(this.props.concepts.data["0"], {uid: cr.conceptUID})
         return <li>{concept.displayName} {cr.correct ? "✔️" : "❌"}</li>
       })
+    } else {
+      const concept = _.find(this.props.concepts.data["0"], {uid: this.props.conceptID})
+      return (
+        <li>{concept.displayName} {this.props.response.optimal ? "✔️" : "❌"}
+            <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
+        </li>
+      )
     }
   },
 

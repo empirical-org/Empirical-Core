@@ -190,7 +190,8 @@ const Responses = React.createClass({
       toPathways={this.mapCountToToResponse}
       conceptsFeedback={this.props.conceptsFeedback}
       mode={this.props.mode}
-      concepts={this.props.concepts} />
+      concepts={this.props.concepts}
+      conceptID={this.props.question.conceptID}/>
   },
 
   toggleResponseSort: function (field) {
