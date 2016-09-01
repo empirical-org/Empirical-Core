@@ -51,7 +51,6 @@
     "eslint-plugin-react": "^5.2.2",
     "node-sass": "^3.8.0",
     "react": "^15.1.0",
-    "react-bootstrap": "^0.29.5",
     "react-dom": "^15.1.0",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",

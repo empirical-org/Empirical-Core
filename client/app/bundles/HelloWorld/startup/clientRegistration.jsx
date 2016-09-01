@@ -14,6 +14,7 @@ import ResultsPageApp from './ResultsPageAppClient'
 import AdminDashboardApp from './AdminDashboardAppClient'
 import JoinClassApp from './JoinClassAppClient'
 import PublicActivityPacksApp from './PublicActivityPacksAppClient.jsx'
+import AddStudentApp from './AddStudentAppClient.jsx'
 import DiagnosticReportsApp from './DiagnosticReportsAppClient.jsx'
 import DiagnosticPlannerApp from './DiagnosticPlannerAppClient.jsx'
 import CreateClassApp from './CreateClassAppClient.jsx'
@@ -24,6 +25,6 @@ import CreateClassApp from './CreateClassAppClient.jsx'
 ReactOnRails.register({ TeacherGuideApp, HelloWorldApp, DashboardApp,
   LessonPlannerApp, TeacherAccountApp, NewAccountApp, ScorebookApp,
   PremiumPricingGuideApp, ProgressReportApp, StudentProfileApp,
-  ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp,
-  DiagnosticPlannerApp, DiagnosticReportsApp, JoinClassApp,
-  PublicActivityPacksApp, CreateClassApp});
+  ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, JoinClassApp,
+  PublicActivityPacksApp, AddStudentApp, DiagnosticPlannerApp, DiagnosticReportsApp,
+  CreateClassApp});
