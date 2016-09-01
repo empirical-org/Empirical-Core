@@ -23,7 +23,7 @@ export default  React.createClass({
         className: 'student-view-column',
         customCell: function(row) {
           return (
-            <a className="student-view" href={row['students_href']}>Student View</a>
+            <a className="student-view" href={row['students_href']}>Sort by Student</a>
           );
         }
       },
@@ -34,7 +34,7 @@ export default  React.createClass({
         className: 'standard-view-column',
         customCell: function(row) {
           return (
-            <a className="standard-view" href={row['topics_href']}>Standard View</a>
+            <a className="standard-view" href={row['topics_href']}>Sort by Standard</a>
           );
         }
       },
@@ -98,7 +98,7 @@ export default  React.createClass({
                          filterTypes={[]}
                          premiumStatus={this.props.premiumStatus}>
         <h2>Standards: All Classrooms</h2>
-        <p className="description">Select Student View to see how each student is performing. Select Standard View to see how the entire class is performing on each each standard.</p>
+        <p className="description">Select Sort by Student to see how each student is performing. Select Sort by Standard to see how the entire class is performing on each each standard.</p>
       </ProgressReport>
     );
   }
