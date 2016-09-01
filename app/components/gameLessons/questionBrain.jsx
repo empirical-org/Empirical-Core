@@ -197,6 +197,7 @@ const playLessonQuestion = React.createClass({
   },
 
   nextQuestion: function () {
+    this.setState({response: ""})
     this.props.nextQuestion()
   },
 
