@@ -240,14 +240,15 @@ export default React.createClass({
         const concept = _.find(this.props.concepts.data["0"], {uid: cr.conceptUID})
         let deleteIcon
         if(mode==="Editing") {
-          deleteIcon = <span className="concept-result-trash-button" onClick={this.deleteConceptResult.bind(null, cr.key)}>{"\t\t🚮"}</span>
+          deleteIcon = <button onClick={this.deleteConceptResult.bind(null, cr.key)}>{"Delete"}</button>
         } else {
-          deleteIcon = <span />
+          deleteIcon = <span/>
         }
-        
+
         return (
           <li>
             {concept.displayName} {cr.correct ? "✔️" : "❌"}
+            {"\t"}
             {deleteIcon}
           </li>
         )
@@ -362,7 +363,6 @@ export default React.createClass({
 
             <ConceptSelector options={this.conceptsToOptions()} placeholder="Choose a concept to add"
                              onChange={this.selectConceptForResult} fuse={fuse}/>
-
             <p className="control">
               <label className="checkbox">
                 <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
