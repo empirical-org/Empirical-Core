@@ -97,9 +97,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :csv_exports, only: [:create]
 
       get 'diagnostic_reports' => 'diagnostic_reports#show'
-      get 'question_view' => 'diagnostic_reports#question_view'
+      get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
-      get 'students_by_classroom_activity/:classroom_activity_id' => 'diagnostic_reports#classrooms_with_students'
+      get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
 
       namespace :concepts do
         resources :students, only: [:index] do
