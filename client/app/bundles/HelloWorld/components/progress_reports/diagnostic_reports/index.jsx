@@ -30,9 +30,10 @@ export default React.createClass({
 		this.ajax = {};
 		let ajax = this.ajax;
 		let that = this;
-		ajax.classrooms = $.get('/teachers/classrooms/classrooms_i_teach_with_students', function(data) {
+		const p = this.props.params;
+		ajax.classrooms = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
 			that.setState({
-				classrooms: data.classrooms,
+				classrooms: data,
 				loading: false
 			});
 		});

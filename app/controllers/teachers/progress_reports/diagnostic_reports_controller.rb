@@ -27,7 +27,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
 
   def classrooms_with_students
-    render json: classrooms_with_students_that_completed_activity(params[:unit_id], params[:classroom_activity_id])
+    classrooms = classrooms_with_students_that_completed_activity(params[:unit_id], params[:activity_id])
+    render json: classrooms.to_json
   end
 
   private
@@ -40,12 +41,16 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       classroom = ca.classroom.attributes
       activity_sessions = ca.activity_sessions.where(is_final_score: true)
       activity_sessions.each do |activity_session|
-        h[classroom['id']] ||= classroom
-        h[classroom['id']][:students] ||= []
-        h[classroom['id']][:students] << activity_session.user
+        class_id = classroom['id']
+        h[class_id] ||= classroom
+        h[class_id][:students] ||= []
+        h[class_id][:students] << activity_session.user
+        h[class_id][:classroom_activity] = ca.id
       end
     end
-    h
+    # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
+    # being converted to an array because that is what the diagnostic reports expect
+    h.map{|k,v| v}
   end
 
   def results_for_classroom classroom_id, activity_id
