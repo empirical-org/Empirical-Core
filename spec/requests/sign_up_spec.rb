@@ -68,7 +68,6 @@ describe 'Sign up', type: :request do
     context "when the teacher enters the student's name correctly" do
       before do
         post teachers_classroom_students_path(classroom), user: {first_name: student_first_name, last_name: student_last_name}
-        follow_redirect!
       end
 
       it 'generates password' do
