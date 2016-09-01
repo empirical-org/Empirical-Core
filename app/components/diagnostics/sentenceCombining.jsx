@@ -177,8 +177,8 @@ const PlayDiagnosticQuestion = React.createClass({
       return (
         <div className="section container">
           {this.renderSentenceFragments()}
-          <h5 className="title is-5">{instructions}</h5>
           {this.renderCues()}
+          <h5 className="title is-5">{instructions}</h5>
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200}>
             <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
                         handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
