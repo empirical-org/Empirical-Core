@@ -228,11 +228,29 @@ export default React.createClass({
     this.props.dispatch(this.state.actions.submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult))
   },
 
-  renderConceptResults: function () {
+  deleteConceptResult: function(crid) {
+    if(confirm("Are you sure?")) {
+      this.props.dispatch(this.state.actions.deleteConceptResult(this.props.questionID, this.props.response.key, crid))
+    }
+  },
+
+  renderConceptResults: function (mode) {
     if (this.props.response.conceptResults) {
       return hashToCollection(this.props.response.conceptResults).map((cr) => {
         const concept = _.find(this.props.concepts.data["0"], {uid: cr.conceptUID})
-        return <li>{concept.displayName} {cr.correct ? "✔️" : "❌"}</li>
+        let deleteIcon
+        if(mode==="Editing") {
+          deleteIcon = <span className="concept-result-trash-button" onClick={this.deleteConceptResult.bind(null, cr.key)}>{"\t\t🚮"}</span>
+        } else {
+          deleteIcon = <span />
+        }
+        
+        return (
+          <li>
+            {concept.displayName} {cr.correct ? "✔️" : "❌"}
+            {deleteIcon}
+          </li>
+        )
       })
     } else {
       const concept = _.find(this.props.concepts.data["0"], {uid: this.props.conceptID})
@@ -338,7 +356,7 @@ export default React.createClass({
           <div className="box">
             <label className="label">Concept Results</label>
             <ul>
-              {this.renderConceptResults()}
+              {this.renderConceptResults("Editing")}
               {/*<li>Commas in lists (placeholder)</li>*/}
             </ul>
 
@@ -372,7 +390,7 @@ export default React.createClass({
           <br/>
           <label className="label">Concept Results</label>
           <ul>
-            {this.renderConceptResults()}
+            {this.renderConceptResults("Viewing")}
           </ul>
           {authorDetails}
           {childDetails}

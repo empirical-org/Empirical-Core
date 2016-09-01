@@ -109,6 +109,15 @@ module.exports = {
 			});
 		};
 	},
+	deleteConceptResult: function(qid, rid, crid) {
+		return function(dispatch, getState) {
+			questionsRef.child(qid + '/responses/' + rid + '/conceptResults/' + crid).remove(function(error) {
+				if(error) {
+					alert("Delete failed! " + error)
+				}
+			})
+		}
+	},
   startResponseEdit: function(qid,rid){
 		return {type:C.START_RESPONSE_EDIT,qid,rid};
 	},
