@@ -59,12 +59,21 @@ export default React.createClass({
     })
   },
 
+  renderSelector: function() {
+    const fuse = {
+      keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
+      threshold: 0.4
+    }
+    const existingConcept = _.find(this.props.concepts.data["0"], {uid: this.state.concept})
+    const placeholder = existingConcept===undefined ? "" : existingConcept.displayName
+    return (
+      <ConceptSelector options={this.conceptsToOptions()} placeholder={placeholder}
+                       onChange={this.handleSelectorChange} fuse={fuse}/>
+    )
+  },
+
   render: function () {
     if(this.props.concepts.hasreceiveddata) {
-      const fuse = {
-        keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
-        threshold: 0.4
-      }
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
@@ -89,8 +98,7 @@ export default React.createClass({
           </p>
           <label className="label">Concept</label>
           <div>
-            <ConceptSelector options={this.conceptsToOptions()} placeholder={_.find(this.props.concepts.data["0"], {uid: this.state.concept}).displayName}
-                             onChange={this.handleSelectorChange} fuse={fuse}/>
+            {this.renderSelector()}
           </div>
           <br/>
           <button className="button is-primary" onClick={this.submit}>Update Question</button>
