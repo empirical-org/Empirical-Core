@@ -171,7 +171,7 @@ const playLessonQuestion = React.createClass({
   },
 
   handleChange: function (e) {
-    this.setState({editing: true, response: e.target.value})
+    this.setState({editing: true, response: e})
   },
 
   readyForNext: function () {
@@ -179,7 +179,6 @@ const playLessonQuestion = React.createClass({
       var latestAttempt = getLatestAttempt(this.props.question.attempts)
       if (latestAttempt.found) {
         var errors = _.keys(this.getErrorsForAttempt(latestAttempt))
-        //console.log("Is it readyForNext?")
         if (latestAttempt.response.optimal && errors.length === 0) {
           return true
         }
@@ -197,6 +196,7 @@ const playLessonQuestion = React.createClass({
   },
 
   nextQuestion: function () {
+    this.setState({response: ""})
     this.props.nextQuestion()
   },
 
@@ -251,7 +251,7 @@ const playLessonQuestion = React.createClass({
           return (
             <AnswerForm value={this.state.response} question={this.props.question} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                   feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                  handleChange={this.handleChange} textAreaClass="textarea"
+                  handleChange={this.handleChange} textAreaClass="textarea" key={this.props.question.key}
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}/>
           )
         }
@@ -259,7 +259,7 @@ const playLessonQuestion = React.createClass({
         return (
           <AnswerForm value={this.state.response} question={this.props.question} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                 feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                handleChange={this.handleChange} textAreaClass="textarea"
+                handleChange={this.handleChange} textAreaClass="textarea" key={this.props.question.key}
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}/>
         )
       }
