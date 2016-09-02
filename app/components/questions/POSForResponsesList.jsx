@@ -58,7 +58,10 @@ export default React.createClass({
       tag.tags.forEach((index) => {
         tagsToRender.push(posTagKeys[index])
       })
-      const headerStyle = {"borderColor": "black"}
+      const headerStyle = {
+        "padding": "10px 20px",
+        "border-bottom": "1px solid #e6e6e6"
+      }
       const contentStyle = {"marginBottom": "0px"}
       return (
         <header className={"card-content " + bgColor} style={headerStyle}>
@@ -83,8 +86,9 @@ export default React.createClass({
 
   render: function () {
     // console.log(this.renderPOSTagsList())
+    const style = {"border": "0.2px solid #e6e6e6"}
     return (
-      <div>
+      <div style={style}>
         {this.renderPOSTagsList()}
       </div>
     )
