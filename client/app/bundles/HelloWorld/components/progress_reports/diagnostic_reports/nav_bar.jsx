@@ -27,7 +27,6 @@ export default React.createClass({
 
   render: function() {
     return (
-<<<<<<< HEAD
       <div className='diagnostic-nav-container'>
         <div id='reports-navbar'>
           <h1>Activity Name</h1>
@@ -40,21 +39,8 @@ export default React.createClass({
                               students = {this.students()}
                               callback ={this.props.studentDropdownCallback}/>
           </div>
-=======
-      <div id='reports-navbar'>
-        <h1>Activity Name</h1>
-        <p>Activity Info</p>
-        <div className='nav-elements'>
-          <ClassroomDropdown classrooms={this.props.classrooms || [{name: 'Please Add a Classroom', id: null}]}
-                             callback={this.props.dropdownCallback}/>
-          <NavButtonGroup clickCallback={this.props.buttonGroupCallback}/>
-          <StudentDropdown
-                            students = {this.students()}
-                            callback ={this.props.studentDropdownCallback}/>
->>>>>>> 9c6f38d3db7650578cb4af12b883f7625e276f70
         </div>
       </div>
-
     );
    }
  });
