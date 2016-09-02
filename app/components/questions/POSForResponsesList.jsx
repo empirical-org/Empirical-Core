@@ -38,7 +38,7 @@ export default React.createClass({
   renderPOSTagsList: function() {
     var posTagsList = this.sortResponses(this.getPOSTagsList())
 
-    return _.map(posTagsList, (tag) => {
+    return _.map(posTagsList, (tag, index) => {
       var bgColor;
       var icon;
       if (!tag.responses[0].feedback) {
@@ -52,17 +52,20 @@ export default React.createClass({
       if (tag.responses[0].weak) {
         icon = "⚠️";
       }
+
       var tagsToRender = [];
       const posTagKeys = keysForPOS()
 
       tag.tags.forEach((index) => {
         tagsToRender.push(posTagKeys[index])
       })
-      const headerStyle = {
+
+      var headerStyle = {
         "padding": "10px 20px",
-        "border-bottom": "1px solid #e6e6e6"
+        "borderBottom": "0.2px solid #e6e6e6"
       }
       const contentStyle = {"marginBottom": "0px"}
+
       return (
         <header className={"card-content " + bgColor} style={headerStyle}>
           <div className="content">
@@ -86,7 +89,11 @@ export default React.createClass({
 
   render: function () {
     // console.log(this.renderPOSTagsList())
-    const style = {"border": "0.2px solid #e6e6e6"}
+    const style = {
+      "borderTop": "0.2px solid #e6e6e6",
+      "borderLeft": "0.2px solid #e6e6e6",
+      "borderRight": "0.2px solid #e6e6e6",
+    }
     return (
       <div style={style}>
         {this.renderPOSTagsList()}
