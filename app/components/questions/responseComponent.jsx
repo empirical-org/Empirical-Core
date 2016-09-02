@@ -31,7 +31,9 @@ const Responses = React.createClass({
       actions = questionActions;
     }
     return {
-      actions
+      actions: actions,
+      viewingResponses: true,
+      responsePageNumber: 1
     }
   },
 
@@ -167,31 +169,40 @@ const Responses = React.createClass({
     return _.where(responses, {parentID: responseID})
   },
 
+  getResponsesForCurrentPage: function(responses) {
+    const responsesPerPage = 10;
+    const startIndex = (this.state.responsePageNumber-1)*10;
+    const endIndex = startIndex+10 > responses.length-1 ? responses.length-1 : startIndex+10
+    return responses.slice(startIndex, endIndex)
+  },
+
   renderResponses: function () {
-    const {questionID} = this.props;
-    var responses = this.gatherVisibleResponses();
-    var responsesListItems = _.sortBy(responses, (resp) =>
-        {return resp[this.props.responses.sorting] || 0 }
-      )
-    return <ResponseList
-      responses={responsesListItems}
-      getResponse={this.getResponse}
-      getChildResponses={this.getChildResponses}
-      states={this.props.states}
-      questionID={questionID}
-      dispatch={this.props.dispatch}
-      admin={this.props.admin}
-      expanded={this.props.responses.expanded}
-      expand={this.expand}
-      ascending={this.props.responses.ascending}
-      getMatchingResponse={this.getMatchingResponse}
-      showPathways={true}
-      printPathways={this.mapCountToResponse}
-      toPathways={this.mapCountToToResponse}
-      conceptsFeedback={this.props.conceptsFeedback}
-      mode={this.props.mode}
-      concepts={this.props.concepts}
-      conceptID={this.props.question.conceptID}/>
+    if(this.state.viewingResponses) {
+      const {questionID} = this.props;
+      var responses = this.gatherVisibleResponses();
+      responses = this.getResponsesForCurrentPage(responses);
+      var responsesListItems = _.sortBy(responses, (resp) =>
+          {return resp[this.props.responses.sorting] || 0 }
+        )
+      return <ResponseList
+        responses={responsesListItems}
+        getResponse={this.getResponse}
+        getChildResponses={this.getChildResponses}
+        states={this.props.states}
+        questionID={questionID}
+        dispatch={this.props.dispatch}
+        admin={this.props.admin}
+        expanded={this.props.responses.expanded}
+        expand={this.expand}
+        ascending={this.props.responses.ascending}
+        getMatchingResponse={this.getMatchingResponse}
+        showPathways={true}
+        printPathways={this.mapCountToResponse}
+        toPathways={this.mapCountToToResponse}
+        conceptsFeedback={this.props.conceptsFeedback}
+        mode={this.props.mode}
+        concepts={this.props.concepts} />
+    }
   },
 
   toggleResponseSort: function (field) {
@@ -260,6 +271,30 @@ const Responses = React.createClass({
         </div>
       )
     }
+  },
+
+  renderPOSStrings: function() {
+    if(!this.state.viewingResponses) {
+      return (
+        <div>View POS Strings here</div>
+      )
+    }
+  },
+
+  renderViewPOSButton: function () {
+    return (
+      <div className="column">
+        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: false})}}> View Parts of Speech </button>
+      </div>
+    )
+  },
+
+  renderViewResponsesButton: function () {
+    return (
+      <div className="column">
+        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: true})}}> View Unique Responses </button>
+      </div>
+    )
   },
 
   getToPathwaysForResponse: function (rid) {
@@ -335,6 +370,19 @@ const Responses = React.createClass({
     )
   },
 
+  renderPageNumbers: function() {
+    const responses = this.gatherVisibleResponses()
+    const responsesPerPage = 10;
+    const numPages = Math.ceil(responses.length/responsesPerPage)
+    const pageNumbers = _.range(1, numPages+1)
+
+    return pageNumbers.map((pageNumber) => {
+      return (
+        <a onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber + "\t"}</a>
+      )
+    })
+  },
+
   render: function () {
     return (
       <div>
@@ -355,9 +403,18 @@ const Responses = React.createClass({
             {this.renderExpandCollapseAll()}
           </div>
           {this.renderRematchAllButton()}
+          {this.renderViewResponsesButton()}
+          {this.renderViewPOSButton()}
         </div>
 
+        <div>
+          {"Page number:\t\t"}
+          {this.renderPageNumbers()}
+        </div>
+        <br />
+
         {this.renderResponses()}
+        {this.renderPOSStrings()}
       </div>
     )
   }
