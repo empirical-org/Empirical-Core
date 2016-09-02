@@ -7,19 +7,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   def question_view
     results_by_question
-    render json:  {data: [{question_id: 123,
-                    score: 87,
-                    instructions: 'Fix run on sentence',
-                    prompt: 'Run'},
-                    {question_id: 1323,
-                    score: 70,
-                    instructions: 'Go to the gym',
-                    prompt: 'Run'},
-                    {question_id: 112323,
-                    score: 30,
-                    instructions: "I can't it's too hard",
-                    prompt: 'Run'}]
-                  }
+    render json:  {data: results_by_question}.to_json
   end
 
   def students_by_classroom
@@ -48,17 +36,15 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       curr_quest[:question_number] ||= answer["question_number"]
       curr_quest[:instructions] ||= answer["directions"]
     end
-    puts questions
     # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
     # being converted to an array because that is what the diagnostic reports expect
     questions_arr = questions.map do |k,v|
-      {question_id: v[:question_number],
+      {question_id: k,
        score: ((v[:correct].to_f/v[:total].to_f) * 100).round,
        prompt: v[:prompt],
-       prompt: v[:directions]
+       instructions: v[:instructions]
       }
     end
-    binding.pry
     questions_arr
   end
 
