@@ -1,6 +1,7 @@
 import React from 'react'
 import Response from './response.jsx'
 import _ from 'underscore'
+import keysForPOS from './POSIndex.jsx'
 
 export default React.createClass({
 
@@ -33,15 +34,53 @@ export default React.createClass({
       })
     })
     return _.map(posTagsList, (tag) => {
+      // return (
+      //   <div>
+      //     {tag.tags.join("; ")} {"Hits: " + (tag.count===undefined? 0 : tag.count)}
+      //     <br />
+      //     {"Most common response: "}
+      //     {tag.responses[0].text} {"Hits: " + (tag.responses[0].count===undefined ? 0 : tag.responses[0].count)}
+      //     <br />
+      //     <br />
+      //   </div>
+      // )
+      // onClick={this.props.expand.bind(null, response.key)}
+      var bgColor;
+      var icon;
+      if (!tag.responses[0].feedback) {
+        bgColor = "not-found-response";
+      } else if (!!tag.responses[0].parentID) {
+        // var parentResponse = this.props.getResponse(tag.responses[0].parentID)
+        bgColor = "algorithm-sub-optimal-response";
+      } else {
+        bgColor = (tag.responses[0].optimal ? "human-optimal-response" : "human-sub-optimal-response");
+      }
+      if (tag.responses[0].weak) {
+        icon = "⚠️";
+      }
+      var tagsToRender = [];
+      const posTagKeys = keysForPOS()
+
+      tag.tags.forEach((index) => {
+        tagsToRender.push(posTagKeys[index])
+      })
       return (
-        <div>
-          {tag.tags.join("; ")} {"Hits: " + (tag.count===undefined? 0 : tag.count)}
-          <br />
-          {"Most common response: "}
-          {tag.responses[0].text} {"Hits: " + (tag.responses[0].count===undefined ? 0 : tag.responses[0].count)}
-          <br />
-          <br />
-        </div>
+        <header className={"card-content " + bgColor} >
+          <div className="content">
+            <div className="media">
+              <div className="media-content">
+                <p>{tagsToRender.join("---")}</p>
+                <p>{tag.responses[0].text}</p>
+              </div>
+              <div className="media-right">
+                <figure className="image is-32x32">
+                  <p>{icon} {tag.count===undefined ? 0 : tag.count}</p>
+                  <p>{tag.responses[0].count===undefined ? 0 : tag.responses[0].count}</p>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </header>
       )
     })
   },
