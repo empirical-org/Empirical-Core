@@ -84,11 +84,13 @@ export default React.createClass({
                 <p>{this.props.icon} {this.props.tag.count===undefined ? 0 : this.props.tag.count}</p>
                 <p>{this.props.tag.responses[0].count===undefined ? 0 : this.props.tag.responses[0].count}</p>
                 {this.renderExpandedPOSListCount()}
+
               </figure>
             </div>
           </div>
         </div>
       </header>
-    )
+
+    );
   }
 })
