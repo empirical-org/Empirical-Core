@@ -386,6 +386,7 @@ export default React.createClass({
           <label className="label">Feedback</label>
           <TextEditor text={this.state.feedback || ""} handleTextChange={this.handleFeedbackChange} boilerplate={this.state.selectedBoilerplate}/>
 
+          <br />
           <label className="label">Boilerplate feedback</label>
           <div className="boilerplate-feedback-dropdown-container">
             {this.renderBoilerplateCategoryDropdown()}
