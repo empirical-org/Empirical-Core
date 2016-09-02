@@ -71,6 +71,7 @@ export default React.createClass({
   render: function() {
     const p = this.props.params;
     return (
+      <div className='individual-activity-reports'>
       <div id='individual-activity-classroom-view'>
         <ProgressReport columnDefinitions={this.columnDefinitions}
                            hideFaqLink={Boolean(true)}
@@ -78,10 +79,12 @@ export default React.createClass({
                            sourceUrl={`/teachers/progress_reports/question_view/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`}
                            sortDefinitions={this.sortDefinitions}
                            jsonResultsKey={'data'}
+                           colorByScore={Boolean(true)}
                            colorByScoreKeys={['score']}
                            filterTypes={[]}
                            premiumStatus={this.props.premiumStatus}
                            />
+      </div>
       </div>
     );
   }

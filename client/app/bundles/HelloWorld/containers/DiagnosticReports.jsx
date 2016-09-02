@@ -5,6 +5,7 @@ import createHashHistory from 'history/lib/createHashHistory'
 import StudentReport from '../components/progress_reports/diagnostic_reports/student_report.jsx'
 import ClassReport from '../components/progress_reports/diagnostic_reports/class_report.jsx'
 import QuestionReport from '../components/progress_reports/diagnostic_reports/question_report.jsx'
+import Recommendations from '../components/progress_reports/diagnostic_reports/recommendations.jsx'
 import ActivityPacks from '../components/progress_reports/diagnostic_reports/activity_packs.jsx'
 const hashhistory = createHashHistory({queryKey: false})
 

@@ -100,6 +100,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
+      get 'recommendations_for_classroom/:classroom_id' => 'diagnostic_reports#recommendations_for_classroom'
+      post 'assign_selected_packs/:classroom_id' => 'diagnostic_reports#assign_selected_packs'
 
       namespace :concepts do
         resources :students, only: [:index] do

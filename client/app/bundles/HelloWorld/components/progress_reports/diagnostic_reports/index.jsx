@@ -81,7 +81,8 @@ export default React.createClass({
 		} else {
 			return (
 				<div id='individual-activity-reports'>
-					<NavBar classrooms={this.state.classrooms} studentDropdownCallback={this.changeStudent} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} selectedClassroom={this.state.selectedClassroom} params={this.props.params}/> {this.props.children}
+					<NavBar classrooms={this.state.classrooms} studentDropdownCallback={this.changeStudent} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} selectedClassroom={this.state.selectedClassroom} params={this.props.params}/>
+					{this.props.children}
 				</div>
 			);
 		}
