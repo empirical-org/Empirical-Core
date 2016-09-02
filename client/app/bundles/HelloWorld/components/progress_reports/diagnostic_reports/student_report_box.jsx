@@ -34,31 +34,33 @@ export default React.createClass({
 	render: function() {
 		const data = this.props.questionData;
 		return (
-			<div id="student-report-box">
-				<div id='student-report-table-and-index'>
-						<div className='question-index'>{this.props.boxNumber}</div>
-							<table>
-								<tbody>
-									{this.header()}
-									<tr className='directions'>
-										<td>Directions</td>
-										<td></td>
-										<td><span>{data.directions}</span></td>
-									</tr>
-									<tr>
-										<td>Prompt</td>
-										<td></td>
-										<td>{data.prompt}</td>
-									</tr>
-									<tr className={ScoreColor(data.score)}>
-										<td>Response</td>
-										<td>{data.score + '%'}</td>
-										<td>{data.answer}</td>
-									</tr>
-									{this.concepts()}
-        				</tbody>
-							</table>
-			</div>
+			<div className='individual-activity-reports'>
+				<div id="student-report-box">
+					<div id='student-report-table-and-index'>
+							<div className='question-index'>{this.props.boxNumber}</div>
+								<table>
+									<tbody>
+										{this.header()}
+										<tr className='directions'>
+											<td>Directions</td>
+											<td></td>
+											<td><span>{data.directions}</span></td>
+										</tr>
+										<tr>
+											<td>Prompt</td>
+											<td></td>
+											<td>{data.prompt}</td>
+										</tr>
+										<tr className={ScoreColor(data.score)}>
+											<td>Response</td>
+											<td>{data.score + '%'}</td>
+											<td>{data.answer}</td>
+										</tr>
+										{this.concepts()}
+	        				</tbody>
+								</table>
+				</div>
+				</div>
 			</div>
 		);
 	}
