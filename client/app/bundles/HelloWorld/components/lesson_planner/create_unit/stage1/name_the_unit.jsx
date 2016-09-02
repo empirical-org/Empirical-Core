@@ -14,7 +14,7 @@
 		return (
 			<section className="section-content-wrapper">
 				<div className="col-xs-12 col-md-9 col-sm-9 col-xl-9 no-pl">
-					<h3 className="section-header">Name the New Unit</h3>
+					<h3 className="section-header">Name the Activity Pack</h3>
 				</div>
 
 				<div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 no-pl no-pr">
@@ -23,7 +23,7 @@
 						<p className="title title-not-started">
 
 							<a href="http://support.quill.org/knowledgebase/articles/369614-assigning-lessons">
-								{"What's a Unit?"}
+								{"What's an Activity Pack?"}
 							</a>
 
 							<a href=""><i className="fa fa-long-arrow-right"></i></a>

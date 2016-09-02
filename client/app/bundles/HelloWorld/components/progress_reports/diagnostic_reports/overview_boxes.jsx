@@ -1,6 +1,6 @@
 import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
-import Pluralize from 'Pluralize'
+import Pluralize from 'pluralize'
 
 export default React.createClass({
 

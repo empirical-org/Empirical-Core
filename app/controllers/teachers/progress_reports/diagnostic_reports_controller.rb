@@ -6,23 +6,18 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def question_view
-    render json:  {data: [{question_id: 123,
-                    score: 87,
-                    instructions: 'Fix run on sentence',
-                    prompt: 'Run'},
-                    {question_id: 1323,
-                    score: 70,
-                    instructions: 'Go to the gym',
-                    prompt: 'Run'},
-                    {question_id: 112323,
-                    score: 30,
-                    instructions: "I can't it's too hard",
-                    prompt: 'Run'}]
-                  }
+    results_by_question
+    render json:  {data: results_by_question}.to_json
   end
 
   def students_by_classroom
-    render json: results_for_classroom(params[:classroom_id])
+    render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+  end
+
+
+  def classrooms_with_students
+    classrooms = classrooms_with_students_that_completed_activity(params[:unit_id], params[:activity_id])
+    render json: classrooms.to_json
   end
 
   def recommendations_for_classroom
@@ -40,39 +35,78 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   private
 
-  def results_for_classroom classroom_id
+  def results_by_question
+    classroom_activity = ClassroomActivity.find_by(classroom_id: params[:classroom_id], activity_id: params[:activity_id], unit_id: params[:unit_id])
+    questions = Hash.new{|h,k| h[k]={} }
+    all_answers = classroom_activity.metadata
+    all_answers.each do |answer|
+      curr_quest = questions[answer["questionNumber"]]
+      curr_quest[:correct] ||= 0
+      curr_quest[:total] ||= 0
+      curr_quest[:correct] += answer["correct"]
+      curr_quest[:total] += 1
+      curr_quest[:prompt] ||= answer["prompt"]
+      curr_quest[:question_number] ||= answer["question_number"]
+      curr_quest[:instructions] ||= answer["directions"]
+    end
+    # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
+    # being converted to an array because that is what the diagnostic reports expect
+    questions_arr = questions.map do |k,v|
+      {question_id: k,
+       score: ((v[:correct].to_f/v[:total].to_f) * 100).round,
+       prompt: v[:prompt],
+       instructions: v[:instructions]
+      }
+    end
+    questions_arr
+  end
+
+
+  def classrooms_with_students_that_completed_activity unit_id, activity_id
+    h = {}
+    unit = Unit.find(unit_id)
+    class_act = unit.classroom_activities.find_by(activity_id: activity_id)
+    classroom = class_act.classroom.attributes
+    activity_sessions = class_act.activity_sessions.where(is_final_score: true)
+    activity_sessions.each do |activity_session|
+      class_id = classroom['id']
+      h[class_id] ||= classroom
+      h[class_id][:students] ||= []
+      h[class_id][:students] << activity_session.user
+      h[class_id][:classroom_activity_id] = class_act.id
+    end
+    # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
+    # being converted to an array because that is what the diagnostic reports expect
+    h.map{|k,v| v}
+  end
+
+  def results_for_classroom unit_id, activity_id, classroom_id
+    classroom_activity = ClassroomActivity.find_by(classroom_id: classroom_id, activity_id: activity_id, unit_id: unit_id)
+    activity_sessions = classroom_activity.activity_sessions.where(is_final_score: true).includes(:user, concept_results: :concept)
     classroom = Classroom.find(classroom_id)
-    diagnostic = Activity.find(413)
     scores = {
       id: classroom.id,
       name: classroom.name
     }
-    scores[:students] = classroom.students.map { |student|
-      loaded = student.activity_sessions.includes(concept_results: :concept).find_by(activity_id: diagnostic.id, is_final_score: true)
-      if loaded
-        formatted_concept_results = get_concept_results(loaded)
+    scores[:students] = activity_sessions.map do |activity_session|
+        student = activity_session.user
+        formatted_concept_results = get_concept_results(activity_session)
         session = {
-          id: loaded.id,
-          time: get_time_in_minutes(loaded),
+          id: activity_session.id,
+          time: get_time_in_minutes(activity_session),
           number_of_questions: formatted_concept_results.length,
           concept_results: formatted_concept_results,
           score: get_average_score(formatted_concept_results)
         }
-      else
-        session = {
-          id: nil,
-          time: nil,
-          concept_results: []
-        }
-      end
       {
-        id: student.id,
-        name: student.name,
-        session: session
-      }
-    }
+          id: student.id,
+          name: student.name,
+          session: session
+        }
+    end
     scores
   end
+
 
   def get_time_in_minutes activity_session
     ((activity_session.completed_at - activity_session.started_at) / 60).round()

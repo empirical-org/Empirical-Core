@@ -9,10 +9,7 @@
 		var units = _.map(this.props.data, function (data) {
 			return (<Unit
 							key={data.unit.id}
-							updateDueDate={this.props.updateDueDate}
-							hideUnit={this.props.hideUnit}
-							editUnit={this.props.editUnit}
-							deleteClassroomActivity={this.props.deleteClassroomActivity}
+              type={'report'}
 							data={data} />);
 		}, this);
 
