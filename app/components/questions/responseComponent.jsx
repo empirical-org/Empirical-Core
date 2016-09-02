@@ -283,7 +283,6 @@ const Responses = React.createClass({
 
   renderPOSStrings: function() {
     if(!this.state.viewingResponses) {
-<<<<<<< c2059cec91cce44ec9f19da60851578ae5bb88cf
       const responses = this.gatherVisibleResponses()
 
       const responsesWithPOSTags = responses.map((response) => {
@@ -295,10 +294,6 @@ const Responses = React.createClass({
         <div>
           <POSForResponsesList responses={responsesWithPOSTags} />
         </div>
-=======
-      return (
-        <div>View POS Strings here</div>
->>>>>>> merge conflicts removed
       )
     }
   },
@@ -393,24 +388,22 @@ const Responses = React.createClass({
   },
 
   renderPageNumbers: function() {
-<<<<<<< c2059cec91cce44ec9f19da60851578ae5bb88cf
     if(!this.state.viewingResponses) {
       return
     }
 
-=======
->>>>>>> merge conflicts removed
     const responses = this.gatherVisibleResponses()
     const responsesPerPage = 10;
     const numPages = Math.ceil(responses.length/responsesPerPage)
     const pageNumbers = _.range(1, numPages+1)
 
-<<<<<<< c2059cec91cce44ec9f19da60851578ae5bb88cf
+
     const numbersToRender = pageNumbers.map((pageNumber) => {
       return (
         <a className="response-component-page-number" onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber + "\t"}</a>
       )
     })
+
     const bounds = this.getBoundsForCurrentPage(responses)
     const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (responses.length) + " responses."
 
@@ -422,13 +415,6 @@ const Responses = React.createClass({
         {message}
       </div>
     )
-=======
-    return pageNumbers.map((pageNumber) => {
-      return (
-        <a onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber + "\t"}</a>
-      )
-    })
->>>>>>> merge conflicts removed
   },
 
   render: function () {
@@ -456,10 +442,7 @@ const Responses = React.createClass({
         </div>
 
         <div>
-<<<<<<< c2059cec91cce44ec9f19da60851578ae5bb88cf
-=======
           {"Page number:\t\t"}
->>>>>>> merge conflicts removed
           {this.renderPageNumbers()}
         </div>
         <br />
