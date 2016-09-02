@@ -14,7 +14,10 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		this.getClassroomsWithStudents();
+		// /activity_packs is the only report that doesn't require the classroom, unit, etc...
+		if (this.props.location.pathname != '/activity_packs') {
+			this.getClassroomsWithStudents();
+		}
 	},
 
 	componentWillUnmount: function() {
@@ -70,7 +73,10 @@ export default React.createClass({
 	},
 
 	render: function() {
-		if (this.state.loading) {
+		// we don't want to render anything for the activity packs report
+		if (this.props.location.pathname === '/activity_packs') {
+			return <div/>
+		} else if (this.state.loading) {
 			return <LoadingSpinner/>
 		} else {
 			return (
