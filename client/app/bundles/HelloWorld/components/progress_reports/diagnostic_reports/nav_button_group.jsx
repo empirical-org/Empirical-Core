@@ -17,7 +17,7 @@ export default React.createClass({
 	},
 
 	buttons: function() {
-		const contents = ['Students', 'Concepts', 'Questions'];
+		const contents = ['Students', 'Questions', 'Reccomendations'];
 		return contents.map((buttonName)=>	<button key={buttonName} type="button" onClick={this.buttonBuilder(buttonName)} className="btn btn-secondary">{buttonName}</button>)
 	},
 

@@ -145,6 +145,7 @@ export default React.createClass({
             if (this.props.userType == 'staff') {
                 this.saveSubscription();
             }
+            alert("Your changes have been saved!")
         }
         this.setState({errors: data.errors});
     },
@@ -256,7 +257,7 @@ export default React.createClass({
         return value;
     },
     updatePassword: function() {
-        var password = $(this.refs.password.getDOMNode()).val()
+        var password = $(this.refs.password).val()
         this.setState({password: password});
     },
     updateRole: function(role) {

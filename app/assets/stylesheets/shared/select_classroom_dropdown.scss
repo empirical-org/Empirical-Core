@@ -1,0 +1,22 @@
+#select-classroom-dropdown {
+    padding: 10px 14px;
+    width: 214px;
+    height: 40px;
+    border-radius: 8px;
+    border: solid 1px $lightgray;
+    font-size: 14px;
+    color: #000000;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 400;
+    text-align: left;
+    .caret {
+        float: right;
+        position: relative;
+        top: 7px;
+        border-color: #7e7e7e;
+        border-top: 7px solid;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+    }
+}

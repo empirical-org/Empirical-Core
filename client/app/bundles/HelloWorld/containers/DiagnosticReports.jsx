@@ -5,7 +5,11 @@ import createHashHistory from 'history/lib/createHashHistory'
 import StudentReport from '../components/progress_reports/diagnostic_reports/student_report.jsx'
 import ClassReport from '../components/progress_reports/diagnostic_reports/class_report.jsx'
 import QuestionReport from '../components/progress_reports/diagnostic_reports/question_report.jsx'
+<<<<<<< HEAD
 import Recommendations from '../components/progress_reports/diagnostic_reports/recommendations.jsx'
+=======
+import ActivityPacks from '../components/progress_reports/diagnostic_reports/activity_packs.jsx'
+>>>>>>> 9c6f38d3db7650578cb4af12b883f7625e276f70
 const hashhistory = createHashHistory({queryKey: false})
 
 export default React.createClass({
@@ -14,11 +18,11 @@ export default React.createClass({
 		return (
 			<Router history={hashhistory}>
 				<Route path="/" component={Index}>
-					<Route path=':classroomId/student_report' component={StudentReport}/>
-					<Route path=':classroomId/student_report/:studentId' component={StudentReport}/>
-					<Route path=':classroomId/class_report' component={ClassReport}/>
-					<Route path=':classroomId/question_report' component={QuestionReport}/>
-					<Route path=':classroomId/recommendations' component={Recommendations}/>
+					<Route path='u/:unitId/a/:activityId/c/:classroomId/student_report' component={StudentReport}/>
+					<Route path='u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' component={StudentReport}/>
+					<Route path='u/:unitId/a/:activityId/c/:classroomId/students' component={ClassReport}/>
+					<Route path='u/:unitId/a/:activityId/c/:classroomId/questions' component={QuestionReport}/>
+					<Route path='activity_packs' component={ActivityPacks}/>
 				</Route>
 			</Router>
 		);

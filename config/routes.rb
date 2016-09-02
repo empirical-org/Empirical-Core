@@ -97,8 +97,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :csv_exports, only: [:create]
 
       get 'diagnostic_reports' => 'diagnostic_reports#show'
-      get 'question_view' => 'diagnostic_reports#question_view'
-      get 'students_by_classroom/:classroom_id' => 'diagnostic_reports#students_by_classroom'
+      get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
+      get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
+      get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
       get 'recommendations_for_classroom/:classroom_id' => 'diagnostic_reports#recommendations_for_classroom'
       post 'assign_selected_packs/:classroom_id' => 'diagnostic_reports#assign_selected_packs'
 
@@ -146,6 +147,7 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
         post :hide
+        get  :students_list, controller: 'classroom_manager', action: 'students_list'
       end
       #this can't go in with member because the id is outside of the default scope
 

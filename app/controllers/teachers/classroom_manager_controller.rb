@@ -84,6 +84,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
 
+  def students_list
+    @classroom = Classroom.find params[:id]
+    render json: {students: @classroom.students.sort{|a,b| b.created_at <=> a.created_at}}
+  end
+
 
   def premium
     @subscription_type = current_user.premium_state
@@ -151,19 +156,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_my_account
-
-    # incoming request
-
-    # var data = {
-    #   name: this.state.name,
-    #   username: this.state.username,
-    #   email: this.state.email,
-    #   password: this.state.password,
-    #   password_confirmation: this.state.passwordConfirmation,
-    #   school_id: this.state.selectedSchool.id,
-    #   school_options_do_not_apply: this.state.schoolOptionsDoNotApply
-    # }
-
     response = current_user.update_teacher params
     render json: response
   end

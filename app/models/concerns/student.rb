@@ -106,7 +106,7 @@ module Student
     end
 
     def assign_classroom_activities_for_classroom(classroom)
-      classroom.classroom_activities.each do |ca|
+      classroom.classroom_activities.includes(:activity).each do |ca|
         if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
           assign = true
         elsif ca.assigned_student_ids.include?(self.id)

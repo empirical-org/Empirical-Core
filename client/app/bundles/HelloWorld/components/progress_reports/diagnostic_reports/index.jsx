@@ -30,28 +30,20 @@ export default React.createClass({
 		this.ajax = {};
 		let ajax = this.ajax;
 		let that = this;
-		ajax.classrooms = $.get('/teachers/classrooms/classrooms_i_teach_with_students', function(data) {
+		const p = this.props.params;
+		ajax.classrooms = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
 			that.setState({
-				classrooms: data.classrooms,
-				students: that.setStudents(data.classrooms[0]),
+				classrooms: data,
 				loading: false
 			});
 		});
 	},
 
-	setStudents: function(classroomArg) {
-		let classroom = classroomArg || this.findClassroomById(this.props.params.classroomId) || this.state.classrooms[0];
-		return classroom.students
-	},
-
-	selectedClassroom: function() {
-		return this.props.params.classroomId
-			? this.findClassroomById(this.props.params.classroomId)
-			: null
-	},
 
 	changeStudent: function(student) {
 		this.setState({selectedStudentId: student})
+		const p = this.props.params;
+		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
 	},
 
 	findClassroomById: function(id) {
@@ -63,36 +55,28 @@ export default React.createClass({
 	changeClassroom: function(classroom) {
 		if (classroom != this.state.selectedClassroom) {
 			// we changed classrooms, so we want to invalidate the current selected student
-			this.setState({selectedClassroom: classroom, selectedStudentId: null})
-			this.props.history.push(classroom.id.toString() + '/' + (this.props.params.report || 'report'))
+			this.setState({
+				selectedClassroom: classroom,
+				selectedStudentId: null
+			})
+			const p = this.props.params;
+			this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/report`)
 		}
 	},
 
 	changeReport: function(reportName) {
-		this.props.history.push((this.props.params.classroomId || 'classroom') + '/' + reportName)
+		const p = this.props.params;
+		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
 	},
 
-	childrenWithProps: function(){
-		console.log()
-		return React.Children.map(this.props.children, (child) => React.cloneElement(child, {student: this.state.selectedStudentId, classroom: this.props.params.classroomId}));
-	},
-
-
-	render: function(){
+	render: function() {
 		if (this.state.loading) {
 			return <LoadingSpinner/>
 		} else {
 			return (
-				<div>
-					<NavBar classrooms={this.state.classrooms}
-									selectedStudentId={this.state.selectedStudentId}
-									selectedClassroom={this.state.selectedClassroom}
-									studentDropdownCallback={this.changeStudent}
-									dropdownCallback={this.changeClassroom}
-									buttonGroupCallback={this.changeReport}
-									students={this.state.students}>
-					</NavBar>
-					{this.childrenWithProps()}
+				<div id='individual-activity-reports'>
+					<NavBar classrooms={this.state.classrooms} studentDropdownCallback={this.changeStudent} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} selectedClassroom={this.state.selectedClassroom} params={this.props.params}/>
+					{this.props.children}
 				</div>
 			);
 		}
