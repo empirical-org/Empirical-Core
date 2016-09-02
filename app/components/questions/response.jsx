@@ -238,7 +238,7 @@ export default React.createClass({
   boilerplateCategoriesToOptions: function() {
     return getBoilerplateFeedback().map((category) => {
       return (
-        <option>{category.description}</option>
+        <option className="boilerplate-feedback-dropdown-option">{category.description}</option>
       )
     })
   },
@@ -246,21 +246,20 @@ export default React.createClass({
   boilerplateSpecificFeedbackToOptions: function(selectedCategory) {
     return selectedCategory.children.map((childFeedback) => {
       return (
-        <option>{childFeedback.description}</option>
+        <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
       )
     })
   },
 
   renderBoilerplateCategoryDropdown: function() {
+    const style = {"marginRight": "20px"}
     return (
-        <p className="control boilerplate-feedback-dropdown">
-        <span className="select">
-          <select onChange={this.chooseBoilerplateCategory} ref="boilerplate">
-            <option>Select boilerplate feedback category</option>
-            {this.boilerplateCategoriesToOptions()}
-          </select>
-        </span>
-      </p>
+      <span className="select" style={style}>
+        <select className="boilerplate-feedback-dropdown" onChange={this.chooseBoilerplateCategory} ref="boilerplate">
+          <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
+          {this.boilerplateCategoriesToOptions()}
+        </select>
+      </span>
     )
   },
 
@@ -268,14 +267,12 @@ export default React.createClass({
     const selectedCategory = _.find(getBoilerplateFeedback(), {description: this.state.selectedBoilerplateCategory});
     if(selectedCategory) {
       return (
-        <p className="control boilerplate-feedback-dropdown">
-          <span className="select">
-            <select onChange={this.chooseSpecificBoilerplateFeedback} ref="boilerplate">
-              <option>Select specific boilerplate feedback</option>
-              {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
-            </select>
-          </span>
-        </p>
+        <span className="select">
+          <select className="boilerplate-feedback-dropdown" onChange={this.chooseSpecificBoilerplateFeedback} ref="boilerplate">
+            <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
+            {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
+          </select>
+        </span>
       )
     } else {
       return (<span />)
@@ -363,7 +360,6 @@ export default React.createClass({
             {this.renderBoilerplateCategoryDropdown()}
             {this.renderBoilerplateCategoryOptionsDropdown()}
           </div>
-
 
           <label className="label">Grammar concept</label>
           <p className="control">
