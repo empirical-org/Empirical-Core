@@ -147,13 +147,6 @@ export default React.createClass({
       }
       this.updateRematchedResponse(rid, newErrorResp)
     }
-    // this.updateReponseResource(response)
-    // this.submitResponse(response)
-    // this.setState({editing: false})
-  },
-
-  chooseBoilerplate: function(e) {
-    this.setState({selectedBoilerplate: this.refs.boilerplate.value})
   },
 
   chooseConcept: function(e) {
@@ -185,7 +178,11 @@ export default React.createClass({
   },
 
   handleFeedbackChange: function (e) {
-    this.setState({feedback: e});
+    if(e==="Select specific boilerplate feedback") {
+      this.setState({feedback: ""})
+    } else {
+      this.setState({feedback: e});
+    }
   },
 
   conceptsFeedbackToOptions: function () {
