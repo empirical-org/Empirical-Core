@@ -170,10 +170,16 @@ const Responses = React.createClass({
   },
 
   getResponsesForCurrentPage: function(responses) {
+    const bounds = this.getBoundsForCurrentPage(responses)
+    // go until responses.length because .slice ends at endIndex-1
+    return responses.slice(bounds[0], bounds[1])
+  },
+
+  getBoundsForCurrentPage: function(responses) {
     const responsesPerPage = 10;
-    const startIndex = (this.state.responsePageNumber-1)*10;
-    const endIndex = startIndex+10 > responses.length-1 ? responses.length-1 : startIndex+10
-    return responses.slice(startIndex, endIndex)
+    const startIndex = (this.state.responsePageNumber-1)*responsesPerPage;
+    const endIndex = startIndex+responsesPerPage > responses.length ? responses.length : startIndex+responsesPerPage
+    return [startIndex, endIndex]
   },
 
   renderResponses: function () {
@@ -376,11 +382,22 @@ const Responses = React.createClass({
     const numPages = Math.ceil(responses.length/responsesPerPage)
     const pageNumbers = _.range(1, numPages+1)
 
-    return pageNumbers.map((pageNumber) => {
+    const numbersToRender = pageNumbers.map((pageNumber) => {
       return (
-        <a onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber + "\t"}</a>
+        <a className="response-component-page-number" onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber + "\t"}</a>
       )
     })
+    const bounds = this.getBoundsForCurrentPage(responses)
+    const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (responses.length) + " responses."
+
+    return (
+      <div>
+        {"Responses page number:\t\t"}
+        {numbersToRender}
+        <br/>
+        {message}
+      </div>
+    )
   },
 
   render: function () {
@@ -408,7 +425,6 @@ const Responses = React.createClass({
         </div>
 
         <div>
-          {"Page number:\t\t"}
           {this.renderPageNumbers()}
         </div>
         <br />
