@@ -11,6 +11,8 @@ import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
 import FocusPointForm from './focusPointForm.jsx'
 import FocusPointSummary from './focusPointSummary.jsx'
+import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
+import POSForResponsesList from './POSForResponsesList.jsx'
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
@@ -281,8 +283,17 @@ const Responses = React.createClass({
 
   renderPOSStrings: function() {
     if(!this.state.viewingResponses) {
+      const responses = this.gatherVisibleResponses()
+
+      const responsesWithPOSTags = responses.map((response) => {
+        response.posTags = getPartsOfSpeechTags(response.text.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")) //some text has html tags
+        return response
+      })
+
       return (
-        <div>View POS Strings here</div>
+        <div>
+          <POSForResponsesList responses={responsesWithPOSTags} />
+        </div>
       )
     }
   },
