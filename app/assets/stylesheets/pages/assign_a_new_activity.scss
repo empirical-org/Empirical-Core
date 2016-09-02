@@ -4,7 +4,7 @@
 font-weight: 600;
 margin-top: 30px;
     }
-    #minis {
+    .minis {
       max-width: 1020px;
       display: -webkit-box;
       display: -ms-flexbox;
@@ -15,7 +15,7 @@ margin-top: 30px;
       flex-wrap: wrap;
       padding: 40px 20px 40px 20px;
       margin: auto;
-        .assignment-type-mini {
+       .assignment-type-mini {
             color: #333333;
              font-size: 12px;
             min-width: 300px;
