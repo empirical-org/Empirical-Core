@@ -26,25 +26,19 @@ export default React.createClass({
     return posTagsList
   },
 
-  renderPOSTagsList: function() {
-    var posTagsList = this.getPOSTagsList()
+  sortResponses: function(posTagsList) {
     _.each(posTagsList, (tag) => {
       tag.responses.sort((a,b) => {
         return b.count-a.count
       })
     })
+    return posTagsList
+  },
+
+  renderPOSTagsList: function() {
+    var posTagsList = this.sortResponses(this.getPOSTagsList())
+
     return _.map(posTagsList, (tag) => {
-      // return (
-      //   <div>
-      //     {tag.tags.join("; ")} {"Hits: " + (tag.count===undefined? 0 : tag.count)}
-      //     <br />
-      //     {"Most common response: "}
-      //     {tag.responses[0].text} {"Hits: " + (tag.responses[0].count===undefined ? 0 : tag.responses[0].count)}
-      //     <br />
-      //     <br />
-      //   </div>
-      // )
-      // onClick={this.props.expand.bind(null, response.key)}
       var bgColor;
       var icon;
       if (!tag.responses[0].feedback) {
@@ -64,11 +58,13 @@ export default React.createClass({
       tag.tags.forEach((index) => {
         tagsToRender.push(posTagKeys[index])
       })
+      const headerStyle = {"borderColor": "black"}
+      const contentStyle = {"marginBottom": "0px"}
       return (
-        <header className={"card-content " + bgColor} >
+        <header className={"card-content " + bgColor} style={headerStyle}>
           <div className="content">
             <div className="media">
-              <div className="media-content">
+              <div className="media-content" style={contentStyle}>
                 <p>{tagsToRender.join("---")}</p>
                 <p>{tag.responses[0].text}</p>
               </div>
