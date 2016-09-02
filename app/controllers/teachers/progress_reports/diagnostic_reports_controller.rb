@@ -54,7 +54,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     unit = Unit.find(unit_id)
     class_act = unit.classroom_activities.find_by(activity_id: activity_id)
     classroom = class_act.classroom.attributes
-    activity_sessions = class_act.activity_sessions.where(is_final_score: true)
+    activity_sessions = class_act.activity_sessions
+                        .where(is_final_score: true)
+                        .includes(:user)
     activity_sessions.each do |activity_session|
       class_id = classroom['id']
       h[class_id] ||= classroom
