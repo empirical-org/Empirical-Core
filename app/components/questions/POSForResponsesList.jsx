@@ -60,7 +60,6 @@ export default React.createClass({
       tag.tags.forEach((index) => {
         tagsToRender.push(posTagKeys[index])
       })
-
       var headerStyle = {
         "padding": "10px 20px",
         "borderBottom": "0.2px solid #e6e6e6"
@@ -75,7 +74,6 @@ export default React.createClass({
   },
 
   render: function () {
-    // console.log(this.renderPOSTagsList())
     const style = {
       "borderTop": "0.2px solid #e6e6e6",
       "borderLeft": "0.2px solid #e6e6e6",
