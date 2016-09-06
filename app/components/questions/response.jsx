@@ -232,7 +232,6 @@ export default React.createClass({
       this.props.dispatch(this.state.actions.deleteConceptResult(this.props.questionID, this.props.response.key, crid))
     }
   },
-
   chooseBoilerplateCategory: function(e) {
     this.setState({selectedBoilerplateCategory: e.target.value})
   },
