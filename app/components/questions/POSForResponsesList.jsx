@@ -2,6 +2,7 @@ import React from 'react'
 import Response from './response.jsx'
 import _ from 'underscore'
 import keysForPOS from './POSIndex.jsx'
+import POSForResponse from './POSForResponse.jsx'
 
 export default React.createClass({
 
@@ -67,22 +68,8 @@ export default React.createClass({
       const contentStyle = {"marginBottom": "0px"}
 
       return (
-        <header className={"card-content " + bgColor} style={headerStyle}>
-          <div className="content">
-            <div className="media">
-              <div className="media-content" style={contentStyle}>
-                <p>{tagsToRender.join("---")}</p>
-                <p>{tag.responses[0].text}</p>
-              </div>
-              <div className="media-right">
-                <figure className="image is-32x32">
-                  <p>{icon} {tag.count===undefined ? 0 : tag.count}</p>
-                  <p>{tag.responses[0].count===undefined ? 0 : tag.responses[0].count}</p>
-                </figure>
-              </div>
-            </div>
-          </div>
-        </header>
+        <POSForResponse bgColor={bgColor} headerStyle={headerStyle} contentStyle={contentStyle} tagsToRender={tagsToRender}
+                        tag={tag} icon={icon} />
       )
     })
   },
