@@ -151,10 +151,10 @@ render((
 
 setTimeout(function(){
 	store.dispatch( conceptActions.startListeningToConcepts() );
-  store.dispatch( conceptsFeedbackActions.startListeningToConceptsFeedback() );
-  store.dispatch( questionActions.startListeningToQuestions() );
-  store.dispatch( sentenceFragmentActions.startListeningToSentenceFragments() );
-  store.dispatch( pathwayActions.startListeningToPathways() );
-  store.dispatch( lessonActions.startListeningToLessons() );
-  store.dispatch( levelActions.startListeningToItemLevels() );
+  store.dispatch( conceptsFeedbackActions.loadConceptsFeedback() );
+  store.dispatch( questionActions.loadQuestions() );
+  store.dispatch( sentenceFragmentActions.loadSentenceFragments() );
+  store.dispatch( pathwayActions.loadPathways() );
+  store.dispatch( lessonActions.loadLessons() );
+  store.dispatch( levelActions.loadItemLevels() );
 });

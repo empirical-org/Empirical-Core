@@ -14,6 +14,13 @@ module.exports = {
 			});
 		}
 	},
+	loadItemLevels: function(){
+		return function(dispatch,getState){
+			levelsRef.once("value",function(snapshot){
+				dispatch({ type: C.RECEIVE_ITEM_LEVELS_DATA, data: snapshot.val() });
+			});
+		}
+	},
 	startItemLevelEdit: function(lid){
 		return {type:C.START_ITEM_LEVEL_EDIT,lid};
 	},

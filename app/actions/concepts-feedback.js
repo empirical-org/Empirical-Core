@@ -14,6 +14,13 @@ module.exports = {
 			});
 		}
 	},
+	loadConceptsFeedback: function(){
+		return function(dispatch,getState){
+			feedbackRef.once("value",function(snapshot){
+				dispatch({ type: C.RECEIVE_CONCEPTS_FEEDBACK_DATA, data: snapshot.val() });
+			});
+		}
+	},
 	startConceptsFeedbackEdit: function(cid){
 		return {type:C.START_CONCEPTS_FEEDBACK_EDIT,cid};
 	},
