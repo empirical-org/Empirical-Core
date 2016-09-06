@@ -13,6 +13,7 @@ var Markdown = require('react-remarkable');
 import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
 import ConceptSelector from 'react-select-search'
+import getBoilerplateFeedback from './boilerplateFeedback.jsx'
 
 const feedbackStrings = {
   punctuationError: "punctuation error",
@@ -32,6 +33,7 @@ export default React.createClass({
     return {
       feedback: this.props.response.feedback || "",
       selectedBoilerplate: "",
+      selectedBoilerplateCategory: this.props.response.selectedBoilerplateCategory || "",
       selectedConcept: this.props.response.concept || "",
       actions,
       newConceptResult: {
@@ -145,13 +147,6 @@ export default React.createClass({
       }
       this.updateRematchedResponse(rid, newErrorResp)
     }
-    // this.updateReponseResource(response)
-    // this.submitResponse(response)
-    // this.setState({editing: false})
-  },
-
-  chooseBoilerplate: function(e) {
-    this.setState({selectedBoilerplate: this.refs.boilerplate.value})
   },
 
   chooseConcept: function(e) {
@@ -183,7 +178,11 @@ export default React.createClass({
   },
 
   handleFeedbackChange: function (e) {
-    this.setState({feedback: e});
+    if(e==="Select specific boilerplate feedback") {
+      this.setState({feedback: ""})
+    } else {
+      this.setState({feedback: e});
+    }
   },
 
   conceptsFeedbackToOptions: function () {
@@ -231,6 +230,57 @@ export default React.createClass({
   deleteConceptResult: function(crid) {
     if(confirm("Are you sure?")) {
       this.props.dispatch(this.state.actions.deleteConceptResult(this.props.questionID, this.props.response.key, crid))
+    }
+  },
+  chooseBoilerplateCategory: function(e) {
+    this.setState({selectedBoilerplateCategory: e.target.value})
+  },
+
+  chooseSpecificBoilerplateFeedback: function(e) {
+    this.setState({selectedBoilerplate: e.target.value})
+  },
+
+  boilerplateCategoriesToOptions: function() {
+    return getBoilerplateFeedback().map((category) => {
+      return (
+        <option className="boilerplate-feedback-dropdown-option">{category.description}</option>
+      )
+    })
+  },
+
+  boilerplateSpecificFeedbackToOptions: function(selectedCategory) {
+    return selectedCategory.children.map((childFeedback) => {
+      return (
+        <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
+      )
+    })
+  },
+
+  renderBoilerplateCategoryDropdown: function() {
+    const style = {"marginRight": "20px"}
+    return (
+      <span className="select" style={style}>
+        <select className="boilerplate-feedback-dropdown" onChange={this.chooseBoilerplateCategory} ref="boilerplate">
+          <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
+          {this.boilerplateCategoriesToOptions()}
+        </select>
+      </span>
+    )
+  },
+
+  renderBoilerplateCategoryOptionsDropdown: function() {
+    const selectedCategory = _.find(getBoilerplateFeedback(), {description: this.state.selectedBoilerplateCategory});
+    if(selectedCategory) {
+      return (
+        <span className="select">
+          <select className="boilerplate-feedback-dropdown" onChange={this.chooseSpecificBoilerplateFeedback} ref="boilerplate">
+            <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
+            {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
+          </select>
+        </span>
+      )
+    } else {
+      return (<span />)
     }
   },
 
@@ -329,20 +379,12 @@ export default React.createClass({
           <label className="label">Feedback</label>
           <TextEditor text={this.state.feedback || ""} handleTextChange={this.handleFeedbackChange} boilerplate={this.state.selectedBoilerplate}/>
 
+          <br />
           <label className="label">Boilerplate feedback</label>
-          <p className="control">
-            <span className="select">
-              <select onChange={this.chooseBoilerplate} ref="boilerplate">
-                <option>Select boilerplate feedback</option>
-                <option>Is that really what the prompt suggested?</option>
-                <option>The what _?</option>
-                <option>What does _ describe?</option>
-                <option>What's a clearer way of describing _?</option>
-                <option>Great job! That's a strong sentence.</option>
-                <option>How can you make the sentence more concise (shorter, clearer)?</option>
-              </select>
-            </span>
-          </p>
+          <div className="boilerplate-feedback-dropdown-container">
+            {this.renderBoilerplateCategoryDropdown()}
+            {this.renderBoilerplateCategoryOptionsDropdown()}
+          </div>
 
           <label className="label">Grammar concept</label>
           <p className="control">

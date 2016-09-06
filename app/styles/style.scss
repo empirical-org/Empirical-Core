@@ -308,3 +308,19 @@ textarea.submission {
 .menu-list a.no-feedback  {
   color: red;
 }
+
+.boilerplate-feedback-dropdown-container {
+  display: inline-block;
+
+  .boilerplate-feedback-dropdown {
+    max-width: 35em;
+    width: auto;
+
+    .boilerplate-feedback-dropdown-option {
+      width: auto;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
