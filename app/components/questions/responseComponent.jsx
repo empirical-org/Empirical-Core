@@ -388,6 +388,10 @@ const Responses = React.createClass({
   },
 
   renderPageNumbers: function() {
+    if(!this.state.viewingResponses) {
+      return
+    }
+    
     const responses = this.gatherVisibleResponses()
     const responsesPerPage = 10;
     const numPages = Math.ceil(responses.length/responsesPerPage)
