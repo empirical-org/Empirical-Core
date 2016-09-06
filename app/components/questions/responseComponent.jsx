@@ -41,10 +41,6 @@ const Responses = React.createClass({
     }
   },
 
-  componentDidMount: function() {
-    console.log("Component mounting")
-  },
-
   expand: function (responseKey) {
     this.props.dispatch(actions.toggleExpandSingleResponse(responseKey));
   },

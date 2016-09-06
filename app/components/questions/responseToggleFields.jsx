@@ -24,16 +24,17 @@ export default React.createClass({
   },
 
   render: function () {
-    const style = {"padding": "8px"} //overwrite the bulma default 10px
     return (
       <div>
+        <p className="label">Filter responses by correctness of response</p>
         <div className="columns is-multiline">
           {this.renderToggleField(this.props.labels[0])}
           {this.renderToggleField(this.props.labels[1])}
           {this.renderToggleField(this.props.labels[3])}
           {this.renderToggleField(this.props.labels[4])}
         </div>
-        <div className="columns" style={style}>
+        <p className="label">Filter responses by feedback algorithm</p>
+        <div className="columns">
           {this.renderToggleField(this.props.labels[5])}
           {this.renderToggleField(this.props.labels[6])}
           {this.renderToggleField(this.props.labels[7])}
