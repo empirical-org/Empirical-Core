@@ -2,9 +2,11 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers/combined';
 import DevTools from './devTools';
 import { persistState } from 'redux-devtools';
+import {persistStore, autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux'
 import createHashHistory from 'history/lib/createHashHistory'
+import localForage from 'localForage'
 const hashhistory = createHashHistory({ queryKey: false })
 const middleware = routerMiddleware(hashhistory);
 
@@ -13,8 +15,6 @@ const finalCreateStore = compose(
   applyMiddleware(thunk, middleware),
   // Required! Enable Redux DevTools with the monitors you chose
   // DevTools.instrument(),
-  // Optional. Lets you write ?debug_session=<key> in address bar to persist debug sessions
-  persistState(getDebugSessionKey()),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore);
 
@@ -26,8 +26,8 @@ function getDebugSessionKey() {
 }
 
 export default function configureStore(initialState) {
-  const store = finalCreateStore(rootReducer, initialState);
-
+  const store = finalCreateStore(rootReducer, initialState, autoRehydrate());
+  persistStore(store, {storage: localForage})
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (module.hot) {
     module.hot.accept('../reducers/combined', () =>
