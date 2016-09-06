@@ -7,7 +7,7 @@ export default React.createClass({
     if (this.props.getQuestion().cues && this.props.getQuestion().cues.length > 0 && this.props.getQuestion().cues[0] !== "") {
       const cueDivs = this.props.getQuestion().cues.map((cue) => {
         return (
-          <div className="cue">
+          <div key={cue} className="cue">
             {cue}
           </div>
         )
