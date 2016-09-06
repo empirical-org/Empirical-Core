@@ -33,7 +33,7 @@ export default React.createClass({
           {this.renderToggleField(this.props.labels[3])}
           {this.renderToggleField(this.props.labels[4])}
         </div>
-        <p className="label">Filter responses by feedback algorithm</p>
+        <p className="label">Additionally, filter responses by feedback algorithm</p>
         <div className="columns">
           {this.renderToggleField(this.props.labels[5])}
           {this.renderToggleField(this.props.labels[6])}
