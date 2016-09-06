@@ -28,38 +28,19 @@ const ItemLevels = React.createClass({
   },
 
   renderItemLevels: function() {
-    const concepts = this.props.concepts.data["0"], levels = this.props.itemLevels.data
+    const levels = this.props.itemLevels.data
     const levelKeys = _.keys(levels)
-    // const conceptKeys = _.keys(concepts)
-    const conceptKeys = this.props.concepts.data[0].map((concept) => {
-      return concept.uid
-    })
 
-    return conceptKeys.map((id) => {
-      var levelsToRender;
-      if(_.some(levels, ['conceptID', id])) { //if any of the levels are associated with this concept
-        var levelsToRender = _.filter(levelKeys, (levelKey) => {
-          return levels[levelKey].conceptID===id
-        })
 
-        levelsToRender = levelsToRender.map((key) => {
-          return (<li key={key}><Link to={'admin/item-levels/' + key} activeClassName="is-active">{levels[key].name}</Link></li>)
-        })
-
-        return (
-          <div key={id}>
-            <Link to={'admin/concepts/'+id}><div className="menu-label">{_.find(concepts, {uid:id}).name}</div></Link>
-            <ul className="menu-list">{levelsToRender}</ul>
-          </div>
-        )
-      } else {
-        return (<div key={id}/>)
-      }
+    return levelKeys.map((key) => {
+      return (
+        <li key={key}><Link to={'admin/item-levels/' + key} activeClassName="is-active">{levels[key].name}</Link></li>
+      )
     })
   },
 
   render: function() {
-    if(this.props.concepts.hasreceiveddata && this.props.itemLevels.hasreceiveddata) {
+    if(this.props.itemLevels.hasreceiveddata) {
       return (
         <section className="section">
           <div className="container">
