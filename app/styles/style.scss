@@ -308,3 +308,11 @@ textarea.submission {
 .menu-list a.no-feedback  {
   color: red;
 }
+
+.boilerplate-feedback-dropdown-container {
+  display: flex;
+
+  .boilerplate-feedback-dropdown {
+    margin-right: 20px;
+  }
+}
