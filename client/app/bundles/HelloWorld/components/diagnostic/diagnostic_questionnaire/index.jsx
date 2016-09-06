@@ -11,7 +11,7 @@ export default React.createClass({
 
   render: function() {
       return (
-          <div id='diagnostic-planner-status-bar'>
+          <div>
               {this.props.children}
           </div>
       );
