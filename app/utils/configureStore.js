@@ -6,11 +6,12 @@ import {persistStore, autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux'
 import createHashHistory from 'history/lib/createHashHistory'
-import localForage from 'localForage'
+import localForage from 'localforage'
 const hashhistory = createHashHistory({ queryKey: false })
 const middleware = routerMiddleware(hashhistory);
 
 const finalCreateStore = compose(
+  autoRehydrate(),
   // Middleware you want to use in development:
   applyMiddleware(thunk, middleware),
   // Required! Enable Redux DevTools with the monitors you chose
@@ -27,7 +28,7 @@ function getDebugSessionKey() {
 
 export default function configureStore(initialState) {
   console.log("creating store")
-  const store = finalCreateStore(rootReducer, initialState, autoRehydrate());
+  const store = finalCreateStore(rootReducer, initialState);
   console.log("persisting store")
   persistStore(store, {storage: localForage})
   console.log("persisted store")
