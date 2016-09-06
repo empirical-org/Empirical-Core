@@ -25,7 +25,7 @@ export default React.createClass({
         field: 'name',
         sortByField: 'name',
         customCell: function(row) {
-          return (<a href={`/teachers/progress_reports/diagnostic_reports#${params.classroomId}/student_report/${row.id}`}>{row['name']}</a>)
+          return (<a href={`/teachers/progress_reports/diagnostic_reports#/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${row.id}`}>{row['name']}</a>)
         }
       },
       {

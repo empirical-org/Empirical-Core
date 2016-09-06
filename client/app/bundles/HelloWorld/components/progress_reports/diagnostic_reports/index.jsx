@@ -72,6 +72,13 @@ export default React.createClass({
 		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
 	},
 
+	showStudentDropdown: function(){
+		const currPath = this.props.location.pathname;
+		// we only want to show the student dropdown if the route includes student report but
+		// doesn't end with it. This would be better off as a proper regex, but out of time...
+		return currPath.includes('student_report') && !currPath.endsWith('student_report')
+	},
+
 	render: function() {
 		// we don't want to render anything for the activity packs report
 		if (this.props.location.pathname === '/activity_packs') {
@@ -81,7 +88,7 @@ export default React.createClass({
 		} else {
 			return (
 				<div id='individual-activity-reports'>
-					<NavBar classrooms={this.state.classrooms} studentDropdownCallback={this.changeStudent} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} selectedClassroom={this.state.selectedClassroom} params={this.props.params}/>
+					<NavBar classrooms={this.state.classrooms} studentDropdownCallback={this.changeStudent} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} selectedClassroom={this.state.selectedClassroom} showStudentDropdown={this.showStudentDropdown()}/>
 					{this.props.children}
 				</div>
 			);
