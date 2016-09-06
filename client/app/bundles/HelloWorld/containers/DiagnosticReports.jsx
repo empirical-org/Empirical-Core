@@ -19,6 +19,7 @@ export default React.createClass({
 					<Route path='u/:unitId/a/:activityId/c/:classroomId/student_report' component={StudentReport}/>
 					<Route path='u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' component={StudentReport}/>
 					<Route path='u/:unitId/a/:activityId/c/:classroomId/students' component={ClassReport}/>
+					<Route path='u/:unitId/a/:activityId/c/:classroomId/recommendations' component={Recommendations}/>
 					<Route path='u/:unitId/a/:activityId/c/:classroomId/questions' component={QuestionReport}/>
 				</Route>
 			</Router>
