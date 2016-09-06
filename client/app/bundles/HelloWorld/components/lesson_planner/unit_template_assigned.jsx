@@ -7,7 +7,8 @@
  export default  React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    actions: React.PropTypes.object.isRequired
+    actions: React.PropTypes.object,
+    type: React.PropTypes.string
   },
 
   hideSubNavBars: function() {
@@ -23,7 +24,7 @@
   teacherSpecificComponents: function() {
     this.hideSubNavBars();
     var proceedButton;
-    if (this.props.actions.studentsPresent) {
+    if (this.props.type === 'diagnostic' || this.props.actions.studentsPresent) {
       proceedButton = (
         <span>
             <a href = '/teachers/classrooms/lesson_planner'>
@@ -41,25 +42,11 @@
               </button>
             </a>
         </span>);
-    };
+    }
     return (proceedButton);
   },
 
-  // socialButtons: function() {
-  //   return
-  // },
 
-  // <div className='row'>
-  //   <div className='twitter-button col-md-1 col-md-offset-2'>Tweet</div>
-  //   <div className='facebook-button col-md-1'>Tweet</div>
-  //   <div className='pinterest-button col-md-1'>Tweet</div>
-  //   <div className='google-plus-button col-md-1'>Tweet</div>
-  // </div>
-
-
-  // <div className='col-md-7 assign-success-message pull-left'>
-  //   You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!
-  // </div>
 
   render: function () {
     $('html,body').scrollTop(0);

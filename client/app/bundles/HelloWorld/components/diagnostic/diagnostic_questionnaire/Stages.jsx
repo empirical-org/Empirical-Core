@@ -23,7 +23,7 @@ export default React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div id='diagnostic-planner-status-bar'>
         <StatusBar stage={Number(this.props.params.stage)}/>,
         <div className='diagnostic-planner-body'>
           {this.stage()}

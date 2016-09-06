@@ -13,7 +13,7 @@ export default React.createClass({
     studentDropdownCallBack: React.PropTypes.func,
     dropdownCallback: React.PropTypes.func,
     buttonGroupCallback: React.PropTypes.func,
-    selectedClassroom: React.PropTypes.obj
+    selectedClassroom: React.PropTypes.object
   },
 
 
