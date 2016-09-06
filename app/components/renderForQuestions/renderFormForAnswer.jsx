@@ -24,6 +24,13 @@ export default React.createClass({
     }
   },
 
+  renderConceptExplanation: function () {
+    if (this.props.conceptExplanation) {
+      console.log("Rendering concept exp in answer form");
+      return this.props.conceptExplanation()
+    }
+  },
+
   render: function() {
     var content;
     if(this.props.id==="playQuestion") {
@@ -57,6 +64,7 @@ export default React.createClass({
               {content}
               {button}
             </div>
+            {this.renderConceptExplanation()}
           </div>
         </div>
       </section>
