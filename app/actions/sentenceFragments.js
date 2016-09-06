@@ -15,6 +15,13 @@ module.exports = {
 			});
 		}
 	},
+	loadSentenceFragments: function(){
+		return function(dispatch,getState){
+			sentenceFragmentsRef.once("value",function(snapshot){
+				dispatch({ type: C.RECEIVE_SENTENCE_FRAGMENTS_DATA, data: snapshot.val() });
+			});
+		}
+	},
 	startSentenceFragmentEdit: function(sfid){
 		return {type:C.START_SENTENCE_FRAGMENT_EDIT,sfid};
 	},

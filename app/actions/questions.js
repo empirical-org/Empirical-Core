@@ -16,6 +16,13 @@ module.exports = {
 			});
 		}
 	},
+	loadQuestions: function(){
+		return function(dispatch,getState){
+			questionsRef.once("value",function(snapshot){
+				dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val() });
+			});
+		}
+	},
 	startQuestionEdit: function(qid){
 		return {type:C.START_QUESTION_EDIT,qid};
 	},
