@@ -295,21 +295,33 @@ export default React.createClass({
           deleteIcon = <span/>
         }
 
-        return (
-          <li>
-            {concept.displayName} {cr.correct ? "✔️" : "❌"}
-            {"\t"}
-            {deleteIcon}
-          </li>
-        )
+        if(concept) {
+          return (
+            <li>
+              {concept.displayName} {cr.correct ? "✔️" : "❌"}
+              {"\t"}
+              {deleteIcon}
+            </li>
+          )
+        } else {
+          return (
+            <div></div>
+          )
+        }
       })
     } else {
       const concept = _.find(this.props.concepts.data["0"], {uid: this.props.conceptID})
-      return (
-        <li>{concept.displayName} {this.props.response.optimal ? "✔️" : "❌"}
-            <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
-        </li>
-      )
+      if(concept) {
+        return (
+          <li>{concept.displayName} {this.props.response.optimal ? "✔️" : "❌"}
+              <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
+          </li>
+        )
+      } else {
+        return (
+          <div></div>
+        )
+      }
     }
   },
 
