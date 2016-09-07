@@ -11,6 +11,12 @@
     type: React.PropTypes.string
   },
 
+  getDefaultProps: function () {
+    // the only time we won't pass this is if they are assigning the diagnostic,
+    // but actions shouldn't be undefined
+    return {actions: {getInviteStudentsUrl: function(){'placeholder function'}}}
+  },
+
   hideSubNavBars: function() {
     $(".unit-tabs").hide();
     $(".tab-outer-wrap").hide();
@@ -23,10 +29,8 @@
 
   teacherSpecificComponents: function() {
     this.hideSubNavBars();
-    var proceedButton;
     if (this.props.type === 'diagnostic' || this.props.actions.studentsPresent) {
-      proceedButton = (
-        <span>
+      return (<span>
             <a href = '/teachers/classrooms/lesson_planner'>
               <button onClick className="button-green add-students pull-right">
                 View Assigned Activity Packs <i className="fa fa-long-arrow-right"></i>
@@ -34,8 +38,7 @@
             </a>
         </span>);
     } else {
-      proceedButton = (
-        <span>
+      return (<span>
             <a href = {this.props.actions.getInviteStudentsUrl()} >
               <button onClick className="button-green add-students pull-right">
                 Add Students <i className="fa fa-long-arrow-right"></i>
@@ -43,7 +46,6 @@
             </a>
         </span>);
     }
-    return (proceedButton);
   },
 
 
