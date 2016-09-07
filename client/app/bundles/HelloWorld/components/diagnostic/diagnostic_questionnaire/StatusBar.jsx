@@ -46,12 +46,14 @@ export default React.createClass({
     render: function() {
         return (
             <div id='status-bar-wrapper'>
-                <div id='diagnostic-icon-section'> 
+                <div id='diagnostic-icon-section'>
                     <img id='diagnostic-icon' src="images/diagnostic_icon.svg" alt="diagnostic_icon"/>
-                    <span>Entry Diagnostic</span>
+                    <span>Sentence Structure</span><br/><span>Diagnostic</span>
                 </div>
-                <div id='status-bar'>
-                    {this.checkpoints()}
+                <div id="checkpoint-wrapper">
+                  <div id='status-bar'>
+                      {this.checkpoints()}
+                  </div>
                 </div>
             </div>
         );
