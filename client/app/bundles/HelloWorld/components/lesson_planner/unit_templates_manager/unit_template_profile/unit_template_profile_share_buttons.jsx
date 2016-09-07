@@ -49,7 +49,7 @@
 
     var links = _.map(stuff, function (hash) {
       return (
-        <a href={hash.href} title={hash.title} className={"btn btn-default btn-social " + hash.className}  target="_blank">
+        <a href={hash.href} key={hash.title} title={hash.title} className={"btn btn-default btn-social " + hash.className}  target="_blank">
           <i className={"fa " + hash.icon}></i><span className='social-action'>{hash.action}</span>
         </a>
       );
