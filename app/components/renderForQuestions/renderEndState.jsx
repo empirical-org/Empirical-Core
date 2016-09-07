@@ -25,7 +25,6 @@ const EndState = React.createClass({
     }).sort(function(a, b) {
       return b.count-a.count
     })
-
     let responsesToRender = _.first(responses, 3)
     const sum = _.reduce(responsesToRender, function(memo, response) {return memo+response.count}, 0)
     return responsesToRender.map((response, index) => {
