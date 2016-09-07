@@ -90,6 +90,14 @@ export default class Question {
       returnValue.response = punctuationMatch
       return returnValue
     }
+    var punctuationAndCaseMatch = this.checkPunctuationAndCaseInsensitiveMatch(response)
+    if (punctuationAndCaseMatch !== undefined) {
+      returnValue.punctuationAndCaseError = true
+      returnValue.feedback = constants.FEEDBACK_STRINGS.punctuationAndCaseError;
+      returnValue.author = "Punctuation and Case Hint"
+      returnValue.response = punctuationAndCaseMatch
+      return returnValue
+    }
     var typingErrorMatch = this.checkFuzzyMatch(response)
     if (typingErrorMatch !== undefined) {
       returnValue.typingError = true
@@ -139,6 +147,14 @@ export default class Question {
   checkPunctuationInsensitiveMatch(response) {
     return _.find(this.getOptimalResponses(), (resp) => {
       return removePunctuation(resp.text.normalize()) === removePunctuation(response.normalize())
+    });
+  }
+
+  checkPunctuationAndCaseInsensitiveMatch(response) {
+    return _.find(this.getOptimalResponses(), (resp) => {
+      const supplied = removePunctuation(response.normalize()).toLowerCase()
+      const target = removePunctuation(resp.text.normalize()).toLowerCase()
+      return supplied === target
     });
   }
 
