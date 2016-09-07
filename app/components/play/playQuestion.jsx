@@ -178,15 +178,6 @@ const playQuestion = React.createClass({
       const {data} = this.props.questions, {questionID} = this.props.params;
       const question = data[questionID];
       if (question) {
-        var assetURL=""
-        if(!!question.itemLevel) {
-             //Each concept has a unique level
-             assetURL = _.find(this.props.itemLevels.data, (level) => {
-              return !!level.name && level.name===question.itemLevel && level.conceptID===question.conceptID
-            })
-            assetURL = assetURL.url
-        }
-
         if (this.state.finished) {
           return (
             <ThankYou sessionKey={this.state.sessionKey} />
@@ -194,10 +185,10 @@ const playQuestion = React.createClass({
         }
         if (this.props.question.attempts.length > 2 ) {
           return (
-              <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                          feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
-                          handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                          questionID={questionID} id="playQuestion" assetURL={assetURL} textAreaClass="textarea is-question is-disabled"/>
+            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+                        feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
+                        handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
+                        questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
           )
         } else if (this.props.question.attempts.length > 0 ) {
           if (this.readyForNext()) {
@@ -205,7 +196,7 @@ const playQuestion = React.createClass({
               <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                           feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                           handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                          questionID={questionID} id="playQuestion" assetURL={assetURL} textAreaClass="textarea is-question submission"/>
+                          questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
             )
           } else {
             return (
@@ -213,7 +204,7 @@ const playQuestion = React.createClass({
                     feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                     handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                     toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
-                    id="playQuestion" assetURL={assetURL} questionID={questionID}/>
+                    id="playQuestion" questionID={questionID}/>
             )
           }
         } else {
@@ -222,7 +213,7 @@ const playQuestion = React.createClass({
                   feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                   handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
-                  id="playQuestion" assetURL={assetURL} questionID={questionID}/>
+                  id="playQuestion" questionID={questionID}/>
           )
         }
       } else {

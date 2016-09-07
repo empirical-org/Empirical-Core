@@ -39,9 +39,7 @@ export default React.createClass({
   },
 
   itemLevelToOptions: function() {
-    return hashToCollection(this.props.itemLevels.data).filter((itemLevel) => {
-      return itemLevel.conceptID===this.props.question.conceptID //we only want those itemLevels associated with the current concept
-    }).map((level) => {
+    return hashToCollection(this.props.itemLevels.data).map((level) => {
       return (
         <option>{level.name}</option>
       )
