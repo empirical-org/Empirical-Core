@@ -27,7 +27,6 @@ export default React.createClass({
   },
 
   render: function() {
-    console.log("Props in answer form: ", this.props)
     var content;
     if(this.props.id==="playQuestion") {
       content = <Link to={'/results/questions/' + this.props.questionID} className="button is-info is-outlined">View Results</Link>
@@ -38,7 +37,7 @@ export default React.createClass({
       button = <button className={"button is-primary " + this.props.toggleDisabled} onClick={this.props.checkAnswer}>Check answer</button>
     } else { // if you're going to next, it is the end state
       button = this.props.nextQuestionButton
-      let answeredCorrectly = !!(_.find(this.props.question.attempts, (attempt) => { //pass all 4 conditions for a correct answer
+      let answeredCorrectly = !!(_.find(this.props.question.attempts, (attempt) => {
         return attempt.found && attempt.response.optimal && attempt.response.author===undefined && attempt.author===undefined //if it has an author, there was an error
       }))
       feedback = <EndState questionID={this.props.questionID} answeredCorrectly={answeredCorrectly} key={"-"+this.props.questionID}/>
