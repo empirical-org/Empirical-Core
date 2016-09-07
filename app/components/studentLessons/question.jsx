@@ -29,6 +29,7 @@ import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
+  punctuationAndCaseError: "There may be an error. How could you update the punctuation and capitalization?",
   typingError: "Try again. There may be a spelling mistake.",
   caseError: "Try again. There may be a capitalization error.",
   minLengthError: "Try again. Do you have all of the information from the prompt?",
@@ -82,7 +83,7 @@ const playLessonQuestion = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError')
   },
 
   renderFeedbackStatements: function (attempt) {
