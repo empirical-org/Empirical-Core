@@ -514,12 +514,14 @@ export default React.createClass({
       icon = "⚠️";
     }
 
+    const authorStyle = {"marginLeft": "10px"}
+    const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined
     return (
       <header className={"card-content " + bgColor + " " + this.headerClasses()} onClick={this.props.expand.bind(null, response.key)}>
         <div className="content">
           <div className="media">
             <div className="media-content">
-              <p>{response.text}</p>
+              <p>{response.text} {author}</p>
             </div>
             <div className="media-right">
               <figure className="image is-32x32">

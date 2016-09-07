@@ -14,7 +14,9 @@ import FocusPointSummary from './focusPointSummary.jsx'
 import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
 import POSForResponsesList from './POSForResponsesList.jsx'
 
-const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
+const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
+                "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint",
+                "Missing Details Hint", "Not Concise Hint", "No Hint"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
@@ -157,7 +159,13 @@ const Responses = React.createClass({
   gatherVisibleResponses: function () {
     var responses = this.responsesWithStatus();
     return _.filter(responses, (response) => {
-      return this.props.responses.visibleStatuses[labels[response.statusCode]]
+      return (
+        this.props.responses.visibleStatuses[labels[response.statusCode]] &&
+        (
+          this.props.responses.visibleStatuses[response.author] ||
+          (response.author===undefined && this.props.responses.visibleStatuses["No Hint"])
+        )
+      )
     });
   },
 
@@ -233,7 +241,8 @@ const Responses = React.createClass({
       <ResponseToggleFields
         labels={labels}
         toggleField={this.toggleField}
-        visibleStatuses={this.props.responses.visibleStatuses} />
+        visibleStatuses={this.props.responses.visibleStatuses}
+        resetPageNumber={this.resetPageNumber} />
     )
   },
 
@@ -387,6 +396,12 @@ const Responses = React.createClass({
     )
   },
 
+  resetPageNumber: function() {
+    this.setState({
+      responsePageNumber: 1
+    })
+  },
+
   renderPageNumbers: function() {
     if(!this.state.viewingResponses) {
       return
@@ -442,7 +457,6 @@ const Responses = React.createClass({
         </div>
 
         <div>
-          {"Page number:\t\t"}
           {this.renderPageNumbers()}
         </div>
         <br />

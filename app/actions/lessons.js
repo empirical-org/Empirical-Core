@@ -14,6 +14,13 @@ module.exports = {
 			});
 		}
 	},
+	loadLessons: function(){
+		return function(dispatch,getState){
+			lessonsRef.once("value",function(snapshot){
+				dispatch({ type: C.RECEIVE_LESSONS_DATA, data: snapshot.val() });
+			});
+		}
+	},
 	startLessonEdit: function(cid){
 		return {type:C.START_LESSON_EDIT,cid: cid};
 	},

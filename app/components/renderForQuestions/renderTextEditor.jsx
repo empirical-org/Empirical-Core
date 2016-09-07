@@ -16,7 +16,6 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    console.log("gotten errors: ", _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError'))
     return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
   },
 

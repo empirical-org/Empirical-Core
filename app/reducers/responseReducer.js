@@ -10,7 +10,14 @@ const initialState = {
         "Human Sub-Optimal": true,
         "Algorithm Optimal": true,
         "Algorithm Sub-Optimal": true,
-        "Unmatched": true
+        "Unmatched": true,
+        "Focus Point Hint": true,
+        "Word Error Hint": true,
+        "Punctuation Hint": true,
+        "Capitalization Hint": true,
+        "Missing Details Hint": true,
+        "Not Concise Hint": true,
+        "No Hint": true
       },
       expanded: {}  // this will contain response keys set to true or false;
    }

@@ -84,7 +84,7 @@ ul.is-unstyled {
 
 .panel-checkbox.toggle {
   display: inline;
-  padding: 9px 10px 9px 30px;
+  padding: 9px 10px 9px 10px;
 }
 
 .intro-next-button {
@@ -323,6 +323,10 @@ textarea.submission {
       text-overflow: ellipsis;
     }
   }
+}
+
+.end-state-container {
+  margin-bottom: 20px;
 }
 
 // .response-component-page-number {
