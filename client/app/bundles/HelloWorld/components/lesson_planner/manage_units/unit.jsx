@@ -49,13 +49,13 @@
 	},
 
   delete: function(){
-    if (this.props.type != 'report') {
+    if (!this.props.report) {
       return <div className='col-md-3 vcenter pull-right delete-unit'><span onClick={this.hideUnit}>Delete</span></div>
     }
   },
 
   dueDate: function(){
-    if (this.props.type != 'report') {
+    if (!this.props.report) {
       return <div className='col-md-3 due-date-header'>Due Date</div>
     }
   },
@@ -64,7 +64,7 @@
 		var classroomActivities = _.map(this.props.data.classroom_activities, function (ca) {
 			return (<ClassroomActivity
 							key={ca.id}
-              type={'report'}
+              report={this.props.report}
 							updateDueDate={this.props.updateDueDate}
 							deleteClassroomActivity={this.props.deleteClassroomActivity}
 							data={ca} />);
