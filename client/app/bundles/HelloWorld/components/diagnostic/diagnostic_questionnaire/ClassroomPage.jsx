@@ -30,21 +30,22 @@ export default React.createClass({
 		});
 	},
 
-	classroomsSelected: function() {
-		let classrooms = [];
-		this.state.classrooms.forEach((c) => {
+	// TODO: we shoud just maintain an array of selectedClassrooms in state and push/pop
+	classroomsSelected: function(classrooms) {
+		let checkedClassrooms = [];
+		classrooms.forEach((c) => {
 			if (c.checked) {
-				classrooms.push({'id': c.id, 'student_ids': []})
+				checkedClassrooms.push({'id': c.id, 'student_ids': []})
 			}
 		})
-		return classrooms;
+		return checkedClassrooms;
 	},
 
 	assignedClassData: function() {
 		return ({
 			unit: {
 				name: 'Diagnostic',
-				classrooms: this.classroomsSelected(),
+				classrooms: this.classroomsSelected(this.state.classrooms),
 				activities: [
 					{
 						id: 413
@@ -55,16 +56,14 @@ export default React.createClass({
 	},
 
 	submitClasses: function() {
-		this.setState({disabled: true})
+		this.setState({hidden: true})
 		let data = this.assignedClassData();
 		if (data.unit.classrooms.length < 1) {
 			alert('You must select a classroom before assigning the diagnostic.')
 		} else {
-			$.ajax({type: 'POST', url: '/teachers/units', data: JSON.stringify(data), dataType: 'json', contentType: 'application/json'})
-			.done(function() {
+			$.ajax({type: 'POST', url: '/teachers/units', data: JSON.stringify(data), dataType: 'json', contentType: 'application/json'}).done(function() {
 				window.location = '/diagnostic#/success'
-			})
-			.fail(function() {
+			}).fail(function() {
 				alert('There has been an error assigning the lesson. Please make sure you have selected a classroom');
 			})
 		}
@@ -103,16 +102,13 @@ export default React.createClass({
 	handleChange: function(index) {
 		let updatedClassrooms = this.state.classrooms.slice(0);
 		updatedClassrooms[index].checked = !updatedClassrooms[index].checked;
-		this.setState({
-			classrooms: updatedClassrooms,
-			hidden: this.classroomsSelected.length > 0
-		})
+		this.setState({classrooms: updatedClassrooms, hidden: this.classroomsSelected(updatedClassrooms).length < 1 })
 	},
 
 	buildClassRow: function(classy, index) {
 		// The commented out portions are so we can add the reading level once we bring back that feature
 		const currClass = this.state.classrooms[index]
-		let that = this
+		// let that = this
 		// let readingLevel = function() {
 		// 	let input = currClass.selectedGrade || classy.grade || 'Select a Reading Level'
 		// 	return input === 'Select a Reading Level'
