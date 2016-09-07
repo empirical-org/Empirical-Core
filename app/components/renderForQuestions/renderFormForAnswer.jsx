@@ -41,7 +41,7 @@ export default React.createClass({
       let answeredCorrectly = !!(_.find(this.props.question.attempts, (attempt) => { //pass all 4 conditions for a correct answer
         return attempt.found && attempt.response.optimal && attempt.response.author===undefined && attempt.author===undefined //if it has an author, there was an error
       }))
-      feedback = <EndState questionID={this.props.questionID} answeredCorrectly={answeredCorrectly} />
+      feedback = <EndState questionID={this.props.questionID} answeredCorrectly={answeredCorrectly} key={"-"+this.props.questionID}/>
     }
 
     var info;
@@ -56,7 +56,7 @@ export default React.createClass({
           <div className="content">
             {this.props.cues}
             {feedback}
-            <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue}
+            <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue} key={this.props.questionID}
                         handleChange={this.props.handleChange} value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
             <div className="question-button-group button-group">
               {this.getHelpModal()}

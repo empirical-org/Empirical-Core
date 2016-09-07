@@ -29,7 +29,7 @@ const EndState = React.createClass({
     const sum = _.reduce(responsesToRender, function(memo, response) {return memo+response.count}, 0)
     return responsesToRender.map((response, index) => {
       return (
-        <li>{(index+1) + ". " + response.text + "\t(" + (Math.floor(response.count*100/sum)) + "%)"}</li>
+        <li key={index}>{(index+1) + ". " + response.text + "\t(" + (Math.floor(response.count*100/sum)) + "%)"}</li>
       )
     })
   },
