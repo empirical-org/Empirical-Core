@@ -16,13 +16,12 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    console.log("gotten errors: ", _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError'))
     return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
   },
 
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
-      if (nextProps.latestAttempt.found) {
+      if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID
         const nErrors = _.keys(this.getErrorsForAttempt(nextProps.latestAttempt)).length;
         var targetText;
