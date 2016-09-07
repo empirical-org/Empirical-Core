@@ -23,6 +23,7 @@ import handleFocus from '../renderForQuestions/handleFocus.js'
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
 import submitPathway from '../renderForQuestions/submitPathway.js'
+import RenderEndState from '../renderForQuestions/renderEndState.jsx'
 
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
@@ -193,10 +194,10 @@ const playQuestion = React.createClass({
         }
         if (this.props.question.attempts.length > 2 ) {
           return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                        feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                        handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                        questionID={questionID} id="playQuestion" assetURL={assetURL} textAreaClass="textarea is-question is-disabled"/>
+              <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
+                          feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                          handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
+                          questionID={questionID} id="playQuestion" assetURL={assetURL} textAreaClass="textarea is-question is-disabled"/>
           )
         } else if (this.props.question.attempts.length > 0 ) {
           if (this.readyForNext()) {
