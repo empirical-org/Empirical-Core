@@ -80,9 +80,11 @@ export default React.createClass({
 	},
 
 	render: function() {
-		// we don't want to render anything for the activity packs report
+		// we don't want to render a navbar for the activity packs report
 		if (this.props.location.pathname === '/activity_packs') {
-			return <div/>
+			return (
+				<div>{this.props.children}</div>
+			)
 		} else if (this.state.loading) {
 			return <LoadingSpinner/>
 		} else {

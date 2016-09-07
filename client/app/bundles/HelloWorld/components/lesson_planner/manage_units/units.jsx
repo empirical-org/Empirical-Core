@@ -9,7 +9,7 @@
 		var units = _.map(this.props.data, function (data) {
 			return (<Unit
 							key={data.unit.id}
-              type={'report'}
+              report={this.props.report}
 							data={data} />);
 		}, this);
 
