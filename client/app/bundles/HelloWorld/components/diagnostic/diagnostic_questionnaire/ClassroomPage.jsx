@@ -110,14 +110,15 @@ export default React.createClass({
 	},
 
 	buildClassRow: function(classy, index) {
+		// The commented out portions are so we can add the reading level once we bring back that feature
 		const currClass = this.state.classrooms[index]
 		let that = this
-		let readingLevel = function() {
-			let input = currClass.selectedGrade || classy.grade || 'Select a Reading Level'
-			return input === 'Select a Reading Level'
-				? input
-				: that.readingLevelFormatter(input)
-		}
+		// let readingLevel = function() {
+		// 	let input = currClass.selectedGrade || classy.grade || 'Select a Reading Level'
+		// 	return input === 'Select a Reading Level'
+		// 		? input
+		// 		: that.readingLevelFormatter(input)
+		// }
 		return (
 			<div className='classroom-row' key={classy.id}>
 				<div className='pull-left'>
@@ -127,10 +128,10 @@ export default React.createClass({
 					</label>
 				</div>
 				<div className={'is-checked-' + currClass.checked}>
-					<DropdownButton bsStyle='default' title={readingLevel()} id='select-grade' onSelect={this.handleSelect.bind(null, index)}>
+					{/*<DropdownButton bsStyle='default' title={readingLevel()} id='select-grade' onSelect={this.handleSelect.bind(null, index)}>
 						{this.grades()}
-					</DropdownButton>
-					<a href='/'>Preview</a>
+					</DropdownButton>*/}
+					{/*<a href='/'>Preview</a>*/}
 				</div>
 			</div>
 		)
@@ -183,7 +184,7 @@ export default React.createClass({
 				<div>
 					<h2>Which classes would you like to assign the diagnostic to?</h2>
 					<span id='subtext'>Students will be able to complete the diagnostic once they join a class.</span>
-					<a href='/placeholder'>How should I determine the reading level of my classes?</a>
+					{/*<a href='/placeholder'>How should I determine the reading level of my classes?</a>*/}
 				</div>
 				{content}
 				<div id='footer-buttons'>

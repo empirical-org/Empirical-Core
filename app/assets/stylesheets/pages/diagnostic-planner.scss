@@ -1,5 +1,8 @@
 $green: #00c2a2;
 #diagnostic-planner-status-bar {
+  input[type=checkbox].css-checkbox + label.css-label {
+    padding-left: 34px;
+  }
     max-width: 980px;
     margin: auto;
     padding-left: 15px;
@@ -7,25 +10,42 @@ $green: #00c2a2;
     text-align: center;
     #status-bar-wrapper {
         margin-bottom: 45px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
         margin-top: 19px;
         #diagnostic-icon {
             height: 47px;
         }
         #diagnostic-icon-section {
-            padding-top: 13px;
+            padding-top: 10px;
             span {
-                color: #646464;
-                padding-left: 5px;
-            }
+              color: #646464;
+              position: relative;
+              &:first-of-type {
+                  padding-left: 5px;
+                  top: -6px;
+              }
+              &:last-of-type {
+                top: -24px;
+                left: -1px;
+              }
+          }
         }
     }
     #status-bar {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         padding-top: 6px;
-        justify-content: space-between;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
         max-width: 300px;
         min-width: 260px;
         margin: auto;
@@ -35,9 +55,15 @@ $green: #00c2a2;
             border: solid 1px #979797;
             height: 26px;
             width: 26px;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
             &.green-true {
                 background-color: $green;
                 border: solid 1px $green;
@@ -47,15 +73,15 @@ $green: #00c2a2;
             span {
                 top: 22px;
             }
-            #introduction {
-                right: 46px;
-            }
-            #preview {
-                right: 29px;
-            }
-            #assign {
-                right: 24px;
-            }
+            /* #introduction {*/
+            /*     right: 46px;*/
+            /* }*/
+            /* #preview {*/
+            /*     right: 29px;*/
+            /* }*/
+            /* #assign {*/
+            /*     right: 24px;*/
+            /* }*/
         }
         .check-point-type {
             position: absolute;
@@ -69,10 +95,13 @@ $green: #00c2a2;
         .connector-line {
             border: 1px solid #cecece;
             height: 1px;
-            align-self: center;
+            -ms-flex-item-align: center;
+                align-self: center;
             /* margin: 0 10px; */
             min-width: 2px;
-            flex-grow: 5;
+            -webkit-box-flex: 5;
+                -ms-flex-positive: 5;
+                    flex-grow: 5;
             &.green-true {
                 border-color: $green;
             }
@@ -131,10 +160,16 @@ $green: #00c2a2;
     }
     .classroom-row {
         height: 74px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         border-bottom: solid 1px #cecece;
-        align-items: center;
-        justify-content: space-between;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
     }
     #assign-page {
         a {
@@ -177,6 +212,9 @@ $green: #00c2a2;
             margin-bottom: 130px;
         }
     }
+}
+#checkpoint-wrapper {
+  margin-left: 18%;
 }
 .diagnostic-overview-modal {
     max-width: 584px;
@@ -230,7 +268,7 @@ $green: #00c2a2;
         padding-right: 43px;
     }
 }
-// should be moved into a general modal scss file
+/* should be moved into a general modal scss file*/
 @media (max-width: 700px) {
     .modal-dialog {
         max-width: 100%;
@@ -244,6 +282,7 @@ $green: #00c2a2;
       top: -17px;
       left: 70px;
     }
+
 }
 .modal-backdrop {
     opacity: 0.7;
@@ -269,6 +308,10 @@ $green: #00c2a2;
   }
   #diagnostic-icon-section {
     display: none;
+  }
+  #checkpoint-wrapper {
+    margin-left: none;
+    margin: auto;
   }
 
 }

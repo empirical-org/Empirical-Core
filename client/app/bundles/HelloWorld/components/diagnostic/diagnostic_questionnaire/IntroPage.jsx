@@ -38,12 +38,13 @@ export default React.createClass({
         return (
             <div id='intro-page'>
                 <div>
-                    <h2>Would you like to see the<span>
+                    <h2>Would you like to preview the sentence structure diagnostic?</h2>
+                      {/*<span>
                       <DropdownButton bsStyle='default' title={this.state.selectedGrade || 'st'} id='select-grade' onSelect={this.handleSelect}>
                         {this.grades()}
                       </DropdownButton>
-                        </span>grade reading level diagnostic?</h2>
-                      <span id='subtext'>The reading level may be higher or lower than the grade level.</span>
+                        </span>grade */}
+                      <span id='subtext'>You'll be previewing the diagnostic as a student and will be able to assign at any time.</span>
                 </div>
                 <button id='preview' className='button-green'>Preview the Diagnostic</button>
                 <br/>
