@@ -6,16 +6,12 @@ import $ from 'jquery'
 
 export default React.createClass({
 
-	componentDidMount: function () {
-
-	},
-
 	getInitialState: function() {
 		return {units: [], loaded: false}
 	},
 
 	componentDidMount: function() {
-		$.ajax({url: '/teachers/units', data: {}, success: this.displayUnits, error: function() {}});
+		$.ajax({url: '/teachers/units', data: {report: true}, success: this.displayUnits, error: function() {alert('Unable to download your reports at this time.')}});
 	},
 
 	displayUnits: function(data) {
