@@ -217,7 +217,8 @@ const Responses = React.createClass({
         toPathways={this.mapCountToToResponse}
         conceptsFeedback={this.props.conceptsFeedback}
         mode={this.props.mode}
-        concepts={this.props.concepts} />
+        concepts={this.props.concepts}
+        conceptID={this.props.question.conceptID}/>
     }
   },
 
@@ -433,6 +434,7 @@ const Responses = React.createClass({
   },
 
   render: function () {
+    console.log("Inside response component, props: ", this.props)
     return (
       <div>
         {this.renderFocusPoint()}

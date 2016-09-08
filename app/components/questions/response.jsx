@@ -298,7 +298,7 @@ export default React.createClass({
         if(concept) {
           return (
             <li>
-              {concept.displayName} {cr.correct ? "✔️" : "❌"}
+              {concept.displayName} {cr.correct ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
               {"\t"}
               {deleteIcon}
             </li>
@@ -311,9 +311,10 @@ export default React.createClass({
       })
     } else {
       const concept = _.find(this.props.concepts.data["0"], {uid: this.props.conceptID})
+      // console.log("ConceptID from props: ", this.props)
       if(concept) {
         return (
-          <li>{concept.displayName} {this.props.response.optimal ? "✔️" : "❌"}
+          <li>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
               <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
           </li>
         )
