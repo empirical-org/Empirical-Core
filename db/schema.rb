@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624180702) do
+ActiveRecord::Schema.define(version: 20160908153832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,13 +21,14 @@ ActiveRecord::Schema.define(version: 20160624180702) do
   create_table "activities", force: :cascade do |t|
     t.string   "name",                       limit: 255
     t.text     "description"
-    t.string   "uid",                        limit: 255,              null: false
+    t.string   "uid",                        limit: 255,                null: false
     t.hstore   "data"
     t.integer  "activity_classification_id"
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "flags",                      limit: 255, default: [], null: false, array: true
+    t.string   "flags",                      limit: 255, default: [],   null: false, array: true
+    t.boolean  "repeatable",                             default: true
   end
 
   add_index "activities", ["activity_classification_id"], name: "index_activities_on_activity_classification_id", using: :btree
@@ -159,11 +160,13 @@ ActiveRecord::Schema.define(version: 20160624180702) do
     t.string   "clever_id",           limit: 255
     t.string   "grade",               limit: 255
     t.boolean  "visible",                         default: true, null: false
-    t.integer  "google_classroom_id"
+    t.integer  "google_classroom_id", limit: 8
+    t.integer  "grade_level"
   end
 
   add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree
   add_index "classrooms", ["grade"], name: "index_classrooms_on_grade", using: :btree
+  add_index "classrooms", ["grade_level"], name: "index_classrooms_on_grade_level", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.string   "title",              limit: 255
