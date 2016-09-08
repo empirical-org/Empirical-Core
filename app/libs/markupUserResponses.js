@@ -79,19 +79,19 @@ export function getErrorType (targetString, userString) {
   const changeObjects = getChangeObjects(targetString, userString)
   const hasIncorrect = _.some(changeObjects, (current, index, array) => {
     if (current.removed && index === array.length - 1) {
-      return FALSE
+      return false
     }
     return current.removed && (array[index + 1].added)
   })
   const hasAdditions = _.some(changeObjects, (current, index, array) => {
     if (current.added && index === 0) {
-      return TRUE
+      return true
     }
     return current.added && !array[index - 1].removed
   })
   const hasDeletions = _.some(changeObjects, (current, index, array) => {
     if (current.removed && index === array.length - 1) {
-      return TRUE
+      return true
     }
     return current.removed && !(array[index + 1].added)
   })

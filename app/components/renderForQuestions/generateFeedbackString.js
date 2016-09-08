@@ -3,6 +3,7 @@ import _ from 'underscore'
 
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
+  punctuationAndCaseError: "There may be an error. How could you update the punctuation and capitalization?",
   typingError: "Try again. There may be a spelling mistake.",
   caseError: "Try again. There may be a capitalization error.",
   minLengthError: "Try again. Do you have all of the information from the prompt?",
@@ -13,7 +14,7 @@ export default function generateFeedbackString(attempt) {
     // const data = this.props
     //getErrorsForAttempt function below
     console.log(attempt)
-    const errors = _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError');
+    const errors = _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError');
 
     // add keys for react list elements
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {

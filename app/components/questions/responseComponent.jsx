@@ -15,11 +15,12 @@ import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
 import POSForResponsesList from './POSForResponsesList.jsx'
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
-                "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint",
+                "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint",
                 "Missing Details Hint", "Not Concise Hint", "No Hint"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
+  punctuationAndCaseError: "There may be an error. How could you update the punctuation?",
   typingError: "Try again. There may be a spelling mistake.",
   caseError: "Try again. There may be a capitalization error.",
   minLengthError: "Try again. Do you have all of the information from the prompt?",

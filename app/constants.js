@@ -87,6 +87,7 @@ export default {
 
 	FEEDBACK_STRINGS: {
 	  punctuationError: "There may be an error. How could you update the punctuation?",
+		punctuationAndCaseError: "There may be an error. How could you update the punctuation and capitalization?",
 	  typingError: "Try again. There may be a spelling mistake.",
 	  caseError: "Try again. There may be a capitalization error.",
 	  minLengthError: "Try again. Do you have all of the information from the prompt?",
