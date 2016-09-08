@@ -38,7 +38,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   def results_by_question
     classroom_activity = ClassroomActivity.find_by(classroom_id: params[:classroom_id], activity_id: params[:activity_id], unit_id: params[:unit_id])
     questions = Hash.new{|h,k| h[k]={} }
-    all_answers = classroom_activity.metadata
+    all_answers = classroom_activity.activity_session_metadata
     all_answers.each do |answer|
       curr_quest = questions[answer["questionNumber"]]
       curr_quest[:correct] ||= 0

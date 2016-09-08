@@ -17,6 +17,12 @@ class Teachers::UnitsController < ApplicationController
     arr = []
     units.each do |unit_id, classroom_activities|
 
+      if params[:report]
+        classroom_activities =  classroom_activities.select{|ca| ca.has_a_completed_session?}
+        next if classroom_activities.empty?
+      end
+
+
       x1 = classroom_activities.compact
 
       x1 = ClassroomActivitySorter::sort(x1)
