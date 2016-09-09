@@ -297,16 +297,10 @@ const Responses = React.createClass({
 
   renderPOSStrings: function() {
     if(!this.state.viewingResponses) {
-      const responses = this.gatherVisibleResponses()
-
-      const responsesWithPOSTags = responses.map((response) => {
-        response.posTags = getPartsOfSpeechTags(response.text.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")) //some text has html tags
-        return response
-      })
-
+      const posTagsList = this.getResponsesForCurrentPage(hashToCollection(this.getPOSTagsList()))
       return (
         <div>
-          <POSForResponsesList responses={responsesWithPOSTags} />
+          <POSForResponsesList posTagsList={posTagsList} />
         </div>
       )
     }
@@ -373,6 +367,33 @@ const Responses = React.createClass({
     return counted;
   },
 
+  getPOSTagsList: function() {
+    const responses = this.gatherVisibleResponses()
+
+    var responsesWithPOSTags = responses.map((response) => {
+      response.posTags = getPartsOfSpeechTags(response.text.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")) //some text has html tags
+      return response
+    })
+
+    var posTagsList = {}, posTagsAsString = ""
+    responses.forEach((response) => {
+      posTagsAsString = response.posTags.join()
+      if(posTagsList[posTagsAsString]) {
+        posTagsList[posTagsAsString].count += response.count
+        posTagsList[posTagsAsString].responses.push(response)
+      } else {
+        posTagsList[posTagsAsString] = {
+          tags: response.posTags,
+          count: response.count,
+          responses: [
+            response
+          ]
+        }
+      }
+    })
+    return posTagsList
+  },
+
   mapCountToResponse: function (rid) {
     const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
       var response = this.props.question.responses[key]
@@ -407,9 +428,14 @@ const Responses = React.createClass({
   },
 
   getNumberOfPages: function() {
-    const responses = this.gatherVisibleResponses()
+    var array
+    if(this.state.viewingResponses) {
+      array = this.gatherVisibleResponses()
+    } else {
+      array = hashToCollection(this.getPOSTagsList())
+    }
     const responsesPerPage = 10;
-    return Math.ceil(responses.length/responsesPerPage)
+    return Math.ceil(array.length/responsesPerPage)
   },
 
   submitFocusPointForm: function(data){
@@ -438,14 +464,26 @@ const Responses = React.createClass({
   },
 
   renderDisplayingMessage: function() {
-    const responses = this.gatherVisibleResponses()
-    const bounds = this.getBoundsForCurrentPage(responses)
-    const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (responses.length) + " responses."
+    var array, endWord
+    if(this.state.viewingResponses) {
+      array = this.gatherVisibleResponses()
+      endWord = " responses"
+    } else {
+      array = hashToCollection(this.getPOSTagsList())
+      endWord = " parts of speech strings"
+    }
+    const bounds = this.getBoundsForCurrentPage(array)
+    const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (array.length) + endWord
     return <p>{message}</p>
   },
 
   renderPageNumbers: function() {
-    const responses = this.gatherVisibleResponses()
+    // var array
+    // if(this.state.viewingResponses) {
+    //   array = this.gatherVisibleResponses()
+    // } else {
+    //   array = this.getPOSTagsList()
+    // }
     const numPages = this.getNumberOfPages()
     if(numPages===0) return
     const pageNumbers = _.range(1, numPages+1)
@@ -521,8 +559,8 @@ const Responses = React.createClass({
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}
-        {this.renderPageNumbers()}
         {this.renderPOSStrings()}
+        {this.renderPageNumbers()}
       </div>
     )
   }
