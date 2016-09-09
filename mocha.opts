@@ -1,2 +1,2 @@
 --compilers js:babel-register
-test/**/*.js
+test/examples/bitterChocolate.test.js
