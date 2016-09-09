@@ -379,6 +379,7 @@ const Responses = React.createClass({
     responses.forEach((response) => {
       posTagsAsString = response.posTags.join()
       if(posTagsList[posTagsAsString]) {
+        console.log("Entering here for: ", response.text)
         posTagsList[posTagsAsString].count += response.count
         posTagsList[posTagsAsString].responses.push(response)
       } else {
