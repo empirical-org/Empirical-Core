@@ -473,7 +473,7 @@ const Responses = React.createClass({
     }
     const bounds = this.getBoundsForCurrentPage(array)
     const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (array.length) + endWord
-    return <p>{message}</p>
+    return <p className="label">{message}</p>
   },
 
   renderPageNumbers: function() {
