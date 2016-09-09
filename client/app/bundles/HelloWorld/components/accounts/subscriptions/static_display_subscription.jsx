@@ -4,9 +4,10 @@ import React from 'react';
 
 export default React.createClass({
   propTypes: {
-    subscription: React.PropTypes.object.isRequired,
-    subscriptionType: React.PropTypes.string.isRequired
+    subscription: React.PropTypes.object,
   },
+
+
   transformDate: function (string) {
     var year, month, day, newString;
     year = string.slice(0,4);
@@ -16,16 +17,21 @@ export default React.createClass({
     return newString;
   },
 
+  subscriptionType: function(){
+    return this.props.subscription.subscriptionType;
+  },
+
+
   subscriptionTypeInUserLanguage: function(){
-    if (this.props.subscriptionType === 'none' || 'locked') {
+    if (['none','locked'].includes(this.subscriptionType())) {
       return ('basic');
     } else {
-      return (this.props.subscriptionType);
+      return (this.props.subscription.subscriptionType);
     }
   },
   render: function () {
     var getPremium, subscriptionDetails;
-    if (this.props.subscriptionType == 'free' || 'locked' || 'none') {
+    if (['free', 'locked', 'none'].includes(this.subscriptionType())) {
       getPremium = (
         <div className='col-xs-3'>
           <a href="http://quill.org/premium" target="_new">
