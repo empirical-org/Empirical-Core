@@ -5,6 +5,7 @@ import SelectSubscription from '../components/accounts/subscriptions/select_subs
 import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../components/accounts/school/select_school';
 import $ from 'jquery';
+import LoadingSpinner from '../components/shared/loading_indicator.jsx'
 
 export default React.createClass({
     propTypes: {
@@ -25,13 +26,8 @@ export default React.createClass({
             schoolOptionsDoNotApply: false,
             role: 'teacher',
             password: null,
-            errors: {},
-            subscription: {
-                id: null,
-                expiration: '2016-01-01',
-                account_limit: null
-            },
-            subscriptionType: 'none'
+            loading: true,
+            errors: {}
         });
     },
     componentDidMount: function() {
@@ -63,20 +59,17 @@ export default React.createClass({
             // couldnt get react to re-render the default value of zipcode based on state change so have to use the below
             $('input.zip-input').val(school.zipcode);
         }
-        var subscriptionType,
-            subscription;
-        subscriptionType = data.subscription
-            ? data.subscription.subscriptionType
-            : this.state.subscriptionType;
-        if (subscriptionType === 'none') {
-            subscription = {
-                id: null,
-                expiration: '2016-01-01',
-                account_limit: null,
-                account_type: 'none'
-            };
+        let subscription
+        if (data.subscription) {
+          subscription = data.subscription
         } else {
-            subscription = data.subscription;
+          subscription = {
+              id: null,
+              expiration: '2016-01-01',
+              account_limit: null,
+              account_type: 'none',
+              subscriptionType: 'none'
+          };
         }
         this.setState({
             id: data.id,
@@ -88,7 +81,7 @@ export default React.createClass({
             originalSelectedSchoolId: originalSelectedSchoolId,
             schoolOptionsDoNotApply: (originalSelectedSchoolId == null),
             subscription: subscription,
-            subscriptionType: subscriptionType
+            loading: false
         });
     },
     displayHeader: function() {
@@ -206,7 +199,7 @@ export default React.createClass({
     updateSubscriptionType: function(type) {
         var new_sub = Object.assign({}, this.state.subscription)
         new_sub.account_type = type;
-        this.setState({subscription: new_sub, subscriptionType: type});
+        this.setState({subscription: new_sub});
     },
     updateSchool: function(school) {
         this.setState({selectedSchool: school});
@@ -264,15 +257,19 @@ export default React.createClass({
         this.setState({role: role});
     },
     render: function() {
+      if (this.state.loading) {
+        return <LoadingSpinner/>
+      }
         var selectRole,
             subscription;
         if (this.props.userType == 'staff') {
             selectRole = <SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
-            subscription = <SelectSubscription subscription={this.state.subscription} subscriptionType={this.state.subscriptionType} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState}/>
+            subscription = <SelectSubscription subscription={this.state.subscription} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState}/>
         } else {
             selectRole = null;
-            subscription = <StaticDisplaySubscription subscriptionType={this.state.subscriptionType} subscription={this.state.subscription}/>
+            subscription = <StaticDisplaySubscription subscription={this.state.subscription}/>
         }
+
         return (
             <div className='container' id='my-account'>
                 <div className='row'>
@@ -284,7 +281,7 @@ export default React.createClass({
                         </div>
                         <div className='row'>
                             <div className='form-label col-xs-2'>
-                                Real Name
+                                Full Name
                             </div>
                             <div className='col-xs-4'>
                                 <input ref='name' onChange={this.updateName} value={this.state.name}/>
