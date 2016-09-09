@@ -25,6 +25,7 @@ const feedbackStrings = {
   minLengthError: "Try again. Do you have all of the information from the prompt?",
   maxLengthError: "Try again. How could this sentence be shorter and more concise?"
 }
+const responsesPerPage = 10;
 
 const Responses = React.createClass({
   getInitialState: function () {
@@ -186,7 +187,6 @@ const Responses = React.createClass({
   },
 
   getBoundsForCurrentPage: function(responses) {
-    const responsesPerPage = 10;
     const startIndex = (this.state.responsePageNumber-1)*responsesPerPage;
     const endIndex = startIndex+responsesPerPage > responses.length ? responses.length : startIndex+responsesPerPage
     return [startIndex, endIndex]
@@ -309,7 +309,7 @@ const Responses = React.createClass({
   renderViewPOSButton: function () {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: false})}}> View Parts of Speech </button>
+        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: false, responsePageNumber: 1})}}> View Parts of Speech </button>
       </div>
     )
   },
@@ -317,7 +317,7 @@ const Responses = React.createClass({
   renderViewResponsesButton: function () {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: true})}}> View Unique Responses </button>
+        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: true, responsePageNumber: 1})}}> View Unique Responses </button>
       </div>
     )
   },
@@ -434,7 +434,6 @@ const Responses = React.createClass({
     } else {
       array = hashToCollection(this.getPOSTagsList())
     }
-    const responsesPerPage = 10;
     return Math.ceil(array.length/responsesPerPage)
   },
 
