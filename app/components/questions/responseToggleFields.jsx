@@ -63,7 +63,6 @@ export default React.createClass({
           {this.renderToggleField(this.props.labels[10])}
           {this.renderToggleField(this.props.labels[11])}
         </div>
-        <button className="button is-light" onClick={this.props.resetFields}>Reset All</button>
       </div>
     )
   }

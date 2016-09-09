@@ -328,6 +328,14 @@ const Responses = React.createClass({
     )
   },
 
+  renderResetAllFiltersButton: function () {
+    return (
+      <div className="column">
+        <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Reset All Filters</button>
+      </div>
+    )
+  },
+
   getToPathwaysForResponse: function (rid) {
     var responseCollection = hashToCollection(this.props.pathways.data);
     var responsePathways = _.where(responseCollection, {fromResponseID: rid});
@@ -382,6 +390,28 @@ const Responses = React.createClass({
     return _.values(mapped)
   },
 
+  incrementPageNumber: function() {
+    if(this.state.responsePageNumber < this.getNumberOfPages()) {
+      this.setState({
+        responsePageNumber: this.state.responsePageNumber+1
+      })
+    }
+  },
+
+  decrementPageNumber: function() {
+    if(this.state.responsePageNumber !== 1) {
+      this.setState({
+        responsePageNumber: this.state.responsePageNumber-1
+      })
+    }
+  },
+
+  getNumberOfPages: function() {
+    const responses = this.gatherVisibleResponses()
+    const responsesPerPage = 10;
+    return Math.ceil(responses.length/responsesPerPage)
+  },
+
   submitFocusPointForm: function(data){
       if (this.getFocusPoint()) {
         this.props.dispatch(this.state.actions.submitEditedFocusPoint(this.props.questionID, data, this.getFocusPoint().key))
@@ -413,27 +443,47 @@ const Responses = React.createClass({
     }
 
     const responses = this.gatherVisibleResponses()
-    const responsesPerPage = 10;
-    const numPages = Math.ceil(responses.length/responsesPerPage)
+    const numPages = this.getNumberOfPages()
+    if(numPages===0) return
     const pageNumbers = _.range(1, numPages+1)
 
-
+    var pageNumberClassName = ""
     const numbersToRender = pageNumbers.map((pageNumber) => {
+      if(!this.state.responsePageNumber===pageNumber) {
+        pageNumberClassName = "response-component-page-number-active"
+      } else {
+        pageNumberClassName = ""
+      }
       return (
-        <a className="response-component-page-number" onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber + "\t"}</a>
+        <li>
+          <a className={"button response-component-page-number "+pageNumberClassName} onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber}</a>
+        </li>
       )
     })
+
+    const nextButton = <a className="button pagination-extreme-button" onClick={this.incrementPageNumber}>Next</a>
+    const prevButton = <a className="button pagination-extreme-button" onClick={this.decrementPageNumber}>Prev</a>
 
     const bounds = this.getBoundsForCurrentPage(responses)
     const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (responses.length) + " responses."
 
+    // return (
+    //   <div>
+    //     {"Responses page number:\t\t"}
+    //     {numbersToRender}
+    //     <br/>
+    //     {message}
+    //   </div>
+    // )
+
     return (
-      <div>
-        {"Responses page number:\t\t"}
-        {numbersToRender}
-        <br/>
-        {message}
-      </div>
+      <nav className="pagination response-pagination">
+        {prevButton}
+        {nextButton}
+        <ul>
+          {numbersToRender}
+        </ul>
+      </nav>
     )
   },
 
@@ -457,14 +507,14 @@ const Responses = React.createClass({
             {this.renderExpandCollapseAll()}
           </div>
           {this.renderRematchAllButton()}
+          {this.renderResetAllFiltersButton()}
           {this.renderViewResponsesButton()}
           {this.renderViewPOSButton()}
         </div>
 
-        <div>
+        <div className="response-pagination-container">
           {this.renderPageNumbers()}
         </div>
-        <br />
 
         {this.renderResponses()}
         {this.renderPOSStrings()}

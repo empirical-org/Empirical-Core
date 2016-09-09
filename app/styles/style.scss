@@ -325,8 +325,30 @@ textarea.submission {
   }
 }
 
-// .response-component-page-number {
-//   a:visited {
-//     color: blue;
-//   }
-// }
+.response-pagination-container {
+  max-height: 50px;
+  height: 100%;
+  border: 1px solid #bfbfbf;
+  border-radius: 3px;
+}
+
+
+.response-pagination {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.response-component-page-number {
+  a:hover {
+    color: blue;
+  }
+}
+
+.response-component-page-number-active {
+  background-color: #42afe3;
+}
+
+.pagination-extreme-button {
+  margin: 10px;
+}
