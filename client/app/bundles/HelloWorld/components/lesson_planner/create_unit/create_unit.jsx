@@ -235,8 +235,20 @@ export default React.createClass({
 		return (<UnitStage1 toggleActivitySelection={this.props.actions.toggleActivitySelection} unitName={this.getUnitName()} updateUnitName={this.updateUnitName} selectedActivities={this.getSelectedActivities()} isEnoughInputProvidedToContinue={this.determineIfEnoughInputProvidedToContinue()} errorMessage={this.determineStage1ErrorMessage()} clickContinue={this.clickContinue}/>);
 	},
 
-	stage2SpecificComponents: function() {
-		return (<Stage2 selectedActivities={this.getSelectedActivities()} data={this.props.data.assignSuccessData} dueDates={this.props.data.createUnitData.model.dueDates} actions={this.props.actions.assignSuccessActions} classrooms={this.getClassrooms()} toggleActivitySelection={this.props.actions.toggleActivitySelection} toggleClassroomSelection={this.toggleClassroomSelection} toggleStudentSelection={this.toggleStudentSelection} finish={this.finish} unitName={this.getUnitName()} assignActivityDueDate={this.props.actions.assignActivityDueDate} areAnyStudentsSelected={this.areAnyStudentsSelected()} errorMessage={this.determineStage2ErrorMessage()}/>);
+	stage2SpecificComponents: function () {
+			return (<Stage2 selectedActivities={this.getSelectedActivities()}
+								 data={this.props.data.assignSuccessData}
+								 dueDates={this.props.data.createUnitData.model.dueDates}
+								 actions={this.props.actions.assignSuccessActions}
+								 classrooms={this.getClassrooms()}
+								 toggleActivitySelection={this.props.actions.toggleActivitySelection}
+								 toggleClassroomSelection={this.toggleClassroomSelection}
+								 toggleStudentSelection={this.toggleStudentSelection}
+								 finish={this.finish}
+								 unitName={this.getUnitName()}
+								 assignActivityDueDate={this.props.actions.assignActivityDueDate}
+								 areAnyStudentsSelected={this.areAnyStudentsSelected()}
+								 errorMessage={this.determineStage2ErrorMessage()}/>);
 	},
 
 	stage3specificComponents: function() {

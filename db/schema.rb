@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822145724) do
+ActiveRecord::Schema.define(version: 20160908153832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 20160822145724) do
     t.string   "clever_id",           limit: 255
     t.string   "grade",               limit: 255
     t.boolean  "visible",                         default: true, null: false
-    t.integer  "google_classroom_id"
+    t.integer  "google_classroom_id", limit: 8
     t.integer  "grade_level"
   end
 
