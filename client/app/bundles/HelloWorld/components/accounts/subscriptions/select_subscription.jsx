@@ -8,9 +8,8 @@ import DropdownDateSelector from '../../general_components/dropdown_date_selecto
 
 export default React.createClass({
   propTypes: {
-    subscription: React.PropTypes.object.isRequired,
+    subscription: React.PropTypes.object,
     updateSubscriptionState: React.PropTypes.func.isRequired,
-    subscriptionType: React.PropTypes.string.isRequired,
     updateSubscriptionType: React.PropTypes.func.isRequired
   },
   updateSubscriptionType: function () {
@@ -50,7 +49,7 @@ export default React.createClass({
             Status
           </div>
           <div className='col-xs-4'>
-            <select ref='select' onChange={this.updateSubscriptionType} value={this.props.subscriptionType}>
+            <select ref='select' onChange={this.updateSubscriptionType} value={this.props.subscription.subscriptionType}>
               {options}
             </select>
           </div>
