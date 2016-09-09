@@ -97,6 +97,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :csv_exports, only: [:create]
       get 'landing_page' => 'progress_reports#landing_page'
       get 'diagnostic_reports' => 'diagnostic_reports#show'
+      get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
       get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'

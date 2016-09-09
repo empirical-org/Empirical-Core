@@ -46,6 +46,10 @@ class Activity < ActiveRecord::Base
     query
   end
 
+  def self.diagnostic
+    Activity.find_by(activity_classification_id: ActivityClassification.diagnostic.id)
+  end
+
   def self.search_sort_sql(sort)
     return 'sections.name asc' if sort.blank?
 

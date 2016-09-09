@@ -33,7 +33,37 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: {data: "Hi"}
   end
 
+  def default_diagnostic_report
+    if default_diagnostic_url
+      redirect_to default_diagnostic_url
+    end
+  end
+
+
   private
+
+  def first_completed_diagnostic
+    classroom_activities = current_user.classroom_activities(:activity_sessions)
+    classroom_activities.each do |ca|
+      if ca.activity_sessions
+            .where.not(activity_sessions: {started_at: nil})
+            .where(activity_sessions: {activity_id: Activity.diagnostic.id})
+            .limit(1)
+            .any?
+            classroom_activity = ca
+            return ca
+      end
+    end
+    return false
+  end
+
+  def default_diagnostic_url
+    if first_completed_diagnostic
+      ca = first_completed_diagnostic
+      custom_url = "#u/#{ca.unit.id}/a/#{Activity.diagnostic.id}/c/#{ca.classroom_id}"
+      return base_url = "/teachers/progress_reports/diagnostic_reports/#{custom_url}/questions"
+    end
+  end
 
   def results_by_question
     classroom_activity = ClassroomActivity.find_by(classroom_id: params[:classroom_id], activity_id: params[:activity_id], unit_id: params[:unit_id])
@@ -67,9 +97,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     unit = Unit.find(unit_id)
     class_act = unit.classroom_activities.find_by(activity_id: activity_id)
     classroom = class_act.classroom.attributes
-    activity_sessions = class_act.activity_sessions
-                        .where(is_final_score: true)
-                        .includes(:user)
+    activity_sessions = class_act.activity_sessions.completed
     activity_sessions.each do |activity_session|
       class_id = classroom['id']
       h[class_id] ||= classroom
