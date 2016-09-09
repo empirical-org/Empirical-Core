@@ -51,6 +51,12 @@ export default function(currentState, action) {
             newState.sorting = action.field;
          }
          return newState;
+      case C.RESET_ALL_FIELDS:
+        newState = _.cloneDeep(currentState);
+        _.forIn(newState.visibleStatuses, (status, key) => {
+          newState.visibleStatuses[key] = true;
+        })
+        return newState;
       default:
          return currentState || initialState.responses;
    }

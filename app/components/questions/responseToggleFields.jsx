@@ -29,14 +29,10 @@ export default React.createClass({
       }
     }
 
-    var tag = (
-      <span className={tagClass} onClick={this.toggleFieldAndResetPage.bind(null, status)}>{status}</span>
-    )
-  
     return (
       <div className="column">
         <label className="panel-checkbox toggle">
-          {tag}
+          <span className={tagClass} onClick={this.toggleFieldAndResetPage.bind(null, status)}>{status}</span>
         </label>
       </div>
     )
@@ -67,6 +63,7 @@ export default React.createClass({
           {this.renderToggleField(this.props.labels[10])}
           {this.renderToggleField(this.props.labels[11])}
         </div>
+        <button className="button is-light" onClick={this.props.resetFields}>Reset All</button>
       </div>
     )
   }

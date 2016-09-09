@@ -236,13 +236,18 @@ const Responses = React.createClass({
     this.props.dispatch(actions.toggleStatusField(status))
   },
 
+  resetFields: function () {
+    this.props.dispatch(actions.resetAllFields())
+  },
+
   renderStatusToggleMenu: function () {
     return (
       <ResponseToggleFields
         labels={labels}
         toggleField={this.toggleField}
         visibleStatuses={this.props.responses.visibleStatuses}
-        resetPageNumber={this.resetPageNumber} />
+        resetPageNumber={this.resetPageNumber}
+        resetFields={this.resetFields} />
     )
   },
 
