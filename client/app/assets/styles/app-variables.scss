@@ -379,3 +379,31 @@ $lightgray: #cecece;
   display: flex;
   flex-direction: row-reverse;
 }
+
+
+// for progress report landing page
+.progress-reports-landing-page {
+  margin: auto;
+  max-width: 1025px;
+  a {
+    text-decoration: none;
+  }
+  .generic-mini {
+    margin: 20px;
+  }
+  .premium {
+    margin-top: 5px;
+    color: #eda41b;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    // want shorter images if we have the premium row of type
+    & + div {
+      height: 120px;
+    }
+  }
+  h3 + div {
+    padding-top: 10px;
+  }
+
+}

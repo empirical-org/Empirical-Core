@@ -7,10 +7,12 @@ import StandardsTopicStudentsProgressReport from '../components/progress_reports
 import ConceptsStudentsProgressReport from '../components/progress_reports/concepts_students_progress_report.jsx'
 import ConceptsConceptsProgressReport from '../components/progress_reports/concepts_concepts_progress_report.jsx'
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder'
+import LandingPage from '../components/progress_reports/landing_page.jsx'
 import $ from 'jquery'
 import _ from 'underscore'
 import React from 'react'
 import ReactDOM from 'react-dom'
+require('../../../assets/styles/app-variables.scss')
 
 
 var renderRightComponentHack = function() {
@@ -27,7 +29,8 @@ var renderRightComponentHack = function() {
     '.progress-reports-standards-classroom-topics': StandardsClassroomTopicsProgressReport,
     '.progress-reports-standards-topic-students': StandardsTopicStudentsProgressReport,
     '.progress-reports-concepts-students': ConceptsStudentsProgressReport,
-    '.progress-reports-concepts-concepts': ConceptsConceptsProgressReport
+    '.progress-reports-concepts-concepts': ConceptsConceptsProgressReport,
+    '.progress-reports-landing-page': LandingPage
   };
 
   _.each(progressReportMapping, function(component, rootNodeSelector) {
