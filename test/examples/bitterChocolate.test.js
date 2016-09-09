@@ -51,7 +51,7 @@ describe("The question object", () => {
   });
 
 
-  it.only("example 1", () => {
+  it("example 1", () => {
     var correctResponse = question.checkChangeObjectMatch("Chocolate is bitter and it's sweetened.");
     expect(correctResponse).toNotExist()
   });
