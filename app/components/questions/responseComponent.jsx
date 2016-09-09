@@ -437,11 +437,14 @@ const Responses = React.createClass({
     })
   },
 
-  renderPageNumbers: function() {
-    if(!this.state.viewingResponses) {
-      return
-    }
+  renderDisplayingMessage: function() {
+    const responses = this.gatherVisibleResponses()
+    const bounds = this.getBoundsForCurrentPage(responses)
+    const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (responses.length) + " responses."
+    return <p>{message}</p>
+  },
 
+  renderPageNumbers: function() {
     const responses = this.gatherVisibleResponses()
     const numPages = this.getNumberOfPages()
     if(numPages===0) return
@@ -475,18 +478,17 @@ const Responses = React.createClass({
     }
     const prevButton = <a className={prevButtonClassName} onClick={this.decrementPageNumber}>Prev</a>
 
-    const bounds = this.getBoundsForCurrentPage(responses)
-    const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (responses.length) + " responses."
-
     return (
-      <div className="response-pagination-container">
-        <nav className="pagination response-pagination">
-          {prevButton}
-          {nextButton}
-          <ul>
-            {numbersToRender}
-          </ul>
-        </nav>
+      <div>
+        <div className="response-pagination-container">
+          <nav className="pagination response-pagination">
+            {prevButton}
+            {nextButton}
+            <ul>
+              {numbersToRender}
+            </ul>
+          </nav>
+        </div>
       </div>
     )
   },
@@ -516,9 +518,10 @@ const Responses = React.createClass({
           {this.renderViewPOSButton()}
         </div>
 
+        {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
-
         {this.renderResponses()}
+        {this.renderPageNumbers()}
         {this.renderPOSStrings()}
       </div>
     )
