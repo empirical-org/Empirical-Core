@@ -447,43 +447,47 @@ const Responses = React.createClass({
     if(numPages===0) return
     const pageNumbers = _.range(1, numPages+1)
 
-    var pageNumberClassName = ""
+    var pageNumberStyle = {}
     const numbersToRender = pageNumbers.map((pageNumber) => {
-      if(!this.state.responsePageNumber===pageNumber) {
-        pageNumberClassName = "response-component-page-number-active"
+      if(this.state.responsePageNumber===pageNumber) {
+        pageNumberStyle = {
+          "backgroundColor": "lightblue"
+        }
       } else {
-        pageNumberClassName = ""
+        pageNumberStyle = {}
       }
       return (
         <li>
-          <a className={"button response-component-page-number "+pageNumberClassName} onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber}</a>
+          <a className="button" style={pageNumberStyle} onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber}</a>
         </li>
       )
     })
 
-    const nextButton = <a className="button pagination-extreme-button" onClick={this.incrementPageNumber}>Next</a>
-    const prevButton = <a className="button pagination-extreme-button" onClick={this.decrementPageNumber}>Prev</a>
+    var nextButtonClassName = "button pagination-extreme-button"
+    if(this.state.responsePageNumber===this.getNumberOfPages()) {
+      nextButtonClassName+=" is-disabled"
+    }
+    const nextButton = <a className={nextButtonClassName} onClick={this.incrementPageNumber}>Next</a>
+
+    var prevButtonClassName = "button pagination-extreme-button"
+    if(this.state.responsePageNumber===1) {
+      prevButtonClassName+=" is-disabled"
+    }
+    const prevButton = <a className={prevButtonClassName} onClick={this.decrementPageNumber}>Prev</a>
 
     const bounds = this.getBoundsForCurrentPage(responses)
     const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (responses.length) + " responses."
 
-    // return (
-    //   <div>
-    //     {"Responses page number:\t\t"}
-    //     {numbersToRender}
-    //     <br/>
-    //     {message}
-    //   </div>
-    // )
-
     return (
-      <nav className="pagination response-pagination">
-        {prevButton}
-        {nextButton}
-        <ul>
-          {numbersToRender}
-        </ul>
-      </nav>
+      <div className="response-pagination-container">
+        <nav className="pagination response-pagination">
+          {prevButton}
+          {nextButton}
+          <ul>
+            {numbersToRender}
+          </ul>
+        </nav>
+      </div>
     )
   },
 
@@ -512,9 +516,7 @@ const Responses = React.createClass({
           {this.renderViewPOSButton()}
         </div>
 
-        <div className="response-pagination-container">
-          {this.renderPageNumbers()}
-        </div>
+        {this.renderPageNumbers()}
 
         {this.renderResponses()}
         {this.renderPOSStrings()}
