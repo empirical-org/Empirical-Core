@@ -32,12 +32,7 @@ export default React.createClass({
     var tag = (
       <span className={tagClass} onClick={this.toggleFieldAndResetPage.bind(null, status)}>{status}</span>
     )
-    // var checkBox = (
-    //   <input
-    //     onChange={this.toggleFieldAndResetPage.bind(null, status)}
-    //     type="checkbox"
-    //     checked={!!this.props.visibleStatuses[status]} />
-    // )
+  
     return (
       <div className="column">
         <label className="panel-checkbox toggle">
