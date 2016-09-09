@@ -33,6 +33,11 @@ module Teacher
     TransferAccountWorker.perform_async(self.id, new_user.id);
   end
 
+  def classroom_activities(includes_value = nil)
+    classroom_ids = classrooms_i_teach.map(&:id)
+    ClassroomActivity.where(classroom_id: classroom_ids).includes(includes_value)
+  end
+
   def update_teacher params
     return if !self.teacher?
     params.permit(:id,
