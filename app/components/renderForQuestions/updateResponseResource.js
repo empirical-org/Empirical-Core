@@ -10,7 +10,7 @@ const getLatestAttempt = function (attempts = []) {
 }
 
 function getQuestion(props, playQuestion) {
-  //console.log("Inside getQuestion in module, playQuestion: ", playQuestiond)
+  //// console.log("Inside getQuestion in module, playQuestion: ", playQuestiond)
   if(playQuestion==="play") {
     const {data} = props.questions, {questionID} = props.params;
     return (data[questionID])
@@ -43,7 +43,7 @@ export default function updateResponseResource (response, props, getErrorsForAtt
         author: response.author,
         feedback: generateFeedbackString(response)
       }
-      console.log("newErrorResp.feedback: " + playQuestion, newErrorResp.feedback)
+      // console.log("newErrorResp.feedback: " + playQuestion, newErrorResp.feedback)
       props.dispatch(
         questionActions.submitNewResponse(qid, newErrorResp, prid)
       )

@@ -14,7 +14,7 @@
 //       }
 //     ))
 //
-//     console.log(questions)
+//     // console.log(questions)
 //     // TODO write to database
 //   }
 // }

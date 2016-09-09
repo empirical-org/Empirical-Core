@@ -41,9 +41,9 @@ const Lesson = React.createClass({
     const {lessonID} = this.props.params;
     if(confirm("do you want to do this?")) {
       this.props.dispatch(deleteLesson(lessonID))
-      console.log("content deleted");
+      // // console.log("content deleted");
     } else {
-      console.log("cancel hit");
+      // // console.log("cancel hit");
     }
   },
 
@@ -58,7 +58,7 @@ const Lesson = React.createClass({
   editLesson: function() {
     const {lessonID} = this.props.params;
     this.props.dispatch(startLessonEdit(lessonID));
-    //console.log("Edit button clicked");
+    //// console.log("Edit button clicked");
   },
 
   renderEditLessonForm: function() {

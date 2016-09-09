@@ -104,7 +104,7 @@ const playLessonQuestion = React.createClass({
   },
 
   renderFeedback: function () {
-    console.log("Inside game, question: ", this.props.question)
+    // // console.log("Inside game, question: ", this.props.question)
     return <RenderFeedback question={this.props.question}
             sentence="We have not seen this sentence before. Could you please try writing it in another way?"
             renderFeedbackStatements = {this.renderFeedbackStatements}/>

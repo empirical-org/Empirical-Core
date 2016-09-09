@@ -1,12 +1,19 @@
 import _ from 'underscore';
 import fuzzy from 'fuzzyset.js'
 import constants from '../constants';
+import {diffWords} from 'diff';
 const jsDiff = require('diff');
+
+const ERROR_TYPES = {
+  NO_ERROR: 'NO_ERROR',
+  MISSING_WORD: "MISSING_WORD",
+  ADDITIONAL_WORD: "ADDITIONAL_WORD",
+  INCORRECT_WORD: "INCORRECT_WORD"
+}
 
 String.prototype.normalize = function() {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
 }
-
 
 export default class Question {
   constructor(data) {
@@ -106,6 +113,31 @@ export default class Question {
       returnValue.response = typingErrorMatch
       return returnValue
     }
+    var changeObjectMatch = this.checkChangeObjectMatch(response)
+    if (changeObjectMatch !== undefined) {
+      switch (changeObjectMatch.errorType) {
+        case ERROR_TYPES.INCORRECT_WORD:
+          returnValue.modifiedWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          returnValue.author = "Modified Word Hint"
+          returnValue.response = changeObjectMatch.response
+          return returnValue
+        case ERROR_TYPES.ADDITIONAL_WORD:
+          returnValue.additionalWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          returnValue.author = "Additional Word Hint"
+          returnValue.response = changeObjectMatch.response
+          return returnValue
+        case ERROR_TYPES.MISSING_WORD:
+          returnValue.missingWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          returnValue.author = "Missing Word Hint"
+          returnValue.response = changeObjectMatch.response
+          return returnValue
+        default:
+          return
+      }
+    }
     var minLengthMatch = this.checkMinLengthMatch(response)
     if (minLengthMatch !== undefined) {
       returnValue.minLengthError = true
@@ -164,6 +196,22 @@ export default class Question {
     });
   }
 
+  checkChangeObjectMatch(response) {
+    const optimalResponses = _.sortBy(this.getOptimalResponses(), 'count').reverse()
+    var matchedErrorType;
+    const matched = _.find(optimalResponses, (optimalResponse) => {
+      const errorType = getErrorType(optimalResponse.text.normalize(), response.normalize())
+      matchedErrorType = errorType
+      return errorType
+    })
+    if (matched) {
+      return {
+        response: matched,
+        errorType: matchedErrorType
+      }
+    }
+  }
+
   checkFuzzyMatch(response) {
     const set = fuzzy(_.pluck(this.responses, "text"));
     const matches = set.get(response, []);
@@ -171,7 +219,6 @@ export default class Question {
     var text = undefined;
     if (matches.length > 0) {
       var threshold = (matches[0][1].length - 3) / matches[0][1].length
-      // console.log("\nmatch: ", matches[0][0], " threshold: ", threshold)
       text = (matches[0][0] > threshold) && (response.split(" ").length <= matches[0][1].split(" ").length) ? matches[0][1] : null;
     }
     if (text) {
@@ -240,4 +287,102 @@ const getLowAdditionCount = (newString, oldString) => {
     return true
   }
   return false
+}
+
+const getErrorType = (targetString, userString) => {
+  const changeObjects = getChangeObjects(targetString, userString)
+  const hasIncorrect = checkForIncorrect(changeObjects)
+  const hasAdditions = checkForAdditions(changeObjects)
+  const hasDeletions = checkForDeletions(changeObjects)
+  if (hasIncorrect) {
+    return ERROR_TYPES.INCORRECT_WORD
+  } else if (hasAdditions) {
+    return ERROR_TYPES.ADDITIONAL_WORD
+  } else if (hasDeletions) {
+    return ERROR_TYPES.MISSING_WORD
+  } else {
+    return
+  }
+}
+
+const getChangeObjects = (targetString, userString) => {
+  return diffWords(targetString, userString)
+};
+
+const errorLog = (text) => {
+  // console.log("\n\n#####\n")
+  // console.log(text)
+  // console.log("\n#####\n")
+}
+
+const checkForIncorrect = (changeObjects) => {
+  var tooLongError = false
+  var found = false
+  var foundCount = 0
+  var coCount = 0
+  changeObjects.forEach((current, index, array) => {
+    if (current.removed || current.added) {
+      coCount += 1
+    }
+    if (current.removed && current.value.split(" ").filter(Boolean).length >= 2) {
+      tooLongError = true
+    }
+    if (current.added && current.value.split(" ").filter(Boolean).length >= 2) {
+      tooLongError = true
+    }
+    if (current.removed && current.value.split(" ").filter(Boolean).length < 2 && index === array.length - 1) {
+      foundCount += 1
+    } else {
+      foundCount += !!(current.removed && current.value.split(" ").filter(Boolean).length < 2 && array[index + 1].added) ? 1 : 0
+    }
+  })
+  return !tooLongError && (foundCount === 1) && (coCount === 2)
+}
+
+const checkForAdditions = (changeObjects) => {
+  var tooLongError = false
+  var found = false
+  var foundCount = 0
+  var coCount = 0
+  changeObjects.forEach((current, index, array) => {
+    if (current.removed || current.added) {
+      coCount += 1
+    }
+    if (current.removed && current.value.split(" ").filter(Boolean).length >= 2) {
+      tooLongError = true
+    }
+    if (current.added && current.value.split(" ").filter(Boolean).length >= 2) {
+      tooLongError = true
+    }
+    if (current.added && current.value.split(" ").filter(Boolean).length < 2 && index === 0) {
+      foundCount += 1
+    } else {
+      foundCount += !!(current.added && current.value.split(" ").filter(Boolean).length < 2 && !array[index - 1].removed) ? 1 : 0
+    }
+  })
+  return !tooLongError && (foundCount === 1) && (coCount === 1)
+}
+
+const checkForDeletions = (changeObjects) => {
+  var tooLongError = false
+  var found = false
+  var foundCount = 0
+  var coCount = 0
+  changeObjects.forEach((current, index, array) => {
+    if (current.removed || current.added) {
+      coCount += 1
+    }
+    if (current.removed && current.value.split(" ").filter(Boolean).length >= 2) {
+      tooLongError = true
+    }
+    if (current.added && current.value.split(" ").filter(Boolean).length >= 2) {
+      tooLongError = true
+    }
+    if (current.removed && current.value.split(" ").filter(Boolean).length < 2 && index === array.length - 1) {
+      foundCount += 1
+    } else {
+      foundCount += !!(current.removed && current.value.split(" ").filter(Boolean).length < 2 && !array[index + 1].added) ? 1 : 0
+    }
+  })
+  return !tooLongError && (foundCount === 1) && (coCount === 1)
 }

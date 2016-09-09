@@ -23,8 +23,8 @@ module.exports = {
 		return function(dispatch,getState){
 			request(conceptsEndpoint, function (error, response, body) {
 			  if (!error && response.statusCode == 200) {
-			    // console.log(body) // Show the HTML for the Google homepage.
-					// console.log(JSON.parse(body));
+			    // // console.log(body) // Show the HTML for the Google homepage.
+					// // console.log(JSON.parse(body));
 					const concepts = splitInLevels(JSON.parse(body).concepts);
 					concepts["0"] = concepts["0"].map((concept) => {
 						concept.displayName = getParentName(concept, concepts) + " | " + concept.name

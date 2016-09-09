@@ -16,7 +16,7 @@ import POSForResponsesList from './POSForResponsesList.jsx'
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
                 "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint",
-                "Missing Details Hint", "Not Concise Hint", "No Hint"]
+                "Missing Word Hint", "Additional Word Hint", "Modified Word Hint", "Missing Details Hint", "Not Concise Hint", "No Hint"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 const feedbackStrings = {
   punctuationError: "There may be an error. How could you update the punctuation?",
@@ -24,7 +24,10 @@ const feedbackStrings = {
   typingError: "Try again. There may be a spelling mistake.",
   caseError: "Try again. There may be a capitalization error.",
   minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
+  maxLengthError: "Try again. How could this sentence be shorter and more concise?",
+  modifiedWordError: "Try again. You may have mixed up a word?",
+  additionalWordError: "Try again. You may have added an unnecessary a word?",
+  missingWordError: "Try again. You may have forgotten a word?",
 }
 
 const Responses = React.createClass({
@@ -187,7 +190,7 @@ const Responses = React.createClass({
   },
 
   getBoundsForCurrentPage: function(responses) {
-    const responsesPerPage = 10;
+    const responsesPerPage = 20;
     const startIndex = (this.state.responsePageNumber-1)*responsesPerPage;
     const endIndex = startIndex+responsesPerPage > responses.length ? responses.length : startIndex+responsesPerPage
     return [startIndex, endIndex]
@@ -409,7 +412,7 @@ const Responses = React.createClass({
     }
 
     const responses = this.gatherVisibleResponses()
-    const responsesPerPage = 10;
+    const responsesPerPage = 20;
     const numPages = Math.ceil(responses.length/responsesPerPage)
     const pageNumbers = _.range(1, numPages+1)
 
