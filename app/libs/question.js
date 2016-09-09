@@ -310,9 +310,9 @@ const getChangeObjects = (targetString, userString) => {
 };
 
 const errorLog = (text) => {
-  console.log("\n\n#####\n")
-  console.log(text)
-  console.log("\n#####\n")
+  // console.log("\n\n#####\n")
+  // console.log(text)
+  // console.log("\n#####\n")
 }
 
 const checkForIncorrect = (changeObjects) => {
@@ -321,7 +321,6 @@ const checkForIncorrect = (changeObjects) => {
   var foundCount = 0
   var coCount = 0
   changeObjects.forEach((current, index, array) => {
-    console.log(current)
     if (current.removed || current.added) {
       coCount += 1
     }
@@ -346,7 +345,6 @@ const checkForAdditions = (changeObjects) => {
   var foundCount = 0
   var coCount = 0
   changeObjects.forEach((current, index, array) => {
-    console.log(current)
     if (current.removed || current.added) {
       coCount += 1
     }
@@ -362,11 +360,6 @@ const checkForAdditions = (changeObjects) => {
       foundCount += !!(current.added && current.value.split(" ").filter(Boolean).length < 2 && !array[index - 1].removed) ? 1 : 0
     }
   })
-  console.log("\n#######\n")
-  console.log("Checking for additions")
-  console.log("too long: ", tooLongError)
-  console.log("found Count: ", foundCount)
-  console.log("\n#######\n")
   return !tooLongError && (foundCount === 1) && (coCount === 1)
 }
 
@@ -376,7 +369,6 @@ const checkForDeletions = (changeObjects) => {
   var foundCount = 0
   var coCount = 0
   changeObjects.forEach((current, index, array) => {
-    console.log(current)
     if (current.removed || current.added) {
       coCount += 1
     }

@@ -55,7 +55,7 @@ const ConceptsFeedback = React.createClass({
   },
 
   render: function (){
-    //console.log("Inside render for left panel, all concepts, this:\n ", this)
+    //// console.log("Inside render for left panel, all concepts, this:\n ", this)
     return (
       <section className="section">
         <div className="container">

@@ -190,7 +190,7 @@ const Responses = React.createClass({
   },
 
   getBoundsForCurrentPage: function(responses) {
-    const responsesPerPage = 10;
+    const responsesPerPage = 20;
     const startIndex = (this.state.responsePageNumber-1)*responsesPerPage;
     const endIndex = startIndex+responsesPerPage > responses.length ? responses.length : startIndex+responsesPerPage
     return [startIndex, endIndex]
@@ -412,7 +412,7 @@ const Responses = React.createClass({
     }
 
     const responses = this.gatherVisibleResponses()
-    const responsesPerPage = 10;
+    const responsesPerPage = 20;
     const numPages = Math.ceil(responses.length/responsesPerPage)
     const pageNumbers = _.range(1, numPages+1)
 

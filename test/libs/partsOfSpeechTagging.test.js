@@ -61,7 +61,7 @@ describe("Converting a string to a list of parts of speech", () => {
     expect(generated).toEqual(expected);
   })
 
-  // console.log(qpos.getPartsOfSpeech("while"))
+  // // console.log(qpos.getPartsOfSpeech("while"))
 
   it("returns a list of POS transformations", () => {
     const input = "She ran after the dog.";
@@ -79,7 +79,7 @@ describe("Converting a string to a list of parts of speech", () => {
   //   const userResponse = "Billy swept the floor while Andy painted the walls.";
   //   var tester = new POSMatcher(optimalResponses);
   //
-  //   //console.log("\nUser: " + userResponse + "\nOptimal: " + optimalResponses + "\nThe POS matcher returns false because it doesn't read Billy as a proper noun.")
+  //   //// console.log("\nUser: " + userResponse + "\nOptimal: " + optimalResponses + "\nThe POS matcher returns false because it doesn't read Billy as a proper noun.")
   //   const posMatch = tester.checkMatch(userResponse);
   //   expect(posMatch.posMatch).toEqual(false);
   // })
@@ -117,7 +117,7 @@ describe("Converting a string to a list of parts of speech", () => {
   //   var tester = new POSMatcher({optimalResponses: optimalResponses});
   //
   //   const posMatch = tester.checkMatch(userResponse);
-  //   // console.log("\nInside the arbitrary spacing, posMatch:\n", posMatch)
+  //   // // console.log("\nInside the arbitrary spacing, posMatch:\n", posMatch)
   //   expect(posMatch.posMatch).toEqual(true);
   // })
   //
@@ -141,13 +141,13 @@ describe("Converting a string to a list of parts of speech", () => {
   //       optimalResponses.push(data.responses[key].text)
   //     }
   //   }
-  //   // console.log("Optimal responses: ", optimalResponses)
+  //   // // console.log("Optimal responses: ", optimalResponses)
   //
   //   const userResponse = "Bill swept the floor while Jane painted the walls.";
   //   var tester = new POSMatcher({optimalResponses: optimalResponses});
   //
   //   const posMatch = tester.checkMatch(userResponse);
-  //   // console.log("\nA positive POS match:\n", posMatch)
+  //   // // console.log("\nA positive POS match:\n", posMatch)
   //   expect(posMatch.posMatch).toEqual(true);
   // })
   //

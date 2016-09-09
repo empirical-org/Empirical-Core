@@ -27,11 +27,11 @@ function getDebugSessionKey() {
 }
 
 export default function configureStore(initialState) {
-  console.log("creating store")
+  // console.log("creating store")
   const store = finalCreateStore(rootReducer, initialState);
-  console.log("persisting store")
+  // console.log("persisting store")
   persistStore(store, {storage: localForage})
-  console.log("persisted store")
+  // console.log("persisted store")
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (module.hot) {
     module.hot.accept('../reducers/combined', () =>

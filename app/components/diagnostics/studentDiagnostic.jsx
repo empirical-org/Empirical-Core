@@ -37,7 +37,7 @@ var StudentDiagnostic = React.createClass({
           // document.location.href = "http://localhost:3000/activity_sessions/" + this.props.activitySessionID
           this.setState({saved: true});
         }
-        console.log(err,httpResponse,body)
+        // console.log(err,httpResponse,body)
       }
     )
   },

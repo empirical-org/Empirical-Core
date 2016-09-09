@@ -7,7 +7,7 @@ const sessionsRef = rootRef.child('sessions')
 
 export default React.createClass({
   componentDidMount: function () {
-    console.log(this.props.activitySessionID)
+    // // console.log(this.props.activitySessionID)
     this.getConceptResults();
     const values = {
       name: this.props.data.name || "Anonymous",
@@ -15,12 +15,12 @@ export default React.createClass({
       questions: this.props.data.answeredQuestions
     }
     var sessionRef = sessionsRef.push(values, (error) => {
-      console.log("saved");
+      // // console.log("saved");
     })
   },
 
   getConceptResults: function () {
-    console.log("Concept Results")
+    // // console.log("Concept Results")
     const results = this.props.data.answeredQuestions.map((r) => {
       return {
         concept_uid: r.conceptID,
@@ -29,7 +29,7 @@ export default React.createClass({
         }
       }
     })
-    console.log(results)
+    // // console.log(results)
     request(
       {url: 'http://localhost:3000/api/v1/activity_sessions/' + this.props.activitySessionID,
         method: 'PUT',
@@ -44,7 +44,7 @@ export default React.createClass({
         if (httpResponse.statusCode === 200) {
           document.location.href = "http://localhost:3000/activity_sessions/" + this.props.activitySessionID
         }
-        console.log(err,httpResponse,body)
+        // // console.log(err,httpResponse,body)
       }
     )
   },

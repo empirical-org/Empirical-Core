@@ -634,7 +634,7 @@ export default React.createClass({
   // gatherPathways: function () {
   //   var currentRespKey = this.props.response.key;
   //   var allResponses = _.where(this.props.responses, {key: currentRespKey})
-  //   console.log();
+  //   // console.log();
   // },
 
   // renderPathwaysButton: function () {

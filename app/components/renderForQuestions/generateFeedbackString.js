@@ -16,7 +16,7 @@ const feedbackStrings = {
 export default function generateFeedbackString(attempt) {
     // const data = this.props
     //getErrorsForAttempt function below
-    console.log(attempt)
+    // // console.log(attempt)
     const errors = _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "modifiedWordError", "additionalWordError", "missingWordError");
 
     // add keys for react list elements
@@ -27,12 +27,12 @@ export default function generateFeedbackString(attempt) {
     }))
     // alert("Error components[0] = " + errorComponents[0])
     return errorComponents[0]
-    // console.log("Inside generateFeedbackString common file");
+    // // console.log("Inside generateFeedbackString common file");
     // return "Hello";
   }
   //
   // render: function() {
-  //   console.log()
+  //   // console.log()
   //   return <div>{this.generateFeedbackString}</div>
   // }
 // })
