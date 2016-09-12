@@ -16,6 +16,7 @@ export default React.createClass({
     var value = $(this.refs.select).val()
     this.props.updateSubscriptionType(value);
   },
+
   updateExpiration: function (newDate) {
     //  YYYY-MM-DD
     var subscription;

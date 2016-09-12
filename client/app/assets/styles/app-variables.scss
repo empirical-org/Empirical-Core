@@ -3,14 +3,20 @@
   margin: 0 auto;
   max-width: 950px;
   padding-top: 44px;
+  h1 {
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+  .nav-elements {
+    margin-top: 12px;
+  }
 }
 
 .individual-activity-reports {
     margin: 0 auto;
     max-width: 950px;
-    padding-top: 44px;
-    padding-bottom: 91px;
 }
+
 // should be moved into select-classroom-dropdown file
 $darkgray3: #7e7e7e;
 $quillgreen: #00c2a2;
@@ -56,6 +62,7 @@ $lightgray: #cecece;
             border-left: none;
         }
         &:focus,
+        &:focus,
         &:hover {
             background-color: $quillgreen;
             border-color: $quillgreen;
@@ -85,10 +92,15 @@ $lightgray: #cecece;
 @mixin gray-border {
     border: solid 1px #cecece;
 }
-#student-report-box {
-    margin-top: 50px;
+.individual-student-activity-view {
+  padding-bottom: 91px;
+  padding-top: 25px;
+}
+.student-report-box {
+    margin: auto;
+    margin-top: 25px;
     max-width: 950px;
-    #student-report-table-and-index {
+    .student-report-table-and-index {
       display: flex;
       background-color: white;
     }
@@ -113,11 +125,11 @@ $lightgray: #cecece;
             height: 30px;
             padding-left: 8px;
             border-bottom: solid 0.5px #cecece;
-            &:first-of-type {
+            &:first-of-type:not(.directions) {
               height: 0px;
             }
             // first of type has height of 0 so we don't want any borders
-            &:last-of-type, &:first-of-type {
+            &:last-of-type, &:first-of-type:not(.directions) {
               border-bottom: none;
             }
             &.student-report-headers {
@@ -183,7 +195,10 @@ $lightgray: #cecece;
 }
 #individual-classroom-view {
   margin: auto;
-  max-width: 660px;
+  max-width: 950px;
+  & > div {
+    max-width: 660px;
+  }
   th, td {
     text-align: center;
     &:first-of-type {
@@ -230,6 +245,8 @@ $lightgray: #cecece;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-left: 8.5%;
+
 
   .recommendations-key {
     display: flex;
@@ -300,77 +317,91 @@ $lightgray: #cecece;
 
 }
 
-.recommendations-table-row {
-  display: flex;
-  flex-direction: row;
-  height: 48px;
-  // align-items: flex-end;
-
-  .recommendations-table-row-name {
-    width: 140px;
-    padding: 12px;
-    font-family: 'adelle-sans';
-    font-size: 12px;
-    line-height: 1.25;
-    background-color: #ffffff;
-    border: solid 0.5px #cecece;
+.recommendations-table-row-wrapper {
+  .recommendations-table-row {
     display: flex;
-    align-items: center;
-  }
+    flex-direction: row;
+    height: 48px;
 
-  .recommendations-table-row-item {
-    display: flex;
-    flex-grow: 1;
-    flex-basis: 0;
-    padding: 12px;
-    font-family: 'adelle-sans';
-    font-size: 12px;
-    // font-weight: 600;
-    line-height: 1.25;
-    overflow: hidden;
-    background-color: #ffffff;
-    border: solid 0.5px #cecece;
-    align-items: center;
-
-    .recommendations-table-row-item-checkbox {
-      height: 17px;
-      width: 17px;
-      min-width: 17px;
-      border-radius: 3px;
+    .recommendations-table-row-name {
+      width: 140px;
+      padding: 12px;
+      font-family: 'adelle-sans';
+      font-size: 12px;
+      line-height: 1.25;
       background-color: #ffffff;
       border: solid 1px #cecece;
-      margin-right: 6px;
       display: flex;
-      justify-content: center;
       align-items: center;
+        border-bottom: none;
     }
 
-    &.recommended {
-      background-color: #eafcff;
-    }
+    .recommendations-table-row-item {
+      display: flex;
+      flex-grow: 1;
+      flex-basis: 0;
+      padding: 12px;
+      font-family: 'adelle-sans';
+      font-size: 12px;
+      line-height: 1.25;
+      overflow: hidden;
+      background-color: #ffffff;
+      border: solid 1px #cecece;
+      border-left: none;
+      align-items: center;
+      border-bottom: none;
 
-    &.selected {
+
+
+      .recommendations-table-row-item-checkbox {
+        height: 17px;
+        width: 17px;
+        min-width: 17px;
+        border-radius: 3px;
+        background-color: #ffffff;
+        border: solid 1px #cecece;
+        margin-right: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &.recommended {
+        background-color: #eafcff;
+      }
+
+      &.selected {
+        p {
+          color: #333;
+        }
+      }
+
       p {
-        color: #333;
+        display: -webkit-box;
+        flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 30px;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        font-weight: normal;
+        line-height: 1.15;
+        color: #646464;
+      }
+
+
+    }
+
+    &:last-of-type {
+      .recommendations-table-row-name, .recommendations-table-row-item {
+          border-bottom: solid 1px #cecece;
+      }
+      .recommendations-table-row-name {
+        // border-top: none;
       }
     }
 
-    p {
-      display: -webkit-box;
-      flex-shrink: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-height: 30px;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      font-weight: normal;
-      line-height: 1.15;
-      color: #646464;
-    }
-
-
   }
-
 }
 
 .recommendations-bottom-bar {

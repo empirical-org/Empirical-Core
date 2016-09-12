@@ -34,9 +34,9 @@ export default React.createClass({
 	render: function() {
 		const data = this.props.questionData;
 		return (
-			<div className='individual-activity-reports'>
-				<div id="student-report-box">
-					<div id='student-report-table-and-index'>
+			<div className='individual-activity-report'>
+				<div className="student-report-box">
+					<div className='student-report-table-and-index'>
 							<div className='question-index'>{this.props.boxNumber}</div>
 								<table>
 									<tbody>

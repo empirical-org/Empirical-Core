@@ -154,7 +154,6 @@ export default React.createClass({
 				this.destroySubscription()
 			}
 		} else if (this.state.subscription.account_type == 'paid' || 'trial') {
-      debugger;
 			if (this.state.subscription.id == null) {
 				this.createSubscription();
 			} else {
@@ -277,7 +276,6 @@ export default React.createClass({
 			selectRole = null;
 			subscription = <StaticDisplaySubscription subscription={this.state.subscription}/>
 		}
-
 		return (
 			<div className='container' id='my-account'>
 				<div className='row'>
