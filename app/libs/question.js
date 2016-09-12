@@ -229,7 +229,7 @@ export default class Question {
 
   checkMinLengthMatch(response) {
     const optimalResponses = this.getOptimalResponses();
-    if (optimalResponses.length < 5) {
+    if (optimalResponses.length < 3) {
       return undefined
     }
     const lengthsOfResponses = optimalResponses.map((resp) => {

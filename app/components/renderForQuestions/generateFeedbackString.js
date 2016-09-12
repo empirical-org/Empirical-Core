@@ -14,25 +14,14 @@ const feedbackStrings = {
 }
 
 export default function generateFeedbackString(attempt) {
-    // const data = this.props
-    //getErrorsForAttempt function below
-    // // console.log(attempt)
-    const errors = _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "modifiedWordError", "additionalWordError", "missingWordError");
+  //getErrorsForAttempt function below
+  const errors = _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "modifiedWordError", "additionalWordError", "missingWordError");
 
-    // add keys for react list elements
-    var errorComponents = _.values(_.mapObject(errors, (val, key) => {
-      if (val) {
-        return feedbackStrings[key]
-      }
-    }))
-    // alert("Error components[0] = " + errorComponents[0])
-    return errorComponents[0]
-    // // console.log("Inside generateFeedbackString common file");
-    // return "Hello";
-  }
-  //
-  // render: function() {
-  //   // console.log()
-  //   return <div>{this.generateFeedbackString}</div>
-  // }
-// })
+  // add keys for react list elements
+  var errorComponents = _.values(_.mapObject(errors, (val, key) => {
+    if (val) {
+      return feedbackStrings[key]
+    }
+  }))
+  return errorComponents[0]
+}

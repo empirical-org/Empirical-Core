@@ -96,6 +96,7 @@ const Responses = React.createClass({
     var newResponse = this.getMatchingResponse(rid)
     var response = this.getResponse(rid)
     if (!newResponse.found) {
+      console.log("Rematching not found: ", newResponse)
       var newValues = {
         weak: false,
         text: response.text,
@@ -106,7 +107,13 @@ const Responses = React.createClass({
       )
       return
     }
-    if (newResponse.response.key === response.parentID) {
+    if (newResponse.response.text === response.text) {
+      console.log("Rematching duplicate", newResponse)
+      this.props.dispatch(this.state.actions.deleteResponse(this.props.questionID, rid))
+    }
+
+    else if (newResponse.response.key === response.parentID) {
+      console.log("Rematching same parent: ", newResponse)
       if (newResponse.author) {
         var newErrorResp = {
           weak: false,
@@ -117,6 +124,7 @@ const Responses = React.createClass({
       }
     }
     else {
+      console.log("Rematching new error", newResponse)
       var newErrorResp = {
         weak: false,
         parentID: newResponse.response.key,
@@ -131,12 +139,15 @@ const Responses = React.createClass({
   },
 
   rematchAllResponses: function () {
+    console.log("Rematching All Responses")
     const weak = _.filter(this.responsesWithStatus(), (resp) => {
       return resp.statusCode > 1
     })
     weak.forEach((resp) => {
+      console.log("Rematching: ", resp.key)
       this.rematchResponse(resp.key)
     })
+    console.log("Finished Rematching All Responses")
   },
 
   responsesWithStatus: function () {
@@ -438,7 +449,7 @@ const Responses = React.createClass({
   },
 
   render: function () {
-    console.log("Inside response component, props: ", this.props)
+    // console.log("Inside response component, props: ", this.props)
     return (
       <div>
         {this.renderFocusPoint()}
