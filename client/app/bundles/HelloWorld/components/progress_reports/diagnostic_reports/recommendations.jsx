@@ -185,7 +185,9 @@ export default React.createClass({
 					<div className="recommendations-container">
 						{this.renderTopBar()}
 						{this.renderTableHeader()}
-						{this.renderTableRows()}
+						<div className="recommendations-table-row-wrapper">
+      				{this.renderTableRows()}
+      			</div>
 						{this.renderBottomBar()}
 					</div>
 				</div>

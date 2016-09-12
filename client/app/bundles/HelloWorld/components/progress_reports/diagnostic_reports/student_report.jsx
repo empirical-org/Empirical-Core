@@ -42,7 +42,7 @@ export default React.createClass({
 			content = <LoadingSpinner/>
 		} else {
 			content = (
-				<div id='individual-student-activity-view'>
+				<div className='individual-student-activity-view'>
           {this.studentBoxes()}
 				</div>
 			)
