@@ -46,14 +46,48 @@ describe("The question object", () => {
   });
 
   it("should not match really different sentences", () => {
-    var correctResponse = question.checkChangeObjectMatch("The completely irrelevent sentences doesn't match.");
+    var correctResponse = question.checkChangeObjectRigidMatch("The completely irrelevent sentences doesn't match.");
     expect(correctResponse).toNotExist()
   });
 
 
   it("example 1", () => {
-    var correctResponse = question.checkChangeObjectMatch("Chocolate is bitter and it's sweetened.");
+    var correctResponse = question.checkChangeObjectRigidMatch("Chocolate is bitter and it's sweetened.");
     expect(correctResponse).toNotExist()
+  });
+
+})
+
+const surfer = {
+  prompt: "Combine the following sentences into one sentence.",
+  responses: [
+    {
+      text: "If surfers catch the wave, they ride it to shore.",
+      feedback: "Excellent, that's correct!",
+      optimal: true,
+      count: 12
+    }
+  ]
+}
+
+describe("The surfer question", () => {
+  const question = new Question(surfer);
+
+  it("should be initialized with a prompt, sentence fragments and responses.", () => {
+    expect(question.prompt).toEqual("Combine the following sentences into one sentence.");
+    expect(question.responses).toBe(surfer.responses);
+  });
+
+  it("should not match really different sentences", () => {
+    var correctResponse = question.checkChangeObjectRigidMatch("The completely irrelevent sentences doesn't match.");
+    expect(correctResponse).toNotExist()
+  });
+
+
+  it("example 1", () => {
+    var correctResponse = question.checkChangeObjectRigidMatch("If surfers catch the wave, they ride it to the shore.");
+    console.log(correctResponse)
+    expect(correctResponse).toExist()
   });
 
 })

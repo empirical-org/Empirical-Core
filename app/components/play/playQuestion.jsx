@@ -13,6 +13,7 @@ var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
 
+import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
@@ -28,17 +29,7 @@ import RenderEndState from '../renderForQuestions/renderEndState.jsx'
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  punctuationAndCaseError: "There may be an error. How could you update the punctuation and capitalization?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?",
-  modifiedWordError: "Try again. You may have mixed up a word?",
-  additionalWordError: "Try again. You may have added an unnecessary a word?",
-  missingWordError: "Try again. You may have forgotten a word?",
-}
+const feedbackStrings = FEEDBACK_STRINGS
 
 const playQuestion = React.createClass({
   getInitialState: function () {
@@ -109,7 +100,7 @@ const playQuestion = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "modifiedWordError", "additionalWordError", "missingWordError")
+    return _.pick(attempt, ...ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {

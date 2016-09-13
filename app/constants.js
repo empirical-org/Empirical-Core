@@ -95,7 +95,10 @@ export default {
 		modifiedWordError: "Try again. You may have mixed up a word?",
 		additionalWordError: "Try again. You may have added an unnecessary a word?",
 		missingWordError: "Try again. You may have forgotten a word?",
+		whitespaceError: "Try again. You may have forgotten a space between two words."
 	},
+
+	ERROR_TYPES: ['typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "modifiedWordError", "additionalWordError", "missingWordError", "whitespaceError"],
 
 	// CONCEPTS FEEDBACK ACTIONS
 	RECEIVE_CONCEPTS_FEEDBACK_DATA: "RECEIVE_CONCEPTS_FEEDBACK_DATA",

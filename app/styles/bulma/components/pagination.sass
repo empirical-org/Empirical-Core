@@ -4,15 +4,9 @@
   justify-content: center
   text-align: center
   a
-    @extend .button
     display: block
     min-width: 32px
     padding: 3px 8px
-    // Modifiers
-    &.is-active
-      background: $link
-      border-color: $link
-      color: $link-invert
   span
     color: $text-light
     display: block
@@ -22,7 +16,7 @@
   ul
     align-items: center
     display: flex
-    flex: 1
+    flex-grow: 1
     justify-content: center
   // Responsiveness
   +mobile
@@ -32,7 +26,7 @@
       &:not(:first-child)
         margin-left: 10px
     li
-      flex: 1
+      flex-grow: 1
     ul
       margin-top: 10px
   +tablet

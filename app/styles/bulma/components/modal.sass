@@ -1,6 +1,6 @@
 .modal-background
   +overlay
-  background: rgba($black, 0.86)
+  background-color: rgba($black, 0.86)
 
 .modal-content
   margin: 0 20px
@@ -12,7 +12,7 @@
   +tablet
     margin: 0 auto
     max-height: calc(100vh - 40px)
-    width: 100%
+    width: 640px
 
 .modal-close
   @extend .delete
@@ -25,8 +25,8 @@
 
 .modal-card
   @extend .modal-content
-  background: $white
-  border-radius: 5px
+  background-color: $white
+  border-radius: $radius-large
   display: flex
   flex-direction: column
   max-height: calc(100vh - 40px)
@@ -35,7 +35,7 @@
 .modal-card-head,
 .modal-card-foot
   align-items: center
-  background: $background
+  background-color: $background
   display: flex
   flex-shrink: 0
   justify-content: flex-start
@@ -47,7 +47,7 @@
 
 .modal-card-title
   color: $text-strong
-  flex: 1
+  flex-grow: 1
   font-size: $size-4
   line-height: 1
 
@@ -58,7 +58,7 @@
       margin-right: 10px
 
 .modal-card-body
-  flex: 1
+  flex-grow: 1
   overflow: auto
   padding: 20px
 

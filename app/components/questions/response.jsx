@@ -14,12 +14,8 @@ import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
 import ConceptSelector from 'react-select-search'
 import getBoilerplateFeedback from './boilerplateFeedback.jsx'
-
-const feedbackStrings = {
-  punctuationError: "punctuation error",
-  typingError: "spelling mistake",
-  caseError: "capitalization error"
-}
+import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
+const feedbackStrings = FEEDBACK_STRINGS
 
 export default React.createClass({
 
@@ -97,7 +93,7 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+    return _.pick(attempt, ...ERROR_TYPES)
   },
 
   generateFeedbackString: function (attempt) {
