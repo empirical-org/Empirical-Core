@@ -4,6 +4,7 @@ BackOff()
 import React from "react";
 import { render } from 'react-dom'
 import Root from "./components/root";
+import StudentRoot from "./components/studentRoot";
 import Welcome from "./components/welcome/welcome.jsx";
 import Play from "./components/play/play.jsx";
 import PlayQuestion from "./components/play/playQuestion.jsx";
@@ -76,9 +77,9 @@ function getParameterByName(name, url) {
 render((
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={Root}>
-        <IndexRoute component={Welcome} />
-        <Route path="play" component={Passthrough}>
+      {/*<Route path="/" component={Root}>*/}
+        {/*<IndexRoute component={Welcome} />*/}
+        <Route path="/play" component={StudentRoot}>
           <IndexRoute component={Play} />
           <Route path="game" component={Passthrough}>
             <IndexRoute component={Passthrough}
@@ -103,12 +104,12 @@ render((
           <Route path="questions/:questionID" component={PlayQuestion}/>
           <Route path="sentence-fragments/:fragmentID" component={PlaySentenceFragment}/>
         </Route>
-        <Route path="lessons" component={Activities}/>
-        <Route path="results" component={Passthrough}>
+        <Route path="/lessons" component={Activities}/>
+        <Route path="/results" component={Passthrough}>
           <IndexRoute component={Results}/>
           <Route path="questions/:questionID" component={Review}/>
         </Route>
-        <Route path="admin" component={Admin}>
+        <Route path="/admin" component={Admin}>
           {/*Concepts section*/}
           <Route path="concepts" component={Concepts}/>
           <Route path="concepts/:conceptID" component={Concept}/>
@@ -142,7 +143,7 @@ render((
           <Route path="item-levels/:itemLevelID" component={ItemLevelDetails}/>
           <Route path="item-levels/:itemLevelID/edit" component={ItemLevel}/>
         </Route>
-      </Route>
+      {/*</Route>*/}
 
     </Router>
   </Provider>),

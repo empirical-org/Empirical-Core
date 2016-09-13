@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import activeComponent from 'react-router-active-component'
 import { connect } from 'react-redux'
-
+import NavBar from '../navbar/navbar.jsx';
 import conceptActions from '../../actions/concepts'
 import conceptsFeedbackActions from '../../actions/concepts-feedback'
 import questionActions from '../../actions/questions'
@@ -26,24 +26,28 @@ const adminContainer = React.createClass({
 
   render: function () {
     return (
-      <section className="section is-fullheight minus-nav">
-        <div className="container">
-          <div className="example">
-            <div className="tabs">
-              <ul>
-                <TabLink to={"/admin/concepts"} activeClassName="is-active">Concepts</TabLink>
-                <TabLink to={"/admin/questions"} activeClassName="is-active">Questions</TabLink>
-                <TabLink to={"/admin/sentence-fragments"} activeClassName="is-active">Sentence Fragments</TabLink>
-                <TabLink to={"/admin/lessons"} activeClassName="is-active">Lessons</TabLink>
-                <TabLink to={"/admin/diagnostics"} activeClassName="is-active">Diagnostics</TabLink>
-                <TabLink to={"admin/concepts-feedback"} activeClassName="is-active">Concept Feeback</TabLink>
-                <TabLink to={"/admin/item-levels"} activeClassName="is-active">Item Levels</TabLink>
-              </ul>
+      <div>
+        <NavBar/>
+        <section className="section is-fullheight minus-nav">
+          <div className="container">
+            <div className="example">
+              <div className="tabs">
+                <ul>
+                  <TabLink to={"/admin/concepts"} activeClassName="is-active">Concepts</TabLink>
+                  <TabLink to={"/admin/questions"} activeClassName="is-active">Questions</TabLink>
+                  <TabLink to={"/admin/sentence-fragments"} activeClassName="is-active">Sentence Fragments</TabLink>
+                  <TabLink to={"/admin/lessons"} activeClassName="is-active">Lessons</TabLink>
+                  <TabLink to={"/admin/diagnostics"} activeClassName="is-active">Diagnostics</TabLink>
+                  <TabLink to={"admin/concepts-feedback"} activeClassName="is-active">Concept Feeback</TabLink>
+                  <TabLink to={"/admin/item-levels"} activeClassName="is-active">Item Levels</TabLink>
+                </ul>
+              </div>
             </div>
+            {this.props.children}
           </div>
-          {this.props.children}
-        </div>
-      </section>
+        </section>
+      </div>
+
     )
   }
 })
