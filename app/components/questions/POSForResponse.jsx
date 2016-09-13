@@ -14,11 +14,9 @@ import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
 import ConceptSelector from 'react-select-search'
 
-const feedbackStrings = {
-  punctuationError: "punctuation error",
-  typingError: "spelling mistake",
-  caseError: "capitalization error"
-}
+import {FEEDBACK_STRINGS} from '../../constants.js'
+
+const feedbackStrings = FEEDBACK_STRINGS
 
 export default React.createClass({
 
