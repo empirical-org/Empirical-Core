@@ -28,8 +28,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 import StateFinished from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx'
-import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
-const feedbackStrings = FEEDBACK_STRINGS
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState: function () {
@@ -79,7 +78,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, ...ERROR_TYPES)
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {

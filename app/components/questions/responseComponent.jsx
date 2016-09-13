@@ -13,7 +13,7 @@ import FocusPointForm from './focusPointForm.jsx'
 import FocusPointSummary from './focusPointSummary.jsx'
 import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
 import POSForResponsesList from './POSForResponsesList.jsx'
-import {FEEDBACK_STRINGS} from '../../constants.js'
+var C = require("../../constants").default
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
                 "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint", "Whitespace Hint",
@@ -21,7 +21,7 @@ const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algo
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 
 const responsesPerPage = 20;
-const feedbackStrings = FEEDBACK_STRINGS
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 const Responses = React.createClass({
   getInitialState: function () {

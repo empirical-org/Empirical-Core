@@ -1,5 +1,4 @@
 import React from 'react'
-import C from '../../constants'
 import questionActions from '../../actions/questions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import Question from '../../libs/question'
@@ -14,9 +13,9 @@ import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
 import ConceptSelector from 'react-select-search'
 
-import {FEEDBACK_STRINGS} from '../../constants.js'
+var C = require("../../constants").default
 
-const feedbackStrings = FEEDBACK_STRINGS
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 export default React.createClass({
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import C from '../../constants'
 import questionActions from '../../actions/questions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import Question from '../../libs/question'
@@ -14,8 +13,8 @@ import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
 import ConceptSelector from 'react-select-search'
 import getBoilerplateFeedback from './boilerplateFeedback.jsx'
-import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
-const feedbackStrings = FEEDBACK_STRINGS
+var C = require("../../constants").default
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 export default React.createClass({
 
@@ -93,7 +92,7 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, ...ERROR_TYPES)
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   generateFeedbackString: function (attempt) {

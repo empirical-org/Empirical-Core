@@ -12,8 +12,6 @@ import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
-
-import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
@@ -29,7 +27,7 @@ import RenderEndState from '../renderForQuestions/renderEndState.jsx'
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
-const feedbackStrings = FEEDBACK_STRINGS
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 const playQuestion = React.createClass({
   getInitialState: function () {
@@ -100,7 +98,7 @@ const playQuestion = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, ...ERROR_TYPES)
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {

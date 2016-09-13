@@ -3,9 +3,9 @@
 import React from 'react'
 import Question from '../../libs/question'
 import _ from 'underscore'
-import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
+var C = require("../../constants").default
 
-const feedbackStrings = FEEDBACK_STRINGS
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 export default React.createClass({
   getInitialState: function () {
@@ -32,7 +32,7 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, ...ERROR_TYPES)
+    return _.pick(attempt, ...(C.ERROR_TYPES))
   },
 
   renderFeedbackStatements: function (attempt) {

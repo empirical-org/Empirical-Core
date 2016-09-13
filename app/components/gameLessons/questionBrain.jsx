@@ -14,7 +14,7 @@ import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
-import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
+var C = require("../../constants").default
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
@@ -29,7 +29,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
-const feedbackStrings = FEEDBACK_STRINGS
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 const imageCaptionPairs = [
   {
@@ -105,7 +105,7 @@ const playLessonQuestion = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, ...ERROR_TYPES)
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {

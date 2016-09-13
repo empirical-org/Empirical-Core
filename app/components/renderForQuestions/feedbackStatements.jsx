@@ -1,11 +1,11 @@
 import React from 'react'
 import _ from 'underscore'
-import {FEEDBACK_STRINGS} from '../../constants.js'
+var C = require("../../constants").default
 /*
   21 Test the changes
 */
 
-const feedbackStrings = FEEDBACK_STRINGS
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 export default React.createClass({
 
