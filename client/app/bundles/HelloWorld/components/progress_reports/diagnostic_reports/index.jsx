@@ -89,8 +89,8 @@ export default React.createClass({
 			return <LoadingSpinner/>
 		} else {
 			return (
-				<div id='individual-activity-reports'>
-					<NavBar key={'key'} classrooms={this.state.classrooms} params={this.props.params} selectedStudentId={this.state.selectedStudentId} studentDropdownCallback={this.changeStudent} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} selectedClassroom={this.state.selectedClassroom} showStudentDropdown={this.showStudentDropdown()}/>
+				<div className='individual-activity-reports'>
+					<NavBar key={'key'} classrooms={this.state.classrooms} selectedStudentId={this.state.selectedStudentId} studentDropdownCallback={this.changeStudent} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} selectedClassroom={this.state.selectedClassroom} showStudentDropdown={this.showStudentDropdown()}/>
 					{this.props.children}
 				</div>
 			);

@@ -13,7 +13,8 @@ export default React.createClass({
     dropdownCallback: React.PropTypes.func,
     buttonGroupCallback: React.PropTypes.func,
     selectedClassroom: React.PropTypes.object,
-    selectedStudentId: React.PropTypes.number
+    selectedStudentId: React.PropTypes.number,
+    params: React.PropTypes.object
   },
 
 
@@ -49,7 +50,8 @@ export default React.createClass({
           <div className='nav-elements'>
             <ClassroomDropdown classrooms={this.props.classrooms || [{name: 'Please Add a Classroom', id: null}]}
                                callback={this.props.dropdownCallback}/>
-            <NavButtonGroup clickCallback={this.props.buttonGroupCallback}/>
+            <NavButtonGroup params={this.props.params}
+                            clickCallback={this.props.buttonGroupCallback}/>
             {this.studentDropdown()}
           </div>
         </div>
