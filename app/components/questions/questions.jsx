@@ -113,8 +113,12 @@ const Questions = React.createClass({
       )
       return
     }
-    if (newResponse.response.key === response.parentID) {
-      console.log("Same response  match")
+    if (newResponse.response.text === response.text) {
+      console.log("Rematching duplicate", newResponse)
+      this.props.dispatch(actions.deleteResponse(question.key, response.key))
+    }
+    else if (newResponse.response.key === response.parentID) {
+      console.log("Same response  match", question.key, response.key)
       if (newResponse.author) {
         var newErrorResp = {
           weak: false,

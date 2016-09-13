@@ -187,6 +187,22 @@ export default class Question {
       returnValue.response = maxLengthMatch
       return returnValue
     }
+    var lowerCaseStartMatch = this.checkCaseStartMatch(response)
+    if (lowerCaseStartMatch !== undefined) {
+      returnValue.caseError = true
+      returnValue.feedback = constants.FEEDBACK_STRINGS.caseError;
+      returnValue.author = "Capitalization Hint"
+      returnValue.response = lowerCaseStartMatch
+      return returnValue
+    }
+    var punctuationEndMatch = this.checkPunctuationEndMatch(response)
+    if (punctuationEndMatch !== undefined) {
+      returnValue.punctuationError = true
+      returnValue.feedback = constants.FEEDBACK_STRINGS.punctuationError;
+      returnValue.author = "Punctuation Hint"
+      returnValue.response = punctuationEndMatch
+      return returnValue
+    }
     returnValue.found = false
     return returnValue
   }
@@ -207,6 +223,19 @@ export default class Question {
     return _.find(this.getOptimalResponses(), (resp) => {
       return resp.text.normalize().toLowerCase() === response.normalize().toLowerCase();
     });
+  }
+
+  checkCaseStartMatch(response) {
+    if (response[0] && response[0].toLowerCase() === response[0]) {
+      return this.getTopOptimalResponse()
+    }
+  }
+
+  checkPunctuationEndMatch(response) {
+    var lastChar = response[response.length - 1]
+    if (lastChar && lastChar.match(/[a-z]/i)) {
+      return this.getTopOptimalResponse()
+    }
   }
 
   checkPunctuationInsensitiveMatch(response) {
