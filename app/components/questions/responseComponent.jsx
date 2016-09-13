@@ -13,22 +13,13 @@ import FocusPointForm from './focusPointForm.jsx'
 import FocusPointSummary from './focusPointSummary.jsx'
 import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
 import POSForResponsesList from './POSForResponsesList.jsx'
+import {FEEDBACK_STRINGS} from '../../constants.js'
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
-                "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint",
+                "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint", "Whitespace Hint",
                 "Missing Word Hint", "Additional Word Hint", "Modified Word Hint", "Missing Details Hint", "Not Concise Hint", "No Hint"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  punctuationAndCaseError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?",
-  modifiedWordError: "Try again. You may have mixed up a word?",
-  additionalWordError: "Try again. You may have added an unnecessary a word?",
-  missingWordError: "Try again. You may have forgotten a word?",
-}
+const feedbackStrings = FEEDBACK_STRINGS
 
 const Responses = React.createClass({
   getInitialState: function () {

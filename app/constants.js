@@ -95,6 +95,7 @@ export default {
 		modifiedWordError: "Try again. You may have mixed up a word?",
 		additionalWordError: "Try again. You may have added an unnecessary a word?",
 		missingWordError: "Try again. You may have forgotten a word?",
+		whitespaceError: "Try again. You may have forgotten a space between two words."
 	},
 
 	// CONCEPTS FEEDBACK ACTIONS

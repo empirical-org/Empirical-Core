@@ -113,7 +113,7 @@ export default class Question {
       returnValue.response = typingErrorMatch
       return returnValue
     }
-    var changeObjectMatch = this.checkChangeObjectMatch(response)
+    var changeObjectMatch = this.checkChangeObjectRigidMatch(response)
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
@@ -137,6 +137,39 @@ export default class Question {
         default:
           return
       }
+    }
+    var changeObjectFlexMatch = this.checkChangeObjectFlexibleMatch(response)
+    if (changeObjectFlexMatch !== undefined) {
+      switch (changeObjectFlexMatch.errorType) {
+        case ERROR_TYPES.INCORRECT_WORD:
+          returnValue.modifiedWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          returnValue.author = "Modified Word Hint"
+          returnValue.response = changeObjectFlexMatch.response
+          return returnValue
+        case ERROR_TYPES.ADDITIONAL_WORD:
+          returnValue.additionalWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          returnValue.author = "Additional Word Hint"
+          returnValue.response = changeObjectFlexMatch.response
+          return returnValue
+        case ERROR_TYPES.MISSING_WORD:
+          returnValue.missingWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          returnValue.author = "Missing Word Hint"
+          returnValue.response = changeObjectFlexMatch.response
+          return returnValue
+        default:
+          return
+      }
+    }
+    var whitespaceMatch = this.checkWhiteSpaceMatch(response)
+    if (whitespaceMatch !== undefined) {
+      returnValue.whitespaceError = true
+      returnValue.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
+      returnValue.author = "Whitespace Hint"
+      returnValue.response = whitespaceMatch
+      return returnValue
     }
     var minLengthMatch = this.checkMinLengthMatch(response)
     if (minLengthMatch !== undefined) {
@@ -190,17 +223,39 @@ export default class Question {
     });
   }
 
+  checkWhiteSpaceMatch(response) {
+    return _.find(this.getOptimalResponses(), (resp) => {
+      return removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize())
+    })
+  }
+
   checkSmallTypoMatch(response) {
     return _.find(this.nonChildResponses(this.responses), (resp) => {
       return getLowAdditionCount(response.normalize(), resp.text.normalize())
     });
   }
 
-  checkChangeObjectMatch(response) {
+  checkChangeObjectRigidMatch(response) {
     const optimalResponses = _.sortBy(this.getOptimalResponses(), 'count').reverse()
     var matchedErrorType;
     const matched = _.find(optimalResponses, (optimalResponse) => {
       const errorType = getErrorType(optimalResponse.text.normalize(), response.normalize())
+      matchedErrorType = errorType
+      return errorType
+    })
+    if (matched) {
+      return {
+        response: matched,
+        errorType: matchedErrorType
+      }
+    }
+  }
+
+  checkChangeObjectFlexibleMatch(response) {
+    const optimalResponses = _.sortBy(this.getOptimalResponses(), 'count').reverse()
+    var matchedErrorType;
+    const matched = _.find(optimalResponses, (optimalResponse) => {
+      const errorType = getErrorType(removePunctuation(optimalResponse.text.normalize()).toLowerCase(), removePunctuation(response.normalize()).toLowerCase())
       matchedErrorType = errorType
       return errorType
     })
@@ -229,13 +284,13 @@ export default class Question {
 
   checkMinLengthMatch(response) {
     const optimalResponses = this.getOptimalResponses();
-    if (optimalResponses.length < 3) {
+    if (optimalResponses.length < 2) {
       return undefined
     }
     const lengthsOfResponses = optimalResponses.map((resp) => {
       return resp.text.normalize().split(" ").length;
     })
-    const minLength = _.min(lengthsOfResponses)
+    const minLength = _.min(lengthsOfResponses) - 1
     if (response.split(" ").length < minLength) {
       return _.sortBy(optimalResponses, (resp) => {
         return resp.text.normalize().length
@@ -247,13 +302,13 @@ export default class Question {
 
   checkMaxLengthMatch(response) {
     const optimalResponses = this.getOptimalResponses();
-    if (optimalResponses.length < 5) {
+    if (optimalResponses.length < 2) {
       return undefined
     }
     const lengthsOfResponses = optimalResponses.map((resp) => {
       return resp.text.normalize().split(" ").length;
     })
-    const maxLength = _.max(lengthsOfResponses)
+    const maxLength = _.max(lengthsOfResponses) + 1
     if (response.split(" ").length > maxLength) {
       return _.sortBy(optimalResponses, (resp) => {
         return resp.text.normalize().length
@@ -272,6 +327,10 @@ export default class Question {
 
 const removePunctuation = (string) => {
   return string.replace(/[^A-Za-z0-9\s]/g,"")
+}
+
+const removeSpaces = (string) => {
+  return string.replace(/\s+/g, '');
 }
 
 // Check number of chars added.

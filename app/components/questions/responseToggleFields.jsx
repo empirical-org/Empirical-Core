@@ -45,6 +45,7 @@ export default React.createClass({
           {this.renderToggleField(this.props.labels[12])}
           {this.renderToggleField(this.props.labels[13])}
           {this.renderToggleField(this.props.labels[14])}
+          {this.renderToggleField(this.props.labels[15])}
         </div>
       </div>
     )
