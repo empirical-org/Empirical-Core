@@ -6,26 +6,26 @@ import POSForResponse from './POSForResponse.jsx'
 
 export default React.createClass({
 
-  getPOSTagsList: function() {
-    const responses = this.props.responses;
-    var posTagsList = {}, posTagsAsString = ""
-    responses.forEach((response) => {
-      posTagsAsString = response.posTags.join()
-      if(posTagsList[posTagsAsString]) {
-        posTagsList[posTagsAsString].count += response.count
-        posTagsList[posTagsAsString].responses.push(response)
-      } else {
-        posTagsList[posTagsAsString] = {
-          tags: response.posTags,
-          count: response.count,
-          responses: [
-            response
-          ]
-        }
-      }
-    })
-    return posTagsList
-  },
+  // getPOSTagsList: function() {
+  //   const responses = this.props.responses;
+  //   var posTagsList = {}, posTagsAsString = ""
+  //   responses.forEach((response) => {
+  //     posTagsAsString = response.posTags.join()
+  //     if(posTagsList[posTagsAsString]) {
+  //       posTagsList[posTagsAsString].count += response.count
+  //       posTagsList[posTagsAsString].responses.push(response)
+  //     } else {
+  //       posTagsList[posTagsAsString] = {
+  //         tags: response.posTags,
+  //         count: response.count,
+  //         responses: [
+  //           response
+  //         ]
+  //       }
+  //     }
+  //   })
+  //   return posTagsList
+  // },
 
   sortResponses: function(posTagsList) {
     _.each(posTagsList, (tag) => {
@@ -37,7 +37,7 @@ export default React.createClass({
   },
 
   renderPOSTagsList: function() {
-    var posTagsList = this.sortResponses(this.getPOSTagsList())
+    var posTagsList = this.sortResponses(this.props.posTagsList)
 
     return _.map(posTagsList, (tag, index) => {
       var bgColor;

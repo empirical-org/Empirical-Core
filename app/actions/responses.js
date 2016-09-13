@@ -15,5 +15,8 @@ module.exports = {
    },
    toggleResponseSort: function (field) {
       return {type:C.TOGGLE_RESPONSE_SORT, field}
+   },
+   resetAllFields: function () {
+     return {type: C.RESET_ALL_FIELDS}
    }
 };

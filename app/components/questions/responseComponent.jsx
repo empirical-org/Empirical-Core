@@ -19,6 +19,8 @@ const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algo
                 "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint", "Whitespace Hint",
                 "Missing Word Hint", "Additional Word Hint", "Modified Word Hint", "Missing Details Hint", "Not Concise Hint", "No Hint"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
+
+const responsesPerPage = 20;
 const feedbackStrings = FEEDBACK_STRINGS
 
 const Responses = React.createClass({
@@ -192,7 +194,6 @@ const Responses = React.createClass({
   },
 
   getBoundsForCurrentPage: function(responses) {
-    const responsesPerPage = 20;
     const startIndex = (this.state.responsePageNumber-1)*responsesPerPage;
     const endIndex = startIndex+responsesPerPage > responses.length ? responses.length : startIndex+responsesPerPage
     return [startIndex, endIndex]
@@ -243,13 +244,18 @@ const Responses = React.createClass({
     this.props.dispatch(actions.toggleStatusField(status))
   },
 
+  resetFields: function () {
+    this.props.dispatch(actions.resetAllFields())
+  },
+
   renderStatusToggleMenu: function () {
     return (
       <ResponseToggleFields
         labels={labels}
         toggleField={this.toggleField}
         visibleStatuses={this.props.responses.visibleStatuses}
-        resetPageNumber={this.resetPageNumber} />
+        resetPageNumber={this.resetPageNumber}
+        resetFields={this.resetFields} />
     )
   },
 
@@ -299,16 +305,10 @@ const Responses = React.createClass({
 
   renderPOSStrings: function() {
     if(!this.state.viewingResponses) {
-      const responses = this.gatherVisibleResponses()
-
-      const responsesWithPOSTags = responses.map((response) => {
-        response.posTags = getPartsOfSpeechTags(response.text.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")) //some text has html tags
-        return response
-      })
-
+      const posTagsList = this.getResponsesForCurrentPage(hashToCollection(this.getPOSTagsList()))
       return (
         <div>
-          <POSForResponsesList responses={responsesWithPOSTags} />
+          <POSForResponsesList posTagsList={posTagsList} />
         </div>
       )
     }
@@ -317,7 +317,7 @@ const Responses = React.createClass({
   renderViewPOSButton: function () {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: false})}}> View Parts of Speech </button>
+        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: false, responsePageNumber: 1})}}> View Parts of Speech </button>
       </div>
     )
   },
@@ -325,7 +325,15 @@ const Responses = React.createClass({
   renderViewResponsesButton: function () {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: true})}}> View Unique Responses </button>
+        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: true, responsePageNumber: 1})}}> View Unique Responses </button>
+      </div>
+    )
+  },
+
+  renderResetAllFiltersButton: function () {
+    return (
+      <div className="column">
+        <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Reset All Filters</button>
       </div>
     )
   },
@@ -367,6 +375,33 @@ const Responses = React.createClass({
     return counted;
   },
 
+  getPOSTagsList: function() {
+    const responses = this.gatherVisibleResponses()
+
+    var responsesWithPOSTags = responses.map((response) => {
+      response.posTags = getPartsOfSpeechTags(response.text.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")) //some text has html tags
+      return response
+    })
+
+    var posTagsList = {}, posTagsAsString = ""
+    responses.forEach((response) => {
+      posTagsAsString = response.posTags.join()
+      if(posTagsList[posTagsAsString]) {
+        posTagsList[posTagsAsString].count += response.count
+        posTagsList[posTagsAsString].responses.push(response)
+      } else {
+        posTagsList[posTagsAsString] = {
+          tags: response.posTags,
+          count: response.count,
+          responses: [
+            response
+          ]
+        }
+      }
+    })
+    return posTagsList
+  },
+
   mapCountToResponse: function (rid) {
     const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
       var response = this.props.question.responses[key]
@@ -382,6 +417,32 @@ const Responses = React.createClass({
       return response
     });
     return _.values(mapped)
+  },
+
+  incrementPageNumber: function() {
+    if(this.state.responsePageNumber < this.getNumberOfPages()) {
+      this.setState({
+        responsePageNumber: this.state.responsePageNumber+1
+      })
+    }
+  },
+
+  decrementPageNumber: function() {
+    if(this.state.responsePageNumber !== 1) {
+      this.setState({
+        responsePageNumber: this.state.responsePageNumber-1
+      })
+    }
+  },
+
+  getNumberOfPages: function() {
+    var array
+    if(this.state.viewingResponses) {
+      array = this.gatherVisibleResponses()
+    } else {
+      array = hashToCollection(this.getPOSTagsList())
+    }
+    return Math.ceil(array.length/responsesPerPage)
   },
 
   submitFocusPointForm: function(data){
@@ -409,32 +470,72 @@ const Responses = React.createClass({
     })
   },
 
-  renderPageNumbers: function() {
-    if(!this.state.viewingResponses) {
-      return
+  renderDisplayingMessage: function() {
+    var array, endWord
+    if(this.state.viewingResponses) {
+      array = this.gatherVisibleResponses()
+      endWord = " responses"
+    } else {
+      array = hashToCollection(this.getPOSTagsList())
+      endWord = " parts of speech strings"
     }
+    const bounds = this.getBoundsForCurrentPage(array)
+    const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (array.length) + endWord
+    return <p className="label">{message}</p>
+  },
+
+  renderPageNumbers: function() {
+    // var array
+    // if(this.state.viewingResponses) {
+    //   array = this.gatherVisibleResponses()
+    // } else {
+    //   array = this.getPOSTagsList()
+    // }
 
     const responses = this.gatherVisibleResponses()
     const responsesPerPage = 20;
     const numPages = Math.ceil(responses.length/responsesPerPage)
     const pageNumbers = _.range(1, numPages+1)
 
-
+    var pageNumberStyle = {}
     const numbersToRender = pageNumbers.map((pageNumber) => {
+      if(this.state.responsePageNumber===pageNumber) {
+        pageNumberStyle = {
+          "backgroundColor": "lightblue"
+        }
+      } else {
+        pageNumberStyle = {}
+      }
       return (
-        <a className="response-component-page-number" onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber + "\t"}</a>
+        <li>
+          <a className="button" style={pageNumberStyle} onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber}</a>
+        </li>
       )
     })
 
-    const bounds = this.getBoundsForCurrentPage(responses)
-    const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (responses.length) + " responses."
+    var nextButtonClassName = "button pagination-extreme-button"
+    if(this.state.responsePageNumber===this.getNumberOfPages()) {
+      nextButtonClassName+=" is-disabled"
+    }
+    const nextButton = <a className={nextButtonClassName} onClick={this.incrementPageNumber}>Next</a>
+
+    var prevButtonClassName = "button pagination-extreme-button"
+    if(this.state.responsePageNumber===1) {
+      prevButtonClassName+=" is-disabled"
+    }
+    const prevButton = <a className={prevButtonClassName} onClick={this.decrementPageNumber}>Prev</a>
 
     return (
       <div>
-        {"Responses page number:\t\t"}
-        {numbersToRender}
-        <br/>
-        {message}
+        <div className="response-pagination-container">
+          <nav className="pagination response-pagination">
+            {prevButton}
+            {nextButton}
+            <ul>
+              {numbersToRender}
+            </ul>
+          </nav>
+        </div>
       </div>
     )
   },
@@ -460,17 +561,16 @@ const Responses = React.createClass({
             {this.renderExpandCollapseAll()}
           </div>
           {this.renderRematchAllButton()}
+          {this.renderResetAllFiltersButton()}
           {this.renderViewResponsesButton()}
           {this.renderViewPOSButton()}
         </div>
 
-        <div>
-          {this.renderPageNumbers()}
-        </div>
-        <br />
-
+        {this.renderDisplayingMessage()}
+        {this.renderPageNumbers()}
         {this.renderResponses()}
         {this.renderPOSStrings()}
+        {this.renderPageNumbers()}
       </div>
     )
   }
