@@ -1,10 +1,4 @@
-@import './bulma/utilities/utilities';
-@import './bulma/config/variables';
-@import './bulma/config/generated-variables';
-@import './bulma/base/base';
-@import './bulma/elements/elements';
-@import './bulma/components/components';
-@import './bulma/layout/layout';
+@import 'variables';
 @import 'textbox';
 @import '../../node_modules/react-selectize/themes/index.css';
 
