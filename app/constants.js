@@ -98,6 +98,8 @@ export default {
 		whitespaceError: "Try again. You may have forgotten a space between two words."
 	},
 
+	ERROR_TYPES: ['typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "modifiedWordError", "additionalWordError", "missingWordError", "whitespaceError"],
+
 	// CONCEPTS FEEDBACK ACTIONS
 	RECEIVE_CONCEPTS_FEEDBACK_DATA: "RECEIVE_CONCEPTS_FEEDBACK_DATA",
 	AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE: "AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE",

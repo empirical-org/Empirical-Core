@@ -7,6 +7,7 @@ import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import {stateToHTML} from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 import {generateStyleObjects} from '../../libs/markupUserResponses';
+import {ERROR_TYPES} from '../../constants.js'
 
 export default React.createClass({
   getInitialState: function () {
@@ -16,7 +17,7 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return _.pick(attempt, ...ERROR_TYPES)
   },
 
   componentWillReceiveProps: function (nextProps) {
