@@ -46,13 +46,13 @@ describe("The question object", () => {
   });
 
   it("should not match really different sentences", () => {
-    var correctResponse = question.checkChangeObjectMatch("The completely irrelevent sentences doesn't match.");
+    var correctResponse = question.checkChangeObjectRigidMatch("The completely irrelevent sentences doesn't match.");
     expect(correctResponse).toNotExist()
   });
 
 
   it("example 1", () => {
-    var correctResponse = question.checkChangeObjectMatch("Chocolate is bitter and it's sweetened.");
+    var correctResponse = question.checkChangeObjectRigidMatch("Chocolate is bitter and it's sweetened.");
     expect(correctResponse).toNotExist()
   });
 
@@ -79,13 +79,13 @@ describe("The surfer question", () => {
   });
 
   it("should not match really different sentences", () => {
-    var correctResponse = question.checkChangeObjectMatch("The completely irrelevent sentences doesn't match.");
+    var correctResponse = question.checkChangeObjectRigidMatch("The completely irrelevent sentences doesn't match.");
     expect(correctResponse).toNotExist()
   });
 
 
   it("example 1", () => {
-    var correctResponse = question.checkChangeObjectMatch("If surfers catch the wave, they ride it to the shore.");
+    var correctResponse = question.checkChangeObjectRigidMatch("If surfers catch the wave, they ride it to the shore.");
     console.log(correctResponse)
     expect(correctResponse).toExist()
   });
