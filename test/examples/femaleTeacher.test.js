@@ -32,6 +32,16 @@ describe("The female teacher example", () => {
     expect(response.response.optimal).toBe(true);
   });
 
+  it("should be able to check a response and provide info on whats wrong when punctuation and case are wrong", () => {
+    var response = question.checkMatch("the woman in the next room is the teacher");
+    expect(response.found).toBe(true);
+    expect(response.caseError).toBe(undefined);
+    expect(response.punctuationError).toBe(undefined);
+    expect(response.punctuationAndCaseError).toBe(true);
+    expect(response.typingError).toBe(undefined);
+    expect(response.response.optimal).toBe(true);
+  });
+
   it("should be able to check a response and provide info on whats wrong 4", () => {
     var response = question.checkMatch("The woman in the nxt room is the teacher.");
     expect(response.found).toBe(true);

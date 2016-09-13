@@ -81,7 +81,7 @@ const sentenceFragmentForm = React.createClass({
   },
 
   render: function () {
-    console.log("State: ", this.state)
+    // console.log("State: ", this.state)
     const fuse = {
       keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
       threshold: 0.4

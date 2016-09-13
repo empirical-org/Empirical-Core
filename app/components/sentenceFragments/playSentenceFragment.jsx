@@ -60,7 +60,7 @@ var PlaySentenceFragment = React.createClass({
 
     var newResponse;
 
-    console.log("Matched: ", matched)
+    // console.log("Matched: ", matched)
 
     if(matched.found) {
       if(matched.posMatch && !matched.exactMatch) {

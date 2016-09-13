@@ -22,7 +22,7 @@ const Concept = React.createClass({
     // const keys = _.keys(data["0"]);
     if (data) {
       return data.map((concept) => {
-        //console.log(key, data, data[key])
+        //// console.log(key, data, data[key])
         return (<li><Link to={'/admin/concepts/' + concept.uid} activeClassName="is-active" key={concept.uid}>{concept.displayName}</Link></li>)
       })
     }
@@ -54,7 +54,7 @@ const Concept = React.createClass({
   },
 
   render: function (){
-    // console.log("this.props.concepts", this.props.concepts)
+    // // console.log("this.props.concepts", this.props.concepts)
     return (
       <section className="section">
         <div className="container">

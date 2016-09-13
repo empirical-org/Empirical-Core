@@ -28,14 +28,8 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 import StateFinished from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx'
-
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
-}
+import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
+const feedbackStrings = FEEDBACK_STRINGS
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState: function () {
@@ -85,7 +79,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return _.pick(attempt, ...ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {

@@ -14,7 +14,7 @@ import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
-
+import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
@@ -29,13 +29,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
-}
+const feedbackStrings = FEEDBACK_STRINGS
 
 const imageCaptionPairs = [
   {
@@ -104,14 +98,14 @@ const playLessonQuestion = React.createClass({
   },
 
   renderFeedback: function () {
-    console.log("Inside game, question: ", this.props.question)
+    // // console.log("Inside game, question: ", this.props.question)
     return <RenderFeedback question={this.props.question}
             sentence="We have not seen this sentence before. Could you please try writing it in another way?"
             renderFeedbackStatements = {this.renderFeedbackStatements}/>
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return _.pick(attempt, ...ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {

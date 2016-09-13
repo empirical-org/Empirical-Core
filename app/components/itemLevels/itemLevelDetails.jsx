@@ -7,12 +7,12 @@ import _ from 'lodash'
 const ItemLevelDetails = React.createClass({
 
   render: function() {
-    if(this.props.itemLevels.hasreceiveddata && this.props.concepts.hasreceiveddata) {
+    if(this.props.itemLevels.hasreceiveddata) {
       const levelID = this.props.params.itemLevelID, itemLevels = this.props.itemLevels.data
 
-      const questions = this.props.questions.data, targetConceptID = itemLevels[levelID].conceptID
+      const questions = this.props.questions.data
       const questionKeys = _.keys(questions).filter((key)=> {
-        return questions[key].itemLevel===itemLevels[levelID].name && questions[key].conceptID===targetConceptID
+        return questions[key].itemLevel===itemLevels[levelID].name
       })
       const questionsToRender = questionKeys.map((key) => {
         return (<li key={key}><Link to={'/admin/questions/' + key}>{questions[key].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
@@ -23,9 +23,7 @@ const ItemLevelDetails = React.createClass({
         <div className="box">
           <h1 className="menu-label">{"Name: " + itemLevels[levelID].name}</h1>
           <div className="menu-list">
-            <p>{"Description: " + itemLevels[levelID].description}</p>
-            <p>Asset URL: </p><a href={itemLevels[levelID].url}>{itemLevels[levelID].url}</a>
-            <p>{"Associated grammar concept: " + _.find(this.props.concepts.data["0"], {uid: targetConceptID}).name}</p>
+            <p>{"Integer value: " + itemLevels[levelID].integerValue}</p>
           </div>
           <br/>
           <p>{questionsExist}</p>
@@ -45,7 +43,6 @@ function select(state) {
   return {
     routing: state.routing,
     itemLevels: state.itemLevels,
-    concepts: state.concepts,
     questions: state.questions
   }
 }

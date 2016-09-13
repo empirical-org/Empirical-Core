@@ -14,9 +14,14 @@ const initialState = {
         "Focus Point Hint": true,
         "Word Error Hint": true,
         "Punctuation Hint": true,
+        "Punctuation and Case Hint": true,
         "Capitalization Hint": true,
         "Missing Details Hint": true,
         "Not Concise Hint": true,
+        "Additional Word Hint": true,
+        "Missing Word Hint": true,
+        "Modified Word Hint": true,
+        "Whitespace Hint": true,
         "No Hint": true
       },
       expanded: {}  // this will contain response keys set to true or false;

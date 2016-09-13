@@ -47,7 +47,7 @@ const SentenceFragment = React.createClass({
         <h1>Loading...</h1>
       )
     } else if (data[sentenceFragmentID]) {
-      console.log("conceptID: ", this.props.sentenceFragments.data[this.props.params.sentenceFragmentID].conceptID)
+      // console.log("conceptID: ", this.props.sentenceFragments.data[this.props.params.sentenceFragmentID].conceptID)
 
       return (
         <div>

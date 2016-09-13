@@ -11,6 +11,13 @@ export default {
 			});
 		}
 	},
+	loadPathways: function(){
+		return function(dispatch,getState){
+			pathwaysRef.once("value",function(snapshot){
+				dispatch({ type: C.RECEIVE_PATHWAYS_DATA, data: snapshot.val() });
+			});
+		}
+	},
   submitNewPathway: function(rid, prid, qid){
 		return function(dispatch,getState){
 			dispatch({type:C.AWAIT_NEW_PATHWAY_RESPONSE});

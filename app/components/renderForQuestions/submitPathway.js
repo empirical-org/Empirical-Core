@@ -17,7 +17,7 @@ const getLatestAttempt = function (attempts = []) {
 }
 
 export default function submitPathway(response,props,playQuestion) {
-  console.log("pathways")
+  // console.log("pathways")
   
   var data = {};
   var previousAttempt;

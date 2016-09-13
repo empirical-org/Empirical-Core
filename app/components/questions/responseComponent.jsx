@@ -13,19 +13,15 @@ import FocusPointForm from './focusPointForm.jsx'
 import FocusPointSummary from './focusPointSummary.jsx'
 import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
 import POSForResponsesList from './POSForResponsesList.jsx'
+import {FEEDBACK_STRINGS} from '../../constants.js'
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
-                "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint",
-                "Missing Details Hint", "Not Concise Hint", "No Hint"]
+                "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint", "Whitespace Hint",
+                "Missing Word Hint", "Additional Word Hint", "Modified Word Hint", "Missing Details Hint", "Not Concise Hint", "No Hint"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
-}
-const responsesPerPage = 10;
+
+const responsesPerPage = 20;
+const feedbackStrings = FEEDBACK_STRINGS
 
 const Responses = React.createClass({
   getInitialState: function () {
@@ -93,6 +89,7 @@ const Responses = React.createClass({
     var newResponse = this.getMatchingResponse(rid)
     var response = this.getResponse(rid)
     if (!newResponse.found) {
+      console.log("Rematching not found: ", newResponse)
       var newValues = {
         weak: false,
         text: response.text,
@@ -103,7 +100,13 @@ const Responses = React.createClass({
       )
       return
     }
-    if (newResponse.response.key === response.parentID) {
+    if (newResponse.response.text === response.text) {
+      console.log("Rematching duplicate", newResponse)
+      this.props.dispatch(this.state.actions.deleteResponse(this.props.questionID, rid))
+    }
+
+    else if (newResponse.response.key === response.parentID) {
+      console.log("Rematching same parent: ", newResponse)
       if (newResponse.author) {
         var newErrorResp = {
           weak: false,
@@ -114,6 +117,7 @@ const Responses = React.createClass({
       }
     }
     else {
+      console.log("Rematching new error", newResponse)
       var newErrorResp = {
         weak: false,
         parentID: newResponse.response.key,
@@ -128,12 +132,15 @@ const Responses = React.createClass({
   },
 
   rematchAllResponses: function () {
+    console.log("Rematching All Responses")
     const weak = _.filter(this.responsesWithStatus(), (resp) => {
       return resp.statusCode > 1
     })
     weak.forEach((resp) => {
+      console.log("Rematching: ", resp.key)
       this.rematchResponse(resp.key)
     })
+    console.log("Finished Rematching All Responses")
   },
 
   responsesWithStatus: function () {
@@ -217,7 +224,8 @@ const Responses = React.createClass({
         toPathways={this.mapCountToToResponse}
         conceptsFeedback={this.props.conceptsFeedback}
         mode={this.props.mode}
-        concepts={this.props.concepts} />
+        concepts={this.props.concepts}
+        conceptID={this.props.question.conceptID}/>
     }
   },
 
@@ -483,8 +491,10 @@ const Responses = React.createClass({
     // } else {
     //   array = this.getPOSTagsList()
     // }
-    const numPages = this.getNumberOfPages()
-    if(numPages===0) return
+
+    const responses = this.gatherVisibleResponses()
+    const responsesPerPage = 20;
+    const numPages = Math.ceil(responses.length/responsesPerPage)
     const pageNumbers = _.range(1, numPages+1)
 
     var pageNumberStyle = {}
@@ -531,6 +541,7 @@ const Responses = React.createClass({
   },
 
   render: function () {
+    // console.log("Inside response component, props: ", this.props)
     return (
       <div>
         {this.renderFocusPoint()}

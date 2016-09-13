@@ -14,12 +14,8 @@ import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
 import ConceptSelector from 'react-select-search'
 import getBoilerplateFeedback from './boilerplateFeedback.jsx'
-
-const feedbackStrings = {
-  punctuationError: "punctuation error",
-  typingError: "spelling mistake",
-  caseError: "capitalization error"
-}
+import {FEEDBACK_STRINGS, ERROR_TYPES} from '../../constants.js'
+const feedbackStrings = FEEDBACK_STRINGS
 
 export default React.createClass({
 
@@ -97,7 +93,7 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+    return _.pick(attempt, ...ERROR_TYPES)
   },
 
   generateFeedbackString: function (attempt) {
@@ -298,7 +294,7 @@ export default React.createClass({
         if(concept) {
           return (
             <li>
-              {concept.displayName} {cr.correct ? "✔️" : "❌"}
+              {concept.displayName} {cr.correct ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
               {"\t"}
               {deleteIcon}
             </li>
@@ -311,9 +307,10 @@ export default React.createClass({
       })
     } else {
       const concept = _.find(this.props.concepts.data["0"], {uid: this.props.conceptID})
+      // console.log("ConceptID from props: ", this.props)
       if(concept) {
         return (
-          <li>{concept.displayName} {this.props.response.optimal ? "✔️" : "❌"}
+          <li>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
               <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
           </li>
         )
@@ -515,7 +512,7 @@ export default React.createClass({
     }
 
     const authorStyle = {"marginLeft": "10px"}
-    const author = response.author ? <span style={authorStyle} className="tag is-dark">{"Feedback: " + response.author}</span> : <span />
+    const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined
     return (
       <header className={"card-content " + bgColor + " " + this.headerClasses()} onClick={this.props.expand.bind(null, response.key)}>
         <div className="content">
@@ -634,7 +631,7 @@ export default React.createClass({
   // gatherPathways: function () {
   //   var currentRespKey = this.props.response.key;
   //   var allResponses = _.where(this.props.responses, {key: currentRespKey})
-  //   console.log();
+  //   // console.log();
   // },
 
   // renderPathwaysButton: function () {

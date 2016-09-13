@@ -54,7 +54,8 @@ const LessonForm = React.createClass({
         return (
           <p key={key}>
             {this.props.questions.data[key].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}
-            <label onClick={this.handleChange.bind(null, key)}>❌</label>
+            {"\t\t"}
+            <button onClick={this.handleChange.bind(null, key)}>Delete</button>
           </p>
         )
       })
@@ -120,7 +121,7 @@ const LessonForm = React.createClass({
         </span>
       </p>
       <div className="control">
-        <label className="label">Currently Selected Questions (click ❌ to delete)</label>
+        <label className="label">Currently Selected Questions</label>
         {this.renderQuestionSelect()}
       </div>
       <label className="label">All Questions</label>
