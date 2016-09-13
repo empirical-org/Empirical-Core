@@ -14,7 +14,7 @@
 
 .individual-activity-reports {
     margin: 0 auto;
-    max-width: 950px;
+    padding-bottom: 91px;
 }
 
 // should be moved into select-classroom-dropdown file
@@ -61,6 +61,7 @@ $lightgray: #cecece;
         &:first-of-type {
             border-left: none;
         }
+        &.active-true,
         &:focus,
         &:focus,
         &:hover {
@@ -72,6 +73,8 @@ $lightgray: #cecece;
 }
 // for activity by classroom overview
 #individual-activity-classroom-view {
+  max-width: 950px;
+  margin: auto;
     th:first-of-type,
     tr td:first-of-type {
         width: 110px;
@@ -95,6 +98,7 @@ $lightgray: #cecece;
 .individual-student-activity-view {
   padding-bottom: 91px;
   padding-top: 25px;
+  max-width: 950px;
 }
 .student-report-box {
     margin: auto;
