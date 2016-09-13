@@ -9,11 +9,11 @@ import StudentDropdown from '../../general_components/dropdown_selectors/student
 export default React.createClass({
   propTypes: {
     classrooms: React.PropTypes.array.isRequired,
-    students: React.PropTypes.array,
     studentDropdownCallBack: React.PropTypes.func,
     dropdownCallback: React.PropTypes.func,
     buttonGroupCallback: React.PropTypes.func,
-    selectedClassroom: React.PropTypes.object
+    selectedClassroom: React.PropTypes.object,
+    selectedStudentId: React.PropTypes.number
   },
 
 
@@ -26,11 +26,17 @@ export default React.createClass({
   },
 
   studentDropdown: function(){
-
+    let selectedStudent;
+    let selectedStudentId = this.props.selectedStudentId
+    if (selectedStudentId) {
+      selectedStudent = this.students().find((student) => student.id === selectedStudentId)
+    }
     if (this.props.showStudentDropdown) {
       return   <StudentDropdown
                           students = {this.students()}
-                          callback ={this.props.studentDropdownCallback}/>
+                          callback ={this.props.studentDropdownCallback}
+                          selectedStudent={selectedStudent || (this.students()[0] || null)}
+                          />
     }
   },
 

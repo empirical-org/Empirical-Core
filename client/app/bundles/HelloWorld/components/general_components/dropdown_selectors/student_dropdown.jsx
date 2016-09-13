@@ -14,26 +14,23 @@ export default React.createClass({
 		return this.checkStudents(this.props.students)
 	},
 
-	checkStudents: function(studentsProp){
-		let state;
-		if (this.props.selectedStudent) {
-			state = {selectedStudent: this.findStudentById(this.props.selectedStudentId)}
-		} else if (studentsProp && studentsProp.length) {
-			state = {selectedStudent: studentsProp[0], disabled: false}
+	checkStudents: function(studentsProps){
+		let studentProps = studentProps || this.props
+		if (!studentProps.students || !studentProps.students.length) {
+			return {selectedStudent: {name: 'No Students'}, disabled: true}
 		} else {
-			state = {selectedStudent: {name: 'No Students'}, disabled: true}
+			return {selectedStudent: studentProps.selectedStudent || studentProps.students[0]}
 		}
-		return state;
 	},
 
 	componentWillReceiveProps: function(nextProps){
-		this.setState(this.checkStudents(nextProps.students))
+		this.setState(this.checkStudents(nextProps))
 	},
 
 
 	students: function() {
 		if (!this.state.disabled) {
-				return this.props.students.map((student) => <MenuItem key={student.id} eventKey={student.id}>{student.name}</MenuItem>)
+				return this.props.students.map((student, index) => <MenuItem key={`${student.id}+${index}`} eventKey={student.id}>{student.name}</MenuItem>)
 		}
 	},
 

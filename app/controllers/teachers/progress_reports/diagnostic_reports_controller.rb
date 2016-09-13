@@ -102,7 +102,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       class_id = classroom['id']
       h[class_id] ||= classroom
       h[class_id][:students] ||= []
-      h[class_id][:students] << activity_session.user
+      if h[class_id][:students].exclude? activity_session.user
+         h[class_id][:students] << activity_session.user
+      end
       h[class_id][:classroom_activity_id] = class_act.id
     end
     # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
