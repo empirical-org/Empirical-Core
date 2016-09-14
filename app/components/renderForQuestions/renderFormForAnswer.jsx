@@ -28,13 +28,13 @@ export default React.createClass({
 
   render: function() {
     var content;
-    if(this.props.id==="playQuestion") {
-      content = <Link to={'/results/questions/' + this.props.questionID} className="button is-info is-outlined">View Results</Link>
-    }
+    // if(this.props.id==="playQuestion") {
+    //   content = <Link to={'/results/questions/' + this.props.questionID} className="button is-info is-outlined">View Results</Link>
+    // }
 
     var button, feedback = this.props.feedback;
     if(!this.props.nextQuestionButton) {
-      button = <button className={"button is-primary " + this.props.toggleDisabled} onClick={this.props.checkAnswer}>Check answer</button>
+      button = <button className={"button student-submit " + this.props.toggleDisabled} onClick={this.props.checkAnswer}>Check answer</button>
     } else { // if you're going to next, it is the end state
       button = this.props.nextQuestionButton
       let answeredCorrectly = !!(_.find(this.props.question.attempts, (attempt) => {

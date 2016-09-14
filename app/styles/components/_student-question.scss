@@ -18,7 +18,7 @@
   min-height: 68px;
   background-color: #fafafa;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
-  
+
   &.disabled {
     background-color: $background;
   }
@@ -34,5 +34,22 @@
         font-stretch: normal;
         color: #000000;
     }
+  }
+}
+
+.question-button-group {
+  margin-top: 28px;
+
+  .student-submit, .student-next {
+    background-color: $green;
+    font-family: $family-sans-serif;
+    color: $white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 18px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 24px;
   }
 }
