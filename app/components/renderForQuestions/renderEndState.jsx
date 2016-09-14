@@ -2,6 +2,7 @@ import React from 'react'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {connect} from 'react-redux'
+import arrow from '../../img/arrow_icon.svg'
 
 const EndState = React.createClass({
 
@@ -13,7 +14,7 @@ const EndState = React.createClass({
       message = "Nice try, but that's not quite right. Keep going! Here are the most popular strong answers:"
     }
     return (
-      <h5 className="title is-5">{message}</h5>
+      <p className="top-answer-title">{message}</p>
     )
   },
 
@@ -41,10 +42,13 @@ const EndState = React.createClass({
     }
     return (
       <div className="end-state-container">
-        {this.renderStaticText()}
-        <ul style={listStyle}>
-          {this.renderTopThreeResponses()}
-        </ul>
+        <img className="mirror" src={arrow}/>
+        <div className="top-answer-text">
+          {this.renderStaticText()}
+          <ul className="top-answer-list">
+            {this.renderTopThreeResponses()}
+          </ul>
+        </div>
       </div>
     )
   }
