@@ -3,12 +3,9 @@
 import React from 'react'
 import Question from '../../libs/question'
 import _ from 'underscore'
+var C = require("../../constants").default
 
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error."
-}
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 export default React.createClass({
   getInitialState: function () {
@@ -35,7 +32,7 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+    return _.pick(attempt, ...(C.ERROR_TYPES))
   },
 
   renderFeedbackStatements: function (attempt) {
@@ -88,7 +85,7 @@ export default React.createClass({
 
   renderNextQuestionButton:  function () {
     if (this.readyForNext()) {
-      return (<button className="button is-outlined is-success" onClick={console.log("next")}>Next</button>)
+      return (<button className="button is-outlined is-success" onClick={// console.log("next")}>Next</button>)
     }
   },
 

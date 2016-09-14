@@ -11,16 +11,17 @@ import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
 import FocusPointForm from './focusPointForm.jsx'
 import FocusPointSummary from './focusPointSummary.jsx'
+import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
+import POSForResponsesList from './POSForResponsesList.jsx'
+var C = require("../../constants").default
 
-const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
+const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
+                "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint", "Whitespace Hint",
+                "Missing Word Hint", "Additional Word Hint", "Modified Word Hint", "Missing Details Hint", "Not Concise Hint", "No Hint"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
-}
+
+const responsesPerPage = 20;
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 const Responses = React.createClass({
   getInitialState: function () {
@@ -31,7 +32,9 @@ const Responses = React.createClass({
       actions = questionActions;
     }
     return {
-      actions
+      actions: actions,
+      viewingResponses: true,
+      responsePageNumber: 1
     }
   },
 
@@ -86,6 +89,7 @@ const Responses = React.createClass({
     var newResponse = this.getMatchingResponse(rid)
     var response = this.getResponse(rid)
     if (!newResponse.found) {
+      console.log("Rematching not found: ", newResponse)
       var newValues = {
         weak: false,
         text: response.text,
@@ -96,7 +100,13 @@ const Responses = React.createClass({
       )
       return
     }
-    if (newResponse.response.key === response.parentID) {
+    if (newResponse.response.text === response.text) {
+      console.log("Rematching duplicate", newResponse)
+      this.props.dispatch(this.state.actions.deleteResponse(this.props.questionID, rid))
+    }
+
+    else if (newResponse.response.key === response.parentID) {
+      console.log("Rematching same parent: ", newResponse)
       if (newResponse.author) {
         var newErrorResp = {
           weak: false,
@@ -107,6 +117,7 @@ const Responses = React.createClass({
       }
     }
     else {
+      console.log("Rematching new error", newResponse)
       var newErrorResp = {
         weak: false,
         parentID: newResponse.response.key,
@@ -121,12 +132,15 @@ const Responses = React.createClass({
   },
 
   rematchAllResponses: function () {
+    console.log("Rematching All Responses")
     const weak = _.filter(this.responsesWithStatus(), (resp) => {
       return resp.statusCode > 1
     })
     weak.forEach((resp) => {
+      console.log("Rematching: ", resp.key)
       this.rematchResponse(resp.key)
     })
+    console.log("Finished Rematching All Responses")
   },
 
   responsesWithStatus: function () {
@@ -153,7 +167,13 @@ const Responses = React.createClass({
   gatherVisibleResponses: function () {
     var responses = this.responsesWithStatus();
     return _.filter(responses, (response) => {
-      return this.props.responses.visibleStatuses[labels[response.statusCode]]
+      return (
+        this.props.responses.visibleStatuses[labels[response.statusCode]] &&
+        (
+          this.props.responses.visibleStatuses[response.author] ||
+          (response.author===undefined && this.props.responses.visibleStatuses["No Hint"])
+        )
+      )
     });
   },
 
@@ -167,30 +187,46 @@ const Responses = React.createClass({
     return _.where(responses, {parentID: responseID})
   },
 
+  getResponsesForCurrentPage: function(responses) {
+    const bounds = this.getBoundsForCurrentPage(responses)
+    // go until responses.length because .slice ends at endIndex-1
+    return responses.slice(bounds[0], bounds[1])
+  },
+
+  getBoundsForCurrentPage: function(responses) {
+    const startIndex = (this.state.responsePageNumber-1)*responsesPerPage;
+    const endIndex = startIndex+responsesPerPage > responses.length ? responses.length : startIndex+responsesPerPage
+    return [startIndex, endIndex]
+  },
+
   renderResponses: function () {
-    const {questionID} = this.props;
-    var responses = this.gatherVisibleResponses();
-    var responsesListItems = _.sortBy(responses, (resp) =>
-        {return resp[this.props.responses.sorting] || 0 }
-      )
-    return <ResponseList
-      responses={responsesListItems}
-      getResponse={this.getResponse}
-      getChildResponses={this.getChildResponses}
-      states={this.props.states}
-      questionID={questionID}
-      dispatch={this.props.dispatch}
-      admin={this.props.admin}
-      expanded={this.props.responses.expanded}
-      expand={this.expand}
-      ascending={this.props.responses.ascending}
-      getMatchingResponse={this.getMatchingResponse}
-      showPathways={true}
-      printPathways={this.mapCountToResponse}
-      toPathways={this.mapCountToToResponse}
-      conceptsFeedback={this.props.conceptsFeedback}
-      mode={this.props.mode}
-      concepts={this.props.concepts} />
+    if(this.state.viewingResponses) {
+      const {questionID} = this.props;
+      var responses = this.gatherVisibleResponses();
+      responses = this.getResponsesForCurrentPage(responses);
+      var responsesListItems = _.sortBy(responses, (resp) =>
+          {return resp[this.props.responses.sorting] || 0 }
+        )
+      return <ResponseList
+        responses={responsesListItems}
+        getResponse={this.getResponse}
+        getChildResponses={this.getChildResponses}
+        states={this.props.states}
+        questionID={questionID}
+        dispatch={this.props.dispatch}
+        admin={this.props.admin}
+        expanded={this.props.responses.expanded}
+        expand={this.expand}
+        ascending={this.props.responses.ascending}
+        getMatchingResponse={this.getMatchingResponse}
+        showPathways={true}
+        printPathways={this.mapCountToResponse}
+        toPathways={this.mapCountToToResponse}
+        conceptsFeedback={this.props.conceptsFeedback}
+        mode={this.props.mode}
+        concepts={this.props.concepts}
+        conceptID={this.props.question.conceptID}/>
+    }
   },
 
   toggleResponseSort: function (field) {
@@ -208,12 +244,18 @@ const Responses = React.createClass({
     this.props.dispatch(actions.toggleStatusField(status))
   },
 
+  resetFields: function () {
+    this.props.dispatch(actions.resetAllFields())
+  },
+
   renderStatusToggleMenu: function () {
     return (
       <ResponseToggleFields
         labels={labels}
         toggleField={this.toggleField}
-        visibleStatuses={this.props.responses.visibleStatuses} />
+        visibleStatuses={this.props.responses.visibleStatuses}
+        resetPageNumber={this.resetPageNumber}
+        resetFields={this.resetFields} />
     )
   },
 
@@ -261,6 +303,41 @@ const Responses = React.createClass({
     }
   },
 
+  renderPOSStrings: function() {
+    if(!this.state.viewingResponses) {
+      const posTagsList = this.getResponsesForCurrentPage(hashToCollection(this.getPOSTagsList()))
+      return (
+        <div>
+          <POSForResponsesList posTagsList={posTagsList} />
+        </div>
+      )
+    }
+  },
+
+  renderViewPOSButton: function () {
+    return (
+      <div className="column">
+        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: false, responsePageNumber: 1})}}> View Parts of Speech </button>
+      </div>
+    )
+  },
+
+  renderViewResponsesButton: function () {
+    return (
+      <div className="column">
+        <button className="button is-fullwidth is-outlined" onClick={() => {this.setState({viewingResponses: true, responsePageNumber: 1})}}> View Unique Responses </button>
+      </div>
+    )
+  },
+
+  renderResetAllFiltersButton: function () {
+    return (
+      <div className="column">
+        <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Reset All Filters</button>
+      </div>
+    )
+  },
+
   getToPathwaysForResponse: function (rid) {
     var responseCollection = hashToCollection(this.props.pathways.data);
     var responsePathways = _.where(responseCollection, {fromResponseID: rid});
@@ -298,6 +375,33 @@ const Responses = React.createClass({
     return counted;
   },
 
+  getPOSTagsList: function() {
+    const responses = this.gatherVisibleResponses()
+
+    var responsesWithPOSTags = responses.map((response) => {
+      response.posTags = getPartsOfSpeechTags(response.text.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")) //some text has html tags
+      return response
+    })
+
+    var posTagsList = {}, posTagsAsString = ""
+    responses.forEach((response) => {
+      posTagsAsString = response.posTags.join()
+      if(posTagsList[posTagsAsString]) {
+        posTagsList[posTagsAsString].count += response.count
+        posTagsList[posTagsAsString].responses.push(response)
+      } else {
+        posTagsList[posTagsAsString] = {
+          tags: response.posTags,
+          count: response.count,
+          responses: [
+            response
+          ]
+        }
+      }
+    })
+    return posTagsList
+  },
+
   mapCountToResponse: function (rid) {
     const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
       var response = this.props.question.responses[key]
@@ -313,6 +417,32 @@ const Responses = React.createClass({
       return response
     });
     return _.values(mapped)
+  },
+
+  incrementPageNumber: function() {
+    if(this.state.responsePageNumber < this.getNumberOfPages()) {
+      this.setState({
+        responsePageNumber: this.state.responsePageNumber+1
+      })
+    }
+  },
+
+  decrementPageNumber: function() {
+    if(this.state.responsePageNumber !== 1) {
+      this.setState({
+        responsePageNumber: this.state.responsePageNumber-1
+      })
+    }
+  },
+
+  getNumberOfPages: function() {
+    var array
+    if(this.state.viewingResponses) {
+      array = this.gatherVisibleResponses()
+    } else {
+      array = hashToCollection(this.getPOSTagsList())
+    }
+    return Math.ceil(array.length/responsesPerPage)
   },
 
   submitFocusPointForm: function(data){
@@ -334,7 +464,84 @@ const Responses = React.createClass({
     )
   },
 
+  resetPageNumber: function() {
+    this.setState({
+      responsePageNumber: 1
+    })
+  },
+
+  renderDisplayingMessage: function() {
+    var array, endWord
+    if(this.state.viewingResponses) {
+      array = this.gatherVisibleResponses()
+      endWord = " responses"
+    } else {
+      array = hashToCollection(this.getPOSTagsList())
+      endWord = " parts of speech strings"
+    }
+    const bounds = this.getBoundsForCurrentPage(array)
+    const message = "Displaying " + (bounds[0]+1) + "-" + (bounds[1]) + " of " + (array.length) + endWord
+    return <p className="label">{message}</p>
+  },
+
+  renderPageNumbers: function() {
+    // var array
+    // if(this.state.viewingResponses) {
+    //   array = this.gatherVisibleResponses()
+    // } else {
+    //   array = this.getPOSTagsList()
+    // }
+
+    const responses = this.gatherVisibleResponses()
+    const responsesPerPage = 20;
+    const numPages = Math.ceil(responses.length/responsesPerPage)
+    const pageNumbers = _.range(1, numPages+1)
+
+    var pageNumberStyle = {}
+    const numbersToRender = pageNumbers.map((pageNumber) => {
+      if(this.state.responsePageNumber===pageNumber) {
+        pageNumberStyle = {
+          "backgroundColor": "lightblue"
+        }
+      } else {
+        pageNumberStyle = {}
+      }
+      return (
+        <li>
+          <a className="button" style={pageNumberStyle} onClick={() => {this.setState({responsePageNumber: pageNumber})}}>{pageNumber}</a>
+        </li>
+      )
+    })
+
+    var nextButtonClassName = "button pagination-extreme-button"
+    if(this.state.responsePageNumber===this.getNumberOfPages()) {
+      nextButtonClassName+=" is-disabled"
+    }
+    const nextButton = <a className={nextButtonClassName} onClick={this.incrementPageNumber}>Next</a>
+
+    var prevButtonClassName = "button pagination-extreme-button"
+    if(this.state.responsePageNumber===1) {
+      prevButtonClassName+=" is-disabled"
+    }
+    const prevButton = <a className={prevButtonClassName} onClick={this.decrementPageNumber}>Prev</a>
+
+    return (
+      <div>
+        <div className="response-pagination-container">
+          <nav className="pagination response-pagination">
+            {prevButton}
+            {nextButton}
+            <ul>
+              {numbersToRender}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    )
+  },
+
   render: function () {
+    // console.log("Inside response component, props: ", this.props)
     return (
       <div>
         {this.renderFocusPoint()}
@@ -354,9 +561,16 @@ const Responses = React.createClass({
             {this.renderExpandCollapseAll()}
           </div>
           {this.renderRematchAllButton()}
+          {this.renderResetAllFiltersButton()}
+          {this.renderViewResponsesButton()}
+          {this.renderViewPOSButton()}
         </div>
 
+        {this.renderDisplayingMessage()}
+        {this.renderPageNumbers()}
         {this.renderResponses()}
+        {this.renderPOSStrings()}
+        {this.renderPageNumbers()}
       </div>
     )
   }

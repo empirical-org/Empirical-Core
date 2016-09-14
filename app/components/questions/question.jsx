@@ -10,11 +10,18 @@ import Response from './response.jsx'
 import C from '../../constants'
 import Chart from './pieChart.jsx'
 import ResponseComponent from './responseComponent.jsx'
+import getBoilerplateFeedback from './boilerplateFeedback.jsx'
 
 const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched"]
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 
 const Question = React.createClass({
+
+  getInitialState: function() {
+    return {
+      selectedBoilerplateCategory: ""
+    }
+  },
 
   deleteQuestion: function () {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID))
@@ -102,8 +109,60 @@ const Question = React.createClass({
     });
   },
 
-  chooseBoilerplate: function(e) {
-    this.refs.newResponseFeedback.value = this.refs.boilerplate.value
+  boilerplateCategoriesToOptions: function() {
+    return getBoilerplateFeedback().map((category) => {
+      return (
+        <option className="boilerplate-feedback-dropdown-option">{category.description}</option>
+      )
+    })
+  },
+
+  boilerplateSpecificFeedbackToOptions: function(selectedCategory) {
+    return selectedCategory.children.map((childFeedback) => {
+      return (
+        <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
+      )
+    })
+  },
+
+  chooseBoilerplateCategory: function(e) {
+    this.setState({selectedBoilerplateCategory: e.target.value})
+  },
+
+  chooseSpecificBoilerplateFeedback: function(e) {
+    if(e.target.value === "Select specific boilerplate feedback") {
+      this.refs.newResponseFeedback.value = ""
+    } else {
+      this.refs.newResponseFeedback.value = e.target.value
+    }
+  },
+
+  renderBoilerplateCategoryDropdown: function() {
+    const style = {"marginRight": "20px"}
+    return (
+      <span className="select" style={style}>
+        <select className="boilerplate-feedback-dropdown" onChange={this.chooseBoilerplateCategory}>
+          <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
+          {this.boilerplateCategoriesToOptions()}
+        </select>
+      </span>
+    )
+  },
+
+  renderBoilerplateCategoryOptionsDropdown: function() {
+    const selectedCategory = _.find(getBoilerplateFeedback(), {description: this.state.selectedBoilerplateCategory});
+    if(selectedCategory) {
+      return (
+        <span className="select">
+          <select className="boilerplate-feedback-dropdown" onChange={this.chooseSpecificBoilerplateFeedback} ref="boilerplate">
+            <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
+            {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
+          </select>
+        </span>
+      )
+    } else {
+      return (<span />)
+    }
   },
 
   renderNewResponseForm: function () {
@@ -119,19 +178,11 @@ const Question = React.createClass({
           <input className="input" type="text" ref="newResponseFeedback"></input>
         </p>
         <label className="label">Boilerplate feedback</label>
-        <p className="control">
-          <span className="select">
-            <select onChange={this.chooseBoilerplate} ref="boilerplate">
-              <option>Select boilerplate feedback</option>
-              <option>Is that really what the prompt suggested?</option>
-              <option>The what _?</option>
-              <option>What does _ describe?</option>
-              <option>What's a clearer way of describing _?</option>
-              <option>Great job! That's a strong sentence.</option>
-              <option>How can you make the sentence more concise (shorter, clearer)?</option>
-            </select>
-          </span>
-        </p>
+        <div className="boilerplate-feedback-dropdown-container">
+          {this.renderBoilerplateCategoryDropdown()}
+          {this.renderBoilerplateCategoryOptionsDropdown()}
+        </div>
+        <br/>
         <p className="control">
           <label className="checkbox">
             <input ref="newResponseOptimal" type="checkbox" />
@@ -167,7 +218,7 @@ const Question = React.createClass({
           <h6 className="subtitle">{responses.length} Responses</h6>
           <Link to={'play/questions/' + questionID} className="button is-outlined is-primary">Play Question</Link><br/><br/>
           <Chart data={_.values(this.formatForPieChart())}/>
-          <p className="control">
+          <p className="control button-group">
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button>
             <Link to={'admin/questions'} className="button is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>

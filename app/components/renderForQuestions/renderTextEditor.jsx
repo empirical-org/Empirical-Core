@@ -7,6 +7,9 @@ import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import {stateToHTML} from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 import {generateStyleObjects} from '../../libs/markupUserResponses';
+var C = require("../../constants").default
+
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 export default React.createClass({
   getInitialState: function () {
@@ -16,13 +19,12 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    console.log("gotten errors: ", _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError'))
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
-      if (nextProps.latestAttempt.found) {
+      if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID
         const nErrors = _.keys(this.getErrorsForAttempt(nextProps.latestAttempt)).length;
         var targetText;
@@ -43,7 +45,6 @@ export default React.createClass({
         }
         const newStyle = generateStyleObjects(targetText, nextProps.latestAttempt.submitted)
         var state = convertToRaw(this.state.text.getCurrentContent());
-        console.log("state", state)
         state.blocks[0].text = newStyle.text;
         state.blocks[0].inlineStyleRanges = newStyle.inlineStyleRanges
         this.setState({
@@ -67,7 +68,7 @@ export default React.createClass({
 
   render: function () {
     return (
-      <div className="text-editor card is-fullwidth">
+      <div className="student text-editor card is-fullwidth">
         <div className="card-content">
           <div className="content">
             <Editor editorState={this.state.text} onChange={this.handleTextChange}/>

@@ -12,7 +12,7 @@ import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
-
+var C = require("../../constants").default
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
@@ -27,13 +27,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 import StateFinished from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
-}
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 const playLessonQuestion = React.createClass({
   getInitialState: function () {
@@ -82,7 +76,7 @@ const playLessonQuestion = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {
@@ -158,8 +152,6 @@ const playLessonQuestion = React.createClass({
   },
 
   render: function () {
-    console.log("in the question.jsx file")
-    console.log(this.props)
     const questionID = this.props.question.key;
     if (this.props.question) {
       if (this.state.finished) {

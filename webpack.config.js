@@ -1,5 +1,5 @@
 const live = process.env.NODE_ENV === "production";
-console.log("in prod: ", live)
+// console.log("in prod: ", live)
 var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
@@ -40,7 +40,11 @@ module.exports = {
         test: /\.scss$/,
         loader: live ? ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap') : 'style!css?sourceMap!sass?sourceMap'
       },
-
+      {
+        test: /\.svg$/,
+        loader: 'file',
+        include: /app\/img/
+      },
       { test: /\.json$/, loader: 'json-loader' }
     ],
   },

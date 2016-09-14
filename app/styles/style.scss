@@ -1,11 +1,8 @@
-@import './bulma/utilities/utilities';
-@import './bulma/config/variables';
-@import './bulma/config/generated-variables';
-@import './bulma/base/base';
-@import './bulma/elements/elements';
-@import './bulma/components/components';
-@import './bulma/layout/layout';
+@import 'variables';
 @import 'textbox';
+@import "components/student-nav";
+@import "components/student-container";
+@import "components/student-question";
 @import '../../node_modules/react-selectize/themes/index.css';
 
 body {
@@ -84,7 +81,7 @@ ul.is-unstyled {
 
 .panel-checkbox.toggle {
   display: inline;
-  padding: 9px 10px 9px 30px;
+  padding: 9px 10px 9px 10px;
 }
 
 .intro-next-button {
@@ -102,18 +99,6 @@ ul.is-unstyled {
   max-height: 80vh;
   width: 960px;
   max-width: 100%;
-}
-
-.cues {
-  display: inline-flex;
-  border: 1px solid grey;
-  margin-bottom: 1em;
-  .cue {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 1em;
-    text-transform: lowercase;
-  }
 }
 
 .register-list {
@@ -169,11 +154,14 @@ textarea.submission {
 }
 
 .sentence-fragments {
+  padding-top: 28px;
   p {
-    font-size: 24px;
+    font-family: $family-sans-serif;
+    color: #2f2f2f;
+    font-size: 30px;
+    line-height: 1.27;
     margin-bottom: 0em;
   }
-  margin-bottom: 1em;
   font-size: 24px;
 }
 
@@ -308,3 +296,71 @@ textarea.submission {
 .menu-list a.no-feedback  {
   color: red;
 }
+
+.boilerplate-feedback-dropdown-container {
+  display: inline-block;
+
+  .boilerplate-feedback-dropdown {
+    max-width: 35em;
+    width: auto;
+
+    .boilerplate-feedback-dropdown-option {
+      width: auto;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+
+.response-pagination-container {
+  max-height: 50px;
+  height: 100%;
+  border: 1px solid #bfbfbf;
+  border-radius: 3px;
+}
+
+
+.response-pagination {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.response-component-page-number-active {
+  background-color: #42afe3;
+}
+
+.pagination-extreme-button {
+  margin: 10px;
+}
+
+.section {
+  &.student {
+    background-color: $background;
+    padding-top: 0;
+  }
+  &.is-fullheight{
+    min-height: 100vh;
+    &.minus-nav {
+      min-height: calc(100vh - 50px);
+    }
+    .hero-body {
+      align-items: center;
+      display: flex;
+      & > .container {
+        flex-grow: 1;
+      }
+
+    }
+
+  }
+
+}
+
+// .response-component-page-number {
+//   a:visited {
+//     color: blue;
+//   }
+// }

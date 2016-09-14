@@ -1,5 +1,4 @@
 import React from 'react'
-import C from '../../constants'
 import questionActions from '../../actions/questions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import Question from '../../libs/question'
@@ -13,12 +12,9 @@ var Markdown = require('react-remarkable');
 import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
 import ConceptSelector from 'react-select-search'
-
-const feedbackStrings = {
-  punctuationError: "punctuation error",
-  typingError: "spelling mistake",
-  caseError: "capitalization error"
-}
+import getBoilerplateFeedback from './boilerplateFeedback.jsx'
+var C = require("../../constants").default
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 export default React.createClass({
 
@@ -32,6 +28,7 @@ export default React.createClass({
     return {
       feedback: this.props.response.feedback || "",
       selectedBoilerplate: "",
+      selectedBoilerplateCategory: this.props.response.selectedBoilerplateCategory || "",
       selectedConcept: this.props.response.concept || "",
       actions,
       newConceptResult: {
@@ -95,7 +92,7 @@ export default React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError')
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   generateFeedbackString: function (attempt) {
@@ -145,13 +142,6 @@ export default React.createClass({
       }
       this.updateRematchedResponse(rid, newErrorResp)
     }
-    // this.updateReponseResource(response)
-    // this.submitResponse(response)
-    // this.setState({editing: false})
-  },
-
-  chooseBoilerplate: function(e) {
-    this.setState({selectedBoilerplate: this.refs.boilerplate.value})
   },
 
   chooseConcept: function(e) {
@@ -183,7 +173,11 @@ export default React.createClass({
   },
 
   handleFeedbackChange: function (e) {
-    this.setState({feedback: e});
+    if(e==="Select specific boilerplate feedback") {
+      this.setState({feedback: ""})
+    } else {
+      this.setState({feedback: e});
+    }
   },
 
   conceptsFeedbackToOptions: function () {
@@ -197,19 +191,10 @@ export default React.createClass({
   conceptsToOptions: function() {
     return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        {name: concept.displayName, value: concept.uid}
+        {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
       )
     })
   },
-
-
-  // conceptsToOptions: function () {
-  //   return this.props.concepts.data["0"].map((cs) => {
-  //     return (
-  //       <option selected={this.state.newConceptResult.conceptUID === cs.uid} value={cs.uid}>{cs.name}</option>
-  //     )
-  //   })
-  // },
 
   selectConceptForResult: function (e) {
     this.setState({
@@ -237,12 +222,102 @@ export default React.createClass({
     this.props.dispatch(this.state.actions.submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult))
   },
 
-  renderConceptResults: function () {
+  deleteConceptResult: function(crid) {
+    if(confirm("Are you sure?")) {
+      this.props.dispatch(this.state.actions.deleteConceptResult(this.props.questionID, this.props.response.key, crid))
+    }
+  },
+  chooseBoilerplateCategory: function(e) {
+    this.setState({selectedBoilerplateCategory: e.target.value})
+  },
+
+  chooseSpecificBoilerplateFeedback: function(e) {
+    this.setState({selectedBoilerplate: e.target.value})
+  },
+
+  boilerplateCategoriesToOptions: function() {
+    return getBoilerplateFeedback().map((category) => {
+      return (
+        <option className="boilerplate-feedback-dropdown-option">{category.description}</option>
+      )
+    })
+  },
+
+  boilerplateSpecificFeedbackToOptions: function(selectedCategory) {
+    return selectedCategory.children.map((childFeedback) => {
+      return (
+        <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
+      )
+    })
+  },
+
+  renderBoilerplateCategoryDropdown: function() {
+    const style = {"marginRight": "20px"}
+    return (
+      <span className="select" style={style}>
+        <select className="boilerplate-feedback-dropdown" onChange={this.chooseBoilerplateCategory} ref="boilerplate">
+          <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
+          {this.boilerplateCategoriesToOptions()}
+        </select>
+      </span>
+    )
+  },
+
+  renderBoilerplateCategoryOptionsDropdown: function() {
+    const selectedCategory = _.find(getBoilerplateFeedback(), {description: this.state.selectedBoilerplateCategory});
+    if(selectedCategory) {
+      return (
+        <span className="select">
+          <select className="boilerplate-feedback-dropdown" onChange={this.chooseSpecificBoilerplateFeedback} ref="boilerplate">
+            <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
+            {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
+          </select>
+        </span>
+      )
+    } else {
+      return (<span />)
+    }
+  },
+
+  renderConceptResults: function (mode) {
     if (this.props.response.conceptResults) {
       return hashToCollection(this.props.response.conceptResults).map((cr) => {
         const concept = _.find(this.props.concepts.data["0"], {uid: cr.conceptUID})
-        return <li>{concept.displayName} {cr.correct ? "✔️" : "❌"}</li>
+        let deleteIcon
+        if(mode==="Editing") {
+          deleteIcon = <button onClick={this.deleteConceptResult.bind(null, cr.key)}>{"Delete"}</button>
+        } else {
+          deleteIcon = <span/>
+        }
+
+        if(concept) {
+          return (
+            <li>
+              {concept.displayName} {cr.correct ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+              {"\t"}
+              {deleteIcon}
+            </li>
+          )
+        } else {
+          return (
+            <div></div>
+          )
+        }
       })
+    } else {
+      const concept = _.find(this.props.concepts.data["0"], {uid: this.props.conceptID})
+      // console.log("ConceptID from props: ", this.props)
+      if(concept) {
+        return (
+          <li>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+              <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
+          </li>
+        )
+      } else {
+        return (
+          <div></div>
+        )
+      }
     }
   },
 
@@ -302,26 +377,22 @@ export default React.createClass({
 
 
     if (isEditing) {
+      const fuse = {
+        keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
+        threshold: 0.4
+      }
       content =
         <div className="content">
           {parentDetails}
           <label className="label">Feedback</label>
           <TextEditor text={this.state.feedback || ""} handleTextChange={this.handleFeedbackChange} boilerplate={this.state.selectedBoilerplate}/>
 
+          <br />
           <label className="label">Boilerplate feedback</label>
-          <p className="control">
-            <span className="select">
-              <select onChange={this.chooseBoilerplate} ref="boilerplate">
-                <option>Select boilerplate feedback</option>
-                <option>Is that really what the prompt suggested?</option>
-                <option>The what _?</option>
-                <option>What does _ describe?</option>
-                <option>What's a clearer way of describing _?</option>
-                <option>Great job! That's a strong sentence.</option>
-                <option>How can you make the sentence more concise (shorter, clearer)?</option>
-              </select>
-            </span>
-          </p>
+          <div className="boilerplate-feedback-dropdown-container">
+            {this.renderBoilerplateCategoryDropdown()}
+            {this.renderBoilerplateCategoryOptionsDropdown()}
+          </div>
 
           <label className="label">Grammar concept</label>
           <p className="control">
@@ -336,16 +407,12 @@ export default React.createClass({
           <div className="box">
             <label className="label">Concept Results</label>
             <ul>
-              {this.renderConceptResults()}
+              {this.renderConceptResults("Editing")}
               {/*<li>Commas in lists (placeholder)</li>*/}
             </ul>
 
-                {/*<select onChange={this.selectConceptForResult}>
-                  <option>Select Concept feedback</option>
-                  {this.conceptsToOptions()}
-                </select>*/}
-                <ConceptSelector options={this.conceptsToOptions()} placeholder="Choose a concept to add" onChange={this.selectConceptForResult}/>
-
+            <ConceptSelector options={this.conceptsToOptions()} placeholder="Choose a concept to add"
+                             onChange={this.selectConceptForResult} fuse={fuse}/>
             <p className="control">
               <label className="checkbox">
                 <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
@@ -373,7 +440,7 @@ export default React.createClass({
           <br/>
           <label className="label">Concept Results</label>
           <ul>
-            {this.renderConceptResults()}
+            {this.renderConceptResults("Viewing")}
           </ul>
           {authorDetails}
           {childDetails}
@@ -443,12 +510,14 @@ export default React.createClass({
       icon = "⚠️";
     }
 
+    const authorStyle = {"marginLeft": "10px"}
+    const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined
     return (
       <header className={"card-content " + bgColor + " " + this.headerClasses()} onClick={this.props.expand.bind(null, response.key)}>
         <div className="content">
           <div className="media">
             <div className="media-content">
-              <p>{response.text}</p>
+              <p>{response.text} {author}</p>
             </div>
             <div className="media-right">
               <figure className="image is-32x32">
@@ -561,7 +630,7 @@ export default React.createClass({
   // gatherPathways: function () {
   //   var currentRespKey = this.props.response.key;
   //   var allResponses = _.where(this.props.responses, {key: currentRespKey})
-  //   console.log();
+  //   // console.log();
   // },
 
   // renderPathwaysButton: function () {

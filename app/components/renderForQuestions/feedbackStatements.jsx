@@ -1,17 +1,11 @@
 import React from 'react'
 import _ from 'underscore'
-
+var C = require("../../constants").default
 /*
   21 Test the changes
 */
 
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
-}
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 export default React.createClass({
 
@@ -21,24 +15,25 @@ export default React.createClass({
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
-      components = components.concat([(<li key="feedback" dangerouslySetInnerHTML={{__html: data.attempt.response.feedback}}></li>)])
+      components = components.concat([(<p dangerouslySetInnerHTML={{__html: data.attempt.response.feedback}}></p>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
+        return (<p>{feedbackStrings[key]}</p>)
       }
     }))
-    console.log("data.getQuestion.responses: ", data.getQuestion().responses) //returns this.props.question
-    console.log("data: ", data)
-    if (data.attempt.response.parentID && (data.getQuestion().responses[data.attempt.response.parentID].optimal !== true )) {
+    // console.log("data.getQuestion.responses: ", data.getQuestion().responses) //returns this.props.question
+    if (data.attempt.response.parentID && (data.getQuestion().responses[data.attempt.response.parentID] && data.getQuestion().responses[data.attempt.response.parentID].optimal !== true )) {
       const parentResponse = data.getQuestion().responses[data.attempt.response.parentID]
-      components = [(<li key="parentfeedback" dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></li>)].concat(components)
+      components = [(<p dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></p>)].concat(components)
     }
     return components.concat(errorComponents)
   },
 
-  render: function() {
-    return <div>{this.renderFeedbackStatements()}</div>
+  render: function () {
+    return (
+      <span>{this.renderFeedbackStatements()}</span>
+    )
   }
 
 })

@@ -37,7 +37,7 @@ var StudentDiagnostic = React.createClass({
           // document.location.href = "http://localhost:3000/activity_sessions/" + this.props.activitySessionID
           this.setState({saved: true});
         }
-        console.log(err,httpResponse,body)
+        // console.log(err,httpResponse,body)
       }
     )
   },
@@ -96,28 +96,6 @@ var StudentDiagnostic = React.createClass({
 
   getData: function() {
     return diagnosticQuestions()
-    // return [
-    //   {
-    //     type: "SF",
-    //     key: "-KOqKBMgXHF2dNMM8jhg"
-    //   },
-    //   {
-    //     type: "SF",
-    //     key: "-KOqLomeMhOuHqX9Zdqv"
-    //   },
-    //   {
-    //     type: "SC",
-    //     key: "-KP-Mm-zR8JQcT62iUHW"
-    //   },
-    //   {
-    //     type: "SF",
-    //     key: "-KPntt7hJrxRtP5JOiLm"
-    //   },
-    //   {
-    //     type:"SF",
-    //     key: "-KPnxMpaeiOBzG_fvpKx"
-    //   }
-    // ]
   },
 
   markIdentify: function (bool) {

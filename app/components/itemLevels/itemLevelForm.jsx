@@ -11,30 +11,24 @@ const ItemLevelForm = React.createClass({
     if(this.props.mode==="Edit") {
       return {
         name: this.props.data.name,
-        description: this.props.data.description,
-        url: this.props.data.url,
-        conceptID: this.props.data.conceptID
+        integerValue: this.props.data.integerValue,
       }
     } else {
         return {
           name: "",
-          description: "",
-          url: "",
-          conceptID: ""
+          integerValue: "",
         }
       }
   },
 
   submit: function() {
-    if(this.refs.concept.value==="Select Associated Concept" || this.refs.newItemLevelName.value==="") { //has not chosen an associated concept
-      alert("You must choose a concept and name for this item level")
+    if(this.refs.newItemLevelName.value==="" || this.refs.integerValue.value==="") { //has not chosen an associated concept
+      alert("You must choose a name for this item level")
       return
     }
     var newItemLevel = {
       name: this.refs.newItemLevelName.value,
-      description: this.refs.description.value,
-      url: this.refs.url.value,
-      conceptID: _.find(this.props.concepts.data["0"], (concept) => {return concept.name===this.refs.concept.value}).uid
+      integerValue: this.refs.integerValue.value,
     }
     this.props.submitNewItemLevel(newItemLevel, this.props.levelID) //id will be undefined if creating a new level
     this.setState(newItemLevel)
@@ -53,27 +47,16 @@ const ItemLevelForm = React.createClass({
   handleChange: function() {
     this.setState({
       name: this.refs.newItemLevelName.value,
-      description: this.refs.description.value,
-      url: this.refs.url.value,
-      conceptID: this.refs.concept.value==="Select Associated Concept" ? "" : _.find(this.props.concepts.data["0"], (concept) => {return concept.name===this.refs.concept.value}).uid
-    })
-  },
-
-  conceptsToOptions: function() {
-    return this.props.concepts.data["0"].map((concept) => {
-      return (
-        <option value={concept.name} key={concept.uid}>{concept.name}</option>
-      )
+      integerValue: this.refs.integerValue.value,
     })
   },
 
   render: function() {
     if(this.props.concepts.hasreceiveddata===true) {
-      let name="Name", description="description", url="www.quill.org", className="", cancelAndDeleteButtons=<div />;
+      let name="Name", integerValue="1", className="", cancelAndDeleteButtons=<div />;
       if(this.props.mode==="Edit") {
         name=this.props.data.name
-        description=this.props.data.description
-        url=this.props.data.url
+        integerValue=this.props.data.integerValue
         className="box"
         cancelAndDeleteButtons =
           <div className="button-group">
@@ -101,35 +84,15 @@ const ItemLevelForm = React.createClass({
           />
         </p>
         <p className="control">
-          <label className="label">Description</label>
+          <label className="label">Integer Value</label>
           <input
             className="input"
             type="text"
-            placeholder={description}
-            value={this.state.description}
-            ref="description"
+            placeholder={integerValue}
+            value={this.state.integerValue}
+            ref="integerValue"
             onChange={this.handleChange}
           />
-        </p>
-        <p className="control">
-          <label className="label">URL</label>
-          <input
-            className="input"
-            type="text"
-            placeholder={url}
-            value={this.state.url}
-            ref="url"
-            onChange={this.handleChange}
-          />
-        </p>
-        <p className="control">
-          <label className="label">Concept</label>
-          <span className="select">
-            <select value={this.state.conceptID!=="" ? _.find(this.props.concepts.data["0"], {uid: this.state.conceptID}).name : "Select Associated Concept"} onChange={this.handleChange} ref="concept">
-              <option value="Select Associated Concept">Select Associated Concept</option>
-              {this.conceptsToOptions()}
-            </select>
-          </span>
         </p>
         <div className="control">
           <Link to={'admin/item-levels'}>

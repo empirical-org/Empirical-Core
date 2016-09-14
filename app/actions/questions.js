@@ -3,7 +3,7 @@ import rootRef from "../libs/firebase"
 var	questionsRef = rootRef.child("questions"),
 moment = require('moment');
 import _ from 'lodash'
-
+import { push } from 'react-router-redux'
 import pathwaysActions from './pathways';
 
 module.exports = {
@@ -12,6 +12,13 @@ module.exports = {
 	startListeningToQuestions: function(){
 		return function(dispatch,getState){
 			questionsRef.on("value",function(snapshot){
+				dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val() });
+			});
+		}
+	},
+	loadQuestions: function(){
+		return function(dispatch,getState){
+			questionsRef.once("value",function(snapshot){
 				dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val() });
 			});
 		}
@@ -70,6 +77,8 @@ module.exports = {
 				} else {
           dispatch(this.submitNewResponse(newRef.key, response))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
+					var action = push('/admin/questions/' + newRef.key)
+          dispatch(action)
 				}
 			});
 		}
@@ -106,6 +115,15 @@ module.exports = {
 				}
 			});
 		};
+	},
+	deleteConceptResult: function(qid, rid, crid) {
+		return function(dispatch, getState) {
+			questionsRef.child(qid + '/responses/' + rid + '/conceptResults/' + crid).remove(function(error) {
+				if(error) {
+					alert("Delete failed! " + error)
+				}
+			})
+		}
 	},
   startResponseEdit: function(qid,rid){
 		return {type:C.START_RESPONSE_EDIT,qid,rid};

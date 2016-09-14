@@ -33,9 +33,9 @@ export default class POSMatcher {
       return returnValue
     }
 
-    console.log("User tags: ", qpos.getPartsOfSpeechTags(userResponse))
+    // console.log("User tags: ", qpos.getPartsOfSpeechTags(userResponse))
     const posMatch = this.checkPOSMatch(userResponse)
-    console.log("POS match: " + posMatch)
+    // console.log("POS match: " + posMatch)
     if(posMatch!==undefined) {
       returnValue.response = posMatch
       returnValue.posMatch = true

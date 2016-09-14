@@ -10,7 +10,19 @@ const initialState = {
         "Human Sub-Optimal": true,
         "Algorithm Optimal": true,
         "Algorithm Sub-Optimal": true,
-        "Unmatched": true
+        "Unmatched": true,
+        "Focus Point Hint": true,
+        "Word Error Hint": true,
+        "Punctuation Hint": true,
+        "Punctuation and Case Hint": true,
+        "Capitalization Hint": true,
+        "Missing Details Hint": true,
+        "Not Concise Hint": true,
+        "Additional Word Hint": true,
+        "Missing Word Hint": true,
+        "Modified Word Hint": true,
+        "Whitespace Hint": true,
+        "No Hint": true
       },
       expanded: {}  // this will contain response keys set to true or false;
    }
@@ -44,6 +56,12 @@ export default function(currentState, action) {
             newState.sorting = action.field;
          }
          return newState;
+      case C.RESET_ALL_FIELDS:
+        newState = _.cloneDeep(currentState);
+        _.forIn(newState.visibleStatuses, (status, key) => {
+          newState.visibleStatuses[key] = true;
+        })
+        return newState;
       default:
          return currentState || initialState.responses;
    }

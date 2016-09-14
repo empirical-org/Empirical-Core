@@ -3,6 +3,8 @@ import { Link } from 'react-router'
 import handleFocus from './handleFocus.js'
 import TextEditor from './renderTextEditor.jsx'
 import Modal from '../modal/modal.jsx'
+import _ from 'underscore'
+import EndState from './renderEndState.jsx'
 
 export default React.createClass({
 
@@ -33,15 +35,19 @@ export default React.createClass({
 
   render: function() {
     var content;
-    if(this.props.id==="playQuestion") {
-      content = <Link to={'/results/questions/' + this.props.questionID} className="button is-info is-outlined">View Results</Link>
-    }
+    // if(this.props.id==="playQuestion") {
+    //   content = <Link to={'/results/questions/' + this.props.questionID} className="button is-info is-outlined">View Results</Link>
+    // }
 
-    var button;
+    var button, feedback = this.props.feedback;
     if(!this.props.nextQuestionButton) {
-      button = <button className={"button is-primary " + this.props.toggleDisabled} onClick={this.props.checkAnswer}>Check answer</button>
-    } else {
+      button = <button className={"button student-submit " + this.props.toggleDisabled} onClick={this.props.checkAnswer}>Check answer</button>
+    } else { // if you're going to next, it is the end state
       button = this.props.nextQuestionButton
+      let answeredCorrectly = !!(_.find(this.props.question.attempts, (attempt) => {
+        return attempt.found && attempt.response.optimal && attempt.response.author===undefined && attempt.author===undefined //if it has an author, there was an error
+      }))
+      feedback = <EndState questionID={this.props.questionID} question={this.props.question} answeredCorrectly={answeredCorrectly} key={"-"+this.props.questionID}/>
     }
 
     var info;
@@ -50,13 +56,13 @@ export default React.createClass({
     }
 
     return (
-      <section className="section">
-        <div className="container">
+      <section className="section is-fullheight minus-nav student">
+        <div className="student-container">
           {this.props.sentenceFragments}
           <div className="content">
             {this.props.cues}
-            {this.props.feedback}
-            <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue}
+            {feedback}
+            <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue} key={this.props.questionID}
                         handleChange={this.props.handleChange} value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
             <div className="question-button-group button-group">
               {this.getHelpModal()}

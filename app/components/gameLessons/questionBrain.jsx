@@ -14,7 +14,7 @@ import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
-
+var C = require("../../constants").default
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
@@ -29,13 +29,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
-}
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 const imageCaptionPairs = [
   {
@@ -104,13 +98,14 @@ const playLessonQuestion = React.createClass({
   },
 
   renderFeedback: function () {
+    // // console.log("Inside game, question: ", this.props.question)
     return <RenderFeedback question={this.props.question}
             sentence="We have not seen this sentence before. Could you please try writing it in another way?"
             renderFeedbackStatements = {this.renderFeedbackStatements}/>
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {
@@ -171,7 +166,7 @@ const playLessonQuestion = React.createClass({
   },
 
   handleChange: function (e) {
-    this.setState({editing: true, response: e.target.value})
+    this.setState({editing: true, response: e})
   },
 
   readyForNext: function () {
@@ -179,7 +174,6 @@ const playLessonQuestion = React.createClass({
       var latestAttempt = getLatestAttempt(this.props.question.attempts)
       if (latestAttempt.found) {
         var errors = _.keys(this.getErrorsForAttempt(latestAttempt))
-        //console.log("Is it readyForNext?")
         if (latestAttempt.response.optimal && errors.length === 0) {
           return true
         }
@@ -198,6 +192,7 @@ const playLessonQuestion = React.createClass({
 
   nextQuestion: function () {
     this.props.nextQuestion()
+    this.setState({response: ""})
   },
 
   renderNextQuestionButton:  function (correct) {
@@ -250,7 +245,7 @@ const playLessonQuestion = React.createClass({
         } else {
           return (
             <AnswerForm value={this.state.response} question={this.props.question} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={this.props.question.key}
                   handleChange={this.handleChange} textAreaClass="textarea"
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}/>
           )
@@ -258,7 +253,7 @@ const playLessonQuestion = React.createClass({
       } else {
         return (
           <AnswerForm value={this.state.response} question={this.props.question} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={this.props.question.key}
                 handleChange={this.handleChange} textAreaClass="textarea"
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}/>
         )

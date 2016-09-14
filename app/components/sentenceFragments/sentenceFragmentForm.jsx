@@ -64,7 +64,7 @@ const sentenceFragmentForm = React.createClass({
   conceptsToOptions: function() {
     return _.map(this.props.concepts.data["0"], (concept)=>{
       return (
-        {name: concept.displayName, value: concept.uid}
+        {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
       )
     })
   },
@@ -81,7 +81,11 @@ const sentenceFragmentForm = React.createClass({
   },
 
   render: function () {
-    console.log("State: ", this.state)
+    // console.log("State: ", this.state)
+    const fuse = {
+      keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
+      threshold: 0.4
+    }
     return (
       <div>
         <label className="label">Sentence / Fragment Text</label>
@@ -107,7 +111,8 @@ const sentenceFragmentForm = React.createClass({
         {this.renderOptimalResponseTextInput()}
         <p className="control">
           <label className="label">Associated Concept</label>
-          <ConceptSelector options={this.conceptsToOptions()} value={this.state.concept} onChange={this.handleChange.bind(null, "concept")}/>
+          <ConceptSelector options={this.conceptsToOptions()} value={this.state.concept}
+                           onChange={this.handleChange.bind(null, "concept")} fuse={fuse}/>
         </p>
         <button className="button is-primary is-outlined" onClick={this.submitSentenceFragment}>Save</button>
       </div>

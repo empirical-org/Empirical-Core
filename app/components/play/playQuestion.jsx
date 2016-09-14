@@ -12,7 +12,6 @@ import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
-
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
@@ -24,17 +23,12 @@ import handleFocus from '../renderForQuestions/handleFocus.js'
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
 import submitPathway from '../renderForQuestions/submitPathway.js'
+import RenderEndState from '../renderForQuestions/renderEndState.jsx'
 
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
-}
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 const playQuestion = React.createClass({
   getInitialState: function () {
@@ -67,7 +61,7 @@ const playQuestion = React.createClass({
   },
 
   removePrefilledUnderscores: function () {
-    this.setState({response: this.state.response.replace(/_/g, "")})
+    return this.state.response.replace(/_/g, "").replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
   },
 
   getQuestion: function () {
@@ -93,12 +87,19 @@ const playQuestion = React.createClass({
   },
 
   renderFeedback: function () {
+    //For the two lines below,
+    //The component at renderForQuestions/feedback.jsx is used by 4 components - play lesson, play game,
+    //play question and the diagnostic. Some rely on the question prop having an instructions field, Some
+    //on it having an attempts array. The code below ensures that both the instructions and attempts are
+    //made available to the feedback component.
+    const question = this.props.questions.data[this.props.params.questionID]
+    question.attempts = this.props.question.attempts
     return <RenderFeedback sentence="Try Again. What’s another way you could write this sentence?"
-            question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}/>
+            question={question} renderFeedbackStatements={this.renderFeedbackStatements}/>
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {
@@ -143,9 +144,8 @@ const playQuestion = React.createClass({
   },
 
   checkAnswer: function () {
-    this.removePrefilledUnderscores()
-
-    var response = getResponse(this.getQuestion(), this.state.response)
+    const filteredResponse = this.removePrefilledUnderscores()
+    var response = getResponse(this.getQuestion(), filteredResponse)
 
     this.updateResponseResource(response)
     this.submitResponse(response)
@@ -186,9 +186,9 @@ const playQuestion = React.createClass({
 
   renderNextQuestionButton:  function (correct) {
     if (correct) {
-      return (<button className="button is-outlined is-success" onClick={this.finish}>Next</button>)
+      return (<button className="button student-next" onClick={this.finish}>Next Question</button>)
     } else {
-      return (<button className="button is-outlined is-warning" onClick={this.finish}>Next</button>)
+      return (<button className="button student-next" onClick={this.finish}>Next Question</button>)
     }
   },
 
@@ -200,56 +200,45 @@ const playQuestion = React.createClass({
     } else {
       const {data} = this.props.questions, {questionID} = this.props.params;
       const question = data[questionID];
-
       if (question) {
-        var assetURL=""
-        if(!!question.itemLevel) {
-             //Each concept has a unique level
-             assetURL = _.find(this.props.itemLevels.data, (level) => {
-              return !!level.name && level.name===question.itemLevel && level.conceptID===question.conceptID
-            })
-            assetURL = assetURL.url
-        }
-
         if (this.state.finished) {
           return (
             <ThankYou sessionKey={this.state.sessionKey} />
           )
         }
-        if (this.props.question.attempts.length > 2 ) {
+        if ( this.props.question.attempts.length > 2 ) {
           return (
             <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                        feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                        feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                         handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                        questionID={questionID} id="playQuestion" assetURL={assetURL} textAreaClass="textarea is-question is-disabled"/>
+                        questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
           )
-        } else if (this.props.question.attempts.length > 0 ) {
+        } else if ( this.props.question.attempts.length > 0 ) {
           if (this.readyForNext()) {
             return (
               <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                          feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                          feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                           handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
                           conceptExplanation={this.renderConceptExplanation}
-                          questionID={questionID} id="playQuestion" assetURL={assetURL} textAreaClass="textarea is-question submission"/>
+                          questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
             )
           } else {
             return (
               <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                    feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                    feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                     handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                     toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
                     conceptExplanation={this.renderConceptExplanation}
-                    id="playQuestion" assetURL={assetURL} questionID={questionID}/>
+                    id="playQuestion" questionID={questionID}/>
             )
           }
-
         } else {
           return (
             <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
+                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                   handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
-                  id="playQuestion" assetURL={assetURL} questionID={questionID}/>
+                  id="playQuestion" questionID={questionID}/>
           )
         }
       } else {

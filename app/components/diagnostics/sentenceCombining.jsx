@@ -28,14 +28,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 import StateFinished from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx'
-
-const feedbackStrings = {
-  punctuationError: "There may be an error. How could you update the punctuation?",
-  typingError: "Try again. There may be a spelling mistake.",
-  caseError: "Try again. There may be a capitalization error.",
-  minLengthError: "Try again. Do you have all of the information from the prompt?",
-  maxLengthError: "Try again. How could this sentence be shorter and more concise?"
-}
+const feedbackStrings = C.FEEDBACK_STRINGS
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState: function () {
@@ -85,7 +78,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, 'typingError', 'caseError', 'punctuationError', 'minLengthError', 'maxLengthError')
+    return _.pick(attempt, ...C.ERROR_TYPES)
   },
 
   renderFeedbackStatements: function (attempt) {
@@ -177,6 +170,7 @@ const PlayDiagnosticQuestion = React.createClass({
       return (
         <div className="section container">
           {this.renderSentenceFragments()}
+          {this.renderCues()}
           <h5 className="title is-5">{instructions}</h5>
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200}>
             <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
