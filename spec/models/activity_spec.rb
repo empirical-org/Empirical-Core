@@ -117,29 +117,61 @@ describe Activity, type: :model do
     let!(:archived_activity){ FactoryGirl.create(:activity, flag: 'archived') }
 
 
-    it 'must show all types of flagged activities when default scope' do
-      all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
-      default_results = Activity.all
-      expect(all_types - default_results).to eq []
+
+    context 'the default scope' do
+
+      it 'must show all types of flagged activities when default scope' do
+        all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
+        default_results = Activity.all
+        expect(all_types - default_results).to eq []
+      end
+
     end
 
-    it 'must show only production flagged activities with production scope' do
-      all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
-      default_results = Activity.production.all
-      expect(all_types - default_results).to eq [beta_activity, alpha_activity, archived_activity]
+    context 'the production scope' do
+
+      it 'must show only production flagged activities' do
+        all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
+        default_results = Activity.production.all
+        expect(all_types - default_results).to eq [beta_activity, alpha_activity, archived_activity]
+      end
+
+      it 'must return the same thing as Activity.user_scope(nil)' do
+        expect(Activity.production).to eq (Activity.user_scope(nil))
+      end
+
     end
 
-    it 'must show only production flagged activities with production and beta activities with beta_user scope' do
-      all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
-      default_results = Activity.beta_user.all
-      expect(all_types - default_results).to eq [alpha_activity, archived_activity]
+    context 'the beta scope' do
+
+      it 'must show only production and beta flagged activities' do
+        all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
+        default_results = Activity.beta_user
+        expect(all_types - default_results).to eq [alpha_activity, archived_activity]
+      end
+
+      it 'must return the same thing as Activity.user_scope(beta)' do
+        expect(Activity.beta_user).to eq (Activity.user_scope('beta'))
+      end
+
+
     end
 
-    it 'must show all types of flags except for archived with alpha_user scope' do
-      all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
-      default_results = Activity.alpha_user.all
-      expect(all_types - default_results).to eq [archived_activity]
+    context 'the alpha scope' do
+
+      it 'must show all types of flags except for archived with alpha_user scope' do
+        all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
+        default_results = Activity.alpha_user
+        expect(all_types - default_results).to eq [archived_activity]
+      end
+
+      it 'must return the same thing as Activity.user_scope(alpha)' do
+        expect(Activity.alpha_user).to eq (Activity.user_scope('alpha'))
+      end
+
     end
+
+
   end
 
   # describe '#current_user_scope adjusts scope to the current users flag' do
