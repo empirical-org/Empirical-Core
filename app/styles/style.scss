@@ -1,6 +1,8 @@
 @import 'variables';
 @import 'textbox';
 @import "components/student-nav";
+@import "components/student-container";
+@import "components/student-question";
 @import '../../node_modules/react-selectize/themes/index.css';
 
 body {
@@ -164,11 +166,14 @@ textarea.submission {
 }
 
 .sentence-fragments {
+  padding-top: 28px;
   p {
-    font-size: 24px;
+    font-family: $family-sans-serif;
+    color: #2f2f2f;
+    font-size: 30px;
+    line-height: 1.27;
     margin-bottom: 0em;
   }
-  margin-bottom: 1em;
   font-size: 24px;
 }
 
@@ -345,6 +350,29 @@ textarea.submission {
 
 .end-state-container {
   margin-bottom: 20px;
+}
+
+.section {
+  &.student {
+    background-color: $background;
+    padding-top: 0;
+  }
+  &.is-fullheight{
+    min-height: 100vh;
+    &.minus-nav {
+      min-height: calc(100vh - 50px);
+    }
+    .hero-body {
+      align-items: center;
+      display: flex;
+      & > .container {
+        flex-grow: 1;
+      }
+
+    }
+
+  }
+
 }
 
 // .response-component-page-number {

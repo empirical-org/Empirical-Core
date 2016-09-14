@@ -1,0 +1,14 @@
+.feedback-row {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  img {
+    max-width: 22px;
+    margin-right: 8px;
+  }
+  p {
+    font-family: $family-monospace;
+    margin-bottom: 0;
+    font-size: 20px;
+  }
+}

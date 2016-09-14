@@ -49,8 +49,8 @@ export default React.createClass({
     }
 
     return (
-      <section className="section">
-        <div className="container">
+      <section className="section is-fullheight minus-nav student">
+        <div className="student-container">
           {this.props.sentenceFragments}
           <div className="content">
             {this.props.cues}

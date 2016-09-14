@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'underscore'
+import icon from '../../img/question_icon.svg'
 
 export default React.createClass({
 
@@ -11,28 +12,44 @@ export default React.createClass({
         return <ul className="is-unstyled">{data.renderFeedbackStatements(latestAttempt)}</ul>
       } else {
         return (
-          <h5 className="title is-5">{data.sentence}</h5>
+          <div className="feedback-row">
+            <img src={icon}/>
+            <p>{data.sentence}</p>
+          </div>
         )
       }
     } else {
       if(!!data.question.instructions) {
         return (
-          <h5 className="title is-5">{data.question.instructions}</h5>
+          <div className="feedback-row">
+            <img src={icon}/>
+            <p>{data.question.instructions}</p>
+          </div>
         )
       }
       else if(data.getQuestion && data.getQuestion().instructions!=="") {
         return (
-          <h5 className="title is-5">{data.getQuestion().instructions}</h5>
+          <div className="feedback-row">
+            <img src={icon}/>
+            <p>{data.getQuestion().instructions}</p>
+          </div>
         )
       }
       else if (data.getQuestion && data.getQuestion().cues && data.getQuestion().cues.length > 0 && data.getQuestion().cues[0] !== "") {
         const cues = data.getQuestion().cues.join(', ')
         return (
-          <h5 className="title is-5">Combine the sentences using {data.listCuesAsString(data.getQuestion().cues)}</h5>
+          <div className="feedback-row">
+            <img src={icon}/>
+            <p>Combine the sentences using {data.listCuesAsString(data.getQuestion().cues)}</p>
+          </div>
         )
       } else {
         return (
-          <h5 className="title is-5">Combine the sentences into one sentence.</h5>
+          <div className="feedback-row">
+            <img src={icon}/>
+            <p>Combine the sentences into one sentence.</p>
+          </div>
+
         )
       }
     }
