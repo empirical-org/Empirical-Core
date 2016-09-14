@@ -61,14 +61,16 @@ export default React.createClass({
   // },
 
   handleTextChange: function (e) {
-    this.setState({text: e}, () => {
-      this.props.handleChange(convertToRaw(this.state.text.getCurrentContent()).blocks[0].text)
-    });
+    if (!this.props.disabled) {
+      this.setState({text: e}, () => {
+        this.props.handleChange(convertToRaw(this.state.text.getCurrentContent()).blocks[0].text)
+      });
+    }
   },
 
   render: function () {
     return (
-      <div className="student text-editor card is-fullwidth">
+      <div className={"student text-editor card is-fullwidth " + (this.props.disabled ? 'disabled-editor' : '')}>
         <div className="card-content">
           <div className="content">
             <Editor editorState={this.state.text} onChange={this.handleTextChange}/>

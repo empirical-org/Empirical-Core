@@ -62,7 +62,7 @@ export default React.createClass({
           <div className="content">
             {this.props.cues}
             {feedback}
-            <TextEditor className={this.props.textAreaClass} defaultValue={this.props.initialValue} key={this.props.questionID}
+            <TextEditor disabled={this.props.disabled} defaultValue={this.props.initialValue} key={this.props.questionID}
                         handleChange={this.props.handleChange} value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
             <div className="question-button-group button-group">
               {this.getHelpModal()}

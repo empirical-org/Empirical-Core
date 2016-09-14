@@ -201,6 +201,19 @@ const playQuestion = React.createClass({
       const {data} = this.props.questions, {questionID} = this.props.params;
       const question = data[questionID];
       if (question) {
+        const sharedProps = {
+          value: this.state.response,
+          question: this.props.question,
+          getResponse: this.getResponse2,
+          feedback: this.renderFeedback,
+          initialValue: this.getInitialValue(),
+          key: questionID,
+          questionID: questionID,
+          id: "playQuestion",
+          sentenceFragments: this.renderSentenceFragments(),
+          cues: this.renderCues(),
+        }
+
         if (this.state.finished) {
           return (
             <ThankYou sessionKey={this.state.sessionKey} />
@@ -208,37 +221,33 @@ const playQuestion = React.createClass({
         }
         if ( this.props.question.attempts.length > 2 ) {
           return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                        feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
-                        handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                        questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
+            <AnswerForm {...sharedProps}
+                        handleChange={() => {}} nextQuestionButton={this.renderNextQuestionButton()}
+                         disabled={true}/>
           )
         } else if ( this.props.question.attempts.length > 0 ) {
           if (this.readyForNext()) {
             return (
-              <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                          feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
-                          handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
+              <AnswerForm {...sharedProps}
+                          handleChange={() => {}} nextQuestionButton={this.renderNextQuestionButton()}
                           conceptExplanation={this.renderConceptExplanation}
-                          questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
+                          disabled={true}/>
             )
           } else {
             return (
-              <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                    feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
-                    handleChange={this.handleChange} textAreaClass="textarea is-question submission"
+              <AnswerForm {...sharedProps}
+                    handleChange={this.handleChange}
                     toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
                     conceptExplanation={this.renderConceptExplanation}
-                    id="playQuestion" questionID={questionID}/>
+                    />
             )
           }
         } else {
           return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
-                  handleChange={this.handleChange} textAreaClass="textarea is-question submission"
+            <AnswerForm {...sharedProps}
+                  handleChange={this.handleChange}
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
-                  id="playQuestion" questionID={questionID}/>
+                  />
           )
         }
       } else {
