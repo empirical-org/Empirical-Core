@@ -93,14 +93,44 @@
   }
 
   .top-answer-text {
+    width: 100%;
+    font-family: $family-monospace;
+
     .top-answer-title {
       color: #464646;
+      font-family: $family-monospace;
       // margin-bottom:
     }
     ul.top-answer-list {
-      list-style: none;
+      font-family: $family-monospace;
+      list-style-type: none;
       margin: 0;
       color: #464646;
+
+      .top-answer-list-item {
+        display: flex;
+        justify-content: space-between;
+
+        &.active  {
+          .top-answer-list-item-index,
+          .top-answer-list-item-text,
+          .top-answer-list-item-score {
+            font-weight: bold;
+          }
+        }
+
+        .top-answer-list-item-index {
+          margin-right: 10px;
+        }
+
+        .top-answer-list-item-text {
+          flex-grow: 1;
+        }
+
+        .top-answer-list-item-score {
+          margin-left: 10px;
+        }
+      }
     }
   }
   font-size: 20px;

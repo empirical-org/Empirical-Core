@@ -176,14 +176,14 @@ const playQuestion = React.createClass({
             <ThankYou sessionKey={this.state.sessionKey} />
           )
         }
-        if (this.props.question.attempts.length > 2 ) {
+        if ( this.props.question.attempts.length > 2 ) {
           return (
             <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                         feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                         handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
                         questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
           )
-        } else if (this.props.question.attempts.length > 0 ) {
+        } else if ( this.props.question.attempts.length > 0 ) {
           if (this.readyForNext()) {
             return (
               <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
