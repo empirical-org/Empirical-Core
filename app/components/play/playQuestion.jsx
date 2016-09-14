@@ -16,6 +16,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
 import RenderFeedback from '../renderForQuestions/feedback.jsx'
+import ConceptExplanation from '../feedback/conceptExplanation.jsx'
 import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js'
 import getResponse from '../renderForQuestions/checkAnswer.js'
 import handleFocus from '../renderForQuestions/handleFocus.js'
@@ -105,6 +106,35 @@ const playQuestion = React.createClass({
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion}/>
   },
 
+  getNegativeConceptResultsForResponse: function (conceptResults) {
+    return _.reject(hashToCollection(conceptResults), (cr) => {
+      return cr.correct
+    })
+  },
+
+  getNegativeConceptResultForResponse: function (conceptResults) {
+    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults)
+    return negCRs.length > 0 ? negCRs[0] : undefined
+  },
+
+  renderConceptExplanation: function () {
+    const latestAttempt = getLatestAttempt(this.props.question.attempts)
+    if (latestAttempt) {
+      if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults)
+        const data = this.props.conceptsFeedback.data[conceptID.conceptUID]
+        if (data) {
+          return <ConceptExplanation {...data}/>
+        }
+      } else if (this.getQuestion().conceptID) {
+        const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID]
+        if (data) {
+          return <ConceptExplanation {...data}/>
+        }
+      }
+    }
+  },
+
   updateResponseResource: function (response) {
     updateResponseResource(response, this.props, this.getErrorsForAttempt, "play")
   },
@@ -189,6 +219,7 @@ const playQuestion = React.createClass({
               <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
                           feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                           handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
+                          conceptExplanation={this.renderConceptExplanation}
                           questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
             )
           } else {
@@ -197,6 +228,7 @@ const playQuestion = React.createClass({
                     feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
                     handleChange={this.handleChange} textAreaClass="textarea is-question submission"
                     toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
+                    conceptExplanation={this.renderConceptExplanation}
                     id="playQuestion" questionID={questionID}/>
             )
           }
@@ -226,6 +258,7 @@ const getLatestAttempt = function (attempts = []) {
 function select(state) {
   return {
     concepts: state.concepts,
+    conceptsFeedback: state.conceptsFeedback,
     questions: state.questions,
     question: state.question,
     itemLevels: state.itemLevels,
