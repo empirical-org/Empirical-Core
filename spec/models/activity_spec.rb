@@ -73,7 +73,6 @@ describe Activity, type: :model do
     it "must add uid param of it's a valid student session" do
       activity.valid?
       expect(activity.module_url(student.activity_sessions.build()).to_s).to include "uid="
-
     end
 
     it "must add student param of it's a valid student session" do
@@ -110,6 +109,61 @@ describe Activity, type: :model do
     end
 
   end
+
+  describe 'scope results' do
+    let!(:production_activity){ FactoryGirl.create(:activity, flag: 'production') }
+    let!(:beta_activity){ FactoryGirl.create(:activity, flag: 'beta') }
+    let!(:alpha_activity){ FactoryGirl.create(:activity, flag: 'alpha') }
+    let!(:archived_activity){ FactoryGirl.create(:activity, flag: 'archived') }
+
+
+    it 'must show all types of flagged activities when default scope' do
+      all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
+      default_results = Activity.all
+      expect(all_types - default_results).to eq []
+    end
+
+    it 'must show only production flagged activities with production scope' do
+      all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
+      default_results = Activity.production.all
+      expect(all_types - default_results).to eq [beta_activity, alpha_activity, archived_activity]
+    end
+
+    it 'must show only production flagged activities with production and beta activities with beta_user scope' do
+      all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
+      default_results = Activity.beta_user.all
+      expect(all_types - default_results).to eq [alpha_activity, archived_activity]
+    end
+
+    it 'must show all types of flags except for archived with alpha_user scope' do
+      all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
+      default_results = Activity.alpha_user.all
+      expect(all_types - default_results).to eq [archived_activity]
+    end
+  end
+
+  # describe '#current_user_scope adjusts scope to the current users flag' do
+  #   let!(:user){ FactoryGirl.create(:user)}
+  #   let!(:production_activity){ FactoryGirl.create(:activity, flag: 'production') }
+  #   let!(:beta_activity){ FactoryGirl.create(:activity, flag: 'beta') }
+  #   let!(:alpha_activity){ FactoryGirl.create(:activity, flag: 'alpha') }
+  #   let!(:archived_activity){ FactoryGirl.create(:activity, flag: 'archived') }
+  #   before :each do
+  #     sign_in_user user
+  #   end
+  #
+  #   it 'must show only production flagged activities when current user has production flag' do
+  #     user.update(flag: 'production')
+  #     binding.pry
+  #     all_types = [production_activity, beta_activity, alpha_activity, archived_activity]
+  #     default_results = Activity.current_user_scope.all
+  #     expect(all_types - default_results).to eq [beta_activity, alpha_activity, archived_activity]
+  #   end
+  #
+  #
+  #
+  #
+  # end
 
   describe "can behave like a flagged model" do
 
