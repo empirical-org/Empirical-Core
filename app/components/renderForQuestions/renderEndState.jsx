@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {connect} from 'react-redux'
-import arrow from '../../img/arrow_icon.svg'
+import arrow from '../../img/correct_icon.svg'
 
 const EndState = React.createClass({
 
@@ -56,7 +56,7 @@ const EndState = React.createClass({
     }
     return (
       <div className="end-state-container">
-        <img className="mirror" src={arrow}/>
+        <img src={arrow}/>
         <div className="top-answer-text">
           {this.renderStaticText()}
           <ul className="top-answer-list">

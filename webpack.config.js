@@ -45,6 +45,11 @@ module.exports = {
         loader: 'file',
         include: /app\/img/
       },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'url?limit=25000',
+        include: /app\/img/
+      },
       { test: /\.json$/, loader: 'json-loader' }
     ],
   },
