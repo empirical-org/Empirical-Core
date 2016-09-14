@@ -12,3 +12,27 @@
     font-size: 20px;
   }
 }
+
+.student.text-editor.card {
+  margin-top: 20px;
+  min-height: 68px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+  
+  &.disabled {
+    background-color: $background;
+  }
+
+  .card-content {
+    .public-DraftEditor-content {
+
+        // line-height: 42px;
+        font-family: $family-sans-serif;
+        font-size: 28px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        color: #000000;
+    }
+  }
+}
