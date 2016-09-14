@@ -53,3 +53,32 @@
     padding: 0 24px;
   }
 }
+
+.cues {
+  margin-top: 9px;
+  display: inline-flex;
+  align-items: center;
+  // margin-bottom: 1em;
+  .cue {
+    background-color: #fffed5;
+    line-height: 28px;
+    font-size: 20px;
+    font-family: $family-monospace;
+    // font-weight: bold;
+
+    margin-right: 13px;
+    padding: 0 5px;
+    text-transform: lowercase;
+  }
+
+  img {
+    margin-right: 7px;
+  }
+
+  .cue-explanation {
+    font-size: 14px;
+    font-family: $family-monospace;
+    line-height: 28px;
+    color: #636363;
+  }
+}

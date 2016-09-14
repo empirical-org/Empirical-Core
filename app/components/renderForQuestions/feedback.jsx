@@ -9,7 +9,12 @@ export default React.createClass({
     const latestAttempt = getLatestAttempt(data.question.attempts)
     if (latestAttempt) {
       if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
-        return <ul className="is-unstyled">{data.renderFeedbackStatements(latestAttempt)}</ul>
+        return (
+          <div className="feedback-row">
+            <img src={icon}/>
+            {data.renderFeedbackStatements(latestAttempt)}
+          </div>
+        )
       } else {
         return (
           <div className="feedback-row">

@@ -15,23 +15,25 @@ export default React.createClass({
     // add keys for react list elements
     var components = []
     if (_.isEmpty(errors)) {
-      components = components.concat([(<li key="feedback" dangerouslySetInnerHTML={{__html: data.attempt.response.feedback}}></li>)])
+      components = components.concat([(<p dangerouslySetInnerHTML={{__html: data.attempt.response.feedback}}></p>)])
     }
     var errorComponents = _.values(_.mapObject(errors, (val, key) => {
       if (val) {
-        return (<li key={key}><h5 className="title is-5">{feedbackStrings[key]}.</h5></li>)
+        return (<p>{feedbackStrings[key]}</p>)
       }
     }))
     // console.log("data.getQuestion.responses: ", data.getQuestion().responses) //returns this.props.question
     if (data.attempt.response.parentID && (data.getQuestion().responses[data.attempt.response.parentID] && data.getQuestion().responses[data.attempt.response.parentID].optimal !== true )) {
       const parentResponse = data.getQuestion().responses[data.attempt.response.parentID]
-      components = [(<li key="parentfeedback" dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></li>)].concat(components)
+      components = [(<p dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></p>)].concat(components)
     }
     return components.concat(errorComponents)
   },
 
-  render: function() {
-    return <div>{this.renderFeedbackStatements()}</div>
+  render: function () {
+    return (
+      <span>{this.renderFeedbackStatements()}</span>
+    )
   }
 
 })
