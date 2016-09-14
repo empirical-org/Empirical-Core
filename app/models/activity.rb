@@ -19,6 +19,9 @@ class Activity < ActiveRecord::Base
     SQL
   }
 
+  scope :beta_user, -> { where("'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
+  scope :alpha_user, -> { where("'alpha' = ANY(activities.flags) OR 'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
+
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
   def topic_uid= uid
@@ -28,6 +31,8 @@ class Activity < ActiveRecord::Base
   def activity_classification_uid= uid
     self.activity_classification_id = ActivityClassification.find_by(uid: uid).id
   end
+
+
 
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
@@ -48,6 +53,16 @@ class Activity < ActiveRecord::Base
 
   def self.diagnostic
     Activity.find_by(activity_classification_id: ActivityClassification.diagnostic.id)
+  end
+
+  def self.current_user_scope
+    if current_user.flag == 'alpha'
+      Activity.alpha_user
+    elsif current_user.flag == 'beta'
+      Activity.beta_user
+    else
+      Activity.production
+    end
   end
 
   def self.search_sort_sql(sort)
