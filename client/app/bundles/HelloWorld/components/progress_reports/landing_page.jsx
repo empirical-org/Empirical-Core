@@ -23,7 +23,7 @@ export default React.createClass({
 				flag: 'beta'
 			}, {
 				title: 'Diagnostic',
-				href: '/teachers/classrooms/scorebook',
+				href: '/diagnostic#/stage/1',
 				img: '/images/diagnostic.svg',
 				bodyText: 'View the results of the diagnostic, and get a personalized learning plan with recommended activities.',
 				flag: 'beta'
