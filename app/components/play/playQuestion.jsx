@@ -205,7 +205,7 @@ const playQuestion = React.createClass({
           value: this.state.response,
           question: this.props.question,
           getResponse: this.getResponse2,
-          feedback: this.renderFeedback,
+          feedback: this.renderFeedback(),
           initialValue: this.getInitialValue(),
           key: questionID,
           questionID: questionID,
