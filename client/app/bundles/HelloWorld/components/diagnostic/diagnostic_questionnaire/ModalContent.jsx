@@ -9,11 +9,16 @@ export default React.createClass({
 
   render() {
     const p = this.props.content;
+    let a = p.a ? <a href={p.href}>{p.a}</a> : ''
     return (
       <div>
-        <img className='modal-intro' src={p.imgSrc} alt={p.imgAlt}/>
+        <div className="image-wrapper">
+            <img className='modal-intro' src={p.imgSrc} alt={p.imgAlt}/>
+        </div>
+
         <h1>{p.h1}</h1>
         <p>{p.p}</p>
+        {a}
       </div>
     )
   }
