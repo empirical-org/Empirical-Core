@@ -54,6 +54,24 @@
   }
 }
 
+.sf-button-group {
+  margin-top: 28px;
+
+  .sf-button {
+    background-color: $white;
+    font-family: $family-sans-serif;
+    color: #2f2f2f;
+    border: solid 1px #737373;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 18px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 24px;
+    margin-right: 25px;
+  }
+}
+
 .cues {
   margin-top: 9px;
   display: inline-flex;
