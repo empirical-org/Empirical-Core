@@ -1,7 +1,8 @@
 import React from 'react'
 import _ from 'underscore'
 import handleFocus from './handleFocus.js'
-import {EditorState, ContentState, convertFromHTML, convertToRaw, convertFromRaw} from 'draft-js';
+import {EditorState, ContentState, convertFromHTML, convertToRaw, convertFromRaw, getDefaultKeyBinding, KeyBindingUtil} from 'draft-js';
+const {hasCommandModifier} = KeyBindingUtil;
 import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import {stateToHTML} from 'draft-js-export-html';
@@ -60,7 +61,26 @@ export default React.createClass({
   //   return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || "")))
   // },
 
+  handleKeyCommand: function (command) {
+    if (command === 'student-editor-submit') {
+      // Perform a request to save your contents, set
+      // a new `editorState`, etc.
+      this.props.checkAnswer()
+      console.log("checking answer")
+      return "handled"
+    }
+    return 'not-handled';
+  },
+
+  myKeyBindingFn: function (e) {
+    if (e.keyCode === 13 /* `S` key */) {
+      return 'student-editor-submit';
+    }
+    return getDefaultKeyBinding(e);
+  },
+
   handleTextChange: function (e) {
+    console.log(e)
     if (!this.props.disabled) {
       this.setState({text: e}, () => {
         this.props.handleChange(convertToRaw(this.state.text.getCurrentContent()).blocks[0].text)
@@ -73,7 +93,12 @@ export default React.createClass({
       <div className={"student text-editor card is-fullwidth " + (this.props.disabled ? 'disabled-editor' : '')}>
         <div className="card-content">
           <div className="content">
-            <Editor editorState={this.state.text} onChange={this.handleTextChange}/>
+            <Editor
+              editorState={this.state.text}
+              onChange={this.handleTextChange}
+              handleKeyCommand={this.handleKeyCommand.bind(this)}
+              keyBindingFn={this.myKeyBindingFn}
+            />
           </div>
         </div>
       </div>
