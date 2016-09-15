@@ -32,8 +32,6 @@ class Activity < ActiveRecord::Base
     self.activity_classification_id = ActivityClassification.find_by(uid: uid).id
   end
 
-
-
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(search_text, filters, sort)
@@ -55,10 +53,10 @@ class Activity < ActiveRecord::Base
     Activity.find_by(activity_classification_id: ActivityClassification.diagnostic.id)
   end
 
-  def self.current_user_scope
-    if current_user.flag == 'alpha'
+  def self.user_scope(user_flag)
+    if user_flag == 'alpha'
       Activity.alpha_user
-    elsif current_user.flag == 'beta'
+    elsif user_flag == 'beta'
       Activity.beta_user
     else
       Activity.production
