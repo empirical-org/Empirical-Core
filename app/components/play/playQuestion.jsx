@@ -95,7 +95,7 @@ const playQuestion = React.createClass({
     const question = this.props.questions.data[this.props.params.questionID]
     question.attempts = this.props.question.attempts
     return <RenderFeedback sentence="Try Again. What’s another way you could write this sentence?"
-            question={question} renderFeedbackStatements={this.renderFeedbackStatements}/>
+            question={question} getQuestion={this.getQuestion} renderFeedbackStatements={this.renderFeedbackStatements}/>
   },
 
   getErrorsForAttempt: function (attempt) {

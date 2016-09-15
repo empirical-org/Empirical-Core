@@ -143,17 +143,24 @@ const playLessonQuestion = React.createClass({
   },
 
   renderNextQuestionButton:  function (correct) {
-    if (correct) {
-      return (<button className="button is-outlined is-success" onClick={this.nextQuestion}>Next</button>)
-    } else {
-      return (<button className="button is-outlined is-warning" onClick={this.nextQuestion}>Next</button>)
-    }
-
+    return (<button className="button student-next" onClick={this.nextQuestion}>Next</button>)
   },
 
   render: function () {
     const questionID = this.props.question.key;
     if (this.props.question) {
+      const sharedProps = {
+        value: this.state.response,
+        question: this.props.question,
+        getResponse: this.getResponse2,
+        feedback: this.renderFeedback(),
+        initialValue: this.getInitialValue(),
+        key: questionID,
+        questionID: questionID,
+        id: "playQuestion",
+        sentenceFragments: this.renderSentenceFragments(),
+        cues: this.renderCues(),
+      }
       if (this.state.finished) {
         return (
           <StateFinished sessionKey={this.state.sessionKey} />
@@ -161,34 +168,35 @@ const playLessonQuestion = React.createClass({
       }
       if (this.props.question.attempts.length > 2 ) {
         return (
-          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                      feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                      handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                      textAreaClass="textarea is-question is-disabled" questionID={questionID}/>
+          <AnswerForm {...sharedProps}
+                      handleChange={() => {}}
+                      nextQuestionButton={this.renderNextQuestionButton()}
+                      disabled={true}
+                       />
         )
       } else if (this.props.question.attempts.length > 0 ) {
         var latestAttempt = getLatestAttempt(this.props.question.attempts)
         if (this.readyForNext()) {
           return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                      feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                      handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton(true)}
-                      textAreaClass="textarea is-question is-disabled" questionID={questionID}/>
+            <AnswerForm {...sharedProps}
+                      handleChange={() => {}}
+                      nextQuestionButton={this.renderNextQuestionButton(true)}
+                      disabled={true}
+                    />
           )
         } else {
           return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                  handleChange={this.handleChange} textAreaClass="textarea is-question"
-                  toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} questionID={questionID}/>
+            <AnswerForm {...sharedProps}
+                  handleChange={this.handleChange}
+                  toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
           )
         }
       } else {
         return (
-          <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                feedback={this.renderFeedback()} initialValue={this.getInitialValue()}
-                handleChange={this.handleChange} textAreaClass="textarea is-question submission"
-                toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} questionID={questionID}/>
+          <AnswerForm {...sharedProps}
+
+                handleChange={this.handleChange}
+                toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
         )
       }
     } else {
