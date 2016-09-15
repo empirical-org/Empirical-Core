@@ -70,6 +70,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   get :porthole_proxy, to: 'porthole_proxy#index'
 
+  get :current_user_json, controller: 'teachers', action: 'current_user_json'
+
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
 
   namespace :teachers do
