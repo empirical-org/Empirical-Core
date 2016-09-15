@@ -103,6 +103,16 @@ var StudentDiagnostic = React.createClass({
     this.props.dispatch(action)
   },
 
+  getProgressPercent: function () {
+    console.log("hey: ", this.props)
+    if (this.props.playDiagnostic && this.props.playDiagnostic.answeredQuestions && this.props.playDiagnostic.questionSet) {
+      return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100
+    } else {
+      0
+    }
+
+  },
+
   getFetchedData: function() {
     var returnValue = this.getData().map((obj)=>{
       var data = (obj.type==="SC") ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key]
@@ -152,6 +162,8 @@ var StudentDiagnostic = React.createClass({
     }
 
     return (
+      <div>
+      <progress className="progress is-primary diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
       <section className="section is-fullheight minus-nav student">
       <div className="student-container student-container-diagnostic">
           <ReactCSSTransitionGroup
@@ -163,6 +175,7 @@ var StudentDiagnostic = React.createClass({
           </ReactCSSTransitionGroup>
         </div>
       </section>
+      </div>
     )
   }
 })
