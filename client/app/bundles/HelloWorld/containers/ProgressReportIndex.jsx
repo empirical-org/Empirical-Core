@@ -7,7 +7,7 @@ import StandardsTopicStudentsProgressReport from '../components/progress_reports
 import ConceptsStudentsProgressReport from '../components/progress_reports/concepts_students_progress_report.jsx'
 import ConceptsConceptsProgressReport from '../components/progress_reports/concepts_concepts_progress_report.jsx'
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder'
-import LandingPage from '../components/progress_reports/landing_page.jsx'
+import LandingPageContainer from './LandingPageContainer.jsx'
 import $ from 'jquery'
 import _ from 'underscore'
 import React from 'react'
@@ -30,7 +30,7 @@ var renderRightComponentHack = function() {
     '.progress-reports-standards-topic-students': StandardsTopicStudentsProgressReport,
     '.progress-reports-concepts-students': ConceptsStudentsProgressReport,
     '.progress-reports-concepts-concepts': ConceptsConceptsProgressReport,
-    '.progress-reports-landing-page': LandingPage
+    '.progress-reports-landing-page-container': LandingPageContainer
   };
 
   _.each(progressReportMapping, function(component, rootNodeSelector) {
@@ -60,52 +60,3 @@ export default React.createClass({
     );
    }
  });
-
-
-
-
-
-// export default React.createClass({
-//
-//   getInitialState: function(){
-//     return({report: null, reportProps: null});
-//   },
-//
-//   correctReport: function() {
-//     var progressReportMapping = {
-//       '.progress-reports-activities': ActivitiesProgressReport,
-//       '.progress-reports-standards-classrooms': StandardsAllClassroomsProgressReport,
-//       '.progress-reports-standards-classroom-students': StandardsClassroomStudentsProgressReport,
-//       '.progress-reports-standards-topics': StandardsTopicsProgressReport,
-//       '.progress-reports-standards-classroom-topics': StandardsClassroomTopicsProgressReport,
-//       '.progress-reports-standards-topic-students': StandardsTopicStudentsProgressReport,
-//       '.progress-reports-concepts-students': ConceptsStudentsProgressReport,
-//       '.progress-reports-concepts-concepts': ConceptsConceptsProgressReport
-//     }
-//     var that = this;
-//     _.each(progressReportMapping, function(component, rootNodeSelector) {
-//
-//       var $el = $(rootNodeSelector);
-//       if ($el.length) {
-//         $.get('/teachers/classrooms/premium.json').done(function(data) {
-//
-//           that.setState({report: <component sourceUrl={$el.data('url')} premiumStatus={data.hasPremium}/>});
-//
-//         });
-//       }
-//     });
-//   },
-//
-//   render: function() {
-//     var report;
-//     if (this.state.report) {
-//         report = this.state.report;
-//     } else {
-//       report = <div>'wtf'</div>
-//     }
-//     console.log(report)
-//     return (
-//      {report}
-//     )
-//    }
-//  });
