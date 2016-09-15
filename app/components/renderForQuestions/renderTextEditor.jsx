@@ -66,7 +66,6 @@ export default React.createClass({
       // Perform a request to save your contents, set
       // a new `editorState`, etc.
       this.props.checkAnswer()
-      console.log("checking answer")
       return "handled"
     }
     return 'not-handled';
@@ -80,7 +79,6 @@ export default React.createClass({
   },
 
   handleTextChange: function (e) {
-    console.log(e)
     if (!this.props.disabled) {
       this.setState({text: e}, () => {
         this.props.handleChange(convertToRaw(this.state.text.getCurrentContent()).blocks[0].text)
@@ -96,7 +94,7 @@ export default React.createClass({
             <Editor
               editorState={this.state.text}
               onChange={this.handleTextChange}
-              handleKeyCommand={this.handleKeyCommand.bind(this)}
+              handleKeyCommand={this.handleKeyCommand}
               keyBindingFn={this.myKeyBindingFn}
             />
           </div>
