@@ -87,6 +87,7 @@ var PlaySentenceFragment = React.createClass({
       this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
     }
     this.props.updateAttempts(matched);
+    this.props.nextQuestion();
     // if((matched.posMatch || matched.exactMatch) && matched.response.optimal) {
     //   this.setState({
     //     prompt: "That is a correct answer!",
@@ -144,7 +145,8 @@ var PlaySentenceFragment = React.createClass({
 
       return (
         <div className="container">
-          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200} >
+          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200}
+          transitionLeaveTimeout={300} >
             <div className="feedback-row">
               <img src={icon}/>
               <p>{instructions}</p>
@@ -170,17 +172,15 @@ var PlaySentenceFragment = React.createClass({
       key = this.props.params ? this.props.params.fragmentID : this.props.currentKey
       const fragment = this.props.sentenceFragments.data[key]
       return (
-        <section className="section is-fullheight minus-nav student">
-          <div className="student-container">
-            <div className="draft-js sentence-fragments prevent-selection">
-              <p>{this.getQuestion()}</p>
-            </div>
-
-            {this.renderSentenceOrFragmentMode()}
-            {this.renderPlaySentenceFragmentMode(fragment)}
-            {this.renderNextPage()}
+        <div className="student-container-inner-diagnostic">
+          <div className="draft-js sentence-fragments prevent-selection">
+            <p>{this.getQuestion()}</p>
           </div>
-        </section>
+
+          {this.renderSentenceOrFragmentMode()}
+          {this.renderPlaySentenceFragmentMode(fragment)}
+          {this.renderNextPage()}
+        </div>
       )
     } else {
       return (<div className="container">Loading...</div>)

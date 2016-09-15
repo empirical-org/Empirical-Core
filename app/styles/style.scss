@@ -3,6 +3,7 @@
 @import "components/student-nav";
 @import "components/student-container";
 @import "components/student-question";
+@import "components/animations";
 @import '../../node_modules/react-selectize/themes/index.css';
 
 body {
@@ -325,6 +326,15 @@ textarea.submission {
 
   }
 
+}
+
+.student-container-diagnostic {
+  position: relative;
+}
+
+.student-container-inner-diagnostic {
+  position: absolute;
+  width: 100%;
 }
 
 // .response-component-page-number {

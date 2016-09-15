@@ -109,6 +109,7 @@ const PlayDiagnosticQuestion = React.createClass({
       editing: false,
       response: ""
     })
+    this.nextQuestion();
   },
 
   toggleDisabled: function () {
@@ -169,8 +170,7 @@ const PlayDiagnosticQuestion = React.createClass({
     if (this.props.question) {
       const instructions = (this.props.question.instructions && this.props.question.instructions!=="") ? this.props.question.instructions : "Combine the sentences into one sentence."
       return (
-        <section className="section is-fullheight minus-nav student">
-          <div className="student-container">
+        <div className="student-container-inner-diagnostic">
           {this.renderSentenceFragments()}
           {this.renderCues()}
           <div className="feedback-row">
@@ -178,7 +178,7 @@ const PlayDiagnosticQuestion = React.createClass({
             <p>{instructions}</p>
           </div>
           <h5 className="title is-5"></h5>
-          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={500}>
+          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
                         handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
                         disabled={this.readyForNext()} checkAnswer={this.checkAnswer}/>
@@ -187,7 +187,6 @@ const PlayDiagnosticQuestion = React.createClass({
             </div>
           </ReactTransition>
         </div>
-        </section>
       )
     } else {
       return (<p>Loading...</p>)

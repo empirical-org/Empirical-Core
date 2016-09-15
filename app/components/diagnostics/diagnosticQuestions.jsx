@@ -27,7 +27,7 @@ export default function diagnosticQuestions() {
     {
       type: "SF", // While we were swimming at the lake
       key: "-KPJiGC6bbtp7GkKMg3v"
-    },
+     },
     {
       type: "SC", //  After the game, we played music it was loud
       key: "-KP-LIzVyeL6a38yW0im"

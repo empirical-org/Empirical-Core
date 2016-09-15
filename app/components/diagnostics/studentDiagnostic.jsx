@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
@@ -122,27 +122,25 @@ var StudentDiagnostic = React.createClass({
 
   render: function() {
     const diagnosticID = this.props.params.diagnosticID
+    var component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       var data = this.getFetchedData()
       if(data) {
         if (this.props.playDiagnostic.currentQuestion) {
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
-            return (
-              <PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key}/>
-            )
+            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key}/>)
+
           } else {
-            return (
-              <PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+            component =   (<PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
                                     key={this.props.playDiagnostic.currentQuestion.data.key}
                                     nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-                                    updateAttempts={this.submitResponse}/>
-            )
+                                    updateAttempts={this.submitResponse}/>)
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-          return (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
+          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
         }
         else {
-          return (
+          component =  (
             <div className="container">
               <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
             </div>
@@ -150,8 +148,22 @@ var StudentDiagnostic = React.createClass({
         }
       }
     } else {
-      return (<div className="section container">Loading...</div>)
+      component =  (<div className="section container">Loading...</div>)
     }
+
+    return (
+      <section className="section is-fullheight minus-nav student">
+      <div className="student-container student-container-diagnostic">
+          <ReactCSSTransitionGroup
+            transitionName="carousel"
+            transitionEnterTimeout={350}
+            transitionLeaveTimeout={350}
+            >
+            {component}
+          </ReactCSSTransitionGroup>
+        </div>
+      </section>
+    )
   }
 })
 
