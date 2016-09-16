@@ -161,13 +161,14 @@ const playLessonQuestion = React.createClass({
         sentenceFragments: this.renderSentenceFragments(),
         cues: this.renderCues(),
       }
+      var component;
       if (this.state.finished) {
-        return (
+        component = (
           <StateFinished sessionKey={this.state.sessionKey} />
         )
       }
       if (this.props.question.attempts.length > 2 ) {
-        return (
+        component = (
           <AnswerForm {...sharedProps}
                       handleChange={() => {}}
                       nextQuestionButton={this.renderNextQuestionButton()}
@@ -177,7 +178,7 @@ const playLessonQuestion = React.createClass({
       } else if (this.props.question.attempts.length > 0 ) {
         var latestAttempt = getLatestAttempt(this.props.question.attempts)
         if (this.readyForNext()) {
-          return (
+          component = (
             <AnswerForm {...sharedProps}
                       handleChange={() => {}}
                       nextQuestionButton={this.renderNextQuestionButton(true)}
@@ -185,20 +186,25 @@ const playLessonQuestion = React.createClass({
                     />
           )
         } else {
-          return (
+          component = (
             <AnswerForm {...sharedProps}
                   handleChange={this.handleChange}
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
           )
         }
       } else {
-        return (
+        component = (
           <AnswerForm {...sharedProps}
 
                 handleChange={this.handleChange}
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
         )
       }
+      return (
+        <div className="student-container-inner-diagnostic">
+          {component}
+        </div>
+      )
     } else {
       return (<p>Loading...</p>)
     }

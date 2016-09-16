@@ -64,7 +64,9 @@ export default React.createClass({
 
   render: function () {
     return (
-      <section className="section is-fullheight minus-nav">
+      <section className="student" style={{
+        paddingTop: 20
+      }}>
         {this.renderIntro()}
       </section>
     )

@@ -56,24 +56,22 @@ export default React.createClass({
     }
 
     return (
-      <section className="section is-fullheight minus-nav student">
-        <div className="student-container">
-          {this.props.sentenceFragments}
-          <div className="content">
-            {this.props.cues}
-            {feedback}
-            <TextEditor disabled={this.props.disabled} defaultValue={this.props.initialValue} key={this.props.questionID} checkAnswer={this.props.checkAnswer}
-                        handleChange={this.props.handleChange} value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
-            <div className="question-button-group button-group">
-              {this.getHelpModal()}
-              {info}
-              {content}
-              {button}
-            </div>
-            {this.renderConceptExplanation()}
+      <div className="student-container">
+        {this.props.sentenceFragments}
+        <div className="content">
+          {this.props.cues}
+          {feedback}
+          <TextEditor disabled={this.props.disabled} defaultValue={this.props.initialValue} key={this.props.questionID} checkAnswer={this.props.checkAnswer}
+                      handleChange={this.props.handleChange} value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
+          <div className="question-button-group button-group">
+            {this.getHelpModal()}
+            {info}
+            {content}
+            {button}
           </div>
+          {this.renderConceptExplanation()}
         </div>
-      </section>
+      </div>
     )
   }
 })
