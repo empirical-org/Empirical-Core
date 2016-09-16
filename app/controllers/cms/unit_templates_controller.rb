@@ -12,6 +12,10 @@ class Cms::UnitTemplatesController < ApplicationController
   end
 
   def create
+    attributes = unit_template_params
+
+    attributes.delete(:authenticity_token)
+
     @unit_template = UnitTemplate.new(unit_template_params)
     if @unit_template.save!
       render json: @unit_template
@@ -42,6 +46,7 @@ class Cms::UnitTemplatesController < ApplicationController
   def unit_template_params
     params.require(:unit_template)
             .permit(:id,
+                    :authenticity_token,
                     :name,
                     :author_id,
                     :problem,

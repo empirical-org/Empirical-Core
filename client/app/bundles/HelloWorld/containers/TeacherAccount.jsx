@@ -154,7 +154,6 @@ export default React.createClass({
 				this.destroySubscription()
 			}
 		} else if (this.state.subscription.account_type == 'paid' || 'trial') {
-      debugger;
 			if (this.state.subscription.id == null) {
 				this.createSubscription();
 			} else {
