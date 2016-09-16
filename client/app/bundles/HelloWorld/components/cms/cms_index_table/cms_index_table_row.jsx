@@ -1,4 +1,8 @@
-EC.CmsIndexTableRow = React.createClass({
+import _ from 'underscore'
+import React from 'react'
+
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object.isRequired

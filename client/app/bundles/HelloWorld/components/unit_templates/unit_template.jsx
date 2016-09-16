@@ -1,11 +1,9 @@
-'use strict';
+import React from 'react'
+import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx'
+import DropdownSelector from '../general_components/dropdown_selector/dropdown_selector.jsx'
+import ActivitySearchAndSelect from '../lesson_planner/create_unit/activity_search/activity_search_and_select.jsx'
 
-/*
-this should be refactored using resource.jsx the way authors.jsx is
-
-*/
-
-EC.Cms.UnitTemplate = React.createClass({
+export default React.createClass({
   propTypes: {
     unitTemplate: React.PropTypes.object.isRequired,
     returnToIndex: React.PropTypes.func.isRequired
@@ -140,14 +138,14 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getGradeCheckBoxes: function () {
-      return <EC.CheckBoxes label={"Grades"}
+      return <CheckBoxes label={"Grades"}
             items={this.state.options.grades}
             selectedItems={this.state.model.grades}
             toggleItem={this.modules.indicatorGenerator.stateItemToggler('grades')} />;
   },
 
   getUnitTemplateCategorySelect: function () {
-    return <EC.DropdownSelector
+    return <DropdownSelector
                 select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
                 defaultValue={this.state.model.unit_template_category_id}
                 options={this.state.options.unit_template_categories}
@@ -155,7 +153,7 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getAuthorSelect: function () {
-    return <EC.DropdownSelector
+    return <DropdownSelector
               select={this.modules.indicatorGenerator.selector('author_id')}
               defaultValue={this.state.model.author_id}
               options={this.state.options.authors}
@@ -163,7 +161,7 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getTimeDropdownSelect: function () {
-      return <EC.DropdownSelector
+      return <DropdownSelector
                 select={this.modules.indicatorGenerator.selector('time')}
                 defaultValue={this.state.model.time}
                 options={this.state.options.times}
@@ -171,7 +169,7 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getActivitySearchAndSelect: function () {
-    return <EC.ActivitySearchAndSelect selectedActivities={this.state.model.activities}
+    return <ActivitySearchAndSelect selectedActivities={this.state.model.activities}
                                       toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
                                       isEnoughInputProvidedToContinue={this.isEnoughInputProvidedToContinue()}
                                       errorMessage={this.props.errorMessage} />

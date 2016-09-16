@@ -1,6 +1,7 @@
 import React from 'react'
+import CheckBox from './check_box.jsx'
 
-EC.CheckBoxes = React.createClass({
+export default React.createClass({
   propTypes: {
     label: React.PropTypes.string.isRequired,
     items: React.PropTypes.array.isRequired,
@@ -14,7 +15,7 @@ EC.CheckBoxes = React.createClass({
   },
 
   generateCheckBox: function (item) {
-    return (<EC.CheckBox item={item} checked={this.determineIfChecked(item)} toggleItem={this.props.toggleItem} key={item} />);
+    return (<CheckBox item={item} checked={this.determineIfChecked(item)} toggleItem={this.props.toggleItem} key={item} />);
   },
 
   render: function () {
