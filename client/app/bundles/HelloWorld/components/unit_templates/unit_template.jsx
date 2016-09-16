@@ -1,6 +1,6 @@
 import React from 'react'
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx'
-import DropdownSelector from '../general_components/dropdown_selector/dropdown_selector.jsx'
+import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx'
 import ActivitySearchAndSelect from '../lesson_planner/create_unit/activity_search/activity_search_and_select.jsx'
 import Server from '../modules/server/server.jsx'
 import Fnl from '../modules/fnl.jsx'
