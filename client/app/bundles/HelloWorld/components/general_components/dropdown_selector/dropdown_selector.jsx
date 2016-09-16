@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   select: function () {
-    var id = $(this.refs.select.getDOMNode()).val();
+    var id = $(this.refs.select).val();
     this.props.select(id);
   },
 

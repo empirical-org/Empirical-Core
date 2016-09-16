@@ -21,7 +21,7 @@ export default React.createClass({
   },
 
   identifier: function () {
-    return x = (this.props.data.identifier || 'Name')
+    return this.props.data.identifier || 'Name'
   },
 
   render: function () {
@@ -42,5 +42,3 @@ export default React.createClass({
   }
 
 });
-
-*/

@@ -1,7 +1,7 @@
 'use strict'
 
  import React from 'react'
- import _ from 'underscore'
+ import _ from 'lodash'
 
  export default function () {
 
@@ -9,6 +9,7 @@
     var newObject = {}
     newObject[newField] = newValue;
     var newObject = _.chain(newObject).merge(obj).omit(oldField).value();
+    console.log(newObject)
     return newObject
   }
 
@@ -16,7 +17,7 @@
     var oldVal, newVal;
     oldVal = object[oldField]
     if (oldVal instanceof Array) {
-      newVal = _.pluck(oldVal, 'id');
+      newVal = oldVal.map((el) => el.id)
     } else {
       newVal = oldVal.id;
     }

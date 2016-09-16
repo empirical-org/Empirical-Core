@@ -1,5 +1,6 @@
 import React from 'react'
-import Cms from './Cms.jsx'
+import CmsIndexTable from '../components/cms/cms_index_table/cms_index_table.jsx'
+import Server from '../components/modules/server/server'
 
 
 export default React.createClass({
@@ -10,7 +11,7 @@ export default React.createClass({
   },
 
   initializeModules: function () {
-    var server = new EC.modules.Server(this.props.resourceNameSingular, this.props.resourceNamePlural);
+    var server = new Server(this.props.resourceNameSingular, this.props.resourceNamePlural);
     this.modules = {
       server: server
     }
@@ -47,7 +48,7 @@ export default React.createClass({
 
   populateResources: function (resource) {
     // FIXME this fn does not have to be so complicated, need to change server module
-    that = this;
+    let that = this;
     return function (data) {
       var newState = that.state;
       newState[that.props.resourceNamePlural] = data[that.props.resourceNamePlural];
@@ -65,7 +66,7 @@ export default React.createClass({
         </div>
         <div className='row'>
           <div className='col-xs-12'>
-            <EC.CmsIndexTable data={{resources: this.state[this.props.resourceNamePlural] }}
+            <CmsIndexTable data={{resources: this.state[this.props.resourceNamePlural] }}
                               actions={{edit: this.edit, delete: this.delete}}/>
           </div>
         </div>
