@@ -1,4 +1,8 @@
-EC.CmsIndexTableRow = React.createClass({
+import _ from 'underscore'
+import React from 'react'
+
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object.isRequired
@@ -9,22 +13,22 @@ EC.CmsIndexTableRow = React.createClass({
   },
 
   delete: function () {
-    var x = confirm('are you sure you want to delete ' + this.props.data.resource[this.identifier()] + '?');
-    if (x) {
+    var confirm = confirm('are you sure you want to delete ' + this.props.data.resource[this.identifier()] + '?');
+    if (confirm) {
       this.props.actions.delete(this.props.data.resource);
     }
   },
 
   identifier: function () {
-    return x = (this.props.data.identifier || 'name')
+    return this.props.data.identifier || 'name'
   },
 
   render: function () {
     var edit_and_delete;
     edit_and_delete = _.reduce(['edit', 'delete'], function (acc, ele) {
       if (this.props.actions[ele]) {
-        var x = <div className='col-xs-6' onClick={this[ele]}>{ele}</div>
-        return _.chain(acc).push(x).value();
+        var el = <div key={ele} className='col-xs-6' onClick={this[ele]}>{ele}</div>
+        return _.chain(acc).push(el).value();
       } else {
         return acc
       }
