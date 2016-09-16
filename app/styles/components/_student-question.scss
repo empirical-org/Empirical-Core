@@ -208,3 +208,14 @@
   height: 13px;
   color: #eee;
 }
+
+progress[value]::-webkit-progress-bar {
+  background-color: $white;
+  // border-radius: 2px;
+  // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: #027360;
+  color: #027360;
+}

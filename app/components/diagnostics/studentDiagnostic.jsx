@@ -163,7 +163,7 @@ var StudentDiagnostic = React.createClass({
 
     return (
       <div>
-      <progress className="progress is-primary diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+      <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
       <section className="section is-fullheight minus-nav student">
       <div className="student-container student-container-diagnostic">
           <ReactCSSTransitionGroup
