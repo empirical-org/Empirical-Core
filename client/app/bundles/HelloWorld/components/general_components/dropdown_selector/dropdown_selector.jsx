@@ -1,6 +1,7 @@
 import React from 'react'
 
-EC.DropdownSelector = React.createClass({
+
+export default React.createClass({
   propTypes: {
     options: React.PropTypes.array.isRequired,
     select: React.PropTypes.func.isRequired,
