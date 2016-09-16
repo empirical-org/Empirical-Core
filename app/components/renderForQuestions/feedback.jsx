@@ -27,7 +27,7 @@ export default React.createClass({
       if(!!data.question.instructions) {
         return (
           <div className="feedback-row">
-            <img src={icon}/>
+            <img className="info" src={icon}/>
             <p>{data.question.instructions}</p>
           </div>
         )
@@ -35,7 +35,7 @@ export default React.createClass({
       else if(data.getQuestion && data.getQuestion().instructions!=="") {
         return (
           <div className="feedback-row">
-            <img src={icon}/>
+            <img className="info" src={icon}/>
             <p>{data.getQuestion().instructions}</p>
           </div>
         )
