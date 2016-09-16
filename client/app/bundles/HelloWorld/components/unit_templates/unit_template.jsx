@@ -1,11 +1,16 @@
-'use strict';
+import React from 'react'
+import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx'
+import DropdownSelector from '../general_components/dropdown_selector/dropdown_selector.jsx'
+import ActivitySearchAndSelect from '../lesson_planner/create_unit/activity_search/activity_search_and_select.jsx'
+import Server from '../modules/server/server.jsx'
+import Fnl from '../modules/fnl.jsx'
+import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'
+import IndicatorGenerator from '../modules/indicator_generator.jsx'
+import OptionLoader from '../modules/option_loader.jsx'
+import $ from 'jquery'
 
-/*
-this should be refactored using resource.jsx the way authors.jsx is
 
-*/
-
-EC.Cms.UnitTemplate = React.createClass({
+export default React.createClass({
   propTypes: {
     unitTemplate: React.PropTypes.object.isRequired,
     returnToIndex: React.PropTypes.func.isRequired
@@ -34,13 +39,13 @@ EC.Cms.UnitTemplate = React.createClass({
   ],
 
   initializeModules: function () {
-    var fnl = new EC.modules.fnl();
-    var server = new EC.modules.Server(this.resourceNameSingular, this.resourceNamePlural, '/cms');
+    var fnl = new Fnl();
+    var server = new Server(this.resourceNameSingular, this.resourceNamePlural, '/cms');
     this.modules = {
-      textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateModelState),
+      textInputGenerator: new TextInputGenerator(this, this.updateModelState),
       server: server,
-      indicatorGenerator: new EC.modules.IndicatorGenerator(this.getModelState, this.updateModelState, fnl),
-      optionsLoader: new EC.modules.OptionLoader(this.initializeModelOptions(), this.updateState, server)
+      indicatorGenerator: new IndicatorGenerator(this.getModelState, this.updateModelState, fnl),
+      optionsLoader: new OptionLoader(this.initializeModelOptions(), this.updateState, server)
     };
   },
 
@@ -117,7 +122,7 @@ EC.Cms.UnitTemplate = React.createClass({
     }
     var fieldsToNormalize = [
       //{name: 'author', idName: 'author_id'},
-      {name: 'activities', idName: 'activity_ids'}//,
+      {name: 'activities', idName: 'activity_ids'}
       //{name: 'related_unit_templates', idName: 'related_unit_template_ids'}
     ];
     this.modules.server.save(model, {callback: this.props.returnToIndex, fieldsToNormalize: fieldsToNormalize})
@@ -140,14 +145,14 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getGradeCheckBoxes: function () {
-      return <EC.CheckBoxes label={"Grades"}
+      return <CheckBoxes label={"Grades"}
             items={this.state.options.grades}
             selectedItems={this.state.model.grades}
             toggleItem={this.modules.indicatorGenerator.stateItemToggler('grades')} />;
   },
 
   getUnitTemplateCategorySelect: function () {
-    return <EC.DropdownSelector
+    return <DropdownSelector
                 select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
                 defaultValue={this.state.model.unit_template_category_id}
                 options={this.state.options.unit_template_categories}
@@ -155,7 +160,7 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getAuthorSelect: function () {
-    return <EC.DropdownSelector
+    return <DropdownSelector
               select={this.modules.indicatorGenerator.selector('author_id')}
               defaultValue={this.state.model.author_id}
               options={this.state.options.authors}
@@ -163,7 +168,7 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getTimeDropdownSelect: function () {
-      return <EC.DropdownSelector
+      return <DropdownSelector
                 select={this.modules.indicatorGenerator.selector('time')}
                 defaultValue={this.state.model.time}
                 options={this.state.options.times}
@@ -171,7 +176,7 @@ EC.Cms.UnitTemplate = React.createClass({
   },
 
   getActivitySearchAndSelect: function () {
-    return <EC.ActivitySearchAndSelect selectedActivities={this.state.model.activities}
+    return <ActivitySearchAndSelect selectedActivities={this.state.model.activities}
                                       toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
                                       isEnoughInputProvidedToContinue={this.isEnoughInputProvidedToContinue()}
                                       errorMessage={this.props.errorMessage} />
