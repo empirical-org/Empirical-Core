@@ -2,6 +2,7 @@
 
   import Data from './data/data'
   import Params from './params'
+  import _ from 'underscore'
 
  export default  function () {
 

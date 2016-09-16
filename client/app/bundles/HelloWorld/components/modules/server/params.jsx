@@ -2,6 +2,7 @@
 
  import React from 'react'
  import _ from 'underscore'
+ import $ from 'jquery'
 
  export default  function () {
 
@@ -17,7 +18,10 @@
     )
   }
 
-  var _dataIntoParam = function (data) {return {data: data}}
+  var _dataIntoParam = function (data) {
+    data.authenticity_token = _authenticity_token()
+    return {data: data}
+  }
 
   var _paramAdder = function (fn) {
     var hash = fn.apply(null, _.rest(arguments));
@@ -55,6 +59,11 @@
     return {type: type}
   }
 
+  var _authenticity_token = function() {
+    return $('meta[name=csrf-token]').attr('content');
+  }
+
+
   var _paramsForFormOrNot = function (params) {
     var extras
     var dataObj = params.data // data is of the form {resourceNameSingular: hash | FormData}
@@ -62,7 +71,8 @@
       extras = {processData: false, contentType: false}
     } else {
       extras = {contentType: 'application/json',
-                data: JSON.stringify(params.data)}
+                data: JSON.stringify(params.data)
+              }
     }
     return extras;
   }
