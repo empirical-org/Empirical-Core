@@ -1,4 +1,8 @@
-EC.CmsIndexTable = React.createClass({
+import React from 'react'
+import _ from 'underscore'
+import CmsIndexTableRow from './cms_index_table_row.jsx'
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object.isRequired
@@ -10,14 +14,14 @@ EC.CmsIndexTable = React.createClass({
   },
 
   furnishRow: function (resource) {
-    return <EC.CmsIndexTableRow
+    return <CmsIndexTableRow
                   data={{resource: resource, identifier: this.props.data.identifier}}
                   key={resource.id}
                   actions={this.props.actions} />;
   },
 
   identifier: function () {
-    return x = (this.props.data.identifier || 'Name')
+    return this.props.data.identifier || 'Name'
   },
 
   render: function () {
@@ -38,25 +42,3 @@ EC.CmsIndexTable = React.createClass({
   }
 
 });
-
-/*
-container progress-report
-
-  progress-reports-standards-classrooms
-
-    <table className='table'>
-      <thead>
-        <tr>
-          <th>
-          <th>
-          ...
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-        <tr>
-        ...
-      </tbody>
-    </table>
-
-*/
