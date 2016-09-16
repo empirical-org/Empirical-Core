@@ -1,5 +1,6 @@
 import React from 'react'
 import CheckBox from './check_box.jsx'
+import _ from 'underscore'
 
 export default React.createClass({
   propTypes: {

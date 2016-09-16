@@ -2,6 +2,13 @@ import React from 'react'
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx'
 import DropdownSelector from '../general_components/dropdown_selector/dropdown_selector.jsx'
 import ActivitySearchAndSelect from '../lesson_planner/create_unit/activity_search/activity_search_and_select.jsx'
+import Server from '../modules/server/server.jsx'
+import Fnl from '../modules/fnl.jsx'
+import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'
+import IndicatorGenerator from '../modules/indicator_generator.jsx'
+import OptionLoader from '../modules/option_loader.jsx'
+import $ from 'jquery'
+
 
 export default React.createClass({
   propTypes: {
@@ -32,13 +39,13 @@ export default React.createClass({
   ],
 
   initializeModules: function () {
-    var fnl = new EC.modules.fnl();
-    var server = new EC.modules.Server(this.resourceNameSingular, this.resourceNamePlural, '/cms');
+    var fnl = new Fnl();
+    var server = new Server(this.resourceNameSingular, this.resourceNamePlural, '/cms');
     this.modules = {
-      textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateModelState),
+      textInputGenerator: new TextInputGenerator(this, this.updateModelState),
       server: server,
-      indicatorGenerator: new EC.modules.IndicatorGenerator(this.getModelState, this.updateModelState, fnl),
-      optionsLoader: new EC.modules.OptionLoader(this.initializeModelOptions(), this.updateState, server)
+      indicatorGenerator: new IndicatorGenerator(this.getModelState, this.updateModelState, fnl),
+      optionsLoader: new OptionLoader(this.initializeModelOptions(), this.updateState, server)
     };
   },
 
@@ -115,7 +122,7 @@ export default React.createClass({
     }
     var fieldsToNormalize = [
       //{name: 'author', idName: 'author_id'},
-      {name: 'activities', idName: 'activity_ids'}//,
+      {name: 'activities', idName: 'activity_ids'}
       //{name: 'related_unit_templates', idName: 'related_unit_template_ids'}
     ];
     this.modules.server.save(model, {callback: this.props.returnToIndex, fieldsToNormalize: fieldsToNormalize})
