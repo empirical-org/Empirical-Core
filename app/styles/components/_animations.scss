@@ -20,3 +20,18 @@
   // opacity: 0;
 
 }
+
+
+.spinner-container {
+  text-align: center;
+  padding: 5%;
+  .spinner {
+    height: 100px;
+    -webkit-animation: rotation 0.75s infinite linear;
+  }
+
+  @-webkit-keyframes rotation {
+      from {-webkit-transform: rotate(0deg);}
+      to   {-webkit-transform: rotate(359deg);}
+  }
+}

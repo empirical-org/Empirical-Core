@@ -8,6 +8,7 @@ import diagnosticQuestions from './diagnosticQuestions.jsx'
 
 import PlaySentenceFragment from './sentenceFragment.jsx'
 import PlayDiagnosticQuestion from './sentenceCombining.jsx'
+import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
 import {getConceptResultsForAllQuestions} from '../../libs/conceptResultsFromDiagnostic'
 const request = require('request');
@@ -150,11 +151,12 @@ var StudentDiagnostic = React.createClass({
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
         }
         else {
-          component =  (
-            <div className="container">
-              <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
-            </div>
-          )
+          component =  <LandingPage begin={()=>{this.startActivity("John", data)}}/>
+          // (
+          //   <div className="container">
+          //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
+          //   </div>
+          // )
         }
       }
     } else {

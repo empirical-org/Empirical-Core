@@ -12,7 +12,7 @@ export default React.createClass({
           <div className="concept-explanation-see" dangerouslySetInnerHTML={{__html: this.props.leftBox}}></div>
           <div className="concept-explanation-write" dangerouslySetInnerHTML={{__html: this.props.rightBox}}></div>
         </div>
-        <div className="concept-explanation-remember" dangerouslySetInnerHTML={{__html: this.props.rememberTo}}></div>
+        {/*<div className="concept-explanation-remember" dangerouslySetInnerHTML={{__html: this.props.rememberTo}}></div>*/}
       </div>
     )
   },

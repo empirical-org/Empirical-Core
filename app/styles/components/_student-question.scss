@@ -43,18 +43,40 @@
 .question-button-group {
   margin-top: 28px;
 
-  .student-submit, .student-next {
-    background-color: $green;
-    font-family: $family-sans-serif;
+  // .student-submit, .student-next {
+  //   background-color: $green;
+  //   font-family: $family-sans-serif;
+  //   color: $white;
+  //   border: none;
+  //   border-radius: 6px;
+  //   font-weight: bold;
+  //   font-size: 18px;
+  //   height: 45px;
+  //   line-height: 45px;
+  //   padding: 0 24px;
+  // }
+}
+
+.student-submit, .student-next {
+  background-color: $green;
+  font-family: $family-sans-serif;
+  color: $white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 18px;
+  height: 45px;
+  line-height: 45px;
+  padding: 0 25px;
+
+  &:hover {
     color: $white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 18px;
-    height: 45px;
-    line-height: 45px;
-    padding: 0 24px;
   }
+}
+
+.student-begin {
+  @extend .student-next;
+  padding: 0 50px;
 }
 
 .sf-button-group {
@@ -189,9 +211,11 @@
     margin-bottom: 0.5em;
     .concept-explanation-see {
       flex-grow: 1;
+      flex-basis: 0;
     }
     .concept-explanation-write {
       flex-grow: 1;
+      flex-basis: 0;
     }
   }
   .concept-explanation-remember {
@@ -210,10 +234,12 @@
   border-radius: 0;
   height: 13px;
   color: #eee;
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.28);
 }
 
 progress[value]::-webkit-progress-bar {
   background-color: $white;
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.28);
   // border-radius: 2px;
   // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
@@ -221,4 +247,29 @@ progress[value]::-webkit-progress-bar {
 progress[value]::-webkit-progress-value {
   background-color: #027360;
   color: #027360;
+}
+
+.landing-page {
+  padding-top: 20px;
+  h1 {
+    font-size: 30px;
+    font-family: $family-sans-serif;
+    color: #2f2f2f;
+  }
+  p {
+    width: 600px;
+    margin-top: 13px;
+    font-size: 20px;
+    color: #464646;
+    &.second-p {
+      margin-top: 25px;
+    }
+  }
+  button {
+    margin-top: 40px;
+    img.begin-arrow {
+      margin-top: -2px;
+      margin-left: 10px;
+    }
+  }
 }

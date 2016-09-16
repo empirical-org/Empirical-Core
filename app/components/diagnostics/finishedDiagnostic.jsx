@@ -1,10 +1,10 @@
 import React from 'react'
-
+import Spinner from '../shared/spinner.jsx'
 export default React.createClass({
 
 
   componentDidMount: function () {
-    this.props.saveToLMS()
+    // this.props.saveToLMS()
   },
 
   renderSavedIndicator: function () {
@@ -25,11 +25,22 @@ export default React.createClass({
 
   render: function () {
     return (
-      <div className="container">
-        Finished Diagnostic
-        {this.renderSavedIndicator()}
-        <button onClick={this.props.saveToLMS}>Save again.</button>
+      <div className="landing-page">
+        <h1>You've completed the Quill Placement Activity </h1>
+        <p>
+          You're results are being saved now.
+          You'll be redirected automatically when they are saved.
+        </p>
+        <Spinner/>
+        {/*<button className="button student-begin" onClick={this.props.begin}>
+          Begin <img className="begin-arrow" src={beginArrow}/>
+        </button>*/}
       </div>
+      // {/*<div className="container">
+      //   Finished Diagnostic
+      //   {this.renderSavedIndicator()}
+      //   <button onClick={this.props.saveToLMS}>Save again.</button>
+      // </div>*/}
     )
   },
 

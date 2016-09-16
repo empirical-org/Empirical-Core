@@ -15,11 +15,9 @@ export default React.createClass ({
 
   getInitialState: function() {
     return {
-      title: this.props.title,
       description: this.props.description,
       leftBox: this.props.leftBox,
       rightBox: this.props.rightBox,
-      rememberTo: this.props.rememberTo,
       editing: "title"
     };
   },
@@ -33,18 +31,14 @@ export default React.createClass ({
   submit: function(e){
     e.preventDefault();
     const {
-      title,
       description,
       leftBox,
-      rightBox,
-      rememberTo
+      rightBox
     } = this.state
     const data = {
-      title,
       description,
       leftBox,
-      rightBox,
-      rememberTo
+      rightBox
     }
     this.props.submitNewFeedback(this.props.feedbackID, data)
   },
@@ -58,7 +52,7 @@ export default React.createClass ({
   },
 
   renderEditor: function () {
-    const parts = ["title", "description", "leftBox", "rightBox", "rememberTo"];
+    const parts = ["description", "leftBox", "rightBox"];
     return parts.map((part) => {
       if (part === this.state.editing) {
         return [
