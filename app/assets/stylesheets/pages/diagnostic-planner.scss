@@ -220,9 +220,7 @@ $green: #00c2a2;
     max-width: 584px;
     max-height: 560px;
     #close-wrapper {
-        position: relative;
-        top: -17px;
-        left: 70px;
+        display: inline;
         img {
             position: relative;
             top: -7px;
@@ -291,6 +289,8 @@ $green: #00c2a2;
     height: 30px;
 }
 .modal-content {
+      max-height: 560px;
+      height: 100%;
     border-radius: 0;
 }
 
@@ -300,6 +300,8 @@ $green: #00c2a2;
       padding: 20px;
     }
     img.modal-intro {
+      max-height: 209px;
+      margin-right: 0px;
         width: 85%;
     }
     #close-wrapper {
