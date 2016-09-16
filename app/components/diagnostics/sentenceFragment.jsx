@@ -116,7 +116,7 @@ var PlaySentenceFragment = React.createClass({
         <div className="container">
           <ReactTransition transitionName={"sentence-fragment-buttons"} transitionLeave={true} transitionLeaveTimeout={2000}>
             <div className="feedback-row">
-              <img src={icon}/>
+              <img className="info" src={icon}/>
               <p>Is this a complete or an incomplete sentence?</p>
             </div>
             {this.getSentenceOrFragmentButtons()}
@@ -148,7 +148,7 @@ var PlaySentenceFragment = React.createClass({
           <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200}
           transitionLeaveTimeout={300} >
             <div className="feedback-row">
-              <img src={icon}/>
+              <img className="info" src={icon}/>
               <p>{instructions}</p>
             </div>
             <TextEditor value={fragment.questionText} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer}/>

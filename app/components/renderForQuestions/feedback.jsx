@@ -44,14 +44,14 @@ export default React.createClass({
         const cues = data.getQuestion().cues.join(', ')
         return (
           <div className="feedback-row">
-            <img src={icon}/>
+            <img className="info" src={icon}/>
             <p>Combine the sentences using {data.listCuesAsString(data.getQuestion().cues)}</p>
           </div>
         )
       } else {
         return (
           <div className="feedback-row">
-            <img src={icon}/>
+            <img className="info" src={icon}/>
             <p>Combine the sentences into one sentence.</p>
           </div>
 

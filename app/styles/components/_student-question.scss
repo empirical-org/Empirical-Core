@@ -1,10 +1,13 @@
 .feedback-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 16px;
   img {
     max-width: 22px;
     margin-right: 8px;
+    &.info {
+      margin-top: 3px;
+    }
   }
   p {
     font-family: $family-monospace;
