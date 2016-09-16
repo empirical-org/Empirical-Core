@@ -46,7 +46,7 @@ export default React.createClass({
   render: function() {
     return (
       <div id='dashboard'>
-        <ClassOverview data={this.state.performanceQuery} premium={this.state.hasPremium}/>
+        <ClassOverview data={this.state.performanceQuery} premium={this.state.hasPremium} flag={JSON.parse(this.props.user).flag}/>
         {this.hasClasses()}
         <MyResources data={this.state}/>
         <DashboardFooter/>

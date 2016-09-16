@@ -191,13 +191,36 @@
                 color: #646464;
             }
         }
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+        }
+        .gray-underline {
+          margin: auto;
+          padding: 16px;
+          width: 280px;
+          border-bottom: solid 1px #cecece;
+          & + p {
+            font-size: 14px;
+            margin: auto;
+            line-height: 1.6;
+            width: 258px;
+            margin-top: 45px;
+            margin-bottom: 15px;
+          }
+        }
         .button-white {
             width: 233px;
             margin-top: 9px;
             background-color: white;
             border: 1px solid #737373;
             color: #333333;
+            &.beta {
+              margin-top: 28px;
+              width: 160px;
+            }
         }
+
     }
     .footer-row {
         display: block;

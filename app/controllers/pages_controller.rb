@@ -20,6 +20,9 @@ class PagesController < ApplicationController
   def mission
   end
 
+  def beta
+  end
+
   def play
     @activity = Activity.with_classification.find_by_uid('-K0rnIIF_iejGqS3XPJ8')
     @module_url = @activity.anonymous_module_url
