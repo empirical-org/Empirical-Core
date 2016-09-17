@@ -24,7 +24,7 @@ var StudentDiagnostic = React.createClass({
   saveToLMS: function () {
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions)
     request(
-      {url: 'http://localhost:3000/api/v1/activity_sessions/' + this.props.routing.locationBeforeTransitions.query.student,
+      {url: 'https://staging.quill.org/api/v1/activity_sessions/' + this.props.routing.locationBeforeTransitions.query.student,
         method: 'PUT',
         json:
         {
@@ -35,7 +35,7 @@ var StudentDiagnostic = React.createClass({
       },
       (err,httpResponse,body) => {
         if (httpResponse.statusCode === 200) {
-          // document.location.href = "http://localhost:3000/activity_sessions/" + this.props.activitySessionID
+          document.location.href = "http://staging.quill.org/"
           this.setState({saved: true});
         }
         // console.log(err,httpResponse,body)
