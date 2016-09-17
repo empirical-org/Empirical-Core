@@ -4,7 +4,7 @@ export default React.createClass({
 
 
   componentDidMount: function () {
-    // this.props.saveToLMS()
+    this.props.saveToLMS()
   },
 
   renderSavedIndicator: function () {
