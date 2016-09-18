@@ -28,8 +28,8 @@ export default React.createClass({
       <div className="landing-page">
         <h1>You've completed the Quill Placement Activity </h1>
         <p>
-          You're results are being saved now.
-          You'll be redirected automatically when they are saved.
+          Your results are being saved now.
+          You'll be redirected automatically once they are saved.
         </p>
         <Spinner/>
         {/*<button className="button student-begin" onClick={this.props.begin}>
