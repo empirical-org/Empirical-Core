@@ -6,6 +6,7 @@ import _ from 'underscore'
 import ReactTransition from 'react-addons-css-transition-group'
 import POSMatcher from '../../libs/sentenceFragment.js'
 import fragmentActions from '../../actions/sentenceFragments.js'
+import icon from '../../img/question_icon.svg'
 
 var key = "" //enables this component to be used by both play/sentence-fragments and play/diagnostic
 
@@ -43,9 +44,9 @@ var PlaySentenceFragment = React.createClass({
 
   getSentenceOrFragmentButtons() {
     return (
-      <div className="button-group">
-        <button className="button is-primary" value="Sentence" onClick={() => {this.checkChoice("Sentence")}}>Complete Sentence</button>
-        <button className="button is-info" value="Fragment" onClick={() => {this.checkChoice("Fragment")}}>Incomplete Sentence</button>
+      <div className="sf-button-group">
+        <button className="button sf-button" value="Sentence" onClick={() => {this.checkChoice("Sentence")}}>Complete Sentence</button>
+        <button className="button sf-button" value="Fragment" onClick={() => {this.checkChoice("Fragment")}}>Incomplete Sentence</button>
       </div>
     )
   },
@@ -86,6 +87,7 @@ var PlaySentenceFragment = React.createClass({
       this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
     }
     this.props.updateAttempts(matched);
+    this.props.nextQuestion();
     // if((matched.posMatch || matched.exactMatch) && matched.response.optimal) {
     //   this.setState({
     //     prompt: "That is a correct answer!",
@@ -113,7 +115,10 @@ var PlaySentenceFragment = React.createClass({
       return (
         <div className="container">
           <ReactTransition transitionName={"sentence-fragment-buttons"} transitionLeave={true} transitionLeaveTimeout={2000}>
-            <h5 className="title is-5">Is this a complete or an incomplete sentence?</h5>
+            <div className="feedback-row">
+              <img className="info" src={icon}/>
+              <p>Is this a complete or an incomplete sentence?</p>
+            </div>
             {this.getSentenceOrFragmentButtons()}
           </ReactTransition>
         </div>
@@ -126,11 +131,11 @@ var PlaySentenceFragment = React.createClass({
   renderPlaySentenceFragmentMode: function(fragment) {
     var button
     if(this.showNextQuestionButton()) {
-      button = <button className="button is-warning" onClick={this.props.nextQuestion}>Next</button>
+      button = <button className="button student-next" onClick={this.props.nextQuestion}>Next</button>
     } else {
-      button = <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
+      button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
     }
-    if(!this.choosingSentenceOrFragment() && !this.showNextQuestionButton()) {
+    if(!this.choosingSentenceOrFragment()) {
       var instructions
       if(this.props.question.instructions && this.props.question.instructions!=="") {
         instructions = this.props.question.instructions
@@ -140,19 +145,23 @@ var PlaySentenceFragment = React.createClass({
 
       return (
         <div className="container">
-          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200} >
-            <h5 className="title is-5">{instructions}</h5>
-            <TextEditor value={fragment.questionText} handleChange={this.handleChange}/>
+          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200}
+          transitionLeaveTimeout={300} >
+            <div className="feedback-row">
+              <img className="info" src={icon}/>
+              <p>{instructions}</p>
+            </div>
+            <TextEditor value={fragment.questionText} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer}/>
             <div className="question-button-group">
               {button}
             </div>
           </ReactTransition>
         </div>
       )
-    } else if(this.showNextQuestionButton()) {
-      return (
-        <div>{button}</div>
-      )
+    // } else if(this.showNextQuestionButton()) {
+    //   return (
+    //     <div>{button}</div>
+    //   )
     } else {
       return (<div />)
     }
@@ -163,8 +172,11 @@ var PlaySentenceFragment = React.createClass({
       key = this.props.params ? this.props.params.fragmentID : this.props.currentKey
       const fragment = this.props.sentenceFragments.data[key]
       return (
-        <div className="section container">
-          <p className="sentence-fragments prevent-selection">{this.getQuestion()}</p>
+        <div className="student-container-inner-diagnostic">
+          <div className="draft-js sentence-fragments prevent-selection">
+            <p>{this.getQuestion()}</p>
+          </div>
+
           {this.renderSentenceOrFragmentMode()}
           {this.renderPlaySentenceFragmentMode(fragment)}
           {this.renderNextPage()}

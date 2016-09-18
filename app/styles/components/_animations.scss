@@ -1,0 +1,37 @@
+.carousel-enter {
+  transform: translateX(100vw);
+  // opacity: 0.01;
+}
+.carousel-enter.carousel-enter-active {
+  // opacity: 1;
+  // transition: opacity 0.5s ease-out;
+  transform: translateX(0);
+  transition: transform 0.35s ease-in-out;
+}
+.carousel-leave {
+  transform: translateX(0);
+  // opacity: 1;
+  // transition: opacity 0.5s ease-in-out;
+  transition: transform 0.35s ease-in-out;
+
+}
+.carousel-leave.carousel-leave-active {
+  transform: translateX(calc(100vw * -1));
+  // opacity: 0;
+
+}
+
+
+.spinner-container {
+  text-align: center;
+  padding: 5%;
+  .spinner {
+    height: 100px;
+    -webkit-animation: rotation 0.75s infinite linear;
+  }
+
+  @-webkit-keyframes rotation {
+      from {-webkit-transform: rotate(0deg);}
+      to   {-webkit-transform: rotate(359deg);}
+  }
+}

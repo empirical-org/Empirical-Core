@@ -12,10 +12,10 @@ export default function diagnosticQuestions() {
       type: "SF", //  the man eating the pizza
       key: "-KOqLeXEvMjNuE6MGOop"
     },
-    // {
-    //   type: "SF", //  swimming is a sport (not currently in the database, currently: swimming is a hobby)
-    //   key: "-KOqLsKINK8tYSfl9dnp"
-    // },
+    {
+      type: "SF", //  swimming is a sport
+      key: "-KPtHcyQuB3DgIJhdMUJ"
+    },
     {
       type: "SF", //  keep going (not currently in the database)
       key: "-KPt6MFp2035UjvQzbIM"
@@ -27,7 +27,7 @@ export default function diagnosticQuestions() {
     {
       type: "SF", // While we were swimming at the lake
       key: "-KPJiGC6bbtp7GkKMg3v"
-    },
+     },
     {
       type: "SC", //  After the game, we played music it was loud
       key: "-KP-LIzVyeL6a38yW0im"

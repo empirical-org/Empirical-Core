@@ -16,6 +16,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
 import RenderFeedback from '../renderForQuestions/feedback.jsx'
+import ConceptExplanation from '../feedback/conceptExplanation.jsx'
 import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js'
 import getResponse from '../renderForQuestions/checkAnswer.js'
 import handleFocus from '../renderForQuestions/handleFocus.js'
@@ -94,7 +95,7 @@ const playQuestion = React.createClass({
     const question = this.props.questions.data[this.props.params.questionID]
     question.attempts = this.props.question.attempts
     return <RenderFeedback sentence="Try Again. What’s another way you could write this sentence?"
-            question={question} renderFeedbackStatements={this.renderFeedbackStatements}/>
+            question={question} getQuestion={this.getQuestion} renderFeedbackStatements={this.renderFeedbackStatements}/>
   },
 
   getErrorsForAttempt: function (attempt) {
@@ -103,6 +104,35 @@ const playQuestion = React.createClass({
 
   renderFeedbackStatements: function (attempt) {
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion}/>
+  },
+
+  getNegativeConceptResultsForResponse: function (conceptResults) {
+    return _.reject(hashToCollection(conceptResults), (cr) => {
+      return cr.correct
+    })
+  },
+
+  getNegativeConceptResultForResponse: function (conceptResults) {
+    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults)
+    return negCRs.length > 0 ? negCRs[0] : undefined
+  },
+
+  renderConceptExplanation: function () {
+    const latestAttempt = getLatestAttempt(this.props.question.attempts)
+    if (latestAttempt) {
+      if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults)
+        const data = this.props.conceptsFeedback.data[conceptID.conceptUID]
+        if (data) {
+          return <ConceptExplanation {...data}/>
+        }
+      } else if (this.getQuestion().conceptID) {
+        const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID]
+        if (data) {
+          return <ConceptExplanation {...data}/>
+        }
+      }
+    }
   },
 
   updateResponseResource: function (response) {
@@ -156,9 +186,9 @@ const playQuestion = React.createClass({
 
   renderNextQuestionButton:  function (correct) {
     if (correct) {
-      return (<button className="button is-outlined is-success" onClick={this.finish}>Next</button>)
+      return (<button className="button student-next" onClick={this.finish}>Next Question</button>)
     } else {
-      return (<button className="button is-outlined is-warning" onClick={this.finish}>Next</button>)
+      return (<button className="button student-next" onClick={this.finish}>Next Question</button>)
     }
   },
 
@@ -171,42 +201,53 @@ const playQuestion = React.createClass({
       const {data} = this.props.questions, {questionID} = this.props.params;
       const question = data[questionID];
       if (question) {
+        const sharedProps = {
+          value: this.state.response,
+          question: this.props.question,
+          getResponse: this.getResponse2,
+          feedback: this.renderFeedback(),
+          initialValue: this.getInitialValue(),
+          key: questionID,
+          questionID: questionID,
+          id: "playQuestion",
+          sentenceFragments: this.renderSentenceFragments(),
+          cues: this.renderCues(),
+        }
+
         if (this.state.finished) {
           return (
             <ThankYou sessionKey={this.state.sessionKey} />
           )
         }
-        if (this.props.question.attempts.length > 2 ) {
+        if ( this.props.question.attempts.length > 2 ) {
           return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                        feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
-                        handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                        questionID={questionID} id="playQuestion" textAreaClass="textarea is-question is-disabled"/>
+            <AnswerForm {...sharedProps}
+                        handleChange={() => {}} nextQuestionButton={this.renderNextQuestionButton()}
+                         disabled={true}/>
           )
-        } else if (this.props.question.attempts.length > 0 ) {
+        } else if ( this.props.question.attempts.length > 0 ) {
           if (this.readyForNext()) {
             return (
-              <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                          feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
-                          handleChange={this.handleChange} nextQuestionButton={this.renderNextQuestionButton()}
-                          questionID={questionID} id="playQuestion" textAreaClass="textarea is-question submission"/>
+              <AnswerForm {...sharedProps}
+                          handleChange={() => {}} nextQuestionButton={this.renderNextQuestionButton()}
+                          conceptExplanation={this.renderConceptExplanation}
+                          disabled={true}/>
             )
           } else {
             return (
-              <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                    feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
-                    handleChange={this.handleChange} textAreaClass="textarea is-question submission"
+              <AnswerForm {...sharedProps}
+                    handleChange={this.handleChange}
                     toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
-                    id="playQuestion" questionID={questionID}/>
+                    conceptExplanation={this.renderConceptExplanation}
+                    />
             )
           }
         } else {
           return (
-            <AnswerForm value={this.state.response} question={this.props.question} getResponse={this.getResponse2} sentenceFragments={this.renderSentenceFragments()} cues={this.renderCues()}
-                  feedback={this.renderFeedback()} initialValue={this.getInitialValue()} key={questionID}
-                  handleChange={this.handleChange} textAreaClass="textarea is-question submission"
+            <AnswerForm {...sharedProps}
+                  handleChange={this.handleChange}
                   toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
-                  id="playQuestion" questionID={questionID}/>
+                  />
           )
         }
       } else {
@@ -226,6 +267,7 @@ const getLatestAttempt = function (attempts = []) {
 function select(state) {
   return {
     concepts: state.concepts,
+    conceptsFeedback: state.conceptsFeedback,
     questions: state.questions,
     question: state.question,
     itemLevels: state.itemLevels,

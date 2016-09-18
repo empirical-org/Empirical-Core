@@ -1,0 +1,9 @@
+.student-wrapper {
+  width: 100%;
+  background-color: $background;
+}
+
+.student-container {
+  @extend .container;
+  max-width: 800px;
+}

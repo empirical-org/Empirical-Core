@@ -1,0 +1,12 @@
+.nav.student-nav {
+    height: 50px;
+    background-color: $green;
+
+    .container {
+        max-width: 800px;
+    }
+
+    .nav-item {
+        color: $white;
+    }
+}

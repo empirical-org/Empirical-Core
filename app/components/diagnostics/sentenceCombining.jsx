@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import Question from '../../libs/question'
 import Textarea from 'react-textarea-autosize';
+import icon from '../../img/question_icon.svg'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {submitResponse, clearResponses} from '../../actions/diagnostics.js'
@@ -108,6 +109,7 @@ const PlayDiagnosticQuestion = React.createClass({
       editing: false,
       response: ""
     })
+    this.nextQuestion();
   },
 
   toggleDisabled: function () {
@@ -161,20 +163,25 @@ const PlayDiagnosticQuestion = React.createClass({
     const questionID = this.props.question.key;
     var button;
     if(this.props.question.attempts.length > 0) {
-      button = <button className="button is-warning" onClick={this.nextQuestion}>Next</button>
+      button = <button className="button student-submit" onClick={this.nextQuestion}>Next</button>
     } else {
-      button = <button className="button is-primary" onClick={this.checkAnswer}>Submit</button>
+      button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
     }
     if (this.props.question) {
       const instructions = (this.props.question.instructions && this.props.question.instructions!=="") ? this.props.question.instructions : "Combine the sentences into one sentence."
       return (
-        <div className="section container">
+        <div className="student-container-inner-diagnostic">
           {this.renderSentenceFragments()}
           {this.renderCues()}
-          <h5 className="title is-5">{instructions}</h5>
-          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionAppearTimeout={1200}>
+          <div className="feedback-row">
+            <img src={icon}/>
+            <p>{instructions}</p>
+          </div>
+          <h5 className="title is-5"></h5>
+          <ReactTransition transitionName={"text-editor"} transitionAppear={true} transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
-                        handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}/>
+                        handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
+                        disabled={this.readyForNext()} checkAnswer={this.checkAnswer}/>
             <div className="question-button-group button-group">
               {button}
             </div>
