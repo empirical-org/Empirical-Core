@@ -571,7 +571,7 @@ describe User, type: :model do
 
     it "cannot equal anything other than alpha, beta, production or nil" do
       user.update(flag: 'sunglasses')
-      expect(user).to be_valid
+      expect(user).to_not be_valid
     end
 
 
