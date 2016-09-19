@@ -93,11 +93,11 @@ EmpiricalGrammar::Application.routes.draw do
     put 'update_my_account' => 'classroom_manager#update_my_account'
     delete 'delete_my_account' => 'classroom_manager#delete_my_account'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
-
+    get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
-      get 'landing_page' => 'progress_reports#landing_page'
+
       get 'diagnostic_reports' => 'diagnostic_reports#show'
       get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
       get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
