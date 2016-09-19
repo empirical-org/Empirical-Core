@@ -33,6 +33,7 @@ export default React.createClass({
       },
       {imgSrc: "/images/diagnostic_slide/diagnostic_intro_slide_2.svg",
         imgAlt: "diagnostic overview",
+        imgId: 'responses',
         h1: "Student Responses Analyzed",
         p: "Quill automatically analyzes and grades open-ended responses. It identifies the writing skills students know and the skills they need to practice.",
         a: null
@@ -53,12 +54,28 @@ export default React.createClass({
     ])
   },
 
-  handClick(){
+  handleClick(){
     if (this.state.slideIndex < this.modalSlides().length - 1) {
       this.setState({slideIndex: this.state.slideIndex + 1})
     } else {
-      alert('got to next state')
+      parent.location.hash = '/stage/2'
     }
+  },
+
+  buttonText(){
+    if (this.state.slideIndex < this.modalSlides().length - 1) {
+      return 'Next'
+    } else {
+      return 'Next, Assign the Diagnostic'
+    }
+  },
+
+  circles () {
+    return this.modalSlides().map((el, index)=>{
+      let currSlide = this.state.slideIndex;
+      let visited = index <= currSlide ? 'visited' : null;
+      return (<div className={visited + ' circle'}></div>)
+    })
   },
 
 
@@ -74,24 +91,13 @@ export default React.createClass({
         >
           <div id="modal-overview">
           <Modal.Body>
-            <div id='close-wrapper'>
-                  <img className='pull-right react-bootstrap-close' onClick={this.hideModal} src="images/close_x.svg" alt="close-modal"/>
-            </div>
-
             <br/>
             {this.modalContent()}
-            {/*<img className='modal-intro' src="images/diagnostic_overview.svg" alt=""/>
-            <h1>Adaptive Testing</h1>
-            <p>In this type of diagnostic, questions are selected dynamically such that the difficulty of each question is adapted to the estimated ability of the student.</p>*/}
           </Modal.Body>
           <Modal.Footer>
-            <button className="button-green" onClick={this.handClick}>Next</button>
+            <button className="button-green" onClick={this.handleClick}>{this.buttonText()}</button>
             <br/>
-            <div className="circle"></div>
-            <div className="circle"></div>
-            <div className="circle"></div>
-            <div className="circle"></div>
-            <div className="circle"></div>
+            {this.circles()}
           </Modal.Footer>
             </div>
         </Modal>

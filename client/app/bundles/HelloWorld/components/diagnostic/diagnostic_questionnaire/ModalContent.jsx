@@ -13,12 +13,14 @@ export default React.createClass({
     return (
       <div>
         <div className="image-wrapper">
-            <img className='modal-intro' src={p.imgSrc} alt={p.imgAlt}/>
+            <img className='modal-intro' id={p.imgId} src={p.imgSrc} alt={p.imgAlt}/>
+        </div>
+        <h1>{p.h1}</h1>
+        <div className='text'>
+          <p>{p.p}</p>
+          {a}
         </div>
 
-        <h1>{p.h1}</h1>
-        <p>{p.p}</p>
-        {a}
       </div>
     )
   }
