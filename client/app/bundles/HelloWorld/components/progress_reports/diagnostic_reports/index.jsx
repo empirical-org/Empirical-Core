@@ -10,13 +10,19 @@ require('../../../../../assets/styles/app-variables.scss')
 export default React.createClass({
 
 	getInitialState: function() {
-		return ({loading: true, classrooms: null, selectedClassroom: null, selectedStudent: null})
+		return ({
+			loading: true,
+			classrooms: null,
+			selectedClassroom: null,
+			selectedStudent: null,
+			selectedActivity: {}})
 	},
 
 	componentDidMount: function() {
 		// /activity_packs is the only report that doesn't require the classroom, unit, etc...
 		if (this.props.location.pathname != '/activity_packs') {
 			this.getClassroomsWithStudents();
+			this.getActivityData();
 		}
 	},
 
@@ -34,7 +40,7 @@ export default React.createClass({
 		let ajax = this.ajax;
 		let that = this;
 		const p = this.props.params;
-		ajax.classrooms = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
+		this.classrooms = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
 			that.setState({
 				classrooms: data,
 				loading: false
@@ -42,6 +48,15 @@ export default React.createClass({
 		});
 	},
 
+	getActivityData: function () {
+		let that = this;
+		const p = this.props.params;
+		$.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
+			that.setState({
+				selectedActivity: data["activity"]
+			});
+		});
+	},
 
 	changeStudent: function(student) {
 		this.setState({selectedStudentId: student})
@@ -90,7 +105,17 @@ export default React.createClass({
 		} else {
 			return (
 				<div className='individual-activity-reports'>
-					<NavBar key={'key'} classrooms={this.state.classrooms} selectedStudentId={this.state.selectedStudentId} studentDropdownCallback={this.changeStudent} dropdownCallback={this.changeClassroom} buttonGroupCallback={this.changeReport} selectedClassroom={this.state.selectedClassroom} showStudentDropdown={this.showStudentDropdown()}/>
+					<NavBar
+						key={'key'}
+						classrooms={this.state.classrooms}
+						selectedStudentId={this.state.selectedStudentId}
+						studentDropdownCallback={this.changeStudent}
+						dropdownCallback={this.changeClassroom}
+						buttonGroupCallback={this.changeReport}
+						selectedClassroom={this.state.selectedClassroom}
+						selectedActivity={this.state.selectedActivity} 
+						showStudentDropdown={this.showStudentDropdown()}
+					/>
 					{this.props.children}
 				</div>
 			);
