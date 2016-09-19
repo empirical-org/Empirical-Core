@@ -3,6 +3,7 @@ import ProgressReport from '../progress_report.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import StudentReportBox from './student_report_box.jsx'
 import $ from 'jquery'
+import _ from 'underscore'
 export default React.createClass({
 
 	getInitialState: function() {
@@ -32,8 +33,10 @@ export default React.createClass({
   },
 
   studentBoxes: function(){
-		let concept_results = this.selectedStudent(this.state.students).session.concept_results
-    return concept_results.map((question, index) => <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>)
+		let concept_results = _.sortBy(this.selectedStudent(this.state.students).session.concept_results, 'question_number')
+    return concept_results.map((question, index) => {
+			return <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>
+		})
   },
 
 	render: function() {
