@@ -48,7 +48,7 @@ export default React.createClass({
         imgAlt: "diagnostic overview",
         h1: "Evidence Based",
         p: "The diagnostic evaluates student writing using an evidence based strategy called sentence combining. This strategy explicitly teaches students how to write sophisticated, complex sentences.",
-        a: "Check out the research.",
+        // a: "Check out the research.",
         ahref: "/"
       },
     ])
