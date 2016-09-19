@@ -1,6 +1,6 @@
-class AddFlagToUsersTable < ActiveRecord::Migration
+class AddFlagToUser < ActiveRecord::Migration
   def change
-    add_column :users_tables, :flag, :string
-    add_index :users_tables, :flag
+    add_column :users, :flag, :string
+    add_index :users, :flag
   end
 end
