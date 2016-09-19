@@ -140,7 +140,7 @@ var PlaySentenceFragment = React.createClass({
       if(this.props.question.instructions && this.props.question.instructions!=="") {
         instructions = this.props.question.instructions
       } else {
-        instructions =  "Add punctuation and capitalization. If the sentence is incomplete, turn it into to a complete sentence."
+        instructions =  "If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete."
       }
 
       return (
