@@ -8,9 +8,9 @@ class UnitTemplate < ActiveRecord::Base
                                     message: "%{value} is not a valid flag" }, :allow_nil => true
 
 
-  scope :production, -> {where("unit_templates.flag IN('production') OR unit_templates.flag = null")}
-  scope :beta_user, -> { where("unit_templates.flag IN('production','beta') OR unit_templates.flag = null")}
-  scope :alpha_user, -> { where("unit_templates.flag IN('production','beta','alpha') OR unit_templates.flag = null")}
+  scope :production, -> {where("unit_templates.flag IN('production') OR unit_templates.flag IS null")}
+  scope :beta_user, -> { where("unit_templates.flag IN('production','beta') OR unit_templates.flag IS null")}
+  scope :alpha_user, -> { where("unit_templates.flag IN('production','beta','alpha') OR unit_templates.flag IS null")}
 
 
   def activity_ids= activity_ids
