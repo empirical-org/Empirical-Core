@@ -7,11 +7,11 @@ module ScorebookHelper
     score = score.to_f / 100.0 if score > 1
     score = score.round(2)
     case score
-    when 0.76..1.0
+    when 0.8..1.0
       'green'
-    when 0.5..0.75
+    when 0.6..0.79
       'orange'
-    when 0.0..0.49
+    when 0.0..0.59
       'red'
     else
       'gray'
