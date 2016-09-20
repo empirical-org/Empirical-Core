@@ -21,7 +21,7 @@ export default React.createClass({
     bodyText={'Quickly assign packs of activities created by experienced educators.'}
     directions={'use continuously'}
     routeToGetQuantity={'/count/featured_packs'}
-    unit = {'Pack'}
+    unit={'Pack'}
     timeDuration={'~1 Hour'}/>,
 
     <AssignmentTypeMini
@@ -33,19 +33,20 @@ export default React.createClass({
     bodyText={'Browse through our entire library of activities and create a custom sequence.'}
     directions={'use continuously'}
     routeToGetQuantity={'/count/activities'}
-    unit = {'Activity'}
+    unit={'Activity'}
     timeDuration={'~10 Min.'}/>,
 
 
-  <a href='/diagnostic#/stage/1' key={3}>
+  <a href='/diagnostic#/stage/1' >
     <AssignmentTypeMini
+      key={3}
       toggleTab={this.props.toggleTab}
         title={'Entry Diagnostic'}
           img={'/images/diagnostic_icon.svg'}
       bodyText={'Find your students’ writing abilities through a 15 question diagnostic.'}
       directions={'use intermittently'}
       quantity={1}
-      unit = {'Diagnostic'}
+      unit={'Diagnostic'}
       timeDuration={'~20 Min.'}/>
     </a>
 ]
