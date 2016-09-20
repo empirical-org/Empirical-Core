@@ -17,13 +17,13 @@ export default function diagnosticQuestions() {
       key: "-KPtHcyQuB3DgIJhdMUJ"
     },
     {
-      type: "SF", //  keep going (not currently in the database)
+      type: "SF", //  keep going
       key: "-KPt6MFp2035UjvQzbIM"
     },
     {
       type: "SF", //  after the football game ended
       key: "-KOqMWRFOrYgv-KjRYdy"
-    }, // ****HERE ON, needsIdentification NEEDS TO BE FALSE****
+    },
     {
       type: "SF", // While we were swimming at the lake
       key: "-KPJiGC6bbtp7GkKMg3v"
