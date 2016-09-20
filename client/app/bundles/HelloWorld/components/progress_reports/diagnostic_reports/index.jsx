@@ -40,7 +40,7 @@ export default React.createClass({
 		let ajax = this.ajax;
 		let that = this;
 		const p = this.props.params;
-		this.classrooms = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
+		$.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
 			that.setState({
 				classrooms: data,
 				loading: false
@@ -113,7 +113,7 @@ export default React.createClass({
 						dropdownCallback={this.changeClassroom}
 						buttonGroupCallback={this.changeReport}
 						selectedClassroom={this.state.selectedClassroom}
-						selectedActivity={this.state.selectedActivity} 
+						selectedActivity={this.state.selectedActivity}
 						showStudentDropdown={this.showStudentDropdown()}
 					/>
 					{this.props.children}
