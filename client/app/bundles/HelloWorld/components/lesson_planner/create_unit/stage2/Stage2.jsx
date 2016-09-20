@@ -25,9 +25,9 @@
 
   determineAssignButtonClass: function () {
     if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
-      return "button-green";
+      return 'button-green';
     } else {
-      return "button-grey";
+      return 'button-grey';
     }
   },
 
@@ -41,9 +41,9 @@
 
   determineButtonText: function () {
     if (!this.state.buttonDisabled) {
-      return "Assign";
+      return 'Assign';
     } else {
-      return "Assigning...";
+      return 'Assigning...';
     }
   },
 
@@ -59,7 +59,8 @@
     var classroomList;
     if (this.props.classrooms) {
       classroomList = this.props.classrooms.map(function(entry) {
-        return <Classroom classroom={entry.classroom}
+        return <Classroom    key = {entry.classroom}
+                             classroom={entry.classroom}
                              students={entry.students}
                              allSelected={entry.allSelected}
                              toggleClassroomSelection={this.props.toggleClassroomSelection}
@@ -79,22 +80,22 @@
 
     return (
       <span>
-        <section className="select-students">
-          <h1 className="section-header">Select Students</h1>
+        <section className='select-students'>
+          <h1 className='section-header'>Select Students</h1>
           {classroomList}
         </section>
-        <section className="assign-dates">
-          <h1 className="section-header">
+        <section className='assign-dates'>
+          <h1 className='section-header'>
             Assign Dates for {this.props.unitName} (optional)
           </h1>
-          <table className="table activity-table">
+          <table className='table activity-table'>
             <tbody>
               {dueDateList}
             </tbody>
           </table>
-          <div className="error-message-and-button">
+          <div className='error-message-and-button'>
             <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
-            <button ref="button" id="assign" className={this.determineAssignButtonClass() + " pull-right"} onClick={this.finish}>{this.determineButtonText()}</button>
+            <button ref='button' id='assign' className={this.determineAssignButtonClass() + ' pull-right'} onClick={this.finish}>{this.determineButtonText()}</button>
           </div>
         </section>
       </span>

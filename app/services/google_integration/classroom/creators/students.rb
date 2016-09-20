@@ -22,7 +22,7 @@ module GoogleIntegration::Classroom::Creators::Students
     course_ids = classrooms.map{|classroom| classroom["google_classroom_id"] ? classroom["google_classroom_id"] : classroom["id"]}
     student_data = course_ids.map.with_index do |course_id, i|
       array = students_requester_and_parser.call(course_id)
-      array.map{|ele| ele.merge({classroom: Classroom.find(classrooms[i]['id'])})}
+      array.map{|ele| ele.merge({classroom: Classroom.unscoped.find(classrooms[i]['id'])})}
     end
     student_data.flatten
   end

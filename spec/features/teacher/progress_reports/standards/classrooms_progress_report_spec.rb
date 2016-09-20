@@ -32,8 +32,8 @@ feature 'Standards: All Classrooms Progress Report', js: true do
       expect(report_page.table_rows.first).to eq(
         [
           full_classroom.name,
-          'Student View',
-          'Standard View',
+          'Sort by Student',
+          'Sort by Standard',
           visible_students.size.to_s,
           "#{proficient_students.size} students",
           "#{not_proficient_students.size} students",

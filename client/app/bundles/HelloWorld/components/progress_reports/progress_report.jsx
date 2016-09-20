@@ -24,7 +24,8 @@ export default  React.createClass({
     jsonResultsKey: React.PropTypes.string.isRequired,
     onFetchSuccess: React.PropTypes.func, // Optional
     exportCsv: React.PropTypes.string,
-    premiumStatus: React.PropTypes.string.isRequired
+    premiumStatus: React.PropTypes.string.isRequired,
+    colorByScoreKeys: React.PropTypes.array
   },
 
   getDefaultProps: function() {
@@ -181,7 +182,8 @@ export default  React.createClass({
   render: function() {
     var pagination,
       csvExport,
-      mainSection;
+      mainSection,
+      faqLink;
     var filteredResults = this.getFilteredResults();
     if (this.props.pagination) {
       pagination = <Pagination maxPageNumber={this.props.maxPageNumber} selectPageNumber={this.goToPage} currentPage={this.state.currentPage} numberOfPages={this.state.numPages}/>;
@@ -194,8 +196,12 @@ export default  React.createClass({
     if (this.state.loading) {
       mainSection = <LoadingIndicator/>;
     } else {
-      mainSection = <SortableTable rows={visibleResults} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
+      mainSection = <SortableTable rows={visibleResults} colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
     }
+    if (!this.props.hideFaqLink) {
+      faqLink = <FaqLink/>
+    }
+
 
     return (
       <div className={'premium-status-' + this.blur()}>
@@ -205,7 +211,7 @@ export default  React.createClass({
           </div>
           <div className="col-md-3 col-md-offset-1">
             {csvExport}
-            <FaqLink/>
+            {faqLink}
           </div>
         </div>
         <ProgressReportFilters classroomFilters={this.state.classroomFilters} studentFilters={this.state.studentFilters} unitFilters={this.state.unitFilters} selectClassroom={this.selectClassroom} selectedClassroom={this.state.selectedClassroom} selectStudent={this.selectStudent} selectedStudent={this.state.selectedStudent} selectUnit={this.selectUnit} selectedUnit={this.state.selectedUnit} filterTypes={this.props.filterTypes}/>

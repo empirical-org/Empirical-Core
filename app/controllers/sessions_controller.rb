@@ -53,4 +53,9 @@ class SessionsController < ApplicationController
     @user = User.new
     session[:role] = nil
   end
+
+  def failure
+    login_failure_message
+    # redirect_to signed_out_path
+  end
 end

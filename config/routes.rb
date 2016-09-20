@@ -70,6 +70,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   get :porthole_proxy, to: 'porthole_proxy#index'
 
+  get :current_user_json, controller: 'teachers', action: 'current_user_json'
+
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
 
   namespace :teachers do
@@ -91,10 +93,18 @@ EmpiricalGrammar::Application.routes.draw do
     put 'update_my_account' => 'classroom_manager#update_my_account'
     delete 'delete_my_account' => 'classroom_manager#delete_my_account'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
-
+    get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
+
+      get 'diagnostic_reports' => 'diagnostic_reports#show'
+      get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
+      get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
+      get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
+      get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
+      get 'recommendations_for_classroom/:classroom_id' => 'diagnostic_reports#recommendations_for_classroom'
+      post 'assign_selected_packs/:classroom_id' => 'diagnostic_reports#assign_selected_packs'
 
       namespace :concepts do
         resources :students, only: [:index] do
@@ -117,6 +127,8 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :classrooms do
       collection do
+        get :classrooms_i_teach
+        get :classrooms_i_teach_with_students
         get :regenerate_code
         get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
         get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
@@ -138,6 +150,7 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
         post :hide
+        get  :students_list, controller: 'classroom_manager', action: 'students_list'
       end
       #this can't go in with member because the id is outside of the default scope
 
@@ -235,7 +248,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.
-  %w(tooltip board press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources press_kit play media news).each do |page|
+  %w(tooltip beta board press blog_posts supporters middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources press_kit play media news).each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
@@ -249,6 +262,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
+  get 'diagnostic' =>'activities#diagnostic' # placeholder til we find where this goes
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 

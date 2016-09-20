@@ -12,7 +12,8 @@ export default React.createClass({
     rows: React.PropTypes.array.isRequired, // [{classification_name: 'foobar', ...}]
     sortHandler: React.PropTypes.func.isRequired, // Handle sorting of columns
     shouldTransition: React.PropTypes.bool,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    colorByScoreKeys: React.PropTypes.array
   },
 
   shouldTransition: function () {
@@ -48,7 +49,7 @@ export default React.createClass({
 
   rows: function() {
     return _.map(this.props.rows, function(row, i) {
-      return <SortableTr key={row.id || i} row={row} columns={this.props.columns} />
+      return <SortableTr key={row.id || i} row={row} columns={this.props.columns} colorByScoreKeys={this.props.colorByScoreKeys} />
     }, this);
   },
 
