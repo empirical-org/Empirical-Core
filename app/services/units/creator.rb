@@ -20,6 +20,14 @@ module Units::Creator
     self.create_helper(teacher, unit_template.name, activities_data, classrooms_data)
   end
 
+  def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom_id, student_ids=[])
+    teacher = User.find(teacher_id)
+    unit_template = UnitTemplate.find(unit_template_id)
+    activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
+    classrooms_data = [{id: classroom_id, student_ids: student_ids}]
+    self.create_helper(teacher, unit_template.name, activities_data, classrooms_data)
+  end
+
   private
 
   def self.create_helper(teacher, name, activities_data, classrooms_data)

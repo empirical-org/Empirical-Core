@@ -5,6 +5,7 @@
  import OverviewMini from './overview_mini'
  import PremiumMini from './premium_mini'
  import TeacherGuide from '../teacher_guide/teacher_guide'
+ import BetaMini from './beta_mini.jsx'
 
  export default React.createClass({
   propTypes: {
@@ -23,6 +24,9 @@
     var minis = _.map(this.props.data, function(overviewObj){
       return <OverviewMini overviewObj={overviewObj} key={overviewObj.header}/>;
     });
+    if (this.props.flag === 'beta') {
+      minis.unshift(<BetaMini/>)
+    }
     if (this.state.displayTeacherGuide){
       minis.unshift(<TeacherGuide dashboardMini={true} key='teacher-guide-displayed' hideTeacherGuide={this.hideTeacherGuide}/>);
     }
@@ -34,6 +38,8 @@
       return <PremiumMini/>;
     }
   },
+
+
 
 
   render: function() {

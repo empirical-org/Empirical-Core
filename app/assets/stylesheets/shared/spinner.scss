@@ -1,9 +1,13 @@
 .spinner-container {
   text-align: center;
   padding: 5%;
-  .fa-refresh.fa-spin {
-    font-size: 100px;
-    text-align: center;
-    color: #737373;
+  .spinner {
+    height: 100px;
+      -webkit-animation: rotation 2s infinite linear;
+  }
+
+  @-webkit-keyframes rotation {
+      from {-webkit-transform: rotate(0deg);}
+      to   {-webkit-transform: rotate(359deg);}
   }
 }

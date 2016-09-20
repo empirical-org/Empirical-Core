@@ -50,7 +50,7 @@ config.module.loaders.push(
     test: /\.css$/,
     loaders: [
       'style',
-      'css?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
+      'css',
       'postcss',
     ],
   },
@@ -58,7 +58,7 @@ config.module.loaders.push(
     test: /\.scss$/,
     loaders: [
       'style',
-      'css?modules&importLoaders=3&localIdentName=[name]__[local]__[hash:base64:5]',
+      'css',
       'postcss',
       'sass',
       'sass-resources',
