@@ -1,5 +1,8 @@
-const live = process.env.NODE_ENV === "production";
-// console.log("in prod: ", live)
+
+const env = process.env.NODE_ENV
+const live = (env === "production" || env === "staging");
+console.log("in prod: ", live)
+var webpack = require('webpack');
 var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
@@ -13,7 +16,11 @@ module.exports = {
     path: __dirname + "/dist",
   },
   plugins: [
-    new ExtractTextPlugin("style.css")
+    new ExtractTextPlugin("style.css"),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(env || 'development'),
+      'process.env.EMPIRICAL_BASE_URL': JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000')
+    }),
   ],
   module: {
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
