@@ -104,9 +104,10 @@
 		} else {
 			return (
 				<span>
-				<div  className= "create-unit-button-container">
+				{/* TODO: fix this so it links to the activity type selection page
+          <div  className= "create-unit-button-container">
 					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Assign A New Activity</button>
-				</div>
+				</div>*/}
 				<Units
 					updateDueDate={this.updateDueDate}
 					editUnit={this.props.actions.editUnit}
