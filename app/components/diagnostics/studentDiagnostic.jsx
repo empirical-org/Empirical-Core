@@ -24,7 +24,7 @@ var StudentDiagnostic = React.createClass({
   saveToLMS: function () {
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions)
     request(
-      {url: 'https://staging.quill.org/api/v1/activity_sessions/' + this.props.routing.locationBeforeTransitions.query.student,
+      { url: process.env.EMPIRICAL_BASE_URL + '/api/v1/activity_sessions/' + this.props.routing.locationBeforeTransitions.query.student,
         method: 'PUT',
         json:
         {
