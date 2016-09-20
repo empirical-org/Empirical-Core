@@ -35,7 +35,7 @@ module GoogleIntegration::Classroom::Creators::Students
   end
 
   def self.create_student(data)
-    student = ::User.find_or_initialize_by(email: data[:email])
+    student = ::User.where(email: data[:email]).first_or_initialize
     if student.new_record?
       username = UsernameGenerator.run(data[:first_name], data[:last_name], data[:classroom].code)
       student.update(name: data[:name],
