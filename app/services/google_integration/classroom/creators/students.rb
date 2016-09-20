@@ -43,6 +43,11 @@ module GoogleIntegration::Classroom::Creators::Students
                      password: data[:last_name],
                      username: username)
     end
+    puts "Google Student"
+    puts student.attributes
+    puts student.errors
+    puts data[:classroom]
+    puts "End Google Student"
     Associators::StudentsToClassrooms.run(student, data[:classroom])
     student
   end
