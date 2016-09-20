@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "quillconnect"
+    "default": "quillconnect",
+    "production": "quillconnect",
+    "staging": "quillconnectstaging" 
   }
 }
