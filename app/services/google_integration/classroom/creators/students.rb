@@ -46,6 +46,8 @@ module GoogleIntegration::Classroom::Creators::Students
     puts "Google Student"
     puts student.attributes
     puts student.errors.first
+    puts student.valid?
+    puts data[:email]
     puts data[:classroom].attributes
     puts "End Google Student"
     Associators::StudentsToClassrooms.run(student, data[:classroom])
