@@ -19,7 +19,7 @@ export default function (percentageDisplayer) {
   return ReactDOMServer.renderToString(
       <div className='student-profile-tooltip'>
         <div className='title'>
-          ACTIVITY RESULTS
+          {data.activity.name}
         </div>
         <div className='main'>
           {totalScoreOrNot}
