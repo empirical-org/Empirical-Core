@@ -545,6 +545,38 @@ describe User, type: :model do
     end
   end
 
+  describe 'flag' do
+    let(:user) { FactoryGirl.build(:user) }
+
+    it "can equal production" do
+      user.update(flag:'production')
+      expect(user).to be_valid
+    end
+
+    it "can equal beta" do
+      user.update(flag:'beta')
+      expect(user).to be_valid
+    end
+
+    it "can equal alpha" do
+      user.update(flag:'alpha')
+      expect(user).to be_valid
+    end
+
+
+    it "can equal nil" do
+      user.update(flag: nil)
+      expect(user).to be_valid
+    end
+
+    it "cannot equal anything other than alpha, beta, production or nil" do
+      user.update(flag: 'sunglasses')
+      expect(user).to_not be_valid
+    end
+
+
+  end
+
   it 'does not care about all the validation stuff when the user is temporary'
   it 'disallows regular assignment of roles that are restricted'
 end

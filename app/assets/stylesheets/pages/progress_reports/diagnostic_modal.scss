@@ -1,0 +1,140 @@
+
+.diagnostic-overview-modal {
+    max-width: 584px;
+    height: 560px;
+    #close-wrapper {
+        display: inline;
+        img {
+            position: relative;
+            top: -7px;
+            left: 10px;
+        }
+    }
+    .image-wrapper {
+      height: 208px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+    }
+    .text {
+      height: 95px;
+    }
+    a {
+      text-decoration: underline;
+      padding-top: 0.5em;
+      display: block;
+    }
+    .modal-body {
+        padding: 25 70 0 70px;
+        text-align: center;
+    }
+    h1 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        padding-top: 40px;
+    }
+    p {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333333;
+    }
+    .circle {
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        background-color: #cacaca;
+        margin: 31 4.2 0 4.2px;
+        display: inline-block;
+        &:active {
+            background-color: $green;
+        }
+        &.visited {
+          background-color: #00c2a2;
+        }
+    }
+    .image-wrapper {
+      height: 208px;
+    }
+    .modal-footer {
+        text-align: center;
+        border: none;
+        padding-bottom: 45px;
+    }
+    .button-green {
+        font-size: 16px;
+        padding-left: 43px;
+        padding-right: 43px;
+    }
+}
+/* should be moved into a general modal scss file*/
+@media (max-width: 700px) {
+    .modal-dialog {
+        max-width: 100%;
+        margin: auto;
+    }
+    .modal-body {
+        padding: 20px;
+    }
+    #close-wrapper {
+      position: relative;
+      top: -17px;
+      left: 70px;
+    }
+
+}
+.modal-backdrop {
+    opacity: 0.7;
+}
+.react-bootstrap-close {
+    height: 30px;
+}
+.modal-content {
+      max-height: 560px;
+      height: 100%;
+    border-radius: 0;
+}
+
+@media (max-width: 700px) {
+  .diagnostic-overview-modal {
+    .modal-body {
+      padding: 20px;
+    }
+    img.modal-intro {
+      max-height: 209px;
+      margin-right: 0px;
+        width: 85%;
+    }
+    #close-wrapper {
+      position: initial;
+    }
+  }
+  #diagnostic-icon-section {
+    display: none;
+  }
+  #checkpoint-wrapper {
+    margin-left: none;
+    margin: auto;
+  }
+
+}
+button.button-transparent {
+    padding: 10px 25px;
+    border: solid 1px #737373;
+    color: black;
+    margin-top: 27px;
+    background-color: inherit;
+}
+.add-class-modal {
+    max-width: 508px;
+}
+
+
+#responses {
+  margin-left: -75px;
+}

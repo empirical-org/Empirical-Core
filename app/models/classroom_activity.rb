@@ -28,8 +28,13 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def session_for user
-    ass = activity_sessions.where(user: user, activity: activity).order(created_at: :asc)
+    ass = activity_sessions.where(user: user, activity: activity).includes(:activity).order(created_at: :asc)
     as = if ass.any? then ass.first else activity_sessions.create(user: user, activity: activity) end
+  end
+
+  def activity_session_metadata
+    act_seshes = activity_sessions.where(is_final_score: true).includes(concept_results: :concept)
+    act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
   end
 
   def for_student? student
@@ -51,6 +56,10 @@ class ClassroomActivity < ActiveRecord::Base
     else
       ""
     end
+  end
+
+  def has_a_completed_session?
+    !!activity_sessions.find_by(classroom_activity_id: self.id, state: "finished")
   end
 
 

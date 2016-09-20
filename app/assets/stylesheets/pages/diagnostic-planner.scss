@@ -1,0 +1,218 @@
+$green: #00c2a2;
+#diagnostic-planner-status-bar {
+  input[type=checkbox].css-checkbox + label.css-label {
+    padding-left: 34px;
+  }
+    max-width: 980px;
+    margin: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    #status-bar-wrapper {
+        margin-bottom: 45px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        margin-top: 19px;
+        #diagnostic-icon {
+            height: 47px;
+        }
+        #diagnostic-icon-section {
+            padding-top: 10px;
+            span {
+              color: #646464;
+              position: relative;
+              &:first-of-type {
+                  padding-left: 5px;
+                  top: -6px;
+              }
+              &:last-of-type {
+                top: -24px;
+                left: -1px;
+              }
+          }
+        }
+    }
+    #status-bar {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding-top: 6px;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        max-width: 300px;
+        min-width: 260px;
+        margin: auto;
+        color: #646464;
+        .check-point {
+            border-radius: 50%;
+            border: solid 1px #979797;
+            height: 26px;
+            width: 26px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            &.green-true {
+                background-color: $green;
+                border: solid 1px $green;
+                color: #fff;
+                font-weight: 800;
+            }
+            span {
+                top: 22px;
+            }
+            /* #introduction {*/
+            /*     right: 46px;*/
+            /* }*/
+            /* #preview {*/
+            /*     right: 29px;*/
+            /* }*/
+            /* #assign {*/
+            /*     right: 24px;*/
+            /* }*/
+        }
+        .check-point-type {
+            position: absolute;
+            span {
+                color: #646464;
+                position: relative;
+                top: 28px;
+                font-weight: 400;
+            }
+        }
+        .connector-line {
+            border: 1px solid #cecece;
+            height: 1px;
+            -ms-flex-item-align: center;
+                align-self: center;
+            /* margin: 0 10px; */
+            min-width: 2px;
+            -webkit-box-flex: 5;
+                -ms-flex-positive: 5;
+                    flex-grow: 5;
+            &.green-true {
+                border-color: $green;
+            }
+        }
+    }
+    .diagnostic-planner-body {
+        .dropdown-toggle {
+            padding: 3px 8px;
+            margin: 0 10 10 10px;
+            font-size: 24px;
+            font-weight: 500;
+            border: solid 1px #d4d4d4;
+            min-width: 82px;
+        }
+        .label h3 {
+            margin-top: -4px;
+        }
+        .caret {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 2px;
+            vertical-align: middle;
+            margin-bottom: 5px;
+            border-color: #01c2a2;
+            border-top: 7px solid;
+            border-right: 6px solid transparent;
+            border-left: 6px solid transparent;
+        }
+        .button-green {
+            width: 246px;
+            height: 40px;
+            font-size: 16px;
+        }
+        h2 {
+            font-size: 24px;
+            padding-bottom: 5px;
+        }
+        span {
+            font-size: 14px;
+            color: #646464;
+        }
+        .checkbox-mixin {
+            height: 21px;
+            width: 21px;
+            border-radius: 5px;
+            background: #e6e6e6;
+            border: 1px solid #cecece;
+        }
+    }
+    label h3 {
+        font-size: 20px;
+    }
+    .is-checked-false {
+        display: none;
+    }
+    .classroom-row {
+        height: 74px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        border-bottom: solid 1px #cecece;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+    }
+    #assign-page {
+        a {
+            color: #027360;
+        }
+        li a {
+            color: #000;
+        }
+        #subtext:after {
+            display: block;
+            content: '';
+            background: #cecece;
+            width: 40px;
+            height: 2px;
+            margin: 7px auto;
+        }
+        .dropdown-toggle {
+            font-size: 16px;
+            margin: 0 14 0 0;
+            min-width: 204px;
+        }
+        .button-green {
+            margin-top: 27px;
+            margin-bottom: 12px;
+            width: 186px;
+        }
+        #footer-buttons {
+            height: 250px;
+            div {
+                text-align: center;
+            }
+        }
+    }
+    #intro-page {
+        #preview {
+            margin-top: 45px;
+            margin-bottom: 16px;
+        }
+        #assign button {
+            margin-bottom: 130px;
+        }
+    }
+}
+#checkpoint-wrapper {
+  margin-left: 18%;
+}

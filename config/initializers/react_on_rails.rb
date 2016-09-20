@@ -9,6 +9,10 @@ ReactOnRails.configure do |config|
 
   config.webpack_generated_files = %w( client-bundle.js )
 
+  # If you are using the ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
+  # with rspec then this controls what npm command is run
+  # to automatically refresh your webpack assets on every test run.
+  config.npm_build_test_command = "npm run build:test"
 
   # Server rendering:
   # Server bundle is a single file for all server rendering of components.

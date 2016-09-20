@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822145724) do
+ActiveRecord::Schema.define(version: 20160919150448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,11 +160,13 @@ ActiveRecord::Schema.define(version: 20160822145724) do
     t.string   "clever_id",           limit: 255
     t.string   "grade",               limit: 255
     t.boolean  "visible",                         default: true, null: false
-    t.integer  "google_classroom_id"
+    t.integer  "google_classroom_id", limit: 8
+    t.integer  "grade_level"
   end
 
   add_index "classrooms", ["code"], name: "index_classrooms_on_code", using: :btree
   add_index "classrooms", ["grade"], name: "index_classrooms_on_grade", using: :btree
+  add_index "classrooms", ["grade_level"], name: "index_classrooms_on_grade_level", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -430,6 +432,7 @@ ActiveRecord::Schema.define(version: 20160822145724) do
     t.text    "problem"
     t.text    "summary"
     t.text    "teacher_review"
+    t.string  "flag"
   end
 
   add_index "unit_templates", ["author_id"], name: "index_unit_templates_on_author_id", using: :btree
@@ -458,11 +461,13 @@ ActiveRecord::Schema.define(version: 20160822145724) do
     t.string   "clever_id",             limit: 255
     t.boolean  "signed_up_with_google",             default: false
     t.boolean  "send_newsletter",                   default: false
+    t.string   "flag"
   end
 
   add_index "users", ["active"], name: "index_users_on_active", using: :btree
   add_index "users", ["classcode"], name: "index_users_on_classcode", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["flag"], name: "index_users_on_flag", using: :btree
   add_index "users", ["role"], name: "index_users_on_role", using: :btree
   add_index "users", ["token"], name: "index_users_on_token", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", using: :btree
