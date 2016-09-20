@@ -1,7 +1,7 @@
 import {hashToCollection} from './hashToCollection'
 
 export function getConceptResultsForSentenceCombining(question) {
-  const directions = "Combine the sentences.";
+  const directions = question.instructions || "Combine the sentences.";
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
   const answer = question.attempts[0].submitted
   let conceptResults = [];
