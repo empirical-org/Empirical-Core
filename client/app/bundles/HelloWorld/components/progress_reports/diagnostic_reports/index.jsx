@@ -10,13 +10,19 @@ require('../../../../../assets/styles/app-variables.scss')
 export default React.createClass({
 
 	getInitialState: function() {
-		return ({loading: true, classrooms: null, selectedClassroom: null, selectedStudent: null})
+		return ({loading: true, classrooms: null, selectedClassroom: null, selectedStudentId: null})
 	},
 
 	componentDidMount: function() {
 		// /activity_packs is the only report that doesn't require the classroom, unit, etc...
 		if (this.props.location.pathname != '/activity_packs') {
 			this.getClassroomsWithStudents();
+		}
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		if (nextProps.params && nextProps.params.studentId) {
+			this.setState({selectedStudentId: Number(nextProps.params.studentId)})
 		}
 	},
 
@@ -42,7 +48,6 @@ export default React.createClass({
 		});
 	},
 
-
 	changeStudent: function(student) {
 		this.setState({selectedStudentId: student})
 		const p = this.props.params;
@@ -54,6 +59,8 @@ export default React.createClass({
 			? this.props.classrooms.find((c) => c.id === id)
 			: null
 	},
+
+
 
 	changeClassroom: function(classroom) {
 		if (classroom != this.state.selectedClassroom) {
