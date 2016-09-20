@@ -16,7 +16,7 @@ class ActivitiesController < ApplicationController
   end
 
   def search
-    asw = ActivitySearchWrapper.new(search_params[:search_query], search_params[:filters], search_params[:sort])
+    asw = ActivitySearchWrapper.new(search_params[:search_query], search_params[:filters], search_params[:sort], current_user.flag)
     asw.search
     render json: asw.result
   end
@@ -24,6 +24,10 @@ class ActivitiesController < ApplicationController
   def count
     @count = Activity.where(flags: [:production]).count
     render json: {count: @count}
+  end
+
+  def diagnostic
+    render 'pages/diagnostic'
   end
 
 protected
