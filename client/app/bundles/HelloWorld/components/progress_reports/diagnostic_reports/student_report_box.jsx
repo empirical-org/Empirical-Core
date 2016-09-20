@@ -53,7 +53,7 @@ export default React.createClass({
 										</tr>
 										<tr className={ScoreColor(data.score)}>
 											<td>Response</td>
-											<td>{data.score + '%'}</td>
+											<td></td>
 											<td>{data.answer}</td>
 										</tr>
 										{this.concepts()}
