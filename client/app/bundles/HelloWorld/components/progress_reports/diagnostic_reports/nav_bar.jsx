@@ -33,11 +33,11 @@ export default React.createClass({
       selectedStudent = this.students().find((student) => student.id === selectedStudentId)
     }
     if (this.props.showStudentDropdown) {
-      return   <StudentDropdown
-                          students = {this.students()}
-                          callback ={this.props.studentDropdownCallback}
-                          selectedStudent={selectedStudent || (this.students()[0] || null)}
-                          />
+      return (<StudentDropdown
+               students = {this.students()}
+               callback ={this.props.studentDropdownCallback}
+               selectedStudent={selectedStudent || (this.students()[0] || null)}
+             />)
     }
   },
 
@@ -45,8 +45,8 @@ export default React.createClass({
     return (
       <div className='diagnostic-nav-container'>
         <div id='reports-navbar'>
-          <h1>Activity Name</h1>
-          <p>Activity Info</p>
+          <h1>{this.props.selectedActivity.name}</h1>
+          <p>{this.props.selectedActivity.description}</p>
           <div className='nav-elements'>
             <ClassroomDropdown classrooms={this.props.classrooms || [{name: 'Please Add a Classroom', id: null}]}
                                callback={this.props.dropdownCallback}/>
