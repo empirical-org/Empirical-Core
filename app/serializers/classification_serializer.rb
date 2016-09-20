@@ -8,6 +8,10 @@ class ClassificationSerializer < ActiveModel::Serializer
   		'Quill Proofreader'
   	when 2
   		'Quill Grammar'
+    when 4
+      'Quill Diagnostic'
+    when 5
+      'Quill Connect'
   	end
   end
 
@@ -17,7 +21,11 @@ class ClassificationSerializer < ActiveModel::Serializer
   		'icon-flag-gray'
   	when 2
   		'icon-puzzle-gray'
-  	end
+    when 4
+      'icon-diagnostic-gray'
+    when 5
+      'icon-connect-gray'
+    end
   end
 
   def scorebook_icon_class
@@ -26,6 +34,10 @@ class ClassificationSerializer < ActiveModel::Serializer
       'icon-flag'
     when 2
       'icon-puzzle'
+    when 4
+      'icon-diagnostic'
+    when 5
+      'icon-connect'
     else
       ''
     end
