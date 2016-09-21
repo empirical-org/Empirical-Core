@@ -10,7 +10,7 @@
  export default React.createClass({
 
   componentDidMount: function(){
-  		$('body').scrollTop(0)
+    $('body').scrollTop(0);
   },
 
   getInitialState: function(){
@@ -23,7 +23,7 @@
     this.props.toggleClassroomSelection(this.props.classroom, checked);
   },
 
-  toggleClassroomCollapse: function(e) {
+  toggleClassroomCollapse: function() {
     this.setState({ open: !this.state.open });
   },
 
@@ -35,23 +35,13 @@
     } else {
       allSelected = false;
     }
-
-    if (allSelected) {
-      return (
-        <input type="checkbox"
-               checked="checked"
-               className="css-checkbox classroom_checkbox"
-               id={"classroom_checkbox_" + this.props.classroom.id}
+    return (
+        <input type='checkbox'
+               checked={allSelected ? 'checked' : null}
+               className='css-checkbox classroom_checkbox'
+               id={'classroom_checkbox_' + this.props.classroom.id}
                onChange={this.handleClassroomSelection} />
       );
-    } else {
-      return (
-        <input type="checkbox"
-               className="css-checkbox classroom_checkbox"
-               id={"classroom_checkbox_" + this.props.classroom.id}
-               onChange={this.handleClassroomSelection} />
-      );
-    }
   },
 
   angleIcon: function(){
@@ -60,7 +50,7 @@
 
   render: function() {
     var studentList = this.props.students.map(function(student) {
-      return <Student student={student} classroom={this.props.classroom} toggleStudentSelection={this.props.toggleStudentSelection}/>;
+      return <Student key={student.id} student={student} classroom={this.props.classroom} toggleStudentSelection={this.props.toggleStudentSelection}/>;
     }, this);
 
     return (
@@ -72,20 +62,20 @@
                 Select Entire Class
               </span>
               <Button className='toggle-button pull-right' onClick={()=> this.setState({ open: !this.state.open })}>
-                <span className="pull-right panel-select-by-student" >
-                  Select by Student <i className={"fa fa-angle-" + this.angleIcon()}></i>
+                <span className='pull-right panel-select-by-student' >
+                  Select by Student <i className={'fa fa-angle-' + this.angleIcon()}></i>
                 </span>
               </Button>
               <div>
                 {this.determineCheckbox()}
-                <label className="css-label" htmlFor={"classroom_checkbox_" + this.props.classroom.id}>
+                <label className='css-label' htmlFor={'classroom_checkbox_' + this.props.classroom.id}>
                   {this.props.classroom.name}
                 </label>
               </div>
             </h4>
           </div>
-          <Panel collapsible expanded={this.state.open} ref="studentList">
-            <div className="panel-body">
+          <Panel collapsible expanded={this.state.open} ref='studentList'>
+            <div className='panel-body'>
               {studentList}
             </div>
           </Panel>

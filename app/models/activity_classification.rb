@@ -7,4 +7,9 @@ class ActivityClassification < ActiveRecord::Base
 
   validates :key, uniqueness: true, presence: true
 
+
+  def self.diagnostic
+    ActivityClassification.find_by_name "diagnostic"
+  end
+
 end

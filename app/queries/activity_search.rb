@@ -1,9 +1,8 @@
 class ActivitySearch
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
-  def self.search(search_text, filters, sort)
-    query = Activity.includes(:classification, topic: [:section, :topic_category])
-      .where("'production' = ANY(activities.flags)")
+  def self.search(search_text, filters, sort, flag)
+    query = Activity.user_scope(flag).includes(:classification, topic: [:section, :topic_category])
       .where("(activities.name ILIKE ?) OR (topic_categories.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
       .where("topic_categories.id IS NOT NULL AND sections.id IS NOT NULL")
       .order(search_sort_sql(sort)).references(:topic)

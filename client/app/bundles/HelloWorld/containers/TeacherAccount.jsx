@@ -135,6 +135,7 @@ export default React.createClass({
 		}
 		$.ajax({type: "PUT", data: data, url: url, success: this.uponUpdateAttempt});
 	},
+	
 	uponUpdateAttempt: function(data) {
 		this.setState({isSaving: false});
 		if (data.errors == null) {
@@ -143,7 +144,6 @@ export default React.createClass({
 			if (this.props.userType == 'staff') {
 				this.saveSubscription();
 			}
-			alert("Your changes have been saved!")
 		}
 		this.setState({errors: data.errors});
 	},
@@ -276,7 +276,6 @@ export default React.createClass({
 			selectRole = null;
 			subscription = <StaticDisplaySubscription subscription={this.state.subscription}/>
 		}
-
 		return (
 			<div className='container' id='my-account'>
 				<div className='row'>

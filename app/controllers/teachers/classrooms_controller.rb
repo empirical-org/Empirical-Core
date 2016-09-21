@@ -13,8 +13,22 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def new
-    @classroom = current_user.classrooms_i_teach.new
-    @classroom.generate_code
+    # just here to render the new view, then react takes care of everything
+  end
+
+  def classrooms_i_teach
+    @classrooms = current_user.classrooms_i_teach
+    render json: @classrooms.order(:updated_at)
+  end
+
+  def classrooms_i_teach_with_students
+    classrooms = current_user.classrooms_i_teach.includes(:students)
+    classrooms_with_students = classrooms.map do |classroom|
+      classroom_h = classroom.attributes
+      classroom_h[:students] = classroom.students
+      classroom_h
+    end
+    render json: classrooms_with_students
   end
 
   def regenerate_code
@@ -27,13 +41,9 @@ class Teachers::ClassroomsController < ApplicationController
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
     if @classroom.valid?
       ClassroomCreationWorker.perform_async(@classroom.id)
-      if current_user.students.empty?
-        redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: @classroom.grade)
-      else
-        redirect_to teachers_classroom_invite_students_path(@classroom)
-      end
+      render json: {classroom: @classroom, toInviteStudents: current_user.students.empty?}
     else
-      render :new
+       render json: {errors: @classroom.errors.full_messages }, status: 422
     end
   end
 
