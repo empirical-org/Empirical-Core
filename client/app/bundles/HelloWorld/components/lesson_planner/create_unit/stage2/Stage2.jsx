@@ -58,14 +58,16 @@
   render: function() {
     var classroomList;
     if (this.props.classrooms) {
-      classroomList = this.props.classrooms.map(function(entry) {
-        return <Classroom    key = {entry.classroom}
-                             classroom={entry.classroom}
-                             students={entry.students}
-                             allSelected={entry.allSelected}
-                             toggleClassroomSelection={this.props.toggleClassroomSelection}
-                             toggleStudentSelection={this.props.toggleStudentSelection} />;
-      }, this);
+      let that = this;
+      classroomList = this.props.classrooms.map((el)=> {
+        return <Classroom    key = {el.classroom.id}
+                             classroom={el.classroom}
+                             students={el.students}
+                             allSelected={el.allSelected}
+                             toggleClassroomSelection={that.props.toggleClassroomSelection}
+                             toggleStudentSelection={that.props.toggleStudentSelection} />;
+
+      })
     } else {
       classroomList = []
     }
