@@ -14,7 +14,7 @@
 		return (
 			<li onClick={this.clickOption}>
 				<span className="filter_option">
-					{this.props.data.name}
+					{this.props.data.alias || this.props.data.name}
 				</span>
 			</li>
 		);

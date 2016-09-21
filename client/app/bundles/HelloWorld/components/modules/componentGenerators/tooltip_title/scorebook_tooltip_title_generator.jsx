@@ -26,11 +26,10 @@ export default function (percentageDisplayer) {
     }
 
 
-
     result = (
       <div className='scorebook-tooltip'>
         <div className='title'>
-          ACTIVITY RESULTS
+          {data.activity.name}
         </div>
         <div className='main'>
           <ConceptResultStats results={data.concept_results} />

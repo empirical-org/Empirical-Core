@@ -10,21 +10,21 @@ export default React.createClass({
 		              <div className="icon-wrapper icon-green"></div>
 		              <div className="icons-description-wrapper">
 		                <p className="title">At Proficiency</p>
-		                <p className="explanation">100-76%</p>
+		                <p className="explanation">80-100%</p>
 		              </div>
 		            </div>
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
 		              <div className="icon-wrapper icon-orange"></div>
 		              <div className="icons-description-wrapper">
 		                <p className="title">Nearly Proficient</p>
-		                <p className="explanation">75-50%</p>
+		                <p className="explanation">60-79%</p>
 		              </div>
 		            </div>
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
 		              <div className="icon-wrapper icon-red"></div>
 		              <div className="icons-description-wrapper">
 		                <p className="title">Not Yet Proficient</p>
-		                <p className="explanation">49-0%</p>
+		                <p className="explanation">0-59%</p>
 		              </div>
 		            </div>
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">

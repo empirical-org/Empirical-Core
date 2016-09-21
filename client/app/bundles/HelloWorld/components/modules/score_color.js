@@ -2,11 +2,11 @@
 // generally used for setting color class names, hence the score color concat at end
 export default function(grade) {
 	let color;
-	if (grade >= 76) {
+	if (grade >= 80) {
 		color = 'green';
-	} else if (grade >= 50 && grade <= 75) {
+	} else if (grade >= 60 && grade <= 79) {
 		color = 'yellow';
-	} else if (grade <= 49) {
+	} else if (grade <= 59) {
 		color = 'red';
 	} else {
 		color = null;

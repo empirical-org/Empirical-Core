@@ -22,7 +22,6 @@ export default React.createClass({
   percentage_color: function (percentage) {
     var y;
     var x = this.props.data.percentage;
-
     if (x == null) {
       y = 'gray'
     } else if (x < 0.5) {
@@ -57,10 +56,14 @@ export default React.createClass({
   icon_for_classification: function () {
       var y;
       var x = this.props.data.activity.classification.id;
-      if (x == 1) {
+      if (x === 1) {
         y = 'flag';
-      } else {
-        y = 'puzzle';
+      } else if (x === 2) {
+        y = 'puzzle'
+      } else if (x === 4) {
+        y = 'diagnostic'
+      } else if (x === 5) {
+        y = 'connect';
       }
       return y;
   },
