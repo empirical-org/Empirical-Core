@@ -39,7 +39,7 @@ import { Provider } from 'react-redux';
 import findAndFix from './reducers/combined';
 import { Router, Route, IndexRoute, browserHistory, Redirect} from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-
+import Turk from './components/turk/sentenceFragmentsQuiz.jsx'
 import conceptActions from './actions/concepts'
 import conceptsFeedbackActions from './actions/concepts-feedback'
 import questionActions from './actions/questions'
@@ -81,6 +81,7 @@ render((
         {/*<IndexRoute component={Welcome} />*/}
         <Route path="/play" component={StudentRoot}>
           <IndexRoute component={Play} />
+          <Route path="turk" component={Turk}/>
           <Route path="game" component={Passthrough}>
             <IndexRoute component={Passthrough}
               onEnter={
