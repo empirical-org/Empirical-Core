@@ -33,7 +33,7 @@ export default React.createClass({
   },
 
   studentBoxes: function(){
-		let concept_results = _.sortBy(this.selectedStudent(this.state.students).session.concept_results, 'question_number')
+		let concept_results = _.sortBy(this.selectedStudent(this.state.students).concept_results, 'question_number')
     return concept_results.map((question, index) => {
 			return <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>
 		})

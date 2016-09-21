@@ -62,7 +62,7 @@ shared_context 'Topic Progress Report' do
 
   let!(:fred_first_grade_topic_session) do
     session = fred.activity_sessions.for_activity(activity_for_first_grade_topic)
-    session.update!(state: 'finished', percentage: 0.50, completed_at: 2.days.ago) # Nearly Proficient
+    session.update!(state: 'finished', percentage: 0.70, completed_at: 2.days.ago) # Nearly Proficient
     session
   end
 
