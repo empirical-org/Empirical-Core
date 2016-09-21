@@ -64,14 +64,6 @@ export default React.createClass({
             {this.props.data.activity.description}
           </div>
         </div>
-        <div className='activity-detail'>
-          <span className='activity-detail-title'>
-            Activity:
-          </span>
-          <span className='activity-detail-body'>
-            {this.props.data.activity.name}
-          </span>
-        </div>
         {this.dateOrNot()}
       </div>
     );

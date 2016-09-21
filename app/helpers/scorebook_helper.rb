@@ -1,15 +1,17 @@
 module ScorebookHelper
 
+
+
   def percentage_color(score)
     return 'gray' unless score
     score = score.to_f / 100.0 if score > 1
     score = score.round(2)
     case score
-    when 0.76..1.0
+    when 0.8..1.0
       'green'
-    when 0.5..0.75
+    when 0.6..0.79
       'orange'
-    when 0.0..0.49
+    when 0.0..0.59
       'red'
     else
       'gray'
@@ -22,6 +24,10 @@ module ScorebookHelper
       'flag'
     when 2
       'puzzle'
+    when 4
+      'diagnostic'
+    when 5
+      'connect'
     else
       ''
     end
@@ -33,6 +39,10 @@ module ScorebookHelper
       'flag'
     when 2
       'puzzle'
+    when 4
+      'diagnostic'
+    when 5
+      'connect'
     else
       ''
     end
@@ -44,6 +54,10 @@ module ScorebookHelper
       'scorebook/icon-flag-gray.png'
     when 2
       'scorebook/icon-puzzle-gray.png'
+    when 4
+      'scorebook/icon-diagnostic-gray.png'
+    when 5
+      'scorebook/icon-connect-gray.png'
     else
       ''
     end
@@ -63,6 +77,10 @@ module ScorebookHelper
       'Quill Proofreader'
     when 2
       'Quill Grammar'
+    when 4
+      'Quill Diagnostic'
+    when 5
+      'Quill Connect'
     end
   end
 

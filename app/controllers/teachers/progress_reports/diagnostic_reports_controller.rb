@@ -123,17 +123,13 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     scores[:students] = activity_sessions.map do |activity_session|
         student = activity_session.user
         formatted_concept_results = get_concept_results(activity_session)
-        session = {
-          id: activity_session.id,
+      {
+          id: student.id,
+          name: student.name,
           time: get_time_in_minutes(activity_session),
           number_of_questions: formatted_concept_results.length,
           concept_results: formatted_concept_results,
           score: get_average_score(formatted_concept_results)
-        }
-      {
-          id: student.id,
-          name: student.name,
-          session: session
         }
     end
     scores
