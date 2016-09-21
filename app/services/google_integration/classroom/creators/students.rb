@@ -50,7 +50,9 @@ module GoogleIntegration::Classroom::Creators::Students
     puts data[:email]
     puts data[:classroom].attributes
     puts "End Google Student"
-    Associators::StudentsToClassrooms.run(student, data[:classroom])
+    unless student.errors.any?
+      Associators::StudentsToClassrooms.run(student, data[:classroom])
+    end
     student
   end
 
