@@ -17,6 +17,12 @@ class Teachers::UnitsController < ApplicationController
     arr = []
     units.each do |unit_id, classroom_activities|
 
+      if params[:report]
+        classroom_activities =  classroom_activities.select{|ca| ca.has_a_completed_session?}
+        next if classroom_activities.empty?
+      end
+
+
       x1 = classroom_activities.compact
 
       x1 = ClassroomActivitySorter::sort(x1)
@@ -49,7 +55,7 @@ class Teachers::UnitsController < ApplicationController
 
     arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
     arr1 = arr1.sort_by{|ele| ele[:unit].created_at}.reverse
-    render json: arr1.concat(arr2)
+    render json: {units: arr1.concat(arr2)}.to_json
   end
 
   def hide

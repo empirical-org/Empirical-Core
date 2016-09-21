@@ -17,6 +17,10 @@ class Teachers::ProgressReportsController < ApplicationController
     redirect_to teachers_progress_reports_standards_classrooms_path
   end
 
+  def landing_page
+    render 'landing_page'
+  end
+
   private
 
   # def handle_expired_trial

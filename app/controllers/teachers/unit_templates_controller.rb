@@ -5,7 +5,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        render json: UnitTemplate.all
+        render json: UnitTemplate.user_scope(current_user.try(:flag) || 'production')
                       .includes(:author, :unit_template_category, activities: [{topic: [:topic_category]}, :classification])
                       .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
       end

@@ -48,6 +48,7 @@ class Cms::UnitTemplatesController < ApplicationController
             .permit(:id,
                     :authenticity_token,
                     :name,
+                    :flag,
                     :author_id,
                     :problem,
                     :summary,

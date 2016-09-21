@@ -19,6 +19,9 @@ class Activity < ActiveRecord::Base
     SQL
   }
 
+  scope :beta_user, -> { where("'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
+  scope :alpha_user, -> { where("'alpha' = ANY(activities.flags) OR 'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
+
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
   def topic_uid= uid
@@ -44,6 +47,20 @@ class Activity < ActiveRecord::Base
     end
 
     query
+  end
+
+  def self.diagnostic
+    Activity.find_by(activity_classification_id: ActivityClassification.diagnostic.id)
+  end
+
+  def self.user_scope(user_flag)
+    if user_flag == 'alpha'
+      Activity.alpha_user
+    elsif user_flag == 'beta'
+      Activity.beta_user
+    else
+      Activity.production
+    end
   end
 
   def self.search_sort_sql(sort)
@@ -109,6 +126,7 @@ class Activity < ActiveRecord::Base
     flag = :archived if flag.to_sym == :archive
     self.flags = [flag]
   end
+
 
   private
 

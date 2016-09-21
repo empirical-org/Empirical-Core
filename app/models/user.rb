@@ -57,6 +57,9 @@ class User < ActiveRecord::Base
                                     uniqueness:   { allow_blank: true },
                                     format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?}
 
+  validates :flag,                  inclusion: { in: %w(alpha beta production),
+                                    message: "%{value} is not a valid flag" }, :allow_nil => true
+
 
   ROLES      = %w(student teacher temporary user admin staff)
   SAFE_ROLES = %w(student teacher temporary)
@@ -209,7 +212,6 @@ class User < ActiveRecord::Base
   def set_name
     self.name = [@first_name, @last_name].compact.join(' ')
   end
-
 
   def generate_password
     self.password = self.password_confirmation = last_name

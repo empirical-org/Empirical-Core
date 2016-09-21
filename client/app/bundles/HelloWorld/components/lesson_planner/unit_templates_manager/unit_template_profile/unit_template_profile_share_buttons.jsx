@@ -22,7 +22,7 @@
         className: 'btn-twitter',
         href: "http://twitter.com/home?status=" + url + " check out this " + this.props.data.name +  " Activity pack by @Quill_org",
         title: 'Share on Twitter',
-        action: 'Tweet',
+        action: 'Tweet'
       },
       {
         icon: 'fa-facebook',
@@ -36,26 +36,20 @@
         className: 'btn-google-plus',
         href: "https://plus.google.com/share?url=" + url,
         title: 'Share with Google Plus',
-        action: 'Post',
+        action: 'Post'
       },
       {
         icon: 'fa-pinterest',
         className: 'btn-linkedin',
         href: 'https://pinterest.com/pin/create/button/?url=www.quill.org/activities/packs/4&media=https%3A//s-media-cache-ak0.pinimg.com/736x/92/46/50/9246509b2ad54a3c2ad97e21976b9176.jpg&description=I%E2%80%99m%20using%20the%20' + this.props.data.name + '%20Activity%20Pack,%20from%20Quill.org,%20to%20teach%20English%20grammar.%20' + url,
         title: 'Share on Pinterest',
-        action: 'Pin',
+        action: 'Pin'
       }
-      // {
-      //   icon: 'fa-envelope',
-      //   className: 'btn-linkedin',
-      //   href: "mailto:?subject=Check out this " + this.props.data.name +  " Activity pack by Quill.org&source=Quill.org&body=" + url,
-      //   title: 'Share by Email',
-      // }
     ];
 
     var links = _.map(stuff, function (hash) {
       return (
-        <a href={hash.href} title={hash.title} className={"btn btn-default btn-social " + hash.className}  target="_blank">
+        <a href={hash.href} key={hash.title} title={hash.title} className={"btn btn-default btn-social " + hash.className}  target="_blank">
           <i className={"fa " + hash.icon}></i><span className='social-action'>{hash.action}</span>
         </a>
       );
