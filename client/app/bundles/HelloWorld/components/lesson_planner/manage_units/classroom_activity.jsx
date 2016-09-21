@@ -46,7 +46,7 @@ export default React.createClass({
 
   urlForReport: function(){
     const d = this.props.data;
-    return `/teachers/progress_reports/diagnostic_reports#/u/${d.unit_id}/a/${d.activity_id}/c/${d.classroom_id}/students`
+    return `/teachers/progress_reports/diagnostic_reports#/u/${d.unit_id}/a/${d.activity_id}/c/${d.classroom_id}/questions`
   },
 
 	finalCell: function() {
