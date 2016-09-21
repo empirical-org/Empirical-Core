@@ -33,11 +33,11 @@ export default React.createClass({
       selectedStudent = this.students().find((student) => student.id === selectedStudentId)
     }
     if (this.props.showStudentDropdown) {
-      return (<StudentDropdown
-               students = {this.students()}
-               callback ={this.props.studentDropdownCallback}
-               selectedStudent={selectedStudent || (this.students()[0] || null)}
-             />)
+      return   <StudentDropdown key={'student-dropdown'}
+                          students = {this.students()}
+                          callback ={this.props.studentDropdownCallback}
+                          selectedStudent={selectedStudent || (this.students()[0] || null)}
+                          />
     }
   },
 

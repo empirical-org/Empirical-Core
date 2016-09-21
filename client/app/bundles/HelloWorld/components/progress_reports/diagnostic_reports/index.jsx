@@ -26,6 +26,12 @@ export default React.createClass({
 		}
 	},
 
+	componentWillReceiveProps: function(nextProps) {
+		if (nextProps.params && nextProps.params.studentId) {
+			this.setState({selectedStudentId: Number(nextProps.params.studentId)})
+		}
+	},
+
 	componentWillUnmount: function() {
 		let ajax = this.ajax;
 		for (var call in ajax) {
@@ -69,6 +75,8 @@ export default React.createClass({
 			? this.props.classrooms.find((c) => c.id === id)
 			: null
 	},
+
+
 
 	changeClassroom: function(classroom) {
 		if (classroom != this.state.selectedClassroom) {

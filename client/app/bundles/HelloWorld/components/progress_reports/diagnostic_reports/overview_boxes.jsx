@@ -16,7 +16,7 @@ export default React.createClass({
 		let count = {};
 		let scoreColor;
 		this.props.data.forEach(student => {
-			scoreColor = ScoreColor(student.session.score);
+			scoreColor = ScoreColor(student.score);
 			count[scoreColor] = count[scoreColor] || 0;
 			count[scoreColor] += 1;
 		})
