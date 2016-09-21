@@ -5,7 +5,7 @@ import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCur
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
-
+import Spinner from '../shared/spinner.jsx'
 import PlaySentenceFragment from './sentenceFragment.jsx'
 import PlayDiagnosticQuestion from './sentenceCombining.jsx'
 import LandingPage from './landing.jsx'
@@ -35,7 +35,7 @@ var StudentDiagnostic = React.createClass({
       },
       (err,httpResponse,body) => {
         if (httpResponse.statusCode === 200) {
-          document.location.href = "http://staging.quill.org/"
+          document.location.href = process.env.EMPIRICAL_BASE_URL
           this.setState({saved: true});
         }
         // console.log(err,httpResponse,body)
@@ -160,7 +160,7 @@ var StudentDiagnostic = React.createClass({
         }
       }
     } else {
-      component =  (<div className="section container">Loading...</div>)
+      component = (<Spinner/>)
     }
 
     return (
