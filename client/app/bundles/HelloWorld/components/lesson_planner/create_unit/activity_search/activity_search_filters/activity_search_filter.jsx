@@ -5,15 +5,17 @@
  import _ from 'underscore'
  import $ from 'jquery'
  import naturalCmp from 'underscore.string/naturalCmp'
+ import FilterButton from './filter_button.jsx'
 
  export default  React.createClass({
 
 	selectFilterOption: function (optionId) {
-		this.props.selectFilterOption(this.props.data.field, optionId)
+		this.props.selectFilterOption(this.props.data.field, optionId);
 	},
 	clearFilterOptionSelection: function () {
 		this.props.selectFilterOption(this.props.data.field, null);
 	},
+
 
 	getDisplayedFilterOptions: function() {
 		var visibleOptions, isThereASelection, clearSelection;
@@ -32,13 +34,17 @@
 		}
 
     var that = this;
+    var field = this.props.data.field;
 		visibleOptions = _.map(visibleOptions, function (option) {
+      if (field === 'activity_classification') {
+        return (<FilterButton key={option.name} selectFilterOption={that.selectFilterOption} data={option}/>);
+      }
 			return (
 				<FilterOption key={option.name} selectFilterOption={that.selectFilterOption} data={option} />
 			);
 		}, this);
 
-		if (isThereASelection) {
+		if (isThereASelection && field !== 'activity_classification') {
 			clearSelection = (
 				<li onClick={this.clearFilterOptionSelection}>
 					<span className='filter_option all'>
@@ -67,6 +73,14 @@
 		// Several cases here:
 		// Nothing is selected. 'Filter by X' displays. All other options can be selected.
 		// An option is selected. Option name displays. Options now include 'All X'. All options displayed.
+    let filterIsButtons = this.props.data.field === 'activity_classification'
+    if (filterIsButtons) {
+      return (
+        <div className='activity-filter button-row'>
+          {this.getDisplayedFilterOptions()}
+        </div>
+      );
+    }
 
 		return (
 			<div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
