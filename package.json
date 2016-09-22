@@ -73,6 +73,7 @@
     "natural": "^0.4.0",
     "node-wordnet": "^0.1.12",
     "pos": "^0.3.0",
+    "raven": "^0.12.1",
     "react": "^15.0.2",
     "react-addons-shallow-compare": "^15.3.0",
     "react-addons-test-utils": "^15.3.0",
