@@ -347,7 +347,7 @@ export default React.createClass({
 		} else if (this.state.tab == 'exploreActivityPacks') {
 			tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		} else if (this.state.tab === 'assignANewActivity') {
-			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab}/>;
+			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
 		}
 
 		return (

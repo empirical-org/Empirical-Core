@@ -14,7 +14,7 @@ class Auth::GoogleController < ApplicationController
   private
 
   def google_login(email, access_token)
-    user = User.find_by(email: email)
+    user = User.find_by(email: email.downcase)
     if user.present?
       sign_in(user)
       GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
@@ -26,7 +26,7 @@ class Auth::GoogleController < ApplicationController
 
 
   def google_sign_up(name, email, role, access_token)
-    user = User.find_or_initialize_by email: email
+    user = User.find_or_initialize_by(email: email.downcase)
     if user.new_record?
       user.attributes = {signed_up_with_google: true, name: name, role: role}
       user.save
