@@ -77,6 +77,7 @@
       }
     });
 
+
     return {
         search: {
           search_query: this.state.searchQuery,
@@ -84,6 +85,16 @@
           sort: currentSort,
         }
       }
+  },
+
+
+  clearFilters: function() {
+    let clearedFilters = this.state.filters.map((filter)=>{
+      filter.selected = null;
+      return filter;
+    });
+    let that = this;
+    this.setState({filters: clearedFilters}, function(){that.searchRequest();});
   },
 
   searchRequestSuccess: function (data) {
@@ -229,7 +240,7 @@
       <section>
         <h3 className="section-header">Select Activities</h3>
         <SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
-        <ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} />
+        <ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} clearFilters={this.clearFilters} />
 
         <table className='table activity-table search-and-select'>
           <thead>
