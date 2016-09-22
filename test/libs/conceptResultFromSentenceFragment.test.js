@@ -63,6 +63,24 @@ describe("Getting concept results from an answered sf object", () => {
     expect(generated).toEqual(expected);
   })
 
+  it("should not get identfied concept results for a question that needs no identification", () => {
+    const expected = [
+      {
+        concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
+        metadata: {
+          correct: 1,
+          directions: "Add/change as few words as you can to change this fragment into a sentence",
+          prompt: "Listening to music on the ride home.",
+          answer: "I am listening to music on the ride home."
+        }
+      }
+    ]
+    const newQuestion = JSON.parse(JSON.stringify(question))
+    newQuestion.needsIdentification = false
+    const generated = getAllSentenceFragmentConceptResults(newQuestion)
+    expect(generated).toEqual(expected);
+  })
+
   it("should not return a complete sentence cr for correctly identified sentences", () => {
     const given = {
       attempts: [
@@ -89,6 +107,7 @@ describe("Getting concept results from an answered sf object", () => {
          }
       ],
       isFragment: false,
+      needsIdentification: true,
       identified: true,
       prompt: "Is this a sentence?",
       questionText: "Go away.",

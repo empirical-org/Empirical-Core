@@ -48,8 +48,15 @@ function calculateCorrectnessOfSentence(attempt) {
 }
 
 export function getAllSentenceFragmentConceptResults (question) {
-    return [
-      getIdentificationConceptResult(question),
-      getCompleteSentenceConceptResult(question)
-    ]
+    if (question.needsIdentification) {
+      return [
+        getIdentificationConceptResult(question),
+        getCompleteSentenceConceptResult(question)
+      ]
+    } else {
+      return [
+        getCompleteSentenceConceptResult(question)
+      ]
+    }
+
 }

@@ -276,6 +276,7 @@ export default [
                }
             }
          ],
+         "needsIdentification": true,
          "identified":true
       }
    },
@@ -347,6 +348,7 @@ export default [
                }
             }
          ],
+         "needsIdentification": true,
          "identified":false
       }
    },
