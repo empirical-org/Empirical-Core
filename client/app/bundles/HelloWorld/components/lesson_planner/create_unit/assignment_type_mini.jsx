@@ -22,7 +22,7 @@ export default React.createClass({
     },
 
     componentDidMount: function() {
-        this.quantity();
+      this.quantity();
     },
 
     quantity: function() {
@@ -46,7 +46,8 @@ export default React.createClass({
         if (count) {
           countCopy = count + ' ' + Pluralize(unit, count)
         }
-        return (<div className='assignment-type-mini' key={this.props.title} onClick={this.changeView}>
+        return (
+          <div className='assignment-type-mini' key={this.props.title} onClick={this.changeView}>
             <h3>{this.props.title}</h3>
             <img src={this.props.img} alt="assignment-type-image"/>
             <p className='overview'>{this.props.bodyText}</p>
@@ -54,6 +55,7 @@ export default React.createClass({
                 <span className='directions'>{this.props.directions}</span>
                 <br/> {(countCopy || 'Calculating') + '  |  ' + this.props.timeDuration + ' ' + 'per ' + unit}
             </div>
-        </div>)
+          </div>
+      )
     }
 })

@@ -35,7 +35,7 @@ module GoogleIntegration::Classroom::Creators::Students
   end
 
   def self.create_student(data)
-    student = ::User.find_or_initialize_by(email: data[:email])
+    student = ::User.where(email: data[:email].downcase).first_or_initialize
     if student.new_record?
       username = UsernameGenerator.run(data[:first_name], data[:last_name], data[:classroom].code)
       student.update(name: data[:name],
@@ -43,7 +43,16 @@ module GoogleIntegration::Classroom::Creators::Students
                      password: data[:last_name],
                      username: username)
     end
-    Associators::StudentsToClassrooms.run(student, data[:classroom])
+    puts "Google Student"
+    puts student.attributes
+    puts student.errors.first
+    puts student.valid?
+    puts data[:email]
+    puts data[:classroom].attributes
+    puts "End Google Student"
+    unless student.errors.any?
+      Associators::StudentsToClassrooms.run(student, data[:classroom])
+    end
     student
   end
 
