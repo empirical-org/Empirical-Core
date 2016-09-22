@@ -7,7 +7,7 @@ export default React.createClass({
       <div className="landing-page">
         <h1>You're working on the Quill Placement Activity </h1>
         <p>
-          You're about to answer 7 questions about writing sentences.
+          You're about to answer 4 questions about writing sentences.
           Please answer to the best of your ability.
         </p>
         <button className="button student-begin" onClick={this.props.begin}>

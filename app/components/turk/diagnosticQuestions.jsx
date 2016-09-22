@@ -5,20 +5,8 @@ export default function diagnosticQuestions() {
       key: "-KPt6cf6BkRomFz6Ggaz"
     },
     {
-      type: "SF", //  the dog rolled around
-      key: "-KPt6qSC7CYEMKmaQHT_"
-    },
-    {
       type: "SF", //  the man eating the pizza
       key: "-KOqLeXEvMjNuE6MGOop"
-    },
-    {
-      type: "SF", //  swimming is a sport
-      key: "-KPtHcyQuB3DgIJhdMUJ"
-    },
-    {
-      type: "SF", //  keep going
-      key: "-KPt6MFp2035UjvQzbIM"
     },
     {
       type: "SF", //  after the football game ended
