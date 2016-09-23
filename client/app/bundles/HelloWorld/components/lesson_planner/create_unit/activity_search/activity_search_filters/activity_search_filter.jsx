@@ -27,6 +27,7 @@
 			return naturalCmp(a.name, b.name);
 		});
 
+
 		if (isThereASelection) {
 			visibleOptions = _.reject(this.props.data.options, {id: this.props.data.selected}, this);
 		} else {
@@ -76,8 +77,9 @@
     let filterIsButtons = this.props.data.field === 'activity_classification'
     if (filterIsButtons) {
       return (
-        <div className='activity-filter button-row'>
+        <div className='col-xs-12 activity-filter button-row'>
           {this.getDisplayedFilterOptions()}
+          {this.props.children}
         </div>
       );
     }

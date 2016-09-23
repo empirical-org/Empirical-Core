@@ -1,4 +1,10 @@
 .activity-filter.button-row {
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   button {
     padding: 14px;
     width: 228px;
@@ -6,8 +12,13 @@
     border-radius: 6px;
     background-color: #ffffff;
     border: solid 1px #cecece;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     margin-right: 12px;
     margin-top: 12px;
     div:last-of-type {
@@ -35,5 +46,18 @@
   }
   button:last-of-type {
     margin-right: 0;
+  }
+  .clear-filters {
+    padding: 1em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    img {
+      padding-right: 8px;
+      margin-bottom: 2px;
+    }
   }
 }
