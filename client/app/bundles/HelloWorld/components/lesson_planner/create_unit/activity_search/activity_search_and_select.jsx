@@ -110,14 +110,15 @@
 
   setInitialFilterOptions: function(data) {
     // If the filter options have set already, do not override them.
+
     var allEmpty = _.all(this.state.allFilterOptions, function(options, field) {
       return options.length === 0;
     });
     if (!allEmpty) {
       return;
     }
-
     var newOptions = {};
+
     _.each(this.state.allFilterOptions, function(options, field) {
       var key = this.pluralize(field);
       newOptions[field] = data[key];
@@ -168,10 +169,6 @@
     sectionIds = _.uniq(sectionIds);
 
     var availableOptions = {};
-    availableOptions['activity_classification'] = _.reject(this.state.allFilterOptions['activity_classification'],
-      function(option) {
-        return !_.contains(activityClassificationIds, option.id);
-    });
     availableOptions['topic_category'] = _.reject(this.state.allFilterOptions['topic_category'],
       function(option) {
         return !_.contains(topicCategoryIds, option.id);
@@ -180,6 +177,11 @@
       function(option) {
         return !_.contains(sectionIds, option.id);
     });
+    availableOptions['activity_classification'] = _.reject(this.state.allFilterOptions['activity_classification'],
+      function(option) {
+        return !_.contains(activityClassificationIds, option.id);
+    });
+
     return availableOptions;
   },
 
