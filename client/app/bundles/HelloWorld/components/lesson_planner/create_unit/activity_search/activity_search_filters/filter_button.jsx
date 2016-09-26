@@ -17,11 +17,11 @@ export default  React.createClass({
 
   handleClick: function() {
     this.props.selectFilterOption(this.props.data.id);
-    this.setstate({active: true});
+    this.setState({active: true});
   },
 
   iconType: function() {
-    let type = this.props.data.name
+    let type = this.props.data.name;
     if (type === 'passage') {
       type = 'puzzle';
     } else if (type === 'sentence') {

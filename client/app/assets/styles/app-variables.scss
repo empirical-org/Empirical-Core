@@ -6,9 +6,10 @@
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   button {
-    padding: 14px;
+    padding: 13px;
     width: 228px;
     height: 75px;
+    box-sizing:border-box;
     border-radius: 6px;
     background-color: #ffffff;
     border: solid 1px #cecece;
@@ -21,8 +22,11 @@
             flex-direction: row;
     margin-right: 12px;
     margin-top: 12px;
+    div:first-of-type {
+      width: 30px;
+    }
     div:last-of-type {
-      margin-left: 10px;
+      margin-left: 8px;
       text-align: left;
       width: 160px;
     }
@@ -41,9 +45,7 @@
       font-weight: 400;
     }
   }
-  .icon-puzzle-gray {
-    width: 30px;
-  }
+
   button:last-of-type {
     margin-right: 0;
   }
