@@ -12,6 +12,7 @@
  import ActivitySearchResults from './activity_search_results/activity_search_results'
  import Pagination from './pagination/pagination'
  import SelectedActivities from './selected_activities/selected_activities'
+ import LoadingIndicator from '../../../general_components/loading_indicator.jsx'
 
 
  export default  React.createClass({
@@ -25,6 +26,7 @@
 
   getInitialState: function() {
     return {
+      loading: true,
       activitySearchResults: [],
       currentPageSearchResults: [],
       currentPage: 1,
@@ -47,6 +49,7 @@
   },
 
   searchRequest: function () {
+    this.setState({loading: true});
     $.ajax({
       url: '/activities/search',
       context: this,
@@ -101,9 +104,9 @@
     var hash = {
       activitySearchResults: data.activities,
       numberOfPages: data.number_of_pages,
-      currentPage: 1
+      currentPage: 1,
+      loading: false
     };
-
     this.setInitialFilterOptions(data);
     this.setState(hash, this.updateFilterOptionsAfterRequest);
   },
@@ -238,6 +241,14 @@
 
   render: function() {
     var currentPageSearchResults = this.determineCurrentPageSearchResults();
+    let table, loading, pagination;
+    if (this.state.loading) {
+      setBottomBorder:
+      loading = <LoadingIndicator/>;
+    } else {
+      pagination = <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />;
+      table = <ActivitySearchResults selectedActivities = {this.props.selectedActivities} currentPageSearchResults ={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />;
+    }
     return (
       <section>
         <h3 className="section-header">Select Activities</h3>
@@ -248,10 +259,11 @@
           <thead>
             <ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
           </thead>
-          <ActivitySearchResults selectedActivities = {this.props.selectedActivities} currentPageSearchResults ={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />
+          {table}
         </table>
+        {loading}
 
-        <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />
+        {pagination}
 
         <SelectedActivities clickContinue={this.props.clickContinue}
                                isEnoughInputProvided={this.props.isEnoughInputProvidedToContinue}
