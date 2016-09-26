@@ -57,12 +57,12 @@ export default class POSMatcher {
       return qpos.getPartsOfSpeechTags(optimalResponse.text);
     })
     const userPOSTags = qpos.getPartsOfSpeechTags(userResponse);
-
-    return _.find(this.optimalResponses, (optimalResponse, index)=>{
+    if (userPOSTags) {
+      return _.find(this.optimalResponses, (optimalResponse, index)=>{
         var found = true;
         if(optimalResponse.parentID) {
           found = false;
-        } else {
+        } else if (correctPOSTags[index]){
           correctPOSTags[index].forEach((tag, indexValue)=>{
             if(tag!==userPOSTags[indexValue]){
               found = false;
@@ -71,6 +71,7 @@ export default class POSMatcher {
         }
         return found;
       })
+    }
     // return (foundMatch) ? true : false;
   }
 }
