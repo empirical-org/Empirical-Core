@@ -9,7 +9,15 @@
   },
 
   componentDidMount: function(){
-    if (this.props.number == this.props.currentPage) {
+    this.determineState(this.props);
+  },
+
+  componentWillReceiveProps: function(nextProps){
+    this.determineState(nextProps);
+  },
+
+  determineState: function(props){
+    if (props.number === props.currentPage ) {
       this.setState({isCurrentPage: true, classy: 'page_number active'});
     } else {
       this.setState({isCurrentPage: false, classy: 'page_number'});
