@@ -48,8 +48,8 @@ export default React.createClass({
 
   openModal: function() {
     // TODO: fix modals using react-bootstrap so we can stop using js alerts
-    // alert('Your Quill Progress Report is on its way! This table is being emailed to you as a CSV spreadsheet, which can be opened with Google Sheets or Excel. It should arrive within the next five minutes. Please Check: ' + {this.props.email} + ' If you do not receive an email within 10 minutes, please check your spamfolder.')
-    alert('Your Progress Report is on its way!')
+    // alert('Your Quill Progress Report is on its way to your email! This table is being emailed to you as a CSV spreadsheet, which can be opened with Google Sheets or Excel. It should arrive within the next five minutes. Please Check: ' + {this.props.email} + ' If you do not receive an email within 10 minutes, please check your spamfolder.')
+    alert('Your Progress Report is being emailed to you! It should arrive within the next five minutes.')
     // console.log($(this.refs.exportModal.getDOMNode()));
     // $(this.refs.exportModal.getDOMNode()).modal();
   },

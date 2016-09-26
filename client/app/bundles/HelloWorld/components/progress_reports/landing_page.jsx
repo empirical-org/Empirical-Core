@@ -71,9 +71,15 @@ export default React.createClass({
 	minis: function() {
 		let minisArr = [];
 		this.miniList().forEach((mini) => {
-			if (mini.flag !== 'beta') {
+			debugger;
+			// if the flag isn't mini or beta we always want to display it
+			if (['beta','alpha'].indexOf(mini.flag) ===  -1) {
 				minisArr.push(this.miniBuilder(mini))
-			} if (mini.flag === 'beta' && this.props.flag === 'beta') {
+			// if the flag is beta only show to beta/alpha users
+		} else if (mini.flag === 'beta' && this.props.flag === ('beta' || 'alpha')) {
+				minisArr.push(this.miniBuilder(mini))
+			// if the flag is alpha, only show to alpha users
+			} else if (mini.flag === 'alpha' && this.props.flag === 'alpha') {
 				minisArr.push(this.miniBuilder(mini))
 			}
 		})
