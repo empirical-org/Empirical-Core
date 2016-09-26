@@ -322,6 +322,7 @@ export default React.createClass({
   },
 
   renderResponseContent: function (isEditing, response) {
+    console.log("Respone: ", response.key)
     var content;
     var parentDetails;
     var childDetails;
