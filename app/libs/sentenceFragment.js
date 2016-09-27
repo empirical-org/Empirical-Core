@@ -10,10 +10,9 @@ String.prototype.normalize = function() {
 export default class POSMatcher {
   constructor(responses) {
     responses = hashToCollection(responses)
-    this.optimalResponses = responses
-    // this.optimalResponses = _.filter(responses, (response)=>{
-    //   return response.optimal===true
-    // })
+    this.optimalResponses = _.sortBy(_.reject(responses, (response) => {
+      return response.optimal === undefined
+    }), 'optimal').reverse()
   }
 
   checkMatch(userResponse) {
@@ -63,15 +62,12 @@ export default class POSMatcher {
         if(optimalResponse.parentID) {
           found = false;
         } else if (correctPOSTags[index]){
-          correctPOSTags[index].forEach((tag, indexValue)=>{
-            if(tag!==userPOSTags[indexValue]){
-              found = false;
-            }
-          })
+          if (JSON.stringify(correctPOSTags[index]) !== JSON.stringify(userPOSTags)) {
+            found = false;
+          }
         }
         return found;
       })
     }
-    // return (foundMatch) ? true : false;
   }
 }

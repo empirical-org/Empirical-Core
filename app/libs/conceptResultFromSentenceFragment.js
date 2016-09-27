@@ -43,7 +43,7 @@ function calculateCorrectnessOfSentence(attempt) {
   if (attempt && attempt.response) {
     return attempt.response.optimal ? 1 : 0
   } else {
-    return 0
+    return 1
   }
 }
 
