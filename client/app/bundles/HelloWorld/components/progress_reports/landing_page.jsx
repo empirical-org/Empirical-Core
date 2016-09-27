@@ -71,7 +71,6 @@ export default React.createClass({
 	minis: function() {
 		let minisArr = [];
 		this.miniList().forEach((mini) => {
-			debugger;
 			// if the flag isn't mini or beta we always want to display it
 			if (['beta','alpha'].indexOf(mini.flag) ===  -1) {
 				minisArr.push(this.miniBuilder(mini))

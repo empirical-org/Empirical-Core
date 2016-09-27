@@ -3,7 +3,7 @@
  import React from 'react'
 
  export default  React.createClass({
-	deSelectActivity: function () {
+	deselectActivity: function () {
 		this.props.toggleActivitySelection(this.props.data, false);
 	},
 	render: function () {
@@ -16,7 +16,7 @@
 						{this.props.data.name}
 					</a>
 				</td>
-				<td onClick={this.deSelectActivity} data-model-id={this.props.data.id} className='icon-x-gray'></td>
+				<td onClick={this.deselectActivity} data-model-id={this.props.data.id} className='icon-x-gray'></td>
 			</tr>
 		);
 

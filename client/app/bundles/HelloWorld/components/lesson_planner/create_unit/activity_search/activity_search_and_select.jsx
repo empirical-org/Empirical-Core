@@ -12,6 +12,7 @@
  import ActivitySearchResults from './activity_search_results/activity_search_results'
  import Pagination from './pagination/pagination'
  import SelectedActivities from './selected_activities/selected_activities'
+ import LoadingIndicator from '../../../general_components/loading_indicator.jsx'
 
 
  export default  React.createClass({
@@ -25,6 +26,7 @@
 
   getInitialState: function() {
     return {
+      loading: true,
       activitySearchResults: [],
       currentPageSearchResults: [],
       currentPage: 1,
@@ -47,6 +49,7 @@
   },
 
   searchRequest: function () {
+    this.setState({loading: true});
     $.ajax({
       url: '/activities/search',
       context: this,
@@ -77,6 +80,7 @@
       }
     });
 
+
     return {
         search: {
           search_query: this.state.searchQuery,
@@ -86,27 +90,38 @@
       }
   },
 
+
+  clearFilters: function() {
+    let clearedFilters = this.state.filters.map((filter)=>{
+      filter.selected = null;
+      return filter;
+    });
+    let that = this;
+    this.setState({filters: clearedFilters}, function(){that.searchRequest();});
+  },
+
   searchRequestSuccess: function (data) {
     var hash = {
       activitySearchResults: data.activities,
       numberOfPages: data.number_of_pages,
-      currentPage: 1
+      currentPage: 1,
+      loading: false
     };
-
     this.setInitialFilterOptions(data);
     this.setState(hash, this.updateFilterOptionsAfterRequest);
   },
 
   setInitialFilterOptions: function(data) {
     // If the filter options have set already, do not override them.
+
     var allEmpty = _.all(this.state.allFilterOptions, function(options, field) {
       return options.length === 0;
     });
     if (!allEmpty) {
       return;
     }
-
     var newOptions = {};
+
     _.each(this.state.allFilterOptions, function(options, field) {
       var key = this.pluralize(field);
       newOptions[field] = data[key];
@@ -157,10 +172,6 @@
     sectionIds = _.uniq(sectionIds);
 
     var availableOptions = {};
-    availableOptions['activity_classification'] = _.reject(this.state.allFilterOptions['activity_classification'],
-      function(option) {
-        return !_.contains(activityClassificationIds, option.id);
-    });
     availableOptions['topic_category'] = _.reject(this.state.allFilterOptions['topic_category'],
       function(option) {
         return !_.contains(topicCategoryIds, option.id);
@@ -169,6 +180,11 @@
       function(option) {
         return !_.contains(sectionIds, option.id);
     });
+    availableOptions['activity_classification'] = _.reject(this.state.allFilterOptions['activity_classification'],
+      function(option) {
+        return !_.contains(activityClassificationIds, option.id);
+    });
+
     return availableOptions;
   },
 
@@ -225,20 +241,29 @@
 
   render: function() {
     var currentPageSearchResults = this.determineCurrentPageSearchResults();
+    let table, loading, pagination;
+    if (this.state.loading) {
+      setBottomBorder:
+      loading = <LoadingIndicator/>;
+    } else {
+      pagination = <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />;
+      table = <ActivitySearchResults selectedActivities = {this.props.selectedActivities} currentPageSearchResults ={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />;
+    }
     return (
       <section>
         <h3 className="section-header">Select Activities</h3>
         <SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
-        <ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} />
+        <ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} clearFilters={this.clearFilters} />
 
         <table className='table activity-table search-and-select'>
           <thead>
             <ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
           </thead>
-          <ActivitySearchResults selectedActivities = {this.props.selectedActivities} currentPageSearchResults ={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />
+          {table}
         </table>
+        {loading}
 
-        <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />
+        {pagination}
 
         <SelectedActivities clickContinue={this.props.clickContinue}
                                isEnoughInputProvided={this.props.isEnoughInputProvidedToContinue}
