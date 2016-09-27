@@ -2,6 +2,7 @@ table.activity-table {
   margin-top: 20px;
   margin-bottom: 0;
   border-collapse: separate;
+  border-bottom: 1px solid #cecece;
   thead {
     background: #f7f5f5;
     tr th {
@@ -20,10 +21,15 @@ table.activity-table {
     }
   }
 
+  tbody tr {
+    &:first-of-type {
+      border-top: none;
+    }
+  }
+
   tbody tr td {
     font-size: 14px;
     padding: 7px;
-
     .preview-button {
       opacity: 0;
     }

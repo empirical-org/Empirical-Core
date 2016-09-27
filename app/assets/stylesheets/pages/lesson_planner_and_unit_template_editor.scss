@@ -38,6 +38,11 @@
     &#unit_name {
       width: 326px;
       margin-top: 20px;
+      & + img {
+        position: relative;
+        right: 20px;
+        cursor: pointer;
+      }
     }
   }
   button:not(.button-select) {
