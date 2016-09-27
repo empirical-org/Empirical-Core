@@ -243,6 +243,7 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :show_json
         put :sign_in
+        get :sign_in
       end
     end
   end
