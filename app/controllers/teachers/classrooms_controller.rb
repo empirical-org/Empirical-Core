@@ -13,7 +13,8 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def new
-    # just here to render the new view, then react takes care of everything
+    class_ids = current_user.classrooms_i_teach.map(&:id)
+    @has_activities = ClassroomActivity.where(classroom_id: class_ids).exists?
   end
 
   def classrooms_i_teach

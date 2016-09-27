@@ -2,6 +2,7 @@
 
  import React from 'react'
  import $ from 'jquery'
+ import SuffixBuilder from '../../../modules/numberSuffixBuilder.js'
 
  export default  React.createClass({
   propTypes: {
@@ -15,9 +16,9 @@
   stateSpecificComponent: function () {
     var grade = this.props.data.grade;
     if (grade) {
-      return "Great Activity Packs for Your Class";
+      return `Great Activity Packs for Your ${SuffixBuilder(grade)} Grade Class`;
     } else {
-      return "Featured Activity Packs"
+      return "Featured Activity Packs";
     }
   },
 
