@@ -28,11 +28,16 @@ export default React.createClass({
     quantity: function() {
       if (this.props.routeToGetQuantity) {
         var that = this;
-        $.ajax({url: this.props.routeToGetQuantity})
+        that.ajax = {};
+        that.ajax.quantity = $.ajax({url: this.props.routeToGetQuantity})
           .done(function(data) {
               that.setState({count: data.count, loading: false});
           });
       }
+    },
+
+    componentWillUnmount: function(){
+      this.ajax.quantity.abort();
     },
 
     changeView: function() {

@@ -1,6 +1,6 @@
 import BasicPricingMini from './premium_minis/basic_pricing_mini.jsx'
-import TeacherPricingMini from './premium_minis/district_pricing_mini.jsx'
-import DistrictPricingMini from './premium_minis/teacher_pricing_mini.jsx'
+import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx'
+import DistrictPricingMini from './premium_minis/district_pricing_mini.jsx'
 import React from 'react'
 
 export default React.createClass({

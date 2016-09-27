@@ -18,7 +18,7 @@ export default React.createClass({
     handleChange: function(date) {
         this.setState({startDate: date});
         // months and days are an array that start at index 0;
-        var formattedDate = date.year() + '-' + (date.month() + 1) + '-' + (date.date() + 1);
+        var formattedDate = date.year() + '-' + (date.month() + 1) + '-' + (date.date());
         this.props.assignActivityDueDate(this.props.activity, formattedDate);
     },
 
