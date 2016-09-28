@@ -1,6 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import {Link} from 'react-router'
+import questionActions from '../../actions/questions'
+import _ from 'underscore'
+import {hashToCollection} from '../../libs/hashToCollection'
+import C from '../../constants'
+import ResponseComponent from '../questions/responseComponent.jsx'
 
-export default React.createClass({
+const DiagnosticQuestion =  React.createClass({
 
   render: function () {
     return (
@@ -11,3 +18,15 @@ export default React.createClass({
   },
 
 })
+
+
+function select(state) {
+  return {
+    concepts: state.concepts,
+    diagnosticQuestions: state.diagnosticQuestions,
+    itemLevels: state.itemLevels,
+    routing: state.routing
+  }
+}
+
+export default connect(select)(Question)
