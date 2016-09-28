@@ -19,7 +19,7 @@ export default React.createClass({
 	},
 
 	switchToExploreActivityPacks: function(){
-		window.location.href = '/teachers/classrooms/lesson_planner?tab=exploreActivityPacks'
+		window.location.href = '/teachers/classrooms/lesson_planner?tab=exploreActivityPacks';
 	},
 
 	stateBasedComponent: function() {
@@ -39,7 +39,7 @@ export default React.createClass({
 			return (
 				<div>
 					<h2>Activity Analysis</h2>
-					<p>Open an activity analysis to view the student responses, the overall results on each question, and the concepts students need practice for each concept.</p>
+					<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need practice for each concept.</p>
 					<Units report={Boolean(true)} data={this.state.units}/>
 				</div>
 			);
