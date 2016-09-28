@@ -34,9 +34,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def default_diagnostic_report
-    if default_diagnostic_url
-      redirect_to default_diagnostic_url
-    end
+    redirect_to default_diagnostic_url
   end
 
 
@@ -61,7 +59,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     if first_completed_diagnostic
       ca = first_completed_diagnostic
       custom_url = "#u/#{ca.unit.id}/a/#{Activity.diagnostic.id}/c/#{ca.classroom_id}"
-      return base_url = "/teachers/progress_reports/diagnostic_reports/#{custom_url}/questions"
+      return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/questions"
+    else
+      return "/teachers/progress_reports/diagnostic_reports/#not_completed"
     end
   end
 
