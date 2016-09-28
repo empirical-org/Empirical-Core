@@ -24,11 +24,15 @@ export default React.createClass({
 			this.getClassroomsWithStudents();
 			this.getActivityData();
 		}
+
+		if (this.props.params.studentId) {
+			this.setStudentId(this.props.params.studentId);
+		}
 	},
 
 	componentWillReceiveProps: function(nextProps) {
 		if (nextProps.params && nextProps.params.studentId) {
-			this.setState({selectedStudentId: Number(nextProps.params.studentId)})
+			this.setStudentId(nextProps.params.studentId);
 		}
 	},
 
@@ -39,6 +43,10 @@ export default React.createClass({
 				call.abort();
 			}
 		}
+	},
+
+	setStudentId: function(studentId){
+		this.setState({selectedStudentId: Number(studentId)});
 	},
 
 	getClassroomsWithStudents: function() {
