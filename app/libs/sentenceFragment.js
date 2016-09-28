@@ -58,15 +58,13 @@ export default class POSMatcher {
     const userPOSTags = qpos.getPartsOfSpeechTags(userResponse);
     if (userPOSTags) {
       return _.find(this.optimalResponses, (optimalResponse, index)=>{
-        var found = true;
         if(optimalResponse.parentID) {
-          found = false;
+          return false;
         } else if (correctPOSTags[index]){
-          if (JSON.stringify(correctPOSTags[index]) !== JSON.stringify(userPOSTags)) {
-            found = false;
+          if (JSON.stringify(correctPOSTags[index]) === JSON.stringify(userPOSTags)) {
+            return true;
           }
         }
-        return found;
       })
     }
   }
