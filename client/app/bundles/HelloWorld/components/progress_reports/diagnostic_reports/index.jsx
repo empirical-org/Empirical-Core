@@ -21,8 +21,7 @@ export default React.createClass({
 	componentDidMount: function() {
 		// /activity_packs and not /not_completed are the only report that doesn't require the classroom, unit, etc...
 		if (['/activity_packs', '/not_completed'].indexOf(this.props.location.pathname) === -1) {
-			this.getClassroomsWithStudents();
-			this.getActivityData();
+			this.getStudentAndActivityData();
 		}
 
 		if (this.props.params.studentId) {
@@ -33,6 +32,10 @@ export default React.createClass({
 	componentWillReceiveProps: function(nextProps) {
 		if (nextProps.params && nextProps.params.studentId) {
 			this.setStudentId(nextProps.params.studentId);
+		}
+
+		if (['/activity_packs', '/not_completed'].indexOf(nextProps.location.pathname)) {
+			this.getStudentAndActivityData();
 		}
 	},
 
@@ -49,12 +52,18 @@ export default React.createClass({
 		this.setState({selectedStudentId: Number(studentId)});
 	},
 
+	getStudentAndActivityData: function() {
+		this.getClassroomsWithStudents();
+		this.getActivityData();
+	},
+
+
 	getClassroomsWithStudents: function() {
 		this.ajax = {};
 		let ajax = this.ajax;
 		let that = this;
 		const p = this.props.params;
-		$.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
+		ajax.getClassroomsWithStudents = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
 			that.setState({
 				classrooms: data,
 				loading: false
@@ -65,7 +74,7 @@ export default React.createClass({
 	getActivityData: function () {
 		let that = this;
 		const p = this.props.params;
-		$.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
+		this.ajax.getActivityData = $.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
 			that.setState({
 				selectedActivity: data["activity"]
 			});
@@ -92,7 +101,7 @@ export default React.createClass({
 			this.setState({
 				selectedClassroom: classroom,
 				selectedStudentId: null
-			})
+			});
 			const p = this.props.params;
 			this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/report`)
 		}
