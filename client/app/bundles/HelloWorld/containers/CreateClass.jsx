@@ -8,8 +8,13 @@ require('../../../assets/styles/app-variables.scss')
 
 export default React.createClass({
 
+    propTypes: {
+      hasClassroomActivities: React.PropTypes.bool
+    },
+
+
     componentDidMount: function() {
-        this.getClassCode();
+      this.getClassCode();
     },
 
     getInitialState: function() {
@@ -76,15 +81,18 @@ export default React.createClass({
       let that = this;
       $.post('/teachers/classrooms/', {classroom: this.state.classroom})
         .success(function(data){
-            let nextPage
+            let nextPage;
             if (that.props.closeModal) {
               // only used if it is rendered within a modal
               that.props.closeModal('because class added');
             }
+            else if (that.props.hasClassroomActivities === false) {
+              window.location.assign(`/teachers/classrooms/lesson_planner?tab=exploreActivityPacks&grade=${that.state.classroom.grade}`);
+            }
             else if (data.toInviteStudents) {
-              window.location.assign(`/teachers/classrooms/${data.classroom.id}/invite_students`)
+              window.location.assign(`/teachers/classrooms/${data.classroom.id}/invite_students`);
             } else {
-              window.location.assign('/teachers/classrooms/scorebook')
+              window.location.assign('/teachers/classrooms/scorebook');
             }
         })
         .error(function(data){
