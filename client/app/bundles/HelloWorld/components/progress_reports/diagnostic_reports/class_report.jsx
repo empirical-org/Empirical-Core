@@ -61,10 +61,11 @@ export default React.createClass({
         question_id: 'natural',
         score: 'numeric',
         instructions: 'natural',
-        prompt: 'natural'
+        prompt: 'natural',
+        time: 'numeric'
       },
       default: {
-        field: 'question_id',
+        field: 'score',
         direction: 'asc'
       }
     };
