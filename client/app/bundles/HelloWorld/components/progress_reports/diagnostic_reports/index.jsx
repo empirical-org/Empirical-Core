@@ -35,7 +35,7 @@ export default React.createClass({
 		}
 
 		if (['/activity_packs', '/not_completed'].indexOf(nextProps.location.pathname)) {
-			this.getStudentAndActivityData();
+			this.getStudentAndActivityData(nextProps.params);
 		}
 	},
 
@@ -52,17 +52,17 @@ export default React.createClass({
 		this.setState({selectedStudentId: Number(studentId)});
 	},
 
-	getStudentAndActivityData: function() {
-		this.getClassroomsWithStudents();
-		this.getActivityData();
+	getStudentAndActivityData: function(params) {
+		this.getClassroomsWithStudents(params);
+		this.getActivityData(params);
 	},
 
 
-	getClassroomsWithStudents: function() {
+	getClassroomsWithStudents: function(params) {
 		this.ajax = {};
 		let ajax = this.ajax;
 		let that = this;
-		const p = this.props.params;
+		const p = params || this.props.params;
 		ajax.getClassroomsWithStudents = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
 			that.setState({
 				classrooms: data,
@@ -71,9 +71,9 @@ export default React.createClass({
 		});
 	},
 
-	getActivityData: function () {
+	getActivityData: function (params) {
 		let that = this;
-		const p = this.props.params;
+		const p = params || this.props.params;
 		this.ajax.getActivityData = $.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
 			that.setState({
 				selectedActivity: data["activity"]
