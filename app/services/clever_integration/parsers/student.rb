@@ -1,6 +1,8 @@
 module CleverIntegration::Parsers::Student
 
   def self.run(hash)
+    puts "Clever Student Hash"
+    puts hash
     name_hash = hash[:name]
     name = self.generate_name(name_hash[:first], name_hash[:last])
     {
