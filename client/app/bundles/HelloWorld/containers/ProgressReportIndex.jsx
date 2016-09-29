@@ -17,7 +17,10 @@ require('../../../assets/styles/app-variables.scss')
 
 var renderRightComponentHack = function() {
   var ele = $('.student-reports-subnav.tab-subnavigation-wrapper');
-  if (ele.length > 0) {
+  let path = window.location.pathname;
+  let shouldHaveBanner = !path.includes('/landing_page') && !path.includes('diagnostic_report');
+
+  if (ele.length > 0 && shouldHaveBanner) {
     ReactDOM.render(React.createElement(PremiumBannerBuilder), $(ele[0]).next()[0]);
   }
 
