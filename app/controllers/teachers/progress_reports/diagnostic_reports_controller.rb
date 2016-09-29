@@ -34,9 +34,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def default_diagnostic_report
-    if default_diagnostic_url
-      redirect_to default_diagnostic_url
-    end
+    redirect_to default_diagnostic_url
   end
 
 
@@ -61,7 +59,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     if first_completed_diagnostic
       ca = first_completed_diagnostic
       custom_url = "#u/#{ca.unit.id}/a/#{Activity.diagnostic.id}/c/#{ca.classroom_id}"
-      return base_url = "/teachers/progress_reports/diagnostic_reports/#{custom_url}/questions"
+      return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/questions"
+    else
+      return "/teachers/progress_reports/diagnostic_reports/#not_completed"
     end
   end
 
@@ -95,7 +95,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   def classrooms_with_students_that_completed_activity unit_id, activity_id
     h = {}
     unit = Unit.find(unit_id)
-    class_act = unit.classroom_activities.find_by(activity_id: activity_id)
+    class_ids = current_user.classrooms_i_teach.map(&:id)
+    #without definining class ids, it may default to a classroom activity from a non-existant classroom
+    class_act = unit.classroom_activities.where(activity_id: activity_id, classroom_id: class_ids).limit(1).first
     classroom = class_act.classroom.attributes
     activity_sessions = class_act.activity_sessions.completed
     activity_sessions.each do |activity_session|

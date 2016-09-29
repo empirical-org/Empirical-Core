@@ -15,20 +15,24 @@ export default React.createClass({
 			classrooms: null,
 			selectedClassroom: null,
 			selectedStudent: null,
-			selectedActivity: {}})
+			selectedActivity: {}});
 	},
 
 	componentDidMount: function() {
-		// /activity_packs is the only report that doesn't require the classroom, unit, etc...
-		if (this.props.location.pathname != '/activity_packs') {
+		// /activity_packs and not /not_completed are the only report that doesn't require the classroom, unit, etc...
+		if (['/activity_packs', '/not_completed'].indexOf(this.props.location.pathname) === -1) {
 			this.getClassroomsWithStudents();
 			this.getActivityData();
+		}
+
+		if (this.props.params.studentId) {
+			this.setStudentId(this.props.params.studentId);
 		}
 	},
 
 	componentWillReceiveProps: function(nextProps) {
 		if (nextProps.params && nextProps.params.studentId) {
-			this.setState({selectedStudentId: Number(nextProps.params.studentId)})
+			this.setStudentId(nextProps.params.studentId);
 		}
 	},
 
@@ -39,6 +43,10 @@ export default React.createClass({
 				call.abort();
 			}
 		}
+	},
+
+	setStudentId: function(studentId){
+		this.setState({selectedStudentId: Number(studentId)});
 	},
 
 	getClassroomsWithStudents: function() {
@@ -103,8 +111,8 @@ export default React.createClass({
 	},
 
 	render: function() {
-		// we don't want to render a navbar for the activity packs report
-		if (this.props.location.pathname === '/activity_packs') {
+		// we don't want to render a navbar for the activity packs or not_complted
+		if (['/activity_packs', '/not_completed'].indexOf(this.props.location.pathname) !== -1) {
 			return (
 				<div>{this.props.children}</div>
 			)
