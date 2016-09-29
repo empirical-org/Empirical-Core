@@ -1,5 +1,6 @@
 module ProgressReportHelper
   def is_progress_report_page?
+    controller.class == Teachers::ProgressReportsController || 
     controller.class.parent == Teachers::ProgressReports ||
     controller.class.parent == Teachers::ProgressReports::Standards ||
     controller.class.parent == Teachers::ProgressReports::Concepts
