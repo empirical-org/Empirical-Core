@@ -37,8 +37,8 @@ export default React.createClass({
 			);
 		} else {
 			return (
-				<div>
-					<h2>Activity Analysis</h2>
+				<div className='activity-analysis'>
+					<h1>Activity Analysis</h1>
 					<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need practice for each concept.</p>
 					<Units report={Boolean(true)} data={this.state.units}/>
 				</div>
