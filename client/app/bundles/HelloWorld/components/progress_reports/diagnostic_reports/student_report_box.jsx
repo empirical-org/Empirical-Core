@@ -24,7 +24,7 @@ export default React.createClass({
 		return this.props.questionData.concepts.map((concept) => (
 			<tr key={concept.id}>
 				<td>Concept</td>
-				<td>{<img src={'/images/' + (concept.correct ? 'check' : 'x') + '.svg'}/>}
+				<td>{<img src={'/images/' + (concept.correct ? 'green_check' : 'red_x') + '.svg'}/>}
         </td>
         <td>{concept.name}</td>
 			</tr>
