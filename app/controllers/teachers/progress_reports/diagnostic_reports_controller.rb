@@ -134,7 +134,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
           score: get_average_score(formatted_concept_results)
         }
     end
-    scores[:students].sort_by!{|s| s[:score]}
     scores
   end
 
