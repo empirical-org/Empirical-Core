@@ -5,6 +5,7 @@
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import UnitTemplateMinisHeader from './unit_template_minis_header'
  import RowsCreator from '../../../modules/rows_creator'
+ import _ from 'underscore'
 
 
  export default  React.createClass({
@@ -104,8 +105,9 @@
               <div className='row'>
                 {this.listFilterOptions()}
               </div>
+                {this.generateShowAllGradesView()}
               <div className='row'>
-                {this.generateUnitTemplateViews()}
+              {this.generateUnitTemplateViews()}
               </div>
               <div className='row'>
                 {this.generateShowAllGradesView()}

@@ -18,12 +18,16 @@ export default React.createClass({
 		this.setState({units: data.units, loaded: true});
 	},
 
+	switchToExploreActivityPacks: function(){
+		window.location.href = '/teachers/classrooms/lesson_planner?tab=exploreActivityPacks';
+	},
+
 	stateBasedComponent: function() {
 		if (this.state.units.length === 0 && this.state.loaded) {
 			return (
 				<div className="row empty-unit-manager">
 					<div className="col-xs-7">
-						<p>Welcome! This is where your assigned activity packs are stored, but it's empty at the moment.</p>
+						<p>Welcome! This is where you'll be able to see reports detailing your students' answers, but they haven't completed any activities yet.</p>
 						<p>Let's add your first activity from the Featured Activity Pack library.</p>
 					</div>
 					<div className="col-xs-4">
@@ -35,7 +39,7 @@ export default React.createClass({
 			return (
 				<div>
 					<h2>Activity Analysis</h2>
-					<p>Open an activity analysis to view the student responses, the overall results on each question, and the concepts students need practice for each concept.</p>
+					<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need practice for each concept.</p>
 					<Units report={Boolean(true)} data={this.state.units}/>
 				</div>
 			);
