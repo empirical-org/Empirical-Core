@@ -6,6 +6,7 @@ import NavBar from '../navbar/navbar.jsx';
 import conceptActions from '../../actions/concepts'
 import conceptsFeedbackActions from '../../actions/concepts-feedback'
 import questionActions from '../../actions/questions'
+import diagnosticQuestionActions from '../../actions/diagnosticQuestions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import pathwayActions from '../../actions/pathways'
 import lessonActions from '../../actions/lessons'
@@ -18,6 +19,7 @@ const adminContainer = React.createClass({
     this.props.dispatch( conceptActions.startListeningToConcepts() );
     this.props.dispatch( conceptsFeedbackActions.startListeningToConceptsFeedback() );
     this.props.dispatch( questionActions.startListeningToQuestions() );
+    this.props.dispatch( diagnosticQuestionActions.startListeningToDiagnosticQuestions() );
     this.props.dispatch( sentenceFragmentActions.startListeningToSentenceFragments() );
     this.props.dispatch( pathwayActions.startListeningToPathways() );
     this.props.dispatch( lessonActions.startListeningToLessons() );
@@ -35,6 +37,7 @@ const adminContainer = React.createClass({
                 <ul>
                   <TabLink to={"/admin/concepts"} activeClassName="is-active">Concepts</TabLink>
                   <TabLink to={"/admin/questions"} activeClassName="is-active">Questions</TabLink>
+                  <TabLink to={"/admin/diagnostic-questions"} activeClassName="is-active">Diagnostic Questions</TabLink>
                   <TabLink to={"/admin/sentence-fragments"} activeClassName="is-active">Sentence Fragments</TabLink>
                   <TabLink to={"/admin/lessons"} activeClassName="is-active">Lessons</TabLink>
                   <TabLink to={"/admin/diagnostics"} activeClassName="is-active">Diagnostics</TabLink>

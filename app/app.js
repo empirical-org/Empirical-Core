@@ -16,6 +16,8 @@ import Concepts from "./components/concepts/concepts.jsx";
 import Concept from "./components/concepts/concept.jsx";
 import Questions from "./components/questions/questions.jsx";
 import Question from "./components/questions/question.jsx";
+import DiagnosticQuestions from "./components/diagnosticQuestions/diagnosticQuestions.jsx";
+import DiagnosticQuestion from "./components/diagnosticQuestions/diagnosticQuestion.jsx";
 import SentenceFragments from "./components/sentenceFragments/sentenceFragments.jsx";
 import NewSentenceFragment from "./components/sentenceFragments/newSentenceFragment.jsx";
 import SentenceFragment from "./components/sentenceFragments/sentenceFragment.jsx";
@@ -81,6 +83,7 @@ render((
         <Route path="/play" component={StudentRoot}>
           <IndexRoute component={Play} />
           <Route path="turk" component={Turk}/>
+          <Route path="turk/:lessonID" component={Turk}/>
           <Route path="game" component={Passthrough}>
             <IndexRoute component={Passthrough}
               onEnter={
@@ -117,6 +120,10 @@ render((
           {/*Questions section*/}
           <Route path="questions" component={Questions}/>
           <Route path="questions/:questionID" component={Question}/>
+
+          {/*Questions section*/}
+          <Route path="diagnostic-questions" component={DiagnosticQuestions}/>
+          <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion}/>
 
           {/*Sentence Fragment sections*/}
           <Route path="sentence-fragments" component={SentenceFragments}/>

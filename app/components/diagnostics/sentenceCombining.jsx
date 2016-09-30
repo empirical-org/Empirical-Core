@@ -2,7 +2,7 @@ import React from 'react'
 var Markdown = require('react-remarkable');
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
-import Question from '../../libs/question'
+import Question from '../../libs/diagnosticQuestion'
 import Textarea from 'react-textarea-autosize';
 import icon from '../../img/question_icon.svg'
 import _ from 'underscore'
@@ -101,7 +101,7 @@ const PlayDiagnosticQuestion = React.createClass({
   checkAnswer: function (e) {
     this.removePrefilledUnderscores()
 
-    var response = getResponse(this.getQuestion(), this.state.response)
+    var response = getResponse(this.getQuestion(), this.state.response, this.props.marking)
     this.updateResponseResource(response)
     this.submitResponse(response)
 

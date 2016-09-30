@@ -7,6 +7,7 @@ import ResponseList from './responseList.jsx'
 import Question from '../../libs/question'
 import questionActions from '../../actions/questions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
+import diagnosticQuestionActions from '../../actions/diagnosticQuestions'
 import ResponseSortFields from './responseSortFields.jsx'
 import ResponseToggleFields from './responseToggleFields.jsx'
 import FocusPointForm from './focusPointForm.jsx'
@@ -28,6 +29,8 @@ const Responses = React.createClass({
     let actions;
     if (this.props.mode === "sentenceFragment") {
       actions = sentenceFragmentActions;
+    } else if (this.props.mode === "diagnosticQuestion") {
+      actions = diagnosticQuestionActions;
     } else {
       actions = questionActions;
     }
