@@ -29,7 +29,7 @@ export default function(currentstate,action){
             });
         case C.START_DIAGNOSTIC_QUESTION_EDIT:
             newstate = _.cloneDeep(currentstate);
-            newstate.states[action.qid] = C.EDITING_DIAGNOSTIC_QUESTION;
+            newstate.states[action.qid] = C.EDITING_QUESTION;
             return newstate;
         case C.FINISH_DIAGNOSTIC_QUESTION_EDIT:
             newstate = _.cloneDeep(currentstate);
@@ -45,7 +45,7 @@ export default function(currentstate,action){
             });
         case C.START_DIAGNOSTIC_RESPONSE_EDIT:
             newstate = _.cloneDeep(currentstate);
-            newstate.states[action.qid] = C.START_DIAGNOSTIC_RESPONSE_EDIT + "_" + action.rid;
+            newstate.states[action.qid] = C.START_RESPONSE_EDIT + "_" + action.rid;
             return newstate;
         case C.FINISH_DIAGNOSTIC_RESPONSE_EDIT:
             newstate = _.cloneDeep(currentstate);
@@ -53,7 +53,7 @@ export default function(currentstate,action){
             return newstate;
         case C.START_CHILD_DIAGNOSTIC_RESPONSE_VIEW:
             newstate = _.cloneDeep(currentstate);
-            newstate.states[action.qid] = C.START_CHILD_DIAGNOSTIC_RESPONSE_VIEW + "_" + action.rid;
+            newstate.states[action.qid] = C.START_CHILD_RESPONSE_VIEW + "_" + action.rid;
             return newstate;
         case C.CANCEL_CHILD_DIAGNOSTIC_RESPONSE_VIEW:
             newstate = _.cloneDeep(currentstate);
@@ -61,7 +61,7 @@ export default function(currentstate,action){
             return newstate;
         case C.START_FROM_DIAGNOSTIC_RESPONSE_VIEW:
             newstate = _.cloneDeep(currentstate);
-            newstate.states[action.qid] = C.START_FROM_DIAGNOSTIC_RESPONSE_VIEW + "_" + action.rid;
+            newstate.states[action.qid] = C.START_FROM_RESPONSE_VIEW + "_" + action.rid;
             return newstate;
         case C.CANCEL_FROM_DIAGNOSTIC_RESPONSE_VIEW:
             newstate = _.cloneDeep(currentstate);
