@@ -141,7 +141,7 @@ export default class Question {
       return removePunctuation(resp.text.normalize()) === removePunctuation(response.normalize())
     });
   }
-  
+
   checkPunctuationAndCaseInsensitiveMatch(response) {
     return _.find(this.getOptimalResponses(), (resp) => {
       const supplied = removeCaseSpacePunc(response)
@@ -157,16 +157,19 @@ export default class Question {
   }
 
   checkFuzzyMatch(response) {
-    const set = fuzzy(_.pluck(this.responses, "text"));
-    const matches = set.get(response, []);
+    const set = fuzzy(_.map(_.pluck(this.responses, "text"), (resp) => {
+      return removeCaseSpacePunc(resp)
+    }));
+    const matches = set.get(removeCaseSpacePunc(response), []);
     var foundResponse = undefined;
     var text = undefined;
     if (matches.length > 0) {
-      var threshold = (matches[0][1].length - 2) / matches[0][1].length
-      text = (matches[0][0] > threshold) && (response.split(" ").length <= matches[0][1].split(" ").length) ? matches[0][1] : null;
+      var threshold = (matches[0][1].length - 1) / matches[0][1].length
+      text = (matches[0][0] >= threshold) ? matches[0][1] : null;
     }
     if (text) {
-      foundResponse = _.findWhere(this.responses, {text})
+      foundResponse = _.findWhere(this.responses, (resp) => {
+        return removeCaseSpacePunc(resp.text) === text })
     }
     return foundResponse
   }
