@@ -78,8 +78,23 @@ var StudentDiagnostic = React.createClass({
     this.props.dispatch(updateName(name))
   },
 
+  questionsForLesson: function () {
+    var questionsCollection = hashToCollection(this.props.questions.data)
+    const {data} = this.props.lessons, {lessonID} = this.props.params;
+    return data[lessonID].questions.map((id) => {
+      return {
+        type: "SC",
+        key: id
+      }
+    })
+  },
+
   getData: function() {
-    return diagnosticQuestions()
+    if (this.props.params.lessonID) {
+      return this.questionsForLesson()
+    } else {
+      return diagnosticQuestions()
+    }
   },
 
   markIdentify: function (bool) {
@@ -88,13 +103,11 @@ var StudentDiagnostic = React.createClass({
   },
 
   getProgressPercent: function () {
-    console.log("hey: ", this.props)
     if (this.props.playDiagnostic && this.props.playDiagnostic.answeredQuestions && this.props.playDiagnostic.questionSet) {
       return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100
     } else {
       0
     }
-
   },
 
   getFetchedData: function() {
@@ -167,6 +180,7 @@ var StudentDiagnostic = React.createClass({
 
 function select(state) {
   return {
+    lessons: state.lessons,
     routing: state.routing,
     questions: state.questions,
     playDiagnostic: state.playDiagnostic,

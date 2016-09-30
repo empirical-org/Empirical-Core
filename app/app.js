@@ -83,6 +83,7 @@ render((
         <Route path="/play" component={StudentRoot}>
           <IndexRoute component={Play} />
           <Route path="turk" component={Turk}/>
+          <Route path="turk/:lessonID" component={Turk}/>
           <Route path="game" component={Passthrough}>
             <IndexRoute component={Passthrough}
               onEnter={
