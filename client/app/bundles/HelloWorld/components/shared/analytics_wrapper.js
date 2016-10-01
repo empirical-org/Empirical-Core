@@ -22,4 +22,4 @@
       whenAnalyticsNotDefined();
     }
   };
-};
+}
