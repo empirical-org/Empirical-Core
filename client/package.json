@@ -35,8 +35,9 @@
     "node-sass": "^3.4.2",
     "pluralize": "^3.0.0",
     "postcss-loader": "^0.8.2",
-    "react": "^15.0.0",
+    "react": "^15.2.0",
     "react-addons-css-transition-group": "^15.2.0",
+    "react-addons-update": "^15.2.1",
     "react-bootstrap": "^0.30.0",
     "react-datepicker": "^0.27.0",
     "react-dom": "^15.2.1",
@@ -63,9 +64,6 @@
     "estraverse-fb": "^1.3.1",
     "jscs": "^2.11.0",
     "moments": "0.0.2",
-    "react": "^15.2.0",
-    "react-addons-css-transition-group": "^15.2.0",
-    "react-datepicker": "^0.27.0",
     "react-transform-hmr": "^1.0.4",
     "webpack-dev-server": "^1.14.1"
   },
@@ -88,6 +86,6 @@
     "hot-assets": "babel-node server-rails-hot.js",
     "install-react-on-rails": "npm install 'react-on-rails'"
   },
-  "author": "",
+  "author": "Empirical",
   "license": "ISC"
 }
