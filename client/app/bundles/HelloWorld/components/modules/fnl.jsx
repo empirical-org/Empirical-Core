@@ -26,4 +26,4 @@ import _ from 'underscore'
     }
     return newArray;
   }
-};
+}
