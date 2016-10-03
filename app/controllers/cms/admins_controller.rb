@@ -14,7 +14,7 @@ class Cms::AdminsController < ApplicationController
   def create
     @admin = User.new(admin_params)
     @admin.role = 'admin'
-    if @admin.save
+    if @admin.save!
       render json: @admin
     else
       render json: @admin.errors, status: 422

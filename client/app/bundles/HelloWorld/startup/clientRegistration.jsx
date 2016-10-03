@@ -12,6 +12,8 @@ import StudentProfileApp from './StudentProfileAppClient';
 import ArchivedClassroomsManagerApp from './ArchivedClassroomsManagerAppClient'
 import ResultsPageApp from './ResultsPageAppClient'
 import AdminDashboardApp from './AdminDashboardAppClient'
+import AdminAccountsApp from './AdminAccountsAppClient'
+import AdminsEditorApp from './AdminsEditorAppClient'
 import JoinClassApp from './JoinClassAppClient'
 import PublicActivityPacksApp from './PublicActivityPacksAppClient.jsx'
 import AddStudentApp from './AddStudentAppClient.jsx'
@@ -26,6 +28,6 @@ import UnitTemplatesApp from './UnitTemplatesClient.jsx'
 ReactOnRails.register({ TeacherGuideApp, HelloWorldApp, DashboardApp,
   LessonPlannerApp, TeacherAccountApp, NewAccountApp, ScorebookApp,
   PremiumPricingGuideApp, ProgressReportApp, StudentProfileApp,
-  ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, JoinClassApp,
-  PublicActivityPacksApp, AddStudentApp, DiagnosticPlannerApp, DiagnosticReportsApp,
-  CreateClassApp, UnitTemplatesApp});
+  ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, AdminAccountsApp,
+  AdminsEditorApp, JoinClassApp, PublicActivityPacksApp, AddStudentApp,
+  DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp});

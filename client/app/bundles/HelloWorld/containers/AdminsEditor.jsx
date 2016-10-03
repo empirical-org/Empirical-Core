@@ -1,15 +1,9 @@
 'use strict';
-$(function () {
-  var ele = $('#cms-admins');
-  if (ele.length > 0) {
-    var props, comp;
-    props = {}
-    comp = React.createElement(EC.cms.Admins, props);
-    React.render(comp, ele[0]);
-  }
-});
+import React from 'react'
+import Resource from '../components/cms/resources/resource.jsx'
+import Cms from './Cms.jsx'
 
-EC.cms.Admins = React.createClass({
+export default React.createClass({
 
   resourceComponentGenerator: function (cmsComponent) {
 
@@ -30,12 +24,11 @@ EC.cms.Admins = React.createClass({
       {name: 'password',
        type: 'password'}
     ];
-
     return (
       <div>
         <div className='row'>
           <div className='col-xs-12'>
-            <EC.Resource
+            <Resource
                resourceNameSingular='admin'
                resourceNamePlural='admins'
                initialModel={initialModel}
@@ -52,7 +45,7 @@ EC.cms.Admins = React.createClass({
 
   render: function () {
     return (
-      <EC.Cms resourceNameSingular='admin'
+      <Cms resourceNameSingular='admin'
               resourceNamePlural='admins'
               resourceComponentGenerator={this.resourceComponentGenerator}/>
 
