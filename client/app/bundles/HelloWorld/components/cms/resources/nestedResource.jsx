@@ -1,4 +1,9 @@
-EC.cms.NestedResource = React.createClass({
+import React from 'react'
+import NewNestedResource from './newNestedResource.jsx'
+import CmsIndexTable from '../cms_index_table/cms_index_table.jsx'
+
+export default React.createClass({
+
   propTypes: {
     data: React.PropTypes.object.isRequired,
     /*
@@ -40,12 +45,12 @@ EC.cms.NestedResource = React.createClass({
           <br /><br />
           <div className='row'>
             <div className='col-xs-12'>
-              <EC.cms.NewNestedResource data={this.props.data} actions={this.props.actions} />
+              <NewNestedResource data={this.props.data} actions={this.props.actions} />
             </div>
           </div>
           <div className='row'>
             <div className='col-xs-12'>
-              <EC.CmsIndexTable
+              <CmsIndexTable
                 data={{resources: this.props.data.resources, identifier: this.props.data.identifier}}
                 actions={{delete: this.delete}}/>
             </div>
