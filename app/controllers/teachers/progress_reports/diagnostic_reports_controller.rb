@@ -201,10 +201,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
           concept_id: "QNkNRs8zbCXU7nLBeo4mgA",
           count: 1
         },
-        {
-          concept_id: "GZ04vHSTxWUTzhWMGfwcUQ",
-          count: 1
-        },
       ]
     },
 
@@ -213,7 +209,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       activityPackId: 8,
       requirements: [
         {
-          concept_id: "GiUZ6KPkH958AT8S413nJg",
+          concept_id: "oCQCO1_eVXQ2zqw_7QOuBw",
           count: 1
         }
       ]
@@ -236,7 +232,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       requirements: [
         {
           concept_id: "GiUZ6KPkH958AT8S413nJg",
-          count: 4
+          count: 2
         },
         {
           concept_id: "Qqn6Td-zR6NIAX43NOHoCg",
@@ -244,10 +240,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         },
         {
           concept_id: "hJKqVOkQQQgfEsmzOWC1xw",
-          count: 1
-        },
-        {
-          concept_id: "72q842CV_svVJyAhouSArg",
           count: 1
         },
         {
@@ -270,19 +262,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
           count: 2
         },
         {
-          concept_id: "v5U1EpXQ1dLjLlNQu0Js_w",
-          count: 1
-        },
-        {
           concept_id: "S8b-N3ZrB50CWgxD5yg8yQ",
           count: 1
         },
         {
           concept_id: "7H2IMZvq0VJ4Uvftyrw7Eg",
-          count: 1
-        },
-        {
-          concept_id: "VKmlb8cQQaIo1AeM9X79qw",
           count: 1
         }
       ]
@@ -297,7 +281,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
           count: 1
         },
         {
-          concept_id: "VzHTK34WeLp6lfbpkM-L2w",
+          concept_id: "GLjAExmqZShBTZ7DQGvVLw",
           count: 1
         }
       ]
@@ -308,7 +292,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       activityPackId: 10,
       requirements: [
         {
-          concept_id: "O9DCEPwtmVvmlRhmdiaw6w",
+          concept_id: "1ohLyApTz7lZ3JszrA98Xg",
           count: 1
         }
       ]
