@@ -9,7 +9,7 @@ export default React.createClass({
     update: React.PropTypes.func.isRequired,
     name: React.PropTypes.string.isRequired,
     default: React.PropTypes.string,
-    errors: React.PropTypes.object,
+    errors: React.PropTypes.array,
     label: React.PropTypes.string,
     errorLabel: React.PropTypes.string,
     errorKey: React.PropTypes.string,
