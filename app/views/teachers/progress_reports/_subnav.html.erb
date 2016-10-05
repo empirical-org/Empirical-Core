@@ -6,9 +6,9 @@
         <li><%= active_link_to 'Activity Analysis', '/teachers/progress_reports/diagnostic_reports/#/activity_packs', class: 'default'%></li>
         <li><%= active_link_to 'Diagnostic', teachers_progress_reports_diagnostic_report_path, class: 'default'%></li>
       <%end%>
+      <li><%= active_link_to raw('List Overview  <i class="fa fa-star"></i>'), teachers_progress_reports_activity_sessions_path %></li>
       <li><%= active_link_to raw('Concepts  <i class="fa fa-star"></i>'), teachers_progress_reports_concepts_students_path%></li>
       <li><%= active_link_to raw('Common Core Standards  <i class="fa fa-star"></i>'), teachers_progress_reports_standards_classrooms_path %></li>
-      <li><%= active_link_to raw('List Overview  <i class="fa fa-star"></i>'), teachers_progress_reports_activity_sessions_path %></li>
     </ul>
   </div>
 </div>

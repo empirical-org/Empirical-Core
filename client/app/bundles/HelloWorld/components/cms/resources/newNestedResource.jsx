@@ -1,4 +1,7 @@
-EC.cms.NewNestedResource = React.createClass({
+import React from 'react'
+import TextInputGenerator from '../../modules/componentGenerators/text_input_generator.jsx'
+
+export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object.isRequired
@@ -6,7 +9,7 @@ EC.cms.NewNestedResource = React.createClass({
 
   getInitialState: function () {
     this.modules = {
-      textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateModelState)
+      textInputGenerator: new TextInputGenerator(this, this.updateModelState)
     }
     return {
       model: {id: null}
