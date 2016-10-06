@@ -51,4 +51,4 @@ export default function (component, update, options) {
     }
     return inputs;
   };
-};
+}
