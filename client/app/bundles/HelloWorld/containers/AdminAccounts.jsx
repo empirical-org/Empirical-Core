@@ -1,15 +1,9 @@
-'use strict';
-$(function () {
-  var ele = $('#cms-admin-accounts');
-  if (ele.length > 0) {
-    var props, comp;
-    props = {}
-    comp = React.createElement(EC.cms.AdminAccounts, props);
-    React.render(comp, ele[0]);
-  }
-});
+'use strict'
+import Resource from '../components/cms/resources/resource.jsx'
+import Cms from './Cms.jsx'
+import React from 'react'
 
-EC.cms.AdminAccounts = React.createClass({
+export default React.createClass({
 
   resourceComponentGenerator: function (cmsComponent) {
 
@@ -19,8 +13,8 @@ EC.cms.AdminAccounts = React.createClass({
       admins: []
     };
 
-    var savingKeys = ['id', 'name', 'admins', 'teachers']
-    var fieldsToNormalize = []
+    var savingKeys = ['id', 'name', 'admins', 'teachers'];
+    var fieldsToNormalize = [];
 
     var formFields = [
       {
@@ -51,7 +45,7 @@ EC.cms.AdminAccounts = React.createClass({
       <div>
         <div className='row'>
           <div className='col-xs-12'>
-            <EC.Resource
+            <Resource
                resourceNameSingular='admin_account'
                resourceNamePlural='admin_accounts'
                initialModel={initialModel}
@@ -69,7 +63,7 @@ EC.cms.AdminAccounts = React.createClass({
 
   render: function () {
     return (
-      <EC.Cms resourceNameSingular='admin_account'
+      <Cms resourceNameSingular='admin_account'
               resourceNamePlural='admin_accounts'
               resourceComponentGenerator={this.resourceComponentGenerator}/>
 
