@@ -35,7 +35,7 @@ export default React.createClass({
     if (this.props.checkboxData.loading) {
       content = <LoadingIndicator/>;
     } else {
-       content = <CheckboxSection checkboxes={this.props.checkboxData} dashboard={true}/>};
+       content = <CheckboxSection checkboxes={this.props.checkboxData} dashboard={true}/>;}
    return content;
   },
 

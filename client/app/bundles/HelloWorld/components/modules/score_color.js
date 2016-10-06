@@ -10,6 +10,6 @@ export default function(grade) {
 		color = 'red';
 	} else {
 		color = null;
-	};
+	}
 	return color + '-score-color';
-};
+}

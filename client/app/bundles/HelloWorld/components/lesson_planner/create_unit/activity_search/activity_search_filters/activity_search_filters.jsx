@@ -13,7 +13,7 @@
     let clearButton;
     if (_.any(this.props.data, (el)=>el.selected !== null)) {
         clearButton = <div className='clear-filters' onClick={this.props.clearFilters}><span><img src="/images/x.svg"/>Clear All Filters</span></div>;
-    };
+    }
 
 
     var filters = this.props.data.map((filter, index)=> {
