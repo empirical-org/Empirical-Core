@@ -88,7 +88,7 @@ class Classroom < ActiveRecord::Base
 
   def generate_code
     self.code = NameGenerator.generate
-    if Classroom.find_by_code(code) then generate_code end
+    if Classroom.unscoped.find_by_code(code) then generate_code end
   end
 
   def students_classrooms_json(student_id)
