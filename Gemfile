@@ -80,7 +80,7 @@ gem 'lodash-rails', '~> 3.10.1'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
-gem "active_model_serializers"
+gem "active_model_serializers", '~> 0.9.0'
 
 # UI HELPERS
 gem 'sass'
