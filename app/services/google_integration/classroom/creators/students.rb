@@ -51,7 +51,9 @@ module GoogleIntegration::Classroom::Creators::Students
       puts data[:email]
       puts data[:classroom].attributes
       puts "End Google Student"
-      unless student.errors.any?
+      if student.errors.any?
+        puts "Error: Could not save google classroom student."
+      else
         Associators::StudentsToClassrooms.run(student, data[:classroom])
       end
       student
