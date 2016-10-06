@@ -1,4 +1,9 @@
-EC.Resource = React.createClass({
+import React from 'react'
+import TextInputGenerator from '../../modules/componentGenerators/text_input_generator.jsx'
+import Server from '../../modules/server/server.jsx';
+import NestedResource from '../../modules/nested_resource.jsx'
+import CmsNestedResource from './nestedResource.jsx'
+export default React.createClass({
   propTypes: {
     resourceNameSingular: React.PropTypes.string.isRequired,
     resourceNamePlural: React.PropTypes.string.isRequired,
@@ -23,13 +28,19 @@ EC.Resource = React.createClass({
 
   initializeModules: function () {
     this.modules = {
-      textInputGenerator: new EC.modules.TextInputGenerator(this, this.updateModelState),
-      server: new EC.modules.Server(this.props.resourceNameSingular, this.props.resourceNamePlural, '/cms'),
+      textInputGenerator: new TextInputGenerator(this, this.updateModelState),
+      server: new Server(this.props.resourceNameSingular, this.props.resourceNamePlural, '/cms'),
       nestedResources: []
+    };
+    let that = this;
+    if (this.props.nestedResources) {
+      this.props.nestedResources.forEach((nr)=>{
+        if (nr.name) {
+          that.modules.nestedResources[nr.name] = new NestedResource(that, nr.name);
+        }
+      });
     }
-    _.each(this.props.nestedResources, function (nr) {
-      this.modules.nestedResources[nr.name] = new EC.modules.NestedResource(this, nr.name)
-    }, this);
+
   },
 
   updateModelState: function (key, value) {
@@ -75,11 +86,14 @@ EC.Resource = React.createClass({
 
   render: function () {
     var inputs = this.modules.textInputGenerator.generate(this.props.formFields);
-    var nestedResources = _.map(this.props.nestedResources, function (nr) {
-      var resources = this.state.model[nr.name];
-      var data = _.extend(nr, {resources: resources})
-      return <EC.cms.NestedResource data={data} actions={{save: this.addNestedResource, delete: this.removeNestedResourceAndSave}} />
-    }, this);
+    let nestedResources
+    if (this.props.nestedResources) {
+      nestedResources = this.props.nestedResources.map((nr, index)=>{
+        var resources = this.state.model[nr.name];
+        var data = _.extend(nr, {resources: resources});
+        return <CmsNestedResource key={index} data={data} actions={{save: this.addNestedResource, delete: this.removeNestedResourceAndSave}} />;
+      });
+    }
     return (
       <div className='row'>
         <div className='col-xs-12'>

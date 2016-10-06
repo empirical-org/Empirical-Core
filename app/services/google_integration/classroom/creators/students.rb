@@ -35,25 +35,29 @@ module GoogleIntegration::Classroom::Creators::Students
   end
 
   def self.create_student(data)
-    student = ::User.where(email: data[:email].downcase).first_or_initialize
-    if student.new_record?
-      username = UsernameGenerator.run(data[:first_name], data[:last_name], data[:classroom].code)
-      student.update(name: data[:name],
-                     role: 'student',
-                     password: data[:last_name],
-                     username: username)
+    if data[:email]
+      student = ::User.where(email: data[:email].downcase).first_or_initialize
+      if student.new_record?
+        username = UsernameGenerator.run(data[:first_name], data[:last_name], data[:classroom].code)
+        student.update(name: data[:name],
+                       role: 'student',
+                       password: data[:last_name],
+                       username: username)
+      end
+      puts "Google Student"
+      puts student.attributes
+      puts student.errors.first
+      puts student.valid?
+      puts data[:email]
+      puts data[:classroom].attributes
+      puts "End Google Student"
+      if student.errors.any?
+        puts "Error: Could not save google classroom student."
+      else
+        Associators::StudentsToClassrooms.run(student, data[:classroom])
+      end
+      student
     end
-    puts "Google Student"
-    puts student.attributes
-    puts student.errors.first
-    puts student.valid?
-    puts data[:email]
-    puts data[:classroom].attributes
-    puts "End Google Student"
-    unless student.errors.any?
-      Associators::StudentsToClassrooms.run(student, data[:classroom])
-    end
-    student
   end
 
 end
