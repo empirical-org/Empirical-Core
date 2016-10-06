@@ -1,7 +1,7 @@
 module NameGenerator
 
   def generate
-    "#{color}-#{animal}-#{number}"
+    "#{color}-#{animal}"
   end
 
   def animal
@@ -10,10 +10,6 @@ module NameGenerator
 
   def color
     sample('colors.db')
-  end
-
-  def number
-    rand(10000)
   end
 
   extend self
