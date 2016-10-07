@@ -45,35 +45,37 @@ export default React.createClass({
        );
  },
 
- manageClassroom: function(cl){
-   return <a className='manage-class' href={this.state.basePath + '/' + cl.id + '/students'}>Manage Class</a>
+ manageClassroom: function(classroomId){
+   return <a className='manage-class' href={this.state.basePath + '/' + classroomId + '/students'}>Manage Class</a>;
  },
 
- tableRows: function(cl){
+ tableRows: function(cl, action){
+   let manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
    var rows;
    if (this.props.role === 'teacher') {
      rows = [<td>{cl.className}</td>,
               <td>{cl.classcode}</td>,
               <td className='student-count'>{cl.studentCount}</td>,
               <td className='created-date'>{cl.createdDate}</td>,
-                <td>{this.manageClassroom(cl)}</td>];
+              <td>{manageClass}</td>];
    } else if (this.props.role === 'student') {
      rows = [   <td>{cl.teacherName}</td>,
                <td>{cl.className}</td>,
-               <td>{cl.joinDate}</td>]
+               <td>{cl.joinDate}</td>];
 
    }
    return rows;
  },
 
- tableHeaders: function(){
+ tableHeaders: function(action){
    if (this.props.role === 'teacher') {
+     let manageClass = action === 'Archive' ? 'Manage Class' : '';
      return ([
        <th>Class Name</th>,
        <th>Classcode</th>,
        <th className='student-count'>Student Count</th>,
        <th className='created-date'>Date Created</th>,
-       <th>Manage Class</th>,
+       <th>{manageClass}</th>,
        <th></th>
      ]);
    } else if (this.props.role === 'student') {
@@ -91,7 +93,7 @@ export default React.createClass({
     var classes = _.map(classrooms, function(cl) {
       return (
         <tr key={cl.id}>
-          {that.tableRows(cl)}
+          {that.tableRows(cl, status)}
           <td>
             <span onClick={that.classAction.bind(null, status, cl.id)} className={status.toLowerCase() + ' ' + cl.className.replace(/ /g,'')}>{status}</span>
           </td>
@@ -106,7 +108,7 @@ export default React.createClass({
       <table className='table'>
         <thead>
           <tr>
-            {this.tableHeaders()}
+            {this.tableHeaders(status)}
           </tr>
         </thead>
         <tbody>
