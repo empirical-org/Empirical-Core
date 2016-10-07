@@ -5,7 +5,7 @@ cache:
   directories:
     - client/node_modules
 rvm:
-  - 2.3.0
+  - 2.3.1
 script:
   - npm run test
   - bundle exec teaspoon
