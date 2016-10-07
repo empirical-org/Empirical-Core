@@ -625,7 +625,8 @@ export default React.createClass({
             expanded={this.props.allExpanded}
             expand={this.props.expand}
             ascending={this.props.ascending}
-            showPathways={false}/>
+            showPathways={false}
+          />
         </Modal>
       )
     }
