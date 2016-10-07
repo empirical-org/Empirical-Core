@@ -68,14 +68,18 @@ export default React.createClass({
     return ScoreColor(grade)
   },
 
+
   render: function() {
     const p = this.props.params;
+    const unitActivityClassroom = `/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`;
     return (
       <div id='individual-activity-classroom-view'>
-        <ProgressReport columnDefinitions={this.columnDefinitions}
+        <ProgressReport
+                           key={unitActivityClassroom}
+                           columnDefinitions={this.columnDefinitions}
                            hideFaqLink={Boolean(true)}
                            pagination={false}
-                           sourceUrl={`/teachers/progress_reports/question_view/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`}
+                           sourceUrl={`/teachers/progress_reports/question_view/${unitActivityClassroom}`}
                            sortDefinitions={this.sortDefinitions}
                            jsonResultsKey={'data'}
                            colorByScore={Boolean(true)}
