@@ -20,10 +20,24 @@ module CleverIntegration::Creators::Students
       role: 'student'
     })
     if student.errors.any?
+      puts "Clever Student"
+      puts student.attributes
+      puts student.errors.first
       student.update({
         name: parsed_student_response[:name],
         username: parsed_student_response[:username],
         email: nil,
+        role: 'student'
+      })
+    end
+    if student.errors.any?
+      puts "Clever Student"
+      puts student.attributes
+      puts student.errors.first
+      student.update({
+        name: parsed_student_response[:name],
+        username: nil,
+        email: parsed_student_response[:email],
         role: 'student'
       })
     end
