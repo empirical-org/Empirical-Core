@@ -5,10 +5,11 @@ module CleverIntegration::Parsers::Student
     puts hash
     name_hash = hash[:name]
     name = self.generate_name(name_hash[:first], name_hash[:last])
+    username = hash[:credentials] ? hash[:credentials][:district_username] : nil
     {
       clever_id: hash[:id],
       email: hash[:email].try(:downcase),
-      username: hash[:credentials][:district_username],
+      username: username,
       name: name
     }
   end
