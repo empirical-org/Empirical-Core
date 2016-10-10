@@ -111,7 +111,7 @@ describe("Getting concept results from an answered SC object", () => {
     expect(generated).toEqual(expected);
   });
 
-  it("should have the correct score and concept uids with a question that was correct on the third attempt", () => {
+  it("should have the correct score and concept uids with a question that was incorrect on the third attempt", () => {
     const question = data[2];
     const expected = [{
         concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
