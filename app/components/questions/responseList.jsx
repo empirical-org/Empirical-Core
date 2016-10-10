@@ -4,7 +4,7 @@ import Response from './response.jsx'
 export default React.createClass({
 
   render: function () {
-    var responseListItems = this.props.responses.map((resp) => {
+    var responseListItems = this.props.responses.sort((a,b)=>a.count-b.count).map((resp) => {
       if (resp) {return (
           <Response
           response={resp}
