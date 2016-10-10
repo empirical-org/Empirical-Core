@@ -4,7 +4,7 @@ import {
   getIdentificationConceptResult,
   getCompleteSentenceConceptResult,
   getAllSentenceFragmentConceptResults
-} from '../../app/libs/conceptResultFromSentenceFragment'
+} from '../../app/libs/conceptResults/sentenceFragment'
 
 describe("Getting concept results from an answered sf object", () => {
   const question = data[0].data;
