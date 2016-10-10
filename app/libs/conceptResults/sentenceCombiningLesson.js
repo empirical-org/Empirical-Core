@@ -3,7 +3,7 @@ import {
 } from './sentenceCombiningLessonQuestion'
 
 export function getConceptResultsForQuestion (question) {
-  return getConceptResultsForSentenceCombining(question.data)
+  return getConceptResultsForSentenceCombining(question)
 }
 
 export function getNestedConceptResultsForAllQuestions (questions) {
