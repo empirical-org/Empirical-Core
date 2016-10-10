@@ -4,7 +4,8 @@ import {
   getConceptResultsForQuestion,
   getNestedConceptResultsForAllQuestions,
   getConceptResultsForAllQuestions,
-  embedQuestionNumbers
+  embedQuestionNumbers,
+  calculateScoreForLesson,
 } from '../../app/libs/conceptResults/sentenceCombiningLesson'
 
 describe("Getting concept results from an answered SC object", () => {
@@ -310,10 +311,15 @@ describe("Getting concept results from an answered SC object", () => {
                 questionNumber: 3
             }
         }
-
     ]
 
     const generated = getConceptResultsForAllQuestions(data)
+    expect(expected).toEqual(generated)
+  })
+
+  it('can calculate the percentage of first attempts that are correct', ()=>{
+    const expected = 0.33;
+    const generated = calculateScoreForLesson(data);
     expect(expected).toEqual(generated)
   })
 });

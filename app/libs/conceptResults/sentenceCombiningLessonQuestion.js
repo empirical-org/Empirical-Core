@@ -54,7 +54,7 @@ function getErrorsForAttempt (attempt) {
   return _.pick(attempt, ...C.ERROR_TYPES)
 }
 
-function errorFree (attempt) {
+export function errorFree (attempt) {
   const errors = getErrorsForAttempt(attempt);
   return Object.keys(errors).length === 0
 }
