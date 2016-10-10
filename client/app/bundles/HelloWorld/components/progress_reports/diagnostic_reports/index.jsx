@@ -13,7 +13,6 @@ export default React.createClass({
 		return ({
 			loading: true,
 			classrooms: null,
-			selectedClassroom: null,
 			selectedStudent: null,
 			selectedActivity: {}});
 	},
@@ -96,15 +95,15 @@ export default React.createClass({
 
 
 	changeClassroom: function(classroom) {
-		if (classroom != this.state.selectedClassroom) {
-			// we changed classrooms, so we want to invalidate the current selected student
 			this.setState({
-				selectedClassroom: classroom,
 				selectedStudentId: null
 			});
 			const p = this.props.params;
-			this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/report`)
-		}
+			// gets everything after the last /
+			let reportBeginningIndex = window.location.hash.lastIndexOf('/');
+
+			let report = window.location.hash.substring(reportBeginningIndex + 1);
+			this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
 	},
 
 	changeReport: function(reportName) {
@@ -137,7 +136,6 @@ export default React.createClass({
 						studentDropdownCallback={this.changeStudent}
 						dropdownCallback={this.changeClassroom}
 						buttonGroupCallback={this.changeReport}
-						selectedClassroom={this.state.selectedClassroom}
 						selectedActivity={this.state.selectedActivity}
 						showStudentDropdown={this.showStudentDropdown()}
 					/>
