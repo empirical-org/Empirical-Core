@@ -10,12 +10,26 @@ export function getConceptResultsForSentenceCombining(question) {
   return [].concat.apply([], nestedConceptResults) // Flatten nested Array
 }
 
+function formattedCues(cues){
+  let formattedCues = '(';
+  cues.split(' ').forEach((cue)=>{
+    if (formattedCues.length > 1) {
+      formattedCues += ', ';
+    }
+    formattedCues += cue.charAt(0).toUpperCase() + cue.substring(1);
+  });
+  return formattedCues + ')';
+}
+
 export function getConceptResultsForSentenceCombiningAttempt(question, attemptIndex) {
   let directions;
   if (attemptIndex > 0) {
-    directions = question.attempts[attemptIndex - 1].feedback
+    directions = question.attempts[attemptIndex - 1].feedback;
   } else {
     directions = question.instructions || "Combine the sentences."
+    if (question.cues) {
+      directions += ' ' + formattedCues(question.cues[0])
+    }
   }
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
   const answer = question.attempts[attemptIndex].submitted;

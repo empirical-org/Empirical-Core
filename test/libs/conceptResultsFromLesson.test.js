@@ -19,7 +19,7 @@ describe("Getting concept results from an answered SC object", () => {
                 answer: 'As soon as a coconut is brown it is mature.',
                 attemptNumber: 1,
                 correct: 0,
-                directions: 'Combine the sentences into one sentence. Use the word in the box.',
+                directions: 'Combine the sentences into one sentence. Use the word in the box. (As, Soon, As)',
                 prompt: 'A coconut is mature. It is brown.'
             }
         }, {
@@ -56,7 +56,7 @@ describe("Getting concept results from an answered SC object", () => {
             concept_uid: '555cYi-MZKeyAV-98U4DyA',
             metadata: {
               correct: 1,
-              directions: "Combine the sentences into one sentence. Use the word in the box.",
+              directions: "Combine the sentences into one sentence. Use the word in the box. (Until)",
               prompt: "A coconut ripens.\nIt is filled with water.",
               answer: "Until a coconut ripens, it is filled with water.",
               attemptNumber: 1
@@ -66,7 +66,7 @@ describe("Getting concept results from an answered SC object", () => {
             concept_uid: 'Q8FfGSv4Z9L2r1CYOfvO9A',
             metadata: {
               correct: 1,
-              directions: "Combine the sentences into one sentence. Use the word in the box.",
+              directions: "Combine the sentences into one sentence. Use the word in the box. (Until)",
               prompt: "A coconut ripens.\nIt is filled with water.",
               answer: "Until a coconut ripens, it is filled with water.",
               attemptNumber: 1,
@@ -79,7 +79,7 @@ describe("Getting concept results from an answered SC object", () => {
                 answer: 'The weather is cold, so coconut trees palms grow as soon as it is warm.',
                 attemptNumber: 1,
                 correct: 0,
-                directions: 'Combine the sentences into one sentence. Use the word in the box.',
+                directions: 'Combine the sentences into one sentence. Use the word in the box. (As, Soon, As)',
                 prompt: 'The weather is warm.\nCoconut palms grow.'
             }
         }, {
@@ -117,7 +117,7 @@ describe("Getting concept results from an answered SC object", () => {
                 answer: 'As soon as a coconut is brown it is mature.',
                 attemptNumber: 1,
                 correct: 0,
-                directions: 'Combine the sentences into one sentence. Use the word in the box.',
+                directions: 'Combine the sentences into one sentence. Use the word in the box. (As, Soon, As)',
                 prompt: 'A coconut is mature. It is brown.',
                 questionNumber: 1
             }
@@ -158,7 +158,7 @@ describe("Getting concept results from an answered SC object", () => {
             concept_uid: '555cYi-MZKeyAV-98U4DyA',
             metadata: {
               correct: 1,
-              directions: "Combine the sentences into one sentence. Use the word in the box.",
+              directions: "Combine the sentences into one sentence. Use the word in the box. (Until)",
               prompt: "A coconut ripens.\nIt is filled with water.",
               answer: "Until a coconut ripens, it is filled with water.",
               attemptNumber: 1,
@@ -169,7 +169,7 @@ describe("Getting concept results from an answered SC object", () => {
             concept_uid: 'Q8FfGSv4Z9L2r1CYOfvO9A',
             metadata: {
               correct: 1,
-              directions: "Combine the sentences into one sentence. Use the word in the box.",
+              directions: "Combine the sentences into one sentence. Use the word in the box. (Until)",
               prompt: "A coconut ripens.\nIt is filled with water.",
               answer: "Until a coconut ripens, it is filled with water.",
               attemptNumber: 1,
@@ -183,7 +183,7 @@ describe("Getting concept results from an answered SC object", () => {
                 answer: 'The weather is cold, so coconut trees palms grow as soon as it is warm.',
                 attemptNumber: 1,
                 correct: 0,
-                directions: 'Combine the sentences into one sentence. Use the word in the box.',
+                directions: 'Combine the sentences into one sentence. Use the word in the box. (As, Soon, As)',
                 prompt: 'The weather is warm.\nCoconut palms grow.',
                 questionNumber: 3
             }
@@ -222,7 +222,7 @@ describe("Getting concept results from an answered SC object", () => {
                 answer: 'As soon as a coconut is brown it is mature.',
                 attemptNumber: 1,
                 correct: 0,
-                directions: 'Combine the sentences into one sentence. Use the word in the box.',
+                directions: 'Combine the sentences into one sentence. Use the word in the box. (As, Soon, As)',
                 prompt: 'A coconut is mature. It is brown.',
                 questionNumber: 1
             }
@@ -261,7 +261,7 @@ describe("Getting concept results from an answered SC object", () => {
             concept_uid: '555cYi-MZKeyAV-98U4DyA',
             metadata: {
               correct: 1,
-              directions: "Combine the sentences into one sentence. Use the word in the box.",
+              directions: "Combine the sentences into one sentence. Use the word in the box. (Until)",
               prompt: "A coconut ripens.\nIt is filled with water.",
               answer: "Until a coconut ripens, it is filled with water.",
               attemptNumber: 1,
@@ -272,7 +272,7 @@ describe("Getting concept results from an answered SC object", () => {
             concept_uid: 'Q8FfGSv4Z9L2r1CYOfvO9A',
             metadata: {
               correct: 1,
-              directions: "Combine the sentences into one sentence. Use the word in the box.",
+              directions: "Combine the sentences into one sentence. Use the word in the box. (Until)",
               prompt: "A coconut ripens.\nIt is filled with water.",
               answer: "Until a coconut ripens, it is filled with water.",
               attemptNumber: 1,
@@ -285,7 +285,7 @@ describe("Getting concept results from an answered SC object", () => {
                 answer: 'The weather is cold, so coconut trees palms grow as soon as it is warm.',
                 attemptNumber: 1,
                 correct: 0,
-                directions: 'Combine the sentences into one sentence. Use the word in the box.',
+                directions: 'Combine the sentences into one sentence. Use the word in the box. (As, Soon, As)',
                 prompt: 'The weather is warm.\nCoconut palms grow.',
                 questionNumber: 3
             }
