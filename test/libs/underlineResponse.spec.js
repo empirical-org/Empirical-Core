@@ -57,7 +57,7 @@ describe("finding the position of the substring", () => {
     expect(getChangeObjectsWithoutAdded(target, user)).toEqual(expected);
   })
 
-  it("gets length of first erroneous word", () => {
+  it("gets length of first erroneous word added", () => {
     const input = [
       { count: 2, value: 'I ' },
       { count: 1, added: true, removed: undefined, value: 'liked' },
@@ -65,6 +65,16 @@ describe("finding the position of the substring", () => {
     ]
     const expected = 5;
     expect(getErroneousWordLength(input, 'added')).toEqual(expected)
+  })
+
+  it("gets length of first erroneous word removed", () => {
+    const input = [
+      { count: 2, value: 'I ' },
+      { count: 1, added: undefined, removed: true, value: 'like' },
+      { count: 3, value: ' NYC.' }
+    ]
+    const expected = 4;
+    expect(getErroneousWordLength(input, 'removed')).toEqual(expected)
   })
 
   it("gets offset of first erroneous word", () => {
@@ -78,10 +88,11 @@ describe("finding the position of the substring", () => {
   })
 
 
-  it("returns a inline style range object", () => {
+  it("returns a inline style range object with an appropriate length and offset", () => {
+    const changeObjects = getChangeObjectsWithoutRemoved(target, user)
     const expected = {
-      length: 5,
-      offset: 2,
+      length: getErroneousWordLength(changeObjects, 'added'),
+      offset: getErroneousWordOffset(changeObjects, 'added'),
       style: "UNDERLINE"
     }
     expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
@@ -105,10 +116,11 @@ describe("Returning change objects example 2", () => {
 describe("Returning change objects example 3: multiple additions", () => {
   const target = "I like NYC for it has pizza.";
   const user = "I like NYC because it had pizza.";
+  const changeObjects = getChangeObjectsWithoutRemoved(target, user)
   it("returns a inline style range object", () => {
     const expected = {
-      length: 7,
-      offset: 11,
+      length: getErroneousWordLength(changeObjects, 'added'),
+      offset: getErroneousWordOffset(changeObjects, 'added'),
       style: "UNDERLINE"
     }
     expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
@@ -129,32 +141,29 @@ describe("Returning change objects example 4", () => {
 });
 
 describe("Cases for diff outcomes", () => {
+  const target = "I never drink soda for it is sugary.";
+
   it("has nothing to change", () => {
-    const target = "I never drink soda for it is sugary.";
     const user = "I never drink soda for it is sugary.";
     expect(getErrorType(target, user)).toEqual("NO_ERROR");
   })
 
+  it("has an incorrect word", () => {
+    const user = "I never drink cider for it is sugary.";
+    expect(getErrorType(target, user)).toEqual("INCORRECT_WORD");
+  })
+
   it("has an additional word", () => {
-    const target = "I never drink soda for it is sugary.";
     const user = "I never drink soda for it is too sugary.";
     expect(getErrorType(target, user)).toEqual("ADDITIONAL_WORD");
   })
 
   it("has a missing word", () => {
-    const target = "I never drink soda for it is sugary.";
     const user = "I never drink for it is sugary.";
     expect(getErrorType(target, user)).toEqual("MISSING_WORD");
   })
 
-  it("has an incorrect word", () => {
-    const target = "I never drink soda for it is sugary.";
-    const user = "I never drink cider for it is sugary.";
-    expect(getErrorType(target, user)).toEqual("INCORRECT_WORD");
-  })
-
   it("has a missing word and an additional word", () => {
-    const target = "I never drink soda for it is sugary.";
     const user = "I never ever drink soda for it sugary.";
     expect(getErrorType(target, user)).toNotEqual("INCORRECT_WORD");
   })
@@ -163,18 +172,18 @@ describe("Cases for diff outcomes", () => {
 describe("Marking up missing words", () => {
   const target = "I never drink soda for it is sugary.";
   const user = "I never soda for it is sugary.";
+  const changeObjects = getChangeObjects(target, user);
+
   it("has a missing word", () => {
     expect(getErrorType(target, user)).toEqual("MISSING_WORD");
   })
 
-  it("should be able to genrate a new string with space for underlines.", () => {
-    const changeObjects = getChangeObjects(target, user);
+  it("should be able to generate a new string with space for underlines.", () => {
     const expected = "I never       soda for it is sugary."
     expect(getMissingWordErrorString(changeObjects)).toEqual(expected);
   });
 
-  it("should be able to genrate an inline style object that takes account of the empty space", () => {
-    const changeObjects = getChangeObjects(target, user);
+  it("should be able to generate an inline style object that takes account of the empty space", () => {
     const expected = {
       length: 5,
       offset: 8,
@@ -191,7 +200,7 @@ describe("Marking up added words", () => {
     expect(getErrorType(target, user)).toEqual("ADDITIONAL_WORD");
   })
 
-  it("should be able to genrate an inline style object for additional words", () => {
+  it("should be able to generate an inline style object for additional words", () => {
     const changeObjects = getChangeObjects(target, user);
     const expected = {
       length: 4,
@@ -203,53 +212,39 @@ describe("Marking up added words", () => {
 })
 
 describe("Calling the correct functions for different use cases", () => {
+  const target = "I never drink soda for it is sugary.";
+
   it("calls getAddtionalInlineStyleRangeObject when it should", () => {
-    const target = "I never drink soda for it is sugary.";
     const user = "I never ever drink soda for it is sugary.";
     const expected = {
       text: user,
-      inlineStyleRanges: [{
-        length: 4,
-        offset: 8,
-        style: "UNDERLINE"
-      }]
+      inlineStyleRanges: [getAdditionalInlineStyleRangeObject(target, user)]
     }
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
   })
 
   it("calls getInlineStyleRangeObject when it should", () => {
-    const target = "I never drink soda for it is sugary.";
     const user = "I ner drink soda for it is sugary.";
     const expected = {
       text: user,
-      inlineStyleRanges: [{
-        length: 3,
-        offset: 2,
-        style: "UNDERLINE"
-      }]
+      inlineStyleRanges: [getInlineStyleRangeObject(target, user)]
     }
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
   })
 
   it("calls getMissingInlineStyleRangeObject when it should", () => {
-    const target = "I never drink soda for it is sugary.";
     const user = "I drink soda for it is sugary.";
     const expected = {
       text: "I       drink soda for it is sugary.",
-      inlineStyleRanges: [{
-        length: 5,
-        offset: 2,
-        style: "UNDERLINE"
-      }]
+      inlineStyleRanges: [getMissingInlineStyleRangeObject(target, user)]
     }
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
   })
 
   it("returns the default when it should", () => {
-    const target = "I never drink soda for it is sugary.";
     const user = "I never drink soda for it is sugary.";
     const expected = {
       text: user,
@@ -264,11 +259,7 @@ describe("Calling the correct functions for different use cases", () => {
     const user = "Bill swept floor while Andy painted the walls.";
     const expected = {
       text: "Bill swept     floor while Andy painted the walls.",
-      inlineStyleRanges: [{
-        length: 3,
-        offset: 11,
-        style: "UNDERLINE"
-      }]
+      inlineStyleRanges: [getMissingInlineStyleRangeObject(target, user)]
     }
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
@@ -279,11 +270,7 @@ describe("Calling the correct functions for different use cases", () => {
     const user = "Since it was snowing, wore a sweater.";
     const expected = {
       text: "Since it was snowing,          wore a sweater.",
-      inlineStyleRanges: [{
-        length: 8,
-        offset: 22,
-        style: "UNDERLINE"
-      }]
+      inlineStyleRanges: [getMissingInlineStyleRangeObject(target, user)]
     }
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
@@ -294,11 +281,7 @@ describe("Calling the correct functions for different use cases", () => {
     const user = "The hazy sky has few.";
     const expected = {
       text: "The hazy sky has few       .",
-      inlineStyleRanges: [{
-        length: 6,
-        offset: 21,
-        style: "UNDERLINE"
-      }]
+      inlineStyleRanges: [getMissingInlineStyleRangeObject(target, user)]
     }
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
@@ -308,12 +291,8 @@ describe("Calling the correct functions for different use cases", () => {
     const target = "The hazy sky has few clouds.";
     const user = "The hazy sky has few cloud.";
     const expected = {
-      text: "The hazy sky has few cloud.",
-      inlineStyleRanges: [{
-        length: 5,
-        offset: 21,
-        style: "UNDERLINE"
-      }]
+      text: user,
+      inlineStyleRanges: [getInlineStyleRangeObject(target, user)]
     }
     const styleObjects = generateStyleObjects(target, user)
     expect(styleObjects).toEqual(expected)
