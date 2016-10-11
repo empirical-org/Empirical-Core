@@ -5,8 +5,11 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../../actions.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
+import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../libs/conceptResults/sentenceCombiningLesson'
+
 import Register from './register.jsx'
 import Finished from './finished.jsx'
+const request = require('request');
 
 const Lesson = React.createClass({
   componentWillMount: function() {
@@ -16,6 +19,31 @@ const Lesson = React.createClass({
   submitResponse: function(response) {
     const action = submitResponse(response);
     this.props.dispatch(action)
+  },
+
+  saveToLMS: function () {
+    const results = getConceptResultsForAllQuestions(this.props.playLesson.answeredQuestions)
+    const score = calculateScoreForLesson(this.props.playLesson.answeredQuestions)
+    request(
+      { url: process.env.EMPIRICAL_BASE_URL + '/api/v1/activity_sessions/' + this.props.location.query.student,
+        method: 'PUT',
+        json:
+        {
+          state: 'finished',
+          concept_results: results,
+          percentage: score
+        }
+      },
+      (err,httpResponse,body) => {
+        if (httpResponse.statusCode === 200) {
+          console.log("Finished Saving")
+          console.log(err,httpResponse,body)
+          document.location.href = process.env.EMPIRICAL_BASE_URL + "/activity_sessions/" + this.props.location.query.student
+          this.setState({saved: true});
+        }
+        // console.log(err,httpResponse,body)
+      }
+    )
   },
 
   renderQuestionComponent: function () {
@@ -84,7 +112,7 @@ const Lesson = React.createClass({
         )
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
-        component = (<Finished data={this.props.playLesson} lessonID={this.props.params.lessonID}/>)
+        component = (<Finished data={this.props.playLesson} lessonID={this.props.params.lessonID} saveToLMS={this.saveToLMS}/>)
       }
       else {
         component = (

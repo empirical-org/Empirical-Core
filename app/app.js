@@ -80,6 +80,7 @@ render((
     <Router history={history}>
       {/*<Route path="/" component={Root}>*/}
         {/*<IndexRoute component={Welcome} />*/}
+
         <Route path="/play" component={StudentRoot}>
           <IndexRoute component={Play} />
           <Route path="turk" component={Turk}/>
@@ -98,12 +99,25 @@ render((
             />
             <Route path=":lessonID" component={GameLesson}/>
           </Route>
-          <Route path="lesson/:lessonID" component={StudentLesson}/>
-          <Redirect from="diagnostic?student=:studentID&uid=:diagnosticID" to="/diagnostic/1" />
+          <Route path="lesson" component={Passthrough}>
+            <IndexRoute component={Passthrough}
+              onEnter={
+                (nextState, replaceWith) => {
+                  var lessonID = getParameterByName('uid');
+                  var studentID = getParameterByName('student');
+                  if(lessonID){
+                    document.location.href = document.location.origin + document.location.pathname + "#/play/lesson/" + lessonID + "?student=" + studentID;
+                  }
+                }
+              }
+            />
+            <Route path=":lessonID" component={StudentLesson}/>
+          </Route>
 
           <Route path="diagnostic/" component={StudentDiagnostic}/>
           <Route path="diagnostic/:diagnosticID" component={StudentDiagnostic}/>
-          <Redirect from="game/?student=:studentID&uid=:lessonID" to="/game/:lessonID" />
+          <Redirect from="diagnostic?student=:studentID&uid=:diagnosticID" to="/diagnostic/1" />
+
           <Route path="questions/:questionID" component={PlayQuestion}/>
           <Route path="sentence-fragments/:fragmentID" component={PlaySentenceFragment}/>
         </Route>
