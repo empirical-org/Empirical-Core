@@ -1,4 +1,4 @@
-import {hashToCollection} from './hashToCollection'
+import {hashToCollection} from '../hashToCollection'
 
 export function getConceptResultsForSentenceCombining(question) {
   const directions = question.instructions || "Combine the sentences.";

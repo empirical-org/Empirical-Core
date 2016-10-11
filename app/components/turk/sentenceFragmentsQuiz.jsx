@@ -10,7 +10,7 @@ import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx'
 import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
-import {getConceptResultsForAllQuestions} from '../../libs/conceptResultsFromDiagnostic'
+import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
 const request = require('request');
 
 var StudentDiagnostic = React.createClass({
