@@ -12,7 +12,7 @@ import {
 	getMissingInlineStyleRangeObject,
 	getAdditionalInlineStyleRangeObject,
 	generateStyleObjects,
-  getImportantStyleRangeObject
+	getImportantStyleRangeObject
 } from '../../app/libs/markupUserResponses.js'
 
 describe("finding the position of the substring", () => {
@@ -167,6 +167,7 @@ describe("finding the position of the substring", () => {
 		}
 		expect(getInlineStyleRangeObject(target, user)).toEqual(expected)
 	})
+
 });
 
 describe("Returning change objects example 2", () => {
@@ -219,6 +220,12 @@ describe("Cases for diff outcomes", () => {
 
 	it("has an incorrect word", () => {
 		const user = "I never drink cider for it is sugary.";
+		expect(getErrorType(target, user)).toEqual("INCORRECT_WORD");
+	})
+
+	it("has an incorrect word", () => {
+		const target = "You don't like to ski, try ice skating."
+		const user = "If You dont like to ski, tri ice skating.";
 		expect(getErrorType(target, user)).toEqual("INCORRECT_WORD");
 	})
 
@@ -433,6 +440,23 @@ describe('Underlining when there are multiple errors', () => {
 			}
 		]
 		expect(getChangeObjects(target, user)).toEqual(expected);
+	})
+
+	it('correctly handles underlining when flagged as important', () => {
+		const target = "If you don’t like to ski, try ice skating."
+		const user = "If you dont like to ski, tr ice skating."
+		const expected = {
+			"inlineStyleRanges": [
+				{
+					"length": 2,
+					"offset": 24,
+					"style": "UNDERLINE"
+				}
+			],
+      "text": "If you dont like to ski, tr ice skating."
+		}
+
+		expect(generateStyleObjects(target, user, true)).toEqual(expected)
 	})
 
 })

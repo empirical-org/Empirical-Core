@@ -71,9 +71,9 @@ export default React.createClass({
       case "additionalWordError":
       case "missingWordError":
         return generateStyleObjects(targetString, userString)
-      case "modifiedWordWeakError":
-      case "additionalWordWeakError":
-      case "missingWordWeakError":
+      case "flexibleModifiedWordError":
+      case "flexibleAdditionalWordError":
+      case "flexibleMissingWordError":
         return generateStyleObjects(targetString, userString, true)
       default:
         return undefined

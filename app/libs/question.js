@@ -105,14 +105,14 @@ export default class Question {
       returnValue.response = punctuationAndCaseMatch
       return returnValue
     }
-    var typingErrorMatch = this.checkFuzzyMatch(response)
-    if (typingErrorMatch !== undefined) {
-      returnValue.typingError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.typingError;
-      returnValue.author = "Word Error Hint"
-      returnValue.response = typingErrorMatch
-      return returnValue
-    }
+    // var typingErrorMatch = this.checkFuzzyMatch(response)
+    // if (typingErrorMatch !== undefined) {
+    //   returnValue.typingError = true
+    //   returnValue.feedback = constants.FEEDBACK_STRINGS.typingError;
+    //   returnValue.author = "Word Error Hint"
+    //   returnValue.response = typingErrorMatch
+    //   return returnValue
+    // }
     var changeObjectMatch = this.checkChangeObjectRigidMatch(response)
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
@@ -142,21 +142,21 @@ export default class Question {
     if (changeObjectFlexMatch !== undefined) {
       switch (changeObjectFlexMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-          returnValue.modifiedWordError = true
+          returnValue.flexibleModifiedWordError = true
           returnValue.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
-          returnValue.author = "Modified Word Hint"
+          returnValue.author = "Flexible Modified Word Hint"
           returnValue.response = changeObjectFlexMatch.response
           return returnValue
         case ERROR_TYPES.ADDITIONAL_WORD:
-          returnValue.additionalWordError = true
+          returnValue.flexibleAdditionalWordError = true
           returnValue.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
-          returnValue.author = "Additional Word Hint"
+          returnValue.author = "Flexible Additional Word Hint"
           returnValue.response = changeObjectFlexMatch.response
           return returnValue
         case ERROR_TYPES.MISSING_WORD:
-          returnValue.missingWordError = true
+          returnValue.flexibleMissingWordError = true
           returnValue.feedback = constants.FEEDBACK_STRINGS.missingWordError;
-          returnValue.author = "Missing Word Hint"
+          returnValue.author = "Flexible Missing Word Hint"
           returnValue.response = changeObjectFlexMatch.response
           return returnValue
         default:

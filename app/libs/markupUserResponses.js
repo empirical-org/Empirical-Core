@@ -68,14 +68,14 @@ export function getErroneousWordOffset (changeObjects, key, length = 0) {
   }
 }
 
-export function punctuationLength (str1, str2, offset) {
-  return lengthDifference(str1.substring(0, offset), str2.substring(0, offset));
+export function punctuationLength (originalUserString, userString, offsetIndex) {
+  return lengthDifference(originalUserString.substring(0, offsetIndex), userString.substring(0, offsetIndex));
 }
 
 export function getInlineStyleRangeObject (targetString, userString, originalUserString=userString) {
   const changeObjects = getChangeObjectsWithoutRemoved(targetString, userString)
   const origOffset = getErroneousWordOffset(changeObjects, 'added')
-  const puncLength = punctuationLength(originalUserString, userString, origOffset);
+  const puncLength = punctuationLength(originalUserString, userString, origOffset + 1);
   return {
     length: getErroneousWordLength(changeObjects, 'added'),
     offset: origOffset + puncLength,
@@ -83,8 +83,8 @@ export function getInlineStyleRangeObject (targetString, userString, originalUse
   }
 }
 
-export function lengthDifference(str1, str2) {
-  return str1.length - str2.length
+export function lengthDifference(originalUserStringSubString, userSubString) {
+  return originalUserStringSubString.length - userSubString.length
 }
 
 export function getErrorType (targetString, userString) {
@@ -131,7 +131,7 @@ export function getMissingWordErrorString (changeObjects) {
 export function getMissingInlineStyleRangeObject (targetString, userString, originalUserString=userString) {
   const changeObjects = getChangeObjects(targetString, userString)
   const origOffset = getErroneousWordOffset(changeObjects, 'removed')
-  const puncLength = punctuationLength(originalUserString, userString, origOffset);
+  const puncLength = punctuationLength(originalUserString, userString, origOffset + 1);
   return {
     length: getErroneousWordLength(changeObjects, 'removed')-1,
     offset: origOffset + puncLength,
@@ -142,7 +142,7 @@ export function getMissingInlineStyleRangeObject (targetString, userString, orig
 export function getAdditionalInlineStyleRangeObject (targetString, userString, originalUserString=userString) {
   const changeObjects = getChangeObjects(targetString, userString)
   const origOffset = getErroneousWordOffset(changeObjects, 'added')
-  const puncLength = punctuationLength(originalUserString, userString, origOffset);
+  const puncLength = punctuationLength(originalUserString, userString, origOffset + 1);
   return {
     length: getErroneousWordLength(changeObjects, 'added') -1,
     offset: origOffset + puncLength,

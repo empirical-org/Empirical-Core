@@ -94,7 +94,7 @@ export default {
 	CANCEL_FROM_DIAGNOSTIC_RESPONSE_VIEW: "CANCEL_FROM_DIAGNOSTIC_RESPONSE_VIEW",
 	START_TO_DIAGNOSTIC_RESPONSE_VIEW: "START_TO_DIAGNOSTIC_RESPONSE_VIEW",
 	CANCEL_TO_DIAGNOSTIC_RESPONSE_VIEW: "CANCEL_TO_DIAGNOSTIC_RESPONSE_VIEW",
-	
+
 	// PATHWAYS DATA
 	RECEIVE_PATHWAYS_DATA: "RECEIVE_PATHWAYS_DATA",
 	AWAIT_NEW_PATHWAY_RESPONSE: "AWAIT_NEW_PATHWAY_RESPONSE",
@@ -123,10 +123,14 @@ export default {
 		modifiedWordError: "Try again. You may have mixed up a word?",
 		additionalWordError: "Try again. You may have added an unnecessary a word?",
 		missingWordError: "Try again. You may have forgotten a word?",
-		whitespaceError: "Try again. You may have forgotten a space between two words."
+		whitespaceError: "Try again. You may have forgotten a space between two words.",
+		flexibleModifiedWordError: "Try again. You may have mixed up a word?",
+		flexibleAdditionalWordError: "Try again. You may have added an unnecessary a word?",
+		flexibleMissingWordError: "Try again. You may have forgotten a word?"
 	},
 
-	ERROR_TYPES: ['typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "modifiedWordError", "additionalWordError", "missingWordError", "whitespaceError"],
+
+	ERROR_TYPES: ['typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "flexibleModifiedWordError", "flexibleAdditionalWordError", "flexibleMissingWordError", "modifiedWordError", "additionalWordError", "missingWordError",  "whitespaceError"],
 
 	// CONCEPTS FEEDBACK ACTIONS
 	RECEIVE_CONCEPTS_FEEDBACK_DATA: "RECEIVE_CONCEPTS_FEEDBACK_DATA",
