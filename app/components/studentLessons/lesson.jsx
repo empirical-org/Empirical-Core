@@ -112,7 +112,14 @@ const Lesson = React.createClass({
         )
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
-        component = (<Finished data={this.props.playLesson} lessonID={this.props.params.lessonID} saveToLMS={this.saveToLMS}/>)
+        component = (
+          <Finished
+            data={this.props.playLesson}
+            name={this.props.location.query.student} 
+            lessonID={this.props.params.lessonID}
+            saveToLMS={this.saveToLMS}
+          />
+        )
       }
       else {
         component = (

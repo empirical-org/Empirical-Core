@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'underscore'
 import icon from '../../img/question_icon.svg'
+import revise from '../../img/revise_icon.svg'
 
 export default React.createClass({
 
@@ -9,9 +10,10 @@ export default React.createClass({
     const latestAttempt = getLatestAttempt(data.question.attempts)
     if (latestAttempt) {
       if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
+        console.log("I'm where you think you are.")
         return (
           <div className="feedback-row">
-            <img src={icon}/>
+            <img className="revise" src={revise}/>
             {data.renderFeedbackStatements(latestAttempt)}
           </div>
         )

@@ -14,7 +14,7 @@ export default React.createClass({
 
   componentDidMount: function () {
     const values = {
-      name: this.props.data.name,
+      name: this.props.name || "Anonymous",
       lessonID: this.props.lessonID,
       questions: this.props.data.answeredQuestions
     }
