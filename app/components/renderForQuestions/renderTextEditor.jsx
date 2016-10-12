@@ -51,7 +51,7 @@ export default React.createClass({
         this.setState({
           text: EditorState.createWithContent(convertFromRaw(state))
         }, () => {
-          this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()))
+          this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()).blocks[0].text)
         });
       }
     }
