@@ -72,6 +72,11 @@
   &:hover, &:focus {
     color: $white;
   }
+
+  &.is-disabled {
+    opacity: 1;
+    background-color: $disabled;
+  }
 }
 
 .student-begin {
