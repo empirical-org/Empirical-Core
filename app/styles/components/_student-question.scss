@@ -69,7 +69,7 @@
   line-height: 45px;
   padding: 0 25px;
 
-  &:hover {
+  &:hover, &:focus {
     color: $white;
   }
 }
@@ -77,6 +77,10 @@
 .student-begin {
   @extend .student-next;
   padding: 0 50px;
+
+  &:hover, &:focus {
+    color: $white;
+  }
 }
 
 .sf-button-group {
