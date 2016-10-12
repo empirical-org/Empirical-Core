@@ -442,6 +442,19 @@ describe('Underlining when there are multiple errors', () => {
 		expect(getChangeObjects(target, user)).toEqual(expected);
 	})
 
+  })
+
+
+describe('the important flag', ()=>{
+
+  it('responds differently if the error if the generate style object is passed an important flag',()=>{
+    const target = "If you don’t like to ski, try ice skating."
+		const user = "If you dont like to ski, tr ice skating."
+    const withImportant = generateStyleObjects(target, user, true)
+    const withOutImportant = generateStyleObjects(target, user, false)
+    expect(withImportant).toNotEqual(withOutImportant)
+  })
+
 	it('correctly handles underlining when flagged as important', () => {
 		const target = "If you don’t like to ski, try ice skating."
 		const user = "If you dont like to ski, tr ice skating."
@@ -455,7 +468,6 @@ describe('Underlining when there are multiple errors', () => {
 			],
       "text": "If you dont like to ski, tr ice skating."
 		}
-
 		expect(generateStyleObjects(target, user, true)).toEqual(expected)
 	})
 

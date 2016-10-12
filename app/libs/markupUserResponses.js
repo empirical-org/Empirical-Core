@@ -72,13 +72,16 @@ export function punctuationLength (originalUserString, userString, offsetIndex) 
   return lengthDifference(originalUserString.substring(0, offsetIndex), userString.substring(0, offsetIndex));
 }
 
-export function getInlineStyleRangeObject (targetString, userString, originalUserString=userString) {
+export function getInlineStyleRangeObject (targetString, userString, originalUserString) {
   const changeObjects = getChangeObjectsWithoutRemoved(targetString, userString)
-  const origOffset = getErroneousWordOffset(changeObjects, 'added')
-  const puncLength = punctuationLength(originalUserString, userString, origOffset + 1);
+  let offSet = getErroneousWordOffset(changeObjects, 'added')
+  if (originalUserString) {
+    const puncLength = punctuationLength(originalUserString, userString, offSet + 1);
+    offSet += puncLength;
+  }
   return {
     length: getErroneousWordLength(changeObjects, 'added'),
-    offset: origOffset + puncLength,
+    offset: offSet,
     style: "UNDERLINE"
   }
 }
@@ -128,24 +131,30 @@ export function getMissingWordErrorString (changeObjects) {
   }).join('')
 }
 
-export function getMissingInlineStyleRangeObject (targetString, userString, originalUserString=userString) {
+export function getMissingInlineStyleRangeObject (targetString, userString, originalUserString) {
   const changeObjects = getChangeObjects(targetString, userString)
-  const origOffset = getErroneousWordOffset(changeObjects, 'removed')
-  const puncLength = punctuationLength(originalUserString, userString, origOffset + 1);
+  let offset = getErroneousWordOffset(changeObjects, 'removed')
+  if (originalUserString) {
+    const puncLength = punctuationLength(originalUserString, userString, offset + 1);
+    offset += puncLength;
+  }
   return {
     length: getErroneousWordLength(changeObjects, 'removed')-1,
-    offset: origOffset + puncLength,
+    offset: offset,
     style: "UNDERLINE"
   }
 }
 
-export function getAdditionalInlineStyleRangeObject (targetString, userString, originalUserString=userString) {
+export function getAdditionalInlineStyleRangeObject (targetString, userString, originalUserString) {
   const changeObjects = getChangeObjects(targetString, userString)
-  const origOffset = getErroneousWordOffset(changeObjects, 'added')
-  const puncLength = punctuationLength(originalUserString, userString, origOffset + 1);
+  let offset = getErroneousWordOffset(changeObjects, 'added')
+  if (originalUserString) {
+    const puncLength = punctuationLength(originalUserString, userString, offset + 1);
+    offset += puncLength;
+  }
   return {
     length: getErroneousWordLength(changeObjects, 'added') -1,
-    offset: origOffset + puncLength,
+    offset: offset,
     style: "UNDERLINE"
   }
 }
@@ -154,12 +163,13 @@ export function generateStyleObjects (targetString, userString, important=false)
   const parsedUserString = important ? removePunctuation(userString).toLowerCase() : userString
   const parsedTargetString = important ? removePunctuation(targetString).toLowerCase() : targetString
   const errorType = getErrorType(targetString, userString);
+  const originalUserString = important ? userString : false
   switch (errorType) {
     case ERROR_TYPES.INCORRECT_WORD:
       return {
         text: userString,
         inlineStyleRanges: [
-          getInlineStyleRangeObject(parsedTargetString, parsedUserString, userString)
+          getInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
         ]
       }
       break;
@@ -167,7 +177,7 @@ export function generateStyleObjects (targetString, userString, important=false)
       return {
         text: userString,
         inlineStyleRanges: [
-          getAdditionalInlineStyleRangeObject(parsedTargetString, parsedUserString, userString)
+          getAdditionalInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
         ]
       }
       break;
@@ -175,7 +185,7 @@ export function generateStyleObjects (targetString, userString, important=false)
       return {
         text: getMissingWordErrorString(getChangeObjects(targetString, userString)),
         inlineStyleRanges: [
-          getMissingInlineStyleRangeObject(parsedTargetString, parsedUserString, userString)
+          getMissingInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
         ]
       }
       break;
