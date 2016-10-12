@@ -354,7 +354,7 @@ export default class Question {
   }
 }
 
-const removePunctuation = (string) => {
+export function removePunctuation (string) {
   return string.replace(/[^A-Za-z0-9\s]/g,"")
 }
 

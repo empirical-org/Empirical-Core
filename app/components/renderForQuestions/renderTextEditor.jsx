@@ -47,9 +47,7 @@ export default React.createClass({
           });
           return
         }
-        const underliningFunction = this.getUnderliningFunction(errorKeys[0])
-        console.log("")
-        const newStyle = underliningFunction(targetText, nextProps.latestAttempt.submitted)
+        const newStyle = this.getUnderliningFunction(errorKeys[0], targetText, nextProps.latestAttempt.submitted)
         if (newStyle) {
           var state = convertToRaw(this.state.text.getCurrentContent());
           state.blocks[0].text = newStyle.text;
@@ -64,7 +62,7 @@ export default React.createClass({
     }
   },
 
-  getUnderliningFunction: function (errorType) {
+  getUnderliningFunction: function (errorType, targetString, userString) {
     switch (errorType) {
       case "punctuationError":
       case "typingError":
@@ -72,9 +70,13 @@ export default React.createClass({
       case "modifiedWordError":
       case "additionalWordError":
       case "missingWordError":
-        return generateStyleObjects
+        return generateStyleObjects(targetString, userString)
+      case "modifiedWordWeakError":
+      case "additionalWordWeakError":
+      case "missingWordWeakError":
+        return generateStyleObjects(targetString, userString, true)
       default:
-        return (() => {return})
+        return undefined
     }
   },
 
