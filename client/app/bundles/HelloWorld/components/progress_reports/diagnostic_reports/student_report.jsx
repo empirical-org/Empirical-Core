@@ -12,8 +12,13 @@ export default React.createClass({
 
 
   componentDidMount: function () {
-    this.getStudentData()
+    this.getStudentData(this.props.params)
   },
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({loading: true});
+		this.getStudentData(nextProps.params);
+	},
 
 	selectedStudent: function(students){
 		let {studentId} = this.props.params;
@@ -24,9 +29,9 @@ export default React.createClass({
 		}
 	},
 
-  getStudentData: function(){
+  getStudentData: function(params){
     const that = this;
-		const p = this.props.params;
+		const p = params;
     $.get(`/teachers/progress_reports/students_by_classroom/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, (data) => {
       that.setState({students: data.students, loading: false})
     })

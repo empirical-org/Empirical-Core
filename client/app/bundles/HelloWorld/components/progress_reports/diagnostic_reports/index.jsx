@@ -22,7 +22,6 @@ export default React.createClass({
 		if (['/activity_packs', '/not_completed'].indexOf(this.props.location.pathname) === -1) {
 			this.getStudentAndActivityData();
 		}
-
 		if (this.props.params.studentId) {
 			this.setStudentId(this.props.params.studentId);
 		}
@@ -32,7 +31,6 @@ export default React.createClass({
 		if (nextProps.params && nextProps.params.studentId) {
 			this.setStudentId(nextProps.params.studentId);
 		}
-
 		if (['/activity_packs', '/not_completed'].indexOf(nextProps.location.pathname)) {
 			this.getStudentAndActivityData(nextProps.params);
 		}
@@ -96,13 +94,18 @@ export default React.createClass({
 
 	changeClassroom: function(classroom) {
 			this.setState({
-				selectedStudentId: null
+				selectedStudentId: null,
+				students: classroom.students
 			});
 			const p = this.props.params;
-			// gets everything after the last /
-			let reportBeginningIndex = window.location.hash.lastIndexOf('/');
-
-			let report = window.location.hash.substring(reportBeginningIndex + 1);
+			let report;
+			if (this.props.location.pathname.includes('student_report')) {
+				report = `student_report`;
+			}
+			else {
+				let reportBeginningIndex = window.location.hash.lastIndexOf('/');
+				report = window.location.hash.substring(reportBeginningIndex + 1);
+			}
 			this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
 	},
 
@@ -113,9 +116,8 @@ export default React.createClass({
 
 	showStudentDropdown: function(){
 		const currPath = this.props.location.pathname;
-		// we only want to show the student dropdown if the route includes student report but
-		// doesn't end with it. This would be better off as a proper regex, but out of time...
-		return currPath.includes('student_report') && !currPath.endsWith('student_report')
+		// we only want to show the student dropdown if the route includes student report
+		return currPath.includes('student_report')
 	},
 
 	render: function() {
@@ -132,12 +134,14 @@ export default React.createClass({
 					<NavBar
 						key={'key'}
 						classrooms={this.state.classrooms}
-						selectedStudentId={this.state.selectedStudentId}
+						selectedStudentId={this.props.params.studentId}
 						studentDropdownCallback={this.changeStudent}
 						dropdownCallback={this.changeClassroom}
 						buttonGroupCallback={this.changeReport}
 						selectedActivity={this.state.selectedActivity}
 						showStudentDropdown={this.showStudentDropdown()}
+						students={this.state.students}
+						params={this.props.params}
 					/>
 					{this.props.children}
 				</div>
