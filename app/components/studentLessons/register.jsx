@@ -51,10 +51,7 @@ export default React.createClass({
               <li>There is often more than one correct answer.</li>
               <li>Remember to use correct spelling, capitalization, and punctuation!</li>
             </ul>
-            <p className="control">
-              <input className="input" type="text" onChange={this.handleNameChange} placeholder="Enter your name"></input>
-            </p>
-            <button className="button is-primary is-fullwidth" onClick={this.startActivity}>Start</button>
+            <button className="button student-begin is-fullwidth" onClick={this.startActivity}>Start</button>
             <br/>
           </div>
         </div>
