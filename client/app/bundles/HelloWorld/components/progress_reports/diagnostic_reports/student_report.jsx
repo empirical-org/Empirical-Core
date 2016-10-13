@@ -52,6 +52,12 @@ export default React.createClass({
 			content = (
 				<div className='individual-student-activity-view'>
           {this.studentBoxes()}
+					<div className='how-we-grade'>
+					<p className="title title-not-started pull-right">
+						<a href="http://support.quill.org/knowledgebase/articles/545071-how-we-grade">How We Grade</a>
+						<a href=""><i className="fa fa-long-arrow-right"></i></a>
+					</p>
+					</div>
 				</div>
 			)
 		}
