@@ -9,6 +9,8 @@ import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../l
 
 import Register from './register.jsx'
 import Finished from './finished.jsx'
+
+import Spinner from '../shared/spinner.jsx'
 const request = require('request');
 
 const Lesson = React.createClass({
@@ -115,7 +117,7 @@ const Lesson = React.createClass({
         component = (
           <Finished
             data={this.props.playLesson}
-            name={this.props.location.query.student} 
+            name={this.props.location.query.student}
             lessonID={this.props.params.lessonID}
             saveToLMS={this.saveToLMS}
           />
@@ -145,7 +147,7 @@ const Lesson = React.createClass({
       )
     }
     else {
-      return (<p>Loading...</p>)
+      return (<div className="student-container student-container-diagnostic"><Spinner/></div>)
     }
   }
 })
