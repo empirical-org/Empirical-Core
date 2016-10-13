@@ -113,7 +113,9 @@ const playLessonQuestion = React.createClass({
   },
 
   handleChange: function (e) {
-    this.setState({editing: true, response: e})
+    if (e !== this.state.response) {
+      this.setState({editing: true, response: e})
+    }
   },
 
   readyForNext: function () {
@@ -195,7 +197,6 @@ const playLessonQuestion = React.createClass({
       } else {
         component = (
           <AnswerForm {...sharedProps}
-
                 handleChange={this.handleChange}
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
         )
