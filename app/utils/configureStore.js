@@ -31,7 +31,8 @@ export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
   // console.log("persisting store")
   persistStore(store, {storage: localForage, blacklist: ['routing', 'pathways', 'playLesson',
-  'playDiagnostic']})
+  'playDiagnostic',
+  'question']})
   // console.log("persisted store")
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (module.hot) {
