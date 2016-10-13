@@ -253,6 +253,13 @@ textarea.submission {
   background-color: #a3e8dc;
 }
 
+.sortable-list-item {
+  border: 1px dashed gray;
+  padding: .5em;
+  margin: .5em;
+}
+
+
 .prevent-selection {
   -webkit-touch-callout: none;
   -webkit-user-select: none;

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {hashToCollection} from '../../libs/hashToCollection'
 import QuestionSelector from 'react-select-search'
+import SortableList from '../questions/sortableList/sortableList.jsx'
 
 const LessonForm = React.createClass({
   getInitialState: function () {
@@ -48,20 +49,28 @@ const LessonForm = React.createClass({
     this.handleChange(e.value)
   },
 
+  sortCallback: function(sortInfo){
+    let newOrder = sortInfo.data.items.map((item)=>item.key);
+    this.setState({selectedQuestions: newOrder});
+  },
+
   renderQuestionSelect: function () {
+    let questions;
     if(this.state.selectedQuestions) {
-      return this.state.selectedQuestions.map((key) => {
+      let questionsList =this.state.selectedQuestions.map((key) => {
         return (
-          <p key={key}>
+          <p className='sortable-list-item' key={key}>
             {this.props.questions.data[key].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}
             {"\t\t"}
             <button onClick={this.handleChange.bind(null, key)}>Delete</button>
           </p>
         )
       })
+      questions = <SortableList key='Sortable-List' sortCallback={this.sortCallback} data={questionsList}/>
     } else {
-      return (<div>No questions</div>)
+      questions = (<div>No questions</div>)
     }
+    return questions;
   },
 
   renderSearchBox: function() {
@@ -121,7 +130,7 @@ const LessonForm = React.createClass({
         </span>
       </p>
       <div className="control">
-        <label className="label">Currently Selected Questions</label>
+        <label className="label">Currently Selected Questions -- {`Total: ${this.state.selectedQuestions.length}`}</label>
         {this.renderQuestionSelect()}
       </div>
       <label className="label">All Questions</label>
