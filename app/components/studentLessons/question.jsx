@@ -96,13 +96,13 @@ const playLessonQuestion = React.createClass({
   },
 
   checkAnswer: function (e) {
-    this.removePrefilledUnderscores()
-
-    var response = getResponse(this.getQuestion(), this.state.response)
-    this.updateResponseResource(response)
-    this.submitResponse(response)
-
-    this.setState({editing: false})
+    if (this.state.editing) {
+      this.removePrefilledUnderscores()
+      var response = getResponse(this.getQuestion(), this.state.response)
+      this.updateResponseResource(response)
+      this.submitResponse(response)
+      this.setState({editing: false})
+    }
   },
 
   toggleDisabled: function () {
