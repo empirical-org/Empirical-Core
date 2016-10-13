@@ -17,8 +17,17 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		let that = this;
-		$.get('/teachers/progress_reports/recommendations_for_classroom/' + that.props.params.classroomId, (data) => {
+		this.getRecommendationData(this.props.params.classroomId);
+	},
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({loading: true});
+		this.getRecommendationData(nextProps.params.classroomId);
+	},
+
+	getRecommendationData: function(classroomId){
+		var that = this;
+		$.get('/teachers/progress_reports/recommendations_for_classroom/' + classroomId, (data) => {
 			that.setState({
 				recommendations: JSON.parse(JSON.stringify(data.recommendations)),
 				selections: [...data.recommendations],
