@@ -139,7 +139,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
 
   def get_time_in_minutes activity_session
-    ((activity_session.completed_at - activity_session.started_at) / 60).round()
+    if activity_session.started_at && activity_session.completed_at
+      return ((activity_session.completed_at - activity_session.started_at) / 60).round()
+    else
+      return 'Untracked'
+    end
   end
 
   def get_concept_results activity_session
