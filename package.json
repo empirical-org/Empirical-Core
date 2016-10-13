@@ -85,6 +85,7 @@
     "react-select-search": "^0.5.0",
     "react-selectize": "^2.0.3",
     "react-simple-pie-chart": "^0.4.0",
+    "react-sortable": "^1.1.0",
     "redux-persist": "^3.5.0",
     "remarkable": "^1.6.2",
     "request": "^2.65.0",
