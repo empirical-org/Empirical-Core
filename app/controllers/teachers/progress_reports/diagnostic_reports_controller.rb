@@ -97,18 +97,22 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     unit = Unit.find(unit_id)
     class_ids = current_user.classrooms_i_teach.map(&:id)
     #without definining class ids, it may default to a classroom activity from a non-existant classroom
-    class_act = unit.classroom_activities.where(activity_id: activity_id, classroom_id: class_ids).limit(1).first
-    classroom = class_act.classroom.attributes
-    activity_sessions = class_act.activity_sessions.completed
-    activity_sessions.each do |activity_session|
-      class_id = classroom['id']
-      h[class_id] ||= classroom
-      h[class_id][:students] ||= []
-      if h[class_id][:students].exclude? activity_session.user
-         h[class_id][:students] << activity_session.user
+    class_acts = unit.classroom_activities.where(activity_id: activity_id, classroom_id: class_ids)
+
+    class_acts.each do |ca|
+      classroom = ca.classroom.attributes
+      activity_sessions = ca.activity_sessions.completed
+      activity_sessions.each do |activity_session|
+        class_id = classroom['id']
+        h[class_id] ||= classroom
+        h[class_id][:students] ||= []
+        if h[class_id][:students].exclude? activity_session.user
+           h[class_id][:students] << activity_session.user
+        end
+        h[class_id][:classroom_activity_id] = ca.id
       end
-      h[class_id][:classroom_activity_id] = class_act.id
     end
+
     # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
     # being converted to an array because that is what the diagnostic reports expect
     h.map{|k,v| v}
