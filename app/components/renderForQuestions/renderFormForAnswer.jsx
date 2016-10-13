@@ -41,7 +41,12 @@ export default React.createClass({
 
     var button, feedback = this.props.feedback;
     if(!this.props.nextQuestionButton) {
-      button = <button className={"button student-submit " + this.props.toggleDisabled} onClick={this.props.checkAnswer}>Check answer</button>
+      button = (
+        <button
+          className={"button student-submit " + this.props.toggleDisabled} onClick={this.props.checkAnswer}>
+          Check answer
+        </button>
+      )
     } else { // if you're going to next, it is the end state
       button = this.props.nextQuestionButton
       let answeredCorrectly = !!(_.find(this.props.question.attempts, (attempt) => {
@@ -61,8 +66,12 @@ export default React.createClass({
         <div className="content">
           {this.props.cues}
           {feedback}
-          <TextEditor disabled={this.props.disabled} defaultValue={this.props.initialValue} key={this.props.questionID} checkAnswer={this.props.checkAnswer}
-                      handleChange={this.props.handleChange} value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
+          <TextEditor
+            disabled={this.props.disabled} defaultValue={this.props.initialValue}
+            key={this.props.questionID}
+            checkAnswer={this.props.checkAnswer}
+            handleChange={this.props.handleChange}
+            value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
           <div className="question-button-group button-group">
             {this.getHelpModal()}
             {info}
