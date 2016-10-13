@@ -96,13 +96,13 @@ const playLessonQuestion = React.createClass({
   },
 
   checkAnswer: function (e) {
-    this.removePrefilledUnderscores()
-
-    var response = getResponse(this.getQuestion(), this.state.response)
-    this.updateResponseResource(response)
-    this.submitResponse(response)
-
-    this.setState({editing: false})
+    if (this.state.editing) {
+      this.removePrefilledUnderscores()
+      var response = getResponse(this.getQuestion(), this.state.response)
+      this.updateResponseResource(response)
+      this.submitResponse(response)
+      this.setState({editing: false})
+    }
   },
 
   toggleDisabled: function () {
@@ -113,7 +113,9 @@ const playLessonQuestion = React.createClass({
   },
 
   handleChange: function (e) {
-    this.setState({editing: true, response: e})
+    if (e !== this.state.response) {
+      this.setState({editing: true, response: e})
+    }
   },
 
   readyForNext: function () {
@@ -195,7 +197,6 @@ const playLessonQuestion = React.createClass({
       } else {
         component = (
           <AnswerForm {...sharedProps}
-
                 handleChange={this.handleChange}
                 toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
         )

@@ -130,7 +130,37 @@ export default {
 	},
 
 
-	ERROR_TYPES: ['typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "flexibleModifiedWordError", "flexibleAdditionalWordError", "flexibleMissingWordError", "modifiedWordError", "additionalWordError", "missingWordError",  "whitespaceError"],
+	ERROR_TYPES: [
+    'typingError',
+    'caseError',
+    'punctuationError',
+    'punctuationAndCaseError',
+    'minLengthError',
+    'maxLengthError',
+    "flexibleModifiedWordError",
+    "flexibleAdditionalWordError",
+    "flexibleMissingWordError",
+    "modifiedWordError",
+    "additionalWordError",
+    "missingWordError",
+    "whitespaceError"
+	],
+
+	ERROR_AUTHORS: [
+    'Focus Point Hint',
+    'Capitalization Hint',
+    'Punctuation Hint',
+    'Punctuation and Case Hint',
+    'Modified Word Hint',
+    'Additional Word Hint',
+    "Missing Word Hint",
+    "Flexible Modified Word Hint",
+    "Flexible Additional Word Hint",
+    "Flexible Missing Word Hint",
+    "Whitespace Hint",
+    "Missing Details Hint",
+    "Not Concise Hint"
+	],
 
 	// CONCEPTS FEEDBACK ACTIONS
 	RECEIVE_CONCEPTS_FEEDBACK_DATA: "RECEIVE_CONCEPTS_FEEDBACK_DATA",

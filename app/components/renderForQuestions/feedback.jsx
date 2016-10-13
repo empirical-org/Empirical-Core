@@ -20,7 +20,7 @@ export default React.createClass({
       } else {
         return (
           <div className="feedback-row">
-            <img src={icon}/>
+            <img className="revise" src={revise}/>
             <p>{data.sentence}</p>
           </div>
         )
