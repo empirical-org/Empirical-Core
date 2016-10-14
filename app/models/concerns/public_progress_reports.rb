@@ -26,7 +26,7 @@ module PublicProgressReports
       end
     end
 
-    def results_by_question
+    def results_by_question(params)
       classroom_activity = ClassroomActivity.find_by(classroom_id: params[:classroom_id], activity_id: params[:activity_id], unit_id: params[:unit_id])
       questions = Hash.new{|h,k| h[k]={} }
       all_answers = classroom_activity.activity_session_metadata
@@ -127,6 +127,33 @@ module PublicProgressReports
           question_number: cr.first[:metadata]["questionNumber"]
         }
       }
+    end
+
+    def get_connect_concept_results activity_session
+      formatted_h = {}
+
+      concept_results.each do |cr|
+        metadata = cr[:metadata]
+        formatted_h[metadata["questionNumber"]] ||= {}
+
+        q_number_h = formatted_h[metadata["questionNumber"]]
+        q_number_h[:directions] ||= metadata['directions']
+        q_number_h[:prompt] ||= metadata['prompt']
+        q_number_h[:attempt_number] ||= {}
+        q_number_h[:attempt_number][metadata['attemptNumber']] ||= {}
+
+
+        attempt_h = q_number_h[:attempt_number][metadata['attemptNumber']]
+        attempt_h[:concepts] ||= []
+        attempt_h[:concepts].push({
+            id: cr.concept_id,
+            name: cr.concept.name,
+            correct: metadata["correct"] == 1
+          })
+        attempt_h[:answer] = metadata['answer']
+      end
+
+      formatted_h
     end
 
     def get_score_for_question concept_results
