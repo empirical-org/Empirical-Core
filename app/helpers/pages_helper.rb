@@ -36,7 +36,7 @@ module PagesHelper
 		      img: 'thumb-peter.png',
 		      name: 'Peter Gault',
 		      title: 'Executive Director, Cofounder',
-		      desc: "Peter designs the user experiences, coordinates the team, and leads fundraising. Peter wrote his senior thesis at Bates College on the role of emotion in moral judgments. In 2016, he was awarded Forbes 30 Under 30 for education."
+		      desc: "Peter designs the user experience, coordinates the team, and leads fundraising. Peter wrote his senior thesis at Bates College on the role of emotion in moral judgments. In 2016, he was awarded Forbes 30 Under 30 for education."
 			},
 			{
 				img: 'thumb-ryan.png',
