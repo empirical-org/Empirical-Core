@@ -2,6 +2,7 @@ import React from 'react'
 import ProgressReport from '../progress_report.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import StudentReportBox from './student_report_box.jsx'
+import ConnectStudentReportBox from './connect_student_report_box.jsx'
 import $ from 'jquery'
 import _ from 'underscore'
 export default React.createClass({
@@ -38,8 +39,12 @@ export default React.createClass({
   },
 
   studentBoxes: function(){
-		let concept_results = _.sortBy(this.selectedStudent(this.state.students).concept_results, 'question_number')
+		const studentData = this.selectedStudent(this.state.students);
+		let concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question, index) => {
+			if (studentData.activity_classification === 'connect') {
+				return <ConnectStudentReportBox key={index} boxNumber={index+1} questionData={question}/>
+			}
 			return <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>
 		})
   },
