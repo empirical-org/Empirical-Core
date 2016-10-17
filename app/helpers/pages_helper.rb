@@ -32,33 +32,32 @@ module PagesHelper
 		arr = [
 			{team: 'Quill Team',
 			members: [
-	      {
+	     		{
 		      img: 'thumb-peter.png',
 		      name: 'Peter Gault',
 		      title: 'Executive Director, Cofounder',
-		      desc: "Peter designs the user's experience and coordinates the Empirical team. Peter wrote his senior thesis at Bates College on the role of emotion in moral judgements."
-		  },
+		      desc: "Peter designs the user experiences, coordinates the team, and leads fundraising. Peter wrote his senior thesis at Bates College on the role of emotion in moral judgments. In 2016, he was awarded Forbes 30 Under 30 for education."
+			},
 			{
 				img: 'thumb-ryan.png',
 				name: "Ryan Novas",
 				title: "Operations Director/Web Developer, Cofounder",
 				desc: "Ryan develops new features for Quill and maintains the website. He also oversees Quill's operations and directs technical support initiatives."
 			},
-	  	  {
-		      img: 'thumb-tom.png',
-		      name: "Tom Calabrese",
-		      title: "Creative Director, Cofounder",
-		      desc: "Thomas is a designer who likes to think about strategy, people, and science fiction. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
-	      },
-				{
+			{
 					img: 'thumb-donald.png',
-		      name: 'Donald Mckendrick',
+		      name: 'Donald McKendrick',
 		      title: 'Technology Director, Cofounder',
 		      desc: "Donald is a developer who likes to create open platforms for learning.
-					He has a Masters degree in chemistry with a specialization in computer
+					He has a master's degree in chemistry with a specialization in computer
 					aided modeling and statistical analysis."
-				}
-
+			},
+			{
+		      img: 'thumb-hannah.png',
+		      name: "Hannah Monk",
+		      title: "Curriculum Director",
+		      desc: "Hannah designs the curriculum and works with educators to create new content. Before joining Quill, Hannah was a seventh grade English teacher at a low-income school in western Virginia. She has an undergraduate degree in English and a master’s degree in education."
+	      		}
 			]},
 			{team: 'Board of Directors',
 			members: [
@@ -84,7 +83,7 @@ module PagesHelper
 						img: 'thumb_ben.png',
 						name: "Ben Sussman",
 						title: "Board Member",
-						desc: "Ben Sussman is the Director of Engineering at Zoc Doc and is a technical advisor to Quill. He has 10+ years of experience as a computer programmer and entrepreneur. His years at Zoc Doc have fed his passion for combining technology and user education."
+						desc: "Ben Sussman is a Lead Engineer at Betterment and is a technical advisor to Quill. He has 10+ years of experience as a computer programmer and entrepreneur. On the weekends, Ben volunteers with Nanohackers to teach programming to kids."
 					}
 			]},
 			{team: 'Education Advisory Board',
@@ -94,12 +93,6 @@ module PagesHelper
 					name: 'Daniel Scibienski',
 					title: "Advisory Board Member",
 					desc: "Daniel Scibienski is the founder of ELL Consulting.  He has been involved in English language education for over 14 years as a teacher, trainer, and program administrator."
-				},
-				{
-					img: 'thumb-peg.jpg',
-					name: 'Peg Tyre',
-					title: "Advisory Board Member",
-					desc: "Peg Tyre is a longtime education journalist and the best-selling author of two books on education. She is also director of strategy for The Edwin Gould Foundation, which invests in organizations that get low-income students to and through college. Tyre is currently at work on a book about literacy."
 				},
 				{
 					img: 'thumb-emily.jpg',
@@ -115,15 +108,16 @@ module PagesHelper
 					}]},
 					{team: 'Technical Advisory Board',
 					members: [
-						{
-	    		img: "thumb-oliver.jpg",
-	      	name: "Oliver Hurst Hiller",
-	      	title: "Advisory Board Member",
-	      	desc: "Oliver is the CTO and Head of Product at DonorsChoose.org. Previously, he managed product engineering projects for Microsoft's new search engine, now called Bing."
+				{
+	    				img: "thumb-oliver.jpg",
+	      				name: "Oliver Hurst Hiller",
+	      				title: "Advisory Board Member",
+	      				desc: "Oliver is the CTO and Head of Product at DonorsChoose.org. Previously, he managed product engineering projects for Microsoft's new search engine, now called Bing."
 					}]},
-					{team: 'Open Source Developers',
+			
+				{team: 'Open Source Developers',
 					members: [
-						{
+				{
 					img: 'thumb-alex.png',
 					name: "Alex Redmon",
 					title: "Open Source Developer",
