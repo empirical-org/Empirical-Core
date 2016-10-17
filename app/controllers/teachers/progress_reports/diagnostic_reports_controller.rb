@@ -7,8 +7,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def question_view
-    results_by_question(params)
-    render json:  {data: results_by_question}.to_json
+    render json:  {data:   results_by_question(params)}.to_json
   end
 
   def students_by_classroom

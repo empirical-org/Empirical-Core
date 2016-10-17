@@ -80,6 +80,7 @@ module PublicProgressReports
 
     def results_for_classroom unit_id, activity_id, classroom_id
       classroom_activity = ClassroomActivity.find_by(classroom_id: classroom_id, activity_id: activity_id, unit_id: unit_id)
+      activity = classroom_activity.activity
       activity_sessions = classroom_activity.activity_sessions.where(is_final_score: true).includes(:user, concept_results: :concept)
       classroom = Classroom.find(classroom_id)
       scores = {
@@ -90,6 +91,7 @@ module PublicProgressReports
           student = activity_session.user
           formatted_concept_results = get_concept_results(activity_session)
         {
+            activity_classification: ActivityClassification.find(activity.activity_classification_id).name,
             id: student.id,
             name: student.name,
             time: get_time_in_minutes(activity_session),
@@ -121,39 +123,14 @@ module PublicProgressReports
             {
               id: crs.concept_id,
               name: crs.concept.name,
-              correct: crs[:metadata]["correct"] == 1
+              correct: crs[:metadata]["correct"] == 1,
+              attempt: crs[:metadata]["attemptNumber"] || 1,
+              answer: crs[:metadata]["answer"]
             }
           },
           question_number: cr.first[:metadata]["questionNumber"]
         }
       }
-    end
-
-    def get_connect_concept_results activity_session
-      formatted_h = {}
-
-      concept_results.each do |cr|
-        metadata = cr[:metadata]
-        formatted_h[metadata["questionNumber"]] ||= {}
-
-        q_number_h = formatted_h[metadata["questionNumber"]]
-        q_number_h[:directions] ||= metadata['directions']
-        q_number_h[:prompt] ||= metadata['prompt']
-        q_number_h[:attempt_number] ||= {}
-        q_number_h[:attempt_number][metadata['attemptNumber']] ||= {}
-
-
-        attempt_h = q_number_h[:attempt_number][metadata['attemptNumber']]
-        attempt_h[:concepts] ||= []
-        attempt_h[:concepts].push({
-            id: cr.concept_id,
-            name: cr.concept.name,
-            correct: metadata["correct"] == 1
-          })
-        attempt_h[:answer] = metadata['answer']
-      end
-
-      formatted_h
     end
 
     def get_score_for_question concept_results

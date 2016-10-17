@@ -1,11 +1,9 @@
 import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
+import ConceptResultTableRow from './concept_result_table_row.jsx'
+import StudentReportHeader from './student_report_header.jsx'
 
 export default React.createClass({
-	propTypes: {
-		// questionData: React.PropTypes.obj.isRequired,
-		// boxNumber: React.PropTypes.num.isRequired
-	},
 
 	header: function() {
 		if (this.props.boxNumber === 1) {
@@ -15,24 +13,19 @@ export default React.createClass({
 					<td><div><span>Score</span></div></td>
 					<td></td>
     		</tr>
-			)
+			);
 		}
 	},
 
 	concepts: function() {
-
 		return this.props.questionData.concepts.map((concept) => (
-			<tr key={concept.id}>
-				<td>Concept</td>
-				<td>{<img src={'/images/' + (concept.correct ? 'green_check' : 'red_x') + '.svg'}/>}
-        </td>
-        <td>{concept.name}</td>
-			</tr>
-		))
+			<ConceptResultTableRow concept={concept}/>
+		));
 	},
 
 	render: function() {
 		const data = this.props.questionData;
+		const header = this.props.boxNumber === 1 ? <StudentReportHeader boxNumber={this.props.boxNumber}/> : null;
 		return (
 			<div className='individual-activity-report'>
 				<div className="student-report-box">
@@ -40,7 +33,7 @@ export default React.createClass({
 							<div className='question-index'>{this.props.boxNumber}</div>
 								<table>
 									<tbody>
-										{this.header()}
+										{header}
 										<tr className='directions'>
 											<td>Directions</td>
 											<td></td>
