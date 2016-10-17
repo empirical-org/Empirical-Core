@@ -54,7 +54,7 @@ export default React.createClass({
           </div>
         </header>
         <div className="card-content">
-          <div className="content">
+          <div className="content landing-page-html-editor">
             <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]}/>
           </div>
         </div>
