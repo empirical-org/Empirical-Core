@@ -26,7 +26,7 @@ module PublicProgressReports
       end
     end
 
-    def results_by_question
+    def results_by_question(params)
       classroom_activity = ClassroomActivity.find_by(classroom_id: params[:classroom_id], activity_id: params[:activity_id], unit_id: params[:unit_id])
       questions = Hash.new{|h,k| h[k]={} }
       all_answers = classroom_activity.activity_session_metadata
@@ -80,6 +80,7 @@ module PublicProgressReports
 
     def results_for_classroom unit_id, activity_id, classroom_id
       classroom_activity = ClassroomActivity.find_by(classroom_id: classroom_id, activity_id: activity_id, unit_id: unit_id)
+      activity = classroom_activity.activity
       activity_sessions = classroom_activity.activity_sessions.where(is_final_score: true).includes(:user, concept_results: :concept)
       classroom = Classroom.find(classroom_id)
       scores = {
@@ -90,6 +91,7 @@ module PublicProgressReports
           student = activity_session.user
           formatted_concept_results = get_concept_results(activity_session)
         {
+            activity_classification: ActivityClassification.find(activity.activity_classification_id).name,
             id: student.id,
             name: student.name,
             time: get_time_in_minutes(activity_session),
@@ -121,7 +123,9 @@ module PublicProgressReports
             {
               id: crs.concept_id,
               name: crs.concept.name,
-              correct: crs[:metadata]["correct"] == 1
+              correct: crs[:metadata]["correct"] == 1,
+              attempt: crs[:metadata]["attemptNumber"] || 1,
+              answer: crs[:metadata]["answer"]
             }
           },
           question_number: cr.first[:metadata]["questionNumber"]
