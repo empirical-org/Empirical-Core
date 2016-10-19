@@ -99,17 +99,18 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   checkAnswer: function (e) {
-    this.removePrefilledUnderscores()
-
-    var response = getResponse(this.getQuestion(), this.state.response, this.props.marking)
-    this.updateResponseResource(response)
-    this.submitResponse(response)
-
-    this.setState({
-      editing: false,
-      response: ""
-    })
-    this.nextQuestion();
+    if (this.state.editing) {
+      this.removePrefilledUnderscores()
+      var response = getResponse(this.getQuestion(), this.state.response, this.props.marking)
+      this.updateResponseResource(response)
+      this.submitResponse(response)
+      this.setState({
+        editing: false,
+        response: ""
+      },
+        this.nextQuestion()
+      )
+    }
   },
 
   toggleDisabled: function () {

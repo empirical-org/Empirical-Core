@@ -14,6 +14,7 @@ var PlaySentenceFragment = React.createClass({
   getInitialState: function() {
     return {
       response: "",
+      checkAnswerEnabled: true
     }
   },
 
@@ -56,57 +57,41 @@ var PlaySentenceFragment = React.createClass({
   },
 
   checkAnswer: function() {
-    const fragment = this.props.sentenceFragments.data[key]
+    if (this.state.checkAnswerEnabled) {
+      this.setState({checkAnswerEnabled: false}, ()=>{
+      const fragment = this.props.sentenceFragments.data[key]
 
-    const responseMatcher = new POSMatcher(fragment.responses);
-    const matched = responseMatcher.checkMatch(this.state.response);
+      const responseMatcher = new POSMatcher(fragment.responses);
+      const matched = responseMatcher.checkMatch(this.state.response);
 
-    var newResponse;
+      var newResponse;
 
-    if(matched.found) {
-      if(matched.posMatch && !matched.exactMatch) {
+      if(matched.found) {
+        if(matched.posMatch && !matched.exactMatch) {
+          newResponse = {
+            text: matched.submitted,
+            parentID: matched.response.key,
+            count: 1,
+            feedback: matched.response.optimal ? "Excellent!" : "Try writing the sentence in another way."
+          }
+          if (matched.response.optimal) {
+            newResponse.optimal = matched.response.optimal
+          }
+          this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
+          this.props.dispatch(fragmentActions.incrementChildResponseCount(key, matched.response.key)) //parent has no parentID
+        } else {
+          this.props.dispatch(fragmentActions.incrementResponseCount(key, matched.response.key, matched.response.parentID))
+        }
+      } else {
         newResponse = {
           text: matched.submitted,
-          parentID: matched.response.key,
-          count: 1,
-          feedback: matched.response.optimal ? "Excellent!" : "Try writing the sentence in another way."
-        }
-        if (matched.response.optimal) {
-          newResponse.optimal = matched.response.optimal
+          count: 1
         }
         this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
-        this.props.dispatch(fragmentActions.incrementChildResponseCount(key, matched.response.key)) //parent has no parentID
-      } else {
-        this.props.dispatch(fragmentActions.incrementResponseCount(key, matched.response.key, matched.response.parentID))
       }
-    } else {
-      newResponse = {
-        text: matched.submitted,
-        count: 1
-      }
-      this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
-    }
-    this.props.updateAttempts(matched);
-    this.props.nextQuestion();
-    // if((matched.posMatch || matched.exactMatch) && matched.response.optimal) {
-    //   this.setState({
-    //     prompt: "That is a correct answer!",
-    //     goToNext: true
-    //   })
-    // } else {
-    //   this.setState({prompt: "Try writing the sentence in another way."})
-    // }
-  },
-
-  renderNextPage: function() {
-    if(!this.props.currentKey) {
-      if(this.state.isNextPage) {
-        return (
-          <div className="container">
-            <h5 className="title is-5">Thank you for playing!</h5>
-          </div>
-        )
-      }
+      this.props.updateAttempts(matched);
+      this.props.nextQuestion();
+      })
     }
   },
 
@@ -129,12 +114,8 @@ var PlaySentenceFragment = React.createClass({
   },
 
   renderPlaySentenceFragmentMode: function(fragment) {
-    var button
-    if(this.showNextQuestionButton()) {
-      button = <button className="button student-next" onClick={this.props.nextQuestion}>Next</button>
-    } else {
-      button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
-    }
+    const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
+
     if(!this.choosingSentenceOrFragment()) {
       var instructions
       if(this.props.question.instructions && this.props.question.instructions!=="") {
@@ -158,12 +139,6 @@ var PlaySentenceFragment = React.createClass({
           </ReactTransition>
         </div>
       )
-    // } else if(this.showNextQuestionButton()) {
-    //   return (
-    //     <div>{button}</div>
-    //   )
-    } else {
-      return (<div />)
     }
   },
 
@@ -179,7 +154,6 @@ var PlaySentenceFragment = React.createClass({
 
           {this.renderSentenceOrFragmentMode()}
           {this.renderPlaySentenceFragmentMode(fragment)}
-          {this.renderNextPage()}
         </div>
       )
     } else {
