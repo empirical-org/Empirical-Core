@@ -7,6 +7,10 @@ class ConceptResult < ActiveRecord::Base
   validates :concept, presence: true
   validates :activity_session, presence: true
 
+
+  validates :question_type, inclusion: { in: %w(passage-proofreader sentence-writing sentence-fragment sentence-combining),
+                   message: "%{value} is not a valid question_type" }, :allow_nil => true
+
   # Calculate the average words per minute for all the Typing Speed results
   # def self.average_wpm
   #   joins(:concept)
