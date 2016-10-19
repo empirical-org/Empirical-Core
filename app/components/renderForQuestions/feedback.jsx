@@ -10,7 +10,6 @@ export default React.createClass({
     const latestAttempt = getLatestAttempt(data.question.attempts)
     if (latestAttempt) {
       if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
-        console.log("I'm where you think you are.")
         return (
           <div className="feedback-row">
             <img className="revise" src={revise}/>
