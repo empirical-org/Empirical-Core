@@ -88,26 +88,6 @@ var PlaySentenceFragment = React.createClass({
     }
     this.props.updateAttempts(matched);
     this.props.nextQuestion();
-    // if((matched.posMatch || matched.exactMatch) && matched.response.optimal) {
-    //   this.setState({
-    //     prompt: "That is a correct answer!",
-    //     goToNext: true
-    //   })
-    // } else {
-    //   this.setState({prompt: "Try writing the sentence in another way."})
-    // }
-  },
-
-  renderNextPage: function() {
-    if(!this.props.currentKey) {
-      if(this.state.isNextPage) {
-        return (
-          <div className="container">
-            <h5 className="title is-5">Thank you for playing!</h5>
-          </div>
-        )
-      }
-    }
   },
 
   renderSentenceOrFragmentMode: function() {
@@ -129,12 +109,8 @@ var PlaySentenceFragment = React.createClass({
   },
 
   renderPlaySentenceFragmentMode: function(fragment) {
-    var button
-    if(this.showNextQuestionButton()) {
-      button = <button className="button student-next" onClick={this.props.nextQuestion}>Next</button>
-    } else {
-      button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
-    }
+    const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
+
     if(!this.choosingSentenceOrFragment()) {
       var instructions
       if(this.props.question.instructions && this.props.question.instructions!=="") {
@@ -158,12 +134,6 @@ var PlaySentenceFragment = React.createClass({
           </ReactTransition>
         </div>
       )
-    // } else if(this.showNextQuestionButton()) {
-    //   return (
-    //     <div>{button}</div>
-    //   )
-    } else {
-      return (<div />)
     }
   },
 
@@ -179,7 +149,6 @@ var PlaySentenceFragment = React.createClass({
 
           {this.renderSentenceOrFragmentMode()}
           {this.renderPlaySentenceFragmentMode(fragment)}
-          {this.renderNextPage()}
         </div>
       )
     } else {
