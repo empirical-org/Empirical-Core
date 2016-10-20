@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   selectAnswer: function (key) {
-    if ( true || !this.state.selected) {
+    if (!this.state.selected) {
       this.setState({selected: key})
     }
   },
@@ -28,26 +28,14 @@ export default React.createClass({
     if (!this.state.selected) {
       return " is-outlined"
     }
-    if (answer.optimal) {
-      return " is-info"
-    }
-    return " is-danger"
-  },
 
-  renderSubmission: function (answer) {
-    if (this.state.selected) {
-      if (this.state.selected === answer.key) {
-        if (answer.optimal) {
-          return (
-            <span style={{marginLeft: 10}}>✓</span>
-          )
-        } else {
-          return (
-            <span style={{marginLeft: 10}}>✗</span>
-          )
-        }
+    if (this.state.selected === answer.key) {
+      if (answer.optimal) {
+        return " correctly-selected"
       }
+      return " incorrectly-selected"
     }
+    return " "
   },
 
   renderOptions: function () {
@@ -57,7 +45,7 @@ export default React.createClass({
           <a
             className={"button lesson-multiple-choice-button" + this.buttonClasses(answer)}
             onClick={this.selectAnswer.bind(null, answer.key)}>
-            {answer.text} {this.renderSubmission(answer)}
+            {answer.text}
           </a>
         </li>
       )
@@ -90,7 +78,6 @@ export default React.createClass({
             There are two strong sentences below. Which one do you think is the strongest?
           </p>
           {this.renderOptions()}
-          {this.renderContinueButton()}
         </div>
       </section>
     )

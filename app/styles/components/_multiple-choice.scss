@@ -29,6 +29,14 @@
         width: 100%;
         text-align: left;
         color: black;
+
+        &.correctly-selected {
+          border: solid 2px $green;
+        }
+
+        &.incorrectly-selected {
+          border: solid 2px $red;
+        }
       }
     }
   }
