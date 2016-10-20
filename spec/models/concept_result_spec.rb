@@ -29,7 +29,12 @@ describe ConceptResult, type: :model do
       expect(concept_result_with_concept).to be_valid
     end
 
-    it "can equal sentence-fragment" do
+    it "can equal sentence-fragment-identification" do
+      concept_result_with_concept.update(question_type:'sentence-writing')
+      expect(concept_result_with_concept).to be_valid
+    end
+
+    it "can equal sentence-fragment-expansion" do
       concept_result_with_concept.update(question_type:'sentence-fragment')
       expect(concept_result_with_concept).to be_valid
     end
