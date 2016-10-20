@@ -23,7 +23,7 @@ import handleFocus from '../renderForQuestions/handleFocus.js'
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
 import submitPathway from '../renderForQuestions/submitPathway.js'
-
+import MultipleChoice from './multipleChoice.jsx'
 import StateFinished from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
@@ -54,6 +54,30 @@ const playLessonQuestion = React.createClass({
   getResponse2: function (rid) {
     const {data} = this.props.questions, questionID = this.props.question.key;
     return (data[questionID].responses[rid])
+  },
+
+  getOptimalResponses: function () {
+    var fields = {
+      prompt: this.getQuestion().prompt,
+      responses: hashToCollection(this.getQuestion().responses)
+    }
+    var question = new Question(fields);
+    return question.getOptimalResponses()
+  },
+
+  getSubOptimalResponses: function () {
+    var fields = {
+      prompt: this.getQuestion().prompt,
+      responses: hashToCollection(this.getQuestion().responses)
+    }
+    var question = new Question(fields);
+    return question.getSubOptimalResponses()
+  },
+
+  get4MarkedResponses: function () {
+    var twoOptimal = _.first(_.shuffle(this.getOptimalResponses()), 2)
+    var twoSubOptimal = _.first(_.shuffle(this.getSubOptimalResponses()), 2)
+    return _.shuffle(twoOptimal.concat(twoSubOptimal))
   },
 
   submitResponse: function(response) {
@@ -195,10 +219,17 @@ const playLessonQuestion = React.createClass({
           )
         }
       } else {
+        // component = (
+        //   <AnswerForm {...sharedProps}
+        //         handleChange={this.handleChange}
+        //         toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
+        // )
+
         component = (
-          <AnswerForm {...sharedProps}
-                handleChange={this.handleChange}
-                toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
+          <MultipleChoice
+            prompt={this.renderSentenceFragments()}
+            answers={this.get4MarkedResponses()}
+          />
         )
       }
       return (
