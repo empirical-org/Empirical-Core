@@ -23,6 +23,32 @@ export default React.createClass({
 		));
 	},
 
+	directions: function(){
+		const directions = this.props.questionData.directions;
+		if (directions) {
+			return (
+				<tr className='directions'>
+					<td>Directions</td>
+					<td></td>
+					<td><span>{directions}</span></td>
+				</tr>
+			)
+		}
+	},
+
+	prompt: function(){
+		const prompt = this.props.questionData.prompt;
+		if (prompt) {
+			return (
+				<tr>
+					<td>Prompt</td>
+					<td></td>
+					<td><span>{prompt}</span></td>
+				</tr>
+			)
+		}
+	},
+
 	render: function() {
 		const data = this.props.questionData;
 		const header = this.props.boxNumber === 1 ? <StudentReportHeader boxNumber={this.props.boxNumber}/> : null;
@@ -34,16 +60,8 @@ export default React.createClass({
 								<table>
 									<tbody>
 										{header}
-										<tr className='directions'>
-											<td>Directions</td>
-											<td></td>
-											<td><span>{data.directions}</span></td>
-										</tr>
-										<tr>
-											<td>Prompt</td>
-											<td></td>
-											<td>{data.prompt}</td>
-										</tr>
+										{this.directions()}
+										{this.prompt()}
 										<tr className={ScoreColor(data.score)}>
 											<td>Response</td>
 											<td></td>
