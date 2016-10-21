@@ -10,7 +10,11 @@ export default React.createClass({
 
   selectAnswer: function (key) {
     if (!this.state.selected) {
-      this.setState({selected: key})
+      this.setState({selected: key},
+        () => {setTimeout(() => {
+          this.next()
+        }, 1000)
+      })
     }
   },
 

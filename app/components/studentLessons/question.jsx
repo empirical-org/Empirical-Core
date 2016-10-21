@@ -33,7 +33,9 @@ const playLessonQuestion = React.createClass({
   getInitialState: function () {
     return {
       editing: false,
-      response: ""
+      response: "",
+      finished: false,
+      multipleChoice: false
     }
   },
 
@@ -93,9 +95,16 @@ const playLessonQuestion = React.createClass({
     return newCues.splice(0, newCues.length - 1).join(", ") + " or " + newCues.pop() + "."
   },
 
-  renderFeedback: function () {
+  renderFeedback: function (override) {
+    let sentence;
+    if (override) {
+      sentence = override
+    } else {
+      sentence = "We have not seen this sentence before. Could you please try writing it in another way?"
+    }
     return <RenderFeedback question={this.props.question} renderFeedbackStatements = {this.renderFeedbackStatements}
-            sentence="We have not seen this sentence before. Could you please try writing it in another way?"
+            sentence={sentence}
+            override={!!override}
             getQuestion={this.getQuestion} listCuesAsString={this.listCuesAsString} />
   },
 
@@ -119,6 +128,14 @@ const playLessonQuestion = React.createClass({
     submitPathway(response, this.props)
   },
 
+  answeredCorrectly: function () {
+    const question = this.getQuestion();
+    const latestAttempt = getLatestAttempt(question.attempts)
+    const errorsForAttempt = _.keys(this.getErrorsForAttempt(latestAttempt)).length > 0
+    console.log(latestAttempt, this.getErrorsForAttempt(latestAttempt), errorsForAttempt)
+    return (latestAttempt.found && !errorsForAttempt && latestAttempt.response.optimal)
+  },
+
   checkAnswer: function (e) {
     if (this.state.editing) {
       this.removePrefilledUnderscores()
@@ -127,6 +144,10 @@ const playLessonQuestion = React.createClass({
       this.submitResponse(response)
       this.setState({editing: false})
     }
+  },
+
+  completeMultiChoice: function () {
+    this.setState({finished: true})
   },
 
   toggleDisabled: function () {
@@ -172,6 +193,24 @@ const playLessonQuestion = React.createClass({
     return (<button className="button student-next" onClick={this.nextQuestion}>Next</button>)
   },
 
+  renderFinishedQuestionButton:  function () {
+    const nextF = () =>  {
+      this.setState({finished: true})
+    }
+    return (<button className="button student-next" onClick={nextF}>Next</button>)
+  },
+
+  renderMultipleChoiceButton:  function () {
+    const nextF = () =>  {
+      this.setState({multipleChoice: true})
+    }
+    return (<button className="button student-next" onClick={nextF}>Next</button>)
+  },
+
+  finishQuestion: function () {
+    this.setState({finished: true})
+  },
+
   render: function () {
     const questionID = this.props.question.key;
     if (this.props.question) {
@@ -190,24 +229,49 @@ const playLessonQuestion = React.createClass({
       var component;
       if (this.state.finished) {
         component = (
-          <StateFinished sessionKey={this.state.sessionKey} />
-        )
-      }
-      if (this.props.question.attempts.length > 2 ) {
-        component = (
           <AnswerForm {...sharedProps}
                       handleChange={() => {}}
                       nextQuestionButton={this.renderNextQuestionButton()}
                       disabled={true}
+                      finished={true}
                        />
         )
+      } else if (this.state.multipleChoice) {
+        component = (
+          <MultipleChoice
+            prompt={this.renderSentenceFragments()}
+            answers={this.get4MarkedResponses()}
+            next={this.finishQuestion}
+          />
+        )
+      } else if (this.props.question.attempts.length > 2 ) {
+        if (this.answeredCorrectly()) {
+          component = (
+            <AnswerForm {...sharedProps}
+                        handleChange={() => {}}
+                        nextQuestionButton={this.renderFinishedQuestionButton()}
+                        disabled={true}
+
+                         />
+            )
+        } else {
+          sharedProps.feedback = this.renderFeedback("Nice try. Let’s try a multiple choice question.")
+          component = (
+            <AnswerForm {...sharedProps}
+                        handleChange={() => {}}
+                        nextQuestionButton={this.renderMultipleChoiceButton()}
+                        disabled={true}
+                         />
+            )
+        }
+
       } else if (this.props.question.attempts.length > 0 ) {
         var latestAttempt = getLatestAttempt(this.props.question.attempts)
         if (this.readyForNext()) {
           component = (
             <AnswerForm {...sharedProps}
                       handleChange={() => {}}
-                      nextQuestionButton={this.renderNextQuestionButton(true)}
+                      nextQuestionButton={this.renderFinishedQuestionButton()}
                       disabled={true}
                     />
           )
@@ -219,17 +283,10 @@ const playLessonQuestion = React.createClass({
           )
         }
       } else {
-        // component = (
-        //   <AnswerForm {...sharedProps}
-        //         handleChange={this.handleChange}
-        //         toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
-        // )
-
         component = (
-          <MultipleChoice
-            prompt={this.renderSentenceFragments()}
-            answers={this.get4MarkedResponses()}
-          />
+          <AnswerForm {...sharedProps}
+                handleChange={this.handleChange}
+                toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
         )
       }
       return (

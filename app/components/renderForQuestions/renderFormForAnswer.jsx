@@ -40,19 +40,21 @@ export default React.createClass({
     // }
 
     var button, feedback = this.props.feedback;
-    if(!this.props.nextQuestionButton) {
+    if(this.props.finished) {
+      button = this.props.nextQuestionButton
+      let answeredCorrectly = !!(_.find(this.props.question.attempts, (attempt) => {
+        return attempt.found && attempt.response.optimal && attempt.response.author===undefined && attempt.author===undefined //if it has an author, there was an error
+      }))
+      feedback = <EndState questionID={this.props.questionID} question={this.props.question} answeredCorrectly={answeredCorrectly} key={"-"+this.props.questionID}/>
+    } else if (!!this.props.nextQuestionButton) { // if you're going to next, it is the end state
+      button = this.props.nextQuestionButton
+    } else {
       button = (
         <button
           className={"button student-submit " + this.props.toggleDisabled} onClick={this.props.checkAnswer}>
           Check answer
         </button>
       )
-    } else { // if you're going to next, it is the end state
-      button = this.props.nextQuestionButton
-      let answeredCorrectly = !!(_.find(this.props.question.attempts, (attempt) => {
-        return attempt.found && attempt.response.optimal && attempt.response.author===undefined && attempt.author===undefined //if it has an author, there was an error
-      }))
-      feedback = <EndState questionID={this.props.questionID} question={this.props.question} answeredCorrectly={answeredCorrectly} key={"-"+this.props.questionID}/>
     }
 
     var info;
