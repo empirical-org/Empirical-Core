@@ -10,7 +10,7 @@ import PlaySentenceFragment from './sentenceFragment.jsx'
 import PlayDiagnosticQuestion from './sentenceCombining.jsx'
 import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
-import {getConceptResultsForAllQuestions} from '../../libs/conceptResultsFromDiagnostic'
+import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
 const request = require('request');
 
 var StudentDiagnostic = React.createClass({
@@ -139,7 +139,7 @@ var StudentDiagnostic = React.createClass({
       if(data) {
         if (this.props.playDiagnostic.currentQuestion) {
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
-            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key}/>)
+            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} marking="diagnostic"/>)
 
           } else {
             component =   (<PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}

@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
-
+import Spinner from '../shared/spinner.jsx'
 
 export default React.createClass({
   getInitialState: function () {
@@ -14,13 +14,14 @@ export default React.createClass({
 
   componentDidMount: function () {
     const values = {
-      name: this.props.data.name,
+      name: this.props.name || "Anonymous",
       lessonID: this.props.lessonID,
       questions: this.props.data.answeredQuestions
     }
     var sessionRef = sessionsRef.push(values, (error) => {
       this.setState({sessionKey: sessionRef.key})
     })
+    this.props.saveToLMS()
   },
 
   getLessonName: function () {
@@ -33,14 +34,14 @@ export default React.createClass({
 
   render: function () {
     return (
-      <section className="section is-fullheight minus-nav">
-        <div className="container">
-          <h4>Thank you for playing</h4>
-          <p>Thank you for alpha testing Quill Connect, an open source tool that helps students become better writers.</p>
-          <p><Link to={'/play'} className="button is-primary is-outlined">Try Another Question</Link></p>
-          <p><strong>Unique code:</strong> {this.state.sessionKey}</p>
-        </div>
-      </section>
+      <div className="landing-page">
+        <h1>You've completed the lesson</h1>
+        <p>
+          Your results are being saved now.
+          You'll be redirected automatically once they are saved.
+        </p>
+        <Spinner/>
+      </div>
     )
   }
 })

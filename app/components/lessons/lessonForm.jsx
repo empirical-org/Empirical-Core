@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {hashToCollection} from '../../libs/hashToCollection'
 import QuestionSelector from 'react-select-search'
+import SortableList from '../questions/sortableList/sortableList.jsx'
+import LandingPageEditor from './landingPageEditor.jsx'
 
 const LessonForm = React.createClass({
   getInitialState: function () {
@@ -9,6 +11,7 @@ const LessonForm = React.createClass({
     return {
       name: currentValues ? currentValues.name : "",
       introURL: currentValues ? currentValues.introURL || "" : "",
+      landingPageHtml: currentValues ? currentValues.landingPageHtml || "" : "",
       selectedQuestions: currentValues ? currentValues.questions : [],
       flag: currentValues ? currentValues.flag : "Alpha"
     }
@@ -18,7 +21,7 @@ const LessonForm = React.createClass({
     this.props.submit({
       name: this.state.name,
       questions: this.state.selectedQuestions,
-      introURL: this.state.introURL,
+      landingPageHtml: this.state.landingPageHtml,
       flag: this.state.flag
     })
   },
@@ -48,20 +51,28 @@ const LessonForm = React.createClass({
     this.handleChange(e.value)
   },
 
+  sortCallback: function(sortInfo){
+    let newOrder = sortInfo.data.items.map((item)=>item.key);
+    this.setState({selectedQuestions: newOrder});
+  },
+
   renderQuestionSelect: function () {
+    let questions;
     if(this.state.selectedQuestions) {
-      return this.state.selectedQuestions.map((key) => {
+      let questionsList =this.state.selectedQuestions.map((key) => {
         return (
-          <p key={key}>
+          <p className='sortable-list-item' key={key}>
             {this.props.questions.data[key].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}
             {"\t\t"}
             <button onClick={this.handleChange.bind(null, key)}>Delete</button>
           </p>
         )
       })
+      questions = <SortableList key='Sortable-List' sortCallback={this.sortCallback} data={questionsList}/>
     } else {
-      return (<div>No questions</div>)
+      questions = (<div>No questions</div>)
     }
+    return questions;
   },
 
   renderSearchBox: function() {
@@ -85,6 +96,10 @@ const LessonForm = React.createClass({
     this.setState({flag: e.target.value})
   },
 
+  handleLPChange: function (e) {
+    this.setState({landingPageHtml: e})
+  },
+
   render: function () {
     return (
     <div className="box">
@@ -99,7 +114,7 @@ const LessonForm = React.createClass({
           onChange={this.handleStateChange.bind(null, "name")}
         />
       </p>
-      <p className="control">
+      {/* <p className="control">
         <label className="label">Intro URL (You can link to a video or slideshow)</label>
         <input
           className="input"
@@ -108,7 +123,12 @@ const LessonForm = React.createClass({
           value={this.state.introURL}
           onChange={this.handleStateChange.bind(null, "introURL")}
         />
+      </p> */}
+      <p className="control">
+        <label className="label">Landing Page Content</label>
       </p>
+      <LandingPageEditor text={this.state.landingPageHtml || ""} handleTextChange={this.handleLPChange}/>
+      <br/>
       <p className="control">
         <label className="label">Flag</label>
         <span className="select">
@@ -121,7 +141,7 @@ const LessonForm = React.createClass({
         </span>
       </p>
       <div className="control">
-        <label className="label">Currently Selected Questions</label>
+        <label className="label">Currently Selected Questions -- {`Total: ${this.state.selectedQuestions.length}`}</label>
         {this.renderQuestionSelect()}
       </div>
       <label className="label">All Questions</label>

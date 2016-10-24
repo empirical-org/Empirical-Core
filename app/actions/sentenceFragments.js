@@ -113,6 +113,15 @@ module.exports = {
 			});
 		};
 	},
+	deleteConceptResult: function(sfid, rid, crid) {
+		return function(dispatch, getState) {
+			sentenceFragmentsRef.child(sfid + '/responses/' + rid + '/conceptResults/' + crid).remove(function(error) {
+				if(error) {
+					alert("Delete failed! " + error)
+				}
+			})
+		}
+	},
   startResponseEdit: function(sfid,rid){
 		return {type:C.START_RESPONSE_EDIT,sfid,rid};
 	},

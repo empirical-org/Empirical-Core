@@ -1,5 +1,7 @@
 import {diffWords} from 'diff';
 import _ from 'lodash';
+import {removePunctuation} from './question.js'
+
 const ERROR_TYPES = {
   NO_ERROR: 'NO_ERROR',
   MISSING_WORD: "MISSING_WORD",
@@ -38,12 +40,12 @@ export function getErroneousWordLength (changeObjects, key) {
   return addedWord.value.length || 0
 }
 
-export function getErroneousWordOffset (changeObjects, key) {
+export function getErroneousWordOffset (changeObjects, key, length = 0) {
   const precedingObjects = _.takeWhile(changeObjects, (changeObject) => {
     return !changeObject[key]
   })
   const offset = _.reduce(precedingObjects, (sum, changeObject) => {
-    return sum + changeObject.value.length
+    return sum + changeObject.value.length + length;
   }, 0)
 
   //below, edge case for underlining the previous word if a comma is missing
@@ -60,19 +62,32 @@ export function getErroneousWordOffset (changeObjects, key) {
   //because of the space at the end of the second last word that was also missing, but that is added automatically.
   //However, if the last word was simply misspelled, we don't need to increase the offset - the preceding space already exists
   if(changeObjects.length>=2 && changeObjects[changeObjects.length-1].value==='.' && changeObjects[changeObjects.length-2].added===undefined) {
-    return offset+1
+    return offset+1;
   } else {
-    return offset
+    return offset;
   }
 }
 
-export function getInlineStyleRangeObject (targetString, userString) {
+export function punctuationLength (originalUserString, userString, offsetIndex) {
+  return lengthDifference(originalUserString.substring(0, offsetIndex), userString.substring(0, offsetIndex));
+}
+
+export function getInlineStyleRangeObject (targetString, userString, originalUserString) {
   const changeObjects = getChangeObjectsWithoutRemoved(targetString, userString)
+  let offSet = getErroneousWordOffset(changeObjects, 'added')
+  if (originalUserString) {
+    const puncLength = punctuationLength(originalUserString, userString, offSet + 1);
+    offSet += puncLength;
+  }
   return {
     length: getErroneousWordLength(changeObjects, 'added'),
-    offset: getErroneousWordOffset(changeObjects, 'added'),
+    offset: offSet,
     style: "UNDERLINE"
   }
+}
+
+export function lengthDifference(originalUserStringSubString, userSubString) {
+  return originalUserStringSubString.length - userSubString.length
 }
 
 export function getErrorType (targetString, userString) {
@@ -116,32 +131,45 @@ export function getMissingWordErrorString (changeObjects) {
   }).join('')
 }
 
-export function getMissingInlineStyleRangeObject (targetString, userString) {
+export function getMissingInlineStyleRangeObject (targetString, userString, originalUserString) {
   const changeObjects = getChangeObjects(targetString, userString)
+  let offset = getErroneousWordOffset(changeObjects, 'removed')
+  if (originalUserString) {
+    const puncLength = punctuationLength(originalUserString, userString, offset + 1);
+    offset += puncLength;
+  }
   return {
     length: getErroneousWordLength(changeObjects, 'removed')-1,
-    offset: getErroneousWordOffset(changeObjects, 'removed'),
+    offset: offset,
     style: "UNDERLINE"
   }
 }
 
-export function getAdditionalInlineStyleRangeObject (targetString, userString) {
+export function getAdditionalInlineStyleRangeObject (targetString, userString, originalUserString) {
   const changeObjects = getChangeObjects(targetString, userString)
+  let offset = getErroneousWordOffset(changeObjects, 'added')
+  if (originalUserString) {
+    const puncLength = punctuationLength(originalUserString, userString, offset + 1);
+    offset += puncLength;
+  }
   return {
     length: getErroneousWordLength(changeObjects, 'added') -1,
-    offset: getErroneousWordOffset(changeObjects, 'added'),
+    offset: offset,
     style: "UNDERLINE"
   }
 }
 
-export function generateStyleObjects (targetString, userString) {
+export function generateStyleObjects (targetString, userString, important=false) {
+  const parsedUserString = important ? removePunctuation(userString).toLowerCase() : userString
+  const parsedTargetString = important ? removePunctuation(targetString).toLowerCase() : targetString
   const errorType = getErrorType(targetString, userString);
+  const originalUserString = important ? userString : false
   switch (errorType) {
     case ERROR_TYPES.INCORRECT_WORD:
       return {
         text: userString,
         inlineStyleRanges: [
-          getInlineStyleRangeObject(targetString, userString)
+          getInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
         ]
       }
       break;
@@ -149,7 +177,7 @@ export function generateStyleObjects (targetString, userString) {
       return {
         text: userString,
         inlineStyleRanges: [
-          getAdditionalInlineStyleRangeObject(targetString, userString)
+          getAdditionalInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
         ]
       }
       break;
@@ -157,7 +185,7 @@ export function generateStyleObjects (targetString, userString) {
       return {
         text: getMissingWordErrorString(getChangeObjects(targetString, userString)),
         inlineStyleRanges: [
-          getMissingInlineStyleRangeObject(targetString, userString)
+          getMissingInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
         ]
       }
       break;

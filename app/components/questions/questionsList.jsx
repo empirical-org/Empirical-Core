@@ -22,7 +22,13 @@ const QuestionsList = React.createClass({
 	},
 
   renderQuestionLinks: function (questions) {
-    return questions.map((question) => {
+    // orders questions by response length before mapping
+    return questions.sort((a,b)=>{
+      // in case the question has no response keys, we return 0
+      const aResponseCount = a.responses ? Object.keys(a.responses).length : 0;
+      const bResponseCount = b.responses ? Object.keys(b.responses).length : 0;
+      return bResponseCount - aResponseCount;
+    }).map((question) => {
       return (
 				<li key={question.key}>
 					<Link to={'/' + this.props.baseRoute + '/questions/' + question.key} activeClassName="is-active">

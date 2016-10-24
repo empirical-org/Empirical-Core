@@ -3,6 +3,7 @@ import { SubmitActions } from '../actions';
 import question from './questionReducerV2';
 import playLesson from './questionReducer';
 import questions from './questions';
+import diagnosticQuestions from './diagnosticQuestions';
 import sentenceFragments from './sentenceFragments';
 import questionSelect from './questionSelect';
 import concepts from './concepts';
@@ -20,6 +21,7 @@ const findAndFix = combineReducers({
   conceptsFeedback,
   itemLevels,
   questions,
+  diagnosticQuestions,
   sentenceFragments,
   questionSelect,
   pathways,

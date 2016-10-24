@@ -5,9 +5,9 @@ export default React.createClass({
   render: function () {
     return (
       <div className="landing-page">
-        <h1>You're working on the Quill Placement Activity </h1>
+        <h1>You're testing new Quill Activities </h1>
         <p>
-          You're about to answer 4 questions about writing sentences.
+          You're about to answer questions about writing sentences.
           Please answer to the best of your ability.
         </p>
         <button className="button student-begin" onClick={this.props.begin}>

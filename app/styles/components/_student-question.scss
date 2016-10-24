@@ -8,6 +8,14 @@
     &.info {
       margin-top: 3px;
     }
+
+    &.revise {
+      margin-top: 5px;
+    }
+
+    &.multiple {
+      margin-top: 4px;
+    }
   }
   p {
     font-family: $family-monospace;
@@ -69,14 +77,23 @@
   line-height: 45px;
   padding: 0 25px;
 
-  &:hover {
+  &:hover, &:focus {
     color: $white;
+  }
+
+  &.is-disabled {
+    opacity: 1;
+    background-color: $disabled;
   }
 }
 
 .student-begin {
   @extend .student-next;
   padding: 0 50px;
+
+  &:hover, &:focus {
+    color: $white;
+  }
 }
 
 .sf-button-group {

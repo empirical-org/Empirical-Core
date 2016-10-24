@@ -10,6 +10,8 @@ import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 import {generateStyleObjects} from '../../libs/markupUserResponses';
 var C = require("../../constants").default
 
+const noUnderlineErrors = []
+
 const feedbackStrings = C.FEEDBACK_STRINGS
 
 export default React.createClass({
@@ -26,35 +28,86 @@ export default React.createClass({
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
       if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
-        const parentID = nextProps.latestAttempt.response.parentID
-        const nErrors = _.keys(this.getErrorsForAttempt(nextProps.latestAttempt)).length;
+        const parentID = nextProps.latestAttempt.response.parentID;
+        const errorKeys = _.keys(this.getErrorsForAttempt(nextProps.latestAttempt))
+        const nErrors = errorKeys.length;
         var targetText;
         if (parentID) {
           const parentResponse = this.props.getResponse(nextProps.latestAttempt.response.parentID)
           targetText = parentResponse.text
+          const newStyle = this.getUnderliningFunctionFromAuthor(nextProps.latestAttempt.response.author, targetText, nextProps.latestAttempt.submitted)
+          if (newStyle) {
+            this.applyNewStyle(newStyle)
+          }
+          return
         } else if (nErrors > 0) {
           targetText = nextProps.latestAttempt.response.text
         } else {
-          var state = convertToRaw(this.state.text.getCurrentContent());
-          state.blocks[0].inlineStyleRanges = []
-          this.setState({
-            text: EditorState.createWithContent(convertFromRaw(state))
-          }, () => {
-            this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()))
-          });
+          this.clearStyle()
           return
         }
-        const newStyle = generateStyleObjects(targetText, nextProps.latestAttempt.submitted)
-        var state = convertToRaw(this.state.text.getCurrentContent());
-        state.blocks[0].text = newStyle.text;
-        state.blocks[0].inlineStyleRanges = newStyle.inlineStyleRanges
-        this.setState({
-          text: EditorState.createWithContent(convertFromRaw(state))
-        }, () => {
-          this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()))
-        });
+        const newStyle = this.getUnderliningFunction(errorKeys[0], targetText, nextProps.latestAttempt.submitted)
+        if (newStyle) {
+          this.applyNewStyle(newStyle)
+        }
       }
     }
+  },
+
+  getUnderliningFunction: function (errorType, targetString, userString) {
+    switch (errorType) {
+      case "punctuationError":
+      case "typingError":
+      case "caseError":
+      case "modifiedWordError":
+      case "additionalWordError":
+      case "missingWordError":
+        return generateStyleObjects(targetString, userString)
+      case "flexibleModifiedWordError":
+      case "flexibleAdditionalWordError":
+      case "flexibleMissingWordError":
+        return generateStyleObjects(targetString, userString, true)
+      default:
+        return undefined
+    }
+  },
+
+  getUnderliningFunctionFromAuthor: function (author, targetString, userString) {
+    switch (author) {
+      case "Punctuation Hint":
+      case "Capitalization Hint":
+      case "Modified Word Hint":
+      case "Additional Word Hint":
+      case "Missing Word Hint":
+        return generateStyleObjects(targetString, userString)
+      case "Flexible Modified Word Hint":
+      case "Flexible Additional Word Hint":
+      case "Flexible Missing Word Hint":
+        return generateStyleObjects(targetString, userString, true)
+      default:
+        return undefined
+    }
+  },
+
+  applyNewStyle: function (newStyle) {
+    var state = convertToRaw(this.state.text.getCurrentContent());
+    state.blocks[0].text = newStyle.text;
+    state.blocks[0].inlineStyleRanges = newStyle.inlineStyleRanges
+    this.setState({
+      text: EditorState.createWithContent(convertFromRaw(state))
+    }, () => {
+      this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()).blocks[0].text)
+    });
+  },
+
+  clearStyle: function () {
+    var state = convertToRaw(this.state.text.getCurrentContent());
+    state.blocks[0].inlineStyleRanges = []
+    this.setState({
+      text: EditorState.createWithContent(convertFromRaw(state))
+    }, () => {
+      this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()))
+    });
   },
 
   // getState: function () {

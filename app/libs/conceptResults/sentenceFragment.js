@@ -12,6 +12,7 @@ export function getIdentificationConceptResult(question) {
     concept_uid = 'LH3szu784pXA5k2N9lxgdA';
   }
   returnValue.concept_uid = concept_uid
+  returnValue.question_type = 'sentence-fragment-identification'
   returnValue.metadata = {
     correct,
     directions,
@@ -29,6 +30,7 @@ export function getCompleteSentenceConceptResult(question) {
   const directions = "Add/change as few words as you can to change this fragment into a sentence"
   const prompt = question.questionText
   returnValue.concept_uid = concept_uid;
+  returnValue.question_type = 'sentence-fragment-expansion'
   returnValue.metadata = {
     correct,
     directions,
@@ -38,25 +40,56 @@ export function getCompleteSentenceConceptResult(question) {
   return returnValue
 }
 
+function _formatIndividualTaggedConceptResults(cr, question){
+  const returnValue = {};
+  const prompt = question.questionText
+  const answer = question.attempts[0].submitted;
+  const directions = 'placeholder'
+  const correct = cr.correct
+  returnValue.concept_uid = cr.conceptUID;
+  returnValue.question_type = 'sentence-fragment-expansion'
+  returnValue.metadata = {
+    correct,
+    directions,
+    prompt,
+    answer
+  }
+  return returnValue
+}
+
+export function getTaggedConceptResults(question) {
+  let attempt = question.attempts[0]
+  if (attempt && attempt.response && attempt.response.conceptResults) {
+    let conceptResults = attempt.response.conceptResults;
+    let conceptResultsArr = [];
+    for (var prop in conceptResults) {
+      conceptResultsArr.push(_formatIndividualTaggedConceptResults(conceptResults[prop], question));
+    }
+    return (conceptResultsArr);
+  }
+}
+
 
 function calculateCorrectnessOfSentence(attempt) {
   if (attempt && attempt.response) {
     return attempt.response.optimal ? 1 : 0
   } else {
-    return 0
+    return 1
   }
 }
 
 export function getAllSentenceFragmentConceptResults (question) {
+    let conceptResults;
     if (question.needsIdentification) {
-      return [
+       conceptResults = [
         getIdentificationConceptResult(question),
         getCompleteSentenceConceptResult(question)
       ]
     } else {
-      return [
+       conceptResults = [
         getCompleteSentenceConceptResult(question)
       ]
     }
-
+    const taggedResults = getTaggedConceptResults(question);
+    return taggedResults ? conceptResults.concat(taggedResults) : conceptResults
 }

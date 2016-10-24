@@ -1,9 +1,9 @@
 import {
   getAllSentenceFragmentConceptResults
-} from './conceptResultFromSentenceFragment'
+} from './sentenceFragment'
 import {
   getConceptResultsForSentenceCombining
-} from './conceptResultFromSentenceCombining'
+} from './sentenceCombining'
 
 export function getConceptResultsForQuestion (question) {
   if (question.type === "SF") {

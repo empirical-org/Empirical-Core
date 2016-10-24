@@ -68,6 +68,33 @@ export default {
 	CANCEL_FROM_RESPONSE_VIEW: "CANCEL_FROM_RESPONSE_VIEW",
 	START_TO_RESPONSE_VIEW: "START_TO_RESPONSE_VIEW",
 	CANCEL_TO_RESPONSE_VIEW: "CANCEL_TO_RESPONSE_VIEW",
+
+	// DIAGNOSTIC QUESTION ACTIONS
+	RECEIVE_DIAGNOSTIC_QUESTIONS_DATA: "RECEIVE_DIAGNOSTIC_QUESTIONS_DATA",
+	AWAIT_NEW_DIAGNOSTIC_QUESTION_RESPONSE: "AWAIT_NEW_DIAGNOSTIC_QUESTION_RESPONSE",
+	RECEIVE_NEW_DIAGNOSTIC_QUESTION_RESPONSE: "RECEIVE_NEW_DIAGNOSTIC_QUESTION_RESPONSE",
+	START_DIAGNOSTIC_QUESTION_EDIT: "START_DIAGNOSTIC_QUESTION_EDIT",
+	FINISH_DIAGNOSTIC_QUESTION_EDIT: "FINISH_DIAGNOSTIC_QUESTION_EDIT",
+	SUBMIT_DIAGNOSTIC_QUESTION_EDIT: "SUBMIT_DIAGNOSTIC_QUESTION_EDIT",
+	TOGGLE_NEW_DIAGNOSTIC_QUESTION_MODAL: "TOGGLE_NEW_DIAGNOSTIC_QUESTION_MODAL",
+
+	// DIAGNOSTIC_QUESTION STATES
+	EDITING_DIAGNOSTIC_QUESTION: "EDITING_DIAGNOSTIC_QUESTION",
+	SUBMITTING_DIAGNOSTIC_QUESTION: "SUBMITTING_DIAGNOSTIC_QUESTION",
+
+	// DIAGNOSTIC QUESTION RESPONSE STATES
+	START_DIAGNOSTIC_RESPONSE_EDIT: "START_DIAGNOSTIC_RESPONSE_EDIT",
+	CANCEL_DIAGNOSTIC_RESPONSE_EDIT: "CANCEL_DIAGNOSTIC_RESPONSE_EDIT",
+	FINISH_DIAGNOSTIC_RESPONSE_EDIT: "FINISH_DIAGNOSTIC_RESPONSE_EDIT",
+	SUBMIT_DIAGNOSTIC_RESPONSE_EDIT: "SUBMIT_DIAGNOSTIC_RESPONSE_EDIT",
+	SUBMITTING_DIAGNOSTIC_RESPONSE: "SUBMITTING_DIAGNOSTIC_RESPONSE",
+	START_CHILD_DIAGNOSTIC_RESPONSE_VIEW: "START_CHILD_DIAGNOSTIC_RESPONSE_VIEW",
+	CANCEL_CHILD_DIAGNOSTIC_RESPONSE_VIEW: "CANCEL_CHILD_DIAGNOSTIC_RESPONSE_VIEW",
+	START_FROM_DIAGNOSTIC_RESPONSE_VIEW: "START_FROM_DIAGNOSTIC_RESPONSE_VIEW",
+	CANCEL_FROM_DIAGNOSTIC_RESPONSE_VIEW: "CANCEL_FROM_DIAGNOSTIC_RESPONSE_VIEW",
+	START_TO_DIAGNOSTIC_RESPONSE_VIEW: "START_TO_DIAGNOSTIC_RESPONSE_VIEW",
+	CANCEL_TO_DIAGNOSTIC_RESPONSE_VIEW: "CANCEL_TO_DIAGNOSTIC_RESPONSE_VIEW",
+
 	// PATHWAYS DATA
 	RECEIVE_PATHWAYS_DATA: "RECEIVE_PATHWAYS_DATA",
 	AWAIT_NEW_PATHWAY_RESPONSE: "AWAIT_NEW_PATHWAY_RESPONSE",
@@ -96,10 +123,43 @@ export default {
 		modifiedWordError: "Revise your work. You may have mixed up a word.",
 		additionalWordError: "Revise your work. You may have added an extra word.",
 		missingWordError: "Revise your work. You may have left out an important word.",
-		whitespaceError: "There may be an error. You may have forgotten a space between two words."
+		whitespaceError: "There may be an error. You may have forgotten a space between two words.",
+		flexibleModifiedWordError: "Revise your work. You may have mixed up a word.",
+		flexibleAdditionalWordError: "Revise your work. You may have added an extra word.",
+		flexibleMissingWordError: "Revise your work. You may have left out an important word."
 	},
 
-	ERROR_TYPES: ['typingError', 'caseError', 'punctuationError', 'punctuationAndCaseError', 'minLengthError', 'maxLengthError', "modifiedWordError", "additionalWordError", "missingWordError", "whitespaceError"],
+	ERROR_TYPES: [
+    'typingError',
+    'caseError',
+    'punctuationError',
+    'punctuationAndCaseError',
+    'minLengthError',
+    'maxLengthError',
+    "flexibleModifiedWordError",
+    "flexibleAdditionalWordError",
+    "flexibleMissingWordError",
+    "modifiedWordError",
+    "additionalWordError",
+    "missingWordError",
+    "whitespaceError"
+	],
+
+	ERROR_AUTHORS: [
+    'Focus Point Hint',
+    'Capitalization Hint',
+    'Punctuation Hint',
+    'Punctuation and Case Hint',
+    'Modified Word Hint',
+    'Additional Word Hint',
+    "Missing Word Hint",
+    "Flexible Modified Word Hint",
+    "Flexible Additional Word Hint",
+    "Flexible Missing Word Hint",
+    "Whitespace Hint",
+    "Missing Details Hint",
+    "Not Concise Hint"
+	],
 
 	// CONCEPTS FEEDBACK ACTIONS
 	RECEIVE_CONCEPTS_FEEDBACK_DATA: "RECEIVE_CONCEPTS_FEEDBACK_DATA",

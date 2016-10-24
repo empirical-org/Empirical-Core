@@ -10,10 +10,9 @@ String.prototype.normalize = function() {
 export default class POSMatcher {
   constructor(responses) {
     responses = hashToCollection(responses)
-    this.optimalResponses = responses
-    // this.optimalResponses = _.filter(responses, (response)=>{
-    //   return response.optimal===true
-    // })
+    this.optimalResponses = _.sortBy(_.reject(responses, (response) => {
+      return response.optimal === undefined
+    }), 'optimal').reverse()
   }
 
   checkMatch(userResponse) {
@@ -57,20 +56,16 @@ export default class POSMatcher {
       return qpos.getPartsOfSpeechTags(optimalResponse.text);
     })
     const userPOSTags = qpos.getPartsOfSpeechTags(userResponse);
-
-    return _.find(this.optimalResponses, (optimalResponse, index)=>{
-        var found = true;
+    if (userPOSTags) {
+      return _.find(this.optimalResponses, (optimalResponse, index)=>{
         if(optimalResponse.parentID) {
-          found = false;
-        } else {
-          correctPOSTags[index].forEach((tag, indexValue)=>{
-            if(tag!==userPOSTags[indexValue]){
-              found = false;
-            }
-          })
+          return false;
+        } else if (correctPOSTags[index]){
+          if (JSON.stringify(correctPOSTags[index]) === JSON.stringify(userPOSTags)) {
+            return true;
+          }
         }
-        return found;
       })
-    // return (foundMatch) ? true : false;
+    }
   }
 }

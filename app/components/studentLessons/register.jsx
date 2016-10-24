@@ -17,7 +17,7 @@ export default React.createClass({
   },
 
   startActivity: function () {
-    if (this.props.lesson.introURL) {
+    if (this.props.lesson.landingPageHtml) {
       this.setState({showIntro: true})
     } else {
       this.props.startActivity(this.state.name)
@@ -32,9 +32,8 @@ export default React.createClass({
     if (this.state.showIntro) {
       return (
         <div className="container">
-          <button className="button is-primary intro-next-button" onClick={this.leaveIntro}>Start Lesson</button>
-
-          <iframe className="intro-slides"  src={this.props.lesson.introURL}/>
+          <div className="landing-page-html" dangerouslySetInnerHTML={{__html: this.props.lesson.landingPageHtml}}></div>
+          <button className="button student-begin is-fullwidth" onClick={this.leaveIntro}>Start Lesson</button>
         </div>
       )
     } else {
@@ -51,10 +50,7 @@ export default React.createClass({
               <li>There is often more than one correct answer.</li>
               <li>Remember to use correct spelling, capitalization, and punctuation!</li>
             </ul>
-            <p className="control">
-              <input className="input" type="text" onChange={this.handleNameChange} placeholder="Enter your name"></input>
-            </p>
-            <button className="button is-primary is-fullwidth" onClick={this.startActivity}>Start</button>
+            <button className="button student-begin is-fullwidth" onClick={this.startActivity}>Start</button>
             <br/>
           </div>
         </div>

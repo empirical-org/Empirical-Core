@@ -1,0 +1,47 @@
+.multiple-choice-content {
+  .sentence-fragments p {
+    margin-bottom: 0px;
+  }
+
+  .multiple-choice-prompt {
+    font-family: $family-monospace;
+    margin-top: 15px;
+    font-size: 20px;
+    color: #464646;
+  }
+
+  ul.lesson-multiple-choice {
+    list-style: none;
+    margin: 30px -15px 0;
+    width: 100%;
+    li {
+      display: block;
+      width: 100%;
+      margin-bottom: 18px;
+      text-align: left;
+      a.button.lesson-multiple-choice-button {
+        border-radius: 6px;
+        background-color: #ffffff;
+        border: solid 1px #737373;
+        padding: 0 15px;
+        font-family: $family-sans-serif;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        display: block;
+        width: 100%;
+        text-align: left;
+        color: black;
+
+        &.correctly-selected {
+          border: solid 2px $green;
+        }
+
+        &.incorrectly-selected {
+          border: solid 2px $red;
+        }
+      }
+    }
+  }
+
+}

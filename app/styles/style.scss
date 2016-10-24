@@ -4,6 +4,8 @@
 @import "components/student-container";
 @import "components/student-question";
 @import "components/animations";
+@import "components/landing-page-html";
+@import "components/multiple-choice";
 @import '../../node_modules/react-selectize/themes/index.css';
 
 body {
@@ -252,6 +254,13 @@ textarea.submission {
 .select-search-box__option--hover, .select-search-box__option:hover {
   background-color: #a3e8dc;
 }
+
+.sortable-list-item {
+  border: 1px dashed gray;
+  padding: .5em;
+  margin: .5em;
+}
+
 
 .prevent-selection {
   -webkit-touch-callout: none;

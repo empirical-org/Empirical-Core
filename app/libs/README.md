@@ -3,6 +3,35 @@ A student inputs a submission (string of text) and is then served a piece of fee
 Match the student’s string to a pre-existing feedback.
 Infer whether an error exists in the student’s string as compared to the pre-existing string.
 
+#### Matching Sequences 
+
+Here is the order of algorithms in the sequence. 
+
+## Quill Diagnostic
+
+1. Exact Match to Optimal or Sub-Optimal Response
+2. Period
+3. Capitalization 
+4. Spacing 
+5. Period, Capitalization, and Spacing
+6. One character difference. 
+7. Period, Capitalization, Spacing + One Character Difference. 
+
+## Quill Connect
+
+1. Exact Match to Optimal or Sub-Optimal Response
+2. Focus Point (looks for a specific text string)
+3. Punctuation and Case Insensitive Match (ignores Case and Punctuation) 
+4. Fuzzy Match (looks for a two character difference between users and ours). 
+5. Modified Word Match (looks for a string where one word is different).
+6. Missing Word Hint (looks for a string where everything is the same exact for a missing word). 
+7. Additional Word Hint (looks for a string where everything is the same except for an extra word). 
+8. Whitespace Hint (ignores all whitespace). 
+9. Missing Details Hint (The student’s sentence is shorter than the shortest acceptable answer). 
+10. Not Concise Hint (The student’s sentence is longer than the longest acceptable answer). 
+11. Case Insensitive Algorithm (ignores capitalization) 
+12. Punctuation Insensitive Match (ignores punctuation) 
+
 ### Question Class
 
 The aim of this class is to find a match between two strings of text. This can be an exact match, a match between a manipulation of the two strings or a fuzzy match of varying distance using diffing or Levenstein distances.

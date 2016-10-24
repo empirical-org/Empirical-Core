@@ -2,20 +2,29 @@ import pos from 'pos';
 import _ from 'underscore';
 
 export function getPartsOfSpeech (input) {
-  const words = new pos.Lexer().lex(input);
-  const tagger = new pos.Tagger();
-  return tagger.tag(words);
+  try {
+    const words = new pos.Lexer().lex(input);
+    const tagger = new pos.Tagger();
+    return tagger.tag(words);
+  }
+  catch (e) {
+    return undefined
+  }
 }
 
 export function getPartsOfSpeechTags(input){
   var wordsTags = getPartsOfSpeech(input);
-  return wordsTags.map((b) => {
-    return b[1]
-  })
+  if (wordsTags) {
+    return wordsTags.map((b) => {
+      return b[1]
+    })
+  }
+
 }
 
 export function checkPOSEquivalancy (input, target) {
   const inputTags = getPartsOfSpeechTags(input)
+  console.log(target)
   const targetTags = getPartsOfSpeechTags(target)
   return _.isEqual(inputTags,targetTags)
 }

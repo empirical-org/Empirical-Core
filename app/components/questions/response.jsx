@@ -1,5 +1,6 @@
 import React from 'react'
 import questionActions from '../../actions/questions'
+import diagnosticQuestionActions from '../../actions/diagnosticQuestions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import Question from '../../libs/question'
 const jsDiff = require('diff');
@@ -22,6 +23,8 @@ export default React.createClass({
     let actions;
     if (this.props.mode === "sentenceFragment") {
       actions = sentenceFragmentActions;
+    } else if (this.props.mode === "diagnosticQuestion") {
+      actions = diagnosticQuestionActions;
     } else {
       actions = questionActions;
     }
@@ -322,6 +325,7 @@ export default React.createClass({
   },
 
   renderResponseContent: function (isEditing, response) {
+    console.log("Respone: ", response.key)
     var content;
     var parentDetails;
     var childDetails;
@@ -621,7 +625,8 @@ export default React.createClass({
             expanded={this.props.allExpanded}
             expand={this.props.expand}
             ascending={this.props.ascending}
-            showPathways={false}/>
+            showPathways={false}
+          />
         </Modal>
       )
     }
