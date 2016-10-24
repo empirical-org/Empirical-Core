@@ -14,9 +14,10 @@ describe("Getting concept results from an answered sf object", () => {
 					correct: true,
 					directions: 'placeholder',
 					prompt: 'Listening to music on the ride home.'
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}
-		];
+		]
 		const generated = getTaggedConceptResults(question);
 		expect(generated).toEqual(expected);
 
@@ -26,11 +27,12 @@ describe("Getting concept results from an answered sf object", () => {
 		const expected = {
 			concept_uid: 'j89kdRGDVjG8j37A12p37Q',
 			metadata: {
+				answer: 'Fragment',
 				correct: 1,
-				directions: "Is this a sentence or a fragment?",
-				prompt: "Listening to music on the ride home.",
-				answer: "Fragment"
-			}
+				directions: 'Is this a sentence or a fragment?',
+				prompt: 'Listening to music on the ride home.'
+			},
+			question_type: 'sentence-fragment-identification'
 		}
 		const generated = getIdentificationConceptResult(question)
 
@@ -41,11 +43,12 @@ describe("Getting concept results from an answered sf object", () => {
 		const expected = {
 			concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 			metadata: {
+				answer: 'I am listening to music on the ride home.',
 				correct: 1,
-				directions: "Add/change as few words as you can to change this fragment into a sentence",
-				prompt: "Listening to music on the ride home.",
-				answer: "I am listening to music on the ride home."
-			}
+				directions: 'Add/change as few words as you can to change this fragment into a sentence',
+				prompt: 'Listening to music on the ride home.'
+			},
+			question_type: 'sentence-fragment-expansion'
 		}
 		const generated = getCompleteSentenceConceptResult(question)
 		expect(generated).toEqual(expected);
@@ -60,7 +63,8 @@ describe("Getting concept results from an answered sf object", () => {
 					correct: 1,
 					directions: 'Is this a sentence or a fragment?',
 					prompt: 'Listening to music on the ride home.'
-				}
+				},
+				question_type: 'sentence-fragment-identification'
 			}, {
 				concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 				metadata: {
@@ -68,7 +72,8 @@ describe("Getting concept results from an answered sf object", () => {
 					correct: 1,
 					directions: 'Add/change as few words as you can to change this fragment into a sentence',
 					prompt: 'Listening to music on the ride home.'
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}, {
 				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 				metadata: {
@@ -76,7 +81,8 @@ describe("Getting concept results from an answered sf object", () => {
 					correct: true,
 					directions: 'placeholder',
 					prompt: 'Listening to music on the ride home.'
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}
 		]
 		const generated = getAllSentenceFragmentConceptResults(question)
@@ -92,7 +98,8 @@ describe("Getting concept results from an answered sf object", () => {
 					correct: 1,
 					directions: 'Add/change as few words as you can to change this fragment into a sentence',
 					prompt: 'Listening to music on the ride home.'
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}, {
 				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 				metadata: {
@@ -100,7 +107,8 @@ describe("Getting concept results from an answered sf object", () => {
 					correct: true,
 					directions: 'placeholder',
 					prompt: 'Listening to music on the ride home.'
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}
 		]
 		const newQuestion = JSON.parse(JSON.stringify(question))
@@ -148,7 +156,8 @@ describe("Getting concept results from an answered sf object", () => {
 					correct: 1,
 					directions: 'Is this a sentence or a fragment?',
 					prompt: 'Go away.'
-				}
+				},
+				question_type: 'sentence-fragment-identification'
 			}, {
 				concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 				metadata: {
@@ -156,7 +165,8 @@ describe("Getting concept results from an answered sf object", () => {
 					correct: 1,
 					directions: 'Add/change as few words as you can to change this fragment into a sentence',
 					prompt: 'Go away.'
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}, {
 				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 				metadata: {
@@ -164,9 +174,11 @@ describe("Getting concept results from an answered sf object", () => {
 					correct: true,
 					directions: 'placeholder',
 					prompt: 'Go away.'
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}
-		]
+		];
+
 		const generated = getAllSentenceFragmentConceptResults(given)
 		expect(generated).toEqual(expected);
 	});

@@ -14,7 +14,8 @@ describe("Getting concept results from an answered SC object", () => {
 					correct: 1,
 					directions: 'Is this a sentence or a fragment?',
 					prompt: 'Listening to music on the ride home.'
-				}
+				},
+				question_type: 'sentence-fragment-identification'
 			}, {
 				concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 				metadata: {
@@ -22,7 +23,8 @@ describe("Getting concept results from an answered SC object", () => {
 					correct: 1,
 					directions: 'Add/change as few words as you can to change this fragment into a sentence',
 					prompt: 'Listening to music on the ride home.'
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}, {
 				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 				metadata: {
@@ -30,7 +32,8 @@ describe("Getting concept results from an answered SC object", () => {
 					correct: true,
 					directions: 'placeholder',
 					prompt: 'Listening to music on the ride home.'
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}
 		];
 
@@ -43,18 +46,18 @@ describe("Getting concept results from an answered SC object", () => {
 			{
 				concept_uid: '7H2IMZvq0VJ4Uvftyrw7Eg',
 				metadata: {
+					answer: 'Marcella wore a sweater since it was snowing.',
 					correct: 1,
-					directions: "Combine the sentences.",
-					prompt: "It was snowing. Marcella wore a sweater.",
-					answer: "Marcella wore a sweater since it was snowing."
+					directions: 'Combine the sentences.',
+					prompt: 'It was snowing. Marcella wore a sweater.'
 				}
 			}, {
 				concept_uid: 'nb0JW1r5pRB5ouwAzTgMbQ',
 				metadata: {
+					answer: 'Marcella wore a sweater since it was snowing.',
 					correct: 1,
-					directions: "Combine the sentences.",
-					prompt: "It was snowing. Marcella wore a sweater.",
-					answer: "Marcella wore a sweater since it was snowing."
+					directions: 'Combine the sentences.',
+					prompt: 'It was snowing. Marcella wore a sweater.'
 				}
 			}
 		]
@@ -72,7 +75,8 @@ describe("Getting concept results from an answered SC object", () => {
 						correct: 1,
 						directions: 'Is this a sentence or a fragment?',
 						prompt: 'Listening to music on the ride home.'
-					}
+					},
+					question_type: 'sentence-fragment-identification'
 				}, {
 					concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 					metadata: {
@@ -80,7 +84,8 @@ describe("Getting concept results from an answered SC object", () => {
 						correct: 1,
 						directions: 'Add/change as few words as you can to change this fragment into a sentence',
 						prompt: 'Listening to music on the ride home.'
-					}
+					},
+					question_type: 'sentence-fragment-expansion'
 				}, {
 					concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 					metadata: {
@@ -88,7 +93,8 @@ describe("Getting concept results from an answered SC object", () => {
 						correct: true,
 						directions: 'placeholder',
 						prompt: 'Listening to music on the ride home.'
-					}
+					},
+					question_type: 'sentence-fragment-expansion'
 				}
 			],
 			[
@@ -99,7 +105,8 @@ describe("Getting concept results from an answered SC object", () => {
 						correct: 0,
 						directions: 'Is this a sentence or a fragment?',
 						prompt: 'Go away.'
-					}
+					},
+					question_type: 'sentence-fragment-identification'
 				}, {
 					concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 					metadata: {
@@ -107,7 +114,8 @@ describe("Getting concept results from an answered SC object", () => {
 						correct: 0,
 						directions: 'Add/change as few words as you can to change this fragment into a sentence',
 						prompt: 'Go away.'
-					}
+					},
+					question_type: 'sentence-fragment-expansion'
 				}
 			],
 			[
@@ -129,7 +137,7 @@ describe("Getting concept results from an answered SC object", () => {
 					}
 				}
 			]
-		]
+		];
 		const generated = getNestedConceptResultsForAllQuestions(data)
 		expect(expected).toEqual(generated)
 	})
@@ -145,7 +153,8 @@ describe("Getting concept results from an answered SC object", () => {
 						directions: 'Is this a sentence or a fragment?',
 						prompt: 'Listening to music on the ride home.',
 						questionNumber: 1
-					}
+					},
+					question_type: 'sentence-fragment-identification'
 				}, {
 					concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 					metadata: {
@@ -154,7 +163,8 @@ describe("Getting concept results from an answered SC object", () => {
 						directions: 'Add/change as few words as you can to change this fragment into a sentence',
 						prompt: 'Listening to music on the ride home.',
 						questionNumber: 1
-					}
+					},
+					question_type: 'sentence-fragment-expansion'
 				}, {
 					concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 					metadata: {
@@ -163,7 +173,8 @@ describe("Getting concept results from an answered SC object", () => {
 						directions: 'placeholder',
 						prompt: 'Listening to music on the ride home.',
 						questionNumber: 1
-					}
+					},
+					question_type: 'sentence-fragment-expansion'
 				}
 			],
 			[
@@ -175,7 +186,8 @@ describe("Getting concept results from an answered SC object", () => {
 						directions: 'Is this a sentence or a fragment?',
 						prompt: 'Go away.',
 						questionNumber: 2
-					}
+					},
+					question_type: 'sentence-fragment-identification'
 				}, {
 					concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 					metadata: {
@@ -184,7 +196,8 @@ describe("Getting concept results from an answered SC object", () => {
 						directions: 'Add/change as few words as you can to change this fragment into a sentence',
 						prompt: 'Go away.',
 						questionNumber: 2
-					}
+					},
+					question_type: 'sentence-fragment-expansion'
 				}
 			],
 			[
@@ -209,7 +222,6 @@ describe("Getting concept results from an answered SC object", () => {
 				}
 			]
 		]
-
 		const generated = embedQuestionNumbers(getNestedConceptResultsForAllQuestions(data))
 		expect(expected).toEqual(generated)
 	})
@@ -224,7 +236,8 @@ describe("Getting concept results from an answered SC object", () => {
 					directions: 'Is this a sentence or a fragment?',
 					prompt: 'Listening to music on the ride home.',
 					questionNumber: 1
-				}
+				},
+				question_type: 'sentence-fragment-identification'
 			}, {
 				concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 				metadata: {
@@ -233,7 +246,8 @@ describe("Getting concept results from an answered SC object", () => {
 					directions: 'Add/change as few words as you can to change this fragment into a sentence',
 					prompt: 'Listening to music on the ride home.',
 					questionNumber: 1
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}, {
 				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 				metadata: {
@@ -242,7 +256,8 @@ describe("Getting concept results from an answered SC object", () => {
 					directions: 'placeholder',
 					prompt: 'Listening to music on the ride home.',
 					questionNumber: 1
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}, {
 				concept_uid: 'LH3szu784pXA5k2N9lxgdA',
 				metadata: {
@@ -251,7 +266,8 @@ describe("Getting concept results from an answered SC object", () => {
 					directions: 'Is this a sentence or a fragment?',
 					prompt: 'Go away.',
 					questionNumber: 2
-				}
+				},
+				question_type: 'sentence-fragment-identification'
 			}, {
 				concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
 				metadata: {
@@ -260,7 +276,8 @@ describe("Getting concept results from an answered SC object", () => {
 					directions: 'Add/change as few words as you can to change this fragment into a sentence',
 					prompt: 'Go away.',
 					questionNumber: 2
-				}
+				},
+				question_type: 'sentence-fragment-expansion'
 			}, {
 				concept_uid: '7H2IMZvq0VJ4Uvftyrw7Eg',
 				metadata: {

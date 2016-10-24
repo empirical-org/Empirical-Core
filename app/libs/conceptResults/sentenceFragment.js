@@ -12,6 +12,7 @@ export function getIdentificationConceptResult(question) {
     concept_uid = 'LH3szu784pXA5k2N9lxgdA';
   }
   returnValue.concept_uid = concept_uid
+  returnValue.question_type = 'sentence-fragment-identification'
   returnValue.metadata = {
     correct,
     directions,
@@ -29,6 +30,7 @@ export function getCompleteSentenceConceptResult(question) {
   const directions = "Add/change as few words as you can to change this fragment into a sentence"
   const prompt = question.questionText
   returnValue.concept_uid = concept_uid;
+  returnValue.question_type = 'sentence-fragment-expansion'
   returnValue.metadata = {
     correct,
     directions,
@@ -45,6 +47,7 @@ function _formatIndividualTaggedConceptResults(cr, question){
   const directions = 'placeholder'
   const correct = cr.correct
   returnValue.concept_uid = cr.conceptUID;
+  returnValue.question_type = 'sentence-fragment-expansion'
   returnValue.metadata = {
     correct,
     directions,
