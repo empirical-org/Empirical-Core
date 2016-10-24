@@ -2,6 +2,7 @@ import React from 'react'
 import _ from 'underscore'
 import icon from '../../img/question_icon.svg'
 import revise from '../../img/revise_icon.svg'
+import multiple from '../../img/multiple_choice_icon.svg'
 
 export default React.createClass({
 
@@ -9,8 +10,14 @@ export default React.createClass({
     const data = this.props
     const latestAttempt = getLatestAttempt(data.question.attempts)
     if (latestAttempt) {
-      if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
-        console.log("I'm where you think you are.")
+      if (data.override) {
+        return (
+          <div className="feedback-row">
+            <img className="multiple" src={multiple}/>
+            <p>{data.sentence}</p>
+          </div>
+        )
+      } else if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
         return (
           <div className="feedback-row">
             <img className="revise" src={revise}/>

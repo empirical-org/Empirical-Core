@@ -11,7 +11,7 @@ const EndState = React.createClass({
     if(this.props.answeredCorrectly) {
       message = "Good work! Here are the most popular strong answers:"
     } else {
-      message = "Nice try, but that's not quite right. Keep going! Here are the most popular strong answers:"
+      message = "Keep going! Here are the most popular strong answers:"
     }
     return (
       <p className="top-answer-title">{message}</p>
