@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe ClassroomActivity, type: :model do
+    let!(:activity_classification_3) { FactoryGirl.create(:activity_classification, id: 3)}
+    let!(:activity_classification_2) { FactoryGirl.create(:activity_classification, id: 2)}
     let!(:activity) { FactoryGirl.create(:activity) }
     let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
     let!(:student) { FactoryGirl.create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
@@ -42,6 +44,26 @@ describe ClassroomActivity, type: :model do
       it "returns true when a classroom activity has at least one completed activity session" do
         activity_session = ActivitySession.create(classroom_activity: classroom_activity, state: 'finished')
         expect(classroom_activity.has_a_completed_session?).to eq(true)
+      end
+    end
+
+    describe '#from_valid_date_for_activity_analysis?' do
+      it 'returns true if the classroom_activity activity_classification id is not 1 or 2' do
+        activity.classification = activity_classification_3
+        expect(classroom_activity.from_valid_date_for_activity_analysis?).to eq(true)
+      end
+
+
+      it "returns true if it was created after 25-10-2016 and the classification is 1 or 2" do
+          classroom_activity.update(created_at: Date.parse('26-10-2016'))
+          activity.classification = activity_classification_2
+          expect(classroom_activity.from_valid_date_for_activity_analysis?).to eq(true)
+      end
+
+      it "returns false if it was created before 25-10-2016 and the classification is 1 or 2" do
+          classroom_activity.update(created_at: Date.parse('24-10-2016'))
+          activity.classification = activity_classification_2
+          expect(classroom_activity.from_valid_date_for_activity_analysis?).to eq(false)
       end
     end
 
