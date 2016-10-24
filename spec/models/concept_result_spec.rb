@@ -15,6 +15,10 @@ describe ConceptResult, type: :model do
 
   describe 'question type' do
 
+    it "can be empty" do
+      expect(concept_result_with_concept).to be_valid
+    end
+
     it "can equal passage-proofreader" do
       concept_result_with_concept.update(question_type:'passage-proofreader')
       expect(concept_result_with_concept).to be_valid
@@ -25,7 +29,12 @@ describe ConceptResult, type: :model do
       expect(concept_result_with_concept).to be_valid
     end
 
-    it "can equal sentence-fragment" do
+    it "can equal sentence-fragment-identification" do
+      concept_result_with_concept.update(question_type:'sentence-writing')
+      expect(concept_result_with_concept).to be_valid
+    end
+
+    it "can equal sentence-fragment-expansion" do
       concept_result_with_concept.update(question_type:'sentence-fragment')
       expect(concept_result_with_concept).to be_valid
     end
@@ -34,7 +43,6 @@ describe ConceptResult, type: :model do
       concept_result_with_concept.update(question_type:'sentence-combining')
       expect(concept_result_with_concept).to be_valid
     end
-
 
     it "can equal nil" do
       concept_result_with_concept.update(question_type: nil)
