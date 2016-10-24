@@ -45,7 +45,7 @@ function _formatIndividualTaggedConceptResults(cr, question){
   const prompt = question.questionText
   const answer = question.attempts[0].submitted;
   const directions = 'placeholder'
-  const correct = cr.correct
+  const correct = cr.correct ? 1 : 0
   returnValue.concept_uid = cr.conceptUID;
   returnValue.question_type = 'sentence-fragment-expansion'
   returnValue.metadata = {
