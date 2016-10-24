@@ -38,7 +38,7 @@ module PublicProgressReports
         curr_quest[:total] += 1
         curr_quest[:prompt] ||= answer["prompt"]
         curr_quest[:question_number] ||= answer["question_number"]
-        curr_quest[:instructions] ||= answer["directions"]
+        curr_quest[:instructions] ||= answer["directions"] || answer["instructions"]
       end
       # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
       # being converted to an array because that is what the diagnostic reports expect
@@ -115,7 +115,7 @@ module PublicProgressReports
     def get_concept_results activity_session
       activity_session.concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
         {
-          directions: cr.first[:metadata]["directions"],
+          directions: cr.first[:metadata]["directions"] || cr.first[:metadata]["instructions"],
           prompt: cr.first[:metadata]["prompt"],
           answer: cr.first[:metadata]["answer"],
           score: get_score_for_question(cr),
