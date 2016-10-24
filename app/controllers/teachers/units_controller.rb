@@ -18,7 +18,7 @@ class Teachers::UnitsController < ApplicationController
     units.each do |unit_id, classroom_activities|
 
       if params[:report]
-        classroom_activities =  classroom_activities.select{|ca| ca.has_a_completed_session?}
+        classroom_activities =  classroom_activities.select{|ca| ca.has_a_completed_session? && ca.from_valid_date_for_activity_analysis?}
         next if classroom_activities.empty?
       end
 
