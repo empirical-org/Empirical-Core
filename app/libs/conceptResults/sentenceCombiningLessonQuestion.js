@@ -53,6 +53,7 @@ export function getConceptResultsForSentenceCombiningAttempt(question, attemptIn
   return conceptResults.map((conceptResult) => {
     return {
       concept_uid: conceptResult.conceptUID,
+      question_type: "sentence-combining",
       metadata: {
         correct: conceptResult.correct ? 1 : 0,
         directions,

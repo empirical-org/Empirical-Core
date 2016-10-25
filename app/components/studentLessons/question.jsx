@@ -244,7 +244,7 @@ const playLessonQuestion = React.createClass({
             next={this.finishQuestion}
           />
         )
-      } else if (this.props.question.attempts.length > 2 ) {
+      } else if (this.props.question.attempts.length > 4 ) {
         if (this.answeredCorrectly()) {
           component = (
             <AnswerForm {...sharedProps}
