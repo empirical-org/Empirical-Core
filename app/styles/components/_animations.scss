@@ -22,31 +22,18 @@
 }
 
 .feedback-carousel-enter {
-  transform: translateX(100vw);
-  // opacity: 0.01;
+  opacity: 0.01;
 }
 .feedback-carousel-enter.feedback-carousel-enter-active {
-  // opacity: 1;
-  // transition: opacity 0.5s ease-out;
-  transform: translateX(0);
-  transition: transform 0.5s ease-in-out;
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+
 }
 .feedback-carousel-leave {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  transform: translateX(0);
-  transition: transform 0.5s ease-in-out;
-  .student-feedback-inner-container {
-
-  }
-
+  display: none;
 }
 .feedback-carousel-leave.feedback-carousel-leave-active {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  transform: translateX(calc(100vw * -1));
+  display: none;
 }
 
 
