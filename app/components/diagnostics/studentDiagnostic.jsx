@@ -105,7 +105,6 @@ var StudentDiagnostic = React.createClass({
   },
 
   getProgressPercent: function () {
-    console.log("hey: ", this.props)
     if (this.props.playDiagnostic && this.props.playDiagnostic.answeredQuestions && this.props.playDiagnostic.questionSet) {
       return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100
     } else {

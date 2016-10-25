@@ -91,7 +91,6 @@ const Lesson = React.createClass({
   },
 
   getProgressPercent: function () {
-    console.log("hey: ", this.props)
     if (this.props.playLesson && this.props.playLesson.answeredQuestions && this.props.playLesson.questionSet) {
       return this.props.playLesson.answeredQuestions.length / this.props.playLesson.questionSet.length * 100
     } else {
