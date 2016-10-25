@@ -47,15 +47,28 @@ export default React.createClass({
     },
 
     imageSrc: function() {
-      return this.props.activityType === 'sentence'
-        ? '/images/grammar_results_icon.png'
-        : '/images/grammar_results_icon.png'
+      let img;
+      switch(this.props.activityType) {
+      case 'diagnostic':
+        img = 'diagnostic_icon.svg'
+        break
+      case 'connect':
+        img = 'connect_icon.png'
+        break;
+      case 'sentence':
+        img = 'grammar_results_icon.png'
+        break;
+      default:
+        img = 'proofreader_results_icon.png'
+        }
+      return `/images/${img}`
     },
 
     render: function() {
+      // insert below line if we decide we want to reinclude score
+      // <h3 style={this.fontColor()}>{Math.round(this.props.percentage * 100) + '%'}</h3>
       return <div className='icon' style={this.backgroundColor()}>
         <img src={this.imageSrc()} alt='activity-type'/>
-        <h3 style={this.fontColor()}>{Math.round(this.props.percentage * 100) + '%'}</h3>
       </div>
     }
 

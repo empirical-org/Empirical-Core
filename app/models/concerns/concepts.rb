@@ -12,13 +12,17 @@ module Concepts
 
   private
 
+  def human_readable_question_type question_type
+    question_type.gsub('-',' ').split.map(&:capitalize).join(' ')
+  end
+
   def organize_by_type(concept_results, concepts)
     h = Hash.new {|h,k| h[k] = [] }
     concepts.map do |concept|
       concept_results.map do |cr|
         if cr.any?
-          type = cr == concept_results[0] ? :sentence : :story
-          h[type].push(stats_for_concept(concept, cr, type))
+          type = human_readable_question_type(cr.first['question_type'])
+          h[type].push(stats_for_concept(concept, cr))
         end
       end
     end
@@ -26,7 +30,7 @@ module Concepts
   end
 
   # TODO: These stats should all be pre-calculated and cached
-  def stats_for_concept(concept, concept_results, type)
+  def stats_for_concept(concept, concept_results)
     correct_count = 0
     incorrect_count = 0
     concept_results.each do |result|

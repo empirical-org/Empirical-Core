@@ -58,11 +58,11 @@ export default React.createClass({
         return <span className='pull-right'>{correct} of {correct + incorrect} Errors Found</span>
     },
 
-    tableBuilder: function(data, name) {
+    tableBuilder: function(data, questionType) {
         return (
-            <div>
+            <div key= {questionType}>
               <div className='container table-meta-data'>
-                <span className='pull-left'>{name}</span>
+                <span className='pull-left'>{questionType}</span>
                 <span className='pull-right'>{this.score(data)}</span>
               </div>
                 <table className='table quill-table'>
@@ -81,16 +81,19 @@ export default React.createClass({
     },
 
     resultTypes: function() {
-      if (this.props.results.story && this.props.results.sentence) {
-        return <div>
-                    {this.tableBuilder(this.props.results.story, 'Passage Proofreading')}
-                    {this.tableBuilder(this.props.results.sentence, 'Sentence Writing')}
-                </div>
-      } else if (this.props.results.story) {
-        return this.tableBuilder(this.props.results.story, 'Passage Proofreading');
-      } else {
-        return this.tableBuilder(this.props.results.sentence, 'Sentence Writing');
+      let questionTables = [];
+      const results = this.props.results;
+      // goes through each question type and give it its own table
+      for (var questionType in results) {
+        if (results.hasOwnProperty(questionType)) {
+          questionTables.push(this.tableBuilder(results[questionType], questionType))
+        }
       }
+      return (
+        <div>
+          {questionTables}
+        </div>
+      )
     },
 
     render: function() {
