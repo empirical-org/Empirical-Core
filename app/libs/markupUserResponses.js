@@ -183,10 +183,8 @@ export function generateStyleObjects (targetString, userString, important=false)
       break;
     case ERROR_TYPES.MISSING_WORD:
       return {
-        text: getMissingWordErrorString(getChangeObjects(targetString, userString)),
-        inlineStyleRanges: [
-          getMissingInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
-        ]
+        text: userString,
+        inlineStyleRanges: []
       }
       break;
     default:
