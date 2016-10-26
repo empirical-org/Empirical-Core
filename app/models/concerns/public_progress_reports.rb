@@ -38,7 +38,9 @@ module PublicProgressReports
         curr_quest[:total] += 1
         curr_quest[:prompt] ||= answer["prompt"]
         curr_quest[:question_number] ||= answer["question_number"]
-        curr_quest[:instructions] ||= answer["directions"] || answer["instructions"]
+        if answer["attemptNumber"] == 1 || !!curr_quest[:instructions]
+          curr_quest[:instructions] ||= answer["directions"] || answer["instructions"]
+        end
       end
       # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
       # being converted to an array because that is what the diagnostic reports expect
