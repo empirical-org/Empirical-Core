@@ -25,8 +25,21 @@ const Lesson = React.createClass({
   saveToLMS: function () {
     const results = getConceptResultsForAllQuestions(this.props.playLesson.answeredQuestions)
     const score = calculateScoreForLesson(this.props.playLesson.answeredQuestions)
+    var sessionID = this.props.location.query.student
+    if (sessionID === "null") {
+      sessionID = undefined
+    }
+    const {lessonID} = this.props.params
+    if (sessionID) {
+      this.finishActivitySession(sessionID, results, score)
+    } else {
+      this.createAnonActivitySession(lessonID, results, score)
+    }
+  },
+
+  finishActivitySession: function (sessionID, results, score) {
     request(
-      { url: process.env.EMPIRICAL_BASE_URL + '/api/v1/activity_sessions/' + this.props.location.query.student,
+      { url: process.env.EMPIRICAL_BASE_URL + '/api/v1/activity_sessions/' + sessionID,
         method: 'PUT',
         json:
         {
@@ -40,6 +53,30 @@ const Lesson = React.createClass({
           console.log("Finished Saving")
           console.log(err,httpResponse,body)
           document.location.href = process.env.EMPIRICAL_BASE_URL + "/activity_sessions/" + this.props.location.query.student
+          this.setState({saved: true});
+        }
+        // console.log(err,httpResponse,body)
+      }
+    )
+  },
+
+  createAnonActivitySession: function (lessonID, results, score) {
+    request(
+      { url: process.env.EMPIRICAL_BASE_URL + '/api/v1/activity_sessions/',
+        method: 'POST',
+        json:
+        {
+          state: 'finished',
+          activity_uid: lessonID,
+          concept_results: results,
+          percentage: score
+        }
+      },
+      (err,httpResponse,body) => {
+        if (httpResponse.statusCode === 200) {
+          console.log("Finished Saving")
+          console.log(err,httpResponse,body)
+          document.location.href = process.env.EMPIRICAL_BASE_URL + "/activity_sessions/" + body.activity_session.uid
           this.setState({saved: true});
         }
         // console.log(err,httpResponse,body)
