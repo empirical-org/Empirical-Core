@@ -29,7 +29,7 @@ const Navbar = React.createClass({
   renderLinks: function () {
     return (
       <div className="nav-right nav-menu" style={this.navStyles()}>
-        <a href="http://www.quill.org/profile/" className="nav-item" activeClassName="is-active">Save & Exit</a>
+        {/* <a href="http://www.quill.org/profile/" className="nav-item" activeClassName="is-active">Save & Exit</a> */}
       </div>
     )
   },
@@ -39,7 +39,7 @@ const Navbar = React.createClass({
       <header className="nav student-nav" style={{height: '50px'}}>
         <div className="container">
           <div className="nav-left">
-            <a href="http://www.connect.quill.org" className="nav-item">
+            <a href="http://www.quill.org" className="nav-item">
               <img src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png"
                 alt=""
                 style={{height: "35px"}}/>
