@@ -38,7 +38,7 @@ module PublicProgressReports
         curr_quest[:total] += 1
         curr_quest[:prompt] ||= answer["prompt"]
         curr_quest[:question_number] ||= answer["question_number"]
-        if answer["attemptNumber"] == 1 || !!curr_quest[:instructions]
+        if answer["attemptNumber"] == 1 || !curr_quest[:instructions]
           curr_quest[:instructions] ||= answer["directions"] || answer["instructions"]
         end
       end
