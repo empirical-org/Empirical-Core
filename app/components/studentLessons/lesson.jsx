@@ -6,7 +6,6 @@ import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../libs/conceptResults/sentenceCombiningLesson'
-
 import Register from './register.jsx'
 import Finished from './finished.jsx'
 

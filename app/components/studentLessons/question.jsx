@@ -26,6 +26,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js'
 import MultipleChoice from './multipleChoice.jsx'
 import StateFinished from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
+import ConceptExplanation from '../feedback/conceptExplanation.jsx'
 
 const feedbackStrings = C.FEEDBACK_STRINGS
 
@@ -211,6 +212,35 @@ const playLessonQuestion = React.createClass({
     this.setState({finished: true})
   },
 
+  getNegativeConceptResultsForResponse: function (conceptResults) {
+    return _.reject(hashToCollection(conceptResults), (cr) => {
+      return cr.correct
+    })
+  },
+
+  getNegativeConceptResultForResponse: function (conceptResults) {
+    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults)
+    return negCRs.length > 0 ? negCRs[0] : undefined
+  },
+
+  renderConceptExplanation: function () {
+    const latestAttempt = getLatestAttempt(this.props.question.attempts)
+    if (latestAttempt) {
+      if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults)
+        const data = this.props.conceptsFeedback.data[conceptID.conceptUID]
+        if (data) {
+          return <ConceptExplanation {...data}/>
+        }
+      } else if (this.getQuestion().conceptID) {
+        const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID]
+        if (data) {
+          return <ConceptExplanation {...data}/>
+        }
+      }
+    }
+  },
+
   render: function () {
     const questionID = this.props.question.key;
     if (this.props.question) {
@@ -279,7 +309,8 @@ const playLessonQuestion = React.createClass({
           component = (
             <AnswerForm {...sharedProps}
                   handleChange={this.handleChange}
-                  toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
+                  toggleDisabled={this.toggleDisabled()}
+                  conceptExplanation={this.renderConceptExplanation} checkAnswer={this.checkAnswer} />
           )
         }
       } else {
@@ -308,6 +339,7 @@ const getLatestAttempt = function (attempts = []) {
 function select(state) {
   return {
     concepts: state.concepts,
+    conceptsFeedback: state.conceptsFeedback,
     questions: state.questions,
     routing: state.routing
   }
