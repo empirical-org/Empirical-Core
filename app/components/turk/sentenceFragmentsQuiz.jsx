@@ -147,7 +147,7 @@ var StudentDiagnostic = React.createClass({
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
         }
         else {
-          component =  <LandingPage begin={()=>{this.startActivity("John", data)}}/>
+          component =  <LandingPage lesson={this.getLesson()} begin={()=>{this.startActivity("John", data)}}/>
           // (
           //   <div className="container">
           //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
