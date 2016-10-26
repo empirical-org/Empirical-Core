@@ -2,7 +2,6 @@
 
 import React from 'react'
 import _ from 'lodash'
-import $ from 'jquery'
 import ResultsIcon from '../components/activities/results_page/results_icon.jsx'
 import StudentResultsTables from '../components/activities/results_page/student_results_tables.jsx'
 
