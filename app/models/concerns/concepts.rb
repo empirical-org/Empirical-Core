@@ -13,7 +13,8 @@ module Concepts
   private
 
   def human_readable_question_type question_type
-    question_type.gsub('-',' ').split.map(&:capitalize).join(' ')
+    # return question_type with '-' changed to space, and each word capitalized, or just return 'Results'
+    question_type ? question_type.gsub('-',' ').split.map(&:capitalize).join(' ') : 'Results'
   end
 
   def organize_by_type(concept_results, concepts)
