@@ -22,7 +22,6 @@ export default function (percentageDisplayer) {
           {data.activity.name}
         </div>
         <div className='main'>
-          {totalScoreOrNot}
           <ActivityDetails data={data} />
         </div>
       </div>
