@@ -1,5 +1,6 @@
 import {hashToCollection} from '../hashToCollection'
 import _ from 'underscore'
+import {formattedCues} from '../formattedCues'
 var C = require("../../constants").default
 
 export function getConceptResultsForSentenceCombining(question) {
@@ -10,17 +11,6 @@ export function getConceptResultsForSentenceCombining(question) {
   return [].concat.apply([], nestedConceptResults) // Flatten nested Array
 }
 
-function formattedCues(cues){
-  let formattedCues = '(';
-  cues.split(' ').forEach((cue)=>{
-    if (formattedCues.length > 1) {
-      formattedCues += ', ';
-    }
-    formattedCues += cue.charAt(0).toUpperCase() + cue.substring(1);
-  });
-  return formattedCues + ')';
-}
-
 export function getConceptResultsForSentenceCombiningAttempt(question, attemptIndex) {
   let directions;
   if (attemptIndex > 0) {
@@ -28,7 +18,7 @@ export function getConceptResultsForSentenceCombiningAttempt(question, attemptIn
   } else {
     directions = question.instructions || "Combine the sentences."
     if (question.cues) {
-      directions += ' ' + formattedCues(question.cues[0])
+      directions += ' ' + formattedCues(question.cues)
     }
   }
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
