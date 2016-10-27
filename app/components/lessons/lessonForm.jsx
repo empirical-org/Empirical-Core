@@ -13,7 +13,8 @@ const LessonForm = React.createClass({
       introURL: currentValues ? currentValues.introURL || "" : "",
       landingPageHtml: currentValues ? currentValues.landingPageHtml || "" : "",
       selectedQuestions: currentValues ? currentValues.questions : [],
-      flag: currentValues ? currentValues.flag : "Alpha"
+      flag: currentValues ? currentValues.flag : "Alpha",
+      questionType: 'sentenceCombining'
     }
   },
 
@@ -96,6 +97,10 @@ const LessonForm = React.createClass({
     this.setState({flag: e.target.value})
   },
 
+  handleSelectQuestionType: function(e) {
+    this.setState({questionType: e.target.value})
+  },
+
   handleLPChange: function (e) {
     this.setState({landingPageHtml: e})
   },
@@ -114,16 +119,6 @@ const LessonForm = React.createClass({
           onChange={this.handleStateChange.bind(null, "name")}
         />
       </p>
-      {/* <p className="control">
-        <label className="label">Intro URL (You can link to a video or slideshow)</label>
-        <input
-          className="input"
-          type="text"
-          placeholder="http://example.com"
-          value={this.state.introURL}
-          onChange={this.handleStateChange.bind(null, "introURL")}
-        />
-      </p> */}
       <p className="control">
         <label className="label">Landing Page Content</label>
       </p>
@@ -137,6 +132,15 @@ const LessonForm = React.createClass({
             <option value="Beta">Beta</option>
             <option value="Production">Production</option>
             <option value="Archive">Archive</option>
+          </select>
+        </span>
+      </p>
+      <p className="control">
+        <label className="label">Question Type</label>
+        <span className="select">
+          <select defaultValue={"sentenceCombining"} onChange={this.handleSelectQuestionType}>
+            <option value="sentenceCombining">Sentence Combining</option>
+            <option value="sentenceFragment">Sentence Fragment</option>
           </select>
         </span>
       </p>
