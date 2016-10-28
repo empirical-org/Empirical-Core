@@ -20,7 +20,8 @@ const Lesson = React.createClass({
         // TODO: this is rediculous -- ultimately we need to refactor to include the question type on the object at the point of creation,
         // ensure that both have keys, and create a displayable text field....
         const collection = question.questionType === 'sentenceFragments' ? sentenceFragmentsObj.data : questionsObj.data
-        let qFromDB = Object.assign({}, collection[question.key]);
+        // TODO: go through firebase and make sure each question has a key val, that way we can get rid of the || statement below
+        let qFromDB = Object.assign({}, collection[question.key || question]);
         qFromDB.questionType = question.questionType;
         qFromDB.key = question.key
         return qFromDB;
@@ -34,7 +35,8 @@ const Lesson = React.createClass({
     if(questionsForLesson) {
       var listItems = questionsForLesson.map((question) => {
         const nameKey = question.questionType === 'questions' ? 'prompt' : 'questionText'
-        return (<li key={question.key}><Link to={`/results/${question.questionType}/` + question.key}>{question[nameKey].replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
+        // TODO: ask donald -- the sf's link to a blank page, but not a 404 -- does this just mean we don't have results for them?
+        return (<li key={question.key}><Link to={`/results/${question.questionType || 'questions'}/` + question.key}>{question[nameKey].replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
       })
       return (
         <ul>{listItems}</ul>

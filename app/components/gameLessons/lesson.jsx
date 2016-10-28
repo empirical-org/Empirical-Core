@@ -34,6 +34,7 @@ const Lesson = React.createClass({
   },
 
   startActivity: function (name) {
+    debugger;
     this.saveStudentName(name);
     const action = loadData(this.questionsForLesson())
     this.props.dispatch(action);
