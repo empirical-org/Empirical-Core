@@ -11,21 +11,26 @@ import EditLessonForm from './lessonForm.jsx'
 
 const Lesson = React.createClass({
   questionsForLesson: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data)
+    var questionsCollection = hashToCollection(this.props.questions.data);
+    var sentenceFragmentsCollection = hashToCollection(this.props.sentenceFragments.data);
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     if(data[lessonID].questions) {
-      return data[lessonID].questions.map((id) => {
-        return _.find(questionsCollection, {key: id})
+      return data[lessonID].questions.map((question) => {
+        // TODO: this is rediculous -- ultimately we need to refactor to include the question type on the object at the point of creation
+        const collection = question.questionType === 'sentenceFragments' ? sentenceFragmentsCollection : questionsCollection
+        let qFromDB = _.find(collection, {key: question.key})
+        qFromDB.questionType = question.questionType;
+        return qFromDB;
       })
     }
-    // return _.where(questionsCollection, {key: this.props.lessons.data.question})
   },
 
   renderQuestionsForLesson: function () {
     var questionsForLesson = this.questionsForLesson()
     if(questionsForLesson) {
       var listItems = questionsForLesson.map((question) => {
-        return (<li key={question.key}><Link to={'/results/questions/' + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
+        const nameKey = question.questionType === 'questions' ? 'prompt' : 'questionText'
+        return (<li key={question.key}><Link to={'/results/questions/' + question.key}>{question[nameKey].replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
       })
       return (
         <ul>{listItems}</ul>
@@ -109,7 +114,8 @@ function select(state) {
   return {
     lessons: state.lessons,
     questions: state.questions,
-    routing: state.routing
+    routing: state.routing,
+    sentenceFragments: state.sentenceFragments
   }
 }
 
