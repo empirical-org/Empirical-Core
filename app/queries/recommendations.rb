@@ -74,7 +74,7 @@ class Recommendations
                         count: 1
                     },
                     {
-                        concept_id: 'kODm7xLmhGShct5uJIfHXg',
+                        concept_id: 'tSSLMHqX0q-9mKTJHSyung',
                         count: 1
                     }
                 ]
