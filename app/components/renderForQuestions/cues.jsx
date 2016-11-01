@@ -4,9 +4,9 @@ import arrow from '../../img/arrow_icon.svg'
 
 export default React.createClass({
   renderExplanation: function () {
-    let text = "joining words"
+    let text = this.props.esl ? "joining words | palabras sumarias" : "joining words"
     if (this.props.getQuestion().cues && this.props.getQuestion().cues.length === 1) {
-      text = "joining word"
+      text = this.props.esl ? "joining word | palabras sumarias" : "joining word"
     }
     return (
       <div className="cue-explanation" key="explanation">
