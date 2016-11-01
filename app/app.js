@@ -127,7 +127,7 @@ render((
                 }
               }
             />
-            <Route path="esl" component={ESLDiagnostic}/>
+            <Route path="ell" component={ESLDiagnostic}/>
             <Route path=":diagnosticID" component={StudentDiagnostic}/>
           </Route>
           {/* <Route path="diagnostic/esl" component={ESLDiagnostic}/>
