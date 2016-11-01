@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import _ from 'underscore'
-import {hashToCollection} from '../../libs/hashToCollection'
 import {deleteLesson, startLessonEdit}  from '../../actions/lessons.js';
 import lessonActions from '../../actions/lessons'
 import Modal from '../modal/modal.jsx'
@@ -11,19 +10,16 @@ import EditLessonForm from './lessonForm.jsx'
 
 const Lesson = React.createClass({
   questionsForLesson: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data);
-    const questionsObj = this.props.questions;
-    const sentenceFragmentsObj = this.props.sentenceFragments;
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     if(data[lessonID].questions) {
       return data[lessonID].questions.map((question) => {
         // TODO: this is rediculous -- ultimately we need to refactor to include the question type on the object at the point of creation,
         // ensure that both have keys, and create a displayable text field....
-        const collection = question.questionType === 'sentenceFragments' ? sentenceFragmentsObj.data : questionsObj.data
+        const questionType = question.questionType === 'sentenceFragments' ? 'sentenceFragments' : 'questions'
+        const collection = this.props[questionType].data
         // TODO: go through firebase and make sure each question has a key val, that way we can get rid of the || statement below
-        let qFromDB = Object.assign({}, collection[question.key || question]);
-        qFromDB.questionType = question.questionType;
-        qFromDB.key = question.key
+        const qFromDB = Object.assign({}, collection[question.key || question]);
+        qFromDB.questionType = questionType;
         return qFromDB;
       })
     }
@@ -63,6 +59,7 @@ const Lesson = React.createClass({
   },
 
   saveLessonEdits: function (vals) {
+    console.log(vals)
     this.props.dispatch(lessonActions.submitLessonEdit(this.props.params.lessonID, vals))
   },
 
