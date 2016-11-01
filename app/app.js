@@ -115,10 +115,24 @@ render((
             <Route path=":lessonID" component={StudentLesson}/>
           </Route>
 
-          <Route path="diagnostic/" component={StudentDiagnostic}/>
-          <Route path="diagnostic/esl" component={ESLDiagnostic}/>
+          <Route path="diagnostic" component={Passthrough}>
+            <IndexRoute component={Passthrough}
+              onEnter={
+                (nextState, replaceWith) => {
+                  var lessonID = getParameterByName('uid');
+                  var studentID = getParameterByName('student');
+                  if(lessonID){
+                    document.location.href = document.location.origin + document.location.pathname + "#/play/diagnostic/" + lessonID + "?student=" + studentID;
+                  }
+                }
+              }
+            />
+            <Route path="esl" component={ESLDiagnostic}/>
+            <Route path=":diagnosticID" component={StudentDiagnostic}/>
+          </Route>
+          {/* <Route path="diagnostic/esl" component={ESLDiagnostic}/>
           <Route path="diagnostic/:diagnosticID" component={StudentDiagnostic}/>
-          <Redirect from="diagnostic?student=:studentID&uid=:diagnosticID" to="/diagnostic/1" />
+          <Redirect from="diagnostic?student=:studentID&uid=:diagnosticID" to="/diagnostic/:diagnosticID" /> */}
 
           <Route path="questions/:questionID" component={PlayQuestion}/>
           <Route path="sentence-fragments/:fragmentID" component={PlaySentenceFragment}/>
