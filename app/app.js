@@ -34,6 +34,7 @@ import ItemLevelDetails from "./components/itemLevels/itemLevelDetails.jsx"
 import StudentLesson from "./components/studentLessons/lesson.jsx";
 import GameLesson from "./components/gameLessons/lesson.jsx";
 import StudentDiagnostic from "./components/diagnostics/studentDiagnostic.jsx";
+import ESLDiagnostic from "./components/eslDiagnostic/studentDiagnostic.jsx";
 import PlaySentenceFragment from "./components/sentenceFragments/playSentenceFragment.jsx"
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
@@ -115,6 +116,7 @@ render((
           </Route>
 
           <Route path="diagnostic/" component={StudentDiagnostic}/>
+          <Route path="diagnostic/esl" component={ESLDiagnostic}/>
           <Route path="diagnostic/:diagnosticID" component={StudentDiagnostic}/>
           <Redirect from="diagnostic?student=:studentID&uid=:diagnosticID" to="/diagnostic/1" />
 
