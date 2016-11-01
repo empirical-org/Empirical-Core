@@ -1,7 +1,7 @@
 import {hashToCollection} from '../hashToCollection'
+import {formattedCues} from '../formattedCues'
 
 export function getConceptResultsForSentenceCombining(question) {
-  const directions = question.instructions || "Combine the sentences.";
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
   const answer = question.attempts[0].submitted
   let conceptResults = [];
@@ -15,6 +15,10 @@ export function getConceptResultsForSentenceCombining(question) {
       conceptUID: question.conceptID,
       correct: false
     }]
+  }
+  let directions = question.instructions || "Combine the sentences.";
+  if (question.cues) {
+    directions += ' ' + formattedCues(question.cues)
   }
   return conceptResults.map((conceptResult) => {
     return {

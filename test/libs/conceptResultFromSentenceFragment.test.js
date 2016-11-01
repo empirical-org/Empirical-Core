@@ -11,7 +11,7 @@ describe("Getting concept results from an answered sf object", () => {
 				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 				metadata: {
 					answer: 'I am listening to music on the ride home.',
-					correct: true,
+					correct: 1,
 					directions: 'placeholder',
 					prompt: 'Listening to music on the ride home.'
 				},
@@ -78,7 +78,7 @@ describe("Getting concept results from an answered sf object", () => {
 				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 				metadata: {
 					answer: 'I am listening to music on the ride home.',
-					correct: true,
+					correct: 1,
 					directions: 'placeholder',
 					prompt: 'Listening to music on the ride home.'
 				},
@@ -104,7 +104,7 @@ describe("Getting concept results from an answered sf object", () => {
 				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 				metadata: {
 					answer: 'I am listening to music on the ride home.',
-					correct: true,
+					correct: 1,
 					directions: 'placeholder',
 					prompt: 'Listening to music on the ride home.'
 				},
@@ -171,7 +171,7 @@ describe("Getting concept results from an answered sf object", () => {
 				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 				metadata: {
 					answer: 'Go away.',
-					correct: true,
+					correct: 1,
 					directions: 'placeholder',
 					prompt: 'Go away.'
 				},
