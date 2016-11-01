@@ -164,9 +164,9 @@ const PlayDiagnosticQuestion = React.createClass({
     const questionID = this.props.question.key;
     var button;
     if(this.props.question.attempts.length > 0) {
-      button = <button className="button student-submit" onClick={this.nextQuestion}>Submit | Enviar</button>
+      button = <button className="button student-submit" onClick={this.nextQuestion}>Submit / Enviar</button>
     } else {
-      button = <button className="button student-submit" onClick={this.checkAnswer}>Submit | Enviar</button>
+      button = <button className="button student-submit" onClick={this.checkAnswer}>Submit / Enviar</button>
     }
     if (this.props.question) {
       const instructions = (this.props.question.instructions && this.props.question.instructions!=="") ? this.props.question.instructions : "Combine the sentences into one sentence. Combinar las frases en una frase."
@@ -190,7 +190,7 @@ const PlayDiagnosticQuestion = React.createClass({
         </div>
       )
     } else {
-      return (<p>Cargando...</p>)
+      return (<p>Loading / Cargando...</p>)
     }
   }
 })

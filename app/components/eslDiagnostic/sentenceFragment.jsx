@@ -46,8 +46,8 @@ var PlaySentenceFragment = React.createClass({
   getSentenceOrFragmentButtons() {
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" value="Sentence" onClick={() => {this.checkChoice("Sentence")}}>Complete | Completa la oración</button>
-        <button className="button sf-button" value="Fragment" onClick={() => {this.checkChoice("Fragment")}}>Incomplete | Oración incompleta</button>
+        <button className="button sf-button" value="Sentence" onClick={() => {this.checkChoice("Sentence")}}>Complete / Completa la oración</button>
+        <button className="button sf-button" value="Fragment" onClick={() => {this.checkChoice("Fragment")}}>Incomplete / Oración incompleta</button>
       </div>
     )
   },
