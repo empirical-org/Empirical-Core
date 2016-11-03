@@ -161,6 +161,9 @@
             border-bottom: 1px solid #cecece;
             margin-bottom: 12px;
             margin-top: 7px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         .classMetaData {
             margin: auto;
