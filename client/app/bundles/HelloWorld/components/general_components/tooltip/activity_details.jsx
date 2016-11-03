@@ -62,6 +62,7 @@ export default React.createClass({
           </div>
           <div className='activity-detail-body'>
             {this.props.data.activity.description}
+            <p>{this.props.data.due_date_or_completed_at_date}</p>
           </div>
         </div>
         {this.dateOrNot()}
