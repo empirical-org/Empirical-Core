@@ -13,7 +13,7 @@ const LessonForm = React.createClass({
       name: currentValues ? currentValues.name : "",
       introURL: currentValues ? currentValues.introURL || "" : "",
       landingPageHtml: currentValues ? currentValues.landingPageHtml || "" : "",
-      selectedQuestions: currentValues ? currentValues.questions : [],
+      selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
       flag: currentValues ? currentValues.flag : "Alpha",
       questionType: 'questions'
     }
@@ -36,16 +36,13 @@ const LessonForm = React.createClass({
 
   handleChange: function (value) {
     const currentSelectedQuestions = this.state.selectedQuestions;
-    const questionType = this.state.questionType;
-    var newSelectedQuestions;
-    if (_.indexOf(currentSelectedQuestions, value) === -1) {
-      if(currentSelectedQuestions===undefined) {
-        newSelectedQuestions = [{key: value, questionType}]
-      } else {
-        newSelectedQuestions = currentSelectedQuestions.concat([{key: value, questionType}]);
-      }
+    const questionType = this.state.questionType || 'questions';
+    let newSelectedQuestions;
+    const changedQuestion = currentSelectedQuestions.find((q)=>q.key === value)
+    if (!changedQuestion) {
+      newSelectedQuestions = currentSelectedQuestions.concat([{key: value, questionType}]);
     } else {
-      newSelectedQuestions = _.without(currentSelectedQuestions, value)
+      newSelectedQuestions = _.without(currentSelectedQuestions, changedQuestion)
     }
     this.setState({selectedQuestions: newSelectedQuestions})
   },
@@ -62,20 +59,22 @@ const LessonForm = React.createClass({
   renderQuestionSelect: function () {
     let questions;
     // select changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
-    if(this.state.selectedQuestions.length) {
+    if(this.state.selectedQuestions && this.state.selectedQuestions.length) {
       let that = this;
       let questionsList = this.state.selectedQuestions.map((question) => {
-        const questionType = question.questionType
+        // TODO: another area to refactor once we write a script to go through the db and add question type
+        const questionType = question.questionType || 'questions'
         const nameKey = questionType === 'questions' ? 'prompt' : 'questionText'
+        const questionKey = question.key || question
         return (
-          <p className='sortable-list-item' key={question.key}>
-            {that.props[questionType].data[question.key][nameKey].replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}
+          <p className='sortable-list-item' key={questionKey}>
+            {that.props[questionType].data[questionKey][nameKey].replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}
             {"\t\t"}
-            <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
+            <button onClick={this.handleChange.bind(null, questionKey)}>Delete</button>
           </p>
         )
       })
-      questions = <SortableList key={questionsList[questionsList.length - 1]} sortCallback={this.sortCallback} data={questionsList}/>
+      questions = <SortableList key={this.state.selectedQuestions.length} sortCallback={this.sortCallback} data={questionsList}/>
     } else {
       questions = (<div>No questions</div>)
     }
@@ -86,7 +85,7 @@ const LessonForm = React.createClass({
     // options changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
   const questionType = this.state.questionType
     let options = hashToCollection(this.props[questionType].data)
-    const concepts = this.props.concepts.data[0]
+    const concepts = this.props.concepts.data[0];
     if (options.length > 0) {
       options = _.filter(options, (option) => {
         return _.find(concepts, {uid: option.conceptID})

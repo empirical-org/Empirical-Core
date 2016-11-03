@@ -15,7 +15,7 @@ const Lesson = React.createClass({
       return data[lessonID].questions.map((question) => {
         // TODO: this is rediculous -- ultimately we need to refactor to include the question type on the object at the point of creation,
         // ensure that both have keys, and create a displayable text field....
-        const questionType = question.questionType === 'sentenceFragments' ? 'sentenceFragments' : 'questions'
+        const questionType = question.questionType || 'questions'
         const collection = this.props[questionType].data
         // TODO: go through firebase and make sure each question has a key val, that way we can get rid of the || statement below
         const qFromDB = Object.assign({}, collection[question.key || question]);
@@ -59,7 +59,6 @@ const Lesson = React.createClass({
   },
 
   saveLessonEdits: function (vals) {
-    console.log(vals)
     this.props.dispatch(lessonActions.submitLessonEdit(this.props.params.lessonID, vals))
   },
 
