@@ -14,7 +14,7 @@ export default React.createClass({
       .done(function(){
         that.props.advanceStage();
       })
-      .fail(function(jqXHR, textStatus, errorThrown) {
+      .fail(function(jqXHR) {
         var error = "Oops! Looks like that isn't a valid class code. Please try again.";
         if(jQuery.parseJSON(jqXHR.responseText).error == "Class is archived") {
           error = "Oops! That class has been archived. Please try a different class code.";
