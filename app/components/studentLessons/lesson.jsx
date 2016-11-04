@@ -94,10 +94,11 @@ const Lesson = React.createClass({
   },
 
   questionsForLesson: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data)
     const {data} = this.props.lessons, {lessonID} = this.props.params;
-    return data[lessonID].questions.map((id) => {
-      return _.find(questionsCollection, {key: id})
+    return data[lessonID].questions.map((questionItem) => {
+      const questionType = questionItem.questionType || 'questions'
+      const key = questionItem.key || questionItem
+      return this.props[questionType].data[key]
     })
   },
 
@@ -191,6 +192,7 @@ function select(state) {
   return {
     lessons: state.lessons,
     questions: state.questions,
+    sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, //the questionReducer
     routing: state.routing
   }
