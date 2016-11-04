@@ -4,7 +4,7 @@ export default React.createClass({
 
   render: function () {
     return (
-      <div className="container">
+      <div className="container user-select-role">
         <UserAccessibleSelectRole {...this.props}/>
       </div>
     );
