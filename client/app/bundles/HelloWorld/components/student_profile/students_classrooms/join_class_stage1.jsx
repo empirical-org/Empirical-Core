@@ -14,14 +14,18 @@ export default React.createClass({
       .done(function(){
         that.props.advanceStage();
       })
-      .fail(function() {
-        that.setState({error: 'Invalid Classcode'});
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        var error = "Oops! Looks like that isn't a valid class code. Please try again.";
+        if(jQuery.parseJSON(jqXHR.responseText).error == "Class is archived") {
+          error = "Oops! That class has been archived. Please try a different class code.";
+        }
+        that.setState({error: error});
       });
   },
 
   errorMessage: function() {
     if (this.state.error !== null) {
-      return <div><span className='error-message'>Invalid Classcode</span></div>;
+      return <div><span className='error-message'>{this.state.error}</span></div>;
     }
   },
 
