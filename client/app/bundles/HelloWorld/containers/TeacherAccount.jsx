@@ -1,11 +1,13 @@
 'use strict'
 import React from 'react';
 import SelectRole from '../components/accounts/edit/select_role';
+import UserSelectRole from '../components/accounts/edit/user_accessible_select_role.jsx';
 import SelectSubscription from '../components/accounts/subscriptions/select_subscription';
 import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../components/accounts/school/select_school';
 import $ from 'jquery';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx'
+
 
 export default React.createClass({
 	propTypes: {
@@ -135,7 +137,7 @@ export default React.createClass({
 		}
 		$.ajax({type: "PUT", data: data, url: url, success: this.uponUpdateAttempt});
 	},
-	
+
 	uponUpdateAttempt: function(data) {
 		this.setState({isSaving: false});
 		if (data.errors == null) {
@@ -143,6 +145,8 @@ export default React.createClass({
 			data.errors = {};
 			if (this.props.userType == 'staff') {
 				this.saveSubscription();
+			} else if (this.state.role === 'student') {
+				window.location = '/profile'
 			}
 		}
 		this.setState({errors: data.errors});
@@ -273,7 +277,7 @@ export default React.createClass({
 			selectRole = <SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
 			subscription = <SelectSubscription subscription={this.state.subscription} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState}/>
 		} else {
-			selectRole = null;
+			selectRole = <UserSelectRole role={this.state.roll || 'teacher'} updateRole={this.updateRole}/>
 			subscription = <StaticDisplaySubscription subscription={this.state.subscription}/>
 		}
 		return (
