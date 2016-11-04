@@ -8,7 +8,11 @@ class StudentsClassroomsController < ApplicationController
         Associators::StudentsToClassrooms.run(@user, classroom)
         JoinClassroomWorker.perform_async(@user.id)
       rescue NoMethodError => exception
-        render json: {error: "No such classcode"}, status: 400
+        if Classroom.unscoped.where(code: classcode).first.nil?
+          render json: {error: "No such classcode"}, status: 400
+        else
+          render json: {error: "Class is archived"}, status: 400
+        end
       else
         render json: classroom.attributes
       end
