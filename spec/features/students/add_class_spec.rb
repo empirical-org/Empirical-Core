@@ -56,11 +56,7 @@ feature 'Add Class', js: true do
       end
 
       it 'displays the archived class error message' do
-        c = Classroom.new
-        c.code = 'archived-class'
-        c.name = 'Archived Class'
-        c.visible = false
-        c.save
+        Classroom.create(name: 'Archived Class', code: 'archived-class', visible: false)
         page.find(".class-input").set('archived-class')
         click_button('Join Your Class')
         eventually {expect(page).to have_content("Oops! That class has been archived. Please try a different class code.")}
