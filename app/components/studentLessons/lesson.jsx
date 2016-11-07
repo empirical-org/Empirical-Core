@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PlayLessonQuestion from './question.jsx'
+import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../../actions.js'
 import _ from 'underscore'
@@ -84,21 +85,14 @@ const Lesson = React.createClass({
     )
   },
 
-  renderQuestionComponent: function () {
-    if (this.props.question.currentQuestion) {
-      return (<Question
-                question={this.props.question.currentQuestion}
-                submitResponse={this.submitResponse}
-                prefill={this.getLesson().prefill}/>)
-    }
-  },
-
   questionsForLesson: function () {
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     return data[lessonID].questions.map((questionItem) => {
       const questionType = questionItem.questionType || 'questions'
       const key = questionItem.key || questionItem
-      return this.props[questionType].data[key]
+      const question = this.props[questionType].data[key]
+      question.type = questionType === 'questions' ? 'SC' : 'SF'
+      return question
     })
   },
 
@@ -141,12 +135,17 @@ const Lesson = React.createClass({
     // console.log(this.props)
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     var component;
-    var key;
+    let question;
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
-        key = this.props.playLesson.currentQuestion
+        question = this.props.playLesson.currentQuestion
+        if (question.type === 'SF') {
+          component= (
+            <PlaySentenceFragment question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic"/>
+          )
+        }
         component = (
-          <PlayLessonQuestion key={this.props.playLesson.currentQuestion.key} question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
+          <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
         )
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
