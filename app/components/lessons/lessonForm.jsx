@@ -37,10 +37,11 @@ const LessonForm = React.createClass({
   handleChange: function (value) {
     const currentSelectedQuestions = this.state.selectedQuestions;
     const questionType = this.state.questionType || 'questions';
+    const type = questionType === 'question' ? 'SC' : 'SF'
     let newSelectedQuestions;
     const changedQuestion = currentSelectedQuestions.find((q)=>q.key === value)
     if (!changedQuestion) {
-      newSelectedQuestions = currentSelectedQuestions.concat([{key: value, questionType}]);
+      newSelectedQuestions = currentSelectedQuestions.concat([{key: value, questionType, type}]);
     } else {
       newSelectedQuestions = _.without(currentSelectedQuestions, changedQuestion)
     }

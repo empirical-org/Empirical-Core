@@ -16,6 +16,7 @@ const Lesson = React.createClass({
         // TODO: this is rediculous -- ultimately we need to refactor to include the question type on the object at the point of creation,
         // ensure that both have keys, and create a displayable text field....
         const questionType = question.questionType || 'questions'
+        const type = questionType === 'questions' ? 'SC' : 'SF';
         const collection = this.props[questionType].data
         // TODO: go through firebase and make sure each question has a key val, that way we can get rid of the || statement below
         const qFromDB = Object.assign({}, collection[question.key || question]);

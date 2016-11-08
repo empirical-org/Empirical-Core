@@ -61,6 +61,11 @@ const Lesson = React.createClass({
     )
   },
 
+  markIdentify: function (bool) {
+    const action = updateCurrentQuestion({identified: bool})
+    this.props.dispatch(action)
+  },
+
   createAnonActivitySession: function (lessonID, results, score) {
     request(
       { url: process.env.EMPIRICAL_BASE_URL + '/api/v1/activity_sessions/',
@@ -91,7 +96,8 @@ const Lesson = React.createClass({
       const questionType = questionItem.questionType || 'questions'
       const key = questionItem.key || questionItem
       const question = this.props[questionType].data[key]
-      question.type = questionType === 'questions' ? 'SC' : 'SF'
+      question.key = key;
+      question.type = questionType === 'questions' ? 'SC' : 'SF';
       return question
     })
   },
@@ -139,14 +145,16 @@ const Lesson = React.createClass({
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
         question = this.props.playLesson.currentQuestion
+        console.log("Questions", question)
         if (question.type === 'SF') {
           component= (
-            <PlaySentenceFragment question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic"/>
+            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify}/>
+          )
+        } else {
+          component = (
+            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
           )
         }
-        component = (
-          <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
-        )
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
         component = (

@@ -58,6 +58,7 @@ var PlaySentenceFragment = React.createClass({
 
   checkAnswer: function() {
     if (this.state.checkAnswerEnabled) {
+      key = this.props.currentKey;
       this.setState({checkAnswerEnabled: false}, ()=>{
       const fragment = this.props.sentenceFragments.data[key]
 
@@ -144,8 +145,7 @@ var PlaySentenceFragment = React.createClass({
 
   render: function() {
     if(this.props.sentenceFragments.hasreceiveddata) {
-      key = this.props.params ? this.props.params.fragmentID : this.props.currentKey
-      const fragment = this.props.sentenceFragments.data[key]
+      const fragment = this.props.question
       return (
         <div className="student-container-inner-diagnostic">
           <div className="draft-js sentence-fragments prevent-selection">
