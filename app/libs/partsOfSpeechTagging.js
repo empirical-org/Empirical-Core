@@ -22,10 +22,28 @@ export function getPartsOfSpeechTags(input){
 
 }
 
+export function getPartsOfSpeechWords(input){
+  var wordsTags = getPartsOfSpeech(input);
+  if (wordsTags) {
+    return wordsTags.map((b) => {
+      return b[0]
+    })
+  }
+}
+
+export function getPartsOfSpeechWordsWithTags(input){
+  var wordsTags = getPartsOfSpeech(input);
+  if (wordsTags) {
+    return wordsTags.map((b) => {
+      return [b[0], b[1]]
+    })
+  }
+}
+
 export function checkPOSEquivalancy (input, target) {
   const inputTags = getPartsOfSpeechTags(input)
-  console.log(target)
   const targetTags = getPartsOfSpeechTags(target)
+  console.log(input, target, inputTags, targetTags)
   return _.isEqual(inputTags,targetTags)
 }
 
