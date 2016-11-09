@@ -6,7 +6,7 @@ import {
     getConceptResultsForAllQuestions,
     embedQuestionNumbers,
     calculateScoreForLesson,
-} from '../../app/libs/conceptResults/sentenceCombiningLesson'
+} from '../../app/libs/conceptResults/lesson'
 
 describe("Getting concept results from an answered SC object", () => {
     const questions = data;

@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import PlayLessonQuestion from './question.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../../actions.js'
+import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
-import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../libs/conceptResults/sentenceCombiningLesson'
+import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../libs/conceptResults/lesson'
 import Register from './register.jsx'
 import Finished from './finished.jsx'
 
@@ -93,12 +93,12 @@ const Lesson = React.createClass({
   questionsForLesson: function () {
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     return data[lessonID].questions.map((questionItem) => {
-      const questionType = questionItem.questionType || 'questions'
-      const key = questionItem.key || questionItem
+      const questionType = questionItem.questionType
+      const key = questionItem.key
       const question = this.props[questionType].data[key]
       question.key = key;
-      question.type = questionType === 'questions' ? 'SC' : 'SF';
-      return question
+      const type = questionType === 'questions' ? 'SC' : 'SF';
+      return {type, question}
     })
   },
 
@@ -137,16 +137,12 @@ const Lesson = React.createClass({
   },
 
   render: function () {
-    // console.log("In the lesson.jsx file.")
-    // console.log(this.props)
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     var component;
-    let question;
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
-        question = this.props.playLesson.currentQuestion
-        console.log("Questions", question)
-        if (question.type === 'SF') {
+        const {type, question} = this.props.playLesson.currentQuestion
+        if (type === 'SF') {
           component= (
             <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify}/>
           )

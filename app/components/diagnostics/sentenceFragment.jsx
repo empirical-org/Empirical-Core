@@ -35,7 +35,7 @@ var PlaySentenceFragment = React.createClass({
   },
 
   getQuestion: function() {
-    return this.props.question.questionText
+    return this.props.question.prompt
   },
 
   checkChoice: function(choice) {
@@ -133,7 +133,7 @@ var PlaySentenceFragment = React.createClass({
               <img className="info" src={icon}/>
               <p>{instructions}</p>
             </div>
-            <TextEditor value={fragment.questionText} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer}/>
+            <TextEditor value={fragment.prompt} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer}/>
             <div className="question-button-group">
               {button}
             </div>

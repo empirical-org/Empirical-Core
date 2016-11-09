@@ -13,14 +13,10 @@ const Lesson = React.createClass({
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     if(data[lessonID].questions) {
       return data[lessonID].questions.map((question) => {
-        // TODO: this is rediculous -- ultimately we need to refactor to include the question type on the object at the point of creation,
-        // ensure that both have keys, and create a displayable text field....
-        const questionType = question.questionType || 'questions'
-        const type = questionType === 'questions' ? 'SC' : 'SF';
-        const collection = this.props[questionType].data
-        // TODO: go through firebase and make sure each question has a key val, that way we can get rid of the || statement below
-        const qFromDB = Object.assign({}, collection[question.key || question]);
-        qFromDB.questionType = questionType;
+        const questions = this.props[question.questionType].data
+        const qFromDB = Object.assign({}, questions[question.key]);
+        qFromDB.questionType = question.questionType;
+        qFromDB.key = question.key
         return qFromDB;
       })
     }
@@ -31,9 +27,7 @@ const Lesson = React.createClass({
     var questionsForLesson = this.questionsForLesson()
     if(questionsForLesson) {
       var listItems = questionsForLesson.map((question) => {
-        const nameKey = question.questionType === 'questions' ? 'prompt' : 'questionText'
-        // TODO: ask donald -- the sf's link to a blank page, but not a 404 -- does this just mean we don't have results for them?
-        return (<li key={question.key}><Link to={`/results/${question.questionType || 'questions'}/` + question.key}>{question[nameKey].replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
+        return (<li key={question.key}><Link to={`/results/${question.questionType || 'questions'}/` + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
       })
       return (
         <ul>{listItems}</ul>
@@ -49,9 +43,6 @@ const Lesson = React.createClass({
     const {lessonID} = this.props.params;
     if(confirm("do you want to do this?")) {
       this.props.dispatch(deleteLesson(lessonID))
-      // // console.log("content deleted");
-    } else {
-      // // console.log("cancel hit");
     }
   },
 

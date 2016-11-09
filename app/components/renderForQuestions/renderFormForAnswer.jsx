@@ -28,16 +28,12 @@ export default React.createClass({
 
   renderConceptExplanation: function () {
     if (this.props.conceptExplanation) {
-      console.log("Rendering concept exp in answer form");
       return this.props.conceptExplanation()
     }
   },
 
   render: function() {
     var content;
-    // if(this.props.id==="playQuestion") {
-    //   content = <Link to={'/results/questions/' + this.props.questionID} className="button is-info is-outlined">View Results</Link>
-    // }
 
     var button, feedback = this.props.feedback;
     if(this.props.finished) {
