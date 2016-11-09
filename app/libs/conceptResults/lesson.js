@@ -3,13 +3,22 @@ import {
   errorFree
 } from './sentenceCombiningLessonQuestion'
 
-export function getConceptResultsForQuestion (question) {
-  return getConceptResultsForSentenceCombining(question)
+import {
+  getAllSentenceFragmentConceptResults,
+  calculateCorrectnessOfSentence
+} from './sentenceFragment.js'
+
+export function getConceptResultsForQuestion (questionObj) {
+  if (questionObj.type === "SF") {
+    return getAllSentenceFragmentConceptResults(questionObj.question)
+  } else if (questionObj.type === "SC") {
+    return getConceptResultsForSentenceCombining(questionObj.question)
+  }
 }
 
 export function getNestedConceptResultsForAllQuestions (questions) {
-  return questions.map((question) => {
-    return getConceptResultsForQuestion(question)
+  return questions.map((questionObj) => {
+    return getConceptResultsForQuestion(questionObj)
   })
 }
 
@@ -28,14 +37,37 @@ export function getConceptResultsForAllQuestions (questions) {
   return [].concat.apply([], withKeys) // Flatten array
 }
 
+export function getScoreForSentenceCombining (question) {
+  const firstAttempt = question.attempts[0];
+  if (firstAttempt.found && errorFree(firstAttempt) && firstAttempt.response.optimal ) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+export function getScoreForSentenceFragment (question) {
+  const firstAttempt = question.attempts[0];
+  if (question.identified && calculateCorrectnessOfSentence(firstAttempt) === 1) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 export function calculateScoreForLesson (questions) {
   let correct = 0;
   // if the first attempt is found, has no errors,
   // and the response is optimal, mark as correct.
   questions.forEach((question)=>{
-    const firstAttempt = question.attempts[0];
-    if (firstAttempt.found && errorFree(firstAttempt) && firstAttempt.response.optimal ) {
-      correct += 1
+    switch (question.type) {
+      case 'SF':
+        correct += getScoreForSentenceFragment(question.question)
+        break;
+      case 'SC':
+        correct += getScoreForSentenceCombining(question.question)
+        break
+      default:
+        throw new Error('question is not compatible type')
     }
   })
   return Math.round((correct / questions.length) * 100 ) / 100;

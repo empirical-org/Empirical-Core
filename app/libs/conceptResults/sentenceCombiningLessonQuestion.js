@@ -3,9 +3,9 @@ import _ from 'underscore'
 import {formattedCues} from '../formattedCues'
 var C = require("../../constants").default
 
-export function getConceptResultsForSentenceCombining(questionObj) {
-  const nestedConceptResults = questionObj.question.attempts.map((attempt, index) => {
-    return getConceptResultsForSentenceCombiningAttempt(questionObj.question, index)
+export function getConceptResultsForSentenceCombining(question) {
+  const nestedConceptResults = question.attempts.map((attempt, index) => {
+    return getConceptResultsForSentenceCombiningAttempt(question, index)
   })
 
   return [].concat.apply([], nestedConceptResults) // Flatten nested Array
