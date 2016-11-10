@@ -19,6 +19,11 @@ export function getMissingWords (userString, sentences) {
   })
 }
 
+export function getMissingWordsFromResponses (userString, responses) {
+  const sentences = _.map(responses, (response) => response.text)
+  return getMissingWords(userString, sentences)
+}
+
 function normalizeString (string) {
   return string.replace(/[.,?!]/g, "")
 }

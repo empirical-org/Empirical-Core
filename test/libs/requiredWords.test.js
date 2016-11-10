@@ -1,7 +1,8 @@
 import expect, {createSpy, spyOn, isSpy} from 'expect';
 import {
   getCommonWords,
-  getMissingWords
+  getMissingWords,
+  getMissingWordsFromResponses
 } from '../../app/libs/requiredWords'
 import {
   getPartsOfSpeechWordsWithTags,
@@ -72,5 +73,36 @@ describe("Detecting if a string is missing a required word", () => {
     const user = "Then they both went to the park."
 		const expected = ["Bob", "and", "Sally"];
 		expect(getMissingWords(user, sentences)).toEqual(expected);
+	});
+})
+
+describe("Finding the common words in multiple sentences", () => {
+	const responses = [
+    {
+      text: "The woman in the next room is the teacher.",
+      feedback: "Excellent, that's correct!",
+      optimal: true,
+      key: 1
+    },
+    {
+      text: "The female teacher is in the next room.",
+      feedback: "How do you refer to one specific teacher?",
+      optimal: true,
+      key: 2
+    },
+    {
+      text: "The teacher is the woman in the next room.",
+      feedback: "How do you refer to one specific teacher?",
+      optimal: true,
+      key: 3
+    }
+  ]
+  const user = "The woman in the room is the teacher."
+
+	it("returns the common missing words", () => {
+		const expected = [
+      "next"
+    ]
+		expect(getMissingWordsFromResponses(user, responses)).toEqual(expected);
 	});
 })
