@@ -6,6 +6,7 @@ import {
     getConceptResultsForAllQuestions,
     embedQuestionNumbers
 } from '../../app/libs/conceptResults/diagnostic'
+import conceptResults from './conceptResultsWithMetadata.js'
 
 describe("Getting concept results from an answered SC object", () => {
     const questions = data;
@@ -29,16 +30,7 @@ describe("Getting concept results from an answered SC object", () => {
                 prompt: 'Listening to music on the ride home.'
             },
             question_type: 'sentence-fragment-expansion'
-        }, {
-            concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-            metadata: {
-                answer: 'I am listening to music on the ride home.',
-                correct: 1,
-                directions: 'placeholder',
-                prompt: 'Listening to music on the ride home.'
-            },
-            question_type: 'sentence-fragment-expansion'
-        }];
+        }, conceptResults.rideHome];
 
         const generated = getConceptResultsForQuestion(data[0])
         expect(expected).toEqual(generated)
@@ -88,16 +80,7 @@ describe("Getting concept results from an answered SC object", () => {
                     prompt: 'Listening to music on the ride home.'
                 },
                 question_type: 'sentence-fragment-expansion'
-            }, {
-                concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-                metadata: {
-                    answer: 'I am listening to music on the ride home.',
-                    correct: 1,
-                    directions: 'placeholder',
-                    prompt: 'Listening to music on the ride home.'
-                },
-                question_type: 'sentence-fragment-expansion'
-            }],
+            }, conceptResults.rideHome],
             [{
                 concept_uid: 'LH3szu784pXA5k2N9lxgdA',
                 metadata: {
@@ -242,17 +225,7 @@ describe("Getting concept results from an answered SC object", () => {
                 questionNumber: 1
             },
             question_type: 'sentence-fragment-expansion'
-        }, {
-            concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-            metadata: {
-                answer: 'I am listening to music on the ride home.',
-                correct: 1,
-                directions: 'placeholder',
-                prompt: 'Listening to music on the ride home.',
-                questionNumber: 1
-            },
-            question_type: 'sentence-fragment-expansion'
-        }, {
+        }, conceptResults.rideHome, {
             concept_uid: 'LH3szu784pXA5k2N9lxgdA',
             metadata: {
                 answer: 'Fragment',

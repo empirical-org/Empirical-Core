@@ -1,22 +1,13 @@
 import expect from 'expect';
 import data from '../jsonFromDiagnostic';
 import {getIdentificationConceptResult, getCompleteSentenceConceptResult, getAllSentenceFragmentConceptResults, getTaggedConceptResults} from '../../app/libs/conceptResults/sentenceFragment'
-
+import conceptResults from './conceptResultsWithMetadata.js'
 describe("Getting concept results from an answered sf object", () => {
 	const question = data[0].data;
 
 	it("should have the correct tagged concept results", () => {
 		const expected = [
-			{
-				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-				metadata: {
-					answer: 'I am listening to music on the ride home.',
-					correct: 1,
-					directions: 'placeholder',
-					prompt: 'Listening to music on the ride home.'
-				},
-				question_type: 'sentence-fragment-expansion'
-			}
+			conceptResults.rideHome
 		]
 		const generated = getTaggedConceptResults(question);
 		expect(generated).toEqual(expected);
@@ -74,16 +65,7 @@ describe("Getting concept results from an answered sf object", () => {
 					prompt: 'Listening to music on the ride home.'
 				},
 				question_type: 'sentence-fragment-expansion'
-			}, {
-				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-				metadata: {
-					answer: 'I am listening to music on the ride home.',
-					correct: 1,
-					directions: 'placeholder',
-					prompt: 'Listening to music on the ride home.'
-				},
-				question_type: 'sentence-fragment-expansion'
-			}
+			}, conceptResults.rideHome
 		]
 		const generated = getAllSentenceFragmentConceptResults(question)
 		expect(generated).toEqual(expected);
@@ -100,16 +82,7 @@ describe("Getting concept results from an answered sf object", () => {
 					prompt: 'Listening to music on the ride home.'
 				},
 				question_type: 'sentence-fragment-expansion'
-			}, {
-				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-				metadata: {
-					answer: 'I am listening to music on the ride home.',
-					correct: 1,
-					directions: 'placeholder',
-					prompt: 'Listening to music on the ride home.'
-				},
-				question_type: 'sentence-fragment-expansion'
-			}
+			}, conceptResults.rideHome
 		]
 		const newQuestion = JSON.parse(JSON.stringify(question))
 		newQuestion.needsIdentification = false
