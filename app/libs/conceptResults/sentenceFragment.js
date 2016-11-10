@@ -42,9 +42,9 @@ export function getCompleteSentenceConceptResult(question) {
 
 function _formatIndividualTaggedConceptResults(cr, question){
   const returnValue = {};
-  const prompt = question.questionText
+  const prompt = question.prompt
   const answer = question.attempts[0].submitted;
-  const directions = 'placeholder'
+  const directions = "Add/change as few words as you can to change this fragment into a sentence"
   const correct = cr.correct ? 1 : 0
   returnValue.concept_uid = cr.conceptUID;
   returnValue.question_type = 'sentence-fragment-expansion'
@@ -70,7 +70,7 @@ export function getTaggedConceptResults(question) {
 }
 
 
-function calculateCorrectnessOfSentence(attempt) {
+export function calculateCorrectnessOfSentence(attempt) {
   if (attempt && attempt.response) {
     return attempt.response.optimal ? 1 : 0
   } else {

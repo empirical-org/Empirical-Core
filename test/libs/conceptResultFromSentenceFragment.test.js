@@ -1,26 +1,28 @@
 import expect from 'expect';
 import data from '../jsonFromDiagnostic';
 import {getIdentificationConceptResult, getCompleteSentenceConceptResult, getAllSentenceFragmentConceptResults, getTaggedConceptResults} from '../../app/libs/conceptResults/sentenceFragment'
-
+import conceptResults from './conceptResultsWithMetadata.js'
 describe("Getting concept results from an answered sf object", () => {
 	const question = data[0].data;
+	// const rideHomeWithQNumber = Object.assign({}, conceptResults.rideHome)
+	// rideHomeWithQNumber.metadata.questionNumber = 1
 
 	it("should have the correct tagged concept results", () => {
 		const expected = [
+			// conceptResults.rideHome
 			{
-				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-				metadata: {
-					answer: 'I am listening to music on the ride home.',
-					correct: 1,
-					directions: 'placeholder',
-					prompt: 'Listening to music on the ride home.'
-				},
-				question_type: 'sentence-fragment-expansion'
-			}
+			concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+			metadata: {
+				answer: "I am listening to music on the ride home.",
+				correct: 1,
+				directions: "Add/change as few words as you can to change this fragment into a sentence",
+				prompt: "Is this a sentence?"
+			},
+			question_type: 'sentence-fragment-expansion'
+		}
 		]
 		const generated = getTaggedConceptResults(question);
 		expect(generated).toEqual(expected);
-
 	});
 
 	it("should have the correct score and concept uids", () => {
@@ -74,16 +76,18 @@ describe("Getting concept results from an answered sf object", () => {
 					prompt: 'Listening to music on the ride home.'
 				},
 				question_type: 'sentence-fragment-expansion'
-			}, {
-				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-				metadata: {
-					answer: 'I am listening to music on the ride home.',
-					correct: 1,
-					directions: 'placeholder',
-					prompt: 'Listening to music on the ride home.'
-				},
-				question_type: 'sentence-fragment-expansion'
-			}
+			},
+			// conceptResults.rideHome,
+			{
+		    concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+		    metadata: {
+		      answer: "I am listening to music on the ride home.",
+		      correct: 1,
+		      directions: "Add/change as few words as you can to change this fragment into a sentence",
+		      prompt: "Is this a sentence?"
+		    },
+		    question_type: 'sentence-fragment-expansion'
+		  }
 		]
 		const generated = getAllSentenceFragmentConceptResults(question)
 		expect(generated).toEqual(expected);
@@ -100,16 +104,18 @@ describe("Getting concept results from an answered sf object", () => {
 					prompt: 'Listening to music on the ride home.'
 				},
 				question_type: 'sentence-fragment-expansion'
-			}, {
-				concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-				metadata: {
-					answer: 'I am listening to music on the ride home.',
-					correct: 1,
-					directions: 'placeholder',
-					prompt: 'Listening to music on the ride home.'
-				},
-				question_type: 'sentence-fragment-expansion'
-			}
+			},
+			// conceptResults.rideHome,
+			{
+		    concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+		    metadata: {
+		      answer: "I am listening to music on the ride home.",
+		      correct: 1,
+		      directions: "Add/change as few words as you can to change this fragment into a sentence",
+		      prompt: "Is this a sentence?"
+		    },
+		    question_type: 'sentence-fragment-expansion'
+		  }
 		]
 		const newQuestion = JSON.parse(JSON.stringify(question))
 		newQuestion.needsIdentification = false
@@ -145,7 +151,7 @@ describe("Getting concept results from an answered sf object", () => {
 			isFragment: false,
 			needsIdentification: true,
 			identified: true,
-			prompt: "Is this a sentence?",
+			prompt: "Listening to music on the ride home.",
 			questionText: "Go away."
 		}
 		const expected = [
@@ -172,8 +178,8 @@ describe("Getting concept results from an answered sf object", () => {
 				metadata: {
 					answer: 'Go away.',
 					correct: 1,
-					directions: 'placeholder',
-					prompt: 'Go away.'
+					directions: 'Add/change as few words as you can to change this fragment into a sentence',
+					prompt: 'Listening to music on the ride home.'
 				},
 				question_type: 'sentence-fragment-expansion'
 			}

@@ -6,7 +6,7 @@ import {
     getConceptResultsForAllQuestions,
     embedQuestionNumbers,
     calculateScoreForLesson,
-} from '../../app/libs/conceptResults/sentenceCombiningLesson'
+} from '../../app/libs/conceptResults/lesson'
 
 describe("Getting concept results from an answered SC object", () => {
     const questions = data;
@@ -109,7 +109,7 @@ describe("Getting concept results from an answered SC object", () => {
         ]
 
         const generated = getNestedConceptResultsForAllQuestions(data)
-        expect(expected).toEqual(generated)
+        expect(generated).toEqual(expected)
     })
 
     it("can embed the question numbers ", () => {
@@ -218,7 +218,7 @@ describe("Getting concept results from an answered SC object", () => {
             }]
         ]
         const generated = embedQuestionNumbers(getNestedConceptResultsForAllQuestions(data))
-        expect(expected).toEqual(generated)
+        expect(generated).toEqual(expected)
     })
 
     it("can embed the flattened array of concept results with embedded question numbers", () => {
@@ -324,12 +324,12 @@ describe("Getting concept results from an answered SC object", () => {
         }]
 
         const generated = getConceptResultsForAllQuestions(data)
-        expect(expected).toEqual(generated)
+        expect(generated).toEqual(expected)
     })
 
     it('can calculate the percentage of first attempts that are correct', () => {
         const expected = 0.33;
         const generated = calculateScoreForLesson(data);
-        expect(expected).toEqual(generated)
+        expect(generated).toEqual(expected)
     })
 });

@@ -61,7 +61,6 @@ describe("Converting a string to a list of parts of speech", () => {
     expect(generated).toEqual(expected);
   })
 
-  // // console.log(qpos.getPartsOfSpeech("while"))
 
   it("returns a list of POS transformations", () => {
     const input = "She ran after the dog.";

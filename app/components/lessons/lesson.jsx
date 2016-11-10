@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import _ from 'underscore'
-import {hashToCollection} from '../../libs/hashToCollection'
 import {deleteLesson, startLessonEdit}  from '../../actions/lessons.js';
 import lessonActions from '../../actions/lessons'
 import Modal from '../modal/modal.jsx'
@@ -11,21 +10,24 @@ import EditLessonForm from './lessonForm.jsx'
 
 const Lesson = React.createClass({
   questionsForLesson: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data)
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     if(data[lessonID].questions) {
-      return data[lessonID].questions.map((id) => {
-        return _.find(questionsCollection, {key: id})
+      return data[lessonID].questions.map((question) => {
+        const questions = this.props[question.questionType].data
+        const qFromDB = Object.assign({}, questions[question.key]);
+        qFromDB.questionType = question.questionType;
+        qFromDB.key = question.key
+        return qFromDB;
       })
     }
-    // return _.where(questionsCollection, {key: this.props.lessons.data.question})
   },
+
 
   renderQuestionsForLesson: function () {
     var questionsForLesson = this.questionsForLesson()
     if(questionsForLesson) {
       var listItems = questionsForLesson.map((question) => {
-        return (<li key={question.key}><Link to={'/results/questions/' + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
+        return (<li key={question.key}><Link to={`/results/${question.questionType || 'questions'}/` + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
       })
       return (
         <ul>{listItems}</ul>
@@ -41,9 +43,6 @@ const Lesson = React.createClass({
     const {lessonID} = this.props.params;
     if(confirm("do you want to do this?")) {
       this.props.dispatch(deleteLesson(lessonID))
-      // // console.log("content deleted");
-    } else {
-      // // console.log("cancel hit");
     }
   },
 
@@ -109,7 +108,8 @@ function select(state) {
   return {
     lessons: state.lessons,
     questions: state.questions,
-    routing: state.routing
+    routing: state.routing,
+    sentenceFragments: state.sentenceFragments
   }
 }
 
