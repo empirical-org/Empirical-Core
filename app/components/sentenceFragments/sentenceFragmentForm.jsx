@@ -8,8 +8,7 @@ const sentenceFragmentForm = React.createClass({
     const fragment = this.props.data
     if(fragment===undefined) { //creating new fragment
       return {
-        prompt: "Is this a sentence?",
-        questionText: "",
+        prompt: "",
         isFragment: false,
         optimalResponseText: "",
         needsIdentification: true,
@@ -19,7 +18,6 @@ const sentenceFragmentForm = React.createClass({
     } else {
       return {
         prompt: fragment.prompt,
-        questionText: fragment.questionText,
         isFragment: fragment.isFragment,
         optimalResponseText: fragment.optimalResponseText!==undefined ? fragment.optimalResponseText : "",
         needsIdentification: fragment.needsIdentification!==undefined ? fragment.needsIdentification : true,
@@ -33,9 +31,6 @@ const sentenceFragmentForm = React.createClass({
     switch (key) {
       case 'prompt':
         this.setState({prompt: e.target.value})
-        break;
-      case 'questionText':
-        this.setState({questionText: e.target.value})
         break;
       case 'optimalResponseText':
         this.setState({optimalResponseText: e.target.value})
@@ -88,9 +83,9 @@ const sentenceFragmentForm = React.createClass({
     }
     return (
       <div>
-        <label className="label">Sentence / Fragment Text</label>
+        <label className="label">Sentence / Fragment Prompt</label>
         <p className="control">
-          <input className="input" type="text" value={this.state.questionText} onChange={this.handleChange.bind(null, "questionText")}></input>
+          <input className="input" type="text" value={this.state.prompt} onChange={this.handleChange.bind(null, "prompt")}></input>
         </p>
         <label className="label">Instructions</label>
         <p className="control">
