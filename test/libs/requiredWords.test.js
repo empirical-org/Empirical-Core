@@ -1,8 +1,11 @@
 import expect, {createSpy, spyOn, isSpy} from 'expect';
 import {
   getCommonWords,
+  getCommonWordsWithImportantPOS,
   getMissingWords,
-  getMissingWordsFromResponses
+  getMissingWordsFromResponses,
+  getPOSForWord,
+  getFeedbackForWord
 } from '../../app/libs/requiredWords'
 import {
   getPartsOfSpeechWordsWithTags,
@@ -37,7 +40,7 @@ describe("Finding the common words in multiple sentences, taking capitalisation 
     "Then Bob and Sally went to the park."
   ];
 
-	it("returns change objects", () => {
+	it("returns the appropriate POS", () => {
 		const expected = [
       "Bob",
       "and",
@@ -48,6 +51,24 @@ describe("Finding the common words in multiple sentences, taking capitalisation 
       "park"
     ]
 		expect(getCommonWords(sentences)).toEqual(expected);
+	});
+})
+
+describe("Finding the common words in multiple sentences, taking only important POS into account", () => {
+	const sentences = [
+    "Bob and Sally then went to the park.",
+    "Then Bob and Sally went to the park."
+  ];
+
+	it("returns the appropriate POS", () => {
+		const expected = [
+      "Bob",
+      "and",
+      "Sally",
+      "went",
+      "park"
+    ]
+		expect(getCommonWordsWithImportantPOS(sentences)).toEqual(expected);
 	});
 })
 
@@ -105,4 +126,20 @@ describe("Finding the common words in multiple sentences", () => {
     ]
 		expect(getMissingWordsFromResponses(user, responses)).toEqual(expected);
 	});
+
+  it("returns the correct POS for the first missing word.", () => {
+		const expected = "Adjective"
+    const missingWords = getMissingWordsFromResponses(user, responses)
+    const posLabel = getPOSForWord(missingWords[0])
+    expect(posLabel).toEqual(expected);
+	});
+
+  it("returns the correct feedback string for the first missing word.", () => {
+		const expected = "<p>Revise your sentence to include the word <em>next</em>.</p>"
+    const missingWords = getMissingWordsFromResponses(user, responses)
+    const feedback = getFeedbackForWord(missingWords[0])
+    expect(feedback).toEqual(expected);
+	});
+
+
 })
