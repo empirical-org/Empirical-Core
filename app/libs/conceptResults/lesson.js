@@ -56,8 +56,6 @@ export function getScoreForSentenceFragment (question) {
 
 export function calculateScoreForLesson (questions) {
   let correct = 0;
-  // if the first attempt is found, has no errors,
-  // and the response is optimal, mark as correct.
   questions.forEach((question)=>{
     switch (question.type) {
       case 'SF':
