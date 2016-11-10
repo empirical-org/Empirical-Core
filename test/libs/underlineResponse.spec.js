@@ -313,8 +313,8 @@ describe("Calling the correct functions for different use cases", () => {
 	it("calls getMissingInlineStyleRangeObject when it should", () => {
 		const user = "I drink soda for it is sugary.";
 		const expected = {
-			text: "I       drink soda for it is sugary.",
-			inlineStyleRanges: [getMissingInlineStyleRangeObject(target, user)]
+			text: "I drink soda for it is sugary.",
+			inlineStyleRanges: []
 		}
 		const styleObjects = generateStyleObjects(target, user)
 		expect(styleObjects).toEqual(expected)
@@ -334,8 +334,8 @@ describe("Calling the correct functions for different use cases", () => {
 		const target = "Bill swept the floor while Andy painted the walls.";
 		const user = "Bill swept floor while Andy painted the walls.";
 		const expected = {
-			text: "Bill swept     floor while Andy painted the walls.",
-			inlineStyleRanges: [getMissingInlineStyleRangeObject(target, user)]
+			text: "Bill swept floor while Andy painted the walls.",
+			inlineStyleRanges: []
 		}
 		const styleObjects = generateStyleObjects(target, user)
 		expect(styleObjects).toEqual(expected)
@@ -345,8 +345,8 @@ describe("Calling the correct functions for different use cases", () => {
 		const target = "Since it was snowing, Marcella wore a sweater.";
 		const user = "Since it was snowing, wore a sweater.";
 		const expected = {
-			text: "Since it was snowing,          wore a sweater.",
-			inlineStyleRanges: [getMissingInlineStyleRangeObject(target, user)]
+			text: "Since it was snowing, wore a sweater.",
+			inlineStyleRanges: []
 		}
 		const styleObjects = generateStyleObjects(target, user)
 		expect(styleObjects).toEqual(expected)
@@ -356,8 +356,8 @@ describe("Calling the correct functions for different use cases", () => {
 		const target = "The hazy sky has few clouds.";
 		const user = "The hazy sky has few.";
 		const expected = {
-			text: "The hazy sky has few       .",
-			inlineStyleRanges: [getMissingInlineStyleRangeObject(target, user)]
+			text: "The hazy sky has few.",
+			inlineStyleRanges: []
 		}
 		const styleObjects = generateStyleObjects(target, user)
 		expect(styleObjects).toEqual(expected)
@@ -379,13 +379,7 @@ describe("Calling the correct functions for different use cases", () => {
 		const user = "Since it was snowing Marcella wore a sweater.";
 		const expected = {
 			text: user,
-			inlineStyleRanges: [
-				{
-					length: 7,
-					offset: 13,
-					style: "UNDERLINE"
-				}
-			]
+			inlineStyleRanges: []
 		}
 		const styleObjects = generateStyleObjects(target, user)
 		expect(styleObjects).toEqual(expected)

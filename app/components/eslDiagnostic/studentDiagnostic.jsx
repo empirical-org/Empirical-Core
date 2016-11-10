@@ -6,8 +6,8 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
 import Spinner from '../shared/spinner.jsx'
-import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
-import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx'
+import PlaySentenceFragment from './sentenceFragment.jsx'
+import PlayDiagnosticQuestion from './sentenceCombining.jsx'
 import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
 import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
@@ -22,8 +22,25 @@ var StudentDiagnostic = React.createClass({
   },
 
   saveToLMS: function () {
-    this.setState({saved: true});
-    return
+    const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions)
+    request(
+      { url: process.env.EMPIRICAL_BASE_URL + '/api/v1/activity_sessions/' + this.props.routing.locationBeforeTransitions.query.student,
+        method: 'PUT',
+        json:
+        {
+          state: 'finished',
+          concept_results: results,
+          percentage: 1
+        }
+      },
+      (err,httpResponse,body) => {
+        if (httpResponse.statusCode === 200) {
+          document.location.href = process.env.EMPIRICAL_BASE_URL
+          this.setState({saved: true});
+        }
+        // console.log(err,httpResponse,body)
+      }
+    )
   },
 
 
@@ -78,23 +95,8 @@ var StudentDiagnostic = React.createClass({
     this.props.dispatch(updateName(name))
   },
 
-  questionsForLesson: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data)
-    const {data} = this.props.lessons, {lessonID} = this.props.params;
-    return data[lessonID].questions.map((id) => {
-      return {
-        type: "SC",
-        key: id
-      }
-    })
-  },
-
   getData: function() {
-    if (this.props.params.lessonID) {
-      return this.questionsForLesson()
-    } else {
-      return diagnosticQuestions()
-    }
+    return diagnosticQuestions()
   },
 
   markIdentify: function (bool) {
@@ -108,6 +110,7 @@ var StudentDiagnostic = React.createClass({
     } else {
       0
     }
+
   },
 
   getFetchedData: function() {
@@ -135,7 +138,7 @@ var StudentDiagnostic = React.createClass({
       if(data) {
         if (this.props.playDiagnostic.currentQuestion) {
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
-            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key}/>)
+            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} marking="diagnostic"/>)
 
           } else {
             component =   (<PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
@@ -147,7 +150,7 @@ var StudentDiagnostic = React.createClass({
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
         }
         else {
-          component =  <LandingPage lesson={this.getLesson()} begin={()=>{this.startActivity("John", data)}}/>
+          component =  <LandingPage begin={()=>{this.startActivity("John", data)}}/>
           // (
           //   <div className="container">
           //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
@@ -156,7 +159,7 @@ var StudentDiagnostic = React.createClass({
         }
       }
     } else {
-      component =  (<Spinner/>)
+      component = (<Spinner/>)
     }
 
     return (
@@ -180,7 +183,6 @@ var StudentDiagnostic = React.createClass({
 
 function select(state) {
   return {
-    lessons: state.lessons,
     routing: state.routing,
     questions: state.questions,
     playDiagnostic: state.playDiagnostic,
