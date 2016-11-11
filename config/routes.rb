@@ -72,6 +72,9 @@ EmpiricalGrammar::Application.routes.draw do
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
 
+  get 'account_settings' => 'students#account_settings'
+  put 'make_teacher' => 'students#make_teacher'
+
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
 
   namespace :teachers do
