@@ -6,9 +6,6 @@ import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
 import {hashToCollection} from '../../libs/hashToCollection'
 import EditLessonForm from './lessonForm.jsx'
-import renderQuestionSelect from './lessonForm.jsx'
-import renderQuestionsForLesson from './lesson.jsx'
-import questionsForLesson from './lesson.jsx'
 
 const Lessons =  React.createClass({
 
@@ -43,7 +40,7 @@ const Lessons =  React.createClass({
     if (this.props.lessons.newLessonModalOpen) {
         return (
           <Modal close={this.createNew}>
-            <EditLessonForm submit={this.submitNewLesson} renderQuestionSelect={this.renderQuestionSelect} stateSpecificClass={stateSpecificClass}/>
+            <EditLessonForm submit={this.submitNewLesson} stateSpecificClass={stateSpecificClass}/>
           </Modal>
         )
       }

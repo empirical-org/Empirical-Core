@@ -8,7 +8,7 @@ import {
 describe("Getting concept results from an answered SC object", () => {
 
     it("should have the correct score and concept uids with a question that was correct on the first attempt", () => {
-        const question = data[1];
+        const question = data[1].question;
         const expected = [{
             concept_uid: '555cYi-MZKeyAV-98U4DyA',
             metadata: {
@@ -36,7 +36,7 @@ describe("Getting concept results from an answered SC object", () => {
     });
 
     it("should have the correct score and concept uids with a question that was correct on the first attempt", () => {
-        const question = data[1];
+        const question = data[1].question;
         const attempt = question["attempts"][0]
         const expected = [{
             concept_uid: '555cYi-MZKeyAV-98U4DyA',
@@ -65,7 +65,7 @@ describe("Getting concept results from an answered SC object", () => {
     });
 
     it("should have the correct score and concept uids with a question that was correct on the third attempt", () => {
-        const question = data[0];
+        const question = data[0].question;
         const expected = [{
             concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
             metadata: {
@@ -113,7 +113,7 @@ describe("Getting concept results from an answered SC object", () => {
     });
 
     it("should have the correct score and concept uids with a question that was incorrect on the third attempt", () => {
-        const question = data[2];
+        const question = data[2].question;
         const expected = [{
             concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
             metadata: {

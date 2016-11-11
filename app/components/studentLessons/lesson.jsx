@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PlayLessonQuestion from './question.jsx'
+import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {clearData, loadData, nextQuestion, submitResponse, updateName} from '../../actions.js'
+import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
-import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../libs/conceptResults/sentenceCombiningLesson'
+import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../libs/conceptResults/lesson'
 import Register from './register.jsx'
 import Finished from './finished.jsx'
 
@@ -60,6 +61,11 @@ const Lesson = React.createClass({
     )
   },
 
+  markIdentify: function (bool) {
+    const action = updateCurrentQuestion({identified: bool})
+    this.props.dispatch(action)
+  },
+
   createAnonActivitySession: function (lessonID, results, score) {
     request(
       { url: process.env.EMPIRICAL_BASE_URL + '/api/v1/activity_sessions/',
@@ -84,20 +90,15 @@ const Lesson = React.createClass({
     )
   },
 
-  renderQuestionComponent: function () {
-    if (this.props.question.currentQuestion) {
-      return (<Question
-                question={this.props.question.currentQuestion}
-                submitResponse={this.submitResponse}
-                prefill={this.getLesson().prefill}/>)
-    }
-  },
-
   questionsForLesson: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data)
     const {data} = this.props.lessons, {lessonID} = this.props.params;
-    return data[lessonID].questions.map((id) => {
-      return _.find(questionsCollection, {key: id})
+    return data[lessonID].questions.map((questionItem) => {
+      const questionType = questionItem.questionType
+      const key = questionItem.key
+      const question = this.props[questionType].data[key]
+      question.key = key;
+      const type = questionType === 'questions' ? 'SC' : 'SF';
+      return {type, question}
     })
   },
 
@@ -136,17 +137,20 @@ const Lesson = React.createClass({
   },
 
   render: function () {
-    // console.log("In the lesson.jsx file.")
-    // console.log(this.props)
     const {data} = this.props.lessons, {lessonID} = this.props.params;
     var component;
-    var key;
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
-        key = this.props.playLesson.currentQuestion
-        component = (
-          <PlayLessonQuestion key={this.props.playLesson.currentQuestion.key} question={this.props.playLesson.currentQuestion} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
-        )
+        const {type, question} = this.props.playLesson.currentQuestion
+        if (type === 'SF') {
+          component= (
+            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify}/>
+          )
+        } else {
+          component = (
+            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
+          )
+        }
       }
       else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined )) {
         component = (
@@ -191,6 +195,7 @@ function select(state) {
   return {
     lessons: state.lessons,
     questions: state.questions,
+    sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, //the questionReducer
     routing: state.routing
   }

@@ -1,10 +1,10 @@
 import React from 'react';
-import {Sortable} from 'react-sortable';
+import {sortable} from 'react-sortable';
 import ListItem from './listItem.jsx'
 
 
 
-var SortableListItem = Sortable(ListItem);
+var SortableListItem = sortable(ListItem);
 
 export default React.createClass({
 

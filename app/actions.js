@@ -11,6 +11,7 @@ export const CLEAR_RESPONSES = 'CLEAR_RESPONSES'
 export const CLEAR_RESPONSES_ANON = 'CLEAR_RESPONSES_ANON'
 export const UPDATE_NAME = 'UPDATE_NAME'
 export const START_QUESTION = 'START_QUESTION'
+export const UPDATE_CURRENT_QUESTION = 'UPDATE_CURRENT_QUESTION'
 
 export const SubmitActions = {
   SUBMIT_RESPONSE,
@@ -22,7 +23,8 @@ export const SubmitActions = {
   CLEAR_RESPONSES,
   CLEAR_RESPONSES_ANON,
   UPDATE_NAME,
-  START_QUESTION
+  START_QUESTION,
+  UPDATE_CURRENT_QUESTION
 }
 
 /*
@@ -67,4 +69,8 @@ export function updateName(data) {
 
 export function startQuestion() {
   return {type: START_QUESTION}
+}
+
+export function updateCurrentQuestion(data) {
+  return { type: UPDATE_CURRENT_QUESTION, data}
 }

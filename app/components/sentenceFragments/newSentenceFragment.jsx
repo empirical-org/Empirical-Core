@@ -12,7 +12,6 @@ const newSentenceFragment = React.createClass({
     }
     const data = {};
     data.prompt = newSentenceFragment.prompt
-    data.questionText = newSentenceFragment.questionText
     data.isFragment = newSentenceFragment.isFragment
     data.needsIdentification = newSentenceFragment.needsIdentification
     data.optimalResponseText = newSentenceFragment.optimalResponseText
@@ -25,7 +24,7 @@ const newSentenceFragment = React.createClass({
       }]
     } else {
       data.responses = [{
-        text: newSentenceFragment.questionText,
+        text: newSentenceFragment.prompt,
         optimal: true,
         feedback: "That's a great answer!"
       }]
