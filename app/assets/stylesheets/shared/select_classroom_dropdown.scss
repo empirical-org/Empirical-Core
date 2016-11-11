@@ -11,9 +11,12 @@
     font-weight: 400;
     text-align: left;
     .caret {
-        float: right;
-        position: relative;
-        top: 7px;
+    // commented out section is nice, but keeps in Chrome it goes to top of button,
+    // and in firefox it goes to bottom, so we are just omitting it for now.
+    //     float: right;
+    //     position: relative;
+    //     top: 7px;
+        margin-left: 10px;
         border-color: #7e7e7e;
         border-top: 7px solid;
         border-right: 6px solid transparent;

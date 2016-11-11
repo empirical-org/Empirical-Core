@@ -1,4 +1,4 @@
-// individual-activity-reports
+/* individual-activity-reports*/
 .diagnostic-nav-container, .activity-analysis  {
   margin: 0 auto;
   max-width: 950px;
@@ -17,33 +17,11 @@
     padding-bottom: 91px;
 }
 
-// should be moved into select-classroom-dropdown file
+/* should be moved into select-classroom-dropdown file*/
 $darkgray3: #7e7e7e;
 $quillgreen: #00c2a2;
 $lightgray: #cecece;
-#select-classroom-dropdown {
-    padding: 10px 14px;
-    width: 214px;
-    height: 40px;
-    border-radius: 8px;
-    border: solid 1px $lightgray;
-    font-size: 14px;
-    color: #000000;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    font-weight: 400;
-    text-align: left;
-    .caret {
-        float: right;
-        position: relative;
-        top: 7px;
-        border-color: #7e7e7e;
-        border-top: 7px solid;
-        border-right: 6px solid transparent;
-        border-left: 6px solid transparent;
-    }
-}
-// for report-navbar.scss
+/* for report-navbar.scss*/
 #report-button-group {
     margin-right: 40px;
     margin-left: 40px;
@@ -71,7 +49,7 @@ $lightgray: #cecece;
         }
     }
 }
-// for activity by classroom overview
+/* for activity by classroom overview*/
 #individual-activity-classroom-view {
   max-width: 950px;
   margin: auto;
@@ -91,7 +69,7 @@ $lightgray: #cecece;
         text-align: left;
     }
 }
-// for the individual student reports
+/* for the individual student reports*/
 @mixin gray-border {
     border: solid 1px #cecece;
 }
@@ -111,6 +89,8 @@ $lightgray: #cecece;
     margin-top: 25px;
     max-width: 950px;
     .student-report-table-and-index {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
       background-color: white;
     }
@@ -118,10 +98,17 @@ $lightgray: #cecece;
         @include gray-border;
         border-right: none;
         width: 10%;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
         text-align: center;
-        justify-content: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
         font-size: 24px;
     }
     table {
@@ -138,7 +125,7 @@ $lightgray: #cecece;
             &:first-of-type:not(.directions) {
               height: 0px;
             }
-            // first of type has height of 0 so we don't want any borders
+            /* first of type has height of 0 so we don't want any borders*/
             &:last-of-type, &:first-of-type:not(.directions) {
               border-bottom: none;
             }
@@ -173,7 +160,7 @@ $lightgray: #cecece;
     }
 }
 
-// TODO: merge this with above CSS
+/* TODO: merge this with above CSS*/
 
 .student-report-box {
   td {
@@ -187,7 +174,7 @@ $lightgray: #cecece;
 }
 
 
-// for shading by score
+/* for shading by score*/
 .green-score-color {
   background-color: #E7FEE8;
 }
@@ -199,7 +186,7 @@ $lightgray: #cecece;
 }
 
 
-// for class reports
+/* for class reports*/
 
 .student-groupings {
   @include gray-border;
@@ -265,16 +252,30 @@ $lightgray: #cecece;
 
 .recommendations-top-bar {
   margin-top: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding-left: 8.5%;
 
 
   .recommendations-key {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 
     .recommendations-key-icon {
       height: 40px;
@@ -305,9 +306,16 @@ $lightgray: #cecece;
 
 .recommendations-table-header {
   margin-top: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 
   .recommendations-table-header-name {
     width: 140px;
@@ -319,8 +327,11 @@ $lightgray: #cecece;
   }
 
   .recommendations-table-header-item {
-    flex-grow: 1;
-    flex-basis: 0;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+        flex-basis: 0;
     padding: 12px;
     font-family: 'adelle-sans';
     font-size: 12px;
@@ -342,8 +353,13 @@ $lightgray: #cecece;
 
 .recommendations-table-row-wrapper {
   .recommendations-table-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     height: 48px;
 
     .recommendations-table-row-name {
@@ -354,15 +370,24 @@ $lightgray: #cecece;
       line-height: 1.25;
       background-color: #ffffff;
       border: solid 1px #cecece;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
         border-bottom: none;
     }
 
     .recommendations-table-row-item {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      flex-grow: 1;
-      flex-basis: 0;
+      -webkit-box-flex: 1;
+          -ms-flex-positive: 1;
+              flex-grow: 1;
+      -ms-flex-preferred-size: 0;
+          flex-basis: 0;
       padding: 12px;
       font-family: 'adelle-sans';
       font-size: 12px;
@@ -371,7 +396,9 @@ $lightgray: #cecece;
       background-color: #ffffff;
       border: solid 1px #cecece;
       border-left: none;
-      align-items: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       border-bottom: none;
 
 
@@ -384,9 +411,15 @@ $lightgray: #cecece;
         background-color: #ffffff;
         border: solid 1px #cecece;
         margin-right: 6px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
       }
 
       &.recommended {
@@ -401,7 +434,8 @@ $lightgray: #cecece;
 
       p {
         display: -webkit-box;
-        flex-shrink: 1;
+        -ms-flex-negative: 1;
+            flex-shrink: 1;
         overflow: hidden;
         text-overflow: ellipsis;
         max-height: 30px;
@@ -420,7 +454,7 @@ $lightgray: #cecece;
           border-bottom: solid 1px #cecece;
       }
       .recommendations-table-row-name {
-        // border-top: none;
+        /* border-top: none;*/
       }
     }
 
@@ -430,12 +464,17 @@ $lightgray: #cecece;
 .recommendations-bottom-bar {
   margin-top: 45px;
   margin-bottom: 90px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row-reverse;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
 }
 
 
-// for progress report landing page
+/* for progress report landing page*/
 .progress-reports-landing-page {
   margin: auto;
   max-width: 1025px;
@@ -451,7 +490,7 @@ $lightgray: #cecece;
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    // want shorter images if we have the premium row of type
+    /* want shorter images if we have the premium row of type*/
     & + div {
       height: 120px;
     }

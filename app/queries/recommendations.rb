@@ -3,7 +3,7 @@ class Recommendations
         [
             {
                 recommendation: 'Fragments',
-                activityPackId: 3,
+                activityPackId: 28,
                 requirements: [
                     {
                         concept_id: 'j89kdRGDVjG8j37A12p37Q',
@@ -22,7 +22,7 @@ class Recommendations
 
             {
                 recommendation: 'Compound Subjects, Objects, and Predicates',
-                activityPackId: 6,
+                activityPackId: 24,
                 requirements: [
                     {
                         concept_id: 'Jl4ByYtUfo4VhIKpMt23yA',
@@ -37,7 +37,7 @@ class Recommendations
 
             {
                 recommendation: 'Adjectives',
-                activityPackId: 8,
+                activityPackId: 23,
                 requirements: [
                     {
                         concept_id: 'oCQCO1_eVXQ2zqw_7QOuBw',
@@ -47,8 +47,8 @@ class Recommendations
             },
 
             {
-                recommendation: 'Adverbs',
-                activityPackId: 7,
+                recommendation: 'Adverbs of Manner',
+                activityPackId: 25,
                 requirements: [
                     {
                         concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
@@ -59,7 +59,7 @@ class Recommendations
 
             {
                 recommendation: 'Compound Sentences',
-                activityPackId: 4,
+                activityPackId: 22,
                 requirements: [
                     {
                         concept_id: 'GiUZ6KPkH958AT8S413nJg',
@@ -82,7 +82,7 @@ class Recommendations
 
             {
                 recommendation: 'Complex Sentences',
-                activityPackId: 5,
+                activityPackId: 21,
                 requirements: [
                     {
                         concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
@@ -105,7 +105,7 @@ class Recommendations
 
             {
                 recommendation: 'Appositive and Modifying Phrases',
-                activityPackId: 2,
+                activityPackId: 27,
                 requirements: [
                     {
                         concept_id: 'InfGdB6Plr2M930kqsn63g',
@@ -120,7 +120,7 @@ class Recommendations
 
             {
                 recommendation: 'Parallel Structure',
-                activityPackId: 10,
+                activityPackId: 29,
                 requirements: [
                     {
                         concept_id: '1ohLyApTz7lZ3JszrA98Xg',
