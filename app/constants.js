@@ -142,7 +142,8 @@ export default {
     "modifiedWordError",
     "additionalWordError",
     "missingWordError",
-    "whitespaceError"
+    "whitespaceError",
+		"requiredWordsError"
 	],
 
 	ERROR_AUTHORS: [
@@ -158,7 +159,8 @@ export default {
     "Flexible Missing Word Hint",
     "Whitespace Hint",
     "Missing Details Hint",
-    "Not Concise Hint"
+    "Not Concise Hint",
+		"Required Words Hint"
 	],
 
 	// CONCEPTS FEEDBACK ACTIONS

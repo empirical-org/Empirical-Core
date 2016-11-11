@@ -54,13 +54,14 @@ describe("The female teacher example", () => {
 
   it("should be able to check a response and provide info on whats wrong 5", () => {
     var response = question.checkMatch("The dog in the nxt room is the teacher.");
-    expect(response.found).toBe(false);
+    expect(response.found).toBe(true);
+    expect(response.requiredWordsError).toBe(true);
     expect(response.caseError).toBe(undefined);
     expect(response.punctuationError).toBe(undefined);
     expect(response.typingError).toBe(undefined);
     expect(response.minLengthError).toBe(undefined);
     expect(response.maxLengthError).toBe(undefined);
-    expect(response.response).toNotExist();
+    expect(response.response).toExist();
   });
 
   it("should be able to check a response and provide info on whats wrong 6", () => {
@@ -84,7 +85,9 @@ describe("The female teacher example", () => {
 
   it("should not return to short errors as there are less than 5 optimal answers", () => {
     var response = question.checkMatch("The woman is in the room.");
-    expect(response.found).toBe(false);
+    expect(response.found).toBe(true);
+    expect(response.requiredWordsError).toBe(true);
+    expect(response.feedback).toBe("<p>Revise your sentence to include the word <em>next</em>.</p>")
     expect(response.caseError).toBe(undefined);
     expect(response.punctuationError).toBe(undefined);
     expect(response.typingError).toBe(undefined);

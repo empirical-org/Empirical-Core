@@ -48,24 +48,16 @@ export default React.createClass({
       <div>
         <p>Filter responses by correctness of response</p>
         <div className="columns is-multiline">
-          {this.renderToggleField(this.props.labels[0])}
-          {this.renderToggleField(this.props.labels[1])}
-          {this.renderToggleField(this.props.labels[3])}
-          {this.renderToggleField(this.props.labels[4])}
+          {this.props.qualityLabels.map((label) => {
+            return this.renderToggleField(label)
+          })}
         </div>
         <p>Additionally, filter responses by feedback algorithm</p>
         <div className="columns">
-          {this.renderToggleField(this.props.labels[5])}
-          {this.renderToggleField(this.props.labels[6])}
-          {this.renderToggleField(this.props.labels[7])}
-          {this.renderToggleField(this.props.labels[8])}
-          {this.renderToggleField(this.props.labels[9])}
-          {this.renderToggleField(this.props.labels[10])}
-          {this.renderToggleField(this.props.labels[11])}
-          {this.renderToggleField(this.props.labels[12])}
-          {this.renderToggleField(this.props.labels[13])}
-          {this.renderToggleField(this.props.labels[14])}
-          {this.renderToggleField(this.props.labels[15])}
+          {this.props.labels.map((label) => {
+            return this.renderToggleField(label)
+          })}
+          {this.renderToggleField("No Hint")}
         </div>
       </div>
     )

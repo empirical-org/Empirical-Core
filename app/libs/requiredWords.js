@@ -78,13 +78,20 @@ export function getPOSForWord (word) {
 }
 
 export function getFeedbackForWord (word) {
-  // const tag = getPOSForWord(word).toLowerCase(); 
+  // const tag = getPOSForWord(word).toLowerCase();
   return `<p>Revise your sentence to include the word <em>${word}</em>.</p>`
 }
 
 export function getMissingWordsFromResponses (userString, responses) {
   const sentences = _.map(responses, (response) => response.text)
   return getMissingWords(userString, sentences)
+}
+
+export function checkForMissingWords (userString, responses) {
+  const missingWords = getMissingWordsFromResponses(userString, responses);
+  if ( missingWords.length > 0 ) {
+    return {feedback: getFeedbackForWord(missingWords[0])}
+  }
 }
 
 function normalizeString (string) {

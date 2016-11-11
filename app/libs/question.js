@@ -2,6 +2,7 @@ import _ from 'underscore';
 import fuzzy from 'fuzzyset.js'
 import constants from '../constants';
 import {diffWords} from 'diff';
+import {checkForMissingWords} from './requiredWords';
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {
@@ -171,6 +172,14 @@ export default class Question {
       returnValue.response = whitespaceMatch
       return returnValue
     }
+    var requiredWordsMatch = this.checkRequiredWordsMatch(response)
+    if (requiredWordsMatch !== undefined) {
+      returnValue.requiredWordsError = true;
+      returnValue.feedback = requiredWordsMatch.feedback;
+      returnValue.author = "Required Words Hint"
+      returnValue.response = this.getTopOptimalResponse();
+      return returnValue
+    }
     var minLengthMatch = this.checkMinLengthMatch(response)
     if (minLengthMatch !== undefined) {
       returnValue.minLengthError = true
@@ -309,6 +318,10 @@ export default class Question {
       foundResponse = _.findWhere(this.responses, {text})
     }
     return foundResponse
+  }
+
+  checkRequiredWordsMatch(response) {
+    return checkForMissingWords(response, this.getOptimalResponses());
   }
 
   checkMinLengthMatch(response) {

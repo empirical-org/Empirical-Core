@@ -29,6 +29,14 @@ describe("The question object", () => {
     expect(incorrectResponse).toNotExist();
   });
 
+  it("should be able to check for a required words match in the responses.", () => {
+    var correctResponse = question.checkRequiredWordsMatch("The dog ran.");
+    expect(correctResponse).toExist()
+    expect(correctResponse.feedback).toEqual('<p>Revise your sentence to include the word <em>fox</em>.</p>')
+    var incorrectResponse = question.checkRequiredWordsMatch("The fox ran.");
+    expect(incorrectResponse).toNotExist();
+  });
+
   it("should be able to check for an case insensitive match in the responses.", () => {
     var correctResponse = question.checkCaseInsensitiveMatch("the fox ran.");
     expect(correctResponse).toExist()

@@ -15,5 +15,5 @@ export default function generateFeedbackString(attempt) {
       return feedbackStrings[key]
     }
   }))
-  return errorComponents[0]
+  return attempt.feedback
 }
