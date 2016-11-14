@@ -3,6 +3,9 @@ import fuzzy from 'fuzzyset.js'
 import constants from '../constants';
 import {diffWords} from 'diff';
 import {checkForMissingWords} from './requiredWords';
+import {
+  checkChangeObjectMatch
+} from './algorithms/changeObjects'
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {
@@ -274,35 +277,17 @@ export default class Question {
   }
 
   checkChangeObjectRigidMatch(response) {
-    const optimalResponses = _.sortBy(this.getOptimalResponses(), 'count').reverse()
-    var matchedErrorType;
-    const matched = _.find(optimalResponses, (optimalResponse) => {
-      const errorType = getErrorType(optimalResponse.text.normalize(), response.normalize())
-      matchedErrorType = errorType
-      return errorType
-    })
-    if (matched) {
-      return {
-        response: matched,
-        errorType: matchedErrorType
-      }
+    const fn = (string) => {
+      return string.normalize()
     }
+    return checkChangeObjectMatch(response, this.getOptimalResponses(), fn)
   }
 
   checkChangeObjectFlexibleMatch(response) {
-    const optimalResponses = _.sortBy(this.getOptimalResponses(), 'count').reverse()
-    var matchedErrorType;
-    const matched = _.find(optimalResponses, (optimalResponse) => {
-      const errorType = getErrorType(removePunctuation(optimalResponse.text.normalize()).toLowerCase(), removePunctuation(response.normalize()).toLowerCase())
-      matchedErrorType = errorType
-      return errorType
-    })
-    if (matched) {
-      return {
-        response: matched,
-        errorType: matchedErrorType
-      }
+    const fn = (string) => {
+      return removePunctuation(string.normalize()).toLowerCase()
     }
+    return checkChangeObjectMatch(response, this.getOptimalResponses(), fn)
   }
 
   checkFuzzyMatch(response) {
@@ -388,102 +373,4 @@ const getLowAdditionCount = (newString, oldString) => {
     return true
   }
   return false
-}
-
-const getErrorType = (targetString, userString) => {
-  const changeObjects = getChangeObjects(targetString, userString)
-  const hasIncorrect = checkForIncorrect(changeObjects)
-  const hasAdditions = checkForAdditions(changeObjects)
-  const hasDeletions = checkForDeletions(changeObjects)
-  if (hasIncorrect) {
-    return ERROR_TYPES.INCORRECT_WORD
-  } else if (hasAdditions) {
-    return ERROR_TYPES.ADDITIONAL_WORD
-  } else if (hasDeletions) {
-    return ERROR_TYPES.MISSING_WORD
-  } else {
-    return
-  }
-}
-
-const getChangeObjects = (targetString, userString) => {
-  return diffWords(targetString, userString)
-};
-
-const errorLog = (text) => {
-  // console.log("\n\n#####\n")
-  // console.log(text)
-  // console.log("\n#####\n")
-}
-
-const checkForIncorrect = (changeObjects) => {
-  var tooLongError = false
-  var found = false
-  var foundCount = 0
-  var coCount = 0
-  changeObjects.forEach((current, index, array) => {
-    if (current.removed || current.added) {
-      coCount += 1
-    }
-    if (current.removed && current.value.split(" ").filter(Boolean).length >= 2) {
-      tooLongError = true
-    }
-    if (current.added && current.value.split(" ").filter(Boolean).length >= 2) {
-      tooLongError = true
-    }
-    if (current.removed && current.value.split(" ").filter(Boolean).length < 2 && index === array.length - 1) {
-      foundCount += 1
-    } else {
-      foundCount += !!(current.removed && current.value.split(" ").filter(Boolean).length < 2 && array[index + 1].added) ? 1 : 0
-    }
-  })
-  return !tooLongError && (foundCount === 1) && (coCount === 2)
-}
-
-const checkForAdditions = (changeObjects) => {
-  var tooLongError = false
-  var found = false
-  var foundCount = 0
-  var coCount = 0
-  changeObjects.forEach((current, index, array) => {
-    if (current.removed || current.added) {
-      coCount += 1
-    }
-    if (current.removed && current.value.split(" ").filter(Boolean).length >= 2) {
-      tooLongError = true
-    }
-    if (current.added && current.value.split(" ").filter(Boolean).length >= 2) {
-      tooLongError = true
-    }
-    if (current.added && current.value.split(" ").filter(Boolean).length < 2 && index === 0) {
-      foundCount += 1
-    } else {
-      foundCount += !!(current.added && current.value.split(" ").filter(Boolean).length < 2 && !array[index - 1].removed) ? 1 : 0
-    }
-  })
-  return !tooLongError && (foundCount === 1) && (coCount === 1)
-}
-
-const checkForDeletions = (changeObjects) => {
-  var tooLongError = false
-  var found = false
-  var foundCount = 0
-  var coCount = 0
-  changeObjects.forEach((current, index, array) => {
-    if (current.removed || current.added) {
-      coCount += 1
-    }
-    if (current.removed && current.value.split(" ").filter(Boolean).length >= 2) {
-      tooLongError = true
-    }
-    if (current.added && current.value.split(" ").filter(Boolean).length >= 2) {
-      tooLongError = true
-    }
-    if (current.removed && current.value.split(" ").filter(Boolean).length < 2 && index === array.length - 1) {
-      foundCount += 1
-    } else {
-      foundCount += !!(current.removed && current.value.split(" ").filter(Boolean).length < 2 && !array[index + 1].added) ? 1 : 0
-    }
-  })
-  return !tooLongError && (foundCount === 1) && (coCount === 1)
 }
