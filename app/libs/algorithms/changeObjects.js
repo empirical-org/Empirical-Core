@@ -50,10 +50,8 @@ const checkForIncorrect = (changeObjects) => {
     if (checkForAddedOrRemoved(current)) {
       coCount += 1
     }
-    if (checkForTooLongError(current)) {
-      tooLongError = true
-    }
-    if (current.removed && current.value.split(" ").filter(Boolean).length < 2 && index === array.length - 1) {
+    tooLongError = checkForTooLongError(current)
+    if (current.removed && getLengthOfChangeObject(current) < 2 && index === array.length - 1) {
       foundCount += 1
     } else {
       foundCount += !!(current.removed && getLengthOfChangeObject(current) < 2 && array[index + 1].added) ? 1 : 0
@@ -71,9 +69,7 @@ const checkForAdditions = (changeObjects) => {
     if (checkForAddedOrRemoved(current)) {
       coCount += 1
     }
-    if (checkForTooLongError(current)) {
-      tooLongError = true
-    }
+    tooLongError = checkForTooLongError(current)
     if (current.added && getLengthOfChangeObject(current) < 2 && index === 0) {
       foundCount += 1
     } else {
@@ -92,12 +88,7 @@ const checkForDeletions = (changeObjects) => {
     if (checkForAddedOrRemoved(current)) {
       coCount += 1
     }
-    if (checkForTooLongError(current)) {
-      tooLongError = true
-    }
-
-
-    tooLongError = (current.added && checkForTooLongChangeObjects(current))
+    tooLongError = checkForTooLongError(current)
     if (current.removed && getLengthOfChangeObject(current) < 2 && index === array.length - 1) {
       foundCount += 1
     } else {
