@@ -5,9 +5,8 @@ export function checkChangeObjectMatch (userString, responses, stringManipulatio
   responses = _.sortBy(responses, 'count').reverse()
   var matchedErrorType;
   const matched = _.find(responses, (response) => {
-    const errorType = getErrorType(stringManipulationFn(response.text), stringManipulationFn(userString))
-    matchedErrorType = errorType
-    return errorType
+    matchedErrorType = getErrorType(stringManipulationFn(response.text), stringManipulationFn(userString))
+    return matchedErrorType
   })
   if (matched) {
     return {
@@ -35,8 +34,6 @@ const getErrorType = (targetString, userString) => {
     return ERROR_TYPES.ADDITIONAL_WORD
   } else if (hasDeletions) {
     return ERROR_TYPES.MISSING_WORD
-  } else {
-    return
   }
 }
 
@@ -44,31 +41,22 @@ const getChangeObjects = (targetString, userString) => {
   return diffWords(targetString, userString)
 };
 
-const errorLog = (text) => {
-  // console.log("\n\n#####\n")
-  // console.log(text)
-  // console.log("\n#####\n")
-}
-
 const checkForIncorrect = (changeObjects) => {
   var tooLongError = false
   var found = false
   var foundCount = 0
   var coCount = 0
   changeObjects.forEach((current, index, array) => {
-    if (current.removed || current.added) {
+    if (checkForAddedOrRemoved(current)) {
       coCount += 1
     }
-    if (current.removed && current.value.split(" ").filter(Boolean).length >= 2) {
-      tooLongError = true
-    }
-    if (current.added && current.value.split(" ").filter(Boolean).length >= 2) {
+    if (checkForTooLongError(current)) {
       tooLongError = true
     }
     if (current.removed && current.value.split(" ").filter(Boolean).length < 2 && index === array.length - 1) {
       foundCount += 1
     } else {
-      foundCount += !!(current.removed && current.value.split(" ").filter(Boolean).length < 2 && array[index + 1].added) ? 1 : 0
+      foundCount += !!(current.removed && getLengthOfChangeObject(current) < 2 && array[index + 1].added) ? 1 : 0
     }
   })
   return !tooLongError && (foundCount === 1) && (coCount === 2)
@@ -80,19 +68,16 @@ const checkForAdditions = (changeObjects) => {
   var foundCount = 0
   var coCount = 0
   changeObjects.forEach((current, index, array) => {
-    if (current.removed || current.added) {
+    if (checkForAddedOrRemoved(current)) {
       coCount += 1
     }
-    if (current.removed && current.value.split(" ").filter(Boolean).length >= 2) {
+    if (checkForTooLongError(current)) {
       tooLongError = true
     }
-    if (current.added && current.value.split(" ").filter(Boolean).length >= 2) {
-      tooLongError = true
-    }
-    if (current.added && current.value.split(" ").filter(Boolean).length < 2 && index === 0) {
+    if (current.added && getLengthOfChangeObject(current) < 2 && index === 0) {
       foundCount += 1
     } else {
-      foundCount += !!(current.added && current.value.split(" ").filter(Boolean).length < 2 && !array[index - 1].removed) ? 1 : 0
+      foundCount += !!(current.added && getLengthOfChangeObject(current) < 2 && !array[index - 1].removed) ? 1 : 0
     }
   })
   return !tooLongError && (foundCount === 1) && (coCount === 1)
@@ -104,20 +89,38 @@ const checkForDeletions = (changeObjects) => {
   var foundCount = 0
   var coCount = 0
   changeObjects.forEach((current, index, array) => {
-    if (current.removed || current.added) {
+    if (checkForAddedOrRemoved(current)) {
       coCount += 1
     }
-    if (current.removed && current.value.split(" ").filter(Boolean).length >= 2) {
+    if (checkForTooLongError(current)) {
       tooLongError = true
     }
-    if (current.added && current.value.split(" ").filter(Boolean).length >= 2) {
-      tooLongError = true
-    }
-    if (current.removed && current.value.split(" ").filter(Boolean).length < 2 && index === array.length - 1) {
+
+
+    tooLongError = (current.added && checkForTooLongChangeObjects(current))
+    if (current.removed && getLengthOfChangeObject(current) < 2 && index === array.length - 1) {
       foundCount += 1
     } else {
-      foundCount += !!(current.removed && current.value.split(" ").filter(Boolean).length < 2 && !array[index + 1].added) ? 1 : 0
+      foundCount += !!(current.removed && getLengthOfChangeObject(current) < 2 && !array[index + 1].added) ? 1 : 0
     }
   })
   return !tooLongError && (foundCount === 1) && (coCount === 1)
+}
+
+const checkForAddedOrRemoved = (changeObject) => {
+  return changeObject.removed || changeObject.added
+}
+
+const checkForTooLongChangeObjects = (changeObject) => {
+  return getLengthOfChangeObject(changeObject) >= 2
+}
+
+const checkForTooLongError = (changeObject) => {
+  return (changeObject.removed || changeObject.added) && checkForTooLongChangeObjects(changeObject)
+}
+
+const getLengthOfChangeObject = (changeObject) => {
+  // filter boolean removes empty strings from trailing,
+  // leading, or double white space.
+  return changeObject.value.split(" ").filter(Boolean).length
 }
