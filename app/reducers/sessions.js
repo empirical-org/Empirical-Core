@@ -19,8 +19,9 @@ export default function(currentState, action) {
       )
     case C.DELETE_SESSION_DATA:
       return {data: _.omit(currentState.data, action.data.sessionId)};
+    case C.DELETE_ALL_SESSION_DATA:
+      return {data: {}}
     default:
     return currentState || initialState.sessions;
-
   }
 }
