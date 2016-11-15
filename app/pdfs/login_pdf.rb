@@ -19,7 +19,14 @@ class LoginPdf
         text "\n\n"
       else
         count += 1
-        text "<b>#{student.name}</b>\nusername:\t\t#{student.username}\npassword:\t\t\t#{student.last_name}\n\n\n", inline_format: true
+
+        if student.clever_id.present?
+          text "<b>#{student.name} (has clever)</b>\nusername: #{student.username}\npassword: Login with Clever with the above email address\n\n\n", inline_format: true
+        elsif student.signed_up_with_google?
+          text "<b>#{student.name} (has google)</b>\nusername: #{student.username}\npassword: Login with Google with the above email address\n\n\n", inline_format: true
+        else
+          text "<b>#{student.name}</b>\nusername: #{student.username}\ndefault password: #{student.last_name}\n\n\n", inline_format: true
+        end
       end
     end
   end
