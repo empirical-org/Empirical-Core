@@ -2,6 +2,9 @@ import _ from 'underscore';
 import fuzzy from 'fuzzyset.js'
 import constants from '../constants';
 import {diffWords} from 'diff';
+import {
+  checkChangeObjectMatch
+} from './algorithms/changeObjects'
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {
@@ -105,14 +108,64 @@ export default class Question {
       returnValue.response = punctuationAndCaseMatch
       return returnValue
     }
-    var typingErrorMatch = this.checkFuzzyMatch(response)
-    if (typingErrorMatch !== undefined) {
-      returnValue.typingError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.typingError;
-      returnValue.author = "Word Error Hint"
-      returnValue.response = typingErrorMatch
-      return returnValue
+    var changeObjectMatch = this.checkChangeObjectRigidMatch(response)
+    if (changeObjectMatch !== undefined) {
+      switch (changeObjectMatch.errorType) {
+        case ERROR_TYPES.INCORRECT_WORD:
+          returnValue.modifiedWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          returnValue.author = "Modified Word Hint"
+          returnValue.response = changeObjectMatch.response
+          return returnValue
+        case ERROR_TYPES.ADDITIONAL_WORD:
+          returnValue.additionalWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          returnValue.author = "Additional Word Hint"
+          returnValue.response = changeObjectMatch.response
+          return returnValue
+        case ERROR_TYPES.MISSING_WORD:
+          returnValue.missingWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          returnValue.author = "Missing Word Hint"
+          returnValue.response = changeObjectMatch.response
+          return returnValue
+        default:
+          return
+      }
     }
+    var changeObjectMatch = this.checkChangeObjectSubMatch(response)
+    if (changeObjectMatch !== undefined) {
+      switch (changeObjectMatch.errorType) {
+        case ERROR_TYPES.INCORRECT_WORD:
+          returnValue.modifiedWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          returnValue.author = "Modified Word Hint"
+          returnValue.response = changeObjectMatch.response
+          return returnValue
+        case ERROR_TYPES.ADDITIONAL_WORD:
+          returnValue.additionalWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          returnValue.author = "Additional Word Hint"
+          returnValue.response = changeObjectMatch.response
+          return returnValue
+        case ERROR_TYPES.MISSING_WORD:
+          returnValue.missingWordError = true
+          returnValue.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          returnValue.author = "Missing Word Hint"
+          returnValue.response = changeObjectMatch.response
+          return returnValue
+        default:
+          return
+      }
+    }
+    // var typingErrorMatch = this.checkFuzzyMatch(response)
+    // if (typingErrorMatch !== undefined) {
+    //   returnValue.typingError = true
+    //   returnValue.feedback = constants.FEEDBACK_STRINGS.typingError;
+    //   returnValue.author = "Word Error Hint"
+    //   returnValue.response = typingErrorMatch
+    //   return returnValue
+    // }
 
     returnValue.found = false
     return returnValue
@@ -154,6 +207,20 @@ export default class Question {
     return _.find(this.getOptimalResponses(), (resp) => {
       return removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize())
     })
+  }
+
+  checkChangeObjectRigidMatch(response) {
+    const fn = (string) => {
+      return string.normalize()
+    }
+    return checkChangeObjectMatch(response, this.getOptimalResponses(), fn)
+  }
+
+  checkChangeObjectSubMatch(response) {
+    const fn = (string) => {
+      return string.normalize()
+    }
+    return checkChangeObjectMatch(response, this.getSubOptimalResponses(), fn)
   }
 
   checkFuzzyMatch(response) {

@@ -7,6 +7,11 @@ const data = {
       text: "The fox ran.",
       feedback: "Excellent, that's correct!",
       optimal: true,
+    },
+    {
+      text: "The cat crawled.",
+      feedback: "Excellent, that's correct!",
+      optimal: false,
     }
   ]
 }
@@ -100,8 +105,19 @@ describe("The question object", () => {
     var punctuationResponse = question.checkMatch("The fox ran");
     expect(punctuationResponse.punctuationError).toBe(true);
     var typoResponse = question.checkMatch("The fox run.");
-    expect(typoResponse.typingError).toBe(true);
+    expect(typoResponse.modifiedWordError).toBe(true);
     var noResponse = question.checkMatch("The dog walked.");
     expect(noResponse.found).toBe(false);
+  })
+
+  it("should be able to check against sub optimal answers", () => {
+    var exactMatch = question.checkMatch(data.responses[1].text);
+    expect(exactMatch.modifiedWordError).toBe(undefined);
+    expect(exactMatch.found).toBe(true);
+    expect(exactMatch.response.optimal).toBe(data.responses[1].optimal);
+    var typoSubOptimal = question.checkMatch("The dog crawled.")
+    expect(typoSubOptimal.modifiedWordError).toBe(true);
+    expect(typoSubOptimal.found).toBe(true);
+    expect(typoSubOptimal.response).toBe(data.responses[1]);
   })
 })
