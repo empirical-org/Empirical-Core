@@ -173,11 +173,11 @@ describe("Converting a string to a list of parts of speech", () => {
 
 describe("checking the pos tagging", () => {
   it("should be able to discern different contexts of next", () => {
-    console.log("logging pos" + qpos.getPartsOfSpeechTags("I'll see you next Monday."));
-    console.log("logging pos" + qpos.getPartsOfSpeechTags("Open this present next."));
-    console.log("logging pos" + qpos.getPartsOfSpeechTags("Her first novel was good, but I hope her next will be even better.\n\n"));
-    console.log("logging pos" + qpos.getPartsOfSpeechTags("Hunting whales was very dangerous work.\n\n"));
-    console.log("logging pos" + qpos.getPartsOfSpeechTags("It was worth the risk.\n\n"));
+    // console.log("logging pos" + qpos.getPartsOfSpeechTags("I'll see you next Monday."));
+    // console.log("logging pos" + qpos.getPartsOfSpeechTags("Open this present next."));
+    // console.log("logging pos" + qpos.getPartsOfSpeechTags("Her first novel was good, but I hope her next will be even better.\n\n"));
+    // console.log("logging pos" + qpos.getPartsOfSpeechTags("Hunting whales was very dangerous work.\n\n"));
+    // console.log("logging pos" + qpos.getPartsOfSpeechTags("It was worth the risk.\n\n"));
   })
 })
 //
