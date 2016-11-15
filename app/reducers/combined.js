@@ -15,7 +15,7 @@ import pathways from './pathways';
 import responses from './responseReducer';
 import { routerReducer } from 'react-router-redux'
 
-const findAndFix = combineReducers({
+const combinedReducers = combineReducers({
   question,
   concepts,
   conceptsFeedback,
@@ -32,4 +32,4 @@ const findAndFix = combineReducers({
   routing: routerReducer
 })
 
-export default findAndFix
+export default combinedReducers
