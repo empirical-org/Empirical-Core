@@ -1,26 +1,26 @@
 import C from '../constants';
 import _ from 'lodash';
+import Immutable from 'immutable'
+import {REHYDRATE} from 'redux-persist/constants';
 
 
-const initialState = {
-  sessions: {
-    data: {} // this will contain lesson data
-  }
-}
+const initialState = Immutable.fromJS({
+  data: {} // this will contain lesson data
+})
 
 export default function(currentState, action) {
+  const currentStateImm = Immutable.fromJS(currentState);
   switch (action.type) {
     case C.UPDATE_SESSION_DATA:
-      let changes = {};
-      changes[action.data.sessionId] = action.data.session;
-      return Object.assign({}, currentState, {
-        data: Object.assign({}, currentState.data, changes)}
-      )
+      return currentStateImm.updateIn(["data", action.data.sessionId], () => action.data.session).toJS()
     case C.DELETE_SESSION_DATA:
-      return {data: _.omit(currentState.data, action.data.sessionId)};
+      return currentStateImm.deleteIn(["data", action.data.sessionId]).toJS()
     case C.DELETE_ALL_SESSION_DATA:
-      return {data: {}}
+      return initialState.toJS()
+    case REHYDRATE:
+      return action.payload.sessions;
     default:
-    return currentState || initialState.sessions;
+      const defaultState = currentStateImm || initialState
+      return defaultState.toJS();
   }
 }
