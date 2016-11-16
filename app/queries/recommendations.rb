@@ -1,24 +1,24 @@
 class Recommendations
     def diagnostic
         [
-            {
-                recommendation: 'Fragments',
-                activityPackId: 28,
-                requirements: [
-                    {
-                        concept_id: 'j89kdRGDVjG8j37A12p37Q',
-                        count: 3
-                    },
-                    {
-                        concept_id: 'KfA8-dg8FvlJz4eY0PkekA',
-                        count: 6
-                    },
-                    {
-                        concept_id: 'LH3szu784pXA5k2N9lxgdA',
-                        count: 3
-                    }
-                ]
-            },
+            # {
+            #     recommendation: 'Fragments',
+            #     activityPackId: 28,
+            #     requirements: [
+            #         {
+            #             concept_id: 'j89kdRGDVjG8j37A12p37Q',
+            #             count: 3
+            #         },
+            #         {
+            #             concept_id: 'KfA8-dg8FvlJz4eY0PkekA',
+            #             count: 6
+            #         },
+            #         {
+            #             concept_id: 'LH3szu784pXA5k2N9lxgdA',
+            #             count: 3
+            #         }
+            #     ]
+            # },
 
             {
                 recommendation: 'Compound Subjects, Objects, and Predicates',
