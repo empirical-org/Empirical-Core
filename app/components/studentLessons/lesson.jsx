@@ -19,6 +19,12 @@ const Lesson = React.createClass({
     this.props.dispatch(clearData())
   },
 
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length ) {
+      this.saveSessionData(nextProps.playLesson)
+    }
+  },
+
   componentDidMount: function(){
     this.saveSessionIdToState();
   },
@@ -132,7 +138,7 @@ const Lesson = React.createClass({
 
   nextQuestion: function () {
     const next = nextQuestion();
-    this.props.dispatch(next);
+    return this.props.dispatch(next);
   },
 
   getLesson: function () {
@@ -155,14 +161,9 @@ const Lesson = React.createClass({
     }
   },
 
-  saveAndGoToNextQuestion: function(){
-    this.nextQuestion();
-    this.saveSessionData();
-  },
-
-  saveSessionData: function(){
+  saveSessionData: function(lessonData){
     if (this.state.sessionID) {
-      this.props.dispatch(SessionActions.update(this.state.sessionID, this.props.playLesson));
+      this.props.dispatch(SessionActions.update(this.state.sessionID, lessonData));
     }
   },
 
@@ -174,11 +175,11 @@ const Lesson = React.createClass({
         const {type, question} = this.props.playLesson.currentQuestion
         if (type === 'SF') {
           component= (
-            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.saveAndGoToNextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify}/>
+            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify}/>
           )
         } else {
           component = (
-            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.saveAndGoToNextQuestion} prefill={this.getLesson().prefill}/>
+            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
           )
         }
       }
