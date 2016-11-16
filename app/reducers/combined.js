@@ -13,10 +13,9 @@ import playDiagnostic from './diagnostics'
 import lessons from './lessons';
 import pathways from './pathways';
 import responses from './responseReducer';
-import sessions from './sessions';
 import { routerReducer } from 'react-router-redux'
 
-const combinedReducers = combineReducers({
+const findAndFix = combineReducers({
   question,
   concepts,
   conceptsFeedback,
@@ -30,8 +29,7 @@ const combinedReducers = combineReducers({
   lessons,
   playLesson,
   playDiagnostic,
-  sessions,
   routing: routerReducer
 })
 
-export default combinedReducers
+export default findAndFix

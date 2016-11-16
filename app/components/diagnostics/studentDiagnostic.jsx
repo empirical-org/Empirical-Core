@@ -1,11 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession} from '../../actions/diagnostics.js'
+import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import diagnosticQuestions from './diagnosticQuestions.js'
-import SessionActions from '../../actions/sessions.js'
 import Spinner from '../shared/spinner.jsx'
 import PlaySentenceFragment from './sentenceFragment.jsx'
 import PlayDiagnosticQuestion from './sentenceCombining.jsx'
@@ -18,39 +17,7 @@ var StudentDiagnostic = React.createClass({
 
   getInitialState: function () {
     return {
-      saved: false,
-      sessionID: this.getSessionId()
-    }
-  },
-
-  getPreviousSessionData: function () {
-    return this.props.sessions.data[this.props.location.query.student]
-  },
-
-  resumeSession: function (data) {
-    if (data) {
-      this.props.dispatch(resumePreviousDiagnosticSession(data))
-    }
-  },
-
-  getSessionId: function(){
-    var sessionID = this.props.location.query.student
-    if (sessionID === "null") {
-      sessionID = undefined
-    }
-    return sessionID
-  },
-
-  saveSessionData: function(lessonData){
-    if (this.state.sessionID) {
-      this.props.dispatch(SessionActions.update(this.state.sessionID, lessonData));
-    }
-  },
-
-
-  componentWillReceiveProps: function (nextProps) {
-    if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length ) {
-      this.saveSessionData(nextProps.playDiagnostic)
+      saved: false
     }
   },
 
@@ -68,7 +35,6 @@ var StudentDiagnostic = React.createClass({
       },
       (err,httpResponse,body) => {
         if (httpResponse.statusCode === 200) {
-          this.props.dispatch(SessionActions.delete(this.state.sessionID));
           document.location.href = process.env.EMPIRICAL_BASE_URL
           this.setState({saved: true});
         }
@@ -184,7 +150,7 @@ var StudentDiagnostic = React.createClass({
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
         }
         else {
-          component =  <LandingPage begin={()=>{this.startActivity("John", data)}} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession}/>
+          component =  <LandingPage begin={()=>{this.startActivity("John", data)}}/>
           // (
           //   <div className="container">
           //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
@@ -220,8 +186,7 @@ function select(state) {
     routing: state.routing,
     questions: state.questions,
     playDiagnostic: state.playDiagnostic,
-    sentenceFragments: state.sentenceFragments,
-    sessions: state.sessions,
+    sentenceFragments: state.sentenceFragments
   }
 }
 export default connect(select)(StudentDiagnostic)

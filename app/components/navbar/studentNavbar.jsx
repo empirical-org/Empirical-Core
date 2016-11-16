@@ -26,16 +26,10 @@ const Navbar = React.createClass({
     this.setState({expanded: false})
   },
 
-  saveAndExitConfirm: function () {
-    if (window.confirm('To access youor saved progress, you will need to resume the activity on this device with this browser.')) {
-      window.location('http://www.quill.org/profile')  
-    }
-  },
-
   renderLinks: function () {
     return (
       <div className="nav-right nav-menu" style={this.navStyles()}>
-        <a onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
+        {/* <a href="http://www.quill.org/profile/" className="nav-item" activeClassName="is-active">Save & Exit</a> */}
       </div>
     )
   },

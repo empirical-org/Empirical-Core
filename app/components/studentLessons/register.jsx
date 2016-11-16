@@ -1,5 +1,4 @@
 import React from 'react'
-import beginArrow from '../../img/begin_arrow.svg'
 
 export default React.createClass({
   getInitialState: function () {
@@ -29,43 +28,6 @@ export default React.createClass({
     this.props.startActivity(this.state.name)
   },
 
-  resume: function () {
-    this.props.resumeActivity(this.props.session)
-  },
-
-  // renderResume: function () {
-  //   if (this.props.session) {
-  //     return (
-  //       <button className="button student-begin is-fullwidth" onClick={this.resume}>Resume</button>
-  //     )
-  //   }
-  // },
-  //
-  // renderBegin: function (){
-  //   return (
-  //     <button className="button student-begin is-fullwidth" onClick={this.startActivity}>Start</button>{this.renderResume()}
-  //   )
-  // },
-
-  renderButton: function(){
-    let onClickFn, text
-    if (this.props.session) {
-      // resume session if one is passed
-      onClickFn = this.resume;
-      text = <span>Resume</span>
-    } else {
-      // otherwise begin new session
-      onClickFn = this.startActivity;
-      text = <span>Begin</span>
-    }
-    return (
-      <button className="button student-begin" onClick={onClickFn}>
-        {text}
-        <img className="begin-arrow" src={beginArrow}/>
-      </button>
-    )
-  },
-
   renderIntro: function () {
     if (this.state.showIntro) {
       return (
@@ -88,7 +50,7 @@ export default React.createClass({
               <li>There is often more than one correct answer.</li>
               <li>Remember to use correct spelling, capitalization, and punctuation!</li>
             </ul>
-            {this.renderButton()}
+            <button className="button student-begin is-fullwidth" onClick={this.startActivity}>Start</button>
             <br/>
           </div>
         </div>
