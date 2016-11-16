@@ -150,6 +150,7 @@ const Responses = React.createClass({
 
   responsesWithStatus: function () {
     var responses = hashToCollection(this.props.question.responses)
+    responses.sort((a,b) => {return b.count - a.count})
     return responses.map((response) => {
       var statusCode;
       if (!response.feedback) {
@@ -209,11 +210,8 @@ const Responses = React.createClass({
       const {questionID} = this.props;
       var responses = this.gatherVisibleResponses();
       responses = this.getResponsesForCurrentPage(responses);
-      var responsesListItems = _.sortBy(responses, (resp) =>
-          {return resp[this.props.responses.sorting] || 0 }
-        )
       return <ResponseList
-        responses={responsesListItems}
+        responses={responses}
         getResponse={this.getResponse}
         getChildResponses={this.getChildResponses}
         states={this.props.states}
@@ -240,7 +238,7 @@ const Responses = React.createClass({
 
   renderSortingFields: function () {
     return <ResponseSortFields
-      sorting={this.props.responses.sorting}
+      sorting={'count'}
       ascending={this.props.responses.ascending}
       toggleResponseSort={this.toggleResponseSort}/>
   },
@@ -491,13 +489,6 @@ const Responses = React.createClass({
   },
 
   renderPageNumbers: function() {
-    // var array
-    // if(this.state.viewingResponses) {
-    //   array = this.gatherVisibleResponses()
-    // } else {
-    //   array = this.getPOSTagsList()
-    // }
-
     const responses = this.gatherVisibleResponses()
     const responsesPerPage = 20;
     const numPages = Math.ceil(responses.length/responsesPerPage)
