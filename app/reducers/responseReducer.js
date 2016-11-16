@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 const initialState = {
    responses: {
+      sorting: "count",
       ascending: false,
       visibleStatuses: {
         "Human Optimal": true,
