@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import PlayLessonQuestion from './question.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions.js'
+import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession} from '../../actions.js'
+import SessionActions from '../../actions/sessions.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../libs/conceptResults/lesson'
@@ -18,6 +19,34 @@ const Lesson = React.createClass({
     this.props.dispatch(clearData())
   },
 
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length ) {
+      this.saveSessionData(nextProps.playLesson)
+    }
+  },
+
+  componentDidMount: function(){
+    this.saveSessionIdToState();
+  },
+
+  getPreviousSessionData: function () {
+    return this.props.sessions.data[this.props.location.query.student]
+  },
+
+  resumeSession: function (data) {
+    if (data) {
+      this.props.dispatch(resumePreviousSession(data))
+    }
+  },
+
+  saveSessionIdToState: function(){
+    var sessionID = this.props.location.query.student
+    if (sessionID === "null") {
+      sessionID = undefined
+    }
+    this.setState({sessionID})
+  },
+
   submitResponse: function(response) {
     const action = submitResponse(response);
     this.props.dispatch(action)
@@ -26,11 +55,8 @@ const Lesson = React.createClass({
   saveToLMS: function () {
     const results = getConceptResultsForAllQuestions(this.props.playLesson.answeredQuestions)
     const score = calculateScoreForLesson(this.props.playLesson.answeredQuestions)
-    var sessionID = this.props.location.query.student
-    if (sessionID === "null") {
-      sessionID = undefined
-    }
     const {lessonID} = this.props.params
+    const sessionID = this.state.sessionID;
     if (sessionID) {
       this.finishActivitySession(sessionID, results, score)
     } else {
@@ -53,10 +79,10 @@ const Lesson = React.createClass({
         if (httpResponse.statusCode === 200) {
           console.log("Finished Saving")
           console.log(err,httpResponse,body)
-          document.location.href = process.env.EMPIRICAL_BASE_URL + "/activity_sessions/" + this.props.location.query.student
+          this.props.dispatch(SessionActions.delete(this.state.sessionID));
+          document.location.href = process.env.EMPIRICAL_BASE_URL + "/activity_sessions/" + this.state.sessionID
           this.setState({saved: true});
         }
-        // console.log(err,httpResponse,body)
       }
     )
   },
@@ -112,7 +138,7 @@ const Lesson = React.createClass({
 
   nextQuestion: function () {
     const next = nextQuestion();
-    this.props.dispatch(next);
+    return this.props.dispatch(next);
   },
 
   getLesson: function () {
@@ -131,9 +157,14 @@ const Lesson = React.createClass({
     if (this.props.playLesson && this.props.playLesson.answeredQuestions && this.props.playLesson.questionSet) {
       return this.props.playLesson.answeredQuestions.length / this.props.playLesson.questionSet.length * 100
     } else {
-      0
+      return 0
     }
+  },
 
+  saveSessionData: function(lessonData){
+    if (this.state.sessionID) {
+      this.props.dispatch(SessionActions.update(this.state.sessionID, lessonData));
+    }
   },
 
   render: function () {
@@ -156,7 +187,7 @@ const Lesson = React.createClass({
         component = (
           <Finished
             data={this.props.playLesson}
-            name={this.props.location.query.student}
+            name={this.state.sessionID}
             lessonID={this.props.params.lessonID}
             saveToLMS={this.saveToLMS}
           />
@@ -164,7 +195,7 @@ const Lesson = React.createClass({
       }
       else {
         component = (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity}/>
+          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession}/>
         )
       }
 
@@ -197,7 +228,8 @@ function select(state) {
     questions: state.questions,
     sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, //the questionReducer
-    routing: state.routing
+    routing: state.routing,
+    sessions: state.sessions
   }
 }
 
