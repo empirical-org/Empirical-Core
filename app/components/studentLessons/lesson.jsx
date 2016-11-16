@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PlayLessonQuestion from './question.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions.js'
+import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession} from '../../actions.js'
 import SessionActions from '../../actions/sessions.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
@@ -21,6 +21,16 @@ const Lesson = React.createClass({
 
   componentDidMount: function(){
     this.saveSessionIdToState();
+  },
+
+  getPreviousSessionData: function () {
+    return this.props.sessions.data[this.props.location.query.student]
+  },
+
+  resumeSession: function (data) {
+    if (data) {
+      this.props.dispatch(resumePreviousSession(data))
+    }
   },
 
   saveSessionIdToState: function(){
@@ -184,7 +194,7 @@ const Lesson = React.createClass({
       }
       else {
         component = (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity}/>
+          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession}/>
         )
       }
 
@@ -217,7 +227,8 @@ function select(state) {
     questions: state.questions,
     sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, //the questionReducer
-    routing: state.routing
+    routing: state.routing,
+    sessions: state.sessions
   }
 }
 

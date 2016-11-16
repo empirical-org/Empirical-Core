@@ -28,6 +28,18 @@ export default React.createClass({
     this.props.startActivity(this.state.name)
   },
 
+  resume: function () {
+    this.props.resumeActivity(this.props.session)
+  },
+
+  renderResume: function () {
+    if (this.props.session) {
+      return (
+        <button className="button student-begin is-fullwidth" onClick={this.resume}>Resume</button>
+      )
+    }
+  },
+
   renderIntro: function () {
     if (this.state.showIntro) {
       return (
@@ -50,7 +62,7 @@ export default React.createClass({
               <li>There is often more than one correct answer.</li>
               <li>Remember to use correct spelling, capitalization, and punctuation!</li>
             </ul>
-            <button className="button student-begin is-fullwidth" onClick={this.startActivity}>Start</button>
+            <button className="button student-begin is-fullwidth" onClick={this.startActivity}>Start</button>{this.renderResume()}
             <br/>
           </div>
         </div>
