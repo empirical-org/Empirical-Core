@@ -151,7 +151,7 @@ const Lesson = React.createClass({
     if (this.props.playLesson && this.props.playLesson.answeredQuestions && this.props.playLesson.questionSet) {
       return this.props.playLesson.answeredQuestions.length / this.props.playLesson.questionSet.length * 100
     } else {
-      0
+      return 0
     }
   },
 
