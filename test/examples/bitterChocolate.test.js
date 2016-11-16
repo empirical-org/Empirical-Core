@@ -86,7 +86,6 @@ describe("The surfer question", () => {
 
   it("example 1", () => {
     var correctResponse = question.checkChangeObjectRigidMatch("If surfers catch the wave, they ride it to the shore.");
-    console.log(correctResponse)
     expect(correctResponse).toExist()
   });
 
