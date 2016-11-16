@@ -210,9 +210,6 @@ const Responses = React.createClass({
       const {questionID} = this.props;
       var responses = this.gatherVisibleResponses();
       responses = this.getResponsesForCurrentPage(responses);
-      var responsesListItems = _.sortBy(responses, (resp) =>
-          {return resp[this.props.responses.sorting] || 0 }
-        )
       return <ResponseList
         responses={responses}
         getResponse={this.getResponse}
@@ -241,7 +238,7 @@ const Responses = React.createClass({
 
   renderSortingFields: function () {
     return <ResponseSortFields
-      sorting={this.props.responses.sorting}
+      sorting={'count'}
       ascending={this.props.responses.ascending}
       toggleResponseSort={this.toggleResponseSort}/>
   },
