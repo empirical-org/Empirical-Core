@@ -25,8 +25,10 @@
         border: solid 1px #737373;
         padding: 0 15px;
         font-family: $family-sans-serif;
-        height: 40px;
-        line-height: 40px;
+        padding: 10px;
+        min-height: 40px;
+        white-space: normal;
+        height: inherit;
         font-size: 20px;
         display: block;
         width: 100%;
