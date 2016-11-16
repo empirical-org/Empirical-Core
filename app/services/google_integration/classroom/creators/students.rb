@@ -42,15 +42,10 @@ module GoogleIntegration::Classroom::Creators::Students
         student.update(name: data[:name],
                        role: 'student',
                        password: data[:last_name],
-                       username: username)
+                       username: username,
+                       signed_up_with_google: true)
       end
-      puts "Google Student"
-      puts student.attributes
-      puts student.errors.first
-      puts student.valid?
-      puts data[:email]
-      puts data[:classroom].attributes
-      puts "End Google Student"
+      self.student_log(student)
       if student.errors.any?
         puts "Error: Could not save google classroom student."
       else
@@ -58,6 +53,16 @@ module GoogleIntegration::Classroom::Creators::Students
       end
       student
     end
+  end
+
+  def self.student_log(student)
+    puts "Google Student"
+    puts student.attributes
+    puts student.errors.first
+    puts student.valid?
+    puts data[:email]
+    puts data[:classroom].attributes
+    puts "End Google Student"
   end
 
 end

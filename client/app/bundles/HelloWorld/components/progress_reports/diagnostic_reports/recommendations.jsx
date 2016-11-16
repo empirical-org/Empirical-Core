@@ -106,8 +106,7 @@ export default React.createClass({
 			)
 		} else {
 			return (
-				// <div className="recommendations-assign-button" onClick={() => this.assignSelectedPacks()}>
-				<div className="recommendations-assign-button" onClick={() => alert('Activity Packs are under development, and they will be unlocked in 2-3 weeks.')}>
+				<div className="recommendations-assign-button" onClick={() => this.assignSelectedPacks()}>
 					<span>Assign Activity Packs</span>
 				</div>
 			)

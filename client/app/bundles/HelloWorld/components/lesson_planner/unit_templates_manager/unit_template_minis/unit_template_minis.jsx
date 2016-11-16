@@ -39,7 +39,7 @@
   //adds a final model, which is simply flagged as a createYourOwn one via the key
   addCreateYourOwnModel: function(models) {
     if (models && models.length) {
-      models.push({id: 'createYourOwn'});
+      models.push({id: 'createYourOwn', non_authenticated: this.props.data.non_authenticated});
       }
     return models;
   },
