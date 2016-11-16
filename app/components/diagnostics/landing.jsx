@@ -2,6 +2,20 @@ import React from 'react'
 import beginArrow from '../../img/begin_arrow.svg'
 export default React.createClass({
 
+
+  resume: function () {
+    this.props.resumeActivity(this.props.session)
+  },
+
+  renderResumeButton: function () {
+    if (this.props.session) {
+      return (
+        <button className="button student-begin is-fullwidth" onClick={this.resume}>Resume</button>
+      )
+    }
+  },
+
+
   render: function () {
     return (
       <div className="landing-page">
@@ -18,6 +32,7 @@ export default React.createClass({
         <button className="button student-begin" onClick={this.props.begin}>
           Begin <img className="begin-arrow" src={beginArrow}/>
         </button>
+        {this.renderResumeButton()}
       </div>
     )
   },
