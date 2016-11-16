@@ -60,7 +60,11 @@
 
   onClickAction: function () {
     if (this.props.data.id == 'createYourOwn') {
-      this.props.actions.toggleTab('createUnit');
+      if(this.props.data.non_authenticated) {
+        this.props.actions.signUp();
+      } else {
+        this.props.actions.toggleTab('createUnit');
+      }
     } else {
       this.props.actions.selectModel(this.props.data);
     }
