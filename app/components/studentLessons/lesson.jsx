@@ -187,7 +187,7 @@ const Lesson = React.createClass({
         component = (
           <Finished
             data={this.props.playLesson}
-            name={this.props.location.query.student}
+            name={this.state.sessionID}
             lessonID={this.props.params.lessonID}
             saveToLMS={this.saveToLMS}
           />
