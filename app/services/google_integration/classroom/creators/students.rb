@@ -45,7 +45,7 @@ module GoogleIntegration::Classroom::Creators::Students
                        username: username,
                        signed_up_with_google: true)
       end
-      self.student_log(student)
+      self.student_log(student, data)
       if student.errors.any?
         puts "Error: Could not save google classroom student."
       else
@@ -55,7 +55,7 @@ module GoogleIntegration::Classroom::Creators::Students
     end
   end
 
-  def self.student_log(student)
+  def self.student_log(student, data)
     puts "Google Student"
     puts student.attributes
     puts student.errors.first
