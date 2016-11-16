@@ -79,10 +79,10 @@ const Lesson = React.createClass({
         if (httpResponse.statusCode === 200) {
           console.log("Finished Saving")
           console.log(err,httpResponse,body)
-          document.location.href = process.env.EMPIRICAL_BASE_URL + "/activity_sessions/" + this.props.location.query.student
+          this.props.dispatch(SessionActions.delete(this.state.sessionID));
+          document.location.href = process.env.EMPIRICAL_BASE_URL + "/activity_sessions/" + this.state.sessionID
           this.setState({saved: true});
         }
-        // console.log(err,httpResponse,body)
       }
     )
   },
