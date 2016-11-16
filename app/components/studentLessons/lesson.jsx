@@ -4,6 +4,7 @@ import PlayLessonQuestion from './question.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions.js'
+import SessionActions from '../../actions/sessions.js'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../libs/conceptResults/lesson'
@@ -18,6 +19,18 @@ const Lesson = React.createClass({
     this.props.dispatch(clearData())
   },
 
+  componentDidMount: function(){
+    this.saveSessionIdToState();
+  },
+
+  saveSessionIdToState: function(){
+    var sessionID = this.props.location.query.student
+    if (sessionID === "null") {
+      sessionID = undefined
+    }
+    this.setState({sessionID})
+  },
+
   submitResponse: function(response) {
     const action = submitResponse(response);
     this.props.dispatch(action)
@@ -26,11 +39,8 @@ const Lesson = React.createClass({
   saveToLMS: function () {
     const results = getConceptResultsForAllQuestions(this.props.playLesson.answeredQuestions)
     const score = calculateScoreForLesson(this.props.playLesson.answeredQuestions)
-    var sessionID = this.props.location.query.student
-    if (sessionID === "null") {
-      sessionID = undefined
-    }
     const {lessonID} = this.props.params
+    const sessionID = this.state.sessionID;
     if (sessionID) {
       this.finishActivitySession(sessionID, results, score)
     } else {
@@ -133,7 +143,17 @@ const Lesson = React.createClass({
     } else {
       0
     }
+  },
 
+  saveAndGoToNextQuestion: function(){
+    this.nextQuestion();
+    this.saveSessionData();
+  },
+
+  saveSessionData: function(){
+    if (this.state.sessionID) {
+      this.props.dispatch(SessionActions.update(this.state.sessionID, this.props.playLesson));
+    }
   },
 
   render: function () {
@@ -144,11 +164,11 @@ const Lesson = React.createClass({
         const {type, question} = this.props.playLesson.currentQuestion
         if (type === 'SF') {
           component= (
-            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify}/>
+            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.saveAndGoToNextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify}/>
           )
         } else {
           component = (
-            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill}/>
+            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.saveAndGoToNextQuestion} prefill={this.getLesson().prefill}/>
           )
         }
       }

@@ -9,7 +9,6 @@ const initialState = {
 }
 
 export default function(currentState, action) {
-  let newState;
   switch (action.type) {
     case C.UPDATE_SESSION_DATA:
       let changes = {};

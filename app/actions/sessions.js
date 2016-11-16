@@ -3,7 +3,7 @@ var C = require("../constants").default
 
 export default {
   update: function(sessionId, session){
-    return {type: C.UPDATE_SESSION_DATA, data: {session, sessionId}}
+    return {type: C.UPDATE_SESSION_DATA, data: {sessionId, session}}
   },
 
   delete: function(sessionId){
