@@ -50,19 +50,6 @@
 
 .question-button-group {
   margin-top: 28px;
-
-  // .student-submit, .student-next {
-  //   background-color: $green;
-  //   font-family: $family-sans-serif;
-  //   color: $white;
-  //   border: none;
-  //   border-radius: 6px;
-  //   font-weight: bold;
-  //   font-size: 18px;
-  //   height: 45px;
-  //   line-height: 45px;
-  //   padding: 0 24px;
-  // }
 }
 
 .student-submit, .student-next {
@@ -93,6 +80,10 @@
 
   &:hover, &:focus {
     color: $white;
+  }
+  img.begin-arrow {
+    margin-top: -2px;
+    margin-left: 10px;
   }
 }
 
