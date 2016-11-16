@@ -7,12 +7,23 @@ export default React.createClass({
     this.props.resumeActivity(this.props.session)
   },
 
-  renderResumeButton: function () {
+  renderButton: function(){
+    let onClickFn, text
     if (this.props.session) {
-      return (
-        <button className="button student-begin is-fullwidth" onClick={this.resume}>Resume</button>
-      )
+      // resume session if one is passed
+      onClickFn = this.resume;
+      text = <span>Resume</span>
+    } else {
+      // otherwise begin new session
+      onClickFn = this.props.begin;
+      text = <span>Begin</span>
     }
+    return (
+      <button className="button student-begin" onClick={onClickFn}>
+        {text}
+        <img className="begin-arrow" src={beginArrow}/>
+      </button>
+    )
   },
 
 
@@ -29,10 +40,7 @@ export default React.createClass({
           Just answer them as best as you can.
           Once you're finished, Quill will create a learning plan just for you!
         </p>
-        <button className="button student-begin" onClick={this.props.begin}>
-          Begin <img className="begin-arrow" src={beginArrow}/>
-        </button>
-        {this.renderResumeButton()}
+        {this.renderButton()}
       </div>
     )
   },
