@@ -171,7 +171,7 @@ const Responses = React.createClass({
 
   gatherVisibleResponses: function () {
     var responses = this.responsesWithStatus();
-    return _.filter(responses, (response) => {
+    const filtered = _.filter(responses, (response) => {
       return (
         this.props.responses.visibleStatuses[labels[response.statusCode]] &&
         (
@@ -180,6 +180,14 @@ const Responses = React.createClass({
         )
       )
     });
+    const sorted = _.sortBy(filtered, (resp) =>
+        {return resp[this.props.responses.sorting] || 0 }
+    )
+    if (this.props.responses.ascending) {
+      return sorted
+    } else {
+      return sorted.reverse()
+    }
   },
 
   getResponse: function (responseID) {
@@ -208,10 +216,7 @@ const Responses = React.createClass({
     if(this.state.viewingResponses) {
       const {questionID} = this.props;
       var responses = this.gatherVisibleResponses();
-      responses = this.getResponsesForCurrentPage(responses);
-      var responsesListItems = _.sortBy(responses, (resp) =>
-          {return resp[this.props.responses.sorting] || 0 }
-        )
+      var responsesListItems = this.getResponsesForCurrentPage(responses);
       return <ResponseList
         responses={responsesListItems}
         getResponse={this.getResponse}
