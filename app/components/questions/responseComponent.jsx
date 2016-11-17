@@ -173,17 +173,17 @@ const Responses = React.createClass({
     var responses = this.responsesWithStatus();
     const filtered = _.filter(responses, (response) => {
       return (
-        this.props.responses.visibleStatuses[qualityLabels[response.statusCode]] &&
+        this.props.filters.visibleStatuses[qualityLabels[response.statusCode]] &&
         (
-          this.props.responses.visibleStatuses[response.author] ||
-          (response.author===undefined && this.props.responses.visibleStatuses["No Hint"])
+          this.props.filters.visibleStatuses[response.author] ||
+          (response.author===undefined && this.props.filters.visibleStatuses["No Hint"])
         )
       )
     });
     const sorted = _.sortBy(filtered, (resp) =>
-        {return resp[this.props.responses.sorting] || 0 }
+        {return resp[this.props.filters.sorting] || 0 }
     )
-    if (this.props.responses.ascending) {
+    if (this.props.filters.ascending) {
       return sorted
     } else {
       return sorted.reverse()
@@ -225,9 +225,9 @@ const Responses = React.createClass({
         questionID={questionID}
         dispatch={this.props.dispatch}
         admin={this.props.admin}
-        expanded={this.props.responses.expanded}
+        expanded={this.props.filters.expanded}
         expand={this.expand}
-        ascending={this.props.responses.ascending}
+        ascending={this.props.filters.ascending}
         getMatchingResponse={this.getMatchingResponse}
         showPathways={true}
         printPathways={this.mapCountToResponse}
@@ -245,8 +245,8 @@ const Responses = React.createClass({
 
   renderSortingFields: function () {
     return <ResponseSortFields
-      sorting={this.props.responses.sorting}
-      ascending={this.props.responses.ascending}
+      sorting={this.props.filters.sorting}
+      ascending={this.props.filters.ascending}
       toggleResponseSort={this.toggleResponseSort}/>
   },
 
@@ -264,7 +264,7 @@ const Responses = React.createClass({
         labels={labels}
         qualityLabels={qualityLabels}
         toggleField={this.toggleField}
-        visibleStatuses={this.props.responses.visibleStatuses}
+        visibleStatuses={this.props.filters.visibleStatuses}
         resetPageNumber={this.resetPageNumber}
         resetFields={this.resetFields} />
     )
@@ -276,7 +276,7 @@ const Responses = React.createClass({
 
   expandAllResponses: function () {
     const responses = this.responsesWithStatus();
-    var newExpandedState = this.props.responses.expanded;
+    var newExpandedState = this.props.filters.expanded;
     for (var i = 0; i < responses.length; i++) {
       newExpandedState[responses[i].key] = true;
     };
@@ -284,7 +284,7 @@ const Responses = React.createClass({
   },
 
   allClosed: function () {
-    var expanded = this.props.responses.expanded;
+    var expanded = this.props.filters.expanded;
     for (var i in expanded) {
         if (expanded[i] === true) return false;
     }
@@ -590,7 +590,7 @@ const Responses = React.createClass({
 
 function select(state) {
   return {
-    responses: state.responses,
+    filters: state.filters,
     pathways: state.pathways,
     conceptsFeedback: state.conceptsFeedback,
     concepts: state.concepts

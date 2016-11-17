@@ -12,8 +12,8 @@ import itemLevels from './item-levels'
 import playDiagnostic from './diagnostics'
 import lessons from './lessons';
 import pathways from './pathways';
-import responses from './responseReducer';
 import sessions from './sessions';
+import filters from './filtersReducer';
 import { routerReducer } from 'react-router-redux'
 
 const combinedReducers = combineReducers({
@@ -26,7 +26,7 @@ const combinedReducers = combineReducers({
   sentenceFragments,
   questionSelect,
   pathways,
-  responses,
+  filters,
   lessons,
   playLesson,
   playDiagnostic,
