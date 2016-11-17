@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import actions from '../../actions/responses'
+import actions from '../../actions/filters'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
