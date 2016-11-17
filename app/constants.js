@@ -1,6 +1,6 @@
 export default {
 	// MISC
-	FIREBASE: "https://quillconnect.firebaseio.com/",
+	FIREBASE: "https://quillconnectstaging.firebaseio.com/v2/",
 
 	// UI FEEDBACK ACTIONS
 	DISPLAY_ERROR: "DISPLAY_ERROR",
