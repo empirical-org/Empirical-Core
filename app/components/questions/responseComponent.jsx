@@ -173,7 +173,7 @@ const Responses = React.createClass({
     var responses = this.responsesWithStatus();
     const filtered = _.filter(responses, (response) => {
       return (
-        this.props.responses.visibleStatuses[labels[response.statusCode]] &&
+        this.props.responses.visibleStatuses[qualityLabels[response.statusCode]] &&
         (
           this.props.responses.visibleStatuses[response.author] ||
           (response.author===undefined && this.props.responses.visibleStatuses["No Hint"])
