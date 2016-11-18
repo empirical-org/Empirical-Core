@@ -140,7 +140,7 @@ const playLessonQuestion = React.createClass({
   checkAnswer: function (e) {
     if (this.state.editing) {
       this.removePrefilledUnderscores()
-      var response = getResponse(this.getQuestion(), this.state.response)
+      var response = getResponse(this.getQuestion(), this.state.response, this.props.responses)
       this.updateResponseResource(response)
       this.submitResponse(response)
       this.setState({editing: false})
@@ -341,7 +341,8 @@ function select(state) {
     concepts: state.concepts,
     conceptsFeedback: state.conceptsFeedback,
     questions: state.questions,
-    routing: state.routing
+    routing: state.routing,
+    responses: state.responses
   }
 }
 export default connect(select)(playLessonQuestion)

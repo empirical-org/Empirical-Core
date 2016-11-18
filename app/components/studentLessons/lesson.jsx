@@ -22,7 +22,7 @@ const Lesson = React.createClass({
   },
 
   getInitialState: function() {
-    return {hasResponses: false, gettingResponses: false}
+    return {hasOrIsGettingResponses: false}
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -35,7 +35,7 @@ const Lesson = React.createClass({
   },
 
   doesNotHaveAndIsNotGettingResponses: function() {
-    return (this.state.hasResponses && this.state.gettingResponses) === false
+    return (!this.state.hasOrIsGettingResponses)
   },
 
   componentDidMount: function(){
@@ -52,7 +52,7 @@ const Lesson = React.createClass({
     }
   },
 
-  hasQuestionsInQuestionSet: function(props=this.props){
+  hasQuestionsInQuestionSet: function(props){
     const pL = props.playLesson
     return (pL && pL.questionSet && pL.questionSet.length)
   },
@@ -188,15 +188,12 @@ const Lesson = React.createClass({
   getResponsesForEachQuestion: function (playLesson) {
     // we need to change the gettingResponses state so that we don't keep hitting this as the props update,
     // otherwise it forms an infinite loop via component will receive props
-    this.setState({gettingResponses: true}, (playLesson)=> {
-      if (playLesson && playLesson.questionSet && playLesson.questionSet.length) {
-        const questionSet = playLesson.questionSet
-        questionSet.forEach((question)=>{
-          this.props.dispatch(loadResponseData(question.key))
-        })
-      }
+    this.setState({hasOrIsGettingResponses: true}, ()=> {
+      const questionSet = playLesson.questionSet
+      questionSet.forEach((q)=>{
+        this.props.dispatch(loadResponseData(q.question.key))
+      })
     });
-    this.setState({gettingResponses: false, hasResponses: true})
   },
 
   render: function () {
