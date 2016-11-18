@@ -217,9 +217,18 @@ const Question = React.createClass({
     }
   },
 
+  isLoading: function() {
+    let loadingData = this.props.questions.hasreceiveddata === false;
+    let loadingResponses = this.props.responses.status[this.props.params.questionID] !== 'LOADED'
+    return (loadingData || loadingResponses)
+  },
+
   render: function (){
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    if (data[questionID]) {
+    if (this.isLoading()) {
+      return (<p>Loading...</p>)
+    }
+    else if (data[questionID]) {
       var responses = hashToCollection(this.getResponses())
       return (
         <div>
@@ -243,8 +252,6 @@ const Question = React.createClass({
             admin={true}/>
         </div>
       )
-    } else if (this.props.questions.hasreceiveddata === false){
-      return (<p>Loading...</p>)
     } else {
       return (
         <p>404: No Question Found</p>
