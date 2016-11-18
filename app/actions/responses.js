@@ -1,22 +1,25 @@
-var C = require("../constants").default;
+const C = require("../constants").default
+import rootRef from "../libs/firebase"
+var	responsesRef = rootRef.child("responses")
 
-module.exports = {
-   toggleExpandSingleResponse: function (rkey) {
-      return {type:C.TOGGLE_EXPAND_SINGLE_RESPONSE, rkey}
-   },
-   collapseAllResponses: function () {
-      return {type:C.COLLAPSE_ALL_RESPONSES}
-   },
-   expandAllResponses: function (expandedResponses) {
-      return {type:C.EXPAND_ALL_RESPONSES, expandedResponses}
-   },
-   toggleStatusField: function (status) {
-      return {type:C.TOGGLE_STATUS_FIELD, status}
-   },
-   toggleResponseSort: function (field) {
-      return {type:C.TOGGLE_RESPONSE_SORT, field}
-   },
-   resetAllFields: function () {
-     return {type: C.RESET_ALL_FIELDS}
-   }
-};
+export function deleteStatus(questionId) {
+  return {type: C.DELETE_RESPONSE_STATUS, data: {questionId}}
+}
+
+export function loadResponseData(questionId) {
+  return (dispatch, getState) => {
+    dispatch(updateStatus(questionId, "LOADING"))
+    responsesRef.orderByChild('questionUID').equalTo(questionId).once("value", (snapshot) => {
+      dispatch(updateData(questionId, snapshot.val()))
+      dispatch(updateStatus(questionId, "LOADED"))
+    })
+  }
+}
+
+export function updateStatus(questionId, status) {
+  return {type: C.UPDATE_RESPONSE_STATUS, data: {questionId, status}}
+}
+
+export function updateData(questionId, responses) {
+  return {type: C.UPDATE_RESPONSE_DATA, data: {questionId, responses}}
+}

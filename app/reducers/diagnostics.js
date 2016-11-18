@@ -61,6 +61,8 @@ function question(state = initialState, action) {
           )
         })}
       return Object.assign({}, state, changes)
+    case SubmitActions.RESUME_PREVIOUS_DIAGNOSTIC_SESSION:
+      return Object.assign({}, state, action.data)
     default:
       return state
   }

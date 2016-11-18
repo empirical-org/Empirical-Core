@@ -20,6 +20,6 @@ if (prod) {
 
 firebase.initializeApp(config);
 
-var rootRef = firebase.database().ref();
+var rootRef = firebase.database().ref().child("v2");
 
 export default rootRef

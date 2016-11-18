@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import actions from '../../actions/responses'
+import actions from '../../actions/filters'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
@@ -149,8 +149,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus: function () {
-    var responses = hashToCollection(this.props.question.responses)
-    responses.sort((a,b) => {return b.count - a.count})
+    var responses = hashToCollection(this.props.responses)
     return responses.map((response) => {
       var statusCode;
       if (!response.feedback) {
@@ -172,15 +171,23 @@ const Responses = React.createClass({
 
   gatherVisibleResponses: function () {
     var responses = this.responsesWithStatus();
-    return _.filter(responses, (response) => {
+    const filtered = _.filter(responses, (response) => {
       return (
-        this.props.responses.visibleStatuses[labels[response.statusCode]] &&
+        this.props.filters.visibleStatuses[qualityLabels[response.statusCode]] &&
         (
-          this.props.responses.visibleStatuses[response.author] ||
-          (response.author===undefined && this.props.responses.visibleStatuses["No Hint"])
+          this.props.filters.visibleStatuses[response.author] ||
+          (response.author===undefined && this.props.filters.visibleStatuses["No Hint"])
         )
       )
     });
+    const sorted = _.sortBy(filtered, (resp) =>
+        {return resp[this.props.filters.sorting] || 0 }
+    )
+    if (this.props.filters.ascending) {
+      return sorted
+    } else {
+      return sorted.reverse()
+    }
   },
 
   getResponse: function (responseID) {
@@ -209,18 +216,18 @@ const Responses = React.createClass({
     if(this.state.viewingResponses) {
       const {questionID} = this.props;
       var responses = this.gatherVisibleResponses();
-      responses = this.getResponsesForCurrentPage(responses);
+      var responsesListItems = this.getResponsesForCurrentPage(responses);
       return <ResponseList
-        responses={responses}
+        responses={responsesListItems}
         getResponse={this.getResponse}
         getChildResponses={this.getChildResponses}
         states={this.props.states}
         questionID={questionID}
         dispatch={this.props.dispatch}
         admin={this.props.admin}
-        expanded={this.props.responses.expanded}
+        expanded={this.props.filters.expanded}
         expand={this.expand}
-        ascending={this.props.responses.ascending}
+        ascending={this.props.filters.ascending}
         getMatchingResponse={this.getMatchingResponse}
         showPathways={true}
         printPathways={this.mapCountToResponse}
@@ -238,8 +245,8 @@ const Responses = React.createClass({
 
   renderSortingFields: function () {
     return <ResponseSortFields
-      sorting={'count'}
-      ascending={this.props.responses.ascending}
+      sorting={this.props.filters.sorting}
+      ascending={this.props.filters.ascending}
       toggleResponseSort={this.toggleResponseSort}/>
   },
 
@@ -257,7 +264,7 @@ const Responses = React.createClass({
         labels={labels}
         qualityLabels={qualityLabels}
         toggleField={this.toggleField}
-        visibleStatuses={this.props.responses.visibleStatuses}
+        visibleStatuses={this.props.filters.visibleStatuses}
         resetPageNumber={this.resetPageNumber}
         resetFields={this.resetFields} />
     )
@@ -269,7 +276,7 @@ const Responses = React.createClass({
 
   expandAllResponses: function () {
     const responses = this.responsesWithStatus();
-    var newExpandedState = this.props.responses.expanded;
+    var newExpandedState = this.props.filters.expanded;
     for (var i = 0; i < responses.length; i++) {
       newExpandedState[responses[i].key] = true;
     };
@@ -277,7 +284,7 @@ const Responses = React.createClass({
   },
 
   allClosed: function () {
-    var expanded = this.props.responses.expanded;
+    var expanded = this.props.filters.expanded;
     for (var i in expanded) {
         if (expanded[i] === true) return false;
     }
@@ -489,6 +496,13 @@ const Responses = React.createClass({
   },
 
   renderPageNumbers: function() {
+    // var array
+    // if(this.state.viewingResponses) {
+    //   array = this.gatherVisibleResponses()
+    // } else {
+    //   array = this.getPOSTagsList()
+    // }
+
     const responses = this.gatherVisibleResponses()
     const responsesPerPage = 20;
     const numPages = Math.ceil(responses.length/responsesPerPage)
@@ -576,7 +590,7 @@ const Responses = React.createClass({
 
 function select(state) {
   return {
-    responses: state.responses,
+    filters: state.filters,
     pathways: state.pathways,
     conceptsFeedback: state.conceptsFeedback,
     concepts: state.concepts

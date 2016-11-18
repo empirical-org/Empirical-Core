@@ -4,7 +4,7 @@ import Response from './response.jsx'
 export default React.createClass({
 
   render: function () {
-    var responseListItems = this.props.responses.sort((a,b)=>a.count-b.count).map((resp) => {
+    var responseListItems = this.props.responses.map((resp) => {
       if (resp) {return (
           <Response
           response={resp}
@@ -30,19 +30,10 @@ export default React.createClass({
           conceptID={this.props.conceptID}/>
       )}
     })
-    if (this.props.ascending) {
-      return (
-        <div>
-          {responseListItems}
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          {responseListItems.reverse()}
-        </div>
-      );
-    }
+    return (
+      <div>
+        {responseListItems}
+      </div>
+    );
   }
-
 })
