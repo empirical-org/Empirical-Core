@@ -185,11 +185,7 @@ const playQuestion = React.createClass({
   },
 
   renderNextQuestionButton:  function (correct) {
-    if (correct) {
-      return (<button className="button student-next" onClick={this.finish}>Next Question</button>)
-    } else {
-      return (<button className="button student-next" onClick={this.finish}>Next Question</button>)
-    }
+    return (<button className="button student-next" onClick={this.finish}>Next Question</button>)
   },
 
   render: function () {
