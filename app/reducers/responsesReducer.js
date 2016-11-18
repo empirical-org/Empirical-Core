@@ -14,7 +14,7 @@ const initialState = Immutable.fromJS({
 export default function(currentState, action) {
   const currentStateImm = Immutable.fromJS(currentState);
   switch (action.type) {
-    case C.LOAD_RESPONSE_DATA:
+    case C.UPDATE_RESPONSE_DATA:
       return currentStateImm.updateIn(["data", action.data.questionId], () => action.data.responses).toJS()
     case C.DELETE_RESPONSE_DATA:
       return currentStateImm.deleteIn(["data", action.data.questionId]).toJS()
