@@ -9,8 +9,8 @@ export function deleteStatus(questionId) {
 export function loadResponseData(questionId) {
   return (dispatch, getState) => {
     dispatch(updateStatus(questionId, "LOADING"))
-    responsesRef.GETTHERIGHTRESPONSEHERE.once("value", (snapshot) => {
-      dispatch(updateData(questionID, snapshot.val()))
+    responsesRef.orderByChild('questionUID').equalTo(questionId).once("value", (snapshot) => {
+      dispatch(updateData(questionId, snapshot.val()))
       dispatch(updateStatus(questionId, "LOADED"))
     })
   }

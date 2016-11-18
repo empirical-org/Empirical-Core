@@ -6,6 +6,7 @@ import questions from './questions';
 import diagnosticQuestions from './diagnosticQuestions';
 import sentenceFragments from './sentenceFragments';
 import questionSelect from './questionSelect';
+import responses from './responsesReducer';
 import concepts from './concepts';
 import conceptsFeedback from './concepts-feedback';
 import itemLevels from './item-levels'
@@ -22,6 +23,7 @@ const combinedReducers = combineReducers({
   conceptsFeedback,
   itemLevels,
   questions,
+  responses,
   diagnosticQuestions,
   sentenceFragments,
   questionSelect,

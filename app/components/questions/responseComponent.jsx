@@ -149,7 +149,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus: function () {
-    var responses = hashToCollection(this.props.question.responses)
+    var responses = hashToCollection(this.props.responses)
     return responses.map((response) => {
       var statusCode;
       if (!response.feedback) {
