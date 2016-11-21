@@ -59,10 +59,15 @@ const playLessonQuestion = React.createClass({
     return (data[questionID].responses[rid])
   },
 
+  getResponses: function () {
+    console.log('Responses: ', this.props.responses.data[this.getQuestion().key])
+    return this.props.responses.data[this.getQuestion().key]
+  },
+
   getOptimalResponses: function () {
     var fields = {
       prompt: this.getQuestion().prompt,
-      responses: hashToCollection(this.getQuestion().responses)
+      responses: hashToCollection(this.getResponses())
     }
     var question = new Question(fields);
     return question.getOptimalResponses()
@@ -71,7 +76,7 @@ const playLessonQuestion = React.createClass({
   getSubOptimalResponses: function () {
     var fields = {
       prompt: this.getQuestion().prompt,
-      responses: hashToCollection(this.getQuestion().responses)
+      responses: hashToCollection(this.getResponses())
     }
     var question = new Question(fields);
     return question.getSubOptimalResponses()
@@ -140,7 +145,7 @@ const playLessonQuestion = React.createClass({
   checkAnswer: function (e) {
     if (this.state.editing) {
       this.removePrefilledUnderscores()
-      var response = getResponse(this.getQuestion(), this.state.response, this.props.responses)
+      var response = getResponse(this.getQuestion(), this.state.response, this.getResponses())
       this.updateResponseResource(response)
       this.submitResponse(response)
       this.setState({editing: false})
@@ -247,6 +252,7 @@ const playLessonQuestion = React.createClass({
       const sharedProps = {
         value: this.state.response,
         question: this.props.question,
+        responses: this.getResponses(),
         getResponse: this.getResponse2,
         feedback: this.renderFeedback(),
         initialValue: this.getInitialValue(),

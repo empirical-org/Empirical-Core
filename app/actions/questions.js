@@ -1,7 +1,8 @@
 var C = require("../constants").default
 import rootRef from "../libs/firebase"
-var	questionsRef = rootRef.child("questions"),
-moment = require('moment');
+var	questionsRef = rootRef.child("questions");
+var	responsesRef = rootRef.child("responses");
+const moment = require('moment');
 import _ from 'lodash'
 import { push } from 'react-router-redux'
 import pathwaysActions from './pathways';
@@ -83,16 +84,16 @@ module.exports = {
 			});
 		}
 	},
-  submitNewResponse: function (qid, content, prid) {
+  submitNewResponse: function (content, prid) {
     content.createdAt = moment().format("x");
     return function (dispatch,getState) {
       dispatch({type:C.AWAIT_NEW_QUESTION_RESPONSE});
-			var newRef = questionsRef.child(qid).child('responses').push(content,function(error){
+			var newRef = responsesRef.push(content,function(error){
 				dispatch({type:C.RECEIVE_NEW_QUESTION_RESPONSE});
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
 				} else {
-          dispatch(pathwaysActions.submitNewPathway(newRef.key, prid, qid))
+          dispatch(pathwaysActions.submitNewPathway(newRef.key, prid, content.questionUID))
 					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
 				}
 			});
@@ -107,18 +108,18 @@ module.exports = {
 			});
 		};
 	},
-	submitNewConceptResult: function(qid, rid, data) {
+	submitNewConceptResult: function(rid, data) {
 		return function (dispatch, getState) {
-			questionsRef.child(qid + '/responses/' + rid + '/conceptResults').push(data, function(error){
+			responsesRef.child(rid + '/conceptResults').push(data, function(error){
 				if (error) {
 					alert("Submission failed! "+error)
 				}
 			});
 		};
 	},
-	deleteConceptResult: function(qid, rid, crid) {
+	deleteConceptResult: function(rid, crid) {
 		return function(dispatch, getState) {
-			questionsRef.child(qid + '/responses/' + rid + '/conceptResults/' + crid).remove(function(error) {
+			responsesRef.child(rid + '/conceptResults/' + crid).remove(function(error) {
 				if(error) {
 					alert("Delete failed! " + error)
 				}
@@ -199,7 +200,8 @@ module.exports = {
   },
   incrementResponseCount: function(qid, rid, prid) {
     return (dispatch, getState) => {
-      var responseRef = questionsRef.child(qid+ "/responses/" + rid)
+			console.log("Incrementing: ", qid, rid, prid)
+      var responseRef = responsesRef.child(rid)
       responseRef.child('/count').transaction(function(currentCount){
         return currentCount+1
       }, function(error){
@@ -212,14 +214,14 @@ module.exports = {
       })
       responseRef.child('parentID').once('value', (snap) => {
         if (snap.val()) {
-          dispatch(this.incrementChildResponseCount(qid, snap.val()))
+          dispatch(this.incrementChildResponseCount(snap.val()))
         }
       })
     }
   },
-  incrementChildResponseCount: function(qid, rid) {
+  incrementChildResponseCount: function(rid) {
     return (dispatch, getState) => {
-      questionsRef.child(qid+ "/responses/" + rid + '/childCount').transaction(function(currentCount){
+      responsesRef.child(rid + '/childCount').transaction(function(currentCount){
         return currentCount+1
       }, function(error){
         if (error){
@@ -230,9 +232,9 @@ module.exports = {
       })
     }
   },
-  removeLinkToParentID: function(qid, rid) {
+  removeLinkToParentID: function(rid) {
     return function(dispatch, getState){
-      questionsRef.child(qid+ "/responses/" + rid + '/parentID').remove(function(error){
+      responsesRef.child(rid + '/parentID').remove(function(error){
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
 				} else {

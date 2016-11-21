@@ -41,7 +41,8 @@ export default function updateResponseResource (response, props, getErrorsForAtt
         count: 1,
         parentID: response.response.key,
         author: response.author,
-        feedback: generateFeedbackString(response)
+        feedback: generateFeedbackString(response),
+        questionUID: qid
       }
       // console.log("newErrorResp.feedback: " + playQuestion, newErrorResp.feedback)
       props.dispatch(

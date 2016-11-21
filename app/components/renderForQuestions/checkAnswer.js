@@ -6,7 +6,7 @@ export default function checkAnswer(question, response, responses, mode="default
   const Brain = mode === "default" ? Question : DiagnosticQuestion
   var fields = {
     prompt: question.prompt,
-    responses: hashToCollection(responses.data[question.key])
+    responses: hashToCollection(responses)
   }
   console.log(fields.responses)
   var newQuestion = new Brain(fields);

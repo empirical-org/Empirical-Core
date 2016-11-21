@@ -152,7 +152,8 @@ export default React.createClass({
   },
 
   incrementResponse: function (rid) {
-    this.props.dispatch(this.state.actions.incrementResponseCount(this.props.questionID, rid));
+    const qid = this.props.questionID;
+    this.props.dispatch(this.state.actions.incrementResponseCount(qid, rid));
   },
 
   removeLinkToParentID: function (rid) {
