@@ -138,3 +138,23 @@ export function removeLinkToParentID (rid) {
 		});
   }
 }
+
+export function submitNewConceptResult(qid, rid, data) {
+	return function (dispatch, getState) {
+		diagnosticQuestionsRef.child(qid + '/responses/' + rid + '/conceptResults').push(data, function(error){
+			if (error) {
+				alert("Submission failed! "+error)
+			}
+		});
+	};
+}
+
+export function deleteConceptResult(qid, rid, crid) {
+	return function(dispatch, getState) {
+		diagnosticQuestionsRef.child(qid + '/responses/' + rid + '/conceptResults/' + crid).remove(function(error) {
+			if(error) {
+				alert("Delete failed! " + error)
+			}
+		})
+	}
+}
