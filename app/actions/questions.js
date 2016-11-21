@@ -84,21 +84,7 @@ module.exports = {
 			});
 		}
 	},
-  submitNewResponse: function (content, prid) {
-    content.createdAt = moment().format("x");
-    return function (dispatch,getState) {
-      dispatch({type:C.AWAIT_NEW_QUESTION_RESPONSE});
-			var newRef = responsesRef.push(content,function(error){
-				dispatch({type:C.RECEIVE_NEW_QUESTION_RESPONSE});
-				if (error){
-					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
-				} else {
-          dispatch(pathwaysActions.submitNewPathway(newRef.key, prid, content.questionUID))
-					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
-				}
-			});
-    }
-  },
+
 	submitNewFocusPoint: function(qid, data) {
 		return function (dispatch, getState) {
 			questionsRef.child(qid + '/focusPoints').push(data, function(error){
@@ -149,98 +135,5 @@ module.exports = {
 	},
 	cancelToResponseView: function(qid,rid){
 		return {type:C.CANCEL_TO_RESPONSE_VIEW,qid,rid};
-	},
-  submitResponseEdit: function(qid,rid,content){
-		return function(dispatch,getState){
-				dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid,rid});
-				questionsRef.child(qid+ "/responses/" + rid).update(content,function(error){
-					dispatch({type:C.FINISH_RESPONSE_EDIT,qid,rid});
-					if (error){
-						dispatch({type:C.DISPLAY_ERROR,error:"Update failed! " + error});
-					} else {
-						dispatch({type:C.DISPLAY_MESSAGE,message:"Update successfully saved!"});
-					}
-				});
-		};
-	},
-  setUpdatedResponse: function(qid,rid,content){
-		return function(dispatch,getState){
-				dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid,rid});
-				questionsRef.child(qid+ "/responses/" + rid).set(content,function(error){
-					dispatch({type:C.FINISH_RESPONSE_EDIT,qid,rid});
-					if (error){
-						dispatch({type:C.DISPLAY_ERROR,error:"Update failed! " + error});
-					} else {
-						dispatch({type:C.DISPLAY_MESSAGE,message:"Update successfully saved!"});
-					}
-				});
-		};
-	},
-  deleteResponse: function(qid,rid){
-		return function(dispatch,getState){
-			dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid});
-			questionsRef.child(qid+ "/responses/" + rid).remove(function(error){
-				dispatch({type:C.FINISH_RESPONSE_EDIT,qid});
-				if (error){
-					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
-				} else {
-					questionsRef.child(qid).on("value", function(data) {
-						const childResponseKeys = _.keys(data.val().responses).filter((key) => {
-							return data.val().responses[key].parentID===rid
-						})
-						childResponseKeys.forEach((childKey) => {
-							dispatch(module.exports.deleteResponse(qid, childKey))
-						})
-					})
-
-					dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully deleted!"});
-				}
-			});
-		};
-  },
-  incrementResponseCount: function(qid, rid, prid) {
-    return (dispatch, getState) => {
-			console.log("Incrementing: ", qid, rid, prid)
-      var responseRef = responsesRef.child(rid)
-      responseRef.child('/count').transaction(function(currentCount){
-        return currentCount+1
-      }, function(error){
-        if (error){
-          dispatch({type:C.DISPLAY_ERROR,error:"increment failed! "+error});
-        } else {
-          dispatch(pathwaysActions.submitNewPathway(rid, prid, qid))
-          dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully incremented!"});
-        }
-      })
-      responseRef.child('parentID').once('value', (snap) => {
-        if (snap.val()) {
-          dispatch(this.incrementChildResponseCount(snap.val()))
-        }
-      })
-    }
-  },
-  incrementChildResponseCount: function(rid) {
-    return (dispatch, getState) => {
-      responsesRef.child(rid + '/childCount').transaction(function(currentCount){
-        return currentCount+1
-      }, function(error){
-        if (error){
-          dispatch({type:C.DISPLAY_ERROR,error:"increment failed! "+error});
-        } else {
-          dispatch({type:C.DISPLAY_MESSAGE,message:"Child Response successfully incremented!"});
-        }
-      })
-    }
-  },
-  removeLinkToParentID: function(rid) {
-    return function(dispatch, getState){
-      responsesRef.child(rid + '/parentID').remove(function(error){
-				if (error){
-					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
-				} else {
-					dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully deleted!"});
-				}
-			});
-    }
-  }
+	}
 };
