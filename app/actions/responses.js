@@ -1,7 +1,8 @@
 const C = require("../constants").default
 import pathwaysActions from './pathways';
 import rootRef from "../libs/firebase"
-var	responsesRef = rootRef.child("responses")
+var	responsesRef = rootRef.child("responses");
+const moment = require('moment');
 
 export function deleteStatus(questionId) {
   return {type: C.DELETE_RESPONSE_STATUS, data: {questionId}}

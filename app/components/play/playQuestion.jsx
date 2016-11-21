@@ -69,6 +69,10 @@ const playQuestion = React.createClass({
     return (data[questionID])
   },
 
+  getResponses: function () {
+    return this.props.responses.data[this.getQuestion().key]
+  },
+
   getResponse2: function (rid) {
     const {data} = this.props.questions, {questionID} = this.props.params;
     return (data[questionID].responses[rid])
@@ -145,7 +149,7 @@ const playQuestion = React.createClass({
 
   checkAnswer: function () {
     const filteredResponse = this.removePrefilledUnderscores()
-    var response = getResponse(this.getQuestion(), filteredResponse)
+    var response = getResponse(this.getQuestion(), filteredResponse, this.getResponses())
 
     this.updateResponseResource(response)
     this.submitResponse(response)
@@ -266,6 +270,7 @@ function select(state) {
     conceptsFeedback: state.conceptsFeedback,
     questions: state.questions,
     question: state.question,
+    responses: state.responses,
     itemLevels: state.itemLevels,
     routing: state.routing
   }

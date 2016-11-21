@@ -1,7 +1,10 @@
 import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'underscore'
 import generateFeedbackString from './generateFeedbackString.js'
-import questionActions from '../../actions/questions.js'
+import {
+  incrementResponseCount,
+  submitNewResponse
+} from "../../actions/responses.js"
 
 
 const getLatestAttempt = function (attempts = []) {
@@ -33,7 +36,7 @@ export default function updateResponseResource (response, props, getErrorsForAtt
     var errors = _.keys(getErrorsForAttempt(response))
     if (errors.length === 0) {
       props.dispatch(
-        questionActions.incrementResponseCount(qid, response.response.key, prid)
+        incrementResponseCount(qid, response.response.key, prid)
       )
     } else {
       var newErrorResp = {
@@ -46,7 +49,7 @@ export default function updateResponseResource (response, props, getErrorsForAtt
       }
       // console.log("newErrorResp.feedback: " + playQuestion, newErrorResp.feedback)
       props.dispatch(
-        questionActions.submitNewResponse(qid, newErrorResp, prid)
+        submitNewResponse(newErrorResp, prid)
       )
     }
   } else {
@@ -55,7 +58,7 @@ export default function updateResponseResource (response, props, getErrorsForAtt
       count: 1
     }
     props.dispatch(
-      questionActions.submitNewResponse(qid, newResp, prid)
+      submitNewResponse(newResp, prid)
     )
   }
 }

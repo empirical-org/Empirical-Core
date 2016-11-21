@@ -7,7 +7,6 @@ import Textarea from 'react-textarea-autosize';
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {submitResponse, clearResponses} from '../../actions.js'
-import questionActions from '../../actions/questions'
 import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default
 import rootRef from "../../libs/firebase"

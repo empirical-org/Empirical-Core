@@ -8,7 +8,6 @@ export default function checkAnswer(question, response, responses, mode="default
     prompt: question.prompt,
     responses: hashToCollection(responses)
   }
-  console.log(fields.responses)
   var newQuestion = new Brain(fields);
   var newResponse = newQuestion.checkMatch(response);
   return newResponse;
