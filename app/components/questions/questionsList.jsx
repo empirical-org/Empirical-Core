@@ -22,28 +22,24 @@ const QuestionsList = React.createClass({
 	},
 
   renderQuestionLinks: function (questions) {
-    // orders questions by response length before mapping
-    return questions.sort((a,b)=>{
-      // in case the question has no response keys, we return 0
-      const aResponseCount = a.responses ? Object.keys(a.responses).length : 0;
-      const bResponseCount = b.responses ? Object.keys(b.responses).length : 0;
-      return bResponseCount - aResponseCount;
-    }).map((question) => {
-      return (
-				<li key={question.key}>
-					<Link to={'/' + this.props.baseRoute + '/questions/' + question.key} activeClassName="is-active">
-	          <div className="columns">
-							<div className="column">
-	            	<span>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</span>
-							</div>
+    return questions.map((question) => {
+      if (question.prompt) {
+        return (
+  				<li key={question.key}>
+  					<Link to={'/' + this.props.baseRoute + '/questions/' + question.key} activeClassName="is-active">
+  	          <div className="columns">
+  							<div className="column">
+  	            	<span>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</span>
+  							</div>
 
-							<div className="column is-1">
-	              {this.renderResponseCount(question)}
-							</div>
-	          </div>
-					</Link>
-				</li>
-			);
+  							<div className="column is-1">
+  	              {this.renderResponseCount(question)}
+  							</div>
+  	          </div>
+  					</Link>
+  				</li>
+  			);
+      }
     });
   },
 

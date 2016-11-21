@@ -4,7 +4,10 @@ import {Link} from 'react-router'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
-import {loadResponseData} from '../../actions/responses'
+import {
+  loadResponseDataAndListen,
+  stopListeningToResponses
+} from '../../actions/responses'
 import Modal from '../modal/modal.jsx'
 import EditFrom from './questionForm.jsx'
 import Response from './response.jsx'
@@ -26,7 +29,13 @@ const Question = React.createClass({
 
   componentWillMount: function () {
     const {questionID} = this.props.params;
-    this.props.dispatch(loadResponseData(questionID))
+    this.props.dispatch(loadResponseDataAndListen(questionID))
+  },
+
+  componentWillUnmount: function () {
+    console.log("Unmounting");
+    const {questionID} = this.props.params;
+    this.props.dispatch(stopListeningToResponses(questionID))
   },
 
   deleteQuestion: function () {

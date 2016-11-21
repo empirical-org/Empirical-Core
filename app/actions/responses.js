@@ -10,10 +10,27 @@ export function deleteStatus(questionId) {
 export function loadResponseData(questionId) {
   return (dispatch, getState) => {
     dispatch(updateStatus(questionId, "LOADING"))
-    responsesRef.orderByChild('questionUID').equalTo(questionId).once("value", (snapshot) => {
+    responsesForQuestionRef(questionId).once("value", (snapshot) => {
       dispatch(updateData(questionId, snapshot.val()))
       dispatch(updateStatus(questionId, "LOADED"))
     })
+  }
+}
+
+export function loadResponseDataAndListen(questionId) {
+  return (dispatch, getState) => {
+    dispatch(updateStatus(questionId, "LOADING"))
+    responsesForQuestionRef(questionId).on("value", (snapshot) => {
+      console.log("New Val recieved")
+      dispatch(updateData(questionId, snapshot.val()))
+      dispatch(updateStatus(questionId, "LOADED"))
+    })
+  }
+}
+
+export function stopListeningToResponses(questionId) {
+  return (dispatch, getState) => {
+    responsesForQuestionRef(questionId).off('value')
   }
 }
 
@@ -43,13 +60,11 @@ export function submitNewResponse (content, prid) {
 
 export function deleteResponse (qid,rid){
 	return function(dispatch,getState){
-		dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid});
-		questionsRef.child(qid+ "/responses/" + rid).remove(function(error){
-			dispatch({type:C.FINISH_RESPONSE_EDIT,qid});
+		responsesRef.child(rid).remove(function(error){
 			if (error){
 				dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
 			} else {
-				questionsRef.child(qid).on("value", function(data) {
+				responsesForQuestionRef(qid).on("value", function(data) {
 					const childResponseKeys = _.keys(data.val().responses).filter((key) => {
 						return data.val().responses[key].parentID===rid
 					})
@@ -63,11 +78,9 @@ export function deleteResponse (qid,rid){
 	};
 }
 
-export function setUpdatedResponse (qid,rid,content){
+export function setUpdatedResponse (rid,content){
 	return function(dispatch,getState){
-			dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid,rid});
-			questionsRef.child(qid+ "/responses/" + rid).set(content,function(error){
-				dispatch({type:C.FINISH_RESPONSE_EDIT,qid,rid});
+			responseRef.child(rid).set(content,function(error){
 				if (error){
 					dispatch({type:C.DISPLAY_ERROR,error:"Update failed! " + error});
 				} else {
@@ -77,11 +90,9 @@ export function setUpdatedResponse (qid,rid,content){
 	};
 }
 
-export function submitResponseEdit (qid,rid,content){
+export function submitResponseEdit (rid, content){
   return function(dispatch,getState){
-      dispatch({type:C.SUBMIT_RESPONSE_EDIT,qid,rid});
-      questionsRef.child(qid+ "/responses/" + rid).update(content,function(error){
-        dispatch({type:C.FINISH_RESPONSE_EDIT,qid,rid});
+      responsesRef.child(rid).update(content,function(error){
         if (error){
           dispatch({type:C.DISPLAY_ERROR,error:"Update failed! " + error});
         } else {
@@ -141,7 +152,7 @@ export function removeLinkToParentID (rid) {
 
 export function submitNewConceptResult(qid, rid, data) {
 	return function (dispatch, getState) {
-		diagnosticQuestionsRef.child(qid + '/responses/' + rid + '/conceptResults').push(data, function(error){
+		responsesRef.child(rid + '/conceptResults').push(data, function(error){
 			if (error) {
 				alert("Submission failed! "+error)
 			}
@@ -151,10 +162,14 @@ export function submitNewConceptResult(qid, rid, data) {
 
 export function deleteConceptResult(qid, rid, crid) {
 	return function(dispatch, getState) {
-		diagnosticQuestionsRef.child(qid + '/responses/' + rid + '/conceptResults/' + crid).remove(function(error) {
+		responsesRef.child(rid + '/conceptResults/' + crid).remove(function(error) {
 			if(error) {
 				alert("Delete failed! " + error)
 			}
 		})
 	}
+}
+
+function responsesForQuestionRef(questionId) {
+  return responsesRef.orderByChild('questionUID').equalTo(questionId)
 }

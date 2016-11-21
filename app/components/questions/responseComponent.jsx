@@ -14,6 +14,9 @@ import FocusPointForm from './focusPointForm.jsx'
 import FocusPointSummary from './focusPointSummary.jsx'
 import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
 import POSForResponsesList from './POSForResponsesList.jsx'
+import {
+  deleteResponse
+} from '../../actions/responses.js'
 var C = require("../../constants").default
 
 const labels = C.ERROR_AUTHORS
@@ -107,7 +110,7 @@ const Responses = React.createClass({
     }
     if (newResponse.response.text === response.text) {
       console.log("Rematching duplicate", newResponse)
-      this.props.dispatch(this.state.actions.deleteResponse(this.props.questionID, rid))
+      this.props.dispatch(deleteResponse(this.props.questionID, rid))
     }
 
     else if (newResponse.response.key === response.parentID) {
