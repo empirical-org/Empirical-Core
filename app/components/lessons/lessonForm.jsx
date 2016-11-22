@@ -75,7 +75,6 @@ const LessonForm = React.createClass({
   },
 
   renderSearchBox: function() {
-    debugger;
     // options changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
   const questionType = this.state.questionType
     let options = hashToCollection(this.props[questionType].data)

@@ -630,23 +630,6 @@ export default React.createClass({
     }
   },
 
-  // gatherPathways: function () {
-  //   var currentRespKey = this.props.response.key;
-  //   var allResponses = _.where(this.props.responses, {key: currentRespKey})
-  //   // console.log();
-  // },
-
-  // renderPathwaysButton: function () {
-  //   return (
-  //     <a
-  //       className="button is-outlined has-top-margin"
-  //       onClick={this.gatherPathways}
-  //       key='view' >
-  //       Print Pathways
-  //     </a>
-  //   );
-  // },
-
   render: function () {
     const {response, state} = this.props;
     const isEditing = (state === (C.START_RESPONSE_EDIT + "_" + response.key));
