@@ -14,18 +14,18 @@ import {
 const DiagnosticQuestion =  React.createClass({
 
   componentWillMount: function () {
-    const questionID = this.props.params.questionID;
+    const questionID = this.props.params.questionId;
     this.props.dispatch(loadResponseDataAndListen(questionID))
   },
 
   componentWillUnmount: function () {
     console.log("Unmounting");
-    const questionID = this.props.params.questionID;
+    const questionID = this.props.params.questionId;
     this.props.dispatch(stopListeningToResponses(questionID))
   },
 
   getResponses: function () {
-    return this.props.responses.data[this.props.params.questionID]
+    return this.props.responses.data[this.props.params.questionId]
   },
 
   render: function () {
@@ -36,8 +36,6 @@ const DiagnosticQuestion =  React.createClass({
         <h1>Loading...</h1>
       )
     } else if (data[questionID]) {
-      // console.log("conceptID: ", this.props.sentenceFragments.data[this.props.params.sentenceFragmentID].conceptID)
-
       return (
         <div>
           <h4 className="title">{data[questionID].text}</h4>

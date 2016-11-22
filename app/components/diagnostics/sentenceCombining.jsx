@@ -14,6 +14,11 @@ import pathwayActions from '../../actions/pathways'
 var C = require("../../constants").default
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
+import ResponseComponent from '../questions/responseComponent.jsx'
+import {
+  loadResponseDataAndListen,
+  stopListeningToResponses
+} from '../../actions/responses.js'
 
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
 import RenderQuestionCues from '../renderForQuestions/cues.jsx'
@@ -46,6 +51,21 @@ const PlayDiagnosticQuestion = React.createClass({
     }
   },
 
+  componentWillMount: function () {
+    const questionID = this.props.question.key
+    this.props.dispatch(loadResponseDataAndListen(questionID))
+  },
+
+  componentWillUnmount: function () {
+    console.log("Unmounting");
+    const questionID = this.props.question.key;
+    this.props.dispatch(stopListeningToResponses(questionID))
+  },
+
+  getResponses: function () {
+    return this.props.responses.data[this.props.question.key]
+  },
+
   removePrefilledUnderscores: function () {
     this.setState({response: this.state.response.replace(/_/g, "")})
   },
@@ -53,6 +73,7 @@ const PlayDiagnosticQuestion = React.createClass({
   getQuestion: function () {
     return this.props.question
   },
+
 
   getResponse2: function (rid) {
     const {data} = this.props.questions, questionID = this.props.question.key;
@@ -101,7 +122,7 @@ const PlayDiagnosticQuestion = React.createClass({
   checkAnswer: function (e) {
     if (this.state.editing) {
       this.removePrefilledUnderscores()
-      var response = getResponse(this.getQuestion(), this.state.response, this.props.marking)
+      var response = getResponse(this.getQuestion(), this.state.response, this.getResponses())
       this.updateResponseResource(response)
       this.submitResponse(response)
       this.setState({
@@ -204,7 +225,8 @@ function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
-    routing: state.routing
+    routing: state.routing,
+    responses: state.responses
   }
 }
 export default connect(select)(PlayDiagnosticQuestion)

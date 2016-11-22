@@ -55,7 +55,8 @@ export default function updateResponseResource (response, props, getErrorsForAtt
   } else {
     var newResp = {
       text: response.submitted,
-      count: 1
+      count: 1,
+      questionUID: qid
     }
     props.dispatch(
       submitNewResponse(newResp, prid)
