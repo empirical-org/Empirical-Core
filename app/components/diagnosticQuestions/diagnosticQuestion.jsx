@@ -6,8 +6,27 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import C from '../../constants'
 import ResponseComponent from '../questions/responseComponent.jsx'
+import {
+  loadResponseDataAndListen,
+  stopListeningToResponses
+} from '../../actions/responses.js'
 
 const DiagnosticQuestion =  React.createClass({
+
+  componentWillMount: function () {
+    const questionID = this.props.params.questionID;
+    this.props.dispatch(loadResponseDataAndListen(questionID))
+  },
+
+  componentWillUnmount: function () {
+    console.log("Unmounting");
+    const questionID = this.props.params.questionID;
+    this.props.dispatch(stopListeningToResponses(questionID))
+  },
+
+  getResponses: function () {
+    return this.props.responses.data[this.props.params.questionID]
+  },
 
   render: function () {
     const {data, states, hasreceiveddata} = this.props.diagnosticQuestions;
