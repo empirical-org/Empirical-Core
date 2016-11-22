@@ -22,7 +22,6 @@ export function loadResponseDataAndListen(questionId) {
   return (dispatch, getState) => {
     dispatch(updateStatus(questionId, "LOADING"))
     responsesForQuestionRef(questionId).on("value", (snapshot) => {
-      console.log("New Val recieved")
       dispatch(updateData(questionId, snapshot.val()))
       dispatch(updateStatus(questionId, "LOADED"))
     })
