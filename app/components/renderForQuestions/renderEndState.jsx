@@ -19,7 +19,7 @@ const EndState = React.createClass({
   },
 
   renderTopThreeResponses: function() {
-    let responses = this.props.questions.data[this.props.questionID].responses
+    let responses = this.props.responses
     responses = hashToCollection(responses)
     responses = responses.filter((response) => {
       return response.optimal
