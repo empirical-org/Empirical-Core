@@ -17,7 +17,7 @@ const feedbackStrings = C.FEEDBACK_STRINGS
 export default React.createClass({
   getInitialState: function () {
     return {
-      text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.value || "")))
+      text: this.props.value || ""
     }
   },
 
@@ -133,8 +133,9 @@ export default React.createClass({
 
   handleTextChange: function (e) {
     if (!this.props.disabled) {
-      this.setState({text: e}, () => {
-        this.props.handleChange(convertToRaw(this.state.text.getCurrentContent()).blocks[0].text)
+      console.log("Editor content: ", e);
+      this.setState({text: e.target.value}, () => {
+        this.props.handleChange(this.state.text)
       });
     }
   },
@@ -144,12 +145,16 @@ export default React.createClass({
       <div className={"student text-editor card is-fullwidth " + (this.props.disabled ? 'disabled-editor' : '')}>
         <div className="card-content">
           <div className="content">
-            <Editor
+            <textarea
+              value={this.state.text}
+              onChange={this.handleTextChange}
+            ></textarea>
+            {/* <Editor
               editorState={this.state.text}
               onChange={this.handleTextChange}
               handleKeyCommand={this.handleKeyCommand}
               keyBindingFn={this.myKeyBindingFn}
-            />
+            /> */}
           </div>
         </div>
       </div>
