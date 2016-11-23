@@ -62,7 +62,7 @@ const LessonForm = React.createClass({
       let questionsList = this.state.selectedQuestions.map((question) => {
         return (
           <p className='sortable-list-item' key={question.key}>
-            {this.props[question.questionType].data[question.key].prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}
+            {this.props[question.questionType].data[question.key].prompt}
             {"\t\t"}
             <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
           </p>
@@ -79,13 +79,16 @@ const LessonForm = React.createClass({
   const questionType = this.state.questionType
     let options = hashToCollection(this.props[questionType].data)
     const concepts = this.props.concepts.data[0];
+    console.log("Options: ", options)
     if (options.length > 0) {
       options = _.filter(options, (option) => {
         return _.find(concepts, {uid: option.conceptID})
       }) // filter out questions with no valid concept
       const formatted = options.map((opt) => {
-        return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
-      })
+
+          console.log("Error finder: ", opt.key)
+          return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
+              })
       return (<QuestionSelector key={questionType} options={formatted} placeholder="Search for a question"
                           onChange={this.handleSearchChange} />)
     }

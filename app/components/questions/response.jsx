@@ -16,6 +16,15 @@ import ConceptSelector from 'react-select-search'
 import getBoilerplateFeedback from './boilerplateFeedback.jsx'
 var C = require("../../constants").default
 const feedbackStrings = C.FEEDBACK_STRINGS
+import {
+  deleteResponse,
+  submitResponseEdit,
+  setUpdatedResponse,
+  incrementResponseCount,
+  removeLinkToParentID,
+  submitNewConceptResult,
+  deleteConceptResult
+} from '../../actions/responses.js'
 
 export default React.createClass({
 
@@ -43,7 +52,7 @@ export default React.createClass({
 
   deleteResponse: function (rid) {
     if (window.confirm("Are you sure?")) {
-      this.props.dispatch(this.state.actions.deleteResponse(this.props.questionID, rid))
+      this.props.dispatch(deleteResponse(this.props.questionID, rid))
     }
   },
 
@@ -81,17 +90,16 @@ export default React.createClass({
   },
 
   updateResponse: function (rid) {
-    window.state = this.state.feedback;
     var newResp = {
       weak: false,
       feedback: this.state.feedback,
       optimal: this.refs.newResponseOptimal.checked
     }
-    this.props.dispatch(this.state.actions.submitResponseEdit(this.props.questionID, rid, newResp))
+    this.props.dispatch(submitResponseEdit(rid, newResp))
   },
 
   updateRematchedResponse: function (rid, vals) {
-    this.props.dispatch(this.state.actions.submitResponseEdit(this.props.questionID, rid, vals))
+    this.props.dispatch(submitResponseEdit(rid, vals))
   },
 
   getErrorsForAttempt: function (attempt) {
@@ -112,14 +120,14 @@ export default React.createClass({
   markAsWeak: function (rid) {
     const vals = {weak: true};
     this.props.dispatch(
-      this.state.actions.submitResponseEdit(this.props.questionID, rid, vals)
+      submitResponseEdit(rid, vals)
     )
   },
 
   unmarkAsWeak: function (rid) {
     const vals = {weak: false};
     this.props.dispatch(
-      this.state.actions.submitResponseEdit(this.props.questionID, rid, vals)
+      submitResponseEdit(rid, vals)
     )
   },
 
@@ -131,7 +139,7 @@ export default React.createClass({
         count: this.props.response.count
       }
       this.props.dispatch(
-        this.state.actions.setUpdatedResponse(this.props.questionID, rid, newValues)
+        setUpdatedResponse(rid, newValues)
       )
       return
     }
@@ -152,11 +160,12 @@ export default React.createClass({
   },
 
   incrementResponse: function (rid) {
-    this.props.dispatch(this.state.actions.incrementResponseCount(this.props.questionID, rid));
+    const qid = this.props.questionID;
+    this.props.dispatch(incrementResponseCount(qid, rid));
   },
 
   removeLinkToParentID: function (rid) {
-    this.props.dispatch(this.state.actions.removeLinkToParentID(this.props.questionID, rid));
+    this.props.dispatch(removeLinkToParentID(rid));
   },
 
   applyDiff: function (answer, response) {
@@ -222,12 +231,12 @@ export default React.createClass({
   },
 
   saveNewConceptResult: function () {
-    this.props.dispatch(this.state.actions.submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult))
+    this.props.dispatch(submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult))
   },
 
   deleteConceptResult: function(crid) {
     if(confirm("Are you sure?")) {
-      this.props.dispatch(this.state.actions.deleteConceptResult(this.props.questionID, this.props.response.key, crid))
+      this.props.dispatch(deleteConceptResult(this.props.questionID, this.props.response.key, crid))
     }
   },
   chooseBoilerplateCategory: function(e) {
@@ -396,16 +405,6 @@ export default React.createClass({
             {this.renderBoilerplateCategoryDropdown()}
             {this.renderBoilerplateCategoryOptionsDropdown()}
           </div>
-
-          <label className="label">Grammar concept</label>
-          <p className="control">
-            <span className="select">
-              <select onChange={this.chooseConcept} ref="concept">
-                <option>Select Grammatical feedback</option>
-                {this.conceptsFeedbackToOptions()}
-              </select>
-            </span>
-          </p>
 
           <div className="box">
             <label className="label">Concept Results</label>
@@ -630,23 +629,6 @@ export default React.createClass({
       )
     }
   },
-
-  // gatherPathways: function () {
-  //   var currentRespKey = this.props.response.key;
-  //   var allResponses = _.where(this.props.responses, {key: currentRespKey})
-  //   // console.log();
-  // },
-
-  // renderPathwaysButton: function () {
-  //   return (
-  //     <a
-  //       className="button is-outlined has-top-margin"
-  //       onClick={this.gatherPathways}
-  //       key='view' >
-  //       Print Pathways
-  //     </a>
-  //   );
-  // },
 
   render: function () {
     const {response, state} = this.props;

@@ -80,21 +80,6 @@ module.exports = {
 			});
 		}
 	},
-  submitNewResponse: function (sfid, content) {
-    content.createdAt = moment().format("x");
-    return function (dispatch,getState) {
-      dispatch({type:C.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE});
-			var newRef = sentenceFragmentsRef.child(sfid).child('responses').push(content,function(error){
-				dispatch({type:C.RECEIVE_NEW_SENTENCE_FRAGMENT_RESPONSE});
-				if (error){
-					dispatch({type:C.DISPLAY_ERROR,error:"Submission failed! "+error});
-				} else {
-          // dispatch(pathwaysActions.submitNewPathway(newRef.key, prid, sfid))
-					dispatch({type:C.DISPLAY_MESSAGE,message:"Submission successfully saved!"});
-				}
-			});
-    }
-  },
 	submitNewFocusPoint: function(sfid, data) {
 		return function (dispatch, getState) {
 			sentenceFragmentsRef.child(sfid + '/focusPoints').push(data, function(error){
@@ -146,96 +131,4 @@ module.exports = {
 	cancelToResponseView: function(sfid,rid){
 		return {type:C.CANCEL_TO_RESPONSE_VIEW,sfid,rid};
 	},
-  submitResponseEdit: function(sfid,rid,content){
-		return function(dispatch,getState){
-				dispatch({type:C.SUBMIT_RESPONSE_EDIT,sfid,rid});
-				sentenceFragmentsRef.child(sfid+ "/responses/" + rid).update(content,function(error){
-					dispatch({type:C.FINISH_RESPONSE_EDIT,sfid,rid});
-					if (error){
-						dispatch({type:C.DISPLAY_ERROR,error:"Update failed! " + error});
-					} else {
-						dispatch({type:C.DISPLAY_MESSAGE,message:"Update successfully saved!"});
-					}
-				});
-		};
-	},
-  setUpdatedResponse: function(sfid,rid,content){
-		return function(dispatch,getState){
-				dispatch({type:C.SUBMIT_RESPONSE_EDIT,sfid,rid});
-				sentenceFragmentsRef.child(sfid+ "/responses/" + rid).set(content,function(error){
-					dispatch({type:C.FINISH_RESPONSE_EDIT,sfid,rid});
-					if (error){
-						dispatch({type:C.DISPLAY_ERROR,error:"Update failed! " + error});
-					} else {
-						dispatch({type:C.DISPLAY_MESSAGE,message:"Update successfully saved!"});
-					}
-				});
-		};
-	},
-  deleteResponse: function(sfid,rid){
-		return function(dispatch,getState){
-			dispatch({type:C.SUBMIT_RESPONSE_EDIT,sfid});
-			sentenceFragmentsRef.child(sfid+ "/responses/" + rid).remove(function(error){
-				dispatch({type:C.FINISH_RESPONSE_EDIT,sfid});
-				if (error){
-					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
-				} else {
-					sentenceFragmentsRef.child(sfid).on("value", function(data) {
-						const childResponseKeys = _.keys(data.val().responses).filter((key) => {
-							return data.val().responses[key].parentID===rid
-						})
-						childResponseKeys.forEach((childKey) => {
-							dispatch(module.exports.deleteResponse(sfid, childKey))
-						})
-					})
-
-					dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully deleted!"});
-				}
-			});
-		};
-  },
-  incrementResponseCount: function(sfid, rid, prid) {
-    return (dispatch, getState) => {
-      var responseRef = sentenceFragmentsRef.child(sfid+ "/responses/" + rid)
-      responseRef.child('/count').transaction(function(currentCount){
-        return currentCount+1
-      }, function(error){
-        if (error){
-          dispatch({type:C.DISPLAY_ERROR,error:"increment failed! "+error});
-        } else {
-          dispatch(pathwaysActions.submitNewPathway(rid, prid, sfid))
-          dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully incremented!"});
-        }
-      })
-      responseRef.child('parentID').once('value', (snap) => {
-        if (snap.val()) {
-          dispatch(this.incrementChildResponseCount(sfid, snap.val()))
-        }
-      })
-    }
-  },
-  incrementChildResponseCount: function(sfid, rid) {
-    return (dispatch, getState) => {
-      sentenceFragmentsRef.child(sfid+ "/responses/" + rid + '/childCount').transaction(function(currentCount){
-        return currentCount+1
-      }, function(error){
-        if (error){
-          dispatch({type:C.DISPLAY_ERROR,error:"increment failed! "+error});
-        } else {
-          dispatch({type:C.DISPLAY_MESSAGE,message:"Child Response successfully incremented!"});
-        }
-      })
-    }
-  },
-  removeLinkToParentID: function(sfid, rid) {
-    return function(dispatch, getState){
-      sentenceFragmentsRef.child(sfid+ "/responses/" + rid + '/parentID').remove(function(error){
-				if (error){
-					dispatch({type:C.DISPLAY_ERROR,error:"Deletion failed! "+error});
-				} else {
-					dispatch({type:C.DISPLAY_MESSAGE,message:"Response successfully deleted!"});
-				}
-			});
-    }
-  }
 };

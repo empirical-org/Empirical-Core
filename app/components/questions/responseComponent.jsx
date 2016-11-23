@@ -14,6 +14,9 @@ import FocusPointForm from './focusPointForm.jsx'
 import FocusPointSummary from './focusPointSummary.jsx'
 import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
 import POSForResponsesList from './POSForResponsesList.jsx'
+import {
+  deleteResponse
+} from '../../actions/responses.js'
 var C = require("../../constants").default
 
 const labels = C.ERROR_AUTHORS
@@ -107,7 +110,7 @@ const Responses = React.createClass({
     }
     if (newResponse.response.text === response.text) {
       console.log("Rematching duplicate", newResponse)
-      this.props.dispatch(this.state.actions.deleteResponse(this.props.questionID, rid))
+      this.props.dispatch(deleteResponse(this.props.questionID, rid))
     }
 
     else if (newResponse.response.key === response.parentID) {
@@ -191,12 +194,12 @@ const Responses = React.createClass({
   },
 
   getResponse: function (responseID) {
-    var responses = hashToCollection(this.props.question.responses)
+    var responses = hashToCollection(this.props.responses)
     return _.find(responses, {key: responseID})
   },
 
   getChildResponses: function (responseID) {
-    var responses = hashToCollection(this.props.question.responses)
+    var responses = hashToCollection(this.props.responses)
     return _.where(responses, {parentID: responseID})
   },
 
@@ -364,7 +367,7 @@ const Responses = React.createClass({
 
   mapCountToToResponse: function (rid) {
     const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
-      var response = this.props.question.responses[key]
+      var response = this.props.responses[key]
       // response.pathCount = value
       return response
     });
@@ -415,7 +418,7 @@ const Responses = React.createClass({
 
   mapCountToResponse: function (rid) {
     const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
-      var response = this.props.question.responses[key]
+      var response = this.props.responses[key]
       if (response) {
         response.pathCount = value
       } else {
