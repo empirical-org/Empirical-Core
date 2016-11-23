@@ -108,6 +108,7 @@ const playLessonQuestion = React.createClass({
     }
     return <RenderFeedback question={this.props.question} renderFeedbackStatements = {this.renderFeedbackStatements}
             sentence={sentence}
+            responses={this.getResponses()}
             override={!!override}
             getQuestion={this.getQuestion} listCuesAsString={this.listCuesAsString} />
   },

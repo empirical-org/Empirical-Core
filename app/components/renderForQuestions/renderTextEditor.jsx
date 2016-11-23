@@ -90,24 +90,14 @@ export default React.createClass({
   },
 
   applyNewStyle: function (newStyle) {
-    var state = convertToRaw(this.state.text.getCurrentContent());
+    var state = convertToRaw(this.state.text);
     state.blocks[0].text = newStyle.text;
     state.blocks[0].inlineStyleRanges = newStyle.inlineStyleRanges
-    this.setState({
-      text: EditorState.createWithContent(convertFromRaw(state))
-    }, () => {
-      this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()).blocks[0].text)
-    });
+    // selecting text should go here.
   },
 
   clearStyle: function () {
-    var state = convertToRaw(this.state.text.getCurrentContent());
-    state.blocks[0].inlineStyleRanges = []
-    this.setState({
-      text: EditorState.createWithContent(convertFromRaw(state))
-    }, () => {
-      this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()))
-    });
+    // unselecting text should go here.
   },
 
   // getState: function () {
@@ -125,18 +115,32 @@ export default React.createClass({
   },
 
   myKeyBindingFn: function (e) {
-    if (e.keyCode === 13 /* `S` key */) {
-      return 'student-editor-submit';
+    if (e.keyCode === 13 /* `Enter` key */) {
+      this.props.checkAnswer()
+    } else {
+      return false;
     }
-    return getDefaultKeyBinding(e);
   },
 
   handleTextChange: function (e) {
     if (!this.props.disabled) {
-      console.log("Editor content: ", e);
-      this.setState({text: e.target.value}, () => {
-        this.props.handleChange(this.state.text)
-      });
+      console.log("key code", e.target.value);
+      if (e.key === 13 /* `Enter` key */) {
+        this.props.checkAnswer()
+      } else {
+        this.setState({text: e.target.value}, () => {
+          this.props.handleChange(this.state.text)
+        });
+      }
+    }
+  },
+
+  handleKeyDown: function (e) {
+    if (!this.props.disabled) {
+      if (e.key === "Enter") {
+        e.preventDefault()
+        this.props.checkAnswer()
+      }
     }
   },
 
@@ -148,6 +152,8 @@ export default React.createClass({
             <textarea
               value={this.state.text}
               onChange={this.handleTextChange}
+              onKeyDown={this.handleKeyDown}
+              placeholder="Type your answer here. Rememeber, your answer should be just one sentence."
             ></textarea>
             {/* <Editor
               editorState={this.state.text}
