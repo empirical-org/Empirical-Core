@@ -5,11 +5,13 @@ import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession} from '../../actions.js'
 import SessionActions from '../../actions/sessions.js'
+import {loadResponseData} from '../../actions/responses'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {getConceptResultsForAllQuestions, calculateScoreForLesson} from '../../libs/conceptResults/lesson'
 import Register from './register.jsx'
 import Finished from './finished.jsx'
+
 
 import Spinner from '../shared/spinner.jsx'
 const request = require('request');
@@ -19,10 +21,21 @@ const Lesson = React.createClass({
     this.props.dispatch(clearData())
   },
 
+  getInitialState: function() {
+    return {hasOrIsGettingResponses: false}
+  },
+
   componentWillReceiveProps: function (nextProps) {
+    if (this.doesNotHaveAndIsNotGettingResponses() && this.hasQuestionsInQuestionSet(nextProps)) {
+      this.getResponsesForEachQuestion(nextProps.playLesson)
+    }
     if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length ) {
       this.saveSessionData(nextProps.playLesson)
     }
+  },
+
+  doesNotHaveAndIsNotGettingResponses: function() {
+    return (!this.state.hasOrIsGettingResponses)
   },
 
   componentDidMount: function(){
@@ -38,6 +51,12 @@ const Lesson = React.createClass({
       this.props.dispatch(resumePreviousSession(data))
     }
   },
+
+  hasQuestionsInQuestionSet: function(props){
+    const pL = props.playLesson
+    return (pL && pL.questionSet && pL.questionSet.length)
+  },
+
 
   saveSessionIdToState: function(){
     var sessionID = this.props.location.query.student
@@ -111,7 +130,6 @@ const Lesson = React.createClass({
           document.location.href = process.env.EMPIRICAL_BASE_URL + "/activity_sessions/" + body.activity_session.uid
           this.setState({saved: true});
         }
-        // console.log(err,httpResponse,body)
       }
     )
   },
@@ -165,6 +183,17 @@ const Lesson = React.createClass({
     if (this.state.sessionID) {
       this.props.dispatch(SessionActions.update(this.state.sessionID, lessonData));
     }
+  },
+
+  getResponsesForEachQuestion: function (playLesson) {
+    // we need to change the gettingResponses state so that we don't keep hitting this as the props update,
+    // otherwise it forms an infinite loop via component will receive props
+    this.setState({hasOrIsGettingResponses: true}, ()=> {
+      const questionSet = playLesson.questionSet
+      questionSet.forEach((q)=>{
+        this.props.dispatch(loadResponseData(q.question.key))
+      })
+    });
   },
 
   render: function () {
@@ -229,7 +258,8 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, //the questionReducer
     routing: state.routing,
-    sessions: state.sessions
+    sessions: state.sessions,
+    responses: state.responses
   }
 }
 

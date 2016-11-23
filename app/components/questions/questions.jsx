@@ -192,7 +192,13 @@ const Questions = React.createClass({
     const options = hashToCollection(this.props.questions.data)
     if (options.length > 0) {
       const formatted = options.map((opt) => {
-        return {name: opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""), value: opt.key}
+        let name;
+        if (opt.prompt) {
+          name = opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
+        } else {
+          name = "No name"
+        }
+        return {name: name, value: opt.key || "key"}
       })
       const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange}/>)
       return searchBox

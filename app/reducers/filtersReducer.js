@@ -2,7 +2,7 @@ import C from '../constants';
 import _ from 'lodash';
 
 const initialState = {
-   responses: {
+   filters: {
       sorting: "count",
       ascending: false,
       visibleStatuses: {
@@ -63,6 +63,6 @@ export default function(currentState, action) {
         })
         return newState;
       default:
-         return currentState || initialState.responses;
+         return currentState || initialState.filters;
    }
 }

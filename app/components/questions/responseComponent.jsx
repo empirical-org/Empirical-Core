@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import actions from '../../actions/responses'
+import actions from '../../actions/filters'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import ResponseList from './responseList.jsx'
@@ -14,6 +14,9 @@ import FocusPointForm from './focusPointForm.jsx'
 import FocusPointSummary from './focusPointSummary.jsx'
 import {getPartsOfSpeechTags} from '../../libs/partsOfSpeechTagging.js'
 import POSForResponsesList from './POSForResponsesList.jsx'
+import {
+  deleteResponse
+} from '../../actions/responses.js'
 var C = require("../../constants").default
 
 const labels = C.ERROR_AUTHORS
@@ -107,7 +110,7 @@ const Responses = React.createClass({
     }
     if (newResponse.response.text === response.text) {
       console.log("Rematching duplicate", newResponse)
-      this.props.dispatch(this.state.actions.deleteResponse(this.props.questionID, rid))
+      this.props.dispatch(deleteResponse(this.props.questionID, rid))
     }
 
     else if (newResponse.response.key === response.parentID) {
@@ -149,7 +152,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus: function () {
-    var responses = hashToCollection(this.props.question.responses)
+    var responses = hashToCollection(this.props.responses)
     return responses.map((response) => {
       var statusCode;
       if (!response.feedback) {
@@ -173,17 +176,17 @@ const Responses = React.createClass({
     var responses = this.responsesWithStatus();
     const filtered = _.filter(responses, (response) => {
       return (
-        this.props.responses.visibleStatuses[qualityLabels[response.statusCode]] &&
+        this.props.filters.visibleStatuses[qualityLabels[response.statusCode]] &&
         (
-          this.props.responses.visibleStatuses[response.author] ||
-          (response.author===undefined && this.props.responses.visibleStatuses["No Hint"])
+          this.props.filters.visibleStatuses[response.author] ||
+          (response.author===undefined && this.props.filters.visibleStatuses["No Hint"])
         )
       )
     });
     const sorted = _.sortBy(filtered, (resp) =>
-        {return resp[this.props.responses.sorting] || 0 }
+        {return resp[this.props.filters.sorting] || 0 }
     )
-    if (this.props.responses.ascending) {
+    if (this.props.filters.ascending) {
       return sorted
     } else {
       return sorted.reverse()
@@ -191,12 +194,12 @@ const Responses = React.createClass({
   },
 
   getResponse: function (responseID) {
-    var responses = hashToCollection(this.props.question.responses)
+    var responses = hashToCollection(this.props.responses)
     return _.find(responses, {key: responseID})
   },
 
   getChildResponses: function (responseID) {
-    var responses = hashToCollection(this.props.question.responses)
+    var responses = hashToCollection(this.props.responses)
     return _.where(responses, {parentID: responseID})
   },
 
@@ -225,9 +228,9 @@ const Responses = React.createClass({
         questionID={questionID}
         dispatch={this.props.dispatch}
         admin={this.props.admin}
-        expanded={this.props.responses.expanded}
+        expanded={this.props.filters.expanded}
         expand={this.expand}
-        ascending={this.props.responses.ascending}
+        ascending={this.props.filters.ascending}
         getMatchingResponse={this.getMatchingResponse}
         showPathways={true}
         printPathways={this.mapCountToResponse}
@@ -245,8 +248,8 @@ const Responses = React.createClass({
 
   renderSortingFields: function () {
     return <ResponseSortFields
-      sorting={this.props.responses.sorting}
-      ascending={this.props.responses.ascending}
+      sorting={this.props.filters.sorting}
+      ascending={this.props.filters.ascending}
       toggleResponseSort={this.toggleResponseSort}/>
   },
 
@@ -264,7 +267,7 @@ const Responses = React.createClass({
         labels={labels}
         qualityLabels={qualityLabels}
         toggleField={this.toggleField}
-        visibleStatuses={this.props.responses.visibleStatuses}
+        visibleStatuses={this.props.filters.visibleStatuses}
         resetPageNumber={this.resetPageNumber}
         resetFields={this.resetFields} />
     )
@@ -276,7 +279,7 @@ const Responses = React.createClass({
 
   expandAllResponses: function () {
     const responses = this.responsesWithStatus();
-    var newExpandedState = this.props.responses.expanded;
+    var newExpandedState = this.props.filters.expanded;
     for (var i = 0; i < responses.length; i++) {
       newExpandedState[responses[i].key] = true;
     };
@@ -284,7 +287,7 @@ const Responses = React.createClass({
   },
 
   allClosed: function () {
-    var expanded = this.props.responses.expanded;
+    var expanded = this.props.filters.expanded;
     for (var i in expanded) {
         if (expanded[i] === true) return false;
     }
@@ -364,7 +367,7 @@ const Responses = React.createClass({
 
   mapCountToToResponse: function (rid) {
     const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
-      var response = this.props.question.responses[key]
+      var response = this.props.responses[key]
       // response.pathCount = value
       return response
     });
@@ -415,7 +418,7 @@ const Responses = React.createClass({
 
   mapCountToResponse: function (rid) {
     const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
-      var response = this.props.question.responses[key]
+      var response = this.props.responses[key]
       if (response) {
         response.pathCount = value
       } else {
@@ -590,7 +593,7 @@ const Responses = React.createClass({
 
 function select(state) {
   return {
-    responses: state.responses,
+    filters: state.filters,
     pathways: state.pathways,
     conceptsFeedback: state.conceptsFeedback,
     concepts: state.concepts

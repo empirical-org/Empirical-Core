@@ -4,6 +4,10 @@ import {Link} from 'react-router'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
+import {
+  loadResponseDataAndListen,
+  stopListeningToResponses
+} from '../../actions/responses'
 import Modal from '../modal/modal.jsx'
 import EditFrom from './questionForm.jsx'
 import Response from './response.jsx'
@@ -23,6 +27,17 @@ const Question = React.createClass({
     }
   },
 
+  componentWillMount: function () {
+    const {questionID} = this.props.params;
+    this.props.dispatch(loadResponseDataAndListen(questionID))
+  },
+
+  componentWillUnmount: function () {
+    console.log("Unmounting");
+    const {questionID} = this.props.params;
+    this.props.dispatch(stopListeningToResponses(questionID))
+  },
+
   deleteQuestion: function () {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID))
   },
@@ -39,15 +54,20 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals))
   },
 
+  getResponses: function () {
+    const {questionID} = this.props.params;
+    return this.props.responses.data[questionID]
+  },
+
   getResponse: function (responseID) {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = hashToCollection(data[questionID].responses)
+    var responses = hashToCollection(this.getResponses())
     return _.find(responses, {key: responseID})
   },
 
   responsesWithStatus: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = hashToCollection(data[questionID].responses)
+    var responses = hashToCollection(this.getResponses())
     return responses.map((response) => {
       var statusCode;
       if (!response.feedback) {
@@ -206,10 +226,19 @@ const Question = React.createClass({
     }
   },
 
+  isLoading: function() {
+    let loadingData = this.props.questions.hasreceiveddata === false;
+    let loadingResponses = this.props.responses.status[this.props.params.questionID] !== 'LOADED'
+    return (loadingData || loadingResponses)
+  },
+
   render: function (){
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    if (data[questionID]) {
-      var responses = hashToCollection(data[questionID].responses)
+    if (this.isLoading()) {
+      return (<p>Loading...</p>)
+    }
+    else if (data[questionID]) {
+      var responses = hashToCollection(this.getResponses())
       return (
         <div>
           {this.renderEditForm()}
@@ -225,14 +254,13 @@ const Question = React.createClass({
           {this.renderNewResponseForm()}
           <ResponseComponent
             question={data[questionID]}
+            responses={this.getResponses()}
             questionID={questionID}
             states={states}
             dispatch={this.props.dispatch}
             admin={true}/>
         </div>
       )
-    } else if (this.props.questions.hasreceiveddata === false){
-      return (<p>Loading...</p>)
     } else {
       return (
         <p>404: No Question Found</p>
@@ -246,6 +274,7 @@ function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
+    responses: state.responses,
     itemLevels: state.itemLevels,
     routing: state.routing
   }

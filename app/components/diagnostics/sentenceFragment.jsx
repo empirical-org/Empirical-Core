@@ -5,7 +5,12 @@ import TextEditor from '../renderForQuestions/renderTextEditor.jsx'
 import _ from 'underscore'
 import ReactTransition from 'react-addons-css-transition-group'
 import POSMatcher from '../../libs/sentenceFragment.js'
-import fragmentActions from '../../actions/sentenceFragments.js'
+import {
+  submitNewResponse,
+  incrementChildResponseCount,
+  incrementResponseCount
+
+} from '../../actions/responses.js'
 import icon from '../../img/question_icon.svg'
 
 var key = "" //enables this component to be used by both play/sentence-fragments and play/diagnostic
@@ -38,6 +43,10 @@ var PlaySentenceFragment = React.createClass({
     return this.props.question.prompt
   },
 
+  getResponses: function () {
+    return this.props.responses.data[this.props.question.key]
+  },
+
   checkChoice: function(choice) {
     const questionType = this.props.question.isFragment ? "Fragment" : "Sentence"
     this.props.markIdentify(choice === questionType)
@@ -58,11 +67,11 @@ var PlaySentenceFragment = React.createClass({
 
   checkAnswer: function() {
     if (this.state.checkAnswerEnabled) {
-      key = this.props.currentKey;
+      const key = this.props.currentKey;
       this.setState({checkAnswerEnabled: false}, ()=>{
       const fragment = this.props.sentenceFragments.data[key]
 
-      const responseMatcher = new POSMatcher(fragment.responses);
+      const responseMatcher = new POSMatcher(this.getResponses());
       const matched = responseMatcher.checkMatch(this.state.response);
 
       var newResponse;
@@ -73,22 +82,24 @@ var PlaySentenceFragment = React.createClass({
             text: matched.submitted,
             parentID: matched.response.key,
             count: 1,
-            feedback: matched.response.optimal ? "Excellent!" : "Try writing the sentence in another way."
+            feedback: matched.response.optimal ? "Excellent!" : "Try writing the sentence in another way.",
+            questionUID: key
           }
           if (matched.response.optimal) {
             newResponse.optimal = matched.response.optimal
           }
-          this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
-          this.props.dispatch(fragmentActions.incrementChildResponseCount(key, matched.response.key)) //parent has no parentID
+          this.props.dispatch(submitNewResponse(newResponse, newResponse.parentId))
+          this.props.dispatch(incrementChildResponseCount(matched.response.key)) //parent has no parentID
         } else {
-          this.props.dispatch(fragmentActions.incrementResponseCount(key, matched.response.key, matched.response.parentID))
+          this.props.dispatch(incrementResponseCount(key, matched.response.key, matched.response.parentID))
         }
       } else {
         newResponse = {
           text: matched.submitted,
-          count: 1
+          count: 1,
+          questionUID: key
         }
-        this.props.dispatch(fragmentActions.submitNewResponse(key, newResponse))
+        this.props.dispatch(submitNewResponse(newResponse))
       }
       this.props.updateAttempts(matched);
       this.props.nextQuestion();
@@ -165,7 +176,8 @@ var PlaySentenceFragment = React.createClass({
 function select(state) {
   return {
     routing: state.routing,
-    sentenceFragments: state.sentenceFragments
+    sentenceFragments: state.sentenceFragments,
+    responses: state.responses
   }
 }
 
