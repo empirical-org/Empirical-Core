@@ -55,7 +55,7 @@ const playLessonQuestion = React.createClass({
 
   getResponse2: function (rid) {
     const {data} = this.props.questions, questionID = this.props.question.key;
-    return (data[questionID].responses[rid])
+    return (this.getResponses()[rid])
   },
 
   getResponses: function () {
@@ -137,7 +137,6 @@ const playLessonQuestion = React.createClass({
     const question = this.getQuestion();
     const latestAttempt = getLatestAttempt(question.attempts)
     const errorsForAttempt = _.keys(this.getErrorsForAttempt(latestAttempt)).length > 0
-    console.log(latestAttempt, this.getErrorsForAttempt(latestAttempt), errorsForAttempt)
     return (latestAttempt.found && !errorsForAttempt && latestAttempt.response.optimal)
   },
 

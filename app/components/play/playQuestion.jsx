@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
-import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'

@@ -1,12 +1,6 @@
 import React from 'react'
 import _ from 'underscore'
-import handleFocus from './handleFocus.js'
-import {EditorState, ContentState, convertFromHTML, convertToRaw, convertFromRaw, getDefaultKeyBinding, KeyBindingUtil} from 'draft-js';
-const {hasCommandModifier} = KeyBindingUtil;
-import Editor from 'draft-js-plugins-editor';
-import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
-import {stateToHTML} from 'draft-js-export-html';
-import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
+import Textarea from 'react-textarea-autosize';
 import {generateStyleObjects} from '../../libs/markupUserResponses';
 var C = require("../../constants").default
 
@@ -26,6 +20,10 @@ export default React.createClass({
   },
 
   componentWillReceiveProps: function (nextProps) {
+    var input = this.refs.answerBox // .getDOMNode();
+    window.answerBox = input;
+            // input.focus();
+            // input.setSelectionRange(0, input.value.length);
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
       if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID;
@@ -33,7 +31,9 @@ export default React.createClass({
         const nErrors = errorKeys.length;
         var targetText;
         if (parentID) {
-          const parentResponse = this.props.getResponse(nextProps.latestAttempt.response.parentID)
+          console.log("before")
+          const parentResponse = this.props.getResponse(parentID)
+          console.log("after")
           targetText = parentResponse.text
           const newStyle = this.getUnderliningFunctionFromAuthor(nextProps.latestAttempt.response.author, targetText, nextProps.latestAttempt.submitted)
           if (newStyle) {
@@ -90,41 +90,21 @@ export default React.createClass({
   },
 
   applyNewStyle: function (newStyle) {
-    var state = convertToRaw(this.state.text);
-    state.blocks[0].text = newStyle.text;
-    state.blocks[0].inlineStyleRanges = newStyle.inlineStyleRanges
-    // selecting text should go here.
+    const offset = newStyle.inlineStyleRanges[0].offset;
+    const end = offset + newStyle.inlineStyleRanges[0].length
+    var input = this.refs.answerBox;
+    input.selectionStart = offset
+    input.selectionEnd = end
   },
 
   clearStyle: function () {
-    // unselecting text should go here.
-  },
-
-  // getState: function () {
-  //   return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || "")))
-  // },
-
-  handleKeyCommand: function (command) {
-    if (command === 'student-editor-submit') {
-      // Perform a request to save your contents, set
-      // a new `editorState`, etc.
-      this.props.checkAnswer()
-      return "handled"
-    }
-    return 'not-handled';
-  },
-
-  myKeyBindingFn: function (e) {
-    if (e.keyCode === 13 /* `Enter` key */) {
-      this.props.checkAnswer()
-    } else {
-      return false;
-    }
+    var input = this.refs.answerBox;
+    input.selectionStart = 0
+    input.selectionEnd = 0
   },
 
   handleTextChange: function (e) {
     if (!this.props.disabled) {
-      console.log("key code", e.target.value);
       if (e.key === 13 /* `Enter` key */) {
         this.props.checkAnswer()
       } else {
@@ -149,35 +129,17 @@ export default React.createClass({
       <div className={"student text-editor card is-fullwidth " + (this.props.disabled ? 'disabled-editor' : '')}>
         <div className="card-content">
           <div className="content">
-            <textarea
+            <Textarea
               value={this.state.text}
               onChange={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
-              placeholder="Type your answer here. Rememeber, your answer should be just one sentence."
-            ></textarea>
-            {/* <Editor
-              editorState={this.state.text}
-              onChange={this.handleTextChange}
-              handleKeyCommand={this.handleKeyCommand}
-              keyBindingFn={this.myKeyBindingFn}
-            /> */}
+              placeholder="Type your answer here. Remember, your answer should be just one sentence."
+              ref="answerBox"
+              className="connect-text-area"
+            ></Textarea>
           </div>
         </div>
       </div>
     )
   }
-
 })
-
-// export default React.createClass({
-//
-//   render: function() {
-//     return (
-//       <div className="control">
-//         <Textarea className={this.props.className} onFocus={handleFocus}
-//                   defaultValue={this.props.defaultValue} onChange={this.props.handleChange} value={this.props.value}
-//                   placeholder="Type your answer here. Rememeber, your answer should be just one sentence." />
-//       </div>
-//     )
-//   }
-// })

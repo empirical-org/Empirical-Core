@@ -286,3 +286,13 @@ progress[value]::-webkit-progress-value {
 .student-feedback-container {
   position: relative;
 }
+
+.connect-text-area {
+  width: 100%;
+  border: none;
+  background: none;
+
+  &:focus {
+    outline: none;
+  }
+}
