@@ -24,6 +24,7 @@ export default class Question {
     this.prompt = data.prompt;
     this.sentences = data.sentences;
     this.responses = data.responses;
+    this.questionUID = data.questionUID
     this.focusPoints = data.focusPoints || [];
   }
 
@@ -70,8 +71,16 @@ export default class Question {
     response = response.replace(/\s{2,}/g, ' ');
     var returnValue = {
       found: true,
-      submitted: response
+      submitted: response,
+      response: {
+        text: response,
+        questionUID: this.questionUID,
+        count: 1
+      }
+
     }
+
+    let res = returnValue.response;
     var exactMatch = this.checkExactMatch(response)
     if (exactMatch !== undefined) {
       returnValue.response = exactMatch
@@ -79,64 +88,55 @@ export default class Question {
     }
     var focusPointMatch = this.checkFocusPointMatch(response)
     if (focusPointMatch !== undefined) {
-      returnValue.focusPointError = true;
-      returnValue.feedback = focusPointMatch.feedback;
-      returnValue.author = "Focus Point Hint";
-      returnValue.response = this.getTopOptimalResponse();
+      res.feedback = focusPointMatch.feedback;
+      res.author = "Focus Point Hint";
+      res.parentID = this.getTopOptimalResponse().key;
       return returnValue;
     }
     var lowerCaseMatch = this.checkCaseInsensitiveMatch(response)
     if (lowerCaseMatch !== undefined) {
-      returnValue.caseError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.caseError;
-      returnValue.author = "Capitalization Hint"
-      returnValue.response = lowerCaseMatch
+      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.author = "Capitalization Hint"
+      res.parentID = lowerCaseMatch.key
       return returnValue
     }
     var punctuationMatch = this.checkPunctuationInsensitiveMatch(response)
     if (punctuationMatch !== undefined) {
-      returnValue.punctuationError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.punctuationError;
-      returnValue.author = "Punctuation Hint"
-      returnValue.response = punctuationMatch
+
+      res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
+      res.author = "Punctuation Hint"
+      res.parentID = punctuationMatch.key
       return returnValue
     }
     var punctuationAndCaseMatch = this.checkPunctuationAndCaseInsensitiveMatch(response)
     if (punctuationAndCaseMatch !== undefined) {
-      returnValue.punctuationAndCaseError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.punctuationAndCaseError;
-      returnValue.author = "Punctuation and Case Hint"
-      returnValue.response = punctuationAndCaseMatch
+
+
+      res.feedback = constants.FEEDBACK_STRINGS.punctuationAndCaseError;
+      res.author = "Punctuation and Case Hint"
+      res.parentID =  punctuationAndCaseMatch.key
       return returnValue
     }
-    // var typingErrorMatch = this.checkFuzzyMatch(response)
-    // if (typingErrorMatch !== undefined) {
-    //   returnValue.typingError = true
-    //   returnValue.feedback = constants.FEEDBACK_STRINGS.typingError;
-    //   returnValue.author = "Word Error Hint"
-    //   returnValue.response = typingErrorMatch
-    //   return returnValue
-    // }
     var changeObjectMatch = this.checkChangeObjectRigidMatch(response)
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-          returnValue.modifiedWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
-          returnValue.author = "Modified Word Hint"
-          returnValue.response = changeObjectMatch.response
+
+          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.author = "Modified Word Hint"
+          res.parentID = changeObjectMatch.response.key
           return returnValue
         case ERROR_TYPES.ADDITIONAL_WORD:
-          returnValue.additionalWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
-          returnValue.author = "Additional Word Hint"
-          returnValue.response = changeObjectMatch.response
+
+          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.author = "Additional Word Hint"
+          res.parentID = changeObjectMatch.response.key
           return returnValue
         case ERROR_TYPES.MISSING_WORD:
-          returnValue.missingWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.missingWordError;
-          returnValue.author = "Missing Word Hint"
-          returnValue.response = changeObjectMatch.response
+
+          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.author = "Missing Word Hint"
+          res.parentID = changeObjectMatch.response.key
           return returnValue
         default:
           return
@@ -146,22 +146,22 @@ export default class Question {
     if (changeObjectFlexMatch !== undefined) {
       switch (changeObjectFlexMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-          returnValue.flexibleModifiedWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
-          returnValue.author = "Flexible Modified Word Hint"
-          returnValue.response = changeObjectFlexMatch.response
+
+          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.author = "Flexible Modified Word Hint"
+          res.parentID = changeObjectFlexMatch.response.key
           return returnValue
         case ERROR_TYPES.ADDITIONAL_WORD:
-          returnValue.flexibleAdditionalWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
-          returnValue.author = "Flexible Additional Word Hint"
-          returnValue.response = changeObjectFlexMatch.response
+
+          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.author = "Flexible Additional Word Hint"
+          res.parentID = changeObjectFlexMatch.response.key
           return returnValue
         case ERROR_TYPES.MISSING_WORD:
-          returnValue.flexibleMissingWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.missingWordError;
-          returnValue.author = "Flexible Missing Word Hint"
-          returnValue.response = changeObjectFlexMatch.response
+
+          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.author = "Flexible Missing Word Hint"
+          res.parentID = changeObjectFlexMatch.response.key
           return returnValue
         default:
           return
@@ -169,50 +169,50 @@ export default class Question {
     }
     var whitespaceMatch = this.checkWhiteSpaceMatch(response)
     if (whitespaceMatch !== undefined) {
-      returnValue.whitespaceError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
-      returnValue.author = "Whitespace Hint"
-      returnValue.response = whitespaceMatch
+
+      res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
+      res.author = "Whitespace Hint"
+      res.parentID = whitespaceMatch.key
       return returnValue
     }
     var requiredWordsMatch = this.checkRequiredWordsMatch(response)
     if (requiredWordsMatch !== undefined) {
-      returnValue.requiredWordsError = true;
-      returnValue.feedback = requiredWordsMatch.feedback;
-      returnValue.author = "Required Words Hint"
-      returnValue.response = this.getTopOptimalResponse();
+      ;
+      res.feedback = requiredWordsMatch.feedback;
+      res.author = "Required Words Hint"
+      res.parentID = this.getTopOptimalResponse().key
       return returnValue
     }
     var minLengthMatch = this.checkMinLengthMatch(response)
     if (minLengthMatch !== undefined) {
-      returnValue.minLengthError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.minLengthError;
-      returnValue.author = "Missing Details Hint"
-      returnValue.response = minLengthMatch
+
+      res.feedback = constants.FEEDBACK_STRINGS.minLengthError;
+      res.author = "Missing Details Hint"
+      res.parentID = minLengthMatch.key
       return returnValue
     }
     var maxLengthMatch = this.checkMaxLengthMatch(response)
     if (maxLengthMatch !== undefined) {
-      returnValue.maxLengthError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.maxLengthError;
-      returnValue.author = "Not Concise Hint"
-      returnValue.response = maxLengthMatch
+
+      res.feedback = constants.FEEDBACK_STRINGS.maxLengthError;
+      res.author = "Not Concise Hint"
+      res.parentID = maxLengthMatch.key
       return returnValue
     }
     var lowerCaseStartMatch = this.checkCaseStartMatch(response)
     if (lowerCaseStartMatch !== undefined) {
-      returnValue.caseError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.caseError;
-      returnValue.author = "Capitalization Hint"
-      returnValue.response = lowerCaseStartMatch
+
+      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.author = "Capitalization Hint"
+      res.parentID = lowerCaseStartMatch.key
       return returnValue
     }
     var punctuationEndMatch = this.checkPunctuationEndMatch(response)
     if (punctuationEndMatch !== undefined) {
-      returnValue.punctuationError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.punctuationError;
-      returnValue.author = "Punctuation Hint"
-      returnValue.response = punctuationEndMatch
+
+      res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
+      res.author = "Punctuation Hint"
+      res.parentID = punctuationEndMatch.key
       return returnValue
     }
     returnValue.found = false

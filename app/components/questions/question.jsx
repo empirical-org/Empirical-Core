@@ -119,7 +119,7 @@ const Question = React.createClass({
     this.refs.newResponseFeedback.value = null;
     this.refs.newResponseOptimal.checked = false;
     this.refs.boilerplate.value = null;
-    this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals))
+    this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals)) // FIXME
   },
 
   gatherVisibleResponses: function () {
