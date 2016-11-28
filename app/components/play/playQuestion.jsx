@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
-import Question from '../../libs/question'
 import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
 import _ from 'underscore'
@@ -23,7 +22,6 @@ import handleFocus from '../renderForQuestions/handleFocus.js'
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
 import submitPathway from '../renderForQuestions/submitPathway.js'
-import RenderEndState from '../renderForQuestions/renderEndState.jsx'
 
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'

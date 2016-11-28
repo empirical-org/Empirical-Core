@@ -59,7 +59,6 @@ const playLessonQuestion = React.createClass({
   },
 
   getResponses: function () {
-    console.log('Responses: ', this.props.responses.data[this.getQuestion().key])
     return this.props.responses.data[this.getQuestion().key]
   },
 
@@ -195,7 +194,7 @@ const playLessonQuestion = React.createClass({
   },
 
   renderNextQuestionButton:  function (correct) {
-    return (<button className="button student-next" onClick={this.nextQuestion}>Next</button>)
+    return (<button className="button student-next" onClick={this.nextQuestion}>Next Question</button>)
   },
 
   renderFinishedQuestionButton:  function () {
@@ -245,6 +244,10 @@ const playLessonQuestion = React.createClass({
     }
   },
 
+  multipleChoiceFinishQuestion: function () {
+    this.setState({multipleChoiceCorrect: true}, this.finishQuestion())
+  },
+
   render: function () {
     const questionID = this.props.question.key;
     if (this.props.question) {
@@ -267,6 +270,7 @@ const playLessonQuestion = React.createClass({
           <AnswerForm {...sharedProps}
                       handleChange={() => {}}
                       nextQuestionButton={this.renderNextQuestionButton()}
+                      multipleChoiceCorrect={this.state.multipleChoiceCorrect}
                       disabled={true}
                       finished={true}
                        />
@@ -276,7 +280,7 @@ const playLessonQuestion = React.createClass({
           <MultipleChoice
             prompt={this.renderSentenceFragments()}
             answers={this.get4MarkedResponses()}
-            next={this.finishQuestion}
+            next={this.multipleChoiceFinishQuestion}
           />
         )
       } else if (this.props.question.attempts.length > 4 ) {

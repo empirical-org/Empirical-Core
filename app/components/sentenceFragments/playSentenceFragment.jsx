@@ -129,7 +129,7 @@ var PlaySentenceFragment = React.createClass({
     if(this.state.goToNext) {
       button = <button className="button is-warning" onClick={() => {this.setState({isNextPage: true})}}>Next</button>
     } else {
-      button = <button className="button is-primary" onClick={this.checkAnswer}>Check Answer</button>
+      button = <button className="button is-primary" onClick={this.checkAnswer}>Check Your Answer</button>
     }
     if(!this.state.choosingSentenceOrFragment && this.props.sentenceFragments.data[this.props.params.fragmentID].isFragment && !this.state.isNextPage) {
       return (
