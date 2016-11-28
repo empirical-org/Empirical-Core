@@ -101,7 +101,7 @@ export default React.createClass({
           <textarea className="textarea" ref="response" placeholder="Textarea" onChange={this.handleChange}></textarea>
         </div>
         <div className="button-group">
-          <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check answer</button>
+          <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check Your Answer</button>
           {this.renderNextQuestionButton()}
         </div>
       </div>

@@ -8,7 +8,7 @@ const EndState = React.createClass({
 
   renderStaticText: function() {
     let message = ""
-    if(this.props.answeredCorrectly) {
+    if(this.props.answeredNonMultipleChoiceCorrectly || this.props.multipleChoiceCorrect) {
       message = "Good work! Here are the most popular strong answers:"
     } else {
       message = "Keep going! Here are the most popular strong answers:"
@@ -29,7 +29,7 @@ const EndState = React.createClass({
     let responsesToRender = _.first(responses, 3)
     const sum = _.reduce(responsesToRender, function(memo, response) {return memo+response.count}, 0)
     var attemptKey;
-    if(this.props.answeredCorrectly) {
+    if(this.props.answeredNonMultipleChoiceCorrectly) {
       attemptKey = getLatestAttempt(this.props.question.attempts).response.key
     }
     return responsesToRender.map((response, index) => {

@@ -25,6 +25,7 @@ export default React.createClass({
   },
 
   next: function () {
+    
     this.props.next()
   },
 
@@ -77,9 +78,8 @@ export default React.createClass({
       <section className="student-container">
         <div className="content multiple-choice-content">
           {this.props.prompt}
-
           <p className="multiple-choice-prompt">
-            There are two strong sentences below. Which one do you think is the strongest?
+             Select a strong answer. There may be more than one.
           </p>
           {this.renderOptions()}
         </div>
