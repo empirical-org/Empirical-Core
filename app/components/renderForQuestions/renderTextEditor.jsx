@@ -1,12 +1,6 @@
 import React from 'react'
 import _ from 'underscore'
-import handleFocus from './handleFocus.js'
-import {EditorState, ContentState, convertFromHTML, convertToRaw, convertFromRaw, getDefaultKeyBinding, KeyBindingUtil} from 'draft-js';
-const {hasCommandModifier} = KeyBindingUtil;
-import Editor from 'draft-js-plugins-editor';
-import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
-import {stateToHTML} from 'draft-js-export-html';
-import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
+import Textarea from 'react-textarea-autosize';
 import {generateStyleObjects} from '../../libs/markupUserResponses';
 var C = require("../../constants").default
 
@@ -17,7 +11,7 @@ const feedbackStrings = C.FEEDBACK_STRINGS
 export default React.createClass({
   getInitialState: function () {
     return {
-      text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.value || "")))
+      text: this.props.value || ""
     }
   },
 
@@ -26,6 +20,10 @@ export default React.createClass({
   },
 
   componentWillReceiveProps: function (nextProps) {
+    var input = this.refs.answerBox // .getDOMNode();
+    window.answerBox = input;
+            // input.focus();
+            // input.setSelectionRange(0, input.value.length);
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
       if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID;
@@ -33,7 +31,7 @@ export default React.createClass({
         const nErrors = errorKeys.length;
         var targetText;
         if (parentID) {
-          const parentResponse = this.props.getResponse(nextProps.latestAttempt.response.parentID)
+          const parentResponse = this.props.getResponse(parentID)
           targetText = parentResponse.text
           const newStyle = this.getUnderliningFunctionFromAuthor(nextProps.latestAttempt.response.author, targetText, nextProps.latestAttempt.submitted)
           if (newStyle) {
@@ -90,52 +88,39 @@ export default React.createClass({
   },
 
   applyNewStyle: function (newStyle) {
-    var state = convertToRaw(this.state.text.getCurrentContent());
-    state.blocks[0].text = newStyle.text;
-    state.blocks[0].inlineStyleRanges = newStyle.inlineStyleRanges
-    this.setState({
-      text: EditorState.createWithContent(convertFromRaw(state))
-    }, () => {
-      this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()).blocks[0].text)
-    });
+    if (newStyle.inlineStyleRanges[0]) {
+      const offset = newStyle.inlineStyleRanges[0].offset;
+      const end = offset + newStyle.inlineStyleRanges[0].length
+      var input = this.refs.answerBox;
+      input.selectionStart = offset
+      input.selectionEnd = end
+    }
   },
 
   clearStyle: function () {
-    var state = convertToRaw(this.state.text.getCurrentContent());
-    state.blocks[0].inlineStyleRanges = []
-    this.setState({
-      text: EditorState.createWithContent(convertFromRaw(state))
-    }, () => {
-      this.props.handleChange(stateToHTML(this.state.text.getCurrentContent()))
-    });
-  },
-
-  // getState: function () {
-  //   return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || "")))
-  // },
-
-  handleKeyCommand: function (command) {
-    if (command === 'student-editor-submit') {
-      // Perform a request to save your contents, set
-      // a new `editorState`, etc.
-      this.props.checkAnswer()
-      return "handled"
-    }
-    return 'not-handled';
-  },
-
-  myKeyBindingFn: function (e) {
-    if (e.keyCode === 13 /* `S` key */) {
-      return 'student-editor-submit';
-    }
-    return getDefaultKeyBinding(e);
+    var input = this.refs.answerBox;
+    input.selectionStart = 0
+    input.selectionEnd = 0
   },
 
   handleTextChange: function (e) {
     if (!this.props.disabled) {
-      this.setState({text: e}, () => {
-        this.props.handleChange(convertToRaw(this.state.text.getCurrentContent()).blocks[0].text)
-      });
+      if (e.key === 13 /* `Enter` key */) {
+        this.props.checkAnswer()
+      } else {
+        this.setState({text: e.target.value}, () => {
+          this.props.handleChange(this.state.text)
+        });
+      }
+    }
+  },
+
+  handleKeyDown: function (e) {
+    if (!this.props.disabled) {
+      if (e.key === "Enter") {
+        e.preventDefault()
+        this.props.checkAnswer()
+      }
     }
   },
 
@@ -144,29 +129,17 @@ export default React.createClass({
       <div className={"student text-editor card is-fullwidth " + (this.props.disabled ? 'disabled-editor' : '')}>
         <div className="card-content">
           <div className="content">
-            <Editor
-              editorState={this.state.text}
+            <Textarea
+              value={this.state.text}
               onChange={this.handleTextChange}
-              handleKeyCommand={this.handleKeyCommand}
-              keyBindingFn={this.myKeyBindingFn}
-            />
+              onKeyDown={this.handleKeyDown}
+              placeholder="Type your answer here. Remember, your answer should be just one sentence."
+              ref="answerBox"
+              className="connect-text-area"
+            ></Textarea>
           </div>
         </div>
       </div>
     )
   }
-
 })
-
-// export default React.createClass({
-//
-//   render: function() {
-//     return (
-//       <div className="control">
-//         <Textarea className={this.props.className} onFocus={handleFocus}
-//                   defaultValue={this.props.defaultValue} onChange={this.props.handleChange} value={this.props.value}
-//                   placeholder="Type your answer here. Rememeber, your answer should be just one sentence." />
-//       </div>
-//     )
-//   }
-// })

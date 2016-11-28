@@ -16,10 +16,6 @@ export default React.createClass({
     } else {
       errorComponents = errorComponents.concat([(<p dangerouslySetInnerHTML={{__html: data.attempt.feedback}}></p>)])
     }
-    if (data.attempt.response.parentID && (data.getQuestion().responses[data.attempt.response.parentID] && data.getQuestion().responses[data.attempt.response.parentID].optimal !== true )) {
-      const parentResponse = data.getQuestion().responses[data.attempt.response.parentID]
-      components = [(<p dangerouslySetInnerHTML={{__html: parentResponse.feedback}}></p>)].concat(components)
-    }
     return components.concat(errorComponents)
   },
 
