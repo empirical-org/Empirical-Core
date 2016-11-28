@@ -101,6 +101,7 @@
     height: 45px;
     line-height: 45px;
     padding: 0 24px;
+    margin-bottom: 1em;
     margin-right: 25px;
   }
 }
@@ -265,7 +266,7 @@ progress[value]::-webkit-progress-value {
     color: #2f2f2f;
   }
   p {
-    width: 600px;
+    max-width: 600px;
     margin-top: 13px;
     font-size: 20px;
     color: #464646;

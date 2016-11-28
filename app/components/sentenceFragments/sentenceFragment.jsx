@@ -6,8 +6,28 @@ import EditForm from './sentenceFragmentForm.jsx'
 import fragmentActions from '../../actions/sentenceFragments.js'
 import C from '../../constants'
 import {Link} from 'react-router'
+import {
+  loadResponseDataAndListen,
+  stopListeningToResponses
+} from '../../actions/responses.js'
+
 
 const SentenceFragment = React.createClass({
+
+  componentWillMount: function () {
+    const questionID = this.props.params.sentenceFragmentID;
+    this.props.dispatch(loadResponseDataAndListen(questionID))
+  },
+
+  componentWillUnmount: function () {
+    console.log("Unmounting");
+    const questionID = this.props.params.sentenceFragmentID;
+    this.props.dispatch(stopListeningToResponses(questionID))
+  },
+
+  getResponses: function () {
+    return this.props.responses.data[this.props.params.sentenceFragmentID]
+  },
 
   cancelEditingSentenceFragment: function() {
     this.props.dispatch(fragmentActions.cancelSentenceFragmentEdit(this.props.params.sentenceFragmentID))
@@ -51,7 +71,7 @@ const SentenceFragment = React.createClass({
 
       return (
         <div>
-          <h4 className="title">{data[sentenceFragmentID].questionText}</h4>
+          <h4 className="title">{data[sentenceFragmentID].prompt}</h4>
           {this.renderEditForm()}
           <div className="button-group">
             <button className="button is-info" onClick={this.startEditingSentenceFragment}>Edit Fragment</button>
@@ -62,6 +82,7 @@ const SentenceFragment = React.createClass({
           <br />
           <ResponseComponent
           question={data[sentenceFragmentID]}
+          responses={this.getResponses()}
           questionID={sentenceFragmentID}
           states={states}
           dispatch={this.props.dispatch}
@@ -82,7 +103,8 @@ function select(state) {
   return {
     sentenceFragments: state.sentenceFragments,
     concepts: state.concepts,
-    routing: state.routing
+    routing: state.routing,
+    responses: state.responses
   }
 }
 
