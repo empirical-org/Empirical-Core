@@ -31,9 +31,7 @@ export default React.createClass({
         const nErrors = errorKeys.length;
         var targetText;
         if (parentID) {
-          console.log("before")
           const parentResponse = this.props.getResponse(parentID)
-          console.log("after")
           targetText = parentResponse.text
           const newStyle = this.getUnderliningFunctionFromAuthor(nextProps.latestAttempt.response.author, targetText, nextProps.latestAttempt.submitted)
           if (newStyle) {
@@ -90,11 +88,13 @@ export default React.createClass({
   },
 
   applyNewStyle: function (newStyle) {
-    const offset = newStyle.inlineStyleRanges[0].offset;
-    const end = offset + newStyle.inlineStyleRanges[0].length
-    var input = this.refs.answerBox;
-    input.selectionStart = offset
-    input.selectionEnd = end
+    if (newStyle.inlineStyleRanges[0]) {
+      const offset = newStyle.inlineStyleRanges[0].offset;
+      const end = offset + newStyle.inlineStyleRanges[0].length
+      var input = this.refs.answerBox;
+      input.selectionStart = offset
+      input.selectionEnd = end
+    }
   },
 
   clearStyle: function () {

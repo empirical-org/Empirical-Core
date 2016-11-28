@@ -21,7 +21,7 @@ import handleFocus from '../renderForQuestions/handleFocus.js'
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
 import submitPathway from '../renderForQuestions/submitPathway.js'
-
+import {loadResponseData} from '../../actions/responses'
 import ThankYou from '../renderForQuestions/renderThankYou.jsx'
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
 
@@ -33,6 +33,11 @@ const playQuestion = React.createClass({
       editing: false,
       response: ""
     }
+  },
+
+  componentWillMount: function () {
+    const {questionID} = this.props.params;
+    this.props.dispatch(loadResponseData(questionID))
   },
 
   componentDidMount: function() {
@@ -67,7 +72,9 @@ const playQuestion = React.createClass({
   },
 
   getResponses: function () {
-    return this.props.responses.data[this.getQuestion().key]
+    const {questionID} = this.props.params;
+    const responses = this.props.responses.data[questionID]
+    return responses
   },
 
   getResponse2: function (rid) {
