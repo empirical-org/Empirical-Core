@@ -69,7 +69,7 @@ export default class Question {
     response = response.trim();
     // make sure all words are single spaced
     response = response.replace(/\s{2,}/g, ' ');
-    var returnValue = {
+    const returnValue = {
       found: true,
       submitted: response,
       response: {
@@ -81,68 +81,82 @@ export default class Question {
     }
 
     let res = returnValue.response;
-    var exactMatch = this.checkExactMatch(response)
+    const exactMatch = this.checkExactMatch(response)
     if (exactMatch !== undefined) {
       returnValue.response = exactMatch
       return returnValue
     }
-    var focusPointMatch = this.checkFocusPointMatch(response)
+    const focusPointMatch = this.checkFocusPointMatch(response)
     if (focusPointMatch !== undefined) {
       res.feedback = focusPointMatch.feedback;
       res.author = "Focus Point Hint";
       res.parentID = this.getTopOptimalResponse().key;
       return returnValue;
     }
-    var lowerCaseMatch = this.checkCaseInsensitiveMatch(response)
+    const lowerCaseMatch = this.checkCaseInsensitiveMatch(response)
     if (lowerCaseMatch !== undefined) {
       res.feedback = constants.FEEDBACK_STRINGS.caseError;
       res.author = "Capitalization Hint"
       res.parentID = lowerCaseMatch.key
+      res.conceptResults = [
+        conceptResultTemplate("66upe3S5uvqxuHoHOt4PcQ")
+      ]
       return returnValue
     }
-    var punctuationMatch = this.checkPunctuationInsensitiveMatch(response)
+    const punctuationMatch = this.checkPunctuationInsensitiveMatch(response)
     if (punctuationMatch !== undefined) {
-
       res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
       res.author = "Punctuation Hint"
       res.parentID = punctuationMatch.key
+      res.conceptResults = [
+        conceptResultTemplate("mdFUuuNR7N352bbMw4Mj9Q")
+      ]
       return returnValue
     }
-    var punctuationAndCaseMatch = this.checkPunctuationAndCaseInsensitiveMatch(response)
+    const punctuationAndCaseMatch = this.checkPunctuationAndCaseInsensitiveMatch(response)
     if (punctuationAndCaseMatch !== undefined) {
-
-
       res.feedback = constants.FEEDBACK_STRINGS.punctuationAndCaseError;
       res.author = "Punctuation and Case Hint"
       res.parentID =  punctuationAndCaseMatch.key
+      res.conceptResults = [
+        conceptResultTemplate("66upe3S5uvqxuHoHOt4PcQ"),
+        conceptResultTemplate("mdFUuuNR7N352bbMw4Mj9Q")
+      ]
       return returnValue
     }
-    var changeObjectMatch = this.checkChangeObjectRigidMatch(response)
+    const changeObjectMatch = this.checkChangeObjectRigidMatch(response)
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-
           res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
           res.author = "Modified Word Hint"
           res.parentID = changeObjectMatch.response.key
+          res.conceptResults = [
+            conceptResultTemplate("H-2lrblngQAQ8_s-ctye4g")
+          ]
           return returnValue
         case ERROR_TYPES.ADDITIONAL_WORD:
-
           res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
           res.author = "Additional Word Hint"
           res.parentID = changeObjectMatch.response.key
+          res.conceptResults = [
+            conceptResultTemplate("QYHg1tpDghy5AHWpsIodAg")
+          ]
           return returnValue
         case ERROR_TYPES.MISSING_WORD:
 
           res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
           res.author = "Missing Word Hint"
           res.parentID = changeObjectMatch.response.key
+          res.conceptResults = [
+            conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
+          ]
           return returnValue
         default:
           return
       }
     }
-    var changeObjectFlexMatch = this.checkChangeObjectFlexibleMatch(response)
+    const changeObjectFlexMatch = this.checkChangeObjectFlexibleMatch(response)
     if (changeObjectFlexMatch !== undefined) {
       switch (changeObjectFlexMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
@@ -150,69 +164,90 @@ export default class Question {
           res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
           res.author = "Flexible Modified Word Hint"
           res.parentID = changeObjectFlexMatch.response.key
+          res.conceptResults = [
+            conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
+          ]
           return returnValue
         case ERROR_TYPES.ADDITIONAL_WORD:
 
           res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
           res.author = "Flexible Additional Word Hint"
           res.parentID = changeObjectFlexMatch.response.key
+          res.conceptResults = [
+            conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
+          ]
           return returnValue
         case ERROR_TYPES.MISSING_WORD:
 
           res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
           res.author = "Flexible Missing Word Hint"
           res.parentID = changeObjectFlexMatch.response.key
+          res.conceptResults = [
+            conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
+          ]
           return returnValue
         default:
           return
       }
     }
-    var whitespaceMatch = this.checkWhiteSpaceMatch(response)
+    const whitespaceMatch = this.checkWhiteSpaceMatch(response)
     if (whitespaceMatch !== undefined) {
-
       res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
       res.author = "Whitespace Hint"
       res.parentID = whitespaceMatch.key
+      res.conceptResults = [
+        conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
+      ]
       return returnValue
     }
-    var requiredWordsMatch = this.checkRequiredWordsMatch(response)
+    const requiredWordsMatch = this.checkRequiredWordsMatch(response)
     if (requiredWordsMatch !== undefined) {
-      ;
       res.feedback = requiredWordsMatch.feedback;
       res.author = "Required Words Hint"
       res.parentID = this.getTopOptimalResponse().key
+      res.conceptResults = [
+        conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
+      ]
       return returnValue
     }
-    var minLengthMatch = this.checkMinLengthMatch(response)
+    const minLengthMatch = this.checkMinLengthMatch(response)
     if (minLengthMatch !== undefined) {
-
       res.feedback = constants.FEEDBACK_STRINGS.minLengthError;
       res.author = "Missing Details Hint"
       res.parentID = minLengthMatch.key
+      res.conceptResults = [
+        conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
+      ]
       return returnValue
     }
-    var maxLengthMatch = this.checkMaxLengthMatch(response)
+    const maxLengthMatch = this.checkMaxLengthMatch(response)
     if (maxLengthMatch !== undefined) {
-
       res.feedback = constants.FEEDBACK_STRINGS.maxLengthError;
       res.author = "Not Concise Hint"
       res.parentID = maxLengthMatch.key
+      res.conceptResults = [
+        conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
+      ]
       return returnValue
     }
-    var lowerCaseStartMatch = this.checkCaseStartMatch(response)
+    const lowerCaseStartMatch = this.checkCaseStartMatch(response)
     if (lowerCaseStartMatch !== undefined) {
-
       res.feedback = constants.FEEDBACK_STRINGS.caseError;
       res.author = "Capitalization Hint"
       res.parentID = lowerCaseStartMatch.key
+      res.conceptResults = [
+        conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
+      ]
       return returnValue
     }
-    var punctuationEndMatch = this.checkPunctuationEndMatch(response)
+    const punctuationEndMatch = this.checkPunctuationEndMatch(response)
     if (punctuationEndMatch !== undefined) {
-
       res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
-      res.author = "Punctuation Hint"
+      res.author = "Punctuation End Hint"
       res.parentID = punctuationEndMatch.key
+      res.conceptResults = [
+        conceptResultTemplate('JVJhNIHGZLbHF6LYw605XA')
+      ]
       return returnValue
     }
     returnValue.found = false
@@ -244,7 +279,7 @@ export default class Question {
   }
 
   checkPunctuationEndMatch(response) {
-    var lastChar = response[response.length - 1]
+    const lastChar = response[response.length - 1]
     if (lastChar && lastChar.match(/[a-z]/i)) {
       return this.getTopOptimalResponse()
     }
@@ -293,10 +328,10 @@ export default class Question {
   checkFuzzyMatch(response) {
     const set = fuzzy(_.pluck(this.responses, "text"));
     const matches = set.get(response, []);
-    var foundResponse = undefined;
-    var text = undefined;
+    let foundResponse = undefined;
+    let text = undefined;
     if (matches.length > 0) {
-      var threshold = (matches[0][1].length - 3) / matches[0][1].length
+      const threshold = (matches[0][1].length - 3) / matches[0][1].length
       text = (matches[0][0] > threshold) && (response.split(" ").length <= matches[0][1].split(" ").length) ? matches[0][1] : null;
     }
     if (text) {
@@ -363,14 +398,21 @@ const removeSpaces = (string) => {
 // Check number of chars added.
 
 const getLowAdditionCount = (newString, oldString) => {
-  var diff = jsDiff.diffChars(newString, oldString)
-  var additions = _.where(diff, {added: true})
+  const diff = jsDiff.diffChars(newString, oldString)
+  const additions = _.where(diff, {added: true})
   if (additions.length > 1) {
     return false
   }
-  var count = _.reduce(additions, function(memo, num){ return memo + num.count; }, 0)
+  const count = _.reduce(additions, function(memo, num){ return memo + num.count; }, 0)
   if (count < 3) {
     return true
   }
   return false
+}
+
+const conceptResultTemplate = (conceptUID, correct=false) => {
+  return {
+    conceptUID,
+    correct
+  }
 }
