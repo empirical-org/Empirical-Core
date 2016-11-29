@@ -4,6 +4,7 @@ import diagnosticQuestionActions from '../../actions/diagnosticQuestions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import Question from '../../libs/question'
 const jsDiff = require('diff');
+import ConceptSelector from '../shared/conceptSelector.jsx'
 import Modal from '../modal/modal.jsx'
 import ResponseList from './responseList.jsx'
 import _ from 'underscore'
@@ -12,7 +13,6 @@ import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
 import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
-import ConceptSelector from 'react-select-search'
 import getBoilerplateFeedback from './boilerplateFeedback.jsx'
 var C = require("../../constants").default
 const feedbackStrings = C.FEEDBACK_STRINGS
@@ -200,14 +200,6 @@ export default React.createClass({
     })
   },
 
-  conceptsToOptions: function() {
-    return _.map(this.props.concepts.data["0"], (concept)=>{
-      return (
-        {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
-      )
-    })
-  },
-
   selectConceptForResult: function (e) {
     this.setState({
       newConceptResult: Object.assign({},
@@ -389,10 +381,6 @@ export default React.createClass({
 
 
     if (isEditing) {
-      const fuse = {
-        keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
-        threshold: 0.4
-      }
       content =
         <div className="content">
           {parentDetails}
@@ -413,8 +401,7 @@ export default React.createClass({
               {/*<li>Commas in lists (placeholder)</li>*/}
             </ul>
 
-            <ConceptSelector options={this.conceptsToOptions()} placeholder="Choose a concept to add"
-                             onChange={this.selectConceptForResult} fuse={fuse}/>
+            <ConceptSelector currentConceptUID={this.state.newConceptResult.conceptUID} handleSelectorChange={this.selectConceptForResult}/>
             <p className="control">
               <label className="checkbox">
                 <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />

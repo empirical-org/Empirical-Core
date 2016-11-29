@@ -2,7 +2,7 @@ import React from 'react'
 import TextEditor from './textEditor.jsx';
 import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'lodash'
-import ConceptSelector from 'react-select-search'
+import ConceptSelector from '../shared/conceptSelector.jsx'
 
 export default React.createClass({
   getInitialState: function () {
@@ -54,27 +54,6 @@ export default React.createClass({
     this.setState({concept: this.refs.concept.value})
   },
 
-  conceptsToOptions: function() {
-    return _.map(this.props.concepts.data["0"], (concept)=>{
-      return (
-        {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
-      )
-    })
-  },
-
-  renderSelector: function() {
-    const fuse = {
-      keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
-      threshold: 0.4
-    }
-    const existingConcept = _.find(this.props.concepts.data["0"], {uid: this.state.concept})
-    const placeholder = existingConcept===undefined ? "" : existingConcept.displayName
-    return (
-      <ConceptSelector options={this.conceptsToOptions()} placeholder={placeholder}
-                       onChange={this.handleSelectorChange} fuse={fuse}/>
-    )
-  },
-
   render: function () {
     if(this.props.concepts.hasreceiveddata) {
       return (
@@ -105,7 +84,8 @@ export default React.createClass({
           </p>
           <label className="label">Concept</label>
           <div>
-            {this.renderSelector()}
+            <ConceptSelector currentConceptUID={this.state.concept}
+              handleSelectorChange={this.handleSelectorChange}/>
           </div>
           <br/>
           <button className="button is-primary" onClick={this.submit}>Update Question</button>
