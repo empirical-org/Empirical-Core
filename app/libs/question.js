@@ -21,7 +21,6 @@ String.prototype.normalize = function() {
 
 export default class Question {
   constructor(data) {
-    console.log(data)
     this.prompt = data.prompt;
     this.sentences = data.sentences;
     this.responses = data.responses;

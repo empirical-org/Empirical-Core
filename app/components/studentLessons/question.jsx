@@ -62,21 +62,25 @@ const playLessonQuestion = React.createClass({
     return this.props.responses.data[this.getQuestion().key]
   },
 
-  getOptimalResponses: function () {
-    var fields = {
+  getQuestionMarkerFields: function () {
+    return ({
       prompt: this.getQuestion().prompt,
       responses: hashToCollection(this.getResponses())
-    }
-    var question = new Question(fields);
+    })
+  },
+
+  getNewQuestionMarker: function () {
+    const fields = this.getQuestionMarkerFields();
+    return new Question(fields);
+  },
+
+  getOptimalResponses: function () {
+    const question = this.getNewQuestionMarker();
     return question.getOptimalResponses()
   },
 
   getSubOptimalResponses: function () {
-    var fields = {
-      prompt: this.getQuestion().prompt,
-      responses: hashToCollection(this.getResponses())
-    }
-    var question = new Question(fields);
+    const question = this.getNewQuestionMarker();
     return question.getSubOptimalResponses()
   },
 
