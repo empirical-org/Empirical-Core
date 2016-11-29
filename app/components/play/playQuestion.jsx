@@ -144,7 +144,7 @@ const playQuestion = React.createClass({
   },
 
   updateResponseResource: function (response) {
-    updateResponseResource(response, this.props, this.getErrorsForAttempt, "play")
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, "play")
   },
 
   submitPathway: function (response) {

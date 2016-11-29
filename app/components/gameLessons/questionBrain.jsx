@@ -117,7 +117,7 @@ const playLessonQuestion = React.createClass({
   },
 
   updateResponseResource: function (response) {
-    updateResponseResource(response, this.props, this.getErrorsForAttempt, "brain")
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, "brain")
   },
 
   submitPathway: function (response) {
