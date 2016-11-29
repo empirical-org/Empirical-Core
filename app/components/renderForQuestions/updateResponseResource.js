@@ -12,32 +12,19 @@ const getLatestAttempt = function (attempts = []) {
   return attempts[lastIndex]
 }
 
-function getQuestion(props, playQuestion) {
-  //// console.log("Inside getQuestion in module, playQuestion: ", playQuestiond)
-  if(playQuestion==="play") {
-    const {data} = props.questions, {questionID} = props.params;
-    return (data[questionID])
-  } else {
-    return props.question
-  }
-}
-
-export default function updateResponseResource (returnValue, props, getErrorsForAttempt, playQuestion) {
-  var qid = (playQuestion==="play") ? props.params.questionID : props.question.key
-
+export default function updateResponseResource (returnValue, questionID, attempts, dispatch, playQuestion) {
   var previousAttempt;
-  const responses = hashToCollection(getQuestion(props, playQuestion).responses);
 
-  const preAtt = getLatestAttempt(props.question.attempts)
-  if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(props.question.attempts).submitted}) }
+  const preAtt = getLatestAttempt(attempts)
+  if (preAtt) {previousAttempt = getLatestAttempt(attempts).response}
   const prid = previousAttempt ? previousAttempt.key : undefined
 
   if (returnValue.found && returnValue.response.key) {
-    props.dispatch(
-      incrementResponseCount(qid, returnValue.response.key, prid)
+    dispatch(
+      incrementResponseCount(questionID, returnValue.response.key, prid)
     )
   } else {
-    props.dispatch(
+    dispatch(
       submitNewResponse(returnValue.response, prid)
     )
   }
