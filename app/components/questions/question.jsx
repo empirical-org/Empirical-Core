@@ -245,7 +245,7 @@ const Question = React.createClass({
           <Link to={'admin/questions'}> Return to All Questions </Link>
           <h4 className="title" dangerouslySetInnerHTML={{__html: data[questionID].prompt}}></h4>
           <h6 className="subtitle">{responses.length} Responses</h6>
-          <Link to={'play/questions/' + questionID} className="button is-outlined is-primary">Play Question</Link><br/><br/>
+          <Link to={'play/questions/' + questionID} className="button is-outlined is-primary">Play Question</Link> <Link to={'/results/questions/' + questionID} className="button is-outlined is-primary">View Only</Link><br/><br/>
           <Chart data={_.values(this.formatForPieChart())}/>
           <p className="control button-group">
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button>
