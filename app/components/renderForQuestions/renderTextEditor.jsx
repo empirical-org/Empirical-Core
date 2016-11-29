@@ -20,11 +20,8 @@ export default React.createClass({
   },
 
   componentWillReceiveProps: function (nextProps) {
-    var input = this.refs.answerBox // .getDOMNode();
-    window.answerBox = input;
-            // input.focus();
-            // input.setSelectionRange(0, input.value.length);
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
+
       if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID;
         const errorKeys = _.keys(this.getErrorsForAttempt(nextProps.latestAttempt))
@@ -136,6 +133,7 @@ export default React.createClass({
               placeholder="Type your answer here. Remember, your answer should be just one sentence."
               ref="answerBox"
               className="connect-text-area"
+              autoFocus
             ></Textarea>
           </div>
         </div>

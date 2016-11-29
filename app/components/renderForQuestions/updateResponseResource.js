@@ -22,7 +22,7 @@ function getQuestion(props, playQuestion) {
   }
 }
 
-export default function updateResponseResource (response, props, getErrorsForAttempt, playQuestion) {
+export default function updateResponseResource (returnValue, props, getErrorsForAttempt, playQuestion) {
   var qid = (playQuestion==="play") ? props.params.questionID : props.question.key
 
   var previousAttempt;
@@ -32,34 +32,13 @@ export default function updateResponseResource (response, props, getErrorsForAtt
   if (preAtt) {previousAttempt = _.find(responses, {text: getLatestAttempt(props.question.attempts).submitted}) }
   const prid = previousAttempt ? previousAttempt.key : undefined
 
-  if (response.found) {
-    var errors = _.keys(getErrorsForAttempt(response))
-    if (errors.length === 0) {
-      props.dispatch(
-        incrementResponseCount(qid, response.response.key, prid)
-      )
-    } else {
-      var newErrorResp = {
-        text: response.submitted,
-        count: 1,
-        parentID: response.response.key,
-        author: response.author,
-        feedback: generateFeedbackString(response),
-        questionUID: qid
-      }
-      // console.log("newErrorResp.feedback: " + playQuestion, newErrorResp.feedback)
-      props.dispatch(
-        submitNewResponse(newErrorResp, prid)
-      )
-    }
-  } else {
-    var newResp = {
-      text: response.submitted,
-      count: 1,
-      questionUID: qid
-    }
+  if (returnValue.found && returnValue.response.key) {
     props.dispatch(
-      submitNewResponse(newResp, prid)
+      incrementResponseCount(qid, returnValue.response.key, prid)
+    )
+  } else {
+    props.dispatch(
+      submitNewResponse(returnValue.response, prid)
     )
   }
 }

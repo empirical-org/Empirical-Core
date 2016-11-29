@@ -50,9 +50,9 @@ const playQuestion = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     if (nextProps.question.attempts.length > 0) {
-      var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(nextProps.question.attempts, (error) => {
-        return
-      })
+      // var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(nextProps.question.attempts, (error) => {
+      //   return
+      // })
     }
   },
 
