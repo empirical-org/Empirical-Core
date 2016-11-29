@@ -27,7 +27,7 @@ const Lesson = React.createClass({
     var questionsForLesson = this.questionsForLesson()
     if(questionsForLesson) {
       var listItems = questionsForLesson.map((question) => {
-        return (<li key={question.key}><Link to={`/results/${question.questionType || 'questions'}/` + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
+        return (<li key={question.key}><Link to={`/admin/${question.questionType || 'questions'}/` + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
       })
       return (
         <ul>{listItems}</ul>
