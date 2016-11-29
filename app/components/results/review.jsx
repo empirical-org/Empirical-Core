@@ -5,6 +5,10 @@ import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import Response from '../questions/response.jsx'
+import {
+  loadResponseDataAndListen,
+  stopListeningToResponses
+} from '../../actions/responses'
 import C from '../../constants'
 import SharedSection from '../shared/section.jsx'
 import Chart from '../questions/pieChart.jsx'
@@ -13,6 +17,17 @@ const labels = ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algo
 const colors = ["#81c784", "#ffb74d", "#ba68c8", "#5171A5", "#e57373"]
 
 const Review = React.createClass({
+
+  componentWillMount: function () {
+    const {questionID} = this.props.params;
+    this.props.dispatch(loadResponseDataAndListen(questionID))
+  },
+
+  componentWillUnmount: function () {
+    console.log("Unmounting");
+    const {questionID} = this.props.params;
+    this.props.dispatch(stopListeningToResponses(questionID))
+  },
 
   deleteQuestion: function () {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID))
@@ -30,9 +45,14 @@ const Review = React.createClass({
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals))
   },
 
+  getResponses: function () {
+    const {questionID} = this.props.params;
+    return this.props.responses.data[questionID]
+  },
+
   getResponse: function (responseID) {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = hashToCollection(data[questionID].responses)
+    var responses = hashToCollection(this.getResponses())
     return _.find(responses, {key: responseID})
   },
 
@@ -50,7 +70,7 @@ const Review = React.createClass({
 
   responsesWithStatus: function () {
     const {data, states} = this.props.questions, {questionID} = this.props.params;
-    var responses = hashToCollection(data[questionID].responses)
+    var responses = hashToCollection(this.getResponses())
     return responses.map((response) => {
       var statusCode;
       if (!response.feedback) {
@@ -125,7 +145,7 @@ const Review = React.createClass({
   render: function (){
     const {data, states} = this.props.questions, {questionID} = this.props.params;
     if (data[questionID]) {
-      var responses = hashToCollection(data[questionID].responses)
+      var responses = hashToCollection(this.getResponses())
       const correctnessPieChartData = _.values(this.formatForPieChart());
       const hintTypePieChartData = _.values(this.formatForAlgorithmPieChart());
       return (
@@ -150,6 +170,7 @@ const Review = React.createClass({
 
           <ResponseComponent
             question={data[questionID]}
+            responses={this.getResponses()}
             questionID={questionID}
             states={states}
             dispatch={this.props.dispatch}
@@ -171,7 +192,8 @@ function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
-    routing: state.routing
+    routing: state.routing,
+    responses: state.responses
   }
 }
 
