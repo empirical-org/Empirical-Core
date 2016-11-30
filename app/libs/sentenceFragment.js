@@ -23,46 +23,44 @@ export default class POSMatcher {
       exactMatch: false,
     };
 
-    const exactMatch = this.checkExactMatch(userResponse)
-    if(exactMatch!==undefined) {
+    const exactMatch = this.checkExactMatch(userResponse);
+    if (exactMatch !== undefined) {
       returnValue.response = exactMatch;
       returnValue.exactMatch = true;
       returnValue.posMatch = true; // An exact match implies a posMatch
       return returnValue;
     }
 
-    const posMatch = this.checkPOSMatch(userResponse)
-    if(posMatch!==undefined) {
-      returnValue.response = posMatch
-      returnValue.posMatch = true
-      return returnValue
+    const posMatch = this.checkPOSMatch(userResponse);
+    if (posMatch !== undefined) {
+      returnValue.response = posMatch;
+      returnValue.posMatch = true;
+      return returnValue;
     }
 
-    returnValue.found = false
-    return returnValue
+    returnValue.found = false;
+    return returnValue;
   }
 
   checkExactMatch(userResponse) {
-    return _.find(this.optimalResponses, (response)=>{
-      return response.text===userResponse
-    })
+    return _.find(this.optimalResponses, response => response.text === userResponse);
   }
 
   checkPOSMatch(userResponse) {
-    const correctPOSTags = this.optimalResponses.map((optimalResponse)=>{
-      return qpos.getPartsOfSpeechTags(optimalResponse.text);
-    })
+    const correctPOSTags = this.optimalResponses.map(
+      optimalResponse => qpos.getPartsOfSpeechTags(optimalResponse.text)
+    );
     const userPOSTags = qpos.getPartsOfSpeechTags(userResponse);
     if (userPOSTags) {
-      return _.find(this.optimalResponses, (optimalResponse, index)=>{
-        if(optimalResponse.parentID) {
+      return _.find(this.optimalResponses, (optimalResponse, index) => {
+        if (optimalResponse.parentID) {
           return false;
-        } else if (correctPOSTags[index]){
+        } else if (correctPOSTags[index]) {
           if (JSON.stringify(correctPOSTags[index]) === JSON.stringify(userPOSTags)) {
             return true;
           }
         }
-      })
+      });
     }
   }
 }

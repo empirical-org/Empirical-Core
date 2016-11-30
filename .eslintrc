@@ -20,5 +20,6 @@
         "functions": "ignore",
     }],
     'no-extend-native': ["warn"],
+    'consistent-return': 'off'
   }
 }
