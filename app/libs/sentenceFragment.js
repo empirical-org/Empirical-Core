@@ -1,15 +1,21 @@
 import _ from 'underscore';
 import * as qpos from './partsOfSpeechTagging';
-import { hashToCollection } from './hashToCollection';
 
 String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
 };
 
 export default class POSMatcher {
-  constructor(responses) {
-    const responsesCollection = hashToCollection(responses);
-    this.optimalResponses = _.sortBy(_.reject(responsesCollection, response =>
+
+  constructor(data) {
+    this.prompt = data.prompt;
+    this.responses = data.responses;
+    this.questionUID = data.questionUID;
+    this.wordCountChange = data.wordCountChange;
+  }
+
+  getGradedResponses() {
+    return _.sortBy(_.reject(this.responses, response =>
       response.optimal === undefined
     ), 'optimal').reverse();
   }
