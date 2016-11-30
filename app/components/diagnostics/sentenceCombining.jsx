@@ -112,7 +112,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   updateResponseResource: function (response) {
-    updateResponseResource(response, this.props, this.getErrorsForAttempt)
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch)
   },
 
   submitPathway: function (response) {
@@ -122,7 +122,7 @@ const PlayDiagnosticQuestion = React.createClass({
   checkAnswer: function (e) {
     if (this.state.editing) {
       this.removePrefilledUnderscores()
-      var response = getResponse(this.getQuestion(), this.state.response, this.getResponses())
+      var response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), "diagnostic")
       this.updateResponseResource(response)
       this.submitResponse(response)
       this.setState({

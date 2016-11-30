@@ -91,7 +91,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   updateResponseResource: function (response) {
-    updateResponseResource(response, this.props, this.getErrorsForAttempt)
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch)
   },
 
   submitPathway: function (response) {

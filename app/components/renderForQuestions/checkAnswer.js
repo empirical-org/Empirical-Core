@@ -6,7 +6,9 @@ export default function checkAnswer(question, response, responses, mode="default
   const Brain = mode === "default" ? Question : DiagnosticQuestion
   var fields = {
     prompt: question.prompt,
-    responses: hashToCollection(responses)
+    responses: hashToCollection(responses),
+    questionUID: question.key,
+    focusPoints: question.focusPoints
   }
   var newQuestion = new Brain(fields);
   var newResponse = newQuestion.checkMatch(response);

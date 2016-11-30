@@ -23,6 +23,7 @@ export default class Question {
     this.prompt = data.prompt;
     this.sentences = data.sentences;
     this.responses = data.responses;
+    this.questionUID = data.questionUID
     this.focusPoints = data.focusPoints || [];
   }
 
@@ -63,71 +64,70 @@ export default class Question {
   }
 
   checkMatch(response) {
+    console.log("Checking Diagnostic Match")
     // remove leading and trailing whitespace
     response = response.trim();
     // make sure all words are single spaced
     response = response.replace(/\s{2,}/g, ' ');
-    var returnValue = {
+    const returnValue = {
       found: true,
-      submitted: response
+      submitted: response,
+      response: {
+        text: response,
+        questionUID: this.questionUID,
+        count: 1
+      }
     }
+    let res = returnValue.response;
     var exactMatch = this.checkExactMatch(response)
     if (exactMatch !== undefined) {
-      returnValue.response = exactMatch
-      return returnValue
-    }
-    var whitespaceMatch = this.checkWhiteSpaceMatch(response)
-    if (whitespaceMatch !== undefined) {
-      returnValue.whitespaceError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
-      returnValue.author = "Whitespace Hint"
-      returnValue.response = whitespaceMatch
+      returnValue.response = exactMatch.key
       return returnValue
     }
     var lowerCaseMatch = this.checkCaseInsensitiveMatch(response)
     if (lowerCaseMatch !== undefined) {
-      returnValue.caseError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.caseError;
-      returnValue.author = "Capitalization Hint"
-      returnValue.response = lowerCaseMatch
+      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.author = "Capitalization Hint"
+      res.parentID = lowerCaseMatch.key
+      this.copyParentResponses(res, lowerCaseMatch)
       return returnValue
     }
     var punctuationMatch = this.checkPunctuationInsensitiveMatch(response)
     if (punctuationMatch !== undefined) {
-      returnValue.punctuationError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.punctuationError;
-      returnValue.author = "Punctuation Hint"
-      returnValue.response = punctuationMatch
+      res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
+      res.author = "Punctuation Hint"
+      res.parentID = punctuationMatch.key
+      this.copyParentResponses(res, punctuationMatch)
       return returnValue
     }
     var punctuationAndCaseMatch = this.checkPunctuationAndCaseInsensitiveMatch(response)
     if (punctuationAndCaseMatch !== undefined) {
-      returnValue.punctuationAndCaseError = true
-      returnValue.feedback = constants.FEEDBACK_STRINGS.punctuationAndCaseError;
-      returnValue.author = "Punctuation and Case Hint"
-      returnValue.response = punctuationAndCaseMatch
+      res.feedback = constants.FEEDBACK_STRINGS.punctuationAndCaseError;
+      res.author = "Punctuation and Case Hint"
+      res.parentID = punctuationAndCaseMatch.key
+      this.copyParentResponses(res, punctuationAndCaseMatch)
       return returnValue
     }
     var changeObjectMatch = this.checkChangeObjectRigidMatch(response)
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-          returnValue.modifiedWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
-          returnValue.author = "Modified Word Hint"
-          returnValue.response = changeObjectMatch.response
+          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.author = "Modified Word Hint"
+          res.parentID = changeObjectMatch.response.key
+          this.copyParentResponses(res, changeObjectMatch.response)
           return returnValue
         case ERROR_TYPES.ADDITIONAL_WORD:
-          returnValue.additionalWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
-          returnValue.author = "Additional Word Hint"
-          returnValue.response = changeObjectMatch.response
+          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.author = "Additional Word Hint"
+          res.parentID = changeObjectMatch.response.key
+          this.copyParentResponses(res, changeObjectMatch.response)
           return returnValue
         case ERROR_TYPES.MISSING_WORD:
-          returnValue.missingWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.missingWordError;
-          returnValue.author = "Missing Word Hint"
-          returnValue.response = changeObjectMatch.response
+          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.author = "Missing Word Hint"
+          res.parentID = changeObjectMatch.response.key
+          this.copyParentResponses(res, changeObjectMatch.response)
           return returnValue
         default:
           return
@@ -137,36 +137,35 @@ export default class Question {
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-          returnValue.modifiedWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
-          returnValue.author = "Modified Word Hint"
-          returnValue.response = changeObjectMatch.response
+          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.author = "Modified Word Hint"
+          res.parentID = changeObjectMatch.response.key
+          this.copyParentResponses(res, changeObjectMatch.response)
           return returnValue
         case ERROR_TYPES.ADDITIONAL_WORD:
-          returnValue.additionalWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
-          returnValue.author = "Additional Word Hint"
-          returnValue.response = changeObjectMatch.response
+          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.author = "Additional Word Hint"
+          res.parentID = changeObjectMatch.response.key
+          this.copyParentResponses(res, changeObjectMatch.response)
           return returnValue
         case ERROR_TYPES.MISSING_WORD:
-          returnValue.missingWordError = true
-          returnValue.feedback = constants.FEEDBACK_STRINGS.missingWordError;
-          returnValue.author = "Missing Word Hint"
-          returnValue.response = changeObjectMatch.response
+          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.author = "Missing Word Hint"
+          res.parentID = changeObjectMatch.response.key
+          this.copyParentResponses(res, changeObjectMatch.response)
           return returnValue
         default:
           return
       }
     }
-    // var typingErrorMatch = this.checkFuzzyMatch(response)
-    // if (typingErrorMatch !== undefined) {
-    //   returnValue.typingError = true
-    //   returnValue.feedback = constants.FEEDBACK_STRINGS.typingError;
-    //   returnValue.author = "Word Error Hint"
-    //   returnValue.response = typingErrorMatch
-    //   return returnValue
-    // }
-
+    var whitespaceMatch = this.checkWhiteSpaceMatch(response)
+    if (whitespaceMatch !== undefined) {
+      res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
+      res.author = "Whitespace Hint"
+      res.parentID = whitespaceMatch.key
+      this.copyParentResponses(res, whitespaceMatch)
+      return returnValue
+    }
     returnValue.found = false
     return returnValue
   }
@@ -239,6 +238,12 @@ export default class Question {
         return removeCaseSpacePunc(resp.text) === text })
     }
     return foundResponse
+  }
+
+  copyParentResponses(newResponse, parentResponse) {
+    if (parentResponse.conceptResults) {
+      newResponse.conceptResults = Object.assign({}, {}, parentResponse.conceptResults)
+    }
   }
 
 }

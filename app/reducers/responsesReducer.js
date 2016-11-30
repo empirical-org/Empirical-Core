@@ -9,8 +9,6 @@ const initialState = Immutable.fromJS({
   status: {} // this will contain repsponse data
 })
 
-
-
 export default function(currentState, action) {
   const currentStateImm = Immutable.fromJS(currentState);
   switch (action.type) {
@@ -25,7 +23,7 @@ export default function(currentState, action) {
     case C.DELETE_ALL_SESSION_DATA:
       return initialState.toJS()
     case REHYDRATE:
-      return action.payload.responses;
+      return action.payload.responses || initialState.toJS();
     default:
       const defaultState = currentStateImm || initialState
       return defaultState.toJS();

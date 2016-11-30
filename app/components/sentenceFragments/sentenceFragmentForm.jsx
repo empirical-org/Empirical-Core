@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router'
-import ConceptSelector from 'react-select-search'
+import ConceptSelector from '../shared/conceptSelector.jsx'
 
 const sentenceFragmentForm = React.createClass({
 
@@ -106,8 +106,8 @@ const sentenceFragmentForm = React.createClass({
         {this.renderOptimalResponseTextInput()}
         <p className="control">
           <label className="label">Associated Concept</label>
-          <ConceptSelector options={this.conceptsToOptions()} value={this.state.concept}
-                           onChange={this.handleChange.bind(null, "concept")} fuse={fuse}/>
+          <ConceptSelector currentConceptUID={this.state.concept}
+                           onChange={this.handleChange.bind(null, "concept")}/>
         </p>
         <button className="button is-primary is-outlined" onClick={this.submitSentenceFragment}>Save</button>
       </div>

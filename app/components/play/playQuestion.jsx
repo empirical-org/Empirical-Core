@@ -50,9 +50,9 @@ const playQuestion = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     if (nextProps.question.attempts.length > 0) {
-      var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(nextProps.question.attempts, (error) => {
-        return
-      })
+      // var sessionRef = sessionsRef.child(this.state.sessionKey + '/attempts').set(nextProps.question.attempts, (error) => {
+      //   return
+      // })
     }
   },
 
@@ -68,7 +68,9 @@ const playQuestion = React.createClass({
 
   getQuestion: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
-    return (data[questionID])
+    const question = data[questionID]
+    question.key = questionID
+    return question
   },
 
   getResponses: function () {
@@ -78,8 +80,9 @@ const playQuestion = React.createClass({
   },
 
   getResponse2: function (rid) {
-    const {data} = this.props.questions, {questionID} = this.props.params;
-    return (data[questionID].responses[rid])
+    const {data} = this.props.responses, {questionID} = this.props.params;
+    const response = data[questionID][rid]
+    return response
   },
 
   submitResponse: function(response) {
@@ -144,7 +147,7 @@ const playQuestion = React.createClass({
   },
 
   updateResponseResource: function (response) {
-    updateResponseResource(response, this.props, this.getErrorsForAttempt, "play")
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch, "play")
   },
 
   submitPathway: function (response) {

@@ -151,16 +151,17 @@ export default {
     'Capitalization Hint',
     'Punctuation Hint',
     'Punctuation and Case Hint',
+		'Punctuation End Hint',
     'Modified Word Hint',
     'Additional Word Hint',
-    "Missing Word Hint",
-    "Flexible Modified Word Hint",
-    "Flexible Additional Word Hint",
-    "Flexible Missing Word Hint",
-    "Whitespace Hint",
-    "Missing Details Hint",
-    "Not Concise Hint",
-		"Required Words Hint"
+    'Missing Word Hint',
+    'Flexible Modified Word Hint',
+    'Flexible Additional Word Hint',
+    'Flexible Missing Word Hint',
+    'Whitespace Hint',
+    'Missing Details Hint',
+    'Not Concise Hint',
+		'Required Words Hint'
 	],
 
 	// CONCEPTS FEEDBACK ACTIONS

@@ -11,7 +11,6 @@ import Textarea from 'react-textarea-autosize';
 var Markdown = require('react-remarkable');
 import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js'
-import ConceptSelector from 'react-select-search'
 
 var C = require("../../constants").default
 
