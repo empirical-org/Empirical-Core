@@ -122,7 +122,7 @@ const PlayDiagnosticQuestion = React.createClass({
   checkAnswer: function (e) {
     if (this.state.editing) {
       this.removePrefilledUnderscores()
-      var response = getResponse(this.getQuestion(), this.state.response, this.getResponses())
+      var response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), "diagnostic")
       this.updateResponseResource(response)
       this.submitResponse(response)
       this.setState({
