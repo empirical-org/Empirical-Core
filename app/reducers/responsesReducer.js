@@ -9,8 +9,6 @@ const initialState = Immutable.fromJS({
   status: {} // this will contain repsponse data
 })
 
-
-
 export default function(currentState, action) {
   const currentStateImm = Immutable.fromJS(currentState);
   switch (action.type) {
