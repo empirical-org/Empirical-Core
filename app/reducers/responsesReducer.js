@@ -25,7 +25,7 @@ export default function(currentState, action) {
     case C.DELETE_ALL_SESSION_DATA:
       return initialState.toJS()
     case REHYDRATE:
-      return action.payload.responses;
+      return action.payload.responses || initialState.toJS();
     default:
       const defaultState = currentStateImm || initialState
       return defaultState.toJS();
