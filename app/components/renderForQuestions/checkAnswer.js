@@ -7,7 +7,8 @@ export default function checkAnswer(question, response, responses, mode="default
   var fields = {
     prompt: question.prompt,
     responses: hashToCollection(responses),
-    questionUID: question.key
+    questionUID: question.key,
+    focusPoints: question.focusPoints
   }
   var newQuestion = new Brain(fields);
   var newResponse = newQuestion.checkMatch(response);

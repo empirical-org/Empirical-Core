@@ -68,7 +68,9 @@ const playQuestion = React.createClass({
 
   getQuestion: function () {
     const {data} = this.props.questions, {questionID} = this.props.params;
-    return (data[questionID])
+    const question = data[questionID]
+    question.key = questionID
+    return question
   },
 
   getResponses: function () {
@@ -78,8 +80,9 @@ const playQuestion = React.createClass({
   },
 
   getResponse2: function (rid) {
-    const {data} = this.props.questions, {questionID} = this.props.params;
-    return (data[questionID].responses[rid])
+    const {data} = this.props.responses, {questionID} = this.props.params;
+    const response = data[questionID][rid]
+    return response
   },
 
   submitResponse: function(response) {

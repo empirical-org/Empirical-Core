@@ -60,7 +60,6 @@ export default React.createClass({
     this.props.dispatch(this.state.actions.startResponseEdit(this.props.questionID, rid))
   },
 
-  // cancel editing function ^^^^
   cancelResponseEdit: function (rid) {
     this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid))
   },

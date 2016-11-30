@@ -77,7 +77,6 @@ export default class Question {
         questionUID: this.questionUID,
         count: 1
       }
-
     }
 
     let res = returnValue.response;
@@ -91,6 +90,11 @@ export default class Question {
       res.feedback = focusPointMatch.feedback;
       res.author = "Focus Point Hint";
       res.parentID = this.getTopOptimalResponse().key;
+      if (focusPointMatch.conceptUID) {
+        res.conceptResults = [
+          conceptResultTemplate(focusPointMatch.conceptUID)
+        ]
+      }
       return returnValue;
     }
     const lowerCaseMatch = this.checkCaseInsensitiveMatch(response)

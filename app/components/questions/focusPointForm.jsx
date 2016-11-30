@@ -6,6 +6,7 @@ import _ from 'underscore'
 import Modal from '../modal/modal.jsx'
 // import {hashToCollection} from '../../libs/hashToCollection'
 import C from '../../constants'
+import ConceptSelector from '../shared/conceptSelector.jsx'
 
 export default React.createClass({
 
@@ -16,7 +17,8 @@ export default React.createClass({
 
   getInitialState: function() {
     let fp = this.props.fp;
-    return ({modalDisplay: false,
+    return ({
+      modalDisplay: false,
       fpText: fp ? fp.text : '',
       fpFeedback: fp ? fp.feedback : '',
       fpConceptUID: fp ? fp.conceptUID : ''
@@ -40,8 +42,15 @@ export default React.createClass({
     this.setState(obj);
   },
 
+  handleConceptChange: function (e) {
+    this.setState({
+      fpConceptUID: e.value
+    })
+  },
+
   submit: function(){
-    let data = {text: this.state.fpText,
+    let data = {
+      text: this.state.fpText,
       feedback: this.state.fpFeedback,
       conceptUID: this.state.fpConceptUID
     };
@@ -55,12 +64,14 @@ export default React.createClass({
         <Modal close={this.toggleFocusPointForm}>
         <div className="box">
         <h4 className="title">{this.addOrEditFocusPoint()}</h4>
-        <p className="control">
+        <div className="control">
         <label className="label" >Focus Point Text</label>
         <input className="input" onChange={this.handleChange.bind(null, 'fpText')} type="text" value={this.state.fpText || ''} />
         <label className="label" >Feedback</label>
         <input className="input" onChange={this.handleChange.bind(null, 'fpFeedback')} type="text" value={this.state.fpFeedback || ''} />
-        </p>
+        <label className="label" >Concept (Users who hit this focus point will recieve a false concept result for this)</label>
+        <ConceptSelector handleSelectorChange={this.handleConceptChange} currentConceptUID={this.state.fpConceptUID} />
+        </div>
         <p className="control">
         {/*<button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>*/}
         <button className={"button is-primary "} onClick={this.submit}>Submit</button>
