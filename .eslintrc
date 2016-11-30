@@ -1,5 +1,8 @@
 {
   "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+  },
   "plugins": [
     "react"
   ],
@@ -20,6 +23,11 @@
         "functions": "ignore",
     }],
     'no-extend-native': ["warn"],
-    'consistent-return': 'off'
+    'consistent-return': 'off',
+    'no-multiple-empty-lines': ["error", {
+      "max": 1,
+      "maxEOF": 1,
+      "maxBOF": 0
+    }],
   }
 }
