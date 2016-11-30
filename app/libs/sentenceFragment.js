@@ -1,35 +1,34 @@
 import _ from 'underscore';
-import * as qpos from "./partsOfSpeechTagging.js";
-import {hashToCollection} from './hashToCollection.js'
+import * as qpos from './partsOfSpeechTagging';
+import { hashToCollection } from './hashToCollection';
 
-String.prototype.normalize = function() {
+String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
-}
-
+};
 
 export default class POSMatcher {
   constructor(responses) {
-    responses = hashToCollection(responses)
-    this.optimalResponses = _.sortBy(_.reject(responses, (response) => {
-      return response.optimal === undefined
-    }), 'optimal').reverse()
+    const responsesCollection = hashToCollection(responses);
+    this.optimalResponses = _.sortBy(_.reject(responsesCollection, response =>
+      response.optimal === undefined
+    ), 'optimal').reverse();
   }
 
   checkMatch(userResponse) {
-    userResponse = userResponse.trim().replace(/\s{2,}/g, ' ');
-    var returnValue = {
+    const formattedResponse = userResponse.trim().replace(/\s{2,}/g, ' ');
+    const returnValue = {
       found: true,
-      submitted: userResponse,
+      submitted: formattedResponse,
       posMatch: false,
-      exactMatch: false
-    }
+      exactMatch: false,
+    };
 
     const exactMatch = this.checkExactMatch(userResponse)
     if(exactMatch!==undefined) {
-      returnValue.response = exactMatch
-      returnValue.exactMatch = true
-      returnValue.posMatch = true //an exact match implies a posMatch
-      return returnValue
+      returnValue.response = exactMatch;
+      returnValue.exactMatch = true;
+      returnValue.posMatch = true; // An exact match implies a posMatch
+      return returnValue;
     }
 
     const posMatch = this.checkPOSMatch(userResponse)
