@@ -17,7 +17,7 @@ export default class POSMatcher {
   getGradedResponses() {
     // Returns sorted collection optimal first followed by suboptimal
     const gradedResponses = _.reject(this.responses, response =>
-      (response.optimal === undefined) || (response.author)
+      (response.optimal === undefined) || (response.parentID)
     );
     return _.sortBy(gradedResponses, 'optimal').reverse();
   }
@@ -27,22 +27,27 @@ export default class POSMatcher {
     const returnValue = {
       found: true,
       submitted: formattedResponse,
-      posMatch: false,
-      exactMatch: false,
+      response: {
+        text: formattedResponse,
+        questionUID: this.questionUID,
+        count: 1,
+      },
     };
+    const res = returnValue.response;
 
     const exactMatch = this.checkExactMatch(userSubmission);
     if (exactMatch !== undefined) {
       returnValue.response = exactMatch;
-      returnValue.exactMatch = true;
-      returnValue.posMatch = true; // An exact match implies a posMatch
       return returnValue;
     }
 
     const posMatch = this.checkPOSMatch(userSubmission);
     if (posMatch !== undefined) {
-      returnValue.response = posMatch;
-      returnValue.posMatch = true;
+      res.author = 'Parts of Speech';
+      res.feedback = posMatch.feedback;
+      res.parentID = posMatch.key;
+      res.optimal = posMatch.optimal;
+      this.copyParentResponses(res, posMatch);
       return returnValue;
     }
 
@@ -69,6 +74,12 @@ export default class POSMatcher {
           }
         }
       });
+    }
+  }
+
+  copyParentResponses(newResponse, parentResponse) {
+    if (parentResponse.conceptResults) {
+      newResponse.conceptResults = Object.assign({}, {}, parentResponse.conceptResults);
     }
   }
 }
