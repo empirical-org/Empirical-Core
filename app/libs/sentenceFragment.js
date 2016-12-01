@@ -15,13 +15,15 @@ export default class POSMatcher {
   }
 
   getGradedResponses() {
-    return _.sortBy(_.reject(this.responses, response =>
-      response.optimal === undefined
-    ), 'optimal').reverse();
+    // Returns sorted collection optimal first followed by suboptimal
+    const gradedResponses = _.reject(this.responses, response =>
+      (response.optimal === undefined) || (response.author)
+    );
+    return _.sortBy(gradedResponses, 'optimal').reverse();
   }
 
-  checkMatch(userResponse) {
-    const formattedResponse = userResponse.trim().replace(/\s{2,}/g, ' ');
+  checkMatch(userSubmission) {
+    const formattedResponse = userSubmission.trim().replace(/\s{2,}/g, ' ');
     const returnValue = {
       found: true,
       submitted: formattedResponse,
@@ -29,7 +31,7 @@ export default class POSMatcher {
       exactMatch: false,
     };
 
-    const exactMatch = this.checkExactMatch(userResponse);
+    const exactMatch = this.checkExactMatch(userSubmission);
     if (exactMatch !== undefined) {
       returnValue.response = exactMatch;
       returnValue.exactMatch = true;
@@ -37,7 +39,7 @@ export default class POSMatcher {
       return returnValue;
     }
 
-    const posMatch = this.checkPOSMatch(userResponse);
+    const posMatch = this.checkPOSMatch(userSubmission);
     if (posMatch !== undefined) {
       returnValue.response = posMatch;
       returnValue.posMatch = true;
@@ -48,17 +50,17 @@ export default class POSMatcher {
     return returnValue;
   }
 
-  checkExactMatch(userResponse) {
-    return _.find(this.optimalResponses, response => response.text === userResponse);
+  checkExactMatch(userSubmission) {
+    return _.find(this.getGradedResponses(), response => response.text === userSubmission);
   }
 
-  checkPOSMatch(userResponse) {
-    const correctPOSTags = this.optimalResponses.map(
+  checkPOSMatch(userSubmission) {
+    const correctPOSTags = this.getGradedResponses().map(
       optimalResponse => qpos.getPartsOfSpeechTags(optimalResponse.text)
     );
-    const userPOSTags = qpos.getPartsOfSpeechTags(userResponse);
+    const userPOSTags = qpos.getPartsOfSpeechTags(userSubmission);
     if (userPOSTags) {
-      return _.find(this.optimalResponses, (optimalResponse, index) => {
+      return _.find(this.getGradedResponses(), (optimalResponse, index) => {
         if (optimalResponse.parentID) {
           return false;
         } else if (correctPOSTags[index]) {
