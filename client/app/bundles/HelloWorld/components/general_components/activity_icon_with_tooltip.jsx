@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 import _ from 'lodash'
 import React from 'react'
 import TooltipTitleGeneratorGenerator from '../modules/componentGenerators/tooltip_title/tooltip_title_generator_generator'
@@ -57,9 +57,10 @@ export default React.createClass({
       var y;
       var x = this.props.data.activity.classification.id;
       if (x === 1) {
-        y = 'flag';
-      } else if (x === 2) {
         y = 'puzzle'
+      } else if (x === 2) {
+
+        y = 'flag';
       } else if (x === 4) {
         y = 'diagnostic'
       } else if (x === 5) {
@@ -69,7 +70,7 @@ export default React.createClass({
   },
 
   tooltipClasses: function () {
-    return "activate-tooltip icon-wrapper icon-" + this.percentage_color() + " icon-" + this.icon_for_classification();
+    return 'activate-tooltip icon-wrapper icon-' + this.percentage_color() + ' icon-' + this.icon_for_classification();
   },
 
   render: function () {
