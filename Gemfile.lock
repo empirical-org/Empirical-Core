@@ -430,6 +430,7 @@ GEM
       mimemagic (~> 0.3.0)
     parslet (1.7.1)
       blankslate (>= 2.0, <= 4.0)
+    pdf-core (0.6.1)
     pg (0.19.0)
     pg_array_parser (0.0.9)
     pointpin (1.0.1)
@@ -446,6 +447,9 @@ GEM
       activerecord (>= 4.0.0)
       arel (>= 4.0.1)
       pg_array_parser (~> 0.0.9)
+    prawn (2.1.0)
+      pdf-core (~> 0.6.1)
+      ttfunk (~> 1.4.0)
     premailer (1.8.7)
       css_parser (>= 1.4.5)
       htmlentities (>= 4.0.0)
@@ -679,6 +683,7 @@ GEM
       activesupport
     timecop (0.8.1)
     trollop (2.1.2)
+    ttfunk (1.4.0)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
@@ -762,10 +767,12 @@ DEPENDENCIES
   omniauth-google-oauth2
   paperclip
   parslet
+  pdf-core
   pg
   pointpin (~> 1.0.0)
   poltergeist
   postgres_ext
+  prawn
   premailer-rails
   pry
   pry-coolline
@@ -806,6 +813,7 @@ DEPENDENCIES
   therubyracer
   time_difference
   timecop
+  ttfunk
   turbolinks
   uglifier
   validates_email_format_of
@@ -816,4 +824,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.2
+   1.13.6
