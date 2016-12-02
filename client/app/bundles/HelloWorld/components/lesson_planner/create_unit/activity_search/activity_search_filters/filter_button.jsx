@@ -23,9 +23,9 @@ export default  React.createClass({
   iconType: function() {
     let type = this.props.data.name;
     if (type === 'passage') {
-      type = 'puzzle';
-    } else if (type === 'sentence') {
       type = 'flag';
+    } else if (type === 'sentence') {
+      type = 'puzzle';
     }
     return type;
   },
