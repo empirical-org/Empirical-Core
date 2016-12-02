@@ -135,15 +135,22 @@ const Lesson = React.createClass({
   },
 
   questionsForLesson: function () {
-    const {data} = this.props.lessons, {lessonID} = this.props.params;
-    return data[lessonID].questions.map((questionItem) => {
-      const questionType = questionItem.questionType
-      const key = questionItem.key
-      const question = this.props[questionType].data[key]
+    const { data, } = this.props.lessons,
+      { lessonID, } = this.props.params;
+    const filteredQuestions = data[lessonID].questions.filter(ques =>
+       this.props[ques.questionType].data[ques.key]
+    );
+    // This is a quickfix for missing questions -- if we leave this in here
+    // long term, we should return an array through a forloop to
+    // cut the time from 2N to N
+    return filteredQuestions.map((questionItem) => {
+      const questionType = questionItem.questionType;
+      const key = questionItem.key;
+      const question = this.props[questionType].data[key];
       question.key = key;
       const type = questionType === 'questions' ? 'SC' : 'SF';
-      return {type, question}
-    })
+      return { type, question, };
+    });
   },
 
   startActivity: function (name) {
