@@ -5,6 +5,7 @@ import SFMarkingObj, { wordLengthCount } from '../../app/libs/sentenceFragment';
 import responses, {
   optimalResponse
 } from '../data/sentenceFragmentResponses';
+import validEndingPunctuation from '../../app/libs/validEndingPunctuation.js';
 
 const questionUID = 'mockID';
 
@@ -59,7 +60,7 @@ describe('The Sentence Fragment Marking Logic', () => {
   });
 
   it('cannot return a POS match on ungraded responses', () => {
-    const newResponse = markingObj.checkMatch('I piggybacked to the store');
+    const newResponse = markingObj.checkMatch('I piggybacked to the store.');
     expect(newResponse.found).toBe(false);
     expect(newResponse.response.author).toBe(undefined);
     expect(newResponse.response.optimal).toBe(undefined);
@@ -95,9 +96,19 @@ describe('The min and max word addition matcher', () => {
 });
 
 describe('counting the number of words in a string', () => {
-  it('correctly counts the number of word in a string.', () => {
-    const wordLength = wordLengthCount('Ran to the shop.');
-    expect(wordLength).toBe(4);
+  it('correctly counts the number of words and numbers in a string when written correctly.', () => {
+    const wordLength = wordLengthCount('Ran to the shop 8 times.');
+    expect(wordLength).toBe(6);
+  });
+
+  it('correctly counts the number of words in a string when written with bad spacing.', () => {
+    const wordLength = wordLengthCount('Ran    to the    shop 8 times.');
+    expect(wordLength).toBe(6);
+  });
+
+  it('correctly counts the number of words in a string when written with symbols, punctuation and bad spacing.', () => {
+    const wordLength = wordLengthCount('Ran,    to @ the   #$%^ shop 8 @#$% times.');
+    expect(wordLength).toBe(6);
   });
 });
 
@@ -105,16 +116,13 @@ describe('A sentence fragment object without min and max changes', () => {
   const legacyFields = Object.assign({}, fields);
   delete legacyFields.wordCountChange;
   const legacySFMarkingObj = new SFMarkingObj(legacyFields);
-  it('should not fail', () => {
-    const newResponse = legacySFMarkingObj.checkMatch('I ran to the shop.');
-  });
 
-  it('should not care how many words are added', () => {
+  it('should not care how many words are removed', () => {
     const newResponse = legacySFMarkingObj.checkMatch('I.');
     expect(newResponse.found).toBe(false);
   });
 
-  it('should not care how many words are removed', () => {
+  it('should not care how many words are added', () => {
     const newResponse = legacySFMarkingObj.checkMatch("Ran to the shop and then defaced my Mom's Harvard tote-bag.");
     expect(newResponse.found).toBe(false);
   });
@@ -132,8 +140,51 @@ describe('A sentence fragment object with incomplete min and max changes', () =>
 
   it('should still give a hint if it has a max but no min', () => {
     partialLengthMarkingObj.wordCountChange = { max: 3, };
-    const newResponse = markingObj.checkLengthMatch("Ran to the shop and then defaced my Mom's Harvard tote-bag.");
+    const newResponse = partialLengthMarkingObj.checkLengthMatch("Ran to the shop and then defaced my Mom's Harvard tote-bag.");
     expect(newResponse.optimal).toBe(false);
     expect(newResponse.author).toBe('Too Long Hint');
+  });
+});
+
+describe("A sentence fragment object's ending", () => {
+  it('should be marked appropriately if it is missing ending punctuation', () => {
+    const newResponse = markingObj.checkEndingPunctuationMatch('I ran to the shop');
+    expect(newResponse.optimal).toBe(false);
+    expect(newResponse.author).toBe('Ending Punctuation Hint');
+  });
+
+  it('should not be marked as improper punctuation if it ends in correct punctation', () => {
+    let triggered = false;
+    validEndingPunctuation.forEach((validChar) => {
+      const newResponse = markingObj.checkEndingPunctuationMatch(`I ran to the shop ${validChar}`);
+      if (newResponse !== undefined) {
+        triggered = true;
+      }
+    });
+    expect(triggered).toBe(false);
+  });
+});
+
+describe("A sentence fragment object's beginning", () => {
+  it('should be marked appropriately if it starts with a letter that is non-capital', () => {
+    const newResponse = markingObj.checkStartingCapitalization('milan is like, the design capital of the world.');
+    expect(newResponse.optimal).toBe(false);
+  });
+
+  it('should not be marked as improper punctuation if starts with an upper case letter', () => {
+    const newResponse = markingObj.checkStartingCapitalization('Milan is like, the design capital of the world.');
+    expect(newResponse).toBe(undefined);
+  });
+
+  it('should not be marked as improper capitalization if starts with a non-letter', () => {
+    let triggered = false;
+    const nonLetters = ['!', '4', '@', '/', '.'];
+    nonLetters.forEach((nonLetter) => {
+      const newResponse = markingObj.checkEndingPunctuationMatch(`${nonLetter}ilan is like, the design capital of the world.`);
+      if (newResponse !== undefined) {
+        triggered = true;
+      }
+    });
+    expect(triggered).toBe(false);
   });
 });

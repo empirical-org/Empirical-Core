@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import * as qpos from './partsOfSpeechTagging';
+import validEndingPunctuation from '../libs/validEndingPunctuation.js';
 
 String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
@@ -56,15 +57,27 @@ export default class POSMatcher {
     };
     const res = returnValue.response;
 
+    const exactMatch = this.checkExactMatch(userSubmission);
+    if (exactMatch !== undefined) {
+      returnValue.response = exactMatch;
+      return returnValue;
+    }
+
     const lengthMatch = this.checkLengthMatch(userSubmission);
     if (lengthMatch !== undefined) {
       returnValue.response = Object.assign({}, res, lengthMatch);
       return returnValue;
     }
 
-    const exactMatch = this.checkExactMatch(userSubmission);
-    if (exactMatch !== undefined) {
-      returnValue.response = exactMatch;
+    const endingPunctuationMatch = this.checkEndingPunctuationMatch(userSubmission);
+    if (endingPunctuationMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, endingPunctuationMatch);
+      return returnValue;
+    }
+
+    const startingCapitalizationMatch = this.checkStartingCapitalization(userSubmission);
+    if (startingCapitalizationMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, startingCapitalizationMatch);
       return returnValue;
     }
 
@@ -88,6 +101,7 @@ export default class POSMatcher {
 
   checkLengthMatch(userSubmission) {
     const userWordCount = wordLengthCount(userSubmission);
+    console.log(this);
     const promptWordCount = wordLengthCount(this.prompt);
     const maxWordCount = promptWordCount + this.wordCountChange.max;
     const minWordCount = promptWordCount + this.wordCountChange.min;
@@ -105,6 +119,30 @@ export default class POSMatcher {
         feedback: 'Too Long',
         author: 'Too Long Hint',
       });
+    }
+  }
+
+  checkEndingPunctuationMatch(userSubmission) {
+    const lastChar = _.last(userSubmission);
+    if (!_.includes(validEndingPunctuation, lastChar)) {
+      return {
+        optimal: false,
+        parentID: this.getTopOptimalResponse().key,
+        author: 'Ending Punctuation Hint',
+        feedback: 'Proofread your sentence for missing punctuation.',
+      };
+    }
+  }
+
+  checkStartingCapitalization(userSubmission) {
+    // Only trigger if sentence begins with a lower case letter
+    if ((/^[a-z]/).test(userSubmission)) {
+      return {
+        optimal: false,
+        parentID: this.getTopOptimalResponse().key,
+        author: 'Starting Capitalization Hint',
+        feedback: 'Proofread your sentence for correct capitalization.',
+      };
     }
   }
 
