@@ -6,11 +6,10 @@ String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
 };
 
-function copyParentResponses(newResponse, parentResponse) {
-  if (parentResponse.conceptResults) {
-    newResponse.conceptResults = Object.assign({}, {}, parentResponse.conceptResults);
-  }
-}
+const conceptResultTemplate = (conceptUID, correct = false) => ({
+  conceptUID,
+  correct,
+});
 
 export function wordLengthCount(str) {
   const strNoPunctuation = str.replace(/[^0-9a-z\s]/gi, '').replace(/\s{2,}/g, ' ').split(' ');
@@ -83,11 +82,7 @@ export default class POSMatcher {
 
     const posMatch = this.checkPOSMatch(userSubmission);
     if (posMatch !== undefined) {
-      res.author = 'Parts of Speech';
-      res.feedback = posMatch.feedback;
-      res.parentID = posMatch.key;
-      res.optimal = posMatch.optimal;
-      copyParentResponses(res, posMatch);
+      returnValue.response = Object.assign({}, res, posMatch);
       return returnValue;
     }
 
@@ -101,7 +96,6 @@ export default class POSMatcher {
 
   checkLengthMatch(userSubmission) {
     const userWordCount = wordLengthCount(userSubmission);
-    console.log(this);
     const promptWordCount = wordLengthCount(this.prompt);
     const maxWordCount = promptWordCount + this.wordCountChange.max;
     const minWordCount = promptWordCount + this.wordCountChange.min;
@@ -130,6 +124,9 @@ export default class POSMatcher {
         parentID: this.getTopOptimalResponse().key,
         author: 'Ending Punctuation Hint',
         feedback: 'Proofread your sentence for missing punctuation.',
+        conceptResults: [
+          conceptResultTemplate('JVJhNIHGZLbHF6LYw605XA')
+        ],
       };
     }
   }
@@ -142,25 +139,41 @@ export default class POSMatcher {
         parentID: this.getTopOptimalResponse().key,
         author: 'Starting Capitalization Hint',
         feedback: 'Proofread your sentence for correct capitalization.',
+        conceptResults: [
+          conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
+        ],
       };
     }
   }
 
   checkPOSMatch(userSubmission) {
+    // Get graded responses and convert to POS strings
     const correctPOSTags = this.getGradedResponses().map(
       optimalResponse => qpos.getPartsOfSpeechTags(optimalResponse.text)
     );
+    // Convert user submission to POS string
     const userPOSTags = qpos.getPartsOfSpeechTags(userSubmission);
+    // If user string could be converted to POS tags find response that has the same POS tags
     if (userPOSTags) {
-      return _.find(this.getGradedResponses(), (optimalResponse, index) => {
+      const matchedResponse = _.find(this.getGradedResponses(), (optimalResponse, index) => {
         if (optimalResponse.parentID) {
           return false;
         } else if (correctPOSTags[index]) {
           if (JSON.stringify(correctPOSTags[index]) === JSON.stringify(userPOSTags)) {
+            // This will return the response object
             return true;
           }
         }
       });
+      if (matchedResponse) {
+        return {
+          optimal: matchedResponse.optimal,
+          parentID: matchedResponse.key,
+          feedback: matchedResponse.feedback,
+          author: 'Parts of Speech',
+          conceptResults: matchedResponse.conceptResults,
+        };
+      }
     }
   }
 }
