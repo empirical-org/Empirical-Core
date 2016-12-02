@@ -5,13 +5,34 @@ String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
 };
 
+function copyParentResponses(newResponse, parentResponse) {
+  if (parentResponse.conceptResults) {
+    newResponse.conceptResults = Object.assign({}, {}, parentResponse.conceptResults);
+  }
+}
+
+export function wordLengthCount(str) {
+  const strNoPunctuation = str.replace(/[^0-9a-z\s]/gi, '').replace(/\s{2,}/g, ' ').split(' ');
+  return strNoPunctuation.length;
+}
+
 export default class POSMatcher {
 
   constructor(data) {
     this.prompt = data.prompt;
     this.responses = data.responses;
     this.questionUID = data.questionUID;
-    this.wordCountChange = data.wordCountChange;
+    this.wordCountChange = data.wordCountChange || {};
+  }
+
+  getOptimalResponses() {
+    return _.reject(this.responses, response =>
+      (response.optimal !== true) || (response.parentID)
+    );
+  }
+
+  getTopOptimalResponse() {
+    return _.sortBy(this.getOptimalResponses(), r => r.count).reverse()[0];
   }
 
   getGradedResponses() {
@@ -35,6 +56,12 @@ export default class POSMatcher {
     };
     const res = returnValue.response;
 
+    const lengthMatch = this.checkLengthMatch(userSubmission);
+    if (lengthMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, lengthMatch);
+      return returnValue;
+    }
+
     const exactMatch = this.checkExactMatch(userSubmission);
     if (exactMatch !== undefined) {
       returnValue.response = exactMatch;
@@ -47,7 +74,7 @@ export default class POSMatcher {
       res.feedback = posMatch.feedback;
       res.parentID = posMatch.key;
       res.optimal = posMatch.optimal;
-      this.copyParentResponses(res, posMatch);
+      copyParentResponses(res, posMatch);
       return returnValue;
     }
 
@@ -57,6 +84,28 @@ export default class POSMatcher {
 
   checkExactMatch(userSubmission) {
     return _.find(this.getGradedResponses(), response => response.text === userSubmission);
+  }
+
+  checkLengthMatch(userSubmission) {
+    const userWordCount = wordLengthCount(userSubmission);
+    const promptWordCount = wordLengthCount(this.prompt);
+    const maxWordCount = promptWordCount + this.wordCountChange.max;
+    const minWordCount = promptWordCount + this.wordCountChange.min;
+    const templateResponse = {
+      optimal: false,
+      parentID: this.getTopOptimalResponse().key,
+    };
+    if (this.wordCountChange.min && (userWordCount < minWordCount)) {
+      return Object.assign({}, templateResponse, {
+        feedback: 'Too Short',
+        author: 'Too Short Hint',
+      });
+    } else if (this.wordCountChange.max && (userWordCount > maxWordCount)) {
+      return Object.assign({}, templateResponse, {
+        feedback: 'Too Long',
+        author: 'Too Long Hint',
+      });
+    }
   }
 
   checkPOSMatch(userSubmission) {
@@ -74,12 +123,6 @@ export default class POSMatcher {
           }
         }
       });
-    }
-  }
-
-  copyParentResponses(newResponse, parentResponse) {
-    if (parentResponse.conceptResults) {
-      newResponse.conceptResults = Object.assign({}, {}, parentResponse.conceptResults);
     }
   }
 }
