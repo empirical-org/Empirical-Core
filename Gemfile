@@ -56,6 +56,9 @@ gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
 gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
 gem 'stripe'
+gem 'prawn'
+gem 'pdf-core'
+gem 'ttfunk'
 
 # PARSING
 gem 'parslet'

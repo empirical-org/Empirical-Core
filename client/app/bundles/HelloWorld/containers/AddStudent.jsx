@@ -90,7 +90,7 @@ export default React.createClass({
 			<div className="container invite-students">
 				<ClassroomDropdown classrooms={this.props.classrooms} callback={this.updateClassroom}/>
 				<StudentCreatesAccountSection key='student-section' classCode={this.state.selectedClassroom.code}/>
-				<TeacherCreatesAccountSection key="teacher-create-account" firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors}/> {this.stateSpecificComponent()}
+				<TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors}/> {this.stateSpecificComponent()}
 			</div>
 		);
 	}

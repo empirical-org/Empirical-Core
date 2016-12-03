@@ -1,5 +1,5 @@
 class Teachers::ClassroomsController < ApplicationController
-  respond_to :json, :html
+  respond_to :json, :html, :pdf
   before_filter :teacher!
   before_filter :authorize!
 
@@ -77,7 +77,18 @@ class Teachers::ClassroomsController < ApplicationController
     render json: classroom
   end
 
-
+  def generate_login_pdf
+    @classroom = Classroom.find(params[:id])
+    respond_to do |format|
+      format.pdf do
+        pdf = LoginPdf.new(@classroom)
+        # we want to sanitize the classroom name so it works as a file name
+        # this will get rid of illegal characters and replace them with underscores
+        filename = @classroom.name.gsub(/[^0-9A-Za-z.\-]/, '_')
+        send_data pdf.render, filename: "quill_logins_for_#{filename.downcase}.pdf", type: "application/pdf"
+      end
+    end
+  end
 
 private
 

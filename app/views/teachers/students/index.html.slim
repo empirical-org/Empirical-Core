@@ -17,6 +17,13 @@
 
                 = f.button 'Save Changes',          class: 'button-green'
 
+              = link_to 'Download Login Sheet',
+                            generate_login_pdf_path(@classroom.id),
+                            method: 'get',
+                            class: 'delete-class'
+
+              br
+
               = link_to 'Archive Class',
                             hide_teachers_classroom_path(@classroom),
                             method: 'post',
