@@ -35,6 +35,8 @@ export default React.createClass({
 
 
     render: function() {
+      // TODO: 1. make a styled a element instead of wrapping the buttons.
+            // 2. set up pathways for prod/non-prod diagnostic
         return (
             <div id='intro-page'>
                 <div>
@@ -46,7 +48,7 @@ export default React.createClass({
                         </span>grade */}
                       <span id='subtext'>You'll be previewing the diagnostic as a student and will be able to assign at any time.</span>
                 </div>
-                <button id='preview' className='button-green'>Preview the Diagnostic</button>
+                <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/1' target='_blank'><button id='preview' className='button-green'>Preview the Diagnostic</button></a>
                 <br/>
                 <Link id='assign' to='/stage/3'><button className='button-green'>Continue to Assign</button></Link>
             </div>
