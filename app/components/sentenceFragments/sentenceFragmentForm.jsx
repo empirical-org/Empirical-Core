@@ -1,118 +1,130 @@
 import React from 'react';
-import {Link} from 'react-router'
-import ConceptSelector from '../shared/conceptSelector.jsx'
+import { Link } from 'react-router';
+import ConceptSelector from '../shared/conceptSelector.jsx';
 
 const sentenceFragmentForm = React.createClass({
 
-  getInitialState: function () {
-    const fragment = this.props.data
-    if(fragment===undefined) { //creating new fragment
+  getInitialState() {
+    const fragment = this.props.data;
+    if (fragment === undefined) { // creating new fragment
       return {
-        prompt: "",
+        prompt: '',
         isFragment: false,
-        optimalResponseText: "",
+        optimalResponseText: '',
         needsIdentification: true,
-        instructions: "",
-        conceptID: ""
-      }
+        instructions: '',
+        conceptID: '',
+        wordCountChange: { min: null, max: null, },
+      };
     } else {
       return {
         prompt: fragment.prompt,
         isFragment: fragment.isFragment,
-        optimalResponseText: fragment.optimalResponseText!==undefined ? fragment.optimalResponseText : "",
-        needsIdentification: fragment.needsIdentification!==undefined ? fragment.needsIdentification : true,
-        instructions: fragment.instructions ? fragment.instructions : "",
-        conceptID: fragment.conceptID
-      }
+        optimalResponseText: fragment.optimalResponseText !== undefined ? fragment.optimalResponseText : '',
+        needsIdentification: fragment.needsIdentification !== undefined ? fragment.needsIdentification : true,
+        instructions: fragment.instructions ? fragment.instructions : '',
+        conceptID: fragment.conceptID,
+        wordCountChange: fragment.wordCountChange,
+      };
     }
   },
 
-  handleChange: function (key, e) {
+  handleChange(key, e) {
     switch (key) {
       case 'prompt':
-        this.setState({prompt: e.target.value})
+        this.setState({ prompt: e.target.value, });
         break;
       case 'optimalResponseText':
-        this.setState({optimalResponseText: e.target.value})
+        this.setState({ optimalResponseText: e.target.value, });
         break;
       case 'instructions':
-        this.setState({instructions: e.target.value})
+        this.setState({ instructions: e.target.value, });
         break;
       case 'isFragment':
-        this.setState({isFragment: e.target.checked})
+        this.setState({ isFragment: e.target.checked, });
         break;
       case 'needsIdentification':
-        this.setState({needsIdentification: e.target.checked})
+        this.setState({ needsIdentification: e.target.checked, });
         break;
       case 'concept':
-        this.setState({conceptID: e.value})
+        this.setState({ conceptID: e.value, });
+      case 'maxWordCountChange':
+        this.setState({ maxWordCountChange: e.value, });
+        break;
       default:
-        return
+
     }
   },
 
-  submitSentenceFragment: function() {
-    const data = this.state
-    this.props.submit(data)
+  submitSentenceFragment() {
+    const data = this.state;
+    this.props.submit(data);
   },
 
-  conceptsToOptions: function() {
-    return _.map(this.props.concepts.data["0"], (concept)=>{
-      return (
-        {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
-      )
-    })
+  conceptsToOptions() {
+    return _.map(this.props.concepts.data['0'], concept => (
+        { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
+      ));
   },
 
-  renderOptimalResponseTextInput: function () {
+  renderOptimalResponseTextInput() {
     return (
-      [
+    [
         (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
         (<p className="control">
-          <input className="input" type="text" value={this.state.optimalResponseText} onChange={this.handleChange.bind(null, "optimalResponseText")}></input>
+          <input className="input" type="text" value={this.state.optimalResponseText} onChange={this.handleChange.bind(null, 'optimalResponseText')} />
         </p>)
-      ]
-    )
+    ]
+    );
   },
 
-  render: function () {
+  render() {
     // console.log("State: ", this.state)
     const fuse = {
-      keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
-      threshold: 0.4
-    }
+      keys: ['shortenedName', 'name'], // first search by specific concept, then by parent and grandparent
+      threshold: 0.4,
+    };
     return (
       <div>
         <label className="label">Sentence / Fragment Prompt</label>
         <p className="control">
-          <input className="input" type="text" value={this.state.prompt} onChange={this.handleChange.bind(null, "prompt")}></input>
+          <input className="input" type="text" value={this.state.prompt} onChange={this.handleChange.bind(null, 'prompt')} />
         </p>
         <label className="label">Instructions</label>
         <p className="control">
-          <input className="input" type="text" value={this.state.instructions} onChange={this.handleChange.bind(null, "instructions")}></input>
+          <input className="input" type="text" value={this.state.instructions} onChange={this.handleChange.bind(null, 'instructions')} />
         </p>
         <p className="control">
           <label className="checkbox">
-            <input type="checkbox" checked={this.state.isFragment} onClick={this.handleChange.bind(null, "isFragment")}/>
+            <input type="checkbox" checked={this.state.isFragment} onClick={this.handleChange.bind(null, 'isFragment')} />
+            This is a fragment.
+          </label>
+        </p>
+        <p className="control">
+          <label className="Max Word Count Change">
+            <input id="movie" type="number" value="0" />
+            <input type="checkbox" onChange={this.handleChange.bind(null, 'maxWordCountChange')} />
             This is a fragment.
           </label>
         </p>
         <p className="control">
           <label className="checkbox">
-            <input type="checkbox" checked={this.state.needsIdentification} onClick={this.handleChange.bind(null, "needsIdentification")}/>
+            <input type="checkbox" checked={this.state.needsIdentification} onClick={this.handleChange.bind(null, 'needsIdentification')} />
             Show a multiple choice question to identify sentence or fragment.
           </label>
         </p>
         {this.renderOptimalResponseTextInput()}
         <p className="control">
           <label className="label">Associated Concept</label>
-          <ConceptSelector currentConceptUID={this.state.concept}
-                           onChange={this.handleChange.bind(null, "concept")}/>
+          <ConceptSelector
+            currentConceptUID={this.state.concept}
+            onChange={this.handleChange.bind(null, 'concept')}
+          />
         </p>
         <button className="button is-primary is-outlined" onClick={this.submitSentenceFragment}>Save</button>
       </div>
-    )
-  }
-})
+    );
+  },
+});
 
-export default sentenceFragmentForm
+export default sentenceFragmentForm;
