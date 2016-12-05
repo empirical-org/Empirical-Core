@@ -217,7 +217,7 @@ export default class Question {
 
   copyParentResponses(newResponse, parentResponse) {
     if (parentResponse.conceptResults) {
-      newResponse.conceptResults = Object.assign({}, {}, parentResponse.conceptResults);
+      newResponse.conceptResults = Object.assign({}, parentResponse.conceptResults);
     }
   }
 
