@@ -14,7 +14,7 @@ const sentenceFragmentForm = React.createClass({
         needsIdentification: true,
         instructions: '',
         conceptID: '',
-        wordCountChange: { min: null, max: null, },
+        wordCountChange: {},
       };
     } else {
       return {
@@ -49,10 +49,16 @@ const sentenceFragmentForm = React.createClass({
       case 'concept':
         this.setState({ conceptID: e.value, });
       case 'maxWordCountChange':
-        this.setState({ maxWordCountChange: e.value, });
+        let newWordCountChange = Object.assign({}, this.state.wordCountChange);
+        newWordCountChange.max = e.target.valueAsNumber;
+        this.setState({ wordCountChange: newWordCountChange, });
+        break;
+      case 'minWordCountChange':
+        newWordCountChange = Object.assign({}, this.state.wordCountChange);
+        newWordCountChange.min = e.target.valueAsNumber;
+        this.setState({ wordCountChange: newWordCountChange, });
         break;
       default:
-
     }
   },
 
@@ -78,6 +84,12 @@ const sentenceFragmentForm = React.createClass({
     );
   },
 
+  wordCountInfo(minOrMax) {
+    if (this.state.wordCountChange && this.state.wordCountChange[minOrMax]) {
+      return this.state.wordCountChange[minOrMax];
+    }
+  },
+
   render() {
     // console.log("State: ", this.state)
     const fuse = {
@@ -101,10 +113,14 @@ const sentenceFragmentForm = React.createClass({
           </label>
         </p>
         <p className="control">
-          <label className="Max Word Count Change">
-            <input id="movie" type="number" value="0" />
-            <input type="checkbox" onChange={this.handleChange.bind(null, 'maxWordCountChange')} />
-            This is a fragment.
+          <label className="max_word_count_change">
+            Max Word Count Change
+            <input type="number" value={this.wordCountInfo('max')} onChange={this.handleChange.bind(null, 'maxWordCountChange')} />
+          </label>
+          <br />
+          <label className="min_word_count_change">
+            Min Word Count Change
+            <input type="number" value={this.wordCountInfo('min')} onChange={this.handleChange.bind(null, 'minWordCountChange')} />
           </label>
         </p>
         <p className="control">
