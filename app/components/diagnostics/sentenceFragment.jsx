@@ -5,6 +5,7 @@ import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
 import POSMatcher from '../../libs/sentenceFragment.js';
+import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitNewResponse,
   incrementChildResponseCount,
@@ -72,40 +73,47 @@ const PlaySentenceFragment = React.createClass({
         const { prompt, wordCountChange, } = this.getQuestion();
         const fields = {
           prompt,
-          responses: this.getResponses(),
+          responses: hashToCollection(this.getResponses()),
           questionUID: key,
           wordCountChange,
         };
         const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
-
-        let newResponse;
-
-        if (matched.found) {
-          if (matched.posMatch && !matched.exactMatch) {
-            newResponse = {
-              text: matched.submitted,
-              parentID: matched.response.key,
-              count: 1,
-              feedback: matched.response.optimal ? 'Excellent!' : 'Try writing the sentence in another way.',
-              questionUID: key,
-            };
-            if (matched.response.optimal) {
-              newResponse.optimal = matched.response.optimal;
-            }
-            this.props.dispatch(submitNewResponse(newResponse, newResponse.parentId));
-            this.props.dispatch(incrementChildResponseCount(matched.response.key)); // parent has no parentID
-          } else {
-            this.props.dispatch(incrementResponseCount(key, matched.response.key, matched.response.parentID));
-          }
+        console.log('Matched: ', matched);
+        if (matched.found && matched.response.key) {
+          this.props.dispatch(
+            incrementResponseCount(key, matched.response.key)
+          );
         } else {
-          newResponse = {
-            text: matched.submitted,
-            count: 1,
-            questionUID: key,
-          };
-          this.props.dispatch(submitNewResponse(newResponse));
+          this.props.dispatch(
+            submitNewResponse(matched.response)
+          );
         }
+        // if (matched.found) {
+        //   if (matched.posMatch && !matched.exactMatch) {
+        //     newResponse = {
+        //       text: matched.submitted,
+        //       parentID: matched.response.key,
+        //       count: 1,
+        //       feedback: matched.response.optimal ? 'Excellent!' : 'Try writing the sentence in another way.',
+        //       questionUID: key,
+        //     };
+        //     if (matched.response.optimal) {
+        //       newResponse.optimal = matched.response.optimal;
+        //     }
+        //     this.props.dispatch(submitNewResponse(newResponse, newResponse.parentId));
+        //     this.props.dispatch(incrementChildResponseCount(matched.response.parentID)); // parent has no parentID
+        //   } else {
+        //     this.props.dispatch(incrementResponseCount(key, matched.response.key, matched.response.parentID));
+        //   }
+        // } else {
+        //   newResponse = {
+        //     text: matched.submitted,
+        //     count: 1,
+        //     questionUID: key,
+        //   };
+        //   this.props.dispatch(submitNewResponse(newResponse));
+        // }
         this.props.updateAttempts(matched);
         this.props.nextQuestion();
       });

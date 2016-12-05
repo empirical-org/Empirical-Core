@@ -2,6 +2,7 @@ const C = require('../constants').default;
 import pathwaysActions from './pathways.js';
 import rootRef from '../libs/firebase';
 import { submitNewResponse } from './responses';
+import { push } from 'react-router-redux';
 let	sentenceFragmentsRef = rootRef.child('sentenceFragments'),
   moment = require('moment');
 import _ from 'lodash';
@@ -75,8 +76,11 @@ module.exports = {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else {
-          dispatch(submitNewResponse(newRef.key, response));
+          response.questionUID = newRef.key;
+          dispatch(submitNewResponse(response));
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+          const action = push(`/admin/sentence-fragments/${newRef.key}`);
+          dispatch(action);
         }
       });
     };

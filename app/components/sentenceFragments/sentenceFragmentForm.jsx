@@ -24,7 +24,7 @@ const sentenceFragmentForm = React.createClass({
         needsIdentification: fragment.needsIdentification !== undefined ? fragment.needsIdentification : true,
         instructions: fragment.instructions ? fragment.instructions : '',
         conceptID: fragment.conceptID,
-        wordCountChange: fragment.wordCountChange,
+        wordCountChange: fragment.wordCountChange || {},
       };
     }
   },
@@ -133,8 +133,8 @@ const sentenceFragmentForm = React.createClass({
         <p className="control">
           <label className="label">Associated Concept</label>
           <ConceptSelector
-            currentConceptUID={this.state.concept}
-            onChange={this.handleChange.bind(null, 'concept')}
+            currentConceptUID={this.state.conceptID}
+            handleSelectorChange={this.handleChange.bind(null, 'concept')}
           />
         </p>
         <button className="button is-primary is-outlined" onClick={this.submitSentenceFragment}>Save</button>
