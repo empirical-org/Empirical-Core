@@ -57,10 +57,9 @@ export default React.createClass({
       var y;
       var x = this.props.data.activity.classification.id;
       if (x === 1) {
-        y = 'puzzle'
-      } else if (x === 2) {
-
         y = 'flag';
+      } else if (x === 2) {
+        y = 'puzzle'
       } else if (x === 4) {
         y = 'diagnostic'
       } else if (x === 5) {
