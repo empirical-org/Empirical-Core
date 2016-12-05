@@ -35,7 +35,11 @@ module Teacher
 
   def classroom_activities(includes_value = nil)
     classroom_ids = classrooms_i_teach.map(&:id)
-    ClassroomActivity.where(classroom_id: classroom_ids).includes(includes_value)
+    if includes_value
+      ClassroomActivity.where(classroom_id: classroom_ids).includes(includes_value)
+    else
+      ClassroomActivity.where(classroom_id: classroom_ids)
+    end
   end
 
   def update_teacher params

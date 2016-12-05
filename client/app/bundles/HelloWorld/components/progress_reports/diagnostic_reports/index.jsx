@@ -73,7 +73,7 @@ export default React.createClass({
 		const p = params || this.props.params;
 		this.ajax.getActivityData = $.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
 			that.setState({
-				selectedActivity: data["activity"]
+				selectedActivity: data['activity']
 			});
 		});
 	},
@@ -100,7 +100,7 @@ export default React.createClass({
 			const p = this.props.params;
 			let report;
 			if (this.props.location.pathname.includes('student_report')) {
-				report = `student_report`;
+				report = 'student_report';
 			}
 			else {
 				let reportBeginningIndex = window.location.hash.lastIndexOf('/');
