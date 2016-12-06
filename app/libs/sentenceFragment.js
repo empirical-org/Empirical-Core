@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import * as qpos from './partsOfSpeechTagging';
 import validEndingPunctuation from '../libs/validEndingPunctuation.js';
+import constants from '../constants';
 
 String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
@@ -91,7 +92,7 @@ export default class POSMatcher {
   }
 
   checkExactMatch(userSubmission) {
-    return _.find(this.getGradedResponses(), response => response.text === userSubmission);
+    return _.find(this.responses, response => response.text === userSubmission);
   }
 
   checkLengthMatch(userSubmission) {
