@@ -1,11 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
 import POSMatcher from '../../libs/sentenceFragment.js';
-import fragmentActions from '../../actions/sentenceFragments.js';
+import { hashToCollection } from '../../libs/hashToCollection.js';
+import {
+  submitNewResponse,
+  incrementChildResponseCount,
+  incrementResponseCount
+} from '../../actions/responses';
+import icon from '../../img/question_icon.svg';
+
+const key = ''; // Enables this component to be used by both play/sentence-fragments and play/diagnostic
 
 const PlaySentenceFragment = React.createClass({
   getInitialState() {
@@ -38,7 +44,7 @@ const PlaySentenceFragment = React.createClass({
     this.props.markIdentify(choice === questionType);
   },
 
-  getSentenceOrFragmentButtons() {
+  renderSentenceOrFragmentButtons() {
     return (
       <div className="sf-button-group">
         <button className="button sf-button" value="Sentence" onClick={() => { this.checkChoice('Sentence'); }}>Complete Sentence</button>
@@ -50,7 +56,7 @@ const PlaySentenceFragment = React.createClass({
   choosingSentenceOrFragment() {
     const { question, } = this.props;
     return question.identified === undefined && (question.needsIdentification === undefined || question.needsIdentification === true);
-      // The case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
+    // The case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
   },
 
   handleChange(e) {
@@ -74,12 +80,12 @@ const PlaySentenceFragment = React.createClass({
         console.log('Matched: ', matched);
         if (matched.found && matched.response.key) {
           this.props.dispatch(
-              incrementResponseCount(key, matched.response.key)
-            );
+            incrementResponseCount(key, matched.response.key)
+          );
         } else {
           this.props.dispatch(
-              submitNewResponse(matched.response)
-            );
+            submitNewResponse(matched.response)
+          );
         }
         this.props.updateAttempts(matched);
         this.props.nextQuestion();
@@ -88,65 +94,68 @@ const PlaySentenceFragment = React.createClass({
   },
 
   renderSentenceOrFragmentMode() {
-    if (this.choosingSentenceOrFragment()) {
-      return (
-        <div className="container">
-          <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
-            <div className="feedback-row">
-              <img className="info" src={icon} />
-              <p>Is this a complete or an incomplete sentence?</p>
-            </div>
-            {this.getSentenceOrFragmentButtons()}
-          </ReactTransition>
-        </div>
-      );
-    } else {
-      return (<div />);
-    }
+    return (
+      <div className="container">
+        <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
+          <div className="feedback-row">
+            <img className="info" src={icon} />
+            <p>Is this a complete or an incomplete sentence?</p>
+          </div>
+          {this.renderSentenceOrFragmentButtons()}
+        </ReactTransition>
+      </div>
+    );
   },
 
-  renderPlaySentenceFragmentMode(fragment) {
+  renderPlaySentenceFragmentMode() {
+    const fragment = this.props.question;
     const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
 
-    if (!this.choosingSentenceOrFragment()) {
-      let instructions;
-      if (this.props.question.instructions && this.props.question.instructions !== '') {
-        instructions = this.props.question.instructions;
-      } else {
-        instructions = 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.';
-      }
+    let instructions;
+    if (this.props.question.instructions && this.props.question.instructions !== '') {
+      instructions = this.props.question.instructions;
+    } else {
+      instructions = 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.';
+    }
 
-      return (
-        <div className="container">
-          <ReactTransition
-            transitionName={'text-editor'} transitionAppear transitionAppearTimeout={1200}
-            transitionLeaveTimeout={300}
-          >
-            <div className="feedback-row">
-              <img className="info" src={icon} />
-              <p>{instructions}</p>
-            </div>
-            <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
-            <div className="question-button-group">
-              {button}
-            </div>
-          </ReactTransition>
-        </div>
-      );
+    return (
+      <div className="container">
+        <ReactTransition
+          transitionName={'text-editor'} transitionAppear transitionAppearTimeout={1200}
+          transitionLeaveTimeout={300}
+        >
+          <div className="feedback-row">
+            <img className="info" src={icon} />
+            <p>{instructions}</p>
+          </div>
+          <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
+          <div className="question-button-group">
+            {button}
+          </div>
+        </ReactTransition>
+      </div>
+    );
+  },
+
+  renderInteractiveComponent() {
+    if (this.choosingSentenceOrFragment()) {
+      return this.renderSentenceOrFragmentMode();
+    } else {
+      return this.renderPlaySentenceFragmentMode();
     }
   },
 
   render() {
     if (this.props.sentenceFragments.hasreceiveddata) {
-      const fragment = this.props.question;
+      // const fragment = this.props.question;
       return (
         <div className="student-container-inner-diagnostic">
           <div className="draft-js sentence-fragments prevent-selection">
             <p>{this.getQuestion().prompt}</p>
           </div>
-
-          {this.renderSentenceOrFragmentMode()}
-          {this.renderPlaySentenceFragmentMode(fragment)}
+          {this.renderInteractiveComponent()}
+          {/* {this.renderSentenceOrFragmentMode()}
+          {this.renderPlaySentenceFragmentMode(fragment)} */}
         </div>
       );
     } else {
@@ -155,11 +164,4 @@ const PlaySentenceFragment = React.createClass({
   },
 });
 
-function select(state) {
-  return {
-    routing: state.routing,
-    sentenceFragments: state.sentenceFragments,
-  };
-}
-
-export default connect(select)(PlaySentenceFragment);
+export default PlaySentenceFragment;
