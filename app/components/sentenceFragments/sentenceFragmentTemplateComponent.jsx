@@ -121,9 +121,11 @@ const PlaySentenceFragment = React.createClass({
   renderPlaySentenceFragmentMode() {
     const fragment = this.props.question;
     const button = this.renderButton();
-
     let instructions;
-    if (fragment.instructions && fragment.instructions !== '') {
+    if (fragment.attempts.length > 0) {
+      instructions = fragment.attempts[fragment.attempts.length - 1].response.feedback ||
+      'Good work. A complete sentence always has a person or thing completing an action.';
+    } else if (fragment.instructions && fragment.instructions !== '') {
       instructions = this.props.question.instructions;
     } else {
       instructions = 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.';
