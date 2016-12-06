@@ -42,9 +42,6 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.doesNotHaveAndIsNotGettingResponses() && this.hasQuestionsInQuestionSet(nextProps)) {
-      this.getResponsesForEachQuestion(nextProps.playLesson);
-    }
     if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length) {
       this.saveSessionData(nextProps.playLesson);
     }
@@ -122,7 +119,7 @@ const PlayDiagnosticQuestion = React.createClass({
   checkAnswer(e) {
     if (this.state.editing) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking,);
+      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking);
       this.updateResponseResource(response);
       this.submitResponse(response);
       this.setState({
