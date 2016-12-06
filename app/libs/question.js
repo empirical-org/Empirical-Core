@@ -1,11 +1,11 @@
 import _ from 'underscore';
 import fuzzy from 'fuzzyset.js';
 import constants from '../constants';
-import { diffWords } from 'diff';
 import { checkForMissingWords } from './requiredWords';
 import {
   checkChangeObjectMatch
 } from './algorithms/changeObjects';
+
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {
