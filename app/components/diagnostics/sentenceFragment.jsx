@@ -18,7 +18,7 @@ const key = ''; // Enables this component to be used by both play/sentence-fragm
 const PlaySentenceFragment = React.createClass({
   getInitialState() {
     return {
-      response: '',
+      response: this.props.question.prompt,
       checkAnswerEnabled: true,
     };
   },
@@ -159,7 +159,7 @@ const PlaySentenceFragment = React.createClass({
               <img className="info" src={icon} />
               <p>{instructions}</p>
             </div>
-            <TextEditor value={fragment.prompt} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
+            <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
             <div className="question-button-group">
               {button}
             </div>

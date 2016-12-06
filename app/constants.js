@@ -129,6 +129,10 @@ export default {
     flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
   },
 
+  INSTRUCTIONS: {
+    sentenceFragments: 'Add/change as few words as you can to change this fragment into a sentence.',
+  },
+
   ERROR_TYPES: [
     'typingError',
     'caseError',
