@@ -1,258 +1,259 @@
-import React from 'react'
-var Markdown = require('react-remarkable');
-import {connect} from 'react-redux'
-import { Link } from 'react-router'
-import Question from '../../libs/question'
+import React from 'react';
+const Markdown = require('react-remarkable');
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import Question from '../../libs/question';
 import Textarea from 'react-textarea-autosize';
-import _ from 'underscore'
-import {hashToCollection} from '../../libs/hashToCollection'
-import {submitResponse, clearResponses} from '../../actions.js'
-import pathwayActions from '../../actions/pathways'
-var C = require("../../constants").default
-import rootRef from "../../libs/firebase"
-const sessionsRef = rootRef.child('sessions')
-var C = require("../../constants").default
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx'
-import RenderQuestionCues from '../renderForQuestions/cues.jsx'
-import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx'
-import RenderFeedback from '../renderForQuestions/feedback.jsx'
-import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js'
-import getResponse from '../renderForQuestions/checkAnswer.js'
-import handleFocus from '../renderForQuestions/handleFocus.js'
-import submitQuestionResponse from '../renderForQuestions/submitResponse.js'
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js'
-import submitPathway from '../renderForQuestions/submitPathway.js'
-import MultipleChoice from './multipleChoice.jsx'
-import StateFinished from '../renderForQuestions/renderThankYou.jsx'
-import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx'
-import ConceptExplanation from '../feedback/conceptExplanation.jsx'
+import _ from 'underscore';
+import { hashToCollection } from '../../libs/hashToCollection';
+import { submitResponse, clearResponses } from '../../actions.js';
+import pathwayActions from '../../actions/pathways';
+var C = require('../../constants').default;
+import rootRef from '../../libs/firebase';
+const sessionsRef = rootRef.child('sessions');
+var C = require('../../constants').default;
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import RenderQuestionCues from '../renderForQuestions/cues.jsx';
+import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
+import RenderFeedback from '../renderForQuestions/feedback.jsx';
+import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js';
+import getResponse from '../renderForQuestions/checkAnswer.js';
+import handleFocus from '../renderForQuestions/handleFocus.js';
+import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import submitPathway from '../renderForQuestions/submitPathway.js';
+import MultipleChoice from './multipleChoice.jsx';
+import StateFinished from '../renderForQuestions/renderThankYou.jsx';
+import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
+import ConceptExplanation from '../feedback/conceptExplanation.jsx';
 
-const feedbackStrings = C.FEEDBACK_STRINGS
+const feedbackStrings = C.FEEDBACK_STRINGS;
 
 const playLessonQuestion = React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return {
       editing: false,
-      response: "",
+      response: '',
       finished: false,
-      multipleChoice: false
-    }
+      multipleChoice: false,
+    };
   },
 
-  getInitialValue: function () {
+  getInitialValue() {
     if (this.props.prefill) {
-      return this.getQuestion().prefilledText
+      return this.getQuestion().prefilledText;
     }
   },
 
-  removePrefilledUnderscores: function () {
-    this.setState({response: this.state.response.replace(/_/g, "")})
+  removePrefilledUnderscores() {
+    this.setState({ response: this.state.response.replace(/_/g, ''), });
   },
 
-  getQuestion: function () {
-    return this.props.question
+  getQuestion() {
+    return this.props.question;
   },
 
-  getResponse2: function (rid) {
-    const {data} = this.props.questions, questionID = this.props.question.key;
-    return (this.getResponses()[rid])
+  getResponse2(rid) {
+    const { data, } = this.props.questions,
+      questionID = this.props.question.key;
+    return (this.getResponses()[rid]);
   },
 
-  getResponses: function () {
-    return this.props.responses.data[this.getQuestion().key]
+  getResponses() {
+    return this.props.responses.data[this.getQuestion().key];
   },
 
-  getQuestionMarkerFields: function () {
+  getQuestionMarkerFields() {
     return ({
       prompt: this.getQuestion().prompt,
-      responses: hashToCollection(this.getResponses())
-    })
+      responses: hashToCollection(this.getResponses()),
+    });
   },
 
-  getNewQuestionMarker: function () {
+  getNewQuestionMarker() {
     const fields = this.getQuestionMarkerFields();
     return new Question(fields);
   },
 
-  getOptimalResponses: function () {
+  getOptimalResponses() {
     const question = this.getNewQuestionMarker();
-    return question.getOptimalResponses()
+    return question.getOptimalResponses();
   },
 
-  getSubOptimalResponses: function () {
+  getSubOptimalResponses() {
     const question = this.getNewQuestionMarker();
-    return question.getSubOptimalResponses()
+    return question.getSubOptimalResponses();
   },
 
-  get4MarkedResponses: function () {
-    var twoOptimal = _.first(_.shuffle(this.getOptimalResponses()), 2)
-    var twoSubOptimal = _.first(_.shuffle(this.getSubOptimalResponses()), 2)
-    return _.shuffle(twoOptimal.concat(twoSubOptimal))
+  get4MarkedResponses() {
+    const twoOptimal = _.first(_.shuffle(this.getOptimalResponses()), 2);
+    const twoSubOptimal = _.first(_.shuffle(this.getSubOptimalResponses()), 2);
+    return _.shuffle(twoOptimal.concat(twoSubOptimal));
   },
 
-  submitResponse: function(response) {
-    submitQuestionResponse(response,this.props,this.state.sessionKey,submitResponse);
+  submitResponse(response) {
+    submitQuestionResponse(response, this.props, this.state.sessionKey, submitResponse);
   },
 
-  renderSentenceFragments: function () {
-    return <RenderSentenceFragments getQuestion={this.getQuestion}/>
+  renderSentenceFragments() {
+    return <RenderSentenceFragments getQuestion={this.getQuestion} />;
   },
 
-  listCuesAsString: function (cues) {
-    var newCues = cues.slice(0);
-    return newCues.splice(0, newCues.length - 1).join(", ") + " or " + newCues.pop() + "."
+  listCuesAsString(cues) {
+    const newCues = cues.slice(0);
+    return `${newCues.splice(0, newCues.length - 1).join(', ')} or ${newCues.pop()}.`;
   },
 
-  renderFeedback: function (override) {
+  renderFeedback(override) {
     let sentence;
     if (override) {
-      sentence = override
+      sentence = override;
     } else {
-      sentence = "We have not seen this sentence before. Could you please try writing it in another way?"
+      sentence = 'We have not seen this sentence before. Could you please try writing it in another way?';
     }
-    return <RenderFeedback question={this.props.question} renderFeedbackStatements = {this.renderFeedbackStatements}
-            sentence={sentence}
-            responses={this.getResponses()}
-            override={!!override}
-            getQuestion={this.getQuestion} listCuesAsString={this.listCuesAsString} />
+    return (<RenderFeedback
+      question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}
+      sentence={sentence}
+      responses={this.getResponses()}
+      override={!!override}
+      getQuestion={this.getQuestion} listCuesAsString={this.listCuesAsString}
+    />);
   },
 
-  getErrorsForAttempt: function (attempt) {
-    return _.pick(attempt, ...C.ERROR_TYPES)
+  getErrorsForAttempt(attempt) {
+    return _.pick(attempt, ...C.ERROR_TYPES);
   },
 
-  renderFeedbackStatements: function (attempt) {
-    return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion}/>
+  renderFeedbackStatements(attempt) {
+    return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
   },
 
-  renderCues: function () {
-    return <RenderQuestionCues getQuestion={this.getQuestion}/>
+  renderCues() {
+    return <RenderQuestionCues getQuestion={this.getQuestion} />;
   },
 
-  updateResponseResource: function (response) {
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch)
+  updateResponseResource(response) {
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
   },
 
-  submitPathway: function (response) {
-    submitPathway(response, this.props)
+  submitPathway(response) {
+    submitPathway(response, this.props);
   },
 
-  answeredCorrectly: function () {
+  answeredCorrectly() {
     const question = this.getQuestion();
-    const latestAttempt = getLatestAttempt(question.attempts)
-    const errorsForAttempt = _.keys(this.getErrorsForAttempt(latestAttempt)).length > 0
-    return (latestAttempt.found && !errorsForAttempt && latestAttempt.response.optimal)
+    const latestAttempt = getLatestAttempt(question.attempts);
+    const errorsForAttempt = _.keys(this.getErrorsForAttempt(latestAttempt)).length > 0;
+    return (latestAttempt.found && !errorsForAttempt && latestAttempt.response.optimal);
   },
 
-  checkAnswer: function (e) {
+  checkAnswer(e) {
     if (this.state.editing) {
-      this.removePrefilledUnderscores()
-      var response = getResponse(this.getQuestion(), this.state.response, this.getResponses())
-      this.updateResponseResource(response)
-      this.submitResponse(response)
-      this.setState({editing: false})
+      this.removePrefilledUnderscores();
+      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses());
+      this.updateResponseResource(response);
+      this.submitResponse(response);
+      this.setState({ editing: false, });
     }
   },
 
-  completeMultiChoice: function () {
-    this.setState({finished: true})
+  completeMultiChoice() {
+    this.setState({ finished: true, });
   },
 
-  toggleDisabled: function () {
+  toggleDisabled() {
     if (this.state.editing) {
-      return "";
+      return '';
     }
-    return "is-disabled"
+    return 'is-disabled';
   },
 
-  handleChange: function (e) {
+  handleChange(e) {
     if (e !== this.state.response) {
-      this.setState({editing: true, response: e})
+      this.setState({ editing: true, response: e, });
     }
   },
 
-  readyForNext: function () {
-    if (this.props.question.attempts.length > 0 ) {
-      var latestAttempt = getLatestAttempt(this.props.question.attempts)
+  readyForNext() {
+    if (this.props.question.attempts.length > 0) {
+      const latestAttempt = getLatestAttempt(this.props.question.attempts);
       if (latestAttempt.found) {
-        var errors = _.keys(this.getErrorsForAttempt(latestAttempt))
+        const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
-          return true
+          return true;
         }
       }
     }
-    return false
+    return false;
   },
 
-  getProgressPercent: function () {
-    return this.props.question.attempts.length / 3 * 100
+  getProgressPercent() {
+    return this.props.question.attempts.length / 3 * 100;
   },
 
-  finish: function () {
-    this.setState({finished: true})
+  finish() {
+    this.setState({ finished: true, });
   },
 
-  nextQuestion: function () {
-    this.props.nextQuestion()
-    this.setState({response: ""})
+  nextQuestion() {
+    this.props.nextQuestion();
+    this.setState({ response: '', });
   },
 
-  renderNextQuestionButton:  function (correct) {
-    return (<button className="button student-next" onClick={this.nextQuestion}>Next Question</button>)
+  renderNextQuestionButton(correct) {
+    return (<button className="button student-next" onClick={this.nextQuestion}>Next Question</button>);
   },
 
-  renderFinishedQuestionButton:  function () {
-    const nextF = () =>  {
-      this.setState({finished: true})
-    }
-    return (<button className="button student-next" onClick={nextF}>Next</button>)
+  renderFinishedQuestionButton() {
+    const nextF = () => {
+      this.setState({ finished: true, });
+    };
+    return (<button className="button student-next" onClick={nextF}>Next</button>);
   },
 
-  renderMultipleChoiceButton:  function () {
-    const nextF = () =>  {
-      this.setState({multipleChoice: true})
-    }
-    return (<button className="button student-next" onClick={nextF}>Next</button>)
+  renderMultipleChoiceButton() {
+    const nextF = () => {
+      this.setState({ multipleChoice: true, });
+    };
+    return (<button className="button student-next" onClick={nextF}>Next</button>);
   },
 
-  finishQuestion: function () {
-    this.setState({finished: true})
+  finishQuestion() {
+    this.setState({ finished: true, });
   },
 
-  getNegativeConceptResultsForResponse: function (conceptResults) {
-    return _.reject(hashToCollection(conceptResults), (cr) => {
-      return cr.correct
-    })
+  getNegativeConceptResultsForResponse(conceptResults) {
+    return _.reject(hashToCollection(conceptResults), cr => cr.correct);
   },
 
-  getNegativeConceptResultForResponse: function (conceptResults) {
-    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults)
-    return negCRs.length > 0 ? negCRs[0] : undefined
+  getNegativeConceptResultForResponse(conceptResults) {
+    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
+    return negCRs.length > 0 ? negCRs[0] : undefined;
   },
 
-  renderConceptExplanation: function () {
-    const latestAttempt = getLatestAttempt(this.props.question.attempts)
+  renderConceptExplanation() {
+    const latestAttempt = getLatestAttempt(this.props.question.attempts);
     if (latestAttempt) {
       if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults)
-        const data = this.props.conceptsFeedback.data[conceptID.conceptUID]
+        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+        const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
         if (data) {
-          return <ConceptExplanation {...data}/>
+          return <ConceptExplanation {...data} />;
         }
       } else if (this.getQuestion().conceptID) {
-        const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID]
+        const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
         if (data) {
-          return <ConceptExplanation {...data}/>
+          return <ConceptExplanation {...data} />;
         }
       }
     }
   },
 
-  multipleChoiceFinishQuestion: function () {
-    this.setState({multipleChoiceCorrect: true}, this.finishQuestion())
+  multipleChoiceFinishQuestion() {
+    this.setState({ multipleChoiceCorrect: true, }, this.finishQuestion());
   },
 
-  render: function () {
+  render() {
     const questionID = this.props.question.key;
     if (this.props.question) {
       const sharedProps = {
@@ -263,22 +264,23 @@ const playLessonQuestion = React.createClass({
         feedback: this.renderFeedback(),
         initialValue: this.getInitialValue(),
         key: questionID,
-        questionID: questionID,
-        id: "playQuestion",
+        questionID,
+        id: 'playQuestion',
         sentenceFragments: this.renderSentenceFragments(),
         cues: this.renderCues(),
-      }
-      var component;
+      };
+      let component;
       if (this.state.finished) {
         component = (
-          <AnswerForm {...sharedProps}
-                      handleChange={() => {}}
-                      nextQuestionButton={this.renderNextQuestionButton()}
-                      multipleChoiceCorrect={this.state.multipleChoiceCorrect}
-                      disabled={true}
-                      finished={true}
-                       />
-        )
+          <AnswerForm
+            {...sharedProps}
+            handleChange={() => {}}
+            nextQuestionButton={this.renderNextQuestionButton()}
+            multipleChoiceCorrect={this.state.multipleChoiceCorrect}
+            disabled
+            finished
+          />
+        );
       } else if (this.state.multipleChoice) {
         component = (
           <MultipleChoice
@@ -286,68 +288,73 @@ const playLessonQuestion = React.createClass({
             answers={this.get4MarkedResponses()}
             next={this.multipleChoiceFinishQuestion}
           />
-        )
-      } else if (this.props.question.attempts.length > 4 ) {
+        );
+      } else if (this.props.question.attempts.length > 4) {
         if (this.answeredCorrectly()) {
           component = (
-            <AnswerForm {...sharedProps}
-                        handleChange={() => {}}
-                        nextQuestionButton={this.renderFinishedQuestionButton()}
-                        disabled={true}
-
-                         />
-            )
+            <AnswerForm
+              {...sharedProps}
+              handleChange={() => {}}
+              nextQuestionButton={this.renderFinishedQuestionButton()}
+              disabled
+            />
+            );
         } else {
-          sharedProps.feedback = this.renderFeedback("Nice try. Let’s try a multiple choice question.")
+          sharedProps.feedback = this.renderFeedback('Nice try. Let’s try a multiple choice question.');
           component = (
-            <AnswerForm {...sharedProps}
-                        handleChange={() => {}}
-                        nextQuestionButton={this.renderMultipleChoiceButton()}
-                        disabled={true}
-                         />
-            )
+            <AnswerForm
+              {...sharedProps}
+              handleChange={() => {}}
+              nextQuestionButton={this.renderMultipleChoiceButton()}
+              disabled
+            />
+            );
         }
-
-      } else if (this.props.question.attempts.length > 0 ) {
-        var latestAttempt = getLatestAttempt(this.props.question.attempts)
+      } else if (this.props.question.attempts.length > 0) {
+        const latestAttempt = getLatestAttempt(this.props.question.attempts);
         if (this.readyForNext()) {
           component = (
-            <AnswerForm {...sharedProps}
-                      handleChange={() => {}}
-                      nextQuestionButton={this.renderFinishedQuestionButton()}
-                      disabled={true}
-                    />
-          )
+            <AnswerForm
+              {...sharedProps}
+              handleChange={() => {}}
+              nextQuestionButton={this.renderFinishedQuestionButton()}
+              disabled
+            />
+          );
         } else {
           component = (
-            <AnswerForm {...sharedProps}
-                  handleChange={this.handleChange}
-                  toggleDisabled={this.toggleDisabled()}
-                  conceptExplanation={this.renderConceptExplanation} checkAnswer={this.checkAnswer} />
-          )
+            <AnswerForm
+              {...sharedProps}
+              handleChange={this.handleChange}
+              toggleDisabled={this.toggleDisabled()}
+              conceptExplanation={this.renderConceptExplanation} checkAnswer={this.checkAnswer}
+            />
+          );
         }
       } else {
         component = (
-          <AnswerForm {...sharedProps}
-                handleChange={this.handleChange}
-                toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer} />
-        )
+          <AnswerForm
+            {...sharedProps}
+            handleChange={this.handleChange}
+            toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
+          />
+        );
       }
       return (
         <div className="student-container-inner-diagnostic">
           {component}
         </div>
-      )
+      );
     } else {
-      return (<p>Loading...</p>)
+      return (<p>Loading...</p>);
     }
-  }
-})
+  },
+});
 
 const getLatestAttempt = function (attempts = []) {
   const lastIndex = attempts.length - 1;
-  return attempts[lastIndex]
-}
+  return attempts[lastIndex];
+};
 
 function select(state) {
   return {
@@ -355,7 +362,7 @@ function select(state) {
     conceptsFeedback: state.conceptsFeedback,
     questions: state.questions,
     routing: state.routing,
-    responses: state.responses
-  }
+    responses: state.responses,
+  };
 }
-export default connect(select)(playLessonQuestion)
+export default connect(select)(playLessonQuestion);
