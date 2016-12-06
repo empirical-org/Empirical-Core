@@ -105,7 +105,7 @@ const playQuestion = React.createClass({
     //made available to the feedback component.
     const question = this.props.questions.data[this.props.params.questionID]
     question.attempts = this.props.question.attempts
-    return <RenderFeedback sentence="Try Again. What’s another way you could write this sentence?"
+    return <RenderFeedback sentence="Keep writing! Revise your sentence by changing the order of the ideas."
             question={question} getQuestion={this.getQuestion} renderFeedbackStatements={this.renderFeedbackStatements}/>
   },
 
