@@ -1,17 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import _ from 'underscore';
-import ReactTransition from 'react-addons-css-transition-group';
-import POSMatcher from '../../libs/sentenceFragment.js';
-import { hashToCollection } from '../../libs/hashToCollection.js';
-import {
-  submitNewResponse,
-  incrementChildResponseCount,
-  incrementResponseCount
-} from '../../actions/responses';
-import icon from '../../img/question_icon.svg';
+
 import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTemplateComponent.jsx';
 
 const key = ''; // Enables this component to be used by both play/sentence-fragments and play/diagnostic

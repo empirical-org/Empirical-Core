@@ -11,8 +11,6 @@ import {
 } from '../../actions/responses';
 import icon from '../../img/question_icon.svg';
 
-const key = ''; // Enables this component to be used by both play/sentence-fragments and play/diagnostic
-
 const PlaySentenceFragment = React.createClass({
   getInitialState() {
     return {
@@ -23,7 +21,7 @@ const PlaySentenceFragment = React.createClass({
 
   showNextQuestionButton() {
     const { question, } = this.props;
-    const attempted = question.attempts.length > 0;
+    const attempted = question.attempts.length > 2;
     if (attempted) {
       return true;
     } else {
@@ -88,7 +86,8 @@ const PlaySentenceFragment = React.createClass({
           );
         }
         this.props.updateAttempts(matched);
-        this.props.nextQuestion();
+        this.setState({ checkAnswerEnabled: true, });
+        // this.props.nextQuestion();
       });
     }
   },
@@ -107,12 +106,24 @@ const PlaySentenceFragment = React.createClass({
     );
   },
 
+  renderButton() {
+    if (this.showNextQuestionButton()) {
+      return (
+        <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
+      );
+    } else {
+      return (
+        <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
+      );
+    }
+  },
+
   renderPlaySentenceFragmentMode() {
     const fragment = this.props.question;
-    const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
+    const button = this.renderButton();
 
     let instructions;
-    if (this.props.question.instructions && this.props.question.instructions !== '') {
+    if (fragment.instructions && fragment.instructions !== '') {
       instructions = this.props.question.instructions;
     } else {
       instructions = 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.';
@@ -130,7 +141,7 @@ const PlaySentenceFragment = React.createClass({
           </div>
           <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
           <div className="question-button-group">
-            {button}
+            {this.renderButton()}
           </div>
         </ReactTransition>
       </div>
@@ -147,15 +158,12 @@ const PlaySentenceFragment = React.createClass({
 
   render() {
     if (this.props.sentenceFragments.hasreceiveddata) {
-      // const fragment = this.props.question;
       return (
         <div className="student-container-inner-diagnostic">
           <div className="draft-js sentence-fragments prevent-selection">
             <p>{this.getQuestion().prompt}</p>
           </div>
           {this.renderInteractiveComponent()}
-          {/* {this.renderSentenceOrFragmentMode()}
-          {this.renderPlaySentenceFragmentMode(fragment)} */}
         </div>
       );
     } else {
