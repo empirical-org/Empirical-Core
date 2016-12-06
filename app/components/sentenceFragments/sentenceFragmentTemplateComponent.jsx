@@ -87,7 +87,7 @@ const PlaySentenceFragment = React.createClass({
         }
         this.props.updateAttempts(matched);
         this.setState({ checkAnswerEnabled: true, });
-        // this.props.nextQuestion();
+        this.props.handleAttemptSubmission();
       });
     }
   },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PlayLessonQuestion from './question.jsx';
-import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx';
+import PlaySentenceFragment from './sentenceFragment.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
