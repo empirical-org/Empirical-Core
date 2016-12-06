@@ -109,7 +109,7 @@ const playLessonQuestion = React.createClass({
     if (override) {
       sentence = override;
     } else {
-      sentence = 'We have not seen this sentence before. Could you please try writing it in another way?';
+      sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
     return (<RenderFeedback
       question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}
