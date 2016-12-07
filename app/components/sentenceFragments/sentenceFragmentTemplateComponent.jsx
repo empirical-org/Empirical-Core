@@ -21,12 +21,17 @@ const PlaySentenceFragment = React.createClass({
 
   showNextQuestionButton() {
     const { question, } = this.props;
-    const attempted = question.attempts.length > 2;
-    if (attempted) {
+    const latestAttempt = this.getLatestAttempt();
+    const readyForNext = question.attempts.length > 2 || (latestAttempt && latestAttempt.response.optimal === undefined);
+    if (readyForNext) {
       return true;
     } else {
       return false;
     }
+  },
+
+  getLatestAttempt() {
+    return _.last(this.props.question.attempts || []);
   },
 
   getQuestion() {
@@ -122,8 +127,9 @@ const PlaySentenceFragment = React.createClass({
     const fragment = this.props.question;
     const button = this.renderButton();
     let instructions;
-    if (fragment.attempts.length > 0) {
-      instructions = fragment.attempts[fragment.attempts.length - 1].response.feedback ||
+    const latestAttempt = this.getLatestAttempt();
+    if (latestAttempt) {
+      instructions = latestAttempt.response.feedback ||
       'Good work. A complete sentence always has a person or thing completing an action.';
     } else if (fragment.instructions && fragment.instructions !== '') {
       instructions = this.props.question.instructions;
