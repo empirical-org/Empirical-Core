@@ -477,14 +477,8 @@ export default React.createClass({
   renderResponseHeader(response) {
     let bgColor;
     let icon;
-    if (!response.feedback) {
-      bgColor = 'not-found-response';
-    } else if (response.parentID) {
-      const parentResponse = this.props.getResponse(response.parentID);
-      bgColor = 'algorithm-sub-optimal-response';
-    } else {
-      bgColor = (response.optimal ? 'human-optimal-response' : 'human-sub-optimal-response');
-    }
+    const headerCSSClassNames = ['human-optimal-response', 'human-sub-optimal-response', 'algorithm-optimal-response', 'algorithm-sub-optimal-response', 'not-found-response'];
+    bgColor = headerCSSClassNames[response.statusCode];
     if (response.weak) {
       icon = '⚠️';
     }

@@ -25,7 +25,7 @@ const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal'
 // ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
                 // "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint", "Whitespace Hint",
                 // "Missing Word Hint", "Additional Word Hint", "Modified Word Hint", "Missing Details Hint", "Not Concise Hint", "No Hint"]
-const colors = ['#81c784', '#ffb74d', '#ba68c8', '#5171A5', '#e57373'];
+const colors = ['#81c784', '#ffb74d', '#BA68C8', '#5171A5', '#e57373'];
 
 const responsesPerPage = 20;
 const feedbackStrings = C.FEEDBACK_STRINGS;
