@@ -4,10 +4,9 @@ import _ from 'underscore';
 import { getConceptResultsForAttempt } from './sharedConceptResultsFunctions';
 
 export function getIdentificationConceptResult(question) {
-  console.log('identifying');
   const returnValue = {};
   const correct = question.identified ? 1 : 0;
-  const prompt = question.questionText;
+  const prompt = question.prompt;
   const directions = 'Is this a sentence or a fragment?';
   let answer,
     concept_uid;
@@ -25,8 +24,8 @@ export function getIdentificationConceptResult(question) {
     directions,
     prompt,
     answer,
+    attemptNumber: 1,
   };
-  console.log(returnValue);
   return returnValue;
 }
 
@@ -44,6 +43,7 @@ export function getCompleteSentenceConceptResult(question) {
     directions,
     prompt,
     answer,
+    attemptNumber: 1,
   };
   return returnValue;
 }
@@ -66,7 +66,9 @@ export function getAllSentenceFragmentConceptResults(question) {
 }
 
 export function getConceptResultsForSentenceFragmentAttempt(question, attemptIndex) {
-  return getConceptResultsForAttempt(question, attemptIndex, 'sentence-fragment-expansion', 'Add/Remove words to make this a sentence');
+  const defaultDirections = 'Add/change as few words as you can to change this fragment into a sentence.';
+  const conceptResults = getConceptResultsForAttempt(question, attemptIndex, 'sentence-fragment-expansion', defaultDirections);
+  return _.compact(conceptResults);
 }
 
 export function calculateCorrectnessOfSentence(attempt) {

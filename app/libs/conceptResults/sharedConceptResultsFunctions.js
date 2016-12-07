@@ -18,6 +18,9 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
   if (question.attempts[attemptIndex].response) {
     conceptResults = hashToCollection(question.attempts[attemptIndex].response.conceptResults) || [];
   }
+  if (conceptResults.length === 0 && question_type === 'sentence-fragment-expansion') {
+    return;
+  }
   if (conceptResults.length === 0) {
     conceptResults = [{
       conceptUID: question.conceptID,
