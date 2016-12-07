@@ -62,7 +62,7 @@ export default class POSMatcher {
       returnValue.response = exactMatch;
       return returnValue;
     }
-
+    console.log("I'm not being called on an exact match");
     const lengthMatch = this.checkLengthMatch(userSubmission);
     if (lengthMatch !== undefined) {
       returnValue.response = Object.assign({}, res, lengthMatch);
@@ -167,13 +167,16 @@ export default class POSMatcher {
         }
       });
       if (matchedResponse) {
-        return {
+        const returnValue = {
           optimal: matchedResponse.optimal,
           parentID: matchedResponse.key,
           feedback: matchedResponse.feedback,
           author: 'Parts of Speech',
-          conceptResults: matchedResponse.conceptResults,
         };
+        if (matchedResponse.conceptResults) {
+          returnValue.conceptResults = matchedResponse.conceptResults;
+        }
+        return returnValue;
       }
     }
   }

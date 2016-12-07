@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTemplateComponent.jsx';
-
-const key = ''; // Enables this component to be used by both play/sentence-fragments and play/diagnostic
 
 class PlaySentenceFragment extends Component {
   constructor(props) {

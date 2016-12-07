@@ -22,7 +22,14 @@ const PlaySentenceFragment = React.createClass({
   showNextQuestionButton() {
     const { question, } = this.props;
     const latestAttempt = this.getLatestAttempt();
-    const readyForNext = question.attempts.length > 2 || (latestAttempt && latestAttempt.response.optimal === undefined);
+    const readyForNext =
+      question.attempts.length > 2 ||
+      (
+        latestAttempt && (
+          latestAttempt.response.optimal ||
+          latestAttempt.found === false
+        )
+      );
     if (readyForNext) {
       return true;
     } else {
@@ -136,7 +143,7 @@ const PlaySentenceFragment = React.createClass({
     } else {
       instructions = 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.';
     }
-
+    // dangerously set some html in here
     return (
       <div className="container">
         <ReactTransition
