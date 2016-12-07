@@ -71,6 +71,7 @@ const Lesson = React.createClass({
 
   saveToLMS() {
     const results = getConceptResultsForAllQuestions(this.props.playLesson.answeredQuestions);
+    console.log(results);
     const score = calculateScoreForLesson(this.props.playLesson.answeredQuestions);
     const { lessonID, } = this.props.params;
     const sessionID = this.state.sessionID;

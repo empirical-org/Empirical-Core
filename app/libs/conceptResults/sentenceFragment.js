@@ -1,6 +1,10 @@
 import C from '../../constants';
+import _ from 'underscore';
+
+import { getConceptResultsForAttempt } from './sharedConceptResultsFunctions';
 
 export function getIdentificationConceptResult(question) {
+  console.log('identifying');
   const returnValue = {};
   const correct = question.identified ? 1 : 0;
   const prompt = question.questionText;
@@ -22,6 +26,7 @@ export function getIdentificationConceptResult(question) {
     prompt,
     answer,
   };
+  console.log(returnValue);
   return returnValue;
 }
 
@@ -43,43 +48,6 @@ export function getCompleteSentenceConceptResult(question) {
   return returnValue;
 }
 
-function _formatIndividualTaggedConceptResults(cr, question) {
-  const returnValue = {};
-  const prompt = question.prompt;
-  const answer = question.attempts[0].submitted;
-  const directions = question.instructions || C.INSTRUCTIONS.sentenceFragments;
-  const correct = cr.correct ? 1 : 0;
-  returnValue.concept_uid = cr.conceptUID;
-  returnValue.question_type = 'sentence-fragment-expansion';
-  returnValue.metadata = {
-    correct,
-    directions,
-    prompt,
-    answer,
-  };
-  return returnValue;
-}
-
-export function getTaggedConceptResults(question) {
-  const attempt = question.attempts[0];
-  if (attempt && attempt.response && attempt.response.conceptResults) {
-    const conceptResults = attempt.response.conceptResults;
-    const conceptResultsArr = [];
-    for (const prop in conceptResults) {
-      conceptResultsArr.push(_formatIndividualTaggedConceptResults(conceptResults[prop], question));
-    }
-    return (conceptResultsArr);
-  }
-}
-
-export function calculateCorrectnessOfSentence(attempt) {
-  if (attempt && attempt.response) {
-    return attempt.response.optimal ? 1 : 0;
-  } else {
-    return 1;
-  }
-}
-
 export function getAllSentenceFragmentConceptResults(question) {
   let conceptResults;
   if (question.needsIdentification) {
@@ -92,6 +60,19 @@ export function getAllSentenceFragmentConceptResults(question) {
       getCompleteSentenceConceptResult(question)
     ];
   }
-  const taggedResults = getTaggedConceptResults(question);
-  return taggedResults ? conceptResults.concat(taggedResults) : conceptResults;
+  const nestedConceptResults = question.attempts.map((attempt, index) => getConceptResultsForSentenceFragmentAttempt(question, index));
+  const flattenedNestedConceptResults = [].concat.apply([], nestedConceptResults); // Flatten nested Array
+  return conceptResults.concat(flattenedNestedConceptResults);
+}
+
+export function getConceptResultsForSentenceFragmentAttempt(question, attemptIndex) {
+  return getConceptResultsForAttempt(question, attemptIndex, 'sentence-fragment-expansion', 'Add/Remove words to make this a sentence');
+}
+
+export function calculateCorrectnessOfSentence(attempt) {
+  if (attempt && attempt.response) {
+    return attempt.response.optimal ? 1 : 0;
+  } else {
+    return 1;
+  }
 }
