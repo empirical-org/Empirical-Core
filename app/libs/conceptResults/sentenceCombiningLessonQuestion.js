@@ -1,14 +1,12 @@
-import {hashToCollection} from '../hashToCollection'
-import _ from 'underscore'
-import {formattedCues} from '../formattedCues'
-var C = require("../../constants").default
+import { hashToCollection } from '../hashToCollection';
+import _ from 'underscore';
+import { formattedCues } from '../formattedCues';
+const C = require('../../constants').default;
 
 export function getConceptResultsForSentenceCombining(question) {
-  const nestedConceptResults = question.attempts.map((attempt, index) => {
-    return getConceptResultsForSentenceCombiningAttempt(question, index)
-  })
+  const nestedConceptResults = question.attempts.map((attempt, index) => getConceptResultsForSentenceCombiningAttempt(question, index));
 
-  return [].concat.apply([], nestedConceptResults) // Flatten nested Array
+  return [].concat.apply([], nestedConceptResults); // Flatten nested Array
 }
 
 export function getConceptResultsForSentenceCombiningAttempt(question, attemptIndex) {
@@ -16,18 +14,18 @@ export function getConceptResultsForSentenceCombiningAttempt(question, attemptIn
   if (attemptIndex > 0) {
     directions = question.attempts[attemptIndex - 1].feedback;
   } else {
-    directions = question.instructions || "Combine the sentences."
+    directions = question.instructions || 'Combine the sentences.';
     if (question.cues) {
-      directions += ' ' + formattedCues(question.cues)
+      directions += ` ${formattedCues(question.cues)}`;
     }
   }
-  const prompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
+  const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
   const answer = question.attempts[attemptIndex].submitted;
   const attemptNumber = attemptIndex + 1;
   let conceptResults = [];
   if (question.attempts[attemptIndex].response) {
     if (errorFree(question.attempts[attemptIndex])) {
-      conceptResults = hashToCollection(question.attempts[attemptIndex].response.conceptResults) || []
+      conceptResults = hashToCollection(question.attempts[attemptIndex].response.conceptResults) || [];
     } else {
       conceptResults = [];
     }
@@ -37,29 +35,27 @@ export function getConceptResultsForSentenceCombiningAttempt(question, attemptIn
   if (conceptResults.length === 0) {
     conceptResults = [{
       conceptUID: question.conceptID,
-      correct: false
-    }]
+      correct: false,
+    }];
   }
-  return conceptResults.map((conceptResult) => {
-    return {
-      concept_uid: conceptResult.conceptUID,
-      question_type: "sentence-combining",
-      metadata: {
-        correct: conceptResult.correct ? 1 : 0,
-        directions,
-        prompt,
-        attemptNumber,
-        answer
-      }
-    }
-  })
+  return conceptResults.map(conceptResult => ({
+    concept_uid: conceptResult.conceptUID,
+    question_type: 'sentence-combining',
+    metadata: {
+      correct: conceptResult.correct ? 1 : 0,
+      directions,
+      prompt,
+      attemptNumber,
+      answer,
+    },
+  }));
 }
 
-function getErrorsForAttempt (attempt) {
-  return _.pick(attempt, ...C.ERROR_TYPES)
+function getErrorsForAttempt(attempt) {
+  return _.pick(attempt, ...C.ERROR_TYPES);
 }
 
-export function errorFree (attempt) {
+export function errorFree(attempt) {
   const errors = getErrorsForAttempt(attempt);
-  return Object.keys(errors).length === 0
+  return Object.keys(errors).length === 0;
 }
