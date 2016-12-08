@@ -48,6 +48,24 @@ export default class POSMatcher {
     return _.sortBy(gradedResponses, 'optimal').reverse();
   }
 
+  getWeakResponses() {
+    return _.filter(this.responses, resp => resp.weak === true);
+  }
+
+  getCommonUnmatchedResponses() {
+    return _.filter(this.responses, resp => resp.feedback === undefined && resp.count > 2);
+  }
+
+  getSumOfWeakAndCommonUnmatchedResponses() {
+    return this.getWeakResponses().length + this.getCommonUnmatchedResponses().length;
+  }
+
+  getPercentageWeakResponses() {
+    return (
+      this.getSumOfWeakAndCommonUnmatchedResponses() / (this.responses.length * 100)
+    ).toPrecision(4);
+  }
+
   checkMatch(userSubmission) {
     const formattedResponse = userSubmission.trim().replace(/\s{2,}/g, ' ');
     const returnValue = {
@@ -66,7 +84,7 @@ export default class POSMatcher {
       returnValue.response = exactMatch;
       return returnValue;
     }
-    console.log("I'm not being called on an exact match");
+
     const lengthMatch = this.checkLengthMatch(userSubmission);
     if (lengthMatch !== undefined) {
       returnValue.response = Object.assign({}, res, lengthMatch);

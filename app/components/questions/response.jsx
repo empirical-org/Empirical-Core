@@ -132,25 +132,25 @@ export default React.createClass({
 
   rematchResponse(rid) {
     const newResponse = this.props.getMatchingResponse(rid);
-    if (!newResponse.found) {
-      const newValues = {
-        text: this.props.response.text,
-        count: this.props.response.count,
-      };
-      this.props.dispatch(
-        setUpdatedResponse(rid, newValues)
-      );
-      return;
-    }
-    if (newResponse.response.key === this.props.response.parentID) {
-
-    } else {
-      const newErrorResp = {
-        parentID: newResponse.response.key,
-        feedback: this.generateFeedbackString(newResponse),
-      };
-      this.updateRematchedResponse(rid, newErrorResp);
-    }
+    // if (!newResponse.found) {
+    //   const newValues = {
+    //     text: this.props.response.text,
+    //     count: this.props.response.count,
+    //   };
+    //   this.props.dispatch(
+    //     setUpdatedResponse(rid, newValues)
+    //   );
+    //   return;
+    // }
+    // if (newResponse.response.key === this.props.response.parentID) {
+    //
+    // } else {
+    //   const newErrorResp = {
+    //     parentID: newResponse.response.key,
+    //     feedback: this.generateFeedbackString(newResponse),
+    //   };
+    //   this.updateRematchedResponse(rid, newErrorResp);
+    // }
   },
 
   chooseConcept(e) {

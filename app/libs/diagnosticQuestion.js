@@ -31,7 +31,7 @@ export default class Question {
     return _.where(this.responses, { optimal: true, });
   }
 
-  getSubOptimalResponses(responses) {
+  getSubOptimalResponses() {
     return _.filter(this.responses, resp => resp.parentID === undefined && resp.feedback !== undefined && resp.optimal !== true);
   }
 
