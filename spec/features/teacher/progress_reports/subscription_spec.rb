@@ -74,6 +74,7 @@ feature 'Subscription to Progress Report', js: true do
       end
 
       it 'flags div as premium-status-none to blur out elements' do
+        skip
         eventually {expect(report_page).to have_css('div.premium-status-none')}
       end
 
