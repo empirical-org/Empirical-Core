@@ -11,6 +11,7 @@ describe ActivitiesController, type: :controller do
                                               user: student) }
 
 
+
   describe 'POST #retry' do
     let(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom) }
     let(:classroom)  { FactoryGirl.create(:classroom) }
@@ -35,6 +36,10 @@ describe ActivitiesController, type: :controller do
     let!(:activity1) { FactoryGirl.create(:activity, flags: ['production']) }
     let!(:activity2) { FactoryGirl.create(:activity, flags: ['production']) }
     let(:parsed_body) { JSON.parse(response.body) }
+
+    before do
+      session[:user_id] = student.id
+    end
 
     it 'returns activities' do
       get :search, ({search: {search_query: '', filters: [], sort: nil}})
