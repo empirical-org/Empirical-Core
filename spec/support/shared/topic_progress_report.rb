@@ -79,11 +79,11 @@ shared_context 'Topic Progress Report' do
 
   let(:best_activity_sessions) { visible_activity_sessions }
 
-  let(:proficient_students) { [alice] }
+  let(:proficient_students) { [alice, fred] }
 
   let(:not_proficient_students) { [zojirushi, fred] }
 
-  let!(:first_grade_topic_students) { [alice, fred] }
+  let!(:first_grade_topic_students) { [alice] }
 
   let(:worst_score_session) { zojirushi_second_grade_topic_session }
 
