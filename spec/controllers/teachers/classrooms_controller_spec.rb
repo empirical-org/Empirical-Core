@@ -11,10 +11,16 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'kicks off a background job' do
+      pending 'figure out if this is the way to do test a background job'
       expect {
         post :create, classroom: {name: 'My Class', grade: '8', code: 'whatever-whatever'}
         expect(response.status).to eq(302) # Redirects after success
       }.to change(ClassroomCreationWorker.jobs, :size).by(1)
+    end
+
+    it 'reponds with a json object representing the classroom' do
+        post :create, classroom: {name: 'My Class', grade: '8', code: 'whatever-whatever'}
+        expect(JSON.parse(response.body)['classroom']['code']).to eq('whatever-whatever')
     end
 
     it 'displays the form' do
