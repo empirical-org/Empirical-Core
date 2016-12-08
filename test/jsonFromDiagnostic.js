@@ -323,6 +323,7 @@ export default [
         },
         '-KPTlM7TbP6XU1s9GRTs': {
           count: 2,
+          optimal: false,
           createdAt: '1471542555053',
           feedback: 'Try writing the sentence in another way.',
           parentID: '-KPPVRhBnAd7M-Jt_YIw',
@@ -338,6 +339,7 @@ export default [
           exactMatch: true,
           response: {
             count: 2,
+            optimal: false,
             createdAt: '1471542555053',
             feedback: 'Try writing the sentence in another way.',
             parentID: '-KPPVRhBnAd7M-Jt_YIw',
