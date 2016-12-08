@@ -140,7 +140,7 @@ feature 'Invite-Students page' do
 
       it 'raises an error' do
         pending 'handle lookup error'
-        expect { invite_students_page.visit }.not_to raise_error
+        expect { invite_students_page.visit }.to raise_error
       end
     end
   end
