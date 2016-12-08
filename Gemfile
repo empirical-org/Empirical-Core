@@ -160,6 +160,7 @@ group :test, :development do
   gem 'terminal-notifier-guard'
   gem 'teaspoon-mocha'
   gem 'rspec-retry'
+  gem 'rb-readline'
 end
 
 group :test do
