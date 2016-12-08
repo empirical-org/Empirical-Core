@@ -1,6 +1,5 @@
 import {
-  getConceptResultsForSentenceCombining,
-  errorFree
+  getConceptResultsForSentenceCombining
 } from './sentenceCombiningLessonQuestion';
 
 import {
@@ -35,7 +34,7 @@ export function getConceptResultsForAllQuestions(questions) {
 
 export function getScoreForSentenceCombining(question) {
   const firstAttempt = question.attempts[0];
-  if (firstAttempt.found && errorFree(firstAttempt) && firstAttempt.response.optimal) {
+  if (firstAttempt.found && firstAttempt.response.optimal) {
     return 1;
   } else {
     return 0;

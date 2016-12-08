@@ -4,7 +4,7 @@ import { formattedCues } from '../formattedCues';
 export function getConceptResultsForAttempt(question, attemptIndex, question_type, defaultInstructions = '') {
   let directions;
   if (attemptIndex > 0) {
-    directions = question.attempts[attemptIndex - 1].feedback;
+    directions = question.attempts[attemptIndex - 1].response.feedback;
   } else {
     directions = question.instructions || defaultInstructions;
     if (question.cues) {
