@@ -43,7 +43,7 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 9. Run Redis with ```redis-server```
 
-11. Run npm installer with ```npm install && cd ./client && npm install```
+11. Run npm installer with ```npm install```
 
 
 10. Run the server with `npm start`.
