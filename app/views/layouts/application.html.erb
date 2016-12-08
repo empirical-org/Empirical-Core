@@ -4,9 +4,6 @@
     <div id='application_nav_bar'>
       <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
     </div>
-    <% flash.each do |key, value| %>
-  <%= content_tag :div, value, class: "flash #{key}" %>
-  <% end %>
     <%= yield %>
     <!-- This is a placeholder for ReactOnRails to know where to render the store props for
      client side hydration -->
