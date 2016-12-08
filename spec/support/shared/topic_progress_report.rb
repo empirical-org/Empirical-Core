@@ -81,9 +81,9 @@ shared_context 'Topic Progress Report' do
 
   let(:proficient_students) { [alice, fred] }
 
-  let(:not_proficient_students) { [zojirushi, fred] }
+  let(:not_proficient_students) { [zojirushi] }
 
-  let!(:first_grade_topic_students) { [alice] }
+  let!(:first_grade_topic_students) { [alice, fred] }
 
   let(:worst_score_session) { zojirushi_second_grade_topic_session }
 
