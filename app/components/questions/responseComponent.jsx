@@ -68,12 +68,14 @@ const Responses = React.createClass({
     return question.getPercentageWeakResponses();
   },
 
+  // Ryan Look here!!!
   getMatchingResponse(rid) {
     const fields = {
+      // / Update fields to be up to date with new logic.
       responses: _.filter(this.responsesWithStatus(), resp => resp.statusCode < 2),
       focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : [],
     };
-    const question = new Question(fields);
+    const question = new Question(fields); // This should take account of mode.
     return question.checkMatch(this.getResponse(rid).text);
   },
 
@@ -93,10 +95,11 @@ const Responses = React.createClass({
   },
 
   rematchResponse(rid) {
-    const newResponse = this.getMatchingResponse(rid);
+    const newMatchedResponse = this.getMatchingResponse(rid);
     const response = this.getResponse(rid);
-    if (!newResponse.found) {
-      console.log('Rematching not found: ', newResponse);
+    if (!newMatchedResponse.found) {
+      console.log('Rematching not found: ', newMatchedResponse);
+
       const newValues = {
         weak: false,
         text: response.text,
@@ -107,26 +110,26 @@ const Responses = React.createClass({
       );
       return;
     }
-    if (newResponse.response.text === response.text) {
-      console.log('Rematching duplicate', newResponse);
+    if (newMatchedResponse.response.text === response.text) {
+      console.log('Rematching duplicate', newMatchedResponse);
       this.props.dispatch(deleteResponse(this.props.questionID, rid));
-    } else if (newResponse.response.key === response.parentID) {
-      console.log('Rematching same parent: ', newResponse);
-      if (newResponse.author) {
+    } else if (newMatchedResponse.response.key === response.parentID) {
+      console.log('Rematching same parent: ', newMatchedResponse);
+      if (newMatchedResponse.author) {
         var newErrorResp = {
           weak: false,
-          author: newResponse.author,
-          feedback: this.generateFeedbackString(newResponse),
+          author: newMatchedResponse.author,
+          feedback: this.generateFeedbackString(newMatchedResponse),
         };
         this.updateRematchedResponse(rid, newErrorResp);
       }
     } else {
-      console.log('Rematching new error', newResponse);
+      console.log('Rematching new error', newMatchedResponse);
       var newErrorResp = {
         weak: false,
-        parentID: newResponse.response.key,
-        author: newResponse.author,
-        feedback: this.generateFeedbackString(newResponse),
+        parentID: newMatchedResponse.response.key,
+        author: newMatchedResponse.author,
+        feedback: this.generateFeedbackString(newMatchedResponse),
       };
       this.updateRematchedResponse(rid, newErrorResp);
     }

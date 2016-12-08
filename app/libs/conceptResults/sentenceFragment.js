@@ -72,7 +72,7 @@ export function getConceptResultsForSentenceFragmentAttempt(question, attemptInd
 }
 
 export function calculateCorrectnessOfSentence(attempt) {
-  if (attempt && attempt.response) {
+  if (attempt && attempt.response && attempt.response.optimal !== undefined) {
     return attempt.response.optimal ? 1 : 0;
   } else {
     return 1;

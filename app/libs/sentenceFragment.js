@@ -17,11 +17,15 @@ export function wordLengthCount(str) {
   return strNoPunctuation.length;
 }
 
+function sortbyCount(responses) {
+  return _.sortBy(responses, r => r.count).reverse();
+}
+
 export default class POSMatcher {
 
   constructor(data) {
     this.prompt = data.prompt;
-    this.responses = data.responses;
+    this.responses = sortbyCount(data.responses);
     this.questionUID = data.questionUID;
     this.wordCountChange = data.wordCountChange || {};
   }
