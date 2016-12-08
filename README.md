@@ -39,12 +39,15 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 7. Install the bundle with `bundle install`.
 
+7. In the config folder, delete the ".example" extension from database.yml.example to read "database.yml"
+
 8. Set up your database with `rake empirical:setup`.
 
 9. Run Redis with ```redis-server```
 
 11. Run npm installer with ```npm install && cd ./client && npm install```
 
+11. make sure to navigate back out of the "client" folder with `cd ..` 
 
 10. Run the server with `foreman start -f Procfile.static`.
  - Navigate your browser to localhost:3000 and you should see Empirical-Core pull up properly!
