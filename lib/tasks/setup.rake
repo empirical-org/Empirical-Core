@@ -16,9 +16,6 @@ namespace :empirical do
 
     puts "** Loading Schema..."
     Rake::Task['db:schema:load'].invoke
-    
-    puts "** Migrating database..."
-    Rake::Task["db:migrate"].invoke
 
     puts "** Seeding database..."
     Rake::Task["db:seed"].invoke
