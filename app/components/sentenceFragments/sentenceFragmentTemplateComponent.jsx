@@ -6,7 +6,6 @@ import POSMatcher from '../../libs/sentenceFragment.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitNewResponse,
-  incrementChildResponseCount,
   incrementResponseCount
 } from '../../actions/responses';
 import icon from '../../img/question_icon.svg';

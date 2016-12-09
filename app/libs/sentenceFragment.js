@@ -2,7 +2,6 @@ import _ from 'underscore';
 import * as qpos from './partsOfSpeechTagging';
 import validEndingPunctuation from '../libs/validEndingPunctuation.js';
 import constants from '../constants';
-import { getTopOptimalResponse, getGradedResponses } from './sharedResponseFunctions';
 
 String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
@@ -31,6 +30,24 @@ export default class POSMatcher {
     this.wordCountChange = data.wordCountChange || {};
   }
 
+  getOptimalResponses() {
+    return _.reject(this.responses, response =>
+      (response.optimal !== true) || (response.parentID)
+    );
+  }
+
+  getTopOptimalResponse() {
+    return _.sortBy(this.getOptimalResponses(), r => r.count).reverse()[0];
+  }
+
+  getGradedResponses() {
+    // Returns sorted collection optimal first followed by suboptimal
+    const gradedResponses = _.reject(this.responses, response =>
+      (response.optimal === undefined) || (response.parentID)
+    );
+    return _.sortBy(gradedResponses, 'optimal').reverse();
+  }
+
   checkMatch(userSubmission) {
     const formattedResponse = userSubmission.trim().replace(/\s{2,}/g, ' ');
     const returnValue = {
@@ -49,7 +66,6 @@ export default class POSMatcher {
       returnValue.response = exactMatch;
       return returnValue;
     }
-
     const lengthMatch = this.checkLengthMatch(userSubmission);
     if (lengthMatch !== undefined) {
       returnValue.response = Object.assign({}, res, lengthMatch);
@@ -89,7 +105,7 @@ export default class POSMatcher {
     const minWordCount = promptWordCount + this.wordCountChange.min;
     const templateResponse = {
       optimal: false,
-      parentID: getTopOptimalResponse(this.responses).key,
+      parentID: this.getTopOptimalResponse().key,
     };
     if (this.wordCountChange.min && (userWordCount < minWordCount)) {
       return Object.assign({}, templateResponse, {
@@ -109,7 +125,7 @@ export default class POSMatcher {
     if (!_.includes(validEndingPunctuation, lastChar)) {
       return {
         optimal: false,
-        parentID: getTopOptimalResponse(this.responses).key,
+        parentID: this.getTopOptimalResponse().key,
         author: 'Ending Punctuation Hint',
         feedback: 'Proofread your sentence for missing punctuation.',
         conceptResults: [
@@ -124,7 +140,7 @@ export default class POSMatcher {
     if ((/^[a-z]/).test(userSubmission)) {
       return {
         optimal: false,
-        parentID: getTopOptimalResponse(this.responses).key,
+        parentID: this.getTopOptimalResponse().key,
         author: 'Starting Capitalization Hint',
         feedback: 'Proofread your sentence for correct capitalization.',
         conceptResults: [
@@ -136,14 +152,14 @@ export default class POSMatcher {
 
   checkPOSMatch(userSubmission) {
     // Get graded responses and convert to POS strings
-    const correctPOSTags = getGradedResponses(this.responses).map(
+    const correctPOSTags = this.getGradedResponses().map(
       optimalResponse => qpos.getPartsOfSpeechTags(optimalResponse.text)
     );
     // Convert user submission to POS string
     const userPOSTags = qpos.getPartsOfSpeechTags(userSubmission);
     // If user string could be converted to POS tags find response that has the same POS tags
     if (userPOSTags) {
-      const matchedResponse = _.find(getGradedResponses(this.responses), (optimalResponse, index) => {
+      const matchedResponse = _.find(this.getGradedResponses(), (optimalResponse, index) => {
         if (optimalResponse.parentID) {
           return false;
         } else if (correctPOSTags[index]) {
