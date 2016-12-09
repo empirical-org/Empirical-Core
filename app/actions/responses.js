@@ -128,7 +128,7 @@ export function incrementResponseCount(qid, rid, prid) {
     });
     responseRef.child('parentID').once('value', (snap) => {
       if (snap.val()) {
-        dispatch(this.incrementChildResponseCount(snap.val()));
+        dispatch(incrementChildResponseCount(snap.val()));
       }
     });
   };
