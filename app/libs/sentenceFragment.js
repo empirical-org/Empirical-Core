@@ -2,6 +2,7 @@ import _ from 'underscore';
 import * as qpos from './partsOfSpeechTagging';
 import validEndingPunctuation from '../libs/validEndingPunctuation.js';
 import constants from '../constants';
+import { getTopOptimalResponse, getGradedResponses } from './sharedResponseFunctions';
 
 String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
@@ -28,42 +29,6 @@ export default class POSMatcher {
     this.responses = sortbyCount(data.responses);
     this.questionUID = data.questionUID;
     this.wordCountChange = data.wordCountChange || {};
-  }
-
-  getOptimalResponses() {
-    return _.reject(this.responses, response =>
-      (response.optimal !== true) || (response.parentID)
-    );
-  }
-
-  getTopOptimalResponse() {
-    return _.sortBy(this.getOptimalResponses(), r => r.count).reverse()[0];
-  }
-
-  getGradedResponses() {
-    // Returns sorted collection optimal first followed by suboptimal
-    const gradedResponses = _.reject(this.responses, response =>
-      (response.optimal === undefined) || (response.parentID)
-    );
-    return _.sortBy(gradedResponses, 'optimal').reverse();
-  }
-
-  getWeakResponses() {
-    return _.filter(this.responses, resp => resp.weak === true);
-  }
-
-  getCommonUnmatchedResponses() {
-    return _.filter(this.responses, resp => resp.feedback === undefined && resp.count > 2);
-  }
-
-  getSumOfWeakAndCommonUnmatchedResponses() {
-    return this.getWeakResponses().length + this.getCommonUnmatchedResponses().length;
-  }
-
-  getPercentageWeakResponses() {
-    return (
-      this.getSumOfWeakAndCommonUnmatchedResponses() / (this.responses.length * 100)
-    ).toPrecision(4);
   }
 
   checkMatch(userSubmission) {
@@ -124,7 +89,7 @@ export default class POSMatcher {
     const minWordCount = promptWordCount + this.wordCountChange.min;
     const templateResponse = {
       optimal: false,
-      parentID: this.getTopOptimalResponse().key,
+      parentID: getTopOptimalResponse(this.responses).key,
     };
     if (this.wordCountChange.min && (userWordCount < minWordCount)) {
       return Object.assign({}, templateResponse, {
@@ -144,7 +109,7 @@ export default class POSMatcher {
     if (!_.includes(validEndingPunctuation, lastChar)) {
       return {
         optimal: false,
-        parentID: this.getTopOptimalResponse().key,
+        parentID: getTopOptimalResponse(this.responses).key,
         author: 'Ending Punctuation Hint',
         feedback: 'Proofread your sentence for missing punctuation.',
         conceptResults: [
@@ -159,7 +124,7 @@ export default class POSMatcher {
     if ((/^[a-z]/).test(userSubmission)) {
       return {
         optimal: false,
-        parentID: this.getTopOptimalResponse().key,
+        parentID: getTopOptimalResponse(this.responses).key,
         author: 'Starting Capitalization Hint',
         feedback: 'Proofread your sentence for correct capitalization.',
         conceptResults: [
@@ -171,14 +136,14 @@ export default class POSMatcher {
 
   checkPOSMatch(userSubmission) {
     // Get graded responses and convert to POS strings
-    const correctPOSTags = this.getGradedResponses().map(
+    const correctPOSTags = getGradedResponses(this.responses).map(
       optimalResponse => qpos.getPartsOfSpeechTags(optimalResponse.text)
     );
     // Convert user submission to POS string
     const userPOSTags = qpos.getPartsOfSpeechTags(userSubmission);
     // If user string could be converted to POS tags find response that has the same POS tags
     if (userPOSTags) {
-      const matchedResponse = _.find(this.getGradedResponses(), (optimalResponse, index) => {
+      const matchedResponse = _.find(getGradedResponses(this.responses), (optimalResponse, index) => {
         if (optimalResponse.parentID) {
           return false;
         } else if (correctPOSTags[index]) {

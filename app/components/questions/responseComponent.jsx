@@ -68,12 +68,23 @@ const Responses = React.createClass({
   },
 
   getPercentageWeakResponses() {
+    const item = this.props.question;
+    // Pass all possible fields regardless of matcher as the matchers will filter it out.
     const fields = {
-      responses: this.responsesWithStatus(),
-      focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : [],
+      wordCountChange: item.wordCountChange,
+      questionUID: this.props.questionID,
+      sentences: item.sentences,
+      prompt: item.prompt,
+      focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
     };
-    const question = new this.state.matcher(fields);
-    return question.getPercentageWeakResponses();
+    const markingObject = new this.state.matcher(fields);
+
+    // const fields = {
+    //   responses: this.responsesWithStatus(),
+    //   focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : [],
+    // };
+    // const question = new this.state.matcher(fields);
+    // return question.getPercentageWeakResponses();
   },
 
   // Ryan Look here!!!
@@ -88,7 +99,7 @@ const Responses = React.createClass({
       responses: _.filter(this.responsesWithStatus(), resp => resp.statusCode < 2),
       focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
     };
-    const markingObject = new this.state.matcher(fields); // This should take account of mode.
+    const markingObject = new this.state.matcher(fields);
     return markingObject.checkMatch(this.getResponse(rid).text);
   },
 

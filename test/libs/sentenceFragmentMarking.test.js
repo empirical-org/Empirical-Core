@@ -6,6 +6,7 @@ import responses, {
   optimalResponse
 } from '../data/sentenceFragmentResponses';
 import validEndingPunctuation from '../../app/libs/validEndingPunctuation.js';
+import { getGradedResponses } from '../../app/libs/sharedResponseFunctions';
 
 const questionUID = 'mockID';
 
@@ -32,7 +33,7 @@ describe('The Sentence Fragment Marking Object', () => {
   // }); Now fails as the responses are sorted on initialization.
 
   it('correctly retrieves graded responses', () => {
-    const responseLength = markingObj.getGradedResponses().length;
+    const responseLength = getGradedResponses(markingObj.responses).length;
     expect(responseLength).toBe(2);
   });
 });
