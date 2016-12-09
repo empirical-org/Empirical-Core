@@ -17,6 +17,7 @@ import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
+import { submitResponseEdit, setUpdatedResponse } from '../../actions/responses';
 
 import {
   deleteResponse
@@ -60,7 +61,7 @@ const Responses = React.createClass({
   },
 
   updateRematchedResponse(rid, vals) {
-    this.props.dispatch(this.state.actions.submitResponseEdit(this.props.questionID, rid, vals));
+    this.props.dispatch(submitResponseEdit(rid, vals));
   },
 
   getFocusPoint() {
@@ -121,25 +122,36 @@ const Responses = React.createClass({
   rematchResponse(rid) {
     const newMatchedResponse = this.getMatchingResponse(rid);
     const response = this.getResponse(rid);
-    const changed = newMatchedResponse.response.parentID !== response.parentID;
-    console.log('Rematched: t, o, n: ', changed, response, newMatchedResponse);
-    // if (!newMatchedResponse.found) {
-    //   console.log('Rematching not found: ', newMatchedResponse);
-    //
-    //   const newValues = {
-    //     weak: false,
-    //     text: response.text,
-    //     count: response.count,
-    //   };
-    //   this.props.dispatch(
-    //     this.state.actions.setUpdatedResponse(this.props.questionID, rid, newValues)
-    //   );
-    //   return;
-    // }
-    // if (newMatchedResponse.response.text === response.text) {
-    //   console.log('Rematching duplicate', newMatchedResponse);
-    //   this.props.dispatch(deleteResponse(this.props.questionID, rid));
-    // } else if (newMatchedResponse.response.key === response.parentID) {
+    const changed =
+      (newMatchedResponse.response.parentID !== response.parentID) ||
+      (newMatchedResponse.response.author !== response.author);
+    const unmatched = (newMatchedResponse.found === false);
+    console.log('Rematched: t, u, o, n: ', changed, unmatched);
+    console.log(response);
+    console.log(newMatchedResponse.response);
+    if (changed) {
+      if (unmatched) {
+        const newValues = {
+          weak: false,
+          text: response.text,
+          count: response.count,
+          questionUID: response.questionUID,
+        };
+        this.props.dispatch(
+            setUpdatedResponse(rid, newValues)
+          );
+      } else {
+        const newValues = {
+          weak: false,
+          parentID: newMatchedResponse.response.parentID,
+          author: newMatchedResponse.response.author,
+          feedback: newMatchedResponse.response.feedback,
+        };
+        this.updateRematchedResponse(rid, newValues);
+      }
+    }
+
+    // if (newMatchedResponse.response.key === response.parentID) {
     //   console.log('Rematching same parent: ', newMatchedResponse);
     //   if (newMatchedResponse.author) {
     //     var newErrorResp = {
