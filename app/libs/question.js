@@ -29,6 +29,11 @@ export function removePunctuation(string) {
   return string.replace(/[^A-Za-z0-9\s]/g, '');
 }
 
+const downcasedFocusPoints = focusPointsArr => focusPointsArr.map((fp) => {
+  fp.text = fp.text.toLowerCase();
+  return fp;
+});
+
 const removeSpaces = string => string.replace(/\s+/g, '');
 
 // Check number of chars added.
@@ -52,7 +57,7 @@ export default class Question {
     this.sentences = data.sentences;
     this.responses = data.responses;
     this.questionUID = data.questionUID;
-    this.focusPoints = data.focusPoints || [];
+    this.focusPoints = downcasedFocusPoints(data.focusPoints) || [];
   }
 
   checkMatch(response) {
@@ -360,6 +365,6 @@ export default class Question {
   }
 
   checkFocusPointMatch(response) {
-    return _.find(this.focusPoints, fp => response.indexOf(fp.text) === -1);
+    return _.find(this.focusPoints, fp => response.toLowerCase().indexOf(fp.text) === -1);
   }
 }
