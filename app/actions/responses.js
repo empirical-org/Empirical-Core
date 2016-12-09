@@ -24,6 +24,44 @@ function responsesForQuestionRef(questionId) {
   return responsesRef.orderByChild('questionUID').equalTo(questionId);
 }
 
+function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
+  const questionsKeys = _.keys(groupedResponses);
+  return questionsKeys.map((qkey) => {
+    console.log('Question: ', qkey);
+    const obj = {};
+    obj[qkey] = 'LOADED';
+    return obj;
+  });
+}
+
+function groupResponsesByQuestion(snapshot) {
+  const groupedResponses = {};
+  for (const responseKey in snapshot) {
+    if (snapshot.hasOwnProperty(responseKey)) {
+      const response = snapshot[responseKey];
+      if (response.questionUID) {
+        if (groupedResponses[response.questionUID]) {
+          groupedResponses[response.questionUID][responseKey] = response;
+        } else {
+          groupedResponses[response.questionUID] = {};
+          groupedResponses[response.questionUID][responseKey] = response;
+        }
+      }
+    }
+  }
+  return groupedResponses;
+}
+
+export function loadAllResponseData() {
+  return (dispatch) => {
+    responsesRef.once('value', (snapshot) => {
+      const data = groupResponsesByQuestion(snapshot.val());
+      const status = getQuestionLoadedStatusForGroupedResponses(data);
+      dispatch({ type: 'BULK UPDATE', data: { data, status, }, });
+    });
+  };
+}
+
 export function loadResponseData(questionId) {
   return (dispatch) => {
     dispatch(updateStatus(questionId, 'LOADING'));
