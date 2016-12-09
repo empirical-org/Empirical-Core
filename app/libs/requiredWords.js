@@ -73,23 +73,32 @@ export function getPOSForWord(word) {
   return posTranslations[tag];
 }
 
-export function getFeedbackForWord(word) {
+function _getCaseSensitiveWord(word, optimalSentence) {
+
+}
+
+export function getFeedbackForWord(word, sentences) {
   // const tag = getPOSForWord(word).toLowerCase();
+  const caseSensitiveWord = _getCaseSensitiveWord(word, sentences[0]);
   return `<p>Revise your sentence to include the word <em>${word}</em>.</p>`;
 }
 
-export function getMissingWordsFromResponses(userString, responses) {
-  const sentences = _.map(responses, response => response.text);
+function _extractSentencesFromResponses(responses) {
+  return _.map(responses, response => response.text);
+}
+
+export function getMissingWordsFromResponses(userString, sentences) {
   return getMissingWords(userString, sentences);
 }
 
 export function checkForMissingWords(userString, responses) {
-  const missingWords = getMissingWordsFromResponses(userString, responses);
+  const sentences = _extractSentencesFromResponses(responses);
+  const missingWords = getMissingWordsFromResponses(userString, sentences);
   if (missingWords.length > 0) {
-    return { feedback: getFeedbackForWord(missingWords[0]), };
+    return { feedback: getFeedbackForWord(missingWords[0], sentences), };
   }
 }
 
 function normalizeString(string) {
-  return string.replace(/[.,?!]/g, '');
+  return string.replace(/[.,?!]/g, '').toLowerCase();
 }

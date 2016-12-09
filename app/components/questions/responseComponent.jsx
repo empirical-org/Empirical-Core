@@ -124,7 +124,8 @@ const Responses = React.createClass({
     const response = this.getResponse(rid);
     const changed =
       (newMatchedResponse.response.parentID !== response.parentID) ||
-      (newMatchedResponse.response.author !== response.author);
+      (newMatchedResponse.response.author !== response.author) ||
+      (newMatchedResponse.response.feedback !== response.feedback);
     const unmatched = (newMatchedResponse.found === false);
     console.log('Rematched: t, u, o, n: ', changed, unmatched);
     console.log(response);
