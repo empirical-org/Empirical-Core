@@ -46,6 +46,7 @@ const Questions = React.createClass({
 
   getMatchingResponse(quest, response, responses) {
     const fields = {
+      questionUID: quest.key,
       responses: _.filter(responses, resp => resp.statusCode < 2),
       focusPoints: quest.focusPoints ? hashToCollection(quest.focusPoints) : [],
     };
