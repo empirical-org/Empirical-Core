@@ -1,245 +1,262 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import actions from '../../actions/questions'
-import _ from 'underscore'
-import { Link } from 'react-router'
-import Modal from '../modal/modal.jsx'
-import {hashToCollection} from '../../libs/hashToCollection'
-import Question from '../../libs/question'
-import QuestionsList from './questionsList.jsx'
-import QuestionSelector from 'react-select-search'
-import {push} from 'react-router-redux';
+import React from 'react';
+import { connect } from 'react-redux';
+import actions from '../../actions/questions';
+import _ from 'underscore';
+import { Link } from 'react-router';
+import Modal from '../modal/modal.jsx';
+import { hashToCollection } from '../../libs/hashToCollection';
+import Question from '../../libs/question';
+import QuestionsList from './questionsList.jsx';
+import QuestionSelector from 'react-select-search';
+import { push } from 'react-router-redux';
+import { loadAllResponseData } from '../../actions/responses';
+import respWithStatus from '../../libs/responseTools.js';
+import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
 
 const Questions = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return {
-      displayNoConceptQuestions: false
-    }
+      displayNoConceptQuestions: false,
+    };
   },
 
-  createNew: function () {
-    this.props.dispatch(actions.toggleNewQuestionModal())
+  createNew() {
+    this.props.dispatch(actions.toggleNewQuestionModal());
   },
 
-  submitNewQuestion: function () {
-    var newQuestion = {name: this.refs.newQuestionName.value}
-    this.props.dispatch(actions.submitNewQuestion(newQuestion))
-    this.refs.newQuestionName.value = ""
+  submitNewQuestion() {
+    const newQuestion = { name: this.refs.newQuestionName.value, };
+    this.props.dispatch(actions.submitNewQuestion(newQuestion));
+    this.refs.newQuestionName.value = '';
     // this.props.dispatch(actions.toggleNewQuestionModal())
   },
 
-  updateRematchedResponse: function (qid, rid, vals) {
-    this.props.dispatch(actions.submitResponseEdit(qid, rid, vals))
+  updateRematchedResponse(rid, vals) {
+    this.props.dispatch(submitResponseEdit(rid, vals));
   },
 
-  getErrorsForAttempt: function (attempt) {
-    return attempt.feedback
+  getErrorsForAttempt(attempt) {
+    return attempt.feedback;
   },
 
-  generateFeedbackString: function (attempt) {
+  generateFeedbackString(attempt) {
     const errors = this.getErrorsForAttempt(attempt);
-    return errors
+    return errors;
   },
 
-  getMatchingResponse: function (quest, response) {
-    var fields = {
-      responses: _.filter(this.responsesWithStatus(quest), (resp) => {
-        return resp.statusCode < 2
-      }),
-      focusPoints: quest.focusPoints ? hashToCollection(quest.focusPoints) : []
-    }
-    var question = new Question(fields);
+  getMatchingResponse(quest, response, responses) {
+    const fields = {
+      responses: _.filter(responses, resp => resp.statusCode < 2),
+      focusPoints: quest.focusPoints ? hashToCollection(quest.focusPoints) : [],
+    };
+    const question = new Question(fields);
     return question.checkMatch(response.text);
   },
 
   // Functions for rematching all Responses
-  mapConceptsToList: function () {
+  mapConceptsToList() {
     const concepts = hashToCollection(this.props.concepts.data['0']);
     const questions = hashToCollection(this.props.questions.data);
-    const conceptsWithQuestions = concepts.map((concept) => {
-      return _.where(questions, {conceptID: concept.uid})
-    })
-    return _.flatten(conceptsWithQuestions)
+    const conceptsWithQuestions = concepts.map(concept => _.where(questions, { conceptID: concept.uid, }));
+    return _.flatten(conceptsWithQuestions);
   },
 
-  responsesWithStatus: function (question) {
-    var responses = hashToCollection(question.responses)
-    return responses.map((response) => {
-      var statusCode;
-      if (!response.feedback) {
-        statusCode = 4;
-      } else if (!!response.parentID) {
-        // var parentResponse = this.getResponse(response.parentID)
-        statusCode = 3;
+  responsesWithStatusForQuestion(questionUID) {
+    console.log('QuestionUID: ', questionUID);
+
+    const responses = this.props.responses.data[questionUID];
+    console.log('Responses', responses);
+    return hashToCollection(respWithStatus(responses));
+  },
+
+  rematchAllQuestions() {
+    const ignoreList = [
+      '-KP-LIzVyeL6a38yW0im',
+      '-KPt1wiz5zY1JgNSLbQZ',
+      '-KPt6EDsKbaXVrIf9dJY',
+      '-KPt2OD4fkKen27eyiry',
+      '-KPt2ZzZAIVsrQ-asGEY',
+      '-KP-M1Crf2pvqO4QH6zI',
+      '-KP-M7WtUdYK6vd6S57X',
+      '-KP-MEpdOxjU7OyzL6ss',
+      '-KPt2jWGaZbGEaUKj-da',
+      '-KPt2vzVYs2QAWkeo7QT',
+      '-KPt3I_hR_Xlv5Cr1mvB',
+      '-KP-Mv5jsZKhraQH2DOt',
+      '-KPt3fnhAJ_vQF_dD4Oj',
+      '-KPt3uD8hulWiYGp3Rm7',
+      '-KP-Nc414z5N_TKwnvms',
+      '-KP-M1Crf2pvqO4QH6zI-esp',
+      '-KP-LIzVyeL6a38yW0im-esp',
+      '-KP-M7WtUdYK6vd6S57X-esp',
+      '-KPt2OD4fkKen27eyiry-esp',
+      '-KP-MEpdOxjU7OyzL6ss-esp',
+      '-KPt3I_hR_Xlv5Cr1mvB-esp',
+      '-KP-Mv5jsZKhraQH2DOt-esp',
+      '-KPt3fnhAJ_vQF_dD4Oj-esp',
+      '-KPt3uD8hulWiYGp3Rm7-esp'
+    ];
+
+    console.log('Rematching All Questions');
+    _.each(hashToCollection(this.props.questions.data), (question) => {
+      if (ignoreList.indexOf(question.key) === -1) {
+        console.log('Rematching Question: ', question.key);
+        this.rematchAllResponses(question);
       } else {
-        statusCode = (response.optimal ? 0 : 1);
+        console.log('Ignoring');
       }
-      response.statusCode = statusCode
-      return response
-    })
+    });
+    console.log('Finished Rematching All Questions');
   },
 
-  rematchAllQuestions: function () {
-    console.log("Rematching All Questions")
-    _.each(this.mapConceptsToList(), (question) => {
-      console.log("Rematching Question: ", question.key)
-      this.rematchAllResponses(question)
-    })
-    console.log("Finished Rematching All Questions")
-  },
-
-  rematchAllResponses: function (question) {
-    console.log("Rematching All Responses")
-    const weak = _.filter(this.responsesWithStatus(question), (resp) => {
-      return resp.statusCode > 1
-    })
+  rematchAllResponses(question) {
+    console.log('Rematching All Responses', question);
+    const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
+    const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
     weak.forEach((resp) => {
-      this.rematchResponse(resp, question)
-    })
-    console.log("Finished Rematching All Responses")
+      this.rematchResponse(question, resp, responsesWithStat);
+    });
+    console.log('Finished Rematching All Responses');
   },
 
-  rematchResponse: function (response, question) {
-    var newResponse = this.getMatchingResponse(question, response)
-    if (!newResponse.found) {
-      console.log("No response match")
-      var newValues = {
-        weak: false,
-        text: response.text,
-        count: response.count
-      }
-      this.props.dispatch(
-        actions.setUpdatedResponse(question.key, response.key, newValues)
-      )
-      return
+  rematchResponse(question, response, responses) {
+    if (!response.questionUID || !response.text) {
+      return;
     }
-    if (newResponse.response.text === response.text) {
-      console.log("Rematching duplicate", newResponse)
-      this.props.dispatch(actions.deleteResponse(question.key, response.key))
-    }
-    else if (newResponse.response.key === response.parentID) {
-      console.log("Same response  match", question.key, response.key)
-      if (newResponse.author) {
-        var newErrorResp = {
+    const newMatchedResponse = this.getMatchingResponse(question, response, responses);
+    const changed =
+      (newMatchedResponse.response.parentID !== response.parentID) ||
+      (newMatchedResponse.response.author !== response.author) ||
+      (newMatchedResponse.response.feedback !== response.feedback);
+    const unmatched = (newMatchedResponse.found === false);
+    console.log('Rematched: t, u, o, n: ', changed, unmatched);
+    console.log(response);
+    console.log(newMatchedResponse.response);
+    if (changed) {
+      if (unmatched) {
+        const newValues = {
           weak: false,
-          author: newResponse.author,
-          feedback: this.generateFeedbackString(newResponse)
-        }
-        this.updateRematchedResponse(question.key, response.key, newErrorResp)
+          text: response.text,
+          count: response.count || 1,
+          questionUID: response.questionUID,
+        };
+        this.props.dispatch(
+            setUpdatedResponse(response.key, newValues)
+          );
+      } else if (newMatchedResponse.response.parentID === undefined) {
+        this.props.dispatch(
+          deleteResponse(question.key, response.key)
+        );
+      } else {
+        const newValues = {
+          weak: false,
+          parentID: newMatchedResponse.response.parentID,
+          author: newMatchedResponse.response.author,
+          feedback: newMatchedResponse.response.feedback,
+        };
+        this.updateRematchedResponse(response.key, newValues);
       }
     }
-    else {
-      console.log("New response  match")
-      var newErrorResp = {
-        weak: false,
-        parentID: newResponse.response.key,
-        author: newResponse.author,
-        feedback: this.generateFeedbackString(newResponse)
-      }
-      this.updateRematchedResponse(question.key, response.key, newErrorResp)
-    }
-    // this.updateReponseResource(response)
-    // this.submitResponse(response)
-    // this.setState({editing: false})
   },
 
-  renderModal: function () {
-    var stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
+  renderModal() {
+    const stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
     if (this.props.questions.newQuestionModalOpen) {
-        return (
-          <Modal close={this.createNew}>
-            <div className="box">
-              <h4 className="title">Add New Question</h4>
-                <p className="control">
-                  <label className="label">Name</label>
-                  <input
-                    className="input"
-                    type="text"
-                    placeholder="Text input"
-                    ref="newQuestionName"
-                  />
-              </p>
-              <p class="control">
-                <span class="select">
-                  <select>
-                    <option>Choose a concept</option>
-                    <option>And</option>
-                    <option>Or</option>
-                  </select>
-                </span>
-              </p>
-              <p className="control">
-                <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewQuestion}>Submit</button>
-              </p>
-            </div>
-          </Modal>
-        )
-      }
+      return (
+        <Modal close={this.createNew}>
+          <div className="box">
+            <h4 className="title">Add New Question</h4>
+            <p className="control">
+              <label className="label">Name</label>
+              <input
+                className="input"
+                type="text"
+                placeholder="Text input"
+                ref="newQuestionName"
+              />
+            </p>
+            <p className="control">
+              <span className="select">
+                <select>
+                  <option>Choose a concept</option>
+                  <option>And</option>
+                  <option>Or</option>
+                </select>
+              </span>
+            </p>
+            <p className="control">
+              <button className={`button is-primary ${stateSpecificClass}`} onClick={this.submitNewQuestion}>Submit</button>
+            </p>
+          </div>
+        </Modal>
+      );
+    }
   },
 
-  handleSearchChange: function(e) {
-    var action = push('/admin/questions/' + e.value)
-    this.props.dispatch(action)
+  handleSearchChange(e) {
+    const action = push(`/admin/questions/${e.value}`);
+    this.props.dispatch(action);
   },
 
-  toggleNoConceptQuestions: function() {
+  toggleNoConceptQuestions() {
     this.setState({
-      displayNoConceptQuestions: !this.state.displayNoConceptQuestions
-    })
+      displayNoConceptQuestions: !this.state.displayNoConceptQuestions,
+    });
   },
 
-  renderSearchBox: function() {
-    const options = hashToCollection(this.props.questions.data)
+  renderSearchBox() {
+    const options = hashToCollection(this.props.questions.data);
     if (options.length > 0) {
       const formatted = options.map((opt) => {
         let name;
         if (opt.prompt) {
-          name = opt.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
+          name = opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
         } else {
-          name = "No name"
+          name = 'No name';
         }
-        return {name: name, value: opt.key || "key"}
-      })
-      const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange}/>)
-      return searchBox
+        return { name, value: opt.key || 'key', };
+      });
+      const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange} />);
+      return searchBox;
     }
-
   },
 
-  render: function () {
-    const {questions, concepts} = this.props
-    if(this.props.questions.hasreceiveddata && this.props.concepts.hasreceiveddata) {
+  render() {
+    const { questions, concepts, } = this.props;
+    if (this.props.questions.hasreceiveddata && this.props.concepts.hasreceiveddata) {
       return (
         <section className="section">
           <div className="container">
+            <button onClick={this.props.dispatch.bind(null, loadAllResponseData())}>Load all responses</button>
             <button onClick={this.rematchAllQuestions}>Rematch all Questions</button>
             { this.renderModal() }
             { this.renderSearchBox() }
             <br />
             <label className="checkbox">
-              <input type="checkbox" checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions}/>
+              <input type="checkbox" checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} />
               Display questions with no valid concept
             </label>
             <br />
             <br />
-            <QuestionsList displayNoConceptQuestions={this.state.displayNoConceptQuestions} questions={questions} concepts={concepts} baseRoute={"admin"} />
+            <QuestionsList displayNoConceptQuestions={this.state.displayNoConceptQuestions} questions={questions} concepts={concepts} baseRoute={'admin'} />
           </div>
         </section>
-      )
+      );
     } else {
       return (
         <div>Loading...</div>
-      )
+      );
     }
-  }
-})
+  },
+});
 
 function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
-    routing: state.routing
-  }
+    responses: state.responses,
+    routing: state.routing,
+  };
 }
 
-export default connect(select)(Questions)
+export default connect(select)(Questions);

@@ -24,6 +24,55 @@ function responsesForQuestionRef(questionId) {
   return responsesRef.orderByChild('questionUID').equalTo(questionId);
 }
 
+function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
+  const questionsKeys = _.keys(groupedResponses);
+  const statuses = {};
+  questionsKeys.forEach((key) => {
+    statuses[key] = 'LOADED';
+  });
+  console.log(statuses);
+  return statuses;
+  // for (const key in questionsKeys) {
+  //   if (object.hasOwnProperty(variable)) {
+  //
+  //   }
+  // }
+  // return questionsKeys.map((qkey) => {
+  //   console.log('Question: ', qkey);
+  //   const obj = {};
+  //   obj[qkey] = 'LOADED';
+  //   return obj;
+  // });
+}
+
+function groupResponsesByQuestion(snapshot) {
+  const groupedResponses = {};
+  for (const responseKey in snapshot) {
+    if (snapshot.hasOwnProperty(responseKey)) {
+      const response = snapshot[responseKey];
+      if (response.questionUID) {
+        if (groupedResponses[response.questionUID]) {
+          groupedResponses[response.questionUID][responseKey] = response;
+        } else {
+          groupedResponses[response.questionUID] = {};
+          groupedResponses[response.questionUID][responseKey] = response;
+        }
+      }
+    }
+  }
+  return groupedResponses;
+}
+
+export function loadAllResponseData() {
+  return (dispatch) => {
+    responsesRef.once('value', (snapshot) => {
+      const data = groupResponsesByQuestion(snapshot.val());
+      const status = getQuestionLoadedStatusForGroupedResponses(data);
+      dispatch({ type: 'BULK UPDATE', data: { data, status, }, });
+    });
+  };
+}
+
 export function loadResponseData(questionId) {
   return (dispatch) => {
     dispatch(updateStatus(questionId, 'LOADING'));
@@ -128,7 +177,7 @@ export function incrementResponseCount(qid, rid, prid) {
     });
     responseRef.child('parentID').once('value', (snap) => {
       if (snap.val()) {
-        dispatch(this.incrementChildResponseCount(snap.val()));
+        dispatch(incrementChildResponseCount(snap.val()));
       }
     });
   };

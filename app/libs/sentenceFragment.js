@@ -17,11 +17,15 @@ export function wordLengthCount(str) {
   return strNoPunctuation.length;
 }
 
+function sortbyCount(responses) {
+  return _.sortBy(responses, r => r.count).reverse();
+}
+
 export default class POSMatcher {
 
   constructor(data) {
     this.prompt = data.prompt;
-    this.responses = data.responses;
+    this.responses = sortbyCount(data.responses);
     this.questionUID = data.questionUID;
     this.wordCountChange = data.wordCountChange || {};
   }
@@ -62,7 +66,6 @@ export default class POSMatcher {
       returnValue.response = exactMatch;
       return returnValue;
     }
-
     const lengthMatch = this.checkLengthMatch(userSubmission);
     if (lengthMatch !== undefined) {
       returnValue.response = Object.assign({}, res, lengthMatch);
@@ -167,13 +170,16 @@ export default class POSMatcher {
         }
       });
       if (matchedResponse) {
-        return {
+        const returnValue = {
           optimal: matchedResponse.optimal,
           parentID: matchedResponse.key,
           feedback: matchedResponse.feedback,
           author: 'Parts of Speech',
-          conceptResults: matchedResponse.conceptResults,
         };
+        if (matchedResponse.conceptResults) {
+          returnValue.conceptResults = matchedResponse.conceptResults;
+        }
+        return returnValue;
       }
     }
   }

@@ -8,6 +8,10 @@ import Modal from '../modal/modal.jsx';
 import C from '../../constants.js';
 import EditLessonForm from './lessonForm.jsx';
 
+String.prototype.toKebab = function () {
+  return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
+};
+
 const Lesson = React.createClass({
   questionsForLesson() {
     const { data, } = this.props.lessons,
@@ -28,7 +32,7 @@ const Lesson = React.createClass({
     if (questionsForLesson) {
       const listItems = questionsForLesson.map((question) => {
         const displayName = question.prompt || 'No question prompt';
-        return (<li key={question.key}><Link to={`/admin/${question.questionType || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
+        return (<li key={question.key}><Link to={`/admin/${question.questionType.toKebab() || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
       });
       return (
         <ul>{listItems}</ul>

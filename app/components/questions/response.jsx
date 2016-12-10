@@ -132,25 +132,25 @@ export default React.createClass({
 
   rematchResponse(rid) {
     const newResponse = this.props.getMatchingResponse(rid);
-    if (!newResponse.found) {
-      const newValues = {
-        text: this.props.response.text,
-        count: this.props.response.count,
-      };
-      this.props.dispatch(
-        setUpdatedResponse(rid, newValues)
-      );
-      return;
-    }
-    if (newResponse.response.key === this.props.response.parentID) {
-
-    } else {
-      const newErrorResp = {
-        parentID: newResponse.response.key,
-        feedback: this.generateFeedbackString(newResponse),
-      };
-      this.updateRematchedResponse(rid, newErrorResp);
-    }
+    // if (!newResponse.found) {
+    //   const newValues = {
+    //     text: this.props.response.text,
+    //     count: this.props.response.count,
+    //   };
+    //   this.props.dispatch(
+    //     setUpdatedResponse(rid, newValues)
+    //   );
+    //   return;
+    // }
+    // if (newResponse.response.key === this.props.response.parentID) {
+    //
+    // } else {
+    //   const newErrorResp = {
+    //     parentID: newResponse.response.key,
+    //     feedback: this.generateFeedbackString(newResponse),
+    //   };
+    //   this.updateRematchedResponse(rid, newErrorResp);
+    // }
   },
 
   chooseConcept(e) {
@@ -477,14 +477,8 @@ export default React.createClass({
   renderResponseHeader(response) {
     let bgColor;
     let icon;
-    if (!response.feedback) {
-      bgColor = 'not-found-response';
-    } else if (response.parentID) {
-      const parentResponse = this.props.getResponse(response.parentID);
-      bgColor = 'algorithm-sub-optimal-response';
-    } else {
-      bgColor = (response.optimal ? 'human-optimal-response' : 'human-sub-optimal-response');
-    }
+    const headerCSSClassNames = ['human-optimal-response', 'human-sub-optimal-response', 'algorithm-optimal-response', 'algorithm-sub-optimal-response', 'not-found-response'];
+    bgColor = headerCSSClassNames[response.statusCode];
     if (response.weak) {
       icon = '⚠️';
     }

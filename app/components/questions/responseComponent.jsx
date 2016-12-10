@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/filters';
+import filterActions from '../../actions/filters';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import ResponseList from './responseList.jsx';
-import Question from '../../libs/question';
+import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
@@ -15,6 +15,10 @@ import FocusPointSummary from './focusPointSummary.jsx';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
+import POSMatcher from '../../libs/sentenceFragment.js';
+import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
+import { submitResponseEdit, setUpdatedResponse } from '../../actions/responses';
+
 import {
   deleteResponse
 } from '../../actions/responses.js';
@@ -25,7 +29,7 @@ const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal'
 // ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
                 // "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint", "Whitespace Hint",
                 // "Missing Word Hint", "Additional Word Hint", "Modified Word Hint", "Missing Details Hint", "Not Concise Hint", "No Hint"]
-const colors = ['#81c784', '#ffb74d', '#ba68c8', '#5171A5', '#e57373'];
+const colors = ['#81c784', '#ffb74d', '#BA68C8', '#5171A5', '#e57373'];
 
 const responsesPerPage = 20;
 const feedbackStrings = C.FEEDBACK_STRINGS;
@@ -33,26 +37,31 @@ const feedbackStrings = C.FEEDBACK_STRINGS;
 const Responses = React.createClass({
   getInitialState() {
     let actions;
+    let matcher;
     if (this.props.mode === 'sentenceFragment') {
       actions = sentenceFragmentActions;
+      matcher = POSMatcher;
     } else if (this.props.mode === 'diagnosticQuestion') {
       actions = diagnosticQuestionActions;
+      matcher = DiagnosticQuestionMatcher;
     } else {
       actions = questionActions;
+      matcher = QuestionMatcher;
     }
     return {
       actions,
       viewingResponses: true,
       responsePageNumber: 1,
+      matcher,
     };
   },
 
   expand(responseKey) {
-    this.props.dispatch(actions.toggleExpandSingleResponse(responseKey));
+    this.props.dispatch(filterActions.toggleExpandSingleResponse(responseKey));
   },
 
   updateRematchedResponse(rid, vals) {
-    this.props.dispatch(this.state.actions.submitResponseEdit(this.props.questionID, rid, vals));
+    this.props.dispatch(submitResponseEdit(rid, vals));
   },
 
   getFocusPoint() {
@@ -60,21 +69,39 @@ const Responses = React.createClass({
   },
 
   getPercentageWeakResponses() {
+    const item = this.props.question;
+    // Pass all possible fields regardless of matcher as the matchers will filter it out.
     const fields = {
-      responses: this.responsesWithStatus(),
-      focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : [],
+      wordCountChange: item.wordCountChange,
+      questionUID: this.props.questionID,
+      sentences: item.sentences,
+      prompt: item.prompt,
+      focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
     };
-    const question = new Question(fields);
-    return question.getPercentageWeakResponses();
+    const markingObject = new this.state.matcher(fields);
+
+    // const fields = {
+    //   responses: this.responsesWithStatus(),
+    //   focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : [],
+    // };
+    // const question = new this.state.matcher(fields);
+    // return question.getPercentageWeakResponses();
   },
 
+  // Ryan Look here!!!
   getMatchingResponse(rid) {
+    const item = this.props.question;
+    // Pass all possible fields regardless of matcher as the matchers will filter it out.
     const fields = {
+      wordCountChange: item.wordCountChange,
+      questionUID: this.props.questionID,
+      sentences: item.sentences,
+      prompt: item.prompt,
       responses: _.filter(this.responsesWithStatus(), resp => resp.statusCode < 2),
-      focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : [],
+      focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
     };
-    const question = new Question(fields);
-    return question.checkMatch(this.getResponse(rid).text);
+    const markingObject = new this.state.matcher(fields);
+    return markingObject.checkMatch(this.getResponse(rid).text);
   },
 
   getErrorsForAttempt(attempt) {
@@ -93,46 +120,37 @@ const Responses = React.createClass({
   },
 
   rematchResponse(rid) {
-    const newResponse = this.getMatchingResponse(rid);
+    const newMatchedResponse = this.getMatchingResponse(rid);
     const response = this.getResponse(rid);
-    if (!newResponse.found) {
-      console.log('Rematching not found: ', newResponse);
-      const newValues = {
-        weak: false,
-        text: response.text,
-        count: response.count,
-      };
-      this.props.dispatch(
-        this.state.actions.setUpdatedResponse(this.props.questionID, rid, newValues)
-      );
-      return;
-    }
-    if (newResponse.response.text === response.text) {
-      console.log('Rematching duplicate', newResponse);
-      this.props.dispatch(deleteResponse(this.props.questionID, rid));
-    } else if (newResponse.response.key === response.parentID) {
-      console.log('Rematching same parent: ', newResponse);
-      if (newResponse.author) {
-        var newErrorResp = {
+    const changed =
+      (newMatchedResponse.response.parentID !== response.parentID) ||
+      (newMatchedResponse.response.author !== response.author) ||
+      (newMatchedResponse.response.feedback !== response.feedback);
+    const unmatched = (newMatchedResponse.found === false);
+    console.log('Rematched: t, u, o, n: ', changed, unmatched);
+    console.log(response);
+    console.log(newMatchedResponse.response);
+    if (changed) {
+      if (unmatched) {
+        const newValues = {
           weak: false,
-          author: newResponse.author,
-          feedback: this.generateFeedbackString(newResponse),
+          text: response.text,
+          count: response.count,
+          questionUID: response.questionUID,
         };
-        this.updateRematchedResponse(rid, newErrorResp);
+        this.props.dispatch(
+            setUpdatedResponse(rid, newValues)
+          );
+      } else {
+        const newValues = {
+          weak: false,
+          parentID: newMatchedResponse.response.parentID,
+          author: newMatchedResponse.response.author,
+          feedback: newMatchedResponse.response.feedback,
+        };
+        this.updateRematchedResponse(rid, newValues);
       }
-    } else {
-      console.log('Rematching new error', newResponse);
-      var newErrorResp = {
-        weak: false,
-        parentID: newResponse.response.key,
-        author: newResponse.author,
-        feedback: this.generateFeedbackString(newResponse),
-      };
-      this.updateRematchedResponse(rid, newErrorResp);
     }
-    // this.updateReponseResource(response)
-    // this.submitResponse(response)
-    // this.setState({editing: false})
   },
 
   rematchAllResponses() {
@@ -209,7 +227,7 @@ const Responses = React.createClass({
         expanded={this.props.filters.expanded}
         expand={this.expand}
         ascending={this.props.filters.ascending}
-        getMatchingResponse={this.getMatchingResponse}
+        getMatchingResponse={this.rematchResponse}
         showPathways
         printPathways={this.mapCountToResponse}
         toPathways={this.mapCountToToResponse}
@@ -222,7 +240,7 @@ const Responses = React.createClass({
   },
 
   toggleResponseSort(field) {
-    this.props.dispatch(actions.toggleResponseSort(field));
+    this.props.dispatch(filterActions.toggleResponseSort(field));
   },
 
   renderSortingFields() {
@@ -234,11 +252,11 @@ const Responses = React.createClass({
   },
 
   toggleField(status) {
-    this.props.dispatch(actions.toggleStatusField(status));
+    this.props.dispatch(filterActions.toggleStatusField(status));
   },
 
   resetFields() {
-    this.props.dispatch(actions.resetAllFields());
+    this.props.dispatch(filterActions.resetAllFields());
   },
 
   renderStatusToggleMenu() {
@@ -255,7 +273,7 @@ const Responses = React.createClass({
   },
 
   collapseAllResponses() {
-    this.props.dispatch(actions.collapseAllResponses());
+    this.props.dispatch(filterActions.collapseAllResponses());
   },
 
   expandAllResponses() {
@@ -264,7 +282,7 @@ const Responses = React.createClass({
     for (let i = 0; i < responses.length; i++) {
       newExpandedState[responses[i].key] = true;
     }
-    this.props.dispatch(actions.expandAllResponses(newExpandedState));
+    this.props.dispatch(filterActions.expandAllResponses(newExpandedState));
   },
 
   allClosed() {

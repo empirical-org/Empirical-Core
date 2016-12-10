@@ -5,6 +5,7 @@ import { checkForMissingWords } from './requiredWords';
 import {
   checkChangeObjectMatch
 } from './algorithms/changeObjects';
+import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
 
 const jsDiff = require('diff');
 
@@ -27,6 +28,11 @@ const conceptResultTemplate = (conceptUID, correct = false) => ({
 export function removePunctuation(string) {
   return string.replace(/[^A-Za-z0-9\s]/g, '');
 }
+
+const downcasedFocusPoints = (focusPointsArr=[]) => focusPointsArr.map((fp) => {
+  fp.text = fp.text.toLowerCase();
+  return fp;
+});
 
 const removeSpaces = string => string.replace(/\s+/g, '');
 
@@ -51,39 +57,7 @@ export default class Question {
     this.sentences = data.sentences;
     this.responses = data.responses;
     this.questionUID = data.questionUID;
-    this.focusPoints = data.focusPoints || [];
-  }
-
-  getOptimalResponses() {
-    return _.where(this.responses, { optimal: true, });
-  }
-
-  getSubOptimalResponses() {
-    return _.filter(this.responses,
-      resp => (resp.parentID === undefined && resp.feedback !== undefined && resp.optimal !== true)
-    );
-  }
-
-  getTopOptimalResponse() {
-    return _.sortBy(this.getOptimalResponses(), r => r.count).reverse()[0];
-  }
-
-  getWeakResponses() {
-    return _.filter(this.responses, resp => resp.weak === true);
-  }
-
-  getCommonUnmatchedResponses() {
-    return _.filter(this.responses, resp => resp.feedback === undefined && resp.count > 2);
-  }
-
-  getSumOfWeakAndCommonUnmatchedResponses() {
-    return this.getWeakResponses().length + this.getCommonUnmatchedResponses().length;
-  }
-
-  getPercentageWeakResponses() {
-    return (
-      this.getSumOfWeakAndCommonUnmatchedResponses() / (this.responses.length * 100)
-    ).toPrecision(4);
+    this.focusPoints = downcasedFocusPoints(data.focusPoints) || [];
   }
 
   checkMatch(response) {
@@ -109,7 +83,7 @@ export default class Question {
     if (focusPointMatch !== undefined) {
       res.feedback = focusPointMatch.feedback;
       res.author = 'Focus Point Hint';
-      res.parentID = this.getTopOptimalResponse().key;
+      res.parentID = getTopOptimalResponse(this.responses).key;
       if (focusPointMatch.conceptUID) {
         res.conceptResults = [
           conceptResultTemplate(focusPointMatch.conceptUID)
@@ -228,7 +202,7 @@ export default class Question {
     if (requiredWordsMatch !== undefined) {
       res.feedback = requiredWordsMatch.feedback;
       res.author = 'Required Words Hint';
-      res.parentID = this.getTopOptimalResponse().key;
+      res.parentID = getTopOptimalResponse(this.responses).key;
       res.conceptResults = [
         conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
       ];
@@ -291,32 +265,32 @@ export default class Question {
   }
 
   checkCaseInsensitiveMatch(response) {
-    return _.find(this.getOptimalResponses(),
+    return _.find(getOptimalResponses(this.responses),
       resp => resp.text.normalize().toLowerCase() === response.normalize().toLowerCase()
     );
   }
 
   checkCaseStartMatch(response) {
     if (response[0] && response[0].toLowerCase() === response[0]) {
-      return this.getTopOptimalResponse();
+      return getTopOptimalResponse(this.responses);
     }
   }
 
   checkPunctuationEndMatch(response) {
     const lastChar = response[response.length - 1];
     if (lastChar && lastChar.match(/[a-z]/i)) {
-      return this.getTopOptimalResponse();
+      return getTopOptimalResponse(this.responses);
     }
   }
 
   checkPunctuationInsensitiveMatch(response) {
-    return _.find(this.getOptimalResponses(),
+    return _.find(getOptimalResponses(this.responses),
       resp => removePunctuation(resp.text.normalize()) === removePunctuation(response.normalize())
     );
   }
 
   checkPunctuationAndCaseInsensitiveMatch(response) {
-    return _.find(this.getOptimalResponses(), (resp) => {
+    return _.find(getOptimalResponses(this.responses), (resp) => {
       const supplied = removePunctuation(response.normalize()).toLowerCase();
       const target = removePunctuation(resp.text.normalize()).toLowerCase();
       return supplied === target;
@@ -324,7 +298,7 @@ export default class Question {
   }
 
   checkWhiteSpaceMatch(response) {
-    return _.find(this.getOptimalResponses(),
+    return _.find(getOptimalResponses(this.responses),
       resp => removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize())
     );
   }
@@ -337,12 +311,12 @@ export default class Question {
 
   checkChangeObjectRigidMatch(response) {
     const fn = string => string.normalize();
-    return checkChangeObjectMatch(response, this.getOptimalResponses(), fn);
+    return checkChangeObjectMatch(response, getOptimalResponses(this.responses), fn);
   }
 
   checkChangeObjectFlexibleMatch(response) {
     const fn = string => removePunctuation(string.normalize()).toLowerCase();
-    return checkChangeObjectMatch(response, this.getOptimalResponses(), fn);
+    return checkChangeObjectMatch(response, getOptimalResponses(this.responses), fn);
   }
 
   checkFuzzyMatch(response) {
@@ -361,11 +335,11 @@ export default class Question {
   }
 
   checkRequiredWordsMatch(response) {
-    return checkForMissingWords(response, this.getOptimalResponses());
+    return checkForMissingWords(response, getOptimalResponses(this.responses));
   }
 
   checkMinLengthMatch(response) {
-    const optimalResponses = this.getOptimalResponses();
+    const optimalResponses = getOptimalResponses(this.responses);
     if (optimalResponses.length < 2) {
       return undefined;
     }
@@ -378,7 +352,7 @@ export default class Question {
   }
 
   checkMaxLengthMatch(response) {
-    const optimalResponses = this.getOptimalResponses();
+    const optimalResponses = getOptimalResponses(this.responses);
     if (optimalResponses.length < 2) {
       return undefined;
     }
@@ -391,6 +365,6 @@ export default class Question {
   }
 
   checkFocusPointMatch(response) {
-    return _.find(this.focusPoints, fp => response.indexOf(fp.text) === -1);
+    return _.find(this.focusPoints, fp => response.toLowerCase().indexOf(fp.text) === -1);
   }
 }

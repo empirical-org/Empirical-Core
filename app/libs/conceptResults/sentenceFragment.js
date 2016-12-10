@@ -1,9 +1,12 @@
 import C from '../../constants';
+import _ from 'underscore';
+
+import { getConceptResultsForAttempt } from './sharedConceptResultsFunctions';
 
 export function getIdentificationConceptResult(question) {
   const returnValue = {};
   const correct = question.identified ? 1 : 0;
-  const prompt = question.questionText;
+  const prompt = question.prompt;
   const directions = 'Is this a sentence or a fragment?';
   let answer,
     concept_uid;
@@ -21,6 +24,7 @@ export function getIdentificationConceptResult(question) {
     directions,
     prompt,
     answer,
+    attemptNumber: 1,
   };
   return returnValue;
 }
@@ -39,45 +43,9 @@ export function getCompleteSentenceConceptResult(question) {
     directions,
     prompt,
     answer,
+    attemptNumber: 1,
   };
   return returnValue;
-}
-
-function _formatIndividualTaggedConceptResults(cr, question) {
-  const returnValue = {};
-  const prompt = question.prompt;
-  const answer = question.attempts[0].submitted;
-  const directions = question.instructions || C.INSTRUCTIONS.sentenceFragments;
-  const correct = cr.correct ? 1 : 0;
-  returnValue.concept_uid = cr.conceptUID;
-  returnValue.question_type = 'sentence-fragment-expansion';
-  returnValue.metadata = {
-    correct,
-    directions,
-    prompt,
-    answer,
-  };
-  return returnValue;
-}
-
-export function getTaggedConceptResults(question) {
-  const attempt = question.attempts[0];
-  if (attempt && attempt.response && attempt.response.conceptResults) {
-    const conceptResults = attempt.response.conceptResults;
-    const conceptResultsArr = [];
-    for (const prop in conceptResults) {
-      conceptResultsArr.push(_formatIndividualTaggedConceptResults(conceptResults[prop], question));
-    }
-    return (conceptResultsArr);
-  }
-}
-
-export function calculateCorrectnessOfSentence(attempt) {
-  if (attempt && attempt.response) {
-    return attempt.response.optimal ? 1 : 0;
-  } else {
-    return 1;
-  }
 }
 
 export function getAllSentenceFragmentConceptResults(question) {
@@ -92,6 +60,21 @@ export function getAllSentenceFragmentConceptResults(question) {
       getCompleteSentenceConceptResult(question)
     ];
   }
-  const taggedResults = getTaggedConceptResults(question);
-  return taggedResults ? conceptResults.concat(taggedResults) : conceptResults;
+  const nestedConceptResults = question.attempts.map((attempt, index) => getConceptResultsForSentenceFragmentAttempt(question, index));
+  const flattenedNestedConceptResults = [].concat.apply([], nestedConceptResults); // Flatten nested Array
+  return conceptResults.concat(flattenedNestedConceptResults);
+}
+
+export function getConceptResultsForSentenceFragmentAttempt(question, attemptIndex) {
+  const defaultDirections = 'Add/change as few words as you can to change this fragment into a sentence.';
+  const conceptResults = getConceptResultsForAttempt(question, attemptIndex, 'sentence-fragment-expansion', defaultDirections);
+  return _.compact(conceptResults);
+}
+
+export function calculateCorrectnessOfSentence(attempt) {
+  if (attempt && attempt.response && attempt.response.optimal !== undefined) {
+    return attempt.response.optimal ? 1 : 0;
+  } else {
+    return 1;
+  }
 }

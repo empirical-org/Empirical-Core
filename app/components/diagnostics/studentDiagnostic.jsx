@@ -82,6 +82,7 @@ const StudentDiagnostic = React.createClass({
 
   saveToLMS() {
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
+    console.log('Concept Results: ', results);
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${this.props.routing.locationBeforeTransitions.query.student}`,
         method: 'PUT',
