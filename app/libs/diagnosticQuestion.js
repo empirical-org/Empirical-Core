@@ -5,6 +5,7 @@ import { diffWords } from 'diff';
 import {
   checkChangeObjectMatch
 } from './algorithms/changeObjects';
+import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {
@@ -25,34 +26,6 @@ export default class Question {
     this.responses = data.responses;
     this.questionUID = data.questionUID;
     this.focusPoints = data.focusPoints || [];
-  }
-
-  getOptimalResponses() {
-    return _.where(this.responses, { optimal: true, });
-  }
-
-  getSubOptimalResponses(responses) {
-    return _.filter(this.responses, resp => resp.parentID === undefined && resp.feedback !== undefined && resp.optimal !== true);
-  }
-
-  getTopOptimalResponse() {
-    return _.sortBy(this.getOptimalResponses(), r => r.count).reverse()[0];
-  }
-
-  getWeakResponses() {
-    return _.filter(this.responses, resp => resp.weak === true);
-  }
-
-  getCommonUnmatchedResponses() {
-    return _.filter(this.responses, resp => resp.feedback === undefined && resp.count > 2);
-  }
-
-  getSumOfWeakAndCommonUnmatchedResponses() {
-    return this.getWeakResponses().length + this.getCommonUnmatchedResponses().length;
-  }
-
-  getPercentageWeakResponses() {
-    return (this.getSumOfWeakAndCommonUnmatchedResponses() / this.responses.length * 100).toPrecision(4);
   }
 
   checkMatch(response) {
@@ -171,15 +144,15 @@ export default class Question {
   }
 
   checkCaseInsensitiveMatch(response) {
-    return _.find(this.getOptimalResponses(), resp => resp.text.normalize().toLowerCase() === response.normalize().toLowerCase());
+    return _.find(getOptimalResponses(this.responses), resp => resp.text.normalize().toLowerCase() === response.normalize().toLowerCase());
   }
 
   checkPunctuationInsensitiveMatch(response) {
-    return _.find(this.getOptimalResponses(), resp => removePunctuation(resp.text.normalize()) === removePunctuation(response.normalize()));
+    return _.find(getOptimalResponses(this.responses), resp => removePunctuation(resp.text.normalize()) === removePunctuation(response.normalize()));
   }
 
   checkPunctuationAndCaseInsensitiveMatch(response) {
-    return _.find(this.getOptimalResponses(), (resp) => {
+    return _.find(getOptimalResponses(this.responses), (resp) => {
       const supplied = removeCaseSpacePunc(response);
       const target = removeCaseSpacePunc(resp.text);
       return supplied === target;
@@ -187,17 +160,17 @@ export default class Question {
   }
 
   checkWhiteSpaceMatch(response) {
-    return _.find(this.getOptimalResponses(), resp => removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize()));
+    return _.find(getOptimalResponses(this.responses), resp => removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize()));
   }
 
   checkChangeObjectRigidMatch(response) {
     const fn = string => string.normalize();
-    return checkChangeObjectMatch(response, this.getOptimalResponses(), fn);
+    return checkChangeObjectMatch(response, getOptimalResponses(this.responses), fn);
   }
 
   checkChangeObjectSubMatch(response) {
     const fn = string => string.normalize();
-    return checkChangeObjectMatch(response, this.getSubOptimalResponses(), fn);
+    return checkChangeObjectMatch(response, getSubOptimalResponses(this.responses), fn);
   }
 
   checkFuzzyMatch(response) {

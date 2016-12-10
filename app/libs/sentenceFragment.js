@@ -66,7 +66,6 @@ export default class POSMatcher {
       returnValue.response = exactMatch;
       return returnValue;
     }
-    console.log("I'm not being called on an exact match");
     const lengthMatch = this.checkLengthMatch(userSubmission);
     if (lengthMatch !== undefined) {
       returnValue.response = Object.assign({}, res, lengthMatch);
