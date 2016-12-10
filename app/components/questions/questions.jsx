@@ -13,6 +13,16 @@ import { loadAllResponseData } from '../../actions/responses';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+
 const Questions = React.createClass({
   getInitialState() {
     return {
@@ -130,9 +140,9 @@ const Questions = React.createClass({
       (newMatchedResponse.response.author !== response.author) ||
       (newMatchedResponse.response.feedback !== response.feedback);
     const unmatched = (newMatchedResponse.found === false);
-    console.log('Rematched: t, u, o, n: ', changed, unmatched);
-    console.log(response);
-    console.log(newMatchedResponse.response);
+    // console.log('Rematched: t, u, o, n: ', changed, unmatched);
+    // console.log(response);
+    // console.log(newMatchedResponse.response);
     if (changed) {
       if (unmatched) {
         const newValues = {
@@ -141,6 +151,8 @@ const Questions = React.createClass({
           count: response.count || 1,
           questionUID: response.questionUID,
         };
+        console.log("Unmatched: ", response.key)
+        sleep(1000);
         this.props.dispatch(
             setUpdatedResponse(response.key, newValues)
           );
@@ -155,6 +167,8 @@ const Questions = React.createClass({
           author: newMatchedResponse.response.author,
           feedback: newMatchedResponse.response.feedback,
         };
+        console.log("Rematched: ", response.key)
+        sleep(1000);
         this.updateRematchedResponse(response.key, newValues);
       }
     }

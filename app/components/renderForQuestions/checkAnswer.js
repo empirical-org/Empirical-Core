@@ -8,7 +8,7 @@ export default function checkAnswer(question, response, responses, mode = 'defau
     prompt: question.prompt,
     responses: hashToCollection(responses),
     questionUID: question.key,
-    focusPoints: question.focusPoints,
+    focusPoints: hashToCollection(question.focusPoints),
   };
   const newQuestion = new Brain(fields);
   const newResponse = newQuestion.checkMatch(response);
