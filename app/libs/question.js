@@ -29,7 +29,7 @@ export function removePunctuation(string) {
   return string.replace(/[^A-Za-z0-9\s]/g, '');
 }
 
-const downcasedFocusPoints = focusPointsArr => focusPointsArr.map((fp) => {
+const downcasedFocusPoints = (focusPointsArr=[]) => focusPointsArr.map((fp) => {
   fp.text = fp.text.toLowerCase();
   return fp;
 });

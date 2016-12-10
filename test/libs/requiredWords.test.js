@@ -5,7 +5,8 @@ import {
   getMissingWords,
   getMissingWordsFromResponses,
   getPOSForWord,
-  getFeedbackForWord
+  getFeedbackForWord,
+  extractSentencesFromResponses
 } from '../../app/libs/requiredWords'
 import {
   getPartsOfSpeechWordsWithTags,
@@ -22,9 +23,9 @@ describe("Finding the common words in multiple sentences", () => {
 
 	it("returns change objects", () => {
 		const expected = [
-      "Bob",
+      "bob",
       "and",
-      "Sally",
+      "sally",
       "went",
       "to",
       "the",
@@ -42,9 +43,10 @@ describe("Finding the common words in multiple sentences, taking capitalisation 
 
 	it("returns the appropriate POS", () => {
 		const expected = [
-      "Bob",
+      "bob",
       "and",
-      "Sally",
+      "sally",
+      "then",
       "went",
       "to",
       "the",
@@ -62,9 +64,10 @@ describe("Finding the common words in multiple sentences, taking only important 
 
 	it("returns the appropriate POS", () => {
 		const expected = [
-      "Bob",
+      "bob",
       "and",
-      "Sally",
+      "sally",
+      "then",
       "went",
       "park"
     ]
@@ -86,13 +89,13 @@ describe("Detecting if a string is missing a required word", () => {
 
   it("knows when a user has missed a word", () => {
     const user = "Then Bob and Stephanie both went to the park."
-		const expected = ["Sally"];
+		const expected = ["sally"];
 		expect(getMissingWords(user, sentences)).toEqual(expected);
 	});
 
   it("knows when a user has missed multiple words", () => {
     const user = "Then they both went to the park."
-		const expected = ["Bob", "and", "Sally"];
+		const expected = ["bob", "and", "sally"];
 		expect(getMissingWords(user, sentences)).toEqual(expected);
 	});
 })
@@ -124,20 +127,22 @@ describe("Finding the common words in multiple sentences", () => {
 		const expected = [
       "next"
     ]
-		expect(getMissingWordsFromResponses(user, responses)).toEqual(expected);
+		expect(getMissingWordsFromResponses(user, extractSentencesFromResponses(responses))).toEqual(expected);
 	});
 
   it("returns the correct POS for the first missing word.", () => {
 		const expected = "Adjective"
-    const missingWords = getMissingWordsFromResponses(user, responses)
+    const missingWords = getMissingWordsFromResponses(user, extractSentencesFromResponses(responses))
     const posLabel = getPOSForWord(missingWords[0])
     expect(posLabel).toEqual(expected);
 	});
 
   it("returns the correct feedback string for the first missing word.", () => {
 		const expected = "<p>Revise your sentence to include the word <em>next</em>.</p>"
-    const missingWords = getMissingWordsFromResponses(user, responses)
-    const feedback = getFeedbackForWord(missingWords[0])
+    const sentences =  extractSentencesFromResponses(responses)
+    const missingWords = getMissingWordsFromResponses(user, sentences)
+    console.log("Miss words, ", missingWords[0]);
+    const feedback = getFeedbackForWord(missingWords[0], sentences)
     expect(feedback).toEqual(expected);
 	});
 
