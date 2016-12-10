@@ -57,8 +57,12 @@ export function getCommonWords(sentences) {
 export function getCommonWordsWithImportantPOS(sentences) {
   const allCommonWords = getCommonWords(sentences);
   return _.reject(allCommonWords, (word) => {
-    const tag = getPartsOfSpeechWordsWithTags(word)[0][1];
-    return !posTranslations[tag];
+    if (getPartsOfSpeechWordsWithTags(word)[0]) {
+      const tag = getPartsOfSpeechWordsWithTags(word)[0][1];
+      return !posTranslations[tag];
+    } else {
+      return true;
+    }
   });
 }
 

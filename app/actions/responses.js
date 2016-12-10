@@ -26,12 +26,23 @@ function responsesForQuestionRef(questionId) {
 
 function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
   const questionsKeys = _.keys(groupedResponses);
-  return questionsKeys.map((qkey) => {
-    console.log('Question: ', qkey);
-    const obj = {};
-    obj[qkey] = 'LOADED';
-    return obj;
+  const statuses = {};
+  questionsKeys.forEach((key) => {
+    statuses[key] = 'LOADED';
   });
+  console.log(statuses);
+  return statuses;
+  // for (const key in questionsKeys) {
+  //   if (object.hasOwnProperty(variable)) {
+  //
+  //   }
+  // }
+  // return questionsKeys.map((qkey) => {
+  //   console.log('Question: ', qkey);
+  //   const obj = {};
+  //   obj[qkey] = 'LOADED';
+  //   return obj;
+  // });
 }
 
 function groupResponsesByQuestion(snapshot) {

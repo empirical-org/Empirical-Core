@@ -151,31 +151,6 @@ const Responses = React.createClass({
         this.updateRematchedResponse(rid, newValues);
       }
     }
-
-    // if (newMatchedResponse.response.key === response.parentID) {
-    //   console.log('Rematching same parent: ', newMatchedResponse);
-    //   if (newMatchedResponse.author) {
-    //     var newErrorResp = {
-    //       weak: false,
-    //       author: newMatchedResponse.author,
-    //       feedback: this.generateFeedbackString(newMatchedResponse),
-    //     };
-    //     this.updateRematchedResponse(rid, newErrorResp);
-    //   }
-    // } else {
-    //   console.log('Rematching new error', newMatchedResponse);
-    //   var newErrorResp = {
-    //     weak: false,
-    //     parentID: newMatchedResponse.response.key,
-    //     author: newMatchedResponse.author,
-    //     feedback: this.generateFeedbackString(newMatchedResponse),
-    //   };
-    //   this.updateRematchedResponse(rid, newErrorResp);
-    // }
-
-    // this.updateReponseResource(response)
-    // this.submitResponse(response)
-    // this.setState({editing: false})
   },
 
   rematchAllResponses() {

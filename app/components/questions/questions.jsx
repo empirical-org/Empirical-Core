@@ -10,6 +10,8 @@ import QuestionsList from './questionsList.jsx';
 import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
 import { loadAllResponseData } from '../../actions/responses';
+import respWithStatus from '../../libs/responseTools.js';
+import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
 
 const Questions = React.createClass({
   getInitialState() {
@@ -29,8 +31,8 @@ const Questions = React.createClass({
     // this.props.dispatch(actions.toggleNewQuestionModal())
   },
 
-  updateRematchedResponse(qid, rid, vals) {
-    this.props.dispatch(actions.submitResponseEdit(qid, rid, vals));
+  updateRematchedResponse(rid, vals) {
+    this.props.dispatch(submitResponseEdit(rid, vals));
   },
 
   getErrorsForAttempt(attempt) {
@@ -42,9 +44,9 @@ const Questions = React.createClass({
     return errors;
   },
 
-  getMatchingResponse(quest, response) {
+  getMatchingResponse(quest, response, responses) {
     const fields = {
-      responses: _.filter(this.responsesWithStatus(quest), resp => resp.statusCode < 2),
+      responses: _.filter(responses, resp => resp.statusCode < 2),
       focusPoints: quest.focusPoints ? hashToCollection(quest.focusPoints) : [],
     };
     const question = new Question(fields);
@@ -59,21 +61,12 @@ const Questions = React.createClass({
     return _.flatten(conceptsWithQuestions);
   },
 
-  responsesWithStatus(question) {
-    const responses = hashToCollection(question.responses);
-    return responses.map((response) => {
-      let statusCode;
-      if (!response.feedback) {
-        statusCode = 4;
-      } else if (response.parentID) {
-        // var parentResponse = this.getResponse(response.parentID)
-        statusCode = 3;
-      } else {
-        statusCode = (response.optimal ? 0 : 1);
-      }
-      response.statusCode = statusCode;
-      return response;
-    });
+  responsesWithStatusForQuestion(questionUID) {
+    console.log('QuestionUID: ', questionUID);
+
+    const responses = this.props.responses.data[questionUID];
+    console.log('Responses', responses);
+    return hashToCollection(respWithStatus(responses));
   },
 
   rematchAllQuestions() {
@@ -108,7 +101,7 @@ const Questions = React.createClass({
     _.each(hashToCollection(this.props.questions.data), (question) => {
       if (ignoreList.indexOf(question.key) === -1) {
         console.log('Rematching Question: ', question.key);
-          // this.rematchAllResponses(question);
+        this.rematchAllResponses(question);
       } else {
         console.log('Ignoring');
       }
@@ -117,54 +110,53 @@ const Questions = React.createClass({
   },
 
   rematchAllResponses(question) {
-    console.log('Rematching All Responses');
-    const weak = _.filter(this.responsesWithStatus(question), resp => resp.statusCode > 1);
+    console.log('Rematching All Responses', question);
+    const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
+    const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
     weak.forEach((resp) => {
-      this.rematchResponse(resp, question);
+      this.rematchResponse(question, resp, responsesWithStat);
     });
     console.log('Finished Rematching All Responses');
   },
 
-  rematchResponse(response, question) {
-    const newResponse = this.getMatchingResponse(question, response);
-    if (!newResponse.found) {
-      console.log('No response match');
-      const newValues = {
-        weak: false,
-        text: response.text,
-        count: response.count,
-      };
-      this.props.dispatch(
-        actions.setUpdatedResponse(question.key, response.key, newValues)
-      );
+  rematchResponse(question, response, responses) {
+    if (!response.questionUID || !response.text) {
       return;
     }
-    if (newResponse.response.text === response.text) {
-      console.log('Rematching duplicate', newResponse);
-      this.props.dispatch(actions.deleteResponse(question.key, response.key));
-    } else if (newResponse.response.key === response.parentID) {
-      console.log('Same response  match', question.key, response.key);
-      if (newResponse.author) {
-        var newErrorResp = {
+    const newMatchedResponse = this.getMatchingResponse(question, response, responses);
+    const changed =
+      (newMatchedResponse.response.parentID !== response.parentID) ||
+      (newMatchedResponse.response.author !== response.author) ||
+      (newMatchedResponse.response.feedback !== response.feedback);
+    const unmatched = (newMatchedResponse.found === false);
+    console.log('Rematched: t, u, o, n: ', changed, unmatched);
+    console.log(response);
+    console.log(newMatchedResponse.response);
+    if (changed) {
+      if (unmatched) {
+        const newValues = {
           weak: false,
-          author: newResponse.author,
-          feedback: this.generateFeedbackString(newResponse),
+          text: response.text,
+          count: response.count || 1,
+          questionUID: response.questionUID,
         };
-        this.updateRematchedResponse(question.key, response.key, newErrorResp);
+        this.props.dispatch(
+            setUpdatedResponse(response.key, newValues)
+          );
+      } else if (newMatchedResponse.response.parentID === undefined) {
+        this.props.dispatch(
+          deleteResponse(question.key, response.key)
+        );
+      } else {
+        const newValues = {
+          weak: false,
+          parentID: newMatchedResponse.response.parentID,
+          author: newMatchedResponse.response.author,
+          feedback: newMatchedResponse.response.feedback,
+        };
+        this.updateRematchedResponse(response.key, newValues);
       }
-    } else {
-      console.log('New response  match');
-      var newErrorResp = {
-        weak: false,
-        parentID: newResponse.response.key,
-        author: newResponse.author,
-        feedback: this.generateFeedbackString(newResponse),
-      };
-      this.updateRematchedResponse(question.key, response.key, newErrorResp);
     }
-    // this.updateReponseResource(response)
-    // this.submitResponse(response)
-    // this.setState({editing: false})
   },
 
   renderModal() {
