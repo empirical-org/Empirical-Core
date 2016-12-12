@@ -11,13 +11,13 @@ export default React.createClass({
   addClassroom: function() {
     var that = this;
     $.post('../students_classrooms', {classcode: this.refs.classCodeInput.value, authenticity_token:  $('meta[name=csrf-token]').attr('content')})
-      .done(function(){
+      .success(function(){
         that.props.advanceStage();
       })
       .fail(function(jqXHR) {
-        var error = "Oops! Looks like that isn't a valid class code. Please try again.";
-        if(jQuery.parseJSON(jqXHR.responseText).error == "Class is archived") {
-          error = "Oops! That class has been archived. Please try a different class code.";
+        var error = 'Oops! Looks like that isn\'t a valid class code. Please try again.';
+        if(jQuery.parseJSON(jqXHR.responseText).error == 'Class is archived') {
+          error = 'Oops! That class has been archived. Please try a different class code.';
         }
         that.setState({error: error});
       });
