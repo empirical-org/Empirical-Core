@@ -1,6 +1,10 @@
 
 const env = process.env.NODE_ENV
 const live = (env === "production" || env === "staging");
+const AssetsPlugin = require('assets-webpack-plugin');
+const assetsPluginInstance = new AssetsPlugin();
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 console.log("in prod: ", live)
 var webpack = require('webpack');
 var path = require('path')
@@ -12,14 +16,27 @@ module.exports = {
     html: "./index.html",
   },
   output: {
-    filename: "app.js",
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].[chunkhash].js',
     path: __dirname + "/dist",
   },
   plugins: [
+    assetsPluginInstance,
     new ExtractTextPlugin("style.css"),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env || 'development'),
       'process.env.EMPIRICAL_BASE_URL': JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000')
+    }),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
+    new HtmlWebpackPlugin({
+      template: './index.html.ejs',
+      inject: 'body',
     }),
   ],
   module: {

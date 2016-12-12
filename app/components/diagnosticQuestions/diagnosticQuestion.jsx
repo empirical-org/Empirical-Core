@@ -14,18 +14,19 @@ import {
 const DiagnosticQuestion =  React.createClass({
 
   componentWillMount: function () {
-    const questionID = this.props.params.questionId;
+    const questionID = this.props.params.questionID;
+    console.log("QUestion ID: ", questionID)
     this.props.dispatch(loadResponseDataAndListen(questionID))
   },
 
   componentWillUnmount: function () {
     console.log("Unmounting");
-    const questionID = this.props.params.questionId;
+    const questionID = this.props.params.questionID;
     this.props.dispatch(stopListeningToResponses(questionID))
   },
 
   getResponses: function () {
-    return this.props.responses.data[this.props.params.questionId]
+    return this.props.responses.data[this.props.params.questionID]
   },
 
   render: function () {
@@ -48,6 +49,7 @@ const DiagnosticQuestion =  React.createClass({
           <br />
           <ResponseComponent
           question={data[questionID]}
+          responses={this.getResponses()}
           questionID={questionID}
           states={states}
           dispatch={this.props.dispatch}
@@ -70,6 +72,7 @@ function select(state) {
   return {
     concepts: state.concepts,
     diagnosticQuestions: state.diagnosticQuestions,
+    responses: state.responses,
     itemLevels: state.itemLevels,
     routing: state.routing
   }
