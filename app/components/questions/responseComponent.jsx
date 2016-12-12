@@ -17,11 +17,7 @@ import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
-import { submitResponseEdit, setUpdatedResponse } from '../../actions/responses';
-
-import {
-  deleteResponse
-} from '../../actions/responses.js';
+import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
 const C = require('../../constants').default;
 
 const labels = C.ERROR_AUTHORS;
@@ -129,8 +125,6 @@ const Responses = React.createClass({
       (newMatchedResponse.response.conceptResults !== response.conceptResults);
     const unmatched = (newMatchedResponse.found === false);
     console.log('Rematched: t, u, o, n: ', changed, unmatched);
-    // console.log(response);
-    // console.log(newMatchedResponse.response);
     if (changed) {
       if (unmatched) {
         const newValues = {
@@ -144,7 +138,7 @@ const Responses = React.createClass({
           );
       } else if (newMatchedResponse.response.parentID === undefined) {
         this.props.dispatch(
-          deleteResponse(this.props.questionID, response.key)
+          deleteResponse(this.props.questionID, rid)
         );
       } else {
         const newValues = {
