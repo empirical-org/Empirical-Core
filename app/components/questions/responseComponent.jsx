@@ -125,11 +125,12 @@ const Responses = React.createClass({
     const changed =
       (newMatchedResponse.response.parentID !== response.parentID) ||
       (newMatchedResponse.response.author !== response.author) ||
-      (newMatchedResponse.response.feedback !== response.feedback);
+      (newMatchedResponse.response.feedback !== response.feedback) ||
+      (newMatchedResponse.response.conceptResults !== response.conceptResults);
     const unmatched = (newMatchedResponse.found === false);
     console.log('Rematched: t, u, o, n: ', changed, unmatched);
-    console.log(response);
-    console.log(newMatchedResponse.response);
+    // console.log(response);
+    // console.log(newMatchedResponse.response);
     if (changed) {
       if (unmatched) {
         const newValues = {
@@ -141,13 +142,20 @@ const Responses = React.createClass({
         this.props.dispatch(
             setUpdatedResponse(rid, newValues)
           );
+      } else if (newMatchedResponse.response.parentID === undefined) {
+        this.props.dispatch(
+          deleteResponse(this.props.questionID, response.key)
+        );
       } else {
         const newValues = {
           weak: false,
           parentID: newMatchedResponse.response.parentID,
           author: newMatchedResponse.response.author,
-          feedback: newMatchedResponse.response.feedback,
+          feedback: newMatchedResponse.response.feedback
         };
+        if (newMatchedResponse.response.conceptResults) {
+          newValues.conceptResults = newMatchedResponse.response.conceptResults
+        }
         this.updateRematchedResponse(rid, newValues);
       }
     }
@@ -156,8 +164,9 @@ const Responses = React.createClass({
   rematchAllResponses() {
     console.log('Rematching All Responses');
     const weak = _.filter(this.responsesWithStatus(), resp => resp.statusCode > 1);
-    weak.forEach((resp) => {
-      console.log('Rematching: ', resp.key);
+    weak.forEach((resp, index) => {
+      const percentage = index / weak.length * 100
+      console.log('Rematching: ', resp.key, percentage, "% complete");
       this.rematchResponse(resp.key);
     });
     console.log('Finished Rematching All Responses');

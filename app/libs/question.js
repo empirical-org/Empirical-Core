@@ -53,7 +53,6 @@ const getLowAdditionCount = (newString, oldString) => {
 
 export default class Question {
   constructor(data) {
-    console.log(data.focusPoints);
     this.prompt = data.prompt;
     this.sentences = data.sentences;
     this.responses = data.responses;
