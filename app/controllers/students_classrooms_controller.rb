@@ -2,7 +2,7 @@ class StudentsClassroomsController < ApplicationController
 
     def create
       @user = current_user
-      classcode = params[:classcode]
+      classcode = params[:classcode].downcase.gsub(/\s+/, "")
       begin
         classroom = Classroom.where(code: classcode).first
         Associators::StudentsToClassrooms.run(@user, classroom)
