@@ -73,10 +73,7 @@ const Questions = React.createClass({
   },
 
   responsesWithStatusForQuestion(questionUID) {
-    console.log('QuestionUID: ', questionUID);
-
     const responses = this.props.responses.data[questionUID];
-    console.log('Responses', responses);
     return hashToCollection(respWithStatus(responses));
   },
 
@@ -113,7 +110,6 @@ const Questions = React.createClass({
     _.each(hashToCollection(this.props.questions.data), (question, index) => {
 
         const percentage = index / questLength * 100
-        debugger;
         console.log(`Rematching: ${percentage}% complete`);
       if (ignoreList.indexOf(question.key) === -1 && question.conceptID) {
         console.log('Rematching Question: ', question.key);
