@@ -1,22 +1,22 @@
 .carousel-enter {
-  transform: translateX(100vw);
+  transform: translateX(1000px);
   // opacity: 0.01;
 }
 .carousel-enter.carousel-enter-active {
   // opacity: 1;
   // transition: opacity 0.5s ease-out;
   transform: translateX(0);
-  transition: transform 0.35s ease-in-out;
+  transition: transform 1s linear;
 }
 .carousel-leave {
   transform: translateX(0);
   // opacity: 1;
   // transition: opacity 0.5s ease-in-out;
-  transition: transform 0.35s ease-in-out;
+  transition: transform 1s linear;
 
 }
 .carousel-leave.carousel-leave-active {
-  transform: translateX(calc(100vw * -1));
+  transform: translateX(calc(1000px * -1));
   // opacity: 0;
 
 }

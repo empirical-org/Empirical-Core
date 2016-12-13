@@ -29,6 +29,7 @@
       "maxEOF": 1,
       "maxBOF": 0
     }],
-    "no-restricted-syntax": ['off', "ForInStatement"]
+    "no-restricted-syntax": ['off', "ForInStatement"],
+    "capitalized-comments": ["error", "never"]
   },
 }

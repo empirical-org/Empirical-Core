@@ -30,9 +30,9 @@ export default class Question {
 
   checkMatch(response) {
     console.log('Checking Diagnostic Match');
-    // remove leading and trailing whitespace
+    // Remove leading and trailing whitespace
     response = response.trim();
-    // make sure all words are single spaced
+    // Make sure all words are single spaced
     response = response.replace(/\s{2,}/g, ' ');
     const returnValue = {
       found: true,

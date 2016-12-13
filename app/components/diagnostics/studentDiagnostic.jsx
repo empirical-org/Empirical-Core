@@ -70,8 +70,8 @@ const StudentDiagnostic = React.createClass({
   },
 
   getResponsesForEachQuestion() {
-    // We need to change the gettingResponses state so that we don't keep hitting this as the props update,
-    // Otherwise it forms an infinite loop via component will receive props
+    // we need to change the gettingResponses state so that we don't keep hitting this as the props update,
+    // otherwise it forms an infinite loop via component will receive props
     this.setState({ hasOrIsGettingResponses: true, }, () => {
       diagnosticQuestions().forEach((q) => {
         console.log(q);
@@ -193,7 +193,11 @@ const StudentDiagnostic = React.createClass({
       if (data) {
         if (this.props.playDiagnostic.currentQuestion) {
           if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
-            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} marking="diagnostic" />);
+            component = (<PlayDiagnosticQuestion
+              question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
+              key={this.props.playDiagnostic.currentQuestion.data.key}
+              marking="diagnostic"
+            />);
           } else {
             component = (<PlaySentenceFragment
               question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
@@ -224,8 +228,8 @@ const StudentDiagnostic = React.createClass({
           <div className="student-container student-container-diagnostic">
             {/* <ReactCSSTransitionGroup
               transitionName="carousel"
-              transitionEnterTimeout={350}
-              transitionLeaveTimeout={350}
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
             > */}
             {component}
             {/* </ReactCSSTransitionGroup> */}

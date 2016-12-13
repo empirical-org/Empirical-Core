@@ -45,21 +45,17 @@ const PlayDiagnosticQuestion = React.createClass({
     };
   },
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.question !== nextProps.question) {
+      return true;
+    }
+    return false;
+  },
+
   getInitialValue() {
     if (this.props.prefill) {
       return this.getQuestion().prefilledText;
     }
-  },
-
-  componentWillMount() {
-    const questionID = this.props.question.key;
-    this.props.dispatch(loadResponseDataAndListen(questionID));
-  },
-
-  componentWillUnmount() {
-    console.log('Unmounting');
-    const questionID = this.props.question.key;
-    this.props.dispatch(stopListeningToResponses(questionID));
   },
 
   getResponses() {
@@ -198,7 +194,6 @@ const PlayDiagnosticQuestion = React.createClass({
             <img src={icon} />
             <p>{instructions}</p>
           </div>
-          <h5 className="title is-5" />
           {/* <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}> */}
           <TextEditor
             className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}

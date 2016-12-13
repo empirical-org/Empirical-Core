@@ -18,6 +18,13 @@ const PlaySentenceFragment = React.createClass({
     };
   },
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.question !== nextProps.question) {
+      return true;
+    }
+    return false;
+  },
+
   showNextQuestionButton() {
     const { question, } = this.props;
     const latestAttempt = this.getLatestAttempt();
@@ -65,7 +72,7 @@ const PlaySentenceFragment = React.createClass({
   choosingSentenceOrFragment() {
     const { question, } = this.props;
     return question.identified === undefined && (question.needsIdentification === undefined || question.needsIdentification === true);
-    // The case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
+    // the case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
   },
 
   handleChange(e) {
@@ -144,14 +151,14 @@ const PlaySentenceFragment = React.createClass({
     return (
       <div className="container">
 
-          <div className="feedback-row">
-            <img className="info" src={icon} />
-            <p>{instructions}</p>
-          </div>
-          <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
-          <div className="question-button-group">
-            {this.renderButton()}
-          </div>
+        <div className="feedback-row">
+          <img className="info" src={icon} />
+          <p>{instructions}</p>
+        </div>
+        <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
+        <div className="question-button-group">
+          {this.renderButton()}
+        </div>
       </div>
     );
   },

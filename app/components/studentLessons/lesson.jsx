@@ -139,7 +139,7 @@ const Lesson = React.createClass({
     const filteredQuestions = data[lessonID].questions.filter(ques =>
        this.props[ques.questionType].data[ques.key]
     );
-    // This is a quickfix for missing questions -- if we leave this in here
+    // this is a quickfix for missing questions -- if we leave this in here
     // long term, we should return an array through a forloop to
     // cut the time from 2N to N
     return filteredQuestions.map((questionItem) => {
@@ -238,13 +238,7 @@ const Lesson = React.createClass({
           <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
-              <ReactCSSTransitionGroup
-                transitionName="carousel"
-                transitionEnterTimeout={350}
-                transitionLeaveTimeout={350}
-              >
-                {component}
-              </ReactCSSTransitionGroup>
+              {component}
             </div>
           </section>
         </div>
