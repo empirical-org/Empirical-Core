@@ -25,6 +25,11 @@ const StudentDiagnostic = React.createClass({
     };
   },
 
+  componentWillMount() {
+    this.props.dispatch(clearData());
+    this.getResponsesForEachQuestion();
+  },
+
   getPreviousSessionData() {
     return this.props.sessions.data[this.props.location.query.student];
   },
@@ -50,10 +55,6 @@ const StudentDiagnostic = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.doesNotHaveAndIsNotGettingResponses() && this.hasQuestionsInQuestionSet(this.props)) {
-      console.log('Get responses');
-      this.getResponsesForEachQuestion(this.props.playDiagnostic);
-    }
     if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
     }
@@ -68,14 +69,13 @@ const StudentDiagnostic = React.createClass({
     return (pL && pL.questionSet && pL.questionSet.length);
   },
 
-  getResponsesForEachQuestion(playDiagnostic) {
-    // we need to change the gettingResponses state so that we don't keep hitting this as the props update,
-    // otherwise it forms an infinite loop via component will receive props
+  getResponsesForEachQuestion() {
+    // We need to change the gettingResponses state so that we don't keep hitting this as the props update,
+    // Otherwise it forms an infinite loop via component will receive props
     this.setState({ hasOrIsGettingResponses: true, }, () => {
-      const questionSet = playDiagnostic.questionSet;
-      questionSet.forEach((q) => {
+      diagnosticQuestions().forEach((q) => {
         console.log(q);
-        this.props.dispatch(loadResponseData(q.data.key));
+        this.props.dispatch(loadResponseData(q.key));
       });
     });
   },
@@ -102,10 +102,6 @@ const StudentDiagnostic = React.createClass({
         // console.log(err,httpResponse,body)
       }
     );
-  },
-
-  componentWillMount() {
-    this.props.dispatch(clearData());
   },
 
   submitResponse(response) {
@@ -226,13 +222,13 @@ const StudentDiagnostic = React.createClass({
         <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
         <section className="section is-fullheight minus-nav student">
           <div className="student-container student-container-diagnostic">
-            <ReactCSSTransitionGroup
+            {/* <ReactCSSTransitionGroup
               transitionName="carousel"
               transitionEnterTimeout={350}
               transitionLeaveTimeout={350}
-            >
-              {component}
-            </ReactCSSTransitionGroup>
+            > */}
+            {component}
+            {/* </ReactCSSTransitionGroup> */}
           </div>
         </section>
       </div>
