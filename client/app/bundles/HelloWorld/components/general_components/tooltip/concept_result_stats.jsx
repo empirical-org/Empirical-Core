@@ -30,24 +30,39 @@ export default React.createClass({
     })
   },
 
-  sevenRowsOfStats: function() {
-    const sevenRows = [];
+  statsRows: function() {
+    const statsRows = [];
     const stats = this.calculateStats();
-    // loop through to the end of the array or 6. which ever is less
-    for (let i = 0; i < Math.min(stats.length - 1, 7); i++) {
+    // loop through to the end of the array or 9. which ever is less
+    const maxNumOfResults = stats.length > 10 ? 10 : stats.length
+    for (let i = 0; i < maxNumOfResults; i++) {
       const statsRow = stats[i];
-      sevenRows.push(<ConceptResultStat key = {statsRow.name}
+      statsRows.push(<ConceptResultStat key = {statsRow.name}
                                    name = {statsRow.name}
                                    correct={statsRow.correct}
                                    incorrect={statsRow.incorrect} />);
     }
-    return sevenRows;
+    const additionalInfoRow = this.additionalInfoRow(statsRows.length, stats.length)
+    return statsRows.concat(additionalInfoRow);
+  },
+
+  additionalInfoRow: function(statsRowsLen, statsLen){
+    let message;
+    let lengthDiff = statsLen - statsRowsLen;
+    if (lengthDiff > 0) {
+      message = `+ ${lengthDiff} additional concepts in the activity report.`
+    } else {
+      message = 'Tip: clicking on the activity icon loads the report.'
+    }
+    return (
+      <div className='row' key='link_to_report'>
+        <div className='no-pl'>{message}</div>
+      </div>
+    );
   },
 
   objectToArray: function(calculatedStats){
-      return $.map(calculatedStats, function(value, index) {
-       return [value];
-     });
+     return $.map(calculatedStats, (value, index) => [value]);
    },
 
   calculateStats: function() {
@@ -67,14 +82,14 @@ export default React.createClass({
       return memo;
     }, {});
     const statsAsArr = this.objectToArray(stats);
-    const sortedStats = this.sortedStats(statsAsArr)
+    const sortedStats = this.sortedStats(statsAsArr);
     return sortedStats;
   },
 
   render: function () {
     return (
       <div className='concept-stats container'>
-        {this.sevenRowsOfStats()}
+        {this.statsRows()}
       </div>
     );
   }
