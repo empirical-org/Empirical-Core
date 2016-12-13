@@ -19,6 +19,7 @@ module SegmentIo
     TEACHER_SIGNED_UP_FOR_NEWSLETTER ||= 'Teacher signed up for newsletter'
     STUDENT_ACCOUNT_CREATION ||= 'Student created an account'
     TEACHERS_STUDENT_ACCOUNT_CREATION ||= "Teacher's student account created"
+    STUDENT_ENTERED_INVALID_CLASSCODE ||= "Student Entered Invalid Classcode"
     TEACHER_SIGNIN ||= 'Teacher signed in'
     STUDENT_SIGNIN ||= 'Student signed in'
     TEACHERS_STUDENT_SIGNIN ||= "Teacher's student signed in"

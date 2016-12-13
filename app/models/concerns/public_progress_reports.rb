@@ -3,17 +3,18 @@ module PublicProgressReports
 
     def first_completed_diagnostic
       classroom_activities = current_user.classroom_activities(:activity_sessions)
+      first_completed_diagnostic_activity = nil
       classroom_activities.each do |ca|
         if ca.activity_sessions
               .where.not(activity_sessions: {started_at: nil})
               .where(activity_sessions: {activity_id: Activity.diagnostic.id})
               .limit(1)
               .any?
-              classroom_activity = ca
-              return ca
+              first_completed_diagnostic_activity = ca
+              break
         end
       end
-      return false
+      return first_completed_diagnostic_activity
     end
 
     def default_diagnostic_url
