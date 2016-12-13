@@ -5,11 +5,19 @@ import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTempl
 class PlaySentenceFragment extends Component {
   constructor(props) {
     super();
+    this.state = {
+      submitted: false,
+    };
     this.handleAttemptSubmission = this.handleAttemptSubmission.bind(this);
   }
 
   handleAttemptSubmission() {
-    this.props.nextQuestion();
+    if (this.state.submitted === false) {
+      this.setState(
+        { submitted: true, },
+        this.props.nextQuestion()
+      );
+    }
   }
 
   render() {
