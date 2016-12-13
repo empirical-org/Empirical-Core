@@ -39,3 +39,6 @@ data.tsv
 
 # Firebase files
 .firebaserc
+
+# webpack files
+webpack-assets.json
