@@ -19,7 +19,7 @@ export default React.createClass({
     }
   },
 
-  percentage_color: function (percentage) {
+  percentage_color: function () {
     var y;
     var x = this.props.data.percentage;
     if (x == null) {
