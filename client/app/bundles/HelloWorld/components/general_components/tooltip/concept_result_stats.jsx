@@ -51,12 +51,12 @@ export default React.createClass({
     let lengthDiff = statsLen - statsRowsLen;
     if (lengthDiff > 0) {
       message = `+ ${lengthDiff} additional concepts in the activity report.`
-    } else {
-      message = 'Tip: clicking on the activity icon loads the report.'
+    } else if (statsRowsLen) {
+      message = 'Clicking on the activity icon loads the report.'
     }
     return (
       <div className='row' key='link_to_report'>
-        <div className='no-pl'>{message}</div>
+        <div className='text-center'>{message}</div>
       </div>
     );
   },
