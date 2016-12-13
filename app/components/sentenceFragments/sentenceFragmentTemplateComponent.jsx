@@ -106,13 +106,11 @@ const PlaySentenceFragment = React.createClass({
   renderSentenceOrFragmentMode() {
     return (
       <div className="container">
-        <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
-          <div className="feedback-row">
-            <img className="info" src={icon} />
-            <p>Is this a complete or an incomplete sentence?</p>
-          </div>
-          {this.renderSentenceOrFragmentButtons()}
-        </ReactTransition>
+        <div className="feedback-row">
+          <img className="info" src={icon} />
+          <p>Is this a complete or an incomplete sentence?</p>
+        </div>
+        {this.renderSentenceOrFragmentButtons()}
       </div>
     );
   },
@@ -145,10 +143,7 @@ const PlaySentenceFragment = React.createClass({
     // dangerously set some html in here
     return (
       <div className="container">
-        <ReactTransition
-          transitionName={'text-editor'} transitionAppear transitionAppearTimeout={1200}
-          transitionLeaveTimeout={300}
-        >
+
           <div className="feedback-row">
             <img className="info" src={icon} />
             <p>{instructions}</p>
@@ -157,7 +152,6 @@ const PlaySentenceFragment = React.createClass({
           <div className="question-button-group">
             {this.renderButton()}
           </div>
-        </ReactTransition>
       </div>
     );
   },
