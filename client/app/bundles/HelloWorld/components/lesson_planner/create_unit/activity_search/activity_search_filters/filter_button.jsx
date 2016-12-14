@@ -7,17 +7,14 @@ require('../../../../../../../assets/styles/app-variables.scss')
 export default  React.createClass({
 
   propTypes: {
-    selectFilterOption: React.PropTypes.func.isRequired,
-    data: React.PropTypes.object.isRequired
+    handleFilterButtonClick: React.PropTypes.func.isRequired,
+    data: React.PropTypes.object.isRequired,
+    active: React.PropTypes.bool
   },
 
-  getInitialState: function() {
-    return {active: false};
-  },
 
   handleClick: function() {
-    this.props.selectFilterOption(this.props.data.id);
-    this.setState({active: true});
+    this.props.handleFilterButtonClick(this.props.data.id)
   },
 
   iconType: function() {
@@ -44,7 +41,7 @@ export default  React.createClass({
   },
 
   render: function() {
-    let active = this.state.active ? 'active' : null;
+    let active = this.props.active ? 'active' : null;
     return (
       <button className={active} onClick={()=> this.handleClick()}>
         <div className={`icon-${this.iconType()}-gray`}></div>
