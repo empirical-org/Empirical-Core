@@ -49,7 +49,7 @@
 			clearSelection = (
 				<li onClick={this.clearFilterOptionSelection}>
 					<span className='filter_option all'>
-						{"All " + this.props.data.alias + "s "}
+						{'All ' + this.props.data.alias + 's '}
 					</span>
 				</li>
 			);
@@ -62,7 +62,7 @@
 		if (this.props.data.selected) {
 			return this.getSelectedOption().name;
 		} else {
-			return "Filter by " + this.props.data.alias;
+			return 'Filter by ' + this.props.data.alias;
 		}
 	},
 
@@ -77,7 +77,7 @@
     let filterIsButtons = this.props.data.field === 'activity_classification'
     if (filterIsButtons) {
       return (
-        <div className='col-xs-12 activity-filter button-row'>
+        <div className='activity-filter button-row'>
           {this.getDisplayedFilterOptions()}
           {this.props.children}
         </div>
@@ -85,8 +85,8 @@
     }
 
 		return (
-			<div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
-				<div className="button-select">
+			<div className="no-pl">
+				<div className="button-select activity-filter-button">
 
 					<button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
 						{this.getFilterHeader()}
