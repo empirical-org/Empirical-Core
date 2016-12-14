@@ -165,7 +165,6 @@ export function submitResponseEdit(rid, content) {
 
 export function incrementResponseCount(qid, rid, prid) {
   return (dispatch) => {
-    console.log('Incrementing: ', qid, rid, prid);
     const responseRef = responsesRef.child(rid);
     responseRef.child('/count').transaction(currentCount => currentCount + 1, (error) => {
       if (error) {

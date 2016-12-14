@@ -93,7 +93,6 @@ const PlaySentenceFragment = React.createClass({
         };
         const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
-        console.log('Matched: ', matched);
         if (matched.found && matched.response.key) {
           this.props.dispatch(
             incrementResponseCount(key, matched.response.key)

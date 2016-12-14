@@ -29,10 +29,9 @@ export default class Question {
   }
 
   checkMatch(response) {
-    console.log('Checking Diagnostic Match');
-    // Remove leading and trailing whitespace
+    // remove leading and trailing whitespace
     response = response.trim();
-    // Make sure all words are single spaced
+    // make sure all words are single spaced
     response = response.replace(/\s{2,}/g, ' ');
     const returnValue = {
       found: true,
@@ -207,7 +206,7 @@ const removeCaseSpacePunc = (string) => {
   return transform.toLowerCase();
 };
 
-// Check number of chars added.
+// check number of chars added.
 
 const getErrorType = (targetString, userString) => {
   const changeObjects = getChangeObjects(targetString, userString);

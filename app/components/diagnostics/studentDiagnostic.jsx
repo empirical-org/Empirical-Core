@@ -25,7 +25,7 @@ const StudentDiagnostic = React.createClass({
     };
   },
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(clearData());
     this.getResponsesForEachQuestion();
   },
@@ -74,7 +74,6 @@ const StudentDiagnostic = React.createClass({
     // otherwise it forms an infinite loop via component will receive props
     this.setState({ hasOrIsGettingResponses: true, }, () => {
       diagnosticQuestions().forEach((q) => {
-        console.log(q);
         this.props.dispatch(loadResponseData(q.key));
       });
     });
