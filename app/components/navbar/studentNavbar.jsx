@@ -28,7 +28,7 @@ const Navbar = React.createClass({
 
   saveAndExitConfirm() {
     if (window.confirm('To access your saved progress, you will need to resume the activity on this device with this browser.')) {
-      window.location('http://www.quill.org/profile');
+      window.location.assign(`${process.env.EMPIRICAL_BASE_URL}/profile`);
     }
   },
 
