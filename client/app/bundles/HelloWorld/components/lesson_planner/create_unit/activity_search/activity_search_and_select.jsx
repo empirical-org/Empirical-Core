@@ -93,8 +93,6 @@
         }
       }
   },
-
-
   clearFilters: function() {
     let clearedFilters = this.state.filters.map((filter)=>{
       filter.selected = null;
@@ -102,7 +100,7 @@
     });
     console.log(this.state.filters)
     let that = this;
-    this.setState({filters: clearedFilters}, function(){that.searchRequest();});
+    this.setState({filters: clearedFilters,}, function(){that.searchRequest();});
   },
 
   searchRequestSuccess: function (data) {
