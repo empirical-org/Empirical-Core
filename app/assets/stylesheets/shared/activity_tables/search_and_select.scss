@@ -1,7 +1,12 @@
 .drop-down-filters-and-search, .activity-filter-drop-downs {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     .clear-filter-btn {
       margin-top: 10px;
       height: 40px;
