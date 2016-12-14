@@ -84,7 +84,6 @@ const PlaySentenceFragment = React.createClass({
     if (this.state.checkAnswerEnabled) {
       const key = this.props.currentKey;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const fragment = this.props.sentenceFragments.data[key];
         const { prompt, wordCountChange, } = this.getQuestion();
         const fields = {
           prompt,
@@ -150,7 +149,6 @@ const PlaySentenceFragment = React.createClass({
     // dangerously set some html in here
     return (
       <div className="container">
-
         <div className="feedback-row">
           <img className="info" src={icon} />
           <p>{instructions}</p>
@@ -172,7 +170,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   render() {
-    if (this.props.sentenceFragments.hasreceiveddata) {
+    if (this.props.question) {
       return (
         <div className="student-container-inner-diagnostic">
           <div className="draft-js sentence-fragments prevent-selection">

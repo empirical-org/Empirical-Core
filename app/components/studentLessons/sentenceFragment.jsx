@@ -8,6 +8,13 @@ class PlaySentenceFragment extends Component {
     super();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.question !== this.props.question) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     return (
       <SentenceFragmentTemplate {...this.props} handleAttemptSubmission={() => {}} />
@@ -16,11 +23,4 @@ class PlaySentenceFragment extends Component {
 
 }
 
-function select(state) {
-  return {
-    routing: state.routing,
-    sentenceFragments: state.sentenceFragments,
-  };
-}
-
-export default connect(select)(PlaySentenceFragment);
+export default PlaySentenceFragment;
