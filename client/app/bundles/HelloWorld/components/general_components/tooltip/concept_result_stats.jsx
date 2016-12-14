@@ -55,8 +55,8 @@ export default React.createClass({
       message = 'Clicking on the activity icon loads the report.'
     }
     return (
-      <div className='row' key='link_to_report'>
-        <div className='text-center'>{message}</div>
+      <div  key='link_to_report'>
+        <div className='tooltip-message'>{message}</div>
       </div>
     );
   },
