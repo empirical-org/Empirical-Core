@@ -1,6 +1,7 @@
 .drop-down-filters-and-search, .activity-filter-drop-downs {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     .clear-filter-btn {
       margin-top: 10px;
       height: 40px;
@@ -10,9 +11,10 @@
 }
 
 .drop-down-filters-and-search {
-  flex-wrap: wrap;
+
   #search_activities_input {
     margin-top: 0px;
+    margin-bottom: 20px;
   }
   #search_activities_button {
     margin-right: 15px;
@@ -20,14 +22,18 @@
 }
 
 .activity-filter-drop-downs {
-  flex-wrap: nowrap;
-  max-width: 500px;
   .no-pl {
     margin-right: 15px;
   }
+  button {
+    overflow: hidden;
+  }
   .button-select {
+    height: 40px;
     width: 163px;
     margin-right: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .activity-filter-button-wrapper.open {
     position: relative;
@@ -35,5 +41,18 @@
       position: absolute;
     }
   }
-
+  .clear-button {
+    margin-right: 0px;
+    width: 81px;
+    @media (max-width: 768px) {
+      margin-top: 20px;
+    }
+  }
+  .act-search-filter-fav {
+    position: relative;
+    right: 36px;
+  }
+  img {
+    padding-top: 4px;
+  }
 }
