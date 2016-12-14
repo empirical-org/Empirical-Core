@@ -72,9 +72,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getResponse2(rid) {
-    const { data, } = this.props.questions,
-      questionID = this.props.question.key;
-    return data[questionID].responses[rid];
+    return this.props.responses[rid];
   },
 
   submitResponse(response) {
@@ -82,7 +80,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderSentenceFragments() {
-    return <RenderSentenceFragments getQuestion={this.getQuestion} />;
+    return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
   },
 
   listCuesAsString(cues) {
@@ -179,12 +177,7 @@ const PlayDiagnosticQuestion = React.createClass({
 
   render() {
     const questionID = this.props.question.key;
-    let button;
-    if (this.props.question.attempts.length > 0) {
-      button = <button className="button student-submit" onClick={this.nextQuestion}>Next</button>;
-    } else {
-      button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
-    }
+    const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
     if (this.props.question) {
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence.';
       return (
@@ -218,12 +211,4 @@ const getLatestAttempt = function (attempts = []) {
   return attempts[lastIndex];
 };
 
-function select(state) {
-  return {
-    concepts: state.concepts,
-    questions: state.questions,
-    routing: state.routing,
-    // responses: state.responses,
-  };
-}
-export default connect(select)(PlayDiagnosticQuestion);
+export default PlayDiagnosticQuestion;

@@ -194,6 +194,7 @@ const StudentDiagnostic = React.createClass({
           if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
             component = (<PlayDiagnosticQuestion
               question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
+              dispatch={this.props.dispatch}
               responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
               key={this.props.playDiagnostic.currentQuestion.data.key}
               marking="diagnostic"
@@ -203,6 +204,7 @@ const StudentDiagnostic = React.createClass({
               question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
               key={this.props.playDiagnostic.currentQuestion.data.key}
               responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
+              dispatch={this.props.dispatch}
               nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
               updateAttempts={this.submitResponse}
             />);
