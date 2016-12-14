@@ -17,14 +17,14 @@ export default React.createClass({
             appFilter = <ActivitySearchFilter key={filter.alias} selectFilterOption={this.props.selectFilterOption} data={filter}/>
           }
         });
-        const clearAll = <button key='clear-all' type='button' className="clear-filter-btn btn-danger btn" onClick={this.props.clearFilters}>Clear Filters</button>
+        const clearAll = <button key='clear-all' type='button' className="clear-button select-mixin select-gray button-select button-select-wrapper" onClick={this.props.clearFilters}>Clear<img src='/images/x.svg' className='pull-right'/></button>
         const dropDownFilters = <div className='activity-filter-drop-downs' key='activity-filter-drop-downs'>
           {[dropDowns, clearAll]}
         </div>
 
 
 
-        let dropDownFiltersAndSearch = [<SearchActivitiesInput key='activity-search' updateSearchQuery={this.updateSearchQuery} />].concat(dropDownFilters);
+        let dropDownFiltersAndSearch = [<SearchActivitiesInput key='activity-search' updateSearchQuery={this.props.updateSearchQuery} />].concat(dropDownFilters);
         return (
             <div className="row activity-page-dropdown-wrapper">
                 <div className='drop-down-filters-and-search'>
