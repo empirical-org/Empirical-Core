@@ -80,7 +80,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderSentenceFragments() {
-    return <RenderSentenceFragments getQuestion={this.getQuestion} />;
+    return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
   },
 
   listCuesAsString(cues) {
