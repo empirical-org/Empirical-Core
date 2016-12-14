@@ -1,0 +1,28 @@
+.drop-down-filters-and-search, .activity-filter-drop-downs {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.drop-down-filters-and-search {
+  #search_activities_input {
+    margin-top: 0px;
+  }
+  #search_activities_button {
+    margin-right: 15px;
+  }
+}
+
+.activity-filter-drop-downs {
+  min-width: 310px;
+  .button-select {
+    margin-right: 15px;
+  }
+  .activity-filter-button-wrapper.open {
+    position: relative;
+    ul {
+      position: absolute;
+    }
+  }
+
+}
