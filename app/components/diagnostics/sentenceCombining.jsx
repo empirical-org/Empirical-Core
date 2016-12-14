@@ -59,7 +59,8 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getResponses() {
-    return this.props.responses.data[this.props.question.key];
+    return this.props.responses;
+    // return this.props.responses.data[this.props.question.key];
   },
 
   removePrefilledUnderscores() {
@@ -222,7 +223,7 @@ function select(state) {
     concepts: state.concepts,
     questions: state.questions,
     routing: state.routing,
-    responses: state.responses,
+    // responses: state.responses,
   };
 }
 export default connect(select)(PlayDiagnosticQuestion);

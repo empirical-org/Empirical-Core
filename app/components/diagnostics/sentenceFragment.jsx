@@ -38,7 +38,7 @@ function select(state) {
   return {
     routing: state.routing,
     sentenceFragments: state.sentenceFragments,
-    responses: state.responses,
+    // responses: state.responses,
   };
 }
 

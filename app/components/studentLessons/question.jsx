@@ -60,7 +60,7 @@ const playLessonQuestion = React.createClass({
   },
 
   getResponses() {
-    return this.props.responses.data[this.getQuestion().key];
+    return this.props.responses;
   },
 
   getQuestionMarkerFields() {
@@ -362,7 +362,6 @@ function select(state) {
     conceptsFeedback: state.conceptsFeedback,
     questions: state.questions,
     routing: state.routing,
-    responses: state.responses,
   };
 }
 export default connect(select)(playLessonQuestion);

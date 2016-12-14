@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CarouselAnim from '../shared/carouselAnimation.jsx';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import { loadResponseData } from '../../actions/responses';
@@ -194,6 +194,7 @@ const StudentDiagnostic = React.createClass({
           if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
             component = (<PlayDiagnosticQuestion
               question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
+              responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
               key={this.props.playDiagnostic.currentQuestion.data.key}
               marking="diagnostic"
             />);
@@ -201,6 +202,7 @@ const StudentDiagnostic = React.createClass({
             component = (<PlaySentenceFragment
               question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
               key={this.props.playDiagnostic.currentQuestion.data.key}
+              responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
               nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
               updateAttempts={this.submitResponse}
             />);
@@ -225,13 +227,9 @@ const StudentDiagnostic = React.createClass({
         <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
         <section className="section is-fullheight minus-nav student">
           <div className="student-container student-container-diagnostic">
-            {/* <ReactCSSTransitionGroup
-              transitionName="carousel"
-              transitionEnterTimeout={1000}
-              transitionLeaveTimeout={1000}
-            > */}
+            {/* <CarouselAnim> */}
             {component}
-            {/* </ReactCSSTransitionGroup> */}
+            {/* </CarouselAnim> */}
           </div>
         </section>
       </div>
@@ -245,6 +243,7 @@ function select(state) {
     questions: state.questions,
     playDiagnostic: state.playDiagnostic,
     sentenceFragments: state.sentenceFragments,
+    responses: state.responses,
     sessions: state.sessions,
   };
 }

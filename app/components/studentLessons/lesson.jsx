@@ -211,11 +211,11 @@ const Lesson = React.createClass({
         const { type, question, } = this.props.playLesson.currentQuestion;
         if (type === 'SF') {
           component = (
-            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify} />
+            <PlaySentenceFragment currentKey={question.key} question={question} responses={this.props.responses.data[question.key]} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify} />
           );
         } else {
           component = (
-            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill} />
+            <PlayLessonQuestion key={question.key} question={question} responses={this.props.responses.data[question.key]} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill} />
           );
         }
       } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {

@@ -52,7 +52,8 @@ const PlaySentenceFragment = React.createClass({
   },
 
   getResponses() {
-    return this.props.responses.data[this.props.question.key];
+    return this.props.responses;
+    // return this.props.responses.data[this.props.question.key];
   },
 
   checkChoice(choice) {
