@@ -27,7 +27,7 @@ const Question = React.createClass({
     };
   },
 
-  componentDidMount() {
+  componentWillMount() {
     const { questionID, } = this.props.params;
     this.props.dispatch(loadResponseDataAndListen(questionID));
   },
