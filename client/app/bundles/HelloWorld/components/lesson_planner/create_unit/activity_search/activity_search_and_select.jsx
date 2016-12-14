@@ -3,8 +3,8 @@
  import React from 'react'
  import _ from 'underscore'
  import $ from 'jquery'
- import SearchActivitiesInput from './search_activities_input'
- import ActivitySearchFilters from './activity_search_filters/activity_search_filters'
+
+ import ActivitySearchAndFilters from './activity_search_filters/activity_search_filters'
  import ActivitySearchFilterConfig from './activity_search_filters/activity_search_filter_config'
  import ActivitySearchSort from './activity_search_sort/activity_search_sort'
  import ActivitySearchSortConfig from './activity_search_sort/activity_search_sort_config'
@@ -24,7 +24,7 @@
     errorMessage: React.PropTypes.string
   },
 
-  getInitialState: function() {
+  defaultState: function() {
     return {
       loading: true,
       activitySearchResults: [],
@@ -35,13 +35,17 @@
       resultsPerPage: 12,
       maxPageNumber: 4,
       allFilterOptions: {
-        'activity_classification': [],
         'section': [],
-        'topic_category': []
+        'topic_category': [],
+        'activity_classification': [],
       },
       filters: ActivitySearchFilterConfig,
       sorts: ActivitySearchSortConfig
     }
+  },
+
+  getInitialState: function() {
+    return this.defaultState();
   },
 
   componentDidMount: function () {
@@ -96,6 +100,7 @@
       filter.selected = null;
       return filter;
     });
+    console.log(this.state.filters)
     let that = this;
     this.setState({filters: clearedFilters}, function(){that.searchRequest();});
   },
@@ -242,6 +247,7 @@
   render: function() {
     var currentPageSearchResults = this.determineCurrentPageSearchResults();
     let table, loading, pagination;
+    console.log(this.state.filters[2].selected)
     if (this.state.loading) {
       setBottomBorder:
       loading = <LoadingIndicator/>;
@@ -252,8 +258,8 @@
     return (
       <section>
         <h3 className="section-header">Select Activities</h3>
-        <SearchActivitiesInput updateSearchQuery={this.updateSearchQuery} />
-        <ActivitySearchFilters selectFilterOption={this.selectFilterOption} data={this.state.filters} clearFilters={this.clearFilters} />
+
+        <ActivitySearchAndFilters  updateSearchQuery={this.updateSearchQuery} selectFilterOption={this.selectFilterOption} data={this.state.filters} clearFilters={this.clearFilters} />
 
         <table className='table activity-table search-and-select'>
           <thead>
