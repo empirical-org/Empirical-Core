@@ -12,7 +12,7 @@
   },
 
   sortViews: function (views) {
-    var order = ["All", "Elementary", "Middle", "High", "University", "ELL", "Themed"];
+    var order = ['All', 'Elementary', 'Middle', 'High', 'University', 'ELL', 'Themed'];
     return _.compact(_.map(order, function(option) {
       return _.findWhere(views, {name: option});
     }));
@@ -44,6 +44,8 @@
                     isSelected={this.isSelected(option)}
                     select={this.props.select} />
   },
+
+  
 
   render: function () {
     return (
