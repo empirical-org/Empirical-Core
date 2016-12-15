@@ -95,27 +95,74 @@
     }
   },
 
-  render: function () {
+  renderHeaderIfLoggedIn: function () {
+    if (this.userLoggedIn()) {
+      return <UnitTemplateMinisHeader data={this.props.data} />
+    }
+  },
+
+  userNotLoggedIn: function () {
+    return this.props.data.non_authenticated
+  },
+
+  userLoggedIn: function () {
+    return !this.userNotLoggedIn();
+  },
+
+  renderTopLevelNav: function () {
     return (
-      <div className='unit-template-minis'>
-        <UnitTemplateMinisHeader data={this.props.data} />
+      <div key='not-logged-in' className="about-subtabs tab-subnavigation-wrapper">
         <div className="container">
-          <div className='row'>
-            <div className='col-xs-12'>
-              <div className='row'>
-                {this.listFilterOptions()}
-              </div>
-                {this.generateShowAllGradesView()}
-              <div className='row'>
-              {this.generateUnitTemplateViews()}
-              </div>
-              <div className='row'>
-                {this.generateShowAllGradesView()}
-              </div>
+          <ul>
+            <li>
+              <a className="active" href="/activities/packs">Activity Packs</a>
+              <a href="/activities/section/27">Benchmark Assessments</a>
+              <a href="/activities/section/7">Elementary School</a>
+              <a href="/activities/section/10">Middle School</a>
+              <a href="/activities/section/18">High School</a>
+              <a href="/activities/section/17">University</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    )
+  },
+
+  stateSpecificComponents: function () {
+    const components = [];
+    if (this.userNotLoggedIn()) {
+      components.push(this.renderTopLevelNav())
+    }
+    return (
+      <div>
+        {components.concat(this.alwaysRender())}
+      </div>
+    )
+  },
+
+  alwaysRender: function () {
+    return (<div key='always-display' className='unit-template-minis'>
+      {this.renderHeaderIfLoggedIn()}
+      <div className="container">
+        <div className='row'>
+          <div className='col-xs-12'>
+            <div className='row'>
+              {this.listFilterOptions()}
+            </div>
+              {this.generateShowAllGradesView()}
+            <div className='row'>
+            {this.generateUnitTemplateViews()}
+            </div>
+            <div className='row'>
+              {this.generateShowAllGradesView()}
             </div>
           </div>
         </div>
       </div>
-    );
+    </div>)
+  },
+
+  render: function () {
+    return this.stateSpecificComponents()
   }
 });
