@@ -37,7 +37,6 @@
     &#search_activities_input,
     &#unit_name {
       width: 326px;
-      margin-top: 20px;
       & + img {
         position: relative;
         right: 20px;
@@ -70,6 +69,8 @@
 .activity-page-dropdown-wrapper {
   margin-top: 20px;
   cursor: pointer;
+  padding-left: 15px;
+  padding-right: 15px;
   .dropdown-menu {
     list-style-type: none;
     padding: 0;
@@ -117,6 +118,7 @@
 .hidden-button {
   display: none;
 }
+
 .assign-success-container {
   font-size: 18px;
   .row {
@@ -199,4 +201,7 @@
       font-size: 18px;
     }
   }
+}
+#search_activities_input, #unit_name {
+  margin-top: 20px;
 }
