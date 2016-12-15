@@ -84,13 +84,13 @@
       return
     }
     else {
+      console.log(this.userLoggedIn())
       return (
-          <div className='list-filter-options-container'>
             <ListFilterOptions
+                    userLoggedIn={this.userLoggedIn()}
                     options={this.props.data.categories || []}
                     selectedId={this.props.data.selectedCategoryId}
                     select={this.props.actions.filterByCategory} />
-          </div>
       );
     }
   },
@@ -110,22 +110,17 @@
   },
 
   renderTopLevelNav: function () {
-    return (
-      <div key='not-logged-in' className="about-subtabs tab-subnavigation-wrapper">
-        <div className="container">
-          <ul>
-            <li>
-              <a className="active" href="/activities/packs">Activity Packs</a>
-              <a href="/activities/section/27">Benchmark Assessments</a>
-              <a href="/activities/section/7">Elementary School</a>
-              <a href="/activities/section/10">Middle School</a>
-              <a href="/activities/section/18">High School</a>
-              <a href="/activities/section/17">University</a>
-            </li>
-          </ul>
+    return this.listFilterOptions();
+  },
+
+  renderListFilterOptionsIfLoggedIn: function(){
+    if (this.userLoggedIn()) {
+      return (
+        <div className='row'>
+          {this.listFilterOptions()}
         </div>
-      </div>
-    )
+      )
+    }
   },
 
   stateSpecificComponents: function () {
@@ -146,9 +141,7 @@
       <div className="container">
         <div className='row'>
           <div className='col-xs-12'>
-            <div className='row'>
-              {this.listFilterOptions()}
-            </div>
+              {this.renderListFilterOptionsIfLoggedIn()}
               {this.generateShowAllGradesView()}
             <div className='row'>
             {this.generateUnitTemplateViews()}

@@ -9,6 +9,7 @@
   propTypes: {
     options: React.PropTypes.array.isRequired,
     select: React.PropTypes.func.isRequired,
+    userLoggedIn: React.PropTypes.bool
   },
 
   sortViews: function (views) {
@@ -39,19 +40,43 @@
 
   generateView: function (option) {
     return <ListFilterOption
+                    userLoggedIn={this.props.userLoggedIn}
                     key={this.getKey(option)}
                     data={option}
                     isSelected={this.isSelected(option)}
                     select={this.props.select} />
   },
 
-  
+  renderForLoggedInUser: function () {
+   return (
+       <div className='list-filter-options-container'>
+         <div className='list-filter-options'>
+            {this.generateViews()}
+         </div>
+     </div>
+    );
+  },
+
+  renderForNotLoggedInUser: function () {
+    return (
+      <div key='not-logged-in' className="about-subtabs tab-subnavigation-wrapper">
+        <div className="container">
+          <ul>
+            <li>
+              {this.generateViews(this.props.userLoggedIn)}
+            </li>
+          </ul>
+        </div>
+      </div>
+    )
+
+  },
+
+
 
   render: function () {
     return (
-      <div className='list-filter-options'>
-        {this.generateViews()}
-      </div>
+      this.props.userLoggedIn ? this.renderForLoggedInUser() : this.renderForNotLoggedInUser()
     );
   }
 })
