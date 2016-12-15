@@ -67,7 +67,11 @@ export default React.createClass({
   },
 
   _modelsInCategory: function (categoryId) {
-    return _.where(this.state.unitTemplatesManager.models, {unit_template_category: {id: categoryId}})
+      return this.state.unitTemplatesManager.models.filter(ut => {
+      if (ut.unit_template_category && ut.unit_template_category.id === categoryId) {
+        return ut
+      }
+    })
   },
 
   updateUnitTemplateModels: function (models) {
