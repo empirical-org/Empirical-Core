@@ -15,7 +15,7 @@ class InvalidClasscodeAnalytics
     analytics_track({
       user_id: @student_id,
       event: SegmentIo::Events::STUDENT_ENTERED_INVALID_CLASSCODE,
-      context: {user_inputted_classcode: @user_inputted_classcode,
+      properties: {user_inputted_classcode: @user_inputted_classcode,
                 formatted_classcode: @formatted_classcode
       },
       integrations: { intercom: 'false' }
