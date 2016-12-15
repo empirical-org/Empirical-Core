@@ -83,6 +83,30 @@ export function loadResponseData(questionId) {
   };
 }
 
+export function loadMultipleResponses(arrayOfQuestionIDs, cb) {
+  return (dispatch) => {
+    const newValues = {};
+    const it = makeIterator(arrayOfQuestionIDs);
+    const firstID = it.next().value;
+    const doneTask = (newResponseData) => {
+      dispatch({ type: 'BULK UPDATE', data: { data: newResponseData, status: {}, }, });
+      cb();
+    };
+    loadResponseDataAndCallback(firstID, newValues, it, doneTask);
+  };
+}
+
+function loadResponseDataAndCallback(questionId, dataHash, iterator, cb) {
+  if (questionId === undefined) {
+    cb(dataHash);
+  } else {
+    responsesForQuestionRef(questionId).once('value', (snapshot) => {
+      dataHash[questionId] = snapshot.val();
+      loadResponseDataAndCallback(iterator.next().value, dataHash, iterator, cb);
+    });
+  }
+}
+
 export function loadResponseDataAndListen(questionId) {
   return (dispatch) => {
     dispatch(updateStatus(questionId, 'LOADING'));
@@ -223,5 +247,17 @@ export function deleteConceptResult(qid, rid, crid) {
         alert(`Delete failed! ${error}`);
       }
     });
+  };
+}
+
+function makeIterator(array) {
+  let nextIndex = 0;
+
+  return {
+    next() {
+      return nextIndex < array.length ?
+               { value: array[nextIndex++], done: false, } :
+               { done: true, };
+    },
   };
 }

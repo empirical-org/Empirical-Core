@@ -2,10 +2,6 @@ import React from 'react';
 import beginArrow from '../../img/begin_arrow.svg';
 export default React.createClass({
 
-  componentWillMount() {
-    this.props.loadResponses();
-  },
-
   resume() {
     this.props.resumeActivity(this.props.session);
   },

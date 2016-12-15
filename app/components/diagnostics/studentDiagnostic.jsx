@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CarouselAnim from '../shared/carouselAnimation.jsx';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
-import { loadResponseData } from '../../actions/responses';
+import { loadResponseData, loadMultipleResponses } from '../../actions/responses';
 import { hashToCollection } from '../../libs/hashToCollection';
 import diagnosticQuestions from './diagnosticQuestions.js';
 import SessionActions from '../../actions/sessions.js';
@@ -71,13 +71,17 @@ const StudentDiagnostic = React.createClass({
   },
 
   getResponsesForEachQuestion() {
+    const questionIDs = diagnosticQuestions().map(q => q.key);
+    this.props.dispatch(loadMultipleResponses(questionIDs, () => {
+      this.setState({ responsesReady: true, });
+    }));
     // we need to change the gettingResponses state so that we don't keep hitting this as the props update,
     // otherwise it forms an infinite loop via component will receive props
-    this.setState({ hasOrIsGettingResponses: true, }, () => {
-      _.each(diagnosticQuestions(), (q) => {
-        this.props.dispatch(loadResponseData(q.key));
-      });
-    });
+    // this.setState({ hasOrIsGettingResponses: true, }, () => {
+    //   _.each(diagnosticQuestions(), (q) => {
+    //     this.props.dispatch(loadResponseData(q.key));
+    //   });
+    // });
   },
 
   saveToLMS() {
@@ -189,7 +193,9 @@ const StudentDiagnostic = React.createClass({
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       if (!this.props.playDiagnostic.questionSet) {
-        component = (<SmartSpinner message={'Loading Your Lesson 66%'} onMount={this.loadQuestionSet} key="step2" />);
+        component = (<SmartSpinner message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} key="step2" />);
+      } else if (!this.state.responsesReady) {
+        component = (<SmartSpinner message={'Loading Your Lesson 75%'} onMount={this.getResponsesForEachQuestion} key="step3" />);
       } else if (this.props.playDiagnostic.currentQuestion) {
         if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
           component = (<PlayDiagnosticQuestion
@@ -212,10 +218,10 @@ const StudentDiagnostic = React.createClass({
       } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
         component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
       } else {
-        component = <LandingPage begin={() => { this.startActivity('John'); }} session={this.getPreviousSessionData()} loadResponses={this.getResponsesForEachQuestion} resumeActivity={this.resumeSession} />;
+        component = <LandingPage begin={() => { this.startActivity('John'); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
       }
     } else {
-      component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} key="step1" />);
+      component = (<SmartSpinner message={'Loading Your Lesson 25%'} onMount={() => {}} key="step1" />);
     }
     // component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} />);
     return (
