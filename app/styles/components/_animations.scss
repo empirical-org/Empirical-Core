@@ -46,6 +46,13 @@
     -webkit-animation: rotation 0.75s infinite linear;
   }
 
+  .spinner-message {
+    margin-top: 1em;
+    font-size: 24px;
+    font-family: $family-monospace;
+    color: $grey-darker;
+  }
+
   @-webkit-keyframes rotation {
       from {-webkit-transform: rotate(0deg);}
       to   {-webkit-transform: rotate(359deg);}

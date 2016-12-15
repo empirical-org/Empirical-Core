@@ -8,6 +8,7 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import diagnosticQuestions from './diagnosticQuestions.js';
 import SessionActions from '../../actions/sessions.js';
 import Spinner from '../shared/spinner.jsx';
+import SmartSpinner from '../shared/smartSpinner.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import LandingPage from './landing.jsx';
@@ -127,11 +128,14 @@ const StudentDiagnostic = React.createClass({
 
   startActivity(name) {
     // this.saveStudentName(name);
+    const next = nextQuestion();
+    this.props.dispatch(next);
+  },
+
+  loadQuestionSet() {
     const data = this.getFetchedData();
     const action = loadData(data);
     this.props.dispatch(action);
-    const next = nextQuestion();
-    this.props.dispatch(next);
   },
 
   nextQuestion() {
@@ -184,7 +188,9 @@ const StudentDiagnostic = React.createClass({
     const diagnosticID = this.props.params.diagnosticID;
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
-      if (this.props.playDiagnostic.currentQuestion) {
+      if (!this.props.playDiagnostic.questionSet) {
+        component = (<SmartSpinner message={'Loading Your Lesson 66%'} onMount={this.loadQuestionSet} key="step2" />);
+      } else if (this.props.playDiagnostic.currentQuestion) {
         if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
           component = (<PlayDiagnosticQuestion
             question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
@@ -207,16 +213,11 @@ const StudentDiagnostic = React.createClass({
         component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
       } else {
         component = <LandingPage begin={() => { this.startActivity('John'); }} session={this.getPreviousSessionData()} loadResponses={this.getResponsesForEachQuestion} resumeActivity={this.resumeSession} />;
-        // (
-        //   <div className="container">
-        //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
-        //   </div>
-        // )
       }
     } else {
-      component = (<Spinner />);
+      component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} key="step1" />);
     }
-
+    // component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} />);
     return (
       <div>
         <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
