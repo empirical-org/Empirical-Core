@@ -10,7 +10,8 @@
     "storybook": "start-storybook -p 9001",
     "lint": "eslint app/app.jsx",
     "lint:fix": "eslint app/app.jsx --fix",
-    "build:prod": "NODE_ENV=production EMPIRICAL_BASE_URL=https://www.quill.org webpack --optimize-minimize && open ./dist/index.html"
+    "build:prod": "rm -r dist/; NODE_ENV=production EMPIRICAL_BASE_URL=https://www.quill.org webpack --optimize-minimize; open ./dist/index.html",
+    "deploy:prod": "./production.sh"
   },
   "author": "Empirical Org",
   "license": "ISC",
