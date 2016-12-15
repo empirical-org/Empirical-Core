@@ -7,14 +7,13 @@ import ActivityDetails from '../../../general_components/tooltip/activity_detail
 
 
 export default function (percentageDisplayer) {
-
   var _displayPercentage = percentageDisplayer.run
-
   this.generate = function (data) {
     var result, totalScoreOrNot, aboutPremiumOrNot;
-
     if (data.percentage == null) {
       totalScoreOrNot = null
+    } else if (data.activity.classification.id === 4 && data.percentage) {
+      totalScoreOrNot = <TotalScore diagnostic={Boolean(true)}/>
     } else {
       totalScoreOrNot = <TotalScore percentage={_displayPercentage(data.percentage)} />
     }
