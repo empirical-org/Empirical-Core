@@ -9,6 +9,15 @@
 
  export default  React.createClass({
 
+   getInitialState: function () {
+     return {activeFilterId: null}
+   },
+
+  handleFilterButtonClick: function (optionId) {
+    this.selectFilterOption(optionId);
+    this.setState({activeFilterId: optionId})
+  },
+
 	selectFilterOption: function (optionId) {
 		this.props.selectFilterOption(this.props.data.field, optionId);
 	},
@@ -18,7 +27,7 @@
 
 
 	getDisplayedFilterOptions: function() {
-		var visibleOptions, isThereASelection, clearSelection;
+		var options, isThereASelection, clearSelection;
 		isThereASelection = !!this.props.data.selected;
 
 		// Sort the options alphanumerically.
@@ -27,42 +36,40 @@
 			return naturalCmp(a.name, b.name);
 		});
 
-
-		if (isThereASelection) {
-			visibleOptions = _.reject(this.props.data.options, {id: this.props.data.selected}, this);
-		} else {
-			visibleOptions = this.props.data.options;
-		}
+		options = this.props.data.options;
 
     var that = this;
     var field = this.props.data.field;
-		visibleOptions = _.map(visibleOptions, function (option) {
+		return _.map(options, function (option) {
       if (field === 'activity_classification') {
-        return (<FilterButton key={option.name} selectFilterOption={that.selectFilterOption} data={option}/>);
+        return (<FilterButton key={option.name} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id}/>);
       }
 			return (
-				<FilterOption key={option.name} selectFilterOption={that.selectFilterOption} data={option} />
+          <FilterOption key={option.name} selectFilterOption={that.selectFilterOption} data={option} />
 			);
 		}, this);
-
-		if (isThereASelection && field !== 'activity_classification') {
-			clearSelection = (
-				<li onClick={this.clearFilterOptionSelection}>
-					<span className='filter_option all'>
-						{"All " + this.props.data.alias + "s "}
-					</span>
-				</li>
-			);
-			visibleOptions.unshift(clearSelection);
-		}
-		return visibleOptions;
+    // let optionsWithSearch = [];
+    // let activityClassification = [];
+    // options.forEach( option => {
+    //   if (field === 'activity_classification') {
+    //     activityClassification.push(<FilterButton key={option.name} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id}/>);
+    //   } else {
+    //     optionsWithSearch.push(this.props.children, <FilterOption key={option.name} selectFilterOption={that.selectFilterOption} data={option} />)
+    //   }
+    // }, this);
+    // return (
+    //   [<div key='options-with-search' className='options-with-search'>
+    //     {optionsWithSearch}
+    //   </div>,
+    //   activityClassification]
+    // )
 	},
 
 	getFilterHeader: function() {
 		if (this.props.data.selected) {
 			return this.getSelectedOption().name;
 		} else {
-			return "Filter by " + this.props.data.alias;
+			return this.props.data.alias;
 		}
 	},
 
@@ -77,7 +84,7 @@
     let filterIsButtons = this.props.data.field === 'activity_classification'
     if (filterIsButtons) {
       return (
-        <div className='col-xs-12 activity-filter button-row'>
+        <div className='activity-filter button-row'>
           {this.getDisplayedFilterOptions()}
           {this.props.children}
         </div>
@@ -85,14 +92,12 @@
     }
 
 		return (
-			<div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pl">
-				<div className="button-select">
-
+			<div className="no-pl">
+				<div className="button-select activity-filter-button-wrapper">
 					<button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
 						{this.getFilterHeader()}
-						<i className="fa fa-caret-down"></i>
 					</button>
-
+          <i className="fa fa-caret-down act-search-filter-fav"></i>
 					<ul className="dropdown-menu" role="menu">
 						{this.getDisplayedFilterOptions()}
 					</ul>
