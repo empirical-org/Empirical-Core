@@ -86,12 +86,13 @@ const PlaySentenceFragment = React.createClass({
     if (this.state.checkAnswerEnabled) {
       const key = this.props.currentKey;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
         const fields = {
           prompt,
           responses: hashToCollection(this.getResponses()),
           questionUID: key,
           wordCountChange,
+          ignoreCaseAndPunc,
         };
         const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
