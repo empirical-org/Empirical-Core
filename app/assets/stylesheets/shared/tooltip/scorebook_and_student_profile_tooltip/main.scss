@@ -6,10 +6,18 @@
       font-size: 13px;
       padding: 0px;
       margin: 0px;
-      .row {
+      .row, .tooltip-message {
         margin: 0px;
         border-bottom: 1px solid $lightgray;
         padding: 4px 0px;
+      }
+
+      .tooltip-message {
+        font-size: 13px;
+      }
+
+
+      .row {
         display: flex;
         align-items: center;
 
@@ -33,8 +41,15 @@
       font-size: 15px;
       .percentage {
         margin-left: 5px;
+        // border-bottom: 1px solid $lightgray;
+        padding: 4px 0px;
         font-weight: 700;
       }
+    }
+
+    .tooltip-message {
+      text-align: center;
+      align-items: center;
     }
 
     .activity-details {

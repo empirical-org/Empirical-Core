@@ -17,6 +17,18 @@ module PublicProgressReports
       return first_completed_diagnostic_activity
     end
 
+    def activity_session_report(activity_session_id)
+      act_sesh = ActivitySession.includes({ classroom_activity: [:classroom, :unit]}, :user).find(activity_session_id)
+      classroom_activity = act_sesh.try(:classroom_activity)
+      unit_id = classroom_activity.try(:unit).id
+      activity_id = classroom_activity.try(:activity).id
+      classroom_id = classroom_activity.try(:classroom).id
+      user = act_sesh.try(:user)
+      if user && classroom_id && classroom_id
+        {url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/#{user.id}"}
+      end
+    end
+
     def default_diagnostic_url
       if first_completed_diagnostic
         ca = first_completed_diagnostic

@@ -5,7 +5,7 @@ import ScorebookTooltipTitleGenerator from './scorebook_tooltip_title_generator.
 
 export default function (context) {
   if (context == undefined) {
-    throw "Error: required parameter in EC.modules.TooltipTitleGeneratorGenerator is undefined"
+    throw 'Error: required parameter in TooltipTitleGeneratorGenerator is undefined'
   }
 
   var _percentageDisplayer = new PercentageDisplayer()

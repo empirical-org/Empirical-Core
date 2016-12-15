@@ -19,7 +19,7 @@ export default React.createClass({
     }
   },
 
-  percentage_color: function (percentage) {
+  percentage_color: function () {
     var y;
     var x = this.props.data.percentage;
     if (x == null) {
@@ -72,9 +72,28 @@ export default React.createClass({
     return 'activate-tooltip icon-wrapper icon-' + this.percentage_color() + ' icon-' + this.icon_for_classification();
   },
 
+  goToReport: function() {
+    $.get(`/teachers/progress_reports/report_from_activity_session/${this.props.data.id}`)
+      .success(data => {
+        window.location = data.url;
+      })
+      .fail(() => alert('This report is not available.'))
+  },
+
+
+
+  checkForStudentReport: function() {
+    if (this.props.data.state === 'finished') {
+      this.goToReport();
+    } else {
+      alert('This activity has not been completed, so there is no report yet.')
+    }
+  },
+
   render: function () {
     return (
       <div
+        onClick={this.checkForStudentReport}
         onMouseEnter={this.loadTooltipTitle}
         ref='activateTooltip'
         className={this.tooltipClasses()}>
