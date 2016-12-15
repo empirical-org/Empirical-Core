@@ -26,6 +26,7 @@ import MultipleChoice from './multipleChoice.jsx';
 import StateFinished from '../renderForQuestions/renderThankYou.jsx';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import ConceptExplanation from '../feedback/conceptExplanation.jsx';
+import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
@@ -37,6 +38,19 @@ const playLessonQuestion = React.createClass({
       finished: false,
       multipleChoice: false,
     };
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.question !== nextProps.question) {
+      return true;
+    } else if (this.state.response !== nextState.response) {
+      return true;
+    } else if (this.state.finished !== nextState.finished) {
+      return true;
+    } else if (this.state.multipleChoice !== nextState.multipleChoice) {
+      return true;
+    }
+    return false;
   },
 
   getInitialValue() {
@@ -54,8 +68,6 @@ const playLessonQuestion = React.createClass({
   },
 
   getResponse2(rid) {
-    const { data, } = this.props.questions,
-      questionID = this.props.question.key;
     return (this.getResponses()[rid]);
   },
 
@@ -76,13 +88,11 @@ const playLessonQuestion = React.createClass({
   },
 
   getOptimalResponses() {
-    const question = this.getNewQuestionMarker();
-    return question.getOptimalResponses();
+    return getOptimalResponses(hashToCollection(this.props.responses));
   },
 
   getSubOptimalResponses() {
-    const question = this.getNewQuestionMarker();
-    return question.getSubOptimalResponses();
+    return getSubOptimalResponses(hashToCollection(this.props.responses));
   },
 
   get4MarkedResponses() {
@@ -358,10 +368,7 @@ const getLatestAttempt = function (attempts = []) {
 
 function select(state) {
   return {
-    concepts: state.concepts,
     conceptsFeedback: state.conceptsFeedback,
-    questions: state.questions,
-    routing: state.routing,
   };
 }
 export default connect(select)(playLessonQuestion);

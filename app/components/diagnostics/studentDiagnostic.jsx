@@ -25,9 +25,9 @@ const StudentDiagnostic = React.createClass({
     };
   },
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.dispatch(clearData());
-    this.getResponsesForEachQuestion();
+    // this.getResponsesForEachQuestion();
   },
 
   getPreviousSessionData() {
@@ -73,7 +73,7 @@ const StudentDiagnostic = React.createClass({
     // we need to change the gettingResponses state so that we don't keep hitting this as the props update,
     // otherwise it forms an infinite loop via component will receive props
     this.setState({ hasOrIsGettingResponses: true, }, () => {
-      diagnosticQuestions().forEach((q) => {
+      _.each(diagnosticQuestions(), (q) => {
         this.props.dispatch(loadResponseData(q.key));
       });
     });
@@ -125,8 +125,9 @@ const StudentDiagnostic = React.createClass({
     return data[lessonID].questions.map(id => _.find(questionsCollection, { key: id, }));
   },
 
-  startActivity(name, data) {
+  startActivity(name) {
     // this.saveStudentName(name);
+    const data = this.getFetchedData();
     const action = loadData(data);
     this.props.dispatch(action);
     const next = nextQuestion();
@@ -171,11 +172,6 @@ const StudentDiagnostic = React.createClass({
     const returnValue = this.getData().map((obj) => {
       const data = (obj.type === 'SC') ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key];
       data.key = obj.key;
-      // if(obj.type==="SF") {
-      //   data.needsIdentification = true
-      // } else if(obj.type==="SF2") {
-      //   data.needsIdentification = false
-      // }
       return {
         type: obj.type,
         data,
@@ -188,37 +184,34 @@ const StudentDiagnostic = React.createClass({
     const diagnosticID = this.props.params.diagnosticID;
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
-      const data = this.getFetchedData();
-      if (data) {
-        if (this.props.playDiagnostic.currentQuestion) {
-          if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
-            component = (<PlayDiagnosticQuestion
-              question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
-              dispatch={this.props.dispatch}
-              responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
-              key={this.props.playDiagnostic.currentQuestion.data.key}
-              marking="diagnostic"
-            />);
-          } else {
-            component = (<PlaySentenceFragment
-              question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-              key={this.props.playDiagnostic.currentQuestion.data.key}
-              responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
-              dispatch={this.props.dispatch}
-              nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-              updateAttempts={this.submitResponse}
-            />);
-          }
-        } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
+      if (this.props.playDiagnostic.currentQuestion) {
+        if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
+          component = (<PlayDiagnosticQuestion
+            question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
+            dispatch={this.props.dispatch}
+            responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
+            key={this.props.playDiagnostic.currentQuestion.data.key}
+            marking="diagnostic"
+          />);
         } else {
-          component = <LandingPage begin={() => { this.startActivity('John', data); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
-          // (
-          //   <div className="container">
-          //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
-          //   </div>
-          // )
+          component = (<PlaySentenceFragment
+            question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+            key={this.props.playDiagnostic.currentQuestion.data.key}
+            responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
+            dispatch={this.props.dispatch}
+            nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+            updateAttempts={this.submitResponse}
+          />);
         }
+      } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
+        component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
+      } else {
+        component = <LandingPage begin={() => { this.startActivity('John'); }} session={this.getPreviousSessionData()} loadResponses={this.getResponsesForEachQuestion} resumeActivity={this.resumeSession} />;
+        // (
+        //   <div className="container">
+        //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
+        //   </div>
+        // )
       }
     } else {
       component = (<Spinner />);

@@ -1,33 +1,36 @@
-import React from 'react'
-import beginArrow from '../../img/begin_arrow.svg'
+import React from 'react';
+import beginArrow from '../../img/begin_arrow.svg';
 export default React.createClass({
 
-
-  resume: function () {
-    this.props.resumeActivity(this.props.session)
+  componentWillMount() {
+    this.props.loadResponses();
   },
 
-  renderButton: function(){
-    let onClickFn, text
+  resume() {
+    this.props.resumeActivity(this.props.session);
+  },
+
+  renderButton() {
+    let onClickFn,
+      text;
     if (this.props.session) {
       // resume session if one is passed
       onClickFn = this.resume;
-      text = <span>Resume</span>
+      text = <span>Resume</span>;
     } else {
       // otherwise begin new session
       onClickFn = this.props.begin;
-      text = <span>Begin</span>
+      text = <span>Begin</span>;
     }
     return (
       <button className="button student-begin" onClick={onClickFn}>
         {text}
-        <img className="begin-arrow" src={beginArrow}/>
+        <img className="begin-arrow" src={beginArrow} />
       </button>
-    )
+    );
   },
 
-
-  render: function () {
+  render() {
     return (
       <div className="landing-page">
         <h1>You're working on the Quill Placement Activity </h1>
@@ -42,7 +45,7 @@ export default React.createClass({
         </p>
         {this.renderButton()}
       </div>
-    )
+    );
   },
 
-})
+});

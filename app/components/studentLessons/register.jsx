@@ -9,6 +9,10 @@ export default React.createClass({
     };
   },
 
+  componentWillMount() {
+    this.props.getResponses(this.props.lesson.questions);
+  },
+
   handleNameChange(e) {
     this.setState({ name: e.target.value, });
   },

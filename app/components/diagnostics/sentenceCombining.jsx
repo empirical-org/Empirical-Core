@@ -48,6 +48,8 @@ const PlayDiagnosticQuestion = React.createClass({
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.question !== nextProps.question) {
       return true;
+    } else if (this.state.response !== nextState.response) {
+      return true;
     }
     return false;
   },

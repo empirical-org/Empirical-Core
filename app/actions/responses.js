@@ -75,10 +75,10 @@ export function loadAllResponseData() {
 
 export function loadResponseData(questionId) {
   return (dispatch) => {
-    dispatch(updateStatus(questionId, 'LOADING'));
+    // dispatch(updateStatus(questionId, 'LOADING'));
     responsesForQuestionRef(questionId).once('value', (snapshot) => {
       dispatch(updateData(questionId, snapshot.val()));
-      dispatch(updateStatus(questionId, 'LOADED'));
+      // dispatch(updateStatus(questionId, 'LOADED'));
     });
   };
 }
@@ -106,9 +106,9 @@ export function submitNewResponse(content, prid) {
     }
   );
   return (dispatch) => {
-    dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
+    // dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
     const newRef = responsesRef.push(newResponse, (error) => {
-      dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
+      // dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
       } else {

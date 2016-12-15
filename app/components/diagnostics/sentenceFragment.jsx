@@ -11,12 +11,12 @@ class PlaySentenceFragment extends Component {
     this.handleAttemptSubmission = this.handleAttemptSubmission.bind(this);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.question !== nextProps.question) {
-      return true;
-    }
-    return false;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.props.question !== nextProps.question) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   handleAttemptSubmission() {
     if (this.state.submitted === false) {

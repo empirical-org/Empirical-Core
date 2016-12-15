@@ -25,9 +25,6 @@ const Lesson = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.doesNotHaveAndIsNotGettingResponses() && this.hasQuestionsInQuestionSet(nextProps)) {
-      this.getResponsesForEachQuestion(nextProps.playLesson);
-    }
     if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length) {
       this.saveSessionData(nextProps.playLesson);
     }
@@ -192,12 +189,9 @@ const Lesson = React.createClass({
   },
 
   getResponsesForEachQuestion(playLesson) {
-    // we need to change the gettingResponses state so that we don't keep hitting this as the props update,
-    // otherwise it forms an infinite loop via component will receive props
     this.setState({ hasOrIsGettingResponses: true, }, () => {
-      const questionSet = playLesson.questionSet;
-      questionSet.forEach((q) => {
-        this.props.dispatch(loadResponseData(q.question.key));
+      _.each(playLesson, (q, i) => {
+        this.props.dispatch(loadResponseData(q.key));
       });
     });
   },
@@ -229,7 +223,7 @@ const Lesson = React.createClass({
         );
       } else {
         component = (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />
+          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} getResponses={this.getResponsesForEachQuestion} />
         );
       }
 
