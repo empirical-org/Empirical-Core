@@ -1,7 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 import _ from 'underscore'
-import _l from "lodash"
+import _l from 'lodash'
 import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
 import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
 import fnl from '../components/modules/fnl'
@@ -67,7 +67,11 @@ export default React.createClass({
   },
 
   _modelsInCategory: function (categoryId) {
-    return _.where(this.state.unitTemplatesManager.models, {unit_template_category: {id: categoryId}})
+      return this.state.unitTemplatesManager.models.filter(ut => {
+      if (ut.unit_template_category && ut.unit_template_category.id === categoryId) {
+        return ut
+      }
+    })
   },
 
   updateUnitTemplateModels: function (models) {
@@ -174,7 +178,7 @@ export default React.createClass({
   },
 
   signUp: function () {
-    window.location.href = "/account/new";
+    window.location.href = '/account/new';
   },
 
   unitTemplatesManagerActions: function () {
