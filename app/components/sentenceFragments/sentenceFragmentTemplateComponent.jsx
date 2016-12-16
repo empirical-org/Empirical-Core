@@ -173,6 +173,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   render() {
+    console.log('Rendering Sentence Fragment Template');
     if (this.props.question) {
       return (
         <div className="student-container-inner-diagnostic">

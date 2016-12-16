@@ -11,12 +11,14 @@ class PlaySentenceFragment extends Component {
     this.handleAttemptSubmission = this.handleAttemptSubmission.bind(this);
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.props.question !== nextProps.question) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.question.key !== nextProps.question.key) {
+      return true;
+    } else if (this.props.question.identified !== nextProps.question.identified) {
+      return true;
+    }
+    return false;
+  }
 
   handleAttemptSubmission() {
     if (this.state.submitted === false) {
@@ -28,6 +30,7 @@ class PlaySentenceFragment extends Component {
   }
 
   render() {
+    console.log('Rendering Student Diagnostic Sentence Fragment');
     return (
       <SentenceFragmentTemplate {...this.props} handleAttemptSubmission={this.handleAttemptSubmission} />
     );

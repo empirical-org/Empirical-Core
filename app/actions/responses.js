@@ -32,17 +32,6 @@ function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
   });
   console.log(statuses);
   return statuses;
-  // for (const key in questionsKeys) {
-  //   if (object.hasOwnProperty(variable)) {
-  //
-  //   }
-  // }
-  // return questionsKeys.map((qkey) => {
-  //   console.log('Question: ', qkey);
-  //   const obj = {};
-  //   obj[qkey] = 'LOADED';
-  //   return obj;
-  // });
 }
 
 function groupResponsesByQuestion(snapshot) {

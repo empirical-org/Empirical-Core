@@ -15,7 +15,7 @@ const finalCreateStore = compose(
   applyMiddleware(thunk, middleware),
   // required! Enable Redux DevTools with the monitors you chose
   // devTools.instrument(),
-  // window.devToolsExtension ? window.devToolsExtension() : f => f
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore);
 
 function getDebugSessionKey() {
