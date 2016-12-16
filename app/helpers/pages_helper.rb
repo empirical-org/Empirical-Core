@@ -1,19 +1,42 @@
 module PagesHelper
 
 	def pages_tab_class tabname
-		about_actions = ["mission", "develop", "faq", "team"]
+		about_actions = ["mission", "develop", "faq"]
 		impact_actions = ['impact']
-		activities_actions = ['activities']
-		media_actions = ['news', 'press', 'blog_posts', 'press_kit']
-
+		team_actions = %w(team)
+		partnerships_actions = %w(partnerships)
+		news_actions = %w(news)
+		press_actions = %w(press)
+		standards_actions = ['activities']
+		topics_actions = ['index']
+		faq_actions = ['faq']
+		media_kit_actions = ['media_kit']
+		getting_started_actions = ['teacher_resources']
+		media_actions = ['news', 'press', 'blog_posts']
 		if tabname == "about"
 			about_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'faq'
+			faq_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'press'
+			press_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'partnerships'
+			partnerships_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == "media"
 			media_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == "team"
+			team_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'getting_started'
+			getting_started_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'news'
+			news_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'media_kit'
+			media_kit_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == "impact"
 			impact_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'activities'
-			activities_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'standards'
+			standards_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'topics'
+			topics_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == 'premium'
 			(action_name == 'premium_from_discover') ? "premium-tab active" : ''
 		end
@@ -114,7 +137,7 @@ module PagesHelper
 	      				title: "Advisory Board Member",
 	      				desc: "Oliver is the CTO and Head of Product at DonorsChoose.org. Previously, he managed product engineering projects for Microsoft's new search engine, now called Bing."
 					}]},
-			
+
 				{team: 'Open Source Developers',
 					members: [
 				{
