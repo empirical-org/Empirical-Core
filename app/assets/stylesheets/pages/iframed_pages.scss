@@ -34,11 +34,17 @@ border: none;
 }
 
 #wp_iframe {
-  z-index: -20;
       position: relative;
       height: 3499px;
       width: 100%;
       top: -270px;
+}
+
+#press_iframe {
+  position: relative;
+  height: 4000px;
+  width: 100%;
+  top: -4px;
 }
 
 
