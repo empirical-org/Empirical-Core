@@ -17,6 +17,9 @@ class PagesController < ApplicationController
   def develop
   end
 
+  def partnerships
+  end
+
   def mission
   end
 
@@ -54,7 +57,7 @@ class PagesController < ApplicationController
     @body_class = 'auxiliary white-page formatted-text'
   end
 
-  def press_kit
+  def media_kit
   end
 
   def privacy

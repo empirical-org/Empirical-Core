@@ -84,38 +84,78 @@
       return
     }
     else {
+      console.log(this.userLoggedIn())
       return (
-          <div className='list-filter-options-container'>
             <ListFilterOptions
+                    userLoggedIn={this.userLoggedIn()}
                     options={this.props.data.categories || []}
                     selectedId={this.props.data.selectedCategoryId}
                     select={this.props.actions.filterByCategory} />
-          </div>
       );
     }
   },
 
-  render: function () {
+  renderHeaderIfLoggedIn: function () {
+    if (this.userLoggedIn()) {
+      return <UnitTemplateMinisHeader data={this.props.data} />
+    }
+  },
+
+  userNotLoggedIn: function () {
+    return this.props.data.non_authenticated
+  },
+
+  userLoggedIn: function () {
+    return !this.userNotLoggedIn();
+  },
+
+  renderTopLevelNav: function () {
+    return this.listFilterOptions();
+  },
+
+  renderListFilterOptionsIfLoggedIn: function(){
+    if (this.userLoggedIn()) {
+      return (
+        <div className='row'>
+          {this.listFilterOptions()}
+        </div>
+      )
+    }
+  },
+
+  stateSpecificComponents: function () {
+    const components = [];
+    if (this.userNotLoggedIn()) {
+      components.push(this.renderTopLevelNav())
+    }
     return (
-      <div className='unit-template-minis'>
-        <UnitTemplateMinisHeader data={this.props.data} />
-        <div className="container">
-          <div className='row'>
-            <div className='col-xs-12'>
-              <div className='row'>
-                {this.listFilterOptions()}
-              </div>
-                {this.generateShowAllGradesView()}
-              <div className='row'>
-              {this.generateUnitTemplateViews()}
-              </div>
-              <div className='row'>
-                {this.generateShowAllGradesView()}
-              </div>
+      <div>
+        {components.concat(this.alwaysRender())}
+      </div>
+    )
+  },
+
+  alwaysRender: function () {
+    return (<div key='always-display' className='unit-template-minis'>
+      {this.renderHeaderIfLoggedIn()}
+      <div className="container">
+        <div className='row'>
+          <div className='col-xs-12'>
+              {this.renderListFilterOptionsIfLoggedIn()}
+              {this.generateShowAllGradesView()}
+            <div className='row'>
+            {this.generateUnitTemplateViews()}
+            </div>
+            <div className='row'>
+              {this.generateShowAllGradesView()}
             </div>
           </div>
         </div>
       </div>
-    );
+    </div>)
+  },
+
+  render: function () {
+    return this.stateSpecificComponents()
   }
 });
