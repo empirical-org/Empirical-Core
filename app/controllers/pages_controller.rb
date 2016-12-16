@@ -17,6 +17,9 @@ class PagesController < ApplicationController
   def develop
   end
 
+  def partnerships
+  end
+
   def mission
   end
 
