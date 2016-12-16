@@ -1,19 +1,28 @@
 <div class="tab-outer-wrap">
   <div class="container">
     <ul class="nav nav-tabs tabs-navigation-list" role="tablist" id="teacher-nav-tabs">
-      <li class=<%= pages_tab_class("activities") %> 'activities-nav-tab'>
-        <%= link_to "Activities", activities_packs_path %>
-      </li>
-      <li class=<%= pages_tab_class("about") %>>
-        <%= link_to 'About', mission_path  %>
-      </li>
-      <li class=<%= pages_tab_class("media") %>>
-        <%= link_to 'Media', news_path, class: subtab_class("news") %>
+      <li class=<%= pages_tab_class("about") %> >
+        <%= link_to "About", mission_path %>
       </li>
       <li class=<%= pages_tab_class("impact") %>>
         <%= link_to "Impact", impact_path %>
       </li>
-      <li class='premium-tab'><%= active_link_to "Premium" , premium_path %></li>
+      <li class=<%= pages_tab_class("team") %>>
+        <%= link_to "Team", team_path %>
+      </li>
+      <li class=<%= pages_tab_class("partnerships") %>>
+        <%= link_to "Partnerships", partnerships_path %>
+      </li>
+      <li class=<%= pages_tab_class("news") %>>
+        <%= link_to 'News', news_path  %>
+      </li>
+      <li class=<%= pages_tab_class("press") %>>
+        <%= link_to 'Press', press_path  %>
+      </li>
+      <li class=<%= pages_tab_class("media_kit") %>>
+        <%= link_to 'Media Kit', media_kit_path  %>
+      </li>
+
     </ul>
   </div>
 </div>

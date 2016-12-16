@@ -25,7 +25,7 @@
   getClassName: function () {
     var name;
     if (this.props.isSelected) {
-      name = 'list-filter-option selected'
+      name = 'list-filter-option selected active'
     } else {
       name = 'list-filter-option'
     }
