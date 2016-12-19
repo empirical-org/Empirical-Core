@@ -262,9 +262,11 @@ const playLessonQuestion = React.createClass({
     if (latestAttempt) {
       if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-        const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
-        if (data) {
-          return <ConceptExplanation {...data} />;
+        if (conceptID) {
+          const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+          if (data) {
+            return <ConceptExplanation {...data} />;
+          }
         }
       } else if (this.getQuestion().conceptID) {
         const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
@@ -294,6 +296,7 @@ const playLessonQuestion = React.createClass({
         id: 'playQuestion',
         sentenceFragments: this.renderSentenceFragments(),
         cues: this.renderCues(),
+        className: 'fubar',
       };
       let component;
       if (this.state.finished) {
