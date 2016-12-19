@@ -17,11 +17,12 @@ export default React.createClass({
         if (this.props.dashboardMini) {
             state.loading = true;
             state.dashboard = true;
-            state.className = "mini_container results-overview-mini-container col-md-8 col-sm-10 text-center";
-            state.id = "getting-started-mini";
+            state.className = 'mini_container results-overview-mini-container col-md-8 col-sm-10 text-center';
+            state.id = 'getting-started-mini';
         } else {
             state.checkboxData = this.props.checkboxData;
         }
+        state.display = false;
         return state;
     },
 
@@ -30,12 +31,11 @@ export default React.createClass({
         var that = this;
         if (!this.state.checkboxData) {
             $.get('/teachers/getting_started', function(data) {
-                data === false
-                    ? that.props.hideTeacherGuide()
-                    : that.setState({checkboxData: data, loading: false});
+              if (data) {
+                that.setState({display: true, checkboxData: data, loading: false}, ()=>that.props.showTeacherGuide);
+              }
             });
         }
-
     },
 
     groupBySectionAndCompleted: function() {
@@ -77,7 +77,7 @@ export default React.createClass({
                 loading: true
             }}/>
         } else if (this.state.dashboardMini) {
-            return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()["Getting Started"]}/>;
+            return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']}/>;
         } else {
             return (
                 <div id='teacher-guide'>
@@ -89,11 +89,14 @@ export default React.createClass({
     },
 
     render: function() {
-        return (
-            <div className={this.state.className} id={this.state.id}>
-                {this.stateSpecificComponents()}
-            </div>
-        );
+      if (this.state.display === false) {
+        return <span/>
+      }
+      return (
+          <div className={this.state.className} id={this.state.id}>
+              {this.stateSpecificComponents()}
+          </div>
+      );
     }
 
 });
