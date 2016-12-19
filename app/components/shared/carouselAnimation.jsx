@@ -6,8 +6,8 @@ export default React.createClass({
     return (
       <ReactCSSTransitionGroup
         transitionName="carousel"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={500}
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
       >
         {this.props.children}
       </ReactCSSTransitionGroup>
