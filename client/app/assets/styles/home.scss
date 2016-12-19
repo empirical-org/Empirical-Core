@@ -1,4 +1,23 @@
 body {
   background-color: black;
-  font-size: 400px !important;
+}
+
+.button-quill {
+  &:hover {
+    color: green;
+    background-color: red;
+    text-align: right;
+  }
+  &:before {
+    content: 'Oy Donald, I am before content'
+  }
+  &:after {
+    content: '';
+    display: block;
+    background: black;
+    height: 4px;
+    max-width: 35px;
+    width: 100%;
+    margin: 0 auto;
+  }
 }
