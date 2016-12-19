@@ -27,6 +27,11 @@ import StateFinished from '../renderForQuestions/renderThankYou.jsx';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import ConceptExplanation from '../feedback/conceptExplanation.jsx';
 import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
+import {
+  loadResponseDataAndListen,
+  stopListeningToResponses,
+  getResponsesWithCallback
+} from '../../actions/responses.js';
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
@@ -40,6 +45,15 @@ const playLessonQuestion = React.createClass({
     };
   },
 
+  componentDidMount() {
+    getResponsesWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({responses: data})
+      }
+    )
+  },
+
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.question !== nextProps.question) {
       return true;
@@ -48,6 +62,8 @@ const playLessonQuestion = React.createClass({
     } else if (this.state.finished !== nextState.finished) {
       return true;
     } else if (this.state.multipleChoice !== nextState.multipleChoice) {
+      return true;
+    } else if (this.state.responses !== nextState.responses) {
       return true;
     }
     return false;
@@ -72,7 +88,7 @@ const playLessonQuestion = React.createClass({
   },
 
   getResponses() {
-    return this.props.responses;
+    return this.state.responses;
   },
 
   getQuestionMarkerFields() {

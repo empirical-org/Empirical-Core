@@ -250,3 +250,10 @@ function makeIterator(array) {
     },
   };
 }
+
+export function getResponsesWithCallback(questionID, callback) {
+  responsesForQuestionRef(questionID).once('value', (snapshot) => {
+     callback(snapshot.val())
+     console.log("Loaded responses for ", questionID)
+  });
+}

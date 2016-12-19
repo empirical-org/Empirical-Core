@@ -6,7 +6,8 @@ import POSMatcher from '../../libs/sentenceFragment.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitNewResponse,
-  incrementResponseCount
+  incrementResponseCount,
+  getResponsesWithCallback
 } from '../../actions/responses';
 import icon from '../../img/question_icon.svg';
 
@@ -18,10 +19,21 @@ const PlaySentenceFragment = React.createClass({
     };
   },
 
+  componentDidMount() {
+    getResponsesWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({responses: data})
+      }
+    )
+  },
+
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.question !== nextProps.question) {
       return true;
     } else if (this.state.response !== nextState.response) {
+      return true;
+    } else if (this.state.responses !== nextState.responses) {
       return true;
     }
     return false;
@@ -54,7 +66,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   getResponses() {
-    return this.props.responses;
+    return this.state.responses;
     // return this.props.responses.data[this.props.question.key];
   },
 
@@ -130,9 +142,9 @@ const PlaySentenceFragment = React.createClass({
         <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
       );
     } else {
-      return (
-        <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
-      );
+      if (this.state.responses) {
+        return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
+      }
     }
   },
 
@@ -173,7 +185,6 @@ const PlaySentenceFragment = React.createClass({
   },
 
   render() {
-    console.log('Rendering Sentence Fragment Template');
     if (this.props.question) {
       return (
         <div className="student-container-inner-diagnostic">

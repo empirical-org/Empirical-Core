@@ -205,11 +205,11 @@ const Lesson = React.createClass({
         const { type, question, } = this.props.playLesson.currentQuestion;
         if (type === 'SF') {
           component = (
-            <PlaySentenceFragment currentKey={question.key} question={question} responses={this.props.responses.data[question.key]} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify} dispatch={this.props.dispatch} />
+            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify} dispatch={this.props.dispatch} />
           );
         } else {
           component = (
-            <PlayLessonQuestion key={question.key} question={question} responses={this.props.responses.data[question.key]} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill} dispatch={this.props.dispatch} />
+            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill} dispatch={this.props.dispatch} />
           );
         }
       } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {
@@ -223,7 +223,7 @@ const Lesson = React.createClass({
         );
       } else {
         component = (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} getResponses={this.getResponsesForEachQuestion} />
+          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />
         );
       }
 
@@ -251,7 +251,7 @@ function select(state) {
     playLesson: state.playLesson, // the questionReducer
     routing: state.routing,
     sessions: state.sessions,
-    responses: state.responses,
+    // responses: state.responses,
   };
 }
 

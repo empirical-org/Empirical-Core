@@ -210,20 +210,17 @@ const StudentDiagnostic = React.createClass({
   },
 
   render() {
-    console.log('Rendering Student Diagnostic');
     const diagnosticID = this.props.params.diagnosticID;
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       if (!this.props.playDiagnostic.questionSet) {
         component = (<SmartSpinner message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} key="step2" />);
-      } else if (!this.state.responsesReady) {
-        component = (<SmartSpinner message={'Loading Your Lesson 75%'} onMount={this.getResponsesForEachQuestion} key="step3" />);
       } else if (this.props.playDiagnostic.currentQuestion) {
         if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
           component = (<PlayDiagnosticQuestion
             question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
             dispatch={this.props.dispatch}
-            responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
+            // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
             key={this.props.playDiagnostic.currentQuestion.data.key}
             marking="diagnostic"
           />);
@@ -231,7 +228,7 @@ const StudentDiagnostic = React.createClass({
           component = (<PlaySentenceFragment
             question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
             key={this.props.playDiagnostic.currentQuestion.data.key}
-            responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
+            // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
             dispatch={this.props.dispatch}
             nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
             updateAttempts={this.submitResponse}
@@ -251,9 +248,9 @@ const StudentDiagnostic = React.createClass({
         <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
         <section className="section is-fullheight minus-nav student">
           <div className="student-container student-container-diagnostic">
-            {/* <CarouselAnim> */}
-            {component}
-            {/* </CarouselAnim> */}
+            <CarouselAnim>
+              {component}
+            </CarouselAnim>
           </div>
         </section>
       </div>
@@ -267,7 +264,7 @@ function select(state) {
     questions: state.questions,
     playDiagnostic: state.playDiagnostic,
     sentenceFragments: state.sentenceFragments,
-    responses: state.responses,
+    // responses: state.responses,
     sessions: state.sessions,
   };
 }

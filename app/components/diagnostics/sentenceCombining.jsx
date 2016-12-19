@@ -17,7 +17,8 @@ const sessionsRef = rootRef.child('sessions');
 import ResponseComponent from '../questions/responseComponent.jsx';
 import {
   loadResponseDataAndListen,
-  stopListeningToResponses
+  stopListeningToResponses,
+  getResponsesWithCallback
 } from '../../actions/responses.js';
 
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
@@ -45,10 +46,21 @@ const PlayDiagnosticQuestion = React.createClass({
     };
   },
 
+  componentDidMount() {
+    getResponsesWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({responses: data})
+      }
+    )
+  },
+
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.question !== nextProps.question) {
       return true;
     } else if (this.state.response !== nextState.response) {
+      return true;
+    } else if (this.state.responses !== nextState.responses) {
       return true;
     }
     return false;
@@ -61,7 +73,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getResponses() {
-    return this.props.responses;
+    return this.state.responses;
     // return this.props.responses.data[this.props.question.key];
   },
 
@@ -179,7 +191,7 @@ const PlayDiagnosticQuestion = React.createClass({
 
   render() {
     const questionID = this.props.question.key;
-    const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
+    const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>Submit</button> : undefined;
     if (this.props.question) {
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence.';
       return (

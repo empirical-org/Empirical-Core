@@ -30,7 +30,6 @@ class PlaySentenceFragment extends Component {
   }
 
   render() {
-    console.log('Rendering Student Diagnostic Sentence Fragment');
     return (
       <SentenceFragmentTemplate {...this.props} handleAttemptSubmission={this.handleAttemptSubmission} />
     );

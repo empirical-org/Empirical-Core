@@ -56,6 +56,9 @@ export default React.createClass({
           {message}
         </button>
       )
+      if (!this.props.responses) {
+        button = undefined
+      }
     }
 
     var info;
