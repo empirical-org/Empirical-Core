@@ -14,6 +14,10 @@ class PagesController < ApplicationController
     self.formats = ['html']
   end
 
+  def home_new
+
+  end
+
   def develop
   end
 
@@ -83,6 +87,8 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
+    when 'home_new'
+      'twenty_seventeen_home'
     end
   end
 
