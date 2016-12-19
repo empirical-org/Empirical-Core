@@ -1,7 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import _ from "underscore"
+import _ from 'underscore'
 
 export default React.createClass({
 
@@ -127,7 +127,7 @@ export default React.createClass({
 			return (
 				<div className="recommendations-table-header-item" key={recommendation.activity_pack_id}>
 					<p>{recommendation.name}</p>
-					<a href={"/activities/packs/" + recommendation.activity_pack_id} target="_blank">View Pack</a>
+					<a href={'/activities/packs/' + recommendation.activity_pack_id} target="_blank">View Pack</a>
 				</div>
 			)
 		})
@@ -152,13 +152,13 @@ export default React.createClass({
 		return this.state.recommendations.map((recommendation, i) => {
 			let selection = this.state.selections[i];
 			const recommended = this.studentIsRecommended(student, recommendation)
-				? " recommended "
-				: "";
+				? ' recommended '
+				: '';
 			const selected = this.studentIsSelected(student, selection)
-				? " selected "
-				: "";
+				? ' selected '
+				: '';
 			return (
-				<div className={"recommendations-table-row-item" + recommended + selected} key={recommendation.activity_pack_id}>
+				<div className={'recommendations-table-row-item' + recommended + selected} key={recommendation.activity_pack_id}>
 					<div className="recommendations-table-row-item-checkbox" onClick={this.toggleSelected.bind(null, student, i)}>
 						{this.renderSelectedCheck(student, selection)}
 					</div>
