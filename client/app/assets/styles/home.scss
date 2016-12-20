@@ -33,9 +33,31 @@ a.q-button {
   }
 }
 
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  &.centered {
+    justify-content: center;
+  }
+  &.space-around {
+    justify-content: space-around;;
+  }
+  &.space-between {
+    justify-content: space-between;
+  }
+  &.flex-end {
+    justify-content: flex-end;
+  }
+  &.vertically-centered {
+    align-items: center;
+  }
+}
 
 
-$list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2);
+
+
+
+$list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, darkgray: $darkgray);
 
 @each $name, $color in $list {
   .text-#{$name} {
@@ -55,5 +77,8 @@ $list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue:
   }
   .border-#{$name} {
     border: 1px solid $color;
+  }
+  .border-dashed-#{$name} {
+    border: 1px dashed $color;
   }
 }
