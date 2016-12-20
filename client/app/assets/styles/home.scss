@@ -1,14 +1,71 @@
+@import '../../../../app/assets/stylesheets/variables.scss';
+
 body {
-  background-color: white;
+  background-color: $white;
 }
 
+
+
 a.q-button {
+  display: inline-block;
   font-family: 'Adelle sans';
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 16px;
   text-align: center;
-  color: #00aa8d;
-  background-color: #fff;
-  padding: 7px 35px;
+  border: solid 1px;
+  padding: 5px 20px 2px;
   border-radius: 6px;
+  &.icon-button {
+    .fa {
+      padding-left: 5px;
+    }
+  }
+  &.cta-button {
+    padding-left: 33px;
+    padding-right: 33px;
+    border: none;
+    font-size: 20px;
+    font-weight: 400;
+  }
+  &.small-button {
+    font-size: 14px;
+  }
 }
+
+
+.bg-white {
+  background-color: $white;
+}
+
+.bg-dark-green {
+   background-color: $quillforestgreen;
+}
+
+.bg-q-green {
+   background-color: $quillgreen;
+}
+
+$list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2);
+
+@each $name, $color in $list {
+  .text-#{$name} {
+    color: $color;
+  }
+}
+
+
+
+
+// .text-white {
+//   color: white;
+//   border: white;
+// }
+
+// .text-blue {
+//   color: $quillblue;
+//   border: white;
+// }
+//
+// .text-q-green {
+//   color: $quillgreen;
+//   border: $quillgreen;
+// }

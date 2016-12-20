@@ -1,9 +1,30 @@
 # Buttons
 
 
-### Button with background
+## CTA Buttons
+
 ```
-<a class="q-button button-white">Sign Up</a>
+<a class="q-button cta-button bg-white text-quillgreen">CTA White</a>
+<a class="q-button cta-button bg-q-green text-white">CTA Green</a>
+<a class="q-button cta-button bg-white text-quillblue">CTA Blue</a>
+<a class="q-button cta-button bg-white text-quillforestgreen">CTA Forest Green</a>
+@css {
+  .lsg-html {
+    background-color: #dedede;
+  }
+}
+```
+
+## Colored Buttons
+```
+<a class="q-button cta-button bg-dark-green text-white">Dark Green</a>
+```
+
+
+
+## Other Buttons
+```
+<a class="q-button icon-button text-white">Icon Button<i class='fa fa-star'></i></a>
 @css {
   .lsg-html {
     background-color: #dedede;
@@ -11,5 +32,5 @@
 }
 ```
 ```
-<button class="button -primary">Example button</button>
+<a class="q-button small-button">Small Button</a>
 ```

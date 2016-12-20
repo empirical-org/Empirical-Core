@@ -3,7 +3,9 @@
 
 // Set the HTML title of the document:
 @title Quill Style Guide
-
+@head {
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+}
 @javascript-before "http://localhost:3500/vendor-bundle.js"
 @javascript-before "http://localhost:3500/app-bundle.js"
 @javascript-before "http://localhost:3500/home-bundle.js"
