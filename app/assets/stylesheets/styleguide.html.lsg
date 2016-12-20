@@ -1,5 +1,5 @@
 // Replace with your default Sass/SCSS file name:
-@scss ../../../client/app/assets/styles/home.scss
+// @scss ../../../client/app/assets/styles/home.scss
 
 // Set the HTML title of the document:
 @title Quill Style Guide
