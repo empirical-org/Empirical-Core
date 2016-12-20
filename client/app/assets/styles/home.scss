@@ -10,10 +10,12 @@ a.q-button {
   display: inline-block;
   font-family: $family-sans-serif;
   font-size: 16px;
+  cursor: pointer;
   text-align: center;
   border: solid 1px;
   padding: 5px 20px 2px;
   border-radius: 6px;
+  user-select: none;
   &.icon-button {
     .fa {
       padding-left: 5px;
@@ -41,6 +43,15 @@ $list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue:
   }
   .bg-#{$name} {
     background-color: $color;
+  }
+  .q-button.bg-#{$name} {
+    &:hover {
+      background-color: darken($color, 5%);
+    }
+
+    &:active {
+      background-color: darken($color, 10%);
+    }
   }
   .border-#{$name} {
     border: 1px solid $color;
