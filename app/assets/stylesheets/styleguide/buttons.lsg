@@ -1,0 +1,15 @@
+# Buttons
+
+
+### Button with background
+```
+<a class="q-button button-white">Sign Up</a>
+@css {
+  .lsg-html {
+    background-color: #dedede;
+  }
+}
+```
+```
+<button class="button -primary">Example button</button>
+```

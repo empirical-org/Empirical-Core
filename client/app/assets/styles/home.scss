@@ -1,23 +1,15 @@
 body {
-  background-color: black;
+  background-color: white;
 }
 
-.button-quill {
-  &:hover {
-    color: green;
-    background-color: red;
-    text-align: right;
-  }
-  &:before {
-    content: 'Oy Donald, I am before content'
-  }
-  &:after {
-    content: '';
-    display: block;
-    background: black;
-    height: 4px;
-    max-width: 35px;
-    width: 100%;
-    margin: 0 auto;
-  }
+a.q-button {
+  font-family: 'Adelle sans';
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  color: #00aa8d;
+  background-color: #fff;
+  padding: 10px 35px;
+
+  border-radius: 6px;
 }

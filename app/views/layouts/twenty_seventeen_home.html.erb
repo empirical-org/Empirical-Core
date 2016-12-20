@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>Quill 2017</title>
-    <%= env_javascript_include_tag(hot: ['http://localhost:3500/vendor-bundle.js', 'http://localhost:3500/home-bundle.js']) %>
+    <%= env_javascript_include_tag(hot: ['http://localhost:3500/vendor-bundle.js', 'http://localhost:3500/app-bundle.js', 'http://localhost:3500/home-bundle.js']) %>
   </head>
   <body>
     <%= yield %>
   </body>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </html>
