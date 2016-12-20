@@ -1,0 +1,34 @@
+@import '../../../../app/assets/stylesheets/variables.scss';
+
+.tool-section {
+  .q-h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+  .info-section {
+    width: 500px;
+    margin-top: 142px;
+  }
+  .tool {
+    color: white;
+    max-width: 1322px;
+  }
+  .blurb {
+    font-size: 18px;
+    line-height: 25px;
+    margin-top: 0;
+  }
+  .light-bar {
+    width: 29px;
+    height: 6px;
+    margin-bottom: 21px;
+    background: rgba($white, .25);
+  }
+  .summary {
+    font-size: 15px;
+    line-height: 1.53;
+    max-width: 420px;
+    font-weight: 200;
+  }
+}
