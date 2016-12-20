@@ -1,5 +1,6 @@
 @import '../../../../app/assets/stylesheets/variables.scss';
 @import './typography.scss';
+@import './tool-section.scss';
 body {
   background-color: $white;
   margin: 0;
@@ -84,7 +85,7 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, darkgray: $darkgray);
+$list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, darkgray: $darkgray, purple: $purple, brickred: $brickred);
 
 @each $name, $color in $list {
   .text-#{$name} {
