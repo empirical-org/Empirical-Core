@@ -2,6 +2,12 @@
 @import './typography.scss';
 body {
   background-color: $white;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
 }
 
 
@@ -80,5 +86,21 @@ $list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue:
   }
   .border-dashed-#{$name} {
     border: 1px dashed $color;
+  }
+}
+
+section.q-hero {
+  width: 100%;
+  height: 530px;
+}
+
+nav.q-navbar-home {
+  max-width: 1165px;
+  width: 100%;
+  margin: 0 auto;
+  height: 90px;
+
+  .home-nav-right {
+    max-width: 430px;
   }
 }
