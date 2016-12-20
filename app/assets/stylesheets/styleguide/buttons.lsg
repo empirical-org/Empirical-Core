@@ -12,6 +12,9 @@
   .lsg-html {
     background-color: #dedede;
   }
+  a {
+    margin: 5px;
+  }
 }
 ```
 
