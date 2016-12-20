@@ -32,17 +32,6 @@ a.q-button {
 }
 
 
-.bg-white {
-  background-color: $white;
-}
-
-.bg-dark-green {
-   background-color: $quillforestgreen;
-}
-
-.bg-q-green {
-   background-color: $quillgreen;
-}
 
 $list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2);
 
@@ -50,22 +39,10 @@ $list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue:
   .text-#{$name} {
     color: $color;
   }
+  .bg-#{$name} {
+    background-color: $color;
+  }
+  .border-#{$name} {
+    border: 1px solid $color;
+  }
 }
-
-
-
-
-// .text-white {
-//   color: white;
-//   border: white;
-// }
-
-// .text-blue {
-//   color: $quillblue;
-//   border: white;
-// }
-//
-// .text-q-green {
-//   color: $quillgreen;
-//   border: $quillgreen;
-// }
