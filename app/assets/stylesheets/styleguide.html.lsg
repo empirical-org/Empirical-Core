@@ -1,7 +1,7 @@
-// Replace with your default Sass/SCSS file name:
+<!--- Replace with your default Sass/SCSS file name:) -->
 @scss ./variables.scss
 
-// Set the HTML title of the document:
+<!---  // Set the HTML title of the document: -->
 @title Quill Style Guide
 @head {
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -13,7 +13,10 @@
 @javascript-after application
 
 
-// Import all your style guide files
-// @import **/*.lsg
+# Quill.org Living Style Guide
+
+<!--- // Import all your style guide files
+// @import **/*.lsg -->
 @import ./styleguide/colors.lsg
 @import ./styleguide/buttons.lsg
+@import ./styleguide/typography.lsg
