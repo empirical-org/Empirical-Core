@@ -1,4 +1,4 @@
-@import '../../../../app/assets/stylesheets/variables.scss';
+// @import '../../../../app/assets/stylesheets/variables.scss';
 
 .tool-section {
   min-height: 650px;
@@ -22,7 +22,7 @@
     }
   }
   .tool {
-    color: white;
+    color: $white;
     max-width: 1322px;
     min-height: 650px;
     width: 100%;
