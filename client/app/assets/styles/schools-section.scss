@@ -55,3 +55,25 @@
 
   }
 }
+
+.features-section {
+  padding: 100px 0 36px;
+  .features {
+    max-width: 1038px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    .feature {
+      width: 330px;
+      margin: 0 8px 45px;
+      .feature-heading {
+        font-weight: bold;
+      }
+      .feature-sub-heading {
+        font-size: 15px;
+        color: #666666;
+        line-height: 1.47;
+      }
+    }
+  }
+}
