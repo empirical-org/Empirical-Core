@@ -1,0 +1,57 @@
+.schools-section {
+  // min-height: 311px;
+  background-color: #f8f9f9;
+  padding-top: 54px;
+  padding-bottom: 87px;
+  p {
+    margin-bottom: 30px;
+    font-size: 20px;
+    line-height: 20px;
+    // font-weight: 600;
+    text-align: center;
+    font-family: $family-sans-serif;
+    color: #343434;
+  }
+  .schools {
+    display: flex;
+    justify-content: center;
+    img {
+      margin: 0 5px;
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.17);
+    }
+
+  }
+}
+
+.curriculum-section {
+  // min-height: 311px;
+  background-color: $quillgreen;
+  padding-top: 54px;
+  padding-bottom: 87px;
+  p {
+    margin-bottom: 30px;
+    font-size: 20px;
+    line-height: 20px;
+    // font-weight: 600;
+    text-align: center;
+    font-family: $family-sans-serif;
+    color: $white;
+  }
+  .concepts {
+    margin: 0 auto;
+    max-width: 1240px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .concept-link {
+      font-size: 14px;
+      margin: 0 7px 15px;
+      color: $white;
+      background-color: $quillforestgreen;
+      border-radius: 6px;
+      line-height: 20px;
+      padding: 10px 15px 7px;
+    }
+
+  }
+}
