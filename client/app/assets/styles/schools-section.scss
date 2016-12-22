@@ -77,3 +77,22 @@
     }
   }
 }
+
+.press-section {
+  min-height: 386px;
+  background-color: beige;
+  .press-links {
+    max-width: 1033px;
+    width: 100%auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 127px;
+    border-bottom: 2px solid rgba($white, 0.17);
+  }
+  .press-cta {
+    text-align: center;
+    margin-top: 77px;
+  }
+}
