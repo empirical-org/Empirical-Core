@@ -145,5 +145,8 @@ nav.q-navbar-home {
     letter-spacing: 0.1px;
     line-height: 92px;
     margin: 0;
+    .hero-footer-underline {
+      border-bottom: 2px solid $quillgreen;
+    }
   }
 }
