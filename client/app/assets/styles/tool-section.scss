@@ -49,7 +49,6 @@
   .video-section {
     height: 100%;
     align-self: center;
-
   }
 }
 
@@ -57,17 +56,25 @@
   text-align: center;
 }
 
-.tool-hero {
-  min-height: 266px;
+.tool-hero, .tool-try-it {
+  min-height: 166px;
+  padding: 20px 0px 45px 0px;
   color: white;
-  padding: 20px;
   .q-h1 {
     font-size: 36px;
   }
+}
+
+.tool-try-it {
+  padding-bottom: 19px;
+}
+
+.tool-hero {
   .description {
     margin: auto;
     max-width: 560px;
     font-size: 18px;
+    margin-bottom: 10px;
     line-height: 25px;
   }
 }
@@ -84,31 +91,90 @@
 
 
 .tool-testimonial {
+  padding: 54px 0 58px 0;
   .quote {
+    padding-top: 13px;
     margin: auto;
     max-width: 762px;
     font-size: 21px;
+    line-height: 1.5em;
+    color: #3f3f3f;
+
   }
   .q-button {
+    margin-top: 10px;
     border: solid 1px #979797;
     span {
       line-height: 30px;
-      font-weight: 600;
+      font-weight: 500;
       padding-right: 10px;
       padding-left: 10px;
     }
-  }
-}
-.tool-try-it {
-  h2 {
-    font-size: 36px;
   }
 }
 
 .tool-sign-up {
   background-color: #f8f9f9;
   min-height: 266px;
+  padding-top: 54px;
   .q-h1 {
     font-size: 28px
+  }
+  .q-button {
+    margin-top: 34px;
+  }
+}
+
+// all for diagnostic page
+.diagnostic-walk-thru-wrapper {
+  background-color: white;
+  .walk-thru-step {
+    height: 322px;
+    &:nth-child(odd) {background-color: #f8f9f9}
+    .q-h2 {
+      font-size: 28px;
+      color: #343434;
+    }
+    p {
+      font-size: 18px;
+      line-height: 1.39;
+      color: #414141;
+      max-width: 457px;
+    }
+    .diagnostic-blurb {
+      max-width: 457px;
+      text-align: left;
+    }
+    .diagnostic-content-wrapper {
+      max-width: 960px;
+      width: 100%;
+      margin: auto;
+    }
+  }
+  #negative-left-margin {
+    margin-left: -90px;
+  }
+  &.desktop {
+    @media (max-width: 930px) {
+      display: none;
+    }
+  }
+  &.mobile {
+    @media (min-width: 930px) {
+      display: none;
+    }
+    #shrink-me {
+      width: 100%;
+      max-width: 517px;
+    }
+    .walk-thru-step {
+      height: auto;
+      padding: 55px 10px 35px 10px;
+    }
+    .diagnostic-blurb {
+      padding-top: 45px;
+      margin: auto;
+      text-align: center;
+    }
   }
 }

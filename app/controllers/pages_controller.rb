@@ -71,7 +71,7 @@ class PagesController < ApplicationController
   def board
   end
 
-  def diagnostic_landing_page
+  def diagnostic_tool
   end
 
   def activities
@@ -92,7 +92,7 @@ class PagesController < ApplicationController
       'home'
     when 'home_new'
       'twenty_seventeen_home'
-    when 'diagnostic_landing_page'
+    when 'diagnostic_tool'
       'twenty_seventeen_home'
     end
   end
