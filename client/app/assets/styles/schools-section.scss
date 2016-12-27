@@ -15,11 +15,23 @@
   .schools {
     display: flex;
     justify-content: center;
-    img {
-      margin: 0 5px;
+    flex-wrap: wrap;
+    .schools-img-container {
+      background-color: white;
+      height: 100px;
+      width: 197px;
+      margin: 5px 5px;
       box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.17);
+      position: relative;
+      img {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
     }
-
   }
 }
 
