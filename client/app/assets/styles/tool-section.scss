@@ -125,6 +125,21 @@
   }
 }
 
+// carousel section
+.carousel {
+  .item {
+    height: 680px;
+    img {
+      margin: auto;
+    }
+  }
+  .carousel-indicators {
+        background: black;
+  }
+}
+
+
+
 // all for diagnostic page
 .diagnostic-walk-thru-wrapper {
   background-color: white;
