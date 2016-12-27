@@ -1,0 +1,12 @@
+#Images
+
+### Headshots
+
+```
+<img class='q-headshot' src="/images/daniel_scibienski_90.png">
+@css {
+  .lsg-html {
+    background-color: #dedede;
+  }
+}
+```

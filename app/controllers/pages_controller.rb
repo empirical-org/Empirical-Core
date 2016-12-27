@@ -71,6 +71,9 @@ class PagesController < ApplicationController
   def board
   end
 
+  def diagnostic_landing_page
+  end
+
   def activities
     @body_class = 'full-width-page white-page'
     @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
@@ -88,6 +91,8 @@ class PagesController < ApplicationController
     when 'home'
       'home'
     when 'home_new'
+      'twenty_seventeen_home'
+    when 'diagnostic_landing_page'
       'twenty_seventeen_home'
     end
   end

@@ -52,3 +52,63 @@
 
   }
 }
+
+.tool-container {
+  text-align: center;
+}
+
+.tool-hero {
+  min-height: 266px;
+  color: white;
+  padding: 20px;
+  .q-h1 {
+    font-size: 36px;
+  }
+  .description {
+    margin: auto;
+    max-width: 560px;
+    font-size: 18px;
+    line-height: 25px;
+  }
+}
+
+.tool-animation-section {
+  .animation-wrapper {
+    max-width: 641px;
+    width: 100%;
+  }
+  .tool-animation {
+    margin: auto;
+  }
+}
+
+
+.tool-testimonial {
+  .quote {
+    margin: auto;
+    max-width: 762px;
+    font-size: 21px;
+  }
+  .q-button {
+    border: solid 1px #979797;
+    span {
+      line-height: 30px;
+      font-weight: 600;
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+  }
+}
+.tool-try-it {
+  h2 {
+    font-size: 36px;
+  }
+}
+
+.tool-sign-up {
+  background-color: #f8f9f9;
+  min-height: 266px;
+  .q-h1 {
+    font-size: 28px
+  }
+}
