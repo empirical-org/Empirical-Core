@@ -21,3 +21,4 @@
 @import ./styleguide/buttons.lsg
 @import ./styleguide/typography.lsg
 @import ./styleguide/grid.lsg
+@import ./styleguide/images.lsg

@@ -87,7 +87,7 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, darkgray: $darkgray, purple: $purple, brickred: $brickred);
+$list: (quillgreen: $quillgreen, quillred: $quillred, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, darkgray: $darkgray, purple: $purple);
 
 @each $name, $color in $list {
   .text-#{$name} {
@@ -110,6 +110,15 @@ $list: (quillgreen: $quillgreen, quillforestgreen: $quillforestgreen, quillblue:
   }
   .border-dashed-#{$name} {
     border: 1px dashed $color;
+  }
+}
+
+$background-images-list: (diagnostic-pattern);
+
+@each $background-image in $background-images-list {
+  .bg-image-#{$background-image} {
+    background-image: url("/images/background_images/#{$background-image}.png");
+    background-repeat: repeat;
   }
 }
 
@@ -150,4 +159,10 @@ nav.q-navbar-home {
       border-bottom: 2px solid $quillgreen;
     }
   }
+}
+
+.q-headshot {
+  border-radius: 50%;
+  height: 90px;
+  width: 90px;
 }
