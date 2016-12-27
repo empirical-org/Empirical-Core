@@ -1,4 +1,4 @@
-#Images
+# Images
 
 ### Headshots
 
@@ -7,6 +7,18 @@
 @css {
   .lsg-html {
     background-color: #dedede;
+  }
+}
+```
+
+### Background Images
+
+```
+<div class='bg-image-diagnostic-pattern sample'></div>
+@css {
+  .sample {
+    height: 100px;
+    width: 100%;
   }
 }
 ```
