@@ -57,7 +57,7 @@
 }
 
 .features-section {
-  padding: 100px 0 36px;
+  padding: 90px 0 36px;
   .features {
     max-width: 1038px;
     margin: 0 auto;
@@ -65,7 +65,15 @@
     flex-wrap: wrap;
     .feature {
       width: 330px;
-      margin: 0 8px 45px;
+      margin: 0 8px 35px;
+      .feature-img-container {
+        height: 50px;
+        position: relative;
+        img {
+          position: absolute;
+          bottom: 0;
+        }
+      }
       .feature-heading {
         font-weight: bold;
       }
