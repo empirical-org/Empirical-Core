@@ -1,10 +1,12 @@
 @import '../../../../app/assets/stylesheets/variables.scss';
 @import './typography.scss';
 @import './tool-section.scss';
+@import './schools-section.scss';
 body {
   background-color: $white;
   margin: 0;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -33,7 +35,7 @@ a.q-button {
     padding-right: 33px;
     border: none;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: bold;
   }
   &.small-button {
     font-size: 14px;
@@ -43,6 +45,26 @@ a.q-button {
 .flex-row {
   display: flex;
   flex-wrap: wrap;
+  &.centered {
+    justify-content: center;
+  }
+  &.space-around {
+    justify-content: space-around;;
+  }
+  &.space-between {
+    justify-content: space-between;
+  }
+  &.flex-end {
+    justify-content: flex-end;
+  }
+  &.vertically-centered {
+    align-items: center;
+  }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
   &.centered {
     justify-content: center;
   }
@@ -103,5 +125,28 @@ nav.q-navbar-home {
 
   .home-nav-right {
     max-width: 430px;
+    width: 100%;
+  }
+}
+
+.q-hero-text {
+  text-align: center;
+  p {
+    font-size: 20px;
+  }
+}
+
+.q-hero-footer {
+  height: 92px;
+  text-align: center;
+  background-color: #027360;
+  p {
+    font-size: 20px;
+    letter-spacing: 0.1px;
+    line-height: 92px;
+    margin: 0;
+    .hero-footer-underline {
+      border-bottom: 2px solid $quillgreen;
+    }
   }
 }

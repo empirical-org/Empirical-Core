@@ -1,4 +1,4 @@
-<section class="q-hero bg-quillgreen">
+<section class="q-hero bg-quillgreen flex-column space-between">
   <nav class="q-navbar-home flex-row space-between vertically-centered">
     <div>
       <a href=<%= root_path %>>
@@ -7,16 +7,31 @@
     </div>
     <div class="home-nav-right flex-row space-between vertically-centered">
       <a href="/" class="text-white">Tools</a>
-      <a href="/" class="text-white">Resourses</a>
+      <a href="/" class="text-white">Resources</a>
       <a href="/" class="text-white">Our Story</a>
       <a href="/" class="text-white">Login</a>
       <a href="/" class="q-button text-white">Sign Up</a>
     </div>
   </nav>
+  <div class="q-hero-text">
+    <h1 class="q-h1 text-white">Free tools to make your students better writers.</h1>
+    <p class="text-white">
+      Quill provides free writing and grammar activities
+      <br/>
+      for middle and high school students.
+    </p>
+    <a class="q-button cta-button text-quillgreen bg-white">Sign Up</a>
+  </div>
+  <div class="q-hero-footer">
+    <p class="text-white">
+      <span class="hero-footer-underline">200,000</span> students have answered <span class="hero-footer-underline">20 million</span> questions on Quill.
+    </p>
+  </div>
+
 </section>
 
 <section class='tool-section bg-orange'>
-  <div class="tool connect-tool flex-row centered flex-row centered">
+  <div class="tool connect-tool flex-row centered flex-row space-between">
     <div class='info-section'>
       <h2 class='q-h2'>Quill Connect</h2>
       <p class='blurb'>Help your students advance from fragmented and run-on sentences to complex and well-structured sentences.</p>
@@ -26,27 +41,31 @@
         multiple ideas into a single sentence. They then receive instant feedback
         designed to help them improve the clarity and precision of their sentences.
       </p>
-      <a href="" class="q-button icon-button text-white">Try a Sample Activity</a>
+      <a href="" class="q-button icon-button text-white">Try a Sample Activity <i class='fa fa-long-arrow-right'></i></a>
     </div>
-    <div class='video-section'></div>
+    <div class='video-section'>
+      <img src="https://www.fillmurray.com/614/488"/>
+    </div>
 
   </div>
 
 </section>
 
-<section class='tool-section bg-brickred'>
-  <div class="tool diagnostic-tool flex-row centered">
-    <div class='video-section'></div>
-    <div class='info-section'>
+<section class='tool-section bg-darkred'>
+  <div class="tool diagnostic-tool flex-row space-between">
+    <div class='video-section'>
+      <img src="https://www.fillmurray.com/614/488"/>
+    </div>
+    <div class='info-section right'>
       <h2 class='q-h2'>Quill Diagnostic</h2>
       <p class='blurb'>
-        Lorem ipsum dolor sit amet, consectetur
+        Quickly determine which skills your students need to work on with our 22 question diagnostic.
       </p>
       <div class="light-bar"></div>
       <p class='summary'>
-
+        The diagnostic covers vital sentence construction skills and generates a personalized learning plan based on the student’s performance.
       </p>
-      <a href="" class="q-button icon-button"></a>
+      <a href="" class="q-button icon-button text-white">Try the Diagnostic <i class='fa fa-long-arrow-right'></i></a>
     </div>
 
   </div>
@@ -54,35 +73,120 @@
 </section>
 
 <section class='tool-section bg-quillblue'>
-  <div class="tool proofreader-tool flex-row centered">
+  <div class="tool proofreader-tool flex-row space-between">
     <div class='info-section'>
       <h2 class='q-h2'>Quill Proofreader</h2>
-      <p class='blurb'>Lorem ipsum dolor sit amet, consectetur </p>
+      <p class='blurb'>Proofreader teaches your students editing skills by having them proofread passages.
+</p>
       <div class="light-bar"></div>
       <p class='summary'>
-
+        Students edit passages and receive personalized exercises based on their results. With over 100 expository passages, Proofreader gives students the practice they need to spot common grammatical errors.
       </p>
-      <a href="" class="q-button icon-button"></a>
+      <a href="" class="q-button icon-button text-white">Try a Sample Activity <i class='fa fa-long-arrow-right'></i></a>
     </div>
-    <div class='video-section'></div>
+    <div class='video-section'>
+      <img src="https://www.fillmurray.com/614/488"/>
+    </div>
 
   </div>
 
 </section>
 
 <section class='tool-section bg-purple'>
-  <div class="tool grammar-tool flex-row centered">
-    <div class='video-section'></div>
-    <div class='info-section'>
+  <div class="tool grammar-tool flex-row space-between">
+    <div class='video-section'>
+      <img src="https://www.fillmurray.com/614/488"/>
+    </div>
+    <div class='info-section right'>
       <h2 class='q-h2'>Quill Grammar</h2>
-      <p class='blurb'>Lorem ipsum dolor sit amet, consectetur </p>
+      <p class='blurb'>Students practice basic grammar skills, from comma placement to parallel structure.</p>
       <div class="light-bar"></div>
       <p class='summary'>
-
+Quill Grammar has over 150 sentence writing activities to help your students. Our activities are designed to be completed in 10 minutes so you have the freedom to use them in the way that works best for your classroom.
       </p>
-      <a href="" class="q-button icon-button"></a>
+      <a href="" class="q-button icon-button text-white">Try a Sample Activity <i class='fa fa-long-arrow-right'></i></a>
     </div>
 
   </div>
 
+</section>
+
+<section class="schools-section">
+  <p>Join over 2,000 schools using Quill to advance student writing.</p>
+  <div class="schools">
+    <img src="https://www.fillmurray.com/197/100"/>
+    <img src="https://www.fillmurray.com/197/100"/>
+    <img src="https://www.fillmurray.com/197/100"/>
+    <img src="https://www.fillmurray.com/197/100"/>
+    <img src="https://www.fillmurray.com/197/100"/>
+  </div>
+</section>
+
+<section class="curriculum-section">
+  <p>Over 100 concepts totaling 50 hours of quality curriculum.</p>
+  <div class="concepts">
+    <a class="concept-link" href="">Run-ons</a>
+    <a class="concept-link" href="">Fragments</a>
+    <a class="concept-link" href="">Subordinating Conjunctions</a>
+    <a class="concept-link" href="">Coordinating Conjuntions</a>
+    <a class="concept-link" href="">Commas</a>
+    <a class="concept-link" href="">Prepositons</a>
+    <a class="concept-link" href="">Pronoun Reference</a>
+    <a class="concept-link" href="">Subject-Verb Agreement</a>
+    <a class="concept-link" href="">Verb Tense</a>
+    <a class="concept-link" href="">Commonly Confused Words</a>
+    <a class="concept-link" href="">Progressives</a>
+    <a class="concept-link" href="">Irregular Plurals</a>
+    <a class="concept-link" href="">Parrallel Structure</a>
+    <a class="concept-link" href="">Capitalization</a>
+    <a class="concept-link" href="">+ 85 More!</a>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="features">
+    <div class="feature">
+      <img src="https://www.fillmurray.com/40/40" alt=""/>
+      <p class="feature-heading">Intervene where students struggle</p>
+      <p class="feature-sub-heading">See exactly where your students need intervention with our comprehensive reports.</p>
+    </div>
+    <div class="feature">
+      <img src="https://www.fillmurray.com/40/40" alt=""/>
+      <p class="feature-heading">Easily sign up with Google Classroom</p>
+      <p class="feature-sub-heading">MISSING COPY</p>
+    </div>
+    <div class="feature">
+      <img src="https://www.fillmurray.com/40/40" alt=""/>
+      <p class="feature-heading">Get immediate feedback for your students</p>
+      <p class="feature-sub-heading">Save time grading and watch your students correct their mistakes instantly.</p>
+    </div>
+    <div class="feature">
+      <img src="https://www.fillmurray.com/40/40" alt=""/>
+      <p class="feature-heading">Engage students with adaptive activities</p>
+      <p class="feature-sub-heading">Challenge students with questions that automatically adapt based on their previous responses.</p>
+    </div>
+    <div class="feature">
+      <img src="https://www.fillmurray.com/40/40" alt=""/>
+      <p class="feature-heading">Differentiate learning to meet the <br/>needs of all students</p>
+      <p class="feature-sub-heading">Assign specific activities for ELLs and students with learning differences.</p>
+    </div>
+    <div class="feature">
+      <img src="https://www.fillmurray.com/40/40" alt=""/>
+      <p class="feature-heading">Align with the Common Core Standards</p>
+      <p class="feature-sub-heading">Easily meet Common Core language standards with our aligned activities.</p>
+    </div>
+  </div>
+</section>
+
+<section class="press-section">
+  <div class="press-links">
+    <img src="https://www.fillmurray.com/200/50"/>
+    <img src="https://www.fillmurray.com/195/40"/>
+    <img src="https://www.fillmurray.com/150/20"/>
+    <img src="https://www.fillmurray.com/200/60"/>
+    <img src="https://www.fillmurray.com/190/36"/>
+  </div>
+  <div class="press-cta">
+    <a class="q-button cta-button bg-quillgreen text-white">Get Started</a>
+  </div>
 </section>

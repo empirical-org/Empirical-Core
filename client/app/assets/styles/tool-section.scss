@@ -1,6 +1,8 @@
-@import '../../../../app/assets/stylesheets/variables.scss';
+// @import '../../../../app/assets/stylesheets/variables.scss';
 
 .tool-section {
+  min-height: 650px;
+
   .q-h2 {
     font-size: 28px;
     margin-bottom: 10px;
@@ -9,10 +11,22 @@
   .info-section {
     width: 500px;
     margin-top: 142px;
+    margin-left: 76px;
+    &.right {
+      margin-left: 150px;
+      flex-grow: 1;
+      > * {
+        max-width: 465px;
+      }
+
+    }
   }
   .tool {
-    color: white;
+    color: $white;
     max-width: 1322px;
+    min-height: 650px;
+    width: 100%;
+    margin: 0 auto;
   }
   .blurb {
     font-size: 18px;
@@ -30,5 +44,11 @@
     line-height: 1.53;
     max-width: 420px;
     font-weight: 200;
+    margin-bottom: 48px;
+  }
+  .video-section {
+    height: 100%;
+    align-self: center;
+
   }
 }
