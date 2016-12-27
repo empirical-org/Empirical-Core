@@ -81,6 +81,9 @@
 .press-section {
   min-height: 386px;
   background-color: beige;
+  background-image: url(/images/homepage/quill_laptop.jpg);
+  background-size: cover;
+  background-position: center center;
   .press-links {
     max-width: 1033px;
     width: 100%auto;
@@ -159,5 +162,26 @@
       }
     }
 
+  }
+
+  .partners-footer {
+    padding-top: 35px;
+    color: #e1e1e1;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.93;
+    height: 29px;
+    max-width: 1030px;
+    margin: 0 auto;
+    .partner-links {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      > img {
+        flex: 1 1 auto;
+        overflow-y: auto;
+      }
+    }
   }
 }
