@@ -1,8 +1,9 @@
+@import './bootstrap-carousel.scss';
 @import '../../../../app/assets/stylesheets/variables.scss';
 @import './typography.scss';
 @import './tool-section.scss';
 @import './schools-section.scss';
-@import './bootstrap-carousel.css';
+
 body {
   background-color: $white;
   margin: 0;
