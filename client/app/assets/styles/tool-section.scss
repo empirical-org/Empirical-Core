@@ -265,3 +265,61 @@ $tool-grey: #f8f9f9;
         }
     }
 }
+
+.bg-tool-orange {
+  background-color: #EA9A1A;
+}
+.bg-tool-red {
+  background-color: #ff4441;
+}
+.bg-tool-blue {
+  background-color: #358FE0;
+}
+.bg-tool-purple {
+  background-color: #9C2ADE;
+}
+
+.bow-chrome {
+  .bg-tool-orange {
+    background-color: #E09D3D;
+  }
+  .bg-tool-red {
+    background-color: #EE544B;
+  }
+  .bg-tool-blue {
+    background-color: #498FD9;
+  }
+  .bg-tool-purple {
+    background-color: #8F3DD6;
+  }
+}
+
+.bow-safari {
+  .bg-tool-orange {
+    background-color: #EA9A1A;
+  }
+  .bg-tool-red {
+    background-color: #ff4441;
+  }
+  .bg-tool-blue {
+    background-color: #358FE0;
+  }
+  .bg-tool-purple {
+    background-color: #9C2ADE;
+  }
+}
+
+.bow-firefox {
+  .bg-tool-orange {
+    background-color: #DF8E20;
+  }
+  .bg-tool-red {
+    background-color: #EE283B;
+  }
+  .bg-tool-blue {
+    background-color: #3387D7;
+  }
+  .bg-tool-purple {
+    background-color: #890ED2;
+  }
+}

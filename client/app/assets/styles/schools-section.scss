@@ -15,11 +15,23 @@
   .schools {
     display: flex;
     justify-content: center;
-    img {
-      margin: 0 5px;
+    flex-wrap: wrap;
+    .schools-img-container {
+      background-color: white;
+      height: 100px;
+      width: 197px;
+      margin: 5px 5px;
       box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.17);
+      position: relative;
+      img {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
     }
-
   }
 }
 
@@ -57,7 +69,7 @@
 }
 
 .features-section {
-  padding: 100px 0 36px;
+  padding: 90px 0 36px;
   .features {
     max-width: 1038px;
     margin: 0 auto;
@@ -65,7 +77,15 @@
     flex-wrap: wrap;
     .feature {
       width: 330px;
-      margin: 0 8px 45px;
+      margin: 0 8px 35px;
+      .feature-img-container {
+        height: 50px;
+        position: relative;
+        img {
+          position: absolute;
+          bottom: 0;
+        }
+      }
       .feature-heading {
         font-weight: bold;
       }
@@ -81,6 +101,9 @@
 .press-section {
   min-height: 386px;
   background-color: beige;
+  background-image: url(/images/homepage/quill_laptop.jpg);
+  background-size: cover;
+  background-position: center center;
   .press-links {
     max-width: 1033px;
     width: 100%auto;
@@ -159,5 +182,26 @@
       }
     }
 
+  }
+
+  .partners-footer {
+    padding-top: 35px;
+    color: #e1e1e1;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.93;
+    height: 29px;
+    max-width: 1030px;
+    margin: 0 auto;
+    .partner-links {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      > img {
+        flex: 1 1 auto;
+        overflow-y: auto;
+      }
+    }
   }
 }
