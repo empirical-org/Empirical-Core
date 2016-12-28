@@ -1,5 +1,5 @@
 // @import '../../../../app/assets/stylesheets/variables.scss';
-
+$tool-grey: #f8f9f9;
 .tool-section {
   min-height: 650px;
 
@@ -54,6 +54,42 @@
 
 .tool-container {
   text-align: center;
+}
+
+.tool-carousel {
+  background-color: $tool-grey;
+  .carousel {
+    max-width: 1322px;
+    margin: auto;
+    min-height: 389px;
+    .item {
+      img {
+        margin: auto;
+        max-width: 910px;
+        max-height: 562px;
+        width: 75%;
+      }
+      p {
+          max-width: 600px;
+          width: 75%;
+          margin: auto;
+      }
+      padding-bottom: 90px;
+    }
+
+    .carousel-indicators {
+      background: black;
+    }
+    .carousel-control {
+      opacity: 1;
+    }
+    .left {
+      background: $tool-grey url("/images/carousel/chevron_left.svg") no-repeat center;
+    }
+    .right {
+      background: url("/images/carousel/chevron_right.svg") no-repeat center;
+    }
+  }
 }
 
 .tool-hero, .tool-try-it {
@@ -113,8 +149,10 @@
   }
 }
 
+
+
 .tool-sign-up {
-  background-color: #f8f9f9;
+  background-color: $tool-grey;
   min-height: 266px;
   padding-top: 54px;
   .q-h1 {
@@ -125,18 +163,6 @@
   }
 }
 
-// carousel section
-.carousel {
-  .item {
-    height: 680px;
-    img {
-      margin: auto;
-    }
-  }
-  .carousel-indicators {
-        background: black;
-  }
-}
 
 
 
@@ -145,7 +171,7 @@
   background-color: white;
   .walk-thru-step {
     height: 322px;
-    &:nth-child(odd) {background-color: #f8f9f9}
+    &:nth-child(odd) {background-color: $tool-grey}
     .q-h2 {
       font-size: 28px;
       color: #343434;
