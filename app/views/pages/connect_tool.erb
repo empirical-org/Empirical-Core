@@ -1,0 +1,102 @@
+<div class="tool-container">
+
+    <section class='bg-connect-yellow bg-image-connect-pattern tool-hero text-center'>
+      <h1 class="q-h1">
+        Quill Connnect
+      </h1>
+      <p class='description'>
+        Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect. Using the evidence-based strategy of sentence combining, students combine multiple ideas into a single sentence. They then receive instant feedback designed to help them improve the clarity and precision of their sentences.
+      </p>
+    </section>
+
+    <!-- <section class="tool-animation-section ">
+          <video class='tool-animation' src="/videos/diagnostic_animation.mp4" autoplay loop/>
+    </section> -->
+
+  <section class="tool-carousel">
+      <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
+
+          <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+              <div class="item active">
+                <div class="wrapper">
+                  <img src="/images/tools/diagnostic/test-screenshot.png" alt="Chania">
+                </div>
+                <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p>
+              </div>
+
+              <div class="item">
+                <div class="wrapper">
+                  <img src="http://www.w3schools.com/bootstrap/img_chania2.jpg" alt="Chania">
+                </div>
+                <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p>
+              </div>
+
+              <div class="item">
+                <div class="wrapper">
+                  <img src="http://www.w3schools.com/bootstrap/img_flower.jpg" alt="Flower">
+                </div>
+                <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p>
+              </div>
+
+              <div class="item">
+                <div class="wrapper">
+                  <img src="http://www.w3schools.com/bootstrap/img_flower2.jpg" alt="Flower">
+                </div>
+                <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p>
+              </div>
+
+          </div>
+
+          <!-- Left and right controls -->
+
+          <a class="right carousel-control" href="#diagnosticCarousel" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+              <li data-target="#diagnosticCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
+              <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
+              <li data-target="#diagnosticCarousel" data-slide-to="3"></li>
+          </ol>
+
+      </div>
+  </section>
+
+  <section class="tool-try-it bg-connect-yellow bg-image-connect-pattern">
+    <h2 class='q-h1'>Try It Yourself!</h2>
+    <a href='/' class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
+  </section>
+
+  <section class="tool-testimonial">
+    <img class='q-headshot' src="/images/daniel_scibienski_90.png" alt="Daniel Scibienski">
+    <p class='quote'>
+      "Using Quill has opened up more conversations between me and my students, in terms of how to write better and what the student needs to practice."
+    </p>
+    <h4 class="q-h4 author">
+      MADISON VALDEZ, 8TH GRADE ELA EDUCATOR
+    </h4>
+    <a href="/" class='q-button text-black'>
+      <span>View My Story</span>
+    </a>
+  </section>
+
+<!-- Only how if user is not logged in  -->
+  <%if !current_user%>
+    <section class="tool-sign-up">
+        <h1 class='q-h1'>
+            Sign up to start using Place Holder in your class today!
+        </h1>
+        <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+    </section>
+  <%end%>
+
+</div>

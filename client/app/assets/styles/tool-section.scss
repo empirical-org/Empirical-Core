@@ -1,6 +1,8 @@
 // @import '../../../../app/assets/stylesheets/variables.scss';
 $tool-grey: #f8f9f9;
 
+
+
 .tool-section {
     min-height: 650px;
 
@@ -62,6 +64,12 @@ $tool-grey: #f8f9f9;
 
 .tool-container {
     text-align: center;
+    .bg-connect-yellow {
+      background-color: #ea9a1a;
+    }
+    .text-connect-yellow {
+      color: #ea9a1a;
+    }
 }
 
 .tool-carousel {

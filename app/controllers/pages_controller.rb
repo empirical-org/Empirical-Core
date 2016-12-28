@@ -74,6 +74,15 @@ class PagesController < ApplicationController
   def diagnostic_tool
   end
 
+  def grammar_tool
+  end
+
+  def proofreader_tool
+  end
+
+  def connect_tool
+  end
+
   def activities
     @body_class = 'full-width-page white-page'
     @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
@@ -90,9 +99,7 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'home_new'
-      'twenty_seventeen_home'
-    when 'diagnostic_tool'
+    when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool'
       'twenty_seventeen_home'
     end
   end
