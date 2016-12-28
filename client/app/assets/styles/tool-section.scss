@@ -136,13 +136,14 @@ $tool-grey: #f8f9f9;
 }
 
 .tool-try-it {
-    padding-bottom: 6px;
+    padding-bottom: 50px;
 }
 
 .tool-hero {
     .description {
         margin: auto;
         max-width: 560px;
+        width: 95%;
         font-size: 18px;
         margin-bottom: 10px;
         line-height: 25px;
@@ -150,20 +151,16 @@ $tool-grey: #f8f9f9;
 }
 
 .tool-animation-section {
-    .animation-wrapper {
-        max-width: 641px;
-        width: 100%;
-    }
-
     .tool-animation {
         margin: auto;
+        padding: 32px 15px 40px 15px;
     }
 }
 
 .tool-testimonial {
     padding: 54px 0 58px;
-
     .quote {
+        width: 95%;
         padding-top: 13px;
         margin: auto;
         max-width: 762px;
@@ -228,8 +225,12 @@ $tool-grey: #f8f9f9;
 
         .diagnostic-content-wrapper {
             max-width: 960px;
-            width: 100%;
+            width: 95%;
             margin: auto;
+        }
+
+        img {
+          max-width: 100%;
         }
     }
 
