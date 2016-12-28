@@ -205,3 +205,26 @@
     }
   }
 }
+
+.how-section {
+  padding: 60px 0 75px 0;
+  h3 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #343434;
+  }
+
+  .how-setup {
+    display: flex;
+
+  }
+
+  .how-img-container {
+    max-width: 402px;
+    width: 100%;
+    height: 200px;
+    position: relative;
+    background-color: #3adfbb;
+  }
+}
