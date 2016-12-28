@@ -181,11 +181,14 @@
         </a>
     </section>
 
-    <section class="tool-sign-up">
-        <h1 class='q-h1'>
-            Sign up to start using Quill Diagnostic in your class today!
-        </h1>
-        <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
-    </section>
+    <!-- Only how if user is not logged in  -->
+      <%if !current_user%>
+        <section class="tool-sign-up">
+            <h1 class='q-h1'>
+                Sign up to start using Quill Diagnostic in your class today!
+            </h1>
+            <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+        </section>
+      <%end%>
 
 </div>

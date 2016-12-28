@@ -1,5 +1,5 @@
 <div class="tool-container">
-  
+
     <section class='bg-place-holder bg-image-place-holder tool-hero text-center'>
       <h1 class="q-h1">
         Place holder
@@ -89,11 +89,14 @@
     </a>
   </section>
 
-  <section class="tool-sign-up">
-    <h1 class='q-h1'>
-      Sign up to start using place holder in your class today!
-    </h1>
-    <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
-  </section>
+<!-- Only how if user is not logged in  -->
+  <%if !current_user%>
+    <section class="tool-sign-up">
+        <h1 class='q-h1'>
+            Sign up to start using Place Holder in your class today!
+        </h1>
+        <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+    </section>
+  <%end%>
 
 </div>
