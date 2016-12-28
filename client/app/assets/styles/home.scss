@@ -116,7 +116,7 @@ $list: (quillgreen: $quillgreen, quillred: $quillred, quillforestgreen: $quillfo
   }
 }
 
-$background-images-list: (diagnostic-pattern);
+$background-images-list: (diagnostic-pattern connect-pattern grammar-pattern proofreader-pattern);
 
 @each $background-image in $background-images-list {
   .bg-image-#{$background-image} {
