@@ -58,6 +58,7 @@ $tool-grey: #f8f9f9;
 
 .tool-carousel {
   background-color: $tool-grey;
+  padding-top: 55px;
   .carousel {
     max-width: 1322px;
     margin: auto;
@@ -70,24 +71,34 @@ $tool-grey: #f8f9f9;
         width: 75%;
       }
       p {
+          color: #343434;
+          padding-top: 25px;
           max-width: 600px;
           width: 75%;
           margin: auto;
+          font-size: 16px;
       }
-      padding-bottom: 90px;
+      padding-bottom: 130px;
     }
 
     .carousel-indicators {
-      background: black;
-    }
-    .carousel-control {
-      opacity: 1;
+      bottom: 48px;
+      li {
+        background-color: #cacaca;
+        &.active {
+          background-color: $quillgreen;
+        }
+      }
     }
     .left {
       background: $tool-grey url("/images/carousel/chevron_left.svg") no-repeat center;
     }
     .right {
       background: url("/images/carousel/chevron_right.svg") no-repeat center;
+    }
+    .carousel-control {
+      opacity: 1;
+      background-position-y: 37%;
     }
   }
 }
@@ -102,7 +113,7 @@ $tool-grey: #f8f9f9;
 }
 
 .tool-try-it {
-  padding-bottom: 19px;
+  padding-bottom: 6px;
 }
 
 .tool-hero {
