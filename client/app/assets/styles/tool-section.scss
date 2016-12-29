@@ -190,6 +190,24 @@ $tool-grey: #f8f9f9;
     }
 }
 
+.tools-tabs {
+  .small-screen {
+    display: none;
+  }
+  @media (max-width: 800px) {
+    .full-screen {
+      display: none;
+    }
+    .small-screen {
+      display: block;
+      li {
+        padding-left: 3%;
+        padding-right:3%;
+      }
+    }
+  }
+}
+
 .tool-sign-up {
     background-color: $tool-grey;
     min-height: 266px;

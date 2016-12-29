@@ -1,13 +1,5 @@
-<% @tabs = [
-  {name: 'Quill Connect', url: '/connect_tool'},
-  {name: 'Quill Diagnostic', url: '/diagnostic_tool'},
-  {name: 'Quill Proofreader', url: '/proofreader_tool'},
-  {name: 'Quill Grammar', url: '/grammar_tool'}
-  ]
-  @active_tab = 'Quill Connect'
-%>
-
-<%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab } %>
+<% @active_tab = 'Quill Connect' %>
+<%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
 
 <div class="tool-container">
 

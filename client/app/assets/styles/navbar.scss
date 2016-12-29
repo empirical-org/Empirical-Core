@@ -31,8 +31,10 @@
     cursor: pointer;
   }
 
+
+
   /* Advanced Checkbox Hack */
-  body { -webkit-animation: bugfix infinite 1s; }
+  // body { -webkit-animation: bugfix infinite 1s; }
   @-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
 
   input[type=checkbox] {
@@ -56,7 +58,6 @@
 
     a,
     label {
-      color:#ccc;
       text-decoration:none;
       font: 1.4em sans-serif;
       transition:color .3s ease-in-out;
@@ -67,31 +68,22 @@
       margin: 0 auto;
       width:100%;
       list-style:none;
+      position: absolute;
 
       > li {
         float:left;
         padding:.55em .55em;
         width:19%;
         text-align:center;
-        transition-duration: .3s;
-        transition-timing-function: ease-in-out;
-        transition-property: box-shadow, color;
-        box-shadow:
-          0 .05em .25em 0 rgba(0, 0, 0, .35)
-        ;
         cursor: pointer;
 
         &:hover {
-          background-color:rgba(0, 0, 0, .6);
-          color:#fff;
+          color: #3b3b3b;
           box-shadow:
             0 .05em .25em 0 rgba(0, 0, 0, .35),
             inset 0 0 0 2em rgba(0, 0, 0, .3)
           ;
 
-          > a {
-            color:#fff;
-          }
         }
         &:active {
           border-top: none;
@@ -105,12 +97,12 @@
 
   /* small screens */
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 501px) {
     nav[role="custom-dropdown"] {
       display: none;
     }
   }
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 500px) {
     .desktop-nav-list {
       display: none;
     }
@@ -129,7 +121,6 @@
         font-size:1.1em;
         margin:0;
         border: .15em solid rgba(60, 60, 60, .2);
-        background-image: $img_bg;
       }
 
       label:after {
@@ -150,7 +141,6 @@
 
         > li {
           width:100%;
-          opacity:.8;
           text-align:left;
 
           &:after {
