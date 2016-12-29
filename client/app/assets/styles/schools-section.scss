@@ -108,15 +108,39 @@
     max-width: 1033px;
     width: 100%auto;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     min-height: 127px;
     border-bottom: 2px solid rgba($white, 0.17);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    > img {
+      flex: 1 1 auto;
+      overflow-y: auto;
+    }
   }
   .press-cta {
     text-align: center;
     margin-top: 77px;
+  }
+
+  @media only screen and (max-width : 850px) {
+    min-height: 200px;
+    .press-links {
+      min-height: 60px;
+      > img {
+        margin: 0 10px;
+      }
+    }
+    .press-cta {
+      margin-top: 40px;
+    }
+  }
+
+  @media only screen and (max-width : 450px) {
+    .press-links > img {
+      margin: 0 5px;
+    }
   }
 }
 
