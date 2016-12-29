@@ -104,11 +104,11 @@ const playLessonQuestion = React.createClass({
   },
 
   getOptimalResponses() {
-    return getOptimalResponses(hashToCollection(this.props.responses));
+    return getOptimalResponses(hashToCollection(this.getResponses()));
   },
 
   getSubOptimalResponses() {
-    return getSubOptimalResponses(hashToCollection(this.props.responses));
+    return getSubOptimalResponses(hashToCollection(this.getResponses()));
   },
 
   get4MarkedResponses() {
