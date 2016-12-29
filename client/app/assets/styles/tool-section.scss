@@ -3,8 +3,6 @@
 .tool-section {
   min-height: 650px;
 
-
-
   .q-h2 {
     font-size: 28px;
     margin-bottom: 10px;
@@ -82,9 +80,45 @@
 
   @media only screen and (max-width : 850px) {
     padding: 15px;
+
+    .tool {
+      min-height: 450px;
+    }
+    .info-section {
+      margin-left: 35px;
+    }
     .info-section.right {
       margin-left: 15px;
-      margin-right: 35px;
+      margin-right: 15px;
+    }
+  }
+
+  @media only screen and (max-width : 730px) {
+    padding-bottom: 25px;
+    .tool {
+      flex-direction: column;
+      &.connect-tool, &.proofreader-tool {
+        flex-direction: column-reverse;
+      }
+    }
+
+    .info-section {
+      margin-left: 0px;
+      width: 100%;
+    }
+    .info-section.right {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    .light-bar {
+      margin-bottom: 0px;
+    }
+    .summary {
+      margin-bottom: 20px;
+    }
+
+    .icon-button {
+      display: block;
     }
   }
 }
