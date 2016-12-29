@@ -208,11 +208,14 @@
 
 .how-section {
   padding: 60px 0 75px 0;
+  max-width: 1020px;
+  margin: 0 auto;
   h3 {
     text-align: center;
     font-size: 28px;
     font-weight: bold;
     color: #343434;
+    margin-bottom: 83px;
   }
 
   .how-setup {
@@ -220,11 +223,77 @@
 
   }
 
+  .how-setup .how-img-container {
+    background-color: #3adfbb;
+  }
+  .how-choose .how-img-container {
+    background-color: #5aaef6;
+  }
+
+  .how-reporting .how-img-container {
+    background-color: #f5ba5b;
+  }
+
+  .how-setup, .how-choose, .how-reporting  {
+    h5 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #343434;
+      margin-bottom: 0px;
+      margin-top: 20px;
+    }
+
+    p {
+      margin-top: 10px;
+      width: 420px;
+      font-size: 18px;
+      line-height: 1.39;
+    	letter-spacing: 0.1px;
+    	color: #666666;
+
+    }
+
+  }
+
+  .how-step-2-3 {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+
+    .how-choose {
+      margin-top: 50px;
+    }
+
+    .how-reporting {
+      margin-top: 325px;
+    }
+  }
+
+
+
   .how-img-container {
     max-width: 402px;
     width: 100%;
     height: 200px;
     position: relative;
-    background-color: #3adfbb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    border-radius: 6px;
+    .setup-img {
+
+    }
+    .line {
+      position: absolute;
+      top: 105%;
+      left: 50%;
+    }
+    .line-2 {
+      position: absolute;
+      bottom: 105%;
+      left: 50%;
+    }
   }
 }
