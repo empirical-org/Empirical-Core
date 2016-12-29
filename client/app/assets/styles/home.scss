@@ -1,8 +1,10 @@
 @import './bootstrap-carousel.scss';
+@import './navbar.scss';
 @import '../../../../app/assets/stylesheets/variables.scss';
 @import './typography.scss';
 @import './tool-section.scss';
 @import './schools-section.scss';
+
 
 body {
   background-color: $white;
@@ -90,7 +92,7 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillred: $quillred, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, darkgray: $darkgray, purple: $purple);
+$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, darkgray: $darkgray, purple: $purple);
 
 @each $name, $color in $list {
   .text-#{$name} {
