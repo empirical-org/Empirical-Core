@@ -245,7 +245,7 @@
 
     p {
       margin-top: 10px;
-      width: 420px;
+      max-width: 420px;
       font-size: 18px;
       line-height: 1.39;
     	letter-spacing: 0.1px;
@@ -296,4 +296,65 @@
       left: 50%;
     }
   }
+
+  @media only screen and (max-width : 1050px) {
+    padding: 15px;
+    max-width: none;
+    // width: 100%;
+
+    h3 {
+      margin-bottom: 25px;
+    }
+
+    .how-img-container {
+      width: inherit;
+      min-width: 200px;
+    }
+
+    .how-setup, .how-choose, .how-reporting  {
+      justify-content: center;
+    }
+
+    .how-step-2-3 {
+      display: flex;
+      flex-direction: column;
+      // justify-content: space-around;
+      .how-choose {
+        margin-top: 25px;
+        display: flex;
+      }
+
+      .how-reporting {
+        margin-top: 25px;
+        display: flex;
+      }
+    }
+
+    .line, .line-2, {
+      display: none;
+    }
+
+  }
+
+  @media only screen and (max-width : 630px) {
+    .how-img-container {
+      width: 100%;
+      min-width: inherit;
+      max-width: inherit;
+    }
+
+    .how-setup, .how-choose, .how-reporting  {
+      justify-content: center;
+      flex-direction: column;
+
+      h5 {
+        margin-top: 0px;
+      }
+
+      h5, p {
+        padding-left: 10px;
+      }
+    }
+  }
+
 }
