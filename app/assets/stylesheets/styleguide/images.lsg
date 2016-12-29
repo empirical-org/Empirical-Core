@@ -15,6 +15,9 @@
 
 ```
 <div class='bg-image-diagnostic-pattern sample'></div>
+<div class='bg-image-grammar-pattern sample'></div>
+<div class='bg-image-proofreader-pattern sample'></div>
+<div class='bg-image-connect-pattern sample'></div>
 @css {
   .sample {
     height: 100px;
