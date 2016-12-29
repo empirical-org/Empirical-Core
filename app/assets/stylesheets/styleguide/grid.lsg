@@ -1,15 +1,15 @@
 # Grid
 
-As a rule, we use flex-box for responsive grids.
+As a rule, we use flexbox for responsive grids.
 If there is a compelling reason to use something else,
 feel free to do so, but don't use Bootstrap merely because you know it.
 
 The examples below are just representative of the frequently occurring flex patterns we use.
 
-Flex-box has dozens, if not hundreds of other combinations that are useful in a variety of situations,
+Flexbox has dozens, if not hundreds of other combinations that are useful in a variety of situations,
 so don't be reliant on these few classes.
 
-If you are new to flex-box, this is a fun game to get started: [flexboxfroggy.com](http://flexboxfroggy.com/)
+If you are new to flexbox, this is a fun game to get started: [flexboxfroggy.com](http://flexboxfroggy.com/)
 
 
 ## Flex Row
