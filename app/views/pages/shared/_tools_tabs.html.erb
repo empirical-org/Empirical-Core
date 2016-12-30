@@ -1,9 +1,9 @@
 <div class="tools-tabs">
   <% @tabs = [
-    {name: 'Quill Connect', url: '/connect_tool'},
-    {name: 'Quill Diagnostic', url: '/diagnostic_tool'},
-    {name: 'Quill Proofreader', url: '/proofreader_tool'},
-    {name: 'Quill Grammar', url: '/grammar_tool'}
+    {name: 'Quill Connect', url: 'connect_tool'},
+    {name: 'Quill Diagnostic', url: 'diagnostic_tool'},
+    {name: 'Quill Proofreader', url: 'proofreader_tool'},
+    {name: 'Quill Grammar', url: 'grammar_tool'}
     ]
     @mobile = false
   %>
@@ -13,10 +13,10 @@
   </div>
 
   <% @tabs = [
-    {name: 'Connect', url: '/connect_tool'},
-    {name: 'Diagnostic', url: '/diagnostic_tool'},
-    {name: 'Proofreader', url: '/proofreader_tool'},
-    {name: 'Grammar', url: '/grammar_tool'}
+    {name: 'Connect', url: 'connect_tool'},
+    {name: 'Diagnostic', url: 'diagnostic_tool'},
+    {name: 'Proofreader', url: 'proofreader_tool'},
+    {name: 'Grammar', url: 'grammar_tool'}
     ]
     @active_tab = @active_tab.split.last
     @mobile = true

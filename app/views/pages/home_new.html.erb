@@ -1,18 +1,5 @@
 <section class="q-hero bg-quillgreen flex-column space-between">
-  <nav class="q-navbar-home flex-row space-between vertically-centered">
-    <div>
-      <a href=<%= root_path %>>
-  			<%=image_tag "home-header-logo.png" %>
-  		</a>
-    </div>
-    <div class="home-nav-right flex-row space-between vertically-centered">
-      <a href="/" class="text-white">Tools</a>
-      <a href="/" class="text-white">Resources</a>
-      <a href="/" class="text-white">Our Story</a>
-      <a href="/" class="text-white">Login</a>
-      <a href="/" class="q-button text-white">Sign Up</a>
-    </div>
-  </nav>
+  <%= render partial: 'pages/shared/home_navbar' %>
   <div class="q-hero-text">
     <h1 class="q-h1 text-white">Free tools to make your students better writers.</h1>
     <p class="text-white">
@@ -28,6 +15,8 @@
     </p>
   </div>
 </section>
+
+
 
 <section class='tool-section bg-tool-orange'>
   <div class="tool connect-tool">
@@ -253,7 +242,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
   </div>
 </section>
 
-<div class="home-page-new">
+<section class="home-page-new">
 <section class="teacher-stories">
   <div class="container">
     <h2 class="subheader bold" id="teacher-subheader">Teacher Stories</h2>
@@ -266,8 +255,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
         "I started using Quill because it fit right into my daily curriculum."
 
         <p class="quote-author">ROXANNA BUTKUS, RANGEVIEW ELEMENTARY</p>
-
-        <%=button_to "View My Story", "/activities/packs/2", method: :get, class: "button-white big"%>
+        <a href="/activities/packs/2" class="q-button cta-button bg-white text-quillblue">View My Story</a>
 
       </div>
     </div>
@@ -276,8 +264,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
         "With interesting passages and immediate feedback, my students really feel like they’re learning."
 
         <p class="quote-author">SARA ANGEL, KIPP LA</p>
-
-        <%=button_to "View My Story", "activities/packs/5", method: :get, class: "button-white big"%>
+        <a href="activities/packs/5" class="q-button cta-button bg-white text-quillblue">View My Story</a>
 
       </div>
     </div>
@@ -286,8 +273,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
         "Using Quill has opened up more conversations between me and my students, in terms of how to write better and what the student needs to practice."
 
         <p class="quote-author">COLETTE KANG, EAST BAY INNOVATION ACADEMY</p>
-
-        <%=button_to "View My Story", "activities/packs/8", method: :get, class: "button-white big"%>
+        <a href="activities/packs/8" class="q-button cta-button bg-white text-quillblue">View My Story</a>
 
       </div>
     </div>
@@ -296,8 +282,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
         "I've seen tremendous improvement in the proficiency of my students and the quality of their writing."
 
         <p class="quote-author">DANIEL SCIBIENSKI, PRINCETON PUBLIC SCHOOLS</p>
-
-        <%=button_to "View My Story", "activities/packs/6", method: :get, class: "button-white big"%>
+        <a href="activities/packs/6" class="q-button cta-button bg-white text-quillblue">View My Story</a>
 
       </div>
     </div>
@@ -306,8 +291,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
         “Quill allowed me to reinforce concepts and to track their progress through the program.”
 
         <p class="quote-author">Michael Giovacchini, Emma Lazarus High School</p>
-
-        <%=button_to "View My Story", "activities/packs/10", method: :get, class: "button-white big"%>
+        <a href="activities/packs/10" class="q-button cta-button bg-white text-quillblue">View My Story</a>
       </div>
     </div>
 
@@ -357,7 +341,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
   </div>
 
 </section>
-</div>
+</section>
 
 <section class="press-section">
   <div class="press-links">
