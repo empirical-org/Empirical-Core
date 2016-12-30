@@ -1,6 +1,8 @@
-<% @active_tab = 'Quill Grammar' %>
-<%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
-
+<section class="tool-header">
+  <%= render partial: 'pages/shared/home_navbar' %>
+  <% @active_tab = 'Quill Grammar' %>
+  <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
+</section>
 <div class="tool-container">
 
     <section class='bg-purple bg-image-grammar-pattern tool-hero text-center'>
