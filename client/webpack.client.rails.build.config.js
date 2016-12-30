@@ -26,7 +26,7 @@ config.module.loaders.push(
     test: /\.css$/,
     loader: ExtractTextPlugin.extract(
       'style',
-      'css?minimize&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]' +
+      'css' +
       '!postcss'
     ),
   },
@@ -34,7 +34,7 @@ config.module.loaders.push(
     test: /\.scss$/,
     loader: ExtractTextPlugin.extract(
       'style',
-      'css?minimize&modules&importLoaders=3&localIdentName=[name]__[local]__[hash:base64:5]' +
+      'css' +
       '!postcss' +
       '!sass' +
       '!sass-resources'
@@ -55,7 +55,7 @@ config.plugins.push(
   // new webpack.optimize.DedupePlugin()
   // COMMENTED OUT DedupePlugin as I was experiencing
   //  this issue https://github.com/webpack/webpack/issues/959
-  new ExtractTextPlugin('[name]-bundle.css', { allChunks: true })
+  new ExtractTextPlugin('_[name]-bundle.scss', { allChunks: true })
 );
 
 if (devBuild) {
