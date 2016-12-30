@@ -18,8 +18,6 @@ a {
   text-decoration: none;
 }
 
-
-
 a.q-button {
   display: inline-block;
   font-family: $family-sans-serif;
@@ -154,7 +152,7 @@ nav.q-navbar-home {
 }
 
 .q-hero-footer {
-  height: 92px;
+  // min-height: 92px;
   text-align: center;
   background-color: #027360;
   p {
@@ -165,6 +163,17 @@ nav.q-navbar-home {
     .hero-footer-underline {
       border-bottom: 2px solid $quillgreen;
     }
+  }
+
+  @media only screen and (max-width : 600px) {
+    padding: 10px 15px;
+    p {
+      line-height: 36px;
+    }
+  }
+
+  @media only screen and (max-width : 419px) {
+    padding: 10px 45px;
   }
 }
 
