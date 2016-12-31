@@ -5,8 +5,10 @@ namespace :empirical do
     puts "** Creating tmp directories..."
     Rake::Task["tmp:create"].invoke
 
-    puts "** Copying DB Credentials..."
-    `cp config/database.yml.example config/database.yml`
+    unless File.exist?("config/database.yml")
+      puts "** Copying DB Credentials..."
+      `cp config/database.yml.example config/database.yml`
+    end
 
     puts '** Copying env variables...'
     `cp .env-sample .env`
