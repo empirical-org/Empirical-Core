@@ -74,12 +74,12 @@ export default React.createClass({
   render: function() {
     return (
       <div className="student-feedback-container">
-      <ReactCSSTransitionGroup
+      {/* <ReactCSSTransitionGroup
         transitionName="feedback-carousel"
         transitionEnterTimeout={500}
-        >
+        > */}
         {this.renderFeedback()}
-      </ReactCSSTransitionGroup>
+      {/* </ReactCSSTransitionGroup> */}
       </div>
     )
   }

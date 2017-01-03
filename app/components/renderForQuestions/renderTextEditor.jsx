@@ -101,13 +101,9 @@ export default React.createClass({
 
   handleTextChange(e) {
     if (!this.props.disabled) {
-      if (e.key === 13 /* `Enter` key */) {
-        this.props.checkAnswer();
-      } else {
-        this.setState({ text: e.target.value, }, () => {
-          this.props.handleChange(this.state.text);
-        });
-      }
+      this.props.handleChange(e.target.value);
+    } else {
+      console.log("I'm disable RN");
     }
   },
 
@@ -129,7 +125,7 @@ export default React.createClass({
               spellCheck="false"
               autoCapitalize="off"
               autoCorrect="off"
-              value={this.state.text}
+              value={this.props.value}
               onChange={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
               placeholder="Type your answer here. Remember, your answer should be just one sentence."

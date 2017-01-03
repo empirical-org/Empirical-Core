@@ -66,13 +66,14 @@ const Responses = React.createClass({
 
   getPercentageWeakResponses() {
     const item = this.props.question;
-    // Pass all possible fields regardless of matcher as the matchers will filter it out.
+    // pass all possible fields regardless of matcher as the matchers will filter it out.
     const fields = {
       wordCountChange: item.wordCountChange,
       questionUID: this.props.questionID,
       sentences: item.sentences,
       prompt: item.prompt,
       focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
+      // ignoreCaseAndPunc: item.ignoreCaseAndPunc,
     };
     const markingObject = new this.state.matcher(fields);
 
@@ -84,10 +85,10 @@ const Responses = React.createClass({
     // return question.getPercentageWeakResponses();
   },
 
-  // Ryan Look here!!!
+  // ryan Look here!!!
   getMatchingResponse(rid) {
     const item = this.props.question;
-    // Pass all possible fields regardless of matcher as the matchers will filter it out.
+    // pass all possible fields regardless of matcher as the matchers will filter it out.
     const fields = {
       wordCountChange: item.wordCountChange,
       questionUID: this.props.questionID,
@@ -95,6 +96,7 @@ const Responses = React.createClass({
       prompt: item.prompt,
       responses: _.filter(this.responsesWithStatus(), resp => resp.statusCode < 2),
       focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
+      ignoreCaseAndPunc: item.ignoreCaseAndPunc,
     };
     const markingObject = new this.state.matcher(fields);
     return markingObject.checkMatch(this.getResponse(rid).text);
@@ -145,10 +147,10 @@ const Responses = React.createClass({
           weak: false,
           parentID: newMatchedResponse.response.parentID,
           author: newMatchedResponse.response.author,
-          feedback: newMatchedResponse.response.feedback
+          feedback: newMatchedResponse.response.feedback,
         };
         if (newMatchedResponse.response.conceptResults) {
-          newValues.conceptResults = newMatchedResponse.response.conceptResults
+          newValues.conceptResults = newMatchedResponse.response.conceptResults;
         }
         this.updateRematchedResponse(rid, newValues);
       }
@@ -159,8 +161,8 @@ const Responses = React.createClass({
     console.log('Rematching All Responses');
     const weak = _.filter(this.responsesWithStatus(), resp => resp.statusCode > 1);
     weak.forEach((resp, index) => {
-      const percentage = index / weak.length * 100
-      console.log('Rematching: ', resp.key, percentage, "% complete");
+      const percentage = index / weak.length * 100;
+      console.log('Rematching: ', resp.key, percentage, '% complete');
       this.rematchResponse(resp.key);
     });
     console.log('Finished Rematching All Responses');
@@ -375,7 +377,7 @@ const Responses = React.createClass({
     return _.values(mapped);
   },
 
-  // From pathways
+  // from pathways
 
   getFromPathwaysForResponse(rid) {
     const responseCollection = hashToCollection(this.props.pathways.data);

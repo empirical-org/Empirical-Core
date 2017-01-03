@@ -62,12 +62,12 @@ export default class Question {
 
   checkMatch(response) {
     // Remove leading and trailing whitespace, then make sure all words are single spaced
-    const formattedResponse = response.trim().replace(/\s{2,}/g, ' ');
+    response = response.trim().replace(/\s{2,}/g, ' ');
     const returnValue = {
       found: true,
-      submitted: formattedResponse,
+      submitted: response,
       response: {
-        text: formattedResponse,
+        text: response,
         questionUID: this.questionUID,
         count: 1,
       },

@@ -50,7 +50,7 @@ const PlaySentenceFragment = React.createClass({
   choosingSentenceOrFragment() {
     const { question, } = this.props;
     return question.identified === undefined && (question.needsIdentification === undefined || question.needsIdentification === true);
-      // The case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
+      // the case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
   },
 
   handleChange(e) {
@@ -71,7 +71,6 @@ const PlaySentenceFragment = React.createClass({
         };
         const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
-        console.log('Matched: ', matched);
         if (matched.found && matched.response.key) {
           this.props.dispatch(
               incrementResponseCount(key, matched.response.key)

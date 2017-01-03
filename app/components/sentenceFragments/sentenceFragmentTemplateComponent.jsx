@@ -6,7 +6,8 @@ import POSMatcher from '../../libs/sentenceFragment.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitNewResponse,
-  incrementResponseCount
+  incrementResponseCount,
+  getResponsesWithCallback
 } from '../../actions/responses';
 import icon from '../../img/question_icon.svg';
 
@@ -16,6 +17,26 @@ const PlaySentenceFragment = React.createClass({
       response: this.props.question.prompt,
       checkAnswerEnabled: true,
     };
+  },
+
+  componentDidMount() {
+    getResponsesWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({responses: data})
+      }
+    )
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.question !== nextProps.question) {
+      return true;
+    } else if (this.state.response !== nextState.response) {
+      return true;
+    } else if (this.state.responses !== nextState.responses) {
+      return true;
+    }
+    return false;
   },
 
   showNextQuestionButton() {
@@ -45,7 +66,8 @@ const PlaySentenceFragment = React.createClass({
   },
 
   getResponses() {
-    return this.props.responses.data[this.props.question.key];
+    return this.state.responses;
+    // return this.props.responses.data[this.props.question.key];
   },
 
   checkChoice(choice) {
@@ -65,7 +87,7 @@ const PlaySentenceFragment = React.createClass({
   choosingSentenceOrFragment() {
     const { question, } = this.props;
     return question.identified === undefined && (question.needsIdentification === undefined || question.needsIdentification === true);
-    // The case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
+    // the case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
   },
 
   handleChange(e) {
@@ -76,17 +98,16 @@ const PlaySentenceFragment = React.createClass({
     if (this.state.checkAnswerEnabled) {
       const key = this.props.currentKey;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const fragment = this.props.sentenceFragments.data[key];
-        const { prompt, wordCountChange, } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
         const fields = {
           prompt,
           responses: hashToCollection(this.getResponses()),
           questionUID: key,
           wordCountChange,
+          ignoreCaseAndPunc,
         };
         const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
-        console.log('Matched: ', matched);
         if (matched.found && matched.response.key) {
           this.props.dispatch(
             incrementResponseCount(key, matched.response.key)
@@ -106,13 +127,11 @@ const PlaySentenceFragment = React.createClass({
   renderSentenceOrFragmentMode() {
     return (
       <div className="container">
-        <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
-          <div className="feedback-row">
-            <img className="info" src={icon} />
-            <p>Is this a complete or an incomplete sentence?</p>
-          </div>
-          {this.renderSentenceOrFragmentButtons()}
-        </ReactTransition>
+        <div className="feedback-row">
+          <img className="info" src={icon} />
+          <p>Is this a complete or an incomplete sentence?</p>
+        </div>
+        {this.renderSentenceOrFragmentButtons()}
       </div>
     );
   },
@@ -123,9 +142,9 @@ const PlaySentenceFragment = React.createClass({
         <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
       );
     } else {
-      return (
-        <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
-      );
+      if (this.state.responses) {
+        return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
+      }
     }
   },
 
@@ -145,19 +164,14 @@ const PlaySentenceFragment = React.createClass({
     // dangerously set some html in here
     return (
       <div className="container">
-        <ReactTransition
-          transitionName={'text-editor'} transitionAppear transitionAppearTimeout={1200}
-          transitionLeaveTimeout={300}
-        >
-          <div className="feedback-row">
-            <img className="info" src={icon} />
-            <p>{instructions}</p>
-          </div>
-          <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
-          <div className="question-button-group">
-            {this.renderButton()}
-          </div>
-        </ReactTransition>
+        <div className="feedback-row">
+          <img className="info" src={icon} />
+          <p>{instructions}</p>
+        </div>
+        <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
+        <div className="question-button-group">
+          {this.renderButton()}
+        </div>
       </div>
     );
   },
@@ -171,7 +185,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   render() {
-    if (this.props.sentenceFragments.hasreceiveddata) {
+    if (this.props.question) {
       return (
         <div className="student-container-inner-diagnostic">
           <div className="draft-js sentence-fragments prevent-selection">

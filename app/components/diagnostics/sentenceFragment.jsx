@@ -5,11 +5,28 @@ import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTempl
 class PlaySentenceFragment extends Component {
   constructor(props) {
     super();
+    this.state = {
+      submitted: false,
+    };
     this.handleAttemptSubmission = this.handleAttemptSubmission.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.question.key !== nextProps.question.key) {
+      return true;
+    } else if (this.props.question.identified !== nextProps.question.identified) {
+      return true;
+    }
+    return false;
+  }
+
   handleAttemptSubmission() {
-    this.props.nextQuestion();
+    if (this.state.submitted === false) {
+      this.setState(
+        { submitted: true, },
+        this.props.nextQuestion()
+      );
+    }
   }
 
   render() {
@@ -19,12 +36,4 @@ class PlaySentenceFragment extends Component {
   }
 }
 
-function select(state) {
-  return {
-    routing: state.routing,
-    sentenceFragments: state.sentenceFragments,
-    responses: state.responses,
-  };
-}
-
-export default connect(select)(PlaySentenceFragment);
+export default PlaySentenceFragment;

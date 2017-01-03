@@ -1,36 +1,40 @@
-import React from 'react'
-import beginArrow from '../../img/begin_arrow.svg'
+import React from 'react';
+import beginArrow from '../../img/begin_arrow.svg';
 
 export default React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return {
       showIntro: false,
-      name: ''
-    }
+      name: '',
+    };
   },
 
-  handleNameChange: function (e) {
-    this.setState({name: e.target.value});
+  // componentWillMount() {
+  //   this.props.getResponses(this.props.lesson.questions);
+  // },
+
+  handleNameChange(e) {
+    this.setState({ name: e.target.value, });
   },
 
-  getLessonName: function () {
-    return this.props.lesson.name
+  getLessonName() {
+    return this.props.lesson.name;
   },
 
-  startActivity: function () {
+  startActivity() {
     if (this.props.lesson.landingPageHtml) {
-      this.setState({showIntro: true})
+      this.setState({ showIntro: true, });
     } else {
-      this.props.startActivity(this.state.name)
+      this.props.startActivity(this.state.name);
     }
   },
 
-  leaveIntro: function () {
-    this.props.startActivity(this.state.name)
+  leaveIntro() {
+    this.props.startActivity(this.state.name);
   },
 
-  resume: function () {
-    this.props.resumeActivity(this.props.session)
+  resume() {
+    this.props.resumeActivity(this.props.session);
   },
 
   // renderResume: function () {
@@ -47,40 +51,40 @@ export default React.createClass({
   //   )
   // },
 
-  renderButton: function(){
-    let onClickFn, text
+  renderButton() {
+    let onClickFn,
+      text;
     if (this.props.session) {
       // resume session if one is passed
       onClickFn = this.resume;
-      text = <span>Resume</span>
+      text = <span>Resume</span>;
     } else {
       // otherwise begin new session
       onClickFn = this.startActivity;
-      text = <span>Begin</span>
+      text = <span>Begin</span>;
     }
     return (
       <button className="button student-begin" onClick={onClickFn}>
         {text}
-        <img className="begin-arrow" src={beginArrow}/>
+        <img className="begin-arrow" src={beginArrow} />
       </button>
-    )
+    );
   },
 
-  renderIntro: function () {
+  renderIntro() {
     if (this.state.showIntro) {
       return (
         <div className="container">
-          <div className="landing-page-html" dangerouslySetInnerHTML={{__html: this.props.lesson.landingPageHtml}}></div>
+          <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.props.lesson.landingPageHtml, }} />
           <button className="button student-begin is-fullwidth" onClick={this.leaveIntro}>Start Lesson</button>
         </div>
-      )
+      );
     } else {
       return (
         <div className="container">
           <h2 className="title is-3 register">
             Welcome to Quill Connect!
           </h2>
-          <img style={{maxHeight: '50vh', margin: '0 auto 20px', display: 'block'}} src={"http://i1.wp.com/www.connect.quill.org/wp-content/uploads/2016/04/animation.gif?fit=1100%2C265"}/>
           <div className="register-container">
             <ul className="register-list">
               <li>Combine the sentences together into one sentence.</li>
@@ -89,20 +93,22 @@ export default React.createClass({
               <li>Remember to use correct spelling, capitalization, and punctuation!</li>
             </ul>
             {this.renderButton()}
-            <br/>
+            <br />
           </div>
         </div>
-      )
+      );
     }
   },
 
-  render: function () {
+  render() {
     return (
-      <section className="student" style={{
-        paddingTop: 20
-      }}>
+      <section
+        className="student" style={{
+          paddingTop: 20,
+        }}
+      >
         {this.renderIntro()}
       </section>
-    )
-  }
-})
+    );
+  },
+});

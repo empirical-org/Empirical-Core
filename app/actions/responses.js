@@ -32,17 +32,6 @@ function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
   });
   console.log(statuses);
   return statuses;
-  // for (const key in questionsKeys) {
-  //   if (object.hasOwnProperty(variable)) {
-  //
-  //   }
-  // }
-  // return questionsKeys.map((qkey) => {
-  //   console.log('Question: ', qkey);
-  //   const obj = {};
-  //   obj[qkey] = 'LOADED';
-  //   return obj;
-  // });
 }
 
 function groupResponsesByQuestion(snapshot) {
@@ -75,12 +64,36 @@ export function loadAllResponseData() {
 
 export function loadResponseData(questionId) {
   return (dispatch) => {
-    dispatch(updateStatus(questionId, 'LOADING'));
+    // dispatch(updateStatus(questionId, 'LOADING'));
     responsesForQuestionRef(questionId).once('value', (snapshot) => {
       dispatch(updateData(questionId, snapshot.val()));
-      dispatch(updateStatus(questionId, 'LOADED'));
+      // dispatch(updateStatus(questionId, 'LOADED'));
     });
   };
+}
+
+export function loadMultipleResponses(arrayOfQuestionIDs, cb) {
+  return (dispatch) => {
+    const newValues = {};
+    const it = makeIterator(arrayOfQuestionIDs);
+    const firstID = it.next().value;
+    const doneTask = (newResponseData) => {
+      dispatch({ type: 'BULK UPDATE', data: { data: newResponseData, status: {}, }, });
+      cb();
+    };
+    loadResponseDataAndCallback(firstID, newValues, it, doneTask);
+  };
+}
+
+function loadResponseDataAndCallback(questionId, dataHash, iterator, cb) {
+  if (questionId === undefined) {
+    cb(dataHash);
+  } else {
+    responsesForQuestionRef(questionId).once('value', (snapshot) => {
+      dataHash[questionId] = snapshot.val();
+      loadResponseDataAndCallback(iterator.next().value, dataHash, iterator, cb);
+    });
+  }
 }
 
 export function loadResponseDataAndListen(questionId) {
@@ -106,9 +119,9 @@ export function submitNewResponse(content, prid) {
     }
   );
   return (dispatch) => {
-    dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
+    // dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
     const newRef = responsesRef.push(newResponse, (error) => {
-      dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
+      // dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
       } else {
@@ -165,7 +178,6 @@ export function submitResponseEdit(rid, content) {
 
 export function incrementResponseCount(qid, rid, prid) {
   return (dispatch) => {
-    console.log('Incrementing: ', qid, rid, prid);
     const responseRef = responsesRef.child(rid);
     responseRef.child('/count').transaction(currentCount => currentCount + 1, (error) => {
       if (error) {
@@ -225,4 +237,23 @@ export function deleteConceptResult(qid, rid, crid) {
       }
     });
   };
+}
+
+function makeIterator(array) {
+  let nextIndex = 0;
+
+  return {
+    next() {
+      return nextIndex < array.length ?
+               { value: array[nextIndex++], done: false, } :
+               { done: true, };
+    },
+  };
+}
+
+export function getResponsesWithCallback(questionID, callback) {
+  responsesForQuestionRef(questionID).once('value', (snapshot) => {
+     callback(snapshot.val())
+     console.log("Loaded responses for ", questionID)
+  });
 }

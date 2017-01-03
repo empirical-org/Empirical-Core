@@ -17,7 +17,8 @@ const sessionsRef = rootRef.child('sessions');
 import ResponseComponent from '../questions/responseComponent.jsx';
 import {
   loadResponseDataAndListen,
-  stopListeningToResponses
+  stopListeningToResponses,
+  getResponsesWithCallback
 } from '../../actions/responses.js';
 
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
@@ -45,25 +46,35 @@ const PlayDiagnosticQuestion = React.createClass({
     };
   },
 
+  componentDidMount() {
+    getResponsesWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({responses: data})
+      }
+    )
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.question !== nextProps.question) {
+      return true;
+    } else if (this.state.response !== nextState.response) {
+      return true;
+    } else if (this.state.responses !== nextState.responses) {
+      return true;
+    }
+    return false;
+  },
+
   getInitialValue() {
     if (this.props.prefill) {
       return this.getQuestion().prefilledText;
     }
   },
 
-  componentWillMount() {
-    const questionID = this.props.question.key;
-    this.props.dispatch(loadResponseDataAndListen(questionID));
-  },
-
-  componentWillUnmount() {
-    console.log('Unmounting');
-    const questionID = this.props.question.key;
-    this.props.dispatch(stopListeningToResponses(questionID));
-  },
-
   getResponses() {
-    return this.props.responses.data[this.props.question.key];
+    return this.state.responses;
+    // return this.props.responses.data[this.props.question.key];
   },
 
   removePrefilledUnderscores() {
@@ -75,9 +86,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getResponse2(rid) {
-    const { data, } = this.props.questions,
-      questionID = this.props.question.key;
-    return data[questionID].responses[rid];
+    return this.props.responses[rid];
   },
 
   submitResponse(response) {
@@ -85,7 +94,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderSentenceFragments() {
-    return <RenderSentenceFragments getQuestion={this.getQuestion} />;
+    return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
   },
 
   listCuesAsString(cues) {
@@ -169,9 +178,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   nextQuestion() {
-    this.setState({ response: '', });
     this.props.nextQuestion();
-    this.setState({ response: '', });
   },
 
   renderNextQuestionButton(correct) {
@@ -184,12 +191,7 @@ const PlayDiagnosticQuestion = React.createClass({
 
   render() {
     const questionID = this.props.question.key;
-    let button;
-    if (this.props.question.attempts.length > 0) {
-      button = <button className="button student-submit" onClick={this.nextQuestion}>Next</button>;
-    } else {
-      button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
-    }
+    const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>Submit</button> : undefined;
     if (this.props.question) {
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence.';
       return (
@@ -200,17 +202,16 @@ const PlayDiagnosticQuestion = React.createClass({
             <img src={icon} />
             <p>{instructions}</p>
           </div>
-          <h5 className="title is-5" />
-          <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
-            <TextEditor
-              className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
-              handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
-              disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
-            />
-            <div className="question-button-group button-group">
-              {button}
-            </div>
-          </ReactTransition>
+          {/* <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}> */}
+          <TextEditor
+            className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
+            handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
+            disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
+          />
+          <div className="question-button-group button-group">
+            {button}
+          </div>
+          {/* </ReactTransition> */}
         </div>
       );
     } else {
@@ -224,12 +225,4 @@ const getLatestAttempt = function (attempts = []) {
   return attempts[lastIndex];
 };
 
-function select(state) {
-  return {
-    concepts: state.concepts,
-    questions: state.questions,
-    routing: state.routing,
-    responses: state.responses,
-  };
-}
-export default connect(select)(PlayDiagnosticQuestion);
+export default PlayDiagnosticQuestion;

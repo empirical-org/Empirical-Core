@@ -25,9 +25,6 @@ const Lesson = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.doesNotHaveAndIsNotGettingResponses() && this.hasQuestionsInQuestionSet(nextProps)) {
-      this.getResponsesForEachQuestion(nextProps.playLesson);
-    }
     if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length) {
       this.saveSessionData(nextProps.playLesson);
     }
@@ -139,7 +136,7 @@ const Lesson = React.createClass({
     const filteredQuestions = data[lessonID].questions.filter(ques =>
        this.props[ques.questionType].data[ques.key]
     );
-    // This is a quickfix for missing questions -- if we leave this in here
+    // this is a quickfix for missing questions -- if we leave this in here
     // long term, we should return an array through a forloop to
     // cut the time from 2N to N
     return filteredQuestions.map((questionItem) => {
@@ -192,12 +189,9 @@ const Lesson = React.createClass({
   },
 
   getResponsesForEachQuestion(playLesson) {
-    // we need to change the gettingResponses state so that we don't keep hitting this as the props update,
-    // otherwise it forms an infinite loop via component will receive props
     this.setState({ hasOrIsGettingResponses: true, }, () => {
-      const questionSet = playLesson.questionSet;
-      questionSet.forEach((q) => {
-        this.props.dispatch(loadResponseData(q.question.key));
+      _.each(playLesson, (q, i) => {
+        this.props.dispatch(loadResponseData(q.key));
       });
     });
   },
@@ -211,11 +205,11 @@ const Lesson = React.createClass({
         const { type, question, } = this.props.playLesson.currentQuestion;
         if (type === 'SF') {
           component = (
-            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify} />
+            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify} dispatch={this.props.dispatch} />
           );
         } else {
           component = (
-            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill} />
+            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill} dispatch={this.props.dispatch} />
           );
         }
       } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {
@@ -238,13 +232,7 @@ const Lesson = React.createClass({
           <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
-              <ReactCSSTransitionGroup
-                transitionName="carousel"
-                transitionEnterTimeout={350}
-                transitionLeaveTimeout={350}
-              >
-                {component}
-              </ReactCSSTransitionGroup>
+              {component}
             </div>
           </section>
         </div>
@@ -263,7 +251,7 @@ function select(state) {
     playLesson: state.playLesson, // the questionReducer
     routing: state.routing,
     sessions: state.sessions,
-    responses: state.responses,
+    // responses: state.responses,
   };
 }
 

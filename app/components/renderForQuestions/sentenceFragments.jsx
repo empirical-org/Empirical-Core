@@ -1,15 +1,15 @@
-import React from 'react'
-import _ from 'underscore'
+import React from 'react';
+import _ from 'underscore';
 
 export default React.createClass({
 
-  renderSentenceFragments: function () {
+  renderSentenceFragments() {
     return (
-      <div className="draft-js sentence-fragments prevent-selection" dangerouslySetInnerHTML={{__html: this.props.getQuestion().prompt}}></div>
-    )
+      <div className="draft-js sentence-fragments prevent-selection" dangerouslySetInnerHTML={{ __html: this.props.prompt, }} />
+    );
   },
 
-  render: function() {
-    return this.renderSentenceFragments()
-  }
-})
+  render() {
+    return this.renderSentenceFragments();
+  },
+});

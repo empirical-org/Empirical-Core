@@ -11,6 +11,7 @@ import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx'
 import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
 import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
+import CarouselAnim from '../shared/carouselAnimation.jsx';
 const request = require('request');
 
 var StudentDiagnostic = React.createClass({
@@ -164,13 +165,9 @@ var StudentDiagnostic = React.createClass({
       <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
       <section className="section is-fullheight minus-nav student">
       <div className="student-container student-container-diagnostic">
-          <ReactCSSTransitionGroup
-            transitionName="carousel"
-            transitionEnterTimeout={350}
-            transitionLeaveTimeout={350}
-            >
+          <CarouselAnim>
             {component}
-          </ReactCSSTransitionGroup>
+          </CarouselAnim>
         </div>
       </section>
       </div>

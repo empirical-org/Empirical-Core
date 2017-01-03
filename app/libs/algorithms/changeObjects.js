@@ -1,8 +1,10 @@
 import _ from 'underscore'
 import {diffWords} from 'diff';
 
-export function checkChangeObjectMatch (userString, responses, stringManipulationFn) {
-  responses = _.sortBy(responses, 'count').reverse()
+export function checkChangeObjectMatch (userString, responses, stringManipulationFn, skipSort=false) {
+  if (!skipSort) {
+    responses = _.sortBy(responses, 'count').reverse()
+  }
   var matchedErrorType;
   const matched = _.find(responses, (response) => {
     matchedErrorType = getErrorType(stringManipulationFn(response.text), stringManipulationFn(userString))

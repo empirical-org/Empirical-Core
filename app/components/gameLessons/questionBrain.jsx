@@ -94,7 +94,7 @@ const playLessonQuestion = React.createClass({
   },
 
   renderSentenceFragments: function () {
-    return <RenderSentenceFragments getQuestion={this.getQuestion}/>
+    return <RenderSentenceFragments prompt={this.getQuestion().prompt}/>
   },
 
   renderFeedback: function () {

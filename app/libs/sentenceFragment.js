@@ -28,6 +28,7 @@ export default class POSMatcher {
     this.responses = sortbyCount(data.responses);
     this.questionUID = data.questionUID;
     this.wordCountChange = data.wordCountChange || {};
+    this.ignoreCaseAndPunc = data.ignoreCaseAndPunc;
   }
 
   getOptimalResponses() {
@@ -41,7 +42,7 @@ export default class POSMatcher {
   }
 
   getGradedResponses() {
-    // Returns sorted collection optimal first followed by suboptimal
+    // returns sorted collection optimal first followed by suboptimal
     const gradedResponses = _.reject(this.responses, response =>
       (response.optimal === undefined) || (response.parentID)
     );
@@ -121,12 +122,15 @@ export default class POSMatcher {
   }
 
   checkEndingPunctuationMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
     const lastChar = _.last(userSubmission);
     if (!_.includes(validEndingPunctuation, lastChar)) {
       return {
         optimal: false,
         parentID: this.getTopOptimalResponse().key,
-        author: 'Ending Punctuation Hint',
+        author: 'Punctuation End Hint',
         feedback: 'Proofread your sentence for missing punctuation.',
         conceptResults: [
           conceptResultTemplate('JVJhNIHGZLbHF6LYw605XA')
@@ -136,7 +140,10 @@ export default class POSMatcher {
   }
 
   checkStartingCapitalization(userSubmission) {
-    // Only trigger if sentence begins with a lower case letter
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    // only trigger if sentence begins with a lower case letter
     if ((/^[a-z]/).test(userSubmission)) {
       return {
         optimal: false,
@@ -151,20 +158,20 @@ export default class POSMatcher {
   }
 
   checkPOSMatch(userSubmission) {
-    // Get graded responses and convert to POS strings
+    // get graded responses and convert to POS strings
     const correctPOSTags = this.getGradedResponses().map(
       optimalResponse => qpos.getPartsOfSpeechTags(optimalResponse.text)
     );
-    // Convert user submission to POS string
+    // convert user submission to POS string
     const userPOSTags = qpos.getPartsOfSpeechTags(userSubmission);
-    // If user string could be converted to POS tags find response that has the same POS tags
+    // if user string could be converted to POS tags find response that has the same POS tags
     if (userPOSTags) {
       const matchedResponse = _.find(this.getGradedResponses(), (optimalResponse, index) => {
         if (optimalResponse.parentID) {
           return false;
         } else if (correctPOSTags[index]) {
           if (JSON.stringify(correctPOSTags[index]) === JSON.stringify(userPOSTags)) {
-            // This will return the response object
+            // this will return the response object
             return true;
           }
         }

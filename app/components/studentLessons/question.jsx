@@ -26,6 +26,12 @@ import MultipleChoice from './multipleChoice.jsx';
 import StateFinished from '../renderForQuestions/renderThankYou.jsx';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import ConceptExplanation from '../feedback/conceptExplanation.jsx';
+import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
+import {
+  loadResponseDataAndListen,
+  stopListeningToResponses,
+  getResponsesWithCallback
+} from '../../actions/responses.js';
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
@@ -37,6 +43,30 @@ const playLessonQuestion = React.createClass({
       finished: false,
       multipleChoice: false,
     };
+  },
+
+  componentDidMount() {
+    getResponsesWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({responses: data})
+      }
+    )
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.question !== nextProps.question) {
+      return true;
+    } else if (this.state.response !== nextState.response) {
+      return true;
+    } else if (this.state.finished !== nextState.finished) {
+      return true;
+    } else if (this.state.multipleChoice !== nextState.multipleChoice) {
+      return true;
+    } else if (this.state.responses !== nextState.responses) {
+      return true;
+    }
+    return false;
   },
 
   getInitialValue() {
@@ -54,13 +84,11 @@ const playLessonQuestion = React.createClass({
   },
 
   getResponse2(rid) {
-    const { data, } = this.props.questions,
-      questionID = this.props.question.key;
     return (this.getResponses()[rid]);
   },
 
   getResponses() {
-    return this.props.responses.data[this.getQuestion().key];
+    return this.state.responses;
   },
 
   getQuestionMarkerFields() {
@@ -76,13 +104,11 @@ const playLessonQuestion = React.createClass({
   },
 
   getOptimalResponses() {
-    const question = this.getNewQuestionMarker();
-    return question.getOptimalResponses();
+    return getOptimalResponses(hashToCollection(this.getResponses()));
   },
 
   getSubOptimalResponses() {
-    const question = this.getNewQuestionMarker();
-    return question.getSubOptimalResponses();
+    return getSubOptimalResponses(hashToCollection(this.getResponses()));
   },
 
   get4MarkedResponses() {
@@ -96,7 +122,7 @@ const playLessonQuestion = React.createClass({
   },
 
   renderSentenceFragments() {
-    return <RenderSentenceFragments getQuestion={this.getQuestion} />;
+    return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
   },
 
   listCuesAsString(cues) {
@@ -236,9 +262,11 @@ const playLessonQuestion = React.createClass({
     if (latestAttempt) {
       if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-        const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
-        if (data) {
-          return <ConceptExplanation {...data} />;
+        if (conceptID) {
+          const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+          if (data) {
+            return <ConceptExplanation {...data} />;
+          }
         }
       } else if (this.getQuestion().conceptID) {
         const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
@@ -268,6 +296,7 @@ const playLessonQuestion = React.createClass({
         id: 'playQuestion',
         sentenceFragments: this.renderSentenceFragments(),
         cues: this.renderCues(),
+        className: 'fubar',
       };
       let component;
       if (this.state.finished) {
@@ -358,11 +387,7 @@ const getLatestAttempt = function (attempts = []) {
 
 function select(state) {
   return {
-    concepts: state.concepts,
     conceptsFeedback: state.conceptsFeedback,
-    questions: state.questions,
-    routing: state.routing,
-    responses: state.responses,
   };
 }
 export default connect(select)(playLessonQuestion);
