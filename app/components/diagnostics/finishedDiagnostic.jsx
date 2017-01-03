@@ -32,15 +32,7 @@ export default React.createClass({
           You'll be redirected automatically once they are saved.
         </p>
         <Spinner/>
-        {/*<button className="button student-begin" onClick={this.props.begin}>
-          Begin <img className="begin-arrow" src={beginArrow}/>
-        </button>*/}
       </div>
-      // {/*<div className="container">
-      //   Finished Diagnostic
-      //   {this.renderSavedIndicator()}
-      //   <button onClick={this.props.saveToLMS}>Save again.</button>
-      // </div>*/}
     )
   },
 
