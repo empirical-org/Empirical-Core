@@ -446,7 +446,7 @@ ActiveRecord::Schema.define(version: 20170103191349) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "visible",                  default: true, null: false
-    t.string   "user_id"
+    t.integer  "user_id"
   end
 
   add_index "units", ["user_id"], name: "index_units_on_user_id", using: :btree
