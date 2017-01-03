@@ -6,6 +6,7 @@ import {
   checkChangeObjectMatch
 } from './algorithms/changeObjects';
 import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
+import {sortByLevenshteinAndOptimal} from './responseTools.js'
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {
@@ -72,32 +73,7 @@ export default class Question {
       this.copyParentResponses(res, punctuationAndCaseMatch);
       return returnValue;
     }
-    var changeObjectMatch = this.checkChangeObjectRigidMatch(response);
-    if (changeObjectMatch !== undefined) {
-      switch (changeObjectMatch.errorType) {
-        case ERROR_TYPES.INCORRECT_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
-          res.author = 'Modified Word Hint';
-          res.parentID = changeObjectMatch.response.key;
-          this.copyParentResponses(res, changeObjectMatch.response);
-          return returnValue;
-        case ERROR_TYPES.ADDITIONAL_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
-          res.author = 'Additional Word Hint';
-          res.parentID = changeObjectMatch.response.key;
-          this.copyParentResponses(res, changeObjectMatch.response);
-          return returnValue;
-        case ERROR_TYPES.MISSING_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
-          res.author = 'Missing Word Hint';
-          res.parentID = changeObjectMatch.response.key;
-          this.copyParentResponses(res, changeObjectMatch.response);
-          return returnValue;
-        default:
-          return;
-      }
-    }
-    var changeObjectMatch = this.checkChangeObjectSubMatch(response);
+    var changeObjectMatch = this.checkChangeObjectLevenshteinMatch(response);
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
@@ -160,6 +136,12 @@ export default class Question {
 
   checkWhiteSpaceMatch(response) {
     return _.find(getOptimalResponses(this.responses), resp => removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize()));
+  }
+
+  checkChangeObjectLevenshteinMatch(response){
+    const fn = string => string.normalize();
+    const responses = sortByLevenshteinAndOptimal(response, getOptimalResponses(this.responses).concat(getSubOptimalResponses(this.responses)))
+    return checkChangeObjectMatch(response, responses, fn, true);
   }
 
   checkChangeObjectRigidMatch(response) {
