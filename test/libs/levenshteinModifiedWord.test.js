@@ -1,8 +1,14 @@
 import expect from 'expect';
 import Levenshtein from 'levenshtein'
 import {sortByLevenshteinAndOptimal} from '../../app/libs/responseTools.js'
+import {checkChangeObjectMatch} from '../../app/libs/algorithms/changeObjects.js'
 
 const responses = [
+  {
+    key: 4,
+    text: "Hannah never went home",
+    optimal: true
+  },
   {
     key: 1,
     text: "Hannah never went home",
@@ -18,16 +24,7 @@ const responses = [
     text: "Hannah goes home",
     optimal: false
   },
-  {
-    key: 4,
-    text: "Hannah never went home",
-    optimal: true
-  },
-  {
-    key: 5,
-    text: "Hannah never went home",
-    optimal: true
-  },
+
 ];
 
 describe("Calculating Levenshtein distances", () => {
@@ -45,7 +42,19 @@ describe("Sorting responses by distance and status", () => {
   it("should sort first by Levenshtein distance and then by status", () => {
     const userString = "Hannah goe home";
     const keys = sortByLevenshteinAndOptimal(userString, responses).map((res)=>res.key)
-    expect(keys).toEqual([3,2,4,5,1])
+    expect(keys).toEqual([3,2,4,1])
   })
 
+})
+
+describe("matching responses by levDist and grade", () => {
+  it("selects the closest response", () => {
+    const userString = "Hannah nevr went home";
+    const fn = string => string.normalize();
+    const sortedResponses = sortByLevenshteinAndOptimal(userString, responses)
+    console.log(sortedResponses)
+    const response = checkChangeObjectMatch(userString, sortedResponses, fn, true)
+    console.log(response);
+    expect(response.response.key).toEqual(4)
+  })
 })

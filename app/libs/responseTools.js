@@ -18,9 +18,8 @@ export default function responsesWithStatus(responses = {}) {
 }
 
 export function sortByLevenshteinAndOptimal(userString, responses){
+    responses.forEach((res)=> {res.levenshtein = new Levenshtein(res.text, userString).distance});
     return responses.sort((a,b)=> {
-      a.levenshtein = a.levenshtein || new Levenshtein(a.text, userString).distance;
-      b.levenshtein = b.levenshtein || new Levenshtein(b.text, userString).distance;
       if ((a.levenshtein - b.levenshtein) != 0) {
         return a.levenshtein - b.levenshtein
       }
