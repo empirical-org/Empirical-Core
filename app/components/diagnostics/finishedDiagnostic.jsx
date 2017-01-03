@@ -2,7 +2,6 @@ import React from 'react'
 import Spinner from '../shared/spinner.jsx'
 export default React.createClass({
 
-
   componentDidMount: function () {
     this.props.saveToLMS()
   },

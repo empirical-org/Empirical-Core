@@ -1,6 +1,11 @@
 export default function diagnosticQuestions() {
   return ([
     {
+      type: 'TL', //  listening to music on the ride home
+      key: '-sen-fra',
+      content: "<h3>Title</h3><p>Paragraph</p>"
+    },
+    {
       type: 'SF', //  listening to music on the ride home
       key: '-KPt6cf6BkRomFz6Ggaz',
     },
@@ -27,6 +32,11 @@ export default function diagnosticQuestions() {
     {
       type: 'SF', // while we were swimming at the lake
       key: '-KPJiGC6bbtp7GkKMg3v',
+    },
+    {
+      type: 'TL', //  listening to music on the ride home
+      key: '-sen-com',
+      content: "<h3>Title</h3><p>Paragraph</p>"
     },
     {
       type: 'SC', //  after the game, we played music it was loud

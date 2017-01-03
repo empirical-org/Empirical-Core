@@ -11,6 +11,7 @@ import Spinner from '../shared/spinner.jsx';
 import SmartSpinner from '../shared/smartSpinner.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import TitleCard from './titleCard.jsx'
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
@@ -199,7 +200,14 @@ const StudentDiagnostic = React.createClass({
 
   getFetchedData() {
     const returnValue = this.getData().map((obj) => {
-      const data = (obj.type === 'SC') ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key];
+      let data;
+      if (obj.type === 'SC') {
+        data = this.props.questions.data[obj.key];
+      } else if (obj.type === 'SF') {
+        data = this.props.sentenceFragments.data[obj.key];
+      } else {
+        data = obj;
+      }
       data.key = obj.key;
       return {
         type: obj.type,
@@ -224,7 +232,7 @@ const StudentDiagnostic = React.createClass({
             key={this.props.playDiagnostic.currentQuestion.data.key}
             marking="diagnostic"
           />);
-        } else {
+        } else if (this.props.playDiagnostic.currentQuestion.type === 'SF') {
           component = (<PlaySentenceFragment
             question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
             key={this.props.playDiagnostic.currentQuestion.data.key}
@@ -233,6 +241,15 @@ const StudentDiagnostic = React.createClass({
             nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
             updateAttempts={this.submitResponse}
           />);
+        } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
+          component = (
+            <TitleCard
+              data={this.props.playDiagnostic.currentQuestion.data}
+              currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+              dispatch={this.props.dispatch}
+              nextQuestion={this.nextQuestion}
+            />
+          )
         }
       } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
         component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
