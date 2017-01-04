@@ -20,7 +20,6 @@
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,
     clickContinue: React.PropTypes.func.isRequired,
-    isEnoughInputProvidedToContinue: React.PropTypes.bool.isRequired,
     errorMessage: React.PropTypes.string
   },
 
@@ -269,7 +268,6 @@
         {pagination}
 
         <SelectedActivities clickContinue={this.props.clickContinue}
-                               isEnoughInputProvided={this.props.isEnoughInputProvidedToContinue}
                                errorMessage={this.props.errorMessage || ''}
                                selectedActivities = {this.props.selectedActivities}
                                toggleActivitySelection={this.props.toggleActivitySelection} />

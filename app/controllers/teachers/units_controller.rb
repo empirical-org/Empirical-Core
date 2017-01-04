@@ -14,6 +14,11 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
+  def unit_names
+    render json: { unitNames: current_user.units.map { |unit| unit.name.downcase }.uniq }.to_json
+  end
+
+
   def index
     cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten
     units = cas.group_by{|ca| ca.unit_id}
