@@ -3,11 +3,12 @@ class Teachers::UnitsController < ApplicationController
   before_filter :teacher!
 
   def create
-    if unit_params[:id].nil?
-      Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
-    else
+    # if unit_params[:id].nil? && !current_user.units.find(unit_params[:name])
+    # if unit_params[:id].nil?
+    #   # Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+    # else
       Units::Updater.run(current_user, unit_params[:id], unit_params[:name], unit_params[:activities], unit_params[:classrooms])
-    end
+    # end
     render json: {}
   end
 
