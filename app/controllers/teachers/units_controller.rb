@@ -3,12 +3,14 @@ class Teachers::UnitsController < ApplicationController
   before_filter :teacher!
 
   def create
-    # if unit_params[:id].nil? && !current_user.units.find(unit_params[:name])
-    # if unit_params[:id].nil?
-    #   # Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
-    # else
-      Units::Updater.run(current_user, unit_params[:id], unit_params[:name], unit_params[:activities], unit_params[:classrooms])
-    # end
+    if unit_params[:id].nil?
+      Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+    else
+      # The units udpater takes an existing unit as an argument
+      # and will need to be changed to reflect as much.
+      # This route was never gitting hit at the time it was commented out.
+      # Units::Updater.run(current_user, unit_params[:id], unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+    end
     render json: {}
   end
 
