@@ -1,0 +1,32 @@
+# Nav Bars
+
+## Generic Tabs
+The generic tabs are somewhat responsive. There is a hamburger dropdown version, but it won't work in the style-guide.
+Adding a class of active to an ``li`` element will add the green border to the top and turn the background white.
+
+We have an erb partial for building these (_generic_tabs.erb)-- simply pass in a hash as is done in
+_tools_tabs.html.erb, along with the name of the active link, and it will be generated for you.
+
+The partial also takes an optional param of @mobile. Set it to true if you want a hamburger
+dropdown as well -- however, be aware that you will almost certainly need to set custom
+breakpoints to fit the view's needs.
+
+
+```
+<div class="q-nav-bar">
+  <ul class='desktop-nav-list'>
+      <li class='active' >
+        <a href="/">Tools</a>
+      <li>
+        <a href="/">Resources</a>
+      </li>
+      <li>
+        <a href="/">Lessons</a>
+      </li>
+      <li>
+        <a href="/">Reports</a>
+      </li>
+  </ul>
+
+</div>
+```
