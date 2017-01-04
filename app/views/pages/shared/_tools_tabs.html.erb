@@ -1,0 +1,29 @@
+<div class="tools-tabs">
+  <% @tabs = [
+    {name: 'Quill Connect', url: 'connect_tool'},
+    {name: 'Quill Diagnostic', url: 'diagnostic_tool'},
+    {name: 'Quill Proofreader', url: 'proofreader_tool'},
+    {name: 'Quill Grammar', url: 'grammar_tool'}
+    ]
+    @mobile = false
+  %>
+
+  <div class="full-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+  </div>
+
+  <% @tabs = [
+    {name: 'Connect', url: 'connect_tool'},
+    {name: 'Diagnostic', url: 'diagnostic_tool'},
+    {name: 'Proofreader', url: 'proofreader_tool'},
+    {name: 'Grammar', url: 'grammar_tool'}
+    ]
+    @active_tab = @active_tab.split.last
+    @mobile = true
+  %>
+
+  <div class="small-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+  </div>
+
+</div>
