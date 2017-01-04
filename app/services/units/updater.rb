@@ -2,24 +2,24 @@ module Units::Updater
 
 
 
+  # TODO: rename this -- it isn't always the method called on the instance
   def self.run(id, activities_data, classrooms_data)
     unit = Unit.find(id)
     self.update_helper(unit, activities_data, classrooms_data)
-
   end
 
 
 
-  def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom_id, student_ids=[])
-    unit = Unit.find_by(name: UnitTemplate.find(unit_template_id).name, user_id: teacher_id)
+  def self.assign_unit_template_to_one_class(unit, student_ids=[])
+    current_user
     activities_data = unit.activities.map{ |a| {id: a.id, due_date: nil} }
     classrooms_data = [{id: classroom_id, student_ids: student_ids}]
-    self.update_helper(teacher_id, unit, activities_data, classrooms_data)
+    self.update_helper(unit, activities_data, classrooms_data)
   end
 
   private
 
-  def self.update_helper(teacher_id, unit, activities_data, classrooms_data)
+  def self.update_helper(unit, activities_data, classrooms_data)
 
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
@@ -34,17 +34,10 @@ module Units::Updater
         classroom_id: classrooms_data[:id],
         assigned_student_ids: all_assigned_students)
     end
-
-
-
-    #   unit.classroom_activities.find_or_create!(activity_id: activity_data[:id],
-    #                                     due_date: activity_data[:due_date],
-    #                                     classroom_id: classroom_data[:id],
-    #                                     assigned_student_ids: classroom_data[:student_ids])
-    # end
-    # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
+    # necessary activity sessions are created in an after_create and after_save callback
+    # in activity_sessions.rb
     # TODO: Assign Activity Worker should be labeled as an analytics worker
-    AssignActivityWorker.perform_async(teacher_id)
+    AssignActivityWorker.perform_async(current_user.id)
   end
 
 

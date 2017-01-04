@@ -1,13 +1,6 @@
 module Units::Creator
 
-  #    activities_data: [{
-  #       id: int
-  #       due_date: string | nil
-  #     }]
-  #     classrooms_data: [{
-  #       id: int
-  #       student_ids: Array
-  #     }]
+
   def self.run(teacher, name, activities_data, classrooms_data)
     self.create_helper(teacher, name, activities_data, classrooms_data)
   end
