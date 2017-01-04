@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CarouselAnim from '../shared/carouselAnimation.jsx';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import { loadResponseData, loadMultipleResponses } from '../../actions/responses';
 import { hashToCollection } from '../../libs/hashToCollection';
@@ -109,23 +109,58 @@ const StudentDiagnostic = React.createClass({
   saveToLMS() {
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
     console.log('Concept Results: ', results);
+
+    const { diagnosticID, } = this.props.params;
+    const sessionID = this.props.routing.locationBeforeTransitions.query.student
+    if (sessionID) {
+      this.finishActivitySession(sessionID, results, 1);
+    } else {
+      this.createAnonActivitySession(diagnosticID, results, 1);
+    }
+  },
+
+  finishActivitySession(sessionID, results, score) {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${this.props.routing.locationBeforeTransitions.query.student}`,
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
         json:
         {
           state: 'finished',
           concept_results: results,
-          percentage: 1,
+          percentage: score,
         },
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
+          console.log('Finished Saving');
+          console.log(err, httpResponse, body);
           this.props.dispatch(SessionActions.delete(this.state.sessionID));
-          document.location.href = process.env.EMPIRICAL_BASE_URL;
+          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
           this.setState({ saved: true, });
         }
-        // console.log(err,httpResponse,body)
+      }
+    );
+  },
+
+  createAnonActivitySession(lessonID, results, score) {
+    request(
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+        method: 'POST',
+        json:
+        {
+          state: 'finished',
+          activity_uid: lessonID,
+          concept_results: results,
+          percentage: score,
+        },
+      },
+      (err, httpResponse, body) => {
+        if (httpResponse.statusCode === 200) {
+          console.log('Finished Saving');
+          console.log(err, httpResponse, body);
+          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+          this.setState({ saved: true, });
+        }
       }
     );
   },
@@ -166,6 +201,11 @@ const StudentDiagnostic = React.createClass({
 
   nextQuestion() {
     const next = nextQuestion();
+    this.props.dispatch(next);
+  },
+
+  nextQuestionWithoutSaving() {
+    const next = nextQuestionWithoutSaving();
     this.props.dispatch(next);
   },
 
@@ -247,7 +287,7 @@ const StudentDiagnostic = React.createClass({
               data={this.props.playDiagnostic.currentQuestion.data}
               currentKey={this.props.playDiagnostic.currentQuestion.data.key}
               dispatch={this.props.dispatch}
-              nextQuestion={this.nextQuestion}
+              nextQuestion={this.nextQuestionWithoutSaving}
             />
           )
         }
