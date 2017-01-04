@@ -28,7 +28,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     teacher_id = current_user.id
     classroom_id = params[:classroom_id]
     params[:selections].values.each do |value|
-      Units::Creator.assign_unit_template_to_one_class(teacher_id, value[:id], classroom_id, value[:student_ids])
+      # TODO: undo this RYAN
+
+      # Units::Creator.assign_unit_template_to_one_class(teacher_id, value[:id], classroom_id, value[:student_ids])
+      Units::Updater.assign_unit_template_to_one_class(teacher_id, value[:id], classroom_id, value[:student_ids])
     end
     render json: {data: "Hi"}
   end
