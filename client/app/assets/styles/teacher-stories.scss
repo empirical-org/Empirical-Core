@@ -6,41 +6,36 @@
 
 
 .teachers-section {
-    padding: 100px 0 137px;
-    border-bottom: 0;
-    text-align: center;
-    background-color: #348fdf;
-    @media only screen and (max-width : 800px) {
-      padding: 50px 0;
+  padding: 100px 0 137px;
+  border-bottom: 0;
+  text-align: center;
+  background-color: #348fdf;
+
+  .subheader {
+    font-size: 16px;
+    margin-bottom: 44px;
+    text-transform: uppercase;
+    font-weight: 700;
+    &#teacher-subheader {
+      color: #014f92;
     }
-    @media only screen and (max-width : 500px) {
-      padding: 25px 15px;
+  }
+  .header {
+    font-size: 36px;
+    margin-bottom: 45px;
+    font-weight: 600;
+    &.black {
+      color: $color_mine_shaft_approx;
     }
-    .subheader {
-      font-size: 16px;
-      margin-bottom: 44px;
-      text-transform: uppercase;
-      font-weight: 700;
-      &#teacher-subheader {
-        color: #014f92;
-      }
+  }
+  .description {
+    font-size: 21px;
+    margin-bottom: 49px;
+    font-weight: 400;
+    &.black {
+      color: $darkgray;
     }
-    .header {
-      font-size: 36px;
-      margin-bottom: 45px;
-      font-weight: 600;
-      &.black {
-        color: $color_mine_shaft_approx;
-      }
-    }
-    .description {
-      font-size: 21px;
-      margin-bottom: 49px;
-      font-weight: 400;
-      &.black {
-        color: $darkgray;
-      }
-    }
+  }
   .purpose {
     background-color: $color_concrete_approx;
   }
@@ -236,6 +231,30 @@
       margin: 0 auto;
       margin-top: 218px;
       padding: 15px 0 10px;
+    }
+  }
+  @media only screen and (max-width : 800px) {
+    padding: 50px 0;
+  }
+  @media only screen and (max-width : 500px) {
+    padding: 25px 15px;
+    h1.header {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    .subheader {
+      margin-bottom: 15px;
+    }
+    .tab-content .container {
+      font-size: 18px;
+    }
+    .teacher-stories .tabs-teacher-stories .quote-author {
+      margin-bottom: 15px;
+    }
+
+    .teacher-stories .tabs-teacher-stories .tab-content {
+      margin-bottom: 15px;
+      min-height: 210px;
     }
   }
 }
