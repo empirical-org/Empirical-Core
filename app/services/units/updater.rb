@@ -10,10 +10,8 @@ module Units::Updater
 
 
 
-  def self.assign_unit_template_to_one_class(unit, student_ids=[])
-    current_user
+  def self.assign_unit_template_to_one_class(unit, classrooms_data)
     activities_data = unit.activities.map{ |a| {id: a.id, due_date: nil} }
-    classrooms_data = [{id: classroom_id, student_ids: student_ids}]
     self.update_helper(unit, activities_data, classrooms_data)
   end
 
@@ -23,21 +21,24 @@ module Units::Updater
 
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
-    product = activities_data.product(classrooms_data, activities_data)
-    product.each do |pair|
-      activity_data, classrooms_data = pair
-      classroom_activity = unit.classroom_activities.find_by!(activity_id: activity_data[:id], classroom_id: classrooms_data[:id])
-      previously_assigned_students = classroom_activity.assigned_student_ids || []
-      all_assigned_students = previously_assigned_students.push(classrooms_data[:student_ids]).flatten.map(&:to_i).uniq
-      classroom_activity.update(activity_id: activity_data[:id],
-        due_date: activity_data[:due_date],
-        classroom_id: classrooms_data[:id],
-        assigned_student_ids: all_assigned_students)
+    classrooms_data.each do |classroom|
+      product = activities_data.product([classroom[:id].to_i])
+      product.each do |pair|
+        activity_data, classroom_id = pair
+        classroom_activity = unit.classroom_activities.find_by!(activity_id: activity_data[:id], classroom_id: classroom_id)
+        previously_assigned_students = classroom_activity.assigned_student_ids || []
+        all_assigned_students = previously_assigned_students.push(classroom[:student_ids]).flatten.map(&:to_i).uniq
+        classroom_activity.update(activity_id: activity_data[:id],
+          due_date: activity_data[:due_date],
+          classroom_id: classroom_id,
+          assigned_student_ids: all_assigned_students)
+      end
     end
     # necessary activity sessions are created in an after_create and after_save callback
     # in activity_sessions.rb
     # TODO: Assign Activity Worker should be labeled as an analytics worker
-    AssignActivityWorker.perform_async(current_user.id)
+    puts 'it just is that fast'
+    AssignActivityWorker.perform_async(unit.user_id)
   end
 
 
