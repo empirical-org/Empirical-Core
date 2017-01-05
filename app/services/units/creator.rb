@@ -27,13 +27,13 @@ module Units::Creator
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     classrooms.each do |classroom|
-      product = activities_data.product(classroom)
+      product = activities_data.product([classroom[:id].to_i])
       product.each do |pair|
         #binding.pry
-        activity_data, classroom = pair
+        activity_data, classroom_id = pair
         unit.classroom_activities.create!(activity_id: activity_data[:id],
                                           due_date: activity_data[:due_date],
-                                          classroom_id: classroom[:id],
+                                          classroom_id: classroom_id,
                                           assigned_student_ids: classroom[:student_ids])
       end
     end
