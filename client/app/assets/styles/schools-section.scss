@@ -215,11 +215,12 @@
 
   .partners-footer {
     padding-top: 35px;
+    padding-bottom: 35px;
     color: #e1e1e1;
     text-align: center;
     font-size: 15px;
     line-height: 1.93;
-    height: 29px;
+    // height: 29px;
     max-width: 1030px;
     margin: 0 auto;
     .partner-links {
@@ -253,6 +254,13 @@
         margin-bottom: 10px;
       }
     }
+
+    .privacy-and-social {
+      .pas-left {
+        margin-bottom: 15px;
+      }
+    }
+
   }
 }
 
