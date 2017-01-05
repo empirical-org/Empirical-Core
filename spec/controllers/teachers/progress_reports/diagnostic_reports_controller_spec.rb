@@ -16,11 +16,61 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
   end
 
   describe 'getting the report for a completed activity session' do
-    it "returns a json with the url" do
-        get :report_from_activity_session, ({activity_session: activity_session.id})
-        response_body = JSON.parse(response.body)
-        expect(response_body["url"]).to eq("/teachers/progress_reports/diagnostic_reports#/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report/#{student.id}")
+
+    describe 'updating existing recommendations' do
+      it "returns a json with the url" do
+          get :report_from_activity_session, ({activity_session: activity_session.id})
+          response_body = JSON.parse(response.body)
+          expect(response_body["url"]).to eq("/teachers/progress_reports/diagnostic_reports#/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report/#{student.id}")
+      end
     end
   end
+
+  describe 'assign_selected_packs' do
+    # describe 'for an existing unit'
+    #   it "updates packs with new student ids if they should be updated" do
+    #
+    #   end
+    #
+    #   describe "does not duplicate the original" do
+    #     it "unit" do
+    #
+    #     end
+    #     it "classroom activities" do
+    #
+    #     end
+    #
+    #     it "activity sessions" do
+    #
+    #     end
+    #   end
+    #
+    #   describe "if necessary, it assigns new" do
+    #     it "activity packs" do
+    #
+    #     end
+    #     it "classroom activities" do
+    #
+    #     end
+    #
+    #     it "activity sessions" do
+    #
+    #     end
+    #   end
+    #
+    #
+    # end
+    #
+    # describe 'for a new unit'
+    #   it "updates packs with new student ids if they should be updated" do
+    #
+    #   end
+    #
+    #   it "does not duplicate the original unit" do
+    #
+    #   end
+    # end
+  end
+
 
 end
