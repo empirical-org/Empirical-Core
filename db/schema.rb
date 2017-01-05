@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103191349) do
+ActiveRecord::Schema.define(version: 20170105213544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -441,11 +441,10 @@ ActiveRecord::Schema.define(version: 20170103191349) do
   add_index "unit_templates", ["unit_template_category_id"], name: "index_unit_templates_on_unit_template_category_id", using: :btree
 
   create_table "units", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.integer  "classroom_id"
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "visible",                  default: true, null: false
+    t.boolean  "visible",                default: true, null: false
     t.integer  "user_id"
   end
 
