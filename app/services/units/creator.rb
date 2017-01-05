@@ -29,7 +29,6 @@ module Units::Creator
     classrooms.each do |classroom|
       product = activities_data.product([classroom[:id].to_i])
       product.each do |pair|
-        #binding.pry
         activity_data, classroom_id = pair
         unit.classroom_activities.create!(activity_id: activity_data[:id],
                                           due_date: activity_data[:due_date],
