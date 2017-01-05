@@ -1,11 +1,15 @@
 class Teachers::UnitsController < ApplicationController
+  include Units
+
   respond_to :json
   before_filter :teacher!
 
   def create
-    if unit_params[:id].nil?
-      Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+    units_with_same_name = units_with_same_name_by_current_user(unit_params[:name])
+    if units_with_same_name.any?
+      Units::Updater.run(units_with_same_name.first, unit_params[:activities], unit_params[:classrooms])
     else
+      Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
       # The units udpater takes an existing unit as an argument
       # and will need to be changed to reflect as much.
       # This route was never gitting hit at the time it was commented out.

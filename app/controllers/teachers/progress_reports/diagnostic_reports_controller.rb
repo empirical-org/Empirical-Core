@@ -42,19 +42,17 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   def create_or_update_selected_packs
     teacher_id = current_user.id
-    classroom_id = params[:classroom_id]
-    params[:selections].values.each do |value|
+    params[:selections].each do |value|
       unit = Unit.find_by(name: UnitTemplate.find(value[:id]).name,
-                         classroom_id: classroom_id,
                          user_id: teacher_id)
        if unit
-         Units::Updater.assign_unit_template_to_one_class(unit, value[:student_ids])
+         Units::Updater.assign_unit_template_to_one_class(unit, value[:classrooms])
        else
         #  TODO: use a find or create for the unit var above.
         #  This way, we can just pass the units creator a unit argument.
         #  The reason we are not doing so at this time, is because the unit creator
         #  Is used elsewhere, and we do not want to overly optimize it for the diagnostic
-         Units::Creator.assign_unit_template_to_one_class(teacher_id, value[:id], classroom_id, value[:student_ids])
+         Units::Creator.assign_unit_template_to_one_class(teacher_id, value[:id], value[:classrooms])
        end
     end
   end

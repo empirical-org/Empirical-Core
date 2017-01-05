@@ -3,8 +3,7 @@ module Units::Updater
 
 
   # TODO: rename this -- it isn't always the method called on the instance
-  def self.run(id, activities_data, classrooms_data)
-    unit = Unit.find(id)
+  def self.run(unit, activities_data, classrooms_data)
     self.update_helper(unit, activities_data, classrooms_data)
   end
 
@@ -25,7 +24,7 @@ module Units::Updater
       product = activities_data.product([classroom[:id].to_i])
       product.each do |pair|
         activity_data, classroom_id = pair
-        classroom_activity = unit.classroom_activities.find_by!(activity_id: activity_data[:id], classroom_id: classroom_id)
+        classroom_activity = unit.classroom_activities.find_or_create_by!(activity_id: activity_data[:id], classroom_id: classroom_id)
         previously_assigned_students = classroom_activity.assigned_student_ids || []
         all_assigned_students = previously_assigned_students.push(classroom[:student_ids]).flatten.map(&:to_i).uniq
         classroom_activity.update(activity_id: activity_data[:id],
