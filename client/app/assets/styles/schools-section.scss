@@ -75,6 +75,7 @@
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     .feature {
       width: 330px;
       margin: 0 8px 35px;
@@ -95,6 +96,10 @@
         line-height: 1.47;
       }
     }
+  }
+
+  @media only screen and (max-width : 450px) {
+    padding: 35px 15px;
   }
 }
 
