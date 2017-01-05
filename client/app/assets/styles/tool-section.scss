@@ -1,6 +1,10 @@
 // @import '../../../../app/assets/stylesheets/variables.scss';
 $tool-grey: #f8f9f9;
 
+p {
+  font-size: 400px;
+}
+
 .tool-header {
   background-color: $quillgreen;
 }
@@ -54,7 +58,7 @@ $tool-grey: #f8f9f9;
     font-size: 15px;
     line-height: 1.53;
     max-width: 420px;
-    font-weight: 200;
+    font-weight: 400;
     margin-bottom: 48px;
   }
 
@@ -126,6 +130,12 @@ $tool-grey: #f8f9f9;
       display: flex;
       flex-direction: column;
       justify-content: center;
+    }
+
+    .info-section.right {
+      margin-left: 15px;
+      margin-right: 35px;
+      margin: 0 auto;
     }
   }
 
