@@ -58,17 +58,28 @@ export default React.createClass({
 	assignSelectedPacks: function() {
 		this.setState({assigning: true})
 		const classroomId = this.props.params.classroomId;
-		const selections = this.state.selections.map((activityPack) => {
-			return {id: activityPack.activity_pack_id, student_ids: activityPack.students}
+		let selections = this.state.selections.map((activityPack) => {
+			return {
+				id: activityPack.activity_pack_id,
+				classrooms: [
+					{
+						id: classroomId,
+						student_ids: activityPack.students
+					}
+				]
+			}
 		})
-		$.post('/teachers/progress_reports/assign_selected_packs/' + classroomId, {
-			selections
-		}, (data) => {
-			this.setState({assigning: false, assigned: true})
-		})
+		selections = {selections}
+		$.ajax({
+	  	type : 'POST',
+	  	url :  '/teachers/progress_reports/assign_selected_packs/',
+	  	dataType: 'json',
+	  	contentType: 'application/json',
+	  	data : JSON.stringify(selections)
+		}).success(this.setState({assigning: false, assigned: true}));
 	},
 
-	renderExplanation: function() {
+	renderExplanation: function(){
 		return (
 			<div className='recommendations-explanation-container'>
 				<p className="recommendations-explanation">
