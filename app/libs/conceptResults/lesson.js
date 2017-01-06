@@ -7,6 +7,8 @@ import {
   calculateCorrectnessOfSentence
 } from './sentenceFragment.js';
 
+import _ from 'underscore'
+
 const scoresForNAttempts = {
   1: 1,
   2: 0.75,
@@ -28,10 +30,18 @@ export function getNestedConceptResultsForAllQuestions(questions) {
 }
 
 export function embedQuestionNumbers(nestedConceptResultArray) {
-  return nestedConceptResultArray.map((conceptResultArray, index) => conceptResultArray.map((conceptResult) => {
-    conceptResult.metadata.questionNumber = index + 1;
-    return conceptResult;
-  }));
+  return nestedConceptResultArray.map((conceptResultArray, index) => {
+    const lastAttempt = _.sortBy(conceptResultArray, (conceptResult) => {
+      return conceptResult.metadata.attemptNumber;
+    }).reverse()[0]
+    const maxAttemptNo = lastAttempt ? lastAttempt.metadata.attemptNumber : undefined;
+    const questionScore = scoresForNAttempts[maxAttemptNo] || 0;
+    return conceptResultArray.map((conceptResult) => {
+      conceptResult.metadata.questionNumber = index + 1;
+      conceptResult.metadata.questionScore = questionScore
+      return conceptResult;
+    })
+  });
 }
 
 export function getConceptResultsForAllQuestions(questions) {
