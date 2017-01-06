@@ -261,6 +261,14 @@
       }
     }
 
+    .partners-footer .partner-links {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      img {
+        margin-bottom: 10px;
+        min-width: 40%;
+      }
+    }
   }
 }
 
