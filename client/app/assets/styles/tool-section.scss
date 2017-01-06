@@ -1,0 +1,565 @@
+// @import '../../../../app/assets/stylesheets/variables.scss';
+$tool-grey: #f8f9f9;
+
+.tool-header {
+  background-color: $quillgreen;
+}
+
+.tool-section {
+  min-height: 650px;
+
+  .q-h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+
+  .info-section {
+    width: 500px;
+    margin-top: 142px;
+    margin-left: 76px;
+
+    &.right {
+      margin-left: 150px;
+      flex-grow: 1;
+
+      > * {
+        max-width: 465px;
+      }
+    }
+  }
+
+  .tool {
+    color: $white;
+    max-width: 1322px;
+    min-height: 650px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .blurb {
+    font-size: 18px;
+    line-height: 25px;
+    margin-top: 0;
+  }
+
+  .light-bar {
+    width: 29px;
+    height: 6px;
+    margin-bottom: 21px;
+    background: rgba($white, .25);
+  }
+
+  .summary {
+    font-size: 18px;
+    line-height: 1.53;
+    max-width: 420px;
+    font-weight: 400;
+    margin-bottom: 48px;
+  }
+
+  .video-section {
+    max-width: 654px;
+    min-height: 528px;
+    width: 100%;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    video {
+      max-width: 405px;
+      border-radius: 12px;
+      -webkit-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
+      -moz-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
+      box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
+    }
+  }
+
+  .diagnostic-tool {
+    .video-section {
+      background-image: url("/images/homepage/diagnostic_keys.png");
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .connect-tool {
+    .video-section {
+      background-image: url("/images/homepage/connect_keys.png");
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+  .grammar-tool {
+    .video-section {
+      background-image: url("/images/homepage/grammar_keys.png");
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+  .proofreader-tool {
+    .video-section {
+      background-image: url("/images/homepage/proofreader_keys.png");
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  @media only screen and (max-width : 1305px) {
+    padding: 15px;
+    .info-section.right {
+      margin-left: 15px;
+      margin-right: 35px;
+    }
+  }
+
+  @media only screen and (max-width : 1100px) {
+    padding: 15px;
+    min-height: 450px;
+    .info-section {
+      margin-top: 0px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .connect-tool .video-section,
+    .diagnostic-tool .video-section,
+    .proofreader-tool .video-section,
+    .grammar-tool .video-section {
+      // background-image: none;
+      // background-position: 10px 10px
+      background-size: contain;
+    }
+  }
+
+    @media only screen and (max-width : 850px) {
+      padding: 15px;
+
+      .tool {
+          min-height: 450px;
+      }
+
+      .info-section {
+          margin-left: 35px;
+      }
+
+      .info-section.right {
+          margin-left: 15px;
+          margin-right: 35px;
+          margin-right: 15px;
+      }
+    }
+    @media only screen and (max-width : 730px) {
+      padding-bottom: 25px;
+
+      .tool {
+          flex-direction: column;
+
+          &.connect-tool,
+          &.proofreader-tool {
+              flex-direction: column-reverse;
+          }
+      }
+
+      .connect-tool .video-section,
+      .diagnostic-tool .video-section,
+      .proofreader-tool .video-section,
+      .grammar-tool .video-section {
+        background-image: none;
+        min-height: initial;
+        margin-bottom: 25px;
+      }
+
+      .info-section {
+          margin-left: 0;
+          width: 100%;
+      }
+
+      .info-section.right {
+          margin-left: 0;
+          margin-right: 0;
+      }
+
+      .light-bar {
+          margin-bottom: 0;
+      }
+
+      .summary {
+          margin-bottom: 20px;
+      }
+
+      .icon-button {
+          display: block;
+      }
+    }
+}
+
+.tool-container {
+    text-align: center;
+
+    .bg-connect-yellow {
+        background-color: #ea9a1a;
+    }
+
+    .text-connect-yellow {
+        color: #ea9a1a;
+    }
+}
+
+.tool-carousel {
+    background-color: $tool-grey;
+    padding-top: 55px;
+
+    .carousel {
+        max-width: 1322px;
+        margin: auto;
+        min-height: 389px;
+
+        .item {
+            .wrapper {
+                background-color: white;
+                margin: auto;
+                max-width: 950px;
+                padding: 20px;
+                width: 75%;
+            }
+
+            img {
+                margin: auto;
+                max-height: 562px;
+                width: 100%;
+            }
+
+            p {
+                color: #343434;
+                padding-top: 25px;
+                max-width: 600px;
+                width: 75%;
+                margin: auto;
+                font-size: 16px;
+            }
+            padding-bottom: 130px;
+        }
+
+        .carousel-indicators {
+            bottom: 48px;
+
+            li {
+                background-color: #cacaca;
+
+                &.active {
+                    background-color: $quillgreen;
+                }
+            }
+        }
+
+        .left {
+            background: $tool-grey url("/images/carousel/chevron_left.svg") no-repeat center;
+        }
+
+        .right {
+            background: url("/images/carousel/chevron_right.svg") no-repeat center;
+        }
+
+        .carousel-control {
+            opacity: 1;
+            background-position-y: 37%;
+        }
+    }
+}
+
+.tool-hero,
+.tool-try-it {
+    min-height: 166px;
+    padding: 20px 0 45px;
+    color: white;
+
+    .q-h1 {
+        font-size: 36px;
+    }
+}
+
+.tool-try-it {
+    padding-bottom: 50px;
+}
+
+.tool-hero {
+    .description {
+        margin: auto;
+        max-width: 560px;
+        width: 95%;
+        font-size: 18px;
+        margin-bottom: 10px;
+        line-height: 25px;
+    }
+}
+
+.tool-animation-section {
+    .tool-animation {
+        margin: auto;
+        padding: 32px 15px 40px;
+    }
+}
+
+.tool-testimonial {
+    padding: 54px 0 58px;
+
+    .quote {
+        width: 95%;
+        padding-top: 13px;
+        margin: auto;
+        max-width: 762px;
+        font-size: 21px;
+        line-height: 1.5em;
+        color: #3f3f3f;
+    }
+
+    .q-button {
+        margin-top: 10px;
+        border: solid 1px #979797;
+
+        span {
+            line-height: 30px;
+            font-weight: 500;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+    }
+}
+
+.tool {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    color: $white;
+    max-width: 1322px;
+    min-height: 650px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.blurb {
+    font-size: 18px;
+    line-height: 25px;
+    margin-top: 0;
+}
+
+.light-bar {
+    width: 29px;
+    height: 6px;
+    margin-bottom: 21px;
+    background: rgba($white, .25);
+}
+
+.summary {
+    font-size: 15px;
+    line-height: 1.53;
+    max-width: 420px;
+    font-weight: 200;
+    margin-bottom: 48px;
+}
+
+.video-section {
+    // height: 100%;
+    align-self: center;
+
+    video {
+        max-width: 654px;
+        width: 100%;
+    }
+}
+@media only screen and (max-width : 1305px) {
+    padding: 15px;
+
+    .info-section.right {
+        margin-left: 15px;
+        margin-right: 35px;
+    }
+}
+@media only screen and (max-width : 1100px) {
+    padding: 15px;
+    min-height: 450px;
+
+    .info-section {
+        margin-top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+@media only screen and (max-width : 850px) {
+    padding: 15px;
+
+    .tool {
+        min-height: 450px;
+    }
+
+    .info-section {
+        margin-left: 35px;
+    }
+
+    .info-section.right {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+@media only screen and (max-width : 730px) {
+    padding-bottom: 25px;
+
+    .tool {
+        flex-direction: column;
+
+        &.connect-tool,
+        &.proofreader-tool {
+            flex-direction: column-reverse;
+        }
+    }
+
+    .info-section {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .info-section.right {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .light-bar {
+        margin-bottom: 0;
+    }
+
+    .summary {
+        margin-bottom: 20px;
+    }
+
+    .icon-button {
+        display: block;
+    }
+}
+
+.tools-tabs {
+    .small-screen {
+        display: none;
+    }
+    @media (max-width: 800px) {
+        .full-screen {
+            display: none;
+        }
+
+        .small-screen {
+            display: block;
+        }
+    }
+}
+
+.tool-sign-up {
+    background-color: $tool-grey;
+    min-height: 266px;
+    padding-top: 54px;
+
+    .q-h1 {
+        font-size: 28px;
+    }
+
+    .q-button {
+        margin-top: 34px;
+    }
+}
+// all for diagnostic page
+
+.diagnostic-walk-thru-wrapper {
+    background-color: white;
+
+    .walk-thru-step {
+        height: 322px;
+
+        &:nth-child(odd) {
+            background-color: $tool-grey;
+        }
+
+        .q-h2 {
+            font-size: 28px;
+            color: #343434;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.39;
+            color: #414141;
+            max-width: 457px;
+        }
+
+        .diagnostic-blurb {
+            max-width: 457px;
+            text-align: left;
+        }
+
+        .diagnostic-content-wrapper {
+            max-width: 960px;
+            width: 95%;
+            margin: auto;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+    #negative-left-margin {
+        margin-left: -90px;
+    }
+
+    &.desktop {
+        @media (max-width: 930px) {
+            display: none;
+        }
+    }
+
+    &.mobile {
+        @media (min-width: 930px) {
+            display: none;
+        }
+
+        #shrink-me {
+            width: 100%;
+            max-width: 517px;
+        }
+
+        .walk-thru-step {
+            height: auto;
+            padding: 55px 10px 35px;
+        }
+
+        .diagnostic-blurb {
+            padding-top: 45px;
+            margin: auto;
+            text-align: center;
+        }
+    }
+
+    .icon-button {
+        display: block;
+    }
+}
+
+.bg-tool-orange {
+    background-color: #EA9A1A;
+}
+
+.bg-tool-red {
+    background-color: #ff4441;
+}
+
+.bg-tool-blue {
+    background-color: #358FE0;
+}
+
+.bg-tool-purple {
+    background-color: #9C2ADE;
+}
