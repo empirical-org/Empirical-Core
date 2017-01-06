@@ -126,58 +126,76 @@ $tool-grey: #f8f9f9;
       flex-direction: column;
       justify-content: center;
     }
+
+    .connect-tool .video-section,
+    .diagnostic-tool .video-section,
+    .proofreader-tool .video-section,
+    .grammar-tool .video-section {
+      // background-image: none;
+      // background-position: 10px 10px
+      background-size: contain;
+    }
   }
 
     @media only screen and (max-width : 850px) {
-        padding: 15px;
+      padding: 15px;
 
-        .tool {
-            min-height: 450px;
-        }
+      .tool {
+          min-height: 450px;
+      }
 
-        .info-section {
-            margin-left: 35px;
-        }
+      .info-section {
+          margin-left: 35px;
+      }
 
-        .info-section.right {
-            margin-left: 15px;
-            margin-right: 35px;
-            margin-right: 15px;
-        }
+      .info-section.right {
+          margin-left: 15px;
+          margin-right: 35px;
+          margin-right: 15px;
+      }
     }
     @media only screen and (max-width : 730px) {
-        padding-bottom: 25px;
+      padding-bottom: 25px;
 
-        .tool {
-            flex-direction: column;
+      .tool {
+          flex-direction: column;
 
-            &.connect-tool,
-            &.proofreader-tool {
-                flex-direction: column-reverse;
-            }
-        }
+          &.connect-tool,
+          &.proofreader-tool {
+              flex-direction: column-reverse;
+          }
+      }
 
-        .info-section {
-            margin-left: 0;
-            width: 100%;
-        }
+      .connect-tool .video-section,
+      .diagnostic-tool .video-section,
+      .proofreader-tool .video-section,
+      .grammar-tool .video-section { 
+        background-image: none;
+        min-height: initial;
+        margin-bottom: 25px;
+      }
 
-        .info-section.right {
-            margin-left: 0;
-            margin-right: 0;
-        }
+      .info-section {
+          margin-left: 0;
+          width: 100%;
+      }
 
-        .light-bar {
-            margin-bottom: 0;
-        }
+      .info-section.right {
+          margin-left: 0;
+          margin-right: 0;
+      }
 
-        .summary {
-            margin-bottom: 20px;
-        }
+      .light-bar {
+          margin-bottom: 0;
+      }
 
-        .icon-button {
-            display: block;
-        }
+      .summary {
+          margin-bottom: 20px;
+      }
+
+      .icon-button {
+          display: block;
+      }
     }
 }
 
