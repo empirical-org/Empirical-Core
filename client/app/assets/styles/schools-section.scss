@@ -205,9 +205,15 @@
       }
       &.pas-left {
         font-size: 15px;
+        a {
+        color: $white
+        }
       }
       &.pas-right {
         font-size: 24px;
+        a {
+        color: $white
+        }
       }
     }
 

@@ -128,10 +128,6 @@ export default React.createClass({
     this.modules.server.save(model, {callback: this.props.returnToIndex, fieldsToNormalize: fieldsToNormalize})
   },
 
-  isEnoughInputProvidedToContinue: function () {
-    return true;
-  },
-
   determineErrorMessage: function () {
     return null;
   },
@@ -178,7 +174,6 @@ export default React.createClass({
   getActivitySearchAndSelect: function () {
     return <ActivitySearchAndSelect selectedActivities={this.state.model.activities}
                                       toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
-                                      isEnoughInputProvidedToContinue={this.isEnoughInputProvidedToContinue()}
                                       errorMessage={this.props.errorMessage} />
   },
 
