@@ -72,7 +72,7 @@ export default React.createClass({
 		selections = {selections}
 		$.ajax({
 	  	type : 'POST',
-	  	url :  '/teachers/progress_reports/assign_selected_packs/' + classroomId,
+	  	url :  '/teachers/progress_reports/assign_selected_packs/',
 	  	dataType: 'json',
 	  	contentType: 'application/json',
 	  	data : JSON.stringify(selections)
