@@ -82,6 +82,7 @@ EmpiricalGrammar::Application.routes.draw do
   namespace :teachers do
 
     resources :units, as: 'units_path' # moved from within classroom, since units are now cross-classroom
+    get 'unit_names' => 'units#unit_names'
 
     resources :unit_templates, only: [:index] do
       collection do
@@ -109,7 +110,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
       get 'recommendations_for_classroom/:classroom_id' => 'diagnostic_reports#recommendations_for_classroom'
-      post 'assign_selected_packs/:classroom_id' => 'diagnostic_reports#assign_selected_packs'
+      post 'assign_selected_packs' => 'diagnostic_reports#assign_selected_packs'
 
       namespace :concepts do
         resources :students, only: [:index] do
@@ -260,8 +261,6 @@ EmpiricalGrammar::Application.routes.draw do
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
-
-
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
