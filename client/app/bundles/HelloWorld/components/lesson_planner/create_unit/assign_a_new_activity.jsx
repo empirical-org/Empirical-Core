@@ -23,7 +23,18 @@ export default React.createClass({
           routeToGetQuantity={'/count/featured_packs'}
           unit={'Pack'}
           timeDuration={'~1 Hour'}/>,
-
+          <a href='/diagnostic#/stage/1' >
+                   <AssignmentTypeMini
+                     key={3}
+                     toggleTab={this.props.toggleTab}
+                       title={'Beta: Entry Diagnostic'}
+                         img={'/images/diagnostic_icon.svg'}
+                     bodyText={'Find your students’ writing abilities through a 15 question diagnostic.'}
+                     directions={'use intermittently'}
+                     quantity={1}
+                     unit={'Beta: Diagnostic'}
+                     timeDuration={'~20 Min.'}/>
+                 </a>,
           <AssignmentTypeMini
                         key={2}
                         toggleTab={this.props.toggleTab}
@@ -35,24 +46,7 @@ export default React.createClass({
                     routeToGetQuantity={'/count/activities'}
                     unit={'Activity'}
                     timeDuration={'~10 Min.'}/>
-      ]
-      if (['beta','alpha'].indexOf(this.props.flag) > -1) {
-        // if user is flagged as beta or alpha, we insert the beta mini into the middle of the minis arr
-        let beta =         <a href='/diagnostic#/stage/1' >
-                  <AssignmentTypeMini
-                    key={3}
-                    toggleTab={this.props.toggleTab}
-                      title={'Beta: Entry Diagnostic'}
-                        img={'/images/diagnostic_icon.svg'}
-                    bodyText={'Find your students’ writing abilities through a 15 question diagnostic.'}
-                    directions={'use intermittently'}
-                    quantity={1}
-                    unit={'Beta: Diagnostic'}
-                    timeDuration={'~20 Min.'}/>
-                  </a>
-
-         minis.splice(1,0,beta)
-      }
+        ]
       return minis
 },
 
