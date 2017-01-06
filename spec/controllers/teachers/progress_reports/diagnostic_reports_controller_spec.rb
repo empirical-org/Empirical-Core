@@ -7,7 +7,6 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
 
   let(:teacher) { FactoryGirl.create(:teacher) }
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let(:unit) {FactoryGirl.create(:unit)}
   let(:student) {FactoryGirl.create(:student)}
   let(:student1) {FactoryGirl.create(:student)}
   let(:student2) {FactoryGirl.create(:student)}
@@ -31,6 +30,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
   describe 'getting the report for a completed activity session' do
 
     describe 'updating existing recommendations' do
+      let(:unit) {FactoryGirl.create(:unit)}
       it "returns a json with the url" do
           get :report_from_activity_session, ({activity_session: activity_session.id})
           response_body = JSON.parse(response.body)
@@ -41,7 +41,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
 
   describe 'assign_selected_packs recommendations' do
       def unit_templates_have_a_corressponding_unit?
-        Unit.all.map(&:name).sort == UnitTemplate.all.map(&:name)
+        Unit.all.map(&:name).sort == UnitTemplate.all.map(&:name).sort
       end
 
       def units_have_a_corresponding_classroom_activities?
@@ -52,10 +52,10 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
           data = {"selections":[
                     {"id":unit_template1.id,"classrooms":[{"id":classroom.id,"student_ids":[]}]},
                     {"id":unit_template2.id,"classrooms":[{"id":classroom.id,"student_ids":[]}]},
-                    {"id":unit_template3.id,"classrooms":[{"id":classroom.id,"student_ids":[144835]}]}
+                    {"id":unit_template3.id,"classrooms":[{"id":classroom.id,"student_ids":[144835]}]},
+                    {"id":unit_template4.id,"classrooms":[{"id":classroom.id,"student_ids":[144835]}]}
                   ]}
           post "assign_selected_packs", (data)
-
           expect(unit_templates_have_a_corressponding_unit?).to eq(true)
           expect(units_have_a_corresponding_classroom_activities?).to eq(true)
       end
