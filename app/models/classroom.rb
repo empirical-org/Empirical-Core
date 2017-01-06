@@ -8,10 +8,11 @@ class Classroom < ActiveRecord::Base
   default_scope { where(visible: true)}
 
 
-  has_many :units
+
 
   has_many :classroom_activities
   has_many :activities, through: :classroom_activities
+  has_many :units, through: :classroom_activities
   has_many :activity_sessions, through: :classroom_activities
   has_many :sections, through: :activities
 
