@@ -7,6 +7,14 @@ import {
   calculateCorrectnessOfSentence
 } from './sentenceFragment.js';
 
+const scoresForNAttempts = {
+  1: 1,
+  2: 0.75,
+  3: 0.5,
+  4: 0.25,
+  5: 0,
+};
+
 export function getConceptResultsForQuestion(questionObj) {
   if (questionObj.type === 'SF') {
     return getAllSentenceFragmentConceptResults(questionObj.question);
@@ -33,20 +41,10 @@ export function getConceptResultsForAllQuestions(questions) {
 }
 
 export function getScoreForSentenceCombining(question) {
-  const firstAttempt = question.attempts[0];
-  if (firstAttempt.found && firstAttempt.response.optimal) {
-    return 1;
-  } else {
-    return 0;
-  }
+  return scoresForNAttempts[question.attempts.length] || 0
 }
 export function getScoreForSentenceFragment(question) {
-  const firstAttempt = question.attempts[0];
-  if (question.identified && calculateCorrectnessOfSentence(firstAttempt) === 1) {
-    return 1;
-  } else {
-    return 0;
-  }
+  return scoresForNAttempts[question.attempts.length] || 0
 }
 
 export function calculateScoreForLesson(questions) {
