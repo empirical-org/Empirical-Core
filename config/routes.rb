@@ -256,7 +256,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.
 
-  other_pages = %w(tooltip beta board press blog_posts supporters partnerships middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news home_new )
+  other_pages = %w(tooltip beta board press blog_posts supporters partners middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news home_new )
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
