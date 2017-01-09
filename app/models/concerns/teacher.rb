@@ -10,7 +10,7 @@ module Teacher
     has_many :classrooms_i_teach, foreign_key: 'teacher_id', class_name: "Classroom"
     has_many :students, through: :classrooms_i_teach, class_name: "User"
     has_many :admin_accounts_teachers,  foreign_key: 'teacher_id', class_name: "AdminAccountsTeachers"
-    has_many :admin_accounts, through: :admin_accounts_teachers, class_name: "AdminAccount"
+    has_many :admin_accounts_i_am_part_of, through: :admin_accounts_teachers, class_name: "AdminAccount", source: :admin_account
   end
 
   class << self
@@ -100,7 +100,7 @@ module Teacher
   end
 
   def part_of_admin_account?
-    admin_accounts.any?
+    admin_accounts_i_am_part_of.any?
   end
 
   def is_premium?
