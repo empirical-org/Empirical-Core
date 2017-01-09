@@ -118,19 +118,19 @@
       label {
         position:relative;
         display:block;
-        width:100%;
+        width: calc(100% - 30px);
         min-height:2.25em;
-        padding:.45em;
+        padding:15px;
         font-size:1.1em;
         margin:0;
       }
 
       label:after {
         position: absolute;
-        right: 10%;
+        right: 25px;
         top: -19px;
         content: "\2261";
-        color: #3b3b3b;
+        color: $white;
         font-size: 4em;
       }
 
@@ -142,7 +142,7 @@
         display:block;
 
         > li {
-          width:100%;
+          width: calc(100% - 19px);
           text-align:left;
 
           &:after {
