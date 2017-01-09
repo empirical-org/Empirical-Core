@@ -21,8 +21,15 @@ export default React.createClass({
     return this.props.lesson.name;
   },
 
+  landingPageHtmlHasText(){
+    // strips out everything nested betwee < and >.
+    // we should also not allow draft js to send text-less answers from
+    // the lp editor
+    return this.props.lesson.landingPageHtml.replace(/(<([^>]+)>)/ig, "").length > 0;
+  },
+
   startActivity() {
-    if (this.props.lesson.landingPageHtml) {
+    if (this.props.lesson.landingPageHtml && this.landingPageHtmlHasText()) {
       this.setState({ showIntro: true, });
     } else {
       this.props.startActivity(this.state.name);
