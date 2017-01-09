@@ -197,6 +197,7 @@ nav.q-navbar-home {
       top: 30px;
       left: 0;
       background-color: $quillgreen;
+      z-index: 2;
 
       > li {
         float:left;
