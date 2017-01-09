@@ -255,11 +255,16 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.
-  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool)
+
   other_pages = %w(tooltip beta board press blog_posts supporters partnerships middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news home_new )
-  all_pages = other_pages.concat tools
+  all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
+  end
+
+  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool)
+  tools.each do |tool|
+    get "tools/#{tool.chomp('_tool')}" => "pages##{tool}"
   end
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
@@ -283,7 +288,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'
 
-  root to: 'pages#home'
+  root to: 'pages#home_new'
 
   # http://stackoverflow.com/questions/26130130/what-are-the-routes-i-need-to-set-up-to-preview-emails-using-rails-4-1-actionmai
   get '/lib/mailer_previews' => "rails/mailers#index"
