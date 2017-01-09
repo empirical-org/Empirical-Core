@@ -227,6 +227,9 @@ $tool-grey: #f8f9f9;
                 max-width: 950px;
                 padding: 20px;
                 width: 75%;
+                -webkit-box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
+                -moz-box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
+                box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
             }
 
             img {
