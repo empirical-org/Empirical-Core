@@ -92,7 +92,7 @@ describe User, type: :model do
 
         let!(:school_account) {FactoryGirl.create(:admin_accounts_teacher, admin_account_id: admin_account.id, teacher_id: teacher.id)}
         it "returns 'school'" do
-          expect(teacher.part_of_admin_account?).to eq('true')
+          expect(teacher.premium_state).to eq('school')
         end
       end
 
