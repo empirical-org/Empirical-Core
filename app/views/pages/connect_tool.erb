@@ -14,9 +14,9 @@
       </p>
     </section>
 
-    <!-- <section class="tool-animation-section ">
-          <video class='tool-animation' src="/videos/diagnostic.mp4" autoplay loop/>
-    </section> -->
+    <section class="tool-animation-section ">
+          <video class='tool-animation' src="/videos/connect.mp4" autoplay loop/>
+    </section>
 
   <section class="tool-carousel">
       <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
@@ -30,32 +30,45 @@
           <div class="carousel-inner" role="listbox">
               <div class="item active">
                 <div class="wrapper">
-                  <img src="/images/tools/diagnostic/test-screenshot.png" alt="Chania">
+                  <img src="/images/tools/Connect1.png" alt="Chania">
                 </div>
-                <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p>
+                <!-- <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p> -->
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img src="http://www.w3schools.com/bootstrap/img_chania2.jpg" alt="Chania">
+                  <img src="/images/tools/Connect2.png" alt="Chania">
                 </div>
-                <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p>
+                <!-- <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p> -->
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img src="http://www.w3schools.com/bootstrap/img_flower.jpg" alt="Flower">
+                  <img src="/images/tools/Connect3.png" alt="Flower">
                 </div>
-                <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p>
+                <!-- <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p> -->
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img src="http://www.w3schools.com/bootstrap/img_flower2.jpg" alt="Flower">
+                  <img src="/images/tools/Connect4.png" alt="Flower">
                 </div>
-                <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p>
+                <!-- <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p> -->
               </div>
 
+              <div class="item">
+                <div class="wrapper">
+                  <img src="/images/tools/Connect5.png" alt="Flower">
+                </div>
+                <!-- <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p> -->
+              </div>
+
+              <div class="item">
+                <div class="wrapper">
+                  <img src="/images/tools/Connect6.png" alt="Flower">
+                </div>
+                <!-- <p>The diagnostic asseses students’ sentence construction skills by giving them three short sentences and asking them to combine them into one sentence. Students have to type out their full response.</p> -->
+              </div>
           </div>
 
           <!-- Left and right controls -->
@@ -71,6 +84,9 @@
               <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
               <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
               <li data-target="#diagnosticCarousel" data-slide-to="3"></li>
+              <li data-target="#diagnosticCarousel" data-slide-to="4"></li>
+              <li data-target="#diagnosticCarousel" data-slide-to="5"></li>
+          </ol>
           </ol>
 
       </div>
@@ -78,18 +94,18 @@
 
   <section class="tool-try-it bg-connect-yellow bg-image-connect-pattern">
     <h2 class='q-h1'>Try It Yourself!</h2>
-    <a href='/' class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
+    <a href='https://quillconnect.firebaseapp.com/#/play/lesson/-KVM6RkkDWkWEcUM0As9' class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
   </section>
 
   <section class="tool-testimonial">
-    <img class='q-headshot' src="/images/daniel_scibienski_90.png" alt="Daniel Scibienski">
+    <!-- <img class='q-headshot' src="/images/daniel_scibienski_90.png" alt="Daniel Scibienski"> -->
     <p class='quote'>
-      "Using Quill has opened up more conversations between me and my students, in terms of how to write better and what the student needs to practice."
+      "I appreciate the fact that students are required to slow down and check spelling, punctuation and the grammar lesson at hand in order to score “GREEN!”"
     </p>
     <h4 class="q-h4 author">
-      MADISON VALDEZ, 8TH GRADE ELA EDUCATOR
+      Randall L. Carswell, South Charlotte Middle School
     </h4>
-    <a href="/" class='q-button text-black'>
+    <a href="/activities/packs/21" class='q-button text-black'>
       <span>View My Story</span>
     </a>
   </section>
@@ -98,10 +114,13 @@
   <%if !current_user%>
     <section class="tool-sign-up">
         <h1 class='q-h1'>
-            Sign up to start using Place Holder in your class today!
+            Sign up to start using Quill Connect in your class today!
         </h1>
         <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
     </section>
   <%end%>
 
 </div>
+
+
+<%= render partial: 'pages/shared/footer' %>
