@@ -15,7 +15,12 @@ class PagesController < ApplicationController
   end
 
   def home_new
-
+    if signed_in?
+      redirect_to(profile_path) && return
+    end
+    @title = 'Quill.org — Interactive Writing and Grammar'
+    @description = 'Quill provides free writing and grammar activities
+                    for middle and high school students.'
   end
 
   def develop
@@ -72,15 +77,23 @@ class PagesController < ApplicationController
   end
 
   def diagnostic_tool
+    @title = 'Quill Diagnsotic - Free Diagnostic and Adaptive Lesson Plan'
+    @description = 'Quickly determine which skills your students need to work on with our 22 question diagnostic.'
   end
 
   def grammar_tool
+    @title = 'Quill Grammar - Free 10 Minute Activities for your Students'
+    @description = 'Over 150 sentence writing activities to help your students practice basic grammar skills.'
   end
 
   def proofreader_tool
+    @title = 'Quill Proofreader - Over 100 Expository Passages To Read And Edit'
+    @description = 'Students edit passages and receive personalized exercises based on their results.'
   end
 
   def connect_tool
+    @title = 'Quill Connect - Free Sentence Structure Activities'
+    @description = 'Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect.'
   end
 
   def activities
