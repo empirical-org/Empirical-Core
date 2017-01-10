@@ -77,7 +77,7 @@ $tool-grey: #f8f9f9;
 
   .diagnostic-tool {
     .video-section {
-      background-image: url("/images/homepage/diagnostic_keys.png");
+      background-image: url("../../../../public/images/homepage/diagnostic_keys.png");
       background-position: center center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -86,7 +86,7 @@ $tool-grey: #f8f9f9;
 
   .connect-tool {
     .video-section {
-      background-image: url("/images/homepage/connect_keys.png");
+      background-image: url("../../../../public/images/homepage/connect_keys.png");
       background-position: center center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -94,7 +94,7 @@ $tool-grey: #f8f9f9;
   }
   .grammar-tool {
     .video-section {
-      background-image: url("/images/homepage/grammar_keys.png");
+      background-image: url("../../../../public/images/homepage/grammar_keys.png");
       background-position: center center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -102,7 +102,7 @@ $tool-grey: #f8f9f9;
   }
   .proofreader-tool {
     .video-section {
-      background-image: url("/images/homepage/proofreader_keys.png");
+      background-image: url("../../../../public/images/homepage/proofreader_keys.png");
       background-position: center center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -262,11 +262,11 @@ $tool-grey: #f8f9f9;
         }
 
         .left {
-            background: $tool-grey url("/images/carousel/chevron_left.svg") no-repeat center;
+            background: $tool-grey url("../../../../public/images/carousel/chevron_left.svg") no-repeat center;
         }
 
         .right {
-            background: url("/images/carousel/chevron_right.svg") no-repeat center;
+            background: url("../../../../public/images/carousel/chevron_right.svg") no-repeat center;
         }
 
         .carousel-control {
