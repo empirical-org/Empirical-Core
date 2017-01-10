@@ -36,8 +36,10 @@ export default React.createClass({
       }
     },
 
-    componentWillUnmount: function(){
-      this.ajax.quantity.abort();
+    componentWillUnmount: function() {
+      if (this.ajax && this.ajax.quantity && this.ajax.quantity.abort()){
+        this.ajax.quantity.abort()
+      }
     },
 
     changeView: function() {
