@@ -76,7 +76,7 @@ class PagesController < ApplicationController
   end
 
   def diagnostic_tool
-    @title = 'Quill Diagnsotic - Free Diagnostic and Adaptive Lesson Plan'
+    @title = 'Quill Diagnostic - Free Diagnostic and Adaptive Lesson Plan'
     @description = 'Quickly determine which skills your students need to work on with our 22 question diagnostic.'
   end
 
