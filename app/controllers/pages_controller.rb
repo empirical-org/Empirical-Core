@@ -19,8 +19,7 @@ class PagesController < ApplicationController
       redirect_to(profile_path) && return
     end
     @title = 'Quill.org — Interactive Writing and Grammar'
-    @description = 'Quill provides free writing and grammar activities
-                    for middle and high school students.'
+    @description = 'Quill provides free writing and grammar activities for middle and high school students.'
   end
 
   def develop
