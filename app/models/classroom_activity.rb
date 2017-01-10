@@ -13,7 +13,7 @@ class ClassroomActivity < ActiveRecord::Base
 
 
   after_create :assign_to_students
-  after_save :teacher_checkbox
+  after_save :teacher_checkbox, :assign_to_students
 
   def assigned_students
     User.where(id: assigned_student_ids)
@@ -43,8 +43,8 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def students
-    if assigned_student_ids.try(:any?)
-      User.find(assigned_student_ids)
+    if assigned_student_ids && assigned_student_ids.any?
+      User.find_by_id(assigned_student_ids)
     else
       classroom.students
     end
@@ -93,7 +93,9 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def assign_to_students
-    students.each do |student|
+    # sometimes a student can be one student object rather than an array
+    assignees = [students].flatten
+    assignees.each do |student|
       session_for(student)
     end
   end
