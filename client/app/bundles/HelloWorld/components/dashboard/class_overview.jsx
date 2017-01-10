@@ -20,10 +20,6 @@
     this.setState({displayTeacherGuide: false});
   },
 
-  showTeacherGuide: function(){
-    this.setState({displayTeacherGuide: true});
-  },
-
   overviewMinis: function() {
     var minis = _.map(this.props.data, function(overviewObj){
       return <OverviewMini overviewObj={overviewObj} key={overviewObj.header}/>;
@@ -31,9 +27,9 @@
     if (this.props.flag === 'beta') {
       minis.unshift(<BetaMini key='beta-mini'/>)
     }
-    // if (this.state.displayTeacherGuide){
-      minis.unshift(<TeacherGuide dashboardMini key='teacher-guide-displayed' hideTeacherGuide={this.hideTeacherGuide} isDisplayed={false}/>);
-    // }
+    if (this.state.displayTeacherGuide){
+      minis.unshift(<TeacherGuide dashboardMini key='teacher-guide-displayed' hideTeacherGuide={this.hideTeacherGuide}/>);
+    }
     return minis;
   },
 
