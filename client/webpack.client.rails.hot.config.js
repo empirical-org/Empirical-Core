@@ -6,7 +6,6 @@
 
 const path = require('path');
 const webpack = require('webpack');
-
 const config = require('./webpack.client.base.config');
 
 const hotRailsPort = process.env.HOT_RAILS_PORT || 3500;
