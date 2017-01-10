@@ -27,6 +27,10 @@ module.exports = {
     app: [
       './app/bundles/HelloWorld/startup/clientRegistration',
     ],
+    home: [
+      './app/bundles/Home/home',
+    ]
+
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
