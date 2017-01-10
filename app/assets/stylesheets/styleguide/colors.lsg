@@ -1,0 +1,22 @@
+# Colors
+
+## Brand Colors
+
+@colors {
+ $quillgreen $quillforestgreen $quillblue $orange $darkred
+}
+
+## Grayscale
+
+@colors {
+ $white $lightgray2 $verylightgray $lightgray
+}
+@colors {
+ $gray $mediumdarkgray  $darkgray $black
+}
+
+## Other Colors
+
+@colors {
+  $darkgreen2 $darkblue $darkorange $red
+}

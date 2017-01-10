@@ -20,14 +20,14 @@ export default React.createClass({
 				href: '/teachers/progress_reports/diagnostic_reports#/activity_packs',
 				img: '/images/activity_analysis.svg',
 				bodyText: 'See how students responded to each question and get a clear analysis of the skills they demonstrated.',
-				flag: 'beta'
+				flag: null
 			}, {
-				title: 'Beta: Diagnostic',
-				href: '/teachers/progress_reports/diagnostic_report',
-				img: '/images/diagnostic.svg',
-				bodyText: 'View the results of the diagnostic, and get a personalized learning plan with recommended activities.',
-				flag: 'beta'
-			}, {
+			// 	title: 'Beta: Diagnostic',
+			// 	href: '/teachers/progress_reports/diagnostic_report',
+			// 	img: '/images/diagnostic.svg',
+			// 	bodyText: 'View the results of the diagnostic, and get a personalized learning plan with recommended activities.',
+			// 	flag: null
+			// }, {
 				title: 'List Overview',
 				premium: true,
 				href: '/teachers/progress_reports/activity_sessions',

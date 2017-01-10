@@ -4,7 +4,8 @@ describe FinishActivityWorker, type: :worker do
   let(:worker) { FinishActivityWorker.new }
   let(:analytics) { SegmentAnalytics.new }
   let(:classroom) { FactoryGirl.create(:classroom) }
-  let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, unit: classroom.units.first) }
+  let!(:unit) {FactoryGirl.create(:unit)}
+  let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, unit: unit) }
   let(:activity_session) { FactoryGirl.create(:activity_session, state: 'finished', classroom_activity: classroom_activity) }
 
   it 'sends a segment.io event' do

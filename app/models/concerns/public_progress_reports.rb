@@ -1,20 +1,14 @@
 module PublicProgressReports
     extend ActiveSupport::Concern
 
-    def first_completed_diagnostic
-      classroom_activities = current_user.classroom_activities(:activity_sessions)
-      first_completed_diagnostic_activity = nil
-      classroom_activities.each do |ca|
-        if ca.activity_sessions
-              .where.not(activity_sessions: {started_at: nil})
-              .where(activity_sessions: {activity_id: Activity.diagnostic.id})
-              .limit(1)
-              .any?
-              first_completed_diagnostic_activity = ca
-              break
-        end
-      end
-      return first_completed_diagnostic_activity
+    def last_completed_diagnostic
+      diagnostic_activity_ids = ActivityClassification.find(4).activities.map(&:id)
+      current_user.classroom_activities.
+                  joins(activity_sessions: :classroom_activity).
+                  where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids).
+                  order('created_at DESC').
+                  limit(1).
+                  first
     end
 
     def activity_session_report(activity_session_id)
@@ -30,8 +24,8 @@ module PublicProgressReports
     end
 
     def default_diagnostic_url
-      if first_completed_diagnostic
-        ca = first_completed_diagnostic
+      ca = last_completed_diagnostic
+      if ca
         custom_url = "#u/#{ca.unit.id}/a/#{Activity.diagnostic.id}/c/#{ca.classroom_id}"
         return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/questions"
       else

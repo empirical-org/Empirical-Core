@@ -1,5 +1,6 @@
 module Teacher
   extend ActiveSupport::Concern
+
   include CheckboxCallback
 
 
@@ -9,6 +10,7 @@ module Teacher
   included do
     has_many :classrooms_i_teach, foreign_key: 'teacher_id', class_name: "Classroom"
     has_many :students, through: :classrooms_i_teach, class_name: "User"
+    has_many :units
   end
 
   class << self
