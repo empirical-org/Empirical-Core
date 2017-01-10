@@ -134,6 +134,7 @@ group :development do
   gem "letter_opener"
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'livingstyleguide'
 end
 
 gem "awesome_print"

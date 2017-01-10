@@ -4,7 +4,7 @@ module PagesHelper
 		about_actions = ["mission", "develop", "faq"]
 		impact_actions = ['impact']
 		team_actions = %w(team)
-		partnerships_actions = %w(partnerships)
+		partners_actions = %w(partners)
 		news_actions = %w(news)
 		press_actions = %w(press)
 		standards_actions = ['activities']
@@ -19,8 +19,8 @@ module PagesHelper
 			faq_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == 'press'
 			press_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'partnerships'
-			partnerships_actions.include?(action_name) ? 'active' : ''
+		elsif tabname == 'partners'
+			partners_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == "media"
 			media_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == "team"

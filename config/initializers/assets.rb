@@ -27,5 +27,8 @@ Rails.application.config.assets.precompile +=
     "application_#{type}.js",
     "app-bundle.js",
     "vendor-bundle.js",
+    "home-bundle.js",
+    "home.css",
+    "home.js",
     "application_#{type}.css"
   ]
