@@ -33,6 +33,13 @@
   button {
     color: white;
   }
+  #select-role-dropdown {
+    color: black;
+    .caret {
+      float: right;
+      margin-top: 7px;
+    }
+  }
   input.btn-warning {
     line-height: 0;
   }
