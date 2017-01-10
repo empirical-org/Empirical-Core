@@ -5,14 +5,15 @@ class Teachers::StudentsController < ApplicationController
   def create
     valid_names = Creators::StudentCreator.check_names(params)
     if valid_names[:status] == 'failed'
-      flash[:notice] = valid_names[:notice]
-      redirect_to teachers_classroom_invite_students_path(@classroom)
+      # flash[:notice] = valid_names[:notice]
+      # redirect_to teachers_classroom_invite_students_path(@classroom)
+      render status: 400, json: {error: valid_names[:notice]}.to_json
     else
       @student = Creators::StudentCreator.create_student(user_params, @classroom.id)
       Associators::StudentsToClassrooms.run(@student, @classroom)
+      InviteStudentWorker.perform_async(current_user.id, @student.id)
+      render json: @student
     end
-    InviteStudentWorker.perform_async(current_user.id, @student.id)
-    render json: @student
   end
 
   def edit
