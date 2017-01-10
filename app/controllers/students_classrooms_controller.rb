@@ -1,21 +1,25 @@
 class StudentsClassroomsController < ApplicationController
 
     def create
-      @user = current_user
-      classcode = params[:classcode].downcase.gsub(/\s+/, "")
-      begin
-        classroom = Classroom.where(code: classcode).first
-        Associators::StudentsToClassrooms.run(@user, classroom)
-        JoinClassroomWorker.perform_async(@user.id)
-      rescue NoMethodError => exception
-        if Classroom.unscoped.where(code: classcode).first.nil?
-          InvalidClasscodeWorker.perform_async(@user.id, params[:classcode], classcode)
-          render status: 400, json: {error: "No such classcode"}.to_json
+      if current_user
+        @user = current_user
+        classcode = params[:classcode].downcase.gsub(/\s+/, "")
+        begin
+          classroom = Classroom.where(code: classcode).first
+          Associators::StudentsToClassrooms.run(@user, classroom)
+          JoinClassroomWorker.perform_async(@user.id)
+        rescue NoMethodError => exception
+          if Classroom.unscoped.where(code: classcode).first.nil?
+            InvalidClasscodeWorker.perform_async(@user.id, params[:classcode], classcode)
+            render status: 400, json: {error: "No such classcode"}.to_json
+          else
+            render status: 400, json: {error: "Class is archived"}.to_json
+          end
         else
-          render status: 403, json: {error: "Class is archived"}.to_json
+          render json: classroom.attributes
         end
       else
-        render json: classroom.attributes
+        render status: 403, json: {error: "Student not logged in."}.to_json
       end
     end
 
