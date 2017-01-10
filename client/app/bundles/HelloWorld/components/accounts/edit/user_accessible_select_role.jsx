@@ -10,7 +10,7 @@ export default React.createClass({
   },
 
   handleSelect: function(role){
-    if (window.confirm("Are you sure you want to change your account type?")) {
+    if (window.confirm('Are you sure you want to change your account type?')) {
       if (this.props.updateRole) {
         this.props.updateRole(role)
       }
@@ -20,8 +20,8 @@ export default React.createClass({
 
   handleClick: function(){
     $.ajax({
-      url: "/make_teacher",
-      method: "PUT"})
+      url: '/make_teacher',
+      method: 'PUT'})
     .success(
       ()=>window.location = '/profile'
     )
@@ -45,7 +45,7 @@ export default React.createClass({
             Role
           </div>
           <div className="col-xs-4">
-            <DropdownButton bsStyle='default' title={this.state.role[0].toUpperCase() + this.state.role.slice(1)} id='select-classroom-dropdown' onSelect={this.handleSelect}>
+            <DropdownButton bsStyle='default' title={this.state.role[0].toUpperCase() + this.state.role.slice(1)} id='select-role-dropdown' onSelect={this.handleSelect}>
               <MenuItem key='student' eventKey='student'>Student</MenuItem>
               <MenuItem key='teacher' eventKey='teacher'>Teacher</MenuItem>
             </DropdownButton>
