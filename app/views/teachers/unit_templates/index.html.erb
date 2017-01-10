@@ -1,7 +1,7 @@
 <!-- this is the public facing index, for signed-in-teacher facing index, see lesson planner -->
 <%= render partial: 'pages/shared/discover_tabs' %>
 
-<div id="page-content-wrapper">
+<div class="page-content-wrapper">
   <div class="tab-pane" id="public-activity-packs" data-authenticated=<%=@is_teacher%>>
       <%= react_component('PublicActivityPacksApp', props: {})%>
   </div>
