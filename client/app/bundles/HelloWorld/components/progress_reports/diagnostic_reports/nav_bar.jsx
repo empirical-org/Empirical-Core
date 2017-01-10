@@ -20,7 +20,7 @@ export default React.createClass({
 
 
   students: function(){
-    let selectedClassroomId = this.props.params.selectedClassroomId;
+    let selectedClassroomId = parseInt(this.props.params.classroomId);
     if (this.props.students) {
       return this.props.students;
     } else if (selectedClassroomId) {
@@ -37,7 +37,7 @@ export default React.createClass({
       selectedStudent = this.students().find((student) => student.id === Number(studentId))
     }
     if (this.props.showStudentDropdown) {
-      return   <StudentDropdown key={'student-dropdown'}
+      return   <StudentDropdown key={studentId}
                           students = {this.students()}
                           callback ={this.props.studentDropdownCallback}
                           selectedStudent={selectedStudent || (this.students()[0] || null)}

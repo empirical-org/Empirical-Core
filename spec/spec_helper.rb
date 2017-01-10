@@ -22,6 +22,7 @@ RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+
   config.verbose_retry = true
   config.display_try_failure_messages = true
   # these last two lines are for rspec-retry -- https://github.com/NoRedInk/rspec-retry
