@@ -26,7 +26,7 @@ module PublicProgressReports
     def default_diagnostic_url
       ca = last_completed_diagnostic
       if ca
-        custom_url = "#u/#{ca.unit.id}/a/#{Activity.diagnostic.id}/c/#{ca.classroom_id}"
+        custom_url = "#u/#{ca.unit.id}/a/#{ca.activity_id}/c/#{ca.classroom_id}"
         return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/questions"
       else
         return "/teachers/progress_reports/diagnostic_reports/#not_completed"

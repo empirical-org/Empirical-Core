@@ -49,10 +49,6 @@ class Activity < ActiveRecord::Base
     query
   end
 
-  def self.diagnostic
-    Activity.find_by(activity_classification_id: ActivityClassification.diagnostic.id)
-  end
-
   def self.user_scope(user_flag)
     if user_flag == 'alpha'
       Activity.alpha_user
