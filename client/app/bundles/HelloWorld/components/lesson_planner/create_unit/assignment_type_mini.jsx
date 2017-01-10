@@ -37,7 +37,7 @@ export default React.createClass({
     },
 
     componentWillUnmount: function() {
-      if (this.ajax && this.ajax.quantity && this.ajax.quantity.abort()){
+      if (this.ajax && this.ajax.quantity){
         this.ajax.quantity.abort()
       }
     },
