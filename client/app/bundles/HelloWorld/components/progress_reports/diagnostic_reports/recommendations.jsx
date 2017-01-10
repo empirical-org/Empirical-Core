@@ -1,7 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import _ from "underscore"
+import _ from 'underscore'
 
 export default React.createClass({
 
@@ -58,17 +58,28 @@ export default React.createClass({
 	assignSelectedPacks: function() {
 		this.setState({assigning: true})
 		const classroomId = this.props.params.classroomId;
-		const selections = this.state.selections.map((activityPack) => {
-			return {id: activityPack.activity_pack_id, student_ids: activityPack.students}
+		let selections = this.state.selections.map((activityPack) => {
+			return {
+				id: activityPack.activity_pack_id,
+				classrooms: [
+					{
+						id: classroomId,
+						student_ids: activityPack.students
+					}
+				]
+			}
 		})
-		$.post('/teachers/progress_reports/assign_selected_packs/' + classroomId, {
-			selections
-		}, (data) => {
-			this.setState({assigning: false, assigned: true})
-		})
+		selections = {selections}
+		$.ajax({
+	  	type : 'POST',
+	  	url :  '/teachers/progress_reports/assign_selected_packs/',
+	  	dataType: 'json',
+	  	contentType: 'application/json',
+	  	data : JSON.stringify(selections)
+		}).success(this.setState({assigning: false, assigned: true}));
 	},
 
-	renderExplanation: function() {
+	renderExplanation: function(){
 		return (
 			<div className='recommendations-explanation-container'>
 				<p className="recommendations-explanation">
@@ -127,7 +138,7 @@ export default React.createClass({
 			return (
 				<div className="recommendations-table-header-item" key={recommendation.activity_pack_id}>
 					<p>{recommendation.name}</p>
-					<a href={"/activities/packs/" + recommendation.activity_pack_id} target="_blank">View Pack</a>
+					<a href={'/activities/packs/' + recommendation.activity_pack_id} target="_blank">View Pack</a>
 				</div>
 			)
 		})
@@ -152,13 +163,13 @@ export default React.createClass({
 		return this.state.recommendations.map((recommendation, i) => {
 			let selection = this.state.selections[i];
 			const recommended = this.studentIsRecommended(student, recommendation)
-				? " recommended "
-				: "";
+				? ' recommended '
+				: '';
 			const selected = this.studentIsSelected(student, selection)
-				? " selected "
-				: "";
+				? ' selected '
+				: '';
 			return (
-				<div className={"recommendations-table-row-item" + recommended + selected} key={recommendation.activity_pack_id}>
+				<div className={'recommendations-table-row-item' + recommended + selected} key={recommendation.activity_pack_id}>
 					<div className="recommendations-table-row-item-checkbox" onClick={this.toggleSelected.bind(null, student, i)}>
 						{this.renderSelectedCheck(student, selection)}
 					</div>

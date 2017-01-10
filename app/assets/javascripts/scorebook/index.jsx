@@ -144,7 +144,7 @@ export default React.createClass({
       var loadingIndicator = null;
     }
     return (
-      <div class="page-content-wrapper">
+      <div id="page-content-wrapper">
          <div className="tab-pane" id="scorebook">
              <span>
                  <div className="container">

@@ -22,7 +22,7 @@ export default React.createClass({
 	},
 
 	selectedStudent: function(students){
-		let {studentId} = this.props.params;
+		let studentId = this.props.params.studentId;
 		if (studentId) {
 			return students.find(s => s.id === parseInt(studentId))
 		} else {

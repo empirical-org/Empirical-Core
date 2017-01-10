@@ -15,6 +15,29 @@ export default React.createClass({
 		analytics: React.PropTypes.object.isRequired
 	},
 
+	getInitialState () {
+		return {
+			unitNames: []
+		}
+	},
+
+	componentDidMount: function(){
+		this.getExistingUnitNames()
+
+	},
+
+	getExistingUnitNames: function() {
+	  const that = this;
+		$.get('../unit_names').done(function(data) {
+			that.setState({unitNames: data.unitNames})
+		});
+	},
+
+	isUnitNameUnique: function() {
+		const unit = this.getUnitName();
+		return !this.state.unitNames.includes(unit.toLowerCase());
+	},
+
 	getStage: function() {
 		return this.props.data.createUnitData.stage;
 	},
@@ -88,6 +111,7 @@ export default React.createClass({
 	},
 
 	updateUnitName: function(unitName) {
+		this.isUnitNameValid();
 		this.props.actions.update({name: unitName})
 	},
 
@@ -162,14 +186,20 @@ export default React.createClass({
 		this.props.actions.toggleStage(3);
 	},
 
-	isUnitNameSelected: function() {
+	isUnitNameValid: function() {
 		return ((this.getUnitName() != null) && (this.getUnitName() != ''));
 	},
 
-	determineIfEnoughInputProvidedToContinue: function() {
-		var a = this.isUnitNameSelected();
-		var b = (this.getSelectedActivities().length > 0);
-		return (a && b);
+
+
+	determineIfInputProvidedAndValid: function() {
+		const validUnitName = this.isUnitNameValid();
+		let isUnique;
+		if (validUnitName) {
+			isUnique = this.isUnitNameUnique();
+		}
+		const activitiesSelected = (this.getSelectedActivities().length > 0);
+		return (isUnique && validUnitName && activitiesSelected);
 	},
 
 	emptyClassroomSelected: function(c) {
@@ -197,9 +227,10 @@ export default React.createClass({
 	},
 
 	determineStage1ErrorMessage: function() {
-		var a = this.isUnitNameSelected();
-		var b = (this.getSelectedActivities().length > 0);
-		var msg;
+		let a = this.isUnitNameValid();
+		let b = (this.getSelectedActivities().length > 0);
+		let uniqueUnitNameError = !this.isUnitNameUnique();
+		let msg;
 		if (!a) {
 			if (!b) {
 				msg = 'Please provide a unit name and select activities';
@@ -208,6 +239,8 @@ export default React.createClass({
 			}
 		} else if (!b) {
 			msg = 'Please select activities';
+		} else if (uniqueUnitNameError) {
+			msg = `Please select a unique unit name. You have already used ${this.getUnitName()}.`
 		} else {
 			msg = null;
 		}
@@ -232,7 +265,7 @@ export default React.createClass({
 	},
 
 	stage1SpecificComponents: function() {
-		return (<UnitStage1 toggleActivitySelection={this.props.actions.toggleActivitySelection} unitName={this.getUnitName()} updateUnitName={this.updateUnitName} selectedActivities={this.getSelectedActivities()} isEnoughInputProvidedToContinue={this.determineIfEnoughInputProvidedToContinue()} errorMessage={this.determineStage1ErrorMessage()} clickContinue={this.clickContinue}/>);
+		return (<UnitStage1 toggleActivitySelection={this.props.actions.toggleActivitySelection} unitName={this.getUnitName()} updateUnitName={this.updateUnitName} selectedActivities={this.getSelectedActivities()} determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid} errorMessage={this.determineStage1ErrorMessage()} clickContinue={this.clickContinue}/>);
 	},
 
 	stage2SpecificComponents: function () {

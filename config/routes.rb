@@ -82,6 +82,7 @@ EmpiricalGrammar::Application.routes.draw do
   namespace :teachers do
 
     resources :units, as: 'units_path' # moved from within classroom, since units are now cross-classroom
+    get 'unit_names' => 'units#unit_names'
 
     resources :unit_templates, only: [:index] do
       collection do
@@ -109,7 +110,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
       get 'recommendations_for_classroom/:classroom_id' => 'diagnostic_reports#recommendations_for_classroom'
-      post 'assign_selected_packs/:classroom_id' => 'diagnostic_reports#assign_selected_packs'
+      post 'assign_selected_packs' => 'diagnostic_reports#assign_selected_packs'
 
       namespace :concepts do
         resources :students, only: [:index] do
@@ -254,9 +255,18 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.
-  %w(tooltip beta board press blog_posts supporters partnerships middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news).each do |page|
+
+  other_pages = %w(tooltip beta board press blog_posts supporters partners middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news home_new )
+  all_pages = other_pages
+  all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
+
+  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool)
+  tools.each do |tool|
+    get "tools/#{tool.chomp('_tool')}" => "pages##{tool}"
+  end
+
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
   get 'activities/packs/:id' => 'teachers/unit_templates#show'
@@ -278,7 +288,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'
 
-  root to: 'pages#home'
+  root to: 'pages#home_new'
 
   # http://stackoverflow.com/questions/26130130/what-are-the-routes-i-need-to-set-up-to-preview-emails-using-rails-4-1-actionmai
   get '/lib/mailer_previews' => "rails/mailers#index"

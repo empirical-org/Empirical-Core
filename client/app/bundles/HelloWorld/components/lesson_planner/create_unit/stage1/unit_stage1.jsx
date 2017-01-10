@@ -11,7 +11,6 @@
     updateUnitName: React.PropTypes.func.isRequired,
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,
-    isEnoughInputProvidedToContinue: React.PropTypes.bool.isRequired,
     errorMessage: React.PropTypes.string,
     clickContinue: React.PropTypes.func.isRequired
   },
@@ -23,7 +22,7 @@
   },
 
   clickContinue: function () {
-    if (this.props.isEnoughInputProvidedToContinue) {
+    if (this.props.determineIfInputProvidedAndValid()) {
       this.props.clickContinue();
     } else {
       this.setState({prematureContinueAttempted: true});
@@ -32,14 +31,14 @@
 
   determineErrorMessageClass: function () {
     if (this.state.prematureContinueAttempted) {
-      return "error-message visible-error-message";
+      return 'error-message visible-error-message';
     } else {
-      return "error-message hidden-error-message";
+      return 'error-message hidden-error-message';
     }
   },
 
   determineContinueButtonClass: function () {
-    if (this.props.isEnoughInputProvidedToContinue) {
+    if (this.props.determineIfInputProvidedAndValid) {
       return 'button-green pull-right';
     } else {
       return 'button-grey pull-right';
@@ -53,7 +52,7 @@
         <ActivitySearchAndSelect selectedActivities={this.props.selectedActivities}
                                     toggleActivitySelection={this.props.toggleActivitySelection}
                                     clickContinue={this.props.clickContinue}
-                                    isEnoughInputProvidedToContinue={this.props.isEnoughInputProvidedToContinue}
+                                    determineIfInputProvidedAndValid={this.props.determineIfInputProvidedAndValid}
                                     errorMessage={this.props.errorMessage} />
         <div className='error-message-and-button'>
           <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
