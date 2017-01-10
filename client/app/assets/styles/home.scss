@@ -121,7 +121,7 @@ $background-images-list: (diagnostic-pattern connect-pattern grammar-pattern pro
 
 @each $background-image in $background-images-list {
   .bg-image-#{$background-image} {
-    background-image: url("/images/background_images/#{$background-image}.png");
+    background-image: url("../../../../public/images/background_images/#{$background-image}.png");
     background-repeat: repeat;
   }
 }
@@ -129,7 +129,7 @@ $background-images-list: (diagnostic-pattern connect-pattern grammar-pattern pro
 section.q-hero {
   width: 100%;
   height: 530px;
-  background-image: url(/images/homepage/homepage_pattern.png);
+  background-image: url(../../../../public/images/homepage/homepage_pattern.png);
   background-position: center center;
 }
 
