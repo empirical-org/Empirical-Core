@@ -12,9 +12,9 @@ export default React.createClass({
   minis: function(){
     let minis =
       [
-        <a href='/diagnostic#/stage/1' >
+        <a href='/diagnostic#/stage/1'
+            key={1}>
           <AssignmentTypeMini
-            key={1}
             toggleTab={this.props.toggleTab}
             title={'Beta: Entry Diagnostic'}
             img={'/images/diagnostic_icon.svg'}
