@@ -43,6 +43,15 @@ describe User, type: :model do
       let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
       let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher)}
 
+      context 'user is part of an admin account' do
+      let!(:admin_account) {FactoryGirl.create(:admin_account)}
+      let!(:school_account) {FactoryGirl.create(:admin_accounts_teacher, admin_account_id: admin_account.id, teacher_id: teacher.id)}
+
+        it 'returns true' do
+          expect(teacher.is_premium?).to be true
+        end
+      end
+
       context 'user has no associated subscription' do
         it 'returns false' do
           expect(teacher.is_premium?).to be false
@@ -87,13 +96,13 @@ describe User, type: :model do
         end
       end
 
-
-      #TODO: figure out why this factory girl isn't working
       context 'user is part of an admin account' do
-      #   let!(:school_account) {FactoryGirl.create(:admin_account_teacher, admin_account_id: 1, teacher_id: teacher.id)}
-        it "returns 'school'" #do
-      #     expect(teacher.premium_state).to eq('school')
-      #   end
+        let!(:admin_account) {FactoryGirl.create(:admin_account)}
+        let!(:school_account) {FactoryGirl.create(:admin_accounts_teacher, admin_account_id: admin_account.id, teacher_id: teacher.id)}
+
+        it "returns 'school'" do
+          expect(teacher.premium_state).to eq('school')
+        end
       end
 
       context 'user is on a valid trial' do
