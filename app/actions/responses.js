@@ -257,3 +257,10 @@ export function getResponsesWithCallback(questionID, callback) {
      console.log("Loaded responses for ", questionID)
   });
 }
+
+export function listenToResponsesWithCallback(questionID, callback) {
+  responsesForQuestionRef(questionID).on('value', (snapshot) => {
+     callback(snapshot.val())
+     console.log("Listened to responses for ", questionID)
+  });
+}

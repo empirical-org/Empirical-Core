@@ -8,15 +8,33 @@ import C from '../../constants'
 import {Link} from 'react-router'
 import {
   loadResponseDataAndListen,
-  stopListeningToResponses
+  stopListeningToResponses,
+  listenToResponsesWithCallback
 } from '../../actions/responses.js'
 
 
 const SentenceFragment = React.createClass({
 
-  componentWillMount: function () {
+  getInitialState() {
+    return {
+      selectedBoilerplateCategory: '',
+      responses: [],
+      loadedResponses: false,
+    };
+  },
+
+  componentWillMount() {
     const questionID = this.props.params.sentenceFragmentID;
-    this.props.dispatch(loadResponseDataAndListen(questionID))
+    // this.props.dispatch(loadResponseDataAndListen(questionID));
+    listenToResponsesWithCallback(
+      questionID,
+      (data) => {
+        this.setState({
+          responses: data,
+          loadedResponses: true
+        })
+      }
+    )
   },
 
   componentWillUnmount: function () {
@@ -26,7 +44,7 @@ const SentenceFragment = React.createClass({
   },
 
   getResponses: function () {
-    return this.props.responses.data[this.props.params.sentenceFragmentID]
+    return this.state.responses
   },
 
   cancelEditingSentenceFragment: function() {
@@ -104,7 +122,7 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     concepts: state.concepts,
     routing: state.routing,
-    responses: state.responses
+    // responses: state.responses
   }
 }
 

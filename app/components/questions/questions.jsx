@@ -276,7 +276,7 @@ function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
-    responses: state.responses,
+    // responses: state.responses,
     routing: state.routing,
   };
 }

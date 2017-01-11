@@ -6,7 +6,8 @@ import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import {
   loadResponseDataAndListen,
-  stopListeningToResponses
+  stopListeningToResponses,
+  listenToResponsesWithCallback
 } from '../../actions/responses';
 import Modal from '../modal/modal.jsx';
 import EditFrom from './questionForm.jsx';
@@ -24,12 +25,23 @@ const Question = React.createClass({
   getInitialState() {
     return {
       selectedBoilerplateCategory: '',
+      responses: [],
+      loadedResponses: false,
     };
   },
 
   componentWillMount() {
     const { questionID, } = this.props.params;
-    this.props.dispatch(loadResponseDataAndListen(questionID));
+    // this.props.dispatch(loadResponseDataAndListen(questionID));
+    listenToResponsesWithCallback(
+      questionID,
+      (data) => {
+        this.setState({
+          responses: data,
+          loadedResponses: true
+        })
+      }
+    )
   },
 
   componentWillUnmount() {
@@ -55,8 +67,9 @@ const Question = React.createClass({
   },
 
   getResponses() {
-    const { questionID, } = this.props.params;
-    return this.props.responses.data[questionID];
+    // const { questionID, } = this.props.params;
+    // return this.props.responses.data[questionID];
+    return this.state.responses
   },
 
   getResponse(responseID) {
@@ -218,8 +231,8 @@ const Question = React.createClass({
 
   isLoading() {
     const loadingData = this.props.questions.hasreceiveddata === false;
-    const loadingResponses = this.props.responses.status[this.props.params.questionID] !== 'LOADED';
-    return (loadingData || loadingResponses);
+    const loadingResponses = this.state.loadedResponses;
+    return (loadingData || !loadingResponses);
   },
 
   render() {
@@ -264,7 +277,7 @@ function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
-    responses: state.responses,
+    // responses: state.responses,
     itemLevels: state.itemLevels,
     routing: state.routing,
   };
