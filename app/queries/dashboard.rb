@@ -15,7 +15,9 @@ class Dashboard
       strug_stud = 'insufficient data'
       dif_con = 'insufficient data'
     end
-    results = [{header: 'Lowest Performing Students', results: strug_stud, placeholderImg: '/lowest_performing_students_no_data.png'},
+    results = [
+              # pulling lowest performing students until we finalize our grading schema
+              # {header: 'Lowest Performing Students', results: strug_stud, placeholderImg: '/lowest_performing_students_no_data.png'},
               {header: 'Difficult Concepts', results: dif_con, placeholderImg: '/difficult_concepts_no_data.png'}]
   end
 

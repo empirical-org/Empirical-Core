@@ -93,7 +93,7 @@ export default React.createClass({
   render: function () {
     return (
       <div
-        onClick={this.checkForStudentReport}
+        onClick={this.props.context === 'scorebook' ? this.checkForStudentReport : null}
         onMouseEnter={this.loadTooltipTitle}
         ref='activateTooltip'
         className={this.tooltipClasses()}>
