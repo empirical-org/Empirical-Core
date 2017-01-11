@@ -33,4 +33,24 @@ describe Teachers::UnitsController, type: :controller do
       expect(x['units'][0]['classrooms']).to_not be_empty
     end
   end
+
+
+  # describe 'units concern' do
+  #   let(:teacher) { FactoryGirl.create(:teacher) }
+  #   let(:unit1) {FactoryGirl.create(:unit, user_id: teacher.id )}
+  #   let(:unit2) {FactoryGirl.create(:unit, user_id: teacher.id )}
+  #   let(:other_teacher_unit) {FactoryGirl.create(:unit, name: unit1.name)}
+  #
+  #
+  #   describe '#units_with_same_name_by_current_user' do
+  #     it "returns logged in users' units with the same name as the provided argument" do
+  #       expect(units_with_same_name_by_current_user(unit1.name)).to eq([unit1])
+  #     end
+  #
+  #     it "returns logged in users' units with the same name as the provided argument" do
+  #       expect(true).to eq([unit1])
+  #     end
+  #   end
+  # end
+
 end

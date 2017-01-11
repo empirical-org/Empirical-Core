@@ -14,10 +14,18 @@ class PagesController < ApplicationController
     self.formats = ['html']
   end
 
+  def home_new
+    if signed_in?
+      redirect_to(profile_path) && return
+    end
+    @title = 'Quill.org — Interactive Writing and Grammar'
+    @description = 'Quill provides free writing and grammar activities for middle and high school students.'
+  end
+
   def develop
   end
 
-  def partnerships
+  def partners
   end
 
   def mission
@@ -67,6 +75,26 @@ class PagesController < ApplicationController
   def board
   end
 
+  def diagnostic_tool
+    @title = 'Quill Diagnostic - Free Diagnostic and Adaptive Lesson Plan'
+    @description = 'Quickly determine which skills your students need to work on with our 22 question diagnostic.'
+  end
+
+  def grammar_tool
+    @title = 'Quill Grammar - Free 10 Minute Activities for your Students'
+    @description = 'Over 150 sentence writing activities to help your students practice basic grammar skills.'
+  end
+
+  def proofreader_tool
+    @title = 'Quill Proofreader - Over 100 Expository Passages To Read And Edit'
+    @description = 'Students edit passages and receive personalized exercises based on their results.'
+  end
+
+  def connect_tool
+    @title = 'Quill Connect - Free Sentence Structure Activities'
+    @description = 'Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect.'
+  end
+
   def activities
     @body_class = 'full-width-page white-page'
     @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
@@ -83,6 +111,8 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
+    when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool'
+      'twenty_seventeen_home'
     end
   end
 

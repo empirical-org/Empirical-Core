@@ -1,0 +1,8 @@
+module Units
+  extend ActiveSupport::Concern
+
+  def units_with_same_name_by_current_user(name, user_id)
+    User.find(user_id).units.where('lower(name) = ?', name.downcase)
+  end
+
+end

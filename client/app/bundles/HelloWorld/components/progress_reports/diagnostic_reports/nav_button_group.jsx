@@ -16,6 +16,8 @@ export default React.createClass({
 		}
 	},
 
+
+
 	buttons: function() {
 		const contents = [
 			{name: 'Students', words: ['student_report', 'students']},
@@ -23,6 +25,7 @@ export default React.createClass({
 			{name: 'Recommendations', words: ['recommendations']}
 		];
 		let hash = window.location.hash
+		let that = this;
 		return contents.map((navButton)=>	{
 			let activeState;
 			let words = navButton.words;
@@ -34,9 +37,16 @@ export default React.createClass({
 					break;
 				}
 			}
-			return <button key={name} type="button" onClick={this.buttonBuilder(name)} className={`btn btn-secondary ${activeState}`}>{name}</button>
+			let isNotDiagnostic = function(){
+				return [413, 447].indexOf(Number(that.props.params.activityId)) === -1;
+			}
+			if (name === 'Recommendations' && isNotDiagnostic()) {
+				// don't show recommendations unless it is a diagnostic
+				return
+			} else {
+				return <button key={name} type="button" onClick={this.buttonBuilder(name)} className={`btn btn-secondary ${activeState}`}>{name}</button>
+			}
 		})
-		// return buttons
 	},
 
 	render: function() {

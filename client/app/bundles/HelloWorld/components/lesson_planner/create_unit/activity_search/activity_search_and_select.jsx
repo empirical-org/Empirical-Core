@@ -20,7 +20,6 @@
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,
     clickContinue: React.PropTypes.func.isRequired,
-    isEnoughInputProvidedToContinue: React.PropTypes.bool.isRequired,
     errorMessage: React.PropTypes.string
   },
 
@@ -40,7 +39,8 @@
         'activity_classification': [],
       },
       filters: ActivitySearchFilterConfig,
-      sorts: ActivitySearchSortConfig
+      sorts: ActivitySearchSortConfig,
+      activeFilterOn: false
     }
   },
 
@@ -100,7 +100,11 @@
     });
     console.log(this.state.filters)
     let that = this;
-    this.setState({filters: clearedFilters,}, function(){that.searchRequest();});
+    this.setState({
+      filters: clearedFilters,
+      activeFilterOn: false
+    },
+    function(){that.searchRequest();});
   },
 
   searchRequestSuccess: function (data) {
@@ -219,7 +223,7 @@
       }
       return filter;
     }, this);
-    this.setState({filters: filters});
+    this.setState({filters: filters, activeFilterOn: true });
     this.searchRequest();
   },
 
@@ -257,7 +261,13 @@
       <section>
         <h3 className="section-header">Select Activities</h3>
 
-        <ActivitySearchAndFilters  updateSearchQuery={this.updateSearchQuery} selectFilterOption={this.selectFilterOption} data={this.state.filters} clearFilters={this.clearFilters} />
+        <ActivitySearchAndFilters
+          updateSearchQuery={this.updateSearchQuery}
+          selectFilterOption={this.selectFilterOption}
+          data={this.state.filters}
+          clearFilters={this.clearFilters}
+          activeFilterOn={this.state.activeFilterOn}
+        />
 
         <table className='table activity-table search-and-select'>
           <thead>
@@ -270,7 +280,6 @@
         {pagination}
 
         <SelectedActivities clickContinue={this.props.clickContinue}
-                               isEnoughInputProvided={this.props.isEnoughInputProvidedToContinue}
                                errorMessage={this.props.errorMessage || ''}
                                selectedActivities = {this.props.selectedActivities}
                                toggleActivitySelection={this.props.toggleActivitySelection} />

@@ -1,5 +1,6 @@
 module Teacher
   extend ActiveSupport::Concern
+
   include CheckboxCallback
 
 
@@ -9,6 +10,9 @@ module Teacher
   included do
     has_many :classrooms_i_teach, foreign_key: 'teacher_id', class_name: "Classroom"
     has_many :students, through: :classrooms_i_teach, class_name: "User"
+    has_many :admin_accounts_teachers,  foreign_key: 'teacher_id', class_name: "AdminAccountsTeachers"
+    has_many :admin_accounts_i_am_part_of, through: :admin_accounts_teachers, class_name: "AdminAccount", source: :admin_account
+    has_many :units
   end
 
   class << self
@@ -97,11 +101,19 @@ module Teacher
     response
   end
 
+  def part_of_admin_account?
+    admin_accounts_i_am_part_of.any?
+  end
+
   def is_premium?
-    subscriptions
-      .where("subscriptions.expiration >= ?", Date.today)
-      .where("subscriptions.account_limit >= ?", self.students.count)
-      .any?
+    if part_of_admin_account?
+      true
+    else
+      subscriptions
+        .where("subscriptions.expiration >= ?", Date.today)
+        .where("subscriptions.account_limit >= ?", self.students.count)
+        .any?
+    end
   end
 
   def teacher_subscription
@@ -109,10 +121,6 @@ module Teacher
       .where("subscriptions.expiration >= ?", Date.today)
       .first
       .account_type
-  end
-
-  def part_of_admin_account?
-    admin_accounts.any?
   end
 
   def getting_started_info
@@ -159,19 +167,17 @@ module Teacher
     # the beta period is obsolete -- but may break things by removing it
     if !is_beta_period_over?
       "beta"
+    elsif part_of_admin_account?
+      'school'
     elsif is_premium?
       ## returns 'trial' or 'paid'
       subscriptions.where("subscriptions.expiration >= ?", Date.today).first.account_type
-    elsif part_of_admin_account?
-      'school'
     elsif is_trial_expired?
       "locked"
     else
       'none'
     end
   end
-
-
 
   def is_beta_period_over?
     Date.today >= TRIAL_START_DATE

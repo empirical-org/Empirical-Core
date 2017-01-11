@@ -1,15 +1,23 @@
 class Teachers::UnitsController < ApplicationController
+  include Units
+
   respond_to :json
   before_filter :teacher!
 
   def create
-    if unit_params[:id].nil?
-      Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+    units_with_same_name = units_with_same_name_by_current_user(unit_params[:name], current_user.id)
+    if units_with_same_name.any?
+      Units::Updater.run(units_with_same_name.first, unit_params[:activities], unit_params[:classrooms])
     else
-      Units::Updater.run(current_user, unit_params[:id], unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+      Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
     end
     render json: {}
   end
+
+  def unit_names
+    render json: { unitNames: current_user.units.map { |unit| unit.name.downcase }.uniq }.to_json
+  end
+
 
   def index
     cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten

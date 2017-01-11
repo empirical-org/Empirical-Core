@@ -11,7 +11,10 @@ export default React.createClass({
     return ({
       classrooms: null,
       hasPremium: null,
-      performanceQuery: [{header: "Struggling Students", results: null},{header: "Difficult Concepts", results: null}]
+      performanceQuery: [
+        // pulling lowest performing students until we finalize our grading schema
+        // {header: 'Lowest Performing Students', results: null},
+        {header: 'Difficult Concepts', results: null}]
     });
   },
 

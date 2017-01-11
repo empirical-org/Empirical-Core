@@ -7,7 +7,22 @@
  import naturalCmp from 'underscore.string/naturalCmp'
  import FilterButton from './filter_button.jsx'
 
- export default  React.createClass({
+ export default  React.createClass({ 
+
+   componentWillReceiveProps: function (nextProps) {
+     if (!nextProps.activeFilterOn) {
+       this.setState({activeFilterId: null})
+     }
+   },
+
+   getInitialState: function () {
+     return {activeFilterId: null}
+   },
+
+  handleFilterButtonClick: function (optionId) {
+    this.selectFilterOption(optionId);
+    this.setState({activeFilterId: optionId})
+  },
 
    getInitialState: function () {
      return {activeFilterId: null}
@@ -23,6 +38,7 @@
 	},
 	clearFilterOptionSelection: function () {
 		this.props.selectFilterOption(this.props.data.field, null);
+    this.setState({activeFilterId: null})
 	},
 
 
