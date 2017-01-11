@@ -29,8 +29,13 @@ module Units::Updater
       product.each do |pair|
         activity_data, classroom_id = pair
         classroom_activity = unit.classroom_activities.find_or_create_by!(activity_id: activity_data[:id], classroom_id: classroom_id)
-        previously_assigned_students = classroom_activity.assigned_student_ids || []
-        all_assigned_students = previously_assigned_students.push(classroom[:student_ids]).flatten.map(&:to_i).uniq
+        if classroom[:student_ids] == []
+          all_assigned_students = []
+        else
+          previously_assigned_students = classroom_activity.assigned_student_ids || []
+          all_assigned_students = previously_assigned_students.push(classroom[:student_ids]).flatten.map(&:to_i).uniq
+        end
+
         classroom_activity.update(activity_id: activity_data[:id],
           due_date: activity_data[:due_date],
           classroom_id: classroom_id,

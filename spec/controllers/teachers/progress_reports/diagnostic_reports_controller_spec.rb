@@ -20,13 +20,6 @@ include_context "Unit Assignments Variables"
   end
 
   describe 'assign_selected_packs recommendations' do
-      def unit_templates_have_a_corressponding_unit?
-        Unit.all.map(&:name).sort == UnitTemplate.all.map(&:name).sort
-      end
-
-      def units_have_a_corresponding_classroom_activities?
-        UnitTemplate.all.map(&:name) == ClassroomActivity.all.map(&:unit).map(&:name).flatten
-      end
 
       it 'can create new units and classroom activities' do
           data = {"selections":[
@@ -36,8 +29,9 @@ include_context "Unit Assignments Variables"
                     {"id":unit_template4.id,"classrooms":[{"id":classroom.id,"student_ids":[144835]}]}
                   ]}
           post "assign_selected_packs", (data)
-          expect(unit_templates_have_a_corressponding_unit?).to eq(true)
-          expect(units_have_a_corresponding_classroom_activities?).to eq(true)
+          unit_template_ids = data[:selections].map{ |sel| sel[:id] }
+          expect(unit_templates_have_a_corresponding_unit?(unit_template_ids)).to eq(true)
+          expect(units_have_a_corresponding_classroom_activities?(unit_template_ids)).to eq(true)
       end
 
       it 'can update existing units without duplicating them' do
