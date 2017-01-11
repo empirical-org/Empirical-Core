@@ -28,6 +28,7 @@ class Teachers::UnitTemplatesController < ApplicationController
     # else
     #   FastAssignWorker.perform_async(current_user.id, params[:id])
     # end
+    # FastAssignWorker.new.perform(current_user.id, params[:id])
     FastAssignWorker.perform_async(current_user.id, params[:id])
     # Units::Creator.fast_assign_unit_template(current_user, params[:id])
     render json: {}

@@ -6,7 +6,6 @@ module Units::Creator
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template_id)
-    debugger
     teacher = User.find(teacher_id)
     unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
@@ -27,7 +26,6 @@ module Units::Creator
     unit = Unit.create(name: name, user: teacher)
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
-    binding.pry
     classrooms.each do |classroom|
       product = activities_data.product([classroom[:id].to_i])
       product.each do |pair|
