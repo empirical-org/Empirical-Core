@@ -1,0 +1,128 @@
+# Grid
+
+As a rule, we use flexbox for responsive grids.
+If there is a compelling reason to use something else,
+feel free to do so, but don't use Bootstrap merely because you know it.
+
+The examples below are just representative of the frequently occurring flex patterns we use.
+
+Flexbox has dozens, if not hundreds of other combinations that are useful in a variety of situations,
+so don't be reliant on these few classes.
+
+If you are new to flexbox, this is a fun game to get started: [flexboxfroggy.com](http://flexboxfroggy.com/)
+
+
+## Flex Row
+
+### Default
+
+```
+<div class='flex-row border-dashed-darkgray'>
+ <div class='border-darkgray flex-example'>
+    Element One
+ </div>
+ <div class='border-darkgray flex-example'>
+    Element Two
+ </div>
+ <div class='border-darkgray flex-example'>
+    Element Three
+ </div>
+</div>
+@css {
+    .flex-example {
+        min-width: 225px;
+        text-align: center;
+    }
+}
+```
+
+### Centered
+
+```
+<div class='flex-row centered border-dashed-darkgray'>
+ <div class='border-darkgray flex-example'>
+    Element One
+ </div>
+ <div class='border-darkgray flex-example'>
+    Element Two
+ </div>
+</div>
+@css {
+    .flex-example {
+        min-width: 225px;
+        text-align: center;
+    }
+}
+```
+
+### Space Around
+
+```
+<div class='flex-row space-around border-dashed-darkgray'>
+ <div class='border-darkgray flex-example'>
+    Element One
+ </div>
+ <div class='border-darkgray flex-example'>
+    Element Two
+ </div>
+</div>
+@css {
+    .flex-example {
+        min-width: 225px;
+        text-align: center;
+    }
+}
+```
+
+### Space Between
+
+```
+<div class='flex-row space-between border-dashed-darkgray'>
+ <div class='border-darkgray flex-example'>
+    Element One
+ </div>
+ <div class='border-darkgray flex-example'>
+    Element Two
+ </div>
+</div>
+@css {
+    .flex-example {
+        min-width: 225px;
+        text-align: center;
+    }
+}
+```
+
+### Vertically Centered
+
+```
+<div class='flex-row vertically-centered border-dashed-darkgray'>
+ <div class='border-darkgray flex-example ex-1'>
+    Element One
+ </div>
+ <div class='border-darkgray flex-example ex-2'>
+    Element Two
+ </div>
+ <div class='border-darkgray flex-example ex-3'>
+    Element Three
+ </div>
+</div>
+@css {
+    .flex-example {
+        min-width: 225px;
+        text-align: center;
+    }
+    .ex-1 {
+        height: 40px;
+    }
+    .ex-2 {
+        height: 23px;
+    }
+    .ex-3 {
+        height: 76px;
+    }
+    .flex-row {
+        height: 100px;
+    }
+}
+```

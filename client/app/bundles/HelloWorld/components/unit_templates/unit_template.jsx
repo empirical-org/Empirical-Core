@@ -54,7 +54,8 @@ export default React.createClass({
       {name: 'times', value: this.timeOptions(), fromServer: false},
       {name: 'grades', value: [], fromServer: true},
       {name: 'unit_template_categories', value: [], fromServer: true, cmsController: true},
-      {name: 'authors', value: [], fromServer: true, cmsController: true}
+      {name: 'authors', value: [], fromServer: true, cmsController: true},
+      {name: 'flag', value: ['alpha', 'beta', 'archived'], fromServer: false, cmsController: true},
     ];
     return this.modelOptions;
   },
@@ -72,9 +73,9 @@ export default React.createClass({
       grades: [],
       activities: [],
       unit_template_category_id: null,
+      flag: this.props.unitTemplate.flag || null,
       author_id: null
     };
-
     model = _.extend(model, this.props.unitTemplate);
     var options = this.modules.optionsLoader.initialOptions()
 
@@ -122,14 +123,10 @@ export default React.createClass({
     }
     var fieldsToNormalize = [
       //{name: 'author', idName: 'author_id'},
-      {name: 'activities', idName: 'activity_ids'}
+      {name: 'activities', idName: 'activity_ids', flag: 'flag'}
       //{name: 'related_unit_templates', idName: 'related_unit_template_ids'}
     ];
     this.modules.server.save(model, {callback: this.props.returnToIndex, fieldsToNormalize: fieldsToNormalize})
-  },
-
-  isEnoughInputProvidedToContinue: function () {
-    return true;
   },
 
   determineErrorMessage: function () {
@@ -159,6 +156,15 @@ export default React.createClass({
                 label={'Select Activity Pack Category'} />;
   },
 
+  getStatusFlag: function () {
+    // The label is a quick hack as it wasn't automatically turning to the correct one
+    return <DropdownSelector
+                select={this.modules.indicatorGenerator.selector('flag')}
+                defaultValue={this.props.unitTemplate.flag}
+                options={this.state.options.flag}
+                label={'Select Flag'} />;
+  },
+
   getAuthorSelect: function () {
     return <DropdownSelector
               select={this.modules.indicatorGenerator.selector('author_id')}
@@ -178,7 +184,6 @@ export default React.createClass({
   getActivitySearchAndSelect: function () {
     return <ActivitySearchAndSelect selectedActivities={this.state.model.activities}
                                       toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
-                                      isEnoughInputProvidedToContinue={this.isEnoughInputProvidedToContinue()}
                                       errorMessage={this.props.errorMessage} />
   },
 
@@ -203,6 +208,7 @@ export default React.createClass({
         {this.getUnitTemplateCategorySelect()}
         {this.getTimeDropdownSelect()}
         {this.getGradeCheckBoxes()}
+        {this.getStatusFlag()}
         <span>
           {this.getActivitySearchAndSelect()}
           {this.getErrorMessageAndButton()}

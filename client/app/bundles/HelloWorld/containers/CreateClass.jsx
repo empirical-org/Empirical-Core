@@ -71,7 +71,7 @@ export default React.createClass({
       if (classroom.name && classroom.grade) {
         this.submitClassroom();
       } else {
-        const missingValue = classroom.name ? 'name' : 'grade'
+        const missingValue = classroom.name ? 'grade' : 'name'
         this.setState({errors: 'You must choose your classroom\'s ' + missingValue + ' before continuing.' })
       }
     },

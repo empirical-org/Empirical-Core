@@ -1,0 +1,28 @@
+body {
+  font-family: $family-sans-serif;
+}
+
+.monospace {
+  font-family: $family-monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  &.q-h1 {
+    font-size: 32px;
+  }
+  &.q-h2 {
+    font-size: 24px;
+  }
+  &.q-h3 {
+    font-size: 19px;
+  }
+  &.q-h4 {
+    font-size: 16px;
+  }
+  &.q-h5 {
+    font-size: 13px;
+  }
+  &.q-h6 {
+    font-size: 11px;
+  }
+}

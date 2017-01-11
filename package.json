@@ -40,5 +40,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/shakacode/react_on_rails/issues"
+  },
+  "dependencies": {
+    "tabslet": "^1.7.3"
   }
 }

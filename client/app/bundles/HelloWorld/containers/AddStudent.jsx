@@ -59,31 +59,47 @@ export default React.createClass({
 		this.setState(newNameState)
 	},
 
-	submitStudent: function(e) {
-		const firstName = this.state.firstName;
-		const lastName = this.state.lastName;
-		if (firstName && lastName) {
+		submitStudent: function(e) {
+			const firstName = this.state.firstName;
+			const lastName = this.state.lastName;
 			this.setState({
 				disabled: true,
 				loading: true
-			}, () => {
-				let that = this
-				$.post(`/teachers/classrooms/${this.state.selectedClassroom.id}/students`, {
-					user: {
-						first_name: firstName,
-						last_name: lastName
-					}
-				}).done((data) => {
+			})
+
+			let that = this
+			$.post(`/teachers/classrooms/${this.state.selectedClassroom.id}/students`, {
+				user: {
+					first_name: firstName,
+					last_name: lastName
+				}
+			})
+
+			.success((data) => {
+				console.log(data)
 					const student = data.user
 					let students = this.state.students.slice(0)
 					students.unshift(student)
-					that.setState({firstName: '', lastName: '', disabled: false, students: students, loading: false})
+					that.setState({
+						firstName: '',
+						lastName: '',
+						disabled: false,
+						students,
+						loading: false,
+						errors: null
+					})
+				})
+
+			.fail(function(jqXHR) {
+				console.log(jqXHR)
+				that.setState({
+					disabled: false,
+					loading: false,
+					errors: jQuery.parseJSON(jqXHR.responseText).error
 				})
 			})
-		} else {
-			this.setState({errors: 'Student requires a first and last name', disabled: false})
-		}
-	},
+		},
+
 
 	render: function() {
 		return (
