@@ -3,6 +3,14 @@
 import React from 'react'
 import moment from 'moment';
 
+const styles = {
+	row: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center'
+	},
+}
+
 export default React.createClass({
 
 	getInitialState: function() {
@@ -51,7 +59,7 @@ export default React.createClass({
 
 	finalCell: function() {
 		if (this.props.report) {
-			return <a href={this.urlForReport()}>View Report</a>
+			return [<a href={this.props.data.activity.anonymous_path} target="_blank">Preview Activity</a>, <a href={this.urlForReport()}>View Report</a>]
 		} else {
       return this.formattedForHumanDate(this.state.startDate) || 'None'
 		}
@@ -59,14 +67,14 @@ export default React.createClass({
 
   deleteRow:function(){
     if (!this.props.report) {
-      return <div className="pull-right icon-x-gray" onClick={this.deleteClassroomActivity}></div>
+      return <div className="pull-right icon-x-gray" onClick={this.deleteClassroomActivity}><i className="fa fa-trash" aria-hidden="true"></i></div>
     }
   },
 
 	render: function() {
-		let url = this.props.data.activity.anonymous_path;
+		let url = this.urlForReport();
 		return (
-			<div className='row'>
+			<div className='row' style={styles.row}>
 				<div className='cell col-md-1'>
 					<div className={'pull-left icon-gray icon-wrapper ' + this.props.data.activity.classification.scorebook_icon_class}/>
 				</div>
@@ -75,11 +83,11 @@ export default React.createClass({
 						{this.props.data.activity.name}
 					</a>
 				</div>
-				<div className='cell col-md-2'>
-					{this.finalCell()}
-				</div>
-				<div className="cell col-md-1">
-          {this.deleteRow()}
+				<div className='cell col-md-3'>
+					<div style={styles.row}>
+						{this.finalCell()}
+						{this.deleteRow()}
+					</div>
 				</div>
 			</div>
 

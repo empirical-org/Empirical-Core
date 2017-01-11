@@ -39,7 +39,8 @@
         'activity_classification': [],
       },
       filters: ActivitySearchFilterConfig,
-      sorts: ActivitySearchSortConfig
+      sorts: ActivitySearchSortConfig,
+      activeFilterOn: false
     }
   },
 
@@ -97,9 +98,12 @@
       filter.selected = null;
       return filter;
     });
-    console.log(this.state.filters)
     let that = this;
-    this.setState({filters: clearedFilters,}, function(){that.searchRequest();});
+    this.setState({
+      filters: clearedFilters,
+      activeFilterOn: false
+    },
+    function(){that.searchRequest();});
   },
 
   searchRequestSuccess: function (data) {
@@ -218,7 +222,7 @@
       }
       return filter;
     }, this);
-    this.setState({filters: filters});
+    this.setState({filters: filters, activeFilterOn: true });
     this.searchRequest();
   },
 
@@ -255,7 +259,13 @@
       <section>
         <h3 className="section-header">Select Activities</h3>
 
-        <ActivitySearchAndFilters  updateSearchQuery={this.updateSearchQuery} selectFilterOption={this.selectFilterOption} data={this.state.filters} clearFilters={this.clearFilters} />
+        <ActivitySearchAndFilters
+          updateSearchQuery={this.updateSearchQuery}
+          selectFilterOption={this.selectFilterOption}
+          data={this.state.filters}
+          clearFilters={this.clearFilters}
+          activeFilterOn={this.state.activeFilterOn}
+        />
 
         <table className='table activity-table search-and-select'>
           <thead>
