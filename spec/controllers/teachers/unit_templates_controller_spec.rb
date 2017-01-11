@@ -18,4 +18,26 @@ describe  Teachers::UnitTemplatesController, type: :controller do
       expect(parsed_body['unit_templates'].length).to eq(2)
     end
   end
+
+  describe '#fast_assign' do
+    context 'creates a new unit' do
+      it "that is assigned to all students" do
+
+      end
+    end
+
+    context 'updates an existing unit' do
+      it "does not overwrite the existing unit" do
+
+      end
+      
+      it "that adds new activities to the existing unit" do
+
+      end
+
+      it "that assigns the new activities to all students" do
+
+      end
+    end
+  end
 end
