@@ -2,6 +2,8 @@ class Teachers::UnitTemplatesController < ApplicationController
   before_action :is_teacher?, only: [:show, :index, :count]
   before_action :redirect_to_public_index_if_no_unit_template_found, only: [:show]
 
+  include Units
+
   def index
     respond_to do |format|
       format.json do
@@ -17,6 +19,15 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def fast_assign
+    # unit_template = UnitTemplate.find(params[:id])
+    # unit_template_name = unit_template.name
+    # units_with_same_name = units_with_same_name_by_current_user(unit_template_name)
+    # if units_with_the_same_namy.any?
+    #   FastAssignWorker.perform_async(current_user.id, params[:id])
+    #   # so we have activities data accessible for unit_params[:id]
+    # else
+    #   FastAssignWorker.perform_async(current_user.id, params[:id])
+    # end
     FastAssignWorker.perform_async(current_user.id, params[:id])
     # Units::Creator.fast_assign_unit_template(current_user, params[:id])
     render json: {}

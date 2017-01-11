@@ -5,8 +5,9 @@ module Units::Creator
     self.create_helper(teacher, name, activities_data, classrooms_data)
   end
 
-  def self.fast_assign_unit_template(id, unit_template_id)
-    teacher = User.find(id)
+  def self.fast_assign_unit_template(teacher_id, unit_template_id)
+    debugger
+    teacher = User.find(teacher_id)
     unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
@@ -26,6 +27,7 @@ module Units::Creator
     unit = Unit.create(name: name, user: teacher)
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
+    binding.pry
     classrooms.each do |classroom|
       product = activities_data.product([classroom[:id].to_i])
       product.each do |pair|
