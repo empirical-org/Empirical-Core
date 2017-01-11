@@ -7,8 +7,6 @@ module Units::Updater
     self.update_helper(unit, activities_data, classrooms_data)
   end
 
-
-
   def self.assign_unit_template_to_one_class(unit, classrooms_data)
     activities_data = unit.activities.map{ |a| {id: a.id, due_date: nil} }
     self.update_helper(unit, activities_data, classrooms_data)
@@ -24,7 +22,6 @@ module Units::Updater
   private
 
   def self.update_helper(unit, activities_data, classrooms_data)
-
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     classrooms_data.each do |classroom|
