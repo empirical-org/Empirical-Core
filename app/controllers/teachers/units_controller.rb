@@ -5,7 +5,7 @@ class Teachers::UnitsController < ApplicationController
   before_filter :teacher!
 
   def create
-    units_with_same_name = units_with_same_name_by_current_user(unit_params[:name])
+    units_with_same_name = units_with_same_name_by_current_user(unit_params[:name], current_user.id)
     if units_with_same_name.any?
       Units::Updater.run(units_with_same_name.first, unit_params[:activities], unit_params[:classrooms])
     else
