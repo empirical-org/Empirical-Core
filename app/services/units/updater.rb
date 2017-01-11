@@ -14,6 +14,13 @@ module Units::Updater
     self.update_helper(unit, activities_data, classrooms_data)
   end
 
+  def self.fast_assign_unit_template(teacher_id, unit_template, unit)
+    teacher = User.find(teacher_id)
+    activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
+    classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
+    self.update_helper(unit, activities_data, classrooms_data)
+  end
+
   private
 
   def self.update_helper(unit, activities_data, classrooms_data)
