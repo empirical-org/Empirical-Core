@@ -1,0 +1,198 @@
+<section class="tool-header">
+  <%= render partial: 'pages/shared/home_navbar' %>
+  <% @active_tab = 'Quill Diagnostic' %>
+  <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
+</section>
+<div class="tool-container">
+
+    <section class='tool-hero text-center bg-darkred bg-image-diagnostic-pattern'>
+        <h1 class="q-h1">
+            Quill Diagnostic
+        </h1>
+        <p class='description'>
+            Quickly determine which skills your students need to work on with our 22 question diagnostic. The diagnostic covers vital sentence construction skills and generates a personalized learning plan based on the student’s performance.
+        </p>
+    </section>
+
+    <section class="tool-animation-section ">
+          <video class='tool-animation' src="/videos/diagnostic.mp4" autoplay loop/>
+    </section>
+
+    <section class="diagnostic-walk-thru-wrapper desktop">
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="diagnostic-content-wrapper flex-row space-between vertically-centered">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
+                <div class="diagnostic-blurb">
+                    <h2>What's Being Tested</h2>
+                    <p>
+                        The diagnostic covers eight fundamental areas of sentence structure, giving you insight into your students’ ability to effectively create both basic and advanced sentences.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="diagnostic-content-wrapper flex-row space-between vertically-centered">
+                <img id='negative-left-margin' src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
+                <div class="diagnostic-blurb">
+                    <h2>Student Responses Analyzed</h2>
+                    <p>
+                        Quill automatically analyzes and grades open-ended responses. It identifies the writing skills students know and the skills they need to practice.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="diagnostic-content-wrapper flex-row space-between vertically-centered">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
+                <div class="diagnostic-blurb">
+                    <h2>Recommended Activities</h2>
+                    <p>
+                        You can then view a variety of reports to identify individual student and class-wide learning gaps. Quill generates a personalized learning plan for students based on where they need the most help.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="diagnostic-content-wrapper flex-row space-between vertically-centered">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
+                <div class="diagnostic-blurb">
+                    <h2>Evidence Based</h2>
+                    <p>
+                        The diagnostic evaluates student writing using an evidence based strategy called sentence combining. This strategy explicitly teaches students how to write sophisticated, complex sentences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="diagnostic-walk-thru-wrapper mobile">
+        <div class="walk-thru-step">
+            <div class="diagnostic-content-wrapper">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
+                <div class="diagnostic-blurb">
+                    <h2>What's Being Tested</h2>
+                    <p>
+                        The diagnostic covers eight fundamental areas of sentence structure, giving you insight into your students’ ability to effectively create both basic and advanced sentences.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step">
+            <div class="diagnostic-content-wrapper">
+                <img id='shrink-me' src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
+                <div class="diagnostic-blurb">
+                    <h2>Student Responses Analyzed</h2>
+                    <p>
+                        Quill automatically analyzes and grades open-ended responses. It identifies the writing skills students know and the skills they need to practice.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step">
+            <div class="diagnostic-content-wrapper">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
+                <div class="diagnostic-blurb">
+                    <h2>Recommended Activities</h2>
+                    <p>
+                        You can then view a variety of reports to identify individual student and class-wide learning gaps. Quill generates a personalized learning plan for students based on where they need the most help.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step">
+            <div class="diagnostic-content-wrapper">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
+                <div class="diagnostic-blurb">
+                    <h2>Evidence Based</h2>
+                    <p>
+                        The diagnostic evaluates student writing using an evidence based strategy called sentence combining. This strategy explicitly teaches students how to write sophisticated, complex sentences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tool-carousel">
+        <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
+
+            <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <div class="wrapper">
+                    <img src="/images/tools/Diagnostic1.png" alt="Chania">
+                  </div>
+                  <p>The diagnostic assesses students and then automatically builds a personalized learning plan for each student.</p>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <img src="/images/tools/Diagnostic2.png" alt="Chania">
+                  </div>
+                  <p>The diagnostic covers a number of critical sentence structure skills, such as fragments and run-on sentences. In this exercise, students use the dependent clause to write a complete sentence.</p>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <img src="/images/tools/Diagnostic3.png" alt="Chania">
+                  </div>
+                  <p>In this exercise, students transform a run-on sentence into a complete sentence.</p>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <img src="/images/tools/Diagnostic4.png" alt="Chania">
+                  </div>
+                  <p>Teachers see reports that state exactly which errors the students made.</p>
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+
+            <a class="right carousel-control" href="#diagnosticCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#diagnosticCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
+                <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
+                <li data-target="#diagnosticCarousel" data-slide-to="3"></li>
+            </ol>
+
+        </div>
+    </section>
+
+    <section class="tool-try-it bg-darkred bg-image-diagnostic-pattern">
+        <h2 class='q-h1'>Try It Yourself!</h2>
+        <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' class="q-button cta-button bg-white text-darkred">Preview the Diagnostic</a>
+    </section>
+
+    <section class="tool-testimonial">
+        <!-- <img class='q-headshot' src="/images/daniel_scibienski_90.png" alt="Daniel Scibienski"> -->
+        <p class='quote'>
+            "It was very useful to see which concepts students needed more help with. It is extremely beneficial if I want to work on grouping students based on skill."
+        </p>
+        <h4 class="q-h4 author">
+            NORMA BONILLA, DOWNTOWN COLLEGE PREP
+        </h4>
+        <a href="/activities/packs/20" class='q-button text-black'>
+            <span>View My Story</span>
+        </a>
+    </section>
+
+    <!-- Only how if user is not logged in  -->
+      <%if !current_user%>
+        <section class="tool-sign-up">
+            <h1 class='q-h1'>
+                Sign up to start using the Quill Diagnostic in your class today!
+            </h1>
+            <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+        </section>
+      <%end%>
+
+</div>
+
+<%= render partial: 'pages/shared/footer' %>
