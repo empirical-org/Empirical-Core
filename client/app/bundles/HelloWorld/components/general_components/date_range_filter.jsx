@@ -1,6 +1,7 @@
-"use strict";
-import DatePicker from '../shared/date_picker.jsx'
+'use strict';
+import DatePicker from 'react-datepicker'
 import React from 'react'
+import moment from 'moment';
 export default React.createClass({
   propTypes: {
     selectDates: React.PropTypes.func.isRequired
@@ -13,26 +14,29 @@ export default React.createClass({
     });
   },
 
-  selectBeginDate: function (val) {
-    this.setState({beginDate: val}, this.selectDates);
+
+
+  selectBeginDate: function (date) {
+    this.setState({beginDate: date}, this.selectDates);
   },
 
-  selectEndDate: function (val) {
-    this.setState({endDate: val}, this.selectDates);
+  selectEndDate: function (date) {
+    this.setState({endDate: date}, this.selectDates);
   },
 
   selectDates: function () {
     this.props.selectDates(this.state.beginDate, this.state.endDate);
   },
 
+
   render: function() {
     return (
       <div className="row date-range-filter">
         <div className="no-pl col-xs-6 col-sm-5">
-          <DatePicker key='datepick1' placeHolder="Completed : From" handleChange={this.selectBeginDate}/>
+          <DatePicker selected={this.state.beginDate} maxDate={moment()} onChange={this.selectBeginDate}   placeholderText='Completed : From'/>
         </div>
         <div className="no-pl col-xs-6 col-sm-5">
-          <DatePicker key='datepick2' placeHolder="Completed : To" handleChange={this.selectEndDate}/>
+          <DatePicker selected={this.state.endDate} maxDate={moment()}  onChange={this.selectEndDate}   placeholderText='Completed : To'/>
         </div>
       </div>
     );
