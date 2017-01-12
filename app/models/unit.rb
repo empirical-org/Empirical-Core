@@ -7,7 +7,7 @@ class Unit < ActiveRecord::Base
   has_many :topics, through: :activities
   default_scope { where(visible: true)}
 
-  validates :name, uniqueness: { scope: :user,
+  validates :name, uniqueness: { scope: [:user, :visible],
     message: "Unit name must be unique." }
 
 end
