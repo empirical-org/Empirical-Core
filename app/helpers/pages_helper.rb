@@ -68,7 +68,7 @@ module PagesHelper
 				desc: "Ryan develops new features for Quill and maintains the website. He also oversees Quill's operations and directs technical support initiatives. Ryan previously taught English to high school students in Maine and has worked at marketing and public relations companies in Washington and New York."
 			},
 			{
-			img: 'thumb-donald.png',
+					img: 'thumb-donald.png',
 		      name: 'Donald McKendrick',
 		      title: 'Technology Director, Cofounder',
 		      desc: "Donald is a developer who likes to create open platforms for learning.
@@ -80,15 +80,15 @@ module PagesHelper
 		      name: "Hannah Monk",
 		      title: "Curriculum Director",
 		      desc: "Hannah designs the curriculum and works with educators to create new content. Before joining Quill, Hannah was a seventh grade English teacher at a low-income school in western Virginia. She has an undergraduate degree in English and a master’s degree in education."
-	      		}
 			},
 			{
 		      img: 'thumb-emilia.png',
 		      name: "Emilia Friedberg",
 		      title: "Junior Web Developer",
 		      desc: "Emilia is a developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
-	      		}
-			]},
+	    }
+			]
+		},
 			{team: 'Board of Directors',
 			members: [
 					{
@@ -108,13 +108,13 @@ module PagesHelper
 					name: "Ben Sussman",
 					title: "Board Member",
 					desc: "Ben Sussman is a Lead Engineer at Betterment and is a technical advisor to Quill. He has 10+ years of experience as a computer programmer and entrepreneur. On the weekends, Ben volunteers with Nanohackers to teach programming to kids."
-					},				
-					{	
+					},
+					{
 					img: 'thumb_rubin.png',
 					name: 'Reuben Gutoff',
 					title: 'Board Member',
 					desc: "Reuben Gutoff founded Strategy Associates Inc., in 1979 and serves as its President and Sole Owner. Mr. Gutoff served as Senior Vice President of Corporate Strategy of GE's plastics and medical businesses. He worked at GE for 27 years, holding several leadership positions. After leaving GE in 1975, he joined Standard Brands, where he served as its President, Chief Operating Officer and Director, until 1978."
-					}
+				},
 					{
 					img: 'thumb-rhys.png',
 					name: 'Rhys Kidd',
@@ -133,7 +133,7 @@ module PagesHelper
 				# 	title: "Board Member",
 				# 	desc: "Timothy Grieves is the chief administrator of the Northwest AEA, a regional agency that advises 33,000 students in Iowa. Northwest AEA provides visionary leadership and quality, student-centered services through relationships with families, schools and communities."
 					# },
-				
+
 			]},
 			{team: 'Education Advisory Board',
 			members: [
