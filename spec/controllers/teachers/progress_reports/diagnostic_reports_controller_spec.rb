@@ -4,7 +4,6 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
 
 
 
-
   let(:teacher) { FactoryGirl.create(:teacher) }
   let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
   let(:student) {FactoryGirl.create(:student)}

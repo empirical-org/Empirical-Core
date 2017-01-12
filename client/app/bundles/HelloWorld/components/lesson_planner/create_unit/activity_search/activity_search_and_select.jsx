@@ -98,6 +98,7 @@
       filter.selected = null;
       return filter;
     });
+    console.log(this.state.filters)
     let that = this;
     this.setState({
       filters: clearedFilters,
@@ -248,6 +249,7 @@
   render: function() {
     var currentPageSearchResults = this.determineCurrentPageSearchResults();
     let table, loading, pagination;
+    console.log(this.state.filters[2].selected)
     if (this.state.loading) {
       setBottomBorder:
       loading = <LoadingIndicator/>;

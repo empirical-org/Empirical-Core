@@ -57,5 +57,4 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
   end
 
-
 end

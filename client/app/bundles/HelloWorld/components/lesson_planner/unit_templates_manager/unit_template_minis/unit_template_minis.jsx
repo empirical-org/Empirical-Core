@@ -84,6 +84,7 @@
       return
     }
     else {
+      console.log(this.userLoggedIn())
       return (
             <ListFilterOptions
                     userLoggedIn={this.userLoggedIn()}

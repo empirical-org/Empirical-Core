@@ -24,6 +24,15 @@
     this.setState({activeFilterId: optionId})
   },
 
+   getInitialState: function () {
+     return {activeFilterId: null}
+   },
+
+  handleFilterButtonClick: function (optionId) {
+    this.selectFilterOption(optionId);
+    this.setState({activeFilterId: optionId})
+  },
+
 	selectFilterOption: function (optionId) {
 		this.props.selectFilterOption(this.props.data.field, optionId);
 	},
