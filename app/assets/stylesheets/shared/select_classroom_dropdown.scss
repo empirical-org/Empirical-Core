@@ -12,8 +12,6 @@
     text-align: left;
     position: relative;
     .caret {
-    // commented out section is nice, but keeps in Chrome it goes to top of button,
-    // and in firefox it goes to bottom, so we are just omitting it for now.
         left: 100%;
         position: absolute;
         margin-top: 6px;
