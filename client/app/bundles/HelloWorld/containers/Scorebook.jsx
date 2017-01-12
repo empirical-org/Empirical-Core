@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 import React from 'react'
 import Scrollify from '../components/modules/scrollify'
 import $ from 'jquery'
@@ -47,6 +47,12 @@ export default React.createClass({
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
 
+  formatDate: function(date) {
+    if (date) {
+      return date.year() + '-' + (date.month() + 1) + '-' + (date.date());
+    }
+  },
+
   fetchData: function() {
     var newCurrentPage = this.state.currentPage + 1;
     this.setState({loading: true, currentPage: newCurrentPage});
@@ -56,8 +62,8 @@ export default React.createClass({
         current_page: newCurrentPage,
         classroom_id: this.state.selectedClassroom.value,
         unit_id: this.state.selectedUnit.value,
-        begin_date: this.state.beginDate,
-        end_date: this.state.endDate,
+        begin_date: this.formatDate(this.state.beginDate),
+        end_date: this.formatDate(this.state.endDate),
         selectedClassroom: this.state.selectedClassroom.id,
         no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet
       },
@@ -144,7 +150,7 @@ export default React.createClass({
       var loadingIndicator = null;
     }
     return (
-      <div class="page-content-wrapper">
+      <div className="page-content-wrapper">
          <div className="tab-pane" id="scorebook">
              <span>
                  <div className="container">
