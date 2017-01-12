@@ -78,6 +78,12 @@ a.progress-reports-nav {
     text-decoration: none;
   }
 
+  .alert {
+    a {
+      padding-left: 1em;
+    }
+  }
+
   table {
 
     // All column sizes are based on 14px font
@@ -164,6 +170,9 @@ a.progress-reports-nav {
 
   .breadcrumb {
     margin-bottom: 10px;
+    a {
+      color: $quillforestgreen;
+    }
   }
 
   .export-csv {

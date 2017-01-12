@@ -87,6 +87,11 @@ export default React.createClass({
                          filterTypes={[]}
                          premiumStatus={this.props.premiumStatus}
                          >
+        <section className="alert alert-warning">
+          <p>
+            We're upgrading this page since we have changed our scoring logic. <a href="http://support.quill.org/knowledgebase/articles/1125256">Learn More <i className="fa fa-long-arrow-right"></i></a>
+          </p>
+        </section>
         <h2>Results by Student</h2>
         <br></br>
         <p>This page shows how students are performing on individual questions. One question equals one results, and you can click on an individual concept to drill down.</p>
