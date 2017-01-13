@@ -19,18 +19,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def fast_assign
-    # unit_template = UnitTemplate.find(params[:id])
-    # unit_template_name = unit_template.name
-    # units_with_same_name = units_with_same_name_by_current_user(unit_template_name)
-    # if units_with_the_same_namy.any?
-    #   FastAssignWorker.perform_async(current_user.id, params[:id])
-    #   # so we have activities data accessible for unit_params[:id]
-    # else
-    #   FastAssignWorker.perform_async(current_user.id, params[:id])
-    # end
-    # FastAssignWorker.new.perform(current_user.id, params[:id])
     FastAssignWorker.perform_async(current_user.id, params[:id])
-    # Units::Creator.fast_assign_unit_template(current_user, params[:id])
     render json: {}
   end
 
