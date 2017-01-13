@@ -21,7 +21,7 @@ const adminContainer = React.createClass({
     this.props.dispatch( questionActions.startListeningToQuestions() );
     this.props.dispatch( diagnosticQuestionActions.startListeningToDiagnosticQuestions() );
     this.props.dispatch( sentenceFragmentActions.startListeningToSentenceFragments() );
-    this.props.dispatch( pathwayActions.startListeningToPathways() );
+    // this.props.dispatch( pathwayActions.startListeningToPathways() );
     this.props.dispatch( lessonActions.startListeningToLessons() );
     this.props.dispatch( levelActions.startListeningToItemLevels() );
   },
