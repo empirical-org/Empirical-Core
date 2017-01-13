@@ -30,6 +30,8 @@ module SegmentIo
     ASSIGN_FEATURED_ACTIVITY_PACK ||= 'Assign Featured Activity Pack'
     BUILD_YOUR_OWN_ACTIVITY_PACK ||= 'Build Your Own Activity Pack'
     ACCESS_PROGRESS_REPORT ||= 'Teacher opened progress report'
+    ASSIGN_DIAGNOSTIC ||= 'Teacher assigned the diagnostic'
+    ASSIGN_RECOMMENDATIONS ||= 'Teacher assigned the recommendations'
     ERROR_500 ||= '500 Error'
     BEGAN_TRIAL ||= 'Teacher began trial'
     BEGAN_PREMIUM ||= 'Teacher began trial'
