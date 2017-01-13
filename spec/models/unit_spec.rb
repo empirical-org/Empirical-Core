@@ -17,16 +17,25 @@ describe Unit, type: :model do
   end
 
   describe 'the name field' do
-    it "should be unique at the teacher level" do
-      non_uniq_unit = Unit.create(name: unit.name, user: teacher)
-      expect(non_uniq_unit.valid?).to eq(false)
+
+    context "it should be unique" do
+      it "at the teacher level" do
+        non_uniq_unit = Unit.create(name: unit.name, user: teacher)
+        expect(non_uniq_unit.valid?).to eq(false)
+      end
+
+      it "by visibility" do
+        non_uniq_unit = Unit.create(name: unit.name, user: teacher, visible: false)
+        expect(non_uniq_unit.valid?).to eq(true)
+      end
+
+      it "does not have to be unique by name with different teachers" do
+        different_teacher = User.create(role: 'teacher')
+        new_unit = Unit.create(name: unit.name, user: different_teacher)
+        expect(new_unit.valid?).to eq(true)
+      end
     end
 
-    it "does not have to be unique by name with different teachers" do
-      different_teacher = User.create(role: 'teacher')
-      new_unit = Unit.create(name: unit.name, user: different_teacher)
-      expect(new_unit.valid?).to eq(true)
-    end
   end
 
   describe 'default_scope' do
