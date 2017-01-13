@@ -65,17 +65,17 @@ const Responses = React.createClass({
   },
 
   getPercentageWeakResponses() {
-    const item = this.props.question;
-    // pass all possible fields regardless of matcher as the matchers will filter it out.
-    const fields = {
-      wordCountChange: item.wordCountChange,
-      questionUID: this.props.questionID,
-      sentences: item.sentences,
-      prompt: item.prompt,
-      focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
-      // ignoreCaseAndPunc: item.ignoreCaseAndPunc,
-    };
-    const markingObject = new this.state.matcher(fields);
+    // const item = this.props.question;
+    // // pass all possible fields regardless of matcher as the matchers will filter it out.
+    // const fields = {
+    //   wordCountChange: item.wordCountChange,
+    //   questionUID: this.props.questionID,
+    //   sentences: item.sentences,
+    //   prompt: item.prompt,
+    //   focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
+    //   // ignoreCaseAndPunc: item.ignoreCaseAndPunc,
+    // };
+    // const markingObject = new this.state.matcher(fields);
 
     // const fields = {
     //   responses: this.responsesWithStatus(),
@@ -83,6 +83,14 @@ const Responses = React.createClass({
     // };
     // const question = new this.state.matcher(fields);
     // return question.getPercentageWeakResponses();
+
+    const responses = this.props.responses;
+    const unmatchedResponses = _.filter(responses, (response) => {
+      // console.log(response)
+      return response.author === undefined && response.optimal === undefined && response.count > 1
+    });
+    console.log(unmatchedResponses.length, responses.length)
+    return unmatchedResponses.length / this.props.responses.length * 100;
   },
 
   // ryan Look here!!!
