@@ -250,7 +250,7 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, // the questionReducer
     routing: state.routing,
-    sessions: state.sessions,
+    // sessions: state.sessions,
     // responses: state.responses,
   };
 }
