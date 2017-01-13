@@ -29,13 +29,20 @@
 
 .progress-reports-concepts-concepts {
   div.premium-status-none {
-    div.blur-header {
+    .non-premium-student {
       h2 {
         -webkit-filter: blur(8px);
        -moz-filter: blur(8px);
        -o-filter: blur(8px);
        -ms-filter: blur(8px);
        filter: blur(8px);
+     }
+      td:nth-child(2) {
+        -webkit-filter: blur(5px);
+       -moz-filter: blur(5px);
+       -o-filter: blur(5px);
+       -ms-filter: blur(5px);
+       filter: blur(5px);
       }
     }
   }
