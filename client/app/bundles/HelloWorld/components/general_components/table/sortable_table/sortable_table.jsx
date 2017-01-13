@@ -13,7 +13,8 @@ export default React.createClass({
     sortHandler: React.PropTypes.func.isRequired, // Handle sorting of columns
     shouldTransition: React.PropTypes.bool,
     loading: React.PropTypes.bool,
-    colorByScoreKeys: React.PropTypes.array
+    colorByScoreKeys: React.PropTypes.array,
+    onNonPremiumStudentPage: React.PropTypes.string
   },
 
   shouldTransition: function () {
@@ -80,7 +81,7 @@ export default React.createClass({
       }
 
       return (
-        <table className='table sortable-table'>
+        <table className={'table sortable-table ' + this.props.onNonPremiumStudentPage}>
           <thead>
             <tr>
               {this.columns()}
