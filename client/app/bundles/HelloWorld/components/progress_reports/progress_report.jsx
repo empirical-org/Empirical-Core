@@ -166,6 +166,15 @@ export default  React.createClass({
     }
   },
 
+  nameHeaderBlur: function() {
+    const lastEightCharOfURL = window.location.href.substr(window.location.href.length - 8)
+    const onStudentPage = lastEightCharOfURL == 'concepts'
+    if (this.state.disabled && onStudentPage) {
+      return 'blur-header'
+    }
+  },
+
+
   render: function() {
     var pagination,
       csvExport,
@@ -193,7 +202,7 @@ export default  React.createClass({
     return (
       <div className={'premium-status-' + this.blur()}>
         <div className="row">
-          <div className="col-md-8 header-section">
+          <div className={'col-md-8 header-section ' + this.nameHeaderBlur()}>
             {this.props.children}
           </div>
           <div className="col-md-3 col-md-offset-1">
