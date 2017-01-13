@@ -6,6 +6,20 @@ namespace :report_demo do
     ReportDemoCreator::create_demo(name)
   end
 
+  task :destroy, [:name] => :environment do |t, args|
+    # to use this call rake demo:create["firstname lastname"]
+    name = args[:name] ? args[:name].to_s : nil
+    ReportDemoDestroyer::destroy_demo(name)
+  end
+
+  module ReportDemoDestroyer
+    def self.destroy_demo(name)
+      email = name ? "hello+#{name}@quill.org" : "hello+demoteacher@quill.org"
+      teacher  = User.find_by_email(email)
+      teacher.delete
+    end
+  end
+
   module ReportDemoCreator
 
     def self.create_demo(name)
@@ -34,6 +48,7 @@ namespace :report_demo do
       values = {
         name: "Quill Classroom",
         teacher_id: teacher.id,
+        code: "demo-#{teacher.id}",
         grade: '9'
       }
       classroom = Classroom.create(values)
