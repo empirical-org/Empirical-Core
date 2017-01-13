@@ -34,7 +34,8 @@ class ProfilesController < ApplicationController
   end
 
   def students_classrooms_json
-    render json: {classrooms: current_user.classrooms.includes(:teacher).map {|c| c.students_classrooms_json(current_user.id)}}
+    render json: {classrooms: current_user.classrooms.includes(:teacher)
+      .sort_by { |c| c.created_at }.reverse.map {|c| c.students_classrooms_json(current_user.id)}}
   end
 
   def teacher
