@@ -63,23 +63,10 @@ export default  React.createClass({
     return this.props.premiumStatus === ('none' || 'locked');
   },
 
-  disableLinks: function() {
-    if (!$('.progress-reports-standards-classrooms').length)
-      $(".premium-status-none a").click(function(e) {
-        e.preventDefault();
-    });
-  },
-
   componentDidMount: function() {
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     this.fetchData();
-    var that = this;
-    if (this.state.disabled) {
-      setTimeout(function() {
-        that.disableLinks();
-      }, 750);
-    }
   },
 
   // Get results with all filters, sorting
