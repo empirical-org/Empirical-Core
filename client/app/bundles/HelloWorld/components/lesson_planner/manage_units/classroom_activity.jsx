@@ -72,7 +72,7 @@ export default React.createClass({
   },
 
 	render: function() {
-		let url = this.urlForReport();
+		let url = this.props.report ? this.urlForReport() : this.props.data.activity.anonymous_path;
 		return (
 			<div className='row' style={styles.row}>
 				<div className='cell col-md-1'>
