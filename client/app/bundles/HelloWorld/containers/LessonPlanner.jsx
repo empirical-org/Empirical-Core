@@ -266,26 +266,15 @@ export default React.createClass({
 		this.updateUnitTemplatesManager({firstAssignButtonClicked: true});
 	},
 
-	// fastAssign: function() {
-	// 	$.ajax({
-	// 		url: '/teachers/unit_templates/fast_assign',
-	// 		data: {
-	// 			id: this.state.unitTemplatesManager.model.id
-	// 		},
-	// 		type: 'POST',
-	// 		success: this.onFastAssignSuccess
-	// 	});
-	// },
+	onFastAssignSuccess: function() {
+		var lastActivity = this.state.unitTemplatesManager.model;
+		this.analytics().track('click Create Unit', {});
+		this.deepExtendState(this.blankState());
+		this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
+		this.fetchClassrooms();
+		this.updateUnitTemplatesManager({assignSuccess: true});
+	},
 
-	// onFastAssignSuccess: function() {
-	// 	var lastActivity = this.state.unitTemplatesManager.model;
-	// 	this.analytics().track('click Create Unit', {});
-	// 	this.deepExtendState(this.blankState());
-	// 	this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
-	// 	this.fetchClassrooms();
-	// 	this.updateUnitTemplatesManager({assignSuccess: true});
-	// },
-	//
 	fastAssign: function() {
 		$.ajax({
 			url: '/teachers/unit_templates/fast_assign',
@@ -293,7 +282,7 @@ export default React.createClass({
 				id: this.state.unitTemplatesManager.model.id
 			},
 			type: 'POST',
-			success: () => this.onFastAssignSuccess,
+			success: this.onFastAssignSuccess,
 			error: (response) => {
 				const errorMessage = jQuery.parseJSON(response.responseText).error_message
 				window.alert(errorMessage)
