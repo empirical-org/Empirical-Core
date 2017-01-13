@@ -66,6 +66,6 @@ class Profile::SubProcessor
   end
 
   def sort_not_dued(activity_sessions)
-    activity_sessions.sort_by{ |as| as.created_at }
+    activity_sessions.sort_by{ |as| as.classroom_activity_id }
   end
 end
