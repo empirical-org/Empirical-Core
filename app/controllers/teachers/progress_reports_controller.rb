@@ -8,10 +8,10 @@ class Teachers::ProgressReportsController < ApplicationController
     if params[:name]
       @user = User.find_by_email "hello+#{params[:name]}@quill.org"
       if @user.nil?
-        @user = User.find_by_email 'hello+demo@quill.org'
+        @user = User.find_by_email 'hello+demoteacher@quill.org'
       end
     else
-      @user = User.find_by_email 'hello+demo@quill.org'
+      @user = User.find_by_email 'hello+demoteacher@quill.org'
     end
     sign_in @user
     redirect_to teachers_progress_reports_standards_classrooms_path

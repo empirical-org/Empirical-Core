@@ -54,8 +54,10 @@ export default React.createClass({
 		if (this.state.loading) {
 			content = <LoadingSpinner/>
 		} else {
+			const student = this.selectedStudent(this.state.students);
 			content = (
 				<div className='individual-student-activity-view'>
+					<h3 style={{marginBottom: '50px', paddingLeft: '20px'}}>{student.name}  <strong style={{paddingLeft: '20px'}}>{student.score}%</strong></h3>
           {this.studentBoxes()}
 					<div className='how-we-grade'>
 					<p className="title title-not-started pull-right">

@@ -10,7 +10,7 @@ class Activity < ActiveRecord::Base
 
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
-
+  has_many :units, through: :classroom_activities
   before_create :flag_as_beta, unless: :flags?
 
   scope :production, -> {

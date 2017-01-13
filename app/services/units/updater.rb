@@ -7,8 +7,6 @@ module Units::Updater
     self.update_helper(unit, activities_data, classrooms_data)
   end
 
-
-
   def self.assign_unit_template_to_one_class(unit, classrooms_data)
     activities_data = unit.activities.map{ |a| {id: a.id, due_date: nil} }
     self.update_helper(unit, activities_data, classrooms_data)
@@ -24,7 +22,6 @@ module Units::Updater
   private
 
   def self.update_helper(unit, activities_data, classrooms_data)
-
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     classrooms_data.each do |classroom|
@@ -32,8 +29,13 @@ module Units::Updater
       product.each do |pair|
         activity_data, classroom_id = pair
         classroom_activity = unit.classroom_activities.find_or_create_by!(activity_id: activity_data[:id], classroom_id: classroom_id)
-        previously_assigned_students = classroom_activity.assigned_student_ids || []
-        all_assigned_students = previously_assigned_students.push(classroom[:student_ids]).flatten.map(&:to_i).uniq
+        if classroom[:student_ids] == []
+          all_assigned_students = []
+        else
+          previously_assigned_students = classroom_activity.assigned_student_ids || []
+          all_assigned_students = previously_assigned_students.push(classroom[:student_ids]).flatten.map(&:to_i).uniq
+        end
+
         classroom_activity.update(activity_id: activity_data[:id],
           due_date: activity_data[:due_date],
           classroom_id: classroom_id,
