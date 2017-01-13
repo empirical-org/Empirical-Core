@@ -48,7 +48,7 @@ export default React.createClass({
 	stateSpecificComponent: function() {
 		if (this.state.loading) {
 			return <LoadingSpinner/>
-		} else {
+		} else if (this.state.students.length > 0) {
 			return <ClassroomsStudentsTable key={'students-table'} students={this.state.students}/>
 		}
 	},
