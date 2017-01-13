@@ -19,7 +19,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def fast_assign
-    if current_user.classrooms_i_teach.length > 0
+    if current_user.classrooms_i_teach.empty?
       FastAssignWorker.perform_async(current_user.id, params[:id])
       render json: {}
     else
