@@ -16,9 +16,9 @@
   },
 
   googleTile: function(){
-    if (this.props.user.signed_up_with_google) {
+    // if (this.props.user.signed_up_with_google) {
       return <SyncGoogleClassroomsMini/>
-    }
+    // }
   },
 
   render: function() {
