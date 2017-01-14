@@ -56,7 +56,11 @@ var StudentDiagnostic = React.createClass({
 
   startActivity: function (name, data) {
     // this.saveStudentName(name);
-    const action = loadData(data)
+    // const action = loadData(data)
+    // this.props.dispatch(action);
+    // const next = nextQuestion();
+    // this.props.dispatch(next);
+    const action = loadData(this.questionsForLesson());
     this.props.dispatch(action);
     const next = nextQuestion();
     this.props.dispatch(next);
@@ -80,14 +84,25 @@ var StudentDiagnostic = React.createClass({
   },
 
   questionsForLesson: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data)
-    const {data} = this.props.lessons, {lessonID} = this.props.params;
-    return data[lessonID].questions.map((id) => {
-      return {
-        type: "SC",
-        key: id
-      }
-    })
+    // const {data} = this.props.lessons, {lessonID} = this.props.params;
+    // console.log(data[lessonID], data[lessonID].questions)
+    // return data[lessonID].questions;
+    const { data, } = this.props.lessons,
+      { lessonID, } = this.props.params;
+    const filteredQuestions = data[lessonID].questions.filter(ques =>
+       this.props[ques.questionType].data[ques.key]
+    );
+    // this is a quickfix for missing questions -- if we leave this in here
+    // long term, we should return an array through a forloop to
+    // cut the time from 2N to N
+    return filteredQuestions.map((questionItem) => {
+      const questionType = questionItem.questionType;
+      const key = questionItem.key;
+      const data = this.props[questionType].data[key];
+      data.key = key;
+      const type = questionType === 'questions' ? 'SC' : 'SF';
+      return { type, data, };
+    });
   },
 
   getData: function() {
@@ -113,7 +128,8 @@ var StudentDiagnostic = React.createClass({
 
   getFetchedData: function() {
     var returnValue = this.getData().map((obj)=>{
-      var data = (obj.type==="SC") ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key]
+      console.log(obj)
+      var data = (obj.questionType === "questions") ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key]
       data.key = obj.key;
       // if(obj.type==="SF") {
       //   data.needsIdentification = true
@@ -121,7 +137,7 @@ var StudentDiagnostic = React.createClass({
       //   data.needsIdentification = false
       // }
       return {
-        "type": obj.type,
+        "type": obj.questionType,
         "data": data
       }
     })
@@ -129,26 +145,26 @@ var StudentDiagnostic = React.createClass({
   },
 
   render: function() {
-    const diagnosticID = this.props.params.diagnosticID
+    const { data, } = this.props.lessons,
+      { lessonID, } = this.props.params;
     var component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
-      var data = this.getFetchedData()
-      if(data) {
+      if (data[lessonID]) {
         if (this.props.playDiagnostic.currentQuestion) {
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
-            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key}/>)
+            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} dispatch={this.props.dispatch}/>)
 
           } else {
             component =   (<PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
                                     key={this.props.playDiagnostic.currentQuestion.data.key}
                                     nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-                                    updateAttempts={this.submitResponse}/>)
+                                    updateAttempts={this.submitResponse} dispatch={this.props.dispatch}/>)
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
         }
         else {
-          component =  <LandingPage lesson={this.getLesson()} begin={()=>{this.startActivity("John", data)}}/>
+          component =  <LandingPage lesson={this.getLesson()} begin={()=>{this.startActivity("John")}}/>
           // (
           //   <div className="container">
           //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
