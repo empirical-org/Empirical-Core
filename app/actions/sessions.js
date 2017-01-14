@@ -1,19 +1,21 @@
 var C = require("../constants").default
 import rootRef from '../libs/firebase';
-const sessionsRef = rootRef.child('sessions');
+const sessionsRef = rootRef.child('savedSessions');
 
 export default {
   get: function(sessionID, cb){
     sessionsRef.child(sessionID).once("value", (snapshot) => {
-      cb(snapshot.val())
+      const session = snapshot.val()
+      session.currentQuestion.question.attempts = [];
+      cb(session)
     })
   },
 
-  update: function(sessionId, session){
+  update: function(sessionID, session){
     sessionsRef.child(sessionID).set(session)
   },
 
-  delete: function(sessionId){
+  delete: function(sessionID){
     sessionsRef.child(sessionID).remove(session)
   },
 
