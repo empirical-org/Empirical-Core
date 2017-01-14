@@ -5,9 +5,15 @@ const sessionsRef = rootRef.child('savedSessions');
 export default {
   get: function(sessionID, cb){
     sessionsRef.child(sessionID).once("value", (snapshot) => {
-      const session = snapshot.val()
-      session.currentQuestion.question.attempts = [];
-      cb(session)
+      if (snapshot.exists()) {
+        const session = snapshot.val();
+        if (session.currentQuestion.question) {
+          session.currentQuestion.question.attempts = [];
+        } else {
+          session.currentQuestion.data.attempts = [];
+        }
+        cb(session);
+      }
     })
   },
 

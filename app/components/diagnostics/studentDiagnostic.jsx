@@ -27,34 +27,18 @@ const StudentDiagnostic = React.createClass({
     };
   },
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   // if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
-  //   //   return true;
-  //   // } else if (nextProps.questions.hasreceiveddata !== this.props.questions.hasreceiveddata) {
-  //   //   return true;
-  //   // } else if (this.props.sentenceFragments.hasreceiveddata !== nextProps.sentenceFragments.hasreceiveddata) {
-  //   //   return true;
-  //   // } else if (nextState.responsesReady !== this.state.responsesReady) {
-  //   //   return true;
-  //   // } else if (nextProps.playDiagnostic.questionSet !== this.props.playDiagnostic.questionSet) {
-  //   //   return true;
-  //   // } else if (this.props.playDiagnostic.currentQuestion.identified !== nextProps.playDiagnostic.currentQuestion.identified) {
-  //   //   return true;
-  //   // }
-  //   // return false;
-  //   if (this.props.responses !== nextProps.responses) {
-  //     return false;
-  //   }
-  //   return true;
-  // },
-
   componentWillMount() {
     this.props.dispatch(clearData());
     // this.getResponsesForEachQuestion();
+    if (this.state.sessionID) {
+      SessionActions.get(this.state.sessionID, (data) => {
+        this.setState({session: data});
+      })
+    }
   },
 
   getPreviousSessionData() {
-    return this.props.sessions.data[this.props.location.query.student];
+    return this.state.session;
   },
 
   resumeSession(data) {
@@ -71,16 +55,16 @@ const StudentDiagnostic = React.createClass({
     return sessionID;
   },
 
-  // saveSessionData(lessonData) {
-    // if (this.state.sessionID) {
-    //   this.props.dispatch(SessionActions.update(this.state.sessionID, lessonData));
-    // }
-  // },
+  saveSessionData(lessonData) {
+    if (this.state.sessionID) {
+      SessionActions.update(this.state.sessionID, lessonData);
+    }
+  },
 
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
-    //   this.saveSessionData(nextProps.playDiagnostic);
-    // }
+    if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
+      this.saveSessionData(nextProps.playDiagnostic);
+    }
   },
 
   doesNotHaveAndIsNotGettingResponses() {

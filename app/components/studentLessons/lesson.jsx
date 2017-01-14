@@ -59,9 +59,11 @@ const Lesson = React.createClass({
       sessionID = undefined;
     }
     this.setState({ sessionID, }, () => {
-      SessionActions.get(this.state.sessionID, (data) => {
-        this.setState({session: data});
-      })
+      if (sessionID) {
+        SessionActions.get(this.state.sessionID, (data) => {
+          this.setState({session: data});
+        })
+      }
     });
   },
 
