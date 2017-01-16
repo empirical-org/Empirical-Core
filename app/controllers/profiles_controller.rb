@@ -62,21 +62,8 @@ protected
     classroom = current_classroom(classroom_id)
     grouped_scores, is_last_page = Profile::Processor.new.query(current_user, current_page, classroom.id)
     next_activity_session = current_user.next_activity_session(classroom.id)
-    {
-      student: {
-        name: current_user.name,
-        classroom: {
-          name: classroom.name,
-          id: classroom.id,
-          teacher: {
-            name: classroom.teacher.name
-          }
-        }
-      },
-      grouped_scores: grouped_scores,
-      is_last_page: is_last_page,
-      next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)
-    }
+    {student: {name: current_user.name, classroom: {name: classroom.name, id: classroom.id, teacher: {name: classroom.teacher.name}}},
+     grouped_scores: grouped_scores, is_last_page: is_last_page, next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
   end
 
   def current_classroom(classroom_id = nil)
