@@ -1,7 +1,7 @@
 class Profile::ActivitySessionSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :percentage, :link, :due_date_or_completed_at_date
+  attributes :id, :percentage, :link, :due_date_or_completed_at_date, :state
   has_one :activity, serializer: Profile::ActivitySerializer
 
   def link
