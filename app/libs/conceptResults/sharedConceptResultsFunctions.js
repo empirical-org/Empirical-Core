@@ -22,9 +22,13 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
     return;
   }
   if (conceptResults.length === 0) {
+    let score
+    if (question.attempts[attemptIndex].response) {
+      score = question.attempts[attemptIndex].response.optimal
+    }
     conceptResults = [{
       conceptUID: question.conceptID,
-      correct: false,
+      correct: score || false,
     }];
   }
   return conceptResults.map(conceptResult => ({

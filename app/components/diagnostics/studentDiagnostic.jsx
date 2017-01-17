@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CarouselAnim from '../shared/carouselAnimation.jsx';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import { loadResponseData, loadMultipleResponses } from '../../actions/responses';
 import { hashToCollection } from '../../libs/hashToCollection';
@@ -11,6 +11,7 @@ import Spinner from '../shared/spinner.jsx';
 import SmartSpinner from '../shared/smartSpinner.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import TitleCard from './titleCard.jsx'
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
@@ -26,34 +27,18 @@ const StudentDiagnostic = React.createClass({
     };
   },
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   // if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
-  //   //   return true;
-  //   // } else if (nextProps.questions.hasreceiveddata !== this.props.questions.hasreceiveddata) {
-  //   //   return true;
-  //   // } else if (this.props.sentenceFragments.hasreceiveddata !== nextProps.sentenceFragments.hasreceiveddata) {
-  //   //   return true;
-  //   // } else if (nextState.responsesReady !== this.state.responsesReady) {
-  //   //   return true;
-  //   // } else if (nextProps.playDiagnostic.questionSet !== this.props.playDiagnostic.questionSet) {
-  //   //   return true;
-  //   // } else if (this.props.playDiagnostic.currentQuestion.identified !== nextProps.playDiagnostic.currentQuestion.identified) {
-  //   //   return true;
-  //   // }
-  //   // return false;
-  //   if (this.props.responses !== nextProps.responses) {
-  //     return false;
-  //   }
-  //   return true;
-  // },
-
   componentWillMount() {
     this.props.dispatch(clearData());
     // this.getResponsesForEachQuestion();
+    if (this.state.sessionID) {
+      SessionActions.get(this.state.sessionID, (data) => {
+        this.setState({session: data});
+      })
+    }
   },
 
   getPreviousSessionData() {
-    return this.props.sessions.data[this.props.location.query.student];
+    return this.state.session;
   },
 
   resumeSession(data) {
@@ -70,16 +55,16 @@ const StudentDiagnostic = React.createClass({
     return sessionID;
   },
 
-  // saveSessionData(lessonData) {
-    // if (this.state.sessionID) {
-    //   this.props.dispatch(SessionActions.update(this.state.sessionID, lessonData));
-    // }
-  // },
+  saveSessionData(lessonData) {
+    if (this.state.sessionID) {
+      SessionActions.update(this.state.sessionID, lessonData);
+    }
+  },
 
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
-    //   this.saveSessionData(nextProps.playDiagnostic);
-    // }
+    if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
+      this.saveSessionData(nextProps.playDiagnostic);
+    }
   },
 
   doesNotHaveAndIsNotGettingResponses() {
@@ -108,23 +93,58 @@ const StudentDiagnostic = React.createClass({
   saveToLMS() {
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
     console.log('Concept Results: ', results);
+
+    const { diagnosticID, } = this.props.params;
+    const sessionID = this.props.routing.locationBeforeTransitions.query.student
+    if (sessionID) {
+      this.finishActivitySession(sessionID, results, 1);
+    } else {
+      this.createAnonActivitySession(diagnosticID, results, 1);
+    }
+  },
+
+  finishActivitySession(sessionID, results, score) {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${this.props.routing.locationBeforeTransitions.query.student}`,
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
         json:
         {
           state: 'finished',
           concept_results: results,
-          percentage: 1,
+          percentage: score,
         },
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          this.props.dispatch(SessionActions.delete(this.state.sessionID));
+          console.log('Finished Saving');
+          console.log(err, httpResponse, body);
+          SessionActions.delete(this.state.sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL;
           this.setState({ saved: true, });
         }
-        // console.log(err,httpResponse,body)
+      }
+    );
+  },
+
+  createAnonActivitySession(lessonID, results, score) {
+    request(
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+        method: 'POST',
+        json:
+        {
+          state: 'finished',
+          activity_uid: lessonID,
+          concept_results: results,
+          percentage: score,
+        },
+      },
+      (err, httpResponse, body) => {
+        if (httpResponse.statusCode === 200) {
+          console.log('Finished Saving');
+          console.log(err, httpResponse, body);
+          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+          this.setState({ saved: true, });
+        }
       }
     );
   },
@@ -168,6 +188,11 @@ const StudentDiagnostic = React.createClass({
     this.props.dispatch(next);
   },
 
+  nextQuestionWithoutSaving() {
+    const next = nextQuestionWithoutSaving();
+    this.props.dispatch(next);
+  },
+
   getLesson() {
     return this.props.lessons.data[this.props.params.lessonID];
   },
@@ -199,7 +224,14 @@ const StudentDiagnostic = React.createClass({
 
   getFetchedData() {
     const returnValue = this.getData().map((obj) => {
-      const data = (obj.type === 'SC') ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key];
+      let data;
+      if (obj.type === 'SC') {
+        data = this.props.questions.data[obj.key];
+      } else if (obj.type === 'SF') {
+        data = this.props.sentenceFragments.data[obj.key];
+      } else {
+        data = obj;
+      }
       data.key = obj.key;
       return {
         type: obj.type,
@@ -224,7 +256,7 @@ const StudentDiagnostic = React.createClass({
             key={this.props.playDiagnostic.currentQuestion.data.key}
             marking="diagnostic"
           />);
-        } else {
+        } else if (this.props.playDiagnostic.currentQuestion.type === 'SF') {
           component = (<PlaySentenceFragment
             question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
             key={this.props.playDiagnostic.currentQuestion.data.key}
@@ -233,6 +265,15 @@ const StudentDiagnostic = React.createClass({
             nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
             updateAttempts={this.submitResponse}
           />);
+        } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
+          component = (
+            <TitleCard
+              data={this.props.playDiagnostic.currentQuestion.data}
+              currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+              dispatch={this.props.dispatch}
+              nextQuestion={this.nextQuestionWithoutSaving}
+            />
+          )
         }
       } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
         component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);

@@ -7,6 +7,16 @@ import {
   calculateCorrectnessOfSentence
 } from './sentenceFragment.js';
 
+import _ from 'underscore'
+
+const scoresForNAttempts = {
+  1: 1,
+  2: 0.75,
+  3: 0.5,
+  4: 0.25,
+  5: 0,
+};
+
 export function getConceptResultsForQuestion(questionObj) {
   if (questionObj.type === 'SF') {
     return getAllSentenceFragmentConceptResults(questionObj.question);
@@ -20,10 +30,18 @@ export function getNestedConceptResultsForAllQuestions(questions) {
 }
 
 export function embedQuestionNumbers(nestedConceptResultArray) {
-  return nestedConceptResultArray.map((conceptResultArray, index) => conceptResultArray.map((conceptResult) => {
-    conceptResult.metadata.questionNumber = index + 1;
-    return conceptResult;
-  }));
+  return nestedConceptResultArray.map((conceptResultArray, index) => {
+    const lastAttempt = _.sortBy(conceptResultArray, (conceptResult) => {
+      return conceptResult.metadata.attemptNumber;
+    }).reverse()[0]
+    const maxAttemptNo = lastAttempt ? lastAttempt.metadata.attemptNumber : undefined;
+    const questionScore = scoresForNAttempts[maxAttemptNo] || 0;
+    return conceptResultArray.map((conceptResult) => {
+      conceptResult.metadata.questionNumber = index + 1;
+      conceptResult.metadata.questionScore = questionScore
+      return conceptResult;
+    })
+  });
 }
 
 export function getConceptResultsForAllQuestions(questions) {
@@ -33,20 +51,10 @@ export function getConceptResultsForAllQuestions(questions) {
 }
 
 export function getScoreForSentenceCombining(question) {
-  const firstAttempt = question.attempts[0];
-  if (firstAttempt.found && firstAttempt.response.optimal) {
-    return 1;
-  } else {
-    return 0;
-  }
+  return scoresForNAttempts[question.attempts.length] || 0
 }
 export function getScoreForSentenceFragment(question) {
-  const firstAttempt = question.attempts[0];
-  if (question.identified && calculateCorrectnessOfSentence(firstAttempt) === 1) {
-    return 1;
-  } else {
-    return 0;
-  }
+  return scoresForNAttempts[question.attempts.length] || 0
 }
 
 export function calculateScoreForLesson(questions) {

@@ -39,7 +39,7 @@ const Lesson = React.createClass({
   },
 
   getPreviousSessionData() {
-    return this.props.sessions.data[this.props.location.query.student];
+    return this.state.session;
   },
 
   resumeSession(data) {
@@ -58,7 +58,13 @@ const Lesson = React.createClass({
     if (sessionID === 'null') {
       sessionID = undefined;
     }
-    this.setState({ sessionID, });
+    this.setState({ sessionID, }, () => {
+      if (sessionID) {
+        SessionActions.get(this.state.sessionID, (data) => {
+          this.setState({session: data});
+        })
+      }
+    });
   },
 
   submitResponse(response) {
@@ -94,7 +100,7 @@ const Lesson = React.createClass({
         if (httpResponse.statusCode === 200) {
           console.log('Finished Saving');
           console.log(err, httpResponse, body);
-          this.props.dispatch(SessionActions.delete(this.state.sessionID));
+          SessionActions.delete(this.state.sessionID);
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
           this.setState({ saved: true, });
         }
@@ -184,7 +190,7 @@ const Lesson = React.createClass({
 
   saveSessionData(lessonData) {
     if (this.state.sessionID) {
-      this.props.dispatch(SessionActions.update(this.state.sessionID, lessonData));
+      SessionActions.update(this.state.sessionID, lessonData);
     }
   },
 
@@ -223,7 +229,7 @@ const Lesson = React.createClass({
         );
       } else {
         component = (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />
+          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.state.session} resumeActivity={this.resumeSession} />
         );
       }
 
@@ -250,7 +256,7 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, // the questionReducer
     routing: state.routing,
-    sessions: state.sessions,
+    // sessions: state.sessions,
     // responses: state.responses,
   };
 }

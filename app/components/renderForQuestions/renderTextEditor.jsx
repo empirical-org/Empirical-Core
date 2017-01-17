@@ -126,7 +126,7 @@ export default React.createClass({
               autoCapitalize="off"
               autoCorrect="off"
               value={this.props.value}
-              onChange={this.handleTextChange}
+              onInput={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
               placeholder="Type your answer here. Remember, your answer should be just one sentence."
               ref="answerBox"

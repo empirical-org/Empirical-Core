@@ -1,6 +1,11 @@
 export default function diagnosticQuestions() {
   return ([
     {
+      type: 'TL', //  listening to music on the ride home
+      key: '-sen-fra',
+      content: "<h3>Complete Sentences</h3><p>In this section, you’ll decide if a group of words is a complete sentence or an incomplete sentence. Then you’ll add to the incomplete sentences so they are complete.</p><p>You can do it!</p>"
+    },
+    {
       type: 'SF', //  listening to music on the ride home
       key: '-KPt6cf6BkRomFz6Ggaz',
     },
@@ -29,6 +34,11 @@ export default function diagnosticQuestions() {
       key: '-KPJiGC6bbtp7GkKMg3v',
     },
     {
+      type: 'TL', //  listening to music on the ride home
+      key: '-sen-cor',
+      content: "<h3>Sentence Correction</h3><p>In this section, you’ll correct sentences by adding punctuation or changing words.</p><p>You’re doing great so far!</p>"
+    },
+    {
       type: 'SC', //  after the game, we played music it was loud
       key: '-KP-LIzVyeL6a38yW0im',
     },
@@ -39,6 +49,11 @@ export default function diagnosticQuestions() {
     {
       type: 'SC', //  laughing quietly to himself Marco watched the movie (not currently in the database)
       key: '-KPt6EDsKbaXVrIf9dJY',
+    },
+    {
+      type: 'TL', //  listening to music on the ride home
+      key: '-sen-com',
+      content: "<h3>Sentence Combining</h3><p>You’re halfway there! In this section, you’ll combine sentences into one sentence.</p><p>Sometimes you’ll be given joining words to choose from, and sometimes you’ll have to choose your own way of combining the sentences.</p><p>Only add or change words when you need to, and try to keep the meaning of the sentences the same.</p><p>You’ve got this!</p>"
     },
     {
       type: 'SC', //  mary was smart. Mary was kind. Mary was wise. (not currently in the database)

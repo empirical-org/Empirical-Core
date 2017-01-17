@@ -8,15 +8,32 @@ import C from '../../constants'
 import ResponseComponent from '../questions/responseComponent.jsx'
 import {
   loadResponseDataAndListen,
-  stopListeningToResponses
+  stopListeningToResponses,
+  listenToResponsesWithCallback
 } from '../../actions/responses.js'
 
 const DiagnosticQuestion =  React.createClass({
 
-  componentWillMount: function () {
-    const questionID = this.props.params.questionID;
-    console.log("QUestion ID: ", questionID)
-    this.props.dispatch(loadResponseDataAndListen(questionID))
+  getInitialState() {
+    return {
+      selectedBoilerplateCategory: '',
+      responses: [],
+      loadedResponses: false,
+    };
+  },
+
+  componentWillMount() {
+    const { questionID, } = this.props.params;
+    // this.props.dispatch(loadResponseDataAndListen(questionID));
+    listenToResponsesWithCallback(
+      questionID,
+      (data) => {
+        this.setState({
+          responses: data,
+          loadedResponses: true
+        })
+      }
+    )
   },
 
   componentWillUnmount: function () {
@@ -26,7 +43,7 @@ const DiagnosticQuestion =  React.createClass({
   },
 
   getResponses: function () {
-    return this.props.responses.data[this.props.params.questionID]
+    return this.state.responses
   },
 
   render: function () {
@@ -72,7 +89,6 @@ function select(state) {
   return {
     concepts: state.concepts,
     diagnosticQuestions: state.diagnosticQuestions,
-    responses: state.responses,
     itemLevels: state.itemLevels,
     routing: state.routing
   }

@@ -152,7 +152,7 @@ describe("A sentence fragment object's ending", () => {
   it('should be marked appropriately if it is missing ending punctuation', () => {
     const newResponse = markingObj.checkEndingPunctuationMatch('I ran to the shop');
     expect(newResponse.optimal).toBe(false);
-    expect(newResponse.author).toBe('Ending Punctuation Hint');
+    expect(newResponse.author).toBe('Punctuation End Hint');
   });
 
   it('should not be marked as improper punctuation if it ends in correct punctation', () => {
