@@ -84,13 +84,14 @@ const Responses = React.createClass({
     // const question = new this.state.matcher(fields);
     // return question.getPercentageWeakResponses();
 
-    const responses = this.props.responses;
+    const responses = hashToCollection(this.props.responses);
+    console.log(responses);
     const unmatchedResponses = _.filter(responses, (response) => {
       // console.log(response)
       return response.author === undefined && response.optimal === undefined && response.count > 1
     });
-    console.log(unmatchedResponses.length, responses.length)
-    return unmatchedResponses.length / this.props.responses.length * 100;
+    console.log(unmatchedResponses.length, responses.length);
+    return ((unmatchedResponses.length / responses.length) * 100).toFixed(2);;
   },
 
   // ryan Look here!!!
