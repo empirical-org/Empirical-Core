@@ -118,7 +118,7 @@ const StudentDiagnostic = React.createClass({
         if (httpResponse.statusCode === 200) {
           console.log('Finished Saving');
           console.log(err, httpResponse, body);
-          this.props.dispatch(SessionActions.delete(this.state.sessionID));
+          SessionActions.delete(this.state.sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL;
           this.setState({ saved: true, });
         }
