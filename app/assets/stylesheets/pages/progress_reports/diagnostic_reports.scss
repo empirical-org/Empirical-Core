@@ -502,6 +502,9 @@ $lightgray: #cecece;
 }
 
 @media screen and (max-width: 1000px) {
+    .diagnostic-nav-container {
+      padding-left: 10px;
+    }
     #reports-navbar div.how-we-grade {
       float: none !important;
       text-align: left;
