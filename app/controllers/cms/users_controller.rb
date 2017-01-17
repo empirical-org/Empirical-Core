@@ -50,7 +50,6 @@ class Cms::UsersController < ApplicationController
       response = @user.update_teacher params
       render json: response
     else
-
       if @user.update_attributes(user_params)
         redirect_to cms_users_path, notice: 'User was successfully updated.'
       else

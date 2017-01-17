@@ -16,9 +16,7 @@
   },
 
   googleTile: function(){
-    // if (this.props.user.signed_up_with_google) {
-      return <SyncGoogleClassroomsMini/>
-    // }
+    return <SyncGoogleClassroomsMini user={this.props.user}/>
   },
 
   render: function() {
