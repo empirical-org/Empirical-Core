@@ -244,7 +244,7 @@ export default React.createClass({
 	},
 
 	getInviteStudentsUrl: function() {
-		return ('/teachers/classrooms/' + this.props.classroomId + '/invite_students');
+		return ('/teachers/classrooms/invite_students');
 	},
 
 	getSelectedActivities: function() {

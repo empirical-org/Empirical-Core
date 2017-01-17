@@ -90,7 +90,7 @@ export default React.createClass({
               window.location.assign(`/teachers/classrooms/lesson_planner?tab=exploreActivityPacks&grade=${that.state.classroom.grade}`);
             }
             else if (data.toInviteStudents) {
-              window.location.assign(`/teachers/classrooms/${data.classroom.id}/invite_students`);
+              window.location.assign('/teachers/classrooms/invite_students');
             } else {
               window.location.assign('/teachers/classrooms/scorebook');
             }
