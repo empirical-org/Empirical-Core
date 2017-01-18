@@ -137,8 +137,7 @@ module PublicProgressReports
               name: crs.concept.name,
               correct: crs[:metadata]["correct"] == 1,
               attempt: crs[:metadata]["attemptNumber"] || 1,
-              answer: crs[:metadata]["answer"],
-              directions: crs[:metadata]["directions"] || crs[:metadata]["instructions"]
+              answer: crs[:metadata]["answer"]
             }
           },
           question_number: cr.first[:metadata]["questionNumber"]
