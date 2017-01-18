@@ -63,23 +63,10 @@ export default  React.createClass({
     return this.props.premiumStatus === ('none' || 'locked');
   },
 
-  disableLinks: function() {
-    if (!$('.progress-reports-standards-classrooms').length)
-      $(".premium-status-none a").click(function(e) {
-        e.preventDefault();
-    });
-  },
-
   componentDidMount: function() {
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     this.fetchData();
-    var that = this;
-    if (this.state.disabled) {
-      setTimeout(function() {
-        that.disableLinks();
-      }, 750);
-    }
   },
 
   // Get results with all filters, sorting
@@ -179,6 +166,15 @@ export default  React.createClass({
     }
   },
 
+  studentPageBlur: function() {
+    const lastEightCharOfURL = window.location.href.substr(window.location.href.length - 8)
+    const onStudentPage = lastEightCharOfURL == 'concepts'
+    if (this.state.disabled && onStudentPage) {
+      return 'non-premium-student'
+    }
+  },
+
+
   render: function() {
     var pagination,
       csvExport,
@@ -196,7 +192,7 @@ export default  React.createClass({
     if (this.state.loading) {
       mainSection = <LoadingIndicator/>;
     } else {
-      mainSection = <SortableTable rows={visibleResults} colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
+      mainSection = <SortableTable onNonPremiumStudentPage={this.studentPageBlur()} rows={visibleResults} colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
     }
     if (!this.props.hideFaqLink) {
       faqLink = <FaqLink/>
@@ -206,7 +202,7 @@ export default  React.createClass({
     return (
       <div className={'premium-status-' + this.blur()}>
         <div className="row">
-          <div className="col-md-8 header-section">
+          <div className={'col-md-8 header-section ' + this.studentPageBlur()}>
             {this.props.children}
           </div>
           <div className="col-md-3 col-md-offset-1">

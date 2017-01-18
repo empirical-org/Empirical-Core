@@ -8,10 +8,11 @@ $tool-grey: #f8f9f9;
 .tool-section {
   min-height: 650px;
 
-  .q-h2 {
+  a .q-h2 {
     font-size: 28px;
     margin-bottom: 10px;
     margin-top: 0;
+    color: $white;
   }
 
   .info-section {
