@@ -17,6 +17,7 @@ class Auth::GoogleController < ApplicationController
     user = User.find_by(email: email.downcase)
     if user.present?
       sign_in(user)
+      TestForEarnedCheckboxesWorker.perform_async(user.id)
       GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
       redirect_to profile_path
     else

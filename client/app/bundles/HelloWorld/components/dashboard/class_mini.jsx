@@ -18,7 +18,7 @@ export default React.createClass({
 
   inviteStudentsLink: function() {
     var classId = this.props.classObj.classroom.id.toString();
-    return ('/teachers/classrooms/' + classId + '/invite_students');
+    return ('/teachers/classrooms/invite_students');
   },
 
   studentCount: function() {
