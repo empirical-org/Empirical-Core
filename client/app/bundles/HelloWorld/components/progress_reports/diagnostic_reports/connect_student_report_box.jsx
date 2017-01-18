@@ -69,7 +69,7 @@ export default React.createClass({
 										{this.directions(data.directions)}
 										<tr>
 											<td>Prompt</td>
-											<td></td>
+											<td/>
 											<td>{data.prompt}</td>
 										</tr>
 										<tr/>
