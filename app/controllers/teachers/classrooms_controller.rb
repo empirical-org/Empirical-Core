@@ -41,7 +41,6 @@ class Teachers::ClassroomsController < ApplicationController
   def create
     @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
     if @classroom.valid?
-      ClassroomCreationWorker.perform_async(@classroom.id)
       render json: {classroom: @classroom, toInviteStudents: current_user.students.empty?}
     else
        render json: {errors: @classroom.errors.full_messages }, status: 422
