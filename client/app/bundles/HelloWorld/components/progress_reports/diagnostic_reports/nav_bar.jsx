@@ -52,7 +52,7 @@ export default React.createClass({
           <h1>{this.props.selectedActivity.name}      <div className="how-we-grade">
                   <p className="title title-not-started">
                     <a href="http://support.quill.org/knowledgebase/articles/545071-how-we-grade">How We Grade</a>
-                    <a href=""><i className="fa fa-long-arrow-right"></i></a>
+                    <a href=""><i className="fa fa-long-arrow-right" /></a>
                   </p>
                 </div></h1>
           <p>{this.props.selectedActivity.description}</p>
