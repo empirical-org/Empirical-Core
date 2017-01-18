@@ -146,6 +146,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :search_activities, controller: 'classroom_manager', action: 'search_activities'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
+        get :invite_students, controller: 'classroom_manager', action: 'invite_students'
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
@@ -168,7 +169,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       # TODO: abstract this list as well. Duplicated in nav in layout.
-      %w(invite_students accounts import).each do |page|
+      %w(accounts import).each do |page|
         get page => "classroom_manager##{page}"
       end
 

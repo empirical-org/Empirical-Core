@@ -19,8 +19,12 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def fast_assign
-    FastAssignWorker.perform_async(current_user.id, params[:id])
-    render json: {}
+    if current_user.classrooms_i_teach.empty?
+      render json: { error_message: 'You must create a classroom before you can assign an activity pack. You can create a new classroom on the classes page.'}, status: 400
+    else
+      FastAssignWorker.perform_async(current_user.id, params[:id])
+      render json: {}
+    end
   end
 
   def show

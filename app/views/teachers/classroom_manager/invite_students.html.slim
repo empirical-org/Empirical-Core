@@ -15,7 +15,7 @@
             ul.dropdown-menu[role="menu"]
               - @classrooms.each do |classroom|
                 li= link_to classroom.name,
-                            teachers_classroom_invite_students_path(classroom)
+                            invite_students_teachers_classrooms_path
 
 
     h1.section-header Have Students Create Their Accounts

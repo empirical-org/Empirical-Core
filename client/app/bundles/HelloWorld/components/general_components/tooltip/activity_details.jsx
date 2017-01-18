@@ -42,22 +42,11 @@ export default React.createClass({
     }
   },
 
-  iconClassName: function () {
-    var extra;
-    if (this.props.data.activity.classification.alias == 'Quill Grammar') {
-      extra =  'grammar-icon-tooltip'
-    } else {
-      extra = 'proofreader-icon-tooltip'
-    }
-    return ['app-icon-tooltip', extra].join(' ')
-  },
-
   render: function () {
     return (
       <div className={this.getClassName()}>
         <div className='activity-detail'>
           <div className='activity-detail-title objective-title'>
-            <div className={this.iconClassName()} />
             {this.objectiveTitle()}
           </div>
           <div className='activity-detail-body'>
