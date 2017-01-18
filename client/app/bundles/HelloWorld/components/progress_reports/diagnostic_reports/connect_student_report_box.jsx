@@ -12,23 +12,12 @@ export default React.createClass({
 		);
 	},
 
-	directions: (directions) => {
-		if (directions) {
-			return <tr className='directions'>
-				<td>Directions</td>
-				<td />
-				<td><span>{directions}</span></td>
-			</tr>
-		}
-	},
-
 	conceptsByAttempt: function() {
 		const conceptsByAttempt = this.groupByAttempt();
 		let attemptNum = 1;
 		let results = [];
 		while (conceptsByAttempt[attemptNum]) {
 			let currAttempt = conceptsByAttempt[attemptNum]
-			let directions = this.directions(currAttempt[0].directions)
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
 				concept.correct ? score++ : null;
@@ -36,7 +25,7 @@ export default React.createClass({
 			});
 			let averageScore = (score/currAttempt.length * 100) || 0;
 			let scoreRow = this.scoreRow(currAttempt[0].answer, attemptNum, averageScore)
-			attemptNum > 1 ? results.push(directions, scoreRow, concepts) : results.push(scoreRow, concepts)
+			results.push(scoreRow, concepts)
 			if (conceptsByAttempt[attemptNum + 1]) {
 				results.push(<tr/>)
 			}
@@ -49,7 +38,7 @@ export default React.createClass({
 		return (
 			<tr className={ScoreColor(averageScore)}>
 				<td>{`${NumberSuffix(attemptNum)} Response`}</td>
-				<td />
+				<td></td>
 				<td>{answer}</td>
 			</tr>
 		)
@@ -66,7 +55,11 @@ export default React.createClass({
 								<table>
 									<tbody>
 										{header}
-										{this.directions(data.directions)}
+										<tr className='directions'>
+											<td>Directions</td>
+											<td></td>
+											<td><span>{data.directions}</span></td>
+										</tr>
 										<tr>
 											<td>Prompt</td>
 											<td></td>
