@@ -111,13 +111,13 @@ feature 'Invite-Students page' do
       end
     end
 
-    context 'when not signed in' do
+    pending 'when not signed in' do
       before(:each) { visit_invite_students_page }
 
       include_examples :requires_sign_in
     end
 
-    context 'when signed in as a Student' do
+    pending 'when signed in as a Student' do
       include_context :when_signed_in_as_a_student
       before(:each) { visit_invite_students_page }
 
