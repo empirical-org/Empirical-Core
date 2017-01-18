@@ -20,7 +20,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def generic_add_students
     if current_user && current_user.role == 'teacher'
       @classroom = current_user.classrooms_i_teach.first
-      redirect_to teachers_classroom_invite_students_path(@classroom)
+      redirect_to invite_students_teachers_classrooms_path
     else redirect_to profile_path
     end
   end
@@ -69,7 +69,7 @@ class Teachers::ClassroomManagerController < ApplicationController
         if current_user.classrooms_i_teach.last.activities.empty?
           redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms_i_teach.last.grade)
         else
-          redirect_to teachers_classroom_invite_students_path(current_user.classrooms_i_teach.first)
+          redirect_to invite_students_teachers_classrooms_path
         end
       end
     elsif current_user.classrooms_i_teach.empty?

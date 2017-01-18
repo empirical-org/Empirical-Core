@@ -167,7 +167,7 @@
 
     <section class="tool-try-it bg-darkred bg-image-diagnostic-pattern">
         <h2 class='q-h1'>Try It Yourself!</h2>
-        <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' class="q-button cta-button bg-white text-darkred">Preview the Diagnostic</a>
+        <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Preview the Diagnostic</a>
     </section>
 
     <section class="tool-testimonial">
@@ -184,14 +184,22 @@
     </section>
 
     <!-- Only how if user is not logged in  -->
-      <%if !current_user%>
+      <% if !current_user %>
         <section class="tool-sign-up">
             <h1 class='q-h1'>
                 Sign up to start using the Quill Diagnostic in your class today!
             </h1>
             <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
         </section>
-      <%end%>
+
+      <% else %>
+      <section class="tool-sign-up">
+          <h1 class='q-h1'>
+              Start using the Quill Diagnostic in your class today!
+          </h1>
+          <a href='/diagnostic#/stage/1' class="q-button cta-button bg-quillgreen text-white">Get Started</a>
+      </section>
+      <% end %>
 
 </div>
 
