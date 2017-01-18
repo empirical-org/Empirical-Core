@@ -28,7 +28,7 @@ module Teachers
     end
 
     def path
-      "#{Teachers.classroom_path(classroom)}/invite_students"
+      "/invite_students"
     end
 
     def select_class(class_name)
