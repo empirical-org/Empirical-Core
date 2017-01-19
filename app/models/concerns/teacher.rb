@@ -79,11 +79,11 @@ module Teacher
     end
 
     if !are_there_school_related_errors
-      if self.update_attributes(username: params[:username],
-                                        email: params[:email],
-                                        name: params[:name],
-                                        password: params[:password],
-                                        role: params[:role])
+      if self.update_attributes(username: params[:username] || self.username,
+                                        email: params[:email] || self.email,
+                                        name: params[:name] || self.name,
+                                        password: params[:password] || self.password,
+                                        role: params[:role] || self.role)
         are_there_non_school_related_errors = false
       else
         are_there_non_school_related_errors = true
