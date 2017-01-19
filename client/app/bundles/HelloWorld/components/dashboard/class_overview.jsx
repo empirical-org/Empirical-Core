@@ -6,6 +6,7 @@
  import PremiumMini from './premium_mini'
  import TeacherGuide from '../teacher_guide/teacher_guide'
  import BetaMini from './beta_mini.jsx'
+ import NewTools from './new_tools_mini.jsx'
 
  export default React.createClass({
   propTypes: {
@@ -43,12 +44,15 @@
     }
   },
 
-
-
-
+  announcementMini: function () {
+    return (
+      <NewTools />
+    )
+  },
   render: function() {
     return (
       <div className='row'>
+        {this.announcementMini()}
         {this.overviewMinis()}
         {this.hasPremium()}
       </div>
