@@ -1,8 +1,9 @@
 'use strict'
 
  import React from 'react'
+ import AddClassMini from './add_class_mini.jsx'
  import ClassMini from './class_mini.jsx'
- import AddOrSyncClassroomsMini from './add_or_sync_classrooms_mini.jsx'
+ import SyncGoogleClassroomsMini from './sync_google_classrooms_mini.jsx'
 
  export default  React.createClass({
 
@@ -14,6 +15,11 @@
     return minis;
   },
 
+  googleTile: function(){
+    if (this.props.user.signed_up_with_google) {
+      return <SyncGoogleClassroomsMini/>
+    }
+  },
 
   render: function() {
     return (
@@ -21,7 +27,8 @@
         <h3 className='dashboard-header'>My Classes</h3>
         <div className='row'>
           {this.createMinis()}
-           <AddOrSyncClassroomsMini user={this.props.user}/>
+          <AddClassMini/>
+          {this.googleTile()}
         </div>
       </div>
     );
