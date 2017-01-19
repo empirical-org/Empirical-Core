@@ -44,6 +44,18 @@ export default React.createClass({
 		)
 	},
 
+	questionScore: function() {
+		if (this.props.questionData.questionScore) {
+			return (
+						<tr>
+							<td>Score</td>
+							<td/>
+							<td>{this.props.questionData.questionScore}%</td>
+						</tr>
+			);
+		}
+	},
+
 	render: function() {
 		const data = this.props.questionData;
 		const header = this.props.boxNumber === 1 ? <StudentReportHeader boxNumber={this.props.boxNumber}/> : null;
@@ -65,6 +77,7 @@ export default React.createClass({
 											<td/>
 											<td>{data.prompt}</td>
 										</tr>
+										{this.questionScore()}
 										<tr/>
 										{this.conceptsByAttempt()}
 	        				</tbody>
