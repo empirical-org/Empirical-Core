@@ -62,7 +62,7 @@ export default React.createClass({
 										</tr>
 										<tr>
 											<td>Prompt</td>
-											<td></td>
+											<td/>
 											<td>{data.prompt}</td>
 										</tr>
 										<tr/>
