@@ -41,7 +41,7 @@ module PublicProgressReports
         curr_quest = questions[answer["questionNumber"]]
         curr_quest[:correct] ||= 0
         curr_quest[:total] ||= 0
-        curr_quest[:correct] += answer["correct"]
+        curr_quest[:correct] += answer["questionScore"] || answer["correct"]
         curr_quest[:total] += 1
         curr_quest[:prompt] ||= answer["prompt"]
         curr_quest[:question_number] ||= answer["question_number"]
