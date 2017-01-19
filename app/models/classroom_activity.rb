@@ -44,7 +44,7 @@ class ClassroomActivity < ActiveRecord::Base
 
   def students
     if assigned_student_ids && assigned_student_ids.any?
-      User.find_by_id(assigned_student_ids)
+      User.where(id: assigned_student_ids)
     else
       classroom.students
     end

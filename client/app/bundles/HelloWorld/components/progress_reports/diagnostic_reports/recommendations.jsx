@@ -21,7 +21,11 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({loading: true});
+		this.setState({
+			loading: true,
+			assigning: false,
+			assigned: false
+		});
 		this.getRecommendationData(nextProps.params.classroomId);
 	},
 
@@ -56,27 +60,29 @@ export default React.createClass({
 	},
 
 	assignSelectedPacks: function() {
-		this.setState({assigning: true})
-		const classroomId = this.props.params.classroomId;
-		let selections = this.state.selections.map((activityPack) => {
-			return {
-				id: activityPack.activity_pack_id,
-				classrooms: [
-					{
-						id: classroomId,
-						student_ids: activityPack.students
-					}
-				]
-			}
+		this.setState({assigning: true}, () => {
+			const classroomId = this.props.params.classroomId;
+			let selections = this.state.selections.map((activityPack) => {
+				return {
+					id: activityPack.activity_pack_id,
+					classrooms: [
+						{
+							id: classroomId,
+							student_ids: activityPack.students
+						}
+					]
+				}
+			})
+			selections = {selections}
+			$.ajax({
+		  	type : 'POST',
+		  	url :  '/teachers/progress_reports/assign_selected_packs/',
+		  	dataType: 'json',
+		  	contentType: 'application/json',
+		  	data: JSON.stringify(selections),
+				success: () => {this.setState({assigning: false, assigned: true})}
+			})
 		})
-		selections = {selections}
-		$.ajax({
-	  	type : 'POST',
-	  	url :  '/teachers/progress_reports/assign_selected_packs/',
-	  	dataType: 'json',
-	  	contentType: 'application/json',
-	  	data : JSON.stringify(selections)
-		}).success(this.setState({assigning: false, assigned: true}));
 	},
 
 	renderExplanation: function(){

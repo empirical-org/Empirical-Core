@@ -3,9 +3,7 @@ import React from 'react'
 import $ from 'jquery'
 import _ from 'underscore'
 
-
 export default React.createClass({
-
 
   getInitialState: function() {
     return {classrooms: null}
