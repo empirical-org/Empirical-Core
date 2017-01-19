@@ -277,4 +277,31 @@ describe ActivitySession, type: :model do
 
   end
 
+  describe '#removes_invalid_concepts' do
+
+    let!(:concept1){ FactoryGirl.create(:concept)}
+    let!(:concept2){ FactoryGirl.create(:concept)}
+    let!(:concept_result1){ FactoryGirl.create(:concept_result, concept_id: concept1.id)}
+    let!(:concept_result2){ FactoryGirl.create(:concept_result, concept_id: concept2.id)}
+    let!(:activity_session){ FactoryGirl.create(:activity_session) }
+
+    it 'updates activity session with valid concept results' do
+      valid_concept_results = [concept_result1, concept_result2]
+      activity_session.concept_results = valid_concept_results
+
+      expect(activity_session.removes_invalid_concepts.concept_results).to eq valid_concept_results
+    end
+
+    it 'does not update activity session with invalid concept results' do
+      concept2.destroy!
+      invalid_concept_results = [concept_result1, concept_result2]
+
+      activity_session.concept_results = invalid_concept_results
+      expect(activity_session.removes_invalid_concepts.concept_results).to eq valid_concept_results
+    end
+
+  end
+
+
+
 end
