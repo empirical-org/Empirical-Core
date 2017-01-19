@@ -23,7 +23,10 @@ class Classroom < ActiveRecord::Base
 
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
-  after_create {find_or_create_checkbox('Create a Classroom', self.teacher)}
+  after_create {
+                find_or_create_checkbox('Create a Classroom', self.teacher)
+                ClassroomCreationWorker.perform_async(self.id)
+              }
 
   def x
     c = self

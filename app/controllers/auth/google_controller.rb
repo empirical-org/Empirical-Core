@@ -32,7 +32,6 @@ class Auth::GoogleController < ApplicationController
       user.attributes = {signed_up_with_google: true, name: name, role: role}
       user.save
     end
-
     if user.errors.any?
       redirect_to new_account_path
     else

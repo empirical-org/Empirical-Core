@@ -14,6 +14,8 @@ before_script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
   - npm install  # Make use of 'postinstall' to run 'cd ./client npm install'
+  - npm run build:dev:client
+  - npm run build:dev:server
 addons:
   postgresql: "9.3"
   code_climate:
