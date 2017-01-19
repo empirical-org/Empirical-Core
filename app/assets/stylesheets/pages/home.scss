@@ -182,7 +182,9 @@
       background-color: $white;
     }
   }
+
   .home-navbar-list {
+    margin-bottom: 0;
     float: right;
     list-style-type: none;
     li {
@@ -802,8 +804,8 @@
   }
 }
 .other-pages-navbar {
-  padding: 0;
-      height: 67px;
+  padding: 3px 0 0 0;
+  height: 67px;
 }
 .tab-outer-wrap {
   padding-top: 8px;
