@@ -18,6 +18,7 @@ class ActivitySession < ActiveRecord::Base
   before_create :set_state
   before_save   :set_completed_at
   before_save   :set_activity_id
+  before_save   :remove_invalid_concepts
 
   after_save    :determine_if_final_score
 
@@ -210,6 +211,11 @@ class ActivitySession < ActiveRecord::Base
   def owned_by? user
     return true if temporary
     super
+  end
+
+  def remove_invalid_concepts
+    valid_concepts = self.concept_results.select { |cr| Concept.where(id: cr.concept_id).any? }
+    self.concept_results = valid_concepts
   end
 
   private
