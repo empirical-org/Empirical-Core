@@ -69,7 +69,7 @@ export default React.createClass({
   },
 
   tooltipClasses: function () {
-    return 'activate-tooltip icon-wrapper icon-' + this.percentage_color() + ' icon-' + this.icon_for_classification();
+    return 'activate-tooltip icon-link icon-wrapper icon-' + this.percentage_color() + ' icon-' + this.icon_for_classification();
   },
 
   goToReport: function() {

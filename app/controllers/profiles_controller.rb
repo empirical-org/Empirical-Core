@@ -34,7 +34,10 @@ class ProfilesController < ApplicationController
   end
 
   def students_classrooms_json
-    render json: {classrooms: current_user.classrooms.includes(:teacher).map {|c| c.students_classrooms_json(current_user.id)}}
+    render json: {classrooms: current_user.classrooms.includes(:teacher)
+      .sort_by { |c|
+        c.students_classrooms.find_by_student_id(current_user.id).created_at
+      }.reverse.map {|c| c.students_classrooms_json(current_user.id)}}
   end
 
   def teacher
@@ -63,7 +66,7 @@ protected
     grouped_scores, is_last_page = Profile::Processor.new.query(current_user, current_page, classroom.id)
     next_activity_session = current_user.next_activity_session(classroom.id)
     {student: {name: current_user.name, classroom: {name: classroom.name, id: classroom.id, teacher: {name: classroom.teacher.name}}},
-    grouped_scores: grouped_scores, is_last_page: is_last_page, next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
+     grouped_scores: grouped_scores, is_last_page: is_last_page, next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
   end
 
   def current_classroom(classroom_id = nil)
