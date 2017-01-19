@@ -12,7 +12,7 @@ class ActivitySessionsController < ApplicationController
         user_id: @activity_session.user_id,
         activity_id: @activity_session.activity_id
         ).last
-      if started_session && started_session.started_at > @activity_session.completed_at
+      if started_session && started_session.started_at && started_session.started_at > @activity_session.completed_at
         redirect_to play_activity_session_path(started_session)
       else
         new_session = ActivitySession.create(
