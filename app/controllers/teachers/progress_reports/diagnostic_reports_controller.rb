@@ -26,6 +26,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   def assign_selected_packs
     create_or_update_selected_packs
+    AssignRecommendationsWorker.perform_async(current_user.id)
     render json: {data: "Hi"}
   end
 

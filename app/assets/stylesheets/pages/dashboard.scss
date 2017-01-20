@@ -245,24 +245,91 @@
             }
         }
     }
-    #google-classroom-mini {
-        p {
-            width: 244px;
-            margin: auto;
-            margin-top: 43px;
-        }
-        .button-white {
-            border: 1px solid #737373;
-            width: 252px;
-            padding: 10px 13px;
-              margin-top: 40px;
-        }
-        img {
-
-            height: 88%;
-            padding-right: 4px;
-            position: relative;
-            top: -2px;
-        }
+    .add-or-import {
+      .dashed {
+        background-color: white;
+        margin: 0 auto;
+        cursor: pointer;
+        border: dashed 1px #cecece;
+        max-width: 298px;
+        height: 120px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+      }
+      a {
+        text-decoration: none;
+      }
+      h3 {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .plus-icon {
+        width: 36px;
+        padding: 2px 0px 8px 0px;
+        margin: 0 auto;
+      }
+      .img {
+        width: 38px;
+      }
+      span {
+        line-height: 29px;
+      }
     }
 }
+
+    #google-classroom-mini {
+        img {
+          width: 42px;
+          margin-bottom: 8px;
+        }
+    }
+
+    .google-classroom-modal {
+        .modal-content {
+          max-height: 360px;
+          max-width: 508px;
+        }
+        .modal-body {
+          padding: 40px 63px;
+          .react-bootstrap-close {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            height: 39px;
+          }
+        }
+       .q-h2 {
+         font-size: 24px;
+         font-weight: 600;
+         margin-bottom: 14px;
+       }
+       p {
+         margin-top: 10px;
+       }
+       form {
+         margin: 35px 0;
+       }
+       input[type=submit] {
+         margin-left: 8px;
+         border: 1px solid #737373;
+         font-weight: 600;
+       }
+       a.q-button.cta-button {
+           border: none;
+           font-size: 16px;
+           height: 40px;
+           &:hover {
+             color: white;
+             text-decoration: none;
+           }
+
+         }
+       }
