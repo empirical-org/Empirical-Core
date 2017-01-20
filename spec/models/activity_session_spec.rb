@@ -277,4 +277,22 @@ describe ActivitySession, type: :model do
 
   end
 
+  describe '#concept_results' do
+
+    let!(:concept1){ FactoryGirl.create(:concept)}
+    let!(:concept2){ FactoryGirl.create(:concept)}
+    let!(:concept_result1){ FactoryGirl.create(:concept_result, concept_id: concept1.id)}
+    let!(:concept_result2){ FactoryGirl.create(:concept_result, concept_id: concept2.id)}
+    let!(:activity_session){ FactoryGirl.create(:activity_session) }
+
+    it 'cannot have an invalid concept_id' do
+      concept1.destroy!
+
+      activity_session.update(concept_results_attributes: [{concept_id: concept1.id}])
+      expect(activity_session.concept_results).to be_empty
+    end
+
+  end
+
+
 end
