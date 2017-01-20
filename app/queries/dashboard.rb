@@ -29,17 +29,15 @@ class Dashboard
     sessions = sessions.group_by(&:user_id)
     sessions.each do |u, s|
       total = s.sum(&:percentage)
-      averages[u] = (total/(sessions[u].count)*100).to_i
+      # if they have a zero, it is probably because of connect and we don't want
+      # to hold that against them
+      if total > 0
+        averages[User.find(u).name] = ((total/sessions[u].count)*100).round
+      end
     end
-    averages = averages.sort_by{|user, score| score}[0..4]
-    add_names_to_averages(averages)
+    averages.sort_by{|user, score| score}[0..4].to_h
   end
 
-  def self.add_names_to_averages (averages)
-    named_averages = {}
-    averages.each{|k,v| named_averages[User.find(k).name] = v}
-    named_averages
-  end
 
 
   def self.difficult_concepts(sessions)
