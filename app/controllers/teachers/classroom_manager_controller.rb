@@ -62,7 +62,8 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def scorebook
     if current_user.classrooms_i_teach.any?
-      cr_id = params[:classroom_id] ? params[:classroom_id] : current_user.classrooms_i_teach.last.id
+
+      cr_id = params[:classroom_id] ? params[:classroom_id] : last_active_classroom
       classroom = Classroom.find_by_id(cr_id)
       @selected_classroom = {name: classroom.name, value: classroom.id, id: classroom.id}
       if current_user.students.empty?
@@ -177,5 +178,16 @@ class Teachers::ClassroomManagerController < ApplicationController
       @classroom ||= current_user.classrooms_i_teach.first
       auth_failed unless @classroom.teacher == current_user
     end
+  end
+
+  def last_active_classroom
+    Classroom.find_by_sql("SELECT classrooms.id FROM classrooms
+      JOIN classroom_activities AS ca ON ca.classroom_id = classrooms.id
+      JOIN activity_sessions AS acts ON acts.classroom_activity_id = ca.id
+      WHERE classrooms.teacher_id = #{current_user.id}
+      AND classrooms.visible = true
+      AND acts.state = 'finished'
+      ORDER BY acts.completed_at DESC
+      LIMIT 1").first.id
   end
 end
