@@ -1,10 +1,14 @@
-.premium-tab a {
+.premium-tab {
   background-color: #EA9A1A !important;
-  color: #FFFFFF !important;
-  padding-left: 40px;
-  padding-right: 40px;
-  border-right: none !important;
-  cursor: pointer !important;
+  a {
+    background-color: #EA9A1A !important;
+    color: #FFFFFF !important;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-right: none !important;
+    cursor: pointer !important;
+  }
+
 }
 
 .modal-content {

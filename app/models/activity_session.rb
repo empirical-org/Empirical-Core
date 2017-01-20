@@ -10,17 +10,15 @@ class ActivitySession < ActiveRecord::Base
   has_many :concept_results
   has_many :concepts, -> { uniq }, through: :concept_results
 
-  accepts_nested_attributes_for :concept_results
+  accepts_nested_attributes_for :concept_results, :reject_if => proc { |cr| Concept.where(uid: cr[:concept_uid]).empty? }
 
   ownable :user
-
 
   before_create :set_state
   before_save   :set_completed_at
   before_save   :set_activity_id
 
   after_save    :determine_if_final_score
-
 
   around_save   :trigger_events
 

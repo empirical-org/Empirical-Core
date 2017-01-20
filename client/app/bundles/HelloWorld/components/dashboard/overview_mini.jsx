@@ -60,7 +60,7 @@
         );
       else if (header.indexOf('concept') > -1) {
         return (
-          <a href="/teachers/progress_reports/standards/classrooms">
+          <a href="/teachers/progress_reports/concepts/students">
             <button className='button-white'>View All Concept Results</button>
           </a>
         );
