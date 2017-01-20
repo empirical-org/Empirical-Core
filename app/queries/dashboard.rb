@@ -8,16 +8,19 @@ class Dashboard
     # sessions = sessions.where(["completed_at > ?", 30.days.ago])
     if sessions.count == 0 || nil
       return
-    elsif sessions.count > 30
-      strug_stud = lowest_performing_students(sessions)
+    end
+    if sessions.count > 30
       dif_con = difficult_concepts(sessions)
+      strug_stud = lowest_performing_students(sessions)
+      if dif_con.length == 0
+        dif_con = 'insufficient data'
+      end
     else
       strug_stud = 'insufficient data'
       dif_con = 'insufficient data'
     end
     results = [
-              # pulling lowest performing students until we finalize our grading schema
-              # {header: 'Lowest Performing Students', results: strug_stud, placeholderImg: '/lowest_performing_students_no_data.png'},
+              {header: 'Lowest Performing Students', results: strug_stud, placeholderImg: '/lowest_performing_students_no_data.png'},
               {header: 'Difficult Concepts', results: dif_con, placeholderImg: '/difficult_concepts_no_data.png'}]
   end
 
@@ -53,7 +56,10 @@ class Dashboard
   def self.clean_concepts_hash(h)
     dif_concepts = {}
     h.each do |k,v|
-      dif_concepts[Concept.find(k).name] = ((v[:correct].to_f/v[:total])*100).to_i
+      percentage = ((v[:correct].to_f/v[:total])*100).to_i
+      if percentage > 0
+        dif_concepts[Concept.find(k).name] = ((v[:correct].to_f/v[:total])*100).to_i
+      end
     end
     dif_concepts.sort_by{|k,v| v}[0..4].to_h
     ## Line below if for local testing where concept results aren't always accessible

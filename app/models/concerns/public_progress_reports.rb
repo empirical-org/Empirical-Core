@@ -41,7 +41,7 @@ module PublicProgressReports
         curr_quest = questions[answer["questionNumber"]]
         curr_quest[:correct] ||= 0
         curr_quest[:total] ||= 0
-        curr_quest[:correct] += answer["correct"]
+        curr_quest[:correct] += answer["questionScore"] || answer["correct"]
         curr_quest[:total] += 1
         curr_quest[:prompt] ||= answer["prompt"]
         curr_quest[:question_number] ||= answer["question_number"]
@@ -126,7 +126,7 @@ module PublicProgressReports
         # if we don't sort them, we can't rely on the first result being the first attemptNum
         # however, it would be more efficient to make them a hash with attempt numbers as keys
         cr.sort!{|x,y| x[:metadata]['attemptNumber'] <=> y[:metadata]['attemptNumber']}
-        {
+        hash = {
           directions: cr.first[:metadata]["directions"] || cr.first[:metadata]["instructions"],
           prompt: cr.first[:metadata]["prompt"],
           answer: cr.first[:metadata]["answer"],
@@ -142,6 +142,10 @@ module PublicProgressReports
           },
           question_number: cr.first[:metadata]["questionNumber"]
         }
+        if cr.first[:metadata]['questionScore']
+          hash[:questionScore] = cr.first[:metadata]['questionScore']
+        end
+        hash
       }
     end
 

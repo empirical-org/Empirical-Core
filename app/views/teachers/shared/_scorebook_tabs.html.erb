@@ -1,10 +1,8 @@
 <!-- Nav tabs -->
-<%- extra_class = (session[:admin_id].present? ? "background-color-white" : "") %>
+<div class="full-screen  bg-quillgreen">
+<div class="q-nav-bar" >
 
-<div class="<%="tab-outer-wrap #{extra_class}"%>" >
-  <div class="container">
-
-    <ul class="nav nav-tabs tabs-navigation-list" role="tablist" id="teacher-nav-tabs">
+    <ul class="desktop-nav-list" role="tablist" id="teacher-nav-tabs">
 
       <li class="<%= (!is_progress_report_page?) && ((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab' %>
@@ -29,5 +27,5 @@
       <% end %>
     </ul>
 
-  </div>
+</div>
 </div>
