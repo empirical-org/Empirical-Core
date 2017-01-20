@@ -5,6 +5,6 @@ class AssignRecommendationsWorker
     teacher = User.find(teacher_id)
 
     analytics = AssignRecommendationsAnalytics.new
-    analytics.track_activity_assignment(teacher)
+    analytics.track(teacher)
   end
 end
