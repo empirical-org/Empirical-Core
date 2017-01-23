@@ -105,7 +105,8 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def classroom_mini
-    current_user.classrooms_i_teach.includes(:students).each do |classroom|
+    classrooms = Classroom.where(id: LastActiveClassroom::last_active_classrooms(current_user.id))
+    classrooms.each do |classroom|
       obj = {
         classroom: classroom,
         students: classroom.students.count,
