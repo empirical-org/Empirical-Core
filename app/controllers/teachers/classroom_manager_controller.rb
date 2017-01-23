@@ -64,7 +64,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     if current_user.classrooms_i_teach.any?
 
-      cr_id = params[:classroom_id] ? params[:classroom_id] : LastActiveClassroom::last_active_classroom(current_user.id)
+      cr_id = params[:classroom_id] ? params[:classroom_id] : LastActiveClassroom::last_active_classrooms(current_user.id, 1).first
       classroom = Classroom.find_by_id(cr_id)
       @selected_classroom = {name: classroom.try(:name), value: classroom.try(:id), id: classroom.try(:id)}
       if current_user.students.empty?
