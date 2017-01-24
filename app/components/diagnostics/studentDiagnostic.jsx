@@ -95,7 +95,7 @@ const StudentDiagnostic = React.createClass({
     console.log('Concept Results: ', results);
 
     const { diagnosticID, } = this.props.params;
-    const sessionID = this.props.routing.locationBeforeTransitions.query.student
+    const sessionID = this.state.sessionID;
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
