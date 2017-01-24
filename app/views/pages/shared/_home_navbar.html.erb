@@ -9,8 +9,19 @@
     <a href="/tools/connect" class="text-white">Tools</a>
     <a href="/activities/packs" class="text-white">Resources</a>
     <a href="/mission" class="text-white">Our Story</a>
-    <a href="/session/new" class="text-white">Login</a>
-    <a href="/account/new" class="q-button text-white">Sign Up</a>
+    <%- if current_user.nil? %>
+
+      <a href="/session/new" class="text-white">Login</a>
+
+      <a href="/account/new" class="q-button text-white">Sign Up</a>
+
+    <% else %>
+      <%- if current_user.role == 'teacher' %>
+        <%= link_to "Profile", profile_path, class: "q-button text-white" %>
+        <%= link_to "Logout", '/session', class: "text-white"%>
+      <%- end %>
+
+    <% end %>
   </div>
   <!-- <div class="home-nav-right narrow">
     <a href="/" class="text-white">Tools</a>
@@ -34,12 +45,23 @@
       <li>
         <a href="/mission" class="text-white">Our Story</a>
       </li>
-      <li>
-        <a href="/session/new" class="text-white">Login</a>
-      </li>
-      <li>
-        <a href="/account/new" class="q-button text-white">Sign Up</a>
-      </li>
+
+
+      <%- if current_user.nil? %>
+        <li>
+          <a href="/session/new" class="text-white">Login</a>
+        </li>
+        <li>
+          <a href="/account/new" class="q-button text-white">Sign Up</a>
+        </li>
+			<% else %>
+        <%- if current_user.role == 'teacher' %>
+          <li><%= link_to "Profile", profile_path, class: "q-button text-white" %></li>
+          <li><%= link_to "Logout", '/session', class: "text-white"%></li>
+        <%- end %>
+
+			<% end %>
+
     </ul>
   </nav>
 </nav>
