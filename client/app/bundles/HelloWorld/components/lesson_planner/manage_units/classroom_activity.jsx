@@ -2,6 +2,7 @@
 
 import React from 'react'
 import moment from 'moment';
+import DatePicker from 'react-datepicker'
 
 const styles = {
 	row: {
@@ -35,20 +36,21 @@ export default React.createClass({
 
 	formattedDate: function(date) {
 		if (date) {
-			return date.year() + '-' + (date.month() + 1) + '-' + (date.date() + 1);
+			return date.year() + '-' + (date.month() + 1) + '-' + (date.date());
 		}
 	},
 
 	formattedForHumanDate: function(date) {
 		if (date) {
-			return (date.month() + 1) + '-' + (date.date() + 1) + '-' + date.year();
+			console.log(date)
+			return (date.month() + 1) + '-' + (date.date()) + '-' + date.year();
 		}
 	},
 
 	handleChange: function(date) {
 		this.setState({startDate: date});
 		// months and days are an array that start at index 0;
-		var formattedDate = this.formattedDate(date)
+		const formattedDate = this.formattedDate(date)
 		this.props.updateDueDate(this.props.data.id, formattedDate);
 	},
 
@@ -59,9 +61,9 @@ export default React.createClass({
 
 	finalCell: function() {
 		if (this.props.report) {
-			return [<a href={this.props.data.activity.anonymous_path} target="_blank">Preview Activity</a>, <a href={this.urlForReport()}>View Report</a>]
+			return [<a key='this.props.data.activity.anonymous_path' href={this.props.data.activity.anonymous_path} target="_blank">Preview Activity</a>, <a key={this.urlForReport()} href={this.urlForReport()}>View Report</a>]
 		} else {
-      return this.formattedForHumanDate(this.state.startDate) || 'None'
+			return <DatePicker onChange={this.handleChange} placeholderText={this.formattedForHumanDate(this.state.startDate)}/>
 		}
 	},
 
