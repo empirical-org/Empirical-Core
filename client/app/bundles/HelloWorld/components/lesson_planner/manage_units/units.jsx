@@ -11,6 +11,7 @@
               deleteClassroomActivity={this.props.deleteClassroomActivity}
               hideUnit={this.props.hideUnit}
               report={this.props.report}
+              updateDueDate={this.props.updateDueDate}
 							data={data}
               />);
 		}, this);
