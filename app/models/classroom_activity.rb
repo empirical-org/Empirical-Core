@@ -124,6 +124,14 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def validate_assigned_student(student_id)
+    if (self.assigned_students == []) || self.assigned_students.nil?
+      true
+    else
+      self.assigned_students.include?(student_id)
+    end
+  end
+
 
 
 end
