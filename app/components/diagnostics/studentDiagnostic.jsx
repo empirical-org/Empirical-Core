@@ -49,7 +49,6 @@ const StudentDiagnostic = React.createClass({
 
   getSessionId() {
     let sessionID = this.props.location.query.student;
-    console.log("ID: ", sessionID)
     if (sessionID === 'null') {
       sessionID = undefined;
     }
