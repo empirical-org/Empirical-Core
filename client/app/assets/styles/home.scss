@@ -273,6 +273,10 @@ nav.q-navbar-home {
         content: "\2261";
         color: $white;
         font-size: 4em;
+        @media only screen and (max-width : 419px) {
+          font-size: 3em;
+          top: -10px;
+        }
       }
 
       input.home-nav-checkbox[type=checkbox]:checked ~ label:after {
@@ -347,5 +351,11 @@ nav.q-navbar-home {
 
   @media only screen and (max-width : 419px) {
     padding: 10px 45px;
+  }
+}
+
+@media only screen and (max-width : 419px) {
+  .cta-home {
+    margin-bottom: 20px;
   }
 }
