@@ -10,20 +10,14 @@ const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center'
 	},
+
 }
 
 export default React.createClass({
 
 	getInitialState: function() {
 		return {
-			startDate: this.dueDate(),
-			formattedDate: this.formattedDate(this.dueDate())
-		}
-	},
-
-	dueDate: function() {
-		if (this.props.data.due_date) {
-			return moment(this.props.data.due_date);
+			startDate: this.props.data.due_date ? moment(this.props.data.due_date) : undefined,
 		}
 	},
 
@@ -34,24 +28,9 @@ export default React.createClass({
 		}
 	},
 
-	formattedDate: function(date) {
-		if (date) {
-			return date.year() + '-' + (date.month() + 1) + '-' + (date.date());
-		}
-	},
-
-	formattedForHumanDate: function(date) {
-		if (date) {
-			console.log(date)
-			return (date.month() + 1) + '-' + (date.date()) + '-' + date.year();
-		}
-	},
-
 	handleChange: function(date) {
 		this.setState({startDate: date});
-		// months and days are an array that start at index 0;
-		const formattedDate = this.formattedDate(date)
-		this.props.updateDueDate(this.props.data.id, formattedDate);
+		this.props.updateDueDate(this.props.data.id, date.format());
 	},
 
   urlForReport: function(){
@@ -60,10 +39,11 @@ export default React.createClass({
   },
 
 	finalCell: function() {
+		const startDate = this.state.startDate;
 		if (this.props.report) {
 			return [<a key='this.props.data.activity.anonymous_path' href={this.props.data.activity.anonymous_path} target="_blank">Preview Activity</a>, <a key={this.urlForReport()} href={this.urlForReport()}>View Report</a>]
 		} else {
-			return <DatePicker onChange={this.handleChange} placeholderText={this.formattedForHumanDate(this.state.startDate)}/>
+			return <DatePicker showMonthDropdown className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Optional'}/>
 		}
 	},
 
@@ -92,7 +72,6 @@ export default React.createClass({
 					</div>
 				</div>
 			</div>
-
 		);
 
 	}
