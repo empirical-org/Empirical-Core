@@ -4,13 +4,13 @@
  import _ from 'underscore'
  import ClassroomActivity from './classroom_activity'
  import Pluralize from 'pluralize'
+ import request from 'request'
 
  export default  React.createClass({
   getInitialState: function () {
     return {edit: false,
     unitName: this.props.data.unit.name}
   },
-
 
 	hideUnit: function () {
 		var x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
@@ -51,11 +51,11 @@
   },
 
   editName: function(){
-    return <span className="edit-unit" onClick={this.handleClick}>Edit Name</span>
+    return <span className="edit-unit" onClick={this.changeToEdit}>Edit Name</span>
   },
 
   submitName: function(){
-    return <span className="edit-unit" onClick={this.handleClick}>Submit</span>
+    return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>
   },
 
 
@@ -65,7 +65,7 @@
     }
   },
 
-  handleClick: function(){
+  changeToEdit: function(){
     this.setState({edit: true})
   },
 
@@ -75,6 +75,10 @@
 
   editUnitName: function(){
     return <input type='text' onChange={this.handleNameChange} value={this.state.unitName}/>
+  },
+
+  handleSubmit: function(){
+    request.put('/teachers/units/', {name: this.state.unitName})
   },
 
   showUnitName: function(){
@@ -100,7 +104,7 @@
             <span className="unit-name">
               {this.showOrEditName()}
             </span>
-            {this.showUnitName ? this.editName() : this.submitName()}
+            {this.state.edit ? this.submitName() : this.editName()}
 					{this.delete()}
 				</div>
 				<div className='unit-label row'>
