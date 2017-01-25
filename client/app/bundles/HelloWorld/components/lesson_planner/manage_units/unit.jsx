@@ -4,6 +4,7 @@
  import _ from 'underscore'
  import ClassroomActivity from './classroom_activity'
  import Pluralize from 'pluralize'
+ // import request from 'request'
 
  export default  React.createClass({
   getInitialState: function () {
@@ -51,13 +52,16 @@
   },
 
   editName: function(){
-    return <span className="edit-unit" onClick={this.handleClick}>Edit Name</span>
+    return <span className="edit-unit" onClick={this.onChangeToEdit}>Edit Name</span>
   },
 
   submitName: function(){
-    return <span className="edit-unit" onClick={this.handleClick}>Submit</span>
+    return <span className="edit-unit" onClick={this.onSubmit}>Submit</span>
   },
 
+  onSubmit: function(){
+    request.put('/teachers/units', {name: this.state.unitName})
+  },
 
   dueDate: function(){
     if (!this.props.report) {
@@ -65,7 +69,7 @@
     }
   },
 
-  handleClick: function(){
+  onChangeToEdit: function(){
     this.setState({edit: true})
   },
 
@@ -100,7 +104,7 @@
             <span className="unit-name">
               {this.showOrEditName()}
             </span>
-            {this.showUnitName ? this.editName() : this.submitName()}
+            {this.state.edit ? this.submitName() : this.editName()}
 					{this.delete()}
 				</div>
 				<div className='unit-label row'>
