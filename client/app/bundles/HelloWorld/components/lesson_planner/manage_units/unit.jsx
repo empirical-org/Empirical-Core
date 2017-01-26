@@ -3,8 +3,18 @@
  import React from 'react'
  import _ from 'underscore'
  import ClassroomActivity from './classroom_activity'
+ import Pluralize from 'pluralize'
 
  export default  React.createClass({
+  getInitialState: function () {
+    return {
+      edit: false,
+      unitName: this.props.data.unit.name,
+      originalUnitName: this.props.data.unit.name,
+      error: false
+    }
+  },
+
 	hideUnit: function () {
 		var x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
 		if (x) {
@@ -13,35 +23,24 @@
 	},
 
 	assignedToText: function () {
-		var studentNoun, classroomNoun, classroomsString;
-		if (this.props.data.num_students_assigned === 1) {
-			studentNoun = ' Student';
-		} else {
-			studentNoun = ' Students';
-		}
-		if (this.props.data.classrooms.length > 1) {
-			classroomNoun = ' classes';
-		} else {
-			classroomNoun = ' class';
-		}
+    const studentCount = this.props.data.num_students_assigned
+    const classroomCount = this.props.data.classrooms.length
 
-		classroomsString = ' ('
-		for (var i=0; i<this.props.data.classrooms.length; i++) {
-			var add;
-			if (i < this.props.data.classrooms.length -1) {
-				add = this.props.data.classrooms[i].name + ', ';
-			} else {
-				add = this.props.data.classrooms[i].name + ')';
-			}
-			classroomsString = classroomsString + add;
-		}
+    let students, classrooms, classroomsString
+    students = Pluralize('Student', studentCount)
+    classrooms = Pluralize('class', classroomCount)
 
-		var txt = 'Assigned to '
-		+ this.props.data.num_students_assigned
-		+ studentNoun
-		+ ' in ' + this.props.data.classrooms.length + classroomNoun
-		+ classroomsString
-		return txt;
+    classroomsString = ''
+    this.props.data.classrooms.forEach((classroom, index, classList) => {
+      if (index < classList.length - 1) {
+        classroomsString += classroom.name + ', '
+      } else {
+        classroomsString += classroom.name
+      }
+    })
+
+		return <span>{`Assigned to ${studentCount} ${students} in
+    ${this.props.data.classrooms.length} ${classrooms} (${classroomsString}).`}</span>
 	},
 
 	editUnit: function () {
@@ -50,14 +49,77 @@
 
   delete: function(){
     if (!this.props.report) {
-      return <div className='col-md-3 vcenter pull-right delete-unit'><span onClick={this.hideUnit}>Delete</span></div>
+      return <span className='delete-unit' onClick={this.hideUnit}>Delete</span>
     }
   },
 
+  editName: function(){
+    let text, classy, inlineStyle
+    if (this.state.errors) {
+      text = this.state.errors + '. Click here to try again.'
+      classy = 'errors h-pointer'
+      inlineStyle = {paddingTop: '4px'}
+    } else {
+      classy = 'edit-unit'
+      text = 'Edit'
+    }
+
+    return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>
+  },
+
+  submitName: function(){
+    return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>
+  },
+
+
   dueDate: function(){
     if (!this.props.report) {
-      return <div className='col-md-3 due-date-header'>Due Date</div>
+      return <span className='due-date-header'>Due Date</span>
     }
+  },
+
+  changeToEdit: function(){
+    this.setState({edit: true})
+  },
+
+  handleNameChange: function(e){
+    this.setState({unitName: e.target.value}, console.log(this.state.unitName))
+  },
+
+  editUnitName: function(){
+    return <input type='text' onChange={this.handleNameChange} value={this.state.unitName}/>
+  },
+
+  handleSubmit: function(){
+    const that = this
+    $.ajax({
+      type: 'PUT',
+      url: `/teachers/units/${that.props.data.unit.id}`,
+      data: {unit: {name: that.state.unitName}},
+      statusCode: {
+        200: function() {
+          that.setState({edit: false, errors: undefined})
+        },
+        422: function(response) {
+          that.setState({errors: response.responseJSON.errors,
+          edit: false,
+          unitName: that.state.originalUnitName})
+        }
+      }
+      // error: this.setState.errors:
+    })
+  },
+
+  showUnitName: function(){
+    return <span className="h-pointer">{this.state.unitName}</span>;
+  },
+
+  showOrEditName: function(){
+    return this.state.edit ? this.editUnitName() : this.showUnitName();
+  },
+
+  nameActionLink: function(){
+    return this.state.edit ? this.submitName() : this.editName()
   },
 
 	render: function () {
@@ -71,12 +133,15 @@
 		}, this);
 		return (
 			<section >
-				<div className='row vertical-align'>
-					<h3 className='col-md-9 vcenter'>{this.props.data.unit.name}</h3>
+				<div className='row unit-header-row'>
+          <span className="unit-name">
+            {this.showOrEditName()}
+          </span>
+          {this.nameActionLink()}
 					{this.delete()}
 				</div>
 				<div className='unit-label row'>
-					<div className='col-md-9'> {this.assignedToText()}</div>
+          {this.assignedToText()}
           {this.dueDate()}
 				</div>
 				<div className='table assigned-activities'>
