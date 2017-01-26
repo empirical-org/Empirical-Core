@@ -3,6 +3,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :teacher!
   before_filter :authorize!
   include ScorebookHelper
+  include LastActiveClassroom
 
   def lesson_planner
     if current_user.classrooms_i_teach.empty?
@@ -62,12 +63,16 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def scorebook
     if current_user.classrooms_i_teach.any?
-      cr_id = params[:classroom_id] ? params[:classroom_id] : current_user.classrooms_i_teach.last.id
+
+      cr_id = params[:classroom_id] ? params[:classroom_id] : LastActiveClassroom::last_active_classrooms(current_user.id, 1).first
       classroom = Classroom.find_by_id(cr_id)
-      @selected_classroom = {name: classroom.name, value: classroom.id, id: classroom.id}
+      @selected_classroom = {name: classroom.try(:name), value: classroom.try(:id), id: classroom.try(:id)}
       if current_user.students.empty?
         if current_user.classrooms_i_teach.last.activities.empty?
-          redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks", grade: current_user.classrooms_i_teach.last.grade)
+          redirect_to(controller: "teachers/classroom_manager",
+            action: "lesson_planner",
+            tab: "exploreActivityPacks",
+            grade: current_user.classrooms_i_teach.last.grade)
         else
           redirect_to invite_students_teachers_classrooms_path
         end
@@ -100,7 +105,8 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def classroom_mini
-    current_user.classrooms_i_teach.includes(:students).each do |classroom|
+    classrooms = Classroom.where(id: LastActiveClassroom::last_active_classrooms(current_user.id))
+    classrooms.each do |classroom|
       obj = {
         classroom: classroom,
         students: classroom.students.count,
@@ -178,4 +184,5 @@ class Teachers::ClassroomManagerController < ApplicationController
       auth_failed unless @classroom.teacher == current_user
     end
   end
+
 end
