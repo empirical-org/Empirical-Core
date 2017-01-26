@@ -43,7 +43,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   def create_or_update_selected_packs
     teacher_id = current_user.id
-    params[:selections].each do |value|
+    params[:selections].reverse.each do |value|
       if value[:classrooms][0][:student_ids].any?
         unit = Unit.find_by(name: UnitTemplate.find(value[:id]).name,
                            user_id: teacher_id)
