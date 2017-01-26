@@ -91,14 +91,6 @@ class Teachers::UnitsController < ApplicationController
     render json: LessonPlanner::UnitSerializer.new(unit, root: false)
   end
 
-  def update
-    unit = Unit.find(params[:id])
-    if unit
-      unit.update_attributes(unit_params)
-    end
-    render json: {}
-  end
-
   private
 
   def unit_params
