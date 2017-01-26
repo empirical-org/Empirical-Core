@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
   let!(:teacher) { FactoryGirl.create(:teacher) }
@@ -33,6 +34,30 @@ describe Teachers::UnitsController, type: :controller do
       expect(x['units'][0]['classrooms']).to_not be_empty
     end
   end
+
+  describe '#update' do
+    let!(:unit) {FactoryGirl.create(:unit)}
+    let!(:unit2) {FactoryGirl.create(:unit)}
+
+    it 'sends a 200 status code when a unique name is sent over' do
+      put :update, id: unit.id,
+                    unit: {
+                      name: 'Super Unique Unit Name'
+                    }
+      expect(response.status).to eq(200)
+    end
+
+    it 'sends a 422 error code when a non-unique name is sent over' do
+      put :update, id: unit.id,
+                    unit: {
+                      name: unit2.name
+                    }
+      expect(response.status).to eq(422)
+
+    end
+  end
+
+
 
 
   # describe 'units concern' do
