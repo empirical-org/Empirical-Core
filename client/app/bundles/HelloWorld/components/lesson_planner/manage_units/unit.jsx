@@ -4,7 +4,6 @@
  import _ from 'underscore'
  import ClassroomActivity from './classroom_activity'
  import Pluralize from 'pluralize'
- import request from 'request'
 
  export default  React.createClass({
   getInitialState: function () {
@@ -78,7 +77,11 @@
   },
 
   handleSubmit: function(){
-    request.put('/teachers/units/', {name: this.state.unitName})
+    $.ajax({
+      type: 'PUT',
+      url: `/teachers/units/${this.props.data.unit.id}`,
+      data: {unit: {name: this.state.unitName}}
+    })
   },
 
   showUnitName: function(){

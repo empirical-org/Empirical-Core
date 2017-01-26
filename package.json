@@ -42,7 +42,6 @@
     "url": "https://github.com/shakacode/react_on_rails/issues"
   },
   "dependencies": {
-    "request": "^2.79.0",
     "tabslet": "^1.7.3"
   }
 }
