@@ -7,8 +7,12 @@
 
  export default  React.createClass({
   getInitialState: function () {
-    return {edit: false,
-    unitName: this.props.data.unit.name}
+    return {
+      edit: false,
+      unitName: this.props.data.unit.name,
+      originalUnitName: this.props.data.unit.name,
+      error: false
+    }
   },
 
 	hideUnit: function () {
@@ -50,7 +54,17 @@
   },
 
   editName: function(){
-    return <span className="edit-unit" onClick={this.changeToEdit}>Edit Name</span>
+    let text, classy, inlineStyle
+    if (this.state.errors) {
+      text = this.state.errors + '. Click here to try again.'
+      classy = 'errors h-pointer'
+      inlineStyle = {paddingTop: '4px'}
+    } else {
+      classy = 'edit-unit'
+      text = 'Edit'
+    }
+
+    return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>
   },
 
   submitName: function(){
@@ -77,11 +91,22 @@
   },
 
   handleSubmit: function(){
+    const that = this
     $.ajax({
       type: 'PUT',
-      url: `/teachers/units/${this.props.data.unit.id}`,
-      data: {unit: {name: this.state.unitName}},
-      success: this.setState({edit: false})
+      url: `/teachers/units/${that.props.data.unit.id}`,
+      data: {unit: {name: that.state.unitName}},
+      statusCode: {
+        200: function() {
+          that.setState({edit: false, errors: undefined})
+        },
+        422: function(response) {
+          that.setState({errors: response.responseJSON.errors,
+          edit: false,
+          unitName: that.state.originalUnitName})
+        }
+      }
+      // error: this.setState.errors:
     })
   },
 
@@ -91,6 +116,10 @@
 
   showOrEditName: function(){
     return this.state.edit ? this.editUnitName() : this.showUnitName();
+  },
+
+  nameActionLink: function(){
+    return this.state.edit ? this.submitName() : this.editName()
   },
 
 	render: function () {
@@ -105,10 +134,10 @@
 		return (
 			<section >
 				<div className='row unit-header-row'>
-            <span className="unit-name">
-              {this.showOrEditName()}
-            </span>
-            {this.state.edit ? this.submitName() : this.editName()}
+          <span className="unit-name">
+            {this.showOrEditName()}
+          </span>
+          {this.nameActionLink()}
 					{this.delete()}
 				</div>
 				<div className='unit-label row'>

@@ -20,10 +20,11 @@ class Teachers::UnitsController < ApplicationController
 
   def update
     unit = Unit.find(params[:id])
-    if unit
-      unit.update_attributes(unit_params)
+    if unit.try(:update_attributes, unit_params)
+      render json: {}
+    else
+      render json: {errors: 'Unit must have a unique name'}, status: 422
     end
-    render json: {}
   end
 
   def index
