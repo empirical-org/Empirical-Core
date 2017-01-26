@@ -14,15 +14,17 @@ shared_context 'Unit Assignments Variables' do
   let!(:unit_template2) { FactoryGirl.create(:unit_template, activities: [activity2]) }
   let!(:unit_template3) { FactoryGirl.create(:unit_template, activities: [activity3]) }
   let!(:unit_template4) { FactoryGirl.create(:unit_template, activities: [activity4]) }
-  let(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, classroom_id: classroom.id, unit_id: unit.id, assigned_student_ids: [student.id])}
+  let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, classroom_id: classroom.id, assigned_student_ids: [student.id])}
   let(:activity_session) {FactoryGirl.create(:activity_session, classroom_activity_id: classroom_activity.id, activity_id: activity.id, user_id: student.id, state: 'finished')}
 
   def unit_templates_have_a_corresponding_unit?(unit_template_ids)
-    UnitTemplate.where(id: unit_template_ids).pluck(:name) == Unit.all.map(&:name).flatten
+    names_from_templates = UnitTemplate.where(id: unit_template_ids).pluck(:name)
+    (Unit.all.map(&:name).flatten & names_from_templates).length == names_from_templates.length
   end
 
   def units_have_a_corresponding_classroom_activities?(unit_template_ids)
-    UnitTemplate.where(id: unit_template_ids).pluck(:name) == ClassroomActivity.all.map(&:unit).map(&:name).flatten
+    names_from_templates = UnitTemplate.where(id: unit_template_ids).pluck(:name)
+    (ClassroomActivity.all.map(&:unit).map(&:name).flatten & names_from_templates).length == names_from_templates.length
   end
 
 

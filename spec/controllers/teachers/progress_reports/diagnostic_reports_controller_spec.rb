@@ -11,6 +11,8 @@ include_context "Unit Assignments Variables"
 
     describe 'updating existing recommendations' do
       let(:unit) {FactoryGirl.create(:unit)}
+      let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity: activity, unit: unit) }
+      let!(:activity_session) { FactoryGirl.create(:activity_session, classroom_activity: classroom_activity, activity: activity, user: student) }
       it "returns a json with the url" do
           get :report_from_activity_session, ({activity_session: activity_session.id})
           response_body = JSON.parse(response.body)
