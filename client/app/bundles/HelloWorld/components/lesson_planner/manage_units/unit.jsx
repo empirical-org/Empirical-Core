@@ -8,10 +8,13 @@
 
  export default  React.createClass({
   getInitialState: function () {
-    return {edit: false,
-    unitName: this.props.data.unit.name}
+    return {
+      edit: false,
+      unitName: this.props.data.unit.name,
+      originalUnitName: this.props.data.unit.name,
+      error: false
+    }
   },
-
 
 	hideUnit: function () {
 		var x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
@@ -52,11 +55,21 @@
   },
 
   editName: function(){
-    return <span className="edit-unit" onClick={this.onChangeToEdit}>Edit Name</span>
+    let text, classy, inlineStyle
+    if (this.state.errors) {
+      text = this.state.errors + '. Click here to try again.'
+      classy = 'errors h-pointer'
+      inlineStyle = {paddingTop: '4px'}
+    } else {
+      classy = 'edit-unit'
+      text = 'Edit'
+    }
+
+    return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>
   },
 
   submitName: function(){
-    return <span className="edit-unit" onClick={this.onSubmit}>Submit</span>
+    return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>
   },
 
   onSubmit: function(){
@@ -69,7 +82,7 @@
     }
   },
 
-  onChangeToEdit: function(){
+  changeToEdit: function(){
     this.setState({edit: true})
   },
 
@@ -81,12 +94,36 @@
     return <input type='text' onChange={this.handleNameChange} value={this.state.unitName}/>
   },
 
+  handleSubmit: function(){
+    const that = this
+    $.ajax({
+      type: 'PUT',
+      url: `/teachers/units/${that.props.data.unit.id}`,
+      data: {unit: {name: that.state.unitName}},
+      statusCode: {
+        200: function() {
+          that.setState({edit: false, errors: undefined})
+        },
+        422: function(response) {
+          that.setState({errors: response.responseJSON.errors,
+          edit: false,
+          unitName: that.state.originalUnitName})
+        }
+      }
+      // error: this.setState.errors:
+    })
+  },
+
   showUnitName: function(){
     return <span className="h-pointer">{this.state.unitName}</span>;
   },
 
   showOrEditName: function(){
     return this.state.edit ? this.editUnitName() : this.showUnitName();
+  },
+
+  nameActionLink: function(){
+    return this.state.edit ? this.submitName() : this.editName()
   },
 
 	render: function () {
@@ -101,10 +138,10 @@
 		return (
 			<section >
 				<div className='row unit-header-row'>
-            <span className="unit-name">
-              {this.showOrEditName()}
-            </span>
-            {this.state.edit ? this.submitName() : this.editName()}
+          <span className="unit-name">
+            {this.showOrEditName()}
+          </span>
+          {this.nameActionLink()}
 					{this.delete()}
 				</div>
 				<div className='unit-label row'>
