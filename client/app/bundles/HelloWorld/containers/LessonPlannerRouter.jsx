@@ -6,7 +6,6 @@ import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 
 export default React.createClass({
   // <Route path="/units/:unit_id/students/edit" component={Index}/>
-  // <Route path="/units/:unit_id/assignments/edit" component={Index}/>
 
 	render: function() {
 		return (
