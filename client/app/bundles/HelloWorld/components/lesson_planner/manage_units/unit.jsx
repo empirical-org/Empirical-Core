@@ -80,7 +80,8 @@
     $.ajax({
       type: 'PUT',
       url: `/teachers/units/${this.props.data.unit.id}`,
-      data: {unit: {name: this.state.unitName}}
+      data: {unit: {name: this.state.unitName}},
+      success: this.setState({edit: false})
     })
   },
 
