@@ -19,11 +19,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update
-    binding.pry
     unit = Unit.find(params[:id])
     if unit
       unit.update_attributes(unit_params)
     end
+    render json: {}
   end
 
   def index
