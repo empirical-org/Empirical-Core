@@ -1,5 +1,6 @@
 class Teachers::UnitsController < ApplicationController
   include Units
+  include EditUnits
 
   respond_to :json
   before_filter :teacher!
@@ -25,6 +26,15 @@ class Teachers::UnitsController < ApplicationController
     else
       render json: {errors: 'Unit must have a unique name'}, status: 422
     end
+  end
+
+  def classrooms_with_students_and_classroom_activities
+    if Unit.find_by(id: params[:id])
+      render json: get_classrooms_with_students_and_classroom_activities(params[:id])
+    else
+      render json: {errors: 'Unit not found'}, status: 422
+    end
+
   end
 
   def index
@@ -96,6 +106,7 @@ class Teachers::UnitsController < ApplicationController
   def unit_params
     params.require(:unit).permit(:id, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
   end
+
 
 #   def setup
 #     @classroom = current_user.classrooms.find(params[:classroom_id])
