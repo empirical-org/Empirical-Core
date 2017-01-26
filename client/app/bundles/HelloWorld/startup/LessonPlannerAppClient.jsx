@@ -1,6 +1,6 @@
 import React from 'react';
-import LessonPlanner from '../containers/LessonPlanner';
+import LessonPlannerRouter from '../containers/LessonPlannerRouter';
 
 export default (props) => (
-  <LessonPlanner {...props} />
+  <LessonPlannerRouter {...props} />
 );
