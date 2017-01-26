@@ -18,6 +18,14 @@ class Teachers::UnitsController < ApplicationController
     render json: { unitNames: current_user.units.map { |unit| unit.name.downcase }.uniq }.to_json
   end
 
+  def update
+    unit = Unit.find(params[:id])
+    if unit.try(:update_attributes, unit_params)
+      render json: {}
+    else
+      render json: {errors: 'Unit must have a unique name'}, status: 422
+    end
+  end
 
   def index
     cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten
