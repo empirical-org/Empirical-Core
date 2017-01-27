@@ -2,7 +2,7 @@ module PagesHelper
 
 	def pages_tab_class tabname
 		about_actions = ["mission", "develop", "faq"]
-		impact_actions = ['impact']
+		impact_actions = ['impact', 'map', 'stats']
 		team_actions = %w(team)
 		partners_actions = %w(partners)
 		news_actions = %w(news)

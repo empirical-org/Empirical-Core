@@ -50,7 +50,8 @@ module EmpiricalGrammar
     #   ApplicationController.action(:show_errors).call(env)
     # end
 
-
+    # CHange schema format so that we can use trigrams.
+    config.active_record.schema_format = :sql
 
     # http://stackoverflow.com/questions/14647731/rails-converts-empty-arrays-into-nils-in-params-of-the-request
     config.action_dispatch.perform_deep_munge = false
