@@ -15,7 +15,7 @@ export default class extends React.Component {
 														 students={el.students}
 														 allSelected={el.allSelected}
 														 toggleClassroomSelection={that.props.toggleClassroomSelection}
-														 toggleStudentSelection={that.props.toggleStudentSelection} />;
+														 handleStudentCheckboxClick={that.props.handleStudentCheckboxClick} />;
 
 			})
 		} else {
