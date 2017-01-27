@@ -18,11 +18,11 @@ import AssignANewActivity from '../components/lesson_planner/create_unit/assign_
 
 export default React.createClass({
 	propTypes: {
-		grade: React.PropTypes.string.isRequired,
-		tab: React.PropTypes.string.isRequired,
-		classroomName: React.PropTypes.string.isRequired,
-		classroomId: React.PropTypes.string.isRequired,
-		students: React.PropTypes.string.isRequired
+		grade: React.PropTypes.string,
+		tab: React.PropTypes.string,
+		classroomName: React.PropTypes.string,
+		classroomId: React.PropTypes.string,
+		students: React.PropTypes.string
 	},
 
 	analytics: function() {
