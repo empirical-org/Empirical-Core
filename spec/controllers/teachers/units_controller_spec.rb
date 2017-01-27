@@ -3,9 +3,16 @@ require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
   let!(:teacher) { FactoryGirl.create(:teacher) }
-  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
+  let!(:student) {FactoryGirl.create(:student)}
+  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher, students: [student]) }
   let!(:unit) {FactoryGirl.create(:unit, user: teacher)}
   let!(:unit2) {FactoryGirl.create(:unit, user: teacher)}
+  let!(:classroom_activity) { FactoryGirl.create(
+    :classroom_activity_with_activity,
+    unit: unit, classroom: classroom,
+    assigned_student_ids: [student.id]
+  )}
+
 
   before do
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
@@ -56,13 +63,20 @@ describe Teachers::UnitsController, type: :controller do
     end
   end
 
-  describe '#classrooms_with_students_and_classroom_activities returns' do
-    it "the teacher's classrooms when it is passed a valid unit id" do
+  describe '#classrooms_with_students_and_classroom_activities' do
+
+    it "returns #get_classrooms_with_students_and_classroom_activities when it is passed a valid unit id" do
         get :classrooms_with_students_and_classroom_activities, id: unit.id
-        expect(response.status).to eq(200)
+        res = JSON.parse(response.body)
+        expect(res["classrooms"].first["id"]).to eq(classroom.id)
+        expect(res["classrooms"].first["name"]).to eq(classroom.name)
+        expect(res["classrooms"].first["students"].first['id']).to eq(student.id)
+        expect(res["classrooms"].first["students"].first['name']).to eq(student.name)
+        expect(res["classrooms"].first["classroom_activity"]).to eq({"id" => classroom_activity.id, "assigned_student_ids" => classroom_activity.assigned_student_ids})
     end
 
-    it "422 error code when it is not passed a valid unit id" do
+
+    it "sends a 422 error code when it is not passed a valid unit id" do
       get :classrooms_with_students_and_classroom_activities, id: Unit.count + 1000
       expect(response.status).to eq(422)
     end
