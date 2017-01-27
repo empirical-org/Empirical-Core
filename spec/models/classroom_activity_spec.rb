@@ -123,4 +123,31 @@ describe ClassroomActivity, type: :model do
             expect { classroom_activity.session_for(0) }.to raise_error ActiveRecord::AssociationTypeMismatch
         end
     end
+
+    describe '#validate_assigned_student' do
+
+      context 'it must return true when' do
+
+        it 'assigned_student_ids is an empty array' do
+          classroom_activity.assigned_student_ids = []
+          expect(classroom_activity.validate_assigned_student(student.id)).to be true
+        end
+
+        it 'assigned_students_ids is nil' do
+          classroom_activity.assigned_student_ids = nil
+          expect(classroom_activity.validate_assigned_student(student.id)).to be true
+        end
+
+        it 'assigned_students_ids contains the student id' do
+          classroom_activity.assigned_student_ids = [student.id]
+          expect(classroom_activity.validate_assigned_student(student.id)).to be true
+        end
+
+      end
+
+      it 'must return false when assigned_student_ids does not contain the student id' do
+        classroom_activity.assigned_student_ids = [student.id + 1]
+        expect(classroom_activity.validate_assigned_student(student.id)).to be false
+      end
+    end
 end
