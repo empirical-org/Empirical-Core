@@ -30,7 +30,7 @@ class Teachers::UnitsController < ApplicationController
 
   def classrooms_with_students_and_classroom_activities
     if Unit.find_by(id: params[:id])
-      render json: get_classrooms_with_students_and_classroom_activities(params[:id])
+      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id])}
     else
       render json: {errors: 'Unit not found'}, status: 422
     end
