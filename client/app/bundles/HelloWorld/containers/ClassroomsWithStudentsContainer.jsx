@@ -1,3 +1,4 @@
+'use strict'
 import React from 'react'
 import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx'
 
@@ -64,6 +65,15 @@ export default class extends React.Component {
 		this.toggleStudentSelection(studentIndex, classIndex);
 	}
 
+	toggleClassroomSelection = (classy) => {
+		const newState = Object.assign({}, this.state);
+		const classIndex = this.findTargetClassIndex(classy.id);
+		const classroom = newState.classrooms[classIndex];
+		classroom.allSelected = !classroom.allSelected;
+		classroom.students.forEach((stud)=>stud.isSelected=classroom.allSelected);
+		this.setState(newState);
+	}
+
 	selectPreviouslyAssignedStudents() {
 	// 	// @TODO if (window.location.pathname.includes('edit')) {
 			this.state.classrooms.forEach((classy, classroomIndex) => {
@@ -102,10 +112,6 @@ export default class extends React.Component {
 		})
 	}
 
-
-
-
-
 	render() {
 		if (this.state.loading) {
 			return <LoadingIndicator/>
@@ -113,7 +119,7 @@ export default class extends React.Component {
 			return <ClassroomsWithStudents
 									classrooms={this.state.classrooms}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
-
+									toggleClassroomSelection={this.toggleClassroomSelection}
 									/>
 		} else {
 			return <div>You must first add a classroom.</div>
