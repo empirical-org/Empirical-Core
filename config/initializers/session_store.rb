@@ -2,7 +2,7 @@
 
 
 if Rails.env.production?
-  EmpiricalGrammar::Application.config.session_store :cookie_store, key: '_empirical-grammar_session', domain: '.quill.org'
+  EmpiricalGrammar::Application.config.session_store :cookie_store, key: '_quill_session', domain: '.quill.org'
 else
-  EmpiricalGrammar::Application.config.session_store :cookie_store, key: '_empirical-grammar_session'
+  EmpiricalGrammar::Application.config.session_store :cookie_store, key: '_quill_session'
 end
