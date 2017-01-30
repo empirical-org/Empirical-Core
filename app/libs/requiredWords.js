@@ -87,7 +87,7 @@ function _getCaseSensitiveWord(word, optimalSentence) {
 export function getFeedbackForWord(word, sentences) {
   // const tag = getPOSForWord(word).toLowerCase();
   const caseSensitiveWord = _getCaseSensitiveWord(word, sentences[0]);
-  return `<p>Revise your sentence to include the word <em>${caseSensitiveWord}</em>.</p>`;
+  return `<p>Revise your sentence to include the word <em>${caseSensitiveWord}</em>. You may have misspelled it.</p>`;
 }
 
 export function extractSentencesFromResponses(responses) {

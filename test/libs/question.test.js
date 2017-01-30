@@ -32,7 +32,7 @@ describe("The question object", () => {
   it("should be able to check for a required words match in the responses.", () => {
     var correctResponse = question.checkRequiredWordsMatch("The dog ran.");
     expect(correctResponse).toExist()
-    expect(correctResponse.feedback).toEqual('<p>Revise your sentence to include the word <em>fox</em>.</p>')
+    expect(correctResponse.feedback).toEqual('<p>Revise your sentence to include the word <em>fox</em>. You may have misspelled it.</p>')
     var incorrectResponse = question.checkRequiredWordsMatch("The fox ran.");
     expect(incorrectResponse).toNotExist();
   });

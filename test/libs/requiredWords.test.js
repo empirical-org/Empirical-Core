@@ -138,7 +138,7 @@ describe("Finding the common words in multiple sentences", () => {
 	});
 
   it("returns the correct feedback string for the first missing word.", () => {
-		const expected = "<p>Revise your sentence to include the word <em>next</em>.</p>"
+		const expected = "<p>Revise your sentence to include the word <em>next</em>. You may have misspelled it.</p>"
     const sentences =  extractSentencesFromResponses(responses)
     const missingWords = getMissingWordsFromResponses(user, sentences)
     console.log("Miss words, ", missingWords[0]);
