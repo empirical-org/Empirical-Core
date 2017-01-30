@@ -1,9 +1,32 @@
 import React from 'react'
 import Classroom from './classroom.jsx'
+import UpdateUnitButton from './update_unit_button.jsx'
 
 export default class extends React.Component {
 
+	resetPage() {
+		window.location = '/teachers/classrooms/lesson_planner'
+	}
 
+	orderAssignedStudentIds() {
+		const newState = Object.assign({}, this.state);
+		const classrooms = this.newState.classrooms
+		const assignedStudentData = {};
+		classrooms.forEach((classy) => {
+			if (classy.edited) {
+				if (classy.allSelected) {
+					// assigned students = all
+				}
+			}
+			// if (classy.classroom_activity) {
+			// 	classy.classroom_activity.new_assigned_student_ids = classy.students.map((stud) => {
+			// 		if (stud.isSelected) {
+			// 			return stud.id
+			// 		}
+			// 	})
+			// }
+		})
+	}
 
 	render() {
 		let classroomList;
@@ -24,8 +47,14 @@ export default class extends React.Component {
 		}
 
     return (
-			<div>{classroomList || 'I am the div that is undefined'}
-				<p>{this.props.showSaveButton ? 'I should be a save button': 'There should be nothing here'}</p>
+			<div>
+				{classroomList}
+				<UpdateUnitButton showButton={this.props.showSaveButton}
+													putUrl={'/teachers/classroom_activities/'}
+													successCallback={this.resetPage}
+													buttonText={'Update Students'}
+													data={this.props.classrooms}
+													/>
 			</div>
     );
 	}
