@@ -13,7 +13,7 @@ module LastActiveClassroom
       if last_active_arr.any?
         limit ? last_active_arr.map(&:id).uniq[0..limit - 1 ] : last_active_arr.map(&:id).uniq
       else
-        nil
+        []
       end
   end
 
