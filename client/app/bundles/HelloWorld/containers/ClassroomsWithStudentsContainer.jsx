@@ -55,26 +55,40 @@ export default class extends React.Component {
 	// and then change the students to selected/not selected based off of the results
 	toggleStudentSelection = (studentIndex, classIndex) => {
 		const newState = Object.assign({}, this.state);
-	  let selectedStudent = newState.classrooms[classIndex].students[studentIndex]
+		const classy = newState.classrooms[classIndex]
+	  let selectedStudent = classy.students[studentIndex]
 		selectedStudent.isSelected = !selectedStudent.isSelected;
+		if (newState.studentsChanged)
+			if (selectedStudent.isSelected) {
+				classy.allSelected = this.checkIfAllAssigned(classy)
+			} else {
+				classy.allSelected = false
+			}
 		this.setState(newState)
 	}
 
 	handleStudentCheckboxClick = (studentId, classroomId) =>{
+		const newState = Object.assign({}, this.state);
 		const classIndex = this.findTargetClassIndex(classroomId)
 		const studentIndex = this.findTargetStudentIndex(studentId, classIndex)
-		this.setState({studentsChanged: true}, () => this.toggleStudentSelection(studentIndex, classIndex));
+		newState.classrooms[classIndex].edited = true;
+		newState.studentsChanged = true;
+		this.setState(newState, () => this.toggleStudentSelection(studentIndex, classIndex));
 	}
 
 	toggleClassroomSelection = (classy) => {
 		const newState = Object.assign({}, this.state);
 		const classIndex = this.findTargetClassIndex(classy.id);
 		const classroom = newState.classrooms[classIndex];
+		classroom.edited = true;
 		classroom.allSelected = !classroom.allSelected;
 		classroom.students.forEach((stud)=>stud.isSelected=classroom.allSelected);
 		newState.studentsChanged = true;
 		this.setState(newState);
 	}
+
+	// it is not the case that there are some students that are not selected
+	checkIfAllAssigned = classy => !classy.students.some(stud => !stud.isSelected)
 
 	selectPreviouslyAssignedStudents() {
 	// 	// @TODO if (window.location.pathname.includes('edit')) {
