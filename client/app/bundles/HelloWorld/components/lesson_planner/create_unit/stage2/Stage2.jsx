@@ -3,6 +3,7 @@
  import React from 'react'
  import Classroom from './classroom'
  import ActivityDueDate from './activity_due_date'
+ import ClassroomsWithStudents  from './ClassroomsWithStudents.jsx'
 
  export default  React.createClass({
 
@@ -16,7 +17,7 @@
 
   finish: function () {
     if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
-      this.setState({buttonDisabled: true});
+      // this.setState({buttonDisabled: true});
       this.props.finish();
     } else if (!this.state.buttonDisabled) {
       this.setState({prematureAssignAttempted: true});

@@ -1,5 +1,6 @@
 class Teachers::UnitsController < ApplicationController
   include Units
+  include EditUnits
 
   respond_to :json
   before_filter :teacher!
@@ -18,6 +19,23 @@ class Teachers::UnitsController < ApplicationController
     render json: { unitNames: current_user.units.map { |unit| unit.name.downcase }.uniq }.to_json
   end
 
+  def update
+    unit = Unit.find(params[:id])
+    if unit.try(:update_attributes, unit_params)
+      render json: {}
+    else
+      render json: {errors: 'Unit must have a unique name'}, status: 422
+    end
+  end
+
+  def classrooms_with_students_and_classroom_activities
+    if Unit.find_by(id: params[:id])
+      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id])}
+    else
+      render json: {errors: 'Unit not found'}, status: 422
+    end
+
+  end
 
   def index
     cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten
@@ -83,12 +101,12 @@ class Teachers::UnitsController < ApplicationController
     render json: LessonPlanner::UnitSerializer.new(unit, root: false)
   end
 
-
   private
 
   def unit_params
     params.require(:unit).permit(:id, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
   end
+
 
 #   def setup
 #     @classroom = current_user.classrooms.find(params[:classroom_id])

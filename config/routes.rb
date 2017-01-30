@@ -81,7 +81,10 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :teachers do
 
-    resources :units, as: 'units_path' # moved from within classroom, since units are now cross-classroom
+    resources :units, as: 'units_path' do
+      get :classrooms_with_students_and_classroom_activities, on: :member
+      put :update_classroom_activities, on: :member
+    end # moved from within classroom, since units are now cross-classroom
     get 'unit_names' => 'units#unit_names'
 
     resources :unit_templates, only: [:index] do
@@ -134,7 +137,6 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms do
       collection do
         get :classrooms_i_teach
-        get :classrooms_i_teach_with_students
         get :regenerate_code
         get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
         get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
