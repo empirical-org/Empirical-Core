@@ -8,7 +8,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
 
   def update
     cas = ClassroomActivity.where(activity: @classroom_activity.activity, unit: @classroom_activity.unit)
-    cas.each{ |ca| ca.update_attributes(due_date: params[:due_date])}
+    cas.each{ |ca| ca.try(:update_attributes, classroom_activity_params)}
     render json: cas.to_json
   end
 

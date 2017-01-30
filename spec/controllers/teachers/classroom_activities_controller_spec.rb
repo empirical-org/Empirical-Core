@@ -14,7 +14,7 @@ describe Teachers::ClassroomActivitiesController, type: :controller do
 
     it 'should be able to update due dates' do
       new_due_date = '01-01-2020'
-      put :update, id: classroom_activity.id, due_date: new_due_date
+      put :update, id: classroom_activity.id, classroom_activity: {due_date: new_due_date}
       expect(Date.parse(JSON.parse(response.body).first['due_date'])).to eq Date.parse(new_due_date)
     end
   end
