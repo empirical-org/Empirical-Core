@@ -8,24 +8,33 @@ export default class extends React.Component {
 		window.location = '/teachers/classrooms/lesson_planner'
 	}
 
-	orderAssignedStudentIds() {
-		const newState = Object.assign({}, this.state);
-		const classrooms = this.newState.classrooms
-		const assignedStudentData = {};
-		classrooms.forEach((classy) => {
+	classroomActivityUpdates() {
+		const classroomActivities = []
+		this.props.classrooms.forEach((classy) => {
 			if (classy.edited) {
+				const class_act = {assigned_student_ids: undefined, classroom_id: classy.id}
+				class_act.id = classy.classroom_activity ? classy.classroom_activity.id : undefined
 				if (classy.allSelected) {
-					// assigned students = all
+					class_act.assigned_student_ids = []
+				} else {
+					const student_ids_arr = []
+					classy.students.forEach((stud) => {
+						if (stud.isSelected) {
+							student_ids_arr.push(stud.id)
+						}
+					})
+					if (student_ids_arr.length > 0) {
+						class_act.assigned_student_ids = student_ids_arr
+					}
 				}
+				classroomActivities.push(class_act)
 			}
-			// if (classy.classroom_activity) {
-			// 	classy.classroom_activity.new_assigned_student_ids = classy.students.map((stud) => {
-			// 		if (stud.isSelected) {
-			// 			return stud.id
-			// 		}
-			// 	})
-			// }
 		})
+		return classroomActivities
+	}
+
+	ajaxData = () => {
+		return {unit_id: undefined, classroom_activities: this.classroomActivityUpdates()}
 	}
 
 	render() {
@@ -53,7 +62,7 @@ export default class extends React.Component {
 													putUrl={'/teachers/classroom_activities/'}
 													successCallback={this.resetPage}
 													buttonText={'Update Students'}
-													data={this.props.classrooms}
+													dataFunc={this.ajaxData}
 													/>
 			</div>
     );

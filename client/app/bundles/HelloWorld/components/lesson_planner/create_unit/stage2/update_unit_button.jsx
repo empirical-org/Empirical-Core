@@ -20,7 +20,7 @@ class UpdateUnitButton extends React.Component {
     $.ajax({
       type: 'PUT',
       url: p.putUrl,
-      data: p.data,
+      data: p.dataFunc(),
       statusCode: {
         200: function(data) {
           that.setState({loading: false}, ()=>p.successCallback())
@@ -49,7 +49,7 @@ UpdateUnitButton.propTypes = {
   putUrl: React.PropTypes.string.isRequired,
   successCallback: React.PropTypes.func.isRequired,
   buttonText: React.PropTypes.string.isRequired,
-  data: React.PropTypes.any.isRequired,
+  dataFunc: React.PropTypes.func.isRequired,
   showButton: React.PropTypes.bool.isRequired,
 }
 
