@@ -24,7 +24,9 @@ export default class extends React.Component {
 		}
 
     return (
-			<div>{classroomList || 'I am the div that is undefined'}</div>
+			<div>{classroomList || 'I am the div that is undefined'}
+				<p>{this.props.showSaveButton ? 'I should be a save button': 'There should be nothing here'}</p>
+			</div>
     );
 	}
 
