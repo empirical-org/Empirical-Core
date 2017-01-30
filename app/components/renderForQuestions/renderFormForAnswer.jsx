@@ -77,7 +77,11 @@ export default React.createClass({
             key={this.props.questionID}
             checkAnswer={this.props.checkAnswer}
             handleChange={this.props.handleChange}
-            value={this.props.value} latestAttempt={getLatestAttempt(this.props.question.attempts)} getResponse={this.props.getResponse}/>
+            value={this.props.value}
+            latestAttempt={getLatestAttempt(this.props.question.attempts)}
+            getResponse={this.props.getResponse}
+            spellCheck={this.props.spellCheck}
+          />
           <div className="question-button-group button-group">
             {this.getHelpModal()}
             {info}

@@ -122,7 +122,7 @@ export default React.createClass({
         <div className="card-content">
           <div className="content">
             <Textarea
-              spellCheck="true"
+              spellCheck={this.props.spellCheck || false}
               autoCapitalize="off"
               autoCorrect="off"
               value={this.props.value}
