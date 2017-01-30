@@ -357,6 +357,7 @@ const playLessonQuestion = React.createClass({
               handleChange={this.handleChange}
               toggleDisabled={this.toggleDisabled()}
               conceptExplanation={this.renderConceptExplanation} checkAnswer={this.checkAnswer}
+              spellCheck={(this.props.question.attempts.length > 3)}
             />
           );
         }
