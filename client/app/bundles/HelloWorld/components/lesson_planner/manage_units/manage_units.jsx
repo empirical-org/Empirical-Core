@@ -37,8 +37,8 @@
 		this.setState({units: x1});
 
 		$.ajax({
-			type: "put",
-			url: "/teachers/units/" + id + "/hide",
+			type: 'put',
+			url: '/teachers/units/' + id + '/hide',
 			success: function () {
 			},
 			error: function () {
@@ -59,19 +59,21 @@
 		this.setState({units: x1});
 
 		$.ajax({
-			type: "delete",
-			url: "/teachers/classroom_activities/" + ca_id,
+			type: 'delete',
+			url: '/teachers/classroom_activities/' + ca_id,
 			success: function () {
 			},
 			error: function () {
 			}
 		});
 	},
+
 	updateDueDate: function (ca_id, date) {
 		$.ajax({
-			type: "put",
-			data: {due_date: date},
-			url: "/teachers/classroom_activities/" + ca_id,
+			type: 'put',
+      dataType: 'json',
+			data: {classroom_activity: {due_date: date}},
+			url: '/teachers/classroom_activities/' + ca_id,
 			success: function () {
 			},
 			error: function () {
