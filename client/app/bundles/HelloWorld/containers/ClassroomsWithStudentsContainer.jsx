@@ -12,7 +12,8 @@ export default class extends React.Component {
 
 	state = {
 		classrooms: null,
-		loading: true
+		loading: true,
+		studentsChanged: false
 	}
 
 	findTargetClassIndex(classroomId) {
@@ -62,7 +63,7 @@ export default class extends React.Component {
 	handleStudentCheckboxClick = (studentId, classroomId) =>{
 		const classIndex = this.findTargetClassIndex(classroomId)
 		const studentIndex = this.findTargetStudentIndex(studentId, classIndex)
-		this.toggleStudentSelection(studentIndex, classIndex);
+		this.setState({studentsChanged: true}, () => this.toggleStudentSelection(studentIndex, classIndex));
 	}
 
 	toggleClassroomSelection = (classy) => {
@@ -71,6 +72,7 @@ export default class extends React.Component {
 		const classroom = newState.classrooms[classIndex];
 		classroom.allSelected = !classroom.allSelected;
 		classroom.students.forEach((stud)=>stud.isSelected=classroom.allSelected);
+		newState.studentsChanged = true;
 		this.setState(newState);
 	}
 
@@ -120,6 +122,7 @@ export default class extends React.Component {
 									classrooms={this.state.classrooms}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
 									toggleClassroomSelection={this.toggleClassroomSelection}
+									showSaveButton={this.state.studentsChanged}
 									/>
 		} else {
 			return <div>You must first add a classroom.</div>
