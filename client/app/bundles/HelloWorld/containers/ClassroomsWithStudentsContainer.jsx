@@ -113,7 +113,7 @@ export default class extends React.Component {
 		const that = this;
 		$.ajax({
 			type: 'GET',
-			url: '/teachers/units/69284/classrooms_with_students_and_classroom_activities',
+			url: `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`,
 			data: {unit: {name: that.state.unitName}},
 			statusCode: {
 				200: function(data) {
@@ -133,6 +133,7 @@ export default class extends React.Component {
 			return <LoadingIndicator/>
 		} else if (this.state.classrooms) {
 			return <ClassroomsWithStudents
+									unitId={this.props.params.unitId}
 									classrooms={this.state.classrooms}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
 									toggleClassroomSelection={this.toggleClassroomSelection}
