@@ -5,6 +5,9 @@ import { checkForMissingWords } from './requiredWords';
 import {
   checkChangeObjectMatch
 } from './algorithms/changeObjects';
+import {
+  spacingBeforePunctuation
+} from './algorithms/spacingBeforePunctuation';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
 
 const jsDiff = require('diff');
@@ -29,14 +32,14 @@ export function removePunctuation(string) {
   return string.replace(/[^A-Za-z0-9\s]/g, '');
 }
 
-const downcasedFocusPoints = (focusPointsArr=[]) => focusPointsArr.map((fp) => {
+const downcasedFocusPoints = (focusPointsArr = []) => focusPointsArr.map((fp) => {
   fp.text = fp.text.toLowerCase();
   return fp;
 });
 
 const removeSpaces = string => string.replace(/\s+/g, '');
 
-// Check number of chars added.
+// check number of chars added.
 
 const getLowAdditionCount = (newString, oldString) => {
   const diff = jsDiff.diffChars(newString, oldString);
@@ -61,7 +64,7 @@ export default class Question {
   }
 
   checkMatch(response) {
-    // Remove leading and trailing whitespace, then make sure all words are single spaced
+    // remove leading and trailing whitespace, then make sure all words are single spaced
     response = response.trim().replace(/\s{2,}/g, ' ');
     const returnValue = {
       found: true,
@@ -118,6 +121,16 @@ export default class Question {
       res.parentID = punctuationAndCaseMatch.key;
       res.conceptResults = [
         conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ'),
+        conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+      ];
+      return returnValue;
+    }
+    const spacingBeforePunctuationMatch = this.checkSpacingBeforePunctuationMatch(response);
+    if (spacingBeforePunctuationMatch !== undefined) {
+      res.feedback = spacingBeforePunctuationMatch.feedback;
+      res.author = 'Punctuation Hint';
+      res.parentID = getTopOptimalResponse(this.responses).key;
+      res.conceptResults = [
         conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
       ];
       return returnValue;
@@ -367,4 +380,9 @@ export default class Question {
   checkFocusPointMatch(response) {
     return _.find(this.focusPoints, fp => response.toLowerCase().indexOf(fp.text) === -1);
   }
+
+  checkSpacingBeforePunctuationMatch(response) {
+    return spacingBeforePunctuation(response);
+  }
+
 }
