@@ -2,75 +2,81 @@ import expect from 'expect';
 import Question from '../../app/libs/question';
 
 const data = {
-  prompt: "Combine the following sentences into one sentence.",
-  sentences: ["The", "fox", "ran."],
+  prompt: 'Combine the following sentences into one sentence.',
+  sentences: ['The', 'fox', 'ran.'],
   responses: [
     {
-      text: "The fox ran.",
+      text: 'The fox ran.',
       feedback: "Excellent, that's correct!",
       optimal: true,
     }
-  ]
-}
+  ],
+};
 
-describe("The question object", () => {
+describe('The question object', () => {
   const question = new Question(data);
 
-  it("should be initialized with a prompt, sentence fragments and responses.", () => {
-    expect(question.prompt).toEqual("Combine the following sentences into one sentence.");
-    expect(question.sentences).toEqual(["The", "fox", "ran."]);
+  it('should be initialized with a prompt, sentence fragments and responses.', () => {
+    expect(question.prompt).toEqual('Combine the following sentences into one sentence.');
+    expect(question.sentences).toEqual(['The', 'fox', 'ran.']);
     expect(question.responses).toBe(data.responses);
   });
 
-  it("should be able to check for an exact match in the responses.", () => {
-    var correctResponse = question.checkExactMatch("The fox ran.");
-    expect(correctResponse).toExist()
-    var incorrectResponse = question.checkExactMatch("The dog ran.");
+  it('should be able to check for an exact match in the responses.', () => {
+    const correctResponse = question.checkExactMatch('The fox ran.');
+    expect(correctResponse).toExist();
+    const incorrectResponse = question.checkExactMatch('The dog ran.');
     expect(incorrectResponse).toNotExist();
   });
 
-  it("should be able to check for a required words match in the responses.", () => {
-    var correctResponse = question.checkRequiredWordsMatch("The dog ran.");
-    expect(correctResponse).toExist()
-    expect(correctResponse.feedback).toEqual('<p>Revise your sentence to include the word <em>fox</em>. You may have misspelled it.</p>')
-    var incorrectResponse = question.checkRequiredWordsMatch("The fox ran.");
+  it('should be able to check for a required words match in the responses.', () => {
+    const correctResponse = question.checkRequiredWordsMatch('The dog ran.');
+    expect(correctResponse).toExist();
+    expect(correctResponse.feedback).toEqual('<p>Revise your sentence to include the word <em>fox</em>. You may have misspelled it.</p>');
+    const incorrectResponse = question.checkRequiredWordsMatch('The fox ran.');
     expect(incorrectResponse).toNotExist();
   });
 
-  it("should be able to check for an case insensitive match in the responses.", () => {
-    var correctResponse = question.checkCaseInsensitiveMatch("the fox ran.");
-    expect(correctResponse).toExist()
-    var incorrectResponse = question.checkCaseInsensitiveMatch("the dog ran.");
+  it('should be able to check for an case insensitive match in the responses.', () => {
+    const correctResponse = question.checkCaseInsensitiveMatch('the fox ran.');
+    expect(correctResponse).toExist();
+    const incorrectResponse = question.checkCaseInsensitiveMatch('the dog ran.');
     expect(incorrectResponse).toNotExist();
   });
 
-  it("should be able to check for an punctuation insensitive match in the responses.", () => {
-    var correctResponse = question.checkPunctuationInsensitiveMatch("The fox ran");
-    expect(correctResponse).toExist()
-    var shoutyResponse = question.checkPunctuationInsensitiveMatch("The fox ran!");
-    expect(shoutyResponse).toExist()
+  it('should be able to check for an punctuation insensitive match in the responses.', () => {
+    const correctResponse = question.checkPunctuationInsensitiveMatch('The fox ran');
+    expect(correctResponse).toExist();
+    const shoutyResponse = question.checkPunctuationInsensitiveMatch('The fox ran!');
+    expect(shoutyResponse).toExist();
   });
 
-  it("should be able to check for an small typo match in the responses.", () => {
-    var oneErrorResponse = question.checkSmallTypoMatch("The fox run.");
-    expect(oneErrorResponse).toExist()
-    var twoErrorResponse = question.checkSmallTypoMatch("That fox ran.");
-    expect(twoErrorResponse).toExist()
-    var threeErrorResponse = question.checkSmallTypoMatch("The cat ran.");
+  it('should be able to check for an small typo match in the responses.', () => {
+    const oneErrorResponse = question.checkSmallTypoMatch('The fox run.');
+    expect(oneErrorResponse).toExist();
+    const twoErrorResponse = question.checkSmallTypoMatch('That fox ran.');
+    expect(twoErrorResponse).toExist();
+    const threeErrorResponse = question.checkSmallTypoMatch('The cat ran.');
     expect(threeErrorResponse).toNotExist();
-    var missingSpaceResponse = question.checkSmallTypoMatch("Thefox ran.");
-    expect(missingSpaceResponse).toExist()
+    const missingSpaceResponse = question.checkSmallTypoMatch('Thefox ran.');
+    expect(missingSpaceResponse).toExist();
   });
 
-  it("should be able to check for an fuzzy match in the responses.", () => {
-    var oneFuzzyResponse = question.checkFuzzyMatch("The fox run.");
-    expect(oneFuzzyResponse).toExist()
+  it('should be able to check for an fuzzy match in the responses.', () => {
+    const oneFuzzyResponse = question.checkFuzzyMatch('The fox run.');
+    expect(oneFuzzyResponse).toExist();
     // var twoFuzzyResponse = question.checkFuzzyMatch("That fox ran.");
     // expect(twoFuzzyResponse).toExist()
-    var threeFuzzyResponse = question.checkFuzzyMatch("The cat ran.");
+    const threeFuzzyResponse = question.checkFuzzyMatch('The cat ran.');
     expect(threeFuzzyResponse).toNotExist();
-    var fuzzyMissingSpaceResponse = question.checkFuzzyMatch("Thefox ran.");
-    expect(fuzzyMissingSpaceResponse).toExist()
+    const fuzzyMissingSpaceResponse = question.checkFuzzyMatch('Thefox ran.');
+    expect(fuzzyMissingSpaceResponse).toExist();
+  });
+
+  it('should be able to check for a spacing before punc match in the responses.', () => {
+    const spacingMatch = question.checkMatch('The fox run .');
+    expect(spacingMatch).toExist();
+    expect(spacingMatch.response.feedback).toEqual('<p>Revise your sentence. You don\'t need to have a space before a <em>period</em>.</p>');
   });
 
   // it("should be able to check a response and provide info on whats wrong", () => {
@@ -87,4 +93,4 @@ describe("The question object", () => {
   //   var noResponse = question.checkMatch("The dog walked.");
   //   expect(noResponse.found).toBe(false);
   // })
-})
+});
