@@ -28,6 +28,11 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
+  def update_classroom_activities
+    binding.pry
+    unit = Unit.find(params[:unit_id])
+  end
+
   def classrooms_with_students_and_classroom_activities
     if Unit.find_by(id: params[:id])
       render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id])}
