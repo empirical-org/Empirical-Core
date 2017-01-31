@@ -25,6 +25,8 @@ export default class extends React.Component {
 					})
 					if (student_ids_arr.length > 0) {
 						class_data.student_ids = student_ids_arr
+					} else {
+						class_data.students_ids = false
 					}
 				}
 				classrooms_data.push(class_data)
