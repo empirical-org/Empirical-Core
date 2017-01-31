@@ -29,8 +29,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities
-    binding.pry
-    unit = Unit.find(params[:unit_id])
+    data = JSON.parse(params[:data],symbolize_names: true)
+    unit = Unit.find(data[:unit_id])
+    activities_data = unit.activities.map { |act| {id: act.id }}
+    Units::Updater.run(unit, activities_data, data[:classrooms_data])
+    render json: {}
   end
 
   def classrooms_with_students_and_classroom_activities

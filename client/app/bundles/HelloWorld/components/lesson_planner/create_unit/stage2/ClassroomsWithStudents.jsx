@@ -9,13 +9,13 @@ export default class extends React.Component {
 	}
 
 	classroomActivityUpdates() {
-		const classroomActivities = []
+		const classrooms_data = []
 		this.props.classrooms.forEach((classy) => {
 			if (classy.edited) {
-				const class_act = {assigned_student_ids: undefined, classroom_id: classy.id}
-				class_act.id = classy.classroom_activity ? classy.classroom_activity.id : undefined
+				const class_data = {id: classy.id}
+				// class_data.id = classy.classroom_activity ? classy.classroom_activity.id : undefined
 				if (classy.allSelected) {
-					class_act.assigned_student_ids = []
+					class_data.student_ids = []
 				} else {
 					const student_ids_arr = []
 					classy.students.forEach((stud) => {
@@ -24,17 +24,17 @@ export default class extends React.Component {
 						}
 					})
 					if (student_ids_arr.length > 0) {
-						class_act.assigned_student_ids = student_ids_arr
+						class_data.student_ids = student_ids_arr
 					}
 				}
-				classroomActivities.push(class_act)
+				classrooms_data.push(class_data)
 			}
 		})
-		return classroomActivities
+		return classrooms_data
 	}
 
 	ajaxData = () => {
-		return {unit_id: this.props.unitId, classroom_activities: this.classroomActivityUpdates()}
+		return {unit_id: this.props.unitId, classrooms_data: this.classroomActivityUpdates()}
 	}
 
 	render() {

@@ -1,6 +1,9 @@
 module Units::Updater
 
 
+  # in this file, 'unit' refers to a unit object, 'activities_data' to an array of objects
+  # with activity ids and due_dates, and 'classrooms_data' to an array of objects with an id
+  # and array of student ids.
 
   # TODO: rename this -- it isn't always the method called on the instance
   def self.run(unit, activities_data, classrooms_data)
@@ -28,7 +31,8 @@ module Units::Updater
       product = activities_data.product([classroom[:id].to_i])
       product.each do |pair|
         activity_data, classroom_id = pair
-        classroom_activity = unit.classroom_activities.find_or_create_by!(activity_id: activity_data[:id], classroom_id: classroom_id)
+        classroom_activity = unit.classroom_activities.find_or_initialize_by(activity_id: activity_data[:id], classroom_id: classroom_id)
+
         if classroom[:student_ids] == []
           all_assigned_students = []
         else
@@ -36,8 +40,15 @@ module Units::Updater
           all_assigned_students = previously_assigned_students.push(classroom[:student_ids]).flatten.map(&:to_i).uniq
         end
 
+        if classroom_activity.new_record?
+          due_date = classroom_activity.sibling_due_date || activity_data[:due_date]
+          classroom_activity.save
+        else
+          due_date = activity_data[:due_date] || classroom_activity.due_date
+        end
+
         classroom_activity.update(activity_id: activity_data[:id],
-          due_date: activity_data[:due_date],
+          due_date: due_date,
           classroom_id: classroom_id,
           assigned_student_ids: all_assigned_students)
       end
