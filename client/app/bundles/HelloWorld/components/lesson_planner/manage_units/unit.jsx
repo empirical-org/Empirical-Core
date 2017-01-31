@@ -4,7 +4,7 @@
  import _ from 'underscore'
  import ClassroomActivity from './classroom_activity'
  import Pluralize from 'pluralize'
- // import request from 'request'
+ import {Link} from 'react-router'
 
  export default  React.createClass({
   getInitialState: function () {
@@ -94,6 +94,10 @@
     return <input type='text' onChange={this.handleNameChange} value={this.state.unitName}/>
   },
 
+  editStudentsLink: function(){
+    return <Link to={`/units/${this.props.data.unit.id}/students/edit`}>Edit Students</Link>
+  },
+
   handleSubmit: function(){
     const that = this
     $.ajax({
@@ -146,6 +150,7 @@
 				</div>
 				<div className='unit-label row'>
           {this.assignedToText()}
+          {this.editStudentsLink()}
           {this.dueDate()}
 				</div>
 				<div className='table assigned-activities'>
