@@ -1,17 +1,17 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute } from 'react-router'
 import LessonPlanner from './LessonPlanner.jsx'
 import LessonPlannerContainer from './LessonPlannerContainer.jsx'
+import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
 
 export default React.createClass({
-  // <Route path="/units/:unit_id/students/edit" component={Index}/>
-
 	render: function() {
 		return (
-			<Router history={browserHistory}>
-        <Route path="/teachers/classrooms/lesson_planner" component={LessonPlannerContainer}>
-          <IndexRoute component={LessonPlanner}/>
+			<Router >
+        <Route path="/" component={LessonPlannerContainer}>
+					<IndexRoute component={LessonPlanner}/>
+					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
         </Route>
 			</Router>
 		);

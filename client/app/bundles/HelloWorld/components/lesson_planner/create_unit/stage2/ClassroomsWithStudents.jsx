@@ -34,7 +34,7 @@ export default class extends React.Component {
 	}
 
 	ajaxData = () => {
-		return {unit_id: undefined, classroom_activities: this.classroomActivityUpdates()}
+		return {unit_id: this.props.unitId, classroom_activities: this.classroomActivityUpdates()}
 	}
 
 	render() {
@@ -59,7 +59,7 @@ export default class extends React.Component {
 			<div>
 				{classroomList}
 				<UpdateUnitButton showButton={this.props.showSaveButton}
-													putUrl={'/teachers/classroom_activities/'}
+													putUrl={`/teachers/units/${this.props.unitId}/update_classroom_activities`}
 													successCallback={this.resetPage}
 													buttonText={'Update Students'}
 													dataFunc={this.ajaxData}
