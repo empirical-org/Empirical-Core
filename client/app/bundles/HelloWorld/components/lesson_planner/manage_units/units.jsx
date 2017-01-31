@@ -3,7 +3,6 @@
  import React from 'react'
  import _ from 'underscore'
  import Unit from './unit'
- import ClassroomsWithStudentsContainer from '../../../containers/ClassroomsWithStudentsContainer.jsx'
 
  export default React.createClass({
 	render: function () {
@@ -17,10 +16,7 @@
               />);
 		}, this);
 		return (
-			<span>
-        <ClassroomsWithStudentsContainer/>
-				{units}
-			</span>
+			<span>{units}</span>
 		);
 	}
 
