@@ -15,16 +15,13 @@ class UpdateUnitButton extends React.Component {
 
   handleClick() {
     const p = this.props;
-    console.log(p.dataFunc())
-
     const that = this;
     this.setState({loading: true})
     $.ajax({
       type: 'PUT',
-      // contentType: 'application/json',
       dataType: 'json',
       url: p.putUrl,
-      data: {'something': JSON.stringify(p.dataFunc())},
+      data: {'data': JSON.stringify(p.dataFunc())},
       statusCode: {
         200: function(data) {
           that.setState({loading: false}, ()=>p.successCallback())
