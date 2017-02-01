@@ -18,8 +18,50 @@ export default React.createClass({
     this.setState(newState)
   },
 
-  updateActivities() {
 
+  // $.ajax({
+  //   type: 'GET',
+  //   url: `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`,
+  //   data: {unit: {name: that.state.unitName}},
+  //   statusCode: {
+  //     200: function(data) {
+  //       that.setState({loading: false, classrooms: data.classrooms})
+  //       that.selectPreviouslyAssignedStudents()
+  //     },
+  //     422: function(response) {
+  //       that.setState({errors: response.responseJSON.errors,
+  //       loading: false})
+  //     }
+  //   }
+  // })
+
+  getActivityIds(){
+    const ids = [];
+    this.state.selectedActivities.forEach((act)=>ids.push({id: act.id, due_date: null}));
+    return ids
+  },
+
+  updateActivities() {
+    const that = this;
+    $.ajax({
+      type: 'PUT',
+      url: `/teachers/units/${that.props.params.unitId}/update_activities`,
+      data: {
+        data: JSON.stringify({unit_id: that.props.params.unitId,
+                            activities_data: that.getActivityIds()
+                          })
+                        },
+      statusCode: {
+        200: function(data) {
+          that.setState({loading: false, classrooms: data.classrooms})
+          that.selectPreviouslyAssignedStudents()
+        },
+        422: function(response) {
+          that.setState({errors: response.responseJSON.errors,
+          loading: false})
+        }
+      }
+    })
   },
 
   render() {
@@ -27,7 +69,9 @@ export default React.createClass({
                       unitName='placeholder'
                       selectedActivities={[...this.state.selectedActivities]}
                       errorMessage='placeholder'
-                      showNameTheUnit={false}
+                      showNameTheUnit={Boolean(false)}
+                      editing={Boolean(true)}
+                      updateActivities={this.updateActivities}
                       toggleActivitySelection={this.toggleActivitySelection}
           />
   }

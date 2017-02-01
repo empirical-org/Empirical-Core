@@ -36,6 +36,17 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
+  def update_activities
+    data = JSON.parse(params[:data],symbolize_names: true)
+    unit = Unit.find(data[:unit_id])
+    # overlapping_activities = unit.activities.map(&:id) & data[:activities]
+    cas = unit.classroom_activities
+    one_ca_per_classroom =  cas.group_by{|class_act| class_act[:classroom_id] }.values.map{ |ca| ca.first }
+    classrooms_data = one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
+    Units::Updater.run(unit, data[:activities_data], classrooms_data)
+    render json: {}
+  end
+
   def classrooms_with_students_and_classroom_activities
     if Unit.find_by(id: params[:id])
       render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id])}
