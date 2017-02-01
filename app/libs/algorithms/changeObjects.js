@@ -11,10 +11,15 @@ export function checkChangeObjectMatch(userString, responses, stringManipulation
     return matchedErrorType;
   });
   if (matched) {
-    return {
-      response: matched,
-      errorType: matchedErrorType,
-    };
+    const textChanges = getMissingAndAddedString(matched.text, userString);
+    return Object.assign(
+      {},
+      {
+        response: matched,
+        errorType: matchedErrorType,
+      },
+      textChanges
+      );
   }
 }
 
@@ -37,6 +42,18 @@ const getErrorType = (targetString, userString) => {
   } else if (hasDeletions) {
     return ERROR_TYPES.MISSING_WORD;
   }
+};
+
+const getMissingAndAddedString = (targetString, userString) => {
+  const changeObjects = getChangeObjects(targetString, userString);
+  const missingObject = _.where(changeObjects, { removed: true, })[0];
+  const missingText = missingObject ? missingObject.value : undefined;
+  const extraneousObject = _.where(changeObjects, { added: true, })[0];
+  const extraneousText = extraneousObject ? extraneousObject.value : undefined;
+  return {
+    missingText,
+    extraneousText,
+  };
 };
 
 const getChangeObjects = (targetString, userString) => diffWords(targetString, userString);
