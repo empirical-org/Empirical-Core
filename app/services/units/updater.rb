@@ -43,17 +43,12 @@ module Units::Updater
         else
           due_date = activity_data[:due_date] || classroom_activity.due_date
         end
-
-        classroom_activity.update(activity_id: activity_data[:id],
-          due_date: due_date,
-          classroom_id: classroom_id,
-          assigned_student_ids: classroom[:student_ids])
+        classroom_activity.update(due_date: due_date, assigned_student_ids: classroom[:student_ids])
       end
     end
     # necessary activity sessions are created in an after_create and after_save callback
     # in activity_sessions.rb
     # TODO: Assign Activity Worker should be labeled as an analytics worker
-    puts 'it just is that fast'
     AssignActivityWorker.perform_async(unit.user_id)
   end
 
