@@ -265,7 +265,13 @@ export default React.createClass({
 	},
 
 	stage1SpecificComponents: function() {
-		return (<UnitStage1 toggleActivitySelection={this.props.actions.toggleActivitySelection} unitName={this.getUnitName()} updateUnitName={this.updateUnitName} selectedActivities={this.getSelectedActivities()} determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid} errorMessage={this.determineStage1ErrorMessage()} clickContinue={this.clickContinue}/>);
+		return (<UnitStage1
+												toggleActivitySelection={this.props.actions.toggleActivitySelection}
+												unitName={this.getUnitName()} updateUnitName={this.updateUnitName}
+												selectedActivities={this.getSelectedActivities()}
+												determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
+												errorMessage={this.determineStage1ErrorMessage()}
+												clickContinue={this.clickContinue}/>);
 	},
 
 	stage2SpecificComponents: function () {
