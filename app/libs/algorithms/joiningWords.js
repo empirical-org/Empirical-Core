@@ -86,9 +86,11 @@ const data = {
 };
 
 export function getFeedbackForMissingWord(missingWord) {
-  const hit = data[trimMissingWord(missingWord)];
-  if (hit) {
-    return hit.feedback;
+  if (missingWord) {
+    const hit = data[cleanMissingWord(missingWord)];
+    if (hit) {
+      return hit.feedback;
+    }
   }
 }
 
@@ -99,6 +101,6 @@ export function getconceptUIDForMissingWord(missingWord) {
   }
 }
 
-function trimMissingWord(missingWord) {
-  return missingWord.trim();
+function cleanMissingWord(missingWord) {
+  return missingWord.trim().toLowerCase();
 }

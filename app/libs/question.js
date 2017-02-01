@@ -8,6 +8,9 @@ import {
 import {
   spacingBeforePunctuation
 } from './algorithms/spacingBeforePunctuation';
+import {
+  getFeedbackForMissingWord
+} from './algorithms/joiningWords';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
 
 const jsDiff = require('diff');
@@ -139,7 +142,9 @@ export default class Question {
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          const missingWord = changeObjectMatch.missingText;
+          const missingTextFeedback = getFeedbackForMissingWord(missingWord);
+          res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
           res.author = 'Modified Word Hint';
           res.parentID = changeObjectMatch.response.key;
           res.conceptResults = [
@@ -171,8 +176,9 @@ export default class Question {
     if (changeObjectFlexMatch !== undefined) {
       switch (changeObjectFlexMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-
-          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          const missingWord = changeFlexObjectMatch.missingText;
+          const missingTextFeedback = getFeedbackForMissingWord(missingWord);
+          res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
           res.author = 'Flexible Modified Word Hint';
           res.parentID = changeObjectFlexMatch.response.key;
           res.conceptResults = [
