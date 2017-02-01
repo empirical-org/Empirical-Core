@@ -33,4 +33,11 @@ describe('Checking for feedback for missing words', () => {
     const generated = getFeedbackForMissingWord(missingWord);
     expect(generated).toEqual(expected);
   });
+
+  it('can get feedback when because is missing from a sentence when capitalisation is different', () => {
+    const missingWord = 'Because';
+    const expected = 'Revise your work. Which joining word helps tell why or give a reason?';
+    const generated = getFeedbackForMissingWord(missingWord);
+    expect(generated).toEqual(expected);
+  });
 });
