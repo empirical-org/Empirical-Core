@@ -5,6 +5,7 @@
  import ClassroomActivity from './classroom_activity'
  import Pluralize from 'pluralize'
  import {Link} from 'react-router'
+ import AddClassroomActivityRow from './add_classroom_activity_row.jsx'
 
  export default  React.createClass({
   getInitialState: function () {
@@ -155,6 +156,7 @@
 				</div>
 				<div className='table assigned-activities'>
 					{classroomActivities}
+          <AddClassroomActivityRow unitId={this.props.data.unit.id}/>
 				</div>
 			</section>
 		);

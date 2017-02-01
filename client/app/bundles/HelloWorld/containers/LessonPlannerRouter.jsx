@@ -4,6 +4,7 @@ import { Router, Route, IndexRoute } from 'react-router'
 import LessonPlanner from './LessonPlanner.jsx'
 import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
+import EditUnitActivitiesContainer from './EditUnitActivitiesContainer.jsx'
 
 export default React.createClass({
 	render: function() {
@@ -12,6 +13,7 @@ export default React.createClass({
         <Route path="/" component={LessonPlannerContainer}>
 					<IndexRoute component={LessonPlanner}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
+					<Route path="units/:unitId/activities/edit" component={EditUnitActivitiesContainer}/>
         </Route>
 			</Router>
 		);

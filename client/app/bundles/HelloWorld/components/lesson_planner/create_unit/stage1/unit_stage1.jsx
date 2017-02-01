@@ -12,7 +12,8 @@
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,
     errorMessage: React.PropTypes.string,
-    clickContinue: React.PropTypes.func.isRequired
+    clickContinue: React.PropTypes.func.isRequired,
+    showNameTheUnit: React.PropTypes.bool
   },
 
   getInitialState: function () {
@@ -37,7 +38,7 @@
     }
   },
 
-  determineContinueButtonClass: function () {
+  determineCTAButtonClass: function () {
     if (this.props.determineIfInputProvidedAndValid) {
       return 'button-green pull-right';
     } else {
@@ -46,9 +47,10 @@
   },
 
   render: function() {
+    console.log(JSON.stringify(this.props))
     return (
       <span>
-        <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />
+        {this.props.showNameTheUnit ? <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} /> : null}
         <ActivitySearchAndSelect selectedActivities={this.props.selectedActivities}
                                     toggleActivitySelection={this.props.toggleActivitySelection}
                                     clickContinue={this.props.clickContinue}
@@ -56,7 +58,7 @@
                                     errorMessage={this.props.errorMessage} />
         <div className='error-message-and-button'>
           <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
-          <button onClick={this.clickContinue} className={this.determineContinueButtonClass()} id='continue'>Continue</button>
+          <button onClick={this.clickContinue} className={this.determineCTAButtonClass()} id='continue'>Continue</button>
         </div>
         <div className="fake-border"></div>
       </span>
