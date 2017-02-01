@@ -18,23 +18,6 @@ export default React.createClass({
     this.setState(newState)
   },
 
-
-  // $.ajax({
-  //   type: 'GET',
-  //   url: `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`,
-  //   data: {unit: {name: that.state.unitName}},
-  //   statusCode: {
-  //     200: function(data) {
-  //       that.setState({loading: false, classrooms: data.classrooms})
-  //       that.selectPreviouslyAssignedStudents()
-  //     },
-  //     422: function(response) {
-  //       that.setState({errors: response.responseJSON.errors,
-  //       loading: false})
-  //     }
-  //   }
-  // })
-
   getActivityIds(){
     const ids = [];
     this.state.selectedActivities.forEach((act)=>ids.push({id: act.id, due_date: null}));
@@ -47,14 +30,11 @@ export default React.createClass({
       type: 'PUT',
       url: `/teachers/units/${that.props.params.unitId}/update_activities`,
       data: {
-        data: JSON.stringify({unit_id: that.props.params.unitId,
-                            activities_data: that.getActivityIds()
-                          })
-                        },
+        data: JSON.stringify({activities_data: that.getActivityIds()})
+            },
       statusCode: {
         200: function(data) {
-          that.setState({loading: false, classrooms: data.classrooms})
-          that.selectPreviouslyAssignedStudents()
+          window.location = '/teachers/classrooms/lesson_planner'
         },
         422: function(response) {
           that.setState({errors: response.responseJSON.errors,
@@ -66,9 +46,8 @@ export default React.createClass({
 
   render() {
     return <UnitStage1
-                      unitName='placeholder'
                       selectedActivities={[...this.state.selectedActivities]}
-                      errorMessage='placeholder'
+                      errorMessage={this.state.errors}
                       showNameTheUnit={Boolean(false)}
                       editing={Boolean(true)}
                       updateActivities={this.updateActivities}
