@@ -5,7 +5,8 @@ const styles = {
   row: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: '60px'
   }
 }
 
@@ -15,7 +16,7 @@ export default React.createClass({
   render() {
     return (
 			<div className='row' style={styles.row}>
-        <Link to={`/units/${this.props.unitId}/activities/edit`}>Add New Activities</Link>
+        <Link to={`/units/${this.props.unitId}/activities/edit`}>Add More Activities</Link>
 			</div>
 		);
   }
