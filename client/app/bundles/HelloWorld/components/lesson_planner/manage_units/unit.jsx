@@ -63,7 +63,7 @@
       inlineStyle = {paddingTop: '4px'}
     } else {
       classy = 'edit-unit'
-      text = 'Edit'
+      text = 'Edit Name'
     }
 
     return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>
@@ -96,7 +96,7 @@
   },
 
   editStudentsLink: function(){
-    return <Link to={`/units/${this.props.data.unit.id}/students/edit`}>Edit Students</Link>
+    return <Link className='edit-unit' to={`/units/${this.props.data.unit.id}/students/edit`}>Edit Students</Link>
   },
 
   handleSubmit: function(){
@@ -154,10 +154,10 @@
           {this.editStudentsLink()}
           {this.dueDate()}
 				</div>
-				<div className='table assigned-activities'>
-					{classroomActivities}
+        <div className='table assigned-activities'>
+        	{classroomActivities}
           <AddClassroomActivityRow unitId={this.props.data.unit.id}/>
-				</div>
+        </div>
 			</section>
 		);
 	}
