@@ -24,6 +24,7 @@ module Units::Updater
 
   private
 
+
   def self.update_helper(unit, activities_data, classrooms_data)
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
