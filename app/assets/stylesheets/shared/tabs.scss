@@ -8,7 +8,10 @@
         a {
             border-top: 3px solid transparent;
             border-bottom: 1px solid #cecece;
-            padding: 11px 34px;
+            padding-top: 8px;
+            padding-bottom: 11px;
+            padding-left: 34px;
+            padding-right: 34px;
             font-size: 15px;
             height: 46px;
             &.mobile {
@@ -30,9 +33,7 @@
         }
     }
 }
-.nav-tabs {
-    border-bottom: none;
-}
+
 .tab-subnavigation-wrapper {
     padding: 8px 0;
     background: #fff;
