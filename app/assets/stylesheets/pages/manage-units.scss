@@ -48,6 +48,9 @@
     cursor: pointer;
     color: #137779;
   }
+  .delete-classroom-activity {
+    margin-right: 15px;
+  }
   .delete-unit {
     margin-left: auto;
   }
@@ -66,7 +69,6 @@
     font-size: 24px;
   }
   .unit-label {
-    font-weight: bold;
     margin-top: 30px;
     text-align: left !important;
     border-bottom: none;

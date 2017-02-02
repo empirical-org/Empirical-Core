@@ -4,6 +4,7 @@
  import React from 'react'
  import ActivitySearchAndSelect from '../activity_search/activity_search_and_select'
  import NameTheUnit from './name_the_unit'
+ import LoadingIndicator from '../../../shared/loading_indicator.jsx'
 
  export default React.createClass({
   propTypes: {
@@ -20,7 +21,8 @@
 
   getInitialState: function () {
     return {
-      prematureContinueAttempted: false
+      prematureContinueAttempted: false,
+      loading: false
     }
   },
 
@@ -40,9 +42,22 @@
     }
   },
 
+  continueButtonInside: function(){
+    // if (this.state.loading) {
+    //   return <LoadingIndicator/>
+    // } else {
+      return 'Add Activities'
+    // }
+  },
+
+  handleClick: function(){
+    this.props.updateActivities()
+    this.setState({loading: true})
+  },
+
   determineCTAButton: function () {
     if (this.props.editing) {
-      return <button onClick={this.props.updateActivities} className='button-green pull-right' id='continue'>Update</button>
+      return <button onClick={this.handleClick} className='button-green pull-right' id='continue'>{this.continueButtonInside()}</button>
     } else if (this.props.determineIfInputProvidedAndValid) {
       return <button onClick={this.clickContinue} className='button-green pull-right' id='continue'>Continue</button>
     } else {
@@ -53,7 +68,7 @@
   render: function() {
     return (
       <span>
-        {this.props.showNameTheUnit ? <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} /> : null}
+        {this.props.hideNameTheUnit ?  null : <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />}
         <ActivitySearchAndSelect selectedActivities={this.props.selectedActivities}
                                     toggleActivitySelection={this.props.toggleActivitySelection}
                                     clickContinue={this.props.clickContinue}
