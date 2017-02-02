@@ -45,13 +45,19 @@ export default React.createClass({
   },
 
   render() {
-    return <UnitStage1
-                      selectedActivities={[...this.state.selectedActivities]}
-                      errorMessage={this.state.errors}
-                      showNameTheUnit={Boolean(false)}
-                      editing={Boolean(true)}
-                      updateActivities={this.updateActivities}
-                      toggleActivitySelection={this.toggleActivitySelection}
-          />
+    return (
+      <div className='container lesson_planner_main'>
+        <UnitStage1
+                        hideNameTheUnit={Boolean(true)}
+                        selectedActivities={[...this.state.selectedActivities]}
+                        errorMessage={this.state.errors}
+                        showNameTheUnit={Boolean(false)}
+                        unitName={this.state.unitName}
+                        editing={Boolean(true)}
+                        updateActivities={this.updateActivities}
+                        toggleActivitySelection={this.toggleActivitySelection}
+        />
+      </div>
+      )
   }
 })
