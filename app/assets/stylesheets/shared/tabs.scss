@@ -7,6 +7,7 @@
     li {
         a {
             border-top: 3px solid transparent;
+            border-bottom: 1px solid #cecece;
             padding: 11px 34px;
             font-size: 15px;
             height: 46px;
@@ -16,6 +17,16 @@
         }
         &.active a {
             border-top: 3px solid #027360;
+            border-bottom: none;
+            position: relative;
+            &:after {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              height: 4px;
+              width: 100%;
+              background-color: black;
+            }
         }
     }
 }
@@ -26,7 +37,6 @@
     padding: 8px 0;
     background: #fff;
     border-bottom: 1px solid #cecece;
-    border-top: 1px solid #cecece;
     min-height: 48px;
     ul {
         padding: 0;
