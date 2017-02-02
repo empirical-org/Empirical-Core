@@ -56,11 +56,12 @@ export default class extends React.Component {
 			// TODO: make this a message that they don't have any classrooms
 			classroomList = []
 		}
-
     return (
 			<div>
+				<h2 className='edit-students-h2'>Edit Students for {this.props.unitName}</h2>
 				{classroomList}
-				<UpdateUnitButton showButton={this.props.showSaveButton}
+				<UpdateUnitButton enabled={this.props.saveButtonEnabled}
+													disabledText={'Edit Students To Save'}
 													putUrl={`/teachers/units/${this.props.unitId}/update_classroom_activities_assigned_students`}
 													successCallback={this.resetPage}
 													buttonText={'Update Students'}
