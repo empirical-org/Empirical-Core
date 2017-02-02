@@ -138,6 +138,16 @@ export default class Question {
       ];
       return returnValue;
     }
+    const whitespaceMatch = this.checkWhiteSpaceMatch(response);
+    if (whitespaceMatch !== undefined) {
+      res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
+      res.author = 'Whitespace Hint';
+      res.parentID = whitespaceMatch.key;
+      res.conceptResults = [
+        conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
+      ];
+      return returnValue;
+    }
     const changeObjectMatch = this.checkChangeObjectRigidMatch(response);
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
@@ -206,16 +216,6 @@ export default class Question {
         default:
           return;
       }
-    }
-    const whitespaceMatch = this.checkWhiteSpaceMatch(response);
-    if (whitespaceMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
-      res.author = 'Whitespace Hint';
-      res.parentID = whitespaceMatch.key;
-      res.conceptResults = [
-        conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
-      ];
-      return returnValue;
     }
     const requiredWordsMatch = this.checkRequiredWordsMatch(response);
     if (requiredWordsMatch !== undefined) {
