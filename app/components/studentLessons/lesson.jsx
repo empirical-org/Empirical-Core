@@ -61,8 +61,8 @@ const Lesson = React.createClass({
     this.setState({ sessionID, }, () => {
       if (sessionID) {
         SessionActions.get(this.state.sessionID, (data) => {
-          this.setState({session: data});
-        })
+          this.setState({ session: data, });
+        });
       }
     });
   },
@@ -73,6 +73,7 @@ const Lesson = React.createClass({
   },
 
   saveToLMS() {
+    this.setState({ error: false, });
     const results = getConceptResultsForAllQuestions(this.props.playLesson.answeredQuestions);
     console.log(results);
     const score = calculateScoreForLesson(this.props.playLesson.answeredQuestions);
@@ -103,6 +104,11 @@ const Lesson = React.createClass({
           SessionActions.delete(this.state.sessionID);
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
           this.setState({ saved: true, });
+        } else {
+          this.setState({
+            saved: false,
+            error: true,
+          });
         }
       }
     );
@@ -225,6 +231,8 @@ const Lesson = React.createClass({
             name={this.state.sessionID}
             lessonID={this.props.params.lessonID}
             saveToLMS={this.saveToLMS}
+            saved={this.state.saved}
+            error={this.state.error}
           />
         );
       } else {
