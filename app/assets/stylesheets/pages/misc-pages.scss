@@ -11,6 +11,13 @@
 	}
 	p {
 		margin-top: 3%;
+		&.mission-paragraph {
+			font-size: 16px;
+			line-height: 1.8;
+		}
+		&:not(.mission-paragraph) {
+			font-size: 16px;
+		}
 	}
 
 	.accordion-heading {
@@ -51,4 +58,13 @@
 
 .pages-stats {
 	background-color: #F0F0F0;
+}
+
+.white-background {
+	background-color: #FFFFFF;
+	width: 100%;
+}
+
+.white-page {
+	background-color: #FFFFFF;
 }
