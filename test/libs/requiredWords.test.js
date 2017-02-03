@@ -29,6 +29,8 @@ describe('Finding the common words in multiple sentences', () => {
       'the',
       'park'
     ];
+    console.log('Expected: ', expected);
+    console.log('Gen: ', getCommonWords(sentences));
     expect(getCommonWords(sentences)).toEqual(expected);
   });
 });
@@ -142,5 +144,12 @@ describe('Finding the common words in multiple sentences', () => {
     console.log('Miss words, ', missingWords[0]);
     const feedback = getFeedbackForWord(missingWords[0], sentences);
     expect(feedback).toEqual(expected);
+  });
+
+  it('returns the ignores semi colons when splitting words', () => {
+    const expected = [
+    ];
+    const userSemi = 'The woman in the next; room is the teacher.';
+    expect(getMissingWordsFromResponses(userSemi, extractSentencesFromResponses(responses))).toEqual(expected);
   });
 });
