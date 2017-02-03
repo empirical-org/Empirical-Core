@@ -15,13 +15,6 @@ class UpdateUnitButton extends React.Component {
     errors: ''
   }
 
-  buttonText() {
-    if (this.state.loading) {
-      return <span>{this.props.buttonText} <AssigningIndicator/></span>
-    } else
-      return this.props.buttonText
-  }
-
   handleClick() {
     const p = this.props;
     const that = this;
@@ -44,10 +37,19 @@ class UpdateUnitButton extends React.Component {
   }
 
 	render() {
-    const button = this.props.showButton ? <a className="q-button cta-button bg-quillgreen text-white" onClick={this.handleClick}>{this.buttonText()}</a> : null
+    let text, color, clickHandler;
+    if (this.props.enabled && !this.state.loading) {
+      text = this.props.buttonText;
+      color = 'quillgreen';
+      clickHandler = this.handleClick
+    } else {
+      text = this.state.loading ? <span>Saving <AssigningIndicator /> </span>: this.props.disabledText;
+      color = 'lightgray';
+      clickHandler = null
+    }
     return (
       <div>
-        {button}
+        <a className={`q-button cta-button bg-${color} text-white`} onClick={clickHandler}>{text}</a>
         <span className="errors">{this.state.errors}</span>
       </div>
     )

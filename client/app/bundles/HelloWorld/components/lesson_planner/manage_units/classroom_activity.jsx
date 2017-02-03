@@ -8,7 +8,8 @@ const styles = {
 	row: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		alignItems: 'center'
+		alignItems: 'center',
+  	paddingLeft: '38px'
 	},
 
 }
@@ -49,7 +50,7 @@ export default React.createClass({
 
   deleteRow:function(){
     if (!this.props.report) {
-      return <div className="pull-right icon-x-gray" onClick={this.deleteClassroomActivity}><i className="fa fa-trash" aria-hidden="true"></i></div>
+      return <div className="pull-right"><img className='delete-classroom-activity h-pointer' onClick={this.deleteClassroomActivity} src="/images/x.svg"/></div>
     }
   },
 

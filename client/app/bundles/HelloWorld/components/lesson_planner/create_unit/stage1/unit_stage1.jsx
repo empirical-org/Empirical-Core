@@ -4,6 +4,7 @@
  import React from 'react'
  import ActivitySearchAndSelect from '../activity_search/activity_search_and_select'
  import NameTheUnit from './name_the_unit'
+ import LoadingIndicator from '../../../shared/loading_indicator.jsx'
 
  export default React.createClass({
   propTypes: {
@@ -12,12 +13,15 @@
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,
     errorMessage: React.PropTypes.string,
-    clickContinue: React.PropTypes.func.isRequired
+    clickContinue: React.PropTypes.func.isRequired,
+    editing: React.PropTypes.bool,
+    updateActivities: React.PropTypes.func
   },
 
   getInitialState: function () {
     return {
-      prematureContinueAttempted: false
+      prematureContinueAttempted: false,
+      loading: false
     }
   },
 
@@ -37,18 +41,43 @@
     }
   },
 
-  determineContinueButtonClass: function () {
-    if (this.props.determineIfInputProvidedAndValid) {
-      return 'button-green pull-right';
+  continueButtonInside: function(){
+    // if (this.state.loading) {
+    //   return <LoadingIndicator/>
+    // } else {
+      return 'Add Activities'
+    // }
+  },
+
+  handleClick: function(){
+    this.props.updateActivities()
+    this.setState({loading: true})
+  },
+
+  determineCTAButton: function () {
+    if (this.props.editing) {
+      return <button onClick={this.handleClick} className='button-green pull-right' id='continue'>{this.continueButtonInside()}</button>
+    } else if (this.props.determineIfInputProvidedAndValid) {
+      return <button onClick={this.clickContinue} className='button-green pull-right' id='continue'>Continue</button>
     } else {
-      return 'button-grey pull-right';
+      return <button onClick={this.clickContinue} className='button-grey pull-right' id='continue'>Continue</button>
     }
   },
+
+  nameComponent: function(){
+    if (!this.props.hideNameTheUnit) {
+      return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />
+    } else if (this.props.unitName) {
+      return <h2 className='edit-activities-h2'>Edit Activites In {this.props.unitName}</h2>
+    }
+  },
+
+
 
   render: function() {
     return (
       <span>
-        <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />
+        {this.nameComponent()}
         <ActivitySearchAndSelect selectedActivities={this.props.selectedActivities}
                                     toggleActivitySelection={this.props.toggleActivitySelection}
                                     clickContinue={this.props.clickContinue}
@@ -56,7 +85,7 @@
                                     errorMessage={this.props.errorMessage} />
         <div className='error-message-and-button'>
           <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
-          <button onClick={this.clickContinue} className={this.determineContinueButtonClass()} id='continue'>Continue</button>
+          {this.determineCTAButton()}
         </div>
         <div className="fake-border"></div>
       </span>

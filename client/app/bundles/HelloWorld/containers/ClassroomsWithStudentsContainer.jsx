@@ -94,7 +94,7 @@ export default class extends React.Component {
 	// 	// @TODO if (window.location.pathname.includes('edit')) {
 			this.state.classrooms.forEach((classy, classroomIndex) => {
 				if (classy.classroom_activity) {
-						if (classy.classroom_activity.assigned_student_ids.length > 0) {
+						if (classy.classroom_activity.assigned_student_ids && classy.classroom_activity.assigned_student_ids.length > 0) {
 							classy.classroom_activity.assigned_student_ids.forEach((studId) => {
 								let studIndex = this.findTargetStudentIndex(studId, classroomIndex);
 								this.toggleStudentSelection(studIndex, classroomIndex)
@@ -114,10 +114,9 @@ export default class extends React.Component {
 		$.ajax({
 			type: 'GET',
 			url: `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`,
-			data: {unit: {name: that.state.unitName}},
 			statusCode: {
 				200: function(data) {
-					that.setState({loading: false, classrooms: data.classrooms})
+					that.setState({loading: false, classrooms: data.classrooms, unitName: data.unit_name})
 					that.selectPreviouslyAssignedStudents()
 				},
 				422: function(response) {
@@ -132,13 +131,16 @@ export default class extends React.Component {
 		if (this.state.loading) {
 			return <LoadingIndicator/>
 		} else if (this.state.classrooms) {
-			return <ClassroomsWithStudents
+			return (<div className='container lesson_planner_main edit-assigned-students-container'>
+								<ClassroomsWithStudents
 									unitId={this.props.params.unitId}
+									unitName={this.state.unitName}
 									classrooms={this.state.classrooms}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
 									toggleClassroomSelection={this.toggleClassroomSelection}
-									showSaveButton={this.state.studentsChanged}
+									saveButtonEnabled={this.state.studentsChanged}
 									/>
+							</div>)
 		} else {
 			return <div>You must first add a classroom.</div>
 		}

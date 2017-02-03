@@ -5,6 +5,7 @@
  import ClassroomActivity from './classroom_activity'
  import Pluralize from 'pluralize'
  import {Link} from 'react-router'
+ import AddClassroomActivityRow from './add_classroom_activity_row.jsx'
 
  export default  React.createClass({
   getInitialState: function () {
@@ -62,7 +63,7 @@
       inlineStyle = {paddingTop: '4px'}
     } else {
       classy = 'edit-unit'
-      text = 'Edit'
+      text = 'Edit Name'
     }
 
     return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>
@@ -95,7 +96,7 @@
   },
 
   editStudentsLink: function(){
-    return <Link to={`/units/${this.props.data.unit.id}/students/edit`}>Edit Students</Link>
+    return <Link className='edit-unit' to={`/units/${this.props.data.unit.id}/students/edit`}>Edit Students</Link>
   },
 
   handleSubmit: function(){
@@ -141,7 +142,7 @@
 		}, this);
 		return (
 			<section >
-				<div className='row unit-header-row'>
+				<div className='row unit-header-row' id={this.props.data.unit.id}>
           <span className="unit-name">
             {this.showOrEditName()}
           </span>
@@ -153,9 +154,10 @@
           {this.editStudentsLink()}
           {this.dueDate()}
 				</div>
-				<div className='table assigned-activities'>
-					{classroomActivities}
-				</div>
+        <div className='table assigned-activities'>
+        	{classroomActivities}
+          <AddClassroomActivityRow unitId={this.props.data.unit.id} unitName={this.props.data.unit.name}/>
+        </div>
 			</section>
 		);
 	}
