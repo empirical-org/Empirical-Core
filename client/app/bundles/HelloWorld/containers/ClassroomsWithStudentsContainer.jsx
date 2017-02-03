@@ -94,7 +94,7 @@ export default class extends React.Component {
 	// 	// @TODO if (window.location.pathname.includes('edit')) {
 			this.state.classrooms.forEach((classy, classroomIndex) => {
 				if (classy.classroom_activity) {
-						if (classy.classroom_activity.assigned_student_ids.length > 0) {
+						if (classy.classroom_activity.assigned_student_ids && classy.classroom_activity.assigned_student_ids.length > 0) {
 							classy.classroom_activity.assigned_student_ids.forEach((studId) => {
 								let studIndex = this.findTargetStudentIndex(studId, classroomIndex);
 								this.toggleStudentSelection(studIndex, classroomIndex)
