@@ -7,7 +7,7 @@
  import naturalCmp from 'underscore.string/naturalCmp'
  import FilterButton from './filter_button.jsx'
 
- export default  React.createClass({ 
+ export default  React.createClass({
 
    componentWillReceiveProps: function (nextProps) {
      if (!nextProps.activeFilterOn) {
@@ -49,10 +49,10 @@
     var field = this.props.data.field;
 		return _.map(options, function (option) {
       if (field === 'activity_classification') {
-        return (<FilterButton key={option.name} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id}/>);
+        return (<FilterButton key={option.key} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id}/>);
       }
 			return (
-          <FilterOption key={option.name} selectFilterOption={that.selectFilterOption} data={option} />
+          <FilterOption key={option.key} selectFilterOption={that.selectFilterOption} data={option} />
 			);
 		}, this);
     // let optionsWithSearch = [];
