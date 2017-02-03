@@ -1,0 +1,29 @@
+<%= render partial: 'pages/shared/pages_tabs' %>
+
+<div class="white-background">
+  <div class="container pages-container team.white-page>
+
+
+  <h3 class="page-subtitle2"></h3>
+    <% team_info.each do |team_type| %>
+      <div class="row">
+        <h3> <%= team_type[:team] %> </h3>
+        <% team_type[:members].in_groups_of(3) do |people| %>
+          <div class="row">
+            <% people.each do |person| %>
+              <% if person %>
+                <div class="col-md-4 col-xs-1 team_section">
+                  <%= image_tag person[:img] %>
+                  <h4> <%= person[:name] %> </h4>
+                  <p> <%= person[:title] %> </p>
+                  <p> <%= person[:desc] %> </p>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <% end %>
+
+  </div>
+</div>
