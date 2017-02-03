@@ -9,9 +9,10 @@ import EditUnitActivitiesContainer from './EditUnitActivitiesContainer.jsx'
 export default React.createClass({
 	render: function() {
 		return (
-			<Router >
+			<Router>
         <Route path="/" component={LessonPlannerContainer}>
 					<IndexRoute component={LessonPlanner}/>
+					<Route path="/tab/:tab" component={LessonPlanner}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>
         </Route>

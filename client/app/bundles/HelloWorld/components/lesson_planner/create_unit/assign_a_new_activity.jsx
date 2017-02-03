@@ -57,7 +57,7 @@ render: function(){
   return(
     <div id='assign-new-activity-page' className='text-center'>
       <h1>Choose which type of assignment you'd like to use:</h1>
-    <div className='minis'>{this.minis()}</div>
+      <div className='minis'>{this.minis()}</div>
     </div>
   )
 }
