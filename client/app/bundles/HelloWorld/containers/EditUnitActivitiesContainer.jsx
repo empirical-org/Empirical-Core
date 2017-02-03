@@ -1,5 +1,6 @@
 import React from 'React'
 import UnitStage1 from '../components/lesson_planner/create_unit/stage1/unit_stage1.jsx'
+import $ from 'jquery'
 
 
 export default React.createClass({
@@ -46,13 +47,12 @@ export default React.createClass({
 
   render() {
     return (
-      <div className='container lesson_planner_main'>
+      <div className='container lesson_planner_main edit-assigned-activities-container'>
         <UnitStage1
+                        unitName={this.props.params.unitName}
                         hideNameTheUnit={Boolean(true)}
                         selectedActivities={[...this.state.selectedActivities]}
                         errorMessage={this.state.errors}
-                        showNameTheUnit={Boolean(false)}
-                        unitName={this.state.unitName}
                         editing={Boolean(true)}
                         updateActivities={this.updateActivities}
                         toggleActivitySelection={this.toggleActivitySelection}

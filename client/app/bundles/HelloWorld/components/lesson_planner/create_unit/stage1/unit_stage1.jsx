@@ -14,7 +14,6 @@
     toggleActivitySelection: React.PropTypes.func.isRequired,
     errorMessage: React.PropTypes.string,
     clickContinue: React.PropTypes.func.isRequired,
-    showNameTheUnit: React.PropTypes.bool,
     editing: React.PropTypes.bool,
     updateActivities: React.PropTypes.func
   },
@@ -65,10 +64,20 @@
     }
   },
 
+  nameComponent: function(){
+    if (!this.props.hideNameTheUnit) {
+      return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />
+    } else if (this.props.unitName) {
+      return <h2 className='edit-activities-h2'>Edit Activites In {this.props.unitName}</h2>
+    }
+  },
+
+
+
   render: function() {
     return (
       <span>
-        {this.props.hideNameTheUnit ?  null : <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />}
+        {this.nameComponent()}
         <ActivitySearchAndSelect selectedActivities={this.props.selectedActivities}
                                     toggleActivitySelection={this.props.toggleActivitySelection}
                                     clickContinue={this.props.clickContinue}

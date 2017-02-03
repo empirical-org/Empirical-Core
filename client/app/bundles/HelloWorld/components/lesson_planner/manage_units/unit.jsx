@@ -142,7 +142,7 @@
 		}, this);
 		return (
 			<section >
-				<div className='row unit-header-row'>
+				<div className='row unit-header-row' id={this.props.data.unit.id}>
           <span className="unit-name">
             {this.showOrEditName()}
           </span>
@@ -156,7 +156,7 @@
 				</div>
         <div className='table assigned-activities'>
         	{classroomActivities}
-          <AddClassroomActivityRow unitId={this.props.data.unit.id}/>
+          <AddClassroomActivityRow unitId={this.props.data.unit.id} unitName={this.props.data.unit.name}/>
         </div>
 			</section>
 		);

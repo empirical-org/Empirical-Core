@@ -11,12 +11,18 @@ const styles = {
 }
 
 
+
+
 export default React.createClass({
+  unitNameURIString() {
+     return this.props.unitName ? `/${encodeURIComponent(this.props.unitName)}` : '';
+  },
+
 
   render() {
     return (
 			<div className='row' style={styles.row}>
-        <Link to={`/units/${this.props.unitId}/activities/edit`}>Add More Activities</Link>
+        <Link to={`/units/${this.props.unitId}/activities/edit${this.unitNameURIString()}`}>Add More Activities</Link>
 			</div>
 		);
   }
