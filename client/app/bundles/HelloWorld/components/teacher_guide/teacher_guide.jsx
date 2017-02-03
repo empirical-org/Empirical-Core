@@ -19,10 +19,10 @@ export default React.createClass({
             state.dashboard = true;
             state.className = 'mini_container results-overview-mini-container col-md-8 col-sm-10 text-center';
             state.id = 'getting-started-mini';
+            state.display = false;
         } else {
             state.checkboxData = this.props.checkboxData;
         }
-        state.display = false;
         return state;
     },
 
@@ -89,6 +89,7 @@ export default React.createClass({
     },
 
     render: function() {
+
       if (this.state.display === false) {
         return <span/>
       }
