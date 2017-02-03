@@ -78,10 +78,10 @@ export function getPOSForWord(word) {
 }
 
 function _getCaseSensitiveWord(word, optimalSentence) {
-  const normalizedString = removePunctuation(optimalSentence)
-  const normalizedStringPlusLower = normalizeString(optimalSentence)
-  const startIndex = normalizedStringPlusLower.indexOf(word)
-  return normalizedString.substring(startIndex, word.length + startIndex)
+  const normalizedString = removePunctuation(optimalSentence);
+  const normalizedStringPlusLower = normalizeString(optimalSentence);
+  const startIndex = normalizedStringPlusLower.indexOf(word);
+  return normalizedString.substring(startIndex, word.length + startIndex);
 }
 
 export function getFeedbackForWord(word, sentences) {
@@ -95,7 +95,8 @@ export function extractSentencesFromResponses(responses) {
 }
 
 export function getMissingWordsFromResponses(userString, sentences) {
-  return getMissingWords(userString, sentences);
+  const missingWords = getMissingWords(userString, sentences);
+  return _.sortBy(missingWords, word => word.length).reverse();
 }
 
 export function checkForMissingWords(userString, responses) {
@@ -106,10 +107,10 @@ export function checkForMissingWords(userString, responses) {
   }
 }
 
-function normalizeString(string='') {
-  return string.replace(/[.,?!]/g, '').toLowerCase();
+function normalizeString(string = '') {
+  return string.replace(/[.,?!;]/g, '').toLowerCase();
 }
 
-function removePunctuation(string='') {
-  return string.replace(/[.,?!]/g, '')
+function removePunctuation(string = '') {
+  return string.replace(/[.,?!;]/g, '');
 }
