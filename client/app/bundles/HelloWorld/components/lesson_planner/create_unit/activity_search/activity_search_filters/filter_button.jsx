@@ -18,7 +18,7 @@ export default  React.createClass({
   },
 
   iconType: function() {
-    let type = this.props.data.name;
+    let type = this.props.data.key;
     if (type === 'passage') {
       type = 'flag';
     } else if (type === 'sentence') {
@@ -28,7 +28,7 @@ export default  React.createClass({
   },
 
   description: function() {
-    switch(this.props.data.name) {
+    switch(this.props.data.key) {
     case 'connect':
         return 'Combine Sentences';
     case 'sentence':
