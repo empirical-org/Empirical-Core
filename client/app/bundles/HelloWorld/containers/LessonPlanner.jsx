@@ -62,6 +62,7 @@ export default React.createClass({
 	},
 
 	getInitialState: function() {
+		debugger
 		this.modules = {
 			fnl: new fnl,
 			updaterGenerator: new updaterGenerator(this),

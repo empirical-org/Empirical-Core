@@ -13,7 +13,7 @@ export default React.createClass({
         <Route path="/" component={LessonPlannerContainer}>
 					<IndexRoute component={LessonPlanner}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
-					<Route path="units/:unitId/activities/edit" component={EditUnitActivitiesContainer}/>
+					<Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>
         </Route>
 			</Router>
 		);

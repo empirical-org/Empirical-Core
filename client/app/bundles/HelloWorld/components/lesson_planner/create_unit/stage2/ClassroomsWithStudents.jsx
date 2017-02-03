@@ -5,7 +5,7 @@ import UpdateUnitButton from './update_unit_button.jsx'
 export default class extends React.Component {
 
 	resetPage() {
-		window.location = '/teachers/classrooms/lesson_planner'
+		window.location = `/teachers/classrooms/lesson_planner#${this.props.unitId}`
 	}
 
 	classroomActivityUpdates() {

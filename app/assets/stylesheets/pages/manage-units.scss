@@ -28,7 +28,6 @@
   padding-top: 80px;
   section {
     border-bottom: none;
-    border-top: 1px solid #cecece;
   }
   .unit-header-row, .unit-label-row {
     display: -webkit-box;
@@ -49,7 +48,7 @@
     color: #137779;
   }
   .delete-classroom-activity {
-    margin-right: 15px;
+    margin-right: 11px;
   }
   .delete-unit {
     margin-left: auto;
@@ -67,6 +66,9 @@
     padding-right: 10px;
     font-weight: 500;
     font-size: 24px;
+    input {
+      min-width: 300px;
+    }
   }
   .unit-label {
     margin-top: 30px;
@@ -87,7 +89,7 @@
     }
   }
   .due-date-header {
-    padding-right: 14.5%;
+    padding-right: 9.5%;
     float: right;
   }
   .due-date-input {
