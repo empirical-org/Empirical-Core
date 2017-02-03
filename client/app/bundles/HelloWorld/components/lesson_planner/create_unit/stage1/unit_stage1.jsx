@@ -5,6 +5,8 @@
  import ActivitySearchAndSelect from '../activity_search/activity_search_and_select'
  import NameTheUnit from './name_the_unit'
  import LoadingIndicator from '../../../shared/loading_indicator.jsx'
+ import AssigningIndicator from '../../../shared/assigning_indicator'
+
 
  export default React.createClass({
   propTypes: {
@@ -42,11 +44,11 @@
   },
 
   continueButtonInside: function(){
-    // if (this.state.loading) {
-    //   return <LoadingIndicator/>
-    // } else {
+    if (this.state.loading) {
+      return <span>Saving <AssigningIndicator /></span>
+    } else {
       return 'Add Activities'
-    // }
+    }
   },
 
   handleClick: function(){
