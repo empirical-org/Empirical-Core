@@ -87,7 +87,7 @@ export default React.createClass({
               that.props.closeModal('because class added');
             }
             else if (that.props.hasClassroomActivities === false) {
-              window.location.assign(`/teachers/classrooms/lesson_planner?tab=exploreActivityPacks&grade=${that.state.classroom.grade}`);
+              window.location.assign(`/teachers/classrooms/activity_planner?tab=exploreActivityPacks&grade=${that.state.classroom.grade}`);
             }
             else if (data.toInviteStudents) {
               window.location.assign('/teachers/classrooms/invite_students');
