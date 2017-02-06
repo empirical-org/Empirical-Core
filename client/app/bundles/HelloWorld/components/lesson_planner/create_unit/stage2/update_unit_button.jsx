@@ -14,24 +14,30 @@ class UpdateUnitButton extends React.Component {
   }
 
   handleClick() {
+    this.setState({errors: []})
     const p = this.props;
-    const that = this;
-    this.setState({loading: true})
-    $.ajax({
-      type: 'PUT',
-      dataType: 'json',
-      url: p.putUrl,
-      data: {'data': JSON.stringify(p.dataFunc())},
-      statusCode: {
-        200: function(data) {
-          that.setState({loading: false}, ()=>p.successCallback())
-        },
-        422: function(response) {
-          that.setState({errors: response.responseJSON.errors,
-          loading: false})
+    const data = p.dataFunc()
+    if (data.classrooms_data.errors) {
+      this.setState({errors: data.classrooms_data.errors})
+    } else {
+      const that = this;
+      this.setState({loading: true})
+      $.ajax({
+        type: 'PUT',
+        dataType: 'json',
+        url: p.putUrl,
+        data: {'data': JSON.stringify(data)},
+        statusCode: {
+          200: function() {
+            p.successCallback()
+          },
+          422: function(response) {
+            that.setState({errors: response.responseJSON.errors,
+            loading: false})
+          }
         }
-      }
-    })
+      })
+    }
   }
 
 	render() {

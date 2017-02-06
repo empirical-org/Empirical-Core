@@ -53,16 +53,17 @@ export default class extends React.Component {
 	// }
 	// this would allow us to iterate over the assigned_student_ids
 	// and then change the students to selected/not selected based off of the results
+	//
 	toggleStudentSelection = (studentIndex, classIndex) => {
 		const newState = Object.assign({}, this.state);
 		const classy = newState.classrooms[classIndex]
 	  let selectedStudent = classy.students[studentIndex]
 		selectedStudent.isSelected = !selectedStudent.isSelected;
-		if (newState.studentsChanged)
-			if (selectedStudent.isSelected) {
-				classy.allSelected = this.checkIfAllAssigned(classy)
-			} else {
-				classy.allSelected = false
+		// we check to see if something has changed because this method gets called when the page loads
+		// as well as when a student's checkbox is clicked
+		if (newState.studentsChanged) {
+			const selectedCount = this.countAssigned(classy)
+			this.updateAllOrNoneAssigned(classy, selectedCount)
 			}
 		this.setState(newState)
 	}
@@ -82,38 +83,51 @@ export default class extends React.Component {
 		const classroom = newState.classrooms[classIndex];
 		classroom.edited = true;
 		classroom.allSelected = !classroom.allSelected;
+		classroom.noneSelected = !classroom.allSelected
 		classroom.students.forEach((stud)=>stud.isSelected=classroom.allSelected);
 		newState.studentsChanged = true;
 		this.setState(newState, console.log(this.state.classrooms));
 	}
-
-	// it is not the case that there are some students that are not selected
-	checkIfAllAssigned = classy => !classy.students.some(stud => !stud.isSelected)
 
 	selectPreviouslyAssignedStudents() {
 	// 	// @TODO if (window.location.pathname.includes('edit')) {
 		const newState = Object.assign({}, this.state);
 			newState.classrooms.forEach((classy, classroomIndex) => {
 				const ca = classy.classroom_activity
+				let selectedCount = 0;
 				if (ca) {
-						let count = 0;
 						if (ca.assigned_student_ids && ca.assigned_student_ids.length > 0) {
 							ca.assigned_student_ids.forEach((studId) => {
 								let studIndex = this.findTargetStudentIndex(studId, classroomIndex);
 								this.toggleStudentSelection(studIndex, classroomIndex)
-								count += 1;
+								selectedCount += 1;
 							})
 						} else {
 							classy.students.forEach((stud, studIndex) => {
 								this.toggleStudentSelection(studIndex, classroomIndex)
-								count += 1;
+								selectedCount += 1;
 						})
 					}
-					classy.allSelected = count === classy.students.length
 				}
+				this.updateAllOrNoneAssigned(classy, selectedCount)
 			})
 			this.setState(newState)
 	}
+
+	updateAllOrNoneAssigned(classy, selectedCount) {
+		if (selectedCount === classy.students.length) {
+			classy.allSelected = true
+			classy.noneSelected = false
+		} else if (selectedCount === 0) {
+			classy.noneSelected = true
+			classy.allSelected = false
+		} else {
+			classy.allSelected = false
+			classy.noneSelected = false
+		}
+	}
+
+	countAssigned = classy => classy.students.filter((student) => student.isSelected).length
 
 	getClassroomsAndStudentsData() {
 		const that = this;

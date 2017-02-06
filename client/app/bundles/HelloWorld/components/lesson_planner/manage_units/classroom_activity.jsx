@@ -9,7 +9,6 @@ const styles = {
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-  	paddingLeft: '38px'
 	},
 
 }
