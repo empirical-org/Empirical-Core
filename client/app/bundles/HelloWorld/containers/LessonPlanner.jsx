@@ -343,15 +343,9 @@ export default React.createClass({
 		// entirely to react-router for managing that, along with redux for
 		// the general state in this section
 		const tabParam = this.props.params.tab
-		// let manageUnits, createUnit
-		// if (tabParam === 'manage-units') {
-		// 	manageUnits = true
-		// } else if (tabparam === 'createUnit') {
-		// 	createUnit = true
-		// }
-		if (this.state.unitTemplatesManager.assignSuccess === true) {
+		if (this.state.unitTemplatesManager.assignSuccess === true && !tabParam) {
 			tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
-		} else if (this.state.tab == 'createUnit') {
+		} else if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
 			tabSpecificComponents = <CreateUnit data={{
 				createUnitData: this.state.createUnit,
 				assignSuccessData: this.state.unitTemplatesManager.model
@@ -363,14 +357,14 @@ export default React.createClass({
 					toggleActivitySelection: this.toggleActivitySelection,
 					assignSuccessActions: this.unitTemplatesAssignedActions()
 				}} analytics={this.analytics()}/>;
-		} else if ((tabParam === 'assign-new-activity') || this.state.tab === 'assignANewActivity') {
+		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
 			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
-		} else if ((tabParam === 'manage-units') || this.state.tab == 'manageUnits') {
+		} else if ((tabParam === 'manage-units') || (this.state.tab == 'manageUnits' && !tabParam)) {
 			tabSpecificComponents = <ManageUnits actions={{
 			 toggleTab: this.toggleTab,
 			 editUnit: this.editUnit
 		 }}/>;
-		} else if (this.state.tab == 'exploreActivityPacks') {
+ 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
 			tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		}
 

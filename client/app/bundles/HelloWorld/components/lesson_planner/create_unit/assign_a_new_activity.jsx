@@ -25,30 +25,32 @@ export default React.createClass({
             timeDuration={'~20 Min.'}
             />
           </a>,
-          <AssignmentTypeMini
-            key={2}
-            toggleTab={this.props.toggleTab}
-            toggleTarget={'exploreActivityPacks'}
-            title={'Featured Activity Packs'}
-            img={'/images/featured_activity_pack_icon.png'}
-            bodyText={'Quickly assign packs of activities created by experienced educators.'}
-            directions={'use continuously'}
-            routeToGetQuantity={'/count/featured_packs'}
-            unit={'Pack'}
-            timeDuration={'~1 Hour'}
-          />,
-          <AssignmentTypeMini
-            key={3}
-            toggleTab={this.props.toggleTab}
-            toggleTarget={'createUnit'}
-            title={'Custom Activity Packs'}
-            img={'/images/custom_activity_pack_icon.svg'}
-            bodyText={'Browse through our entire library of activities and create a custom sequence.'}
-            directions={'use continuously'}
-            routeToGetQuantity={'/count/activities'}
-            unit={'Activity'}
-            timeDuration={'~10 Min.'}
-          />
+          <a key={2} href='/teachers/classrooms/lesson_planner#/tab/featured-activity-packs'>
+            <AssignmentTypeMini
+              toggleTab={this.props.toggleTab}
+              toggleTarget={'exploreActivityPacks'}
+              title={'Featured Activity Packs'}
+              img={'/images/featured_activity_pack_icon.png'}
+              bodyText={'Quickly assign packs of activities created by experienced educators.'}
+              directions={'use continuously'}
+              routeToGetQuantity={'/count/featured_packs'}
+              unit={'Pack'}
+              timeDuration={'~1 Hour'}
+            />
+          </a>,
+          <a key key={3} href='/teachers/classrooms/lesson_planner#/tab/create-unit'>
+            <AssignmentTypeMini
+              toggleTab={this.props.toggleTab}
+              toggleTarget={'createUnit'}
+              title={'Custom Activity Packs'}
+              img={'/images/custom_activity_pack_icon.svg'}
+              bodyText={'Browse through our entire library of activities and create a custom sequence.'}
+              directions={'use continuously'}
+              routeToGetQuantity={'/count/activities'}
+              unit={'Activity'}
+              timeDuration={'~10 Min.'}
+            />
+          </a>
         ]
       return minis
 },
