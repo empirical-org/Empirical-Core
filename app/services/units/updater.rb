@@ -30,12 +30,13 @@ module Units::Updater
     # create all necessary activity sessions
     classrooms_data.each do |classroom|
       product = activities_data.product([classroom[:id].to_i])
+
       product.each do |pair|
         activity_data, classroom_id = pair
         classroom_activity = unit.classroom_activities.find_or_initialize_by(activity_id: activity_data[:id], classroom_id: classroom_id)
         if classroom[:student_ids] === false
           classroom_activity.update(visible: false)
-          return
+          next
         end
 
         if classroom_activity.new_record?
