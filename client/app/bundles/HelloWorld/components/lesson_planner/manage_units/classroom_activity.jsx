@@ -8,7 +8,8 @@ const styles = {
 	row: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		alignItems: 'center'
+		alignItems: 'center',
+  	paddingLeft: '38px'
 	},
 
 }
