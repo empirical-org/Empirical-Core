@@ -11,6 +11,13 @@
 	}
 	p {
 		margin-top: 3%;
+		&.mission-paragraph {
+			font-size: 16px;
+			line-height: 1.8;
+		}
+		&:not(.mission-paragraph) {
+			font-size: 16px;
+		}
 	}
 
 	.accordion-heading {
@@ -32,6 +39,12 @@
 		width: 96px;
 	}
 
+	&.team {
+		.row {
+			margin-top: 0;
+		}
+	}
+
 	.col-md-4 {
 		margin-top: 5%;
 		float:left;
@@ -51,4 +64,13 @@
 
 .pages-stats {
 	background-color: #F0F0F0;
+}
+
+.white-background {
+	background-color: #FFFFFF;
+	width: 100%;
+}
+
+.white-page {
+	background-color: #FFFFFF;
 }
