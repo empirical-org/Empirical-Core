@@ -48,7 +48,7 @@ export default React.createClass({
                         </span>grade */}
                       <span id='subtext'>You'll be previewing the diagnostic as a student and will be able to assign at any time.</span>
                 </div>
-                <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target='_blank'><button id='preview' className='button-green'>Preview the Diagnostic</button></a>
+                <a href="/activity_sessions/anonymous?activity_id=413" target='_blank'><button id='preview' className='button-green'>Preview the Diagnostic</button></a>
                 <br/>
                 <Link id='assign' to='/stage/3'><button className='button-green'>Continue to Assign</button></Link>
             </div>

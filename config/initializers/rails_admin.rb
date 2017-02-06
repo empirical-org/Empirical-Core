@@ -38,4 +38,15 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model Concept do
+    configure :concept_results do
+      hide
+      # for list view
+      filterable false
+      searchable false
+    end
+
+    # rest of your ParentModel configuration
+  end
 end
