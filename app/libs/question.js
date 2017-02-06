@@ -186,7 +186,7 @@ export default class Question {
     if (changeObjectFlexMatch !== undefined) {
       switch (changeObjectFlexMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-          const missingWord = changeFlexObjectMatch.missingText;
+          const missingWord = changeObjectFlexMatch.missingText;
           const missingTextFeedback = getFeedbackForMissingWord(missingWord);
           res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
           res.author = 'Flexible Modified Word Hint';
