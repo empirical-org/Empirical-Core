@@ -35,10 +35,19 @@ class UpdateUnitButton extends React.Component {
   }
 
 	render() {
-    const button = this.props.showButton ? <a className="q-button cta-button bg-quillgreen text-white" onClick={this.handleClick}>{this.props.buttonText}</a> : null
+    let text, color, clickHandler;
+    if (this.props.enabled && !this.state.loading) {
+      text = this.props.buttonText;
+      color = 'quillgreen';
+      clickHandler = this.handleClick
+    } else {
+      text = this.state.loading ? 'Saving' : this.props.disabledText;
+      color = 'lightgray';
+      clickHandler = null
+    }
     return (
       <div>
-        {button}
+        <a className={`q-button cta-button bg-${color} text-white`} onClick={clickHandler}>{text}</a>
         <span className="errors">{this.state.errors}</span>
       </div>
     )
