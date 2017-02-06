@@ -14,7 +14,7 @@
 		}
 	},
 
-	componentDidMount: function () {
+	componentWillMount: function () {
 		$.ajax({
 			url: '/teachers/units',
 			data: {},
@@ -24,6 +24,7 @@
 
 		});
 	},
+
 	displayUnits: function (data) {
 		this.setState({units: data.units,
 									 loaded: true});

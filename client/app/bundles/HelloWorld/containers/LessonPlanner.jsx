@@ -330,8 +330,25 @@ export default React.createClass({
 		};
 	},
 
+	manageUnit: function()  {
+		<ManageUnits actions={{
+		 toggleTab: this.toggleTab,
+		 editUnit: this.editUnit
+	 }}/>;
+	},
+
 	render: function() {
 		var tabSpecificComponents;
+		// Ultimately, none of the tab state should exist, and we should transfer
+		// entirely to react-router for managing that, along with redux for
+		// the general state in this section
+		const tabParam = this.props.params.tab
+		// let manageUnits, createUnit
+		// if (tabParam === 'manage-units') {
+		// 	manageUnits = true
+		// } else if (tabparam === 'createUnit') {
+		// 	createUnit = true
+		// }
 		if (this.state.unitTemplatesManager.assignSuccess === true) {
 			tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
 		} else if (this.state.tab == 'createUnit') {
@@ -343,23 +360,23 @@ export default React.createClass({
 				toggleTab: this.toggleTab,
 				assignActivityDueDate: this.assignActivityDueDate,
 				update: this.updateCreateUnitModel,
-				toggleActivitySelection: this.toggleActivitySelection,
-				assignSuccessActions: this.unitTemplatesAssignedActions()
-			}} analytics={this.analytics()}/>;
-		} else if (this.state.tab == 'manageUnits') {
+					toggleActivitySelection: this.toggleActivitySelection,
+					assignSuccessActions: this.unitTemplatesAssignedActions()
+				}} analytics={this.analytics()}/>;
+		} else if ((tabParam === 'assign-new-activity') || this.state.tab === 'assignANewActivity') {
+			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
+		} else if ((tabParam === 'manage-units') || this.state.tab == 'manageUnits') {
 			tabSpecificComponents = <ManageUnits actions={{
-				toggleTab: this.toggleTab,
-				editUnit: this.editUnit
-			}}/>;
+			 toggleTab: this.toggleTab,
+			 editUnit: this.editUnit
+		 }}/>;
 		} else if (this.state.tab == 'exploreActivityPacks') {
 			tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
-		} else if (this.state.tab === 'assignANewActivity') {
-			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
 		}
 
 		return (
 			<span>
-				<UnitTabs tab={this.state.tab} toggleTab={this.toggleTab}/>
+				<UnitTabs tab={tabParam || this.state.tab} toggleTab={this.toggleTab}/>
 				<div id="lesson_planner">
 					{tabSpecificComponents}
 				</div>
