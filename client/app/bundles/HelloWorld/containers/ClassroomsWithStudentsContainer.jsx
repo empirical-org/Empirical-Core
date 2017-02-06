@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx'
-
+import UnitTabs from '../components/lesson_planner/unit_tabs'
 import LoadingIndicator from '../components/general_components/loading_indicator.jsx'
 
 export default class extends React.Component {
@@ -84,7 +84,7 @@ export default class extends React.Component {
 		classroom.allSelected = !classroom.allSelected;
 		classroom.students.forEach((stud)=>stud.isSelected=classroom.allSelected);
 		newState.studentsChanged = true;
-		this.setState(newState);
+		this.setState(newState, console.log(this.state.classrooms));
 	}
 
 	// it is not the case that there are some students that are not selected
@@ -92,21 +92,27 @@ export default class extends React.Component {
 
 	selectPreviouslyAssignedStudents() {
 	// 	// @TODO if (window.location.pathname.includes('edit')) {
-			this.state.classrooms.forEach((classy, classroomIndex) => {
-				if (classy.classroom_activity) {
-						if (classy.classroom_activity.assigned_student_ids.length > 0) {
-							classy.classroom_activity.assigned_student_ids.forEach((studId) => {
+		const newState = Object.assign({}, this.state);
+			newState.classrooms.forEach((classy, classroomIndex) => {
+				const ca = classy.classroom_activity
+				if (ca) {
+						let count = 0;
+						if (ca.assigned_student_ids && ca.assigned_student_ids.length > 0) {
+							ca.assigned_student_ids.forEach((studId) => {
 								let studIndex = this.findTargetStudentIndex(studId, classroomIndex);
 								this.toggleStudentSelection(studIndex, classroomIndex)
+								count += 1;
 							})
 						} else {
 							classy.students.forEach((stud, studIndex) => {
 								this.toggleStudentSelection(studIndex, classroomIndex)
+								count += 1;
 						})
 					}
+					classy.allSelected = count === classy.students.length
 				}
 			})
-		// }
+			this.setState(newState)
 	}
 
 	getClassroomsAndStudentsData() {
@@ -114,10 +120,9 @@ export default class extends React.Component {
 		$.ajax({
 			type: 'GET',
 			url: `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`,
-			data: {unit: {name: that.state.unitName}},
 			statusCode: {
 				200: function(data) {
-					that.setState({loading: false, classrooms: data.classrooms})
+					that.setState({loading: false, classrooms: data.classrooms, unitName: data.unit_name})
 					that.selectPreviouslyAssignedStudents()
 				},
 				422: function(response) {
@@ -132,13 +137,20 @@ export default class extends React.Component {
 		if (this.state.loading) {
 			return <LoadingIndicator/>
 		} else if (this.state.classrooms) {
-			return <ClassroomsWithStudents
+			return (
+				<div>
+					<UnitTabs tab={this.state.tab} toggleTab={this.toggleTab}/>
+						<div className='container lesson_planner_main edit-assigned-students-container'>
+								<ClassroomsWithStudents
 									unitId={this.props.params.unitId}
+									unitName={this.state.unitName}
 									classrooms={this.state.classrooms}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
 									toggleClassroomSelection={this.toggleClassroomSelection}
-									showSaveButton={this.state.studentsChanged}
+									saveButtonEnabled={this.state.studentsChanged}
 									/>
+							</div>
+						</div>)
 		} else {
 			return <div>You must first add a classroom.</div>
 		}

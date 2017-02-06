@@ -121,7 +121,7 @@ describe Units::Updater do
         expect(ClassroomActivity.all.last.assigned_student_ids).to eq([student.id])
       end
 
-      context 'with a new activity if it does not already exist' do
+      it 'with a new activity if it does not already exist' do
         expect(ClassroomActivity.where(activity_id: activity1).count).to eq(0)
         classroom_data = classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
         activities_data = [{id: activity1.id, due_date: nil}]

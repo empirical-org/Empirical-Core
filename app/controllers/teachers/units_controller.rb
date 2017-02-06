@@ -32,7 +32,7 @@ class Teachers::UnitsController < ApplicationController
     data = JSON.parse(params[:data],symbolize_names: true)
     unit = Unit.find_by_id(params[:id])
     if unit
-      activities_data = unit.activities.map { |act| {id: act.id }}
+      activities_data = unit.activities.uniq.map { |act| {id: act.id }}
       Units::Updater.run(unit, activities_data, data[:classrooms_data])
       render json: {}
     else
@@ -52,8 +52,9 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def classrooms_with_students_and_classroom_activities
-    if Unit.find_by(id: params[:id])
-      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id])}
+    unit = Unit.find_by(id: params[:id])
+    if unit
+      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id]), unit_name: unit.name}
     else
       render json: {errors: 'Unit not found'}, status: 422
     end

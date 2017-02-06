@@ -4,6 +4,7 @@
  import React from 'react'
  import ActivitySearchAndSelect from '../activity_search/activity_search_and_select'
  import NameTheUnit from './name_the_unit'
+ import LoadingIndicator from '../../../shared/loading_indicator.jsx'
 
  export default React.createClass({
   propTypes: {
@@ -13,14 +14,14 @@
     toggleActivitySelection: React.PropTypes.func.isRequired,
     errorMessage: React.PropTypes.string,
     clickContinue: React.PropTypes.func.isRequired,
-    showNameTheUnit: React.PropTypes.bool,
     editing: React.PropTypes.bool,
     updateActivities: React.PropTypes.func
   },
 
   getInitialState: function () {
     return {
-      prematureContinueAttempted: false
+      prematureContinueAttempted: false,
+      loading: false
     }
   },
 
@@ -40,9 +41,17 @@
     }
   },
 
+  handleClick: function(){
+    this.props.updateActivities()
+    this.setState({loading: true})
+  },
+
   determineCTAButton: function () {
     if (this.props.editing) {
-      return <button onClick={this.props.updateActivities} className='button-green pull-right' id='continue'>Update</button>
+      const clickHandler = this.state.loading ? null : this.handleClick;
+      const color = this.state.loading ? 'lightgray' : 'quillgreen';
+      const text = this.state.loading ? 'Saving' : 'Update Activities'
+      return <button onClick={clickHandler} className={`q-button cta-button bg-${color} text-white pull-right`} id='continue'>{text}</button>
     } else if (this.props.determineIfInputProvidedAndValid) {
       return <button onClick={this.clickContinue} className='button-green pull-right' id='continue'>Continue</button>
     } else {
@@ -50,10 +59,20 @@
     }
   },
 
+  nameComponent: function(){
+    if (!this.props.hideNameTheUnit) {
+      return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />
+    } else if (this.props.unitName) {
+      return <h2 className='edit-activities-h2'>Edit Activites In {this.props.unitName}</h2>
+    }
+  },
+
+
+
   render: function() {
     return (
       <span>
-        {this.props.showNameTheUnit ? <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} /> : null}
+        {this.nameComponent()}
         <ActivitySearchAndSelect selectedActivities={this.props.selectedActivities}
                                     toggleActivitySelection={this.props.toggleActivitySelection}
                                     clickContinue={this.props.clickContinue}
