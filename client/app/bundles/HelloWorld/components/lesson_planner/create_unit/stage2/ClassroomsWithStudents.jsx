@@ -10,10 +10,10 @@ export default class extends React.Component {
 
 	classroomActivityUpdates() {
 		const classrooms_data = []
+		let classroomsWithNoAssignedStudents = 0
 		this.props.classrooms.forEach((classy) => {
 			if (classy.edited) {
 				const class_data = {id: classy.id}
-				// class_data.id = classy.classroom_activity ? classy.classroom_activity.id : undefined
 				if (classy.allSelected) {
 					class_data.student_ids = []
 				} else {
@@ -27,11 +27,20 @@ export default class extends React.Component {
 						class_data.student_ids = student_ids_arr
 					} else {
 						class_data.student_ids = false
+						classroomsWithNoAssignedStudents += 1
 					}
 				}
 				classrooms_data.push(class_data)
 			}
-		})
+			else if (classy.noneSelected) {
+				classroomsWithNoAssignedStudents += 1
+			}
+		}
+	)
+		if (classroomsWithNoAssignedStudents === this.props.classrooms.length) {
+			return {errors:
+				[<p key="no assigned students error">A unit must have assigned students. To delete a unit, <a href="teachers/classrooms/lesson_planner">click here</a> and select 'Delete' next to your unit.</p>]}
+			}
 		return classrooms_data
 	}
 
@@ -49,7 +58,8 @@ export default class extends React.Component {
 														 students={el.students}
 														 allSelected={el.allSelected}
 														 toggleClassroomSelection={that.props.toggleClassroomSelection}
-														 handleStudentCheckboxClick={that.props.handleStudentCheckboxClick} />;
+														 handleStudentCheckboxClick={that.props.handleStudentCheckboxClick}
+														 />;
 
 			})
 		} else {
@@ -61,7 +71,7 @@ export default class extends React.Component {
 				<h2 className='edit-students-h2'>Edit Students for {this.props.unitName}</h2>
 				{classroomList}
 				<UpdateUnitButton enabled={this.props.saveButtonEnabled}
-													disabledText={'Edit Students To Save'}
+													disabledText={'Edit Students Before Saving'}
 													putUrl={`/teachers/units/${this.props.unitId}/update_classroom_activities_assigned_students`}
 													successCallback={this.resetPage}
 													buttonText={'Update Students'}
