@@ -18,9 +18,9 @@
   },
 
   hideSubNavBars: function() {
-    $(".unit-tabs").hide();
-    $(".tab-outer-wrap").hide();
-    $(".section-content-wrapper").hide();
+    $('.unit-tabs').hide();
+    $('.tab-outer-wrap').hide();
+    $('.section-content-wrapper').hide();
   },
 
   activityName: function() {
