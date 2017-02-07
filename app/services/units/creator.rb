@@ -36,6 +36,7 @@ module Units::Creator
                                           assigned_student_ids: classroom[:student_ids])
       end
     end
+    unit.hide_if_no_visible_classroom_activities
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
     AssignActivityWorker.perform_async(teacher.id)
   end

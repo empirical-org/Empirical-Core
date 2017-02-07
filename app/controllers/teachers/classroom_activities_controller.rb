@@ -15,6 +15,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   def destroy
     cas = @classroom_activity.unit.classroom_activities.where(activity: @classroom_activity.activity)
     cas.each{|ca| ca.destroy}
+    @classroom_activity.unit.hide_if_no_visible_classroom_activities
     render json: {}
   end
 
