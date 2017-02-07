@@ -16,7 +16,9 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def unit_names
-    render json: { unitNames: current_user.units.map { |unit| unit.name.downcase }.uniq }.to_json
+    render json: { unitNames: current_user.units.map { |unit| unit.name.downcase }.uniq,
+                   unitTemplateNames: UnitTemplate.all.map(&:name).map{ |name| name.downcase }.uniq
+                 }.to_json
   end
 
   def update
