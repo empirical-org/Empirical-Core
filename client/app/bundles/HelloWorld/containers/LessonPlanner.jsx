@@ -343,7 +343,7 @@ export default React.createClass({
 		// entirely to react-router for managing that, along with redux for
 		// the general state in this section
 		const tabParam = this.props.params.tab
-		if (this.state.unitTemplatesManager.assignSuccess === true && !tabParam) {
+		if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam == ('featured-activity-packs' || 'explore-activity-packs'))) {
 			tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
 		} else if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
 			tabSpecificComponents = <CreateUnit data={{
