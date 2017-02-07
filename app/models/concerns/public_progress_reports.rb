@@ -169,6 +169,7 @@ module PublicProgressReports
       activity_sessions.compact!
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
+                                         .sort_by {|stud| stud[:name].split()[1]}
       recommendations = Recommendations.new.diagnostic.map do |activity_pack_recommendation|
         students = []
         activity_sessions_counted.each do |activity_session|
