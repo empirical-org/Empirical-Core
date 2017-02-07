@@ -4027,7 +4027,18 @@ SELECT pg_catalog.setval('schools_id_seq', 103755, true);
 -- Data for Name: sections; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-
+INSERT INTO sections VALUES (7, 'CCSS Skill Set #1', 1, '2013-11-12 18:03:10.973539', '2013-11-12 18:03:10.973539', 1);
+INSERT INTO sections VALUES (8, 'CCSS Skill Set #2', 2, '2013-11-12 18:03:21.827914', '2013-11-12 18:03:21.827914', 1);
+INSERT INTO sections VALUES (9, 'CCSS Skill Set #3', 3, '2013-11-12 18:03:56.264738', '2013-11-12 18:03:56.264738', 1);
+INSERT INTO sections VALUES (10, 'CCSS Skill Set #4', 4, '2013-11-12 18:04:06.474803', '2013-11-12 18:04:06.474803', 1);
+INSERT INTO sections VALUES (11, 'CCSS Skill Set #5', 5, '2013-11-12 18:04:17.172862', '2013-11-12 18:04:17.172862', 1);
+INSERT INTO sections VALUES (12, 'CCSS Skill Set #6', 6, '2013-11-12 18:26:44.966796', '2013-11-12 18:26:44.966796', 1);
+INSERT INTO sections VALUES (13, 'CCSS Skill Set #7', 7, '2013-11-12 18:26:54.831619', '2013-11-12 18:26:54.831619', 1);
+INSERT INTO sections VALUES (14, 'CCSS Skill Set #8', 8, '2013-11-12 18:27:14.338376', '2013-11-12 18:27:14.338376', 1);
+INSERT INTO sections VALUES (18, 'CCSS Skill Set #9', 9, '2013-11-21 18:42:21.981079', '2013-11-21 18:42:21.981079', 1);
+INSERT INTO sections VALUES (21, 'Quill Tutorial Lesson', 10, '2014-04-21 04:35:33.197955', '2014-04-21 04:35:33.197955', NULL);
+INSERT INTO sections VALUES (16, 'Custom Middle School Lessons', 11, '2013-11-12 18:40:02.327463', '2013-11-12 18:40:02.327463', 1);
+INSERT INTO sections VALUES (17, 'University Lessons', 12, '2013-11-12 18:40:29.613715', '2013-11-12 18:40:29.613715', 1);
 
 --
 -- Name: sections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
