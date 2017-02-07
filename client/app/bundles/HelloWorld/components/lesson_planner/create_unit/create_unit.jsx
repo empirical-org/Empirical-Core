@@ -17,7 +17,8 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			unitNames: []
+			unitNames: [],
+			unitTemplateNames: []
 		}
 	},
 
@@ -29,13 +30,14 @@ export default React.createClass({
 	getExistingUnitNames: function() {
 	  const that = this;
 		$.get('../unit_names').done(function(data) {
-			that.setState({unitNames: data.unitNames})
+			that.setState({unitNames: data.unitNames,
+			unitTemplateNames: data.unitTemplateNames})
 		});
 	},
 
 	isUnitNameUnique: function() {
 		const unit = this.getUnitName();
-		return !this.state.unitNames.includes(unit.toLowerCase());
+		return !(this.state.unitNames.includes(unit.toLowerCase()) || this.state.unitTemplateNames.includes(unit.toLowerCase()));
 	},
 
 	getStage: function() {
@@ -240,7 +242,7 @@ export default React.createClass({
 		} else if (!b) {
 			msg = 'Please select activities';
 		} else if (uniqueUnitNameError) {
-			msg = `Please select a unique unit name. You have already used ${this.getUnitName()}.`
+			msg = 'Please select a unique unit name.'
 		} else {
 			msg = null;
 		}
