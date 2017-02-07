@@ -244,11 +244,13 @@ class ActivitySession < ActiveRecord::Base
     # The matching names for this case statement match those returned by
     # the progress reports ActivitySessionSerializer and used as
     # column definitions in the corresponding React component.
+    last_name = "substring(users.name, '(?=\s).*')"
+
     case sort[:field]
     when 'activity_classification_name'
-      "activity_classifications.name #{order}, users.name #{order}"
+      "activity_classifications.name #{order}, #{last_name} #{order}"
     when 'student_name'
-      "users.name #{order}"
+      "#{last_name} #{order}"
     when 'completed_at'
       "activity_sessions.completed_at #{order}"
     when 'activity_name'
