@@ -18,16 +18,16 @@ export default React.createClass({
   },
 
   dateOrNot: function () {
-    if ((this.props.data.state != 'finished') && (!this.props.data.due_date)) {
+    if (this.props.data.state != 'finished' && (!this.props.data.due_date || !this.props.data.due_date_or_completed_at_date)) {
       return null
     } else {
-      var dateTitle, dateBody;
+      let dateTitle, dateBody
       if (this.props.data.state == 'finished') {
         dateTitle = 'Completed:';
-        dateBody = this.props.data.completed_at;
+        dateBody = this.props.data.completed_at ? this.props.data.completed_at : this.props.data.due_date_or_completed_at_date;
       } else {
         dateTitle = 'Due:';
-        dateBody = this.props.data.due_date;
+        dateBody = this.props.data.due_date ? this.props.data.due_date : this.props.data.due_date_or_completed_at_date;
       }
       return (
         <div className='activity-detail'>
@@ -51,10 +51,10 @@ export default React.createClass({
           </div>
           <div className='activity-detail-body'>
             {this.props.data.activity.description}
-            <p>{this.props.data.due_date_or_completed_at_date}</p>
+            {this.dateOrNot()}
+            {/* <p>{this.props.data.due_date_or_completed_at_date}</p> */}
           </div>
         </div>
-        {this.dateOrNot()}
       </div>
     );
   }
