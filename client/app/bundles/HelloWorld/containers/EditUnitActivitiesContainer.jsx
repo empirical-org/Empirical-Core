@@ -1,4 +1,4 @@
-import React from 'React'
+import React from 'react'
 import UnitStage1 from '../components/lesson_planner/create_unit/stage1/unit_stage1.jsx'
 import $ from 'jquery'
 import UnitTabs from '../components/lesson_planner/unit_tabs'
