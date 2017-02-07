@@ -22,10 +22,12 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update
-    errors = nil
     unit = Unit.find(params[:id])
+    unit_template_names = UnitTemplate.all.map(&:name).map{ |name| name.downcase }
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: 'Unit must have a name'}, status: 422
+    elsif unit_template_names.include?(unit_params[:name].downcase)
+      render json: {errors: 'Unit must have a unique name'}, status: 422
     elsif unit.try(:update_attributes, unit_params)
       render json: {}
     else
