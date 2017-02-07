@@ -21,7 +21,19 @@ describe Units::Updater do
   # with activity ids and due_dates, and 'classrooms_data' to an array of objects with an id
   # and array of student ids.
   # self.run(unit, activities_data, classrooms_data)
+  describe 'the unit' do
+    it "is updates its visibility to false if all of its classroom activities are visibility false" do
+        classrooms_data = [{id: classroom.id, student_ids: false}]
+        Units::Updater.run(unit, activities_data, classrooms_data)
+        expect(unit.visible).to eq(false)
+    end
 
+    it "does not update visibility to false if any of its classroom activities are visibile" do
+        classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
+        Units::Updater.run(unit, activities_data, classrooms_data)
+        expect(unit.visible).to eq(true)
+    end
+  end
 
 
   describe "the updated classroom_activity's" do

@@ -10,10 +10,6 @@ describe Unit, type: :model do
     it 'should not raise an error' do
       expect{ unit.user_id }.not_to raise_error
     end
-
-    # it 'should return a user id' do
-    #   pending("factory girl seems to be converting the user_id into a string I do not know why.")
-    # end
   end
 
   describe 'the name field' do
@@ -24,9 +20,18 @@ describe Unit, type: :model do
         expect(non_uniq_unit.valid?).to eq(false)
       end
 
-      it "by visibility" do
-        non_uniq_unit = Unit.create(name: unit.name, user: teacher, visible: false)
-        expect(non_uniq_unit.valid?).to eq(true)
+      context 'it should be scoped to visibility' do
+
+        it "when visibile == true it must be unique" do
+          non_uniq_unit = Unit.create(name: unit.name, user: teacher, visible: true)
+          expect(non_uniq_unit.valid?).to eq(false)
+        end
+
+        it "unless visibility == false" do
+          non_uniq_unit = Unit.create(name: unit.name, user: teacher, visible: false)
+          non_uniq_unit1 = Unit.create(name: unit.name, user: teacher, visible: false)
+          expect(non_uniq_unit1.valid?).to eq(true)
+        end
       end
 
       it "does not have to be unique by name with different teachers" do
@@ -47,6 +52,19 @@ describe Unit, type: :model do
     it 'does not include units that are marked invisible' do
       result = Unit.new(name: "hidden unit", visible: false)
       expect(Unit.where(name: result.name)).to be_empty
+    end
+  end
+
+  describe '#hide_if_no_visible_classroom_activities' do
+    it 'updates the unit to visible == false if all of its classroom activities are visible == false' do
+      unit.classroom_activities.each{|ca| ca.update(visible: false)}
+      unit.hide_if_no_visible_classroom_activities
+      expect(unit.visible).to eq(false)
+    end
+
+    it 'does not update the unit to visible == false if it has any visible classroom activities' do
+      unit.hide_if_no_visible_classroom_activities
+      expect(unit.visible).to eq(true)
     end
   end
 
