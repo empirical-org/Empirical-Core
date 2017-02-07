@@ -57,7 +57,7 @@ export default React.createClass({
   sortDefinitions: function() {
     return {
       config: {
-        name: 'natural',
+        name: 'lastName',
         total_result_count: 'numeric',
         correct_result_count: 'numeric',
         incorrect_result_count: 'numeric',
