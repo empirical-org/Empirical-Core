@@ -76,7 +76,6 @@
         <ActivitySearchAndSelect selectedActivities={this.props.selectedActivities}
                                     toggleActivitySelection={this.props.toggleActivitySelection}
                                     clickContinue={this.props.clickContinue}
-                                    determineIfInputProvidedAndValid={this.props.determineIfInputProvidedAndValid}
                                     errorMessage={this.props.errorMessage} />
         <div className='error-message-and-button'>
           <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>

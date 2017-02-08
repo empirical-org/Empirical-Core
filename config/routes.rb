@@ -86,7 +86,7 @@ EmpiricalGrammar::Application.routes.draw do
       put :update_classroom_activities_assigned_students, on: :member
       put :update_activities, on: :member
     end # moved from within classroom, since units are now cross-classroom
-    get 'unit_names' => 'units#unit_names'
+    get 'prohibited_unit_names' => 'units#prohibited_unit_names'
 
     resources :unit_templates, only: [:index] do
       collection do

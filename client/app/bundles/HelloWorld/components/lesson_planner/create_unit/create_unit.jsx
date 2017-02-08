@@ -17,25 +17,25 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			unitNames: []
+			prohibitedUnitNames: []
 		}
 	},
 
 	componentDidMount: function(){
-		this.getExistingUnitNames()
+		this.getProhibitedUnitNames()
 
 	},
 
-	getExistingUnitNames: function() {
+	getProhibitedUnitNames: function() {
 	  const that = this;
-		$.get('../unit_names').done(function(data) {
-			that.setState({unitNames: data.unitNames})
+		$.get('../prohibited_unit_names').done(function(data) {
+			that.setState({prohibitedUnitNames: data.prohibitedUnitNames})
 		});
 	},
 
 	isUnitNameUnique: function() {
 		const unit = this.getUnitName();
-		return !this.state.unitNames.includes(unit.toLowerCase());
+		return !this.state.prohibitedUnitNames.includes(unit.toLowerCase());
 	},
 
 	getStage: function() {
@@ -240,7 +240,7 @@ export default React.createClass({
 		} else if (!b) {
 			msg = 'Please select activities';
 		} else if (uniqueUnitNameError) {
-			msg = `Please select a unique unit name. You have already used ${this.getUnitName()}.`
+			msg = 'Please select a unique unit name.'
 		} else {
 			msg = null;
 		}
