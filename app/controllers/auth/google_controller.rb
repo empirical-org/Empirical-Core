@@ -28,6 +28,7 @@ class Auth::GoogleController < ApplicationController
 
   def google_sign_up(name, email, role, access_token)
     user = User.find_or_initialize_by(email: email.downcase)
+    binding.pry
     if user.new_record?
       user.attributes = {signed_up_with_google: true, name: name, role: role}
       user.save
@@ -37,10 +38,11 @@ class Auth::GoogleController < ApplicationController
       AccountCreationCallbacks.new(user, ip).trigger
       user.subscribe_to_newsletter
       if user.role == 'teacher'
-        render 'accounts/new'
+        redirect_to new_account_path
       end
     end
     if user.errors.any?
+      binding.pry
       redirect_to new_account_path
     else
       user.update(signed_up_with_google: true)
