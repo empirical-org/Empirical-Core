@@ -1,5 +1,17 @@
-class Unit < ActiveRecord::Base
+class UniqueNameWhenVisible < ActiveModel::Validator
+  def validate(record)
+    if record.visible
+      if Unit.where(name: record.name, user_id: record.user_id, visible: true).where.not(id: record.id).any?
+        record.errors[:name] << 'must be unique.'
+      end
+    end
+  end
+end
 
+
+class Unit < ActiveRecord::Base
+  include ActiveModel::Validations
+  validates_with UniqueNameWhenVisible
   belongs_to :classroom
   belongs_to :user
   has_many :classroom_activities, dependent: :destroy
@@ -7,8 +19,6 @@ class Unit < ActiveRecord::Base
   has_many :topics, through: :activities
   default_scope { where(visible: true)}
 
-  validates :name, uniqueness: { scope: [:user], if: Proc.new { |unit| unit.visible == true },
-    message: "Unit name must be unique." }
 
 
   def hide_if_no_visible_classroom_activities

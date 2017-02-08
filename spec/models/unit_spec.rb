@@ -22,16 +22,22 @@ describe Unit, type: :model do
 
       context 'it should be scoped to visibility' do
 
+        let!(:non_uniq_unit) {Unit.new(name: unit.name, user: teacher, visible: true)}
+
         it "when visibile == true it must be unique" do
-          non_uniq_unit = Unit.create(name: unit.name, user: teacher, visible: true)
-          expect(non_uniq_unit.valid?).to eq(false)
+          expect{non_uniq_unit.save!}.to raise_error
         end
 
         it "unless visibility == false" do
-          non_uniq_unit = Unit.create(name: unit.name, user: teacher, visible: false)
-          non_uniq_unit1 = Unit.create(name: unit.name, user: teacher, visible: false)
-          expect(non_uniq_unit1.valid?).to eq(true)
+          non_uniq_unit.visible = false
+          expect{non_uniq_unit.save!}.to_not raise_error
         end
+
+        it "unless the original unit's visibility == false" do
+          unit.update(visible: false)
+          expect{non_uniq_unit.save!}.to_not raise_error
+        end
+
       end
 
       it "does not have to be unique by name with different teachers" do

@@ -12,7 +12,7 @@
     return {
       edit: false,
       unitName: this.props.data.unit.name,
-      originalUnitName: this.props.data.unit.name,
+      savedUnitName: this.props.data.unit.name,
       error: false
     }
   },
@@ -107,12 +107,14 @@
       data: {unit: {name: that.state.unitName}},
       statusCode: {
         200: function() {
-          that.setState({edit: false, errors: undefined})
+          that.setState({edit: false,
+            errors: undefined,
+            savedUnitName: that.state.unitName})
         },
         422: function(response) {
           that.setState({errors: response.responseJSON.errors,
           edit: false,
-          unitName: that.state.originalUnitName})
+          unitName: that.state.savedUnitName})
         }
       }
       // error: this.setState.errors:
