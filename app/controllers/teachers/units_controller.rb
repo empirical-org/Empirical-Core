@@ -16,14 +16,14 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def prohibited_unit_names
-    unitNames = current_user.units.map { |unit| unit.name.downcase }
+    unitNames = current_user.units.map { |u| u.name.downcase }
     unitTemplateNames = UnitTemplate.all.map{ |u| u.name.downcase }
     render json: { prohibitedUnitNames: unitNames.concat(unitTemplateNames) }.to_json
   end
 
   def update
     unit = Unit.find(params[:id])
-    unit_template_names = UnitTemplate.all.map{ |name| name.downcase }
+    unit_template_names = UnitTemplate.all.map{ |u| u.name.downcase }
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: 'Unit must have a name'}, status: 422
     elsif unit_template_names.include?(unit_params[:name].downcase)
