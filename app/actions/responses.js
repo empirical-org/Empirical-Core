@@ -253,14 +253,35 @@ function makeIterator(array) {
 
 export function getResponsesWithCallback(questionID, callback) {
   responsesForQuestionRef(questionID).once('value', (snapshot) => {
-     callback(snapshot.val())
-     console.log("Loaded responses for ", questionID)
+    callback(snapshot.val());
+    console.log('Loaded responses for ', questionID);
   });
 }
 
 export function listenToResponsesWithCallback(questionID, callback) {
   responsesForQuestionRef(questionID).on('value', (snapshot) => {
-     callback(snapshot.val())
-     console.log("Listened to responses for ", questionID)
+    callback(snapshot.val());
+    console.log('Listened to responses for ', questionID);
   });
 }
+
+function gradedResponsesForQuestionRef(questionId) {
+  return responsesRef.orderByChild('gradeIndex').equalTo(`human${questionId}`);
+}
+
+window.acc = gradedResponsesForQuestionRef;
+
+export function getGradedResponsesForQuestionRef(questionID, callback) {
+  gradedResponsesForQuestionRef(questionID).once('value', (snapshot) => {
+    callback(snapshot.val());
+    console.log('Loaded responses for ', questionID);
+  });
+}
+
+window.bcc = getGradedResponsesForQuestionRef;
+
+window.ccc = (data) => {
+  console.log('data');
+  console.log(data);
+  console.log(_.keys(data).length);
+};
