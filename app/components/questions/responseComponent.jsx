@@ -86,12 +86,11 @@ const Responses = React.createClass({
 
     const responses = hashToCollection(this.props.responses);
     console.log(responses);
-    const unmatchedResponses = _.filter(responses, (response) => {
+    const unmatchedResponses = _.filter(responses, response =>
       // console.log(response)
-      return response.author === undefined && response.optimal === undefined && response.count > 1
-    });
+       response.author === undefined && response.optimal === undefined && response.count > 1);
     console.log(unmatchedResponses.length, responses.length);
-    return ((unmatchedResponses.length / responses.length) * 100).toFixed(2);;
+    return ((unmatchedResponses.length / responses.length) * 100).toFixed(2);
   },
 
   // ryan Look here!!!
@@ -143,6 +142,7 @@ const Responses = React.createClass({
           text: response.text,
           count: response.count,
           questionUID: response.questionUID,
+          gradeIndex: `unmatched${response.questionUID}`,
         };
         this.props.dispatch(
             setUpdatedResponse(rid, newValues)
@@ -157,6 +157,7 @@ const Responses = React.createClass({
           parentID: newMatchedResponse.response.parentID,
           author: newMatchedResponse.response.author,
           feedback: newMatchedResponse.response.feedback,
+          gradeIndex: `nonhuman${response.questionUID}`,
         };
         if (newMatchedResponse.response.conceptResults) {
           newValues.conceptResults = newMatchedResponse.response.conceptResults;
