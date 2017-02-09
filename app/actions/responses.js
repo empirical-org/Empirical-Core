@@ -2,6 +2,7 @@
 import _ from 'underscore';
 import pathwaysActions from './pathways';
 import rootRef from '../libs/firebase';
+import { hashToCollection } from '../libs/hashToCollection.js';
 
 const C = require('../constants').default;
 const moment = require('moment');
@@ -269,19 +270,16 @@ function gradedResponsesForQuestionRef(questionId) {
   return responsesRef.orderByChild('gradeIndex').equalTo(`human${questionId}`);
 }
 
-window.acc = gradedResponsesForQuestionRef;
-
-export function getGradedResponsesForQuestionRef(questionID, callback) {
+export function getGradedResponsesWithCallback(questionID, callback) {
   gradedResponsesForQuestionRef(questionID).once('value', (snapshot) => {
     callback(snapshot.val());
     console.log('Loaded responses for ', questionID);
   });
 }
 
-window.bcc = getGradedResponsesForQuestionRef;
-
-window.ccc = (data) => {
-  console.log('data');
-  console.log(data);
-  console.log(_.keys(data).length);
-};
+export function findResponseByText(text, questionUID, cb) {
+  responsesRef.orderByChild('text').equalTo(text).once('value', (snapshot) => {
+    const response = _.findWhere(hashToCollection(snapshot.val()), { questionUID, });
+    cb(response);
+  });
+}
