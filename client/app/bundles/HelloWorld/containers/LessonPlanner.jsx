@@ -287,8 +287,6 @@ export default React.createClass({
 				const errorMessage = jQuery.parseJSON(response.responseText).error_message
 				window.alert(errorMessage)
 			}
-			// success: this.onFastAssignSuccess,
-			// fail: (response) => console.log(response)
 		})
 	},
 
@@ -298,22 +296,23 @@ export default React.createClass({
 	},
 
 	customAssign: function() {
-		this.fetchClassrooms();
-		var unitTemplate = this.state.unitTemplatesManager.model;
-		var hash = {
-			tab: 'createUnit',
-			unitTemplatesManager: {
-				firstAssignButtonClicked: false
-			},
-			createUnit: {
-				stage: 2,
-				model: {
-					name: unitTemplate.name,
-					selectedActivities: unitTemplate.activities
-				}
-			}
-		};
-		this.deepExtendState(hash);
+		this.fastAssign()
+		// this.fetchClassrooms();
+		// var unitTemplate = this.state.unitTemplatesManager.model;
+		// var hash = {
+		// 	tab: 'createUnit',
+		// 	unitTemplatesManager: {
+		// 		firstAssignButtonClicked: false
+		// 	},
+		// 	createUnit: {
+		// 		stage: 2,
+		// 		model: {
+		// 			name: unitTemplate.name,
+		// 			selectedActivities: unitTemplate.activities
+		// 		}
+		// 	}
+		// };
+		// this.deepExtendState(hash);
 	},
 
 	unitTemplatesManagerActions: function() {

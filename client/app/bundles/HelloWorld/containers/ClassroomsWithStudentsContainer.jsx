@@ -7,14 +7,16 @@ import LoadingIndicator from '../components/general_components/loading_indicator
 export default class extends React.Component {
 	constructor(props) {
 		super(props);
-		this.getClassroomsAndStudentsData();
+
+		this.state = {
+			classrooms: null,
+			loading: true,
+			studentsChanged: false,
+			newUnit: !!this.props.params.activityIdsArray
+		}
+		this.getClassroomsAndStudentsData()
 	}
 
-	state = {
-		classrooms: null,
-		loading: true,
-		studentsChanged: false
-	}
 
 	findTargetClassIndex(classroomId) {
 		return this.state.classrooms.findIndex((classy)=>{
@@ -133,13 +135,23 @@ export default class extends React.Component {
 
 	getClassroomsAndStudentsData() {
 		const that = this;
+		let url, unitName
+		if (this.state.newUnit) {
+			url = '/teachers/classrooms_i_teach_with_students'
+			unitName = () => this.props.params.unitName
+		} else {
+			url = `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`
+			unitName = (data) => data.unit_name
+		}
 		$.ajax({
 			type: 'GET',
-			url: `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`,
+			url,
+			dataType: 'json',
 			statusCode: {
 				200: function(data) {
-					that.setState({loading: false, classrooms: data.classrooms, unitName: data.unit_name})
-					that.selectPreviouslyAssignedStudents()
+					debugger;
+					that.setState({loading: false, classrooms: data.classrooms, unitName: unitName(data)})
+					this.state.newUnit ? null : that.selectPreviouslyAssignedStudents()
 				},
 				422: function(response) {
 					that.setState({errors: response.responseJSON.errors,
