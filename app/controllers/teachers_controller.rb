@@ -15,6 +15,10 @@ class TeachersController < ApplicationController
     render json: current_user.to_json
   end
 
+  def classrooms_i_teach_with_students
+    render json: current_user.classrooms_i_teach_with_students.to_json
+  end
+
   private
 
   def set_admin_account
