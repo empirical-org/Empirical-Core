@@ -7,7 +7,8 @@ import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitNewResponse,
   incrementResponseCount,
-  getResponsesWithCallback
+  getResponsesWithCallback,
+  getGradedResponsesWithCallback
 } from '../../actions/responses';
 import icon from '../../img/question_icon.svg';
 
@@ -20,12 +21,12 @@ const PlaySentenceFragment = React.createClass({
   },
 
   componentDidMount() {
-    getResponsesWithCallback(
+    getGradedResponsesWithCallback(
       this.props.question.key,
       (data) => {
-        this.setState({responses: data})
+        this.setState({ responses: data, });
       }
-    )
+    );
   },
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -141,10 +142,8 @@ const PlaySentenceFragment = React.createClass({
       return (
         <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
       );
-    } else {
-      if (this.state.responses) {
-        return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
-      }
+    } else if (this.state.responses) {
+      return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
     }
   },
 

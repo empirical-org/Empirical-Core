@@ -18,7 +18,8 @@ import ResponseComponent from '../questions/responseComponent.jsx';
 import {
   loadResponseDataAndListen,
   stopListeningToResponses,
-  getResponsesWithCallback
+  getResponsesWithCallback,
+  getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
@@ -47,12 +48,12 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   componentDidMount() {
-    getResponsesWithCallback(
+    getGradedResponsesWithCallback(
       this.props.question.key,
       (data) => {
-        this.setState({responses: data})
+        this.setState({ responses: data, });
       }
-    )
+    );
   },
 
   shouldComponentUpdate(nextProps, nextState) {
