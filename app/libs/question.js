@@ -75,6 +75,7 @@ export default class Question {
       response: {
         text: response,
         questionUID: this.questionUID,
+        gradeIndex: `nonhuman${this.questionUID}`,
         count: 1,
       },
     };
@@ -268,6 +269,7 @@ export default class Question {
       return returnValue;
     }
     returnValue.found = false;
+    returnValue.response.gradeIndex = `unmarked${this.questionUID}`;
     return returnValue;
   }
 

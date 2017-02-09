@@ -57,6 +57,7 @@ export default class POSMatcher {
       response: {
         text: formattedResponse,
         questionUID: this.questionUID,
+        gradeIndex: `nonhuman${this.questionUID}`,
         count: 1,
       },
     };
@@ -92,6 +93,7 @@ export default class POSMatcher {
     }
 
     returnValue.found = false;
+    returnValue.response.gradeIndex = `unmarked${this.questionUID}`;
     return returnValue;
   }
 
