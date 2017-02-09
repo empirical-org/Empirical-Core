@@ -100,7 +100,7 @@ module PublicProgressReports
           student = activity_session.user
           formatted_concept_results = get_concept_results(activity_session)
         {
-            activity_classification: ActivityClassification.find(activity.activity_classification_id).name,
+            activity_classification: ActivityClassification.find(activity.activity_classification_id).key,
             id: student.id,
             name: student.name,
             time: get_time_in_minutes(activity_session),
