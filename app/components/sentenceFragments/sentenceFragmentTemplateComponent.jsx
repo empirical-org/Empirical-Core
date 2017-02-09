@@ -10,6 +10,7 @@ import {
   getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import icon from '../../img/question_icon.svg';
 
 const PlaySentenceFragment = React.createClass({
@@ -98,6 +99,7 @@ const PlaySentenceFragment = React.createClass({
   checkAnswer() {
     if (this.state.checkAnswerEnabled) {
       const key = this.props.currentKey;
+      const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
         const fields = {
@@ -109,15 +111,7 @@ const PlaySentenceFragment = React.createClass({
         };
         const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
-        if (matched.found && matched.response.key) {
-          this.props.dispatch(
-            incrementResponseCount(key, matched.response.key)
-          );
-        } else {
-          this.props.dispatch(
-            submitNewResponse(matched.response)
-          );
-        }
+        updateResponseResource(matched, key, attempts, this.props.dispatch, );
         this.props.updateAttempts(matched);
         this.setState({ checkAnswerEnabled: true, });
         this.props.handleAttemptSubmission();
