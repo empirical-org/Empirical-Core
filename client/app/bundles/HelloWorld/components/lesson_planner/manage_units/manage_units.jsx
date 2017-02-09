@@ -3,9 +3,9 @@
  import React from 'react'
  import $ from 'jquery'
  import Units from './units'
+ import EmptyAssignedUnits from './EmptyAssignedUnits.jsx'
 
  export default React.createClass({
-
 
 	getInitialState: function () {
 		return {
@@ -21,7 +21,6 @@
 			success: this.displayUnits,
 			error: function () {
 			}
-
 		});
 	},
 
@@ -87,23 +86,9 @@
 		this.props.actions.toggleTab('createUnit');
 	},
 
-	switchToExploreActivityPacks: function () {
-		this.props.actions.toggleTab('exploreActivityPacks');
-	},
-
 	stateBasedComponent: function () {
 		if (this.state.units.length === 0 && this.state.loaded) {
-			return (
-				<div className="row empty-unit-manager">
-					<div className="col-xs-7">
-						<p>Welcome! This is where your assigned activity packs are stored, but it's empty at the moment.</p>
-						<p>Let's add your first activity from the Featured Activity Pack library.</p>
-					</div>
-					<div className="col-xs-4">
-						<button onClick={this.switchToExploreActivityPacks} className="button-green create-unit featured-button">Browse Featured Activity Packs</button>
-					</div>
-				</div>
-			);
+      return <EmptyAssignedUnits/>
 		} else {
 			return (
 				<span>

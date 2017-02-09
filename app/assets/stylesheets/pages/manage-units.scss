@@ -3,6 +3,12 @@
     cursor: pointer;
   }
 }
+
+.lesson_planner_main {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
 .container.manage-units {
   padding-top: 0 !important;
   .create-unit-button-container {
@@ -15,16 +21,7 @@
       float: right;
     }
   }
-  .empty-unit-manager {
-    p {
-      font-size: 18px;
-      margin: 2em;
-    }
-    .featured-button {
-      margin-top: 50px;
-      margin-left: 40px;
-    }
-  }
+
   padding-top: 80px;
   section {
     border-bottom: none;

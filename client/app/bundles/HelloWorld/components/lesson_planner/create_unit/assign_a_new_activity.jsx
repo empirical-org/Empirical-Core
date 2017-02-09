@@ -38,7 +38,7 @@ export default React.createClass({
               timeDuration={'~1 Hour'}
             />
           </a>,
-          <a key key={3} href='/teachers/classrooms/lesson_planner#/tab/create-unit'>
+          <a key={3} href='/teachers/classrooms/lesson_planner#/tab/create-unit'>
             <AssignmentTypeMini
               toggleTab={this.props.toggleTab}
               toggleTarget={'createUnit'}

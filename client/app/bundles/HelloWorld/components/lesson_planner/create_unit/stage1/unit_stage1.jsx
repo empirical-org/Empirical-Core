@@ -46,7 +46,7 @@
     this.setState({loading: true})
   },
 
-  determineCTAButton: function () {
+  ctaButton: function () {
     if (this.props.editing) {
       const clickHandler = this.state.loading ? null : this.handleClick;
       const color = this.state.loading ? 'lightgray' : 'quillgreen';
@@ -63,7 +63,7 @@
     if (!this.props.hideNameTheUnit) {
       return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />
     } else if (this.props.unitName) {
-      return <h2 className='edit-activities-h2'>Edit Activites In {this.props.unitName}</h2>
+      return <h2 className='edit-activities-h2'>Edit Activities In {this.props.unitName}</h2>
     }
   },
 
@@ -71,7 +71,7 @@
 
   render: function() {
     return (
-      <span>
+      <div className="container">
         {this.nameComponent()}
         <ActivitySearchAndSelect selectedActivities={this.props.selectedActivities}
                                     toggleActivitySelection={this.props.toggleActivitySelection}
@@ -79,10 +79,10 @@
                                     errorMessage={this.props.errorMessage} />
         <div className='error-message-and-button'>
           <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
-          {this.determineCTAButton()}
+          {this.ctaButton()}
         </div>
         <div className="fake-border"></div>
-      </span>
+      </div>
     );
   }
 });
