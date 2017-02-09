@@ -163,6 +163,7 @@ export default React.createClass({
   },
 
   removeLinkToParentID(rid) {
+    this.props.dispatch(submitResponseEdit(rid, { gradeindex: `human${this.props.response.questionUID}`, }));
     this.props.dispatch(removeLinkToParentID(rid));
   },
 
