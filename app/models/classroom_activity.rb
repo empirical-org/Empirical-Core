@@ -118,10 +118,10 @@ class ClassroomActivity < ActiveRecord::Base
       hide_all_activity_sessions
       return
     end
-    hide_unnassigned_activity_sessions
+    hide_unassigned_activity_sessions
   end
 
-  def hide_unnassigned_activity_sessions
+  def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
     self.activity_sessions.each do |as|
       if !validate_assigned_student(as.user_id)
