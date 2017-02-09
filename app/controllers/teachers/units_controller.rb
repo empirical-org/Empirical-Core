@@ -22,13 +22,12 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update
-    unit = Unit.find(params[:id])
     unit_template_names = UnitTemplate.all.map{ |u| u.name.downcase }
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: 'Unit must have a name'}, status: 422
     elsif unit_template_names.include?(unit_params[:name].downcase)
       render json: {errors: 'Unit must have a unique name'}, status: 422
-    elsif unit.try(:update_attributes, unit_params)
+    elsif Unit.find(params[:id]).try(:update_attributes, unit_params)
       render json: {}
     else
       render json: {errors: 'Unit must have a unique name'}, status: 422
@@ -143,9 +142,4 @@ class Teachers::UnitsController < ApplicationController
     one_ca_per_classroom =  cas.group_by{|class_act| class_act[:classroom_id] }.values.map{ |ca| ca.first }
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
   end
-
-
-#   def setup
-#     @classroom = current_user.classrooms.find(params[:classroom_id])
-#   end
 end
