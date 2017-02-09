@@ -16,7 +16,7 @@ class TeachersController < ApplicationController
   end
 
   def classrooms_i_teach_with_students
-    render json: current_user.classrooms_i_teach_with_students.to_json
+    render json: {classrooms: current_user.classrooms_i_teach_with_students}
   end
 
   private

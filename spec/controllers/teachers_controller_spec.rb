@@ -12,7 +12,7 @@ describe TeachersController, type: :controller do
 
     it 'returns the classrooms with students of the current user' do
       get :classrooms_i_teach_with_students
-      expect(response.body).to eq(teacher.classrooms_i_teach_with_students.to_json)
+      expect(response.body).to eq({classrooms: teacher.classrooms_i_teach_with_students}.to_json)
     end
   end
 

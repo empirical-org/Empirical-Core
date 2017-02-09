@@ -75,8 +75,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account_settings' => 'students#account_settings'
   put 'make_teacher' => 'students#make_teacher'
 
+  get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
-
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }
 
   namespace :teachers do
@@ -86,7 +86,9 @@ EmpiricalGrammar::Application.routes.draw do
       put :update_classroom_activities_assigned_students, on: :member
       put :update_activities, on: :member
     end # moved from within classroom, since units are now cross-classroom
+
     get 'prohibited_unit_names' => 'units#prohibited_unit_names'
+
 
     resources :unit_templates, only: [:index] do
       collection do
@@ -283,7 +285,6 @@ EmpiricalGrammar::Application.routes.draw do
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
   get 'diagnostic' =>'activities#diagnostic' # placeholder til we find where this goes
-  get 'classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 
