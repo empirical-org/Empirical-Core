@@ -17,7 +17,7 @@
   							data={data}
                 />);
   		} else {
-        return <EmptyAssignedUnits switchToExploreActivityPacks='/teachers/classrooms/lesson_planner#/tab/featured-activity-packs' />
+        return <EmptyAssignedUnits/>
       }}, this);
 		return (
 			<span>{units}</span>

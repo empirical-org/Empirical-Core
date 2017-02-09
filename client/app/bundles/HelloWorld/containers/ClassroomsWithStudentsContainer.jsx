@@ -154,7 +154,7 @@ export default class extends React.Component {
 			return (
 				<div>
 					<UnitTabs tab={this.state.tab} toggleTab={this.toggleTab}/>
-						<div className='container lesson_planner_main edit-assigned-students-container'>
+						<div className='container edit-assigned-students-container'>
 								<ClassroomsWithStudents
 									unitId={this.props.params.unitId}
 									unitName={this.state.unitName}

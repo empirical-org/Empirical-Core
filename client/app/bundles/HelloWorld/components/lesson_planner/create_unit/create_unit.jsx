@@ -311,7 +311,7 @@ export default React.createClass({
 		return (
 			<span>
 				<ProgressBar stage={this.getStage()}/>
-				<div className='container lesson_planner_main'>
+				<div className='container'>
 					{stageSpecificComponents}
 				</div>
 			</span>

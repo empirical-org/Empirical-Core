@@ -5,6 +5,7 @@ import LessonPlanner from './LessonPlanner.jsx'
 import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
 import EditUnitActivitiesContainer from './EditUnitActivitiesContainer.jsx'
+import EmptyAssignedUnits from '../components/lesson_planner/manage_units/EmptyAssignedUnits.jsx'
 
 export default React.createClass({
 	render: function() {
@@ -15,6 +16,7 @@ export default React.createClass({
 					<Route path="/tab/:tab" component={LessonPlanner}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>
+					<Route path="/no_units" component={EmptyAssignedUnits}/>
         </Route>
 			</Router>
 		);

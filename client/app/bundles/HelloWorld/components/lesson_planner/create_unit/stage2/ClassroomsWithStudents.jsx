@@ -39,7 +39,7 @@ export default class extends React.Component {
 	)
 		if (classroomsWithNoAssignedStudents === this.props.classrooms.length) {
 			return {errors:
-				[<p key="no assigned students error">A unit must have assigned students. To delete a unit, <a href="teachers/classrooms/lesson_planner">click here</a> and select 'Delete' next to your unit.</p>]}
+				[<p key="no assigned students error">A unit must have assigned students. To delete a unit, <a href="/teachers/classrooms/lesson_planner">click here</a> and select 'Delete' next to your unit.</p>]}
 			}
 		return classrooms_data
 	}
@@ -63,7 +63,6 @@ export default class extends React.Component {
 
 			})
 		} else {
-			// TODO: make this a message that they don't have any classrooms
 			classroomList = []
 		}
     return (
