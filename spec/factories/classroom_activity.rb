@@ -12,6 +12,5 @@ FactoryGirl.define do
         create_list(:activity_session_with_random_completed_date, 5, classroom_activity: ca, state: 'finished')
       end
     end
-    assigned_student_ids {[]}
   end
 end
