@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import LessonPlanner from './LessonPlanner.jsx'
 import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
@@ -10,7 +10,7 @@ import EmptyAssignedUnits from '../components/lesson_planner/manage_units/EmptyA
 export default React.createClass({
 	render: function() {
 		return (
-			<Router>
+			<Router Router history={hashHistory}>
         <Route path="/" component={LessonPlannerContainer}>
 					<IndexRoute component={LessonPlanner}/>
 					<Route path="/tab/:tab" component={LessonPlanner}/>
