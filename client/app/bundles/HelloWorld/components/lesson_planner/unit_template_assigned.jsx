@@ -31,7 +31,7 @@
     this.hideSubNavBars();
     if (this.props.type === 'diagnostic' || this.props.actions.studentsPresent) {
       return (<span>
-            <a href = '/teachers/classrooms/lesson_planner'>
+            <a href = '/teachers/classrooms/activity_planner'>
               <button onClick className="button-green add-students pull-right">
                 View Assigned Activity Packs <i className="fa fa-long-arrow-right"></i>
               </button>
