@@ -6,11 +6,15 @@ class Teachers::UnitsController < ApplicationController
   before_filter :teacher!
 
   def create
-    units_with_same_name = units_with_same_name_by_current_user(unit_params[:name], current_user.id)
+    if params[:unit][:create]
+      params[:unit][:classrooms] = JSON.parse(params[:unit][:classrooms])
+      params[:unit][:activities] = JSON.parse(params[:unit][:activities])
+    end
+    units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first, unit_params[:activities], unit_params[:classrooms])
+      Units::Updater.run(units_with_same_name.first, params[:unit][:activities], params[:unit][:classrooms])
     else
-      Units::Creator.run(current_user, unit_params[:name], unit_params[:activities], unit_params[:classrooms])
+      Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms])
     end
     render json: {}
   end
@@ -35,11 +39,12 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities_assigned_students
-    data = JSON.parse(params[:data],symbolize_names: true)
+    data = params[:data]
     unit = Unit.find_by_id(params[:id])
+    classroom_activities = JSON.parse(data[:classrooms],symbolize_names: true)
     if unit
       activities_data = unit.activities.uniq.map { |act| {id: act.id }}
-      Units::Updater.run(unit, activities_data, data[:classrooms_data])
+      Units::Updater.run(unit, activities_data, classroom_activities)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -134,7 +139,7 @@ class Teachers::UnitsController < ApplicationController
   private
 
   def unit_params
-    params.require(:unit).permit(:id, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
+    params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
   end
 
   def formatted_classrooms_data(unit)

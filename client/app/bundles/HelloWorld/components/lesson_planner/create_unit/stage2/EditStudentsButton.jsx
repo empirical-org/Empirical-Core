@@ -17,16 +17,16 @@ class UpdateUnitButton extends React.Component {
     this.setState({errors: []})
     const p = this.props;
     const data = p.dataFunc()
-    if (data.classrooms_data.errors) {
+    if (data.classrooms_data && data.classrooms_data.errors) {
       this.setState({errors: data.classrooms_data.errors})
     } else {
       const that = this;
       this.setState({loading: true})
       $.ajax({
-        type: 'PUT',
+        type: p.requestType,
         dataType: 'json',
-        url: p.putUrl,
-        data: {'data': JSON.stringify(data)},
+        url: p.url,
+        data: {unit: data},
         statusCode: {
           200: function() {
             p.successCallback()
@@ -62,7 +62,7 @@ class UpdateUnitButton extends React.Component {
 }
 
 UpdateUnitButton.propTypes = {
-  putUrl: React.PropTypes.string.isRequired,
+  url: React.PropTypes.string.isRequired,
   successCallback: React.PropTypes.func.isRequired,
   buttonText: React.PropTypes.string.isRequired,
   dataFunc: React.PropTypes.func.isRequired,
