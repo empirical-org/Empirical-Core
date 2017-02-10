@@ -16,8 +16,6 @@
                 updateDueDate={this.props.updateDueDate}
   							data={data}
                 />);
-  		} else {
-        return <EmptyAssignedUnits/>
       }}, this);
 		return (
 			<span>{units}</span>

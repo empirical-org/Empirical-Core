@@ -87,7 +87,7 @@
 	},
 
 	stateBasedComponent: function () {
-		if (this.state.units.length === 0 && this.state.loaded) {
+		if (this.state.units.filter((unit) => unit.classroom_activities.length > 0).length === 0 && this.state.loaded) {
       return <EmptyAssignedUnits/>
 		} else {
 			return (
