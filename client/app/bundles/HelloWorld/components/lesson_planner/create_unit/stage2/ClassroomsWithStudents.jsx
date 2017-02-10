@@ -63,7 +63,7 @@ export default class extends React.Component {
 
 	createButton(){
 		return(
-			<EditStudentsButton enabled={this.props.saveButtonEnabled}
+			<EditStudentsButton enabled={this.props.isSaveButtonEnabled}
 												disabledText={'Add Students Before Saving'}
 												requestType={'POST'}
 												url={'/teachers/units'}
@@ -76,7 +76,7 @@ export default class extends React.Component {
 
 	updateButton(){
 		return (
-			<EditStudentsButton enabled={this.props.saveButtonEnabled}
+			<EditStudentsButton enabled={this.props.isSaveButtonEnabled}
 											disabledText={'Edit Students Before Saving'}
 											requestType={'PUT'}
 											url={`/teachers/units/${this.props.unitId}/update_classroom_activities_assigned_students`}
