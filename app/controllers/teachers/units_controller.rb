@@ -39,9 +39,8 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities_assigned_students
-    data = params[:data]
     unit = Unit.find_by_id(params[:id])
-    classroom_activities = JSON.parse(data[:classrooms],symbolize_names: true)
+    classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
     if unit
       activities_data = unit.activities.uniq.map { |act| {id: act.id }}
       Units::Updater.run(unit, activities_data, classroom_activities)
