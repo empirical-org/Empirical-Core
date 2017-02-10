@@ -88,7 +88,7 @@ export default class extends React.Component {
 		classroom.noneSelected = !classroom.allSelected
 		classroom.students.forEach((stud)=>stud.isSelected=classroom.allSelected);
 		newState.studentsChanged = true;
-		this.setState(newState, console.log(this.state.classrooms));
+		this.setState(newState);
 	}
 
 	selectPreviouslyAssignedStudents() {
@@ -160,6 +160,20 @@ export default class extends React.Component {
 		})
 	}
 
+	noClassroomsSelected(){
+		const classes = this.state.classrooms
+		return (classes.filter((cl)=>cl.noneSelected).length === classes.length)
+	}
+
+	isSaveButtonEnabled(){
+		const s = this.state
+		if (!s.studentsChanged || this.noClassroomsSelected()) {
+			return false
+		} else {
+			return true
+		}
+	}
+
 	render() {
 		if (this.state.loading) {
 			return <LoadingIndicator/>
@@ -176,7 +190,7 @@ export default class extends React.Component {
 									createOrEdit={this.state.newUnit ? 'create' : 'edit'}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
 									toggleClassroomSelection={this.toggleClassroomSelection}
-									saveButtonEnabled={this.state.studentsChanged}
+									isSaveButtonEnabled={this.isSaveButtonEnabled.bind(this)}
 									/>
 							</div>
 						</div>)
