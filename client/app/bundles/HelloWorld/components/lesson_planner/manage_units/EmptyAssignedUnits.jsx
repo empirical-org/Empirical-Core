@@ -6,7 +6,7 @@
  export default React.createClass({
 
   handleClick() {
-    window.location = '/teachers/classrooms/lesson_planner#tab/assign-new-activity'
+    window.location = '/teachers/classrooms/activity_planner#tab/assign-new-activity'
   },
 
    render: function () {

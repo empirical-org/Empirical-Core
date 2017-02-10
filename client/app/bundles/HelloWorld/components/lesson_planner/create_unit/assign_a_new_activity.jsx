@@ -25,7 +25,7 @@ export default React.createClass({
             timeDuration={'~20 Min.'}
             />
           </a>,
-          <a key={2} href='/teachers/classrooms/lesson_planner#/tab/featured-activity-packs'>
+          <a key={2} href='/teachers/classrooms/activity_planner#/tab/featured-activity-packs'>
             <AssignmentTypeMini
               toggleTab={this.props.toggleTab}
               toggleTarget={'exploreActivityPacks'}
@@ -38,7 +38,7 @@ export default React.createClass({
               timeDuration={'~1 Hour'}
             />
           </a>,
-          <a key={3} href='/teachers/classrooms/lesson_planner#/tab/create-unit'>
+          <a key={3} href='/teachers/classrooms/activity_planner#/tab/create-unit'>
             <AssignmentTypeMini
               toggleTab={this.props.toggleTab}
               toggleTarget={'createUnit'}
