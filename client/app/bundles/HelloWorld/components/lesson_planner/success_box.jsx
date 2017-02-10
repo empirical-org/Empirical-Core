@@ -13,7 +13,7 @@
 //     if (this.props.actions.studentsPresent() === true) {
 //       proceedButton = (
 //         <span>
-//             <a href = '/teachers/classrooms/lesson_planner'>
+//             <a href = '/teachers/classrooms/activity_planner'>
 //               <button onClick className="button-green add-students pull-right">
 //                 View Assigned Activity Packs <i class="fa fa-long-arrow-right"></i>
 //               </button>
