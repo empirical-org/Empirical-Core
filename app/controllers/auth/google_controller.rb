@@ -38,14 +38,17 @@ class Auth::GoogleController < ApplicationController
       user.subscribe_to_newsletter
       if user.role == 'teacher'
         render 'accounts/new'
+        return
       end
     end
     if user.errors.any?
       redirect_to new_account_path
+      return
     else
       user.update(signed_up_with_google: true)
       GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
       redirect_to profile_path
+      return
     end
   end
 end

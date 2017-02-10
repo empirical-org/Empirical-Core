@@ -2,6 +2,8 @@ module GoogleIntegration::Profile
 
   def self.fetch_name_and_email(access_token)
     data = self.fetch_data(access_token)
+    puts "213goo Printing Google Data"
+    puts data
     name = data['displayName']
     email = data['emails'][0]['value']
     [name, email]
