@@ -27,7 +27,7 @@ module PublicProgressReports
       ca = last_completed_diagnostic
       if ca
         custom_url = "#u/#{ca.unit.id}/a/#{ca.activity_id}/c/#{ca.classroom_id}"
-        return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/questions"
+        return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
       else
         return "/teachers/progress_reports/diagnostic_reports/#not_completed"
       end
