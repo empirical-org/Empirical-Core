@@ -8,7 +8,7 @@ class Teachers::UnitTemplatesController < ApplicationController
     respond_to do |format|
       format.json do
         render json: UnitTemplate.user_scope(current_user.try(:flag) || 'production')
-                      .includes(:author, :unit_template_category, activities: [{topic: [:topic_category]}, :classification])
+                      .includes(:author, :unit_template_category)
                       .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
       end
 

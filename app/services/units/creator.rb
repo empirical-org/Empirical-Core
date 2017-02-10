@@ -23,7 +23,7 @@ module Units::Creator
   private
 
   def self.create_helper(teacher, name, activities_data, classrooms)
-    unit = Unit.create(name: name, user: teacher)
+    unit = Unit.create!(name: name, user: teacher)
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     classrooms.each do |classroom|

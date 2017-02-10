@@ -116,9 +116,9 @@ class ActivitySession < ActiveRecord::Base
 
   def display_due_date_or_completed_at_date
     if self.completed_at.present?
-      "Completed #{self.completed_at.strftime('%A, %B %d, %Y')}"
+      "#{self.completed_at.strftime('%A, %B %d, %Y')}"
     elsif (self.classroom_activity.present? and self.classroom_activity.due_date.present?)
-      "Due #{self.classroom_activity.due_date.strftime('%A, %B %d, %Y')}"
+      "#{self.classroom_activity.due_date.strftime('%A, %B %d, %Y')}"
     else
       ""
     end
@@ -241,11 +241,13 @@ class ActivitySession < ActiveRecord::Base
     # The matching names for this case statement match those returned by
     # the progress reports ActivitySessionSerializer and used as
     # column definitions in the corresponding React component.
+    last_name = "substring(users.name, '(?=\s).*')"
+
     case sort[:field]
     when 'activity_classification_name'
-      "activity_classifications.name #{order}, users.name #{order}"
+      "activity_classifications.name #{order}, #{last_name} #{order}"
     when 'student_name'
-      "users.name #{order}"
+      "#{last_name} #{order}"
     when 'completed_at'
       "activity_sessions.completed_at #{order}"
     when 'activity_name'

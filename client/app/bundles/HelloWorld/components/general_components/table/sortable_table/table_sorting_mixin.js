@@ -28,6 +28,12 @@ export default {
     return s.naturalCmp(a[fieldName], b[fieldName]) * sign;
   },
 
+  // Sign = 1 or -1 depending on whether the sort is normal or reverse order
+  lastNameSort: function(sign, fieldName, a, b) {
+    const aLastName = a[fieldName].split(' ')[1]
+    const bLastName = b[fieldName].split(' ')[1]
+    return (aLastName > bLastName ? 1 : -1) * sign;
+  },
   // config = {field: string, sortFunc: function, ...}
   // currentSort = {field: string, direction: string ('asc' or 'desc')}
   defineSorting: function(config, currentSort) {
@@ -40,6 +46,9 @@ export default {
             break
           case 'natural':
             config[key] = this.naturalSort;
+            break;
+          case 'lastName':
+            config[key] = this.lastNameSort;
             break;
           default:
             throw "Sort function named '" + value + "' not recognized";
@@ -70,6 +79,7 @@ export default {
 
     // Partially apply arguments so that the new func has signature -> (a, b)
     var appliedSort = _.partial(sortFunc, sign, sortByFieldName);
+
     results.sort(appliedSort);
     return results;
   },

@@ -4,6 +4,7 @@
  import $ from 'jquery'
  import Units from './units'
  import EmptyAssignedUnits from './EmptyAssignedUnits.jsx'
+ import LoadingIndicator from '../../shared/loading_indicator'
 
  export default React.createClass({
 
@@ -89,7 +90,9 @@
 	stateBasedComponent: function () {
 		if (this.state.units.filter((unit) => unit.classroom_activities.length > 0).length === 0 && this.state.loaded) {
       return <EmptyAssignedUnits/>
-		} else {
+		} else if (!this.state.loaded){
+      return <LoadingIndicator />
+    } else {
 			return (
 				<span>
 				{/* TODO: fix this so it links to the activity type selection page
