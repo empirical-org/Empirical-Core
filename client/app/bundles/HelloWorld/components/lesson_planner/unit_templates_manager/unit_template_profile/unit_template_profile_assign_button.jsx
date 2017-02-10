@@ -13,7 +13,7 @@
     const ut = this.props.data.model
     const name = encodeURIComponent(ut.name);
     const activityIds = encodeURIComponent(ut.activities.map((act)=>act.id).toString())
-    window.location = `./lesson_planner#/new_unit/students/edit/name/${ut.name}/activity_ids/${activityIds}`
+    window.location = `./lesson_planner#/new_unit/students/edit/name/${name}/activity_ids/${activityIds}`
   },
 
   propsSpecificComponent: function () {

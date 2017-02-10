@@ -63,7 +63,7 @@
     if (!this.props.hideNameTheUnit) {
       return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />
     } else if (this.props.unitName) {
-      return <h2 className='edit-activities-h2'>Edit Activities In {this.props.unitName}</h2>
+      return <h2 className='edit-activities-h2'>Activities In {this.props.unitName}</h2>
     }
   },
 
