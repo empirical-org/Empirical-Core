@@ -58,6 +58,7 @@ export default React.createClass({
   sortDefinitions: function() {
     return {
       config: {
+        name: 'lastName',
         question_id: 'natural',
         score: 'numeric',
         instructions: 'natural',
@@ -65,7 +66,7 @@ export default React.createClass({
         time: 'numeric'
       },
       default: {
-        field: 'score',
+        field: 'name',
         direction: 'asc'
       }
     };

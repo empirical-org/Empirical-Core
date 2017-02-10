@@ -27,7 +27,7 @@ module PublicProgressReports
       ca = last_completed_diagnostic
       if ca
         custom_url = "#u/#{ca.unit.id}/a/#{ca.activity_id}/c/#{ca.classroom_id}"
-        return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/questions"
+        return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
       else
         return "/teachers/progress_reports/diagnostic_reports/#not_completed"
       end
@@ -100,7 +100,7 @@ module PublicProgressReports
           student = activity_session.user
           formatted_concept_results = get_concept_results(activity_session)
         {
-            activity_classification: ActivityClassification.find(activity.activity_classification_id).name,
+            activity_classification: ActivityClassification.find(activity.activity_classification_id).key,
             id: student.id,
             name: student.name,
             time: get_time_in_minutes(activity_session),
@@ -169,6 +169,7 @@ module PublicProgressReports
       activity_sessions.compact!
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
+                                         .sort_by {|stud| stud[:name].split()[1]}
       recommendations = Recommendations.new.diagnostic.map do |activity_pack_recommendation|
         students = []
         activity_sessions_counted.each do |activity_session|

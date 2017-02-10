@@ -18,17 +18,17 @@ export default React.createClass({
   columnDefinitions: function() {
     return [
       {
-        name: 'Questions',
-        field: 'question_id',
-        sortByField: 'question_id'
-      },
-      {
         name: 'Score',
         field: 'score',
         sortByField: 'score',
         customCell: function(row) {
           return row['score'] + '%';
         }
+      },
+      {
+        name: 'No.',
+        field: 'question_id',
+        sortByField: 'question_id'
       },
       {
         name: 'Instructions',
@@ -52,7 +52,7 @@ export default React.createClass({
         prompt: 'natural'
       },
       default: {
-        field: 'question_id',
+        field: 'score',
         direction: 'asc'
       }
     };

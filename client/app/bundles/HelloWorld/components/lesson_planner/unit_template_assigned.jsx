@@ -1,11 +1,11 @@
 'use strict'
 
- import React from 'react'
- import $ from 'jquery'
- import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
- import LoadingIndicator from '../shared/loading_indicator'
+import React from 'react'
+import $ from 'jquery'
+import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
+import LoadingIndicator from '../shared/loading_indicator'
 
- export default  React.createClass({
+export default  React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object,
@@ -38,7 +38,7 @@
 
   componentWillMount: function() {
     const that = this;
-    if(typeof this.props.actions.studentsPresent === "undefined") {
+    if(typeof this.props.actions.studentsPresent === 'undefined') {
       $.ajax({
         url: '/teachers/classrooms_i_teach_with_students',
         dataType: 'json',
@@ -58,7 +58,7 @@
     let text;
 
     if (this.props.type === 'diagnostic' || this.state.studentsPresent) {
-      href = '/teachers/classrooms/lesson_planner';
+      href = '/teachers/classrooms/activity_planner';
       text = 'View Assigned Activity Packs';
     } else {
       href = this.props.actions.getInviteStudentsUrl();
