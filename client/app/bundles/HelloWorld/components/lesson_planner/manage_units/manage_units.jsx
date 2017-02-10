@@ -3,6 +3,7 @@
  import React from 'react'
  import $ from 'jquery'
  import Units from './units'
+ import LoadingIndicator from '../../shared/loading_indicator'
 
  export default React.createClass({
 
@@ -101,7 +102,9 @@
 					</div>
 				</div>
 			);
-		} else {
+		} else if (!this.state.loaded){
+      return <LoadingIndicator />
+    } else {
 			return (
 				<span>
 				{/* TODO: fix this so it links to the activity type selection page
