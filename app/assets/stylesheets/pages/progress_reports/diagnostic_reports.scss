@@ -56,7 +56,7 @@ $lightgray: #cecece;
     th:first-of-type,
     tr td:first-of-type {
         width: 110px;
-        text-align: right;
+        text-align: center;
     }
     th:nth-of-type(2),
     tr td:nth-of-type(2) {
@@ -65,7 +65,12 @@ $lightgray: #cecece;
     }
     th:nth-of-type(3),
     tr td:nth-of-type(3) {
-        width: 465px;
+        width: 310px;
+        text-align: left;
+    }
+    th:nth-of-type(4),
+    tr td:nth-of-type(4) {
+        width: 310px;
         text-align: left;
     }
 }

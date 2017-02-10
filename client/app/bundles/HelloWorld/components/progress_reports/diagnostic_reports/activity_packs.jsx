@@ -20,7 +20,7 @@ export default React.createClass({
 	},
 
 	switchToExploreActivityPacks: function(){
-		window.location.href = '/teachers/classrooms/lesson_planner?tab=exploreActivityPacks';
+		window.location.href = '/teachers/classrooms/activity_planner?tab=exploreActivityPacks';
 	},
 
 	stateBasedComponent: function() {

@@ -288,7 +288,7 @@ export default React.createClass({
 		if ((!!this.props.actions.assignSuccessActions) && (!!this.props.data.assignSuccessData)) {
 			return (<UnitTemplatesAssigned actions={this.props.actions.assignSuccessActions} data={this.props.data.assignSuccessData}/>);
 		} else {
-			window.location.href = '/teachers/classrooms/lesson_planner';
+			window.location.href = '/teachers/classrooms/activity_planner';
 		}
 	},
 
