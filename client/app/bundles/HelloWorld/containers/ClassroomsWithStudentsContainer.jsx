@@ -149,9 +149,8 @@ export default class extends React.Component {
 			dataType: 'json',
 			statusCode: {
 				200: function(data) {
-					debugger;
 					that.setState({loading: false, classrooms: data.classrooms, unitName: unitName(data)})
-					this.state.newUnit ? null : that.selectPreviouslyAssignedStudents()
+					that.state.newUnit ? null : that.selectPreviouslyAssignedStudents()
 				},
 				422: function(response) {
 					that.setState({errors: response.responseJSON.errors,
@@ -173,6 +172,8 @@ export default class extends React.Component {
 									unitId={this.props.params.unitId}
 									unitName={this.state.unitName}
 									classrooms={this.state.classrooms}
+									activityIds={this.props.params.activityIdsArray}
+									createOrEdit={this.state.newUnit ? 'create' : 'edit'}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
 									toggleClassroomSelection={this.toggleClassroomSelection}
 									saveButtonEnabled={this.state.studentsChanged}

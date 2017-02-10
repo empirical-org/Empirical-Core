@@ -1,8 +1,14 @@
 import React from 'react'
 import Classroom from './classroom.jsx'
-import UpdateUnitButton from './update_unit_button.jsx'
+import EditStudentsButton from './EditStudentsButton.jsx'
 
 export default class extends React.Component {
+
+	constructor(){
+		super()
+		this.ajaxData = this.ajaxData.bind(this)
+		this.classroomActivityUpdates = this.classroomActivityUpdates.bind(this)
+	}
 
 	resetPage() {
 		window.location = '/teachers/classrooms/lesson_planner'
@@ -45,7 +51,44 @@ export default class extends React.Component {
 	}
 
 	ajaxData = () => {
-		return {classrooms_data: this.classroomActivityUpdates()}
+		const data = {classrooms: JSON.stringify(this.classroomActivityUpdates())}
+		if (this.props.createOrEdit === 'create') {
+			data.create = true,
+			data.name = this.props.unitName,
+			data.activities = JSON.stringify(this.props.activityIds.split(',').map((actId)=>{return {id: actId, due_date: null}}))
+		}
+		return data
+	}
+
+
+	createButton(){
+		return(
+			<EditStudentsButton enabled={this.props.saveButtonEnabled}
+												disabledText={'Add Students Before Saving'}
+												requestType={'POST'}
+												url={'/teachers/units'}
+												successCallback={this.resetPage}
+												buttonText={'Add Students'}
+												dataFunc={this.ajaxData}
+												/>
+		)
+	}
+
+	updateButton(){
+		return (
+			<EditStudentsButton enabled={this.props.saveButtonEnabled}
+											disabledText={'Edit Students Before Saving'}
+											requestType={'PUT'}
+											url={`/teachers/units/${this.props.unitId}/update_classroom_activities_assigned_students`}
+											successCallback={this.resetPage}
+											buttonText={'Update Students'}
+											dataFunc={this.ajaxData}
+											/>
+									)
+	}
+
+	createOrUpdateButton(){
+	 	return this.props.createOrEdit === 'create' ? this.createButton() : this.updateButton()
 	}
 
 	render() {
@@ -69,13 +112,7 @@ export default class extends React.Component {
 			<div>
 				<h2 className='edit-students-h2'>Edit Students for {this.props.unitName}</h2>
 				{classroomList}
-				<UpdateUnitButton enabled={this.props.saveButtonEnabled}
-													disabledText={'Edit Students Before Saving'}
-													putUrl={`/teachers/units/${this.props.unitId}/update_classroom_activities_assigned_students`}
-													successCallback={this.resetPage}
-													buttonText={'Update Students'}
-													dataFunc={this.ajaxData}
-													/>
+				{this.createOrUpdateButton()}
 			</div>
     );
 	}
