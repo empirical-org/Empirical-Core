@@ -36,6 +36,12 @@ FactoryGirl.define do
       factory :mr_woodman do
         name 'Michael Woodman'
       end
+
+      factory :teacher_with_students do
+        classrooms_i_teach { [ FactoryGirl.create(:classroom, students: [FactoryGirl.create(:student)]),
+                       FactoryGirl.create(:classroom, students: [FactoryGirl.create(:student)])
+           ] }
+      end
     end
 
     factory :student do
