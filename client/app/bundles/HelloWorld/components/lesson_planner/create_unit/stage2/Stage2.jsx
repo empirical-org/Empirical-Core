@@ -3,6 +3,8 @@
  import React from 'react'
  import Classroom from './classroom'
  import ActivityDueDate from './activity_due_date'
+ import ClassroomsWithStudents  from './ClassroomsWithStudents.jsx'
+ import AssigningIndicator from '../../../shared/assigning_indicator'
 
  export default  React.createClass({
 
@@ -16,7 +18,7 @@
 
   finish: function () {
     if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
-      this.setState({buttonDisabled: true});
+      // this.setState({buttonDisabled: true});
       this.props.finish();
     } else if (!this.state.buttonDisabled) {
       this.setState({prematureAssignAttempted: true});
@@ -41,9 +43,9 @@
 
   determineButtonText: function () {
     if (!this.state.buttonDisabled) {
-      return 'Assign';
+      return <span>Assign</span>;
     } else {
-      return 'Assigning...';
+      return <span>Assigning... <AssigningIndicator /></span>;
     }
   },
 
@@ -97,7 +99,7 @@
           </table>
           <div className='error-message-and-button'>
             <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
-            <button ref='button' id='assign' className={this.determineAssignButtonClass() + ' pull-right'} onClick={this.finish}>{this.determineButtonText()}</button>
+            <button ref='button' id='assign' className={this.determineAssignButtonClass() + ' pull-right'} onClick={this.finish}>{this.determineButtonText()} </button>
           </div>
         </section>
       </span>

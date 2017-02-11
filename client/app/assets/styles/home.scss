@@ -42,10 +42,17 @@ a.q-button {
     font-weight: bold;
     padding: 11px 33px 8px;
   }
+  &:hover.text-white {
+    color: white;
+  }
   &.small-button {
     font-size: 14px;
   }
+  &:hover {
+    text-decoration: none;
+  }
 }
+
 
 .flex-row {
   display: flex;
@@ -91,11 +98,15 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, darkgray: $darkgray, purple: $purple);
+$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, lightgray: $lightgray, darkgray: $darkgray, purple: $purple);
 
 @each $name, $color in $list {
   .text-#{$name} {
     color: $color;
+    &:hover, &:focus {
+      color: $color;
+      text-decoration: none;
+    }
   }
   .bg-#{$name} {
     background-color: $color;

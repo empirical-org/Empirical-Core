@@ -75,14 +75,20 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account_settings' => 'students#account_settings'
   put 'make_teacher' => 'students#make_teacher'
 
+  get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
-
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }
 
   namespace :teachers do
 
-    resources :units, as: 'units_path' # moved from within classroom, since units are now cross-classroom
-    get 'unit_names' => 'units#unit_names'
+    resources :units, as: 'units_path' do
+      get :classrooms_with_students_and_classroom_activities, on: :member
+      put :update_classroom_activities_assigned_students, on: :member
+      put :update_activities, on: :member
+    end # moved from within classroom, since units are now cross-classroom
+
+    get 'prohibited_unit_names' => 'units#prohibited_unit_names'
+
 
     resources :unit_templates, only: [:index] do
       collection do
@@ -134,7 +140,6 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms do
       collection do
         get :classrooms_i_teach
-        get :classrooms_i_teach_with_students
         get :regenerate_code
         get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
         get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'

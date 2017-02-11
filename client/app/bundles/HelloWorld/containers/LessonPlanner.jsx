@@ -3,7 +3,7 @@
 import React from 'react'
 import $ from 'jquery'
 import _ from 'underscore'
-import _l from "lodash"
+import _l from 'lodash'
 import UnitTemplatesAssigned from '../components/lesson_planner/unit_template_assigned'
 import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
 import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
@@ -18,11 +18,11 @@ import AssignANewActivity from '../components/lesson_planner/create_unit/assign_
 
 export default React.createClass({
 	propTypes: {
-		grade: React.PropTypes.string.isRequired,
-		tab: React.PropTypes.string.isRequired,
-		classroomName: React.PropTypes.string.isRequired,
-		classroomId: React.PropTypes.string.isRequired,
-		students: React.PropTypes.string.isRequired
+		grade: React.PropTypes.string,
+		tab: React.PropTypes.string,
+		classroomName: React.PropTypes.string,
+		classroomId: React.PropTypes.string,
+		students: React.PropTypes.string
 	},
 
 	analytics: function() {
@@ -287,8 +287,6 @@ export default React.createClass({
 				const errorMessage = jQuery.parseJSON(response.responseText).error_message
 				window.alert(errorMessage)
 			}
-			// success: this.onFastAssignSuccess,
-			// fail: (response) => console.log(response)
 		})
 	},
 
@@ -298,22 +296,23 @@ export default React.createClass({
 	},
 
 	customAssign: function() {
-		this.fetchClassrooms();
-		var unitTemplate = this.state.unitTemplatesManager.model;
-		var hash = {
-			tab: 'createUnit',
-			unitTemplatesManager: {
-				firstAssignButtonClicked: false
-			},
-			createUnit: {
-				stage: 2,
-				model: {
-					name: unitTemplate.name,
-					selectedActivities: unitTemplate.activities
-				}
-			}
-		};
-		this.deepExtendState(hash);
+		this.fastAssign()
+		// this.fetchClassrooms();
+		// var unitTemplate = this.state.unitTemplatesManager.model;
+		// var hash = {
+		// 	tab: 'createUnit',
+		// 	unitTemplatesManager: {
+		// 		firstAssignButtonClicked: false
+		// 	},
+		// 	createUnit: {
+		// 		stage: 2,
+		// 		model: {
+		// 			name: unitTemplate.name,
+		// 			selectedActivities: unitTemplate.activities
+		// 		}
+		// 	}
+		// };
+		// this.deepExtendState(hash);
 	},
 
 	unitTemplatesManagerActions: function() {
@@ -330,11 +329,22 @@ export default React.createClass({
 		};
 	},
 
+	manageUnit: function()  {
+		<ManageUnits actions={{
+		 toggleTab: this.toggleTab,
+		 editUnit: this.editUnit
+	 }}/>;
+	},
+
 	render: function() {
 		var tabSpecificComponents;
-		if (this.state.unitTemplatesManager.assignSuccess === true) {
+		// Ultimately, none of the tab state should exist, and we should transfer
+		// entirely to react-router for managing that, along with redux for
+		// the general state in this section
+		const tabParam = this.props.params.tab
+		if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam == ('featured-activity-packs' || 'explore-activity-packs'))) {
 			tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
-		} else if (this.state.tab == 'createUnit') {
+		} else if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
 			tabSpecificComponents = <CreateUnit data={{
 				createUnitData: this.state.createUnit,
 				assignSuccessData: this.state.unitTemplatesManager.model
@@ -343,23 +353,23 @@ export default React.createClass({
 				toggleTab: this.toggleTab,
 				assignActivityDueDate: this.assignActivityDueDate,
 				update: this.updateCreateUnitModel,
-				toggleActivitySelection: this.toggleActivitySelection,
-				assignSuccessActions: this.unitTemplatesAssignedActions()
-			}} analytics={this.analytics()}/>;
-		} else if (this.state.tab == 'manageUnits') {
-			tabSpecificComponents = <ManageUnits actions={{
-				toggleTab: this.toggleTab,
-				editUnit: this.editUnit
-			}}/>;
-		} else if (this.state.tab == 'exploreActivityPacks') {
-			tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
-		} else if (this.state.tab === 'assignANewActivity') {
+					toggleActivitySelection: this.toggleActivitySelection,
+					assignSuccessActions: this.unitTemplatesAssignedActions()
+				}} analytics={this.analytics()}/>;
+		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
 			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
+		} else if ((tabParam === 'manage-units') || (this.state.tab == 'manageUnits' && !tabParam)) {
+			tabSpecificComponents = <ManageUnits actions={{
+			 toggleTab: this.toggleTab,
+			 editUnit: this.editUnit
+		 }}/>;
+ 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
+			tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		}
 
 		return (
 			<span>
-				<UnitTabs tab={this.state.tab} toggleTab={this.toggleTab}/>
+				<UnitTabs tab={tabParam || this.state.tab} toggleTab={this.toggleTab}/>
 				<div id="lesson_planner">
 					{tabSpecificComponents}
 				</div>

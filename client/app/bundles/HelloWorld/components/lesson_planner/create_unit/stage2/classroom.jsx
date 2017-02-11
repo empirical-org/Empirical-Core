@@ -50,7 +50,11 @@
 
   render: function() {
     var studentList = this.props.students.map(function(student) {
-      return <Student key={student.id} student={student} classroom={this.props.classroom} toggleStudentSelection={this.props.toggleStudentSelection}/>;
+      return <Student key={student.id}
+                      student={student}
+                      classroom={this.props.classroom}
+                      handleStudentCheckboxClick={this.props.handleStudentCheckboxClick}
+                      toggleStudentSelection={this.props.toggleStudentSelection}/>;
     }, this);
 
     return (
