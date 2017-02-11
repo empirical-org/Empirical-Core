@@ -216,12 +216,9 @@ class ActivitySession < ActiveRecord::Base
   private
 
   def correctly_assigned
-    if self.classroom_activity && (classroom_activity.validate_assigned_student(self.user_id) == false)
-      begin
+    if self.classroom_activity && (classroom_activity.validate_assigned_student(self.user_id) == false) && (self.visible == true)
         puts 'Student was not assigned this activity'
-      rescue
         errors.add(:incorrectly_assigned, "student was not assigned this activity")
-      end
     else
       return true
     end
