@@ -3,51 +3,69 @@
     cursor: pointer;
   }
 }
+
+.lesson_planner_main {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
 .container.manage-units {
   padding-top: 0 !important;
   .create-unit-button-container {
     height: 130px;
     width: 100%;
     padding-top: 25px;
-    //outline: 1px solid black;
+    /*outline: 1px solid black;*/
     button.create-unit {
       margin: none !important;
       float: right;
     }
   }
-  .empty-unit-manager {
-    p {
-      font-size: 18px;
-      margin: 2em;
-    }
-    .featured-button {
-      margin-top: 50px;
-      margin-left: 40px;
-    }
-  }
+
   padding-top: 80px;
   section {
     border-bottom: none;
-    border-top: 1px solid #cecece;
   }
-  .vertical-align {
+  .unit-header-row, .unit-label-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin-left: 15px;
+    margin-right: 15px;
   }
-  .delete-unit {
+  .delete-unit, .edit-unit {
+    padding-top: 4px;
     cursor: pointer;
     color: #137779;
-    text-align: right;
-    padding-right: 30px;
+  }
+  .delete-classroom-activity {
+    margin-right: 11px;
+  }
+  .delete-unit {
+    margin-left: auto;
+  }
+  .edit-unit {
+      width: 200px;
   }
   .fa {
     padding-right: 10px;
   }
-  .assigned-activities a {
-    color: #027360;
+
+  .unit-name {
+    padding-right: 10px;
+    font-weight: 500;
+    font-size: 24px;
+    input {
+      min-width: 300px;
+    }
   }
   .unit-label {
-    font-weight: bold;
     margin-top: 30px;
     text-align: left !important;
     border-bottom: none;
@@ -61,23 +79,52 @@
     border-right: 1px solid #cecece;
     padding-left: 17px;
     margin-left: 0;
+    a {
+      margin-left: 10px;
+    }
   }
   .due-date-header {
-    padding-left: 39px;
+    padding-right: 9.5%;
+    float: right;
   }
-  .table {
+  .due-date-input {
+    text-align: center;
+    width: 95px;
+  }
+  .assigned-activities {
     margin-top: 0 !important;
-    border: 1px solid #cecece !important;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     width: 100%;
+    a {
+      color: #027360;
+    }
+    .q-button {
+      font-size: 14px;
+      height: 36px;
+      color: black;
+      border: 1px solid;
+      font-weight: 600;
+      span {
+        font-size: 9px;
+        font-weight: 500;
+        position: relative;
+        top: -1px;
+        left: 3px;
+      }
+    }
     .row:last-child {
       border-bottom: none;
     }
     .row {
-      border-bottom: 1px solid #cecece;
+      border: 1px solid #cecece;
+        border-bottom: none;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       padding: 0;
       margin: 0 !important;
       .cell:first-child {
@@ -87,11 +134,11 @@
         padding-left: 0;
       }
       .cell:nth-child(3) {
-        padding-left: 35px;
+        padding-left: 62px;
       }
       .cell:nth-child(4) {
-        //padding-left: 5px;
-        //padding-right: 5px;
+        /*padding-left: 5px;*/
+        /*padding-right: 5px;*/
         padding-left: 12px;
         padding-right: 8px;
         .icon-x-gray {

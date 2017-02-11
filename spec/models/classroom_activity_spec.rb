@@ -133,12 +133,12 @@ describe ClassroomActivity, type: :model do
           expect(classroom_activity.validate_assigned_student(student.id)).to be true
         end
 
-        it 'assigned_students_ids is nil' do
+        it 'assigned_student_ids is nil' do
           classroom_activity.assigned_student_ids = nil
           expect(classroom_activity.validate_assigned_student(student.id)).to be true
         end
 
-        it 'assigned_students_ids contains the student id' do
+        it 'assigned_student_ids contains the student id' do
           classroom_activity.assigned_student_ids = [student.id]
           expect(classroom_activity.validate_assigned_student(student.id)).to be true
         end

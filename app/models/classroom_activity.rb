@@ -11,9 +11,8 @@ class ClassroomActivity < ActiveRecord::Base
   default_scope { where(visible: true) }
   scope :with_topic, ->(tid) { joins(:topic).where(topics: {id: tid}) }
 
-
   after_create :assign_to_students
-  after_save :teacher_checkbox, :assign_to_students
+  after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions
 
   def assigned_students
     User.where(id: assigned_student_ids)
@@ -105,6 +104,35 @@ class ClassroomActivity < ActiveRecord::Base
     checkbox_name = checkbox_type
     if teacher && self.unit && self.unit.name
       find_or_create_checkbox(checkbox_name, teacher)
+    end
+  end
+
+  def sibling_due_date
+    ClassroomActivity.where(unit_id: self.unit_id, activity_id: self.activity_id, classroom_id: self.classroom_id)
+                      .where.not(due_date: nil).limit(1).pluck(:due_date).first
+  end
+
+  def hide_appropriate_activity_sessions
+    # on save callback that checks if archived
+    if self.visible == false
+      hide_all_activity_sessions
+      return
+    end
+    hide_unassigned_activity_sessions
+  end
+
+  def hide_unassigned_activity_sessions
+    #validate or hides any other related activity sessions
+    self.activity_sessions.each do |as|
+      if !validate_assigned_student(as.user_id)
+        as.update(visible: false)
+      end
+    end
+  end
+
+  def hide_all_activity_sessions
+    self.activity_sessions.each do |as|
+      as.update(visible: false)
     end
   end
 

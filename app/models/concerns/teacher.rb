@@ -37,6 +37,14 @@ module Teacher
     TransferAccountWorker.perform_async(self.id, new_user.id);
   end
 
+  def classrooms_i_teach_with_students
+    classrooms_i_teach.includes(:students).map do |classroom|
+      classroom_h = classroom.attributes
+      classroom_h[:students] = classroom.students
+      classroom_h
+    end
+  end
+
   def classroom_activities(includes_value = nil)
     classroom_ids = classrooms_i_teach.map(&:id)
     if includes_value

@@ -1,56 +1,88 @@
 'use strict'
 
- import React from 'react'
- import $ from 'jquery'
- import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
+import React from 'react'
+import $ from 'jquery'
+import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
+import LoadingIndicator from '../shared/loading_indicator'
 
- export default  React.createClass({
+export default  React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object,
     type: React.PropTypes.string
   },
 
-  getDefaultProps: function () {
+  getInitialState: function() {
+    return {loading: true}
+  },
+
+  getDefaultProps: function() {
     // the only time we won't pass this is if they are assigning the diagnostic,
     // but actions shouldn't be undefined
     return {actions: {getInviteStudentsUrl: function(){'placeholder function'}}}
   },
 
   hideSubNavBars: function() {
-    $(".unit-tabs").hide();
-    $(".tab-outer-wrap").hide();
-    $(".section-content-wrapper").hide();
+    $('.unit-tabs').hide();
+    $('.tab-outer-wrap').hide();
+    $('.section-content-wrapper').hide();
   },
 
   activityName: function() {
     return this.props.data.name;
   },
 
+  anyClassroomsWithStudents: function(classrooms) {
+    return !!classrooms.find((e) => e.students.length > 0)
+  },
+
+  componentWillMount: function() {
+    const that = this;
+    if(typeof this.props.actions.studentsPresent === 'undefined') {
+      $.ajax({
+        url: '/teachers/classrooms_i_teach_with_students',
+        dataType: 'json',
+        success: function(data) {
+          that.setState({loading: false, studentsPresent: that.anyClassroomsWithStudents(data.classrooms) });
+        }
+      });
+    } else {
+      this.setState({loading: false, studentsPresent: this.props.actions.studentsPresent });
+    }
+  },
+
   teacherSpecificComponents: function() {
     this.hideSubNavBars();
-    if (this.props.type === 'diagnostic' || this.props.actions.studentsPresent) {
-      return (<span>
-            <a href = '/teachers/classrooms/activity_planner'>
-              <button onClick className="button-green add-students pull-right">
-                View Assigned Activity Packs <i className="fa fa-long-arrow-right"></i>
-              </button>
-            </a>
-        </span>);
+
+    let href;
+    let text;
+
+    if (this.props.type === 'diagnostic' || this.state.studentsPresent) {
+      href = '/teachers/classrooms/activity_planner';
+      text = 'View Assigned Activity Packs';
     } else {
-      return (<span>
-            <a href = {this.props.actions.getInviteStudentsUrl()} >
+      href = this.props.actions.getInviteStudentsUrl();
+      text = 'Add Students'
+    }
+
+    return (
+      <span>
+            <a href={href}>
               <button onClick className="button-green add-students pull-right">
-                Add Students <i className="fa fa-long-arrow-right"></i>
+                {text} <i className="fa fa-long-arrow-right"></i>
               </button>
             </a>
-        </span>);
-    }
+      </span>
+    )
   },
 
 
 
   render: function () {
+    if(this.state.loading) {
+      return(<LoadingIndicator />);
+    }
+
     $('html,body').scrollTop(0);
     return (
       <div className='assign-success-container'>

@@ -1,0 +1,9 @@
+.react-datepicker {
+  color: black;
+  .react-datepicker__month-option, .react-datepicker__month-read-view--selected-month {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

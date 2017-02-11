@@ -299,11 +299,10 @@ describe ActivitySession, type: :model do
     let!(:assigned_student){ FactoryGirl.create(:student) }
     let!(:unassigned_student){ FactoryGirl.create(:student) }
     let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, assigned_student_ids: [assigned_student.id] )}
-    # let(:activity_session){   FactoryGirl.build(:activity_session, classroom_activity_id: classroom_activity.id)                    }
 
     it 'ensures that the student was correctly assigned' do
-        act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_activity: classroom_activity)
-        expect(act_sesh).not_to be_valid
+      act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_activity: classroom_activity)
+      expect(act_sesh).not_to be_valid
     end
   end
 
