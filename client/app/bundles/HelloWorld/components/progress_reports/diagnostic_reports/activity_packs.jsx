@@ -26,7 +26,6 @@ export default React.createClass({
 
 	stateBasedComponent: function() {
 		if (this.state.loaded) {
-			debugger;
 			if (this.state.units.length === 0) {
 				return (
 					<EmptyAssignedUnits/>
