@@ -55,7 +55,7 @@ export default React.createClass({
 			student.concept_results.forEach(function(concept) {
 				score += concept.questionScore;
 			});
-			return score / 6 * 100;
+			return Math.round(score / student.concept_results.length * 100);
 		} else {
 			return student.score;
 		}
