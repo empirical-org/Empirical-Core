@@ -49,6 +49,18 @@ export default React.createClass({
 		})
   },
 
+	calculateScore: function(student) {
+		if(student.activity_classification === 'connect') {
+			let score = 0;
+			student.concept_results.forEach(function(concept) {
+				score += concept.questionScore;
+			});
+			return score / 6 * 100;
+		} else {
+			return student.score;
+		}
+	},
+
 	render: function() {
 		let content;
 		if (this.state.loading) {
@@ -57,7 +69,7 @@ export default React.createClass({
 			const student = this.selectedStudent(this.state.students);
 			content = (
 				<div className='individual-student-activity-view'>
-					<h3 style={{marginBottom: '50px', paddingLeft: '20px'}}>{student.name}  <strong style={{paddingLeft: '20px'}}>{student.score}%</strong></h3>
+					<h3 style={{marginBottom: '50px', paddingLeft: '20px'}}>{student.name}  <strong style={{paddingLeft: '20px'}}>{this.calculateScore(student)}%</strong></h3>
           {this.studentBoxes()}
 					<div className='how-we-grade'>
 					<p className="title title-not-started pull-right">
