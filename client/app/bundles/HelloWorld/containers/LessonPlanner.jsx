@@ -188,7 +188,7 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		if (this.state.tab == 'exploreActivityPacks') {
+		if ((this.props.params.tab == 'explore-activity-packs') || (this.props.params.tab = 'featured-activity-packs')) {
 			this.fetchUnitTemplateModels();
 		}
 	},
