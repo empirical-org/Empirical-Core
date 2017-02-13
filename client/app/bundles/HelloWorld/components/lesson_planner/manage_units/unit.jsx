@@ -96,7 +96,7 @@
   },
 
   editStudentsLink: function(){
-    return <Link className='edit-unit' to={`/units/${this.props.data.unit.id}/students/edit`}>Edit Students</Link>
+    return this.props.report ? null : <Link className='edit-unit' to={`/units/${this.props.data.unit.id}/students/edit`}>Edit Students</Link>
   },
 
   handleSubmit: function(){
@@ -130,7 +130,18 @@
   },
 
   nameActionLink: function(){
-    return this.state.edit ? this.submitName() : this.editName()
+    if (this.state.edit) {
+      return this.submitName()
+    } else if (this.props.report) {
+      return null
+    } else {
+      return this.editName()
+    }
+    // return this.state.edit ? this.submitName() : this.editName()
+  },
+
+  addClassroomActivityRow: function(){
+    return this.props.report ? null : <AddClassroomActivityRow unitId={this.props.data.unit.id} unitName={this.props.data.unit.name}/>
   },
 
 	render: function () {
@@ -158,7 +169,7 @@
 				</div>
         <div className='table assigned-activities'>
         	{classroomActivities}
-          <AddClassroomActivityRow unitId={this.props.data.unit.id} unitName={this.props.data.unit.name}/>
+          {this.addClassroomActivityRow()}
         </div>
 			</section>
 		);
