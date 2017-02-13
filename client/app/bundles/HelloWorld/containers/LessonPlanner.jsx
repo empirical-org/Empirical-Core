@@ -363,7 +363,7 @@ export default React.createClass({
 			 toggleTab: this.toggleTab,
 			 editUnit: this.editUnit
 		 }}/>;
- 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
+ 	} else if (tabParam === 'explore-activity-packs' || tabParam === 'featured-activity-packs' || this.state.tab == 'exploreActivityPacks') {
 			tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		}
 
