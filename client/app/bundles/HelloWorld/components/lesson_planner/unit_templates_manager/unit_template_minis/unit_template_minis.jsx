@@ -94,8 +94,8 @@
     }
   },
 
-  renderHeaderIfLoggedIn: function () {
-    if (this.userLoggedIn()) {
+  renderHeader: function () {
+    if (this.userLoggedIn() && !this.props.data.selectedCategoryId) {
       return <UnitTemplateMinisHeader data={this.props.data} />
     }
   },
@@ -136,7 +136,7 @@
 
   alwaysRender: function () {
     return (<div key='always-display' className='unit-template-minis'>
-      {this.renderHeaderIfLoggedIn()}
+      {this.renderHeader()}
       <div className="container">
         <div className='row'>
           <div className='col-xs-12'>

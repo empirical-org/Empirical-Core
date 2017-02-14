@@ -10,6 +10,7 @@
  import updaterGenerator from '../../modules/updater'
  import Server from '../../modules/server/server'
  import WindowPosition from '../../modules/windowPosition'
+ import AnalyticsWrapper from '../../shared/analytics_wrapper'
 
  export default React.createClass({
 
@@ -23,6 +24,29 @@
      }
    },
 
+   analytics: function() {
+     return new AnalyticsWrapper();
+   },
+
+   initialState() {
+     return {
+         unitTemplatesManager: {
+         firstAssignButtonClicked: false,
+         assignSuccess: false,
+         models: [],
+         categories: [],
+         stage: 'index', // index, profile,
+         model: null,
+         model_id: null,
+         relatedModels: [],
+         displayedModels: [],
+         selectedCategoryId: null,
+         lastActivityAssigned: null,
+         grade: null
+        }
+       }
+   },
+
   getInitialState() {
 
     this.modules = {
@@ -32,24 +56,11 @@
       windowPosition: new WindowPosition()
     }
 
+    this.deepExtendState = this.modules.updaterGenerator.updater(null)
+    this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
     this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
 
-    return {
-        unitTemplatesManager: {
-        firstAssignButtonClicked: false,
-        assignSuccess: false,
-        models: [],
-        categories: [],
-        stage: 'index', // index, profile,
-        model: null,
-        model_id: null,
-        relatedModels: [],
-        displayedModels: [],
-        selectedCategoryId: null,
-        lastActivityAssigned: null,
-        grade: null
-       }
-      }
+    return this.initialState()
     },
 
     unitTemplatesManagerActions: function() {
@@ -114,6 +125,7 @@
     filterByCategory: function(categoryName) {
       let selectedCategoryId, unitTemplates
       if (categoryName) {
+        categoryName = categoryName.toUpperCase() === 'ELL' ? categoryName.toUpperCase() : _l.capitalize(categoryName)
         selectedCategoryId = this.state.unitTemplatesManager.categories.find((cat) => cat.name === categoryName).id
         unitTemplates = _l.filter(this.state.unitTemplatesManager.models, {
           unit_template_category: {
@@ -124,6 +136,21 @@
         unitTemplates = this.state.unitTemplatesManager.models;
       }
       this.updateUnitTemplatesManager({stage: 'index', displayedModels: unitTemplates, selectedCategoryId: selectedCategoryId});
+    },
+
+    fetchClassrooms: function() {
+      var that = this;
+      $.ajax({
+        url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
+        context: this,
+        success: function(data) {
+          that.updateCreateUnit({
+            options: {
+              classrooms: data.classrooms_and_their_students
+            }
+          })
+        }
+      });
     },
 
     fetchUnitTemplateModels: function() {
@@ -144,6 +171,16 @@
         }
       })
     },
+
+    onFastAssignSuccess: function() {
+      var lastActivity = this.state.unitTemplatesManager.model;
+      this.analytics().track('click Create Unit', {});
+      this.deepExtendState(this.initialState());
+      this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
+      this.fetchClassrooms();
+      this.updateUnitTemplatesManager({assignSuccess: true});
+    },
+
 
     customAssign: function() {
       this.fastAssign()
