@@ -34,7 +34,7 @@
 
   render: function () {
     return (
-      <a className={this.getClassName()} onClick={this.select}>{this.getName()}</a>
+      <a href={`/teachers/classrooms/activity_planner#/tab/featured-activity-packs/${this.getName()}`} className={this.getClassName()}>{this.getName()}</a>
     )
   }
 })
