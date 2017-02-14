@@ -13,24 +13,33 @@ class ScoreAnalysis extends Component {
     this.props.dispatch(scoreActions.loadScoreData());
   }
 
-  renderRows() {
+  formatDataForTable() {
     const { questions, scoreAnalysis, } = this.props;
-
-    return _.map(hashToCollection(questions.data), (question) => {
+    const formatted = _.map(hashToCollection(questions.data), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
-      console.log(scoreData);
       if (scoreData) {
-        return (
-          <tr>
-            <td>{question.prompt}</td>
-            <td>{scoreData.responses}</td>
-            <td>{scoreData.totalAttempts}</td>
-            <td>{scoreData.unmatchedResponses}</td>
-            <td>{scoreData.commonUnmatchedResponses}</td>
-          </tr>
-        );
+        return {
+          prompt: question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''),
+          responses: scoreData.responses || 0,
+          attempts: scoreData.totalAttempts || 0,
+          unmatched: scoreData.unmatchedResponses || 0,
+          commonUnmatched: scoreData.commonUnmatchedResponses || 0,
+        };
       }
     });
+    return _.compact(formatted);
+  }
+
+  renderRows() {
+    return _.map(this.formatDataForTable(), question => (
+      <tr>
+        <td width="600px">{question.prompt}</td>
+        <td>{question.unmatched}</td>
+        <td>{question.commonUnmatched}</td>
+        <td>{question.responses}</td>
+        <td>{question.attempts}</td>
+      </tr>
+      ));
   }
 
   render() {
@@ -38,15 +47,14 @@ class ScoreAnalysis extends Component {
     if (questions.hasreceiveddata && scoreAnalysis.hasreceiveddata) {
       return (
         <div>
-          <h1>Hello World.</h1>
-          <table>
+          <table className="table is-striped is-bordered">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Responses</th>
-                <th>Attempts</th>
+                <th width="600px">Name</th>
                 <th>Unmatched</th>
                 <th>Common Unmatched</th>
+                <th>Responses</th>
+                <th>Attempts</th>
               </tr>
             </thead>
             <tbody>
