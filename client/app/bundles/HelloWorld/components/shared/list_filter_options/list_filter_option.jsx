@@ -34,8 +34,8 @@
 
   getLink: function() {
     let link
-    const name = this.getName()
-    if (name === 'All') {
+    const name = this.getName().toLowerCase()
+    if (name === 'all') {
       link = '/teachers/classrooms/activity_planner#/tab/featured-activity-packs'
     } else {
       link = `/teachers/classrooms/activity_planner#/tab/featured-activity-packs/category/${name}`
