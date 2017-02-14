@@ -6,9 +6,8 @@ import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
 import EditUnitActivitiesContainer from './EditUnitActivitiesContainer.jsx'
 import EmptyAssignedUnits from '../components/lesson_planner/manage_units/EmptyAssignedUnits.jsx'
-import FilteredUnitTemplates from '../components/lesson_planner/unit_templates_manager/FilteredUnitTemplates'
 import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
-import UnitTemplatesMini from '../components/lesson_planner/unit_templates_manager/unit_template_minis'
+import UnitTemplatesMini from '../components/lesson_planner/unit_templates_manager/unit_template_minis/unit_template_minis'
 
 export default React.createClass({
 	render: function() {
