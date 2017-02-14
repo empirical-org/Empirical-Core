@@ -17,6 +17,12 @@
    		this.fetchUnitTemplateModels();
    },
 
+   componentWillReceiveProps: function(nextProps) {
+     if (this.props.params.category !== nextProps.params.category) {
+      this.filterByCategory(nextProps.params.category)
+     }
+   },
+
   getInitialState() {
 
     this.modules = {
@@ -80,7 +86,7 @@
       }
       this.updateUnitTemplatesManager(newHash)
       if (this.props.params.category) {
-        this.filterByCategory()
+        this.filterByCategory(this.props.params.category)
       }
     },
 
@@ -105,9 +111,8 @@
       this.updateUnitTemplatesManager({stage: 'index', displayedModels: uts});
     },
 
-    filterByCategory: function() {
-      let unitTemplates, selectedCategoryId
-      const categoryName = this.props.params.category
+    filterByCategory: function(categoryName) {
+      let selectedCategoryId, unitTemplates
       if (categoryName) {
         selectedCategoryId = this.state.unitTemplatesManager.categories.find((cat) => cat.name === categoryName).id
         unitTemplates = _l.filter(this.state.unitTemplatesManager.models, {
@@ -154,6 +159,22 @@
       this.modules.windowPosition.reset();
     },
 
+    toggleTab: function(tab) {
+      if (tab == 'createUnit') {
+        this.analytics().track('click Create Unit', {});
+        this.updateCreateUnit({
+          stage: 1,
+          model: {
+            name: null,
+            selectedActivities: []
+          }
+        });
+
+        this.setState({tab: tab});
+      } else {
+        this.setState({tab: tab});
+      }
+    },
 
   stageSpecificComponents: function () {
     if (this.state.unitTemplatesManager.stage === 'index') {
@@ -167,7 +188,7 @@
   render: function () {
     return (
       <span>
-        <UnitTabs tab={tabParam || this.state.tab} toggleTab={this.toggleTab}/>
+        <UnitTabs tab="featured-activity-packs" toggleTab={this.toggleTab}/>
         <div className='unit-templates-manager'>
           {this.stageSpecificComponents()}
         </div>
