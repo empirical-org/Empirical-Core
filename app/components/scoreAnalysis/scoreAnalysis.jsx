@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import scoreActions from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
+import { hashToCollection } from '../../libs/hashToCollection.js';
 
 class ScoreAnalysis extends Component {
   constructor(props) {
@@ -10,6 +11,26 @@ class ScoreAnalysis extends Component {
 
   componentWillMount() {
     this.props.dispatch(scoreActions.loadScoreData());
+  }
+
+  renderRows() {
+    const { questions, scoreAnalysis, } = this.props;
+
+    return _.map(hashToCollection(questions.data), (question) => {
+      const scoreData = scoreAnalysis.data[question.key];
+      console.log(scoreData);
+      if (scoreData) {
+        return (
+          <tr>
+            <td>{question.prompt}</td>
+            <td>{scoreData.responses}</td>
+            <td>{scoreData.totalAttempts}</td>
+            <td>{scoreData.unmatchedResponses}</td>
+            <td>{scoreData.commonUnmatchedResponses}</td>
+          </tr>
+        );
+      }
+    });
   }
 
   render() {
@@ -29,13 +50,7 @@ class ScoreAnalysis extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Name</td>
-                <td>Responses</td>
-                <td>Attempts</td>
-                <td>Unmatched</td>
-                <td>Common Unmatched</td>
-              </tr>
+              {this.renderRows()}
             </tbody>
           </table>
         </div>
