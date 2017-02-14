@@ -32,9 +32,20 @@
     return name;
   },
 
+  getLink: function() {
+    let link
+    const name = this.getName()
+    if (name === 'All') {
+      link = '/teachers/classrooms/activity_planner#/tab/featured-activity-packs'
+    } else {
+      link = `/teachers/classrooms/activity_planner#/tab/featured-activity-packs/category/${name}`
+    }
+    return link
+  },
+
   render: function () {
     return (
-      <a href={`/teachers/classrooms/activity_planner#/tab/featured-activity-packs/${this.getName()}`} className={this.getClassName()}>{this.getName()}</a>
+      <a href={this.getLink()} className={this.getClassName()}>{this.getName()}</a>
     )
   }
 })
