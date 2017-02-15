@@ -92,6 +92,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :unit_templates, only: [:index] do
       collection do
+        get :profile_info, controller: 'unit_templates', action: 'profile_info'
         post :fast_assign, controller: 'unit_templates', action: 'fast_assign'
       end
     end

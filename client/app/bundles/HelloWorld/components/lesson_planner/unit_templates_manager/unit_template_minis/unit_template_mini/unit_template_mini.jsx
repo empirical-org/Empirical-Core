@@ -66,7 +66,7 @@
         this.props.actions.toggleTab('createUnit');
       }
     } else {
-      this.props.actions.selectModel(this.props.data);
+      window.location = `/teachers/classrooms/activity_planner#/tab/featured-activity-packs/${this.props.data.id}`;
     }
   },
 
@@ -86,7 +86,6 @@
       return(
           <div className='col-xs-12'>
               <UnitTemplateFirstRow
-                  actions={{filterByCategory: this.props.actions.filterByCategory}}
                   data={this.props.data}
                   modules={{string: this.modules.string}} />
               <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
