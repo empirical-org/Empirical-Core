@@ -6,9 +6,9 @@
 
  export default React.createClass({
   propTypes: {
-    models: React.PropTypes.array.isRequired,
-    actions: React.PropTypes.object.isRequired,
-    data: React.PropTypes.number.isRequired
+    models: React.PropTypes.array,
+    actions: React.PropTypes.object,
+    data: React.PropTypes.number
   },
 
   miniView: function(model, index) {

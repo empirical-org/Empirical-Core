@@ -19,6 +19,10 @@
    }
 
   componentDidMount() {
+    this.getProfileInfo()
+  }
+
+  getProfileInfo() {
     const that = this;
     $.ajax({
       type: 'get',
@@ -32,6 +36,13 @@
       }
     })
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.activityPackId !== nextProps.params.activityPackId) {
+      location.reload()
+    }
+  }
+
 
   displayUnit(response) {
     this.setState({
