@@ -43,6 +43,14 @@ class Teachers::UnitTemplatesController < ApplicationController
     render json: {data: format_unit_template(ut), related_models: related_models(ut)}
   end
 
+  def assigned_info
+    render json: {
+      name: UnitTemplate.find(params[:id]).name,
+      last_classroom_name: current_user.classrooms_i_teach.last.name,
+      last_classroom_id: current_user.classrooms_i_teach.last.id
+    }
+  end
+
   private
 
   def is_teacher?
@@ -62,11 +70,13 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def format_unit_template(unit_template)
-    UnitTemplate
+    formatted_unit_template = UnitTemplate
                   .includes(:author, :unit_template_category)
                   .where(id: unit_template.id)
                   .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
                   .first
+    formatted_unit_template[:non_authenticated] = !is_teacher?
+    formatted_unit_template
   end
 
   def related_models(ut)

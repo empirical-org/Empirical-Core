@@ -17,8 +17,8 @@ export default React.createClass({
         <Route path="/" component={LessonPlannerContainer}>
 					<IndexRoute component={LessonPlanner}/>
 					<Route path="/tab/featured-activity-packs(/category/:category)" component={UnitTemplatesManager}/>
-					<Route path="/tab/featured-activity-packs/assigned" component={UnitTemplateAssigned}/>
 					<Route path="/tab/featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
+					<Route path="/tab/featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
 					<Route path="/tab/:tab" component={LessonPlanner} />
 					<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
