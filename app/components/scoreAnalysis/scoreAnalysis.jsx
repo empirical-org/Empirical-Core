@@ -3,14 +3,29 @@ import { connect } from 'react-redux';
 import scoreActions from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
 import { hashToCollection } from '../../libs/hashToCollection.js';
+import { Link } from 'react-router';
 
 class ScoreAnalysis extends Component {
   constructor(props) {
     super();
+    this.state = {
+      sort: 'commonUnmatched',
+      direction: 'dsc',
+    };
   }
 
   componentWillMount() {
     this.props.dispatch(scoreActions.loadScoreData());
+  }
+
+  clickSort(sort) {
+    let direction = 'dsc';
+    if (this.state.sort === sort) {
+      direction = this.state.direction === 'dsc' ? 'asc' : 'dsc';
+    }
+    this.setState({
+      sort, direction,
+    });
   }
 
   formatDataForTable() {
@@ -19,6 +34,7 @@ class ScoreAnalysis extends Component {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData) {
         return {
+          key: question.key,
           prompt: question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''),
           responses: scoreData.responses || 0,
           attempts: scoreData.totalAttempts || 0,
@@ -31,11 +47,13 @@ class ScoreAnalysis extends Component {
   }
 
   renderRows() {
-    return _.map(this.formatDataForTable(), question => (
+    const sorted = _.sortBy(this.formatDataForTable(), this.state.sort);
+    const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
+    return _.map(directed, question => (
       <tr>
-        <td width="600px">{question.prompt}</td>
-        <td>{question.unmatched}</td>
+        <td width="600px"><Link to={`/admin/questions/${question.key}`}>{question.prompt}</Link></td>
         <td>{question.commonUnmatched}</td>
+        <td>{question.unmatched}</td>
         <td>{question.responses}</td>
         <td>{question.attempts}</td>
       </tr>
@@ -50,11 +68,11 @@ class ScoreAnalysis extends Component {
           <table className="table is-striped is-bordered">
             <thead>
               <tr>
-                <th width="600px">Name</th>
-                <th>Unmatched</th>
-                <th>Common Unmatched</th>
-                <th>Responses</th>
-                <th>Attempts</th>
+                <th width="600px" onClick={this.clickSort.bind(this, 'prompt')}>Prompt</th>
+                <th onClick={this.clickSort.bind(this, 'commonUnmatched')}>Common Unmatched</th>
+                <th onClick={this.clickSort.bind(this, 'unmatched')}>Unmatched</th>
+                <th onClick={this.clickSort.bind(this, 'responses')}>Responses</th>
+                <th onClick={this.clickSort.bind(this, 'attempts')}>Attempts</th>
               </tr>
             </thead>
             <tbody>
