@@ -66,8 +66,8 @@
     unitTemplatesManagerActions: function() {
       return {
         toggleTab: this.toggleTab,
-        customAssign: this.customAssign,
-        fastAssign: this.fastAssign,
+        // customAssign: this.customAssign,
+        // fastAssign: this.fastAssign,
         clickAssignButton: this.clickAssignButton,
         returnToIndex: this.returnToIndex,
         filterByCategory: this.filterByCategory,
@@ -178,7 +178,7 @@
       this.deepExtendState(this.initialState());
       this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
       this.fetchClassrooms();
-      this.updateUnitTemplatesManager({assignSuccess: true});
+      window.location = '/teachers/classrooms/activity_planner#/tab/featured-activity-packs/assigned'
     },
 
 
@@ -186,15 +186,15 @@
       this.fastAssign()
     },
 
-    selectModel: function(ut) {
-      var relatedModels = _l.filter(this.state.unitTemplatesManager.models, {
-        unit_template_category: {
-          id: ut.unit_template_category.id
-        }
-      })
-      this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
-      this.modules.windowPosition.reset();
-    },
+    // selectModel: function(ut) {
+    //   var relatedModels = _l.filter(this.state.unitTemplatesManager.models, {
+    //     unit_template_category: {
+    //       id: ut.unit_template_category.id
+    //     }
+    //   })
+    //   this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
+    //   this.modules.windowPosition.reset();
+    // },
 
     toggleTab: function(tab) {
       if (tab == 'createUnit') {
@@ -214,12 +214,12 @@
     },
 
   stageSpecificComponents: function () {
-    if (this.state.unitTemplatesManager.stage === 'index') {
+    // if (this.state.unitTemplatesManager.stage === 'index') {
       return <UnitTemplateMinis data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()} />
-    }
-    else {
-      return <UnitTemplateProfile data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()} />
-    }
+    // }
+    // else {
+    //   return <UnitTemplateProfile data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()} />
+    // }
   },
 
   render: function () {
