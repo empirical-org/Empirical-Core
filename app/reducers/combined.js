@@ -9,13 +9,14 @@ import questionSelect from './questionSelect';
 import responses from './responsesReducer';
 import concepts from './concepts';
 import conceptsFeedback from './concepts-feedback';
-import itemLevels from './item-levels'
-import playDiagnostic from './diagnostics'
+import itemLevels from './item-levels';
+import playDiagnostic from './diagnostics';
 import lessons from './lessons';
 import pathways from './pathways';
+import scoreAnalysis from './scoreAnalysis';
 import sessions from './sessions';
 import filters from './filtersReducer';
-import { routerReducer } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux';
 
 const combinedReducers = combineReducers({
   question,
@@ -32,8 +33,9 @@ const combinedReducers = combineReducers({
   lessons,
   playLesson,
   playDiagnostic,
+  scoreAnalysis,
   sessions,
-  routing: routerReducer
-})
+  routing: routerReducer,
+});
 
-export default combinedReducers
+export default combinedReducers;
