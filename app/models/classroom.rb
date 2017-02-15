@@ -2,7 +2,7 @@ class Classroom < ActiveRecord::Base
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
   include CheckboxCallback
   validates_uniqueness_of :code
-  # validates_uniqueness_of :name, scope: :teacher_id # Can't guarantee Clever and Google obey this.
+  validates_uniqueness_of :name, scope: :teacher_id # Can't guarantee Clever and Google obey this.
   # NO LONGER POSSIBLE WITH GOOGLE CLASSROOM : validates :grade, presence: true
   validates_presence_of :name
   default_scope { where(visible: true)}
@@ -22,6 +22,7 @@ class Classroom < ActiveRecord::Base
   belongs_to :teacher, class_name: 'User'
 
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
+  before_validation :make_name_unique, if: Proc.new {|c| !Classroom.where(teacher_id: c.teacher_id, name: c.name).empty? }
 
   after_create {
                 find_or_create_checkbox('Create a Classroom', self.teacher)
@@ -93,6 +94,14 @@ class Classroom < ActiveRecord::Base
   def generate_code
     self.code = NameGenerator.generate
     if Classroom.unscoped.find_by_code(code) then generate_code end
+  end
+
+  def make_name_unique
+    i = 2
+    while(!Classroom.where(teacher_id: self.teacher_id, name: "#{self.name} ##{i}").empty?)
+      i += 1
+    end
+    self.name = "#{self.name} ##{i}"
   end
 
   def students_classrooms_json(student_id)
