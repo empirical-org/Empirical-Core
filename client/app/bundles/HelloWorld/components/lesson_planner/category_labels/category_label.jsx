@@ -6,13 +6,7 @@
 
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    filterByCategory: React.PropTypes.func.isRequired,
     extraClassName: React.PropTypes.string
-  },
-
-  filterByCategory: function (e) {
-    e.stopPropagation();
-    this.props.filterByCategory(this.props.data.id);
   },
 
   generateClassName: function () {
@@ -21,7 +15,7 @@
 
   render: function () {
     return (
-      <div onClick={this.filterByCategory} className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
+      <a href={`/teachers/classrooms/activity_planner#/tab/featured-activity-packs/category/${this.props.data.name}`}><div className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div></a>
     )
   }
 });

@@ -20,7 +20,7 @@
     }
     return (
       <div className={className}>
-        <UnitTemplateMini data={model} key={model.id} actions={this.props.actions} index={index}/>
+        <UnitTemplateMini data={model} key={model.id} index={index}/>
       </div>
     );
   },
