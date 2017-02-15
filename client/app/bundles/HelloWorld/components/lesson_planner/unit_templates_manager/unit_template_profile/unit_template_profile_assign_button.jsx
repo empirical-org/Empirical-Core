@@ -14,7 +14,7 @@
   },
 
   goToEditStudents: function(){
-    const ut = this.props.data.unit_template
+    const ut = this.props.data
     const name = encodeURIComponent(ut.name);
     const activityIds = encodeURIComponent(ut.activities.map((act)=>act.id).toString())
     window.location = `./activity_planner#/new_unit/students/edit/name/${name}/activity_ids/${activityIds}`
