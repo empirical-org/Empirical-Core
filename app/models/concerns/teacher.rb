@@ -124,13 +124,6 @@ module Teacher
     end
   end
 
-  def teacher_subscription
-    subscriptions
-      .where("subscriptions.expiration >= ?", Date.today)
-      .first
-      .account_type
-  end
-
   def getting_started_info
     checkbox_data = {
       completed: self.checkboxes.map(&:objective_id),
@@ -160,7 +153,7 @@ module Teacher
 
   def trial_days_remaining
     valid_subscription = subscriptions.where("subscriptions.expiration >= ?", Date.today).first
-    if valid_subscription && (valid_subscription.account_type == 'trial')
+    if valid_subscription && (valid_subscription.is_not_paid?)
       (valid_subscription.expiration - Date.today).to_i
     else
       nil
@@ -179,7 +172,7 @@ module Teacher
       'school'
     elsif is_premium?
       ## returns 'trial' or 'paid'
-      subscriptions.where("subscriptions.expiration >= ?", Date.today).first.account_type
+      subscriptions.where("subscriptions.expiration >= ?", Date.today).first.trial_or_paid
     elsif is_trial_expired?
       "locked"
     else
@@ -190,6 +183,5 @@ module Teacher
   def is_beta_period_over?
     Date.today >= TRIAL_START_DATE
   end
-
 
 end
