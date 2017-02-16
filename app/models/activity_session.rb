@@ -11,7 +11,7 @@ class ActivitySession < ActiveRecord::Base
   has_many :concepts, -> { uniq }, through: :concept_results
 
 
-  validate :correctly_assigned
+  validate :correctly_assigned, :on => :create
 
   accepts_nested_attributes_for :concept_results, :reject_if => proc { |cr| Concept.where(uid: cr[:concept_uid]).empty? }
 
