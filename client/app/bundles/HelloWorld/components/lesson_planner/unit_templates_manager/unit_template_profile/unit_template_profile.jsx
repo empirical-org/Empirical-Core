@@ -2,6 +2,7 @@
 
  import React from 'react'
  import LoadingIndicator from '../../../shared/loading_indicator'
+ import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import UnitTemplateProfileHeader from './unit_template_profile_header'
  import UnitTemplateProfileDescription from './unit_template_profile_description'
  import UnitTemplateProfileAssignButton from './unit_template_profile_assign_button'
@@ -58,12 +59,28 @@
     : '/teachers/classrooms/activity_planner#/tab/featured-activity-packs'
   }
 
+  showListFilterOptions() {
+    return this.state.data.non_authenticated
+    ?            <ListFilterOptions
+                        userLoggedIn={!this.state.data.non_authenticated}
+                        options={[
+                                  {id: 6, name: 'High'},
+                                  {id: 4, name: 'Elementary'},
+                                  {id: 5, name: 'Middle'},
+                                  {id: 3, name: 'ELL'},
+                                  {id: 9, name: 'Diagnostic'}
+                                ]}
+                  />
+    : null
+  }
+
   stateBasedComponent() {
     if (this.state.loading) {
       return <LoadingIndicator />
     } else {
       return (
         <div className='unit-template-profile'>
+          {this.showListFilterOptions()}
           <UnitTemplateProfileHeader data={this.state.data} />
           <div className="container white">
 
