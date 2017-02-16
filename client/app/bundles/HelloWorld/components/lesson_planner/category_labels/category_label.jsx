@@ -13,9 +13,15 @@
     return ['category-label', 'img-rounded', this.props.extraClassName].join(' ')
   },
 
+  getLink: function () {
+    return this.props.nonAuthenticated
+    ? `/activities/packs#/category/${this.props.data.name.toLowerCase()}`
+    : `/teachers/classrooms/activity_planner#/tab/featured-activity-packs/category/${this.props.data.name.toLowerCase()}`
+  },
+
   render: function () {
     return (
-      <a href={`/teachers/classrooms/activity_planner#/tab/featured-activity-packs/category/${this.props.data.name}`}><div className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div></a>
+      <a href={this.getLink()}><div className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div></a>
     )
   }
 });

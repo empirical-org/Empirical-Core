@@ -52,6 +52,12 @@
     })
   }
 
+  indexLink() {
+    return this.state.data.non_authenticated
+    ? '/activities/packs'
+    : '/teachers/classrooms/activity_planner#/tab/featured-activity-packs'
+  }
+
   stateBasedComponent() {
     if (this.state.loading) {
       return <LoadingIndicator />
@@ -103,7 +109,7 @@
 
               <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId}/>
               <div className='row'>
-                <a href="/teachers/classrooms/activity_planner#/tab/featured-activity-packs"><button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button></a>
+                <a href={this.indexLink()}><button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button></a>
               </div>
             </div>
           </div>
