@@ -91,7 +91,8 @@
                     userLoggedIn={this.userLoggedIn()}
                     options={this.props.data.categories || []}
                     selectedId={this.props.data.selectedCategoryId}
-                    select={this.props.actions.filterByCategory} />
+                    // select={this.props.actions.filterByCategory}
+                    />
       );
     }
   },
