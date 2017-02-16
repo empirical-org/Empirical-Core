@@ -48,7 +48,7 @@ export default React.createClass({
 			return <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>
 		})
   },
-	
+
 	render: function() {
 		let content;
 		if (this.state.loading) {
