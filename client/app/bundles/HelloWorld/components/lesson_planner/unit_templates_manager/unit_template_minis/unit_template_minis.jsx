@@ -48,7 +48,8 @@
     return <UnitTemplateMini key={model.id}
                                 data={model}
                                 index={index}
-                                actions={this.props.actions} />
+                                actions={this.props.actions}
+                                signedInTeacher={this.props.signedInTeacher}/>
   },
 
   generateShowAllGradesView: function () {
@@ -95,19 +96,19 @@
   },
 
   renderHeader: function () {
-    if (this.userLoggedIn() && !this.props.data.selectedCategoryId) {
+    if (!this.props.data.selectedCategoryId) {
       return <UnitTemplateMinisHeader data={this.props.data} />
     }
   },
 
-  userNotLoggedIn: function () {
-    return this.props.data.non_authenticated
-  },
 
   userLoggedIn: function () {
-    return !this.userNotLoggedIn();
+    return this.props.signedInTeacher
   },
 
+  userNotLoggedIn: function () {
+    return !this.userLoggedIn();
+  },
   renderTopLevelNav: function () {
     return this.listFilterOptions();
   },

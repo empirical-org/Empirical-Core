@@ -65,7 +65,11 @@
         this.props.actions.toggleTab('createUnit');
       }
     } else {
-      window.location = `/teachers/classrooms/activity_planner#/tab/featured-activity-packs/${this.props.data.id}`;
+      if (this.props.signedInTeacher) {
+        window.location = `/teachers/classrooms/activity_planner#/tab/featured-activity-packs/${this.props.data.id}`;
+      } else {
+        window.location = `/activities/packs#/${this.props.data.id}`
+      }
     }
   },
 
