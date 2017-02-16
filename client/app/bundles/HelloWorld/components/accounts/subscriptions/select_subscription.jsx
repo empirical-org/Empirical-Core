@@ -39,7 +39,7 @@ export default React.createClass({
     }
   },
   render: function () {
-    var optionStrings = ['none', 'paid', 'trial'];
+    var optionStrings = ['none', 'paid', 'trial', 'free low-income', 'free contributor'];
     var options = _.map(optionStrings, function (optionString) {
       return <option key={optionString} value={optionString}>{optionString}</option>;
     });
@@ -50,7 +50,7 @@ export default React.createClass({
             Status
           </div>
           <div className='col-xs-4'>
-            <select ref='select' onChange={this.updateSubscriptionType} value={this.props.subscription.subscriptionType}>
+            <select ref='select' onChange={this.updateSubscriptionType} value={this.props.subscription.account_type}>
               {options}
             </select>
           </div>
