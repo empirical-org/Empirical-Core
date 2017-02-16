@@ -59,10 +59,10 @@
 
   onClickAction: function () {
     if (this.props.data.id == 'createYourOwn') {
-      if(this.props.data.non_authenticated) {
-        this.props.actions.signUp();
+      if(this.props.signedInTeacher) {
+        window.location = '/teachers/classrooms/activity_planner#/tab/create-unit'
       } else {
-        this.props.actions.toggleTab('createUnit');
+        window.location = '/accounts/new'
       }
     } else {
       if (this.props.signedInTeacher) {
