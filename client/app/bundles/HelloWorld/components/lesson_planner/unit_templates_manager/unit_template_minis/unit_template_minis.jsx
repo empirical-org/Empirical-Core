@@ -6,6 +6,7 @@
  import UnitTemplateMinisHeader from './unit_template_minis_header'
  import RowsCreator from '../../../modules/rows_creator'
  import _ from 'underscore'
+ import _l from 'lodash'
 
 
  export default  React.createClass({
@@ -41,7 +42,7 @@
     if (models && models.length) {
       models.push({id: 'createYourOwn', non_authenticated: this.props.data.non_authenticated});
       }
-    return models;
+    return _l.uniqBy(models, 'id');
   },
 
   generateUnitTemplateView: function (model, index) {
