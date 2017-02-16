@@ -16,6 +16,7 @@
 
    componentDidMount: function() {
    		this.fetchUnitTemplateModels();
+      this.fetchTeacher();
    },
 
    componentWillReceiveProps: function(nextProps) {
@@ -30,6 +31,7 @@
 
    initialState() {
      return {
+         signedInTeacher: false,
          unitTemplatesManager: {
          firstAssignButtonClicked: false,
          assignSuccess: false,
@@ -42,7 +44,7 @@
          displayedModels: [],
          selectedCategoryId: null,
          lastActivityAssigned: null,
-         grade: null
+         grade: null,
         }
        }
    },
@@ -66,8 +68,6 @@
     unitTemplatesManagerActions: function() {
       return {
         toggleTab: this.toggleTab,
-        // customAssign: this.customAssign,
-        // fastAssign: this.fastAssign,
         clickAssignButton: this.clickAssignButton,
         returnToIndex: this.returnToIndex,
         filterByCategory: this.filterByCategory,
@@ -153,48 +153,23 @@
       });
     },
 
-    fetchUnitTemplateModels: function() {
-      this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
-    },
-
-    fastAssign: function() {
+    fetchTeacher: function() {
+      const that = this
       $.ajax({
-        url: '/teachers/unit_templates/fast_assign',
-        data: {
-          id: this.state.unitTemplatesManager.model.id
-        },
-        type: 'POST',
-        success: this.onFastAssignSuccess,
-        error: (response) => {
-          const errorMessage = jQuery.parseJSON(response.responseText).error_message
-          window.alert(errorMessage)
+        url: '/current_user_json',
+        success: function(data) {
+          that.setTeacher(data)
         }
       })
     },
 
-    onFastAssignSuccess: function() {
-      var lastActivity = this.state.unitTemplatesManager.model;
-      this.analytics().track('click Create Unit', {});
-      this.deepExtendState(this.initialState());
-      this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
-      this.fetchClassrooms();
-      window.location = '/teachers/classrooms/activity_planner#/tab/featured-activity-packs/assigned'
+    setTeacher: function(data) {
+      this.setState({ signedInTeacher: !_l.isEmpty(data) })
     },
 
-
-    customAssign: function() {
-      this.fastAssign()
+    fetchUnitTemplateModels: function() {
+      this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
     },
-
-    // selectModel: function(ut) {
-    //   var relatedModels = _l.filter(this.state.unitTemplatesManager.models, {
-    //     unit_template_category: {
-    //       id: ut.unit_template_category.id
-    //     }
-    //   })
-    //   this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
-    //   this.modules.windowPosition.reset();
-    // },
 
     toggleTab: function(tab) {
       if (tab == 'createUnit') {
@@ -213,22 +188,17 @@
       }
     },
 
-  stageSpecificComponents: function () {
-    // if (this.state.unitTemplatesManager.stage === 'index') {
-      return <UnitTemplateMinis data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()} />
-    // }
-    // else {
-    //   return <UnitTemplateProfile data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()} />
-    // }
-  },
+    showUnitTabs: function() {
+      return this.state.signedInTeacher ? <UnitTabs tab="featured-activity-packs" toggleTab={this.toggleTab}/> : null
+    },
+
 
   render: function () {
     return (
       <span>
-        <UnitTabs tab="featured-activity-packs" toggleTab={this.toggleTab}/>
+        {this.showUnitTabs()}
         <div className='unit-templates-manager'>
-          {this.stageSpecificComponents()}
-        </div>
+        <UnitTemplateMinis signedInTeacher={this.state.signedInTeacher} data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()} />        </div>
       </span>
     );
   }
