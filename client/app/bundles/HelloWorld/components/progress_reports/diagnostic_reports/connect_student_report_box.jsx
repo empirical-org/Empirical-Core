@@ -61,7 +61,7 @@ export default React.createClass({
 						<tr>
 							<td>Score</td>
 							<td/>
-							<td>{this.props.questionData.questionScore}%</td>
+							<td>{this.props.questionData.questionScore * 100}%</td>
 						</tr>
 			);
 		}
