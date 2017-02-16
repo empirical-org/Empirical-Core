@@ -71,9 +71,10 @@
 }
 
 .icon-diagnostic-black {
-  background-image: image-url("scorebook/icon-diagnostic-black.png");
+  background-image: image-url("scorebook/icon-diagnostic-black.svg");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 23px 23px;
   height: 40px;
 }
 
@@ -85,9 +86,10 @@
 }
 
 .icon-connect-black {
-  background-image: image-url("scorebook/icon-connect-black.png");
+  background-image: image-url("scorebook/icon-connect-black.svg");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 26px 26px;
   height: 40px;
 }
 
