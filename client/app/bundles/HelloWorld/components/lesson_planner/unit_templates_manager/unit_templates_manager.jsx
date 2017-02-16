@@ -11,6 +11,7 @@
  import Server from '../../modules/server/server'
  import WindowPosition from '../../modules/windowPosition'
  import AnalyticsWrapper from '../../shared/analytics_wrapper'
+ import LoadingIndicator from '../../shared/loading_indicator'
 
  export default React.createClass({
 
@@ -164,11 +165,13 @@
     },
 
     setTeacher: function(data) {
-      this.setState({ signedInTeacher: !_l.isEmpty(data) })
+      this.setState({
+        signedInTeacher: !_l.isEmpty(data)
+      })
     },
 
     fetchUnitTemplateModels: function() {
-      this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
+      const request = this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
     },
 
     toggleTab: function(tab) {
@@ -192,13 +195,20 @@
       return this.state.signedInTeacher ? <UnitTabs tab="featured-activity-packs" toggleTab={this.toggleTab}/> : null
     },
 
+    showUnitTemplates: function() {
+      return this.state.unitTemplatesManager.models.length < 1
+      ? <LoadingIndicator />
+      : <UnitTemplateMinis signedInTeacher={this.state.signedInTeacher} data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()} />
+    },
+
 
   render: function () {
     return (
       <span>
         {this.showUnitTabs()}
         <div className='unit-templates-manager'>
-        <UnitTemplateMinis signedInTeacher={this.state.signedInTeacher} data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()} />        </div>
+          {this.showUnitTemplates()}
+        </div>
       </span>
     );
   }
