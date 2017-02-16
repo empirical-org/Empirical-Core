@@ -5,6 +5,7 @@
  import ActivitySearchAndSelect from '../activity_search/activity_search_and_select'
  import NameTheUnit from './name_the_unit'
  import LoadingIndicator from '../../../shared/loading_indicator.jsx'
+ import AssigningIndicator from '../../../shared/assigning_indicator'
 
  export default React.createClass({
   propTypes: {
@@ -50,7 +51,7 @@
     if (this.props.editing) {
       const clickHandler = this.state.loading ? null : this.handleClick;
       const color = this.state.loading ? 'lightgray' : 'quillgreen';
-      const text = this.state.loading ? 'Saving' : 'Update Activities'
+      const text = this.state.loading ? <span>Saving <AssigningIndicator/></span> : 'Update Activities'
       return <button onClick={clickHandler} className={`q-button cta-button bg-${color} text-white pull-right`} id='continue'>{text}</button>
     } else if (this.props.determineIfInputProvidedAndValid) {
       return <button onClick={this.clickContinue} className='button-green pull-right' id='continue'>Continue</button>
