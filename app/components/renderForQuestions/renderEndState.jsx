@@ -3,6 +3,7 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {connect} from 'react-redux'
 import arrow from '../../img/correct_icon.svg'
+const jsDiff = require('diff');
 
 const EndState = React.createClass({
 
@@ -16,6 +17,40 @@ const EndState = React.createClass({
     return (
       <p className="top-answer-title">{message}</p>
     )
+  },
+
+  returnSanitizedArray: function(str) {
+    return str.toLowerCase().replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/[.'",\/#?!$%\^&\*;:{}=\-_`~()]/g,"").split(' ').sort().join(' ').trim().split(' ');
+  },
+
+  findDiffs: function(answer) {
+    let styledString = answer;
+    const sanitizedQuestion = this.returnSanitizedArray(this.props.question.prompt);
+    const sanitizedAnswer = this.returnSanitizedArray(answer);
+    const diffObjects = jsDiff.diffArrays(sanitizedQuestion, sanitizedAnswer);
+    let diffStrings = [];
+    diffObjects.forEach(function(diff) {
+      if(diff.added) {
+        diffStrings = diffStrings.concat(diff.value);
+      }
+    });
+    diffStrings.forEach(function(word) {
+      console.log("Word: " + word);
+      // styledString = styledString.replace(new RegExp("( |^|[.'\",\/#?!$%\^&\*;:{}=\-_`~()])" + word + "( |$|[.'\",\/#?!$%\^&\*;:{}=\-_`~()])", "i"), '<span style="color: green;">' + word + '</span>');
+      styledString = styledString.replace(new RegExp(" " + word + " ", "i"), ' <span style="color: green;">' + word + '</span> ');
+    });
+    // diffObjects.forEach(function(part) {
+    //   if(part.added) {
+    //     part.value.forEach(function(word) {
+    //       //console.log(word);
+    //       styledString = styledString.replace(new RegExp("( |^|[.'\",\/#?!$%\^&\*;:{}=\-_`~()])" + word + "( |$|[.'\",\/#?!$%\^&\*;:{}=\-_`~()])", 'i'), function(match) {
+    //         console.log(match);
+    //         return ' <span style="color: green;">' + match + '</span> ';
+    //       });
+    //     });
+    //   }
+    // });
+    return styledString;
   },
 
   renderTopThreeResponses: function() {
@@ -38,8 +73,7 @@ const EndState = React.createClass({
           <div className="top-answer-list-item-index">
             {(index+1) + ". "}
           </div>
-          <div className="top-answer-list-item-text">
-            {response.text}
+          <div className="top-answer-list-item-text" dangerouslySetInnerHTML={{__html: this.findDiffs(response.text)}}>
           </div>
           <div className="top-answer-list-item-score">
           {(Math.floor(response.count*100/sum)) + "%"}
