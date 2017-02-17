@@ -32,7 +32,6 @@
     } else {
       models = this.props.data.displayedModels;
     }
-    models = _.sortBy(models, "order_number");
     models = this.addCreateYourOwnModel(models);
     var rows = this.modules.rowsCreator.create(models);
     return <span>{rows}</span>;
