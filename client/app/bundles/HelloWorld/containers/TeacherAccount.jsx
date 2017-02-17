@@ -157,7 +157,7 @@ export default React.createClass({
 			if (this.state.subscription.id != null) {
 				this.destroySubscription()
 			}
-		} else if (this.state.subscription.account_type == 'paid' || 'trial') {
+		} else if (this.state.subscription.account_type == 'paid' || 'trial' || 'free low-income' || 'free contributor') {
 			if (this.state.subscription.id == null) {
 				this.createSubscription();
 			} else {
