@@ -8,7 +8,6 @@ import TextInputGenerator from '../modules/componentGenerators/text_input_genera
 import IndicatorGenerator from '../modules/indicator_generator.jsx'
 import OptionLoader from '../modules/option_loader.jsx'
 import $ from 'jquery'
-import _ from 'underscore'
 
 
 export default React.createClass({
@@ -57,7 +56,6 @@ export default React.createClass({
       {name: 'unit_template_categories', value: [], fromServer: true, cmsController: true},
       {name: 'authors', value: [], fromServer: true, cmsController: true},
       {name: 'flag', value: ['alpha', 'beta', 'archived'], fromServer: false, cmsController: true},
-      {name: 'order_number', value: _.range(1, 30), fromServer: false}
     ];
     return this.modelOptions;
   },
@@ -76,8 +74,7 @@ export default React.createClass({
       activities: [],
       unit_template_category_id: null,
       flag: this.props.unitTemplate.flag || null,
-      author_id: null,
-      order_number: null
+      author_id: null
     };
     model = _.extend(model, this.props.unitTemplate);
     var options = this.modules.optionsLoader.initialOptions()
@@ -168,15 +165,6 @@ export default React.createClass({
                 label={'Select Flag'} />;
   },
 
-  getOrderNumber: function () {
-    return <DropdownSelector
-      select={this.modules.indicatorGenerator.selector('order_number')}
-      defaultValue={this.props.unitTemplate.order_number}
-      options={this.state.options.order_number}
-      label={'Select Order Number'}
-    />
-  },
-
   getAuthorSelect: function () {
     return <DropdownSelector
               select={this.modules.indicatorGenerator.selector('author_id')}
@@ -221,7 +209,6 @@ export default React.createClass({
         {this.getTimeDropdownSelect()}
         {this.getGradeCheckBoxes()}
         {this.getStatusFlag()}
-        {this.getOrderNumber()}
         <span>
           {this.getActivitySearchAndSelect()}
           {this.getErrorMessageAndButton()}
