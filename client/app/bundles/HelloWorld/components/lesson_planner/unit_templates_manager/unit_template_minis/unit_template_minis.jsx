@@ -7,6 +7,7 @@
  import RowsCreator from '../../../modules/rows_creator'
  import _ from 'underscore'
  import _l from 'lodash'
+ import {Link} from 'react-router';
 
 
  export default  React.createClass({
@@ -32,6 +33,7 @@
     } else {
       models = this.props.data.displayedModels;
     }
+    models = _.sortBy(models, 'order_number');
     models = this.addCreateYourOwnModel(models);
     var rows = this.modules.rowsCreator.create(models);
     return <span>{rows}</span>;
@@ -56,7 +58,7 @@
   generateShowAllGradesView: function () {
     if (this.props.data.grade) {
       return (
-        <button className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all" onClick={this.props.actions.showAllGrades}>Show all Activity Packs</button>
+        <a href="/teachers/classrooms/activity_planner/featured-activity-packs"><button className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all">Show all Activity Packs</button></a>
       )
     } else {
       return
