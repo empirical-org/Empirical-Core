@@ -86,7 +86,13 @@ module PagesHelper
 		      name: "Emilia Friedberg",
 		      title: "Junior Web Developer",
 		      desc: "Emilia is a developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
-	    }
+	    },
+			{
+					img: 'thumb-amr.png',
+					name: 'Amr Thameen',
+					title: 'Lead Designer',
+					desc: "Amr is the Lead Designer at Quill. He designs Quill’s interface, creates the user experience, and oversees the overall brand image. A speaker of three different languages and graduate of schools on multiple continents, Amr sees the importance of improving students' writing and its effect on critical thinking. Before Quill, Amr was a designer at multiple startups, working with Virtual Reality and the travel industry. Amr holds a bachelor’s degree in Architecture from Middlebury College."
+			}
 			]
 		},
 			{team: 'Board of Directors',
@@ -170,7 +176,7 @@ module PagesHelper
 	      				desc: "Oliver is the CTO and Head of Product at DonorsChoose.org. Previously, he managed product engineering projects for Microsoft's new search engine, now called Bing."
 					}]},
 
-				{team: 'Open Source Developers',
+				{team: 'Interns and Volunteers',
 					members: [
 				{
 					img: 'thumb-alex.png',
@@ -182,8 +188,21 @@ module PagesHelper
 					img: 'thumb-matt-coleman.png',
 					name: "Matt Coleman",
 					title: "Developer",
-					desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston."
+					desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston.",
+				},
+				# {
+				# 	img: 'thumb-olivia-kingree.png',
+				# 	name: 'Olivia Kingree',
+				# 	title: 'Intern',
+				# 	desc: "Olivia Kingree is a college student who is interning at Quill for the Spring 2017 semester. As an editorial intern, she creates new learning activities and grades existing practice problems. Olivia has also worked as a math and spanish tutor for middle and high school students for the past four years. She is passionate about reading and writing and hopes to help Quill in its aim to  improve students' writing skills and confidence."
+				# },
+				{
+					img: 'thumb-jared-silver.jpg',
+					name: "Jared Silver",
+					title: "Intern",
+					desc: "Jared Silver is an entrepreneur and TEDx speaker taking a leave of absence from college to intern as a software developer for Quill. He also serves as a learning advisor for Codecademy, a 2017 EdSurge Independent Fellow, and the User Journeys Lead for Oppia. Jared's mission in life is to foster a human capital revolution through education technology."
 				}
+
 				]
 				}
 				]
