@@ -15,7 +15,7 @@
 
   getLink: function () {
     return this.props.nonAuthenticated
-    ? `/activities/packs#/category/${this.props.data.name.toLowerCase()}`
+    ? `/activities/packs/category/${this.props.data.name.toLowerCase()}`
     : `/teachers/classrooms/activity_planner#/tab/featured-activity-packs/category/${this.props.data.name.toLowerCase()}`
   },
 

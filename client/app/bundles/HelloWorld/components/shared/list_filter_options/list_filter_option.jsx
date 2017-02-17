@@ -44,9 +44,9 @@
       }
     else {
       if (name === 'all') {
-        link = '/'
+        link = '/activities/packs'
       } else {
-        link = `/category/${name}`
+        link = `/activities/packs/category/${name}`
       }
     }
     return link
