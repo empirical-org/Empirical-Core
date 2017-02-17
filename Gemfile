@@ -58,6 +58,7 @@ gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
 gem 'stripe'
 gem 'prawn'
 gem 'pdf-core'
+gem 'pdf-inspector'
 gem 'ttfunk'
 
 # PARSING

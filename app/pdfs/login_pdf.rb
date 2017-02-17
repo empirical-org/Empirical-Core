@@ -21,9 +21,9 @@ class LoginPdf
         count += 1
 
         if student.clever_id.present?
-          text "<b>#{student.name} (has clever)</b>\nusername: #{student.username}\npassword: Login with Clever with the above email address\n\n\n", inline_format: true
+          text "<b>#{student.name} (has clever)</b>\nemail: #{student.email}\npassword: Login with Clever with the above email address\n\n\n", inline_format: true
         elsif student.signed_up_with_google?
-          text "<b>#{student.name} (has google)</b>\nusername: #{student.username}\npassword: Login with Google with the above email address\n\n\n", inline_format: true
+          text "<b>#{student.name} (has google)</b>\nemail: #{student.email}\npassword: Login with Google with the above email address\n\n\n", inline_format: true
         else
           text "<b>#{student.name}</b>\nusername: #{student.username}\ndefault password: #{student.last_name}\n\n\n", inline_format: true
         end
