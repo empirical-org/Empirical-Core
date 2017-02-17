@@ -342,9 +342,10 @@ export default React.createClass({
 		// entirely to react-router for managing that, along with redux for
 		// the general state in this section
 		const tabParam = this.props.params.tab
-		if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam == ('featured-activity-packs' || 'explore-activity-packs'))) {
-			tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
-		} else if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
+		// if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam == ('featured-activity-packs' || 'explore-activity-packs'))) {
+		// 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
+		// } else
+		if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
 			tabSpecificComponents = <CreateUnit data={{
 				createUnitData: this.state.createUnit,
 				assignSuccessData: this.state.unitTemplatesManager.model
@@ -363,8 +364,8 @@ export default React.createClass({
 			 toggleTab: this.toggleTab,
 			 editUnit: this.editUnit
 		 }}/>;
- 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
-			tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
+ // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
+	// 		tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		}
 
 		return (

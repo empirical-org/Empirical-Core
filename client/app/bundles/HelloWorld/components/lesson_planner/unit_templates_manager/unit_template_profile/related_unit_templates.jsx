@@ -6,9 +6,9 @@
 
  export default React.createClass({
   propTypes: {
-    models: React.PropTypes.array.isRequired,
-    actions: React.PropTypes.object.isRequired,
-    data: React.PropTypes.number.isRequired
+    models: React.PropTypes.array,
+    actions: React.PropTypes.object,
+    data: React.PropTypes.number
   },
 
   miniView: function(model, index) {
@@ -20,7 +20,7 @@
     }
     return (
       <div className={className}>
-        <UnitTemplateMini data={model} key={model.id} actions={this.props.actions} index={index}/>
+        <UnitTemplateMini data={model} key={model.id} index={index}/>
       </div>
     );
   },
