@@ -6,10 +6,6 @@ module ProgressReportHelper
     controller.class.parent == Teachers::ProgressReports::Concepts
   end
 
-  def dont_show_premium_bar?
-    current_user.premium_state == 'paid'
-  end
-
   def tab_symbol
     case current_user.premium_state
     when 'beta'
