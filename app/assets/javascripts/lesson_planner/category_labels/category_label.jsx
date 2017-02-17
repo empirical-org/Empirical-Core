@@ -12,7 +12,7 @@ EC.CategoryLabel = React.createClass({
 
   render: function () {
     return (
-      <div href={`/teachers/classrooms/activity_planner#/tab/featured-activity-packs/category/${this.props.dataname}`} className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
+      <div href={`/teachers/classrooms/activity_planner/featured-activity-packs/category/${this.props.dataname}`} className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
     )
   }
 });

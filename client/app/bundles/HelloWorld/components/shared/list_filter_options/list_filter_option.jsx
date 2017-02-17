@@ -38,9 +38,9 @@
     const name = this.getName().toLowerCase()
     if (this.props.userLoggedIn)
       if (name === 'all') {
-        link = 'tab/featured-activity-packs'
+        link = 'featured-activity-packs'
       } else {
-        link = `tab/featured-activity-packs/category/${name}`
+        link = `featured-activity-packs/category/${name}`
       }
     else {
       if (name === 'all') {

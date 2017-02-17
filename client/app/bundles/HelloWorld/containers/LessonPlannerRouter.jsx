@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import LessonPlanner from './LessonPlanner.jsx'
 import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
@@ -13,17 +13,17 @@ import UnitTemplateProfile from '../components/lesson_planner/unit_templates_man
 export default React.createClass({
 	render: function() {
 		return (
-			<Router Router history={hashHistory}>
-        <Route path="/" component={LessonPlannerContainer}>
+			<Router Router history={browserHistory}>
+        <Route path="/teachers/classrooms/activity_planner" component={LessonPlannerContainer}>
 					<IndexRoute component={LessonPlanner}/>
-					<Route path="/tab/featured-activity-packs(/category/:category)" component={UnitTemplatesManager}/>
-					<Route path="/tab/featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
-					<Route path="/tab/featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
-					<Route path="/tab/:tab" component={LessonPlanner} />
+					<Route path="featured-activity-packs(/category/:category)" component={UnitTemplatesManager}/>
+					<Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
+					<Route path="featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
+					<Route path=":tab" component={LessonPlanner} />
 					<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>
-					<Route path="/no_units" component={EmptyAssignedUnits}/>
+					<Route path="no_units" component={EmptyAssignedUnits}/>
         </Route>
 			</Router>
 		);
