@@ -9,8 +9,8 @@ class Teachers::UnitTemplatesController < ApplicationController
       format.json do
         render json: UnitTemplate.user_scope(current_user.try(:flag) || 'production')
                       .includes(:author, :unit_template_category)
+                      .reverse
                       .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
-                      .sort{ |ut| ut[:order_number] }.reverse
       end
 
       format.html do
