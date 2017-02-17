@@ -12,6 +12,7 @@ export default React.createClass({
         <Route path="/activities/packs" component={LessonPlannerContainer}>
 					<IndexRoute component={UnitTemplatesManager}/>
 					<Route path="category/:category" component={UnitTemplatesManager}/>
+					<Route path="grade/:grade" component={UnitTemplatesManager}/>
 					<Route path=":activityPackId" component={UnitTemplateProfile}/>
         </Route>
 			</Router>

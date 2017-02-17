@@ -282,9 +282,11 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/packs' => 'teachers/unit_templates#index'
   get 'activities/packs/:id' => 'teachers/unit_templates#index'
   get 'activities/packs/category/:category' => 'teachers/unit_templates#index'
+  get 'activities/packs/grade/:grade' => 'teachers/unit_templates#index'
 
   get 'teachers/classrooms/activity_planner/:tab' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/featured-activity-packs/category/:category' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#lesson_planner'

@@ -45,7 +45,7 @@
          displayedModels: [],
          selectedCategoryId: null,
          lastActivityAssigned: null,
-         grade: null,
+         grade: this.props.params.grade,
         }
        }
    },
