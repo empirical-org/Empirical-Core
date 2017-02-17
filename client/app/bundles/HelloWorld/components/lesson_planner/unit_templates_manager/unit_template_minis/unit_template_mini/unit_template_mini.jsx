@@ -60,13 +60,13 @@
   onClickAction: function () {
     if (this.props.data.id == 'createYourOwn') {
       if(this.props.signedInTeacher) {
-        window.location = '/teachers/classrooms/activity_planner#/tab/create-unit'
+        window.location = '/teachers/classrooms/activity_planner/create-unit'
       } else {
         window.location = '/accounts/new'
       }
     } else {
       if (this.props.signedInTeacher) {
-        window.location = `/teachers/classrooms/activity_planner#/tab/featured-activity-packs/${this.props.data.id}`;
+        window.location = `/teachers/classrooms/activity_planner/featured-activity-packs/${this.props.data.id}`;
       } else {
         window.location = `/activities/packs/${this.props.data.id}`
       }

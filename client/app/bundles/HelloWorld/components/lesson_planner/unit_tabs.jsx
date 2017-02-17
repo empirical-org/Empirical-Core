@@ -1,6 +1,5 @@
 'use strict'
  import React from 'react'
- import {Link} from 'react-router'
 
  export default  React.createClass({
 	propTypes: {
@@ -26,8 +25,8 @@
 			<div className="unit-tabs tab-subnavigation-wrapper">
 				<div className="container">
 					<ul>
-						<li><Link to='tab/manage-units' className={classes.manageUnits || classes['manage-units']}>My Activity Packs</Link></li>
-            <li><Link to='tab/assign-new-activity' className={classes.assignANewActivity || classes['assign-new-activity']}>Assign a New Activity</Link></li>
+						<li><a href='/teachers/classrooms/activity_planner' className={classes.manageUnits || classes['manage-units']}>My Activity Packs</a></li>
+            <li><a href='/teachers/classrooms/activity_planner/assign-new-activity' className={classes.assignANewActivity || classes['assign-new-activity']}>Assign a New Activity</a></li>
 					</ul>
 				</div>
 			</div>

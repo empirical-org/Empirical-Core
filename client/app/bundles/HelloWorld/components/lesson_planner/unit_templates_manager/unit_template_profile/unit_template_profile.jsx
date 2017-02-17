@@ -56,7 +56,7 @@
   indexLink() {
     return this.state.data.non_authenticated
     ? '/activities/packs'
-    : '/teachers/classrooms/activity_planner#/tab/featured-activity-packs'
+    : '/teachers/classrooms/activity_planner/featured-activity-packs'
   }
 
   showListFilterOptions() {

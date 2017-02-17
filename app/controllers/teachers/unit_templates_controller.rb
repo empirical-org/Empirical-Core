@@ -13,7 +13,7 @@ class Teachers::UnitTemplatesController < ApplicationController
       end
 
       format.html do
-        redirect_to_explore_activity_packs if @is_teacher
+        # redirect_to_explore_activity_packs if @is_teacher
       end
     end
   end
