@@ -14,4 +14,12 @@ class Subscription < ActiveRecord::Base
     PremiumAnalyticsWorker.perform_async(current_user.id, 'paid')
   end
 
+  def is_not_paid?
+    self.account_type != 'paid'
+  end
+
+  def trial_or_paid
+    is_not_paid? ? 'trial' : 'paid'
+  end
+
 end
