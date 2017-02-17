@@ -280,7 +280,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
-  get 'activities/packs/:id' => 'teachers/unit_templates#show'
+  get 'activities/packs/:id' => 'teachers/unit_templates#index'
+  get 'activities/packs/category/:category' => 'teachers/unit_templates#index'
 
 
   # Count route to get quantities
