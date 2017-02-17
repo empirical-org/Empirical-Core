@@ -54,6 +54,7 @@ class Cms::UnitTemplatesController < ApplicationController
                     :summary,
                     :teacher_review,
                     :time,
+                    :order_number,
                     :unit_template_category_id,
                     grades: [],
                     activity_ids: [])
