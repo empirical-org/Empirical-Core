@@ -53,7 +53,7 @@ export default  React.createClass({
         value: ''
       },
       selectedUnit: {
-        name: 'All Activity Packs',
+        name: 'All Units',
         value: ''
       }
     };
@@ -138,7 +138,7 @@ export default  React.createClass({
         teacher: data.teacher,
         classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
-        unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs')
+        unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
       });
       if (this.props.onFetchSuccess) {
         this.props.onFetchSuccess(data);

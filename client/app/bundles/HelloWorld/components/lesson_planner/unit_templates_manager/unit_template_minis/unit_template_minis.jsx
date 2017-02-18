@@ -6,8 +6,6 @@
  import UnitTemplateMinisHeader from './unit_template_minis_header'
  import RowsCreator from '../../../modules/rows_creator'
  import _ from 'underscore'
- import _l from 'lodash'
- import {Link} from 'react-router';
 
 
  export default  React.createClass({
@@ -44,15 +42,14 @@
     if (models && models.length) {
       models.push({id: 'createYourOwn', non_authenticated: this.props.data.non_authenticated});
       }
-    return _l.uniqBy(models, 'id');
+    return models;
   },
 
   generateUnitTemplateView: function (model, index) {
     return <UnitTemplateMini key={model.id}
                                 data={model}
                                 index={index}
-                                actions={this.props.actions}
-                                signedInTeacher={this.props.signedInTeacher}/>
+                                actions={this.props.actions} />
   },
 
   generateShowAllGradesView: function () {
@@ -93,26 +90,25 @@
                     userLoggedIn={this.userLoggedIn()}
                     options={this.props.data.categories || []}
                     selectedId={this.props.data.selectedCategoryId}
-                    // select={this.props.actions.filterByCategory}
-                    />
+                    select={this.props.actions.filterByCategory} />
       );
     }
   },
 
-  renderHeader: function () {
-    if (!this.props.data.selectedCategoryId) {
+  renderHeaderIfLoggedIn: function () {
+    if (this.userLoggedIn()) {
       return <UnitTemplateMinisHeader data={this.props.data} />
     }
   },
 
+  userNotLoggedIn: function () {
+    return this.props.data.non_authenticated
+  },
 
   userLoggedIn: function () {
-    return this.props.signedInTeacher
+    return !this.userNotLoggedIn();
   },
 
-  userNotLoggedIn: function () {
-    return !this.userLoggedIn();
-  },
   renderTopLevelNav: function () {
     return this.listFilterOptions();
   },
@@ -141,7 +137,7 @@
 
   alwaysRender: function () {
     return (<div key='always-display' className='unit-template-minis'>
-      {this.renderHeader()}
+      {this.renderHeaderIfLoggedIn()}
       <div className="container">
         <div className='row'>
           <div className='col-xs-12'>

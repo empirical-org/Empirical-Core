@@ -6,21 +6,14 @@ import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_templ
 import LoadingIndicator from '../shared/loading_indicator'
 
 export default  React.createClass({
+  propTypes: {
+    data: React.PropTypes.object.isRequired,
+    actions: React.PropTypes.object,
+    type: React.PropTypes.string
+  },
 
   getInitialState: function() {
-    return {
-      loading: true,
-      actions: this.unitTemplateAssignedActions,
-      data: null
-    }
-  },
-
-  getInviteStudentsUrl: function() {
-    return ('/teachers/classrooms/invite_students');
-  },
-
-  unitTemplatesAssignedActions: function() {
-    return {studentsPresent: this.props.students, getInviteStudentsUrl: this.getInviteStudentsUrl};
+    return {loading: true}
   },
 
   getDefaultProps: function() {
@@ -35,6 +28,9 @@ export default  React.createClass({
     $('.section-content-wrapper').hide();
   },
 
+  activityName: function() {
+    return this.props.data.name;
+  },
 
   anyClassroomsWithStudents: function(classrooms) {
     return !!classrooms.find((e) => e.students.length > 0)
@@ -42,6 +38,7 @@ export default  React.createClass({
 
   componentWillMount: function() {
     const that = this;
+    if(typeof this.props.actions.studentsPresent === 'undefined') {
       $.ajax({
         url: '/teachers/classrooms_i_teach_with_students',
         dataType: 'json',
@@ -49,24 +46,8 @@ export default  React.createClass({
           that.setState({loading: false, studentsPresent: that.anyClassroomsWithStudents(data.classrooms) });
         }
       });
-      $.ajax({
-        url: '/teachers/unit_templates/assigned_info',
-        data: {id: this.props.params.activityPackId},
-        dataType: 'json',
-        success: function(data) {
-          that.setState({data})
-        }
-      })
-  },
-
-  activityName: function() {
-    return this.state.data.name;
-  },
-
-  data: function() {
-    return {
-      name: this.state.data.last_classroom_name,
-      id: this.state.data.last_classroom_id
+    } else {
+      this.setState({loading: false, studentsPresent: this.props.actions.studentsPresent });
     }
   },
 
@@ -80,7 +61,7 @@ export default  React.createClass({
       href = '/teachers/classrooms/activity_planner';
       text = 'View Assigned Activity Packs';
     } else {
-      href = this.state.actions.getInviteStudentsUrl();
+      href = this.props.actions.getInviteStudentsUrl();
       text = 'Add Students'
     }
 
@@ -109,7 +90,7 @@ export default  React.createClass({
       <div className='container'>
         <div className='row' id='successBoxMessage'>
           <div className='col-md-9 successMessage'>
-            <i className="fa fa-check-circle pull-left">You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!</i>
+            <i className="fa fa-check-circle pull-left"></i>You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!
           </div>
           <div className='col-md-4'>
             {this.teacherSpecificComponents()}
@@ -126,10 +107,10 @@ export default  React.createClass({
           that use Quill, the more free activities we can create.
         </p>
       <p className='social-copy'>
-        <i>I’m using the {this.activityName()} Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/{this.props.last_classroom_id}</i>
+        <i>I’m using the {this.activityName()} Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/{this.props.data.id}</i>
       </p>
       <div className='container'>
-        <UnitTemplateProfileShareButtons data={this.data()} />
+        <UnitTemplateProfileShareButtons data={this.props.data} />
       </div>
     </div>
     </div>
