@@ -5,7 +5,7 @@ class ConceptResult < ActiveRecord::Base
   belongs_to :activity_classification
 
   validates :concept, presence: true
-  validates :activity_session, presence: true
+  validates :activity_session_id, presence: true
 
 
   validates :question_type, inclusion: { in: %w(passage-proofreader sentence-writing sentence-fragment-expansion sentence-fragment-identification sentence-combining),

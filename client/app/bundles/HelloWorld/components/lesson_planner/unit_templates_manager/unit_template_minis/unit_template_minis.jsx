@@ -6,6 +6,8 @@
  import UnitTemplateMinisHeader from './unit_template_minis_header'
  import RowsCreator from '../../../modules/rows_creator'
  import _ from 'underscore'
+ import _l from 'lodash'
+ import {Link} from 'react-router';
 
 
  export default  React.createClass({
@@ -31,6 +33,7 @@
     } else {
       models = this.props.data.displayedModels;
     }
+    models = _.sortBy(models, 'order_number');
     models = this.addCreateYourOwnModel(models);
     var rows = this.modules.rowsCreator.create(models);
     return <span>{rows}</span>;
@@ -41,20 +44,21 @@
     if (models && models.length) {
       models.push({id: 'createYourOwn', non_authenticated: this.props.data.non_authenticated});
       }
-    return models;
+    return _l.uniqBy(models, 'id');
   },
 
   generateUnitTemplateView: function (model, index) {
     return <UnitTemplateMini key={model.id}
                                 data={model}
                                 index={index}
-                                actions={this.props.actions} />
+                                actions={this.props.actions}
+                                signedInTeacher={this.props.signedInTeacher}/>
   },
 
   generateShowAllGradesView: function () {
     if (this.props.data.grade) {
       return (
-        <button className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all" onClick={this.props.actions.showAllGrades}>Show all Activity Packs</button>
+        <a href="/teachers/classrooms/activity_planner/featured-activity-packs"><button className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all">Show all Activity Packs</button></a>
       )
     } else {
       return
@@ -89,25 +93,26 @@
                     userLoggedIn={this.userLoggedIn()}
                     options={this.props.data.categories || []}
                     selectedId={this.props.data.selectedCategoryId}
-                    select={this.props.actions.filterByCategory} />
+                    // select={this.props.actions.filterByCategory}
+                    />
       );
     }
   },
 
-  renderHeaderIfLoggedIn: function () {
-    if (this.userLoggedIn()) {
+  renderHeader: function () {
+    if (!this.props.data.selectedCategoryId) {
       return <UnitTemplateMinisHeader data={this.props.data} />
     }
   },
 
-  userNotLoggedIn: function () {
-    return this.props.data.non_authenticated
-  },
 
   userLoggedIn: function () {
-    return !this.userNotLoggedIn();
+    return this.props.signedInTeacher
   },
 
+  userNotLoggedIn: function () {
+    return !this.userLoggedIn();
+  },
   renderTopLevelNav: function () {
     return this.listFilterOptions();
   },
@@ -136,7 +141,7 @@
 
   alwaysRender: function () {
     return (<div key='always-display' className='unit-template-minis'>
-      {this.renderHeaderIfLoggedIn()}
+      {this.renderHeader()}
       <div className="container">
         <div className='row'>
           <div className='col-xs-12'>
