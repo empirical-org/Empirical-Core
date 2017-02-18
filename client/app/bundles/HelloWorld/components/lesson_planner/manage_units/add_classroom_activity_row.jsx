@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router'
 
 const styles = {
   row: {
@@ -23,9 +22,9 @@ export default React.createClass({
   render() {
     return (
 			<div className='row' style={styles.row}>
-        <Link className='q-button bg-white text-black' to={`/units/${this.props.unitId}/activities/edit${this.unitNameURIString()}`}>
+        <a className='q-button bg-white text-black' href={`/teachers/classrooms/activity_planner/units/${this.props.unitId}/activities/edit${this.unitNameURIString()}`}>
           <span className='fa fa-plus'/>Add More Activities
-        </Link>
+        </a>
 			</div>
 		);
   }
