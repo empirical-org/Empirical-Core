@@ -2109,20 +2109,22 @@ CREATE INDEX index_concept_results_on_question_type ON concept_results USING btr
 
 
 --
--- PostgreSQL database dump complete
+-- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
-SET search_path TO "$user", public;
+CREATE INDEX index_districts_users_on_district_id ON districts_users USING btree (district_id);
 
-INSERT INTO schema_migrations (version) VALUES ('20121024193845');
 
-INSERT INTO schema_migrations (version) VALUES ('20121211230953');
+--
+-- Name: index_districts_users_on_district_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
 
-INSERT INTO schema_migrations (version) VALUES ('20121211231231');
+CREATE INDEX index_districts_users_on_district_id_and_user_id ON districts_users USING btree (district_id, user_id);
 
-INSERT INTO schema_migrations (version) VALUES ('20121214024613');
 
-INSERT INTO schema_migrations (version) VALUES ('20121218155200');
+--
+-- Name: index_districts_users_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
 
 CREATE INDEX index_districts_users_on_user_id ON districts_users USING btree (user_id);
 
@@ -2447,304 +2449,17 @@ ALTER TABLE ONLY concept_results
 -- PostgreSQL database dump complete
 --
 
-CREATE INDEX index_districts_users_on_district_id ON districts_users USING btree (district_id);
-
-
---
--- Name: index_districts_users_on_district_id_and_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_districts_users_on_district_id_and_user_id ON districts_users USING btree (district_id, user_id);
-
-
---
--- Name: index_districts_users_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_districts_users_on_user_id ON districts_users USING btree (user_id);
-
-
---
--- Name: index_ip_locations_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_ip_locations_on_user_id ON ip_locations USING btree (user_id);
-
-
---
--- Name: index_ip_locations_on_zip; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_ip_locations_on_zip ON ip_locations USING btree (zip);
-
-
---
--- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_oauth_access_grants_on_token ON oauth_access_grants USING btree (token);
-
-
---
--- Name: index_oauth_access_tokens_on_refresh_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_oauth_access_tokens_on_refresh_token ON oauth_access_tokens USING btree (refresh_token);
-
-
---
--- Name: index_oauth_access_tokens_on_resource_owner_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_oauth_access_tokens_on_resource_owner_id ON oauth_access_tokens USING btree (resource_owner_id);
-
-
---
--- Name: index_oauth_access_tokens_on_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens USING btree (token);
-
-
---
--- Name: index_oauth_applications_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
-
-
---
--- Name: index_schools_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_on_name ON schools USING btree (name);
-
-
---
--- Name: index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_on_nces_id ON schools USING btree (nces_id);
-
-
---
--- Name: index_schools_on_state; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_on_state ON schools USING btree (state);
-
-
---
--- Name: index_schools_on_zipcode; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_on_zipcode ON schools USING btree (zipcode);
-
-
---
--- Name: index_schools_users_on_school_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_users_on_school_id ON schools_users USING btree (school_id);
-
-
---
--- Name: index_schools_users_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_users_on_school_id_and_user_id ON schools_users USING btree (school_id, user_id);
-
-
---
--- Name: index_schools_users_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
-
-
---
--- Name: index_students_classrooms_on_classroom_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_students_classrooms_on_classroom_id ON students_classrooms USING btree (classroom_id);
-
-
---
--- Name: index_students_classrooms_on_student_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_students_classrooms_on_student_id ON students_classrooms USING btree (student_id);
-
-
---
--- Name: index_topic_categories_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_topic_categories_on_name ON topic_categories USING btree (name);
-
-
---
--- Name: index_topics_on_topic_category_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_category_id);
-
-
---
--- Name: index_unit_templates_on_author_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_unit_templates_on_author_id ON unit_templates USING btree (author_id);
-
-
---
--- Name: index_unit_templates_on_unit_template_category_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_unit_templates_on_unit_template_category_id ON unit_templates USING btree (unit_template_category_id);
-
-
---
--- Name: index_units_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_units_on_user_id ON units USING btree (user_id);
-
-
---
--- Name: index_users_on_active; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_active ON users USING btree (active);
-
-
---
--- Name: index_users_on_classcode; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_classcode ON users USING btree (classcode);
-
-
---
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_email ON users USING btree (email);
-
-
---
--- Name: index_users_on_flag; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_flag ON users USING btree (flag);
-
-
---
--- Name: index_users_on_role; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_role ON users USING btree (role);
-
-
---
--- Name: index_users_on_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_token ON users USING btree (token);
-
-
---
--- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_username ON users USING btree (username);
-
-
---
--- Name: name_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
-
-
---
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
-
-
---
--- Name: username_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX username_idx ON users USING gin (username gin_trgm_ops);
-
-
---
--- Name: users_to_tsvector_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx ON users USING gin (to_tsvector('english'::regconfig, (name)::text));
-
-
---
--- Name: users_to_tsvector_idx1; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx1 ON users USING gin (to_tsvector('english'::regconfig, (email)::text));
-
-
---
--- Name: users_to_tsvector_idx2; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx2 ON users USING gin (to_tsvector('english'::regconfig, (role)::text));
-
-
---
--- Name: users_to_tsvector_idx3; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx3 ON users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
-
-
---
--- Name: users_to_tsvector_idx4; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx4 ON users USING gin (to_tsvector('english'::regconfig, (username)::text));
-
-
---
--- Name: users_to_tsvector_idx5; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx5 ON users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
-
-
---
--- Name: uta; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, activity_id);
-
-
---
--- Name: fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY concept_results
-    ADD CONSTRAINT fk_rails_cebe4a6023 FOREIGN KEY (activity_classification_id) REFERENCES activity_classifications(id);
-
-
---
--- PostgreSQL database dump complete
---
-
 SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20121024193845');
+
+INSERT INTO schema_migrations (version) VALUES ('20121211230953');
+
+INSERT INTO schema_migrations (version) VALUES ('20121211231231');
+
+INSERT INTO schema_migrations (version) VALUES ('20121214024613');
+
+INSERT INTO schema_migrations (version) VALUES ('20121218155200');
 
 INSERT INTO schema_migrations (version) VALUES ('20130309011601');
 
