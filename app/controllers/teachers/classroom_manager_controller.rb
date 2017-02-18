@@ -162,11 +162,14 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def update_my_account
     # ⚠️ prevent teachers from making themselves superadmins 😱
-    if params[:role] && !(params[:role] == 'teacher' || params[:role] == 'student')
-    else
+    if params[:role] && (params[:role] == 'teacher' || params[:role] == 'student')
       response = current_user.update_teacher params
-      render json: response
+      puts "Passes validation"
+    else
+      response = false
+      puts "fails validation"
     end
+    render json: response
   end
 
   def delete_my_account
