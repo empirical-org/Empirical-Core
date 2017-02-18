@@ -233,14 +233,14 @@ export default React.createClass({
 		let msg;
 		if (!a) {
 			if (!b) {
-				msg = 'Please provide a name and select activities for your activity pack.';
+				msg = 'Please provide a unit name and select activities';
 			} else {
-				msg = 'Please provide a name for your activity pack.';
+				msg = 'Please provide a unit name';
 			}
 		} else if (!b) {
 			msg = 'Please select activities';
 		} else if (uniqueUnitNameError) {
-			msg = 'Please select a unique name for your activity pack.'
+			msg = 'Please select a unique unit name.'
 		} else {
 			msg = null;
 		}

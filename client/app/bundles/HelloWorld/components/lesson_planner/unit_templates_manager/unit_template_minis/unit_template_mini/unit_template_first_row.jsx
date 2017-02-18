@@ -6,7 +6,7 @@
  export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    actions: React.PropTypes.object,
+    actions: React.PropTypes.object.isRequired,
     modules: React.PropTypes.shape({
       string: React.PropTypes.object.isRequired
     })
@@ -29,6 +29,7 @@
   },
 
   render: function () {
+
     return (
       <div style={{backgroundColor: this.getBackgroundColor()}} className={this.getClassName()}>
         <div className='col-xs-12'>
@@ -40,6 +41,7 @@
             </div>
             <div className='col-xs-4 text-right'>
               <CategoryLabel
+                  filterByCategory={this.props.actions.filterByCategory}
                   data={this.props.data.unit_template_category}
                   extraClassName='float-right'
                   backgroundColor={this.getCategoryBackgroundColor()}/>
