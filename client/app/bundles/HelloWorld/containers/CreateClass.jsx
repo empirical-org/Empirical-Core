@@ -46,7 +46,7 @@ export default React.createClass({
                 <MenuItem key={grade} eventKey={grade}>{NumberSuffix(grade)}</MenuItem>
             )
         }
-        grades.push(<MenuItem key={'University'} eventKey={'University'}>University</MenuItem>)
+        grades.push(<MenuItem key={'Univeristy'} eventKey={'University'}>University</MenuItem>)
         return grades
     },
 
@@ -87,7 +87,7 @@ export default React.createClass({
               that.props.closeModal('because class added');
             }
             else if (that.props.hasClassroomActivities === false) {
-              window.location.assign(`/teachers/classrooms/activity_planner/featured-activity-packs/grade/${that.state.classroom.grade}`);
+              window.location.assign(`/teachers/classrooms/activity_planner?tab=exploreActivityPacks&grade=${that.state.classroom.grade}`);
             }
             else if (data.toInviteStudents) {
               window.location.assign('/teachers/classrooms/invite_students');

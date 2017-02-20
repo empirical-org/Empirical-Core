@@ -43,6 +43,20 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -68,15 +82,15 @@ SET default_with_oids = false;
 
 CREATE TABLE activities (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     description text,
-    uid character varying NOT NULL,
+    uid character varying(255) NOT NULL,
     data hstore,
     activity_classification_id integer,
     topic_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
     repeatable boolean DEFAULT true
 );
 
@@ -116,14 +130,14 @@ CREATE TABLE activities_unit_templates (
 
 CREATE TABLE activity_classifications (
     id integer NOT NULL,
-    name character varying,
-    key character varying NOT NULL,
-    form_url character varying,
-    uid character varying NOT NULL,
-    module_url character varying,
+    name character varying(255),
+    key character varying(255) NOT NULL,
+    form_url character varying(255),
+    uid character varying(255) NOT NULL,
+    module_url character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    app_name character varying
+    app_name character varying(255)
 );
 
 
@@ -155,11 +169,11 @@ CREATE TABLE activity_sessions (
     classroom_activity_id integer,
     activity_id integer,
     user_id integer,
-    pairing_id character varying,
+    pairing_id character varying(255),
     percentage double precision,
-    state character varying DEFAULT 'unstarted'::character varying NOT NULL,
+    state character varying(255) DEFAULT 'unstarted'::character varying NOT NULL,
     completed_at timestamp without time zone,
-    uid character varying,
+    uid character varying(255),
     temporary boolean DEFAULT false,
     data hstore,
     created_at timestamp without time zone,
@@ -198,7 +212,7 @@ CREATE TABLE admin_accounts (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    name character varying
+    name character varying(255)
 );
 
 
@@ -291,9 +305,9 @@ ALTER SEQUENCE admin_accounts_teachers_id_seq OWNED BY admin_accounts_teachers.i
 
 CREATE TABLE authors (
     id integer NOT NULL,
-    name character varying,
-    avatar_file_name character varying,
-    avatar_content_type character varying,
+    name character varying(255),
+    avatar_file_name character varying(255),
+    avatar_content_type character varying(255),
     avatar_file_size integer,
     avatar_updated_at timestamp without time zone,
     description text
@@ -326,8 +340,8 @@ ALTER SEQUENCE authors_id_seq OWNED BY authors.id;
 CREATE TABLE categories (
     id integer NOT NULL,
     title text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -425,13 +439,13 @@ ALTER SEQUENCE classroom_activities_id_seq OWNED BY classroom_activities.id;
 
 CREATE TABLE classrooms (
     id integer NOT NULL,
-    name character varying,
-    code character varying,
+    name character varying(255),
+    code character varying(255),
     teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying,
-    grade character varying,
+    clever_id character varying(255),
+    grade character varying(255),
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
     grade_level integer
@@ -455,6 +469,42 @@ CREATE SEQUENCE classrooms_id_seq
 --
 
 ALTER SEQUENCE classrooms_id_seq OWNED BY classrooms.id;
+
+
+--
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE comments (
+    id integer NOT NULL,
+    title character varying(255),
+    body text,
+    user_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    ancestry character varying(255),
+    reply_type character varying(255),
+    lecture_chapter_id integer
+);
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
 
 
 --
@@ -496,11 +546,11 @@ ALTER SEQUENCE concept_results_id_seq OWNED BY concept_results.id;
 
 CREATE TABLE concepts (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     parent_id integer,
-    uid character varying NOT NULL
+    uid character varying(255) NOT NULL
 );
 
 
@@ -529,13 +579,13 @@ ALTER SEQUENCE concepts_id_seq OWNED BY concepts.id;
 
 CREATE TABLE csv_exports (
     id integer NOT NULL,
-    export_type character varying,
+    export_type character varying(255),
     emailed_at timestamp without time zone,
     filters json,
     teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    csv_file character varying
+    csv_file character varying(255)
 );
 
 
@@ -564,9 +614,9 @@ ALTER SEQUENCE csv_exports_id_seq OWNED BY csv_exports.id;
 
 CREATE TABLE districts (
     id integer NOT NULL,
-    clever_id character varying,
-    name character varying,
-    token character varying,
+    clever_id character varying(255),
+    name character varying(255),
+    token character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -607,11 +657,11 @@ CREATE TABLE districts_users (
 
 CREATE TABLE file_uploads (
     id integer NOT NULL,
-    name character varying,
-    file character varying,
+    name character varying(255),
+    file character varying(255),
     description text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -640,8 +690,8 @@ ALTER SEQUENCE file_uploads_id_seq OWNED BY file_uploads.id;
 
 CREATE TABLE firebase_apps (
     id integer NOT NULL,
-    name character varying,
-    secret character varying,
+    name character varying(255),
+    secret character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -709,12 +759,12 @@ CREATE TABLE oauth_access_grants (
     id integer NOT NULL,
     resource_owner_id integer NOT NULL,
     application_id integer NOT NULL,
-    token character varying NOT NULL,
+    token character varying(255) NOT NULL,
     expires_in integer NOT NULL,
     redirect_uri text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     revoked_at timestamp without time zone,
-    scopes character varying
+    scopes character varying(255)
 );
 
 
@@ -745,12 +795,12 @@ CREATE TABLE oauth_access_tokens (
     id integer NOT NULL,
     resource_owner_id integer,
     application_id integer,
-    token character varying NOT NULL,
-    refresh_token character varying,
+    token character varying(255) NOT NULL,
+    refresh_token character varying(255),
     expires_in integer,
     revoked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    scopes character varying
+    scopes character varying(255)
 );
 
 
@@ -779,9 +829,9 @@ ALTER SEQUENCE oauth_access_tokens_id_seq OWNED BY oauth_access_tokens.id;
 
 CREATE TABLE oauth_applications (
     id integer NOT NULL,
-    name character varying NOT NULL,
-    uid character varying NOT NULL,
-    secret character varying NOT NULL,
+    name character varying(255) NOT NULL,
+    uid character varying(255) NOT NULL,
+    secret character varying(255) NOT NULL,
     redirect_uri text NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -849,11 +899,11 @@ ALTER SEQUENCE objectives_id_seq OWNED BY objectives.id;
 
 CREATE TABLE page_areas (
     id integer NOT NULL,
-    name character varying,
-    description character varying,
+    name character varying(255),
+    description character varying(255),
     content text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -877,11 +927,46 @@ ALTER SEQUENCE page_areas_id_seq OWNED BY page_areas.id;
 
 
 --
+-- Name: rules_misseds; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE rules_misseds (
+    id integer NOT NULL,
+    rule_id integer,
+    user_id integer,
+    assessment_id integer,
+    time_take timestamp without time zone,
+    missed boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: rules_misseds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE rules_misseds_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rules_misseds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
-    version character varying NOT NULL
+    version character varying(255) NOT NULL
 );
 
 
@@ -891,24 +976,24 @@ CREATE TABLE schema_migrations (
 
 CREATE TABLE schools (
     id integer NOT NULL,
-    nces_id character varying,
-    lea_id character varying,
-    leanm character varying,
-    name character varying,
-    phone character varying,
-    mail_street character varying,
-    mail_city character varying,
-    mail_state character varying,
-    mail_zipcode character varying,
-    street character varying,
-    city character varying,
-    state character varying,
-    zipcode character varying,
-    nces_type_code character varying,
-    nces_status_code character varying,
-    magnet character varying,
-    charter character varying,
-    ethnic_group character varying,
+    nces_id character varying(255),
+    lea_id character varying(255),
+    leanm character varying(255),
+    name character varying(255),
+    phone character varying(255),
+    mail_street character varying(255),
+    mail_city character varying(255),
+    mail_state character varying(255),
+    mail_zipcode character varying(255),
+    street character varying(255),
+    city character varying(255),
+    state character varying(255),
+    zipcode character varying(255),
+    nces_type_code character varying(255),
+    nces_status_code character varying(255),
+    magnet character varying(255),
+    charter character varying(255),
+    ethnic_group character varying(255),
     longitude numeric(9,6),
     latitude numeric(9,6),
     ulocal integer,
@@ -920,7 +1005,7 @@ CREATE TABLE schools (
     total_students integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying
+    clever_id character varying(255)
 );
 
 
@@ -959,11 +1044,11 @@ CREATE TABLE schools_users (
 
 CREATE TABLE sections (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     "position" integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    uid character varying
+    uid character varying(255)
 );
 
 
@@ -1059,10 +1144,10 @@ ALTER SEQUENCE subscriptions_id_seq OWNED BY subscriptions.id;
 
 CREATE TABLE topic_categories (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    uid character varying
+    uid character varying(255)
 );
 
 
@@ -1091,12 +1176,12 @@ ALTER SEQUENCE topic_categories_id_seq OWNED BY topic_categories.id;
 
 CREATE TABLE topics (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     section_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     topic_category_id integer,
-    uid character varying
+    uid character varying(255)
 );
 
 
@@ -1125,9 +1210,9 @@ ALTER SEQUENCE topics_id_seq OWNED BY topics.id;
 
 CREATE TABLE unit_template_categories (
     id integer NOT NULL,
-    name character varying,
-    primary_color character varying,
-    secondary_color character varying
+    name character varying(255),
+    primary_color character varying(255),
+    secondary_color character varying(255)
 );
 
 
@@ -1156,7 +1241,7 @@ ALTER SEQUENCE unit_template_categories_id_seq OWNED BY unit_template_categories
 
 CREATE TABLE unit_templates (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     unit_template_category_id integer,
     "time" integer,
     grades text,
@@ -1194,7 +1279,7 @@ ALTER SEQUENCE unit_templates_id_seq OWNED BY unit_templates.id;
 
 CREATE TABLE units (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     visible boolean DEFAULT true NOT NULL,
@@ -1227,18 +1312,18 @@ ALTER SEQUENCE units_id_seq OWNED BY units.id;
 
 CREATE TABLE users (
     id integer NOT NULL,
-    name character varying,
-    email character varying,
-    password_digest character varying,
-    role character varying DEFAULT 'user'::character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    classcode character varying,
+    name character varying(255),
+    email character varying(255),
+    password_digest character varying(255),
+    role character varying(255) DEFAULT 'user'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    classcode character varying(255),
     active boolean DEFAULT false,
-    username character varying,
-    token character varying,
+    username character varying(255),
+    token character varying(255),
     ip_address inet,
-    clever_id character varying,
+    clever_id character varying(255),
     signed_up_with_google boolean DEFAULT false,
     send_newsletter boolean DEFAULT false,
     flag character varying
@@ -1996,6 +2081,13 @@ CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_le
 
 
 --
+-- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_ancestry ON comments USING btree (ancestry);
+
+
+--
 -- Name: index_concept_results_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2357,304 +2449,17 @@ ALTER TABLE ONLY concept_results
 -- PostgreSQL database dump complete
 --
 
-CREATE INDEX index_districts_users_on_district_id ON districts_users USING btree (district_id);
-
-
---
--- Name: index_districts_users_on_district_id_and_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_districts_users_on_district_id_and_user_id ON districts_users USING btree (district_id, user_id);
-
-
---
--- Name: index_districts_users_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_districts_users_on_user_id ON districts_users USING btree (user_id);
-
-
---
--- Name: index_ip_locations_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_ip_locations_on_user_id ON ip_locations USING btree (user_id);
-
-
---
--- Name: index_ip_locations_on_zip; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_ip_locations_on_zip ON ip_locations USING btree (zip);
-
-
---
--- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_oauth_access_grants_on_token ON oauth_access_grants USING btree (token);
-
-
---
--- Name: index_oauth_access_tokens_on_refresh_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_oauth_access_tokens_on_refresh_token ON oauth_access_tokens USING btree (refresh_token);
-
-
---
--- Name: index_oauth_access_tokens_on_resource_owner_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_oauth_access_tokens_on_resource_owner_id ON oauth_access_tokens USING btree (resource_owner_id);
-
-
---
--- Name: index_oauth_access_tokens_on_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens USING btree (token);
-
-
---
--- Name: index_oauth_applications_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
-
-
---
--- Name: index_schools_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_on_name ON schools USING btree (name);
-
-
---
--- Name: index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_on_nces_id ON schools USING btree (nces_id);
-
-
---
--- Name: index_schools_on_state; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_on_state ON schools USING btree (state);
-
-
---
--- Name: index_schools_on_zipcode; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_on_zipcode ON schools USING btree (zipcode);
-
-
---
--- Name: index_schools_users_on_school_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_users_on_school_id ON schools_users USING btree (school_id);
-
-
---
--- Name: index_schools_users_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_users_on_school_id_and_user_id ON schools_users USING btree (school_id, user_id);
-
-
---
--- Name: index_schools_users_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
-
-
---
--- Name: index_students_classrooms_on_classroom_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_students_classrooms_on_classroom_id ON students_classrooms USING btree (classroom_id);
-
-
---
--- Name: index_students_classrooms_on_student_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_students_classrooms_on_student_id ON students_classrooms USING btree (student_id);
-
-
---
--- Name: index_topic_categories_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_topic_categories_on_name ON topic_categories USING btree (name);
-
-
---
--- Name: index_topics_on_topic_category_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_category_id);
-
-
---
--- Name: index_unit_templates_on_author_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_unit_templates_on_author_id ON unit_templates USING btree (author_id);
-
-
---
--- Name: index_unit_templates_on_unit_template_category_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_unit_templates_on_unit_template_category_id ON unit_templates USING btree (unit_template_category_id);
-
-
---
--- Name: index_units_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_units_on_user_id ON units USING btree (user_id);
-
-
---
--- Name: index_users_on_active; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_active ON users USING btree (active);
-
-
---
--- Name: index_users_on_classcode; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_classcode ON users USING btree (classcode);
-
-
---
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_email ON users USING btree (email);
-
-
---
--- Name: index_users_on_flag; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_flag ON users USING btree (flag);
-
-
---
--- Name: index_users_on_role; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_role ON users USING btree (role);
-
-
---
--- Name: index_users_on_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_token ON users USING btree (token);
-
-
---
--- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_username ON users USING btree (username);
-
-
---
--- Name: name_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
-
-
---
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
-
-
---
--- Name: username_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX username_idx ON users USING gin (username gin_trgm_ops);
-
-
---
--- Name: users_to_tsvector_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx ON users USING gin (to_tsvector('english'::regconfig, (name)::text));
-
-
---
--- Name: users_to_tsvector_idx1; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx1 ON users USING gin (to_tsvector('english'::regconfig, (email)::text));
-
-
---
--- Name: users_to_tsvector_idx2; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx2 ON users USING gin (to_tsvector('english'::regconfig, (role)::text));
-
-
---
--- Name: users_to_tsvector_idx3; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx3 ON users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
-
-
---
--- Name: users_to_tsvector_idx4; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx4 ON users USING gin (to_tsvector('english'::regconfig, (username)::text));
-
-
---
--- Name: users_to_tsvector_idx5; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx5 ON users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
-
-
---
--- Name: uta; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, activity_id);
-
-
---
--- Name: fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY concept_results
-    ADD CONSTRAINT fk_rails_cebe4a6023 FOREIGN KEY (activity_classification_id) REFERENCES activity_classifications(id);
-
-
---
--- PostgreSQL database dump complete
---
-
 SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20121024193845');
+
+INSERT INTO schema_migrations (version) VALUES ('20121211230953');
+
+INSERT INTO schema_migrations (version) VALUES ('20121211231231');
+
+INSERT INTO schema_migrations (version) VALUES ('20121214024613');
+
+INSERT INTO schema_migrations (version) VALUES ('20121218155200');
 
 INSERT INTO schema_migrations (version) VALUES ('20130309011601');
 
@@ -2683,6 +2488,8 @@ INSERT INTO schema_migrations (version) VALUES ('20130426032817');
 INSERT INTO schema_migrations (version) VALUES ('20130426032952');
 
 INSERT INTO schema_migrations (version) VALUES ('20130429171512');
+
+INSERT INTO schema_migrations (version) VALUES ('20130510221334');
 
 INSERT INTO schema_migrations (version) VALUES ('20130517024024');
 
@@ -2979,4 +2786,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170126211938');
 INSERT INTO schema_migrations (version) VALUES ('20170127014847');
 
 INSERT INTO schema_migrations (version) VALUES ('20170127020417');
+
+INSERT INTO schema_migrations (version) VALUES ('20170217201048');
 
