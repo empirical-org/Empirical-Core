@@ -306,7 +306,7 @@ EmpiricalGrammar::Application.routes.draw do
   # diagnostic route hotfix
   get '/activity_packs/diagnostic', to: redirect('/tools/diagnostic')
   get '/activity/packs/diagnostic', to: redirect('/tools/diagnostic')
-
+  get '/activities/packs/diagnostic', to: redirect('/tools/diagnostic')
   # catch-all 404
   get '*path', to: 'application#routing_error'
 end
