@@ -4,28 +4,31 @@
  import _ from 'underscore'
 
  export default  React.createClass({
+  propTypes: {
+    data: React.PropTypes.object.isRequired
+  },
 
   renderProblem: function () {
-    if (this.props.data.problem) {
-      return [(<dt><strong>Problem</strong></dt>),(<dd>{this.props.data.problem}</dd>)]
+    if (this.props.data.model["problem"]) {
+      return [(<dt><strong>Problem</strong></dt>),(<dd>{this.props.data.model["problem"]}</dd>)]
     }
   },
 
   renderSummary: function () {
-    if (this.props.data.summary) {
-      return [(<dt><strong>Summary</strong></dt>),(<dd>{this.props.data.summary}</dd>)]
+    if (this.props.data.model["summary"]) {
+      return [(<dt><strong>Summary</strong></dt>),(<dd>{this.props.data.model["summary"]}</dd>)]
     }
   },
 
   renderTeacherReview: function () {
-    if (this.props.data.teacher_review) {
-      return [(<dt><strong>Teacher Review</strong></dt>),(<dd>{this.props.data.teacher_review}</dd>)]
+    if (this.props.data.model["teacher_review"]) {
+      return [(<dt><strong>Teacher Review</strong></dt>),(<dd>{this.props.data.model["teacher_review"]}</dd>)]
     }
   },
 
   renderAuthor: function () {
-    if (this.props.data.author.description) {
-      return [(<dt><strong>About the Author</strong></dt>),(<dd>{this.props.data.author.description}</dd>)]
+    if (this.props.data.model["author"]["description"]) {
+      return [(<dt><strong>About the Author</strong></dt>),(<dd>{this.props.data.model["author"]["description"]}</dd>)]
     }
   },
 

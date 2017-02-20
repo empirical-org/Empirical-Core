@@ -7,7 +7,8 @@
 
  export default  React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired,
+    actions: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
@@ -59,17 +60,13 @@
 
   onClickAction: function () {
     if (this.props.data.id == 'createYourOwn') {
-      if(this.props.signedInTeacher) {
-        window.location = '/teachers/classrooms/activity_planner/create-unit'
+      if(this.props.data.non_authenticated) {
+        this.props.actions.signUp();
       } else {
-        window.location = '/accounts/new'
+        this.props.actions.toggleTab('createUnit');
       }
     } else {
-      if (this.props.signedInTeacher) {
-        window.location = `/teachers/classrooms/activity_planner/featured-activity-packs/${this.props.data.id}`;
-      } else {
-        window.location = `/activities/packs/${this.props.data.id}`
-      }
+      this.props.actions.selectModel(this.props.data);
     }
   },
 
@@ -89,6 +86,7 @@
       return(
           <div className='col-xs-12'>
               <UnitTemplateFirstRow
+                  actions={{filterByCategory: this.props.actions.filterByCategory}}
                   data={this.props.data}
                   modules={{string: this.modules.string}} />
               <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
