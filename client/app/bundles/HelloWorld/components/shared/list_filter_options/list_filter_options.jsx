@@ -8,7 +8,6 @@
  export default  React.createClass({
   propTypes: {
     options: React.PropTypes.array.isRequired,
-    select: React.PropTypes.func.isRequired,
     userLoggedIn: React.PropTypes.bool
   },
 
