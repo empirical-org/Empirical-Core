@@ -20,36 +20,34 @@ const EndState = React.createClass({
   },
 
   returnSanitizedArray: function(str) {
-    return str.toLowerCase().replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/[.'",\/#?!$%\^&\*;:{}=\-_`~()]/g,"").split(' ').sort().join(' ').trim().split(' ');
+    return str.toLowerCase().replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/[.",\/#?!$%\^&\*;:{}=\_`~()]/g,"").split(' ').sort().join(' ').trim().split(' ');
   },
 
   findDiffs: function(answer) {
     let styledString = answer;
-    const sanitizedQuestion = this.returnSanitizedArray(this.props.question.prompt);
-    const sanitizedAnswer = this.returnSanitizedArray(answer);
-    const diffObjects = jsDiff.diffArrays(sanitizedQuestion, sanitizedAnswer);
-    let diffStrings = [];
+    const sanitizedQuestionArray = this.returnSanitizedArray(this.props.question.prompt);
+    const sanitizedAnswerArray = this.returnSanitizedArray(answer);
+    const diffObjects = jsDiff.diffArrays(sanitizedQuestionArray, sanitizedAnswerArray);
     diffObjects.forEach(function(diff) {
       if(diff.added) {
-        diffStrings = diffStrings.concat(diff.value);
+        diff.value.forEach(function(word) {
+          let regex = new RegExp("(^|[^(a-zA-Z>)])" + word + "($|[^(<a-zA-Z)])", 'i');
+          if(styledString.match(regex)) {
+              styledString = styledString.replace(regex, '<span style="color: green;">' + styledString.match(regex)[0] + '</span>');
+          }
+          let punctuationAtStartOfString = styledString.match(new RegExp("<span style=\"color: green;\">[^(a-zA-Z>)]", 'g'));
+          if(punctuationAtStartOfString) {
+            const charToMove = punctuationAtStartOfString[0][punctuationAtStartOfString[0].length - 1];
+            styledString = styledString.replace(new RegExp("<span style=\"color: green;\">[" + charToMove + "]", 'g'), charToMove + "<span style=\"color: green;\">");
+          }
+          let punctuationAtEndOfString = styledString.match(new RegExp("[^(a-zA-Z)]</span>", 'g'));
+          if(punctuationAtEndOfString) {
+              const charToMove = punctuationAtEndOfString[0][punctuationAtEndOfString[0].length - 8];
+              styledString = styledString.replace(new RegExp("[" + charToMove + "]</span>", 'g'), "</span>" + charToMove);
+          }
+        });
       }
     });
-    diffStrings.forEach(function(word) {
-      console.log("Word: " + word);
-      // styledString = styledString.replace(new RegExp("( |^|[.'\",\/#?!$%\^&\*;:{}=\-_`~()])" + word + "( |$|[.'\",\/#?!$%\^&\*;:{}=\-_`~()])", "i"), '<span style="color: green;">' + word + '</span>');
-      styledString = styledString.replace(new RegExp(" " + word + " ", "i"), ' <span style="color: green;">' + word + '</span> ');
-    });
-    // diffObjects.forEach(function(part) {
-    //   if(part.added) {
-    //     part.value.forEach(function(word) {
-    //       //console.log(word);
-    //       styledString = styledString.replace(new RegExp("( |^|[.'\",\/#?!$%\^&\*;:{}=\-_`~()])" + word + "( |$|[.'\",\/#?!$%\^&\*;:{}=\-_`~()])", 'i'), function(match) {
-    //         console.log(match);
-    //         return ' <span style="color: green;">' + match + '</span> ';
-    //       });
-    //     });
-    //   }
-    // });
     return styledString;
   },
 
