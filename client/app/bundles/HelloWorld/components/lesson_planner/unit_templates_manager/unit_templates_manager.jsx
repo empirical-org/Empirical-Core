@@ -23,7 +23,9 @@
    componentWillReceiveProps: function(nextProps) {
      if (this.props.params.category !== nextProps.params.category) {
       this.filterByCategory(nextProps.params.category)
-     }
+    } else if (this.props.params.grade && !nextProps.params.grade) {
+      this.showAllGrades()
+    }
    },
 
    analytics: function() {

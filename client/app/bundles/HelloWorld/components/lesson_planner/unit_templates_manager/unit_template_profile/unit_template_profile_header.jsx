@@ -14,7 +14,7 @@
   render: function () {
     return (
       <div className='big-title row' style={this.divStyle()}>
-        <CategoryLabel data={this.props.data.unit_template_category} nonAuthenticated={this.props.data.non_authenticated}/>
+        <CategoryLabel isLink={Boolean(true)} data={this.props.data.unit_template_category} nonAuthenticated={this.props.data.non_authenticated}/>
         <h1><strong>{this.props.data.name}</strong></h1>
         <div className="author-details">
           <div className="author-picture">

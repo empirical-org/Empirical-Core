@@ -23,13 +23,13 @@
 
   renderStandards: function (standards) {
     return _.map(standards, function(standard){
-      return <dd>{standard.name}</dd>
+      return <dd key={standard.name}>{standard.name}</dd>
     })
   },
 
   renderConcepts: function (concepts) {
     return _.map(concepts, function(concept){
-      return <dd className='concept'>{concept}</dd>
+      return <dd key={concept} className='concept'>{concept}</dd>
     })
   },
 

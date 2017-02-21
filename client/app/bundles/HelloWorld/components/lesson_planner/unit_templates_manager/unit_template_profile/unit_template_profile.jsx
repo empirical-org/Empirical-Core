@@ -1,6 +1,7 @@
 'use strict'
 
  import React from 'react'
+ import { Link } from 'react-router'
  import LoadingIndicator from '../../../shared/loading_indicator'
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import UnitTemplateProfileHeader from './unit_template_profile_header'
@@ -126,7 +127,7 @@
 
               <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId}/>
               <div className='row'>
-                <a href={this.indexLink()}><button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button></a>
+                <Link to={this.indexLink()}><button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button></Link>
               </div>
             </div>
           </div>

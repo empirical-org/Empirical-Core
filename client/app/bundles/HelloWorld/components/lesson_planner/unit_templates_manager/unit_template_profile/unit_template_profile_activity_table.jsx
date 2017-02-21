@@ -31,7 +31,7 @@
     const that = this
     return this.props.data.activities.map(function(act){
       return (
-        <tr>
+        <tr key={act.name}>
           <td>
             <div className={that.findImageClass(act.classification.key)}></div>
           </td>

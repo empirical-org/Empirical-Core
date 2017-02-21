@@ -7,8 +7,7 @@
  export default React.createClass({
   propTypes: {
     models: React.PropTypes.array,
-    actions: React.PropTypes.object,
-    data: React.PropTypes.number
+    actions: React.PropTypes.object
   },
 
   miniView: function(model, index) {
@@ -19,8 +18,8 @@
       className = 'col-xs-6 no-pl';
     }
     return (
-      <div className={className}>
-        <UnitTemplateMini data={model} key={model.id} index={index}/>
+      <div key={model.id} className={className}>
+        <UnitTemplateMini data={model}  index={index}/>
       </div>
     );
   },
