@@ -4,7 +4,7 @@ import {Link} from 'react-router'
 const styles = {
   row: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     height: '60px',
     border: '2px dashed #dad9d9'
