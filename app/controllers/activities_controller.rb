@@ -16,7 +16,7 @@ class ActivitiesController < ApplicationController
   end
 
   def search
-    asw = ActivitySearchWrapper.new(search_params[:search_query], search_params[:filters], search_params[:sort], current_user.flag)
+    asw = ActivitySearchWrapper.new(search_params[:search_query], search_params[:filters], search_params[:sort], current_user.flag, current_user.id)
     asw.search
     render json: asw.result
   end
