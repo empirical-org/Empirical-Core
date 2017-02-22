@@ -14,7 +14,7 @@ class Teachers::ProgressReportsController < ApplicationController
       @user = User.find_by_email 'hello+demoteacher@quill.org'
     end
     sign_in @user
-    if params[:name] == 'partneraccount'
+    if params[:name] == 'demoaccount'
       redirect_to teachers_progress_reports_concepts_students_path
     else
       redirect_to scorebook_teachers_classrooms_path
