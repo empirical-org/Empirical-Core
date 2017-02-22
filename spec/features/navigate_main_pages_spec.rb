@@ -56,4 +56,33 @@ feature 'As someone who is not signed in, ensure that the' do
     end
   end
 
+  context 'premium page', :js => true do
+    before(:each) { visit '/premium' }
+    it 'has a pricing guide section' do
+      within(:css, '#premium-pricing-guide') { expect(page).to have_content('Pricing Guide') }
+    end
+    it 'has free option with functional sign up button' do
+      pricing_mini = page.all(:css, '.pricing-mini')[0]
+      pricing_mini.should have_content('Basic')
+      pricing_mini.click_link('Sign Up')
+      expect(current_path).to eq(new_account_path)
+    end
+    it 'has premium option with nonfunctional trial and buy buttons' do
+      pricing_mini = page.all(:css, '.pricing-mini')[1]
+      pricing_mini.should have_content('Teacher Premium')
+      pricing_mini.find_button('Free Trial').click
+      accept_alert('You must be logged in to begin your free trial.')
+      expect(current_path).to eq('/premium')
+      pricing_mini.find_button('Buy Now').click
+      accept_alert('You must be logged in to purchase Quill Premium.')
+      expect(current_path).to eq('/premium')
+    end
+    it 'has school and district premium option with functional learn more button' do
+      pricing_mini = page.all(:css, '.pricing-mini')[2]
+      pricing_mini.should have_content('School & District Premium')
+      pricing_mini.click_link('Learn More')
+      expect(current_url).to eq('https://quillpremium.wufoo.com/forms/quill-premium-quote/')
+    end
+  end
+
 end
