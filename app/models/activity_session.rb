@@ -250,7 +250,7 @@ class ActivitySession < ActiveRecord::Base
     when 'activity_classification_name'
       "activity_classifications.name #{order}, #{last_name} #{order}"
     when 'student_name'
-      "#{last_name} #{order}"
+      "#{last_name} #{order}, users.name #{order}"
     when 'completed_at'
       "activity_sessions.completed_at #{order}"
     when 'activity_name'
