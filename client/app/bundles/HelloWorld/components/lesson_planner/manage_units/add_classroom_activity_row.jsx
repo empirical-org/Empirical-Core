@@ -7,7 +7,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '60px',
-    border: '2px dashed #dad9d9'
+    border: '1px dashed #cecece'
   }
 }
 
