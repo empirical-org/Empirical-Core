@@ -49,6 +49,7 @@ const Responses = React.createClass({
       viewingResponses: true,
       responsePageNumber: 1,
       matcher,
+      stringFilter: '',
     };
   },
 
@@ -230,7 +231,7 @@ const Responses = React.createClass({
     if (this.state.viewingResponses) {
       const { questionID, } = this.props;
       const responses = this.gatherVisibleResponses();
-      const responsesListItems = this.getResponsesForCurrentPage(responses);
+      const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
       return (<ResponseList
         responses={responsesListItems}
         getResponse={this.getResponse}
@@ -428,6 +429,19 @@ const Responses = React.createClass({
     return posTagsList;
   },
 
+  handleStringFiltering() {
+    this.setState({stringFilter: this.refs.stringFilter.value});
+  },
+
+  getFilteredResponses(responses) {
+    if(this.state.stringFilter == "") {
+      return responses;
+    }
+    let that = this;
+    //todo refactor this with nice es6 formatting :P
+    return responses.filter(function(response) { return response.text.indexOf(that.state.stringFilter) >= 0 });
+  },
+
   mapCountToResponse(rid) {
     const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
       let response = this.props.responses[key];
@@ -593,6 +607,7 @@ const Responses = React.createClass({
           {this.renderViewPOSButton()}
         </div>
 
+        <input className="input" type="text" value={this.state.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Filter answers by string..." /><br /><br />
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}
