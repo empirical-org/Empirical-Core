@@ -34,7 +34,7 @@ export default React.createClass({
 
 	buttonForRecommendations: function() {
 		const activityId = this.props.data.activity_id
-		if (activityId === 413) {
+		if (activityId === 413 && window.location.pathname.includes('diagnostic_reports')) {
 			const unitId = this.props.data.unit_id
 			const classroomId = this.props.data.classroom_id
 			return (
