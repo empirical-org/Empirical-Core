@@ -180,7 +180,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus() {
-    return hashToCollection(respWithStatus(this.props.responses));
+    return this.getFilteredResponses(hashToCollection(respWithStatus(this.props.responses)));
   },
 
   responsesGroupedByStatus() {
@@ -430,7 +430,7 @@ const Responses = React.createClass({
   },
 
   handleStringFiltering() {
-    this.setState({stringFilter: this.refs.stringFilter.value});
+    this.setState({stringFilter: this.refs.stringFilter.value, responsePageNumber: 1});
   },
 
   getFilteredResponses(responses) {
