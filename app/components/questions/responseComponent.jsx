@@ -438,8 +438,7 @@ const Responses = React.createClass({
       return responses;
     }
     let that = this;
-    //todo refactor this with nice es6 formatting :P
-    return responses.filter(function(response) { return response.text.indexOf(that.state.stringFilter) >= 0 });
+    return _.filter(responses, response => response.text.indexOf(that.state.stringFilter) >= 0);
   },
 
   mapCountToResponse(rid) {
