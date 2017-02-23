@@ -91,7 +91,8 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def students_list
     @classroom = Classroom.find params[:id]
-    render json: {students: @classroom.students.sort{|a,b| b.created_at <=> a.created_at}}
+    last_name = "substring(users.name, '(?=\s).*')"
+    render json: {students: @classroom.students.order("#{last_name} asc, users.name asc")}
   end
 
 
