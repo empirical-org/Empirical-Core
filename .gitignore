@@ -54,4 +54,5 @@ app/assets/webpack/vendor-bundle.js
 # Byebug command history file
 .byebug_history
 
-config/newrelic\.yml
+# Ignore NewRelic API keys
+/config/newrelic.yml
