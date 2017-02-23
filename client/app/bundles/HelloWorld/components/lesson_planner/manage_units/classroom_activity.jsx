@@ -32,17 +32,20 @@ export default React.createClass({
 		this.props.updateDueDate(this.props.data.id, date.format());
 	},
 
-	buttonForRecommendations: function() {
+	goToRecommendations: function() {
 		const activityId = this.props.data.activity_id
-		if (activityId === 413 && window.location.pathname.includes('diagnostic_reports')) {
-			const unitId = this.props.data.unit_id
-			const classroomId = this.props.data.classroom_id
+		const unitId = this.props.data.unit_id
+		const classroomId = this.props.data.classroom_id
+		const link = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/recommendations`
+		window.location = link
+	},
+
+	buttonForRecommendations: function() {
+		if (this.props.data.activity_id === 413 && window.location.pathname.includes('diagnostic_reports')) {
 			return (
-			<a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/recommendations`}>
-				<button className="button-green">
+				<button onClick={this.goToRecommendations} className="button-green">
 					Recommendations
 				</button>
-			</a>
 			)
 		}
 	},
