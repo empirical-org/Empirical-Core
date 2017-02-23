@@ -43,15 +43,10 @@ export default React.createClass({
   },
 
   render: function () {
-    const submitButton = (
-        <div className="row">
-          <div className="col-xs-4 offset-xs-2">
-            <button className="button-green" onClick={this.handleClick}>Submit</button>
-          </div>
-        </div>)
-
-    return (
-      <div>
+    let submitButton, email
+    // email and submitButton should only show for the student page
+    if (window.location.pathname === 'account_settings') {
+      email = (
         <div className="row">
           <div className="form-label col-xs-2">
             Email
@@ -65,6 +60,17 @@ export default React.createClass({
             />
           </div>
         </div>
+      )
+      submitButton = (
+        <div className="row">
+          <div className="col-xs-4 offset-xs-2">
+            <button className="button-green" onClick={this.handleClick}>Submit</button>
+          </div>
+        </div>)}
+
+    return (
+      <div>
+        {email}
         <div className="row">
           <div className="form-label col-xs-2">
             Role
