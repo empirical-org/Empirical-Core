@@ -33,6 +33,22 @@ export default React.createClass({
 		this.props.updateDueDate(this.props.data.id, date.format());
 	},
 
+	buttonForRecommendations: function() {
+		const activityId = this.props.data.activity_id
+		if (activityId === 413) {
+			const unitId = this.props.data.unit_id
+			const classroomId = this.props.data.classroom_id
+			return (
+			<button
+					className="button-green"
+					href={`teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}`}
+				>
+				Recommendations
+			</button>
+			)
+		}
+	},
+
   urlForReport: function(){
     const d = this.props.data;
     return `/teachers/progress_reports/diagnostic_reports#/u/${d.unit_id}/a/${d.activity_id}/c/${d.classroom_id}/students`
@@ -64,6 +80,7 @@ export default React.createClass({
 					<a href={url} target='_new'>
 						{this.props.data.activity.name}
 					</a>
+					{this.buttonForRecommendations()}
 				</div>
 				<div className='cell col-md-3'>
 					<div style={styles.row}>
