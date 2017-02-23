@@ -10,7 +10,6 @@ const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
-
 }
 
 export default React.createClass({
@@ -39,12 +38,11 @@ export default React.createClass({
 			const unitId = this.props.data.unit_id
 			const classroomId = this.props.data.classroom_id
 			return (
-			<button
-					className="button-green"
-					href={`teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}`}
-				>
-				Recommendations
-			</button>
+			<a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/recommendations`}>
+				<button className="button-green">
+					Recommendations
+				</button>
+			</a>
 			)
 		}
 	},
@@ -73,14 +71,16 @@ export default React.createClass({
 		let url = this.props.report ? this.urlForReport() : this.props.data.activity.anonymous_path;
 		return (
 			<div className='row' style={styles.row}>
-				<div className='cell col-md-1'>
-					<div className={'pull-left icon-gray icon-wrapper ' + this.props.data.activity.classification.scorebook_icon_class}/>
-				</div>
-				<div className='cell col-md-8'>
-					<a href={url} target='_new'>
-						{this.props.data.activity.name}
-					</a>
-					{this.buttonForRecommendations()}
+				<div className='starting-row'>
+					<div className='cell col-md-1'>
+						<div className={'pull-left icon-gray icon-wrapper ' + this.props.data.activity.classification.scorebook_icon_class}></div>
+					</div>
+					<div className='cell col-md-8' id='activity-analysis-activity-name'>
+						<a href={url} target='_new'>
+							{this.props.data.activity.name}
+						</a>
+						{this.buttonForRecommendations()}
+					</div>
 				</div>
 				<div className='cell col-md-3'>
 					<div style={styles.row}>
