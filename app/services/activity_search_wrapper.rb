@@ -1,7 +1,7 @@
 class ActivitySearchWrapper
   RESULTS_PER_PAGE = 12
 
-  def initialize(search_query, filters, sort, flag)
+  def initialize(search_query, filters, sort, flag, user_id=nil)
     @search_query = search_query
     @filters = process_filters(filters)
     @sort = sort
@@ -12,9 +12,11 @@ class ActivitySearchWrapper
     @sections = []
     @number_of_pages = nil
     @flag = flag
+    @user_id = user_id
   end
 
   def search
+    ActivitySearchAnalyticsWorker.perform_async(@user_id, @search_query)
     @activities = ActivitySearch.search(@search_query, @filters, @sort, @flag)
     @activity_classifications = @activities.map(&:classification).uniq.compact
     @activity_classifications = @activity_classifications.map{|c| ClassificationSerializer.new(c).as_json(root: false)}
