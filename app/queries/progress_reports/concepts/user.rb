@@ -19,6 +19,6 @@ class ProgressReports::Concepts::User
       SELECT
       ).joins('JOIN filtered_correct_results ON users.id = filtered_correct_results.user_id')
       .group('users.id')
-      .order("#{last_name} asc")
+      .order("#{last_name} asc, users.name asc")
   end
 end

@@ -45,7 +45,7 @@
 
 				<td>{this.props.data.topic.section.name}</td>
 
-				<td></td>
+				<td>{this.props.data.topic.topic_category.name}</td>
 			</tr>
 		);
 
