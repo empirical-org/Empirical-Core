@@ -25,7 +25,6 @@ class UpdateUnitButton extends React.Component {
       this.setState({loading: true})
       $.ajax({
         type: p.requestType,
-        dataType: 'json',
         url: p.url,
         data: {unit: data},
         statusCode: {
