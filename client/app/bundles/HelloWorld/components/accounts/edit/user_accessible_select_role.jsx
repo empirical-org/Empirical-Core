@@ -10,7 +10,7 @@ export default React.createClass({
   },
 
   handleSelect: function(role){
-    if (role === 'teacher' && window.confirm('Are you sure you want to change your account type?')) {
+    if (window.confirm('Are you sure you want to change your account type?')) {
       if (this.props.updateRole) {
         this.props.updateRole(role)
       }
@@ -45,7 +45,7 @@ export default React.createClass({
   render: function () {
     let submitButton, email
     // email and submitButton should only show for the student page
-    if (window.location.pathname === 'account_settings') {
+    if (window.location.pathname === '/account_settings') {
       email = (
         <div className="row">
           <div className="form-label col-xs-2">
