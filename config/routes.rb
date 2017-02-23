@@ -103,7 +103,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'my_account' => 'classroom_manager#my_account'
     get 'my_account_data' => 'classroom_manager#my_account_data'
     put 'update_my_account' => 'classroom_manager#update_my_account'
-    delete 'delete_my_account' => 'classroom_manager#delete_my_account'
+    post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     namespace :progress_reports do
@@ -258,6 +258,7 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :show_json
         put :sign_in
+        put :clear_data
         get :sign_in
       end
     end
