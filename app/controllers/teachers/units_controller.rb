@@ -113,9 +113,7 @@ class Teachers::UnitsController < ApplicationController
       end
     end
 
-    arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
-    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}.reverse
-    render json: {units: arr1.concat(arr2)}.to_json
+    render json: {units: ordered_units_array(arr)}.to_json
   end
 
   def hide
@@ -145,5 +143,18 @@ class Teachers::UnitsController < ApplicationController
     cas = unit.classroom_activities
     one_ca_per_classroom =  cas.group_by{|class_act| class_act[:classroom_id] }.values.map{ |ca| ca.first }
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
+  end
+
+  def ordered_units_array(arr)
+    arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
+    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}.reverse
+
+    diagnostic_indices = arr1.each_index.select{|i| arr1[i][:unit].name.downcase.include?('diagnostic') }
+    if diagnostic_indices
+      diagnostic_indices.each do |di|
+        arr1.insert(0, arr1.delete_at(di))
+      end
+    end
+    arr1.concat(arr2)
   end
 end
