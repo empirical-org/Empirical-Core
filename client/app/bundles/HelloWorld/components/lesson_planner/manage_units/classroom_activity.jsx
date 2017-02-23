@@ -10,7 +10,6 @@ const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
-
 }
 
 export default React.createClass({
@@ -57,13 +56,15 @@ export default React.createClass({
 		let url = this.props.report ? this.urlForReport() : this.props.data.activity.anonymous_path;
 		return (
 			<div className='row' style={styles.row}>
-				<div className='cell col-md-1'>
-					<div className={'pull-left icon-gray icon-wrapper ' + this.props.data.activity.classification.scorebook_icon_class}/>
-				</div>
-				<div className='cell col-md-8'>
-					<a href={url} target='_new'>
-						{this.props.data.activity.name}
-					</a>
+				<div className='starting-row'>
+					<div className='cell col-md-1'>
+						<div className={'pull-left icon-gray icon-wrapper ' + this.props.data.activity.classification.scorebook_icon_class}></div>
+					</div>
+					<div className='cell col-md-8' id='activity-analysis-activity-name'>
+						<a href={url} target='_new'>
+							{this.props.data.activity.name}
+						</a>
+					</div>
 				</div>
 				<div className='cell col-md-3'>
 					<div style={styles.row}>
