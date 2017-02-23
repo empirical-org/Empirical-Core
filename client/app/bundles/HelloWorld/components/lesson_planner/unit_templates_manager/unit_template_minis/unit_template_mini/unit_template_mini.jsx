@@ -76,7 +76,8 @@
         <div className='text-center col-xs-12 create-your-own'>
           <div className='content-wrapper'>
             <img className='plus_icon' src='/add_class.png'></img>
-            <h3>Build Your Own Activity Pack</h3>
+            <h3>Create Your Own Activity Pack</h3>
+            <h5 style={{paddingTop: '5px'}}>Select from over 150 grammar exercises.</h5>
           </div>
       </div>
     );
