@@ -46,6 +46,16 @@ class SegmentAnalytics
     })
   end
 
+  def track_activity_search(user_id, search_query)
+    track({
+      user_id: user_id,
+      event: SegmentIo::Events::ACTIVITY_SEARCH,
+      properties: {
+        search_query: search_query
+      }
+    })
+  end
+
   def track(options)
     puts "calling backend track"
     backend.track(options)
