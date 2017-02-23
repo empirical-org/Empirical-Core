@@ -1,4 +1,9 @@
+require 'newrelic_rpm'
+require 'new_relic/agent'
+
 class ActivitySession < ActiveRecord::Base
+
+  include ::NewRelic::Agent
 
   include Uid
   include Concepts
@@ -218,8 +223,9 @@ class ActivitySession < ActiveRecord::Base
   def correctly_assigned
     if self.classroom_activity && (classroom_activity.validate_assigned_student(self.user_id) == false)
       begin
-        puts 'Student was not assigned this activity'
-      rescue
+        raise 'Student was not assigned this activity'
+      rescue => e
+        NewRelic::Agent.notice_error(e)
         errors.add(:incorrectly_assigned, "student was not assigned this activity")
       end
     else
@@ -230,8 +236,7 @@ class ActivitySession < ActiveRecord::Base
   def self.search_sort_sql(sort)
     if sort.blank? or sort[:field].blank?
       sort = {
-        field: 'completed_at',
-        direction: 'desc'
+        field: 'student_name',
       }
     end
 
@@ -250,7 +255,7 @@ class ActivitySession < ActiveRecord::Base
     when 'activity_classification_name'
       "activity_classifications.name #{order}, #{last_name} #{order}"
     when 'student_name'
-      "#{last_name} #{order}"
+      "#{last_name} #{order}, users.name #{order}"
     when 'completed_at'
       "activity_sessions.completed_at #{order}"
     when 'activity_name'

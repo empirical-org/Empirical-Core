@@ -23,23 +23,24 @@
       return ( <input type="checkbox"
                      checked="checked"
                      className="student_checkbox css-checkbox"
-                     id={'student_' + this.props.student.id}
+                     id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
                      onChange={this.handleStudentSelection} />
       );
     } else {
       return (<input type="checkbox"
                      className="student_checkbox css-checkbox"
-                     id={'student_' + this.props.student.id}
+                     id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
                      onChange={this.handleStudentSelection} />
       );
     }
   },
 
   render: function() {
+    console.log(this.props.something)
     return (
       <div className="student_column col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
         {this.determineCheckbox()}
-        <label htmlFor={'student_' + this.props.student.id} className="css-label">{this.props.student.name}</label>
+        <label htmlFor={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id} className="css-label">{this.props.student.name}</label>
       </div>
     );
   }

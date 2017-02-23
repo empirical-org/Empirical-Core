@@ -87,20 +87,18 @@ describe Teachers::UnitsController, type: :controller do
     it "sends a 200 status code when it is passed valid data" do
       put :update_classroom_activities_assigned_students,
           id: unit.id,
-          data: {
-            unit_id: unit.id,
-            classrooms_data: [{id: classroom.id, student_ids: []}]
-          }.to_json
+          unit: {
+            classrooms: "[{\"id\":#{classroom.id},\"student_ids\":[]}]"
+          }
       expect(response.status).to eq(200)
     end
 
     it "sends a 422 status code when it is passed invalid data" do
       put :update_classroom_activities_assigned_students,
           id: unit.id + 500,
-          data: {
-            unit_id: unit.id + 500,
-            classrooms_data: [{id: classroom.id, student_ids: []}]
-          }.to_json
+          unit: {
+            classrooms: "[{\"id\":#{classroom.id},\"student_ids\":[]}]"
+          }
       expect(response.status).to eq(422)
     end
 
@@ -111,7 +109,7 @@ describe Teachers::UnitsController, type: :controller do
     it "sends a 200 status code when it is passed valid data" do
       activity = classroom_activity.activity
       put :update_activities,
-          id: unit.id,
+          id: unit.id.to_s,
           data: {
             unit_id: unit.id,
             activities_data: [{id: activity.id, due_date: nil}]
