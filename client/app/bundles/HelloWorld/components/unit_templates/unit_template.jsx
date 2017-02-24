@@ -77,7 +77,7 @@ export default React.createClass({
       unit_template_category_id: null,
       flag: this.props.unitTemplate.flag || null,
       author_id: null,
-      order_number: null
+      order_number: this.props.unitTemplate.order_number || null
     };
     model = _.extend(model, this.props.unitTemplate);
     var options = this.modules.optionsLoader.initialOptions()
