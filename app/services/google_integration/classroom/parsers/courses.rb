@@ -12,7 +12,8 @@ example JSON.parse(response.body) :
     x = JSON.parse(response.body)
     return [] if x['courses'].nil?
     courses = x['courses'].map do |hash|
-      {id: hash['id'].to_i, name: hash['name']}
+      name = hash['section'] ? "#{hash['name']} #{hash['section']}" : hash['name']
+      {id: hash['id'].to_i, name: name}
     end
     courses
   end

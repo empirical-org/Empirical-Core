@@ -30,5 +30,6 @@ Rails.application.config.assets.precompile +=
     "home-bundle.js",
     "home.css",
     "home.js",
+    "cookie_warning.js",
     "application_#{type}.css"
   ]

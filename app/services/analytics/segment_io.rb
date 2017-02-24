@@ -36,6 +36,7 @@ module SegmentIo
     BEGAN_TRIAL ||= 'Teacher began trial'
     BEGAN_PREMIUM ||= 'Teacher began trial'
     TEACHER_DELETED_STUDENT_ACCOUNT ||= 'Teacher deleted student account'
-    MYSTERY_STUDENT_DELETION ||= 'Myster student deletion'
+    MYSTERY_STUDENT_DELETION ||= 'Mystery student deletion'
+    ACTIVITY_SEARCH ||= 'Activity search'
   end
 end

@@ -12,7 +12,7 @@ export default React.createClass({
     if (this.props.data) {
       result = (
         <div className="container">
-          <section>
+          <section className="next-activity">
             <div className="row">
               <div className="col-xs-12 col-sm-7 col-xl-7">
                 <ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} placement={'bottom'}/>
