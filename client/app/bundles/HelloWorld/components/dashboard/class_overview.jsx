@@ -7,6 +7,7 @@
  import TeacherGuide from '../teacher_guide/teacher_guide'
  import BetaMini from './beta_mini.jsx'
  import NewTools from './new_tools_mini.jsx'
+ import PremiumPromo from './premium_promo.jsx'
 
  export default React.createClass({
   propTypes: {
@@ -45,9 +46,11 @@
   },
 
   announcementMini: function () {
-    return (
-      <NewTools />
-    )
+    let minis = [<NewTools key='new-tools'/>];
+    if (['none', 'locked'].indexOf(this.props.premium) !== -1) {
+      minis.push(<PremiumPromo key='promo'/>)
+    }
+    return minis
   },
   render: function() {
     return (

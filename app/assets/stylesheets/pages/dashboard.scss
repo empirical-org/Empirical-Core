@@ -127,6 +127,27 @@
         border: 1px solid #cecece;
         background-color: #ffffff;
         margin-bottom: 40px;
+        &.premium-promo {
+          h3 {
+            line-height: 20px;
+          }
+          .gray-underline {
+            padding-top: 10px;
+          }
+          .gray-underline + p {
+            margin-top: 13px;
+            margin-bottom: 8px;
+          }
+          a.button-white, button.button-white {
+            font-weight: 700;
+            margin-top: 8px;
+          }
+          a.button-white {
+            padding: 9px 20px 4px;
+            font-size: 14px;
+            height: 40px;
+          }
+        }
         table {
             line-height: 25px;
             font-size: 14px;
