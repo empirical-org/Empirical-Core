@@ -25,7 +25,7 @@
     const label = <div className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
     if (this.props.isLink) {
       return (
-        <Link href={this.getLink()}>{label}</Link>
+        <Link to={this.getLink()}>{label}</Link>
       )
     } else {
       return label
