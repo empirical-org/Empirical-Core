@@ -12,7 +12,6 @@ describe LoginPdf do
       pdf = LoginPdf.new(classroom)
       rendered_pdf = pdf.render
       @text_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
-      puts @text_analysis.strings
     end
 
     it 'lists google students by email' do
@@ -26,5 +25,10 @@ describe LoginPdf do
     it 'lists regular students by username' do
       expect(@text_analysis.strings).to include("username: #{arnold.username}")
     end
+
+    it 'registers a pdf Mime Type' do
+      expect(Mime::Type.lookup_by_extension(:pdf)).to_not be_nil
+    end
+
   end
 end
