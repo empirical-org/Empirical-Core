@@ -29,6 +29,17 @@ class ClassroomActivity < ActiveRecord::Base
   def session_for user
     ass = activity_sessions.where(user: user, activity: activity).includes(:activity).order(created_at: :asc)
     as = if ass.any? then ass.first else activity_sessions.create(user: user, activity: activity) end
+
+    # if as.save
+    #
+    # else
+    #   if as.errors[""]
+    #     begin
+    #
+    #     rescue
+    #
+    #     end
+    # end
   end
 
   def activity_session_metadata

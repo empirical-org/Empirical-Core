@@ -4,10 +4,14 @@
  import CategoryLabel from '../../category_labels/category_label'
 
  export default  React.createClass({
+  propTypes: {
+    data: React.PropTypes.object.isRequired,
+    actions: React.PropTypes.object.isRequired
+  },
 
   divStyle: function () {
     return {
-      backgroundColor: this.props.data.unit_template_category.primary_color
+      backgroundColor: this.props.data.model.unit_template_category.primary_color
     };
   },
 
@@ -18,9 +22,9 @@
         <h1><strong>{this.props.data.name}</strong></h1>
         <div className="author-details">
           <div className="author-picture">
-            <img src={this.props.data.author.avatar_url}></img>
+            <img src={this.props.data.model.author.avatar_url}></img>
           </div>
-          <p>by {this.props.data.author.name}</p>
+          <p>by {this.props.data.model.author.name}</p>
         </div>
       </div>
     )

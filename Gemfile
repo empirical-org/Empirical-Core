@@ -54,10 +54,12 @@ gem 'global'
 gem 'google-api-client', '0.8.6'
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
+gem 'newrelic_rpm'
 gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
 gem 'stripe'
 gem 'prawn'
 gem 'pdf-core'
+gem 'pdf-inspector'
 gem 'ttfunk'
 
 # PARSING
@@ -121,7 +123,6 @@ gem 'clever-ruby'
 
 group :production, :staging do
   gem 'rails_12factor'
-  gem 'newrelic_rpm'
   gem 'lograge' # for making logs more dense
   # gem "rack-timeout"
 end
