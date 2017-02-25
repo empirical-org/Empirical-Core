@@ -8,7 +8,8 @@
 
  export default  React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired,
+    actions: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
@@ -92,6 +93,7 @@
       return(
           <Link to={this.getLink()}><div className='col-xs-12'>
               <UnitTemplateFirstRow
+                  actions={{filterByCategory: this.props.actions.filterByCategory}}
                   data={this.props.data}
                   modules={{string: this.modules.string}} />
               <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />

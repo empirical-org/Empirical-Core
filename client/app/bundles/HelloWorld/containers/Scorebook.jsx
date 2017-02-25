@@ -22,7 +22,7 @@ export default React.createClass({
       units: [],
       classrooms: [],
       selectedUnit: {
-        name: 'All Activity Packs',
+        name: 'All Units',
         value: ''
       },
       selectedClassroom: this.selectedClassroom(),
@@ -74,7 +74,7 @@ export default React.createClass({
   displayData: function(data) {
     this.setState({
       classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
-      unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
+      unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units'),
       is_last_page: data.is_last_page,
       premium_state: data.teacher.premium_state,
       noLoadHasEverOccurredYet: false

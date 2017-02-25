@@ -11,14 +11,13 @@
     isLink: React.PropTypes.bool
   },
 
-  generateClassName: function () {
-    return `category-label img-rounded ${this.props.extraClassName}`
+  filterByCategory: function (e) {
+    e.stopPropagation();
+    this.props.filterByCategory(this.props.data.id);
   },
 
-  getLink: function () {
-    return this.props.nonAuthenticated
-    ? `/activities/packs/category/${this.props.data.name.toLowerCase()}`
-    : `/teachers/classrooms/activity_planner/featured-activity-packs/category/${this.props.data.name.toLowerCase()}`
+  generateClassName: function () {
+    return `category-label img-rounded ${this.props.extraClassName}`
   },
 
   render: function () {

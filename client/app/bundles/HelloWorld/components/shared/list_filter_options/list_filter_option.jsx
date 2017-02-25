@@ -1,7 +1,6 @@
 'use strict'
 
  import React from 'react'
- import { Link } from 'react-router'
  import _ from 'underscore'
 
  export default React.createClass({
@@ -54,7 +53,7 @@
 
   render: function () {
     return (
-      <Link to={this.getLink()} className={this.getClassName()}>{this.getName()}</Link>
+      <a className={this.getClassName()} onClick={this.select}>{this.getName()}</a>
     )
   }
 })

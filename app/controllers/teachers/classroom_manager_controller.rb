@@ -90,7 +90,8 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def students_list
     @classroom = Classroom.find params[:id]
-    render json: {students: @classroom.students.sort{|a,b| b.created_at <=> a.created_at}}
+    last_name = "substring(users.name, '(?=\s).*')"
+    render json: {students: @classroom.students.order("#{last_name} asc, users.name asc")}
   end
 
 
@@ -160,7 +161,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_my_account
-    response = current_user.update_teacher params
+    # ⚠️ prevent teachers from making themselves superadmins 😱
+    if params[:role] && (params[:role] == 'teacher' || params[:role] == 'student')
+      response = current_user.update_teacher params
+      puts "Passes validation"
+    else
+      response = false
+      puts "fails validation"
+    end
     render json: response
   end
 

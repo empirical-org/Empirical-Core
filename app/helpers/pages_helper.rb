@@ -86,7 +86,13 @@ module PagesHelper
 		      name: "Emilia Friedberg",
 		      title: "Junior Web Developer",
 		      desc: "Emilia is a developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
-	    }
+	    },
+			{
+					img: 'thumb-amr.png',
+					name: 'Amr Thameen',
+					title: 'Lead Designer',
+					desc: "Amr is the Lead Designer at Quill. He designs Quill’s interface, creates the user experience, and oversees the overall brand image. A speaker of three different languages and graduate of schools on multiple continents, Amr sees the importance of improving students' writing and its effect on critical thinking. Before Quill, Amr was a designer at multiple startups, working with Virtual Reality and the travel industry. Amr holds a bachelor’s degree in Architecture from Middlebury College."
+			}
 			]
 		},
 			{team: 'Board of Directors',
@@ -153,7 +159,7 @@ module PagesHelper
 					img: 'thumb-quill.png',
 					name: 'John Silberstein',
 					title: 'Advisory Board Member',
-					desc: "After beginning his career as a real estate lawyer at Skadden Arps, John Silberstein pursued an entrepreneurial path in real estate and technology. John then taught middle school English at The Dalton School in New York CIty and The Rivers School in Weston, MA.  John is currently on the Board of Snap Interactive, a publicly traded social media company and is on the Advisory Board of Will Power Labs, which makes Meal Enders, a dietary lozenge."
+					desc: "After beginning his career as a real estate lawyer at Skadden Arps, John Silberstein pursued an entrepreneurial path in real estate and technology. John then taught middle school English at The Dalton School in New York City and The Rivers School in Weston, MA. John is currently on the Board of Snap Interactive, a publicly traded social media company and is on the Advisory Board of Will Power Labs, which makes Meal Enders, a dietary lozenge."
 				},
 				{
 					img: 'thumb-deborah.jpg',
@@ -170,7 +176,7 @@ module PagesHelper
 	      				desc: "Oliver is the CTO and Head of Product at DonorsChoose.org. Previously, he managed product engineering projects for Microsoft's new search engine, now called Bing."
 					}]},
 
-				{team: 'Open Source Developers',
+				{team: 'Interns and Volunteers',
 					members: [
 				{
 					img: 'thumb-alex.png',
@@ -182,8 +188,33 @@ module PagesHelper
 					img: 'thumb-matt-coleman.png',
 					name: "Matt Coleman",
 					title: "Developer",
-					desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston."
-				}
+					desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston.",
+				},
+				{
+					img: 'thumb-jared-silver.jpg',
+					name: "Jared Silver",
+					title: "Intern",
+					desc: "Jared Silver is an entrepreneur and TEDx speaker taking a leave of absence from college to intern as a software developer for Quill. He also serves as a learning advisor for Codecademy, a 2017 EdSurge Independent Fellow, and the User Journeys Lead for Oppia. Jared's mission in life is to foster a human capital revolution through education technology."
+				},
+				{
+					img: 'thumb_akash.png',
+					name: "Akash Bagaria",
+					title: "Intern",
+					desc: "Akash is a student taking a gap year prior to attending Harvard University, where he intends to study economics. He is driven to intern at Quill by his fascination with the start-up culture and his love for serving the broader community. Having avidly debated and written for the newspaper throughout high school, Akash grasps the importance of critical thinking -- and he values Quill's mission to instill this skill in students nationwide."
+				},
+				{
+					img: 'thumb_priya.png',
+					name: "Priya Mathur",
+					title: "Intern",
+					desc: "Priya is a graduate student at NYU studying Digital Media Design for Learning. Before pursuing a master’s degree, she was an elementary school teacher and taught in both Canada and England. Most recently, Priya worked as an Educational Technology Consultant in elementary schools across Toronto, training students and teachers on how to accommodate assistive technology to their individual learning needs. She is enthusiastic about learning how educational technology can remove barriers to learning and change the landscape of education."
+				},
+				{
+					img: 'thumb_olivia.png',
+					name: 'Olivia Kingree',
+					title: 'Intern',
+					desc: "Olivia Kingree is a college student who is interning at Quill for the Spring 2017 semester. As an editorial intern, she creates new learning activities and grades existing practice problems. Olivia has also worked as a math and Spanish tutor for middle and high school students for the past four years. She is passionate about reading and writing and hopes to help Quill in its aim to  improve students' writing skills and confidence."
+				},
+
 				]
 				}
 				]

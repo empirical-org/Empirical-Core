@@ -4,6 +4,7 @@
  import _ from 'underscore'
  import ClassroomActivity from './classroom_activity'
  import Pluralize from 'pluralize'
+ import {Link} from 'react-router'
  import AddClassroomActivityRow from './add_classroom_activity_row.jsx'
 
  export default  React.createClass({
@@ -95,7 +96,7 @@
   },
 
   editStudentsLink: function(){
-    return this.props.report ? null : <a className='edit-unit' href={`/teachers/classrooms/activity_planner/units/${this.props.data.unit.id}/students/edit`}>Edit Students</a>
+    return this.props.report ? null : <Link className='edit-unit' to={`/units/${this.props.data.unit.id}/students/edit`}>Edit Students</Link>
   },
 
   handleSubmit: function(){
