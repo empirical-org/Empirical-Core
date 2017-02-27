@@ -1,5 +1,10 @@
 import React from 'react'
+import Stripe from '../../modules/stripe.jsx'
 export default React.createClass({
+
+  charge: function() {
+      new Stripe(40000, '$400 School Premium');
+  },
 
   render: function(){
     return(
@@ -11,8 +16,10 @@ export default React.createClass({
       <h4>School & District Premium</h4>
     </header>
     <section className='pricing-info'>
-      <div className='premium-rates all-h4'>
-      <h4>Discounts available<br/>for multiple schools</h4>
+      <div className='premium-rates'>
+        <h3>$400</h3>
+        <h4>per school per year</h4>
+        <h4>discounts available for multiple schools</h4>
       </div>
       <ul>
         <li>Everything in Teacher Premium</li>
@@ -23,7 +30,8 @@ export default React.createClass({
         </li>
       </ul>
     </section>
-    <a href='https://quillpremium.wufoo.com/forms/quill-premium-quote'><button type='button' className='btn btn-default mini-btn purple'>Learn More</button></a>
+    <button type='button' id='purchase-btn' data-toggle="modal" onClick={this.charge} className='btn btn-default mini-btn purple'>Buy Now</button>
+    <a href='https://quillpremium.wufoo.com/forms/quill-premium-quote'><button type='button' className='btn btn-default mini-btn empty-purple'>Learn More</button></a>
   </div>
 );
   }

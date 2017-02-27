@@ -6,7 +6,7 @@ export default React.createClass({
     // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
     charge: function() {
-        new Stripe();
+        new Stripe(8000, '$80 Teacher Premium');
     },
 
     getInitialState: function() {
