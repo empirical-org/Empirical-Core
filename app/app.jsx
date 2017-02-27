@@ -14,6 +14,7 @@ import ConceptsFeedback from './components/feedback/concepts-feedback.jsx';
 import ConceptFeedback from './components/feedback/concept-feedback.jsx';
 import Concepts from './components/concepts/concepts.jsx';
 import Concept from './components/concepts/concept.jsx';
+import ScoreAnalysis from './components/scoreAnalysis/scoreAnalysis.jsx';
 import Questions from './components/questions/questions.jsx';
 import Question from './components/questions/question.jsx';
 import DiagnosticQuestions from './components/diagnosticQuestions/diagnosticQuestions.jsx';
@@ -153,6 +154,9 @@ render((
         {/* questions section*/}
         <Route path="questions" component={Questions} />
         <Route path="questions/:questionID" component={Question} />
+
+        {/* questions section*/}
+        <Route path="datadash" component={ScoreAnalysis} />
 
         {/* questions section*/}
         <Route path="diagnostic-questions" component={DiagnosticQuestions} />

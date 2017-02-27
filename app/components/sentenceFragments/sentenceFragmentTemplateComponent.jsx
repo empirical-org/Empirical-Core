@@ -97,7 +97,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   checkAnswer() {
-    if (this.state.checkAnswerEnabled) {
+    if (this.state.checkAnswerEnabled && this.state.responses) {
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
@@ -138,6 +138,8 @@ const PlaySentenceFragment = React.createClass({
       );
     } else if (this.state.responses) {
       return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
+    } else {
+      <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
     }
   },
 

@@ -132,7 +132,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   checkAnswer(e) {
-    if (this.state.editing) {
+    if (this.state.editing && this.state.responses) {
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), 'diagnostic');
       this.updateResponseResource(response);
@@ -192,7 +192,7 @@ const PlayDiagnosticQuestion = React.createClass({
 
   render() {
     const questionID = this.props.question.key;
-    const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>Submit</button> : undefined;
+    const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>Submit</button> : <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
     if (this.props.question) {
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence.';
       return (
