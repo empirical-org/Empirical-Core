@@ -13,7 +13,11 @@ export default React.createClass({
 			<Router Router history={hashHistory}>
         <Route path="/" component={LessonPlannerContainer}>
 					<IndexRoute component={LessonPlanner}/>
-					<Route path="/tab/:tab" component={LessonPlanner}/>
+					<Route path="featured-activity-packs(/category/:category)" component={UnitTemplatesManager}/>
+					<Route path="featured-activity-packs/grade/:grade" component={UnitTemplatesManager}/>
+					<Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
+					<Route path="featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
+					<Route path=":tab" component={LessonPlanner} />
 					<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>

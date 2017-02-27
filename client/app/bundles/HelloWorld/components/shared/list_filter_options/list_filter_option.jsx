@@ -6,7 +6,6 @@
  export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    select: React.PropTypes.func.isRequired,
     isSelected: React.PropTypes.bool.isRequired,
   },
 
@@ -30,6 +29,26 @@
       name = 'list-filter-option'
     }
     return name;
+  },
+
+  getLink: function() {
+    let link
+    const name = this.getName().toLowerCase()
+    if (this.props.userLoggedIn) {
+      link = '/teachers/classrooms/activity_planner'
+      if (name === 'all') {
+        link += '/featured-activity-packs'
+      } else {
+        link += `/featured-activity-packs/category/${name}`
+      }
+    } else {
+      if (name === 'all') {
+        link = '/activities/packs'
+      } else {
+        link = `/activities/packs/category/${name}`
+      }
+    }
+    return link
   },
 
   render: function () {

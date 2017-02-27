@@ -1,13 +1,14 @@
 'use strict'
 
  import React from 'react'
+ import {Link} from 'react-router'
 
  export default  React.createClass({
 
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    filterByCategory: React.PropTypes.func.isRequired,
-    extraClassName: React.PropTypes.string
+    extraClassName: React.PropTypes.string,
+    isLink: React.PropTypes.bool
   },
 
   filterByCategory: function (e) {
@@ -16,12 +17,17 @@
   },
 
   generateClassName: function () {
-    return ['category-label', 'img-rounded', this.props.extraClassName].join(' ')
+    return `category-label img-rounded ${this.props.extraClassName}`
   },
 
   render: function () {
-    return (
-      <div onClick={this.filterByCategory} className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
-    )
+    const label = <div className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
+    if (this.props.isLink) {
+      return (
+        <Link to={this.getLink()}>{label}</Link>
+      )
+    } else {
+      return label
+    }
   }
 });
