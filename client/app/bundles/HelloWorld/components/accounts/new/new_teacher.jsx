@@ -3,10 +3,10 @@
 import React from 'react'
 import BasicTeacherInfo from './basic_teacher_info'
 import EducatorType from './educator_type'
+import AnalyticsWrapper from '../../shared/analytics_wrapper'
 
 export default React.createClass({
   propTypes: {
-    analytics: React.PropTypes.object.isRequired,
     signUp: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object,
     stage: React.PropTypes.number.isRequired,
@@ -22,7 +22,7 @@ export default React.createClass({
       )
     } else if (this.props.stage === 2) {
       return (
-        <EducatorType analytics={this.props.analytics}/>
+        <EducatorType analytics={new AnalyticsWrapper()}/>
       )
     }
   }
