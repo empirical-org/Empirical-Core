@@ -1,6 +1,7 @@
 'use strict'
 
  import React from 'react'
+ import { Link } from 'react-router'
  import UnitTemplateMini from './unit_template_mini/unit_template_mini'
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import UnitTemplateMinisHeader from './unit_template_minis_header'
@@ -10,8 +11,8 @@
 
  export default  React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    actions: React.PropTypes.object.isRequired
+    data: React.PropTypes.object,
+    actions: React.PropTypes.object
   },
 
   getInitialState: function () {
@@ -52,13 +53,15 @@
                                 actions={this.props.actions} />
   },
 
+  getIndexLink: function () {
+    return this.props.signedInTeacher ? '/teachers/classrooms/activity_planner/featured-activity-packs' : '/activities/packs'
+  },
+
   generateShowAllGradesView: function () {
     if (this.props.data.grade) {
       return (
-        <a href="/teachers/classrooms/activity_planner/featured-activity-packs"><button className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all">Show all Activity Packs</button></a>
+        <Link to={this.getIndexLink()} className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all">Show All Activity Packs</Link>
       )
-    } else {
-      return
     }
   },
 
