@@ -1,7 +1,6 @@
 class AccountsController < ApplicationController
   before_filter :signed_in!, only: [:edit, :update]
   before_filter :set_cache_buster, only: [:new]
-  layout :determine_layout
 
   include CheckboxCallback
 
@@ -9,6 +8,7 @@ class AccountsController < ApplicationController
     ClickSignUpWorker.perform_async
     session[:role] = nil
     @teacherFromGoogleSignUp = false
+    @js_file = 'session'
   end
 
   def role
@@ -88,12 +88,5 @@ protected
                                  :school_ids)
   end
 
-  def determine_layout
-    if (action_name == 'create' || action_name == 'new')
-      'session'
-    else
-      'application'
-    end
-  end
 
 end
