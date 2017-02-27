@@ -46,7 +46,8 @@ module PublicProgressReports
         curr_quest[:prompt] ||= answer["prompt"]
         curr_quest[:question_number] ||= answer["question_number"]
         if answer["attemptNumber"] == 1 || !curr_quest[:instructions]
-          curr_quest[:instructions] ||= answer["directions"] || answer["instructions"]
+          direct = answer["directions"] || answer["instructions"] || ""
+          curr_quest[:instructions] ||= direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
         end
       end
       # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
@@ -126,19 +127,21 @@ module PublicProgressReports
         # if we don't sort them, we can't rely on the first result being the first attemptNum
         # however, it would be more efficient to make them a hash with attempt numbers as keys
         cr.sort!{|x,y| x[:metadata]['attemptNumber'] <=> y[:metadata]['attemptNumber']}
+        directfirst = cr.first[:metadata]["directions"] || cr.first[:metadata]["instructions"] || ""
         hash = {
-          directions: cr.first[:metadata]["directions"] || cr.first[:metadata]["instructions"],
+          directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
           prompt: cr.first[:metadata]["prompt"],
           answer: cr.first[:metadata]["answer"],
           score: get_score_for_question(cr),
           concepts: cr.map { |crs|
+            direct = crs[:metadata]["directions"] || crs[:metadata]["instructions"] || ""
             {
               id: crs.concept_id,
               name: crs.concept.name,
               correct: crs[:metadata]["correct"] == 1,
               attempt: crs[:metadata]["attemptNumber"] || 1,
               answer: crs[:metadata]["answer"],
-              directions: crs[:metadata]["directions"] || crs[:metadata]["instructions"]
+              directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
             }
           },
           question_number: cr.first[:metadata]["questionNumber"]
