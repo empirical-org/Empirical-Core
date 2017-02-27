@@ -1,11 +1,11 @@
 class ProfilesController < ApplicationController
   before_filter :signed_in!
-  layout :determine_layout
 
   def show
     @user = current_user
     if current_user.role == 'student'
       if current_user.classrooms.any?
+        @js_file = 'student'
         render 'student'
       else
         render 'students_classrooms/add_classroom'
@@ -54,15 +54,6 @@ protected
   def user_params
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
   end
-
-  def determine_layout
-    if (action_name == 'profile' && current_user.role == 'student' && current_user.classrooms.any?)
-      'student'
-    else
-      'application'
-    end
-  end
-
 
   def get_student_profile_data(classroom_id, current_page)
     classroom = current_classroom(classroom_id)
