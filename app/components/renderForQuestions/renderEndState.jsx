@@ -3,6 +3,7 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {connect} from 'react-redux'
 import arrow from '../../img/correct_icon.svg'
+const jsDiff = require('diff');
 
 const EndState = React.createClass({
 
@@ -16,6 +17,38 @@ const EndState = React.createClass({
     return (
       <p className="top-answer-title">{message}</p>
     )
+  },
+
+  returnSanitizedArray: function(str) {
+    return str.toLowerCase().replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace('&nbsp;', '').replace(/[.",\/#?!$%\^&\*;:{}=\_`~()]/g,"").split(' ').sort().join(' ').trim().split(' ');
+  },
+
+  findDiffs: function(answer) {
+    let styledString = answer;
+    const sanitizedQuestionArray = this.returnSanitizedArray(this.props.question.prompt);
+    const sanitizedAnswerArray = this.returnSanitizedArray(answer);
+    const diffObjects = jsDiff.diffArrays(sanitizedQuestionArray, sanitizedAnswerArray);
+    diffObjects.forEach(function(diff) {
+      if(diff.added) {
+        diff.value.forEach(function(word) {
+          let regex = new RegExp("(^|[^(a-zA-Z>)])" + word + "($|[^(<a-zA-Z)])", 'i');
+          if(styledString.match(regex)) {
+              styledString = styledString.replace(regex, '<span style="color: green;">' + styledString.match(regex)[0] + '</span>');
+          }
+          let punctuationAtStartOfString = styledString.match(new RegExp("<span style=\"color: green;\">[^(a-zA-Z>)]", 'g'));
+          if(punctuationAtStartOfString) {
+            const charToMove = punctuationAtStartOfString[0][punctuationAtStartOfString[0].length - 1];
+            styledString = styledString.replace(new RegExp("<span style=\"color: green;\">[" + charToMove + "]", 'g'), charToMove + "<span style=\"color: green;\">");
+          }
+          let punctuationAtEndOfString = styledString.match(new RegExp("[^(a-zA-Z)]</span>", 'g'));
+          if(punctuationAtEndOfString) {
+              const charToMove = punctuationAtEndOfString[0][punctuationAtEndOfString[0].length - 8];
+              styledString = styledString.replace(new RegExp("[" + charToMove + "]</span>", 'g'), "</span>" + charToMove);
+          }
+        });
+      }
+    });
+    return styledString;
   },
 
   renderTopThreeResponses: function() {
@@ -38,8 +71,7 @@ const EndState = React.createClass({
           <div className="top-answer-list-item-index">
             {(index+1) + ". "}
           </div>
-          <div className="top-answer-list-item-text">
-            {response.text}
+          <div className="top-answer-list-item-text" dangerouslySetInnerHTML={{__html: this.findDiffs(response.text)}}>
           </div>
           <div className="top-answer-list-item-score">
           {(Math.floor(response.count*100/sum)) + "%"}
