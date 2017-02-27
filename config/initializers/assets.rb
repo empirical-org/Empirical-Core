@@ -28,6 +28,8 @@ Rails.application.config.assets.precompile +=
     "app-bundle.js",
     "vendor-bundle.js",
     "home-bundle.js",
+    "student-bundle.js",
+    "student.js",
     "home.css",
     "home.js",
     "cookie_warning.js",

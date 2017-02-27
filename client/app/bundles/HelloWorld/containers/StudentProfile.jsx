@@ -30,11 +30,9 @@ export default React.createClass({
   },
 
   fetchData: function (currentClassroom) {
-    // var newCurrentPage = this.state.currentPage + 1;
     this.setState({currentClassroom: currentClassroom});
     this.setState({loading: true})
-    // this.setState({loading: true, currentPage: newCurrentPage})
-    $.ajax({url: '/profile.json', data: {current_page: this.state.currentPage, current_classroom_id: currentClassroom}, format: 'json', success: this.loadProfile})
+    $.ajax({url: '/student_profile_data', data: {current_classroom_id: currentClassroom}, format: 'json', success: this.loadProfile})
   },
 
   loadProfile: function (data) {
