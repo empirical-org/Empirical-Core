@@ -29,6 +29,9 @@ module.exports = {
     ],
     home: [
       './app/bundles/Home/home',
+    ],
+    student: [
+      './app/bundles/Student/startup/clientRegistration'
     ]
 
   },

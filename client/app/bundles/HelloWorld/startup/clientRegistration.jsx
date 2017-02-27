@@ -7,7 +7,6 @@ import NewAccountApp from './NewAccountAppClient';
 import ScorebookApp from './ScorebookAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import ProgressReportApp from './ProgressReportAppClient';
-import StudentProfileApp from './StudentProfileAppClient';
 import ArchivedClassroomsManagerApp from './ArchivedClassroomsManagerAppClient'
 import AccountSettingsApp from './AccountSettingsAppClient'
 import ResultsPageApp from './ResultsPageAppClient'
@@ -28,7 +27,7 @@ import UnitTemplatesApp from './UnitTemplatesClient.jsx'
 
 ReactOnRails.register({ AccountSettingsApp, TeacherGuideApp, DashboardApp,
   LessonPlannerApp, TeacherAccountApp, NewAccountApp, ScorebookApp,
-  PremiumPricingGuideApp, ProgressReportApp, StudentProfileApp,
+  PremiumPricingGuideApp, ProgressReportApp,
   ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, AdminAccountsApp,
   AdminsEditorApp, JoinClassApp, PublicActivityPacksApp, AddStudentApp,
   DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp});
