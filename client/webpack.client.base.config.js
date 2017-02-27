@@ -32,6 +32,9 @@ module.exports = {
     ],
     student: [
       './app/bundles/Student/startup/clientRegistration'
+    ],
+    session: [
+      './app/bundles/Session/startup/clientRegistration'
     ]
 
   },
