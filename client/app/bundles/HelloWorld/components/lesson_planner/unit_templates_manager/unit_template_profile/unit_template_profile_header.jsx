@@ -18,10 +18,8 @@
   render: function () {
     return (
       <div className='big-title row' style={this.divStyle()}>
-        <CategoryLabel data={this.props.data.model.unit_template_category}
-                          filterByCategory={this.props.actions.filterByCategory}
-                          backgroundColor={this.props.data.model.unit_template_category.secondaryColor} />
-        <h1><strong>{this.props.data.model.name}</strong></h1>
+        <CategoryLabel isLink={Boolean(true)} data={this.props.data.unit_template_category} nonAuthenticated={this.props.data.non_authenticated}/>
+        <h1><strong>{this.props.data.name}</strong></h1>
         <div className="author-details">
           <div className="author-picture">
             <img src={this.props.data.model.author.avatar_url}></img>

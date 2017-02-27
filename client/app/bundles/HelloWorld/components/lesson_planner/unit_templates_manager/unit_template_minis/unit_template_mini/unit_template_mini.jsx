@@ -1,6 +1,7 @@
 'use strict'
 
  import React from 'react'
+ import { Link } from 'react-router'
  import UnitTemplateFirstRow from './unit_template_first_row'
  import UnitTemplateSecondRow from './unit_template_second_row'
  import String from '../../../../modules/string.jsx'
@@ -43,7 +44,7 @@
   displayPicture: function () {
     return (
       <div className='author-picture'>
-        <img src={this.avatarUrl()}></img>
+        <img src={this.avatarUrl()}/>
       </div>
     );
   },
@@ -58,16 +59,22 @@
     return val;
   },
 
-  onClickAction: function () {
+  getLink: function () {
+    let link
     if (this.props.data.id == 'createYourOwn') {
-      if(this.props.data.non_authenticated) {
-        this.props.actions.signUp();
+      if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
+        link = '/teachers/classrooms/activity_planner/create-unit'
       } else {
-        this.props.actions.toggleTab('createUnit');
+        link = '/accounts/new'
       }
     } else {
-      this.props.actions.selectModel(this.props.data);
+      if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
+        link = `/teachers/classrooms/activity_planner/featured-activity-packs/${this.props.data.id}`;
+      } else {
+        link = `/activities/packs/${this.props.data.id}`
+      }
     }
+    return link
   },
 
   miniSpecificComponents: function() {
@@ -75,7 +82,7 @@
       return (
         <div className='text-center col-xs-12 create-your-own'>
           <div className='content-wrapper'>
-            <img className='plus_icon' src='/add_class.png'></img>
+            <img className='plus_icon' src='/add_class.png'/>
             <h3>Build Your Own Activity Pack</h3>
           </div>
       </div>
@@ -84,14 +91,14 @@
     // else it is a normal mini
     else {
       return(
-          <div className='col-xs-12'>
+          <Link to={this.getLink()}><div className='col-xs-12'>
               <UnitTemplateFirstRow
                   actions={{filterByCategory: this.props.actions.filterByCategory}}
                   data={this.props.data}
                   modules={{string: this.modules.string}} />
               <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
               {this.displayPicture()}
-            </div>
+            </div></Link>
           );
         }
   },

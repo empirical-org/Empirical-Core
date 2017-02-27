@@ -11,7 +11,7 @@
   renderActivities: function() {
     return this.props.data.model.activities.map(function(act){
       return (
-        <tr>
+        <tr key={act.name}>
           <td>
             <div className={act.classification.image_class}></div>
           </td>

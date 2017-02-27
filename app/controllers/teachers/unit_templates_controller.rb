@@ -55,7 +55,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def redirect_to_explore_activity_packs
-    redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks")
+    redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "featured-activity-packs")
   end
 
 end
