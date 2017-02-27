@@ -4,8 +4,8 @@ class ProfilesController < ApplicationController
   def show
     @user = current_user
     if current_user.role == 'student'
+      @js_file = 'student'
       if current_user.classrooms.any?
-        @js_file = 'student'
         render 'student'
       else
         render 'students_classrooms/add_classroom'
