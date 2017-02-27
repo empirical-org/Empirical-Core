@@ -1,9 +1,6 @@
 'use strict'
 
  import React from 'react'
- import { Link } from 'react-router'
- import LoadingIndicator from '../../../shared/loading_indicator'
- import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import UnitTemplateProfileHeader from './unit_template_profile_header'
  import UnitTemplateProfileDescription from './unit_template_profile_description'
  import UnitTemplateProfileAssignButton from './unit_template_profile_assign_button'
@@ -65,12 +62,6 @@
             <div className='col-xs-12'>
               <UnitTemplateProfileActivityTable data={this.props.data}
                                    actions={this.props.actions} />
-            </div>
-
-              <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId}/>
-              <div className='row'>
-                <Link to={this.indexLink()}><button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button></Link>
-              </div>
             </div>
           </div>
 
