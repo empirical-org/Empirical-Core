@@ -58,9 +58,13 @@ class Cms::UsersController < ApplicationController
     end
   end
 
+  def clear_data
+    User.find(params[:id]).clear_data
+    redirect_to cms_users_path
+  end
+
   def destroy
     @user.destroy
-    redirect_to cms_users_path
   end
 
 protected

@@ -172,9 +172,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: response
   end
 
-  def delete_my_account
+  def clear_data
     sign_out
-    User.find(params[:id]).destroy
+    User.find(params[:id]).clear_data
     render json: {}
   end
 
