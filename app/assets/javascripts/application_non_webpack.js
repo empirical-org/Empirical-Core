@@ -2,8 +2,6 @@
 
 // turbolinks comes from npm and is listed in webpack.client.base.config.js
 
-
-//= require jquery.selectbox-0.2.js
 //= require bootstrap
 
 //= require lodash
