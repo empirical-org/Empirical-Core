@@ -109,7 +109,7 @@ export default  React.createClass({
       <div className='container'>
         <div className='row' id='successBoxMessage'>
           <div className='col-md-9 successMessage'>
-            <i className="fa fa-check-circle pull-left">You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!</i>
+            <p class="pull-left"><i className="fa fa-check-circle pull-left"></i>You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!</p>
           </div>
           <div className='col-md-4'>
             {this.teacherSpecificComponents()}
