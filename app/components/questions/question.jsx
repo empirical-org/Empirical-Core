@@ -16,6 +16,7 @@ import C from '../../constants';
 import Chart from './pieChart.jsx';
 import ResponseComponent from './responseComponent.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import massEdit from '../../actions/massEdit';
 
 const labels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
 const colors = ['#81c784', '#ffb74d', '#ba68c8', '#5171A5', '#e57373'];
@@ -27,6 +28,7 @@ const Question = React.createClass({
       selectedBoilerplateCategory: '',
       responses: [],
       loadedResponses: false,
+      selectedResponses: [],
     };
   },
 
@@ -48,6 +50,7 @@ const Question = React.createClass({
     console.log('Unmounting');
     const { questionID, } = this.props.params;
     this.props.dispatch(stopListeningToResponses(questionID));
+    this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
   },
 
   deleteQuestion() {
@@ -229,6 +232,17 @@ const Question = React.createClass({
     }
   },
 
+  renderMassEditForm() {
+    let selectedResponses = this.props.massEdit.selectedResponses.length;
+    if(selectedResponses > 1) {
+      return (
+        <div>
+          <h1>{selectedResponses} responses selected</h1>
+        </div>
+      )
+    }
+  },
+
   isLoading() {
     const loadingData = this.props.questions.hasreceiveddata === false;
     const loadingResponses = this.state.loadedResponses;
@@ -263,6 +277,7 @@ const Question = React.createClass({
             dispatch={this.props.dispatch}
             admin
           />
+        {this.renderMassEditForm()}
         </div>
       );
     } else {
@@ -280,6 +295,7 @@ function select(state) {
     // responses: state.responses,
     itemLevels: state.itemLevels,
     routing: state.routing,
+    massEdit: state.massEdit
   };
 }
 

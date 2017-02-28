@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+import { connect } from 'react-redux';
 import questionActions from '../../actions/questions';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
@@ -11,6 +12,7 @@ import Textarea from 'react-textarea-autosize';
 import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import massEdit from '../../actions/massEdit';
 import {
   deleteResponse,
   submitResponseEdit,
@@ -26,7 +28,7 @@ const Markdown = require('react-remarkable');
 const C = require('../../constants').default;
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-export default React.createClass({
+const Response = React.createClass({
 
   getInitialState() {
     let actions;
@@ -246,6 +248,26 @@ export default React.createClass({
     return selectedCategory.children.map(childFeedback => (
       <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
       ));
+  },
+
+  addResponseToMassEditArray(responseKey) {
+    this.props.dispatch(massEdit.addResponseToMassEditArray(responseKey));
+  },
+
+  removeResponseFromMassEditArray(responseKey) {
+    this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
+  },
+
+  clearResponsesFromMassEditArray() {
+    this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
+  },
+
+  onMassSelectCheckboxToggle(responseKey) {
+    if(this.props.massEdit.selectedResponses.includes(responseKey)) {
+      this.removeResponseFromMassEditArray(responseKey);
+    } else {
+      this.addResponseToMassEditArray(responseKey);
+    }
   },
 
   renderBoilerplateCategoryDropdown() {
@@ -483,20 +505,21 @@ export default React.createClass({
     if (response.weak) {
       icon = '⚠️';
     }
-
     const authorStyle = { marginLeft: '10px', };
     const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
+    const checked = this.props.massEdit.selectedResponses.includes(response.key) ? 'checked' : '';
     return (
-      <header className={`card-content ${bgColor} ${this.headerClasses()}`} onClick={this.props.expand.bind(null, response.key)}>
+      <header className={`card-content ${bgColor} ${this.headerClasses()}`}>
         <div className="content">
           <div className="media">
             <div className="media-content">
-              <p>{response.text} {author}</p>
+              <p><input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.key)} /> {response.text} {author}</p>
             </div>
-            <div className="media-right">
-              <figure className="image is-32x32">
+            <div style={{flexGrow: '1', flexShrink: '1', textAlign: 'right'}}>
+              <figure className="image is-32x32" style={{display: 'inline-block', padding: '0 1em 1em 0'}}>
                 <span>{ icon } { response.count ? response.count : 0 }</span>
               </figure>
+              <span className="button is-small" onClick={this.props.expand.bind(null, response.key)}>Toggle</span>
             </div>
           </div>
         </div>
@@ -622,3 +645,12 @@ export default React.createClass({
     );
   },
 });
+
+function select(state) {
+  return {
+    massEdit: state.massEdit
+  };
+}
+
+
+export default connect(select)(Response);
