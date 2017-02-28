@@ -43,7 +43,7 @@
                     key={this.getKey(option)}
                     data={option}
                     isSelected={this.isSelected(option)}
-                    select={this.props.select} />
+                  />
   },
 
   renderForLoggedInUser: function () {
