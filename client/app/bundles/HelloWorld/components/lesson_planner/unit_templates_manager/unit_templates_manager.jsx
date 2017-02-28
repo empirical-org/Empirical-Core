@@ -60,10 +60,6 @@
       unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
       windowPosition: new WindowPosition()
     }
-    else {
-      return <UnitTemplateProfile data={this.props.data} actions={this.props.actions} />
-    }
-  },
 
     this.deepExtendState = this.modules.updaterGenerator.updater(null)
     this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');

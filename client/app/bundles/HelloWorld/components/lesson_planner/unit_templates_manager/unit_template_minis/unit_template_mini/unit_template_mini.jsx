@@ -79,26 +79,30 @@
   miniSpecificComponents: function() {
     if (this.props.data.id == 'createYourOwn') {
       return (
-        <div className='text-center col-xs-12 create-your-own'>
-          <div className='content-wrapper'>
-            <img className='plus_icon' src='/add_class.png'/>
-            <h3>Build Your Own Activity Pack</h3>
+        <Link to={this.getLink()}>
+          <div className='text-center col-xs-12 create-your-own'>
+            <div className='content-wrapper'>
+              <img className='plus_icon' src='/add_class.png'/>
+              <h3>Build Your Own Activity Pack</h3>
+            </div>
           </div>
-      </div>
-    );
-      }
+        </Link>
+      );
+    }
     // else it is a normal mini
     else {
       return(
-          <Link to={this.getLink()}><div className='col-xs-12'>
+          <Link to={this.getLink()}>
+            <div className='col-xs-12'>
               <UnitTemplateFirstRow
                   data={this.props.data}
                   modules={{string: this.modules.string}} />
               <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
               {this.displayPicture()}
-            </div></Link>
-          );
-        }
+            </div>
+          </Link>
+        );
+      }
   },
 
   render: function () {

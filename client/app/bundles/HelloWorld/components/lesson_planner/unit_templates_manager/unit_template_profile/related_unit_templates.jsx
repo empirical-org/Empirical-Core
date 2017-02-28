@@ -19,7 +19,7 @@
     }
     return (
       <div key={model.id} className={className}>
-        <UnitTemplateMini data={model}  index={index}/>
+        <UnitTemplateMini data={model}  index={index} signedInTeacher={this.props.authenticated}/>
       </div>
     );
   },
