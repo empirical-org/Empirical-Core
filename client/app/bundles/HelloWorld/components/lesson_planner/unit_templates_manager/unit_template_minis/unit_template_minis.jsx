@@ -8,7 +8,6 @@
  import RowsCreator from '../../../modules/rows_creator'
  import _ from 'underscore'
  import _l from 'lodash'
- import {Link} from 'react-router';
 
 
  export default  React.createClass({

@@ -125,7 +125,7 @@
               </div>
             </div>
 
-              <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId}/>
+              <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId} authenticated={!this.state.data.non_authenticated}/>
               <div className='row'>
                 <Link to={this.indexLink()}><button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button></Link>
               </div>
