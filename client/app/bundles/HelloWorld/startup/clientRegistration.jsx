@@ -21,6 +21,7 @@ import DiagnosticReportsApp from './DiagnosticReportsAppClient.jsx'
 import DiagnosticPlannerApp from './DiagnosticPlannerAppClient.jsx'
 import CreateClassApp from './CreateClassAppClient.jsx'
 import UnitTemplatesApp from './UnitTemplatesClient.jsx'
+import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx'
 
 
 
@@ -31,4 +32,4 @@ ReactOnRails.register({ AccountSettingsApp, TeacherGuideApp, DashboardApp,
   PremiumPricingGuideApp, ProgressReportApp, StudentProfileApp,
   ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, AdminAccountsApp,
   AdminsEditorApp, JoinClassApp, PublicActivityPacksApp, AddStudentApp,
-  DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp});
+  DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp, PublicUnitTemplatesApp});

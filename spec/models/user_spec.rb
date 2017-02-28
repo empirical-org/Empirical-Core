@@ -151,6 +151,25 @@ describe User, type: :model do
     end
   end
 
+  describe "#clear_data" do
+    let(:user) { FactoryGirl.create(:user) }
+    before(:each) { user.clear_data}
+
+    it "changes the user's email to one that is not personally identiable" do
+      expect(user.email).to eq("deleted_user_#{user.id}@example.com")
+    end
+
+    it "changes the user's username to one that is not personally identiable" do
+      expect(user.username).to eq("deleted_user_#{user.id}")
+    end
+
+    it "changes the user's name to one that is not personally identiable" do
+      expect(user.name).to eq("Deleted User_#{user.id}")
+    end
+
+
+  end
+
   describe "#safe_role_assignment" do
     let(:user) { FactoryGirl.build(:user) }
 
