@@ -51,9 +51,9 @@ export default React.createClass({
     if (this.state.firstBatchLoaded) {
       return (
         <div id="student-profile">
-          <StudentProfileHeader data={this.state.student} fetchData={this.fetchData} />
-          <NextActivity data={this.state.next_activity_session} />
-          <StudentProfileUnits data={this.state.grouped_scores} />
+          <StudentProfileHeader data={this.state.student} fetchData={this.fetchData} loading={this.state.loading} />
+          <NextActivity data={this.state.next_activity_session} loading={this.state.loading}/>
+          <StudentProfileUnits data={this.state.grouped_scores} loading={this.state.loading}/>
         </div>
       )
     } else return <span></span>
