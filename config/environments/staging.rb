@@ -67,7 +67,6 @@ EmpiricalGrammar::Application.configure do
                                  epiceditor/themes/editor/epic-dark.css
                                  codemirror.css
                                  cms.js
-                                 porthole.js
                                  cms.css
                                  scorebook/*
                                  scorebook/**/*
