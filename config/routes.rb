@@ -280,6 +280,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
+  get 'activities/packs/diagnostic', to: redirect('/tools/diagnostic')
   get 'activities/packs/:id' => 'teachers/unit_templates#index'
   get 'activities/packs/category/:category' => 'teachers/unit_templates#index'
   get 'activities/packs/grade/:grade' => 'teachers/unit_templates#index'
