@@ -17,10 +17,12 @@ import DiagnosticReportsApp from './DiagnosticReportsAppClient.jsx'
 import DiagnosticPlannerApp from './DiagnosticPlannerAppClient.jsx'
 import CreateClassApp from './CreateClassAppClient.jsx'
 import UnitTemplatesApp from './UnitTemplatesClient.jsx'
+import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx'
 
 
 
 // This is how react_on_rails can see the HelloWorldApp in the browser.
+
 
 ReactOnRails.register({  TeacherGuideApp, DashboardApp,
   LessonPlannerApp, TeacherAccountApp, ScorebookApp,

@@ -51,8 +51,11 @@
     //padding-top: 0 !important;
     //padding-bottom: 0 !important;
   }
-  .delete-account.btn {
+  .delete-account {
     line-height: 0;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .error {
     color: red;
