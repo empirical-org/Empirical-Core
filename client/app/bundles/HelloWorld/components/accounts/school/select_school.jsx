@@ -136,7 +136,7 @@ export default React.createClass({
           <div className='col-xs-3'>
             <input
                     className='inactive'
-                    value={this.schoolName()}>
+                    defaultValue={this.schoolName()}>
             </input>
           </div>
           <div className='col-xs-3'>
