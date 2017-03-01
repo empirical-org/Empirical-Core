@@ -16,7 +16,12 @@ import C from '../../constants';
 import Chart from './pieChart.jsx';
 import ResponseComponent from './responseComponent.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import TextEditor from './textEditor.jsx';
 import massEdit from '../../actions/massEdit';
+import {
+  incrementResponseCount,
+  submitResponseEdit
+} from '../../actions/responses';
 
 const labels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
 const colors = ['#81c784', '#ffb74d', '#ba68c8', '#5171A5', '#e57373'];
@@ -26,6 +31,7 @@ const Question = React.createClass({
   getInitialState() {
     return {
       selectedBoilerplateCategory: '',
+      selectedMassEditBoilerplateCategory: '',
       responses: [],
       loadedResponses: false,
       selectedResponses: [],
@@ -50,7 +56,7 @@ const Question = React.createClass({
     console.log('Unmounting');
     const { questionID, } = this.props.params;
     this.props.dispatch(stopListeningToResponses(questionID));
-    this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
+    this.clearResponsesFromMassEditArray();
   },
 
   deleteQuestion() {
@@ -162,11 +168,46 @@ const Question = React.createClass({
     }
   },
 
-  renderBoilerplateCategoryDropdown() {
+  chooseMassEditBoilerplateCategory(e) {
+    this.setState({ selectedMassEditBoilerplateCategory: e.target.value, });
+  },
+
+  chooseMassEditSpecificBoilerplateFeedback(e) {
+    if (e.target.value === 'Select specific boilerplate feedback') {
+      this.setState({ selectedMassEditBoilerplate: '' });
+    } else {
+      this.setState({ selectedMassEditBoilerplate: e.target.value });
+    }
+  },
+
+  clearResponsesFromMassEditArray() {
+    this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
+  },
+
+  incrementAllResponsesInMassEditArray() {
+    let selectedResponses = this.props.massEdit.selectedResponses;
+    selectedResponses.forEach((response) => this.props.dispatch(incrementResponseCount(this.props.params.questionID, response)));
+  },
+
+  updateAllResponsesInMassEditArray() {
+    let selectedResponses = this.props.massEdit.selectedResponses;
+    const newResp = {
+      weak: false,
+      feedback: this.state.massEditFeedback,
+      optimal: this.refs.massEditOptimal.checked,
+    };
+    selectedResponses.forEach((response) => this.props.dispatch(submitResponseEdit(response, newResp)));
+  },
+
+  handleMassEditFeedbackTextChange(value) {
+    this.setState({ massEditFeedback: value })
+  },
+
+  renderBoilerplateCategoryDropdown(onChangeEvent) {
     const style = { marginRight: '20px', };
     return (
       <span className="select" style={style}>
-        <select className="boilerplate-feedback-dropdown" onChange={this.chooseBoilerplateCategory}>
+        <select className="boilerplate-feedback-dropdown" onChange={onChangeEvent}>
           <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
           {this.boilerplateCategoriesToOptions()}
         </select>
@@ -174,12 +215,12 @@ const Question = React.createClass({
     );
   },
 
-  renderBoilerplateCategoryOptionsDropdown() {
-    const selectedCategory = _.find(getBoilerplateFeedback(), { description: this.state.selectedBoilerplateCategory, });
+  renderBoilerplateCategoryOptionsDropdown(onChangeEvent, description) {
+    const selectedCategory = _.find(getBoilerplateFeedback(), { description: description, });
     if (selectedCategory) {
       return (
         <span className="select">
-          <select className="boilerplate-feedback-dropdown" onChange={this.chooseSpecificBoilerplateFeedback} ref="boilerplate">
+          <select className="boilerplate-feedback-dropdown" onChange={onChangeEvent} ref="boilerplate">
             <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
             {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
           </select>
@@ -204,8 +245,8 @@ const Question = React.createClass({
         </p>
         <label className="label">Boilerplate feedback</label>
         <div className="boilerplate-feedback-dropdown-container">
-          {this.renderBoilerplateCategoryDropdown()}
-          {this.renderBoilerplateCategoryOptionsDropdown()}
+          {this.renderBoilerplateCategoryDropdown(this.chooseBoilerplateCategory)}
+          {this.renderBoilerplateCategoryOptionsDropdown(this.chooseSpecificBoilerplateFeedback, this.state.selectedBoilerplateCategory)}
         </div>
         <br />
         <p className="control">
@@ -236,9 +277,37 @@ const Question = React.createClass({
     let selectedResponses = this.props.massEdit.selectedResponses.length;
     if(selectedResponses > 1) {
       return (
-        <div>
-          <h1>{selectedResponses} responses selected</h1>
-        </div>
+          <div className="card is-fullwidth has-bottom-margin has-top-margin">
+            <header className="card-content expanded">
+                <h1 className="title is-3" style={{display: 'inline-block'}}>Mass Edit <strong style={{fontWeight: '700'}}>{selectedResponses}</strong> Responses</h1>
+            </header>
+            <div className="card-content">
+              <div className="content">
+                <h3>FEEDBACK <span style={{fontSize: '0.7em', marginLeft: '0.75em'}}>⚠️️ All other feedback associated with selected responses will be overwritten ⚠️️</span></h3>
+                <TextEditor text={this.state.massEditFeedback || ''} handleTextChange={this.handleMassEditFeedbackTextChange} boilerplate={this.state.selectedMassEditBoilerplate} />
+              </div>
+              <div className="content">
+                <h4>Boilerplate Feedback</h4>
+                <div className="boilerplate-feedback-dropdown-container">
+                  {this.renderBoilerplateCategoryDropdown(this.chooseMassEditBoilerplateCategory)}
+                  {this.renderBoilerplateCategoryOptionsDropdown(this.chooseMassEditSpecificBoilerplateFeedback, this.state.selectedMassEditBoilerplateCategory)}
+                </div>
+              </div>
+              <div className="content">
+                <h3>CONCEPT RESULTS</h3>
+                <label className="checkbox">
+                  <h3><input ref="massEditOptimal" defaultChecked={false} type="checkbox" /> OPTIMAL <span style={{fontSize: '0.7em', marginLeft: '0.75em'}}>⚠️️ All selected responses will be marked with this optimality ⚠️️</span></h3>
+                </label>
+              </div>
+            </div>
+            <footer className="card-footer">
+              <a className="card-footer-item" onClick={() => this.clearResponsesFromMassEditArray()}>Deselect</a>
+              {/* <a className="card-footer-item" onClick={() => this.incrementAllResponsesInMassEditArray()}>Increment</a> */}
+              <a className="card-footer-item" onClick={() => this.updateAllResponsesInMassEditArray()}>Update</a>
+              {/* <a className="card-footer-item" onClick={() => alert('This has not been implemented yet.')}>Rematch</a>  */}
+              <a className="card-footer-item" onClick={() => alert('This has not been implemented yet.')}>Delete</a>
+            </footer>
+          </div>
       )
     }
   },
