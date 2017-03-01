@@ -10,7 +10,7 @@ export default React.createClass({
   },
 
   componentDidMount: function() {
-    $.ajax({url: 'students_classrooms_json', format: 'json', success: this.updateClassrooms})
+    $.ajax({url: '/students_classrooms_json', format: 'json', success: this.updateClassrooms})
   },
 
   updateClassrooms: function(data) {
