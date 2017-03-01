@@ -43,7 +43,7 @@
 
   propsSpecificComponent: function () {
     if (this.props.data.non_authenticated) {
-      return <a href="/accounts/new"><button className='button-green full-width'>Sign Up to Assign This Activity Pack</button></a>
+      return <a href="/account/new"><button className='button-green full-width'>Sign Up to Assign This Activity Pack</button></a>
     // } else if (!this.props.data.firstAssignButtonClicked && ($('.tab-pane').data().students === true)) {
     //   return <button className='button-green full-width' onClick={this.props.actions.clickAssignButton}>Assign to Your Class</button>
     // } else if (!this.props.data.firstAssignButtonClicked && ($('.tab-pane').data().students === false)) {
