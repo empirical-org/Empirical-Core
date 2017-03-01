@@ -104,7 +104,8 @@ const DiagnosticReports = React.createClass({
 			}
 			else {
 				let reportBeginningIndex = window.location.hash.lastIndexOf('/');
-				report = window.location.hash.substring(reportBeginningIndex + 1);
+				// get report name without hash history junk
+				report = window.location.hash.substring(reportBeginningIndex + 1).split('?').shift()
 			}
 			this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
 	},
