@@ -8,6 +8,7 @@ class AccountsController < ApplicationController
     ClickSignUpWorker.perform_async
     session[:role] = nil
     @teacherFromGoogleSignUp = false
+    @js_file = 'session'
   end
 
   def role
@@ -39,7 +40,7 @@ class AccountsController < ApplicationController
 
   def select_school
     #if the school does not specifically have a name, we send the type (e.g. not listed, international, etc..)
-    if School.find_by_id(params[:school_id_or_type]) 
+    if School.find_by_id(params[:school_id_or_type])
       school = School.find(params[:school_id_or_type])
     else
       school = School.find_or_create_by(name: params[:school_id_or_type])
@@ -86,5 +87,6 @@ protected
                                  :send_newsletter,
                                  :school_ids)
   end
+
 
 end
