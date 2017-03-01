@@ -195,6 +195,10 @@ class User < ActiveRecord::Base
     set_name
   end
 
+  def clear_data
+    self.update!(name: "Deleted User_#{self.id}", email: "deleted_user_#{self.id}@example.com", username: "deleted_user_#{self.id}")
+  end
+
   def last_name= last_name
     first_name
     @last_name = last_name
