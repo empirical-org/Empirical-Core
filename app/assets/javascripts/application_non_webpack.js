@@ -4,23 +4,12 @@
 
 //= require bootstrap
 
-//= require lodash
-//= require underscore.string
-
 //= require es5-shim/es5-shim
 
 //= require select2
 //= require custom
 
-//= require slick.js
 //= require tabslet.js
-
-
-//= require custom-slick.js
-
-//= require jquery-ui-custom.min.js
-
-//= require empirical_core.js
 
 //= require_tree ./
 
