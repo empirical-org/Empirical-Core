@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountSettings from '../containers/AccountSettings.jsx';
+import AccountSettings from '../../HelloWorld/containers/AccountSettings.jsx';
 
 export default (props) => (
   <AccountSettings {...props} />
