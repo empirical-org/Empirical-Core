@@ -92,6 +92,7 @@
     else {
       return (
             <ListFilterOptions
+                    key='listFilterOptions'
                     userLoggedIn={this.userLoggedIn()}
                     options={this.props.data.categories || []}
                     selectedId={this.props.data.selectedCategoryId}
