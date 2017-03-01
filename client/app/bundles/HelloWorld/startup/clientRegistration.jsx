@@ -22,6 +22,7 @@ import DiagnosticPlannerApp from './DiagnosticPlannerAppClient.jsx'
 import CreateClassApp from './CreateClassAppClient.jsx'
 import UnitTemplatesApp from './UnitTemplatesClient.jsx'
 import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx'
+require('../../../assets/styles/home.scss')
 
 
 

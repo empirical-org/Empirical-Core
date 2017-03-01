@@ -68,8 +68,6 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :grades, only: [:index]
 
-  get :porthole_proxy, to: 'porthole_proxy#index'
-
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
 
   get 'account_settings' => 'students#account_settings'
