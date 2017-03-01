@@ -23,7 +23,7 @@ export default React.createClass({
     return (
 			<div className='row' style={styles.row}>
         <a className='q-button bg-white text-black' href={`/teachers/classrooms/activity_planner/units/${this.props.unitId}/activities/edit${this.unitNameURIString()}`}>
-          <span className='fa fa-plus'/>Add More Activities
+          <span className='fa fa-plus'/>Add More Activities To This Pack
         </a>
 			</div>
 		);
