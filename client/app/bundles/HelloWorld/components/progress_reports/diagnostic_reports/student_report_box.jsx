@@ -19,7 +19,7 @@ export default React.createClass({
 
 	concepts: function() {
 		return this.props.questionData.concepts.map((concept) => (
-			<ConceptResultTableRow concept={concept}/>
+			<ConceptResultTableRow key={concept.id} concept={concept}/>
 		));
 	},
 
