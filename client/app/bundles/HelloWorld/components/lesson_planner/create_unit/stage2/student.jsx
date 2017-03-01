@@ -36,7 +36,6 @@
   },
 
   render: function() {
-    console.log(this.props.something)
     return (
       <div className="student_column col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
         {this.determineCheckbox()}
