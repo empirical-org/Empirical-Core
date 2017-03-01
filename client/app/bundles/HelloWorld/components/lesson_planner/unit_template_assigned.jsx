@@ -65,8 +65,8 @@ export default  React.createClass({
 
   data: function() {
     return {
-      name: this.state.data.last_classroom_name,
-      id: this.state.data.last_classroom_id
+      name: this.state.data.name,
+      id: this.props.params.activityPackId
     }
   },
 
@@ -80,7 +80,7 @@ export default  React.createClass({
       href = '/teachers/classrooms/activity_planner';
       text = 'View Assigned Activity Packs';
     } else {
-      href = this.state.actions.getInviteStudentsUrl();
+      href = this.getInviteStudentsUrl();
       text = 'Add Students'
     }
 
@@ -109,7 +109,7 @@ export default  React.createClass({
       <div className='container'>
         <div className='row' id='successBoxMessage'>
           <div className='col-md-9 successMessage'>
-            <i className="fa fa-check-circle pull-left">You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!</i>
+            <i className="fa fa-check-circle pull-left"></i> You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!
           </div>
           <div className='col-md-4'>
             {this.teacherSpecificComponents()}
@@ -126,7 +126,7 @@ export default  React.createClass({
           that use Quill, the more free activities we can create.
         </p>
       <p className='social-copy'>
-        <i>I’m using the {this.activityName()} Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/{this.props.last_classroom_id}</i>
+        <i>I’m using the {this.activityName()} Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/{this.props.params.activityPackId}</i>
       </p>
       <div className='container'>
         <UnitTemplateProfileShareButtons data={this.data()} />
