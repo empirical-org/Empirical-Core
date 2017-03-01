@@ -20,5 +20,12 @@ describe Subscription, type: :model do
         Subscription.start_premium(user)
       }.to change { Subscription.count }.by(1)
     end
+
+    it "gives the subscription an expiration of the later of one year from today or July 1, 2018" do
+      Subscription.start_premium(user)
+      july_1_2017 = Date.new(2017, 7, 1)
+      expected_date = [Date.today, july_1_2017].max + 365
+      expect(user.reload.subscriptions.last.expiration).to eq(expected_date)
+    end
   end
 end
