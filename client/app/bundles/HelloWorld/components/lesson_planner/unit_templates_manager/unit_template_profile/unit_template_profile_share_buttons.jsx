@@ -20,7 +20,7 @@
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: `http://twitter.com/home?status=${url} checkout this ${this.props.data.name} Activity pack by @Quill_org`,
+        href: `http://twitter.com/home?status=${url} check out this ${this.props.data.name} Activity pack by @Quill_org`,
         title: 'Share on Twitter',
         action: 'Tweet'
       },
@@ -49,8 +49,8 @@
 
     var links = _.map(stuff, function (hash) {
       return (
-        <a href={hash.href} key={hash.title} title={hash.title} className={"btn btn-default btn-social " + hash.className}  target="_blank">
-          <i className={"fa " + hash.icon}></i><span className='social-action'>{hash.action}</span>
+        <a href={hash.href} key={hash.title} title={hash.title} className={'btn btn-default btn-social ' + hash.className}  target="_blank">
+          <i className={'fa ' + hash.icon}></i><span className='social-action'>{hash.action}</span>
         </a>
       );
     });
