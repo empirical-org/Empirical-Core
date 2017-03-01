@@ -41,6 +41,8 @@ const Question = React.createClass({
         conceptUID: '',
         correct: true,
       },
+      massEditSummaryListDisplay: 'none',
+      massEditSummaryListButtonText: 'Expand List',
     };
   },
 
@@ -190,6 +192,10 @@ const Question = React.createClass({
     this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
   },
 
+  removeResponseFromMassEditArray(responseKey) {
+    this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
+  },
+
   incrementAllResponsesInMassEditArray() {
     let selectedResponses = this.props.massEdit.selectedResponses;
     selectedResponses.forEach((response) => this.props.dispatch(incrementResponseCount(this.props.params.questionID, response)));
@@ -224,6 +230,32 @@ const Question = React.createClass({
         }
       ),
     });
+  },
+
+  toggleMassEditSummaryList() {
+    let display = 'none';
+    let text = 'Expand List';
+    if(this.state.massEditSummaryListButtonText == 'Expand List') {
+      display = 'block';
+      text = 'Collapse List';
+    }
+    this.setState({
+      massEditSummaryListDisplay: display,
+      massEditSummaryListButtonText: text,
+    })
+  },
+
+  renderMassEditSummaryListResponse(response) {
+    return (
+      <p><span style={{marginRight: '0.5em' }} onClick={() => this.removeResponseFromMassEditArray(response)}>&#x2716;</span>{this.getResponses()[response].text}</p>
+    );
+  },
+
+  renderMassEditSummaryList() {
+    const summaryResponses = this.props.massEdit.selectedResponses.map((response) => {
+      return this.renderMassEditSummaryListResponse(response)
+    });
+    return (<div className="content">{summaryResponses}</div>);
   },
 
   renderBoilerplateCategoryDropdown(onChangeEvent) {
@@ -297,13 +329,27 @@ const Question = React.createClass({
   },
 
   renderMassEditForm() {
-    let selectedResponses = this.props.massEdit.selectedResponses.length;
-    if(selectedResponses > 1) {
+    let selectedResponses = this.props.massEdit.selectedResponses;
+    if(selectedResponses.length > 1) {
       return (
         <div>
           <div className="card is-fullwidth has-bottom-margin has-top-margin">
             <header className="card-content expanded">
-                <h1 className="title is-3" style={{display: 'inline-block'}}>Mass Edit <strong style={{fontWeight: '700'}}>{selectedResponses}</strong> Responses</h1>
+              <div className="content">
+                <h1 className="title is-3" style={{marginBottom: '0'}}><strong style={{fontWeight: '700'}}>{selectedResponses.length}</strong> Responses Selected for Mass Editing:</h1>
+              </div>
+            </header>
+            <div className="card-content" style={{display: this.state.massEditSummaryListDisplay}}>
+              {this.renderMassEditSummaryList()}
+            </div>
+            <footer className="card-footer">
+              <a className="card-footer-item" onClick={() => this.toggleMassEditSummaryList()}>{this.state.massEditSummaryListButtonText}</a>
+              <a className="card-footer-item" onClick={() => this.clearResponsesFromMassEditArray()}>Deselect All</a>
+            </footer>
+          </div>
+          <div className="card is-fullwidth has-bottom-margin has-top-margin">
+            <header className="card-content expanded">
+                <h1 className="title is-3" style={{display: 'inline-block'}}>Mass Edit <strong style={{fontWeight: '700'}}>{selectedResponses.length}</strong> Responses</h1>
             </header>
             <div className="card-content">
               <div className="content">
@@ -324,16 +370,15 @@ const Question = React.createClass({
               </div>
             </div>
             <footer className="card-footer">
-              <a className="card-footer-item" onClick={() => this.clearResponsesFromMassEditArray()}>Deselect</a>
               {/* <a className="card-footer-item" onClick={() => this.incrementAllResponsesInMassEditArray()}>Increment</a> */}
-              <a className="card-footer-item" onClick={() => this.updateAllResponsesInMassEditArray()}>Update</a>
+              <a className="card-footer-item" onClick={() => this.updateAllResponsesInMassEditArray()}>Update Feedback</a>
               {/* <a className="card-footer-item" onClick={() => alert('This has not been implemented yet.')}>Rematch</a>  */}
-              <a className="card-footer-item" onClick={() => alert('This has not been implemented yet.')}>Delete</a>
+              {/* <a className="card-footer-item" onClick={() => alert('This has not been implemented yet.')}>Delete</a> */}
             </footer>
           </div>
           <div className="card is-fullwidth has-bottom-margin has-top-margin">
             <header className="card-content expanded">
-                <h1 className="title is-3" style={{display: 'inline-block'}}>Add Concept Results for <strong style={{fontWeight: '700'}}>{selectedResponses}</strong> Responses</h1>
+                <h1 className="title is-3" style={{display: 'inline-block'}}>Add Concept Results for <strong style={{fontWeight: '700'}}>{selectedResponses.length}</strong> Responses</h1>
             </header>
             <div className="card-content">
               <div className="content">
@@ -341,16 +386,13 @@ const Question = React.createClass({
                 <ConceptSelector currentConceptUID={this.state.newMassEditConceptResult.conceptUID} handleSelectorChange={this.selectMassEditConceptForResult} />
                 <br />
                 <label className="checkbox">
-                  <h4><input ref="massEditConceptResultsCorrect" defaultChecked={false} type="checkbox" /> Correct</h4>
+                  <h3><input ref="massEditConceptResultsCorrect" defaultChecked={false} type="checkbox" /> CORRECT</h3>
                 </label>
               </div>
             </div>
-            <div className="content">
-              <footer className="card-footer">
-                <a className="card-footer-item" onClick={() => this.clearResponsesFromMassEditArray()}>Deselect</a>
-                <a className="card-footer-item" onClick={() => this.addMassEditConceptResults()}>Add Concept Result</a>
-              </footer>
-            </div>
+            <footer className="card-footer">
+              <a className="card-footer-item" onClick={() => this.addMassEditConceptResults()}>Add Concept Result</a>
+            </footer>
           </div>
         </div>
       )
