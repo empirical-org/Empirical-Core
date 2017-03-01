@@ -374,8 +374,6 @@ GEM
       sass
       thor
       tilt
-    lodash-rails (3.10.1)
-      railties (>= 3.1)
     logging (2.1.0)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
@@ -773,11 +771,9 @@ DEPENDENCIES
   jquery-fileupload-rails
   jquery-rails
   jquery-turbolinks
-  jquery-ui-rails
   kaminari
   letter_opener
   livingstyleguide
-  lodash-rails (~> 3.10.1)
   lograge
   mailchimp-api
   newrelic_rpm
@@ -845,4 +841,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.14.3
+   1.14.4

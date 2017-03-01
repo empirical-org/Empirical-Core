@@ -1,4 +1,0 @@
-window.EC = {
-  cms: {},
-  modules: {}
-};
