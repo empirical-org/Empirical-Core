@@ -19,7 +19,7 @@
   propTypes: {
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,
-    clickContinue: React.PropTypes.func.isRequired,
+    clickContinue: React.PropTypes.func,
     errorMessage: React.PropTypes.string
   },
 
