@@ -2,6 +2,7 @@
 
  import React from 'react'
  import _l from 'lodash'
+ import _ from 'underscore'
 
  import UnitTabs from '../unit_tabs'
  import UnitTemplateMinis from './unit_template_minis/unit_template_minis'
