@@ -21,6 +21,7 @@ import DiagnosticReportsApp from './DiagnosticReportsAppClient.jsx'
 import DiagnosticPlannerApp from './DiagnosticPlannerAppClient.jsx'
 import CreateClassApp from './CreateClassAppClient.jsx'
 import UnitTemplatesApp from './UnitTemplatesClient.jsx'
+require('../../../assets/styles/home.scss')
 
 
 
