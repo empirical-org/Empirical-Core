@@ -223,7 +223,9 @@ const Question = React.createClass({
   addMassEditConceptResults() {
     let selectedResponses = this.props.massEdit.selectedResponses;
     selectedResponses.forEach((response) => {
-      if(!(_.flatten(_.map(this.state.responses[response].conceptResults)).includes(this.state.newMassEditConceptResult.conceptUID))) {
+      let conceptResultUidsArrayForResponse = Object.keys(this.state.responses[response].conceptResults || {}).map((concept) => this.state.responses[response].conceptResults[concept].conceptUID);
+      let conceptUidForNewMassEditConceptResult = this.state.newMassEditConceptResult.conceptUID;
+      if(!conceptResultUidsArrayForResponse.includes(conceptUidForNewMassEditConceptResult)) {
         this.props.dispatch(submitNewConceptResult(this.props.params.questionID, response, this.state.newMassEditConceptResult));
       }
     });
@@ -399,6 +401,7 @@ const Question = React.createClass({
                 <ConceptSelector currentConceptUID={this.state.newMassEditConceptResult.conceptUID} handleSelectorChange={this.selectMassEditConceptForResult} />
                 <br />
                 <label className="checkbox">
+                  // something weird is happening w/ this sometimes making correct incorrect and incorrect correct...
                   <h3><input ref="massEditConceptResultsCorrect" defaultChecked={false} type="checkbox" /> CORRECT</h3>
                 </label>
               </div>
