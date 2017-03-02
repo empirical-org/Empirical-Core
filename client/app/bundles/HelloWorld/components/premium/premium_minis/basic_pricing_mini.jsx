@@ -16,10 +16,10 @@ export default React.createClass({
           <h4>forever</h4>
           </div>
           <ul className='text-left'>
-            <li>All of our writing apps</li>
+            <li>All four of our writing tools</li>
             <li>Our entire library of activities</li>
             <li>Basic student reporting</li>
-            <li>Sign on with Clever or Google</li>
+            <li>Clever and Google Classroom integrations</li>
           </ul>
         </section>
         <a href='/account/new'><button type='button' className='btn btn-default mini-btn green'>Sign Up</button></a>
