@@ -38,10 +38,8 @@ const Question = React.createClass({
       responses: [],
       loadedResponses: false,
       selectedResponses: [],
-      newMassEditConceptResult: {
-        conceptUID: '',
-        correct: true,
-      },
+      newMassEditConceptResultConceptUID: '',
+      newMassEditConceptResultCorrect: false,
       massEditSummaryListDisplay: 'none',
       massEditSummaryListButtonText: 'Expand List',
     };
@@ -224,9 +222,11 @@ const Question = React.createClass({
     let selectedResponses = this.props.massEdit.selectedResponses;
     selectedResponses.forEach((response) => {
       let conceptResultUidsArrayForResponse = Object.keys(this.state.responses[response].conceptResults || {}).map((concept) => this.state.responses[response].conceptResults[concept].conceptUID);
-      let conceptUidForNewMassEditConceptResult = this.state.newMassEditConceptResult.conceptUID;
-      if(!conceptResultUidsArrayForResponse.includes(conceptUidForNewMassEditConceptResult)) {
-        this.props.dispatch(submitNewConceptResult(this.props.params.questionID, response, this.state.newMassEditConceptResult));
+      if(!conceptResultUidsArrayForResponse.includes(this.state.newMassEditConceptResultConceptUID)) {
+        this.props.dispatch(submitNewConceptResult(this.props.params.questionID, response, {
+          conceptUID: this.state.newMassEditConceptResultConceptUID,
+          correct: this.state.newMassEditConceptResultCorrect
+        }));
       }
     });
   },
@@ -236,15 +236,11 @@ const Question = React.createClass({
   },
 
   selectMassEditConceptForResult(e) {
-    this.setState({
-      newMassEditConceptResult: Object.assign({},
-        this.state.newMassEditConceptResult,
-        {
-          conceptUID: e.value,
-          correct: this.refs.massEditConceptResultsCorrect.checked
-        }
-      ),
-    });
+    this.setState({newMassEditConceptResultConceptUID: e.value});
+  },
+
+  updateMassEditConceptResultCorrect() {
+    this.setState({newMassEditConceptResultCorrect: this.refs.massEditConceptResultsCorrect.checked});
   },
 
   toggleMassEditSummaryList() {
@@ -398,11 +394,10 @@ const Question = React.createClass({
             <div className="card-content">
               <div className="content">
                 <h3>ADD CONCEPT RESULTS <span style={{fontSize: '0.7em', marginLeft: '0.75em'}}>⚠️️ This concept result will be added to all selected responses ⚠️️</span></h3>
-                <ConceptSelector currentConceptUID={this.state.newMassEditConceptResult.conceptUID} handleSelectorChange={this.selectMassEditConceptForResult} />
+                <ConceptSelector currentConceptUID={this.state.newMassEditConceptResultConceptUID} handleSelectorChange={this.selectMassEditConceptForResult} />
                 <br />
                 <label className="checkbox">
-                  // something weird is happening w/ this sometimes making correct incorrect and incorrect correct...
-                  <h3><input ref="massEditConceptResultsCorrect" defaultChecked={false} type="checkbox" /> CORRECT</h3>
+                  <h3><input ref="massEditConceptResultsCorrect" defaultChecked={false} type="checkbox" onChange={() => this.updateMassEditConceptResultCorrect()} /> CORRECT</h3>
                 </label>
               </div>
             </div>
