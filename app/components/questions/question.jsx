@@ -23,7 +23,8 @@ import {
   deleteResponse,
   incrementResponseCount,
   submitResponseEdit,
-  submitNewConceptResult
+  submitNewConceptResult,
+  removeLinkToParentID
 } from '../../actions/responses';
 
 const labels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
@@ -205,9 +206,15 @@ const Question = React.createClass({
     const newResp = {
       weak: false,
       feedback: this.state.massEditFeedback,
-      optimal: this.refs.massEditOptimal.checked,
+      optimal: this.refs.massEditOptimal.checked
     };
-    selectedResponses.forEach((response) => this.props.dispatch(submitResponseEdit(response, newResp)));
+    selectedResponses.forEach((responseKey) => {
+      const uniqVals = Object.assign({}, newResp, {
+        gradeIndex: "human" + responseKey
+      })
+      this.props.dispatch(submitResponseEdit(responseKey, uniqVals))
+      this.props.dispatch(removeLinkToParentID(responseKey));
+    });
   },
 
   deleteAllResponsesInMassEditArray() {
