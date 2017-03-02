@@ -24,6 +24,7 @@ import {
   incrementResponseCount,
   submitResponseEdit,
   submitNewConceptResult,
+  deleteConceptResult,
   removeLinkToParentID
 } from '../../actions/responses';
 
@@ -227,14 +228,26 @@ const Question = React.createClass({
 
   addMassEditConceptResults() {
     let selectedResponses = this.props.massEdit.selectedResponses;
-    selectedResponses.forEach((response) => {
-      let conceptResultUidsArrayForResponse = Object.keys(this.state.responses[response].conceptResults || {}).map((concept) => this.state.responses[response].conceptResults[concept].conceptUID);
-      if(!conceptResultUidsArrayForResponse.includes(this.state.newMassEditConceptResultConceptUID)) {
-        this.props.dispatch(submitNewConceptResult(this.props.params.questionID, response, {
-          conceptUID: this.state.newMassEditConceptResultConceptUID,
-          correct: this.state.newMassEditConceptResultCorrect
-        }));
+    const newMassEditConceptResultConceptUID = this.state.newMassEditConceptResultConceptUID;
+
+    selectedResponses.forEach((responseKey) => {
+      let currentConceptResultsForResponse = this.state.responses[responseKey].conceptResults || {};
+      let conceptResultUidsArrayForResponse = Object.keys(currentConceptResultsForResponse).map((concept) => this.state.responses[responseKey].conceptResults[concept].conceptUID);
+      if(conceptResultUidsArrayForResponse.includes(newMassEditConceptResultConceptUID)) {
+        const conceptKey = _.compact(_.map(currentConceptResultsForResponse, (concept, conceptValues) => {
+          if(concept.conceptUID == newMassEditConceptResultConceptUID) {
+            return concept;
+          } else {
+            return null;
+          }
+        }))[0].key;
+        this.props.dispatch(deleteConceptResult(this.props.params.questionID, responseKey, conceptKey));
       }
+
+      this.props.dispatch(submitNewConceptResult(this.props.params.questionID, responseKey, {
+        conceptUID: newMassEditConceptResultConceptUID,
+        correct: this.state.newMassEditConceptResultCorrect
+      }));
     });
   },
 
