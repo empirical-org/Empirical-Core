@@ -20,6 +20,7 @@ import TextEditor from './textEditor.jsx';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import massEdit from '../../actions/massEdit';
 import {
+  deleteResponse,
   incrementResponseCount,
   submitResponseEdit,
   submitNewConceptResult
@@ -211,9 +212,21 @@ const Question = React.createClass({
     selectedResponses.forEach((response) => this.props.dispatch(submitResponseEdit(response, newResp)));
   },
 
+  deleteAllResponsesInMassEditArray() {
+    let selectedResponses = this.props.massEdit.selectedResponses;
+    if(window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
+      selectedResponses.forEach((response) => this.props.dispatch(deleteResponse(this.props.params.questionID, response)));
+      this.clearResponsesFromMassEditArray();
+    }
+  },
+
   addMassEditConceptResults() {
     let selectedResponses = this.props.massEdit.selectedResponses;
-    selectedResponses.forEach((response) => this.props.dispatch(submitNewConceptResult(this.props.params.questionID, response, this.state.newMassEditConceptResult)));
+    selectedResponses.forEach((response) => {
+      if(!(_.flatten(_.map(this.state.responses[response].conceptResults)).includes(this.state.newMassEditConceptResult.conceptUID))) {
+        this.props.dispatch(submitNewConceptResult(this.props.params.questionID, response, this.state.newMassEditConceptResult));
+      }
+    });
   },
 
   handleMassEditFeedbackTextChange(value) {
@@ -247,7 +260,7 @@ const Question = React.createClass({
 
   renderMassEditSummaryListResponse(response) {
     return (
-      <p><span style={{marginRight: '0.5em' }} onClick={() => this.removeResponseFromMassEditArray(response)}>&#x2716;</span>{this.getResponses()[response].text}</p>
+      <p><input type="checkbox" defaultChecked={true} checked={true} style={{marginRight: '0.5em' }} onClick={() => this.removeResponseFromMassEditArray(response)} />{this.getResponses()[response].text}</p>
     );
   },
 
@@ -345,11 +358,12 @@ const Question = React.createClass({
             <footer className="card-footer">
               <a className="card-footer-item" onClick={() => this.toggleMassEditSummaryList()}>{this.state.massEditSummaryListButtonText}</a>
               <a className="card-footer-item" onClick={() => this.clearResponsesFromMassEditArray()}>Deselect All</a>
+              <a className="card-footer-item" onClick={() => this.deleteAllResponsesInMassEditArray()}>Delete All</a>
             </footer>
           </div>
           <div className="card is-fullwidth has-bottom-margin has-top-margin">
             <header className="card-content expanded">
-                <h1 className="title is-3" style={{display: 'inline-block'}}>Mass Edit <strong style={{fontWeight: '700'}}>{selectedResponses.length}</strong> Responses</h1>
+                <h1 className="title is-3" style={{display: 'inline-block'}}>Modify Feedback for <strong style={{fontWeight: '700'}}>{selectedResponses.length}</strong> Responses</h1>
             </header>
             <div className="card-content">
               <div className="content">
@@ -373,7 +387,6 @@ const Question = React.createClass({
               {/* <a className="card-footer-item" onClick={() => this.incrementAllResponsesInMassEditArray()}>Increment</a> */}
               <a className="card-footer-item" onClick={() => this.updateAllResponsesInMassEditArray()}>Update Feedback</a>
               {/* <a className="card-footer-item" onClick={() => alert('This has not been implemented yet.')}>Rematch</a>  */}
-              {/* <a className="card-footer-item" onClick={() => alert('This has not been implemented yet.')}>Delete</a> */}
             </footer>
           </div>
           <div className="card is-fullwidth has-bottom-margin has-top-margin">

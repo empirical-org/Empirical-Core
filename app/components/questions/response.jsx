@@ -56,6 +56,7 @@ const Response = React.createClass({
   deleteResponse(rid) {
     if (window.confirm('Are you sure?')) {
       this.props.dispatch(deleteResponse(this.props.questionID, rid));
+      this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
     }
   },
 
