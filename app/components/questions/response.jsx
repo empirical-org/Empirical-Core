@@ -49,7 +49,7 @@ const Response = React.createClass({
         conceptUID: '',
         correct: true,
       },
-      toggleButtonText: 'Expand',
+      toggleButtonText: this.props.expanded ? '🔼' : '🔽',
     };
   },
 
@@ -273,7 +273,7 @@ const Response = React.createClass({
 
   handleToggleButtonClick(responseKey) {
     this.props.expand(responseKey);
-    let expandOrCollapse = this.state.toggleButtonText == 'Expand' ? 'Collapse' : 'Expand';
+    let expandOrCollapse = this.state.toggleButtonText == '🔽' ? '🔼' : '🔽';
     this.setState({
       toggleButtonText: expandOrCollapse,
     });
@@ -528,7 +528,7 @@ const Response = React.createClass({
               <figure className="image is-32x32" style={{display: 'inline-block', padding: '0 1em 1em 0'}}>
                 <span>{ icon } { response.count ? response.count : 0 }</span>
               </figure>
-              <span className="button is-small" onClick={() => this.handleToggleButtonClick(response.key)}>{this.state.toggleButtonText}</span>
+              <span onClick={() => this.handleToggleButtonClick(response.key)}>{this.state.toggleButtonText}</span>
             </div>
           </div>
         </div>
