@@ -10,7 +10,7 @@
         <div class="col-sm-6 col-md-4 col-md-offset-4">
           <br /><br />
           <% if flash[:error] %>
-            <div class="error"><%= flash[:errow] %></div>
+            <div class="error"><%= flash[:error] %></div>
           <% end %>
           <%= form_for @user, url: session_path(redirect: params[:redirect]) do |f| %>
             <%= f.label :email_or_username, placeholder: 'Email or Username' %>
