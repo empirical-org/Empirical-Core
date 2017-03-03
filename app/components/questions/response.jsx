@@ -263,7 +263,6 @@ export default React.createClass({
   },
 
   onMassSelectCheckboxToggle(responseKey) {
-    this.props.expand(responseKey);
     if(this.props.massEdit.selectedResponses.includes(responseKey)) {
       this.removeResponseFromMassEditArray(responseKey);
     } else {
@@ -509,20 +508,23 @@ export default React.createClass({
     const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
     const checked = this.props.massEdit.selectedResponses.includes(response.key) ? 'checked' : '';
     return (
-      <header onClick={() => this.props.expand(response.key)} className={`card-content ${bgColor} ${this.headerClasses()}`}>
-        <div className="content">
-          <div className="media">
-            <div className="media-content">
-              <p><input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.key)} /> {response.text} {author}</p>
-            </div>
-            <div className='media-right' style={{textAlign: 'right'}}>
-              <figure className="image is-32x32">
-                <span>{ icon } { response.count ? response.count : 0 }</span>
-              </figure>
+      <div style={{display: 'flex', alignItems: 'center'}} className={bgColor}>
+        <input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.key)} style={{marginLeft: '15px'}}/>
+        <header onClick={() => this.props.expand(response.key)} className={`card-content ${this.headerClasses()}`} style={{flexGrow: '1'}}>
+          <div className="content">
+            <div className="media">
+              <div className="media-content">
+                <p>{response.text} {author}</p>
+              </div>
+              <div className='media-right' style={{textAlign: 'right'}}>
+                <figure className="image is-32x32">
+                  <span>{ icon } { response.count ? response.count : 0 }</span>
+                </figure>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
     );
   },
 
