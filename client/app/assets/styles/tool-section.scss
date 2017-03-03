@@ -67,46 +67,23 @@ $tool-grey: #f8f9f9;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     video {
       max-width: 405px;
       border-radius: 12px;
       -webkit-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
       -moz-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
       box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
+      z-index: 2;
     }
-  }
-
-  .diagnostic-tool {
-    .video-section {
-      background-image: url("../../../../public/images/homepage/diagnostic_keys.png");
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-  }
-
-  .connect-tool {
-    .video-section {
-      background-image: url("../../../../public/images/homepage/connect_keys.png");
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-  }
-  .grammar-tool {
-    .video-section {
-      background-image: url("../../../../public/images/homepage/grammar_keys.png");
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-  }
-  .proofreader-tool {
-    .video-section {
-      background-image: url("../../../../public/images/homepage/proofreader_keys.png");
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
+    img {
+      opacity: 0.85;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: auto;
+      z-index: 1;
     }
   }
 
@@ -147,6 +124,9 @@ $tool-grey: #f8f9f9;
 
       .info-section {
           margin-left: 35px;
+        .icon-white {
+          padding-left: 6px;
+        }
       }
 
       .info-section.right {
@@ -194,9 +174,10 @@ $tool-grey: #f8f9f9;
           margin-bottom: 20px;
       }
 
-      .icon-button {
+      .icon-button, .learn-more-button {
           display: block;
       }
+
     }
 }
 
@@ -500,6 +481,7 @@ $tool-grey: #f8f9f9;
         .q-h2 {
             font-size: 28px;
             color: #343434;
+            vertical-align: middle;
         }
 
         p {
@@ -576,4 +558,26 @@ $tool-grey: #f8f9f9;
 
 .bg-tool-purple {
     background-color: #9C2ADE;
+}
+
+.text-orange {
+    color: #EA9A1A;
+}
+
+.text-red {
+    color: #ff4441;
+}
+
+.text-blue {
+    color: #358FE0;
+}
+
+.text-purple {
+    color: #9C2ADE;
+}
+
+
+.icon-white {
+  height: 22px;
+  width: 22px;
 }
