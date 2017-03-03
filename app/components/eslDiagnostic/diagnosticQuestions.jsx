@@ -2,6 +2,23 @@ export default function diagnosticQuestions() {
   return ([
     {
       type: "TL",
+      key: "titlecard-ell-complete-sentences",
+      content: "<h3>Complete Sentences</h3><p>In this section, you'll add to a group of words to make a complete sentence. Add as few words as possible.</p><p>Let's start!</p>"
+    },
+    {
+      type: "SC",
+      key: "-KeKm5DY4qE4GsLFaMbI" // Watches the movie.
+    },
+    {
+      type: "SC",
+      key: "-KeKmHPmMBM0l3kRrKXS" // The family from China.
+    },
+    {
+      type: "SC",
+      key: "-KOqMWRFOrYgv-KjRYdy" // After the football game ended.
+    },
+    {
+      type: "TL",
       key: "titlecard-ell-scrambled-sentences",
       content: "<h3>Scrambled Sentences</h3><p>In this section, you'll be given sentences with the words out of order. You'll put the words in the right order to create a correct sentence. Then you'll add capitalization and punctuation.</p><p>You can do it!</p>"
     },
@@ -44,7 +61,7 @@ export default function diagnosticQuestions() {
     },
     {
       type: "SC",
-      key: "-KdCebEKd5NcM8VNB5Fz", // She never saw a lion before she went to the zoo.
+    key: "-KdCebEKd5NcM8VNB5Fz", // Before she went to the zoo, she never saw a lion.
     },
     {
       type: "TL",
@@ -81,20 +98,20 @@ export default function diagnosticQuestions() {
       key: "-KdChlhBafaHb8zZvE7t"
     },
     {
-      type: "SC", // Rico writes a letter and mails it. He writes quickly.
-      key: "-KdCi-5yjEfrH_ieQZAW"
+      type: "SC", // Rico sings a song. His singing is loud.
+      key: "-KeKkcDr7CfAx81hSWWp"
     },
     {
       type: "SC", // The dog is sleeping. The cat is sleeping.
       key: "-KP-M1Crf2pvqO4QH6zI-esp"
     },
     {
-      type: "SC", // The teacher returns the homework. The homework belongs to the children.
-      key: "-KdCigaZsT5LFJ5JXfaz"
+      type: "SC", // I hear the cheers. The cheers belong to the people.
+      key: "-KeKjgGRgqYWnwCFyfn-"
     },
     {
-      type: "SC", // The coach celebrates the victory. The victory belongs to the players.
-      key: "-KdCiw8zdgfk-VHvyYnP"
+      type: "SC", // I like the uniforms. The uniforms belong to the players.
+      key: "-KeKjppx8Q2hgWwkdgJS"
     },
     {
       type: "SC", // Sam is older. Joey is taller.
