@@ -49,7 +49,6 @@ const Response = React.createClass({
         conceptUID: '',
         correct: true,
       },
-      toggleButtonText: this.props.expanded ? '🔼' : '🔽',
     };
   },
 
@@ -272,14 +271,6 @@ const Response = React.createClass({
     }
   },
 
-  handleToggleButtonClick(responseKey) {
-    this.props.expand(responseKey);
-    let expandOrCollapse = this.state.toggleButtonText == '🔽' ? '🔼' : '🔽';
-    this.setState({
-      toggleButtonText: expandOrCollapse,
-    });
-  },
-
   renderBoilerplateCategoryDropdown() {
     const style = { marginRight: '20px', };
     return (
@@ -335,7 +326,6 @@ const Response = React.createClass({
       });
     } else {
       const concept = _.find(this.props.concepts.data['0'], { uid: this.props.conceptID, });
-      // console.log("ConceptID from props: ", this.props)
       if (concept) {
         return (
           <li>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
@@ -519,17 +509,16 @@ const Response = React.createClass({
     const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
     const checked = this.props.massEdit.selectedResponses.includes(response.key) ? 'checked' : '';
     return (
-      <header className={`card-content ${bgColor} ${this.headerClasses()}`}>
+      <header onClick={() => this.props.expand(response.key)} className={`card-content ${bgColor} ${this.headerClasses()}`}>
         <div className="content">
           <div className="media">
             <div className="media-content">
               <p><input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.key)} /> {response.text} {author}</p>
             </div>
-            <div style={{flexGrow: '1', flexShrink: '1', textAlign: 'right'}}>
-              <figure className="image is-32x32" style={{display: 'inline-block', padding: '0 1em 1em 0'}}>
+            <div className='media-right' style={{textAlign: 'right'}}>
+              <figure className="image is-32x32">
                 <span>{ icon } { response.count ? response.count : 0 }</span>
               </figure>
-              <span onClick={() => this.handleToggleButtonClick(response.key)}>{this.state.toggleButtonText}</span>
             </div>
           </div>
         </div>
