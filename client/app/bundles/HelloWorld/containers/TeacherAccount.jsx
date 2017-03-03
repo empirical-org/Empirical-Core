@@ -93,7 +93,7 @@ export default React.createClass({
 	},
 	displayHeader: function() {
 		var str = this.state.name;
-		var str2 = str + "'s Account";
+		var str2 = str + '\'s Account';
 		return str2;
 	},
 	updateName: function(event) {
@@ -135,7 +135,7 @@ export default React.createClass({
 		} else if (this.props.userType == 'teacher') {
 			url = '/teachers/update_my_account';
 		}
-		$.ajax({type: "PUT", data: data, url: url, success: this.uponUpdateAttempt});
+		$.ajax({type: 'PUT', data: data, url: url, success: this.uponUpdateAttempt});
 	},
 
 	uponUpdateAttempt: function(data) {
@@ -231,13 +231,13 @@ export default React.createClass({
 		var confirmed = confirm('Are you sure you want to delete this account?');
 		if (confirmed) {
 			$.ajax({
-				type: 'DELETE',
-				url: '/teachers/delete_my_account',
+				type: 'POST',
+				url: `/teachers/clear_data/${this.state.id}`,
 				data: {
 					id: this.props.teacherId
 				}
 			}).done(function() {
-				window.location.href = "http://quill.org";
+				window.location.href = window.location.origin;
 			});
 		}
 	},
