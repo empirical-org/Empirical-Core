@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'underscore';
-import { connect } from 'react-redux';
 import questionActions from '../../actions/questions';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
@@ -28,7 +27,7 @@ const Markdown = require('react-remarkable');
 const C = require('../../constants').default;
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-const Response = React.createClass({
+export default React.createClass({
 
   getInitialState() {
     let actions;
@@ -645,5 +644,3 @@ const Response = React.createClass({
     );
   },
 });
-
-export default connect()(Response);
