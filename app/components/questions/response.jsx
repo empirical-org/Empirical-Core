@@ -264,6 +264,7 @@ const Response = React.createClass({
   },
 
   onMassSelectCheckboxToggle(responseKey) {
+    this.props.expand(responseKey);
     if(this.props.massEdit.selectedResponses.includes(responseKey)) {
       this.removeResponseFromMassEditArray(responseKey);
     } else {
