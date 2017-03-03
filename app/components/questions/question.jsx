@@ -463,6 +463,7 @@ const Question = React.createClass({
             states={states}
             dispatch={this.props.dispatch}
             admin
+            massEdit={this.props.massEdit}
           />
         {this.renderMassEditForm()}
         </div>

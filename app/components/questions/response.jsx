@@ -645,11 +645,4 @@ const Response = React.createClass({
   },
 });
 
-function select(state) {
-  return {
-    massEdit: state.massEdit
-  };
-}
-
-
-export default connect(select)(Response);
+export default connect()(Response);
