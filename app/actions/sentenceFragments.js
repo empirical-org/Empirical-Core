@@ -77,6 +77,7 @@ module.exports = {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else {
           response.questionUID = newRef.key;
+          response.gradeIndex = `human${newRef.key}`;
           dispatch(submitNewResponse(response));
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           const action = push(`/admin/sentence-fragments/${newRef.key}`);
