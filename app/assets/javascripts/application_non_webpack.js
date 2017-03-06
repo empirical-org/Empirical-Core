@@ -11,8 +11,6 @@
 
 //= require tabslet.js
 
-//= require_tree ./
-
 //= require jquery.turbolinks
 //= require jquery-fileupload/basic
 
