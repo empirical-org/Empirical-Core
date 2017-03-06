@@ -98,10 +98,6 @@ $(document).ready(function(){
 
 	//Grade-select
 
-	$( '#grade-select' ).selecter({
-		customClass: "grade-select"
-	});
-
 
 	$('#tooltip-test').tooltip({
 		html: 'true'
