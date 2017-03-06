@@ -2,6 +2,7 @@ class StudentsController < ApplicationController
 
   def account_settings
     @current_user = current_user
+    @js_file = 'student'
   end
 
   def make_teacher
