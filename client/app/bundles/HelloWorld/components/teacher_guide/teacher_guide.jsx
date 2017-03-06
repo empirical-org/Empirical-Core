@@ -7,7 +7,7 @@ import _ from 'underscore'
 export default React.createClass({
     propTypes: {
         dashboardMini: React.PropTypes.bool.isRequired,
-        hideTeacherGuide: React.PropTypes.func.isRequired
+        hideTeacherGuide: React.PropTypes.func
     },
 
     getInitialState: function() {
@@ -57,7 +57,7 @@ export default React.createClass({
         var display = [];
         var sections = this.groupBySectionAndCompleted();
         for (var sect in sections) {
-            display.push(<CheckboxSection checkboxes={sections[sect]} dashboard={false}/>);
+            display.push(<CheckboxSection checkboxes={sections[sect]} key={sect} dashboard={false}/>);
         }
         return display;
     },
