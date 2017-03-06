@@ -1,0 +1,7 @@
+<% if @firewall_test %>
+  <%= env_javascript_include_tag(hot: "http://localhost:3500/firewall_test-bundle.js") %>
+
+  <!-- These do use turbolinks -->
+  <%= env_javascript_include_tag(static: 'firewall_test')%>
+  <img class='firewall-test-image' src="https://grammar.quill.org/assets/images/arrowphone.png"/>
+<% end %>
