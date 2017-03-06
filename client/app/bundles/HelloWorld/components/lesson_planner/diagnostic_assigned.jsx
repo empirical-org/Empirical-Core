@@ -26,7 +26,7 @@ export default  React.createClass({
   getDefaultProps: function() {
     // the only time we won't pass this is if they are assigning the diagnostic,
     // but actions shouldn't be undefined
-    return {actions: {getInviteStudentsUrl: function(){'placeholder function'}}}
+    return {actions: {getInviteStudentsUrl: this.getInviteStudentsUrl}}
   },
 
   hideSubNavBars: function() {
@@ -41,6 +41,7 @@ export default  React.createClass({
   },
 
   componentWillMount: function() {
+    const activityId = this.props.data.id;
     const that = this;
       $.ajax({
         url: '/teachers/classrooms_i_teach_with_students',
@@ -49,24 +50,16 @@ export default  React.createClass({
           that.setState({loading: false, studentsPresent: that.anyClassroomsWithStudents(data.classrooms) });
         }
       });
-      $.ajax({
-        url: '/teachers/unit_templates/assigned_info',
-        data: {id: this.props.params.activityPackId},
-        dataType: 'json',
-        success: function(data) {
-          that.setState({data})
-        }
-      })
   },
 
   activityName: function() {
-    return this.state.data.name;
+    return this.props.data.name;
   },
 
   data: function() {
     return {
-      name: this.state.data.name,
-      id: this.props.params.activityPackId
+      name: this.props.data.name,
+      id: this.props.data.id
     }
   },
 
@@ -80,7 +73,7 @@ export default  React.createClass({
       href = '/teachers/classrooms/activity_planner';
       text = 'View Assigned Activity Packs';
     } else {
-      href = this.getInviteStudentsUrl();
+      href = this.state.actions.getInviteStudentsUrl();
       text = 'Add Students'
     }
 
@@ -126,7 +119,7 @@ export default  React.createClass({
           that use Quill, the more free activities we can create.
         </p>
       <p className='social-copy'>
-        <i>I’m using the {this.activityName()} Activity Pack, from Quill.org, to teach English grammar. quill.org/activity_packs/{this.props.params.activityPackId}</i>
+        <i>I’m using the {this.activityName()} Activity Pack from Quill.org to teach writing & grammar. quill.org/activity_packs/{this.props.data.id}</i>
       </p>
       <div className='container'>
         <UnitTemplateProfileShareButtons data={this.data()} />

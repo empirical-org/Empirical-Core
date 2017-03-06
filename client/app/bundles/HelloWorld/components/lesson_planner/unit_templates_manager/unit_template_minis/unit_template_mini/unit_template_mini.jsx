@@ -64,7 +64,7 @@
       if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
         link = '/teachers/classrooms/activity_planner/create-unit'
       } else {
-        link = '/accounts/new'
+        link = '/account/new'
       }
     } else {
       if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {

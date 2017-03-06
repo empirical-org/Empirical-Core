@@ -42,6 +42,7 @@ class StudentsClassroomsController < ApplicationController
     end
 
     def add_classroom
+      @js_file = 'student'
       render :add_classroom
     end
 

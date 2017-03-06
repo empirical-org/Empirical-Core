@@ -6,11 +6,15 @@ import _ from 'underscore'
 export default React.createClass({
 
   getInitialState: function() {
-    return {classrooms: null}
+    return {
+      classrooms: null,
+      selectedClassroomId: this.props.currentClassroomId,
+      switchingClassrooms: false
+    }
   },
 
   componentDidMount: function() {
-    $.ajax({url: 'students_classrooms_json', format: 'json', success: this.updateClassrooms})
+    $.ajax({url: '/students_classrooms_json', format: 'json', success: this.updateClassrooms})
   },
 
   updateClassrooms: function(data) {
@@ -18,20 +22,30 @@ export default React.createClass({
   },
 
   isActive: function(id, index) {
-    if (id === this.props.currentClassroomId) {
+    if (id === this.state.selectedClassroomId) {
      return 'active';
      }
+  },
+
+  handleClassroomClick: function(classroomId) {
+    if (!this.props.loading) {
+      this.setState({
+        selectedClassroomId: classroomId
+      })
+      this.props.fetchData(classroomId)
+    }
   },
 
   mapClassrooms: function() {
     var that = this
     var classrooms = _.map(this.state.classrooms, function(classroom, index) {
-      return (
-        <div className={that.isActive(classroom.id, index) + ' classroom-box'} key={classroom.id} onClick={that.props.fetchData.bind(null, classroom.id)}>
-          <div>{classroom.teacher}</div>
-        <div>{classroom.name}</div>
-      </div>
-    )
+      return (<div
+        className={that.isActive(classroom.id, index) + ' classroom-box'}
+        key={classroom.id}
+        onClick={() => that.handleClassroomClick(classroom.id)}>
+        <div>{classroom.teacher}</div>
+      <div>{classroom.name}</div>
+    </div>)
     });
     return classrooms
   },

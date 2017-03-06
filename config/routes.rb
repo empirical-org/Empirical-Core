@@ -59,6 +59,7 @@ EmpiricalGrammar::Application.routes.draw do
 
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
+  get 'student_profile_data' => 'profiles#student_profile_data'
 
 
   resources :activities, only: [] do
