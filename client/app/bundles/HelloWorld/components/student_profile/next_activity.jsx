@@ -1,6 +1,7 @@
 'use strict';
 import React from 'react'
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx'
+import LoadingIndicator from '../shared/loading_indicator'
 
 export default React.createClass({
   propTypes: {
@@ -9,7 +10,7 @@ export default React.createClass({
   //<div className="activate-tooltip icon-wrapper icon-gray icon-puzzle"></div>
   render: function () {
     var result;
-    if (this.props.data) {
+    if (this.props.data && !this.props.loading) {
       result = (
         <div className="container">
           <section className="next-activity">
@@ -30,7 +31,7 @@ export default React.createClass({
         </div>
       )
     } else {
-      result = <span></span>
+      result = <LoadingIndicator/>
     }
     return result;
 

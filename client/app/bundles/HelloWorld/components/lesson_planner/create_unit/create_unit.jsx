@@ -28,7 +28,7 @@ export default React.createClass({
 
 	getProhibitedUnitNames: function() {
 	  const that = this;
-		$.get('../prohibited_unit_names').done(function(data) {
+		$.get('/teachers/prohibited_unit_names').done(function(data) {
 			that.setState({prohibitedUnitNames: data.prohibitedUnitNames})
 		});
 	},
@@ -233,14 +233,14 @@ export default React.createClass({
 		let msg;
 		if (!a) {
 			if (!b) {
-				msg = 'Please provide a unit name and select activities';
+				msg = 'Please provide a name and select activities for your activity pack.';
 			} else {
-				msg = 'Please provide a unit name';
+				msg = 'Please provide a name for your activity pack.';
 			}
 		} else if (!b) {
 			msg = 'Please select activities';
 		} else if (uniqueUnitNameError) {
-			msg = 'Please select a unique unit name.'
+			msg = 'Please select a unique name for your activity pack.'
 		} else {
 			msg = null;
 		}

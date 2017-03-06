@@ -1,5 +1,5 @@
 import React from 'react'
-import UnitTemplateAssigned from '../../lesson_planner/unit_template_assigned.jsx'
+import UnitTemplateAssigned from '../../lesson_planner/diagnostic_assigned.jsx'
 
 
 export default React.createClass({
