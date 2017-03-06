@@ -1,6 +1,9 @@
 import $ from 'jquery'
 import firebase from 'firebase'
 
+console.log('I have this file')
+
+$(document).ready(function(){
 if (process.env.NODE_ENV === 'development' || process.env.FIREBASE_API_KEY) {
   const config = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -21,9 +24,10 @@ if (process.env.NODE_ENV === 'development' || process.env.FIREBASE_API_KEY) {
 
  setTimeout(
    ()=>{
-     if (!firebaseAccessed) {
-        alert('We\'ve detected that you may be experiencing firewall issues. Please go to Quill.org/firewall_help for more information.')
+     if (firebaseAccessed) {
+       $('body').prepend('<div class="flash error" onclick="$(this).slideUp(300)"><p>We\'ve detected that you may be experiencing firewall issues. If you\'re having trouble loading activities, please go <a href="/firewall_info">here</a> for more information.</p><i class="fa fa-times-circle" aria-hidden="true"></i></div>')
      }
-   }, 5000
+   }, 1000
  )
 }
+})
