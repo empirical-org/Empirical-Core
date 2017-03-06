@@ -28,7 +28,7 @@ export default React.createClass({
 
 	getProhibitedUnitNames: function() {
 	  const that = this;
-		$.get('../prohibited_unit_names').done(function(data) {
+		$.get('/teachers/prohibited_unit_names').done(function(data) {
 			that.setState({prohibitedUnitNames: data.prohibitedUnitNames})
 		});
 	},
