@@ -62,12 +62,8 @@ EmpiricalGrammar::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  config.assets.precompile += %w(epiceditor/themes/base/epiceditor.css
-                                 epiceditor/themes/preview/github.css
-                                 epiceditor/themes/editor/epic-dark.css
-                                 codemirror.css
+  config.assets.precompile += %w(
                                  cms.js
-                                 porthole.js
                                  cms.css
                                  scorebook/*
                                  scorebook/**/*

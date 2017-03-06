@@ -39,6 +39,18 @@ class Teachers::UnitTemplatesController < ApplicationController
     render json: {count: @count}
   end
 
+  def profile_info
+    ut = UnitTemplate.find(params[:id])
+    render json: {data: format_unit_template(ut), related_models: related_models(ut)}
+  end
+
+  def assigned_info
+    render json: {
+      name: UnitTemplate.find(params[:id]).name,
+      last_classroom_name: current_user.classrooms_i_teach.last.name,
+      last_classroom_id: current_user.classrooms_i_teach.last.id
+    }
+  end
 
   private
 
@@ -55,7 +67,26 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def redirect_to_explore_activity_packs
-    redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "exploreActivityPacks")
+    redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "featured-activity-packs")
+  end
+
+  def format_unit_template(unit_template)
+    formatted_unit_template = UnitTemplate
+                  .includes(:author, :unit_template_category)
+                  .where(id: unit_template.id)
+                  .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
+                  .first
+    formatted_unit_template[:non_authenticated] = !is_teacher?
+    formatted_unit_template
+  end
+
+  def related_models(ut)
+    related_models = UnitTemplate.where(unit_template_category_id: ut.unit_template_category_id).where.not(id: ut.id).limit(3)
+    formatted_related_models = []
+    related_models.each do |rm|
+      formatted_related_models << format_unit_template(rm)
+    end
+    formatted_related_models
   end
 
 end
