@@ -20,19 +20,19 @@ a {
 }
 
 a.q-button {
+  border: solid 1px;
+  border-radius: 6px;
+  cursor: pointer;
   display: inline-block;
   font-family: $family-sans-serif;
-  font-size: 16px;
-  cursor: pointer;
+  font-size: 18px;
+  margin-top: 5px;
+  padding: 7px 20px 6px;
   text-align: center;
-  border: solid 1px;
-  padding: 7px 20px 4px;
-  border-radius: 6px;
   user-select: none;
+  vertical-align: middle;
   &.icon-button {
-    .fa {
-      padding-left: 5px;
-    }
+    font-weight: bold;
   }
   &.cta-button {
     // padding-left: 33px;
