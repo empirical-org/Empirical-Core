@@ -17,7 +17,7 @@ export default React.createClass({
     }, []);
     return (
       <div className='container'>
-        {units}
+        {this.props.loading ? null : units}
       </div>
     );
   }
