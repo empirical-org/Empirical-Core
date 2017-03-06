@@ -14,6 +14,4 @@
 //= require jquery.turbolinks
 //= require jquery-fileupload/basic
 
-//= require crazy-egg
-
 //= require test_file_application_non_webpack.js
