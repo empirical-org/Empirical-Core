@@ -49,10 +49,10 @@
     var field = this.props.data.field;
 		return _.map(options, function (option) {
       if (field === 'activity_classification') {
-        return (<FilterButton key={option.key} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id}/>);
+        return (<FilterButton key={option.id} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id}/>);
       }
 			return (
-          <FilterOption key={option.key} selectFilterOption={that.selectFilterOption} data={option} />
+          <FilterOption key={option.id} selectFilterOption={that.selectFilterOption} data={option} />
 			);
 		}, this);
     // let optionsWithSearch = [];
