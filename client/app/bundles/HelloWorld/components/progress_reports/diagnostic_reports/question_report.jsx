@@ -6,7 +6,7 @@ import ScoreColor from '../../modules/score_color.js'
 
 export default React.createClass({
   propTypes: {
-    premiumStatus: React.PropTypes.string.isRequired
+    premiumStatus: React.PropTypes.string
   },
 
   getInitialState: function() {

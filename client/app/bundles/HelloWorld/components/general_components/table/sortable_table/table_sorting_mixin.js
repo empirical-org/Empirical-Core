@@ -25,7 +25,7 @@ export default {
 
   // Sign = 1 or -1 depending on whether the sort is normal or reverse order
   naturalSort: function(sign, fieldName, a, b) {
-    return s.naturalCmp(a[fieldName], b[fieldName]) * sign;
+    return naturalCmp(a[fieldName], b[fieldName]) * sign;
   },
 
   // Sign = 1 or -1 depending on whether the sort is normal or reverse order

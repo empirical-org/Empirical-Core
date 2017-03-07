@@ -12,7 +12,6 @@ import LoadingSpinner from '../components/shared/loading_indicator.jsx'
 export default React.createClass({
 	propTypes: {
 		userType: React.PropTypes.string.isRequired,
-		teacherId: React.PropTypes.number.isRequired
 	},
 
 	getInitialState: function() {

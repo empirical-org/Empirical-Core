@@ -7,9 +7,12 @@
   var rowFn = rowFn;
   var numCols = numCols;
 
+  let rowIndex = 0
+
   var _createSingleRow = function (singleRowData) {
+    rowIndex += 1
     var cols = _.map(singleRowData, columnFn, this);
-    return rowFn(cols);
+    return rowFn(cols, rowIndex);
   };
 
   this.create = function (dataArr) {
