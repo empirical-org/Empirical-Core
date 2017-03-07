@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   def show
     @user = current_user
     if current_user.role == 'student'
+      @firewall_test = true
       @js_file = 'student'
       if current_user.classrooms.any?
         render 'student'
