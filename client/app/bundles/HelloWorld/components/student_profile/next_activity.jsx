@@ -32,10 +32,13 @@ export default React.createClass({
       )
     } else if (this.props.loading) {
       result = <LoadingIndicator/>
+    } else if (this.props.hasActivities){
+      result = <span/>
     } else {
       result = <div className="container">
-        <p style={{fontSize: '18px', margin: '2em'}}>You have no unfinished activities. You can replay old lessons, or ask your teacher to assign you something new.</p>
+        <p style={{fontSize: '18px', margin: '2em'}}>Your teacher hasn't assigned any activities to you yet.</p>
       </div>
+
     }
     return result;
 
