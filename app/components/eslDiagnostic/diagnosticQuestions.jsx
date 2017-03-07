@@ -7,123 +7,111 @@ export default function diagnosticQuestions() {
     },
     {
       type: "SC",
-      key: "-KeKm5DY4qE4GsLFaMbI" // Watches the movie.
+      key: "-Ke_LpBo1GAcq4gXHORz" // Watches the movie
     },
     {
       type: "SC",
-      key: "-KeKmHPmMBM0l3kRrKXS" // The family from China.
+      key: "-Ke_Lw0PG3zy5QodpFdo" // The family from China
     },
     {
       type: "SC",
-      key: "-KOqMWRFOrYgv-KjRYdy" // After the football game ended.
+      key: "-KOqMWRFOrYgv-KjRYdy" // After the football game ended
     },
     {
       type: "TL",
-      key: "titlecard-ell-scrambled-sentences",
-      content: "<h3>Scrambled Sentences</h3><p>In this section, you'll be given sentences with the words out of order. You'll put the words in the right order to create a correct sentence. Then you'll add capitalization and punctuation.</p><p>You can do it!</p>"
+      key: "titlecard-ell-fill-in-the-blank-scaffolded",
+      content: "<h3>Fill in the Blank: A, An, The</h3><p>In this section, each sentence will have two or three blanks.</p><p>You’ll rewrite the sentence, filling in the blank with one of the words from a list or choosing that no word is needed in the blank.</p>"
     },
     {
       type: "SC",
-      key: "-KdCmj3dkye80_hOmgWd" // an lives the apartment girl in
+      key: "-Ke_6gyGVXuHiealUgD3" // I have _____ friend named Marco who loves _____ football
     },
     {
       type: "SC",
-      key: "-KdCmvixfa39QNo0rfi7" // are a in bowl the apples
+      key: "-Ke_70Ul5Ka4AKbbtAOa" // _____ school ends when _____ bell rings
     },
     {
       type: "SC",
-      key: "-KdCnFV7WOpzXm8gRFkk" // taking students test are the
-    },
-    {
-      type: "SC",
-      key: "-KdCnQQ6C940NZ-qejdo" // school the rings bell ends when
+      key: "-Ke_7AgPuCE56lUNwFJN" // _____ girl lives in _____ apartment in _____ New York City
     },
     {
       type: "TL",
-      key: "titlecard-ell-past-present-future-tense",
-      content: "<h3>Past, Present, and Future Tense</h3><p>In this section, you'll correct sentences by putting the verb in the right tense to match the rest of the sentence.</p><p>You're doing great so far!</p>"
+      key: "titlecard-ell-past-present-and-future-tense",
+      content: "<h3>Past, Present, and Future Tense </h3><p>In this section, you’ll correct sentences by putting the verb in the right tense to match the rest of the sentence.</p><p>You’re doing great so far!</p>"
     },
     {
       type: "SC",
-      key: "-KdCbiGL0xjiiPQ-vYLz", // Mariana eats salad for lunch yesterday.
+      key: "-KdCbiGL0xjiiPQ-vYLz" // Mariana eats salad for lunch yesterday
     },
     {
       type: "SC",
-      key: "-KdCcbo8BK-kJqgPObbc", // Ricardo bought a new car tomorrow.
+      key: "-KdCcbo8BK-kJqgPObbc" // Ricardo bought a new car tomorrow
     },
     {
       type: "SC",
-      key: "-KdCcwDIhHsDCZcJ9YPW", // Yesterday, Maria will go to the store.
+      key: "-KdCcwDIhHsDCZcJ9YPW" // Yesterday, Maria will go to the store.
     },
     {
       type: "SC",
-      key: "-KdCdCkL84VCZfaLDJue", // I was listen to music when you called.
+      key: "-KdCdCkL84VCZfaLDJue" // I was listen to music when you called.
     },
     {
       type: "SC",
-    key: "-KdCebEKd5NcM8VNB5Fz", // Before she went to the zoo, she never saw a lion.
+      key: "-KdCebEKd5NcM8VNB5Fz" // Before she went to the zoo, she never saw a lion.
     },
     {
       type: "TL",
       key: "titlecard-ell-fill-in-the-blank",
-      content: "<h3>Fill in the Blank</h3><p>You're halfway there! In this section, you'll choose the best word to complete a sentence. You'll rewrite a sentence, filling in the blank with one of the words from a list.</p>"
+      content: "<h3>Fill in the Blank</h3><p>You’re halfway there! In this section, you’ll choose the best word to complete a sentence. You’ll rewrite a sentence, filling in the blank with one of the words from a list.</p>"
     },
     {
       type: "SC",
-      key: "-KdCfdI_jZZDE3INagj6", // I put the book _____ the shelf.
+      key: "-KdCfdI_jZZDE3INagj6" // I put the book _____ the shelf.
     },
     {
       type: "SC",
-      key: "-KdCg3xpEyLVWWjWADa9", // We arrived ______ school before the bell rang.
+      key: "-KdCg3xpEyLVWWjWADa9" // We arrived ______ school before the bell rang.
     },
     {
       type: "SC",
-      key: "-KdCgI82gmbLI2fC9Z5l", // Cinco de Mayo is _______ May.
+      key: "-KdCgI82gmbLI2fC9Z5l" // Cinco de Mayo is _______ May.
     },
     {
       type: "SC",
-      key: "-KdCgy8wt_rQiYpOURdW", // Sarah rides the bus ______ school every day.
+      key: "-KdCgy8wt_rQiYpOURdW" // Sarah rides the bus ______ school every day.
     },
     {
       type: "SC",
-      key: "-KdChHgbE9377Jgzkoci", // I put the milk _______ the refrigerator.
+      key: "-KdChHgbE9377Jgzkoci" // I put the milk _______ the refrigerator.
     },
     {
       type: "TL",
       key: "titlecard-ell-sentence-combining",
-      content: "<h3>Sentence Combining</h3><p>In this section, you'll combine sentences into one sentence.</p><p>Sometimes you'll be given joining words to choose from, and sometimes you'll have to choose your own way of combining the sentences.</p><p>Only add or change words when you need to, and try to keep the meaning of the sentences the same.</p><p>You've got this!</p>"
+      content: "<h3>Sentence Combining</h3><p>In this section, you’ll combine sentences into one sentence.</p><p>Sometimes you’ll be given joining words to choose from, and sometimes you’ll have to choose your own way of combining the sentences.</p><p>Only add or change words when you need to, and try to keep the meaning of the sentences the same.</p><p>You’ve got this!</p>"
     },
     {
-      type: "SC", // Julia got a new phone. The phone is white.
-      key: "-KdChlhBafaHb8zZvE7t"
+      type: "SC",
+      key: "-KdChlhBafaHb8zZvE7t" // Julia got a new phone. The phone is white.
     },
     {
-      type: "SC", // Rico sings a song. His singing is loud.
-      key: "-KeKkcDr7CfAx81hSWWp"
+      type: "SC",
+      key: "-KeKkcDr7CfAx81hSWWp" // Rico sings a song. His singing is loud.
     },
     {
-      type: "SC", // The dog is sleeping. The cat is sleeping.
-      key: "-KP-M1Crf2pvqO4QH6zI-esp"
+      type: "SC",
+      key: "-KP-M1Crf2pvqO4QH6zI-esp" // The dog is sleeping. The cat is sleeping.
     },
     {
-      type: "SC", // I hear the cheers. The cheers belong to the people.
-      key: "-KeKjgGRgqYWnwCFyfn-"
+      type: "SC",
+      key: "-KP-MEpdOxjU7OyzL6ss-esp" // Sam is older. Joey is taller.
     },
     {
-      type: "SC", // I like the uniforms. The uniforms belong to the players.
-      key: "-KeKjppx8Q2hgWwkdgJS"
+      type: "SC",
+      key: "-KPt3I_hR_Xlv5Cr1mvB-esp" // It was snowing. Marcella wore a heavy coat.
     },
     {
-      type: "SC", // Sam is older. Joey is taller.
-      key: "-KP-MEpdOxjU7OyzL6ss-esp"
-    },
-    {
-      type: "SC", // It was snowing. Marcella wore a heavy coat.
-      key: "-KPt3I_hR_Xlv5Cr1mvB-esp"
-    },
-    {
-      type: "SC", // I fell asleep in class today. I stayed up late last night.
-      key: "-KP-Mv5jsZKhraQH2DOt-esp"
+      type: "SC",
+      key: "-KP-Mv5jsZKhraQH2DOt-esp" // I fell asleep in class today. I stayed up late last night.
     }
   ])
 }
