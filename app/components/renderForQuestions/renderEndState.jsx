@@ -20,7 +20,7 @@ const EndState = React.createClass({
   },
 
   returnSanitizedArray: function(str) {
-    return str.toLowerCase().replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace('&nbsp;', '').replace(/[.",\/#?!$%\^&\*;:{}=\_`~()]/g,"").split(' ').sort().join(' ').trim().split(' ');
+    return str.toLowerCase().replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/&nbsp;/g, '').replace(/[.",\/#?!$%\^&\*;:{}=\_`~()]/g,"").split(' ').sort().join(' ').trim().split(' ');
   },
 
   findDiffs: function(answer) {
