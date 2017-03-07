@@ -24,7 +24,7 @@ export default  React.createClass({
     jsonResultsKey: React.PropTypes.string.isRequired,
     onFetchSuccess: React.PropTypes.func, // Optional
     exportCsv: React.PropTypes.string,
-    premiumStatus: React.PropTypes.string.isRequired,
+    premiumStatus: React.PropTypes.string,
     colorByScoreKeys: React.PropTypes.array
   },
 

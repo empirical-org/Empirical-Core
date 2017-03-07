@@ -3,7 +3,7 @@
 
  export default  React.createClass({
 	propTypes: {
-		tab: React.PropTypes.string.isRequired
+		tab: React.PropTypes.string
 	},
 
 	render: function () {
