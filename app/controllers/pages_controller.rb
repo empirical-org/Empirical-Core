@@ -108,6 +108,9 @@ class PagesController < ApplicationController
   def map
   end
 
+  def firewall_info
+  end
+
   private
 
   def determine_layout

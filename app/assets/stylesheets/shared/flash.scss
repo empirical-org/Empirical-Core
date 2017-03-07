@@ -5,6 +5,9 @@
   align-items: center;
   color: $white;
   display: flex;
+  a {
+    color: #027360;
+  }
 }
 
 @media (max-width: 768px) {

@@ -39,8 +39,8 @@ export default React.createClass({
           <div className='promo-info flex-row vertically-centered'>
             <p>
               <i className="fa fa-lightbulb-o" aria-hidden="true"></i>
-              Upgrade now and get the rest of the school year free. New subscriptions
-              will be <span>extended through July 1st, 2018.</span>
+              <span>Upgrade now and get the rest of the school year free.</span> New subscriptions
+              will be extended through July 1st, 2018.
             </p>
           </div>
           <PremiumPricingMinisRow/>
