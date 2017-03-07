@@ -16,6 +16,7 @@ import pathways from './pathways';
 import scoreAnalysis from './scoreAnalysis';
 import sessions from './sessions';
 import filters from './filtersReducer';
+import massEdit from './massEdit';
 import { routerReducer } from 'react-router-redux';
 
 const combinedReducers = combineReducers({
@@ -35,6 +36,7 @@ const combinedReducers = combineReducers({
   playDiagnostic,
   scoreAnalysis,
   sessions,
+  massEdit,
   routing: routerReducer,
 });
 

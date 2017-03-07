@@ -251,6 +251,7 @@ const Responses = React.createClass({
         mode={this.props.mode}
         concepts={this.props.concepts}
         conceptID={this.props.question.conceptID}
+        massEdit={this.props.massEdit}
       />);
     }
   },
