@@ -27,7 +27,7 @@ export default React.createClass({
         dateBody = this.props.data.completed_at ? this.props.data.completed_at : this.props.data.due_date_or_completed_at_date;
       } else {
         dateTitle = 'Due:';
-        dateBody = this.props.data.due_date ? this.props.data.due_date : this.props.data.due_date_or_completed_at_date;
+        dateBody = this.props.data.due_date_or_completed_at_date ? this.props.data.due_date_or_completed_at_date : this.props.data.due_date;
       }
       return (
         <div className='activity-detail'>
