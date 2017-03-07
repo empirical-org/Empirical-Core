@@ -380,6 +380,10 @@ $tool-grey: #f8f9f9;
     padding: 15px;
     min-height: 450px;
 
+    .video-section img {
+      display: none
+    }
+
     .info-section {
         margin-top: 0;
         display: flex;
