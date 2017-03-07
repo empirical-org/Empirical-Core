@@ -9,7 +9,7 @@ class ScoreAnalysis extends Component {
   constructor(props) {
     super();
     this.state = {
-      sort: 'commonUnmatched',
+      sort: 'percentWeak',
       direction: 'dsc',
       minResponses: 150,
     };
@@ -54,11 +54,11 @@ class ScoreAnalysis extends Component {
     return _.map(directed, question => (
       <tr>
         <td width="600px"><Link to={`/admin/questions/${question.key}`}>{question.prompt}</Link></td>
+        <td>{question.percentWeak}</td>
         <td>{question.commonUnmatched}</td>
         <td>{question.unmatched}</td>
         <td>{question.responses}</td>
         <td>{question.attempts}</td>
-        <td>{question.percentWeak}</td>
       </tr>
       ));
   }
@@ -75,11 +75,11 @@ class ScoreAnalysis extends Component {
             <thead>
               <tr>
                 <th width="600px" onClick={this.clickSort.bind(this, 'prompt')}>Prompt</th>
+                <th onClick={this.clickSort.bind(this, 'percentWeak')}>Weak</th>
                 <th onClick={this.clickSort.bind(this, 'commonUnmatched')}>Common Unmatched</th>
                 <th onClick={this.clickSort.bind(this, 'unmatched')}>Unmatched</th>
                 <th onClick={this.clickSort.bind(this, 'responses')}>Responses</th>
                 <th onClick={this.clickSort.bind(this, 'attempts')}>Attempts</th>
-                <th onClick={this.clickSort.bind(this, 'percentWeak')}>Weak</th>
               </tr>
             </thead>
             <tbody>
