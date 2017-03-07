@@ -7,7 +7,7 @@ import OverviewBoxes from './overview_boxes.jsx'
 export default React.createClass({
 
   propTypes: {
-    premiumStatus: React.PropTypes.string.isRequired,
+    premiumStatus: React.PropTypes.string,
     params: React.PropTypes.object.isRequired
   },
 

@@ -16,7 +16,7 @@ export default React.createClass({
           <br/>they enter the class code <code>{this.props.classCode}</code>
         </li>
       </ol>
-        <span className="class-code">Class Code</span><code><input className="inactive" disabled="" type="text" value={this.props.classCode}/></code>
+        <span className="class-code">Class Code</span><code><input className="inactive" readOnly type="text" defaultValue={this.props.classCode}/></code>
       </div>
     );
    }

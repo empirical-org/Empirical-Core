@@ -10,11 +10,11 @@
  export default React.createClass({
   propTypes: {
     unitName: React.PropTypes.string.isRequired,
-    updateUnitName: React.PropTypes.func.isRequired,
+    updateUnitName: React.PropTypes.func,
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,
     errorMessage: React.PropTypes.string,
-    clickContinue: React.PropTypes.func.isRequired,
+    clickContinue: React.PropTypes.func,
     editing: React.PropTypes.bool,
     updateActivities: React.PropTypes.func
   },
