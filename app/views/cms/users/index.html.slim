@@ -43,7 +43,7 @@
             td class="role-#{user.role}"= user.role[0]
             td= user.schools.any? ? user.schools.first.name : ''
             - if user.subscriptions.any?
-              td= "#{user.subscriptions.first.account_limit} accounts"
+              td= user.subscriptions.first.account_type
             - else
               td -
             - if current_user.staff?
