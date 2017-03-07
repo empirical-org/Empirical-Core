@@ -10,7 +10,7 @@ export default React.createClass({
   //<div className="activate-tooltip icon-wrapper icon-gray icon-puzzle"></div>
   render: function () {
     var result;
-    if (this.props.data && !this.props.loading) {
+    if (this.props.data) {
       result = (
         <div className="container">
           <section className="next-activity">
@@ -30,8 +30,12 @@ export default React.createClass({
           </section>
         </div>
       )
-    } else {
+    } else if (this.props.loading) {
       result = <LoadingIndicator/>
+    } else {
+      result = <div className="container">
+        <p style={{fontSize: '18px', margin: '2em'}}>You have no unfinished activities. You can replay old lessons, or ask your teacher to assign you something new.</p>
+      </div>
     }
     return result;
 
