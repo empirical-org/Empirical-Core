@@ -34,7 +34,7 @@ export default React.createClass({
     }
 
     return (
-      <div className="column">
+      <div className="column" style={{flexGrow: '0'}}>
         <label className="panel-checkbox toggle">
           <span className={tagClass} onClick={this.toggleFieldAndResetPage.bind(null, status)}>{status}</span>
         </label>
