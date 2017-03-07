@@ -6,21 +6,21 @@ export default function diagnosticQuestions() {
       content: "<h3>Complete Sentences</h3><p>In this section, you'll add to a group of words to make a complete sentence. Add as few words as possible.</p><p>Let's start!</p>"
     },
     {
-      type: "SC",
+      type: "SF",
       key: "-Ke_LpBo1GAcq4gXHORz" // Watches the movie
     },
     {
-      type: "SC",
+      type: "SF",
       key: "-Ke_Lw0PG3zy5QodpFdo" // The family from China
     },
     {
-      type: "SC",
+      type: "SF",
       key: "-KOqMWRFOrYgv-KjRYdy" // After the football game ended
     },
     {
       type: "TL",
       key: "titlecard-ell-fill-in-the-blank-scaffolded",
-      content: "<h3>Fill in the Blank: A, An, The</h3><p>In this section, each sentence will have two or three blanks.</p><p>You’ll rewrite the sentence, filling in the blank with one of the words from a list or choosing that no word is needed in the blank.</p>"
+      content: "<h3>Fill in the Blank: A, An, The</h3><p>In this section, each sentence will have two or three blanks.</p><p>You'll rewrite the sentence, filling in the blank with one of the words from a list or choosing that no word is needed in the blank.</p>"
     },
     {
       type: "SC",
@@ -37,7 +37,7 @@ export default function diagnosticQuestions() {
     {
       type: "TL",
       key: "titlecard-ell-past-present-and-future-tense",
-      content: "<h3>Past, Present, and Future Tense </h3><p>In this section, you’ll correct sentences by putting the verb in the right tense to match the rest of the sentence.</p><p>You’re doing great so far!</p>"
+      content: "<h3>Past, Present, and Future Tense </h3><p>In this section, you'll correct sentences by putting the verb in the right tense to match the rest of the sentence.</p><p>You're doing great so far!</p>"
     },
     {
       type: "SC",
@@ -62,7 +62,7 @@ export default function diagnosticQuestions() {
     {
       type: "TL",
       key: "titlecard-ell-fill-in-the-blank",
-      content: "<h3>Fill in the Blank</h3><p>You’re halfway there! In this section, you’ll choose the best word to complete a sentence. You’ll rewrite a sentence, filling in the blank with one of the words from a list.</p>"
+      content: "<h3>Fill in the Blank</h3><p>You're halfway there! In this section, you'll choose the best word to complete a sentence. You'll rewrite a sentence, filling in the blank with one of the words from a list.</p>"
     },
     {
       type: "SC",
@@ -87,7 +87,7 @@ export default function diagnosticQuestions() {
     {
       type: "TL",
       key: "titlecard-ell-sentence-combining",
-      content: "<h3>Sentence Combining</h3><p>In this section, you’ll combine sentences into one sentence.</p><p>Sometimes you’ll be given joining words to choose from, and sometimes you’ll have to choose your own way of combining the sentences.</p><p>Only add or change words when you need to, and try to keep the meaning of the sentences the same.</p><p>You’ve got this!</p>"
+      content: "<h3>Sentence Combining</h3><p>In this section, you'll combine sentences into one sentence.</p><p>Sometimes you'll be given joining words to choose from, and sometimes you'll have to choose your own way of combining the sentences.</p><p>Only add or change words when you need to, and try to keep the meaning of the sentences the same.</p><p>You've got this!</p>"
     },
     {
       type: "SC",
