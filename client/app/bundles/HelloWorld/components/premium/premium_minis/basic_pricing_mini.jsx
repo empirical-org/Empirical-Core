@@ -3,7 +3,7 @@ export default React.createClass({
 
   render: function() {
     return (
-      <div className='pricing-mini'>
+      <div className='pricing-mini first'>
         <header className='pricing-mini-header green'>
           <div className='img-holder basic'>
             <img src="/images/basic_icon.png" alt="basic_icon"/>

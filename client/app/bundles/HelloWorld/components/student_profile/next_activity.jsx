@@ -10,7 +10,7 @@ export default React.createClass({
   //<div className="activate-tooltip icon-wrapper icon-gray icon-puzzle"></div>
   render: function () {
     var result;
-    if (this.props.data && !this.props.loading) {
+    if (this.props.data) {
       result = (
         <div className="container">
           <section className="next-activity">
@@ -30,8 +30,15 @@ export default React.createClass({
           </section>
         </div>
       )
-    } else {
+    } else if (this.props.loading) {
       result = <LoadingIndicator/>
+    } else if (this.props.hasActivities){
+      result = <span/>
+    } else {
+      result = <div className="container">
+        <p style={{fontSize: '18px', margin: '2em'}}>Your teacher hasn't assigned any activities to you yet.</p>
+      </div>
+
     }
     return result;
 

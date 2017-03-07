@@ -33,25 +33,26 @@
     if (this.props.flag === 'beta') {
       minis.unshift(<BetaMini key='beta-mini'/>)
     }
-    // if (this.state.displayTeacherGuide){
+    if (this.state.displayTeacherGuide){
       minis.unshift(<TeacherGuide dashboardMini key='teacher-guide-displayed' hideTeacherGuide={this.hideTeacherGuide} isDisplayed={false}/>);
-    // }
+    }
     return minis;
   },
 
   hasPremium: function() {
-    if (this.props.data !== null && (this.props.premium === 'none') || (this.props.premium === null)) {
-      return <PremiumMini/>;
+    if ('locked' === this.props.premium) {
+      return <PremiumPromo key='promo'/>
+    } else if ((this.props.premium === 'none') || (this.props.premium === null)) {
+      if (new Date().getMonth() < 5) {
+        return <PremiumMini/>;
+      }
     }
   },
 
   announcementMini: function () {
-    let minis = [<NewTools key='new-tools'/>];
-    if (['none', 'locked'].indexOf(this.props.premium) !== -1) {
-      minis.push(<PremiumPromo key='promo'/>)
-    }
-    return minis
+    return <NewTools key='new-tools'/>
   },
+
   render: function() {
     return (
       <div className='row'>

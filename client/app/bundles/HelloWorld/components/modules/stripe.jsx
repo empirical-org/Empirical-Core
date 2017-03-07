@@ -9,8 +9,10 @@ export default function (priceInCents, description) {
           $.post('charges.json',
           {authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, amount: amount})
           .done(function( data ) {
-            if (amount === 40000) {alert('Premium has been activated for your account. You will receive follow-up communication within a business day.')}
-            window.location.assign(data.route);
+            if (amount === 45000)  {
+              alert('Premium has been activated for your account. You will receive follow-up communication within a business day.')
+            }
+            window.location.assign('/profile');
           });
     }
     });

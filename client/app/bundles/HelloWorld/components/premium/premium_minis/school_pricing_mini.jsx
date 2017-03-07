@@ -1,9 +1,24 @@
 import React from 'react'
-import Stripe from '../../modules/stripe.jsx'
+import QuoteRequestModal from '../quote_request_modal.jsx'
+
 export default React.createClass({
 
-  charge: function() {
-      new Stripe(40000, '$400 School Premium');
+  getInitialState: function(){
+    return {showModal: false}
+  },
+
+  hideModal() {
+    this.setState({showModal: false});
+  },
+
+  showModal(){
+    this.setState({showModal: true});
+  },
+
+
+
+  quoteRequestModal: function() {
+      $(this.refs.quoteRequestModal).modal();
   },
 
   render: function(){
@@ -41,8 +56,9 @@ export default React.createClass({
         </li>
       </ul>
     </section>
-    <button type='button' id='purchase-btn' data-toggle="modal" onClick={this.charge} className='btn btn-default mini-btn purple'>Get Quote</button>
-    <a href='https://quillpremium.wufoo.com/forms/quill-premium-quote'><button type='button' className='btn btn-default mini-btn empty-purple'>Schedule Demo</button></a>
+    <button type='button' onClick={this.showModal} className='btn btn-default mini-btn purple'>Request Quote</button>
+    <a href='https://quillpremium.youcanbook.me'><button type='button' className='btn btn-default mini-btn empty-purple'>Schedule Demo</button></a>
+    <QuoteRequestModal show={this.state.showModal} hideModal={this.hideModal}/>
   </div>
 );
   }

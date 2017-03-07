@@ -1,3 +1,4 @@
+
 'use strict'
 
  import React from 'react'
@@ -9,22 +10,40 @@
        new Stripe();
    },
 
+   freeMonths: function(){
+     const d = new Date()
+     return 5 - d.getMonth()
+   },
+
   miniBuilder: function() {
     return (
       <div className="mini_content premium-promo">
         <div className="gray-underline" style={{position: 'relative'}}>
-          <h3>Buy Premium Now, Get the Rest of the School Year Free</h3>
+          <h3>Premium Bonus: <strong>{this.freeMonths()} Months Free</strong></h3>
         </div>
         <p>
-          Buy Quill Premium before July 1, 2017, and we'll extend your subscription until August 31, 2018 at no extra cost.
+          Upgrade now for next school year and get the rest of this year for free.
         </p>
         <div className='flex-row space-around'>
-          <button onClick={this.charge} className="q-button button-white text-qgreen inline">Buy Now</button>
-          <a href='../../premium' className="q-button button-white inline">Learn More</a>
+          <div className='pricing'>
+            <h2>$80</h2>
+            <span>per teacher</span>
+          </div>
+          <div className="fake-border"></div>
+          <div className='pricing'>
+            <h2>$450*</h2>
+            <span>per school</span>
+            <br/>
+            <span className='special-price'>*special price</span>
+          </div>
         </div>
+         <a href='/premium' className="q-button text-white">Learn More About Premium</a>
       </div>
     );
   },
+
+  // <button onClick={this.charge} className="q-button button-white text-qgreen inline">Buy Now</button>
+  // <a href='../../premium' className="q-button button-white inline">Learn More</a>
 
   render: function() {
     return (
