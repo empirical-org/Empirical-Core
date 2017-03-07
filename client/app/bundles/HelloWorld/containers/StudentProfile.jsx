@@ -50,7 +50,7 @@ export default React.createClass({
       return (
         <div id="student-profile">
           <StudentProfileHeader data={this.state.student} fetchData={this.fetchData} loading={this.state.loading} />
-          <NextActivity data={this.state.next_activity_session} loading={this.state.loading}/>
+          <NextActivity data={this.state.next_activity_session} loading={this.state.loading} hasActivities={!(_.isEmpty(this.state.grouped_scores))}/>
           <StudentProfileUnits data={this.state.grouped_scores} loading={this.state.loading}/>
         </div>
       )
