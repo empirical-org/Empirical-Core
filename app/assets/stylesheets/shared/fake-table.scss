@@ -30,10 +30,43 @@
     float: right;
     line-height: 40px;
   }
-  .header-list-counter {
+  .row-list-end {
+    width: 215px;
+    display: flex;
+    justify-content: space-between;
+    float: right;
+    padding-right: 12px;
+  }
+  .header-list {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
     color: #aeaeae;
     float: right;
     font-size: 14px;
     font-weight: normal;
+  }
+
+  .due-date {
+    line-height: 40px;
+  }
+
+  @media (max-width: 780px) {
+    .row-list-end {
+      width: 181px;
+    }
+    .header-list {
+      width: 167px;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .due-date, .header-list-due-date {
+      display: none;
+    }
+    .row-list-end, .header-list {
+      justify-content: flex-end,center;
+      width: auto;
+    }
   }
 }

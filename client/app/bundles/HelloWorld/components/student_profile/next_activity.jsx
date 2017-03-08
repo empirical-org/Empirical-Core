@@ -23,7 +23,7 @@ export default React.createClass({
               </div>
               <div className="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
                 <a href={this.props.data.link}>
-                  <button className='button-green pull-right'>Start Your Next Lesson</button>
+                  <button className='button-green pull-right'>Start Your Next Activity</button>
                 </a>
               </div>
             </div>
