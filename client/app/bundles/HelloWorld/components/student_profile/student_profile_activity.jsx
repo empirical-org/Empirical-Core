@@ -12,11 +12,11 @@ export default React.createClass({
     if (!this.props.data.activity.repeatable && this.props.finished) {
       return (<p className="title-v-centered text-right">Completed</p>)
     } else if (this.props.finished) {
-      linkText = 'Replay Lesson'
+      linkText = 'Replay Activity'
     } else if (this.props.data.state == 'started'){
-      linkText = 'Resume Lesson'
+      linkText = 'Resume Activity'
     } else {
-      linkText = 'Start Lesson'
+      linkText = 'Start Activity'
     }
     return <a href={this.props.data.link}>{linkText}</a>
   },
