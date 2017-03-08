@@ -14,7 +14,7 @@ class Teachers::UnitTemplatesController < ApplicationController
       end
 
       format.html do
-        redirect_to_explore_activity_packs if @is_teacher
+        redirect_to "/teachers/classrooms/activity_planner/featured-activity-packs/#{params[:id]}" if @is_teacher
       end
     end
   end
@@ -64,10 +64,6 @@ class Teachers::UnitTemplatesController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       redirect_to :public_index
     end
-  end
-
-  def redirect_to_explore_activity_packs
-    redirect_to(controller: "teachers/classroom_manager", action: "lesson_planner", tab: "featured-activity-packs")
   end
 
   def format_unit_template(unit_template)
