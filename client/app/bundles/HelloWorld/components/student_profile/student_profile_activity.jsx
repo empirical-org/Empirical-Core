@@ -12,28 +12,33 @@ export default React.createClass({
     if (!this.props.data.activity.repeatable && this.props.finished) {
       return (<p className="title-v-centered text-right">Completed</p>)
     } else if (this.props.finished) {
-      linkText = 'Replay Lesson'
+      linkText = 'Replay Activity'
     } else if (this.props.data.state == 'started'){
-      linkText = 'Resume Lesson'
+      linkText = 'Resume Activity'
     } else {
-      linkText = 'Start Lesson'
+      linkText = 'Start Activity'
     }
     return <a href={this.props.data.link}>{linkText}</a>
+  },
+
+  renderDueDate: function() {
+    return this.props.data.due_date ? <span className="due-date">{this.props.data.due_date}</span> : <span/>
   },
 
   render: function () {
     return (
       <div className="line">
         <div className="row">
-          <div className="col-xs-9 col-sm-10 col-xl-10 pull-left">
+          <div className="col-xs-8 col-sm-9 col-xl-9 pull-left">
             <ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} />
             <div className="icons-description-wrapper">
               <p className="title title-v-centered">{this.props.data.activity.name}</p>
             </div>
           </div>
-          <div className="col-xs-3 col-sm-2 col-xl-2">
+          <span className="row-list-end">
+            {this.renderDueDate()}
             {this.renderStartButton()}
-          </div>
+          </span>
         </div>
       </div>
     );

@@ -127,6 +127,54 @@
         border: 1px solid #cecece;
         background-color: #ffffff;
         margin-bottom: 40px;
+        &.premium-promo {
+          color: #333;
+          h3 {
+            font-size: 16px;
+            padding-top: 7px;
+          }
+          span {
+            line-height: 25px;
+            &.special-price {
+              font-size: 9px;
+              line-height: 15px;
+              color: #c0c0c0;
+            }
+          }
+          .flex-row {
+            width: 73%;
+            margin: auto;
+            -ms-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+          }
+          .pricing {
+            width: 50%;
+          }
+          .fake-border {
+            border: solid 1px #ebebeb;
+            height: 42px;
+            width: 0px;
+          }
+          h2 {
+            font-weight: 700;
+            font-size: 20px;
+          }
+          .gray-underline {
+            padding-top: 10px;
+          }
+          .gray-underline + p {
+            margin-top: 13px;
+            margin-bottom: 19px;
+          }
+          .q-button {
+            padding: 9px 20px 4px;
+            font-size: 14px;
+            height: 40px;
+            margin-top: 21px;
+            background-color: #eda41b;
+            border: none;
+          }
+        }
         table {
             line-height: 25px;
             font-size: 14px;
