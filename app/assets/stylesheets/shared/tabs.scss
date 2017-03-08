@@ -98,9 +98,13 @@
     #teacher-nav-tabs li a:not(.mobile) {
         display: none;
     }
+    #teacher-nav-tabs li.active {
+      border-top: 3px solid #027360;
+    }
     #teacher-nav-tabs li a.mobile {
-        display: block;
-        padding: 11px 8px;
+      border-bottom: none;
+      display: inline;
+      padding: 11px 8px;
     }
     .tab-subnavigation-wrapper ul {
         display: -webkit-box;
