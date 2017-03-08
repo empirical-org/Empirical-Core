@@ -178,10 +178,10 @@ li.premium-tab > a:hover {
         min-height: 74px;
         .red-line {
           position: absolute;
-          top: 2px;
+          top: 4px;
         }
         .four-fifty {
-          margin-right: 5px;
+          margin-right: 10px;
         }
         h3 {
           font-size: 24px;
@@ -211,7 +211,7 @@ li.premium-tab > a:hover {
         margin-right: 6px;
       }
       &.empty-purple {
-        padding-left: 8px;
+        padding-left: 9px;
       }
     }
     .blue {
@@ -462,18 +462,22 @@ li.premium-tab > a:hover {
 	max-width: 980px;
   width: 100%;
 	min-height: 81px;
-  padding-left: 17px;
+  padding-left: 18px;
+  padding-right: 20px;
 	background-color: #ffffff;
 	border: solid 1px #cecece;
-  span:first-of-type {
-    font-weight: 600;
+  .bold-segment {
+    font-weight: 700;
     padding-right: 5px;
+  }
+  span {
+    font-size: 16px;
   }
   .q-button {
     border-color: #00c2a2;
     color: #00c2a2;
     padding-top: 9px;
-    margin-left: 44px;
+    margin-bottom: 5px;
   	font-size: 14px;
     font-weight: 600;
     height: 40px;
