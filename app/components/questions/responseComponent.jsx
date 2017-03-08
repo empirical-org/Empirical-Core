@@ -831,6 +831,7 @@ const Responses = React.createClass({
         {this.renderFocusPoint()}
         <div className="columns">
           <div className="column">
+            Percentage of weak reponses: {this.getPercentageWeakResponses()}%
           </div>
         </div>
         <div className="tabs is-toggle is-fullwidth">
