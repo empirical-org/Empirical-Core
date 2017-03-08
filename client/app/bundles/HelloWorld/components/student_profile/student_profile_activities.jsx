@@ -13,6 +13,15 @@ export default React.createClass({
     return [this.props.data.length, 'of', this.props.count].join(' ');
   },
 
+  showDueDateColumn: function () {
+    if (this.props.data.some((as) => as.due_date)) {
+      return <span className="header-list-due-date">Due Date</span>
+    } else {
+      // necessary for styling
+      return <span></span>
+    }
+  },
+
   render: function () {
     var result;
     var activities = _.map(this.props.data, (ele) => {
@@ -21,7 +30,10 @@ export default React.createClass({
     if (this.props.data.length > 0) {
      result = <div className="fake-table">
         <div className="header">{this.props.header}
+          <span className="header-list">
+          {this.showDueDateColumn()}
           <span className="header-list-counter">{this.sayCount()}</span>
+          </span>
         </div>
         {activities}
       </div>
