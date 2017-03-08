@@ -1,9 +1,10 @@
-"use strict";
+'use strict';
 
 import React from 'react'
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx'
 import TeacherTestimonial from '../components/premium/teacher_testimonial.jsx'
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx'
+import DistrictPricingBox from '../components/premium/district_pricing_box.jsx'
 
 export default React.createClass({
 
@@ -33,9 +34,17 @@ export default React.createClass({
       <div className='container' id='premium-pricing-guide'>
         <div className='overview text-center'>
           <h1>Pricing Guide</h1>
-          <p>Save time grading and gain<br/>actionable insights with Quill Premium.</p>
+          <p>Save time grading and gain actionable insights with Quill Premium.</p>
         </div>
+          <div className='promo-info flex-row vertically-centered'>
+            <p>
+              <i className="fa fa-lightbulb-o" aria-hidden="true"></i>
+              <span>Upgrade now and get the rest of the school year free.</span> New subscriptions
+              will be extended through July 1st, 2018.
+            </p>
+          </div>
           <PremiumPricingMinisRow/>
+          <DistrictPricingBox/>
           <TeacherTestimonial/>
           <SubscriberLogos subscribers={this.subscribers()}/>
           <p className='logo-tag'>Trusted by some of the best schools in the country.</p>
