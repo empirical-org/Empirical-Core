@@ -27,7 +27,7 @@ export default React.createClass ({
           <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='quote-request-modal'>
               <Modal.Body>
                   <h1 className='q-h2'>Receive a quote for a purchase order.</h1>
-                  <a className="q-button cta-button bg-quillgreen text-white" href='https://quillpremium.wufoo.com/forms/quill-premium-quote/'>
+                  <a className="q-button cta-button bg-quillgreen text-white" href='https://quillpremium.wufoo.com/forms/quill-premium-quote/' target="_blank">
                     Email a Quote
                   </a>
               </Modal.Body>
