@@ -222,6 +222,18 @@ export default React.createClass({
   },
 
   saveNewConceptResult() {
+    let conceptResults = this.props.response.conceptResults || {};
+    let conceptResultUids = Object.keys(conceptResults).map((concept) => conceptResults[concept].conceptUID);
+    if(conceptResultUids.includes(this.state.newConceptResult.conceptUID)) {
+      const conceptKey = _.compact(_.map(conceptResults, (concept, conceptValues) => {
+        if(concept.conceptUID == this.state.newConceptResult.conceptUID) {
+          return concept;
+        } else {
+          return null;
+        }
+      }))[0].key;
+      this.props.dispatch(deleteConceptResult(this.props.questionID, this.props.response.key, conceptKey));
+    }
     this.props.dispatch(submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult));
   },
 
