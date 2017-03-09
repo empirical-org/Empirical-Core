@@ -1,6 +1,6 @@
 class ClassroomActivity < ActiveRecord::Base
   include CheckboxCallback
-
+  include ::NewRelic::Agent
 
   belongs_to :classroom
   belongs_to :activity
@@ -10,6 +10,8 @@ class ClassroomActivity < ActiveRecord::Base
 
   default_scope { where(visible: true) }
   scope :with_topic, ->(tid) { joins(:topic).where(topics: {id: tid}) }
+
+  validate :not_duplicate, :on => :create
 
   after_create :assign_to_students
   after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions
@@ -171,6 +173,19 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  private
 
+  def not_duplicate
+    if ClassroomActivity.find_by(classroom_id: self.classroom_id, activity_id: self.activity_id, unit_id: self.unit_id, visible: self.visible)
+      begin
+        raise 'This classroom activity is a duplicate'
+      rescue => e
+        NewRelic::Agent.notice_error(e)
+        errors.add(:duplicate_classroom_activity, "this classroom activity is a duplicate")
+      end
+    else
+      return true
+    end
+  end
 
 end
