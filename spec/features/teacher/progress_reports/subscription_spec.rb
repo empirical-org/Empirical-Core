@@ -6,7 +6,7 @@ feature 'Subscription to Progress Report', js: true do
 
   let!(:report_page) { Teachers::ActivityProgressReportPage.new }
 
-  let!(:teacher) { FactoryGirl.create :user, role: 'teacher'}
+  let!(:tpendingeacher) { FactoryGirl.create :user, role: 'teacher'}
 
   let!(:activity) { FactoryGirl.create(:activity) }
   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
@@ -50,15 +50,15 @@ feature 'Subscription to Progress Report', js: true do
         report_page.visit
       end
 
-      it "shows premium state as 'none'" do
+      pending "shows premium state as 'none'" do
         expect(teacher.premium_state).to eq('none')
       end
 
-      it 'displays activity session data' do
+      pending 'displays activity session data' do
         expect(report_page).to have_content(student.name)
       end
 
-      it 'initiates a trial when "Try it Free for 30 Days" button is clicked ' do
+      pending 'initiates a trial when "Try it Free for 30 Days" button is clicked ' do
          click_button('Try it Free for 30 Days')
          ##eventually comes from AsyncHelper.rb accepts arguments {timeout: x, interval: y}
          eventually {  expect(teacher.premium_state).to eq('trial') }
@@ -73,12 +73,12 @@ feature 'Subscription to Progress Report', js: true do
         report_page.visit
       end
 
-      it 'flags div as premium-status-none to blur out elements' do
+      pending 'flags div as premium-status-none to blur out elements' do
         skip
         eventually {expect(report_page).to have_css('div.premium-status-none')}
       end
 
-      it 'shows expired trial message in premium banner' do
+      pending 'shows expired trial message in premium banner' do
         expect(report_page).to have_content(expired_trial_message)
       end
     end
@@ -92,24 +92,24 @@ feature 'Subscription to Progress Report', js: true do
       report_page.visit
     end
 
-    it 'does not flags div as premium-status-none to blur out elements' do
+    pending 'does not flags div as premium-status-none to blur out elements' do
       expect(report_page).to_not have_css('div.premium-status-none')
     end
 
-    it 'displays activity session data' do
+    pending 'displays activity session data' do
       expect(report_page.table_rows.first.first).to eq(student.name)
     end
 
-    it 'does not display trial message' do
+    pending 'does not display trial message' do
       expect(report_page).to_not have_content(trial_message)
     end
 
-    it 'does not display premium tab' do
+    pending 'does not display premium tab' do
       expect(report_page).to_not have_css('div.premium-tab')
     end
 
     context 'that started that day' do
-      it 'displays new sign up banner' do
+      pending 'displays new sign up banner' do
         eventually {expect(report_page).to have_content('Success! You now have Premium')}
       end
     end
@@ -117,7 +117,7 @@ feature 'Subscription to Progress Report', js: true do
     context 'that did not start that day' do
       let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, expiration: Date.tomorrow, account_limit: 5, account_type: 'premium', created_at: Time.current - 3.day, updated_at: Time.current - 2.day)}
 
-      it 'does not display new sign up banner' do
+      pending 'does not display new sign up banner' do
         expect(report_page).to_not have_content('Success! You now have Premium')
       end
     end
