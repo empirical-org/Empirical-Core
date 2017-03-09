@@ -552,10 +552,9 @@ describe User, type: :model do
 
   describe 'student behavior' do
     let!(:classroom)          { FactoryGirl.create(:classroom) }
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom) }
+    let!(:unit)    { FactoryGirl.create(:unit)}
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom, unit: unit) }
     let!(:activity)           { classroom_activity.activity }
-
-    let!(:unit)    { FactoryGirl.create(:unit, classroom_activities: [classroom_activity])}
     let!(:student) { FactoryGirl.create(:student, classrooms: [classroom]) }
 
     it 'assigns newly-created students to all activities previously assigned to their classroom' do
