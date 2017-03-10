@@ -4,6 +4,11 @@
 
  export default React.createClass({
 
+  componentWillMount(){
+    $('.diagnostic-tab').removeClass('active');
+    $('.activity-analysis-tab').addClass('active');
+  },
+
   handleClick() {
     window.location = '/teachers/classrooms/activity_planner/assign-new-activity'
   },

@@ -5,6 +5,7 @@ import React from 'react'
 import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown.jsx'
 import NavButtonGroup from './nav_button_group.jsx'
 import StudentDropdown from '../../general_components/dropdown_selectors/student_dropdown.jsx'
+import $ from 'jquery'
 
 export default React.createClass({
   propTypes: {
@@ -16,6 +17,13 @@ export default React.createClass({
     selectedClassroom: React.PropTypes.object,
     selectedStudentId: React.PropTypes.string,
     params: React.PropTypes.object
+  },
+
+  componentWillMount: function(){
+    if (window.location.hash.includes('/a/413')) {
+      $('.diagnostic-tab').addClass('active');
+      $('.activity-analysis-tab').removeClass('active');
+    }
   },
 
 
