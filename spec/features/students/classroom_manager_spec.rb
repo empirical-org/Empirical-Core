@@ -9,11 +9,11 @@ feature 'Student Classroom Manager', js: true do
     vcr_ignores_localhost
     sign_in_user student
     visit('/students_classrooms/classroom_manager')
-  end
+  endpending
 
   describe 'the Classroom Manager page' do
 
-    it 'renders the correct view' do
+    pending 'renders the correct view' do
       page.find("#archived_classrooms_manager")
     end
 
@@ -75,4 +75,4 @@ end
 #   end
 #
 #
-# end
+end

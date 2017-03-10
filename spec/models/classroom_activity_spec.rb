@@ -74,16 +74,16 @@ describe ClassroomActivity, type: :model do
 
         it 'assigns a classroom activity through a custom activity pack' do
             obj = Objective.create(name: 'Build Your Own Activity Pack')
-            unit.update(name: 'There is no way a featured activity pack would have this name')
-            classroom_activity.save
+            new_unit = Unit.create(name: 'There is no way a featured activity pack would have this name')
+            classroom_activity.update(unit: new_unit)
             expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
         end
 
         it 'assigns a classroom activity through a featured activity pack' do
-            featured = UnitTemplate.create(name: 'Adverbs')
+            UnitTemplate.create(name: 'Adverbs')
             obj = Objective.create(name: 'Assign Featured Activity Pack')
-            unit.update(name: 'Adverbs')
-            classroom_activity.save
+            new_unit = Unit.create(name: 'Adverbs')
+            classroom_activity.update!(unit: new_unit)
             expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
         end
     end
@@ -148,6 +148,19 @@ describe ClassroomActivity, type: :model do
       it 'must return false when assigned_student_ids does not contain the student id' do
         classroom_activity.assigned_student_ids = [student.id + 1]
         expect(classroom_activity.validate_assigned_student(student.id)).to be false
+      end
+    end
+
+    describe 'validates non-duplicate' do
+      it 'will not save a classroom activity with the same unit, activity, visibility, and classroom as another classroom activity' do
+        new_ca = ClassroomActivity.create(activity: classroom_activity.activity, classroom: classroom_activity.classroom, unit: classroom_activity.unit)
+        expect(new_ca.persisted?).to be false
+      end
+
+      it 'will allow a classroom activity with the same unit, activity, and classroom, but different visibility' do
+        classroom_activity.update(visible: false)
+        new_ca = ClassroomActivity.create(activity: classroom_activity.activity, classroom: classroom_activity.classroom, unit: classroom_activity.unit)
+        expect(new_ca.persisted?).to be true
       end
     end
 end

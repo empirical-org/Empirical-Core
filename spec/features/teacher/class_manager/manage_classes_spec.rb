@@ -14,7 +14,7 @@ describe 'Teacher Manage-Class page' do
         manage_class_page.visit
       end
 
-      it 'shows the students, sorted by (last, first) name', retry: 3 do
+      pending 'shows the students, sorted by (last, first) name', retry: 3 do
         expected_rows = sort_fodder_sorted.map do |student|
           [student.name,
            student.username]
@@ -29,13 +29,13 @@ describe 'Teacher Manage-Class page' do
 
         # TODO: figure out how to find the digest of arbitrary strings
         # it 'the teacher can reset the students password' do
-        #   
+        #
         #   sort_fodder_sorted.first.password = 'test'
         #   click_button('Reset Password')
         #   expect(sort_fodder_sorted.first.password).to eq sort_fodder_sorted.first.last_name
         # end
 
-        it 'the teacher can remove the student from the classroom', js: true do
+        pending 'the teacher can remove the student from the classroom', js: true do
            num = sort_fodder_sorted.first.students_classrooms.count
            click_button('Remove From Classroom')
            page.evaluate_script('window.confirm = function() { return true; }')
