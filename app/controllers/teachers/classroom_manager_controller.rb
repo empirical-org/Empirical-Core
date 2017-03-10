@@ -85,6 +85,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     end
+    @firewall_test = true
   end
 
 
