@@ -3,6 +3,8 @@ import _ from 'lodash'
 import React from 'react'
 import TooltipTitleGeneratorGenerator from '../modules/componentGenerators/tooltip_title/tooltip_title_generator_generator'
 import $ from 'jquery'
+import gradeColor from '../modules/grade_color.js'
+import activityFromClassificationId from '../modules/activity_from_classification_id.js'
 
 export default React.createClass({
   propTypes: {
@@ -17,23 +19,6 @@ export default React.createClass({
       context: 'scorebook',
       placement: 'bottom'
     }
-  },
-
-  percentage_color: function () {
-    var y;
-    var x = this.props.data.percentage;
-    if (x == null) {
-      y = 'gray'
-    } else if (x < 0.5) {
-      y = 'red';
-    } else if (x <= 0.75) {
-      y = 'orange';
-    } else if (x <= 1.0) {
-      y = 'green';
-    } else {
-      y = 'gray';
-    }
-    return y;
   },
 
   loadTooltipTitle: function () {
@@ -53,23 +38,8 @@ export default React.createClass({
     });
   },
 
-  icon_for_classification: function () {
-      var y;
-      var x = this.props.data.activity.classification.id;
-      if (x === 1) {
-        y = 'flag';
-      } else if (x === 2) {
-        y = 'puzzle'
-      } else if (x === 4) {
-        y = 'diagnostic'
-      } else if (x === 5) {
-        y = 'connect';
-      }
-      return y;
-  },
-
   tooltipClasses: function () {
-    return 'activate-tooltip icon-link icon-wrapper icon-' + this.percentage_color() + ' icon-' + this.icon_for_classification();
+    return 'activate-tooltip icon-link icon-wrapper icon-' + gradeColor(this.props.data.percentage) + ' icon-' + activityFromClassificationId(this.props.data.activity.classification.id);
   },
 
   goToReport: function() {
