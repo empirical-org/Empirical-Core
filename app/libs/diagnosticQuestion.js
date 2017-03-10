@@ -6,7 +6,7 @@ import {
   checkChangeObjectMatch
 } from './algorithms/changeObjects';
 import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
-import {sortByLevenshteinAndOptimal} from './responseTools.js'
+import { sortByLevenshteinAndOptimal } from './responseTools.js';
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {
@@ -40,6 +40,7 @@ export default class Question {
       response: {
         text: response,
         questionUID: this.questionUID,
+        gradeIndex: `nonhuman${this.questionUID}`,
         count: 1,
       },
     };
@@ -73,7 +74,7 @@ export default class Question {
       this.copyParentResponses(res, punctuationAndCaseMatch);
       return returnValue;
     }
-    var changeObjectMatch = this.checkChangeObjectLevenshteinMatch(response);
+    const changeObjectMatch = this.checkChangeObjectLevenshteinMatch(response);
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
@@ -107,6 +108,7 @@ export default class Question {
       return returnValue;
     }
     returnValue.found = false;
+    returnValue.response.gradeIndex = `unmarked${this.questionUID}`;
     return returnValue;
   }
 
@@ -138,9 +140,9 @@ export default class Question {
     return _.find(getOptimalResponses(this.responses), resp => removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize()));
   }
 
-  checkChangeObjectLevenshteinMatch(response){
+  checkChangeObjectLevenshteinMatch(response) {
     const fn = string => string.normalize();
-    const responses = sortByLevenshteinAndOptimal(response, getOptimalResponses(this.responses).concat(getSubOptimalResponses(this.responses)))
+    const responses = sortByLevenshteinAndOptimal(response, getOptimalResponses(this.responses).concat(getSubOptimalResponses(this.responses)));
     return checkChangeObjectMatch(response, responses, fn, true);
   }
 

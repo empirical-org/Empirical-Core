@@ -2,7 +2,7 @@ var C = require("../constants").default
 // import rootRef from "../libs/firebase"
 import request from 'request'
 import _ from 'underscore'
-var	conceptsEndpoint = 'https://www.quill.org/api/v1/concepts.json'
+var	conceptsEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/concepts.json`;
 import { push } from 'react-router-redux'
 
 function splitInLevels (concepts) {

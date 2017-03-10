@@ -107,6 +107,12 @@ export default {
   TOGGLE_STATUS_FIELD: 'TOGGLE_STATUS_FIELD',
   TOGGLE_RESPONSE_SORT: 'TOGGLE_RESPONSE_SORT',
   RESET_ALL_FIELDS: 'RESET_ALL_FIELDS',
+  TOGGLE_MASS_SELECTION: 'TOGGLE_MASS_SELECTION',
+
+  // mASS EDIT RESPONSE ACTIONS
+  ADD_RESPONSE_TO_MASS_EDIT_ARRAY: 'ADD_RESPONSE_TO_MASS_EDIT_ARRAY',
+  REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY: 'REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY',
+  CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY: 'CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY',
 
   // qUESTION SELECT ACTIONS:
   QUESTION_SELECT_ADD_QUESTION: 'QUESTION_SELECT_ADD_QUESTION',
@@ -120,7 +126,7 @@ export default {
 	  caseError: 'Proofread your work. There may be a capitalization error.',
 	  minLengthError: 'Revise your work. Do you have all of the information from the prompt?',
 	  maxLengthError: 'Revise your work. How could this sentence be shorter and more concise?',
-    modifiedWordError: 'Revise your work. You may have mixed up a word.',
+    modifiedWordError: 'Revise your work. You may have mixed up or misspelled a word.',
     additionalWordError: 'Revise your work. You may have added an extra word.',
     missingWordError: 'Revise your work. You may have left out an important word.',
     whitespaceError: 'There may be an error. You may have forgotten a space between two words.',
@@ -218,5 +224,8 @@ export default {
   UPDATE_RESPONSE_STATUS: 'UPDATE_RESPONSE_STATUS',
   UPDATE_RESPONSE_DATA: 'UPDATE_RESPONSE_DATA',
   DELETE_RESPONSE_STATUS: 'DELETE_RESPONSE_STATUS',
+
+  // score Analysis ACTIONS
+  RECEIVE_SCORE_ANALYSIS_DATA: 'RECEIVE_SCORE_ANALYSIS_DATA',
 
 };

@@ -16,6 +16,14 @@ import C from '../../constants';
 import Chart from './pieChart.jsx';
 import ResponseComponent from './responseComponent.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import {
+  deleteResponse,
+  incrementResponseCount,
+  submitResponseEdit,
+  submitNewConceptResult,
+  deleteConceptResult,
+  removeLinkToParentID
+} from '../../actions/responses';
 
 const labels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
 const colors = ['#81c784', '#ffb74d', '#ba68c8', '#5171A5', '#e57373'];
@@ -26,7 +34,7 @@ const Question = React.createClass({
     return {
       selectedBoilerplateCategory: '',
       responses: [],
-      loadedResponses: false,
+      loadedResponses: false
     };
   },
 
@@ -159,11 +167,11 @@ const Question = React.createClass({
     }
   },
 
-  renderBoilerplateCategoryDropdown() {
+  renderBoilerplateCategoryDropdown(onChangeEvent) {
     const style = { marginRight: '20px', };
     return (
       <span className="select" style={style}>
-        <select className="boilerplate-feedback-dropdown" onChange={this.chooseBoilerplateCategory}>
+        <select className="boilerplate-feedback-dropdown" onChange={onChangeEvent}>
           <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
           {this.boilerplateCategoriesToOptions()}
         </select>
@@ -171,12 +179,12 @@ const Question = React.createClass({
     );
   },
 
-  renderBoilerplateCategoryOptionsDropdown() {
-    const selectedCategory = _.find(getBoilerplateFeedback(), { description: this.state.selectedBoilerplateCategory, });
+  renderBoilerplateCategoryOptionsDropdown(onChangeEvent, description) {
+    const selectedCategory = _.find(getBoilerplateFeedback(), { description: description, });
     if (selectedCategory) {
       return (
         <span className="select">
-          <select className="boilerplate-feedback-dropdown" onChange={this.chooseSpecificBoilerplateFeedback} ref="boilerplate">
+          <select className="boilerplate-feedback-dropdown" onChange={onChangeEvent} ref="boilerplate">
             <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
             {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
           </select>
@@ -201,8 +209,8 @@ const Question = React.createClass({
         </p>
         <label className="label">Boilerplate feedback</label>
         <div className="boilerplate-feedback-dropdown-container">
-          {this.renderBoilerplateCategoryDropdown()}
-          {this.renderBoilerplateCategoryOptionsDropdown()}
+          {this.renderBoilerplateCategoryDropdown(this.chooseBoilerplateCategory)}
+          {this.renderBoilerplateCategoryOptionsDropdown(this.chooseSpecificBoilerplateFeedback, this.state.selectedBoilerplateCategory)}
         </div>
         <br />
         <p className="control">
@@ -277,9 +285,8 @@ function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
-    // responses: state.responses,
     itemLevels: state.itemLevels,
-    routing: state.routing,
+    routing: state.routing
   };
 }
 

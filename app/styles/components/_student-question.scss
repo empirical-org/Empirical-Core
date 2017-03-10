@@ -292,6 +292,7 @@ progress[value]::-webkit-progress-value {
   border: none;
   background: none;
   font-size: 20px;
+  resize: none;
 
   &:focus {
     outline: none;

@@ -7,8 +7,10 @@ import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitNewResponse,
   incrementResponseCount,
-  getResponsesWithCallback
+  getResponsesWithCallback,
+  getGradedResponsesWithCallback
 } from '../../actions/responses';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import icon from '../../img/question_icon.svg';
 
 const PlaySentenceFragment = React.createClass({
@@ -20,12 +22,12 @@ const PlaySentenceFragment = React.createClass({
   },
 
   componentDidMount() {
-    getResponsesWithCallback(
+    getGradedResponsesWithCallback(
       this.props.question.key,
       (data) => {
-        this.setState({responses: data})
+        this.setState({ responses: data, });
       }
-    )
+    );
   },
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -95,8 +97,9 @@ const PlaySentenceFragment = React.createClass({
   },
 
   checkAnswer() {
-    if (this.state.checkAnswerEnabled) {
+    if (this.state.checkAnswerEnabled && this.state.responses) {
       const key = this.props.currentKey;
+      const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
         const fields = {
@@ -108,15 +111,7 @@ const PlaySentenceFragment = React.createClass({
         };
         const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
-        if (matched.found && matched.response.key) {
-          this.props.dispatch(
-            incrementResponseCount(key, matched.response.key)
-          );
-        } else {
-          this.props.dispatch(
-            submitNewResponse(matched.response)
-          );
-        }
+        updateResponseResource(matched, key, attempts, this.props.dispatch, );
         this.props.updateAttempts(matched);
         this.setState({ checkAnswerEnabled: true, });
         this.props.handleAttemptSubmission();
@@ -141,10 +136,10 @@ const PlaySentenceFragment = React.createClass({
       return (
         <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
       );
+    } else if (this.state.responses) {
+      return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
     } else {
-      if (this.state.responses) {
-        return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>
-      }
+      <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
     }
   },
 

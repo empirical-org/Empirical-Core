@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, nextQuestionWithoutSaving } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
@@ -12,6 +12,7 @@ import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
+import TitleCard from './titleCard.jsx';
 const request = require('request');
 
 const StudentDiagnostic = React.createClass({
@@ -43,6 +44,12 @@ const StudentDiagnostic = React.createClass({
         // console.log(err,httpResponse,body)
       }
     );
+  },
+
+  saveSessionData(lessonData) {
+    if (this.state.sessionID) {
+      SessionActions.update(this.state.sessionID, lessonData);
+    }
   },
 
   componentWillMount() {
@@ -115,6 +122,11 @@ const StudentDiagnostic = React.createClass({
     this.props.dispatch(next);
   },
 
+  nextQuestionWithoutSaving() {
+    const next = nextQuestionWithoutSaving();
+    this.props.dispatch(next);
+  },
+
   getLesson() {
     return this.props.lessons.data[this.props.params.lessonID];
   },
@@ -146,13 +158,15 @@ const StudentDiagnostic = React.createClass({
 
   getFetchedData() {
     const returnValue = this.getData().map((obj) => {
-      const data = (obj.type === 'SC') ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key];
+      let data;
+      if (obj.type === 'SC') {
+        data = this.props.questions.data[obj.key];
+      } else if (obj.type === 'SF') {
+        data = this.props.sentenceFragments.data[obj.key];
+      } else {
+        data = obj;
+      }
       data.key = obj.key;
-      // if(obj.type==="SF") {
-      //   data.needsIdentification = true
-      // } else if(obj.type==="SF2") {
-      //   data.needsIdentification = false
-      // }
       return {
         type: obj.type,
         data,
@@ -170,6 +184,15 @@ const StudentDiagnostic = React.createClass({
         if (this.props.playDiagnostic.currentQuestion) {
           if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
             component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} marking="diagnostic" />);
+          } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
+            component = (
+              <TitleCard
+                data={this.props.playDiagnostic.currentQuestion.data}
+                currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+                dispatch={this.props.dispatch}
+                nextQuestion={this.nextQuestionWithoutSaving}
+              />
+            );
           } else {
             component = (<PlaySentenceFragment
               question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}

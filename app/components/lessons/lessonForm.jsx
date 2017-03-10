@@ -51,7 +51,7 @@ const LessonForm = React.createClass({
   },
 
   sortCallback(sortInfo) {
-    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrder = sortInfo.data.items.map(item => Object.assign({key: item.key, questionType: item.props.questionType}));
     this.setState({ selectedQuestions: newOrder, });
   },
 
@@ -62,8 +62,7 @@ const LessonForm = React.createClass({
       const questionsList = this.state.selectedQuestions.map((question) => {
         const questionobj = this.props[question.questionType].data[question.key];
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
-
-        return (<p className="sortable-list-item" key={question.key}>
+        return (<p className="sortable-list-item" key={question.key} questionType={question.questionType}>
           {prompt}
           {'\t\t'}
           <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>

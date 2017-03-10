@@ -11,6 +11,7 @@ import Textarea from 'react-textarea-autosize';
 import TextEditor from './textEditor.jsx';
 import feedbackActions from '../../actions/concepts-feedback.js';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import massEdit from '../../actions/massEdit';
 import {
   deleteResponse,
   submitResponseEdit,
@@ -53,6 +54,7 @@ export default React.createClass({
   deleteResponse(rid) {
     if (window.confirm('Are you sure?')) {
       this.props.dispatch(deleteResponse(this.props.questionID, rid));
+      this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
     }
   },
 
@@ -163,6 +165,7 @@ export default React.createClass({
   },
 
   removeLinkToParentID(rid) {
+    this.props.dispatch(submitResponseEdit(rid, { gradeindex: `human${this.props.response.questionUID}`, }));
     this.props.dispatch(removeLinkToParentID(rid));
   },
 
@@ -219,6 +222,18 @@ export default React.createClass({
   },
 
   saveNewConceptResult() {
+    let conceptResults = this.props.response.conceptResults || {};
+    let conceptResultUids = Object.keys(conceptResults).map((concept) => conceptResults[concept].conceptUID);
+    if(conceptResultUids.includes(this.state.newConceptResult.conceptUID)) {
+      const conceptKey = _.compact(_.map(conceptResults, (concept, conceptValues) => {
+        if(concept.conceptUID == this.state.newConceptResult.conceptUID) {
+          return concept;
+        } else {
+          return null;
+        }
+      }))[0].key;
+      this.props.dispatch(deleteConceptResult(this.props.questionID, this.props.response.key, conceptKey));
+    }
     this.props.dispatch(submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult));
   },
 
@@ -245,6 +260,26 @@ export default React.createClass({
     return selectedCategory.children.map(childFeedback => (
       <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
       ));
+  },
+
+  addResponseToMassEditArray(responseKey) {
+    this.props.dispatch(massEdit.addResponseToMassEditArray(responseKey));
+  },
+
+  removeResponseFromMassEditArray(responseKey) {
+    this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
+  },
+
+  clearResponsesFromMassEditArray() {
+    this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
+  },
+
+  onMassSelectCheckboxToggle(responseKey) {
+    if(this.props.massEdit.selectedResponses.includes(responseKey)) {
+      this.removeResponseFromMassEditArray(responseKey);
+    } else {
+      this.addResponseToMassEditArray(responseKey);
+    }
   },
 
   renderBoilerplateCategoryDropdown() {
@@ -302,7 +337,6 @@ export default React.createClass({
       });
     } else {
       const concept = _.find(this.props.concepts.data['0'], { uid: this.props.conceptID, });
-      // console.log("ConceptID from props: ", this.props)
       if (concept) {
         return (
           <li>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
@@ -482,24 +516,27 @@ export default React.createClass({
     if (response.weak) {
       icon = '⚠️';
     }
-
     const authorStyle = { marginLeft: '10px', };
     const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
+    const checked = this.props.massEdit.selectedResponses.includes(response.key) ? 'checked' : '';
     return (
-      <header className={`card-content ${bgColor} ${this.headerClasses()}`} onClick={this.props.expand.bind(null, response.key)}>
-        <div className="content">
-          <div className="media">
-            <div className="media-content">
-              <p>{response.text} {author}</p>
-            </div>
-            <div className="media-right">
-              <figure className="image is-32x32">
-                <span>{ icon } { response.count ? response.count : 0 }</span>
-              </figure>
+      <div style={{display: 'flex', alignItems: 'center'}} className={bgColor}>
+        <input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.key)} style={{marginLeft: '15px'}}/>
+        <header onClick={() => this.props.expand(response.key)} className={`card-content ${this.headerClasses()}`} style={{flexGrow: '1'}}>
+          <div className="content">
+            <div className="media">
+              <div className="media-content">
+                <p>{response.text} {author}</p>
+              </div>
+              <div className='media-right' style={{textAlign: 'right'}}>
+                <figure className="image is-32x32">
+                  <span>{ icon } { response.count ? response.count : 0 }</span>
+                </figure>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
     );
   },
 

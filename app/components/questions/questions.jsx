@@ -14,14 +14,13 @@ import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
 
 function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
+  const start = new Date().getTime();
+  for (let i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds) {
       break;
     }
   }
 }
-
 
 const Questions = React.createClass({
   getInitialState() {
@@ -64,7 +63,7 @@ const Questions = React.createClass({
     return question.checkMatch(response.text);
   },
 
-  // Functions for rematching all Responses
+  // functions for rematching all Responses
   mapConceptsToList() {
     const concepts = hashToCollection(this.props.concepts.data['0']);
     const questions = hashToCollection(this.props.questions.data);
@@ -108,9 +107,8 @@ const Questions = React.createClass({
     console.log('Rematching All Questions');
     const questLength = _.keys(this.props.questions.data).length;
     _.each(hashToCollection(this.props.questions.data), (question, index) => {
-
-        const percentage = index / questLength * 100
-        console.log(`Rematching: ${percentage}% complete`);
+      const percentage = index / questLength * 100;
+      console.log(`Rematching: ${percentage}% complete`);
       if (ignoreList.indexOf(question.key) === -1 && question.conceptID) {
         console.log('Rematching Question: ', question.key);
         this.rematchAllResponses(question);
@@ -126,7 +124,7 @@ const Questions = React.createClass({
     const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
     const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
     weak.forEach((resp, index) => {
-      const percentage = index / weak.length * 100
+      const percentage = index / weak.length * 100;
       // console.log(`Rematching ${resp.key} | ${percentage}% complete`);
       this.rematchResponse(question, resp, responsesWithStat);
     });
@@ -142,7 +140,7 @@ const Questions = React.createClass({
       (newMatchedResponse.response.parentID !== response.parentID) ||
       (newMatchedResponse.response.author !== response.author) ||
       (newMatchedResponse.response.feedback !== response.feedback) ||
-      (newMatchedResponse.response.conceptResults !== response.conceptResults);;
+      (newMatchedResponse.response.conceptResults !== response.conceptResults);
     const unmatched = (newMatchedResponse.found === false);
     // console.log('Rematched: t, u, o, n: ', changed, unmatched);
     // console.log(response);
@@ -154,6 +152,7 @@ const Questions = React.createClass({
           text: response.text,
           count: response.count || 1,
           questionUID: response.questionUID,
+          gradeIndex: `unmatched${response.questionUID}`,
         };
         // console.log("Unmatched: ", response.key)
         sleep(150);
@@ -170,9 +169,10 @@ const Questions = React.createClass({
           parentID: newMatchedResponse.response.parentID,
           author: newMatchedResponse.response.author,
           feedback: newMatchedResponse.response.feedback,
+          gradeIndex: `nonhuman${response.questionUID}`,
         };
         if (newMatchedResponse.response.conceptResults) {
-          newValues.conceptResults = newMatchedResponse.response.conceptResults
+          newValues.conceptResults = newMatchedResponse.response.conceptResults;
         }
         // console.log("Rematched: ", response.key)
         sleep(150);

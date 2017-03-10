@@ -2,6 +2,7 @@
 import _ from 'underscore';
 import pathwaysActions from './pathways';
 import rootRef from '../libs/firebase';
+import { hashToCollection } from '../libs/hashToCollection.js';
 
 const C = require('../constants').default;
 const moment = require('moment');
@@ -253,14 +254,32 @@ function makeIterator(array) {
 
 export function getResponsesWithCallback(questionID, callback) {
   responsesForQuestionRef(questionID).once('value', (snapshot) => {
-     callback(snapshot.val())
-     console.log("Loaded responses for ", questionID)
+    callback(snapshot.val());
+    console.log('Loaded responses for ', questionID);
   });
 }
 
 export function listenToResponsesWithCallback(questionID, callback) {
   responsesForQuestionRef(questionID).on('value', (snapshot) => {
-     callback(snapshot.val())
-     console.log("Listened to responses for ", questionID)
+    callback(snapshot.val());
+    console.log('Listened to responses for ', questionID);
+  });
+}
+
+function gradedResponsesForQuestionRef(questionId) {
+  return responsesRef.orderByChild('gradeIndex').equalTo(`human${questionId}`);
+}
+
+export function getGradedResponsesWithCallback(questionID, callback) {
+  gradedResponsesForQuestionRef(questionID).once('value', (snapshot) => {
+    callback(snapshot.val());
+    console.log('Loaded responses for ', questionID);
+  });
+}
+
+export function findResponseByText(text, questionUID, cb) {
+  responsesRef.orderByChild('text').equalTo(text).once('value', (snapshot) => {
+    const response = _.findWhere(hashToCollection(snapshot.val()), { questionUID, });
+    cb(response);
   });
 }

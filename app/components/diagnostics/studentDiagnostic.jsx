@@ -11,7 +11,7 @@ import Spinner from '../shared/spinner.jsx';
 import SmartSpinner from '../shared/smartSpinner.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
-import TitleCard from './titleCard.jsx'
+import TitleCard from './titleCard.jsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
@@ -32,8 +32,8 @@ const StudentDiagnostic = React.createClass({
     // this.getResponsesForEachQuestion();
     if (this.state.sessionID) {
       SessionActions.get(this.state.sessionID, (data) => {
-        this.setState({session: data});
-      })
+        this.setState({ session: data, });
+      });
     }
   },
 
@@ -91,11 +91,12 @@ const StudentDiagnostic = React.createClass({
   },
 
   saveToLMS() {
+    this.setState({ error: false, });
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
     console.log('Concept Results: ', results);
 
     const { diagnosticID, } = this.props.params;
-    const sessionID = this.props.routing.locationBeforeTransitions.query.student
+    const sessionID = this.state.sessionID;
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
@@ -121,6 +122,9 @@ const StudentDiagnostic = React.createClass({
           SessionActions.delete(this.state.sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL;
           this.setState({ saved: true, });
+        } else {
+          console.log('Save not successful');
+          this.setState({ saved: false, error: true, });
         }
       }
     );
@@ -273,10 +277,10 @@ const StudentDiagnostic = React.createClass({
               dispatch={this.props.dispatch}
               nextQuestion={this.nextQuestionWithoutSaving}
             />
-          )
+          );
         }
       } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-        component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
+        component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} error={this.state.error} />);
       } else {
         component = <LandingPage begin={() => { this.startActivity('John'); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
       }

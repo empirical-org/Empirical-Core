@@ -30,7 +30,8 @@ import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } fr
 import {
   loadResponseDataAndListen,
   stopListeningToResponses,
-  getResponsesWithCallback
+  getResponsesWithCallback,
+  getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
@@ -46,12 +47,12 @@ const playLessonQuestion = React.createClass({
   },
 
   componentDidMount() {
-    getResponsesWithCallback(
+    getGradedResponsesWithCallback(
       this.props.question.key,
       (data) => {
-        this.setState({responses: data})
+        this.setState({ responses: data, });
       }
-    )
+    );
   },
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -357,6 +358,7 @@ const playLessonQuestion = React.createClass({
               handleChange={this.handleChange}
               toggleDisabled={this.toggleDisabled()}
               conceptExplanation={this.renderConceptExplanation} checkAnswer={this.checkAnswer}
+              spellCheck={(this.props.question.attempts.length > 3)}
             />
           );
         }

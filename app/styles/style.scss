@@ -79,11 +79,11 @@ ul.is-unstyled {
 }
 
 .unexpanded {
-  padding: 10px 20px 0px;
+  padding: 10px 15px 0px;
 }
 
 .expanded {
-  padding: 20px 20px 10px;
+  padding: 20px 15px 10px;
 }
 
 .panel-checkbox.toggle {
@@ -301,22 +301,31 @@ textarea.submission {
   height: 100%;
   border: 1px solid #bfbfbf;
   border-radius: 3px;
+
+  .pagination {
+    display: flex;
+    justify-content: flex-start;
+
+    .pagination-extreme-button {
+      margin: 10px;
+      min-width: 50px;
+    }
+  }
 }
 
 
 .response-pagination {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  // position: relative;
+  // top: 50%;
+  // transform: translateY(-50%);
+  overflow: scroll;
 }
 
 .response-component-page-number-active {
   background-color: #42afe3;
 }
 
-.pagination-extreme-button {
-  margin: 10px;
-}
+
 
 .section {
   &.student {

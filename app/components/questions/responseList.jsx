@@ -27,7 +27,8 @@ export default React.createClass({
           conceptsFeedback={this.props.conceptsFeedback}
           mode={this.props.mode}
           concepts={this.props.concepts}
-          conceptID={this.props.conceptID}/>
+          conceptID={this.props.conceptID}
+          massEdit={this.props.massEdit}/>
       )}
     })
     return (

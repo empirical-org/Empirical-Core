@@ -5,6 +5,12 @@ import { checkForMissingWords } from './requiredWords';
 import {
   checkChangeObjectMatch
 } from './algorithms/changeObjects';
+import {
+  spacingBeforePunctuation
+} from './algorithms/spacingBeforePunctuation';
+import {
+  getFeedbackForMissingWord
+} from './algorithms/joiningWords';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
 
 const jsDiff = require('diff');
@@ -29,14 +35,14 @@ export function removePunctuation(string) {
   return string.replace(/[^A-Za-z0-9\s]/g, '');
 }
 
-const downcasedFocusPoints = (focusPointsArr=[]) => focusPointsArr.map((fp) => {
+const downcasedFocusPoints = (focusPointsArr = []) => focusPointsArr.map((fp) => {
   fp.text = fp.text.toLowerCase();
   return fp;
 });
 
 const removeSpaces = string => string.replace(/\s+/g, '');
 
-// Check number of chars added.
+// check number of chars added.
 
 const getLowAdditionCount = (newString, oldString) => {
   const diff = jsDiff.diffChars(newString, oldString);
@@ -61,7 +67,7 @@ export default class Question {
   }
 
   checkMatch(response) {
-    // Remove leading and trailing whitespace, then make sure all words are single spaced
+    // remove leading and trailing whitespace, then make sure all words are single spaced
     response = response.trim().replace(/\s{2,}/g, ' ');
     const returnValue = {
       found: true,
@@ -69,6 +75,7 @@ export default class Question {
       response: {
         text: response,
         questionUID: this.questionUID,
+        gradeIndex: `nonhuman${this.questionUID}`,
         count: 1,
       },
     };
@@ -122,11 +129,33 @@ export default class Question {
       ];
       return returnValue;
     }
+    const spacingBeforePunctuationMatch = this.checkSpacingBeforePunctuationMatch(response);
+    if (spacingBeforePunctuationMatch !== undefined) {
+      res.feedback = spacingBeforePunctuationMatch.feedback;
+      res.author = 'Punctuation Hint';
+      res.parentID = getTopOptimalResponse(this.responses).key;
+      res.conceptResults = [
+        conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+      ];
+      return returnValue;
+    }
+    const whitespaceMatch = this.checkWhiteSpaceMatch(response);
+    if (whitespaceMatch !== undefined) {
+      res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
+      res.author = 'Whitespace Hint';
+      res.parentID = whitespaceMatch.key;
+      res.conceptResults = [
+        conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
+      ];
+      return returnValue;
+    }
     const changeObjectMatch = this.checkChangeObjectRigidMatch(response);
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          const missingWord = changeObjectMatch.missingText;
+          const missingTextFeedback = getFeedbackForMissingWord(missingWord);
+          res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
           res.author = 'Modified Word Hint';
           res.parentID = changeObjectMatch.response.key;
           res.conceptResults = [
@@ -158,8 +187,9 @@ export default class Question {
     if (changeObjectFlexMatch !== undefined) {
       switch (changeObjectFlexMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-
-          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          const missingWord = changeObjectFlexMatch.missingText;
+          const missingTextFeedback = getFeedbackForMissingWord(missingWord);
+          res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
           res.author = 'Flexible Modified Word Hint';
           res.parentID = changeObjectFlexMatch.response.key;
           res.conceptResults = [
@@ -187,16 +217,6 @@ export default class Question {
         default:
           return;
       }
-    }
-    const whitespaceMatch = this.checkWhiteSpaceMatch(response);
-    if (whitespaceMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
-      res.author = 'Whitespace Hint';
-      res.parentID = whitespaceMatch.key;
-      res.conceptResults = [
-        conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
-      ];
-      return returnValue;
     }
     const requiredWordsMatch = this.checkRequiredWordsMatch(response);
     if (requiredWordsMatch !== undefined) {
@@ -249,6 +269,7 @@ export default class Question {
       return returnValue;
     }
     returnValue.found = false;
+    returnValue.response.gradeIndex = `unmarked${this.questionUID}`;
     return returnValue;
   }
 
@@ -367,4 +388,9 @@ export default class Question {
   checkFocusPointMatch(response) {
     return _.find(this.focusPoints, fp => response.toLowerCase().indexOf(fp.text) === -1);
   }
+
+  checkSpacingBeforePunctuationMatch(response) {
+    return spacingBeforePunctuation(response);
+  }
+
 }

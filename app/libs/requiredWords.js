@@ -78,16 +78,16 @@ export function getPOSForWord(word) {
 }
 
 function _getCaseSensitiveWord(word, optimalSentence) {
-  const normalizedString = removePunctuation(optimalSentence)
-  const normalizedStringPlusLower = normalizeString(optimalSentence)
-  const startIndex = normalizedStringPlusLower.indexOf(word)
-  return normalizedString.substring(startIndex, word.length + startIndex)
+  const normalizedString = removePunctuation(optimalSentence);
+  const normalizedStringPlusLower = normalizeString(optimalSentence);
+  const startIndex = normalizedStringPlusLower.indexOf(word);
+  return normalizedString.substring(startIndex, word.length + startIndex);
 }
 
 export function getFeedbackForWord(word, sentences) {
   // const tag = getPOSForWord(word).toLowerCase();
   const caseSensitiveWord = _getCaseSensitiveWord(word, sentences[0]);
-  return `<p>Revise your sentence to include the word <em>${caseSensitiveWord}</em>.</p>`;
+  return `<p>Revise your sentence to include the word <em>${caseSensitiveWord}</em>. You may have misspelled it.</p>`;
 }
 
 export function extractSentencesFromResponses(responses) {
@@ -95,7 +95,8 @@ export function extractSentencesFromResponses(responses) {
 }
 
 export function getMissingWordsFromResponses(userString, sentences) {
-  return getMissingWords(userString, sentences);
+  const missingWords = getMissingWords(userString, sentences);
+  return _.sortBy(missingWords, word => word.length).reverse();
 }
 
 export function checkForMissingWords(userString, responses) {
@@ -106,10 +107,10 @@ export function checkForMissingWords(userString, responses) {
   }
 }
 
-function normalizeString(string='') {
-  return string.replace(/[.,?!]/g, '').toLowerCase();
+function normalizeString(string = '') {
+  return string.replace(/[.,?!;]/g, '').toLowerCase();
 }
 
-function removePunctuation(string='') {
-  return string.replace(/[.,?!]/g, '')
+function removePunctuation(string = '') {
+  return string.replace(/[.,?!;]/g, '');
 }
