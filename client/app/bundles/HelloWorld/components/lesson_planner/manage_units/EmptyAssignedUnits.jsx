@@ -1,7 +1,6 @@
 'use strict'
 
  import React from 'react'
- import UnitTabs from '../unit_tabs.jsx'
 
  export default React.createClass({
 

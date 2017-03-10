@@ -8,7 +8,6 @@ import UnitTemplatesAssigned from '../components/lesson_planner/unit_template_as
 import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
 import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
 import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
-import UnitTabs from '../components/lesson_planner/unit_tabs'
 import fnl from '../components/modules/fnl'
 import updaterGenerator from '../components/modules/updater'
 import Server from '../components/modules/server/server'
@@ -370,7 +369,6 @@ export default React.createClass({
 
 		return (
 			<span>
-				<UnitTabs tab={tabParam || this.state.tab} toggleTab={this.toggleTab}/>
 				<div id="lesson_planner">
 					{tabSpecificComponents}
 				</div>
