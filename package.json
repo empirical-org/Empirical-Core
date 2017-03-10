@@ -24,7 +24,11 @@
     "build:server": "(cd client && npm run build:server --silent)",
     "build:dev:client": "(cd client && npm run build:dev:client --silent)",
     "build:dev:server": "(cd client && npm run build:dev:server --silent)",
-    "hot-assets": "(cd client && npm run hot-assets)"
+    "hot-assets": "(cd client && npm run hot-assets)",
+    "jest": "cd client && npm run jest",
+    "jest:u": "cd client && npm run jest -- -u",
+    "jest:watch": "cd client && npm run jest:watch",
+    "jest:coverage": "cd client && npm run jest:coverage"
   },
   "repository": {
     "type": "git",
