@@ -1,6 +1,12 @@
 import React from 'react'
+import $ from 'jquery'
 
 export default React.createClass({
+
+  componentWillMount: function(){
+    $('.diagnostic-tab').addClass('active');
+    $('.activity-analysis-tab').removeClass('active');
+  },
 
   switchToDiagnosticAssign: function(){
     window.location.href = '/diagnostic#/stage/1'
