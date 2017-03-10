@@ -63,7 +63,7 @@ export default React.createClass({
           <TextEditor text={this.props.question.prompt || ""} handleTextChange={this.handlePromptChange}/>
           <label className="label">Instructions for student</label>
           <p className="control">
-            <input className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></input>
+            <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></textarea>
           </p>
           <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
           <p className="control">
