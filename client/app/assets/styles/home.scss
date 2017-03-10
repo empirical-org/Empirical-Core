@@ -31,8 +31,13 @@ a.q-button {
   text-align: center;
   user-select: none;
   vertical-align: middle;
-  &.icon-button {
-    font-weight: bold;
+  &.icon-button,
+  &.learn-more-button {
+    box-sizing: border-box;
+    padding-top: 9px;
+    font-weight: 600;
+    height: 40px;
+    margin-right: 10px;
   }
   &.cta-button {
     // padding-left: 33px;
@@ -333,9 +338,12 @@ nav.q-navbar-home {
 }
 
 .q-hero-text {
+  /* bring your own prefixes */
   text-align: center;
   p {
     font-size: 20px;
+    max-width: 460px;
+    margin: auto;
   }
 }
 
@@ -368,5 +376,12 @@ nav.q-navbar-home {
 @media only screen and (max-width : 419px) {
   .cta-home {
     margin-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 1152px) and (min-width: 656px) {
+  .icon-button,
+  .learn-more-button {
+    width: 227px;
   }
 }
