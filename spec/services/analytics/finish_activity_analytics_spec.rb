@@ -14,8 +14,8 @@ describe "FinishActivityAnalytics" do
     let!(:classroom) { FactoryGirl.create(:classroom) }
     # This object graph is kind of crazy and doesn't make all that much sense.
 
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom) }
-    let!(:unit) {FactoryGirl.create(:unit, classroom_activities: [classroom_activity])}
+    let!(:unit) {FactoryGirl.create(:unit)}
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, unit: unit) }
 
     let!(:activity_session) { FactoryGirl.create(:activity_session,
                                                 state: 'finished',

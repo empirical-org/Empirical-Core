@@ -14,12 +14,12 @@ feature 'Profile', js: true do
   end
 
 
-  it 'includes all teachers names' do
+  pending 'includes all teachers names' do
     eventually { expect(page).to have_content(student.classrooms[0].teacher.name) }
     eventually { expect(page).to have_content(student.classrooms[1].teacher.name) }
   end
 
-  it 'by default includes unit name of unit from last classroom added ' do
+  pending 'by default includes unit name of unit from last classroom added ' do
     eventually { expect(page).to have_content(unit1.name) }
   end
 
@@ -27,7 +27,7 @@ feature 'Profile', js: true do
   #   expect(page).to have_content(as2.activity.name)
   # end
 
-  it 'includes activity name for finished activity_session' do
+  pending 'includes activity name for finished activity_session' do
     expect(page).to have_content(as1.activity.name)
   end
 
@@ -37,19 +37,19 @@ feature 'Profile', js: true do
       page.find(:xpath,"//*[text()='#{student.classrooms[0].teacher.name}']").click
     end
 
-    it 'does not show assigned activity from first classroom added if multiple classrooms exist' do
+    pending 'does not show assigned activity from first classroom added if multiple classrooms exist' do
       expect(page).not_to have_content(as1.activity.name)
     end
 
-    it 'does not include unit name of unit from first classroom added' do
+    pending 'does not include unit name of unit from first classroom added' do
       expect(page).not_to have_content(unit1.name)
     end
 
-    it 'includes activity name for unstarted activity_session from the newly selected classroom' do
+    pending 'includes activity name for unstarted activity_session from the newly selected classroom' do
       expect(page).to have_content(as3_unstarted.activity.name)
     end
 
-    it 'includes activity name for finished activity_session from the newly selected classroom' do
+    pending 'includes activity name for finished activity_session from the newly selected classroom' do
         expect(page).to have_content(as3_finished.activity.name)
     end
 

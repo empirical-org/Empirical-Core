@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :classroom_activity do
+    to_create {|instance| instance.save(validate: false) }
     unit {Unit.first || FactoryGirl.create(:unit)}
     classroom {Classroom.first || FactoryGirl.create(:classroom)}
     assigned_student_ids {[]}
