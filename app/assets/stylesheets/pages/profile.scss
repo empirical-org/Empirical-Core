@@ -46,6 +46,12 @@
         background-color: #027360;
       }
     }
+    .classroom-box-classroom {
+      display: inline-block;
+      height: 40px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 
   .tab-subnavigation-wrapper {
