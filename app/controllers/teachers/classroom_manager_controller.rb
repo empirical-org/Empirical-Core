@@ -1,6 +1,6 @@
 class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
-  before_filter :teacher!
+  before_filter :teacher_or_public_activity_packs
   before_filter :authorize!
   include ScorebookHelper
   include LastActiveClassroom
@@ -16,7 +16,6 @@ class Teachers::ClassroomManagerController < ApplicationController
       @last_classroom_id = current_user.classrooms_i_teach.last.id
     end
   end
-
 
   def generic_add_students
     if current_user && current_user.role == 'teacher'
@@ -86,6 +85,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     end
+    @firewall_test = true
   end
 
 
@@ -173,9 +173,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: response
   end
 
-  def delete_my_account
+  def clear_data
     sign_out
-    User.find(params[:id]).destroy
+    User.find(params[:id]).clear_data
     render json: {}
   end
 
@@ -190,6 +190,22 @@ class Teachers::ClassroomManagerController < ApplicationController
       end
       @classroom ||= current_user.classrooms_i_teach.first
       auth_failed unless @classroom.teacher == current_user
+    end
+  end
+
+  def teacher_or_public_activity_packs
+    if !current_user && request.path.include?('featured-activity-packs')
+      if params[:category]
+        redirect_to "/activities/packs/category/#{params[:category]}"
+      elsif params[:activityPackId]
+        redirect_to "/activities/packs/#{params[:activityPackId]}"
+      elsif params[:grade]
+        redirect_to "/activities/packs/grade/#{params[:grade]}"
+      else
+        redirect_to "/activities/packs"
+      end
+    else
+      teacher!
     end
   end
 

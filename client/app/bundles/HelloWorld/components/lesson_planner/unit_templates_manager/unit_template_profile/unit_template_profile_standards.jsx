@@ -2,14 +2,14 @@
 
  import React from 'react'
  import _ from 'underscore'
- 
+
  export default  React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired
   },
 
   getStandards: function () {
-    return _.chain(this.props.data.model.activities)
+    return _.chain(this.props.data.activities)
             .map(_.property('topic'))
             .uniq(_.property('name'))
             .value()
@@ -23,13 +23,13 @@
 
   renderStandards: function (standards) {
     return _.map(standards, function(standard){
-      return <dd>{standard.name}</dd>
+      return <dd key={standard.name}>{standard.name}</dd>
     })
   },
 
   renderConcepts: function (concepts) {
     return _.map(concepts, function(concept){
-      return <dd className='concept'>{concept}</dd>
+      return <dd key={concept} className='concept'>{concept}</dd>
     })
   },
 

@@ -59,6 +59,7 @@ EmpiricalGrammar::Application.routes.draw do
 
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
+  get 'student_profile_data' => 'profiles#student_profile_data'
 
 
   resources :activities, only: [] do
@@ -67,8 +68,6 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   resources :grades, only: [:index]
-
-  get :porthole_proxy, to: 'porthole_proxy#index'
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
 
@@ -92,6 +91,8 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :unit_templates, only: [:index] do
       collection do
+        get :profile_info, controller: 'unit_templates', action: 'profile_info'
+        get :assigned_info, controller: 'unit_templates', action: 'assigned_info'
         post :fast_assign, controller: 'unit_templates', action: 'fast_assign'
       end
     end
@@ -103,7 +104,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'my_account' => 'classroom_manager#my_account'
     get 'my_account_data' => 'classroom_manager#my_account_data'
     put 'update_my_account' => 'classroom_manager#update_my_account'
-    delete 'delete_my_account' => 'classroom_manager#delete_my_account'
+    post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     namespace :progress_reports do
@@ -258,6 +259,7 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :show_json
         put :sign_in
+        put :clear_data
         get :sign_in
       end
     end
@@ -265,7 +267,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.
 
-  other_pages = %w(tooltip beta board press blog_posts supporters partners middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news home_new map )
+  other_pages = %w(tooltip beta board press blog_posts supporters partners middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news home_new map firewall_info)
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
@@ -279,8 +281,19 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
   get 'activities/packs/diagnostic', to: redirect('/tools/diagnostic')
-  get 'activities/packs/:id' => 'teachers/unit_templates#show'
+  get 'activities/packs/:id' => 'teachers/unit_templates#index'
+  get 'activities/packs/category/:category' => 'teachers/unit_templates#index'
+  get 'activities/packs/grade/:grade' => 'teachers/unit_templates#index'
 
+  get 'teachers/classrooms/activity_planner/:tab' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/featured-activity-packs/category/:category' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'
 
   # Count route to get quantities
   get 'count/featured_packs' => 'teachers/unit_templates#count'

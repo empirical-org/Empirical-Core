@@ -79,7 +79,6 @@ gem 'jquery-turbolinks'
 gem 'select2-rails'
 gem 'jbuilder'
 gem 'active_link_to'
-gem 'lodash-rails', '~> 3.10.1'
 
 # METRICS
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
@@ -93,7 +92,6 @@ gem 'sass-rails'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 
 gem 'slim-rails'
 gem 'haml-rails'

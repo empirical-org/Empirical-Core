@@ -105,7 +105,10 @@ class PagesController < ApplicationController
   def premium
   end
 
-  def map 
+  def map
+  end
+
+  def firewall_info
   end
 
   private

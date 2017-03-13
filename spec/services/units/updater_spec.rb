@@ -28,7 +28,7 @@ describe Units::Updater do
         expect(unit.visible).to eq(false)
     end
 
-    it "does not update visibility to false if any of its classroom activities are visibile" do
+    it "does not update visibility to false if any of its classroom activities are visible" do
         classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
         Units::Updater.run(unit, activities_data, classrooms_data)
         expect(unit.visible).to eq(true)

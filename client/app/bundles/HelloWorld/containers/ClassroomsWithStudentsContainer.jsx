@@ -1,7 +1,6 @@
 'use strict'
 import React from 'react'
 import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx'
-import UnitTabs from '../components/lesson_planner/unit_tabs'
 import LoadingIndicator from '../components/general_components/loading_indicator.jsx'
 
 export default class extends React.Component {
@@ -180,7 +179,6 @@ export default class extends React.Component {
 		} else if (this.state.classrooms) {
 			return (
 				<div>
-					<UnitTabs tab={this.state.tab} toggleTab={this.toggleTab}/>
 						<div className='container edit-assigned-students-container'>
 								<ClassroomsWithStudents
 									unitId={this.props.params.unitId}
