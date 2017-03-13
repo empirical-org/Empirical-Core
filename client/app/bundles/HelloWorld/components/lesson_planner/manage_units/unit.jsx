@@ -40,8 +40,8 @@
       }
     })
 
-		return <span>{`Assigned to ${studentCount} ${students} in
-    ${this.props.data.classrooms.length} ${classrooms} (${classroomsString}).`}</span>
+		return <div className="assigned-to">{`Assigned to ${studentCount} ${students} in
+    ${this.props.data.classrooms.length} ${classrooms} (${classroomsString}).`}</div>
 	},
 
 	editUnit: function () {
@@ -95,7 +95,7 @@
   },
 
   editStudentsLink: function(){
-    return this.props.report ? null : <a className='edit-unit' href={`/teachers/classrooms/activity_planner/units/${this.props.data.unit.id}/students/edit`}>Edit Students</a>
+    return this.props.report ? null : <a className='edit-unit edit-students' href={`/teachers/classrooms/activity_planner/units/${this.props.data.unit.id}/students/edit`}>Edit Students</a>
   },
 
   handleSubmit: function(){

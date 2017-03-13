@@ -12,6 +12,11 @@ export default React.createClass({
 		return {units: [], loaded: false}
 	},
 
+	componentWillMount(){
+		$('.diagnostic-tab').removeClass('active');
+		$('.activity-analysis-tab').addClass('active');
+	},
+
 	componentDidMount: function() {
 		$.ajax({url: '/teachers/units', data: {report: true}, success: this.displayUnits, error: function() {alert('Unable to download your reports at this time.')}});
 	},
@@ -44,7 +49,6 @@ export default React.createClass({
 			<LoadingSpinner />
 			)
 		}
-
 	},
 
 	render: function() {

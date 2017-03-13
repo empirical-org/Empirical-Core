@@ -14,7 +14,7 @@ feature 'Add Class', js: true do
 
   describe 'the Add Class page'
 
-  it 'provides a field to enter a classcode' do
+  pending 'provides a field to enter a classcode' do
     eventually { expect(page).to have_selector("input") }
   end
 
@@ -36,11 +36,11 @@ feature 'Add Class', js: true do
       #   # eventually { expect(student.students_classrooms).to include(classroom3)}
       # end
 
-      it 'tells the student they succesfully joined a classroom' do
+      pending 'tells the student they succesfully joined a classroom' do
         eventually { expect(page).to have_content("Classroom Added")}
       end
 
-      it 'creates an add student checkbox for the teacher' do
+      pending 'creates an add student checkbox for the teacher' do
         add_students = Objective.create(name: 'Add Students')
         eventually {expect(classroom3.teacher.checkboxes.last.objective).to eq(add_students)}
       end
@@ -48,15 +48,15 @@ feature 'Add Class', js: true do
     end
 
     context 'if the code is not valid' do
-      it 'is skipped until we have a frontend testing framework compatible with react' do
+      pending 'is skipped until we have a frontend testing framework compatible with react' do
         skip
-        it 'displays the standard error message' do
+        pending 'displays the standard error message' do
           page.find(".class-input").set('not-a-class')
           click_button('Join Your Class')
           eventually {expect(page).to have_content("Oops! Looks like that isn't a valid class code. Please try again.")}
         end
 
-        it 'displays the archived class error message' do
+        pending 'displays the archived class error message' do
           Classroom.create(name: 'Archived Class', code: 'archived-class', visible: false)
           page.find(".class-input").set('archived-class')
           click_button('Join Your Class')

@@ -1,7 +1,6 @@
 import React from 'react'
 import UnitStage1 from '../components/lesson_planner/create_unit/stage1/unit_stage1.jsx'
 import $ from 'jquery'
-import UnitTabs from '../components/lesson_planner/unit_tabs'
 
 
 
@@ -50,7 +49,6 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <UnitTabs tab={this.state.tab} toggleTab={this.toggleTab}/>
           <div className='container lesson_planner_main edit-assigned-activities-container'>
             <UnitStage1
                         unitName={this.props.params.unitName}

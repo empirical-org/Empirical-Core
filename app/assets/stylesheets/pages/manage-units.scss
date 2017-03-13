@@ -55,6 +55,9 @@
   .edit-unit {
       width: 200px;
   }
+  .edit-students {
+    vertical-align: top;
+  }
   .fa {
     padding-right: 10px;
   }
@@ -83,6 +86,13 @@
     margin-left: 0;
     a {
       margin-left: 10px;
+    }
+    div.assigned-to {
+      display: inline-block;
+      max-width: 615px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
   }
   .due-date-header {
