@@ -204,7 +204,7 @@ ShallowWrapper {
       "_debugID": 1,
       "_hostContainerInfo": null,
       "_hostParent": null,
-      "_instance": Constructor {
+      "_instance":  {
         "_reactInternalInstance": [Circular],
         "context": Object {},
         "props": Object {
