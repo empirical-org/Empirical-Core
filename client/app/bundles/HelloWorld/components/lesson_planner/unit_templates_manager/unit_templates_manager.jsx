@@ -3,7 +3,6 @@
 import React from 'react'
 import _l from 'lodash'
 import _ from 'underscore'
-import UnitTabs from '../unit_tabs'
 import UnitTemplateMinis from './unit_template_minis/unit_template_minis'
 import UnitTemplateProfile from './unit_template_profile/unit_template_profile'
 import fnl from '../../modules/fnl'
@@ -16,7 +15,7 @@ import LoadingIndicator from '../../shared/loading_indicator'
 export default React.createClass({
 
   componentDidMount: function() {
-  		this.fetchUnitTemplateModels();
+  	this.fetchUnitTemplateModels();
     this.fetchTeacher();
   },
 
@@ -193,10 +192,6 @@ export default React.createClass({
     }
   },
 
-  showUnitTabs: function() {
-    return this.state.signedInTeacher ? <UnitTabs tab="featured-activity-packs" toggleTab={this.toggleTab}/> : null
-  },
-
   showUnitTemplates: function() {
     return this.state.unitTemplatesManager.models.length < 1
     ? <LoadingIndicator />
@@ -206,7 +201,6 @@ export default React.createClass({
   render: function () {
     return (
       <span>
-        {this.showUnitTabs()}
         <div className='unit-templates-manager'>
           {this.showUnitTemplates()}
         </div>

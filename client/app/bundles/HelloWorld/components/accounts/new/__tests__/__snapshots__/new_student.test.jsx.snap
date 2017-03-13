@@ -1,0 +1,412 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewStudent component renders a signup form 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div>
+    <div
+        className="text-center"
+    >
+        <div>
+            <div>
+                <div>
+                    <h3
+                        className="sign-up-header"
+                    >
+                        Sign up for a Student Account
+                    </h3>
+                </div>
+            </div>
+            <auth_sign_up />
+        </div>
+        <p
+            className="text-center support-p"
+        >
+            We now support Google Classroom!
+        </p>
+    </div>
+    <div
+        className="row"
+    >
+        <div
+            className="col-xs-offset-3 col-xs-9"
+        >
+            <div
+                className="col-xs-8 need-a-border"
+            />
+            <div
+                className="row"
+            >
+                <div
+                    className="col-xs-12"
+                />
+            </div>
+            <div
+                className="row"
+            >
+                <div
+                    className="col-xs-12"
+                >
+                    <button
+                        className="button-green col-xs-8"
+                        id="sign_up"
+                        onClick={[Function]}
+                    >
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+            <div
+                className="row"
+            >
+                <div
+                    className="col-xs-8"
+                >
+                    <div
+                        className="text-align-center"
+                    >
+                        By signing up, you agree to our
+                        <a
+                            href="/tos"
+                            target="_blank"
+                        >
+                             terms of service 
+                        </a>
+                         and 
+                        <a
+                            href="/privacy"
+                            target="_blank"
+                        >
+                             privacy policy
+                        </a>
+                        .
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>,
+  "nodes": Array [
+    <div>
+      <div
+            className="text-center"
+      >
+            <div>
+                  <div>
+                        <div>
+                              <h3
+                                    className="sign-up-header"
+                              >
+                                    Sign up for a Student Account
+                              </h3>
+                        </div>
+                  </div>
+                  <auth_sign_up />
+            </div>
+            <p
+                  className="text-center support-p"
+            >
+                  We now support Google Classroom!
+            </p>
+      </div>
+      <div
+            className="row"
+      >
+            <div
+                  className="col-xs-offset-3 col-xs-9"
+            >
+                  <div
+                        className="col-xs-8 need-a-border"
+                  />
+                  <div
+                        className="row"
+                  >
+                        <div
+                              className="col-xs-12"
+                        />
+                  </div>
+                  <div
+                        className="row"
+                  >
+                        <div
+                              className="col-xs-12"
+                        >
+                              <button
+                                    className="button-green col-xs-8"
+                                    id="sign_up"
+                                    onClick={[Function]}
+                              >
+                                    Sign Up
+                              </button>
+                        </div>
+                  </div>
+                  <div
+                        className="row"
+                  >
+                        <div
+                              className="col-xs-8"
+                        >
+                              <div
+                                    className="text-align-center"
+                              >
+                                    By signing up, you agree to our
+                                    <a
+                                          href="/tos"
+                                          target="_blank"
+                                    >
+                                           terms of service 
+                                    </a>
+                                     and 
+                                    <a
+                                          href="/privacy"
+                                          target="_blank"
+                                    >
+                                           privacy policy
+                                    </a>
+                                    .
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {},
+      "_currentElement": <new_student
+        signUp={[Function]}
+        textInputGenerator={
+                Object {
+                        "generate": [Function],
+                      }
+        }
+/>,
+      "_debugID": 1,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": Constructor {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "signUp": [Function],
+          "textInputGenerator": Object {
+            "generate": [Function],
+          },
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 1,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <div>
+          <div
+                    className="text-center"
+          >
+                    <div>
+                              <div>
+                                        <div>
+                                                  <h3
+                                                            className="sign-up-header"
+                                                  >
+                                                            Sign up for a Student Account
+                                                  </h3>
+                                        </div>
+                              </div>
+                              <auth_sign_up />
+                    </div>
+                    <p
+                              className="text-center support-p"
+                    >
+                              We now support Google Classroom!
+                    </p>
+          </div>
+          <div
+                    className="row"
+          >
+                    <div
+                              className="col-xs-offset-3 col-xs-9"
+                    >
+                              <div
+                                        className="col-xs-8 need-a-border"
+                              />
+                              <div
+                                        className="row"
+                              >
+                                        <div
+                                                  className="col-xs-12"
+                                        />
+                              </div>
+                              <div
+                                        className="row"
+                              >
+                                        <div
+                                                  className="col-xs-12"
+                                        >
+                                                  <button
+                                                            className="button-green col-xs-8"
+                                                            id="sign_up"
+                                                            onClick={[Function]}
+                                                  >
+                                                            Sign Up
+                                                  </button>
+                                        </div>
+                              </div>
+                              <div
+                                        className="row"
+                              >
+                                        <div
+                                                  className="col-xs-8"
+                                        >
+                                                  <div
+                                                            className="text-align-center"
+                                                  >
+                                                            By signing up, you agree to our
+                                                            <a
+                                                                      href="/tos"
+                                                                      target="_blank"
+                                                            >
+                                                                       terms of service 
+                                                            </a>
+                                                             and 
+                                                            <a
+                                                                      href="/privacy"
+                                                                      target="_blank"
+                                                            >
+                                                                       privacy policy
+                                                            </a>
+                                                            .
+                                                  </div>
+                                        </div>
+                              </div>
+                    </div>
+          </div>
+</div>,
+        "_debugID": 2,
+        "_renderedOutput": <div>
+          <div
+                    className="text-center"
+          >
+                    <div>
+                              <div>
+                                        <div>
+                                                  <h3
+                                                            className="sign-up-header"
+                                                  >
+                                                            Sign up for a Student Account
+                                                  </h3>
+                                        </div>
+                              </div>
+                              <auth_sign_up />
+                    </div>
+                    <p
+                              className="text-center support-p"
+                    >
+                              We now support Google Classroom!
+                    </p>
+          </div>
+          <div
+                    className="row"
+          >
+                    <div
+                              className="col-xs-offset-3 col-xs-9"
+                    >
+                              <div
+                                        className="col-xs-8 need-a-border"
+                              />
+                              <div
+                                        className="row"
+                              >
+                                        <div
+                                                  className="col-xs-12"
+                                        />
+                              </div>
+                              <div
+                                        className="row"
+                              >
+                                        <div
+                                                  className="col-xs-12"
+                                        >
+                                                  <button
+                                                            className="button-green col-xs-8"
+                                                            id="sign_up"
+                                                            onClick={[Function]}
+                                                  >
+                                                            Sign Up
+                                                  </button>
+                                        </div>
+                              </div>
+                              <div
+                                        className="row"
+                              >
+                                        <div
+                                                  className="col-xs-8"
+                                        >
+                                                  <div
+                                                            className="text-align-center"
+                                                  >
+                                                            By signing up, you agree to our
+                                                            <a
+                                                                      href="/tos"
+                                                                      target="_blank"
+                                                            >
+                                                                       terms of service 
+                                                            </a>
+                                                             and 
+                                                            <a
+                                                                      href="/privacy"
+                                                                      target="_blank"
+                                                            >
+                                                                       privacy policy
+                                                            </a>
+                                                            .
+                                                  </div>
+                                        </div>
+                              </div>
+                    </div>
+          </div>
+</div>,
+      },
+      "_renderedNodeType": 0,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <new_student
+    signUp={[Function]}
+    textInputGenerator={
+        Object {
+            "generate": [Function],
+          }
+    }
+/>,
+}
+`;
