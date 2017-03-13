@@ -6,7 +6,7 @@
 
     beginTrial: function() {
       $.post('/subscriptions', {account_limit: 1000, account_type: 'trial'})
-      .success(function(){window.location.assign('/teachers/classrooms/scorebook');});
+      .success(function(){window.location.assign('/');});
     },
 
   miniBuilder: function() {

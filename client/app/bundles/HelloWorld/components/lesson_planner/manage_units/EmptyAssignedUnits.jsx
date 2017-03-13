@@ -1,12 +1,16 @@
 'use strict'
 
  import React from 'react'
- import UnitTabs from '../unit_tabs.jsx'
 
  export default React.createClass({
 
+  componentWillMount(){
+    $('.diagnostic-tab').removeClass('active');
+    $('.activity-analysis-tab').addClass('active');
+  },
+
   handleClick() {
-    window.location = '/teachers/classrooms/activity_planner#tab/assign-new-activity'
+    window.location = '/teachers/classrooms/activity_planner/assign-new-activity'
   },
 
    render: function () {

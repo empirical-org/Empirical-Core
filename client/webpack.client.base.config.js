@@ -5,6 +5,9 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 
 const devBuild = process.env.NODE_ENV !== 'production';
+const firebaseApiKey = process.env.FIREBASE_API_KEY
+const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL
+
 const nodeEnv = devBuild ? 'development' : 'production';
 
 module.exports = {
@@ -29,6 +32,15 @@ module.exports = {
     ],
     home: [
       './app/bundles/Home/home',
+    ],
+    student: [
+      './app/bundles/Student/startup/clientRegistration'
+    ],
+    session: [
+      './app/bundles/Session/startup/clientRegistration'
+    ],
+    firewall_test: [
+      './app/bundles/Firewall_test/firewall_test.js'
     ]
 
   },
@@ -44,6 +56,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv),
+        FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
+        FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl)
       },
       TRACE_TURBOLINKS: devBuild,
     }),

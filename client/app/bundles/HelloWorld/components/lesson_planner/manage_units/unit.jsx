@@ -4,7 +4,6 @@
  import _ from 'underscore'
  import ClassroomActivity from './classroom_activity'
  import Pluralize from 'pluralize'
- import {Link} from 'react-router'
  import AddClassroomActivityRow from './add_classroom_activity_row.jsx'
 
  export default  React.createClass({
@@ -41,8 +40,8 @@
       }
     })
 
-		return <span>{`Assigned to ${studentCount} ${students} in
-    ${this.props.data.classrooms.length} ${classrooms} (${classroomsString}).`}</span>
+		return <div className="assigned-to">{`Assigned to ${studentCount} ${students} in
+    ${this.props.data.classrooms.length} ${classrooms} (${classroomsString}).`}</div>
 	},
 
 	editUnit: function () {
@@ -96,7 +95,7 @@
   },
 
   editStudentsLink: function(){
-    return this.props.report ? null : <Link className='edit-unit' to={`/units/${this.props.data.unit.id}/students/edit`}>Edit Students</Link>
+    return this.props.report ? null : <a className='edit-unit edit-students' href={`/teachers/classrooms/activity_planner/units/${this.props.data.unit.id}/students/edit`}>Edit Students</a>
   },
 
   handleSubmit: function(){

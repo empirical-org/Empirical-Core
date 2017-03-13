@@ -3,8 +3,9 @@ require 'rails_helper'
 describe Unit, type: :model do
   let!(:classroom) {FactoryGirl.create(:classroom)}
   let!(:teacher) {FactoryGirl.create(:teacher)}
-  let!(:classroom_activity) {FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom)}
-  let!(:unit) {FactoryGirl.create :unit, classroom_activities: [classroom_activity], user: teacher}
+  let!(:activity) {FactoryGirl.create(:activity)}
+  let!(:unit) {FactoryGirl.create :unit, user: teacher}
+  let!(:classroom_activity) {FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom, unit: unit)}
 
   describe 'user_id field' do
     it 'should not raise an error' do

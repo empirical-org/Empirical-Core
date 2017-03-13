@@ -4,9 +4,8 @@ import AuthSignUp from './auth_sign_up'
 
 export default React.createClass({
     propTypes: {
-        analytics: React.PropTypes.object.isRequired,
         signUp: React.PropTypes.func.isRequired,
-        // errors: React.PropTypes.object,
+        errors: React.PropTypes.object,
         update: React.PropTypes.func.isRequired,
         textInputGenerator: React.PropTypes.object.isRequired
     },

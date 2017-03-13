@@ -30,7 +30,7 @@ export default React.createClass({
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
 		              <div className="icon-wrapper icon-gray"></div>
 		              <div className="icons-description-wrapper">
-		                <p className="title title-not-started">Not Started</p>
+		                <p className="title title-not-started">Not Finished</p>
 		              </div>
 		            </div>
 		          </div>

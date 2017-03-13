@@ -8,7 +8,6 @@ import UnitTemplatesAssigned from '../components/lesson_planner/unit_template_as
 import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
 import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
 import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
-import UnitTabs from '../components/lesson_planner/unit_tabs'
 import fnl from '../components/modules/fnl'
 import updaterGenerator from '../components/modules/updater'
 import Server from '../components/modules/server/server'
@@ -342,9 +341,10 @@ export default React.createClass({
 		// entirely to react-router for managing that, along with redux for
 		// the general state in this section
 		const tabParam = this.props.params.tab
-		if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam == ('featured-activity-packs' || 'explore-activity-packs'))) {
-			tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
-		} else if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
+		// if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam == ('featured-activity-packs' || 'explore-activity-packs'))) {
+		// 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
+		// } else
+		if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
 			tabSpecificComponents = <CreateUnit data={{
 				createUnitData: this.state.createUnit,
 				assignSuccessData: this.state.unitTemplatesManager.model
@@ -363,13 +363,12 @@ export default React.createClass({
 			 toggleTab: this.toggleTab,
 			 editUnit: this.editUnit
 		 }}/>;
- 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
-			tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
+ // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
+	// 		tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		}
 
 		return (
 			<span>
-				<UnitTabs tab={tabParam || this.state.tab} toggleTab={this.toggleTab}/>
 				<div id="lesson_planner">
 					{tabSpecificComponents}
 				</div>

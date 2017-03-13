@@ -236,14 +236,6 @@ button:not(.select-mixin) {
 .grade-select {
   width: 140px;
   background-color: #ebebeb;
-  .selecter-selected {
-    background-color: #ebebeb;
-    width: 140px;
-    max-width: 140px;
-  }
-  .selecter-options {
-    max-width: 140px;
-  }
 }
 
 .student_column {

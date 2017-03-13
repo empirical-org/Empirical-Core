@@ -30,11 +30,9 @@ export default React.createClass({
   },
 
   fetchData: function (currentClassroom) {
-    // var newCurrentPage = this.state.currentPage + 1;
     this.setState({currentClassroom: currentClassroom});
     this.setState({loading: true})
-    // this.setState({loading: true, currentPage: newCurrentPage})
-    $.ajax({url: '/profile.json', data: {current_page: this.state.currentPage, current_classroom_id: currentClassroom}, format: 'json', success: this.loadProfile})
+    $.ajax({url: '/student_profile_data', data: {current_classroom_id: currentClassroom}, format: 'json', success: this.loadProfile})
   },
 
   loadProfile: function (data) {
@@ -51,9 +49,9 @@ export default React.createClass({
     if (this.state.firstBatchLoaded) {
       return (
         <div id="student-profile">
-          <StudentProfileHeader data={this.state.student} fetchData={this.fetchData} />
-          <NextActivity data={this.state.next_activity_session} />
-          <StudentProfileUnits data={this.state.grouped_scores} />
+          <StudentProfileHeader data={this.state.student} fetchData={this.fetchData} loading={this.state.loading} />
+          <NextActivity data={this.state.next_activity_session} loading={this.state.loading} hasActivities={!(_.isEmpty(this.state.grouped_scores))}/>
+          <StudentProfileUnits data={this.state.grouped_scores} loading={this.state.loading}/>
         </div>
       )
     } else return <span></span>

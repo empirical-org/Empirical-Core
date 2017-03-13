@@ -4,9 +4,12 @@ class ProfilesController < ApplicationController
   def show
     @user = current_user
     if current_user.role == 'student'
-      respond_to do |format|
-        format.html {student(false)}
-        format.json {student(true)}
+      @firewall_test = true
+      @js_file = 'student'
+      if current_user.classrooms.any?
+        render 'student'
+      else
+        render 'students_classrooms/add_classroom'
       end
     else
       send current_user.role
@@ -17,19 +20,11 @@ class ProfilesController < ApplicationController
     student
   end
 
-  def student(is_json=false)
+  def student_profile_data
     if current_user.classrooms.any?
-      if is_json
-        render json: student_profile_data(params[:current_classroom_id], params[:current_page].to_i)
-      else
-        render 'student'
-      end
+      render json: get_student_profile_data(params[:current_classroom_id], params[:current_page].to_i)
     else
-      if is_json
-        render json: {error: 'Current user has no classrooms'}
-      else
-        render 'students_classrooms/add_classroom'
-      end
+      render json: {error: 'Current user has no classrooms'}
     end
   end
 
@@ -61,7 +56,7 @@ protected
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
   end
 
-  def student_profile_data(classroom_id, current_page)
+  def get_student_profile_data(classroom_id, current_page)
     classroom = current_classroom(classroom_id)
     grouped_scores, is_last_page = Profile::Processor.new.query(current_user, current_page, classroom.id)
     next_activity_session = current_user.next_activity_session(classroom.id)
