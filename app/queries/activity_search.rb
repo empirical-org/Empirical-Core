@@ -18,7 +18,7 @@ class ActivitySearch
   private
 
   def self.search_sort_sql(sort)
-    return 'activity_classifications.order_number asc, sections.position asc' if sort.blank?
+    return 'sections.name asc' if sort.blank?
 
     if sort['asc_or_desc'] == 'desc'
       order = 'desc'
@@ -30,14 +30,13 @@ class ActivitySearch
     when 'activity'
       field = 'activities.name'
     when 'activity_classification'
-      field = 'activity_classifications.order_number'
-      field2 = 'sections.position'
+      field = 'activity_classifications.name'
     when 'section'
-      field = 'sections.position'
+      field = 'sections.name'
     when 'topic_category'
       field = 'topic_categories.name'
     end
 
-    field + ' ' + order + ' ' + field2 + ' ' + order
+    field + ' ' + order
   end
 end
