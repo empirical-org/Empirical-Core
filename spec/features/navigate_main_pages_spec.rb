@@ -25,7 +25,7 @@ feature 'As someone who is not signed in, ensure that the' do
     xit 'has a navbar' do
       expect(page).to have_css('.home-nav-right')
     end
-     'has a footer' do
+    xit 'has a footer' do
       expect(page).to have_css('.home-footer')
     end
   end
