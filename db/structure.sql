@@ -137,8 +137,7 @@ CREATE TABLE activity_classifications (
     module_url character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    app_name character varying(255),
-    order_number integer DEFAULT 999999999
+    app_name character varying(255)
 );
 
 
@@ -2789,6 +2788,4 @@ INSERT INTO schema_migrations (version) VALUES ('20170127014847');
 INSERT INTO schema_migrations (version) VALUES ('20170127020417');
 
 INSERT INTO schema_migrations (version) VALUES ('20170217201048');
-
-INSERT INTO schema_migrations (version) VALUES ('20170222165119');
 
