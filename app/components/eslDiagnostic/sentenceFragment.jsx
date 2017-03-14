@@ -177,11 +177,28 @@ const PlaySentenceFragment = React.createClass({
     const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit | Enviar</button>;
 
     if (!this.choosingSentenceOrFragment()) {
-      let instructions;
+      // let instructions;
+      let component;
       if (this.props.question.instructions && this.props.question.instructions !== '') {
-        instructions = this.props.question.instructions;
+        component = (
+          <div className="feedback-row">
+            <img className="info" src={icon} />
+            <p dangerouslySetInnerHTML={{ __html: this.props.question.instructions, }} />
+          </div>
+        );
+        // instructions = this.props.question.instructions;
       } else {
-        instructions = 'Si es una oración completa, aprieta el botón que dice “enviar”. Si es una oración incompleta, complete la oración ahora.';
+        component = (
+          <div className="feedback-row">
+            <img className="info" src={icon} />
+            <p>
+              If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.
+              <br /><br />
+              Si es una oración completa, aprieta el botón que dice “enviar”. Si es una oración incompleta, complete la oración ahora.
+            </p>
+          </div>
+        );
+        // instructions = 'Añadir al grupo de palabras para hacer una oración completa. Añada el menor número posible de palabras.';
       }
 
       return (
@@ -190,14 +207,7 @@ const PlaySentenceFragment = React.createClass({
             transitionName={'text-editor'} transitionAppear transitionAppearTimeout={1200}
             transitionLeaveTimeout={300}
           >
-            <div className="feedback-row">
-              <img className="info" src={icon} />
-              <p>If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.</p>
-            </div>
-            <div className="feedback-row">
-              <img className="info" src={icon} />
-              <p>{instructions}</p>
-            </div>
+            {component}
             <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
             <div className="question-button-group">
               {button}
