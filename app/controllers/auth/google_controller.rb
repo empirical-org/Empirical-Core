@@ -38,7 +38,7 @@ class Auth::GoogleController < ApplicationController
       AccountCreationCallbacks.new(user, ip).trigger
       user.subscribe_to_newsletter
       if user.role == 'teacher'
-        render 'accounts/new'
+        redirect_to 'accounts/new'
         return
       end
     end
