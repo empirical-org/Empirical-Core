@@ -45,7 +45,7 @@ feature 'Profile', js: true do
       expect(page).not_to have_content(unit1.name)
     end
 
-    pending 'includes activity name for unstarted activity_session from the newly selected classroom' do
+    skip 'includes activity name for unstarted activity_session from the newly selected classroom' do
       expect(page).to have_content(as3_unstarted.activity.name)
     end
 
