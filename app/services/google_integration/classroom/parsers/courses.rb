@@ -13,7 +13,7 @@ example JSON.parse(response.body) :
     return [] if x['courses'].nil?
     courses = x['courses'].map do |hash|
       name = hash['section'] ? "#{hash['name']} #{hash['section']}" : hash['name']
-      {id: hash['id'].to_i, name: name}
+      {id: hash['id'].to_i, name: name, ownerId: hash['ownerId']}
     end
     courses
   end
