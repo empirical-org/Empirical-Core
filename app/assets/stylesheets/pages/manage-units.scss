@@ -175,9 +175,18 @@
     align-items: center;
     div#activity-analysis-activity-name {
       padding-left: 10px;
-      button {
+      .recommendations-button {
+        display: inline-block;
         margin-left: 10px;
-        padding: 10px;
+        padding: 7px 17px 8px;
+        border-radius: 100px;
+        background-color: $white;
+        border: solid 1px $quillforestgreen;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 0.62;
+        letter-spacing: 0.8px;
+        color: $quillforestgreen;
       }
     }
   }
