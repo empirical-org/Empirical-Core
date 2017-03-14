@@ -14,7 +14,13 @@ import pathwayActions from '../../actions/pathways';
 const C = require('../../constants').default;
 import rootRef from '../../libs/firebase';
 const sessionsRef = rootRef.child('sessions');
-
+import {
+  submitNewResponse,
+  incrementChildResponseCount,
+  incrementResponseCount,
+  getResponsesWithCallback,
+  getGradedResponsesWithCallback
+} from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
@@ -37,18 +43,22 @@ const PlayDiagnosticQuestion = React.createClass({
       editing: false,
       response: '',
       readyForNext: false,
-      hasOrIsGettingResponses: false,
     };
+  },
+
+  componentDidMount() {
+    getGradedResponsesWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({ responses: data, });
+      }
+    );
   },
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length) {
       this.saveSessionData(nextProps.playLesson);
     }
-  },
-
-  doesNotHaveAndIsNotGettingResponses() {
-    return (!this.state.hasOrIsGettingResponses);
   },
 
   getInitialValue() {
@@ -66,7 +76,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getResponses() {
-    return this.props.responses.data[this.props.question.key];
+    return this.state.responses;
   },
 
   getResponse2(rid) {
@@ -224,7 +234,6 @@ function select(state) {
     concepts: state.concepts,
     questions: state.questions,
     routing: state.routing,
-    responses: state.responses,
   };
 }
 export default connect(select)(PlayDiagnosticQuestion);

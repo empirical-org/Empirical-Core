@@ -95,6 +95,7 @@ export default React.createClass({
       weak: false,
       feedback: this.state.feedback,
       optimal: this.refs.newResponseOptimal.checked,
+      gradeIndex: `human${this.props.questionID}`,
     };
     this.props.dispatch(submitResponseEdit(rid, newResp));
   },
@@ -165,7 +166,7 @@ export default React.createClass({
   },
 
   removeLinkToParentID(rid) {
-    this.props.dispatch(submitResponseEdit(rid, { gradeindex: `human${this.props.response.questionUID}`, }));
+    this.props.dispatch(submitResponseEdit(rid, { gradeIndex: `human${this.props.response.questionUID}`, }));
     this.props.dispatch(removeLinkToParentID(rid));
   },
 
@@ -222,11 +223,11 @@ export default React.createClass({
   },
 
   saveNewConceptResult() {
-    let conceptResults = this.props.response.conceptResults || {};
-    let conceptResultUids = Object.keys(conceptResults).map((concept) => conceptResults[concept].conceptUID);
-    if(conceptResultUids.includes(this.state.newConceptResult.conceptUID)) {
+    const conceptResults = this.props.response.conceptResults || {};
+    const conceptResultUids = Object.keys(conceptResults).map(concept => conceptResults[concept].conceptUID);
+    if (conceptResultUids.includes(this.state.newConceptResult.conceptUID)) {
       const conceptKey = _.compact(_.map(conceptResults, (concept, conceptValues) => {
-        if(concept.conceptUID == this.state.newConceptResult.conceptUID) {
+        if (concept.conceptUID == this.state.newConceptResult.conceptUID) {
           return concept;
         } else {
           return null;
@@ -275,7 +276,7 @@ export default React.createClass({
   },
 
   onMassSelectCheckboxToggle(responseKey) {
-    if(this.props.massEdit.selectedResponses.includes(responseKey)) {
+    if (this.props.massEdit.selectedResponses.includes(responseKey)) {
       this.removeResponseFromMassEditArray(responseKey);
     } else {
       this.addResponseToMassEditArray(responseKey);
@@ -520,15 +521,15 @@ export default React.createClass({
     const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
     const checked = this.props.massEdit.selectedResponses.includes(response.key) ? 'checked' : '';
     return (
-      <div style={{display: 'flex', alignItems: 'center'}} className={bgColor}>
-        <input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.key)} style={{marginLeft: '15px'}}/>
-        <header onClick={() => this.props.expand(response.key)} className={`card-content ${this.headerClasses()}`} style={{flexGrow: '1'}}>
+      <div style={{ display: 'flex', alignItems: 'center', }} className={bgColor}>
+        <input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.key)} style={{ marginLeft: '15px', }} />
+        <header onClick={() => this.props.expand(response.key)} className={`card-content ${this.headerClasses()}`} style={{ flexGrow: '1', }}>
           <div className="content">
             <div className="media">
               <div className="media-content">
                 <p>{response.text} {author}</p>
               </div>
-              <div className='media-right' style={{textAlign: 'right'}}>
+              <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">
                   <span>{ icon } { response.count ? response.count : 0 }</span>
                 </figure>

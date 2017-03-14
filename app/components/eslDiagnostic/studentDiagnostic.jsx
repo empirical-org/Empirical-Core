@@ -57,10 +57,6 @@ const StudentDiagnostic = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.doesNotHaveAndIsNotGettingResponses() && this.hasQuestionsInQuestionSet(this.props)) {
-      console.log('Get responses');
-      this.getResponsesForEachQuestion(this.props.playDiagnostic);
-    }
     if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
     }
@@ -241,6 +237,7 @@ function select(state) {
     questions: state.questions,
     playDiagnostic: state.playDiagnostic,
     sentenceFragments: state.sentenceFragments,
+    sessions: state.sessions,
   };
 }
 export default connect(select)(StudentDiagnostic);

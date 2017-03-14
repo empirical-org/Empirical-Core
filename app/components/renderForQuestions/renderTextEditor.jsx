@@ -117,6 +117,7 @@ export default React.createClass({
   },
 
   render() {
+    console.log('Rendering');
     return (
       <div className={`student text-editor card is-fullwidth ${this.props.disabled ? 'disabled-editor' : ''}`}>
         <div className="card-content">
