@@ -20,28 +20,74 @@ const StudentDiagnostic = React.createClass({
   getInitialState() {
     return {
       saved: false,
+      sessionID: this.getSessionId(),
       hasOrIsGettingResponses: false,
     };
   },
 
+  getSessionId() {
+    let sessionID = this.props.location.query.student;
+    if (sessionID === 'null') {
+      sessionID = undefined;
+    }
+    return sessionID;
+  },
+
   saveToLMS() {
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
+    const sessionID = this.state.sessionID;
+    if (sessionID) {
+      this.finishActivitySession(sessionID, results, 1);
+    } else {
+      this.createAnonActivitySession('ell', results, 1);
+    }
+  },
+
+  finishActivitySession(sessionID, results, score) {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${this.props.routing.locationBeforeTransitions.query.student}`,
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
         json:
         {
           state: 'finished',
           concept_results: results,
-          percentage: 1,
+          percentage: score,
         },
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
+          console.log('Finished Saving');
+          console.log(err, httpResponse, body);
+          SessionActions.delete(this.state.sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL;
           this.setState({ saved: true, });
+        } else {
+          console.log('Save not successful');
+          this.setState({ saved: false, error: true, });
         }
-        // console.log(err,httpResponse,body)
+      }
+    );
+  },
+
+  createAnonActivitySession(lessonID, results, score) {
+    request(
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+        method: 'POST',
+        json:
+        {
+          state: 'finished',
+          activity_uid: lessonID,
+          concept_results: results,
+          percentage: score,
+        },
+      },
+      (err, httpResponse, body) => {
+        if (httpResponse.statusCode === 200) {
+          console.log('Finished Saving');
+          console.log(err, httpResponse, body);
+          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+          this.setState({ saved: true, });
+        }
       }
     );
   },
