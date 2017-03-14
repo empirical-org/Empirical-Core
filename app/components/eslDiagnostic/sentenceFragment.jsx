@@ -9,19 +9,32 @@ import fragmentActions from '../../actions/sentenceFragments.js';
 import {
   submitNewResponse,
   incrementChildResponseCount,
-  incrementResponseCount
-
+  incrementResponseCount,
+  getResponsesWithCallback,
+  getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import icon from '../../img/question_icon.svg';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import { hashToCollection } from '../../libs/hashToCollection.js';
 
 let key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
 const PlaySentenceFragment = React.createClass({
   getInitialState() {
     return {
-      response: '',
+      response: this.props.question.prompt,
       checkAnswerEnabled: true,
+      submitted: false,
     };
+  },
+
+  componentDidMount() {
+    getGradedResponsesWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({ responses: data, });
+      }
+    );
   },
 
   choosingSentenceOrFragment() {
@@ -44,6 +57,10 @@ const PlaySentenceFragment = React.createClass({
     return this.props.question.prompt;
   },
 
+  getResponses() {
+    return this.state.responses;
+  },
+
   checkChoice(choice) {
     const questionType = this.props.question.isFragment ? 'Fragment' : 'Sentence';
     this.props.markIdentify(choice === questionType);
@@ -59,48 +76,79 @@ const PlaySentenceFragment = React.createClass({
   },
 
   handleChange(e) {
+    console.log('Handle change.');
     this.setState({ response: e, });
   },
 
+  handleAttemptSubmission() {
+    if (this.state.submitted === false) {
+      this.setState(
+        { submitted: true, },
+        this.props.nextQuestion()
+      );
+    }
+  },
+
   checkAnswer() {
-    if (this.state.checkAnswerEnabled) {
+    if (this.state.checkAnswerEnabled && this.state.responses) {
+      const key = this.props.currentKey;
+      const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const fragment = this.props.sentenceFragments.data[key];
-
-        const responseMatcher = new POSMatcher(fragment.responses);
+        const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
+        const fields = {
+          prompt,
+          responses: hashToCollection(this.getResponses()),
+          questionUID: key,
+          wordCountChange,
+          ignoreCaseAndPunc,
+        };
+        const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
-
-        let newResponse;
-
-        if (matched.found) {
-          if (matched.posMatch && !matched.exactMatch) {
-            newResponse = {
-              text: matched.submitted,
-              parentID: matched.response.key,
-              count: 1,
-              feedback: matched.response.optimal ? 'Excellent!' : 'Try writing the sentence in another way.',
-              questionUID: key,
-            };
-            if (matched.response.optimal) {
-              newResponse.optimal = matched.response.optimal;
-            }
-            this.props.dispatch(submitNewResponse(newResponse, newResponse.parentId));
-            this.props.dispatch(incrementChildResponseCount(matched.response.key)); // parent has no parentID
-          } else {
-            this.props.dispatch(incrementResponseCount(key, matched.response.key, matched.response.parentID));
-          }
-        } else {
-          newResponse = {
-            text: matched.submitted,
-            count: 1,
-            questionUID: key,
-          };
-          this.props.dispatch(submitNewResponse(newResponse));
-        }
+        updateResponseResource(matched, key, attempts, this.props.dispatch, );
         this.props.updateAttempts(matched);
-        this.props.nextQuestion();
+        this.setState({ checkAnswerEnabled: true, });
+        this.handleAttemptSubmission();
       });
     }
+
+    // if (this.state.checkAnswerEnabled) {
+    //   this.setState({ checkAnswerEnabled: false, }, () => {
+    //     const fragment = this.props.sentenceFragments.data[key];
+    //
+    //     const responseMatcher = new POSMatcher(fragment.responses);
+    //     const matched = responseMatcher.checkMatch(this.state.response);
+    //
+    //     let newResponse;
+    //
+    //     if (matched.found) {
+    //       if (matched.posMatch && !matched.exactMatch) {
+    //         newResponse = {
+    //           text: matched.submitted,
+    //           parentID: matched.response.key,
+    //           count: 1,
+    //           feedback: matched.response.optimal ? 'Excellent!' : 'Try writing the sentence in another way.',
+    //           questionUID: key,
+    //         };
+    //         if (matched.response.optimal) {
+    //           newResponse.optimal = matched.response.optimal;
+    //         }
+    //         this.props.dispatch(submitNewResponse(newResponse, newResponse.parentId));
+    //         this.props.dispatch(incrementChildResponseCount(matched.response.key)); // parent has no parentID
+    //       } else {
+    //         this.props.dispatch(incrementResponseCount(key, matched.response.key, matched.response.parentID));
+    //       }
+    //     } else {
+    //       newResponse = {
+    //         text: matched.submitted,
+    //         count: 1,
+    //         questionUID: key,
+    //       };
+    //       this.props.dispatch(submitNewResponse(newResponse));
+    //     }
+    //     this.props.updateAttempts(matched);
+    //     this.props.nextQuestion();
+    //   });
+    // }
   },
 
   renderSentenceOrFragmentMode() {
@@ -150,7 +198,7 @@ const PlaySentenceFragment = React.createClass({
               <img className="info" src={icon} />
               <p>{instructions}</p>
             </div>
-            <TextEditor value={fragment.prompt} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
+            <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
             <div className="question-button-group">
               {button}
             </div>
