@@ -12,7 +12,7 @@ feature 'Standards for Student Progress Report', js: true do
       report_page.visit
     end
 
-    pending 'displays the right headers' do
+    skip 'displays the right headers' do
       expect(report_page.column_headers).to eq(
         [
           'Standard Level',
