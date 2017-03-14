@@ -88,7 +88,7 @@ const Concepts = React.createClass({
         <TextEditor text={""} handleTextChange={this.handlePromptChange} />
         <label className="label">Instructions for student</label>
         <p className="control">
-          <input className="input" type="text" ref="instructions"></input>
+          <textarea className="input" type="text" ref="instructions"></textarea>
         </p>
         <label className="label">Cues (seperated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
