@@ -14,7 +14,7 @@ feature 'Profile', js: true do
   end
 
 
-  pending 'includes all teachers names' do
+  skip 'includes all teachers names' do
     eventually { expect(page).to have_content(student.classrooms[0].teacher.name) }
     eventually { expect(page).to have_content(student.classrooms[1].teacher.name) }
   end

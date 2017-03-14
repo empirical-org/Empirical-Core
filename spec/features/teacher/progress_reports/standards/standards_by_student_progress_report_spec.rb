@@ -40,7 +40,7 @@ feature 'Standards by Student Progress Report', js: true do
       )
     end
 
-    pending 'links to a single Student View' do
+    skip 'links to a single Student View' do
       report_page.click_student_view(0)
       expect(report_page).to have_text('Standards: Alice')
     end
