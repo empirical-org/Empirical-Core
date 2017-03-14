@@ -48,7 +48,7 @@ export default React.createClass({
 	scoreRow: function(answer, attemptNum, averageScore) {
 		return (
 			<tr className={ScoreColor(averageScore)}>
-				<td>{`${NumberSuffix(attemptNum)} Response`}</td>
+				<td>{`${NumberSuffix(attemptNum)} Submission`}</td>
 				<td />
 				<td>{answer}</td>
 			</tr>
