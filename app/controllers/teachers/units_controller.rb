@@ -25,6 +25,10 @@ class Teachers::UnitsController < ApplicationController
     render json: { prohibitedUnitNames: unitNames.concat(unitTemplateNames) }.to_json
   end
 
+  def last_assigned_unit_id
+    render json: {id: Unit.where(user: current_user).last.id}.to_json
+  end
+
   def update
     unit_template_names = UnitTemplate.all.map{ |u| u.name.downcase }
     if unit_params[:name] && unit_params[:name] === ''
@@ -114,8 +118,8 @@ class Teachers::UnitsController < ApplicationController
     end
 
     arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
-    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}.reverse
-    render json: {units: arr1.concat(arr2)}.to_json
+    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}
+    render json: {units: arr2.concat(arr1)}.to_json
   end
 
   def hide
