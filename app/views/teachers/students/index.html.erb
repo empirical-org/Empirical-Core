@@ -30,12 +30,14 @@
             <% if @classroom.students.any? %>
               <div class="container" id="student-table">
                 <section class="no-border class-page">
-                  <h3>Edit Students</h3>
-                  <button class="pull-right">
-                    <%= link_to 'Download Login Sheet PDF',
-                                generate_login_pdf_path(@classroom.id),
-                                method: 'get' %>
-                  </button>
+                  <div>
+                    <h3>Edit Students</h3>
+                    <button class="pull-right">
+                      <%= link_to 'Download Login Sheet PDF',
+                                  generate_login_pdf_path(@classroom.id),
+                                  method: 'get' %>
+                    </button>
+                  </div>
                   <table class="table students">
                     <thead>
                       <tr>
