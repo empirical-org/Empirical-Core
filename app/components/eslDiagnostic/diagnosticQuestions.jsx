@@ -66,7 +66,7 @@ export default function diagnosticQuestions() {
     },
     {
       type: 'SC',
-      key: '-KdCfdI_jZZDE3INagj6', // i put the book _____ the shelf.
+      key: '-KfC7o1X3EPt7xv3nc8A', // i put the book _____ the shelf.
     },
     {
       type: 'SC',
@@ -74,7 +74,7 @@ export default function diagnosticQuestions() {
     },
     {
       type: 'SC',
-      key: '-KdCgI82gmbLI2fC9Z5l', // cinco de Mayo is _______ May.
+      key: '-KfD6DGRaPhBflVzswJx', // cinco de Mayo is _______ May.
     },
     {
       type: 'SC',
