@@ -50,6 +50,8 @@ class SignUpPage < Page
     # nor is it able to click the school_not_listed link
     # page.has_content?('not listed')
     # click_link('school_not_listed')
+    click_button('No')
+    click_button('Other')
   end
 
   def submit_form
