@@ -16,7 +16,7 @@ class Teachers::UnitsController < ApplicationController
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms])
     end
-    render json: {}
+    render json: {id: Unit.where(user: current_user).last.id}
   end
 
   def prohibited_unit_names
