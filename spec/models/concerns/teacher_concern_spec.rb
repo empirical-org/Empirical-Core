@@ -2,12 +2,14 @@ require 'rails_helper'
 
 describe User, type: :model do
   describe 'teacher concern' do
-    let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
-    let!(:student) {FactoryGirl.create(:user, role: 'student')}
-    let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher, students: [student])}
-    let!(:teacher1) {FactoryGirl.create(:user, role: 'teacher')}
-    let!(:student1) {FactoryGirl.create(:user, role: 'student')}
-    let!(:classroom1) {FactoryGirl.create(:classroom, teacher: teacher, students: [student1])}
+    Timecop.freeze(Time.local(2017, 3, 14, 0, 0, 0)) do
+      let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
+      let!(:student) {FactoryGirl.create(:user, role: 'student')}
+      let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher, students: [student])}
+      let!(:teacher1) {FactoryGirl.create(:user, role: 'teacher')}
+      let!(:student1) {FactoryGirl.create(:user, role: 'student')}
+      let!(:classroom1) {FactoryGirl.create(:classroom, teacher: teacher, students: [student1])}
+    end
     describe '#scorebook_scores' do
 
       let!(:section) {FactoryGirl.create(:section)}
