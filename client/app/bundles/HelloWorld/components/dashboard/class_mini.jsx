@@ -5,8 +5,8 @@ export default React.createClass({
 
   manageClassGear: function() {
     return (
-      <a className='pull-right class-gear' href={this.manageClassLink()}>
-        <img src='/manage_class_icon.png'></img>
+      <a className='pull-right class-mini-edit-students' href={this.manageClassLink()}>
+        <span><img src='/images/person_icon.svg'></img>Edit Students</span>
       </a>
     );
   },
@@ -60,8 +60,8 @@ export default React.createClass({
       <div>
         {this.manageClassGear()}
         <img className='class_icon' src='/class_icon.png'></img>
-        <h3 className='classroom_name'>
-          {this.props.classObj.classroom.name}</h3>
+        <a href={this.manageClassLink()}><h3 className='classroom_name'>
+          {this.props.classObj.classroom.name}</h3></a>
         <div className='classMetaData text-center'>
           <p>
             Class Code: {this.props.classObj.classroom.code}</p>
