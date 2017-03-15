@@ -103,6 +103,11 @@
     "jest:watch": "jest --watch",
     "jest:coverage": "jest --coverage"
   },
+  "jest": {
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/enzyme-to-json/serializer"
+    ]
+  },
   "author": "Empirical",
   "license": "ISC"
 }
