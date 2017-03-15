@@ -32,7 +32,7 @@ Capybara.configure do |config|
     Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 10)
   end
 
-  config.javascript_driver = :poltergeist
+  config.javascript_driver = :capybara_webmock_poltergeist
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
