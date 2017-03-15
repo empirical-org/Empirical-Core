@@ -11,7 +11,8 @@ export default  React.createClass({
     return {
       loading: true,
       actions: this.unitTemplateAssignedActions,
-      data: null
+      data: null,
+      diagnosticId: ''
     }
   },
 
@@ -50,6 +51,13 @@ export default  React.createClass({
           that.setState({loading: false, studentsPresent: that.anyClassroomsWithStudents(data.classrooms) });
         }
       });
+      $.ajax({
+        url: '/teachers/last_assigned_unit_id',
+        dataType: 'json',
+        success: function(data) {
+          that.setState({loading: false, diagnosticId: data.id });
+        }
+      });
   },
 
   activityName: function() {
@@ -70,7 +78,7 @@ export default  React.createClass({
     let text;
 
     if (this.props.type === 'diagnostic' || this.state.studentsPresent) {
-      href = '/teachers/classrooms/activity_planner';
+      href = `/teachers/classrooms/activity_planner#${this.state.diagnosticId}`
       text = 'View Assigned Activity Packs';
     } else {
       href = this.state.actions.getInviteStudentsUrl();

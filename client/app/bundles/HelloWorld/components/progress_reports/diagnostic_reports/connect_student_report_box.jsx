@@ -38,17 +38,25 @@ export default React.createClass({
 			let scoreRow = this.scoreRow(currAttempt[0].answer, attemptNum, averageScore)
 			attemptNum > 1 ? results.push(directions, scoreRow, concepts) : results.push(scoreRow, concepts)
 			if (conceptsByAttempt[attemptNum + 1]) {
-				results.push(<tr/>)
+				results.push(this.emptyRow())
 			}
 			attemptNum ++;
 		}
 		return results;
 	},
 
+	emptyRow: function(){
+		return (<tr>
+							<td/>
+							<td/>
+							<td/>
+						</tr>)
+	},
+
 	scoreRow: function(answer, attemptNum, averageScore) {
 		return (
 			<tr className={ScoreColor(averageScore)}>
-				<td>{`${NumberSuffix(attemptNum)} Response`}</td>
+				<td>{`${NumberSuffix(attemptNum)} Submission`}</td>
 				<td />
 				<td>{answer}</td>
 			</tr>
@@ -85,7 +93,7 @@ export default React.createClass({
 											<td>{data.prompt}</td>
 										</tr>
 										{this.questionScore()}
-										<tr/>
+										{this.emptyRow()}
 										{this.conceptsByAttempt()}
 	        				</tbody>
 								</table>
