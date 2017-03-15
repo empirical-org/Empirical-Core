@@ -17,7 +17,7 @@ import icon from '../../img/question_icon.svg';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 
-let key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
+const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
 const PlaySentenceFragment = React.createClass({
   getInitialState() {
@@ -30,7 +30,7 @@ const PlaySentenceFragment = React.createClass({
 
   componentDidMount() {
     getGradedResponsesWithCallback(
-      this.props.question.key,
+      this.getQuestion().key,
       (data) => {
         this.setState({ responses: data, });
       }
@@ -54,7 +54,11 @@ const PlaySentenceFragment = React.createClass({
   },
 
   getQuestion() {
-    return this.props.question.prompt;
+    const { question, } = this.props;
+    if (question.key.endsWith('-esp')) {
+      question.key = question.key.slice(0, -4);
+    }
+    return question;
   },
 
   getResponses() {
@@ -76,7 +80,6 @@ const PlaySentenceFragment = React.createClass({
   },
 
   handleChange(e) {
-    console.log('Handle change.');
     this.setState({ response: e, });
   },
 
@@ -91,7 +94,7 @@ const PlaySentenceFragment = React.createClass({
 
   checkAnswer() {
     if (this.state.checkAnswerEnabled && this.state.responses) {
-      const key = this.props.currentKey;
+      const key = this.getQuestion().key;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
@@ -110,45 +113,6 @@ const PlaySentenceFragment = React.createClass({
         this.handleAttemptSubmission();
       });
     }
-
-    // if (this.state.checkAnswerEnabled) {
-    //   this.setState({ checkAnswerEnabled: false, }, () => {
-    //     const fragment = this.props.sentenceFragments.data[key];
-    //
-    //     const responseMatcher = new POSMatcher(fragment.responses);
-    //     const matched = responseMatcher.checkMatch(this.state.response);
-    //
-    //     let newResponse;
-    //
-    //     if (matched.found) {
-    //       if (matched.posMatch && !matched.exactMatch) {
-    //         newResponse = {
-    //           text: matched.submitted,
-    //           parentID: matched.response.key,
-    //           count: 1,
-    //           feedback: matched.response.optimal ? 'Excellent!' : 'Try writing the sentence in another way.',
-    //           questionUID: key,
-    //         };
-    //         if (matched.response.optimal) {
-    //           newResponse.optimal = matched.response.optimal;
-    //         }
-    //         this.props.dispatch(submitNewResponse(newResponse, newResponse.parentId));
-    //         this.props.dispatch(incrementChildResponseCount(matched.response.key)); // parent has no parentID
-    //       } else {
-    //         this.props.dispatch(incrementResponseCount(key, matched.response.key, matched.response.parentID));
-    //       }
-    //     } else {
-    //       newResponse = {
-    //         text: matched.submitted,
-    //         count: 1,
-    //         questionUID: key,
-    //       };
-    //       this.props.dispatch(submitNewResponse(newResponse));
-    //     }
-    //     this.props.updateAttempts(matched);
-    //     this.props.nextQuestion();
-    //   });
-    // }
   },
 
   renderSentenceOrFragmentMode() {
@@ -219,29 +183,23 @@ const PlaySentenceFragment = React.createClass({
   },
 
   render() {
-    if (this.props.sentenceFragments.hasreceiveddata) {
-      key = this.props.params ? this.props.params.fragmentID : this.props.currentKey;
-      const fragment = this.props.sentenceFragments.data[key];
-      return (
-        <div className="student-container-inner-diagnostic">
-          <div className="draft-js sentence-fragments prevent-selection">
-            <p>{this.getQuestion()}</p>
-          </div>
-
-          {this.renderSentenceOrFragmentMode()}
-          {this.renderPlaySentenceFragmentMode(fragment)}
+    const fragment = this.getQuestion();
+    return (
+      <div className="student-container-inner-diagnostic">
+        <div className="draft-js sentence-fragments prevent-selection">
+          <p>{this.getQuestion().prompt}</p>
         </div>
-      );
-    } else {
-      return (<div className="container">Loading...</div>);
-    }
+
+        {this.renderSentenceOrFragmentMode()}
+        {this.renderPlaySentenceFragmentMode(fragment)}
+      </div>
+    );
   },
 });
 
 function select(state) {
   return {
     routing: state.routing,
-    sentenceFragments: state.sentenceFragments,
   };
 }
 

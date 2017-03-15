@@ -48,7 +48,7 @@ const PlayDiagnosticQuestion = React.createClass({
 
   componentDidMount() {
     getGradedResponsesWithCallback(
-      this.props.question.key,
+      this.getQuestion().key,
       (data) => {
         this.setState({ responses: data, });
       }
@@ -72,7 +72,11 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getQuestion() {
-    return this.props.question;
+    const { question, } = this.props;
+    if (question.key.endsWith('-esp')) {
+      question.key = question.key.slice(0, -4);
+    }
+    return question;
   },
 
   getResponses() {
@@ -80,9 +84,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getResponse2(rid) {
-    const { data, } = this.props.questions,
-      questionID = this.props.question.key;
-    return data[questionID].responses[rid];
+    return this.getResponses()[rid];
   },
 
   submitResponse(response) {
@@ -203,7 +205,7 @@ const PlayDiagnosticQuestion = React.createClass({
           {this.renderCues()}
           <div className="feedback-row">
             <img src={icon} />
-            <p>{instructions}</p>
+            <p dangerouslySetInnerHTML={{ __html: instructions, }} />
           </div>
           <h5 className="title is-5" />
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
