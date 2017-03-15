@@ -83,6 +83,7 @@ module.exports = {
      { test: /\.(jpe?g|png|gif|svg|ico)$/, loader: 'url?limit=10000' },
      { test: require.resolve('jquery'), loader: 'expose?jQuery' },
      { test: require.resolve('jquery'), loader: 'expose?$' },
+     { test: /\.json$/, loader: 'json-loader'}
    ],
  },
 
