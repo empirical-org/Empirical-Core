@@ -189,6 +189,16 @@ const PlayDiagnosticQuestion = React.createClass({
     }
   },
 
+  renderMedia() {
+    if (this.getQuestion().mediaURL) {
+      return (
+        <div style={{ marginTop: 15, minWidth: 200, }}>
+          <img src={this.getQuestion().mediaURL} />
+        </div>
+      );
+    }
+  },
+
   render() {
     const questionID = this.props.question.key;
     let button;
@@ -201,13 +211,18 @@ const PlayDiagnosticQuestion = React.createClass({
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
       return (
         <div className="student-container-inner-diagnostic">
-          {this.renderSentenceFragments()}
-          {this.renderCues()}
-          <div className="feedback-row">
-            <img src={icon} />
-            <p dangerouslySetInnerHTML={{ __html: instructions, }} />
+          <div style={{ display: 'flex', }}>
+            <div>
+              {this.renderSentenceFragments()}
+              {this.renderCues()}
+              <div className="feedback-row">
+                <img src={icon} style={{ marginTop: 3, }} />
+                <p dangerouslySetInnerHTML={{ __html: instructions, }} />
+              </div>
+            </div>
+            {this.renderMedia()}
           </div>
-          <h5 className="title is-5" />
+
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor
               className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}

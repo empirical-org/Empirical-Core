@@ -121,11 +121,11 @@ const PlaySentenceFragment = React.createClass({
         <div className="container">
           <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
             <div className="feedback-row">
-              <img className="info" src={icon} />
+              <img className="info" src={icon} style={{ marginTop: 3, }} />
               <p>Is this a complete or an incomplete sentence?</p>
             </div>
             <div className="feedback-row">
-              <img className="info" src={icon} />
+              <img className="info" src={icon} style={{ marginTop: 3, }} />
               <p>Esta oración esta complete o incompleta?</p>
             </div>
             {this.getSentenceOrFragmentButtons()}
@@ -146,7 +146,7 @@ const PlaySentenceFragment = React.createClass({
       if (this.props.question.instructions && this.props.question.instructions !== '') {
         component = (
           <div className="feedback-row">
-            <img className="info" src={icon} />
+            <img className="info" src={icon} style={{ marginTop: 3, }} />
             <p dangerouslySetInnerHTML={{ __html: this.props.question.instructions, }} />
           </div>
         );
