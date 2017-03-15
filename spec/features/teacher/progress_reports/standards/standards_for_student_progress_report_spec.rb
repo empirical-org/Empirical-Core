@@ -12,7 +12,7 @@ feature 'Standards for Student Progress Report', js: true do
       report_page.visit
     end
 
-    pending 'displays the right headers' do
+    skip 'displays the right headers' do
       expect(report_page.column_headers).to eq(
         [
           'Standard Level',
@@ -24,7 +24,7 @@ feature 'Standards for Student Progress Report', js: true do
       )
     end
 
-    pending 'displays topic stats in the table' do
+    skip 'displays topic stats in the table' do
       expect(report_page.table_rows.first).to eq(
         [
           section.name,
