@@ -30,9 +30,10 @@ Capybara.configure do |config|
 
   Capybara.register_driver :poltergeist do |app|
     Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 10)
+    Capybara::Webmock.port_number = 9292
   end
 
-  config.javascript_driver = :capybara_webmock_poltergeist
+  config.javascript_driver = :poltergeist
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
