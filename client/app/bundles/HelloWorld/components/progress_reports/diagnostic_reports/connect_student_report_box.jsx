@@ -12,12 +12,13 @@ export default React.createClass({
 		);
 	},
 
-	feedbackOrDirections: (feedbackOrDirections, classNameAndText ) => {
-		if (feedbackOrDirections) {
-			return (<tr className={classNameAndText}>
-				<td>{classNameAndText}</td>
-				<td />
-				<td><span>{feedbackOrDirections}</span></td>
+	feedbackOrDirections: (directionsOrFeedback, classNameAndText ) => {
+		if (directionsOrFeedback) {
+			return (
+				<tr className={classNameAndText}>
+					<td>{classNameAndText}</td>
+					<td />
+					<td>{directionsOrFeedback}</td>
 			</tr>)
 		}
 	},
@@ -30,14 +31,14 @@ export default React.createClass({
 		let currAttempt = conceptsByAttempt[attemptNum]
 		while (conceptsByAttempt[attemptNum]) {
 			let nextAttempt = conceptsByAttempt[attemptNum + 1]
-			console.log(nextAttempt);
 			if (nextAttempt) {
 				let index = 0;
 				while (!feedback && nextAttempt[index]) {
 					feedback = nextAttempt[index].directions
 					index++
 				}
-				if (feedback) {
+				// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
+				if (typeof feedback === 'string') {
 					feedback = this.feedbackOrDirections(feedback, 'Feedback')
 				}
 			}
@@ -48,7 +49,7 @@ export default React.createClass({
 			});
 			let averageScore = (score/currAttempt.length * 100) || 0;
 			let scoreRow = this.scoreRow(currAttempt[0].answer, attemptNum, averageScore)
-			feedback ? results.push(feedback, scoreRow, concepts) : results.push(scoreRow, concepts)
+			feedback ? results.push(scoreRow, feedback, concepts) : results.push(scoreRow, concepts)
 			if (conceptsByAttempt[attemptNum + 1]) {
 				results.push(<tr/>)
 			}
