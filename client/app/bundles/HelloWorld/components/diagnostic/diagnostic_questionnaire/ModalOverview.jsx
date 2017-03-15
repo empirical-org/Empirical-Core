@@ -16,7 +16,7 @@ export default React.createClass({
 
   hideModal() {
     this.setState({show: false});
-    location.href = 'diagnostic/stage/2'
+    location.href = '/diagnostic/stage/2'
   },
 
   modalContent() {
