@@ -12,7 +12,8 @@ describe 'GoogleIntegration::Classroom::SubMain' do
 
   let!(:course_body) {
     x = {"courses":[{"id": google_classroom_id,"name":"class1","ownerId":"117520115627269298978","creationTime":"2016-02-01T21:19:54.662Z","updateTime":"2016-02-01T21:20:39.424Z","enrollmentCode":"w5o4h0v","courseState":"ACTIVE","alternateLink":"http://classroom.google.com/c/NDU1Nzk4OTQy"},
-      {"id": google_classroom_id_2,"name":"class2"}]}
+                    {"id": google_classroom_id_2,"name":"class2", "ownerId":"117520115627269298978" },
+                    {"id": '43',"name":"different owner id", "ownerId":"123" }]}
     .to_json
   }
 
@@ -71,12 +72,16 @@ describe 'GoogleIntegration::Classroom::SubMain' do
   end
 
   context 'teacher' do
-    let!(:user) { FactoryGirl.create(:user, role: 'teacher') }
+    let!(:user) { FactoryGirl.create(:user, role: 'teacher', google_id: '117520115627269298978') }
     let!(:classrooms) { Classroom.where(google_classroom_id: [google_classroom_id.to_i, google_classroom_id_2.to_i]) }
 
     it 'creates both classrooms' do
       subject
       expect(classrooms.length).to eq(2)
+    end
+
+    it 'does not create classroom if it has a different owner id' do
+      expect(Classroom.where(name: 'different owner id').empty?).to eq(true)
     end
 
     it 'associates both classrooms to the teacher' do

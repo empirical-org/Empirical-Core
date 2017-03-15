@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Teacher-Dashboard-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Teacher-Dashboard:-Overview---Manage-Class" transform="translate(-371.000000, -541.000000)" fill="#027360">
+            <g id="Group-9" transform="translate(371.000000, 541.000000)">
+                <path d="M4.11032945,5.07891628 C3.16887675,4.7023905 2.5,3.74571313 2.5,2.625 C2.5,1.17525253 3.61928813,0 5,0 C6.38071187,0 7.5,1.17525253 7.5,2.625 C7.5,3.74571313 6.83112325,4.7023905 5.88967055,5.07891628 C8.22665363,5.49861718 10,7.54221497 10,10 C10,10 7.76142375,10 5,10 C2.23857625,10 0,10 0,10 C0,7.54221497 1.77334637,5.49861718 4.11032945,5.07891628 Z" id="Combined-Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

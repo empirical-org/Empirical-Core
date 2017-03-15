@@ -86,6 +86,12 @@ describe ClassroomActivity, type: :model do
             classroom_activity.update!(unit: new_unit)
             expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
         end
+
+        it 'assigns the entry diagnostic' do
+            obj = Objective.create(name: 'Assign Entry Diagnostic')
+            classroom_activity.update!(activity_id: 413)
+            expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
+        end
     end
 
     context 'when it has a due_date_string attribute' do
