@@ -19,7 +19,7 @@
   <meta name="og:description" content="<%= @description || @content %>">
 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <%= render partial: 'typekit' %>
+  <%= render partial: 'typekit' unless Rails.env.test? %>
   <%= env_stylesheet_link_tag(static: 'application_static',
                              hot: 'application_non_webpack',
                              media: 'all',
@@ -37,8 +37,9 @@
                                 hot: 'application_non_webpack',
                                 'data-turbolinks-track' => true) %>
   <%= csrf_meta_tags %>
-  <link href="//fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
-
+  <% unless Rails.env.test? %>
+    <link href="//fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
+  <% end %>
   <%= render partial: 'application/head_embed_codes' %>
 
   <%= render :partial => 'firewall_test' if @firewall_test %>
