@@ -3,11 +3,13 @@ require 'rails_helper'
 feature 'Signing up', js: true do
   before(:each) do
     vcr_ignores_localhost
-    proxy.stub('http://fonts.googleapis.com').and_return(:text => '')
-    proxy.stub('https://use.typekit.net').and_return(:text => '')
   end
 
-  let(:sign_up_page) { SignUpPage.visit }
+  let(:sign_up_page) do
+    proxy.stub('http://fonts.googleapis.com').and_return(:text => '')
+    proxy.stub('https://use.typekit.net').and_return(:text => '')
+    SignUpPage.visit
+  end
 
   def password_cannot_be_blank
     "Password can't be blank"
