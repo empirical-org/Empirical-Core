@@ -14,7 +14,7 @@ feature 'Profile', js: true do
   end
 
 
-  pending 'includes all teachers names' do
+  skip 'includes all teachers names' do
     eventually { expect(page).to have_content(student.classrooms[0].teacher.name) }
     eventually { expect(page).to have_content(student.classrooms[1].teacher.name) }
   end
@@ -27,7 +27,7 @@ feature 'Profile', js: true do
   #   expect(page).to have_content(as2.activity.name)
   # end
 
-  pending 'includes activity name for finished activity_session' do
+  skip 'includes activity name for finished activity_session' do
     expect(page).to have_content(as1.activity.name)
   end
 
@@ -37,19 +37,19 @@ feature 'Profile', js: true do
       page.find(:xpath,"//*[text()='#{student.classrooms[0].teacher.name}']").click
     end
 
-    pending 'does not show assigned activity from first classroom added if multiple classrooms exist' do
+    skip 'does not show assigned activity from first classroom added if multiple classrooms exist' do
       expect(page).not_to have_content(as1.activity.name)
     end
 
-    pending 'does not include unit name of unit from first classroom added' do
+    skip 'does not include unit name of unit from first classroom added' do
       expect(page).not_to have_content(unit1.name)
     end
 
-    pending 'includes activity name for unstarted activity_session from the newly selected classroom' do
+    skip 'includes activity name for unstarted activity_session from the newly selected classroom' do
       expect(page).to have_content(as3_unstarted.activity.name)
     end
 
-    pending 'includes activity name for finished activity_session from the newly selected classroom' do
+    skip 'includes activity name for finished activity_session from the newly selected classroom' do
         expect(page).to have_content(as3_finished.activity.name)
     end
 
