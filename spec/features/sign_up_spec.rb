@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 feature 'Signing up', js: true do
-  before(:each) { vcr_ignores_localhost }
+  before(:each) do
+    vcr_ignores_localhost
+    proxy.stub('http://fonts.googleapis.com').and_return(:text => '')
+    proxy.stub('https://use.typekit.net').and_return(:text => '')
+  end
 
   let(:sign_up_page) { SignUpPage.visit }
 
