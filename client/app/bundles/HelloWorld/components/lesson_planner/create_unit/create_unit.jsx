@@ -17,7 +17,8 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			prohibitedUnitNames: []
+			prohibitedUnitNames: [],
+			newUnitId: null
 		}
 	},
 
@@ -132,7 +133,7 @@ export default React.createClass({
 			data: JSON.stringify(this.formatCreateRequestData()),
 			dataType: 'json',
 			contentType: 'application/json',
-			success: this.onCreateSuccess
+			success: (response) => this.onCreateSuccess(response)
 		});
 	},
 
@@ -182,14 +183,14 @@ export default React.createClass({
 		return x;
 	},
 
-	onCreateSuccess: function() {
+	onCreateSuccess: function(response) {
+		this.setState({newUnitId: response.id})
 		this.props.actions.toggleStage(3);
 	},
 
 	isUnitNameValid: function() {
 		return ((this.getUnitName() != null) && (this.getUnitName() != ''));
 	},
-
 
 
 	determineIfInputProvidedAndValid: function() {
@@ -294,7 +295,7 @@ export default React.createClass({
 		if ((!!this.props.actions.assignSuccessActions) && (!!this.props.data.assignSuccessData)) {
 			return (<UnitTemplatesAssigned actions={this.props.actions.assignSuccessActions} data={this.props.data.assignSuccessData}/>);
 		} else {
-			window.location.href = '/teachers/classrooms/activity_planner';
+			window.location.href = `/teachers/classrooms/activity_planner#${this.state.newUnitId}`;
 		}
 	},
 
