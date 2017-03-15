@@ -25,10 +25,21 @@
 		});
 	},
 
+  hashLinkScroll: function() {
+  const hash = window.location.hash
+  if (hash !== '') {
+      const id = hash.replace('#', '')
+      const element = document.getElementById(id)
+      element ? element.scrollIntoView() : null
+    }
+  },
+
 	displayUnits: function (data) {
 		this.setState({units: data.units,
 									 loaded: true});
+    this.hashLinkScroll()
 	},
+
 	hideUnit: function (id) {
 		var units, x1;
 		units = this.state.units;

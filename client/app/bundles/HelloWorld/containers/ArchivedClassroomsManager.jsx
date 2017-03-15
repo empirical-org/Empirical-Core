@@ -48,7 +48,7 @@ export default React.createClass({
  },
 
  manageClassroom: function(classroomId){
-   return <a className='manage-class' href={this.state.basePath + '/' + classroomId + '/students'}>Manage Class</a>;
+   return <a className='manage-class' href={this.state.basePath + '/' + classroomId + '/students'}>Edit Students</a>;
  },
 
  tableRows: function(cl, action){
@@ -79,7 +79,7 @@ export default React.createClass({
  tableHeaders: function(action){
    let content;
    if (this.props.role === 'teacher') {
-     let manageClass = action === 'Archive' ? 'Manage Class' : '';
+     let manageClass = action === 'Archive' ? 'Edit Students' : '';
      content =
        <tr>
          <th>Class Name</th>
