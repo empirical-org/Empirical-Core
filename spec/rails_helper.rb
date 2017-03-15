@@ -9,6 +9,7 @@ require 'database_cleaner'
 require 'byebug'
 require 'vcr'
 require 'sidekiq/testing'
+require 'billy/capybara/rspec'
 
 # Use a fake Sidekiq for Travis (Redis not available)
 Sidekiq::Testing.fake!
@@ -28,11 +29,19 @@ Capybara.configure do |config|
   # cf http://docs.travis-ci.com/user/common-build-problems/#Capybara%3A-I'm-getting-errors-about-elements-not-being-found
   config.default_max_wait_time = 15  # increased from 15 since we were getting Net Timeout errors on Tracis CI (and not on local)
 
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 10)
+  Capybara.register_driver :pg_billy do |app|
+    options = {
+      js_errors: false,
+      timeout: 10,
+      phantomjs_options: [
+        '--ignore-ssl-errors=yes',
+        "--proxy=#{Billy.proxy.host}:#{Billy.proxy.port}"
+      ]
+    }
+    Capybara::Poltergeist::Driver.new(app, options)
   end
 
-  config.javascript_driver = :poltergeist
+  config.javascript_driver = :pg_billy
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
