@@ -127,11 +127,11 @@ $lightgray: #cecece;
             height: 30px;
             padding-left: 8px;
             border-bottom: solid 0.5px #cecece;
-            &:first-of-type:not(.directions) {
+            &:first-of-type:not(.directions):not(.feedback) {
               height: 0px;
             }
             /* first of type has height of 0 so we don't want any borders*/
-            &:last-of-type, &:first-of-type:not(.directions) {
+            &:last-of-type, &:first-of-type:not(.directions):not(.feedback) {
               border-bottom: none;
             }
             &.student-report-headers {

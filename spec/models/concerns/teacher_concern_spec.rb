@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe User, type: :model do
   describe 'teacher concern' do
-    let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
-    let!(:student) {FactoryGirl.create(:user, role: 'student')}
-    let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher, students: [student])}
-    let!(:teacher1) {FactoryGirl.create(:user, role: 'teacher')}
-    let!(:student1) {FactoryGirl.create(:user, role: 'student')}
-    let!(:classroom1) {FactoryGirl.create(:classroom, teacher: teacher, students: [student1])}
+      let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
+      let!(:student) {FactoryGirl.create(:user, role: 'student')}
+      let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher, students: [student])}
+      let!(:teacher1) {FactoryGirl.create(:user, role: 'teacher')}
+      let!(:student1) {FactoryGirl.create(:user, role: 'student')}
+      let!(:classroom1) {FactoryGirl.create(:classroom, teacher: teacher, students: [student1])}
     describe '#scorebook_scores' do
 
       let!(:section) {FactoryGirl.create(:section)}
@@ -47,7 +47,22 @@ describe User, type: :model do
       classroom_hash[:students] = classroom.students
       classroom1_hash = classroom1.attributes
       classroom1_hash[:students] = classroom1.students
-      expect(teacher.classrooms_i_teach_with_students).to eq(
+      # This is a hack to get around the fact that time on Travis
+      # is being "stored" with a different level of precision.
+      # We'll check to make sure that the times are relatively
+      # close (a difference of less than a second). If they are,
+      # we'll modify the times to be equal such that the test
+      # passes as long as nothing else is wrong with it.
+      classrooms = teacher.classrooms_i_teach_with_students
+      if(classrooms[0]['created_at'] - classroom.created_at < 1 && classrooms[0]['updated_at'] - classroom.updated_at < 1)
+        classrooms[0]['created_at'] = classroom.created_at
+        classrooms[0]['updated_at'] = classroom.updated_at
+      end
+      if(classrooms[1]['created_at'] - classroom1.created_at < 1 && classrooms[1]['updated_at'] - classroom1.updated_at < 1)
+        classrooms[1]['created_at'] = classroom1.created_at
+        classrooms[1]['updated_at'] = classroom1.updated_at
+      end
+      expect(classrooms).to eq(
         [classroom_hash, classroom1_hash]
       )
     end

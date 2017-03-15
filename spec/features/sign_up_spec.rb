@@ -25,7 +25,7 @@ feature 'Signing up', js: true do
 
     before(:each) { sign_up_page.be_a_teacher }
 
-    def sign_up_teacher(user)
+    def sign_up_teacher(user, send_newsletter)
       sign_up_page.sign_up(type: user_type,
                            first_name: user.first_name,
                            last_name: user.last_name,
@@ -34,37 +34,32 @@ feature 'Signing up', js: true do
                 send_newsletter: send_newsletter)
     end
 
-    def sign_up_teacher_and_select_school(user, skips_school_selection)
-      sign_up_teacher(user)
-      sign_up_page.select_school(skips_school_selection)
+    def sign_up_teacher_and_select_school(user, send_newsletter)
+      sign_up_teacher(user, send_newsletter)
+      sign_up_page.select_school(nil)
     end
 
     def self.signup_succeeded; 'signup succeeded and'; end
     shared_examples_for signup_succeeded do
       it 'prompts for class creation' do
-        pending("need to make sign up page.rb find the 'My school is not listed' link")
-        expect(page).to have_content('Create a Class')
+        expect(page).to have_content('Create Your Class')
       end
     end
 
     context 'with new info' do
-        pending("need to make sign up page.rb find the 'My school is not listed' link")
-      before(:each) { sign_up_teacher_and_select_school mr_kotter, false }
-      it_behaves_like signup_succeeded
-
       context 'send_newsletter is false' do
-        let(:send_newsletter) { false }
+        before(:each) { sign_up_teacher_and_select_school mr_kotter, false }
+        it_behaves_like signup_succeeded
         it 'marks it appropriately' do
-          pending("need to make sign up page.rb find the 'My school is not listed' link")
           user = User.find_by email: mr_kotter.email
           expect(user.send_newsletter).to eq(false)
         end
       end
 
       context 'send_newsletter is true' do
-        let(:send_newsletter) { true }
+        before(:each) { sign_up_teacher_and_select_school mr_kotter, true }
+        it_behaves_like signup_succeeded
         it 'marks it appropriately' do
-          pending("need to make sign up page.rb find the 'My school is not listed' link")
           user = User.find_by email: mr_kotter.email
           expect(user.send_newsletter).to eq(true)
         end
@@ -77,7 +72,7 @@ feature 'Signing up', js: true do
         FactoryGirl.build :mr_kotter, password: ''
       end
 
-      before(:each) { sign_up_teacher mr_kotter }
+      before(:each) { sign_up_teacher mr_kotter, true }
 
       it 'shows the problem on the form' do
         expect(sign_up_page).to have_content password_cannot_be_blank
@@ -85,7 +80,6 @@ feature 'Signing up', js: true do
     end
 
     context 'with minimal info' do
-      pending("need to make sign up page.rb find the 'My school is not listed' link")
       let(:x) { 'x' }
 
       let(:professor_x) do
@@ -106,7 +100,7 @@ feature 'Signing up', js: true do
     context 'with duplicate info' do
       before(:each) do
         FactoryGirl.create :mr_kotter
-        sign_up_teacher mr_kotter
+        sign_up_teacher mr_kotter, true
       end
 
       it 'shows the errors on the form' do
