@@ -153,7 +153,7 @@
 							data={ca} />);
 		}, this);
 		return (
-			<section >
+			<section>
 				<div className='row unit-header-row' id={this.props.data.unit.id}>
           <span className="unit-name">
             {this.showOrEditName()}

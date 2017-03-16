@@ -1250,7 +1250,10 @@ CREATE TABLE unit_templates (
     summary text,
     teacher_review text,
     flag character varying,
-    order_number integer DEFAULT 999999999
+    order_number integer DEFAULT 999999999,
+    activity_info text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -2226,6 +2229,13 @@ CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_cate
 
 
 --
+-- Name: index_unit_templates_on_activity_info; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unit_templates_on_activity_info ON unit_templates USING btree (activity_info);
+
+
+--
 -- Name: index_unit_templates_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2769,3 +2779,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170217201048');
 INSERT INTO schema_migrations (version) VALUES ('20170222165119');
 
 INSERT INTO schema_migrations (version) VALUES ('20170313154512');
+
+INSERT INTO schema_migrations (version) VALUES ('20170314181527');
+
+INSERT INTO schema_migrations (version) VALUES ('20170315183853');
+

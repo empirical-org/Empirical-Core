@@ -50,6 +50,7 @@ class Cms::UnitTemplatesController < ApplicationController
                     :name,
                     :flag,
                     :author_id,
+                    :activity_info,
                     :problem,
                     :summary,
                     :teacher_review,
