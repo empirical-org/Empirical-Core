@@ -8,7 +8,6 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
 
   let!(:body) {
     x = {"courses":[{"id":"455798942","name":"class1","ownerId":"117520115627269298978","creationTime":"2016-02-01T21:19:54.662Z","updateTime":"2016-02-01T21:20:39.424Z","enrollmentCode":"w5o4h0v","courseState":"ACTIVE","alternateLink":"http://classroom.google.com/c/NDU1Nzk4OTQy"}]}
-
     x.to_json
   }
 
@@ -20,7 +19,7 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
 
   let!(:expected_result) {
     [
-      {id: 455798942, name: 'class1'}
+      {id: 455798942, name: 'class1', ownerId: "117520115627269298978"}
     ]
   }
 

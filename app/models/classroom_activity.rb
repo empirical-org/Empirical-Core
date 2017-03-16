@@ -158,7 +158,9 @@ class ClassroomActivity < ActiveRecord::Base
 
 
   def checkbox_type
-    if (self.unit && UnitTemplate.find_by_name(self.unit.name))
+    if self.activity_id == 413
+      checkbox_name = 'Assign Entry Diagnostic'
+    elsif self.unit && UnitTemplate.find_by_name(self.unit.name)
       checkbox_name = 'Assign Featured Activity Pack'
     else
       checkbox_name = 'Build Your Own Activity Pack'

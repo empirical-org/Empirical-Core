@@ -13,7 +13,7 @@ feature 'Activity Listing Progress Report', js: true do
       report_page.visit
     end
 
-    it 'displays the right headers' do
+    skip 'displays the right headers' do
       expect(report_page.column_headers).to eq(
         [
           'Student',
@@ -26,7 +26,7 @@ feature 'Activity Listing Progress Report', js: true do
       )
     end
 
-    it 'displays activity session data in the table' do
+    skip 'displays activity session data in the table' do
       expect(report_page.table_rows.last).to eq(
         [
           horshack.name,
@@ -39,12 +39,12 @@ feature 'Activity Listing Progress Report', js: true do
       )
     end
 
-    pending 'can filter by classroom' do
+    skip 'can filter by classroom' do
       report_page.filter_by_classroom(sweatdogs.name)
       expect(report_page.table_rows.size).to eq(1)
     end
 
-    it 'can export a CSV' do
+    skip 'can export a CSV' do
       report_page.export_csv
       # TODO: Should have some UI feedback instead of testing DB changes
     end

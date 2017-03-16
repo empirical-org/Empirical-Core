@@ -1,0 +1,24 @@
+.markdown-preview {
+  border: 1px dashed gray;
+  padding: 5px;
+  width: 480px;
+  p {
+    max-width: 460px;
+  }
+}
+
+.markdown-text {
+  h4 {
+    margin-bottom: 7px;
+    line-height: 20px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.5em;
+    margin-bottom: 2em;
+  }
+
+}
