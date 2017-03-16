@@ -14,7 +14,7 @@ feature 'Add Class', js: true do
 
   describe 'the Add Class page'
 
-  pending 'provides a field to enter a classcode' do
+  skip 'provides a field to enter a classcode' do
     eventually { expect(page).to have_selector("input") }
   end
 
@@ -36,11 +36,11 @@ feature 'Add Class', js: true do
       #   # eventually { expect(student.students_classrooms).to include(classroom3)}
       # end
 
-      pending 'tells the student they succesfully joined a classroom' do
+      skip 'tells the student they succesfully joined a classroom' do
         eventually { expect(page).to have_content("Classroom Added")}
       end
 
-      pending 'creates an add student checkbox for the teacher' do
+      skip 'creates an add student checkbox for the teacher' do
         add_students = Objective.create(name: 'Add Students')
         eventually {expect(classroom3.teacher.checkboxes.last.objective).to eq(add_students)}
       end

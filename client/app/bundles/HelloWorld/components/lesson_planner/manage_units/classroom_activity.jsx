@@ -10,7 +10,6 @@ const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
-
 }
 
 export default React.createClass({
@@ -31,6 +30,24 @@ export default React.createClass({
 	handleChange: function(date) {
 		this.setState({startDate: date});
 		this.props.updateDueDate(this.props.data.id, date.format());
+	},
+
+	goToRecommendations: function() {
+		const activityId = this.props.data.activity_id
+		const unitId = this.props.data.unit_id
+		const classroomId = this.props.data.classroom_id
+		const link = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/recommendations`
+		window.location = link
+	},
+
+	buttonForRecommendations: function() {
+		if (this.props.data.activity_id === 413 && window.location.pathname.includes('diagnostic_reports')) {
+			return (
+				<div onClick={this.goToRecommendations} className="recommendations-button">
+					Recommendations
+				</div>
+			)
+		}
 	},
 
   urlForReport: function(){
@@ -57,13 +74,16 @@ export default React.createClass({
 		let url = this.props.report ? this.urlForReport() : this.props.data.activity.anonymous_path;
 		return (
 			<div className='row' style={styles.row}>
-				<div className='cell col-md-1'>
-					<div className={'pull-left icon-gray icon-wrapper ' + this.props.data.activity.classification.scorebook_icon_class}/>
-				</div>
-				<div className='cell col-md-8'>
-					<a href={url} target='_new'>
-						{this.props.data.activity.name}
-					</a>
+				<div className='starting-row'>
+					<div className='cell col-md-1'>
+						<div className={'pull-left icon-gray icon-wrapper ' + this.props.data.activity.classification.scorebook_icon_class}></div>
+					</div>
+					<div className='cell col-md-8' id='activity-analysis-activity-name'>
+						<a href={url} target='_new'>
+							{this.props.data.activity.name}
+						</a>
+						{this.buttonForRecommendations()}
+					</div>
 				</div>
 				<div className='cell col-md-3'>
 					<div style={styles.row}>
