@@ -16,13 +16,17 @@ class Teachers::UnitsController < ApplicationController
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms])
     end
-    render json: {}
+    render json: {id: Unit.where(user: current_user).last.id}
   end
 
   def prohibited_unit_names
     unitNames = current_user.units.map { |u| u.name.downcase }
     unitTemplateNames = UnitTemplate.all.map{ |u| u.name.downcase }
     render json: { prohibitedUnitNames: unitNames.concat(unitTemplateNames) }.to_json
+  end
+
+  def last_assigned_unit_id
+    render json: {id: Unit.where(user: current_user).last.id}.to_json
   end
 
   def update
@@ -114,8 +118,8 @@ class Teachers::UnitsController < ApplicationController
     end
 
     arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
-    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}.reverse
-    render json: {units: arr1.concat(arr2)}.to_json
+    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}
+    render json: {units: arr2.concat(arr1)}.to_json
   end
 
   def hide
@@ -146,4 +150,5 @@ class Teachers::UnitsController < ApplicationController
     one_ca_per_classroom =  cas.group_by{|class_act| class_act[:classroom_id] }.values.map{ |ca| ca.first }
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
   end
+
 end
