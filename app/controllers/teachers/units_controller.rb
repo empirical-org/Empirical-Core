@@ -4,6 +4,7 @@ class Teachers::UnitsController < ApplicationController
 
   respond_to :json
   before_filter :teacher!
+  before_filter :authorize!
 
   def create
     if params[:unit][:create]
@@ -143,6 +144,13 @@ class Teachers::UnitsController < ApplicationController
 
   def unit_params
     params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
+  end
+
+  def authorize!
+    if params[:id]
+      @unit = Unit.find params[:id]
+      if @unit.user != current_user then auth_failed end
+    end
   end
 
   def formatted_classrooms_data(unit)
