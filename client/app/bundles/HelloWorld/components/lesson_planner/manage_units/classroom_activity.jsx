@@ -10,6 +10,12 @@ const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
+	endRow: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		maxWidth: '220px'
+	}
 }
 
 export default React.createClass({
@@ -85,11 +91,9 @@ export default React.createClass({
 						{this.buttonForRecommendations()}
 					</div>
 				</div>
-				<div className='cell col-md-3'>
-					<div style={styles.row}>
+				<div className='cell col-md-3' style={styles.endRow}>
 						{this.finalCell()}
 						{this.deleteRow()}
-					</div>
 				</div>
 			</div>
 		);
