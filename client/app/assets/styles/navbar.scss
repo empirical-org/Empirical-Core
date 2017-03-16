@@ -1,11 +1,12 @@
 .q-nav-bar {
   margin: auto;
-  max-width: 1000px;
+  max-width: 1165px;
   ul {
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;
     margin: 0;
+    padding-left: 0px;
   }
 
   li {

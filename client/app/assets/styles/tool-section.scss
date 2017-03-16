@@ -193,6 +193,18 @@ $tool-grey: #f8f9f9;
     }
 }
 
+.tools-anchor-nav {
+  background-color: white;
+  li {
+    background-color: white;
+    border-right: none !important;
+  }
+  .q-nav-bar {
+    margin: auto;
+    max-width: 1165px;
+  }
+}
+
 .tool-carousel {
     background-color: $tool-grey;
     padding-top: 55px;
@@ -443,6 +455,10 @@ $tool-grey: #f8f9f9;
 }
 
 .tools-tabs {
+    li.active {
+      border-top: 3px solid #027360;
+      border-bottom: none;
+    }
     .small-screen {
         display: none;
     }
