@@ -39,7 +39,7 @@ export default React.createClass({
 				return (
 					<div className='activity-analysis'>
 						<h1>Activity Analysis</h1>
-						<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need practice for each concept.</p>
+						<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
 						<Units report={Boolean(true)} data={this.state.units}/>
 					</div>
 				);

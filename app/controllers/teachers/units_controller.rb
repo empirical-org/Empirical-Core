@@ -150,4 +150,5 @@ class Teachers::UnitsController < ApplicationController
     one_ca_per_classroom =  cas.group_by{|class_act| class_act[:classroom_id] }.values.map{ |ca| ca.first }
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
   end
+
 end
