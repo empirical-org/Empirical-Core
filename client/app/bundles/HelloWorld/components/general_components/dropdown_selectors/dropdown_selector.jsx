@@ -1,7 +1,6 @@
 import React from 'react'
 import _ from 'underscore';
 
-
 export default React.createClass({
   propTypes: {
     options: React.PropTypes.array.isRequired,
