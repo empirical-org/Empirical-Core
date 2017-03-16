@@ -602,3 +602,45 @@ $tool-grey: #f8f9f9;
   width: 22px;
   margin-right: 10px;
 }
+
+.tool-page-icon {
+  height: 28px;
+  width: 42px;
+}
+
+.diagnostic-tool-page {
+  .tool-hero {
+    height: 300px;
+    .cta-button {
+      padding: 9px 19px;
+      margin-top: 51px;
+    }
+    .description {
+      max-width: 750px;
+    }
+  }
+  .boy-playing-quill {
+    background-color: gray;
+    margin: 60px auto 2px;
+    width: 819px;
+    height: 431px;
+  }
+  #testimonial {
+    .author {
+      font-weight: normal;
+      span {
+        font-weight: bold;
+      }
+    }
+    .quote {
+      font-size: 24px;
+    }
+    .q-button {
+      span {
+        line-height: 1.22;
+        font-weight: bold;
+      }
+    }
+  }
+
+}
