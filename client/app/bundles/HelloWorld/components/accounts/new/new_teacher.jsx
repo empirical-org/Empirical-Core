@@ -11,14 +11,15 @@ export default React.createClass({
     errors: React.PropTypes.object,
     stage: React.PropTypes.number.isRequired,
     update: React.PropTypes.func.isRequired,
-    textInputGenerator: React.PropTypes.object.isRequired
+    textInputGenerator: React.PropTypes.object.isRequired,
+    sendNewsletter: React.PropTypes.bool
   },
 
 
   render: function () {
     if (this.props.stage === 1) {
       return (
-        <BasicTeacherInfo textInputGenerator={this.props.textInputGenerator} signUp={this.props.signUp} update={this.props.update}/>
+        <BasicTeacherInfo textInputGenerator={this.props.textInputGenerator} signUp={this.props.signUp} update={this.props.update} sendNewsletter={this.props.sendNewsletter} />
       )
     } else if (this.props.stage === 2) {
       return (

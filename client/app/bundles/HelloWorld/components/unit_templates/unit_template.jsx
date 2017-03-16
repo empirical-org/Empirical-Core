@@ -7,6 +7,7 @@ import Fnl from '../modules/fnl.jsx'
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'
 import IndicatorGenerator from '../modules/indicator_generator.jsx'
 import OptionLoader from '../modules/option_loader.jsx'
+import MarkdownParser from '../shared/markdown_parser.jsx'
 import $ from 'jquery'
 import _ from 'underscore'
 
@@ -34,7 +35,12 @@ export default React.createClass({
     },
     {
       name: 'teacher_review',
-      label: 'teacher review',
+      label: 'Teacher Review',
+      size: 'medium'
+    },
+    {
+      name: 'activity_info',
+      label: 'Activity Info',
       size: 'medium'
     }
   ],
@@ -71,6 +77,7 @@ export default React.createClass({
       problem: null,
       summary: null,
       teacher_review: null,
+      activity_info: null,
       time: null,
       grades: [],
       activities: [],
@@ -215,6 +222,11 @@ export default React.createClass({
         <span onClick={this.props.returnToIndex}>Back to List of Activity Packs</span>
         <span>
           {inputs}
+          <a href="http://commonmark.org/help/" style={{color: '#027360'}}>Markdown Cheatsheet</a>
+          <p>To add linebreaks, type &lt;br&gt;.</p>
+          <br/>
+          <p>Activity Info Preview</p>
+          <MarkdownParser className="markdown-preview" markdownText={this.state.model.activity_info}/>
         </span>
         {this.getAuthorSelect()}
         {this.getUnitTemplateCategorySelect()}
