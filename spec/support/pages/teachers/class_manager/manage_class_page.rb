@@ -13,29 +13,13 @@ module Teachers
     end
 
     def student_rows
-      all('table.students tbody tr.user').map do |tr|
-        row = StudentTableRow.new(tr)
-        [row.name, row.username]
+      all('table.students tbody tr').map do |tr|
+        [tr.find('td.name').text, tr.find('td.username').text]
       end
     end
 
     def visit
       page.visit path
-    end
-  end
-
-  class StudentTableRow
-    def initialize(element)
-      @element = element
-    end
-
-    %i(name username).each do |attrib|
-      line_no = __LINE__; str = %{
-        def #{attrib}
-          @element.find('td.#{attrib}').text
-        end
-      }
-      module_eval str, __FILE__, line_no
     end
   end
 end
