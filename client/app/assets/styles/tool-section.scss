@@ -191,6 +191,44 @@ $tool-grey: #f8f9f9;
     .text-connect-yellow {
         color: #ea9a1a;
     }
+    .tool-hero {
+      height: 300px;
+      box-sizing: border-box;
+      .cta-button {
+        padding: 9px 19px;
+        margin: 26px;
+        margin-bottom: 37px;
+      }
+      .description {
+        max-width: 750px;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+      }
+    }
+    .boy-playing-quill {
+      display: none;
+      background-color: gray;
+      margin: 60px auto 2px;
+      width: 819px;
+      height: 431px;
+    }
+    #testimonial {
+      .author {
+        font-weight: normal;
+        span {
+          font-weight: bold;
+        }
+      }
+      .quote {
+        font-size: 24px;
+      }
+      .q-button {
+        span {
+          line-height: 1.22;
+          font-weight: bold;
+        }
+      }
+    }
 }
 
 .tools-anchor-nav {
@@ -270,19 +308,24 @@ $tool-grey: #f8f9f9;
     }
 }
 
-.tool-hero,
-.tool-try-it {
+.tool-hero {
     min-height: 166px;
-    padding: 20px 0 45px;
+    padding: 30px 0 45px;
     color: white;
-
     .q-h1 {
         font-size: 36px;
+        margin-top: 0px;
     }
 }
 
 .tool-try-it {
+    min-height: 166px;
+    padding: 20px 0 45px;
+    color: white;
     padding-bottom: 50px;
+    .q-h1 {
+      font-size: 36px;
+    }
 }
 
 .tool-hero {
@@ -606,41 +649,4 @@ $tool-grey: #f8f9f9;
 .tool-page-icon {
   height: 28px;
   width: 42px;
-}
-
-.diagnostic-tool-page {
-  .tool-hero {
-    height: 300px;
-    .cta-button {
-      padding: 9px 19px;
-      margin-top: 51px;
-    }
-    .description {
-      max-width: 750px;
-    }
-  }
-  .boy-playing-quill {
-    background-color: gray;
-    margin: 60px auto 2px;
-    width: 819px;
-    height: 431px;
-  }
-  #testimonial {
-    .author {
-      font-weight: normal;
-      span {
-        font-weight: bold;
-      }
-    }
-    .quote {
-      font-size: 24px;
-    }
-    .q-button {
-      span {
-        line-height: 1.22;
-        font-weight: bold;
-      }
-    }
-  }
-
 }
