@@ -1,5 +1,9 @@
 module GoogleIntegration::Classroom::Teacher
 
+  def self.select_classrooms(user, courses, access_token)
+    
+  end
+
   def self.run(user, courses, access_token)
     classrooms = self.create_classrooms(user, courses)
     students   = self.create_students(classrooms, access_token)

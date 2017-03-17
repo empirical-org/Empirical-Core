@@ -2,6 +2,7 @@ class Auth::GoogleController < ApplicationController
 
   def google
     access_token = request.env['omniauth.auth']['credentials']['token']
+    session[:google_access_token] = access_token
     name, email, google_id = GoogleIntegration::Profile.fetch_name_email_and_google_id(access_token)
     if session[:role].present?
       google_sign_up(name, email, session[:role], access_token, google_id)
@@ -9,7 +10,6 @@ class Auth::GoogleController < ApplicationController
       google_login(email, access_token, google_id)
     end
   end
-
 
   private
 
@@ -34,7 +34,6 @@ class Auth::GoogleController < ApplicationController
       user.save
       sign_in(user)
       ip = request.remote_ip
-      GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
       AccountCreationCallbacks.new(user, ip).trigger
       user.subscribe_to_newsletter
       if user.role == 'teacher'
@@ -42,6 +41,8 @@ class Auth::GoogleController < ApplicationController
         @teacherFromGoogleSignUp = true
         render 'accounts/new'
         return
+      else
+        GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
       end
     end
     if user.errors.any?

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import EducatorType from '../educator_type';
 
@@ -30,5 +30,22 @@ describe('EducatorType component', () => {
       wrapper.setState({ stage: 3 });
       expect(wrapper.find(NotUsK12View).length).toBe(1);
   });
+
+  it('should be teachers/classrooms/google_sync if teacherFromGoogleSignUp prop is true', () => {
+    // Object.defineProperty(window.location, 'pathname', {
+    //   writable: true,
+    //   value: '/'
+    // });
+    // const wrapper = mount(
+    //   <EducatorType
+    //     teacherFromGoogleSignUp={Boolean(true)}
+    //     analytics = {{ track: function(){} }} />
+    // )
+    // const k12View = wrapper.find(UsK12View)
+    // k12View.setState({selectedSchool: {name: 'df'}})
+    // expect(wrapper.find(UsK12View).find('.select_school_button').length).toBe(1);
+
+    // expect(window.location.pathname).toBe('/teachers/classrooms/google_sync')
+  })
 
 });

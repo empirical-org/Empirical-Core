@@ -23,7 +23,7 @@ export default React.createClass({
       )
     } else if (this.props.stage === 2) {
       return (
-        <EducatorType analytics={new AnalyticsWrapper()}/>
+        <EducatorType teacherFromGoogleSignUp={this.props.teacherFromGoogleSignUp} analytics={new AnalyticsWrapper()}/>
       )
     }
   }
