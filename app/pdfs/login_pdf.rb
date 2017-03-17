@@ -7,7 +7,37 @@ class LoginPdf
   end
 
   def render_cover_page
-    text "This is where Amr's awesome cover page will go."
+    start_new_page(:margin => [22, 24, 22, 24])
+    render_text "<b>#{@classroom.teacher.name} - <color rgb='777777'>#{@classroom.name}</color></b>", 20
+    move_down 20
+    float do
+      bounding_box([273, cursor], width: 279, height: 106) do
+        render_text "<b>New Student?</b>", 14
+        move_down 12
+        render_text "1. New students can sign up at <b>quill.org/account/new</b>"
+        move_down 11
+        render_text "2. In the “<b>Join My Class</b>” field, enter the class code"
+        move_down 12
+        render_text "<font size='10'>Class Code:</font> <b>#{@classroom.code}</b>"
+      end
+    end
+    stroke_color 'CCCCCC'
+    stroke do
+      vertical_line cursor, cursor - 106, at: 242
+    end
+    stroke_color '000000'
+    render_text "<b>Instructions For Your Students:</b>", 14
+    move_down 12
+    render_text "1- Visit <b>quill.org</b>"
+    move_down 8
+    render_text "2- Click <b>Login</b> (at the top of the page)"
+    move_down 8
+    render_text "3- Enter <b>username</b> and <b>password</b>"
+    move_down 8
+    render_text "4- Click the <b>Login</b> button"
+    move_down 20
+    render_text "<b>Student List:</b>", 14
+    move_down 14
     start_new_page(:margin => [22, 24, 22, 24])
   end
 
