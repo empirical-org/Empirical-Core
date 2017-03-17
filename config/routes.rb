@@ -157,6 +157,8 @@ EmpiricalGrammar::Application.routes.draw do
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
+        get :google_sync, controller: 'classroom_manager', action: 'google_sync'
+        get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
@@ -320,4 +322,5 @@ EmpiricalGrammar::Application.routes.draw do
 
   # catch-all 404
   get '*path', to: 'application#routing_error'
+
 end

@@ -179,6 +179,16 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: {}
   end
 
+  def google_sync
+    # renders the google sync jsx file
+  end
+
+  def retrieve_google_classrooms
+    render json: GoogleIntegration::Classroom::Main.pull_data(current_user, session[:google_access_token])
+  end
+
+
+
   private
 
   def authorize!

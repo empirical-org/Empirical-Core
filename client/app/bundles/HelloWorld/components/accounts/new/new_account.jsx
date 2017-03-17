@@ -163,7 +163,9 @@ export default React.createClass({
                               update={this.update}
                               signUp={this.signUp}
                               errors={this.state.errors}
-                              analytics={this.state.analytics}/>;
+                              analytics={this.state.analytics}
+                              teacherFromGoogleSignUp={this.props.teacherFromGoogleSignUp}
+                              />;
       }
     }
     return <div className='container account-form' id='sign-up'>{view}</div>;
