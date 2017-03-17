@@ -495,3 +495,32 @@ li.premium-tab > a:hover {
     }
   }
 }
+
+.premium-flyer {
+  box-sizing: border-box;
+  margin-top: 72px;
+  margin-bottom: 80px;
+  // position: absolute;
+  // left: 0;
+  // right: 0;
+  position: relative;
+  width: 100vw;
+  left: calc(-50vw + 50%);
+  height: 358px;
+  background-color: #5FA4DF;
+  background-image: url("/images/homepage/homepage_pattern_blue_premium.png");
+  .content {
+    margin-left: 166px;
+    margin-top: 62px;
+    max-width: 563px;
+    color: white;
+    display: inline-block;
+    h1 {
+      font-size: 36px;
+      font-weight: 600;
+    }
+    p {
+      font-size: 20px;
+    }
+  }
+}
