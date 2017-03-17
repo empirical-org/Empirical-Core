@@ -1,12 +1,13 @@
 class LoginPdf
   include Prawn::View
+  include Prawn::Table::Interface
 
   def initialize(classroom)
     @classroom = classroom
     render_login_pdf
   end
 
-  def render_cover_page
+  def render_cover_page_header
     start_new_page(:margin => [22, 24, 22, 24])
     render_text "<b>#{@classroom.teacher.name} - <color rgb='777777'>#{@classroom.name}</color></b>", 20
     move_down 20
@@ -38,7 +39,27 @@ class LoginPdf
     move_down 20
     render_text "<b>Student List:</b>", 14
     move_down 14
-    start_new_page(:margin => [22, 24, 22, 24])
+  end
+
+  def render_cover_page_table
+    header = [["<b><font size='12'>Name</font></b>", "<b><font size='12'>Username</font></b>", "<b><font size='12'>Password</font></b>"]]
+    body = []
+    @classroom.students.each do |student|
+      body << [student.name, render_username_or_email_for_student(student), render_password_for_student(student)]
+    end
+    table(header, cell_style: {
+      inline_format: true,
+      padding: 10,
+      background_color: 'EFEFEF',
+      borders: [:top],
+      border_color: 'DDDDDD'
+    }, column_widths: [182, 262, 120])
+    table(body, cell_style: {
+      padding: 10,
+      size: 10,
+      border_color: 'DDDDDD',
+      borders: [:top, :bottom]
+    }, column_widths: [182, 262, 120])
   end
 
   def render_section_for_one_student(student)
@@ -74,7 +95,7 @@ class LoginPdf
         move_down 2
         font("Helvetica", style: :bold) do
           text_box(
-            student.last_name.capitalize,
+            render_password_for_student(student),
             at: [0, cursor],
             height: 12,
             width: 312,
@@ -100,9 +121,15 @@ class LoginPdf
     end
   end
 
+  def render_password_for_student(student)
+    student.last_name.capitalize
+  end
+
   def render_login_pdf
     font("Helvetica")
-    render_cover_page
+    render_cover_page_header
+    render_cover_page_table
+    start_new_page(:margin => [22, 24, 22, 24])
     student_count = 0
     @classroom.students.each do |student|
       render_section_for_one_student(student)
