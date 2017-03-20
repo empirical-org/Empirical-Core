@@ -189,6 +189,11 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def update_google_classrooms
     GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, JSON.parse(params[:selected_classrooms], {:symbolize_names => true}))
+    render json: { classrooms: current_user.google_classrooms }.to_json
+  end
+
+  def import_google_students
+    GoogleStudentImporterWorker.perform_async(current_user.id, session[:google_access_token])
     render json: {}
   end
 

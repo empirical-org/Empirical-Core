@@ -2,22 +2,23 @@ module GoogleIntegration::Classroom::Main
 
   def self.pull_and_save_data(user, access_token)
     client = GoogleIntegration::Client.create(access_token)
-    GoogleIntegration::Classroom::SubMain.pull_and_save_data(user, self.course_response(client), access_token)
+    if user.role == 'teacher'
+      GoogleIntegration::Classroom::Teacher.run(user, self.parse_courses(client), access_token)
+    elsif user.role == 'student'
+      GoogleIntegration::Classroom::Student.run(user, self.parse_courses(client))
+    end
   end
 
   def self.pull_data(user, access_token)
     client = GoogleIntegration::Client.create(access_token)
-    GoogleIntegration::Classroom::Parsers::Courses.run(self.course_response(client))
+    self.parse_courses(client)
   end
 
   private
 
-  def self.submain_pull_and_save_data(user, course_response, access_token)
-    GoogleIntegration::Classroom::SubMain.pull_and_save_data(user, course_response, access_token)
-  end
-
-  def self.course_response(client)
-    GoogleIntegration::Classroom::Requesters::Courses.run(client)
+  def self.parse_courses(client)
+    course_response = GoogleIntegration::Classroom::Requesters::Courses.run(client)
+    GoogleIntegration::Classroom::Parsers::Courses.run(course_response)
   end
 
 end
