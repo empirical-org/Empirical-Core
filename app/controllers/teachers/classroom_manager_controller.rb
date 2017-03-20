@@ -187,7 +187,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: {classrooms: GoogleIntegration::Classroom::Main.pull_data(current_user, session[:google_access_token])}
   end
 
-
+  def update_google_classrooms
+    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, params[:selected_classrooms])
+    render json: {}
+  end
 
   private
 
