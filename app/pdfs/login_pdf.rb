@@ -1,25 +1,26 @@
-class LoginPdf
-  include Prawn::View
+class LoginPdf < Prawn::Document
   include Prawn::Table::Interface
 
   def initialize(classroom)
+    super(margin: [22, 24, 22, 24])
     @classroom = classroom
     render_login_pdf
   end
 
   def render_cover_page_header
-    start_new_page(:margin => [22, 24, 22, 24])
     render_text "<b>#{@classroom.teacher.name} - <color rgb='777777'>#{@classroom.name}</color></b>", 20
-    move_down 20
+    move_down 14
     float do
-      bounding_box([273, cursor], width: 279, height: 106) do
-        render_text "<b>New Student?</b>", 14
-        move_down 12
-        render_text "1. New students can sign up at <b>quill.org/account/new</b>"
-        move_down 11
-        render_text "2. In the “<b>Join My Class</b>” field, enter the class code"
-        move_down 12
-        render_text "<font size='10'>Class Code:</font> <b>#{@classroom.code}</b>"
+      bounding_box([273, cursor], width: 279, height: 120) do
+        render_text "<u>Instructions for New Students:</u>", 12
+        move_down 14
+        render_text "1. Visit <b>quill.org</b>", 12
+        move_down 7
+        render_text "2. Click <b>Sign up</b> (at the top of the page)", 12
+        move_down 7
+        render_text "3. Create <b>username</b> and <b>password</b>", 12
+        move_down 7
+        render_text "4. Enter the class code: <b>#{@classroom.code}</b>", 12
       end
     end
     stroke_color 'CCCCCC'
@@ -27,18 +28,18 @@ class LoginPdf
       vertical_line cursor, cursor - 106, at: 242
     end
     stroke_color '000000'
-    render_text "<b>Instructions For Your Students:</b>", 14
-    move_down 12
-    render_text "1- Visit <b>quill.org</b>"
-    move_down 8
-    render_text "2- Click <b>Login</b> (at the top of the page)"
-    move_down 8
-    render_text "3- Enter <b>username</b> and <b>password</b>"
-    move_down 8
-    render_text "4- Click the <b>Login</b> button"
-    move_down 20
-    render_text "<b>Student List:</b>", 14
+    render_text "<u>Instructions For Invited Students:</u>", 12
     move_down 14
+    render_text "1. Visit <b>quill.org</b>", 12
+    move_down 7
+    render_text "2. Click <b>Login</b> (at the top of the page)", 12
+    move_down 7
+    render_text "3. Enter <b>username</b> and <b>password</b>", 12
+    move_down 7
+    render_text "4. Click the <b>Login</b> button", 12
+    move_down 40
+    render_text "Student List:", 12
+    move_down 12
   end
 
   def render_cover_page_table
@@ -104,13 +105,13 @@ class LoginPdf
         end
       end
     end
-    render_text "1- Visit <b>quill.org</b>"
+    render_text "1. Visit <b>quill.org</b>"
     move_down 8
-    render_text "2- Click <b>Login</b> (at the top of the page)"
+    render_text "2. Click <b>Login</b> (at the top of the page)"
     move_down 8
-    render_text "3- Enter your <b>username</b> and <b>password</b>"
+    render_text "3. Enter your <b>username</b> and <b>password</b>"
     move_down 8
-    render_text "4- Click the <b>Login</b> button"
+    render_text "4. Click the <b>Login</b> button"
   end
 
   def render_username_or_email_for_student(student)
@@ -129,7 +130,7 @@ class LoginPdf
     font("Helvetica")
     render_cover_page_header
     render_cover_page_table
-    start_new_page(:margin => [22, 24, 22, 24])
+    start_new_page
     student_count = 0
     @classroom.students.each do |student|
       render_section_for_one_student(student)
@@ -137,7 +138,7 @@ class LoginPdf
       if student_count % 5 > 0 && student_count != @classroom.students.length
         move_down 20
         stroke_color 'CCCCCC'
-        dash(12)
+        dash(4)
         stroke_horizontal_line 0, 564
         move_down 24
       elsif student_count % 5 == 0
