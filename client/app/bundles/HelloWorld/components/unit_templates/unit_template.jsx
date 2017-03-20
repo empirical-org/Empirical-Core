@@ -147,6 +147,20 @@ export default React.createClass({
     return 'button-green pull-right';
   },
 
+  determineMarkdownParser: function () {
+    if (this.state.model.activity_info) {
+      return(
+        <div>
+          <a href="http://commonmark.org/help/" style={{color: '#027360'}}>Markdown Cheatsheet</a>
+          <p>To add linebreaks, type &lt;br&gt;.</p>
+          <br/>
+          <p>Activity Info Preview</p>
+          <MarkdownParser className="markdown-preview" markdownText={this.state.model.activity_info}/>
+        </div>
+      )
+    }
+  },
+
   determineErrorMessageClass: function () {
     return '';
   },
@@ -213,7 +227,6 @@ export default React.createClass({
           </div>
   },
 
-
   render: function () {
     var inputs;
     inputs = this.modules.textInputGenerator.generate(this.formFields);
@@ -222,11 +235,7 @@ export default React.createClass({
         <span onClick={this.props.returnToIndex}>Back to List of Activity Packs</span>
         <span>
           {inputs}
-          <a href="http://commonmark.org/help/" style={{color: '#027360'}}>Markdown Cheatsheet</a>
-          <p>To add linebreaks, type &lt;br&gt;.</p>
-          <br/>
-          <p>Activity Info Preview</p>
-          <MarkdownParser className="markdown-preview" markdownText={this.state.model.activity_info}/>
+          {this.determineMarkdownParser()}
         </span>
         {this.getAuthorSelect()}
         {this.getUnitTemplateCategorySelect()}
