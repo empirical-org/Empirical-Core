@@ -16,12 +16,26 @@ export default class extends React.Component{
   }
 
   syncClassrooms = () => {
+    const that = this
     const selectedClassrooms = JSON.stringify(this.getSelectedClassroomsData())
     $.ajax({
       type: 'post',
       data: {selected_classrooms: selectedClassrooms},
-      url: '/teachers/classrooms/update_google_classrooms'
+      url: '/teachers/classrooms/update_google_classrooms',
+      statusCode: {
+        200: function() {
+          that.syncClassroomSuccess()
+          }
+      }
     })
+  }
+
+  syncClassroomSuccess = () => {
+    $.ajax({
+      type: 'get',
+      url: '/teachers/classrooms/import_google_students'
+    })
+    console.log('we did it! now importing students')
   }
 
   getSelectedClassroomsData = () => {
