@@ -46,7 +46,7 @@ class LoginPdf < Prawn::Document
     header = [["<b><font size='12'>Name</font></b>", "<b><font size='12'>Username</font></b>", "<b><font size='12'>Password</font></b>"]]
     body = []
     @classroom.students.each do |student|
-      body << [student.name, render_username_or_email_for_student(student), render_password_for_student(student)]
+      body << [student.name, username_or_email_value_for_student(student), render_password_for_student(student)]
     end
     table(header, cell_style: {
       inline_format: true,
@@ -80,11 +80,11 @@ class LoginPdf < Prawn::Document
       bounding_box([260, cursor - 8], width: 296, height: 64) do
         move_down 2
         fill_color '000000'
-        render_text "Username:", 10
+        render_text username_or_email_for_student(student), 10
         move_down 2
         font("Helvetica", style: :bold) do
           text_box(
-            render_username_or_email_for_student(student),
+            username_or_email_value_for_student(student),
             at: [0, cursor],
             height: 12,
             width: 312,
@@ -92,7 +92,7 @@ class LoginPdf < Prawn::Document
           )
         end
         move_down 20
-        render_text "Password: (First letter is <b>Capitalized</b>)", 10
+        render_password_instructions_for_student(student)
         move_down 2
         font("Helvetica", style: :bold) do
           text_box(
@@ -109,21 +109,57 @@ class LoginPdf < Prawn::Document
     move_down 8
     render_text "2. Click <b>Login</b> (at the top of the page)"
     move_down 8
-    render_text "3. Enter your <b>username</b> and <b>password</b>"
-    move_down 8
-    render_text "4. Click the <b>Login</b> button"
+    render_specific_login_instructions_for_student(student)
   end
 
-  def render_username_or_email_for_student(student)
-    if student.clever_id.present? || student.signed_up_with_google?
+  def username_or_email_for_student(student)
+    if (student.clever_id.present? || student.signed_up_with_google?) && student.email
+      "Email:"
+    else
+      "Username:"
+    end
+  end
+
+  def username_or_email_value_for_student(student)
+    if (student.clever_id.present? || student.signed_up_with_google?) && student.email
       student.email
     else
       student.username
     end
   end
 
+  def render_specific_login_instructions_for_student(student)
+    if student.clever_id.present?
+      render_text "3. Click the <b>Login with Clever</b> button"
+      move_down 8
+      render_text "4. Log in with Clever"
+    elsif student.signed_up_with_google?
+      render_text "3. Click the <b>Login with Google</b> button"
+      move_down 8
+      render_text "4. Log in with Google"
+    else
+      render_text "3. Enter your <b>username</b> and <b>password</b>"
+      move_down 8
+      render_text "4. Click the <b>Login</b> button"
+    end
+  end
+
+  def render_password_instructions_for_student(student)
+    if student.clever_id.present? || student.signed_up_with_google?
+      render_text "Password:", 10
+    else
+      render_text "Password: (First letter is <b>Capitalized</b>)", 10
+    end
+  end
+
   def render_password_for_student(student)
-    student.last_name.capitalize
+    if student.clever_id.present?
+      "Log in with Clever"
+    elsif student.signed_up_with_google?
+      "Log in with Google"
+    else
+      student.last_name.capitalize
+    end
   end
 
   def render_login_pdf
