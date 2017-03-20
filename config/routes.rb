@@ -303,6 +303,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
   get 'diagnostic' =>'activities#diagnostic' # placeholder til we find where this goes
+  get 'diagnostic/stage/:stage' => 'activities#diagnostic'
+  get 'diagnostic/success' => 'activities#diagnostic'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 
