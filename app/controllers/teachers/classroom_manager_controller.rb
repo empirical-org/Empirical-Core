@@ -188,7 +188,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_google_classrooms
-    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, params[:selected_classrooms])
+    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, JSON.parse(params[:selected_classrooms], {:symbolize_names => true}))
     render json: {}
   end
 

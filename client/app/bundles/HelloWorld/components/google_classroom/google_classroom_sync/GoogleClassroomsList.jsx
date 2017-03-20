@@ -26,8 +26,9 @@ export default class extends React.Component{
 
   getSelectedClassroomsData = () => {
     const selectedClassrooms = []
+    const that = this;
     this.state.selectedClassroomIds.forEach((id) => {
-      selectedClassrooms.push(this.props.classrooms.find((classy) => classy.id === id))
+      selectedClassrooms.push(that.props.classrooms.find((classy) => classy.id == id))
     })
     return selectedClassrooms
   }
