@@ -8,13 +8,40 @@ example JSON.parse(response.body) :
 
 =end
 
-  def self.run(response)
-    x = JSON.parse(response.body)
-    return [] if x['courses'].nil?
-    courses = x['courses'].map do |hash|
-      name = hash['section'] ? "#{hash['name']} #{hash['section']}" : hash['name']
-      {id: hash['id'].to_i, name: name, ownerId: hash['ownerId']}
+  def self.run(user, response)
+    course_response = JSON.parse(response.body)
+    courses = []
+    if ['courses'].any?
+      existing_google_classroom_ids = self.existing_google_classroom_ids(user)
+      course_response['courses'].each do |course|
+        course['alreadyImported'] = self.already_imported?(course, existing_google_classroom_ids)
+        if self.valid?(course, user, existing_google_classroom_ids)
+          name = course['section'] ? "#{course['name']} #{course['section']}" : course['name']
+          courses << {id: course['id'].to_i, name: name, ownerId: course['ownerId'], alreadyImported: course['alreadyImported']}
+        end
+      end
     end
     courses
   end
+
+  def self.existing_google_classroom_ids(user)
+    User.find(user.id).google_classrooms.map(&:google_classroom_id)
+  end
+
+  def self.valid?(course, user, existing_google_classroom_ids)
+    self.own_course(course, user) && (self.not_archived(course) || course['alreadyImported'])
+  end
+
+  def self.own_course(course, user)
+    course['ownerId'] == user.google_id
+  end
+
+  def self.not_archived(course)
+    course['courseState'] != 'ARCHIVED'
+  end
+
+  def self.already_imported?(course, existing_google_classroom_ids)
+    existing_google_classroom_ids.include?(course['id'])
+  end
+
 end
