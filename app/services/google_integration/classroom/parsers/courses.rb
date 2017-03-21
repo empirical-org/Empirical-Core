@@ -24,6 +24,8 @@ example JSON.parse(response.body) :
     courses
   end
 
+  private
+
   def self.existing_google_classroom_ids(user)
     User.find(user.id).google_classrooms.map(&:google_classroom_id)
   end
