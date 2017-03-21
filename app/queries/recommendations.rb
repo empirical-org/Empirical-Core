@@ -1,5 +1,5 @@
 class Recommendations
-    def diagnostic
+    def recs_for_413
         [
             # {
             #     recommendation: 'Fragments',
@@ -131,7 +131,7 @@ class Recommendations
         ]
     end
 
-    def ell_diagnostic
+    def recs_for_
       [
         # {
         #     recommendation: 'Fragments',

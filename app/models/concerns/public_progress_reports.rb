@@ -166,9 +166,9 @@ module PublicProgressReports
     end
 
 
-    def get_recommendations_for_classroom classroom_id
+    def get_recommendations_for_classroom classroom_id, activity_id
       classroom = Classroom.find(classroom_id)
-      diagnostic = Activity.find(413)
+      diagnostic = Activity.find(activity_id)
       students = classroom.students
       activity_sessions = students.map do |student|
         student.activity_sessions.includes(concept_results: :concept).find_by(activity_id: diagnostic.id, is_final_score: true)
@@ -177,7 +177,7 @@ module PublicProgressReports
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
                                          .sort_by {|stud| stud[:name].split()[1]}
-      recommendations = Recommendations.new.diagnostic.map do |activity_pack_recommendation|
+      recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |activity_pack_recommendation|
         students = []
         activity_sessions_counted.each do |activity_session|
           activity_pack_recommendation[:requirements].each do |req|
