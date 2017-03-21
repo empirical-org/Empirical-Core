@@ -14,14 +14,14 @@ describe('UnitTemplateProfileDescription component', () => {
       const wrapper = shallow(
         <UnitTemplateProfileDescription {...propsWithActivityInfo} />
       );
-      expect(wrapper.find(MarkdownParser).length).toBe(1);
+      expect(wrapper.find(MarkdownParser)).toHaveLength(1);
     })
 
     it('should not render the activity list', ()=>{
       const wrapper = shallow(
         <UnitTemplateProfileDescription {...propsWithActivityInfo} />
       );
-      expect(wrapper.find('dl').length).toBe(0);
+      expect(wrapper.find('dl')).toHaveLength(0);
     })
 
 
@@ -35,7 +35,7 @@ describe('UnitTemplateProfileDescription component', () => {
       const wrapper = shallow(
         <UnitTemplateProfileDescription {...propsWithOutActivityInfo} />
       );
-      expect(wrapper.find(MarkdownParser).length).toBe(0);
+      expect(wrapper.find(MarkdownParser)).toHaveLength(0);
     })
 
     it('should render the activity list', ()=>{

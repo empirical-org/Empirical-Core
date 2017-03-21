@@ -11,7 +11,7 @@ describe('UsK12View component', () => {
     const wrapper = shallow(
       <UsK12View analytics={{track: () => null}} />
     );
-    expect(wrapper.find(SelectSchool).length).toBe(1);
+    expect(wrapper.find(SelectSchool)).toHaveLength(1);
     expect(wrapper.find(SelectSchool).props().isForSignUp).toBe(true);
     wrapper.setState({selectedSchool: {id: 321}});
     expect(wrapper.find(SelectSchool).props().selectedSchool.id).toBe(321);
@@ -23,9 +23,9 @@ describe('UsK12View component', () => {
     const wrapper = shallow(
       <UsK12View analytics={{track: () => null}} />
     );
-    expect(wrapper.find('.select_school_button').length).toBe(0);
+    expect(wrapper.find('.select_school_button')).toHaveLength(0);
     wrapper.setState({selectedSchool: {id: 123}});
-    expect(wrapper.find('.select_school_button').length).toBe(1);
+    expect(wrapper.find('.select_school_button')).toHaveLength(1);
   });
 
   it('should call props.selectSchool upon clicking school not listed link', () => {
@@ -35,7 +35,7 @@ describe('UsK12View component', () => {
         analytics={{track: () => null}} />
     );
     wrapper.find('#school_not_listed').simulate('click')
-    expect(mockSelectSchool.mock.calls.length).toBe(1);
+    expect(mockSelectSchool.mock.calls).toHaveLength(1);
   });
 
   it('should pass state.selectedSchool.id to props.selectSchool if a school is selected or "not listed" if not', () => {

@@ -18,7 +18,7 @@ describe('SelectRole component', () => {
       <SelectRole role={'teacher'} updateRole={mockSelect} />
     );
     wrapper.find('select').simulate('change', { target: { value : 'staff' }});
-    expect(mockSelect.mock.calls.length).toBe(1);
+    expect(mockSelect.mock.calls).toHaveLength(1);
   });
 
 });

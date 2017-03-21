@@ -21,7 +21,7 @@ describe('NewAccount component', () => {
       <NewAccount teacherFromGoogleSignUp={false} />
     );
     wrapper.setState({stage: 1});
-    expect(wrapper.find(NewAccountStage1).length).toBe(1);
+    expect(wrapper.find(NewAccountStage1)).toHaveLength(1);
   });
 
   it('should render NewStudent if stage state is 2 and state role is student', () => {
@@ -29,7 +29,7 @@ describe('NewAccount component', () => {
       <NewAccount teacherFromGoogleSignUp={false} />
     );
     wrapper.setState({stage: 2, role: 'student'});
-    expect(wrapper.find(NewStudent).length).toBe(1);
+    expect(wrapper.find(NewStudent)).toHaveLength(1);
   });
 
   it('should render NewTeacher is stage state is 2 and state role is not student', () => {
@@ -37,7 +37,7 @@ describe('NewAccount component', () => {
       <NewAccount teacherFromGoogleSignUp={false} />
     );
     wrapper.setState({stage: 2, role: 'literally-anything-but-student'});
-    expect(wrapper.find(NewTeacher).length).toBe(1);
+    expect(wrapper.find(NewTeacher)).toHaveLength(1);
   });
 
 });
