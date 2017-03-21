@@ -15,8 +15,8 @@ describe('SelectSchool component', () => {
             requestSchools={() => null}
             schoolOptions={[]} />
         );
-        expect(wrapper.find('option').length).toBe(1);
-        expect(wrapper.find('option[value="enter-zipcode"]').length).toBe(1);
+        expect(wrapper.find('option')).toHaveLength(1);
+        expect(wrapper.find('option[value="enter-zipcode"]')).toHaveLength(1);
       });
 
       it('should render props.schoolOptions to options', () => {
@@ -30,9 +30,9 @@ describe('SelectSchool component', () => {
               {id: 3, text: 'Three'}
             ]} />
         );
-        expect(wrapper.find('option[value=1]').length).toBe(1);
-        expect(wrapper.find('option[value=2]').length).toBe(1);
-        expect(wrapper.find('option[value=3]').length).toBe(1);
+        expect(wrapper.find('option[value=1]')).toHaveLength(1);
+        expect(wrapper.find('option[value=2]')).toHaveLength(1);
+        expect(wrapper.find('option[value=3]')).toHaveLength(1);
       });
 
       it('should render selected school as initial option if props.selectedSchool.zipcode is equal to schoolOptions[0].zipcode', () => {
@@ -57,7 +57,7 @@ describe('SelectSchool component', () => {
               {id: 1, text: 'One', zipcode: '10025'}
           ]} />
         );
-        expect(wrapper.find('option[value="choose"]').length).toBe(1);
+        expect(wrapper.find('option[value="choose"]')).toHaveLength(1);
       });
     });
 

@@ -30,7 +30,7 @@ describe('NotUsK12View component', () => {
       wrapper.find('button').at(index).simulate('click');
       expect(mockSelectSchool.mock.calls[index][0]).toBe(button.argument)
     });
-    expect(mockSelectSchool.mock.calls.length).toBe(buttons.length);
+    expect(mockSelectSchool.mock.calls).toHaveLength(buttons.length);
   });
 
 });
