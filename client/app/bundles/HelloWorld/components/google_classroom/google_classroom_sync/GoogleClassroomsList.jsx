@@ -9,10 +9,23 @@ export default class extends React.Component{
     selectedClassroomIds: new Set()
   }
 
+  componentDidMount(){
+    this.addAlreadyImportedClassroomToSelectedClassroomIds()
+  }
+
   handleCheckboxClick = (e) => {
     const newSelectedClassroomIds = Object.assign(this.state.selectedClassroomIds, {})
     e.currentTarget.checked ? newSelectedClassroomIds.add(e.target.id) : newSelectedClassroomIds.delete(e.target.id)
     this.setState({ selectedClassroomIds: newSelectedClassroomIds }, console.log(this.state.selectedClassroomIds))
+  }
+
+  addAlreadyImportedClassroomToSelectedClassroomIds = () => {
+    this.props.classrooms.forEach((classy) => {
+      if (classy.alreadyImported) {
+        const newSelectedClassroomIds = Object.assign(this.state.selectedClassroomIds, {})
+        this.setState({ selectedClassroomIds: newSelectedClassroomIds.add(classy.id.toString())})
+      }
+    })
   }
 
   syncClassrooms = () => {
@@ -47,12 +60,27 @@ export default class extends React.Component{
     return selectedClassrooms
   }
 
+  orderGoogleClassrooms = () => {
+    return this.props.classrooms.sort((a, b) => {
+      // sorts by if alreadyImported, then by creationTime
+      if (a.alreadyImported === b.alreadyImported) {
+        return a.creationTime-b.creationTime;
+      } else if (a.alreadyImported) {
+        return -1;
+      } else {
+        return 1;
+      }
+    })
+  }
+
   classroomRows(){
-    return this.props.classrooms.map((classy)=>{
+    return this.orderGoogleClassrooms().map((classy)=>{
       return(
         <tr key={classy.id}>
-          <td><input type="checkbox" id={classy.id} onClick={this.handleCheckboxClick}/></td>
+          <td><input type="checkbox" id={classy.id} defaultChecked={classy.alreadyImported} onClick={this.handleCheckboxClick}/></td>
           <td>{classy.name}</td>
+          <td>{`${classy.alreadyImported}`}</td>
+          <td>{classy.creationTime}</td>
         </tr>
       )
     })
