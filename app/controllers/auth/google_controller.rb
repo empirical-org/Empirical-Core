@@ -19,7 +19,7 @@ class Auth::GoogleController < ApplicationController
       user.google_id ? nil : user.update(google_id: google_id)
       sign_in(user)
       TestForEarnedCheckboxesWorker.perform_async(user.id)
-      GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
+      GoogleStudentImporterWorker.perform_async(current_user.id, session[:google_access_token])
       redirect_to profile_path
     else
       redirect_to new_account_path
@@ -42,7 +42,7 @@ class Auth::GoogleController < ApplicationController
         render 'accounts/new'
         return
       else
-        GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
+        GoogleIntegration::Classroom::Main.join_existing_google_classrooms(user, access_token)
       end
     end
     if user.errors.any?
@@ -50,7 +50,6 @@ class Auth::GoogleController < ApplicationController
       return
     else
       user.update(signed_up_with_google: true)
-      GoogleIntegration::Classroom::Main.pull_and_save_data(user, access_token)
       redirect_to profile_path
       return
     end

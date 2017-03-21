@@ -10,6 +10,16 @@ example JSON.parse(response.body) :
 
   def self.run(user, response)
     course_response = JSON.parse(response.body)
+    if user.role == 'teacher'
+      self.parse_courses_for_teacher(course_response, user)
+    else
+      self.parse_courses_for_student(course_response, user)
+    end
+  end
+
+  private
+
+  def self.parse_courses_for_teacher(course_response, user)
     courses = []
     if course_response['courses'].any?
       existing_google_classroom_ids = self.existing_google_classroom_ids(user)
@@ -24,7 +34,16 @@ example JSON.parse(response.body) :
     courses
   end
 
-  private
+  def self.parse_courses_for_student(course_response, user)
+    course_ids = []
+    if course_response['courses'].any?
+      # checking to make sure student is not the owner (teacher) of the course
+      course_response['courses'].select{ |c| !own_course(c, user) }.each do |course|
+        course_ids << course['id']
+      end
+    end
+    course_ids
+  end
 
   def self.existing_google_classroom_ids(user)
     User.find(user.id).google_classrooms.map(&:google_classroom_id)
@@ -45,5 +64,6 @@ example JSON.parse(response.body) :
   def self.already_imported?(course, existing_google_classroom_ids)
     existing_google_classroom_ids.include?(course['id'].to_i)
   end
+
 
 end
