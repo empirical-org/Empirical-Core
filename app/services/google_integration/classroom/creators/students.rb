@@ -19,10 +19,6 @@ module GoogleIntegration::Classroom::Creators::Students
 
   def self.get_student_data_for_all_classrooms(classrooms, students_requester_and_parser)
     #use string keys as the classrooms are coming through sidekiq and don't have symbols
-    puts 'HEEEEEEEY here are your classrooms'
-    puts classrooms.to_s
-    puts 'classrooms are above me'
-    puts classrooms[1]["google_classroom_id"]
     course_ids = classrooms.map{|classroom| classroom["google_classroom_id"] ? classroom["google_classroom_id"] : classroom["id"]}
     student_data = course_ids.map.with_index do |course_id, i|
       array = students_requester_and_parser.call(course_id)

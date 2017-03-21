@@ -9,8 +9,6 @@ module GoogleIntegration::Classroom::Creators::Classrooms
   private
 
   def self.create_classroom(teacher, course)
-    puts course
-    puts teacher.google_id == course[:ownerId]
     if teacher.google_id == course[:ownerId]
       classroom = ::Classroom.unscoped.find_or_initialize_by(google_classroom_id: course[:id], teacher_id: teacher.id)
       if classroom.new_record?
@@ -19,7 +17,7 @@ module GoogleIntegration::Classroom::Creators::Classrooms
       end
       classroom.reload
     end
-    puts Classroom.last.name
+    classroom
   end
 
 end
