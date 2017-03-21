@@ -3,6 +3,8 @@ import { shallow, mount } from 'enzyme';
 
 import SelectSchool from '../select_school';
 
+import EducatorType from '../../new/educator_type';
+
 describe('SelectSchool component', () => {
 
   describe('with props.isForSignUp true', () => {
@@ -71,42 +73,85 @@ describe('SelectSchool component', () => {
       expect(wrapper.find('.form-label.zip').text()).toBe("Add Your School's ZIP Code");
     });
 
-    it('should call props.requestSchools if zip input is changed', () => {
-
+    it('should call props.requestSchools if zip input is changed and has a length of five', () => {
+      let mockRequestSchools = jest.fn();
+      const wrapper = mount(
+        <SelectSchool isForSignUp={true}
+          updateSchool={() => null}
+          requestSchools={mockRequestSchools}
+          schoolOptions={[]} />
+      );
+      wrapper.find('.zip-input').simulate('change', {target: {value: '123'}});
+      expect(mockRequestSchools.mock.calls).toHaveLength(0);
+      wrapper.find('.zip-input').simulate('change', {target: {value: '10025'}});
+      expect(mockRequestSchools.mock.calls[0][0]).toBe('10025');
     });
 
     it('should call props.updateSchool on select change', () => {
-
+      let mockUpdateSchool = jest.fn();
+      const wrapper = mount(
+        <SelectSchool isForSignUp={true}
+          updateSchool={mockUpdateSchool}
+          requestSchools={() => null}
+          schoolOptions={[{id: 1, text: 'One'}]} />
+      );
+      wrapper.find('#select_school').simulate('change', {target: {value: '1'}});
+      expect(mockUpdateSchool.mock.calls[0][0].text).toBe('One');
     });
   });
 
   describe('with props.isForSignUp false', () => {
-    it('should render school name if props.selectedSchool.text exists', () => {
-
+    it('should render readonly school name input if props.selectedSchool.text exists', () => {
+      const wrapper = shallow(
+        <SelectSchool isForSignUp={false}
+          selectedSchool={{id: 1, text: 'One'}}
+          updateSchool={() => null}
+          requestSchools={() => null}
+          schoolOptions={[]} />
+      );
+      expect(wrapper.find('.inactive').props().defaultValue).toBe('One');
     });
 
     it('editschoolButton should render with "Edit" if props.selectedSchool.text exists', () => {
-
+      const wrapper = shallow(
+        <SelectSchool isForSignUp={false}
+          selectedSchool={{id: 1, text: 'One'}}
+          updateSchool={() => null}
+          requestSchools={() => null}
+          schoolOptions={[]} />
+      );
+      expect(wrapper.find('button[data-toggle="modal"]').text()).toBe('Edit School');
     });
 
     it('editschoolButton should render with "Add" if props.selectedSchool.text does not exist', () => {
-
-    });
-
-    it('clicking editschoolButton should open modal', () => {
-
+      const wrapper = shallow(
+        <SelectSchool isForSignUp={false}
+          updateSchool={() => null}
+          requestSchools={() => null}
+          schoolOptions={[]} />
+      );
+      expect(wrapper.find('button[data-toggle="modal"]').text()).toBe('Add School');
     });
 
     it('modal should render <EducatorType /> component', () => {
-
-    });
-
-    it('clicking close button should close modal', () => {
-
+      const wrapper = mount(
+        <SelectSchool isForSignUp={false}
+          updateSchool={() => null}
+          requestSchools={() => null}
+          schoolOptions={[]} />
+      );
+      expect(wrapper.find(EducatorType).exists()).toBe(true);
     });
 
     it('should render props.errors', () => {
-
+      const wrapper = shallow(
+        <SelectSchool isForSignUp={false}
+          updateSchool={() => null}
+          requestSchools={() => null}
+          schoolOptions={[]}
+          errors={["Hi, I'm an error!"]} />
+      );
+      expect(wrapper.find('.error').text()).toBe("Hi, I'm an error!");
     });
   });
 });
