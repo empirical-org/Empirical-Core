@@ -14,6 +14,9 @@ article.simple-rounded-box.cms
     dd= @user.username
     dt Role
     dd= @user.role
+    - if @user.role == 'student'
+      dt Belongs to Classes
+      dd= @user.classrooms.collect { |c| "#{c.name} - #{c.teacher.name}" }.join('<br />').html_safe
     dt Classcode
     dd= @user.classcode
     dt School
