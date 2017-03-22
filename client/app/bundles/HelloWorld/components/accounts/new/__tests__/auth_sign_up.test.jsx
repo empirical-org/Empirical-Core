@@ -12,8 +12,8 @@ describe('AuthSignUp component', () => {
       const wrapper = shallow(
         <AuthSignUp />
       );
-      expect(wrapper.find(GoogleSignUp).length).toBe(1);
-      expect(wrapper.find(CleverSignUp).length).toBe(1);
+      expect(wrapper.find(GoogleSignUp)).toHaveLength(1);
+      expect(wrapper.find(CleverSignUp)).toHaveLength(1);
   });
 
 });
