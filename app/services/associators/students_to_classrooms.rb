@@ -13,7 +13,7 @@ module Associators::StudentsToClassrooms
   private
 
   def self.legit_classroom
-    @@classroom && @@classroom.visible
+    Classroom.find_by(id: @@classroom.id, visible: true)
   end
 
   def self.legit_teacher
