@@ -181,7 +181,11 @@ module PublicProgressReports
         students = []
         activity_sessions_counted.each do |activity_session|
           activity_pack_recommendation[:requirements].each do |req|
-            if activity_session[:concept_scores][req[:concept_id]] < req[:count]
+            if req[:noIncorrect] && activity_session[:concept_scores][req[:concept_id]]["total"] > activity_session[:concept_scores][req[:concept_id]]["correct"]
+              students.push(activity_session[:user_id])
+              break
+            end
+            if activity_session[:concept_scores][req[:concept_id]]["correct"] < req[:count]
               students.push(activity_session[:user_id])
               break
             end
@@ -213,9 +217,10 @@ module PublicProgressReports
     end
 
     def concept_results_by_count activity_session
-      hash = Hash.new(0)
+      hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
       activity_session.concept_results.each do |concept_result|
-        hash[concept_result.concept.uid] += concept_result["metadata"]["correct"]
+        hash[concept_result.concept.uid]["correct"] += concept_result["metadata"]["correct"]
+        hash[concept_result.concept.uid]["total"] += 1
       end
       hash
     end
