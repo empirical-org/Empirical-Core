@@ -131,7 +131,7 @@ class Recommendations
         ]
     end
 
-    def recs_for_
+    def recs_for_447
       [
         # {
         #     recommendation: 'Fragments',
