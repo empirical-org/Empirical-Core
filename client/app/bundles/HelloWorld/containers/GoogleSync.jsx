@@ -18,10 +18,10 @@ export default class extends React.Component{
   getGoogleClassrooms(){
     const that = this;
     $.get('/teachers/classrooms/retrieve_google_classrooms', (data) => {
-      that.setState({classrooms: data.classrooms})
+      that.setState({classrooms: data.classrooms, errors: data.errors})
     })
     .fail((data)=>{
-      that.setState({error: data.error})
+      that.setState({error: data.errors})
     })
     .always(()=>{
       that.setState({loading: false})
@@ -33,7 +33,7 @@ export default class extends React.Component{
     if (this.state.loading) {
       return <LoadingIndicator/>
     } else if (this.state.errors) {
-      // error page
+      return <div>There is an error</div>
     } else {
       return <GoogleClassroomList classrooms={this.state.classrooms}/>
     }
