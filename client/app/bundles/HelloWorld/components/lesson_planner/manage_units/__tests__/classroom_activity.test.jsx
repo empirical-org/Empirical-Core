@@ -20,7 +20,7 @@ describe('ClassroomActivity component', () => {
             },
             activity_id: 412}}/>
       );
-      expect(wrapper.find('.recommendations-button').length).toBe(0);
+      expect(wrapper.find('.recommendations-button')).toHaveLength(0);
   });
 
   it('should not render Recommendations div if it is not on the activity analysis page', () => {
@@ -35,7 +35,7 @@ describe('ClassroomActivity component', () => {
             },
             activity_id: 413}}/>
       );
-      expect(wrapper.find('.recommendations-button').length).toBe(0);
+      expect(wrapper.find('.recommendations-button')).toHaveLength(0);
   });
 
   it('should render Recommendations div if data.activity_id is diagnostic id and it is on the activity analysis page', () => {
@@ -48,7 +48,7 @@ describe('ClassroomActivity component', () => {
           },
           activity_id: 413}}/>
     );
-      expect(wrapper.find('.recommendations-button').length).toBe(1);
+      expect(wrapper.find('.recommendations-button')).toHaveLength(1);
   });
 
 
